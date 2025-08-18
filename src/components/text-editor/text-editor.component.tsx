@@ -3,13 +3,13 @@ import {
   LexicalComposer,
 } from "@lexical/react/LexicalComposer";
 import { ClickableLinkPlugin } from "@lexical/react/LexicalClickableLinkPlugin";
-import { EditorRefPlugin } from "@lexical/react/LexicalEditorRefPlugin";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { MarkdownShortcutPlugin } from "@lexical/react/LexicalMarkdownShortcutPlugin";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin";
 import { ListPlugin } from "@lexical/react/LexicalListPlugin";
+import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 
 import { $getRoot, EditorState, LexicalEditor } from "lexical";
 import React, {
@@ -38,7 +38,6 @@ import {
   CharacterCounterPlugin,
   ContentEditor,
   LinkMonitorPlugin,
-  OnChangePlugin,
   Placeholder,
   ToolbarPlugin,
 } from "./__internal__/plugins";
@@ -85,17 +84,17 @@ export interface TextEditorProps extends MarginProps, TagProps {
   labelText: string;
   /** The identifier for the Text Editor. This allows for the using of multiple Text Editors on a screen */
   namespace?: string;
-  /** The callback to fire when the editor loses focus */
+  /** Callback that is triggered when the editor loses focus. */
   onBlur?: (ev: React.FocusEvent<HTMLElement>) => void;
-  /** The callback to fire when the Cancel button within the editor is pressed */
+  /** Callback that is triggered when the editor's cancel button is activated. The cancel button is rendered when this function is provided.  */
   onCancel?: () => void;
-  /** The callback to fire when a change is registered within the editor */
+  /** Callback that is triggered when the editor's text content is modified or styled. */
   onChange?: (value: string, formattedValues: EditorFormattedValues) => void;
-  /** The callback to fire when the editor gains focus */
+  /** Callback that is triggered when the editor gains focus. */
   onFocus?: (ev: React.FocusEvent<HTMLElement>) => void;
-  /** The callback to fire when a link is added into the editor */
+  /** Callback that is triggered when a link is added in the editor's content. */
   onLinkAdded?: (link: string, state: string) => void;
-  /** The callback to fire when the Save button within the editor is pressed */
+  /** Callback that is triggered when the editor's save button is activated. The save button is rendered when this function is provided. */
   onSave?: (value: SaveCallbackProps) => void;
   /** The placeholder to display when the editor is empty */
   placeholder?: string;
@@ -109,8 +108,13 @@ export interface TextEditorProps extends MarginProps, TagProps {
   rows?: number;
   /** The message to be shown when the editor is in an warning state */
   warning?: string;
-  /** The initial value of the editor, as a HTML string, or JSON */
+  /**
+   * Alias of `initialValue` prop.
+   * @deprecated Please use `initialValue` instead.
+   */
   value?: string | undefined;
+  /** The initial value of the editor, as a HTML string, or JSON */
+  initialValue?: string | undefined;
   /**
    * Allows the injection of one or more Lexical-compatible React components into the editor to extend its functionality.
    * This prop is optional and supports a single plugin, multiple plugins (via fragments or arrays), or `null`.
@@ -120,6 +124,7 @@ export interface TextEditorProps extends MarginProps, TagProps {
   validationMessagePositionTop?: boolean;
 }
 
+let deprecateValueTriggered = false;
 let deprecateOptionalWarnTriggered = false;
 
 export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
@@ -145,7 +150,6 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
       required = false,
       rows,
       warning,
-      value,
       customPlugins,
       validationMessagePositionTop = true,
       ...rest
@@ -158,7 +162,16 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
         "`isOptional` is deprecated in TextEditor and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
       );
     }
-    const editorRef = useRef<LexicalEditor | undefined>(undefined);
+    if (!deprecateValueTriggered && rest.value) {
+      deprecateValueTriggered = true;
+      Logger.deprecate(
+        "`value` is deprecated in TextEditor and support will soon be removed. Please use `initialValue` instead.",
+      );
+    }
+
+    const initialValue = useRef(
+      rest.initialValue ?? rest.value ?? createEmpty(),
+    );
     const locale = useLocale();
     const [characterLimitWarning, setCharacterLimitWarning] = useState<
       string | undefined
@@ -197,24 +210,20 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
       return cleanup;
     }, [contentEditorRef]);
 
-    const [cancelTrigger, setCancelTrigger] = useState<boolean>(false);
-
     const initialConfig = useMemo<InitialConfigType>(() => {
       return {
         namespace,
         nodes: markdownNodes,
         onError: /* istanbul ignore next */ (e) => Logger.error(e.message),
         theme,
-        editorState: value,
+        editorState: initialValue.current,
         editable: !readOnly,
       };
-    }, [namespace, readOnly, value]);
+    }, [namespace, readOnly]);
 
-    // OnChangePlugin is tested separately
-    /* istanbul ignore next */
     const handleChange = useCallback(
-      (newState: EditorState) => {
-        const currentTextContent = newState.read(() => {
+      (editorState: EditorState, editor: LexicalEditor) => {
+        const currentTextContent = editorState.read(() => {
           return $getRoot()
             .getChildren()
             .map((node) => node.getTextContent())
@@ -222,13 +231,12 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
         });
 
         if (onChange) {
-          const formattedValues = editorRef.current
-            ? SerializeLexical(editorRef.current)
-            : {};
+          const formattedValues = SerializeLexical(editor);
           onChange?.(currentTextContent, formattedValues);
         }
 
         // If the character limit is set, check if the limit has been exceeded
+        /* istanbul ignore else */
         if (characterLimit > 0) {
           const currentDiff = characterLimit - currentTextContent.length;
           // If the character limit has been exceeded, show the character limit warning
@@ -242,29 +250,25 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
       [characterLimit, locale.textEditor, onChange],
     );
 
-    const handleCancel = useCallback(() => {
-      /* istanbul ignore next */
-      const isEditable = editorRef.current?.isEditable() || false;
-      /* istanbul ignore if */
-      if (!isEditable) return;
+    const handleCancel = useCallback(
+      (editor: LexicalEditor) => {
+        const isEditable = editor.isEditable();
+        /* istanbul ignore if */
+        if (!isEditable) {
+          return;
+        }
 
-      /* istanbul ignore else */
-      if (onCancel) {
-        setCancelTrigger((prev) => !prev);
+        /* istanbul ignore if */
+        if (!onCancel) {
+          return;
+        }
+
+        const newEditorState = editor.parseEditorState(initialValue.current);
+        editor.setEditorState(newEditorState);
         onCancel();
-      }
-    }, [onCancel]);
-
-    // Reset the value of the editor when the cancel trigger is updated (implements reset on cancel)
-    useEffect(() => {
-      const safeValue = value || createEmpty();
-
-      /* istanbul ignore else */
-      if (editorRef.current) {
-        const newEditorState = editorRef.current.parseEditorState(safeValue);
-        editorRef.current.setEditorState(newEditorState);
-      }
-    }, [cancelTrigger, value]);
+      },
+      [onCancel],
+    );
 
     const toolbarProps = useMemo(
       () => ({
@@ -311,7 +315,6 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
             </HintText>
           )}
           <LexicalComposer initialConfig={initialConfig}>
-            <EditorRefPlugin editorRef={editorRef} />
             <StyledWrapper data-role={`${namespace}-wrapper`}>
               {validationMessagePositionTop && (
                 <>
@@ -372,7 +375,11 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
                   <ListPlugin />
                   <HistoryPlugin />
                   <MarkdownShortcutPlugin />
-                  <OnChangePlugin onChange={handleChange} />
+                  <OnChangePlugin
+                    onChange={handleChange}
+                    ignoreHistoryMergeTagChange
+                    ignoreSelectionChange
+                  />
                   <LinkPlugin validateUrl={validateUrl} />
                   <ClickableLinkPlugin newTab />
                   <AutoLinkerPlugin />

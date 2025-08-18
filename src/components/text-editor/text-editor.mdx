@@ -73,7 +73,7 @@ The Text Editor accepts a footer property, which can be any valid React node and
 
 ### Using CreateEmpty
 
-You can use the `CreateEmpty` function to create an empty editor state. This function should be called with no arguments, and the result should be passed to the `value` property of the editor.
+You can use the `CreateEmpty` function to create an empty editor state. This function should be called with no arguments, and the result should be passed to the `initialValue` property of the editor.
 
 <Canvas of={TextEditorStories.UsingCreateEmpty} />
 
@@ -117,22 +117,34 @@ To handle focus loss, you can set the `onBlur` property to a function. The funct
 
 ### onCancel Handler
 
-To cancel changes made to the content of the editor when the `Cancel` button is clicked, you can set the `onCancel` property to a function. This
-function will be called when the user clicks the `Cancel` button.
-
-If `value` is provided, the `Cancel` button will reset the editor to the initial value when pressed.
-
-If the `onCancel` property is not provided, the `Cancel` button will not be displayed.
+Providing an `onCancel` callback causes the editor to render a cancel button. When clicked, `onCancel` will be called and the editor will reset to its original content provided on initial render.
 
 <Canvas of={TextEditorStories.onCancel} />
 
 ### onChange Handler
 
-To handle changes to the content of the editor, you can set the `onChange` property to a function. The function will be called whenever the
-editor state changes, and provides a string representation of the editor content. The second argument passed to the `onChange` callback contains
-the `htmlString` and `JSON` content of the editor.
+Providing an `onChange` callback allows for accessing any content updates within the editor. The function will be called whenever text content is modified or styled.
+
+#### Parameters
+
+- `value`: The updated text content as a string.
+- `formattedValues`: An object containing two properties that represent the editor's content in a serialised format. This can be used to save the content to an external store like a database or local storage.
+  - `htmlString`: A HTML representation of the editor content, as a string.
+  - `json`: The JSON representation of the editor content, as a string.
+
+>**Note**: `TextEditor` is an uncontrolled component, therefore passing any updated content from `onChange` to the `initialValue` prop will not update the editor's content. See [this section](#externally-overwriting-the-editors-content) if you need to externally overwrite the editor's content.
 
 <Canvas of={TextEditorStories.OnChange} />
+
+### Externally overwriting the editor's content
+
+**`TextEditor` is an uncontrolled component**. It manages its own underlying state for performance reasons, since it manages a virtual DOM representation of the editor content, which is expensive to update frequently. However, there are times when you may need to externally overwrite the editor's content, for example, when resetting a form or updating the content based on external data from a server or local storage.
+
+Updating the component's `key` will force React to re-create it, which will reset the editor's content to a new `initialValue` provided.
+
+>**Caution**: Be wary about overwriting the editor's content too frequently. As resetting the component's key re-creates it from scratch each time, so doing this regularly could lead to a poor user experience. The editor is designed to handle its own state efficiently, so external updates should be used sparingly.
+
+<Canvas of={TextEditorStories.ExternallyOverwriting} />
 
 ### onFocus Handler
 

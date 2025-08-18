@@ -1,3 +1,14 @@
+## [155.11.0](https://github.com/Sage/carbon/compare/v155.10.0...v155.11.0) (2025-08-14)
+
+### Features
+
+* **text-editor:** introduce `initialValue` prop ([7bca259](https://github.com/Sage/carbon/commit/7bca259727113f190cddb91a9879040ea1ad6a10))
+* **text-editor:** prevent changes to `value` prop from overwriting the editor's internal state ([b6aecad](https://github.com/Sage/carbon/commit/b6aecadc2cd655ca4374b4ca891947586388dbdb))
+
+### Bug Fixes
+
+* **text-editor:** ensure onChange is fired only when text content or text styling changes ([1457815](https://github.com/Sage/carbon/commit/145781528a1314bb9bcc649341745416e51334d6))
+
 ## [155.10.0](https://github.com/Sage/carbon/compare/v155.9.1...v155.10.0) (2025-08-11)
 
 ### Features

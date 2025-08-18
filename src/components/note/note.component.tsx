@@ -103,7 +103,7 @@ export const Note = ({
               ) : (
                 <StyledTitleWrapper>{title}</StyledTitleWrapper>
               ))}
-            <ReadOnlyEditor value={noteContent} />
+            <ReadOnlyEditor initialValue={noteContent} />
           </StyledNoteContent>
           {inlineControl && (
             <StyledInlineControl>{inlineControl}</StyledInlineControl>

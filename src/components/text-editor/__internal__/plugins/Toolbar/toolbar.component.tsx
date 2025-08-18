@@ -1,6 +1,6 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { mergeRegister } from "@lexical/utils";
-import { $getSelection, $isRangeSelection } from "lexical";
+import { $getSelection, $isRangeSelection, LexicalEditor } from "lexical";
 import React, {
   useCallback,
   useEffect,
@@ -28,7 +28,7 @@ interface ToolbarProps {
   /** Determines if the Text Editor has a header */
   hasHeader?: boolean;
   /** The callback to call when the cancel button is clicked */
-  onCancel?: () => void;
+  onCancel?: (editor: LexicalEditor) => void;
   /** The callback to call when the save button is clicked */
   onSave?: (value: EditorFormattedValues) => void;
 }
@@ -126,7 +126,7 @@ const Toolbar = ({ namespace, hasHeader, onCancel, onSave }: ToolbarProps) => {
             buttonType="tertiary"
             data-role={`${namespace}-cancel-button`}
             aria-label={locale.textEditor.cancelButtonAria()}
-            onClick={() => onCancel?.()}
+            onClick={() => onCancel?.(editor)}
           >
             {locale.textEditor.cancelButton()}
           </Button>
