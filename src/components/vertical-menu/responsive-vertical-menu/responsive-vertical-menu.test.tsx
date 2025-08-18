@@ -973,6 +973,47 @@ test("allows for full keyboard navigation of tertiary menus", async () => {
   expect(menuItem).toHaveFocus();
 });
 
+test("focuses the primary menu item when Tab is pressed and the last item is a tertiary menu item with a closed submenu", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  render(
+    <ResponsiveVerticalMenuProvider>
+      <ResponsiveVerticalMenu>
+        <ResponsiveVerticalMenuItem id="primary-item" label="Primary Item">
+          <ResponsiveVerticalMenuItem
+            id="secondary-item"
+            label="Secondary Item"
+          >
+            <ResponsiveVerticalMenuItem
+              id="tertiary-item"
+              label="Tertiary Item"
+            >
+              <ResponsiveVerticalMenuItem
+                id="level-4-item"
+                label="Level 4 Item"
+              />
+            </ResponsiveVerticalMenuItem>
+          </ResponsiveVerticalMenuItem>
+        </ResponsiveVerticalMenuItem>
+      </ResponsiveVerticalMenu>
+    </ResponsiveVerticalMenuProvider>,
+  );
+
+  await user.click(screen.getByRole("button"));
+  const primaryItem = screen.getByRole("button", { name: "Primary Item" });
+  await user.click(primaryItem);
+  const secondaryItem = screen.getByRole("button", { name: "Secondary Item" });
+  await user.click(secondaryItem);
+  const tertiaryItem = screen.getByRole("button", { name: "Tertiary Item" });
+  await user.click(tertiaryItem); // closes the tertiary menu
+
+  await user.tab();
+  expect(primaryItem).toHaveFocus();
+  await user.tab();
+  expect(secondaryItem).toHaveFocus();
+  await user.tab();
+  expect(tertiaryItem).toHaveFocus();
+});
+
 test(`anchor links are correctly rendered`, async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 

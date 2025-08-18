@@ -29,10 +29,18 @@ export interface MenuContextType {
   menuRef: RefObject<HTMLUListElement>;
   reducedMotion?: boolean;
   responsiveMode?: boolean;
+  left: string;
+  top: string;
+  width?: string;
+  height?: string;
   setActive: Dispatch<SetStateAction<boolean>>; // This allows both value and function
   setActiveMenuItem: (item: ResponsiveVerticalMenuButtonItem | null) => void;
   setReducedMotion?: (reducedMotion: boolean) => void;
   setResponsiveMode?: (responsiveMode: boolean) => void;
+  setLeft: (left: string) => void;
+  setTop: (top: string) => void;
+  setWidth?: (width: string | undefined) => void;
+  setHeight?: (height: string | undefined) => void;
 }
 
 export const ResponsiveVerticalMenuContext =
@@ -65,6 +73,12 @@ export const ResponsiveVerticalMenuProvider = ({
   const [responsiveMode, setResponsiveMode] = useState<boolean>(false);
   const [reducedMotion, setReducedMotion] = useState<boolean>(false);
 
+  const [left, setLeft] = useState("auto");
+  const [top, setTop] = useState("auto");
+
+  const [width, setWidth] = useState<string | undefined>(undefined);
+  const [height, setHeight] = useState<string | undefined>(undefined);
+
   return (
     <ResponsiveVerticalMenuContext.Provider
       value={{
@@ -75,10 +89,18 @@ export const ResponsiveVerticalMenuProvider = ({
         menuRef,
         reducedMotion,
         responsiveMode,
+        left,
+        top,
+        width,
+        height,
         setActive,
         setActiveMenuItem,
         setReducedMotion,
         setResponsiveMode,
+        setLeft,
+        setTop,
+        setWidth,
+        setHeight,
       }}
     >
       {children}

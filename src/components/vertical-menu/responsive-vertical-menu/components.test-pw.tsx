@@ -159,3 +159,50 @@ export const ResponsiveVerticalMenuIconMixture = (
     </Box>
   );
 };
+
+export const WithDifferentDepthsAsLastItem = () => {
+  return (
+    <Box height="100vh">
+      <ResponsiveVerticalMenuProvider>
+        <ResponsiveVerticalMenu>
+          <ResponsiveVerticalMenuItem id="with-level-2" label="With Level 2">
+            <ResponsiveVerticalMenuItem
+              href="#"
+              id="level-2-as-last-item"
+              label="Level 2 As Last Item"
+            />
+          </ResponsiveVerticalMenuItem>
+          <ResponsiveVerticalMenuItem id="with-level-3" label="With Level 3">
+            <ResponsiveVerticalMenuItem
+              id="level-2-parent-1"
+              label="Level 2 Parent"
+            >
+              <ResponsiveVerticalMenuItem
+                href="#"
+                id="level-3-as-last-item"
+                label="Level 3 As Last Item"
+              />
+            </ResponsiveVerticalMenuItem>
+          </ResponsiveVerticalMenuItem>
+          <ResponsiveVerticalMenuItem id="with-level-4" label="With Level 4">
+            <ResponsiveVerticalMenuItem
+              id="level-2-parent-2"
+              label="Level 2 Parent"
+            >
+              <ResponsiveVerticalMenuItem
+                id="level-3-parent"
+                label="Level 3 Parent"
+              >
+                <ResponsiveVerticalMenuItem
+                  href="#"
+                  id="level-4-as-last-item"
+                  label="Level 4 As Last Item"
+                />
+              </ResponsiveVerticalMenuItem>
+            </ResponsiveVerticalMenuItem>
+          </ResponsiveVerticalMenuItem>
+        </ResponsiveVerticalMenu>
+      </ResponsiveVerticalMenuProvider>
+    </Box>
+  );
+};

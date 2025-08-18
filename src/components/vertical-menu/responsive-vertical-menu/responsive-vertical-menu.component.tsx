@@ -57,18 +57,20 @@ const BaseMenu = ({
     containerRef,
     menuRef,
     responsiveMode,
+    top,
     setActive,
     setActiveMenuItem,
     setReducedMotion,
     setResponsiveMode,
+    setLeft,
+    setTop,
+    setWidth,
+    setHeight,
   } = useResponsiveVerticalMenu();
 
   const [childItemCount, setChildItemCount] = useState(0);
   const largeScreen = useIsAboveBreakpoint(responsiveBreakpoint);
-  const [left, setLeft] = useState("auto");
   const [responsiveWidth, setResponsiveWidth] = useState("100%");
-  const [top, setTop] = useState("auto");
-  const subMenuRef = useRef<HTMLUListElement>(null);
   const reduceMotion = !useMediaQuery(
     "screen and (prefers-reduced-motion: no-preference)",
   );
@@ -102,6 +104,11 @@ const BaseMenu = ({
       setTop("auto");
     }
   }, [active, menu, responsiveMode, activeMenuItem, button]);
+
+  useEffect(() => {
+    setWidth?.(width);
+    setHeight?.(height);
+  }, [width, height, setWidth, setHeight]);
 
   const handleOutsideClick = useCallback(
     (event: MouseEvent) => {
@@ -342,25 +349,6 @@ const BaseMenu = ({
               >
                 {children}
               </StyledResponsiveMenu>
-
-              {activeMenuItem ? (
-                <StyledResponsiveMenu
-                  data-component="responsive-vertical-menu-secondary"
-                  data-role="responsive-vertical-menu-secondary"
-                  height={height || "100%"}
-                  id="responsive-vertical-menu-secondary"
-                  left={left}
-                  menu="secondary"
-                  reduceMotion={reduceMotion}
-                  ref={subMenuRef}
-                  responsive={false}
-                  tabIndex={-1}
-                  top={top}
-                  width={width}
-                >
-                  {activeMenuItem.children}
-                </StyledResponsiveMenu>
-              ) : null}
             </>
           )}
         </StyledGlobalVerticalMenuWrapper>
