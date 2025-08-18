@@ -7,7 +7,6 @@ import {
   ResponsiveVerticalMenu,
   ResponsiveVerticalMenuDivider,
   ResponsiveVerticalMenuItem,
-  ResponsiveVerticalMenuProvider,
 } from ".";
 import GlobalHeader from "../../global-header";
 
@@ -82,54 +81,52 @@ const CustomAccountingIcon = () => (
 const DefaultResponsiveVerticalMenu = () => (
   <>
     <GlobalHeader>
-      <ResponsiveVerticalMenuProvider>
-        <ResponsiveVerticalMenu height="100%">
+      <ResponsiveVerticalMenu height="100%">
+        <ResponsiveVerticalMenuItem
+          customIcon={<CustomAccountingIcon />}
+          id="primary-menu"
+          label="Primary Menu With Children"
+        >
           <ResponsiveVerticalMenuItem
-            customIcon={<CustomAccountingIcon />}
-            id="primary-menu"
-            label="Primary Menu With Children"
+            id="secondary-menu"
+            label="Secondary Menu With Children"
           >
             <ResponsiveVerticalMenuItem
-              id="secondary-menu"
-              label="Secondary Menu With Children"
-            >
-              <ResponsiveVerticalMenuItem
-                id="tertiary-menu"
-                label="Tertiary Menu"
-              />
-            </ResponsiveVerticalMenuItem>
-            <ResponsiveVerticalMenuItem
-              id="secondary-menu-no-children"
-              label="Secondary Menu Item"
+              id="tertiary-menu"
+              label="Tertiary Menu"
             />
           </ResponsiveVerticalMenuItem>
-          <ResponsiveVerticalMenuDivider />
           <ResponsiveVerticalMenuItem
-            id="primary-menu-no-icon"
-            label="Primary Menu Item Without Icon"
-          >
-            <ResponsiveVerticalMenuItem
-              id="secondary-menu-no-icon"
-              label="Secondary Menu With Children"
-            >
-              <ResponsiveVerticalMenuItem
-                id="tertiary-menu-no-icon"
-                label="Tertiary Menu"
-              />
-            </ResponsiveVerticalMenuItem>
-            <ResponsiveVerticalMenuItem
-              id="secondary-menu-no-icon-2"
-              label="Secondary Menu Item"
-            />
-          </ResponsiveVerticalMenuItem>
-          <ResponsiveVerticalMenuDivider />
-          <ResponsiveVerticalMenuItem
-            icon="home"
-            id="primary-menu-icon"
-            label="Primary Menu Item With Icon"
+            id="secondary-menu-no-children"
+            label="Secondary Menu Item"
           />
-        </ResponsiveVerticalMenu>
-      </ResponsiveVerticalMenuProvider>
+        </ResponsiveVerticalMenuItem>
+        <ResponsiveVerticalMenuDivider />
+        <ResponsiveVerticalMenuItem
+          id="primary-menu-no-icon"
+          label="Primary Menu Item Without Icon"
+        >
+          <ResponsiveVerticalMenuItem
+            id="secondary-menu-no-icon"
+            label="Secondary Menu With Children"
+          >
+            <ResponsiveVerticalMenuItem
+              id="tertiary-menu-no-icon"
+              label="Tertiary Menu"
+            />
+          </ResponsiveVerticalMenuItem>
+          <ResponsiveVerticalMenuItem
+            id="secondary-menu-no-icon-2"
+            label="Secondary Menu Item"
+          />
+        </ResponsiveVerticalMenuItem>
+        <ResponsiveVerticalMenuDivider />
+        <ResponsiveVerticalMenuItem
+          icon="home"
+          id="primary-menu-icon"
+          label="Primary Menu Item With Icon"
+        />
+      </ResponsiveVerticalMenu>
     </GlobalHeader>
   </>
 );
