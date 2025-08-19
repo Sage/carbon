@@ -21,28 +21,28 @@ Provides an interactive Text Editor that allows users to format text with variou
 ## Contents
 
 - [Quick Start](#quick-start)
-- [Examples](#examples)
-- [Validation states](#validation-states)
+- [Interactive Demo](#interactive-demo)
+- [Advanced Usage](#advanced-usage)
+- [Validation States](#validation-states)
 - [Props](#props)
-- [Translation keys](#translation-keys)
+- [Translation Keys](#translation-keys)
 
 ## Quick Start
 
 ```javascript
-import TextEditor, { CreateEmpty, createFromHTML } from "carbon-react/lib/components/text-editor";
+import TextEditor, {
+  createEmpty,
+  createFromHTML,
+} from "carbon-react/lib/components/text-editor";
 ```
 
-To use the Text Editor, import the `TextEditor` component. If your content is stored as HTML, you can use the `createFromHTML`
-function to convert it to a format that the editor can understand. If you do not work with HTML, the `createFromHTML` function is not required
-and can be omitted from the imports. The `CreateEmpty` function can be used to create an empty editor state, should you require one.
+To use the Text Editor, import the `TextEditor` component. Use `createFromHTML` to convert HTML content for the editor, or `createEmpty` for an empty initial state.
 
-## Examples
+## Interactive Demo
 
-### Default
+Use the [Demo](../?path=/story/text-editor--demo) story with controls to explore basic props, callbacks, and validation states.
 
-All instances of the Text Editor should have a label that describes the purpose of the editor; this can be set via the `labelText` property.
-
-<Canvas of={TextEditorStories.Default} />
+## Advanced Usage
 
 ### Focusing the Text Editor Programmatically
 
@@ -50,70 +50,32 @@ All instances of the Text Editor should have a label that describes the purpose 
 import { TextEditorHandle } from "carbon-react/lib/components/text-editor";
 ```
 
-The `TextEditorHandle` type provides an imperative handle for programmatic control over the Text Editor. 
+The `TextEditorHandle` type provides an imperative handle for programmatic control over the Text Editor.
 Using a `ref`, you can access its `focus()` method to set focus on the Text Editor as needed.
 
 <Canvas of={TextEditorStories.ProgrammaticFocus} />
 
-### With Header
+### Toolbar controls
 
-The Text Editor accepts a header property, which can be any valid React node and is rendered above the toolbar, providing space for custom elements such as titles, controls, or contextual information.
+The `toolbarControls` prop allows you to customize which controls are displayed in the toolbar. It accepts an array of strings, each representing a control to be included. The available controls are:
 
-<Canvas of={TextEditorStories.Header} />
+- `typography`
+- `bold`
+- `italic`
+- `underline`
+- `unordered-list`
+- `ordered-list`
+- `link`
 
-### With Footer
+By default, all controls are included, but you can provide any combination of them to tailor the toolbar to your specific needs.
 
-The Text Editor accepts a footer property, which can be any valid React node and is rendered below the editor, providing space for custom elements such as titles, controls, or contextual information.
-
-<Canvas of={TextEditorStories.Footer} />
+<Canvas of={TextEditorStories.ToolbarControls} />
 
 ### With Header and Footer
 
+The Text Editor accepts `header` and `footer` properties that can contain any valid React node, rendered above the toolbar and below the editor respectively to provide space for custom elements like titles, controls, or contextual information.
+
 <Canvas of={TextEditorStories.HeaderAndFooter} />
-
-### Using CreateEmpty
-
-You can use the `CreateEmpty` function to create an empty editor state. This function should be called with no arguments, and the result should be passed to the `initialValue` property of the editor.
-
-<Canvas of={TextEditorStories.UsingCreateEmpty} />
-
-### Required
-
-You can set the `required` property to `true` to indicate to users that the content of the editor is mandatory. 
-
-**Note:** Since the editor input is not a conventional HTML form element, the `required` property does not enforce any default validation. It is up to the developer to ensure that the content is validated before submission.
-
-<Canvas of={TextEditorStories.Required} />
-
-### Character Limit
-
-You can set the `characterLimit` property to limit the number of characters that can be entered into the editor. Note that the character limit
-is not a hard limit, and the user can still enter more characters than the limit. However, the editor will show a warning to indicate that the
-limit has been exceeded.
-
-<Canvas of={TextEditorStories.CharacterLimit} />
-
-### Command Buttons
-
-You can add `Save` and `Cancel` buttons to the editor by setting the `onSave` and `onCancel` properties. Both properties should be functions.
-Omitting the `onCancel` property will hide the `Cancel` button, whereas omitting the `onSave` property will hide the `Save` button.
-
-The `onSave` function callback will be called when the user clicks the `Save` button, and contains a single argument with two values:
-the JSON and HTML content of the editor. The `onCancel` function callback will be called when the user clicks the `Cancel` button.
-
-<Canvas of={TextEditorStories.CommandButtons} />
-
-### onBlur Handler
-
-To handle focus loss, you can set the `onBlur` property to a function. The function will be called whenever the editor loses focus.
-
-<Canvas of={TextEditorStories.OnBlur} />
-
-### onCancel Handler
-
-Providing an `onCancel` callback causes the editor to render a cancel button. When clicked, `onCancel` will be called and the editor will reset to its original content provided on initial render.
-
-<Canvas of={TextEditorStories.onCancel} />
 
 ### onChange Handler
 
@@ -126,7 +88,7 @@ Providing an `onChange` callback allows for accessing any content updates within
   - `htmlString`: A HTML representation of the editor content, as a string.
   - `json`: The JSON representation of the editor content, as a string.
 
->**Note**: `TextEditor` is an uncontrolled component, therefore passing any updated content from `onChange` to the `initialValue` prop will not update the editor's content. See [this section](#externally-overwriting-the-editors-content) if you need to externally overwrite the editor's content.
+> **Note**: `TextEditor` is an uncontrolled component. See [Externally overwriting the editor's content](#externally-overwriting-the-editors-content) for details on updating content after initialization.
 
 <Canvas of={TextEditorStories.OnChange} />
 
@@ -136,15 +98,9 @@ Providing an `onChange` callback allows for accessing any content updates within
 
 Updating the component's `key` will force React to re-create it, which will reset the editor's content to a new `initialValue` provided.
 
->**Caution**: Be wary about overwriting the editor's content too frequently. As resetting the component's key re-creates it from scratch each time, so doing this regularly could lead to a poor user experience. The editor is designed to handle its own state efficiently, so external updates should be used sparingly.
+> **Caution**: Be wary about overwriting the editor's content too frequently. As resetting the component's key re-creates it from scratch each time, so doing this regularly could lead to a poor user experience. The editor is designed to handle its own state efficiently, so external updates should be used sparingly.
 
 <Canvas of={TextEditorStories.ExternallyOverwriting} />
-
-### onFocus Handler
-
-To handle focus gain, you can set the `onFocus` property to a function. The function will be called whenever the editor gains focus.
-
-<Canvas of={TextEditorStories.OnFocus} />
 
 ### onSave Handler
 
@@ -159,54 +115,17 @@ Type into the editor and the click the **Show Data Formats** button in the examp
 
 <Canvas of={TextEditorStories.OnSave} />
 
-### With HTML As Initial Value
+### Setting Initial Values
 
-In order to set the initial value of the editor as HTML, you can use the `createFromHTML` function to convert the HTML content to a format that
-the editor can understand. The `createFromHTML` function should be called with the HTML content as an argument, and the result should be passed
-to the `value` property of the editor.
+You can set the editor's initial value using either HTML or JSON format. For HTML content, use the `createFromHTML` function to convert it to the editor's expected format, then pass the result to the `initialValue` property. For JSON content, pass the object directly to `initialValue` using the same format returned by the `onSave` callback.
 
-<Canvas of={TextEditorStories.WithHTMLValue} />
-
-### With JSON As Initial Value
-
-You can set the initial value of the editor by passing a JSON object to the `value` property. The JSON object provided should be in the format
-returned by the `onSave` function callback, an example of which can be seen below.
-
-<Canvas of={TextEditorStories.WithJSONValue} />
-
-### Input Hint
-
-You can use the `inputHint` property to provide additional information to the user about the expected content or usage of the editor.
-
-<Canvas of={TextEditorStories.InputHint} />
-
-### With Row Count
-
-You can customise the height of the text editor by setting the `rows` property. The `rows` property should be a number greater than `2`, and will
-determine the minimum height of the editor by multiplying the number of rows provided by the height of a single row (21px). If `rows` is not provided,
-the editor will default to a height of `210px`, equivalent to 10 rows (note that more than 10 rows of content can be added; setting the `rows` prop
-only sets the minimum height of the editor).
-
-<Canvas of={TextEditorStories.Rows} />
-
-### With Placeholder
-
-By default, the editor will render with an empty placeholder; you can override this by setting the `placeholder` property.
-
-<Canvas of={TextEditorStories.WithPlaceholder} />
+<Canvas of={TextEditorStories.SettingInitialValues} />
 
 ### Link Support
 
-The editor supports adding links to text. To add a link, you can:
-
- - type the link directly into the editor;
- - select the text you want to link, and paste the URL directly into the editor. The editor will automatically convert the URL into a link, wrapping the selected text.
-
-Clicking the link will open the URL in a new tab.
+The editor supports adding links by typing URLs directly or selecting text and pasting a URL to wrap it as a link. Links open in new tabs when clicked.
 
 <Canvas of={TextEditorStories.Links} />
-
-### With Link Added Callback
 
 There may be times when you want to perform an action when a link is added to the editor. You can use the `onLinkAdded` callback to obtain a
 string representation of the link that was added, updated or removed. The function will be called whenever a link is added to the editor.
@@ -219,25 +138,15 @@ Note that this usage is for demonstration purposes only; you should maintain the
 
 ### With Link Previews
 
-You can use the `previews` property to render previews of links added to the editor. The `previews` property should be an array of React JSX objects. Note
-that the following examples are merely a suggested implementation; the only requirement is that the `previews` array contains one or more React JSX
-objects.
+The `previews` property accepts an array of React JSX elements to render link previews below the editor. You can use simple anchor elements, custom preview components, or mix different styles as needed.
 
 <Canvas of={TextEditorStories.WithLinkPreviews} />
-
-You can provide more complex previews by providing custom components to the `previews` array.
-
-<Canvas of={TextEditorStories.WithComplexLinkPreviews} />
-
-You can also provide multiple previews, and can mix and match the styles as desired.
-
-<Canvas of={TextEditorStories.WithMultipleLinkPreviews} />
 
 ### Translations
 
 You can override the default translations for the Text Editor by passing a custom locale object to the `i18nProvider`. Consult the [translation keys](#translation-keys) section for a list of available keys.
 
-<Canvas of={TextEditorStories.WithCustomTranslations} />
+<Canvas of={TextEditorStories.Translations} />
 
 ### Read-Only Mode
 
@@ -260,9 +169,9 @@ The `customPlugins` prop allows consumers of the `TextEditor` component to injec
 
 ```tsx
 // CustomWordCountPlugin.tsx
-import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import { useEffect } from 'react';
-import { $getRoot } from 'lexical';
+import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
+import { useEffect } from "react";
+import { $getRoot } from "lexical";
 
 const CustomWordCountPlugin = () => {
   // Get the Lexical editor instance from context
@@ -294,15 +203,79 @@ const CustomWordCountPlugin = () => {
 
 ```tsx
 // Using it with TextEditor
-import TextEditor from './TextEditor';
-import { CustomWordCountPlugin } from './CustomWordCountPlugin';
+import TextEditor from "./TextEditor";
+import { CustomWordCountPlugin } from "./CustomWordCountPlugin";
 
 const App = () => (
-  <TextEditor labelText="Text Editor" customPlugins={<CustomWordCountPlugin />} />
+  <TextEditor
+    labelText="Text Editor"
+    customPlugins={<CustomWordCountPlugin />}
+  />
 );
 ```
 
 <Canvas of={TextEditorStories.WithCustomPlugins} />
+
+### Mentions
+
+The Text Editor supports mentions, and offers a built-in `Mentions` component to facilitate this. The `Mentions` component provides an interface for displaying a list of mentionable items and handling user interactions.
+
+To use the `Mentions` component, you need to provide it with a list of items that can be mentioned. Each item should be a `Mention` instance and have an `id` and a `name`.
+
+```tsx
+import TextEditor, {
+  MentionsPlugin,
+  Mention,
+} from "carbon-react/lib/components/text-editor";
+
+const mentionsData: Mention[] = [
+  {
+    id: "1",
+    name: "Amanda Ball",
+  },
+  {
+    id: "2",
+    name: "Anaya Underwood",
+    initials: "AU",
+  },
+  {
+    id: "3",
+    name: "Alastair Cox",
+    initials: "AC",
+  },
+  {
+    id: "4",
+    name: "Anwar al-Awlaki",
+    src: "https://loremfaces.net/24/id/2.jpg",
+  },
+  {
+    id: "5",
+    name: "Angela Alabaster",
+    src: "https://loremfaces.net/24/id/1.jpg",
+  },
+  {
+    id: "6",
+    name: "Alfred Jones",
+    iconType: "accessibility_web",
+  },
+];
+```
+
+Import the `Mentions` component and include it in the `customPlugins` prop of the `TextEditor`. You also need to provide an array of `Mention` items that can be queried (this will happen internal to the plugin).
+
+Queries are triggered by typing the `@` character followed by text. The plugin will filter the provided items based on the query and display a list of matching items.
+
+Mentions accept the following properties. If none of `initials`, `src` and `iconType` are provided, then a default icon will be displayed:
+
+| Property | Purpose                                                         |
+| -------- | --------------------------------------------------------------- |
+| id       | The ID of the Mention entry                                     |
+| name     | The name shown in the list                                      |
+| initials | The initials to be shown in the Mention's avatar                |
+| iconType | The icon to be used in the Mention's avatar                     |
+| src      | The source URL of the image to be shown in the Mention's avatar |
+
+<Canvas of={TextEditorStories.Mentions} />
 
 ## Validation States
 
@@ -314,7 +287,7 @@ This component supports input validation, see our [Validations](../?path=/docs/d
 
 <ArgTypes of={TextEditorStories} />
 
-## Translation keys
+## Translation Keys
 
 The following keys are available to override the translations for this component by passing in a custom locale object to the
 [i18nProvider](../?path=/docs/documentation-i18n--docs).
@@ -330,8 +303,7 @@ The following keys are available to override the translations for this component
     },
     {
       name: "TextEditor.cancelButton",
-      description:
-        "The text to show on the Cancel button.",
+      description: "The text to show on the Cancel button.",
       type: "func",
       returnType: "string",
     },
@@ -379,8 +351,7 @@ The following keys are available to override the translations for this component
     },
     {
       name: "TextEditor.saveButton",
-      description:
-        "The text to show on the Save button.",
+      description: "The text to show on the Save button.",
       type: "func",
       returnType: "string",
     },

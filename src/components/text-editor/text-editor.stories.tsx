@@ -20,8 +20,13 @@ import TextEditor, {
   createEmpty,
   createFromHTML,
   EditorFormattedValues,
+  TextEditorProps,
+  Mention,
+  MentionsPlugin,
 } from ".";
+
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
+import { action } from "@storybook/addon-actions";
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
@@ -41,16 +46,87 @@ const meta: Meta<typeof TextEditor> = {
 export default meta;
 type Story = StoryObj<typeof TextEditor>;
 
-export const Default: Story = () => {
-  return <TextEditor namespace="storybook-default" labelText="Text Editor" />;
+export const Demo: Story = {
+  render: (args: TextEditorProps) => (
+    <Box mx={2} my={0}>
+      <Typography mb={2}>
+        This is an interactive demo of the Text Editor component. Use the
+        controls in the panel below to modify props and see how the component
+        behaves with different configurations.
+      </Typography>
+      <TextEditor
+        {...args}
+        customPlugins={
+          <MentionsPlugin
+            namespace={args.namespace || "storybook-mentions"}
+            searchOptions={[
+              {
+                id: "1",
+                name: "Amanda Ball",
+              },
+              {
+                id: "2",
+                name: "Anaya Underwood",
+              },
+              {
+                id: "3",
+                name: "Tylar Cox",
+              },
+              {
+                id: "4",
+                name: "Ibrahim Abbasov",
+              },
+            ]}
+          />
+        }
+      />
+    </Box>
+  ),
+  args: {
+    labelText: "Text Editor Label",
+    placeholder: "Enter your text here...",
+    rows: 4,
+    size: "medium",
+    namespace: "storybook-demo",
+    inputHint: "",
+    characterLimit: undefined,
+    required: false,
+    readOnly: false,
+    error: "",
+    warning: "",
+    validationMessagePositionTop: false,
+    header: "",
+    footer: "",
+    toolbarControls: [
+      "typography",
+      "bold",
+      "italic",
+      "underline",
+      "unordered-list",
+      "ordered-list",
+      "link",
+    ],
+    initialValue: undefined,
+    // Callbacks handled via actions
+    onChange: action("onChange"),
+    onFocus: action("onFocus"),
+    onBlur: action("onBlur"),
+    onLinkAdded: action("onLinkAdded"),
+    onCancel: action("onCancel"),
+    onSave: action("onSave"),
+  },
+  parameters: {
+    options: {
+      initialActive: "controls",
+    },
+  },
 };
-Default.storyName = "Default";
 
 export const ProgrammaticFocus = () => {
   const editorRef = useRef<TextEditorHandle>(null);
 
   return (
-    <>
+    <Box mx={2} my={0}>
       <Button mb="30px" onClick={() => editorRef.current?.focus()}>
         Focus the editor
       </Button>
@@ -60,194 +136,47 @@ export const ProgrammaticFocus = () => {
         namespace="storybook-default"
         labelText="Text Editor"
       />
-    </>
+    </Box>
   );
 };
 ProgrammaticFocus.storyName = "Focusing the Text Editor Programmatically";
 
-export const Header: Story = () => {
-  return (
-    <TextEditor
-      namespace="storybook-header"
-      labelText="Text Editor"
-      header={<Button buttonType="gradient-white">Button</Button>}
-    />
-  );
+export const ToolbarControls: Story = {
+  render: (args: TextEditorProps) => (
+    <Box mx={2} my={0}>
+      <TextEditor {...args} />
+    </Box>
+  ),
+  args: {
+    labelText: "Text Editor Label",
+    rows: 4,
+    size: "medium",
+    namespace: "storybook-demo",
+    toolbarControls: ["typography", "italic", "unordered-list", "link"],
+  },
 };
-Header.storyName = "With Header";
-
-export const Footer: Story = () => {
-  return (
-    <TextEditor
-      namespace="storybook-footer"
-      labelText="Text Editor"
-      footer={
-        <Typography color="--colorsUtilityYin055">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text{" "}
-          <Link href="https://carbon.sage.com/?path=/story/welcome--welcome-page">
-            ever since the 1500s
-          </Link>
-        </Typography>
-      }
-    />
-  );
-};
-Footer.storyName = "With Footer";
 
 export const HeaderAndFooter: Story = () => {
   return (
-    <TextEditor
-      namespace="storybook-header-and-footer"
-      labelText="Text Editor"
-      header={<Button buttonType="gradient-white">Button</Button>}
-      footer={
-        <Typography color="--colorsUtilityYin055">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text{" "}
-          <Link href="https://carbon.sage.com/?path=/story/welcome--welcome-page">
-            ever since the 1500s
-          </Link>
-        </Typography>
-      }
-    />
+    <Box mx={2} my={0}>
+      <TextEditor
+        namespace="storybook-header-and-footer"
+        labelText="Text Editor"
+        header={<Button buttonType="gradient-white">Button</Button>}
+        footer={
+          <Typography color="--colorsUtilityYin055">
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text{" "}
+            <Link href="https://carbon.sage.com/?path=/story/welcome--welcome-page">
+              ever since the 1500s
+            </Link>
+          </Typography>
+        }
+      />
+    </Box>
   );
 };
 HeaderAndFooter.storyName = "With Header and Footer";
-
-export const UsingCreateEmpty: Story = () => {
-  const value = createEmpty();
-  return (
-    <TextEditor
-      namespace="storybook-usingcreateempty"
-      labelText="Text Editor"
-      initialValue={value}
-    />
-  );
-};
-UsingCreateEmpty.storyName = "Using CreateEmpty";
-UsingCreateEmpty.parameters = {
-  chromatic: { disableSnapshot: true },
-};
-
-export const Required: Story = () => {
-  return (
-    <TextEditor
-      namespace="storybook-required"
-      labelText="Text Editor"
-      required
-    />
-  );
-};
-Required.storyName = "Required";
-
-export const CharacterLimit: Story = () => {
-  return (
-    <TextEditor
-      namespace="storybook-characterlimit"
-      labelText="Text Editor"
-      characterLimit={50}
-    />
-  );
-};
-CharacterLimit.storyName = "Character Limit";
-
-export const CommandButtons: Story = () => {
-  return (
-    <TextEditor
-      namespace="storybook-commandbuttons"
-      labelText="Text Editor"
-      onCancel={() => alert("Cancelled")}
-      onSave={(values) => {
-        alert(JSON.stringify(values, null, 2));
-      }}
-    />
-  );
-};
-CommandButtons.storyName = "Command Buttons";
-
-export const OnBlur: Story = () => {
-  const [blurred, setBlurred] = React.useState<number>(0);
-  return (
-    <>
-      <TextEditor
-        namespace="storybook-onchange"
-        labelText="Text Editor"
-        onBlur={() => setBlurred((prev) => prev + 1)}
-      />
-      <div>Times blurred: {blurred}</div>
-    </>
-  );
-};
-OnBlur.storyName = "onBlur Handler";
-OnBlur.parameters = {
-  chromatic: { disableSnapshot: true },
-};
-
-export const onCancel: Story = () => {
-  const initialValue = {
-    root: {
-      children: [
-        {
-          children: [
-            {
-              detail: 0,
-              format: 0,
-              mode: "normal",
-              style: "",
-              text: "Make changes to this text and then press the ",
-              type: "text",
-              version: 1,
-            },
-            {
-              detail: 0,
-              format: 1,
-              mode: "normal",
-              style: "",
-              text: "Cancel",
-              type: "text",
-              version: 1,
-            },
-            {
-              detail: 0,
-              format: 0,
-              mode: "normal",
-              style: "",
-              text: " button to reset it to this default state.",
-              type: "text",
-              version: 1,
-            },
-          ],
-          direction: "ltr",
-          format: "",
-          indent: 0,
-          type: "paragraph",
-          version: 1,
-          textFormat: 0,
-          textStyle: "",
-        },
-      ],
-      direction: "ltr",
-      format: "",
-      indent: 0,
-      type: "root",
-      version: 1,
-    },
-  };
-  const value = JSON.stringify(initialValue);
-  return (
-    <TextEditor
-      namespace="storybook-oncancel"
-      labelText="Text Editor"
-      initialValue={value}
-      onCancel={() => {}}
-    />
-  );
-};
-onCancel.storyName = "onCancel Handler";
-onCancel.parameters = {
-  chromatic: { disableSnapshot: true },
-};
 
 export const OnChange: Story = () => {
   const [valueString, setValueString] = React.useState<string | undefined>(
@@ -266,7 +195,7 @@ export const OnChange: Story = () => {
   );
 
   return (
-    <>
+    <Box mx={2} my={0}>
       <TextEditor
         namespace="storybook-onchange"
         labelText="Text Editor"
@@ -277,7 +206,7 @@ export const OnChange: Story = () => {
         HTML formatted content:{" "}
         {valueHTML === "<p><br></p>" ? "No content" : valueHTML}
       </div>
-    </>
+    </Box>
   );
 };
 OnChange.storyName = "onChange Handler";
@@ -302,43 +231,27 @@ export const ExternallyOverwriting: Story = () => {
   };
 
   return (
-    <Form
-      onSubmit={handleSubmit}
-      saveButton={
-        <Button type="submit" buttonType="primary">
-          Save
-        </Button>
-      }
-    >
-      <TextEditor
-        key={resetKey}
-        labelText="Feedback"
-        initialValue={createEmpty()}
-        onChange={(value) => setContent(createFromHTML(value))}
-      />
-    </Form>
+    <Box mx={2} my={0}>
+      <Form
+        onSubmit={handleSubmit}
+        saveButton={
+          <Button type="submit" buttonType="primary">
+            Save
+          </Button>
+        }
+      >
+        <TextEditor
+          key={resetKey}
+          labelText="Feedback"
+          initialValue={createEmpty()}
+          onChange={(value) => setContent(createFromHTML(value))}
+        />
+      </Form>
+    </Box>
   );
 };
 ExternallyOverwriting.storyName = "Externally overwriting the editor's content";
 ExternallyOverwriting.parameters = {
-  chromatic: { disableSnapshot: true },
-};
-
-export const OnFocus: Story = () => {
-  const [focused, setFocused] = React.useState<number>(0);
-  return (
-    <>
-      <TextEditor
-        namespace="storybook-onchange"
-        labelText="Text Editor"
-        onFocus={() => setFocused((prev) => prev + 1)}
-      />
-      <div>Times focused: {focused}</div>
-    </>
-  );
-};
-OnFocus.storyName = "onFocus Handler";
-OnFocus.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
@@ -349,7 +262,7 @@ export const OnSave: Story = () => {
   });
   const [showData, setShowData] = useState(false);
   return (
-    <>
+    <Box mx={2} my={0}>
       <>
         <TextEditor
           namespace="storybook-onsave"
@@ -386,7 +299,7 @@ export const OnSave: Story = () => {
           </Box>
         </Box>
       )}
-    </>
+    </Box>
   );
 };
 OnSave.storyName = "onSave Handler";
@@ -394,177 +307,36 @@ OnSave.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const WithHTMLValue: Story = () => {
+export const SettingInitialValues: Story = () => {
   const initialValue = `<p dir="ltr"><span style="white-space: pre-wrap;">This is a HTML example.</span></p><ol><li value="1"><span style="white-space: pre-wrap;">Look, it has lists!</span></li></ol>`;
-  const value = createFromHTML(initialValue);
-  return (
-    <TextEditor
-      namespace="storybook-withhtmlvalue"
-      labelText="Text Editor"
-      initialValue={value}
-    />
-  );
-};
-WithHTMLValue.storyName = "HTML As Initial Value";
-WithHTMLValue.parameters = {
-  chromatic: { disableSnapshot: true },
-};
+  const value = createFromHTML(initialValue); // Use JSON.stringify(initialValue) when using JSON objects
 
-export const WithJSONValue: Story = () => {
-  const initialValue = {
-    root: {
-      children: [
-        {
-          children: [
-            {
-              detail: 0,
-              format: 0,
-              mode: "normal",
-              style: "",
-              text: "Sample text with ",
-              type: "text",
-              version: 1,
-            },
-            {
-              detail: 0,
-              format: 1,
-              mode: "normal",
-              style: "",
-              text: "some formatting",
-              type: "text",
-              version: 1,
-            },
-            {
-              detail: 0,
-              format: 0,
-              mode: "normal",
-              style: "",
-              text: " ",
-              type: "text",
-              version: 1,
-            },
-            {
-              detail: 0,
-              format: 2,
-              mode: "normal",
-              style: "",
-              text: "applied",
-              type: "text",
-              version: 1,
-            },
-            {
-              detail: 0,
-              format: 0,
-              mode: "normal",
-              style: "",
-              text: ".",
-              type: "text",
-              version: 1,
-            },
-          ],
-          direction: "ltr",
-          format: "",
-          indent: 0,
-          type: "paragraph",
-          version: 1,
-          textFormat: 0,
-          textStyle: "",
-        },
-      ],
-      direction: "ltr",
-      format: "",
-      indent: 0,
-      type: "root",
-      version: 1,
-    },
-  };
-  const value = JSON.stringify(initialValue);
   return (
-    <TextEditor
-      namespace="storybook-withjsonvalue"
-      labelText="Text Editor"
-      initialValue={value}
-    />
-  );
-};
-WithJSONValue.storyName = "JSON As Initial Value";
-WithJSONValue.parameters = {
-  chromatic: { disableSnapshot: true },
-};
-
-export const InputHint: Story = () => {
-  return (
-    <TextEditor
-      namespace="storybook-inputhint"
-      labelText="Text Editor"
-      inputHint="This is an example input hint"
-    />
-  );
-};
-InputHint.storyName = "Input Hint";
-
-export const Rows: Story = () => {
-  return (
-    <TextEditor namespace="storybook-rows" labelText="Text Editor" rows={20} />
-  );
-};
-Rows.storyName = "Row Count";
-
-export const WithPlaceholder: Story = () => {
-  return (
-    <TextEditor
-      namespace="storybook-placeholder"
-      labelText="Text Editor"
-      placeholder="This is a much better placeholder"
-    />
-  );
-};
-WithPlaceholder.storyName = "Placeholder";
-
-export const WithCustomTranslations: Story = () => {
-  return (
-    <I18nProvider
-      locale={{
-        ...enGB,
-        textEditor: {
-          boldAria: () => "Make text bold",
-          cancelButton: () => "No",
-          cancelButtonAria: () => "Cancel the current content",
-          characterCounter: (count: string | number) =>
-            `You've got ${count} characters left`,
-          characterLimit: (count: number) =>
-            `Please delete the last ${count} characters`,
-          contentEditorAria: () => "Rich text content editor",
-          italicAria: () => "Make text italic",
-          orderedListAria: () => "Ordered list",
-          saveButton: () => "Yes",
-          saveButtonAria: () => "Save the current content",
-          toolbarAriaLabel: () => "Formatting",
-          unorderedListAria: () => "Unordered list",
-        },
-      }}
-    >
+    <Box mx={2} my={0}>
       <TextEditor
-        namespace="storybook-customtranslations"
-        characterLimit={10}
-        labelText="Translated Text Editor"
-        onCancel={() => {}}
-        onSave={() => {}}
+        namespace="storybook-withhtmlvalue"
+        labelText="Text Editor"
+        initialValue={value}
       />
-    </I18nProvider>
+    </Box>
   );
 };
-WithCustomTranslations.storyName = "Translations";
+SettingInitialValues.storyName = "Setting Initial Values";
+SettingInitialValues.parameters = {
+  chromatic: { disableSnapshot: true },
+};
 
 export const Links: Story = () => {
   const defaultHTML = `<a href="https://carbon.sage.com/?path=/story/welcome--welcome-page" rel="noreferrer" dir="ltr"><span data-lexical-text="true">Carbon</span></a>`;
   const value = createFromHTML(defaultHTML);
   return (
-    <TextEditor
-      namespace="storybook-links"
-      labelText="Text Editor"
-      initialValue={value}
-    />
+    <Box mx={2} my={0}>
+      <TextEditor
+        namespace="storybook-links"
+        labelText="Text Editor"
+        initialValue={value}
+      />
+    </Box>
   );
 };
 Links.storyName = "Link Support";
@@ -580,7 +352,7 @@ export const WithLinkAddedCallback: Story = () => {
   }, []);
 
   return (
-    <>
+    <Box mx={2} my={0}>
       <TextEditor
         namespace="storybook-linkscallback"
         labelText="Text Editor"
@@ -591,7 +363,7 @@ export const WithLinkAddedCallback: Story = () => {
         <br />
         <strong>Mutation:</strong> {options.state || "None"}
       </span>
-    </>
+    </Box>
   );
 };
 WithLinkAddedCallback.storyName = "Link Added Callback";
@@ -600,33 +372,6 @@ WithLinkAddedCallback.parameters = {
 };
 
 export const WithLinkPreviews: Story = () => {
-  const initialValue = `<p dir="ltr"><span data-lexical-text="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc nisi ipsum, facilisis ut luctus non, gravida in orci. Aliquam risus massa, consequat non facilisis vel, bibendum quis nunc. Cras sit amet velit vel libero molestie accumsan. Integer id ipsum nec nunc porta bibendum. Aenean ut porta risus, eget dignissim felis. Praesent vitae tempus ante. Mauris nibh risus, congue ac augue ac, congue auctor metus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Maecenas vitae enim arcu. Integer quis mattis nunc, in porta neque. Proin sit amet purus congue, faucibus mauris id, consectetur justo. Vestibulum odio nisi, vehicula at odio ut, dapibus scelerisque tortor. Etiam vulputate massa orci, porttitor sollicitudin odio sollicitudin vitae. Mauris et eleifend dolor. Curabitur luctus lacinia sagittis. Interdum et malesuada fames ac ante ipsum primis in faucibus.</span></p>`;
-  const value = createFromHTML(initialValue);
-  const previews = [
-    <a
-      dir="ltr"
-      href="https://carbon.sage.com/?path=/story/welcome--welcome-page"
-      key="key-0"
-      rel="noreferrer"
-    >
-      <span data-lexical-text="true">Carbon</span>
-    </a>,
-  ];
-
-  return (
-    <>
-      <TextEditor
-        namespace="storybook-linkpreviews"
-        labelText="Text Editor"
-        previews={previews}
-        initialValue={value}
-      />
-    </>
-  );
-};
-WithLinkPreviews.storyName = "Link Previews";
-
-export const WithComplexLinkPreviews: Story = () => {
   const initialValue = `<p dir="ltr"><span data-lexical-text="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc nisi ipsum, facilisis ut luctus non, gravida in orci. Aliquam risus massa, consequat non facilisis vel, bibendum quis nunc. Cras sit amet velit vel libero molestie accumsan. Integer id ipsum nec nunc porta bibendum. Aenean ut porta risus, eget dignissim felis. Praesent vitae tempus ante. Mauris nibh risus, congue ac augue ac, congue auctor metus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Maecenas vitae enim arcu. Integer quis mattis nunc, in porta neque. Proin sit amet purus congue, faucibus mauris id, consectetur justo. Vestibulum odio nisi, vehicula at odio ut, dapibus scelerisque tortor. Etiam vulputate massa orci, porttitor sollicitudin odio sollicitudin vitae. Mauris et eleifend dolor. Curabitur luctus lacinia sagittis. Interdum et malesuada fames ac ante ipsum primis in faucibus.</span></p>`;
   const value = createFromHTML(initialValue);
 
@@ -652,76 +397,89 @@ export const WithComplexLinkPreviews: Story = () => {
   }
 
   return (
-    <>
+    <Box mx={2} my={0}>
       <TextEditor
         namespace="storybook-complexlinkpreviews"
         labelText="Text Editor"
         previews={previews.current}
         initialValue={value}
       />
-    </>
+    </Box>
   );
 };
-WithComplexLinkPreviews.storyName = "Complex Link Previews";
+WithLinkPreviews.storyName = "Link Previews";
 
-export const WithMultipleLinkPreviews: Story = () => {
-  const initialValue = `<p dir="ltr"><span data-lexical-text="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc nisi ipsum, facilisis ut luctus non, gravida in orci. Aliquam risus massa, consequat non facilisis vel, bibendum quis nunc. Cras sit amet velit vel libero molestie accumsan. Integer id ipsum nec nunc porta bibendum. Aenean ut porta risus, eget dignissim felis. Praesent vitae tempus ante. Mauris nibh risus, congue ac augue ac, congue auctor metus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Maecenas vitae enim arcu. Integer quis mattis nunc, in porta neque. Proin sit amet purus congue, faucibus mauris id, consectetur justo. Vestibulum odio nisi, vehicula at odio ut, dapibus scelerisque tortor. Etiam vulputate massa orci, porttitor sollicitudin odio sollicitudin vitae. Mauris et eleifend dolor. Curabitur luctus lacinia sagittis. Interdum et malesuada fames ac ante ipsum primis in faucibus.</span></p>`;
-  const value = createFromHTML(initialValue);
-  const [previews, setPreviews] = useState<React.JSX.Element[]>([]);
-
-  const closePreview = useCallback((urlString: string | undefined) => {
-    if (!urlString) return;
-    setPreviews((prevPreviews) =>
-      prevPreviews.filter((preview) => preview.props.url !== urlString),
-    );
-  }, []);
-
-  useEffect(() => {
-    if (previews && previews.length === 0) {
-      setPreviews([
-        <a
-          dir="ltr"
-          href="https://carbon.sage.com/?path=/story/welcome--welcome-page"
-          key="key-0"
-          rel="noreferrer"
-        >
-          <span data-lexical-text="true">Carbon</span>
-        </a>,
-        <EditorLinkPreview
-          onClose={closePreview}
-          title="Han Shot First"
-          url="https://en.wikipedia.org/wiki/Han_shot_first"
-          description="Had a slight weapons malfunction but, uh everything's perfectly all right now. We're fine. We're all fine here now. Thank you. How are you?"
-          key="key-1"
-          as="div"
-        />,
-      ]);
-    }
-  }, [closePreview, previews]);
-
+export const Translations: Story = () => {
   return (
-    <>
-      <TextEditor
-        namespace="storybook-multiplinkpreviews"
-        labelText="Text Editor"
-        previews={previews}
-        initialValue={value}
-      />
-    </>
+    <I18nProvider
+      locale={{
+        ...enGB,
+        textEditor: {
+          boldAria: () => "Make text bold",
+          cancelButton: () => "No",
+          cancelButtonAria: () => "Cancel the current content",
+          characterCounter: (count: string | number) =>
+            `You've got ${count} characters left`,
+          characterLimit: (count: number) =>
+            `Please delete the last ${count} characters`,
+          contentEditorAria: () => "Rich text content editor",
+          italicAria: () => "Make text italic",
+          orderedListAria: () => "Ordered list",
+          saveButton: () => "Yes",
+          saveButtonAria: () => "Save the current content",
+          toolbarAriaLabel: () => "Formatting",
+          unorderedListAria: () => "Unordered list",
+          underlineAria: () => "Underline text",
+          hyperlink: {
+            buttonAria: () => "Hyperlink",
+            cancelButton: () => "Cancel",
+            cancelButtonAria: () => "Cancel",
+            dialogTitle: () => "Add link",
+            linkFieldLabel: () => "Link",
+            saveButton: () => "Save",
+            saveButtonAria: () => "Save",
+            textFieldLabel: () => "Text",
+          },
+          typography: {
+            selectAria: () => "Heading type",
+            paragraph: () => "Paragraph",
+            title: () => "Title",
+            subtitle: () => "Subtitle",
+            sectionHeader: () => "Section header",
+            sectionSubheader: () => "Section subheader",
+          },
+          mentions: {
+            listAriaLabel: () => "List of mentionable people",
+          },
+        },
+      }}
+    >
+      <Box mx={2} my={0}>
+        <TextEditor
+          namespace="storybook-customtranslations"
+          characterLimit={10}
+          labelText="Translated Text Editor"
+          onCancel={() => {}}
+          onSave={() => {}}
+        />
+      </Box>
+    </I18nProvider>
   );
 };
-WithMultipleLinkPreviews.storyName = "Multiple Link Previews";
+Translations.storyName = "Translations";
 
 export const ReadOnly: Story = () => {
   const initialValue = `<p dir="ltr"><span style="white-space: pre-wrap;">This is an HTML example.</span><br><a href="https://carbon.sage.com/?path=/story/welcome--welcome-page" rel="noreferrer" dir="ltr"><span data-lexical-text="true">Carbon</span></a></p>`;
   const value = createFromHTML(initialValue);
   return (
-    <TextEditor
-      namespace="storybook-readonly"
-      labelText="Text Editor"
-      readOnly
-      initialValue={value}
-    />
+    <Box mx={2} my={0}>
+      <TextEditor
+        namespace="storybook-readonly"
+        labelText="Text Editor"
+        readOnly
+        initialValue={value}
+      />
+    </Box>
   );
 };
 ReadOnly.storyName = "Read-Only Mode";
@@ -731,7 +489,7 @@ ReadOnly.parameters = {
 
 export const MultipleEditors: Story = () => {
   return (
-    <Box>
+    <Box mx={2} my={0}>
       <TextEditor labelText="Text Editor One" namespace="rte-one" />
       <TextEditor labelText="Text Editor Two" namespace="rte-two" />
     </Box>
@@ -752,20 +510,84 @@ export const WithCustomPlugins: Story = () => {
         });
       });
     }, [editor]);
-    return (
-      <Typography ml={1} mb={0}>
-        Word Count: {wordCount}
-      </Typography>
-    );
+    return <Typography m={1}>Word Count: {wordCount}</Typography>;
   };
 
   return (
-    <TextEditor
-      placeholder="Example of a custom word count plugin that updates in real time, showing the number of words at the bottom left of the editor as you type."
-      namespace="storybook-default"
-      labelText="Text Editor"
-      customPlugins={<CustomWordCountPlugin />}
-    />
+    <Box mx={2} my={0}>
+      <TextEditor
+        placeholder="Example of a custom word count plugin that updates in real time, showing the number of words at the bottom left of the editor as you type."
+        namespace="storybook-default"
+        labelText="Text Editor"
+        customPlugins={<CustomWordCountPlugin />}
+      />
+    </Box>
   );
 };
 WithCustomPlugins.storyName = "With Custom Plugin";
+
+export const Mentions: Story = ({ ...args }) => {
+  const mentionsData: Mention[] = [
+    {
+      id: "1",
+      name: "Amanda Ball",
+    },
+    {
+      id: "2",
+      name: "Anaya Underwood",
+      initials: "AU",
+    },
+    {
+      id: "3",
+      name: "Alastair Cox",
+      initials: "AC",
+    },
+    {
+      id: "4",
+      name: "Anwar al-Awlaki",
+      src: "https://loremfaces.net/24/id/2.jpg",
+    },
+    {
+      id: "5",
+      name: "Angela Alabaster",
+      src: "https://loremfaces.net/24/id/1.jpg",
+    },
+    {
+      id: "6",
+      name: "Alfred Jones",
+      iconType: "accessibility_web",
+    },
+  ];
+
+  return (
+    <Box mx={2} my={0}>
+      <TextEditor
+        namespace="storybook-mentions"
+        labelText="Text Editor"
+        inputHint="Press '@' to mention someone"
+        onChange={action("onChange")}
+        customPlugins={[
+          <MentionsPlugin
+            namespace="storybook-mentions"
+            searchOptions={mentionsData}
+          />,
+        ]}
+        {...args}
+      />
+    </Box>
+  );
+};
+Mentions.storyName = "Mentions";
+Mentions.parameters = {
+  chromatic: { disableSnapshot: false },
+};
+Mentions.args = {
+  characterLimit: 1000,
+  error: "",
+  inputHint: "Type '@' to mention someone",
+  labelText: "Text Editor with Mentions support",
+  namespace: "storybook-mentions",
+  readOnly: false,
+  size: "medium",
+  warning: "",
+};
