@@ -136,7 +136,9 @@ test.describe("check styling for Note component", () => {
   });
 
   test("should render links with expected styling", async ({ mount, page }) => {
-    await mount(<NoteComponent text="https://carbon.sage.com" />);
+    const noteContent =
+      'Here is a link to <a href="https://carbon.sage.com">Carbon Design System</a>';
+    await mount(<NoteComponent text={noteContent} />);
 
     const link = page.getByRole("link");
 

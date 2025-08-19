@@ -138,11 +138,30 @@ interface Locale {
     characterCounter: (count: number | string) => string;
     characterLimit: (count: number) => string;
     contentEditorAria: () => string;
+    hyperlink: {
+      buttonAria: () => string;
+      cancelButton: () => string;
+      cancelButtonAria: () => string;
+      dialogTitle: () => string;
+      linkFieldLabel: () => string;
+      saveButton: () => string;
+      saveButtonAria: () => string;
+      textFieldLabel: () => string;
+    };
+    typography: {
+      selectAria: () => string;
+      paragraph: () => string;
+      title: () => string;
+      subtitle: () => string;
+      sectionHeader: () => string;
+      sectionSubheader: () => string;
+    };
     italicAria: () => string;
     orderedListAria: () => string;
     saveButton: () => string;
     saveButtonAria: () => string;
     toolbarAriaLabel: () => string;
+    underlineAria: () => string;
     unorderedListAria: () => string;
   };
   search: {
