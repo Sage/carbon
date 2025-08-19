@@ -1,22 +1,21 @@
-import styled, { css } from "styled-components";
-
+import styled from "styled-components";
 import { margin, MarginProps } from "styled-system";
-import addFocusStyling from "../../style/utils/add-focus-styling";
 
 type StyledTextEditorWrapperProps = MarginProps;
 
 interface StyledEditorToolbarWrapperProps {
-  focused?: boolean;
   error?: boolean;
 }
 
 export const StyledTextEditor = styled.div`
   position: relative;
+  box-sizing: border-box;
 `;
 
 export const StyledTextEditorWrapper = styled.div<StyledTextEditorWrapperProps>`
   margin-bottom: var(--fieldSpacing);
   ${margin}
+  min-width: 288px;
 `;
 
 export const StyledWrapper = styled.div`
@@ -25,8 +24,13 @@ export const StyledWrapper = styled.div`
   .textBold {
     font-weight: bold;
   }
+
   .textItalic {
     font-style: italic;
+  }
+
+  .textUnderline {
+    text-decoration: underline;
   }
 
   a:not([data-component="link-preview"]) {
@@ -49,18 +53,8 @@ export const StyledWrapper = styled.div`
 `;
 
 export const StyledEditorToolbarWrapper = styled.div<StyledEditorToolbarWrapperProps>`
-  ${({ focused, error }) => css`
-    border-radius: var(--borderRadius100);
-    outline: 1px solid var(--colorsUtilityMajor200);
-
-    ${error &&
-    css`
-      outline: none;
-      border: 2px solid var(--colorsSemanticNegative500);
-    `}
-
-    ${focused && addFocusStyling()}
-  `}
+  border-radius: var(--borderRadius100);
+  outline: 1px solid var(--colorsUtilityMajor200);
 `;
 
 export const StyledHeaderWrapper = styled.div`
