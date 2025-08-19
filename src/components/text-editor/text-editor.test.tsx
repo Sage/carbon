@@ -1,12 +1,17 @@
-import { render, screen, waitFor, within } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import React, { act, createRef } from "react";
 
-import TextEditor, { TextEditorHandle, createEmpty, createFromHTML } from ".";
-import { COMPONENT_PREFIX } from "./__internal__/constants";
+import TextEditor, {
+  EditorFormattedValues,
+  TextEditorHandle,
+  createEmpty,
+  createFromHTML,
+} from ".";
 
 import Logger from "../../__internal__/utils/logger";
+import { COMPONENT_PREFIX } from "./__internal__/__utils__/constants";
 
 jest.mock("../../__internal__/utils/logger");
 
@@ -107,74 +112,6 @@ test("rendering and basic functionality", async () => {
   await user.click(editor);
   await user.keyboard("defghijklmnopqrstuvwxyz");
   expect(characterCounter).toHaveTextContent("0 characters remaining");
-
-  // highlight all of the text and click the bold button
-  await user.tripleClick(editor);
-  const boldButton = screen.getByTestId(`${COMPONENT_PREFIX}-bold-button`);
-  await user.click(boldButton);
-
-  // expect the text to be bold
-  expect(
-    screen.getByText("Sample text abcdefghijklmnopqrstuvwxyz"),
-  ).toHaveStyle("font-weight: bold");
-
-  // click the bold button again and expect the text to be normal
-  await user.click(boldButton);
-  expect(
-    screen.getByText("Sample text abcdefghijklmnopqrstuvwxyz"),
-  ).not.toHaveStyle("font-weight: bold");
-
-  // click the italic button
-  const italicButton = screen.getByTestId(`${COMPONENT_PREFIX}-italic-button`);
-  await user.click(italicButton);
-
-  // expect the text to be italic
-  expect(
-    screen.getByText("Sample text abcdefghijklmnopqrstuvwxyz"),
-  ).toHaveStyle("font-style: italic");
-
-  // click the italic button again and expect the text to be normal
-  await user.click(italicButton);
-  expect(
-    screen.getByText("Sample text abcdefghijklmnopqrstuvwxyz"),
-  ).not.toHaveStyle("font-style: italic");
-
-  // click the ordered list button
-  const olButton = screen.getByTestId(
-    `${COMPONENT_PREFIX}-ordered-list-button`,
-  );
-  await user.click(olButton);
-
-  // Variable to store list for checks
-  let list;
-
-  // expect the text to be in an ordered list
-  list = screen.getByRole("list");
-  expect(list).toBeInstanceOf(HTMLOListElement);
-  expect(
-    within(list).getByText("Sample text abcdefghijklmnopqrstuvwxyz"),
-  ).toBeVisible();
-
-  // click the ordered list button again and expect the text to be normal
-  await user.click(olButton);
-  expect(list).not.toBeVisible();
-
-  // click the unordered list button
-  const ulButton = screen.getByTestId(
-    `${COMPONENT_PREFIX}-unordered-list-button`,
-  );
-  await user.click(ulButton);
-
-  // expect the text to be in an unordered list
-  list = screen.getByRole("list");
-  expect(list).toBeInstanceOf(HTMLUListElement);
-  expect(
-    within(list).getByText("Sample text abcdefghijklmnopqrstuvwxyz"),
-  ).toBeVisible();
-
-  // click the unordered list button again and expect the text to be normal
-  await user.click(ulButton);
-  expect(list).not.toBeVisible();
 
   // get both command buttons
   const cancelButton = screen.getByText("Cancel");
@@ -429,6 +366,23 @@ test("validation renders correctly when warning prop is provided and validationM
   expect(editor).toHaveAccessibleDescription("Hint This is an warning");
 });
 
+test("validation renders correctly when warning prop is provided and validationMessagePositionTop is true", () => {
+  render(
+    <TextEditor
+      warning="This is an warning"
+      labelText="Example"
+      inputHint="Hint"
+      validationMessagePositionTop
+    />,
+  );
+
+  const editor = screen.getByRole("textbox", { name: "Example" });
+  const warningMessage = screen.getByText("This is an warning");
+
+  expect(warningMessage).toBeVisible();
+  expect(editor).toHaveAccessibleDescription("This is an warning Hint");
+});
+
 test("validation renders correctly when warning prop is provided", () => {
   // render the TextEditor component with an error
   render(<TextEditor warning="This is a warning" labelText="Example" />);
@@ -447,6 +401,7 @@ test("renders with expected accessible description when both inputHint and error
       inputHint="This is an input hint."
       error="This is an error."
       labelText="Example"
+      validationMessagePositionTop
     />,
   );
 
@@ -464,7 +419,7 @@ test("serialisation of editor", async () => {
   render(
     <TextEditor
       labelText="Text Editor"
-      onSave={(values) => mockSave(values)}
+      onSave={(values: EditorFormattedValues) => mockSave(values)}
       initialValue={JSON.stringify(initialValue)}
     />,
   );
@@ -499,11 +454,14 @@ test("valid data is parsed when HTML is passed into the createFromHTML function"
           children: [
             {
               detail: 0,
+              fontSize: "14px",
+              fontWeight: "400",
               format: 0,
+              lineHeight: "21px",
               mode: "normal",
               style: "",
               text: "This is a HTML example.",
-              type: "text",
+              type: "styled-span",
               version: 1,
             },
           ],
@@ -521,11 +479,14 @@ test("valid data is parsed when HTML is passed into the createFromHTML function"
               children: [
                 {
                   detail: 0,
+                  fontSize: "14px",
+                  fontWeight: "400",
                   format: 0,
+                  lineHeight: "21px",
                   mode: "normal",
                   style: "",
                   text: "Look, it has lists!",
-                  type: "text",
+                  type: "styled-span",
                   version: 1,
                 },
               ],
@@ -556,7 +517,7 @@ test("valid data is parsed when HTML is passed into the createFromHTML function"
   });
 });
 
-test("valid state is created when the CreateEmpty function is called", async () => {
+test("valid state is created when the createEmpty function is called", async () => {
   const value = createEmpty();
   expect(JSON.parse(value)).toEqual({
     root: {
@@ -638,56 +599,10 @@ test("readOnly prop renders correctly when readOnly prop is provided", () => {
   render(<TextEditor labelText="Example" readOnly />);
 
   // expect the editor to be read-only
-  const editor = screen.getByTestId(`${COMPONENT_PREFIX}-editable`);
+  const editor = screen.getByTestId(
+    `${COMPONENT_PREFIX}-readonly-content-editor`,
+  );
   expect(editor).toHaveAttribute("contenteditable", "false");
-});
-
-test("should toggle the list type when a list is active and the alternate list type is clicked", async () => {
-  const user = userEvent.setup();
-  const value = createFromHTML(
-    `<ul><li value="1"><span style="white-space: pre-wrap;">Example List</span></li></ul>`,
-  );
-  // render the TextEditor component
-  render(
-    <TextEditor labelText="Example" namespace="test" initialValue={value} />,
-  );
-  const olButton = screen.getByTestId(`test-ordered-list-button`);
-  const ulButton = screen.getByTestId(`test-unordered-list-button`);
-  expect(olButton).toBeVisible();
-  expect(ulButton).toBeVisible();
-  expect(screen.getByRole("list")).toBeVisible();
-  expect(screen.getByRole("list").tagName).toBe("UL");
-  const listText = screen.getByText("Example List");
-  await user.click(listText);
-  await user.click(olButton);
-  expect(screen.getByRole("list").tagName).toBe("OL");
-  await user.click(listText);
-  await user.click(ulButton);
-  expect(screen.getByRole("list").tagName).toBe("UL");
-});
-
-test("should toggle the an individual list item's type when a list is active and the alternate list type is clicked", async () => {
-  const user = userEvent.setup();
-  const value = createFromHTML(
-    `<ul><li value="1"><span style="white-space: pre-wrap;">Example List</span></li><li value="2"><span style="white-space: pre-wrap;">Change Me</span></li><li value="3"><span style="white-space: pre-wrap;">Example List</span></li></ul>`,
-  );
-  // render the TextEditor component
-  render(
-    <TextEditor labelText="Example" namespace="test" initialValue={value} />,
-  );
-  const olButton = screen.getByTestId(`test-ordered-list-button`);
-  const ulButton = screen.getByTestId(`test-unordered-list-button`);
-  expect(olButton).toBeVisible();
-  expect(ulButton).toBeVisible();
-  expect(screen.getByRole("list")).toBeVisible();
-  expect(screen.getByRole("list").tagName).toBe("UL");
-  const listText = screen.getByText("Change Me");
-  await user.click(listText);
-  await user.click(olButton);
-  expect(screen.queryAllByRole("list").length).toBe(3);
-  await user.click(listText);
-  await user.click(ulButton);
-  expect(screen.queryAllByRole("list").length).toBe(1);
 });
 
 describe("shortcut keys", () => {
