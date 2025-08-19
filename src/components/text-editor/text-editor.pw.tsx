@@ -11,7 +11,7 @@ import TextEditorDefaultComponent, {
   TextEditorWithFooterOnSave,
   TextEditorWithFooterOnCancel,
 } from "./components.test-pw";
-import { EditorFormattedValues } from "./text-editor.component";
+import { EditorFormattedValues } from "./__internal__/__utils__/interfaces";
 
 const preformattedJSON = {
   root: {

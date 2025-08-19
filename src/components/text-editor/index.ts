@@ -1,7 +1,7 @@
 export { default } from "./text-editor.component";
-export { createEmpty, createFromHTML } from "./utils";
+export { createEmpty, createFromHTML } from "./__internal__/__utils__/helpers";
 export type {
   TextEditorHandle,
   TextEditorProps,
   EditorFormattedValues,
-} from "./text-editor.component";
+} from "./__internal__/__utils__/interfaces";

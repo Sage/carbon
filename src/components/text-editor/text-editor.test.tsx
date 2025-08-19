@@ -1,12 +1,13 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import React, { act, createRef } from "react";
 
 import TextEditor, { TextEditorHandle, createEmpty, createFromHTML } from ".";
-import { COMPONENT_PREFIX } from "./__internal__/constants";
 
 import Logger from "../../__internal__/utils/logger";
+import { COMPONENT_PREFIX } from "./__internal__/__utils__/constants";
 
 jest.mock("../../__internal__/utils/logger");
 
@@ -447,6 +448,7 @@ test("renders with expected accessible description when both inputHint and error
       inputHint="This is an input hint."
       error="This is an error."
       labelText="Example"
+      validationMessagePositionTop
     />,
   );
 
@@ -464,7 +466,7 @@ test("serialisation of editor", async () => {
   render(
     <TextEditor
       labelText="Text Editor"
-      onSave={(values) => mockSave(values)}
+      onSave={(values: any) => mockSave(values)}
       initialValue={JSON.stringify(initialValue)}
     />,
   );
@@ -499,11 +501,14 @@ test("valid data is parsed when HTML is passed into the createFromHTML function"
           children: [
             {
               detail: 0,
+              fontSize: "14px",
+              fontWeight: "400",
               format: 0,
+              lineHeight: "21px",
               mode: "normal",
               style: "",
               text: "This is a HTML example.",
-              type: "text",
+              type: "styled-span",
               version: 1,
             },
           ],
@@ -521,11 +526,14 @@ test("valid data is parsed when HTML is passed into the createFromHTML function"
               children: [
                 {
                   detail: 0,
+                  fontSize: "14px",
+                  fontWeight: "400",
                   format: 0,
+                  lineHeight: "21px",
                   mode: "normal",
                   style: "",
                   text: "Look, it has lists!",
-                  type: "text",
+                  type: "styled-span",
                   version: 1,
                 },
               ],
@@ -556,7 +564,7 @@ test("valid data is parsed when HTML is passed into the createFromHTML function"
   });
 });
 
-test("valid state is created when the CreateEmpty function is called", async () => {
+test("valid state is created when the createEmpty function is called", async () => {
   const value = createEmpty();
   expect(JSON.parse(value)).toEqual({
     root: {
@@ -638,7 +646,9 @@ test("readOnly prop renders correctly when readOnly prop is provided", () => {
   render(<TextEditor labelText="Example" readOnly />);
 
   // expect the editor to be read-only
-  const editor = screen.getByTestId(`${COMPONENT_PREFIX}-editable`);
+  const editor = screen.getByTestId(
+    `${COMPONENT_PREFIX}-readonly-content-editor`,
+  );
   expect(editor).toHaveAttribute("contenteditable", "false");
 });
 
