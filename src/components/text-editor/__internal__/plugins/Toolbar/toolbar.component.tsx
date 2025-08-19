@@ -9,18 +9,22 @@ import React, {
   useState,
 } from "react";
 
-import {
-  StyledToolbar,
-  FormattingButtons,
-  CommandButtons,
-} from "./toolbar.style";
+import { StyledToolbar, CommandButtons } from "./toolbar.style";
 import { TextEditorActionTypes } from "../../constants";
 import Button from "../../../../button";
 import useLocale from "../../../../../hooks/__internal__/useLocale";
 
-import { BoldButton, ItalicButton, ListControls } from "./buttons";
+import {
+  BoldButton,
+  HyperlinkButton,
+  ItalicButton,
+  ListControls,
+  TypographyOptionsDropdown,
+  UnderlineButton,
+} from "./buttons";
 
 import SaveButton, { EditorFormattedValues } from "./buttons/save.component";
+import ButtonGroup from "./button-group/button-group";
 
 interface ToolbarProps {
   /** The namespace of the editor that this toolbar belongs to */
@@ -31,9 +35,17 @@ interface ToolbarProps {
   onCancel?: (editor: LexicalEditor) => void;
   /** The callback to call when the save button is clicked */
   onSave?: (value: EditorFormattedValues) => void;
+  /** The size of the toolbar */
+  size?: "small" | "medium" | "large";
 }
 
-const Toolbar = ({ namespace, hasHeader, onCancel, onSave }: ToolbarProps) => {
+const Toolbar = ({
+  namespace,
+  hasHeader,
+  onCancel,
+  onSave,
+  size = "medium",
+}: ToolbarProps) => {
   // Get the editor instance
   const [editor] = useLexicalComposerContext();
 
@@ -42,6 +54,7 @@ const Toolbar = ({ namespace, hasHeader, onCancel, onSave }: ToolbarProps) => {
   // Set the initial state of the formatting buttons
   const [isBold, setIsBold] = useState(false);
   const [isItalic, setIsItalic] = useState(false);
+  const [isUnderline, setIsUnderline] = useState(false);
   const [buttons, setButtons] = useState<HTMLButtonElement[]>([]);
 
   // If the UI updates, re-fetch the formatting buttons
@@ -63,6 +76,7 @@ const Toolbar = ({ namespace, hasHeader, onCancel, onSave }: ToolbarProps) => {
     if ($isRangeSelection(selection)) {
       setIsBold(selection.hasFormat(TextEditorActionTypes.Bold));
       setIsItalic(selection.hasFormat(TextEditorActionTypes.Italic));
+      setIsUnderline(selection.hasFormat(TextEditorActionTypes.Underline));
     }
   }, []);
 
@@ -114,12 +128,39 @@ const Toolbar = ({ namespace, hasHeader, onCancel, onSave }: ToolbarProps) => {
       data-role={`${namespace}-toolbar`}
       id={`${namespace}-toolbar`}
       ref={toolbarRef}
+      size={size}
     >
-      <FormattingButtons data-role={`${namespace}-formatting-buttons`}>
+      <ButtonGroup
+        name={`${namespace}-typography-formatting-buttons`}
+        namespace={namespace}
+      >
+        <TypographyOptionsDropdown namespace={namespace} />
+      </ButtonGroup>
+
+      <ButtonGroup
+        name={`${namespace}-text-formatting-buttons`}
+        namespace={namespace}
+      >
         <BoldButton isActive={isBold} namespace={namespace} />
         <ItalicButton isActive={isItalic} namespace={namespace} />
+        <UnderlineButton isActive={isUnderline} namespace={namespace} />
+      </ButtonGroup>
+
+      <ButtonGroup
+        name={`${namespace}-list-formatting-buttons`}
+        namespace={namespace}
+      >
         <ListControls namespace={namespace} />
-      </FormattingButtons>
+      </ButtonGroup>
+
+      <ButtonGroup
+        name={`${namespace}-hyperlink-formatting-buttons`}
+        namespace={namespace}
+        showDivider={false}
+      >
+        <HyperlinkButton namespace={namespace} />
+      </ButtonGroup>
+
       <CommandButtons data-role={`${namespace}-command-buttons`}>
         {onCancel && (
           <Button

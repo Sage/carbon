@@ -4,6 +4,9 @@ import { ListNode, ListItemNode, ListType } from "@lexical/list";
 import { HorizontalRuleNode } from "@lexical/react/LexicalHorizontalRuleNode";
 import { HeadingNode, QuoteNode } from "@lexical/rich-text";
 
+import { StyledSpanNode } from "./plugins/Toolbar/custom-nodes/styled-span-node";
+import MentionNode from "./mentions/node/node";
+
 import { EditorThemeClasses, TextFormatType } from "lexical";
 
 /** The default prefix applied to the editor's internal class names, IDs, etc. */
@@ -14,6 +17,7 @@ const theme: EditorThemeClasses = {
   text: {
     bold: "textBold",
     italic: "textItalic",
+    underline: "textUnderline",
   },
 };
 
@@ -21,6 +25,7 @@ const theme: EditorThemeClasses = {
 const TextEditorActionTypes = {
   Bold: "bold" as TextFormatType,
   Italic: "italic" as TextFormatType,
+  Underline: "underline" as TextFormatType,
   OrderedList: "number" as ListType,
   UnorderedList: "bullet" as ListType,
 };
@@ -35,6 +40,8 @@ const markdownNodes = [
   HeadingNode,
   QuoteNode,
   HorizontalRuleNode,
+  StyledSpanNode,
+  MentionNode,
 ];
 
 export { COMPONENT_PREFIX, markdownNodes, TextEditorActionTypes, theme };

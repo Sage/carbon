@@ -5,6 +5,9 @@ import {
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
+import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin";
+import { ClickableLinkPlugin } from "@lexical/react/LexicalClickableLinkPlugin";
+import { validateUrl } from "./helpers";
 
 import React, { useMemo } from "react";
 
@@ -12,6 +15,8 @@ import { TextEditorProps } from "../text-editor.component";
 import { createFromHTML } from "../utils";
 import { markdownNodes, theme } from "./constants";
 import Logger from "../../../__internal__/utils/logger";
+import StyledContentEditable from "./plugins/ContentEditor/content-editor.style";
+import { AutoLinkerPlugin } from "./plugins";
 
 const wrapLinksInAnchors = (value: string) => {
   const urlRegex = /((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/g;
@@ -45,8 +50,9 @@ const determineFormat = (value: string | undefined) => {
 };
 
 const ReadOnlyEditor = ({
-  namespace = "carbon-rte-readonly",
   initialValue,
+  namespace = "carbon-rte-readonly",
+  size = "medium",
 }: Partial<TextEditorProps>) => {
   const initialConfig = useMemo<InitialConfigType>(() => {
     return {
@@ -60,19 +66,24 @@ const ReadOnlyEditor = ({
   }, [namespace, initialValue]);
 
   return (
-    <LexicalComposer initialConfig={initialConfig}>
-      <RichTextPlugin
-        contentEditable={
-          <ContentEditable
-            data-role={`${namespace}-content-editor`}
-            /** The following are automatically added by Lexical but violate WCAG 4.1.2 Name, Role, Value and so have been overriden */
-            aria-autocomplete={undefined}
-            aria-readonly={undefined}
-          />
-        }
-        ErrorBoundary={LexicalErrorBoundary}
-      />
-    </LexicalComposer>
+    <StyledContentEditable namespace={namespace} readOnly size={size}>
+      <LexicalComposer initialConfig={initialConfig}>
+        <RichTextPlugin
+          contentEditable={
+            <ContentEditable
+              data-role={`${namespace}-content-editor`}
+              /** The following are automatically added by Lexical but violate WCAG 4.1.2 Name, Role, Value and so have been overriden */
+              aria-autocomplete={undefined}
+              aria-readonly={undefined}
+            />
+          }
+          ErrorBoundary={LexicalErrorBoundary}
+        />
+        <LinkPlugin validateUrl={validateUrl} />
+        <ClickableLinkPlugin newTab />
+        <AutoLinkerPlugin />
+      </LexicalComposer>
+    </StyledContentEditable>
   );
 };
 

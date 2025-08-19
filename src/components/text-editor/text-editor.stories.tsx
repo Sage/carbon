@@ -41,10 +41,27 @@ const meta: Meta<typeof TextEditor> = {
 export default meta;
 type Story = StoryObj<typeof TextEditor>;
 
-export const Default: Story = () => {
-  return <TextEditor namespace="storybook-default" labelText="Text Editor" />;
+export const Default: Story = ({ ...args }) => {
+  return (
+    <TextEditor
+      namespace="storybook-default"
+      labelText="Text Editor"
+      {...args}
+    />
+  );
 };
 Default.storyName = "Default";
+Default.argTypes = {
+  size: {
+    options: ["small", "medium", "large"],
+    control: {
+      type: "select",
+    },
+  },
+};
+Default.args = {
+  size: "medium",
+};
 
 export const ProgrammaticFocus = () => {
   const editorRef = useRef<TextEditorHandle>(null);
@@ -552,6 +569,25 @@ export const WithCustomTranslations: Story = () => {
           saveButtonAria: () => "Save the current content",
           toolbarAriaLabel: () => "Formatting",
           unorderedListAria: () => "Unordered list",
+          underlineAria: () => "Underline text",
+          hyperlink: {
+            buttonAria: () => "Hyperlink",
+            cancelButton: () => "Cancel",
+            cancelButtonAria: () => "Cancel",
+            dialogTitle: () => "Add link",
+            linkFieldLabel: () => "Link",
+            saveButton: () => "Save",
+            saveButtonAria: () => "Save",
+            textFieldLabel: () => "Text",
+          },
+          typography: {
+            selectAria: () => "Heading type",
+            paragraph: () => "Paragraph",
+            title: () => "Title",
+            subtitle: () => "Subtitle",
+            sectionHeader: () => "Section header",
+            sectionSubheader: () => "Section subheader",
+          },
         },
       }}
     >

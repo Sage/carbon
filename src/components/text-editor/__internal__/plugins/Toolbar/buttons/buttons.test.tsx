@@ -9,7 +9,13 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
 
-import { BoldButton, ItalicButton, ListControls, SaveButton } from ".";
+import {
+  BoldButton,
+  ItalicButton,
+  ListControls,
+  SaveButton,
+  UnderlineButton,
+} from ".";
 
 const mockedSerializeRespone = {
   htmlString: "<p><br></p>",
@@ -101,7 +107,7 @@ describe("Toolbar buttons", () => {
       expect(italicButton).toHaveStyleRule("background-color", "transparent");
     });
 
-    it("should render the bold button correctly if active", () => {
+    it("should render the italic button correctly if active", () => {
       render(
         <LexicalComposer
           initialConfig={{
@@ -122,6 +128,60 @@ describe("Toolbar buttons", () => {
       const italicButton = screen.getByRole("button");
       expect(italicButton).toBeInTheDocument();
       expect(italicButton).toHaveStyleRule(
+        "background-color",
+        "var(--colorsActionMajor600)",
+      );
+    });
+  });
+
+  describe("Underline button", () => {
+    it("should render the underline button correctly if inactive", () => {
+      render(
+        <LexicalComposer
+          initialConfig={{
+            nodes: [],
+            onError: () => {},
+            namespace: "test",
+          }}
+        >
+          <RichTextPlugin
+            contentEditable={
+              <div role="textbox" contentEditable aria-label="test" />
+            }
+            ErrorBoundary={LexicalErrorBoundary}
+          />
+          <UnderlineButton isActive={false} namespace="test" />
+        </LexicalComposer>,
+      );
+      const underlineButton = screen.getByRole("button");
+      expect(underlineButton).toBeInTheDocument();
+      expect(underlineButton).toHaveStyleRule(
+        "background-color",
+        "transparent",
+      );
+    });
+
+    it("should render the underline button correctly if active", () => {
+      render(
+        <LexicalComposer
+          initialConfig={{
+            nodes: [],
+            onError: () => {},
+            namespace: "test",
+          }}
+        >
+          <RichTextPlugin
+            contentEditable={
+              <div role="textbox" contentEditable aria-label="test" />
+            }
+            ErrorBoundary={LexicalErrorBoundary}
+          />
+          <UnderlineButton isActive namespace="test" />
+        </LexicalComposer>,
+      );
+      const underlineButton = screen.getByRole("button");
+      expect(underlineButton).toBeInTheDocument();
+      expect(underlineButton).toHaveStyleRule(
         "background-color",
         "var(--colorsActionMajor600)",
       );

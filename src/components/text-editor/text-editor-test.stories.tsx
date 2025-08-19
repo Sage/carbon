@@ -11,6 +11,7 @@ import Textbox from "../textbox";
 import useDebounce from "../../hooks/__internal__/useDebounce";
 import ReadOnlyEditor from "./__internal__";
 import createGuid from "../../__internal__/utils/helpers/guid";
+import { MentionsPlugin } from "./__internal__/mentions";
 
 const meta: Meta<typeof TextEditor> = {
   title: "Text Editor/Test",
@@ -237,4 +238,101 @@ export const ExternalOverwrite: Story = () => {
 ExternalOverwrite.storyName = "Externally overwrite editor content";
 ExternalOverwrite.parameters = {
   chromatic: { disableSnapshot: true },
+};
+
+export const Mentions: Story = ({ ...args }) => {
+  const mentionsCache = new Map();
+  const [queryString, setQueryString] = useState<string | null>(null);
+
+  const dummyMentionsData = [
+    "Damien Robson",
+    "Daniel Dipper",
+    "Darius Bercea",
+    "Debra Toranska",
+    "Divya Jindel",
+    "Ed Leeks",
+    "James Parslow",
+    "Mihai Albu",
+    "Nick Titchmarsh",
+    "Nuria Torres Ramon",
+    "Paul Robinson",
+    "Robin Zigmond",
+    "Sian Ford",
+    "Stephen O'Gorman",
+    "Tom Davies",
+    "Will Seabrook",
+  ];
+
+  const dummyLookupService = {
+    search(string: string, callback: (results: Array<string>) => void): void {
+      setTimeout(() => {
+        const results = dummyMentionsData.filter((mention) =>
+          mention.toLowerCase().includes(string.toLowerCase()),
+        );
+        callback(results);
+      }, 500);
+    },
+  };
+
+  function useMentionLookupService(mentionString: string | null) {
+    const [results, setResults] = useState<Array<string>>([]);
+
+    useEffect(() => {
+      const cachedResults = mentionsCache.get(mentionString);
+
+      if (mentionString == null) {
+        setResults([]);
+        return;
+      }
+
+      if (cachedResults === null) {
+        return;
+      }
+      if (cachedResults !== undefined) {
+        setResults(cachedResults);
+        return;
+      }
+
+      mentionsCache.set(mentionString, null);
+      dummyLookupService.search(mentionString, (newResults) => {
+        mentionsCache.set(mentionString, newResults);
+        setResults(newResults);
+      });
+    }, [mentionString]);
+
+    return results;
+  }
+
+  const results = useMentionLookupService(queryString);
+
+  return (
+    <>
+      <TextEditor
+        namespace="storybook-mentions"
+        labelText="Text Editor"
+        initialValue={`
+          { "root": { "children": [ { "children": [ { "detail": 0, "format": 0, "mode": "normal", "style": "", "text": "Title", "type": "styled-span", "version": 1, "fontWeight": "700", "fontSize": "30px", "lineHeight": "37.5px" } ], "direction": "ltr", "format": "", "indent": 0, "type": "paragraph", "version": 1, "textFormat": 0, "textStyle": "" }, { "children": [ { "detail": 0, "format": 0, "mode": "normal", "style": "", "text": "Some body content, what I have wrote.", "type": "styled-span", "version": 1, "fontWeight": "400", "fontSize": "14px", "lineHeight": "14px" } ], "direction": "ltr", "format": "", "indent": 0, "type": "paragraph", "version": 1, "textFormat": 0, "textStyle": "" } ], "direction": "ltr", "format": "", "indent": 0, "type": "root", "version": 1 } }
+          `}
+        inputHint="Hint text"
+        customPlugins={[
+          <MentionsPlugin results={results} setQueryString={setQueryString} />,
+        ]}
+        {...args}
+      />
+    </>
+  );
+};
+Mentions.storyName = "Mentions";
+Mentions.parameters = {
+  chromatic: { disableSnapshot: false },
+};
+Mentions.args = {
+  characterLimit: 1000,
+  error: "",
+  inputHint: "Type '@' to mention someone",
+  labelText: "Text Editor with Mentions support",
+  namespace: "storybook-mentions",
+  readOnly: false,
+  size: "medium",
+  warning: "",
 };

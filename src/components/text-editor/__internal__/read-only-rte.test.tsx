@@ -13,7 +13,9 @@ test("should wrap plain-text links with anchors in the editor", () => {
   render(
     <ReadOnlyEditor initialValue="Hello, World! www.bbc.co.uk http://www.google.com https://www.sage.com" />,
   );
-  expect(screen.getByText("Hello, World!")).toBeInTheDocument();
+  expect(
+    screen.getByText("Hello, World!", { exact: false }),
+  ).toBeInTheDocument();
   expect(
     screen.getByRole("link", { name: "www.bbc.co.uk" }),
   ).toBeInTheDocument();

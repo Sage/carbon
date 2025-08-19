@@ -480,6 +480,7 @@ test("renders with expected accessible description when both inputHint and error
       inputHint="This is an input hint."
       error="This is an error."
       labelText="Example"
+      validationMessagePositionTop
     />,
   );
 
@@ -532,11 +533,14 @@ test("valid data is parsed when HTML is passed into the createFromHTML function"
           children: [
             {
               detail: 0,
+              fontSize: "21px",
+              fontWeight: "400",
               format: 0,
+              lineHeight: "14px",
               mode: "normal",
               style: "",
               text: "This is a HTML example.",
-              type: "text",
+              type: "styled-span",
               version: 1,
             },
           ],
@@ -554,11 +558,14 @@ test("valid data is parsed when HTML is passed into the createFromHTML function"
               children: [
                 {
                   detail: 0,
+                  fontSize: "21px",
+                  fontWeight: "400",
                   format: 0,
+                  lineHeight: "14px",
                   mode: "normal",
                   style: "",
                   text: "Look, it has lists!",
-                  type: "text",
+                  type: "styled-span",
                   version: 1,
                 },
               ],

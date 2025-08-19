@@ -10,6 +10,8 @@ import { LinkPreviewerPlugin, useCursorAtEnd } from "..";
 export interface ContentEditorProps {
   /** A hint string rendered before the editor but after the label. Intended to describe the purpose or content of the input. */
   inputHint?: string;
+  /** Whether the content editor has focused */
+  isFocused?: boolean;
   /** The namespace of the editor that this content editor belongs to */
   namespace: string;
   /** The link previews to render at the foot of the editor */
@@ -26,12 +28,16 @@ export interface ContentEditorProps {
   warning?: boolean;
   /** Render the ValidationMessage above the Editor */
   validationMessagePositionTop?: boolean;
+
+  /** The size of the content editor */
+  size?: "small" | "medium" | "large";
 }
 
 const ContentEditor = forwardRef<HTMLDivElement, ContentEditorProps>(
   (
     {
       inputHint,
+      isFocused,
       namespace,
       previews = [],
       rows,
@@ -40,6 +46,7 @@ const ContentEditor = forwardRef<HTMLDivElement, ContentEditorProps>(
       error,
       warning,
       validationMessagePositionTop,
+      size = "medium",
     },
     ref,
   ) => {
@@ -56,9 +63,11 @@ const ContentEditor = forwardRef<HTMLDivElement, ContentEditorProps>(
     return (
       <StyledContentEditable
         data-role={`${namespace}-content-editable`}
+        isFocused={isFocused}
         namespace={namespace}
         rows={rows}
         readOnly={readOnly}
+        size={size}
       >
         <ContentEditable
           ref={ref}

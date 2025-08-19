@@ -7,28 +7,38 @@ interface FormattingButtonProps extends ButtonProps {
   isActive?: boolean;
 }
 
-const StyledToolbar = styled.div<{ hasHeader?: boolean }>`
+export const getPaddingForSize = (size: "small" | "medium" | "large") => {
+  switch (size) {
+    case "small":
+      return "8px";
+    case "medium":
+      return "12px";
+    case "large":
+      return "16px";
+    default:
+      return "12px"; // Default to medium if size is not recognized
+  }
+};
+
+const StyledToolbar = styled.div<{
+  hasHeader?: boolean;
+  size?: "small" | "medium" | "large";
+}>`
   display: flex;
   flex-direction: row;
   gap: 8px;
   background-color: var(--colorsActionMajorYang100);
-  padding: 12px;
+  padding: ${(props) => getPaddingForSize(props.size || "medium")};
   border-top-left-radius: ${({ hasHeader }) =>
     hasHeader ? "0" : "var(--borderRadius100)"};
   border-top-right-radius: ${({ hasHeader }) =>
     hasHeader ? "0" : "var(--borderRadius100)"};
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
-  justify-content: space-between;
   align-items: center;
   margin-left: 1px;
   margin-right: 1px;
-`;
-
-const FormattingButtons = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 8px;
+  flex-wrap: wrap;
 `;
 
 const CommandButtons = styled.div`
@@ -67,4 +77,4 @@ const FormattingButton = styled(Button)<FormattingButtonProps>`
   }
 `;
 
-export { StyledToolbar, FormattingButtons, CommandButtons, FormattingButton };
+export { StyledToolbar, CommandButtons, FormattingButton };

@@ -56,6 +56,7 @@ import ValidationMessage from "../../__internal__/validation-message";
 import ErrorBorder from "../textbox/textbox.style";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
+import ReadOnlyEditor from "./__internal__";
 
 export interface TextEditorHandle {
   /** Programmatically focus on the text editor. */
@@ -86,7 +87,10 @@ export interface TextEditorProps extends MarginProps, TagProps {
   namespace?: string;
   /** Callback that is triggered when the editor loses focus. */
   onBlur?: (ev: React.FocusEvent<HTMLElement>) => void;
-  /** Callback that is triggered when the editor's cancel button is activated. The cancel button is rendered when this function is provided.  */
+  /**
+   * [Legacy] Callback that is triggered when the editor's cancel button is activated. The cancel button is rendered when this function is provided.
+   * @deprecated Please ensure that `TextEditor` is used as a part of a `Form` component, which will handle the cancel functionality.
+   */
   onCancel?: () => void;
   /** Callback that is triggered when the editor's text content is modified or styled. */
   onChange?: (value: string, formattedValues: EditorFormattedValues) => void;
@@ -94,7 +98,10 @@ export interface TextEditorProps extends MarginProps, TagProps {
   onFocus?: (ev: React.FocusEvent<HTMLElement>) => void;
   /** Callback that is triggered when a link is added in the editor's content. */
   onLinkAdded?: (link: string, state: string) => void;
-  /** Callback that is triggered when the editor's save button is activated. The save button is rendered when this function is provided. */
+  /**
+   * [Legacy] Callback that is triggered when the editor's save button is activated. The save button is rendered when this function is provided.
+   * @deprecated Please ensure that `TextEditor` is used as a part of a `Form` component, which will handle the save functionality.
+   */
   onSave?: (value: SaveCallbackProps) => void;
   /** The placeholder to display when the editor is empty */
   placeholder?: string;
@@ -106,6 +113,8 @@ export interface TextEditorProps extends MarginProps, TagProps {
   required?: boolean;
   /** Number greater than 2 multiplied to override the default min-height of the editor */
   rows?: number;
+  /** The size of the toolbar */
+  size?: "small" | "medium" | "large";
   /** The message to be shown when the editor is in an warning state */
   warning?: string;
   /**
@@ -125,6 +134,8 @@ export interface TextEditorProps extends MarginProps, TagProps {
 }
 
 let deprecateValueTriggered = false;
+let deprecateOnCancelWarnTriggered = false;
+let deprecateOnSaveWarnTriggered = false;
 let deprecateOptionalWarnTriggered = false;
 
 export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
@@ -149,9 +160,10 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
       readOnly = false,
       required = false,
       rows,
+      size = "medium",
       warning,
       customPlugins,
-      validationMessagePositionTop = true,
+      validationMessagePositionTop = false,
       ...rest
     },
     ref,
@@ -166,6 +178,18 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
       deprecateValueTriggered = true;
       Logger.deprecate(
         "`value` is deprecated in TextEditor and support will soon be removed. Please use `initialValue` instead.",
+      );
+    }
+    if (!deprecateOnCancelWarnTriggered && onCancel) {
+      deprecateOnCancelWarnTriggered = true;
+      Logger.deprecate(
+        "`onCancel` is deprecated in TextEditor and support will soon be removed. Please ensure that `TextEditor` is used as a part of a `Form` component, which will handle the cancel functionality.",
+      );
+    }
+    if (!deprecateOnSaveWarnTriggered && onSave) {
+      deprecateOnSaveWarnTriggered = true;
+      Logger.deprecate(
+        "`onSave` is deprecated in TextEditor and support will soon be removed. Please ensure that `TextEditor` is used as a part of a `Form` component, which will handle the save functionality.",
       );
     }
 
@@ -306,7 +330,7 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
             {labelText}
           </Label>
 
-          {inputHint && (
+          {inputHint && !readOnly && (
             <HintText
               id={`${namespace}-input-hint`}
               marginBottom="var(--spacing100)"
@@ -333,8 +357,6 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
               <StyledEditorToolbarWrapper
                 data-role={`${namespace}-editor-toolbar-wrapper`}
                 id={`${namespace}-editor-toolbar-wrapper`}
-                focused={isFocused}
-                error={!!error}
               >
                 {header && (
                   <StyledHeaderWrapper
@@ -343,48 +365,65 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
                     {header}
                   </StyledHeaderWrapper>
                 )}
-                {!readOnly && (
-                  <ToolbarPlugin
-                    hasHeader={Boolean(header)}
-                    {...toolbarProps}
+                {!readOnly ? (
+                  <>
+                    <ToolbarPlugin
+                      hasHeader={Boolean(header)}
+                      size={size}
+                      {...toolbarProps}
+                    />
+
+                    <StyledTextEditor
+                      data-role={`${namespace}-editor`}
+                      error={!!error}
+                    >
+                      <RichTextPlugin
+                        contentEditable={
+                          <ContentEditor
+                            ref={contentEditorRef}
+                            inputHint={inputHint}
+                            isFocused={isFocused}
+                            namespace={namespace}
+                            previews={previews}
+                            rows={rows}
+                            readOnly={readOnly}
+                            required={required}
+                            error={!!error}
+                            warning={!!warning || !!characterLimitWarning}
+                            validationMessagePositionTop={
+                              validationMessagePositionTop
+                            }
+                            size={size}
+                          />
+                        }
+                        placeholder={
+                          <Placeholder
+                            namespace={namespace}
+                            text={placeholder}
+                          />
+                        }
+                        ErrorBoundary={LexicalErrorBoundary}
+                      />
+                      <ListPlugin />
+                      <HistoryPlugin />
+                      <MarkdownShortcutPlugin />
+                      <OnChangePlugin
+                        onChange={handleChange}
+                        ignoreHistoryMergeTagChange
+                        ignoreSelectionChange
+                      />
+                      <LinkPlugin validateUrl={validateUrl} />
+                      <ClickableLinkPlugin newTab />
+                      <AutoLinkerPlugin />
+                      {customPlugins}
+                    </StyledTextEditor>
+                  </>
+                ) : (
+                  <ReadOnlyEditor
+                    initialValue={initialValue.current}
+                    size={size}
                   />
                 )}
-                <StyledTextEditor data-role={`${namespace}-editor`}>
-                  <RichTextPlugin
-                    contentEditable={
-                      <ContentEditor
-                        ref={contentEditorRef}
-                        inputHint={inputHint}
-                        namespace={namespace}
-                        previews={previews}
-                        rows={rows}
-                        readOnly={readOnly}
-                        required={required}
-                        error={!!error}
-                        warning={!!warning || !!characterLimitWarning}
-                        validationMessagePositionTop={
-                          validationMessagePositionTop
-                        }
-                      />
-                    }
-                    placeholder={
-                      <Placeholder namespace={namespace} text={placeholder} />
-                    }
-                    ErrorBoundary={LexicalErrorBoundary}
-                  />
-                  <ListPlugin />
-                  <HistoryPlugin />
-                  <MarkdownShortcutPlugin />
-                  <OnChangePlugin
-                    onChange={handleChange}
-                    ignoreHistoryMergeTagChange
-                    ignoreSelectionChange
-                  />
-                  <LinkPlugin validateUrl={validateUrl} />
-                  <ClickableLinkPlugin newTab />
-                  <AutoLinkerPlugin />
-                  {customPlugins}
-                </StyledTextEditor>
                 {footer && (
                   <StyledFooterWrapper
                     data-role={`${namespace}-footer-wrapper`}
