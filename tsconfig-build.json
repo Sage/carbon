@@ -6,7 +6,9 @@
     "rootDir": "src/",
     "emitDeclarationOnly": true
   },
-  "include": ["src"],
+  "include": [
+    "src"
+  ],
   "exclude": [
     "./src/__spec_helper__/__internal__/",
     "**/__spec__/*",
@@ -15,6 +17,6 @@
     "**/*.test.*",
     "**/*.stories.*",
     "**/*.pw.ts*",
-    "**/*.test-pw.ts*"
+    "**/*.test-pw.ts*",
   ]
 }

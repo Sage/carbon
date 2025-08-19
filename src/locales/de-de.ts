@@ -171,6 +171,28 @@ const deDE: Partial<Locale> = {
     saveButtonAria: () => "Speichern",
     toolbarAriaLabel: () => "Formatierung",
     unorderedListAria: () => "Unsortierte Liste",
+    underlineAria: () => "Underline",
+    hyperlink: {
+      buttonAria: () => "Hyperlink",
+      cancelButton: () => "Cancel",
+      cancelButtonAria: () => "Cancel",
+      dialogTitle: () => "Add link",
+      linkFieldLabel: () => "Link",
+      saveButton: () => "Save",
+      saveButtonAria: () => "Save",
+      textFieldLabel: () => "Text",
+    },
+    typography: {
+      selectAria: () => "Heading type",
+      paragraph: () => "Paragraph",
+      title: () => "Title",
+      subtitle: () => "Subtitle",
+      sectionHeader: () => "Section header",
+      sectionSubheader: () => "Section subheader",
+    },
+    mentions: {
+      listAriaLabel: () => "List of mentionable people",
+    },
   },
   search: {
     searchButtonText: () => "Suchen",
