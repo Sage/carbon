@@ -197,7 +197,7 @@ const misc = {
   stacked_squares: "\\e983",
   expand: "\\e99b",
   flag: "\\e999",
-  square_dot: "\\e99a",
+  placeholder: "\\e99a",
   envelope_dollar: "\\e9ab",
   envelope_euro: "\\e9a9",
   sage_coin: "\\e9ac",
@@ -280,6 +280,11 @@ const misc = {
   volume_high: "\\f087",
   volume_low: "\\f085",
   volume_medium: "\\f086",
+  hierarchy: "\\f088",
+  underline: "\\f089",
+  chevron_first: "\\f090",
+  chevron_last: "\\f091",
+  drag_hover: "\\f092",
 };
 
 const legacyNames = {
