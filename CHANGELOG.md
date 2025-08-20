@@ -1,3 +1,33 @@
+## [155.11.0](https://github.com/Sage/carbon/compare/v155.10.0...v155.11.0) (2025-08-14)
+
+### Features
+
+* **text-editor:** introduce `initialValue` prop ([7bca259](https://github.com/Sage/carbon/commit/7bca259727113f190cddb91a9879040ea1ad6a10))
+* **text-editor:** prevent changes to `value` prop from overwriting the editor's internal state ([b6aecad](https://github.com/Sage/carbon/commit/b6aecadc2cd655ca4374b4ca891947586388dbdb))
+
+### Bug Fixes
+
+* **text-editor:** ensure onChange is fired only when text content or text styling changes ([1457815](https://github.com/Sage/carbon/commit/145781528a1314bb9bcc649341745416e51334d6))
+
+## [155.10.0](https://github.com/Sage/carbon/compare/v155.9.1...v155.10.0) (2025-08-11)
+
+### Features
+
+* **link:** add subtle variant ([f4256d5](https://github.com/Sage/carbon/commit/f4256d56290784d6d0248507c036531bd005b3cf))
+* **link:** add underline prop ([5bb4aa9](https://github.com/Sage/carbon/commit/5bb4aa99a086348886de0793e5766483925face9))
+
+## [155.9.1](https://github.com/Sage/carbon/compare/v155.9.0...v155.9.1) (2025-08-08)
+
+### Bug Fixes
+
+* **profile:** allow extra long email addresses to wrap ([9f0f450](https://github.com/Sage/carbon/commit/9f0f4507fcf24fae3c1d0de3c5a78a6118ece9e5))
+
+## [155.9.0](https://github.com/Sage/carbon/compare/v155.8.0...v155.9.0) (2025-08-08)
+
+### Features
+
+* **adaptive-sidebar:** allow the AdaptiveSidebar to be hidden from view whilst remaining in the DOM ([8a4b790](https://github.com/Sage/carbon/commit/8a4b79002eac549dbd1379d627c52eeb3aa53546))
+
 ## [155.8.0](https://github.com/Sage/carbon/compare/v155.7.1...v155.8.0) (2025-08-06)
 
 ### Features
