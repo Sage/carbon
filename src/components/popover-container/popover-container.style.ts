@@ -26,11 +26,23 @@ const PopoverContainerWrapperStyle = styled.div<PopoverContainerWrapperProps>`
     `}
 `;
 
+const PopoverContainerTitleStyle = styled.div`
+  font-size: 16px;
+  font-weight: 500;
+`;
+
 const PopoverContainerHeaderStyle = styled.div`
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 8px;
   max-width: 280px;
+
+  &:has(${PopoverContainerTitleStyle}) {
+    margin-bottom: 8px;
+    justify-content: space-between;
+  }
+
+  &:not(:has(${PopoverContainerTitleStyle})) {
+    justify-content: end;
+  }
 `;
 
 type PopoverContainerContentStyleProps = {
@@ -128,11 +140,6 @@ const PopoverContainerCloseIcon = styled(IconButton)<AdditionalIconButtonProps>`
   ${StyledIcon} {
     color: var(--colorsActionMinor500);
   }
-`;
-
-const PopoverContainerTitleStyle = styled.div`
-  font-size: 16px;
-  font-weight: 500;
 `;
 
 export {

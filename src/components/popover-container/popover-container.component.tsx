@@ -394,12 +394,14 @@ export const PopoverContainer = forwardRef<
         {...filterStyledSystemPaddingProps(rest)}
       >
         <PopoverContainerHeaderStyle>
-          <PopoverContainerTitleStyle
-            id={popoverContainerId}
-            data-element="popover-container-title"
-          >
-            {title}
-          </PopoverContainerTitleStyle>
+          {title && (
+            <PopoverContainerTitleStyle
+              id={popoverContainerId}
+              data-element="popover-container-title"
+            >
+              {title}
+            </PopoverContainerTitleStyle>
+          )}
           {renderCloseComponent(renderCloseComponentProps)}
         </PopoverContainerHeaderStyle>
         {children}
