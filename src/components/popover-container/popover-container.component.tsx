@@ -10,7 +10,7 @@ import React, {
 } from "react";
 import { PaddingProps } from "styled-system";
 import { CSSTransition } from "react-transition-group";
-import { flip, offset } from "@floating-ui/dom";
+import { flip, offset, shift } from "@floating-ui/dom";
 
 import useMediaQuery from "../../hooks/useMediaQuery";
 import {
@@ -33,6 +33,7 @@ import useFocusPortalContent from "../../hooks/__internal__/useFocusPortalConten
 import tagComponent, {
   TagProps,
 } from "../../__internal__/utils/helpers/tags/tags";
+import { BoxProps } from "../box";
 import { defaultFocusableSelectors } from "../../__internal__/focus-trap/focus-trap-utils";
 import FlatTableContext from "../flat-table/__internal__/flat-table.context";
 import { useGlobalHeader } from "../global-header/__internal__/global-header.context";
@@ -49,6 +50,7 @@ export interface RenderOpenProps {
   id?: string;
   "aria-expanded": boolean;
   "aria-haspopup": "dialog";
+  "data-popover-container-button"?: string;
 }
 
 export const renderOpen = ({
@@ -110,6 +112,8 @@ export const renderClose = ({
   </PopoverContainerCloseIcon>
 );
 
+type Position = "left" | "right" | "center";
+
 export interface PopoverContainerProps extends PaddingProps, TagProps {
   /** A function that will render the open component
    *
@@ -126,9 +130,13 @@ export interface PopoverContainerProps extends PaddingProps, TagProps {
   /** The content of the popover-container */
   children?: React.ReactNode;
   /** Sets rendering position of dialog */
-  position?: "left" | "right";
+  position?: Position;
+  /** The popover offset from the reference element */
+  offset?: number;
   /** Sets the popover container dialog header name */
   title?: string;
+  /** Sets the border radius of the popover container */
+  borderRadius?: BoxProps["borderRadius"];
   /** Callback fires when close icon clicked */
   onClose?: (
     ev:
@@ -165,19 +173,24 @@ export type PopoverContainerHandle = {
   focusButton: () => void;
 } | null;
 
-function usePopoverMiddleware(shouldCoverButton: boolean) {
+function usePopoverMiddleware(
+  shouldCoverButton: boolean,
+  isCentered: boolean,
+  popoverOffset: number,
+) {
   return useMemo(
     () => [
       offset(
         shouldCoverButton
           ? ({ rects }) => ({ mainAxis: -rects.reference.height })
-          : 6,
+          : popoverOffset,
       ),
       flip({
         fallbackStrategy: "initialPlacement",
       }),
+      ...(isCentered ? [shift()] : []),
     ],
-    [shouldCoverButton],
+    [shouldCoverButton, isCentered, popoverOffset],
   );
 }
 
@@ -189,7 +202,9 @@ export const PopoverContainer = forwardRef<
     {
       children,
       title,
+      borderRadius,
       position = "right",
+      offset = 6,
       open,
       onOpen,
       onClose,
@@ -225,8 +240,19 @@ export const PopoverContainer = forwardRef<
       "screen and (prefers-reduced-motion: no-preference)",
     );
 
-    const popoverMiddleware = usePopoverMiddleware(shouldCoverButton);
+    const popoverMiddleware = usePopoverMiddleware(
+      shouldCoverButton,
+      position === "center",
+      offset,
+    );
     const { isInFlatTable } = useContext(FlatTableContext);
+
+    const getPlacement = () => {
+      if (position === "center") {
+        return "bottom";
+      }
+      return position === "right" ? "bottom-start" : "bottom-end";
+    };
 
     const closePopover = useCallback(
       (
@@ -348,6 +374,7 @@ export const PopoverContainer = forwardRef<
       ref: openButtonRef,
       "aria-label": openButtonAriaLabel || title,
       id: isOpen ? undefined : popoverContainerId,
+      "data-popover-container-button": "true",
     };
 
     const renderCloseComponentProps = {
@@ -387,6 +414,8 @@ export const PopoverContainer = forwardRef<
         aria-label={containerAriaLabel}
         aria-describedby={ariaDescribedBy}
         p="16px 24px"
+        $borderRadius={borderRadius}
+        $popoverOffset={offset}
         ref={popoverContentNodeRef}
         tabIndex={-1}
         disableAnimation={disableAnimation || reduceMotion}
@@ -394,12 +423,14 @@ export const PopoverContainer = forwardRef<
         {...filterStyledSystemPaddingProps(rest)}
       >
         <PopoverContainerHeaderStyle>
-          <PopoverContainerTitleStyle
-            id={popoverContainerId}
-            data-element="popover-container-title"
-          >
-            {title}
-          </PopoverContainerTitleStyle>
+          {title && (
+            <PopoverContainerTitleStyle
+              id={popoverContainerId}
+              data-element="popover-container-title"
+            >
+              {title}
+            </PopoverContainerTitleStyle>
+          )}
           {renderCloseComponent(renderCloseComponentProps)}
         </PopoverContainerHeaderStyle>
         {children}
@@ -458,7 +489,7 @@ export const PopoverContainer = forwardRef<
         >
           <Popover
             reference={popoverReference}
-            placement={position === "right" ? "bottom-start" : "bottom-end"}
+            placement={getPlacement()}
             popoverStrategy={
               disableAnimation || reduceMotion ? "fixed" : "absolute"
             }
