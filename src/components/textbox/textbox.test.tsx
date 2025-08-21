@@ -45,16 +45,6 @@ test("should display deprecation warning once when rendered as uncontrolled", ()
   expect(loggerSpy).toHaveBeenCalledTimes(1);
 });
 
-test("should display deprecation warning once for `ariaDescribedby`", () => {
-  render(<Textbox onChange={() => {}} ariaDescribedBy="test" />);
-
-  expect(loggerSpy).toHaveBeenCalledWith(
-    "The `ariaDescribedBy` prop in `Textbox` is deprecated and will soon be removed, please use `aria-describedby` instead.",
-  );
-
-  expect(loggerSpy).toHaveBeenCalledTimes(1);
-});
-
 testStyledSystemMargin(
   (props) => <Textbox data-role="textbox-wrapper" {...props} />,
   () => screen.getByTestId("textbox-wrapper"),
@@ -417,20 +407,6 @@ test("appends the provided `aria-describedby` to the accessible description", ()
     <>
       <p id="test">description</p>
       <Textbox inputHint="hint text" aria-describedby="test" />
-    </>
-  );
-  render(<Component />);
-
-  expect(screen.getByRole("textbox")).toHaveAccessibleDescription(
-    "hint text description",
-  );
-});
-
-test("appends the provided `ariaDescribedBy` to the accessible description", () => {
-  const Component = () => (
-    <>
-      <p id="test">description</p>
-      <Textbox inputHint="hint text" ariaDescribedBy="test" />
     </>
   );
   render(<Component />);

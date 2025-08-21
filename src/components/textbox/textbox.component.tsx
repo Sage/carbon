@@ -137,7 +137,6 @@ export interface TextboxProps extends CommonTextboxProps {
   characterLimit?: number;
 }
 
-let deprecatedAriaDescribedByWarnTriggered = false;
 let deprecateUncontrolledWarnTriggered = false;
 
 export const Textbox = React.forwardRef(
@@ -145,7 +144,6 @@ export const Textbox = React.forwardRef(
     {
       "aria-labelledby": ariaLabelledBy,
       "aria-describedby": ariaDescribedByProp,
-      ariaDescribedBy: ariaDescribedByDeprecated,
       align = ALIGN_DEFAULT,
       autoFocus,
       children,
@@ -239,13 +237,6 @@ export const Textbox = React.forwardRef(
       );
     }
 
-    if (!deprecatedAriaDescribedByWarnTriggered && ariaDescribedByDeprecated) {
-      deprecatedAriaDescribedByWarnTriggered = true;
-      Logger.deprecate(
-        "The `ariaDescribedBy` prop in `Textbox` is deprecated and will soon be removed, please use `aria-describedby` instead.",
-      );
-    }
-
     const { labelId, validationId, fieldHelpId, ariaDescribedBy } =
       useInputAccessibility({
         id: uniqueId,
@@ -267,7 +258,7 @@ export const Textbox = React.forwardRef(
     const combinedAriaDescribedBy = [
       ...describedByArray,
       visuallyHiddenHintId,
-      ariaDescribedByProp || ariaDescribedByDeprecated,
+      ariaDescribedByProp,
     ]
       .filter(Boolean)
       .join(" ");
