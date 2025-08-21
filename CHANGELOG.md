@@ -1,3 +1,9 @@
+## [155.12.1](https://github.com/Sage/carbon/compare/v155.12.0...v155.12.1) (2025-08-21)
+
+### Bug Fixes
+
+* ensure generated ids have carbon prefix ([dc748b6](https://github.com/Sage/carbon/commit/dc748b6ae2a4039983e5e7c46ebf4a2b9eae7b6d))
+
 ## [155.12.0](https://github.com/Sage/carbon/compare/v155.11.0...v155.12.0) (2025-08-21)
 
 ### Features
