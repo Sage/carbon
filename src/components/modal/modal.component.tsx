@@ -31,8 +31,6 @@ export interface ModalProps extends TagProps {
   onCancel?: (ev: React.KeyboardEvent<HTMLElement> | KeyboardEvent) => void;
   /** Sets the open state of the modal */
   open: boolean;
-  /** @deprecated Transition time */
-  timeout?: number;
   /** Manually override the internal modal stacking order to set this as top */
   topModalOverride?: boolean;
   /** Enables the automatic restoration of focus to the element that invoked
@@ -40,6 +38,8 @@ export interface ModalProps extends TagProps {
    */
   restoreFocusOnClose?: boolean;
 }
+
+const MODAL__ANIMATION_DURATION = 300;
 
 const Modal = ({
   children,
@@ -50,7 +50,6 @@ const Modal = ({
   disableEscKey = false,
   disableClose,
   enableBackgroundUI = false,
-  timeout = 300,
   topModalOverride,
   restoreFocusOnClose = true,
   ...rest
@@ -117,7 +116,7 @@ const Modal = ({
         data-element="modal-background"
         data-role="modal-background"
         transitionName="modal-background"
-        transitionTime={timeout}
+        transitionTime={MODAL__ANIMATION_DURATION}
       />
     ) : null;
 
@@ -132,7 +131,7 @@ const Modal = ({
         data-role={dataRole}
         data-state={open ? "open" : "closed"}
         transitionName="modal"
-        transitionTime={timeout}
+        transitionTime={MODAL__ANIMATION_DURATION}
         topModalOverride={topModalOverride}
         ref={ref}
         {...rest}
@@ -144,7 +143,7 @@ const Modal = ({
               key="modal"
               appear
               classNames="modal-background"
-              timeout={timeout}
+              timeout={MODAL__ANIMATION_DURATION}
               onEntered={() => setAnimationComplete(true)}
               onExiting={() => setAnimationComplete(false)}
             >
@@ -158,7 +157,7 @@ const Modal = ({
               nodeRef={contentNodeRef}
               appear
               classNames="modal"
-              timeout={timeout}
+              timeout={MODAL__ANIMATION_DURATION}
             >
               <ModalContext.Provider
                 value={{

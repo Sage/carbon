@@ -32,7 +32,7 @@ export interface ContentPaddingInterface {
   px?: PaddingValues;
 }
 
-export interface DialogProps extends Omit<ModalProps, "timeout">, TagProps {
+export interface DialogProps extends ModalProps, TagProps {
   /**
    * @private
    * @ignore
@@ -228,7 +228,6 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
         topModalOverride={topModalOverride}
         restoreFocusOnClose={restoreFocusOnClose}
         {...rest}
-        timeout={undefined}
       >
         <FocusTrap
           autoFocus={!disableAutoFocus}
