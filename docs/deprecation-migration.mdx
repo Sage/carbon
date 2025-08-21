@@ -1,0 +1,196 @@
+import { Meta, Canvas } from "@storybook/blocks";
+import * as DeprecationMigrationStories from "./deprecation-migration.stories";
+
+<Meta title="Documentation/Deprecation Migration" />
+
+# Carbon Components Deprecation Migration Guide
+
+Several Carbon components have been recently deprecated. This guide provides migration paths to facilitate the transition to alternative patterns and components. Most deprecated components can be rebuilt using other existing Carbon components. Consult the specific migration documentation below for implementation details.
+
+## Components without Direct Replacements
+
+The following deprecated components do not have direct replacements available:
+- `ButtonMinor`
+- `DuellingPicklist`
+- `Help`
+- `Pod`
+
+## Recommended Alternatives
+
+For `Pages`, [`StepFlow`](?path=/docs/step-flow--docs) is recommended as the preferred alternative.
+
+## Alternative Patterns
+
+The following sections provide migration guidance for deprecated components that can be replicated using alternative patterns:
+
+- [Alert](#alert)
+- [ButtonBar](#buttonbar)
+- [Confirm](#confirm)
+- [Content](#content)
+- [Detail](#detail)
+- [DismissibleBox](#dismissiblebox)
+- [Grid](#grid)
+- [Heading](#heading)
+- [InlineInputs](#inlineinputs)
+- [Number](#number)
+- [SettingsRow](#settingsrow)
+
+## Alert
+
+The `Alert` component can be replaced by a `Dialog` with a role of `alertdialog`. This approach maintains semantic accessibility whilst providing the same functionality.
+
+```js
+import Dialog from "carbon-react/lib/components/dialog";
+```
+
+<Canvas of={DeprecationMigrationStories.Alert} />
+
+## ButtonBar
+
+The `ButtonBar` component cannot be closely replicated with a single component. However, standard `Button` components wrapped in `<div>` or `Box` components for layout can be used to achieve a similar visual effect. The `Box` component provides flexible layout options through its spacing and display properties.
+
+```js
+import Button from "carbon-react/lib/components/button";
+import Box from "carbon-react/lib/components/box";
+```
+
+<Canvas of={DeprecationMigrationStories.ButtonBar} />
+
+## Confirm
+
+The `Confirm` component can be replaced by a `Dialog` with a role of `alertdialog` containing `"cancel"` and `"confirm"` `Button` components passed as children. A layout-based component such as `Box` can be used to position the `Button` components as required to match the original design.
+
+Since the `Button` components are passed as children, complete control over the `Button` properties is now available, allowing for customisation of appearance and behaviour. It is recommended to use the `Button` component's `buttonType` and `destructive` properties to differentiate between primary and secondary actions.
+
+```js
+import Dialog from "carbon-react/lib/components/dialog";
+import Button from "carbon-react/lib/components/button";
+import Box from "carbon-react/lib/components/box";
+```
+
+<Canvas of={DeprecationMigrationStories.Confirm} />
+
+## Content
+
+The `Content` component can be replaced with any text-based element or component. In the example below, `Typography` has been used for the title, but any text-based element can also be used, such as `h1`, `h2`, `p`, `span`, etc. The `Typography` component provides consistent styling and typography hierarchy.
+
+```js
+import Typography from "carbon-react/lib/components/typography";
+```
+
+<Canvas of={DeprecationMigrationStories.Content} />
+
+## Detail
+
+The `Detail` component can be replaced with any text-based element or component. In the example below, the `<span>` element has been used, but any text-based element or component can also be used, such as `Typography`, `h1`, `h2`, `p`, etc. Choose the most semantically appropriate element for the content being displayed.
+
+<Canvas of={DeprecationMigrationStories.Detail} />
+
+## DismissibleBox
+
+A close replication of the `DismissibleBox` component can be achieved using the `Box` component for layout and structure. An `IconButton` can be used for the close functionality. Additional styling can be achieved using the `Box` component's style properties or CSS to match the original design. The `VerticalDivider` component can be used to separate content sections as needed.
+
+```js
+import Box from "carbon-react/lib/components/box";
+import IconButton from "carbon-react/lib/components/icon-button";
+import Icon from "carbon-react/lib/components/icon";
+import VerticalDivider from "carbon-react/lib/components/vertical-divider";
+import Typography from "carbon-react/lib/components/typography";
+```
+
+<Canvas of={DeprecationMigrationStories.DismissibleBox} />
+
+## Grid
+
+The `Grid` component can be replaced with the `Box` component, which has access to all CSS Grid properties, or any layout-based element with CSS Grid properties applied. The `Box` component provides comprehensive grid layout capabilities through its style properties.
+
+```js
+import Box from "carbon-react/lib/components/box";
+import { Tile } from "carbon-react/lib/components/tile";
+```
+
+### Basic Grid Layout
+
+A simple grid layout can be created using the `Box` component with grid display properties:
+
+<Canvas of={DeprecationMigrationStories.BasicGrid} />
+
+### Responsive Grid Layout
+
+Responsive grids can be created by combining media queries with different grid configurations. This approach allows layouts to adapt seamlessly across different screen sizes. The `useMediaQuery` hook can be used to determine the current screen size and apply appropriate grid configurations.
+
+<Canvas of={DeprecationMigrationStories.ResponsiveGrid} />
+
+## Heading
+
+The `Heading` component can be replaced with any text-based element or component combined with a horizontal rule. In the example below, `Typography` has been used for the title, but any text-based element can also be used, such as `h1`, `h2`, `p`, `span`, etc. The `Hr` component provides a horizontal rule below the heading, though the `<hr>` element can also be used to achieve the same visual effect.
+
+```js
+import Typography from "carbon-react/lib/components/typography";
+import Hr from "carbon-react/lib/components/hr";
+```
+
+### Basic Heading
+
+<Canvas of={DeprecationMigrationStories.Heading} />
+
+### Heading with Pills
+
+The `Heading` component can also be enhanced with `Pill` components for additional context or categorisation. Use the `Box` component to control layout and alignment of the heading and pills.
+
+```js
+import Box from "carbon-react/lib/components/box";
+import Pill from "carbon-react/lib/components/pill";
+```
+
+<Canvas of={DeprecationMigrationStories.HeadingWithPills} />
+
+## InlineInputs
+
+A close replication of the `InlineInputs` component can be achieved using the `Box` component to wrap input components and apply the necessary styles to align them inline. The `Typography` component, rendered as a `<label>` via polymorphism, provides proper labelling with consistent styling. Alternatively, the `<label>` element can be used directly.
+
+The `aria-labelledby` attribute is used to associate the label with all input components. The `Box` component's flex properties ensure proper alignment and spacing of inline elements.
+
+> **Note**: Despite the use of the `aria-labelledby` attribute, there are still some accessibility concerns with this approach. As all inputs will be labelled by the same text, it may not be clear to screen reader users which label applies to which input. It is recommended to use unique labels for each input where possible, and a non-inline input approach may be preferred.
+
+
+```js
+import Box from "carbon-react/lib/components/box";
+import Typography from "carbon-react/lib/components/typography";
+import Textbox from "carbon-react/lib/components/textbox";
+import Decimal from "carbon-react/lib/components/decimal";
+import { Select, Option } from "carbon-react/lib/components/select";
+```
+
+<Canvas of={DeprecationMigrationStories.InlineInputs} />
+
+## Number
+
+The `Number` component can be replaced with the `Textbox` component, with specific validation to prevent non-numeric input from being submitted. However, it is **strongly recommended** to avoid restricting user input to only numeric values during typing, as this can lead to poor user experience and accessibility issues. Instead, validate the input on submission or blur events whilst providing clear error messages.
+
+```js
+import Textbox from "carbon-react/lib/components/textbox";
+import CarbonProvider from "carbon-react/lib/components/carbon-provider";
+```
+
+<Canvas of={DeprecationMigrationStories.Number} />
+
+## SettingsRow
+
+The `SettingsRow` component can be replaced with a combination of `Box`, `Hr`, and `Typography` components. Specific style properties applied to the `Box` component achieve a similar layout structure. The layout uses a two-column approach with the title and description in the first column and the settings content in the second column.
+
+```js
+import Box from "carbon-react/lib/components/box";
+import Hr from "carbon-react/lib/components/hr";
+import Typography from "carbon-react/lib/components/typography";
+```
+
+### Basic Heading
+
+<Canvas of={DeprecationMigrationStories.SettingsRow} />
+
+### Settings Row with Multiple Heading Levels
+
+The `variant` prop on the `Typography` component can be used to render heading levels from `<h1>` - `<h5>`, this allows for a consistent visual hierarchy whilst maintaining semantic structure.
+
+<Canvas of={DeprecationMigrationStories.SettingsRowHeadingLevels} />
