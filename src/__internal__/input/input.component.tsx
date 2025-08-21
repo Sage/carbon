@@ -17,11 +17,6 @@ export interface CommonInputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type"> {
   /* The default value alignment on the input */
   align?: "right" | "left";
-  /**
-   * Set the ID of the input's description.
-   * @deprecated Please use `aria-describedby` instead.
-   */
-  ariaDescribedBy?: string;
   /** The ID of the input's description, is set along with hint text and error message. */
   "aria-describedby"?: string;
   /** Override the variant component */
@@ -99,7 +94,6 @@ const Input = React.forwardRef<
       align,
       "aria-labelledby": ariaLabelledBy,
       "aria-describedby": ariaDescribedBy,
-      ariaDescribedBy: ariaDescribedByDeprecated,
       placeholder,
       disabled,
       readOnly,
@@ -220,10 +214,7 @@ const Input = React.forwardRef<
         groupContext.hasMouseOver) &&
       validationIconId;
 
-    const descriptionList =
-      ariaDescribedBy || ariaDescribedByDeprecated
-        ? [ariaDescribedBy || ariaDescribedByDeprecated]
-        : [];
+    const descriptionList = ariaDescribedBy ? [ariaDescribedBy] : [];
 
     if (hasValidationPart) {
       descriptionList.push(validationIconId);

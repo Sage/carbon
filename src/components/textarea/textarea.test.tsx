@@ -31,20 +31,6 @@ test("should display deprecation warning once when rendered as uncontrolled", ()
   loggerSpy.mockRestore();
 });
 
-test("should display deprecation warning once for `ariaDescribedBy`", () => {
-  const loggerSpy = jest.spyOn(Logger, "deprecate");
-
-  render(<Textarea onChange={() => {}} ariaDescribedBy="test" />);
-
-  expect(loggerSpy).toHaveBeenCalledWith(
-    "The `ariaDescribedBy` prop in `Textarea` is deprecated and will soon be removed, please use `aria-describedby` instead.",
-  );
-
-  expect(loggerSpy).toHaveBeenCalledTimes(1);
-
-  loggerSpy.mockRestore();
-});
-
 test("should render a textarea element", () => {
   render(<Textarea />);
   const textarea = screen.getByRole("textbox");
@@ -354,20 +340,6 @@ test("appends the provided `aria-describedby` to the accessible description", ()
     <>
       <p id="test">description</p>
       <Textarea inputHint="hint text" aria-describedby="test" />
-    </>
-  );
-  render(<Component />);
-
-  expect(screen.getByRole("textbox")).toHaveAccessibleDescription(
-    "hint text description",
-  );
-});
-
-test("appends the provided `ariaDescribedBy` to the accessible description", () => {
-  const Component = () => (
-    <>
-      <p id="test">description</p>
-      <Textarea inputHint="hint text" ariaDescribedBy="test" />
     </>
   );
   render(<Component />);

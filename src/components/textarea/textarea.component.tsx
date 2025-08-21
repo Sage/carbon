@@ -130,7 +130,6 @@ export interface TextareaProps
   validationMessagePositionTop?: boolean;
 }
 
-let deprecatedAriaDescribedByWarnTriggered = false;
 let deprecateUncontrolledWarnTriggered = false;
 let warnBorderRadiusArrayTooLarge = false;
 
@@ -139,7 +138,6 @@ export const Textarea = React.forwardRef(
     {
       "aria-labelledby": ariaLabelledBy,
       "aria-describedby": ariaDescribedByProp,
-      ariaDescribedBy: ariaDescribedByPropDeprecated,
       autoFocus,
       inputHint,
       fieldHelp,
@@ -237,16 +235,6 @@ export const Textarea = React.forwardRef(
       deprecateUncontrolledWarnTriggered = true;
       Logger.deprecate(
         "Uncontrolled behaviour in `Textarea` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
-      );
-    }
-
-    if (
-      !deprecatedAriaDescribedByWarnTriggered &&
-      ariaDescribedByPropDeprecated
-    ) {
-      deprecatedAriaDescribedByWarnTriggered = true;
-      Logger.deprecate(
-        "The `ariaDescribedBy` prop in `Textarea` is deprecated and will soon be removed, please use `aria-describedby` instead.",
       );
     }
 
@@ -352,7 +340,7 @@ export const Textarea = React.forwardRef(
     const combinedAriaDescribedBy = [
       ...describedByArray,
       visuallyHiddenHintId,
-      ariaDescribedByProp || ariaDescribedByPropDeprecated,
+      ariaDescribedByProp,
     ]
       .filter(Boolean)
       .join(" ");
