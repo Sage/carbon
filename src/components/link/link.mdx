@@ -109,13 +109,20 @@ perform client-side routing, but still provide the `href` to render an HTML link
 
 ### variants
 
-Setting the `variant` prop to either `negative`, `neutral` or `subtle` enables overriding of the `default` styling of the `Link` component.
+Setting the `variant` prop to either `negative`, or `subtle` enables overriding of the `typical` variant which is the default styling of the `Link` component.
 
 <Canvas of={LinkStories.Variants} />
 
+### sizes
+
+Setting the `linkSize` prop to either `medium` or `large` will change the font size accordingly
+
+<Canvas of={LinkStories.LinkSize} />
+
+
 ### On a dark background
 
-When the `Link` component is rendered on a dark background, the `isDarkBackground` prop can be used to update the colour styling
+When the `Link` component is rendered on a dark background, the `inverse` prop can be used to update the colour styling
 to ensure there is enough contrast.
 
 <Canvas of={LinkStories.OnADarkBackground} />
