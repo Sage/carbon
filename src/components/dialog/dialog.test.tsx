@@ -10,7 +10,6 @@ import userEvent from "@testing-library/user-event";
 
 import CarbonProvider from "../carbon-provider";
 import Dialog, { DialogHandle, DialogProps } from ".";
-import Logger from "../../__internal__/utils/logger";
 
 beforeEach(() => {
   jest.useFakeTimers();
@@ -385,16 +384,4 @@ test("should render with the highlight when 'ai' is passed in as the `highlightV
   );
 
   expect(highlightElement).toBeVisible();
-});
-
-test("logs a deprecation warning when timeout is used", () => {
-  const loggerSpy = jest.spyOn(Logger, "deprecate");
-  render(<Dialog open timeout={1000} />);
-
-  expect(loggerSpy).toHaveBeenCalledWith(
-    "The timeout prop in Dialog is deprecated and will soon be removed.",
-  );
-  expect(loggerSpy).toHaveBeenCalledTimes(1);
-
-  loggerSpy.mockRestore();
 });

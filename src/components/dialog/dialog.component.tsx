@@ -23,7 +23,6 @@ import IconButton from "../icon-button";
 import Icon from "../icon";
 import useLocale from "../../hooks/__internal__/useLocale";
 import useModalAria from "../../hooks/__internal__/useModalAria/useModalAria";
-import Logger from "../../__internal__/utils/logger";
 
 type PaddingValues = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
@@ -33,7 +32,7 @@ export interface ContentPaddingInterface {
   px?: PaddingValues;
 }
 
-export interface DialogProps extends ModalProps, TagProps {
+export interface DialogProps extends Omit<ModalProps, "timeout">, TagProps {
   /**
    * @private
    * @ignore
@@ -111,8 +110,6 @@ export type DialogHandle = {
   focus: () => void;
 } | null;
 
-let deprecatedTimeoutTrigger = false;
-
 export const Dialog = forwardRef<DialogHandle, DialogProps>(
   (
     {
@@ -158,13 +155,6 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
     const { current: subtitleId } = useRef(createGuid());
 
     const isTopModal = useModalAria(containerRef);
-
-    if (!deprecatedTimeoutTrigger && rest?.timeout) {
-      deprecatedTimeoutTrigger = true;
-      Logger.deprecate(
-        "The timeout prop in Dialog is deprecated and will soon be removed.",
-      );
-    }
 
     useImperativeHandle<DialogHandle, DialogHandle>(
       ref,
@@ -238,6 +228,7 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
         topModalOverride={topModalOverride}
         restoreFocusOnClose={restoreFocusOnClose}
         {...rest}
+        timeout={undefined}
       >
         <FocusTrap
           autoFocus={!disableAutoFocus}
