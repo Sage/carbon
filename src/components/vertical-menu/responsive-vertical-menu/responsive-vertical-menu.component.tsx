@@ -7,7 +7,10 @@ import React, {
   useState,
 } from "react";
 
-import { useResponsiveVerticalMenu } from "./responsive-vertical-menu.context";
+import {
+  useResponsiveVerticalMenu,
+  ResponsiveVerticalMenuProvider,
+} from "./responsive-vertical-menu.context";
 import {
   StyledButton,
   StyledCloseButton,
@@ -64,8 +67,6 @@ const BaseMenu = ({
     setResponsiveMode,
     setLeft,
     setTop,
-    setWidth,
-    setHeight,
   } = useResponsiveVerticalMenu();
 
   const [childItemCount, setChildItemCount] = useState(0);
@@ -104,11 +105,6 @@ const BaseMenu = ({
       setTop("auto");
     }
   }, [active, menu, responsiveMode, activeMenuItem, button]);
-
-  useEffect(() => {
-    setWidth?.(width);
-    setHeight?.(height);
-  }, [width, height, setWidth, setHeight]);
 
   const handleOutsideClick = useCallback(
     (event: MouseEvent) => {
@@ -359,12 +355,18 @@ const BaseMenu = ({
 
 export const ResponsiveVerticalMenu = ({
   children,
+  width,
+  height,
   ...props
 }: ResponsiveVerticalMenuProps) => {
   return (
     <DepthProvider>
       <MenuFocusProvider>
-        <BaseMenu {...props}>{children}</BaseMenu>
+        <ResponsiveVerticalMenuProvider width={width} height={height}>
+          <BaseMenu width={width} height={height} {...props}>
+            {children}
+          </BaseMenu>
+        </ResponsiveVerticalMenuProvider>
       </MenuFocusProvider>
     </DepthProvider>
   );

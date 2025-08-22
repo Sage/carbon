@@ -209,7 +209,7 @@ const BaseItem = forwardRef<HTMLElement, BaseItemProps>(
             const isLastSibling = currentIndex === siblings.length - 1;
 
             // If the item is the last sibling and has no children (or it does but isn't expanded),
-            // and parent is the last sibling, move focus to the grandparent when forward-tabbing
+            // and parent is the last sibling in the level above, move focus to the grandparent when forward-tabbing
             /* istanbul ignore else */
             if (isLastSibling && (!hasChildren || (hasChildren && !expanded))) {
               // If the item is the last sibling, find the grand-parent in the menu hierarchy

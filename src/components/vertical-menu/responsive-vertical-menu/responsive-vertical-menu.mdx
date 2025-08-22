@@ -21,30 +21,20 @@ A vertical menu that is responsive to the screen size. It can be used as a menu 
 
 ## Quick Start
 
-To use `ResponsiveVerticalMenu`, you need to import the `ResponsiveVerticalMenu` and `ResponsiveVerticalMenuItem` components. These
-should be wrapped in the `ResponsiveVerticalMenuProvider` component, which should also be imported.
+To use `ResponsiveVerticalMenu`, you need to import the `ResponsiveVerticalMenu` and `ResponsiveVerticalMenuItem` components. 
 
 ```javascript
 import {
   ResponsiveVerticalMenu,
   ResponsiveVerticalMenuDivider,
   ResponsiveVerticalMenuItem,
-  ResponsiveVerticalMenuProvider,
 } from "carbon-react/lib/components/vertical-menu";
 ```
 
 ## Usage
 
-In order to render a `ResponsiveVerticalMenu`, you need to wrap it in a `ResponsiveVerticalMenuProvider` component. This component provides the context for the menu and its items.
-
 Two modes are available for the `ResponsiveVerticalMenu`: default and responsive. The default mode is used when the screen size is large enough to accommodate two columns; the
 responsive mode is used when the screen size is small enough to require a single column (see the [Responsive](#responsive) example below).
-
-```javascript
-  <ResponsiveVerticalMenuProvider>
-    <ResponsiveVerticalMenu height="100%" />
-  </ResponsiveVerticalMenuProvider>
-```
 
 You can then add `ResponsiveVerticalMenuItem` components as children of the `ResponsiveVerticalMenu` component. Each item must have at the very least an individual `id` and `label` prop.
 The `icon` and `customIcon` props are optional; if you wish to render a [Carbon icon](../?path=/story/icon--list-of-icons), use the `icon` property. Custom icons, such as `SVG` graphics,

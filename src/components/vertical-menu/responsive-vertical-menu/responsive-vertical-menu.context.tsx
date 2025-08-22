@@ -10,6 +10,7 @@ import React, {
 } from "react";
 
 import { IconType } from "../../icon/icon-type";
+import Logger from "../../../__internal__/utils/logger";
 
 export interface ResponsiveVerticalMenuButtonItem {
   children?: ReactNode;
@@ -39,8 +40,6 @@ export interface MenuContextType {
   setResponsiveMode?: (responsiveMode: boolean) => void;
   setLeft: (left: string) => void;
   setTop: (top: string) => void;
-  setWidth?: (width: string | undefined) => void;
-  setHeight?: (height: string | undefined) => void;
 }
 
 export const ResponsiveVerticalMenuContext =
@@ -58,11 +57,29 @@ export const useResponsiveVerticalMenu = () => {
 
 export interface ResponsiveVerticalMenuProviderProps {
   children: ReactNode;
+  /** @private @internal @ignore */
+  width?: string;
+  /** @private @internal @ignore */
+  height?: string;
 }
+
+let deprecatedWarning = false;
 
 export const ResponsiveVerticalMenuProvider = ({
   children,
+  width,
+  height,
 }: ResponsiveVerticalMenuProviderProps) => {
+  const externalContext = useContext(ResponsiveVerticalMenuContext);
+  const hasExternalContext = externalContext !== null;
+
+  if (!deprecatedWarning && hasExternalContext) {
+    deprecatedWarning = true;
+    Logger.deprecate(
+      "`ResponsiveVerticalMenuProvider` is deprecated and no longer needed for `ResponsiveVerticalMenu`. You can use `ResponsiveVerticalMenu` directly without wrapping it in a provider.",
+    );
+  }
+
   const [active, setActive] = useState<boolean>(false);
   const [activeMenuItem, setActiveMenuItem] =
     useState<ResponsiveVerticalMenuButtonItem | null>(null);
@@ -75,9 +92,6 @@ export const ResponsiveVerticalMenuProvider = ({
 
   const [left, setLeft] = useState("auto");
   const [top, setTop] = useState("auto");
-
-  const [width, setWidth] = useState<string | undefined>(undefined);
-  const [height, setHeight] = useState<string | undefined>(undefined);
 
   return (
     <ResponsiveVerticalMenuContext.Provider
@@ -99,8 +113,6 @@ export const ResponsiveVerticalMenuProvider = ({
         setResponsiveMode,
         setLeft,
         setTop,
-        setWidth,
-        setHeight,
       }}
     >
       {children}
