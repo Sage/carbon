@@ -131,6 +131,32 @@ export const TextboxValidationsAsAString = () => {
   );
 };
 
+export const TextboxNewValidationsAsAStringOnGreyBackground = () => {
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      <Box backgroundColor="var(--colorsUtilityMajor025)">
+        {VALIDATIONS.map((validationType) => (
+          <div key={`${validationType}-string-component`}>
+            <Textbox
+              label="Textbox"
+              value="Textbox"
+              {...{ [validationType]: "Message" }}
+              mb={2}
+            />
+            <Textbox
+              label="Textbox - readOnly"
+              value="Textbox"
+              readOnly
+              {...{ [validationType]: "Message" }}
+              mb={2}
+            />
+          </div>
+        ))}
+      </Box>
+    </CarbonProvider>
+  );
+};
+
 export const TextboxValidationsAsAStringWithTooltipCustom = () => {
   return (
     <Box>
