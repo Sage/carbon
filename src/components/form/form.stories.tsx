@@ -13,7 +13,6 @@ import Textarea from "../textarea";
 import Dialog from "../dialog";
 import DateInput, { DateChangeEvent } from "../date";
 import { Select, MultiSelect, Option } from "../select";
-import DialogFullScreen from "../dialog-full-screen";
 import { RadioButton, RadioButtonGroup } from "../radio-button";
 import { Checkbox } from "../checkbox";
 import Hr from "../hr";
@@ -44,7 +43,7 @@ const meta: Meta<typeof Form> = {
     controls: { disable: true },
   },
   decorators: [
-    (Story) => (
+    (Story: StoryObj) => (
       <>
         {defaultOpenState ? (
           <Box width="100%" height={900}>
@@ -396,6 +395,8 @@ export const WithBothOptionalOrRequired: Story = (args: FormProps) => (
       <RadioButtonGroup
         name="radio group optional"
         legend="RadioGroup"
+        value="group-1-input-1"
+        onChange={() => "RADIO CHANGE"}
         isOptional
       >
         <RadioButton
@@ -414,6 +415,8 @@ export const WithBothOptionalOrRequired: Story = (args: FormProps) => (
       <RadioButtonGroup
         name="radio group required"
         legend="RadioGroup"
+        value="group-2-input-2"
+        onChange={() => "RADIO CHANGE"}
         required
       >
         <RadioButton
@@ -574,7 +577,8 @@ export const InDialogFullScreen = () => {
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Open Preview</Button>
-      <DialogFullScreen
+      <Dialog
+        fullscreen
         open={isOpen}
         onCancel={() => setIsOpen(false)}
         title="Form in Dialog"
@@ -590,7 +594,7 @@ export const InDialogFullScreen = () => {
             <Textbox label="Textbox" />
           </Form>
         </Box>
-      </DialogFullScreen>
+      </Dialog>
     </>
   );
 };
@@ -602,7 +606,8 @@ export const InDialogFullScreenWithStickyFooter = () => {
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Open Preview</Button>
-      <DialogFullScreen
+      <Dialog
+        fullscreen
         open={isOpen}
         onCancel={() => setIsOpen(false)}
         title="Form in Dialog"
@@ -643,7 +648,7 @@ export const InDialogFullScreenWithStickyFooter = () => {
             <Textbox key={`textbox-${index + 1}`} label="Textbox" />
           ))}
         </Form>
-      </DialogFullScreen>
+      </Dialog>
     </>
   );
 };
@@ -694,6 +699,8 @@ export const FormAlignmentExample: Story = (args: FormProps) => {
         legendWidth={10}
         legendSpacing={2}
         legendAlign="right"
+        value="group-1-input-1"
+        onChange={() => "RADIO CHANGE"}
       >
         <RadioButton
           id="group-1-input-1"
@@ -718,7 +725,13 @@ export const FormAlignmentExample: Story = (args: FormProps) => {
           setDate(ev.target.value.formattedValue)
         }
       />
-      <RadioButtonGroup name="nolegend" legend="Legend above" ml="10%">
+      <RadioButtonGroup
+        name="nolegend"
+        legend="Legend above"
+        ml="10%"
+        value={"group-2-input-2"}
+        onChange={() => "RADIO CHANGE"}
+      >
         <RadioButton
           id="group-2-input-1"
           value="group-2-input-1"
@@ -740,6 +753,8 @@ export const FormAlignmentExample: Story = (args: FormProps) => {
         labelInline
         labelWidth={10}
         inputWidth={30}
+        value=""
+        onChange={() => {}}
       />
       <Checkbox name="checkbox1" label="Checkbox 1" ml="10%" />
       <Checkbox name="checkbox2" label="Checkbox 2" ml="10%" />
@@ -765,6 +780,8 @@ export const FormAlignmentExample: Story = (args: FormProps) => {
         labelWidth={10}
         labelSpacing={2}
         mb={4}
+        checked
+        onChange={() => "SWITCH CHANGE"}
       />
       <Textbox
         key="input-five"

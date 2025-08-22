@@ -47,11 +47,6 @@ const deDE: Partial<Locale> = {
       close: () => "Schließen",
     },
   },
-  dialogFullScreen: {
-    ariaLabels: {
-      close: () => "Schließen",
-    },
-  },
   dismissibleBox: {
     ariaLabels: {
       close: () => "Schließen",

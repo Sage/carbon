@@ -8,7 +8,10 @@ import {
   simpleColorPickerComponent,
   advancedColorPickerPreview,
 } from "../../../playwright/components/advanced-color-picker";
-import { alertDialogPreview as advancedColorPickerParent } from "../../../playwright/components/dialog/index";
+import {
+  dialog as advancedColorPickerParent,
+  dialogWithRole,
+} from "../../../playwright/components/dialog/index";
 import { closeIconButton } from "../../../playwright/components/index";
 import { CHARACTERS } from "../../../playwright/support/constants";
 import { checkAccessibility } from "../../../playwright/support/helper";
@@ -189,7 +192,7 @@ test.describe("should render AdvancedColorPicker component and check props", () 
   }) => {
     await mount(<AdvancedColorPickerCustom role={testPropValue} />);
 
-    await expect(advancedColorPickerParent(page)).toHaveAttribute(
+    await expect(dialogWithRole(page, testPropValue)).toHaveAttribute(
       "role",
       testPropValue,
     );

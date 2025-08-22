@@ -11,7 +11,7 @@ import Toast from "../toast";
 import Textbox from "../textbox";
 import Box from "../box";
 import Dialog from "../dialog";
-import DialogFullScreen from "../confirm";
+import Confirm from "../confirm";
 import Message from "../message";
 
 import Sidebar from ".";
@@ -506,14 +506,14 @@ export const TopModalOverride: Story = () => {
       >
         Open dialogs
       </Button>
-      <DialogFullScreen
+      <Confirm
         open={isOpenDialogFullScreen && isOpenAll}
         onCancel={() => setIsOpenDialogFullScreen(false)}
-        title="Dialog fullscreen"
+        title="Confirm"
         onConfirm={() => {}}
       >
-        <Textbox label="Fullscreen textbox" />
-      </DialogFullScreen>
+        <Textbox label="Confirm textbox" />
+      </Confirm>
       <Sidebar
         open={isOpenSidebar && isOpenAll}
         onCancel={() => setIsOpenSidebar(false)}
