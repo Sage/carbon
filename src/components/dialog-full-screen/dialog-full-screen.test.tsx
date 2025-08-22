@@ -454,15 +454,3 @@ test("logs a deprecation warning when disableClose is used", () => {
 
   loggerSpy.mockRestore();
 });
-
-test("logs a deprecation warning when timeout is used", () => {
-  const loggerSpy = jest.spyOn(Logger, "deprecate");
-  render(<DialogFullScreen open timeout={1000} />);
-
-  expect(loggerSpy).toHaveBeenCalledWith(
-    "The timeout prop in DialogFullScreen is deprecated and will soon be removed.",
-  );
-  expect(loggerSpy).toHaveBeenCalledTimes(1);
-
-  loggerSpy.mockRestore();
-});

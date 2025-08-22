@@ -15,7 +15,7 @@ interface InternalRadioButtonProps {
 }
 
 export interface RadioButtonProps
-  extends Omit<CommonCheckableInputProps, "required" | "IsOptional">,
+  extends Omit<CommonCheckableInputProps, "required">,
     MarginProps,
     TagProps {
   /** Accepts a callback function which is triggered on click event */

@@ -120,11 +120,6 @@ export interface CommonTextboxProps
   tooltipPosition?: "top" | "bottom" | "left" | "right";
   /** [Legacy] Aria label for rendered help component. */
   helpAriaLabel?: string;
-  /**
-   * [Legacy] Flag to configure component as optional.
-   * @deprecated If the value of this component is not required, use the `required` prop and set it to false instead.
-   */
-  isOptional?: boolean;
   /** The id attribute for the validation tooltip */
   tooltipId?: string;
   /** @private @internal @ignore */
@@ -142,8 +137,6 @@ export interface TextboxProps extends CommonTextboxProps {
   characterLimit?: number;
 }
 
-let deprecatedAriaDescribedByWarnTriggered = false;
-let deprecateOptionalWarnTriggered = false;
 let deprecateUncontrolledWarnTriggered = false;
 
 export const Textbox = React.forwardRef(
@@ -151,7 +144,6 @@ export const Textbox = React.forwardRef(
     {
       "aria-labelledby": ariaLabelledBy,
       "aria-describedby": ariaDescribedByProp,
-      ariaDescribedBy: ariaDescribedByDeprecated,
       align = ALIGN_DEFAULT,
       autoFocus,
       children,
@@ -183,7 +175,6 @@ export const Textbox = React.forwardRef(
       onMouseDown,
       onChangeDeferred,
       deferTimeout,
-      isOptional,
       iconOnClick,
       iconOnMouseDown,
       iconTabIndex,
@@ -207,12 +198,6 @@ export const Textbox = React.forwardRef(
     }: TextboxProps,
     ref: React.ForwardedRef<HTMLInputElement>,
   ) => {
-    if (!deprecateOptionalWarnTriggered && isOptional) {
-      deprecateOptionalWarnTriggered = true;
-      Logger.deprecate(
-        "`isOptional` is deprecated in Textbox and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
-      );
-    }
     const characterCountValue = typeof value === "string" ? value : "";
 
     const [uniqueId, uniqueName] = useUniqueId(id, name);
@@ -252,13 +237,6 @@ export const Textbox = React.forwardRef(
       );
     }
 
-    if (!deprecatedAriaDescribedByWarnTriggered && ariaDescribedByDeprecated) {
-      deprecatedAriaDescribedByWarnTriggered = true;
-      Logger.deprecate(
-        "The `ariaDescribedBy` prop in `Textbox` is deprecated and will soon be removed, please use `aria-describedby` instead.",
-      );
-    }
-
     const { labelId, validationId, fieldHelpId, ariaDescribedBy } =
       useInputAccessibility({
         id: uniqueId,
@@ -280,7 +258,7 @@ export const Textbox = React.forwardRef(
     const combinedAriaDescribedBy = [
       ...describedByArray,
       visuallyHiddenHintId,
-      ariaDescribedByProp || ariaDescribedByDeprecated,
+      ariaDescribedByProp,
     ]
       .filter(Boolean)
       .join(" ");
@@ -382,7 +360,6 @@ export const Textbox = React.forwardRef(
             labelWidth={computeLabelPropValues(labelWidth)}
             id={uniqueId}
             reverse={computeLabelPropValues(reverse)}
-            isOptional={isOptional}
             useValidationIcon={computeLabelPropValues(validationOnLabel)}
             adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
             isRequired={required}

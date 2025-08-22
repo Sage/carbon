@@ -81,7 +81,6 @@ export interface DialogFullScreenProps
 }
 
 let deprecatedDisableCloseTrigger = false;
-let deprecatedTimeoutTrigger = false;
 let deprecatedPagesStylingTrigger = false;
 
 export const DialogFullScreen = ({
@@ -124,13 +123,6 @@ export const DialogFullScreen = ({
     deprecatedDisableCloseTrigger = true;
     Logger.deprecate(
       "The disableClose prop in DialogFullScreen is deprecated and will soon be removed.",
-    );
-  }
-
-  if (!deprecatedTimeoutTrigger && rest?.timeout) {
-    deprecatedTimeoutTrigger = true;
-    Logger.deprecate(
-      "The timeout prop in DialogFullScreen is deprecated and will soon be removed.",
     );
   }
 

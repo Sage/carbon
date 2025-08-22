@@ -22,7 +22,6 @@ import FileUploadStatus, {
 import Box from "../box";
 import useLocale from "../../hooks/__internal__/useLocale";
 import HintText from "../../__internal__/hint-text";
-import Logger from "../../__internal__/utils/logger";
 
 export interface FileInputProps
   extends Pick<ValidationProps, "error">,
@@ -57,16 +56,9 @@ export interface FileInputProps
   uploadStatus?: FileUploadStatusProps | FileUploadStatusProps[];
   /** Flag to configure component as mandatory. */
   required?: boolean;
-  /**
-   * [Legacy] Flag to configure component as optional.
-   * @deprecated If the value of this component is not required, use the `required` prop and set it to false instead.
-   */
-  isOptional?: boolean;
   /** Render the ValidationMessage above the FileInput */
   validationMessagePositionTop?: boolean;
 }
-
-let deprecateOptionalWarnTriggered = false;
 
 export const FileInput = React.forwardRef(
   (
@@ -88,19 +80,12 @@ export const FileInput = React.forwardRef(
       name,
       onChange,
       required,
-      isOptional,
       uploadStatus = [],
       validationMessagePositionTop = true,
       ...rest
     }: FileInputProps,
     ref: React.ForwardedRef<HTMLInputElement>,
   ) => {
-    if (!deprecateOptionalWarnTriggered && isOptional) {
-      deprecateOptionalWarnTriggered = true;
-      Logger.deprecate(
-        "`isOptional` is deprecated in FileInput and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
-      );
-    }
     const locale = useLocale();
     const textOnButton = buttonText || locale.fileInput.selectFile();
     const mainText = dragAndDropText || locale.fileInput.dragAndDrop();
@@ -258,7 +243,6 @@ export const FileInput = React.forwardRef(
           labelId={labelId}
           id={uniqueId}
           isRequired={required}
-          isOptional={isOptional}
           data-component="file-input"
           data-role={dataRole}
           data-element={dataElement}

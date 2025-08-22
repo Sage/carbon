@@ -36,11 +36,6 @@ export const Required: Story = () => {
 };
 Required.storyName = "Required";
 
-export const IsOptional: Story = () => {
-  return <FileInput label="File input" isOptional onChange={() => {}} />;
-};
-IsOptional.storyName = "isOptional";
-
 export const IncreasedHeight: Story = () => {
   return (
     <FileInput

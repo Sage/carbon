@@ -127,28 +127,6 @@ Required.parameters = {
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
-export const IsOptional: Story = () => {
-  const [value, setValue] = useState<TimeValue>({
-    hours: "",
-    minutes: "",
-  });
-
-  const handleChange = (ev: TimeInputEvent) => {
-    setValue(ev.target.value);
-  };
-
-  return (
-    <Box p={2}>
-      <Time isOptional value={value} onChange={handleChange} label="Time" />
-    </Box>
-  );
-};
-IsOptional.storyName = "Is Optional";
-IsOptional.parameters = {
-  chromatic: { disableSnapshot: false },
-  themeProvider: { chromatic: { theme: "sage" } },
-};
-
 export const Disabled: Story = () => {
   const [value, setValue] = useState<TimeValue>({
     hours: "",

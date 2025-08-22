@@ -4,37 +4,6 @@ import { Checkbox, CheckboxGroup } from "..";
 import CarbonProvider from "../../carbon-provider";
 import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/test-utils";
 
-import Logger from "../../../__internal__/utils/logger";
-
-jest.mock("../../../__internal__/utils/logger");
-
-test("should display deprecation warning once when rendered as optional", () => {
-  const loggerSpy = jest.spyOn(Logger, "deprecate");
-
-  render(
-    <>
-      <CheckboxGroup isOptional>
-        <Checkbox value="1" label="label-1" onChange={() => {}} />
-        <Checkbox value="2" label="label-2" onChange={() => {}} />
-      </CheckboxGroup>
-      <CheckboxGroup isOptional>
-        <Checkbox value="1" label="label-1" onChange={() => {}} />
-        <Checkbox value="2" label="label-2" onChange={() => {}} />
-      </CheckboxGroup>
-    </>,
-  );
-
-  // Ensure the deprecation warning is logged only once
-  expect(loggerSpy).toHaveBeenCalledTimes(1);
-
-  expect(loggerSpy).toHaveBeenNthCalledWith(
-    1,
-    "`isOptional` is deprecated in CheckboxGroup and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
-  );
-
-  loggerSpy.mockRestore();
-});
-
 test("should render with the provided children", () => {
   render(
     <CheckboxGroup>
@@ -68,21 +37,6 @@ test("should render required checkbox children when required prop is set", () =>
   const checkboxes = screen.getAllByRole("checkbox");
   expect(checkboxes[0]).toBeRequired();
   expect(checkboxes[1]).toBeRequired();
-});
-
-it("should append (optional) text on the legend when isOptional prop is set", () => {
-  render(
-    <CheckboxGroup legend="legend" isOptional>
-      <Checkbox value="1" label="label-1" onChange={() => {}} />
-      <Checkbox value="2" label="label-2" onChange={() => {}} />
-    </CheckboxGroup>,
-  );
-
-  expect(screen.getByText("legend")).toHaveStyleRule(
-    "content",
-    '"(optional)"',
-    { modifier: "::after" },
-  );
 });
 
 it("should render with accessible description when `error` prop is set", () => {

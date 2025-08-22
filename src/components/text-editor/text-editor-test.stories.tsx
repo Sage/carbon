@@ -92,7 +92,6 @@ export const Playground: Story = {
     characterLimit: 3000,
     error: "",
     inputHint: "",
-    isOptional: false,
     labelText: "Text Editor",
     namespace: "carbon-storybook-rte",
     placeholder: "Enter text here",

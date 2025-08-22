@@ -41,11 +41,6 @@ export interface CommonCheckableInputProps
   labelWidth?: number;
   /** Flag to configure component as mandatory */
   required?: boolean;
-  /**
-   * [Legacy] Flag to configure component as optional.
-   * @deprecated If the value of this component is not required, use the `required` prop and set it to false instead.
-   */
-  isOptional?: boolean;
   /** If true the label switches position with the input */
   reverse?: boolean;
   /** Size of the component */
@@ -96,7 +91,6 @@ const CheckableInput = React.forwardRef(
       onChange,
       onFocus,
       required,
-      isOptional,
       reverse = false,
       validationOnLabel,
       warning,
@@ -138,7 +132,6 @@ const CheckableInput = React.forwardRef(
       // We don't want an asterisk on each radio control, only the legend
       // However, we still want the input element to receive the required prop
       isRequired: required,
-      isOptional,
       useValidationIcon: validationOnLabel,
     };
 

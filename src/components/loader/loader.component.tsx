@@ -12,7 +12,6 @@ import StyledLoaderSquare, {
   StyledLoaderPlaceholder,
 } from "./loader-square.style";
 import Typography from "../typography";
-import Logger from "../../__internal__/utils/logger";
 
 export interface LoaderProps
   extends Omit<StyledLoaderSquareProps, "backgroundColor">,
@@ -21,35 +20,20 @@ export interface LoaderProps
   /** Toggle between the default variant and gradient variant */
   variant?: string;
   /**
-   * Specify a custom accessible name for the Loader component
-   * @deprecated - use `loaderLabel` prop instead
-   */
-  "aria-label"?: string;
-  /**
    * Specify a custom accessible label for the Loader.
    * This label is visible to users who have enabled the reduce motion setting in their operating system. It is also available to assistive technologies.
    */
   loaderLabel?: string;
 }
 
-let deprecateAriaLabelWarnTriggered = false;
-
 export const Loader = ({
   variant = "default",
-  "aria-label": ariaLabel,
   size = "medium",
   isInsideButton = false,
   isActive = true,
   loaderLabel,
   ...rest
 }: LoaderProps) => {
-  if (!deprecateAriaLabelWarnTriggered && ariaLabel) {
-    deprecateAriaLabelWarnTriggered = true;
-    Logger.deprecate(
-      "The aria-label prop in Loader is deprecated and will soon be removed, please use the `loaderLabel` prop instead to provide an accessible label.",
-    );
-  }
-
   const l = useLocale();
 
   const allowMotion = useMediaQuery(
@@ -88,11 +72,11 @@ export const Loader = ({
             />
           ))}
           <Typography data-role="hidden-label" variant="span" screenReaderOnly>
-            {loaderLabel || ariaLabel || l.loader.loading()}
+            {loaderLabel || l.loader.loading()}
           </Typography>
         </>
       ) : (
-        loaderLabel || ariaLabel || l.loader.loading()
+        loaderLabel || l.loader.loading()
       )}
     </StyledLoader>
   );

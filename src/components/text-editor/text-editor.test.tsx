@@ -43,27 +43,6 @@ const initialValue = {
   },
 };
 
-test("should display deprecation warning once when rendered as optional", () => {
-  const loggerSpy = jest.spyOn(Logger, "deprecate");
-
-  render(
-    <>
-      <TextEditor labelText="label" isOptional />
-      <TextEditor labelText="label" isOptional />
-    </>,
-  );
-
-  // Ensure the deprecation warning is logged only once
-  expect(loggerSpy).toHaveBeenCalledTimes(1);
-
-  expect(loggerSpy).toHaveBeenNthCalledWith(
-    1,
-    "`isOptional` is deprecated in TextEditor and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
-  );
-
-  loggerSpy.mockRestore();
-});
-
 test("should display deprecation warning once when rendered with value prop", async () => {
   const loggerSpy = jest.spyOn(Logger, "deprecate");
 
@@ -382,18 +361,6 @@ test("required prop renders correctly when required prop is provided", () => {
   const editor = screen.getByRole("textbox", { name: "Example" });
 
   expect(editor).toBeRequired();
-});
-
-test("optional prop renders correctly when optional prop is provided", () => {
-  // render the TextEditor component with the optional prop
-  render(<TextEditor labelText="Example" isOptional />);
-
-  const label = screen.getByTestId("label-container");
-
-  // expect the optional indicator to be rendered
-  expect(label).toHaveStyleRule("content", '"(optional)"', {
-    modifier: "::after",
-  });
 });
 
 test("placeholder prop renders correctly when placeholder prop is provided", () => {

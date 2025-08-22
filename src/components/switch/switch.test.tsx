@@ -313,19 +313,6 @@ test("`helpAriaLabel` prop should set the aria-label on the Help component", () 
 });
 
 // Required for coverage
-test("should append '(optional)' content on the label when the isOptional prop is true", () => {
-  render(<Switch isOptional label="Optional" />);
-
-  const label = screen.getByText("Optional");
-  const labelContainer = screen.getByTestId("label-container");
-
-  expect(label).toHaveTextContent("Optional");
-  expect(labelContainer).toHaveStyleRule("content", '"(optional)"', {
-    modifier: "::after",
-  });
-});
-
-// Required for coverage
 test("the correct border colour is applied when `error` validation is true", () => {
   render(<Switch error />);
 

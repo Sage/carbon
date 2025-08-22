@@ -64,7 +64,6 @@ export const Switch = React.forwardRef(
       loading,
       reverse = true,
       required,
-      isOptional,
       validationOnLabel = false,
       labelInline = false,
       labelSpacing,
@@ -184,7 +183,6 @@ export const Switch = React.forwardRef(
       validationOnLabel: shouldValidationBeOnLabel && !disabled,
       ref,
       required,
-      isOptional,
       ...rest,
       "data-component": undefined,
     };
@@ -233,7 +231,6 @@ export const Switch = React.forwardRef(
       role: "switch",
       ref,
       required,
-      isOptional,
       ...rest,
     };
 
@@ -291,7 +288,6 @@ export const Switch = React.forwardRef(
                 labelId={labelId.current}
                 disabled={disabled}
                 isRequired={required}
-                optional={isOptional}
               >
                 {label}
               </Label>

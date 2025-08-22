@@ -101,38 +101,6 @@ const FilterableSelectWithDefaultValueStateAndObjects = ({
   );
 };
 
-test("should display deprecation warning once when rendered as optional", () => {
-  const loggerSpy = jest.spyOn(Logger, "deprecate");
-
-  render(
-    <>
-      <FilterableSelect
-        label="one"
-        defaultValue="opt1"
-        isOptional
-        onChange={() => {}}
-      >
-        <Option value="opt1" text="red" />
-      </FilterableSelect>
-      <FilterableSelect
-        label="one"
-        defaultValue="opt1"
-        isOptional
-        onChange={() => {}}
-      >
-        <Option value="opt1" text="red" />
-      </FilterableSelect>
-    </>,
-  );
-
-  expect(loggerSpy).toHaveBeenNthCalledWith(
-    1,
-    "`isOptional` is deprecated in FilterableSelect and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
-  );
-
-  loggerSpy.mockRestore();
-});
-
 test("should display a deprecation warning only once for all instances of component when they are uncontrolled", () => {
   const loggerSpy = jest.spyOn(Logger, "deprecate");
   render(
