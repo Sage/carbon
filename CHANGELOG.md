@@ -1,3 +1,24 @@
+## [155.12.1](https://github.com/Sage/carbon/compare/v155.12.0...v155.12.1) (2025-08-21)
+
+### Bug Fixes
+
+* ensure generated ids have carbon prefix ([dc748b6](https://github.com/Sage/carbon/commit/dc748b6ae2a4039983e5e7c46ebf4a2b9eae7b6d))
+
+## [155.12.0](https://github.com/Sage/carbon/compare/v155.11.0...v155.12.0) (2025-08-21)
+
+### Features
+
+* **box:** add support for multiple border radius values ([c814724](https://github.com/Sage/carbon/commit/c814724b90f6dc787568afc4c15100ff28b7cc59))
+* **hr:** add type prop ([ad978fd](https://github.com/Sage/carbon/commit/ad978fd362d72f617dd0fbfa6256e9c60b77bb4b))
+* **popover-container:** add borderRadius prop ([31f29b7](https://github.com/Sage/carbon/commit/31f29b72e3a401761bb829bfce096fe5aa107130))
+* **popover-container:** add center position ([4cd0baa](https://github.com/Sage/carbon/commit/4cd0baa4a68b66d09586420ba6b6e6554da98e81))
+* **popover-container:** add data-popover-container-button to renderOpenComponent's prop interface ([4f4ff94](https://github.com/Sage/carbon/commit/4f4ff941d0957c935a9dd3aeebf8f07f9247a9a5))
+* **popover-container:** add offset prop ([fd3fd09](https://github.com/Sage/carbon/commit/fd3fd096bf68a6f74cd7621139b9b75e283c0c6c))
+
+### Bug Fixes
+
+* **popover-container:** add conditional rendering for the title prop ([46a386f](https://github.com/Sage/carbon/commit/46a386f7958fb1d6761b6e704aba384c365c1a62))
+
 ## [155.11.0](https://github.com/Sage/carbon/compare/v155.10.0...v155.11.0) (2025-08-14)
 
 ### Features

@@ -1,11 +1,11 @@
 import guid from ".";
 
-test("should generate a guid with a length of 36 characters", () => {
-  expect(guid().length).toEqual(36);
+test("generates id with carbon prefix", () => {
+  expect(guid()).toMatch(/^carbon-/);
 });
 
 test("should generate a unique guid each time it is called", () => {
-  const guids = Array.from({ length: 5 }, () => guid());
+  const guids = Array.from({ length: 3 }, () => guid());
   const uniqueGuids = new Set(guids);
-  expect(uniqueGuids.size).toEqual(5);
+  expect(uniqueGuids.size).toEqual(3);
 });

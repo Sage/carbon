@@ -246,6 +246,11 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
         box-shadow: 0 var(--spacing050) 0 0 var(--colorsUtilityYin090);
         border-bottom-left-radius: var(--borderRadius025);
         border-bottom-right-radius: var(--borderRadius025);
+
+        &:has([data-popover-container-button="true"]) {
+          border-bottom-left-radius: var(--borderRadius000);
+          border-bottom-right-radius: var(--borderRadius000);
+        }
       `}
 
       > button, ${StyledButton}:not(.search-button) {
