@@ -5,6 +5,7 @@ import { test, expect } from "../../../../playwright/helpers/base-test";
 import {
   ResponsiveVerticalMenuDefaultComponent,
   ResponsiveVerticalMenuIconMixture,
+  WithDifferentDepthsAsLastItem,
 } from "./components.test-pw";
 
 import {
@@ -18,7 +19,6 @@ import {
   responsiveVerticalMenuNthPrimaryItem,
   responsiveVerticalMenuNthSecondaryItem,
   responsiveVerticalMenuSecondary,
-  // responsiveVerticalMenuSecondary,
 } from "../../../../playwright/components/vertical-menu/responsive-vertical-menu";
 
 test.describe("functional tests", () => {
@@ -192,6 +192,176 @@ test.describe("functional tests", () => {
     await expect(clientOffsetTertiaryCustomIconMenuItem).toBeLessThanOrEqual(
       441,
     );
+  });
+});
+
+test.describe("keyboard navigation tests", () => {
+  test("should loop back to primary menu item when Tab is pressed on last secondary menu item", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<WithDifferentDepthsAsLastItem />);
+
+    await responsiveVerticalMenuLauncher(page).click();
+
+    const primaryMenuItem = page.getByRole("button", { name: "With Level 2" });
+    await page.keyboard.press("Tab");
+    await expect(primaryMenuItem).toBeFocused();
+    await page.keyboard.press("Enter");
+
+    const secondaryMenuItem = page.getByRole("link", {
+      name: "Level 2 As Last Item",
+    });
+    await expect(secondaryMenuItem).toBeVisible();
+    await page.keyboard.press("Tab");
+    await expect(secondaryMenuItem).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(primaryMenuItem).toBeFocused();
+  });
+
+  test("should loop back to primary menu item when Tab is pressed on last tertiary menu item", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<WithDifferentDepthsAsLastItem />);
+
+    await responsiveVerticalMenuLauncher(page).click();
+
+    const primaryMenuItem = page.getByRole("button", { name: "With Level 3" });
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("Tab");
+    await expect(primaryMenuItem).toBeFocused();
+    await page.keyboard.press("Enter");
+
+    await page.keyboard.press("Tab"); // go to secondary menu
+    await page.keyboard.press("Enter"); // open secondary menu
+
+    const tertiaryMenuItem = page.getByRole("link", {
+      name: "Level 3 As Last Item",
+    });
+    await expect(tertiaryMenuItem).toBeVisible();
+    await page.keyboard.press("Tab");
+    await expect(tertiaryMenuItem).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(primaryMenuItem).toBeFocused();
+  });
+
+  test("should loop back to primary menu item when Tab is pressed on last level 4 item", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<WithDifferentDepthsAsLastItem />);
+
+    await responsiveVerticalMenuLauncher(page).click();
+
+    const primaryMenuItem = page.getByRole("button", { name: "With Level 4" });
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("Tab");
+    await expect(primaryMenuItem).toBeFocused();
+    await page.keyboard.press("Enter");
+
+    await page.keyboard.press("Tab"); // go to secondary menu
+    await page.keyboard.press("Enter"); // open secondary menu
+    await page.keyboard.press("Tab"); // go to tertiary menu
+
+    const quaternaryMenuItem = page.getByRole("link", {
+      name: "Level 4 As Last Item",
+    });
+    await expect(quaternaryMenuItem).toBeVisible();
+    await page.keyboard.press("Tab");
+    await expect(quaternaryMenuItem).toBeFocused();
+    await page.keyboard.press("Tab");
+
+    // TODO: FE-7448
+    // await expect(primaryMenuItem).toBeFocused();
+  });
+
+  test("should go to last secondary menu item when Shift+Tab is pressed on the primary menu", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<WithDifferentDepthsAsLastItem />);
+
+    await responsiveVerticalMenuLauncher(page).click();
+
+    const primaryMenuItem = page.getByRole("button", { name: "With Level 2" });
+    await page.keyboard.press("Tab");
+    await expect(primaryMenuItem).toBeFocused();
+    await page.keyboard.press("Enter");
+
+    const secondaryMenuItem = page.getByRole("link", {
+      name: "Level 2 As Last Item",
+    });
+    await expect(secondaryMenuItem).toBeVisible();
+    await page.keyboard.press("Shift+Tab");
+    await expect(secondaryMenuItem).toBeFocused();
+    await page.keyboard.press("Shift+Tab");
+    await expect(primaryMenuItem).toBeFocused();
+  });
+
+  test("should go to last tertiary menu item when Shift+Tab is pressed on the secondary menu", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<WithDifferentDepthsAsLastItem />);
+
+    await responsiveVerticalMenuLauncher(page).click();
+
+    const primaryMenuItem = page.getByRole("button", { name: "With Level 3" });
+    await primaryMenuItem.click(); // open primary menu
+    const secondaryMenuItem = page.getByRole("button", {
+      name: "Level 2 Parent",
+    });
+    await secondaryMenuItem.click(); // open secondary menu
+    const tertiaryMenuItem = page.getByRole("link", {
+      name: "Level 3 As Last Item",
+    });
+    await expect(tertiaryMenuItem).toBeVisible();
+
+    await primaryMenuItem.focus();
+
+    await page.keyboard.press("Shift+Tab");
+    await expect(tertiaryMenuItem).toBeFocused();
+    await page.keyboard.press("Shift+Tab");
+    await expect(secondaryMenuItem).toBeFocused();
+    await page.keyboard.press("Shift+Tab");
+    await expect(primaryMenuItem).toBeFocused();
+  });
+
+  // TODO: FE-7448
+  test.skip("should go to last level 4 item when Shift+Tab is pressed on the tertiary menu", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<WithDifferentDepthsAsLastItem />);
+
+    await responsiveVerticalMenuLauncher(page).click();
+
+    const primaryMenuItem = page.getByRole("button", { name: "With Level 4" });
+    await primaryMenuItem.click(); // open primary menu
+    const secondaryMenuItem = page.getByRole("button", {
+      name: "Level 2 Parent",
+    });
+    await secondaryMenuItem.click(); // open secondary menu
+    const tertiaryMenuItem = page.getByRole("button", {
+      name: "Level 3 Parent",
+    });
+    const quaternaryMenuItem = page.getByRole("link", {
+      name: "Level 4 As Last Item",
+    });
+    await expect(quaternaryMenuItem).toBeVisible();
+
+    await primaryMenuItem.focus();
+
+    await page.keyboard.press("Shift+Tab");
+    await expect(quaternaryMenuItem).toBeFocused();
+    await page.keyboard.press("Shift+Tab");
+    await expect(tertiaryMenuItem).toBeFocused();
+    await page.keyboard.press("Shift+Tab");
+    await expect(secondaryMenuItem).toBeFocused();
+    await page.keyboard.press("Shift+Tab");
+    await expect(primaryMenuItem).toBeFocused();
   });
 });
 

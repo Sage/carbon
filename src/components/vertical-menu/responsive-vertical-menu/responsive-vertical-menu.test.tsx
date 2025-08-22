@@ -18,6 +18,7 @@ import useIsAboveBreakpoint from "../../../hooks/__internal__/useIsAboveBreakpoi
 import useMediaQuery from "../../../hooks/useMediaQuery";
 import guid from "../../../__internal__/utils/helpers/guid";
 import I18nProvider from "../../../components/i18n-provider";
+import Logger from "../../../__internal__/utils/logger";
 
 jest.mock("../../../hooks/__internal__/useIsAboveBreakpoint");
 jest.mock("../../../hooks/useMediaQuery");
@@ -98,13 +99,11 @@ test("renders correctly", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
   render(
-    <ResponsiveVerticalMenuProvider>
-      <ResponsiveVerticalMenu>
-        <ResponsiveVerticalMenuItem id="menu-item-1" label="Menu Item 1" />
-        <ResponsiveVerticalMenuItem id="menu-item-2" label="Menu Item 2" />
-        <ResponsiveVerticalMenuItem id="menu-item-3" label="Menu Item 3" />
-      </ResponsiveVerticalMenu>
-    </ResponsiveVerticalMenuProvider>,
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem id="menu-item-1" label="Menu Item 1" />
+      <ResponsiveVerticalMenuItem id="menu-item-2" label="Menu Item 2" />
+      <ResponsiveVerticalMenuItem id="menu-item-3" label="Menu Item 3" />
+    </ResponsiveVerticalMenu>,
   );
 
   const launcherButton = screen.getByTestId(
@@ -117,11 +116,11 @@ test("renders correctly", async () => {
   expect(screen.getByText("Menu Item 3")).toBeInTheDocument();
 });
 
-test("throws if not wrapped in provider", async () => {
+test("throws if children are not wrapped in the provider", async () => {
   const consoleSpy = jest.spyOn(console, "error").mockImplementation();
 
   expect(() => {
-    render(<ResponsiveVerticalMenu />);
+    render(<ResponsiveVerticalMenuItem id="menu-item-1" label="Menu Item 1" />);
   }).toThrow(
     "useResponsiveVerticalMenu must be used within a ResponsiveVerticalMenuProvider",
   );
@@ -129,20 +128,42 @@ test("throws if not wrapped in provider", async () => {
   consoleSpy.mockRestore();
 });
 
-test("items without children are rendered as anchor links", async () => {
-  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+test("logs deprecation warning if context provider is used", () => {
+  jest.spyOn(Logger, "error").mockImplementation(() => {});
+  const loggerDeprecateSpy = jest
+    .spyOn(Logger, "deprecate")
+    .mockImplementation(() => {});
 
   render(
     <ResponsiveVerticalMenuProvider>
       <ResponsiveVerticalMenu>
-        <ResponsiveVerticalMenuItem
-          data-role="menu-item-1"
-          id="menu-item-1"
-          label="Menu Item 1"
-          href="https://example.com"
-        />
+        <ResponsiveVerticalMenuItem id="menu-item-1" label="Menu Item 1" />
+        <ResponsiveVerticalMenuItem id="menu-item-2" label="Menu Item 2" />
+        <ResponsiveVerticalMenuItem id="menu-item-3" label="Menu Item 3" />
       </ResponsiveVerticalMenu>
     </ResponsiveVerticalMenuProvider>,
+  );
+
+  expect(loggerDeprecateSpy).toHaveBeenCalledTimes(1);
+  expect(loggerDeprecateSpy).toHaveBeenCalledWith(
+    expect.stringContaining(
+      "`ResponsiveVerticalMenuProvider` is deprecated and no longer needed for `ResponsiveVerticalMenu`. You can use `ResponsiveVerticalMenu` directly without wrapping it in a provider.",
+    ),
+  );
+});
+
+test("items without children are rendered as anchor links", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem
+        data-role="menu-item-1"
+        id="menu-item-1"
+        label="Menu Item 1"
+        href="https://example.com"
+      />
+    </ResponsiveVerticalMenu>,
   );
 
   const launcherButton = screen.getByTestId(
@@ -159,21 +180,19 @@ test("items with children are rendered as buttons", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
   render(
-    <ResponsiveVerticalMenuProvider>
-      <ResponsiveVerticalMenu>
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem
+        data-role="menu-item-1"
+        id="menu-item-1"
+        label="Menu Item 1"
+      >
         <ResponsiveVerticalMenuItem
-          data-role="menu-item-1"
-          id="menu-item-1"
-          label="Menu Item 1"
-        >
-          <ResponsiveVerticalMenuItem
-            data-role="menu-item-2"
-            id="menu-item-2"
-            label="Menu Item 2"
-          />
-        </ResponsiveVerticalMenuItem>
-      </ResponsiveVerticalMenu>
-    </ResponsiveVerticalMenuProvider>,
+          data-role="menu-item-2"
+          id="menu-item-2"
+          label="Menu Item 2"
+        />
+      </ResponsiveVerticalMenuItem>
+    </ResponsiveVerticalMenu>,
   );
 
   const launcherButton = screen.getByTestId(
@@ -191,21 +210,19 @@ test("top-level items with children are expanded and collapsed on click", async 
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
   render(
-    <ResponsiveVerticalMenuProvider>
-      <ResponsiveVerticalMenu>
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem
+        data-role="menu-item-1"
+        id="menu-item-1"
+        label="Menu Item 1"
+      >
         <ResponsiveVerticalMenuItem
-          data-role="menu-item-1"
-          id="menu-item-1"
-          label="Menu Item 1"
-        >
-          <ResponsiveVerticalMenuItem
-            data-role="menu-item-2"
-            id="menu-item-2"
-            label="Menu Item 2"
-          />
-        </ResponsiveVerticalMenuItem>
-      </ResponsiveVerticalMenu>
-    </ResponsiveVerticalMenuProvider>,
+          data-role="menu-item-2"
+          id="menu-item-2"
+          label="Menu Item 2"
+        />
+      </ResponsiveVerticalMenuItem>
+    </ResponsiveVerticalMenu>,
   );
 
   expect(screen.queryByText("Menu Item 2")).not.toBeInTheDocument();
@@ -233,21 +250,19 @@ test("top-level items with children are expanded and collapsed on click", async 
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
     render(
-      <ResponsiveVerticalMenuProvider>
-        <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenu>
+        <ResponsiveVerticalMenuItem
+          data-role="menu-item-1"
+          id="menu-item-1"
+          label="Menu Item 1"
+        >
           <ResponsiveVerticalMenuItem
-            data-role="menu-item-1"
-            id="menu-item-1"
-            label="Menu Item 1"
-          >
-            <ResponsiveVerticalMenuItem
-              data-role="menu-item-2"
-              id="menu-item-2"
-              label="Menu Item 2"
-            />
-          </ResponsiveVerticalMenuItem>
-        </ResponsiveVerticalMenu>
-      </ResponsiveVerticalMenuProvider>,
+            data-role="menu-item-2"
+            id="menu-item-2"
+            label="Menu Item 2"
+          />
+        </ResponsiveVerticalMenuItem>
+      </ResponsiveVerticalMenu>,
     );
 
     expect(screen.queryByText("Menu Item 2")).not.toBeInTheDocument();
@@ -277,27 +292,25 @@ test("secondary-level items with children are expanded and collapsed on click", 
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
   render(
-    <ResponsiveVerticalMenuProvider>
-      <ResponsiveVerticalMenu>
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem
+        data-role="menu-item-1"
+        id="menu-item-1"
+        label="Menu Item 1"
+      >
         <ResponsiveVerticalMenuItem
-          data-role="menu-item-1"
-          id="menu-item-1"
-          label="Menu Item 1"
+          data-role="menu-item-2"
+          id="menu-item-2"
+          label="Menu Item 2"
         >
           <ResponsiveVerticalMenuItem
-            data-role="menu-item-2"
-            id="menu-item-2"
-            label="Menu Item 2"
-          >
-            <ResponsiveVerticalMenuItem
-              data-role="menu-item-3"
-              id="menu-item-3"
-              label="Menu Item 3"
-            />
-          </ResponsiveVerticalMenuItem>
+            data-role="menu-item-3"
+            id="menu-item-3"
+            label="Menu Item 3"
+          />
         </ResponsiveVerticalMenuItem>
-      </ResponsiveVerticalMenu>
-    </ResponsiveVerticalMenuProvider>,
+      </ResponsiveVerticalMenuItem>
+    </ResponsiveVerticalMenu>,
   );
 
   expect(screen.queryByText("Menu Item 3")).not.toBeInTheDocument();
@@ -327,27 +340,25 @@ test("secondary-level items with children are expanded and collapsed on click", 
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
     render(
-      <ResponsiveVerticalMenuProvider>
-        <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenu>
+        <ResponsiveVerticalMenuItem
+          data-role="menu-item-1"
+          id="menu-item-1"
+          label="Menu Item 1"
+        >
           <ResponsiveVerticalMenuItem
-            data-role="menu-item-1"
-            id="menu-item-1"
-            label="Menu Item 1"
+            data-role="menu-item-2"
+            id="menu-item-2"
+            label="Menu Item 2"
           >
             <ResponsiveVerticalMenuItem
-              data-role="menu-item-2"
-              id="menu-item-2"
-              label="Menu Item 2"
-            >
-              <ResponsiveVerticalMenuItem
-                data-role="menu-item-3"
-                id="menu-item-3"
-                label="Menu Item 3"
-              />
-            </ResponsiveVerticalMenuItem>
+              data-role="menu-item-3"
+              id="menu-item-3"
+              label="Menu Item 3"
+            />
           </ResponsiveVerticalMenuItem>
-        </ResponsiveVerticalMenu>
-      </ResponsiveVerticalMenuProvider>,
+        </ResponsiveVerticalMenuItem>
+      </ResponsiveVerticalMenu>,
     );
 
     expect(screen.queryByText("Menu Item 3")).not.toBeInTheDocument();
@@ -379,16 +390,14 @@ test("items render with a Carbon icon", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
   render(
-    <ResponsiveVerticalMenuProvider>
-      <ResponsiveVerticalMenu>
-        <ResponsiveVerticalMenuItem
-          icon="home"
-          data-role="menu-item-1"
-          id="menu-item-1"
-          label="Menu Item 1"
-        />
-      </ResponsiveVerticalMenu>
-    </ResponsiveVerticalMenuProvider>,
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem
+        icon="home"
+        data-role="menu-item-1"
+        id="menu-item-1"
+        label="Menu Item 1"
+      />
+    </ResponsiveVerticalMenu>,
   );
 
   const launcherButton = screen.getByTestId(
@@ -404,16 +413,14 @@ test("items render with a custom icon", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
   render(
-    <ResponsiveVerticalMenuProvider>
-      <ResponsiveVerticalMenu>
-        <ResponsiveVerticalMenuItem
-          customIcon={<CustomSVG />}
-          data-role="menu-item-1"
-          id="menu-item-1"
-          label="Menu Item 1"
-        />
-      </ResponsiveVerticalMenu>
-    </ResponsiveVerticalMenuProvider>,
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem
+        customIcon={<CustomSVG />}
+        data-role="menu-item-1"
+        id="menu-item-1"
+        label="Menu Item 1"
+      />
+    </ResponsiveVerticalMenu>,
   );
 
   const launcherButton = screen.getByTestId(
@@ -428,17 +435,15 @@ test("items render with a custom icon", async () => {
 test("items render with a custom icon if both customIcon and icon are provided", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(
-    <ResponsiveVerticalMenuProvider>
-      <ResponsiveVerticalMenu>
-        <ResponsiveVerticalMenuItem
-          customIcon={<CustomSVG />}
-          data-role="menu-item-1"
-          icon="home"
-          id="menu-item-1"
-          label="Menu Item 1"
-        />
-      </ResponsiveVerticalMenu>
-    </ResponsiveVerticalMenuProvider>,
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem
+        customIcon={<CustomSVG />}
+        data-role="menu-item-1"
+        icon="home"
+        id="menu-item-1"
+        label="Menu Item 1"
+      />
+    </ResponsiveVerticalMenu>,
   );
 
   const launcherButton = screen.getByTestId(
@@ -457,11 +462,9 @@ test("closes menu when Escape key is pressed", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
   render(
-    <ResponsiveVerticalMenuProvider>
-      <ResponsiveVerticalMenu>
-        <ResponsiveVerticalMenuItem id="menu-item-1" label="Menu Item 1" />
-      </ResponsiveVerticalMenu>
-    </ResponsiveVerticalMenuProvider>,
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem id="menu-item-1" label="Menu Item 1" />
+    </ResponsiveVerticalMenu>,
   );
 
   const launcherButton = screen.getByTestId(
@@ -479,15 +482,13 @@ test("closes menu when Escape key is pressed", async () => {
 test("closes menu when focus is lost", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(
-    <ResponsiveVerticalMenuProvider>
-      <ResponsiveVerticalMenu>
-        <ResponsiveVerticalMenuItem
-          data-role="menu-item-1"
-          id="menu-item-1"
-          label="Menu Item 1"
-        />
-      </ResponsiveVerticalMenu>
-    </ResponsiveVerticalMenuProvider>,
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem
+        data-role="menu-item-1"
+        id="menu-item-1"
+        label="Menu Item 1"
+      />
+    </ResponsiveVerticalMenu>,
   );
 
   const launcherButton = screen.getByTestId(
@@ -515,11 +516,9 @@ test("closes menu when the user clicks outside of the menu", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
   render(
-    <ResponsiveVerticalMenuProvider>
-      <ResponsiveVerticalMenu>
-        <ResponsiveVerticalMenuItem id="menu-item-1" label="Menu Item 1" />
-      </ResponsiveVerticalMenu>
-    </ResponsiveVerticalMenuProvider>,
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem id="menu-item-1" label="Menu Item 1" />
+    </ResponsiveVerticalMenu>,
   );
 
   const launcherButton = screen.getByTestId(
@@ -539,11 +538,9 @@ test("does not close the menu when the user clicks outside of the menu but respo
   mockUseIsAboveBreakpoint.mockReturnValue(false);
 
   render(
-    <ResponsiveVerticalMenuProvider>
-      <ResponsiveVerticalMenu>
-        <ResponsiveVerticalMenuItem id="menu-item-1" label="Menu Item 1" />
-      </ResponsiveVerticalMenu>
-    </ResponsiveVerticalMenuProvider>,
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem id="menu-item-1" label="Menu Item 1" />
+    </ResponsiveVerticalMenu>,
   );
   const launcherButton = screen.getByTestId(
     "responsive-vertical-menu-launcher",
@@ -562,11 +559,9 @@ test("closes menu when the user clicks the close button in responsive mode", asy
   mockUseIsAboveBreakpoint.mockReturnValue(false);
 
   render(
-    <ResponsiveVerticalMenuProvider>
-      <ResponsiveVerticalMenu>
-        <ResponsiveVerticalMenuItem id="menu-item-1" label="Menu Item 1" />
-      </ResponsiveVerticalMenu>
-    </ResponsiveVerticalMenuProvider>,
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem id="menu-item-1" label="Menu Item 1" />
+    </ResponsiveVerticalMenu>,
   );
 
   const launcherButton = screen.getByTestId(
@@ -591,33 +586,31 @@ test("has the correct styling when interacting", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
   render(
-    <ResponsiveVerticalMenuProvider>
-      <ResponsiveVerticalMenu>
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem
+        data-role="menu-item-1"
+        id="menu-item-1"
+        label="Menu Item 1"
+      >
         <ResponsiveVerticalMenuItem
-          data-role="menu-item-1"
-          id="menu-item-1"
-          label="Menu Item 1"
+          data-role="menu-item-2"
+          id="menu-item-2"
+          label="Menu Item 2"
         >
           <ResponsiveVerticalMenuItem
-            data-role="menu-item-2"
-            id="menu-item-2"
-            label="Menu Item 2"
-          >
-            <ResponsiveVerticalMenuItem
-              data-role="menu-item-3"
-              id="menu-item-3"
-              label="Menu Item 3"
-              icon="home"
-            />
-          </ResponsiveVerticalMenuItem>
+            data-role="menu-item-3"
+            id="menu-item-3"
+            label="Menu Item 3"
+            icon="home"
+          />
         </ResponsiveVerticalMenuItem>
-        <ResponsiveVerticalMenuItem
-          data-role="menu-item-4"
-          id="menu-item-4"
-          label="Menu Item 4"
-        />
-      </ResponsiveVerticalMenu>
-    </ResponsiveVerticalMenuProvider>,
+      </ResponsiveVerticalMenuItem>
+      <ResponsiveVerticalMenuItem
+        data-role="menu-item-4"
+        id="menu-item-4"
+        label="Menu Item 4"
+      />
+    </ResponsiveVerticalMenu>,
   );
 
   const launcherButton = screen.getByTestId(
@@ -661,32 +654,30 @@ test("has the correct styling when interacting and responsive", async () => {
   mockUseIsAboveBreakpoint.mockReturnValue(false);
 
   render(
-    <ResponsiveVerticalMenuProvider>
-      <ResponsiveVerticalMenu>
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem
+        data-role="menu-item-1"
+        id="menu-item-1"
+        label="Menu Item 1"
+      >
         <ResponsiveVerticalMenuItem
-          data-role="menu-item-1"
-          id="menu-item-1"
-          label="Menu Item 1"
+          data-role="menu-item-2"
+          id="menu-item-2"
+          label="Menu Item 2"
         >
           <ResponsiveVerticalMenuItem
-            data-role="menu-item-2"
-            id="menu-item-2"
-            label="Menu Item 2"
-          >
-            <ResponsiveVerticalMenuItem
-              data-role="menu-item-3"
-              id="menu-item-3"
-              label="Menu Item 3"
-            />
-          </ResponsiveVerticalMenuItem>
-          <ResponsiveVerticalMenuItem
-            data-role="menu-item-4"
-            id="menu-item-4"
-            label="Menu Item 4"
+            data-role="menu-item-3"
+            id="menu-item-3"
+            label="Menu Item 3"
           />
         </ResponsiveVerticalMenuItem>
-      </ResponsiveVerticalMenu>
-    </ResponsiveVerticalMenuProvider>,
+        <ResponsiveVerticalMenuItem
+          data-role="menu-item-4"
+          id="menu-item-4"
+          label="Menu Item 4"
+        />
+      </ResponsiveVerticalMenuItem>
+    </ResponsiveVerticalMenu>,
   );
 
   const launcherButton = screen.getByTestId(
@@ -723,27 +714,25 @@ test("respects reduced motion and has the correct styling when interacting", asy
   mockUseMediaQuery.mockReturnValue(false);
 
   render(
-    <ResponsiveVerticalMenuProvider>
-      <ResponsiveVerticalMenu>
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem
+        data-role="menu-item-1"
+        id="menu-item-1"
+        label="Menu Item 1"
+      >
         <ResponsiveVerticalMenuItem
-          data-role="menu-item-1"
-          id="menu-item-1"
-          label="Menu Item 1"
+          data-role="menu-item-2"
+          id="menu-item-2"
+          label="Menu Item 2"
         >
           <ResponsiveVerticalMenuItem
-            data-role="menu-item-2"
-            id="menu-item-2"
-            label="Menu Item 2"
-          >
-            <ResponsiveVerticalMenuItem
-              data-role="menu-item-3"
-              id="menu-item-3"
-              label="Menu Item 3"
-            />
-          </ResponsiveVerticalMenuItem>
+            data-role="menu-item-3"
+            id="menu-item-3"
+            label="Menu Item 3"
+          />
         </ResponsiveVerticalMenuItem>
-      </ResponsiveVerticalMenu>
-    </ResponsiveVerticalMenuProvider>,
+      </ResponsiveVerticalMenuItem>
+    </ResponsiveVerticalMenu>,
   );
 
   const launcherButton = screen.getByTestId(
@@ -783,31 +772,29 @@ test("allows for full keyboard navigation of primary menus", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   mockUseIsAboveBreakpoint.mockReturnValue(true);
   render(
-    <ResponsiveVerticalMenuProvider>
-      <ResponsiveVerticalMenu>
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem
+        data-role="menu-item-1"
+        id="menu-item-1"
+        label="Menu Item 1"
+      >
         <ResponsiveVerticalMenuItem
-          data-role="menu-item-1"
-          id="menu-item-1"
-          label="Menu Item 1"
-        >
-          <ResponsiveVerticalMenuItem
-            data-role="menu-item-4"
-            id="menu-item-4"
-            label="Menu Item 4"
-          />
-        </ResponsiveVerticalMenuItem>
-        <ResponsiveVerticalMenuItem
-          data-role="menu-item-2"
-          id="menu-item-2"
-          label="Menu Item 2"
+          data-role="menu-item-4"
+          id="menu-item-4"
+          label="Menu Item 4"
         />
-        <ResponsiveVerticalMenuItem
-          data-role="menu-item-3"
-          id="menu-item-3"
-          label="Menu Item 3"
-        />
-      </ResponsiveVerticalMenu>
-    </ResponsiveVerticalMenuProvider>,
+      </ResponsiveVerticalMenuItem>
+      <ResponsiveVerticalMenuItem
+        data-role="menu-item-2"
+        id="menu-item-2"
+        label="Menu Item 2"
+      />
+      <ResponsiveVerticalMenuItem
+        data-role="menu-item-3"
+        id="menu-item-3"
+        label="Menu Item 3"
+      />
+    </ResponsiveVerticalMenu>,
   );
 
   const launcherButton = screen.getByTestId(
@@ -845,32 +832,30 @@ test("allows for full keyboard navigation of secondary menus", async () => {
   mockUseIsAboveBreakpoint.mockReturnValue(true);
 
   render(
-    <ResponsiveVerticalMenuProvider>
-      <ResponsiveVerticalMenu>
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem
+        data-role="menu-item-1"
+        id="menu-item-1"
+        label="Menu Item 1"
+      >
         <ResponsiveVerticalMenuItem
-          data-role="menu-item-1"
-          id="menu-item-1"
-          label="Menu Item 1"
-        >
-          <ResponsiveVerticalMenuItem
-            data-role="menu-item-4"
-            id="menu-item-4"
-            label="Menu Item 4"
-          />
-        </ResponsiveVerticalMenuItem>
-        <ResponsiveVerticalMenuItem
-          data-role="menu-item-2"
-          id="menu-item-2"
-          label="Menu Item 2"
+          data-role="menu-item-4"
+          id="menu-item-4"
+          label="Menu Item 4"
         />
+      </ResponsiveVerticalMenuItem>
+      <ResponsiveVerticalMenuItem
+        data-role="menu-item-2"
+        id="menu-item-2"
+        label="Menu Item 2"
+      />
 
-        <ResponsiveVerticalMenuItem
-          data-role="menu-item-3"
-          id="menu-item-3"
-          label="Menu Item 3"
-        />
-      </ResponsiveVerticalMenu>
-    </ResponsiveVerticalMenuProvider>,
+      <ResponsiveVerticalMenuItem
+        data-role="menu-item-3"
+        id="menu-item-3"
+        label="Menu Item 3"
+      />
+    </ResponsiveVerticalMenu>,
   );
 
   const launcherButton = screen.getByTestId(
@@ -905,38 +890,36 @@ test("allows for full keyboard navigation of tertiary menus", async () => {
   mockUseIsAboveBreakpoint.mockReturnValue(true);
 
   render(
-    <ResponsiveVerticalMenuProvider>
-      <ResponsiveVerticalMenu>
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem
+        data-role="menu-item-1"
+        id="menu-item-1"
+        label="Menu Item 1"
+      >
         <ResponsiveVerticalMenuItem
-          data-role="menu-item-1"
-          id="menu-item-1"
-          label="Menu Item 1"
+          data-role="menu-item-4"
+          id="menu-item-4"
+          label="Menu Item 4"
         >
           <ResponsiveVerticalMenuItem
-            data-role="menu-item-4"
-            id="menu-item-4"
-            label="Menu Item 4"
-          >
-            <ResponsiveVerticalMenuItem
-              data-role="menu-item-5"
-              id="menu-item-5"
-              label="Menu Item 5"
-            />
-          </ResponsiveVerticalMenuItem>
+            data-role="menu-item-5"
+            id="menu-item-5"
+            label="Menu Item 5"
+          />
         </ResponsiveVerticalMenuItem>
-        <ResponsiveVerticalMenuItem
-          data-role="menu-item-2"
-          id="menu-item-2"
-          label="Menu Item 2"
-        />
+      </ResponsiveVerticalMenuItem>
+      <ResponsiveVerticalMenuItem
+        data-role="menu-item-2"
+        id="menu-item-2"
+        label="Menu Item 2"
+      />
 
-        <ResponsiveVerticalMenuItem
-          data-role="menu-item-3"
-          id="menu-item-3"
-          label="Menu Item 3"
-        />
-      </ResponsiveVerticalMenu>
-    </ResponsiveVerticalMenuProvider>,
+      <ResponsiveVerticalMenuItem
+        data-role="menu-item-3"
+        id="menu-item-3"
+        label="Menu Item 3"
+      />
+    </ResponsiveVerticalMenu>,
   );
 
   const launcherButton = screen.getByTestId(
@@ -973,31 +956,62 @@ test("allows for full keyboard navigation of tertiary menus", async () => {
   expect(menuItem).toHaveFocus();
 });
 
+test("focuses the primary menu item when Tab is pressed and the last item is a tertiary menu item with a closed submenu", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  render(
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem id="primary-item" label="Primary Item">
+        <ResponsiveVerticalMenuItem id="secondary-item" label="Secondary Item">
+          <ResponsiveVerticalMenuItem id="tertiary-item" label="Tertiary Item">
+            <ResponsiveVerticalMenuItem
+              id="level-4-item"
+              label="Level 4 Item"
+            />
+          </ResponsiveVerticalMenuItem>
+        </ResponsiveVerticalMenuItem>
+      </ResponsiveVerticalMenuItem>
+    </ResponsiveVerticalMenu>,
+  );
+
+  await user.click(screen.getByRole("button"));
+  const primaryItem = screen.getByRole("button", { name: "Primary Item" });
+  await user.click(primaryItem);
+  const secondaryItem = screen.getByRole("button", { name: "Secondary Item" });
+  await user.click(secondaryItem);
+  const tertiaryItem = screen.getByRole("button", { name: "Tertiary Item" });
+  await user.click(tertiaryItem); // closes the tertiary menu
+
+  await user.tab();
+  expect(primaryItem).toHaveFocus();
+  await user.tab();
+  expect(secondaryItem).toHaveFocus();
+  await user.tab();
+  expect(tertiaryItem).toHaveFocus();
+});
+
 test(`anchor links are correctly rendered`, async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
   render(
-    <ResponsiveVerticalMenuProvider>
-      <ResponsiveVerticalMenu>
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem
+        data-role="menu-item-1"
+        id="menu-item-1"
+        label="Menu Item 1"
+        href="https://example.com"
+      />
+      <ResponsiveVerticalMenuItem
+        data-role="menu-item-2"
+        id="menu-item-2"
+        label="Menu Item 2"
+      >
         <ResponsiveVerticalMenuItem
-          data-role="menu-item-1"
-          id="menu-item-1"
-          label="Menu Item 1"
-          href="https://example.com"
+          data-role="menu-item-3"
+          id="menu-item-3"
+          label="Menu Item 3"
         />
-        <ResponsiveVerticalMenuItem
-          data-role="menu-item-2"
-          id="menu-item-2"
-          label="Menu Item 2"
-        >
-          <ResponsiveVerticalMenuItem
-            data-role="menu-item-3"
-            id="menu-item-3"
-            label="Menu Item 3"
-          />
-        </ResponsiveVerticalMenuItem>
-      </ResponsiveVerticalMenu>
-    </ResponsiveVerticalMenuProvider>,
+      </ResponsiveVerticalMenuItem>
+    </ResponsiveVerticalMenu>,
   );
 
   const launcherButton = screen.getByTestId(
@@ -1015,13 +1029,11 @@ test("generates IDs for menu items if omitted", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
   render(
-    <ResponsiveVerticalMenuProvider>
-      <ResponsiveVerticalMenu>
-        <ResponsiveVerticalMenuItem label="Menu Item 1" />
-        <ResponsiveVerticalMenuItem id="actual-id-1" label="Menu Item 2" />
-        <ResponsiveVerticalMenuItem id="actual-id-2" label="Menu Item 3" />
-      </ResponsiveVerticalMenu>
-    </ResponsiveVerticalMenuProvider>,
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem label="Menu Item 1" />
+      <ResponsiveVerticalMenuItem id="actual-id-1" label="Menu Item 2" />
+      <ResponsiveVerticalMenuItem id="actual-id-2" label="Menu Item 3" />
+    </ResponsiveVerticalMenu>,
   );
 
   const launcherButton = screen.getByTestId(
@@ -1044,28 +1056,26 @@ test("generates IDs for menu items if omitted", async () => {
 test("renders dividers correctly at depth 0", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(
-    <ResponsiveVerticalMenuProvider>
-      <ResponsiveVerticalMenu>
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem
+        data-role="menu-item-1"
+        id="menu-item-1"
+        label="Menu Item 1"
+        href="https://example.com"
+      />
+      <ResponsiveVerticalMenuDivider />
+      <ResponsiveVerticalMenuItem
+        data-role="menu-item-2"
+        id="menu-item-2"
+        label="Menu Item 2"
+      >
         <ResponsiveVerticalMenuItem
-          data-role="menu-item-1"
-          id="menu-item-1"
-          label="Menu Item 1"
-          href="https://example.com"
+          data-role="menu-item-3"
+          id="menu-item-3"
+          label="Menu Item 3"
         />
-        <ResponsiveVerticalMenuDivider />
-        <ResponsiveVerticalMenuItem
-          data-role="menu-item-2"
-          id="menu-item-2"
-          label="Menu Item 2"
-        >
-          <ResponsiveVerticalMenuItem
-            data-role="menu-item-3"
-            id="menu-item-3"
-            label="Menu Item 3"
-          />
-        </ResponsiveVerticalMenuItem>
-      </ResponsiveVerticalMenu>
-    </ResponsiveVerticalMenuProvider>,
+      </ResponsiveVerticalMenuItem>
+    </ResponsiveVerticalMenu>,
   );
 
   const launcherButton = screen.getByTestId(
@@ -1083,33 +1093,31 @@ test("renders dividers correctly when responsive", async () => {
   mockUseIsAboveBreakpoint.mockReturnValue(false);
 
   render(
-    <ResponsiveVerticalMenuProvider>
-      <ResponsiveVerticalMenu>
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem
+        data-role="menu-item-1"
+        id="menu-item-1"
+        label="Menu Item 1"
+        href="https://example.com"
+      />
+      <ResponsiveVerticalMenuItem
+        data-role="menu-item-2"
+        id="menu-item-2"
+        label="Menu Item 2"
+      >
         <ResponsiveVerticalMenuItem
-          data-role="menu-item-1"
-          id="menu-item-1"
-          label="Menu Item 1"
-          href="https://example.com"
+          data-role="menu-item-3"
+          id="menu-item-3"
+          label="Menu Item 3"
         />
+        <ResponsiveVerticalMenuDivider />
         <ResponsiveVerticalMenuItem
-          data-role="menu-item-2"
-          id="menu-item-2"
-          label="Menu Item 2"
-        >
-          <ResponsiveVerticalMenuItem
-            data-role="menu-item-3"
-            id="menu-item-3"
-            label="Menu Item 3"
-          />
-          <ResponsiveVerticalMenuDivider />
-          <ResponsiveVerticalMenuItem
-            data-role="menu-item-4"
-            id="menu-item-4"
-            label="Menu Item 4"
-          />
-        </ResponsiveVerticalMenuItem>
-      </ResponsiveVerticalMenu>
-    </ResponsiveVerticalMenuProvider>,
+          data-role="menu-item-4"
+          id="menu-item-4"
+          label="Menu Item 4"
+        />
+      </ResponsiveVerticalMenuItem>
+    </ResponsiveVerticalMenu>,
   );
 
   const launcherButton = screen.getByTestId(
@@ -1130,16 +1138,14 @@ test("should allow an onClick handler to be passed to items", async () => {
   const onClick = jest.fn();
 
   render(
-    <ResponsiveVerticalMenuProvider>
-      <ResponsiveVerticalMenu>
-        <ResponsiveVerticalMenuItem
-          data-role="menu-item-1"
-          id="menu-item-1"
-          label="Menu Item 1"
-          onClick={onClick}
-        />
-      </ResponsiveVerticalMenu>
-    </ResponsiveVerticalMenuProvider>,
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem
+        data-role="menu-item-1"
+        id="menu-item-1"
+        label="Menu Item 1"
+        onClick={onClick}
+      />
+    </ResponsiveVerticalMenu>,
   );
 
   const launcherButton = screen.getByTestId(
@@ -1158,18 +1164,16 @@ test("items without children correctly pass `target` and `rel` props to the unde
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
   render(
-    <ResponsiveVerticalMenuProvider>
-      <ResponsiveVerticalMenu>
-        <ResponsiveVerticalMenuItem
-          data-role="menu-item-1"
-          id="menu-item-1"
-          label="Menu Item 1"
-          href="https://example.com"
-          target="_blank"
-          rel="noopener noreferrer"
-        />
-      </ResponsiveVerticalMenu>
-    </ResponsiveVerticalMenuProvider>,
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem
+        data-role="menu-item-1"
+        id="menu-item-1"
+        label="Menu Item 1"
+        href="https://example.com"
+        target="_blank"
+        rel="noopener noreferrer"
+      />
+    </ResponsiveVerticalMenu>,
   );
 
   const launcherButton = screen.getByTestId(
@@ -1187,23 +1191,21 @@ test("items with children do not pass `target` and `rel` props to the underlying
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
   render(
-    <ResponsiveVerticalMenuProvider>
-      <ResponsiveVerticalMenu>
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem
+        data-role="menu-item-1"
+        id="menu-item-1"
+        label="Menu Item 1"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <ResponsiveVerticalMenuItem
-          data-role="menu-item-1"
-          id="menu-item-1"
-          label="Menu Item 1"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <ResponsiveVerticalMenuItem
-            data-role="menu-item-2"
-            id="menu-item-2"
-            label="Menu Item 2"
-          />
-        </ResponsiveVerticalMenuItem>
-      </ResponsiveVerticalMenu>
-    </ResponsiveVerticalMenuProvider>,
+          data-role="menu-item-2"
+          id="menu-item-2"
+          label="Menu Item 2"
+        />
+      </ResponsiveVerticalMenuItem>
+    </ResponsiveVerticalMenu>,
   );
 
   const launcherButton = screen.getByTestId(
@@ -1222,28 +1224,26 @@ test("nested menu items are correctly justified when icons are not present", asy
   mockUseIsAboveBreakpoint.mockReturnValue(false);
 
   render(
-    <ResponsiveVerticalMenuProvider>
-      <ResponsiveVerticalMenu>
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem
+        data-role="menu-item-1"
+        id="menu-item-1"
+        label="Menu Item 1"
+        href="https://example.com"
+      >
         <ResponsiveVerticalMenuItem
-          data-role="menu-item-1"
-          id="menu-item-1"
-          label="Menu Item 1"
-          href="https://example.com"
+          data-role="menu-item-2"
+          id="menu-item-2"
+          label="Menu Item 2"
         >
           <ResponsiveVerticalMenuItem
-            data-role="menu-item-2"
-            id="menu-item-2"
-            label="Menu Item 2"
-          >
-            <ResponsiveVerticalMenuItem
-              data-role="menu-item-3"
-              id="menu-item-3"
-              label="Menu Item 3"
-            />
-          </ResponsiveVerticalMenuItem>
+            data-role="menu-item-3"
+            id="menu-item-3"
+            label="Menu Item 3"
+          />
         </ResponsiveVerticalMenuItem>
-      </ResponsiveVerticalMenu>
-    </ResponsiveVerticalMenuProvider>,
+      </ResponsiveVerticalMenuItem>
+    </ResponsiveVerticalMenu>,
   );
 
   const launcherButton = screen.getByTestId(
@@ -1266,31 +1266,29 @@ test("nested menu items are correctly justified when icons are present", async (
   mockUseIsAboveBreakpoint.mockReturnValue(false);
 
   render(
-    <ResponsiveVerticalMenuProvider>
-      <ResponsiveVerticalMenu>
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem
+        data-role="menu-item-1"
+        icon="home"
+        id="menu-item-1"
+        label="Menu Item 1"
+        href="https://example.com"
+      >
         <ResponsiveVerticalMenuItem
-          data-role="menu-item-1"
-          icon="home"
-          id="menu-item-1"
-          label="Menu Item 1"
-          href="https://example.com"
+          data-role="menu-item-2"
+          icon="business"
+          id="menu-item-2"
+          label="Menu Item 2"
         >
           <ResponsiveVerticalMenuItem
-            data-role="menu-item-2"
-            icon="business"
-            id="menu-item-2"
-            label="Menu Item 2"
-          >
-            <ResponsiveVerticalMenuItem
-              data-role="menu-item-3"
-              icon="analysis"
-              id="menu-item-3"
-              label="Menu Item 3"
-            />
-          </ResponsiveVerticalMenuItem>
+            data-role="menu-item-3"
+            icon="analysis"
+            id="menu-item-3"
+            label="Menu Item 3"
+          />
         </ResponsiveVerticalMenuItem>
-      </ResponsiveVerticalMenu>
-    </ResponsiveVerticalMenuProvider>,
+      </ResponsiveVerticalMenuItem>
+    </ResponsiveVerticalMenu>,
   );
 
   const launcherButton = screen.getByTestId(
@@ -1324,31 +1322,29 @@ test("correct aria-label values are set", async () => {
         },
       }}
     >
-      <ResponsiveVerticalMenuProvider>
-        <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenu>
+        <ResponsiveVerticalMenuItem
+          data-role="menu-item-1"
+          icon="home"
+          id="menu-item-1"
+          label="Menu Item 1"
+          href="https://example.com"
+        >
           <ResponsiveVerticalMenuItem
-            data-role="menu-item-1"
-            icon="home"
-            id="menu-item-1"
-            label="Menu Item 1"
-            href="https://example.com"
+            data-role="menu-item-2"
+            icon="business"
+            id="menu-item-2"
+            label="Menu Item 2"
           >
             <ResponsiveVerticalMenuItem
-              data-role="menu-item-2"
-              icon="business"
-              id="menu-item-2"
-              label="Menu Item 2"
-            >
-              <ResponsiveVerticalMenuItem
-                data-role="menu-item-3"
-                icon="analysis"
-                id="menu-item-3"
-                label="Menu Item 3"
-              />
-            </ResponsiveVerticalMenuItem>
+              data-role="menu-item-3"
+              icon="analysis"
+              id="menu-item-3"
+              label="Menu Item 3"
+            />
           </ResponsiveVerticalMenuItem>
-        </ResponsiveVerticalMenu>
-      </ResponsiveVerticalMenuProvider>
+        </ResponsiveVerticalMenuItem>
+      </ResponsiveVerticalMenu>
     </I18nProvider>,
   );
 
@@ -1371,18 +1367,16 @@ test("children populated by empty map", async () => {
   mockUseIsAboveBreakpoint.mockReturnValue(false);
 
   render(
-    <ResponsiveVerticalMenuProvider>
-      <ResponsiveVerticalMenu>
-        <ResponsiveVerticalMenuItem
-          data-role="menu-item-1"
-          icon="home"
-          id="menu-item-1"
-          label="Menu Item 1"
-        >
-          {[].map((item) => item)}
-        </ResponsiveVerticalMenuItem>
-      </ResponsiveVerticalMenu>
-    </ResponsiveVerticalMenuProvider>,
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem
+        data-role="menu-item-1"
+        icon="home"
+        id="menu-item-1"
+        label="Menu Item 1"
+      >
+        {[].map((item) => item)}
+      </ResponsiveVerticalMenuItem>
+    </ResponsiveVerticalMenu>,
   );
 
   const launcherButton = screen.getByTestId(
@@ -1400,18 +1394,16 @@ test("children populated by map of non-React elements", async () => {
   mockUseIsAboveBreakpoint.mockReturnValue(false);
 
   render(
-    <ResponsiveVerticalMenuProvider>
-      <ResponsiveVerticalMenu>
-        <ResponsiveVerticalMenuItem
-          data-role="menu-item-1"
-          icon="home"
-          id="menu-item-1"
-          label="Menu Item 1"
-        >
-          {["a", "b", "c"].map((item) => item)}
-        </ResponsiveVerticalMenuItem>
-      </ResponsiveVerticalMenu>
-    </ResponsiveVerticalMenuProvider>,
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem
+        data-role="menu-item-1"
+        icon="home"
+        id="menu-item-1"
+        label="Menu Item 1"
+      >
+        {["a", "b", "c"].map((item) => item)}
+      </ResponsiveVerticalMenuItem>
+    </ResponsiveVerticalMenu>,
   );
 
   const launcherButton = screen.getByTestId(
@@ -1429,13 +1421,11 @@ test("adds and removes resize event listener on mount/unmount", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
   const { unmount } = render(
-    <ResponsiveVerticalMenuProvider>
-      <ResponsiveVerticalMenu>
-        <ResponsiveVerticalMenuItem id="menu-item-1" label="Menu Item 1" />
-        <ResponsiveVerticalMenuItem id="menu-item-2" label="Menu Item 2" />
-        <ResponsiveVerticalMenuItem id="menu-item-3" label="Menu Item 3" />
-      </ResponsiveVerticalMenu>
-    </ResponsiveVerticalMenuProvider>,
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem id="menu-item-1" label="Menu Item 1" />
+      <ResponsiveVerticalMenuItem id="menu-item-2" label="Menu Item 2" />
+      <ResponsiveVerticalMenuItem id="menu-item-3" label="Menu Item 3" />
+    </ResponsiveVerticalMenu>,
   );
 
   const launcherButton = screen.getByTestId(
@@ -1460,13 +1450,11 @@ test("sets and clears resize timeout on window resize", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
   render(
-    <ResponsiveVerticalMenuProvider>
-      <ResponsiveVerticalMenu>
-        <ResponsiveVerticalMenuItem id="menu-item-1" label="Menu Item 1" />
-        <ResponsiveVerticalMenuItem id="menu-item-2" label="Menu Item 2" />
-        <ResponsiveVerticalMenuItem id="menu-item-3" label="Menu Item 3" />
-      </ResponsiveVerticalMenu>
-    </ResponsiveVerticalMenuProvider>,
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem id="menu-item-1" label="Menu Item 1" />
+      <ResponsiveVerticalMenuItem id="menu-item-2" label="Menu Item 2" />
+      <ResponsiveVerticalMenuItem id="menu-item-3" label="Menu Item 3" />
+    </ResponsiveVerticalMenu>,
   );
 
   const launcherButton = screen.getByTestId(
@@ -1488,13 +1476,11 @@ test("clears previous timeout on rapid resizes", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
   render(
-    <ResponsiveVerticalMenuProvider>
-      <ResponsiveVerticalMenu>
-        <ResponsiveVerticalMenuItem id="menu-item-1" label="Menu Item 1" />
-        <ResponsiveVerticalMenuItem id="menu-item-2" label="Menu Item 2" />
-        <ResponsiveVerticalMenuItem id="menu-item-3" label="Menu Item 3" />
-      </ResponsiveVerticalMenu>
-    </ResponsiveVerticalMenuProvider>,
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem id="menu-item-1" label="Menu Item 1" />
+      <ResponsiveVerticalMenuItem id="menu-item-2" label="Menu Item 2" />
+      <ResponsiveVerticalMenuItem id="menu-item-3" label="Menu Item 3" />
+    </ResponsiveVerticalMenu>,
   );
 
   const launcherButton = screen.getByTestId(
@@ -1516,13 +1502,11 @@ test("clears timeout on unmount if it exists", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
   const { unmount } = render(
-    <ResponsiveVerticalMenuProvider>
-      <ResponsiveVerticalMenu>
-        <ResponsiveVerticalMenuItem id="menu-item-1" label="Menu Item 1" />
-        <ResponsiveVerticalMenuItem id="menu-item-2" label="Menu Item 2" />
-        <ResponsiveVerticalMenuItem id="menu-item-3" label="Menu Item 3" />
-      </ResponsiveVerticalMenu>
-    </ResponsiveVerticalMenuProvider>,
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem id="menu-item-1" label="Menu Item 1" />
+      <ResponsiveVerticalMenuItem id="menu-item-2" label="Menu Item 2" />
+      <ResponsiveVerticalMenuItem id="menu-item-3" label="Menu Item 3" />
+    </ResponsiveVerticalMenu>,
   );
 
   const launcherButton = screen.getByTestId(
@@ -1543,11 +1527,9 @@ test("clears timeout on unmount if it exists", async () => {
 test("renders menu with provided data tags", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(
-    <ResponsiveVerticalMenuProvider>
-      <ResponsiveVerticalMenu data-role="test-role" data-element="test-element">
-        <ResponsiveVerticalMenuItem id="menu-item-1" label="Menu Item 1" />
-      </ResponsiveVerticalMenu>
-    </ResponsiveVerticalMenuProvider>,
+    <ResponsiveVerticalMenu data-role="test-role" data-element="test-element">
+      <ResponsiveVerticalMenuItem id="menu-item-1" label="Menu Item 1" />
+    </ResponsiveVerticalMenu>,
   );
 
   const launcherButton = screen.getByRole("button", { name: "Product menu" });
@@ -1559,16 +1541,14 @@ test("renders menu with provided data tags", async () => {
 
 test("renders with provided menu launcher data tags", async () => {
   render(
-    <ResponsiveVerticalMenuProvider>
-      <ResponsiveVerticalMenu
-        launcherButtonDataProps={{
-          "data-role": "test-launcher-role",
-          "data-element": "test-launcher-element",
-        }}
-      >
-        <ResponsiveVerticalMenuItem id="menu-item-1" label="Menu Item 1" />
-      </ResponsiveVerticalMenu>
-    </ResponsiveVerticalMenuProvider>,
+    <ResponsiveVerticalMenu
+      launcherButtonDataProps={{
+        "data-role": "test-launcher-role",
+        "data-element": "test-launcher-element",
+      }}
+    >
+      <ResponsiveVerticalMenuItem id="menu-item-1" label="Menu Item 1" />
+    </ResponsiveVerticalMenu>,
   );
 
   const launcherButton = screen.getByRole("button", { name: "Product menu" });
@@ -1583,33 +1563,31 @@ test("applies the correct styling at depth level 4", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
   render(
-    <ResponsiveVerticalMenuProvider>
-      <ResponsiveVerticalMenu>
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem
+        id="menu-item-1"
+        label="Menu Item 1"
+        data-role="menu-item-1"
+      >
         <ResponsiveVerticalMenuItem
-          id="menu-item-1"
-          label="Menu Item 1"
-          data-role="menu-item-1"
+          id="menu-item-2"
+          label="Menu Item 2"
+          data-role="menu-item-2"
         >
           <ResponsiveVerticalMenuItem
-            id="menu-item-2"
-            label="Menu Item 2"
-            data-role="menu-item-2"
+            id="menu-item-3"
+            label="Menu Item 3"
+            data-role="menu-item-3"
           >
             <ResponsiveVerticalMenuItem
-              id="menu-item-3"
-              label="Menu Item 3"
-              data-role="menu-item-3"
-            >
-              <ResponsiveVerticalMenuItem
-                id="menu-item-4"
-                data-role="menu-item-4"
-                label="Menu Item 4"
-              />
-            </ResponsiveVerticalMenuItem>
+              id="menu-item-4"
+              data-role="menu-item-4"
+              label="Menu Item 4"
+            />
           </ResponsiveVerticalMenuItem>
         </ResponsiveVerticalMenuItem>
-      </ResponsiveVerticalMenu>
-    </ResponsiveVerticalMenuProvider>,
+      </ResponsiveVerticalMenuItem>
+    </ResponsiveVerticalMenu>,
   );
 
   const launcherButton = screen.getByTestId(
@@ -1641,33 +1619,31 @@ test("applies the correct styling at depth level 4 when responsive", async () =>
   mockUseIsAboveBreakpoint.mockReturnValue(false);
 
   render(
-    <ResponsiveVerticalMenuProvider>
-      <ResponsiveVerticalMenu>
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem
+        id="menu-item-1"
+        label="Menu Item 1"
+        data-role="menu-item-1"
+      >
         <ResponsiveVerticalMenuItem
-          id="menu-item-1"
-          label="Menu Item 1"
-          data-role="menu-item-1"
+          id="menu-item-2"
+          label="Menu Item 2"
+          data-role="menu-item-2"
         >
           <ResponsiveVerticalMenuItem
-            id="menu-item-2"
-            label="Menu Item 2"
-            data-role="menu-item-2"
+            id="menu-item-3"
+            label="Menu Item 3"
+            data-role="menu-item-3"
           >
             <ResponsiveVerticalMenuItem
-              id="menu-item-3"
-              label="Menu Item 3"
-              data-role="menu-item-3"
-            >
-              <ResponsiveVerticalMenuItem
-                id="menu-item-4"
-                data-role="menu-item-4"
-                label="Menu Item 4"
-              />
-            </ResponsiveVerticalMenuItem>
+              id="menu-item-4"
+              data-role="menu-item-4"
+              label="Menu Item 4"
+            />
           </ResponsiveVerticalMenuItem>
         </ResponsiveVerticalMenuItem>
-      </ResponsiveVerticalMenu>
-    </ResponsiveVerticalMenuProvider>,
+      </ResponsiveVerticalMenuItem>
+    </ResponsiveVerticalMenu>,
   );
 
   const launcherButton = screen.getByTestId(

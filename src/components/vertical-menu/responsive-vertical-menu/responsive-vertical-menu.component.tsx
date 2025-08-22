@@ -7,7 +7,10 @@ import React, {
   useState,
 } from "react";
 
-import { useResponsiveVerticalMenu } from "./responsive-vertical-menu.context";
+import {
+  useResponsiveVerticalMenu,
+  ResponsiveVerticalMenuProvider,
+} from "./responsive-vertical-menu.context";
 import {
   StyledButton,
   StyledCloseButton,
@@ -57,18 +60,18 @@ const BaseMenu = ({
     containerRef,
     menuRef,
     responsiveMode,
+    top,
     setActive,
     setActiveMenuItem,
     setReducedMotion,
     setResponsiveMode,
+    setLeft,
+    setTop,
   } = useResponsiveVerticalMenu();
 
   const [childItemCount, setChildItemCount] = useState(0);
   const largeScreen = useIsAboveBreakpoint(responsiveBreakpoint);
-  const [left, setLeft] = useState("auto");
   const [responsiveWidth, setResponsiveWidth] = useState("100%");
-  const [top, setTop] = useState("auto");
-  const subMenuRef = useRef<HTMLUListElement>(null);
   const reduceMotion = !useMediaQuery(
     "screen and (prefers-reduced-motion: no-preference)",
   );
@@ -342,25 +345,6 @@ const BaseMenu = ({
               >
                 {children}
               </StyledResponsiveMenu>
-
-              {activeMenuItem ? (
-                <StyledResponsiveMenu
-                  data-component="responsive-vertical-menu-secondary"
-                  data-role="responsive-vertical-menu-secondary"
-                  height={height || "100%"}
-                  id="responsive-vertical-menu-secondary"
-                  left={left}
-                  menu="secondary"
-                  reduceMotion={reduceMotion}
-                  ref={subMenuRef}
-                  responsive={false}
-                  tabIndex={-1}
-                  top={top}
-                  width={width}
-                >
-                  {activeMenuItem.children}
-                </StyledResponsiveMenu>
-              ) : null}
             </>
           )}
         </StyledGlobalVerticalMenuWrapper>
@@ -371,12 +355,18 @@ const BaseMenu = ({
 
 export const ResponsiveVerticalMenu = ({
   children,
+  width,
+  height,
   ...props
 }: ResponsiveVerticalMenuProps) => {
   return (
     <DepthProvider>
       <MenuFocusProvider>
-        <BaseMenu {...props}>{children}</BaseMenu>
+        <ResponsiveVerticalMenuProvider width={width} height={height}>
+          <BaseMenu width={width} height={height} {...props}>
+            {children}
+          </BaseMenu>
+        </ResponsiveVerticalMenuProvider>
       </MenuFocusProvider>
     </DepthProvider>
   );

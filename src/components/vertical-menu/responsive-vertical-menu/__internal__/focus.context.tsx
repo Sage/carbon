@@ -24,9 +24,7 @@ interface MenuFocusContextType {
     parentId?: string;
   }>;
   focusItem: (id: string) => void;
-  moveFocus: (
-    direction: "next" | "prev" | "parent" | "firstChild" | "lastChild",
-  ) => void;
+  moveFocus: (direction: "next" | "prev" | "parent" | "lastChild") => void;
   registerMenuItem: (
     id: string,
     ref: RefObject<HTMLElement>,
@@ -151,7 +149,7 @@ export const MenuFocusProvider = ({ children }: { children: ReactNode }) => {
   // and then finds the next item based on the direction.
   // It also handles expanding/collapsing items as needed.
   const moveFocus = useCallback(
-    (direction: "next" | "prev" | "parent" | "firstChild" | "lastChild") => {
+    (direction: "next" | "prev" | "parent" | "lastChild") => {
       /* istanbul ignore if */
       if (!focusedItemId) return;
 
@@ -172,19 +170,6 @@ export const MenuFocusProvider = ({ children }: { children: ReactNode }) => {
           /* istanbul ignore else */
           if (currentItem.parentId) {
             focusItem(currentItem.parentId);
-          }
-          break;
-
-        // Move focus to the first child
-        // If the current item has children and is not already expanded,
-        // expand it and focus on the first child
-        case "firstChild":
-          /* istanbul ignore else */
-          if (currentItem.childIds.length > 0) {
-            if (!expandedItems.includes(focusedItemId)) {
-              expandItem(focusedItemId, true);
-            }
-            focusItem(currentItem.childIds[0]);
           }
           break;
 

@@ -8,7 +8,6 @@ import {
   ResponsiveVerticalMenu,
   ResponsiveVerticalMenuDivider,
   ResponsiveVerticalMenuItem,
-  ResponsiveVerticalMenuProvider,
 } from ".";
 import Box from "../../box";
 import Icon from "../../icon";
@@ -48,34 +47,32 @@ export const Default: Story = () => {
   return (
     <>
       <GlobalHeader>
-        <ResponsiveVerticalMenuProvider>
-          <ResponsiveVerticalMenu height="100%">
+        <ResponsiveVerticalMenu height="100%">
+          <ResponsiveVerticalMenuItem
+            icon="home"
+            id="primary-menu"
+            label="Primary Menu With Children"
+          >
             <ResponsiveVerticalMenuItem
-              icon="home"
-              id="primary-menu"
-              label="Primary Menu With Children"
+              id="secondary-menu"
+              label="Secondary Menu With Children"
             >
               <ResponsiveVerticalMenuItem
-                id="secondary-menu"
-                label="Secondary Menu With Children"
-              >
-                <ResponsiveVerticalMenuItem
-                  id="tertiary-menu"
-                  label="Tertiary Menu"
-                />
-              </ResponsiveVerticalMenuItem>
-              <ResponsiveVerticalMenuItem
-                id="secondary-menu-no-children"
-                label="Secondary Menu Item"
+                id="tertiary-menu"
+                label="Tertiary Menu"
               />
             </ResponsiveVerticalMenuItem>
             <ResponsiveVerticalMenuItem
-              icon="home"
-              id="primary-menu-no-children"
-              label="Primary Menu Item"
+              id="secondary-menu-no-children"
+              label="Secondary Menu Item"
             />
-          </ResponsiveVerticalMenu>
-        </ResponsiveVerticalMenuProvider>
+          </ResponsiveVerticalMenuItem>
+          <ResponsiveVerticalMenuItem
+            icon="home"
+            id="primary-menu-no-children"
+            label="Primary Menu Item"
+          />
+        </ResponsiveVerticalMenu>
       </GlobalHeader>
       <Box m="50px">This text will be hidden by the menu when opened</Box>
     </>
@@ -87,44 +84,42 @@ export const WithDivider: Story = () => {
   return (
     <>
       <GlobalHeader>
-        <ResponsiveVerticalMenuProvider>
-          <ResponsiveVerticalMenu height="100%">
-            <ResponsiveVerticalMenuItem
-              icon="home"
-              id="primary-menu-item-1"
-              label="Primary Menu Item 1"
-            />
+        <ResponsiveVerticalMenu height="100%">
+          <ResponsiveVerticalMenuItem
+            icon="home"
+            id="primary-menu-item-1"
+            label="Primary Menu Item 1"
+          />
 
+          <ResponsiveVerticalMenuItem
+            icon="home"
+            id="primary-menu-item-2"
+            label="Primary Menu Item 2"
+          />
+          <ResponsiveVerticalMenuDivider />
+          <ResponsiveVerticalMenuItem
+            icon="business"
+            id="primary-menu-with-children"
+            label="Primary Menu With Children"
+          >
             <ResponsiveVerticalMenuItem
-              icon="home"
-              id="primary-menu-item-2"
-              label="Primary Menu Item 2"
+              id="secondary-menu-item-1"
+              label="Secondary Menu Item 1"
             />
             <ResponsiveVerticalMenuDivider />
             <ResponsiveVerticalMenuItem
-              icon="business"
-              id="primary-menu-with-children"
-              label="Primary Menu With Children"
-            >
-              <ResponsiveVerticalMenuItem
-                id="secondary-menu-item-1"
-                label="Secondary Menu Item 1"
-              />
-              <ResponsiveVerticalMenuDivider />
-              <ResponsiveVerticalMenuItem
-                id="secondary-menu-item-2"
-                label="Secondary Menu Item 2"
-              />
-            </ResponsiveVerticalMenuItem>
-            <ResponsiveVerticalMenuDivider m={4} />
-
-            <ResponsiveVerticalMenuItem
-              icon="business"
-              id="primary-menu-item-3"
-              label="Primary Menu Item 3"
+              id="secondary-menu-item-2"
+              label="Secondary Menu Item 2"
             />
-          </ResponsiveVerticalMenu>
-        </ResponsiveVerticalMenuProvider>
+          </ResponsiveVerticalMenuItem>
+          <ResponsiveVerticalMenuDivider m={4} />
+
+          <ResponsiveVerticalMenuItem
+            icon="business"
+            id="primary-menu-item-3"
+            label="Primary Menu Item 3"
+          />
+        </ResponsiveVerticalMenu>
       </GlobalHeader>
       <Box m="50px">This text will be hidden by the menu when opened</Box>
     </>
@@ -136,25 +131,23 @@ export const CustomHeight: Story = () => {
   return (
     <>
       <GlobalHeader>
-        <ResponsiveVerticalMenuProvider>
-          <ResponsiveVerticalMenu height="500px">
+        <ResponsiveVerticalMenu height="500px">
+          <ResponsiveVerticalMenuItem
+            icon="home"
+            id="primary-menu"
+            label="Primary Menu With Children"
+          >
             <ResponsiveVerticalMenuItem
-              icon="home"
-              id="primary-menu"
-              label="Primary Menu With Children"
+              id="secondary-menu"
+              label="Secondary Menu With Children"
             >
               <ResponsiveVerticalMenuItem
-                id="secondary-menu"
-                label="Secondary Menu With Children"
-              >
-                <ResponsiveVerticalMenuItem
-                  id="tertiary-menu"
-                  label="Tertiary Menu"
-                />
-              </ResponsiveVerticalMenuItem>
+                id="tertiary-menu"
+                label="Tertiary Menu"
+              />
             </ResponsiveVerticalMenuItem>
-          </ResponsiveVerticalMenu>
-        </ResponsiveVerticalMenuProvider>
+          </ResponsiveVerticalMenuItem>
+        </ResponsiveVerticalMenu>
       </GlobalHeader>
       <Box m="50px">This text will be hidden by the menu when opened</Box>
     </>
@@ -166,28 +159,26 @@ export const CustomWidth: Story = () => {
   return (
     <>
       <GlobalHeader>
-        <ResponsiveVerticalMenuProvider>
-          <ResponsiveVerticalMenu width="200px">
+        <ResponsiveVerticalMenu width="200px">
+          <ResponsiveVerticalMenuItem
+            icon="home"
+            id="primary-menu"
+            label="Primary Menu"
+            py={1}
+          >
             <ResponsiveVerticalMenuItem
-              icon="home"
-              id="primary-menu"
-              label="Primary Menu"
+              id="secondary-menu"
+              label="Secondary Menu"
               py={1}
             >
               <ResponsiveVerticalMenuItem
-                id="secondary-menu"
-                label="Secondary Menu"
+                id="tertiary-menu"
+                label="Tertiary Menu"
                 py={1}
-              >
-                <ResponsiveVerticalMenuItem
-                  id="tertiary-menu"
-                  label="Tertiary Menu"
-                  py={1}
-                />
-              </ResponsiveVerticalMenuItem>
+              />
             </ResponsiveVerticalMenuItem>
-          </ResponsiveVerticalMenu>
-        </ResponsiveVerticalMenuProvider>
+          </ResponsiveVerticalMenuItem>
+        </ResponsiveVerticalMenu>
       </GlobalHeader>
       <Box m="50px">This text will be hidden by the menu when opened</Box>
     </>
@@ -199,25 +190,23 @@ export const Responsive: Story = () => {
   return (
     <>
       <GlobalHeader>
-        <ResponsiveVerticalMenuProvider>
-          <ResponsiveVerticalMenu responsiveBreakpoint={900}>
+        <ResponsiveVerticalMenu responsiveBreakpoint={900}>
+          <ResponsiveVerticalMenuItem
+            icon="home"
+            id="primary-menu"
+            label="Primary Menu With Children"
+          >
             <ResponsiveVerticalMenuItem
-              icon="home"
-              id="primary-menu"
-              label="Primary Menu With Children"
+              id="secondary-menu"
+              label="Secondary Menu With Children"
             >
               <ResponsiveVerticalMenuItem
-                id="secondary-menu"
-                label="Secondary Menu With Children"
-              >
-                <ResponsiveVerticalMenuItem
-                  id="tertiary-menu"
-                  label="Tertiary Menu"
-                />
-              </ResponsiveVerticalMenuItem>
+                id="tertiary-menu"
+                label="Tertiary Menu"
+              />
             </ResponsiveVerticalMenuItem>
-          </ResponsiveVerticalMenu>
-        </ResponsiveVerticalMenuProvider>
+          </ResponsiveVerticalMenuItem>
+        </ResponsiveVerticalMenu>
       </GlobalHeader>
       <Box m="50px">This text will be hidden by the menu when opened</Box>
     </>
@@ -280,25 +269,23 @@ export const CustomIcon: Story = () => {
   return (
     <>
       <GlobalHeader>
-        <ResponsiveVerticalMenuProvider>
-          <ResponsiveVerticalMenu responsiveBreakpoint={900}>
+        <ResponsiveVerticalMenu responsiveBreakpoint={900}>
+          <ResponsiveVerticalMenuItem
+            customIcon={<CustomSVG />}
+            id="primary-menu"
+            label="Primary Menu With Children"
+          >
             <ResponsiveVerticalMenuItem
-              customIcon={<CustomSVG />}
-              id="primary-menu"
-              label="Primary Menu With Children"
+              id="secondary-menu"
+              label="Secondary Menu With Children"
             >
               <ResponsiveVerticalMenuItem
-                id="secondary-menu"
-                label="Secondary Menu With Children"
-              >
-                <ResponsiveVerticalMenuItem
-                  id="tertiary-menu"
-                  label="Tertiary Menu"
-                />
-              </ResponsiveVerticalMenuItem>
+                id="tertiary-menu"
+                label="Tertiary Menu"
+              />
             </ResponsiveVerticalMenuItem>
-          </ResponsiveVerticalMenu>
-        </ResponsiveVerticalMenuProvider>
+          </ResponsiveVerticalMenuItem>
+        </ResponsiveVerticalMenu>
       </GlobalHeader>
       <Box m="50px">This text will be hidden by the menu when opened</Box>
     </>
@@ -315,18 +302,16 @@ export const ItemWithOnClickHandler: Story = () => {
   return (
     <>
       <GlobalHeader>
-        <ResponsiveVerticalMenuProvider>
-          <ResponsiveVerticalMenu height="100%">
-            <ResponsiveVerticalMenuItem
-              icon="home"
-              id="toggle-click-handler"
-              label="Toggle Click Handler"
-              onClick={handleClick}
-              target="_blank"
-              rel="noopener noreferrer"
-            />
-          </ResponsiveVerticalMenu>
-        </ResponsiveVerticalMenuProvider>
+        <ResponsiveVerticalMenu height="100%">
+          <ResponsiveVerticalMenuItem
+            icon="home"
+            id="toggle-click-handler"
+            label="Toggle Click Handler"
+            onClick={handleClick}
+            target="_blank"
+            rel="noopener noreferrer"
+          />
+        </ResponsiveVerticalMenu>
       </GlobalHeader>
       <Box m="50px">This text will be hidden by the menu when opened</Box>
     </>
@@ -341,20 +326,18 @@ export const ItemWithCustomLabel: Story = () => {
   return (
     <>
       <GlobalHeader>
-        <ResponsiveVerticalMenuProvider>
-          <ResponsiveVerticalMenu height="100%">
-            <ResponsiveVerticalMenuItem
-              icon="home"
-              id="primary-menu"
-              label={
-                <Box display="flex" width="100%" alignItems="center" gap={1}>
-                  <span>Primary Menu Item</span>
-                  <Icon type="link" />
-                </Box>
-              }
-            />
-          </ResponsiveVerticalMenu>
-        </ResponsiveVerticalMenuProvider>
+        <ResponsiveVerticalMenu height="100%">
+          <ResponsiveVerticalMenuItem
+            icon="home"
+            id="primary-menu"
+            label={
+              <Box display="flex" width="100%" alignItems="center" gap={1}>
+                <span>Primary Menu Item</span>
+                <Icon type="link" />
+              </Box>
+            }
+          />
+        </ResponsiveVerticalMenu>
       </GlobalHeader>
       <Box m="50px">This text will be hidden by the menu when opened</Box>
     </>

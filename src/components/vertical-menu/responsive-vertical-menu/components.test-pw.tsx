@@ -4,7 +4,6 @@ import {
   ResponsiveVerticalMenu,
   ResponsiveVerticalMenuItem,
   ResponsiveVerticalMenuProps,
-  ResponsiveVerticalMenuProvider,
   ResponsiveVerticalMenuDivider,
 } from ".";
 
@@ -15,35 +14,33 @@ export const ResponsiveVerticalMenuDefaultComponent = (
 ) => {
   return (
     <Box height="100vh">
-      <ResponsiveVerticalMenuProvider>
-        <ResponsiveVerticalMenu height="100%" {...props}>
+      <ResponsiveVerticalMenu height="100%" {...props}>
+        <ResponsiveVerticalMenuItem
+          icon="home"
+          id="primary-menu"
+          label="Primary Menu With Children"
+        >
           <ResponsiveVerticalMenuItem
-            icon="home"
-            id="primary-menu"
-            label="Primary Menu With Children"
+            id="secondary-menu"
+            label="Secondary Menu With Children"
           >
             <ResponsiveVerticalMenuItem
-              id="secondary-menu"
-              label="Secondary Menu With Children"
-            >
-              <ResponsiveVerticalMenuItem
-                id="tertiary-menu"
-                label="Tertiary Menu"
-              />
-            </ResponsiveVerticalMenuItem>
-            <ResponsiveVerticalMenuItem
-              id="secondary-menu-no-children"
-              label="Secondary Menu Item"
+              id="tertiary-menu"
+              label="Tertiary Menu"
             />
           </ResponsiveVerticalMenuItem>
-          <ResponsiveVerticalMenuDivider />
           <ResponsiveVerticalMenuItem
-            icon="home"
-            id="primary-menu-no-children"
-            label="Primary Menu Item"
+            id="secondary-menu-no-children"
+            label="Secondary Menu Item"
           />
-        </ResponsiveVerticalMenu>
-      </ResponsiveVerticalMenuProvider>
+        </ResponsiveVerticalMenuItem>
+        <ResponsiveVerticalMenuDivider />
+        <ResponsiveVerticalMenuItem
+          icon="home"
+          id="primary-menu-no-children"
+          label="Primary Menu Item"
+        />
+      </ResponsiveVerticalMenu>
     </Box>
   );
 };
@@ -104,58 +101,101 @@ export const ResponsiveVerticalMenuIconMixture = (
 
   return (
     <Box height="100vh">
-      <ResponsiveVerticalMenuProvider>
-        <ResponsiveVerticalMenu height="100%" {...props}>
+      <ResponsiveVerticalMenu height="100%" {...props}>
+        <ResponsiveVerticalMenuItem
+          icon="home"
+          id="primary-menu-item-with-icon"
+          label="Primary Icon"
+        />
+        <ResponsiveVerticalMenuItem
+          id="primary-menu-item-with-no-icon"
+          label="Primary No Icon"
+        />
+        <ResponsiveVerticalMenuItem
+          customIcon={<CustomAccountingIcon />}
+          id="primary-menu-item-with-custom-icon"
+          label="Primary Custom Icon"
+        />
+        <ResponsiveVerticalMenuItem
+          id="secondary-menu-toggle"
+          label="Secondary Menu Toggle"
+        >
           <ResponsiveVerticalMenuItem
-            icon="home"
-            id="primary-menu-item-with-icon"
-            label="Primary Icon"
+            id="secondary-menu-item-with-icon"
+            label="Secondary Icon"
           />
           <ResponsiveVerticalMenuItem
-            id="primary-menu-item-with-no-icon"
-            label="Primary No Icon"
+            id="secondary-menu-item-with-no-icon"
+            label="Secondary No Icon"
           />
           <ResponsiveVerticalMenuItem
-            customIcon={<CustomAccountingIcon />}
-            id="primary-menu-item-with-custom-icon"
-            label="Primary Custom Icon"
+            id="secondary-menu-item-with-custom-icon"
+            label="Secondary Custom Icon"
           />
           <ResponsiveVerticalMenuItem
-            id="secondary-menu-toggle"
-            label="Secondary Menu Toggle"
+            id="tertiary-menu-toggle"
+            label="Tertiary Menu Toggle"
           >
             <ResponsiveVerticalMenuItem
-              id="secondary-menu-item-with-icon"
-              label="Secondary Icon"
+              id="tertiary-menu-item-with-icon"
+              label="Tertiary Icon"
             />
             <ResponsiveVerticalMenuItem
-              id="secondary-menu-item-with-no-icon"
-              label="Secondary No Icon"
+              id="tertiary-menu-item-with-no-icon"
+              label="Tertiary No Icon"
             />
             <ResponsiveVerticalMenuItem
-              id="secondary-menu-item-with-custom-icon"
-              label="Secondary Custom Icon"
+              id="tertiary-menu-item-with-custom-icon"
+              label="Tertiary Custom Icon"
             />
+          </ResponsiveVerticalMenuItem>
+        </ResponsiveVerticalMenuItem>
+      </ResponsiveVerticalMenu>
+    </Box>
+  );
+};
+
+export const WithDifferentDepthsAsLastItem = () => {
+  return (
+    <Box height="100vh">
+      <ResponsiveVerticalMenu>
+        <ResponsiveVerticalMenuItem id="with-level-2" label="With Level 2">
+          <ResponsiveVerticalMenuItem
+            href="#"
+            id="level-2-as-last-item"
+            label="Level 2 As Last Item"
+          />
+        </ResponsiveVerticalMenuItem>
+        <ResponsiveVerticalMenuItem id="with-level-3" label="With Level 3">
+          <ResponsiveVerticalMenuItem
+            id="level-2-parent-1"
+            label="Level 2 Parent"
+          >
             <ResponsiveVerticalMenuItem
-              id="tertiary-menu-toggle"
-              label="Tertiary Menu Toggle"
+              href="#"
+              id="level-3-as-last-item"
+              label="Level 3 As Last Item"
+            />
+          </ResponsiveVerticalMenuItem>
+        </ResponsiveVerticalMenuItem>
+        <ResponsiveVerticalMenuItem id="with-level-4" label="With Level 4">
+          <ResponsiveVerticalMenuItem
+            id="level-2-parent-2"
+            label="Level 2 Parent"
+          >
+            <ResponsiveVerticalMenuItem
+              id="level-3-parent"
+              label="Level 3 Parent"
             >
               <ResponsiveVerticalMenuItem
-                id="tertiary-menu-item-with-icon"
-                label="Tertiary Icon"
-              />
-              <ResponsiveVerticalMenuItem
-                id="tertiary-menu-item-with-no-icon"
-                label="Tertiary No Icon"
-              />
-              <ResponsiveVerticalMenuItem
-                id="tertiary-menu-item-with-custom-icon"
-                label="Tertiary Custom Icon"
+                href="#"
+                id="level-4-as-last-item"
+                label="Level 4 As Last Item"
               />
             </ResponsiveVerticalMenuItem>
           </ResponsiveVerticalMenuItem>
-        </ResponsiveVerticalMenu>
-      </ResponsiveVerticalMenuProvider>
+        </ResponsiveVerticalMenuItem>
+      </ResponsiveVerticalMenu>
     </Box>
   );
 };
