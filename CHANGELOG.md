@@ -1,3 +1,9 @@
+## [155.14.0](https://github.com/Sage/carbon/compare/v155.13.0...v155.14.0) (2025-08-22)
+
+### Features
+
+* **badge:** align with beta DS ([9165f5e](https://github.com/Sage/carbon/commit/9165f5e80c537ec3e1ab7adf3735608f3716ea03))
+
 ## [155.13.0](https://github.com/Sage/carbon/compare/v155.12.1...v155.13.0) (2025-08-22)
 
 ### Features
