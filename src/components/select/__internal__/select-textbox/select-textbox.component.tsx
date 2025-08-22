@@ -92,6 +92,8 @@ export interface SelectTextboxProps extends FormInputPropTypes {
   transparent?: boolean;
   /** @private @ignore */
   activeDescendantId?: string;
+  /** Specify a callback triggered on change */
+  onChange: (ev: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const SelectTextbox = React.forwardRef(
@@ -119,6 +121,7 @@ const SelectTextbox = React.forwardRef(
       transparent = false,
       activeDescendantId,
       onKeyDown,
+      onChange,
       ...restProps
     }: SelectTextboxProps,
     ref: React.ForwardedRef<HTMLInputElement>,
@@ -182,15 +185,16 @@ const SelectTextbox = React.forwardRef(
           inputIcon="dropdown"
           autoComplete="off"
           size={size}
-          // prevent uncontrolled warning being fired
-          onChange={() => {}}
           formattedValue={formattedValue}
-          value={
-            hasStringValue ? (selectedValue as string | string[]) : undefined
-          }
           placeholder={hasTextCursor ? placeholder : undefined}
           {...inputAriaAttributes}
           {...textboxProps}
+          // prevent uncontrolled warning being fired
+          onChange={onChange}
+          // ensure value is properly controlled
+          value={
+            hasStringValue ? (selectedValue as string | string[]) : undefined
+          }
           my={0} // prevents any form spacing being applied
         >
           {!hasTextCursor && (

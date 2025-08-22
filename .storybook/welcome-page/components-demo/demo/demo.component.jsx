@@ -18,6 +18,7 @@ import {
 } from "./demo.style";
 
 const Demo = () => {
+  const [decimalValue, setDecimalValue] = useState("0.01");
   const [numberValue, setNumberValue] = useState("0");
   const [dateValue, setDateValue] = useState(["01/01/2020", "14/02/2020"]);
   const handleDateChange = ({ target }) => {
@@ -78,7 +79,11 @@ const Demo = () => {
                 />
               </StyledComponentWrapper>
               <StyledComponentWrapper styling={{ width: "30%", padding: "1%" }}>
-                <Decimal aria-label="An example decimal input component" />
+                <Decimal
+                  aria-label="An example decimal input component"
+                  value={decimalValue}
+                  onChange={(e) => setDecimalValue(e.target.value.rawValue)}
+                />
               </StyledComponentWrapper>
             </StyledDemoRow>
             <StyledDemoRow styling={{ display: "flex" }}>
