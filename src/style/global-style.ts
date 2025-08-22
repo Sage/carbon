@@ -6,6 +6,12 @@ import {
 import { baseTheme } from "./themes";
 
 const GlobalStyle = createGlobalStyle`
+
+ :root {
+    /* FIXME: Replace hardcoded value with the correct design tokens after we upgrade to the latest version of @sage/design-tokens package */
+    --tempColorsSemanticCaution600: #C93E08;
+  }
+
   body {
     color: rgba(0, 0, 0, 0.9);
     font-family: "Sage UI", sans-serif;

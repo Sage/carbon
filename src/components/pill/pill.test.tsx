@@ -252,7 +252,7 @@ test("should render with expected styles when colorVariant is warning", async ()
   await user.click(screen.getByRole("button"));
 
   expect(screen.getByRole("button")).toHaveStyle({
-    backgroundColor: "var(--colorsSemanticCaution600)",
+    backgroundColor: "var(--tempColorsSemanticCaution600)",
   });
 });
 
