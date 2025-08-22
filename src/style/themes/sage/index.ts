@@ -13,6 +13,7 @@ export default {
   })),
   compatibility: {
     ...tokens,
+    tempColorsSemanticCaution600: "#C93E08",
   },
   name: "sage",
 };
