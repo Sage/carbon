@@ -3,16 +3,30 @@ import Badge, { BadgeProps } from "./badge.component";
 import Box from "../box";
 import Button from "../button";
 
-const BadgeComponent = (props: Partial<BadgeProps>) => {
+export const BadgeComponent = (props: Partial<BadgeProps>) => {
   return (
-    <Box margin="40px">
-      <Badge {...props}>
-        <Button mr={0} buttonType="tertiary">
+    <Box m={2}>
+      <Badge {...props} />
+    </Box>
+  );
+};
+
+export const BadgeOnDarkBackground = (props: Partial<BadgeProps>) => {
+  return (
+    <Box m={2} backgroundColor="--colorsUtilityYin090">
+      <Badge {...props} />
+    </Box>
+  );
+};
+
+export const BadgeWithChildren = (props: Partial<BadgeProps>) => {
+  return (
+    <Box m={2}>
+      <Badge id="badge" {...props}>
+        <Button mr={0} buttonType="secondary" aria-describedby="badge">
           Filter
         </Button>
       </Badge>
     </Box>
   );
 };
-
-export default BadgeComponent;

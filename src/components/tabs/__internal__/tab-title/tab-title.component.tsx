@@ -159,16 +159,7 @@ const TabTitle = React.forwardRef(
 
       const titleSiblings = (
         <StyledLayoutWrapper titlePosition={titlePosition} key="title-siblings">
-          {React.Children.toArray(siblings).map((child) => {
-            // istanbul ignore next
-            if (!React.isValidElement(child)) {
-              return child;
-            }
-            return React.cloneElement(child, {
-              ...child.props,
-              onClick: handleClick,
-            });
-          })}
+          {siblings}
         </StyledLayoutWrapper>
       );
 
