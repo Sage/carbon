@@ -717,7 +717,9 @@ test.describe("should render CheckboxGroup component and check props", () => {
     await expect(checkboxGroupElement1).toContainText(
       "Warning Message (Fix is optional)",
     );
-    await expect(checkboxGroupElement1).toHaveCSS("color", "rgb(191, 82, 0)");
+    /* FIXME: Replace hardcoded warning value with the correct rgb from the updated design token (colorsSemanticCaution600) 
+    after we upgrade to the latest version of @sage/design-tokens package */
+    await expect(checkboxGroupElement1).toHaveCSS("color", "rgb(201, 62, 8)");
     const checkboxGroupElement2 = checkboxGroup(page)
       .locator("div")
       .nth(1)
