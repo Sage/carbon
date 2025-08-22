@@ -1,11 +1,61 @@
 /* TODO: FE-6579 To re-enable once button-related props are removed from Link */
-/* eslint-disable jsx-a11y/anchor-is-valid */
+
 import React from "react";
 import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import Link from "./link.component";
 import { Menu } from "../menu";
+
+import Logger from "../../__internal__/utils/logger";
+
+test("logs a deprecation warning when 'disabled 'prop is used", async () => {
+  const loggerSpy = jest.spyOn(Logger, "deprecate");
+  render(<Link href="foo.com" disabled />);
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "The 'disabled' prop in Link is deprecated and will soon be removed.",
+  );
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
+
+  loggerSpy.mockRestore();
+});
+
+test("logs a deprecation warning when isDarkBackground prop is used", async () => {
+  const loggerSpy = jest.spyOn(Logger, "deprecate");
+  render(<Link href="foo.com" isDarkBackground />);
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "The 'isDarkBackground' prop in Link is deprecated and will soon be removed. Please use 'inverse' prop instead.",
+  );
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
+
+  loggerSpy.mockRestore();
+});
+
+test("logs a deprecation warning when 'default' variant name is used", async () => {
+  const loggerSpy = jest.spyOn(Logger, "deprecate");
+  render(<Link href="foo.com" variant="default" />);
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "The value 'default' for the variant prop is deprecated and will soon be removed. Please use value 'typical' instead.",
+  );
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
+
+  loggerSpy.mockRestore();
+});
+
+test("logs a deprecation warning when 'neutral' variant name is used", async () => {
+  const loggerSpy = jest.spyOn(Logger, "deprecate");
+  render(<Link href="foo.com" variant="neutral" />);
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "The value 'neutral' for the variant prop is deprecated and will soon be removed. Please use value 'subtle' instead.",
+  );
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
+
+  loggerSpy.mockRestore();
+});
 
 test("should render `Skip to main content` text inside of Link when `isSkipLink` prop is provided", () => {
   render(
@@ -303,7 +353,7 @@ test("neutral `variant` has the expected styling when `isDarkBackground` is fals
   const iconElement = screen.getByTestId("icon");
 
   expect(linkElement).toHaveStyle("color: var(--colorsActionMajorYin090)");
-  expect(iconElement).toHaveStyle("color: var(--colorsActionMajorYin090)");
+  expect(iconElement).toHaveStyle("color: rgba(0, 0, 0, 0.898)");
 });
 
 // Test is just for coverage
@@ -325,7 +375,7 @@ test("neutral `variant` has the expected styling when `isDarkBackground` is fals
   await user.hover(linkElement);
 
   expect(linkElement).toHaveStyle("color: var(--colorsActionMajor600)");
-  expect(iconElement).toHaveStyle("color: var(--colorsActionMajor600)");
+  expect(iconElement).toHaveStyle("color: rgba(0, 0, 0, 0.898)");
 });
 
 // Test is just for coverage
@@ -350,7 +400,7 @@ test("neutral `variant` has the expected styling when `isDarkBackground` is fals
     color: "var(--colorsActionMajorYin090)",
     backgroundColor: "var(--colorsSemanticFocus250)",
   });
-  expect(iconElement).toHaveStyle("color: var(--colorsActionMajorYin090)");
+  expect(iconElement).toHaveStyle("color: rgb(0, 0, 0)");
 });
 
 // Test is just for coverage
@@ -369,7 +419,7 @@ test("negative `variant` has the expected styling when `isDarkBackground` is fal
   const iconElement = screen.getByTestId("icon");
 
   expect(linkElement).toHaveStyle("color: var(--colorsSemanticNegative500)");
-  expect(iconElement).toHaveStyle("color: var(--colorsActionMajorYin090)");
+  expect(iconElement).toHaveStyle("color: rgb(178, 51, 66)");
 });
 
 // Test is just for coverage
@@ -391,7 +441,7 @@ test("negative `variant` has the expected styling when `isDarkBackground` is fal
   await user.hover(linkElement);
 
   expect(linkElement).toHaveStyle("color: var(--colorsSemanticNegative600)");
-  expect(iconElement).toHaveStyle("color: var(--colorsActionMajorYin090)");
+  expect(iconElement).toHaveStyle("color: rgba(0, 0, 0, 0.898)");
 });
 
 // Tests are just for coverage
@@ -405,7 +455,7 @@ describe("isDarkBackground", () => {
     const iconElement = screen.getByTestId("icon");
 
     expect(linkElement).toHaveStyle(`color: var(--colorsActionMajor350)`);
-    expect(iconElement).toHaveStyle(`color: var(--colorsActionMajor350)`);
+    expect(iconElement).toHaveStyle(`color: rgb(78, 220, 84)`);
   });
 
   it("matches the expected styling with default `variant` when hovered over", async () => {
@@ -420,7 +470,7 @@ describe("isDarkBackground", () => {
     await user.hover(linkElement);
 
     expect(linkElement).toHaveStyle(`color: var(--colorsActionMajor450)`);
-    expect(iconElement).toHaveStyle(`color: var(--colorsActionMajor450)`);
+    expect(iconElement).toHaveStyle(`color: rgb(78, 220, 84)`);
   });
 
   it("matches the expected styling with default `variant` when focused", async () => {
@@ -438,7 +488,7 @@ describe("isDarkBackground", () => {
       color: "var(--colorsActionMajorYin090)",
       backgroundColor: "var(--colorsSemanticFocus250)",
     });
-    expect(iconElement).toHaveStyle(`color: var(--colorsActionMajorYin090)`);
+    expect(iconElement).toHaveStyle(`color: rgb(255, 255, 255)`);
   });
 
   it("matches the expected styling when disabled", () => {
@@ -464,7 +514,7 @@ describe("isDarkBackground", () => {
     const iconElement = screen.getByTestId("icon");
 
     expect(linkElement).toHaveStyle(`color: var(--colorsSemanticNegative350)`);
-    expect(iconElement).toHaveStyle(`color: var(--colorsSemanticNegative350)`);
+    expect(iconElement).toHaveStyle(`color: rgb(232, 91, 102)`);
   });
 
   it("matches the styling when `variant` is set to negative and hovered over", async () => {
@@ -485,7 +535,7 @@ describe("isDarkBackground", () => {
     await user.hover(linkElement);
 
     expect(linkElement).toHaveStyle(`color: var(--colorsSemanticNegative450)`);
-    expect(iconElement).toHaveStyle(`color: var(--colorsSemanticNegative450)`);
+    expect(iconElement).toHaveStyle(`color: rgb(232, 91, 102)`);
   });
 
   it("matches the styling when `variant` is set to negative and focused", async () => {
@@ -509,7 +559,7 @@ describe("isDarkBackground", () => {
       color: "var(--colorsActionMajorYin090)",
       backgroundColor: "var(--colorsSemanticFocus250)",
     });
-    expect(iconElement).toHaveStyle(`color: var(--colorsActionMajorYin090)`);
+    expect(iconElement).toHaveStyle(`color: rgb(255, 255, 255)`);
   });
 
   it("matches the styling when `variant` is set to neutral", () => {
@@ -629,7 +679,7 @@ describe("isDarkBackground", () => {
       color: "var(--colorsActionMajorYin090)",
       backgroundColor: "var(--colorsSemanticFocus250)",
     });
-    expect(iconElement).toHaveStyle("color: var(--colorsActionMajorYin090)");
+    expect(iconElement).toHaveStyle("color: rgb(255, 255, 255)");
   });
 });
 
@@ -681,4 +731,29 @@ test("sets ref to empty after unmount", () => {
   unmount();
 
   expect(mockRef.current).toBe(null);
+});
+
+test("renders with the correct font size when linkSize is large", () => {
+  render(<Link href="foo.com" linkSize="large" />);
+
+  const linkElement = screen.getByRole("link");
+
+  expect(linkElement).toHaveStyle("font-size: var(--fontSizes200)");
+});
+
+test("logs a deprecation warning when tooltip props are used", async () => {
+  const loggerSpy = jest.spyOn(Logger, "deprecate");
+  render(
+    <Link href="foo.com" tooltipMessage="message" tooltipPosition="top" />,
+  );
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "The 'tooltipMessage' prop in Link is deprecated and will soon be removed.",
+  );
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "The 'tooltipPosition' prop in Link is deprecated and will soon be removed.",
+  );
+  expect(loggerSpy).toHaveBeenCalledTimes(2);
+
+  loggerSpy.mockRestore();
 });

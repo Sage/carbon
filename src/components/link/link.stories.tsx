@@ -146,9 +146,8 @@ export const Variants: Story = () => {
         href="https://carbon.sage.com"
         target="_blank"
         rel="noreferrer noopener"
-        variant="negative"
       >
-        This is a link
+        This is a link with variant "typical"
       </Link>
       <br />
       <br />
@@ -156,14 +155,49 @@ export const Variants: Story = () => {
         href="https://carbon.sage.com"
         target="_blank"
         rel="noreferrer noopener"
-        variant="neutral"
+        variant="negative"
       >
-        This is a link
+        This is a link with variant "negative"
+      </Link>
+      <br />
+      <br />
+      <Link
+        href="https://carbon.sage.com"
+        target="_blank"
+        rel="noreferrer noopener"
+        variant="subtle"
+      >
+        This is a link with variant "subtle"
       </Link>
     </>
   );
 };
 Variants.storyName = "Variants";
+
+export const LinkSize: Story = () => {
+  return (
+    <>
+      <Link
+        href="https://carbon.sage.com"
+        target="_blank"
+        rel="noreferrer noopener"
+      >
+        This is a 'medium' link
+      </Link>
+      <br />
+      <br />
+      <Link
+        href="https://carbon.sage.com"
+        target="_blank"
+        rel="noreferrer noopener"
+        linkSize="large"
+      >
+        This is a 'large' link
+      </Link>
+    </>
+  );
+};
+LinkSize.storyName = "Link Size";
 
 export const OnADarkBackground: Story = () => {
   return (
@@ -181,13 +215,13 @@ export const OnADarkBackground: Story = () => {
         rel="noreferrer noopener"
         isDarkBackground
       >
-        This is a link
+        Typical link
       </Link>
       {(["left", "right"] as const).map((align) => (
         <React.Fragment key={`${align}-default-variant`}>
           <br />
           <Link icon="settings" isDarkBackground iconAlign={align} href="#foo">
-            This is a link
+            Typicael link icon {align}
           </Link>
         </React.Fragment>
       ))}
@@ -199,7 +233,7 @@ export const OnADarkBackground: Story = () => {
         isDarkBackground
         variant="negative"
       >
-        This is a link
+        Negative link
       </Link>
       {(["left", "right"] as const).map((align) => (
         <React.Fragment key={`${align}-negative-variant`}>
@@ -211,31 +245,7 @@ export const OnADarkBackground: Story = () => {
             iconAlign={align}
             href="#foo"
           >
-            This is a link
-          </Link>
-        </React.Fragment>
-      ))}
-      <br />
-      <Link
-        href="https://carbon.sage.com"
-        target="_blank"
-        rel="noreferrer noopener"
-        isDarkBackground
-        variant="neutral"
-      >
-        This is a link
-      </Link>
-      {(["left", "right"] as const).map((align) => (
-        <React.Fragment key={`${align}-neutral-variant`}>
-          <br />
-          <Link
-            icon="settings"
-            isDarkBackground
-            variant="neutral"
-            iconAlign={align}
-            href="#foo"
-          >
-            This is a link
+            Negative link icon {align}
           </Link>
         </React.Fragment>
       ))}
@@ -247,7 +257,7 @@ export const OnADarkBackground: Story = () => {
         isDarkBackground
         variant="subtle"
       >
-        This is a link
+        Subtle link
       </Link>
       {(["left", "right"] as const).map((align) => (
         <React.Fragment key={`${align}-subtle-variant`}>
@@ -259,13 +269,13 @@ export const OnADarkBackground: Story = () => {
             iconAlign={align}
             href="#foo"
           >
-            This is a link
+            Subtle link icon {align}
           </Link>
         </React.Fragment>
       ))}
       <br />
       <Link isDarkBackground disabled>
-        This is a link
+        Disabled link
       </Link>
     </Box>
   );
