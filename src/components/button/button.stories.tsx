@@ -247,13 +247,13 @@ export const SecondaryButtonWhite: Story = () => {
         justifyContent="center"
         gap={2}
       >
-        <Button size="small" iconType="square_dot" isWhite>
+        <Button size="small" iconType="placeholder" isWhite>
           Small White & Icon
         </Button>
-        <Button iconType="square_dot" isWhite>
+        <Button iconType="placeholder" isWhite>
           Medium White & Icon
         </Button>
-        <Button iconType="square_dot" size="large" isWhite>
+        <Button iconType="placeholder" size="large" isWhite>
           Large White & Icon
         </Button>
       </Box>
@@ -281,13 +281,13 @@ export const SecondaryButtonWhite: Story = () => {
         justifyContent="center"
         gap={2}
       >
-        <Button disabled isWhite iconType="square_dot">
+        <Button disabled isWhite iconType="placeholder">
           Disabled & White
         </Button>
-        <Button destructive isWhite iconType="square_dot">
+        <Button destructive isWhite iconType="placeholder">
           Destructive & White
         </Button>
-        <Button disabled destructive isWhite iconType="square_dot">
+        <Button disabled destructive isWhite iconType="placeholder">
           Disabled, Destructive & White
         </Button>
       </Box>

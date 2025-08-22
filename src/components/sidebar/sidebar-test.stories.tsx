@@ -250,7 +250,7 @@ export const DarkHeaderExampleImplementation = () => {
         This is the footer text that will be added to provide information about
         the form content.
       </Typography>
-      <Link icon="square_dot" href="#">
+      <Link icon="placeholder" href="#">
         This is a link
       </Link>
     </Box>
