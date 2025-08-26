@@ -180,9 +180,10 @@ describe("when custom props are passed", () => {
     render(<LoaderSpinner size="extra-small" />);
     const visibleLabelElement = screen.getByTestId("visible-label");
 
-    expect(visibleLabelElement).toHaveStyle({
-      marginLeft: "var(--spacing100)",
-    });
+    expect(visibleLabelElement).toHaveStyleRule(
+      "margin-left",
+      "var(--spacing100)",
+    );
   });
 
   it.each(["small", "medium", "large", "extra-large"] as LoaderSpinnerSizes[])(
@@ -230,10 +231,12 @@ describe("when custom props are passed", () => {
     "when the 'variant' prop is passed as '%s' the correct outer arc stroke (color) is rendered",
     (variant) => {
       render(<LoaderSpinner variant={variant} />);
-      const outerArcSvgElement = screen.getByTestId("outer-arc");
+      const outerArcWrapper = screen.getByRole("presentation");
 
-      expect(outerArcSvgElement).toHaveStyle(
-        `stroke: ${outerArcStrokeValues[variant]}`,
+      expect(outerArcWrapper).toHaveStyleRule(
+        "stroke",
+        `${outerArcStrokeValues[variant]}`,
+        { modifier: 'circle[data-role="outer-arc"]' },
       );
     },
   );
@@ -255,9 +258,11 @@ describe("when custom props are passed", () => {
     "when the 'variant' prop is passed as `%s` the correct inner arc stroke (color) is rendered",
     (variants, strokeValues) => {
       render(<LoaderSpinner variant={variants} />);
-      const innerArcSvgElement = screen.getByTestId("inner-arc");
+      const innerArcWrapper = screen.getByRole("presentation");
 
-      expect(innerArcSvgElement).toHaveStyle(`stroke: ${strokeValues}`);
+      expect(innerArcWrapper).toHaveStyleRule("stroke", `${strokeValues}`, {
+        modifier: 'circle[data-role="inner-arc"]',
+      });
     },
   );
 
@@ -277,9 +282,13 @@ describe("when custom props are passed", () => {
       "renders correct stroke for variant='%s'",
       (variant) => {
         render(<LoaderSpinner variant={variant} />);
-        const innerArc = screen.getByTestId("inner-arc");
+        const innerArcWrapper = screen.getByRole("presentation");
 
-        expect(innerArc).toHaveStyle(`stroke: ${isWheelStrokeColors[variant]}`);
+        expect(innerArcWrapper).toHaveStyleRule(
+          "stroke",
+          `${isWheelStrokeColors[variant]}`,
+          { modifier: 'circle[data-role="inner-arc"]' },
+        );
       },
     );
   });
