@@ -82,11 +82,6 @@ export interface FilterableSelectProps
   /** Boolean to disable automatic filtering and highlighting of options.
    * This allows custom filtering and option styling to be performed outside of the component when the filter text changes. */
   disableDefaultFiltering?: boolean;
-  /**
-   * [Legacy] Flag to configure component as optional.
-   * @deprecated If the value of this component is not required, use the `required` prop and set it to false instead.
-   */
-  isOptional?: boolean;
   /** Flag to configure component as mandatory */
   required?: boolean;
   /** Specify a callback triggered on change */
@@ -96,8 +91,6 @@ export interface FilterableSelectProps
   /** Override the default width of the list element. Number passed is converted into pixel value */
   listWidth?: number;
 }
-
-let deprecateOptionalWarnTriggered = false;
 
 export const FilterableSelect = React.forwardRef<
   HTMLInputElement,
@@ -139,19 +132,12 @@ export const FilterableSelect = React.forwardRef<
       enableVirtualScroll,
       virtualScrollOverscan,
       disableDefaultFiltering = false,
-      isOptional,
       required,
       listWidth,
       ...textboxProps
     },
     ref,
   ) => {
-    if (!deprecateOptionalWarnTriggered && isOptional) {
-      deprecateOptionalWarnTriggered = true;
-      Logger.deprecate(
-        "`isOptional` is deprecated in FilterableSelect and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
-      );
-    }
     const [activeDescendantId, setActiveDescendantId] = useState<string>("");
     const selectListId = useRef(guid());
     const containerRef = useRef<HTMLDivElement>(null);
@@ -681,7 +667,6 @@ export const FilterableSelect = React.forwardRef<
         onMouseDown: handleTextboxMouseDown,
         tooltipPosition,
         required,
-        isOptional,
         ...filterOutStyledSystemSpacingProps(textboxProps),
         "data-component": undefined,
       };

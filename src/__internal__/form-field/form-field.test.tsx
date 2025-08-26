@@ -4,30 +4,6 @@ import FormField from ".";
 import TabContext from "../../components/tabs/tab/__internal__/tab.context";
 import { mockMatchMedia } from "../../__spec_helper__/__internal__/test-utils";
 
-test("throws a console error when `isOptional` and `isRequired` are both true", () => {
-  const consoleSpy = jest.spyOn(console, "error").mockImplementation(() => {});
-
-  expect(() => {
-    render(<FormField id="mock-input" isOptional isRequired />);
-  }).toThrow(
-    "an input cannot be set to both required and optional at the same time",
-  );
-
-  consoleSpy.mockRestore();
-});
-
-test("does not throw a console error when `isRequired` is true and `isOptional` is false", () => {
-  expect(() => {
-    render(<FormField id="mock-input" isRequired />);
-  }).not.toThrow();
-});
-
-test("does not throw a console error when `isOptional` is true and `isRequired` is false", () => {
-  expect(() => {
-    render(<FormField id="mock-input" isOptional />);
-  }).not.toThrow();
-});
-
 test("throws a console error when `error` and `disabled` are both true", () => {
   const consoleSpy = jest.spyOn(console, "error").mockImplementation(() => {});
 

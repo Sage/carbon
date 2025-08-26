@@ -90,9 +90,6 @@ const deDE: Partial<Locale> = {
   heading: {
     backLinkAriaLabel: () => "Zurück",
   },
-  label: {
-    optional: () => "optional",
-  },
   link: {
     skipLinkLabel: () => "Zum Hauptinhalt springen",
   },

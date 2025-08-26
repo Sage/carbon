@@ -471,18 +471,6 @@ test.describe("Prop tests", () => {
     });
   });
 
-  test.describe("isOptional", () => {
-    [true, false].forEach((isOptional) => {
-      test(`value of ${isOptional}`, async ({ mount, page }) => {
-        await mount(<TextEditorDefaultComponent isOptional={isOptional} />);
-        const content = await page.evaluate(
-          "window.getComputedStyle(document.getElementById('label-container-pw-rte-label'), '::after').getPropertyValue('content')",
-        );
-        expect(content).toBe(isOptional ? '"(optional)"' : "none");
-      });
-    });
-  });
-
   test.describe("labelText", () => {
     [{ value: "Text Editor" }].forEach(({ value }) => {
       test(`value of ${value}`, async ({ mount, page }) => {

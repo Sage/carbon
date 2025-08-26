@@ -16,7 +16,6 @@ import CheckboxGroupContext from "./__internal__/checkbox-group.context";
 import guid from "../../../__internal__/utils/helpers/guid";
 import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibility";
 import HintText from "../../../__internal__/hint-text";
-import Logger from "../../../__internal__/utils/logger";
 
 export interface CheckboxGroupProps
   extends ValidationProps,
@@ -48,11 +47,6 @@ export interface CheckboxGroupProps
   labelSpacing?: 1 | 2;
   /** Flag to configure component as mandatory */
   required?: boolean;
-  /**
-   * [Legacy] Flag to configure component as optional.
-   * @deprecated If the value of this component is not required, use the `required` prop and set it to false instead.
-   */
-  isOptional?: boolean;
   /** [Legacy] Overrides the default tooltip */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
   /** When true, Checkboxes are inline */
@@ -61,8 +55,6 @@ export interface CheckboxGroupProps
   validationMessagePositionTop?: boolean;
 }
 
-let deprecateOptionalWarnTriggered = false;
-
 export const CheckboxGroup = ({
   children,
   legend,
@@ -70,7 +62,6 @@ export const CheckboxGroup = ({
   warning,
   info,
   required,
-  isOptional,
   legendInline,
   legendWidth,
   legendAlign = "left",
@@ -82,12 +73,6 @@ export const CheckboxGroup = ({
   validationMessagePositionTop = true,
   ...rest
 }: CheckboxGroupProps) => {
-  if (!deprecateOptionalWarnTriggered && isOptional) {
-    deprecateOptionalWarnTriggered = true;
-    Logger.deprecate(
-      "`isOptional` is deprecated in CheckboxGroup and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
-    );
-  }
   const { validationRedesignOptIn } = useContext(NewValidationContext);
   const internalId = useRef(guid());
   const uniqueId = id || internalId.current;
@@ -117,7 +102,6 @@ export const CheckboxGroup = ({
           error={error}
           warning={warning}
           isRequired={required}
-          isOptional={isOptional}
           width="fit-content"
           {...(combinedAriaDescribedBy && {
             "aria-describedby": combinedAriaDescribedBy,
@@ -187,7 +171,6 @@ export const CheckboxGroup = ({
             warning={warning}
             info={info}
             isRequired={required}
-            isOptional={isOptional}
             aria-describedby={ariaDescribedBy}
             validationId={validationId}
             {...tagComponent("checkboxgroup", rest)}

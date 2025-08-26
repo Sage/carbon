@@ -75,11 +75,6 @@ export interface TextEditorProps extends MarginProps, TagProps {
   header?: React.ReactNode;
   /** A hint string rendered before the editor but after the label. Intended to describe the purpose or content of the input. */
   inputHint?: string;
-  /**
-   * [Legacy] Whether the content of the editor can be empty
-   * @deprecated If the value of this component is not required, use the `required` prop and set it to false instead.
-   */
-  isOptional?: boolean;
   /** The label to display above the editor */
   labelText: string;
   /** The identifier for the Text Editor. This allows for the using of multiple Text Editors on a screen */
@@ -125,7 +120,6 @@ export interface TextEditorProps extends MarginProps, TagProps {
 }
 
 let deprecateValueTriggered = false;
-let deprecateOptionalWarnTriggered = false;
 
 export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
   (
@@ -135,7 +129,6 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
       footer,
       header,
       inputHint,
-      isOptional = false,
       labelText,
       namespace = COMPONENT_PREFIX,
       onBlur,
@@ -156,12 +149,6 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
     },
     ref,
   ) => {
-    if (!deprecateOptionalWarnTriggered && isOptional) {
-      deprecateOptionalWarnTriggered = true;
-      Logger.deprecate(
-        "`isOptional` is deprecated in TextEditor and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
-      );
-    }
     if (!deprecateValueTriggered && rest.value) {
       deprecateValueTriggered = true;
       Logger.deprecate(
@@ -298,11 +285,7 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
         {...tagComponent("text-editor", rest)}
       >
         <TextEditorContext.Provider value={{ onLinkAdded }}>
-          <Label
-            isRequired={required}
-            optional={isOptional}
-            labelId={`${namespace}-label`}
-          >
+          <Label isRequired={required} labelId={`${namespace}-label`}>
             {labelText}
           </Label>
 

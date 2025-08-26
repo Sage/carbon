@@ -63,11 +63,6 @@ export interface RadioButtonGroupProps
   onChange?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
   /** Flag to configure component as mandatory */
   required?: boolean;
-  /**
-   * [Legacy] Flag to configure component as optional.
-   * @deprecated If the value of this component is not required, use the `required` prop and set it to false instead.
-   */
-  isOptional?: boolean;
   /** value of the selected RadioButton */
   value?: string;
   /** [Legacy] Overrides the default tooltip position */
@@ -75,8 +70,6 @@ export interface RadioButtonGroupProps
   /** Render the ValidationMessage above the RadioButton inputs when validationRedesignOptIn flag is set */
   validationMessagePositionTop?: boolean;
 }
-
-let deprecateOptionalWarnTriggered = false;
 
 export const RadioButtonGroup = ({
   children,
@@ -99,17 +92,10 @@ export const RadioButtonGroup = ({
   adaptiveLegendBreakpoint,
   adaptiveSpacingBreakpoint,
   required,
-  isOptional,
   tooltipPosition,
   validationMessagePositionTop = true,
   ...rest
 }: RadioButtonGroupProps) => {
-  if (!deprecateOptionalWarnTriggered && isOptional) {
-    deprecateOptionalWarnTriggered = true;
-    Logger.deprecate(
-      "`isOptional` is deprecated in RadioButtonGroup and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
-    );
-  }
   const { validationRedesignOptIn } = useContext(NewValidationContext);
   const internalId = useRef(guid());
   const uniqueId = id || internalId.current;
@@ -166,7 +152,6 @@ export const RadioButtonGroup = ({
           warning={warning}
           legendAlign={legendAlign}
           isRequired={required}
-          isOptional={isOptional}
           width="fit-content"
           {...tagComponent("radiogroup", rest)}
           {...marginProps}
@@ -255,7 +240,6 @@ export const RadioButtonGroup = ({
             legendAlign={legendAlign}
             legendSpacing={legendSpacing}
             isRequired={required}
-            isOptional={isOptional}
             {...tagComponent("radiogroup", rest)}
             {...marginProps}
             ml={marginLeft}

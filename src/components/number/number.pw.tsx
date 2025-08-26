@@ -39,7 +39,6 @@ import {
   assertCssValueIsApproximately,
   verifyRequiredAsteriskForLabel,
   checkAccessibility,
-  getStyle,
 } from "../../../playwright/support/helper";
 
 import {
@@ -338,14 +337,6 @@ test.describe("check props for Number component", () => {
       "name",
       CHARACTERS.STANDARD,
     );
-  });
-
-  test("should render with isOptional prop", async ({ mount, page }) => {
-    await mount(<NumberInputComponent isOptional />);
-
-    const labelParent = getDataElementByValue(page, "label").locator("..");
-    const contentValue = await getStyle(labelParent, "content", ":after");
-    expect(contentValue).toContain("(optional)");
   });
 
   test("should render with positionedChildren prop", async ({

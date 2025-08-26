@@ -60,14 +60,6 @@ export const RequiredGroup: Story = {
   },
 };
 
-export const OptionalGroup: Story = {
-  ...Default,
-  args: {
-    ...Default.args,
-    isOptional: true,
-  },
-};
-
 export const Inline: Story = {
   render: (args) => (
     <CarbonProvider validationRedesignOptIn>

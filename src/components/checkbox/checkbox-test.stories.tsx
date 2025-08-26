@@ -52,7 +52,6 @@ Default.args = {
   ml: "0",
   adaptiveSpacingBreakpoint: 0,
   required: false,
-  isOptional: false,
   helpAriaLabel: "",
   validationOnLabel: false,
   validationIconId: "",
@@ -117,7 +116,6 @@ Validation.args = {
   legendAlign: "left",
   legendSpacing: 1,
   required: false,
-  isOptional: false,
   inline: false,
 };
 Validation.argTypes = {
@@ -147,7 +145,7 @@ export const NewValidation = () => {
       </CheckboxGroup>
       <CheckboxGroup
         mt={2}
-        warning="Warning message (Fix is optional)"
+        warning="Warning message"
         legend="Label"
         legendHelp="Hint text"
         required
@@ -169,7 +167,7 @@ export const NewValidation = () => {
       <CheckboxGroup
         validationMessagePositionTop={false}
         mt={2}
-        warning="Warning message (Fix is optional)"
+        warning="Warning message"
         legend="Label"
         legendHelp="Hint text"
         required
@@ -202,7 +200,7 @@ export const NewValidationInline = () => {
       </CheckboxGroup>
       <CheckboxGroup
         mt={2}
-        warning="Warning message (Fix is optional)"
+        warning="Warning message"
         legend="Label"
         legendHelp="Hint text"
         required
@@ -228,7 +226,7 @@ export const NewValidationInline = () => {
       <CheckboxGroup
         mt={2}
         validationMessagePositionTop={false}
-        warning="Warning message (Fix is optional)"
+        warning="Warning message"
         legend="Label"
         legendHelp="Hint text"
         required
@@ -268,7 +266,6 @@ WithLegendAlignment.args = {
   legendHelp: "Help text",
   legendInline: false,
   required: false,
-  isOptional: false,
   validationIconId: "",
   error: "Error message",
   warning: "",
