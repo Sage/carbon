@@ -1,3 +1,9 @@
+## [156.0.1](https://github.com/Sage/carbon/compare/v156.0.0...v156.0.1) (2025-08-27)
+
+### Bug Fixes
+
+* **responsive-vertical-menu:** ensure secondary menu is a child of primary ([25134b7](https://github.com/Sage/carbon/commit/25134b7cb930963b5e2aac50d37cb3ed19cc0651))
+
 ## [156.0.0](https://github.com/Sage/carbon/compare/v155.14.0...v156.0.0) (2025-08-26)
 
 ### ⚠ BREAKING CHANGES
