@@ -5,7 +5,6 @@ import {
   ResponsiveVerticalMenuDivider,
   ResponsiveVerticalMenuItem,
   ResponsiveVerticalMenuProps,
-  ResponsiveVerticalMenuProvider,
 } from ".";
 
 import Box from "../../box";
@@ -78,95 +77,6 @@ const CustomAccountingIcon = () => (
 export const Default = (props: Partial<ResponsiveVerticalMenuProps>) => {
   return (
     <GlobalHeader>
-      <ResponsiveVerticalMenuProvider>
-        <ResponsiveVerticalMenu {...props}>
-          <ResponsiveVerticalMenuItem icon="home" id="home" label="Home" />
-          <ResponsiveVerticalMenuDivider />
-          <ResponsiveVerticalMenuItem
-            customIcon={<CustomAccountingIcon />}
-            id="accounting"
-            label="Accounting"
-          >
-            <ResponsiveVerticalMenuItem id="summary" label="Summary" />
-            <ResponsiveVerticalMenuItem
-              id="sales-invoices"
-              label="Sales Invoices"
-            >
-              <ResponsiveVerticalMenuItem
-                id="quotes-and-estimates"
-                label="Quotes & Estimates"
-                href="#"
-              />
-              <ResponsiveVerticalMenuItem
-                id="new-sales-invoice"
-                label="New Sales Invoice"
-                href="#"
-              />
-              <ResponsiveVerticalMenuItem
-                id="sales-summary"
-                label="Sales Summary"
-                href="#"
-              />
-            </ResponsiveVerticalMenuItem>
-            <ResponsiveVerticalMenuItem id="contacts" label="Contacts">
-              <ResponsiveVerticalMenuItem
-                id="nested-menu-item-1"
-                label="Nested Menu Item 1"
-              />
-            </ResponsiveVerticalMenuItem>
-            <ResponsiveVerticalMenuItem
-              id="products-and-services"
-              label="Products & Services"
-            />
-          </ResponsiveVerticalMenuItem>
-          <ResponsiveVerticalMenuDivider />
-          <ResponsiveVerticalMenuItem id="payroll" label="Payroll">
-            <ResponsiveVerticalMenuItem id="payroll-summary" label="Summary" />
-            <ResponsiveVerticalMenuItem id="payroll-sales" label="Sales" />
-          </ResponsiveVerticalMenuItem>
-          <ResponsiveVerticalMenuDivider />
-          <ResponsiveVerticalMenuItem id="profile" label="Profile">
-            <ResponsiveVerticalMenuItem
-              id="profile-my-profile"
-              label="My Profile"
-            />
-            <ResponsiveVerticalMenuItem id="profile-logout" label="Log out" />
-          </ResponsiveVerticalMenuItem>
-          <ResponsiveVerticalMenuDivider />
-          <ResponsiveVerticalMenuItem
-            id="manage-business-account"
-            label="Manage Business Account"
-          />
-          <ResponsiveVerticalMenuItem id="manage-users" label="Manage Users" />
-          <ResponsiveVerticalMenuDivider />
-          <ResponsiveVerticalMenuItem id="help" label="Help">
-            <ResponsiveVerticalMenuItem
-              id="help-centre"
-              label={
-                <Box display="flex" width="100%" alignItems="center" gap={1}>
-                  <span>Help Centre</span>
-                  <Icon type="link" />
-                </Box>
-              }
-            />
-            <ResponsiveVerticalMenuItem id="help-chat" label="Chat" />
-            <ResponsiveVerticalMenuItem
-              id="help-feedback"
-              label="Give feedback"
-            />
-          </ResponsiveVerticalMenuItem>
-        </ResponsiveVerticalMenu>
-      </ResponsiveVerticalMenuProvider>
-    </GlobalHeader>
-  );
-};
-Default.storyName = "Default";
-
-export const WithoutGlobalHeader = (
-  props: Partial<ResponsiveVerticalMenuProps>,
-) => {
-  return (
-    <ResponsiveVerticalMenuProvider>
       <ResponsiveVerticalMenu {...props}>
         <ResponsiveVerticalMenuItem icon="home" id="home" label="Home" />
         <ResponsiveVerticalMenuDivider />
@@ -207,8 +117,90 @@ export const WithoutGlobalHeader = (
             label="Products & Services"
           />
         </ResponsiveVerticalMenuItem>
+        <ResponsiveVerticalMenuDivider />
+        <ResponsiveVerticalMenuItem id="payroll" label="Payroll">
+          <ResponsiveVerticalMenuItem id="payroll-summary" label="Summary" />
+          <ResponsiveVerticalMenuItem id="payroll-sales" label="Sales" />
+        </ResponsiveVerticalMenuItem>
+        <ResponsiveVerticalMenuDivider />
+        <ResponsiveVerticalMenuItem id="profile" label="Profile">
+          <ResponsiveVerticalMenuItem
+            id="profile-my-profile"
+            label="My Profile"
+          />
+          <ResponsiveVerticalMenuItem id="profile-logout" label="Log out" />
+        </ResponsiveVerticalMenuItem>
+        <ResponsiveVerticalMenuDivider />
+        <ResponsiveVerticalMenuItem
+          id="manage-business-account"
+          label="Manage Business Account"
+        />
+        <ResponsiveVerticalMenuItem id="manage-users" label="Manage Users" />
+        <ResponsiveVerticalMenuDivider />
+        <ResponsiveVerticalMenuItem id="help" label="Help">
+          <ResponsiveVerticalMenuItem
+            id="help-centre"
+            label={
+              <Box display="flex" width="100%" alignItems="center" gap={1}>
+                <span>Help Centre</span>
+                <Icon type="link" />
+              </Box>
+            }
+          />
+          <ResponsiveVerticalMenuItem id="help-chat" label="Chat" />
+          <ResponsiveVerticalMenuItem
+            id="help-feedback"
+            label="Give feedback"
+          />
+        </ResponsiveVerticalMenuItem>
       </ResponsiveVerticalMenu>
-    </ResponsiveVerticalMenuProvider>
+    </GlobalHeader>
+  );
+};
+Default.storyName = "Default";
+
+export const WithoutGlobalHeader = (
+  props: Partial<ResponsiveVerticalMenuProps>,
+) => {
+  return (
+    <ResponsiveVerticalMenu {...props}>
+      <ResponsiveVerticalMenuItem icon="home" id="home" label="Home" />
+      <ResponsiveVerticalMenuDivider />
+      <ResponsiveVerticalMenuItem
+        customIcon={<CustomAccountingIcon />}
+        id="accounting"
+        label="Accounting"
+      >
+        <ResponsiveVerticalMenuItem id="summary" label="Summary" />
+        <ResponsiveVerticalMenuItem id="sales-invoices" label="Sales Invoices">
+          <ResponsiveVerticalMenuItem
+            id="quotes-and-estimates"
+            label="Quotes & Estimates"
+            href="#"
+          />
+          <ResponsiveVerticalMenuItem
+            id="new-sales-invoice"
+            label="New Sales Invoice"
+            href="#"
+          />
+          <ResponsiveVerticalMenuItem
+            id="sales-summary"
+            label="Sales Summary"
+            href="#"
+          />
+        </ResponsiveVerticalMenuItem>
+        <ResponsiveVerticalMenuItem id="contacts" label="Contacts">
+          <ResponsiveVerticalMenuItem
+            id="nested-menu-item-1"
+            label="Nested Menu Item 1"
+          />
+        </ResponsiveVerticalMenuItem>
+        <ResponsiveVerticalMenuItem
+          id="products-and-services"
+          label="Products & Services"
+        />
+      </ResponsiveVerticalMenuItem>
+    </ResponsiveVerticalMenu>
   );
 };
 WithoutGlobalHeader.storyName = "Without Global Header";
@@ -216,57 +208,55 @@ WithoutGlobalHeader.storyName = "Without Global Header";
 export const WithFullIcons = (props: Partial<ResponsiveVerticalMenuProps>) => {
   return (
     <GlobalHeader>
-      <ResponsiveVerticalMenuProvider>
-        <ResponsiveVerticalMenu {...props}>
-          <ResponsiveVerticalMenuItem icon="home" id="home" label="Home" />
-          <ResponsiveVerticalMenuDivider />
-          <ResponsiveVerticalMenuItem
-            customIcon={<CustomAccountingIcon />}
-            id="accounting"
-            label="Accounting"
-          />
-          <ResponsiveVerticalMenuDivider />
-          <ResponsiveVerticalMenuItem
-            id="payroll"
-            label="Payroll"
-            icon="business"
-          >
-            <ResponsiveVerticalMenuItem id="payroll-summary" label="Summary" />
-            <ResponsiveVerticalMenuItem id="payroll-sales" label="Sales" />
-          </ResponsiveVerticalMenuItem>
-          <ResponsiveVerticalMenuDivider />
-          <ResponsiveVerticalMenuItem
-            icon="home"
-            id="primary-menu"
-            label={
-              <Box display="flex" width="100%" alignItems="center" gap={1}>
-                <span>Primary Menu Item</span>
-                <Icon type="link" />
-              </Box>
-            }
-          >
-            <ResponsiveVerticalMenuItem id="sales" label="Sales" />
-          </ResponsiveVerticalMenuItem>
-          <ResponsiveVerticalMenuItem
-            icon="question"
-            id="loading-menu"
-            label="Loading"
-          >
-            <Box
-              display="flex"
-              width="100%"
-              alignItems="center"
-              gap={1}
-              flexDirection="column"
-              justifyContent="center"
-              color="white"
-            >
-              <Loader />
-              <span>Loading, please wait...</span>
+      <ResponsiveVerticalMenu {...props}>
+        <ResponsiveVerticalMenuItem icon="home" id="home" label="Home" />
+        <ResponsiveVerticalMenuDivider />
+        <ResponsiveVerticalMenuItem
+          customIcon={<CustomAccountingIcon />}
+          id="accounting"
+          label="Accounting"
+        />
+        <ResponsiveVerticalMenuDivider />
+        <ResponsiveVerticalMenuItem
+          id="payroll"
+          label="Payroll"
+          icon="business"
+        >
+          <ResponsiveVerticalMenuItem id="payroll-summary" label="Summary" />
+          <ResponsiveVerticalMenuItem id="payroll-sales" label="Sales" />
+        </ResponsiveVerticalMenuItem>
+        <ResponsiveVerticalMenuDivider />
+        <ResponsiveVerticalMenuItem
+          icon="home"
+          id="primary-menu"
+          label={
+            <Box display="flex" width="100%" alignItems="center" gap={1}>
+              <span>Primary Menu Item</span>
+              <Icon type="link" />
             </Box>
-          </ResponsiveVerticalMenuItem>
-        </ResponsiveVerticalMenu>
-      </ResponsiveVerticalMenuProvider>
+          }
+        >
+          <ResponsiveVerticalMenuItem id="sales" label="Sales" />
+        </ResponsiveVerticalMenuItem>
+        <ResponsiveVerticalMenuItem
+          icon="question"
+          id="loading-menu"
+          label="Loading"
+        >
+          <Box
+            display="flex"
+            width="100%"
+            alignItems="center"
+            gap={1}
+            flexDirection="column"
+            justifyContent="center"
+            color="white"
+          >
+            <Loader />
+            <span>Loading, please wait...</span>
+          </Box>
+        </ResponsiveVerticalMenuItem>
+      </ResponsiveVerticalMenu>
     </GlobalHeader>
   );
 };
@@ -275,44 +265,42 @@ WithFullIcons.storyName = "Full Icons";
 export const NoIcons = (props: Partial<ResponsiveVerticalMenuProps>) => {
   return (
     <GlobalHeader>
-      <ResponsiveVerticalMenuProvider>
-        <ResponsiveVerticalMenu {...props}>
-          <ResponsiveVerticalMenuItem id="home" label="Home" />
-          <ResponsiveVerticalMenuDivider />
-          <ResponsiveVerticalMenuItem id="accounting" label="Accounting" />
-          <ResponsiveVerticalMenuDivider />
-          <ResponsiveVerticalMenuItem id="payroll" label="Payroll">
-            <ResponsiveVerticalMenuItem id="payroll-summary" label="Summary" />
-            <ResponsiveVerticalMenuItem id="payroll-sales" label="Sales" />
-          </ResponsiveVerticalMenuItem>
-          <ResponsiveVerticalMenuDivider />
-          <ResponsiveVerticalMenuItem
-            id="primary-menu"
-            label={
-              <Box display="flex" width="100%" alignItems="center" gap={1}>
-                <span>Primary Menu Item</span>
-                <Icon type="link" />
-              </Box>
-            }
-          >
-            <ResponsiveVerticalMenuItem id="sales" label="Sales" />
-          </ResponsiveVerticalMenuItem>
-          <ResponsiveVerticalMenuItem id="loading-menu" label="Loading">
-            <Box
-              display="flex"
-              width="100%"
-              alignItems="center"
-              gap={1}
-              flexDirection="column"
-              justifyContent="center"
-              color="white"
-            >
-              <Loader />
-              <span>Loading, please wait...</span>
+      <ResponsiveVerticalMenu {...props}>
+        <ResponsiveVerticalMenuItem id="home" label="Home" />
+        <ResponsiveVerticalMenuDivider />
+        <ResponsiveVerticalMenuItem id="accounting" label="Accounting" />
+        <ResponsiveVerticalMenuDivider />
+        <ResponsiveVerticalMenuItem id="payroll" label="Payroll">
+          <ResponsiveVerticalMenuItem id="payroll-summary" label="Summary" />
+          <ResponsiveVerticalMenuItem id="payroll-sales" label="Sales" />
+        </ResponsiveVerticalMenuItem>
+        <ResponsiveVerticalMenuDivider />
+        <ResponsiveVerticalMenuItem
+          id="primary-menu"
+          label={
+            <Box display="flex" width="100%" alignItems="center" gap={1}>
+              <span>Primary Menu Item</span>
+              <Icon type="link" />
             </Box>
-          </ResponsiveVerticalMenuItem>
-        </ResponsiveVerticalMenu>
-      </ResponsiveVerticalMenuProvider>
+          }
+        >
+          <ResponsiveVerticalMenuItem id="sales" label="Sales" />
+        </ResponsiveVerticalMenuItem>
+        <ResponsiveVerticalMenuItem id="loading-menu" label="Loading">
+          <Box
+            display="flex"
+            width="100%"
+            alignItems="center"
+            gap={1}
+            flexDirection="column"
+            justifyContent="center"
+            color="white"
+          >
+            <Loader />
+            <span>Loading, please wait...</span>
+          </Box>
+        </ResponsiveVerticalMenuItem>
+      </ResponsiveVerticalMenu>
     </GlobalHeader>
   );
 };
@@ -321,54 +309,52 @@ NoIcons.storyName = "No Icons";
 export const MixedIcons = (props: Partial<ResponsiveVerticalMenuProps>) => {
   return (
     <GlobalHeader>
-      <ResponsiveVerticalMenuProvider>
-        <ResponsiveVerticalMenu {...props}>
-          <ResponsiveVerticalMenuItem icon="home" id="home" label="Home" />
-          <ResponsiveVerticalMenuDivider />
-          <ResponsiveVerticalMenuItem id="accounting" label="Accounting" />
-          <ResponsiveVerticalMenuDivider />
-          <ResponsiveVerticalMenuItem
-            id="payroll"
-            label="Payroll"
-            icon="business"
-          >
-            <ResponsiveVerticalMenuItem id="payroll-summary" label="Summary" />
-            <ResponsiveVerticalMenuItem id="payroll-sales" label="Sales" />
-          </ResponsiveVerticalMenuItem>
-          <ResponsiveVerticalMenuDivider />
-          <ResponsiveVerticalMenuItem
-            id="primary-menu"
-            label={
-              <Box
-                display="flex"
-                width="100%"
-                alignItems="center"
-                gap={1}
-                color="white"
-              >
-                <span>Primary Menu Item</span>
-                <Icon type="link" />
-              </Box>
-            }
-          >
-            <ResponsiveVerticalMenuItem id="sales" label="Sales" />
-          </ResponsiveVerticalMenuItem>
-          <ResponsiveVerticalMenuItem id="loading-menu" label="Loading">
+      <ResponsiveVerticalMenu {...props}>
+        <ResponsiveVerticalMenuItem icon="home" id="home" label="Home" />
+        <ResponsiveVerticalMenuDivider />
+        <ResponsiveVerticalMenuItem id="accounting" label="Accounting" />
+        <ResponsiveVerticalMenuDivider />
+        <ResponsiveVerticalMenuItem
+          id="payroll"
+          label="Payroll"
+          icon="business"
+        >
+          <ResponsiveVerticalMenuItem id="payroll-summary" label="Summary" />
+          <ResponsiveVerticalMenuItem id="payroll-sales" label="Sales" />
+        </ResponsiveVerticalMenuItem>
+        <ResponsiveVerticalMenuDivider />
+        <ResponsiveVerticalMenuItem
+          id="primary-menu"
+          label={
             <Box
               display="flex"
               width="100%"
               alignItems="center"
               gap={1}
-              flexDirection="column"
-              justifyContent="center"
               color="white"
             >
-              <Loader />
-              <span>Loading, please wait...</span>
+              <span>Primary Menu Item</span>
+              <Icon type="link" />
             </Box>
-          </ResponsiveVerticalMenuItem>
-        </ResponsiveVerticalMenu>
-      </ResponsiveVerticalMenuProvider>
+          }
+        >
+          <ResponsiveVerticalMenuItem id="sales" label="Sales" />
+        </ResponsiveVerticalMenuItem>
+        <ResponsiveVerticalMenuItem id="loading-menu" label="Loading">
+          <Box
+            display="flex"
+            width="100%"
+            alignItems="center"
+            gap={1}
+            flexDirection="column"
+            justifyContent="center"
+            color="white"
+          >
+            <Loader />
+            <span>Loading, please wait...</span>
+          </Box>
+        </ResponsiveVerticalMenuItem>
+      </ResponsiveVerticalMenu>
     </GlobalHeader>
   );
 };
@@ -421,41 +407,39 @@ const TestMenu = ({ data }: { data: MenuItem[] }) => {
   const products = postData.length === 0 ? data : postData;
 
   return (
-    <ResponsiveVerticalMenuProvider>
-      <ResponsiveVerticalMenu height="100%">
-        <>
+    <ResponsiveVerticalMenu height="100%">
+      <>
+        <ResponsiveVerticalMenuItem
+          label="Home"
+          id="home"
+          icon="home"
+          href="#"
+        />
+        {products.map((p) => (
           <ResponsiveVerticalMenuItem
-            label="Home"
-            id="home"
-            icon="home"
-            href="#"
-          />
-          {products.map((p) => (
-            <ResponsiveVerticalMenuItem
-              key={p.productName}
-              id={p.productName}
-              label={p.productName}
-            >
-              {p?.menuItems?.map((s) => (
-                <ResponsiveVerticalMenuItem
-                  key={s.productName}
-                  id={s.productName}
-                  label={s.productName}
-                >
-                  {s?.menuItems?.map((t) => (
-                    <ResponsiveVerticalMenuItem
-                      key={t.productName}
-                      id={t.productName}
-                      label={t.productName}
-                    />
-                  ))}
-                </ResponsiveVerticalMenuItem>
-              ))}
-            </ResponsiveVerticalMenuItem>
-          ))}
-        </>
-      </ResponsiveVerticalMenu>
-    </ResponsiveVerticalMenuProvider>
+            key={p.productName}
+            id={p.productName}
+            label={p.productName}
+          >
+            {p?.menuItems?.map((s) => (
+              <ResponsiveVerticalMenuItem
+                key={s.productName}
+                id={s.productName}
+                label={s.productName}
+              >
+                {s?.menuItems?.map((t) => (
+                  <ResponsiveVerticalMenuItem
+                    key={t.productName}
+                    id={t.productName}
+                    label={t.productName}
+                  />
+                ))}
+              </ResponsiveVerticalMenuItem>
+            ))}
+          </ResponsiveVerticalMenuItem>
+        ))}
+      </>
+    </ResponsiveVerticalMenu>
   );
 };
 
@@ -477,34 +461,32 @@ export const WithExternalLinkStyles = () => {
     <>
       <style>{styles}</style>
       <GlobalHeader>
-        <ResponsiveVerticalMenuProvider>
-          <ResponsiveVerticalMenu height="100%">
+        <ResponsiveVerticalMenu height="100%">
+          <ResponsiveVerticalMenuItem
+            icon="home"
+            id="primary-menu"
+            label="Primary Menu With Children"
+          >
             <ResponsiveVerticalMenuItem
-              icon="home"
-              id="primary-menu"
-              label="Primary Menu With Children"
+              id="secondary-menu"
+              label="Secondary Menu With Children"
             >
               <ResponsiveVerticalMenuItem
-                id="secondary-menu"
-                label="Secondary Menu With Children"
-              >
-                <ResponsiveVerticalMenuItem
-                  id="tertiary-menu"
-                  label="Tertiary Menu"
-                />
-              </ResponsiveVerticalMenuItem>
-              <ResponsiveVerticalMenuItem
-                id="secondary-menu-no-children"
-                label="Secondary Menu Item"
+                id="tertiary-menu"
+                label="Tertiary Menu"
               />
             </ResponsiveVerticalMenuItem>
             <ResponsiveVerticalMenuItem
-              icon="home"
-              id="primary-menu-no-children"
-              label="Primary Menu Item"
+              id="secondary-menu-no-children"
+              label="Secondary Menu Item"
             />
-          </ResponsiveVerticalMenu>
-        </ResponsiveVerticalMenuProvider>
+          </ResponsiveVerticalMenuItem>
+          <ResponsiveVerticalMenuItem
+            icon="home"
+            id="primary-menu-no-children"
+            label="Primary Menu Item"
+          />
+        </ResponsiveVerticalMenu>
       </GlobalHeader>
     </>
   );
@@ -517,33 +499,31 @@ export const CustomLinkAction = (
   return (
     <>
       <GlobalHeader>
-        <ResponsiveVerticalMenuProvider>
-          <ResponsiveVerticalMenu {...props}>
+        <ResponsiveVerticalMenu {...props}>
+          <ResponsiveVerticalMenuItem
+            icon="home"
+            id="home"
+            label="Home"
+            onClick={() => setToggled(true)}
+          />
+          <ResponsiveVerticalMenuDivider />
+          <ResponsiveVerticalMenuItem id="help" label="Help">
             <ResponsiveVerticalMenuItem
-              icon="home"
-              id="home"
-              label="Home"
-              onClick={() => setToggled(true)}
+              id="help-centre"
+              label={
+                <Box display="flex" width="100%" alignItems="center" gap={1}>
+                  <span>Help Centre</span>
+                  <Icon type="link" />
+                </Box>
+              }
             />
-            <ResponsiveVerticalMenuDivider />
-            <ResponsiveVerticalMenuItem id="help" label="Help">
-              <ResponsiveVerticalMenuItem
-                id="help-centre"
-                label={
-                  <Box display="flex" width="100%" alignItems="center" gap={1}>
-                    <span>Help Centre</span>
-                    <Icon type="link" />
-                  </Box>
-                }
-              />
-              <ResponsiveVerticalMenuItem id="help-chat" label="Chat" />
-              <ResponsiveVerticalMenuItem
-                id="help-feedback"
-                label="Give feedback"
-              />
-            </ResponsiveVerticalMenuItem>
-          </ResponsiveVerticalMenu>
-        </ResponsiveVerticalMenuProvider>
+            <ResponsiveVerticalMenuItem id="help-chat" label="Chat" />
+            <ResponsiveVerticalMenuItem
+              id="help-feedback"
+              label="Give feedback"
+            />
+          </ResponsiveVerticalMenuItem>
+        </ResponsiveVerticalMenu>
       </GlobalHeader>
       <Typography my={3}>
         HOME action fired: {toggled ? "Yes" : "No"}
@@ -555,62 +535,105 @@ export const CustomLinkAction = (
 export const FourLevels = (props: Partial<ResponsiveVerticalMenuProps>) => {
   return (
     <GlobalHeader>
-      <ResponsiveVerticalMenuProvider>
-        <ResponsiveVerticalMenu {...props}>
-          <ResponsiveVerticalMenuItem icon="home" id="home" label="Home" />
-          <ResponsiveVerticalMenuDivider />
+      <ResponsiveVerticalMenu {...props}>
+        <ResponsiveVerticalMenuItem icon="home" id="home" label="Home" />
+        <ResponsiveVerticalMenuDivider />
+        <ResponsiveVerticalMenuItem
+          customIcon={<CustomAccountingIcon />}
+          id="level-1"
+          label="Level 1"
+        >
           <ResponsiveVerticalMenuItem
-            customIcon={<CustomAccountingIcon />}
-            id="level-1"
-            label="Level 1"
+            id="level-2-item-1"
+            label="Level 2 Item 1"
+          />
+          <ResponsiveVerticalMenuItem
+            id="level-2-item-2"
+            label="Level 2 Item 2"
           >
             <ResponsiveVerticalMenuItem
-              id="level-2-item-1"
-              label="Level 2 Item 1"
+              id="level-3-item-1"
+              label="Level 3 Item 1"
+              href="#"
+            >
+              <ResponsiveVerticalMenuItem
+                id="level-4-item-1"
+                label="Level 4 Item 1"
+                href="#"
+              />
+            </ResponsiveVerticalMenuItem>
+            <ResponsiveVerticalMenuItem
+              id="level-3-item-2"
+              label="Level 3 Item 2"
+              href="#"
             />
             <ResponsiveVerticalMenuItem
-              id="level-2-item-2"
-              label="Level 2 Item 2"
-            >
-              <ResponsiveVerticalMenuItem
-                id="level-3-item-1"
-                label="Level 3 Item 1"
-                href="#"
-              >
-                <ResponsiveVerticalMenuItem
-                  id="level-4-item-1"
-                  label="Level 4 Item 1"
-                  href="#"
-                />
-              </ResponsiveVerticalMenuItem>
-              <ResponsiveVerticalMenuItem
-                id="level-3-item-2"
-                label="Level 3 Item 2"
-                href="#"
-              />
-              <ResponsiveVerticalMenuItem
-                id="level-3-item-3"
-                label="Level 3 Item 3"
-                href="#"
-              />
-            </ResponsiveVerticalMenuItem>
-            <ResponsiveVerticalMenuItem
-              id="level-2-item-3"
-              label="Level 2 Item 3"
-            >
-              <ResponsiveVerticalMenuItem
-                id="level-3-item-4"
-                label="Level 3 Item 4"
-              />
-            </ResponsiveVerticalMenuItem>
-            <ResponsiveVerticalMenuItem
-              id="level-2-item-4"
-              label="Level 2 Item 4"
+              id="level-3-item-3"
+              label="Level 3 Item 3"
+              href="#"
             />
           </ResponsiveVerticalMenuItem>
-        </ResponsiveVerticalMenu>
-      </ResponsiveVerticalMenuProvider>
+          <ResponsiveVerticalMenuItem
+            id="level-2-item-3"
+            label="Level 2 Item 3"
+          >
+            <ResponsiveVerticalMenuItem
+              id="level-3-item-4"
+              label="Level 3 Item 4"
+            />
+          </ResponsiveVerticalMenuItem>
+          <ResponsiveVerticalMenuItem
+            id="level-2-item-4"
+            label="Level 2 Item 4"
+          />
+        </ResponsiveVerticalMenuItem>
+      </ResponsiveVerticalMenu>
     </GlobalHeader>
   );
 };
 FourLevels.storyName = "4th Level Menu Items";
+
+export const WithDifferentDepthsAsLastItem = () => {
+  return (
+    <GlobalHeader>
+      <ResponsiveVerticalMenu>
+        <ResponsiveVerticalMenuItem id="with-level-2" label="With Level 2">
+          <ResponsiveVerticalMenuItem
+            href="#"
+            id="level-2-as-last-item"
+            label="Level 2 As Last Item"
+          />
+        </ResponsiveVerticalMenuItem>
+        <ResponsiveVerticalMenuItem id="with-level-3" label="With Level 3">
+          <ResponsiveVerticalMenuItem
+            id="level-2-parent-1"
+            label="Level 2 Parent"
+          >
+            <ResponsiveVerticalMenuItem
+              href="#"
+              id="level-3-as-last-item"
+              label="Level 3 As Last Item"
+            />
+          </ResponsiveVerticalMenuItem>
+        </ResponsiveVerticalMenuItem>
+        <ResponsiveVerticalMenuItem id="with-level-4" label="With Level 4">
+          <ResponsiveVerticalMenuItem
+            id="level-2-parent-2"
+            label="Level 2 Parent"
+          >
+            <ResponsiveVerticalMenuItem
+              id="level-3-parent"
+              label="Level 3 Parent"
+            >
+              <ResponsiveVerticalMenuItem
+                href="#"
+                id="level-4-as-last-item"
+                label="Level 4 As Last Item"
+              />
+            </ResponsiveVerticalMenuItem>
+          </ResponsiveVerticalMenuItem>
+        </ResponsiveVerticalMenuItem>
+      </ResponsiveVerticalMenu>
+    </GlobalHeader>
+  );
+};
