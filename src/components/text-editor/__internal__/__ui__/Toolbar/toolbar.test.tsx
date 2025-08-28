@@ -50,6 +50,12 @@ const MockToolbar = ({
       </button>
       <button
         type="button"
+        onClick={() => editor.dispatchCommand(FORMAT_TEXT_COMMAND, "underline")}
+      >
+        Underline
+      </button>
+      <button
+        type="button"
         onClick={() =>
           editor.dispatchCommand(
             FORMAT_TEXT_COMMAND,
@@ -122,41 +128,76 @@ test("allows the buttons to be navigated with the arrow keys", async () => {
   const typographyButton = screen.getByTestId("test-typography-dropdown");
   const boldButton = screen.getByTestId("test-bold-button");
   const italicButton = screen.getByTestId("test-italic-button");
+  const underlineButton = screen.getByTestId("test-underline-button");
   const olButton = screen.getByTestId("test-ordered-list-button");
   const ulButton = screen.getByTestId("test-unordered-list-button");
+  const hyperlinkButton = screen.getByTestId("test-hyperlink-button");
+
   await user.click(textbox);
+  // Focus on typography button
   await user.tab();
+  // Typography -> Bold
   expect(typographyButton).toHaveFocus();
   await user.keyboard("{arrowright}");
   expect(typographyButton).not.toHaveFocus();
   expect(boldButton).toHaveFocus();
+  // Bold -> Italic
   await user.keyboard("{arrowright}");
   expect(boldButton).not.toHaveFocus();
   expect(italicButton).toHaveFocus();
+  // Italic -> Underline
   await user.keyboard("{arrowright}");
   expect(italicButton).not.toHaveFocus();
+  expect(underlineButton).toHaveFocus();
+  // Underline -> Unordered list
+  await user.keyboard("{arrowright}");
+  expect(underlineButton).not.toHaveFocus();
   expect(ulButton).toHaveFocus();
+  // Unordered list -> Ordered list
   await user.keyboard("{arrowright}");
   expect(ulButton).not.toHaveFocus();
   expect(olButton).toHaveFocus();
+  // Ordered list -> Hyperlink
   await user.keyboard("{arrowright}");
   expect(olButton).not.toHaveFocus();
-  expect(boldButton).toHaveFocus();
+  expect(hyperlinkButton).toHaveFocus();
+  // Hyperlink -> Typography (loops back to start)
+  await user.keyboard("{arrowright}");
+  expect(hyperlinkButton).not.toHaveFocus();
+  expect(typographyButton).toHaveFocus();
+  // Now test left arrow key
+  // Typography -> Hyperlink
+  await user.keyboard("{arrowleft}");
+  expect(hyperlinkButton).toHaveFocus();
+  expect(typographyButton).not.toHaveFocus();
+  // Hyperlink -> Ordered list
   await user.keyboard("{arrowleft}");
   expect(olButton).toHaveFocus();
-  expect(boldButton).not.toHaveFocus();
+  expect(hyperlinkButton).not.toHaveFocus();
+  // Ordered list -> Unordered list
   await user.keyboard("{arrowleft}");
   expect(ulButton).toHaveFocus();
   expect(olButton).not.toHaveFocus();
+  // Unordered list -> Underline
+  await user.keyboard("{arrowleft}");
+  expect(underlineButton).toHaveFocus();
+  expect(ulButton).not.toHaveFocus();
+  // Underline -> Italic
   await user.keyboard("{arrowleft}");
   expect(italicButton).toHaveFocus();
-  expect(ulButton).not.toHaveFocus();
+  expect(underlineButton).not.toHaveFocus();
+  // Italic -> Bold
   await user.keyboard("{arrowleft}");
   expect(boldButton).toHaveFocus();
   expect(italicButton).not.toHaveFocus();
+  // Bold -> Typography
   await user.keyboard("{arrowleft}");
   expect(typographyButton).toHaveFocus();
   expect(boldButton).not.toHaveFocus();
+  // Typography -> Hyperlink (loops back to end)
+  await user.keyboard("{arrowleft}");
+  expect(hyperlinkButton).toHaveFocus();
+  expect(typographyButton).not.toHaveFocus();
 });
 
 describe("Events", () => {
@@ -258,6 +299,58 @@ describe("Events", () => {
 
     const italicButton = screen.getByRole("button", { name: "Italic" });
     await user.click(italicButton);
+
+    await waitFor(() => {
+      expect(mockOnChange).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  /** Using the mocked toolbar, test that clicking the underline button fires the correct event */
+  it("dispatches the 'bold' event when the underline button is clicked", async () => {
+    const user = userEvent.setup();
+    const editor = headlessEditor();
+    const dispatchSpy = jest.spyOn(editor, "dispatchCommand");
+
+    render(
+      <LexicalComposer
+        initialConfig={{
+          nodes: [],
+          onError: () => {},
+          namespace: "test",
+        }}
+      >
+        <RichTextPlugin
+          contentEditable={
+            <div role="textbox" contentEditable aria-label="test" />
+          }
+          ErrorBoundary={LexicalErrorBoundary}
+        />
+        <MockToolbar editor={editor} namespace="carbon-rte" />
+      </LexicalComposer>,
+    );
+    const boldButton = screen.getByRole("button", { name: "Underline" });
+    await user.click(boldButton);
+    expect(dispatchSpy).toHaveBeenCalledTimes(1);
+    expect(dispatchSpy).toHaveBeenCalledWith(FORMAT_TEXT_COMMAND, "underline");
+  });
+
+  it("calls 'onChange' when the underline button is clicked while text is selected", async () => {
+    const user = userEvent.setup();
+    const mockOnChange = jest.fn();
+
+    render(
+      <TextEditor
+        labelText="foo"
+        onChange={mockOnChange}
+        initialValue={createFromHTML("<p>Hello world!</p>")}
+      />,
+    );
+
+    const editor = screen.getByRole("textbox");
+    await user.tripleClick(editor); // Select the text
+
+    const boldButton = screen.getByRole("button", { name: "Underline" });
+    await user.click(boldButton);
 
     await waitFor(() => {
       expect(mockOnChange).toHaveBeenCalledTimes(1);

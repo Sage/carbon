@@ -14,7 +14,6 @@ const ContentEditor = forwardRef<HTMLDivElement, ContentEditorProps>(
   (
     {
       inputHint,
-      isFocused,
       namespace,
       previews = [],
       rows,
@@ -42,7 +41,6 @@ const ContentEditor = forwardRef<HTMLDivElement, ContentEditorProps>(
         data-role={`${namespace}-content-editable`}
         error={error}
         warning={warning}
-        isFocused={isFocused}
         namespace={namespace}
         rows={rows}
         readOnly={readOnly}
