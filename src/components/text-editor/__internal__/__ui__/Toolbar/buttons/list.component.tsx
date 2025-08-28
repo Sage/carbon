@@ -30,7 +30,19 @@ import useLocale from "../../../../../../hooks/__internal__/useLocale";
 import { TEXT_EDITOR_ACTION_TYPES } from "../../../__utils__/constants";
 
 // The `ListControls` component is a set of buttons that allow the user to insert ordered and unordered lists into the editor.
-const ListControls = ({ namespace }: { namespace: string }) => {
+const ListControls = ({
+  namespace,
+  olIsFirstButton,
+  showOL = true,
+  showUL = true,
+  ulIsFirstButton,
+}: {
+  namespace: string;
+  olIsFirstButton?: boolean;
+  showOL?: boolean;
+  showUL?: boolean;
+  ulIsFirstButton?: boolean;
+}) => {
   // Get the editor instance
   const [editor] = useLexicalComposerContext();
   // Get the locale to enable translations
@@ -344,36 +356,40 @@ const ListControls = ({ namespace }: { namespace: string }) => {
 
   return (
     <>
-      <FormattingButton
-        size="small"
-        aria-label={locale.textEditor.unorderedListAria()}
-        onClick={() =>
-          isOLActive ? convertListType("bullet") : handleULClick()
-        }
-        iconType="bullet_list_dotted"
-        buttonType={isULActive ? "primary" : "tertiary"}
-        isActive={isULActive}
-        aria-pressed={isULActive}
-        data-role={`${namespace}-unordered-list-button`}
-        id={`${namespace}-unordered-list-button`}
-        tabIndex={-1}
-        className="toolbar-button"
-      />
-      <FormattingButton
-        size="small"
-        aria-label={locale.textEditor.orderedListAria()}
-        onClick={() =>
-          isULActive ? convertListType("number") : handleOLClick()
-        }
-        iconType="bullet_list_numbers"
-        buttonType={isOLActive ? "primary" : "tertiary"}
-        isActive={isOLActive}
-        aria-pressed={isOLActive}
-        data-role={`${namespace}-ordered-list-button`}
-        id={`${namespace}-ordered-list-button`}
-        tabIndex={-1}
-        className="toolbar-button"
-      />
+      {showUL && (
+        <FormattingButton
+          size="small"
+          aria-label={locale.textEditor.unorderedListAria()}
+          onClick={() =>
+            isOLActive ? convertListType("bullet") : handleULClick()
+          }
+          iconType="bullet_list_dotted"
+          buttonType={isULActive ? "primary" : "tertiary"}
+          isActive={isULActive}
+          aria-pressed={isULActive}
+          data-role={`${namespace}-unordered-list-button`}
+          id={`${namespace}-unordered-list-button`}
+          tabIndex={ulIsFirstButton ? 0 : -1}
+          className="toolbar-button"
+        />
+      )}
+      {showOL && (
+        <FormattingButton
+          size="small"
+          aria-label={locale.textEditor.orderedListAria()}
+          onClick={() =>
+            isULActive ? convertListType("number") : handleOLClick()
+          }
+          iconType="bullet_list_numbers"
+          buttonType={isOLActive ? "primary" : "tertiary"}
+          isActive={isOLActive}
+          aria-pressed={isOLActive}
+          data-role={`${namespace}-ordered-list-button`}
+          id={`${namespace}-ordered-list-button`}
+          tabIndex={olIsFirstButton ? 0 : -1}
+          className="toolbar-button"
+        />
+      )}
     </>
   );
 };

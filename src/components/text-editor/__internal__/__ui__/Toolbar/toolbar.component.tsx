@@ -158,13 +158,32 @@ const Toolbar = ({
             }
           >
             {toolbarControls.includes("bold") && (
-              <BoldButton isActive={isBold} namespace={namespace} />
+              <BoldButton
+                isActive={isBold}
+                namespace={namespace}
+                isFirstButton={!showTypographyFormattingSection}
+              />
             )}
             {toolbarControls.includes("italic") && (
-              <ItalicButton isActive={isItalic} namespace={namespace} />
+              <ItalicButton
+                isActive={isItalic}
+                namespace={namespace}
+                isFirstButton={
+                  !showTypographyFormattingSection &&
+                  !toolbarControls.includes("bold")
+                }
+              />
             )}
             {toolbarControls.includes("underline") && (
-              <UnderlineButton isActive={isUnderline} namespace={namespace} />
+              <UnderlineButton
+                isActive={isUnderline}
+                namespace={namespace}
+                isFirstButton={
+                  !showTypographyFormattingSection &&
+                  !toolbarControls.includes("bold") &&
+                  !toolbarControls.includes("italic")
+                }
+              />
             )}
           </ButtonGroup>
         )}
@@ -174,7 +193,19 @@ const Toolbar = ({
             namespace={namespace}
             showDivider={showHyperlinkFormattingSection}
           >
-            <ListControls namespace={namespace} />
+            <ListControls
+              namespace={namespace}
+              olIsFirstButton={
+                !showTypographyFormattingSection &&
+                !showTextFormattingSection &&
+                !toolbarControls.includes("unordered_list")
+              }
+              showOL={toolbarControls.includes("ordered_list")}
+              showUL={toolbarControls.includes("unordered_list")}
+              ulIsFirstButton={
+                !showTypographyFormattingSection && !showTextFormattingSection
+              }
+            />
           </ButtonGroup>
         )}
         {showHyperlinkFormattingSection && (
@@ -183,7 +214,15 @@ const Toolbar = ({
             namespace={namespace}
             showDivider={false}
           >
-            <HyperlinkButton isActive={false} namespace={namespace} />
+            <HyperlinkButton
+              isActive={false}
+              namespace={namespace}
+              isFirstButton={
+                !showTypographyFormattingSection &&
+                !showTextFormattingSection &&
+                !showListFormattingSection
+              }
+            />
           </ButtonGroup>
         )}
       </>

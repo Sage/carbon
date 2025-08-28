@@ -74,8 +74,8 @@ export const Demo: Story = {
       "bold",
       "italic",
       "underline",
-      "ordered_list",
       "unordered_list",
+      "ordered_list",
       "link",
     ],
     // Deprecated
