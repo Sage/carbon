@@ -72,7 +72,7 @@ const HyperlinkButton = React.forwardRef<
           onClick={() => setDialogOpen(true)}
           iconType="link_on"
           buttonType={"tertiary"}
-          data-role={`${namespace}-underline-button`}
+          data-role={`${namespace}-hyperlink-button`}
           tabIndex={isFirstButton ? 0 : -1}
           className="toolbar-button"
           ref={ref}

@@ -43,6 +43,7 @@ const ItalicButton = React.forwardRef<HTMLButtonElement, FormattingButtonProps>(
         isActive={isActive}
         aria-pressed={isActive}
         data-role={`${namespace}-italic-button`}
+        id={`${namespace}-italic-button`}
         tabIndex={isFirstButton ? 0 : -1}
         className="toolbar-button"
         ref={ref}

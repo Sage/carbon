@@ -1,13 +1,7 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { mergeRegister } from "@lexical/utils";
 import { $getSelection, $isRangeSelection } from "lexical";
-import React, {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { StyledToolbar, CommandButtons } from "./toolbar.style";
 import Button from "../../../../button";
@@ -52,14 +46,6 @@ const Toolbar = ({
   const [isBold, setIsBold] = useState(false);
   const [isItalic, setIsItalic] = useState(false);
   const [isUnderline, setIsUnderline] = useState(false);
-  const [buttons, setButtons] = useState<HTMLButtonElement[]>([]);
-
-  // If the UI updates, re-fetch the formatting buttons
-  useLayoutEffect(() => {
-    const formattingButtons =
-      toolbarRef.current?.querySelectorAll(".toolbar-button");
-    setButtons(Array.from(formattingButtons || []) as HTMLButtonElement[]);
-  }, [namespace]);
 
   // Get the locale to enable translations
   const locale = useLocale();
@@ -91,10 +77,16 @@ const Toolbar = ({
 
   // Register a keydown listener to enable keyboard navigation
   const handleToolbarKeyDown = (event: React.KeyboardEvent) => {
-    if (!buttons?.length) return;
+    const currentButtons = Array.from(
+      toolbarRef.current?.querySelectorAll(
+        'button[role="button"].toolbar-button, button.toolbar-button',
+      ) || [],
+    ) as HTMLButtonElement[];
 
-    const currentIndex = Array.from(buttons).findIndex(
-      (button) => button === document.activeElement,
+    if (!currentButtons.length) return;
+
+    const currentIndex = currentButtons.findIndex(
+      (button) => button.id === document.activeElement?.id,
     );
 
     let nextIndex;
@@ -102,11 +94,13 @@ const Toolbar = ({
     switch (event.key) {
       case "ArrowRight":
         event.preventDefault();
-        nextIndex = currentIndex < buttons.length - 1 ? currentIndex + 1 : 0;
+        nextIndex =
+          currentIndex < currentButtons.length - 1 ? currentIndex + 1 : 0;
         break;
       case "ArrowLeft":
         event.preventDefault();
-        nextIndex = currentIndex > 0 ? currentIndex - 1 : buttons.length - 1;
+        nextIndex =
+          currentIndex > 0 ? currentIndex - 1 : currentButtons.length - 1;
         break;
       case "Home":
         event.preventDefault();
@@ -114,18 +108,18 @@ const Toolbar = ({
         break;
       case "End":
         event.preventDefault();
-        nextIndex = buttons.length - 1;
+        nextIndex = currentButtons.length - 1;
         break;
       default:
         return;
     }
 
     // Update tabIndex and focus
-    buttons.forEach((button, index) => {
+    currentButtons.forEach((button, index) => {
       (button as HTMLButtonElement).tabIndex = index === nextIndex ? 0 : -1;
     });
 
-    (buttons[nextIndex] as HTMLButtonElement)?.focus();
+    (currentButtons[nextIndex] as HTMLButtonElement)?.focus();
   };
 
   const ControlList = () => {

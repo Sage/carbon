@@ -49,7 +49,7 @@ function getStyledSpanFromSelection(
 
 const TypographySelector = ({
   namespace,
-  isFirstButton,
+  isFirstButton = false,
 }: TypographySelectorProps) => {
   const [editor] = useLexicalComposerContext();
   const locale = useLocale();

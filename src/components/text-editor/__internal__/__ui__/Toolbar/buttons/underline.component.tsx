@@ -46,6 +46,7 @@ const UnderlineButton = React.forwardRef<
         isActive={isActive}
         aria-pressed={isActive}
         data-role={`${namespace}-underline-button`}
+        id={`${namespace}-underline-button`}
         tabIndex={isFirstButton ? 0 : -1}
         className="toolbar-button"
         ref={ref}

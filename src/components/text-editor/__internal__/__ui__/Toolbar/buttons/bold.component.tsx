@@ -43,6 +43,7 @@ const BoldButton = React.forwardRef<HTMLButtonElement, FormattingButtonProps>(
         buttonType={isActive ? "primary" : "tertiary"}
         isActive={isActive}
         aria-pressed={isActive}
+        id={`${namespace}-bold-button`}
         data-role={`${namespace}-bold-button`}
         tabIndex={isFirstButton ? 0 : -1}
         className="toolbar-button"

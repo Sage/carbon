@@ -355,6 +355,7 @@ const ListControls = ({ namespace }: { namespace: string }) => {
         isActive={isULActive}
         aria-pressed={isULActive}
         data-role={`${namespace}-unordered-list-button`}
+        id={`${namespace}-unordered-list-button`}
         tabIndex={-1}
         className="toolbar-button"
       />
@@ -369,6 +370,7 @@ const ListControls = ({ namespace }: { namespace: string }) => {
         isActive={isOLActive}
         aria-pressed={isOLActive}
         data-role={`${namespace}-ordered-list-button`}
+        id={`${namespace}-ordered-list-button`}
         tabIndex={-1}
         className="toolbar-button"
       />

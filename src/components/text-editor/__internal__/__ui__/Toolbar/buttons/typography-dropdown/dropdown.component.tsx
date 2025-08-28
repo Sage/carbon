@@ -154,6 +154,7 @@ const ToolbarDropdown = ({
         className="toolbar-button"
         tabIndex={isFirstButton ? 0 : -1}
         data-role={`${namespace}-typography-dropdown`}
+        id={`${namespace}-typography-dropdown`}
       >
         {selectedOption ?? "Select"} <span>{isOpen ? "▲" : "▼"}</span>
       </StyledButton>
