@@ -186,7 +186,10 @@ const ToolbarDropdown = ({
                 role="menuitem"
                 tabIndex={-1}
                 aria-label={`${option.ariaLabel || option.label}`}
-                onClick={() => handleOptionClick(option)}
+                onMouseDown={(e) => {
+                  e.preventDefault();
+                  handleOptionClick(option);
+                }}
                 isFocused={options[focusedIndex]?.id === option.id}
               >
                 {option.label}

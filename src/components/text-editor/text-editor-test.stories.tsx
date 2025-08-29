@@ -263,6 +263,7 @@ export const Mentions: Story = ({ ...args }) => {
           { "root": { "children": [ { "children": [ { "detail": 0, "format": 0, "mode": "normal", "style": "", "text": "Title", "type": "styled-span", "version": 1, "fontWeight": "700", "fontSize": "30px", "lineHeight": "37.5px" } ], "direction": "ltr", "format": "", "indent": 0, "type": "paragraph", "version": 1, "textFormat": 0, "textStyle": "" }, { "children": [ { "detail": 0, "format": 0, "mode": "normal", "style": "", "text": "Some body content, what I have wrote.", "type": "styled-span", "version": 1, "fontWeight": "400", "fontSize": "14px", "lineHeight": "14px" } ], "direction": "ltr", "format": "", "indent": 0, "type": "paragraph", "version": 1, "textFormat": 0, "textStyle": "" } ], "direction": "ltr", "format": "", "indent": 0, "type": "root", "version": 1 } }
           `}
         inputHint="Hint text"
+        onChange={action("onChange")}
         customPlugins={[
           <MentionsPlugin results={results} setQueryString={setQueryString} />,
         ]}

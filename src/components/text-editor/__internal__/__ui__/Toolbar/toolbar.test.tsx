@@ -398,6 +398,9 @@ describe("Events", () => {
       />,
     );
 
+    const editor = screen.getByRole("textbox");
+    await user.tripleClick(editor); // Select the text
+
     const orderedListButton = screen.getByRole("button", {
       name: "Ordered list",
     });
@@ -446,6 +449,9 @@ describe("Events", () => {
         initialValue={createFromHTML("<p>Hello world!</p>")}
       />,
     );
+
+    const editor = screen.getByRole("textbox");
+    await user.tripleClick(editor); // Select the text
 
     const unorderedListButton = screen.getByRole("button", {
       name: "Unordered list",
