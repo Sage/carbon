@@ -46,6 +46,11 @@ const Toolbar = ({
   const [isBold, setIsBold] = useState(false);
   const [isItalic, setIsItalic] = useState(false);
   const [isUnderline, setIsUnderline] = useState(false);
+  const [hyperlinkDialogOpen, setHyperlinkDialogOpen] = useState(false);
+
+  const [typographyDropdownOpen, setTypographyDropdownOpen] = useState(false);
+  const [typographyDropdownFocusedIndex, setTypographyDropdownFocusedIndex] =
+    useState(-1);
 
   // Get the locale to enable translations
   const locale = useLocale();
@@ -146,7 +151,14 @@ const Toolbar = ({
               showHyperlinkFormattingSection
             }
           >
-            <TypographySelector namespace={namespace} isFirstButton />
+            <TypographySelector
+              namespace={namespace}
+              isFirstButton
+              isOpen={typographyDropdownOpen}
+              setIsOpen={setTypographyDropdownOpen}
+              focusedIndex={typographyDropdownFocusedIndex}
+              setFocusedIndex={setTypographyDropdownFocusedIndex}
+            />
           </ButtonGroup>
         )}
         {showTextFormattingSection && (
@@ -215,13 +227,14 @@ const Toolbar = ({
             showDivider={false}
           >
             <HyperlinkButton
-              isActive={false}
               namespace={namespace}
               isFirstButton={
                 !showTypographyFormattingSection &&
                 !showTextFormattingSection &&
                 !showListFormattingSection
               }
+              dialogOpen={hyperlinkDialogOpen}
+              setDialogOpen={setHyperlinkDialogOpen}
             />
           </ButtonGroup>
         )}

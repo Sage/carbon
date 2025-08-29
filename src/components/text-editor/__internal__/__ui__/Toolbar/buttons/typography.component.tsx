@@ -29,6 +29,10 @@ export type TypographySelectorProps = {
   namespace: string;
   /** Whether the button is the first in a group of buttons */
   isFirstButton?: boolean;
+  isOpen?: boolean;
+  setIsOpen?: (open: boolean) => void;
+  focusedIndex?: number;
+  setFocusedIndex?: (index: number) => void;
 };
 
 // Get the StyledSpanNode (if any) from the current selection
@@ -50,6 +54,10 @@ function getStyledSpanFromSelection(
 const TypographySelector = ({
   namespace,
   isFirstButton = false,
+  isOpen = false,
+  setIsOpen,
+  focusedIndex = -1,
+  setFocusedIndex,
 }: TypographySelectorProps) => {
   const [editor] = useLexicalComposerContext();
   const locale = useLocale();
@@ -170,6 +178,10 @@ const TypographySelector = ({
             onClick: () => handleChange(key),
           };
         })}
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        focusedIndex={focusedIndex}
+        setFocusedIndex={setFocusedIndex}
       />
     </Box>
   );

@@ -13,15 +13,25 @@ import { $createTextNode, $getSelection, $isRangeSelection } from "lexical";
 import { $createLinkNode } from "@lexical/link";
 import { FormattingButtonProps } from "../../../__utils__/interfaces";
 
+type HyperlinkButtonProps = Pick<
+  FormattingButtonProps,
+  "namespace" | "isFirstButton"
+> & {
+  dialogOpen?: boolean;
+  setDialogOpen: (open: boolean) => void;
+};
+
 const HyperlinkButton = React.forwardRef<
   HTMLButtonElement,
-  FormattingButtonProps
+  HyperlinkButtonProps
 >(
   (
     {
       isFirstButton,
       namespace,
-    }: Pick<FormattingButtonProps, "namespace" | "isFirstButton">,
+      dialogOpen = false,
+      setDialogOpen,
+    }: HyperlinkButtonProps,
     ref,
   ) => {
     // Get the editor instance
@@ -30,7 +40,6 @@ const HyperlinkButton = React.forwardRef<
     // Get the locale to enable translations
     const locale = useLocale();
 
-    const [dialogOpen, setDialogOpen] = useState(false);
     const [linkText, setLinkText] = useState("");
     const [linkUrl, setLinkUrl] = useState("");
 
@@ -45,9 +54,6 @@ const HyperlinkButton = React.forwardRef<
 
       const isEditable = editor.isEditable();
       if (isEditable) {
-        // Focus the editor
-        editor.focus();
-
         // Create a link node with the provided text and URL
         editor.update(() => {
           const selection = $getSelection();
@@ -66,13 +72,18 @@ const HyperlinkButton = React.forwardRef<
     return (
       <>
         <FormattingButton
-          id={`${namespace}-hyperlink-button`}
           size="small"
           aria-label={locale.textEditor.hyperlink.buttonAria()}
-          onClick={() => setDialogOpen(true)}
+          onClick={() => {
+            setDialogOpen(true);
+          }}
+          onMouseDown={(e: React.MouseEvent<HTMLButtonElement>) =>
+            e.preventDefault()
+          }
           iconType="link_on"
           buttonType={"tertiary"}
           data-role={`${namespace}-hyperlink-button`}
+          id={`${namespace}-hyperlink-button`}
           tabIndex={isFirstButton ? 0 : -1}
           className="toolbar-button"
           ref={ref}

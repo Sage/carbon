@@ -42,6 +42,9 @@ const UnderlineButton = React.forwardRef<
         aria-label={locale.textEditor.underlineAria()}
         onClick={() => handleClick()}
         iconType="underline"
+        onMouseDown={(e: React.MouseEvent<HTMLButtonElement>) =>
+          e.preventDefault()
+        }
         buttonType={isActive ? "primary" : "tertiary"}
         isActive={isActive}
         aria-pressed={isActive}

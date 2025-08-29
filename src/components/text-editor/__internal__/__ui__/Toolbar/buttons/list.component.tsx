@@ -363,6 +363,9 @@ const ListControls = ({
           onClick={() =>
             isOLActive ? convertListType("bullet") : handleULClick()
           }
+          onMouseDown={(e: React.MouseEvent<HTMLButtonElement>) =>
+            e.preventDefault()
+          }
           iconType="bullet_list_dotted"
           buttonType={isULActive ? "primary" : "tertiary"}
           isActive={isULActive}
@@ -379,6 +382,9 @@ const ListControls = ({
           aria-label={locale.textEditor.orderedListAria()}
           onClick={() =>
             isULActive ? convertListType("number") : handleOLClick()
+          }
+          onMouseDown={(e: React.MouseEvent<HTMLButtonElement>) =>
+            e.preventDefault()
           }
           iconType="bullet_list_numbers"
           buttonType={isOLActive ? "primary" : "tertiary"}

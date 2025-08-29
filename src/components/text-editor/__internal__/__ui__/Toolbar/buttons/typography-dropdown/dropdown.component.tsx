@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useMemo } from "react";
+import React, { useRef, useEffect, useMemo } from "react";
 import Box from "../../../../../../box";
 import { StyledButton, StyledMenu, StyledMenuItem } from "./dropdown.style";
 
@@ -16,6 +16,11 @@ interface ToolbarDropdownProps {
   options: DropdownOption[];
   isFirstButton?: boolean;
   value: string;
+
+  isOpen?: boolean;
+  setIsOpen?: (open: boolean) => void;
+  focusedIndex?: number;
+  setFocusedIndex?: (index: number) => void;
 }
 
 const ToolbarDropdown = ({
@@ -25,11 +30,11 @@ const ToolbarDropdown = ({
   options,
   value,
   isFirstButton = false,
+  isOpen = false,
+  setIsOpen,
+  focusedIndex = -1,
+  setFocusedIndex,
 }: ToolbarDropdownProps) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [focusedIndex, setFocusedIndex] = useState(
-    () => options.findIndex((option) => option.id === value) || -1,
-  );
   const buttonRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLUListElement>(null);
   const menuId = `${namespace}-typography-menu`;
@@ -48,8 +53,8 @@ const ToolbarDropdown = ({
         !buttonRef.current.contains(event.target as Node) &&
         !menuRef.current.contains(event.target as Node)
       ) {
-        setIsOpen(false);
-        setFocusedIndex(-1);
+        setIsOpen?.(false);
+        setFocusedIndex?.(-1);
       }
     };
 
@@ -60,7 +65,7 @@ const ToolbarDropdown = ({
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isOpen]);
+  }, [isOpen, setFocusedIndex, setIsOpen]);
 
   // Handle keyboard navigation
   const handleKeyDown = (event: React.KeyboardEvent) => {
@@ -69,13 +74,13 @@ const ToolbarDropdown = ({
       case " ":
         if (!isOpen) {
           event.preventDefault();
-          setIsOpen(true);
-          setFocusedIndex(0);
+          setIsOpen?.(true);
+          setFocusedIndex?.(0);
         } else if (focusedIndex >= 0) {
           event.preventDefault();
           options[focusedIndex]?.onClick();
-          setIsOpen(false);
-          setFocusedIndex(-1);
+          setIsOpen?.(false);
+          setFocusedIndex?.(-1);
           buttonRef.current?.focus();
         }
         break;
@@ -83,54 +88,58 @@ const ToolbarDropdown = ({
       case "ArrowDown":
         event.preventDefault();
         if (!isOpen) {
-          setIsOpen(true);
-          setFocusedIndex(0);
+          setIsOpen?.(true);
+          setFocusedIndex?.(0);
         } else {
-          setFocusedIndex((prev) => (prev < options.length - 1 ? prev + 1 : 0));
+          setFocusedIndex?.((prev) =>
+            prev < options.length - 1 ? prev + 1 : 0,
+          );
         }
         break;
 
       case "ArrowUp":
         event.preventDefault();
         if (!isOpen) {
-          setIsOpen(true);
-          setFocusedIndex(options.length - 1);
+          setIsOpen?.(true);
+          setFocusedIndex?.(options.length - 1);
         } else {
-          setFocusedIndex((prev) => (prev > 0 ? prev - 1 : options.length - 1));
+          setFocusedIndex?.((prev) =>
+            prev > 0 ? prev - 1 : options.length - 1,
+          );
         }
         break;
 
       case "Escape":
         if (isOpen) {
           event.preventDefault();
-          setIsOpen(false);
-          setFocusedIndex(-1);
+          setIsOpen?.(false);
+          setFocusedIndex?.(-1);
           buttonRef.current?.focus();
         }
         break;
 
       case "Tab":
         if (isOpen) {
-          setIsOpen(false);
-          setFocusedIndex(-1);
+          setIsOpen?.(false);
+          setFocusedIndex?.(-1);
         }
         break;
     }
   };
 
   const handleButtonClick = () => {
-    setIsOpen(!isOpen);
+    setIsOpen?.(!isOpen);
     if (!isOpen) {
-      setFocusedIndex(0);
+      setFocusedIndex?.(0);
     } else {
-      setFocusedIndex(-1);
+      setFocusedIndex?.(-1);
     }
   };
 
   const handleOptionClick = (option: DropdownOption) => {
     option.onClick();
-    setIsOpen(false);
-    setFocusedIndex(-1);
+    setIsOpen?.(false);
+    setFocusedIndex?.(-1);
     buttonRef.current?.focus();
     onChange?.(option.id);
   };
@@ -155,6 +164,9 @@ const ToolbarDropdown = ({
         tabIndex={isFirstButton ? 0 : -1}
         data-role={`${namespace}-typography-dropdown`}
         id={`${namespace}-typography-dropdown`}
+        onMouseDown={(e: React.MouseEvent<HTMLButtonElement>) =>
+          e.preventDefault()
+        }
       >
         {selectedOption ?? "Select"} <span>{isOpen ? "▲" : "▼"}</span>
       </StyledButton>

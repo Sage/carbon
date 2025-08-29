@@ -40,6 +40,9 @@ const BoldButton = React.forwardRef<HTMLButtonElement, FormattingButtonProps>(
         aria-label={locale.textEditor.boldAria()}
         onClick={() => handleClick()}
         iconType="bold"
+        onMouseDown={(e: React.MouseEvent<HTMLButtonElement>) =>
+          e.preventDefault()
+        }
         buttonType={isActive ? "primary" : "tertiary"}
         isActive={isActive}
         aria-pressed={isActive}

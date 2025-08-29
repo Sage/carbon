@@ -38,6 +38,9 @@ const ItalicButton = React.forwardRef<HTMLButtonElement, FormattingButtonProps>(
         size="small"
         aria-label={locale.textEditor.italicAria()}
         onClick={() => handleClick()}
+        onMouseDown={(e: React.MouseEvent<HTMLButtonElement>) =>
+          e.preventDefault()
+        }
         iconType="italic"
         buttonType={isActive ? "primary" : "tertiary"}
         isActive={isActive}
