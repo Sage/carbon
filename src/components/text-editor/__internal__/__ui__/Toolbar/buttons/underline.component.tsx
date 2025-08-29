@@ -27,8 +27,6 @@ const UnderlineButton = React.forwardRef<
 
       /* istanbul ignore else */
       if (isEditable) {
-        // Focus the editor before dispatching the command
-        editor.focus();
         editor.dispatchCommand(
           FORMAT_TEXT_COMMAND,
           TEXT_EDITOR_ACTION_TYPES.Underline,

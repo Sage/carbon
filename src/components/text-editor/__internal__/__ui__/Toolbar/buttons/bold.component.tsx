@@ -25,8 +25,6 @@ const BoldButton = React.forwardRef<HTMLButtonElement, FormattingButtonProps>(
 
       /* istanbul ignore else */
       if (isEditable) {
-        // Focus the editor before dispatching the command
-        editor.focus();
         editor.dispatchCommand(
           FORMAT_TEXT_COMMAND,
           TEXT_EDITOR_ACTION_TYPES.Bold,

@@ -5,6 +5,7 @@ import Button, { ButtonProps } from "../../../../button";
 interface FormattingButtonProps extends ButtonProps {
   tabIndex?: number;
   isActive?: boolean;
+  onMouseDown?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 export const getPaddingForSize = (size: "small" | "medium" | "large") => {

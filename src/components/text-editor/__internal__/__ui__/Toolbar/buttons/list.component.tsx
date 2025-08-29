@@ -154,9 +154,6 @@ const ListControls = ({
     /* istanbul ignore if */
     if (!isEditable) return;
 
-    // Focus the editor before dispatching the command
-    editor.focus();
-
     if (isOLActive) {
       editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined);
       setIsOLActive(false);
@@ -173,9 +170,6 @@ const ListControls = ({
     const isEditable = editor.isEditable();
     /* istanbul ignore if */
     if (!isEditable) return;
-
-    // Focus the editor before dispatching the command
-    editor.focus();
 
     if (isULActive) {
       editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined);
