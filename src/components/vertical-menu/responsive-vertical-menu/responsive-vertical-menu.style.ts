@@ -19,6 +19,15 @@ interface StyledButtonProps {
   active?: boolean;
 }
 
+export const ModalContainer = styled.div<{ width: string }>`
+  position: fixed;
+  top: 0;
+
+  ${({ width }) => css`
+    width: ${width};
+  `}
+`;
+
 export const StyledButton = styled(Button)<StyledButtonProps>`
   border-radius: 0;
   background-color: var(

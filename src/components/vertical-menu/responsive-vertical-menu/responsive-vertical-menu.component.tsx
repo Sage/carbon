@@ -7,11 +7,14 @@ import React, {
   useState,
 } from "react";
 
+import { DepthProvider } from "./__internal__/depth.context";
+import { MenuFocusProvider } from "./__internal__/focus.context";
 import {
   useResponsiveVerticalMenu,
   ResponsiveVerticalMenuProvider,
 } from "./responsive-vertical-menu.context";
 import {
+  ModalContainer,
   StyledButton,
   StyledCloseButton,
   StyledGlobalVerticalMenuWrapper,
@@ -23,13 +26,12 @@ import Modal from "../../modal";
 
 import useIsAboveBreakpoint from "../../../hooks/__internal__/useIsAboveBreakpoint";
 import useMediaQuery from "../../../hooks/useMediaQuery";
+import useLocale from "../../../hooks/__internal__/useLocale";
 
+import FocusTrap from "../../../__internal__/focus-trap";
 import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags";
-import { DepthProvider } from "./__internal__/depth.context";
-import { MenuFocusProvider } from "./__internal__/focus.context";
-import useLocale from "../../../hooks/__internal__/useLocale";
 
 export interface ResponsiveVerticalMenuProps extends TagProps {
   /** The content of the menu */
@@ -75,6 +77,7 @@ const BaseMenu = ({
   const reduceMotion = !useMediaQuery(
     "screen and (prefers-reduced-motion: no-preference)",
   );
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
   const { current: menu } = menuRef;
   const { current: button } = buttonRef;
@@ -174,9 +177,13 @@ const BaseMenu = ({
       );
 
       if (!relatedTargetIsWithinContainer) {
-        /* istanbul ignore if */
-        if (relatedTarget === null && target !== buttonRef.current) {
+        /* istanbul ignore else */
+        if (
+          (relatedTarget === null && target !== buttonRef.current) ||
+          relatedTarget !== buttonRef.current
+        ) {
           setTimeout(() => {
+            /* istanbul ignore else */
             if (!activeMenuItem && !isResizingRef.current) {
               setActive(false);
             }
@@ -266,13 +273,35 @@ const BaseMenu = ({
     }
   }, [childItemCount, children, countChildren, setActiveMenuItem]);
 
+  const buttonAriaProps = () => {
+    if (responsiveMode) {
+      return {
+        "aria-expanded": undefined,
+        "aria-haspopup": "dialog" as const,
+        "aria-controls": "responsive-vertical-menu-dialog",
+        "aria-label": locale.verticalMenu.ariaLabels?.responsiveMenuLauncher(),
+      };
+    }
+    return {
+      "aria-expanded": active,
+      "aria-haspopup": "menu" as const,
+      "aria-controls": "responsive-vertical-menu-primary",
+      "aria-label": locale.verticalMenu.ariaLabels?.responsiveMenuLauncher(),
+    };
+  };
+
+  const modalAriaProps = () => {
+    return {
+      role: "dialog" as const,
+      "aria-modal": true,
+      "aria-label": locale.verticalMenu.ariaLabels?.responsiveMenuAria(),
+    };
+  };
+
   return (
     <div ref={containerRef}>
       <StyledButton
         active={active}
-        aria-controls="responsive-vertical-menu-primary"
-        aria-expanded={active}
-        aria-label={locale.verticalMenu.ariaLabels?.responsiveMenuLauncher()}
         buttonType="tertiary"
         iconType="squares_nine"
         id="responsive-vertical-menu-launcher"
@@ -282,45 +311,54 @@ const BaseMenu = ({
           "data-role": "responsive-vertical-menu-launcher",
           ...launcherButtonDataProps,
         })}
+        {...buttonAriaProps()}
       />
       {responsiveMode ? (
         <Modal open={active}>
-          <Box position="fixed" top={0} width={responsiveWidth}>
-            <Box
-              boxSizing="border-box"
-              display="flex"
-              justifyContent="flex-end"
-              width="100%"
-              backgroundColor="var(--colorsGray850)"
-              p={1}
-            >
-              <StyledCloseButton
-                aria-label={locale.verticalMenu.ariaLabels?.responsiveMenuCloseButton()}
-                data-component="responsive-vertical-menu-close"
-                data-role="responsive-vertical-menu-close"
-                iconType="close"
-                size="small"
-                buttonType="tertiary"
-                onClick={() => {
-                  setActive(false);
-                  setActiveMenuItem(null);
-                }}
-              />
-            </Box>
-            <StyledResponsiveMenu
-              height={height}
-              id="responsive-vertical-menu-primary"
-              menu="primary"
-              reduceMotion={reduceMotion}
-              ref={menuRef}
-              responsive
+          <FocusTrap wrapperRef={wrapperRef} isOpen={active}>
+            <ModalContainer
+              ref={wrapperRef}
+              width={responsiveWidth}
               tabIndex={-1}
-              top="48px"
-              width={width}
+              id="responsive-vertical-menu-dialog"
+              {...modalAriaProps()}
             >
-              {children}
-            </StyledResponsiveMenu>
-          </Box>
+              <Box
+                boxSizing="border-box"
+                display="flex"
+                justifyContent="flex-end"
+                width="100%"
+                backgroundColor="var(--colorsGray850)"
+                p={1}
+              >
+                <StyledCloseButton
+                  aria-label={locale.verticalMenu.ariaLabels?.responsiveMenuCloseButton()}
+                  data-component="responsive-vertical-menu-close"
+                  data-role="responsive-vertical-menu-close"
+                  iconType="close"
+                  size="small"
+                  buttonType="tertiary"
+                  onClick={() => {
+                    setActive(false);
+                    setActiveMenuItem(null);
+                  }}
+                />
+              </Box>
+              <StyledResponsiveMenu
+                height={height}
+                id="responsive-vertical-menu-primary"
+                menu="primary"
+                reduceMotion={reduceMotion}
+                ref={menuRef}
+                responsive
+                tabIndex={-1}
+                top="48px"
+                width={width}
+              >
+                {children}
+              </StyledResponsiveMenu>
+            </ModalContainer>
+          </FocusTrap>
         </Modal>
       ) : (
         <StyledGlobalVerticalMenuWrapper
