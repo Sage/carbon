@@ -86,7 +86,6 @@ export const StyledResponsiveMenu = styled.ul<StyledResponsiveMenuProps>`
     `};
   padding-top: var(--spacing100);
   position: fixed;
-  top: ${({ top }) => top};
   width: ${({ width }) => width || "100%"};
   max-width: 375px;
   z-index: 1000;
@@ -94,6 +93,11 @@ export const StyledResponsiveMenu = styled.ul<StyledResponsiveMenuProps>`
     menu === "secondary" || (!childOpen && menu === "primary")
       ? "2px solid var(--colorsGray850)"
       : "1px solid var(--colorsGray850)"};
+
+  ${({ top }) => css`
+    top: ${top};
+    max-height: calc(100% - ${top === "auto" ? "40px" : top});
+  `}
 
   & > :last-child {
     margin-bottom: 40px;
@@ -109,6 +113,6 @@ export const StyledResponsiveMenu = styled.ul<StyledResponsiveMenuProps>`
     menu === "secondary" &&
     css`
       left: ${left};
-      min-height: ${height};
+      height: ${height};
     `}
 `;
