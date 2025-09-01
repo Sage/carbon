@@ -14,7 +14,6 @@ import useLocale from "../../hooks/__internal__/useLocale";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import useInputAccessibility from "../../hooks/__internal__/useInputAccessibility";
 import { filterStyledSystemMarginProps } from "../../style/utils";
-import Logger from "../../__internal__/utils/logger";
 
 import Fieldset from "../../__internal__/fieldset";
 import Box from "../box";
@@ -86,11 +85,6 @@ export interface TimeProps extends TagProps, MarginProps {
   onBlur?: (ev?: React.FocusEvent<HTMLInputElement>, value?: TimeValue) => void;
   /** Flag to configure component as mandatory */
   required?: boolean;
-  /**
-   * [Legacy] Flag to configure component as optional.
-   * @deprecated If the value of this component is not required, use the `required` prop and set it to false instead.
-   */
-  isOptional?: boolean;
   /** If true, the component will be disabled */
   disabled?: boolean;
   /** If true, the component will be read-only */
@@ -108,8 +102,6 @@ export type TimeHandle = {
   focusMinutesInput: () => void;
 } | null;
 
-let deprecateOptionalWarnTriggered = false;
-
 const Time = React.forwardRef<TimeHandle, TimeProps>(
   (
     {
@@ -125,7 +117,6 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
       onChange,
       onBlur,
       required,
-      isOptional,
       disabled,
       readOnly,
       toggleProps = {},
@@ -134,12 +125,6 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
     },
     ref,
   ) => {
-    if (!deprecateOptionalWarnTriggered && isOptional) {
-      deprecateOptionalWarnTriggered = true;
-      Logger.deprecate(
-        "`isOptional` is deprecated in Time and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
-      );
-    }
     const {
       id: hoursInputId,
       label: hoursLabel,
@@ -335,7 +320,6 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
         width="min-content"
         legendAlign={labelAlign}
         isRequired={required}
-        isOptional={isOptional}
         isDisabled={disabled}
         name={name}
         id={internalId.current}

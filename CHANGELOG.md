@@ -1,3 +1,30 @@
+## [156.0.1](https://github.com/Sage/carbon/compare/v156.0.0...v156.0.1) (2025-08-27)
+
+### Bug Fixes
+
+* **responsive-vertical-menu:** ensure secondary menu is a child of primary ([25134b7](https://github.com/Sage/carbon/commit/25134b7cb930963b5e2aac50d37cb3ed19cc0651))
+
+## [156.0.0](https://github.com/Sage/carbon/compare/v155.14.0...v156.0.0) (2025-08-26)
+
+### ⚠ BREAKING CHANGES
+
+* **dialog-full-screen:** Removed `timeout` prop
+* **dialog:** Removed `timeout` prop.
+* **loader:** Removed `aria-label` prop. Please use `loaderLabel` instead.
+* **textarea:** Removed `ariaDescribedBy` prop. Please use kebab case version.
+* **textbox:** Removed `ariaDescribedBy` prop. Please use kebab case version.
+* Remove `isOptional` prop from ALL input-based components
+* Remove `label.optional` translation key from ALL locales
+
+### Features
+
+* **dialog-full-screen:** remove `timeout` prop ([bacbb41](https://github.com/Sage/carbon/commit/bacbb414ddac0efff72240c07609677d934efe38))
+* **dialog:** remove `timeout` prop ([5bfd83a](https://github.com/Sage/carbon/commit/5bfd83acb91937b83a3ecaf1f1a39f6b4ab164ef))
+* **loader:** remove `aria-label` prop ([9de74fd](https://github.com/Sage/carbon/commit/9de74fda8945b9dd197cfd28af3a045d9a1752c7))
+* remove `isOptional` prop from all input-based components ([c3a8968](https://github.com/Sage/carbon/commit/c3a896890cc4489fb4ca64d114b9ba7ba426205b))
+* **textarea:** remove `ariaDescribedBy` prop ([f149ef9](https://github.com/Sage/carbon/commit/f149ef9660cd270756a6801fc3bf6484313db794))
+* **textbox:** remove `ariaDescribedBy` prop ([5a71016](https://github.com/Sage/carbon/commit/5a710162152b9c48134777b925b2ed530a8ea9f2))
+
 ## [155.14.0](https://github.com/Sage/carbon/compare/v155.13.0...v155.14.0) (2025-08-22)
 
 ### Features

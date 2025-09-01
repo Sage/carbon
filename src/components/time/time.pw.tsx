@@ -463,19 +463,6 @@ test.describe("Time component", () => {
       await checkAccessibility(page);
     });
 
-    test("should pass when isOptional prop set", async ({ mount, page }) => {
-      await mount(
-        <TimeComponent
-          isOptional
-          label="label"
-          value={{ hours: "12", minutes: "30" }}
-          onChange={() => {}}
-        />,
-      );
-
-      await checkAccessibility(page);
-    });
-
     test("should pass when input hint text is rendered", async ({
       mount,
       page,

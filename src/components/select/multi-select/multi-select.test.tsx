@@ -1064,28 +1064,6 @@ describe("forwarded ref", () => {
 });
 
 describe("deprecation warnings", () => {
-  it("raises deprecation warning when component is used with optional prop", () => {
-    jest.spyOn(console, "warn").mockImplementation(() => {});
-
-    const loggerSpy = jest.spyOn(Logger, "deprecate");
-    render(
-      <>
-        <MultiSelect label="Colour" isOptional>
-          <Option text="amber" value="amber" />
-        </MultiSelect>
-        <MultiSelect label="Colour" isOptional>
-          <Option text="amber" value="amber" />
-        </MultiSelect>
-      </>,
-    );
-
-    expect(loggerSpy).toHaveBeenNthCalledWith(
-      1,
-
-      "`isOptional` is deprecated in MultiSelect and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
-    );
-  });
-
   it("raises deprecation warning when component is used with defaultValue and no onChange (uncontrolled usage)", () => {
     jest.spyOn(console, "warn").mockImplementation(() => {});
 

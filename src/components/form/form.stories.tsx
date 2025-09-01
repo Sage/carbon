@@ -337,7 +337,7 @@ export const WithButtonsAlignedToTheLeft: Story = (args: FormProps) => (
 );
 WithButtonsAlignedToTheLeft.storyName = "With Buttons Aligned to the Left";
 
-export const WithBothOptionalOrRequired: Story = (args: FormProps) => (
+export const WithRequiredFields: Story = (args: FormProps) => (
   <Box m={1}>
     <RequiredFieldsIndicator mb={2}>
       <Typography variant="b">Fill in all fields marked with</Typography>
@@ -351,14 +351,9 @@ export const WithBothOptionalOrRequired: Story = (args: FormProps) => (
         </Button>
       }
     >
-      <Textbox label="Textbox" isOptional />
+      <Textbox label="Textbox" />
       <Textbox label="Textbox" required />
-      <Select
-        name="simple-optional"
-        id="simple-optional"
-        label="Simple Select"
-        isOptional
-      >
+      <Select name="simple-optional" id="simple-optional" label="Simple Select">
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
@@ -377,7 +372,6 @@ export const WithBothOptionalOrRequired: Story = (args: FormProps) => (
         name="multi-optional"
         id="multi-optional"
         label="Multi Select"
-        isOptional
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
@@ -393,11 +387,7 @@ export const WithBothOptionalOrRequired: Story = (args: FormProps) => (
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
       </MultiSelect>
-      <RadioButtonGroup
-        name="radio group optional"
-        legend="RadioGroup"
-        isOptional
-      >
+      <RadioButtonGroup name="radio group optional" legend="RadioGroup">
         <RadioButton
           id="group-1-input-1"
           value="group-1-input-1"
@@ -429,13 +419,12 @@ export const WithBothOptionalOrRequired: Story = (args: FormProps) => (
           labelWidth={10}
         />
       </RadioButtonGroup>
-      <Checkbox name="checkbox" label="Checkbox" isOptional />
+      <Checkbox name="checkbox" label="Checkbox" />
       <Checkbox name="checkbox" label="Checkbox" required />
     </Form>
   </Box>
 );
-WithBothOptionalOrRequired.storyName = "WithBothOptionalOrRequired";
-WithBothOptionalOrRequired.parameters = {
+WithRequiredFields.parameters = {
   themeProvider: { chromatic: { theme: "sage" } },
 };
 

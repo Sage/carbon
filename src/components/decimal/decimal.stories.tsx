@@ -158,12 +158,6 @@ export const Required: Story = {
   name: "Required",
 };
 
-export const IsOptional: Story = {
-  ...DefaultStory,
-  args: { ...DefaultStory.args, isOptional: true, helpAriaLabel: "Help" },
-  name: "IsOptional",
-};
-
 export const LeftAligned: Story = {
   ...DefaultStory,
   args: { ...DefaultStory.args, required: true, align: "left" },

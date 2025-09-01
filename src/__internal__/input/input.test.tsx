@@ -235,25 +235,6 @@ test("sets the provided `aria-describedby` to the accessible description of the 
   expect(input).toHaveAttribute("aria-describedby", "description");
 });
 
-test("sets the provided `ariaDescribedBy` to the accessible description of the input", () => {
-  render(<Input ariaDescribedBy="description" />);
-
-  const input = screen.getByRole("textbox");
-  expect(input).toHaveAttribute("aria-describedby", "description");
-});
-
-test("when both `aria-describedby` and `ariaDescribedBy` are provided, `aria-describedby` takes precedence", () => {
-  render(
-    <Input
-      aria-describedby="description"
-      ariaDescribedBy="I shouldn't be here"
-    />,
-  );
-
-  const input = screen.getByRole("textbox");
-  expect(input).toHaveAttribute("aria-describedby", "description");
-});
-
 test("does not call onClick handler when input is disabled and is clicked", async () => {
   const onClickMock = jest.fn();
   const user = userEvent.setup();

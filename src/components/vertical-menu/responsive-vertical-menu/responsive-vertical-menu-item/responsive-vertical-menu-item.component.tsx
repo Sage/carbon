@@ -10,7 +10,7 @@ import React, {
   useState,
 } from "react";
 import { MarginProps, PaddingProps } from "styled-system";
-
+import { StyledResponsiveMenu } from "../responsive-vertical-menu.style";
 import {
   StyledIcon,
   StyledMenuItemContent,
@@ -131,6 +131,10 @@ const BaseItem = forwardRef<HTMLElement, BaseItemProps>(
       setActive,
       setActiveMenuItem,
       reducedMotion,
+      left,
+      top,
+      width,
+      height,
     } = useResponsiveVerticalMenu();
 
     const {
@@ -145,6 +149,7 @@ const BaseItem = forwardRef<HTMLElement, BaseItemProps>(
     const isActive = activeMenuItem?.id === id;
     const hasChildren = React.Children.count(children) > 0;
     const parentId = useContext(ParentItemContext);
+    const subMenuRef = useRef<HTMLUListElement>(null);
     const responsiveDisplay = useMemo(
       () => responsiveMode && depth === 0,
       [depth, responsiveMode],
@@ -176,16 +181,17 @@ const BaseItem = forwardRef<HTMLElement, BaseItemProps>(
 
           // Primary-level menu items
           if (depth === 0 && hasChildren && activeMenuItem?.id === id) {
-            e.preventDefault();
-            // If the item is active and has children, move focus to the first/last child, based on whether the Shift key is pressed or not
-            moveFocus(!e.shiftKey ? "firstChild" : "lastChild");
+            // If item is active and has children, move focus to last child if Shift is pressed
+            if (e.shiftKey) {
+              e.preventDefault();
+              moveFocus("lastChild");
+            }
           }
 
           // Secondary-level menu items
           if (depth === 1) {
             const currentIndex = siblings.findIndex((el) => el.id === id);
             const isLastSibling = currentIndex === siblings.length - 1;
-            const isFirstSibling = currentIndex === 0;
 
             // If the item is the last sibling and has no children (or it does but isn't expanded), move focus to the parent when forward-tabbing
             /* istanbul ignore else */
@@ -195,12 +201,6 @@ const BaseItem = forwardRef<HTMLElement, BaseItemProps>(
                 moveFocus("parent");
               }
             }
-
-            // If the item is the first sibling and shift is pressed, move focus to the parent
-            if (isFirstSibling && e.shiftKey) {
-              e.preventDefault();
-              moveFocus("parent");
-            }
           }
 
           // Tertiary-level menu items
@@ -208,8 +208,10 @@ const BaseItem = forwardRef<HTMLElement, BaseItemProps>(
             const currentIndex = siblings.findIndex((el) => el.id === id);
             const isLastSibling = currentIndex === siblings.length - 1;
 
+            // If the item is the last sibling and has no children (or it does but isn't expanded),
+            // and parent is the last sibling in the level above, move focus to the grandparent when forward-tabbing
             /* istanbul ignore else */
-            if (isLastSibling) {
+            if (isLastSibling && (!hasChildren || (hasChildren && !expanded))) {
               // If the item is the last sibling, find the grand-parent in the menu hierarchy
               const allMenuItems = getRegisteredItems();
               const parent = allMenuItems.find((item) => item.id === parentId);
@@ -367,6 +369,25 @@ const BaseItem = forwardRef<HTMLElement, BaseItemProps>(
                   </ParentItemContext.Provider>
                 </StyledNestedMenu>
               </StyledNestedMenuWrapper>
+            )}
+
+            {isActive && !responsiveMode && (
+              <StyledResponsiveMenu
+                data-component="responsive-vertical-menu-secondary"
+                data-role="responsive-vertical-menu-secondary"
+                height={height || "100%"}
+                id="responsive-vertical-menu-secondary"
+                left={left}
+                menu="secondary"
+                reduceMotion={false}
+                ref={subMenuRef}
+                responsive={false}
+                tabIndex={-1}
+                top={top}
+                width={width}
+              >
+                {activeMenuItem.children}
+              </StyledResponsiveMenu>
             )}
           </>
         ) : (

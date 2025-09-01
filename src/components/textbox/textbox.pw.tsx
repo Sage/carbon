@@ -5,7 +5,6 @@ import {
   getDesignTokensByCssProperty,
   checkAccessibility,
   verifyRequiredAsteriskForLabel,
-  getStyle,
   assertCssValueIsApproximately,
 } from "../../../playwright/support/helper";
 import {
@@ -91,15 +90,6 @@ test.describe("Prop checks for Textbox component", () => {
       );
       expect(tokenValues[0]).toBe(token);
     });
-  });
-
-  test("should render with isOptional prop", async ({ mount, page }) => {
-    await mount(<TextboxComponent isOptional />);
-
-    const labelParent = getDataElementByValue(page, "label").locator("..");
-    const contentValue = await getStyle(labelParent, "content", ":after");
-
-    expect(contentValue).toContain("(optional)");
   });
 
   test("should render with data-element prop", async ({ mount, page }) => {

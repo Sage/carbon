@@ -94,7 +94,7 @@ export const NewValidation: Story = ({ ...args }: Partial<SwitchProps>) => {
   return (
     <CarbonProvider validationRedesignOptIn>
       <Switch error="Error Message (Fix is required)" mb={2} {...args} />
-      <Switch warning="Warning Message (Fix is optional)" mb={2} {...args} />
+      <Switch warning="Warning Message" mb={2} {...args} />
       <Switch
         validationMessagePositionTop={false}
         error="Error Message (Fix is required)"
@@ -103,7 +103,7 @@ export const NewValidation: Story = ({ ...args }: Partial<SwitchProps>) => {
       />
       <Switch
         validationMessagePositionTop={false}
-        warning="Warning Message (Fix is optional)"
+        warning="Warning Message"
         mb={2}
         {...args}
       />
@@ -144,7 +144,7 @@ export const NewValidationInline: Story = ({
           {...args}
         />
         <Switch
-          warning="Warning Message (Fix is optional)"
+          warning="Warning Message"
           fieldHelp="fieldHelp"
           my={2}
           {...args}
@@ -157,7 +157,7 @@ export const NewValidationInline: Story = ({
           {...args}
         />
         <Switch
-          warning="Warning Message (Fix is optional)"
+          warning="Warning Message"
           fieldHelp="fieldHelp"
           validationMessagePositionTop={false}
           my={2}
