@@ -250,6 +250,42 @@ const testStyledSystemPadding = (
   );
 };
 
+const testStyledPadding = (
+  component: (spacingProps?: PaddingProps) => JSX.Element,
+  elementQuery: () => HTMLElement,
+  assertOpts?: jest.Options,
+) => {
+  describe.each(paddingProps)(
+    'when a custom spacing is specified using the "%s" styled system props',
+    (styledSystemProp, propName) => {
+      it(`should set ${propName} styling correctly`, () => {
+        const props = { [styledSystemProp]: 3 };
+        render(component({ ...props }));
+
+        assertStyleMatch({ [propName]: "24px" }, elementQuery(), assertOpts);
+      });
+    },
+  );
+};
+
+const testStyledMargin = (
+  component: (spacingProps?: MarginProps) => JSX.Element,
+  elementQuery: () => HTMLElement,
+  assertOpts?: jest.Options,
+) => {
+  describe.each(marginProps)(
+    'when a custom spacing is specified using the "%s" styled system props',
+    (styledSystemProp, propName) => {
+      it(`should set ${propName} styling correctly`, () => {
+        const props = { [styledSystemProp]: 3 };
+        render(component({ ...props }));
+
+        assertStyleMatch({ [propName]: "24px" }, elementQuery(), assertOpts);
+      });
+    },
+  );
+};
+
 const testStyledSystemSpacing = (
   component: (spacingProps?: MarginProps | PaddingProps) => JSX.Element,
   elementQuery: () => HTMLElement,
@@ -356,6 +392,8 @@ export {
   testStyledSystemBackground,
   testStyledSystemPosition,
   testStyledSystemSpacing,
+  testStyledPadding,
+  testStyledMargin,
   testStyledSystemMargin,
   testStyledSystemPadding,
   testStyledSystemWidth,

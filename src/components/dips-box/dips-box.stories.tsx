@@ -15,11 +15,19 @@ export const Spacing: Story = () => {
   return (
     <>
       <DipsBox m="3px" p="3px">
-        Dip's Box Here
+        Margin and Padding String
       </DipsBox>
 
       <DipsBox m={3} p={3}>
-        Dip's Box Here
+        Margin and Padding Number
+      </DipsBox>
+
+      <DipsBox ml={3} pt={3}>
+        Margin Left and Padding Top Number
+      </DipsBox>
+
+      <DipsBox ml="9px" pt="33px">
+        Margin Left and Padding Top String
       </DipsBox>
     </>
   );
