@@ -2,19 +2,19 @@ import { css } from "styled-components";
 
 const spacingKeys = {
   m: "margin",
-  mt: "marginTop",
-  mr: "marginRight",
-  mb: "marginBottom",
-  ml: "marginLeft",
-  mx: ["marginLeft", "marginRight"],
-  my: ["marginTop", "marginBottom"],
+  mt: "margin-top",
+  mr: "margin-right",
+  mb: "margin-bottom",
+  ml: "margin-left",
+  mx: ["margin-left", "margin-right"],
+  my: ["margin-top", "margin-bottom"],
   p: "padding",
-  pt: "paddingTop",
-  pr: "paddingRight",
-  pb: "paddingBottom",
-  pl: "paddingLeft",
-  px: ["paddingLeft", "paddingRight"],
-  py: ["paddingTop", "paddingBottom"],
+  pt: "padding-top",
+  pr: "padding-right",
+  pb: "padding-bottom",
+  pl: "padding-left",
+  px: ["padding-left", "padding-right"],
+  py: ["padding-top", "padding-bottom"],
 };
 
 export function getSpacingStyles(props, scale = 8) {
