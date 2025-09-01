@@ -1,3 +1,9 @@
+## [156.0.2](https://github.com/Sage/carbon/compare/v156.0.1...v156.0.2) (2025-09-01)
+
+### Bug Fixes
+
+* **loader-spinner:** update style tests that assert tokens values to use toHaveStyleRule ([c254027](https://github.com/Sage/carbon/commit/c2540274e7de2afcf81431ccbc73de161c5aea48))
+
 ## [156.0.1](https://github.com/Sage/carbon/compare/v156.0.0...v156.0.1) (2025-08-27)
 
 ### Bug Fixes
