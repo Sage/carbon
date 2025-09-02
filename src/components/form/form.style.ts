@@ -15,17 +15,19 @@ interface StyledFormContentProps {
   fieldSpacing?: string;
 }
 
-export const StyledFormContent = styled.div<StyledFormContentProps>(
-  ({ stickyFooter, isInModal }) =>
+export const StyledFormContent = styled.div<StyledFormContentProps>`
+  height: 100%;
+
+  ${({ stickyFooter, isInModal }) =>
     stickyFooter &&
     isInModal &&
     css`
       flex-grow: 1;
       min-height: 0;
       overflow-y: auto;
-    `,
+    `}
 
-  ({ fieldSpacing }) =>
+  ${({ fieldSpacing }) =>
     fieldSpacing &&
     css`
       --fieldSpacing: ${fieldSpacing};
@@ -41,8 +43,8 @@ export const StyledFormContent = styled.div<StyledFormContentProps>(
       ${StyledSwitch} ${StyledFormField} {
         margin-bottom: var(--spacing000);
       }
-    `,
-);
+    `}
+`;
 
 interface StyledFormFooterProps {
   hasFooterChildren?: boolean;
