@@ -32,21 +32,22 @@ export default {
 export const ClickToOpen: Story = {
   render: () => {
     const Wrapper = () => {
-      const [open, setOpen] = useState(false);
-      const onCancel = () => setOpen(false);
+      const [isOpen, setIsOpen] = useState(false);
+
       return (
         <>
-          <Button onClick={() => setOpen(true)} aria-label="Open Alert">
-            Open Alert
-          </Button>
+          <Button onClick={() => setIsOpen(true)}>Open Alert</Button>
           <Alert
-            open={open}
-            onCancel={onCancel}
-            aria-labelledby="open-alert-title"
-            closeButtonDataProps={{ "data-element": "close" }}
+            onCancel={() => setIsOpen(false)}
+            title="Title"
+            disableEscKey={false}
+            height=""
+            subtitle="Subtitle"
+            showCloseIcon
+            size="extra-small"
+            open={isOpen}
           >
-            <h2 id="open-alert-title">Title</h2>
-            <p>This is an example of an alert</p>
+            This is an example of an alert
           </Alert>
         </>
       );
@@ -55,42 +56,46 @@ export const ClickToOpen: Story = {
   },
   play: async ({ canvasElement }) => {
     if (!allowInteractions()) return;
+
     const canvas = within(canvasElement);
-    await userEvent.click(canvas.getByRole("button", { name: /open alert/i }));
-    await userInteractionPause(200);
+    const toggleButton = canvas.getByRole("button", { name: /open alert/i });
+
+    await userEvent.click(toggleButton);
+    await userInteractionPause(300);
+
     const portal = within(canvasElement.ownerDocument.body);
-    expect(
-      await portal.findByRole("alertdialog", { name: /title/i }),
-    ).toBeInTheDocument();
+    const dialog = await portal.findByRole("alertdialog", { name: /title/i });
+    expect(dialog).toBeInTheDocument();
   },
 };
 
 export const FocusManagement: Story = {
   render: () => {
     const Wrapper = () => {
-      const [open, setOpen] = useState(false);
+      const [isOpen, setIsOpen] = useState(false);
       const openerRef = useRef<HTMLButtonElement | null>(null);
 
       const onCancel = () => {
-        setOpen(false);
+        setIsOpen(false);
         openerRef.current?.focus();
       };
 
       return (
         <>
-          <Button ref={openerRef} onClick={() => setOpen(true)}>
+          <Button ref={openerRef} onClick={() => setIsOpen(true)}>
             Open Alert
           </Button>
           <Alert
-            open={open}
             onCancel={onCancel}
-            aria-labelledby="focus-title"
-            closeButtonDataProps={{ "data-element": "close-icon" }}
+            title="Title"
+            disableEscKey={false}
+            height=""
+            subtitle="Subtitle"
+            showCloseIcon
+            size="extra-small"
+            open={isOpen}
           >
-            <h2 id="focus-title">Title</h2>
-            <p>This is an example of an alert</p>
-            {/* no test id / custom attr */}
-            <Button>Close</Button>
+            This is an example of an alert
           </Alert>
         </>
       );
@@ -102,23 +107,19 @@ export const FocusManagement: Story = {
     if (!allowInteractions()) return;
 
     const canvas = within(canvasElement);
+    const toggleButton = canvas.getByRole("button", { name: /open alert/i });
 
-    await userEvent.click(canvas.getByRole("button", { name: /open alert/i }));
-    await userInteractionPause(200);
+    await userEvent.click(toggleButton);
+    await userInteractionPause(300);
 
     const portal = within(canvasElement.ownerDocument.body);
     const dialog = await portal.findByRole("alertdialog", { name: /title/i });
     expect(dialog).toBeInTheDocument();
 
     const dialogWithin = within(dialog);
-
-    const closeButtons = dialogWithin.getAllByRole("button", {
+    const closeIconButton = dialogWithin.getByRole("button", {
       name: /close/i,
     });
-    const textCloseButton = closeButtons.find(
-      (btn) => (btn.textContent ?? "").trim().toLowerCase() === "close",
-    );
-
-    expect(textCloseButton).toBeTruthy();
+    expect(closeIconButton).toBeInTheDocument();
   },
 };
