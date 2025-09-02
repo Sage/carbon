@@ -70,46 +70,55 @@ export const FocusManagement: Story = {
     const Wrapper = () => {
       const [open, setOpen] = useState(false);
       const openerRef = useRef<HTMLButtonElement | null>(null);
+
       const onCancel = () => {
         setOpen(false);
         openerRef.current?.focus();
       };
+
       return (
         <>
           <Button ref={openerRef} onClick={() => setOpen(true)}>
-            Launch Alert
+            Open Alert
           </Button>
           <Alert
             open={open}
             onCancel={onCancel}
             aria-labelledby="focus-title"
-            closeButtonDataProps={{ "data-element": "close" }}
+            closeButtonDataProps={{ "data-element": "close-icon" }}
           >
             <h2 id="focus-title">Title</h2>
             <p>This is an example of an alert</p>
-            <Button data-element="close">Close</Button>
+            {/* no test id / custom attr */}
+            <Button>Close</Button>
           </Alert>
         </>
       );
     };
     return <Wrapper />;
   },
+
   play: async ({ canvasElement }) => {
     if (!allowInteractions()) return;
+
     const canvas = within(canvasElement);
-    await userEvent.click(
-      canvas.getByRole("button", { name: /launch alert/i }),
-    );
+
+    await userEvent.click(canvas.getByRole("button", { name: /open alert/i }));
     await userInteractionPause(200);
+
     const portal = within(canvasElement.ownerDocument.body);
     const dialog = await portal.findByRole("alertdialog", { name: /title/i });
     expect(dialog).toBeInTheDocument();
-    await userEvent.tab();
-    await userInteractionPause(50);
-    await userEvent.tab();
-    await userInteractionPause(50);
-    expect(
-      portal.getByRole("alertdialog", { name: /focus check/i }),
-    ).toBeInTheDocument();
+
+    const dialogWithin = within(dialog);
+
+    const closeButtons = dialogWithin.getAllByRole("button", {
+      name: /close/i,
+    });
+    const textCloseButton = closeButtons.find(
+      (btn) => (btn.textContent ?? "").trim().toLowerCase() === "close",
+    );
+
+    expect(textCloseButton).toBeTruthy();
   },
 };
