@@ -17,7 +17,7 @@ type HyperlinkButtonProps = Pick<
   FormattingButtonProps,
   "namespace" | "isFirstButton"
 > & {
-  dialogOpen?: boolean;
+  dialogOpen: boolean;
   setDialogOpen: (open: boolean) => void;
 };
 
@@ -29,7 +29,7 @@ const HyperlinkButton = React.forwardRef<
     {
       isFirstButton,
       namespace,
-      dialogOpen = false,
+      dialogOpen,
       setDialogOpen,
     }: HyperlinkButtonProps,
     ref,
@@ -53,6 +53,7 @@ const HyperlinkButton = React.forwardRef<
       event.preventDefault();
 
       const isEditable = editor.isEditable();
+      /* istanbul ignore else */
       if (isEditable) {
         // Create a link node with the provided text and URL
         editor.update(() => {

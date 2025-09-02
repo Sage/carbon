@@ -102,7 +102,6 @@ const ListControls = ({
 
     const selectedNodes = selection.getNodes();
 
-    /* istanbul ignore if */
     if (selectedNodes.length === 0) {
       setIsOLActive(false);
       setIsULActive(false);
@@ -120,12 +119,11 @@ const ListControls = ({
     }
 
     let listNode = listItemNode.getParent();
-    /* istanbul ignore next */
+
     while (listNode && !(listNode instanceof ListNode)) {
       listNode = listNode.getParent();
     }
 
-    /* istanbul ignore else */
     if (listNode instanceof ListNode) {
       setIsOLActive(listNode.getListType() === "number");
       setIsULActive(listNode.getListType() === "bullet");
@@ -141,6 +139,7 @@ const ListControls = ({
       editor.registerUpdateListener(({ editorState }) => {
         editorState.read(() => {
           const isEditable = editor.isEditable();
+
           /* istanbul ignore else */
           if (isEditable) updateToolbar();
         });
@@ -151,7 +150,7 @@ const ListControls = ({
   // When the ordered list button is clicked, insert or remove an ordered list
   const handleOLClick = () => {
     const isEditable = editor.isEditable();
-    /* istanbul ignore if */
+
     if (!isEditable) return;
 
     if (isOLActive) {
@@ -168,7 +167,7 @@ const ListControls = ({
   // When the unordered list button is clicked, insert or remove an unordered list
   const handleULClick = () => {
     const isEditable = editor.isEditable();
-    /* istanbul ignore if */
+
     if (!isEditable) return;
 
     if (isULActive) {
@@ -195,7 +194,6 @@ const ListControls = ({
       }
     }
 
-    /* istanbul ignore if */
     if (startIndex === -1) {
       throw new Error("Subset B not found in array A");
     }
@@ -216,7 +214,6 @@ const ListControls = ({
     return { beforeSubset, subset, afterSubset };
   }
 
-  /* istanbul ignore next */
   const alignListTypes = (lists: ListNode[], listType: ListType) => {
     lists.forEach((list) => {
       editor.update(() => {
@@ -225,7 +222,6 @@ const ListControls = ({
     });
   };
 
-  /* istanbul ignore next */
   const convertListType = (newType: ListType) => {
     editor.update(() => {
       // Get the current selection

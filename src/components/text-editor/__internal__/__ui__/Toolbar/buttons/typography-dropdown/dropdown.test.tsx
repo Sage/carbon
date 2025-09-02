@@ -73,6 +73,19 @@ describe("ToolbarDropdown", () => {
     expect(setFocusedIndex).toHaveBeenCalledWith(-1);
   });
 
+  it("navigates with ArrowDown", () => {
+    renderDropdown({ isOpen: true, focusedIndex: 0 });
+    fireEvent.keyDown(screen.getByRole("menu"), { key: "ArrowDown" });
+
+    expect(setFocusedIndex).toHaveBeenCalledWith(expect.any(Function));
+
+    const updater = setFocusedIndex.mock.calls[0][0];
+    expect(updater(2)).toBe(1);
+
+    fireEvent.keyDown(screen.getByRole("menu"), { key: "ArrowDown" });
+    expect(updater(2)).toBe(2);
+  });
+
   it("navigates with ArrowDown and wraps around", () => {
     renderDropdown({ isOpen: true, focusedIndex: 2 });
     fireEvent.keyDown(screen.getByRole("menu"), { key: "ArrowDown" });
@@ -80,6 +93,19 @@ describe("ToolbarDropdown", () => {
     expect(setFocusedIndex).toHaveBeenCalledWith(expect.any(Function));
 
     const updater = setFocusedIndex.mock.calls[0][0];
+    expect(updater(2)).toBe(0);
+  });
+
+  it("navigates with ArrowUp", () => {
+    renderDropdown({ isOpen: true, focusedIndex: 2 });
+    fireEvent.keyDown(screen.getByRole("menu"), { key: "ArrowUp" });
+
+    expect(setFocusedIndex).toHaveBeenCalledWith(expect.any(Function));
+
+    const updater = setFocusedIndex.mock.calls[0][0];
+    expect(updater(2)).toBe(1);
+
+    fireEvent.keyDown(screen.getByRole("menu"), { key: "ArrowUp" });
     expect(updater(2)).toBe(0);
   });
 

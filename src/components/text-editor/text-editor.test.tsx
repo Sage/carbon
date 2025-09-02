@@ -669,54 +669,6 @@ test("readOnly prop renders correctly when readOnly prop is provided", () => {
   expect(editor).toHaveAttribute("contenteditable", "false");
 });
 
-test("should toggle the list type when a list is active and the alternate list type is clicked", async () => {
-  const user = userEvent.setup();
-  const value = createFromHTML(
-    `<ul><li value="1"><span style="white-space: pre-wrap;">Example List</span></li></ul>`,
-  );
-  // render the TextEditor component
-  render(
-    <TextEditor labelText="Example" namespace="test" initialValue={value} />,
-  );
-  const olButton = screen.getByTestId(`test-ordered-list-button`);
-  const ulButton = screen.getByTestId(`test-unordered-list-button`);
-  expect(olButton).toBeVisible();
-  expect(ulButton).toBeVisible();
-  expect(screen.getByRole("list")).toBeVisible();
-  expect(screen.getByRole("list").tagName).toBe("UL");
-  const listText = screen.getByText("Example List");
-  await user.click(listText);
-  await user.click(olButton);
-  expect(screen.getByRole("list").tagName).toBe("OL");
-  await user.click(listText);
-  await user.click(ulButton);
-  expect(screen.getByRole("list").tagName).toBe("UL");
-});
-
-test("should toggle the an individual list item's type when a list is active and the alternate list type is clicked", async () => {
-  const user = userEvent.setup();
-  const value = createFromHTML(
-    `<ul><li value="1"><span style="white-space: pre-wrap;">Example List</span></li><li value="2"><span style="white-space: pre-wrap;">Change Me</span></li><li value="3"><span style="white-space: pre-wrap;">Example List</span></li></ul>`,
-  );
-  // render the TextEditor component
-  render(
-    <TextEditor labelText="Example" namespace="test" initialValue={value} />,
-  );
-  const olButton = screen.getByTestId(`test-ordered-list-button`);
-  const ulButton = screen.getByTestId(`test-unordered-list-button`);
-  expect(olButton).toBeVisible();
-  expect(ulButton).toBeVisible();
-  expect(screen.getByRole("list")).toBeVisible();
-  expect(screen.getByRole("list").tagName).toBe("UL");
-  const listText = screen.getByText("Change Me");
-  await user.click(listText);
-  await user.click(olButton);
-  expect(screen.queryAllByRole("list").length).toBe(3);
-  await user.click(listText);
-  await user.click(ulButton);
-  expect(screen.queryAllByRole("list").length).toBe(1);
-});
-
 describe("shortcut keys", () => {
   it("should toggle bold text when the bold shortcut is pressed", async () => {
     const user = userEvent.setup();

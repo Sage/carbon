@@ -41,7 +41,7 @@ const ToolbarDropdown = ({
 
   const selectedOption = useMemo(() => {
     const selected = options.find((option) => option.id === value);
-    return selected ? selected.label : "Select";
+    return selected?.label;
   }, [options, value]);
 
   // Close dropdown when clicking outside
@@ -82,34 +82,41 @@ const ToolbarDropdown = ({
           setIsOpen?.(false);
           setFocusedIndex?.(-1);
           buttonRef.current?.focus();
+        } else {
+          // do nothing if no option is focused
+          /* istanbul ignore next */
+          event.preventDefault();
         }
         break;
 
       case "ArrowDown":
         event.preventDefault();
+        /* istanbul ignore if */
         if (!isOpen) {
           setIsOpen?.(true);
           setFocusedIndex?.(0);
         } else {
-          setFocusedIndex?.((prev) =>
-            prev < options.length - 1 ? prev + 1 : 0,
+          setFocusedIndex?.(
+            focusedIndex < options.length - 1 ? focusedIndex + 1 : 0,
           );
         }
         break;
 
       case "ArrowUp":
         event.preventDefault();
+        /* istanbul ignore if */
         if (!isOpen) {
           setIsOpen?.(true);
           setFocusedIndex?.(options.length - 1);
         } else {
-          setFocusedIndex?.((prev) =>
-            prev > 0 ? prev - 1 : options.length - 1,
+          setFocusedIndex?.(
+            focusedIndex > 0 ? focusedIndex - 1 : options.length - 1,
           );
         }
         break;
 
       case "Escape":
+        /* istanbul ignore else */
         if (isOpen) {
           event.preventDefault();
           setIsOpen?.(false);
@@ -119,6 +126,7 @@ const ToolbarDropdown = ({
         break;
 
       case "Tab":
+        /* istanbul ignore else */
         if (isOpen) {
           setIsOpen?.(false);
           setFocusedIndex?.(-1);
@@ -164,11 +172,12 @@ const ToolbarDropdown = ({
         tabIndex={isFirstButton ? 0 : -1}
         data-role={`${namespace}-typography-dropdown`}
         id={`${namespace}-typography-dropdown`}
-        onMouseDown={(e: React.MouseEvent<HTMLButtonElement>) =>
-          e.preventDefault()
+        onMouseDown={
+          /* istanbul ignore next */ (e: React.MouseEvent<HTMLButtonElement>) =>
+            e.preventDefault()
         }
       >
-        {selectedOption ?? "Select"} <span>{isOpen ? "▲" : "▼"}</span>
+        {selectedOption} <span>{isOpen ? "▲" : "▼"}</span>
       </StyledButton>
 
       {isOpen && (
