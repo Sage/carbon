@@ -430,6 +430,23 @@ test("validation renders correctly when warning prop is provided and validationM
   expect(editor).toHaveAccessibleDescription("Hint This is an warning");
 });
 
+test("validation renders correctly when warning prop is provided and validationMessagePositionTop is true", () => {
+  render(
+    <TextEditor
+      warning="This is an warning"
+      labelText="Example"
+      inputHint="Hint"
+      validationMessagePositionTop
+    />,
+  );
+
+  const editor = screen.getByRole("textbox", { name: "Example" });
+  const warningMessage = screen.getByText("This is an warning");
+
+  expect(warningMessage).toBeVisible();
+  expect(editor).toHaveAccessibleDescription("This is an warning Hint");
+});
+
 test("validation renders correctly when warning prop is provided", () => {
   // render the TextEditor component with an error
   render(<TextEditor warning="This is a warning" labelText="Example" />);

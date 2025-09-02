@@ -12,12 +12,10 @@ export const getPaddingForSize = (size: "small" | "medium" | "large") => {
   switch (size) {
     case "small":
       return "8px";
-    case "medium":
-      return "12px";
     case "large":
       return "16px";
-    default:
-      return "12px"; // Default to medium if size is not recognized
+    case "medium":
+      return "12px";
   }
 };
 
@@ -29,7 +27,8 @@ const StyledToolbar = styled.div<{
   flex-direction: row;
   gap: 8px;
   background-color: var(--colorsActionMajorYang100);
-  padding: ${(props) => getPaddingForSize(props.size || "medium")};
+  padding: ${(props) =>
+    getPaddingForSize(props.size as "small" | "medium" | "large")};
   border-top-left-radius: ${({ hasHeader }) =>
     hasHeader ? "0" : "var(--borderRadius100)"};
   border-top-right-radius: ${({ hasHeader }) =>

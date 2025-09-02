@@ -11,8 +11,4 @@ const THEME: EditorThemeClasses = {
 
 const getTheme = () => THEME;
 
-const setTheme = (newTheme: EditorThemeClasses) => {
-  Object.assign(THEME, newTheme);
-};
-
-export { getTheme, setTheme, THEME };
+export { getTheme, THEME };

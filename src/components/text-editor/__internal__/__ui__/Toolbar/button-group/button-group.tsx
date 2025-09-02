@@ -13,7 +13,7 @@ const ButtonGroup = ({
   return (
     <StyledButtonGroup id={`${namespace}-${name}`}>
       {children}
-      {showDivider && <div className="button-group-divider" />}
+      {showDivider && <div role="separator" className="button-group-divider" />}
     </StyledButtonGroup>
   );
 };

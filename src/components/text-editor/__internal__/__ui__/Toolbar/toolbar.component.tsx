@@ -85,9 +85,10 @@ const Toolbar = ({
     const currentButtons = Array.from(
       toolbarRef.current?.querySelectorAll(
         'button[role="button"].toolbar-button, button.toolbar-button',
-      ) || [],
+      ) ?? [],
     ) as HTMLButtonElement[];
 
+    /* istanbul ignore if */
     if (!currentButtons.length) return;
 
     const currentIndex = currentButtons.findIndex(

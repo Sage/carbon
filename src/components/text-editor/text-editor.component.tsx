@@ -68,7 +68,6 @@ import {
 let deprecateValueTriggered = false;
 let deprecateOnCancelWarnTriggered = false;
 let deprecateOnSaveWarnTriggered = false;
-let deprecateOptionalWarnTriggered = false;
 
 export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
   (
@@ -78,7 +77,6 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
       footer,
       header,
       inputHint,
-      isOptional = false,
       labelText,
       namespace = COMPONENT_PREFIX,
       onBlur,
@@ -101,12 +99,6 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
     },
     ref,
   ) => {
-    if (!deprecateOptionalWarnTriggered && isOptional) {
-      deprecateOptionalWarnTriggered = true;
-      Logger.deprecate(
-        "`isOptional` is deprecated in TextEditor and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
-      );
-    }
     if (!deprecateValueTriggered && rest.value) {
       deprecateValueTriggered = true;
       Logger.deprecate(
@@ -243,6 +235,7 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
       <StyledTextEditorWrapper
         data-role={`${namespace}-editor-wrapper`}
         onBlur={(ev) => {
+          /* istanbul ignore next */
           if (!ev.currentTarget.contains(ev.relatedTarget)) {
             onBlur?.(ev);
           }

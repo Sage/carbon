@@ -19,11 +19,6 @@ export interface TextEditorProps extends MarginProps, TagProps {
   header?: React.ReactNode;
   /** A hint string rendered before the editor but after the label. Intended to describe the purpose or content of the input. */
   inputHint?: string;
-  /**
-   * [Legacy] Whether the content of the editor can be empty
-   * @deprecated If the value of this component is not required, use the `required` prop and set it to false instead.
-   */
-  isOptional?: boolean;
   /** The label to display above the editor */
   labelText: string;
   /** The identifier for the Text Editor. This allows for the using of multiple Text Editors on a screen */

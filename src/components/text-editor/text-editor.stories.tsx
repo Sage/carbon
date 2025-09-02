@@ -79,7 +79,6 @@ export const Demo: Story = {
       "link",
     ],
     // Deprecated
-    isOptional: undefined,
     value: undefined,
     // Callbacks handled via actions
     onChange: action("onChange"),

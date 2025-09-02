@@ -13,6 +13,7 @@ import userEvent from "@testing-library/user-event";
 import { ToolbarPlugin } from "..";
 import TextEditor from "../../../text-editor.component";
 import { createFromHTML } from "../../__utils__/helpers";
+import { COMPONENT_PREFIX } from "../../__utils__/constants";
 
 function headlessEditor() {
   const editor = createHeadlessEditor({
@@ -103,6 +104,53 @@ test("renders the toolbar", () => {
   );
   const toolbar = screen.getByTestId("test-toolbar");
   expect(toolbar).toBeInTheDocument();
+});
+
+describe("Typography dropdown styling", () => {
+  test("should change the text formatting when an option is selected in the dropdown", async () => {
+    const user = userEvent.setup();
+
+    // render the TextEditor component
+    render(
+      <LexicalComposer
+        initialConfig={{
+          nodes: [],
+          onError: () => {},
+          namespace: "test",
+        }}
+      >
+        <RichTextPlugin
+          contentEditable={
+            <div role="textbox" contentEditable aria-label="test" />
+          }
+          ErrorBoundary={LexicalErrorBoundary}
+        />
+        <ToolbarPlugin namespace="test" />
+      </LexicalComposer>,
+    );
+
+    // Click the editor space and send a few key presses
+    const editor = screen.getByRole(`textbox`);
+    await user.click(editor);
+    await user.keyboard("Sample text");
+
+    // expect the editor to be rendered with the default value
+    expect(screen.getByText("Sample text")).toBeVisible();
+    expect(screen.getByText("Sample text")).toHaveStyle("font-size: 14px");
+
+    await user.tripleClick(editor);
+
+    const typographyButton = screen.getByTestId(
+      `${COMPONENT_PREFIX}-typography-dropdown`,
+    );
+
+    await user.click(typographyButton);
+    await waitFor(async () => {
+      await user.click(screen.getByText("Title"));
+    });
+
+    expect(screen.getByText("Sample text abc")).toHaveStyle("font-size: 30px");
+  });
 });
 
 test("allows the buttons to be navigated with the arrow keys", async () => {
@@ -198,6 +246,113 @@ test("allows the buttons to be navigated with the arrow keys", async () => {
   await user.keyboard("{arrowleft}");
   expect(hyperlinkButton).toHaveFocus();
   expect(typographyButton).not.toHaveFocus();
+});
+
+test("allows the buttons to be navigated with the Home and End keys", async () => {
+  const user = userEvent.setup();
+  render(
+    <LexicalComposer
+      initialConfig={{
+        nodes: [],
+        onError: () => {},
+        namespace: "test",
+      }}
+    >
+      <RichTextPlugin
+        contentEditable={
+          <div role="textbox" contentEditable aria-label="test" />
+        }
+        ErrorBoundary={LexicalErrorBoundary}
+      />
+      <ToolbarPlugin namespace="test" />
+    </LexicalComposer>,
+  );
+  const textbox = screen.getByRole("textbox");
+  const typographyButton = screen.getByTestId("test-typography-dropdown");
+  const hyperlinkButton = screen.getByTestId("test-hyperlink-button");
+
+  await user.click(textbox);
+  // Focus on typography button
+  await user.tab();
+  // Press End - focus should move to last button (hyperlink)
+  expect(typographyButton).toHaveFocus();
+  await user.keyboard("{End}");
+  expect(typographyButton).not.toHaveFocus();
+  expect(hyperlinkButton).toHaveFocus();
+  // Press Home - focus should move to first button (typography)
+  await user.keyboard("{Home}");
+  expect(typographyButton).toHaveFocus();
+  expect(hyperlinkButton).not.toHaveFocus();
+});
+
+test("does not allow the buttons to be navigated with other keys", async () => {
+  const user = userEvent.setup();
+  render(
+    <LexicalComposer
+      initialConfig={{
+        nodes: [],
+        onError: () => {},
+        namespace: "test",
+      }}
+    >
+      <RichTextPlugin
+        contentEditable={
+          <div role="textbox" contentEditable aria-label="test" />
+        }
+        ErrorBoundary={LexicalErrorBoundary}
+      />
+      <ToolbarPlugin namespace="test" />
+    </LexicalComposer>,
+  );
+  const textbox = screen.getByRole("textbox");
+  const typographyButton = screen.getByTestId("test-typography-dropdown");
+  const boldButton = screen.getByTestId("test-bold-button");
+
+  await user.click(textbox);
+  // Focus on typography button
+  await user.tab();
+  expect(typographyButton).toHaveFocus();
+  // Pressing other keys should not change focus
+  await user.keyboard("a");
+  expect(typographyButton).toHaveFocus();
+  await user.keyboard("1");
+  expect(typographyButton).toHaveFocus();
+  // Focus should still move with arrow keys
+  await user.keyboard("{arrowright}");
+  expect(boldButton).toHaveFocus();
+});
+
+test("does not fire any navigation events when the toolbar is empty", async () => {
+  const user = userEvent.setup();
+  render(
+    <LexicalComposer
+      initialConfig={{
+        nodes: [],
+        onError: () => {},
+        namespace: "test",
+      }}
+    >
+      <RichTextPlugin
+        contentEditable={
+          <div role="textbox" contentEditable aria-label="test" />
+        }
+        ErrorBoundary={LexicalErrorBoundary}
+      />
+      <ToolbarPlugin namespace="test" toolbarControls={[]} />
+    </LexicalComposer>,
+  );
+  const textbox = screen.getByRole("textbox");
+  const toolbar = screen.getByTestId("test-toolbar");
+
+  await user.click(textbox);
+  // Focus on toolbar (there are no buttons in it)
+  await user.tab();
+  expect(toolbar).toHaveFocus();
+  // Pressing arrow keys should not change focus or throw any errors
+  await user.keyboard("{arrowright}");
+  expect(toolbar).toHaveFocus();
+  await user.keyboard("{arrowleft}");
+  expect(toolbar).toHaveFocus();
 });
 
 describe("Events", () => {
@@ -460,6 +615,42 @@ describe("Events", () => {
 
     await waitFor(() => {
       expect(mockOnChange).toHaveBeenCalledTimes(1);
+    });
+  });
+});
+
+describe("Styling", () => {
+  ["small", "medium", "large"].forEach((size) => {
+    it(`applies the correct padding for size=${size}`, () => {
+      const paddingMap: { [key: string]: string } = {
+        small: "8px",
+        medium: "12px",
+        large: "16px",
+      };
+      render(
+        <LexicalComposer
+          initialConfig={{
+            nodes: [],
+            onError: () => {},
+            namespace: "test",
+          }}
+        >
+          <RichTextPlugin
+            contentEditable={
+              <div role="textbox" contentEditable aria-label="test" />
+            }
+            ErrorBoundary={LexicalErrorBoundary}
+          />
+          <ToolbarPlugin
+            namespace="test"
+            size={size as "small" | "medium" | "large"}
+          />
+        </LexicalComposer>,
+      );
+      const toolbar = screen.getByTestId("test-toolbar");
+      expect(toolbar).toHaveStyle({
+        padding: paddingMap[size],
+      });
     });
   });
 });
