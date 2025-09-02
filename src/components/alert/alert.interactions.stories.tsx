@@ -121,5 +121,19 @@ export const FocusManagement: Story = {
       name: /close/i,
     });
     expect(closeIconButton).toBeInTheDocument();
+
+    let attempts = 0;
+    const maxAttempts = 10;
+
+    while (
+      document.activeElement !== closeIconButton &&
+      attempts < maxAttempts
+    ) {
+      await userEvent.tab();
+      await userInteractionPause(50);
+      attempts += 1;
+    }
+
+    expect(closeIconButton).toHaveFocus();
   },
 };
