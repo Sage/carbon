@@ -141,26 +141,42 @@ WithOnClick.parameters = { chromatic: { disableSnapshot: true } };
 
 export const Variants: Story = () => {
   return (
-    <>
+    <Box width="max-content" display="flex" flexDirection="column" gap="32px">
       <Link
         href="https://carbon.sage.com"
         target="_blank"
         rel="noreferrer noopener"
         variant="negative"
       >
-        This is a link
+        This is a negative link
       </Link>
-      <br />
-      <br />
       <Link
         href="https://carbon.sage.com"
         target="_blank"
         rel="noreferrer noopener"
         variant="neutral"
       >
-        This is a link
+        This is a neutral link
       </Link>
-    </>
+      <Box
+        backgroundColor="#000000"
+        width="max-content"
+        padding="20px 10px"
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+      >
+        <Link
+          href="https://carbon.sage.com"
+          target="_blank"
+          rel="noreferrer noopener"
+          variant="subtle"
+          isDarkBackground
+        >
+          This is a subtle link
+        </Link>
+      </Box>
+    </Box>
   );
 };
 Variants.storyName = "Variants";
