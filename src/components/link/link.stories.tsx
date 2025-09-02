@@ -148,7 +148,7 @@ export const Variants: Story = () => {
         rel="noreferrer noopener"
         variant="negative"
       >
-        This is a link
+        This is a negative link
       </Link>
       <br />
       <br />
@@ -158,8 +158,28 @@ export const Variants: Story = () => {
         rel="noreferrer noopener"
         variant="neutral"
       >
-        This is a link
+        This is a neutral link
       </Link>
+      <br />
+      <br />
+      <Box
+        backgroundColor="#000000"
+        width="max-content"
+        padding="20px 10px"
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+      >
+        <Link
+          href="https://carbon.sage.com"
+          target="_blank"
+          rel="noreferrer noopener"
+          variant="subtle"
+          isDarkBackground
+        >
+          This is a subtle link
+        </Link>
+      </Box>
     </>
   );
 };
