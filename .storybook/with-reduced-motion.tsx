@@ -1,8 +1,10 @@
+import React from "react";
 import { Decorator } from "@storybook/react";
 
-let originalMatchMedia;
+// eslint-disable-next-line ssr-friendly/no-dom-globals-in-module-scope
+let originalMatchMedia: typeof window.matchMedia | undefined;
 
-export const withReducedMotion: Decorator = (Story, context) => {
+const withReducedMotion: Decorator = (Story, context) => {
   // Read the value of the `reducedMotion` parameter from the context
   const { reducedMotion } = context.parameters;
 
@@ -57,3 +59,5 @@ export const withReducedMotion: Decorator = (Story, context) => {
   // Render the story with the modified matchMedia
   return <Story {...context} />;
 };
+
+export default withReducedMotion;

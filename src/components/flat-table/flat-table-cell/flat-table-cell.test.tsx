@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import Logger from "__internal__/utils/logger";
+import Logger from "../../../__internal__/utils/logger";
 import { testStyledSystemPadding } from "../../../__spec_helper__/__internal__/test-utils";
 
 import FlatTableCell from "./flat-table-cell.component";

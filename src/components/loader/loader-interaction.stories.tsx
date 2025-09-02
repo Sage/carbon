@@ -29,7 +29,7 @@ export const WithReducedMotion: Story = {
      */
   },
   decorators: [
-    (StoryToRender: Story) => {
+    (StoryToRender) => {
       return (
         <DefaultDecorator>
           <StoryToRender />
@@ -53,7 +53,7 @@ export const WithMotion: Story = {
      */
   },
   decorators: [
-    (StoryToRender: Story) => {
+    (StoryToRender) => {
       return (
         <DefaultDecorator>
           <StoryToRender />

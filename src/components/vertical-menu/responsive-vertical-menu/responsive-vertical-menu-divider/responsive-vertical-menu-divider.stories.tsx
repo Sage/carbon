@@ -1,14 +1,11 @@
-import { ArgTypes, Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 
-import {
-  ResponsiveVerticalMenuDivider,
-  ResponsiveVerticalMenuDividerProps,
-} from "./responsive-vertical-menu-divider.component";
+import { ResponsiveVerticalMenuDivider } from "./responsive-vertical-menu-divider.component";
 import generateStyledSystemProps from "../../../../../.storybook/utils/styled-system-props";
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
-}) as Partial<ArgTypes<ResponsiveVerticalMenuDividerProps>>;
+});
 
 const meta: Meta<typeof ResponsiveVerticalMenuDivider> = {
   title: "ResponsiveVerticalMenuDivider",

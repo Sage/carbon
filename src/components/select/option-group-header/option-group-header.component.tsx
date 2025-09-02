@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
-import { CSSProperties } from "styled-components";
-import { TagProps } from "__internal__/utils/helpers/tags";
+import { type CSSProperties } from "styled-components";
+import { type TagProps } from "../../../__internal__/utils/helpers/tags";
 import guid from "../../../__internal__/utils/helpers/guid";
 import Logger from "../../../__internal__/utils/logger";
 import StyledOptionGroupHeader from "./option-group-header.style";

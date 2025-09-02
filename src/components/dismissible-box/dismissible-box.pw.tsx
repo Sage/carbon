@@ -1,5 +1,5 @@
 import React from "react";
-import { DismissibleBoxProps } from "components/dismissible-box";
+import { DismissibleBoxProps } from "../dismissible-box";
 import { test, expect } from "../../../playwright/helpers/base-test";
 
 import {

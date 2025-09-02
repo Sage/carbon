@@ -1,5 +1,5 @@
 import React from "react";
-import { MultiActionButtonProps } from "components/multi-action-button";
+import { MultiActionButtonProps } from "../multi-action-button";
 import { test, expect } from "../../../playwright/helpers/base-test";
 import {
   MultiActionButtonList,

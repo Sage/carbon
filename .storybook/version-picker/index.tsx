@@ -12,25 +12,24 @@ import fetchData from "./fetch-data";
 
 const getDisplayedItems = (
   versions: Record<string, string>,
-  onClick: TooltipLinkListLink["onClick"],
-) => {
+  onHide: () => void,
+): TooltipLinkListLink[] => {
   const formattedVersions = Object.entries(versions)
     .reduce<TooltipLinkListLink[]>((acc, [key, value]) => {
       if (!key.match(/-beta\.\d+$/)) {
         acc.push({
           id: key,
           title: key,
-          onClick,
+          onClick: onHide,
           active: false,
           href: value,
-          target: "_blank",
         });
       }
       return acc;
     }, [])
     .sort((a, b) => compareBuild(b.id, a.id));
 
-  formattedVersions[0].title = `${formattedVersions[0].title} (latest)`;
+  formattedVersions[0].content = `${formattedVersions[0].content} (latest)`;
 
   return formattedVersions;
 };

@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import isChromatic from "../../../.storybook/isChromatic";
-import { allModes } from "../../../.storybook/modes";
+import allModes from "../../../.storybook/modes";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 import Button from "../button";
