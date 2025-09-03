@@ -1,3 +1,9 @@
+## [156.2.0](https://github.com/Sage/carbon/compare/v156.1.0...v156.2.0) (2025-09-03)
+
+### Features
+
+* **dialog, dialog-full-screen:** merges Dialog and DialogFullScreen into a single component ([0c8c107](https://github.com/Sage/carbon/commit/0c8c107ab776f27f1e60dced2f6f1d835d41237e))
+
 ## [156.1.0](https://github.com/Sage/carbon/compare/v156.0.2...v156.1.0) (2025-09-01)
 
 ### Features
