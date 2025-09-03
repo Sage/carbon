@@ -1,4 +1,3 @@
-/* eslint-disable no-await-in-loop */
 import React from "react";
 import { test, expect } from "../../../playwright/helpers/base-test";
 import { accordionDefaultTitle } from "../../../playwright/components/accordion";
@@ -13,7 +12,7 @@ import {
   actionPopoverWrapper,
 } from "../../../playwright/components/action-popover";
 import { buttonDataComponent } from "../../../playwright/components/button";
-import { alertDialogPreview } from "../../../playwright/components/dialog";
+import { dialog } from "../../../playwright/components/dialog";
 import { getDataElementByValue } from "../../../playwright/components/index";
 import { checkAccessibility } from "../../../playwright/support/helper";
 import { Accordion } from "../../../src/components/accordion";
@@ -1535,12 +1534,17 @@ test.describe("when nested inside a Dialog component", () => {
     await mount(<ActionPopoverNestedInDialog />);
     const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
+
     await page.keyboard.press("Escape");
+
     const actionPopoverElement = actionPopover(page);
     await expect(actionPopoverElement).not.toBeVisible();
-    const dialogElement = alertDialogPreview(page);
+
+    const dialogElement = dialog(page);
     await expect(dialogElement).toBeVisible();
+
     await page.keyboard.press("Escape");
+
     await expect(dialogElement).not.toBeVisible();
   });
 });

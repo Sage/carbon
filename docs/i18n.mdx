@@ -13,26 +13,26 @@ import { Meta } from "@storybook/blocks";
 - [How to stay updated](#how-to-stay-updated)
 - [Additional information and background](#additional-information-and-background)
 
-## How localisation works in Carbon 
+## How localisation works in Carbon
 
 By default, Carbon uses `en-GB` translations, you can see a preview of these translations here [src/locales/en-gb.ts](https://github.com/Sage/carbon/blob/master/src/locales/en-gb.ts)
 
-To provide Carbon components with localisation support, use the `<I18nProvider />` component. Specific components or an application can be wrapped in the provider to override the default `en-GB` 
+To provide Carbon components with localisation support, use the `<I18nProvider />` component. Specific components or an application can be wrapped in the provider to override the default `en-GB`
 locale to provide locale support and translations for an application. To keep track of what needs to be translated use Carbon's translation keys, these keys reference
 each individual translation. See a full table of where to find them [here](#where-to-find-translation-keys)
 .
-```jsx 
+```jsx
 import I18nProvider from "carbon-react/lib/components/i18n-provider";
 ```
 
-The `<I18nProvider />` component can be configured in three ways, the first is by using the default translations provided by Carbon (`en-GB`). Carbon also offers `en-CA`, `en-US`, `de-DE`, `es-ES`, `fr-CA` or 
-`fr-FR` locale support. 
+The `<I18nProvider />` component can be configured in three ways, the first is by using the default translations provided by Carbon (`en-GB`). Carbon also offers `en-CA`, `en-US`, `de-DE`, `es-ES`, `fr-CA` or
+`fr-FR` locale support.
 
 **Please note** Carbon can only verify that the `en-GB` locale is contextually and linguistically correct. All other locales are community driven, and Carbon relies on its consuming community to help maintain
 and update these locales. To contribute, see the Carbon contributing guide [CONTRIBUTING.md](https://github.com/Sage/carbon/blob/master/CONTRIBUTING.md), alternatively any issues found can be raised [here](https://github.com/Sage/carbon/issues/new?assignees=&labels=Bug%2Ctriage&projects=&template=bug_report.yml).
 If, for any reason a translation is missing, incorrect or not contextually accurate it can be manually overridden.
 
-In the first configuration the `fr-FR` locale is passed directly, which will apply all available translations automatically to components which are wrapped in the provider. 
+In the first configuration the `fr-FR` locale is passed directly, which will apply all available translations automatically to components which are wrapped in the provider.
 
 ```jsx
 import frFR from "carbon-react/lib/locales";
@@ -42,7 +42,7 @@ import frFR from "carbon-react/lib/locales";
 </I18nProvider>;
 ```
 
-In the second configuration, the `fr-FR` locale object is still utilised by being spread, so Carbon components are still populated with all the avaiable translations. 
+In the second configuration, the `fr-FR` locale object is still utilised by being spread, so Carbon components are still populated with all the avaiable translations.
 However, specific translations can now be overridden by passing a translation string to a specific locale object, which is useful for use cases where an alternative translation is needed.
 
 ```jsx
@@ -107,22 +107,22 @@ via the locale object and provide individual translation strings for all compone
 
 ## How locales are structured
 
-Every Carbon component which contains a translation, has a corresponding object within every translation file and an individual translation key. The size of this object, and how it is nested depends 
-on the design and complexity of the component itself. For example, a simpler locale object like `Loader` only includes one string to be translated, so the respective locale object is relatively 
+Every Carbon component which contains a translation, has a corresponding object within every translation file and an individual translation key. The size of this object, and how it is nested depends
+on the design and complexity of the component itself. For example, a simpler locale object like `Loader` only includes one string to be translated, so the respective locale object is relatively
 simple as is the translation key `loader.loading`.
 
-```jsx 
+```jsx
   loader: {
     loading: () => string;
   };
 ```
-However, some Carbon components may have more strings which require translations or more general complexity which may result in a larger, more complex object with more nesting and more translation keys. 
+However, some Carbon components may have more strings which require translations or more general complexity which may result in a larger, more complex object with more nesting and more translation keys.
 
-An example of this is the `numeralDate` component. The components corresponding object is split into two, with `labels` and `validation` both being properties of the `numeralDate` object, and both 
-having sub-properties of `day` `month` `year`. By separating these properties, the distinction between what each translation does is clear, whilst still having identically named innermost objects. 
+An example of this is the `numeralDate` component. The components corresponding object is split into two, with `labels` and `validation` both being properties of the `numeralDate` object, and both
+having sub-properties of `day` `month` `year`. By separating these properties, the distinction between what each translation does is clear, whilst still having identically named innermost objects.
 Their respective translation keys also follow this format `numeralDate.validation.day` `numeralDate.labels.day`.
 
-```jsx 
+```jsx
   numeralDate: {
     validation: {
       day: (month?: string, daysInMonth?: string) => string;
@@ -137,15 +137,15 @@ Their respective translation keys also follow this format `numeralDate.validatio
   };
 ```
 
-This modular locale object approach prioritises readability, whilst also making each locale object self-descriptive with clear and concise wording and structure; accompanied with a camel case 
+This modular locale object approach prioritises readability, whilst also making each locale object self-descriptive with clear and concise wording and structure; accompanied with a camel case
 naming convention.
 
 ## Parameterised localisation
 
-Some translations need to be translated differently depending on variables or context, this can be achieved with parameterised localisation. In some 
-components' locale object, parameters are passed to aid consumers in constructing custom translations via functions and string interpolation. 
+Some translations need to be translated differently depending on variables or context, this can be achieved with parameterised localisation. In some
+components' locale object, parameters are passed to aid consumers in constructing custom translations via functions and string interpolation.
 
-The `characterCount` locale object is good example of a parameter being used to provide custom translations. Within the `tooManyCharacters` and `charactersLeft` 
+The `characterCount` locale object is good example of a parameter being used to provide custom translations. Within the `tooManyCharacters` and `charactersLeft`
 properties two parameters `count` and `formattedCount` are provided. The `count` parameter can be used in a function or ternary operator to calculate pluralisation and `formattedCount`
 can be interpolated into the final translation string.
 
@@ -157,7 +157,7 @@ can be interpolated into the final translation string.
   };
 ```
 
-In the `tooManyCharacters` property in the `en-GB` translation file, the `count` parameter is used to determine whether a singular or plural string is returned. 
+In the `tooManyCharacters` property in the `en-GB` translation file, the `count` parameter is used to determine whether a singular or plural string is returned.
 String interpolation is then used to include the formatted count, which results in a properly formatted linguistically accurate final string.
 
 ```jsx
@@ -167,13 +167,13 @@ String interpolation is then used to include the formatted count, which results 
         : `${formattedCount} characters too many`,
 ```
 
-This is simple enough for an `en-GB` translation, but other locales may be slightly more complex. For example, wthin the `pl-PL` locale  where, depending on the number of characters 
-left, the word for `"characters"` may be formatted differently. 
+This is simple enough for an `en-GB` translation, but other locales may be slightly more complex. For example, wthin the `pl-PL` locale  where, depending on the number of characters
+left, the word for `"characters"` may be formatted differently.
 
-In the Polish language there is a plural genitive form which is used in specific grammatical contexts, so in this scenario 
+In the Polish language there is a plural genitive form which is used in specific grammatical contexts, so in this scenario
 singular, plural and plural genitive nouns need to be accounted for. The `count` parameter can be used in a function to calculate the correct noun and ensure a linguistically accurate final string is returned.
 
-```jsx 
+```jsx
 export const PolishPlural = (
   singularNominative: string,
   pluralNominative: string,
@@ -217,7 +217,6 @@ export const PolishPlural = (
 | characterCount        | [Table](?path=/docs/textarea--docs#translation-keys)                |
 | date                  | [Table](?path=/docs/date-input--docs#translation-keys)              |
 | dialog                | [Table](?path=/docs/dialog--docs#translation-keys)                  |
-| dialogFullScreen      | [Table](?path=/docs/dialog-full-screen--docs#translation-keys)      |
 | dismissibleBox        | [Table](?path=/docs/dismissible-box--docs#translation-keys)         |
 | errors                | [Table](?path=/docs/form--docs#translation-keys)                    |
 | fileInput             | [Table](?path=/docs/file-input--docs#translation-keys)              |

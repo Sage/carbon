@@ -33,7 +33,7 @@ import Form, { RequiredFieldsIndicator } from "carbon-react/lib/components/form"
 
 ### With sticky footer
 
-When `stickyFooter` prop is set as true, footer becomes stickied to the bottom of the screen when necessary - this also works in `Dialog` and `DialogFullScreen`
+When `stickyFooter` prop is set as true, footer becomes stickied to the bottom of the screen when necessary - this also works in `Dialog`
 
 <Canvas of={FormStories.DefaultWithStickyFooter} />
 
@@ -47,7 +47,7 @@ When `stickyFooter` prop is set as true, footer becomes stickied to the bottom o
 
 ### Field Spacing
 
-You can use the `fieldSpacing` prop to set the spacing between fields within `Form`, which will add a margin-bottom to supported input components. 
+You can use the `fieldSpacing` prop to set the spacing between fields within `Form`, which will add a margin-bottom to supported input components.
 The value is multiplied by the base theme `8px` spacing value, by default this is set to `3`.
 
 <Canvas of={FormStories.FieldSpacing} />
@@ -68,11 +68,12 @@ When either `errorCount` or `warningCount` or both are provided, summary with th
 
 <Canvas of={FormStories.WithBothErrorsAndWarningsSummary} />
 
-### Example with required fields
+### Example with optional and required fields
 
-Each input-based component supports a `required` prop that you can use to make it a mandatory form field. All required fields are represented with an asterisk next to their labels. To help explain the meaning of the asterisk, you can also use the `RequiredFieldsIndicator` subcomponent to display one with a supplementary description.
+You can set the `required` or `isOptional` on any `Form` input to make them mandatory or optional. You can also
+include an indicator within the `Form` by importing the `RequiredFieldsIndicator` component.
 
-<Canvas name="with required fields" of={FormStories.WithRequiredFields} />
+<Canvas name="with optional or required label" of={FormStories.WithBothOptionalOrRequired} />
 
 ### Buttons variations
 
@@ -94,9 +95,9 @@ It is possible to render `Form` as a content of `Dialog` component.
 
 <Canvas of={FormStories.InDialogWithStickyFooter} />
 
-### In DialogFullScreen
+### In full-screen `Dialog`
 
-It is possible to render `Form` as a content of `DialogFullScreen` component.
+It is possible to render `Form` as a content of full-screen `Dialog` component.
 
 <Canvas of={FormStories.InDialogFullScreen} />
 

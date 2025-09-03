@@ -9,7 +9,6 @@ import Textarea from "../textarea";
 import Dialog from "../dialog";
 import DateInput, { DateChangeEvent } from "../date";
 import { Select, MultiSelect, Option } from "../select";
-import DialogFullScreen from "../dialog-full-screen";
 import { RadioButton, RadioButtonGroup } from "../radio-button";
 import { Checkbox } from "../checkbox";
 import Hr from "../../components/hr";
@@ -462,7 +461,8 @@ export const InDialogFullScreen = () => {
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Open Preview</Button>
-      <DialogFullScreen
+      <Dialog
+        fullscreen
         open={isOpen}
         onCancel={() => setIsOpen(false)}
         title="Form in Dialog"
@@ -482,7 +482,7 @@ export const InDialogFullScreen = () => {
             <Textbox label="Textbox" />
           </Form>
         </Box>
-      </DialogFullScreen>
+      </Dialog>
     </>
   );
 };
@@ -493,7 +493,8 @@ export const InDialogFullScreenWithStickyFooter = () => {
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Open Preview</Button>
-      <DialogFullScreen
+      <Dialog
+        fullscreen
         open={isOpen}
         onCancel={() => setIsOpen(false)}
         title="Form in Dialog"
@@ -538,7 +539,7 @@ export const InDialogFullScreenWithStickyFooter = () => {
             <Textbox key={`textbox-${index + 1}`} label="Textbox" />
           ))}
         </Form>
-      </DialogFullScreen>
+      </Dialog>
     </>
   );
 };
@@ -579,6 +580,7 @@ export const FormAlignmentExample = () => {
       <RadioButtonGroup
         name="legend"
         onChange={() => "RADIO CHANGE"}
+        value="group-1-input-1"
         legend="Legend"
         legendInline
         legendWidth={10}
@@ -612,6 +614,7 @@ export const FormAlignmentExample = () => {
         onChange={() => "RADIO CHANGE"}
         legend="Legend above"
         ml="10%"
+        value="group-2-input-2"
       >
         <RadioButton
           id="group-2-input-1"
@@ -631,6 +634,8 @@ export const FormAlignmentExample = () => {
         label="Field 3"
         placeholder="placeholder"
         name="textbox"
+        value=""
+        onChange={() => {}}
         labelInline
         labelWidth={10}
         inputWidth={30}
@@ -668,6 +673,7 @@ export const FormAlignmentExample = () => {
         labelWidth={10}
         labelSpacing={2}
         mb={4}
+        checked
       />
       <Textbox
         key="input-five"
