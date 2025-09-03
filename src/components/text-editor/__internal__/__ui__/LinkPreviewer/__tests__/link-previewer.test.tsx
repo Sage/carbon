@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import React from "react";
-import LinkPreviewer from "./link-previewer.component";
+import LinkPreviewer from "../link-previewer.component";
 
 test("renders the link previewer component", () => {
   const previews = [<div key="1">Preview 1</div>, <div key="2">Preview 2</div>];

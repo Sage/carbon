@@ -1,52 +1,33 @@
-import { LexicalComposer } from "@lexical/react/LexicalComposer";
-import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
-import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { $getRoot, LexicalEditor, TextNode, ParagraphNode } from "lexical";
 import React from "react";
+
+import {
+  TestEditor,
+  TestEditorHelpers,
+} from "../../../../../__tests__/utils/TestEditor";
 
 import { BoldButton } from "./..";
 
 describe("Bold button", () => {
   it("should render the bold button correctly if inactive", () => {
     render(
-      <LexicalComposer
-        initialConfig={{
-          nodes: [],
-          onError: () => {},
-          namespace: "test",
-        }}
-      >
-        <RichTextPlugin
-          contentEditable={
-            <div role="textbox" contentEditable aria-label="test" />
-          }
-          ErrorBoundary={LexicalErrorBoundary}
-        />
+      <TestEditor>
         <BoldButton isActive={false} namespace="test" />
-      </LexicalComposer>,
+      </TestEditor>,
     );
     const boldButton = screen.getByRole("button");
     expect(boldButton).toBeInTheDocument();
     expect(boldButton).toHaveStyleRule("background-color", "transparent");
+    expect(boldButton).toHaveAttribute("aria-pressed", "false");
   });
 
   it("should render the bold button correctly if active", () => {
     render(
-      <LexicalComposer
-        initialConfig={{
-          nodes: [],
-          onError: () => {},
-          namespace: "test",
-        }}
-      >
-        <RichTextPlugin
-          contentEditable={
-            <div role="textbox" contentEditable aria-label="test" />
-          }
-          ErrorBoundary={LexicalErrorBoundary}
-        />
+      <TestEditor>
         <BoldButton isActive namespace="test" />
-      </LexicalComposer>,
+      </TestEditor>,
     );
     const boldButton = screen.getByRole("button");
     expect(boldButton).toBeInTheDocument();
@@ -54,5 +35,48 @@ describe("Bold button", () => {
       "background-color",
       "var(--colorsActionMajor600)",
     );
+    expect(boldButton).toHaveAttribute("aria-pressed", "true");
+  });
+
+  it("applies bold formatting when BoldButton is clicked", async () => {
+    let editorRef: LexicalEditor;
+    let textEditorHelpers: TestEditorHelpers;
+
+    render(
+      <TestEditor
+        onEditorReady={(editor, helpers) => {
+          editorRef = editor;
+          textEditorHelpers = helpers;
+        }}
+      >
+        <BoldButton isActive={false} namespace="test" />
+      </TestEditor>,
+    );
+
+    act(() => {
+      textEditorHelpers.setEditorContent(editorRef, "Hello");
+
+      editorRef.update(() => {
+        const root = $getRoot();
+        const paragraph = root.getFirstChild() as ParagraphNode;
+        const textNode = paragraph?.getFirstChild() as TextNode;
+
+        // eslint-disable-next-line testing-library/no-node-access
+        textNode?.select(0, textNode?.getTextContentSize());
+      });
+    });
+
+    const boldButton = screen.getByRole("button", { name: /bold/i });
+
+    await userEvent.click(boldButton);
+
+    act(() => {
+      editorRef.getEditorState().read(() => {
+        const root = $getRoot();
+        const paragraph = root.getFirstChild() as ParagraphNode;
+        const textNode = paragraph?.getFirstChild() as TextNode;
+        expect(textNode?.hasFormat("bold")).toBe(true);
+      });
+    });
   });
 });

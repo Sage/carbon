@@ -4,7 +4,7 @@
  */
 import { render, screen } from "@testing-library/react";
 import React from "react";
-import Placeholder from "./placeholder.component";
+import Placeholder from "../placeholder.component";
 
 describe("Placeholder", () => {
   it("should render the placeholder text", () => {
