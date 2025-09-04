@@ -1,3 +1,9 @@
+## [156.3.1](https://github.com/Sage/carbon/compare/v156.3.0...v156.3.1) (2025-09-04)
+
+### Bug Fixes
+
+* **form:** ensure height prop works correctly ([b90275c](https://github.com/Sage/carbon/commit/b90275ccf92d4312b147124e9b34e252670f2065)), closes [#7486](https://github.com/Sage/carbon/issues/7486)
+
 ## [156.3.0](https://github.com/Sage/carbon/compare/v156.2.1...v156.3.0) (2025-09-04)
 
 ### Features
