@@ -1,3 +1,9 @@
+## [156.2.1](https://github.com/Sage/carbon/compare/v156.2.0...v156.2.1) (2025-09-04)
+
+### Bug Fixes
+
+* update warning colour to ensure it has adequate contrast against background colours ([fadd136](https://github.com/Sage/carbon/commit/fadd13619e675201911e78775a198e7f657a0194)), closes [#7400](https://github.com/Sage/carbon/issues/7400)
+
 ## [156.2.0](https://github.com/Sage/carbon/compare/v156.1.0...v156.2.0) (2025-09-03)
 
 ### Features
