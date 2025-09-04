@@ -24,6 +24,7 @@ import {
   TextboxValidationsAsAStringWithTooltipDefault,
   TextboxValidationsAsABoolean,
   TextboxValidationsAsAString,
+  TextboxNewValidationsAsAStringOnGreyBackground,
   TextboxValidationsAsAStringWithTooltipCustom,
   TextboxValidationsAsAStringDisplayedOnLabel,
   TextboxNewDesignsValidation,
@@ -1070,6 +1071,15 @@ test.describe("Accessibility tests for Textbox component", () => {
     page,
   }) => {
     await mount(<TextboxValidationsAsAString />);
+
+    await checkAccessibility(page);
+  });
+
+  test("should pass accessibility tests when string validations are passed and used against a grey background", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<TextboxNewValidationsAsAStringOnGreyBackground />);
 
     await checkAccessibility(page);
   });
