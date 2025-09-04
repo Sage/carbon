@@ -1,3 +1,9 @@
+## [156.3.0](https://github.com/Sage/carbon/compare/v156.2.1...v156.3.0) (2025-09-04)
+
+### Features
+
+* **switch:** correct fr-FR translations ([e189858](https://github.com/Sage/carbon/commit/e1898585d39edb136bd4278225ce3a4bfbfd7acd))
+
 ## [156.2.1](https://github.com/Sage/carbon/compare/v156.2.0...v156.2.1) (2025-09-04)
 
 ### Bug Fixes
