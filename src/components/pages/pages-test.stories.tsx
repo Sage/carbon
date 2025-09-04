@@ -3,7 +3,7 @@ import { action } from "@storybook/addon-actions";
 
 import Pages from ".";
 import Page, { PageProps } from "./page/page.component";
-import DialogFullScreen from "../dialog-full-screen";
+import Dialog from "../dialog";
 import Heading from "../heading";
 import Button from "../button";
 import Box from "../box";
@@ -90,7 +90,7 @@ export const DefaultStory = ({
   return (
     <div>
       <Button onClick={handleOpen}>Open Preview</Button>
-      <DialogFullScreen pagesStyling open={isOpen} onCancel={handleCancel}>
+      <Dialog fullscreen pagesStyling open={isOpen} onCancel={handleCancel}>
         <Pages initialpageIndex={initialPageIndex} pageIndex={pageIndex}>
           <Page title={<Heading title="My First Page" divider={false} />}>
             <Button onClick={handleOnClick} disabled={isDisabled}>
@@ -122,7 +122,7 @@ export const DefaultStory = ({
             Third Page
           </Page>
         </Pages>
-      </DialogFullScreen>
+      </Dialog>
     </div>
   );
 };
@@ -540,13 +540,13 @@ export const WithoutTitle = () => {
   return (
     <div>
       <Button onClick={handleOpen}>Open Preview</Button>
-      <DialogFullScreen pagesStyling open={isOpen} onCancel={handleCancel}>
+      <Dialog fullscreen pagesStyling open={isOpen} onCancel={handleCancel}>
         <Pages pageIndex={0}>
           <Page>
             <Button>Example button</Button>
           </Page>
         </Pages>
-      </DialogFullScreen>
+      </Dialog>
     </div>
   );
 };

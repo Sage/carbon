@@ -54,11 +54,6 @@ const enGB: Locale = {
       close: () => "Close",
     },
   },
-  dialogFullScreen: {
-    ariaLabels: {
-      close: () => "Close",
-    },
-  },
   dismissibleBox: {
     ariaLabels: {
       close: () => "Close",
@@ -248,8 +243,9 @@ const enGB: Locale = {
   },
   verticalMenu: {
     ariaLabels: {
-      responsiveMenuLauncher: () => "Product menu",
+      responsiveMenuLauncher: () => "Product menu launcher",
       responsiveMenuCloseButton: () => "Close product menu",
+      responsiveMenuAria: () => "Product menu",
     },
   },
   verticalMenuFullScreen: {

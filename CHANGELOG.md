@@ -1,3 +1,15 @@
+## [156.2.0](https://github.com/Sage/carbon/compare/v156.1.0...v156.2.0) (2025-09-03)
+
+### Features
+
+* **dialog, dialog-full-screen:** merges Dialog and DialogFullScreen into a single component ([0c8c107](https://github.com/Sage/carbon/commit/0c8c107ab776f27f1e60dced2f6f1d835d41237e))
+
+## [156.1.0](https://github.com/Sage/carbon/compare/v156.0.2...v156.1.0) (2025-09-01)
+
+### Features
+
+* **responsive-vertical-menu:** adds a focus trap to the modal when in responsive view ([84f3350](https://github.com/Sage/carbon/commit/84f33507e09d06a2fa4c20c024eb5282d7f38498)), closes [#7483](https://github.com/Sage/carbon/issues/7483)
+
 ## [156.0.2](https://github.com/Sage/carbon/compare/v156.0.1...v156.0.2) (2025-09-01)
 
 ### Bug Fixes

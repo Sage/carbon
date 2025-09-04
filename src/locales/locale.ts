@@ -42,11 +42,6 @@ interface Locale {
       close: () => string;
     };
   };
-  dialogFullScreen: {
-    ariaLabels: {
-      close: () => string;
-    };
-  };
   dismissibleBox: {
     ariaLabels: {
       close: () => string;
@@ -212,6 +207,7 @@ interface Locale {
     ariaLabels: {
       responsiveMenuLauncher: () => string;
       responsiveMenuCloseButton: () => string;
+      responsiveMenuAria: () => string;
     };
   };
   verticalMenuFullScreen: {

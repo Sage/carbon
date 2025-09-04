@@ -637,3 +637,28 @@ export const WithDifferentDepthsAsLastItem = () => {
     </GlobalHeader>
   );
 };
+
+export const FocusTrap = {
+  render: () => (
+    <>
+      <GlobalHeader>
+        <ResponsiveVerticalMenu>
+          <ResponsiveVerticalMenuItem id="home" label="Home" />
+          <ResponsiveVerticalMenuItem id="about" label="About" />
+          <ResponsiveVerticalMenuItem id="services" label="Services" />
+          <ResponsiveVerticalMenuItem id="contact" label="Contact" />
+        </ResponsiveVerticalMenu>
+      </GlobalHeader>
+      <Box p={3}>
+        <Typography>
+          The controls below the menu should be focusable using keyboard
+          navigation (e.g. Tab key) when the menu is closed, or when open in
+          non-responsive modes.
+        </Typography>
+        <button type="button">Focusable Button</button>
+        <a href="#test">Focusable Link</a>
+        <input type="text" placeholder="Focusable Input" />
+      </Box>
+    </>
+  ),
+};

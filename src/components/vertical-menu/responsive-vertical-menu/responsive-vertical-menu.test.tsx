@@ -86,6 +86,7 @@ const CustomSVG = () => (
 
 beforeEach(() => {
   jest.useFakeTimers();
+
   mockUseMediaQuery.mockReturnValue(true);
   mockUseIsAboveBreakpoint.mockReturnValue(true);
 });
@@ -93,6 +94,8 @@ beforeEach(() => {
 afterEach(() => {
   jest.runOnlyPendingTimers();
   jest.useRealTimers();
+
+  jest.clearAllMocks();
 });
 
 test("renders correctly", async () => {
@@ -1318,6 +1321,7 @@ test("correct aria-label values are set", async () => {
           ariaLabels: {
             responsiveMenuLauncher: () => "Test menu launcher",
             responsiveMenuCloseButton: () => "Test product menu close button",
+            responsiveMenuAria: () => "Test product menu",
           },
         },
       }}
@@ -1532,7 +1536,9 @@ test("renders menu with provided data tags", async () => {
     </ResponsiveVerticalMenu>,
   );
 
-  const launcherButton = screen.getByRole("button", { name: "Product menu" });
+  const launcherButton = screen.getByRole("button", {
+    name: "Product menu launcher",
+  });
   await user.click(launcherButton);
 
   const menu = screen.getByTestId("test-role");
@@ -1551,7 +1557,9 @@ test("renders with provided menu launcher data tags", async () => {
     </ResponsiveVerticalMenu>,
   );
 
-  const launcherButton = screen.getByRole("button", { name: "Product menu" });
+  const launcherButton = screen.getByRole("button", {
+    name: "Product menu launcher",
+  });
   expect(launcherButton).toHaveAttribute("data-role", "test-launcher-role");
   expect(launcherButton).toHaveAttribute(
     "data-element",
@@ -1667,5 +1675,105 @@ test("applies the correct styling at depth level 4 when responsive", async () =>
 
   expect(menuItem4).toHaveStyleRule("font-weight", "var(--fontWeights400)", {
     modifier: "&&",
+  });
+});
+
+describe("Focus Trap", () => {
+  it("should retain focus within the modal when in responsive mode", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    mockUseIsAboveBreakpoint.mockReturnValue(false);
+
+    render(
+      <>
+        <ResponsiveVerticalMenu>
+          <ResponsiveVerticalMenuItem id="menu-item-1" label="Menu Item 1" />
+          <ResponsiveVerticalMenuItem id="menu-item-2" label="Menu Item 2" />
+          <ResponsiveVerticalMenuItem id="menu-item-3" label="Menu Item 3" />
+        </ResponsiveVerticalMenu>
+
+        <button type="button" data-role="outside-button">
+          Test Button
+        </button>
+      </>,
+    );
+
+    const launcherButton = screen.getByTestId(
+      "responsive-vertical-menu-launcher",
+    );
+
+    await user.click(launcherButton);
+
+    const outsideButton = screen.getByTestId("outside-button");
+    const menuItem = screen.getByTestId(
+      "responsive-vertical-menu-item-menu-item-1",
+    );
+    const menuItem2 = screen.getByTestId(
+      "responsive-vertical-menu-item-menu-item-2",
+    );
+    const menuItem3 = screen.getByTestId(
+      "responsive-vertical-menu-item-menu-item-3",
+    );
+    const closeButton = screen.getByTestId("responsive-vertical-menu-close");
+
+    await expect(closeButton).toBeInTheDocument();
+
+    act(() => {
+      closeButton.focus();
+    });
+
+    await user.tab();
+    expect(menuItem).toHaveFocus();
+    await user.tab();
+    expect(menuItem2).toHaveFocus();
+    await user.tab();
+    expect(menuItem3).toHaveFocus();
+    await user.tab();
+    expect(outsideButton).not.toHaveFocus();
+    expect(closeButton).toHaveFocus();
+  });
+
+  it("should not retain focus to within the modal when in default mode", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    mockUseIsAboveBreakpoint.mockReturnValue(true);
+
+    render(
+      <>
+        <ResponsiveVerticalMenu>
+          <ResponsiveVerticalMenuItem id="menu-item-1" label="Menu Item 1" />
+          <ResponsiveVerticalMenuItem id="menu-item-2" label="Menu Item 2" />
+          <ResponsiveVerticalMenuItem id="menu-item-3" label="Menu Item 3" />
+        </ResponsiveVerticalMenu>
+
+        <button type="button" data-role="outside-button">
+          Test Button
+        </button>
+      </>,
+    );
+
+    const launcherButton = screen.getByTestId(
+      "responsive-vertical-menu-launcher",
+    );
+
+    await user.click(launcherButton);
+
+    const outsideButton = screen.getByTestId("outside-button");
+    const menuItem = screen.getByTestId(
+      "responsive-vertical-menu-item-menu-item-1",
+    );
+    const menuItem2 = screen.getByTestId(
+      "responsive-vertical-menu-item-menu-item-2",
+    );
+    const menuItem3 = screen.getByTestId(
+      "responsive-vertical-menu-item-menu-item-3",
+    );
+
+    await user.tab();
+    expect(menuItem).toHaveFocus();
+    await user.tab();
+    expect(menuItem2).toHaveFocus();
+    await user.tab();
+    expect(menuItem3).toHaveFocus();
+    await user.tab();
+    expect(outsideButton).toHaveFocus();
   });
 });
