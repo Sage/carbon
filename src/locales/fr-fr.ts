@@ -218,7 +218,7 @@ const frFR: Partial<Locale> = {
   },
   switch: {
     on: () => "Oui",
-    off: () => "Désactiver",
+    off: () => "Non",
   },
   tileSelect: {
     deselect: () => "Désélectionner",
