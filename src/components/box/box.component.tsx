@@ -7,7 +7,7 @@ import {
   GridProps,
 } from "styled-system";
 import * as DesignTokens from "@sage/design-tokens/js/base/common";
-import { Gap } from "style/utils/box-gap";
+import { type Gap } from "../../style/utils/box-gap";
 import {
   filterStyledSystemMarginProps,
   filterStyledSystemPaddingProps,

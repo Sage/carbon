@@ -1,5 +1,5 @@
 import React from "react";
-import { LoaderBarProps } from "components/loader-bar";
+import { LoaderBarProps } from "../loader-bar";
 import { test, expect } from "../../../playwright/helpers/base-test";
 import { LOADER_BAR_SIZES } from "./loader-bar.config";
 import LoaderBarComponent from "./component.test-pw";

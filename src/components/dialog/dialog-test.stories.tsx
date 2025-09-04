@@ -15,14 +15,9 @@ import { Select, Option } from "../select";
 import TextEditor from "../text-editor";
 
 import Box from "../box";
-import Typography from "../typography";
-import {
-  FlexTileCell,
-  FlexTileContainer,
-  FlexTileDivider,
-  Tile,
-} from "../tile";
-import { allModes } from "../../../.storybook/modes";
+import allModes from "../../../.storybook/modes";
+import { StepFlow } from "../step-flow";
+import DialogFullScreen from "../dialog-full-screen";
 
 export default {
   title: "Dialog/Test",
@@ -179,13 +174,14 @@ export const Default = ({
 
 Default.storyName = "default";
 Default.args = {
-  height: "",
-  title: "Example Dialog",
-  subtitle: "Example Subtitle",
-  size: "medium",
-  showCloseIcon: true,
   disableEscKey: false,
+  fullscreen: false,
+  height: "",
+  showCloseIcon: true,
+  size: "medium",
   stickyFooter: false,
+  subtitle: "Example Subtitle",
+  title: "Example Dialog",
 };
 
 type StoryType = StoryObj<typeof Dialog>;
@@ -310,181 +306,6 @@ MaxSizeTestNonOverflowedForm.parameters = {
   layout: "fullscreen",
 };
 
-export const DialogWithLongHeaderContent: StoryType = {
-  parameters: {
-    chromatic: {
-      disableSnapshot: false,
-      modes: {
-        lg: allModes.lg,
-        xsm: allModes.xsm,
-      },
-    },
-    layout: "fullscreen",
-  },
-  decorators: [
-    (Story) => (
-      <Box height="100vh" width="100vw">
-        <Story />
-      </Box>
-    ),
-  ],
-  render: ({ size, ...args }) => (
-    <Dialog
-      {...args}
-      size={size || "maximise"}
-      open
-      title={
-        <Box width="100%">
-          <Icon type="ledger" />
-          <Typography variant="h1">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          </Typography>
-          <Typography>
-            Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Ut enim ad minim veniam.
-          </Typography>
-        </Box>
-      }
-    >
-      <Form
-        stickyFooter
-        leftSideButtons={<Button buttonType="primary">Submit</Button>}
-      >
-        <Box height="800px">
-          <Tile mb={1} py={0}>
-            <FlexTileContainer columnGap={6}>
-              <FlexTileCell>
-                <FlexTileDivider />
-                <Box>1</Box>
-              </FlexTileCell>
-            </FlexTileContainer>
-          </Tile>
-          <Tile mb={1} py={0}>
-            <FlexTileContainer columnGap={6}>
-              <FlexTileCell>
-                <FlexTileDivider />
-                <Box>1</Box>
-              </FlexTileCell>
-            </FlexTileContainer>
-          </Tile>
-          <Tile mb={1} py={0}>
-            <FlexTileContainer columnGap={6}>
-              <FlexTileCell>
-                <FlexTileDivider />
-                <Box>1</Box>
-              </FlexTileCell>
-            </FlexTileContainer>
-          </Tile>
-          <Tile mb={1} py={0}>
-            <FlexTileContainer columnGap={6}>
-              <FlexTileCell>
-                <FlexTileDivider />
-                <Box>1</Box>
-              </FlexTileCell>
-            </FlexTileContainer>
-          </Tile>
-          <Tile mb={1} py={0}>
-            <FlexTileContainer columnGap={6}>
-              <FlexTileCell>
-                <FlexTileDivider />
-                <Box>1</Box>
-              </FlexTileCell>
-            </FlexTileContainer>
-          </Tile>
-          <Tile mb={1} py={0}>
-            <FlexTileContainer columnGap={6}>
-              <FlexTileCell>
-                <FlexTileDivider />
-                <Box>1</Box>
-              </FlexTileCell>
-            </FlexTileContainer>
-          </Tile>
-          <Tile mb={1} py={0}>
-            <FlexTileContainer columnGap={6}>
-              <FlexTileCell>
-                <FlexTileDivider />
-                <Box>1</Box>
-              </FlexTileCell>
-            </FlexTileContainer>
-          </Tile>
-          <Tile mb={1} py={0}>
-            <FlexTileContainer columnGap={6}>
-              <FlexTileCell>
-                <FlexTileDivider />
-                <Box>1</Box>
-              </FlexTileCell>
-            </FlexTileContainer>
-          </Tile>
-          <Tile mb={1} py={0}>
-            <FlexTileContainer columnGap={6}>
-              <FlexTileCell>
-                <FlexTileDivider />
-                <Box>1</Box>
-              </FlexTileCell>
-            </FlexTileContainer>
-          </Tile>
-          <Tile mb={1} py={0}>
-            <FlexTileContainer columnGap={6}>
-              <FlexTileCell>
-                <FlexTileDivider />
-                <Box>1</Box>
-              </FlexTileCell>
-            </FlexTileContainer>
-          </Tile>
-          <Tile mb={1} py={0}>
-            <FlexTileContainer columnGap={6}>
-              <FlexTileCell>
-                <FlexTileDivider />
-                <Box>1</Box>
-              </FlexTileCell>
-            </FlexTileContainer>
-          </Tile>
-          <Tile mb={1} py={0}>
-            <FlexTileContainer columnGap={6}>
-              <FlexTileCell>
-                <FlexTileDivider />
-                <Box>1</Box>
-              </FlexTileCell>
-            </FlexTileContainer>
-          </Tile>
-          <Tile mb={1} py={0}>
-            <FlexTileContainer columnGap={6}>
-              <FlexTileCell>
-                <FlexTileDivider />
-                <Box>1</Box>
-              </FlexTileCell>
-            </FlexTileContainer>
-          </Tile>
-          <Tile mb={1} py={0}>
-            <FlexTileContainer columnGap={6}>
-              <FlexTileCell>
-                <FlexTileDivider />
-                <Box>1</Box>
-              </FlexTileCell>
-            </FlexTileContainer>
-          </Tile>
-          <Tile mb={1} py={0}>
-            <FlexTileContainer columnGap={6}>
-              <FlexTileCell>
-                <FlexTileDivider />
-                <Box>1</Box>
-              </FlexTileCell>
-            </FlexTileContainer>
-          </Tile>
-          <Tile mb={1} py={0}>
-            <FlexTileContainer columnGap={6}>
-              <FlexTileCell>
-                <FlexTileDivider />
-                <Box>1</Box>
-              </FlexTileCell>
-            </FlexTileContainer>
-          </Tile>
-        </Box>
-      </Form>
-    </Dialog>
-  ),
-};
-
 export const WithButton = {
   render: () => {
     return (
@@ -493,4 +314,258 @@ export const WithButton = {
       </Dialog>
     );
   },
+};
+
+export const Nested: StoryType = () => {
+  const [mainDialogOpen, setMainDialogOpen] = useState(false);
+
+  const [nestedDialogOpen, setNestedDialogOpen] = useState(false);
+
+  const handleMainDialogOpen = () => {
+    setMainDialogOpen(true);
+    action("main dialog open")();
+  };
+
+  const handleMainDialogCancel = () => {
+    setMainDialogOpen(false);
+    action("main dialog cancel")();
+  };
+
+  const handleNestedDialogOpen = () => {
+    setNestedDialogOpen(true);
+    action("nested dialog open")();
+  };
+
+  const handleNestedDialogCancel = () => {
+    setNestedDialogOpen(false);
+    action("nested dialog cancel")();
+  };
+
+  return (
+    <>
+      <Button onClick={handleMainDialogOpen}>Open Main Dialog</Button>
+      <Dialog
+        fullscreen
+        open={mainDialogOpen}
+        onCancel={handleMainDialogCancel}
+        title="Main Dialog"
+      >
+        <Button onClick={handleNestedDialogOpen}>Open Nested Dialog</Button>
+        <Dialog
+          open={nestedDialogOpen}
+          onCancel={handleNestedDialogCancel}
+          title="Nested Dialog"
+        >
+          Nested Dialog Content
+        </Dialog>
+      </Dialog>
+    </>
+  );
+};
+
+Nested.storyName = "Fullscreen: Nested";
+Nested.parameters = {
+  chromatic: {
+    disableSnapshot: true,
+  },
+};
+
+export const WithStepFlowInHeader: StoryType = {
+  render: (args) => {
+    const { children, ...rest } = args;
+    return (
+      <Dialog fullscreen {...rest}>
+        {children}
+      </Dialog>
+    );
+  },
+  args: {
+    children: "Content",
+    open: true,
+    title: (
+      <Box maxWidth="750px" width="100%" data-testid="test">
+        <StepFlow
+          category="category"
+          title="title"
+          currentStep={1}
+          totalSteps={6}
+          showProgressIndicator
+        />
+      </Box>
+    ),
+    showCloseIcon: false,
+    onCancel: () => {},
+  },
+  decorators: [
+    (Story) => (
+      <Box height="900px" width="100%">
+        <Story />
+      </Box>
+    ),
+  ],
+};
+WithStepFlowInHeader.storyName = "Fullscreen: With StepFlow in header";
+
+export const WithWrappedStickyForm: StoryType = {
+  args: {
+    children: (
+      <Box p="0px 40px" minHeight="0">
+        <Form
+          stickyFooter
+          leftSideButtons={<Button onClick={() => {}}>Cancel</Button>}
+          saveButton={
+            <Button buttonType="primary" type="submit">
+              Save
+            </Button>
+          }
+        >
+          <Textbox label="First Name" />
+          <Textbox label="Middle Name" />
+          <Textbox label="Surname" />
+          <Textbox label="Birth Place" />
+          <Textbox label="Favourite Colour" />
+          <Textbox label="Address" />
+        </Form>
+      </Box>
+    ),
+    fullscreen: true,
+    open: true,
+    onCancel: () => {},
+    title: "Title",
+    subtitle: "Subtitle",
+  },
+  parameters: { chromatic: { disableSnapshot: true } },
+};
+WithWrappedStickyForm.storyName = "Fullscreen: With Wrapped Sticky Form";
+
+export const WithLongTitle: StoryType = {
+  render: (args) => {
+    const { children, ...rest } = args;
+    return (
+      <Dialog fullscreen {...rest}>
+        {children}
+      </Dialog>
+    );
+  },
+  args: {
+    children:
+      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Alias labore nostrum quo deserunt repellendus accusamus facilis voluptatem? Dicta illo esse non! Corrupti suscipit reprehenderit ea nesciunt delectus. Non voluptate expedita, repellendus ea vitae dolor nobis aperiam ullam unde ducimus aliquam quidem veniam necessitatibus, suscipit eaque exercitationem aut corrupti, qui ipsa.",
+    open: true,
+    title:
+      "Really long title for Dialog Full Screen that should wrap in small screens",
+    subtitle: "Subtitle",
+    showCloseIcon: true,
+    onCancel: () => {},
+  },
+};
+
+WithLongTitle.storyName = "Fullscreen: With Long Title";
+WithLongTitle.parameters = {
+  chromatic: { disableSnapshot: false, viewports: [500] },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
+
+export const UsingDialogFullScreenAlias: StoryType = {
+  render: (args) => {
+    const { children, ...rest } = args;
+    return <DialogFullScreen {...rest}>{children}</DialogFullScreen>;
+  },
+  args: {
+    children: "If you can see this, the alias is working!",
+    open: true,
+    title: "Dialog Full Screen Alias",
+    subtitle: "Subtitle",
+    showCloseIcon: true,
+    onCancel: () => {},
+  },
+  parameters: { chromatic: { disableSnapshot: true } },
+};
+UsingDialogFullScreenAlias.storyName = "Using Via DialogFullScreen Alias";
+
+export const WithContentPadding: StoryType = {
+  render: (args) => {
+    const { children, ...rest } = args;
+    return <Dialog {...rest}>{children}</Dialog>;
+  },
+  args: {
+    children: "Content padding should be 32px left/right and 64px top/bottom",
+    title: "Dialog",
+    open: true,
+    contentPadding: { px: 4, py: 8 },
+  },
+  decorators: [
+    (Story) => (
+      <Box height="900px" width="100%">
+        <Story />
+      </Box>
+    ),
+  ],
+};
+
+export const WithDisabledContentPadding: StoryType = {
+  render: (args) => {
+    const { children, ...rest } = args;
+    return <Dialog {...rest}>{children}</Dialog>;
+  },
+  args: {
+    children: "Content padding should be 0px left/right/top/bottom",
+    title: "Dialog",
+    open: true,
+    disableContentPadding: true,
+  },
+  decorators: [
+    (Story) => (
+      <Box height="900px" width="100%">
+        <Story />
+      </Box>
+    ),
+  ],
+};
+
+export const FullscreenWithContentPadding: StoryType = {
+  render: (args) => {
+    const { children, ...rest } = args;
+    return (
+      <Dialog fullscreen {...rest}>
+        {children}
+      </Dialog>
+    );
+  },
+  args: {
+    children: "Content padding should be 32px left/right and 64px top/bottom",
+    title: "Dialog Full Screen",
+    open: true,
+    contentPadding: { px: 4, py: 8 },
+  },
+  decorators: [
+    (Story) => (
+      <Box height="900px" width="100%">
+        <Story />
+      </Box>
+    ),
+  ],
+};
+
+export const FullscreenWithDisabledContentPadding: StoryType = {
+  render: (args) => {
+    const { children, ...rest } = args;
+    return (
+      <Dialog fullscreen {...rest}>
+        {children}
+      </Dialog>
+    );
+  },
+  args: {
+    children: "Content padding should be 0px left/right/top/bottom",
+    title: "Dialog Full Screen",
+    open: true,
+    disableContentPadding: true,
+  },
+  decorators: [
+    (Story) => (
+      <Box height="900px" width="100%">
+        <Story />
+      </Box>
+    ),
+  ],
 };

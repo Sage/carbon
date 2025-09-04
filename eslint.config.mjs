@@ -1,6 +1,6 @@
 import { defineConfig } from "eslint/config";
 import { fixupPluginRules, includeIgnoreFile } from "@eslint/compat";
-import { fileURLToPath } from 'url';
+import { fileURLToPath } from "url";
 import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
 import importPlugin from "eslint-plugin-import";
@@ -18,13 +18,13 @@ import jestDom from "eslint-plugin-jest-dom";
 import playwright from "eslint-plugin-playwright";
 import js from "@eslint/js";
 
-const cleanGlobals = (globalObj) => Object.entries(globalObj).reduce((cleaned, [key, value]) => {
+const cleanGlobals = (globalObj) =>
+  Object.entries(globalObj).reduce((cleaned, [key, value]) => {
     cleaned[key.trim()] = value;
     return cleaned;
   }, {});
 
-  const gitIgnorePath = fileURLToPath(
-    new URL(".gitignore", import.meta.url));
+const gitIgnorePath = fileURLToPath(new URL(".gitignore", import.meta.url));
 
 export default defineConfig([
   includeIgnoreFile(gitIgnorePath),
@@ -60,7 +60,7 @@ export default defineConfig([
       "import/resolver": {
         typescript: {
           alwaysTryTypes: true,
-          project: ["./tsconfig.json", "./tsconfig-playwright.json"],
+          project: ["./tsconfig.json"],
           noWarnOnMultipleProjects: true,
         },
         node: {
@@ -241,7 +241,7 @@ export default defineConfig([
         ecmaFeatures: {
           jsx: true,
         },
-        project: ["./tsconfig.json", "./tsconfig-playwright.json"],
+        project: ["./tsconfig.json"],
         noWarnOnMultipleProjects: true,
       },
     },
@@ -253,7 +253,7 @@ export default defineConfig([
       "import/resolver": {
         typescript: {
           alwaysTryTypes: true,
-          project: ["./tsconfig.json", "./tsconfig-playwright.json"],
+          project: ["./tsconfig.json"],
           noWarnOnMultipleProjects: true,
         },
       },

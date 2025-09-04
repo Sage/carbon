@@ -9,7 +9,7 @@ import withGlobalStyles from "./with-global-styles";
 import withLocaleSelector from "./with-locale-selector";
 import withPortalProvider from "./with-portal-provider";
 import { withThemeProvider, globalThemeProvider } from "./withThemeProvider";
-import { withReducedMotion } from "./with-reduced-motion";
+import withReducedMotion from "./with-reduced-motion";
 
 // Configure the testIdAttribute to look for data-role when querying elements using `getByTestId`.
 configure({ testIdAttribute: "data-role" });
@@ -75,6 +75,7 @@ const decorators = [
 ];
 
 const loaders =
+  // eslint-disable-next-line ssr-friendly/no-dom-globals-in-module-scope
   isChromatic() && document.fonts
     ? [
         // Wait for fonts to be ready before rendering the story

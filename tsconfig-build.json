@@ -1,17 +1,20 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "rootDir": "./src/"
+    "declaration": true,
+    "noEmit": false,
+    "rootDir": "src/",
+    "emitDeclarationOnly": true
   },
+  "include": ["src"],
   "exclude": [
-    "docs/",
-    "src/**/*.stories.*",
-    "src/**/*.spec.*",
-    "src/**/*.test.*",
-    "./src/**/*.pw.ts*",
-    "./src/**/*.test-pw.ts*",
-    "./src/__spec_helper__/__internal__/**",
-    "./jest.config.ts",
-    "./.storybook/**/*"
+    "./src/__spec_helper__/__internal__/",
+    "**/__spec__/*",
+    "**/__test__/*",
+    "**/*.spec.*",
+    "**/*.test.*",
+    "**/*.stories.*",
+    "**/*.pw.ts*",
+    "**/*.test-pw.ts*"
   ]
 }

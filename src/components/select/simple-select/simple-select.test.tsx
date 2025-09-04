@@ -7,8 +7,8 @@ import {
   waitFor,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import Box from "components/box/box.component";
-import Button from "components/button/button.component";
+import Box from "../../box";
+import Button from "../../button";
 import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/test-utils";
 import mockDOMRect from "../../../__spec_helper__/mock-dom-rect";
 import Logger from "../../../__internal__/utils/logger";
