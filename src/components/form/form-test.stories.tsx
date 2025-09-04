@@ -605,3 +605,22 @@ FullWidthWithLeftAndRight.parameters = {
   },
   themeProvider: { chromatic: { theme: "sage" }, viewports: [1200, 900, 320] },
 };
+
+export const WithSetHeight = (args: FormProps) => (
+  <Box
+    display="flex"
+    flexDirection="column"
+    boxSizing="border-box"
+    backgroundColor="grey"
+    height="400px"
+    p={2}
+  >
+    <Form height="80%" {...args}>
+      <Box backgroundColor="white" height="100%">
+        <Textbox label="Textbox" />
+        <Textbox label="Textbox" />
+      </Box>
+    </Form>
+  </Box>
+);
+WithSetHeight.storyName = "With Set Height";
