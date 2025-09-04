@@ -1,53 +1,32 @@
-import { LexicalComposer } from "@lexical/react/LexicalComposer";
-import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
-import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { render, screen } from "@testing-library/react";
-
-import React from "react";
+import React, { act } from "react";
+import {
+  TestEditor,
+  TestEditorHelpers,
+} from "../../../../../__tests__/utils/TestEditor";
 
 import { UnderlineButton } from "./..";
+import { $getRoot, LexicalEditor, ParagraphNode, TextNode } from "lexical";
+import userEvent from "@testing-library/user-event";
 
 describe("Underline button", () => {
   it("should render the underline button correctly if inactive", () => {
     render(
-      <LexicalComposer
-        initialConfig={{
-          nodes: [],
-          onError: () => {},
-          namespace: "test",
-        }}
-      >
-        <RichTextPlugin
-          contentEditable={
-            <div role="textbox" contentEditable aria-label="test" />
-          }
-          ErrorBoundary={LexicalErrorBoundary}
-        />
+      <TestEditor>
         <UnderlineButton isActive={false} namespace="test" />
-      </LexicalComposer>,
+      </TestEditor>,
     );
     const underlineButton = screen.getByRole("button");
     expect(underlineButton).toBeInTheDocument();
     expect(underlineButton).toHaveStyleRule("background-color", "transparent");
+    expect(underlineButton).toHaveAttribute("aria-pressed", "false");
   });
 
   it("should render the underline button correctly if active", () => {
     render(
-      <LexicalComposer
-        initialConfig={{
-          nodes: [],
-          onError: () => {},
-          namespace: "test",
-        }}
-      >
-        <RichTextPlugin
-          contentEditable={
-            <div role="textbox" contentEditable aria-label="test" />
-          }
-          ErrorBoundary={LexicalErrorBoundary}
-        />
+      <TestEditor>
         <UnderlineButton isActive namespace="test" />
-      </LexicalComposer>,
+      </TestEditor>,
     );
     const underlineButton = screen.getByRole("button");
     expect(underlineButton).toBeInTheDocument();
@@ -55,5 +34,48 @@ describe("Underline button", () => {
       "background-color",
       "var(--colorsActionMajor600)",
     );
+    expect(underlineButton).toHaveAttribute("aria-pressed", "true");
+  });
+
+  it("applies underline formatting when UnderlineButton is clicked", async () => {
+    let editorRef: LexicalEditor;
+    let textEditorHelpers: TestEditorHelpers;
+
+    render(
+      <TestEditor
+        onEditorReady={(editor, helpers) => {
+          editorRef = editor;
+          textEditorHelpers = helpers;
+        }}
+      >
+        <UnderlineButton isActive={false} namespace="test" />
+      </TestEditor>,
+    );
+
+    act(() => {
+      textEditorHelpers.setEditorContent(editorRef, "Hello");
+
+      editorRef.update(() => {
+        const root = $getRoot();
+        const paragraph = root.getFirstChild() as ParagraphNode;
+        const textNode = paragraph?.getFirstChild() as TextNode;
+
+        // eslint-disable-next-line testing-library/no-node-access
+        textNode?.select(0, textNode?.getTextContentSize());
+      });
+    });
+
+    const underlineButton = screen.getByRole("button", { name: /underline/i });
+
+    await userEvent.click(underlineButton);
+
+    act(() => {
+      editorRef.getEditorState().read(() => {
+        const root = $getRoot();
+        const paragraph = root.getFirstChild() as ParagraphNode;
+        const textNode = paragraph?.getFirstChild() as TextNode;
+        expect(textNode?.hasFormat("underline")).toBe(true);
+      });
+    });
   });
 });

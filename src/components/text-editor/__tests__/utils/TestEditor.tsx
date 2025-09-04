@@ -12,6 +12,8 @@ import {
 } from "lexical";
 import userEvent from "@testing-library/user-event";
 import { screen } from "@testing-library/react";
+import { ListPlugin } from "@lexical/react/LexicalListPlugin";
+import { ListItemNode, ListNode } from "@lexical/list";
 
 export type TestEditorHelpers = {
   /**  Function to set the entire content of the editor, unit-style. */
@@ -43,7 +45,7 @@ export const TestEditor = ({
     <LexicalComposer
       initialConfig={{
         namespace,
-        nodes: [],
+        nodes: [ListNode, ListItemNode],
         onError: () => {},
         editorState: (editor) => {
           const helpers: TestEditorHelpers = {
@@ -76,6 +78,8 @@ export const TestEditor = ({
         contentEditable={<ContentEditable aria-label="test" />}
         ErrorBoundary={LexicalErrorBoundary}
       />
+      <ListPlugin />
+
       {children}
     </LexicalComposer>
   );

@@ -52,32 +52,34 @@ const ListControls = ({
   const [isULActive, setIsULActive] = useState(false);
 
   // Register the commands for inserting and removing lists
-  editor.registerCommand(
-    INSERT_ORDERED_LIST_COMMAND,
-    () => {
-      insertList(editor, TEXT_EDITOR_ACTION_TYPES.OrderedList);
-      return true;
-    },
-    COMMAND_PRIORITY_LOW,
-  );
-
-  editor.registerCommand(
-    INSERT_UNORDERED_LIST_COMMAND,
-    () => {
-      insertList(editor, TEXT_EDITOR_ACTION_TYPES.UnorderedList);
-      return true;
-    },
-    COMMAND_PRIORITY_LOW,
-  );
-
-  editor.registerCommand(
-    REMOVE_LIST_COMMAND,
-    () => {
-      removeList(editor);
-      return true;
-    },
-    COMMAND_PRIORITY_LOW,
-  );
+  useEffect(() => {
+    return mergeRegister(
+      editor.registerCommand(
+        INSERT_ORDERED_LIST_COMMAND,
+        () => {
+          insertList(editor, TEXT_EDITOR_ACTION_TYPES.OrderedList);
+          return true;
+        },
+        COMMAND_PRIORITY_LOW,
+      ),
+      editor.registerCommand(
+        INSERT_UNORDERED_LIST_COMMAND,
+        () => {
+          insertList(editor, TEXT_EDITOR_ACTION_TYPES.UnorderedList);
+          return true;
+        },
+        COMMAND_PRIORITY_LOW,
+      ),
+      editor.registerCommand(
+        REMOVE_LIST_COMMAND,
+        () => {
+          removeList(editor);
+          return true;
+        },
+        COMMAND_PRIORITY_LOW,
+      ),
+    );
+  }, [editor]);
 
   // Recursive function to find the closest list item ancestor
   const findListItemAncestor = (node: LexicalNode | null) => {

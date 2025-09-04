@@ -1,142 +1,376 @@
-import { LexicalComposer } from "@lexical/react/LexicalComposer";
-import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
-import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import React from "react";
+import React, { act } from "react";
+
+import {
+  TestEditor,
+  TestEditorHelpers,
+} from "../../../../../__tests__/utils/TestEditor";
 
 import { ListControls } from "./..";
-import TextEditor from "../../../../../text-editor.component";
-import { createFromHTML } from "../../../../__utils__/helpers";
+import { $getRoot, LexicalEditor, ParagraphNode, TextNode } from "lexical";
 
 it("should render the ordered list control correctly", async () => {
   const user = userEvent.setup();
   render(
-    <LexicalComposer
-      initialConfig={{
-        nodes: [],
-        onError: () => {},
-        namespace: "test",
-      }}
-    >
-      <RichTextPlugin
-        contentEditable={
-          <div role="textbox" contentEditable aria-label="test" />
-        }
-        ErrorBoundary={LexicalErrorBoundary}
-      />
-      §
+    <TestEditor>
       <ListControls namespace="test" />
-    </LexicalComposer>,
+    </TestEditor>,
   );
   const olButton = screen.getByTestId(`test-ordered-list-button`);
   expect(olButton).toBeInTheDocument();
   expect(olButton).toHaveStyleRule("background-color", "transparent");
+  expect(olButton).toHaveAttribute("aria-pressed", "false");
 
   await user.click(olButton);
   expect(olButton).toHaveStyleRule(
     "background-color",
     "var(--colorsActionMajor600)",
   );
+  expect(olButton).toHaveAttribute("aria-pressed", "true");
 });
 
 it("should render the unordered list control correctly", async () => {
   const user = userEvent.setup();
   render(
-    <LexicalComposer
-      initialConfig={{
-        nodes: [],
-        onError: () => {},
-        namespace: "test",
-      }}
-    >
-      <RichTextPlugin
-        contentEditable={
-          <div role="textbox" contentEditable aria-label="test" />
-        }
-        ErrorBoundary={LexicalErrorBoundary}
-      />
+    <TestEditor>
       <ListControls namespace="test" />
-    </LexicalComposer>,
+    </TestEditor>,
   );
   const ulButton = screen.getByTestId(`test-unordered-list-button`);
   expect(ulButton).toBeInTheDocument();
   expect(ulButton).toHaveStyleRule("background-color", "transparent");
+  expect(ulButton).toHaveAttribute("aria-pressed", "false");
 
   await user.click(ulButton);
   expect(ulButton).toHaveStyleRule(
     "background-color",
     "var(--colorsActionMajor600)",
   );
+  expect(ulButton).toHaveAttribute("aria-pressed", "true");
 });
 
-test("should toggle the list type when a list is active and the alternate list type is clicked", async () => {
-  const user = userEvent.setup();
-  const value = createFromHTML(
-    `<ul><li value="1"><span style="white-space: pre-wrap;">Example List</span></li></ul>`,
-  );
-  // render the TextEditor component
+it("applies unordered list formatting when UnorderedList is clicked", async () => {
+  let editorRef: LexicalEditor;
+  let textEditorHelpers: TestEditorHelpers;
+
   render(
-    <TextEditor labelText="Example" namespace="test" initialValue={value} />,
+    <TestEditor
+      onEditorReady={(editor, helpers) => {
+        editorRef = editor;
+        textEditorHelpers = helpers;
+      }}
+    >
+      <ListControls namespace="test" />
+    </TestEditor>,
   );
-  const olButton = screen.getByTestId(`test-ordered-list-button`);
-  const ulButton = screen.getByTestId(`test-unordered-list-button`);
-  expect(olButton).toBeVisible();
-  expect(ulButton).toBeVisible();
-  expect(screen.getByRole("list")).toBeVisible();
-  expect(screen.getByRole("list").tagName).toBe("UL");
-  const listText = screen.getByText("Example List");
-  await user.click(listText);
-  await user.click(olButton);
-  expect(screen.getByRole("list").tagName).toBe("OL");
-  await user.click(listText);
-  await user.click(ulButton);
-  expect(screen.getByRole("list").tagName).toBe("UL");
+
+  act(() => {
+    textEditorHelpers.setEditorContent(editorRef, "Hello");
+
+    editorRef.update(() => {
+      const root = $getRoot();
+      const paragraph = root.getFirstChild() as ParagraphNode;
+      const textNode = paragraph?.getFirstChild() as TextNode;
+
+      // eslint-disable-next-line testing-library/no-node-access
+      textNode?.select(0, textNode?.getTextContentSize());
+    });
+  });
+
+  const ulButton = screen.getByTestId("test-unordered-list-button");
+
+  await userEvent.click(ulButton);
+
+  await waitFor(() => {
+    expect(ulButton).toHaveAttribute("aria-pressed", "true");
+  });
+
+  await waitFor(() => {
+    editorRef.getEditorState().read(() => {
+      const root = $getRoot();
+      const firstNode = root.getFirstChild();
+      expect(firstNode?.getType()).toBe("list");
+      expect(firstNode?.getTag()).toBe("ul");
+      expect(firstNode?.getChildren()[0].getType()).toBe("listitem");
+      expect(
+        firstNode?.getChildren()[0].getChildren()[0].getTextContent(),
+      ).toBe("Hello");
+    });
+  });
 });
 
-test("should toggle the an individual list item's type when a list is active and the alternate list type is clicked", async () => {
-  const user = userEvent.setup();
-  const value = createFromHTML(
-    `<ul><li value="1"><span style="white-space: pre-wrap;">Example List</span></li><li value="2"><span style="white-space: pre-wrap;">Change Me</span></li><li value="3"><span style="white-space: pre-wrap;">Example List</span></li></ul>`,
-  );
-  // render the TextEditor component
+it("applies ordered list formatting when OrderedList is clicked", async () => {
+  let editorRef: LexicalEditor;
+  let textEditorHelpers: TestEditorHelpers;
+
   render(
-    <TextEditor labelText="Example" namespace="test" initialValue={value} />,
+    <TestEditor
+      onEditorReady={(editor, helpers) => {
+        editorRef = editor;
+        textEditorHelpers = helpers;
+      }}
+    >
+      <ListControls namespace="test" />
+    </TestEditor>,
   );
-  const olButton = screen.getByTestId(`test-ordered-list-button`);
-  const ulButton = screen.getByTestId(`test-unordered-list-button`);
-  expect(olButton).toBeVisible();
-  expect(ulButton).toBeVisible();
-  expect(screen.getByRole("list")).toBeVisible();
-  expect(screen.getByRole("list").tagName).toBe("UL");
-  const listText = screen.getByText("Change Me");
-  await user.click(listText);
-  await user.click(olButton);
-  expect(screen.queryAllByRole("list").length).toBe(3);
-  await user.click(listText);
-  await user.click(ulButton);
-  expect(screen.queryAllByRole("list").length).toBe(1);
+
+  act(() => {
+    textEditorHelpers.setEditorContent(editorRef, "Hello");
+
+    editorRef.update(() => {
+      const root = $getRoot();
+      const paragraph = root.getFirstChild() as ParagraphNode;
+      const textNode = paragraph?.getFirstChild() as TextNode;
+
+      // eslint-disable-next-line testing-library/no-node-access
+      textNode?.select(0, textNode?.getTextContentSize());
+    });
+  });
+
+  const olButton = screen.getByTestId("test-ordered-list-button");
+
+  await userEvent.click(olButton);
+
+  await waitFor(() => {
+    expect(olButton).toHaveAttribute("aria-pressed", "true");
+  });
+
+  await waitFor(() => {
+    editorRef.getEditorState().read(() => {
+      const root = $getRoot();
+      const firstNode = root.getFirstChild();
+      expect(firstNode?.getType()).toBe("list");
+      expect(firstNode?.getTag()).toBe("ol");
+      expect(firstNode?.getChildren()[0].getType()).toBe("listitem");
+      expect(
+        firstNode?.getChildren()[0].getChildren()[0].getTextContent(),
+      ).toBe("Hello");
+    });
+  });
 });
 
-test("should remove the list when a list is active and the alternate list type is clicked", async () => {
-  const user = userEvent.setup();
-  const value = createFromHTML(
-    `<ul><li value="1"><span style="white-space: pre-wrap;">Example List</span></li></ul>`,
-  );
-  // render the TextEditor component
+it("applies and removed unordered list formatting when UnorderedList is clicked", async () => {
+  let editorRef: LexicalEditor;
+  let textEditorHelpers: TestEditorHelpers;
+
   render(
-    <TextEditor labelText="Example" namespace="test" initialValue={value} />,
+    <TestEditor
+      onEditorReady={(editor, helpers) => {
+        editorRef = editor;
+        textEditorHelpers = helpers;
+      }}
+    >
+      <ListControls namespace="test" />
+    </TestEditor>,
   );
-  const ulButton = screen.getByTestId(`test-unordered-list-button`);
-  expect(ulButton).toBeVisible();
 
-  expect(screen.getByRole("list")).toBeVisible();
-  expect(screen.getByRole("list").tagName).toBe("UL");
+  act(() => {
+    textEditorHelpers.setEditorContent(editorRef, "Hello");
 
-  const listText = screen.getByText("Example List");
-  await user.click(listText);
-  await user.click(ulButton);
+    editorRef.update(() => {
+      const root = $getRoot();
+      const paragraph = root.getFirstChild() as ParagraphNode;
+      const textNode = paragraph?.getFirstChild() as TextNode;
 
-  expect(screen.getByText("Example List")).toBeVisible();
-  expect(screen.getByText("Example List").tagName).toBe("P");
+      // eslint-disable-next-line testing-library/no-node-access
+      textNode?.select(0, textNode?.getTextContentSize());
+    });
+  });
+
+  const ulButton = screen.getByTestId("test-unordered-list-button");
+
+  await userEvent.click(ulButton);
+
+  await waitFor(() => {
+    expect(ulButton).toHaveAttribute("aria-pressed", "true");
+  });
+
+  await waitFor(() => {
+    editorRef.getEditorState().read(() => {
+      const root = $getRoot();
+      const firstNode = root.getFirstChild();
+      expect(firstNode?.getType()).toBe("list");
+      expect(firstNode?.getTag()).toBe("ul");
+      expect(firstNode?.getChildren()[0].getType()).toBe("listitem");
+      expect(
+        firstNode?.getChildren()[0].getChildren()[0].getTextContent(),
+      ).toBe("Hello");
+    });
+  });
+
+  await userEvent.click(ulButton);
+
+  await waitFor(() => {
+    expect(ulButton).toHaveAttribute("aria-pressed", "false");
+  });
+
+  await waitFor(() => {
+    editorRef.getEditorState().read(() => {
+      const root = $getRoot();
+      const firstNode = root.getFirstChild();
+      expect(firstNode?.getType()).toBe("paragraph");
+      expect(firstNode?.getTextContent()).toBe("Hello");
+    });
+  });
+});
+
+it("applies and removed ordered list formatting when UnorderedList is clicked", async () => {
+  let editorRef: LexicalEditor;
+  let textEditorHelpers: TestEditorHelpers;
+
+  render(
+    <TestEditor
+      onEditorReady={(editor, helpers) => {
+        editorRef = editor;
+        textEditorHelpers = helpers;
+      }}
+    >
+      <ListControls namespace="test" />
+    </TestEditor>,
+  );
+
+  act(() => {
+    textEditorHelpers.setEditorContent(editorRef, "Hello");
+
+    editorRef.update(() => {
+      const root = $getRoot();
+      const paragraph = root.getFirstChild() as ParagraphNode;
+      const textNode = paragraph?.getFirstChild() as TextNode;
+
+      // eslint-disable-next-line testing-library/no-node-access
+      textNode?.select(0, textNode?.getTextContentSize());
+    });
+  });
+
+  const olButton = screen.getByTestId("test-ordered-list-button");
+
+  await userEvent.click(olButton);
+
+  await waitFor(() => {
+    expect(olButton).toHaveAttribute("aria-pressed", "true");
+  });
+
+  await waitFor(() => {
+    editorRef.getEditorState().read(() => {
+      const root = $getRoot();
+      const firstNode = root.getFirstChild();
+      expect(firstNode?.getType()).toBe("list");
+      expect(firstNode?.getTag()).toBe("ol");
+      expect(firstNode?.getChildren()[0].getType()).toBe("listitem");
+      expect(
+        firstNode?.getChildren()[0].getChildren()[0].getTextContent(),
+      ).toBe("Hello");
+    });
+  });
+
+  await userEvent.click(olButton);
+
+  await waitFor(() => {
+    expect(olButton).toHaveAttribute("aria-pressed", "false");
+  });
+
+  await waitFor(() => {
+    editorRef.getEditorState().read(() => {
+      const root = $getRoot();
+      const firstNode = root.getFirstChild();
+      expect(firstNode?.getType()).toBe("paragraph");
+      expect(firstNode?.getTextContent()).toBe("Hello");
+    });
+  });
+});
+
+it("applies and converts between list formatting types", async () => {
+  let editorRef: LexicalEditor;
+  let textEditorHelpers: TestEditorHelpers;
+
+  render(
+    <TestEditor
+      onEditorReady={(editor, helpers) => {
+        editorRef = editor;
+        textEditorHelpers = helpers;
+      }}
+    >
+      <ListControls namespace="test" />
+    </TestEditor>,
+  );
+
+  act(() => {
+    textEditorHelpers.setEditorContent(editorRef, "Hello");
+
+    editorRef.update(() => {
+      const root = $getRoot();
+      const paragraph = root.getFirstChild() as ParagraphNode;
+      const textNode = paragraph?.getFirstChild() as TextNode;
+
+      // eslint-disable-next-line testing-library/no-node-access
+      textNode?.select(0, textNode?.getTextContentSize());
+    });
+  });
+
+  const olButton = screen.getByTestId("test-ordered-list-button");
+  const ulButton = screen.getByTestId("test-unordered-list-button");
+
+  await userEvent.click(olButton);
+
+  await waitFor(() => {
+    expect(olButton).toHaveAttribute("aria-pressed", "true");
+  });
+
+  await waitFor(() => {
+    editorRef.getEditorState().read(() => {
+      const root = $getRoot();
+      const firstNode = root.getFirstChild();
+      expect(firstNode?.getType()).toBe("list");
+      expect(firstNode?.getTag()).toBe("ol");
+      expect(firstNode?.getChildren()[0].getType()).toBe("listitem");
+      expect(
+        firstNode?.getChildren()[0].getChildren()[0].getTextContent(),
+      ).toBe("Hello");
+    });
+  });
+
+  await userEvent.click(ulButton);
+
+  await waitFor(() => {
+    expect(olButton).toHaveAttribute("aria-pressed", "false");
+  });
+  await waitFor(() => {
+    expect(ulButton).toHaveAttribute("aria-pressed", "true");
+  });
+
+  await waitFor(() => {
+    editorRef.getEditorState().read(() => {
+      const root = $getRoot();
+      const firstNode = root.getFirstChild();
+      expect(firstNode?.getType()).toBe("list");
+      expect(firstNode?.getTag()).toBe("ul");
+      expect(firstNode?.getChildren()[0].getType()).toBe("listitem");
+      expect(
+        firstNode?.getChildren()[0].getChildren()[0].getTextContent(),
+      ).toBe("Hello");
+    });
+  });
+
+  await userEvent.click(olButton);
+
+  await waitFor(() => {
+    expect(ulButton).toHaveAttribute("aria-pressed", "false");
+  });
+  await waitFor(() => {
+    expect(olButton).toHaveAttribute("aria-pressed", "true");
+  });
+
+  await waitFor(() => {
+    editorRef.getEditorState().read(() => {
+      const root = $getRoot();
+      const firstNode = root.getFirstChild();
+      expect(firstNode?.getType()).toBe("list");
+      expect(firstNode?.getTag()).toBe("ol");
+      expect(firstNode?.getChildren()[0].getType()).toBe("listitem");
+      expect(
+        firstNode?.getChildren()[0].getChildren()[0].getTextContent(),
+      ).toBe("Hello");
+    });
+  });
 });
