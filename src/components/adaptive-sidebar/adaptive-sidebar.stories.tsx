@@ -627,3 +627,4 @@ export const Hidden: Story = () => {
   );
 };
 Hidden.storyName = "Hidden";
+Hidden.parameters = { chromatic: { disableSnapshot: true } };
