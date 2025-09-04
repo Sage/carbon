@@ -1,4 +1,4 @@
-import { TextboxProps } from "components/textbox";
+import { type TextboxProps } from "../textbox";
 import React from "react";
 import { test, expect } from "../../../playwright/helpers/base-test";
 import {

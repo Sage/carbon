@@ -15,7 +15,7 @@ import { Select, Option } from "../select";
 import TextEditor from "../text-editor";
 
 import Box from "../box";
-import { allModes } from "../../../.storybook/modes";
+import allModes from "../../../.storybook/modes";
 import { StepFlow } from "../step-flow";
 import DialogFullScreen from "../dialog-full-screen";
 

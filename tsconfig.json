@@ -2,8 +2,7 @@
   "compilerOptions": {
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
-    "baseUrl": "./src",
-    "declaration": true,
+    "baseUrl": "./",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
@@ -12,10 +11,10 @@
     "lib": ["esnext", "dom", "dom.iterable"],
     "module": "esnext",
     "moduleResolution": "node",
+    "noEmit": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noUnusedLocals": true,
-    "outDir": "./lib/",
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "sourceMap": true,
@@ -23,11 +22,11 @@
     "target": "es6"
   },
   "include": [
-    "./src/global.d.ts",
-    "./src/**/*.ts*",
-    "./docs/**/*.ts*",
-    "./.storybook/**/*.ts*",
-    "./jest.config.ts"
-  ],
-  "exclude": ["./node_modules", "./playwright", "./playwright-ct.config.ts"]
+    "src/**/*",
+    "playwright/**/*",
+    ".storybook/**/*",
+    "docs/**/*",
+    "jest.config.ts",
+    "playwright-ct.config.ts"
+  ]
 }

@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
 import isChromatic from "../../../.storybook/isChromatic";
-import { allModes } from "../../../.storybook/modes";
+import allModes from "../../../.storybook/modes";
 
 import Box from "../box";
 import Button from "../button";
