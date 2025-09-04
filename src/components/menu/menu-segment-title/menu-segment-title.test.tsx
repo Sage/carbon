@@ -333,6 +333,48 @@ test("should apply expected `data-` attributes", () => {
   expect(screen.getByText("foo")).toHaveAttribute("data-role", "baz");
 });
 
+test("should apply expected `data-` attributes to segment children wrapper", () => {
+  render(
+    <Menu>
+      <MenuSegmentTitle
+        text="foo"
+        segmentWrapperProps={{
+          "data-role": "menu-segment-children-role",
+          "data-element": "menu-segment-children-element",
+        }}
+      >
+        <li>bar</li>
+      </MenuSegmentTitle>
+    </Menu>,
+  );
+
+  const menuSegmentChildren = screen.getByTestId("menu-segment-children-role");
+  const menuSegmentChild = screen.getByText("bar");
+
+  expect(menuSegmentChildren).toBeInTheDocument();
+  expect(menuSegmentChildren).toHaveAttribute(
+    "data-element",
+    "menu-segment-children-element",
+  );
+  expect(menuSegmentChildren).toContainElement(menuSegmentChild);
+});
+
+test("should apply default `data-` attributes to segment children wrapper if no values are passed", () => {
+  render(
+    <Menu>
+      <MenuSegmentTitle text="foo">
+        <li>bar</li>
+      </MenuSegmentTitle>
+    </Menu>,
+  );
+
+  const menuSegmentChildren = screen.getByTestId("menu-segment-children");
+  const menuSegmentChild = screen.getByText("bar");
+
+  expect(menuSegmentChildren).toBeInTheDocument();
+  expect(menuSegmentChildren).toContainElement(menuSegmentChild);
+});
+
 test("should not wrap when the submenu parent has no max-width set", async () => {
   const user = userEvent.setup();
   render(

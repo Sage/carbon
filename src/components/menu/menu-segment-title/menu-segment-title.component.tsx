@@ -20,11 +20,20 @@ export interface MenuTitleProps extends TagProps {
   variant?: VariantType;
   /** Set the heading level for the segment title */
   as?: AllowedAsValues;
+  /** Data tag prop bag for segmented children */
+  segmentWrapperProps?: TagProps;
 }
 
 const MenuSegmentTitle = React.forwardRef<HTMLDivElement, MenuTitleProps>(
   (
-    { children, variant = "default", text, as = "h2", ...rest }: MenuTitleProps,
+    {
+      children,
+      variant = "default",
+      text,
+      as = "h2",
+      segmentWrapperProps,
+      ...rest
+    }: MenuTitleProps,
     ref,
   ) => {
     const { menuType, inFullscreenView } = useStrictMenuContext();
@@ -54,9 +63,12 @@ const MenuSegmentTitle = React.forwardRef<HTMLDivElement, MenuTitleProps>(
         </StyledTitle>
         {children && (
           <StyledSegmentChildren
-            data-role="menu-segment-children"
             menuType={menuType}
             variant={overriddenVariant}
+            {...tagComponent("menu-segment-title", {
+              "data-role": "menu-segment-children",
+              ...segmentWrapperProps,
+            })}
           >
             <MenuSegmentContext.Provider
               value={{ isChildOfSegment: true, overriddenVariant }}
