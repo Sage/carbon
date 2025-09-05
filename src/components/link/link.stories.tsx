@@ -141,7 +141,7 @@ WithOnClick.parameters = { chromatic: { disableSnapshot: true } };
 
 export const Variants: Story = () => {
   return (
-    <>
+    <Box width="max-content" display="flex" flexDirection="column" gap="32px">
       <Link
         href="https://carbon.sage.com"
         target="_blank"
@@ -150,8 +150,6 @@ export const Variants: Story = () => {
       >
         This is a negative link
       </Link>
-      <br />
-      <br />
       <Link
         href="https://carbon.sage.com"
         target="_blank"
@@ -160,8 +158,6 @@ export const Variants: Story = () => {
       >
         This is a neutral link
       </Link>
-      <br />
-      <br />
       <Box
         backgroundColor="#000000"
         width="max-content"
@@ -180,7 +176,7 @@ export const Variants: Story = () => {
           This is a subtle link
         </Link>
       </Box>
-    </>
+    </Box>
   );
 };
 Variants.storyName = "Variants";
