@@ -3,7 +3,6 @@ import StyledIconButton from "../icon-button/icon-button.style";
 import Portal from "../portal/portal";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 import StyledIcon from "../icon/icon.style";
-import { MessageVariant } from "../message/message.component";
 
 const StyledPortal = styled(Portal).attrs(applyBaseTheme)<{
   align?: "left" | "center" | "right";
@@ -73,15 +72,13 @@ const ToastColourVariants = {
   neutral: "var(--colorsSemanticNeutral500)",
 };
 
-type ToastVariants = Exclude<MessageVariant, "ai">;
-
 type ToastStyleProps = {
   align?: "left" | "center" | "right";
   alignY?: "top" | "center" | "bottom";
   maxWidth?: string;
   isNotice?: boolean;
   isNotification?: boolean;
-  variant: ToastVariants;
+  variant: "error" | "info" | "success" | "warning" | "neutral";
 };
 
 const boxShadow =
