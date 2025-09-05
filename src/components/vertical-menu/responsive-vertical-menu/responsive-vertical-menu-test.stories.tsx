@@ -15,6 +15,7 @@ import Typography from "../../typography";
 
 export default {
   title: "Vertical Menu/Responsive/Test",
+  component: ResponsiveVerticalMenu,
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -661,4 +662,47 @@ export const FocusTrap = {
       </Box>
     </>
   ),
+};
+
+export const LongList = (props: Partial<ResponsiveVerticalMenuProps>) => {
+  return (
+    <GlobalHeader>
+      <ResponsiveVerticalMenu {...props}>
+        <ResponsiveVerticalMenuItem icon="home" id="item-1" label="Item 1" />
+        <ResponsiveVerticalMenuItem icon="home" id="item-2" label="Item 2">
+          <ResponsiveVerticalMenuItem id="sub-item-1" label="Item 2.1" />
+          <ResponsiveVerticalMenuItem id="sub-item-2" label="Item 2.2" />
+          <ResponsiveVerticalMenuItem id="sub-item-3" label="Item 2.3" />
+          <ResponsiveVerticalMenuItem id="sub-item-4" label="Item 2.4" />
+          <ResponsiveVerticalMenuItem id="sub-item-5" label="Item 2.5" />
+          <ResponsiveVerticalMenuItem id="sub-item-6" label="Item 2.6" />
+          <ResponsiveVerticalMenuItem id="sub-item-7" label="Item 2.7" />
+          <ResponsiveVerticalMenuItem id="sub-item-8" label="Item 2.8" />
+          <ResponsiveVerticalMenuItem id="sub-item-9" label="Item 2.9" />
+          <ResponsiveVerticalMenuItem id="sub-item-10" label="Item 2.10" />
+          <ResponsiveVerticalMenuItem id="sub-item-11" label="Item 2.11" />
+          <ResponsiveVerticalMenuItem id="sub-item-12" label="Item 2.12" />
+          <ResponsiveVerticalMenuItem id="sub-item-13" label="Item 2.13" />
+          <ResponsiveVerticalMenuItem id="sub-item-14" label="Item 2.14" />
+          <ResponsiveVerticalMenuItem id="sub-item-15" label="Item 2.15" />
+        </ResponsiveVerticalMenuItem>
+        <ResponsiveVerticalMenuItem id="item-4" label="Item 3" />
+        <ResponsiveVerticalMenuItem id="item-5" label="Item 4" />
+        <ResponsiveVerticalMenuItem id="item-6" label="Item 5" />
+        <ResponsiveVerticalMenuItem id="item-7" label="Item 6" />
+        <ResponsiveVerticalMenuItem id="item-8" label="Item 7" />
+        <ResponsiveVerticalMenuItem id="item-9" label="Item 8" />
+        <ResponsiveVerticalMenuItem id="item-10" label="Item 9" />
+        <ResponsiveVerticalMenuItem id="item-11" label="Item 10" />
+        <ResponsiveVerticalMenuItem id="item-12" label="Item 11" />
+        <ResponsiveVerticalMenuItem id="item-13" label="Item 12" />
+        <ResponsiveVerticalMenuItem id="item-14" label="Item 13" />
+        <ResponsiveVerticalMenuItem id="item-15" label="Item 14" />
+        <ResponsiveVerticalMenuItem id="item-16" label="Item 15" />
+        <ResponsiveVerticalMenuItem id="item-17" label="Item 16" />
+        <ResponsiveVerticalMenuItem id="item-18" label="Item 17" />
+        <ResponsiveVerticalMenuItem id="item-19" label="Item 18" />
+      </ResponsiveVerticalMenu>
+    </GlobalHeader>
+  );
 };
