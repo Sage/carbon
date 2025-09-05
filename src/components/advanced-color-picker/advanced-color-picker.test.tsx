@@ -8,7 +8,9 @@ import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-
 import Logger from "../../__internal__/utils/logger";
 
 const ControlledColorPicker = (props: Partial<AdvancedColorPickerProps>) => {
-  const [color, setColor] = useState<string | undefined>();
+  const [color, setColor] = useState<string | undefined>(
+    props.selectedColor || "",
+  );
 
   return (
     <AdvancedColorPicker

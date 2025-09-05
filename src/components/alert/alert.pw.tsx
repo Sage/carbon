@@ -173,7 +173,7 @@ test.describe("should render Alert component", () => {
     await expect(sidebarClose).toBeFocused();
     await sidebarClose.press("Enter");
 
-    const dialogFullscreen = getDataElementByValue(page, "dialog-full-screen");
+    const dialogFullscreen = getDataElementByValue(page, "dialog");
     const dialogFullscreenClose = dialogFullscreen.getByLabel("Close");
     const dialogFullscreenTextbox = page.getByLabel("Fullscreen textbox");
 

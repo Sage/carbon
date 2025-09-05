@@ -1,9 +1,8 @@
 import React, { useRef, useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { useArgs } from "@storybook/preview-api";
 
 import isChromatic from "../../../.storybook/isChromatic";
-import { allModes } from "../../../.storybook/modes";
+import allModes from "../../../.storybook/modes";
 
 import Box from "../box";
 import Button from "../button";
@@ -18,7 +17,7 @@ import Textarea from "../textarea";
 import CarbonProvider from "../carbon-provider";
 import useMediaQuery from "../../hooks/useMediaQuery";
 
-import type { DialogHandle } from ".";
+import type { DialogHandle, DialogProps } from ".";
 import Dialog from ".";
 
 const meta: Meta<typeof Dialog> = {
@@ -30,6 +29,7 @@ const meta: Meta<typeof Dialog> = {
     controls: { disable: true },
     chromatic: {
       modes: {
+        desktop: allModes.chromatic,
         lg: allModes.lg,
       },
     },
@@ -61,12 +61,12 @@ export const DefaultStory: Story = {
     title: "Title",
     subtitle: "Subtitle",
   },
-  render: function DefaultStory({ onCancel, ...args }) {
-    const [{ open }, updateArgs] = useArgs();
+  render: function DefaultStory({ onCancel, ...args }: Partial<DialogProps>) {
     const buttonRef = useRef<HTMLButtonElement>(null);
+    const [open, setOpen] = useState(args.open || false);
     return (
       <>
-        <Button ref={buttonRef} onClick={() => updateArgs({ open: true })}>
+        <Button ref={buttonRef} onClick={() => setOpen(true)}>
           Open Dialog
         </Button>
         <Dialog
@@ -74,16 +74,14 @@ export const DefaultStory: Story = {
           open={open}
           onCancel={(ev) => {
             onCancel?.(ev);
-            updateArgs({ open: false });
+            setOpen(false);
             setTimeout(() => buttonRef.current?.focus(), 0);
           }}
         >
           <Form
             stickyFooter
             leftSideButtons={
-              <Button onClick={() => updateArgs({ open: false })}>
-                Cancel
-              </Button>
+              <Button onClick={() => setOpen(false)}>Cancel</Button>
             }
             saveButton={
               <Button buttonType="primary" type="submit">
@@ -588,3 +586,68 @@ export const HighlightVariant: Story = {
     highlightVariant: "ai",
   },
 };
+
+export const FullScreenDefault: Story = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  return (
+    <>
+      <Button ref={buttonRef} onClick={() => setIsOpen(true)}>
+        Open Dialog
+      </Button>
+      <Dialog
+        fullscreen
+        open={isOpen}
+        onCancel={() => {
+          setIsOpen(false);
+          setTimeout(() => buttonRef.current?.focus(), 0);
+        }}
+        title="Title"
+        subtitle="Subtitle"
+      >
+        <Form
+          // stickyFooter
+          leftSideButtons={
+            <Button onClick={() => setIsOpen(false)}>Cancel</Button>
+          }
+          saveButton={
+            <Button buttonType="primary" type="submit">
+              Save
+            </Button>
+          }
+        >
+          <Box>
+            This is an example of a full screen Dialog with a Form as content
+          </Box>
+          <Textbox label="First Name" />
+          <Textbox label="Middle Name" />
+          <Textbox label="Surname" />
+          <Textbox label="Birth Place" />
+          <Textbox label="Favourite Colour" />
+          <Textbox label="Address" />
+          <Textbox label="First Name" />
+          <Textbox label="Middle Name" />
+          <Textbox label="Surname" />
+          <Textbox label="Birth Place" />
+          <Textbox label="Favourite Colour" />
+          <Textbox label="Address" />
+          <Textbox label="First Name" />
+          <Textbox label="Middle Name" />
+          <Textbox label="Surname" />
+          <Textbox label="Birth Place" />
+          <Textbox label="Favourite Colour" />
+          <Textbox label="Address" />
+          <Textbox label="First Name" />
+          <Textbox label="Middle Name" />
+          <Textbox label="Surname" />
+          <Textbox label="Birth Place" />
+          <Textbox label="Favourite Colour" />
+          <Textbox label="Address" />
+        </Form>
+      </Dialog>
+    </>
+  );
+};
+FullScreenDefault.storyName = "Fullscreen: Default";
+FullScreenDefault.parameters = { chromatic: { disableSnapshot: true } };

@@ -1,6 +1,6 @@
 import React, { useContext, useRef } from "react";
-import { CSSProperties } from "styled-components";
-import { TagProps } from "__internal__/utils/helpers/tags";
+import { type CSSProperties } from "styled-components";
+import { type TagProps } from "../../../__internal__/utils/helpers/tags";
 import guid from "../../../__internal__/utils/helpers/guid";
 import StyledOptionRow from "./option-row.style";
 import SelectListContext from "../__internal__/select-list/select-list.context";

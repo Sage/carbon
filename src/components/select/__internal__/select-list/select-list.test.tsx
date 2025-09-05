@@ -8,7 +8,7 @@ import {
   within,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import mockDOMRect from "__spec_helper__/mock-dom-rect";
+import mockDOMRect from "../../../../__spec_helper__/mock-dom-rect";
 
 import SelectList, { SelectListProps } from "./select-list.component";
 import Option from "../../option";

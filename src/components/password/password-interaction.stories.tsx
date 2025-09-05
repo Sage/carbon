@@ -1,4 +1,4 @@
-import React, { setValue } from "react";
+import React from "react";
 
 import { StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/test";
@@ -19,7 +19,7 @@ export default {
 
 export const FocusTextbox: Story = {
   render: () => (
-    <Password label="Password" value="Password" onChange={setValue} mb={2} />
+    <Password label="Password" value="Password" onChange={() => {}} mb={2} />
   ),
   play: async ({ canvasElement }) => {
     if (!allowInteractions()) {
@@ -41,7 +41,7 @@ FocusTextbox.storyName = "Focus Textbox";
 
 export const FocusButton: Story = {
   render: () => (
-    <Password label="Password" value="Password" onChange={setValue} mb={2} />
+    <Password label="Password" value="Password" onChange={() => {}} mb={2} />
   ),
   play: async () => {
     if (!allowInteractions()) {
@@ -62,7 +62,7 @@ FocusButton.storyName = "Focus Button";
 
 export const ShowPassword: Story = {
   render: () => (
-    <Password label="Password" value="Password" onChange={setValue} mb={2} />
+    <Password label="Password" value="Password" onChange={() => {}} mb={2} />
   ),
   play: async ({ canvasElement }) => {
     if (!allowInteractions()) {

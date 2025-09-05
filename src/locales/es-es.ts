@@ -53,11 +53,6 @@ const esES: Partial<Locale> = {
       close: () => "Cerrar",
     },
   },
-  dialogFullScreen: {
-    ariaLabels: {
-      close: () => "Cerrar",
-    },
-  },
   dismissibleBox: {
     ariaLabels: {
       close: () => "Cerrar",

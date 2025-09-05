@@ -1,5 +1,5 @@
 import React from "react";
-import { IconProps } from "components/icon";
+import { IconProps } from "../icon";
 import { test, expect } from "../../../playwright/helpers/base-test";
 import { IconComponent, IconTooltipComponent } from "./component.test-pw";
 import {

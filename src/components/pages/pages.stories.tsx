@@ -3,7 +3,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import isChromatic from "../../../.storybook/isChromatic";
 
 import Pages, { Page } from ".";
-import DialogFullScreen from "../dialog-full-screen";
+import Dialog from "../dialog";
 import Heading from "../heading";
 import Button from "../button";
 
@@ -50,7 +50,8 @@ export const Default: Story = () => {
   return (
     <>
       <Button onClick={handleOpen}>Open Preview</Button>
-      <DialogFullScreen
+      <Dialog
+        fullscreen
         pagesStyling
         open={isOpen}
         onCancel={handleCancel}
@@ -77,7 +78,7 @@ export const Default: Story = () => {
             Third Page
           </Page>
         </Pages>
-      </DialogFullScreen>
+      </Dialog>
     </>
   );
 };
@@ -120,7 +121,7 @@ export const WithInitialPageIndex: Story = () => {
   return (
     <>
       <Button onClick={handleOpen}>Open Preview</Button>
-      <DialogFullScreen pagesStyling open={isOpen} onCancel={handleCancel}>
+      <Dialog fullscreen pagesStyling open={isOpen} onCancel={handleCancel}>
         <Pages initialpageIndex={initialpageIndex} pageIndex={pageIndex}>
           <Page title={<Heading title="My First Page" />}>
             <Button onClick={handleOnClick} disabled={isDisabled}>
@@ -142,7 +143,7 @@ export const WithInitialPageIndex: Story = () => {
             Third Page
           </Page>
         </Pages>
-      </DialogFullScreen>
+      </Dialog>
     </>
   );
 };
@@ -180,7 +181,7 @@ export const InsideDialogFullScreen: Story = () => {
   return (
     <>
       <Button onClick={handleOpen}>Open Preview</Button>
-      <DialogFullScreen pagesStyling open={isOpen} onCancel={handleCancel}>
+      <Dialog fullscreen pagesStyling open={isOpen} onCancel={handleCancel}>
         <Pages pageIndex={pageIndex}>
           <Page title={<Heading title="My First Page" />}>
             <Button onClick={handleOnClick} disabled={isDisabled}>
@@ -202,11 +203,11 @@ export const InsideDialogFullScreen: Story = () => {
             Third Page
           </Page>
         </Pages>
-      </DialogFullScreen>
+      </Dialog>
     </>
   );
 };
-InsideDialogFullScreen.storyName = "Inside Dialog Full Screen";
+InsideDialogFullScreen.storyName = "Inside Full-Screen Dialog";
 
 export const OverridingContentPadding: Story = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
@@ -240,7 +241,7 @@ export const OverridingContentPadding: Story = () => {
   return (
     <>
       <Button onClick={handleOpen}>Open Preview</Button>
-      <DialogFullScreen pagesStyling open={isOpen} onCancel={handleCancel}>
+      <Dialog fullscreen pagesStyling open={isOpen} onCancel={handleCancel}>
         <Pages pageIndex={pageIndex}>
           <Page p={0} title={<Heading title="My First Page" />}>
             <Button onClick={handleOnClick} disabled={isDisabled}>
@@ -256,7 +257,7 @@ export const OverridingContentPadding: Story = () => {
             </Button>
           </Page>
         </Pages>
-      </DialogFullScreen>
+      </Dialog>
     </>
   );
 };

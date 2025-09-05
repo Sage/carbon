@@ -1,4 +1,4 @@
-import { TextareaProps } from "components/textarea";
+import { type TextareaProps } from "../textarea";
 import React from "react";
 import { test, expect } from "../../../playwright/helpers/base-test";
 
