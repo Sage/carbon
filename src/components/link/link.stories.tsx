@@ -190,6 +190,7 @@ export const OnADarkBackground: Story = () => {
       display="flex"
       flexDirection="column"
       alignItems="center"
+      gap="16px"
     >
       <Link
         href="https://carbon.sage.com"
@@ -201,13 +202,11 @@ export const OnADarkBackground: Story = () => {
       </Link>
       {(["left", "right"] as const).map((align) => (
         <React.Fragment key={`${align}-default-variant`}>
-          <br />
           <Link icon="settings" isDarkBackground iconAlign={align} href="#foo">
             This is a link
           </Link>
         </React.Fragment>
       ))}
-      <br />
       <Link
         href="https://carbon.sage.com"
         target="_blank"
@@ -219,7 +218,6 @@ export const OnADarkBackground: Story = () => {
       </Link>
       {(["left", "right"] as const).map((align) => (
         <React.Fragment key={`${align}-negative-variant`}>
-          <br />
           <Link
             icon="settings"
             isDarkBackground
@@ -231,7 +229,6 @@ export const OnADarkBackground: Story = () => {
           </Link>
         </React.Fragment>
       ))}
-      <br />
       <Link
         href="https://carbon.sage.com"
         target="_blank"
@@ -243,7 +240,6 @@ export const OnADarkBackground: Story = () => {
       </Link>
       {(["left", "right"] as const).map((align) => (
         <React.Fragment key={`${align}-neutral-variant`}>
-          <br />
           <Link
             icon="settings"
             isDarkBackground
@@ -255,7 +251,6 @@ export const OnADarkBackground: Story = () => {
           </Link>
         </React.Fragment>
       ))}
-      <br />
       <Link
         href="https://carbon.sage.com"
         target="_blank"
@@ -267,7 +262,6 @@ export const OnADarkBackground: Story = () => {
       </Link>
       {(["left", "right"] as const).map((align) => (
         <React.Fragment key={`${align}-subtle-variant`}>
-          <br />
           <Link
             icon="settings"
             isDarkBackground
@@ -279,7 +273,6 @@ export const OnADarkBackground: Story = () => {
           </Link>
         </React.Fragment>
       ))}
-      <br />
       <Link isDarkBackground disabled>
         This is a link
       </Link>
