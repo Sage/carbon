@@ -8,8 +8,10 @@ import {
   TestEditorHelpers,
 } from "../../../../../__tests__/utils/TestEditor";
 import { $getRoot, LexicalEditor, ParagraphNode, TextNode } from "lexical";
-
-const mockUpdate = jest.fn((cb) => cb());
+import {
+  $isStyledSpanNode,
+  StyledSpanNode,
+} from "../../../../__nodes__/styled-span.node";
 
 jest.mock("../../../../../../../hooks/__internal__/useLocale", () => () => ({
   textEditor: {
@@ -67,7 +69,7 @@ describe("TypographySelector", () => {
 
     const TestComponent = () => {
       const [typographyDropdownOpen, setTypographyDropdownOpen] =
-        React.useState(true);
+        React.useState(false);
       const [
         typographyDropdownFocusedIndex,
         setTypographyDropdownFocusedIndex,
@@ -112,6 +114,15 @@ describe("TypographySelector", () => {
     const subtitleOption = screen.getByRole("menuitem", { name: "Subtitle" });
     await userEvent.click(subtitleOption);
 
-    expect(mockUpdate).toHaveBeenCalled();
+    act(() => {
+      editorRef.getEditorState().read(() => {
+        const root = $getRoot();
+        const paragraph = root.getFirstChild() as ParagraphNode;
+        const child = paragraph?.getFirstChild();
+
+        expect($isStyledSpanNode(child)).toBe(true);
+        expect((child as StyledSpanNode)?.getTypographyKey()).toBe("subtitle");
+      });
+    });
   });
 });
