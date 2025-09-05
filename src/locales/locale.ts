@@ -94,6 +94,7 @@ interface Locale {
     warning: () => string;
     neutral: () => string;
     ai: () => string;
+    callout?: () => string;
   };
   numeralDate: {
     validation: {

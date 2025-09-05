@@ -12,8 +12,6 @@ Presents a static message which stays on screen.
 ## Contents
 
 - [Quick Start](#quick-start)
-- [Designer Notes](#designer-notes)
-- [Related Components](#related-components)
 - [Examples](#examples)
 - [Props](#props)
 - [Translation keys](#translation-keys)
@@ -24,88 +22,60 @@ Presents a static message which stays on screen.
 import Message from "carbon-react/lib/components/message";
 ```
 
-## Designer Notes
-
-Useful for messages which are longer or more important, where the user needs time to interpret them, or might need to refer back to them during an activity.
-
-Various types are available:
-
-- **Error** - tells the user about a negative outcome that has already happened. Try to focus the message text on the action the user needs to take to be successful, rather than what went wrong.
-- **Info** - gives advice to the user where there’s no risk of a negative outcome.
-- **Success** - indicates that an activity was successful. A good example could also present the user with onward options, such as ‘View a list of items’ or ‘Create another’.
-- **Warning** - warns the user about a potential negative outcome that hasn’t happened yet.
-- **Neutral** - gives context to the user where there’s no risk of a negative outcome.
-- The Transparent configuration is useful if you’d like the message to be more visually subtle, perhaps in a Dialog.
-
-## Related Components
-
-- Longer, time sensitive message that must be dismissed? [Try Toast](../?path=/docs/toast--docs).
-- Error or warning message that interrupts activity? [Try Alert](../?path=/docs/alert--docs).
-
 ## Examples
 
 ### Default
 
-The `Message` component's variant is `info` by default. It is recommended to focus the call-to-action button when `Message` is closed. 
+To use `Message`, you can pass any valid content as children. 
 
 <Canvas of={MessageStories.Default} />
 
+### With Close Button
+
+You can make the `Message` dismissible by providing an `onDismiss` handler, which will render a close button on the top right corner of the component.
+To change the `aria-label` of the close button, you can use the `closeButtonAriaLabel` prop or make use of the `message.closeButtonAriaLabel` translation key.
+
+<Canvas of={MessageStories.WithCloseButton} />
+
+### Programmatic Focus
+
+When rendering a `Message`, we recommend ensuring focus is managed appropriately to provide the best experience for users.
+This can be done by programmatically moving focus to the `Message` component when it appears to ensure users are aware of the newly rendered content and that is announced by screen readers.
+
+**Note:** The `Message` component will not render with a focus outline when focused programmatically, this is done intentionally as the container is not meant to be interacted with directly.
+
+<Canvas of={MessageStories.ProgrammaticFocus} />
+
 ### With Title
 
-A custom title can be set via the `title` prop.
+A custom title can be set via the `title` prop, this prop accepts a string or any valid React node.
 
 <Canvas of={MessageStories.WithTitle} />
 
-### showCloseIcon
+### Variants
 
-When the `showCloseIcon` is `false` the close icon will not be rendered, and padding with be equal on both sides.
+The `Message` component supports several variants to convey different types of messages. You can set the variant using the `variant` prop.
+The type of message will be announced by screen readers along with the content, the announcement for each variant can be customized using the provided translation keys.
+
+<Canvas of={MessageStories.Variant} />
+
+#### Subtle Variants
+
+<Canvas of={MessageStories.SubtleVariant} />
+
+### Large size
+
+You can use the `size` prop to change the size of the `Message` to "large".
+
+<Canvas of={MessageStories.SizeLarge} />
+
+### showCloseIcon (Deprecated)
 
 <Canvas of={MessageStories.ShowCloseIcon} />
 
-### Neutral
-
-<Canvas of={MessageStories.Neutral} />
-
-### Error
-
-<Canvas of={MessageStories.Error} />
-
-### Success
-
-<Canvas of={MessageStories.Success} />
-
-### Warning
-
-<Canvas of={MessageStories.Warning} />
-
-### Ai
-
-<Canvas of={MessageStories.Ai} />
-
-### Transparent
+### Transparent (Deprecated)
 
 <Canvas of={MessageStories.Transparent} />
-
-### With rich content
-
-It is also possible to use the `List`, `ListItem` and `Typography` components to render content other than plain text in a `Message`.
-
-<Canvas of={MessageStories.WithRichContent} />
-
-### With margin
-
-Margins can be applied to the `message` component using styled-system.
-To see a full list of available margin props, please visit the props table at the bottom of this page.
-
-[Visit Props Table](#props)
-
-<Canvas of={MessageStories.WithMargin} />
-
-### With focus
-
-Since it is possible to pass a ref to this component, it is also possible to programmatically focus the component.
-
-<Canvas of={MessageStories.WithFocus} />
 
 ## Props
 
@@ -162,5 +132,12 @@ The following keys are available to override the translations for this component
       type: "func",
       returnType: "string",
     },
+    {
+      name: "message.callout",
+      description: "Screen reader only text for callout message type",
+      type: "func",
+      returnType: "string",
+    },
+
   ]}
 />

@@ -5,60 +5,42 @@ import Message from "./message.component";
 import I18nProvider from "../i18n-provider";
 import enGB from "../../locales/en-gb";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import Logger from "../../__internal__/utils/logger";
 
-describe("icon", () => {
-  it("renders with 'info' icon when variant is 'info", () => {
-    render(<Message variant="info" />);
+jest.mock("../../__internal__/utils/logger");
 
-    const infoIcon = screen.getByTestId("category-icon");
+test("logs a deprecation warning for transparent prop", () => {
+  const loggerSpy = jest.spyOn(Logger, "deprecate");
+  render(
+    <>
+      <Message transparent />
+      <Message transparent />
+    </>,
+  );
 
-    expect(infoIcon).toBeVisible();
-    expect(infoIcon).toHaveAttribute("type", "info");
-  });
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "The 'transparent' prop in `Message` is deprecated and will soon be removed.",
+  );
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
 
-  it("renders with 'tick_circle' icon when variant is 'success'", () => {
-    render(<Message variant="success" />);
+  loggerSpy.mockRestore();
+});
 
-    const successIcon = screen.getByTestId("category-icon");
+test("logs deprecation warning for neutral variant", () => {
+  const loggerSpy = jest.spyOn(Logger, "deprecate");
+  render(
+    <>
+      <Message variant="neutral" />
+      <Message variant="neutral" />
+    </>,
+  );
 
-    expect(successIcon).toBeVisible();
-    expect(successIcon).toHaveAttribute("type", "tick_circle");
-  });
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "The 'neutral' variant in `Message` is deprecated and will soon be removed.",
+  );
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
 
-  it("renders with 'info' icon when variant is 'neutral'", () => {
-    render(<Message variant="neutral" />);
-
-    const neutralIcon = screen.getByTestId("category-icon");
-
-    expect(neutralIcon).toBeVisible();
-    expect(neutralIcon).toHaveAttribute("type", "info");
-  });
-
-  it("renders with 'warning' icon when variant is 'warning'", () => {
-    render(<Message variant="warning" />);
-
-    const warningIcon = screen.getByTestId("category-icon");
-
-    expect(warningIcon).toBeVisible();
-    expect(warningIcon).toHaveAttribute("type", "warning");
-  });
-
-  it("renders with 'error' icon when variant is 'error'", () => {
-    render(<Message variant="error" />);
-
-    const errorIcon = screen.getByTestId("category-icon");
-
-    expect(errorIcon).toBeVisible();
-    expect(errorIcon).toHaveAttribute("type", "error");
-  });
-
-  it("renders with 'ai' icon SVG when variant is 'ai", () => {
-    render(<Message variant="ai" />);
-
-    const aiSvg = screen.getByTestId("ai-icon");
-
-    expect(aiSvg).toBeVisible();
-  });
+  loggerSpy.mockRestore();
 });
 
 test("renders with provided children", () => {
@@ -67,10 +49,16 @@ test("renders with provided children", () => {
   expect(screen.getByText("Message")).toBeVisible();
 });
 
-test("renders with provided `title`", () => {
+test("renders with provided `title` as a string", () => {
   render(<Message title="Title">Message</Message>);
 
   expect(screen.getByText("Title")).toBeVisible();
+});
+
+test("renders with provided `title` as a node", () => {
+  render(<Message title={<span>Custom Title</span>}>Message</Message>);
+
+  expect(screen.getByText("Custom Title")).toBeVisible();
 });
 
 test("renders with provided data- attributes", () => {
@@ -159,6 +147,7 @@ test("renders close button aria-label with custom value from translations", () =
           neutral: () => "Neutral",
           error: () => "Error",
           ai: () => "AI Information",
+          callout: () => "Callout",
           closeButtonAriaLabel: () => "test close button",
         },
       }}
@@ -183,23 +172,24 @@ test("renders with provided `id`", () => {
 });
 
 // coverage
-test("renders with expected styles when `transparent` is true", () => {
-  render(
-    <Message data-role="my-message" transparent>
-      Message
-    </Message>,
-  );
+test("renders with 'ai' icon SVG when variant is 'ai'", () => {
+  render(<Message variant="ai" />);
 
-  expect(screen.getByTestId("my-message")).toHaveStyle({
-    border: "none",
-    background: "transparent",
-  });
-  expect(screen.getByTestId("message-content")).toHaveStyleRule(
-    "padding",
-    "var(--spacing200)",
-  );
+  const aiSvg = screen.getByTestId("ai-icon");
+
+  expect(aiSvg).toBeVisible();
 });
 
+// coverage
+test("renders with inverse 'ai' icon SVG when variant is 'ai-subtle'", () => {
+  render(<Message variant="ai-subtle" />);
+
+  const aiSvg = screen.getByTestId("ai-icon-subtle");
+
+  expect(aiSvg).toBeVisible();
+});
+
+// coverage
 test("renders with provided width when `width` is provided", () => {
   render(
     <Message data-role="my-message" width="100px">
@@ -210,6 +200,27 @@ test("renders with provided width when `width` is provided", () => {
   expect(screen.getByTestId("my-message")).toHaveStyle({
     width: "100px",
   });
+});
+
+// coverage
+test("renders with expected styles when `size` is 'large' and variant is subtle", () => {
+  render(
+    <Message
+      title="Title"
+      size="large"
+      variant="info-subtle"
+      onDismiss={() => {}}
+    >
+      Message
+    </Message>,
+  );
+
+  expect(screen.getByTestId("message-content")).toHaveStyle({
+    padding: "20px",
+    gap: "16px",
+  });
+  expect(screen.getByText("Title")).toHaveStyle({ fontSize: "16px" });
+  expect(screen.getByText("Message")).toHaveStyle({ fontSize: "16px" });
 });
 
 test("renders with `ref` when provided as an object", () => {
