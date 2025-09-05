@@ -1,3 +1,9 @@
+## [156.3.2](https://github.com/Sage/carbon/compare/v156.3.1...v156.3.2) (2025-09-05)
+
+### Bug Fixes
+
+* **responsive-vertical-menu:** prevent scrollbar cut off at bottom of menu ([623435f](https://github.com/Sage/carbon/commit/623435f0d08ba067b70f249c230079daf3661e24)), closes [#7491](https://github.com/Sage/carbon/issues/7491)
+
 ## [156.3.1](https://github.com/Sage/carbon/compare/v156.3.0...v156.3.1) (2025-09-04)
 
 ### Bug Fixes
