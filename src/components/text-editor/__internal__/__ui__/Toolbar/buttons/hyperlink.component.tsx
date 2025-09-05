@@ -59,6 +59,7 @@ const HyperlinkButton = React.forwardRef<
         editor.update(() => {
           const selection = $getSelection();
 
+          /* istanbul ignore else */
           if ($isRangeSelection(selection)) {
             const linkNode = $createLinkNode(linkUrl, { target: "_blank" });
             linkNode.append($createTextNode(linkText));

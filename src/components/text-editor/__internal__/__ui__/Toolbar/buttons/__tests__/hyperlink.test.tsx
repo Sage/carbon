@@ -1,11 +1,9 @@
-import { LexicalComposer } from "@lexical/react/LexicalComposer";
-import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
-import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React, { act } from "react";
 
 import { HyperlinkButton } from "./..";
+import TestEditor from "../../../../../__tests__/utils/TestEditor";
 
 const HyperlinkDemo = ({
   firstButtonOverride = false,
@@ -14,26 +12,14 @@ const HyperlinkDemo = ({
 }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   return (
-    <LexicalComposer
-      initialConfig={{
-        nodes: [],
-        onError: () => {},
-        namespace: "test",
-      }}
-    >
-      <RichTextPlugin
-        contentEditable={
-          <div role="textbox" contentEditable aria-label="test" />
-        }
-        ErrorBoundary={LexicalErrorBoundary}
-      />
+    <TestEditor>
       <HyperlinkButton
         namespace="test"
         setDialogOpen={setIsOpen}
         dialogOpen={isOpen}
         isFirstButton={firstButtonOverride}
       />
-    </LexicalComposer>
+    </TestEditor>
   );
 };
 

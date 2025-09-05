@@ -286,3 +286,20 @@ Mentions.args = {
   size: "medium",
   warning: "",
 };
+
+export const EmptyToolbar: Story = () => (
+  <TextEditor
+    validationMessagePositionTop
+    namespace="storybook-error-bottom"
+    labelText="Text Editor"
+    inputHint="Hint text"
+    error="error"
+    characterLimit={100}
+    mb={2}
+    toolbarControls={[]}
+  />
+);
+EmptyToolbar.storyName = "Empty Toolbar";
+EmptyToolbar.parameters = {
+  chromatic: { disableSnapshot: false },
+};

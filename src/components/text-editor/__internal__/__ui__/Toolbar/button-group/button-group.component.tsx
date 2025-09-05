@@ -11,7 +11,10 @@ const ButtonGroup = ({
   if (!children) return null;
 
   return (
-    <StyledButtonGroup id={`${namespace}-${name}`}>
+    <StyledButtonGroup
+      id={`${namespace}-${name}`}
+      data-role={`btg-${namespace}-${name}`}
+    >
       {children}
       {showDivider && <div role="separator" className="button-group-divider" />}
     </StyledButtonGroup>

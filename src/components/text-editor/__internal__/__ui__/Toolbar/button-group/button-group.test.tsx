@@ -1,6 +1,6 @@
 import React from "react";
 import { screen, render } from "@testing-library/react";
-import ButtonGroup from "./button-group";
+import ButtonGroup from "./button-group.component";
 
 test("returns null if no children are provided", () => {
   render(<ButtonGroup namespace="test" name="test" />);

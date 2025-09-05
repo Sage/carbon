@@ -1,4 +1,4 @@
-// test-utils/TestEditor.tsx
+/* istanbul ignore file */
 import React from "react";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
@@ -14,6 +14,15 @@ import userEvent from "@testing-library/user-event";
 import { screen } from "@testing-library/react";
 import { ListPlugin } from "@lexical/react/LexicalListPlugin";
 import { ListItemNode, ListNode } from "@lexical/list";
+import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin";
+import { ClickableLinkPlugin } from "@lexical/react/LexicalClickableLinkPlugin";
+
+import {
+  AutoLinkerPlugin,
+  LinkMonitorPlugin,
+} from "../../__internal__/__plugins__/";
+import { validateUrl } from "../../__internal__/__utils__/helpers";
+import { AutoLinkNode, LinkNode } from "@lexical/link";
 
 export type TestEditorHelpers = {
   /**  Function to set the entire content of the editor, unit-style. */
@@ -45,7 +54,7 @@ export const TestEditor = ({
     <LexicalComposer
       initialConfig={{
         namespace,
-        nodes: [ListNode, ListItemNode],
+        nodes: [ListNode, ListItemNode, AutoLinkNode, LinkNode],
         onError: () => {},
         editorState: (editor) => {
           const helpers: TestEditorHelpers = {
@@ -79,6 +88,10 @@ export const TestEditor = ({
         ErrorBoundary={LexicalErrorBoundary}
       />
       <ListPlugin />
+      <LinkPlugin validateUrl={validateUrl} />
+      <ClickableLinkPlugin newTab />
+      <AutoLinkerPlugin />
+      <LinkMonitorPlugin />
 
       {children}
     </LexicalComposer>

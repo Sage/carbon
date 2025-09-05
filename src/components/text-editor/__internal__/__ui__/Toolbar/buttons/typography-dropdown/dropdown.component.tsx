@@ -11,28 +11,27 @@ interface DropdownOption {
 
 interface ToolbarDropdownProps {
   ariaLabel?: string;
-  namespace?: string;
+  namespace: string;
   onChange?: (value: string) => void;
   options: DropdownOption[];
   isFirstButton?: boolean;
   value: string;
-
-  isOpen?: boolean;
+  isOpen: boolean;
   setIsOpen?: (open: boolean) => void;
-  focusedIndex?: number;
+  focusedIndex: number;
   setFocusedIndex?: (index: number) => void;
 }
 
 const ToolbarDropdown = ({
   ariaLabel = "Select an option",
-  namespace = "",
+  namespace,
   onChange,
   options,
   value,
   isFirstButton = false,
-  isOpen = false,
+  isOpen,
   setIsOpen,
-  focusedIndex = -1,
+  focusedIndex,
   setFocusedIndex,
 }: ToolbarDropdownProps) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -67,6 +66,14 @@ const ToolbarDropdown = ({
     };
   }, [isOpen, setFocusedIndex, setIsOpen]);
 
+  useEffect(() => {
+    if (isOpen && focusedIndex >= 0 && menuRef.current) {
+      const items =
+        menuRef.current.querySelectorAll<HTMLElement>('[role="menuitem"]');
+      items[focusedIndex]?.focus();
+    }
+  }, [isOpen, focusedIndex]);
+
   // Handle keyboard navigation
   const handleKeyDown = (event: React.KeyboardEvent) => {
     switch (event.key) {
@@ -76,16 +83,16 @@ const ToolbarDropdown = ({
           event.preventDefault();
           setIsOpen?.(true);
           setFocusedIndex?.(0);
-        } else if (focusedIndex >= 0) {
+          break;
+        }
+
+        /* istanbul ignore else */
+        if (focusedIndex >= 0) {
           event.preventDefault();
           options[focusedIndex]?.onClick();
           setIsOpen?.(false);
           setFocusedIndex?.(-1);
           buttonRef.current?.focus();
-        } else {
-          // do nothing if no option is focused
-          /* istanbul ignore next */
-          event.preventDefault();
         }
         break;
 

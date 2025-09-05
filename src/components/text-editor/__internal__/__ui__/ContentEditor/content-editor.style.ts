@@ -9,7 +9,7 @@ const FIXED_LINE_HEIGHT = 21;
 
 interface StyledContentEditableProps extends ContentEditorProps {
   readOnly?: boolean;
-  size?: "small" | "medium" | "large";
+  size: "small" | "medium" | "large";
   showBorders?: boolean;
 }
 
@@ -19,7 +19,7 @@ const StyledContentEditable = styled.div<StyledContentEditableProps>`
   ${
     readOnly &&
     css`
-      padding: ${getPaddingForSize(size || "medium")};
+      padding: ${getPaddingForSize(size)};
       background-color: #f3f3f3;
 
       p:first-of-type {
@@ -44,7 +44,7 @@ const StyledContentEditable = styled.div<StyledContentEditableProps>`
 
 
       margin-bottom: -4px;
-      padding: ${getPaddingForSize(size || "medium")};
+      padding: ${getPaddingForSize(size)};
 
       border-bottom-right-radius: var(--borderRadius100);
       border-bottom-left-radius: var(--borderRadius100);

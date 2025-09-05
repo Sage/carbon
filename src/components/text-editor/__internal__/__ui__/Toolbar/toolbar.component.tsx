@@ -17,7 +17,7 @@ import {
 } from "./buttons";
 
 import SaveButton from "./buttons/save.component";
-import ButtonGroup from "./button-group/button-group";
+import ButtonGroup from "./button-group/button-group.component";
 import { ToolbarProps } from "../../__utils__/interfaces";
 import { TEXT_EDITOR_ACTION_TYPES } from "../../__utils__/constants";
 
@@ -32,8 +32,8 @@ const Toolbar = ({
     "bold",
     "italic",
     "underline",
-    "unordered_list",
-    "ordered_list",
+    "unordered-list",
+    "ordered-list",
     "link",
   ],
 }: ToolbarProps) => {
@@ -82,10 +82,12 @@ const Toolbar = ({
 
   // Register a keydown listener to enable keyboard navigation
   const handleToolbarKeyDown = (event: React.KeyboardEvent) => {
+    if (toolbarControls.length === 0 || !toolbarRef.current) return;
+
     const currentButtons = Array.from(
       toolbarRef.current?.querySelectorAll(
         'button[role="button"].toolbar-button, button.toolbar-button',
-      ) ?? [],
+      ),
     ) as HTMLButtonElement[];
 
     /* istanbul ignore if */
@@ -136,15 +138,15 @@ const Toolbar = ({
       toolbarControls.includes("italic") ||
       toolbarControls.includes("underline");
     const showListFormattingSection =
-      toolbarControls.includes("unordered_list") ||
-      toolbarControls.includes("ordered_list");
+      toolbarControls.includes("unordered-list") ||
+      toolbarControls.includes("ordered-list");
     const showHyperlinkFormattingSection = toolbarControls.includes("link");
 
     return (
       <>
         {showTypographyFormattingSection && (
           <ButtonGroup
-            name={`${namespace}-typography-formatting-buttons`}
+            name={`typography-formatting-buttons`}
             namespace={namespace}
             showDivider={
               showTextFormattingSection ||
@@ -164,7 +166,7 @@ const Toolbar = ({
         )}
         {showTextFormattingSection && (
           <ButtonGroup
-            name={`${namespace}-text-formatting-buttons`}
+            name={`text-formatting-buttons`}
             namespace={namespace}
             showDivider={
               showListFormattingSection || showHyperlinkFormattingSection
@@ -202,7 +204,7 @@ const Toolbar = ({
         )}
         {showListFormattingSection && (
           <ButtonGroup
-            name={`${namespace}-list-formatting-buttons`}
+            name={`list-formatting-buttons`}
             namespace={namespace}
             showDivider={showHyperlinkFormattingSection}
           >
@@ -211,10 +213,10 @@ const Toolbar = ({
               olIsFirstButton={
                 !showTypographyFormattingSection &&
                 !showTextFormattingSection &&
-                !toolbarControls.includes("unordered_list")
+                !toolbarControls.includes("unordered-list")
               }
-              showOL={toolbarControls.includes("ordered_list")}
-              showUL={toolbarControls.includes("unordered_list")}
+              showOL={toolbarControls.includes("ordered-list")}
+              showUL={toolbarControls.includes("unordered-list")}
               ulIsFirstButton={
                 !showTypographyFormattingSection && !showTextFormattingSection
               }
@@ -223,7 +225,7 @@ const Toolbar = ({
         )}
         {showHyperlinkFormattingSection && (
           <ButtonGroup
-            name={`${namespace}-hyperlink-formatting-buttons`}
+            name={`hyperlink-formatting-buttons`}
             namespace={namespace}
             showDivider={false}
           >

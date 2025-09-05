@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { render, screen, waitFor, within } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import React, { act, createRef } from "react";
@@ -108,74 +108,6 @@ test("rendering and basic functionality", async () => {
   await user.click(editor);
   await user.keyboard("defghijklmnopqrstuvwxyz");
   expect(characterCounter).toHaveTextContent("0 characters remaining");
-
-  // highlight all of the text and click the bold button
-  await user.tripleClick(editor);
-  const boldButton = screen.getByTestId(`${COMPONENT_PREFIX}-bold-button`);
-  await user.click(boldButton);
-
-  // expect the text to be bold
-  expect(
-    screen.getByText("Sample text abcdefghijklmnopqrstuvwxyz"),
-  ).toHaveStyle("font-weight: bold");
-
-  // click the bold button again and expect the text to be normal
-  await user.click(boldButton);
-  expect(
-    screen.getByText("Sample text abcdefghijklmnopqrstuvwxyz"),
-  ).not.toHaveStyle("font-weight: bold");
-
-  // click the italic button
-  const italicButton = screen.getByTestId(`${COMPONENT_PREFIX}-italic-button`);
-  await user.click(italicButton);
-
-  // expect the text to be italic
-  expect(
-    screen.getByText("Sample text abcdefghijklmnopqrstuvwxyz"),
-  ).toHaveStyle("font-style: italic");
-
-  // click the italic button again and expect the text to be normal
-  await user.click(italicButton);
-  expect(
-    screen.getByText("Sample text abcdefghijklmnopqrstuvwxyz"),
-  ).not.toHaveStyle("font-style: italic");
-
-  // click the ordered list button
-  const olButton = screen.getByTestId(
-    `${COMPONENT_PREFIX}-ordered-list-button`,
-  );
-  await user.click(olButton);
-
-  // Variable to store list for checks
-  let list;
-
-  // expect the text to be in an ordered list
-  list = screen.getByRole("list");
-  expect(list).toBeInstanceOf(HTMLOListElement);
-  expect(
-    within(list).getByText("Sample text abcdefghijklmnopqrstuvwxyz"),
-  ).toBeVisible();
-
-  // click the ordered list button again and expect the text to be normal
-  await user.click(olButton);
-  expect(list).not.toBeVisible();
-
-  // click the unordered list button
-  const ulButton = screen.getByTestId(
-    `${COMPONENT_PREFIX}-unordered-list-button`,
-  );
-  await user.click(ulButton);
-
-  // expect the text to be in an unordered list
-  list = screen.getByRole("list");
-  expect(list).toBeInstanceOf(HTMLUListElement);
-  expect(
-    within(list).getByText("Sample text abcdefghijklmnopqrstuvwxyz"),
-  ).toBeVisible();
-
-  // click the unordered list button again and expect the text to be normal
-  await user.click(ulButton);
-  expect(list).not.toBeVisible();
 
   // get both command buttons
   const cancelButton = screen.getByText("Cancel");

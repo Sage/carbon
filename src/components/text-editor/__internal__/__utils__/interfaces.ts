@@ -192,6 +192,6 @@ export type ToolbarControl =
   | "bold"
   | "italic"
   | "underline"
-  | "unordered_list"
-  | "ordered_list"
+  | "unordered-list"
+  | "ordered-list"
   | "link";

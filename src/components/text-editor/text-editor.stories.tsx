@@ -74,8 +74,8 @@ export const Demo: Story = {
       "bold",
       "italic",
       "underline",
-      "unordered_list",
-      "ordered_list",
+      "unordered-list",
+      "ordered-list",
       "link",
     ],
     // Deprecated
@@ -121,7 +121,7 @@ export const ToolbarControls: Story = {
     rows: 4,
     size: "medium",
     namespace: "storybook-demo",
-    toolbarControls: ["typography", "italic", "unordered_list", "link"],
+    toolbarControls: ["typography", "italic", "unordered-list", "link"],
   },
 };
 
