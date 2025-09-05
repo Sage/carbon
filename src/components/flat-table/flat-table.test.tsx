@@ -346,7 +346,7 @@ describe("when rows are interactive", () => {
       <FlatTable>
         <FlatTableBody>
           <FlatTableRow onClick={() => {}}>
-            <FlatTableCheckbox onChange={() => {}} />
+            <FlatTableCheckbox onChange={() => {}} checked={false} />
             <FlatTableCell>two</FlatTableCell>
           </FlatTableRow>
           <FlatTableRow onClick={() => {}}>
@@ -377,7 +377,7 @@ describe("when rows are interactive", () => {
             <FlatTableCell>two</FlatTableCell>
           </FlatTableRow>
           <FlatTableRow onClick={() => {}}>
-            <FlatTableCheckbox onChange={() => {}} />
+            <FlatTableCheckbox onChange={() => {}} checked={false} />
             <FlatTableCell>four</FlatTableCell>
           </FlatTableRow>
         </FlatTableBody>

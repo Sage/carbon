@@ -6,15 +6,29 @@ import {
   mockMatchMedia,
 } from "../../__spec_helper__/__internal__/test-utils";
 
-import NumeralDate from "./numeral-date.component";
+import NumeralDate, {
+  NumeralDateEvent,
+  NumeralDateProps,
+  NumeralDateValue,
+} from "./numeral-date.component";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
-import Logger from "../../__internal__/utils/logger";
 import Button from "../button";
 
 jest.mock("../../__internal__/utils/logger");
 
 testStyledSystemMargin(
-  (props) => <NumeralDate data-role="numeral-date" {...props} />,
+  (props) => (
+    <NumeralDate
+      data-role="numeral-date"
+      value={{
+        dd: "",
+        mm: "",
+        yyyy: "",
+      }}
+      onChange={jest.fn}
+      {...props}
+    />
+  ),
   () => screen.getByRole("group"),
 );
 
@@ -27,17 +41,20 @@ afterEach(() => {
   jest.useRealTimers();
 });
 
-test("should display deprecation warning once when used in an uncontrolled manner", () => {
-  const loggerSpy = jest.spyOn(Logger, "deprecate");
-  render(<NumeralDate />);
+interface ControlledComponentProps
+  extends Omit<NumeralDateProps, "onChange" | "value"> {
+  initialValue?: NumeralDateValue;
+}
 
-  expect(loggerSpy).toHaveBeenCalledWith(
-    "Uncontrolled behaviour in `Numeral Date` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
-  );
+const ControlledComponent = ({
+  initialValue = { dd: "", mm: "", yyyy: "" },
+  ...props
+}: ControlledComponentProps) => {
+  const [value, setValue] = React.useState<NumeralDateValue>(initialValue);
+  const onChange = (e: NumeralDateEvent) => setValue(e.target.value);
 
-  expect(loggerSpy).toHaveBeenCalledTimes(1);
-  loggerSpy.mockClear();
-});
+  return <NumeralDate value={value} onChange={onChange} {...props} />;
+};
 
 test("should display an error when invalid `dateFormat` prop passed", () => {
   const consoleSpy = jest
@@ -70,36 +87,6 @@ test("should not throw an error if no `dateFormat` is passed", () => {
   );
 
   expect(consoleSpy).not.toHaveBeenCalled();
-  consoleSpy.mockReset();
-});
-
-test("should throw when component changes from uncontrolled to controlled", () => {
-  const consoleSpy = jest
-    .spyOn(global.console, "error")
-    .mockImplementation(() => undefined);
-  const { rerender } = render(<NumeralDate value={undefined} />);
-  expect(() => {
-    rerender(<NumeralDate value={{ dd: "02", mm: "01", yyyy: "2020" }} />);
-  }).toThrow(
-    "Input elements should not switch from uncontrolled to controlled (or vice versa). " +
-      "Decide between using a controlled or uncontrolled input element for the lifetime of the component",
-  );
-  consoleSpy.mockReset();
-});
-
-test("should throw when component changes from controlled to uncontrolled", () => {
-  const consoleSpy = jest
-    .spyOn(global.console, "error")
-    .mockImplementation(() => undefined);
-  const { rerender } = render(
-    <NumeralDate value={{ dd: "02", mm: "01", yyyy: "2020" }} />,
-  );
-  expect(() => {
-    rerender(<NumeralDate value={undefined} />);
-  }).toThrow(
-    "Input elements should not switch from uncontrolled to controlled (or vice versa). " +
-      "Decide between using a controlled or uncontrolled input element for the lifetime of the component",
-  );
   consoleSpy.mockReset();
 });
 
@@ -751,7 +738,17 @@ test("should not render with `labelInline` when `adaptiveLabelBreakpoint` set an
   mockMatchMedia(false);
   render(
     <CarbonProvider>
-      <NumeralDate label="label" labelInline adaptiveLabelBreakpoint={1000} />
+      <NumeralDate
+        label="label"
+        labelInline
+        adaptiveLabelBreakpoint={1000}
+        value={{
+          dd: "",
+          mm: "",
+          yyyy: "",
+        }}
+        onChange={jest.fn}
+      />
     </CarbonProvider>,
   );
 
@@ -766,7 +763,17 @@ test("should render with `labelInline` when `adaptiveLabelBreakpoint` set and sc
   mockMatchMedia(true);
   render(
     <CarbonProvider>
-      <NumeralDate label="label" labelInline adaptiveLabelBreakpoint={1000} />
+      <NumeralDate
+        label="label"
+        labelInline
+        adaptiveLabelBreakpoint={1000}
+        value={{
+          dd: "",
+          mm: "",
+          yyyy: "",
+        }}
+        onChange={jest.fn}
+      />
     </CarbonProvider>,
   );
 
@@ -893,19 +900,17 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
-        <NumeralDate
-          value={{ dd: "", mm: "", yyyy: "" }}
-          onChange={() => {}}
-          enableInternalError
-        />
+        <ControlledComponent enableInternalError />
       </CarbonProvider>,
     );
 
     const dayInput = screen.getByRole("textbox", { name: "Day" });
     const monthInput = screen.getByRole("textbox", { name: "Month" });
     const yearInput = screen.getByRole("textbox", { name: "Year" });
+
     await user.type(dayInput, "32");
     await user.tab();
+    expect(monthInput).toHaveFocus();
 
     expect(dayInput).toBeInvalid();
     expect(monthInput).toBeInvalid();
@@ -919,11 +924,7 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
-        <NumeralDate
-          value={{ dd: "", mm: "", yyyy: "" }}
-          onChange={() => {}}
-          enableInternalError
-        />
+        <ControlledComponent enableInternalError />
       </CarbonProvider>,
     );
 
@@ -945,9 +946,8 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
-        <NumeralDate
-          value={{ dd: "29", mm: "", yyyy: "2021" }}
-          onChange={() => {}}
+        <ControlledComponent
+          initialValue={{ dd: "29", mm: "", yyyy: "2021" }}
           enableInternalError
         />
       </CarbonProvider>,
@@ -1013,9 +1013,8 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
-        <NumeralDate
-          value={{ dd: "31", mm: "", yyyy: "2020" }}
-          onChange={() => {}}
+        <ControlledComponent
+          initialValue={{ dd: "31", mm: "", yyyy: "2020" }}
           enableInternalError
         />
       </CarbonProvider>,
@@ -1039,9 +1038,8 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
-        <NumeralDate
-          value={{ dd: "31", mm: "", yyyy: "2020" }}
-          onChange={() => {}}
+        <ControlledComponent
+          initialValue={{ dd: "31", mm: "", yyyy: "2020" }}
           enableInternalError
         />
       </CarbonProvider>,
@@ -1065,9 +1063,8 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
-        <NumeralDate
-          value={{ dd: "31", mm: "", yyyy: "" }}
-          onChange={() => {}}
+        <ControlledComponent
+          initialValue={{ dd: "31", mm: "", yyyy: "" }}
           enableInternalError
         />
       </CarbonProvider>,
@@ -1091,9 +1088,8 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
-        <NumeralDate
-          value={{ dd: "31", mm: "", yyyy: "" }}
-          onChange={() => {}}
+        <ControlledComponent
+          initialValue={{ dd: "31", mm: "", yyyy: "" }}
           enableInternalError
         />
       </CarbonProvider>,
@@ -1117,9 +1113,8 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
-        <NumeralDate
-          value={{ dd: "", mm: "", yyyy: "" }}
-          onChange={() => {}}
+        <ControlledComponent
+          initialValue={{ dd: "", mm: "", yyyy: "" }}
           enableInternalError
         />
       </CarbonProvider>,
@@ -1143,11 +1138,7 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
-        <NumeralDate
-          value={{ dd: "", mm: "", yyyy: "" }}
-          onChange={() => {}}
-          enableInternalError
-        />
+        <ControlledComponent enableInternalError />
       </CarbonProvider>,
     );
 
@@ -1169,11 +1160,7 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
-        <NumeralDate
-          value={{ dd: "", mm: "", yyyy: "" }}
-          onChange={() => {}}
-          enableInternalError
-        />
+        <ControlledComponent enableInternalError />
       </CarbonProvider>,
     );
 
@@ -1195,11 +1182,7 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
-        <NumeralDate
-          value={{ dd: "", mm: "", yyyy: "" }}
-          onChange={() => {}}
-          enableInternalError
-        />
+        <ControlledComponent enableInternalError />
       </CarbonProvider>,
     );
 
@@ -1338,11 +1321,7 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
-        <NumeralDate
-          value={{ dd: "", mm: "", yyyy: "" }}
-          onChange={() => {}}
-          enableInternalWarning
-        />
+        <ControlledComponent enableInternalWarning />
       </CarbonProvider>,
     );
 
@@ -1364,11 +1343,7 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
-        <NumeralDate
-          value={{ dd: "", mm: "", yyyy: "" }}
-          onChange={() => {}}
-          enableInternalWarning
-        />
+        <ControlledComponent enableInternalWarning />
       </CarbonProvider>,
     );
 
@@ -1390,9 +1365,8 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
-        <NumeralDate
-          value={{ dd: "29", mm: "", yyyy: "2021" }}
-          onChange={() => {}}
+        <ControlledComponent
+          initialValue={{ dd: "29", mm: "", yyyy: "2021" }}
           enableInternalWarning
         />
       </CarbonProvider>,
@@ -1437,9 +1411,8 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
-        <NumeralDate
-          value={{ dd: "31", mm: "", yyyy: "2020" }}
-          onChange={() => {}}
+        <ControlledComponent
+          initialValue={{ dd: "31", mm: "", yyyy: "2020" }}
           enableInternalWarning
         />
       </CarbonProvider>,
@@ -1463,9 +1436,8 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
-        <NumeralDate
-          value={{ dd: "31", mm: "", yyyy: "2020" }}
-          onChange={() => {}}
+        <ControlledComponent
+          initialValue={{ dd: "31", mm: "", yyyy: "2020" }}
           enableInternalWarning
         />
       </CarbonProvider>,
@@ -1489,9 +1461,8 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
-        <NumeralDate
-          value={{ dd: "31", mm: "", yyyy: "" }}
-          onChange={() => {}}
+        <ControlledComponent
+          initialValue={{ dd: "31", mm: "", yyyy: "" }}
           enableInternalWarning
         />
       </CarbonProvider>,
@@ -1515,9 +1486,8 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
-        <NumeralDate
-          value={{ dd: "31", mm: "", yyyy: "" }}
-          onChange={() => {}}
+        <ControlledComponent
+          initialValue={{ dd: "31", mm: "", yyyy: "" }}
           enableInternalWarning
         />
       </CarbonProvider>,
@@ -1541,11 +1511,7 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
-        <NumeralDate
-          value={{ dd: "", mm: "", yyyy: "" }}
-          onChange={() => {}}
-          enableInternalWarning
-        />
+        <ControlledComponent enableInternalWarning />
       </CarbonProvider>,
     );
 
@@ -1567,11 +1533,7 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
-        <NumeralDate
-          value={{ dd: "", mm: "", yyyy: "" }}
-          onChange={() => {}}
-          enableInternalWarning
-        />
+        <ControlledComponent enableInternalWarning />
       </CarbonProvider>,
     );
 
@@ -1593,11 +1555,7 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
-        <NumeralDate
-          value={{ dd: "", mm: "", yyyy: "" }}
-          onChange={() => {}}
-          enableInternalWarning
-        />
+        <ControlledComponent enableInternalWarning />
       </CarbonProvider>,
     );
 
@@ -1619,11 +1577,7 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
-        <NumeralDate
-          value={{ dd: "", mm: "", yyyy: "" }}
-          onChange={() => {}}
-          enableInternalWarning
-        />
+        <ControlledComponent enableInternalWarning />
       </CarbonProvider>,
     );
 
@@ -1672,10 +1626,7 @@ test("should submit the form when enter key is pressed", async () => {
 test("should update the input values when the delete key is pressed", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(
-    <NumeralDate
-      value={{ dd: "11", mm: "11", yyyy: "2011" }}
-      onChange={() => {}}
-    />,
+    <ControlledComponent initialValue={{ dd: "11", mm: "11", yyyy: "2011" }} />,
   );
 
   const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -1693,10 +1644,7 @@ test("should update the input values when the delete key is pressed", async () =
 test("should update the input values when the backspace key is pressed", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(
-    <NumeralDate
-      value={{ dd: "11", mm: "11", yyyy: "2011" }}
-      onChange={() => {}}
-    />,
+    <ControlledComponent initialValue={{ dd: "11", mm: "11", yyyy: "2011" }} />,
   );
 
   const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -2232,4 +2180,26 @@ test("should focus the first textbox when the component is programmatically focu
   await user.click(button);
 
   expect(firstInput).toHaveFocus();
+});
+
+// coverage
+test("when internal validation is enabled and the input blurs, it should use the current year as part of the validation if none is provided", async () => {
+  jest.useFakeTimers().setSystemTime(new Date("2020-01-01"));
+
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <CarbonProvider validationRedesignOptIn>
+      <ControlledComponent enableInternalWarning />
+    </CarbonProvider>,
+  );
+
+  const monthInput = screen.getByRole("textbox", { name: "Month" });
+  await user.click(monthInput);
+  await user.keyboard("{End}");
+  await user.type(monthInput, "02");
+  await user.tab();
+  await user.tab();
+
+  expect(screen.queryByRole("validation-message")).not.toBeInTheDocument();
 });

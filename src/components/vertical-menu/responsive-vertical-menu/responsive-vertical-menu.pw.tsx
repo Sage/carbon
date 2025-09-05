@@ -1,4 +1,3 @@
-/* eslint-disable no-await-in-loop */
 import React from "react";
 import { test, expect } from "../../../../playwright/helpers/base-test";
 

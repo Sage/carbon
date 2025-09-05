@@ -41,12 +41,16 @@ export const Sizes: Story = () => {
         key="checkbox-small"
         name="checkbox-small"
         size="small"
+        onChange={() => {}}
+        checked
       />
       <Checkbox
         label="Large"
         key="checkbox-large"
         name="checkbox-large"
         size="large"
+        onChange={() => {}}
+        checked
       />
     </>
   );
@@ -55,13 +59,27 @@ Sizes.storyName = "Sizes";
 
 export const Disabled: Story = () => {
   return (
-    <Checkbox disabled label="Disabled checkbox" name="checkbox-disabled" />
+    <Checkbox
+      disabled
+      label="Disabled checkbox"
+      name="checkbox-disabled"
+      onChange={() => {}}
+      checked
+    />
   );
 };
 Disabled.storyName = "Disabled";
 
 export const Reversed: Story = () => {
-  return <Checkbox label="Reversed checkbox" name="checkbox-reverse" reverse />;
+  return (
+    <Checkbox
+      label="Reversed checkbox"
+      name="checkbox-reverse"
+      reverse
+      onChange={() => {}}
+      checked
+    />
+  );
 };
 Reversed.storyName = "Reversed";
 
@@ -87,6 +105,8 @@ export const WithFieldHelp: Story = () => {
         label="With fieldHelp"
         key="checkbox-fieldhelp"
         name="checkbox-fieldhelp"
+        onChange={() => {}}
+        checked
       />
       <Checkbox
         fieldHelp="This text provides help for the input."
@@ -94,6 +114,8 @@ export const WithFieldHelp: Story = () => {
         label="With inline fieldHelp"
         key="checkbox-fieldhelp-inline"
         name="checkbox-fieldhelp-inline"
+        onChange={() => {}}
+        checked
       />
     </>
   );
@@ -106,6 +128,8 @@ export const CustomLabelWidth: Story = () => {
       label="With custom labelWidth"
       labelWidth={100}
       name="checkbox-custom-label"
+      onChange={() => {}}
+      checked
     />
   );
 };
@@ -117,6 +141,8 @@ export const LegacyLabelHelp: Story = () => {
       label="With labelHelp"
       labelHelp="This text provides more information for the label."
       name="checkbox-labelHelp"
+      onChange={() => {}}
+      checked
     />
   );
 };

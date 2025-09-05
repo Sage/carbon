@@ -69,6 +69,7 @@ export const Default = ({
     setIsOpen(true);
     action("open")(evt);
   };
+  const [selected, setSelected] = useState("1");
 
   const selectOptions = [
     {
@@ -135,12 +136,12 @@ export const Default = ({
             </Button>
           }
         >
-          <Textbox label="First Name" />
-          <Textbox label="Middle Name" />
-          <Textbox label="Surname" />
-          <Textbox label="Birth Place" />
-          <Textbox label="Favourite Colour" />
-          <Textbox label="Address" />
+          <Textbox label="First Name" value="" onChange={() => {}} />
+          <Textbox label="Middle Name" value="" onChange={() => {}} />
+          <Textbox label="Surname" value="" onChange={() => {}} />
+          <Textbox label="Birth Place" value="" onChange={() => {}} />
+          <Textbox label="Favourite Colour" value="" onChange={() => {}} />
+          <Textbox label="Address" value="" onChange={() => {}} />
           <DateInput
             name="date"
             label="Birthday"
@@ -149,12 +150,16 @@ export const Default = ({
               setDate(e.target.value.formattedValue)
             }
           />
-          <Select label="Color">
+          <Select
+            label="Color"
+            value={selected}
+            onChange={(e) => setSelected(e.target.value)}
+          >
             {selectOptions.map((option) => (
               <Option key={option.name} value={option} text={option.name} />
             ))}
           </Select>
-          <Textbox label="Pet Name" />
+          <Textbox label="Pet Name" value="" onChange={() => {}} />
           <DateInput
             name="date"
             label="Pet's birthday"
@@ -164,7 +169,12 @@ export const Default = ({
             }
           />
           <TextEditor labelText="Additional notes" />
-          <Checkbox name="checkbox" label="Do you like my Dog" />
+          <Checkbox
+            name="checkbox"
+            label="Do you like my Dog"
+            checked={false}
+            onChange={() => {}}
+          />
           <div>This is an example of a dialog with a Form as content</div>
         </Form>
       </Dialog>
@@ -205,9 +215,9 @@ export const WithTwoDifferentNodes: StoryType = (
       onCancel={() => setIsOpen(false)}
       {...props}
     >
-      <Textbox label="Textbox1" value="Textbox1" />
-      <Textbox label="Textbox2" value="Textbox2" />
-      <Textbox label="Textbox3" value="Textbox3" />
+      <Textbox label="Textbox1" value="Textbox1" onChange={() => {}} />
+      <Textbox label="Textbox2" value="Textbox2" onChange={() => {}} />
+      <Textbox label="Textbox3" value="Textbox3" onChange={() => {}} />
     </Dialog>
   );
 };
@@ -234,18 +244,18 @@ export const MaxSizeTest: StoryType = () => {
           </Button>
         }
       >
-        <Textbox label="First Name" />
-        <Textbox label="Middle Name" />
-        <Textbox label="Surname" />
-        <Textbox label="Birth Place" />
-        <Textbox label="Favourite Colour" />
-        <Textbox label="Address" />
-        <Textbox label="First Name" />
-        <Textbox label="Middle Name" />
-        <Textbox label="Surname" />
-        <Textbox label="Birth Place" />
-        <Textbox label="Favourite Colour" />
-        <Textbox label="Address" />
+        <Textbox label="First Name" value="" onChange={() => {}} />
+        <Textbox label="Middle Name" value="" onChange={() => {}} />
+        <Textbox label="Surname" value="" onChange={() => {}} />
+        <Textbox label="Birth Place" value="" onChange={() => {}} />
+        <Textbox label="Favourite Colour" value="" onChange={() => {}} />
+        <Textbox label="Address" value="" onChange={() => {}} />
+        <Textbox label="First Name" value="" onChange={() => {}} />
+        <Textbox label="Middle Name" value="" onChange={() => {}} />
+        <Textbox label="Surname" value="" onChange={() => {}} />
+        <Textbox label="Birth Place" value="" onChange={() => {}} />
+        <Textbox label="Favourite Colour" value="" onChange={() => {}} />
+        <Textbox label="Address" value="" onChange={() => {}} />
       </Form>
     </Dialog>
   );
@@ -278,7 +288,7 @@ export const MaxSizeTestNonOverflowedForm: StoryType = () => {
           </Button>
         }
       >
-        <Textbox label="First Name" />
+        <Textbox label="First Name" value="" onChange={() => {}} />
       </Form>
     </Dialog>
   );
@@ -419,12 +429,12 @@ export const WithWrappedStickyForm: StoryType = {
             </Button>
           }
         >
-          <Textbox label="First Name" />
-          <Textbox label="Middle Name" />
-          <Textbox label="Surname" />
-          <Textbox label="Birth Place" />
-          <Textbox label="Favourite Colour" />
-          <Textbox label="Address" />
+          <Textbox label="First Name" value="" onChange={() => {}} />
+          <Textbox label="Middle Name" value="" onChange={() => {}} />
+          <Textbox label="Surname" value="" onChange={() => {}} />
+          <Textbox label="Birth Place" value="" onChange={() => {}} />
+          <Textbox label="Favourite Colour" value="" onChange={() => {}} />
+          <Textbox label="Address" value="" onChange={() => {}} />
         </Form>
       </Box>
     ),

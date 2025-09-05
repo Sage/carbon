@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 import * as floatingUi from "@floating-ui/react-dom";
 
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
-import Textarea from ".";
+import Textarea, { TextareaProps } from ".";
 import { EnterKeyHintTypes } from "../../__internal__/input";
 import guid from "../../__internal__/utils/helpers/guid";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
@@ -17,49 +17,71 @@ jest.mock("../../__internal__/utils/helpers/guid");
 const mockedGuid = "guid-12345";
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(() => mockedGuid);
 
-test("should display deprecation warning once when rendered as uncontrolled", () => {
+type CustomType = Omit<TextareaProps, "onChange" | "value"> & {
+  value?: string;
+};
+
+const MockComponent = (props: CustomType) => {
+  const [value, setValue] = useState(() => props.value ?? "Initial content");
+  return (
+    <Textarea
+      {...props}
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+    />
+  );
+};
+
+test("should display deprecation warning once when rendered as optional", () => {
   const loggerSpy = jest.spyOn(Logger, "deprecate");
 
-  render(<Textarea name="my-textarea" defaultValue="test" />);
-
-  expect(loggerSpy).toHaveBeenCalledWith(
-    "Uncontrolled behaviour in `Textarea` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
+  render(
+    <>
+      <MockComponent name="my-textarea" isOptional />
+      <MockComponent name="my-textarea" isOptional />
+    </>,
   );
 
+  // Ensure the deprecation warning is logged only once
   expect(loggerSpy).toHaveBeenCalledTimes(1);
+
+  expect(loggerSpy).toHaveBeenNthCalledWith(
+    1,
+    "`isOptional` is deprecated in TextArea and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
+  );
 
   loggerSpy.mockRestore();
 });
 
 test("should render a textarea element", () => {
-  render(<Textarea />);
+  render(<MockComponent />);
   const textarea = screen.getByRole("textbox");
   expect(textarea).toBeInTheDocument();
   expect(textarea.tagName).toEqual("TEXTAREA");
 });
 
 test("should not render character counter if no characterLimit prop is given", () => {
-  render(<Textarea />);
+  render(<MockComponent />);
   expect(screen.queryByText(/you can enter up to/i)).not.toBeInTheDocument();
 });
 
 test("should render character counter if characterLimit prop is given", () => {
-  render(<Textarea characterLimit={5} />);
+  render(<MockComponent characterLimit={5} />);
   expect(screen.getByText(/you can enter up to/i)).toBeInTheDocument();
 });
 
 test("should not render a placeholder if disabled", () => {
-  render(<Textarea placeholder="foo" disabled />);
+  render(<MockComponent placeholder="foo" disabled />);
   expect(screen.getByRole("textbox")).toHaveAttribute("placeholder", "");
 });
 
 testStyledSystemMargin(
-  (props) => <Textarea data-role="textarea-wrapper" {...props} />,
+  (props) => <MockComponent data-role="textarea-wrapper" {...props} />,
   () => screen.getByTestId("textarea-wrapper"),
 );
 
 test("should display the correct value when the value prop is set", () => {
-  render(<Textarea value="Initial content" />);
+  render(<MockComponent />);
 
   expect(screen.getByRole("textbox")).toHaveTextContent("Initial content");
 });
@@ -80,7 +102,7 @@ test.each([
 ] as const)(
   "styles the textarea appropriately when an icon is present inside",
   (props) => {
-    render(<Textarea value="test string" data-role="icon-test" {...props} />);
+    render(<MockComponent data-role="icon-test" {...props} />);
     expect(screen.getByTestId("icon-test")).toHaveStyleRule(
       "padding-right",
       "var(--spacing500)",
@@ -90,7 +112,7 @@ test.each([
 );
 
 test("should have default min-height of 64px if no minHeight is specified", () => {
-  render(<Textarea value="Initial content" />);
+  render(<MockComponent />);
 
   const textarea = screen.getByRole("textbox");
 
@@ -98,7 +120,7 @@ test("should have default min-height of 64px if no minHeight is specified", () =
 });
 
 test("should apply the correct min-height if minHeight is specified", () => {
-  render(<Textarea minHeight={200} value="Initial content" />);
+  render(<MockComponent minHeight={200} />);
 
   const textarea = screen.getByRole("textbox");
 
@@ -116,7 +138,7 @@ test.each([
 ] as EnterKeyHintTypes[])(
   "'enterKeyHint' is correctly passed to the input when prop value is '%s'",
   (keyHint) => {
-    render(<Textarea enterKeyHint={keyHint} />);
+    render(<MockComponent enterKeyHint={keyHint} />);
 
     expect(screen.getByRole("textbox")).toHaveAttribute(
       "enterkeyhint",
@@ -128,7 +150,7 @@ test.each([
 test.each(["error", "warning", "info"])(
   "renders a validation icon in the textarea when %s prop is a string",
   (validationProp) => {
-    render(<Textarea {...{ [validationProp]: "Message" }} />);
+    render(<MockComponent {...{ [validationProp]: "Message" }} />);
     const inputPresentationContainer = screen.getByRole("presentation");
     const validationIcon = screen.getByTestId(`icon-${validationProp}`);
     expect(inputPresentationContainer).toContainElement(validationIcon);
@@ -141,7 +163,7 @@ test.each(["error", "warning", "info"])(
     const useFloatingSpy = jest.spyOn(floatingUi, "useFloating");
 
     render(
-      <Textarea
+      <MockComponent
         {...{
           label: "Label",
           [validationProp]: "Message",
@@ -162,7 +184,7 @@ test.each(["error", "warning", "info"])(
   "renders a validation icon on the label when %s prop is a string and validationOnLabel passed as true",
   (validationProp) => {
     render(
-      <Textarea
+      <MockComponent
         {...{
           label: "Label",
           [validationProp]: "Message",
@@ -182,7 +204,7 @@ test.each(["error", "warning", "info"])(
     const useFloatingSpy = jest.spyOn(floatingUi, "useFloating");
 
     render(
-      <Textarea
+      <MockComponent
         {...{
           label: "Label",
           [validationProp]: "Message",
@@ -203,7 +225,7 @@ test.each(["error", "warning", "info"])(
 test.each(["error", "warning", "info"])(
   "when %s validation prop is true boolean, does not render any validation icon",
   (validationProp) => {
-    render(<Textarea {...{ [validationProp]: true }} />);
+    render(<MockComponent {...{ [validationProp]: true }} />);
     expect(
       screen.queryByTestId(`icon-${validationProp}`),
     ).not.toBeInTheDocument();
@@ -211,13 +233,13 @@ test.each(["error", "warning", "info"])(
 );
 
 test("should set the aria-label on the Help component to the value of the helpAriaLabel prop", () => {
-  render(<Textarea label="foo" labelHelp="bar" helpAriaLabel="baz" />);
+  render(<MockComponent label="foo" labelHelp="bar" helpAriaLabel="baz" />);
 
   expect(screen.getByRole("button")).toHaveAttribute("aria-label", "baz");
 });
 
 test("should set the Help component's text content to the value of the labelHelp prop", async () => {
-  render(<Textarea label="foo" labelHelp="bar" helpAriaLabel="baz" />);
+  render(<MockComponent label="foo" labelHelp="bar" helpAriaLabel="baz" />);
 
   act(() => {
     screen.getByRole("button").focus();
@@ -229,7 +251,9 @@ test("should set the Help component's text content to the value of the labelHelp
 test.each(["info", "warning", "error"])(
   "with id prop provided, %s prop set as a string and the textarea element focused, the validation tooltip provides an accessible description for the textarea element",
   (validationType) => {
-    render(<Textarea id="foo" label="bar" {...{ [validationType]: "test" }} />);
+    render(
+      <MockComponent id="foo" label="bar" {...{ [validationType]: "test" }} />,
+    );
     const textarea = screen.getByRole("textbox");
     act(() => {
       textarea.focus();
@@ -242,7 +266,7 @@ test.each(["info", "warning", "error"])(
 test.each(["info", "warning", "error"])(
   "with id prop not provided, %s prop set as a string and the textarea element focused, the validation tooltip provides an accessible description for the textarea element",
   (validationType) => {
-    render(<Textarea label="bar" {...{ [validationType]: "test" }} />);
+    render(<MockComponent label="bar" {...{ [validationType]: "test" }} />);
     const textarea = screen.getByRole("textbox");
     act(() => {
       textarea.focus();
@@ -253,19 +277,19 @@ test.each(["info", "warning", "error"])(
 );
 
 test("renders the hint when inputHint prop is provided", () => {
-  render(<Textarea inputHint="foo" />);
+  render(<MockComponent inputHint="foo" />);
   expect(screen.getByText("foo")).toBeInTheDocument();
 });
 
 test("assigns the input hint as the accessible description of the textarea", () => {
-  render(<Textarea inputHint="bar" />);
+  render(<MockComponent inputHint="bar" />);
   expect(screen.getByRole("textbox")).toHaveAccessibleDescription("bar");
 });
 
 test("inputHint should have priority over labelHelp when both are passed", () => {
   render(
     <CarbonProvider validationRedesignOptIn>
-      <Textarea labelHelp="labelHelp" inputHint="inputHint" error="foo" />
+      <MockComponent labelHelp="labelHelp" inputHint="inputHint" error="foo" />
     </CarbonProvider>,
   );
   expect(screen.getByText("inputHint")).toBeInTheDocument();
@@ -273,13 +297,13 @@ test("inputHint should have priority over labelHelp when both are passed", () =>
 });
 
 test("when id and fieldHelp are both present, the field help provides an accessible description for the textarea element", () => {
-  render(<Textarea id="foo" label="bar" fieldHelp="baz" />);
+  render(<MockComponent id="foo" label="bar" fieldHelp="baz" />);
 
   expect(screen.getByRole("textbox")).toHaveAccessibleDescription("baz");
 });
 
 test("fieldHelp is present and id is not present, the field help provides an accessible description for the textarea element", () => {
-  render(<Textarea label="bar" fieldHelp="baz" />);
+  render(<MockComponent label="bar" fieldHelp="baz" />);
 
   expect(screen.getByRole("textbox")).toHaveAccessibleDescription("baz");
 });
@@ -288,7 +312,7 @@ test.each(["info", "warning", "error"])(
   "with id prop provided, fieldHelp present, %s prop set as a string and the textarea element focused, the fieldHelp and the validation tooltip are combined to provide an accessible description for the textarea element",
   (validationType) => {
     render(
-      <Textarea
+      <MockComponent
         id="foo"
         label="bar"
         fieldHelp="baz"
@@ -308,7 +332,7 @@ test.each(["info", "warning", "error"])(
   "with id prop not provided, fieldHelp present, %s prop set as a string and the textarea element focused, the fieldHelp and the validation tooltip are combined to provide an accessible description for the textarea element",
   (validationType) => {
     render(
-      <Textarea
+      <MockComponent
         label="bar"
         fieldHelp="baz"
         {...{ [validationType]: "test" }}
@@ -327,7 +351,7 @@ test("sets the accessible label to the provided aria-labelledby", () => {
   const Component = () => (
     <>
       <p id="test">label</p>
-      <Textarea aria-labelledby="test" />
+      <MockComponent aria-labelledby="test" />
     </>
   );
   render(<Component />);
@@ -339,7 +363,7 @@ test("appends the provided `aria-describedby` to the accessible description", ()
   const Component = () => (
     <>
       <p id="test">description</p>
-      <Textarea inputHint="hint text" aria-describedby="test" />
+      <MockComponent inputHint="hint text" aria-describedby="test" />
     </>
   );
   render(<Component />);
@@ -352,7 +376,7 @@ test("appends the provided `aria-describedby` to the accessible description", ()
 describe(`when the characterLimit prop is passed`, () => {
   it("renders a character counter with the appropriate message when the value is too long by 1 character", () => {
     const valueString = "foo";
-    render(<Textarea value={valueString} characterLimit={2} />);
+    render(<MockComponent value={valueString} characterLimit={2} />);
 
     expect(
       screen.getByText("1 character too many", {
@@ -363,7 +387,7 @@ describe(`when the characterLimit prop is passed`, () => {
 
   it("renders a character counter with the appropriate message when the value is too long by more than 1 character", () => {
     const valueString = "foo";
-    render(<Textarea value={valueString} characterLimit={1} />);
+    render(<MockComponent value={valueString} characterLimit={1} />);
 
     expect(
       screen.getByText("2 characters too many", {
@@ -374,7 +398,7 @@ describe(`when the characterLimit prop is passed`, () => {
 
   it("renders a character counter with the appropriate message when the input length exactly matches the limit", () => {
     const valueString = "foo";
-    render(<Textarea value={valueString} characterLimit={3} />);
+    render(<MockComponent value={valueString} characterLimit={3} />);
 
     expect(
       screen.getByText("0 characters left", {
@@ -385,7 +409,7 @@ describe(`when the characterLimit prop is passed`, () => {
 
   it("renders a character counter with the appropriate message when there is 1 character remaining", () => {
     const valueString = "foo";
-    render(<Textarea value={valueString} characterLimit={4} />);
+    render(<MockComponent value={valueString} characterLimit={4} />);
 
     expect(
       screen.getByText("1 character left", {
@@ -396,7 +420,7 @@ describe(`when the characterLimit prop is passed`, () => {
 
   it("renders a character counter with the appropriate message when there is more than 1 character remaining", () => {
     const valueString = "foo";
-    render(<Textarea value={valueString} characterLimit={5} />);
+    render(<MockComponent value={valueString} characterLimit={5} />);
 
     expect(
       screen.getByText("2 characters left", {
@@ -406,7 +430,7 @@ describe(`when the characterLimit prop is passed`, () => {
   });
 
   it("renders a visually hidden hint with id generated via guid", () => {
-    render(<Textarea value="foo" characterLimit={73} />);
+    render(<MockComponent value="foo" characterLimit={73} />);
     expect(
       screen.getByText("You can enter up to 73 characters", {
         selector: '[data-element="visually-hidden-hint"]',
@@ -415,14 +439,14 @@ describe(`when the characterLimit prop is passed`, () => {
   });
 
   it("assigns the visually hidden hint as the textarea's accessible description", () => {
-    render(<Textarea value="foo" characterLimit={73} />);
+    render(<MockComponent value="foo" characterLimit={73} />);
     expect(screen.getByRole("textbox")).toHaveAccessibleDescription("foo");
   });
 });
 
 describe('when the "expandable" prop is set to "true"', () => {
   it("sets the height of the textarea to the same as its scrollHeight on window resize", () => {
-    render(<Textarea expandable />);
+    render(<MockComponent expandable />);
     const expectedScrollHeight = 500;
 
     const textarea = screen.getByRole("textbox");
@@ -464,7 +488,7 @@ describe('when the "expandable" prop is set to "true"', () => {
 });
 
 test('when the "expandable" prop is false, the height of the textarea remains unchanged when the window is resized', () => {
-  render(<Textarea />);
+  render(<MockComponent />);
 
   const expectedScrollHeight = 500;
   const originalHeight = "50px";
@@ -481,7 +505,7 @@ test('when the "expandable" prop is false, the height of the textarea remains un
 });
 
 test("renders a label that is linked to the TextArea, if the label prop is promoted", () => {
-  render(<Textarea label="This is a Text Area" />);
+  render(<MockComponent label="This is a Text Area" />);
 
   expect(screen.getByLabelText("This is a Text Area")).toBe(
     screen.getByRole("textbox"),
@@ -489,7 +513,7 @@ test("renders a label that is linked to the TextArea, if the label prop is promo
 });
 
 test("when labelInline prop is set, the input label should accommodate for input internal padding", () => {
-  render(<Textarea label="foo" labelInline />);
+  render(<MockComponent label="foo" labelInline />);
 
   expect(screen.getByTestId("label-container")).toHaveStyle({
     paddingTop: "6px",
@@ -498,14 +522,14 @@ test("when labelInline prop is set, the input label should accommodate for input
 });
 
 test("when inputWidth prop is set, it determines the input width", () => {
-  render(<Textarea inputWidth={30} />);
+  render(<MockComponent inputWidth={30} />);
   expect(screen.getByTestId("input-presentation-container")).toHaveStyle({
     flex: "0 0 30%",
   });
 });
 
 test("when inputWidth is not set but labelWidth is, input width defaults to 100 minus label width", () => {
-  render(<Textarea labelWidth={45} />);
+  render(<MockComponent labelWidth={45} />);
   expect(screen.getByTestId("input-presentation-container")).toHaveStyle({
     flex: "0 0 55%",
   });
@@ -596,7 +620,7 @@ test("when textarea cannot be expanded, it does not remove any event listener fr
 });
 
 test("the required prop is passed to the input", () => {
-  render(<Textarea required label="required" />);
+  render(<MockComponent required label="required" />);
   expect(screen.getByRole("textbox")).toBeRequired();
 });
 
@@ -606,7 +630,10 @@ describe("when rendered with new validations", () => {
     (validationType) => {
       render(
         <CarbonProvider validationRedesignOptIn>
-          <Textarea inputHint="Hint" {...{ [validationType]: "Validation" }} />
+          <MockComponent
+            inputHint="Hint"
+            {...{ [validationType]: "Validation" }}
+          />
         </CarbonProvider>,
       );
 
@@ -621,7 +648,7 @@ describe("when rendered with new validations", () => {
     (validationType) => {
       render(
         <CarbonProvider validationRedesignOptIn>
-          <Textarea
+          <MockComponent
             inputHint="Hint"
             {...{ [validationType]: "Validation" }}
             validationMessagePositionTop={false}
@@ -638,7 +665,7 @@ describe("when rendered with new validations", () => {
   it("ignores the labelInline and related styling props", () => {
     render(
       <CarbonProvider validationRedesignOptIn>
-        <Textarea
+        <MockComponent
           labelInline
           label="example label"
           labelAlign="left"
@@ -660,7 +687,7 @@ describe("when rendered with new validations", () => {
   it("renders the hint text with the correct styling when the labelHelp prop is passed", () => {
     render(
       <CarbonProvider validationRedesignOptIn>
-        <Textarea labelHelp="Example hint text" />
+        <MockComponent labelHelp="Example hint text" />
       </CarbonProvider>,
     );
     const hintText = screen.getByText("Example hint text");
@@ -674,21 +701,23 @@ describe("when rendered with new validations", () => {
 
 test("accepts ref as a ref object", () => {
   const ref = { current: null };
-  render(<Textarea ref={ref} />);
+  render(<Textarea ref={ref} value="" onChange={jest.fn} />);
 
   expect(ref.current).toBe(screen.getByRole("textbox"));
 });
 
 test("accepts ref as a ref callback", () => {
   const ref = jest.fn();
-  render(<Textarea ref={ref} />);
+  render(<Textarea ref={ref} value="" onChange={jest.fn} />);
 
   expect(ref).toHaveBeenCalledWith(screen.getByRole("textbox"));
 });
 
 test("sets ref to empty after unmount", () => {
   const ref = { current: null };
-  const { unmount } = render(<Textarea ref={ref} />);
+  const { unmount } = render(
+    <Textarea ref={ref} value="" onChange={jest.fn} />,
+  );
 
   unmount();
 
@@ -696,7 +725,7 @@ test("sets ref to empty after unmount", () => {
 });
 
 test("renders with the expected default border radius styling", () => {
-  render(<Textarea />);
+  render(<MockComponent />);
   expect(screen.getByRole("textbox")).toHaveStyleRule(
     "border-radius",
     "var(--borderRadius050)",
@@ -704,7 +733,7 @@ test("renders with the expected default border radius styling", () => {
 });
 
 test("renders with the expected custom border radius styling", () => {
-  render(<Textarea borderRadius="borderRadius200" />);
+  render(<MockComponent borderRadius="borderRadius200" />);
   expect(screen.getByRole("textbox")).toHaveStyleRule(
     "border-radius",
     "var(--borderRadius200)",
@@ -713,7 +742,7 @@ test("renders with the expected custom border radius styling", () => {
 
 test("renders with the expected custom border radius styling as an array", () => {
   render(
-    <Textarea
+    <MockComponent
       borderRadius={[
         "borderRadius050",
         "borderRadius100",
@@ -732,7 +761,7 @@ test("fires a console warning if more than four border-radius values are passed"
   const loggerSpy = jest.spyOn(Logger, "warn");
 
   render(
-    <Textarea
+    <MockComponent
       borderRadius={[
         "borderRadius050",
         "borderRadius100",
@@ -751,21 +780,21 @@ test("fires a console warning if more than four border-radius values are passed"
 });
 
 test("should render component without borders when hideBorders prop is true", () => {
-  render(<Textarea hideBorders />);
+  render(<MockComponent hideBorders />);
   expect(screen.getByRole("presentation")).toHaveStyle({
     border: "1px solid transparent",
   });
 });
 
 test("should render component without borders when hideBorders prop is true and disabled is set", () => {
-  render(<Textarea hideBorders disabled />);
+  render(<MockComponent hideBorders disabled />);
   expect(screen.getByRole("presentation")).toHaveStyle({
     border: "1px solid transparent",
   });
 });
 
 test("should render component without borders when hideBorders prop is true and readonly is set", () => {
-  render(<Textarea hideBorders readOnly />);
+  render(<MockComponent hideBorders readOnly />);
   expect(screen.getByRole("presentation")).toHaveStyle({
     border: "1px solid transparent",
   });

@@ -10,7 +10,7 @@ import {
 test("renders single child", () => {
   render(
     <InlineInputs>
-      <Textbox onChange={() => {}} />
+      <Textbox value="" onChange={() => {}} />
     </InlineInputs>,
   );
 
@@ -20,8 +20,8 @@ test("renders single child", () => {
 test("renders multiple children", () => {
   render(
     <InlineInputs>
-      <Textbox onChange={() => {}} />
-      <Textbox onChange={() => {}} />
+      <Textbox value="" onChange={() => {}} />
+      <Textbox value="" onChange={() => {}} />
     </InlineInputs>,
   );
 
@@ -31,7 +31,7 @@ test("renders multiple children", () => {
 test("renders with provided label", () => {
   render(
     <InlineInputs label="Inputs Label">
-      <Textbox onChange={() => {}} />
+      <Textbox value="" onChange={() => {}} />
     </InlineInputs>,
   );
 
@@ -41,7 +41,7 @@ test("renders with provided label", () => {
 test("renders with provided labelId", () => {
   render(
     <InlineInputs label="Inputs Label" labelId="inputs-label">
-      <Textbox onChange={() => {}} />
+      <Textbox value="" onChange={() => {}} />
     </InlineInputs>,
   );
 
@@ -54,7 +54,7 @@ test("renders with provided labelId", () => {
 test("renders with provided htmlFor", () => {
   render(
     <InlineInputs label="Inputs Label" htmlFor="inputs">
-      <Textbox onChange={() => {}} />
+      <Textbox value="" onChange={() => {}} />
     </InlineInputs>,
   );
 
@@ -64,7 +64,7 @@ test("renders with provided htmlFor", () => {
 test("renders required children when required prop is true", () => {
   render(
     <InlineInputs required>
-      <Textbox onChange={() => {}} />
+      <Textbox value="" onChange={() => {}} />
     </InlineInputs>,
   );
 
@@ -74,7 +74,7 @@ test("renders required children when required prop is true", () => {
 test("renders with provided data-attributes", () => {
   render(
     <InlineInputs data-element="bar" data-role="baz">
-      <Textbox onChange={() => {}} />
+      <Textbox value="" onChange={() => {}} />
     </InlineInputs>,
   );
 
@@ -90,7 +90,7 @@ test("should render with expected styles when adaptiveLabelBreakpoint set and sc
       label="Inputs Label"
       adaptiveLabelBreakpoint={1000}
     >
-      <Textbox onChange={() => {}} />
+      <Textbox value="" onChange={() => {}} />
     </InlineInputs>,
   );
 
@@ -111,7 +111,7 @@ test("should render with expected styles when adaptiveLabelBreakpoint set and sc
       label="Inputs Label"
       adaptiveLabelBreakpoint={1000}
     >
-      <Textbox onChange={() => {}} />
+      <Textbox value="" onChange={() => {}} />
     </InlineInputs>,
   );
 
@@ -128,7 +128,7 @@ test("renders with expected styles when labelWidth is provided", () => {
       label="Inputs Label"
       labelWidth={50}
     >
-      <Textbox onChange={() => {}} />
+      <Textbox value="" onChange={() => {}} />
     </InlineInputs>,
   );
 
@@ -141,7 +141,7 @@ test("renders with expected styles when labelWidth is provided", () => {
 test("renders with expected styles when inputWidth is provided", () => {
   render(
     <InlineInputs inputWidth={50}>
-      <Textbox onChange={() => {}} />
+      <Textbox value="" onChange={() => {}} />
     </InlineInputs>,
   );
 

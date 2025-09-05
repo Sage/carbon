@@ -78,10 +78,10 @@ export const InsideForm: Story = () => {
       }
       stickyFooter={false}
     >
-      <Textbox label="Textbox" />
-      <Textbox label="Textbox" />
+      <Textbox label="Textbox" value="" onChange={() => {}} />
+      <Textbox label="Textbox" value="" onChange={() => {}} />
       <Hr mb={7} mt={7} />
-      <Textbox label="Textbox" />
+      <Textbox label="Textbox" value="" onChange={() => {}} />
     </Form>
   );
 };
@@ -104,6 +104,8 @@ export const InsideFormInlineLabels: Story = () => {
         labelInline
         labelWidth={10}
         inputWidth={50}
+        value=""
+        onChange={() => {}}
       />
       <Textbox
         label="Textbox"
@@ -111,6 +113,8 @@ export const InsideFormInlineLabels: Story = () => {
         labelInline
         labelWidth={10}
         inputWidth={50}
+        value=""
+        onChange={() => {}}
       />
       <Box ml="10%" mr="40%">
         <Hr mb={7} mt={7} />
@@ -121,6 +125,8 @@ export const InsideFormInlineLabels: Story = () => {
         labelInline
         labelWidth={10}
         inputWidth={50}
+        value=""
+        onChange={() => {}}
       />
     </Form>
   );
