@@ -24,6 +24,7 @@ import {
 import { validateUrl } from "../../__internal__/__utils__/helpers";
 import { AutoLinkNode, LinkNode } from "@lexical/link";
 import { StyledSpanNode } from "../../__internal__/__nodes__/styled-span.node";
+import { MentionNode } from "../../__internal__/__nodes__/mention.node";
 
 export type TestEditorHelpers = {
   /**  Function to set the entire content of the editor, unit-style. */
@@ -55,7 +56,14 @@ export const TestEditor = ({
     <LexicalComposer
       initialConfig={{
         namespace,
-        nodes: [ListNode, ListItemNode, AutoLinkNode, LinkNode, StyledSpanNode],
+        nodes: [
+          AutoLinkNode,
+          LinkNode,
+          ListItemNode,
+          ListNode,
+          MentionNode,
+          StyledSpanNode,
+        ],
         onError: () => {},
         editorState: (editor) => {
           const helpers: TestEditorHelpers = {

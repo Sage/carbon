@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import {
   LexicalTypeaheadMenuPlugin,
@@ -14,12 +13,9 @@ import Icon from "../../../../icon";
 
 import "./style.css";
 
-// Regexes to match on punctuation and name characters.
-// Punction characters are those that are valid for use in a mention
 const PUNCTUATION =
   "\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%'\"~=<>_:;";
 
-// Names can be any letters with punctuation, but must start with a capital letter.
 const NAME = `\\b[A-Z][^\\s${PUNCTUATION}]`;
 
 const DocumentMentionsRegex = {
@@ -28,38 +24,24 @@ const DocumentMentionsRegex = {
 };
 
 const PUNC = DocumentMentionsRegex.PUNCTUATION;
-
-// The trigger character(s) for mentions.
 const TRIGGERS = ["@"].join("");
-
-// Chars we expect to see in a mention (non-space, non-punctuation).
 const VALID_CHARS = `[^${TRIGGERS}${PUNC}\\s]`;
-
-// Valid joins such as spaces, punctuation, or dots that can follow a mention.
 const VALID_JOINS =
   `(?:` +
   `\\.[ |$]|` + // E.g. "r. " in "Mr. Smith"
   ` |` + // E.g. " " in "Josh Duck"
   `[${PUNC}]|` + // E.g. "-' in "Salier-Hellendag"
   `)`;
-
-// Maximum mention length
 const LENGTH_LIMIT = 75;
+const ALIAS_LENGTH_LIMIT = 50;
+const SUGGESTION_LIST_LENGTH_LIMIT = 5;
 
-// Combined regex to match mentions.
-// It matches mentions that start with a trigger character, followed by valid
-// characters, and optionally followed by valid joins.
 const AtSignMentionsRegex = new RegExp(
   `(^|\\s|\\()(` +
     `[${TRIGGERS}]` +
     `((?:${VALID_CHARS}${VALID_JOINS}){0,${LENGTH_LIMIT}})` +
     `)$`,
 );
-
-// 50 is the longest alias length limit.
-const ALIAS_LENGTH_LIMIT = 50;
-
-// Regex used to match aliases
 const AtSignMentionsRegexAliasRegex = new RegExp(
   `(^|\\s|\\()(` +
     `[${TRIGGERS}]` +
@@ -67,11 +49,7 @@ const AtSignMentionsRegexAliasRegex = new RegExp(
     `)$`,
 );
 
-// At most, 5 suggestions are shown in the popup.
-const SUGGESTION_LIST_LENGTH_LIMIT = 5;
-
-// Check for matching mentions
-function checkForAtSignMentions(
+export function checkForAtSignMentions(
   text: string,
   minMatchLength: number,
 ): MenuTextMatch | null {
@@ -106,14 +84,12 @@ function checkForAtSignMentions(
   return null;
 }
 
-// Function to get a possible query match for mentions.
-function getPossibleQueryMatch(text: string): MenuTextMatch | null {
+export function getPossibleQueryMatch(text: string): MenuTextMatch | null {
   // Matches must be at least 1 character long.
   return checkForAtSignMentions(text, 1);
 }
 
-// Class representing a mention option.
-class MentionTypeaheadOption extends MenuOption {
+export class MentionTypeaheadOption extends MenuOption {
   name: string;
 
   picture: JSX.Element;
@@ -126,8 +102,7 @@ class MentionTypeaheadOption extends MenuOption {
   }
 }
 
-// Component for rendering a mention in the menu.
-const MentionsTypeaheadMenuItem = ({
+export const MentionsTypeaheadMenuItem = ({
   index,
   isSelected,
   onClick,
@@ -164,7 +139,7 @@ const MentionsTypeaheadMenuItem = ({
   );
 };
 
-const MentionsPlugin = ({
+export const MentionsPlugin = ({
   results,
   setQueryString,
 }: {
