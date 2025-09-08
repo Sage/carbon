@@ -34,7 +34,6 @@ import Dialog from "carbon-react/lib/components/dialog";
 
 ## Related Components
 
-- Complex task that needs more space? [Try Dialog Full Screen](../?path=/docs/dialog-full-screen--docs).
 - Need to refer back to the underlying page? [Try Sidebar](../?path=/docs/sidebar--docs).
 
 ## Examples
@@ -50,7 +49,7 @@ to ensure behaviour is consistent across all browsers.
 ### Preventing focus from being restored when Dialog closes
 
 When the `restoreFocusOnClose` prop is `false`, focus will not be restored to the element that was focused before the `Dialog` was opened.
-Focus can instead be programmatically applied to another element if appropriate. 
+Focus can instead be programmatically applied to another element if appropriate.
 
 <Canvas of={DialogStories.RestoreFocusOnCloseStory} />
 
@@ -82,14 +81,19 @@ For situations where content cannot be rendered immediately, such as content dep
 
 Note in the previous example, the first `Textbox` in the loaded content has autofocus, which is recommended so assistive technology users are informed of the updated content.
 
-Alternatively, focus can be programmatically moved back to the `Dialog` if the title or subtitle has been updated as part of a content change. Most screen readers will then announce the new title indicating to users that the dialog has changed:
+### Focusing Dialog programmatically
+
+When dialog content changes dynamically, you can programmatically move focus back to the `Dialog` container. Most screen readers will then announce the updated title, indicating to users that the dialog has changed:
 
 <Canvas of={DialogStories.UsingHandle} />
 
-To achieve this, a custom ref handle can be forwarded to the `Dialog` component:
+To achieve this, forward a custom ref handle to the `Dialog` component using the `DialogHandle` type:
 
 ```tsx
+import { DialogHandle } from "carbon-react/lib/components/dialog";
+
 const dialogHandle = useRef<DialogHandle>(null);
+
 return (
   <Dialog title="Thank you for your feedback" ref={dialogHandle}>
     Your feedback helps us continually improve our software.
@@ -97,7 +101,7 @@ return (
 );
 ```
 
-which exposes the `focus()` method of `Dialog`'s root DOM node:
+The handle exposes the `focus()` method of the Dialog's root DOM node:
 
 ```ts
 dialogHandle.current?.focus();
@@ -121,18 +125,6 @@ This may occasionally be useful with things like Toasts where they persist on th
 
 <Canvas of={DialogStories.Responsive} />
 
-
-### Focusing Dialog Container Programmatically
-
-```javascript
-import { DialogHandle } from "carbon-react/lib/components/dialog";
-```
-
-The `DialogHandle` type provides an imperative handle for programmatic control over the `Dialog`'s container focus. 
-Using a `ref`, you can access its `focus()` method to set focus on the container when needed.
-
-<Canvas of={DialogStories.UsingHandle} />
-
 ### Top modal override
 
 When multiple modals are open on a page Carbon manages the order internally so that the last one mounted in the DOM
@@ -151,9 +143,17 @@ Please note that setting the background color to grey may cause color contrast a
 
 ### Highlight variants
 
-Setting the `highlightVariant` prop will add a highlight above the Dialog.
+Setting the `highlightVariant` prop will add a highlight above the Dialog. Please note that this prop does not work when the `fullscreen` prop is set to `true`.
 
 <Canvas of={DialogStories.HighlightVariant} />
+
+## Fullscreen
+
+## Examples
+
+### Default
+
+<Canvas of={DialogStories.FullScreenDefault} />
 
 ## Props
 

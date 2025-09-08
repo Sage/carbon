@@ -12,12 +12,11 @@ import {
   toastComponent,
   toastContent,
 } from "../../../playwright/components/toast/index";
-import { alertDialogPreview } from "../../../playwright/components/dialog";
+import { dialogWithRole } from "../../../playwright/components/dialog";
 import { TOAST_COLORS } from "./toast.config";
 
-import { button } from "../../../playwright/components";
+import { button, closeIconButton } from "../../../playwright/components";
 import { checkAccessibility } from "../../../playwright/support/helper";
-import { closeIconButton } from "../../../playwright/components/index";
 import { CHARACTERS } from "../../../playwright/support/constants";
 import { PORTAL } from "../../../playwright/components/locators";
 
@@ -187,7 +186,7 @@ test.describe("Toast component", () => {
     await expect(toastComponent(page)).toBeVisible();
 
     await button(page).nth(1).click();
-    await expect(alertDialogPreview(page)).toBeVisible();
+    await expect(dialogWithRole(page, "dialog")).toBeVisible();
 
     const closeIconToast = closeIconButton(page).nth(0);
     await closeIconToast.click();

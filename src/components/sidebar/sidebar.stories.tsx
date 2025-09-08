@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import isChromatic from "../../../.storybook/isChromatic";
-import { allModes } from "../../../.storybook/modes";
+import allModes from "../../../.storybook/modes";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 import Button from "../button";
@@ -11,7 +11,7 @@ import Toast from "../toast";
 import Textbox from "../textbox";
 import Box from "../box";
 import Dialog from "../dialog";
-import DialogFullScreen from "../confirm";
+import Confirm from "../confirm";
 import Message from "../message";
 
 import Sidebar from ".";
@@ -506,14 +506,14 @@ export const TopModalOverride: Story = () => {
       >
         Open dialogs
       </Button>
-      <DialogFullScreen
+      <Confirm
         open={isOpenDialogFullScreen && isOpenAll}
         onCancel={() => setIsOpenDialogFullScreen(false)}
-        title="Dialog fullscreen"
+        title="Confirm"
         onConfirm={() => {}}
       >
-        <Textbox label="Fullscreen textbox" />
-      </DialogFullScreen>
+        <Textbox label="Confirm textbox" />
+      </Confirm>
       <Sidebar
         open={isOpenSidebar && isOpenAll}
         onCancel={() => setIsOpenSidebar(false)}

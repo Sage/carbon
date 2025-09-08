@@ -1,5 +1,5 @@
 import React from "react";
-import { getGapValue } from "style/utils/box-gap";
+import { getGapValue } from "../../style/utils/box-gap";
 import { render, screen } from "@testing-library/react";
 import {
   testStyledSystemSpacing,

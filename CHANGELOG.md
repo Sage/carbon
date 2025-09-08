@@ -1,3 +1,33 @@
+## [156.3.2](https://github.com/Sage/carbon/compare/v156.3.1...v156.3.2) (2025-09-05)
+
+### Bug Fixes
+
+* **responsive-vertical-menu:** prevent scrollbar cut off at bottom of menu ([623435f](https://github.com/Sage/carbon/commit/623435f0d08ba067b70f249c230079daf3661e24)), closes [#7491](https://github.com/Sage/carbon/issues/7491)
+
+## [156.3.1](https://github.com/Sage/carbon/compare/v156.3.0...v156.3.1) (2025-09-04)
+
+### Bug Fixes
+
+* **form:** ensure height prop works correctly ([b90275c](https://github.com/Sage/carbon/commit/b90275ccf92d4312b147124e9b34e252670f2065)), closes [#7486](https://github.com/Sage/carbon/issues/7486)
+
+## [156.3.0](https://github.com/Sage/carbon/compare/v156.2.1...v156.3.0) (2025-09-04)
+
+### Features
+
+* **switch:** correct fr-FR translations ([e189858](https://github.com/Sage/carbon/commit/e1898585d39edb136bd4278225ce3a4bfbfd7acd))
+
+## [156.2.1](https://github.com/Sage/carbon/compare/v156.2.0...v156.2.1) (2025-09-04)
+
+### Bug Fixes
+
+* update warning colour to ensure it has adequate contrast against background colours ([fadd136](https://github.com/Sage/carbon/commit/fadd13619e675201911e78775a198e7f657a0194)), closes [#7400](https://github.com/Sage/carbon/issues/7400)
+
+## [156.2.0](https://github.com/Sage/carbon/compare/v156.1.0...v156.2.0) (2025-09-03)
+
+### Features
+
+* **dialog, dialog-full-screen:** merges Dialog and DialogFullScreen into a single component ([0c8c107](https://github.com/Sage/carbon/commit/0c8c107ab776f27f1e60dced2f6f1d835d41237e))
+
 ## [156.1.0](https://github.com/Sage/carbon/compare/v156.0.2...v156.1.0) (2025-09-01)
 
 ### Features

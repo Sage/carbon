@@ -53,11 +53,6 @@ const frFR: Partial<Locale> = {
       close: () => "Fermer",
     },
   },
-  dialogFullScreen: {
-    ariaLabels: {
-      close: () => "Fermer",
-    },
-  },
   dismissibleBox: {
     ariaLabels: {
       close: () => "Fermer",
@@ -223,7 +218,7 @@ const frFR: Partial<Locale> = {
   },
   switch: {
     on: () => "Oui",
-    off: () => "Désactiver",
+    off: () => "Non",
   },
   tileSelect: {
     deselect: () => "Désélectionner",

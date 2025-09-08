@@ -1,4 +1,4 @@
-export const allModes = {
+export default {
   default: {
     viewport: 1280,
   },

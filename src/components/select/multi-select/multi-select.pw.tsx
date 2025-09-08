@@ -23,7 +23,7 @@ import {
   helpIcon,
   tooltipPreview,
 } from "../../../../playwright/components";
-import { alertDialogPreview } from "../../../../playwright/components/dialog";
+import { dialogWithRole } from "../../../../playwright/components/dialog";
 import { loader } from "../../../../playwright/components/loader";
 import { pillCloseIcon } from "../../../../playwright/components/pill";
 import {
@@ -806,13 +806,11 @@ test.describe("MultiSelect component", () => {
     const headerElements = multiColumnsSelectListHeader(page);
     await expect(headerElements).toHaveCount(columns);
     for (let i = 0; i < columns; i++) {
-      // eslint-disable-next-line no-await-in-loop
       await expect(headerElements.nth(i)).toBeVisible();
     }
     const bodyElements = multiColumnsSelectListBody(page);
     await expect(bodyElements).toHaveCount(columns);
     for (let i = 0; i < columns; i++) {
-      // eslint-disable-next-line no-await-in-loop
       await expect(bodyElements.nth(i)).toBeVisible();
     }
     await expect(multiColumnsSelectListRow(page)).toHaveCSS(
@@ -1285,7 +1283,7 @@ test.describe("When nested inside of a Dialog component", () => {
 
     await dropdownButton(page).click();
     const inputElement = commonDataElementInputPreview(page);
-    const dialogElement = alertDialogPreview(page);
+    const dialogElement = dialogWithRole(page, "dialog");
     await inputElement.press("Escape");
     await expect(selectList(page)).not.toBeVisible();
     await expect(dialogElement).toBeVisible();
@@ -1300,7 +1298,7 @@ test.describe("When nested inside of a Dialog component", () => {
     await mount(<MultiSelectNestedInDialog />);
 
     await dropdownButton(page).click();
-    await alertDialogPreview(page).click();
+    await dialogWithRole(page, "dialog").click();
     await expect(selectList(page)).not.toBeVisible();
     await expect(commonDataElementInputPreview(page)).not.toBeFocused();
   });
