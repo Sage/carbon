@@ -1,3 +1,9 @@
+## [156.3.3](https://github.com/Sage/carbon/compare/v156.3.2...v156.3.3) (2025-09-08)
+
+### Bug Fixes
+
+* **menu-segment-title:** ability to pass data-role to children ([1158edd](https://github.com/Sage/carbon/commit/1158edd3181ad509c8802912aeaa376908aa0997)), closes [#7487](https://github.com/Sage/carbon/issues/7487)
+
 ## [156.3.2](https://github.com/Sage/carbon/compare/v156.3.1...v156.3.2) (2025-09-05)
 
 ### Bug Fixes
