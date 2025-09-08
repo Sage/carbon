@@ -277,14 +277,12 @@ const BaseMenu = ({
     if (responsiveMode) {
       return {
         "aria-expanded": undefined,
-        "aria-haspopup": "dialog" as const,
         "aria-controls": "responsive-vertical-menu-dialog",
         "aria-label": locale.verticalMenu.ariaLabels?.responsiveMenuLauncher(),
       };
     }
     return {
       "aria-expanded": active,
-      "aria-haspopup": "menu" as const,
       "aria-controls": "responsive-vertical-menu-primary",
       "aria-label": locale.verticalMenu.ariaLabels?.responsiveMenuLauncher(),
     };

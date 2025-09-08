@@ -300,13 +300,24 @@ const BaseItem = forwardRef<HTMLElement, BaseItemProps>(
       setActive(false);
     };
 
+    const ariaControls = (): string | undefined => {
+      if (responsiveMode) {
+        return depth === 0 ? undefined : `${id}-nested-menu-wrapper`;
+      }
+
+      return `responsive-vertical-menu-secondary`;
+    };
+
     return (
       <StyledResponsiveMenuListItem>
         {hasChildren ? (
           <>
             <StyledResponsiveMenuItem
               active={isActive}
-              aria-expanded={isActive || expanded}
+              aria-expanded={
+                responsiveMode && depth === 0 ? undefined : isActive || expanded
+              }
+              aria-controls={isActive || expanded ? ariaControls() : undefined}
               data-component={`responsive-vertical-menu-item-${id}`}
               data-depth={depth}
               data-role={`responsive-vertical-menu-item-${id}`}
@@ -354,6 +365,7 @@ const BaseItem = forwardRef<HTMLElement, BaseItemProps>(
                 data-role={`${id}-nested-menu-wrapper`}
                 depth={depth}
                 hasIcon={!!icon || !!customIcon}
+                id={`${id}-nested-menu-wrapper`}
                 responsive={responsiveMode}
               >
                 <StyledNestedMenu
