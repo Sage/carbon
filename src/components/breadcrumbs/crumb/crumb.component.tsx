@@ -15,6 +15,7 @@ export interface CrumbProps
       | "iconAlign"
       | "isSkipLink"
       | "isDarkBackground"
+      | "inverse"
       | "ariaLabel"
       | "className"
       | "variant"
@@ -38,7 +39,7 @@ const Crumb = React.forwardRef<HTMLAnchorElement, CrumbProps>(
           ref={ref}
           isCurrent={isCurrent}
           aria-current={isCurrent ? "page" : undefined}
-          isDarkBackground={isDarkBackground}
+          inverse={isDarkBackground}
           {...rest}
           {...tagComponent("crumb", rest)}
           {...(!isCurrent && {
