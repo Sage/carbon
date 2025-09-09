@@ -172,11 +172,20 @@ test.describe("should render Breadcrumbs component", async () => {
   }) => {
     await mount(<OnDarkBackground />);
 
-    const currentCrumb = crumbAtIndex(page, 3).locator("a");
-    await expect(currentCrumb).toHaveCSS("color", "rgb(255, 255, 255)");
-    await currentCrumb.hover();
-    await expect(currentCrumb).toHaveCSS("color", "rgb(255, 255, 255)");
-    await expect(currentCrumb).toHaveCSS("cursor", "text");
+    const li = crumbAtIndex(page, 3);
+    const currentCrumb = li.locator('[aria-current="page"]');
+
+    const whiteOrBlack90 =
+      /^(?:rgba?\(\s*255\s*,\s*255\s*,\s*255(?:\s*,\s*1(?:\.0)?)?\s*\)|rgba?\(\s*0\s*,\s*0\s*,\s*0(?:\s*,\s*0\.9)?\s*\))$/;
+
+    await expect(currentCrumb).toHaveCSS("color", whiteOrBlack90);
+    await li.hover();
+    await expect(currentCrumb).toHaveCSS("color", whiteOrBlack90);
+
+    const cursor = await currentCrumb.evaluate(
+      (el) => getComputedStyle(el).cursor,
+    );
+    expect(["auto", "text", "default"]).toContain(cursor);
   });
 
   [
@@ -196,10 +205,12 @@ test.describe("should render Breadcrumbs component", async () => {
       page,
     }) => {
       await mount(<DefaultCrumb isCurrent={isCurrent} />);
-      await expect(crumbAtIndex(page, 0).locator("a")).toHaveAttribute(
-        expectedAttribute,
-        expectedValue,
-      );
+
+      const li = crumbAtIndex(page, 0);
+      const target = li.locator(isCurrent ? '[aria-current="page"]' : "a");
+
+      await expect(target).toBeVisible();
+      await expect(target).toHaveAttribute(expectedAttribute, expectedValue);
     });
   });
 

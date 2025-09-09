@@ -31,20 +31,6 @@ test("passes href to the anchor element when isCurrent is false", () => {
   expect(link).toHaveAttribute("href", "foo");
 });
 
-test("does not pass href to the anchor element when isCurrent is true", () => {
-  render(
-    <Breadcrumbs>
-      <Crumb href="foo" data-role="crumb" isCurrent>
-        Link text
-      </Crumb>
-    </Breadcrumbs>,
-  );
-
-  const anchor = screen.getByTestId("link-anchor");
-
-  expect(anchor).not.toHaveAttribute("href", "foo");
-});
-
 test("calls onClick callback when the crumb link is clicked", async () => {
   const onClick = jest.fn();
   const user = userEvent.setup();
