@@ -220,33 +220,33 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
 
     ${hasFocusableChild &&
     css`
-      ${!inFullscreenView &&
-      css`
-        > a:not(:has(button)) {
-          padding: 11px 16px;
-        }
+      &&
+        ${!inFullscreenView &&
+        css`
+          && > a:not(:has(button)) {
+            padding: 11px 16px;
+          }
 
-        > a:has(${StyledButton}:not(.search-button)) {
-          height: 100%;
+          > a:has(${StyledButton}:not(.search-button)) {
+            height: 100%;
 
-          ${StyledContent} {
-            height: inherit;
-
-            div {
+            ${StyledContent} {
               height: inherit;
+
+              div {
+                height: inherit;
+              }
+            }
+
+            ${StyledButton} {
+              min-height: 40px;
+              padding: 10px 0px;
+              box-sizing: border-box;
+              height: 100%;
             }
           }
-
-          ${StyledButton} {
-            min-height: 40px;
-            padding: 10px 0px;
-            box-sizing: border-box;
-            height: 100%;
-          }
-        }
-      `}
-
-      ${StyledIconButton} {
+        `}
+        ${StyledIconButton} {
         > span {
           display: inline-flex;
           margin-right: 0;
