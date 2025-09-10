@@ -1,3 +1,9 @@
+## [156.3.4](https://github.com/Sage/carbon/compare/v156.3.3...v156.3.4) (2025-09-10)
+
+### Bug Fixes
+
+* **responsive-vertical-menu:** fixes how screen readers announce the menu ([d12e2ea](https://github.com/Sage/carbon/commit/d12e2eaaa737074ad9cb4d9181ff085ecdd9b2e2))
+
 ## [156.3.3](https://github.com/Sage/carbon/compare/v156.3.2...v156.3.3) (2025-09-08)
 
 ### Bug Fixes
