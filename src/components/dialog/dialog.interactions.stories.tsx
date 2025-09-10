@@ -72,7 +72,12 @@ export const OpenAndCloseDialog: Story = {
     const canvas = within(canvasElement);
     const portal = within(canvasElement.ownerDocument.body);
 
-    const openButton = canvas.getByRole("button", { name: /open dialog/i });
+    const candidates = canvas.getAllByRole("button", { name: /open dialog/i });
+    const openButton =
+      candidates.find(
+        (el) => el.getAttribute("data-role") === "dialog-trigger",
+      ) ?? candidates[0];
+
     await userEvent.click(openButton);
     await userInteractionPause(300);
 
@@ -138,7 +143,12 @@ export const FocusManagement: Story = {
     const canvas = within(canvasElement);
     const portal = within(canvasElement.ownerDocument.body);
 
-    const openButton = canvas.getByRole("button", { name: /open dialog/i });
+    const candidates = canvas.getAllByRole("button", { name: /open dialog/i });
+    const openButton =
+      candidates.find(
+        (el) => el.getAttribute("data-role") === "open-dialog-btn",
+      ) ?? candidates[0];
+
     await userEvent.click(openButton);
     await userInteractionPause(300);
 
@@ -202,13 +212,20 @@ export const RestoreFocus: Story = {
     const canvas = within(canvasElement);
     const portal = within(canvasElement.ownerDocument.body);
 
-    const triggerButton = canvas.getByRole("button", { name: /open dialog/i });
+    const triggers = canvas.getAllByRole("button", { name: /open dialog/i });
+    const triggerButton =
+      triggers.find(
+        (el) => el.getAttribute("data-role") === "trigger-button",
+      ) ?? triggers[0];
+
     await userEvent.click(triggerButton);
     await userInteractionPause(300);
 
-    const closeInsideButton = portal.getByRole("button", {
+    const dialog = portal.getByRole("dialog");
+    const closeInsideButton = within(dialog).getByRole("button", {
       name: /close dialog/i,
     });
+
     await userEvent.click(closeInsideButton);
     await userInteractionPause(300);
   },
