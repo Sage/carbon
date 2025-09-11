@@ -1,4 +1,11 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, {
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  useRef,
+  useCallback,
+} from "react";
 
 import Icon, { IconType } from "../icon";
 import MenuContext from "../menu/__internal__/menu.context";
@@ -113,6 +120,7 @@ export const Link = React.forwardRef<
     const { inMenu } = useContext(MenuContext);
     const { batchSelectionDisabled } = useContext(BatchSelectionContext);
     const isDisabled = disabled || batchSelectionDisabled;
+    const linkRef = useRef<HTMLAnchorElement | HTMLButtonElement | null>(null);
 
     if (!deprecatedDisabledWarning && disabled) {
       deprecatedDisabledWarning = true;
@@ -152,15 +160,33 @@ export const Link = React.forwardRef<
     const effectiveInverse = inverse ?? isDarkBackground;
     const effectiveVariant = variantAlias[variant] ?? variant;
 
-    const setRefs = React.useCallback(
-      (reference: HTMLAnchorElement) => {
+    const setRefs = useCallback(
+      (reference: HTMLAnchorElement | HTMLButtonElement | null) => {
+        linkRef.current = reference;
         if (!ref) return;
-        if (typeof ref === "object") ref.current = reference;
         if (typeof ref === "function") {
           ref(reference);
+          return;
+        }
+        /* istanbul ignore else */
+        if (typeof ref === "object") {
+          ref.current = reference;
+          return;
         }
       },
       [ref],
+    );
+
+    const handleClick = useCallback(
+      (
+        event:
+          | React.MouseEvent<HTMLAnchorElement>
+          | React.MouseEvent<HTMLButtonElement>,
+      ) => {
+        linkRef.current?.focus?.({ preventScroll: true });
+        onClick?.(event);
+      },
+      [onClick],
     );
 
     const renderLinkIcon = (currentAlignment = "left") => {
@@ -191,7 +217,7 @@ export const Link = React.forwardRef<
     const componentProps = {
       onKeyDown,
       onMouseDown,
-      onClick,
+      onClick: handleClick,
       disabled: isDisabled,
       target,
       ref: setRefs,
