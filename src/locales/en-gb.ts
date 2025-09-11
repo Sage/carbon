@@ -158,6 +158,9 @@ const enGB: Locale = {
       "Your password has been shown. Focus on the password input to have it read to you, if it is safe to do so.",
     ariaLiveHiddenMessage: () => "Your password is currently hidden.",
   },
+  pill: {
+    remove: (label: string) => `Remove ${label} pill`,
+  },
   progressTracker: {
     of: () => "of",
   },

@@ -154,7 +154,7 @@ describe("when value prop is provided", () => {
 
     const amberPill = screen.getByTitle("amber");
     expect(
-      within(amberPill).getByRole("button", { name: "remove pill" }),
+      within(amberPill).getByRole("button", { name: "Remove amber pill" }),
     ).toBeVisible();
   });
 
