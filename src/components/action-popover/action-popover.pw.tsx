@@ -93,7 +93,7 @@ test("should close opened submenu by keyboard event when another submenu is open
 
   await expect(emailSubmenuItem).toBeVisible();
 
-  await expect(businessSubmenuItem).not.toBeVisible();
+  await expect(businessSubmenuItem).toBeHidden();
 });
 
 test("should close opened submenu by keyboard event when another submenu is opened by hover event", async ({
@@ -127,7 +127,7 @@ test("should close opened submenu by keyboard event when another submenu is open
 
   await expect(emailSubmenuItem).toBeVisible();
 
-  await expect(businessSubmenuItem).not.toBeVisible();
+  await expect(businessSubmenuItem).toBeHidden();
 });
 
 test.describe("check functionality for ActionPopover component", () => {
@@ -298,7 +298,7 @@ test.describe("check functionality for ActionPopover component", () => {
     const focusedElement = page.locator("*:focus");
     await focusedElement.press("Tab");
     const actionPopoverElement = actionPopover(page).first();
-    await expect(actionPopoverElement).not.toBeVisible();
+    await expect(actionPopoverElement).toBeHidden();
   });
 
   // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
@@ -309,7 +309,7 @@ test.describe("check functionality for ActionPopover component", () => {
     const focusedElement = page.locator("*:focus");
     await focusedElement.press("Shift+Tab");
     const actionPopoverElement = actionPopover(page).first();
-    await expect(actionPopoverElement).not.toBeVisible();
+    await expect(actionPopoverElement).toBeHidden();
   });
 
   // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
@@ -320,7 +320,7 @@ test.describe("check functionality for ActionPopover component", () => {
     const focusedElement = page.locator("*:focus");
     await focusedElement.press("Escape");
     const actionPopoverElement = actionPopover(page).first();
-    await expect(actionPopoverElement).not.toBeVisible();
+    await expect(actionPopoverElement).toBeHidden();
   });
 
   // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
@@ -335,7 +335,7 @@ test.describe("check functionality for ActionPopover component", () => {
     await focusedElement.press("ArrowDown");
     await focusedElement.press("Escape");
     const actionPopoverElement = actionPopover(page).first();
-    await expect(actionPopoverElement).not.toBeVisible();
+    await expect(actionPopoverElement).toBeHidden();
   });
 
   // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
@@ -354,7 +354,7 @@ test.describe("check functionality for ActionPopover component", () => {
     await focusedElement.press("ArrowLeft");
     await page.locator("*:focus").press("Escape");
     const actionPopoverElement = actionPopover(page).first();
-    await expect(actionPopoverElement).not.toBeVisible();
+    await expect(actionPopoverElement).toBeHidden();
   });
 
   test("should close by clicking outside of the component", async ({
@@ -366,7 +366,7 @@ test.describe("check functionality for ActionPopover component", () => {
     await actionPopoverButtonElement.click();
     await page.locator("body").click();
     const actionPopoverElement = actionPopover(page).first();
-    await expect(actionPopoverElement).not.toBeVisible();
+    await expect(actionPopoverElement).toBeHidden();
   });
 
   test("should close by clicking onto Open icon", async ({ mount, page }) => {
@@ -374,7 +374,7 @@ test.describe("check functionality for ActionPopover component", () => {
     const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.dblclick();
     const actionPopoverElement = actionPopover(page).first();
-    await expect(actionPopoverElement).not.toBeVisible();
+    await expect(actionPopoverElement).toBeHidden();
   });
 
   (
@@ -471,7 +471,7 @@ test.describe("check functionality for ActionPopover component", () => {
       const submenuItem = getDataElementByValue(page, "submenu1").nth(position);
       await submenuItem.press("Enter");
       const actionPopoverElement = actionPopover(page).first();
-      await expect(actionPopoverElement).not.toBeVisible();
+      await expect(actionPopoverElement).toBeHidden();
     });
   });
 
@@ -499,7 +499,7 @@ test.describe("check functionality for ActionPopover component", () => {
       }
       await focusedElement.press("ArrowRight");
       const submenu = actionPopoverSubmenuByIndex(page, 1);
-      await expect(submenu).not.toBeVisible();
+      await expect(submenu).toBeHidden();
     });
   });
 
@@ -527,7 +527,7 @@ test.describe("check functionality for ActionPopover component", () => {
       }
       await focusedElement.press("Escape");
       const actionPopoverElement = actionPopover(page).first();
-      await expect(actionPopoverElement).not.toBeVisible();
+      await expect(actionPopoverElement).toBeHidden();
     });
   });
 
@@ -550,7 +550,7 @@ test.describe("check functionality for ActionPopover component", () => {
       }
       await focusedElement.click();
       const actionPopoverElement = actionPopover(page).first();
-      await expect(actionPopoverElement).not.toBeVisible();
+      await expect(actionPopoverElement).toBeHidden();
     });
   });
 
@@ -1286,7 +1286,7 @@ test.describe("rounded-corners", () => {
 // there is an issue with asserting token values for this test
 test("has the expected styling when focused", async ({ mount, page }) => {
   await mount(<ActionPopoverCustom />);
-  const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+  const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
   await actionPopoverButtonElement.focus();
   await expect(actionPopoverButtonElement).toHaveCSS(
     "box-shadow",
@@ -1538,13 +1538,13 @@ test.describe("when nested inside a Dialog component", () => {
     await page.keyboard.press("Escape");
 
     const actionPopoverElement = actionPopover(page);
-    await expect(actionPopoverElement).not.toBeVisible();
+    await expect(actionPopoverElement).toBeHidden();
 
     const dialogElement = dialog(page);
     await expect(dialogElement).toBeVisible();
 
     await page.keyboard.press("Escape");
 
-    await expect(dialogElement).not.toBeVisible();
+    await expect(dialogElement).toBeHidden();
   });
 });

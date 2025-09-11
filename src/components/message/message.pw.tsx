@@ -76,7 +76,7 @@ test.describe("Tests for Message component properties", () => {
       if (boolVal === true) {
         await expect(messagePreview(page)).toBeVisible();
       } else {
-        await expect(messagePreview(page)).not.toBeVisible();
+        await expect(messagePreview(page)).toBeHidden();
       }
     });
   });
@@ -131,7 +131,7 @@ test.describe("Tests for Message component properties", () => {
         await expect(messageDismissIcon(page)).toBeVisible();
         await expect(messageContent(page)).toHaveCSS("padding", "16px");
       } else {
-        await expect(messageDismissIcon(page)).not.toBeVisible();
+        await expect(messageDismissIcon(page)).toBeHidden();
         await expect(messageContent(page)).toHaveCSS("padding", "16px");
       }
     });

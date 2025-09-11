@@ -4,6 +4,9 @@ import Content from "../../../components/content";
 import {
   CustomSelectChangeEvent,
   Select as SimpleSelect,
+  Select,
+  Option,
+  SimpleSelectProps,
 } from "../../../../src/components/select";
 import OptionRow from "../option-row/option-row.component";
 import OptionGroupHeader from "../option-group-header/option-group-header.component";
@@ -11,7 +14,6 @@ import Box from "../../box";
 import Icon from "../../icon";
 import Dialog from "../../dialog";
 import Button from "../../button";
-import { Select, Option, SimpleSelectProps } from "..";
 
 export const SimpleSelectComponent = (props: Partial<SimpleSelectProps>) => {
   const [value, setValue] = useState("");

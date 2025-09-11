@@ -69,7 +69,7 @@ test.describe("check Preview component properties", () => {
       if (bool) {
         await expect(previewComponent(page)).toBeVisible();
       } else {
-        await expect(previewComponent(page)).not.toBeVisible();
+        await expect(previewComponent(page)).toBeHidden();
       }
     });
   });

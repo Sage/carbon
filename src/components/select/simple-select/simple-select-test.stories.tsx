@@ -1,13 +1,17 @@
 import React, { useState, useRef } from "react";
 import Typography from "../../../components/typography";
 import Content from "../../../components/content";
-import { Select as SimpleSelect } from "../../../../src/components/select";
+import {
+  Select as SimpleSelect,
+  Select,
+  Option,
+  SimpleSelectProps,
+} from "../../../../src/components/select";
 import OptionRow from "../option-row/option-row.component";
 import OptionGroupHeader from "../option-group-header/option-group-header.component";
 import Box from "../../box";
 import Icon from "../../icon";
 import Dialog from "../../dialog";
-import { Select, Option, SimpleSelectProps } from "..";
 import CarbonProvider from "../../carbon-provider";
 
 export default {

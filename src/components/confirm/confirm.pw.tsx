@@ -462,9 +462,9 @@ test.describe("should render Confirm component", () => {
 
       const dialog = page.getByRole("alertdialog");
       if (boolVal) {
-        await expect(dialog).toBeAttached;
+        await expect(dialog).toBeAttached();
       } else {
-        await expect(dialog).not.toBeAttached;
+        await expect(dialog).not.toBeAttached();
       }
     });
   });

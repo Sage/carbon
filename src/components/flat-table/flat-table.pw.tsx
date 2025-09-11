@@ -1,5 +1,4 @@
 import React from "react";
-import type { Locator } from "@playwright/test";
 import { test, expect } from "../../../playwright/helpers/base-test";
 import { FlatTableCheckboxProps } from ".";
 import {
@@ -84,6 +83,7 @@ import {
   getStyle,
   waitForAnimationEnd,
   continuePressingTAB,
+  checkNewFocusStyling,
 } from "../../../playwright/support/helper";
 
 const sizes = [
@@ -134,19 +134,6 @@ const vlightGrey = "rgb(230, 235, 237)";
 const green = "rgb(177, 211, 69)";
 const blue = "rgb(0, 0, 255)";
 const lightBlue = "rgb(51, 92, 220)";
-
-const checkNewFocusStyling = async (locator: Locator) => {
-  const shadowValue = await locator.evaluate((el) =>
-    window.getComputedStyle(el, "after").getPropertyValue("box-shadow"),
-  );
-  const outlineValue = await locator.evaluate((el) =>
-    window.getComputedStyle(el, "after").getPropertyValue("outline"),
-  );
-  expect(shadowValue).toBe(
-    `rgba(0, 0, 0, 0.9) 0px 0px 0px 3px inset, rgb(255, 188, 25) 0px 0px 0px 6px inset`,
-  );
-  expect(outlineValue).toBe(`rgba(0, 0, 0, 0) solid 3px`);
-};
 
 const indexes = (length: number, start = 0) =>
   Array.from({ length: length - start }).map((_, index) => index + start);

@@ -31,16 +31,16 @@ test.describe("should render Alert component", () => {
       await mount(<AlertComponent title={text} />);
 
       const title = alertTitle(page);
-      const titleText = await title.textContent();
-      expect(titleText).toEqual(text);
+      const titleText = title;
+      await expect(titleText).toHaveText(text);
     });
 
     test(`with ${text} as a subtitle`, async ({ mount, page }) => {
       await mount(<AlertComponent subtitle={text} />);
 
       const subtitle = alertSubtitle(page);
-      const alertSubtitleText = await subtitle.textContent();
-      expect(alertSubtitleText).toEqual(text);
+      const alertSubtitleText = subtitle;
+      await expect(alertSubtitleText).toHaveText(text);
     });
 
     test(`with ${text} as children`, async ({ mount, page }) => {

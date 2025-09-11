@@ -41,7 +41,7 @@ const commonColorsOnHover = ["rgb(0, 99, 0)", "rgb(0, 103, 56)"];
 const loaderBarColors = ["rgb(179, 224, 179)", "rgb(179, 217, 200)"];
 
 buildTestArray(commonColors).forEach(([theme, color]) => {
-  test.describe(`Carbon Provider`, async () => {
+  test.describe(`Carbon Provider`, () => {
     test(`Button component should render with ${theme} theme and verify theme color`, async ({
       mount,
       page,

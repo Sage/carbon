@@ -440,7 +440,7 @@ test.describe("NumeralDate component", () => {
 
     await expect(numeralDateInput(page, 0)).toHaveAccessibleName("Day");
     await expect(numeralDateInput(page, 1)).toHaveAccessibleName("Month");
-    await expect(numeralDateInput(page, 2)).not.toBeVisible();
+    await expect(numeralDateInput(page, 2)).toBeHidden();
   });
 
   test('should render NumeralDate with `["mm", "dd"]` dateFormat prop', async ({
@@ -451,7 +451,7 @@ test.describe("NumeralDate component", () => {
 
     await expect(numeralDateInput(page, 0)).toHaveAccessibleName("Month");
     await expect(numeralDateInput(page, 1)).toHaveAccessibleName("Day");
-    await expect(numeralDateInput(page, 2)).not.toBeVisible();
+    await expect(numeralDateInput(page, 2)).toBeHidden();
   });
 
   test('should render NumeralDate with `["mm", "yyyy"]` dateFormat prop', async ({
@@ -462,7 +462,7 @@ test.describe("NumeralDate component", () => {
 
     await expect(numeralDateInput(page, 0)).toHaveAccessibleName("Month");
     await expect(numeralDateInput(page, 1)).toHaveAccessibleName("Year");
-    await expect(numeralDateInput(page, 2)).not.toBeVisible();
+    await expect(numeralDateInput(page, 2)).toBeHidden();
   });
 
   (
@@ -639,7 +639,7 @@ test.describe("NumeralDate component", () => {
       await checkAccessibility(page);
     });
 
-    test("should pass accessibility tests for NumeralDateControlled component ", async ({
+    test("should pass accessibility tests for NumeralDateControlled component", async ({
       mount,
       page,
     }) => {

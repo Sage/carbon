@@ -53,7 +53,7 @@ test.describe("should render Badge component", () => {
       page,
     }) => {
       await mount(<BadgeComponent counter={countInput} />);
-      await expect(badgeCounter(page)).not.toBeVisible();
+      await expect(badgeCounter(page)).toBeHidden();
     });
   });
 

@@ -2,7 +2,6 @@ import React from "react";
 import Search, { SearchProps } from ".";
 import Box from "../box";
 
-// eslint-disable-next-line import/prefer-default-export
 export const SearchComponent = (props: SearchProps) => {
   const [value, setValue] = React.useState("");
   return (

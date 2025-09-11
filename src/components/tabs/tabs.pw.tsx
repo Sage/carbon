@@ -356,7 +356,7 @@ test.describe("Tabs component", () => {
       await expect(icon).toBeVisible();
 
       await getDataElementByValue(page, "foo-button").click();
-      await expect(icon).not.toBeVisible();
+      await expect(icon).toBeHidden();
     });
   });
 
@@ -366,7 +366,7 @@ test.describe("Tabs component", () => {
   }) => {
     await mount(<TabsValidationOverride />);
 
-    await expect(tabById(page, 1).locator(ICON)).not.toBeVisible();
+    await expect(tabById(page, 1).locator(ICON)).toBeHidden();
     await expect(page.getByText("Tab 1", { exact: true })).toHaveCSS(
       "outline-color",
       "rgba(0, 0, 0, 0.9)",
@@ -526,7 +526,7 @@ test.describe("Tabs component", () => {
       await checkAccessibility(page);
     });
 
-    test("should pass accessibility tests when position is left and size is large ", async ({
+    test("should pass accessibility tests when position is left and size is large", async ({
       mount,
       page,
     }) => {
@@ -708,7 +708,7 @@ test.describe("Tabs component", () => {
     await page.getByRole("button").click();
 
     await expect(page.getByText("Content for tab 2")).toBeVisible();
-    await expect(page.getByText("Content for tab 1")).not.toBeVisible();
+    await expect(page.getByText("Content for tab 1")).toBeHidden();
   });
 
   test("navigation buttons only appear when there are preceding or succeeding tab titles out of view", async ({

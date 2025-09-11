@@ -177,7 +177,7 @@ test.describe("Check props of Popover Container component", () => {
 
     const popoverContainerContentElement = popoverContainerContent(page);
 
-    await expect(popoverContainerContentElement).not.toBeVisible();
+    await expect(popoverContainerContentElement).toBeHidden();
   });
 
   test("should render with renderCloseComponent", async ({ mount, page }) => {
@@ -303,7 +303,7 @@ test.describe("Check props of Popover Container component", () => {
     await expect(childButton).toBeFocused();
     await childButton.press("Tab");
     await expect(siblingButton).toBeFocused();
-    await expect(container).not.toBeVisible();
+    await expect(container).toBeHidden();
   });
 
   test("should focus the open button element when user back tabs and first element in the container is focused", async ({
@@ -320,7 +320,7 @@ test.describe("Check props of Popover Container component", () => {
     await expect(closeButton).toBeFocused();
     await closeButton.press("Shift+Tab");
     await expect(openButton).toBeFocused();
-    await expect(container).not.toBeVisible();
+    await expect(container).toBeHidden();
   });
 
   test("should trap focus when user is tabbing and the container covers the trigger button", async ({
@@ -404,7 +404,7 @@ test.describe("Check props of Popover Container component", () => {
     await page.keyboard.press("Tab"); // focus on close icon
     await page.keyboard.press("Tab"); // focus outside of container and on to additional button
 
-    await expect(container).not.toBeVisible();
+    await expect(container).toBeHidden();
     await expect(additionalButton).toBeFocused();
   });
 
