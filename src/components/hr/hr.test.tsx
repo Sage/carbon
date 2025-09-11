@@ -5,7 +5,21 @@ import {
   testStyledSystemMargin,
 } from "../../__spec_helper__/__internal__/test-utils";
 
+import Logger from "../../__internal__/utils/logger";
 import Hr from "./hr.component";
+
+test("logs a deprecation warning when the 'Hr' component is used", async () => {
+  const loggerSpy = jest.spyOn(Logger, "deprecate");
+  render(<Hr />);
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "`Hr` is deprecated and will soon be removed. Please use the Divider component instead.",
+  );
+
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
+
+  loggerSpy.mockRestore();
+});
 
 testStyledSystemMargin(
   (props) => <Hr {...props} />,

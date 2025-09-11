@@ -11,7 +11,7 @@ import DateInput, { DateChangeEvent } from "../date";
 import { Select, MultiSelect, Option } from "../select";
 import { RadioButton, RadioButtonGroup } from "../radio-button";
 import { Checkbox } from "../checkbox";
-import Hr from "../../components/hr";
+import Divider from "../divider";
 import Switch from "../switch";
 import InlineInputs from "../inline-inputs";
 import Typography from "../typography";
@@ -652,7 +652,7 @@ export const FormAlignmentExample = () => {
         label="Checkbox 2"
         ml="10%"
       />
-      <Hr ml="10%" mr="60%" mb={7} />
+      <Divider type="horizontal" ml="10%" mr="60%" mb={7} />
       <Button buttonType="tertiary" ml="calc(10% - 24px)">
         Tertiary
       </Button>

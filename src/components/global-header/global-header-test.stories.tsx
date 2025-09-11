@@ -3,7 +3,7 @@ import { Meta, StoryFn } from "@storybook/react";
 
 import GlobalHeader from "./global-header.component";
 import { Menu, MenuItem } from "../menu";
-import VerticalDivider from "../vertical-divider";
+import Divider from "../divider";
 import carbonLogo from "../../../logo/carbon-logo.png";
 
 export default {
@@ -25,7 +25,7 @@ export const MenuWithIconOnlyButtonsStory: StoryFn<
 > = () => {
   return (
     <GlobalHeader logo={<img height={28} src={carbonLogo} alt="Carbon logo" />}>
-      <VerticalDivider h="100%" pt={1} pb={1} pr={0} pl={2} tint={100} />
+      <Divider h="100%" pt={1} pb={1} pr={0} pl={2} />
       <Menu menuType="black" flex="1">
         <MenuItem flex="1" submenu="Product Switcher">
           <MenuItem href="#">Product A</MenuItem>

@@ -5,7 +5,7 @@ import Typography from "../typography";
 import Hr, { HrProps } from ".";
 
 export default {
-  title: "Hr/Test",
+  title: "Deprecated/Hr/Test",
   parameters: {
     info: { disable: true },
     chromatic: {
