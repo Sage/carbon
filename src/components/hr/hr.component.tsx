@@ -5,17 +5,21 @@ import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 import StyledHr from "./hr.style";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
 
+import Logger from "../../__internal__/utils/logger";
+
 export interface HrProps extends MarginProps, TagProps {
   /** Set whether the component should be recognised by assistive technologies */
   "aria-hidden"?: "true" | "false";
   /** Breakpoint for adaptive left and right margins (below the breakpoint they go to 0).
    * Enables the adaptive behaviour when set */
   adaptiveMxBreakpoint?: number;
-  /** Set the height of the component. Accepts one of "small", "medium", or "large" */
+  /** @deprecated Set the height of the component. Accepts one of "small", "medium", or "large" */
   height?: "small" | "medium" | "large";
   /** Set the color variant of the horizontal rule. Use "typical" for standard styling or "inverse" for use in darker backgrounds */
   type?: "typical" | "inverse";
 }
+
+let deprecatedWarnTriggered = false;
 
 export const Hr = ({
   adaptiveMxBreakpoint,
@@ -26,6 +30,13 @@ export const Hr = ({
   height = "small",
   ...rest
 }: HrProps): JSX.Element => {
+  if (!deprecatedWarnTriggered) {
+    deprecatedWarnTriggered = true;
+    Logger.deprecate(
+      "`Hr` is deprecated and will soon be removed. Please use the Divider component instead.",
+    );
+  }
+
   const largeScreen = useIsAboveBreakpoint(adaptiveMxBreakpoint);
   let marginLeft = ml;
   let marginRight = mr;
