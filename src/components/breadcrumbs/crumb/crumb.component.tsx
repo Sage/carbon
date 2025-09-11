@@ -24,26 +24,52 @@ export interface CrumbProps
       | "disabled"
     >,
     TagProps {
-  /** This sets the Crumb to current, does not render Link */
   isCurrent?: boolean;
+  onClick?: (
+    ev: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>,
+  ) => void;
 }
 
-const Crumb = React.forwardRef<HTMLAnchorElement, CrumbProps>(
-  ({ href, isCurrent, children, onClick, ...rest }: CrumbProps, ref) => {
+const Crumb = React.forwardRef<HTMLLIElement, CrumbProps>(
+  ({ href, isCurrent, children, onClick, ...rest }, ref) => {
     const { isDarkBackground } = useBreadcrumbsContext();
 
+    const isSafari = React.useMemo(() => {
+      if (typeof navigator === "undefined") return false;
+      return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    }, []);
+
+    const handleClick = React.useCallback(
+      (
+        event: React.MouseEvent<
+          HTMLAnchorElement | HTMLButtonElement,
+          MouseEvent
+        >,
+      ) => {
+        if (!isCurrent && isSafari) {
+          (event.currentTarget as HTMLElement).focus({ preventScroll: true });
+        }
+        onClick?.(event);
+      },
+      [isCurrent, isSafari, onClick],
+    );
+
     return (
-      <li>
+      <li ref={ref}>
         <StyledCrumb
-          ref={ref}
           isCurrent={isCurrent}
           aria-current={isCurrent ? "page" : undefined}
           isDarkBackground={isDarkBackground}
+          data-testid={isCurrent ? "current-crumb" : "link-anchor"}
           {...rest}
           {...tagComponent("crumb", rest)}
           {...(!isCurrent && {
             href,
-            onClick,
+            onClick: handleClick,
+          })}
+          {...(isCurrent && {
+            as: "span",
+            tabIndex: -1,
           })}
         >
           {children}
