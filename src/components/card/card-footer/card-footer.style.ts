@@ -30,8 +30,6 @@ const StyledCardFooter = styled.div<StyledCardFooterProps>`
     border-top: var(--colorsUtilityMajor100);
     border-top-width: 1px;
     border-top-style: solid;
-    font-size: 14px;
-    font-weight: 500;
     margin: ${marginSizes[spacing]};
     display: flex;
     ${roundness === "default" &&
