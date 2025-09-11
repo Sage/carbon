@@ -32,6 +32,7 @@ import FocusTrap from "../../../__internal__/focus-trap";
 import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags";
+import Events from "../../../__internal__/utils/helpers/events";
 
 export interface ResponsiveVerticalMenuProps extends TagProps {
   /** The content of the menu */
@@ -166,30 +167,27 @@ const BaseMenu = ({
   }, []);
 
   useEffect(() => {
-    const handleBlur = ({ relatedTarget, target }: FocusEvent) => {
+    let timeout: NodeJS.Timeout | null = null;
+    const handleBlur = (ev: FocusEvent) => {
       /* istanbul ignore if */
       if (!containerRef.current) {
         return;
       }
 
-      const relatedTargetIsWithinContainer = containerRef.current.contains(
-        relatedTarget as Node,
-      );
-
-      if (!relatedTargetIsWithinContainer) {
-        /* istanbul ignore else */
-        if (
-          (relatedTarget === null && target !== buttonRef.current) ||
-          relatedTarget !== buttonRef.current
-        ) {
-          setTimeout(() => {
-            /* istanbul ignore else */
-            if (!activeMenuItem && !isResizingRef.current) {
-              setActive(false);
-            }
-          }, 10);
-        }
+      if (Events.composedPath(ev).includes(buttonRef.current as EventTarget)) {
+        return;
       }
+
+      if (timeout) {
+        clearTimeout(timeout);
+        timeout = null;
+      }
+
+      timeout = setTimeout(() => {
+        if (!containerRef.current?.contains(document.activeElement)) {
+          setActive(false);
+        }
+      }, 0);
     };
 
     const handleClose = (e: KeyboardEvent) => {
@@ -211,6 +209,8 @@ const BaseMenu = ({
       document.removeEventListener("keydown", handleClose);
       window.removeEventListener("click", handleOutsideClick);
       currentContainer?.removeEventListener("focusout", handleBlur);
+      if (timeout) clearTimeout(timeout);
+      timeout = null;
     };
   }, [
     active,

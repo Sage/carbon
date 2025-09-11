@@ -1,11 +1,5 @@
 import React, { act } from "react";
-import {
-  render,
-  screen,
-  waitFor,
-  within,
-  fireEvent,
-} from "@testing-library/react";
+import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import {
@@ -505,10 +499,7 @@ test("closes menu when focus is lost", async () => {
   await user.tab();
   expect(menuItem).toHaveFocus();
 
-  // Simulate focus loss
-  fireEvent.focusOut(menuItem, {
-    relatedTarget: null,
-  });
+  await user.click(document.body);
 
   await waitFor(() => {
     expect(screen.queryByText("Menu Item 1")).not.toBeInTheDocument();
@@ -820,10 +811,7 @@ test("allows for full keyboard navigation of primary menus", async () => {
   expect(menuItem2).not.toHaveFocus();
   expect(menuItem3).toHaveFocus();
 
-  // Simulate focus loss
-  fireEvent.focusOut(menuItem3, {
-    relatedTarget: null,
-  });
+  await user.tab();
 
   await waitFor(() => {
     expect(menuItem).not.toBeInTheDocument();
