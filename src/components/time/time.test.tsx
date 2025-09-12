@@ -1216,7 +1216,7 @@ test("should apply the custom `data-` attributes on the toggle component wrapper
   expect(pmButtonWrapper).toHaveAttribute("data-element", "foo");
 });
 
-test("should apply the correct aria-describedby attribute to fieldset when inputHint is provided", () => {
+test("should apply the correct aria-describedby attribute to fieldset when inputHint and validation are provided", () => {
   render(
     <Time
       value={{ hours: "", minutes: "" }}
@@ -1228,10 +1228,10 @@ test("should apply the correct aria-describedby attribute to fieldset when input
 
   const fieldset = screen.getByRole("group");
 
-  expect(fieldset).toHaveAccessibleDescription("Hrs. Hint");
+  expect(fieldset).toHaveAccessibleDescription("Validation Hint");
 });
 
-test("should apply the correct aria-describedby attribute to fieldset when inputHint is provided and validationMessagePositionTop is false", () => {
+test("should apply the correct aria-describedby attribute to fieldset when inputHint and error are provided and validationMessagePositionTop is false", () => {
   render(
     <Time
       value={{ hours: "", minutes: "" }}
@@ -1244,10 +1244,10 @@ test("should apply the correct aria-describedby attribute to fieldset when input
 
   const fieldset = screen.getByRole("group");
 
-  expect(fieldset).toHaveAccessibleDescription("Hint Hrs.");
+  expect(fieldset).toHaveAccessibleDescription("Hint Validation");
 });
 
-test("should apply the correct aria-describedby attribute to fieldset when inputHint is provided with a warning and validationMessagePositionTop is false", () => {
+test("should apply the correct aria-describedby attribute to fieldset when inputHint and warning are provided and validationMessagePositionTop is false", () => {
   render(
     <Time
       value={{ hours: "", minutes: "" }}
@@ -1260,7 +1260,7 @@ test("should apply the correct aria-describedby attribute to fieldset when input
 
   const fieldset = screen.getByRole("group");
 
-  expect(fieldset).toHaveAccessibleDescription("Hint Hrs.");
+  expect(fieldset).toHaveAccessibleDescription("Hint Validation");
 });
 
 test("should not apply the aria-describedby attribute to fieldset when inputHint is not provided", () => {
