@@ -332,64 +332,48 @@ export const DefaultStory = () => {
                 name="checkbox-default"
                 ml="40px"
                 mt="30px"
-                checked={false}
-                onChange={() => {}}
               />
               <Checkbox
                 label="Example checkbox"
                 name="checkbox-default"
                 ml="40px"
                 mt="30px"
-                checked={false}
-                onChange={() => {}}
               />
               <Checkbox
                 label="Example checkbox"
                 name="checkbox-default"
                 ml="40px"
                 mt="30px"
-                checked={false}
-                onChange={() => {}}
               />
               <Checkbox
                 label="Example checkbox"
                 name="checkbox-default"
                 ml="40px"
                 mt="30px"
-                checked={false}
-                onChange={() => {}}
               />
               <Checkbox
                 label="Example checkbox"
                 name="checkbox-default"
                 ml="40px"
                 mt="30px"
-                checked={false}
-                onChange={() => {}}
               />
               <Checkbox
                 label="Example checkbox"
                 name="checkbox-default"
                 ml="40px"
                 mt="30px"
-                checked={false}
-                onChange={() => {}}
               />
               <Checkbox
                 label="Example checkbox"
                 name="checkbox-default"
                 ml="40px"
                 mt="30px"
-                checked={false}
-                onChange={() => {}}
               />
               <Checkbox
                 label="Example checkbox"
                 name="checkbox-default"
                 ml="40px"
                 mt="30px"
-                checked={false}
-                onChange={() => {}}
               />
               <Checkbox
                 label="Example checkbox"
@@ -397,8 +381,6 @@ export const DefaultStory = () => {
                 ml="40px"
                 mt="30px"
                 mb={4}
-                checked={false}
-                onChange={() => {}}
               />
             </>
           }
@@ -430,64 +412,48 @@ export const DefaultStory = () => {
                 name="checkbox-default"
                 ml="40px"
                 mt="30px"
-                checked={false}
-                onChange={() => {}}
               />
               <Checkbox
                 label="Example checkbox"
                 name="checkbox-default"
                 ml="40px"
                 mt="30px"
-                checked={false}
-                onChange={() => {}}
               />
               <Checkbox
                 label="Example checkbox"
                 name="checkbox-default"
                 ml="40px"
                 mt="30px"
-                checked={false}
-                onChange={() => {}}
               />
               <Checkbox
                 label="Example checkbox"
                 name="checkbox-default"
                 ml="40px"
                 mt="30px"
-                checked={false}
-                onChange={() => {}}
               />
               <Checkbox
                 label="Example checkbox"
                 name="checkbox-default"
                 ml="40px"
                 mt="30px"
-                checked={false}
-                onChange={() => {}}
               />
               <Checkbox
                 label="Example checkbox"
                 name="checkbox-default"
                 ml="40px"
                 mt="30px"
-                checked={false}
-                onChange={() => {}}
               />
               <Checkbox
                 label="Example checkbox"
                 name="checkbox-default"
                 ml="40px"
                 mt="30px"
-                checked={false}
-                onChange={() => {}}
               />
               <Checkbox
                 label="Example checkbox"
                 name="checkbox-default"
                 ml="40px"
                 mt="30px"
-                checked={false}
-                onChange={() => {}}
               />
               <Checkbox
                 label="Example checkbox"
@@ -495,8 +461,6 @@ export const DefaultStory = () => {
                 ml="40px"
                 mt="30px"
                 mb={4}
-                checked={false}
-                onChange={() => {}}
               />
             </>
           }

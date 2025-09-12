@@ -26,7 +26,6 @@ export default {
     chromatic: { disableSnapshot: true },
     layout: "fullscreen",
     info: { disable: true },
-    themeProvider: { chromatic: { theme: "sage" } },
   },
 };
 
@@ -113,7 +112,6 @@ export const WithForm: StoryObj = () => {
   const [adaptiveSidebarOpen, setAdaptiveSidebarOpen] =
     useState(defaultOpenState);
   const [date, setDate] = useState("01/06/2020");
-  const [selected, setSelected] = useState("1");
   const selectOptions = [
     {
       id: "1",
@@ -186,12 +184,12 @@ export const WithForm: StoryObj = () => {
             <Button onClick={() => setAdaptiveSidebarOpen(false)}>Close</Button>
           }
         >
-          <Textbox label="First Name" value="" onChange={() => {}} />
-          <Textbox label="Middle Name" value="" onChange={() => {}} />
-          <Textbox label="Surname" value="" onChange={() => {}} />
-          <Textbox label="Birth Place" value="" onChange={() => {}} />
-          <Textbox label="Favourite Colour" value="" onChange={() => {}} />
-          <Textbox label="Address" value="" onChange={() => {}} />
+          <Textbox label="First Name" />
+          <Textbox label="Middle Name" />
+          <Textbox label="Surname" />
+          <Textbox label="Birth Place" />
+          <Textbox label="Favourite Colour" />
+          <Textbox label="Address" />
           <DateInput
             name="date"
             label="Birthday"
@@ -200,16 +198,12 @@ export const WithForm: StoryObj = () => {
               setDate(e.target.value.formattedValue)
             }
           />
-          <Select
-            label="Color"
-            value={selected}
-            onChange={(e) => setSelected(e.target.value)}
-          >
+          <Select label="Color">
             {selectOptions.map((option) => (
               <Option key={option.name} value={option} text={option.name} />
             ))}
           </Select>
-          <Textbox label="Pet Name" value="" onChange={() => {}} />
+          <Textbox label="Pet Name" />
           <DateInput
             name="date"
             label="Pet's birthday"
@@ -218,12 +212,7 @@ export const WithForm: StoryObj = () => {
               setDate(e.target.value.formattedValue)
             }
           />
-          <Checkbox
-            name="checkbox"
-            label="Do you like my Dog"
-            checked={false}
-            onChange={() => {}}
-          />
+          <Checkbox name="checkbox" label="Do you like my Dog" />
           <div>This is an example of an adaptive with a Form as content</div>
         </Form>
       </AdaptiveSidebar>
@@ -302,8 +291,7 @@ export const ExampleImplementation: StoryObj = () => {
             </Typography>
             <Search
               placeholder="Enter a keyword or phrase"
-              value=""
-              onChange={() => {}}
+              defaultValue=""
               searchButton
             />
             <Typography variant="h3" mt={2} mb={2}>
@@ -475,8 +463,6 @@ export const WithDropdown: StoryObj = () => {
   useLayoutEffect(() => {
     selectRef.current?.focus();
   }, []);
-  const [selected, setSelected] = useState("");
-  const [selected2, setSelected2] = useState("");
 
   return (
     <Box margin="var(--spacing200)" display="flex" flexDirection="row">
@@ -488,8 +474,6 @@ export const WithDropdown: StoryObj = () => {
           name="simple"
           id="simple"
           label="open dropdown and decrease screen size until sidebar changes to modal"
-          value={selected}
-          onChange={(e) => setSelected(e.target.value)}
         >
           <Option text="Amber" value="1" />
           <Option text="Black" value="2" />
@@ -511,8 +495,6 @@ export const WithDropdown: StoryObj = () => {
             name="simple-2"
             id="simple-2"
             label="open to test that the input and dropdowns show when the adaptive sidebar is open & triggered"
-            value={selected2}
-            onChange={(e) => setSelected2(e.target.value)}
           >
             <Option text="Amber" value="1" />
             <Option text="Black" value="2" />

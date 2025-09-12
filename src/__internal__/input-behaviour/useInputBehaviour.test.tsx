@@ -69,7 +69,7 @@ test("when group behaviour is enabled and the `onMouseDown` function is called, 
     }
   };
 
-  render(<Input ref={inputRefCallback} value="" />);
+  render(<Input ref={inputRefCallback} />);
 
   const input = screen.getByRole("textbox") as HTMLInputElement;
   const focusSpy = jest.spyOn(input, "focus");

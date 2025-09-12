@@ -57,12 +57,7 @@ export const Default: Story = () => {
       labelId="inline-inputs-default"
       gutter="none"
     >
-      <Textbox
-        aria-labelledby="inline-inputs-default"
-        {...validationProps}
-        value=""
-        onChange={() => {}}
-      />
+      <Textbox aria-labelledby="inline-inputs-default" {...validationProps} />
       <Decimal
         aria-labelledby="inline-inputs-default"
         value={decimalValue}
@@ -100,23 +95,10 @@ export const WithAdaptiveLabelBreakpoint: Story = () => {
         labelWidth={30}
         gutter="none"
       >
-        <Textbox
-          aria-labelledby="inline-inputs-adaptive"
-          value=""
-          onChange={() => {}}
-        />
-        <Textbox
-          aria-labelledby="inline-inputs-adaptive"
-          value=""
-          onChange={() => {}}
-        />
+        <Textbox aria-labelledby="inline-inputs-adaptive" />
+        <Textbox aria-labelledby="inline-inputs-adaptive" />
       </InlineInputs>
-      <Textbox
-        label="My Textbox"
-        adaptiveLabelBreakpoint={768}
-        value=""
-        onChange={() => {}}
-      />
+      <Textbox label="My Textbox" adaptiveLabelBreakpoint={768} />
     </Box>
   );
 };
@@ -129,16 +111,8 @@ export const Required: Story = () => {
       labelId="inline-inputs-required"
       required
     >
-      <Textbox
-        aria-labelledby="inline-inputs-required"
-        value=""
-        onChange={() => {}}
-      />
-      <Textbox
-        aria-labelledby="inline-inputs-required"
-        value=""
-        onChange={() => {}}
-      />
+      <Textbox aria-labelledby="inline-inputs-required" />
+      <Textbox aria-labelledby="inline-inputs-required" />
     </InlineInputs>
   );
 };
@@ -155,16 +129,8 @@ export const LabelAlign: Story = () => {
           labelId="inline-inputs-align"
           labelWidth={30}
         >
-          <Textbox
-            aria-labelledby="inline-inputs-align"
-            value=""
-            onChange={() => {}}
-          />
-          <Textbox
-            aria-labelledby="inline-inputs-align"
-            value=""
-            onChange={() => {}}
-          />
+          <Textbox aria-labelledby="inline-inputs-align" />
+          <Textbox aria-labelledby="inline-inputs-align" />
         </InlineInputs>
       ))}
     </Box>

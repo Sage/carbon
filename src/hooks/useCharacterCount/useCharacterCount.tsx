@@ -4,7 +4,7 @@ import guid from "../../__internal__/utils/helpers/guid";
 import useDebounce from "../__internal__/useDebounce";
 
 const useCharacterCount = (
-  value: string,
+  value = "",
   characterLimit?: number,
   characterCountAriaLive?: "off" | "polite",
 ): [JSX.Element | null, string | undefined] => {

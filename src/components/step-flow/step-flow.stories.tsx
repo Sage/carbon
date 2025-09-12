@@ -235,7 +235,7 @@ export const ExampleImplementation: Story = () => {
             This is an example of a Dialog with a Form as content, with a Step
             Flow to help users complete tasks in a specific order.
           </Typography>
-          <Textarea label="Textarea label" value="" onChange={() => {}} />
+          <Textarea label="Textarea label" />
         </Form>
       </Dialog>
     </>
@@ -310,7 +310,7 @@ export const ExampleImplementationWithTitleNode: Story = () => {
             This is an example of a Dialog with a Form as content, with a Step
             Flow to help users complete tasks in a specific order.
           </Typography>
-          <Textarea label="Textarea label" onChange={() => {}} value="" />
+          <Textarea label="Textarea label" />
         </Form>
       </Dialog>
     </>

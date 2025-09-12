@@ -7,8 +7,8 @@ import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/te
 test("should render with the provided children", () => {
   render(
     <CheckboxGroup>
-      <Checkbox value="1" label="label-1" onChange={() => {}} checked />
-      <Checkbox value="2" label="label-2" onChange={() => {}} checked />
+      <Checkbox value="1" label="label-1" onChange={() => {}} />
+      <Checkbox value="2" label="label-2" onChange={() => {}} />
     </CheckboxGroup>,
   );
 
@@ -19,7 +19,7 @@ test("should render with the provided children", () => {
 test("should render with the provided legend", () => {
   render(
     <CheckboxGroup legend="legend">
-      <Checkbox value="1" label="label" onChange={() => {}} checked />
+      <Checkbox value="1" label="label" onChange={() => {}} />
     </CheckboxGroup>,
   );
 
@@ -29,8 +29,8 @@ test("should render with the provided legend", () => {
 test("should render required checkbox children when required prop is set", () => {
   render(
     <CheckboxGroup legend="legend" required>
-      <Checkbox value="1" label="label-1" onChange={() => {}} checked />
-      <Checkbox value="2" label="label-2" onChange={() => {}} checked />
+      <Checkbox value="1" label="label-1" onChange={() => {}} />
+      <Checkbox value="2" label="label-2" onChange={() => {}} />
     </CheckboxGroup>,
   );
 
@@ -42,7 +42,7 @@ test("should render required checkbox children when required prop is set", () =>
 it("should render with accessible description when `error` prop is set", () => {
   render(
     <CheckboxGroup legend="legend" error="error message">
-      <Checkbox value="1" label="label" onChange={() => {}} checked />
+      <Checkbox value="1" label="label" onChange={() => {}} />
     </CheckboxGroup>,
   );
 
@@ -53,7 +53,7 @@ it("should render with accessible description when `error` prop is set", () => {
 it("should render with accessible description when `warning` prop is set", () => {
   render(
     <CheckboxGroup legend="legend" warning="warning message">
-      <Checkbox value="1" label="label" onChange={() => {}} checked />
+      <Checkbox value="1" label="label" onChange={() => {}} />
     </CheckboxGroup>,
   );
 
@@ -64,7 +64,7 @@ it("should render with accessible description when `warning` prop is set", () =>
 it("should render with accessible description when `info` prop is set", () => {
   render(
     <CheckboxGroup legend="legend" info="info message">
-      <Checkbox value="1" label="label" onChange={() => {}} checked />
+      <Checkbox value="1" label="label" onChange={() => {}} />
     </CheckboxGroup>,
   );
 
@@ -80,9 +80,8 @@ test("should render with expected styles when legendInline is true", () => {
         value="1"
         label="label-1"
         onChange={() => {}}
-        checked
       />
-      <Checkbox value="2" label="label-2" onChange={() => {}} checked />
+      <Checkbox value="2" label="label-2" onChange={() => {}} />
     </CheckboxGroup>,
   );
 
@@ -93,8 +92,8 @@ test("should render with expected styles when inline is true", () => {
   render(
     <CarbonProvider validationRedesignOptIn>
       <CheckboxGroup legend="legend" inline>
-        <Checkbox value="1" label="label-1" onChange={() => {}} checked />
-        <Checkbox value="2" label="label-2" onChange={() => {}} checked />
+        <Checkbox value="1" label="label-1" onChange={() => {}} />
+        <Checkbox value="2" label="label-2" onChange={() => {}} />
       </CheckboxGroup>
     </CarbonProvider>,
   );
@@ -109,7 +108,7 @@ describe("when the `validationRedesignOptIn` flag is true", () => {
     render(
       <CarbonProvider validationRedesignOptIn>
         <CheckboxGroup legend="legend" legendHelp="legendHelp">
-          <Checkbox value="1" label="label" onChange={() => {}} checked />
+          <Checkbox value="1" label="label" onChange={() => {}} />
         </CheckboxGroup>
       </CarbonProvider>,
     );
@@ -123,7 +122,7 @@ describe("when the `validationRedesignOptIn` flag is true", () => {
     render(
       <CarbonProvider validationRedesignOptIn>
         <CheckboxGroup legend="legend" error="error message">
-          <Checkbox value="1" label="label" onChange={() => {}} checked />
+          <Checkbox value="1" label="label" onChange={() => {}} />
         </CheckboxGroup>
       </CarbonProvider>,
     );
@@ -138,7 +137,7 @@ describe("when the `validationRedesignOptIn` flag is true", () => {
     render(
       <CarbonProvider validationRedesignOptIn>
         <CheckboxGroup legend="legend" warning="warning message">
-          <Checkbox value="1" label="label" onChange={() => {}} checked />
+          <Checkbox value="1" label="label" onChange={() => {}} />
         </CheckboxGroup>
       </CarbonProvider>,
     );
@@ -158,7 +157,7 @@ describe("when the `validationRedesignOptIn` flag is true", () => {
           legendHelp="Legend Help"
           validationMessagePositionTop={false}
         >
-          <Checkbox value="1" label="label" onChange={() => {}} checked />
+          <Checkbox value="1" label="label" onChange={() => {}} />
         </CheckboxGroup>
       </CarbonProvider>,
     );
@@ -178,7 +177,7 @@ describe("when the `validationRedesignOptIn` flag is true", () => {
           legendHelp="Legend Help"
           validationMessagePositionTop={false}
         >
-          <Checkbox value="1" label="label" onChange={() => {}} checked />
+          <Checkbox value="1" label="label" onChange={() => {}} />
         </CheckboxGroup>
       </CarbonProvider>,
     );
@@ -197,7 +196,7 @@ describe("when the `validationRedesignOptIn` flag is true", () => {
           legendHelp="legendHelp"
           error="error message"
         >
-          <Checkbox value="1" label="label" onChange={() => {}} checked />
+          <Checkbox value="1" label="label" onChange={() => {}} />
         </CheckboxGroup>
       </CarbonProvider>,
     );
@@ -215,7 +214,7 @@ testStyledSystemMargin(
       legend="legend"
       {...props}
     >
-      <Checkbox value="1" label="label" onChange={() => {}} checked />
+      <Checkbox value="1" label="label" onChange={() => {}} />
     </CheckboxGroup>
   ),
   () => screen.getByTestId("checkbox-group-wrapper"),

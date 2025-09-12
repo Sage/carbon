@@ -14,9 +14,6 @@ const styledSystemProps = generateStyledSystemProps({
 const meta: Meta<typeof Textbox> = {
   title: "Textbox",
   component: Textbox,
-  parameters: {
-    themeProvider: { chromatic: { theme: "sage" } },
-  },
   argTypes: {
     ...styledSystemProps,
   },
@@ -25,19 +22,14 @@ const meta: Meta<typeof Textbox> = {
 export default meta;
 type Story = StoryObj<typeof Textbox>;
 
+const SIZES = ["small", "medium", "large"] as const;
+
 export const Default: Story = () => {
-  const [state, setState] = useState("");
+  const [state, setState] = useState("Textbox");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
   };
-  return (
-    <Textbox
-      label="Textbox"
-      value={state}
-      onChange={setValue}
-      placeholder="Textbox"
-    />
-  );
+  return <Textbox label="Textbox" value={state} onChange={setValue} />;
 };
 Default.storyName = "Default";
 
@@ -110,48 +102,17 @@ export const Prefix: Story = () => {
 Prefix.storyName = "Prefix";
 
 export const Sizes: Story = () => {
-  const [smallState, setSmallState] = useState("");
-  const [mediumState, setMediumState] = useState("");
-  const [largeState, setLargeState] = useState("");
-  const setValue = (
-    { target }: React.ChangeEvent<HTMLInputElement>,
-    size: string,
-  ) => {
-    if (size === "small") setSmallState(target.value);
-    else if (size === "medium") setMediumState(target.value);
-    else if (size === "large") setLargeState(target.value);
-  };
   return (
     <Box>
-      <Textbox
-        key={`Textbox - small`}
-        label={`Textbox - small`}
-        value={smallState}
-        size={"small"}
-        mb={2}
-        onChange={(e) => setValue(e, "small")}
-        placeholder="Textbox"
-      />
-
-      <Textbox
-        key={`Textbox - medium`}
-        label={`Textbox - medium`}
-        value={mediumState}
-        size={"medium"}
-        mb={2}
-        onChange={(e) => setValue(e, "medium")}
-        placeholder="Textbox"
-      />
-
-      <Textbox
-        key={`Textbox - large`}
-        label={`Textbox - large`}
-        value={largeState}
-        size={"large"}
-        mb={2}
-        onChange={(e) => setValue(e, "large")}
-        placeholder="Textbox"
-      />
+      {SIZES.map((size) => (
+        <Textbox
+          key={`Textbox - ${size}`}
+          label={`Textbox - ${size}`}
+          defaultValue="Textbox"
+          size={size}
+          mb={2}
+        />
+      ))}
     </Box>
   );
 };
@@ -167,60 +128,26 @@ export const Margins: Story = () => {
 Margins.storyName = "Margins";
 
 export const Disabled: Story = () => {
-  const [state, setState] = useState("Textbox");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-  return <Textbox label="Textbox" disabled value={state} onChange={setValue} />;
+  return <Textbox label="Textbox" value="Textbox" disabled />;
 };
 Disabled.storyName = "Disabled";
 
 export const ReadOnly: Story = () => {
-  const [state, setState] = useState("Textbox");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-  return (
-    <Textbox
-      label="Textbox"
-      readOnly
-      value={state}
-      onChange={setValue}
-      placeholder="Textbox"
-    />
-  );
+  return <Textbox label="Textbox" value="Textbox" readOnly />;
 };
 ReadOnly.storyName = "Read Only";
 
 export const WithLabelInline: Story = () => {
-  const [state, setState] = useState("");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-  return (
-    <Textbox
-      label="Textbox"
-      labelInline
-      value={state}
-      onChange={setValue}
-      placeholder="Textbox"
-    />
-  );
+  return <Textbox label="Textbox" value="Textbox" labelInline />;
 };
 WithLabelInline.storyName = "With Label Inline";
 WithLabelInline.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithCustomLabelWidthAndInputWidth: Story = () => {
-  const [state, setState] = useState("Textbox");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-
   return (
     <Textbox
       label="Textbox"
-      value={state}
-      onChange={setValue}
+      value="Textbox"
       labelInline
       labelWidth={50}
       inputWidth={50}
@@ -231,45 +158,20 @@ WithCustomLabelWidthAndInputWidth.storyName =
   "With Custom Label Width And Input Width";
 
 export const WithCustomMaxWidth: Story = () => {
-  const [state, setState] = useState("Textbox");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-
-  return (
-    <Textbox label="Textbox" value={state} onChange={setValue} maxWidth="50%" />
-  );
+  return <Textbox label="Textbox" value="Textbox" maxWidth="50%" />;
 };
 WithCustomMaxWidth.storyName = "With Custom Max Width";
 
 export const WithFieldHelp: Story = () => {
-  const [state, setState] = useState("Textbox");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-
-  return (
-    <Textbox
-      label="Textbox"
-      value={state}
-      onChange={setValue}
-      fieldHelp="Help"
-    />
-  );
+  return <Textbox label="Textbox" value="Textbox" fieldHelp="Help" />;
 };
 WithFieldHelp.storyName = "With Field Help";
 
 export const WithInputHint: Story = () => {
-  const [state, setState] = useState("Textbox");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-
   return (
     <Textbox
       label="Textbox"
-      value={state}
-      onChange={setValue}
+      value="Textbox"
       inputHint="Hint text (optional)."
     />
   );
@@ -277,15 +179,10 @@ export const WithInputHint: Story = () => {
 WithInputHint.storyName = "With Input Hint";
 
 export const WithLabelHelp: Story = () => {
-  const [state, setState] = useState("Textbox");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
   return (
     <Textbox
       label="Textbox"
-      value={state}
-      onChange={setValue}
+      value="Textbox"
       labelHelp="Help"
       helpAriaLabel="Help"
     />
@@ -294,35 +191,17 @@ export const WithLabelHelp: Story = () => {
 WithLabelHelp.storyName = "With Label Help";
 
 export const Required: Story = () => {
-  const [state, setState] = useState("Textbox");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-  return <Textbox label="Textbox" value={state} onChange={setValue} required />;
+  return <Textbox label="Textbox" value="Textbox" required />;
 };
 Required.storyName = "Required";
 
-export const IsOptional: Story = () => {
-  const [state, setState] = useState("Textbox");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-  return <Textbox label="Textbox" value={state} onChange={setValue} />;
-};
-IsOptional.storyName = "IsOptional";
-
 export const LabelAlign: Story = () => {
-  const [state, setState] = useState("Textbox");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
   return (
     <Box>
       {(["right", "left"] as const).map((alignment) => (
         <Textbox
           label="Textbox"
-          value={state}
-          onChange={setValue}
+          value="Textbox"
           labelInline
           inputWidth={50}
           key={alignment}

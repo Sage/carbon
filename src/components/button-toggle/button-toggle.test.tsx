@@ -24,7 +24,7 @@ test("should call `onClick` when the button is clicked", async () => {
   const onClick = jest.fn();
   const user = userEvent.setup();
   render(
-    <ButtonToggleGroup id="test" value="" onChange={() => {}}>
+    <ButtonToggleGroup id="test" onChange={() => {}}>
       <ButtonToggle onClick={onClick}>Button</ButtonToggle>
     </ButtonToggleGroup>,
   );
@@ -37,7 +37,7 @@ test("should call `onFocus` when the button is focused", async () => {
   const onFocus = jest.fn();
   const user = userEvent.setup();
   render(
-    <ButtonToggleGroup id="test" value="" onChange={() => {}}>
+    <ButtonToggleGroup id="test" onChange={() => {}}>
       <ButtonToggle onFocus={onFocus}>Button</ButtonToggle>
     </ButtonToggleGroup>,
   );
@@ -50,7 +50,7 @@ test("should call `onBlur` when the button is blurred", async () => {
   const onBlur = jest.fn();
   const user = userEvent.setup();
   render(
-    <ButtonToggleGroup id="test" value="" onChange={() => {}}>
+    <ButtonToggleGroup id="test" onChange={() => {}}>
       <ButtonToggle onBlur={onBlur}>Button</ButtonToggle>
     </ButtonToggleGroup>,
   );
@@ -76,7 +76,7 @@ test("logs deprecation warning if pressed prop is used", () => {
 
 test("should render disabled button with expected styles", () => {
   render(
-    <ButtonToggleGroup id="test" value="" onChange={() => {}}>
+    <ButtonToggleGroup id="test" onChange={() => {}}>
       <ButtonToggle disabled>Button</ButtonToggle>
     </ButtonToggleGroup>,
   );
@@ -87,7 +87,7 @@ test("should render disabled button with expected styles", () => {
 
 test("should render with expected styles when buttonIcon is set", () => {
   render(
-    <ButtonToggleGroup id="test" value="" onChange={() => {}}>
+    <ButtonToggleGroup id="test" onChange={() => {}}>
       <ButtonToggle buttonIcon="add">Button</ButtonToggle>
     </ButtonToggleGroup>,
   );
@@ -99,7 +99,7 @@ test("should render with expected styles when buttonIcon is set", () => {
 
 test("should render with expected styles when buttonIcon is set and buttonIconSize is large'", () => {
   render(
-    <ButtonToggleGroup id="test" value="" onChange={() => {}}>
+    <ButtonToggleGroup id="test" onChange={() => {}}>
       <ButtonToggle buttonIcon="add" buttonIconSize="large">
         Button
       </ButtonToggle>
@@ -125,7 +125,7 @@ test("should throw an error when neither children or a `buttonIcon` is provided"
 
   expect(() =>
     render(
-      <ButtonToggleGroup id="test" value="" onChange={() => {}}>
+      <ButtonToggleGroup id="test" onChange={() => {}}>
         <ButtonToggle />
       </ButtonToggleGroup>,
     ),

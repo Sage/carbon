@@ -1,7 +1,7 @@
 import React from "react";
 import { test, expect } from "../../../playwright/helpers/base-test";
 
-import { NumeralDateProps } from ".";
+import NumeralDate, { NumeralDateProps } from ".";
 import {
   NumeralDateComponent,
   NumeralDateControlled,
@@ -242,13 +242,26 @@ test.describe("NumeralDate component", () => {
     mount,
     page,
   }) => {
-    await mount(<NumeralDateControlled />);
+    await mount(<NumeralDateComponent />);
 
     const inputValue = "15";
     const input = numeralDateInput(page, 0);
     await input.fill(inputValue);
 
     await expect(input).toHaveValue(inputValue);
+  });
+
+  test("should render NumeralDate with defaultValue prop", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <NumeralDate defaultValue={{ dd: "10", mm: "12", yyyy: "2022" }} />,
+    );
+
+    await expect(numeralDateInput(page, 0)).toHaveValue("10");
+    await expect(numeralDateInput(page, 1)).toHaveValue("12");
+    await expect(numeralDateInput(page, 2)).toHaveValue("2022");
   });
 
   (
@@ -262,7 +275,7 @@ test.describe("NumeralDate component", () => {
       mount,
       page,
     }) => {
-      await mount(<NumeralDateControlled enableInternalError />);
+      await mount(<NumeralDateComponent enableInternalError />);
 
       const errorInput = "55";
 
@@ -284,9 +297,9 @@ test.describe("NumeralDate component", () => {
       page,
     }) => {
       await mount(
-        <NumeralDateControlled
+        <NumeralDateComponent
           enableInternalError
-          initialValue={{ dd: "", mm: month, yyyy: year }}
+          value={{ dd: "", mm: month, yyyy: year }}
         />,
       );
 
@@ -308,9 +321,9 @@ test.describe("NumeralDate component", () => {
       page,
     }) => {
       await mount(
-        <NumeralDateControlled
+        <NumeralDateComponent
           enableInternalWarning
-          initialValue={{ dd: "", mm: month, yyyy: year }}
+          value={{ dd: "", mm: month, yyyy: year }}
         />,
       );
 
@@ -332,9 +345,9 @@ test.describe("NumeralDate component", () => {
       page,
     }) => {
       await mount<HooksConfig>(
-        <NumeralDateControlled
+        <NumeralDateComponent
           enableInternalError
-          initialValue={{ dd: "", mm: month, yyyy: year }}
+          value={{ dd: "", mm: month, yyyy: year }}
         />,
         { hooksConfig: { validationRedesignOptIn: true } },
       );
@@ -354,9 +367,9 @@ test.describe("NumeralDate component", () => {
       page,
     }) => {
       await mount<HooksConfig>(
-        <NumeralDateControlled
+        <NumeralDateComponent
           enableInternalWarning
-          initialValue={{ dd: "", mm: month, yyyy: year }}
+          value={{ dd: "", mm: month, yyyy: year }}
         />,
         { hooksConfig: { validationRedesignOptIn: true } },
       );
@@ -381,7 +394,7 @@ test.describe("NumeralDate component", () => {
       mount,
       page,
     }) => {
-      await mount(<NumeralDateControlled enableInternalWarning />);
+      await mount(<NumeralDateComponent enableInternalWarning />);
 
       const warningInput = "55";
 

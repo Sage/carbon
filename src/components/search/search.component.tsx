@@ -9,6 +9,7 @@ import Icon from "../icon";
 import Textbox from "../textbox";
 import Button from "../button";
 import { ValidationProps } from "../../__internal__/validations";
+import Logger from "../../__internal__/utils/logger";
 import useLocale from "../../hooks/__internal__/useLocale";
 import Events from "../../__internal__/utils/helpers/events";
 
@@ -25,6 +26,8 @@ export interface SearchProps extends ValidationProps, MarginProps, TagProps {
   "aria-label"?: string;
   /** Prop to specify the aria-label of the search button */
   searchButtonAriaLabel?: string;
+  /** Prop for `uncontrolled` use */
+  defaultValue?: string;
   /** Prop for `id` */
   id?: string;
   /** Prop for `name` */
@@ -32,7 +35,7 @@ export interface SearchProps extends ValidationProps, MarginProps, TagProps {
   /** Prop for `onBlur` events */
   onBlur?: (ev: React.FocusEvent<HTMLInputElement>) => void;
   /** Prop for `onChange` events */
-  onChange: (ev: SearchEvent) => void;
+  onChange?: (ev: SearchEvent) => void;
   /** Prop for `onClick` events.
    *  `onClick` events are triggered when the `searchButton` is clicked
    */
@@ -63,8 +66,8 @@ export interface SearchProps extends ValidationProps, MarginProps, TagProps {
    * Leaving the `maxWidth` prop with no value will default the width to '100%'
    */
   maxWidth?: string;
-  /** Current value */
-  value: string;
+  /** Prop for `controlled` use */
+  value?: string;
   /** Prop to specify the styling of the search component */
   variant?: "default" | "dark";
   /** Input tabindex */
@@ -78,9 +81,12 @@ export type SearchHandle = {
   focus: () => void;
 } | null;
 
+let deprecateUncontrolledWarnTriggered = false;
+
 export const Search = React.forwardRef<SearchHandle, SearchProps>(
   (
     {
+      defaultValue,
       onChange,
       onClick,
       onFocus,
@@ -106,6 +112,8 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
     },
     ref,
   ) => {
+    const isControlled = value !== undefined;
+    const initialValue = isControlled ? value : defaultValue;
     const locale = useLocale();
     const searchRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
@@ -120,16 +128,35 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
       [],
     );
 
-    invariant(typeof value === "string", "This component has no initial value");
+    if (!deprecateUncontrolledWarnTriggered && !isControlled) {
+      deprecateUncontrolledWarnTriggered = true;
+      Logger.deprecate(
+        "Uncontrolled behaviour in `Search` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
+      );
+    }
 
+    invariant(
+      typeof initialValue === "string",
+      "This component has no initial value",
+    );
+
+    const [searchValue, setSearchValue] = useState(initialValue);
     const [isFocused, setIsFocused] = useState(false);
 
-    const isSearchValueEmpty = value.length === 0;
+    const isSearchValueEmpty = !isControlled
+      ? searchValue.length === 0
+      : value.length === 0;
 
     let buttonProps = {};
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      onChange(event);
+      if (onChange) {
+        onChange(event);
+      }
+
+      if (!isControlled) {
+        setSearchValue(event.target.value);
+      }
     };
 
     const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
@@ -146,7 +173,7 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
             target: {
               name,
               id,
-              value,
+              value: !isControlled ? searchValue : value,
             },
           });
         },
@@ -154,6 +181,8 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
     }
 
     const handleIconClick = () => {
+      setSearchValue("");
+
       onChange?.({
         target: {
           ...(name && { name }),
@@ -195,7 +224,7 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
 
       if (Events.isEscKey(event) && !isSearchValueEmpty) {
         event.stopPropagation();
-
+        setSearchValue("");
         onChange?.({
           target: {
             ...(name && { name }),
@@ -214,7 +243,9 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
       typeof searchButton === "string"
         ? searchButton
         : locale.search.searchButtonText();
-    const searchHasValue = !!value?.length;
+    const searchHasValue = !isControlled
+      ? !!searchValue?.length
+      : !!value?.length;
 
     return (
       <StyledSearch
@@ -233,7 +264,7 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
       >
         <Textbox
           placeholder={placeholder}
-          value={value}
+          value={!isControlled ? searchValue : value}
           inputIcon={!isSearchValueEmpty ? "cross" : undefined}
           iconTabIndex={!isSearchValueEmpty ? 0 : -1}
           iconOnClick={handleIconClick}
@@ -274,5 +305,7 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
     );
   },
 );
+
+Search.displayName = "Search";
 
 export default Search;

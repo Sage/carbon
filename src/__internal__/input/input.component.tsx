@@ -14,7 +14,7 @@ export type EnterKeyHintTypes =
   | "send";
 
 export interface CommonInputProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type" | "value"> {
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type"> {
   /* The default value alignment on the input */
   align?: "right" | "left";
   /** The ID of the input's description, is set along with hint text and error message. */
@@ -49,8 +49,6 @@ export interface CommonInputProps
   required?: boolean;
   /** Id of the validation icon */
   validationIconId?: string;
-  /** The value of the input */
-  value: string | readonly string[] | number | undefined;
 }
 
 export interface InputProps extends CommonInputProps {

@@ -14,7 +14,7 @@ export const Default = ({
   characterLimit,
   fieldHelp,
   ...args
-}: Omit<TextareaTestProps, "value" | "onChange">) => {
+}: TextareaTestProps) => {
   const [state, setState] = useState("");
   const handleChange = ({
     target: { value },
@@ -70,21 +70,10 @@ export const InScrollableContainer = () => {
 };
 
 export const DisabledExample = () => {
-  const [value, setValue] = useState("");
-
-  return (
-    <Textarea
-      label="Textarea"
-      disabled
-      value={value}
-      onChange={({ target }) => setValue(target.value)}
-    />
-  );
+  return <Textarea label="Textarea" disabled />;
 };
 
 export const LabelAlignExample = () => {
-  const [value, setValue] = useState("");
-
   return (
     <>
       {(["right", "left"] as const).map((alignment) => (
@@ -94,8 +83,6 @@ export const LabelAlignExample = () => {
           inputWidth={50}
           key={alignment}
           labelAlign={alignment}
-          value={value}
-          onChange={({ target }) => setValue(target.value)}
         />
       ))}
     </>
@@ -103,29 +90,11 @@ export const LabelAlignExample = () => {
 };
 
 export const ReadOnlyExample = () => {
-  const [value, setValue] = useState("");
-
-  return (
-    <Textarea
-      label="Textarea"
-      readOnly
-      value={value}
-      onChange={({ target }) => setValue(target.value)}
-    />
-  );
+  return <Textarea label="Textarea" readOnly />;
 };
 
 export const AutoFocusExample = () => {
-  const [value, setValue] = useState("");
-
-  return (
-    <Textarea
-      label="Textarea"
-      autoFocus
-      value={value}
-      onChange={({ target }) => setValue(target.value)}
-    />
-  );
+  return <Textarea label="Textarea" autoFocus />;
 };
 
 export const ExpandableExample = () => {
@@ -174,102 +143,36 @@ export const CharacterLimitExampleWithButton = () => {
 };
 
 export const LabelInlineExample = () => {
-  const [value, setValue] = useState("");
-
-  return (
-    <Textarea
-      label="Textarea"
-      labelInline
-      value={value}
-      onChange={({ target }) => setValue(target.value)}
-    />
-  );
+  return <Textarea label="Textarea" labelInline />;
 };
 
 export const CustomWidthExample = () => {
-  const [value, setValue] = useState("");
-
   return (
-    <Textarea
-      label="Textarea"
-      labelInline
-      labelWidth={50}
-      inputWidth={50}
-      value={value}
-      onChange={({ target }) => setValue(target.value)}
-    />
+    <Textarea label="Textarea" labelInline labelWidth={50} inputWidth={50} />
   );
 };
 
 export const FieldHelpExample = () => {
-  const [value, setValue] = useState("");
-
-  return (
-    <Textarea
-      label="Textarea"
-      fieldHelp="Help"
-      value={value}
-      onChange={({ target }) => setValue(target.value)}
-    />
-  );
+  return <Textarea label="Textarea" fieldHelp="Help" />;
 };
 
 export const MaxWidthExample = () => {
-  const [value, setValue] = useState("");
-
-  return (
-    <Textarea
-      label="Textarea"
-      maxWidth="70%"
-      value={value}
-      onChange={({ target }) => setValue(target.value)}
-    />
-  );
+  return <Textarea label="Textarea" maxWidth="70%" />;
 };
 
 export const InputHintExample = () => {
-  const [value, setValue] = useState("");
-
-  return (
-    <Textarea
-      label="Textarea"
-      inputHint="Hint text (optional)."
-      value={value}
-      onChange={({ target }) => setValue(target.value)}
-    />
-  );
+  return <Textarea label="Textarea" inputHint="Hint text (optional)." />;
 };
 
 export const LabelHelpExample = () => {
-  const [value, setValue] = useState("");
-
-  return (
-    <Textarea
-      label="Textarea"
-      labelHelp="Help"
-      helpAriaLabel="Help"
-      value={value}
-      onChange={({ target }) => setValue(target.value)}
-    />
-  );
+  return <Textarea label="Textarea" labelHelp="Help" helpAriaLabel="Help" />;
 };
 
 export const RequiredExample = () => {
-  const [value, setValue] = useState("");
-
-  return (
-    <Textarea
-      label="Textarea"
-      required
-      value={value}
-      onChange={({ target }) => setValue(target.value)}
-    />
-  );
+  return <Textarea label="Textarea" required />;
 };
 
 export const ValidationStringExample = () => {
-  const [value, setValue] = useState("");
-
   return (
     <>
       {["error", "warning", "info"].map((validationType) => (
@@ -278,16 +181,12 @@ export const ValidationStringExample = () => {
             label="Textarea"
             {...{ [validationType]: "Message" }}
             mb={2}
-            value={value}
-            onChange={({ target }) => setValue(target.value)}
           />
           <Textarea
             label="Textarea - readOnly"
             readOnly
             {...{ [validationType]: "Message" }}
             mb={2}
-            value={value}
-            onChange={({ target }) => setValue(target.value)}
           />
         </Box>
       ))}
@@ -296,8 +195,6 @@ export const ValidationStringExample = () => {
 };
 
 export const ValidationStringPositionExample = () => {
-  const [value, setValue] = useState("");
-
   return (
     <>
       {["error", "warning", "info"].map((validationType) => (
@@ -307,8 +204,6 @@ export const ValidationStringPositionExample = () => {
             {...{ [validationType]: "Message" }}
             mb={2}
             tooltipPosition="bottom"
-            value={value}
-            onChange={({ target }) => setValue(target.value)}
           />
         </Box>
       ))}
@@ -317,8 +212,6 @@ export const ValidationStringPositionExample = () => {
 };
 
 export const ValidationLabelExample = () => {
-  const [value, setValue] = useState("");
-
   return (
     <>
       {["error", "warning", "info"].map((validationType) => (
@@ -328,8 +221,6 @@ export const ValidationLabelExample = () => {
             validationOnLabel
             {...{ [validationType]: "Message" }}
             mb={2}
-            value={value}
-            onChange={({ target }) => setValue(target.value)}
           />
           <Textarea
             label="Textarea - readOnly"
@@ -337,8 +228,6 @@ export const ValidationLabelExample = () => {
             readOnly
             {...{ [validationType]: "Message" }}
             mb={2}
-            value={value}
-            onChange={({ target }) => setValue(target.value)}
           />
         </Box>
       ))}
@@ -347,8 +236,6 @@ export const ValidationLabelExample = () => {
 };
 
 export const ValidationLabelPositionExample = () => {
-  const [value, setValue] = useState("");
-
   return (
     <>
       {["error", "warning", "info"].map((validationType) => (
@@ -359,8 +246,6 @@ export const ValidationLabelPositionExample = () => {
             {...{ [validationType]: "Message" }}
             mb={2}
             tooltipPosition="top"
-            value={value}
-            onChange={({ target }) => setValue(target.value)}
           />
         </Box>
       ))}
@@ -369,8 +254,6 @@ export const ValidationLabelPositionExample = () => {
 };
 
 export const NewDesignValidationExample = () => {
-  const [value, setValue] = useState("");
-
   return (
     <CarbonProvider validationRedesignOptIn>
       {["error", "warning"].map((validationType) => (
@@ -380,8 +263,6 @@ export const NewDesignValidationExample = () => {
             inputHint="Hint text (optional)."
             {...{ [validationType]: "Message" }}
             m={4}
-            value={value}
-            onChange={({ target }) => setValue(target.value)}
           />
           <Textarea
             label={`readOnly - ${validationType}`}
@@ -389,8 +270,6 @@ export const NewDesignValidationExample = () => {
             readOnly
             {...{ [validationType]: "Message" }}
             m={4}
-            value={value}
-            onChange={({ target }) => setValue(target.value)}
           />
         </Box>
       ))}
@@ -399,26 +278,16 @@ export const NewDesignValidationExample = () => {
 };
 
 export const ValidationBooleanExample = () => {
-  const [value, setValue] = useState("");
-
   return (
     <>
       {["error", "warning", "info"].map((validationType) => (
         <Box key={`${validationType}-boolean-component`}>
-          <Textarea
-            label="Textarea"
-            {...{ [validationType]: true }}
-            mb={2}
-            value={value}
-            onChange={({ target }) => setValue(target.value)}
-          />
+          <Textarea label="Textarea" {...{ [validationType]: true }} mb={2} />
           <Textarea
             label="Textarea - readOnly"
             readOnly
             {...{ [validationType]: true }}
             mb={2}
-            value={value}
-            onChange={({ target }) => setValue(target.value)}
           />
         </Box>
       ))}

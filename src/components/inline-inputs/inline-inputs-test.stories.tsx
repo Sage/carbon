@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import InlineInputs, { InlineInputsProps } from ".";
 import Textbox from "../textbox";
 import Decimal from "../decimal";
@@ -17,16 +17,9 @@ export default {
 };
 
 export const Default = (props: InlineInputsProps) => {
-  const [textValue, setTextValue] = useState("");
-
   return (
     <InlineInputs label="Inline Input" {...props}>
-      <Textbox
-        warning
-        inputIcon="warning"
-        value={textValue}
-        onChange={(e) => setTextValue(e.target.value)}
-      />
+      <Textbox warning inputIcon="warning" />
 
       <Decimal onChange={() => {}} value="0.00" />
 

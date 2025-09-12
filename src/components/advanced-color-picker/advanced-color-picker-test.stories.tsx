@@ -39,6 +39,7 @@ export const Default = (args: Partial<AdvancedColorPickerProps>) => {
         { value: "#AEECEB", label: "turquoise" },
         { value: "#AEECD6", label: "mint" },
       ]}
+      defaultColor="#EBAEDE"
       selectedColor={color}
       onChange={onChange}
       onOpen={() => {

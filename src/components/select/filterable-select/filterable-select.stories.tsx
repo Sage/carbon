@@ -33,20 +33,9 @@ export default meta;
 type Story = StoryObj<typeof FilterableSelect>;
 
 export const Default: Story = () => {
-  const [value, setValue] = useState("");
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value);
-  }
-
   return (
     <Box height={220}>
-      <FilterableSelect
-        name="simple"
-        id="simple"
-        label="color"
-        value={value}
-        onChange={onChangeHandler}
-      >
+      <FilterableSelect name="simple" id="simple" label="color">
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
@@ -108,10 +97,6 @@ ListPlacement.storyName = "List Placement";
 ListPlacement.parameters = { chromatic: { disableSnapshot: true } };
 
 export const ListHeight: Story = () => {
-  const [value, setValue] = useState("");
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value);
-  }
   return (
     <Box height={500}>
       <FilterableSelect
@@ -119,8 +104,6 @@ export const ListHeight: Story = () => {
         name="list height"
         id="list-height"
         label="List height"
-        value={value}
-        onChange={onChangeHandler}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
@@ -166,11 +149,45 @@ export const ListWidth: Story = () => {
 ListWidth.storyName = "List Width";
 ListWidth.parameters = { chromatic: { disableSnapshot: true } };
 
-export const OpenOnFocus: Story = () => {
+export const Controlled: Story = () => {
   const [value, setValue] = useState("");
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
     setValue(event.target.value);
   }
+  function clearValue() {
+    setValue("");
+  }
+  return (
+    <Box height={300}>
+      <Button onClick={clearValue} mb={2}>
+        clear
+      </Button>
+      <FilterableSelect
+        id="controlled"
+        name="controlled"
+        label="color"
+        value={value}
+        onChange={onChangeHandler}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </FilterableSelect>
+    </Box>
+  );
+};
+Controlled.storyName = "Controlled";
+Controlled.parameters = { chromatic: { disableSnapshot: true } };
+
+export const OpenOnFocus: Story = () => {
   return (
     <Box height={250}>
       <FilterableSelect
@@ -178,8 +195,6 @@ export const OpenOnFocus: Story = () => {
         id="openOnFocus"
         label="color"
         openOnFocus
-        value={value}
-        onChange={onChangeHandler}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
@@ -200,18 +215,13 @@ OpenOnFocus.storyName = "Open on Focus";
 OpenOnFocus.parameters = { chromatic: { disableSnapshot: true } };
 
 export const Disabled: Story = () => {
-  const [value, setValue] = useState("3");
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value);
-  }
   return (
     <FilterableSelect
       aria-label="disabled"
       name="disabled"
       id="disabled"
+      defaultValue="3"
       disabled
-      value={value}
-      onChange={onChangeHandler}
     >
       <Option text="Amber" value="1" />
       <Option text="Black" value="2" />
@@ -230,18 +240,13 @@ export const Disabled: Story = () => {
 Disabled.storyName = "Disabled";
 
 export const Readonly: Story = () => {
-  const [value, setValue] = useState("4");
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value);
-  }
   return (
     <FilterableSelect
       aria-label="readonly"
       name="readonly"
       id="readonly"
+      defaultValue="4"
       readOnly
-      value={value}
-      onChange={onChangeHandler}
     >
       <Option text="Amber" value="1" />
       <Option text="Black" value="2" />
@@ -260,18 +265,13 @@ export const Readonly: Story = () => {
 Readonly.storyName = "Read Only";
 
 export const WithMultipleColumns: Story = () => {
-  const [value, setValue] = useState("4");
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value);
-  }
   return (
     <Box height={250}>
       <FilterableSelect
         name="withMultipleColumns"
         id="withMultipleColumns"
         label="clients"
-        value={value}
-        onChange={onChangeHandler}
+        defaultValue="4"
         multiColumn
         tableHeader={
           <tr>
@@ -314,19 +314,13 @@ WithMultipleColumns.storyName = "With Multiple Columns";
 WithMultipleColumns.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithMultipleColumnsAndNested: Story = () => {
-  const [value, setValue] = useState("2");
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value);
-  }
-
   return (
     <Box height={300}>
       <FilterableSelect
         name="withMultipleColumns"
         id="withMultipleColumns"
         label="clients"
-        value={value}
-        onChange={onChangeHandler}
+        defaultValue="2"
         multiColumn
         openOnFocus
         tableHeader={
@@ -577,21 +571,9 @@ WithInfiniteScroll.storyName = "With Infinite Scroll";
 WithInfiniteScroll.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithCustomMaxWidth: Story = () => {
-  const [value, setValue] = useState("");
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value);
-  }
-
   return (
     <Box height={250}>
-      <FilterableSelect
-        name="simple"
-        id="simple"
-        label="color"
-        maxWidth="50%"
-        value={value}
-        onChange={onChangeHandler}
-      >
+      <FilterableSelect name="simple" id="simple" label="color" maxWidth="50%">
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
@@ -610,10 +592,6 @@ export const WithCustomMaxWidth: Story = () => {
 WithCustomMaxWidth.storyName = "With Custom Max Width";
 
 export const Required: Story = () => {
-  const [value, setValue] = useState("");
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value);
-  }
   return (
     <Box height={250}>
       <FilterableSelect
@@ -621,8 +599,6 @@ export const Required: Story = () => {
         id="required-select"
         label="Foreground Color"
         required
-        value={value}
-        onChange={onChangeHandler}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
@@ -691,10 +667,6 @@ WithObjectAsValue.storyName = "With Object as Value";
 WithObjectAsValue.parameters = { chromatic: { disableSnapshot: true } };
 
 export const Virtualised: Story = () => {
-  const [value, setValue] = useState("");
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value);
-  }
   const colors = [
     "Amber",
     "Black",
@@ -726,8 +698,6 @@ export const Virtualised: Story = () => {
         labelInline
         enableVirtualScroll
         virtualScrollOverscan={20}
-        value={value}
-        onChange={onChangeHandler}
       >
         {options}
       </FilterableSelect>
@@ -836,7 +806,6 @@ export const CustomFilterAndOptionStyle: Story = () => {
             </Box>
           )
         }
-        value={selectedColor ?? ""}
       >
         {data.map(({ text, color }) => (
           <Option text={text} value={color} key={color}>

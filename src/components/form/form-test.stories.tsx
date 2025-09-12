@@ -37,7 +37,6 @@ export default {
     chromatic: {
       disableSnapshot: true,
     },
-    themeProvider: { chromatic: { theme: "sage" } },
   },
   args: {
     onSubmit: (ev: React.FormEvent) => {
@@ -59,18 +58,8 @@ type StoryType = StoryObj<typeof Form>;
 
 export const AllInputs: StoryType = (args: FormProps) => (
   <CarbonProvider validationRedesignOptIn>
-    <Textbox
-      onChange={() => {}}
-      value=""
-      label="Outside of Form"
-      characterLimit={100}
-    />
-    <Textbox
-      onChange={() => {}}
-      value=""
-      label="Outside of Form"
-      characterLimit={100}
-    />
+    <Textbox label="Outside of Form" characterLimit={100} />
+    <Textbox label="Outside of Form" characterLimit={100} />
     <Hr />
     <Form
       {...args}
@@ -82,40 +71,22 @@ export const AllInputs: StoryType = (args: FormProps) => (
       }
     >
       <Box>
-        <Textbox
-          onChange={() => {}}
-          value=""
-          label="Textbox"
-          characterLimit={100}
-        />
-        <Number label="Number" onChange={() => {}} value="" />
-        <Decimal label="Decimal" onChange={() => {}} value="" />
+        <Textbox label="Textbox" characterLimit={100} />
+        <Number label="Number" />
+        <Decimal label="Decimal" />
         <GroupedCharacter
           label="GroupedCharacter"
           groups={[2, 3, 2]}
           separator="-"
-          onChange={() => {}}
-          value=""
         />
-        <Password
-          label="Password"
-          characterLimit={100}
-          onChange={() => {}}
-          value=""
-        />
+        <Password label="Password" characterLimit={100} />
         <Fieldset legend="Fieldset">
-          <Textbox onChange={() => {}} value="" label="Textbox in Fieldset" />
-          <Checkbox
-            label="Checkbox in Fieldset"
-            onChange={() => {}}
-            checked={false}
-          />
+          <Textbox label="Textbox in Fieldset" />
+          <Checkbox label="Checkbox in Fieldset" />
           <Select
             name="simple-select"
             id="simple-select"
             label="Select in Fieldset"
-            onChange={() => {}}
-            value=""
           >
             <Option text="Amber" value="1" />
             <Option text="Black" value="2" />
@@ -131,17 +102,8 @@ export const AllInputs: StoryType = (args: FormProps) => (
           onChange={() => {}}
           label="Time"
         />
-        <NumeralDate
-          label="Numeral Date"
-          onChange={() => {}}
-          value={{ dd: "", mm: "", yyyy: "" }}
-        />
-        <RadioButtonGroup
-          name="legend"
-          legend="RadioButtonGroup"
-          onChange={() => {}}
-          value="group-1-input-1"
-        >
+        <NumeralDate label="Numeral Date" />
+        <RadioButtonGroup name="legend" legend="RadioButtonGroup">
           <RadioButton
             id="group-1-input-1"
             value="group-1-input-1"
@@ -153,10 +115,10 @@ export const AllInputs: StoryType = (args: FormProps) => (
             label="Radio Option 2"
           />
         </RadioButtonGroup>
-        <Checkbox label="Checkbox" checked={false} onChange={() => {}} />
+        <Checkbox label="Checkbox" />
         <CheckboxGroup legend="Checkbox Group">
-          <Checkbox label="Checkbox-1" checked={false} onChange={() => {}} />
-          <Checkbox label="Checkbox-2" checked={false} onChange={() => {}} />
+          <Checkbox label="Checkbox-1" />
+          <Checkbox label="Checkbox-2" />
         </CheckboxGroup>
         <DateInput name="date" label="Date" value="" onChange={() => {}} />
         <DateRange
@@ -167,18 +129,12 @@ export const AllInputs: StoryType = (args: FormProps) => (
           onChange={() => {}}
         />
         <InlineInputs label="Inline inputs">
-          <Textbox value="" onChange={() => {}} />
-          <Textbox value="" onChange={() => {}} />
-          <Textbox value="" onChange={() => {}} />
+          <Textbox onChange={() => {}} />
+          <Textbox onChange={() => {}} />
+          <Textbox onChange={() => {}} />
         </InlineInputs>
         <Search value="" onChange={() => {}} />
-        <Select
-          name="simple-select"
-          id="simple-select"
-          label="Simple Select"
-          value=""
-          onChange={() => {}}
-        >
+        <Select name="simple-select" id="simple-select" label="Simple Select">
           <Option text="Amber" value="1" />
           <Option text="Black" value="2" />
           <Option text="Blue" value="3" />
@@ -187,37 +143,21 @@ export const AllInputs: StoryType = (args: FormProps) => (
           name="filterable-select"
           id="filterable-select"
           label="Filterable Select"
-          value=""
-          onChange={() => {}}
         >
           <Option text="Amber" value="1" />
           <Option text="Black" value="2" />
           <Option text="Blue" value="3" />
         </FilterableSelect>
-        <MultiSelect
-          name="multi-select"
-          id="multi-select"
-          label="Multi Select"
-          value={[]}
-          onChange={() => {}}
-        >
+        <MultiSelect name="multi-select" id="multi-select" label="Multi Select">
           <Option text="Amber" value="1" />
           <Option text="Black" value="2" />
           <Option text="Blue" value="3" />
         </MultiSelect>
-        <Textarea
-          label="Textarea"
-          name="textarea"
-          characterLimit={100}
-          value=""
-          onChange={() => {}}
-        />
+        <Textarea label="Textarea" name="textarea" characterLimit={100} />
         <TextEditor labelText="Text Editor" characterLimit={100} />
         <SimpleColorPicker
           name="simple-color-picker"
           legend="Simple Color Picker"
-          value=""
-          onChange={() => {}}
         >
           {[
             { color: "transparent", label: "transparent" },
@@ -232,18 +172,13 @@ export const AllInputs: StoryType = (args: FormProps) => (
             />
           ))}
         </SimpleColorPicker>
-        <Switch
-          name="switch"
-          label="Switch"
-          onChange={() => {}}
-          checked={false}
-        />
+        <Switch name="switch" label="Switch" onChange={() => {}} />
       </Box>
     </Form>
   </CarbonProvider>
 );
 
-AllInputs.storyName = "All inputs";
+AllInputs.storyName = "all inputs";
 AllInputs.args = {
   stickyFooter: false,
   errorCount: 0,
@@ -268,16 +203,12 @@ export const FormAlignmentCustomMarginsTextInputs = (args: FormProps) => {
           labelInline
           labelAlign="right"
           labelWidth={30}
-          value=""
-          onChange={() => {}}
         />
         <Checkbox
           label="Checkbox in Fieldset"
           labelWidth={30}
           labelSpacing={2}
           reverse
-          checked
-          onChange={() => {}}
         />
       </Fieldset>
       <Decimal
@@ -289,8 +220,6 @@ export const FormAlignmentCustomMarginsTextInputs = (args: FormProps) => {
         inputWidth={30}
         fieldHelp="This is some help text"
         mb={1}
-        value="0"
-        onChange={() => {}}
       />
       <Textbox
         label="Textbox"
@@ -301,8 +230,6 @@ export const FormAlignmentCustomMarginsTextInputs = (args: FormProps) => {
         inputWidth={30}
         labelSpacing={2}
         mb={1}
-        value=""
-        onChange={() => {}}
       />
       <Number
         label="Number"
@@ -313,8 +240,6 @@ export const FormAlignmentCustomMarginsTextInputs = (args: FormProps) => {
         inputWidth={30}
         labelSpacing={2}
         mb={1}
-        value=""
-        onChange={() => {}}
       />
       <GroupedCharacter
         placeholder="placeholder"
@@ -324,8 +249,6 @@ export const FormAlignmentCustomMarginsTextInputs = (args: FormProps) => {
         groups={[2, 2, 3]}
         separator="-"
         mb={1}
-        value=""
-        onChange={() => {}}
       />
       <Textarea
         key="input-three"
@@ -336,8 +259,6 @@ export const FormAlignmentCustomMarginsTextInputs = (args: FormProps) => {
         labelWidth={10}
         inputWidth={30}
         mb={1}
-        value=""
-        onChange={() => {}}
       />
       <DateInput
         name="date"
@@ -364,8 +285,6 @@ export const FormAlignmentCustomMarginsTextInputs = (args: FormProps) => {
         id="simple-select"
         labelInline
         label="Simple Select"
-        value=""
-        onChange={() => {}}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
@@ -385,8 +304,6 @@ export const FormAlignmentCustomMarginsTextInputs = (args: FormProps) => {
         id="fiterable-select"
         labelInline
         label="Filterable Select"
-        value=""
-        onChange={() => {}}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
@@ -406,8 +323,6 @@ export const FormAlignmentCustomMarginsTextInputs = (args: FormProps) => {
         id="multi-select"
         labelInline
         label="Multi Select"
-        value={[]}
-        onChange={() => {}}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
@@ -421,17 +336,11 @@ export const FormAlignmentCustomMarginsTextInputs = (args: FormProps) => {
         <Option text="White" value="10" />
         <Option text="Yellow" value="11" />
       </MultiSelect>
-      <NumeralDate
-        label="Numeral date"
-        labelInline
-        mb={1}
-        value={{ dd: "", mm: "", yyyy: "" }}
-        onChange={() => {}}
-      />
+      <NumeralDate label="Numeral date" labelInline mb={1} />
       <InlineInputs label="Inline inputs" mb={1}>
-        <Textbox value="" onChange={() => {}} />
-        <Textbox value="" onChange={() => {}} />
-        <Textbox value="" onChange={() => {}} />
+        <Textbox />
+        <Textbox />
+        <Textbox />
       </InlineInputs>
       <Hr mx={1} my={0} />
     </Form>
@@ -457,8 +366,6 @@ export const FormAlignmentCustomMarginNonTextInputs = (args: FormProps) => {
         legendWidth={10}
         legendSpacing={2}
         mb={1}
-        value=""
-        onChange={() => {}}
       >
         <RadioButton
           id="group-1-input-1"
@@ -473,13 +380,7 @@ export const FormAlignmentCustomMarginNonTextInputs = (args: FormProps) => {
           labelWidth={10}
         />
       </RadioButtonGroup>
-      <Checkbox
-        name="checkbox1"
-        label="Checkbox 1"
-        mb={1}
-        checked={false}
-        onChange={() => {}}
-      />
+      <Checkbox name="checkbox1" label="Checkbox 1" mb={1} />
       <CheckboxGroup legend="Checkbox Group" mb={1}>
         {["One", "Two", "Three"].map((label) => (
           <Checkbox
@@ -487,8 +388,6 @@ export const FormAlignmentCustomMarginNonTextInputs = (args: FormProps) => {
             key={`checkbox-group-${label}`}
             name={`checkbox-group-${label}`}
             label={label}
-            checked={false}
-            onChange={() => {}}
           />
         ))}
       </CheckboxGroup>
@@ -499,15 +398,11 @@ export const FormAlignmentCustomMarginNonTextInputs = (args: FormProps) => {
         labelWidth={10}
         labelSpacing={2}
         mb={1}
-        checked={false}
-        onChange={() => {}}
       />
       <SimpleColorPicker
         name="picker-disabled-example"
         legend="Simple Color Picker"
         mb={1}
-        value=""
-        onChange={() => {}}
       >
         {[
           { color: "transparent", label: "transparent" },
@@ -559,13 +454,13 @@ export const DefaultWithPager = (args: FormProps) => (
         tabId="tab1"
       />
     </Tabs>
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-    <Textbox onChange={() => {}} value="" label="Textbox" />
-    <Textbox onChange={() => {}} value="" label="Textbox" />
+    <Textbox label="Textbox" />
+    <Textbox label="Textbox" />
+    <Textbox label="Textbox" />
+    <Textbox label="Textbox" />
+    <Textbox label="Textbox" />
+    <Textbox label="Textbox" />
+    <Textbox label="Textbox" />
     <Pager
       totalRecords={25}
       currentPage={1}
@@ -697,8 +592,8 @@ export const FullWidthWithLeftAndRight = (args: FormProps) => {
       errorCount={1}
       warningCount={2}
     >
-      <Textbox onChange={() => {}} value="" label="Textbox" />
-      <Textbox onChange={() => {}} value="" label="Textbox" />
+      <Textbox label="Textbox" />
+      <Textbox label="Textbox" />
     </Form>
   );
 };
@@ -722,8 +617,8 @@ export const WithSetHeight = (args: FormProps) => (
   >
     <Form height="80%" {...args}>
       <Box backgroundColor="white" height="100%">
-        <Textbox label="Textbox" value="" onChange={() => {}} />
-        <Textbox label="Textbox" value="" onChange={() => {}} />
+        <Textbox label="Textbox" />
+        <Textbox label="Textbox" />
       </Box>
     </Form>
   </Box>

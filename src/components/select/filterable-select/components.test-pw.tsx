@@ -86,15 +86,10 @@ export const FilterableSelectObjectAsValueComponent = (
 export const FilterableSelectMultiColumnsComponent = (
   props: Partial<FilterableSelectProps>,
 ) => {
-  const [value, setValue] = useState("2");
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value);
-  }
   return (
     <FilterableSelect
       multiColumn
-      value={value}
-      onChange={onChangeHandler}
+      defaultValue="2"
       {...props}
       tableHeader={
         <tr>
@@ -143,15 +138,10 @@ export const FilterableSelectMultiColumnsComponent = (
 export const FilterableSelectMultiColumnsNestedComponent = (
   props: Partial<FilterableSelectProps>,
 ) => {
-  const [value, setValue] = useState("2");
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value);
-  }
   return (
     <FilterableSelect
       multiColumn
-      value={value}
-      onChange={onChangeHandler}
+      defaultValue="2"
       {...props}
       tableHeader={
         <tr>
@@ -250,45 +240,32 @@ export const FilterableSelectWithActionButtonComponent = () => {
   );
 };
 
-export const WithVirtualScrolling = () => {
-  const [value, setValue] = useState("");
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value);
-  }
-  return (
-    <FilterableSelect
-      name="virtualised"
-      id="virtualised"
-      label="choose an option"
-      labelInline
-      enableVirtualScroll
-      virtualScrollOverscan={10}
-      value={value}
-      onChange={onChangeHandler}
-    >
-      {Array(10000)
-        .fill(undefined)
-        .map((_, index) => (
-          <Option
-            key={`option-${index + 1}`}
-            value={`${index}`}
-            text={`Option ${index + 1}.`}
-          />
-        ))}
-    </FilterableSelect>
-  );
-};
+export const WithVirtualScrolling = () => (
+  <FilterableSelect
+    name="virtualised"
+    id="virtualised"
+    label="choose an option"
+    labelInline
+    enableVirtualScroll
+    virtualScrollOverscan={10}
+  >
+    {Array(10000)
+      .fill(undefined)
+      .map((_, index) => (
+        <Option
+          key={`option-${index + 1}`}
+          value={`${index}`}
+          text={`Option ${index + 1}.`}
+        />
+      ))}
+  </FilterableSelect>
+);
 
 export const FilterableSelectNestedInDialog = ({
   openOnFocus = false,
   autofocus = false,
 }) => {
   const [isOpen, setIsOpen] = useState(true);
-  const [value, setValue] = useState("");
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value);
-  }
-
   return (
     <Dialog open={isOpen} onCancel={() => setIsOpen(false)} title="Dialog">
       <FilterableSelect
@@ -296,8 +273,6 @@ export const FilterableSelectNestedInDialog = ({
         autoFocus={autofocus}
         name="testSelect"
         id="testSelect"
-        value={value}
-        onChange={onChangeHandler}
       >
         <Option value="opt1" text="red" />
         <Option value="opt2" text="green" />

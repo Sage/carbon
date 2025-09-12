@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Number from ".";
+import Logger from "../../__internal__/utils/logger";
 
 jest.mock("../../__internal__/utils/logger");
 
@@ -14,13 +15,13 @@ const ControlledNumber = () => {
 };
 
 test("renders a textbox with provided label", () => {
-  render(<Number label="foo" value="" onChange={jest.fn} />);
+  render(<Number label="foo" />);
 
   expect(screen.getByRole("textbox", { name: "foo" })).toBeVisible();
 });
 
 test("renders a textbox with provided value", () => {
-  render(<Number value="123" onChange={jest.fn} />);
+  render(<Number value="123" />);
 
   expect(screen.getByRole("textbox")).toHaveValue("123");
 });
@@ -28,7 +29,7 @@ test("renders a textbox with provided value", () => {
 test("calls onChange when valid characters are provided", async () => {
   const user = userEvent.setup();
   const onChange = jest.fn();
-  render(<Number onChange={onChange} value="" />);
+  render(<Number onChange={onChange} />);
 
   await user.type(screen.getByRole("textbox"), "123");
 
@@ -38,7 +39,7 @@ test("calls onChange when valid characters are provided", async () => {
 test("does not call onChange when invalid characters are provided", async () => {
   const user = userEvent.setup();
   const onChange = jest.fn();
-  render(<Number onChange={onChange} value="" />);
+  render(<Number onChange={onChange} />);
 
   await user.tab();
   await user.keyboard("abc");
@@ -49,7 +50,7 @@ test("does not call onChange when invalid characters are provided", async () => 
 test("calls onKeyDown when a key is pressed", async () => {
   const user = userEvent.setup();
   const onKeyDown = jest.fn();
-  render(<Number onKeyDown={onKeyDown} onChange={jest.fn} value="" />);
+  render(<Number onKeyDown={onKeyDown} />);
 
   await user.tab();
   await user.keyboard("1");
@@ -100,47 +101,47 @@ test("maintains the user's cursor position when an invalid character is provided
   expect(textbox.selectionEnd).toBe(0);
 });
 
+test("logs a deprecation warning when uncontrolled", () => {
+  const loggerSpy = jest.spyOn(Logger, "deprecate");
+  render(<Number />);
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "Uncontrolled behaviour in `Number` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
+  );
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
+
+  loggerSpy.mockRestore();
+});
+
 test("renders a required textbox when `required` prop is true", () => {
-  render(<Number required onChange={jest.fn} value="" />);
+  render(<Number required />);
 
   expect(screen.getByRole("textbox")).toBeRequired();
 });
 
 test("renders a disabled textbox when `disabled` prop is true", () => {
-  render(<Number disabled onChange={jest.fn} value="" />);
+  render(<Number disabled />);
 
   expect(screen.getByRole("textbox")).toBeDisabled();
 });
 
 test("renders with `ref` when passed as an object", () => {
   const ref = { current: null };
-  render(
-    <Number ref={ref} onChange={jest.fn} value="">
-      foo
-    </Number>,
-  );
+  render(<Number ref={ref}>foo</Number>);
 
   expect(ref.current).toBe(screen.getByRole("textbox"));
 });
 
 test("renders with `ref` when passed as a callback", () => {
   const ref = jest.fn();
-  render(
-    <Number ref={ref} onChange={jest.fn} value="">
-      foo
-    </Number>,
-  );
+  render(<Number ref={ref}>foo</Number>);
 
   expect(ref).toHaveBeenCalledWith(screen.getByRole("textbox"));
 });
 
 test("sets `ref` to empty after unmount", () => {
   const ref = { current: null };
-  const { unmount } = render(
-    <Number ref={ref} onChange={jest.fn} value="">
-      foo
-    </Number>,
-  );
+  const { unmount } = render(<Number ref={ref}>foo</Number>);
 
   expect(ref.current).toBe(screen.getByRole("textbox"));
 

@@ -34,7 +34,6 @@ export const TopModalOverride = () => {
   const [isOpenDialog, setIsOpenDialog] = useState(true);
   const [isOpenAlert, setIsOpenAlert] = useState(true);
   const [isOpenSidebar, setIsOpenSidebar] = useState(false);
-  const [textboxValue, setTextboxValue] = useState("");
 
   useEffect(() => {
     setTimeout(() => {
@@ -50,11 +49,7 @@ export const TopModalOverride = () => {
         onCancel={() => setIsOpenDialog(false)}
         title="Dialog fullscreen"
       >
-        <Textbox
-          label="Fullscreen textbox"
-          value={textboxValue}
-          onChange={(e) => setTextboxValue(e.target.value)}
-        />
+        <Textbox label="Fullscreen textbox" />
       </Dialog>
       <Alert
         open={isOpenAlert}
@@ -62,22 +57,14 @@ export const TopModalOverride = () => {
         title="Alert"
         topModalOverride
       >
-        <Textbox
-          label="Alert textbox"
-          value={textboxValue}
-          onChange={(e) => setTextboxValue(e.target.value)}
-        />
+        <Textbox label="Alert textbox" />
       </Alert>
       <Sidebar
         open={isOpenSidebar}
         onCancel={() => setIsOpenSidebar(false)}
         header="sidebar"
       >
-        <Textbox
-          label="Sidebar textbox"
-          value={textboxValue}
-          onChange={(e) => setTextboxValue(e.target.value)}
-        />
+        <Textbox label="Sidebar textbox" />
       </Sidebar>
     </>
   );

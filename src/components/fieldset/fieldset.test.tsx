@@ -39,7 +39,7 @@ test("Fieldset does not add the required attribute to any child inputs when isRe
 test("Fieldset Legend adds an asterisk after the text when the field is mandatory", () => {
   render(
     <Fieldset legend="This is my custom legend" required>
-      <Textbox onChange={() => {}} value="" />
+      <Textbox onChange={() => {}} />
     </Fieldset>,
   );
 
@@ -52,8 +52,8 @@ test("renders with default margin between inputs when the validationRedesignOptI
   render(
     <CarbonProvider validationRedesignOptIn>
       <Fieldset>
-        <Textbox data-role="textbox" value={""} onChange={() => {}} />
-        <Textbox data-role="textbox 2" value={""} onChange={() => {}} />
+        <Textbox data-role="textbox" onChange={() => {}} />
+        <Textbox data-role="textbox 2" onChange={() => {}} />
       </Fieldset>
     </CarbonProvider>,
   );

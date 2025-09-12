@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 
 import Textbox from "../textbox";
-import Typography from "../typography";
 import Button from "../button";
 import Dialog from "../dialog";
 import {
@@ -14,29 +13,20 @@ interface ContentProps {
   title: string;
   noTextbox?: boolean;
 }
-const Content = ({ title, noTextbox }: ContentProps) => {
-  const [value, setValue] = useState("");
-  return (
-    <>
-      <div>
-        <h2>{title}</h2>
-        {!noTextbox && (
-          <Textbox
-            label={title}
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
-          />
-        )}
-        <Typography my={"30px"}>Content</Typography>
-        <Typography my={"30px"}>Content</Typography>
-        <Typography my={"30px"}>Content</Typography>
-        <Typography my={"30px"}>Content</Typography>
-        <Typography my={"30px"}>Content</Typography>
-        <Typography my={"30px"}>Content</Typography>
-      </div>
-    </>
-  );
-};
+const Content = ({ title, noTextbox }: ContentProps) => (
+  <>
+    <div>
+      <h2>{title}</h2>
+      {!noTextbox && <Textbox label={title} />}
+      <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>
+      <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>
+      <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>
+      <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>
+      <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>
+      <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>
+    </div>
+  </>
+);
 
 export const InFullScreenDialog = () => {
   const [isOpen, setIsOpen] = useState(false);

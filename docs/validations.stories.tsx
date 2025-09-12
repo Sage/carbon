@@ -20,54 +20,31 @@ export default meta;
 export const StringValidation: StoryObj = () => {
   return (
     <>
-      <Textbox
-        label="Textbox"
-        value=""
-        error="Error Message"
-        onChange={() => {}}
-      />
-      <Textbox
-        label="Textbox"
-        value=""
-        warning="Warning Message"
-        onChange={() => {}}
-      />
-      <Textbox
-        label="Textbox"
-        value=""
-        info="Info Message"
-        onChange={() => {}}
-      />
+      <Textbox label="Textbox" value="" error="Error Message" />
+      <Textbox label="Textbox" value="" warning="Warning Message" />
+      <Textbox label="Textbox" value="" info="Info Message" />
     </>
   );
 };
 StringValidation.storyName = "String Validation";
 
 export const BooleanValidation: StoryObj = () => {
-  return <Textbox label="Textbox" value="" error onChange={() => {}} />;
+  return <Textbox label="Textbox" value="" error />;
 };
 BooleanValidation.storyName = "Boolean Validation";
 
 export const ValidationOnLabel: StoryObj = () => {
   return (
-    <Textbox
-      label="Textbox"
-      value=""
-      error="Error Message"
-      validationOnLabel
-      onChange={() => {}}
-    />
+    <Textbox label="Textbox" value="" error="Error Message" validationOnLabel />
   );
 };
 ValidationOnLabel.storyName = "Validation on Label";
 
 export const TooltipPosition: StoryObj = () => {
-  const [state, setState] = React.useState("");
   return (
     <Textbox
       label="Textbox"
-      onChange={(e) => setState(e.target.value)}
-      value={state}
+      value=""
       error="Error Message"
       tooltipPosition="bottom"
     />
@@ -76,14 +53,8 @@ export const TooltipPosition: StoryObj = () => {
 TooltipPosition.storyName = "Tooltip Position";
 
 export const GroupedInputValidation: StoryObj = () => {
-  const [state, setState] = React.useState("radio1");
   return (
-    <RadioButtonGroup
-      legend="Radio Button Group"
-      name="errorRadioGroup"
-      value={state}
-      onChange={(e) => setState(e.target.value)}
-    >
+    <RadioButtonGroup legend="Radio Button Group" name="errorRadioGroup">
       <RadioButton
         id="error-radio-1"
         value="radio1"
@@ -108,15 +79,12 @@ export const GroupedInputValidation: StoryObj = () => {
 GroupedInputValidation.storyName = "Grouped Input Validation";
 
 export const GroupedLegendValidation: StoryObj = () => {
-  const [state, setState] = React.useState("radio1");
   return (
     <RadioButtonGroup
       legend="Radio Button Group"
       name="errorRadioGroup"
       required
       error="Error Message"
-      value={state}
-      onChange={(e) => setState(e.target.value)}
     >
       <RadioButton id="radio-1" value="radio1" label="Radio Option 1" />
       <RadioButton id="radio-2" value="radio2" label="Radio Option 2" />
@@ -127,7 +95,6 @@ export const GroupedLegendValidation: StoryObj = () => {
 GroupedLegendValidation.storyName = "Grouped Legend Validation";
 
 export const ValidationRedesign: StoryObj = () => {
-  const [state, setState] = React.useState("");
   return (
     <CarbonProvider validationRedesignOptIn>
       <Form>
@@ -137,16 +104,14 @@ export const ValidationRedesign: StoryObj = () => {
         <Textbox
           label="Textbox"
           inputHint="Hint text"
-          value={state}
-          onChange={(e) => setState(e.target.value)}
+          value=""
           required
           error="Error Message (Fix is required)"
         />
         <Textbox
           label="Textbox"
           inputHint="Hint text"
-          value={state}
-          onChange={(e) => setState(e.target.value)}
+          value=""
           warning="Warning Message (Fix is optional)"
         />
       </Form>
@@ -156,9 +121,6 @@ export const ValidationRedesign: StoryObj = () => {
 ValidationRedesign.storyName = "Validation Redesign";
 
 export const ValidationRedesignWithGroupedInputs: StoryObj = () => {
-  const [state, setState] = React.useState("radio1");
-  const [state2, setState2] = React.useState(true);
-  const [state3, setState3] = React.useState(false);
   return (
     <CarbonProvider validationRedesignOptIn>
       <Form>
@@ -171,8 +133,6 @@ export const ValidationRedesignWithGroupedInputs: StoryObj = () => {
           name="errorRadioGroup"
           required
           error="Error Message (Fix is required)"
-          value={state}
-          onChange={(e) => setState(e.target.value)}
         >
           <RadioButton id="new-radio-1" value="radio1" label="Radio Option 1" />
           <RadioButton id="new-radio-2" value="radio2" label="Radio Option 2" />
@@ -187,15 +147,11 @@ export const ValidationRedesignWithGroupedInputs: StoryObj = () => {
             id="new-checkbox-1"
             value="checkbox1"
             label="Checkbox Option 1"
-            checked={state2}
-            onChange={(e) => setState2(e.target.checked)}
           />
           <Checkbox
             id="new-checkbox-2"
             value="checkbox2"
             label="Checkbox Option 2"
-            checked={state3}
-            onChange={(e) => setState3(e.target.checked)}
           />
         </CheckboxGroup>
       </Form>
@@ -206,10 +162,6 @@ ValidationRedesignWithGroupedInputs.storyName =
   "Validation Redesign with Grouped Inputs";
 
 export const ValidationRedesignMessageBottom: StoryObj = () => {
-  const [state, setState] = React.useState("");
-  const [state2, setState2] = React.useState(true);
-  const [state3, setState3] = React.useState(false);
-
   return (
     <CarbonProvider validationRedesignOptIn>
       <Form>
@@ -220,8 +172,7 @@ export const ValidationRedesignMessageBottom: StoryObj = () => {
         <Textbox
           label="Textbox"
           inputHint="Hint text"
-          value={state}
-          onChange={(e) => setState(e.target.value)}
+          value=""
           required
           error="Error Message (Fix is required)"
           validationMessagePositionTop={false}
@@ -237,15 +188,11 @@ export const ValidationRedesignMessageBottom: StoryObj = () => {
             id="new-checkbox-1-bottom"
             value="checkbox1"
             label="Checkbox Option 1"
-            checked={state2}
-            onChange={(e) => setState2(e.target.checked)}
           />
           <Checkbox
             id="new-checkbox-2-bottom"
             value="checkbox2"
             label="Checkbox Option 2"
-            checked={state3}
-            onChange={(e) => setState3(e.target.checked)}
           />
         </CheckboxGroup>
       </Form>

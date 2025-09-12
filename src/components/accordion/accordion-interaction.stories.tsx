@@ -5,7 +5,7 @@ import React from "react";
 
 import { Accordion, AccordionGroup } from ".";
 import Box from "../box";
-import Textbox, { TextboxProps } from "../textbox";
+import Textbox from "../textbox";
 
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
 import DefaultDecorator from "../../../.storybook/utils/default-decorator";
@@ -211,11 +211,7 @@ export const MixedAccordionStates: Story = {
         title="First Accordion"
       >
         <Box p={2}>
-          <Textbox
-            label="Textbox in an Accordion"
-            value=""
-            onChange={() => {}}
-          />
+          <Textbox label="Textbox in an Accordion" />
         </Box>
       </Accordion>
       <Accordion
@@ -224,11 +220,7 @@ export const MixedAccordionStates: Story = {
         title="Second Accordion"
       >
         <Box p={2}>
-          <Textbox
-            label="Textbox in an Accordion"
-            value=""
-            onChange={() => {}}
-          />
+          <Textbox label="Textbox in an Accordion" />
         </Box>
       </Accordion>
       <Accordion
@@ -272,18 +264,6 @@ MixedAccordionStates.parameters = {
   chromatic: { disableSnapshot: false },
 };
 
-const ControlledTextbox = (args: Omit<TextboxProps, "onChange" | "value">) => {
-  const [value, setValue] = React.useState("");
-
-  return (
-    <Textbox
-      {...args}
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
-    />
-  );
-};
-
 export const NestedComponentInteractions: Story = {
   render: (args) => (
     <Accordion
@@ -298,7 +278,7 @@ export const NestedComponentInteractions: Story = {
       }}
     >
       <Box p={2}>
-        <ControlledTextbox role="textbox" label="Textbox in an Accordion" />
+        <Textbox role="textbox" label="Textbox in an Accordion" />
       </Box>
     </Accordion>
   ),
@@ -344,7 +324,7 @@ export const ToggleGroupedAccordions: Story = {
         title="First Accordion"
       >
         <Box p={2}>
-          <ControlledTextbox label="Textbox in an Accordion" />
+          <Textbox label="Textbox in an Accordion" />
         </Box>
       </Accordion>
       <Accordion
@@ -353,7 +333,7 @@ export const ToggleGroupedAccordions: Story = {
         title="Second Accordion"
       >
         <Box p={2}>
-          <ControlledTextbox label="Textbox in an Accordion" />
+          <Textbox label="Textbox in an Accordion" />
         </Box>
       </Accordion>
       <Accordion

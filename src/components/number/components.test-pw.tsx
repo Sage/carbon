@@ -24,10 +24,6 @@ export const Default = (props: Partial<NumberProps>) => {
 
 export const Sizes = () => {
   const sizes: NumberProps["size"][] = ["small", "medium", "large"];
-  const [state, setState] = useState("123456");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
 
   return (
     <>
@@ -35,8 +31,7 @@ export const Sizes = () => {
         <Number
           key={`Number - ${size}`}
           label={`Number - ${size}`}
-          value={state}
-          onChange={setValue}
+          value="123456"
           size={size}
           mb={2}
         />
@@ -45,49 +40,22 @@ export const Sizes = () => {
   );
 };
 
-export const Disabled = () => {
-  const [state, setState] = useState("123456");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
+export const Disabled = () => <Number label="Number" value="123456" disabled />;
 
-  return <Number label="Number" value={state} onChange={setValue} disabled />;
-};
+export const ReadOnly = () => <Number label="Number" value="123456" readOnly />;
 
-export const ReadOnly = () => {
-  const [state, setState] = useState("123456");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-  return <Number label="Number" value={state} onChange={setValue} readOnly />;
-};
-
-export const AutoFocus = () => {
-  const [state, setState] = useState("123456");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-  return <Number label="Number" value={state} onChange={setValue} autoFocus />;
-};
+export const AutoFocus = () => (
+  <Number label="Number" value="123456" autoFocus />
+);
 AutoFocus.parameters = { chromatic: { disableSnapshot: true } };
 
-export const WithLabelInline = () => {
-  const [state, setState] = useState("123456");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-  return (
-    <Number label="Number" value={state} onChange={setValue} labelInline />
-  );
-};
+export const WithLabelInline = () => (
+  <Number label="Number" value="123456" labelInline />
+);
 WithLabelInline.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithLabelAlign = () => {
   const alignments: NumberProps["align"][] = ["right", "left"];
-  const [state, setState] = useState("123456");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
 
   return (
     <>
@@ -95,8 +63,7 @@ export const WithLabelAlign = () => {
         <Number
           label="Number"
           labelInline
-          value={state}
-          onChange={setValue}
+          value="123456"
           inputWidth={50}
           key={alignment}
           labelAlign={alignment}
@@ -106,73 +73,31 @@ export const WithLabelAlign = () => {
   );
 };
 
-export const WithCustomLabelWidthAndInputWidth = () => {
-  const [state, setState] = useState("123456");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-  return (
-    <Number
-      label="Number"
-      value={state}
-      onChange={setValue}
-      labelInline
-      labelWidth={50}
-      inputWidth={50}
-    />
-  );
-};
+export const WithCustomLabelWidthAndInputWidth = () => (
+  <Number
+    label="Number"
+    value="123456"
+    labelInline
+    labelWidth={50}
+    inputWidth={50}
+  />
+);
 
-export const WithCustomMaxWidth = () => {
-  const [state, setState] = useState("123456");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-  return (
-    <Number label="Number" value={state} onChange={setValue} maxWidth="50%" />
-  );
-};
+export const WithCustomMaxWidth = () => (
+  <Number label="Number" value="123456" maxWidth="50%" />
+);
 
-export const WithFieldHelp = () => {
-  const [state, setState] = useState("123456");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-  return (
-    <Number label="Number" value={state} onChange={setValue} fieldHelp="Help" />
-  );
-};
+export const WithFieldHelp = () => (
+  <Number label="Number" value="123456" fieldHelp="Help" />
+);
 
-export const WithInputHint = () => {
-  const [state, setState] = useState("123456");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-  return (
-    <Number
-      label="Number"
-      value={state}
-      onChange={setValue}
-      inputHint="Hint text (optional)."
-    />
-  );
-};
+export const WithInputHint = () => (
+  <Number label="Number" value="123456" inputHint="Hint text (optional)." />
+);
 
-export const WithLabelHelp = () => {
-  const [state, setState] = useState("123456");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-  return (
-    <Number
-      label="Number"
-      value={state}
-      onChange={setValue}
-      labelHelp="Help"
-      helpAriaLabel="Help"
-    />
-  );
-};
+export const WithLabelHelp = () => (
+  <Number label="Number" value="123456" labelHelp="Help" helpAriaLabel="Help" />
+);
 
 export const WithPositionedChildren = () => {
   const [state, setState] = useState("123456");

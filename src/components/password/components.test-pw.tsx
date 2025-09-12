@@ -6,10 +6,7 @@ import CarbonProvider from "../carbon-provider/carbon-provider.component";
 export const SIZES = ["small", "medium", "large"] as const;
 export const VALIDATIONS = ["error", "warning", "info"] as const;
 
-export const PasswordComponent = ({
-  onChange,
-  ...props
-}: Omit<PasswordProps, "value">) => {
+export const PasswordComponent = ({ onChange, ...props }: PasswordProps) => {
   const [state, setState] = useState("test");
   const setValue = (ev: React.ChangeEvent<HTMLInputElement>) => {
     setState(ev.target.value);
@@ -34,7 +31,6 @@ export const PasswordValidationsAsAStringWithTooltipDefault = () => {
             {...{ [validationType]: "Message" }}
             mb={2}
             tooltipPosition="bottom"
-            onChange={() => {}}
           />
         </div>
       ))}
@@ -52,7 +48,6 @@ export const PasswordValidationsAsABoolean = () => {
             value="Password"
             {...{ [validationType]: true }}
             mb={2}
-            onChange={() => {}}
           />
           <Password
             label="Password - readOnly"
@@ -60,7 +55,6 @@ export const PasswordValidationsAsABoolean = () => {
             readOnly
             {...{ [validationType]: true }}
             mb={2}
-            onChange={() => {}}
           />
         </div>
       ))}
@@ -78,7 +72,6 @@ export const PasswordValidationsAsAString = () => {
             value="Password"
             {...{ [validationType]: "Message" }}
             mb={2}
-            onChange={() => {}}
           />
           <Password
             label="Password - readOnly"
@@ -86,7 +79,6 @@ export const PasswordValidationsAsAString = () => {
             readOnly
             {...{ [validationType]: "Message" }}
             mb={2}
-            onChange={() => {}}
           />
         </div>
       ))}
@@ -105,7 +97,6 @@ export const PasswordValidationsAsAStringWithTooltipCustom = () => {
             {...{ [validationType]: "Message" }}
             mb={2}
             tooltipPosition="bottom"
-            onChange={() => {}}
           />
         </div>
       ))}
@@ -124,7 +115,6 @@ export const PasswordValidationsAsAStringDisplayedOnLabel = () => {
             validationOnLabel
             {...{ [validationType]: "Message" }}
             mb={2}
-            onChange={() => {}}
           />
           <Password
             label="Password - readOnly"
@@ -133,7 +123,6 @@ export const PasswordValidationsAsAStringDisplayedOnLabel = () => {
             readOnly
             {...{ [validationType]: "Message" }}
             mb={2}
-            onChange={() => {}}
           />
         </div>
       ))}
@@ -147,12 +136,11 @@ export const PasswordNewDesignsValidation = () => {
       <CarbonProvider validationRedesignOptIn>
         {(["error", "warning"] as const).map((validationType) =>
           SIZES.map((size) => (
-            <Box width="296px" key={`${validationType}-${size}`}>
+            <div style={{ width: "296px" }} key={`${validationType}-${size}`}>
               <Password
                 m={4}
                 label={`${size} - ${validationType}`}
-                value="Password"
-                onChange={() => {}}
+                defaultValue="Password"
                 labelHelp="Hint text (optional)"
                 size={size}
                 {...{ [validationType]: "Message" }}
@@ -160,14 +148,13 @@ export const PasswordNewDesignsValidation = () => {
               <Password
                 m={4}
                 label={`readOnly - ${size} - ${validationType}`}
-                value="Password"
-                onChange={() => {}}
+                defaultValue="Password"
                 size={size}
                 labelHelp="Hint text (optional)"
                 readOnly
                 {...{ [validationType]: "Message" }}
               />
-            </Box>
+            </div>
           )),
         )}
       </CarbonProvider>

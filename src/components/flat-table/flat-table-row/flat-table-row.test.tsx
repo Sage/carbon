@@ -385,7 +385,7 @@ describe("when FlatTableRowHeader children are passed", () => {
           <FlatTableRow>
             <FlatTableHeader>cell1</FlatTableHeader>
             <FlatTableCell>cell2</FlatTableCell>
-            <FlatTableCheckbox onChange={() => {}} data-role="cell3" checked />
+            <FlatTableCheckbox onChange={() => {}} data-role="cell3" />
             <FlatTableRowHeader>cell4</FlatTableRowHeader>
             <FlatTableHeader>cell5</FlatTableHeader>
             <FlatTableCell>cell6</FlatTableCell>
@@ -416,7 +416,7 @@ describe("when FlatTableRowHeader children are passed", () => {
           <FlatTableRow>
             <FlatTableHeader>cell1</FlatTableHeader>
             <FlatTableCell>cell2</FlatTableCell>
-            <FlatTableCheckbox onChange={() => {}} data-role="cell3" checked />
+            <FlatTableCheckbox onChange={() => {}} data-role="cell3" />
             <FlatTableRowHeader stickyAlignment="left">
               cell4
             </FlatTableRowHeader>
@@ -450,7 +450,7 @@ describe("when FlatTableRowHeader children are passed", () => {
           <FlatTableRow onClick={() => {}}>
             <FlatTableCell>cell1</FlatTableCell>
             <FlatTableCell>cell2</FlatTableCell>
-            <FlatTableCheckbox onChange={() => {}} data-role="cell3" checked />
+            <FlatTableCheckbox onChange={() => {}} data-role="cell3" />
             <FlatTableRowHeader>cell4</FlatTableRowHeader>
             <FlatTableHeader>cell5</FlatTableHeader>
             <FlatTableCell>cell6</FlatTableCell>
@@ -477,7 +477,7 @@ describe("when FlatTableRowHeader children are passed", () => {
             <FlatTableRowHeader stickyAlignment="right">
               cell3
             </FlatTableRowHeader>
-            <FlatTableCheckbox onChange={() => {}} data-role="cell4" checked />
+            <FlatTableCheckbox onChange={() => {}} data-role="cell4" />
             <FlatTableHeader>cell5</FlatTableHeader>
             <FlatTableCell>cell6</FlatTableCell>
           </FlatTableRow>
@@ -644,16 +644,16 @@ describe("when the row is `expandable`", () => {
             expandable
             subRows={[
               <FlatTableRow key="sub-row-1">
-                <FlatTableCheckbox onChange={() => {}} checked />
+                <FlatTableCheckbox onChange={() => {}} />
                 <FlatTableCell>sub1cell2</FlatTableCell>
               </FlatTableRow>,
               <FlatTableRow key="sub-row-2">
-                <FlatTableCheckbox onChange={() => {}} checked />
+                <FlatTableCheckbox onChange={() => {}} />
                 <FlatTableCell>sub2cell2</FlatTableCell>
               </FlatTableRow>,
             ]}
           >
-            <FlatTableCheckbox onChange={() => {}} checked />
+            <FlatTableCheckbox onChange={() => {}} />
             <FlatTableCell>cell2</FlatTableCell>
           </FlatTableRow>
         </thead>
@@ -1547,17 +1547,17 @@ describe("when the row is `expandable`", () => {
             expandableArea="firstColumn"
             subRows={[
               <FlatTableRow key="sub-row-1">
-                <FlatTableCheckbox onChange={() => {}} checked />
-                <FlatTableCheckbox onChange={() => {}} checked />
+                <FlatTableCheckbox onChange={() => {}} />
+                <FlatTableCheckbox onChange={() => {}} />
               </FlatTableRow>,
               <FlatTableRow key="sub-row-2">
-                <FlatTableCheckbox onChange={() => {}} checked />
-                <FlatTableCheckbox onChange={() => {}} checked />
+                <FlatTableCheckbox onChange={() => {}} />
+                <FlatTableCheckbox onChange={() => {}} />
               </FlatTableRow>,
             ]}
           >
-            <FlatTableCheckbox onChange={() => {}} data-role="cell1" checked />
-            <FlatTableCheckbox onChange={() => {}} checked />
+            <FlatTableCheckbox onChange={() => {}} data-role="cell1" />
+            <FlatTableCheckbox onChange={() => {}} />
           </FlatTableRow>
         </thead>
       </FlatTable>,
@@ -1652,7 +1652,7 @@ test("should render the expected background color styles when `bgColor` prop is 
       <tbody>
         <FlatTableRow bgColor="red">
           <FlatTableCell>cell1</FlatTableCell>
-          <FlatTableCheckbox onChange={() => {}} data-role="cell2" checked />
+          <FlatTableCheckbox onChange={() => {}} data-role="cell2" />
           <FlatTableRowHeader>cell3</FlatTableRowHeader>
         </FlatTableRow>
       </tbody>
@@ -1674,7 +1674,7 @@ test("should render the expected border bottom color styles when `horizontalBord
       <tbody>
         <FlatTableRow horizontalBorderColor="red">
           <FlatTableCell>cell1</FlatTableCell>
-          <FlatTableCheckbox onChange={() => {}} data-role="cell2" checked />
+          <FlatTableCheckbox onChange={() => {}} data-role="cell2" />
           <FlatTableRowHeader>cell3</FlatTableRowHeader>
         </FlatTableRow>
       </tbody>

@@ -47,24 +47,8 @@ export const MultiSelectComponent = (props: Partial<MultiSelectProps>) => {
 export const MultiSelectDefaultValueComponent = (
   props: Partial<MultiSelectProps>,
 ) => {
-  const [values, setValues] = useState<string[]>(() => {
-    if (props.value) {
-      return props.value as string[];
-    }
-    return ["1", "2"];
-  });
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValues(event.target.value as unknown as string[]);
-  }
-
   return (
-    <MultiSelect
-      label="color"
-      labelInline
-      {...props}
-      value={values}
-      onChange={onChangeHandler}
-    >
+    <MultiSelect label="color" labelInline {...props}>
       <Option text="Amber" value="1" />
       <Option text="Black" value="2" />
       <Option text="Blue" value="3" />
@@ -88,7 +72,11 @@ export const MultiSelectLongPillComponent = (
     setValue(event.target.value as unknown as string[]);
   }
   return (
-    <Box maxWidth="200px">
+    <div
+      style={{
+        maxWidth: "200px",
+      }}
+    >
       <MultiSelect
         label="color"
         labelInline
@@ -108,7 +96,7 @@ export const MultiSelectLongPillComponent = (
         <Option text="White" value="10" />
         <Option text="Yellow" value="11" />
       </MultiSelect>
-    </Box>
+    </div>
   );
 };
 
@@ -153,16 +141,10 @@ export const MultiSelectObjectAsValueComponent = (
 export const MultiSelectMultiColumnsComponent = (
   props: Partial<MultiSelectProps>,
 ) => {
-  const [values, setValues] = useState<string[]>(["2"]);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValues(event.target.value as unknown as string[]);
-  }
-
   return (
     <MultiSelect
       multiColumn
-      value={values}
-      onChange={onChangeHandler}
+      defaultValue={["2"]}
       {...props}
       tableHeader={
         <tr>
@@ -244,18 +226,8 @@ export const MultiSelectMaxOptionsComponent = (
 export const MultiSelectCustomColorComponent = (
   props: Partial<MultiSelectProps>,
 ) => {
-  const [values, setValues] = useState<string[]>(["1", "3"]);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValues(event.target.value as unknown as string[]);
-  }
   return (
-    <MultiSelect
-      label="color"
-      labelInline
-      value={values}
-      onChange={onChangeHandler}
-      {...props}
-    >
+    <MultiSelect label="color" labelInline defaultValue={["1", "3"]} {...props}>
       <Option text="Amber" value="1" borderColor="#FFBF00" fill />
       <Option text="Black" value="2" borderColor="blackOpacity65" fill />
       <Option text="Blue" value="3" borderColor="productBlue" />
@@ -271,45 +243,32 @@ export const MultiSelectCustomColorComponent = (
   );
 };
 
-export const WithVirtualScrolling = () => {
-  const [values, setValues] = useState<string[]>(["1", "2"]);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValues(event.target.value as unknown as string[]);
-  }
-  return (
-    <MultiSelect
-      name="virtualised"
-      id="virtualised"
-      label="choose an option"
-      labelInline
-      enableVirtualScroll
-      virtualScrollOverscan={10}
-      value={values}
-      onChange={onChangeHandler}
-    >
-      {Array(10000)
-        .fill(undefined)
-        .map((_, index) => (
-          <Option
-            key={`option-${index + 1}`}
-            value={`${index}`}
-            text={`Option ${index + 1}.`}
-          />
-        ))}
-    </MultiSelect>
-  );
-};
+export const WithVirtualScrolling = () => (
+  <MultiSelect
+    name="virtualised"
+    id="virtualised"
+    label="choose an option"
+    labelInline
+    enableVirtualScroll
+    virtualScrollOverscan={10}
+  >
+    {Array(10000)
+      .fill(undefined)
+      .map((_, index) => (
+        <Option
+          key={`option-${index + 1}`}
+          value={`${index}`}
+          text={`Option ${index + 1}.`}
+        />
+      ))}
+  </MultiSelect>
+);
 
 export const MultiSelectNestedInDialog = ({
   openOnFocus = false,
   autofocus = false,
 }) => {
   const [isOpen, setIsOpen] = useState(true);
-  const [values, setValues] = useState<string[]>(["1", "2"]);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValues(event.target.value as unknown as string[]);
-  }
-
   return (
     <Dialog open={isOpen} onCancel={() => setIsOpen(false)} title="Dialog">
       <MultiSelect
@@ -317,9 +276,6 @@ export const MultiSelectNestedInDialog = ({
         autoFocus={autofocus}
         name="testSelect"
         id="testSelect"
-        label="Select a color"
-        value={values}
-        onChange={onChangeHandler}
       >
         <Option value="opt1" text="red" />
         <Option value="opt2" text="green" />
@@ -464,22 +420,14 @@ const optionListValues = [
   },
 ];
 
-export const OptionsWithSameName = () => {
-  const [values, setValues] = useState<string[]>(["1", "2"]);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValues(event.target.value as unknown as string[]);
-  }
-  return (
-    <MultiSelect
-      name="multi-options-with-same-name"
-      id="multi-options-with-same-name"
-      label="multi options with same name"
-      value={values}
-      onChange={onChangeHandler}
-    >
-      {optionListValues.map((option) => (
-        <Option key={option.id} text={option.text} value={option} />
-      ))}
-    </MultiSelect>
-  );
-};
+export const OptionsWithSameName = () => (
+  <MultiSelect
+    name="multi-options-with-same-name"
+    id="multi-options-with-same-name"
+    label="multi options with same name"
+  >
+    {optionListValues.map((option) => (
+      <Option key={option.id} text={option.text} value={option} />
+    ))}
+  </MultiSelect>
+);

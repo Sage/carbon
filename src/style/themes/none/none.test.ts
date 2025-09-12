@@ -30,6 +30,7 @@ const assertIsSubset = (
 };
 
 describe("noneTheme", () => {
+  // eslint-disable-next-line jest/expect-expect
   it("contains the base theme", () => {
     assertIsSubset(baseTheme, noneTheme);
   });

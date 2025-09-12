@@ -1,5 +1,6 @@
 import React from "react";
-import { FilterableSelectProps } from ".";
+import FilterableSelect, { FilterableSelectProps } from ".";
+import Option from "../option";
 import { test, expect } from "../../../../playwright/helpers/base-test";
 import {
   FilterableSelectComponent,
@@ -565,7 +566,15 @@ test.describe("FilterableSelect component", () => {
     page,
   }) => {
     const { update } = await mount(
-      <FilterableSelectComponent label="Colour" />,
+      <FilterableSelect label="Colour">
+        <Option text="Amber" value="Amber" />
+        <Option text="Black" value="Black" />
+        <Option text="Cyan" value="Cyan" />
+        <Option text="Dark Blue" value="Dark Blue" />
+        <Option text="Emerald" value="Emerald" />
+        <Option text="Fuchsia" value="Fuchsia" />
+        <Option text="Gold" value="Gold" />
+      </FilterableSelect>,
     );
 
     const input = page.getByRole("combobox");
@@ -582,9 +591,21 @@ test.describe("FilterableSelect component", () => {
       (element) => element.scrollTop,
     );
 
-    await update(<FilterableSelectComponent label="Colour" />);
+    await update(
+      <FilterableSelect label="Colour">
+        <Option text="Amber" value="Amber" />
+        <Option text="Black" value="Black" />
+        <Option text="Cyan" value="Cyan" />
+        <Option text="Dark Blue" value="Dark Blue" />
+        <Option text="Emerald" value="Emerald" />
+        <Option text="Fuchsia" value="Fuchsia" />
+        <Option text="Gold" value="Gold" />
+        <Option text="Hot Pink" value="Hot Pink" />
+        <Option text="Indigo" value="Indigo" />
+      </FilterableSelect>,
+    );
 
-    await expect(page.getByRole("option")).toHaveCount(11);
+    await expect(page.getByRole("option")).toHaveCount(9);
 
     // check that the scroll position hasn't changed
     const newScrollPosition = await dropdownList.evaluate(

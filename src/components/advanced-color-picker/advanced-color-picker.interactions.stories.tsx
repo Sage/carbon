@@ -44,6 +44,7 @@ const AdvancedColorPickerWithState = ({
       onChange={(e) => setSelectedColor(e.target.value)}
       availableColors={mockColors}
       name="color-picker"
+      defaultColor="#EBAEDE"
     />
   );
 };

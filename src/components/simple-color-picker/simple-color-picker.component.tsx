@@ -21,6 +21,9 @@ import ValidationIcon from "../../__internal__/validations/validation-icon.compo
 import { InputGroupContext } from "../../__internal__/input-behaviour";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { ValidationProps } from "../../__internal__/validations";
+import Logger from "../../__internal__/utils/logger";
+
+let deprecateUncontrolledWarnTriggered = false;
 
 export interface SimpleColorPickerProps
   extends ValidationProps,
@@ -37,7 +40,7 @@ export interface SimpleColorPickerProps
   /** The name to apply to the input. */
   name: string;
   /** Prop for `onChange` events */
-  onChange: (ev: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
   /** Prop for `onKeyDown` events */
   onKeyDown?: (ev: React.KeyboardEvent<HTMLInputElement>) => void;
   /** Prop for `onBlur` events */
@@ -47,7 +50,7 @@ export interface SimpleColorPickerProps
   /** When true, validation icon will be placed on legend instead of being placed by the input */
   validationOnLegend?: boolean;
   /** The currently selected color. */
-  value: string;
+  value?: string;
 }
 
 export interface SimpleColorPickerRef {
@@ -266,6 +269,13 @@ export const SimpleColorPicker = React.forwardRef<
     warning,
     info,
   };
+
+  if (!deprecateUncontrolledWarnTriggered && !onChange) {
+    deprecateUncontrolledWarnTriggered = true;
+    Logger.deprecate(
+      "Uncontrolled behaviour in `Simple Color Picker` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
+    );
+  }
 
   return (
     <Fieldset

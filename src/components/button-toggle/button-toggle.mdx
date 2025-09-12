@@ -43,6 +43,10 @@ import {
 
 <Canvas of={ButtonToggleStories.InputHint} />
 
+### Controlled
+
+<Canvas of={ButtonToggleStories.Controlled} />
+
 ### With aria-label
 
 If you do not want a visible label to appear above the group, you should pass the `aria-label` prop to `ButtonToggleGroup` to give it an
@@ -52,7 +56,7 @@ accessible name to be announced by screen readers. Failure to do this will resul
 
 ### With fullWidth
 
-When the `fullWidth` prop is `true`, the buttons will expand in size to evenly take up the full width of the container.
+When the `fullWidth` prop is `true`, the buttons will expand in size to evenly take up the full width of the container. 
 
 <Canvas of={ButtonToggleStories.FullWidth} />
 
@@ -75,7 +79,7 @@ If you use this, you should include text in the `inputHint` prop which makes cle
 
 ### Icon only
 
-While we do not advocate the use of icon-only buttons for accessibility reasons, the `aria-label` or `aria-labelledby` props can be passed to
+While we do not advocate the use of icon-only buttons for accessibility reasons, the `aria-label` or `aria-labelledby` props can be passed to  
 an icon-only `ButtonToggle` so that assistive technology users are aware of the action that will be taken when the button is pressed.
 
 <Canvas of={ButtonToggleStories.IconOnly} />
@@ -115,7 +119,7 @@ an icon-only `ButtonToggle` so that assistive technology users are aware of the 
 ### Wrapped Group
 
 When buttons can no longer fit in a single row, they will wrap onto the next line.
-The `fullWidth` prop can provide a more consistent layout across different screen sizes, so we recommend using it if buttons are likely to wrap in smaller screens.
+The `fullWidth` prop can provide a more consistent layout across different screen sizes, so we recommend using it if buttons are likely to wrap in smaller screens. 
 
 <Canvas of={ButtonToggleStories.WrappedButtons} />
 

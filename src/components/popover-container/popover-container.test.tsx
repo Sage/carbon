@@ -599,13 +599,7 @@ describe("closing the popup", () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <PopoverContainer onClose={() => {}}>
-        <Select
-          name="colour"
-          id="colour"
-          label="Select colour"
-          value="1"
-          onChange={() => {}}
-        >
+        <Select name="colour" id="colour" label="Select colour">
           <Option text="Amber" value="1" />
           <Option text="Black" value="2" />
         </Select>
@@ -659,7 +653,7 @@ test("when content is navigated via keyboard, the next focusable item should be 
           </Button>
         )}
       >
-        <RadioButtonGroup name="bar" value="1" onChange={() => {}}>
+        <RadioButtonGroup name="bar">
           <RadioButton value="1" label="radio 1" />
           <RadioButton value="2" label="radio 2" />
         </RadioButtonGroup>
@@ -693,7 +687,7 @@ test("when the popover is opened and shift tab key is pressed, the open button s
           </Button>
         )}
       >
-        <RadioButtonGroup name="bar" value="1" onChange={() => {}}>
+        <RadioButtonGroup name="bar">
           <RadioButton value="1" label="radio 1" />
           <RadioButton value="2" label="radio 2" />
         </RadioButtonGroup>

@@ -58,7 +58,7 @@ test.describe("check props for Form component", () => {
   test(`should render with children`, async ({ mount, page }) => {
     await mount(
       <Form>
-        <Textbox label="Textbox" value="" onChange={() => {}} />
+        <Textbox label="Textbox" />
       </Form>,
     );
 

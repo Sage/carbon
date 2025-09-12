@@ -34,17 +34,21 @@ import NumeralDate, { NumeralDateProps } from "carbon-react/lib/components/numer
 
 ### With Input Hint
 
-**Note:** The `labelHelp` prop will only render as hint text when the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *true*,
+**Note:** The `labelHelp` prop will only render as hint text when the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *true*, 
 otherwise it will render as a Help tooltip (see the [With labelHelp (legacy)](#with-labelhelp-legacy) example).
 
 <Canvas of={NumeralDateStories.WithInputHint} />
+
+### Controlled
+
+<Canvas of={NumeralDateStories.Controlled} />
 
 ### Allowed date formats
 
 <Canvas of={NumeralDateStories.AllowedDateFormats} />
 
 ### Validating date values
-`NumeralDate` has both error and warning states, which can be set via the `error` and `warning` props respectively. However, `NumeralDate` also has a built-in feature to validate date values automatically, so you don't have to recreate this logic yourself.
+`NumeralDate` has both error and warning states, which can be set via the `error` and `warning` props respectively. However, `NumeralDate` also has a built-in feature to validate date values automatically, so you don't have to recreate this logic yourself. 
 This can be enabled via the `enableInternalError` and `enableInternalWarning` props. The rendered messages are displayed alongside the messages defined with the regular `error` and `warning` props.
 
 This in-built validation feature uses translation keys for the invalid date messages, so you can modify them to suit your localisation needs. The keys are `numeralDate.validation.day`, `numeralDate.validation.month`, and `numeralDate.validation.year`.
@@ -79,7 +83,7 @@ It is possible to focus the `NumeralDate` component programmatically by passing 
 
 ### With labelInline (legacy)
 
-Use the `labelInline` prop to display the label on the same horizontal row as the input. You can adjust its appearance using the `labelWidth` and
+Use the `labelInline` prop to display the label on the same horizontal row as the input. You can adjust its appearance using the `labelWidth` and 
 `labelAlign` props to control the width and text alignment of the label and the `inputWidth` prop to control the width of the input.
 
 **Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *false*.

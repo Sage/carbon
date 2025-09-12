@@ -32,10 +32,6 @@ Default.storyName = "Default";
 
 export const Sizes: Story = () => {
   const sizes: NumberProps["size"][] = ["small", "medium", "large"];
-  const [state, setState] = useState("123456");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
 
   return (
     <>
@@ -43,8 +39,7 @@ export const Sizes: Story = () => {
         <Number
           key={`Number - ${size}`}
           label={`Number - ${size}`}
-          value={state}
-          onChange={setValue}
+          value="123456"
           size={size}
           mb={2}
         />
@@ -55,41 +50,23 @@ export const Sizes: Story = () => {
 Sizes.storyName = "Sizes";
 
 export const Disabled: Story = () => {
-  const [state, setState] = useState("123456");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-  return <Number label="Number" value={state} onChange={setValue} disabled />;
+  return <Number label="Number" value="123456" disabled />;
 };
 Disabled.storyName = "Disabled";
 
 export const ReadOnly: Story = () => {
-  const [state, setState] = useState("123456");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-  return <Number label="Number" value={state} onChange={setValue} readOnly />;
+  return <Number label="Number" value="123456" readOnly />;
 };
 ReadOnly.storyName = "Read Only";
 
 export const WithLabelInline: Story = () => {
-  const [state, setState] = useState("123456");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-  return (
-    <Number label="Number" value={state} onChange={setValue} labelInline />
-  );
+  return <Number label="Number" value="123456" labelInline />;
 };
 WithLabelInline.storyName = "With Label Inline";
 WithLabelInline.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithLabelAlign: Story = () => {
   const alignments: NumberProps["align"][] = ["right", "left"];
-  const [state, setState] = useState("123456");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
 
   return (
     <>
@@ -97,8 +74,7 @@ export const WithLabelAlign: Story = () => {
         <Number
           label="Number"
           labelInline
-          value={state}
-          onChange={setValue}
+          value="123456"
           inputWidth={50}
           key={alignment}
           labelAlign={alignment}
@@ -110,53 +86,25 @@ export const WithLabelAlign: Story = () => {
 WithLabelAlign.storyName = "With Label Align";
 
 export const WithCustomMaxWidth: Story = () => {
-  const [state, setState] = useState("123456");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-  return (
-    <Number label="Number" value={state} onChange={setValue} maxWidth="50%" />
-  );
+  return <Number label="Number" value="123456" maxWidth="50%" />;
 };
 WithCustomMaxWidth.storyName = "With Custom Max Width";
 
 export const WithFieldHelp: Story = () => {
-  const [state, setState] = useState("123456");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-  return (
-    <Number label="Number" value={state} onChange={setValue} fieldHelp="Help" />
-  );
+  return <Number label="Number" value="123456" fieldHelp="Help" />;
 };
 WithFieldHelp.storyName = "With Field Help";
 
-export const WithInputHint: Story = () => {
-  const [state, setState] = useState("123456");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-  return (
-    <Number
-      label="Number"
-      value={state}
-      onChange={setValue}
-      inputHint="Hint text (optional)."
-    />
-  );
-};
+export const WithInputHint: Story = () => (
+  <Number label="Number" value="123456" inputHint="Hint text (optional)." />
+);
 WithInputHint.storyName = "With Input Hint";
 
 export const WithLabelHelp: Story = () => {
-  const [state, setState] = useState("123456");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
   return (
     <Number
       label="Number"
-      value={state}
-      onChange={setValue}
+      value="123456"
       labelHelp="Help"
       helpAriaLabel="Help"
     />
@@ -165,10 +113,6 @@ export const WithLabelHelp: Story = () => {
 WithLabelHelp.storyName = "With Label Help";
 
 export const Required: Story = () => {
-  const [state, setState] = useState("123456");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-  return <Number label="Number" value={state} onChange={setValue} required />;
+  return <Number label="Number" value="123456" required />;
 };
 Required.storyName = "Required";

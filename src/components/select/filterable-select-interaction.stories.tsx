@@ -3,7 +3,7 @@ import React from "react";
 import { StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/test";
 
-import { FilterableSelect, FilterableSelectProps, Option } from "../select";
+import { FilterableSelect, Option } from "../select";
 import Box from "../box";
 import Button from "../button";
 
@@ -19,35 +19,22 @@ export default {
   },
 };
 
-const ControlledFilterableSelect = (
-  props: Omit<FilterableSelectProps, "children" | "onChange" | "value">,
-) => {
-  const [value, setValue] = React.useState<string>("");
-  return (
-    <FilterableSelect
-      {...props}
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </FilterableSelect>
-  );
-};
-
 export const OpenFromIconClick: Story = {
   render: () => (
     <Box height={220}>
-      <ControlledFilterableSelect name="simple" id="simple" label="color" />
+      <FilterableSelect name="simple" id="simple" label="color">
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </FilterableSelect>
     </Box>
   ),
   play: async ({ canvasElement }) => {
@@ -72,7 +59,19 @@ OpenFromIconClick.storyName = "Open From Icon";
 export const HighlightItem: Story = {
   render: () => (
     <Box height={220}>
-      <ControlledFilterableSelect name="simple" id="simple" label="color" />
+      <FilterableSelect name="simple" id="simple" label="color">
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </FilterableSelect>
     </Box>
   ),
   play: async ({ canvasElement }) => {
@@ -100,7 +99,19 @@ HighlightItem.storyName = "Highlight Item";
 export const PartialFilterItem: Story = {
   render: () => (
     <Box height={220}>
-      <ControlledFilterableSelect name="simple" id="simple" label="color" />
+      <FilterableSelect name="simple" id="simple" label="color">
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </FilterableSelect>
     </Box>
   ),
   play: async ({ canvasElement }) => {
@@ -128,7 +139,9 @@ PartialFilterItem.storyName = "Partial Filter Item";
 export const HoverItem: Story = {
   render: () => (
     <Box height={220}>
-      <ControlledFilterableSelect name="simple" id="simple" label="color" />
+      <FilterableSelect name="simple" id="simple" label="color">
+        <Option text="Amber" value="1" />
+      </FilterableSelect>
     </Box>
   ),
   play: async ({ canvasElement }) => {
@@ -162,7 +175,9 @@ HoverItem.storyName = "Hover Item";
 export const HoverHighlightedItem: Story = {
   render: () => (
     <Box height={220}>
-      <ControlledFilterableSelect name="simple" id="simple" label="color" />
+      <FilterableSelect name="simple" id="simple" label="color">
+        <Option text="Amber" value="1" />
+      </FilterableSelect>
     </Box>
   ),
   play: async ({ canvasElement }) => {
@@ -198,7 +213,9 @@ HoverHighlightedItem.storyName = "Hover Highlighted Item";
 export const NoResults: Story = {
   render: () => (
     <Box height={220}>
-      <ControlledFilterableSelect name="simple" id="simple" label="color" />
+      <FilterableSelect name="simple" id="simple" label="color">
+        <Option text="Amber" value="1" />
+      </FilterableSelect>
     </Box>
   ),
   play: async ({ canvasElement }) => {
@@ -226,7 +243,7 @@ NoResults.storyName = "No Results";
 export const WithActionButton: Story = {
   render: () => (
     <Box height={220}>
-      <ControlledFilterableSelect
+      <FilterableSelect
         name="simple"
         id="simple"
         label="color"
@@ -236,7 +253,9 @@ export const WithActionButton: Story = {
           </Button>
         }
         onListAction={() => {}}
-      />
+      >
+        <Option text="Amber" value="1" />
+      </FilterableSelect>
     </Box>
   ),
   play: async ({ canvasElement }) => {

@@ -1076,13 +1076,7 @@ export const WithValidationState = () => {
           title="Tab 1"
           key="tab-1"
         >
-          <Textbox
-            label="Textbox"
-            error="Error Message"
-            m={2}
-            onChange={() => {}}
-            value=""
-          />
+          <Textbox label="Textbox" error="Error Message" m={2} />
         </Tab>
         <Tab
           warningMessage="Tab Warning Message"
@@ -1090,13 +1084,7 @@ export const WithValidationState = () => {
           title="Tab 2"
           key="tab-2"
         >
-          <Textbox
-            label="Textbox"
-            warning="Warning Message"
-            m={2}
-            onChange={() => {}}
-            value=""
-          />
+          <Textbox label="Textbox" warning="Warning Message" m={2} />
         </Tab>
       </Tabs>
     </CarbonProvider>

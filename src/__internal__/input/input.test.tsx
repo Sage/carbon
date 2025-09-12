@@ -1,18 +1,18 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import Input, { EnterKeyHintTypes, InputProps } from "./input.component";
+import Input, { EnterKeyHintTypes } from "./input.component";
 import { InputContext } from "../input-behaviour";
 
 test("renders an input element with type 'text'", () => {
-  render(<Input value="" />);
+  render(<Input />);
 
   const input = screen.getByRole("textbox");
   expect(input).toBeVisible();
 });
 
 test("focuses the input element when rendered if the `autoFocus` prop is true", () => {
-  render(<Input autoFocus value="" />);
+  render(<Input autoFocus />);
 
   const input = screen.getByRole("textbox");
   expect(input).toHaveFocus();
@@ -29,7 +29,7 @@ test.each([
 ] as EnterKeyHintTypes[])(
   "'enterKeyHint' is correctly passed to the input when prop value is %s",
   (keyHint) => {
-    render(<Input enterKeyHint={keyHint} value="" />);
+    render(<Input enterKeyHint={keyHint} />);
 
     const input = screen.getByRole("textbox");
     expect(input).toHaveAttribute("enterKeyHint", keyHint);
@@ -40,7 +40,7 @@ test("should invoke the `inputRef` callback from the input context provider, whe
   const inputRef = jest.fn();
   render(
     <InputContext.Provider value={{ inputRef }}>
-      <Input value="" />
+      <Input />
     </InputContext.Provider>,
   );
 
@@ -49,7 +49,7 @@ test("should invoke the `inputRef` callback from the input context provider, whe
 
 test("triggers a passed function via the `onFocus` prop when the input is focused", () => {
   const onFocusMock = jest.fn();
-  render(<Input onFocus={onFocusMock} value="" />);
+  render(<Input onFocus={onFocusMock} />);
 
   const input = screen.getByRole("textbox");
   input.focus();
@@ -61,7 +61,7 @@ test("triggers a passed function via the `onFocus` prop from the input context p
   const onFocusMock = jest.fn();
   render(
     <InputContext.Provider value={{ onFocus: onFocusMock }}>
-      <Input value="" />
+      <Input />
     </InputContext.Provider>,
   );
 
@@ -73,7 +73,7 @@ test("triggers a passed function via the `onFocus` prop from the input context p
 
 test("triggers a passed function via the `onBlur` prop when the input is blurred", async () => {
   const onBlurMock = jest.fn();
-  render(<Input onBlur={onBlurMock} value="" />);
+  render(<Input onBlur={onBlurMock} />);
 
   const user = userEvent.setup();
   const input = screen.getByRole("textbox");
@@ -88,7 +88,7 @@ test("triggers a passed function via the `onBlur` prop from the input context pr
   const onBlurMock = jest.fn();
   render(
     <InputContext.Provider value={{ onBlur: onBlurMock }}>
-      <Input value="" />
+      <Input />
     </InputContext.Provider>,
   );
 
@@ -101,24 +101,9 @@ test("triggers a passed function via the `onBlur` prop from the input context pr
   expect(onBlurMock).toHaveBeenCalled();
 });
 
-const ControlledInput = (props: InputProps) => {
-  const [value, setValue] = React.useState(props.value || "");
-
-  return (
-    <Input
-      {...props}
-      value={value}
-      onChange={(e) => {
-        setValue(e.target.value);
-        props.onChange?.(e);
-      }}
-    />
-  );
-};
-
 test("triggers a passed function via the `onChange` prop when the input is changed", async () => {
   const onChangeMock = jest.fn();
-  render(<ControlledInput onChange={onChangeMock} value="" />);
+  render(<Input onChange={onChangeMock} />);
 
   const user = userEvent.setup();
   const input = screen.getByRole("textbox");
@@ -130,7 +115,7 @@ test("triggers a passed function via the `onChange` prop when the input is chang
 
 test("when the `onChangeDeferred `prop is passed and no `deferTimeout` prop is passed, the `handleDeferred` function is triggered after 750 ms", async () => {
   const onChangeDeferredProp = jest.fn();
-  render(<Input onChangeDeferred={onChangeDeferredProp} value="" />);
+  render(<Input onChangeDeferred={onChangeDeferredProp} />);
 
   jest.useFakeTimers();
 
@@ -150,13 +135,7 @@ test("when the `onChangeDeferred `prop is passed and no `deferTimeout` prop is p
 
 test("when the `onChangeDeferred` prop is passed with the `deferTimeout` prop, the `handleDeferred` function is triggered after the time passed to `deferTimeout`", async () => {
   const onChangeDeferredProp = jest.fn();
-  render(
-    <Input
-      onChangeDeferred={onChangeDeferredProp}
-      deferTimeout={1000}
-      value=""
-    />,
-  );
+  render(<Input onChangeDeferred={onChangeDeferredProp} deferTimeout={1000} />);
 
   jest.useFakeTimers();
 
@@ -176,7 +155,7 @@ test("when the `onChangeDeferred` prop is passed with the `deferTimeout` prop, t
 
 test("triggers a passed function via the `onClick` prop when the input is clicked", async () => {
   const onClickMock = jest.fn();
-  render(<Input onClick={onClickMock} value="" />);
+  render(<Input onClick={onClickMock} />);
 
   const user = userEvent.setup();
   const input = screen.getByRole("textbox");
@@ -235,7 +214,7 @@ test("does not select all of the text if an intermediate character within the in
 });
 
 test("when the input is rendered with a type other than 'text', setSelectionRange is not triggered on focus", () => {
-  render(<Input type="radio" value="" />);
+  render(<Input type="radio" />);
 
   jest.useFakeTimers();
 
@@ -250,7 +229,7 @@ test("when the input is rendered with a type other than 'text', setSelectionRang
 });
 
 test("sets the provided `aria-describedby` to the accessible description of the input", () => {
-  render(<Input aria-describedby="description" value="" />);
+  render(<Input aria-describedby="description" />);
 
   const input = screen.getByRole("textbox");
   expect(input).toHaveAttribute("aria-describedby", "description");
@@ -260,7 +239,7 @@ test("does not call onClick handler when input is disabled and is clicked", asyn
   const onClickMock = jest.fn();
   const user = userEvent.setup();
 
-  render(<Input onClick={onClickMock} disabled value="" />);
+  render(<Input onClick={onClickMock} disabled />);
 
   const input = screen.getByRole("textbox");
   await user.click(input);
@@ -272,7 +251,7 @@ test("does not call onClick handler when input is readOnly and is clicked", asyn
   const onClickMock = jest.fn();
   const user = userEvent.setup();
 
-  render(<Input onClick={onClickMock} readOnly value="" />);
+  render(<Input onClick={onClickMock} readOnly />);
 
   const input = screen.getByRole("textbox");
   await user.click(input);

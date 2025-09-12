@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import Textbox, { TextboxProps } from "../textbox";
+import Logger from "../../__internal__/utils/logger";
 import {
   ALIGN_DEFAULT,
   LABEL_VALIDATION_DEFAULT,
@@ -8,9 +9,11 @@ import {
 } from "../textbox/textbox.component";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 
+let deprecateUncontrolledWarnTriggered = false;
+
 export interface NumberProps extends Omit<TextboxProps, "value"> {
   /** Value passed to the input */
-  value: string;
+  value?: string;
 }
 
 function isValidNumber(value: string) {
@@ -37,8 +40,15 @@ export const Number = React.forwardRef(
     const selectionStart = useRef<null | number>(null);
     const selectionEnd = useRef<null | number>(null);
 
+    if (!deprecateUncontrolledWarnTriggered && !onChange) {
+      deprecateUncontrolledWarnTriggered = true;
+      Logger.deprecate(
+        "Uncontrolled behaviour in `Number` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
+      );
+    }
+
     const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      if (isValidNumber(event.target.value)) {
+      if (isValidNumber(event.target.value) && onChange) {
         onChange(event);
       } else {
         event.target.value = value || "";

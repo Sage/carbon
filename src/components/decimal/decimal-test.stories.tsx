@@ -66,6 +66,26 @@ export const DecimalStory = (args: CommonTextboxArgs) => {
 DecimalStory.storyName = "Default";
 DecimalStory.args = commonArgs;
 
+export const UncontrolledDecimalStory = (args: CommonTextboxArgs) => {
+  const handleChange = (ev: CustomEvent) => {
+    action("onChange")(ev.target.value);
+  };
+
+  const handleBlur = (event: CustomEvent) => {
+    action("onBlur")(event.target.value);
+  };
+  return (
+    <Decimal
+      defaultValue="0.03"
+      onChange={handleChange}
+      onBlur={handleBlur}
+      {...getCommonTextboxArgsWithSpecialCharacters(args)}
+    />
+  );
+};
+UncontrolledDecimalStory.storyName = "Uncontrolled Default";
+UncontrolledDecimalStory.args = commonArgs;
+
 type Locale = {
   options: string[];
   control: { type: string };
