@@ -8,6 +8,11 @@ import {
 
 import { DraggableContainer, DraggableItem } from ".";
 
+afterEach(() => {
+  fireEvent.dragEnd(window);
+  fireEvent.pointerMove(window);
+});
+
 test("dragging an item and dropping it after another item within the target container should reorder the items", () => {
   render(
     <DraggableContainer>

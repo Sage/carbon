@@ -1,5 +1,4 @@
-import React from "react";
-import { useDrop, useDrag } from "react-dnd";
+import React, { useEffect, useRef, useState } from "react";
 import { PaddingProps } from "styled-system";
 import tagComponent, {
   TagProps,
@@ -8,6 +7,17 @@ import tagComponent, {
 import { filterStyledSystemPaddingProps } from "../../../style/utils";
 import { StyledDraggableItem } from "./draggable-item.style";
 import Icon from "../../icon";
+import { combine } from "@atlaskit/pragmatic-drag-and-drop/combine";
+import {
+  draggable,
+  dropTargetForElements,
+} from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
+import invariant from "invariant";
+import {
+  getDragData,
+  getDropTargetData,
+  isDragData,
+} from "../__internal__/data";
 
 export interface DraggableItemProps extends PaddingProps, TagProps {
   /**
@@ -22,29 +32,11 @@ export interface DraggableItemProps extends PaddingProps, TagProps {
    * @private
    * @ignore
    */
-  findItem?: (id: string | number) => {
-    DraggableItemProps: React.ReactElement;
-    index: number;
-  };
-  /**
-   * @private
-   * @ignore
-   */
-  moveItem?: (
-    droppedId: string | number,
-    overIndex: number | undefined,
-  ) => void;
-  /**
-   * @private
-   * @ignore
-   */
   flexDirection?: "row" | "row-reverse";
 }
 
 const DraggableItem = ({
-  id,
-  findItem,
-  moveItem,
+  id: idProp,
   children,
   py = 1,
   flexDirection,
@@ -52,51 +44,37 @@ const DraggableItem = ({
   "data-role": dataRole = "draggable-item",
   ...rest
 }: DraggableItemProps): JSX.Element => {
-  let originalIndex;
-  // istanbul ignore else
-  if (findItem) {
-    originalIndex = findItem(id)?.index;
-  }
-  const [{ isDragging }, drag] = useDrag({
-    type: "draggableItem",
-    item: { id, originalIndex },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-    end: (dropResult, monitor) => {
-      const { id: droppedId, originalIndex: oIndex } = monitor.getItem();
-      const didDrop = monitor.didDrop();
-      if (!didDrop && moveItem) {
-        moveItem(droppedId, oIndex);
-      }
-    },
-  });
+  const id = String(idProp);
 
-  interface DragItem {
-    index: number;
-    id: string;
-  }
+  const ref = useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
 
-  const [, drop] = useDrop({
-    accept: "draggableItem",
-    canDrop: () => false,
-    hover(item: DragItem) {
-      if (item?.id !== id && findItem) {
-        const { index: overIndex } = findItem(id);
-        // istanbul ignore else
-        if (moveItem) {
-          moveItem(item?.id, overIndex);
-        }
-      }
-    },
-  });
+  useEffect(() => {
+    const element = ref.current;
+    invariant(element, "Expected DraggableItem element to exist.");
+
+    return combine(
+      draggable({
+        element,
+        getInitialData: () => getDragData({ id }),
+        onDragStart: () => setIsDragging(true),
+        onDrop: () => setIsDragging(false),
+      }),
+      dropTargetForElements({
+        element,
+        getIsSticky: () => true,
+        getData: () => getDropTargetData({ id }),
+        canDrop: ({ source }) => isDragData(source.data),
+      }),
+    );
+  }, [id]);
 
   const paddingProps = filterStyledSystemPaddingProps(rest);
 
   return (
     <StyledDraggableItem
       isDragging={isDragging}
-      ref={(node) => drag(drop(node))}
+      ref={ref}
       py={py}
       flexDirection={flexDirection}
       {...paddingProps}

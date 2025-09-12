@@ -16,6 +16,10 @@ test("dragging an item downwards and dropping it on another within the same cont
 
   const apple = page.getByText("Apple");
   const venus = page.getByText("Venus");
+
+  await expect(apple).toBeVisible();
+  await expect(venus).toBeVisible();
+
   await apple.dragTo(venus);
 
   const allItems = page.getByTestId("draggable-item");
