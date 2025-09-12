@@ -87,6 +87,7 @@ export const TopModalOverride = () => {
   const [isOpenDialogFullScreen, setIsOpenDialogFullScreen] = useState(true);
   const [isOpenConfirm, setIsOpenConfirm] = useState(true);
   const [isOpenSidebar, setIsOpenSidebar] = useState(false);
+  const [textboxValue, setTextboxValue] = useState("");
 
   useEffect(() => {
     setTimeout(() => {
@@ -102,7 +103,11 @@ export const TopModalOverride = () => {
         onCancel={() => setIsOpenDialogFullScreen(false)}
         title="Dialog fullscreen"
       >
-        <Textbox label="Fullscreen textbox" />
+        <Textbox
+          label="Fullscreen textbox"
+          value={textboxValue}
+          onChange={(e) => setTextboxValue(e.target.value)}
+        />
       </Dialog>
       <Confirm
         open={isOpenConfirm}
@@ -111,14 +116,22 @@ export const TopModalOverride = () => {
         onConfirm={() => setIsOpenConfirm(false)}
         onCancel={() => setIsOpenConfirm(false)}
       >
-        <Textbox label="Confirm textbox" />
+        <Textbox
+          label="Confirm textbox"
+          value={textboxValue}
+          onChange={(e) => setTextboxValue(e.target.value)}
+        />
       </Confirm>
       <Sidebar
         open={isOpenSidebar}
         onCancel={() => setIsOpenSidebar(false)}
         header="sidebar"
       >
-        <Textbox label="Sidebar textbox" />
+        <Textbox
+          label="Sidebar textbox"
+          value={textboxValue}
+          onChange={(e) => setTextboxValue(e.target.value)}
+        />
       </Sidebar>
     </>
   );

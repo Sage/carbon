@@ -111,7 +111,7 @@ test("applies the correct z-index values when inside an open select", () => {
   render(
     <StyledSelect isOpen>
       <InputPresentation>
-        <Input />
+        <Input value="" />
       </InputPresentation>
       ,
     </StyledSelect>,
@@ -133,7 +133,7 @@ test.each(["left", "right"])(
   (alignValue) => {
     render(
       <InputPresentation hasIcon align={alignValue}>
-        <Input />
+        <Input value="" />
       </InputPresentation>,
     );
 

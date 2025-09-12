@@ -9,9 +9,8 @@ const assertCorrectColorMix = (
   Object.keys(colorConfig).forEach((color) => {
     const match = color.match(/([a-z]+)([\d]{0,2})/i);
 
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const func = match![1];
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     const weight = Number(match![2]);
 
     expect(paletteObject[func](weight)).toEqual(`#${colorConfig[color]}`);
@@ -60,7 +59,6 @@ describe("style", () => {
       palette = generatePalette(config);
     });
 
-    // eslint-disable-next-line jest/expect-expect
     it("produces the correct color mix", () => {
       assertCorrectColorMix(colorConfig, palette);
     });

@@ -11,9 +11,8 @@ import Box from "../../box";
 import Button from "../../button";
 import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/test-utils";
 import mockDOMRect from "../../../__spec_helper__/mock-dom-rect";
-import Logger from "../../../__internal__/utils/logger";
 
-import SimpleSelect from ".";
+import SimpleSelect, { CustomSelectChangeEvent, SimpleSelectProps } from ".";
 import Option from "../option";
 
 beforeEach(() => {
@@ -25,9 +24,41 @@ afterEach(() => {
   jest.restoreAllMocks();
 });
 
+type InteractiveComponentProps = Omit<
+  SimpleSelectProps,
+  "onChange" | "value"
+> & {
+  children: React.ReactNode;
+  onChange: (
+    ev: CustomSelectChangeEvent | React.ChangeEvent<HTMLInputElement>,
+  ) => void;
+  value?: string;
+};
+
+const InteractiveComponent = ({
+  children,
+  onChange,
+  value = "",
+  ...props
+}: InteractiveComponentProps) => {
+  const [internalValue, setValue] = useState(value);
+  return (
+    <SimpleSelect
+      onChange={(event) => {
+        setValue(event.target.value);
+        onChange(event);
+      }}
+      value={internalValue}
+      {...props}
+    >
+      {children}
+    </SimpleSelect>
+  );
+};
+
 test("renders a visually-hidden input box", () => {
   render(
-    <SimpleSelect label="Colour" onChange={() => {}}>
+    <SimpleSelect label="Colour" onChange={() => {}} value="">
       <Option text="amber" value="amber" />
     </SimpleSelect>,
   );
@@ -39,7 +70,7 @@ test("renders a visually-hidden input box", () => {
 
 test("renders input with a textbox role when readOnly prop is true", () => {
   render(
-    <SimpleSelect label="Colour" onChange={() => {}} readOnly>
+    <SimpleSelect label="Colour" onChange={() => {}} readOnly value="">
       <Option text="amber" value="amber" />
     </SimpleSelect>,
   );
@@ -50,7 +81,7 @@ test("renders input with a textbox role when readOnly prop is true", () => {
 // Styling test for coverage - styles are covered by Chromatic
 test("applies transparent background and no border to input, when transparent prop is true", () => {
   render(
-    <SimpleSelect label="Colour" onChange={() => {}} transparent>
+    <SimpleSelect label="Colour" onChange={() => {}} transparent value="">
       <Option text="amber" value="amber" />
     </SimpleSelect>,
   );
@@ -114,7 +145,7 @@ test("displays custom text when placeholder prop is provided and no value is sel
 
 test("hides select text overlay from screen readers using aria-hidden", () => {
   render(
-    <SimpleSelect label="Colour" onChange={() => {}}>
+    <SimpleSelect label="Colour" onChange={() => {}} value="">
       <Option text="amber" value="amber" />
     </SimpleSelect>,
   );
@@ -128,7 +159,7 @@ test("hides select text overlay from screen readers using aria-hidden", () => {
 describe("accessible name of the input", () => {
   it("is set to the label prop when provided", () => {
     render(
-      <SimpleSelect label="Colour" onChange={() => {}}>
+      <SimpleSelect label="Colour" onChange={() => {}} value="">
         <Option text="amber" value="amber" />
       </SimpleSelect>,
     );
@@ -138,7 +169,7 @@ describe("accessible name of the input", () => {
 
   it("is set to the aria-label prop when provided", () => {
     render(
-      <SimpleSelect aria-label="Colour" onChange={() => {}}>
+      <SimpleSelect aria-label="Colour" onChange={() => {}} value="">
         <Option text="amber" value="amber" />
       </SimpleSelect>,
     );
@@ -148,7 +179,12 @@ describe("accessible name of the input", () => {
 
   it("is set to the aria-label when both aria-label and label props are passed", () => {
     render(
-      <SimpleSelect label="foobar" onChange={() => {}} aria-label="Colour">
+      <SimpleSelect
+        label="foobar"
+        onChange={() => {}}
+        aria-label="Colour"
+        value=""
+      >
         <Option text="amber" value="amber" />
       </SimpleSelect>,
     );
@@ -160,7 +196,11 @@ describe("accessible name of the input", () => {
     render(
       <>
         <h2 id="my-select-heading">My Select</h2>
-        <SimpleSelect aria-labelledby="my-select-heading" onChange={() => {}}>
+        <SimpleSelect
+          aria-labelledby="my-select-heading"
+          onChange={() => {}}
+          value=""
+        >
           <Option text="amber" value="amber" />
         </SimpleSelect>
       </>,
@@ -177,6 +217,7 @@ describe("accessible name of the input", () => {
           aria-labelledby="my-select-heading"
           aria-label="foobar"
           onChange={() => {}}
+          value=""
         >
           <Option text="amber" value="amber" />
         </SimpleSelect>
@@ -190,7 +231,7 @@ describe("accessible name of the input", () => {
 test("associates the dropdown list with the correct accessible name from the label prop", async () => {
   const user = userEvent.setup();
   render(
-    <SimpleSelect label="Colour" onChange={() => {}}>
+    <SimpleSelect label="Colour" onChange={() => {}} value="">
       <Option text="amber" value="amber" />
     </SimpleSelect>,
   );
@@ -221,16 +262,16 @@ test("updates input’s aria-activedescendant value when navigating options via 
   expect(input).toHaveAttribute("aria-activedescendant", "cherry");
 });
 
-test.each(["top", "bottom"] as const)(
-  "should override the data attribute on the list when listWidth is set and placement is %s",
-  async (listPlacement) => {
+["top", "bottom"].forEach((listPlacement) => {
+  test(`should override the data attribute on the list when listWidth is set and placement is ${listPlacement}`, async () => {
     const user = userEvent.setup();
     render(
       <SimpleSelect
-        listPlacement={listPlacement}
+        listPlacement={listPlacement as "top" | "bottom"}
         listWidth={100}
         label="Colour"
         onChange={() => {}}
+        value="amber"
       >
         <Option text="amber" value="amber" />
       </SimpleSelect>,
@@ -242,30 +283,38 @@ test.each(["top", "bottom"] as const)(
       "data-floating-placement",
       `${listPlacement}-end`,
     );
-  },
-);
+  });
+});
 
-test.each(["top-end", "bottom-end", "top-start", "bottom-start"] as const)(
-  "should not override the data attribute on the list when listWidth is set and placement is %s",
-  async (listPlacement) => {
-    const user = userEvent.setup();
-    render(
-      <SimpleSelect
-        listPlacement={listPlacement}
-        listWidth={100}
-        label="Colour"
-        onChange={() => {}}
-      >
-        <Option text="amber" value="amber" />
-      </SimpleSelect>,
-    );
+["top-end", "bottom-end", "top-start", "bottom-start"].forEach(
+  (listPlacement) => {
+    test(`should not override the data attribute on the list when listWidth is set and placement is ${listPlacement}`, async () => {
+      const user = userEvent.setup();
+      render(
+        <SimpleSelect
+          listPlacement={
+            listPlacement as
+              | "top-end"
+              | "bottom-end"
+              | "top-start"
+              | "bottom-start"
+          }
+          listWidth={100}
+          label="Colour"
+          onChange={() => {}}
+          value="amber"
+        >
+          <Option text="amber" value="amber" />
+        </SimpleSelect>,
+      );
 
-    await user.click(screen.getByRole("combobox"));
+      await user.click(screen.getByRole("combobox"));
 
-    expect(await screen.findByTestId("select-list-wrapper")).toHaveAttribute(
-      "data-floating-placement",
-      listPlacement,
-    );
+      expect(await screen.findByTestId("select-list-wrapper")).toHaveAttribute(
+        "data-floating-placement",
+        listPlacement,
+      );
+    });
   },
 );
 
@@ -273,11 +322,11 @@ describe("typing into the input", () => {
   it("selects the first option with text starting with the typed printable character", async () => {
     const user = userEvent.setup();
     render(
-      <SimpleSelect label="Colour" onChange={() => {}}>
+      <InteractiveComponent label="Colour" onChange={() => {}}>
         <Option text="amber" value="amber" />
         <Option text="blue" value="blue" />
         <Option text="black" value="black" />
-      </SimpleSelect>,
+      </InteractiveComponent>,
     );
 
     await user.type(screen.getByRole("combobox"), "b");
@@ -288,11 +337,11 @@ describe("typing into the input", () => {
   it("selects the second option with text starting with the typed printable character when typed twice", async () => {
     const user = userEvent.setup();
     render(
-      <SimpleSelect label="Colour" onChange={() => {}}>
+      <InteractiveComponent label="Colour" onChange={() => {}}>
         <Option text="amber" value="amber" />
         <Option text="blue" value="blue" />
         <Option text="black" value="black" />
-      </SimpleSelect>,
+      </InteractiveComponent>,
     );
 
     await user.type(screen.getByRole("combobox"), "bb");
@@ -303,11 +352,11 @@ describe("typing into the input", () => {
   it("does not change the selected option when no option text starts with the typed printable character", async () => {
     const user = userEvent.setup();
     render(
-      <SimpleSelect label="Colour" onChange={() => {}}>
+      <InteractiveComponent label="Colour" onChange={() => {}}>
         <Option text="amber" value="amber" />
         <Option text="blue" value="blue" />
         <Option text="black" value="black" />
-      </SimpleSelect>,
+      </InteractiveComponent>,
     );
 
     await user.type(screen.getByRole("combobox"), "bx");
@@ -318,11 +367,11 @@ describe("typing into the input", () => {
   it("selects the first option with text matching the typed substring when typed quickly", async () => {
     const user = userEvent.setup();
     render(
-      <SimpleSelect label="Colour" onChange={() => {}}>
+      <InteractiveComponent label="Colour" onChange={() => {}}>
         <Option text="blue" value="blue" />
         <Option text="black" value="black" />
         <Option text="brown" value="brown" />
-      </SimpleSelect>,
+      </InteractiveComponent>,
     );
 
     await user.type(screen.getByRole("combobox"), "bla");
@@ -335,12 +384,12 @@ describe("typing into the input", () => {
 
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
-      <SimpleSelect label="Colour" onChange={() => {}}>
+      <InteractiveComponent label="Colour" onChange={() => {}}>
         <Option text="blue" value="blue" />
         <Option text="black" value="black" />
         <Option text="brown" value="brown" />
         <Option text="green" value="green" />
-      </SimpleSelect>,
+      </InteractiveComponent>,
     );
 
     const input = screen.getByRole("combobox");
@@ -354,26 +403,25 @@ describe("typing into the input", () => {
     jest.useRealTimers();
   });
 
-  it.each(["Meta", "Control"])(
-    "does not select any option when a printable character is typed while holding down the %s key",
-    async (specialKey) => {
+  ["Meta", "Control"].forEach((specialKey) => {
+    test(`does not select any option when a printable character is typed while holding down the ${specialKey} key`, async () => {
       const user = userEvent.setup();
       render(
-        <SimpleSelect label="Colour" onChange={() => {}}>
+        <InteractiveComponent label="Colour" onChange={() => {}}>
           <Option text="amber" value="amber" />
           <Option text="blue" value="blue" />
           <Option text="black" value="black" />
-        </SimpleSelect>,
+        </InteractiveComponent>,
       );
 
       // Hold special key down while typing 'b'
       await user.type(screen.getByRole("combobox"), `{${specialKey}>}b`);
 
       expect(screen.getByText("Please Select...")).toBeVisible();
-    },
-  );
+    });
+  });
 
-  it("does not change selected option when value prop is set (controlled usage)", async () => {
+  it("does not change selected option when value prop is set", async () => {
     const user = userEvent.setup();
     render(
       <SimpleSelect label="Colour" onChange={() => {}} value="amber">
@@ -393,11 +441,11 @@ describe("typing into the input", () => {
     const user = userEvent.setup();
     const onChange = jest.fn();
     render(
-      <SimpleSelect label="Colour" onChange={onChange}>
+      <InteractiveComponent label="Colour" onChange={onChange}>
         <Option text="blue" value="blue" />
         <Option text="black" value="black" />
         <Option text="brown" value="brown" />
-      </SimpleSelect>,
+      </InteractiveComponent>,
     );
 
     await user.type(screen.getByRole("combobox"), "bla");
@@ -409,7 +457,7 @@ describe("typing into the input", () => {
     const user = userEvent.setup();
     const onChange = jest.fn();
     render(
-      <SimpleSelect
+      <InteractiveComponent
         label="Colour"
         name="colour"
         id="colour"
@@ -418,7 +466,7 @@ describe("typing into the input", () => {
         <Option text="blue" value="blue" />
         <Option text="black" value="black" />
         <Option text="brown" value="brown" />
-      </SimpleSelect>,
+      </InteractiveComponent>,
     );
 
     await user.type(screen.getByRole("combobox"), "b");
@@ -436,7 +484,7 @@ describe("dropdown list", () => {
   it("opens when input is clicked", async () => {
     const user = userEvent.setup();
     render(
-      <SimpleSelect label="Colour" onChange={() => {}}>
+      <SimpleSelect label="Colour" onChange={() => {}} value="">
         <Option text="amber" value="amber" />
       </SimpleSelect>,
     );
@@ -449,7 +497,7 @@ describe("dropdown list", () => {
   it("opens when input's dropdown icon is clicked", async () => {
     const user = userEvent.setup();
     render(
-      <SimpleSelect label="Colour" onChange={() => {}}>
+      <SimpleSelect label="Colour" onChange={() => {}} value="">
         <Option text="amber" value="amber" />
       </SimpleSelect>,
     );
@@ -459,12 +507,11 @@ describe("dropdown list", () => {
     expect(await screen.findByRole("listbox")).toBeVisible();
   });
 
-  it.each(["Space", "ArrowUp", "ArrowDown", "Home", "End"] as const)(
-    "opens when input is focused and %s key is pressed",
-    async (key) => {
+  ["Space", "ArrowUp", "ArrowDown", "Home", "End"].forEach((key) => {
+    test(`opens when input is focused and ${key} key is pressed`, async () => {
       const user = userEvent.setup();
       render(
-        <SimpleSelect label="Colour" onChange={() => {}}>
+        <SimpleSelect label="Colour" onChange={() => {}} value={""}>
           <Option text="amber" value="amber" />
         </SimpleSelect>,
       );
@@ -473,15 +520,14 @@ describe("dropdown list", () => {
       await user.keyboard(`[${key}]`);
 
       expect(await screen.findByRole("listbox")).toBeVisible();
-    },
-  );
+    });
+  });
 
-  it.each(["Enter", "a"] as const)(
-    "does not open when %s key is pressed",
-    async (key) => {
+  ["Enter", "a"].forEach((key) =>
+    test(`does not open when ${key} key is pressed`, async () => {
       const user = userEvent.setup();
       render(
-        <SimpleSelect label="Colour" onChange={() => {}}>
+        <SimpleSelect label="Colour" onChange={() => {}} value="">
           <Option text="amber" value="amber" />
         </SimpleSelect>,
       );
@@ -490,13 +536,13 @@ describe("dropdown list", () => {
       await user.keyboard(`[${key}]`);
 
       expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
-    },
+    }),
   );
 
   it("does not open, when input is disabled and is clicked", async () => {
     const user = userEvent.setup();
     render(
-      <SimpleSelect label="Colour" onChange={() => {}} disabled>
+      <SimpleSelect label="Colour" onChange={() => {}} disabled value="">
         <Option text="amber" value="amber" />
       </SimpleSelect>,
     );
@@ -509,7 +555,7 @@ describe("dropdown list", () => {
   it("does not open, when input is disabled and is selected with the keyboard", async () => {
     const user = userEvent.setup();
     render(
-      <SimpleSelect label="Colour" onChange={() => {}} disabled>
+      <SimpleSelect label="Colour" onChange={() => {}} disabled value="">
         <Option text="amber" value="amber" />
       </SimpleSelect>,
     );
@@ -523,7 +569,7 @@ describe("dropdown list", () => {
   it("does not open, when input is read-only and is clicked", async () => {
     const user = userEvent.setup();
     render(
-      <SimpleSelect label="Colour" onChange={() => {}} readOnly>
+      <SimpleSelect label="Colour" onChange={() => {}} readOnly value="">
         <Option text="amber" value="amber" />
       </SimpleSelect>,
     );
@@ -536,7 +582,7 @@ describe("dropdown list", () => {
   it("does not open, when input is read-only and Space bar is pressed", async () => {
     const user = userEvent.setup();
     render(
-      <SimpleSelect label="Colour" onChange={() => {}} readOnly>
+      <SimpleSelect label="Colour" onChange={() => {}} readOnly value="">
         <Option text="amber" value="amber" />
       </SimpleSelect>,
     );
@@ -550,7 +596,7 @@ describe("dropdown list", () => {
   it("opens when input is focused and openOnFocus prop is true", async () => {
     const user = userEvent.setup();
     render(
-      <SimpleSelect label="Colour" onChange={() => {}} openOnFocus>
+      <SimpleSelect label="Colour" onChange={() => {}} openOnFocus value="">
         <Option text="amber" value="amber" />
       </SimpleSelect>,
     );
@@ -563,7 +609,12 @@ describe("dropdown list", () => {
   it("does not open, when input is focused and openOnFocus prop is false", async () => {
     const user = userEvent.setup();
     render(
-      <SimpleSelect label="Colour" onChange={() => {}} openOnFocus={false}>
+      <SimpleSelect
+        label="Colour"
+        onChange={() => {}}
+        openOnFocus={false}
+        value=""
+      >
         <Option text="amber" value="amber" />
       </SimpleSelect>,
     );
@@ -647,7 +698,12 @@ describe("when onClick prop is passed", () => {
     const onClick = jest.fn();
     const user = userEvent.setup();
     render(
-      <SimpleSelect label="Colour" onChange={() => {}} onClick={onClick}>
+      <SimpleSelect
+        label="Colour"
+        onChange={() => {}}
+        onClick={onClick}
+        value=""
+      >
         <Option text="amber" value="amber" />
       </SimpleSelect>,
     );
@@ -666,6 +722,7 @@ describe("when onClick prop is passed", () => {
         onChange={() => {}}
         onClick={onClick}
         disabled
+        value=""
       >
         <Option text="amber" value="amber" />
       </SimpleSelect>,
@@ -685,6 +742,7 @@ describe("when onClick prop is passed", () => {
         onChange={() => {}}
         onClick={onClick}
         readOnly
+        value=""
       >
         <Option text="amber" value="amber" />
       </SimpleSelect>,
@@ -700,7 +758,7 @@ test("calls onOpen when list is opened", async () => {
   const onOpen = jest.fn();
   const user = userEvent.setup();
   render(
-    <SimpleSelect label="Colour" onChange={() => {}} onOpen={onOpen}>
+    <SimpleSelect label="Colour" onChange={() => {}} onOpen={onOpen} value="">
       <Option text="amber" value="amber" />
     </SimpleSelect>,
   );
@@ -714,7 +772,12 @@ test("calls onKeyDown prop with details of the pressed key, when typing a charac
   const user = userEvent.setup();
   const onKeyDown = jest.fn();
   render(
-    <SimpleSelect label="Colour" onChange={() => {}} onKeyDown={onKeyDown}>
+    <SimpleSelect
+      label="Colour"
+      onChange={() => {}}
+      onKeyDown={onKeyDown}
+      value=""
+    >
       <Option text="amber" value="amber" />
     </SimpleSelect>,
   );
@@ -728,7 +791,7 @@ test("calls onFocus prop when input is focused", async () => {
   const onFocus = jest.fn();
   const user = userEvent.setup();
   render(
-    <SimpleSelect label="Colour" onChange={() => {}} onFocus={onFocus}>
+    <SimpleSelect label="Colour" onChange={() => {}} onFocus={onFocus} value="">
       <Option text="amber" value="amber" />
     </SimpleSelect>,
   );
@@ -743,7 +806,7 @@ describe("when onBlur prop is passed", () => {
     const onBlur = jest.fn();
     const user = userEvent.setup();
     render(
-      <SimpleSelect label="Colour" onChange={() => {}} onBlur={onBlur}>
+      <SimpleSelect label="Colour" onChange={() => {}} onBlur={onBlur} value="">
         <Option text="amber" value="amber" />
       </SimpleSelect>,
     );
@@ -758,7 +821,7 @@ describe("when onBlur prop is passed", () => {
     const onBlur = jest.fn();
     const user = userEvent.setup();
     render(
-      <SimpleSelect label="Colour" onChange={() => {}} onBlur={onBlur}>
+      <SimpleSelect label="Colour" onChange={() => {}} onBlur={onBlur} value="">
         <Option text="amber" value="amber" />
       </SimpleSelect>,
     );
@@ -775,7 +838,7 @@ describe("forwarded ref", () => {
   it("allows access to the input element through a forwarded callback ref", () => {
     const mockRef = jest.fn((element) => element);
     render(
-      <SimpleSelect label="Colour" onChange={() => {}} ref={mockRef}>
+      <SimpleSelect label="Colour" onChange={() => {}} ref={mockRef} value="">
         <Option text="amber" value="amber" />
       </SimpleSelect>,
     );
@@ -786,7 +849,7 @@ describe("forwarded ref", () => {
   it("allows access to the input element through a forwarded ref object", () => {
     const mockRef = { current: null };
     render(
-      <SimpleSelect label="Colour" onChange={() => {}} ref={mockRef}>
+      <SimpleSelect label="Colour" onChange={() => {}} ref={mockRef} value="">
         <Option text="amber" value="amber" />
       </SimpleSelect>,
     );
@@ -795,58 +858,9 @@ describe("forwarded ref", () => {
   });
 });
 
-describe("deprecation warnings", () => {
-  it("raises deprecation warning when component is used with defaultValue and no onChange (uncontrolled usage)", () => {
-    jest.spyOn(console, "warn").mockImplementation(() => {});
-
-    const loggerSpy = jest.spyOn(Logger, "deprecate");
-    render(
-      <SimpleSelect label="Colour" onChange={undefined} defaultValue="amber">
-        <Option text="amber" value="amber" />
-      </SimpleSelect>,
-    );
-
-    expect(loggerSpy).toHaveBeenNthCalledWith(
-      1,
-      "Uncontrolled behaviour in `Simple Select` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
-    );
-  });
-
-  it("should not display deprecation about uncontrolled Textbox when parent component is controlled", () => {
-    const loggerSpy = jest.spyOn(Logger, "deprecate");
-    render(
-      <SimpleSelect
-        label="Colour"
-        onChange={() => {}}
-        value="1"
-        placeholder="Select a colour"
-      >
-        <Option text="Amber" value="1" />
-      </SimpleSelect>,
-    );
-
-    expect(loggerSpy).not.toHaveBeenCalled();
-    loggerSpy.mockClear();
-  });
-
-  it("should not display deprecation about uncontrolled Textbox when parent component is not controlled", () => {
-    const loggerSpy = jest.spyOn(Logger, "deprecate");
-    render(
-      <SimpleSelect label="Colour" placeholder="Select a colour">
-        <Option text="Amber" value="1" />
-      </SimpleSelect>,
-    );
-
-    expect(loggerSpy).not.toHaveBeenCalledWith(
-      "Uncontrolled behaviour in `Textbox` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
-    );
-    loggerSpy.mockClear();
-  });
-});
-
-it("marks input as required when required prop is true", () => {
+test("marks input as required when required prop is true", () => {
   render(
-    <SimpleSelect label="Colour" onChange={() => {}} required>
+    <SimpleSelect label="Colour" onChange={() => {}} required value="">
       <Option text="amber" value="amber" />
     </SimpleSelect>,
   );
@@ -864,6 +878,7 @@ test("does not call onOpen, when openOnFocus is true and the input is refocused 
       onChange={() => {}}
       onOpen={onOpen}
       openOnFocus
+      value=""
     >
       <Option text="amber" value="amber" />
     </SimpleSelect>,
@@ -940,6 +955,7 @@ testStyledSystemMargin(
       data-role="my-select"
       label="Colour"
       onChange={() => {}}
+      value=""
     >
       <Option text="amber" value="amber" />
     </SimpleSelect>

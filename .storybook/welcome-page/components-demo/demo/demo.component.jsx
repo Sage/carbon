@@ -78,7 +78,11 @@ const Demo = () => {
                 />
               </StyledComponentWrapper>
               <StyledComponentWrapper styling={{ width: "30%", padding: "1%" }}>
-                <Decimal aria-label="An example decimal input component" />
+                <Decimal
+                  aria-label="An example decimal input component"
+                  value={decimalValue}
+                  onChange={(e) => setDecimalValue(e.target.value.rawValue)}
+                />
               </StyledComponentWrapper>
             </StyledDemoRow>
             <StyledDemoRow styling={{ display: "flex" }}>

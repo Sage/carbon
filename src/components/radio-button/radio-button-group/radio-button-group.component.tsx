@@ -10,7 +10,6 @@ import useIsAboveBreakpoint from "../../../hooks/__internal__/useIsAboveBreakpoi
 import { filterStyledSystemMarginProps } from "../../../style/utils";
 import { TooltipProvider } from "../../../__internal__/tooltip-provider";
 import { ValidationProps } from "../../../__internal__/validations";
-import Logger from "../../../__internal__/utils/logger";
 import NewValidationContext from "../../carbon-provider/__internal__/new-validation.context";
 import ValidationMessage from "../../../__internal__/validation-message/validation-message.component";
 import Box from "../../box";
@@ -18,8 +17,6 @@ import guid from "../../../__internal__/utils/helpers/guid";
 import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibility";
 import ErrorBorder from "../../textbox/textbox.style";
 import HintText from "../../../__internal__/hint-text";
-
-let deprecateUncontrolledWarnTriggered = false;
 
 export interface RadioButtonGroupProps
   extends ValidationProps,
@@ -60,11 +57,11 @@ export interface RadioButtonGroupProps
   /** Callback fired when each RadioButton is blurred */
   onBlur?: (ev: React.FocusEvent<HTMLInputElement>) => void;
   /** Callback fired when the user selects a RadioButton */
-  onChange?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (ev: React.ChangeEvent<HTMLInputElement>) => void;
   /** Flag to configure component as mandatory */
   required?: boolean;
   /** value of the selected RadioButton */
-  value?: string;
+  value: string;
   /** [Legacy] Overrides the default tooltip position */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
   /** Render the ValidationMessage above the RadioButton inputs when validationRedesignOptIn flag is set */
@@ -100,13 +97,6 @@ export const RadioButtonGroup = ({
   const internalId = useRef(guid());
   const uniqueId = id || internalId.current;
   const inputHintId = legendHelp ? `${uniqueId}-hint` : undefined;
-
-  if (!deprecateUncontrolledWarnTriggered && !onChange) {
-    deprecateUncontrolledWarnTriggered = true;
-    Logger.deprecate(
-      "Uncontrolled behaviour in `Radio Button` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
-    );
-  }
 
   const marginProps = filterStyledSystemMarginProps(rest);
 

@@ -101,11 +101,16 @@ export interface TextareaProps
   /** Name of the input */
   name?: string;
   /** Callback fired when the user types in the Textarea */
-  onChange?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (ev: React.ChangeEvent<HTMLInputElement>) => void;
   /** Placeholder text for the component */
   placeholder?: string;
   /** Adds readOnly property */
   readOnly?: boolean;
+  /**
+   * [Legacy] Flag to configure component as optional.
+   * @deprecated If the value of this component is not required, use the `required` prop and set it to false instead.
+   */
+  isOptional?: boolean;
   /** The number of visible text lines for the control. When set, this determines the height of the textarea, and the minHeight property is ignored. */
   rows?: number;
   /** [Legacy] Overrides the default tooltip position */
@@ -113,7 +118,7 @@ export interface TextareaProps
   /** [Legacy] When true, validation icon will be placed on label instead of being placed on the input */
   validationOnLabel?: boolean;
   /** The value of the Textbox */
-  value?: string;
+  value: string;
   /**
    * Indicate that warning has occurred.
    * Pass string to display icon, tooltip and orange border.
@@ -130,7 +135,7 @@ export interface TextareaProps
   validationMessagePositionTop?: boolean;
 }
 
-let deprecateUncontrolledWarnTriggered = false;
+let deprecateOptionalWarnTriggered = false;
 let warnBorderRadiusArrayTooLarge = false;
 
 export const Textarea = React.forwardRef(
@@ -175,12 +180,19 @@ export const Textarea = React.forwardRef(
       borderRadius,
       hideBorders = false,
       required,
+      isOptional,
       minHeight = DEFAULT_MIN_HEIGHT,
       validationMessagePositionTop = true,
       ...rest
     }: TextareaProps,
     ref: React.ForwardedRef<HTMLTextAreaElement>,
   ) => {
+    if (!deprecateOptionalWarnTriggered && isOptional) {
+      deprecateOptionalWarnTriggered = true;
+      Logger.deprecate(
+        "`isOptional` is deprecated in TextArea and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
+      );
+    }
     const { validationRedesignOptIn } = useContext(NewValidationContext);
 
     const labelInlineWithNewValidation = validationRedesignOptIn
@@ -230,13 +242,6 @@ export const Textarea = React.forwardRef(
       if (characterLimit) setCharacterCountAriaLive("off");
       onBlur?.(ev);
     };
-
-    if (!deprecateUncontrolledWarnTriggered && !onChange) {
-      deprecateUncontrolledWarnTriggered = true;
-      Logger.deprecate(
-        "Uncontrolled behaviour in `Textarea` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
-      );
-    }
 
     if (
       Array.isArray(borderRadius) &&

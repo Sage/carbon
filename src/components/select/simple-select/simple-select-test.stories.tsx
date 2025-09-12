@@ -1,14 +1,19 @@
 import React, { useState, useRef } from "react";
 import Typography from "../../../components/typography";
 import Content from "../../../components/content";
-import { Select as SimpleSelect } from "../../../../src/components/select";
+import {
+  Select as SimpleSelect,
+  Select,
+  Option,
+  SimpleSelectProps,
+} from "../../../../src/components/select";
 import OptionRow from "../option-row/option-row.component";
 import OptionGroupHeader from "../option-group-header/option-group-header.component";
 import Box from "../../box";
 import Icon from "../../icon";
 import Dialog from "../../dialog";
-import { Select, Option, SimpleSelectProps } from "..";
 import CarbonProvider from "../../carbon-provider";
+import useMultiInput from "../../../hooks/use-multi-input";
 
 export default {
   component: Select,
@@ -80,9 +85,9 @@ export const Default = (args: SimpleSelectProps) => {
   return (
     <SimpleSelect
       label="simple select"
+      {...args}
       value={value}
       onChange={onChangeHandler}
-      {...args}
     >
       <Option text="Amber" value="1" />
       <Option text="Black" value="2" />
@@ -104,36 +109,44 @@ export const Default = (args: SimpleSelectProps) => {
 Default.storyName = "Default";
 
 export const Validation = () => {
+  const { state, setValue } = useMultiInput();
+
   return (
     <>
       <Select
-        name="simple"
-        id="simple"
+        name="simple-error"
+        id="simple-error"
         label="Simple Select"
         error="Error message"
         mb={2}
+        value={state["simple-error"] || ""}
+        onChange={setValue}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
       </Select>
       <Select
-        name="simple"
-        id="simple"
+        name="simple-warning"
+        id="simple-warning"
         label="Simple Select"
         warning="Warning message"
         mb={2}
+        value={state["simple-warning"] || ""}
+        onChange={setValue}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
       </Select>
       <Select
-        name="simple"
-        id="simple"
+        name="simple-info"
+        id="simple-info"
         label="Simple Select"
         info="Info message"
         mb={2}
+        value={state["simple-info"] || ""}
+        onChange={setValue}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
@@ -141,53 +154,83 @@ export const Validation = () => {
       </Select>
 
       <Select
-        name="simple"
-        id="simple"
+        name="simple-error-vol"
+        id="simple-error-vol"
         label="Simple Select"
         error="Error message"
         validationOnLabel
         mb={2}
+        value={state["simple-error-vol"] || ""}
+        onChange={setValue}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
       </Select>
       <Select
-        name="simple"
-        id="simple"
+        name="simple-warning-vol"
+        id="simple-warning-vol"
         label="Simple Select"
         warning="Warning message"
         validationOnLabel
         mb={2}
+        value={state["simple-warning-vol"] || ""}
+        onChange={setValue}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
       </Select>
       <Select
-        name="simple"
-        id="simple"
+        name="simple-info-vol"
+        id="simple-info-vol"
         label="Simple Select"
         info="Info message"
         validationOnLabel
         mb={2}
+        value={state["simple-info-vol"] || ""}
+        onChange={setValue}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
       </Select>
 
-      <Select name="simple" id="simple" label="Simple Select" error mb={2}>
+      <Select
+        name="simple-error-bool"
+        id="simple-error-bool"
+        label="Simple Select"
+        error
+        mb={2}
+        value={state["simple-error-bool"] || ""}
+        onChange={setValue}
+      >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
       </Select>
-      <Select name="simple" id="simple" label="Simple Select" warning mb={2}>
+      <Select
+        name="simple-warning-bool"
+        id="simple-warning-bool"
+        label="Simple Select"
+        warning
+        mb={2}
+        value={state["simple-warning-bool"] || ""}
+        onChange={setValue}
+      >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
       </Select>
-      <Select name="simple" id="simple" label="Simple Select" info mb={2}>
+      <Select
+        name="simple-info-bool"
+        id="simple-info-bool"
+        label="Simple Select"
+        info
+        mb={2}
+        value={state["simple-info-bool"] || ""}
+        onChange={setValue}
+      >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
@@ -202,26 +245,32 @@ Validation.parameters = {
 };
 
 export const NewValidation = () => {
+  const { state, setValue } = useMultiInput();
+
   return (
     <CarbonProvider validationRedesignOptIn>
       <Select
-        name="simple"
-        id="simple"
+        name="simple-error"
+        id="simple-error"
         label="Simple Select"
         error="Error message"
         inputHint="Hint text"
         mb={2}
+        value={state["simple-error"] || ""}
+        onChange={setValue}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
       </Select>
       <Select
-        name="simple"
-        id="simple"
+        name="simple-warning"
+        id="simple-warning"
         label="Simple Select"
         warning="Warning message"
         mb={2}
+        value={state["simple-warning"] || ""}
+        onChange={setValue}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
@@ -229,12 +278,14 @@ export const NewValidation = () => {
       </Select>
       <Select
         validationMessagePositionTop={false}
-        name="simple"
-        id="simple"
+        name="simple-error-bottom"
+        id="simple-error-bottom"
         label="Simple Select"
         error="Error message"
         inputHint="Hint text"
         mb={2}
+        value={state["simple-error-bottom"] || ""}
+        onChange={setValue}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
@@ -242,11 +293,13 @@ export const NewValidation = () => {
       </Select>
       <Select
         validationMessagePositionTop={false}
-        name="simple"
-        id="simple"
+        name="simple-warning-bottom"
+        id="simple-warning-bottom"
         label="Simple Select"
         warning="Warning message"
         mb={2}
+        value={state["simple-warning-bottom"] || ""}
+        onChange={setValue}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
@@ -273,6 +326,12 @@ export const DelayedReposition = () => {
   const onOpen = () => {
     setDisplayContent(!displayContent);
   };
+  const [value, setValue] = useState("");
+
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value);
+  }
+
   return (
     <Dialog size="medium" open title="Title">
       <Box
@@ -288,6 +347,8 @@ export const DelayedReposition = () => {
             name="noTimeOut"
             id="noTimeOut"
             onOpen={onOpen}
+            value={value}
+            onChange={onChangeHandler}
           >
             <Option text="Amber" value="1" />
             <Option text="Black" value="2" />
@@ -300,6 +361,8 @@ export const DelayedReposition = () => {
             name="timeOut"
             id="timeOut"
             onOpen={onOpenWithTimeOut}
+            value={value}
+            onChange={onChangeHandler}
           >
             <Option text="Amber" value="1" />
             <Option text="Black" value="2" />
@@ -501,12 +564,19 @@ export const SimpleSelectObjectAsValueComponent = (
 export const SimpleSelectMultipleColumnsComponent = (
   props: Partial<SimpleSelectProps>,
 ) => {
+  const [value, setValue] = useState("2");
+
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value);
+  }
+
   return (
     <SimpleSelect
       name="withMultipleColumns"
       id="withMultipleColumns"
       multiColumn
-      defaultValue="2"
+      value={value}
+      onChange={onChangeHandler}
       {...props}
       tableHeader={
         <tr>
@@ -555,11 +625,18 @@ export const SimpleSelectMultipleColumnsComponent = (
 export const SimpleSelectCustomOptionChildrenComponent = (
   props: Partial<SimpleSelectProps>,
 ) => {
+  const [value, setValue] = useState("4");
+
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value);
+  }
+
   return (
     <SimpleSelect
       name="customOptionChildren"
       id="customOptionChildren"
-      defaultValue="4"
+      value={value}
+      onChange={onChangeHandler}
       label="Pick your favourite color"
       {...props}
     >
@@ -586,8 +663,20 @@ export const SimpleSelectCustomOptionChildrenComponent = (
 export const SimpleSelectGroupComponent = (
   props: Partial<SimpleSelectProps>,
 ) => {
+  const [value, setValue] = useState("");
+
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value);
+  }
+
   return (
-    <SimpleSelect name="optGroups" id="optGroups" {...props}>
+    <SimpleSelect
+      name="optGroups"
+      id="optGroups"
+      {...props}
+      value={value}
+      onChange={onChangeHandler}
+    >
       <OptionGroupHeader
         id="groupHeader1"
         label="Group one"
@@ -649,45 +738,76 @@ export const SimpleSelectEventsComponent = ({
   );
 };
 
-export const SimpleSelectWithLongWrappingTextComponent = () => (
-  <Box width={400}>
-    <SimpleSelect name="simple" id="simple" label="label" labelInline>
-      <Option
-        text="Like a lot of intelligent animals, most crows are quite social. 
+export const SimpleSelectWithLongWrappingTextComponent = () => {
+  const [value, setValue] = useState("");
+
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value);
+  }
+
+  return (
+    <Box width={400}>
+      <SimpleSelect
+        name="simple"
+        id="simple"
+        label="label"
+        labelInline
+        value={value}
+        onChange={onChangeHandler}
+      >
+        <Option
+          text="Like a lot of intelligent animals, most crows are quite social.
         For instance, American crows spend most of the year living in pairs or small family groups.
         During the winter months, they will congregate with hundreds or even thousands of their peers to sleep together at night."
-        value="1"
-      />
-    </SimpleSelect>
-  </Box>
-);
-
-export const SimpleSelectWithManyOptionsAndVirtualScrolling = () => (
-  <SimpleSelect
-    name="virtualised"
-    id="virtualised"
-    label="choose an option"
-    labelInline
-    enableVirtualScroll
-    virtualScrollOverscan={10}
-  >
-    {Array(10000)
-      .fill(undefined)
-      .map((_, index) => (
-        <Option
-          key={`option-${index + 1}`}
-          value={`${index}`}
-          text={`Option ${index + 1}.`}
+          value="1"
         />
-      ))}
-  </SimpleSelect>
-);
+      </SimpleSelect>
+    </Box>
+  );
+};
+
+export const SimpleSelectWithManyOptionsAndVirtualScrolling = () => {
+  const [value, setValue] = useState("");
+
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value);
+  }
+
+  return (
+    <SimpleSelect
+      name="virtualised"
+      id="virtualised"
+      label="choose an option"
+      labelInline
+      enableVirtualScroll
+      virtualScrollOverscan={10}
+      value={value}
+      onChange={onChangeHandler}
+    >
+      {Array(10000)
+        .fill(undefined)
+        .map((_, index) => (
+          <Option
+            key={`option-${index + 1}`}
+            value={`${index}`}
+            text={`Option ${index + 1}.`}
+          />
+        ))}
+    </SimpleSelect>
+  );
+};
 
 export const SimpleSelectNestedInDialog = ({
   openOnFocus = false,
   autofocus = false,
 }) => {
   const [isOpen, setIsOpen] = useState(true);
+  const [value, setValue] = useState("");
+
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value);
+  }
+
   return (
     <Dialog open={isOpen} onCancel={() => setIsOpen(false)} title="Dialog">
       <SimpleSelect
@@ -695,6 +815,8 @@ export const SimpleSelectNestedInDialog = ({
         autoFocus={autofocus}
         name="testSelect"
         id="testSelect"
+        value={value}
+        onChange={onChangeHandler}
       >
         <Option value="opt1" text="red" />
         <Option value="opt2" text="green" />
@@ -706,6 +828,12 @@ export const SimpleSelectNestedInDialog = ({
 };
 
 export const SelectWithOptionGroupHeader = () => {
+  const [value, setValue] = useState("");
+
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value);
+  }
+
   const reportGroup = [
     { id: 1, title: "There are 2 more options", content: "content" },
     { id: 2, title: "There is 1 more below", content: "content" },
@@ -715,9 +843,14 @@ export const SelectWithOptionGroupHeader = () => {
       content: "content",
     },
   ];
+
   return (
     <Box p={10}>
-      <Select placeholder="Scroll does not reach the last option">
+      <Select
+        placeholder="Scroll does not reach the last option"
+        value={value}
+        onChange={onChangeHandler}
+      >
         <OptionGroupHeader label="Scroll does not reach the last option" />
         {reportGroup.map(({ id, title, content }) => {
           return (
@@ -839,6 +972,12 @@ export const ComplexCustomChildren = () => {
 };
 
 export const SimpleSelectWithAriaDescribedby = () => {
+  const [value, setValue] = useState("");
+
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value);
+  }
+
   return (
     <Box m={3} width={300}>
       <Select
@@ -847,6 +986,8 @@ export const SimpleSelectWithAriaDescribedby = () => {
         label="color"
         aria-label="color"
         aria-describedby="combo-box-description"
+        value={value}
+        onChange={onChangeHandler}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />

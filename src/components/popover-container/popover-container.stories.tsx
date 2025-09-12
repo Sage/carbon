@@ -278,7 +278,14 @@ export const Complex: Story = () => {
           <Button ml={2}>Compact</Button>
         </Box>
         <Box mt="4px" mb="4px">
-          <Select name="simple" id="simple" label="color" labelInline>
+          <Select
+            name="simple"
+            id="simple"
+            label="color"
+            labelInline
+            value=""
+            onChange={() => {}}
+          >
             <Option text="Amber" value="1" />
             <Option text="Black" value="2" />
             <Option text="Blue" value="3" />
@@ -294,16 +301,36 @@ export const Complex: Story = () => {
         </Box>
         <DraggableContainer>
           <DraggableItem key="1" id={1}>
-            <Checkbox name="one" label="Draggable Label One" />
+            <Checkbox
+              name="one"
+              label="Draggable Label One"
+              checked
+              onChange={() => {}}
+            />
           </DraggableItem>
           <DraggableItem key="2" id={2}>
-            <Checkbox name="two" label="Draggable Label Two" />
+            <Checkbox
+              name="two"
+              label="Draggable Label Two"
+              checked
+              onChange={() => {}}
+            />
           </DraggableItem>
           <DraggableItem key="3" id={3}>
-            <Checkbox name="three" label="Draggable Label Three" />
+            <Checkbox
+              name="three"
+              label="Draggable Label Three"
+              checked
+              onChange={() => {}}
+            />
           </DraggableItem>
           <DraggableItem key="4" id={4}>
-            <Checkbox name="four" label="Draggable Label Four" />
+            <Checkbox
+              name="four"
+              label="Draggable Label Four"
+              checked
+              onChange={() => {}}
+            />
           </DraggableItem>
         </DraggableContainer>
       </PopoverContainer>
@@ -477,12 +504,12 @@ export const FocusButton = () => {
         stickyFooter
       >
         <Box m={2}>
-          <Textbox label="Textbox" onChange={() => {}} />
-          <Textbox label="Textbox" onChange={() => {}} />
-          <Textbox label="Textbox" onChange={() => {}} />
-          <Textbox label="Textbox" onChange={() => {}} />
-          <Textbox label="Textbox" onChange={() => {}} />
-          <Textbox label="Textbox" onChange={() => {}} />
+          <Textbox label="Textbox" onChange={() => {}} value="" />
+          <Textbox label="Textbox" onChange={() => {}} value="" />
+          <Textbox label="Textbox" onChange={() => {}} value="" />
+          <Textbox label="Textbox" onChange={() => {}} value="" />
+          <Textbox label="Textbox" onChange={() => {}} value="" />
+          <Textbox label="Textbox" onChange={() => {}} value="" />
         </Box>
       </Form>
     </PopoverContainer>

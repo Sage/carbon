@@ -2,7 +2,13 @@ import { StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/test";
 import React from "react";
 
-import { MultiSelect, Option, OptionRow, OptionGroupHeader } from "..";
+import {
+  MultiSelect,
+  Option,
+  OptionRow,
+  OptionGroupHeader,
+  MultiSelectProps,
+} from "..";
 import Box from "../../box";
 
 import { allowInteractions } from "../../../../.storybook/interaction-toggle/reduced-motion";
@@ -18,17 +24,54 @@ export default {
   },
 };
 
+interface ControlledMultiSelectProps
+  extends Omit<MultiSelectProps, "onChange" | "value" | "children"> {
+  children?: React.ReactNode;
+  value?: string[];
+}
+
+const ControlledMultiSelect = (props: ControlledMultiSelectProps) => {
+  const [value, setValue] = React.useState<string[]>(props.value || []);
+  return (
+    <MultiSelect
+      {...props}
+      value={value}
+      onChange={(e) => setValue(e.target.value as unknown as string[])}
+    >
+      <Option text="Amber" value="1" />
+      <Option text="Black" value="2" />
+      <Option text="Blue" value="3" />
+      <Option text="Brown" value="4" />
+      <Option text="Green" value="5" />
+      <Option text="Orange" value="6" />
+      <Option text="Pink" value="7" />
+      <Option text="Purple" value="8" />
+      <Option text="Red" value="9" />
+      <Option text="White" value="10" />
+      <Option text="Yellow" value="11" />
+    </MultiSelect>
+  );
+};
+
+const ControlledMultiSelectWithOptions = (
+  props: ControlledMultiSelectProps,
+) => {
+  const [value, setValue] = React.useState<string[]>(props.value || []);
+  return (
+    <MultiSelect
+      {...props}
+      value={value}
+      onChange={(e) => setValue(e.target.value as unknown as string[])}
+    >
+      {props.children}
+    </MultiSelect>
+  );
+};
+
 export const HighlightedItem: Story = {
   render: () => (
     <Box height={250}>
-      <MultiSelect name="multi" id="multi" label="Color">
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-      </MultiSelect>
+      <ControlledMultiSelect name="multi" id="multi" label="Color" />
     </Box>
   ),
   play: async ({ canvasElement }) => {
@@ -57,14 +100,7 @@ HighlightedItem.storyName = "Highlighted Item";
 export const HoverItem: Story = {
   render: () => (
     <Box height={250}>
-      <MultiSelect name="multi" id="multi" label="Color">
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-      </MultiSelect>
+      <ControlledMultiSelect name="multi" id="multi" label="Color" />
     </Box>
   ),
   play: async ({ canvasElement }) => {
@@ -98,12 +134,12 @@ HoverItem.parameters = {
 export const MultiColumnList: Story = {
   render: () => (
     <Box height={250}>
-      <MultiSelect
+      <ControlledMultiSelectWithOptions
         name="multi"
         id="multi"
         label="Color"
         multiColumn
-        defaultValue={["1", "2"]}
+        value={["1", "2"]}
         tableHeader={
           <tr>
             <th>Name</th>
@@ -137,7 +173,7 @@ export const MultiColumnList: Story = {
           <td>Zoe</td>
           <td>Astronaut</td>
         </OptionRow>
-      </MultiSelect>
+      </ControlledMultiSelectWithOptions>
     </Box>
   ),
   play: async ({ canvasElement }) => {
@@ -167,11 +203,11 @@ MultiColumnList.parameters = {
 export const GroupedOptions: Story = {
   render: () => (
     <Box height={250}>
-      <MultiSelect
+      <ControlledMultiSelectWithOptions
         name="multi"
         id="multi"
         label="Color"
-        defaultValue={["1", "2"]}
+        value={["1", "2"]}
       >
         <OptionGroupHeader
           id="groupHeader1"
@@ -189,7 +225,7 @@ export const GroupedOptions: Story = {
         <Option text="Brown" value="4" />
         <Option text="Green" value="5" />
         <Option text="Orange" value="6" />
-      </MultiSelect>
+      </ControlledMultiSelectWithOptions>
     </Box>
   ),
   play: async ({ canvasElement }) => {
@@ -219,11 +255,11 @@ GroupedOptions.parameters = {
 export const WithCustomColoredPills: Story = {
   render: () => (
     <Box height={250}>
-      <MultiSelect
+      <ControlledMultiSelectWithOptions
         name="multi"
         id="multi"
         label="Color"
-        defaultValue={["1", "2", "3", "4", "5", "6"]}
+        value={["1", "2", "3", "4", "5", "6"]}
       >
         <Option text="Amber" value="1" borderColor="#FFBF00" fill />
         <Option text="Black" value="2" borderColor="blackOpacity65" fill />
@@ -231,7 +267,7 @@ export const WithCustomColoredPills: Story = {
         <Option text="Brown" value="4" borderColor="brown" fill />
         <Option text="Green" value="5" borderColor="productGreen" />
         <Option text="Orange" value="6" borderColor="orange" />
-      </MultiSelect>
+      </ControlledMultiSelectWithOptions>
     </Box>
   ),
   play: async ({ canvasElement }) => {

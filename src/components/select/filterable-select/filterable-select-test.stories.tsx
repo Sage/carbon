@@ -6,6 +6,7 @@ import Dialog from "../../dialog";
 import Button from "../../button";
 import Typography from "../../typography";
 import CarbonProvider from "../../carbon-provider";
+import useMultiInput from "../../../hooks/use-multi-input";
 
 export default {
   component: FilterableSelect,
@@ -108,36 +109,44 @@ export const Default = (props: Partial<FilterableSelectProps>) => {
 Default.storyName = "Default";
 
 export const Validation = () => {
+  const { state, setValue } = useMultiInput();
+
   return (
     <>
       <FilterableSelect
-        name="filterable"
-        id="filterable"
+        name="filterable-error"
+        id="filterable-error"
         label="Filterable Select"
         error="Error Message"
         mb={2}
+        value={state["filterable-error"] || ""}
+        onChange={setValue}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
       </FilterableSelect>
       <FilterableSelect
-        name="filterable"
-        id="filterable"
+        name="filterable-warning"
+        id="filterable-warning"
         label="Filterable Select"
         warning="Warning Message"
         mb={2}
+        value={state["filterable-warning"] || ""}
+        onChange={setValue}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
       </FilterableSelect>
       <FilterableSelect
-        name="filterable"
-        id="filterable"
+        name="filterable-info"
+        id="filterable-info"
         label="Filterable Select"
         info="Info Message"
         mb={2}
+        value={state["filterable-info"] || ""}
+        onChange={setValue}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
@@ -145,36 +154,42 @@ export const Validation = () => {
       </FilterableSelect>
 
       <FilterableSelect
-        name="filterable"
-        id="filterable"
+        name="filterable-error-vol"
+        id="filterable-error"
         label="Filterable Select"
         error="Error Message"
         validationOnLabel
         mb={2}
+        value={state["filterable-error-vol"] || ""}
+        onChange={setValue}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
       </FilterableSelect>
       <FilterableSelect
-        name="filterable"
-        id="filterable"
+        name="filterable-warning-vol"
+        id="filterable-warning-vol"
         label="Filterable Select"
         warning="Warning Message"
         validationOnLabel
         mb={2}
+        value={state["filterable-warning-vol"] || ""}
+        onChange={setValue}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
       </FilterableSelect>
       <FilterableSelect
-        name="filterable"
-        id="filterable"
+        name="filterable-info-vol"
+        id="filterable-info-vol"
         label="Filterable Select"
         info="Info Message"
         validationOnLabel
         mb={2}
+        value={state["filterable-info-vol"] || ""}
+        onChange={setValue}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
@@ -182,33 +197,39 @@ export const Validation = () => {
       </FilterableSelect>
 
       <FilterableSelect
-        name="filterable"
-        id="filterable"
+        name="filterable-error-bool"
+        id="filterable-error-bool"
         label="Filterable Select"
         error
         mb={2}
+        value={state["filterable-error-bool"] || ""}
+        onChange={setValue}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
       </FilterableSelect>
       <FilterableSelect
-        name="filterable"
-        id="filterable"
+        name="filterable-warning-bool"
+        id="filterable-warning-bool"
         label="Filterable Select"
         warning
         mb={2}
+        value={state["filterable-warning-bool"] || ""}
+        onChange={setValue}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
       </FilterableSelect>
       <FilterableSelect
-        name="filterable"
-        id="filterable"
+        name="filterable-info-bool"
+        id="filterable-info-bool"
         label="Filterable Select"
         info
         mb={2}
+        value={state["filterable-info-bool"] || ""}
+        onChange={setValue}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
@@ -224,25 +245,31 @@ Validation.parameters = {
 };
 
 export const NewValidation = () => {
+  const { state, setValue } = useMultiInput();
+
   return (
     <CarbonProvider validationRedesignOptIn>
       <FilterableSelect
-        name="filterable"
-        id="filterable"
+        name="filterable1"
+        id="filterable1"
         label="Filterable Select"
         error="Error Message"
         mb={2}
+        value={state["filterable1"] || ""}
+        onChange={setValue}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
       </FilterableSelect>
       <FilterableSelect
-        name="filterable"
-        id="filterable"
+        name="filterable2"
+        id="filterable2"
         label="Filterable Select"
         warning="Warning Message"
         mb={2}
+        value={state["filterable2"] || ""}
+        onChange={setValue}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
@@ -250,11 +277,13 @@ export const NewValidation = () => {
       </FilterableSelect>
       <FilterableSelect
         validationMessagePositionTop={false}
-        name="filterable"
-        id="filterable"
+        name="filterable3"
+        id="filterable3"
         label="Filterable Select"
         error="Error Message"
         mb={2}
+        value={state["filterable3"] || ""}
+        onChange={setValue}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
@@ -262,11 +291,13 @@ export const NewValidation = () => {
       </FilterableSelect>
       <FilterableSelect
         validationMessagePositionTop={false}
-        name="filterable"
-        id="filterable"
+        name="filterable4"
+        id="filterable4"
         label="Filterable Select"
         warning="Warning Message"
         mb={2}
+        value={state["filterable4"] || ""}
+        onChange={setValue}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
@@ -507,10 +538,16 @@ export const FilterableSelectObjectAsValueComponent = (
 export const FilterableSelectMultiColumnsComponent = (
   props: Partial<FilterableSelectProps>,
 ) => {
+  const [value, setValue] = useState("2");
+
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value);
+  }
   return (
     <FilterableSelect
       multiColumn
-      defaultValue="2"
+      value={value}
+      onChange={onChangeHandler}
       {...props}
       tableHeader={
         <tr>
@@ -559,11 +596,17 @@ export const FilterableSelectMultiColumnsComponent = (
 export const FilterableSelectMultiColumnsNestedComponent = (
   args: Partial<FilterableSelectProps>,
 ) => {
+  const [value, setValue] = useState("2");
+
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value);
+  }
   return (
     <FilterableSelect
       {...args}
       multiColumn
-      defaultValue="2"
+      value={value}
+      onChange={onChangeHandler}
       tableHeader={
         <tr>
           <th>Name</th>
@@ -721,32 +764,47 @@ export const FilterableSelectListActionEventComponent = (
   );
 };
 
-export const FilterableSelectWithManyOptionsAndVirtualScrolling = () => (
-  <FilterableSelect
-    name="virtualised"
-    id="virtualised"
-    label="choose an option"
-    labelInline
-    enableVirtualScroll
-    virtualScrollOverscan={10}
-  >
-    {Array(10000)
-      .fill(undefined)
-      .map((_, index) => (
-        <Option
-          key={`option-${index + 1}`}
-          value={`${index}`}
-          text={`Option ${index + 1}.`}
-        />
-      ))}
-  </FilterableSelect>
-);
+export const FilterableSelectWithManyOptionsAndVirtualScrolling = () => {
+  const [value, setValue] = useState("");
+
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value);
+  }
+
+  return (
+    <FilterableSelect
+      name="virtualised"
+      id="virtualised"
+      label="choose an option"
+      labelInline
+      enableVirtualScroll
+      virtualScrollOverscan={10}
+      value={value}
+      onChange={onChangeHandler}
+    >
+      {Array(10000)
+        .fill(undefined)
+        .map((_, index) => (
+          <Option
+            key={`option-${index + 1}`}
+            value={`${index}`}
+            text={`Option ${index + 1}.`}
+          />
+        ))}
+    </FilterableSelect>
+  );
+};
 
 export const FilterableSelectNestedInDialog = ({
   openOnFocus = false,
   autofocus = false,
 }) => {
   const [isOpen, setIsOpen] = useState(true);
+  const [value, setValue] = useState("");
+
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value);
+  }
   return (
     <Dialog open={isOpen} onCancel={() => setIsOpen(false)} title="Dialog">
       <FilterableSelect
@@ -754,6 +812,8 @@ export const FilterableSelectNestedInDialog = ({
         autoFocus={autofocus}
         name="testSelect"
         id="testSelect"
+        value={value}
+        onChange={onChangeHandler}
       >
         <Option value="opt1" text="red" />
         <Option value="opt2" text="green" />
@@ -798,7 +858,7 @@ export const OnChangeWithDeleteStory = () => {
   return (
     <>
       <div>Value: {value}</div>
-      <FilterableSelect label="test" onChange={onChange}>
+      <FilterableSelect label="test" onChange={onChange} value={value}>
         <Option text="item0" value="0" />
         <Option text="item1" value="1" />
         <Option text="item2" value="2" />
@@ -807,23 +867,26 @@ export const OnChangeWithDeleteStory = () => {
   );
 };
 
-export const SingleOption = () => (
-  <FilterableSelect
-    name="simple"
-    id="simple"
-    label="color"
-    labelInline
-    onOpen={action("onOpen")}
-    onChange={action("onChange")}
-    onClick={action("onClick")}
-    onFilterChange={action("onFilterChange")}
-    onFocus={action("onFocus")}
-    onBlur={action("onBlur")}
-    onKeyDown={action("onKeyDown")}
-  >
-    <Option text="Amber" value="1" />
-  </FilterableSelect>
-);
+export const SingleOption = () => {
+  return (
+    <FilterableSelect
+      name="simple"
+      id="simple"
+      label="color"
+      labelInline
+      onOpen={action("onOpen")}
+      onChange={action("onChange")}
+      onClick={action("onClick")}
+      onFilterChange={action("onFilterChange")}
+      onFocus={action("onFocus")}
+      onBlur={action("onBlur")}
+      onKeyDown={action("onKeyDown")}
+      value={""}
+    >
+      <Option text="Amber" value="1" />
+    </FilterableSelect>
+  );
+};
 
 SingleOption.storyName = "Single Option";
 
@@ -853,36 +916,76 @@ export const FilterableSelectWithTruncatedText = () => {
   );
 };
 
-export const AriaDescribedByExample = () => (
-  <>
+export const AriaDescribedByExample = () => {
+  const [value, setValue] = useState("1");
+
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value);
+  }
+
+  return (
+    <>
+      <FilterableSelect
+        name="simple"
+        id="simple"
+        label="color"
+        aria-describedby="combo-box-description"
+        labelInline
+        onOpen={action("onOpen")}
+        onChange={onChangeHandler}
+        onClick={action("onClick")}
+        onFilterChange={action("onFilterChange")}
+        onFocus={action("onFocus")}
+        onBlur={action("onBlur")}
+        onKeyDown={action("onKeyDown")}
+        value={value}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </FilterableSelect>
+      <Typography my={5} id="combo-box-description">
+        This is a description of the select textbox
+      </Typography>
+    </>
+  );
+};
+
+export const FilterableSelectWithStateAndObjects = ({
+  label,
+  ...props
+}: Partial<FilterableSelectProps>) => {
+  const optionListValues = [
+    { id: "Black", value: 1, text: "Black" },
+    { id: "Blue", value: 2, text: "Blue" },
+  ];
+
+  const [value, setValue] = useState<Record<string, unknown>>(
+    optionListValues[1],
+  );
+
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value as unknown as Record<string, unknown>);
+  }
+
+  return (
     <FilterableSelect
-      name="simple"
-      id="simple"
-      label="color"
-      aria-describedby="combo-box-description"
-      labelInline
-      onOpen={action("onOpen")}
-      onChange={action("onChange")}
-      onClick={action("onClick")}
-      onFilterChange={action("onFilterChange")}
-      onFocus={action("onFocus")}
-      onBlur={action("onBlur")}
-      onKeyDown={action("onKeyDown")}
+      label={label}
+      value={value}
+      onChange={onChangeHandler}
+      {...props}
     >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
+      {optionListValues.map((option) => (
+        <Option key={option.id} text={option.text} value={option} />
+      ))}
     </FilterableSelect>
-    <Typography my={5} id="combo-box-description">
-      This is a description of the select textbox
-    </Typography>
-  </>
-);
+  );
+};

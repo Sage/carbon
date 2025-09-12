@@ -63,37 +63,77 @@ Default.args = {
 };
 
 export const Validation = () => {
+  const [state, setState] = useState("123456");
   return (
     <>
-      <Number label="Number" value="123456" error="Error Message" mb={2} />
-      <Number label="Number" value="123456" warning="Warning Message" mb={2} />
-      <Number label="Number" value="123456" info="Info Message" mb={2} />
+      <Number
+        label="Number"
+        value={state}
+        error="Error Message"
+        mb={2}
+        onChange={(e) => setState(e.target.value)}
+      />
+      <Number
+        label="Number"
+        value={state}
+        warning="Warning Message"
+        mb={2}
+        onChange={(e) => setState(e.target.value)}
+      />
+      <Number
+        label="Number"
+        value={state}
+        info="Info Message"
+        mb={2}
+        onChange={(e) => setState(e.target.value)}
+      />
 
       <Number
         label="Number"
-        value="123456"
+        value={state}
         error="Error Message"
         validationOnLabel
         mb={2}
+        onChange={(e) => setState(e.target.value)}
       />
       <Number
         label="Number"
-        value="123456"
+        value={state}
         warning="Warning Message"
         validationOnLabel
         mb={2}
+        onChange={(e) => setState(e.target.value)}
       />
       <Number
         label="Number"
-        value="123456"
+        value={state}
         info="Info Message"
         validationOnLabel
         mb={2}
+        onChange={(e) => setState(e.target.value)}
       />
 
-      <Number label="Number" value="123456" error mb={2} />
-      <Number label="Number" value="123456" warning mb={2} />
-      <Number label="Number" value="123456" info mb={2} />
+      <Number
+        label="Number"
+        value={state}
+        error
+        mb={2}
+        onChange={(e) => setState(e.target.value)}
+      />
+      <Number
+        label="Number"
+        value={state}
+        warning
+        mb={2}
+        onChange={(e) => setState(e.target.value)}
+      />
+      <Number
+        label="Number"
+        value={state}
+        info
+        mb={2}
+        onChange={(e) => setState(e.target.value)}
+      />
     </>
   );
 };
@@ -104,30 +144,40 @@ Validation.parameters = {
 };
 
 export const NewValidation = () => {
+  const [state, setState] = useState("123456");
   return (
     <CarbonProvider validationRedesignOptIn>
       <Number
         label="Number"
-        value="123456"
+        value={state}
         error="Error Message"
         inputHint="Hint text"
         mb={2}
-      />
-      <Number label="Number" value="123456" warning="Warning Message" mb={2} />
-      <Number
-        validationMessagePositionTop={false}
-        label="Number"
-        value="123456"
-        error="Error Message"
-        inputHint="Hint text"
-        mb={2}
+        onChange={(e) => setState(e.target.value)}
       />
       <Number
-        validationMessagePositionTop={false}
         label="Number"
-        value="123456"
+        value={state}
         warning="Warning Message"
         mb={2}
+        onChange={(e) => setState(e.target.value)}
+      />
+      <Number
+        validationMessagePositionTop={false}
+        label="Number"
+        value={state}
+        error="Error Message"
+        inputHint="Hint text"
+        mb={2}
+        onChange={(e) => setState(e.target.value)}
+      />
+      <Number
+        validationMessagePositionTop={false}
+        label="Number"
+        value={state}
+        warning="Warning Message"
+        mb={2}
+        onChange={(e) => setState(e.target.value)}
       />
     </CarbonProvider>
   );
@@ -139,7 +189,15 @@ NewValidation.parameters = {
 };
 
 export const AutoFocus = () => {
-  return <Number label="Number" value="123456" autoFocus />;
+  const [state, setState] = useState("123456");
+  return (
+    <Number
+      label="Number"
+      value={state}
+      autoFocus
+      onChange={(e) => setState(e.target.value)}
+    />
+  );
 };
 AutoFocus.storyName = "Auto Focus";
 AutoFocus.parameters = {
