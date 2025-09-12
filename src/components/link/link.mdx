@@ -45,14 +45,6 @@ By default an anchor element will be rendered.
 
 <Canvas of={LinkStories.DefaultStory} />
 
-### Disabled
-
-Setting the `disabled` prop to true disables the link.
-
-**Please note**: To disable an anchor, the `href` prop must not be defined.
-
-<Canvas of={LinkStories.WithDisabled} />
-
 ### Underline
 
 Setting the `underline` prop to `"hover"` will render the link with no underline by default, but will add an underline when the link is hovered over.
@@ -79,14 +71,6 @@ The `iconAlign` prop allows you to control if the icon renders to left or right 
 
 <Canvas of={LinkStories.WithIconAlign} />
 
-#### Tooltip
-
-By rendering an icon and providing a string to the `tooltipMessage` prop, a tooltip message can be displayed when hovering over the icon.
-
-**Please note**: To be used only when the `icon` prop is defined.
-
-<Canvas of={LinkStories.WithTooltip} />
-
 ### isSkipLink
 
 `Skip Link` is specific use case for the `Link` component, specifically to enhance keyboard accessibility.
@@ -109,13 +93,20 @@ perform client-side routing, but still provide the `href` to render an HTML link
 
 ### variants
 
-Setting the `variant` prop to either `negative`, `neutral` or `subtle` enables overriding of the `default` styling of the `Link` component.
+Setting the `variant` prop to either `negative`, or `subtle` enables overriding of the `typical` variant which is the default styling of the `Link` component.
 
 <Canvas of={LinkStories.Variants} />
 
+### sizes
+
+Setting the `linkSize` prop to either `medium` or `large` will change the font size accordingly
+
+<Canvas of={LinkStories.LinkSize} />
+
+
 ### On a dark background
 
-When the `Link` component is rendered on a dark background, the `isDarkBackground` prop can be used to update the colour styling
+When the `Link` component is rendered on a dark background, the `inverse` prop can be used to update the colour styling
 to ensure there is enough contrast.
 
 <Canvas of={LinkStories.OnADarkBackground} />
@@ -125,6 +116,22 @@ to ensure there is enough contrast.
 Just as with a native HTML anchor element, `Link` components will wrap onto the next line if they contain long text.
 
 <Canvas of={LinkStories.Wrapping} />
+
+### (Deprecated) Disabled
+
+Setting the `disabled` prop to true disables the link.
+
+**Please note**: To disable an anchor, the `href` prop must not be defined.
+
+<Canvas of={LinkStories.WithDisabled} />
+
+### (Deprecated) Tooltip
+
+By rendering an icon and providing a string to the `tooltipMessage` prop, a tooltip message can be displayed when hovering over the icon.
+
+**Please note**: To be used only when the `icon` prop is defined.
+
+<Canvas of={LinkStories.WithTooltip} />
 
 ## Props
 

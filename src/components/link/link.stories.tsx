@@ -40,7 +40,7 @@ export const WithUnderlineOnlyOnHover = () => {
     </Link>
   );
 };
-WithUnderlineOnlyOnHover.storyName = "With Underline Only On Hover";
+WithUnderlineOnlyOnHover.storyName = "With Underline On Hover and Focus";
 WithUnderlineOnlyOnHover.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithNoUnderline = () => {
@@ -146,9 +146,8 @@ export const Variants: Story = () => {
         href="https://carbon.sage.com"
         target="_blank"
         rel="noreferrer noopener"
-        variant="negative"
       >
-        This is a link
+        This is a link with variant "typical"
       </Link>
       <br />
       <br />
@@ -156,14 +155,49 @@ export const Variants: Story = () => {
         href="https://carbon.sage.com"
         target="_blank"
         rel="noreferrer noopener"
-        variant="neutral"
+        variant="negative"
       >
-        This is a link
+        This is a link with variant "negative"
+      </Link>
+      <br />
+      <br />
+      <Link
+        href="https://carbon.sage.com"
+        target="_blank"
+        rel="noreferrer noopener"
+        variant="subtle"
+      >
+        This is a link with variant "subtle"
       </Link>
     </>
   );
 };
 Variants.storyName = "Variants";
+
+export const LinkSize: Story = () => {
+  return (
+    <>
+      <Link
+        href="https://carbon.sage.com"
+        target="_blank"
+        rel="noreferrer noopener"
+      >
+        This is a 'medium' link
+      </Link>
+      <br />
+      <br />
+      <Link
+        href="https://carbon.sage.com"
+        target="_blank"
+        rel="noreferrer noopener"
+        linkSize="large"
+      >
+        This is a 'large' link
+      </Link>
+    </>
+  );
+};
+LinkSize.storyName = "Link Size";
 
 export const OnADarkBackground: Story = () => {
   return (
@@ -175,98 +209,82 @@ export const OnADarkBackground: Story = () => {
       flexDirection="column"
       alignItems="center"
     >
-      <Link
-        href="https://carbon.sage.com"
-        target="_blank"
-        rel="noreferrer noopener"
-        isDarkBackground
-      >
-        This is a link
-      </Link>
-      {(["left", "right"] as const).map((align) => (
-        <React.Fragment key={`${align}-default-variant`}>
-          <br />
-          <Link icon="settings" isDarkBackground iconAlign={align} href="#foo">
-            This is a link
-          </Link>
-        </React.Fragment>
-      ))}
-      <br />
-      <Link
-        href="https://carbon.sage.com"
-        target="_blank"
-        rel="noreferrer noopener"
-        isDarkBackground
-        variant="negative"
-      >
-        This is a link
-      </Link>
-      {(["left", "right"] as const).map((align) => (
-        <React.Fragment key={`${align}-negative-variant`}>
-          <br />
-          <Link
-            icon="settings"
-            isDarkBackground
-            variant="negative"
-            iconAlign={align}
-            href="#foo"
-          >
-            This is a link
-          </Link>
-        </React.Fragment>
-      ))}
-      <br />
-      <Link
-        href="https://carbon.sage.com"
-        target="_blank"
-        rel="noreferrer noopener"
-        isDarkBackground
-        variant="neutral"
-      >
-        This is a link
-      </Link>
-      {(["left", "right"] as const).map((align) => (
-        <React.Fragment key={`${align}-neutral-variant`}>
-          <br />
-          <Link
-            icon="settings"
-            isDarkBackground
-            variant="neutral"
-            iconAlign={align}
-            href="#foo"
-          >
-            This is a link
-          </Link>
-        </React.Fragment>
-      ))}
-      <br />
-      <Link
-        href="https://carbon.sage.com"
-        target="_blank"
-        rel="noreferrer noopener"
-        isDarkBackground
-        variant="subtle"
-      >
-        This is a link
-      </Link>
-      {(["left", "right"] as const).map((align) => (
-        <React.Fragment key={`${align}-subtle-variant`}>
-          <br />
-          <Link
-            icon="settings"
-            isDarkBackground
-            variant="subtle"
-            iconAlign={align}
-            href="#foo"
-          >
-            This is a link
-          </Link>
-        </React.Fragment>
-      ))}
-      <br />
-      <Link isDarkBackground disabled>
-        This is a link
-      </Link>
+      <Box>
+        <Link
+          href="https://carbon.sage.com"
+          target="_blank"
+          rel="noreferrer noopener"
+          inverse
+        >
+          Typical link
+        </Link>
+        {(["left", "right"] as const).map((align) => (
+          <React.Fragment key={`${align}-default-variant`}>
+            <br />
+            <br />
+            <Link icon="settings" inverse iconAlign={align} href="#foo">
+              Typical link icon {align}
+            </Link>
+          </React.Fragment>
+        ))}
+        <br />
+        <br />
+        <Link
+          href="https://carbon.sage.com"
+          target="_blank"
+          rel="noreferrer noopener"
+          inverse
+          variant="negative"
+        >
+          Negative link
+        </Link>
+        {(["left", "right"] as const).map((align) => (
+          <React.Fragment key={`${align}-negative-variant`}>
+            <br />
+            <br />
+            <Link
+              icon="settings"
+              inverse
+              variant="negative"
+              iconAlign={align}
+              href="#foo"
+            >
+              Negative link icon {align}
+            </Link>
+          </React.Fragment>
+        ))}
+        <br />
+        <br />
+        <Link
+          href="https://carbon.sage.com"
+          target="_blank"
+          rel="noreferrer noopener"
+          inverse
+          variant="subtle"
+        >
+          Subtle link
+        </Link>
+        {(["left", "right"] as const).map((align) => (
+          <React.Fragment key={`${align}-subtle-variant`}>
+            <br />
+            <br />
+            <Link
+              icon="settings"
+              inverse
+              variant="subtle"
+              iconAlign={align}
+              href="#foo"
+            >
+              Subtle link icon {align}
+            </Link>
+          </React.Fragment>
+        ))}
+        <br />
+        <br />
+        <Link inverse disabled>
+          Disabled link
+        </Link>
+      </Box>
     </Box>
   );
 };
