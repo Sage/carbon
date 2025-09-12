@@ -125,6 +125,9 @@ interface Locale {
     ariaLiveShownMessage: () => string;
     ariaLiveHiddenMessage: () => string;
   };
+  pill: {
+    remove: (label: string) => string;
+  };
   progressTracker: {
     of: () => string;
   };
