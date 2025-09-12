@@ -304,6 +304,7 @@ export const TypingSyncDateRange: Story = {
   ),
   play: async ({ canvasElement }) => {
     if (!allowInteractions()) return;
+
     const canvas = within(canvasElement);
 
     const [startIcon] = canvas.getAllByTestId("icon");
@@ -312,11 +313,11 @@ export const TypingSyncDateRange: Story = {
 
     const startInput = canvas.getByRole("textbox", { name: /start date/i });
     await userEvent.clear(startInput);
-    await userEvent.keyboard("10/09/2025");
+    await userEvent.type(startInput, "05/05/2022");
     await userInteractionPause(300);
 
     const caption = canvas.getByRole("status");
-    expect(caption).toHaveTextContent(/September 2025/i);
+    expect(caption).toHaveTextContent(/May 2022/i);
   },
 };
 
