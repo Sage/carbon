@@ -9,13 +9,8 @@ import { filterStyledSystemMarginProps } from "../../../style/utils";
 import { TooltipProvider } from "../../../__internal__/tooltip-provider";
 import { ValidationProps } from "../../../__internal__/validations";
 import NewValidationContext from "../../carbon-provider/__internal__/new-validation.context";
-import ValidationMessage from "../../../__internal__/validation-message/validation-message.component";
-import Box from "../../box";
-import ErrorBorder from "../../textbox/textbox.style";
 import CheckboxGroupContext from "./__internal__/checkbox-group.context";
 import guid from "../../../__internal__/utils/helpers/guid";
-import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibility";
-import HintText from "../../../__internal__/hint-text";
 
 export interface CheckboxGroupProps
   extends ValidationProps,
@@ -76,87 +71,38 @@ export const CheckboxGroup = ({
   const { validationRedesignOptIn } = useContext(NewValidationContext);
   const internalId = useRef(guid());
   const uniqueId = id || internalId.current;
-  const inputHintId = legendHelp ? `${uniqueId}-hint` : undefined;
-
-  const { validationId, ariaDescribedBy } = useInputAccessibility({
-    id: uniqueId,
-    validationRedesignOptIn: true,
-    error,
-    warning,
-    info,
-  });
-
-  const describedByArray =
-    validationRedesignOptIn && validationMessagePositionTop
-      ? [ariaDescribedBy, inputHintId]
-      : [inputHintId, ariaDescribedBy];
-  const combinedAriaDescribedBy = describedByArray.filter(Boolean).join(" ");
 
   return (
     <>
       {validationRedesignOptIn ? (
         <Fieldset
+          applyNewValidation
           id={uniqueId}
           legend={legend}
+          inputHint={legendHelp}
           legendAlign={legendAlign}
           error={error}
           warning={warning}
           isRequired={required}
+          validationMessagePositionTop={validationMessagePositionTop}
           width="fit-content"
-          {...(combinedAriaDescribedBy && {
-            "aria-describedby": combinedAriaDescribedBy,
-          })}
           {...tagComponent("checkboxgroup", rest)}
-          blockGroupBehaviour={!(error || warning)}
           {...filterStyledSystemMarginProps(rest)}
         >
-          {legendHelp && (
-            <HintText align={legendAlign} id={inputHintId} marginTop="-4px">
-              {legendHelp}
-            </HintText>
-          )}
-          <Box position="relative">
-            {validationMessagePositionTop && (
-              <>
-                <ValidationMessage
-                  error={error}
-                  warning={warning}
-                  validationId={validationId}
-                  validationMessagePositionTop={validationMessagePositionTop}
-                />
-                {(error || warning) && (
-                  <ErrorBorder warning={!!(!error && warning)} />
-                )}
-              </>
-            )}
-            <StyledCheckboxGroup
-              data-component="checkbox-group"
-              data-role="checkbox-group"
-              inline={inline}
+          <StyledCheckboxGroup
+            data-component="checkbox-group"
+            data-role="checkbox-group"
+            inline={inline}
+          >
+            <CheckboxGroupContext.Provider
+              value={{
+                error: !!error,
+                warning: !!warning,
+              }}
             >
-              <CheckboxGroupContext.Provider
-                value={{
-                  error: !!error,
-                  warning: !!warning,
-                }}
-              >
-                {children}
-              </CheckboxGroupContext.Provider>
-            </StyledCheckboxGroup>
-            {!validationMessagePositionTop && (
-              <>
-                <ValidationMessage
-                  error={error}
-                  warning={warning}
-                  validationId={validationId}
-                  validationMessagePositionTop={validationMessagePositionTop}
-                />
-                {(error || warning) && (
-                  <ErrorBorder warning={!!(!error && warning)} />
-                )}
-              </>
-            )}
-          </Box>
+              {children}
+            </CheckboxGroupContext.Provider>
+          </StyledCheckboxGroup>
         </Fieldset>
       ) : (
         <TooltipProvider tooltipPosition={tooltipPosition}>
@@ -171,8 +117,6 @@ export const CheckboxGroup = ({
             warning={warning}
             info={info}
             isRequired={required}
-            aria-describedby={ariaDescribedBy}
-            validationId={validationId}
             {...tagComponent("checkboxgroup", rest)}
             blockGroupBehaviour={!(error || warning || info)}
             {...filterStyledSystemMarginProps(rest)}
