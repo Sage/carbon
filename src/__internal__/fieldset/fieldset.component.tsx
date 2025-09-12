@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import { MarginProps } from "styled-system";
 
 import {
   StyledFieldset,
   StyledLegend,
-  StyledLegendContent,
   StyledIconWrapper,
   StyledLegendProps,
 } from "./fieldset.style";
@@ -13,6 +12,13 @@ import NewValidationContext from "../../components/carbon-provider/__internal__/
 import { InputGroupBehaviour, InputGroupContext } from "../input-behaviour";
 import Help from "../../components/help";
 import Typography from "../../components/typography";
+import Box from "../../components/box";
+import ErrorBorder from "../../components/textbox/textbox.style";
+import ValidationMessage from "../validation-message";
+import HintText from "../hint-text";
+import FieldHelp from "../field-help";
+import guid from "../utils/helpers/guid";
+import useInputAccessibility from "../../hooks/__internal__/useInputAccessibility";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 
 export interface FieldsetProps extends MarginProps {
@@ -58,8 +64,14 @@ export interface FieldsetProps extends MarginProps {
   id?: string;
   /** Content for the Help tooltip */
   labelHelp?: React.ReactNode;
-  /** Id for the validation icon tooltip */
-  validationId?: string;
+  /** Content for the fieldHelp */
+  fieldHelp?: React.ReactNode;
+  /** Content for an additional hint text below the legend */
+  inputHint?: React.ReactNode;
+  /** Specifies whether the validation message should be displayed above the input */
+  validationMessagePositionTop?: boolean;
+  /** Apply new validation styles */
+  applyNewValidation?: boolean;
 }
 
 const Fieldset = ({
@@ -77,13 +89,21 @@ const Fieldset = ({
   legendMargin = {},
   isDisabled,
   labelHelp,
-  validationId,
+  fieldHelp,
+  inputHint,
+  validationMessagePositionTop,
+  applyNewValidation = false,
+  id,
   ...rest
 }: FieldsetProps) => {
   const { validationRedesignOptIn } = useContext(NewValidationContext);
   const marginProps = filterStyledSystemMarginProps(rest);
   const [ref, setRef] = useState<HTMLFieldSetElement | null>(null);
   const [isFocused, setFocus] = useState(false);
+
+  const internalId = useRef(guid());
+  const uniqueId = id || internalId.current;
+  const inputHintId = inputHint ? `${uniqueId}-hint` : undefined;
 
   useEffect(() => {
     if (ref && isRequired) {
@@ -134,11 +154,87 @@ const Fieldset = ({
     legendAlignment = legendAlign;
   }
 
+  // this can be removed once we remove legacy validation and fieldHelp
+  // as we only need to combine validationId and inputHintId
+  const { validationId, fieldHelpId, ariaDescribedBy } = useInputAccessibility({
+    id: uniqueId,
+    validationRedesignOptIn: true,
+    error,
+    warning,
+    info,
+    fieldHelp,
+  });
+
+  const describedByArray = validationMessagePositionTop
+    ? [ariaDescribedBy, inputHintId]
+    : [inputHintId, ariaDescribedBy];
+  const combinedAriaDescribedBy = describedByArray.filter(Boolean).join(" ");
+
+  const validationMessage = () => {
+    if (error || warning) {
+      return (
+        <>
+          <ValidationMessage
+            error={error}
+            warning={warning}
+            validationId={validationId}
+            validationMessagePositionTop={validationMessagePositionTop}
+          />
+          <ErrorBorder warning={!!(!error && warning)} />
+        </>
+      );
+    }
+    return null;
+  };
+
+  if (applyNewValidation) {
+    return (
+      <StyledFieldset
+        ref={setRef}
+        data-component="fieldset"
+        id={uniqueId}
+        aria-describedby={combinedAriaDescribedBy || undefined}
+        {...rest}
+        {...marginProps}
+      >
+        {legend && (
+          <StyledLegend
+            align={legendAlignment}
+            isRequired={isRequired}
+            isDisabled={isDisabled}
+            data-element="legend"
+            data-role="legend"
+          >
+            {legend}
+          </StyledLegend>
+        )}
+
+        {inputHint && (
+          <HintText
+            id={inputHintId}
+            isDisabled={isDisabled}
+            align={legendAlignment}
+          >
+            {inputHint}
+          </HintText>
+        )}
+
+        <Box position="relative" mt={1}>
+          {validationMessagePositionTop && validationMessage()}
+          {children}
+          {!validationMessagePositionTop && validationMessage()}
+        </Box>
+      </StyledFieldset>
+    );
+  }
+
   return (
     <InputGroupBehaviour blockGroupBehaviour={blockGroupBehaviour}>
       <StyledFieldset
         ref={setRef}
         data-component="fieldset"
+        id={uniqueId}
+        aria-describedby={ariaDescribedBy || undefined}
         {...rest}
         {...marginProps}
       >
@@ -155,14 +251,11 @@ const Fieldset = ({
                 {...legendMargin}
                 data-element="legend"
                 data-role="legend"
+                isRequired={isRequired}
+                isDisabled={isDisabled}
               >
-                <StyledLegendContent
-                  isRequired={isRequired}
-                  isDisabled={isDisabled}
-                >
-                  {legend}
-                  {!validationRedesignOptIn && tooltipIcon()}
-                </StyledLegendContent>
+                {legend}
+                {!validationRedesignOptIn && tooltipIcon()}
               </StyledLegend>
             )}
           </InputGroupContext.Consumer>
@@ -172,7 +265,10 @@ const Fieldset = ({
             {error || warning || info}
           </Typography>
         )}
-        {children}
+        <Box display="flex" flexDirection="column" mt={inline ? 0 : 1}>
+          {children}
+          {fieldHelp && <FieldHelp id={fieldHelpId}>{fieldHelp}</FieldHelp>}
+        </Box>
       </StyledFieldset>
     </InputGroupBehaviour>
   );
