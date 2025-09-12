@@ -378,9 +378,9 @@ export const OtherFocusableContainers: Story = () => {
           <Typography>
             This is an example of a dialog with a Form as content
           </Typography>
-          <Textbox label="First Name" value="" onChange={() => {}} />
-          <Textbox label="Middle Name" onChange={() => {}} value="" />
-          <Textbox label="Surname" onChange={() => {}} value="" />
+          <Textbox label="First Name" />
+          <Textbox label="Middle Name" />
+          <Textbox label="Surname" />
           <Button onClick={() => setIsToast1Open(true)}>
             Show first toast
           </Button>
@@ -512,7 +512,7 @@ export const TopModalOverride: Story = () => {
         title="Confirm"
         onConfirm={() => {}}
       >
-        <Textbox label="Confirm textbox" value="" onChange={() => {}} />
+        <Textbox label="Confirm textbox" />
       </Confirm>
       <Sidebar
         open={isOpenSidebar && isOpenAll}
@@ -520,14 +520,14 @@ export const TopModalOverride: Story = () => {
         header="sidebar"
         topModalOverride
       >
-        <Textbox label="Sidebar textbox" value="" onChange={() => {}} />
+        <Textbox label="Sidebar textbox" />
       </Sidebar>
       <Dialog
         open={isOpenDialog && isOpenAll}
         onCancel={() => setIsOpenDialog(false)}
         title="Dialog"
       >
-        <Textbox label="Dialog textbox" value="" onChange={() => {}} />
+        <Textbox label="Dialog textbox" />
       </Dialog>
     </>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
@@ -17,23 +17,14 @@ const meta: Meta<typeof RadioButton> = {
   argTypes: {
     ...styledSystemProps,
   },
-  parameters: {
-    themeProvider: { chromatic: { theme: "sage" } },
-  },
 };
 
 export default meta;
 type Story = StoryObj<typeof RadioButton>;
 
 export const Default: Story = () => {
-  const [value, setValue] = useState("");
-
   return (
-    <RadioButtonGroup
-      name="legend-and-labels-group"
-      value={value}
-      onChange={(ev) => setValue(ev.target.value)}
-    >
+    <RadioButtonGroup name="legend-and-labels-group">
       <RadioButton id="radio-1" value="radio1" label="Radio Option 1" />
       <RadioButton id="radio-2" value="radio2" label="Radio Option 2" />
       <RadioButton id="radio-3" value="radio3" label="Radio Option 3" />
@@ -43,7 +34,7 @@ export const Default: Story = () => {
 Default.storyName = "Default";
 
 export const WithLegendAndLabels: Story = () => {
-  const [value, setValue] = React.useState("");
+  const [value, setValue] = React.useState("radio1");
   return (
     <RadioButtonGroup
       name="legend-and-labels-group"
@@ -60,15 +51,12 @@ export const WithLegendAndLabels: Story = () => {
 WithLegendAndLabels.storyName = "With Legend";
 
 export const WithLegendHelp: Story = () => {
-  const [value, setValue] = useState("");
   return (
     <CarbonProvider validationRedesignOptIn>
       <RadioButtonGroup
         name="input-hint-group"
         legend="With legendHelp"
         legendHelp="Legend Help"
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
       >
         <RadioButton id="radio-1" value="radio1" label="Radio Option 1" />
         <RadioButton id="radio-2" value="radio2" label="Radio Option 2" />
@@ -80,15 +68,12 @@ export const WithLegendHelp: Story = () => {
 WithLegendHelp.storyName = "With Legend Help";
 
 export const WithInlineLegend: Story = () => {
-  const [value, setValue] = useState("");
   return (
     <RadioButtonGroup
       name="inline-legend-group"
       legend="Radio group legend"
       legendInline
       legendWidth={10}
-      value={value}
-      onChange={(ev) => setValue(ev.target.value)}
     >
       <RadioButton id="radio-1" value="radio1" label="Radio Option 1" />
       <RadioButton id="radio-2" value="radio2" label="Radio Option 2" />
@@ -99,7 +84,6 @@ export const WithInlineLegend: Story = () => {
 WithInlineLegend.storyName = "With Inline Legend";
 
 export const EnableAdaptiveBehaviour: Story = () => {
-  const [value, setValue] = useState("");
   return (
     <RadioButtonGroup
       name="enable-adaptive-behaviour-group"
@@ -107,8 +91,6 @@ export const EnableAdaptiveBehaviour: Story = () => {
       ml="20%"
       adaptiveLegendBreakpoint={960}
       adaptiveSpacingBreakpoint={960}
-      value={value}
-      onChange={(ev) => setValue(ev.target.value)}
     >
       <RadioButton
         id="enable-adaptive-behaviour-radio-1"
@@ -132,14 +114,11 @@ EnableAdaptiveBehaviour.storyName = "Enable Adaptive Behaviour";
 EnableAdaptiveBehaviour.parameters = { chromatic: { disableSnapshot: true } };
 
 export const DifferentLabelSpacing: Story = () => {
-  const [value, setValue] = useState("");
   return (
     <RadioButtonGroup
       name="different-label-spacing-group"
       legend="Radio group legend"
       labelSpacing={2}
-      value={value}
-      onChange={(ev) => setValue(ev.target.value)}
     >
       <RadioButton
         id="different-label-spacing-radio-1"
@@ -162,15 +141,8 @@ export const DifferentLabelSpacing: Story = () => {
 DifferentLabelSpacing.storyName = "Label Spacing";
 
 export const InlineRadioButtons: Story = () => {
-  const [value, setValue] = useState("");
   return (
-    <RadioButtonGroup
-      name="inline-group"
-      legend="Radio group legend"
-      inline
-      value={value}
-      onChange={(ev) => setValue(ev.target.value)}
-    >
+    <RadioButtonGroup name="inline-group" legend="Radio group legend" inline>
       <RadioButton id="inline-radio-1" value="radio1" label="Radio Option 1" />
       <RadioButton id="inline-radio-2" value="radio2" label="Radio Option 2" />
       <RadioButton id="inline-radio-3" value="radio3" label="Radio Option 3" />
@@ -180,14 +152,8 @@ export const InlineRadioButtons: Story = () => {
 InlineRadioButtons.storyName = "Inline Radio Buttons";
 
 export const ReverseRadioButtons: Story = () => {
-  const [value, setValue] = useState("");
   return (
-    <RadioButtonGroup
-      name="reverse-group"
-      legend="Radio group legend"
-      value={value}
-      onChange={(ev) => setValue(ev.target.value)}
-    >
+    <RadioButtonGroup name="reverse-group" legend="Radio group legend">
       <RadioButton
         id="reverse-radio-1"
         value="radio1"
@@ -212,14 +178,8 @@ export const ReverseRadioButtons: Story = () => {
 ReverseRadioButtons.storyName = "Reverse Radio Buttons";
 
 export const DisableRadioButtons: Story = () => {
-  const [value, setValue] = useState("");
   return (
-    <RadioButtonGroup
-      name="disable-group"
-      legend="Radio group legend"
-      value={value}
-      onChange={(ev) => setValue(ev.target.value)}
-    >
+    <RadioButtonGroup name="disable-group" legend="Radio group legend">
       <RadioButton
         id="disable-radio-1"
         value="radio1"
@@ -244,14 +204,8 @@ export const DisableRadioButtons: Story = () => {
 DisableRadioButtons.storyName = "Disable Radio Buttons";
 
 export const WithFieldHelp: Story = () => {
-  const [value, setValue] = useState("");
   return (
-    <RadioButtonGroup
-      name="field-help-group"
-      legend="Radio group legend"
-      value={value}
-      onChange={(ev) => setValue(ev.target.value)}
-    >
+    <RadioButtonGroup name="field-help-group" legend="Radio group legend">
       <RadioButton
         id="field-help-radio-1"
         value="radio1"
@@ -276,14 +230,8 @@ export const WithFieldHelp: Story = () => {
 WithFieldHelp.storyName = "With Field Help";
 
 export const WithLargeRadioButtons: Story = () => {
-  const [value, setValue] = useState("");
   return (
-    <RadioButtonGroup
-      name="large-group"
-      legend="Radio group legend"
-      value={value}
-      onChange={(ev) => setValue(ev.target.value)}
-    >
+    <RadioButtonGroup name="large-group" legend="Radio group legend">
       <RadioButton
         id="large-radio-1"
         value="radio1"
@@ -311,13 +259,10 @@ export const WithLargeRadioButtons: Story = () => {
 WithLargeRadioButtons.storyName = "With Large Radio Buttons";
 
 export const WithCustomStyledLabels: Story = () => {
-  const [value, setValue] = useState("");
   return (
     <RadioButtonGroup
       name="custom-styled-label-group"
       legend="Radio group legend"
-      value={value}
-      onChange={(ev) => setValue(ev.target.value)}
     >
       <RadioButton
         id="custom-styled-label-radio-1"
@@ -357,20 +302,11 @@ export const WithCustomStyledLabels: Story = () => {
 };
 WithCustomStyledLabels.storyName = "With Custom Styled Labels";
 
-export const Required: Story = () => {
-  const [value, setValue] = useState("");
-  return (
-    <RadioButtonGroup
-      name="radio-group-required"
-      required
-      legend="Required"
-      value={value}
-      onChange={(ev) => setValue(ev.target.value)}
-    >
-      <RadioButton id="radio-1" value="radio1" label="Radio Option 1" />
-      <RadioButton id="radio-2" value="radio2" label="Radio Option 2" />
-      <RadioButton id="radio-3" value="radio3" label="Radio Option 3" />
-    </RadioButtonGroup>
-  );
-};
+export const Required: Story = () => (
+  <RadioButtonGroup name="radio-group-required" required legend="Required">
+    <RadioButton id="radio-1" value="radio1" label="Radio Option 1" />
+    <RadioButton id="radio-2" value="radio2" label="Radio Option 2" />
+    <RadioButton id="radio-3" value="radio3" label="Radio Option 3" />
+  </RadioButtonGroup>
+);
 Required.storyName = "Required";

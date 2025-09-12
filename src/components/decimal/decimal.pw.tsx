@@ -104,7 +104,7 @@ test.describe("check props for Decimal component", () => {
       mount,
       page,
     }) => {
-      await mount(<DefaultStory precision={precision} />);
+      await mount(<Decimal precision={precision} />);
 
       const commonDataElementInputPreviewElement =
         commonDataElementInputPreview(page);
@@ -139,7 +139,7 @@ test.describe("check props for Decimal component", () => {
       mount,
       page,
     }) => {
-      await mount(<DefaultStory locale={locale} precision={3} />);
+      await mount(<Decimal locale={locale} precision={3} />);
 
       const commonDataElementInputPreviewElement =
         commonDataElementInputPreview(page);
@@ -157,7 +157,7 @@ test.describe("check props for Decimal component", () => {
   });
 
   test("should render Decimal with readOnly prop", async ({ mount, page }) => {
-    await mount(<DefaultStory readOnly />);
+    await mount(<Decimal readOnly />);
 
     const inputValue = "test";
     const commonDataElementInputPreviewElement =
@@ -176,7 +176,7 @@ test.describe("check props for Decimal component", () => {
       mount,
       page,
     }) => {
-      await mount(<DefaultStory maxWidth={maxWidth} />);
+      await mount(<Decimal maxWidth={maxWidth} />);
 
       const textboxParent = await textbox(page).evaluateHandle(
         (element: Element) => {
@@ -195,7 +195,7 @@ test.describe("check props for Decimal component", () => {
     mount,
     page,
   }) => {
-    await mount(<DefaultStory maxWidth="" />);
+    await mount(<Decimal maxWidth="" />);
 
     const textboxParent = await textbox(page).evaluateHandle(
       (element: Element) => {
@@ -217,7 +217,7 @@ test.describe("check Decimal input", () => {
       mount,
       page,
     }) => {
-      await mount(<DefaultStory fieldHelp={specificValue} />);
+      await mount(<Decimal fieldHelp={specificValue} />);
 
       const fieldHelpPreviewElement = fieldHelpPreview(page);
       await expect(fieldHelpPreviewElement).toHaveText(specificValue);
@@ -229,7 +229,7 @@ test.describe("check Decimal input", () => {
       mount,
       page,
     }) => {
-      await mount(<DefaultStory label={specificValue} />);
+      await mount(<Decimal label={specificValue} />);
 
       const getDataElementByValueElementLabel = getDataElementByValue(
         page,
@@ -244,7 +244,7 @@ test.describe("check Decimal input", () => {
       mount,
       page,
     }) => {
-      await mount(<DefaultStory label="Label" labelHelp={specificValue} />);
+      await mount(<Decimal label="Label" labelHelp={specificValue} />);
 
       const getDataElementByValueElementQuestion = getDataElementByValue(
         page,
@@ -261,7 +261,7 @@ test.describe("check Decimal input", () => {
       mount,
       page,
     }) => {
-      await mount(<DefaultStory prefix={prefix} />);
+      await mount(<Decimal prefix={prefix} />);
 
       const textboxPrefixElement = textboxPrefix(page);
       await expect(textboxPrefixElement).toHaveText(prefix);
@@ -275,7 +275,7 @@ test.describe("check Decimal input", () => {
     mount,
     page,
   }) => {
-    await mount(<DefaultStory prefix="foo" />);
+    await mount(<Decimal prefix="foo" />);
 
     const textboxInput = textbox(page);
     await expect(textboxInput).toHaveCSS("flex-direction", "row");
@@ -286,7 +286,7 @@ test.describe("check Decimal input", () => {
       mount,
       page,
     }) => {
-      await mount(<DefaultStory />);
+      await mount(<Decimal />);
 
       const commonDataElementInputPreviewElement =
         commonDataElementInputPreview(page);
@@ -307,7 +307,7 @@ test.describe("check Decimal input", () => {
     mount,
     page,
   }) => {
-    await mount(<DefaultStory />);
+    await mount(<Decimal />);
 
     const commonDataElementInputPreviewElement =
       commonDataElementInputPreview(page);
@@ -342,7 +342,7 @@ test.describe("allowEmptyValue", () => {
       page,
     }) => {
       await mount(
-        <DefaultStory
+        <Decimal
           precision={precisionValue}
           locale={localeValue}
           allowEmptyValue={false}
@@ -382,7 +382,7 @@ test.describe("allowEmptyValue", () => {
       page,
     }) => {
       await mount(
-        <DefaultStory
+        <Decimal
           precision={precisionValue}
           locale={localeValue}
           allowEmptyValue
@@ -400,6 +400,55 @@ test.describe("allowEmptyValue", () => {
         "",
       );
     });
+  });
+});
+
+test.describe("check events for Decimal component", () => {
+  (
+    [
+      ["1", "1.00"],
+      ["12", "12.00"],
+      ["123", "123.00"],
+    ] as [string, string][]
+  ).forEach(([rawValueTest, formattedValueTest]) => {
+    test(`should call onChange callback when a type event is triggered with ${rawValueTest} value`, async ({
+      mount,
+      page,
+    }) => {
+      let callbackCount = 0;
+      const callback: DecimalProps["onChange"] = () => {
+        callbackCount += 1;
+      };
+      await mount(<Decimal precision={2} onChange={callback} />);
+
+      const commonDataElementInputPreviewElement =
+        commonDataElementInputPreview(page);
+      await commonDataElementInputPreviewElement.fill(rawValueTest);
+      expect(callbackCount).toBe(1);
+      await commonDataElementInputPreviewElement.blur();
+      await expect(commonDataElementInputPreviewElement).toHaveAttribute(
+        "value",
+        formattedValueTest,
+      );
+    });
+  });
+
+  test("should call onBlur callback when a blur event is triggered", async ({
+    mount,
+    page,
+  }) => {
+    let callbackCount = 0;
+    const callback: DecimalProps["onBlur"] = () => {
+      callbackCount += 1;
+    };
+    await mount(<Decimal onBlur={callback} />);
+
+    const inputValue = "123";
+    const commonDataElementInputPreviewElement =
+      commonDataElementInputPreview(page);
+    await commonDataElementInputPreviewElement.fill(inputValue);
+    await commonDataElementInputPreviewElement.blur();
+    expect(callbackCount).toBe(1);
   });
 });
 
@@ -555,7 +604,7 @@ test("should have the expected border radius styling", async ({
   mount,
   page,
 }) => {
-  await mount(<DefaultStory />);
+  await mount(<Decimal />);
 
   const getElementElementInput = getElement(page, "input");
   await expect(getElementElementInput).toHaveCSS("border-radius", "4px");

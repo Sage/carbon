@@ -69,16 +69,6 @@ const selectOptions = [
 const SimpleForm = () => {
   const [date, setDate] = useState("01/06/1994");
   const [petDate, setPetDate] = useState("14/09/2020");
-
-  const [firstName, setFirstName] = useState("");
-  const [middleName, setMiddleName] = useState("");
-  const [surname, setSurname] = useState("");
-  const [placeOfBirth, setPlaceOfBirth] = useState("");
-  const [address, setAddress] = useState("");
-  const [petName, setPetName] = useState("");
-  const [tcChecked, setTcChecked] = useState(false);
-  const [favouriteColour, setFavouriteColour] = useState("0");
-
   return (
     <Form
       m={2}
@@ -88,37 +78,12 @@ const SimpleForm = () => {
         </Button>
       }
     >
-      <Textbox
-        label="First Name"
-        data-component="first-name"
-        value={firstName}
-        onChange={(e) => setFirstName(e.target.value)}
-      />
-      <Textbox
-        label="Middle Name"
-        data-component="middle-name"
-        value={middleName}
-        onChange={(e) => setMiddleName(e.target.value)}
-      />
-      <Textbox
-        label="Surname"
-        data-component="surname"
-        value={surname}
-        onChange={(e) => setSurname(e.target.value)}
-      />
-      <Textbox
-        label="Birth Place"
-        data-component="place-of-birth"
-        value={placeOfBirth}
-        onChange={(e) => setPlaceOfBirth(e.target.value)}
-      />
+      <Textbox label="First Name" data-component="first-name" />
+      <Textbox label="Middle Name" data-component="middle-name" />
+      <Textbox label="Surname" data-component="surname" />
+      <Textbox label="Birth Place" data-component="place-of-birth" />
 
-      <Textbox
-        label="Address"
-        data-component="Address"
-        value={address}
-        onChange={(e) => setAddress(e.target.value)}
-      />
+      <Textbox label="Address" data-component="Address" />
       <DateInput
         data-component="birthday-input"
         name="date"
@@ -128,22 +93,12 @@ const SimpleForm = () => {
           setDate(e.target.value.formattedValue)
         }
       />
-      <Select
-        label="Favourite Colour"
-        data-role="favourite-colour"
-        value={favouriteColour}
-        onChange={(e) => setFavouriteColour(e.target.value)}
-      >
+      <Select label="Favourite Colour" data-role="favourite-colour">
         {selectOptions.map((option) => (
           <Option key={option.name} value={option} text={option.name} />
         ))}
       </Select>
-      <Textbox
-        label="Pet Name"
-        data-component="pet-name"
-        value={petName}
-        onChange={(e) => setPetName(e.target.value)}
-      />
+      <Textbox label="Pet Name" data-component="pet-name" />
       <DateInput
         data-component="pet-birthday-input"
         name="date"
@@ -157,8 +112,6 @@ const SimpleForm = () => {
         name="checkbox"
         label="Check this box to agree to our terms and conditions"
         data-component="tc-checkbox"
-        checked={tcChecked}
-        onChange={(e) => setTcChecked(e.target.checked)}
       />
     </Form>
   );

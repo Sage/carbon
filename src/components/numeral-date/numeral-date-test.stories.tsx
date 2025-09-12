@@ -13,7 +13,6 @@ export default {
     chromatic: {
       disableSnapshot: true,
     },
-    themeProvider: { chromatic: { theme: "sage" } },
     controls: {
       exclude: [
         "value",
@@ -71,13 +70,13 @@ export const Default = (args: NumeralDateProps) => {
   return (
     <Box>
       <NumeralDate
+        onChange={handleChange}
         label="Numeral date"
         onBlur={handleBlur}
+        value={dateValue}
         name="numeralDate_name"
         id="numeralDate_id"
         {...args}
-        onChange={handleChange}
-        value={dateValue}
       />
     </Box>
   );
@@ -88,21 +87,6 @@ Default.args = {
 };
 
 export const Validations = (args: NumeralDateProps) => {
-  const dateDefault = {
-    dd: "",
-    mm: "",
-    yyyy: "",
-  };
-  const [value, setValue] = useState<NumeralDateProps["value"]>(dateDefault);
-  const [value2, setValue2] = useState<NumeralDateProps["value"]>(dateDefault);
-  const [value3, setValue3] = useState<NumeralDateProps["value"]>(dateDefault);
-  const [value4, setValue4] = useState<NumeralDateProps["value"]>(dateDefault);
-  const [value5, setValue5] = useState<NumeralDateProps["value"]>(dateDefault);
-  const [value6, setValue6] = useState<NumeralDateProps["value"]>(dateDefault);
-  const [value7, setValue7] = useState<NumeralDateProps["value"]>(dateDefault);
-  const [value8, setValue8] = useState<NumeralDateProps["value"]>(dateDefault);
-  const [value9, setValue9] = useState<NumeralDateProps["value"]>(dateDefault);
-
   return (
     <>
       <NumeralDate
@@ -110,33 +94,20 @@ export const Validations = (args: NumeralDateProps) => {
         error="Error Message"
         mb={2}
         {...args}
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
       />
       <NumeralDate
         label="Numeral date"
         warning="Warning Message"
         mb={2}
         {...args}
-        value={value2}
-        onChange={(ev) => setValue2(ev.target.value)}
       />
-      <NumeralDate
-        label="Numeral date"
-        info="Info Message"
-        mb={2}
-        {...args}
-        value={value3}
-        onChange={(ev) => setValue3(ev.target.value)}
-      />
+      <NumeralDate label="Numeral date" info="Info Message" mb={2} {...args} />
       <NumeralDate
         label="Numeral date"
         error="Error Message"
         validationOnLabel
         mb={2}
         {...args}
-        value={value4}
-        onChange={(ev) => setValue4(ev.target.value)}
       />
       <NumeralDate
         label="Numeral date"
@@ -144,8 +115,6 @@ export const Validations = (args: NumeralDateProps) => {
         validationOnLabel
         mb={2}
         {...args}
-        value={value5}
-        onChange={(ev) => setValue5(ev.target.value)}
       />
       <NumeralDate
         label="Numeral date"
@@ -153,33 +122,10 @@ export const Validations = (args: NumeralDateProps) => {
         validationOnLabel
         mb={2}
         {...args}
-        value={value6}
-        onChange={(ev) => setValue6(ev.target.value)}
       />
-      <NumeralDate
-        label="Numeral date"
-        error
-        mb={2}
-        {...args}
-        value={value7}
-        onChange={(ev) => setValue7(ev.target.value)}
-      />
-      <NumeralDate
-        label="Numeral date"
-        warning
-        mb={2}
-        {...args}
-        value={value8}
-        onChange={(ev) => setValue8(ev.target.value)}
-      />
-      <NumeralDate
-        label="Numeral date"
-        info
-        mb={2}
-        {...args}
-        value={value9}
-        onChange={(ev) => setValue9(ev.target.value)}
-      />
+      <NumeralDate label="Numeral date" error mb={2} {...args} />
+      <NumeralDate label="Numeral date" warning mb={2} {...args} />
+      <NumeralDate label="Numeral date" info mb={2} {...args} />
     </>
   );
 };
@@ -190,16 +136,6 @@ Validations.parameters = {
 };
 
 export const NewValidations = (args: NumeralDateProps) => {
-  const dateDefault = {
-    dd: "",
-    mm: "",
-    yyyy: "",
-  };
-  const [value, setValue] = useState<NumeralDateProps["value"]>(dateDefault);
-  const [value2, setValue2] = useState<NumeralDateProps["value"]>(dateDefault);
-  const [value3, setValue3] = useState<NumeralDateProps["value"]>(dateDefault);
-  const [value4, setValue4] = useState<NumeralDateProps["value"]>(dateDefault);
-
   return (
     <CarbonProvider validationRedesignOptIn>
       <NumeralDate
@@ -208,16 +144,12 @@ export const NewValidations = (args: NumeralDateProps) => {
         labelHelp="Hint text"
         mb={2}
         {...args}
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
       />
       <NumeralDate
         label="Numeral date"
         warning="Warning Message"
         mb={2}
         {...args}
-        value={value2}
-        onChange={(ev) => setValue2(ev.target.value)}
       />
       <NumeralDate
         validationMessagePositionTop={false}
@@ -226,16 +158,12 @@ export const NewValidations = (args: NumeralDateProps) => {
         labelHelp="Hint text"
         mb={2}
         {...args}
-        value={value3}
-        onChange={(ev) => setValue3(ev.target.value)}
       />
       <NumeralDate
         validationMessagePositionTop={false}
         label="Numeral date"
         warning="Warning Message"
         {...args}
-        value={value4}
-        onChange={(ev) => setValue4(ev.target.value)}
       />
     </CarbonProvider>
   );
@@ -248,24 +176,9 @@ NewValidations.parameters = {
 };
 
 export const InForm = () => {
-  const [dateValue, setDateValue] = useState<NumeralDateProps["value"]>({
-    dd: "",
-    mm: "",
-    yyyy: "",
-  });
-  const handleChange: NumeralDateProps["onChange"] = (event) => {
-    setDateValue(event.target.value);
-    action("change")(event.target.value);
-  };
-
   return (
     <form>
-      <NumeralDate
-        dateFormat={["dd", "mm", "yyyy"]}
-        label="Label"
-        value={dateValue}
-        onChange={handleChange}
-      />
+      <NumeralDate dateFormat={["dd", "mm", "yyyy"]} label="Label" />
       <br />
       <button type="submit">Submit</button>
     </form>
@@ -275,18 +188,6 @@ export const InForm = () => {
 InForm.storyName = "In form";
 
 export const LabelAlign = ({ ...args }) => {
-  const defaultDate = { dd: "", mm: "", yyyy: "" };
-  const [dateValue, setDateValue] =
-    useState<NumeralDateProps["value"]>(defaultDate);
-  const [dateValue2, setDateValue2] =
-    useState<NumeralDateProps["value"]>(defaultDate);
-  const [dateValue3, setDateValue3] =
-    useState<NumeralDateProps["value"]>(defaultDate);
-  const [dateValue4, setDateValue4] =
-    useState<NumeralDateProps["value"]>(defaultDate);
-  const [dateValue5, setDateValue5] =
-    useState<NumeralDateProps["value"]>(defaultDate);
-
   return (
     <Box ml={2}>
       <CarbonProvider validationRedesignOptIn>
@@ -295,8 +196,6 @@ export const LabelAlign = ({ ...args }) => {
           label="labelAlign left"
           labelHelp="labelHelp"
           {...args}
-          value={dateValue}
-          onChange={(event) => setDateValue(event.target.value)}
         />
         <NumeralDate
           mb={2}
@@ -304,8 +203,6 @@ export const LabelAlign = ({ ...args }) => {
           labelHelp="labelHelp"
           labelAlign="right"
           {...args}
-          value={dateValue2}
-          onChange={(event) => setDateValue2(event.target.value)}
         />
       </CarbonProvider>
       <NumeralDate
@@ -314,8 +211,6 @@ export const LabelAlign = ({ ...args }) => {
         labelAlign="right"
         fieldLabelsAlign="right"
         {...args}
-        value={dateValue3}
-        onChange={(event) => setDateValue3(event.target.value)}
       />
       <NumeralDate
         mb={2}
@@ -324,16 +219,12 @@ export const LabelAlign = ({ ...args }) => {
         labelInline
         labelWidth={30}
         {...args}
-        value={dateValue4}
-        onChange={(event) => setDateValue4(event.target.value)}
       />
       <NumeralDate
         label="inline labelAlign right"
         labelInline
         labelWidth={30}
         {...args}
-        value={dateValue5}
-        onChange={(event) => setDateValue5(event.target.value)}
       />
     </Box>
   );
@@ -348,50 +239,11 @@ LabelAlign.parameters = {
 };
 
 export const InlineLabelsSizes = ({ ...args }) => {
-  const [dateValue, setDateValue] = useState<NumeralDateProps["value"]>({
-    dd: "",
-    mm: "",
-    yyyy: "",
-  });
-
-  const [dateValue2, setDateValue2] = useState<NumeralDateProps["value"]>({
-    dd: "",
-    mm: "",
-    yyyy: "",
-  });
-
-  const [dateValue3, setDateValue3] = useState<NumeralDateProps["value"]>({
-    dd: "",
-    mm: "",
-    yyyy: "",
-  });
-
   return (
     <Box ml={2}>
-      <NumeralDate
-        mb={2}
-        label="inline small"
-        size="small"
-        {...args}
-        value={dateValue}
-        onChange={(event) => setDateValue(event.target.value)}
-      />
-      <NumeralDate
-        mb={2}
-        label="inline medium"
-        size="medium"
-        {...args}
-        value={dateValue2}
-        onChange={(event) => setDateValue2(event.target.value)}
-      />
-      <NumeralDate
-        mb={2}
-        label="inline large"
-        size="large"
-        {...args}
-        value={dateValue3}
-        onChange={(event) => setDateValue3(event.target.value)}
-      />
+      <NumeralDate mb={2} label="inline small" size="small" {...args} />
+      <NumeralDate mb={2} label="inline medium" size="medium" {...args} />
+      <NumeralDate mb={2} label="inline large" size="large" {...args} />
     </Box>
   );
 };

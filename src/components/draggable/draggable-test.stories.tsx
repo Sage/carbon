@@ -26,35 +26,19 @@ export const Default = () => {
   return (
     <DraggableContainer getOrder={handleUpdate}>
       <DraggableItem key="1" id={1}>
-        <Checkbox
-          label="Draggable Label One"
-          checked={false}
-          onChange={() => {}}
-        />
+        <Checkbox label="Draggable Label One" />
       </DraggableItem>
       <DraggableItem key="2" id={2}>
-        <Checkbox
-          label="Draggable Label Two"
-          checked={false}
-          onChange={() => {}}
-        />
+        <Checkbox label="Draggable Label Two" />
       </DraggableItem>
       <DraggableItem key="3" id={3}>
-        <Checkbox
-          label="Draggable Label Three"
-          checked={false}
-          onChange={() => {}}
-        />
+        <Checkbox label="Draggable Label Three" />
       </DraggableItem>
       <DraggableItem key="4" id={4}>
-        <Checkbox
-          label="Draggable Label Four"
-          checked={false}
-          onChange={() => {}}
-        />
+        <Checkbox label="Draggable Label Four" />
       </DraggableItem>
       <DraggableItem key="5" id={5}>
-        <Textbox label="Draggable Textbox" value="" onChange={() => {}} />
+        <Textbox label="Draggable Textbox" />
       </DraggableItem>
     </DraggableContainer>
   );
@@ -71,35 +55,19 @@ export const DraggableFlexDirection = () => {
   return (
     <DraggableContainer getOrder={handleUpdate} flexDirection="row-reverse">
       <DraggableItem key="1" id={1}>
-        <Checkbox
-          label="Draggable Label One"
-          checked={false}
-          onChange={() => {}}
-        />
+        <Checkbox label="Draggable Label One" />
       </DraggableItem>
       <DraggableItem key="2" id={2}>
-        <Checkbox
-          label="Draggable Label Two"
-          checked={false}
-          onChange={() => {}}
-        />
+        <Checkbox label="Draggable Label Two" />
       </DraggableItem>
       <DraggableItem key="3" id={3}>
-        <Checkbox
-          label="Draggable Label Three"
-          checked={false}
-          onChange={() => {}}
-        />
+        <Checkbox label="Draggable Label Three" />
       </DraggableItem>
       <DraggableItem key="4" id={4}>
-        <Checkbox
-          label="Draggable Label Four"
-          checked={false}
-          onChange={() => {}}
-        />
+        <Checkbox label="Draggable Label Four" />
       </DraggableItem>
       <DraggableItem key="5" id={5}>
-        <Textbox label="Draggable Textbox" value="" onChange={() => {}} />
+        <Textbox label="Draggable Textbox" />
       </DraggableItem>
     </DraggableContainer>
   );
@@ -122,32 +90,16 @@ export const DraggableCustom = ({
   return (
     <DraggableContainer {...props} getOrder={handleUpdate}>
       <DraggableItem key="1" id={1}>
-        <Checkbox
-          label="Draggable Label One"
-          checked={false}
-          onChange={() => {}}
-        />
+        <Checkbox label="Draggable Label One" />
       </DraggableItem>
       <DraggableItem key="2" id={2}>
-        <Checkbox
-          label="Draggable Label Two"
-          checked={false}
-          onChange={() => {}}
-        />
+        <Checkbox label="Draggable Label Two" />
       </DraggableItem>
       <DraggableItem key="3" id={3}>
-        <Checkbox
-          label="Draggable Label Three"
-          checked={false}
-          onChange={() => {}}
-        />
+        <Checkbox label="Draggable Label Three" />
       </DraggableItem>
       <DraggableItem key="4" id={4}>
-        <Checkbox
-          label="Draggable Label Four"
-          checked={false}
-          onChange={() => {}}
-        />
+        <Checkbox label="Draggable Label Four" />
       </DraggableItem>
     </DraggableContainer>
   );
@@ -167,34 +119,18 @@ export const DraggableDifferentContainers = ({
     <Box>
       <DraggableContainer mb={9} getOrder={handleUpdate} {...props}>
         <DraggableItem key="4" id={4}>
-          <Checkbox
-            label="Draggable Label Four"
-            checked={false}
-            onChange={() => {}}
-          />
+          <Checkbox label="Draggable Label Four" />
         </DraggableItem>
         <DraggableItem key="5" id={5}>
-          <Checkbox
-            label="Draggable Label Five"
-            checked={false}
-            onChange={() => {}}
-          />
+          <Checkbox label="Draggable Label Five" />
         </DraggableItem>
         <DraggableItem key="6" id={6}>
-          <Checkbox
-            label="Draggable Label Six"
-            checked={false}
-            onChange={() => {}}
-          />
+          <Checkbox label="Draggable Label Six" />
         </DraggableItem>
       </DraggableContainer>
       <DraggableContainer mt={9}>
         <DraggableItem key="7" id={7}>
-          <Checkbox
-            label="Draggable Label Seven"
-            checked={false}
-            onChange={() => {}}
-          />
+          <Checkbox label="Draggable Label Seven" />
         </DraggableItem>
       </DraggableContainer>
     </Box>

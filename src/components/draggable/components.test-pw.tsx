@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { DraggableContainer, DraggableContainerProps, DraggableItem } from ".";
 import { Checkbox } from "../checkbox";
 
@@ -12,24 +12,16 @@ export const SimpleDraggable = ({ getOrder }: DraggableContainerProps) => (
 
 export const WithDraggableCheckbox = ({
   getOrder,
-}: DraggableContainerProps) => {
-  const [value, setValue] = useState(false);
-
-  return (
-    <DraggableContainer getOrder={getOrder}>
-      <DraggableItem id="apple">
-        <Checkbox
-          label="Apple"
-          checked={value}
-          onChange={() => setValue(!value)}
-        />
-      </DraggableItem>
-      <DraggableItem id="saturn">Saturn</DraggableItem>
-      <DraggableItem id="uranus">Uranus</DraggableItem>
-      <DraggableItem id="neptune">Neptune</DraggableItem>
-    </DraggableContainer>
-  );
-};
+}: DraggableContainerProps) => (
+  <DraggableContainer getOrder={getOrder}>
+    <DraggableItem id="apple">
+      <Checkbox label="Apple" />
+    </DraggableItem>
+    <DraggableItem id="saturn">Saturn</DraggableItem>
+    <DraggableItem id="uranus">Uranus</DraggableItem>
+    <DraggableItem id="neptune">Neptune</DraggableItem>
+  </DraggableContainer>
+);
 
 export const WithMultipleContainers = ({
   getOrder,

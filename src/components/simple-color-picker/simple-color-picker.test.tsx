@@ -3,6 +3,7 @@ import { act, render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { SimpleColor, SimpleColorPicker } from ".";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import Logger from "../../__internal__/utils/logger";
 
 jest.mock("../../__internal__/utils/logger");
 
@@ -14,15 +15,21 @@ afterAll(() => {
   jest.useRealTimers();
 });
 
+test("should display deprecation warning once when rendered as uncontrolled", () => {
+  const loggerSpy = jest.spyOn(Logger, "deprecate");
+  render(<SimpleColorPicker legend="uncontrolled" name="uncontrolled" />);
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "Uncontrolled behaviour in `Simple Color Picker` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
+  );
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
+
+  loggerSpy.mockClear();
+});
+
 testStyledSystemMargin(
   (props) => (
-    <SimpleColorPicker
-      legend="SimpleColorPicker Legend"
-      name="test"
-      value="transparent"
-      onChange={jest.fn}
-      {...props}
-    >
+    <SimpleColorPicker legend="SimpleColorPicker Legend" name="test" {...props}>
       <SimpleColor id="foo" key="bar" value="#00A376" defaultChecked />
     </SimpleColorPicker>
   ),
@@ -36,8 +43,6 @@ test("renders with provided data- attributes", () => {
       name="test"
       data-role="bar"
       data-element="baz"
-      value="transparent"
-      onChange={jest.fn}
     >
       <SimpleColor value="#00A376" />
     </SimpleColorPicker>,
@@ -59,8 +64,6 @@ test("the `onKeyDown` callback prop is called when the user presses a key", asyn
       onKeyDown={onKeyDown}
       legend="SimpleColorPicker Legend"
       name="test"
-      value="#00A376"
-      onChange={jest.fn}
     >
       <SimpleColor value="#00A376" />
       <SimpleColor value="#0073C1" />
@@ -78,12 +81,7 @@ test("the `onKeyDown` callback prop is called when the user presses a key", asyn
 
 test("when the `defaultChecked` prop is set on one of the `SimpleColor` children, the corresponding input is checked", () => {
   render(
-    <SimpleColorPicker
-      legend="SimpleColorPicker Legend"
-      name="test"
-      value="#0073C1"
-      onChange={jest.fn}
-    >
+    <SimpleColorPicker legend="SimpleColorPicker Legend" name="test">
       <SimpleColor value="#00A376" />
       <SimpleColor value="#0073C1" defaultChecked />
       <SimpleColor value="#582C83" />
@@ -105,8 +103,6 @@ test("the `data-down` attribute is set to `false` for colors on the bottom row, 
       childWidth="40"
       legend="SimpleColorPicker Legend"
       name="test"
-      value="#00A376"
-      onChange={jest.fn}
     >
       <SimpleColor value="#00A376" />
       <SimpleColor value="#0073C1" />
@@ -133,7 +129,6 @@ test("pressing the left arrow key when focused on the first color changes select
       onChange={onChange}
       legend="SimpleColorPicker Legend"
       name="test"
-      value="#00A376"
     >
       <SimpleColor value="#00A376" />
       <SimpleColor value="#0073C1" />
@@ -159,37 +154,6 @@ test("pressing the right arrow key changes selection to the next color", async (
   const onChange = jest.fn();
   render(
     <SimpleColorPicker
-      value=""
-      onChange={onChange}
-      legend="SimpleColorPicker Legend"
-      name="test"
-    >
-      <SimpleColor value="#00A376" />
-      <SimpleColor value="#0073C1" />
-      <SimpleColor value="#582C83" />
-    </SimpleColorPicker>,
-  );
-  act(() => {
-    screen.getAllByRole("radio")[2].focus();
-  });
-  await user.keyboard("{ArrowRight}");
-
-  expect(onChange).toHaveBeenCalledTimes(1);
-  expect(onChange).toHaveBeenCalledWith(
-    expect.objectContaining({
-      target: expect.objectContaining({ value: "#00A376" }),
-    }),
-  );
-  expect(screen.getAllByRole("radio")[0]).toHaveFocus();
-});
-
-// coverage
-test("pressing the right arrow key when the middle colour is focused changes selection to the next color", async () => {
-  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-  const onChange = jest.fn();
-  render(
-    <SimpleColorPicker
-      value=""
       onChange={onChange}
       legend="SimpleColorPicker Legend"
       name="test"
@@ -213,12 +177,39 @@ test("pressing the right arrow key when the middle colour is focused changes sel
   expect(screen.getAllByRole("radio")[2]).toHaveFocus();
 });
 
+test("pressing the right arrow key when focused on the last color changes selection to the first color", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  const onChange = jest.fn();
+  render(
+    <SimpleColorPicker
+      onChange={onChange}
+      legend="SimpleColorPicker Legend"
+      name="test"
+    >
+      <SimpleColor value="#00A376" />
+      <SimpleColor value="#0073C1" />
+      <SimpleColor value="#582C83" />
+    </SimpleColorPicker>,
+  );
+  act(() => {
+    screen.getAllByRole("radio")[2].focus();
+  });
+  await user.keyboard("{ArrowRight}");
+
+  expect(onChange).toHaveBeenCalledTimes(1);
+  expect(onChange).toHaveBeenCalledWith(
+    expect.objectContaining({
+      target: expect.objectContaining({ value: "#00A376" }),
+    }),
+  );
+  expect(screen.getAllByRole("radio")[0]).toHaveFocus();
+});
+
 test("when the input has multiple rows, pressing the up arrow key changes selection to the color immediately above", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const onChange = jest.fn();
   render(
     <SimpleColorPicker
-      value=""
       onChange={onChange}
       maxWidth="100"
       childWidth="100"
@@ -254,7 +245,6 @@ test("when focus is already on the top row, pressing the up arrow key does not c
       childWidth="40"
       legend="SimpleColorPicker Legend"
       name="test"
-      value="#00A376"
     >
       <SimpleColor value="#00A376" />
       <SimpleColor value="#0073C1" />
@@ -280,7 +270,6 @@ test("when the input has multiple rows, pressing the down arrow key changes sele
       childWidth="100"
       legend="SimpleColorPicker Legend"
       name="test"
-      value=""
     >
       <SimpleColor value="#00A376" />
       <SimpleColor value="#0073C1" />
@@ -311,7 +300,6 @@ test("when focus is already on the bottom row, pressing the down arrow key does 
       childWidth="40"
       legend="SimpleColorPicker Legend"
       name="test"
-      value="#00A376"
     >
       <SimpleColor value="#00A376" />
       <SimpleColor value="#0073C1" />
@@ -336,7 +324,6 @@ test("focus is not changed if a non-arrow key is pressed", async () => {
       onChange={onChange}
       legend="SimpleColorPicker Legend"
       name="test"
-      value="#00A376"
     >
       <SimpleColor value="#00A376" />
       <SimpleColor value="#0073C1" />
@@ -360,8 +347,6 @@ test("the `onBlur` callback prop should not be called if focus moves from one co
       onBlur={onBlur}
       legend="SimpleColorPicker Legend"
       name="test"
-      value="#00A376"
-      onChange={jest.fn}
     >
       <SimpleColor value="#00A376" />
       <SimpleColor value="#0073C1" />
@@ -385,8 +370,6 @@ test("the `onBlur` callback prop should not be called if the currently-focused c
       onBlur={onBlur}
       legend="SimpleColorPicker Legend"
       name="test"
-      value="#00A376"
-      onChange={jest.fn}
     >
       <SimpleColor value="#00A376" />
       <SimpleColor value="#0073C1" />
@@ -409,8 +392,6 @@ test("the `onBlur` callback prop should be called if an input is blurred by clic
       onBlur={onBlur}
       legend="SimpleColorPicker Legend"
       name="test"
-      value="#00A376"
-      onChange={jest.fn}
     >
       <SimpleColor value="#00A376" />
       <SimpleColor value="#0073C1" />
@@ -438,12 +419,7 @@ test("validates the incorrect children prop", () => {
 
   expect(() => {
     render(
-      <SimpleColorPicker
-        name="test"
-        legend="SimpleColorPicker Legend"
-        value="#00A376"
-        onChange={jest.fn}
-      >
+      <SimpleColorPicker name="test" legend="SimpleColorPicker Legend">
         <p>Invalid children</p>
         <p>Invalid children</p>
       </SimpleColorPicker>,
@@ -470,8 +446,6 @@ test("returns a list of inputs in the ref", () => {
         ref={simpleColorPickerData}
         legend="SimpleColorPicker Legend"
         name="test"
-        value="#00A376"
-        onChange={jest.fn}
       >
         <SimpleColor value="#00A376" />
         <SimpleColor value="#0073C1" />
@@ -492,13 +466,7 @@ test("returns a list of inputs in the ref", () => {
 
 test("the `required` prop is passed to the inputs", () => {
   render(
-    <SimpleColorPicker
-      required
-      legend="SimpleColorPicker Legend"
-      name="test"
-      value="#00A376"
-      onChange={jest.fn}
-    >
+    <SimpleColorPicker required legend="SimpleColorPicker Legend" name="test">
       <SimpleColor value="#00A376" />
       <SimpleColor value="#0073C1" />
       <SimpleColor value="#582C83" />
@@ -513,12 +481,7 @@ test("the `required` prop is passed to the inputs", () => {
 test("empty children are accepted without error", () => {
   expect(() => {
     render(
-      <SimpleColorPicker
-        name="test"
-        legend="SimpleColorPicker Legend"
-        value="#00A376"
-        onChange={jest.fn}
-      >
+      <SimpleColorPicker name="test" legend="SimpleColorPicker Legend">
         {null}
         {false}
         {undefined}
@@ -537,8 +500,6 @@ test.each(["error", "warning", "info"])(
         validationOnLegend
         legend="SimpleColorPicker Legend"
         name="test"
-        value="#00A376"
-        onChange={jest.fn}
       />,
     );
 
@@ -547,22 +508,3 @@ test.each(["error", "warning", "info"])(
     ).toBeVisible();
   },
 );
-
-// coverage for transparent sample
-test("renders a transparent color sample when value is 'transparent'", () => {
-  render(
-    <SimpleColorPicker
-      legend="SimpleColorPicker Legend"
-      name="test"
-      data-role="bar"
-      data-element="baz"
-      value="transparent"
-      onChange={jest.fn}
-    >
-      <SimpleColor value="transparent" aria-label="transparent" />
-      <SimpleColor value="#00A376" />
-    </SimpleColorPicker>,
-  );
-
-  expect(screen.getByRole("radio", { name: "transparent" })).toBeChecked();
-});

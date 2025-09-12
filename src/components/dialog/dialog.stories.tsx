@@ -92,18 +92,18 @@ export const DefaultStory: Story = {
             <Typography>
               This is an example of a dialog with a Form as content
             </Typography>
-            <Textbox label="First Name" value="" onChange={() => {}} />
-            <Textbox label="Middle Name" value="" onChange={() => {}} />
-            <Textbox label="Surname" value="" onChange={() => {}} />
-            <Textbox label="Birth Place" value="" onChange={() => {}} />
-            <Textbox label="Favourite Colour" value="" onChange={() => {}} />
-            <Textbox label="Address" value="" onChange={() => {}} />
-            <Textbox label="First Name" value="" onChange={() => {}} />
-            <Textbox label="Middle Name" value="" onChange={() => {}} />
-            <Textbox label="Surname" value="" onChange={() => {}} />
-            <Textbox label="Birth Place" value="" onChange={() => {}} />
-            <Textbox label="Favourite Colour" value="" onChange={() => {}} />
-            <Textbox label="Address" value="" onChange={() => {}} />
+            <Textbox label="First Name" />
+            <Textbox label="Middle Name" />
+            <Textbox label="Surname" />
+            <Textbox label="Birth Place" />
+            <Textbox label="Favourite Colour" />
+            <Textbox label="Address" />
+            <Textbox label="First Name" />
+            <Textbox label="Middle Name" />
+            <Textbox label="Surname" />
+            <Textbox label="Birth Place" />
+            <Textbox label="Favourite Colour" />
+            <Textbox label="Address" />
           </Form>
         </Dialog>
       </>
@@ -161,18 +161,18 @@ export const RestoreFocusOnCloseStory: Story = () => {
           <Typography>
             This is an example of a dialog with a Form as content
           </Typography>
-          <Textbox label="First Name" value="" onChange={() => {}} />
-          <Textbox label="Middle Name" value="" onChange={() => {}} />
-          <Textbox label="Surname" value="" onChange={() => {}} />
-          <Textbox label="Birth Place" value="" onChange={() => {}} />
-          <Textbox label="Favourite Colour" value="" onChange={() => {}} />
-          <Textbox label="Address" value="" onChange={() => {}} />
-          <Textbox label="First Name" value="" onChange={() => {}} />
-          <Textbox label="Middle Name" value="" onChange={() => {}} />
-          <Textbox label="Surname" value="" onChange={() => {}} />
-          <Textbox label="Birth Place" value="" onChange={() => {}} />
-          <Textbox label="Favourite Colour" value="" onChange={() => {}} />
-          <Textbox label="Address" value="" onChange={() => {}} />
+          <Textbox label="First Name" />
+          <Textbox label="Middle Name" />
+          <Textbox label="Surname" />
+          <Textbox label="Birth Place" />
+          <Textbox label="Favourite Colour" />
+          <Textbox label="Address" />
+          <Textbox label="First Name" />
+          <Textbox label="Middle Name" />
+          <Textbox label="Surname" />
+          <Textbox label="Birth Place" />
+          <Textbox label="Favourite Colour" />
+          <Textbox label="Address" />
         </Form>
       </Dialog>
     </>
@@ -221,33 +221,13 @@ export const WithHelp: Story = () => {
           }
         >
           <Box p="24px" bg="slateTint90" ml="88px">
-            <Textbox
-              labelInline
-              label="Property Name"
-              value=""
-              onChange={() => {}}
-            />
+            <Textbox labelInline label="Property Name" />
             <Fieldset>
-              <Textbox
-                labelInline
-                label="Address Line 1"
-                value=""
-                onChange={() => {}}
-              />
-              <Textbox
-                labelInline
-                label="Address Line 2"
-                value=""
-                onChange={() => {}}
-              />
-              <Textbox labelInline label="Town" value="" onChange={() => {}} />
-              <Textbox labelInline label="City" value="" onChange={() => {}} />
-              <Textbox
-                labelInline
-                label="Postcode"
-                value=""
-                onChange={() => {}}
-              />
+              <Textbox labelInline label="Address Line 1" />
+              <Textbox labelInline label="Address Line 2" />
+              <Textbox labelInline label="Town" />
+              <Textbox labelInline label="City" />
+              <Textbox labelInline label="Postcode" />
             </Fieldset>
           </Box>
         </Form>
@@ -282,49 +262,13 @@ export const LoadingContent: Story = () => {
           <Loader isActive isInsideButton={false} size="small" />
         ) : (
           <>
-            <Textbox
-              label="Textbox 1"
-              labelInline
-              autoFocus
-              value=""
-              onChange={() => {}}
-            />
-            <Textbox
-              label="Textbox 2"
-              labelInline
-              value=""
-              onChange={() => {}}
-            />
-            <Textbox
-              label="Textbox 3"
-              labelInline
-              value=""
-              onChange={() => {}}
-            />
-            <Textbox
-              label="Textbox 4"
-              labelInline
-              value=""
-              onChange={() => {}}
-            />
-            <Textbox
-              label="Textbox 5"
-              labelInline
-              value=""
-              onChange={() => {}}
-            />
-            <Textbox
-              label="Textbox 6"
-              labelInline
-              value=""
-              onChange={() => {}}
-            />
-            <Textbox
-              label="Textbox 7"
-              labelInline
-              value=""
-              onChange={() => {}}
-            />
+            <Textbox label="Textbox 1" labelInline autoFocus />
+            <Textbox label="Textbox 2" labelInline />
+            <Textbox label="Textbox 3" labelInline />
+            <Textbox label="Textbox 4" labelInline />
+            <Textbox label="Textbox 5" labelInline />
+            <Textbox label="Textbox 6" labelInline />
+            <Textbox label="Textbox 7" labelInline />
           </>
         )}
       </Dialog>
@@ -363,7 +307,7 @@ export const FocusingADifferentFirstElement: Story = () => {
             This should be focused first now
           </Button>
         </Box>
-        <Textbox label="Not focused" value="" onChange={() => {}} />
+        <Textbox label="Not focused" />
       </Dialog>
       <Button ml={2} onClick={() => setIsOpenTwo(true)}>
         Open Demo using autoFocus
@@ -384,12 +328,7 @@ export const FocusingADifferentFirstElement: Story = () => {
           <Button onClick={() => setIsOpenTwo(false)}>Not focused</Button>
           <Button onClick={() => setIsOpenTwo(false)}>Not focused</Button>
         </Box>
-        <Textbox
-          autoFocus
-          label="This should be focused first now"
-          value=""
-          onChange={() => {}}
-        />
+        <Textbox autoFocus label="This should be focused first now" />
       </Dialog>
     </>
   );
@@ -439,9 +378,9 @@ export const OtherFocusableContainers: Story = () => {
           <Typography>
             This is an example of a dialog with a Form as content
           </Typography>
-          <Textbox label="First Name" value="" onChange={() => {}} />
-          <Textbox label="Middle Name" value="" onChange={() => {}} />
-          <Textbox label="Surname" value="" onChange={() => {}} />
+          <Textbox label="First Name" />
+          <Textbox label="Middle Name" />
+          <Textbox label="Surname" />
           <Button onClick={() => setIsToast1Open(true)}>
             Show first toast
           </Button>
@@ -514,12 +453,12 @@ export const Responsive: Story = () => {
           <Typography>
             This is an example of a dialog with a Form as content
           </Typography>
-          <Textbox label="First Name" value="" onChange={() => {}} />
-          <Textbox label="Middle Name" value="" onChange={() => {}} />
-          <Textbox label="Surname" value="" onChange={() => {}} />
-          <Textbox label="Birth Place" value="" onChange={() => {}} />
-          <Textbox label="Favourite Colour" value="" onChange={() => {}} />
-          <Textbox label="Address" value="" onChange={() => {}} />
+          <Textbox label="First Name" />
+          <Textbox label="Middle Name" />
+          <Textbox label="Surname" />
+          <Textbox label="Birth Place" />
+          <Textbox label="Favourite Colour" />
+          <Textbox label="Address" />
         </Form>
       </Dialog>
     </>
@@ -603,8 +542,8 @@ export const TopModalOverride: Story = () => {
         subtitle="Yet I am not the bottom modal"
         topModalOverride
       >
-        <Textbox label="First Name" value="" onChange={() => {}} />
-        <Textbox label="Middle Name" value="" onChange={() => {}} />
+        <Textbox label="First Name" />
+        <Textbox label="Middle Name" />
       </Dialog>
       <Dialog
         open={isOpenDialog2 && isOpenAll}
@@ -613,8 +552,8 @@ export const TopModalOverride: Story = () => {
         subtitle="Yet I am the top modal"
         topModalOverride
       >
-        <Textbox label="First Name" value="" onChange={() => {}} />
-        <Textbox label="Middle Name" value="" onChange={() => {}} />
+        <Textbox label="First Name" />
+        <Textbox label="Middle Name" />
       </Dialog>
       <Dialog
         open={isOpenDialog3 && isOpenAll}
@@ -622,8 +561,8 @@ export const TopModalOverride: Story = () => {
         title="I rendered last"
         subtitle="Yet I am the bottom modal"
       >
-        <Textbox label="First Name" value="" onChange={() => {}} />
-        <Textbox label="Middle Name" value="" onChange={() => {}} />
+        <Textbox label="First Name" />
+        <Textbox label="Middle Name" />
       </Dialog>
     </>
   );
@@ -681,30 +620,30 @@ export const FullScreenDefault: Story = () => {
           <Box>
             This is an example of a full screen Dialog with a Form as content
           </Box>
-          <Textbox label="First Name" value="" onChange={() => {}} />
-          <Textbox label="Middle Name" value="" onChange={() => {}} />
-          <Textbox label="Surname" value="" onChange={() => {}} />
-          <Textbox label="Birth Place" value="" onChange={() => {}} />
-          <Textbox label="Favourite Colour" value="" onChange={() => {}} />
-          <Textbox label="Address" value="" onChange={() => {}} />
-          <Textbox label="First Name" value="" onChange={() => {}} />
-          <Textbox label="Middle Name" value="" onChange={() => {}} />
-          <Textbox label="Surname" value="" onChange={() => {}} />
-          <Textbox label="Birth Place" value="" onChange={() => {}} />
-          <Textbox label="Favourite Colour" value="" onChange={() => {}} />
-          <Textbox label="Address" value="" onChange={() => {}} />
-          <Textbox label="First Name" value="" onChange={() => {}} />
-          <Textbox label="Middle Name" value="" onChange={() => {}} />
-          <Textbox label="Surname" value="" onChange={() => {}} />
-          <Textbox label="Birth Place" value="" onChange={() => {}} />
-          <Textbox label="Favourite Colour" value="" onChange={() => {}} />
-          <Textbox label="Address" value="" onChange={() => {}} />
-          <Textbox label="First Name" value="" onChange={() => {}} />
-          <Textbox label="Middle Name" value="" onChange={() => {}} />
-          <Textbox label="Surname" value="" onChange={() => {}} />
-          <Textbox label="Birth Place" value="" onChange={() => {}} />
-          <Textbox label="Favourite Colour" value="" onChange={() => {}} />
-          <Textbox label="Address" value="" onChange={() => {}} />
+          <Textbox label="First Name" />
+          <Textbox label="Middle Name" />
+          <Textbox label="Surname" />
+          <Textbox label="Birth Place" />
+          <Textbox label="Favourite Colour" />
+          <Textbox label="Address" />
+          <Textbox label="First Name" />
+          <Textbox label="Middle Name" />
+          <Textbox label="Surname" />
+          <Textbox label="Birth Place" />
+          <Textbox label="Favourite Colour" />
+          <Textbox label="Address" />
+          <Textbox label="First Name" />
+          <Textbox label="Middle Name" />
+          <Textbox label="Surname" />
+          <Textbox label="Birth Place" />
+          <Textbox label="Favourite Colour" />
+          <Textbox label="Address" />
+          <Textbox label="First Name" />
+          <Textbox label="Middle Name" />
+          <Textbox label="Surname" />
+          <Textbox label="Birth Place" />
+          <Textbox label="Favourite Colour" />
+          <Textbox label="Address" />
         </Form>
       </Dialog>
     </>

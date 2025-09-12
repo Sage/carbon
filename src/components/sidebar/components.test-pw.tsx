@@ -204,8 +204,6 @@ export const SidebarComponentWithSubHeading = (
 };
 
 export const SidebarBackgroundScrollTestComponent = () => {
-  const [value, setValue] = useState("");
-
   return (
     <Box height="2000px" position="relative">
       <Box
@@ -217,13 +215,7 @@ export const SidebarBackgroundScrollTestComponent = () => {
         I should not be scrolled into view
       </Box>
       <Sidebar open onCancel={() => {}}>
-        <Textbox
-          label="textbox"
-          value={value}
-          onChange={(e) => {
-            setValue(e.target.value);
-          }}
-        />
+        <Textbox label="textbox" />
       </Sidebar>
     </Box>
   );
@@ -232,8 +224,6 @@ export const SidebarBackgroundScrollTestComponent = () => {
 export const SidebarBackgroundScrollWithOtherFocusableContainers = () => {
   const toast1Ref = useRef(null);
   const toast2Ref = useRef(null);
-  const [value, setValue] = useState("");
-
   return (
     <Box height="2000px" position="relative">
       <Box
@@ -249,13 +239,7 @@ export const SidebarBackgroundScrollWithOtherFocusableContainers = () => {
         onCancel={() => {}}
         focusableContainers={[toast1Ref, toast2Ref]}
       >
-        <Textbox
-          label="textbox"
-          value={value}
-          onChange={(e) => {
-            setValue(e.target.value);
-          }}
-        />
+        <Textbox label="textbox" />
       </Sidebar>
       <Toast open onDismiss={() => {}} ref={toast1Ref} targetPortalId="stacked">
         Toast message 1
@@ -272,9 +256,6 @@ export const SidebarComponentFocusable = (props: Partial<SidebarProps>) => {
   const [isToastOpen, setIsToastOpen] = React.useState(false);
   const toastRef = React.useRef(null);
   const CUSTOM_SELECTOR = "button, .focusable-container input";
-  const [value, setValue] = useState("");
-  const [value2, setValue2] = useState("");
-
   return (
     <>
       <Sidebar
@@ -286,20 +267,10 @@ export const SidebarComponentFocusable = (props: Partial<SidebarProps>) => {
         {...props}
       >
         <Box className="focusable-container">
-          <Textbox
-            label="First Name"
-            value={value}
-            onChange={(e) => {
-              setValue(e.target.value);
-            }}
-          />
+          <Textbox label="First Name" />
         </Box>
         <Box>
-          <Textbox
-            label="Surname"
-            value={value2}
-            onChange={(e) => setValue2(e.target.value)}
-          />
+          <Textbox label="Surname" />
         </Box>
         <Box className="focusable-container">
           <Button

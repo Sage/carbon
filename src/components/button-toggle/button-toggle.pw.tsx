@@ -662,7 +662,7 @@ test.describe("Navigation tests", () => {
     mount,
     page,
   }) => {
-    await mount(<WithOutsideButtons value="" />);
+    await mount(<WithOutsideButtons />);
 
     const buttonBefore = page
       .getByRole("button")
@@ -682,7 +682,7 @@ test.describe("Navigation tests", () => {
     mount,
     page,
   }) => {
-    await mount(<WithOutsideButtons value="" />);
+    await mount(<WithOutsideButtons />);
 
     const buttonBefore = page
       .getByRole("button")
@@ -702,7 +702,7 @@ test.describe("Navigation tests", () => {
     mount,
     page,
   }) => {
-    await mount(<WithOutsideButtons value="bar" />);
+    await mount(<WithOutsideButtons />);
 
     const buttonBefore = page
       .getByRole("button")
@@ -723,7 +723,7 @@ test.describe("Navigation tests", () => {
     mount,
     page,
   }) => {
-    await mount(<WithOutsideButtons value="bar" />);
+    await mount(<WithOutsideButtons />);
 
     const buttonBefore = page
       .getByRole("button")

@@ -44,9 +44,6 @@ type HighlightedRow = "one" | "two" | "three" | "four" | "";
 const meta: Meta<typeof FlatTable> = {
   title: "Flat Table",
   component: FlatTable,
-  parameters: {
-    themeProvider: { chromatic: { theme: "sage" } },
-  },
 };
 
 export default meta;
@@ -401,12 +398,7 @@ export const WithCustomColumnWidth: Story = () => {
             <FlatTableCell>John Doe</FlatTableCell>
             <FlatTableCell>London</FlatTableCell>
             <FlatTableCell>
-              <Textbox
-                placeholder="Notes for John Doe"
-                size="small"
-                value=""
-                onChange={() => {}}
-              />
+              <Textbox placeholder="Notes for John Doe" size="small" />
             </FlatTableCell>
             <FlatTableCell px={1}>
               <ActionPopover>
@@ -442,11 +434,7 @@ export const WithCustomRowBackgroundColor: Story = () => {
       <FlatTableBody>
         <FlatTableRow bgColor="#B1D345">
           <FlatTableRowHeader>1</FlatTableRowHeader>
-          <FlatTableCheckbox
-            ariaLabelledBy="ft-row-1-cell-1 ft-row-1-cell-2 ft-row-1-cell-3"
-            checked={false}
-            onChange={() => {}}
-          />
+          <FlatTableCheckbox ariaLabelledBy="ft-row-1-cell-1 ft-row-1-cell-2 ft-row-1-cell-3" />
           <FlatTableCell id="ft-row-1-cell-1">John Doe</FlatTableCell>
           <FlatTableCell id="ft-row-1-cell-2">London</FlatTableCell>
           <FlatTableCell id="ft-row-1-cell-3">Single</FlatTableCell>
@@ -454,11 +442,7 @@ export const WithCustomRowBackgroundColor: Story = () => {
         </FlatTableRow>
         <FlatTableRow>
           <FlatTableRowHeader>2</FlatTableRowHeader>
-          <FlatTableCheckbox
-            ariaLabelledBy="ft-row-2-cell-1 ft-row-2-cell-2 ft-row-2-cell-3"
-            checked={false}
-            onChange={() => {}}
-          />
+          <FlatTableCheckbox ariaLabelledBy="ft-row-2-cell-1 ft-row-2-cell-2 ft-row-2-cell-3" />
           <FlatTableCell id="ft-row-2-cell-1">Jane Doe</FlatTableCell>
           <FlatTableCell id="ft-row-2-cell-2">York</FlatTableCell>
           <FlatTableCell id="ft-row-2-cell-3">Married</FlatTableCell>
@@ -466,11 +450,7 @@ export const WithCustomRowBackgroundColor: Story = () => {
         </FlatTableRow>
         <FlatTableRow bgColor="#B1D345">
           <FlatTableRowHeader>3</FlatTableRowHeader>
-          <FlatTableCheckbox
-            ariaLabelledBy="ft-row-3-cell-1 ft-row-3-cell-2 ft-row-3-cell-3"
-            checked={false}
-            onChange={() => {}}
-          />
+          <FlatTableCheckbox ariaLabelledBy="ft-row-3-cell-1 ft-row-3-cell-2 ft-row-3-cell-3" />
           <FlatTableCell id="ft-row-3-cell-1">John Smith</FlatTableCell>
           <FlatTableCell id="ft-row-3-cell-2">Edinburgh</FlatTableCell>
           <FlatTableCell id="ft-row-3-cell-3">Single</FlatTableCell>
@@ -478,11 +458,7 @@ export const WithCustomRowBackgroundColor: Story = () => {
         </FlatTableRow>
         <FlatTableRow>
           <FlatTableRowHeader>4</FlatTableRowHeader>
-          <FlatTableCheckbox
-            ariaLabelledBy="ft-row-4-cell-1 ft-row-4-cell-2 ft-row-4-cell-3"
-            checked={false}
-            onChange={() => {}}
-          />
+          <FlatTableCheckbox ariaLabelledBy="ft-row-4-cell-1 ft-row-4-cell-2 ft-row-4-cell-3" />
           <FlatTableCell id="ft-row-4-cell-1">Jane Smith</FlatTableCell>
           <FlatTableCell id="ft-row-4-cell-2">Newcastle</FlatTableCell>
           <FlatTableCell id="ft-row-4-cell-3">Married</FlatTableCell>
@@ -780,12 +756,7 @@ export const WithTruncatedCellContent: Story = () => {
               London
             </FlatTableCell>
             <FlatTableCell>
-              <Textbox
-                size="small"
-                aria-label="textbox"
-                value=""
-                onChange={() => {}}
-              />
+              <Textbox size="small" aria-label="textbox" />
             </FlatTableCell>
           </FlatTableRow>
         ))}

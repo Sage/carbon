@@ -1,48 +1,80 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import Switch from "./switch.component";
-
+import Logger from "../../__internal__/utils/logger";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import I18nProvider from "../../components/i18n-provider";
 import CarbonProvider from "../../components/carbon-provider";
 
 jest.mock("../../__internal__/utils/helpers/guid");
 
+test("should display deprecation warning once", () => {
+  const loggerSpy = jest
+    .spyOn(Logger, "deprecate")
+    .mockImplementation(() => {});
+
+  render(<Switch name="my-switch" defaultValue="test" />);
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "Uncontrolled behaviour in `Switch` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
+  );
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
+
+  loggerSpy.mockRestore();
+});
+
 testStyledSystemMargin(
-  (props) => (
-    <Switch
-      data-role="switch-wrapper"
-      checked={false}
-      onChange={() => {}}
-      {...props}
-    />
-  ),
+  (props) => <Switch data-role="switch-wrapper" {...props} />,
   () => screen.getByTestId("switch-wrapper"),
 );
 
 test("accepts ref as a ref object", () => {
   const ref = { current: null };
-  render(<Switch ref={ref} checked={false} onChange={() => {}} />);
+  render(<Switch ref={ref} />);
 
   expect(ref.current).toBe(screen.getByRole("switch"));
 });
 
 test("accepts ref as a ref callback", () => {
   const ref = jest.fn();
-  render(<Switch ref={ref} checked={false} onChange={() => {}} />);
+  render(<Switch ref={ref} />);
 
   expect(ref).toHaveBeenCalledWith(screen.getByRole("switch"));
 });
 
 test("sets ref to empty after unmounting", () => {
   const ref = { current: null };
-  const { unmount } = render(
-    <Switch ref={ref} checked={false} onChange={() => {}} />,
-  );
+  const { unmount } = render(<Switch ref={ref} />);
 
   unmount();
 
   expect(ref.current).toBe(null);
+});
+
+test("when component is uncontrolled, it sets proper default internal state", () => {
+  render(<Switch name="my-switch" defaultValue="test" defaultChecked />);
+
+  expect(screen.getByRole("switch")).toBeChecked();
+});
+
+test("when component is uncontrolled, it changes internal state and passes event to the provided onChange prop when change is triggered", async () => {
+  const user = userEvent.setup({ delay: null });
+  const onChangeMock = jest.fn();
+
+  render(<Switch onChange={onChangeMock} />);
+
+  const switchElement = screen.getByRole("switch");
+  await user.click(switchElement);
+
+  expect(onChangeMock).toHaveBeenCalledWith(
+    expect.objectContaining({
+      target: expect.objectContaining({
+        checked: true,
+      }),
+    }),
+  );
+  expect(switchElement).toBeChecked();
 });
 
 test("when component is controlled, it passes checked value to the Switch", () => {
@@ -81,14 +113,7 @@ test("has default a translation for off", () => {
 
 // required for styling coverage
 test("when `reverse` is false, the correct Label component styles are applied", () => {
-  render(
-    <Switch
-      reverse={false}
-      label="label"
-      checked={false}
-      onChange={() => {}}
-    />,
-  );
+  render(<Switch reverse={false} label="label" />);
 
   const labelContainer = screen.getByTestId("label-container");
 
@@ -96,14 +121,7 @@ test("when `reverse` is false, the correct Label component styles are applied", 
 });
 
 test("when `reverse` is true, the correct Label component styles are applied", () => {
-  render(
-    <Switch
-      reverse={false}
-      label="label"
-      checked={false}
-      onChange={() => {}}
-    />,
-  );
+  render(<Switch reverse={false} label="label" />);
 
   const labelContainer = screen.getByTestId("label-container");
 
@@ -117,8 +135,6 @@ test("when `reverse` is false and `fieldHelpInline` is true, the correct FieldHe
       fieldHelp="This text provides help"
       fieldHelpInline
       label="label"
-      checked={false}
-      onChange={() => {}}
     />,
   );
 
@@ -135,8 +151,6 @@ test("when `labelInline` is true, fieldHelpInline is false and `reverse` is fals
       fieldHelpInline={false}
       labelInline
       reverse={false}
-      checked={false}
-      onChange={() => {}}
     />,
   );
   const fieldHelp = screen.getByText("This text provides help");
@@ -150,8 +164,6 @@ test("when `fieldHelpInline` is true, the correct FieldHelp component styles are
       fieldHelpInline
       fieldHelp="This text provides help"
       label="label"
-      checked={false}
-      onChange={() => {}}
     />,
   );
 
@@ -161,9 +173,7 @@ test("when `fieldHelpInline` is true, the correct FieldHelp component styles are
 });
 
 test("when `labelInline` is true, the correct Label component styles are applied", () => {
-  render(
-    <Switch label="label" labelInline checked={false} onChange={() => {}} />,
-  );
+  render(<Switch label="label" labelInline />);
 
   const labelContainer = screen.getByTestId("label-container");
 
@@ -177,8 +187,6 @@ test("when `fieldHelpInline` is true and `labelInline` is true, the correct Chec
       fieldHelp="This text provides help"
       fieldHelpInline
       labelInline
-      checked={false}
-      onChange={() => {}}
     />,
   );
 
@@ -194,8 +202,6 @@ test("when `fieldHelpInline` true and `labelInline` true, the correct Label comp
       fieldHelp="This text provides help"
       fieldHelpInline
       labelInline
-      checked={false}
-      onChange={() => {}}
     />,
   );
 
@@ -211,8 +217,6 @@ test("when `fieldHelpInline` true and `labelInline` true, the correct FieldHelp 
       fieldHelp="This text provides help"
       fieldHelpInline
       labelInline
-      checked={false}
-      onChange={() => {}}
     />,
   );
 
@@ -222,13 +226,13 @@ test("when `fieldHelpInline` true and `labelInline` true, the correct FieldHelp 
 });
 
 test("when `size` is large, the correct CheckableInput component styles are applied", () => {
-  render(<Switch size="large" checked={false} onChange={() => {}} />);
+  render(<Switch size="large" />);
 
   expect(screen.getByRole("switch")).toHaveStyle("height: 44px");
 });
 
 test("when `size` is large, the correct SwitchSlider component styles are applied", () => {
-  render(<Switch size="large" checked={false} onChange={() => {}} />);
+  render(<Switch size="large" />);
 
   const switchSlider = screen.getByTestId("slider");
 
@@ -236,15 +240,7 @@ test("when `size` is large, the correct SwitchSlider component styles are applie
 });
 
 test("when `size` is large and `labelInline` is true, the correct Label component styles are applied", () => {
-  render(
-    <Switch
-      size="large"
-      labelInline
-      label="label"
-      checked={false}
-      onChange={() => {}}
-    />,
-  );
+  render(<Switch size="large" labelInline label="label" />);
 
   const labelContainer = screen.getByTestId("label-container");
 
@@ -263,8 +259,6 @@ test("when `size` is large and `reverse` is false, the correct FieldHelp compone
       label="label"
       reverse={false}
       fieldHelp="this is field help"
-      checked={false}
-      onChange={() => {}}
     />,
   );
 
@@ -275,43 +269,19 @@ test("when `size` is large and `reverse` is false, the correct FieldHelp compone
 
 test("the `error` prop should not throw an error if `loading` is true", () => {
   expect(() => {
-    render(
-      <Switch
-        id="mock-input"
-        loading
-        error
-        checked={false}
-        onChange={() => {}}
-      />,
-    );
+    render(<Switch id="mock-input" loading error />);
   }).not.toThrow();
 });
 
 test("the `warning` prop should not throw an error if `loading` is true", () => {
   expect(() => {
-    render(
-      <Switch
-        id="mock-input"
-        loading
-        warning
-        checked={false}
-        onChange={() => {}}
-      />,
-    );
+    render(<Switch id="mock-input" loading warning />);
   }).not.toThrow();
 });
 
 test("the `info` prop should not throw an error if `loading` is true", () => {
   expect(() => {
-    render(
-      <Switch
-        id="mock-input"
-        loading
-        info
-        checked={false}
-        onChange={() => {}}
-      />,
-    );
+    render(<Switch id="mock-input" loading info />);
   }).not.toThrow();
 });
 
@@ -324,8 +294,6 @@ test.each(["error", "warning"])(
           label="label"
           validationMessagePositionTop={false}
           {...{ [validationType]: "This is a validation message" }}
-          checked={false}
-          onChange={() => {}}
         />
       </CarbonProvider>,
     );
@@ -337,15 +305,7 @@ test.each(["error", "warning"])(
 );
 
 test("`helpAriaLabel` prop should set the aria-label on the Help component", () => {
-  render(
-    <Switch
-      label="foo"
-      labelHelp="fooHelp"
-      helpAriaLabel="text"
-      checked={false}
-      onChange={() => {}}
-    />,
-  );
+  render(<Switch label="foo" labelHelp="fooHelp" helpAriaLabel="text" />);
 
   const help = screen.getByRole("button");
 
@@ -354,7 +314,7 @@ test("`helpAriaLabel` prop should set the aria-label on the Help component", () 
 
 // Required for coverage
 test("the correct border colour is applied when `error` validation is true", () => {
-  render(<Switch error checked={false} onChange={() => {}} />);
+  render(<Switch error />);
 
   const switchSlider = screen.getByTestId("slider");
 
@@ -365,7 +325,7 @@ test("the correct border colour is applied when `error` validation is true", () 
 
 // Required for coverage
 test("the correct border colour is applied when `warning` validation is true", () => {
-  render(<Switch warning checked={false} onChange={() => {}} />);
+  render(<Switch warning />);
 
   const switchSlider = screen.getByTestId("slider");
 
@@ -378,7 +338,7 @@ test("the correct border colour is applied when `warning` validation is true", (
 test("the correct background colour is applied to the `ErrorBorder` element when `error` validation is a string", () => {
   render(
     <CarbonProvider validationRedesignOptIn>
-      <Switch error="this is an error" checked={false} onChange={() => {}} />
+      <Switch error="this is an error" />
     </CarbonProvider>,
   );
 
@@ -393,7 +353,7 @@ test("the correct background colour is applied to the `ErrorBorder` element when
 test("the correct background colour is applied to the `ErrorBorder` element when `warning` validation is a string", () => {
   render(
     <CarbonProvider validationRedesignOptIn>
-      <Switch warning="this is a warning" checked={false} onChange={() => {}} />
+      <Switch warning="this is a warning" />
     </CarbonProvider>,
   );
 
@@ -408,13 +368,7 @@ test("the correct background colour is applied to the `ErrorBorder` element when
 test("renders `labelHelp` as hint text when `validationRedesignOptIn` flag is true", () => {
   render(
     <CarbonProvider validationRedesignOptIn>
-      <Switch
-        label="foo"
-        labelHelp="hint text"
-        warning="this is a warning"
-        checked={false}
-        onChange={() => {}}
-      />
+      <Switch label="foo" labelHelp="hint text" warning="this is a warning" />
     </CarbonProvider>,
   );
 
@@ -424,13 +378,7 @@ test("renders `labelHelp` as hint text when `validationRedesignOptIn` flag is tr
 test("should render with correct accessible name and description when `validationRedesignOptIn` flag is true", () => {
   render(
     <CarbonProvider validationRedesignOptIn>
-      <Switch
-        label="foo"
-        labelHelp="hint text"
-        error="this is an error"
-        checked={false}
-        onChange={() => {}}
-      />
+      <Switch label="foo" labelHelp="hint text" error="this is an error" />
     </CarbonProvider>,
   );
 
@@ -473,7 +421,7 @@ test("the expected translations are correctly applied for off", () => {
         },
       }}
     >
-      <Switch checked={false} onChange={() => {}} />
+      <Switch onChange={() => {}} />
     </I18nProvider>,
   );
 
@@ -486,7 +434,7 @@ test("the expected translations are correctly applied for off", () => {
 test("renders with normal styles when `isDarkBackground` is false", () => {
   render(
     <CarbonProvider validationRedesignOptIn>
-      <Switch isDarkBackground={false} checked={false} onChange={() => {}} />
+      <Switch isDarkBackground={false} />
     </CarbonProvider>,
   );
 
@@ -501,7 +449,7 @@ test("renders with normal styles when `isDarkBackground` is false", () => {
 test("renders with dark background styles when `isDarkBackground` is true", () => {
   render(
     <CarbonProvider validationRedesignOptIn>
-      <Switch isDarkBackground checked={false} onChange={() => {}} />
+      <Switch isDarkBackground />
     </CarbonProvider>,
   );
 
@@ -514,7 +462,7 @@ test("renders with dark background styles when `isDarkBackground` is true", () =
 test("renders correctly with inputWidth set to numerical value of between 0 and 1", () => {
   render(
     <CarbonProvider validationRedesignOptIn>
-      <Switch inputWidth={0.5} checked={false} onChange={() => {}} />
+      <Switch inputWidth={0.5} />
     </CarbonProvider>,
   );
 
@@ -527,7 +475,7 @@ test("renders correctly with inputWidth set to numerical value of between 0 and 
 test("renders correctly with labelInline and new validation", () => {
   render(
     <CarbonProvider validationRedesignOptIn>
-      <Switch labelInline checked={false} onChange={() => {}} />
+      <Switch labelInline />
     </CarbonProvider>,
   );
 
@@ -540,7 +488,7 @@ test("renders correctly with labelInline and new validation", () => {
 test("renders correctly with reverse flag set under erroneous state and new validation", () => {
   render(
     <CarbonProvider validationRedesignOptIn>
-      <Switch reverse error="error" checked={false} onChange={() => {}} />
+      <Switch reverse error="error" />
     </CarbonProvider>,
   );
 
@@ -553,12 +501,7 @@ test("renders correctly with reverse flag set under erroneous state and new vali
 test("renders correctly with no reverse flag set under erroneous state and new validation", () => {
   render(
     <CarbonProvider validationRedesignOptIn>
-      <Switch
-        reverse={false}
-        error="error"
-        checked={false}
-        onChange={() => {}}
-      />
+      <Switch reverse={false} error="error" />
     </CarbonProvider>,
   );
 
@@ -571,7 +514,7 @@ test("renders correctly with no reverse flag set under erroneous state and new v
 test("renders correctly with reverse flag not set and new validation", () => {
   render(
     <CarbonProvider validationRedesignOptIn>
-      <Switch reverse={false} checked={false} onChange={() => {}} />
+      <Switch reverse={false} />
     </CarbonProvider>,
   );
 
@@ -584,12 +527,7 @@ test("renders correctly with reverse flag not set and new validation", () => {
 test("renders correctly with hint text and dark background in new validation", () => {
   render(
     <CarbonProvider validationRedesignOptIn>
-      <Switch
-        labelHelp="hint text"
-        isDarkBackground
-        checked={false}
-        onChange={() => {}}
-      />
+      <Switch labelHelp="hint text" isDarkBackground />
     </CarbonProvider>,
   );
 
@@ -602,7 +540,7 @@ test("renders correctly with hint text and dark background in new validation", (
 test("renders correctly with hint text in new validation", () => {
   render(
     <CarbonProvider validationRedesignOptIn>
-      <Switch labelHelp="hint text" checked={false} onChange={() => {}} />
+      <Switch labelHelp="hint text" />
     </CarbonProvider>,
   );
 
@@ -615,12 +553,7 @@ test("renders correctly with hint text in new validation", () => {
 test("renders correctly with inline label and field help in new validation", () => {
   render(
     <CarbonProvider validationRedesignOptIn>
-      <Switch
-        labelInline
-        fieldHelp="Field help"
-        checked={false}
-        onChange={() => {}}
-      />
+      <Switch labelInline fieldHelp="Field help" />
     </CarbonProvider>,
   );
 
@@ -633,13 +566,7 @@ test("renders correctly with inline label and field help in new validation", () 
 test("renders correctly with inline label, dark background and field help in new validation", () => {
   render(
     <CarbonProvider validationRedesignOptIn>
-      <Switch
-        labelInline
-        fieldHelp="Field help"
-        isDarkBackground
-        checked={false}
-        onChange={() => {}}
-      />
+      <Switch labelInline fieldHelp="Field help" isDarkBackground />
     </CarbonProvider>,
   );
 
@@ -657,8 +584,6 @@ test("renders correctly with inline label, dark background, error and field help
         fieldHelp="Field help"
         error="error"
         isDarkBackground
-        checked={false}
-        onChange={() => {}}
       />
     </CarbonProvider>,
   );
@@ -677,8 +602,6 @@ test("renders with the correct error colour when `isDarkBackground` is false", (
         fieldHelp="Field help"
         error="error"
         isDarkBackground={false}
-        checked={false}
-        onChange={() => {}}
       />
     </CarbonProvider>,
   );
@@ -697,8 +620,6 @@ test("renders with the correct error colour when `isDarkBackground` is true", ()
         fieldHelp="Field help"
         error="error"
         isDarkBackground
-        checked={false}
-        onChange={() => {}}
       />
     </CarbonProvider>,
   );
@@ -712,12 +633,7 @@ test("renders with the correct error colour when `isDarkBackground` is true", ()
 test("renders correctly with inline label and hint text in new validation", () => {
   render(
     <CarbonProvider validationRedesignOptIn>
-      <Switch
-        labelInline
-        labelHelp="Field help"
-        checked={false}
-        onChange={() => {}}
-      />
+      <Switch labelInline labelHelp="Field help" />
     </CarbonProvider>,
   );
 
@@ -730,13 +646,7 @@ test("renders correctly with inline label and hint text in new validation", () =
 test("renders correctly with inline label and hint text in new validation when reversed", () => {
   render(
     <CarbonProvider validationRedesignOptIn>
-      <Switch
-        labelInline
-        labelHelp="Field help"
-        reverse={false}
-        checked={false}
-        onChange={() => {}}
-      />
+      <Switch labelInline labelHelp="Field help" reverse={false} />
     </CarbonProvider>,
   );
 
@@ -748,13 +658,7 @@ test("renders correctly with inline label and hint text in new validation when r
 test("when `labelInline` is true and `reverse` is false no margin left is applied to the input-wrapper", () => {
   render(
     <CarbonProvider validationRedesignOptIn>
-      <Switch
-        label="label"
-        labelInline
-        reverse={false}
-        checked={false}
-        onChange={() => {}}
-      />
+      <Switch label="label" labelInline reverse={false} />
     </CarbonProvider>,
   );
 
@@ -765,13 +669,7 @@ test("when `labelInline` is true and `reverse` is false no margin left is applie
 test("when `labelInline` is true and `reverse` is true no margin right is applied to the input-wrapper", () => {
   render(
     <CarbonProvider validationRedesignOptIn>
-      <Switch
-        label="label"
-        labelInline
-        reverse
-        checked={false}
-        onChange={() => {}}
-      />
+      <Switch label="label" labelInline reverse />
     </CarbonProvider>,
   );
 
@@ -782,16 +680,22 @@ test("when `labelInline` is true and `reverse` is true no margin right is applie
 test("when `labelInline` is true, the provided `labelWidth` is applied to the label-wrapper", () => {
   render(
     <CarbonProvider validationRedesignOptIn>
-      <Switch
-        label="label"
-        labelInline
-        labelWidth={50}
-        onChange={jest.fn}
-        checked
-      />
+      <Switch label="label" labelInline labelWidth={50} />
     </CarbonProvider>,
   );
 
   const labelWrapper = screen.getByTestId("label-wrapper");
   expect(labelWrapper).toHaveStyle("width: 50%");
+});
+
+test("when component is uncontrolled and loading, it doesn't change internal state and the provided onChange is not called", async () => {
+  const user = userEvent.setup({ delay: null });
+  const onChangeMock = jest.fn();
+
+  render(<Switch onChange={onChangeMock} loading />);
+
+  const switchElement = screen.getByRole("switch");
+  await user.click(switchElement);
+
+  expect(onChangeMock).not.toHaveBeenCalled();
 });

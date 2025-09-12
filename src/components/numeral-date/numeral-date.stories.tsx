@@ -17,24 +17,15 @@ const meta: Meta<typeof NumeralDate> = {
   argTypes: {
     ...styledSystemProps,
   },
-  parameters: {
-    themeProvider: { chromatic: { theme: "sage" } },
-  },
 };
 
 export default meta;
 type Story = StoryObj<typeof NumeralDate>;
 
 export const Default: Story = () => {
-  const [value, setValue] = useState<NumeralDateProps["value"]>({
-    dd: "01",
-    mm: "02",
-    yyyy: "2020",
-  });
   return (
     <NumeralDate
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
+      defaultValue={{ dd: "01", mm: "02", yyyy: "2020" }}
       label="Default"
     />
   );
@@ -42,6 +33,15 @@ export const Default: Story = () => {
 Default.storyName = "Default";
 
 export const WithInputHint: Story = () => {
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      <NumeralDate label="With label help" labelHelp="Label help" />
+    </CarbonProvider>
+  );
+};
+WithInputHint.storyName = "With Input Hint";
+
+export const Controlled: Story = () => {
   const [value, setValue] = useState<NumeralDateProps["value"]>({
     dd: "",
     mm: "",
@@ -49,74 +49,32 @@ export const WithInputHint: Story = () => {
   });
 
   return (
-    <CarbonProvider validationRedesignOptIn>
-      <NumeralDate
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        label="With label help"
-        labelHelp="Label help"
-      />
-    </CarbonProvider>
+    <NumeralDate
+      onChange={(e) => setValue(e.target.value)}
+      label="Default"
+      value={value}
+    />
   );
 };
-WithInputHint.storyName = "With Input Hint";
+Controlled.storyName = "Controlled";
 
 export const AllowedDateFormats: Story = () => {
-  const dateDefault = {
-    dd: "",
-    mm: "",
-    yyyy: "",
-  };
-  const [value, setValue] = useState<NumeralDateProps["value"]>(dateDefault);
-  const [value2, setValue2] = useState<NumeralDateProps["value"]>(dateDefault);
-  const [value3, setValue3] = useState<NumeralDateProps["value"]>(dateDefault);
-  const [value4, setValue4] = useState<NumeralDateProps["value"]>(dateDefault);
-  const [value5, setValue5] = useState<NumeralDateProps["value"]>(dateDefault);
-  const [value6, setValue6] = useState<NumeralDateProps["value"]>(dateDefault);
-
   return (
     <>
-      <NumeralDate
-        label="DD/MM/YYYY - default"
-        mb={2}
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-      />
+      <NumeralDate label="DD/MM/YYYY - default" mb={2} />
       <NumeralDate
         label="MM/DD/YYYY"
         dateFormat={["mm", "dd", "yyyy"]}
         mb={2}
-        value={value2}
-        onChange={(e) => setValue2(e.target.value)}
       />
       <NumeralDate
         label="YYYY/MM/DD"
         dateFormat={["yyyy", "mm", "dd"]}
         mb={2}
-        value={value3}
-        onChange={(e) => setValue3(e.target.value)}
       />
-      <NumeralDate
-        label="DD/MM"
-        dateFormat={["dd", "mm"]}
-        mb={2}
-        value={value4}
-        onChange={(e) => setValue4(e.target.value)}
-      />
-      <NumeralDate
-        label="MM/DD"
-        dateFormat={["mm", "dd"]}
-        mb={2}
-        value={value5}
-        onChange={(e) => setValue5(e.target.value)}
-      />
-      <NumeralDate
-        label="MM/YYYY"
-        dateFormat={["mm", "yyyy"]}
-        mb={2}
-        value={value6}
-        onChange={(e) => setValue6(e.target.value)}
-      />
+      <NumeralDate label="DD/MM" dateFormat={["dd", "mm"]} mb={2} />
+      <NumeralDate label="MM/DD" dateFormat={["mm", "dd"]} mb={2} />
+      <NumeralDate label="MM/YYYY" dateFormat={["mm", "yyyy"]} mb={2} />
     </>
   );
 };
@@ -266,15 +224,6 @@ export const WithFieldHelp: Story = () => {
 WithFieldHelp.storyName = "With Field Help";
 
 export const Size: Story = () => {
-  const dateDefault = {
-    dd: "",
-    mm: "",
-    yyyy: "",
-  };
-  const [value, setValue] = useState<NumeralDateProps["value"]>(dateDefault);
-  const [value2, setValue2] = useState<NumeralDateProps["value"]>(dateDefault);
-  const [value3, setValue3] = useState<NumeralDateProps["value"]>(dateDefault);
-
   return (
     <>
       <NumeralDate
@@ -282,23 +231,17 @@ export const Size: Story = () => {
         dateFormat={["dd", "mm", "yyyy"]}
         size="small"
         mb={2}
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
       />
       <NumeralDate
         label="Date of Birth"
         dateFormat={["dd", "mm", "yyyy"]}
         size="medium"
         mb={2}
-        value={value2}
-        onChange={(e) => setValue2(e.target.value)}
       />
       <NumeralDate
         label="Date of Birth"
         dateFormat={["dd", "mm", "yyyy"]}
         size="large"
-        value={value3}
-        onChange={(e) => setValue3(e.target.value)}
       />
     </>
   );

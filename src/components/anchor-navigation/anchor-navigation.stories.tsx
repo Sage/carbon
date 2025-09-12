@@ -32,7 +32,7 @@ export const DefaultStory: Story = () => {
   const Content = ({ title, noTextbox }: ContentProps) => (
     <Box>
       <h2>{title}</h2>
-      {!noTextbox && <Textbox label={title} value="" onChange={() => {}} />}
+      {!noTextbox && <Textbox label={title} />}
       <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>
       <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>
       <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>
@@ -89,7 +89,7 @@ export const InFullScreenDialogStory: Story = () => {
   const Content = ({ title, noTextbox }: ContentProps) => (
     <Box>
       <h2>{title}</h2>
-      {!noTextbox && <Textbox label={title} value="" onChange={() => {}} />}
+      {!noTextbox && <Textbox label={title} />}
       <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>
       <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>
       <p style={{ marginTop: 30, marginBottom: 30 }}>Content</p>

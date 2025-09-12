@@ -2,38 +2,13 @@ import React from "react";
 import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import FlatTableCheckbox, {
-  FlatTableCheckboxProps,
-} from "./flat-table-checkbox.component";
+import FlatTableCheckbox from "./flat-table-checkbox.component";
 import guid from "../../../__internal__/utils/helpers/guid";
 
 jest.mock("../../../__internal__/utils/helpers/guid");
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(
   () => "guid-12345",
 );
-
-interface ControlledCheckboxProps
-  extends Omit<FlatTableCheckboxProps, "checked"> {
-  initialChecked?: boolean;
-}
-
-const ControlledCheckbox = ({
-  initialChecked = false,
-  ...props
-}: ControlledCheckboxProps) => {
-  const [checked, setChecked] = React.useState(initialChecked);
-  return (
-    <FlatTableCheckbox
-      {...props}
-      checked={checked}
-      onChange={(e) => {
-        setChecked(!checked);
-        props.onChange?.(e);
-      }}
-      data-testid="checkbox"
-    />
-  );
-};
 
 test("should stop propagation when the user clicks on the input element", async () => {
   const parentOnClick = jest.fn();
@@ -43,7 +18,7 @@ test("should stop propagation when the user clicks on the input element", async 
     <table>
       <tbody>
         <tr onClick={parentOnClick}>
-          <ControlledCheckbox onChange={() => {}} onClick={childOnClick} />
+          <FlatTableCheckbox onChange={() => {}} onClick={childOnClick} />
         </tr>
       </tbody>
     </table>,
@@ -62,7 +37,7 @@ test("should stop propagation when the user presses a key that is not up or down
     <table>
       <tbody>
         <tr onKeyDown={parentOnKeyDown}>
-          <ControlledCheckbox onChange={() => {}} />
+          <FlatTableCheckbox onChange={() => {}} />
         </tr>
       </tbody>
     </table>,
@@ -82,7 +57,7 @@ test("should not stop propagation when the user presses down arrow key", async (
     <table>
       <tbody>
         <tr onKeyDown={parentOnKeyDown}>
-          <ControlledCheckbox onChange={() => {}} />
+          <FlatTableCheckbox onChange={() => {}} />
         </tr>
       </tbody>
     </table>,
@@ -102,7 +77,7 @@ test("should not stop propagation when the user presses up arrow key", async () 
     <table>
       <tbody>
         <tr onKeyDown={parentOnKeyDown}>
-          <ControlledCheckbox onChange={() => {}} />
+          <FlatTableCheckbox onChange={() => {}} />
         </tr>
       </tbody>
     </table>,
@@ -120,7 +95,7 @@ test("should render a 'td' element by default and have the expected data-element
     <table>
       <tbody>
         <tr>
-          <ControlledCheckbox onChange={() => {}} />
+          <FlatTableCheckbox onChange={() => {}} />
         </tr>
       </tbody>
     </table>,
@@ -138,7 +113,7 @@ test("should render an element to match the `as` prop value when it is set and h
     <table>
       <thead>
         <tr>
-          <ControlledCheckbox onChange={() => {}} as="th" />
+          <FlatTableCheckbox onChange={() => {}} as="th" />
         </tr>
       </thead>
     </table>,
@@ -156,7 +131,7 @@ test("should not render the checkbox when the selectable prop is false", () => {
     <table>
       <tbody>
         <tr>
-          <ControlledCheckbox onChange={() => {}} selectable={false} />
+          <FlatTableCheckbox onChange={() => {}} selectable={false} />
         </tr>
       </tbody>
     </table>,
@@ -170,7 +145,7 @@ test("should render the component with the expeced `data-attributes`", () => {
     <table>
       <tbody>
         <tr>
-          <ControlledCheckbox
+          <FlatTableCheckbox
             onChange={() => {}}
             data-role="ft-checkbox"
             data-element="overridden-data-element"

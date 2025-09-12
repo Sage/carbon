@@ -6,7 +6,6 @@ import generateStyledSystemProps from "../../../.storybook/utils/styled-system-p
 import I18nProvider from "../i18n-provider";
 
 import Textarea from ".";
-import useMultiInput from "../../hooks/use-multi-input";
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
@@ -33,21 +32,11 @@ export const DefaultStory: Story = () => {
 DefaultStory.storyName = "Default";
 
 export const DisabledStory: Story = () => {
-  const [value, setValue] = useState("");
-  return (
-    <Textarea
-      label="Textarea"
-      disabled
-      value={value}
-      onChange={({ target }) => setValue(target.value)}
-    />
-  );
+  return <Textarea label="Textarea" disabled />;
 };
 DisabledStory.storyName = "Disabled";
 
 export const LabelAlignStory: Story = () => {
-  const { state, setValue } = useMultiInput();
-
   return (
     <>
       {(["right", "left"] as const).map((alignment) => (
@@ -58,9 +47,6 @@ export const LabelAlignStory: Story = () => {
           key={alignment}
           labelAlign={alignment}
           mb={2}
-          name={`ta-${alignment}`}
-          value={state[`ta-${alignment}`] || ""}
-          onChange={setValue}
         />
       ))}
     </>
@@ -69,15 +55,7 @@ export const LabelAlignStory: Story = () => {
 LabelAlignStory.storyName = "Label Align";
 
 export const ReadOnlyStory: Story = () => {
-  const [value, setValue] = useState("");
-  return (
-    <Textarea
-      label="Textarea"
-      readOnly
-      value={value}
-      onChange={({ target }) => setValue(target.value)}
-    />
-  );
+  return <Textarea label="Textarea" readOnly />;
 };
 ReadOnlyStory.storyName = "Read Only";
 
@@ -143,111 +121,41 @@ export const TranslationsCharacterLimitStory: Story = () => {
 TranslationsCharacterLimitStory.storyName = "Translations Character Limit";
 
 export const LabelInlineStory: Story = () => {
-  const [value, setValue] = useState("");
-  return (
-    <Textarea
-      label="Textarea"
-      labelInline
-      value={value}
-      onChange={({ target }) => setValue(target.value)}
-    />
-  );
+  return <Textarea label="Textarea" labelInline />;
 };
 LabelInlineStory.storyName = "Label Inline";
 
 export const CustomWidthStory: Story = () => {
-  const [value, setValue] = useState("");
   return (
-    <Textarea
-      label="Textarea"
-      labelInline
-      labelWidth={50}
-      inputWidth={50}
-      value={value}
-      onChange={({ target }) => setValue(target.value)}
-    />
+    <Textarea label="Textarea" labelInline labelWidth={50} inputWidth={50} />
   );
 };
 CustomWidthStory.storyName = "Custom Width";
 
 export const FieldHelpStory: Story = () => {
-  const [value, setValue] = useState("");
-  return (
-    <Textarea
-      label="Textarea"
-      fieldHelp="Help"
-      value={value}
-      onChange={({ target }) => setValue(target.value)}
-    />
-  );
+  return <Textarea label="Textarea" fieldHelp="Help" />;
 };
 FieldHelpStory.storyName = "Field Help";
 
 export const MaxWidthStory: Story = () => {
-  const [value, setValue] = useState("");
-  return (
-    <Textarea
-      label="Textarea"
-      maxWidth="70%"
-      value={value}
-      onChange={({ target }) => setValue(target.value)}
-    />
-  );
+  return <Textarea label="Textarea" maxWidth="70%" />;
 };
 MaxWidthStory.storyName = "Max Width";
 
 export const InputHintStory: Story = () => {
-  const [value, setValue] = useState("");
-  return (
-    <Textarea
-      label="Textarea"
-      inputHint="Hint text (optional)."
-      value={value}
-      onChange={({ target }) => setValue(target.value)}
-    />
-  );
+  return <Textarea label="Textarea" inputHint="Hint text (optional)." />;
 };
 InputHintStory.storyName = "Input Hint";
 
 export const LabelHelpStory: Story = () => {
-  const [value, setValue] = useState("");
-  return (
-    <Textarea
-      label="Textarea"
-      labelHelp="Help"
-      helpAriaLabel="Help"
-      value={value}
-      onChange={({ target }) => setValue(target.value)}
-    />
-  );
+  return <Textarea label="Textarea" labelHelp="Help" helpAriaLabel="Help" />;
 };
 LabelHelpStory.storyName = "Label Help";
 
 export const RequiredStory: Story = () => {
-  const [value, setValue] = useState("");
-  return (
-    <Textarea
-      label="Textarea"
-      required
-      value={value}
-      onChange={({ target }) => setValue(target.value)}
-    />
-  );
+  return <Textarea label="Textarea" required />;
 };
 RequiredStory.storyName = "Required";
-
-export const IsOptionalStory: Story = () => {
-  const [value, setValue] = useState("");
-  return (
-    <Textarea
-      label="Textarea"
-      isOptional
-      value={value}
-      onChange={({ target }) => setValue(target.value)}
-    />
-  );
-};
-IsOptionalStory.storyName = "isOptional";
 
 export const BorderRadiusStory: Story = () => {
   const [stateOne, setStateOne] = useState("");

@@ -3,7 +3,7 @@ import React from "react";
 import { StoryObj } from "@storybook/react";
 import { userEvent, within, expect } from "@storybook/test";
 
-import { Checkbox, CheckboxProps } from ".";
+import { Checkbox } from ".";
 
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
 import DefaultDecorator from "../../../.storybook/utils/default-decorator";
@@ -18,38 +18,25 @@ export default {
   },
 };
 
-const ControlledCheckbox = (
-  props: Omit<CheckboxProps, "onChange" | "checked">,
-) => {
-  const [checked, setChecked] = React.useState(false);
-  return (
-    <Checkbox
-      {...props}
-      checked={checked}
-      onChange={() => setChecked((prevChecked) => !prevChecked)}
-    />
-  );
-};
-
 export const hoverCheckbox: Story = {
   render: () => (
     <>
-      <ControlledCheckbox mb={4} label="Small" required data-testid="target" />
-      <ControlledCheckbox
+      <Checkbox mb={4} label="Small" required data-testid="target" />
+      <Checkbox
         mb={4}
         label="Info"
         info="Info"
         tooltipPosition="right"
         data-testid="target"
       />
-      <ControlledCheckbox
+      <Checkbox
         mb={4}
         label="Warning"
         warning="Warning"
         tooltipPosition="right"
         data-testid="target"
       />
-      <ControlledCheckbox
+      <Checkbox
         mb={4}
         label="Error"
         error="Error"
@@ -89,9 +76,9 @@ hoverCheckbox.parameters = {
 export const clickAndKeyInteraction: Story = {
   render: () => (
     <>
-      <ControlledCheckbox mb={2} label="Small" />
-      <ControlledCheckbox mb={2} label="Default" disabled />
-      <ControlledCheckbox mb={2} label="Small" />
+      <Checkbox mb={2} label="Small" />
+      <Checkbox mb={2} label="Default" disabled />
+      <Checkbox mb={2} label="Small" />
     </>
   ),
   play: async ({ canvasElement }) => {

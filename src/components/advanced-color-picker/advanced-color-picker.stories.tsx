@@ -67,6 +67,7 @@ export const Default: Story = () => {
         { value: "#AEECEB", label: "turquoise" },
         { value: "#AEECD6", label: "mint" },
       ]}
+      defaultColor="#EBAEDE"
       selectedColor={color}
       onChange={onChange}
       onOpen={() => {
@@ -109,6 +110,7 @@ export const RestoreFocusOnCloseStory: Story = () => {
           { value: "#AEECEB", label: "turquoise" },
           { value: "#AEECD6", label: "mint" },
         ]}
+        defaultColor="#EBAEDE"
         selectedColor={color}
         onChange={onChange}
         onOpen={() => {

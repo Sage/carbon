@@ -597,12 +597,10 @@ test.describe("should render CheckboxGroup component and check props", () => {
     await mount(
       <CheckboxGroupComponent>
         <Checkbox
-          checked={false}
           id="checkbox_id three"
           key="checkbox_id-three"
           name="checkbox_id-three"
           label="Checkbox 3"
-          onChange={() => {}}
         />
       </CheckboxGroupComponent>,
     );

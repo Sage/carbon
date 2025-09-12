@@ -709,7 +709,6 @@ export const FlatTableCustomPaddingComponent = (
 export const FlatTableTruncateBgComponent = (
   props: Partial<FlatTableProps>,
 ) => {
-  const [value, setValue] = useState("");
   return (
     <div
       style={{
@@ -734,12 +733,7 @@ export const FlatTableTruncateBgComponent = (
                 London
               </FlatTableCell>
               <FlatTableCell>
-                <Textbox
-                  size="small"
-                  aria-label="textbox"
-                  value={value}
-                  onChange={(e) => setValue(e.target.value)}
-                />
+                <Textbox size="small" aria-label="textbox" />
               </FlatTableCell>
             </FlatTableRow>
           ))}
@@ -752,7 +746,6 @@ export const FlatTableTruncateBgComponent = (
 export const FlatTableTruncateHeaderComponent = (
   props: Partial<FlatTableProps>,
 ) => {
-  const [value, setValue] = useState("");
   return (
     <div
       style={{
@@ -779,12 +772,7 @@ export const FlatTableTruncateHeaderComponent = (
                 London
               </FlatTableRowHeader>
               <FlatTableCell>
-                <Textbox
-                  size="small"
-                  aria-label="textbox"
-                  value={value}
-                  onChange={(e) => setValue(e.target.value)}
-                />
+                <Textbox size="small" aria-label="textbox" />
               </FlatTableCell>
             </FlatTableRow>
           ))}
@@ -1313,8 +1301,6 @@ export const FlatTableCustomBordersComponent = (
 export const FlatTableTitleAlignComponent = (
   props: Partial<FlatTableProps>,
 ) => {
-  const [value, setValue] = useState("");
-
   return (
     <div
       style={{
@@ -1350,12 +1336,7 @@ export const FlatTableTitleAlignComponent = (
               London
             </FlatTableRowHeader>
             <FlatTableCell>
-              <Textbox
-                size="small"
-                aria-label="textbox"
-                value={value}
-                onChange={(e) => setValue(e.target.value)}
-              />
+              <Textbox size="small" aria-label="textbox" />
             </FlatTableCell>
           </FlatTableRow>
           <FlatTableRow>
@@ -1378,12 +1359,7 @@ export const FlatTableTitleAlignComponent = (
               London
             </FlatTableRowHeader>
             <FlatTableCell>
-              <Textbox
-                size="small"
-                aria-label="textbox"
-                value={value}
-                onChange={(e) => setValue(e.target.value)}
-              />
+              <Textbox size="small" aria-label="textbox" />
             </FlatTableCell>
           </FlatTableRow>
           <FlatTableRow>
@@ -1406,12 +1382,7 @@ export const FlatTableTitleAlignComponent = (
               London
             </FlatTableRowHeader>
             <FlatTableCell>
-              <Textbox
-                size="small"
-                aria-label="textbox"
-                value={value}
-                onChange={(e) => setValue(e.target.value)}
-              />
+              <Textbox size="small" aria-label="textbox" />
             </FlatTableCell>
           </FlatTableRow>
           <FlatTableRow>
@@ -1432,12 +1403,7 @@ export const FlatTableTitleAlignComponent = (
               London
             </FlatTableRowHeader>
             <FlatTableCell>
-              <Textbox
-                size="small"
-                aria-label="textbox"
-                value={value}
-                onChange={(e) => setValue(e.target.value)}
-              />
+              <Textbox size="small" aria-label="textbox" />
             </FlatTableCell>
           </FlatTableRow>
         </FlatTableBody>
@@ -2302,7 +2268,6 @@ export const FlatTableParentSubrowSelectableComponent = () => {
 
 export const FlatTableChildSubrowSelectableComponent = () => {
   const [selectAll, setSelectAll] = useState(false);
-  const [checked, setChecked] = useState(false);
   const [selectedRows, setSelectedRows] =
     useState<SelectedRowsChildrenOnlySelectableStory>({
       one: {
@@ -2464,8 +2429,6 @@ export const FlatTableChildSubrowSelectableComponent = () => {
               ariaLabelledBy="ft-row-1-cell-1 ft-row-1-cell-2 ft-row-1-cell-3"
               onClick={(e) => e.stopPropagation()}
               selectable={false}
-              checked={checked}
-              onChange={(e) => setChecked(e.target.checked)}
             />
             <FlatTableCell id="ft-row-1-cell-1">John Doe</FlatTableCell>
             <FlatTableCell id="ft-row-1-cell-2">London</FlatTableCell>
@@ -2482,8 +2445,6 @@ export const FlatTableChildSubrowSelectableComponent = () => {
               ariaLabelledBy="ft-row-2-cell-1 ft-row-2-cell-2 ft-row-2-cell-3"
               onClick={(e) => e.stopPropagation()}
               selectable={false}
-              checked={checked}
-              onChange={(e) => setChecked(e.target.checked)}
             />
             <FlatTableCell id="ft-row-2-cell-1">Jane Doe</FlatTableCell>
             <FlatTableCell id="ft-row-2-cell-2">York</FlatTableCell>
@@ -2500,8 +2461,6 @@ export const FlatTableChildSubrowSelectableComponent = () => {
               ariaLabelledBy="ft-row-3-cell-1 ft-row-3-cell-2 ft-row-3-cell-3"
               onClick={(e) => e.stopPropagation()}
               selectable={false}
-              checked={checked}
-              onChange={(e) => setChecked(e.target.checked)}
             />
             <FlatTableCell id="ft-row-3-cell-1">John Smith</FlatTableCell>
             <FlatTableCell id="ft-row-3-cell-2">Edinburgh</FlatTableCell>
@@ -2518,8 +2477,6 @@ export const FlatTableChildSubrowSelectableComponent = () => {
               ariaLabelledBy="ft-row-4-cell-1 ft-row-4-cell-2 ft-row-4-cell-3"
               onClick={(e) => e.stopPropagation()}
               selectable={false}
-              checked={checked}
-              onChange={(e) => setChecked(e.target.checked)}
             />
             <FlatTableCell id="ft-row-4-cell-1">Jane Smith</FlatTableCell>
             <FlatTableCell id="ft-row-4-cell-2">Newcastle</FlatTableCell>
@@ -2856,10 +2813,7 @@ export const FlatTableWithStickyColumn = () => (
         <FlatTableCell>Bar</FlatTableCell>
         <FlatTableCell>Bar</FlatTableCell>
         <FlatTableCell>
-          <label>
-            Input
-            <input />
-          </label>
+          <input />
         </FlatTableCell>
       </FlatTableRow>
     </FlatTableBody>

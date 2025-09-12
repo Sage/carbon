@@ -87,9 +87,7 @@ test.describe("InlineInputs", () => {
     test(`should check children as ${children}`, async ({ mount, page }) => {
       await mount(
         <InlineInputs label="Inline Input">
-          <Textbox value={""} onChange={() => {}}>
-            {children}
-          </Textbox>
+          <Textbox>{children}</Textbox>
         </InlineInputs>,
       );
 
@@ -206,7 +204,7 @@ test.describe("rounded corners", () => {
 
       await mount(
         <InlineInputs label="Inline Input" gutter={gutter}>
-          <Textbox warning inputIcon="warning" value={""} onChange={() => {}} />
+          <Textbox warning inputIcon="warning" />
           <Decimal onChange={() => {}} value="0.00" />
         </InlineInputs>,
       );
@@ -228,7 +226,7 @@ test.describe("rounded corners", () => {
     }) => {
       await mount(
         <InlineInputs label="Inline Input" gutter={gutter}>
-          <Textbox warning inputIcon="warning" value={""} onChange={() => {}} />
+          <Textbox warning inputIcon="warning" />
         </InlineInputs>,
       );
 

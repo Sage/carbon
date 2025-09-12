@@ -128,7 +128,6 @@ export const TabsComponentValidations = (props: Partial<TabsProps>) => {
           label="Add error"
           error={errors.two}
           onChange={() => setErrors({ ...errors, two: !errors.two })}
-          checked={errors.two}
         />
         <Checkbox
           label="Add warning"
@@ -155,13 +154,11 @@ export const TabsComponentValidations = (props: Partial<TabsProps>) => {
           label="Add error"
           error={errors.three}
           onChange={() => setErrors({ ...errors, three: !errors.three })}
-          checked={errors.three}
         />
         <Checkbox
           label="Add warning"
           warning={warnings.three}
           onChange={() => setWarnings({ ...warnings, three: !warnings.three })}
-          checked={warnings.three}
         />
         <Checkbox
           label="Add info"
@@ -334,7 +331,6 @@ export const WithAdditionalTitleSiblings = () => {
             label="Add error"
             error={errors.two}
             onChange={() => setErrors({ ...errors, two: !errors.two })}
-            checked={errors.two}
           />
         </Tab>
         <Tab
@@ -356,7 +352,6 @@ export const WithAdditionalTitleSiblings = () => {
             label="Add error"
             error={errors.three}
             onChange={() => setErrors({ ...errors, three: !errors.three })}
-            checked={errors.three}
           />
         </Tab>
       </Tabs>
@@ -407,7 +402,6 @@ export const WithAdditionalTitleSiblingsSizeLarge = () => {
           <Checkbox
             label="Add error"
             error={errors.two}
-            checked={errors.two}
             onChange={() => setErrors({ ...errors, two: !errors.two })}
           />
         </Tab>
@@ -429,7 +423,6 @@ export const WithAdditionalTitleSiblingsSizeLarge = () => {
           <Checkbox
             label="Add error"
             error={errors.three}
-            checked={errors.three}
             onChange={() => setErrors({ ...errors, three: !errors.three })}
           />
         </Tab>
@@ -473,7 +466,6 @@ export const WithCustomLayout = () => {
         >
           <Checkbox
             label="Add error"
-            checked={errors.one}
             error={errors.one}
             onChange={() => setErrors({ ...errors, one: !errors.one })}
           />
@@ -504,7 +496,6 @@ export const WithCustomLayout = () => {
         >
           <Checkbox
             label="Add error"
-            checked={errors.two}
             error={errors.two}
             onChange={() => setErrors({ ...errors, two: !errors.two })}
           />
@@ -535,7 +526,6 @@ export const WithCustomLayout = () => {
         >
           <Checkbox
             label="Add error"
-            checked={errors.three}
             error={errors.three}
             onChange={() => setErrors({ ...errors, three: !errors.three })}
           />

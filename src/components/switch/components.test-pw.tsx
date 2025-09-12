@@ -20,7 +20,7 @@ export const SwitchComponent = (props: Partial<SwitchProps>) => {
 };
 
 export const SwitchComponentValidations = (props: Partial<SwitchProps>) => {
-  const [isChecked, setIsChecked] = React.useState(false);
+  const [, setIsChecked] = React.useState(false);
   return (
     <Box>
       {["error", "warning", "info"].map((type) => (
@@ -31,7 +31,6 @@ export const SwitchComponentValidations = (props: Partial<SwitchProps>) => {
           label={`Example switch (${type})`}
           name={`switch-${type}`}
           onChange={() => setIsChecked((state) => !state)}
-          checked={isChecked}
           {...props}
         />
       ))}
@@ -40,29 +39,22 @@ export const SwitchComponentValidations = (props: Partial<SwitchProps>) => {
 };
 
 export const WithMargin = () => {
-  const [isChecked, setIsChecked] = React.useState(false);
   return (
     <>
       <Switch
         label="With labelHelp"
         labelHelp="This text provides more information for the label."
         m={2}
-        onChange={() => setIsChecked((state) => !state)}
-        checked={isChecked}
       />
       <Switch
         label="With labelHelp"
         labelHelp="This text provides more information for the label."
         m={4}
-        onChange={() => setIsChecked((state) => !state)}
-        checked={isChecked}
       />
       <Switch
         label="With labelHelp"
         labelHelp="This text provides more information for the label."
         m="9px"
-        onChange={() => setIsChecked((state) => !state)}
-        checked={isChecked}
       />
     </>
   );

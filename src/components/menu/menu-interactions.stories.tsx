@@ -33,34 +33,30 @@ interface StoryProps {
   menuType?: MenuProps["menuType"];
 }
 
-const MenuWithSearch = ({ menuType }: StoryProps) => {
-  const [searchValue, setSearchValue] = React.useState("");
-  return (
-    <Menu menuType={menuType}>
-      <MenuItem submenu={`Menu Item ${menuType}`}>
-        <MenuItem>
-          <Search
-            placeholder="Search..."
-            value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
-            variant={
-              menuType === "white" || menuType === "light" ? "default" : "dark"
-            }
-          />
-        </MenuItem>
-        <MenuDivider />
-        <MenuItem href="#">Item Link One</MenuItem>
-        <MenuItem data-role="target" icon="settings" href="#">
-          Item Link Two
-        </MenuItem>
-        <MenuItem onClick={() => {}}>Item Button Three</MenuItem>
-        <MenuItem data-role="target" icon="settings" onClick={() => {}}>
-          Item Button Four
-        </MenuItem>
+const MenuWithSearch = ({ menuType }: StoryProps) => (
+  <Menu menuType={menuType}>
+    <MenuItem submenu={`Menu Item ${menuType}`}>
+      <MenuItem>
+        <Search
+          placeholder="Search..."
+          defaultValue=""
+          variant={
+            menuType === "white" || menuType === "light" ? "default" : "dark"
+          }
+        />
       </MenuItem>
-    </Menu>
-  );
-};
+      <MenuDivider />
+      <MenuItem href="#">Item Link One</MenuItem>
+      <MenuItem data-role="target" icon="settings" href="#">
+        Item Link Two
+      </MenuItem>
+      <MenuItem onClick={() => {}}>Item Button Three</MenuItem>
+      <MenuItem data-role="target" icon="settings" onClick={() => {}}>
+        Item Button Four
+      </MenuItem>
+    </MenuItem>
+  </Menu>
+);
 
 const MenuWithScrollableBlock = ({ menuType }: StoryProps) => (
   <Menu menuType={menuType}>
@@ -193,39 +189,31 @@ const FullScreenWithSegmentTitle = () => (
   </Menu>
 );
 
-const FullScreenWithScrollableBlock = () => {
-  const [searchValue, setSearchValue] = React.useState("");
-  return (
-    <Menu menuType="white">
-      <MenuFullscreen isOpen onClose={() => {}}>
-        <MenuItem>
-          <Search
-            placeholder="Search..."
-            value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
-            searchButton
-          />
+const FullScreenWithScrollableBlock = () => (
+  <Menu menuType="white">
+    <MenuFullscreen isOpen onClose={() => {}}>
+      <MenuItem>
+        <Search placeholder="Search..." defaultValue="" searchButton />
+      </MenuItem>
+      <MenuItem submenu="Item Three With Submenu">
+        <MenuItem data-role="target" href="#">
+          Item Submenu One
         </MenuItem>
-        <MenuItem submenu="Item Three With Submenu">
-          <MenuItem data-role="target" href="#">
-            Item Submenu One
+        <MenuItem href="#">Item Submenu Two</MenuItem>
+        <ScrollableBlock height="150px">
+          <MenuItem onClick={() => {}}>Item Scrollable One</MenuItem>
+          <MenuItem onClick={() => {}}>Item Scrollable Two</MenuItem>
+          <MenuItem onClick={() => {}}>Item Scrollable Three</MenuItem>
+          <MenuItem data-role="target" onClick={() => {}}>
+            Item Scrollable Four
           </MenuItem>
-          <MenuItem href="#">Item Submenu Two</MenuItem>
-          <ScrollableBlock height="150px">
-            <MenuItem onClick={() => {}}>Item Scrollable One</MenuItem>
-            <MenuItem onClick={() => {}}>Item Scrollable Two</MenuItem>
-            <MenuItem onClick={() => {}}>Item Scrollable Three</MenuItem>
-            <MenuItem data-role="target" onClick={() => {}}>
-              Item Scrollable Four
-            </MenuItem>
-            <MenuItem onClick={() => {}}>Item Scrollable Five</MenuItem>
-            <MenuItem onClick={() => {}}>Item Scrollable Six</MenuItem>
-          </ScrollableBlock>
-        </MenuItem>
-      </MenuFullscreen>
-    </Menu>
-  );
-};
+          <MenuItem onClick={() => {}}>Item Scrollable Five</MenuItem>
+          <MenuItem onClick={() => {}}>Item Scrollable Six</MenuItem>
+        </ScrollableBlock>
+      </MenuItem>
+    </MenuFullscreen>
+  </Menu>
+);
 
 export const WithSearch: Story = {
   render: () => (

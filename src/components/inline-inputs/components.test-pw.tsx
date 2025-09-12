@@ -14,7 +14,6 @@ export const Default = () => {
   };
   const [decimalValue, setDecimalValue] = useState("0.00");
   const [selectValue, setSelectValue] = useState("");
-  const [textValue, setTextValue] = useState("");
   const handleDecimalChange = (ev: {
     target: { value: { rawValue: React.SetStateAction<string> } };
   }) => {
@@ -31,12 +30,7 @@ export const Default = () => {
       labelId="inline-inputs-default"
       gutter="none"
     >
-      <Textbox
-        aria-labelledby="inline-inputs-default"
-        {...validationProps}
-        value={textValue}
-        onChange={(e) => setTextValue(e.target.value)}
-      />
+      <Textbox aria-labelledby="inline-inputs-default" {...validationProps} />
       <Decimal
         aria-labelledby="inline-inputs-default"
         value={decimalValue}
@@ -64,8 +58,6 @@ export const Default = () => {
 };
 
 export const WithAdaptiveLabelBreakpoint = () => {
-  const [textValue, setTextValue] = useState("");
-
   return (
     <Box p={4}>
       <InlineInputs
@@ -75,46 +67,23 @@ export const WithAdaptiveLabelBreakpoint = () => {
         labelWidth={30}
         gutter="none"
       >
-        <Textbox
-          aria-labelledby="inline-inputs-adaptive"
-          value={textValue}
-          onChange={(e) => setTextValue(e.target.value)}
-        />
-
-        <Textbox
-          aria-labelledby="inline-inputs-adaptive"
-          value={textValue}
-          onChange={(e) => setTextValue(e.target.value)}
-        />
+        <Textbox aria-labelledby="inline-inputs-adaptive" />
+        <Textbox aria-labelledby="inline-inputs-adaptive" />
       </InlineInputs>
-      <Textbox
-        label="My Textbox"
-        adaptiveLabelBreakpoint={768}
-        value={textValue}
-        onChange={(e) => setTextValue(e.target.value)}
-      />
+      <Textbox label="My Textbox" adaptiveLabelBreakpoint={768} />
     </Box>
   );
 };
 
 export const Required = () => {
-  const [textValue, setTextValue] = useState("");
   return (
     <InlineInputs
       label="Inline Inputs"
       labelId="inline-inputs-required"
       required
     >
-      <Textbox
-        aria-labelledby="inline-inputs-required"
-        value={textValue}
-        onChange={(e) => setTextValue(e.target.value)}
-      />
-      <Textbox
-        aria-labelledby="inline-inputs-required"
-        value={textValue}
-        onChange={(e) => setTextValue(e.target.value)}
-      />
+      <Textbox aria-labelledby="inline-inputs-required" />
+      <Textbox aria-labelledby="inline-inputs-required" />
     </InlineInputs>
   );
 };

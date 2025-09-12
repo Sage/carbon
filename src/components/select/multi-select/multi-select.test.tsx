@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { act, render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import mockDOMRect from "../../../__spec_helper__/mock-dom-rect";
+import Logger from "../../../__internal__/utils/logger";
 import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/test-utils";
 
-import MultiSelect, { MultiSelectProps } from ".";
-import { CustomSelectChangeEvent, Option } from "..";
+import MultiSelect from ".";
+import { Option } from "..";
 
 import Modal from "../../modal";
 
@@ -18,47 +19,11 @@ afterEach(() => {
   jest.restoreAllMocks();
 });
 
-type InteractiveComponentProps = Omit<
-  MultiSelectProps,
-  "onChange" | "value"
-> & {
-  children: React.ReactNode;
-  onChange: (
-    ev: CustomSelectChangeEvent | React.ChangeEvent<HTMLInputElement>,
-  ) => void;
-  value?: string[] | Record<string, unknown>[];
-};
-
-const InteractiveComponent = ({
-  children,
-  onChange,
-  value = [""],
-  ...props
-}: InteractiveComponentProps) => {
-  const [internalValue, setValue] = useState(value);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value as unknown as string[]);
-  }
-
-  return (
-    <MultiSelect
-      onChange={(event) => {
-        onChangeHandler(event);
-        onChange(event);
-      }}
-      value={internalValue}
-      {...props}
-    >
-      {children}
-    </MultiSelect>
-  );
-};
-
 test("displays default placeholder text when no value is selected", () => {
   render(
-    <InteractiveComponent label="Colour" onChange={() => {}} value={[]}>
+    <MultiSelect label="Colour" onChange={() => {}} value={[]}>
       <Option text="amber" value="amber" />
-    </InteractiveComponent>,
+    </MultiSelect>,
   );
 
   expect(screen.getByRole("combobox")).toHaveAttribute(
@@ -69,14 +34,14 @@ test("displays default placeholder text when no value is selected", () => {
 
 test("displays custom text when placeholder prop is provided and no value is selected", () => {
   render(
-    <InteractiveComponent
+    <MultiSelect
       label="Colour"
       onChange={() => {}}
       value={[]}
       placeholder="Select a colour"
     >
       <Option text="amber" value="amber" />
-    </InteractiveComponent>,
+    </MultiSelect>,
   );
 
   expect(screen.getByRole("combobox")).toHaveAttribute(
@@ -88,14 +53,14 @@ test("displays custom text when placeholder prop is provided and no value is sel
 describe("when value prop is provided", () => {
   it("displays a pill for a matching option", () => {
     render(
-      <InteractiveComponent
+      <MultiSelect
         label="Colour"
         onChange={() => {}}
         value={["amber"]}
         placeholder="Select a colour"
       >
         <Option text="amber" value="amber" />
-      </InteractiveComponent>,
+      </MultiSelect>,
     );
 
     const amberPill = screen.getByTitle("amber");
@@ -105,14 +70,14 @@ describe("when value prop is provided", () => {
   it("displays pill with correct text, when value is an object which matches an option", () => {
     const selectedOptions = [{ id: "0", value: "amber" }];
     render(
-      <InteractiveComponent
+      <MultiSelect
         label="Colour"
         onChange={() => {}}
         value={selectedOptions}
         placeholder="Select a colour"
       >
         <Option text="amber" value={selectedOptions[0]} />
-      </InteractiveComponent>,
+      </MultiSelect>,
     );
 
     const amberPill = screen.getByTitle("amber");
@@ -121,14 +86,14 @@ describe("when value prop is provided", () => {
 
   it("displays a styled pill for an option that has custom style props", () => {
     render(
-      <InteractiveComponent
+      <MultiSelect
         label="Colour"
         onChange={() => {}}
         value={["amber"]}
         placeholder="Select a colour"
       >
         <Option text="amber" value="amber" borderColor="red" fill />
-      </InteractiveComponent>,
+      </MultiSelect>,
     );
 
     const amberPill = screen.getByTitle("amber");
@@ -140,7 +105,7 @@ describe("when value prop is provided", () => {
 
   it("does not display a pill, when value array contains an unmatched option", () => {
     render(
-      <InteractiveComponent
+      <MultiSelect
         label="Colour"
         onChange={() => {}}
         value={["green"]}
@@ -148,13 +113,13 @@ describe("when value prop is provided", () => {
       >
         <Option text="amber" value="amber" />
         <Option text="blue" value="blue" />
-      </InteractiveComponent>,
+      </MultiSelect>,
     );
 
     expect(screen.queryByTitle("green")).not.toBeInTheDocument();
   });
 
-  it("removes all rendered pills when the value array is set to empty", async () => {
+  it("removes all rendered pills when the value array is set to empty", () => {
     const { rerender } = render(
       <MultiSelect
         label="Colour"
@@ -165,8 +130,6 @@ describe("when value prop is provided", () => {
         <Option text="amber" value="amber" />
       </MultiSelect>,
     );
-
-    expect(screen.getByTitle("amber")).toBeInTheDocument();
 
     rerender(
       <MultiSelect
@@ -179,20 +142,14 @@ describe("when value prop is provided", () => {
       </MultiSelect>,
     );
 
-    await waitFor(() => {
-      expect(screen.queryByTitle("amber")).not.toBeInTheDocument();
-    });
+    expect(screen.queryByTitle("amber")).not.toBeInTheDocument();
   });
 
   test("displays a pill with a dismiss button for a selected option", async () => {
     render(
-      <InteractiveComponent
-        label="Colour"
-        onChange={() => {}}
-        value={["amber"]}
-      >
+      <MultiSelect label="Colour" onChange={() => {}} value={["amber"]}>
         <Option text="amber" value="amber" />
-      </InteractiveComponent>,
+      </MultiSelect>,
     );
 
     const amberPill = screen.getByTitle("amber");
@@ -203,14 +160,14 @@ describe("when value prop is provided", () => {
 
   test("displays a pill without a dismiss button for a selected option when the component is disabled", () => {
     render(
-      <InteractiveComponent
+      <MultiSelect
         label="Colour"
         onChange={() => {}}
         value={["amber"]}
         disabled
       >
         <Option text="amber" value="amber" />
-      </InteractiveComponent>,
+      </MultiSelect>,
     );
 
     const amberPill = screen.getByTitle("amber");
@@ -221,14 +178,14 @@ describe("when value prop is provided", () => {
 
   test("displays a pill without a dismiss button for a selected option when the component is read-only", () => {
     render(
-      <InteractiveComponent
+      <MultiSelect
         label="Colour"
         onChange={() => {}}
         value={["amber"]}
         readOnly
       >
         <Option text="amber" value="amber" />
-      </InteractiveComponent>,
+      </MultiSelect>,
     );
 
     const amberPill = screen.getByTitle("amber");
@@ -241,9 +198,9 @@ describe("when value prop is provided", () => {
 describe("accessible name of the input", () => {
   it("is set to the label prop when provided", () => {
     render(
-      <InteractiveComponent label="Colour" onChange={() => {}} value={[]}>
+      <MultiSelect label="Colour" onChange={() => {}} value={[]}>
         <Option text="amber" value="amber" />
-      </InteractiveComponent>,
+      </MultiSelect>,
     );
 
     expect(screen.getByRole("combobox")).toHaveAccessibleName("Colour");
@@ -253,13 +210,13 @@ describe("accessible name of the input", () => {
     render(
       <>
         <h2 id="my-select-heading">My Select</h2>
-        <InteractiveComponent
+        <MultiSelect
           aria-labelledby="my-select-heading"
           onChange={() => {}}
           value={[]}
         >
           <Option text="amber" value="amber" />
-        </InteractiveComponent>
+        </MultiSelect>
       </>,
     );
 
@@ -270,14 +227,14 @@ describe("accessible name of the input", () => {
     render(
       <>
         <h2 id="my-select-heading">My Select</h2>
-        <InteractiveComponent
+        <MultiSelect
           label="Colour"
           aria-labelledby="my-select-heading"
           onChange={() => {}}
           value={[]}
         >
           <Option text="amber" value="amber" />
-        </InteractiveComponent>
+        </MultiSelect>
       </>,
     );
 
@@ -288,9 +245,9 @@ describe("accessible name of the input", () => {
 test("associates the dropdown list with the correct accessible name from the label prop", async () => {
   const user = userEvent.setup();
   render(
-    <InteractiveComponent label="Colour" onChange={() => {}} value={[]}>
+    <MultiSelect label="Colour" onChange={() => {}} value={[]}>
       <Option text="amber" value="amber" />
-    </InteractiveComponent>,
+    </MultiSelect>,
   );
 
   await user.click(screen.getByRole("combobox"));
@@ -298,61 +255,61 @@ test("associates the dropdown list with the correct accessible name from the lab
   expect(await screen.findByRole("listbox")).toHaveAccessibleName("Colour");
 });
 
-["top", "bottom"].forEach((placement) => {
-  test(`should override the data attribute on the list when listWidth is set and placement is ${placement}`, async () => {
+test.each(["top", "bottom"] as const)(
+  "should override the data attribute on the list when listWidth is set and placement is %s",
+  async (listPlacement) => {
     const user = userEvent.setup();
     render(
-      <InteractiveComponent
-        listPlacement={placement as "top" | "bottom"}
+      <MultiSelect
+        listPlacement={listPlacement}
         listWidth={100}
         label="Colour"
         onChange={() => {}}
       >
         <Option text="amber" value="amber" />
-      </InteractiveComponent>,
+      </MultiSelect>,
     );
 
     await user.click(screen.getByRole("combobox"));
 
     expect(await screen.findByTestId("select-list-wrapper")).toHaveAttribute(
       "data-floating-placement",
-      `${placement}-end`,
+      `${listPlacement}-end`,
     );
-  });
-});
+  },
+);
 
-["top-end", "bottom-end", "top-start", "bottom-start"].forEach((placement) => {
-  test(`should not override the data attribute on the list when listWidth is set and placement is ${placement}`, async () => {
+test.each(["top-end", "bottom-end", "top-start", "bottom-start"] as const)(
+  "should not override the data attribute on the list when listWidth is set and placement is %s",
+  async (listPlacement) => {
     const user = userEvent.setup();
     render(
-      <InteractiveComponent
-        listPlacement={
-          placement as "top-end" | "bottom-end" | "top-start" | "bottom-start"
-        }
+      <MultiSelect
+        listPlacement={listPlacement}
         listWidth={100}
         label="Colour"
         onChange={() => {}}
       >
         <Option text="amber" value="amber" />
-      </InteractiveComponent>,
+      </MultiSelect>,
     );
 
     await user.click(screen.getByRole("combobox"));
 
     expect(await screen.findByTestId("select-list-wrapper")).toHaveAttribute(
       "data-floating-placement",
-      placement,
+      listPlacement,
     );
-  });
-});
+  },
+);
 
 describe("dropdown list", () => {
   it("opens when input is clicked", async () => {
     const user = userEvent.setup();
     render(
-      <InteractiveComponent label="Colour" onChange={() => {}}>
+      <MultiSelect label="Colour" onChange={() => {}}>
         <Option text="amber" value="amber" />
-      </InteractiveComponent>,
+      </MultiSelect>,
     );
 
     await user.click(screen.getByRole("combobox"));
@@ -363,9 +320,9 @@ describe("dropdown list", () => {
   it("opens when input's dropdown icon is clicked", async () => {
     const user = userEvent.setup();
     render(
-      <InteractiveComponent label="Colour" onChange={() => {}}>
+      <MultiSelect label="Colour" onChange={() => {}}>
         <Option text="amber" value="amber" />
-      </InteractiveComponent>,
+      </MultiSelect>,
     );
 
     await user.click(screen.getByTestId("input-icon-toggle"));
@@ -373,44 +330,46 @@ describe("dropdown list", () => {
     expect(await screen.findByRole("listbox")).toBeVisible();
   });
 
-  ["Space", "ArrowUp", "ArrowDown", "Home", "End"].forEach((key) => {
-    test(`opens when input is focused and ${key} key is pressed`, async () => {
+  it.each(["Space", "ArrowUp", "ArrowDown", "Home", "End"])(
+    "opens when input is focused and %s key is pressed",
+    async (key) => {
       const user = userEvent.setup();
       render(
-        <InteractiveComponent label="Colour" onChange={() => {}}>
+        <MultiSelect label="Colour" onChange={() => {}}>
           <Option text="amber" value="amber" />
-        </InteractiveComponent>,
+        </MultiSelect>,
       );
 
       await user.tab();
       await user.keyboard(key);
 
       expect(await screen.findByRole("listbox")).toBeVisible();
-    });
-  });
+    },
+  );
 
-  ["Enter", "a"].forEach((key) => {
-    test(`does not open when ${key} key is pressed`, async () => {
+  it.each(["Enter", "a"] as const)(
+    "does not open when %s key is pressed",
+    async (key) => {
       const user = userEvent.setup();
       render(
-        <InteractiveComponent label="Colour" onChange={() => {}}>
+        <MultiSelect label="Colour" onChange={() => {}}>
           <Option text="amber" value="amber" />
-        </InteractiveComponent>,
+        </MultiSelect>,
       );
 
       await user.tab();
       await user.keyboard(`[${key}]`);
 
       expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
-    });
-  });
+    },
+  );
 
   it("does not open, when input is disabled and is clicked", async () => {
     const user = userEvent.setup();
     render(
-      <InteractiveComponent label="Colour" onChange={() => {}} disabled>
+      <MultiSelect label="Colour" onChange={() => {}} disabled>
         <Option text="amber" value="amber" />
-      </InteractiveComponent>,
+      </MultiSelect>,
     );
 
     await user.click(screen.getByRole("combobox"));
@@ -421,9 +380,9 @@ describe("dropdown list", () => {
   it("does not open, when input is disabled and is selected with the keyboard", async () => {
     const user = userEvent.setup();
     render(
-      <InteractiveComponent label="Colour" onChange={() => {}} disabled>
+      <MultiSelect label="Colour" onChange={() => {}} disabled>
         <Option text="amber" value="amber" />
-      </InteractiveComponent>,
+      </MultiSelect>,
     );
 
     await user.tab();
@@ -435,9 +394,9 @@ describe("dropdown list", () => {
   it("does not open, when input is read-only and is clicked", async () => {
     const user = userEvent.setup();
     render(
-      <InteractiveComponent label="Colour" onChange={() => {}} readOnly>
+      <MultiSelect label="Colour" onChange={() => {}} readOnly>
         <Option text="amber" value="amber" />
-      </InteractiveComponent>,
+      </MultiSelect>,
     );
 
     await user.click(screen.getByRole("textbox"));
@@ -448,9 +407,9 @@ describe("dropdown list", () => {
   it("does not open, when input is read-only and Space bar is pressed", async () => {
     const user = userEvent.setup();
     render(
-      <InteractiveComponent label="Colour" onChange={() => {}} readOnly>
+      <MultiSelect label="Colour" onChange={() => {}} readOnly>
         <Option text="amber" value="amber" />
-      </InteractiveComponent>,
+      </MultiSelect>,
     );
 
     await user.tab();
@@ -462,9 +421,9 @@ describe("dropdown list", () => {
   it("opens when input is focused and openOnFocus prop is true", async () => {
     const user = userEvent.setup();
     render(
-      <InteractiveComponent label="Colour" onChange={() => {}} openOnFocus>
+      <MultiSelect label="Colour" onChange={() => {}} openOnFocus>
         <Option text="amber" value="amber" />
-      </InteractiveComponent>,
+      </MultiSelect>,
     );
 
     await user.tab();
@@ -475,13 +434,9 @@ describe("dropdown list", () => {
   it("does not open, when input is focused and openOnFocus prop is false", async () => {
     const user = userEvent.setup();
     render(
-      <InteractiveComponent
-        label="Colour"
-        onChange={() => {}}
-        openOnFocus={false}
-      >
+      <MultiSelect label="Colour" onChange={() => {}} openOnFocus={false}>
         <Option text="amber" value="amber" />
-      </InteractiveComponent>,
+      </MultiSelect>,
     );
 
     await user.tab();
@@ -492,9 +447,9 @@ describe("dropdown list", () => {
   it("stays open after an option is clicked", async () => {
     const user = userEvent.setup();
     render(
-      <InteractiveComponent label="Colour" onChange={() => {}}>
+      <MultiSelect label="Colour" onChange={() => {}}>
         <Option text="amber" value="amber" />
-      </InteractiveComponent>,
+      </MultiSelect>,
     );
 
     await user.click(screen.getByRole("combobox"));
@@ -506,9 +461,9 @@ describe("dropdown list", () => {
   it("stays open after an option is focused and Enter key is pressed", async () => {
     const user = userEvent.setup();
     render(
-      <InteractiveComponent label="Colour" onChange={() => {}}>
+      <MultiSelect label="Colour" onChange={() => {}}>
         <Option text="amber" value="amber" />
-      </InteractiveComponent>,
+      </MultiSelect>,
     );
 
     await user.click(screen.getByRole("combobox"));
@@ -522,9 +477,9 @@ describe("dropdown list", () => {
     const user = userEvent.setup();
     render(
       <>
-        <InteractiveComponent label="Colour" onChange={() => {}}>
+        <MultiSelect label="Colour" onChange={() => {}}>
           <Option text="amber" value="amber" />
-        </InteractiveComponent>
+        </MultiSelect>
         <p>Outside content</p>
       </>,
     );
@@ -540,9 +495,9 @@ describe("dropdown list", () => {
   it("closes when input is clicked twice", async () => {
     const user = userEvent.setup();
     render(
-      <InteractiveComponent label="Colour" onChange={() => {}}>
+      <MultiSelect label="Colour" onChange={() => {}}>
         <Option text="amber" value="amber" />
-      </InteractiveComponent>,
+      </MultiSelect>,
     );
 
     await user.click(screen.getByRole("combobox"));
@@ -556,9 +511,9 @@ describe("dropdown list", () => {
   it("closes when input's dropdown icon is clicked twice", async () => {
     const user = userEvent.setup();
     render(
-      <InteractiveComponent label="Colour" onChange={() => {}}>
+      <MultiSelect label="Colour" onChange={() => {}}>
         <Option text="amber" value="amber" />
-      </InteractiveComponent>,
+      </MultiSelect>,
     );
 
     await user.click(screen.getByTestId("input-icon-toggle"));
@@ -572,9 +527,9 @@ describe("dropdown list", () => {
   it("opens when input is clicked and openOnFocus prop is true", async () => {
     const user = userEvent.setup();
     render(
-      <InteractiveComponent label="Colour" onChange={() => {}} openOnFocus>
+      <MultiSelect label="Colour" onChange={() => {}} openOnFocus>
         <Option text="amber" value="amber" />
-      </InteractiveComponent>,
+      </MultiSelect>,
     );
 
     await user.click(screen.getByRole("combobox"));
@@ -587,10 +542,10 @@ describe("when dropdown list is opened", () => {
   it("highlights the first option in list when ArrowDown key is pressed", async () => {
     const user = userEvent.setup();
     render(
-      <InteractiveComponent label="Colour" onChange={() => {}} openOnFocus>
+      <MultiSelect label="Colour" onChange={() => {}} openOnFocus>
         <Option text="amber" value="amber" />
         <Option text="blue" value="blue" />
-      </InteractiveComponent>,
+      </MultiSelect>,
     );
 
     await user.tab();
@@ -604,10 +559,10 @@ describe("when dropdown list is opened", () => {
   it("highlights the last option in list when ArrowUp key is pressed", async () => {
     const user = userEvent.setup();
     render(
-      <InteractiveComponent label="Colour" onChange={() => {}} openOnFocus>
+      <MultiSelect label="Colour" onChange={() => {}} openOnFocus>
         <Option text="amber" value="amber" />
         <Option text="blue" value="blue" />
-      </InteractiveComponent>,
+      </MultiSelect>,
     );
 
     await user.tab();
@@ -627,7 +582,7 @@ describe("when dropdown list is opened", () => {
       const [value, setValue] = React.useState<string[]>([]);
 
       return (
-        <InteractiveComponent
+        <MultiSelect
           label="Colour"
           name="colour"
           id="colour"
@@ -639,7 +594,7 @@ describe("when dropdown list is opened", () => {
         >
           <Option text="amber" value="amber" />
           <Option text="blue" value="blue" />
-        </InteractiveComponent>
+        </MultiSelect>
       );
     };
     render(<ControlledMultiSelect />);
@@ -662,10 +617,10 @@ describe("when dropdown list is opened", () => {
     const user = userEvent.setup();
     const onChange = jest.fn();
     render(
-      <InteractiveComponent label="Colour" onChange={onChange} openOnFocus>
+      <MultiSelect label="Colour" onChange={onChange} openOnFocus>
         <Option text="amber" value="amber" />
         <Option text="blue" value="blue" />
-      </InteractiveComponent>,
+      </MultiSelect>,
     );
 
     await user.tab();
@@ -682,14 +637,10 @@ describe("when dropdown list is opened", () => {
     const user = userEvent.setup();
     const onChange = jest.fn();
     render(
-      <InteractiveComponent
-        label="Colour"
-        onChange={onChange}
-        value={["amber"]}
-      >
+      <MultiSelect label="Colour" onChange={onChange} value={["amber"]}>
         <Option text="amber" value="amber" />
         <Option text="blue" value="blue" />
-      </InteractiveComponent>,
+      </MultiSelect>,
     );
 
     await user.click(screen.getByRole("combobox"));
@@ -701,9 +652,9 @@ describe("when dropdown list is opened", () => {
   test("does not render an empty pill, when Enter key is pressed and input text does not match any option", async () => {
     const user = userEvent.setup();
     render(
-      <InteractiveComponent label="Colour" onChange={() => {}}>
+      <MultiSelect label="Colour" onChange={() => {}}>
         <Option text="amber" value="amber" />
-      </InteractiveComponent>,
+      </MultiSelect>,
     );
     await user.type(screen.getByRole("combobox"), "x");
     await screen.findByText('No results for "x"');
@@ -723,7 +674,7 @@ test.each(["Backspace", "Delete"])(
       const [value, setValue] = React.useState(["amber"]);
 
       return (
-        <InteractiveComponent
+        <MultiSelect
           label="Colour"
           value={value}
           onChange={(event) => {
@@ -731,7 +682,7 @@ test.each(["Backspace", "Delete"])(
           }}
         >
           <Option text="amber" value="amber" />
-        </InteractiveComponent>
+        </MultiSelect>
       );
     };
     render(<ControlledMultiSelect />);
@@ -751,7 +702,7 @@ test("a selected option, that renders dismissible pill, can be removed by clicki
     const [value, setValue] = React.useState(["amber"]);
 
     return (
-      <InteractiveComponent
+      <MultiSelect
         label="Colour"
         value={value}
         onChange={(event) => {
@@ -759,7 +710,7 @@ test("a selected option, that renders dismissible pill, can be removed by clicki
         }}
       >
         <Option text="amber" value="amber" />
-      </InteractiveComponent>
+      </MultiSelect>
     );
   };
   render(<ControlledMultiSelect />);
@@ -780,7 +731,7 @@ test("calls onChange prop when a previously selected option is removed", async (
     const [value, setValue] = React.useState(["amber", "black"]);
 
     return (
-      <InteractiveComponent
+      <MultiSelect
         label="Colour"
         value={value}
         onChange={(ev) => {
@@ -790,7 +741,7 @@ test("calls onChange prop when a previously selected option is removed", async (
       >
         <Option text="amber" value="amber" />
         <Option text="black" value="black" />
-      </InteractiveComponent>
+      </MultiSelect>
     );
   };
   render(<ControlledMultiSelect />);
@@ -814,7 +765,7 @@ test("does not call onChange prop, when Backspace key is pressed but nothing has
     const [value, setValue] = React.useState<string[]>([]);
 
     return (
-      <InteractiveComponent
+      <MultiSelect
         label="Colour"
         value={value}
         onChange={(ev) => {
@@ -824,7 +775,7 @@ test("does not call onChange prop, when Backspace key is pressed but nothing has
       >
         <Option text="amber" value="amber" />
         <Option text="black" value="black" />
-      </InteractiveComponent>
+      </MultiSelect>
     );
   };
   render(<ControlledMultiSelect />);
@@ -839,9 +790,9 @@ test("clears the input after clicking away from it", async () => {
   const user = userEvent.setup();
   render(
     <>
-      <InteractiveComponent label="Colour" onChange={() => {}}>
+      <MultiSelect label="Colour" onChange={() => {}}>
         <Option text="amber" value="amber" />
-      </InteractiveComponent>
+      </MultiSelect>
       <p>Outside content</p>
     </>,
   );
@@ -855,9 +806,9 @@ test("clears the input after clicking away from it", async () => {
 test("clears the input after an option is selected", async () => {
   const user = userEvent.setup();
   render(
-    <InteractiveComponent label="Colour" onChange={() => {}}>
+    <MultiSelect label="Colour" onChange={() => {}}>
       <Option text="amber" value="amber" />
-    </InteractiveComponent>,
+    </MultiSelect>,
   );
 
   await user.type(screen.getByRole("combobox"), "amber");
@@ -871,13 +822,9 @@ describe("when onClick prop is passed", () => {
     const user = userEvent.setup();
     const onClick = jest.fn();
     render(
-      <InteractiveComponent
-        label="Colour"
-        onChange={() => {}}
-        onClick={onClick}
-      >
+      <MultiSelect label="Colour" onChange={() => {}} onClick={onClick}>
         <Option text="amber" value="amber" />
-      </InteractiveComponent>,
+      </MultiSelect>,
     );
 
     await user.click(screen.getByRole("combobox"));
@@ -889,14 +836,14 @@ describe("when onClick prop is passed", () => {
     const user = userEvent.setup();
     const onClick = jest.fn();
     render(
-      <InteractiveComponent
+      <MultiSelect
         label="Colour"
         onChange={() => {}}
         disabled
         onClick={onClick}
       >
         <Option text="amber" value="amber" />
-      </InteractiveComponent>,
+      </MultiSelect>,
     );
 
     await user.click(screen.getByRole("combobox"));
@@ -908,14 +855,14 @@ describe("when onClick prop is passed", () => {
     const user = userEvent.setup();
     const onClick = jest.fn();
     render(
-      <InteractiveComponent
+      <MultiSelect
         label="Colour"
         onChange={() => {}}
         readOnly
         onClick={onClick}
       >
         <Option text="amber" value="amber" />
-      </InteractiveComponent>,
+      </MultiSelect>,
     );
 
     await user.click(screen.getByRole("textbox"));
@@ -929,9 +876,9 @@ describe("when onOpen prop is passed", () => {
     const user = userEvent.setup();
     const onOpen = jest.fn();
     render(
-      <InteractiveComponent label="Colour" onChange={() => {}} onOpen={onOpen}>
+      <MultiSelect label="Colour" onChange={() => {}} onOpen={onOpen}>
         <Option text="amber" value="amber" />
-      </InteractiveComponent>,
+      </MultiSelect>,
     );
 
     await user.click(screen.getByRole("combobox"));
@@ -943,9 +890,9 @@ describe("when onOpen prop is passed", () => {
     const user = userEvent.setup();
     const onOpen = jest.fn();
     render(
-      <InteractiveComponent label="Colour" onChange={() => {}} onOpen={onOpen}>
+      <MultiSelect label="Colour" onChange={() => {}} onOpen={onOpen}>
         <Option text="amber" value="amber" />
-      </InteractiveComponent>,
+      </MultiSelect>,
     );
 
     await user.type(screen.getByRole("combobox"), "a");
@@ -957,14 +904,14 @@ describe("when onOpen prop is passed", () => {
     const user = userEvent.setup();
     const onOpen = jest.fn();
     render(
-      <InteractiveComponent
+      <MultiSelect
         label="Colour"
         onChange={() => {}}
         onOpen={onOpen}
         openOnFocus
       >
         <Option text="amber" value="amber" />
-      </InteractiveComponent>,
+      </MultiSelect>,
     );
 
     await user.tab();
@@ -976,9 +923,9 @@ describe("when onOpen prop is passed", () => {
     const user = userEvent.setup();
     const onOpen = jest.fn();
     render(
-      <InteractiveComponent label="Colour" onChange={() => {}} onOpen={onOpen}>
+      <MultiSelect label="Colour" onChange={() => {}} onOpen={onOpen}>
         <Option text="amber" value="amber" />
-      </InteractiveComponent>,
+      </MultiSelect>,
     );
 
     await user.click(screen.getByTestId("input-icon-toggle"));
@@ -991,9 +938,9 @@ test("calls onFocus prop when input is focused", async () => {
   const user = userEvent.setup();
   const onFocus = jest.fn();
   render(
-    <InteractiveComponent label="Colour" onChange={() => {}} onFocus={onFocus}>
+    <MultiSelect label="Colour" onChange={() => {}} onFocus={onFocus}>
       <Option text="amber" value="amber" />
-    </InteractiveComponent>,
+    </MultiSelect>,
   );
 
   await user.tab();
@@ -1005,9 +952,9 @@ test("calls onBlur prop when input loses focus", async () => {
   const user = userEvent.setup();
   const onBlur = jest.fn();
   render(
-    <InteractiveComponent label="Colour" onChange={() => {}} onBlur={onBlur}>
+    <MultiSelect label="Colour" onChange={() => {}} onBlur={onBlur}>
       <Option text="amber" value="amber" />
-    </InteractiveComponent>,
+    </MultiSelect>,
   );
 
   await user.tab();
@@ -1020,9 +967,9 @@ test("does not call onBlur, when input temporarily loses focus due to an option 
   const user = userEvent.setup();
   const onBlur = jest.fn();
   render(
-    <InteractiveComponent label="Colour" onChange={() => {}} onBlur={onBlur}>
+    <MultiSelect label="Colour" onChange={() => {}} onBlur={onBlur}>
       <Option text="amber" value="amber" />
-    </InteractiveComponent>,
+    </MultiSelect>,
   );
 
   await user.click(screen.getByRole("combobox"));
@@ -1035,13 +982,9 @@ test("calls onKeyDown prop when input is focused and a key is pressed", async ()
   const user = userEvent.setup();
   const onKeyDown = jest.fn();
   render(
-    <InteractiveComponent
-      label="Colour"
-      onChange={() => {}}
-      onKeyDown={onKeyDown}
-    >
+    <MultiSelect label="Colour" onChange={() => {}} onKeyDown={onKeyDown}>
       <Option text="amber" value="amber" />
-    </InteractiveComponent>,
+    </MultiSelect>,
   );
 
   await user.tab();
@@ -1054,13 +997,13 @@ test("calls onFilterChange prop when input text changes", async () => {
   const user = userEvent.setup();
   const onFilterChange = jest.fn();
   render(
-    <InteractiveComponent
+    <MultiSelect
       label="Colour"
       onChange={() => {}}
       onFilterChange={onFilterChange}
     >
       <Option text="amber" value="amber" />
-    </InteractiveComponent>,
+    </MultiSelect>,
   );
 
   await user.type(screen.getByRole("combobox"), "a");
@@ -1072,9 +1015,9 @@ describe("when typing into the input", () => {
   it("renders matching options in the dropdown list, even if the text contains leading whitespace", async () => {
     const user = userEvent.setup();
     render(
-      <InteractiveComponent label="Colour" onChange={() => {}}>
+      <MultiSelect label="Colour" onChange={() => {}}>
         <Option text="red" value="red" />
-      </InteractiveComponent>,
+      </MultiSelect>,
     );
 
     await user.type(screen.getByRole("combobox"), "   red");
@@ -1085,9 +1028,9 @@ describe("when typing into the input", () => {
   it("renders matching options in the dropdown list, even if the text contains trailing whitespace", async () => {
     const user = userEvent.setup();
     render(
-      <InteractiveComponent label="Colour" onChange={() => {}}>
+      <MultiSelect label="Colour" onChange={() => {}}>
         <Option text="red" value="red" />
-      </InteractiveComponent>,
+      </MultiSelect>,
     );
 
     await user.type(screen.getByRole("combobox"), "red   ");
@@ -1100,7 +1043,7 @@ describe("forwarded ref", () => {
   it("allows access to the input element through a forwarded callback ref", () => {
     const mockRef = jest.fn((element) => element);
     render(
-      <MultiSelect value={[]} label="Colour" onChange={() => {}} ref={mockRef}>
+      <MultiSelect label="Colour" onChange={() => {}} ref={mockRef}>
         <Option text="amber" value="amber" />
       </MultiSelect>,
     );
@@ -1111,7 +1054,7 @@ describe("forwarded ref", () => {
   it("allows access to the input element through a forwarded ref object", () => {
     const mockRef = { current: null };
     render(
-      <MultiSelect value={[]} label="Colour" onChange={() => {}} ref={mockRef}>
+      <MultiSelect label="Colour" onChange={() => {}} ref={mockRef}>
         <Option text="amber" value="amber" />
       </MultiSelect>,
     );
@@ -1120,11 +1063,58 @@ describe("forwarded ref", () => {
   });
 });
 
+describe("deprecation warnings", () => {
+  it("raises deprecation warning when component is used with defaultValue and no onChange (uncontrolled usage)", () => {
+    jest.spyOn(console, "warn").mockImplementation(() => {});
+
+    const loggerSpy = jest.spyOn(Logger, "deprecate");
+    render(
+      <MultiSelect label="Colour" onChange={undefined} defaultValue={["amber"]}>
+        <Option text="amber" value="amber" />
+      </MultiSelect>,
+    );
+
+    expect(loggerSpy).toHaveBeenNthCalledWith(
+      1,
+      "Uncontrolled behaviour in `Multi Select` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
+    );
+  });
+
+  it("should not display deprecation about uncontrolled Textbox when parent component is controlled", () => {
+    const loggerSpy = jest.spyOn(Logger, "deprecate");
+    render(
+      <MultiSelect
+        label="Colour"
+        onChange={() => {}}
+        value={["amber"]}
+        placeholder="Select a colour"
+      >
+        <Option text="amber" value="amber" />
+      </MultiSelect>,
+    );
+
+    expect(loggerSpy).not.toHaveBeenCalled();
+  });
+
+  it("should not display deprecation about uncontrolled Textbox when parent component is not controlled", () => {
+    const loggerSpy = jest.spyOn(Logger, "deprecate");
+    render(
+      <MultiSelect label="Colour" placeholder="Select a colour">
+        <Option text="amber" value="amber" />
+      </MultiSelect>,
+    );
+
+    expect(loggerSpy).not.toHaveBeenCalledWith(
+      "Uncontrolled behaviour in `Textbox` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
+    );
+  });
+});
+
 test("marks input as required when required prop is true", () => {
   render(
-    <InteractiveComponent label="Colour" onChange={() => {}} required>
+    <MultiSelect label="Colour" onChange={() => {}} required>
       <Option text="amber" value="amber" />
-    </InteractiveComponent>,
+    </MultiSelect>,
   );
 
   expect(screen.getByRole("combobox")).toBeRequired();
@@ -1134,14 +1124,14 @@ test("should not be call `onListScrollBottom` callback when an option is clicked
   const onListScrollBottomFn = jest.fn();
   const user = userEvent.setup();
   render(
-    <InteractiveComponent
+    <MultiSelect
       onListScrollBottom={onListScrollBottomFn}
       openOnFocus
       label="filterable-select"
       onChange={() => {}}
     >
       <Option value="opt1" text="green" />
-    </InteractiveComponent>,
+    </MultiSelect>,
   );
 
   act(() => {
@@ -1156,14 +1146,9 @@ test("does not call onOpen, when openOnFocus is true and the input is refocused 
   const onOpen = jest.fn();
 
   render(
-    <InteractiveComponent
-      label="Colour"
-      onChange={() => {}}
-      onOpen={onOpen}
-      openOnFocus
-    >
+    <MultiSelect label="Colour" onChange={() => {}} onOpen={onOpen} openOnFocus>
       <Option text="amber" value="amber" />
-    </InteractiveComponent>,
+    </MultiSelect>,
   );
 
   const input = screen.getByRole("combobox");
@@ -1185,14 +1170,9 @@ test("dropdown list is open on initial render, when autoFocus and openOnFocus pr
   jest.useFakeTimers();
   render(
     <Modal open>
-      <InteractiveComponent
-        label="Colour"
-        onChange={() => {}}
-        autoFocus
-        openOnFocus
-      >
+      <MultiSelect label="Colour" onChange={() => {}} autoFocus openOnFocus>
         <Option text="amber" value="amber" />
-      </InteractiveComponent>
+      </MultiSelect>
     </Modal>,
   );
 
@@ -1211,9 +1191,9 @@ test("should not display the list when `openOnFocus` is set and mousedown is det
   const user = userEvent.setup();
 
   render(
-    <InteractiveComponent openOnFocus label="multi-select" onChange={() => {}}>
+    <MultiSelect openOnFocus label="multi-select" onChange={() => {}}>
       <Option value="opt1" text="red" />
-    </InteractiveComponent>,
+    </MultiSelect>,
   );
 
   const icon = within(screen.getByRole("presentation")).getByTestId("icon");
@@ -1229,9 +1209,9 @@ test("should not display the list when `openOnFocus` is set and mousedown is det
 test("should display the list when `openOnFocus` is not set", async () => {
   const user = userEvent.setup();
   render(
-    <InteractiveComponent label="multi-select" onChange={() => {}}>
+    <MultiSelect label="multi-select" onChange={() => {}}>
       <Option value="opt1" text="red" />
-    </InteractiveComponent>,
+    </MultiSelect>,
   );
   const icon = within(screen.getByRole("presentation")).getByTestId("icon");
   await user.click(icon);
@@ -1243,13 +1223,9 @@ test("should call `onOpen` callback if prop is passed", async () => {
   const onOpenFn = jest.fn();
   const user = userEvent.setup();
   render(
-    <InteractiveComponent
-      onOpen={onOpenFn}
-      label="multi-select"
-      onChange={() => {}}
-    >
+    <MultiSelect onOpen={onOpenFn} label="multi-select" onChange={() => {}}>
       <Option value="opt1" text="red" />
-    </InteractiveComponent>,
+    </MultiSelect>,
   );
   await user.click(screen.getByRole("combobox"));
 
@@ -1260,13 +1236,9 @@ test("should call `onOpen` callback if prop is passed and navigation key opens s
   const onOpenFn = jest.fn();
   const user = userEvent.setup();
   render(
-    <InteractiveComponent
-      onOpen={onOpenFn}
-      label="multi-select"
-      onChange={() => {}}
-    >
+    <MultiSelect onOpen={onOpenFn} label="multi-select" onChange={() => {}}>
       <Option value="opt1" text="red" />
-    </InteractiveComponent>,
+    </MultiSelect>,
   );
   const input = screen.getByRole("combobox");
 
@@ -1283,14 +1255,14 @@ test("should call `onFocus` callback when input is focused and `openOnFocus` is 
   jest.useFakeTimers();
   const onFocusFn = jest.fn();
   render(
-    <InteractiveComponent
+    <MultiSelect
       openOnFocus
       label="multi-select"
       onChange={() => {}}
       onFocus={onFocusFn}
     >
       <Option value="opt1" text="red" />
-    </InteractiveComponent>,
+    </MultiSelect>,
   );
   act(() => {
     screen.getByRole("combobox").focus();
@@ -1305,13 +1277,9 @@ test("should close the list when the user clicks on the input icon and the list 
   const user = userEvent.setup();
   const onClickFn = jest.fn();
   render(
-    <InteractiveComponent
-      label="multi-select"
-      onChange={() => {}}
-      onClick={onClickFn}
-    >
+    <MultiSelect label="multi-select" onChange={() => {}} onClick={onClickFn}>
       <Option value="opt1" text="red" />
-    </InteractiveComponent>,
+    </MultiSelect>,
   );
   const icon = within(screen.getByRole("presentation")).getByTestId("icon");
   await user.click(icon);
@@ -1325,9 +1293,9 @@ test("should close the list when the user clicks on the input icon and the list 
 test("should update the input value when the user presses 'Delete' and the text is highlighted", async () => {
   const user = userEvent.setup();
   render(
-    <InteractiveComponent label="multi-select" onChange={() => {}}>
+    <MultiSelect label="multi-select" onChange={() => {}}>
       <Option value="opt1" text="abc" />
-    </InteractiveComponent>,
+    </MultiSelect>,
   );
   const input = screen.getByRole("combobox");
   await user.click(input);
@@ -1342,9 +1310,9 @@ test("should focus the input when mousedown event is fired on input", async () =
   const user = userEvent.setup();
 
   render(
-    <InteractiveComponent label="multi-select" onChange={() => {}} openOnFocus>
+    <MultiSelect label="multi-select" onChange={() => {}} openOnFocus>
       <Option value="opt1" text="abc" />
-    </InteractiveComponent>,
+    </MultiSelect>,
   );
 
   const input = screen.getByRole("combobox");
@@ -1358,9 +1326,9 @@ test("the SelectList should stay visible if the input has received a mousedown e
   const user = userEvent.setup();
 
   render(
-    <InteractiveComponent label="multi-select" onChange={() => {}} openOnFocus>
+    <MultiSelect label="multi-select" onChange={() => {}} openOnFocus>
       <Option value="opt1" text="abc" />
-    </InteractiveComponent>,
+    </MultiSelect>,
   );
 
   const input = screen.getByRole("combobox");
@@ -1372,14 +1340,14 @@ test("the SelectList should stay visible if the input has received a mousedown e
 
 testStyledSystemMargin(
   (props) => (
-    <InteractiveComponent
+    <MultiSelect
       {...props}
       data-role="my-select"
       label="Colour"
       onChange={() => {}}
     >
       <Option text="amber" value="amber" />
-    </InteractiveComponent>
+    </MultiSelect>
   ),
   () => screen.getByTestId("my-select"),
 );

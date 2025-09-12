@@ -640,8 +640,7 @@ export const SubmenuWithSearch: MenuStory = () => {
                   <Search
                     placeholder="Dark variant"
                     variant="dark"
-                    value=""
-                    onChange={() => {}}
+                    defaultValue=""
                   />
                 </MenuItem>
                 <MenuItem variant="alternate" href="#">

@@ -293,12 +293,10 @@ export const WithValueModifiers: Story = () => {
         <Textbox
           label="Hours"
           onChange={(e) => setTextboxHours(e.target.value)}
-          value={textboxHours}
         />
         <Textbox
           label="Minutes"
           onChange={(e) => setTextboxMinutes(e.target.value)}
-          value={textboxHours}
         />
         <Button
           onClick={() =>

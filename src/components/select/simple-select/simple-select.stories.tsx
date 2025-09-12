@@ -32,16 +32,9 @@ export default meta;
 type Story = StoryObj<typeof SimpleSelect>;
 
 export const Default: Story = () => {
-  const [value, setValue] = useState("");
   return (
     <Box height={250}>
-      <Select
-        name="simple"
-        id="simple"
-        label="Color"
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
-      >
+      <Select name="simple" id="simple" label="Color">
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
@@ -60,8 +53,6 @@ export const Default: Story = () => {
 Default.storyName = "Default";
 
 export const Required: Story = () => {
-  const [value, setValue] = useState("");
-
   return (
     <Box height={250}>
       <Select
@@ -69,8 +60,6 @@ export const Required: Story = () => {
         id="required-select"
         label="Foreground Color"
         required
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
@@ -133,7 +122,6 @@ ListPlacement.storyName = "List Placement";
 ListPlacement.parameters = { chromatic: { disableSnapshot: true } };
 
 export const ListHeight: Story = () => {
-  const [value, setValue] = useState("");
   return (
     <Box height={500}>
       <Select
@@ -141,8 +129,6 @@ export const ListHeight: Story = () => {
         name="list height"
         id="list-height"
         label="List height"
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
@@ -188,9 +174,6 @@ ListWidth.storyName = "List Width";
 ListWidth.parameters = { chromatic: { disableSnapshot: true } };
 
 export const Sizes: Story = () => {
-  const [value, setValue] = useState("");
-  const [value2, setValue2] = useState("");
-  const [value3, setValue3] = useState("");
   return (
     <Box height={350}>
       <Select
@@ -199,8 +182,6 @@ export const Sizes: Story = () => {
         label="Small"
         size="small"
         mb={2}
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
@@ -212,21 +193,12 @@ export const Sizes: Story = () => {
         label="Medium"
         size="medium"
         mb={2}
-        value={value2}
-        onChange={(ev) => setValue2(ev.target.value)}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
       </Select>
-      <Select
-        name="size-large"
-        id="size-large"
-        label="Large"
-        size="large"
-        value={value3}
-        onChange={(ev) => setValue3(ev.target.value)}
-      >
+      <Select name="size-large" id="size-large" label="Large" size="large">
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
@@ -235,6 +207,44 @@ export const Sizes: Story = () => {
   );
 };
 Sizes.storyName = "Sizes";
+
+export const Controlled: Story = () => {
+  const [value, setValue] = useState("");
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value);
+  }
+  function clearValue() {
+    setValue("");
+  }
+  return (
+    <Box height={300}>
+      <Button onClick={clearValue} mb={2}>
+        clear
+      </Button>
+      <Select
+        id="controlled"
+        name="controlled"
+        value={value}
+        onChange={onChangeHandler}
+        label="color"
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </Select>
+    </Box>
+  );
+};
+Controlled.storyName = "Controlled";
+Controlled.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithObjectAsValue: Story = () => {
   const optionListValues = [
@@ -286,17 +296,9 @@ WithObjectAsValue.storyName = "With Object as Value";
 WithObjectAsValue.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithCustomMaxWidth: Story = () => {
-  const [value, setValue] = useState("");
   return (
     <Box height={250}>
-      <Select
-        name="simple"
-        id="simple"
-        label="color"
-        maxWidth="100%"
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
-      >
+      <Select name="simple" id="simple" label="color" maxWidth="100%">
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
@@ -453,17 +455,9 @@ WithInfiniteScroll.storyName = "With infinite scroll";
 WithInfiniteScroll.parameters = { chromatic: { disableSnapshot: true } };
 
 export const OpenOnFocus: Story = () => {
-  const [value, setValue] = useState("");
   return (
     <Box height={250}>
-      <Select
-        name="openOnFocus"
-        id="openOnFocus"
-        openOnFocus
-        label="color"
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
-      >
+      <Select name="openOnFocus" id="openOnFocus" openOnFocus label="color">
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
@@ -483,15 +477,13 @@ OpenOnFocus.storyName = "Open on Focus";
 OpenOnFocus.parameters = { chromatic: { disableSnapshot: true } };
 
 export const Disabled: Story = () => {
-  const [value, setValue] = useState("3");
   return (
     <Select
       aria-label="disabled"
       name="disabled"
       id="disabled"
+      defaultValue="3"
       disabled
-      value={value}
-      onChange={(ev) => setValue(ev.target.value)}
     >
       <Option text="Amber" value="1" />
       <Option text="Black" value="2" />
@@ -510,15 +502,13 @@ export const Disabled: Story = () => {
 Disabled.storyName = "Disabled";
 
 export const Readonly: Story = () => {
-  const [value, setValue] = useState("4");
   return (
     <Select
       aria-label="readonly"
       name="readonly"
       id="readonly"
+      defaultValue="4"
       readOnly
-      value={value}
-      onChange={(ev) => setValue(ev.target.value)}
     >
       <Option text="Amber" value="1" />
       <Option text="Black" value="2" />
@@ -537,7 +527,6 @@ export const Readonly: Story = () => {
 Readonly.storyName = "Readonly";
 
 export const Transparent: Story = () => {
-  const [value, setValue] = useState("");
   return (
     <Box height={250} width={200}>
       <Select
@@ -546,8 +535,6 @@ export const Transparent: Story = () => {
         placeholder="Please select a colour"
         transparent
         label="Choose a colour"
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
@@ -567,17 +554,15 @@ export const Transparent: Story = () => {
 Transparent.storyName = "Transparent";
 
 export const TransparentDisabled: Story = () => {
-  const [value, setValue] = useState("4");
   return (
     <Box height={250} width={150}>
       <Select
         name="transparent"
         id="transparent"
+        defaultValue="4"
         transparent
         label="Choose a colour"
         disabled
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
@@ -653,13 +638,13 @@ CustomOptionChildren.storyName = "Custom Option Children";
 CustomOptionChildren.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithMultipleColumns: Story = () => {
-  const [value, setValue] = useState("2");
   return (
     <Box height={250}>
       <Select
         name="withMultipleColumns"
         id="withMultipleColumns"
         multiColumn
+        defaultValue="2"
         tableHeader={
           <tr>
             <th>Name</th>
@@ -668,8 +653,6 @@ export const WithMultipleColumns: Story = () => {
           </tr>
         }
         label="With multiple columns"
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
       >
         <OptionRow id="1" value="1" text="John Doe">
           <td>John</td>
@@ -704,16 +687,9 @@ WithMultipleColumns.storyName = "With Multiple Columns";
 WithMultipleColumns.parameters = { chromatic: { disableSnapshot: true } };
 
 export const OptionGroups: Story = () => {
-  const [value, setValue] = useState("");
   return (
     <Box height={250}>
-      <Select
-        name="optGroups"
-        id="optGroups"
-        label="color"
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
-      >
+      <Select name="optGroups" id="optGroups" label="color">
         <OptionGroupHeader label="Group one" icon="individual" />
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
@@ -736,16 +712,9 @@ OptionGroups.storyName = "Option Groups";
 OptionGroups.parameters = { chromatic: { disableSnapshot: true } };
 
 export const OptionGroupsWithComposedChildren: Story = () => {
-  const [value, setValue] = useState("");
   return (
     <Box height={250}>
-      <Select
-        name="optGroups"
-        id="optGroups"
-        label="color"
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
-      >
+      <Select name="optGroups" id="optGroups" label="color">
         <OptionGroupHeader>
           <Icon type="individual" /> <h4>Group One Composed</h4>
         </OptionGroupHeader>
@@ -777,16 +746,14 @@ OptionGroupsWithComposedChildren.parameters = {
 };
 
 export const EnablingAdaptiveBehaviour: Story = () => {
-  const [value, setValue] = useState("4");
   return (
     <Box height={220}>
       <Select
         name="adaptive"
         id="adaptive"
         label="color"
+        defaultValue="4"
         adaptiveLabelBreakpoint={960}
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
@@ -807,7 +774,6 @@ EnablingAdaptiveBehaviour.storyName = "Enabling Adaptive Behaviour";
 EnablingAdaptiveBehaviour.parameters = { chromatic: { disableSnapshot: true } };
 
 export const Virtualised: Story = () => {
-  const [value, setValue] = useState("");
   return (
     <Box height={220}>
       <Select
@@ -817,8 +783,6 @@ export const Virtualised: Story = () => {
         labelInline
         enableVirtualScroll
         virtualScrollOverscan={20}
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
       >
         {Array(10000)
           .fill(undefined)
@@ -836,7 +800,6 @@ export const Virtualised: Story = () => {
 Virtualised.storyName = "Virtualised";
 
 export const WithMultipleColumnsAndVirtualisation: Story = () => {
-  const [value, setValue] = useState("2");
   return (
     <Box height={250}>
       <Select
@@ -844,8 +807,7 @@ export const WithMultipleColumnsAndVirtualisation: Story = () => {
         id="withMultipleColumnsAndVirtualisation"
         label="choose an option"
         multiColumn
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
+        defaultValue="2"
         enableVirtualScroll
         tableHeader={
           <tr>
@@ -882,7 +844,6 @@ WithMultipleColumnsAndVirtualisation.parameters = {
 
 export const SelectionConfirmedStory: Story = () => {
   const [selectionConfirmed, setSelectionConfirmed] = useState(false);
-  const [value, setValue] = useState("");
   return (
     <Box height={280}>
       <Typography variant="strong">
@@ -894,10 +855,8 @@ export const SelectionConfirmedStory: Story = () => {
         )}
       </Typography>
       <Select
-        value={value}
         onChange={(ev: CustomSelectChangeEvent) => {
           setSelectionConfirmed(!!ev.selectionConfirmed);
-          setValue(ev.target.value);
         }}
         name="selection confirmed"
         id="selection confirmed"

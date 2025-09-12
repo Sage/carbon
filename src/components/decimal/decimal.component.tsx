@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useCallback, useContext } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  useContext,
+} from "react";
 import invariant from "invariant";
 
 import Textbox, { CommonTextboxProps } from "../textbox";
@@ -24,12 +30,14 @@ export interface DecimalProps
   align?: "left" | "right";
   /** Allow an empty value instead of defaulting to 0.00 */
   allowEmptyValue?: boolean;
+  /** The default value of the input if it's meant to be used as an uncontrolled component */
+  defaultValue?: string;
   /** The input id */
   id?: string;
   /** The width of the input as a percentage */
   inputWidth?: number;
-  /** Handler for change event */
-  onChange: (ev: CustomEvent) => void;
+  /** Handler for change event if input is meant to be used as a controlled component */
+  onChange?: (ev: CustomEvent) => void;
   /** Handler for blur event */
   onBlur?: (ev: CustomEvent) => void;
   /** The input name */
@@ -54,16 +62,19 @@ export interface DecimalProps
     | 15;
   /** If true, the component will be read-only */
   readOnly?: boolean;
-  /** The value of the input */
-  value: string;
+  /** The value of the input if it's used as a controlled component */
+  value?: string;
   /** The locale string - default en */
   locale?: string;
 }
+
+let deprecateUncontrolledWarnTriggered = false;
 
 export const Decimal = React.forwardRef(
   (
     {
       align = "right",
+      defaultValue,
       precision = 2,
       inputWidth,
       readOnly,
@@ -219,7 +230,7 @@ export const Decimal = React.forwardRef(
       [getSeparator, removeDelimiters],
     );
 
-    const decimalValue = getSafeValueProp(value || emptyValue);
+    const decimalValue = getSafeValueProp(defaultValue || value || emptyValue);
     const [stateValue, setStateValue] = useState(
       isNaN(toStandardDecimal(decimalValue))
         ? decimalValue
@@ -242,7 +253,7 @@ export const Decimal = React.forwardRef(
     const handleOnChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
       const { value: val } = ev.target;
       setStateValue(val);
-      onChange(createEvent(val));
+      if (onChange) onChange(createEvent(val));
     };
 
     const handleOnBlur = (ev: React.FocusEvent<HTMLInputElement>) => {
@@ -265,28 +276,55 @@ export const Decimal = React.forwardRef(
       if (onBlur) onBlur(event);
     };
 
+    const isControlled = value !== undefined;
+    const prevControlledRef = useRef<boolean | null>();
+
+    useEffect(() => {
+      const message =
+        "Input elements should not switch from uncontrolled to controlled (or vice versa). " +
+        "Decide between using a controlled or uncontrolled input element for the lifetime of the component";
+
+      invariant(prevControlledRef.current !== isControlled, message);
+
+      prevControlledRef.current = isControlled;
+
+      return () => {
+        prevControlledRef.current = null;
+      };
+    }, [isControlled]);
+
     const prevValue = usePrevious(value);
 
     useEffect(() => {
       const standardDecimalValue = toStandardDecimal(stateValue);
 
-      const valueProp = getSafeValueProp(value);
-      if (standardDecimalValue !== valueProp) {
-        if (valueProp === "" && prevValue === "") {
-          setStateValue(formatValue(emptyValue));
-        } else {
-          setStateValue(formatValue(valueProp));
+      if (isControlled) {
+        const valueProp = getSafeValueProp(value);
+        if (standardDecimalValue !== valueProp) {
+          if (valueProp === "" && prevValue === "") {
+            setStateValue(formatValue(emptyValue));
+          } else {
+            setStateValue(formatValue(valueProp));
+          }
         }
       }
     }, [
       emptyValue,
       formatValue,
       getSafeValueProp,
+      isControlled,
       prevValue,
       stateValue,
       toStandardDecimal,
       value,
     ]);
+
+    if (!deprecateUncontrolledWarnTriggered && !isControlled) {
+      deprecateUncontrolledWarnTriggered = true;
+      Logger.deprecate(
+        "Uncontrolled behaviour in `Decimal` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
+      );
+    }
 
     return (
       <>

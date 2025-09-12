@@ -4,14 +4,28 @@ import userEvent from "@testing-library/user-event";
 import { ButtonToggle, ButtonToggleGroup } from "..";
 import CarbonProvider from "../../carbon-provider/carbon-provider.component";
 import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/test-utils";
+import Logger from "../../../__internal__/utils/logger";
+
+test("should display a deprecation warning for uncontrolled behaviour which is triggered only once", () => {
+  const loggerSpy = jest
+    .spyOn(Logger, "deprecate")
+    .mockImplementation(() => {});
+
+  render(
+    <ButtonToggleGroup id="test">
+      <ButtonToggle>Button</ButtonToggle>
+    </ButtonToggleGroup>,
+  );
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "Uncontrolled behaviour in `Button Toggle Group` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
+  );
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
+});
 
 test("should render with provided children", () => {
   render(
-    <ButtonToggleGroup
-      id="button-toggle-group-id"
-      value="foo"
-      onChange={() => {}}
-    >
+    <ButtonToggleGroup id="button-toggle-group-id" onChange={() => {}}>
       <ButtonToggle value="foo">Foo</ButtonToggle>
       <ButtonToggle value="bar">Bar</ButtonToggle>
     </ButtonToggleGroup>,
@@ -26,11 +40,7 @@ test("should throw an error when children are not of type ButtonToggle", () => {
 
   expect(() =>
     render(
-      <ButtonToggleGroup
-        value="foo"
-        id="button-toggle-group-id"
-        onChange={() => {}}
-      >
+      <ButtonToggleGroup id="button-toggle-group-id" onChange={() => {}}>
         <div>Foo</div>
       </ButtonToggleGroup>,
     ),
@@ -46,7 +56,6 @@ test("should render with provided label and use it as its accessible name", () =
       label="Group Label"
       aria-label="Group Aria Label"
       onChange={() => {}}
-      value="foo"
     >
       <ButtonToggle value="foo">Foo</ButtonToggle>
       <ButtonToggle value="bar">Bar</ButtonToggle>
@@ -60,7 +69,6 @@ test("should render with provided label and use it as its accessible name", () =
 test("should render with aria-label as its accessible name when the label is not set", () => {
   render(
     <ButtonToggleGroup
-      value="foo"
       id="button-toggle-group-id"
       aria-label="Group Aria Label"
       onChange={() => {}}
@@ -76,7 +84,6 @@ test("should render with aria-label as its accessible name when the label is not
 test("should render with provided hintText and use it as the accessible description for each child button", () => {
   render(
     <ButtonToggleGroup
-      value="foo"
       id="button-toggle-group-id"
       inputHint="Group Hint Text"
       onChange={() => {}}
@@ -99,11 +106,7 @@ test("should call onChange with the value of the ButtonToggle that is clicked", 
   const onChange = jest.fn();
   const user = userEvent.setup();
   render(
-    <ButtonToggleGroup
-      id="button-toggle-group-id"
-      onChange={onChange}
-      value="bar"
-    >
+    <ButtonToggleGroup id="button-toggle-group-id" onChange={onChange}>
       <ButtonToggle value="foo">Foo</ButtonToggle>
       <ButtonToggle value="bar">Bar</ButtonToggle>
     </ButtonToggleGroup>,
@@ -142,7 +145,6 @@ test("should render with disabled child buttons and expected styles when disable
       inputHint="Group Hint Text"
       onChange={() => {}}
       disabled
-      value=""
     >
       <ButtonToggle value="foo">Foo</ButtonToggle>
       <ButtonToggle value="bar">Bar</ButtonToggle>
@@ -170,7 +172,6 @@ test("should render with expected styles when fullWidth prop is set", () => {
       label="Group Label"
       onChange={() => {}}
       fullWidth
-      value="foo"
     >
       <ButtonToggle value="foo" data-role="foo">
         Foo
@@ -190,7 +191,6 @@ test("should render with expected styles when inputWidth prop is set", () => {
       label="Group Label"
       onChange={() => {}}
       inputWidth={50}
-      value="foo"
     >
       <ButtonToggle value="foo">Foo</ButtonToggle>
       <ButtonToggle value="bar">Bar</ButtonToggle>
@@ -207,7 +207,6 @@ test("should render with expected styles when labelInline prop is set", () => {
       label="Group Label"
       onChange={() => {}}
       labelInline
-      value="foo"
     >
       <ButtonToggle value="foo">Foo</ButtonToggle>
       <ButtonToggle value="bar">Bar</ButtonToggle>
@@ -226,7 +225,6 @@ test("should not render labelHelp or filedHelp when validationRedesignOptIn is t
         labelHelp="Label Help"
         fieldHelp="Field Help"
         onChange={() => {}}
-        value="foo"
       >
         <ButtonToggle value="foo">Foo</ButtonToggle>
         <ButtonToggle value="bar">Bar</ButtonToggle>
@@ -241,7 +239,11 @@ test("should not render labelHelp or filedHelp when validationRedesignOptIn is t
 test("should only allow the first button to be tabbable when none are selected", async () => {
   const user = userEvent.setup();
   render(
-    <ButtonToggleGroup id="button-toggle-group-id" onChange={() => {}} value="">
+    <ButtonToggleGroup
+      id="button-toggle-group-id"
+      onChange={() => {}}
+      value={undefined}
+    >
       <ButtonToggle value="foo">Foo</ButtonToggle>
       <ButtonToggle value="bar">Bar</ButtonToggle>
     </ButtonToggleGroup>,
@@ -378,7 +380,6 @@ testStyledSystemMargin(
       id="button-toggle-group-id"
       onChange={() => {}}
       data-role="button-toggle-group"
-      value="foo"
       {...props}
     >
       <ButtonToggle value="foo">Foo</ButtonToggle>

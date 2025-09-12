@@ -64,20 +64,9 @@ export const NewValidation: Story = () => {
 NewValidation.storyName = "New Validation";
 
 export const MultipleInputs: Story = () => {
-  const [state, setState] = useState("");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
   return (
     <CarbonProvider validationRedesignOptIn>
-      <Textbox
-        mb={2}
-        label="Textbox"
-        inputHint="Hint Text"
-        error="error"
-        onChange={setValue}
-        value={state}
-      />
+      <Textbox mb={2} label="Textbox" inputHint="Hint Text" error="error" />
       <TextEditor
         namespace="storybook-witherror"
         labelText="Text Editor"
@@ -86,13 +75,7 @@ export const MultipleInputs: Story = () => {
         characterLimit={100}
         mb={2}
       />
-      <Textbox
-        mb={2}
-        label="Textbox"
-        inputHint="Hint Text"
-        onChange={setValue}
-        value={state}
-      />
+      <Textbox mb={2} label="Textbox" inputHint="Hint Text" />
       <TextEditor
         namespace="storybook"
         labelText="Text Editor"

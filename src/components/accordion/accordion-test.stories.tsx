@@ -87,7 +87,7 @@ export const Grouped = ({ ...args }) => (
       {...args}
     >
       <Box p={2}>
-        <Textbox label="Textbox in an Accordion" value="" onChange={() => {}} />
+        <Textbox label="Textbox in an Accordion" />
       </Box>
     </Accordion>
     <Accordion
@@ -96,7 +96,7 @@ export const Grouped = ({ ...args }) => (
       {...args}
     >
       <Box p={2}>
-        <Textbox label="Textbox in an Accordion" value="" onChange={() => {}} />
+        <Textbox label="Textbox in an Accordion" />
       </Box>
     </Accordion>
     <Accordion

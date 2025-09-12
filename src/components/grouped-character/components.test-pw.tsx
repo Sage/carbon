@@ -3,7 +3,6 @@ import GroupedCharacter, {
   CustomEvent,
   GroupedCharacterProps,
 } from "./grouped-character.component";
-import Box from "../box";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
 export const GroupedCharacterComponent = ({
@@ -64,7 +63,6 @@ export const Validations = (
             label="GroupedCharacter - readOnly"
             value="1231231"
             groups={[2, 2, 3]}
-            onChange={() => {}}
             separator="-"
             readOnly
             {...{ [validationType]: args.message }}
@@ -108,7 +106,6 @@ export const ValidationsStringComponent = (
             label="GroupedCharacter - readOnly"
             value="1231231"
             groups={[2, 2, 3]}
-            onChange={() => {}}
             separator="-"
             readOnly
             {...{ [validationType]: "Message" }}
@@ -153,7 +150,6 @@ export const ValidationsStringLabel = (
             label="GroupedCharacter - readOnly"
             value="1231231"
             groups={[2, 2, 3]}
-            onChange={() => {}}
             separator="-"
             readOnly
             validationOnLabel
@@ -198,7 +194,6 @@ export const ValidationsBoolean = (
             label="GroupedCharacter - readOnly"
             value="1231231"
             groups={[2, 2, 3]}
-            onChange={() => {}}
             separator="-"
             readOnly
             {...{ [validationType]: true }}
@@ -225,7 +220,10 @@ export const ValidationsRedesign = () => {
     <CarbonProvider validationRedesignOptIn>
       {(["error", "warning"] as const).map((validationType) =>
         (["small", "medium", "large"] as const).map((size) => (
-          <Box width="296px" key={`${size}-${validationType}-string-component`}>
+          <div
+            style={{ width: "296px" }}
+            key={`${size}-${validationType}-string-component`}
+          >
             <GroupedCharacter
               label={`${size} - ${validationType}`}
               value={state[validationType]}
@@ -239,7 +237,6 @@ export const ValidationsRedesign = () => {
             <GroupedCharacter
               label={`readOnly - ${size} - ${validationType}`}
               value="1231231"
-              onChange={() => {}}
               groups={[2, 2, 3]}
               size={size}
               separator="-"
@@ -247,7 +244,7 @@ export const ValidationsRedesign = () => {
               {...{ [validationType]: "Message" }}
               m={4}
             />
-          </Box>
+          </div>
         )),
       )}
     </CarbonProvider>

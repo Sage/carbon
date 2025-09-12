@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 import Decimal, { DecimalProps, CustomEvent } from ".";
-import Box from "../box/box.component";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
 export const DefaultStory = (
@@ -129,8 +128,7 @@ export const Validations = (
           />
           <Decimal
             label="Decimal - readOnly"
-            value={state[validationType]}
-            onChange={handleChange(validationType)}
+            value="0.01"
             readOnly
             {...{ [validationType]: args.message }}
             mb={2}
@@ -164,7 +162,7 @@ export const ValidationsRedesign = () => {
     <CarbonProvider validationRedesignOptIn>
       {(["error", "warning"] as const).map((validationType) =>
         (["small", "medium", "large"] as const).map((size) => (
-          <Box width="296px" key={`${size}-${validationType}`}>
+          <div style={{ width: "296px" }} key={`${size}-${validationType}`}>
             <Decimal
               label={`${size} - ${validationType}`}
               value={state[validationType]}
@@ -175,14 +173,13 @@ export const ValidationsRedesign = () => {
             />
             <Decimal
               label={`readOnly - ${size} - ${validationType}`}
-              value={state[validationType]}
-              onChange={handleChange(validationType)}
+              value="0.01"
               size={size}
               readOnly
               {...{ [validationType]: "Message" }}
               m={4}
             />
-          </Box>
+          </div>
         )),
       )}
     </CarbonProvider>

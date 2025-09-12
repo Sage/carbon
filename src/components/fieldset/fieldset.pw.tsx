@@ -42,8 +42,6 @@ test.describe("should render Fieldset component", () => {
             labelInline
             labelAlign="right"
             {...{ [type]: "Message" }}
-            value=""
-            onChange={() => {}}
           />
         </Fieldset>,
       );
@@ -69,8 +67,6 @@ test.describe("should render Fieldset component", () => {
             labelAlign="right"
             validationOnLabel
             {...{ [type]: "Message" }}
-            value=""
-            onChange={() => {}}
           />
         </Fieldset>,
       );
@@ -104,8 +100,6 @@ test.describe("should render Fieldset component", () => {
             labelInline
             labelAlign="right"
             {...{ [type]: bool }}
-            value=""
-            onChange={() => {}}
           />
         </Fieldset>,
       );
@@ -129,25 +123,10 @@ test.describe("should render Fieldset component", () => {
       await mount(
         <Form fieldSpacing={spacing} data-element="form">
           <Fieldset>
-            <Textbox
-              label="Fieldset 1 Field 1"
-              labelInline
-              value=""
-              onChange={() => {}}
-            />
-            <Textbox
-              label="Fieldset 1 Field 2"
-              labelInline
-              value=""
-              onChange={() => {}}
-            />
+            <Textbox label="Fieldset 1 Field 1" labelInline />
+            <Textbox label="Fieldset 1 Field 2" labelInline />
           </Fieldset>
-          <Textbox
-            label="Separate Field"
-            labelInline
-            value=""
-            onChange={() => {}}
-          />
+          <Textbox label="Separate Field" labelInline />
         </Form>,
       );
 
@@ -198,8 +177,6 @@ test.describe("Accessibility tests for Fieldset component", () => {
             labelInline
             labelAlign="right"
             {...{ [type]: bool }}
-            value=""
-            onChange={() => {}}
           />
         </Fieldset>,
       );
@@ -216,25 +193,10 @@ test.describe("Accessibility tests for Fieldset component", () => {
       await mount(
         <Form fieldSpacing={spacing} data-element="form">
           <Fieldset>
-            <Textbox
-              label="Fieldset 1 Field 1"
-              labelInline
-              value=""
-              onChange={() => {}}
-            />
-            <Textbox
-              label="Fieldset 1 Field 2"
-              labelInline
-              value=""
-              onChange={() => {}}
-            />
+            <Textbox label="Fieldset 1 Field 1" labelInline />
+            <Textbox label="Fieldset 1 Field 2" labelInline />
           </Fieldset>
-          <Textbox
-            label="Separate Field"
-            labelInline
-            value=""
-            onChange={() => {}}
-          />
+          <Textbox label="Separate Field" labelInline />
         </Form>,
       );
       await checkAccessibility(page);
@@ -253,8 +215,6 @@ test.describe("Accessibility tests for Fieldset component", () => {
             labelInline
             labelAlign="right"
             {...{ [type]: "Message" }}
-            value=""
-            onChange={() => {}}
           />
         </Fieldset>,
       );
@@ -276,8 +236,6 @@ test.describe("Accessibility tests for Fieldset component", () => {
             labelAlign="right"
             validationOnLabel
             {...{ [type]: "Message" }}
-            value=""
-            onChange={() => {}}
           />
         </Fieldset>,
       );

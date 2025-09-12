@@ -1,5 +1,5 @@
 import React from "react";
-import { SimpleSelectProps } from ".";
+import SimpleSelect, { SimpleSelectProps } from ".";
 import Option from "../option";
 import { test, expect } from "../../../../playwright/helpers/base-test";
 import {
@@ -479,7 +479,7 @@ test.describe("SimpleSelect component", () => {
     page,
   }) => {
     const { update } = await mount(
-      <SimpleSelectComponent label="Colour">
+      <SimpleSelect label="Colour">
         <Option text="Amber" value="Amber" />
         <Option text="Black" value="Black" />
         <Option text="Cyan" value="Cyan" />
@@ -487,7 +487,7 @@ test.describe("SimpleSelect component", () => {
         <Option text="Emerald" value="Emerald" />
         <Option text="Fuchsia" value="Fuchsia" />
         <Option text="Gold" value="Gold" />
-      </SimpleSelectComponent>,
+      </SimpleSelect>,
     );
 
     const dropdownIcon = page.getByTestId("input-icon-toggle");
@@ -504,7 +504,7 @@ test.describe("SimpleSelect component", () => {
     );
 
     await update(
-      <SimpleSelectComponent label="Colour">
+      <SimpleSelect label="Colour">
         <Option text="Amber" value="Amber" />
         <Option text="Black" value="Black" />
         <Option text="Cyan" value="Cyan" />
@@ -514,10 +514,10 @@ test.describe("SimpleSelect component", () => {
         <Option text="Gold" value="Gold" />
         <Option text="Hot Pink" value="Hot Pink" />
         <Option text="Indigo" value="Indigo" />
-      </SimpleSelectComponent>,
+      </SimpleSelect>,
     );
 
-    await expect(page.getByRole("option")).toHaveCount(11);
+    await expect(page.getByRole("option")).toHaveCount(9);
 
     // check that the scroll position hasn't changed
     const newScrollPosition = await dropdownList.evaluate(
@@ -629,7 +629,7 @@ test.describe("SimpleSelect component", () => {
     mount,
     page,
   }) => {
-    await mount(<SimpleSelectMultipleColumnsComponent value="2" />);
+    await mount(<SimpleSelectMultipleColumnsComponent defaultValue="2" />);
 
     const columns = 3;
     await selectText(page).click();

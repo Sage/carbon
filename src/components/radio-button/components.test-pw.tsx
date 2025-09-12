@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import Box from "../box";
 import { RadioButtonGroup, RadioButton } from ".";
@@ -6,138 +6,106 @@ import { RadioButtonGroupProps } from "./radio-button-group/radio-button-group.c
 import { RadioButtonProps } from "./radio-button.component";
 import Typography from "../typography";
 
-export const Required = () => {
-  const [value, setValue] = useState("radio1");
-  return (
-    <RadioButtonGroup
-      name="required"
-      legend="Radio group legend"
-      required
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
-    >
-      <RadioButton id="radio-1" value="radio1" label="Radio Option 1" />
-      <RadioButton id="radio-2" value="radio2" label="Radio Option 2" />
-      <RadioButton id="radio-3" value="radio3" label="Radio Option 3" />
-    </RadioButtonGroup>
-  );
-};
+export const Required = () => (
+  <RadioButtonGroup name="required" legend="Radio group legend" required>
+    <RadioButton id="radio-1" value="radio1" label="Radio Option 1" />
+    <RadioButton id="radio-2" value="radio2" label="Radio Option 2" />
+    <RadioButton id="radio-3" value="radio3" label="Radio Option 3" />
+  </RadioButtonGroup>
+);
 
-export const WithValidationsOnButtons = () => {
-  const [value, setValue] = useState("radio1");
-  return (
-    <RadioButtonGroup
-      name="validations-on-buttons-group"
-      legend="Radio group legend"
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
-    >
-      <RadioButton
-        id="validations-on-buttons-radio-1"
-        value="radio1"
-        label="Radio Option 1"
-        error="message"
-        fieldHelp="Some help text for this input."
-      />
-      <RadioButton
-        id="validations-on-buttons-radio-2"
-        value="radio2"
-        label="Radio Option 2"
-        warning="message"
-      />
-      <RadioButton
-        id="validations-on-buttons-radio-3"
-        value="radio3"
-        label="Radio Option 3"
-        info="message"
-      />
-    </RadioButtonGroup>
-  );
-};
+export const WithValidationsOnButtons = () => (
+  <RadioButtonGroup
+    name="validations-on-buttons-group"
+    legend="Radio group legend"
+  >
+    <RadioButton
+      id="validations-on-buttons-radio-1"
+      value="radio1"
+      label="Radio Option 1"
+      error="message"
+      fieldHelp="Some help text for this input."
+    />
+    <RadioButton
+      id="validations-on-buttons-radio-2"
+      value="radio2"
+      label="Radio Option 2"
+      warning="message"
+    />
+    <RadioButton
+      id="validations-on-buttons-radio-3"
+      value="radio3"
+      label="Radio Option 3"
+      info="message"
+    />
+  </RadioButtonGroup>
+);
 
-export const WithValidationsOnRadioGroup = () => {
-  const [value, setValue] = useState("radio1");
-  return (
-    <RadioButtonGroup
-      name="validations-on-group"
-      legend="Radio group legend"
-      error="Error message"
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
-    >
-      <RadioButton
-        id="validations-on-group-radio-1"
-        value="radio1"
-        label="Radio Option 1"
-      />
-      <RadioButton
-        id="validations-on-group-radio-2"
-        value="radio2"
-        label="Radio Option 2"
-      />
-      <RadioButton
-        id="validations-on-group-radio-3"
-        value="radio3"
-        label="Radio Option 3"
-      />
-    </RadioButtonGroup>
-  );
-};
+export const WithValidationsOnRadioGroup = () => (
+  <RadioButtonGroup
+    name="validations-on-group"
+    legend="Radio group legend"
+    error="Error message"
+  >
+    <RadioButton
+      id="validations-on-group-radio-1"
+      value="radio1"
+      label="Radio Option 1"
+    />
+    <RadioButton
+      id="validations-on-group-radio-2"
+      value="radio2"
+      label="Radio Option 2"
+    />
+    <RadioButton
+      id="validations-on-group-radio-3"
+      value="radio3"
+      label="Radio Option 3"
+    />
+  </RadioButtonGroup>
+);
 
-export const WithTooltipPosition = () => {
-  const [value, setValue] = useState("radio1");
-  return (
-    <RadioButtonGroup
-      name="tooltip-position"
-      legend="Radio group legend"
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
-    >
-      <RadioButton
-        id="radio-1"
-        value="radio1"
-        label="Radio Option 1"
-        error="message"
-        tooltipPosition="right"
-      />
-    </RadioButtonGroup>
-  );
-};
+export const WithTooltipPosition = () => (
+  <RadioButtonGroup name="tooltip-position" legend="Radio group legend">
+    <RadioButton
+      id="radio-1"
+      value="radio1"
+      label="Radio Option 1"
+      error="message"
+      tooltipPosition="right"
+    />
+  </RadioButtonGroup>
+);
 
-export const WithTooltipPositionOnRadioGroup = () => {
-  const [value, setValue] = useState("radio1");
-  return (
-    <RadioButtonGroup
-      name="validations-on-group-group-tooltip-position-override"
-      legend="Radio group legend"
-      error="Error message"
-      tooltipPosition="top"
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
-    >
-      <RadioButton
-        id="validations-on-group-radio-1-tooltip-position-override"
-        value="radio1"
-        label="Radio Option 1"
-      />
-      <RadioButton
-        id="validations-on-group-radio-2-tooltip-position-override"
-        value="radio2"
-        label="Radio Option 2"
-      />
-      <RadioButton
-        id="validations-on-group-radio-3-tooltip-position-override"
-        value="radio3"
-        label="Radio Option 3"
-      />
-    </RadioButtonGroup>
-  );
-};
+export const WithTooltipPositionOnRadioGroup = () => (
+  <RadioButtonGroup
+    name="validations-on-group-group-tooltip-position-override"
+    legend="Radio group legend"
+    error="Error message"
+    tooltipPosition="top"
+  >
+    <RadioButton
+      id="validations-on-group-radio-1-tooltip-position-override"
+      value="radio1"
+      label="Radio Option 1"
+    />
+    <RadioButton
+      id="validations-on-group-radio-2-tooltip-position-override"
+      value="radio2"
+      label="Radio Option 2"
+    />
+    <RadioButton
+      id="validations-on-group-radio-3-tooltip-position-override"
+      value="radio3"
+      label="Radio Option 3"
+    />
+  </RadioButtonGroup>
+);
 
 const radioContainerWidth = 400;
 
 export const RadioButtonComponent = (props: Partial<RadioButtonProps>) => {
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = React.useState(false);
   return (
     <Box mt="64px" ml="64px" width={radioContainerWidth}>
       <RadioButton
@@ -156,14 +124,11 @@ export const RadioButtonGroupComponent = ({
   children,
   ...props
 }: Partial<RadioButtonGroupProps>) => {
-  const [value, setValue] = useState("radio1");
   return (
     <Box mt="64px" ml="64px">
       <RadioButtonGroup
         name="radiobuttongroup"
         legend="Radio group legend"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
         {...props}
       >
         <RadioButton id="radio-1" value="radio1" label="Yes" />
@@ -177,13 +142,8 @@ export const RadioButtonGroupComponent = ({
 };
 
 export const Default = () => {
-  const [value, setValue] = useState("radio1");
   return (
-    <RadioButtonGroup
-      name="legend-and-labels-group"
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
-    >
+    <RadioButtonGroup name="legend-and-labels-group">
       <RadioButton id="radio-1" value="radio1" label="Radio Option 1" />
       <RadioButton id="radio-2" value="radio2" label="Radio Option 2" />
       <RadioButton id="radio-3" value="radio3" label="Radio Option 3" />
@@ -192,13 +152,10 @@ export const Default = () => {
 };
 
 export const WithLegendAndLabels = () => {
-  const [value, setValue] = useState("radio1");
   return (
     <RadioButtonGroup
       name="legend-and-labels-group"
       legend="Radio group legend"
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
     >
       <RadioButton
         id="radio-1"
@@ -223,11 +180,8 @@ export const WithLegendAndLabels = () => {
 };
 
 export const WithInlineLegend = () => {
-  const [value, setValue] = useState("radio1");
   return (
     <RadioButtonGroup
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
       name="inline-legend-group"
       legend="Radio group legend"
       legendInline
@@ -241,11 +195,8 @@ export const WithInlineLegend = () => {
 };
 
 export const WithLeftMargin = () => {
-  const [value, setValue] = useState("radio1");
   return (
     <RadioButtonGroup
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
       name="left-margin-group"
       legend="Radio group legend"
       ml="20%"
@@ -270,7 +221,6 @@ export const WithLeftMargin = () => {
 };
 
 export const EnableAdaptiveBehaviour = () => {
-  const [value, setValue] = useState("radio1");
   return (
     <RadioButtonGroup
       name="enable-adaptive-behaviour-group"
@@ -278,8 +228,6 @@ export const EnableAdaptiveBehaviour = () => {
       ml="20%"
       adaptiveLegendBreakpoint={960}
       adaptiveSpacingBreakpoint={960}
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
     >
       <RadioButton
         id="enable-adaptive-behaviour-radio-1"
@@ -303,14 +251,11 @@ export const EnableAdaptiveBehaviour = () => {
 EnableAdaptiveBehaviour.parameters = { chromatic: { disableSnapshot: true } };
 
 export const DifferentLabelSpacing = () => {
-  const [value, setValue] = useState("radio1");
   return (
     <RadioButtonGroup
       name="different-label-spacing-group"
       legend="Radio group legend"
       labelSpacing={2}
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
     >
       <RadioButton
         id="different-label-spacing-radio-1"
@@ -332,15 +277,8 @@ export const DifferentLabelSpacing = () => {
 };
 
 export const InlineRadioButtons = () => {
-  const [value, setValue] = useState("radio1");
   return (
-    <RadioButtonGroup
-      name="inline-group"
-      legend="Radio group legend"
-      inline
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
-    >
+    <RadioButtonGroup name="inline-group" legend="Radio group legend" inline>
       <RadioButton id="inline-radio-1" value="radio1" label="Radio Option 1" />
       <RadioButton id="inline-radio-2" value="radio2" label="Radio Option 2" />
       <RadioButton id="inline-radio-3" value="radio3" label="Radio Option 3" />
@@ -349,14 +287,8 @@ export const InlineRadioButtons = () => {
 };
 
 export const ReverseRadioButtons = () => {
-  const [value, setValue] = useState("radio1");
   return (
-    <RadioButtonGroup
-      name="reverse-group"
-      legend="Radio group legend"
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
-    >
+    <RadioButtonGroup name="reverse-group" legend="Radio group legend">
       <RadioButton
         id="reverse-radio-1"
         value="radio1"
@@ -380,14 +312,8 @@ export const ReverseRadioButtons = () => {
 };
 
 export const DisableRadioButtons = () => {
-  const [value, setValue] = useState("radio1");
   return (
-    <RadioButtonGroup
-      name="disable-group"
-      legend="Radio group legend"
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
-    >
+    <RadioButtonGroup name="disable-group" legend="Radio group legend">
       <RadioButton
         id="disable-radio-1"
         value="radio1"
@@ -411,14 +337,8 @@ export const DisableRadioButtons = () => {
 };
 
 export const WithFieldHelp = () => {
-  const [value, setValue] = useState("radio1");
   return (
-    <RadioButtonGroup
-      name="field-help-group"
-      legend="Radio group legend"
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
-    >
+    <RadioButtonGroup name="field-help-group" legend="Radio group legend">
       <RadioButton
         id="field-help-radio-1"
         value="radio1"
@@ -442,14 +362,8 @@ export const WithFieldHelp = () => {
 };
 
 export const WithLargeRadioButtons = () => {
-  const [value, setValue] = useState("radio1");
   return (
-    <RadioButtonGroup
-      name="large-group"
-      legend="Radio group legend"
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
-    >
+    <RadioButtonGroup name="large-group" legend="Radio group legend">
       <RadioButton
         id="large-radio-1"
         value="radio1"
@@ -476,13 +390,10 @@ export const WithLargeRadioButtons = () => {
 };
 
 export const WithCustomStyledLabels = () => {
-  const [value, setValue] = useState("radio1");
   return (
     <RadioButtonGroup
       name="custom-styled-label-group"
       legend="Radio group legend"
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
     >
       <RadioButton
         id="custom-styled-label-radio-1"
