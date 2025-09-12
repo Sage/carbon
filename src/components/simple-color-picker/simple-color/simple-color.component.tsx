@@ -10,6 +10,8 @@ import {
 } from "./simple-color.style";
 
 export interface SimpleColorProps {
+  /** the value of the label to pass to screen reader software */
+  "aria-label"?: string;
   /** the value of the color that is represented by this SimpleColor */
   value: string;
   /** the input name */
@@ -46,8 +48,8 @@ export const SimpleColor = React.forwardRef<HTMLInputElement, SimpleColorProps>(
       name,
       checked = false,
       id,
-      defaultChecked,
       className,
+      "aria-label": ariaLabel,
       ...rest
     } = props;
 
@@ -64,12 +66,12 @@ export const SimpleColor = React.forwardRef<HTMLInputElement, SimpleColorProps>(
           onMouseDown={onMouseDown}
           checked={checked}
           name={name}
+          aria-label={ariaLabel}
           type="radio"
           role="radio"
           value={value}
           ref={ref}
           id={inputId}
-          defaultChecked={defaultChecked}
           {...rest}
         />
         <StyledColorSampleBox color={value}>

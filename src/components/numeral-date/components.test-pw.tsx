@@ -2,15 +2,30 @@ import React from "react";
 import NumeralDate, { NumeralDateProps } from ".";
 
 export const NumeralDateComponent = (props: Partial<NumeralDateProps>) => {
-  return <NumeralDate label="Default" {...props} />;
+  return (
+    <NumeralDate
+      value={{ dd: "01", mm: "01", yyyy: "2001" }}
+      label="Default"
+      onChange={() => {}}
+      {...props}
+    />
+  );
 };
 
-export const NumeralDateControlled = (props: Partial<NumeralDateProps>) => {
-  const [value, setValue] = React.useState<NumeralDateProps["value"]>({
-    dd: "",
-    mm: "",
-    yyyy: "",
-  });
+interface NumeralDateControlledProps extends Partial<NumeralDateProps> {
+  initialValue?: NumeralDateProps["value"];
+}
+
+export const NumeralDateControlled = (
+  props: Partial<NumeralDateControlledProps>,
+) => {
+  const [value, setValue] = React.useState<NumeralDateProps["value"]>(
+    props.initialValue ?? {
+      dd: "",
+      mm: "",
+      yyyy: "",
+    },
+  );
 
   return (
     <NumeralDate

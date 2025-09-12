@@ -90,7 +90,6 @@ test("`ButtonMinor` children should be automatically disabled via context", () =
 test("`Link` children should be automatically disabled via context", () => {
   render(
     <BatchSelection selectedCount={0} disabled>
-      {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
       <Link>Link as an anchor</Link>
     </BatchSelection>,
   );
@@ -107,7 +106,6 @@ test("`Link` children should be automatically disabled via context", () => {
 test("`Link` children rendered as a button should be automatically disabled via context", () => {
   render(
     <BatchSelection selectedCount={0} disabled>
-      {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
       <Link onClick={() => {}}>Link as a button</Link>
     </BatchSelection>,
   );

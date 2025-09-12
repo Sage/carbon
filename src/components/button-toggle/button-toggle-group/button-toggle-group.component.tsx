@@ -16,9 +16,6 @@ import Events from "../../../__internal__/utils/helpers/events";
 import NewValidationContext from "../../carbon-provider/__internal__/new-validation.context";
 import { ButtonToggleGroupProvider } from "./__internal__/button-toggle-group.context";
 import HintText from "../../../__internal__/hint-text";
-import Logger from "../../../__internal__/utils/logger";
-
-let deprecateUncontrolledWarnTriggered = false;
 
 export interface ButtonToggleGroupProps extends MarginProps, TagProps {
   /** Unique id for the root element of the component */
@@ -47,10 +44,10 @@ export interface ButtonToggleGroupProps extends MarginProps, TagProps {
   labelWidth?: number;
   /** If true all ButtonToggle children will flex to the full width of the ButtonToggleGroup parent */
   fullWidth?: boolean;
-  /** Callback triggered by pressing one of the child buttons. Use with controlled components to set the value prop to the value argument */
-  onChange?: (ev: React.MouseEvent<HTMLButtonElement>, value?: string) => void;
-  /** Determines which child button is selected when the component is used as a controlled component */
-  value?: string;
+  /** Callback triggered by pressing one of the child buttons. */
+  onChange: (ev: React.MouseEvent<HTMLButtonElement>, value?: string) => void;
+  /** Determines which child button is selected */
+  value: string;
   /** [Legacy] Aria label for rendered help component */
   helpAriaLabel?: string;
   /** Allow buttons within the group to be deselected when already selected, leaving no selected button */
@@ -98,32 +95,14 @@ const ButtonToggleGroup = ({
     `\`ButtonToggleGroup\` only accepts children of type \`${ButtonToggle.displayName}\``,
   );
 
-  if (!deprecateUncontrolledWarnTriggered && !onChange) {
-    deprecateUncontrolledWarnTriggered = true;
-    Logger.deprecate(
-      "Uncontrolled behaviour in `Button Toggle Group` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
-    );
-  }
-
   const labelId = useRef(guid());
   const hintTextId = useRef(guid());
 
   const wrapperRef = useRef<HTMLDivElement>(null);
 
-  const [pressedButtonValue, setPressedButtonValue] = useState<string>();
-
   const { validationRedesignOptIn } = useContext(NewValidationContext);
   const computeLabelPropValues = <T,>(prop: T): undefined | T =>
     validationRedesignOptIn ? undefined : prop;
-
-  const onButtonClick = (buttonValue: string) => {
-    let newValue: string | undefined = buttonValue;
-    const currentValue = value || pressedButtonValue;
-    if (allowDeselect && currentValue === buttonValue) {
-      newValue = undefined;
-    }
-    setPressedButtonValue(newValue);
-  };
 
   const getInnerButtons = () =>
     wrapperRef.current?.querySelectorAll(BUTTON_TOGGLE_SELECTOR);
@@ -196,9 +175,9 @@ const ButtonToggleGroup = ({
         >
           <ButtonToggleGroupProvider
             value={{
-              onButtonClick,
+              onButtonClick: () => {},
               handleKeyDown,
-              pressedButtonValue: value || pressedButtonValue,
+              pressedButtonValue: value,
               onChange,
               allowDeselect,
               isInGroup: true,

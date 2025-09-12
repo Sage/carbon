@@ -10,7 +10,6 @@ import CheckboxSvg from "./checkbox-svg.component";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import CheckboxGroupContext from "./checkbox-group/__internal__/checkbox-group.context";
-import Logger from "../../__internal__/utils/logger";
 import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 
@@ -32,9 +31,11 @@ export interface CheckboxProps
   tooltipPosition?: "top" | "bottom" | "left" | "right";
   /** The value of the checkbox, passed on form submit */
   value?: string;
+  /** Handler for change events */
+  onChange: (ev: React.ChangeEvent<HTMLInputElement>) => void;
+  /** Checked state of the input */
+  checked: boolean;
 }
-
-let deprecateUncontrolledWarnTriggered = false;
 
 export const Checkbox = React.forwardRef(
   (
@@ -85,13 +86,6 @@ export const Checkbox = React.forwardRef(
       warning: contextWarning,
       info: contextInfo,
     } = checkboxGroupContext;
-
-    if (!deprecateUncontrolledWarnTriggered && !onChange) {
-      deprecateUncontrolledWarnTriggered = true;
-      Logger.deprecate(
-        "Uncontrolled behaviour in `Checkbox` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
-      );
-    }
 
     const inputProps = {
       ariaLabelledBy,

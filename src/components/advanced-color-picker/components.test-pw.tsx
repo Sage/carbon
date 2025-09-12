@@ -6,7 +6,7 @@ export const AdvancedColorPickerCustom = ({
   ...props
 }: Partial<AdvancedColorPickerProps>) => {
   const [open, setOpen] = React.useState(true);
-  const [color, setColor] = React.useState("");
+  const [color, setColor] = React.useState("#EBAEDE");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -32,7 +32,6 @@ export const AdvancedColorPickerCustom = ({
         { value: "#AEECEB", label: "turquoise" },
         { value: "#AEECD6", label: "mint" },
       ]}
-      defaultColor="#EBAEDE"
       selectedColor={color}
       onChange={handleChange}
       onOpen={() => {
