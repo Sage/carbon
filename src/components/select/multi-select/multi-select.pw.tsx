@@ -624,7 +624,7 @@ test.describe("MultiSelect component", () => {
     page,
   }) => {
     const { update } = await mount(
-      <MultiSelect label="Colour">
+      <MultiSelect label="Colour" onChange={() => {}} value={["Amber"]}>
         <Option text="Amber" value="Amber" />
         <Option text="Black" value="Black" />
         <Option text="Cyan" value="Cyan" />
@@ -650,7 +650,7 @@ test.describe("MultiSelect component", () => {
     );
 
     await update(
-      <MultiSelect label="Colour">
+      <MultiSelect label="Colour" onChange={() => {}} value={["Amber"]}>
         <Option text="Amber" value="Amber" />
         <Option text="Black" value="Black" />
         <Option text="Cyan" value="Cyan" />
@@ -888,25 +888,11 @@ test.describe("MultiSelect component", () => {
     ).toBeVisible();
   });
 
-  [
-    ["3", "Blue"],
-    ["7", "Pink"],
-  ].forEach(([value, option]) => {
-    test(`should set defaultValue prop to ${value} and show option pill ${option} preselected`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<MultiSelectDefaultValueComponent defaultValue={[value]} />);
-
-      await expect(multiSelectPill(page)).toHaveAttribute("title", option);
-    });
-  });
-
   test("should have no pill option preselected if defaultValue prop is not set", async ({
     mount,
     page,
   }) => {
-    await mount(<MultiSelectDefaultValueComponent />);
+    await mount(<MultiSelectDefaultValueComponent value={[]} />);
 
     await expect(multiSelectPill(page)).toHaveCount(0);
   });
@@ -945,7 +931,10 @@ test.describe("MultiSelect component", () => {
     page,
   }) => {
     await mount(
-      <MultiSelectDefaultValueComponent defaultValue={defaultValue} />,
+      <MultiSelectDefaultValueComponent
+        onChange={() => {}}
+        value={defaultValue}
+      />,
     );
 
     await expect(multiSelectPill(page)).toHaveAttribute("title", "White");
@@ -963,7 +952,10 @@ test.describe("MultiSelect component", () => {
     page,
   }) => {
     await mount(
-      <MultiSelectDefaultValueComponent defaultValue={defaultValue} />,
+      <MultiSelectDefaultValueComponent
+        onChange={() => {}}
+        value={defaultValue}
+      />,
     );
 
     const pillElement = multiSelectPill(page);
@@ -977,7 +969,10 @@ test.describe("MultiSelect component", () => {
     page,
   }) => {
     await mount(
-      <MultiSelectDefaultValueComponent defaultValue={defaultValue} />,
+      <MultiSelectDefaultValueComponent
+        onChange={() => {}}
+        value={defaultValue}
+      />,
     );
 
     const pillElement = multiSelectPill(page);
@@ -1809,16 +1804,6 @@ test.describe("Accessibility tests for MultiSelect component", () => {
 
     await dropdownButton(page).click();
     await checkAccessibility(page, undefined, "scrollable-region-focusable");
-  });
-
-  ["3", "7"].forEach((value) => {
-    test(`should pass accessibility tests with defaultValue prop set to ${value}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<MultiSelectDefaultValueComponent defaultValue={[value]} />);
-      await checkAccessibility(page);
-    });
   });
 
   test("should pass accessibility tests with custom coloured pills", async ({

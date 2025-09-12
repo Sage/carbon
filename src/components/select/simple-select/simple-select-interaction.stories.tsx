@@ -1,8 +1,11 @@
 import { StoryObj } from "@storybook/react";
 import { userEvent, screen, within } from "@storybook/test";
-import React from "react";
+import React, { useState } from "react";
 
-import SimpleSelect from "./simple-select.component";
+import SimpleSelect, {
+  CustomSelectChangeEvent,
+  SimpleSelectProps,
+} from "./simple-select.component";
 import { Select, Option, OptionRow } from "..";
 import OptionGroupHeader from "../option-group-header/option-group-header.component";
 
@@ -17,6 +20,38 @@ import userInteractionPause from "../../../../.storybook/utils/user-interaction-
 
 type Story = StoryObj<typeof SimpleSelect>;
 
+type InteractiveComponentProps = Omit<
+  SimpleSelectProps,
+  "onChange" | "value"
+> & {
+  children: React.ReactNode;
+  onChange: (
+    ev: CustomSelectChangeEvent | React.ChangeEvent<HTMLInputElement>,
+  ) => void;
+  value?: string;
+};
+
+const InteractiveComponent = ({
+  children,
+  onChange,
+  value = "",
+  ...props
+}: InteractiveComponentProps) => {
+  const [internalValue, setValue] = useState(value);
+  return (
+    <SimpleSelect
+      onChange={(event) => {
+        setValue(event.target.value);
+        onChange(event);
+      }}
+      value={internalValue}
+      {...props}
+    >
+      {children}
+    </SimpleSelect>
+  );
+};
+
 export default {
   title: "Select/Interactions",
   parameters: {
@@ -27,7 +62,12 @@ export default {
 export const OpenList: Story = {
   render: () => (
     <Box height={250}>
-      <Select name="simple" id="simple" label="Color">
+      <InteractiveComponent
+        onChange={() => {}}
+        name="simple"
+        id="simple"
+        label="Color"
+      >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
@@ -39,7 +79,7 @@ export const OpenList: Story = {
         <Option text="Red" value="9" />
         <Option text="White" value="10" />
         <Option text="Yellow" value="11" />
-      </Select>
+      </InteractiveComponent>
     </Box>
   ),
   play: async ({ canvasElement }) => {
@@ -65,11 +105,12 @@ export const OpenComplexList: Story = {
   render: () => (
     <Box height={250}>
       <Select
+        onChange={() => {}}
+        value="2"
         name="complex"
         id="complex"
         label="Employee"
         multiColumn
-        defaultValue="2"
         enableVirtualScroll
         tableHeader={
           <tr>
@@ -118,7 +159,12 @@ OpenComplexList.storyName = "Open Complex List";
 export const HighlightedItem: Story = {
   render: () => (
     <Box height={250}>
-      <Select name="simple" id="simple" label="Color">
+      <InteractiveComponent
+        onChange={() => {}}
+        name="simple"
+        id="simple"
+        label="Color"
+      >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
@@ -130,7 +176,7 @@ export const HighlightedItem: Story = {
         <Option text="Red" value="9" />
         <Option text="White" value="10" />
         <Option text="Yellow" value="11" />
-      </Select>
+      </InteractiveComponent>
     </Box>
   ),
   play: async ({ canvasElement }) => {
@@ -163,7 +209,12 @@ HighlightedItem.storyName = "Highlighted Item";
 export const SelectedItemHover: Story = {
   render: () => (
     <Box height={250}>
-      <Select name="simple" id="simple" label="Color">
+      <InteractiveComponent
+        onChange={() => {}}
+        name="simple"
+        id="simple"
+        label="Color"
+      >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
@@ -175,7 +226,7 @@ export const SelectedItemHover: Story = {
         <Option text="Red" value="9" />
         <Option text="White" value="10" />
         <Option text="Yellow" value="11" />
-      </Select>
+      </InteractiveComponent>
     </Box>
   ),
   play: async ({ canvasElement }) => {
@@ -215,7 +266,12 @@ SelectedItemHover.parameters = {
 export const NonSelectedItemHover: Story = {
   render: () => (
     <Box height={250}>
-      <Select name="simple" id="simple" label="Color">
+      <InteractiveComponent
+        onChange={() => {}}
+        name="simple"
+        id="simple"
+        label="Color"
+      >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
@@ -227,7 +283,7 @@ export const NonSelectedItemHover: Story = {
         <Option text="Red" value="9" />
         <Option text="White" value="10" />
         <Option text="Yellow" value="11" />
-      </Select>
+      </InteractiveComponent>
     </Box>
   ),
   play: async ({ canvasElement }) => {
@@ -267,7 +323,13 @@ NonSelectedItemHover.parameters = {
 export const FocusTransparent: Story = {
   render: () => (
     <Box height={250}>
-      <Select name="simple" id="simple" label="Color" transparent>
+      <InteractiveComponent
+        onChange={() => {}}
+        name="simple"
+        id="simple"
+        label="Color"
+        transparent
+      >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
@@ -279,7 +341,7 @@ export const FocusTransparent: Story = {
         <Option text="Red" value="9" />
         <Option text="White" value="10" />
         <Option text="Yellow" value="11" />
-      </Select>
+      </InteractiveComponent>
     </Box>
   ),
   play: async ({ canvasElement }) => {
@@ -308,7 +370,13 @@ FocusTransparent.storyName = "Transparent Focus";
 export const FocusTransparentWithSelection: Story = {
   render: () => (
     <Box height={250}>
-      <Select name="simple" id="simple" label="Color" transparent>
+      <InteractiveComponent
+        onChange={() => {}}
+        name="simple"
+        id="simple"
+        label="Color"
+        transparent
+      >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
@@ -320,7 +388,7 @@ export const FocusTransparentWithSelection: Story = {
         <Option text="Red" value="9" />
         <Option text="White" value="10" />
         <Option text="Yellow" value="11" />
-      </Select>
+      </InteractiveComponent>
     </Box>
   ),
   play: async ({ canvasElement }) => {
@@ -356,7 +424,12 @@ FocusTransparentWithSelection.storyName = "Transparent Focus With Selection";
 export const OptionGroupHeaders: Story = {
   render: () => (
     <Box height={250}>
-      <SimpleSelect name="simple" id="simple" label="Color">
+      <InteractiveComponent
+        onChange={() => {}}
+        name="simple"
+        id="simple"
+        label="Color"
+      >
         <OptionGroupHeader
           id="groupHeader1"
           label="Group one"
@@ -378,7 +451,7 @@ export const OptionGroupHeaders: Story = {
         <Option text="Red" value="9" />
         <Option text="White" value="10" />
         <Option text="Yellow" value="11" />
-      </SimpleSelect>
+      </InteractiveComponent>
     </Box>
   ),
   play: async ({ canvasElement }) => {
@@ -469,12 +542,16 @@ export const NestedInDialog: Story = {
   render: () => (
     <Box height={250}>
       <Dialog open onCancel={() => {}} title="Dialog">
-        <SimpleSelect name="testSelect" id="testSelect">
+        <InteractiveComponent
+          onChange={() => {}}
+          name="testSelect"
+          id="testSelect"
+        >
           <Option value="opt1" text="red" />
           <Option value="opt2" text="green" />
           <Option value="opt3" text="blue" />
           <Option value="opt4" text="black" />
-        </SimpleSelect>
+        </InteractiveComponent>
         <Typography>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in
           ornare neque. Maecenas pellentesque et erat tincidunt mollis. Etiam

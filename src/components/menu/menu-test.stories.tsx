@@ -93,7 +93,8 @@ export const MenuFullScreenStory: StoryFullScreen = ({
           <Search
             placeholder="Search..."
             variant={searchVariant}
-            defaultValue=""
+            value=""
+            onChange={() => {}}
             searchButton={searchButton}
           />
         </MenuItem>

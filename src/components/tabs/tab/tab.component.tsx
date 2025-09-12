@@ -69,9 +69,7 @@ export const Tab = ({
   href,
   // title is destructured purely to NOT spread it as part of rest to the underlying HTML element.
   // Both this and titleProps are used as part of child.props inside Tabs component
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   title,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   titleProps,
   ...rest
 }: TabProps) => {

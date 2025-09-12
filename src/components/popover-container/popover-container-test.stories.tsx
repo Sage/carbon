@@ -68,7 +68,7 @@ export const WithSelect = () => {
         openButtonAriaLabel="open"
         title="select example"
       >
-        <Select label="my select">
+        <Select label="my select" value="red" onChange={() => {}}>
           <Option value="red" text="red" />
           <Option value="green" text="green" />
           <Option value="blue" text="blue" />
@@ -203,10 +203,11 @@ export const InsideMenuWithOpenButton = () => {
           <MenuItem>
             <Search
               key="business-search"
-              defaultValue=""
               variant="dark"
               placeholder="Search all businesses"
               searchWidth="100%"
+              value=""
+              onChange={() => {}}
             />
           </MenuItem>
           <MenuItem href="#">Submenu Item Two</MenuItem>
@@ -255,7 +256,8 @@ export const InsideMenuWithPrimaryOpenButton = () => {
           <MenuItem>
             <Search
               key="business-search"
-              defaultValue=""
+              value=""
+              onChange={() => {}}
               variant="dark"
               placeholder="Search all businesses"
               searchWidth="100%"
@@ -492,7 +494,7 @@ export const WithRadioButtons = () => {
         p={0}
       >
         <Box display="flex" justifyContent="space-between" p={2}>
-          <RadioButtonGroup name="bar">
+          <RadioButtonGroup name="bar" value="1" onChange={() => {}}>
             <RadioButton value="1" label="radio 1" />
             <RadioButton value="2" label="radio 2" />
           </RadioButtonGroup>
@@ -554,7 +556,11 @@ export const WithDateRange = () => {
         </FlatTableHead>
         <FlatTableBody>
           <FlatTableRow>
-            <FlatTableCheckbox ariaLabelledBy="ft-row-1-cell-1 ft-row-1-cell-2 ft-row-1-cell-3" />
+            <FlatTableCheckbox
+              ariaLabelledBy="ft-row-1-cell-1 ft-row-1-cell-2 ft-row-1-cell-3"
+              checked
+              onChange={() => {}}
+            />
             <FlatTableRowHeader id="ft-row-1-cell-1">
               John Doe
             </FlatTableRowHeader>
@@ -562,7 +568,11 @@ export const WithDateRange = () => {
             <FlatTableCell id="ft-row-1-cell-3">Single</FlatTableCell>
           </FlatTableRow>
           <FlatTableRow>
-            <FlatTableCheckbox ariaLabelledBy="ft-row-2-cell-1 ft-row-2-cell-2 ft-row-2-cell-3" />
+            <FlatTableCheckbox
+              ariaLabelledBy="ft-row-2-cell-1 ft-row-2-cell-2 ft-row-2-cell-3"
+              checked
+              onChange={() => {}}
+            />
             <FlatTableRowHeader id="ft-row-2-cell-1">
               Jane Doe
             </FlatTableRowHeader>

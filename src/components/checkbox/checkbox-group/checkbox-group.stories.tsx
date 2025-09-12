@@ -3,7 +3,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import generateStyledSystemProps from "../../../../.storybook/utils/styled-system-props";
 import CarbonProvider from "../../carbon-provider";
 
-import { CheckboxGroup, Checkbox } from "..";
+import { CheckboxGroup, Checkbox, CheckboxGroupProps } from "..";
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
@@ -23,11 +23,45 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof CheckboxGroup>;
 
+const ControlledCheckboxGroup = (args: CheckboxGroupProps) => {
+  const [selectedValues, setSelectedValues] = React.useState<string[]>([]);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value, checked } = event.target;
+    if (checked) {
+      setSelectedValues((prev) => [...prev, value]);
+    } else {
+      setSelectedValues((prev) => prev.filter((val) => val !== value));
+    }
+  };
+  return (
+    <CheckboxGroup {...args}>
+      {["Apple", "Banana", "Cherry", "Date"].map((label) => (
+        <Checkbox
+          key={label}
+          name="fruits"
+          label={label}
+          value={label}
+          checked={selectedValues.includes(label)}
+          onChange={handleChange}
+        />
+      ))}
+    </CheckboxGroup>
+  );
+};
+
 export const Default: Story = {
   render: (args) => (
     <CheckboxGroup {...args}>
       {["Apple", "Banana", "Cherry", "Date"].map((label) => (
-        <Checkbox key={label} name="fruits" label={label} />
+        <Checkbox
+          key={label}
+          name="fruits"
+          label={label}
+          value={label}
+          checked={false}
+          onChange={() => {}}
+        />
       ))}
     </CheckboxGroup>
   ),
@@ -39,11 +73,7 @@ export const Default: Story = {
 export const WithLegendHelp: Story = {
   render: (args) => (
     <CarbonProvider validationRedesignOptIn>
-      <CheckboxGroup {...args}>
-        {["Apple", "Banana", "Cherry", "Date"].map((label) => (
-          <Checkbox key={label} name="fruits" label={label} />
-        ))}
-      </CheckboxGroup>
+      <ControlledCheckboxGroup {...args} />
     </CarbonProvider>
   ),
   args: {
@@ -63,11 +93,7 @@ export const RequiredGroup: Story = {
 export const Inline: Story = {
   render: (args) => (
     <CarbonProvider validationRedesignOptIn>
-      <CheckboxGroup {...args}>
-        {["Apple", "Banana", "Cherry", "Date"].map((label) => (
-          <Checkbox key={label} name="fruits" label={label} />
-        ))}
-      </CheckboxGroup>
+      <ControlledCheckboxGroup {...args} />
     </CarbonProvider>
   ),
   args: {

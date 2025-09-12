@@ -1176,6 +1176,8 @@ export const ChildrenOnlySelectable: Story = () => {
               ariaLabelledBy="ft-row-1-cell-1 ft-row-1-cell-2 ft-row-1-cell-3"
               onClick={(e) => e.stopPropagation()}
               selectable={false}
+              checked={false}
+              onChange={() => {}}
             />
             <FlatTableCell id="ft-row-1-cell-1">John Doe</FlatTableCell>
             <FlatTableCell id="ft-row-1-cell-2">London</FlatTableCell>
@@ -1192,6 +1194,8 @@ export const ChildrenOnlySelectable: Story = () => {
               ariaLabelledBy="ft-row-2-cell-1 ft-row-2-cell-2 ft-row-2-cell-3"
               onClick={(e) => e.stopPropagation()}
               selectable={false}
+              checked={false}
+              onChange={() => {}}
             />
             <FlatTableCell id="ft-row-2-cell-1">Jane Doe</FlatTableCell>
             <FlatTableCell id="ft-row-2-cell-2">York</FlatTableCell>
@@ -1208,6 +1212,8 @@ export const ChildrenOnlySelectable: Story = () => {
               ariaLabelledBy="ft-row-3-cell-1 ft-row-3-cell-2 ft-row-3-cell-3"
               onClick={(e) => e.stopPropagation()}
               selectable={false}
+              checked={false}
+              onChange={() => {}}
             />
             <FlatTableCell id="ft-row-3-cell-1">John Smith</FlatTableCell>
             <FlatTableCell id="ft-row-3-cell-2">Edinburgh</FlatTableCell>
@@ -1224,6 +1230,8 @@ export const ChildrenOnlySelectable: Story = () => {
               ariaLabelledBy="ft-row-4-cell-1 ft-row-4-cell-2 ft-row-4-cell-3"
               onClick={(e) => e.stopPropagation()}
               selectable={false}
+              checked={false}
+              onChange={() => {}}
             />
             <FlatTableCell id="ft-row-4-cell-1">Jane Smith</FlatTableCell>
             <FlatTableCell id="ft-row-4-cell-2">Newcastle</FlatTableCell>
@@ -1469,7 +1477,7 @@ export const Sizes: Story = () => {
   return (
     <Box>
       {sizes.map((size, index) => (
-        <Box mb={3} key={String(index)}>
+        <Box mb={3} key={String(`${index}-${size}`)}>
           <FlatTable size={size} aria-label={`flat-table-${size}`}>
             <FlatTableHead>
               <FlatTableRow>

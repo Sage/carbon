@@ -495,7 +495,12 @@ test.describe("Prop tests for Switch component", () => {
       page,
     }) => {
       await mount(
-        <Switch label="Label" name="switch-name" defaultChecked={boolVal} />,
+        <Switch
+          label="Label"
+          name="switch-name"
+          checked={boolVal}
+          onChange={() => {}}
+        />,
       );
 
       if (boolVal) {
@@ -922,7 +927,12 @@ test.describe("Accessibility tests", () => {
       page,
     }) => {
       await mount(
-        <Switch label="Label" name="switch-name" defaultChecked={boolVal} />,
+        <Switch
+          label="Label"
+          name="switch-name"
+          checked={boolVal}
+          onChange={() => {}}
+        />,
       );
 
       await checkAccessibility(page);
