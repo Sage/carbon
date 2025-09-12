@@ -1,37 +1,59 @@
 import styled, { css } from "styled-components";
 import { margin, MarginProps } from "styled-system";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
-import { MessageVariant, TypeIconProps } from "./message.component";
+import { InternalMessageVariant } from "./message.component";
 
-const messageVariants = {
-  error: "var(--colorsSemanticNegative500)",
-  info: "var(--colorsSemanticInfo500)",
-  success: "var(--colorsSemanticPositive500)",
-  warning: "var(--colorsSemanticCaution500)",
+// TODO: replace with design tokens
+const variantPrimaryColor = {
+  error: "#CD384B",
+  info: "#0060A7",
+  success: "#00811F ",
+  warning: "#D64309",
   neutral: "var(--colorsSemanticNeutral500)",
   ai: "var(--colorsUtilityYin100)",
+  callout: "var(--colorsUtilityYin100)",
+};
+
+const variantSubtleColor = {
+  error: "#FDECEB",
+  info: "#EAEEF6",
+  success: "#E9F2E8 ",
+  warning: "#FFEDE5",
+  ai: "#EFEFEF",
+  callout: "#E6FAE2",
 };
 
 type MessageStyleProps = {
-  variant?: MessageVariant;
+  variant: InternalMessageVariant;
+  isSubtle?: boolean;
   transparent?: boolean;
   width?: string;
+  size?: "medium" | "large";
 };
 
-const MessageStyle = styled.div.attrs(applyBaseTheme)<
+export const MessageStyle = styled.div.attrs(applyBaseTheme)<
   MessageStyleProps & MarginProps
 >`
   position: relative;
   display: flex;
   border-radius: var(--borderRadius100);
   overflow: hidden;
-  border: 1px solid ${({ variant }) => variant && messageVariants[variant]};
+  border: 1px solid ${({ variant }) => variantPrimaryColor[variant]};
   background-color: var(--colorsUtilityYang100);
-  min-height: 38px;
+  max-width: 720px;
 
   :focus {
     outline: none;
   }
+
+  ${({ isSubtle, variant }) =>
+    isSubtle &&
+    css`
+      border: none;
+      background-color: ${variantSubtleColor[
+        variant as Exclude<InternalMessageVariant, "neutral">
+      ]};
+    `}
 
   ${({ transparent }) =>
     transparent &&
@@ -44,39 +66,92 @@ const MessageStyle = styled.div.attrs(applyBaseTheme)<
   ${margin}
 `;
 
-const MessageContent = styled.div`
-  width: 100%;
+export const MessageWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: var(--spacing200);
-  gap: var(--spacing300);
+  align-items: flex-start;
+  width: 100%;
 `;
 
-const TypeIconStyle = styled.div<TypeIconProps>`
+export const MessageContent = styled.div<
+  Pick<MessageStyleProps, "size" | "isSubtle">
+>`
   display: flex;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: 12px;
+
+  ${({ size, isSubtle }) => css`
+    ${size === "large" &&
+    css`
+      padding: 20px;
+    `}
+
+    ${isSubtle &&
+    css`
+      gap: ${size === "large" ? "16px" : "8px"};
+    `}
+  `}
+`;
+
+export const MessageContentWrapper = styled.div<
+  Pick<MessageStyleProps, "size">
+>`
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
-  background-color: ${({ variant }) => messageVariants[variant]};
-  min-width: 30px;
+  width: 100%;
+  gap: 2px;
+  font-size: 14px;
 
-  span {
-    &:before {
-      color: var(--colorsUtilityYang100);
+  ${({ size }) =>
+    size === "large" &&
+    css`
+      gap: 4px;
+      font-size: 16px;
+    `}
+`;
+
+export const TypeIconStyle = styled.div<MessageStyleProps>`
+  ${({ transparent, isSubtle, variant }) => css`
+    display: flex;
+    background-color: ${variantPrimaryColor[variant]};
+
+    ${!isSubtle &&
+    css`
+      justify-content: center;
+      align-items: center;
+      width: 32px;
+    `}
+
+    span {
+      width: 20px;
+      height: 20px;
+      &:before {
+        color: var(--colorsUtilityYang100);
+      }
     }
-  }
 
-  ${({ transparent, variant }) =>
-    transparent &&
+    ${isSubtle &&
+    css`
+      padding-top: 2px;
+      background-color: transparent;
+      span {
+        &:before {
+          color: ${variantPrimaryColor[variant]};
+        }
+      }
+    `}
+
+    ${transparent &&
     css`
       background-color: transparent;
       span {
         &:before {
-          color: ${messageVariants[variant]};
+          color: ${variantPrimaryColor[variant]};
         }
       }
     `}
+  `}
 `;
-
-export default MessageStyle;
-export { MessageContent, TypeIconStyle };
