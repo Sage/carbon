@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
@@ -5,11 +6,9 @@ import { action } from "@storybook/addon-actions";
 import TextEditor, { createFromHTML, TextEditorProps } from ".";
 import Box from "../box";
 import Typography from "../typography";
-import CarbonProvider from "../carbon-provider";
-import Textbox from "../textbox";
 
 import useDebounce from "../../hooks/__internal__/useDebounce";
-import ReadOnlyEditor from "./__internal__";
+import ReadOnlyEditor from "./__internal__/__ui__/ReadOnlyEditor/read-only-rte.component";
 import createGuid from "../../__internal__/utils/helpers/guid";
 
 const meta: Meta<typeof TextEditor> = {
@@ -24,9 +23,25 @@ export default meta;
 
 type Story = StoryObj<typeof TextEditor>;
 
-export const NewValidation: Story = () => {
+export const Validation: Story = () => {
   return (
     <>
+      <TextEditor
+        validationMessagePositionTop
+        namespace="storybook-error-bottom"
+        labelText="Text Editor"
+        inputHint="Hint text"
+        error="error"
+        characterLimit={100}
+        mb={2}
+      />
+      <TextEditor
+        validationMessagePositionTop
+        namespace="storybook-warning-bottom"
+        labelText="Text Editor"
+        warning="warning"
+        characterLimit={100}
+      />
       <TextEditor
         namespace="storybook-error-top"
         labelText="Text Editor"
@@ -42,68 +57,10 @@ export const NewValidation: Story = () => {
         characterLimit={100}
         mb={2}
       />
-      <TextEditor
-        validationMessagePositionTop={false}
-        namespace="storybook-error-bottom"
-        labelText="Text Editor"
-        inputHint="Hint text"
-        error="error"
-        characterLimit={100}
-        mb={2}
-      />
-      <TextEditor
-        validationMessagePositionTop={false}
-        namespace="storybook-warning-bottom"
-        labelText="Text Editor"
-        warning="warning"
-        characterLimit={100}
-      />
     </>
   );
 };
-NewValidation.storyName = "New Validation";
-
-export const MultipleInputs: Story = () => {
-  return (
-    <CarbonProvider validationRedesignOptIn>
-      <Textbox mb={2} label="Textbox" inputHint="Hint Text" error="error" />
-      <TextEditor
-        namespace="storybook-witherror"
-        labelText="Text Editor"
-        inputHint="Hint text"
-        error="error"
-        characterLimit={100}
-        mb={2}
-      />
-      <Textbox mb={2} label="Textbox" inputHint="Hint Text" />
-      <TextEditor
-        namespace="storybook"
-        labelText="Text Editor"
-        inputHint="Hint text"
-        characterLimit={100}
-      />
-    </CarbonProvider>
-  );
-};
-MultipleInputs.storyName = "Multiple Inputs";
-
-export const Playground: Story = {
-  args: {
-    characterLimit: 3000,
-    error: "",
-    inputHint: "",
-    labelText: "Text Editor",
-    namespace: "carbon-storybook-rte",
-    placeholder: "Enter text here",
-    readOnly: false,
-    required: false,
-    rows: 10,
-    warning: "",
-  },
-};
-Playground.parameters = {
-  chromatic: { disableSnapshot: true },
-};
+Validation.storyName = "Validation";
 
 export const Functions = ({ ...props }: Partial<TextEditorProps>) => {
   const initialValue = `<p dir="ltr"><span style="white-space: pre-wrap;">This is a HTML example.</span></p><ol><li value="1"><span style="white-space: pre-wrap;">Look, it has lists!</span></li></ol>`;
@@ -166,13 +123,6 @@ export const ReadOnlyEditorForNotes = () => {
   );
 };
 
-export const WithMargin: Story = () => {
-  return (
-    <TextEditor m={5} namespace="storybook-margin" labelText="Text Editor" />
-  );
-};
-WithMargin.storyName = "With Margin";
-
 export const OnChangeFormattedValues: Story = () => {
   const [valueJSON, setValueJSON] = React.useState<string | undefined>(
     undefined,
@@ -185,7 +135,7 @@ export const OnChangeFormattedValues: Story = () => {
       <TextEditor
         namespace="storybook-onchange-formatted-values"
         labelText="Text Editor"
-        onChange={(_, { htmlString, json }) => {
+        onChange={(_: any, { htmlString, json }: any) => {
           setValueJSON(JSON.stringify(json, null, 2));
           setValueHTML(htmlString);
           action("onChange")({ htmlString, json });
@@ -226,7 +176,7 @@ export const ExternalOverwrite: Story = () => {
       key={resetKey}
       labelText="Message"
       initialValue={createFromHTML("<p>Hello world</p>")}
-      onChange={(value, formattedValues) => {
+      onChange={(value: string, formattedValues: any) => {
         action("onChange")({ value, formattedValues });
         setValue(createFromHTML(value));
       }}
@@ -236,4 +186,21 @@ export const ExternalOverwrite: Story = () => {
 ExternalOverwrite.storyName = "Externally overwrite editor content";
 ExternalOverwrite.parameters = {
   chromatic: { disableSnapshot: true },
+};
+
+export const EmptyToolbar: Story = () => (
+  <TextEditor
+    validationMessagePositionTop
+    namespace="storybook-error-bottom"
+    labelText="Text Editor"
+    inputHint="Hint text"
+    error="error"
+    characterLimit={100}
+    mb={2}
+    toolbarControls={[]}
+  />
+);
+EmptyToolbar.storyName = "Empty Toolbar";
+EmptyToolbar.parameters = {
+  chromatic: { disableSnapshot: false },
 };
