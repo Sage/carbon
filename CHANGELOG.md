@@ -1,3 +1,9 @@
+## [156.4.0](https://github.com/Sage/carbon/compare/v156.3.4...v156.4.0) (2025-09-12)
+
+### Features
+
+* **pill:** add translation support to pill ([b4df4f8](https://github.com/Sage/carbon/commit/b4df4f80246457b0ca8fbc0356b0a57cc2dbe7da)), closes [#7514](https://github.com/Sage/carbon/issues/7514)
+
 ## [156.3.4](https://github.com/Sage/carbon/compare/v156.3.3...v156.3.4) (2025-09-10)
 
 ### Bug Fixes
