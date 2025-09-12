@@ -18,6 +18,8 @@ import GlobalHeader from "../global-header";
 import Icon from "../icon";
 
 import type { MenuType } from "./menu.types";
+import NavigationBar from "../navigation-bar";
+import Pill from "../pill";
 
 const defaultOpenState = isChromatic();
 
@@ -483,3 +485,30 @@ MenuFullScreenWithMaxWidth.decorators = [
     </>
   ),
 ];
+
+export const NavBarMenuWithPill: StoryFullScreen = () => {
+  return (
+    <NavigationBar navigationType="white" orientation="top">
+      <Menu menuType="white">
+        <MenuItem href="#">Menu Item One</MenuItem>
+        <MenuItem onClick={() => {}}>Menu Item Button</MenuItem>
+        <MenuItem onClick={() => {}}>
+          incomplete
+          <Pill pillRole="status" colorVariant="warning" fill ml={1} size="M">
+            2
+          </Pill>
+        </MenuItem>
+
+        <MenuItem submenu="Menu Item Four" onClick={() => {}}>
+          <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
+          <MenuItem href="#">Item Submenu Two</MenuItem>
+        </MenuItem>
+      </Menu>
+    </NavigationBar>
+  );
+};
+NavBarMenuWithPill.storyName = "Menu in a Navigation Bar with Pill ";
+NavBarMenuWithPill.parameters = {
+  themeProvider: { chromatic: { theme: "sage" } },
+  chromatic: { disableSnapshot: false },
+};
