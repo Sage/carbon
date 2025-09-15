@@ -5,7 +5,6 @@ import React, {
   useCallback,
   useMemo,
 } from "react";
-import invariant from "invariant";
 
 import {
   filterOutStyledSystemSpacingProps,
@@ -23,10 +22,7 @@ import guid from "../../../__internal__/utils/helpers/guid";
 import getNextChildByText from "../__internal__/utils/get-next-child-by-text";
 import isExpectedOption from "../__internal__/utils/is-expected-option";
 import isNavigationKey from "../__internal__/utils/is-navigation-key";
-import Logger from "../../../__internal__/utils/logger";
 import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibility/useInputAccessibility";
-
-let deprecateUncontrolledWarnTriggered = false;
 
 export interface CustomSelectChangeEvent
   extends React.ChangeEvent<HTMLInputElement> {
@@ -43,8 +39,6 @@ export interface SimpleSelectProps
   "aria-labelledby"?: string;
   /** Child components (such as Option or OptionRow) for the SelectList */
   children: React.ReactNode;
-  /** The default selected value(s), when the component is operating in uncontrolled mode */
-  defaultValue?: string | Record<string, unknown>;
   /** If true the loader animation is displayed in the option list */
   isLoading?: boolean;
   /** When true component will work in multi column mode.
@@ -63,8 +57,8 @@ export interface SimpleSelectProps
   tableHeader?: React.ReactNode;
   /** If true the component input has no border and is transparent */
   transparent?: boolean;
-  /** The selected value(s), when the component is operating in controlled mode */
-  value?: string | Record<string, unknown>;
+  /** The selected value(s) */
+  value: string | Record<string, unknown>;
   /** [Legacy] Overrides the default tooltip position */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
   /** Maximum list height - defaults to 180 */
@@ -83,7 +77,7 @@ export interface SimpleSelectProps
   /** Flag to configure component as mandatory */
   isRequired?: boolean;
   /** Specify a callback triggered on change */
-  onChange?: (
+  onChange: (
     ev: CustomSelectChangeEvent | React.ChangeEvent<HTMLInputElement>,
   ) => void;
   /** Override the default width of the list element. Number passed is converted into pixel value */
@@ -100,7 +94,6 @@ export const SimpleSelect = React.forwardRef<
       "aria-label": ariaLabel,
       "aria-labelledby": ariaLabelledby,
       value,
-      defaultValue,
       id,
       label,
       name,
@@ -138,7 +131,6 @@ export const SimpleSelect = React.forwardRef<
     const listboxRef = useRef<HTMLDivElement>(null);
     const filterTimer = useRef<number | undefined>(undefined);
     const isMouseDownReported = useRef<boolean>();
-    const isControlled = useRef(value !== undefined);
     const isTimerCounting = useRef<boolean>();
     const isClickTriggeredBySelect = useRef<boolean>();
     const filterText = useRef<string>();
@@ -148,23 +140,13 @@ export const SimpleSelect = React.forwardRef<
     const [textValue, setTextValue] = useState<string | undefined>("");
     const [selectedValue, setSelectedValue] = useState<
       string | Record<string, unknown> | undefined
-    >(value || defaultValue || "");
+    >(value);
     const inputId = useRef(id || guid());
     const { labelId } = useInputAccessibility({
       id: inputId.current,
       label,
     });
     const focusTimer = useRef<number | undefined>(undefined);
-
-    const componentIsUncontrolled =
-      !isControlled || (!onChange && defaultValue);
-
-    if (!deprecateUncontrolledWarnTriggered && componentIsUncontrolled) {
-      deprecateUncontrolledWarnTriggered = true;
-      Logger.deprecate(
-        "Uncontrolled behaviour in `Simple Select` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
-      );
-    }
 
     const childOptions = useMemo(
       () => React.Children.toArray(children),
@@ -192,34 +174,22 @@ export const SimpleSelect = React.forwardRef<
 
     const selectValueStartingWithText = useCallback(
       (newFilterText: string) => {
-        setSelectedValue((previousValue) => {
-          const previousIndex = childOptions.findIndex(
-            (child) =>
-              React.isValidElement(child) &&
-              isExpectedOption(child, previousValue),
-          );
-          const match = getNextChildByText(
-            newFilterText,
-            childOptions,
-            previousIndex,
-          );
+        const previousIndex = childOptions.findIndex(
+          (child) =>
+            React.isValidElement(child) &&
+            isExpectedOption(child, selectedValue),
+        );
+        const match = getNextChildByText(
+          newFilterText,
+          childOptions,
+          previousIndex,
+        );
 
-          if (!match) {
-            return previousValue;
-          }
-
-          onChange?.(createCustomEvent(match.props.value));
-
-          if (isControlled.current) {
-            return previousValue;
-          }
-
-          setTextValue(match.props.text);
-
-          return match.props.value;
-        });
+        if (match) {
+          onChange(createCustomEvent(match.props.value));
+        }
       },
-      [childOptions, createCustomEvent, onChange],
+      [childOptions, createCustomEvent, onChange, selectedValue],
     );
 
     const triggerFilterChange = useCallback(
@@ -287,25 +257,8 @@ export const SimpleSelect = React.forwardRef<
     }, []);
 
     useEffect(() => {
-      const modeSwitchedMessage =
-        "Input elements should not switch from uncontrolled to controlled (or vice versa). " +
-        "Decide between using a controlled or uncontrolled input element for the lifetime of the component";
-      const onChangeMissingMessage =
-        "onChange prop required when using a controlled input element";
-
-      invariant(
-        isControlled.current === (value !== undefined),
-        modeSwitchedMessage,
-      );
-      invariant(
-        !isControlled.current || (isControlled.current && onChange),
-        onChangeMissingMessage,
-      );
-
-      if (isControlled.current) {
-        setSelectedValue(value);
-      }
-    }, [value, onChange]);
+      setSelectedValue(value);
+    }, [value]);
 
     useEffect(() => {
       const matchingOption = childOptions.find((child) =>
@@ -412,11 +365,6 @@ export const SimpleSelect = React.forwardRef<
       text?: string,
       selectionConfirmed?: boolean,
     ) {
-      if (!isControlled.current) {
-        setSelectedValue(newValue);
-        setTextValue(text);
-      }
-
       onChange?.(createCustomEvent(newValue, selectionConfirmed));
     }
 
@@ -552,7 +500,9 @@ export const SimpleSelect = React.forwardRef<
             ariaLabelledby={ariaLabelledby}
             aria-describedby={ariaDescribedBy}
             isOpen={isOpen}
+            value={textValue}
             {...getTextboxProps()}
+            onChange={() => {}}
           />
         </div>
         {selectList}

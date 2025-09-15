@@ -434,7 +434,12 @@ it("only allows non-disabled elements to be focused", async () => {
 describe("when first focusable elements are radio buttons", () => {
   const WithRadioGroup = () => (
     <MockComponent>
-      <RadioButtonGroup name="Colours" legend="Colours" onChange={() => {}}>
+      <RadioButtonGroup
+        name="Colours"
+        legend="Colours"
+        onChange={() => {}}
+        value=""
+      >
         <RadioButton value="Red" label="Red" />
         <RadioButton value="Green" label="Green" />
       </RadioButtonGroup>
@@ -471,11 +476,21 @@ describe("when first focusable elements are radio buttons", () => {
 describe("with 2 different radio groups", () => {
   const WithTwoGroups = () => (
     <MockComponent>
-      <RadioButtonGroup name="Colours" legend="Colours" onChange={() => {}}>
+      <RadioButtonGroup
+        name="Colours"
+        legend="Colours"
+        onChange={() => {}}
+        value=""
+      >
         <RadioButton value="Red" label="Red" />
         <RadioButton value="Green" label="Green" />
       </RadioButtonGroup>
-      <RadioButtonGroup name="Fruits" legend="Fruits" onChange={() => {}}>
+      <RadioButtonGroup
+        name="Fruits"
+        legend="Fruits"
+        onChange={() => {}}
+        value=""
+      >
         <RadioButton value="Apple" label="Apple" />
         <RadioButton value="Melon" label="Melon" />
       </RadioButtonGroup>
@@ -512,11 +527,21 @@ describe("with 2 different radio groups", () => {
 describe("with 2 different focusable radio groups and a custom selector", () => {
   const WithTwoGroups = () => (
     <MockComponent focusableSelectors="input[type=radio]">
-      <RadioButtonGroup name="Colours" legend="Colours" onChange={() => {}}>
+      <RadioButtonGroup
+        name="Colours"
+        legend="Colours"
+        onChange={() => {}}
+        value=""
+      >
         <RadioButton value="Red" label="Red" />
         <RadioButton value="Green" label="Green" />
       </RadioButtonGroup>
-      <RadioButtonGroup name="Fruits" legend="Fruits" onChange={() => {}}>
+      <RadioButtonGroup
+        name="Fruits"
+        legend="Fruits"
+        onChange={() => {}}
+        value=""
+      >
         <RadioButton value="Apple" label="Apple" />
         <RadioButton value="Melon" label="Melon" />
       </RadioButtonGroup>
@@ -555,7 +580,12 @@ describe("when last focusable elements are radio buttons", () => {
     <MockComponent>
       <button type="button">One</button>
       <button type="button">Two</button>
-      <RadioButtonGroup name="Colours" legend="Colours" onChange={() => {}}>
+      <RadioButtonGroup
+        name="Colours"
+        legend="Colours"
+        onChange={() => {}}
+        value=""
+      >
         <RadioButton value="Red" label="Red" />
         <RadioButton value="Green" label="Green" />
       </RadioButtonGroup>
@@ -588,16 +618,24 @@ describe("when last focusable elements are radio buttons", () => {
 });
 
 describe("when trap contains radio buttons", () => {
-  const WithRadioGroup = () => (
-    <MockComponent>
-      <button type="button">One</button>
-      <RadioButtonGroup name="Colours" legend="Colours" onChange={() => {}}>
-        <RadioButton value="Red" label="Red" />
-        <RadioButton value="Green" label="Green" />
-      </RadioButtonGroup>
-      <button type="button">Two</button>
-    </MockComponent>
-  );
+  const WithRadioGroup = () => {
+    const [value, setValue] = useState("");
+    return (
+      <MockComponent>
+        <button type="button">One</button>
+        <RadioButtonGroup
+          name="Colours"
+          legend="Colours"
+          onChange={(e) => setValue(e.target.value)}
+          value={value}
+        >
+          <RadioButton value="Red" label="Red" />
+          <RadioButton value="Green" label="Green" />
+        </RadioButtonGroup>
+        <button type="button">Two</button>
+      </MockComponent>
+    );
+  };
 
   it("moves focus to the previous focusable element, when focus on first radio button shift-tab pressed", async () => {
     const user = userEvent.setup({ delay: null });
@@ -681,16 +719,24 @@ describe("when trap contains radio buttons", () => {
 });
 
 describe("when trap contains radio buttons when using a custom selector", () => {
-  const WithRadioGroup = () => (
-    <MockComponent focusableSelectors="input[type=radio]">
-      <button type="button">One</button>
-      <RadioButtonGroup name="Colours" legend="Colours" onChange={() => {}}>
-        <RadioButton value="Red" label="Red" />
-        <RadioButton value="Green" label="Green" />
-      </RadioButtonGroup>
-      <button type="button">Two</button>
-    </MockComponent>
-  );
+  const WithRadioGroup = () => {
+    const [value, setValue] = useState("");
+    return (
+      <MockComponent focusableSelectors="input[type=radio]">
+        <button type="button">One</button>
+        <RadioButtonGroup
+          name="Colours"
+          legend="Colours"
+          onChange={(e) => setValue(e.target.value)}
+          value={value}
+        >
+          <RadioButton value="Red" label="Red" />
+          <RadioButton value="Green" label="Green" />
+        </RadioButtonGroup>
+        <button type="button">Two</button>
+      </MockComponent>
+    );
+  };
 
   it("when tabbing into the radio group, focus should move to the first radio button when none were previously selected", async () => {
     const user = userEvent.setup({ delay: null });
@@ -817,7 +863,12 @@ describe("when trap contains only one focusable element according to a custom se
 describe("when trap contains one radio button group and no other focusable elements", () => {
   const WithRadioGroup = () => (
     <MockComponent>
-      <RadioButtonGroup name="Colours" legend="Colours" onChange={() => {}}>
+      <RadioButtonGroup
+        name="Colours"
+        legend="Colours"
+        onChange={() => {}}
+        value=""
+      >
         <RadioButton value="Red" label="Red" />
         <RadioButton value="Green" label="Green" />
       </RadioButtonGroup>
@@ -854,7 +905,12 @@ describe("when trap contains one radio button group and no other focusable eleme
 describe("when trap contains one radio button group and no other focusable elements according to a custom selector", () => {
   const WithRadioGroup = () => (
     <MockComponent focusableSelectors="input[type=radio]">
-      <RadioButtonGroup name="Colours" legend="Colours" onChange={() => {}}>
+      <RadioButtonGroup
+        name="Colours"
+        legend="Colours"
+        onChange={() => {}}
+        value=""
+      >
         <RadioButton value="Red" label="Red" />
         <RadioButton value="Green" label="Green" />
       </RadioButtonGroup>
@@ -1448,10 +1504,15 @@ test("when FocusTrap is closed, focus should move normally through focusable ele
 test("should focus the first input that has the `autoFocus` prop set on it", () => {
   render(
     <MockComponent>
-      <Select onChange={() => {}} autoFocus label="Autofocus me">
+      <Select onChange={() => {}} autoFocus label="Autofocus me" value="">
         <Option value="1" text="one" />
       </Select>
-      <Checkbox label="Do not autofocus me" autoFocus onChange={() => {}} />
+      <Checkbox
+        label="Do not autofocus me"
+        autoFocus
+        onChange={() => {}}
+        checked={false}
+      />
     </MockComponent>,
   );
 
@@ -1462,10 +1523,15 @@ test("should loop to the last element when there is elements with tabIndex of -1
   const user = userEvent.setup({ delay: null });
   render(
     <MockComponent>
-      <Select onChange={() => {}} autoFocus label="Autofocus me">
+      <Select onChange={() => {}} autoFocus label="Autofocus me" value="">
         <Option value="1" text="one" />
       </Select>
-      <Checkbox label="Do not autofocus me" autoFocus onChange={() => {}} />
+      <Checkbox
+        label="Do not autofocus me"
+        autoFocus
+        onChange={() => {}}
+        checked={false}
+      />
     </MockComponent>,
   );
 
@@ -1481,7 +1547,7 @@ test("should set focus on the `focusFirstElement` when it and an input with `aut
   render(
     mockComponentToRender({
       children: (
-        <Select onChange={() => {}} autoFocus label="Autofocus me">
+        <Select onChange={() => {}} autoFocus label="Autofocus me" value="">
           <Option value="1" text="one" />
         </Select>
       ),

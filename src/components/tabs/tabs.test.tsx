@@ -66,8 +66,9 @@ test("should not throw an error when rendered with NumeralDate as a child", () =
             label="As string"
             tooltipPosition="top"
             value={{ dd: "01", mm: "01", yyyy: "0001" }}
+            onChange={() => {}}
           />
-          <Textbox error="error" onChange={() => {}} />
+          <Textbox error="error" onChange={() => {}} value="" />
         </Tab>
       </Tabs>,
     );
@@ -146,7 +147,7 @@ test.each(["error", "warning", "info"] as const)(
           warningMessage="warning"
           infoMessage="info"
         >
-          <Textbox onChange={() => {}} {...{ [validation]: true }} />
+          <Textbox onChange={() => {}} value="" {...{ [validation]: true }} />
         </Tab>
         <Tab
           title="Tab Title 2"
@@ -155,7 +156,7 @@ test.each(["error", "warning", "info"] as const)(
           warningMessage="warning"
           infoMessage="info"
         >
-          <Textbox onChange={() => {}} {...{ [validation]: true }} />
+          <Textbox onChange={() => {}} value="" {...{ [validation]: true }} />
         </Tab>
       </Tabs>,
     );
@@ -735,7 +736,7 @@ test("when there is no validation issue in a tab, no validation icon is displaye
         warningMessage="warning"
         infoMessage="info"
       >
-        <Textbox onChange={() => {}} />
+        <Textbox onChange={() => {}} value="" />
       </Tab>
       <Tab
         tabId="tab-2"
@@ -744,7 +745,7 @@ test("when there is no validation issue in a tab, no validation icon is displaye
         warningMessage="warning"
         infoMessage="info"
       >
-        <Textbox onChange={() => {}} />
+        <Textbox onChange={() => {}} value="" />
       </Tab>
     </Tabs>,
   );
@@ -791,7 +792,7 @@ test("when there is an error in a tab, an error icon is displayed in the corresp
         warningMessage="warning"
         infoMessage="info"
       >
-        <Textbox onChange={() => {}} />
+        <Textbox onChange={() => {}} value="" />
       </Tab>
       <Tab
         tabId="tab-2"
@@ -800,7 +801,7 @@ test("when there is an error in a tab, an error icon is displayed in the corresp
         warningMessage="warning"
         infoMessage="info"
       >
-        <Textbox error onChange={() => {}} />
+        <Textbox error onChange={() => {}} value="" />
       </Tab>
     </Tabs>,
   );
@@ -847,7 +848,7 @@ test("when errors and warnings are both present in a tab, only the error icon is
         warningMessage="warning"
         infoMessage="info"
       >
-        <Textbox onChange={() => {}} />
+        <Textbox onChange={() => {}} value="" />
       </Tab>
       <Tab
         tabId="tab-2"
@@ -856,8 +857,8 @@ test("when errors and warnings are both present in a tab, only the error icon is
         warningMessage="warning"
         infoMessage="info"
       >
-        <Textbox error onChange={() => {}} />
-        <Textbox warning onChange={() => {}} />
+        <Textbox error onChange={() => {}} value="" />
+        <Textbox warning onChange={() => {}} value="" />
       </Tab>
     </Tabs>,
   );
@@ -901,11 +902,11 @@ test("error and warning icons are displayed correctly when the new validation fl
       <Tabs selectedTabId="tab-1">
         <Tab tabId="tab-1" title="Tab 1" errorMessage="error">
           Content for tab 1
-          <Textbox error onChange={() => {}} />
+          <Textbox error onChange={() => {}} value="" />
         </Tab>
         <Tab tabId="tab-2" title="Tab 2" warningMessage="warning">
           Content for tab 2
-          <Textbox warning onChange={() => {}} />
+          <Textbox warning onChange={() => {}} value="" />
         </Tab>
       </Tabs>
     </CarbonProvider>,
@@ -943,11 +944,11 @@ test("error and warning icons are displayed correctly when the new validation fl
       <Tabs selectedTabId="tab-1" position="left">
         <Tab tabId="tab-1" title="Tab 1" errorMessage="error">
           Content for tab 1
-          <Textbox error onChange={() => {}} />
+          <Textbox error onChange={() => {}} value="" />
         </Tab>
         <Tab tabId="tab-2" title="Tab 2" warningMessage="warning">
           Content for tab 2
-          <Textbox warning onChange={() => {}} />
+          <Textbox warning onChange={() => {}} value="" />
         </Tab>
       </Tabs>
     </CarbonProvider>,
@@ -988,7 +989,7 @@ test("when errors, warnings and infos are all present in a tab, only the error i
         warningMessage="warning"
         infoMessage="info"
       >
-        <Textbox onChange={() => {}} />
+        <Textbox onChange={() => {}} value="" />
       </Tab>
       <Tab
         tabId="tab-2"
@@ -997,9 +998,9 @@ test("when errors, warnings and infos are all present in a tab, only the error i
         warningMessage="warning"
         infoMessage="info"
       >
-        <Textbox error onChange={() => {}} />
-        <Textbox warning onChange={() => {}} />
-        <Textbox info onChange={() => {}} />
+        <Textbox error onChange={() => {}} value="" />
+        <Textbox warning onChange={() => {}} value="" />
+        <Textbox info onChange={() => {}} value="" />
       </Tab>
     </Tabs>,
   );
@@ -1046,7 +1047,7 @@ test("when a tab has warnings and no errors, a warning icon is displayed in the 
         warningMessage="warning"
         infoMessage="info"
       >
-        <Textbox onChange={() => {}} />
+        <Textbox onChange={() => {}} value="" />
       </Tab>
       <Tab
         tabId="tab-2"
@@ -1055,7 +1056,7 @@ test("when a tab has warnings and no errors, a warning icon is displayed in the 
         warningMessage="warning"
         infoMessage="info"
       >
-        <Textbox warning onChange={() => {}} />
+        <Textbox warning onChange={() => {}} value="" />
       </Tab>
     </Tabs>,
   );
@@ -1102,7 +1103,7 @@ test("when a tab has info and no errors or warnings, an info icon is displayed i
         warningMessage="warning"
         infoMessage="info"
       >
-        <Textbox onChange={() => {}} />
+        <Textbox onChange={() => {}} value="" />
       </Tab>
       <Tab
         tabId="tab-2"
@@ -1111,7 +1112,7 @@ test("when a tab has info and no errors or warnings, an info icon is displayed i
         warningMessage="warning"
         infoMessage="info"
       >
-        <Textbox info onChange={() => {}} />
+        <Textbox info onChange={() => {}} value="" />
       </Tab>
     </Tabs>,
   );
@@ -1162,7 +1163,7 @@ test("an error icon is displayed in the corresponding tab title when specified b
         warningMessage="warning"
         infoMessage="info"
       >
-        <Textbox error onChange={() => {}} />
+        <Textbox error onChange={() => {}} value="" />
       </Tab>
       <Tab
         tabId="tab-2"
@@ -1171,7 +1172,7 @@ test("an error icon is displayed in the corresponding tab title when specified b
         warningMessage="warning"
         infoMessage="info"
       >
-        <Textbox onChange={() => {}} />
+        <Textbox onChange={() => {}} value="" />
       </Tab>
     </Tabs>,
   );
@@ -1224,7 +1225,7 @@ test("a warning icon is displayed in the corresponding tab title when specified 
         warningMessage="warning"
         infoMessage="info"
       >
-        <Textbox warning onChange={() => {}} />
+        <Textbox warning onChange={() => {}} value="" />
       </Tab>
       <Tab
         tabId="tab-2"
@@ -1233,7 +1234,7 @@ test("a warning icon is displayed in the corresponding tab title when specified 
         warningMessage="warning"
         infoMessage="info"
       >
-        <Textbox onChange={() => {}} />
+        <Textbox onChange={() => {}} value="" />
       </Tab>
     </Tabs>,
   );
@@ -1286,7 +1287,7 @@ test("an info icon is displayed in the corresponding tab title when specified by
         warningMessage="warning"
         infoMessage="info"
       >
-        <Textbox info onChange={() => {}} />
+        <Textbox info onChange={() => {}} value="" />
       </Tab>
       <Tab
         tabId="tab-2"
@@ -1295,7 +1296,7 @@ test("an info icon is displayed in the corresponding tab title when specified by
         warningMessage="warning"
         infoMessage="info"
       >
-        <Textbox onChange={() => {}} />
+        <Textbox onChange={() => {}} value="" />
       </Tab>
     </Tabs>,
   );
@@ -1465,14 +1466,17 @@ test.each(["error", "warning", "info"])(
         <Tab tabId="1" title="Test">
           <Textbox
             onChange={() => {}}
+            value=""
             {...{ [validation]: "first validation message" }}
           />
           <Textbox
             onChange={() => {}}
+            value=""
             {...{ [validation]: "second validation message" }}
           />
           <Textbox
             onChange={() => {}}
+            value=""
             {...{ [validation]: "third validation message" }}
           />
         </Tab>
@@ -1499,11 +1503,13 @@ test.each(["error", "warning", "info"])(
         <Tab tabId="1" title="Test">
           <Textbox
             onChange={() => {}}
+            value=""
             {...{ [validation]: "first validation message" }}
           />
-          <Textbox onChange={() => {}} {...{ [validation]: true }} />
+          <Textbox onChange={() => {}} value="" {...{ [validation]: true }} />
           <Textbox
             onChange={() => {}}
+            value=""
             {...{ [validation]: "third validation message" }}
           />
         </Tab>
@@ -1530,6 +1536,7 @@ test.each(["error", "warning", "info"])(
         <Tab tabId="1" title="Test">
           <Textbox
             onChange={() => {}}
+            value=""
             {...{ [validation]: "first validation message" }}
           />
         </Tab>
@@ -1558,9 +1565,9 @@ test.each(["error", "warning", "info"])(
           title="Test"
           {...{ [`${validation}Message`]: "a single message" }}
         >
-          <Textbox onChange={() => {}} {...{ [validation]: true }} />
-          <Textbox onChange={() => {}} {...{ [validation]: true }} />
-          <Textbox onChange={() => {}} {...{ [validation]: true }} />
+          <Textbox onChange={() => {}} value="" {...{ [validation]: true }} />
+          <Textbox onChange={() => {}} value="" {...{ [validation]: true }} />
+          <Textbox onChange={() => {}} value="" {...{ [validation]: true }} />
         </Tab>
       </Tabs>,
     );
@@ -1587,14 +1594,17 @@ test.each(["error", "warning", "info"])(
         >
           <Textbox
             onChange={() => {}}
+            value=""
             {...{ [validation]: "first validation message" }}
           />
           <Textbox
             onChange={() => {}}
+            value=""
             {...{ [validation]: "second validation message" }}
           />
           <Textbox
             onChange={() => {}}
+            value=""
             {...{ [validation]: "third validation message" }}
           />
         </Tab>

@@ -11,6 +11,7 @@ export default {
     chromatic: {
       disableSnapshot: true,
     },
+    themeProvider: { chromatic: { theme: "sage" } },
   },
   argTypes: {
     variant: {
@@ -103,15 +104,57 @@ export const FilterOnClear = () => {
 FilterOnClear.storyName = "Filter on clear";
 
 export const Validation = () => {
+  const [state, setState] = useState("");
+  const [state2, setState2] = useState("");
+  const [state3, setState3] = useState("");
+  const [state4, setState4] = useState("");
+  const [state5, setState5] = useState("");
+  const [state6, setState6] = useState("");
+
   return (
     <>
-      <Search defaultValue="" searchButton error="Error Message" mb={2} />
-      <Search defaultValue="" searchButton warning="Warning Message" mb={2} />
-      <Search defaultValue="" searchButton info="Info Message" mb={2} />
+      <Search
+        onChange={(ev) => setState(ev.target.value)}
+        value={state}
+        searchButton
+        error="Error Message"
+        mb={2}
+      />
+      <Search
+        onChange={(ev) => setState2(ev.target.value)}
+        value={state2}
+        searchButton
+        warning="Warning Message"
+        mb={2}
+      />
+      <Search
+        onChange={(ev) => setState3(ev.target.value)}
+        value={state3}
+        searchButton
+        info="Info Message"
+        mb={2}
+      />
 
-      <Search defaultValue="" searchButton error mb={2} />
-      <Search defaultValue="" searchButton warning mb={2} />
-      <Search defaultValue="" searchButton info />
+      <Search
+        onChange={(ev) => setState4(ev.target.value)}
+        value={state4}
+        searchButton
+        error
+        mb={2}
+      />
+      <Search
+        onChange={(ev) => setState5(ev.target.value)}
+        value={state5}
+        searchButton
+        warning
+        mb={2}
+      />
+      <Search
+        onChange={(ev) => setState6(ev.target.value)}
+        value={state6}
+        searchButton
+        info
+      />
     </>
   );
 };

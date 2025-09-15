@@ -19,7 +19,6 @@ import { ValidationProps } from "../../__internal__/validations";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
 import NumeralDateContext from "../numeral-date/__internal__/numeral-date.context";
-import Logger from "../../__internal__/utils/logger";
 import useCharacterCount from "../../hooks/useCharacterCount";
 import useUniqueId from "../../hooks/__internal__/useUniqueId";
 import guid from "../../__internal__/utils/helpers/guid";
@@ -95,7 +94,7 @@ export interface CommonTextboxProps
   /** [Legacy] Label width as a percentage when label is inline. */
   labelWidth?: number;
   /** Specify a callback triggered on change */
-  onChange?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (ev: React.ChangeEvent<HTMLInputElement>) => void;
   /** Deferred callback to be called after the onChange event */
   onChangeDeferred?: () => void;
   /** Specify a callback triggered on click */
@@ -128,7 +127,7 @@ export interface CommonTextboxProps
   validationMessagePositionTop?: boolean;
 }
 
-export interface TextboxProps extends CommonTextboxProps {
+export interface TextboxProps extends Omit<CommonTextboxProps, "defaultValue"> {
   /** Content to be rendered next to the input */
   children?: React.ReactNode;
   /** Container for DatePicker or SelectList components */
@@ -136,8 +135,6 @@ export interface TextboxProps extends CommonTextboxProps {
   /** Character limit of the textarea */
   characterLimit?: number;
 }
-
-let deprecateUncontrolledWarnTriggered = false;
 
 export const Textbox = React.forwardRef(
   (
@@ -229,13 +226,6 @@ export const Textbox = React.forwardRef(
     const { disableErrorBorder } = useContext(NumeralDateContext);
     const computeLabelPropValues = <T,>(prop: T): undefined | T =>
       validationRedesignOptIn ? undefined : prop;
-
-    if (!deprecateUncontrolledWarnTriggered && !onChange) {
-      deprecateUncontrolledWarnTriggered = true;
-      Logger.deprecate(
-        "Uncontrolled behaviour in `Textbox` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
-      );
-    }
 
     const { labelId, validationId, fieldHelpId, ariaDescribedBy } =
       useInputAccessibility({
@@ -426,7 +416,5 @@ export const Textbox = React.forwardRef(
     );
   },
 );
-
-Textbox.displayName = "Textbox";
 
 export default Textbox;

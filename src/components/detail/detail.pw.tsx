@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import React from "react";
 import { test, expect } from "../../../playwright/helpers/base-test";
 import Detail from "./detail.component";

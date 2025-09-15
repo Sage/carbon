@@ -5,17 +5,13 @@ import AdvancedColorPicker, {
   AdvancedColorPickerProps,
 } from "./advanced-color-picker.component";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
-import Logger from "../../__internal__/utils/logger";
 
 const ControlledColorPicker = (props: Partial<AdvancedColorPickerProps>) => {
-  const [color, setColor] = useState<string | undefined>(
-    props.selectedColor || "",
-  );
+  const [color, setColor] = useState<string>("");
 
   return (
     <AdvancedColorPicker
       name="advancedPicker"
-      defaultColor=""
       availableColors={[
         { value: "#FFFFFF", label: "white" },
         { value: "transparent", label: "transparent" },
@@ -55,38 +51,6 @@ testStyledSystemMargin(
   ),
   () => screen.getByTestId("advanced-color-picker-wrapper"),
 );
-
-test("should display deprecation warning once when rendered as uncontrolled", () => {
-  const loggerSpy = jest
-    .spyOn(Logger, "deprecate")
-    .mockImplementation(() => {});
-  render(
-    <AdvancedColorPicker
-      name="advancedPicker"
-      availableColors={[
-        { value: "#FFFFFF", label: "white" },
-        { value: "transparent", label: "transparent" },
-        { value: "#000000", label: "black" },
-        { value: "#A3CAF0", label: "blue" },
-        { value: "#FD9BA3", label: "pink" },
-        { value: "#B4AEEA", label: "purple" },
-        { value: "#ECE6AF", label: "goldenrod" },
-        { value: "#EBAEDE", label: "orchid" },
-        { value: "#EBC7AE", label: "desert" },
-        { value: "#AEECEB", label: "turquoise" },
-        { value: "#AEECD6", label: "mint" },
-      ]}
-      defaultColor="#EBAEDE"
-    />,
-  );
-
-  expect(loggerSpy).toHaveBeenCalledWith(
-    "Uncontrolled behaviour in `Advanced Color Picker` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
-  );
-  expect(loggerSpy).toHaveBeenCalledTimes(1);
-
-  loggerSpy.mockRestore();
-});
 
 test("when the main button is clicked, the dialog opens and the onOpen callback is called", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
