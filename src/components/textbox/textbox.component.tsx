@@ -27,6 +27,7 @@ import useInputAccessibility from "../../hooks/__internal__/useInputAccessibilit
 import ErrorBorder from "./textbox.style";
 import StyledPrefix from "./__internal__/prefix.style";
 import { TagProps } from "../../__internal__/utils/helpers/tags";
+import LabelContext from "../../__internal__/label/label.context";
 
 export const ALIGN_DEFAULT = "left";
 export const SIZE_DEFAULT = "medium";
@@ -88,11 +89,11 @@ export interface CommonTextboxProps
    * prop is also passed.
    */
   labelHelp?: React.ReactNode;
-  /** [Legacy] When true label is inline. */
+  /** When true label is inline. */
   labelInline?: boolean;
-  /** [Legacy] Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8). */
+  /** Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8). */
   labelSpacing?: 1 | 2;
-  /** [Legacy] Label width as a percentage when label is inline. */
+  /** Label width as a percentage when label is inline. */
   labelWidth?: number;
   /** Specify a callback triggered on change */
   onChange: (ev: React.ChangeEvent<HTMLInputElement>) => void;
@@ -397,93 +398,105 @@ export const Textbox = React.forwardRef(
     );
 
     return (
-      <TooltipProvider
-        helpAriaLabel={helpAriaLabel}
-        tooltipPosition={tooltipPosition}
+      <LabelContext.Provider
+        value={{
+          inputHint,
+          inputHintId,
+        }}
       >
-        <InputBehaviour>
-          <FormField
-            maxWidth={
-              !labelInline && labelAlign === "right" ? maxWidth : undefined
-            }
-            disabled={disabled}
-            fieldHelpId={fieldHelpId}
-            fieldHelp={computeLabelPropValues(fieldHelp)}
-            error={error}
-            warning={warning}
-            info={info}
-            label={label}
-            labelId={labelId}
-            labelAlign={labelAlign}
-            labelHelp={computeLabelPropValues(labelHelp)}
-            labelInline={computeLabelPropValues(labelInline)}
-            labelSpacing={labelSpacing}
-            labelWidth={computeLabelPropValues(labelWidth)}
-            id={uniqueId}
-            reverse={computeLabelPropValues(reverse)}
-            useValidationIcon={computeLabelPropValues(validationOnLabel)}
-            adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
-            isRequired={required}
-            data-component={dataComponent}
-            data-role={dataRole}
-            data-element={dataElement}
-            validationIconId={
-              validationRedesignOptIn ? undefined : validationId
-            }
-            validationRedesignOptIn={validationRedesignOptIn}
-            {...filterStyledSystemMarginProps(props)}
-          >
-            {(inputHint || (labelHelp && validationRedesignOptIn)) && (
-              <HintText
-                align={labelAlign}
-                data-element="input-hint"
-                id={inputHintId}
-                isComponentInline={labelInline}
-              >
-                {inputHint || labelHelp}
-              </HintText>
-            )}
-            {validationRedesignOptIn ? (
-              <Box position="relative">
-                {validationMessagePositionTop && (
-                  <>
-                    <ValidationMessage
-                      error={error}
-                      validationId={validationId}
-                      warning={warning}
-                      validationMessagePositionTop={
-                        validationMessagePositionTop
-                      }
-                    />
-                    {!disableErrorBorder && (error || warning) && (
-                      <ErrorBorder warning={!!(!error && warning)} />
-                    )}
-                  </>
+        <TooltipProvider
+          helpAriaLabel={helpAriaLabel}
+          tooltipPosition={tooltipPosition}
+        >
+          <InputBehaviour>
+            <FormField
+              maxWidth={
+                !labelInline && labelAlign === "right" ? maxWidth : undefined
+              }
+              disabled={disabled}
+              fieldHelpId={fieldHelpId}
+              fieldHelp={computeLabelPropValues(fieldHelp)}
+              error={error}
+              warning={warning}
+              info={info}
+              label={label}
+              labelId={labelId}
+              labelAlign={labelAlign}
+              labelHelp={labelHelp}
+              labelInline={labelInline}
+              labelSpacing={labelSpacing}
+              labelWidth={labelWidth}
+              id={uniqueId}
+              reverse={reverse}
+              useValidationIcon={computeLabelPropValues(validationOnLabel)}
+              adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
+              isRequired={required}
+              data-component={dataComponent}
+              data-role={dataRole}
+              data-element={dataElement}
+              validationIconId={
+                validationRedesignOptIn ? undefined : validationId
+              }
+              validationRedesignOptIn={validationRedesignOptIn}
+              {...filterStyledSystemMarginProps(props)}
+            >
+              {!label &&
+                (inputHint || (labelHelp && validationRedesignOptIn)) && (
+                  <HintText
+                    align={labelAlign}
+                    data-element="input-hint"
+                    id={inputHintId}
+                    isComponentInline={labelInline}
+                  >
+                    {inputHint || labelHelp}
+                  </HintText>
                 )}
-                {input}
-                {!validationMessagePositionTop && (
-                  <>
-                    <ValidationMessage
-                      error={error}
-                      validationId={validationId}
-                      warning={warning}
-                      validationMessagePositionTop={
-                        validationMessagePositionTop
-                      }
-                    />
-                    {!disableErrorBorder && (error || warning) && (
-                      <ErrorBorder warning={!!(!error && warning)} />
-                    )}
-                  </>
-                )}
-              </Box>
-            ) : (
-              input
-            )}
-            {characterCount}
-          </FormField>
-        </InputBehaviour>
-      </TooltipProvider>
+              {validationRedesignOptIn ? (
+                <Box
+                  data-role="validation-message-wrapper"
+                  position="relative"
+                  {...(labelInline && { width: "100%" })}
+                >
+                  {validationMessagePositionTop && (
+                    <>
+                      <ValidationMessage
+                        error={error}
+                        validationId={validationId}
+                        warning={warning}
+                        validationMessagePositionTop={
+                          validationMessagePositionTop
+                        }
+                      />
+                      {!disableErrorBorder && (error || warning) && (
+                        <ErrorBorder warning={!!(!error && warning)} />
+                      )}
+                    </>
+                  )}
+                  {input}
+                  {!validationMessagePositionTop && (
+                    <>
+                      <ValidationMessage
+                        error={error}
+                        validationId={validationId}
+                        warning={warning}
+                        validationMessagePositionTop={
+                          validationMessagePositionTop
+                        }
+                      />
+                      {!disableErrorBorder && (error || warning) && (
+                        <ErrorBorder warning={!!(!error && warning)} />
+                      )}
+                    </>
+                  )}
+                </Box>
+              ) : (
+                input
+              )}
+              {characterCount}
+            </FormField>
+          </InputBehaviour>
+        </TooltipProvider>
+      </LabelContext.Provider>
     );
   },
 );

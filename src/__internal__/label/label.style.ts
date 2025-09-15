@@ -1,5 +1,7 @@
 import styled, { css } from "styled-components";
 
+import { NewValidationContextProps } from "../../components/carbon-provider/__internal__/new-validation.context";
+
 export interface StyledLabelProps {
   /** If true, the component will be disabled */
   disabled?: boolean;
@@ -36,7 +38,7 @@ const StyledLabel = styled.label<StyledLabelProps>`
     `}
 `;
 
-export interface StyledLabelContainerProps {
+export interface StyledLabelContainerProps extends NewValidationContextProps {
   /** Label alignment */
   align?: "left" | "right";
   /** When true, label is placed in line an input */
@@ -58,11 +60,24 @@ export const StyledLabelContainer = styled.div<StyledLabelContainerProps>`
     justify-content: ${align !== "right" ? "flex-start" : "flex-end"};
   `}
 
-  ${({ inline, pr, pl, width }) =>
+  :has([data-element="input-hint"]) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  ${({ inline, validationRedesignOptIn, pr, pl, width }) =>
     inline &&
     css`
       box-sizing: border-box;
       margin-bottom: 0;
+
+      ${validationRedesignOptIn &&
+      css`
+        align-items: flex-end !important;
+        justify-content: flex-start;
+        margin-top: 5px;
+      `}
+
       ${pr &&
       css`
         padding-right: var(${pr === 1 ? "--spacing100" : "--spacing200"});

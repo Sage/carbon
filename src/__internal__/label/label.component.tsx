@@ -9,9 +9,12 @@ import StyledLabel, {
 import ValidationIcon from "../validations/validation-icon.component";
 import StyledIconWrapper from "./icon-wrapper.style";
 import { InputContext, InputGroupContext } from "../input-behaviour";
+import LabelContext from "./label.context";
 import { ValidationProps } from "../validations";
 import { IconType } from "../../components/icon";
 import createGuid from "../../__internal__/utils/helpers/guid";
+import HintText from "../../__internal__/hint-text";
+import NewValidationContext from "../../components/carbon-provider/__internal__/new-validation.context";
 
 export interface LabelProps
   extends ValidationProps,
@@ -95,6 +98,8 @@ export const Label = ({
     useContext(InputGroupContext);
   const guid = useRef(createGuid());
 
+  const { validationRedesignOptIn } = useContext(NewValidationContext);
+
   const handleMouseEnter = () => {
     if (onMouseEnter) onMouseEnter();
     if (onGroupMouseEnter) onGroupMouseEnter();
@@ -160,10 +165,13 @@ export const Label = ({
     );
   };
 
+  const { inputHint, inputHintId, labelHelp } = useContext(LabelContext);
+
   return (
     <StyledLabelContainer
       data-role="label-container"
       id={`label-container-${labelId ?? guid.current}`}
+      validationRedesignOptIn={validationRedesignOptIn}
       align={alignment}
       inline={inline}
       width={width}
@@ -185,6 +193,16 @@ export const Label = ({
       >
         {children}
       </StyledLabel>
+      {(inputHint || (labelHelp && validationRedesignOptIn)) && (
+        <HintText
+          align={align}
+          data-element="input-hint"
+          id={inputHintId}
+          isComponentInline={inline}
+        >
+          {inputHint || labelHelp}
+        </HintText>
+      )}
       {icon()}
     </StyledLabelContainer>
   );

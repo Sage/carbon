@@ -3,6 +3,8 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Label from ".";
 import { InputContext, InputGroupContext } from "../input-behaviour";
+import CarbonProvider from "../../components/carbon-provider";
+import LabelContext from "./label.context";
 
 test("renders with children", () => {
   render(<Label>foo</Label>);
@@ -156,6 +158,78 @@ test.each(["error", "warning", "info"])(
   },
 );
 
+test("renders HintText with `inputHint` when provided", () => {
+  render(
+    <LabelContext.Provider value={{ inputHint: "This is a hint" }}>
+      <Label>foo</Label>
+    </LabelContext.Provider>,
+  );
+
+  expect(screen.getByText("This is a hint")).toBeInTheDocument();
+});
+
+test("renders HintText with `labelHelp` when CarbonProvider has `validationRedesignOptIn` true and `labelHelp` is provided", () => {
+  render(
+    <CarbonProvider validationRedesignOptIn>
+      <LabelContext.Provider value={{ labelHelp: "This is label help" }}>
+        <Label>foo</Label>
+      </LabelContext.Provider>
+    </CarbonProvider>,
+  );
+
+  expect(screen.getByText("This is label help")).toBeInTheDocument();
+});
+
+test("does not render HintText with `labelHelp` when CarbonProvider has `validationRedesignOptIn` false", () => {
+  render(
+    <CarbonProvider validationRedesignOptIn={false}>
+      <LabelContext.Provider value={{ labelHelp: "This is label help" }}>
+        <Label>foo</Label>
+      </LabelContext.Provider>
+    </CarbonProvider>,
+  );
+
+  expect(screen.queryByText("This is label help")).not.toBeInTheDocument();
+});
+
+test("does not render HintText with `labelHelp` when no CarbonProvider is present", () => {
+  render(
+    <LabelContext.Provider value={{ labelHelp: "This is label help" }}>
+      <Label>foo</Label>
+    </LabelContext.Provider>,
+  );
+
+  expect(screen.queryByText("This is label help")).not.toBeInTheDocument();
+});
+
+test("prioritizes `inputHint` over `labelHelp` when both are provided with CarbonProvider `validationRedesignOptIn`", () => {
+  render(
+    <CarbonProvider validationRedesignOptIn>
+      <LabelContext.Provider
+        value={{ inputHint: "Input hint text", labelHelp: "Label help text" }}
+      >
+        <Label>foo</Label>
+      </LabelContext.Provider>
+    </CarbonProvider>,
+  );
+
+  expect(screen.getByText("Input hint text")).toBeInTheDocument();
+  expect(screen.queryByText("Label help text")).not.toBeInTheDocument();
+});
+
+test("renders HintText with `inputHintId` when provided", () => {
+  render(
+    <LabelContext.Provider
+      value={{ inputHint: "This is a hint", inputHintId: "custom-hint-id" }}
+    >
+      <Label>foo</Label>
+    </LabelContext.Provider>,
+  );
+
+  const hintText = screen.getByText("This is a hint");
+  expect(hintText).toHaveAttribute("id", "custom-hint-id");
+});
+
 // coverage
 test("renders with expected styles `align` is 'left'", () => {
   render(<Label align="left">foo</Label>);
@@ -204,5 +278,18 @@ test("renders with normal styles when `isDarkBackground` is false", () => {
 
   expect(screen.getByTestId("label-container").childNodes[0]).toHaveStyle({
     color: "var(--colorsUtilityYin090)",
+  });
+});
+
+// coverage
+test("renders with validation redesign & inline styles when CarbonProvider has `validationRedesignOptIn` true and Label is inline", () => {
+  render(
+    <CarbonProvider validationRedesignOptIn>
+      <Label inline>foo</Label>
+    </CarbonProvider>,
+  );
+
+  expect(screen.getByTestId("label-container")).toHaveStyle({
+    marginTop: "5px",
   });
 });

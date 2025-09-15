@@ -898,24 +898,6 @@ describe("when rendered with new validations", () => {
     );
   });
 
-  it("ignores the labelInline and related styling props", () => {
-    renderWithNewValidations({
-      labelInline: true,
-      label: "example label",
-      labelAlign: "left",
-      labelWidth: 100,
-      labelSpacing: 1,
-      reverse: true,
-      value: "foo",
-      onChange: jest.fn(),
-    });
-    const labelContainer = screen.getByTestId("label-container");
-    expect(labelContainer).toHaveStyle({ width: undefined });
-    expect(labelContainer).toHaveStyle({ justifyContent: undefined });
-    expect(labelContainer).toHaveStyle({ paddingLeft: undefined });
-    expect(labelContainer).toHaveStyle({ paddingRight: undefined });
-  });
-
   it("renders the hint text with the correct styling when the labelHelp prop is passed", () => {
     renderWithNewValidations({
       labelHelp: "help",

@@ -180,6 +180,7 @@ const FormField = ({
     <FormFieldStyle {...tagComponent(dataComponent, rest)} {...marginProps}>
       <FieldLineStyle
         data-role="field-line"
+        validationRedesignOptIn={validationRedesignOptIn}
         inline={inlineLabel}
         maxWidth={maxWidth}
       >

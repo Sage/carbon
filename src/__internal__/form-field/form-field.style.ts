@@ -16,9 +16,11 @@ const FormFieldStyle = styled.div.attrs(applyBaseTheme)`
 export interface FieldLineStyleProps {
   inline?: boolean;
   maxWidth?: string;
+  validationRedesignOptIn?: boolean;
 }
 const FieldLineStyle = styled.div<FieldLineStyleProps>`
-  ${({ inline, maxWidth }) => css`
+  ${({ inline, maxWidth, validationRedesignOptIn }) => css`
+    ${validationRedesignOptIn && `gap: 12px;`}
     display: ${inline ? "flex" : "block"};
     ${maxWidth && `max-width: ${maxWidth};`}
   `}
