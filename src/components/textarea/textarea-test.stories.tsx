@@ -7,6 +7,7 @@ import Box from "../box";
 import Button from "../button";
 import isChromatic from "../../../.storybook/isChromatic";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
+import useMultiInput from "../../hooks/use-multi-input";
 
 interface TextareaTestProps extends TextareaProps {
   labelHelp?: string;
@@ -167,29 +168,86 @@ export const Default = ({
 Default.storyName = "Default";
 
 export const Validation = () => {
+  const { state, setValue } = useMultiInput();
   return (
     <>
-      <Textarea label="Textarea" error="Error Message" mb={2} />
-      <Textarea label="Textarea" warning="Warning Message" mb={2} />
-      <Textarea label="Textarea" info="Info Message" mb={2} />
+      <Textarea
+        label="Textarea"
+        error="Error Message"
+        mb={2}
+        name="ta-error"
+        value={state["ta-error"] || ""}
+        onChange={setValue}
+      />
+      <Textarea
+        label="Textarea"
+        warning="Warning Message"
+        mb={2}
+        name="ta-warning"
+        value={state["ta-warning"] || ""}
+        onChange={setValue}
+      />
+      <Textarea
+        label="Textarea"
+        info="Info Message"
+        mb={2}
+        name="ta-info"
+        value={state["ta-info"] || ""}
+        onChange={setValue}
+      />
 
       <Textarea
         label="Textarea"
         error="Error Message"
         validationOnLabel
         mb={2}
+        name="ta-error-vol"
+        value={state["ta-error-vol"] || ""}
+        onChange={setValue}
       />
       <Textarea
         label="Textarea"
         warning="Warning Message"
         validationOnLabel
         mb={2}
+        name="ta-warn-vol"
+        value={state["ta-warn-vol"] || ""}
+        onChange={setValue}
       />
-      <Textarea label="Textarea" info="Info Message" validationOnLabel mb={2} />
+      <Textarea
+        label="Textarea"
+        info="Info Message"
+        validationOnLabel
+        mb={2}
+        name="ta-info-vol"
+        value={state["ta-info-vol"] || ""}
+        onChange={setValue}
+      />
 
-      <Textarea label="Textarea" error mb={2} />
-      <Textarea label="Textarea" warning mb={2} />
-      <Textarea label="Textarea" info mb={2} />
+      <Textarea
+        label="Textarea"
+        error
+        mb={2}
+        name="ta-error-bool"
+        value={state["ta-error-bool"] || ""}
+        onChange={setValue}
+      />
+      <Textarea
+        label="Textarea"
+        warning
+        mb={2}
+        name="ta-warn-bool"
+        value={state["ta-warn-bool"] || ""}
+        onChange={setValue}
+      />
+      <Textarea
+        label="Textarea"
+        info
+        mb={2}
+        name="ta-info-bool"
+        value={state["ta-info-bool"] || ""}
+        onChange={setValue}
+      />
     </>
   );
 };
@@ -200,20 +258,42 @@ Validation.parameters = {
 };
 
 export const NewValidation = () => {
+  const { state, setValue } = useMultiInput();
+
   return (
     <CarbonProvider validationRedesignOptIn>
-      <Textarea label="Textarea" error="Error Message" mb={2} />
-      <Textarea label="Textarea" warning="Warning Message" mb={2} />
+      <Textarea
+        label="Textarea"
+        error="Error Message"
+        mb={2}
+        name="ta-error"
+        value={state["ta-error"] || ""}
+        onChange={setValue}
+      />
+      <Textarea
+        label="Textarea"
+        warning="Warning Message"
+        mb={2}
+        name="ta-warn"
+        value={state["ta-warn"] || ""}
+        onChange={setValue}
+      />
       <Textarea
         validationMessagePositionTop={false}
         label="Textarea"
         error="Error Message"
         mb={2}
+        name="ta-error-bottom"
+        value={state["ta-error-bottom"] || ""}
+        onChange={setValue}
       />
       <Textarea
         validationMessagePositionTop={false}
         label="Textarea"
         warning="Warning Message"
+        name="ta-warn-bottom"
+        value={state["ta-warn-bottom"] || ""}
+        onChange={setValue}
       />
     </CarbonProvider>
   );
@@ -317,6 +397,8 @@ WithExpandableAndRows.parameters = {
 };
 
 export const LabelAlign: StoryType = () => {
+  const { state, setValue } = useMultiInput();
+
   return (
     <CarbonProvider validationRedesignOptIn>
       {["left", "right"].map((labelAlign) => (
@@ -326,6 +408,9 @@ export const LabelAlign: StoryType = () => {
           inputHint="help text"
           labelAlign={labelAlign as TextareaProps["labelAlign"]}
           mb={2}
+          name={`ta-${labelAlign}`}
+          value={state[`ta-${labelAlign}`] || ""}
+          onChange={setValue}
         />
       ))}
     </CarbonProvider>
@@ -338,7 +423,16 @@ LabelAlign.parameters = {
 };
 
 export const AutoFocusStory = () => {
-  return <Textarea label="Textarea" autoFocus />;
+  const [value, setValue] = useState("");
+
+  return (
+    <Textarea
+      label="Textarea"
+      autoFocus
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+    />
+  );
 };
 AutoFocusStory.storyName = "Auto Focus";
 AutoFocusStory.parameters = {

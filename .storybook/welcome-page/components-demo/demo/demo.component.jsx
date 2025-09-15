@@ -18,7 +18,10 @@ import {
 } from "./demo.style";
 
 const Demo = () => {
+  const [textboxValue, setTextboxValue] = useState("");
+  const [selectValue, setSelectValue] = useState("");
   const [numberValue, setNumberValue] = useState("0");
+  const [decimalValue, setDecimalValue] = useState("0");
   const [dateValue, setDateValue] = useState(["01/01/2020", "14/02/2020"]);
   const handleDateChange = ({ target }) => {
     const newValue = [
@@ -68,6 +71,8 @@ const Demo = () => {
                   placeholder="Carbon Textbox"
                   inputIcon="search"
                   aria-label="An example textbox component with spyglass input icon"
+                  value={textboxValue}
+                  onChange={(e) => setTextboxValue(e.target.value)}
                 />
               </StyledComponentWrapper>
               <StyledComponentWrapper styling={{ width: "30%", padding: "1%" }}>
@@ -78,7 +83,11 @@ const Demo = () => {
                 />
               </StyledComponentWrapper>
               <StyledComponentWrapper styling={{ width: "30%", padding: "1%" }}>
-                <Decimal aria-label="An example decimal input component" />
+                <Decimal
+                  aria-label="An example decimal input component"
+                  value={decimalValue}
+                  onChange={(e) => setDecimalValue(e.target.value.rawValue)}
+                />
               </StyledComponentWrapper>
             </StyledDemoRow>
             <StyledDemoRow styling={{ display: "flex" }}>
@@ -104,7 +113,8 @@ const Demo = () => {
                 styling={{ width: "95%", padding: "1.5%" }}
               >
                 <Select
-                  defaultValue=""
+                  value={selectValue}
+                  onChange={(e) => setSelectValue(e.target.value)}
                   placeholder="Carbon Select"
                   aria-label="An example select component with two options"
                 >

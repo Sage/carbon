@@ -267,7 +267,7 @@ test.describe("should render AdvancedColorPicker component and check props", () 
     await mount(
       <AdvancedColorPickerCustom
         availableColors={colors}
-        defaultColor="#111222"
+        selectedColor="#111222"
       />,
     );
 

@@ -6,6 +6,7 @@ import tagComponent, {
 } from "../../__internal__/utils/helpers/tags/tags";
 import Logger from "../../__internal__/utils/logger";
 import IconButton from "../icon-button";
+import useLocale from "../../hooks/__internal__/useLocale";
 
 export interface PillProps extends StyledPillProps, TagProps {
   /** The content to display inside of the pill.  */
@@ -52,9 +53,11 @@ export const Pill = ({
   onDelete,
   pillRole = "tag",
   size = "M",
-  ariaLabelOfRemoveButton = "remove pill",
+  ariaLabelOfRemoveButton,
   ...rest
 }: PillProps) => {
+  const locale = useLocale();
+
   if (
     !neutralWhiteWarnTriggered &&
     !isDarkBackground &&
@@ -89,7 +92,7 @@ export const Pill = ({
         <IconButton
           onClick={onDelete}
           data-element="close"
-          aria-label={ariaLabelOfRemoveButton}
+          aria-label={ariaLabelOfRemoveButton || locale.pill.remove(children)}
         >
           <Icon type="cross" />
         </IconButton>

@@ -1,4 +1,5 @@
 import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 import * as PillStories from "./pill.stories";
 
@@ -22,6 +23,7 @@ Compact visual indicators that help things in common stand out.
 - [Quick Start](#quick-start)
 - [Examples](#examples)
 - [Props](#props)
+- [Translation keys](#translation-keys)
 
 ## Quick Start
 
@@ -52,8 +54,8 @@ When a callback in the `onDelete` prop is provided, a remove button will be rend
 
 ### With custom remove button aria-label
 
-By default the aria-label of the remove button will be set to "remove pill".
-That attribute can be customized by passing a string to the `ariaLabelOfRemoveButton` prop.
+By default, the remove button's `aria-label` is handled via the `pill.remove` [translation keys](#translation-keys) using the pill's label as an argument.
+To override this, provide a custom string via the `ariaLabelOfRemoveButton` prop.
 
 <Canvas of={PillStories.WithCustomRemoveButtonAriaLabel} />
 
@@ -71,7 +73,7 @@ Applied by the user, and indicate something in common. Change the theme to see t
 
 ### Custom colors
 
-You can pass a custom color to Pill by using the `borderColor` prop, which will be set as the background color if `fill` is true. 
+You can pass a custom color to Pill by using the `borderColor` prop, which will be set as the background color if `fill` is true.
 This prop will take precedence over the `colorVariant` value.
 See our [Colors](../?path=/docs/documentation-colors--docs) documentation for more information.
 
@@ -90,3 +92,20 @@ Color variants for dark theme, to apply these set `isDarkBackground` to `true`.
 ### Pill
 
 <ArgTypes of={PillStories} />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the
+[i18nProvider](../?path=/docs/documentation-i18n--docs).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "pill.remove",
+      description:
+        "The text to be read out by screen readers when the pill's remove button is focused. The label of the pill will be passed as an argument.",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>

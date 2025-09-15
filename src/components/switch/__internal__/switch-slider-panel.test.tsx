@@ -22,7 +22,7 @@ afterAll(() => {
 });
 
 test("when `loading` is true, the correct Loader styles are applied", () => {
-  render(<Switch onChange={() => {}} loading />);
+  render(<Switch onChange={() => {}} loading checked />);
 
   const loaderElement = screen.getByTestId("switch-slider-loader");
 
@@ -34,7 +34,7 @@ test("when `loading` is true, the correct Loader styles are applied", () => {
 });
 
 test("when `loading` is true, applies the correct LoaderSquare styles", async () => {
-  render(<Switch onChange={() => {}} loading />);
+  render(<Switch onChange={() => {}} loading checked />);
 
   const loaderSquares = screen.getAllByTestId("loader-square");
 
@@ -44,7 +44,7 @@ test("when `loading` is true, applies the correct LoaderSquare styles", async ()
 });
 
 test("when `loading` is true and Switch `size` is large, the correct LoaderSquare styles are applied", async () => {
-  render(<Switch onChange={() => {}} size="large" loading />);
+  render(<Switch onChange={() => {}} size="large" loading checked />);
 
   const loaderSquares = screen.getAllByTestId("loader-square");
 
@@ -55,7 +55,7 @@ test("when `loading` is true and Switch `size` is large, the correct LoaderSquar
 
 describe("when the theme is set to sageTheme", () => {
   it("applies the correct base styles", () => {
-    render(<Switch onChange={() => {}} />);
+    render(<Switch onChange={() => {}} checked />);
 
     const switchPanel = screen.getByTestId("slider-panel");
 
@@ -65,7 +65,7 @@ describe("when the theme is set to sageTheme", () => {
   });
 
   it("applies the correct off panel styles", () => {
-    render(<Switch onChange={() => {}} />);
+    render(<Switch onChange={() => {}} checked />);
 
     const switchPanel = screen.getByTestId("slider-panel");
 
@@ -81,7 +81,7 @@ describe("when the theme is set to sageTheme", () => {
 
 // coverage
 test("renders with normal styles when `isDarkBackground` is false", () => {
-  render(<Switch onChange={() => {}} isDarkBackground={false} />);
+  render(<Switch onChange={() => {}} isDarkBackground={false} checked />);
 
   const switchPanel = screen.getByTestId("slider-panel");
 
@@ -90,7 +90,7 @@ test("renders with normal styles when `isDarkBackground` is false", () => {
 
 // coverage
 test("renders with dark background styles when `isDarkBackground` is true", () => {
-  render(<Switch onChange={() => {}} isDarkBackground />);
+  render(<Switch onChange={() => {}} isDarkBackground checked />);
 
   const switchPanel = screen.getByTestId("slider-panel");
 

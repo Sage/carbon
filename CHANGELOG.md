@@ -1,3 +1,44 @@
+## [157.0.0](https://github.com/Sage/carbon/compare/v156.5.0...v157.0.0) (2025-09-15)
+
+### ⚠ BREAKING CHANGES
+
+* Component props designed to support uncontrolled usage e.g. defaultValue have been
+removed, and all value and onChange props are now required
+
+### Features
+
+* removes support for uncontrolled inputs ([a35d773](https://github.com/Sage/carbon/commit/a35d77382bcd026050abd0ff765e2ace31019d91))
+
+## [156.5.0](https://github.com/Sage/carbon/compare/v156.4.0...v156.5.0) (2025-09-12)
+
+### Features
+
+* **advanced-color-picker:** remove uncontrolled usage support ([4535a11](https://github.com/Sage/carbon/commit/4535a1167e989b50f6e7527082a4f6c05a3e3b3b))
+* **button-toggle:** remove uncontrolled usage support ([ddca78a](https://github.com/Sage/carbon/commit/ddca78acc02be35e663a30332ee067e3f13ed73e))
+* **checkbox:** make checked prop required ([b3b9225](https://github.com/Sage/carbon/commit/b3b922597e706b9f6a36fd7aca7957399a2f1880))
+* **checkbox:** remove uncontrolled usage support ([f9fe632](https://github.com/Sage/carbon/commit/f9fe6323111e127a88af7c3add690d3349b4df9d))
+* **decimal:** remove controlled usage support ([069a72b](https://github.com/Sage/carbon/commit/069a72b793ea929118395321e59f980b46ba3d96))
+* **filterable-select:** remove uncontrolled usage support ([751585c](https://github.com/Sage/carbon/commit/751585c909b070226e16a318b08f095dbc83ce79))
+* **grouped-character:** remove uncontrolled usage support ([59d7d99](https://github.com/Sage/carbon/commit/59d7d99158d28cc73bba2de59cd620aeab834644))
+* **multi-select:** remove uncontrolled usage support ([2e8c33a](https://github.com/Sage/carbon/commit/2e8c33a7dba73525455496949e2fbd696f19ab2c))
+* **number:** removes support for uncontrolled usage ([e36e310](https://github.com/Sage/carbon/commit/e36e31003f32a7796eeb218a28c96a65069a0119))
+* **numeral-date:** remove uncontrolled usage support ([d68097f](https://github.com/Sage/carbon/commit/d68097f72080f00b896aa36c77b07668102d9718))
+* **password:** remove uncontrolled usage support ([3b06e14](https://github.com/Sage/carbon/commit/3b06e1406ed78965cfc7b4516e74cf53e8436c14))
+* **radio-button:** remove uncontrolled usage support ([c57ca67](https://github.com/Sage/carbon/commit/c57ca67025af955f6e476360d756115cbba2b0ca))
+* **search:** remove uncontrolled usage support ([0f112d4](https://github.com/Sage/carbon/commit/0f112d4101f79b665e4a41e7797959758ef35a61))
+* **simple-color-picker:** remove uncontrolled usage support ([b7a2b6a](https://github.com/Sage/carbon/commit/b7a2b6af3c239fb8e2b8f81268f94dbc862c2a7e))
+* **simple-select:** remove uncontrolled usage support ([7e0efab](https://github.com/Sage/carbon/commit/7e0efab89b39c6c537b59ec6a9490c71f1e364f8))
+* **switch:** remove uncontrolled usage support ([a09ae78](https://github.com/Sage/carbon/commit/a09ae781949739e08aa60fb223d58967292e4e4c))
+* **textarea:** remove uncontrolled usage support ([5229785](https://github.com/Sage/carbon/commit/5229785be2ad6a18ab84d5a62b1c15453f497faa))
+* **textbox:** remove support for uncontrolled usage ([b0341ee](https://github.com/Sage/carbon/commit/b0341ee44237ada49935e27c2a0d899bd157c40a))
+* **use-character-count:** update value prop to be non-optional ([a1e0453](https://github.com/Sage/carbon/commit/a1e0453c02123ac32c9c077cfa75a7888f66a955))
+
+## [156.4.0](https://github.com/Sage/carbon/compare/v156.3.4...v156.4.0) (2025-09-12)
+
+### Features
+
+* **pill:** add translation support to pill ([b4df4f8](https://github.com/Sage/carbon/commit/b4df4f80246457b0ca8fbc0356b0a57cc2dbe7da)), closes [#7514](https://github.com/Sage/carbon/issues/7514)
+
 ## [156.3.4](https://github.com/Sage/carbon/compare/v156.3.3...v156.3.4) (2025-09-10)
 
 ### Bug Fixes

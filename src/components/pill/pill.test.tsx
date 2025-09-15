@@ -27,7 +27,9 @@ test("should render remove button when onDelete is set and call onDelete when th
   const onDelete = jest.fn();
   render(<Pill onDelete={onDelete}>Test Pill</Pill>);
 
-  const removeButton = screen.getByRole("button", { name: "remove pill" });
+  const removeButton = screen.getByRole("button", {
+    name: "Remove Test Pill pill",
+  });
   expect(removeButton).toBeVisible();
 
   await user.click(removeButton);

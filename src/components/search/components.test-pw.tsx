@@ -2,20 +2,23 @@ import React from "react";
 import Search, { SearchProps } from ".";
 import Box from "../box";
 
-// eslint-disable-next-line import/prefer-default-export
-export const SearchComponent = (props: SearchProps) => {
-  const [value, setValue] = React.useState("");
+export const SearchComponent = (
+  props: Partial<SearchProps> & { value?: string },
+) => {
+  const [internalValue, setInternalValue] = React.useState(props.value ?? "");
   return (
     <Search
       placeholder="Search..."
-      onChange={(e) => setValue(e.target.value)}
-      value={value}
+      onChange={(e) => setInternalValue(e.target.value)}
+      value={internalValue}
       {...props}
     />
   );
 };
 
-export const SearchComponentLightBackground = (props: SearchProps) => {
+export const SearchComponentLightBackground = (
+  props: Omit<SearchProps, "onChange" | "value">,
+) => {
   const [value, setValue] = React.useState("");
   return (
     <Box width="700px" height="108px" bg="#FFFFFF">
@@ -30,7 +33,9 @@ export const SearchComponentLightBackground = (props: SearchProps) => {
   );
 };
 
-export const SearchComponentDarkBackground = (props: SearchProps) => {
+export const SearchComponentDarkBackground = (
+  props: Omit<SearchProps, "onChange" | "value">,
+) => {
   const [value, setValue] = React.useState("");
   return (
     <Box width="700px" height="108px" bg="#003349">
