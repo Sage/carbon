@@ -139,6 +139,12 @@ export interface TextboxProps extends Omit<CommonTextboxProps, "defaultValue"> {
 }
 
 let textboxRenameTrigger = false;
+let deprecatedTooltipIdTrigger = false;
+let deprecatedHelpAriaLabelTrigger = false;
+let deprecatedTooltipPositionTrigger = false;
+let deprecatedLabelHelpTrigger = false;
+let deprecatedFieldHelpTrigger = false;
+let deprecatedInfoTrigger = false;
 
 export const Textbox = React.forwardRef(
   (
@@ -205,7 +211,60 @@ export const Textbox = React.forwardRef(
     if (!textboxRenameTrigger && !isInTextInput) {
       textboxRenameTrigger = true;
       Logger.deprecate(
-        "`Textbox` will soon be renamed to `TextInput`. Replace `Textbox` with `TextInput` now to avoid a breaking change in a later Carbon version.",
+        "`Textbox` will soon be renamed to `TextInput`. Replace `Textbox` with `TextInput` now to avoid a breaking change in a later Carbon version.")
+      }
+    
+        /* istanbul ignore else */
+    if (tooltipId && !deprecatedTooltipIdTrigger) {
+      deprecatedTooltipIdTrigger = true;
+      Logger.deprecate(
+        "The `tooltipId` prop has been deprecated and will soon be removed. For accessibility purposes please " +
+          "use initially visible validation patterns instead of dynamic validation patterns such as tooltips.",
+      );
+    }
+
+    /* istanbul ignore else */
+    if (helpAriaLabel && !deprecatedHelpAriaLabelTrigger) {
+      deprecatedHelpAriaLabelTrigger = true;
+      Logger.deprecate(
+        "The `helpAriaLabel` prop has been deprecated and will soon be removed. For accessibility purposes please " +
+          "use initially visible validation patterns instead of dynamic validation patterns such as tooltips.",
+      );
+    }
+
+    /* istanbul ignore else */
+    if (tooltipPosition && !deprecatedTooltipPositionTrigger) {
+      deprecatedTooltipPositionTrigger = true;
+      Logger.deprecate(
+        "The `tooltipPosition` prop has been deprecated and will soon be removed. For accessibility purposes please " +
+          "use initially visible validation patterns instead of dynamic validation patterns such as tooltips.",
+      );
+    }
+
+    /* istanbul ignore else */
+    if (labelHelp && !deprecatedLabelHelpTrigger) {
+      deprecatedLabelHelpTrigger = true;
+      Logger.deprecate(
+        "The `labelHelp` prop has been deprecated and will soon be removed. For accessibility purposes please " +
+          "use initially visible validation patterns instead of dynamic validation patterns such as tooltips.",
+      );
+    }
+
+    /* istanbul ignore else */
+    if (fieldHelp && !deprecatedFieldHelpTrigger) {
+      deprecatedFieldHelpTrigger = true;
+      Logger.deprecate(
+        "The `fieldHelp` prop has been deprecated and will soon be removed. Please use `inputHint` instead " +
+          "which is rendered above the input.",
+      );
+    }
+
+    /* istanbul ignore else */
+    if (info && !deprecatedInfoTrigger) {
+      deprecatedInfoTrigger = true;
+      Logger.deprecate(
+        "The `info` prop has been deprecated and will soon be removed. For accessibility purposes please " +
+          "use initially visible validation patterns instead of dynamic validation patterns such as tooltips.",
       );
     }
 
