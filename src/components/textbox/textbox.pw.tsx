@@ -4,8 +4,8 @@ import { test, expect } from "../../../playwright/helpers/base-test";
 import {
   getDesignTokensByCssProperty,
   checkAccessibility,
-  verifyRequiredAsteriskForLabel,
   assertCssValueIsApproximately,
+  verifyRequiredAsteriskForLabel,
 } from "../../../playwright/support/helper";
 import {
   fieldHelpPreview,

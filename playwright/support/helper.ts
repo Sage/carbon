@@ -234,20 +234,23 @@ export function keyCode(type: keyof typeof keys): {
 const verifyRequiredAsterisk = async (locator: Locator) => {
   // use getComputedStyle to read the pseudo selector
   // and read the value of the `content` CSS property
-  const contentValue = await locator.evaluate((el) =>
-    window.getComputedStyle(el, "after").getPropertyValue("content"),
-  );
+  const contentValue = await locator.evaluate((el) => {
+    return window.getComputedStyle(el, "after").getPropertyValue("content");
+  });
   await expect(contentValue).toBe('"*"');
 };
 
-export const verifyRequiredAsteriskForLabel = (
+export const verifyRequiredAsteriskForLabel = async (
   page: Page,
   locator?: Locator,
 ) => {
   if (locator) {
     return verifyRequiredAsterisk(locator);
   }
-  return verifyRequiredAsterisk(label(page));
+
+  const indicatorSpan = label(page).getByTestId("required-indicator");
+  await expect(indicatorSpan).toBeVisible();
+  await expect(indicatorSpan).toHaveText("*");
 };
 
 export const verifyRequiredAsteriskForLegend = (page: Page) =>

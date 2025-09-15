@@ -18,16 +18,11 @@ const StyledLabel = styled.label<StyledLabelProps>`
   display: block;
   font-weight: var(--fontWeights500);
 
-  ${({ isRequired }) =>
-    isRequired &&
-    css`
-      ::after {
-        content: "*";
-        color: var(--colorsSemanticNegative500);
-        font-weight: var(--fontWeights500);
-        margin-left: var(--spacing050);
-      }
-    `}
+  span[data-role="required-indicator"] {
+    color: var(--colorsSemanticNegative500);
+    font-weight: var(--fontWeights500);
+    margin-left: var(--spacing050);
+  }
 
   ${({ disabled }) =>
     disabled &&

@@ -125,9 +125,7 @@ describe("rendering with no file uploaded", () => {
   it("renders an asterisk next to label when required prop is passed", () => {
     render(<FileInput label="file input" required onChange={() => {}} />);
 
-    expect(screen.getByText("file input")).toHaveStyleRule("content", '"*"', {
-      modifier: "::after",
-    });
+    expect(screen.getByTestId("required-indicator")).toBeInTheDocument();
   });
 
   it("renders a root container with flex direction column when isVertical prop is true", () => {

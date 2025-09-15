@@ -397,9 +397,7 @@ test("the required prop is passed to the input", () => {
 
 test("when the required prop is set, the label includes the 'required' asterisk", () => {
   render(<Textbox value="foo" onChange={() => {}} label="Required" required />);
-  expect(screen.getByText("Required")).toHaveStyleRule("content", '"*"', {
-    modifier: "::after",
-  });
+  expect(screen.getByTestId("required-indicator")).toBeInTheDocument();
 });
 
 test("renders the positionChildren prop before the input", () => {

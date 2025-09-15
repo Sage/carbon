@@ -1,7 +1,10 @@
 import React from "react";
 import { test, expect } from "../../../playwright/helpers/base-test";
 
-import { checkAccessibility } from "../../../playwright/support/helper";
+import {
+  checkAccessibility,
+  verifyRequiredAsteriskForLabel,
+} from "../../../playwright/support/helper";
 
 import TextEditorDefaultComponent, {
   TextEditorWithHeader,
@@ -525,16 +528,10 @@ test.describe("Prop tests", () => {
     });
   });
 
-  test.describe("required", () => {
-    [true, false].forEach((required) => {
-      test(`value of ${required}`, async ({ mount, page }) => {
-        await mount(<TextEditorDefaultComponent required={required} />);
-        const content = await page.evaluate(
-          "window.getComputedStyle(document.getElementById('pw-rte-label'), '::after').getPropertyValue('content')",
-        );
-        expect(content).toBe(required ? '"*"' : "none");
-      });
-    });
+  test("required", async ({ mount, page }) => {
+    await mount(<TextEditorDefaultComponent required />);
+
+    await verifyRequiredAsteriskForLabel(page);
   });
 
   test.describe("value", () => {

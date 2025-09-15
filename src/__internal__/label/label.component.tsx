@@ -184,6 +184,11 @@ export const Label = ({
         isDarkBackground={isDarkBackground}
       >
         {children}
+        {isRequired && (
+          <span aria-hidden="true" data-role="required-indicator">
+            *
+          </span>
+        )}
       </StyledLabel>
       {icon()}
     </StyledLabelContainer>
