@@ -1,3 +1,14 @@
+## [157.0.0](https://github.com/Sage/carbon/compare/v156.5.0...v157.0.0) (2025-09-15)
+
+### ⚠ BREAKING CHANGES
+
+* Component props designed to support uncontrolled usage e.g. defaultValue have been
+removed, and all value and onChange props are now required
+
+### Features
+
+* removes support for uncontrolled inputs ([a35d773](https://github.com/Sage/carbon/commit/a35d77382bcd026050abd0ff765e2ace31019d91))
+
 ## [156.5.0](https://github.com/Sage/carbon/compare/v156.4.0...v156.5.0) (2025-09-12)
 
 ### Features
