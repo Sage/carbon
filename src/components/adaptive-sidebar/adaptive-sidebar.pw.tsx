@@ -88,6 +88,27 @@ test.describe("Component properties", () => {
     });
   });
 
+  test("when rendered as a modal, with the `restoreFocusOnClose` prop passed as `false`, the call to action element should not be focused", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <DefaultAdaptiveSidebar renderAsModal restoreFocusOnClose={false} />,
+    );
+
+    const openButton = page.getByRole("button").filter({ hasText: "Open" });
+    const sidebar = page.getByRole("dialog");
+    await expect(openButton).not.toBeFocused();
+    await expect(sidebar).not.toBeVisible();
+
+    await openButton.click();
+    await expect(sidebar).toBeVisible();
+    const closeButton = page.getByRole("button").filter({ hasText: "Close" });
+    await closeButton.click();
+    await expect(openButton).not.toBeFocused();
+    await expect(sidebar).not.toBeVisible();
+  });
+
   test("should render the AdaptiveSidebar component as a modal when at mobile resolution", async ({
     mount,
     page,

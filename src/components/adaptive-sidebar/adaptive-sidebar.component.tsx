@@ -11,13 +11,15 @@ import {
 } from "../../style/utils";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
 import { TagProps } from "../../__internal__/utils/helpers/tags";
+import { SidebarProps } from "../sidebar";
 
 import { StyledAdaptiveSidebar, StyledSidebar } from "./adaptive-sidebar.style";
 
 export interface AdaptiveSidebarProps
   extends MarginProps,
     PaddingProps,
-    Omit<TagProps, "data-component"> {
+    Omit<TagProps, "data-component">,
+    Pick<SidebarProps, "restoreFocusOnClose"> {
   /** The breakpoint (in pixels) at which the sidebar will convert to a dialog-based sidebar */
   adaptiveBreakpoint?: number;
   /** The time in milliseconds for the sidebar to animate */
@@ -50,6 +52,7 @@ export const AdaptiveSidebar = ({
   open,
   renderAsModal = false,
   width = "320px",
+  restoreFocusOnClose = false,
   ...props
 }: AdaptiveSidebarProps) => {
   const largeScreen = useIsAboveBreakpoint(adaptiveBreakpoint);
@@ -90,6 +93,7 @@ export const AdaptiveSidebar = ({
         data-role={"adaptive-sidebar-modal-view"}
         enableBackgroundUI={open && hidden}
         hidden={hidden}
+        restoreFocusOnClose={restoreFocusOnClose}
         open={open}
         p={0}
         ref={adaptiveSidebarRef}
