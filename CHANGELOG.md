@@ -1,3 +1,9 @@
+## [157.1.0](https://github.com/Sage/carbon/compare/v157.0.1...v157.1.0) (2025-09-16)
+
+### Features
+
+* **message:** align with beta DS ([723e88b](https://github.com/Sage/carbon/commit/723e88b67bbdd5bdb2b7938e1ccce03f4d6c08ef))
+
 ## [157.0.1](https://github.com/Sage/carbon/compare/v157.0.0...v157.0.1) (2025-09-15)
 
 ### Bug Fixes
