@@ -691,6 +691,36 @@ describe("dropdown list", () => {
       expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
     });
   });
+
+  test("when a custom adaptive sidebar blur event is dispatched the list closes", async () => {
+    const user = userEvent.setup();
+
+    render(
+      <SimpleSelect label="filterable-select" onChange={() => {}} value="">
+        <Option value="opt1" text="green" />
+      </SimpleSelect>,
+    );
+
+    act(() => {
+      screen.getByRole("combobox").focus();
+    });
+    await user.keyboard("{ArrowDown}");
+
+    const listbox = screen.queryByRole("listbox");
+
+    expect(listbox).toBeVisible();
+
+    await act(async () => {
+      document.dispatchEvent(
+        new CustomEvent("adaptiveSidebarModalFocusIn", {
+          bubbles: true,
+          detail: { source: "adaptiveSidebarModal" },
+        }),
+      );
+    });
+
+    expect(listbox).not.toBeVisible();
+  });
 });
 
 describe("when onClick prop is passed", () => {

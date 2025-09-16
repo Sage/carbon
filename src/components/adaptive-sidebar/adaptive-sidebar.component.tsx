@@ -56,6 +56,7 @@ export const AdaptiveSidebar = ({
   ...props
 }: AdaptiveSidebarProps) => {
   const largeScreen = useIsAboveBreakpoint(adaptiveBreakpoint);
+  const renderModal = renderAsModal || !largeScreen;
   const adaptiveSidebarRef = useRef<HTMLDivElement>(null);
 
   const colours = Object.entries(getColors(backgroundColor)).reduce(
@@ -85,7 +86,25 @@ export const AdaptiveSidebar = ({
     });
   }, [hidden, open]);
 
-  if (renderAsModal || !largeScreen) {
+  /* When the adaptive sidebar is conditionally rendered as a modal
+   * we need to blur the previously active element to ensure
+   * all elements which could be open are closed. */
+  useEffect(() => {
+    if (renderModal) {
+      /* Due to component design elsewhere, directly blurring the previously
+       * active element, and handling said blur can cause issues.
+       * By creating and handling a custom blur event instead we can better control
+       * behaviour and avoid unintended issues. */
+      document.dispatchEvent(
+        new CustomEvent("adaptiveSidebarModalFocusIn", {
+          bubbles: true,
+          detail: { source: "adaptiveSidebarModal" },
+        }),
+      );
+    }
+  }, [renderModal]);
+
+  if (renderModal) {
     return (
       <StyledSidebar
         backgroundColor={backgroundColor}
