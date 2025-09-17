@@ -4,13 +4,6 @@ import { resolve } from "path";
 import coverageThresholds from "./coverage-thresholds.json";
 
 const rootDir = resolve(__dirname, ".");
-const esmOnlyPackages = [
-  "react-dnd",
-  "core-dnd",
-  "@react-dnd",
-  "dnd-core",
-  "react-dnd-html5-backend",
-];
 const isCI = process.env.CI === "true";
 
 const baseProjectConfig: Config = {
@@ -20,9 +13,6 @@ const baseProjectConfig: Config = {
     "^.+\\.(js|mjs|jsx|ts|tsx)$": "babel-jest",
     "^.+\\.svg$": "<rootDir>/svgTransform.mjs",
   },
-  transformIgnorePatterns: [
-    `<rootDir>/node_modules/(?!(${esmOnlyPackages.join("|")}))`,
-  ],
   moduleDirectories: ["src", "node_modules"],
   moduleNameMapper: {
     "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js",
