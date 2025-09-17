@@ -6,6 +6,8 @@ import { setupMatchMediaMock } from "../mock-match-media";
 import setupResizeObserverMock from "../mock-resize-observer";
 import setupScrollToMock from "../mock-element-scrollto";
 
+import "@atlaskit/pragmatic-drag-and-drop-unit-testing/drag-event-polyfill";
+import "@atlaskit/pragmatic-drag-and-drop-unit-testing/dom-rect-polyfill";
 import "@testing-library/jest-dom";
 import "jest-styled-components";
 
