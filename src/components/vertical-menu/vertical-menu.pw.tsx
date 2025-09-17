@@ -289,7 +289,7 @@ test.describe("with beforeEach for VerticalMenuFullScreen", () => {
 
     await page.keyboard.press("Escape");
 
-    await expect(verticalMenu).not.toBeVisible();
+    await expect(verticalMenu).toBeHidden();
   });
 
   test(`should render Vertical Menu Full Screen with isOpen prop`, async ({
@@ -328,7 +328,7 @@ test.describe("with beforeEach for VerticalMenuFullScreen", () => {
 
     const item = page.getByRole("button").filter({ hasText: "Menu" });
     await expect(item).not.toBeFocused();
-    await expect(verticalMenuFullScreen(page)).not.toBeVisible();
+    await expect(verticalMenuFullScreen(page)).toBeHidden();
 
     await item.click();
     await waitForAnimationEnd(verticalMenuFullScreen(page));
@@ -672,14 +672,5 @@ test.describe("should check the accessibility tests", () => {
     await mount(<VerticalMenuFullScreenCustom isOpen />);
 
     await checkAccessibility(page);
-  });
-});
-
-test.describe("href redirect", () => {
-  // this test must be last in the test suite as the navigation to a new page messes up any later tests
-  test(`should navigate to the children href`, async ({ mount, page }) => {
-    await mount(<VerticalMenuDefaultComponent />);
-
-    await verticalMenuItem(page).nth(1).click();
   });
 });

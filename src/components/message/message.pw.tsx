@@ -49,7 +49,7 @@ test.describe("Tests for Message component properties", () => {
     page,
   }) => {
     await mount(<MessageComponent open={false} />);
-    await expect(messagePreview(page)).not.toBeVisible();
+    await expect(messagePreview(page)).toBeHidden();
   });
 
   test(`should focus component when open is true and component has a ref`, async ({
@@ -85,7 +85,7 @@ test.describe("Tests for Message component properties", () => {
     page,
   }) => {
     await mount(<MessageComponent showCloseIcon={false} />);
-    await expect(page.getByRole("button", { name: "Close" })).not.toBeVisible();
+    await expect(page.getByRole("button", { name: "Close" })).toBeHidden();
   });
 
   testData.forEach((ariaLabel) => {

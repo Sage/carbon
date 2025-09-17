@@ -161,7 +161,7 @@ test.describe("Prop checks for Loader Spinner component", () => {
   }) => {
     await mount(<LoaderSpinnerComponent showSpinnerLabel={false} />);
 
-    await expect(loaderSpinnerVisibleLabel(page)).not.toBeVisible();
+    await expect(loaderSpinnerVisibleLabel(page)).toBeHidden();
   });
 
   test("when 'showSpinnerLabel' is `false` a visually hidden alternative label is rendered", async ({
