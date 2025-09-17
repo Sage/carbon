@@ -209,7 +209,7 @@ describe("drag and drop functionality", () => {
 
     await waitFor(() => {
       expect(screen.getByTestId("flat-table-body-draggable")).toHaveStyle(
-        "cursor: grabbing",
+        "cursor: grab",
       );
     });
   });

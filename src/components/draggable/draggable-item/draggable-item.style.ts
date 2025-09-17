@@ -65,7 +65,7 @@ const StyledItemContent = styled.div.attrs(
   align-items: center;
   border-bottom: 1px solid var(--colorsUtilityMajor050);
   ${padding}
-  cursor: move;
+  cursor: grab;
   justify-content: space-between;
   flex-direction: ${({ flexDirection }) => flexDirection};
 `;

@@ -53,15 +53,7 @@ export const FlatTableBodyDraggable = ({
     "FlatTableBodyDraggable only accepts children of type FlatTableRow.",
   );
 
-  const [isDragging, setIsDragging] = useState(false);
-
-  const handleDragStart = () => {
-    setIsDragging(true);
-  };
-
   const handleDrop: DragDropProviderProps["onDrop"] = ({ dragged, target }) => {
-    setIsDragging(false);
-
     if (target) {
       const childRowIds = draggableItems.map((row) => row.props.id);
       getOrder?.(childRowIds);
@@ -106,11 +98,9 @@ export const FlatTableBodyDraggable = ({
     <StyledFlatTableBodyDraggable
       data-component="flat-table-body-draggable"
       data-role="flat-table-body-draggable"
-      isDragging={isDragging}
       {...rest}
     >
       <DragDropProvider
-        onDragStart={handleDragStart}
         onDrop={handleDrop}
         onDropTargetChange={handleDropTargetChange}
       >
