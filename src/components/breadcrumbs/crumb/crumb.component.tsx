@@ -24,43 +24,54 @@ export interface CrumbProps
       | "disabled"
     >,
     TagProps {
+  /** This sets the Crumb to current, does not render Link */
   isCurrent?: boolean;
-  onClick?: (
-    ev: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>,
-  ) => void;
 }
 
-const Crumb = React.forwardRef<HTMLLIElement, CrumbProps>(
-  ({ href, isCurrent, children, onClick, ...rest }, ref) => {
-    const { isDarkBackground } = useBreadcrumbsContext();
+function mergeRefs<T>(...refs: Array<React.Ref<T> | undefined>) {
+  return (node: T) => {
+    refs.forEach((ref) => {
+      if (!ref) return;
+      if (typeof ref === "function") {
+        ref(node);
+      } else {
+        (ref as React.MutableRefObject<T | null>).current = node;
+      }
+    });
+  };
+}
 
-    const isSafari = React.useMemo(() => {
-      if (typeof navigator === "undefined") return false;
-      return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+const Crumb = React.forwardRef<HTMLElement, CrumbProps>(
+  ({ href, isCurrent, children, onClick, ...rest }, forwardedRef) => {
+    const { isDarkBackground } = useBreadcrumbsContext();
+    const crumbRef = React.useRef<HTMLElement | null>(null);
+
+    const focusCrumb = React.useCallback(() => {
+      try {
+        crumbRef.current?.focus?.({ preventScroll: true } as FocusOptions);
+      } catch {
+        crumbRef.current?.focus?.();
+      }
     }, []);
 
+    type LinkOnClick = NonNullable<LinkProps["onClick"]>;
+    type LinkOnClickEvent = Parameters<LinkOnClick>[0];
+
     const handleClick = React.useCallback(
-      (
-        event: React.MouseEvent<
-          HTMLAnchorElement | HTMLButtonElement,
-          MouseEvent
-        >,
-      ) => {
-        if (!isCurrent && isSafari) {
-          (event.currentTarget as HTMLElement).focus({ preventScroll: true });
-        }
+      (event: LinkOnClickEvent) => {
+        if (!isCurrent) focusCrumb();
         onClick?.(event);
       },
-      [isCurrent, isSafari, onClick],
+      [isCurrent, onClick, focusCrumb],
     );
 
     return (
-      <li ref={ref}>
+      <li>
         <StyledCrumb
+          ref={mergeRefs(crumbRef, forwardedRef)}
           isCurrent={isCurrent}
           aria-current={isCurrent ? "page" : undefined}
           isDarkBackground={isDarkBackground}
-          data-testid={isCurrent ? "current-crumb" : "link-anchor"}
           {...rest}
           {...tagComponent("crumb", rest)}
           {...(!isCurrent && {
@@ -87,5 +98,4 @@ const Crumb = React.forwardRef<HTMLLIElement, CrumbProps>(
 );
 
 Crumb.displayName = "Crumb";
-
 export default Crumb;
