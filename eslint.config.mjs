@@ -271,6 +271,7 @@ export default defineConfig([
           allow: ["arrowFunctions"],
         },
       ],
+      "@typescript-eslint/no-non-null-assertion": "error",
       "@typescript-eslint/no-unused-vars": [
         "error",
         {
