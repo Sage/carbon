@@ -1,122 +1,120 @@
-import React, { useState } from "react";
-import { action } from "@storybook/addon-actions";
-import Button from "../button";
-import Message, { MessageProps } from "./message.component";
+import React from "react";
+import { Meta, StoryObj } from "@storybook/react";
 
-export default {
+import Message from ".";
+import Button from "../button";
+import Link from "../link";
+import Typography from "../typography";
+import Box from "../box";
+
+const meta: Meta<typeof Message> = {
   title: "Message/Test",
+  component: Message,
   parameters: {
-    info: { disable: true },
-    chromatic: {
-      disableSnapshot: true,
-    },
+    chromatic: { disableSnapshot: true },
   },
   argTypes: {
-    variant: {
-      options: ["info", "error", "success", "warning", "neutral", "ai"],
+    title: {
       control: {
-        type: "select",
+        type: "text",
       },
     },
   },
 };
 
-export const Default = ({ title, children, ...args }: MessageProps) => {
-  const [isOpen, setIsOpen] = useState(true);
-  const onDismiss = (
-    evt:
-      | React.KeyboardEvent<HTMLButtonElement>
-      | React.MouseEvent<HTMLButtonElement>,
-  ) => {
-    setIsOpen(false);
-    action("click")(evt);
-  };
-  const handleOpen = () => {
-    setIsOpen(true);
-    action("open")();
-  };
-  return (
+export default meta;
+type Story = StoryObj<typeof Message>;
+
+export const WithNoTitle: Story = {
+  render: (args) => (
     <>
-      <Button mb={2} onClick={handleOpen}>
-        Open Message
-      </Button>
-      <Message open={isOpen} onDismiss={onDismiss} title={title} {...args}>
-        {children}
+      <Message onDismiss={() => {}} variant="info-subtle" {...args}>
+        Subtle with no Title
+      </Message>
+      <Message onDismiss={() => {}} size="large" {...args}>
+        Large with no Title
+      </Message>
+      <Message
+        onDismiss={() => {}}
+        variant="info-subtle"
+        size="large"
+        {...args}
+      >
+        Large Subtle with no Title
       </Message>
     </>
-  );
+  ),
+  args: {
+    mb: 2,
+  },
+  parameters: {
+    themeProvider: { chromatic: { theme: "sage" } },
+    chromatic: { disableSnapshot: false },
+  },
 };
 
-Default.storyName = "default";
-Default.args = {
-  variant: "info",
-  title: "",
-  id: "custom-id",
-  transparent: false,
-  children: "This is some information from the Message Component.",
-  showCloseIcon: true,
-  width: "",
+export const WithNoCloseIcon: Story = {
+  render: (args) => (
+    <>
+      <Message {...args}>
+        Some long custom message that should wrap onto multiple lines when it
+        exceeds the width of the container.
+      </Message>
+      <Message variant="info-subtle" {...args}>
+        Some long custom message that should wrap onto multiple lines when it
+        exceeds the width of the container.
+      </Message>
+    </>
+  ),
+  args: {
+    mb: 2,
+    title: "Title",
+    width: "300px",
+  },
+  parameters: {
+    themeProvider: { chromatic: { theme: "sage" } },
+    chromatic: { disableSnapshot: false },
+  },
 };
 
-export const TitleWithLongText = (args: MessageProps) => {
-  const [isOpen, setIsOpen] = useState(true);
-  return (
-    <Message
-      open={isOpen}
-      onDismiss={() => setIsOpen(false)}
-      title="Title With Long Text"
-      {...args}
-    >
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-      Lorem Ipsum has been the industry's standard dummy text ever since the
-      1500s, when an unknown printer took a galley of type and scrambled it to
-      make a type specimen book.
+export const WithLongTextWrapping: Story = {
+  render: (args) => (
+    <Message onDismiss={() => {}} {...args}>
+      This is a long custom message that should wrap onto multiple lines when it
+      exceeds the width of the container.
     </Message>
-  );
+  ),
+  args: {
+    title:
+      "This is a long title that should also wrap onto multiple lines when it exceeds the width of the container.",
+    width: "300px",
+  },
+  parameters: {
+    themeProvider: { chromatic: { theme: "sage" } },
+    chromatic: { disableSnapshot: false },
+  },
 };
 
-TitleWithLongText.storyName = "Title With Long Text";
-
-TitleWithLongText.parameters = {
-  themeProvider: { chromatic: { disableSnapshot: false, theme: "sage" } },
-};
-
-export const Transparent = (args: MessageProps) => {
-  const [isOpen, setIsOpen] = useState(true);
-  return (
-    <Message
-      open={isOpen}
-      onDismiss={() => setIsOpen(false)}
-      transparent
-      {...args}
-    >
-      Some custom message
+export const WithCustomContent: Story = {
+  render: (args) => (
+    <Message onDismiss={() => {}} {...args}>
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        width="100%"
+      >
+        <Typography m={0}>
+          Some custom message. <Link href="#">Link</Link>
+        </Typography>
+        <Button size="small" onClick={() => {}}>
+          Button
+        </Button>
+      </Box>
     </Message>
-  );
-};
-
-Transparent.storyName = "transparent";
-
-Transparent.parameters = {
-  themeProvider: { chromatic: { disableSnapshot: false, theme: "sage" } },
-};
-
-export const Ai = (args: MessageProps) => {
-  const [isOpen, setIsOpen] = useState(true);
-  return (
-    <Message
-      open={isOpen}
-      onDismiss={() => setIsOpen(false)}
-      variant="ai"
-      {...args}
-    >
-      Some custom message
-    </Message>
-  );
-};
-
-Ai.storyName = "Ai";
-
-Ai.parameters = {
-  themeProvider: { chromatic: { disableSnapshot: false, theme: "sage" } },
+  ),
+  args: {
+    title: "Custom Content",
+    width: "400px",
+  },
 };
