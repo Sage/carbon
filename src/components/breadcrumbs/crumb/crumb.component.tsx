@@ -33,7 +33,7 @@ const Crumb = React.forwardRef<HTMLElement, CrumbProps>(
     const { isDarkBackground } = useBreadcrumbsContext();
     const crumbRef = React.useRef<HTMLElement | null>(null);
 
-    React.useImperativeHandle(forwardedRef, () => crumbRef.current, []);
+    React.useImperativeHandle(forwardedRef, () => crumbRef.current!, []);
 
     const focusCrumb = React.useCallback(() => {
       crumbRef.current?.focus?.({ preventScroll: true } as FocusOptions);
