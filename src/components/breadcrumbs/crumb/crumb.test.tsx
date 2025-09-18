@@ -27,27 +27,26 @@ test("passes href to the anchor element when isCurrent is false", () => {
   );
 
   const link = screen.getByRole("link", { name: "Link text" });
-
   expect(link).toHaveAttribute("href", "foo");
 });
 
-test("does not pass href to the anchor element when isCurrent is true", () => {
+test("does not pass href when isCurrent is true (renders a non-link current crumb)", () => {
   render(
     <Breadcrumbs>
-      <Crumb href="foo" data-role="crumb" isCurrent>
+      <Crumb href="foo" isCurrent>
         Link text
       </Crumb>
     </Breadcrumbs>,
   );
 
-  const anchor = screen.getByTestId("link-anchor");
-
-  expect(anchor).not.toHaveAttribute("href", "foo");
+  const el = screen.getByText("Link text");
+  expect(el).not.toHaveAttribute("href");
 });
 
-test("calls onClick callback when the crumb link is clicked", async () => {
+test("invokes onClick when the crumb link is clicked (not current)", async () => {
   const onClick = jest.fn();
   const user = userEvent.setup();
+
   render(
     <Breadcrumbs>
       <Crumb href="#" onClick={onClick}>
@@ -56,15 +55,14 @@ test("calls onClick callback when the crumb link is clicked", async () => {
     </Breadcrumbs>,
   );
 
-  const link = screen.getByRole("link", { name: "Link text" });
-  await user.click(link);
-
+  await user.click(screen.getByRole("link", { name: "Link text" }));
   expect(onClick).toHaveBeenCalledTimes(1);
 });
 
-test("does not call onClick callback when isCurrent is true", async () => {
+test("does not invoke onClick when isCurrent is true", async () => {
   const onClick = jest.fn();
   const user = userEvent.setup();
+
   render(
     <Breadcrumbs>
       <Crumb href="#" onClick={onClick} isCurrent>
@@ -73,13 +71,14 @@ test("does not call onClick callback when isCurrent is true", async () => {
     </Breadcrumbs>,
   );
 
-  const link = screen.getByText("Link text");
-  await user.click(link);
-
-  expect(onClick).toHaveBeenCalledTimes(0);
+  await user.click(screen.getByText("Link text"));
+  expect(
+    screen.queryByRole("link", { name: "Link text" }),
+  ).not.toBeInTheDocument();
+  expect(onClick).not.toHaveBeenCalled();
 });
 
-test("renders with provided data- attributes", () => {
+test("forwards provided data- attributes", () => {
   render(
     <Breadcrumbs>
       <Crumb href="#" data-element="bar" data-role="baz">
@@ -89,4 +88,51 @@ test("renders with provided data- attributes", () => {
   );
 
   expect(screen.getByTestId("baz")).toHaveAttribute("data-element", "bar");
+});
+
+test("adds aria-current='page' on the current crumb", () => {
+  render(
+    <Breadcrumbs>
+      <Crumb href="#" isCurrent>
+        Current Page
+      </Crumb>
+    </Breadcrumbs>,
+  );
+
+  const el = screen.getByText("Current Page");
+  expect(el).toHaveAttribute("aria-current", "page");
+});
+
+test("forwards the DOM node to the ref when rendered as a link", () => {
+  const ref = React.createRef<HTMLElement>();
+
+  render(
+    <Breadcrumbs>
+      <Crumb href="#" ref={ref}>
+        Link text
+      </Crumb>
+    </Breadcrumbs>,
+  );
+
+  const link = screen.getByRole("link", { name: "Link text" });
+  expect(ref.current).toBe(link);
+  expect(ref.current?.tagName).toBe("A");
+});
+
+test("forwards the DOM node to the ref when current (renders as span)", () => {
+  const ref = React.createRef<HTMLElement>();
+
+  render(
+    <Breadcrumbs>
+      <Crumb isCurrent ref={ref}>
+        Current Page
+      </Crumb>
+    </Breadcrumbs>,
+  );
+
+  const el = screen.getByText("Current Page");
+  expect(ref.current).toBe(el);
+  expect(ref.current?.tagName).toBe("SPAN");
+  expect(ref.current).toHaveAttribute("aria-current", "page");
+  expect(ref.current).toHaveAttribute("tabindex", "-1");
 });

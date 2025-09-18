@@ -28,14 +28,32 @@ export interface CrumbProps
   isCurrent?: boolean;
 }
 
-const Crumb = React.forwardRef<HTMLAnchorElement, CrumbProps>(
-  ({ href, isCurrent, children, onClick, ...rest }: CrumbProps, ref) => {
+const Crumb = React.forwardRef<HTMLElement, CrumbProps>(
+  ({ href, isCurrent, children, onClick, ...rest }, forwardedRef) => {
     const { isDarkBackground } = useBreadcrumbsContext();
+    const crumbRef = React.useRef<HTMLElement | null>(null);
+
+    React.useImperativeHandle(forwardedRef, () => crumbRef.current!, []);
+
+    const focusCrumb = React.useCallback(() => {
+      crumbRef.current?.focus?.({ preventScroll: true } as FocusOptions);
+    }, []);
+
+    type LinkOnClick = NonNullable<LinkProps["onClick"]>;
+    type LinkOnClickEvent = Parameters<LinkOnClick>[0];
+
+    const handleClick = React.useCallback(
+      (event: LinkOnClickEvent) => {
+        focusCrumb();
+        onClick?.(event);
+      },
+      [onClick, focusCrumb],
+    );
 
     return (
       <li>
         <StyledCrumb
-          ref={ref}
+          ref={crumbRef}
           isCurrent={isCurrent}
           aria-current={isCurrent ? "page" : undefined}
           isDarkBackground={isDarkBackground}
@@ -43,7 +61,11 @@ const Crumb = React.forwardRef<HTMLAnchorElement, CrumbProps>(
           {...tagComponent("crumb", rest)}
           {...(!isCurrent && {
             href,
-            onClick,
+            onClick: handleClick,
+          })}
+          {...(isCurrent && {
+            as: "span",
+            tabIndex: -1,
           })}
         >
           {children}
@@ -61,5 +83,4 @@ const Crumb = React.forwardRef<HTMLAnchorElement, CrumbProps>(
 );
 
 Crumb.displayName = "Crumb";
-
 export default Crumb;

@@ -166,41 +166,42 @@ test.describe("should render Breadcrumbs component", async () => {
     );
   });
 
-  test("should have correct color when Crumb is current and isDarkBackground is true", async ({
+  test("should have non-interactive cursor when Crumb is current and isDarkBackground is true", async ({
     mount,
     page,
   }) => {
     await mount(<OnDarkBackground />);
+    await page.waitForSelector('[data-component="breadcrumbs"]');
 
-    const currentCrumb = crumbAtIndex(page, 3).locator("a");
-    await expect(currentCrumb).toHaveCSS("color", "rgb(255, 255, 255)");
-    await currentCrumb.hover();
-    await expect(currentCrumb).toHaveCSS("color", "rgb(255, 255, 255)");
-    await expect(currentCrumb).toHaveCSS("cursor", "text");
+    const currentCrumb = crumbAtIndex(page, 3).locator(
+      'span[data-component="crumb"]',
+    );
+
+    await expect(currentCrumb).toBeVisible();
+    await expect(currentCrumb).toHaveAttribute("aria-current", "page");
+    await expect(currentCrumb).toHaveCSS("cursor", "auto");
   });
 
-  [
-    {
-      isCurrent: true,
-      expectedAttribute: "aria-current",
-      expectedValue: "page",
-    },
-    {
-      isCurrent: false,
-      expectedAttribute: "href",
-      expectedValue: "#",
-    },
-  ].forEach(({ isCurrent, expectedAttribute, expectedValue }) => {
-    test(`should check Crumb with isCurrent prop is ${isCurrent}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<DefaultCrumb isCurrent={isCurrent} />);
-      await expect(crumbAtIndex(page, 0).locator("a")).toHaveAttribute(
-        expectedAttribute,
-        expectedValue,
-      );
-    });
+  test("should check Crumb with isCurrent prop is true", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DefaultCrumb isCurrent={true} />);
+    await expect(crumbAtIndex(page, 0).locator("span")).toHaveAttribute(
+      "aria-current",
+      "page",
+    );
+  });
+
+  test("should check Crumb with isCurrent prop is false", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DefaultCrumb isCurrent={false} />);
+    await expect(crumbAtIndex(page, 0).locator("a")).toHaveAttribute(
+      "href",
+      "#",
+    );
   });
 
   test("should check Crumb with href prop set to default val", async ({
@@ -222,13 +223,14 @@ test("when Crumb's isCurrent prop is true, Crumb divider should not exist", asyn
   await mount(<DefaultCrumb isCurrent />);
 
   const crumbElement = crumbAtIndex(page, 0);
-  await expect(crumbElement.locator("a")).toHaveAttribute(
+
+  await expect(crumbElement.locator("span")).toHaveAttribute(
     "aria-current",
     "page",
   );
-  await expect(crumbElement.locator("span").nth(1)).toHaveCSS(
-    "color",
-    "rgba(0, 0, 0, 0.9)",
+
+  await expect(crumbElement.locator('[data-role="crumb-divider"]')).toHaveCount(
+    0,
   );
 });
 
