@@ -118,6 +118,7 @@ const enGB: Locale = {
     warning: () => "Warning",
     neutral: () => "Information",
     ai: () => "AI Information",
+    callout: () => "Callout",
   },
   numeralDate: {
     validation: {

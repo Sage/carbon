@@ -1,3 +1,15 @@
+## [157.1.0](https://github.com/Sage/carbon/compare/v157.0.1...v157.1.0) (2025-09-16)
+
+### Features
+
+* **message:** align with beta DS ([723e88b](https://github.com/Sage/carbon/commit/723e88b67bbdd5bdb2b7938e1ccce03f4d6c08ef))
+
+## [157.0.1](https://github.com/Sage/carbon/compare/v157.0.0...v157.0.1) (2025-09-15)
+
+### Bug Fixes
+
+* **card:** fix link styling in card footer ([32261dc](https://github.com/Sage/carbon/commit/32261dc1fb1c62e905104cc7f2420b2f0b00b36d))
+
 ## [157.0.0](https://github.com/Sage/carbon/compare/v156.5.0...v157.0.0) (2025-09-15)
 
 ### ⚠ BREAKING CHANGES
