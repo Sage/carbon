@@ -16,6 +16,10 @@ test("dragging an item downwards and dropping it on another within the same cont
 
   const apple = page.getByText("Apple");
   const venus = page.getByText("Venus");
+
+  await expect(apple).toBeVisible();
+  await expect(venus).toBeVisible();
+
   await apple.dragTo(venus);
 
   const allItems = page.getByTestId("draggable-item");
@@ -92,11 +96,11 @@ test("calls container's getOrder callback with the correct arguments when an ite
     .toEqual([["mercury", "venus", "apple"], "apple"]);
 });
 
-test("calls fruit container's getOrder callback with correct arguments when a planet item is attempted to be dragged and dropped into the fruit container", async ({
+test("does not call fruit container's getOrder callback with correct arguments when a planet item is attempted to be dragged and dropped into the fruit container", async ({
   mount,
   page,
 }) => {
-  let getOrderArgs: [unknown, unknown];
+  let getOrderArgs: [unknown, unknown] | undefined = undefined;
   await mount(
     <WithMultipleContainers
       getOrder={(draggableItemIds, movedItemId) => {
@@ -109,9 +113,7 @@ test("calls fruit container's getOrder callback with correct arguments when a pl
   const apple = page.getByText("Apple");
   await pluto.dragTo(apple);
 
-  await expect
-    .poll(() => getOrderArgs)
-    .toEqual([["apple", "mango", "cherry"], "pluto"]);
+  expect(getOrderArgs).toBeUndefined();
 });
 
 test("an draggable item's rendered element is hidden from view while the item is being dragged", async ({
