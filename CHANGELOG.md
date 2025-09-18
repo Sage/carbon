@@ -1,3 +1,9 @@
+## [157.1.2](https://github.com/Sage/carbon/compare/v157.1.1...v157.1.2) (2025-09-18)
+
+### Bug Fixes
+
+* **menu-item:** increase specificity for links that don't contain buttons ([ce5e050](https://github.com/Sage/carbon/commit/ce5e050367894ed0b6dec9d5d7063f13f9ee01d8)), closes [#7497](https://github.com/Sage/carbon/issues/7497)
+
 ## [157.1.1](https://github.com/Sage/carbon/compare/v157.1.0...v157.1.1) (2025-09-18)
 
 ### Bug Fixes
