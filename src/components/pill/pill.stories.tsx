@@ -34,7 +34,7 @@ Default.storyName = "Default";
 export const Wrapped: Story = () => {
   return (
     <Box mb={1}>
-      <Pill maxWidth="55px" wrapText>
+      <Pill maxWidth="65px" wrapText>
         Wrapped pill
       </Pill>
       <Pill ml={1} maxWidth="55px" wrapText>
