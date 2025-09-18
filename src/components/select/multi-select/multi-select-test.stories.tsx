@@ -981,3 +981,29 @@ export const AriaDescribedByExample = () => {
     </>
   );
 };
+
+interface WithPillStoryProps extends Partial<MultiSelectProps> {
+  pillText: string;
+}
+
+export const WithVeryLongPillText = ({
+  pillText,
+  ...args
+}: WithPillStoryProps) => {
+  return (
+    <MultiSelect
+      maxWidth="200px"
+      value={["1"]}
+      onChange={() => {}}
+      name="simple"
+      id="simple"
+      label="color"
+      {...args}
+    >
+      <Option text={pillText} value="1" />
+    </MultiSelect>
+  );
+};
+WithVeryLongPillText.args = {
+  pillText: "Veryveryveryveryveryveryverylongword",
+};
