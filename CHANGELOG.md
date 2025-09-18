@@ -1,3 +1,9 @@
+## [157.3.0](https://github.com/Sage/carbon/compare/v157.2.0...v157.3.0) (2025-09-18)
+
+### Features
+
+* **sidebar:** support additional data props for close button ([bb41751](https://github.com/Sage/carbon/commit/bb41751f6aaaa98e22d5814bc256d79b6fb3513e)), closes [#7539](https://github.com/Sage/carbon/issues/7539)
+
 ## [157.2.0](https://github.com/Sage/carbon/compare/v157.1.2...v157.2.0) (2025-09-18)
 
 ### Features
