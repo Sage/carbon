@@ -12,18 +12,14 @@ import { Sizes } from "../../__internal__/input/input-presentation.component";
 import guid from "../../__internal__/utils/helpers/guid";
 import useLocale from "../../hooks/__internal__/useLocale";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
-import useInputAccessibility from "../../hooks/__internal__/useInputAccessibility";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 
 import Fieldset from "../../__internal__/fieldset";
 import Box from "../box";
-import ErrorBorder from "../textbox/textbox.style";
-import ValidationMessage from "../../__internal__/validation-message";
 import Number from "../number";
 import Typography from "../typography";
 import StyledLabel from "./time.style";
 import { TimeToggle, ToggleDataProps } from "./__internal__/time-toggle";
-import HintText from "../../__internal__/hint-text";
 
 export type ToggleValue = "AM" | "PM";
 
@@ -141,9 +137,8 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
     } = minutesInputProps;
     const internalHrsId = useRef(hoursInputId || guid());
     const internalMinsId = useRef(minutesInputId || guid());
-    const inputHintId = useRef(inputHint ? guid() : undefined);
     const internalId = useRef(
-      `${internalHrsId.current} ${internalMinsId.current}`,
+      `${internalHrsId.current}-${internalMinsId.current}`,
     );
     const {
       hours: hourValue,
@@ -220,19 +215,6 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
 
     const error = computedValidations(hoursError, minutesError);
     const warning = computedValidations(hoursWarning, minutesWarning);
-    const hasValidationFailure = !!(error || warning);
-
-    const { validationId, ariaDescribedBy } = useInputAccessibility({
-      id: internalId.current,
-      validationRedesignOptIn: true,
-      error,
-      warning,
-    });
-
-    const describedByArray = validationMessagePositionTop
-      ? [ariaDescribedBy, inputHintId.current]
-      : [inputHintId.current, ariaDescribedBy];
-    const combinedAriaDescribedBy = describedByArray.filter(Boolean).join(" ");
 
     useImperativeHandle<TimeHandle, TimeHandle>(
       ref,
@@ -315,136 +297,102 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
 
     return (
       <Fieldset
+        applyNewValidation
+        id={internalId.current}
         legend={label}
-        legendMargin={{ mb: 0 }}
+        inputHint={inputHint}
         width="min-content"
         legendAlign={labelAlign}
         isRequired={required}
         isDisabled={disabled}
         name={name}
-        id={internalId.current}
+        error={error}
+        warning={warning}
+        validationMessagePositionTop={validationMessagePositionTop}
         {...rest}
         {...filterStyledSystemMarginProps(rest)}
         {...tagComponent("time", rest)}
-        aria-describedby={inputHint ? combinedAriaDescribedBy : ariaDescribedBy}
       >
-        {inputHint && (
-          <HintText
-            align={labelAlign}
-            id={inputHintId.current}
-            isDisabled={disabled}
+        <Box display="flex">
+          <div>
+            <StyledLabel
+              aria-label={hrsAriaLabel}
+              htmlFor={internalHrsId.current}
+              disabled={disabled}
+              align={fieldLabelsAlign}
+            >
+              {hrsLabel}
+            </StyledLabel>
+            <Number
+              {...hoursInputProps}
+              label={undefined}
+              data-component="hours"
+              ref={hoursRef}
+              value={hourValue}
+              onChange={(ev) => handleChange(ev, "hrs")}
+              onBlur={handleBlur}
+              id={internalHrsId.current}
+              size={size}
+              error={!!hoursError}
+              warning={!!hoursWarning}
+              disabled={disabled}
+              readOnly={readOnly}
+              my={0} // prevents any form spacing being applied
+            />
+          </div>
+          <Box
+            display="flex"
+            flexDirection="column"
+            justifyContent="center"
+            mx={1}
+            aria-hidden="true"
           >
-            {inputHint}
-          </HintText>
-        )}
-        <Box position="relative" mt={inputHint ? 0 : 1}>
-          {validationMessagePositionTop && (
-            <>
-              <ValidationMessage
-                validationId={validationId}
-                error={error}
-                warning={warning}
-                validationMessagePositionTop={validationMessagePositionTop}
-              />
-              {hasValidationFailure && (
-                <ErrorBorder warning={!!(!error && warning)} />
-              )}
-            </>
-          )}
-          <Box display="flex">
-            <div>
-              <StyledLabel
-                aria-label={hrsAriaLabel}
-                htmlFor={internalHrsId.current}
-                disabled={disabled}
-                align={fieldLabelsAlign}
-              >
-                {hrsLabel}
-              </StyledLabel>
-              <Number
-                {...hoursInputProps}
-                label={undefined}
-                data-component="hours"
-                ref={hoursRef}
-                value={hourValue}
-                onChange={(ev) => handleChange(ev, "hrs")}
-                onBlur={handleBlur}
-                id={internalHrsId.current}
-                size={size}
-                error={!!hoursError}
-                warning={!!hoursWarning}
-                disabled={disabled}
-                readOnly={readOnly}
-                my={0} // prevents any form spacing being applied
-              />
-            </div>
+            <span>&nbsp;</span>
+            <Typography isDisabled={disabled} variant="span" mb="-4px">
+              :
+            </Typography>
+          </Box>
+          <div>
+            <StyledLabel
+              aria-label={minsAriaLabel}
+              htmlFor={internalMinsId.current}
+              disabled={disabled}
+              align={fieldLabelsAlign}
+            >
+              {minsLabel}
+            </StyledLabel>
+            <Number
+              {...minutesInputProps}
+              label={undefined}
+              data-component="minutes"
+              ref={minsRef}
+              value={minuteValue}
+              onChange={(ev) => handleChange(ev, "mins")}
+              onBlur={handleBlur}
+              id={internalMinsId.current}
+              size={size}
+              error={!!minutesError}
+              warning={!!minutesWarning}
+              disabled={disabled}
+              readOnly={readOnly}
+              my={0} // prevents any form spacing being applied
+            />
+          </div>
+          {showToggle && (
             <Box
               display="flex"
               flexDirection="column"
-              justifyContent="center"
-              mx={1}
-              aria-hidden="true"
+              justifyContent="flex-end"
+              width="max-content"
             >
-              <span>&nbsp;</span>
-              <Typography isDisabled={disabled} variant="span" mb="-4px">
-                :
-              </Typography>
-            </Box>
-            <div>
-              <StyledLabel
-                aria-label={minsAriaLabel}
-                htmlFor={internalMinsId.current}
-                disabled={disabled}
-                align={fieldLabelsAlign}
-              >
-                {minsLabel}
-              </StyledLabel>
-              <Number
-                {...minutesInputProps}
-                label={undefined}
-                data-component="minutes"
-                ref={minsRef}
-                value={minuteValue}
-                onChange={(ev) => handleChange(ev, "mins")}
-                onBlur={handleBlur}
-                id={internalMinsId.current}
+              <TimeToggle
+                toggleProps={toggleProps}
                 size={size}
-                error={!!minutesError}
-                warning={!!minutesWarning}
-                disabled={disabled}
-                readOnly={readOnly}
-                my={0} // prevents any form spacing being applied
+                onChange={handlePeriodChange}
+                toggleValue={toggleValue}
+                disabled={disabled || readOnly}
               />
-            </div>
-            {showToggle && (
-              <Box
-                display="flex"
-                flexDirection="column"
-                justifyContent="flex-end"
-                width="max-content"
-              >
-                <TimeToggle
-                  toggleProps={toggleProps}
-                  size={size}
-                  onChange={handlePeriodChange}
-                  toggleValue={toggleValue}
-                  disabled={disabled || readOnly}
-                />
-              </Box>
-            )}
-          </Box>
-          {!validationMessagePositionTop && (
-            <>
-              <ValidationMessage
-                error={error}
-                validationId={validationId}
-                warning={warning}
-                validationMessagePositionTop={validationMessagePositionTop}
-              />
-              {hasValidationFailure && (
-                <ErrorBorder warning={!!(!error && warning)} />
-              )}
-            </>
+            </Box>
           )}
         </Box>
       </Fieldset>

@@ -273,10 +273,6 @@ describe("when `validationRedesignOptIn` flag is true", () => {
 
     expect(fieldset).toHaveAccessibleDescription("Hint message");
     expect(hintText).toBeVisible();
-    expect(hintText).toHaveStyleRule("color", "var(--colorsUtilityYin055)");
-    expect(hintText).toHaveStyleRule("margin-top", "-4px");
-    expect(hintText).toHaveStyleRule("margin-bottom", "var(--spacing100)");
-    expect(hintText).toHaveStyleRule("font-size", "14px");
   });
 
   it("renders with expected styles when `inline` is true", () => {

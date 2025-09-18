@@ -11,12 +11,7 @@ import { filterStyledSystemMarginProps } from "../../../style/utils";
 import { TooltipProvider } from "../../../__internal__/tooltip-provider";
 import { ValidationProps } from "../../../__internal__/validations";
 import NewValidationContext from "../../carbon-provider/__internal__/new-validation.context";
-import ValidationMessage from "../../../__internal__/validation-message/validation-message.component";
-import Box from "../../box";
 import guid from "../../../__internal__/utils/helpers/guid";
-import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibility";
-import ErrorBorder from "../../textbox/textbox.style";
-import HintText from "../../../__internal__/hint-text";
 
 export interface RadioButtonGroupProps
   extends ValidationProps,
@@ -96,7 +91,6 @@ export const RadioButtonGroup = ({
   const { validationRedesignOptIn } = useContext(NewValidationContext);
   const internalId = useRef(guid());
   const uniqueId = id || internalId.current;
-  const inputHintId = legendHelp ? `${uniqueId}-hint` : undefined;
 
   const marginProps = filterStyledSystemMarginProps(rest);
 
@@ -118,109 +112,55 @@ export const RadioButtonGroup = ({
     marginLeft = undefined;
   }
 
-  const { validationId, ariaDescribedBy } = useInputAccessibility({
-    id: uniqueId,
-    validationRedesignOptIn: true,
-    error,
-    warning,
-    info,
-  });
-
-  const describedByArray =
-    validationRedesignOptIn && validationMessagePositionTop
-      ? [ariaDescribedBy, inputHintId]
-      : [inputHintId, ariaDescribedBy];
-
-  const combinedAriaDescribedBy = describedByArray.filter(Boolean).join(" ");
-
   return (
     <>
       {validationRedesignOptIn ? (
         <Fieldset
+          applyNewValidation
+          id={uniqueId}
           legend={legend}
-          error={error}
-          warning={warning}
+          inputHint={legendHelp}
           legendAlign={legendAlign}
           isRequired={required}
+          error={error}
+          warning={warning}
+          validationMessagePositionTop={validationMessagePositionTop}
           width="fit-content"
           {...tagComponent("radiogroup", rest)}
           {...marginProps}
-          ml={marginLeft}
-          blockGroupBehaviour={!(error || warning)}
-          {...(combinedAriaDescribedBy && {
-            "aria-describedby": combinedAriaDescribedBy,
-          })}
         >
-          {legendHelp && (
-            <HintText align={legendAlign} id={inputHintId} marginTop="-4px">
-              {legendHelp}
-            </HintText>
-          )}
-          <Box position="relative">
-            {validationMessagePositionTop && (
-              <>
-                <ValidationMessage
-                  error={error}
-                  warning={warning}
-                  validationId={validationId}
-                  validationMessagePositionTop={validationMessagePositionTop}
-                />
-                {(error || warning) && (
-                  <ErrorBorder
-                    data-role="radio-error-border"
-                    warning={!!(!error && warning)}
-                  />
-                )}
-              </>
-            )}
-            <RadioButtonGroupStyle
-              data-component="radio-button-group"
-              role="radiogroup"
-              inline={inline}
-              legendInline={inlineLegend}
+          <RadioButtonGroupStyle
+            data-component="radio-button-group"
+            role="radiogroup"
+            inline={inline}
+            legendInline={inlineLegend}
+          >
+            <RadioButtonMapper
+              name={name}
+              onBlur={onBlur}
+              onChange={onChange}
+              value={value}
             >
-              <RadioButtonMapper
-                name={name}
-                onBlur={onBlur}
-                onChange={onChange}
-                value={value}
-              >
-                {React.Children.map(children, (child) => {
-                  if (!React.isValidElement(child)) {
-                    return child;
-                  }
+              {React.Children.map(children, (child) => {
+                if (!React.isValidElement(child)) {
+                  return child;
+                }
 
-                  return React.cloneElement(child, {
-                    inline,
-                    labelSpacing,
-                    error: !!error,
-                    warning: !!warning,
-                    ...child.props,
-                  });
-                })}
-              </RadioButtonMapper>
-            </RadioButtonGroupStyle>
-            {!validationMessagePositionTop && (
-              <>
-                <ValidationMessage
-                  error={error}
-                  warning={warning}
-                  validationId={validationId}
-                  validationMessagePositionTop={validationMessagePositionTop}
-                />
-                {(error || warning) && (
-                  <ErrorBorder
-                    data-role="radio-error-border"
-                    warning={!!(!error && warning)}
-                  />
-                )}
-              </>
-            )}
-          </Box>
+                return React.cloneElement(child, {
+                  inline,
+                  labelSpacing,
+                  error: !!error,
+                  warning: !!warning,
+                  ...child.props,
+                });
+              })}
+            </RadioButtonMapper>
+          </RadioButtonGroupStyle>
         </Fieldset>
       ) : (
         <TooltipProvider tooltipPosition={tooltipPosition}>
           <Fieldset
+            id={uniqueId}
             legend={legend}
             error={error}
             warning={warning}
@@ -234,8 +174,6 @@ export const RadioButtonGroup = ({
             {...marginProps}
             ml={marginLeft}
             blockGroupBehaviour={!(error || warning || info)}
-            aria-describedby={ariaDescribedBy}
-            validationId={validationId}
           >
             <RadioButtonGroupStyle
               data-component="radio-button-group"

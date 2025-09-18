@@ -53,6 +53,9 @@ test("renders validation icon and hidden message when `legend` and `error` are p
 
   expect(icon).toBeVisible();
   expect(message).toBeInTheDocument();
+  expect(screen.getByRole("group")).toHaveAccessibleDescription(
+    "error message",
+  );
 });
 
 test("renders validation icon and hidden message when `legend` and `warning` are provided", () => {
@@ -67,6 +70,9 @@ test("renders validation icon and hidden message when `legend` and `warning` are
 
   expect(icon).toBeVisible();
   expect(message).toBeInTheDocument();
+  expect(screen.getByRole("group")).toHaveAccessibleDescription(
+    "warning message",
+  );
 });
 
 test("renders validation icon and hidden message when `legend` and `info` are provided", () => {
@@ -81,6 +87,7 @@ test("renders validation icon and hidden message when `legend` and `info` are pr
 
   expect(icon).toBeVisible();
   expect(message).toBeInTheDocument();
+  expect(screen.getByRole("group")).toHaveAccessibleDescription("info message");
 });
 
 test("renders help icon when `labelHelp` is provided", () => {
@@ -93,6 +100,19 @@ test("renders help icon when `labelHelp` is provided", () => {
   const help = screen.getByRole("button", { name: "help" });
 
   expect(help).toBeVisible();
+});
+
+test("renders fieldHelp when `fieldHelp` is provided", () => {
+  render(
+    <Fieldset legend="Legend" fieldHelp="field help">
+      <input title="Test" placeholder="Placeholder" />
+    </Fieldset>,
+  );
+
+  const fieldHelp = screen.getByText("field help");
+
+  expect(fieldHelp).toBeVisible();
+  expect(screen.getByRole("group")).toHaveAccessibleDescription("field help");
 });
 
 // coverage - tested in Help component
@@ -162,3 +182,94 @@ testStyledSystemMargin(
   ),
   () => screen.getByRole("group"),
 );
+
+describe("when `applyNewValidation` is provided", () => {
+  it("renders with `inputHint` when provided", () => {
+    render(
+      <Fieldset legend="Legend" applyNewValidation inputHint="input hint">
+        <input title="Test" placeholder="Placeholder" />
+      </Fieldset>,
+    );
+
+    const hint = screen.getByText("input hint");
+
+    expect(hint).toBeVisible();
+    expect(screen.getByRole("group")).toHaveAccessibleDescription("input hint");
+  });
+
+  it("renders with validation message when `error` is provided", () => {
+    render(
+      <Fieldset legend="Legend" applyNewValidation error="error message">
+        <input title="Test" placeholder="Placeholder" />
+      </Fieldset>,
+    );
+    const message = screen.getByText("error message");
+
+    expect(message).toBeVisible();
+    expect(screen.getByRole("group")).toHaveAccessibleDescription(
+      "error message",
+    );
+  });
+
+  it("renders with validation message when `warning` is provided", () => {
+    render(
+      <Fieldset legend="Legend" applyNewValidation warning="warning message">
+        <input title="Test" placeholder="Placeholder" />
+      </Fieldset>,
+    );
+    const message = screen.getByText("warning message");
+
+    expect(message).toBeVisible();
+    expect(screen.getByRole("group")).toHaveAccessibleDescription(
+      "warning message",
+    );
+  });
+
+  it("combines `inputHint` and validation message in `aria-describedby` when both are provided", () => {
+    render(
+      <Fieldset
+        legend="Legend"
+        applyNewValidation
+        error="error message"
+        inputHint="input hint"
+      >
+        <input title="Test" placeholder="Placeholder" />
+      </Fieldset>,
+    );
+
+    expect(screen.getByRole("group")).toHaveAccessibleDescription(
+      "input hint error message",
+    );
+  });
+
+  it("renders with required inputs when `isRequired` is true", () => {
+    render(
+      <Fieldset applyNewValidation isRequired>
+        <input title="Test" placeholder="Placeholder" />
+      </Fieldset>,
+    );
+
+    const inputs = screen.getByRole("textbox");
+
+    expect(inputs).toBeRequired();
+  });
+
+  it("renders with expected styles when `isDisabled` is true", () => {
+    render(
+      <Fieldset
+        applyNewValidation
+        legend="Legend"
+        inputHint="input hint"
+        isDisabled
+      >
+        <input title="Test" placeholder="Placeholder" />
+      </Fieldset>,
+    );
+
+    const legend = screen.getByText("Legend");
+    const hint = screen.getByText("input hint");
+
+    expect(legend).toHaveStyleRule("color", "var(--colorsUtilityYin030)");
+    expect(hint).toHaveStyleRule("color", "var(--colorsUtilityYin030)");
+  });
+});

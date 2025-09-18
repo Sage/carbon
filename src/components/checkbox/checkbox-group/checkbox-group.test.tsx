@@ -169,7 +169,7 @@ describe("when the `validationRedesignOptIn` flag is true", () => {
     expect(fieldset).toHaveAccessibleDescription("Legend Help error message");
   });
 
-  it("should describe the group with the warning and lengendHelp text when the validationMessagePositionTop is false", () => {
+  it("should describe the group with the warning and legendHelp text when the validationMessagePositionTop is false", () => {
     render(
       <CarbonProvider validationRedesignOptIn>
         <CheckboxGroup
