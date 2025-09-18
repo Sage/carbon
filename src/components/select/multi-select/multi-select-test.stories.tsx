@@ -981,3 +981,18 @@ export const AriaDescribedByExample = () => {
     </>
   );
 };
+
+export const WithVeryLongPillText = () => {
+  return (
+    <MultiSelect
+      maxWidth="200px"
+      value={["1"]}
+      onChange={() => {}}
+      name="simple"
+      id="simple"
+      label="color"
+    >
+      <Option text="Veryveryveryveryveryveryverylongword" value="1" />
+    </MultiSelect>
+  );
+};
