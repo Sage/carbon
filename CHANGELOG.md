@@ -1,3 +1,9 @@
+## [157.1.1](https://github.com/Sage/carbon/compare/v157.1.0...v157.1.1) (2025-09-18)
+
+### Bug Fixes
+
+* **responsive-vertical-menu:** fixes a bug when navigating with keyboard and VoiceOver ([687559c](https://github.com/Sage/carbon/commit/687559c61d8a659afbe466b23e68ba9da1381610))
+
 ## [157.1.0](https://github.com/Sage/carbon/compare/v157.0.1...v157.1.0) (2025-09-16)
 
 ### Features
