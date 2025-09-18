@@ -19,75 +19,6 @@ export default {
   decorators: [],
 };
 
-export const OpenAndCloseDialog: Story = {
-  render: function OpenAndCloseDialogRender() {
-    const [open, setOpen] = useState(false);
-    const triggerRef = useRef<HTMLButtonElement>(null);
-
-    return (
-      <>
-        <Button
-          data-role="dialog-trigger"
-          onClick={() => setOpen(true)}
-          ref={triggerRef}
-        >
-          Open Dialog
-        </Button>
-
-        <Dialog
-          open={open}
-          onCancel={() => setOpen(false)}
-          title="Title"
-          subtitle="Subtitle"
-          showCloseIcon
-        >
-          <Form
-            stickyFooter
-            leftSideButtons={
-              <Button
-                data-role="close-dialog-button"
-                onClick={() => setOpen(false)}
-              >
-                Cancel
-              </Button>
-            }
-            saveButton={
-              <Button buttonType="primary" type="submit">
-                Save
-              </Button>
-            }
-          >
-            <Typography>
-              This is an example of a dialog with a Form as content
-            </Typography>
-          </Form>
-        </Dialog>
-      </>
-    );
-  },
-
-  play: async ({ canvasElement }) => {
-    if (!allowInteractions()) return;
-
-    const canvas = within(canvasElement);
-    const portal = within(canvasElement.ownerDocument.body);
-
-    const candidates = canvas.getAllByRole("button", { name: /open dialog/i });
-    const openButton =
-      candidates.find(
-        (el) => el.getAttribute("data-role") === "dialog-trigger",
-      ) ?? candidates[0];
-
-    await userEvent.click(openButton);
-    await userInteractionPause(300);
-
-    const dialog = portal.getByRole("dialog");
-    const cancelBtn = within(dialog).getByRole("button", { name: /^cancel$/i });
-    await userEvent.click(cancelBtn);
-    await userInteractionPause(300);
-  },
-};
-
 export const FocusManagement: Story = {
   render: function FocusManagementRender() {
     const [isOpen, setIsOpen] = useState(false);
@@ -143,11 +74,7 @@ export const FocusManagement: Story = {
     const canvas = within(canvasElement);
     const portal = within(canvasElement.ownerDocument.body);
 
-    const candidates = canvas.getAllByRole("button", { name: /open dialog/i });
-    const openButton =
-      candidates.find(
-        (el) => el.getAttribute("data-role") === "open-dialog-btn",
-      ) ?? candidates[0];
+    const openButton = canvas.getByRole("button", { name: /open dialog/i });
 
     await userEvent.click(openButton);
     await userInteractionPause(300);
@@ -156,7 +83,6 @@ export const FocusManagement: Story = {
 
     await userEvent.tab();
     await userInteractionPause(50);
-
     await userEvent.tab();
     await userInteractionPause(50);
 
@@ -171,62 +97,8 @@ export const FocusManagement: Story = {
 
     const closeIcon = within(dialog).getByRole("button", { name: /close/i });
     await userEvent.click(closeIcon);
-    await userInteractionPause(300);
-  },
-};
+    await userInteractionPause(150);
 
-export const RestoreFocus: Story = {
-  render: function RestoreFocusRender() {
-    const [open, setOpen] = useState(false);
-    const triggerRef = useRef<HTMLButtonElement>(null);
-
-    return (
-      <>
-        <Button
-          ref={triggerRef}
-          onClick={() => setOpen(true)}
-          data-role="trigger-button"
-        >
-          Open Dialog
-        </Button>
-
-        <Dialog
-          open={open}
-          onCancel={() => setOpen(false)}
-          title="Restore Focus Dialog"
-          showCloseIcon
-          restoreFocusOnClose
-        >
-          <p>This dialog will restore focus on close.</p>
-          <Button data-role="close-inside" onClick={() => setOpen(false)}>
-            Close Dialog
-          </Button>
-        </Dialog>
-      </>
-    );
-  },
-
-  play: async ({ canvasElement }) => {
-    if (!allowInteractions()) return;
-
-    const canvas = within(canvasElement);
-    const portal = within(canvasElement.ownerDocument.body);
-
-    const triggers = canvas.getAllByRole("button", { name: /open dialog/i });
-    const triggerButton =
-      triggers.find(
-        (el) => el.getAttribute("data-role") === "trigger-button",
-      ) ?? triggers[0];
-
-    await userEvent.click(triggerButton);
-    await userInteractionPause(300);
-
-    const dialog = portal.getByRole("dialog");
-    const closeInsideButton = within(dialog).getByRole("button", {
-      name: /close dialog/i,
-    });
-
-    await userEvent.click(closeInsideButton);
-    await userInteractionPause(300);
+    await expect(openButton).toHaveFocus();
   },
 };
