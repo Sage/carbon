@@ -1,3 +1,10 @@
+## [157.2.0](https://github.com/Sage/carbon/compare/v157.1.2...v157.2.0) (2025-09-18)
+
+### Features
+
+* **adaptive-sidebar:** add restoreFocusOnClose prop to the adaptive sidebar interface ([b3fb127](https://github.com/Sage/carbon/commit/b3fb127c7648839a918b6714991a8873d8a25184))
+* ensure popover based components cannot remain open when an adaptive sidebar renders as a modal ([43186ac](https://github.com/Sage/carbon/commit/43186ac478a6530e5dc14df57ba15826aa02ca8b))
+
 ## [157.1.2](https://github.com/Sage/carbon/compare/v157.1.1...v157.1.2) (2025-09-18)
 
 ### Bug Fixes
