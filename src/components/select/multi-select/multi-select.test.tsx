@@ -1321,6 +1321,36 @@ test("should close the list when the user clicks on the input icon and the list 
   expect(onClickFn).toHaveBeenCalledTimes(2);
 });
 
+test("when a custom adaptive sidebar blur event is dispatched the list closes", async () => {
+  const user = userEvent.setup();
+
+  render(
+    <InteractiveComponent label="multi-select" onChange={() => {}} openOnFocus>
+      <Option value="opt1" text="abc" />
+    </InteractiveComponent>,
+  );
+
+  act(() => {
+    screen.getByRole("combobox").focus();
+  });
+  await user.keyboard("{ArrowDown}");
+
+  const listbox = screen.queryByRole("listbox");
+
+  expect(listbox).toBeVisible();
+
+  await act(async () => {
+    document.dispatchEvent(
+      new CustomEvent("adaptiveSidebarModalFocusIn", {
+        bubbles: true,
+        detail: { source: "adaptiveSidebarModal" },
+      }),
+    );
+  });
+
+  expect(listbox).not.toBeVisible();
+});
+
 // coverage
 test("should update the input value when the user presses 'Delete' and the text is highlighted", async () => {
   const user = userEvent.setup();

@@ -29,6 +29,7 @@ import isExpectedValue from "../__internal__/utils/is-expected-value";
 import isNavigationKey from "../__internal__/utils/is-navigation-key";
 import useStableCallback from "../../../hooks/__internal__/useStableCallback";
 import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibility/useInputAccessibility";
+import useAdaptiveSidebarModalFocus from "../../../hooks/__internal__/useAdaptiveSidebarModalFocus";
 import { CustomSelectChangeEvent } from "../simple-select";
 
 const FilterableSelectList = withFilter(SelectList);
@@ -480,6 +481,8 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
         onBlur(event);
       }
     }
+
+    useAdaptiveSidebarModalFocus(() => setOpenState(false));
 
     function handleTextboxMouseDown(event: React.MouseEvent<HTMLElement>) {
       isMouseDownReported.current = true;

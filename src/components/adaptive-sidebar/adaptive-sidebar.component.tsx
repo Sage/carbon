@@ -11,13 +11,15 @@ import {
 } from "../../style/utils";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
 import { TagProps } from "../../__internal__/utils/helpers/tags";
+import { SidebarProps } from "../sidebar";
 
 import { StyledAdaptiveSidebar, StyledSidebar } from "./adaptive-sidebar.style";
 
 export interface AdaptiveSidebarProps
   extends MarginProps,
     PaddingProps,
-    Omit<TagProps, "data-component"> {
+    Omit<TagProps, "data-component">,
+    Pick<SidebarProps, "restoreFocusOnClose"> {
   /** The breakpoint (in pixels) at which the sidebar will convert to a dialog-based sidebar */
   adaptiveBreakpoint?: number;
   /** The time in milliseconds for the sidebar to animate */
@@ -50,9 +52,11 @@ export const AdaptiveSidebar = ({
   open,
   renderAsModal = false,
   width = "320px",
+  restoreFocusOnClose = false,
   ...props
 }: AdaptiveSidebarProps) => {
   const largeScreen = useIsAboveBreakpoint(adaptiveBreakpoint);
+  const renderModal = renderAsModal || !largeScreen;
   const adaptiveSidebarRef = useRef<HTMLDivElement>(null);
 
   const colours = Object.entries(getColors(backgroundColor)).reduce(
@@ -82,7 +86,25 @@ export const AdaptiveSidebar = ({
     });
   }, [hidden, open]);
 
-  if (renderAsModal || !largeScreen) {
+  /* When the adaptive sidebar is conditionally rendered as a modal
+   * we need to blur the previously active element to ensure
+   * all elements which could be open are closed. */
+  useEffect(() => {
+    if (renderModal) {
+      /* Due to component design elsewhere, directly blurring the previously
+       * active element, and handling said blur can cause issues.
+       * By creating and handling a custom blur event instead we can better control
+       * behaviour and avoid unintended issues. */
+      document.dispatchEvent(
+        new CustomEvent("adaptiveSidebarModalFocusIn", {
+          bubbles: true,
+          detail: { source: "adaptiveSidebarModal" },
+        }),
+      );
+    }
+  }, [renderModal]);
+
+  if (renderModal) {
     return (
       <StyledSidebar
         backgroundColor={backgroundColor}
@@ -90,6 +112,7 @@ export const AdaptiveSidebar = ({
         data-role={"adaptive-sidebar-modal-view"}
         enableBackgroundUI={open && hidden}
         hidden={hidden}
+        restoreFocusOnClose={restoreFocusOnClose}
         open={open}
         p={0}
         ref={adaptiveSidebarRef}

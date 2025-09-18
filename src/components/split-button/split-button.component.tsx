@@ -22,6 +22,7 @@ import {
 } from "../../style/utils";
 import { baseTheme } from "../../style/themes";
 import useChildButtons from "../../hooks/__internal__/useChildButtons";
+import useAdaptiveSidebarModalFocus from "../../hooks/__internal__/useAdaptiveSidebarModalFocus";
 import SplitButtonContext from "./__internal__/split-button.context";
 import useLocale from "../../hooks/__internal__/useLocale";
 import FlatTableContext from "../flat-table/__internal__/flat-table.context";
@@ -157,6 +158,8 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
         showButtons();
       }
     };
+
+    useAdaptiveSidebarModalFocus(() => hideButtons());
 
     const toggleButtonProps = {
       isWhite: shouldRenderIsWhiteVariant,

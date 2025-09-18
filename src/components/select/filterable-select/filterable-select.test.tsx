@@ -1636,6 +1636,36 @@ test("should close the list when the user clicks outside the component", async (
   expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
 });
 
+test("when a custom adaptive sidebar blur event is dispatched the list closes", async () => {
+  const user = userEvent.setup();
+
+  render(
+    <FilterableSelect label="filterable-select" onChange={() => {}} value="">
+      <Option value="opt1" text="green" />
+    </FilterableSelect>,
+  );
+
+  act(() => {
+    screen.getByRole("combobox").focus();
+  });
+  await user.keyboard("{ArrowDown}");
+
+  const listbox = screen.queryByRole("listbox");
+
+  expect(listbox).toBeVisible();
+
+  await act(async () => {
+    document.dispatchEvent(
+      new CustomEvent("adaptiveSidebarModalFocusIn", {
+        bubbles: true,
+        detail: { source: "adaptiveSidebarModal" },
+      }),
+    );
+  });
+
+  expect(listbox).not.toBeVisible();
+});
+
 test("should call the `onKeyDown` callback when the user presses a key and the input is focused", async () => {
   const onKeyDownFn = jest.fn();
   const user = userEvent.setup();
