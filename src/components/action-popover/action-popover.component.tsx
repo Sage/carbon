@@ -29,6 +29,7 @@ import {
   Alignment,
 } from "./__internal__/action-popover.context";
 import useModalManager from "../../hooks/__internal__/useModalManager";
+import useAdaptiveSidebarModalFocus from "../../hooks/__internal__/useAdaptiveSidebarModalFocus";
 import {
   findFirstFocusableItem,
   findLastFocusableItem,
@@ -318,6 +319,8 @@ export const ActionPopover = forwardRef<
         </StyledButtonIcon>
       );
     };
+
+    useAdaptiveSidebarModalFocus(() => setOpenState(false));
 
     const parentID = id || `ActionPopoverButton_${guid}`;
     const menuID = `ActionPopoverMenu_${guid}`;

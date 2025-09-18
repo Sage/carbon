@@ -23,6 +23,7 @@ import getNextChildByText from "../__internal__/utils/get-next-child-by-text";
 import isExpectedOption from "../__internal__/utils/is-expected-option";
 import isNavigationKey from "../__internal__/utils/is-navigation-key";
 import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibility/useInputAccessibility";
+import useAdaptiveSidebarModalFocus from "../../../hooks/__internal__/useAdaptiveSidebarModalFocus";
 
 export interface CustomSelectChangeEvent
   extends React.ChangeEvent<HTMLInputElement> {
@@ -320,9 +321,10 @@ export const SimpleSelect = React.forwardRef<
       if (isMouseDownReported.current) {
         return;
       }
-
       onBlur?.(event);
     }
+
+    useAdaptiveSidebarModalFocus(() => setOpenState(false));
 
     function handleTextboxMouseDown() {
       isMouseDownReported.current = true;
