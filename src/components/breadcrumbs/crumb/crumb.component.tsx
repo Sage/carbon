@@ -28,30 +28,15 @@ export interface CrumbProps
   isCurrent?: boolean;
 }
 
-function mergeRefs<T>(...refs: Array<React.Ref<T> | undefined>) {
-  return (node: T) => {
-    refs.forEach((ref) => {
-      if (!ref) return;
-      if (typeof ref === "function") {
-        ref(node);
-      } else {
-        (ref as React.MutableRefObject<T | null>).current = node;
-      }
-    });
-  };
-}
-
 const Crumb = React.forwardRef<HTMLElement, CrumbProps>(
   ({ href, isCurrent, children, onClick, ...rest }, forwardedRef) => {
     const { isDarkBackground } = useBreadcrumbsContext();
     const crumbRef = React.useRef<HTMLElement | null>(null);
 
+    React.useImperativeHandle(forwardedRef, () => crumbRef.current, []);
+
     const focusCrumb = React.useCallback(() => {
-      try {
-        crumbRef.current?.focus?.({ preventScroll: true } as FocusOptions);
-      } catch {
-        crumbRef.current?.focus?.();
-      }
+      crumbRef.current?.focus?.({ preventScroll: true } as FocusOptions);
     }, []);
 
     type LinkOnClick = NonNullable<LinkProps["onClick"]>;
@@ -59,16 +44,16 @@ const Crumb = React.forwardRef<HTMLElement, CrumbProps>(
 
     const handleClick = React.useCallback(
       (event: LinkOnClickEvent) => {
-        if (!isCurrent) focusCrumb();
+        focusCrumb();
         onClick?.(event);
       },
-      [isCurrent, onClick, focusCrumb],
+      [onClick, focusCrumb],
     );
 
     return (
       <li>
         <StyledCrumb
-          ref={mergeRefs(crumbRef, forwardedRef)}
+          ref={crumbRef}
           isCurrent={isCurrent}
           aria-current={isCurrent ? "page" : undefined}
           isDarkBackground={isDarkBackground}

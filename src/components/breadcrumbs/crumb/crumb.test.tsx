@@ -102,3 +102,37 @@ test("adds aria-current='page' on the current crumb", () => {
   const el = screen.getByText("Current Page");
   expect(el).toHaveAttribute("aria-current", "page");
 });
+
+test("forwards the DOM node to the ref when rendered as a link", () => {
+  const ref = React.createRef<HTMLElement>();
+
+  render(
+    <Breadcrumbs>
+      <Crumb href="#" ref={ref}>
+        Link text
+      </Crumb>
+    </Breadcrumbs>,
+  );
+
+  const link = screen.getByRole("link", { name: "Link text" });
+  expect(ref.current).toBe(link);
+  expect(ref.current?.tagName).toBe("A");
+});
+
+test("forwards the DOM node to the ref when current (renders as span)", () => {
+  const ref = React.createRef<HTMLElement>();
+
+  render(
+    <Breadcrumbs>
+      <Crumb isCurrent ref={ref}>
+        Current Page
+      </Crumb>
+    </Breadcrumbs>,
+  );
+
+  const el = screen.getByText("Current Page");
+  expect(ref.current).toBe(el);
+  expect(ref.current?.tagName).toBe("SPAN");
+  expect(ref.current).toHaveAttribute("aria-current", "page");
+  expect(ref.current).toHaveAttribute("tabindex", "-1");
+});
