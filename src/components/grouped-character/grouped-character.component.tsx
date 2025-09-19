@@ -1,6 +1,6 @@
 import React from "react";
 
-import Textbox, { TextboxProps } from "../textbox";
+import TextInput, { TextInputProps } from "../text-input";
 import { generateGroups, toSum } from "./grouped-character.utils";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 
@@ -33,7 +33,7 @@ const buildCustomTarget = (
 };
 
 export interface GroupedCharacterProps
-  extends Omit<TextboxProps, "onChange" | "onBlur" | "data-component"> {
+  extends Omit<TextInputProps, "onChange" | "onBlur" | "data-component"> {
   /** pattern by which input value should be grouped */
   groups: number[];
   /** Handler for blur event */
@@ -155,7 +155,7 @@ export const GroupedCharacter = React.forwardRef(
     };
 
     return (
-      <Textbox
+      <TextInput
         {...rest}
         value={value}
         formattedValue={formatValue(value)}
