@@ -1,11 +1,8 @@
 import styled, { css, keyframes } from "styled-components";
 import { margin } from "styled-system";
-
-import { LoaderProps, LoaderSizes } from "./loader.component";
+import { LoaderSizes } from "./loader.component";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 import Typography from "../typography";
-
-const INNER_BAR_LENGTH = "128px";
 
 const loaderAnimation = keyframes`
   0%, 80%, 100% {
@@ -20,33 +17,105 @@ const loaderAnimation = keyframes`
 
 const innerBarAnimation = keyframes`
   0% {
-    left: -${INNER_BAR_LENGTH};
+    left: -128px;
   }
   100% {
     left: 100%;
   }
 `;
 
-type LoaderSpinnerSizeParams = Record<
-  LoaderSizes,
-  {
-    wrapperDimensions: number;
-    strokeWidth: number;
-    labelMarginTop?: number;
+const gradientAnimation = keyframes`
+  0% {
+    stroke: #00d639;
   }
->;
+  33% {
+    stroke: #11afff;
+  }
+  66% {
+    stroke: #8f49fe;
+  }
+`;
 
-const spinnerSizeParams: LoaderSpinnerSizeParams = {
-  "extra-small": { wrapperDimensions: 20, strokeWidth: 4 },
-  small: { wrapperDimensions: 32, strokeWidth: 4, labelMarginTop: 12 },
-  medium: { wrapperDimensions: 56, strokeWidth: 3.3, labelMarginTop: 16 },
-  large: { wrapperDimensions: 80, strokeWidth: 3.7, labelMarginTop: 22 },
-  "extra-large": {
-    wrapperDimensions: 104,
-    strokeWidth: 3.7,
-    labelMarginTop: 26,
-  },
+const trackedAnimation = keyframes`
+  from {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+  }
+  to {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 20;
+  }
+`;
+
+const untrackedAnimation = keyframes`
+  0% {
+    transform: rotate(0deg);
+    stroke-dasharray: 100;
+  }
+  40% {
+    stroke-dasharray: 80;
+  }
+  80% {
+    stroke-dasharray: 100;
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+`;
+
+const spinnerDimensions: Record<LoaderSizes, number> = {
+  "extra-small": 20,
+  small: 32,
+  medium: 56,
+  large: 80,
+  "extra-large": 104,
 };
+
+const spinnerStrokeWidths: Record<LoaderSizes, number> = {
+  "extra-small": 4,
+  small: 4,
+  medium: 3.3,
+  large: 3.7,
+  "extra-large": 3.7,
+};
+
+const labelMargins: Record<LoaderSizes, number> = {
+  "extra-small": 0,
+  small: 12,
+  medium: 16,
+  large: 22,
+  "extra-large": 26,
+};
+
+const dotSizes: Record<LoaderSizes, string> = {
+  "extra-small": "12px",
+  small: "12px",
+  medium: "16px",
+  large: "20px",
+  "extra-large": "20px",
+};
+
+const dotMargins: Record<LoaderSizes, string> = {
+  "extra-small": "6px",
+  small: "6px",
+  medium: "8px",
+  large: "8px",
+  "extra-large": "8px",
+};
+
+const barHeights: Record<LoaderSizes, string> = {
+  "extra-small": "8px",
+  small: "4px",
+  medium: "8px",
+  large: "16px",
+  "extra-large": "16px",
+};
+
+const centeredFlexText = css`
+  display: flex;
+  justify-content: center;
+  text-align: center;
+`;
 
 const calculateColors = (isWheel: boolean, variant?: string) => {
   switch (variant) {
@@ -67,42 +136,6 @@ const calculateColors = (isWheel: boolean, variant?: string) => {
   }
 };
 
-const getDimensions = (size: LoaderProps["size"]) => {
-  let width;
-  let marginRight;
-
-  switch (size) {
-    case "medium":
-      width = "16px";
-      marginRight = "8px";
-      break;
-    case "large":
-      width = "20px";
-      marginRight = "8px";
-      break;
-    default:
-      width = "12px";
-      marginRight = "6px";
-  }
-
-  return css`
-    width: ${width};
-    height: ${width};
-    margin-right: ${marginRight};
-  `;
-};
-
-function getHeight(size: LoaderProps["size"]) {
-  switch (size) {
-    case "small":
-      return "4px";
-    case "large":
-      return "16px";
-    default:
-      return "8px";
-  }
-}
-
 export const StyledLoaderPlaceholder = styled.div`
   display: inline-block;
   min-width: var(--sizing800);
@@ -114,23 +147,19 @@ export const StyledLoader = styled.div.attrs(applyBaseTheme)`
   white-space: nowrap;
 `;
 
-type TypelessLoaderProps = Omit<LoaderProps, "loaderType">;
-
-export const StyledLoaderDot = styled.div.attrs(applyBaseTheme)<
-  TypelessLoaderProps & { backgroundColor: string }
->`
-  ${({ size, isInsideButton, isActive, backgroundColor }) => css`
+export const StyledLoaderDot = styled.div.attrs(applyBaseTheme)<{
+  size: LoaderSizes;
+  backgroundColor: string;
+}>`
+  ${({ size, backgroundColor }) => css`
     animation: ${loaderAnimation} 1s infinite ease-in-out both;
     background-color: ${backgroundColor};
     display: inline-block;
-    ${getDimensions(size)}
+    width: ${dotSizes[size]};
+    height: ${dotSizes[size]};
+    margin-right: ${dotMargins[size]};
     border-radius: var(--borderRadiusCircle);
-    ${isInsideButton &&
-    css`
-      background-color: ${isActive
-        ? "var(--colorsUtilityYang100)"
-        : "var(--colorsSemanticNeutral500)"};
-    `}
+
     &:nth-of-type(1) {
       animation-delay: 0s;
     }
@@ -139,15 +168,15 @@ export const StyledLoaderDot = styled.div.attrs(applyBaseTheme)<
     }
     &:nth-of-type(3) {
       animation-delay: 0.4s;
-      margin-right: 0px;
+      margin-right: 0;
     }
   `}
 `;
 
-export const OuterBar = styled.div<TypelessLoaderProps>`
+export const OuterBar = styled.div<{ size: LoaderSizes }>`
   ${({ size }) => css`
     border-radius: var(--borderRadius400);
-    height: ${getDimensions(size)};
+    height: ${barHeights[size]};
     width: 100%;
     background-color: var(--colorsActionMajor150);
     overflow: hidden;
@@ -155,156 +184,93 @@ export const OuterBar = styled.div<TypelessLoaderProps>`
   `}
 `;
 
-export const InnerBar = styled.div<TypelessLoaderProps>`
+export const InnerBar = styled.div<{ size: LoaderSizes }>`
   ${({ size }) => css`
     position: absolute;
     background-color: var(--colorsActionMajor500);
-    width: ${INNER_BAR_LENGTH};
-    height: ${getHeight(size)};
-    animation: 2s ${innerBarAnimation} linear 0s infinite normal none running;
+    width: 128px;
+    height: ${barHeights[size]};
+    animation: 2s ${innerBarAnimation} linear infinite;
   `}
 `;
 
-export const SpinnerWrapper = styled.div<Pick<LoaderProps, "size">>`
-  ${margin}
-  display: flex;
-  flex-direction: ${({ size }) => (size === "extra-small" ? "row" : "column")};
-`;
-
-export const StyledLabel = styled(Typography)<
-  Required<Pick<LoaderProps, "size">>
->`
-  ${({ size }) => css`
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    ${size === "extra-small"
-      ? "margin-left: var(--spacing100)"
-      : `margin-top: ${spinnerSizeParams[size].labelMarginTop}px`};
-  `}
-`;
-
-interface StyledSpinnerCircleSvgProps
-  extends Omit<TypelessLoaderProps, "showSpinnerLabel"> {
+interface SpinnerSvgProps {
+  size: LoaderSizes;
+  variant?: string;
+  hasMotion?: boolean;
+  isTracked?: boolean;
   isGradientVariant?: boolean;
+  animationTime?: number;
 }
 
-export const StyledSpinnerCircleSvg = styled.svg<StyledSpinnerCircleSvgProps>`
+export const StyledSpinnerCircleSvg = styled.svg<SpinnerSvgProps>`
   ${({
     size,
-    isTracked,
+    variant,
     hasMotion,
+    isTracked,
     isGradientVariant,
     animationTime,
-    variant,
   }) => {
-    const dimensions = `${spinnerSizeParams[size || "medium"].wrapperDimensions}px`;
+    const dimension = `${spinnerDimensions[size]}px`;
+    const strokeWidth = spinnerStrokeWidths[size];
 
-    return (
-      size &&
-      css`
-        height: ${dimensions};
-        min-height: ${dimensions};
+    const outerStroke = calculateColors(false, variant);
+    const innerStroke = calculateColors(true, variant);
 
-        circle[data-role="outer-arc"] {
-          fill: transparent;
-          stroke-width: ${spinnerSizeParams[size].strokeWidth}px;
-          stroke: ${calculateColors(false, variant)};
-          ${variant === "inverse" && `stroke-opacity: 0.3;`}
-          cx: 12px;
-          cy: 12px;
-          r: 10px;
-        }
+    const showGradient =
+      variant === "gradient-grey" || variant === "gradient-white";
 
-        circle[data-role="inner-arc"] {
-          fill: transparent;
-          stroke-width: ${spinnerSizeParams[size].strokeWidth}px;
-          stroke: ${calculateColors(true, variant)};
-          stroke-linecap: round;
-          stroke-dasharray: 100px;
-          stroke-dashoffset: 80px;
-          transform-origin: 12px 12px 0px;
-          cx: 12px;
-          cy: 12px;
-          r: 10px;
-          transform: rotate(270deg);
+    return css`
+      height: ${dimension};
+      min-height: ${dimension};
 
-          @keyframes gradientAnimation {
-            0% {
-              stroke: #00d639;
-            }
+      circle[data-role="outer-arc"] {
+        fill: transparent;
+        stroke-width: ${strokeWidth}px;
+        stroke: ${outerStroke};
+        ${variant === "inverse" && "stroke-opacity: 0.3;"}
+        cx: 12px;
+        cy: 12px;
+        r: 10px;
+      }
 
-            33% {
-              stroke: #11afff;
-            }
+      circle[data-role="inner-arc"] {
+        fill: transparent;
+        stroke-width: ${strokeWidth}px;
+        stroke: ${innerStroke};
+        stroke-linecap: round;
+        stroke-dasharray: 100px;
+        stroke-dashoffset: 80px;
+        transform-origin: 12px 12px 0px;
+        cx: 12px;
+        cy: 12px;
+        r: 10px;
+        transform: rotate(270deg);
 
-            66% {
-              stroke: #8f49fe;
-            }
-          }
+        animation-name: ${isTracked && !isGradientVariant
+            ? trackedAnimation
+            : untrackedAnimation},
+          ${showGradient ? gradientAnimation : "none"};
 
-          @keyframes trackedAnimation {
-            from {
-              stroke-dasharray: 100;
-              stroke-dashoffset: 100;
-            }
+        ${hasMotion && `animation-duration: ${animationTime}s;`}
+        animation-timing-function: cubic-bezier(0.2, 0.1, 0.8, 1);
+        animation-iteration-count: ${hasMotion ? "infinite" : "none"};
+      }
+    `;
+  }}
+`;
 
-            to {
-              stroke-dasharray: 100;
-              stroke-dashoffset: 20;
-            }
-          }
-
-          @keyframes untrackedAnimation {
-            0% {
-              transform: rotate(0deg);
-              stroke-dasharray: 100;
-            }
-
-            40% {
-              stroke-dasharray: 80;
-            }
-
-            80% {
-              stroke-dasharray: 100;
-            }
-
-            100% {
-              transform: rotate(360deg);
-            }
-          }
-
-          animation-name: ${
-            isTracked && !isGradientVariant
-              ? "trackedAnimation"
-              : "untrackedAnimation"
-          },
-            ${
-              variant === "gradient-grey" ||
-              (variant === "gradient-white" && "gradientAnimation")
-                ? "gradientAnimation"
-                : "none"
-            };
-          ${hasMotion && `animation-duration: ${animationTime}s`};
-          animation-timing-function: cubic-bezier(0.2, 0.1, 0.8, 1);
-          animation-iteration-count: ${hasMotion ? "infinite" : "none"};
-        `
-    );
-  }};
+export const StyledSpinnerLabel = styled(Typography)<{ size: LoaderSizes }>`
+  ${({ size }) => css`
+    ${centeredFlexText}
+    ${size === "extra-small"
+      ? "margin-left: var(--spacing100);"
+      : `margin-top: ${labelMargins[size]}px;`}
+  `}
 `;
 
 export const StyledStars = styled.div`
   width: 40px;
   height: 40px;
-`;
-
-export const StyledSpinnerLabel = styled(Typography)<TypelessLoaderProps>`
-  ${({ size }) => css`
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    ${size === "extra-small"
-      ? "margin-left: var(--spacing100)"
-      : `margin-top: ${spinnerSizeParams[size || "medium"].labelMarginTop}px`};
-  `}
 `;
