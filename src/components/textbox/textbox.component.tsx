@@ -19,6 +19,7 @@ import { ValidationProps } from "../../__internal__/validations";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
 import NumeralDateContext from "../numeral-date/__internal__/numeral-date.context";
+import Logger from "../../__internal__/utils/logger";
 import useCharacterCount from "../../hooks/useCharacterCount";
 import useUniqueId from "../../hooks/__internal__/useUniqueId";
 import guid from "../../__internal__/utils/helpers/guid";
@@ -136,6 +137,8 @@ export interface TextboxProps extends Omit<CommonTextboxProps, "defaultValue"> {
   characterLimit?: number;
 }
 
+let textboxRenameTrigger = false;
+
 export const Textbox = React.forwardRef(
   (
     {
@@ -195,6 +198,14 @@ export const Textbox = React.forwardRef(
     }: TextboxProps,
     ref: React.ForwardedRef<HTMLInputElement>,
   ) => {
+    /* istanbul ignore else */
+    if (!textboxRenameTrigger) {
+      textboxRenameTrigger = true;
+      Logger.deprecate(
+        "`Textbox` will soon be renamed to `TextInput`. Replace `Textbox` with `TextInput` now to avoid a breaking change in a later Carbon version.",
+      );
+    }
+
     const characterCountValue = typeof value === "string" ? value : "";
 
     const [uniqueId, uniqueName] = useUniqueId(id, name);

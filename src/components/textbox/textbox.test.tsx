@@ -35,6 +35,23 @@ afterAll(() => {
   loggerSpy.mockClear();
 });
 
+test("logs a rename warning when Textbox is rendered", () => {
+  const loggerSpy = jest.spyOn(Logger, "deprecate");
+
+  render(
+    <>
+      <Textbox value="foo" onChange={() => {}} />
+      <Textbox value="foo" onChange={() => {}} />
+    </>,
+  );
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "`Textbox` will soon be renamed to `TextInput`. Replace `Textbox` with `TextInput` now to avoid a breaking change in a later Carbon version.",
+  );
+
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
+});
+
 testStyledSystemMargin(
   (props) => (
     <Textbox
