@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
-import Textbox from "../textbox";
+import TextInput from "../text-input";
 import { Accordion } from ".";
 import AccordionGroup from "./accordion-group/accordion-group.component";
 import Logger from "../../__internal__/utils/logger";
@@ -297,22 +297,22 @@ describe("AccordionGroup", () => {
     (props) => (
       <AccordionGroup data-role="accordion-group" {...props}>
         <Accordion title="Title_1" defaultExpanded>
-          <Textbox
-            label="Textbox in an Accordion"
+          <TextInput
+            label="TextInput in an Accordion"
             value=""
             onChange={() => {}}
           />
         </Accordion>
         <Accordion title="Title_2" defaultExpanded>
-          <Textbox
-            label="Textbox in an Accordion"
+          <TextInput
+            label="TextInput in an Accordion"
             value=""
             onChange={() => {}}
           />
         </Accordion>
         <Accordion title="Title_3" defaultExpanded>
-          <Textbox
-            label="Textbox in an Accordion"
+          <TextInput
+            label="TextInput in an Accordion"
             value=""
             onChange={() => {}}
           />

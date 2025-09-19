@@ -3,10 +3,13 @@ import Textbox, {
   TextboxProps,
   CommonTextboxProps,
 } from "../textbox/textbox.component";
+import TextInputContext from "./__internal__/text-input.context";
 
 export const TextInput = forwardRef<HTMLInputElement, TextboxProps>(
   (props, ref: ForwardedRef<HTMLInputElement>) => (
-    <Textbox {...props} ref={ref} />
+    <TextInputContext.Provider value={{ isInTextInput: true }}>
+      <Textbox {...props} ref={ref} />
+    </TextInputContext.Provider>
   ),
 );
 

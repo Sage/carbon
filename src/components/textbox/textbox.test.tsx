@@ -3,6 +3,7 @@ import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as floatingUi from "@floating-ui/react-dom";
 import Textbox, { TextboxProps } from ".";
+import TextInput from "../text-input";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import { EnterKeyHintTypes } from "../../__internal__/input";
 import createGuid from "../../__internal__/utils/helpers/guid";
@@ -33,6 +34,36 @@ afterEach(() => {
 
 afterAll(() => {
   loggerSpy.mockClear();
+});
+
+test("logs a rename warning when Textbox is rendered", () => {
+  const loggerSpy = jest.spyOn(Logger, "deprecate");
+
+  render(
+    <>
+      <Textbox value="foo" onChange={() => {}} />
+      <Textbox value="foo" onChange={() => {}} />
+    </>,
+  );
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "`Textbox` will soon be renamed to `TextInput`. Replace `Textbox` with `TextInput` now to avoid a breaking change in a later Carbon version.",
+  );
+
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
+});
+
+test("does not log a rename warning when Textbox is rendered via a TextInput", () => {
+  const loggerSpy = jest.spyOn(Logger, "deprecate");
+
+  render(
+    <>
+      <TextInput value="foo" onChange={() => {}} />
+      <TextInput value="foo" onChange={() => {}} />
+    </>,
+  );
+
+  expect(loggerSpy).not.toHaveBeenCalled();
 });
 
 testStyledSystemMargin(
