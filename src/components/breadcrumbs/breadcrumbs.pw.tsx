@@ -14,7 +14,7 @@ import {
 import { checkAccessibility } from "../../../playwright/support/helper";
 import { CHARACTERS } from "../../../playwright/support/constants";
 
-test.describe("should render Breadcrumbs component", async () => {
+test.describe("should render Breadcrumbs component", () => {
   test("should check Breadcrumbs children is set visible", async ({
     mount,
     page,
@@ -232,7 +232,7 @@ test("when Crumb's isCurrent prop is true, Crumb divider should not exist", asyn
   );
 });
 
-test.describe("Accessibility tests for Breadcrumbs component", async () => {
+test.describe("Accessibility tests for Breadcrumbs component", () => {
   test("should pass accessibility tests for Breadcrumbs default story", async ({
     mount,
     page,

@@ -237,7 +237,7 @@ const verifyRequiredAsterisk = async (locator: Locator) => {
   const contentValue = await locator.evaluate((el) =>
     window.getComputedStyle(el, "after").getPropertyValue("content"),
   );
-  await expect(contentValue).toBe('"*"');
+  expect(contentValue).toBe('"*"');
 };
 
 export const verifyRequiredAsteriskForLabel = (
@@ -348,4 +348,17 @@ export const waitForElementFocus = async (page: Page, locator: Locator) => {
     (element) => document.activeElement === element,
     focusedElement,
   );
+};
+
+export const checkNewFocusStyling = async (locator: Locator) => {
+  const shadowValue = await locator.evaluate((el) =>
+    window.getComputedStyle(el, "after").getPropertyValue("box-shadow"),
+  );
+  const outlineValue = await locator.evaluate((el) =>
+    window.getComputedStyle(el, "after").getPropertyValue("outline"),
+  );
+  expect(shadowValue).toBe(
+    `rgba(0, 0, 0, 0.9) 0px 0px 0px 3px inset, rgb(255, 188, 25) 0px 0px 0px 6px inset`,
+  );
+  expect(outlineValue).toBe(`rgba(0, 0, 0, 0) solid 3px`);
 };

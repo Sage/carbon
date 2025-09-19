@@ -437,7 +437,7 @@ test.describe("Time component", () => {
     });
   });
 
-  test.describe("Accessibility tests ", () => {
+  test.describe("Accessibility tests", () => {
     test("should pass for default implementation", async ({ mount, page }) => {
       await mount(
         <TimeComponent

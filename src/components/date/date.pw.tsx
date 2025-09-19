@@ -153,7 +153,7 @@ test.describe("Functionality tests", () => {
     await inputParent.click();
 
     const wrapper = dayPickerWrapper(page);
-    await expect(wrapper).not.toBeVisible();
+    await expect(wrapper).toBeHidden();
   });
 
   test(`should not close dayPicker after double click on input`, async ({

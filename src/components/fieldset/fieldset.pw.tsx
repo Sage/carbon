@@ -27,7 +27,7 @@ test.describe("should render Fieldset component", () => {
   test(`should verify preview is not displayed`, async ({ mount, page }) => {
     await mount(<FieldsetComponent legend="" />);
 
-    await expect(getDataElementByValue(page, "legend")).not.toBeVisible();
+    await expect(getDataElementByValue(page, "legend")).toBeHidden();
   });
 
   ["error", "warning", "info"].forEach((type) => {

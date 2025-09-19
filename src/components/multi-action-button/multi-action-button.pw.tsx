@@ -300,8 +300,8 @@ test.describe("Functional tests", () => {
     await expect(listButton1).toBeFocused();
     await page.keyboard.press("Shift+Tab");
     await expect(actionButton).toBeFocused();
-    await expect(listButton1).not.toBeVisible();
-    await expect(listButton2).not.toBeVisible();
+    await expect(listButton1).toBeHidden();
+    await expect(listButton2).toBeHidden();
   });
 
   test(`should verify pressing ArrowDown key does not loop focus to top`, async ({
@@ -354,9 +354,9 @@ test.describe("Functional tests", () => {
       name: "Multi Action Button 2",
     });
     await expect(actionButton2).toBeFocused();
-    await expect(listButton1).not.toBeVisible();
-    await expect(listButton2).not.toBeVisible();
-    await expect(listButton3).not.toBeVisible();
+    await expect(listButton1).toBeHidden();
+    await expect(listButton2).toBeHidden();
+    await expect(listButton3).toBeHidden();
   });
 
   test(`should verify that pressing metaKey + ArrowUp moves focus to first child button`, async ({
@@ -510,7 +510,7 @@ test.describe("Functional tests", () => {
     const additionalButtons = page.getByRole("list");
     await expect(additionalButtons).toBeVisible();
     await page.keyboard.press("Escape");
-    await expect(additionalButtons).not.toBeVisible();
+    await expect(additionalButtons).toBeHidden();
   });
 
   test(`should verify that clicking one of the child buttons closes MultiActionButton`, async ({
@@ -530,7 +530,7 @@ test.describe("Functional tests", () => {
     const listButton3 = page.getByRole("button", { name: "Short" });
     await listButton3.click();
 
-    await expect(additionalButtons).not.toBeVisible();
+    await expect(additionalButtons).toBeHidden();
   });
 });
 
@@ -571,8 +571,8 @@ test.describe("Functional tests with child buttons wrapped in a custom component
     await expect(listButton1).toBeFocused();
     await page.keyboard.press("Shift+Tab");
     await expect(actionButton).toBeFocused();
-    await expect(listButton1).not.toBeVisible();
-    await expect(listButton2).not.toBeVisible();
+    await expect(listButton1).toBeHidden();
+    await expect(listButton2).toBeHidden();
   });
 
   test(`should verify pressing ArrowDown key does not loop focus to top`, async ({
@@ -625,9 +625,9 @@ test.describe("Functional tests with child buttons wrapped in a custom component
       name: "Multi Action Button 2",
     });
     await expect(actionButton2).toBeFocused();
-    await expect(listButton1).not.toBeVisible();
-    await expect(listButton2).not.toBeVisible();
-    await expect(listButton3).not.toBeVisible();
+    await expect(listButton1).toBeHidden();
+    await expect(listButton2).toBeHidden();
+    await expect(listButton3).toBeHidden();
   });
 
   test(`should verify that pressing metaKey + ArrowUp moves focus to first child button`, async ({
@@ -763,7 +763,7 @@ test.describe("Functional tests with child buttons wrapped in a custom component
     const additionalButtons = page.getByRole("list");
     await expect(additionalButtons).toBeVisible();
     await page.keyboard.press("Escape");
-    await expect(additionalButtons).not.toBeVisible();
+    await expect(additionalButtons).toBeHidden();
   });
 
   test(`should verify that clicking one of the child buttons closes MultiActionButton`, async ({
@@ -783,7 +783,7 @@ test.describe("Functional tests with child buttons wrapped in a custom component
     const listButton3 = page.getByRole("button", { name: "Button 3" });
     await listButton3.click();
 
-    await expect(additionalButtons).not.toBeVisible();
+    await expect(additionalButtons).toBeHidden();
   });
 });
 

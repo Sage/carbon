@@ -37,8 +37,8 @@ test.describe("functional tests", () => {
       );
       await expect(responsiveVerticalMenuLauncher(page)).toBeVisible();
       await responsiveVerticalMenuLauncher(page).click();
-      await expect(responsiveVerticalMenuWrapper(page)).toBeDefined();
-      await expect(responsiveVerticalMenuPrimary(page)).toBeDefined();
+      expect(responsiveVerticalMenuWrapper(page)).toBeDefined();
+      expect(responsiveVerticalMenuPrimary(page)).toBeDefined();
 
       await assertCssValueIsApproximately(
         responsiveVerticalMenuPrimary(page),
@@ -60,8 +60,8 @@ test.describe("functional tests", () => {
 
       await expect(responsiveVerticalMenuLauncher(page)).toBeVisible();
       await responsiveVerticalMenuLauncher(page).click();
-      await expect(responsiveVerticalMenuWrapper(page)).toBeDefined();
-      await expect(responsiveVerticalMenuPrimary(page)).toBeDefined();
+      expect(responsiveVerticalMenuWrapper(page)).toBeDefined();
+      expect(responsiveVerticalMenuPrimary(page)).toBeDefined();
 
       await expect(responsiveVerticalMenuPrimary(page)).toHaveAttribute(
         "height",
@@ -83,12 +83,12 @@ test.describe("functional tests", () => {
 
     await expect(responsiveVerticalMenuLauncher(page)).toBeVisible();
     await responsiveVerticalMenuLauncher(page).click();
-    await expect(responsiveVerticalMenuWrapper(page)).toBeDefined();
-    await expect(responsiveVerticalMenuPrimary(page)).toBeDefined();
+    expect(responsiveVerticalMenuWrapper(page)).toBeDefined();
+    expect(responsiveVerticalMenuPrimary(page)).toBeDefined();
 
-    const iconMenuItem = await page.getByText("Primary Icon");
-    const iconlessMenuItem = await page.getByText("Primary No Icon");
-    const customIconMenuItem = await page.getByText("Primary Custom Icon");
+    const iconMenuItem = page.getByText("Primary Icon");
+    const iconlessMenuItem = page.getByText("Primary No Icon");
+    const customIconMenuItem = page.getByText("Primary Custom Icon");
 
     const clientOffsetIconMenuItem = await iconMenuItem.evaluate((el) => {
       return el.getBoundingClientRect().x;
@@ -108,23 +108,21 @@ test.describe("functional tests", () => {
     // for a marginal difference in the x position of the menu items,
     // as the icon may be slightly different in size/position
     // depending on the browser, icon used, etc..
-    await expect(clientOffsetIconMenuItem).toBeGreaterThanOrEqual(29);
-    await expect(clientOffsetIconMenuItem).toBeLessThanOrEqual(33);
+    expect(clientOffsetIconMenuItem).toBeGreaterThanOrEqual(29);
+    expect(clientOffsetIconMenuItem).toBeLessThanOrEqual(33);
     // expect extra 40px offset for icon
-    await expect(clientOffsetIconlessMenuItem).toBeGreaterThanOrEqual(29);
-    await expect(clientOffsetIconlessMenuItem).toBeLessThanOrEqual(33);
+    expect(clientOffsetIconlessMenuItem).toBeGreaterThanOrEqual(29);
+    expect(clientOffsetIconlessMenuItem).toBeLessThanOrEqual(33);
 
-    await expect(clientOffsetCustomIconMenuItem).toBeGreaterThanOrEqual(29);
-    await expect(clientOffsetCustomIconMenuItem).toBeLessThanOrEqual(33);
+    expect(clientOffsetCustomIconMenuItem).toBeGreaterThanOrEqual(29);
+    expect(clientOffsetCustomIconMenuItem).toBeLessThanOrEqual(33);
 
     await page.locator("[id='secondary-menu-toggle']").click();
-    await expect(responsiveVerticalMenuSecondary(page)).toBeDefined();
+    expect(responsiveVerticalMenuSecondary(page)).toBeDefined();
 
-    const secondaryIconMenuItem = await page.getByText("Secondary Icon");
-    const secondaryIconlessMenuItem = await page.getByText("Secondary No Icon");
-    const secondaryCustomIconMenuItem = await page.getByText(
-      "Secondary Custom Icon",
-    );
+    const secondaryIconMenuItem = page.getByText("Secondary Icon");
+    const secondaryIconlessMenuItem = page.getByText("Secondary No Icon");
+    const secondaryCustomIconMenuItem = page.getByText("Secondary Custom Icon");
 
     const clientOffsetSecondaryIconMenuItem =
       await secondaryIconMenuItem.evaluate((el) => {
@@ -139,30 +137,20 @@ test.describe("functional tests", () => {
         return el.getBoundingClientRect().x;
       });
 
-    await expect(clientOffsetSecondaryIconMenuItem).toBeGreaterThanOrEqual(404);
-    await expect(clientOffsetSecondaryIconMenuItem).toBeLessThanOrEqual(408);
+    expect(clientOffsetSecondaryIconMenuItem).toBeGreaterThanOrEqual(404);
+    expect(clientOffsetSecondaryIconMenuItem).toBeLessThanOrEqual(408);
 
-    await expect(clientOffsetSecondaryIconlessMenuItem).toBeGreaterThanOrEqual(
-      404,
-    );
-    await expect(clientOffsetSecondaryIconlessMenuItem).toBeLessThanOrEqual(
-      408,
-    );
-    await expect(
-      clientOffsetSecondaryCustomIconMenuItem,
-    ).toBeGreaterThanOrEqual(404);
-    await expect(clientOffsetSecondaryCustomIconMenuItem).toBeLessThanOrEqual(
-      408,
-    );
+    expect(clientOffsetSecondaryIconlessMenuItem).toBeGreaterThanOrEqual(404);
+    expect(clientOffsetSecondaryIconlessMenuItem).toBeLessThanOrEqual(408);
+    expect(clientOffsetSecondaryCustomIconMenuItem).toBeGreaterThanOrEqual(404);
+    expect(clientOffsetSecondaryCustomIconMenuItem).toBeLessThanOrEqual(408);
 
     await page.locator("[id='tertiary-menu-toggle']").click();
     await expect(responsiveVerticalMenuNthSecondaryItem(page, 0)).toBeVisible();
 
-    const tertiaryIconMenuItem = await page.getByText("Tertiary Icon");
-    const tertiaryIconlessMenuItem = await page.getByText("Tertiary No Icon");
-    const tertiaryCustomIconMenuItem = await page.getByText(
-      "Tertiary Custom Icon",
-    );
+    const tertiaryIconMenuItem = page.getByText("Tertiary Icon");
+    const tertiaryIconlessMenuItem = page.getByText("Tertiary No Icon");
+    const tertiaryCustomIconMenuItem = page.getByText("Tertiary Custom Icon");
 
     const clientOffsetTertiaryIconMenuItem =
       await tertiaryIconMenuItem.evaluate((el) => {
@@ -177,20 +165,14 @@ test.describe("functional tests", () => {
         return el.getBoundingClientRect().x;
       });
 
-    await expect(clientOffsetTertiaryIconMenuItem).toBeGreaterThanOrEqual(437);
-    await expect(clientOffsetTertiaryIconMenuItem).toBeLessThanOrEqual(441);
+    expect(clientOffsetTertiaryIconMenuItem).toBeGreaterThanOrEqual(437);
+    expect(clientOffsetTertiaryIconMenuItem).toBeLessThanOrEqual(441);
 
-    await expect(clientOffsetTertiaryIconlessMenuItem).toBeGreaterThanOrEqual(
-      437,
-    );
-    await expect(clientOffsetTertiaryIconlessMenuItem).toBeLessThanOrEqual(441);
+    expect(clientOffsetTertiaryIconlessMenuItem).toBeGreaterThanOrEqual(437);
+    expect(clientOffsetTertiaryIconlessMenuItem).toBeLessThanOrEqual(441);
 
-    await expect(clientOffsetTertiaryCustomIconMenuItem).toBeGreaterThanOrEqual(
-      437,
-    );
-    await expect(clientOffsetTertiaryCustomIconMenuItem).toBeLessThanOrEqual(
-      441,
-    );
+    expect(clientOffsetTertiaryCustomIconMenuItem).toBeGreaterThanOrEqual(437);
+    expect(clientOffsetTertiaryCustomIconMenuItem).toBeLessThanOrEqual(441);
   });
 });
 
@@ -373,8 +355,8 @@ test.describe("accessibility tests", () => {
 
     await expect(responsiveVerticalMenuLauncher(page)).toBeVisible();
     await responsiveVerticalMenuLauncher(page).click();
-    await expect(responsiveVerticalMenuWrapper(page)).toBeDefined();
-    await expect(responsiveVerticalMenuPrimary(page)).toBeDefined();
+    expect(responsiveVerticalMenuWrapper(page)).toBeDefined();
+    expect(responsiveVerticalMenuPrimary(page)).toBeDefined();
 
     await checkAccessibility(page);
   });
@@ -387,8 +369,8 @@ test.describe("accessibility tests", () => {
 
     await expect(responsiveVerticalMenuLauncher(page)).toBeVisible();
     await responsiveVerticalMenuLauncher(page).click();
-    await expect(responsiveVerticalMenuWrapper(page)).toBeDefined();
-    await expect(responsiveVerticalMenuPrimary(page)).toBeDefined();
+    expect(responsiveVerticalMenuWrapper(page)).toBeDefined();
+    expect(responsiveVerticalMenuPrimary(page)).toBeDefined();
     await expect(responsiveVerticalMenuNthPrimaryItem(page, 0)).toBeVisible();
 
     await page.locator("[id='primary-menu']").click();
@@ -405,8 +387,8 @@ test.describe("accessibility tests", () => {
 
     await expect(responsiveVerticalMenuLauncher(page)).toBeVisible();
     await responsiveVerticalMenuLauncher(page).click();
-    await expect(responsiveVerticalMenuWrapper(page)).toBeDefined();
-    await expect(responsiveVerticalMenuPrimary(page)).toBeDefined();
+    expect(responsiveVerticalMenuWrapper(page)).toBeDefined();
+    expect(responsiveVerticalMenuPrimary(page)).toBeDefined();
     await expect(responsiveVerticalMenuNthPrimaryItem(page, 0)).toBeVisible();
 
     await page.locator("[id='primary-menu']").click();
@@ -424,8 +406,8 @@ test.describe("accessibility tests", () => {
 
     await expect(responsiveVerticalMenuLauncher(page)).toBeVisible();
     await responsiveVerticalMenuLauncher(page).click();
-    await expect(responsiveVerticalMenuWrapper(page)).toBeDefined();
-    await expect(responsiveVerticalMenuPrimary(page)).toBeDefined();
+    expect(responsiveVerticalMenuWrapper(page)).toBeDefined();
+    expect(responsiveVerticalMenuPrimary(page)).toBeDefined();
 
     await page.locator("[id='primary-menu']").click();
     await page.locator("[id='secondary-menu']").click();

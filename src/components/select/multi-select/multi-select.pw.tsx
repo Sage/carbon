@@ -227,7 +227,7 @@ test.describe("MultiSelect component", () => {
 
     await expect(commonDataElementInputPreview(page)).not.toBeEditable();
     await selectInput(page).click();
-    await expect(selectListWrapper(page)).not.toBeVisible();
+    await expect(selectListWrapper(page)).toBeHidden();
   });
 
   test("should render icon with read only style", async ({ mount, page }) => {
@@ -394,7 +394,7 @@ test.describe("MultiSelect component", () => {
     await inputElement.focus();
     await expect(inputElement).toBeFocused();
     await expect(inputElement).toHaveAttribute("aria-expanded", "false");
-    await expect(selectListWrapper(page)).not.toBeVisible();
+    await expect(selectListWrapper(page)).toBeHidden();
   });
 
   test("should open the list with mouse click on input", async ({
@@ -429,7 +429,7 @@ test.describe("MultiSelect component", () => {
     await dropdownButton(page).click();
     await expect(selectListWrapper(page)).toBeVisible();
     await dropdownButton(page).click();
-    await expect(selectListWrapper(page)).not.toBeVisible();
+    await expect(selectListWrapper(page)).toBeHidden();
   });
 
   test("should close the list with the Tab key", async ({ mount, page }) => {
@@ -441,7 +441,7 @@ test.describe("MultiSelect component", () => {
     await expect(selectListWrapperElement).toBeVisible();
     await selectInputElement.press("Tab");
     await expect(selectInputElement).toHaveAttribute("aria-expanded", "false");
-    await expect(selectListWrapperElement).not.toBeVisible();
+    await expect(selectListWrapperElement).toBeHidden();
   });
 
   test("should close the list with the Esc key", async ({ mount, page }) => {
@@ -452,7 +452,7 @@ test.describe("MultiSelect component", () => {
     await expect(selectListWrapperElement).toBeVisible();
     await commonDataElementInputPreview(page).press("Escape");
     await expect(selectInput(page)).toHaveAttribute("aria-expanded", "false");
-    await expect(selectListWrapperElement).not.toBeVisible();
+    await expect(selectListWrapperElement).toBeHidden();
   });
 
   test("should close the list by clicking out of the component", async ({
@@ -466,7 +466,7 @@ test.describe("MultiSelect component", () => {
     await expect(selectListWrapperElement).toBeVisible();
     await page.locator("body").click({ position: { x: 0, y: 0 } });
     await expect(selectInput(page)).toHaveAttribute("aria-expanded", "false");
-    await expect(selectListWrapperElement).not.toBeVisible();
+    await expect(selectListWrapperElement).toBeHidden();
   });
 
   [keyToTrigger[0], keyToTrigger[1], keyToTrigger[4], keyToTrigger[5]].forEach(
@@ -492,7 +492,7 @@ test.describe("MultiSelect component", () => {
 
     await commonDataElementInputPreview(page).focus();
     await selectInput(page).press("Enter");
-    await expect(selectListWrapper(page)).not.toBeVisible();
+    await expect(selectListWrapper(page)).toBeHidden();
   });
 
   ["Amber", "Yellow"].forEach((option) => {
@@ -880,7 +880,7 @@ test.describe("MultiSelect component", () => {
     await expect(headerElements).toHaveCount(columns);
     const assertions = [];
     for (let i = 0; i < columns; i++) {
-      assertions.push(expect(headerElements.nth(i)).toBeVisible());
+      assertions.push(await expect(headerElements.nth(i)).toBeVisible());
     }
     await Promise.all(assertions);
     await expect(
@@ -1280,10 +1280,10 @@ test.describe("When nested inside of a Dialog component", () => {
     const inputElement = commonDataElementInputPreview(page);
     const dialogElement = dialogWithRole(page, "dialog");
     await inputElement.press("Escape");
-    await expect(selectList(page)).not.toBeVisible();
+    await expect(selectList(page)).toBeHidden();
     await expect(dialogElement).toBeVisible();
     await inputElement.press("Escape");
-    await expect(dialogElement).not.toBeVisible();
+    await expect(dialogElement).toBeHidden();
   });
 
   test("should not refocus the select textbox when closing it by clicking outside", async ({
@@ -1294,7 +1294,7 @@ test.describe("When nested inside of a Dialog component", () => {
 
     await dropdownButton(page).click();
     await dialogWithRole(page, "dialog").click();
-    await expect(selectList(page)).not.toBeVisible();
+    await expect(selectList(page)).toBeHidden();
     await expect(commonDataElementInputPreview(page)).not.toBeFocused();
   });
 
@@ -1488,10 +1488,10 @@ test("should not add an empty Pill when filter text does not match option text",
   await mount(<MultiSelectComponent />);
 
   const pillElement = multiSelectPill(page);
-  await expect(pillElement).not.toBeVisible();
+  await expect(pillElement).toBeHidden();
   await commonDataElementInputPreview(page).fill("abc");
   await selectInput(page).press("Enter");
-  await expect(pillElement).not.toBeVisible();
+  await expect(pillElement).toBeHidden();
 });
 
 test("should not select a disabled option when a filter is typed", async ({
@@ -1506,7 +1506,7 @@ test("should not select a disabled option when a filter is typed", async ({
   await inputElement.press("Enter");
   await expect(
     page.locator('[data-element="confirmed-selection-2"]'),
-  ).not.toBeVisible();
+  ).toBeHidden();
   await inputElement.press("ArrowDown");
   await inputElement.press("Enter");
   await expect(

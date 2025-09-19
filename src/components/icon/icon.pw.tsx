@@ -97,7 +97,7 @@ test.describe("should check Icon component properties", () => {
   }) => {
     await mount(<IconTooltipComponent tooltipVisible={false} />);
     const tooltip = getDataElementByValue(page, "tooltip");
-    await expect(tooltip).not.toBeVisible();
+    await expect(tooltip).toBeHidden();
   });
 
   colorData.forEach(([tooltipBgColor]) => {

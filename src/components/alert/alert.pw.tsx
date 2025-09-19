@@ -29,18 +29,12 @@ test.describe("should render Alert component", () => {
   specialCharacters.forEach((text) => {
     test(`with ${text} as a title`, async ({ mount, page }) => {
       await mount(<AlertComponent title={text} />);
-
-      const title = alertTitle(page);
-      const titleText = await title.textContent();
-      expect(titleText).toEqual(text);
+      await expect(alertTitle(page)).toHaveText(text);
     });
 
     test(`with ${text} as a subtitle`, async ({ mount, page }) => {
       await mount(<AlertComponent subtitle={text} />);
-
-      const subtitle = alertSubtitle(page);
-      const alertSubtitleText = await subtitle.textContent();
-      expect(alertSubtitleText).toEqual(text);
+      await expect(alertSubtitle(page)).toHaveText(text);
     });
 
     test(`with ${text} as children`, async ({ mount, page }) => {

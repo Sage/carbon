@@ -92,13 +92,13 @@ test.describe("Prop tests for Switch component", () => {
       await mount(<SwitchComponent loading={boolVal} />);
 
       if (boolVal) {
-        await expect(switchInput(page)).not.toBeDisabled();
+        await expect(switchInput(page)).toBeEnabled();
 
         await expect(
           getDataRoleByValue(page, "switch-slider-loader"),
         ).toBeVisible();
       } else {
-        await expect(switchInput(page)).not.toBeDisabled();
+        await expect(switchInput(page)).toBeEnabled();
       }
     });
   });
@@ -154,9 +154,9 @@ test.describe("Prop tests for Switch component", () => {
 
         await expect(switchLabel(page)).toBeDisabled();
       } else {
-        await expect(switchInput(page)).not.toBeDisabled();
+        await expect(switchInput(page)).toBeEnabled();
 
-        await expect(switchLabel(page)).not.toBeDisabled();
+        await expect(switchLabel(page)).toBeEnabled();
       }
     });
   });

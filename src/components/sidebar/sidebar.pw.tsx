@@ -48,7 +48,7 @@ test.describe("Prop tests for Sidebar component", () => {
       const backgroundUILocatorElement = backgroundUILocator(page);
 
       if (enableBackgroundUIValue) {
-        await expect(backgroundUILocatorElement).not.toBeVisible();
+        await expect(backgroundUILocatorElement).toBeHidden();
       } else {
         await expect(backgroundUILocatorElement).toBeVisible();
       }
@@ -207,7 +207,7 @@ test.describe("Prop tests for Sidebar component", () => {
 
     const toastElement = getComponent(page, "toast");
 
-    await expect(toastElement).not.toBeVisible();
+    await expect(toastElement).toBeHidden();
 
     const openToastElement = getDataElementByValue(page, "open-toast");
     await openToastElement.click();
@@ -219,7 +219,7 @@ test.describe("Prop tests for Sidebar component", () => {
       .getByLabel("Close");
     await toastElementCloseButton.click();
 
-    await expect(toastElement).not.toBeVisible();
+    await expect(toastElement).toBeHidden();
   });
 
   test("should render component with first input and button as focusableSelectors", async ({
@@ -254,7 +254,7 @@ test.describe("Prop tests for Sidebar component", () => {
 
     const toastElement = getComponent(page, "toast");
 
-    await expect(toastElement).not.toBeVisible();
+    await expect(toastElement).toBeHidden();
 
     const openToastElement = getDataElementByValue(page, "open-toast");
     await openToastElement.click();
@@ -276,14 +276,14 @@ test.describe("Prop tests for Sidebar component", () => {
     const button = page.getByRole("button").filter({ hasText: "Open sidebar" });
     const sidebar = sidebarPreview(page);
     await expect(button).not.toBeFocused();
-    await expect(sidebar).not.toBeVisible();
+    await expect(sidebar).toBeHidden();
 
     await button.click();
     await expect(sidebar).toBeVisible();
     const closeButton = page.getByLabel("Close");
     await closeButton.click();
     await expect(button).toBeFocused();
-    await expect(sidebar).not.toBeVisible();
+    await expect(sidebar).toBeHidden();
   });
 
   test("when Sidebar is open on render, then closed, opened and then closed again, the call to action element should be focused", async ({
@@ -299,7 +299,7 @@ test.describe("Prop tests for Sidebar component", () => {
 
     const button = page.getByRole("button").filter({ hasText: "Open sidebar" });
     await expect(button).not.toBeFocused();
-    await expect(sidebar).not.toBeVisible();
+    await expect(sidebar).toBeHidden();
 
     await button.click();
     await expect(sidebar).toBeVisible();
@@ -318,7 +318,7 @@ test.describe("Prop tests for Sidebar component", () => {
       .filter({ hasText: "Open First Sidebar" });
     const firstSidebar = sidebarPreview(page).first();
     await expect(firstButton).not.toBeFocused();
-    await expect(firstSidebar).not.toBeVisible();
+    await expect(firstSidebar).toBeHidden();
 
     await firstButton.click();
     await expect(firstSidebar).toBeVisible();
@@ -348,14 +348,14 @@ test.describe("Prop tests for Sidebar component", () => {
     const button = page.getByRole("button").filter({ hasText: "Open sidebar" });
     const sidebar = sidebarPreview(page);
     await expect(button).not.toBeFocused();
-    await expect(sidebar).not.toBeVisible();
+    await expect(sidebar).toBeHidden();
 
     await button.click();
     await expect(sidebar).toBeVisible();
     const closeButton = page.getByLabel("Close");
     await closeButton.click();
     await expect(button).not.toBeFocused();
-    await expect(sidebar).not.toBeVisible();
+    await expect(sidebar).toBeHidden();
   });
 
   test("should call onCancel callback when a click event is triggered", async ({
@@ -398,7 +398,7 @@ test.describe("Prop tests for Sidebar component", () => {
     const focusedElement = page.locator("*:focus");
     await focusedElement.press("Enter");
 
-    await expect(sidebarPreviewElement).not.toBeVisible();
+    await expect(sidebarPreviewElement).toBeHidden();
 
     await bodyElement.press("Tab");
     const DialogCloseIconButton = getComponent(page, "dialog").locator(

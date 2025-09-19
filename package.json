@@ -13,7 +13,7 @@
     "test-update": "jest --config=./jest.config.ts --updateSnapshot",
     "test-storybook": "test-storybook --url http://127.0.0.1:9001",
     "format": "prettier --write './{src,playwright}/**/*.{js,jsx,ts,tsx}'",
-    "lint": "eslint ./src ./playwright",
+    "lint": "eslint ./src ./playwright --max-warnings=636 --report-unused-disable-directives",
     "precompile": "npm run type-check && npm run build",
     "prepublishOnly": "npm run precompile",
     "build-storybook": "dotenvx run -- storybook build -c .storybook",

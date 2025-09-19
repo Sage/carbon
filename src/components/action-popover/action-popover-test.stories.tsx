@@ -979,6 +979,7 @@ export const ActionPopoverSubmenuClick: Story = {
   play: async ({ canvasElement }) => {
     // This is required due to a known issue with the canvasElement not being the parent of the component when a Portal is used.
     // https://github.com/storybookjs/storybook/issues/26963
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const canvas = within(canvasElement.parentElement!);
     const actionPopoverButtons = canvas.getAllByRole("button");
     await userEvent.click(actionPopoverButtons[0]);
