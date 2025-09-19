@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useContext } from "react";
 import invariant from "invariant";
 
-import Textbox, { CommonTextboxProps } from "../textbox";
+import TextInput, { CommonTextInputProps } from "../text-input";
 import LocaleContext from "../../__internal__/i18n-context";
 import usePrevious from "../../hooks/__internal__/usePrevious";
 import Logger from "../../__internal__/utils/logger";
@@ -19,7 +19,7 @@ export interface CustomEvent {
 }
 
 export interface DecimalProps
-  extends Omit<CommonTextboxProps, "onChange" | "onBlur" | "data-component"> {
+  extends Omit<CommonTextInputProps, "onChange" | "onBlur" | "data-component"> {
   /** Text alignment of the label */
   align?: "left" | "right";
   /** Allow an empty value instead of defaulting to 0.00 */
@@ -290,7 +290,7 @@ export const Decimal = React.forwardRef(
 
     return (
       <>
-        <Textbox
+        <TextInput
           align={align}
           readOnly={readOnly}
           inputWidth={inputWidth}

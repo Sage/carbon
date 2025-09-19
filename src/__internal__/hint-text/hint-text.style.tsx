@@ -16,6 +16,7 @@ const StyledHintText = styled.div<HintTextProps>`
   display: flex;
   align-items: center;
   font-size: 14px;
+  line-height: 150%;
 
   ${({ isLarge }) =>
     isLarge &&

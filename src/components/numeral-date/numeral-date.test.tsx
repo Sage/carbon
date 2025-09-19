@@ -691,7 +691,8 @@ test("should have the default styling when the `labelsInline` prop is set and `v
 
   const fields = screen.getAllByTestId("field-line");
 
-  expect(fields[0]).toHaveStyle("display: block");
+  expect(fields[0]).toHaveStyle("display: flex");
+  expect(fields[0]).toHaveStyle("flex-direction: column");
 });
 
 test("should render the help icon and tooltip when `labelHelp` prop is set and `validationRedesignOptIn` is not set", async () => {

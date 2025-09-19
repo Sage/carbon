@@ -1,12 +1,12 @@
 import React, { useRef, useState } from "react";
-import { TextboxProps } from "../textbox";
+import { TextInputProps } from "../text-input";
 import { StyledPassword, HiddenAriaLive } from "./password.style";
 import guid from "../../__internal__/utils/helpers/guid";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import useLocale from "../../hooks/__internal__/useLocale";
 import ButtonMinor from "../button-minor/button-minor.component";
 
-export interface PasswordProps extends Omit<TextboxProps, "data-component"> {
+export interface PasswordProps extends Omit<TextInputProps, "data-component"> {
   /** When `true` input `type` is `password` and text is obscured. */
   forceObscurity?: boolean;
 }

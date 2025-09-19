@@ -3,6 +3,7 @@ import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as floatingUi from "@floating-ui/react-dom";
 import Textbox, { TextboxProps } from ".";
+import TextInput from "../text-input";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import { EnterKeyHintTypes } from "../../__internal__/input";
 import createGuid from "../../__internal__/utils/helpers/guid";
@@ -33,6 +34,211 @@ afterEach(() => {
 
 afterAll(() => {
   loggerSpy.mockClear();
+});
+
+describe("deprecation/rename messages", () => {
+  it("logs a rename warning when Textbox is rendered", () => {
+    const loggerSpy = jest.spyOn(Logger, "deprecate");
+
+    render(
+      <>
+        <Textbox value="foo" onChange={() => {}} />
+        <Textbox value="foo" onChange={() => {}} />
+      </>,
+    );
+
+    expect(loggerSpy).toHaveBeenCalledWith(
+      "`Textbox` will soon be renamed to `TextInput`. Replace `Textbox` with `TextInput` now to avoid a breaking change in a later Carbon version.",
+    );
+
+    const callsWithTextboxRenameMessage = loggerSpy.mock.calls.filter((call) =>
+      call[0].includes("`Textbox` will soon be renamed to `TextInput`"),
+    );
+    expect(callsWithTextboxRenameMessage).toHaveLength(1);
+    loggerSpy.mockRestore();
+  });
+
+  it("logs a deprecation warning once when fieldHelp prop is used", () => {
+    const loggerSpy = jest.spyOn(Logger, "deprecate");
+    render(
+      <>
+        <Textbox value="foo" onChange={() => {}} fieldHelp="help text 1" />
+        <Textbox value="foo" onChange={() => {}} fieldHelp="help text 2" />
+      </>,
+    );
+    expect(loggerSpy).toHaveBeenCalledWith(
+      "The `fieldHelp` prop has been deprecated and will soon be removed. Please use `inputHint` instead " +
+        "which is rendered above the input.",
+    );
+    const callsWithFieldHelpMessage = loggerSpy.mock.calls.filter((call) =>
+      call[0].includes("The `fieldHelp` prop has been deprecated"),
+    );
+    expect(callsWithFieldHelpMessage).toHaveLength(1);
+    loggerSpy.mockRestore();
+  });
+
+  it("logs a deprecation warning once when labelAlign prop is used", () => {
+    const loggerSpy = jest.spyOn(Logger, "deprecate");
+    render(
+      <>
+        <Textbox value="foo" onChange={() => {}} labelAlign="left" />
+        <Textbox value="foo" onChange={() => {}} labelAlign="right" />
+      </>,
+    );
+    expect(loggerSpy).toHaveBeenCalledWith(
+      "The `labelAlign` prop has been deprecated and will soon be removed.",
+    );
+    const callsWithLabelAlignMessage = loggerSpy.mock.calls.filter((call) =>
+      call[0].includes("The `labelAlign` prop has been deprecated"),
+    );
+    expect(callsWithLabelAlignMessage).toHaveLength(1);
+    loggerSpy.mockRestore();
+  });
+
+  it("logs a deprecation warning once when labelHelp prop is used", () => {
+    const loggerSpy = jest.spyOn(Logger, "deprecate");
+    render(
+      <>
+        <Textbox value="foo" onChange={() => {}} labelHelp="help text 1" />
+        <Textbox value="foo" onChange={() => {}} labelHelp="help text 2" />
+      </>,
+    );
+    expect(loggerSpy).toHaveBeenCalledWith(
+      "The `labelHelp` prop has been deprecated and will soon be removed. For accessibility purposes please " +
+        "use initially visible validation patterns instead of dynamic validation patterns such as tooltips.",
+    );
+    const callsWithLabelHelpMessage = loggerSpy.mock.calls.filter((call) =>
+      call[0].includes("The `labelHelp` prop has been deprecated"),
+    );
+    expect(callsWithLabelHelpMessage).toHaveLength(1);
+    loggerSpy.mockRestore();
+  });
+
+  it("logs a deprecation warning once when labelSpacing prop is used", () => {
+    const loggerSpy = jest.spyOn(Logger, "deprecate");
+    render(
+      <>
+        <Textbox value="foo" onChange={() => {}} labelSpacing={1} />
+        <Textbox value="foo" onChange={() => {}} labelSpacing={2} />
+      </>,
+    );
+    expect(loggerSpy).toHaveBeenCalledWith(
+      "The `labelSpacing` prop has been deprecated and will soon be removed.",
+    );
+    const callsWithLabelSpacingMessage = loggerSpy.mock.calls.filter((call) =>
+      call[0].includes("The `labelSpacing` prop has been deprecated"),
+    );
+    expect(callsWithLabelSpacingMessage).toHaveLength(1);
+    loggerSpy.mockRestore();
+  });
+
+  it("logs a deprecation warning once when reverse prop is used", () => {
+    const loggerSpy = jest.spyOn(Logger, "deprecate");
+    render(
+      <>
+        <Textbox value="foo" onChange={() => {}} reverse />
+        <Textbox value="foo" onChange={() => {}} reverse />
+      </>,
+    );
+    expect(loggerSpy).toHaveBeenCalledWith(
+      "The `reverse` prop has been deprecated and will soon be removed.",
+    );
+    const callsWithReverseMessage = loggerSpy.mock.calls.filter((call) =>
+      call[0].includes("The `reverse` prop has been deprecated"),
+    );
+    expect(callsWithReverseMessage).toHaveLength(1);
+    loggerSpy.mockRestore();
+  });
+
+  it("logs a deprecation warning once when tooltipPosition prop is used", () => {
+    const loggerSpy = jest.spyOn(Logger, "deprecate");
+    render(
+      <>
+        <Textbox value="foo" onChange={() => {}} tooltipPosition="top" />
+        <Textbox value="foo" onChange={() => {}} tooltipPosition="bottom" />
+      </>,
+    );
+    expect(loggerSpy).toHaveBeenCalledWith(
+      "The `tooltipPosition` prop has been deprecated and will soon be removed. For accessibility purposes please " +
+        "use initially visible validation patterns instead of dynamic validation patterns such as tooltips.",
+    );
+    const callsWithTooltipPositionMessage = loggerSpy.mock.calls.filter(
+      (call) =>
+        call[0].includes("The `tooltipPosition` prop has been deprecated"),
+    );
+    expect(callsWithTooltipPositionMessage).toHaveLength(1);
+    loggerSpy.mockRestore();
+  });
+
+  it("logs a deprecation warning once when helpAriaLabel prop is used", () => {
+    const loggerSpy = jest.spyOn(Logger, "deprecate");
+    render(
+      <>
+        <Textbox value="foo" onChange={() => {}} helpAriaLabel="help-1" />
+        <Textbox value="foo" onChange={() => {}} helpAriaLabel="help-2" />
+      </>,
+    );
+    expect(loggerSpy).toHaveBeenCalledWith(
+      "The `helpAriaLabel` prop has been deprecated and will soon be removed. For accessibility purposes please " +
+        "use initially visible validation patterns instead of dynamic validation patterns such as tooltips.",
+    );
+    const callsWithHelpAriaLabelMessage = loggerSpy.mock.calls.filter((call) =>
+      call[0].includes("The `helpAriaLabel` prop has been deprecated"),
+    );
+    expect(callsWithHelpAriaLabelMessage).toHaveLength(1);
+    loggerSpy.mockRestore();
+  });
+
+  it("logs a deprecation warning once when tooltipId prop is used", () => {
+    const loggerSpy = jest.spyOn(Logger, "deprecate");
+    render(
+      <>
+        <Textbox value="foo" onChange={() => {}} tooltipId="tooltip-1" />
+        <Textbox value="foo" onChange={() => {}} tooltipId="tooltip-2" />
+      </>,
+    );
+    expect(loggerSpy).toHaveBeenCalledWith(
+      "The `tooltipId` prop has been deprecated and will soon be removed. For accessibility purposes please " +
+        "use initially visible validation patterns instead of dynamic validation patterns such as tooltips.",
+    );
+    const callsWithTooltipIdMessage = loggerSpy.mock.calls.filter((call) =>
+      call[0].includes("The `tooltipId` prop has been deprecated"),
+    );
+    expect(callsWithTooltipIdMessage).toHaveLength(1);
+    loggerSpy.mockRestore();
+  });
+
+  it("logs a deprecation warning once when info prop is used", () => {
+    const loggerSpy = jest.spyOn(Logger, "deprecate");
+    render(
+      <>
+        <Textbox value="foo" onChange={() => {}} info="info text 1" />
+        <Textbox value="foo" onChange={() => {}} info="info text 2" />
+      </>,
+    );
+    expect(loggerSpy).toHaveBeenCalledWith(
+      "The `info` prop has been deprecated and will soon be removed. For accessibility purposes please " +
+        "use initially visible validation patterns instead of dynamic validation patterns such as tooltips.",
+    );
+    const callsWithInfoMessage = loggerSpy.mock.calls.filter((call) =>
+      call[0].includes("The `info` prop has been deprecated"),
+    );
+    expect(callsWithInfoMessage).toHaveLength(1);
+    loggerSpy.mockRestore();
+  });
+});
+
+test("does not log a rename warning when Textbox is rendered via a TextInput", () => {
+  const loggerSpy = jest.spyOn(Logger, "deprecate");
+
+  render(
+    <>
+      <TextInput value="foo" onChange={() => {}} />
+      <TextInput value="foo" onChange={() => {}} />
+    </>,
+  );
+
+  expect(loggerSpy).not.toHaveBeenCalled();
 });
 
 testStyledSystemMargin(
@@ -765,14 +971,11 @@ describe("when rendered with new validations", () => {
       labelInline: true,
       label: "example label",
       labelAlign: "left",
-      labelWidth: 100,
-      labelSpacing: 1,
       reverse: true,
       value: "foo",
       onChange: jest.fn(),
     });
     const labelContainer = screen.getByTestId("label-container");
-    expect(labelContainer).toHaveStyle({ width: undefined });
     expect(labelContainer).toHaveStyle({ justifyContent: undefined });
     expect(labelContainer).toHaveStyle({ paddingLeft: undefined });
     expect(labelContainer).toHaveStyle({ paddingRight: undefined });
