@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { StoryObj } from "@storybook/react";
-import { userEvent, within } from "@storybook/test";
+import { userEvent, within, expect } from "@storybook/test";
 
 import Dialog from ".";
 import Button from "../button";
@@ -99,6 +99,6 @@ export const FocusManagement: Story = {
     await userEvent.click(closeIcon);
     await userInteractionPause(150);
 
-    await expect(openButton).toHaveFocus();
+    expect(openButton).toHaveFocus();
   },
 };
