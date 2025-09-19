@@ -56,12 +56,13 @@ export const FocusManagement: Story = {
             <Typography>
               This is an example of a dialog with a Form as content
             </Typography>
-            <Textbox label="First Name" />
-            <Textbox label="Middle Name" />
-            <Textbox label="Surname" />
-            <Textbox label="Birth Place" />
-            <Textbox label="Favourite Colour" />
-            <Textbox label="Address" />
+
+            <Textbox label="First Name" value="" onChange={() => {}} />
+            <Textbox label="Middle Name" value="" onChange={() => {}} />
+            <Textbox label="Surname" value="" onChange={() => {}} />
+            <Textbox label="Birth Place" value="" onChange={() => {}} />
+            <Textbox label="Favourite Colour" value="" onChange={() => {}} />
+            <Textbox label="Address" value="" onChange={() => {}} />
           </Form>
         </Dialog>
       </>
