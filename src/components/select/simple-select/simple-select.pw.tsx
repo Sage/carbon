@@ -532,17 +532,27 @@ test.describe("SimpleSelect component", () => {
   }) => {
     await mount(<SimpleSelectMultipleColumnsComponent />);
 
-    await page.getByText("Please Select...").click();
-    await page.getByRole("listbox").waitFor();
-
-    await page.keyboard.press("ArrowDown");
-    await page.keyboard.press("ArrowDown");
-    await page.keyboard.press("ArrowDown");
-    await page.keyboard.press("ArrowDown");
-    await page.keyboard.press("ArrowDown");
-
-    const lastOption = page.getByRole("option", { name: "Bill Zoe" });
     const input = page.getByRole("combobox");
+    await page.getByText("Please Select...").click();
+    await page.getByRole("listbox").waitFor({ state: "visible" });
+
+    await input.press("ArrowDown");
+    await expect(input).toHaveValue("John Doe");
+
+    await input.press("ArrowDown");
+    await expect(input).toHaveValue("Joe Vick");
+
+    await input.press("ArrowDown");
+    await expect(input).toHaveValue("Jane Poe");
+
+    await input.press("ArrowDown");
+    await expect(input).toHaveValue("Jill Moe");
+
+    await input.press("ArrowDown");
+
+    const lastOption = page.getByRole("option", {
+      name: "Bill Zoe Astronaut",
+    });
 
     await expect(lastOption).toBeInViewport();
     await expect(input).toHaveValue("Bill Zoe");
