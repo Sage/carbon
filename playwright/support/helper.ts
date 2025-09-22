@@ -1,7 +1,7 @@
 import type { Locator, Page } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { expect } from "@playwright/experimental-ct-react";
-import { label, legendSpan } from "../components/index";
+import { label, legend } from "../components/index";
 
 /**
  * Retrieve a computed style for an element.
@@ -251,7 +251,7 @@ export const verifyRequiredAsteriskForLabel = (
 };
 
 export const verifyRequiredAsteriskForLegend = (page: Page) =>
-  verifyRequiredAsterisk(legendSpan(page));
+  verifyRequiredAsterisk(legend(page));
 
 /**
  * Verifies whether an object exists while not visible to the user. */

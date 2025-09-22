@@ -19,19 +19,13 @@ import {
   StyledFieldset,
 } from "./numeral-date.style";
 import Textbox from "../textbox";
-import Box from "../box";
-import ErrorBorder from "../textbox/textbox.style";
-import ValidationMessage from "../../__internal__/validation-message";
 import guid from "../../__internal__/utils/helpers/guid";
 import useLocale from "../../hooks/__internal__/useLocale";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
 import NumeralDateContext from "./__internal__/numeral-date.context";
 import Locale from "../../locales/locale";
-import FieldHelp from "../../__internal__/field-help";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
-import useInputAccessibility from "../../hooks/__internal__/useInputAccessibility";
-import HintText from "../../__internal__/hint-text";
 
 export const ALLOWED_DATE_FORMATS = [
   ["dd", "mm", "yyyy"],
@@ -259,7 +253,6 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
 
     const { current: uniqueId } = useRef(id || guid());
     const inputIds = useRef({ dd: guid(), mm: guid(), yyyy: guid() });
-    const inputHintId = useRef(guid());
 
     const refs = useRef<(HTMLInputElement | null)[]>(
       dateFormat.map(() => null),
@@ -384,23 +377,6 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
       }
     };
 
-    const { validationId, fieldHelpId, ariaDescribedBy } =
-      useInputAccessibility({
-        id: uniqueId,
-        // we still want to add the validationId to aria-describedby with the legacy validation
-        validationRedesignOptIn: true,
-        error: internalError,
-        warning: internalWarning,
-        info,
-        fieldHelp,
-      });
-
-    const describedByArray =
-      validationRedesignOptIn && validationMessagePositionTop
-        ? [ariaDescribedBy, inputHintId.current]
-        : [inputHintId.current, ariaDescribedBy];
-    const combinedAriaDescribedBy = describedByArray.filter(Boolean).join(" ");
-
     const renderInputs = () => {
       return (
         <StyledNumeralDate onKeyDown={onKeyDown}>
@@ -464,7 +440,7 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
                         info,
                       })}
                     tooltipPosition={tooltipPosition}
-                    tooltipId={validationId}
+                    tooltipId={`${uniqueId}-validation`}
                     my={0} // prevents any form spacing being applied
                   />
                 </StyledDateField>
@@ -481,7 +457,6 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
           <StyledFieldset
             id={uniqueId}
             legend={label}
-            legendMargin={{ mb: 0 }}
             isRequired={required}
             isDisabled={disabled}
             name={name}
@@ -494,15 +469,11 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
             legendAlign={labelAlign}
             legendWidth={labelWidth}
             legendSpacing={labelSpacing}
-            validationId={validationId}
-            aria-describedby={validationOnLabel ? ariaDescribedBy : fieldHelpId}
+            fieldHelp={fieldHelp}
             {...filterStyledSystemMarginProps(rest)}
             {...tagComponent("numeral-date", rest)}
           >
-            <Box display="flex" flexDirection="column" mt={inline ? 0 : 1}>
-              {renderInputs()}
-              {fieldHelp && <FieldHelp id={fieldHelpId}>{fieldHelp}</FieldHelp>}
-            </Box>
+            {renderInputs()}
           </StyledFieldset>
         </TooltipProvider>
       );
@@ -510,50 +481,21 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
 
     return (
       <StyledFieldset
+        applyNewValidation
         id={uniqueId}
         legend={label}
-        legendMargin={{ mb: 0 }}
+        inputHint={labelHelp}
         legendAlign={labelAlign}
+        error={internalError}
+        warning={internalWarning}
         isRequired={required}
         isDisabled={disabled}
+        validationMessagePositionTop={validationMessagePositionTop}
         name={name}
-        aria-describedby={combinedAriaDescribedBy}
         {...filterStyledSystemMarginProps(rest)}
         {...tagComponent("numeral-date", rest)}
       >
-        {labelHelp && (
-          <HintText align={labelAlign} id={inputHintId.current}>
-            {labelHelp}
-          </HintText>
-        )}
-
-        <Box position="relative" mt={labelHelp ? 0 : 1}>
-          {validationMessagePositionTop &&
-            (internalError || internalWarning) && (
-              <>
-                <ValidationMessage
-                  error={internalError}
-                  warning={internalWarning}
-                  validationId={validationId}
-                  validationMessagePositionTop={validationMessagePositionTop}
-                />
-                <ErrorBorder warning={!!(!internalError && internalWarning)} />
-              </>
-            )}
-          {renderInputs()}
-          {!validationMessagePositionTop &&
-            (internalError || internalWarning) && (
-              <>
-                <ValidationMessage
-                  error={internalError}
-                  warning={internalWarning}
-                  validationId={validationId}
-                  validationMessagePositionTop={validationMessagePositionTop}
-                />
-                <ErrorBorder warning={!!(!internalError && internalWarning)} />
-              </>
-            )}
-        </Box>
+        {renderInputs()}
       </StyledFieldset>
     );
   },
