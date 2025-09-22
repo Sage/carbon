@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { StoryObj } from "@storybook/react";
-import { userEvent, within, expect } from "@storybook/test";
+import { userEvent, within, expect, waitFor } from "@storybook/test";
 
 import Dialog from ".";
 import Button from "../button";
-import userInteractionPause from "../../../.storybook/utils/user-interaction-pause";
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
 import Typography from "../typography";
 import Textbox from "../textbox";
@@ -70,29 +69,22 @@ export const FocusManagement: Story = {
     const portal = within(canvasElement.ownerDocument.body);
 
     const openButton = canvas.getByRole("button", { name: /open dialog/i });
-
     await userEvent.click(openButton);
-    await userInteractionPause(300);
 
-    const dialog = portal.getByRole("dialog");
+    const dialog = await portal.findByRole("dialog");
+    await waitFor(() => expect(dialog).toBeVisible());
 
     await userEvent.tab();
-    await userInteractionPause(50);
     await userEvent.tab();
-    await userInteractionPause(50);
 
     const firstInput = within(dialog).getByLabelText(/first name/i);
     await userEvent.type(firstInput, "Jane Doe", { delay: 30 });
-    await userInteractionPause(100);
 
     await userEvent.tab();
-    await userInteractionPause(50);
     await userEvent.tab();
-    await userInteractionPause(50);
 
     const closeIcon = within(dialog).getByRole("button", { name: /close/i });
     await userEvent.click(closeIcon);
-    await userInteractionPause(150);
 
     expect(openButton).toHaveFocus();
   },
