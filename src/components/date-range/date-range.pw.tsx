@@ -489,7 +489,7 @@ test.describe("Functionality tests for DateRange component", () => {
 
     await page.keyboard.press("Tab");
 
-    await expect(popoverContainer).not.toBeVisible();
+    await expect(popoverContainer).toBeHidden();
     await expect(popoverButton).toBeFocused();
   });
 });

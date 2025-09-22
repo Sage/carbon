@@ -84,9 +84,9 @@ test.describe("check props for Drawer component", () => {
         await expect(sidebarInnerElementTwo).toBeVisible();
         await expect(sidebarInnerElementThree).toBeVisible();
       } else {
-        await expect(sidebarInnerElementOne).not.toBeVisible();
-        await expect(sidebarInnerElementTwo).not.toBeVisible();
-        await expect(sidebarInnerElementThree).not.toBeVisible();
+        await expect(sidebarInnerElementOne).toBeHidden();
+        await expect(sidebarInnerElementTwo).toBeHidden();
+        await expect(sidebarInnerElementThree).toBeHidden();
       }
     });
   });
@@ -117,7 +117,7 @@ test.describe("check props for Drawer component", () => {
 
     const sidebarInnerElement = drawerSidebarContentInnerElement(page, 0);
     await expect(sidebarInnerElement).toHaveText("link a");
-    await expect(sidebarInnerElement).not.toBeVisible();
+    await expect(sidebarInnerElement).toBeHidden();
   });
 
   test("should render component opened when the expanded prop is true", async ({

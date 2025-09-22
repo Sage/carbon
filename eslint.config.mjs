@@ -271,6 +271,7 @@ export default defineConfig([
           allow: ["arrowFunctions"],
         },
       ],
+      "@typescript-eslint/no-non-null-assertion": "error",
       "@typescript-eslint/no-unused-vars": [
         "error",
         {
@@ -345,6 +346,7 @@ export default defineConfig([
     },
   },
   {
+    ...playwright.configs["flat/recommended"],
     files: ["**/*.pw.ts*", "**/*.test-pw.ts*", "playwright/**/*.ts*"],
     plugins: {
       playwright: fixupPluginRules(playwright),
@@ -361,6 +363,24 @@ export default defineConfig([
       },
     },
     rules: {
+      ...playwright.configs["flat/recommended"].rules,
+      "playwright/expect-expect": [
+        "error",
+        {
+          assertFunctionNames: [
+            "checkAccessibility",
+            "checkCSSOutline",
+            "checkGoldenOutline",
+            "containsClass",
+            "assertCssValueIsApproximately",
+            "verifyRequiredAsterisk",
+            "verifyRequiredAsteriskForLabel",
+            "verifyRequiredAsteriskForLegend",
+            "checkElementBorderColours",
+            "checkNewFocusStyling",
+          ],
+        },
+      ],
       "playwright/no-commented-out-tests": "error",
       "playwright/no-focused-test": "error",
       "playwright/no-skipped-test": "warn",

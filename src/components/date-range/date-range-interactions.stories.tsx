@@ -339,21 +339,14 @@ export const ValidationDateRange: Story = {
     const canvas = within(canvasElement);
     const portal = within(document.body);
 
-    const errorIcon = canvasElement.querySelector(
-      '[data-role="icon-error"]',
-    ) as HTMLElement | null;
-    const warningIcon = canvasElement.querySelector(
-      '[data-role="icon-warning"]',
-    ) as HTMLElement | null;
+    const errorIcon = canvas.getByTestId("icon-error");
+    const warningIcon = canvas.getByTestId("icon-warning");
 
-    expect(errorIcon).not.toBeNull();
-    expect(warningIcon).not.toBeNull();
-
-    await userEvent.hover(errorIcon!);
+    await userEvent.hover(errorIcon);
     expect(await portal.findByText(/required/i)).toBeInTheDocument();
 
-    await userEvent.unhover(errorIcon!);
-    await userEvent.hover(warningIcon!);
+    await userEvent.unhover(errorIcon);
+    await userEvent.hover(warningIcon);
     expect(await portal.findByText(/end warning/i)).toBeInTheDocument();
 
     const startInput = canvas.getByRole("textbox", { name: /start/i });

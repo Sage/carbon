@@ -42,8 +42,8 @@ test("should set Detail icon on preview to chevron_up", async ({
   await mount(<Detail icon="chevron_up" />);
 
   await expect(icon(page)).toHaveAttribute("type", "chevron_up");
-  const isVisible = await icon(page).isVisible();
-  expect(isVisible).toBeTruthy();
+  const isVisible = icon(page);
+  await expect(isVisible).toBeVisible();
 });
 
 test.describe("Accessibility tests for Detail component", () => {

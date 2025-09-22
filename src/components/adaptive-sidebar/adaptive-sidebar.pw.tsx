@@ -99,14 +99,14 @@ test.describe("Component properties", () => {
     const openButton = page.getByRole("button").filter({ hasText: "Open" });
     const sidebar = page.getByRole("dialog");
     await expect(openButton).not.toBeFocused();
-    await expect(sidebar).not.toBeVisible();
+    await expect(sidebar).toBeHidden();
 
     await openButton.click();
     await expect(sidebar).toBeVisible();
     const closeButton = page.getByRole("button").filter({ hasText: "Close" });
     await closeButton.click();
     await expect(openButton).not.toBeFocused();
-    await expect(sidebar).not.toBeVisible();
+    await expect(sidebar).toBeHidden();
   });
 
   test("should render the AdaptiveSidebar component as a modal when at mobile resolution", async ({
