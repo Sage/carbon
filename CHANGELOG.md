@@ -1,3 +1,34 @@
+## [157.3.0](https://github.com/Sage/carbon/compare/v157.2.0...v157.3.0) (2025-09-18)
+
+### Features
+
+* **sidebar:** support additional data props for close button ([bb41751](https://github.com/Sage/carbon/commit/bb41751f6aaaa98e22d5814bc256d79b6fb3513e)), closes [#7539](https://github.com/Sage/carbon/issues/7539)
+
+## [157.2.0](https://github.com/Sage/carbon/compare/v157.1.2...v157.2.0) (2025-09-18)
+
+### Features
+
+* **adaptive-sidebar:** add restoreFocusOnClose prop to the adaptive sidebar interface ([b3fb127](https://github.com/Sage/carbon/commit/b3fb127c7648839a918b6714991a8873d8a25184))
+* ensure popover based components cannot remain open when an adaptive sidebar renders as a modal ([43186ac](https://github.com/Sage/carbon/commit/43186ac478a6530e5dc14df57ba15826aa02ca8b))
+
+## [157.1.2](https://github.com/Sage/carbon/compare/v157.1.1...v157.1.2) (2025-09-18)
+
+### Bug Fixes
+
+* **menu-item:** increase specificity for links that don't contain buttons ([ce5e050](https://github.com/Sage/carbon/commit/ce5e050367894ed0b6dec9d5d7063f13f9ee01d8)), closes [#7497](https://github.com/Sage/carbon/issues/7497)
+
+## [157.1.1](https://github.com/Sage/carbon/compare/v157.1.0...v157.1.1) (2025-09-18)
+
+### Bug Fixes
+
+* **responsive-vertical-menu:** fixes a bug when navigating with keyboard and VoiceOver ([687559c](https://github.com/Sage/carbon/commit/687559c61d8a659afbe466b23e68ba9da1381610))
+
+## [157.1.0](https://github.com/Sage/carbon/compare/v157.0.1...v157.1.0) (2025-09-16)
+
+### Features
+
+* **message:** align with beta DS ([723e88b](https://github.com/Sage/carbon/commit/723e88b67bbdd5bdb2b7938e1ccce03f4d6c08ef))
+
 ## [157.0.1](https://github.com/Sage/carbon/compare/v157.0.0...v157.0.1) (2025-09-15)
 
 ### Bug Fixes

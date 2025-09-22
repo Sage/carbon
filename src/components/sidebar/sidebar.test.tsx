@@ -382,3 +382,21 @@ test('renders with correct styles when `headerVariant` is "dark"', () => {
   );
   expect(closeIcon).toHaveStyle("color: var(--colorsUtilityYang080)");
 });
+
+test("close button has correct data-* props, when the closeButtonDataProps prop is passed", () => {
+  render(
+    <Sidebar
+      open
+      onCancel={() => {}}
+      closeButtonDataProps={{
+        "data-element": "foo",
+        "data-role": "bar",
+      }}
+    />,
+  );
+
+  const closeButton = screen.getByRole("button", { name: /Close/i });
+
+  expect(closeButton).toHaveAttribute("data-element", "foo");
+  expect(closeButton).toHaveAttribute("data-role", "bar");
+});

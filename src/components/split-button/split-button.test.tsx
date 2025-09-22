@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import SplitButton, { SplitButtonHandle } from "./split-button.component";
 import Button from "../button";
@@ -740,6 +740,36 @@ test("should hide the additional buttons when the list is open the toggle button
   await user.click(toggle);
 
   expect(screen.queryByRole("list")).not.toBeInTheDocument();
+});
+
+test("should hide the additional buttons when the list is open and a custom adaptive sidebar blur event is dispatched", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <SplitButton text="Main">
+      <Button>Single Button</Button>
+    </SplitButton>,
+  );
+
+  const toggle = screen.getByRole("button", { name: "Show more" });
+  await user.click(toggle);
+
+  const childButton = screen.queryByRole("button", {
+    name: "Single Button",
+  });
+
+  expect(childButton).toBeVisible();
+
+  await act(async () => {
+    document.dispatchEvent(
+      new CustomEvent("adaptiveSidebarModalFocusIn", {
+        bubbles: true,
+        detail: { source: "adaptiveSidebarModal" },
+      }),
+    );
+  });
+
+  expect(childButton).not.toBeInTheDocument();
 });
 
 test("should support navigating the additional buttons via down arrow key but stop on last button", async () => {

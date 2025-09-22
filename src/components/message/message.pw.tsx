@@ -7,44 +7,13 @@ import {
 import Message, { MessageProps } from ".";
 import { checkAccessibility } from "../../../playwright/support/helper";
 
-import {
-  messagePreview,
-  messageChildren,
-  messageTitle,
-  messageDismissIcon,
-  messageContent,
-  variantPreview,
-  buttonPreview,
-  messageDismissIconButton,
-} from "../../../playwright/components/message";
+import messagePreview from "../../../playwright/components/message";
 
-import { VALIDATION, CHARACTERS } from "../../../playwright/support/constants";
+import { CHARACTERS } from "../../../playwright/support/constants";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
 test.describe("Tests for Message component properties", () => {
-  (
-    [
-      ["info", "rgb(0, 96, 167)"],
-      ["error", VALIDATION.ERROR],
-      ["success", "rgb(0, 138, 33)"],
-      ["warning", VALIDATION.WARNING],
-      ["neutral", "rgb(51, 91, 112)"],
-    ] as [MessageProps["variant"], string][]
-  ).forEach(([variant, backgroundColor]) => {
-    test(`should check ${variant} as variant for Message components`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<MessageComponent variant={variant} />);
-
-      await expect(variantPreview(page)).toHaveCSS(
-        "background-color",
-        backgroundColor,
-      );
-    });
-  });
-
   testData.forEach((children) => {
     test(`should check ${children} as children for Message component`, async ({
       mount,
@@ -52,7 +21,7 @@ test.describe("Tests for Message component properties", () => {
     }) => {
       await mount(<Message>{children}</Message>);
 
-      await expect(messageChildren(page)).toHaveText(children);
+      await expect(page.getByTestId("message-content")).toHaveText(children);
     });
   });
 
@@ -67,18 +36,20 @@ test.describe("Tests for Message component properties", () => {
     });
   });
 
-  [true, false].forEach((boolVal) => {
-    test(`should check when open is ${boolVal} for Message component`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<MessageComponent open={boolVal} />);
-      if (boolVal === true) {
-        await expect(messagePreview(page)).toBeVisible();
-      } else {
-        await expect(messagePreview(page)).not.toBeVisible();
-      }
-    });
+  test("should check when open is true for Message component", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MessageComponent open />);
+    await expect(messagePreview(page)).toBeVisible();
+  });
+
+  test("should check when open is false for Message component", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MessageComponent open={false} />);
+    await expect(messagePreview(page)).toBeHidden();
   });
 
   test(`should focus component when open is true and component has a ref`, async ({
@@ -87,7 +58,7 @@ test.describe("Tests for Message component properties", () => {
   }) => {
     await mount(<MessageComponentWithRef />);
 
-    await buttonPreview(page).click();
+    await page.getByRole("button").click();
     await expect(messagePreview(page)).toBeFocused();
   });
 
@@ -97,44 +68,24 @@ test.describe("Tests for Message component properties", () => {
       page,
     }) => {
       await mount(<MessageComponent title={title} />);
-      await expect(messageTitle(page)).toHaveText(title);
+      await expect(page.getByTestId("message-content")).toContainText(title);
     });
   });
 
-  (
-    [
-      [true, "rgba(0, 0, 0, 0)"],
-      [false, "rgb(255, 255, 255)"],
-    ] as [boolean, string][]
-  ).forEach(([boolVal, backgroundColor]) => {
-    test(`should apply expected styling when transparent is ${boolVal}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<MessageComponent transparent={boolVal} />);
-
-      await expect(messagePreview(page)).toHaveCSS(
-        "background-color",
-        backgroundColor,
-      );
-    });
+  test("should check showCloseIcon when it's true for Message component", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MessageComponent showCloseIcon />);
+    await expect(page.getByRole("button", { name: "Close" })).toBeVisible();
   });
 
-  ([true, false] as boolean[]).forEach((boolVal) => {
-    test(`should check showCloseIcon when it's ${boolVal} for Message component`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<MessageComponent showCloseIcon={boolVal} />);
-
-      if (boolVal === true) {
-        await expect(messageDismissIcon(page)).toBeVisible();
-        await expect(messageContent(page)).toHaveCSS("padding", "16px");
-      } else {
-        await expect(messageDismissIcon(page)).not.toBeVisible();
-        await expect(messageContent(page)).toHaveCSS("padding", "16px");
-      }
-    });
+  test("should check showCloseIcon when it's false for Message component", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MessageComponent showCloseIcon={false} />);
+    await expect(page.getByRole("button", { name: "Close" })).toBeHidden();
   });
 
   testData.forEach((ariaLabel) => {
@@ -144,10 +95,7 @@ test.describe("Tests for Message component properties", () => {
     }) => {
       await mount(<MessageComponent closeButtonAriaLabel={ariaLabel} />);
 
-      await expect(messageDismissIconButton(page)).toHaveAttribute(
-        "aria-label",
-        ariaLabel,
-      );
+      await expect(page.getByRole("button")).toHaveAccessibleName(ariaLabel);
     });
   });
 
@@ -163,17 +111,8 @@ test.describe("Tests for Message component properties", () => {
         }}
       />,
     );
-    await messageDismissIcon(page).click();
+    await page.getByRole("button", { name: "Close" }).click();
     expect(callbackCount).toBe(1);
-  });
-
-  test("should render message component with expected border radius styling", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MessageComponent />);
-
-    await expect(messagePreview(page)).toHaveCSS("border-radius", "8px");
   });
 
   test("should focus icon button when open is true for Message component and tab key is pressed", async ({
@@ -181,33 +120,35 @@ test.describe("Tests for Message component properties", () => {
     page,
   }) => {
     await mount(<MessageComponentWithRef />);
-    await buttonPreview(page).click();
+    await page.getByRole("button").click();
     await expect(messagePreview(page)).toBeFocused();
     await page.keyboard.press("Tab");
-    await expect(messageDismissIconButton(page)).toBeFocused();
+    await expect(page.getByRole("button", { name: "Close" })).toBeFocused();
   });
 });
 
 test.describe("Accessibility tests for Message component", () => {
   (
-    ["info", "error", "success", "warning"] as MessageProps["variant"][]
+    [
+      "error",
+      "info",
+      "success",
+      "warning",
+      "neutral",
+      "ai",
+      "error-subtle",
+      "info-subtle",
+      "success-subtle",
+      "warning-subtle",
+      "ai-subtle",
+      "callout-subtle",
+    ] as MessageProps["variant"][]
   ).forEach((variant) => {
     test(`should check ${variant} as variant for accessibility tests`, async ({
       mount,
       page,
     }) => {
       await mount(<MessageComponent variant={variant} />);
-      await checkAccessibility(page);
-    });
-  });
-
-  testData.forEach((children) => {
-    test(`should check ${children} as children for accessibility tests`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<Message>{children}</Message>);
-
       await checkAccessibility(page);
     });
   });
@@ -221,24 +162,6 @@ test.describe("Accessibility tests for Message component", () => {
 
       await checkAccessibility(page);
     });
-  });
-
-  [true, false].forEach((boolVal) => {
-    test(`should check when open is ${boolVal} for accessibility tests`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<MessageComponent open={boolVal} />);
-      await checkAccessibility(page);
-    });
-  });
-
-  test(`should focus component when open is true and component has a ref for accessibility tests`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MessageComponentWithRef />);
-    await checkAccessibility(page);
   });
 
   testData.forEach((title) => {
@@ -279,14 +202,5 @@ test.describe("Accessibility tests for Message component", () => {
       await mount(<MessageComponent closeButtonAriaLabel={ariaLabel} />);
       await checkAccessibility(page);
     });
-  });
-
-  test(`should render message component for accessibility tests`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MessageComponent />);
-
-    await checkAccessibility(page);
   });
 });

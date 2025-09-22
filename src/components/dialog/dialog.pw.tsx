@@ -139,7 +139,7 @@ test.describe("Dialog component", () => {
         const backgroundUILocatorElement = backgroundUILocator(page);
 
         if (enableBackgroundUIValue) {
-          await expect(backgroundUILocatorElement).not.toBeVisible();
+          await expect(backgroundUILocatorElement).toBeHidden();
         } else {
           await expect(backgroundUILocatorElement).toBeVisible();
         }
@@ -152,7 +152,7 @@ test.describe("Dialog component", () => {
     }) => {
       await mount(<DialogComponent showCloseIcon={false} />);
 
-      await expect(page.getByLabel("Close")).not.toBeVisible();
+      await expect(page.getByLabel("Close")).toBeHidden();
     });
 
     test("when showCloseIcon prop is true, clicking close icon closes Dialog", async ({
@@ -166,7 +166,7 @@ test.describe("Dialog component", () => {
 
       await page.getByLabel("Close").click();
 
-      await expect(dialog).not.toBeVisible();
+      await expect(dialog).toBeHidden();
     });
 
     test("pressing the Escape key closes Dialog", async ({ mount, page }) => {
@@ -177,7 +177,7 @@ test.describe("Dialog component", () => {
 
       await dialog.press("Escape");
 
-      await expect(dialog).not.toBeVisible();
+      await expect(dialog).toBeHidden();
     });
 
     test("when disableEscKey prop is passed, pressing the Escape key does not close Dialog", async ({
@@ -308,14 +308,14 @@ test.describe("Dialog component", () => {
         .filter({ hasText: "Open Dialog" });
       const dialog = page.getByRole("dialog");
       await expect(button).not.toBeFocused();
-      await expect(dialog).not.toBeVisible();
+      await expect(dialog).toBeHidden();
 
       await button.click();
       await expect(dialog).toBeVisible();
       const closeButton = page.getByLabel("Close");
       await closeButton.click();
       await expect(button).toBeFocused();
-      await expect(dialog).not.toBeVisible();
+      await expect(dialog).toBeHidden();
     });
 
     test("when Dialog is open on render, then closed, opened and then closed again, the call to action element should be focused", async ({
@@ -333,7 +333,7 @@ test.describe("Dialog component", () => {
         .getByRole("button")
         .filter({ hasText: "Open Dialog" });
       await expect(button).not.toBeFocused();
-      await expect(dialog).not.toBeVisible();
+      await expect(dialog).toBeHidden();
 
       await button.click();
       await expect(dialog).toBeVisible();
@@ -352,7 +352,7 @@ test.describe("Dialog component", () => {
         .filter({ hasText: "Open First Dialog" });
       const firstDialog = page.getByRole("dialog").first();
       await expect(firstButton).not.toBeFocused();
-      await expect(firstDialog).not.toBeVisible();
+      await expect(firstDialog).toBeHidden();
 
       await firstButton.click();
       await expect(firstDialog).toBeVisible();
@@ -384,14 +384,14 @@ test.describe("Dialog component", () => {
         .filter({ hasText: "Open Dialog" });
       const dialog = page.getByRole("dialog");
       await expect(button).not.toBeFocused();
-      await expect(dialog).not.toBeVisible();
+      await expect(dialog).toBeHidden();
 
       await button.click();
       await expect(dialog).toBeVisible();
       const closeButton = page.getByLabel("Close");
       await closeButton.click();
       await expect(button).not.toBeFocused();
-      await expect(dialog).not.toBeVisible();
+      await expect(dialog).toBeHidden();
     });
 
     test("when disableAutoFocus prop is passed, the first focusable element should not be focused", async ({
@@ -945,10 +945,10 @@ test.describe("Fullscreen Dialog component", () => {
 
       const closeIcon = getDataElementByValue(page, "close").first();
       const dialogFullScreen = page.getByRole("dialog");
-      await expect(closeIcon).toBeAttached;
-      await expect(dialogFullScreen).toBeAttached;
+      await expect(closeIcon).toBeAttached();
+      await expect(dialogFullScreen).toBeAttached();
       await closeIcon.click();
-      await expect(dialogFullScreen).not.toBeAttached;
+      await expect(dialogFullScreen).not.toBeAttached();
     });
 
     specialCharacters.forEach((title) => {
@@ -1004,9 +1004,9 @@ test.describe("Fullscreen Dialog component", () => {
       await mount(<FullScreenDialogComponent disableEscKey />);
 
       const dialogFullScreen = page.getByRole("dialog");
-      await expect(dialogFullScreen).toBeAttached;
+      await expect(dialogFullScreen).toBeVisible();
       await page.keyboard.press("Escape");
-      await expect(dialogFullScreen).not.toBeAttached;
+      await expect(dialogFullScreen).toBeVisible();
     });
 
     test("should close after pressing Escape button", async ({
@@ -1016,9 +1016,9 @@ test.describe("Fullscreen Dialog component", () => {
       await mount(<FullScreenDialogComponent />);
 
       const dialogFullScreen = page.getByRole("dialog");
-      await expect(dialogFullScreen).toBeAttached;
+      await expect(dialogFullScreen).toBeVisible();
       await page.keyboard.press("Escape");
-      await expect(dialogFullScreen).not.toBeAttached;
+      await expect(dialogFullScreen).toBeHidden();
     });
 
     test("should allow to close nested `Dialog` and then the main, full-screen `Dialog` window", async ({
@@ -1205,7 +1205,7 @@ test.describe("Fullscreen Dialog component", () => {
         .filter({ hasText: "Open Dialog Full Screen" });
       const dialogFullScreen = page.getByRole("dialog");
       await expect(button).not.toBeFocused();
-      await expect(dialogFullScreen).not.toBeVisible();
+      await expect(dialogFullScreen).toBeHidden();
 
       await button.click();
       await dialogFullScreen.waitFor();
@@ -1213,7 +1213,7 @@ test.describe("Fullscreen Dialog component", () => {
       const closeButton = page.getByLabel("Close");
       await closeButton.click();
 
-      await expect(dialogFullScreen).not.toBeVisible();
+      await expect(dialogFullScreen).toBeHidden();
       await expect(button).toBeFocused();
     });
 
@@ -1232,7 +1232,7 @@ test.describe("Fullscreen Dialog component", () => {
         .getByRole("button")
         .filter({ hasText: "Open Dialog Full Screen" });
       await expect(button).not.toBeFocused();
-      await expect(dialogFullScreen).not.toBeVisible();
+      await expect(dialogFullScreen).toBeHidden();
 
       await button.click();
       await expect(dialogFullScreen).toBeVisible();
@@ -1251,7 +1251,7 @@ test.describe("Fullscreen Dialog component", () => {
         .filter({ hasText: "Open Main Dialog" });
       const firstDialog = page.getByRole("dialog").first();
       await expect(firstButton).not.toBeFocused();
-      await expect(firstDialog).not.toBeVisible();
+      await expect(firstDialog).toBeHidden();
 
       await firstButton.click();
       await expect(firstDialog).toBeVisible();
@@ -1285,14 +1285,14 @@ test.describe("Fullscreen Dialog component", () => {
         .filter({ hasText: "Open Dialog Full Screen" });
       const dialogFullScreen = page.getByRole("dialog");
       await expect(button).not.toBeFocused();
-      await expect(dialogFullScreen).not.toBeVisible();
+      await expect(dialogFullScreen).toBeHidden();
 
       await button.click();
       await expect(dialogFullScreen).toBeVisible();
       const closeButton = page.getByLabel("Close");
       await closeButton.click();
       await expect(button).not.toBeFocused();
-      await expect(dialogFullScreen).not.toBeVisible();
+      await expect(dialogFullScreen).toBeHidden();
     });
 
     test("should render component with autofocus disabled", async ({

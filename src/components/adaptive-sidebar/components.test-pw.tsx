@@ -30,6 +30,12 @@ export const DefaultAdaptiveSidebar = ({ ...props }) => {
           </Typography>
         </Box>
         <AdaptiveSidebar open={adaptiveSidebarOpen} {...props}>
+          <Button
+            buttonType="primary"
+            onClick={() => setAdaptiveSidebarOpen(false)}
+          >
+            Close
+          </Button>
           Adaptive sidebar content
         </AdaptiveSidebar>
       </Box>

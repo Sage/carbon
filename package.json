@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "157.0.1",
+  "version": "157.3.0",
   "description": "A library of reusable React components for easily building user interfaces.",
   "files": [
     "lib",
@@ -13,7 +13,7 @@
     "test-update": "jest --config=./jest.config.ts --updateSnapshot",
     "test-storybook": "test-storybook --url http://127.0.0.1:9001",
     "format": "prettier --write './{src,playwright}/**/*.{js,jsx,ts,tsx}'",
-    "lint": "eslint ./src ./playwright",
+    "lint": "eslint ./src ./playwright --max-warnings=636 --report-unused-disable-directives",
     "precompile": "npm run type-check && npm run build",
     "prepublishOnly": "npm run precompile",
     "build-storybook": "dotenvx run -- storybook build -c .storybook",
@@ -185,7 +185,7 @@
     "url-loader": "^4.1.1",
     "uuid": "^8.3.2",
     "vite": "^6.3.4",
-    "vite-plugin-static-copy": "^2.2.0"
+    "vite-plugin-static-copy": "^3.1.2"
   },
   "dependencies": {
     "@floating-ui/dom": "~1.2.9",

@@ -21,6 +21,7 @@ import {
   filterOutStyledSystemSpacingProps,
 } from "../../style/utils";
 import useChildButtons from "../../hooks/__internal__/useChildButtons";
+import useAdaptiveSidebarModalFocus from "../../hooks/__internal__/useAdaptiveSidebarModalFocus";
 import FlatTableContext from "../flat-table/__internal__/flat-table.context";
 import guid from "../../__internal__/utils/helpers/guid";
 
@@ -100,6 +101,8 @@ export const MultiActionButton = forwardRef<
         onClick(ev as React.MouseEvent<HTMLButtonElement>);
       }
     };
+
+    useAdaptiveSidebarModalFocus(() => hideButtons());
 
     const mainButtonProps = {
       disabled,

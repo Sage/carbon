@@ -342,7 +342,7 @@ test.describe("Check functionality for SimpleColorPicker component", () => {
 
       await expect(
         simpleColorPickerComponent(page).locator(`[data-element="${type}"]`),
-      ).not.toBeVisible();
+      ).toBeHidden();
       await expect(
         simpleColorDiv(page, 0).locator("..").locator(".."),
       ).toHaveCSS("outline-color", color);

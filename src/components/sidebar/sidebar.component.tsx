@@ -10,7 +10,7 @@ import SidebarHeader, { SidebarSubHeader } from "./__internal__/sidebar-header";
 import createGuid from "../../__internal__/utils/helpers/guid";
 import useLocale from "../../hooks/__internal__/useLocale";
 import { filterStyledSystemPaddingProps } from "../../style/utils";
-import { TagProps } from "../../__internal__/utils/helpers/tags/tags";
+import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 import useModalAria from "../../hooks/__internal__/useModalAria/useModalAria";
 import SidebarContext from "./__internal__/sidebar.context";
 
@@ -34,6 +34,8 @@ export interface SidebarProps
   "aria-labelledby"?: string;
   /** Modal content */
   children?: React.ReactNode;
+  /** Data tag prop bag for close Button */
+  closeButtonDataProps?: Pick<TagProps, "data-role" | "data-element">;
   /** Determines if the Esc Key closes the modal */
   disableEscKey?: boolean;
   /** Set this prop to false to hide the translucent background when the dialog is open. */
@@ -106,6 +108,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
       "data-role": dataRole,
       open,
       bespokeFocusTrap,
+      closeButtonDataProps,
       disableAutoFocus = false,
       disableEscKey = false,
       enableBackgroundUI = false,
@@ -154,7 +157,10 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
         <IconButton
           aria-label={locale.sidebar.ariaLabels.close()}
           onClick={onCancel}
-          data-element="close"
+          {...tagComponent("close", {
+            "data-element": "close",
+            ...closeButtonDataProps,
+          })}
         >
           <Icon type="close" />
         </IconButton>

@@ -124,7 +124,7 @@ test.describe("should render RadioButton component", () => {
       if (booleanValue) {
         await expect(radiobuttonElement).toBeDisabled();
       } else {
-        await expect(radiobuttonElement).not.toBeDisabled();
+        await expect(radiobuttonElement).toBeEnabled();
       }
     });
   });

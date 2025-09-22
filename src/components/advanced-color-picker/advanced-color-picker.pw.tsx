@@ -46,14 +46,14 @@ test("when AdvancedColorPicker is opened and then closed, with the `restoreFocus
   const initialCell = advancedColorPickerCell(page);
   const dialog = page.getByRole("dialog");
   await expect(initialCell).not.toBeFocused();
-  await expect(dialog).not.toBeVisible();
+  await expect(dialog).toBeHidden();
 
   await initialCell.click();
   await expect(dialog).toBeVisible();
   const closeButton = page.getByLabel("Close");
   await closeButton.click();
   await expect(initialCell).not.toBeFocused();
-  await expect(dialog).not.toBeVisible();
+  await expect(dialog).toBeHidden();
 });
 
 test.describe("should render AdvancedColorPicker component and check functionality", () => {
@@ -113,7 +113,7 @@ test.describe("should render AdvancedColorPicker component and check functionali
 
       const picker = simpleColorPickerInput(page, 7);
       await picker.press(key);
-      await expect(simpleColorPickerComponent(page)).not.toBeVisible();
+      await expect(simpleColorPickerComponent(page)).toBeHidden();
     });
   });
 
@@ -287,7 +287,7 @@ test.describe("should render AdvancedColorPicker component and check props", () 
       if (bool) {
         await expect(advancedColorPickerParent(page)).toBeVisible();
       } else {
-        await expect(advancedColorPickerParent(page)).not.toBeVisible();
+        await expect(advancedColorPickerParent(page)).toBeHidden();
       }
     });
   });

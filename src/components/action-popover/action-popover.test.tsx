@@ -1451,6 +1451,31 @@ describe("when an item has a submenu with default (left) alignment", () => {
     expect(screen.getByRole("button")).toHaveFocus();
   });
 
+  test("closes the entire parent menu when a custom adaptive sidebar blur event is dispatched", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+    render(
+      <ActionPopover>
+        <ActionPopoverItem href="#">Item 1</ActionPopoverItem>
+      </ActionPopover>,
+    );
+
+    await user.click(screen.getByRole("button"));
+
+    expect(screen.getByRole("list")).toBeVisible();
+
+    await act(async () => {
+      document.dispatchEvent(
+        new CustomEvent("adaptiveSidebarModalFocusIn", {
+          bubbles: true,
+          detail: { source: "adaptiveSidebarModal" },
+        }),
+      );
+    });
+
+    expect(screen.queryByRole("list")).not.toBeInTheDocument();
+  });
+
   it("does not open the submenu on mouseenter when the item is disabled", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 

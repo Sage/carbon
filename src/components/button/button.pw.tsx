@@ -166,15 +166,15 @@ test.describe("Button component", () => {
   test("should check Button is enabled", async ({ mount, page }) => {
     await mount(<ButtonDifferentTypes />);
 
-    await expect(page.getByText("Primary")).not.toBeDisabled();
+    await expect(page.getByText("Primary")).toBeEnabled();
 
-    await expect(page.getByText("Secondary")).not.toBeDisabled();
+    await expect(page.getByText("Secondary")).toBeEnabled();
 
-    await expect(page.getByText("Tertiary")).not.toBeDisabled();
+    await expect(page.getByText("Tertiary")).toBeEnabled();
 
-    await expect(page.getByText("Gradient white")).not.toBeDisabled();
+    await expect(page.getByText("Gradient white")).toBeEnabled();
 
-    await expect(page.getByText("Gradient grey")).not.toBeDisabled();
+    await expect(page.getByText("Gradient grey")).toBeEnabled();
   });
 });
 

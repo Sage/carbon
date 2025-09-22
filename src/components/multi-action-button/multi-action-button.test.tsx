@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import MultiActionButton, { MultiActionButtonHandle } from ".";
 import Button from "../button";
@@ -167,6 +167,33 @@ test("should close additional buttons when a click occurs outside the component"
   expect(
     screen.queryByRole("button", { name: "First" }),
   ).not.toBeInTheDocument();
+});
+
+test("should close additional buttons when a custom adaptive sidebar blur event is dispatched", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <MultiActionButton text="Main Button">
+      <Button>First</Button>
+    </MultiActionButton>,
+  );
+
+  await user.click(screen.getByRole("button", { name: "Main Button" }));
+
+  const button = screen.queryByRole("button", { name: "First" });
+
+  expect(button).toBeVisible();
+
+  await act(async () => {
+    document.dispatchEvent(
+      new CustomEvent("adaptiveSidebarModalFocusIn", {
+        bubbles: true,
+        detail: { source: "adaptiveSidebarModal" },
+      }),
+    );
+  });
+
+  expect(button).not.toBeInTheDocument();
 });
 
 test("should render main button as disabled when 'disabled' prop is true", () => {

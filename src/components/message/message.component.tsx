@@ -2,21 +2,22 @@ import React, { useRef } from "react";
 import { MarginProps } from "styled-system";
 
 import Typography from "../typography";
-import Content from "../content";
-import MessageStyle, { MessageContent, TypeIconStyle } from "./message.style";
+import {
+  MessageStyle,
+  MessageContentWrapper,
+  MessageContent,
+  MessageWrapper,
+  TypeIconStyle,
+} from "./message.style";
 import tagComponent, {
   TagProps,
 } from "../../__internal__/utils/helpers/tags/tags";
-import Icon from "../icon";
+import Icon, { IconType } from "../icon";
 import IconButton from "../icon-button";
-import AiIcon from "../../__internal__/ai-icon";
+import AiIcon, { AiIconInverse } from "../../__internal__/ai-icon";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import useLocale from "../../hooks/__internal__/useLocale";
-
-export interface TypeIconProps {
-  transparent?: boolean;
-  variant: MessageVariant;
-}
+import Logger from "../../__internal__/utils/logger";
 
 export type MessageVariant =
   | "error"
@@ -24,7 +25,26 @@ export type MessageVariant =
   | "success"
   | "warning"
   | "neutral"
-  | "ai";
+  | "ai"
+  | "error-subtle"
+  | "info-subtle"
+  | "success-subtle"
+  | "warning-subtle"
+  | "ai-subtle"
+  | "callout-subtle";
+
+export type InternalMessageVariant =
+  | "error"
+  | "info"
+  | "success"
+  | "warning"
+  | "neutral"
+  | "ai"
+  | "callout";
+
+let deprecateTransparentTriggered = false;
+let deprecateNeutralVariantTriggered = false;
+let deprecateShowCloseIconTriggered = false;
 
 export interface MessageProps extends MarginProps, TagProps {
   /** Set the component's content */
@@ -41,16 +61,18 @@ export interface MessageProps extends MarginProps, TagProps {
   ) => void;
   /** Flag to determine if the message is rendered */
   open?: boolean;
-  /** Flag to determine if the close button is rendered */
+  /** @deprecated Flag to determine if the close button is rendered*/
   showCloseIcon?: boolean;
   /** Set message title */
   title?: React.ReactNode;
-  /** Set transparent styling */
+  /** @deprecated Set transparent styling */
   transparent?: boolean;
   /** Set the component's variant */
   variant?: MessageVariant;
   /** Set the component's width, accepts any valid css string */
   width?: string;
+  /** Set the component's size */
+  size?: "medium" | "large";
 }
 
 export const Message = React.forwardRef<HTMLDivElement, MessageProps>(
@@ -66,24 +88,103 @@ export const Message = React.forwardRef<HTMLDivElement, MessageProps>(
       closeButtonAriaLabel,
       showCloseIcon = true,
       width,
+      size = "medium",
       ...props
     }: MessageProps,
     ref,
   ) => {
+    if (transparent && !deprecateTransparentTriggered) {
+      Logger.deprecate(
+        "The 'transparent' prop in `Message` is deprecated and will soon be removed.",
+      );
+      deprecateTransparentTriggered = true;
+    }
+
+    if (variant === "neutral" && !deprecateNeutralVariantTriggered) {
+      Logger.deprecate(
+        "The 'neutral' variant in `Message` is deprecated and will soon be removed.",
+      );
+      deprecateNeutralVariantTriggered = true;
+    }
+
+    if (showCloseIcon === false && !deprecateShowCloseIconTriggered) {
+      Logger.deprecate(
+        "The 'showCloseIcon' prop in `Message` is deprecated and will soon be removed. To prevent the close button from being rendered, don't pass the `onDismiss` prop.",
+      );
+      deprecateShowCloseIconTriggered = true;
+    }
+
     const localRef = useRef<HTMLDivElement | null>(null);
     const messageRef = ref || localRef;
     const locale = useLocale();
 
     const marginProps = filterStyledSystemMarginProps(props);
 
-    type IconType = "error" | "info" | "tick_circle" | "warning";
+    type VariantIconType = Exclude<InternalMessageVariant, "ai">;
 
-    const VARIANT_ICON_MAP: Record<Exclude<MessageVariant, "ai">, IconType> = {
+    const VARIANT_ICON_MAP: Record<VariantIconType, IconType> = {
       neutral: "info",
       success: "tick_circle",
       error: "error",
       warning: "warning",
       info: "info",
+      callout: "tag",
+    };
+
+    const isSubtle = variant.endsWith("-subtle");
+    const internalVariant = variant.replace(
+      "-subtle",
+      "",
+    ) as InternalMessageVariant;
+
+    const getVariantIcon = () => {
+      if (variant === "ai") {
+        return <AiIcon data-role="ai-icon" />;
+      }
+
+      if (variant === "ai-subtle") {
+        return <AiIconInverse data-role="ai-icon-subtle" />;
+      }
+
+      return (
+        <Icon type={VARIANT_ICON_MAP[internalVariant as VariantIconType]} />
+      );
+    };
+
+    const renderVariantIcon = () => {
+      return (
+        <>
+          <TypeIconStyle
+            aria-hidden="true"
+            variant={internalVariant}
+            isSubtle={isSubtle}
+            transparent={transparent}
+          >
+            {getVariantIcon()}
+          </TypeIconStyle>
+          <Typography screenReaderOnly>
+            {locale.message[internalVariant]?.()}
+          </Typography>
+        </>
+      );
+    };
+
+    const renderTitle = () => {
+      if (!title) return null;
+
+      if (typeof title === "string") {
+        return (
+          <Typography
+            m={0}
+            fontWeight="500"
+            fontSize={size === "large" ? "16px" : "14px"}
+          >
+            {title}
+          </Typography>
+        );
+      }
+
+      return title;
     };
 
     if (!open) {
@@ -94,43 +195,43 @@ export const Message = React.forwardRef<HTMLDivElement, MessageProps>(
       <MessageStyle
         {...tagComponent("Message", props)}
         transparent={transparent}
-        variant={variant}
+        variant={internalVariant}
+        isSubtle={isSubtle}
         id={id}
         width={width}
         ref={messageRef}
         {...marginProps}
         tabIndex={-1}
       >
-        <TypeIconStyle variant={variant} transparent={transparent}>
-          {variant === "ai" ? (
-            <AiIcon data-role="ai-icon" />
-          ) : (
-            <Icon data-role="category-icon" type={VARIANT_ICON_MAP[variant]} />
+        {!isSubtle && renderVariantIcon()}
+        <MessageWrapper>
+          <MessageContent
+            data-role="message-content"
+            size={size}
+            isSubtle={isSubtle}
+          >
+            {isSubtle && renderVariantIcon()}
+            <MessageContentWrapper size={size}>
+              {renderTitle()}
+              {children}
+            </MessageContentWrapper>
+          </MessageContent>
+          {showCloseIcon && onDismiss && (
+            // TODO: replace with "subtle" Button
+            <IconButton
+              my={size === "large" ? 2 : 1}
+              mr={size === "large" ? 2 : 1}
+              p="4px"
+              data-element="close"
+              aria-label={
+                closeButtonAriaLabel || locale.message.closeButtonAriaLabel()
+              }
+              onClick={onDismiss}
+            >
+              <Icon type="cross" />
+            </IconButton>
           )}
-        </TypeIconStyle>
-
-        <Typography screenReaderOnly>{locale.message[variant]()}</Typography>
-        <MessageContent
-          data-element="message-content"
-          data-role="message-content"
-        >
-          {!showCloseIcon || !onDismiss ? (
-            <Content title={title}>{children}</Content>
-          ) : (
-            <>
-              <Content title={title}>{children}</Content>
-              <IconButton
-                data-element="close"
-                aria-label={
-                  closeButtonAriaLabel || locale.message.closeButtonAriaLabel()
-                }
-                onClick={onDismiss}
-              >
-                <Icon type="close" />
-              </IconButton>
-            </>
-          )}
-        </MessageContent>
+        </MessageWrapper>
       </MessageStyle>
     );
   },
