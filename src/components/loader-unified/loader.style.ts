@@ -26,7 +26,7 @@ const innerBarAnimation = keyframes`
 
 const gradientAnimation = keyframes`
   0% {
-    stroke: #00d639;
+    stroke: var(--colorsLogo);
   }
   33% {
     stroke: #11afff;
@@ -124,9 +124,9 @@ const calculateColors = (isWheel: boolean, variant?: string) => {
         ? "var(--colorsSemanticNeutral500)"
         : "var(--colorsSemanticNeutral200)";
     case "gradient-grey":
-      return isWheel ? "#00D639" : "#0000001A";
+      return isWheel ? "var(--colorsLogo)" : "#0000001A";
     case "gradient-white":
-      return isWheel ? "#00D639" : "var(--colorsActionMajorYang100)";
+      return isWheel ? "var(--colorsLogo)" : "var(--colorsActionMajorYang100)";
     case "inverse":
       return "var(--colorsActionMajorYang100)";
     default:
