@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { StoryObj } from "@storybook/react";
 import { userEvent, within, expect } from "@storybook/test";
 
@@ -22,15 +22,10 @@ export default {
 export const FocusManagement: Story = {
   render: function FocusManagementRender() {
     const [isOpen, setIsOpen] = useState(false);
-    const buttonRef = useRef<HTMLButtonElement>(null);
 
     return (
       <>
-        <Button
-          ref={buttonRef}
-          onClick={() => setIsOpen(true)}
-          data-role="open-dialog-btn"
-        >
+        <Button onClick={() => setIsOpen(true)} data-role="open-dialog-btn">
           Open Dialog
         </Button>
 
@@ -40,7 +35,6 @@ export const FocusManagement: Story = {
           subtitle="Subtitle"
           onCancel={() => setIsOpen(false)}
           showCloseIcon
-          focusFirstElement={buttonRef}
         >
           <Form
             stickyFooter
