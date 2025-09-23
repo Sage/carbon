@@ -1,16 +1,15 @@
 import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
 
 import * as DetailStories from "./detail.stories.tsx";
+import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component"
 
 <Meta of={DetailStories} />
 
 # Detail
 
-Detail is useful to present some important text with prominence, for example, a quote, instruction, or callout.
-
-Make sure that the colour of all text has a contrast ratio of at least 4.5.1,
-to meet the [WCAG 2.0 AA standard](https://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-contrast.html "WCAG 2.0 AA standard")
-for text less than 19px in size. Webaim have a good online [Contrast Checker](http://webaim.org/resources/contrastchecker/ "Contrast Checker").
+<DeprecationWarning>
+Detail has been deprecated, if this pattern is still needed please see <a style={{color: "white"}} href="../?path=/docs/documentation-deprecation-migration--docs#detail">our deprecation migration docs</a> for an alternative pattern.
+</DeprecationWarning>
 
 ## Contents
 

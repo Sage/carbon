@@ -2,36 +2,15 @@ import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 import * as ToastStories from "./toast.stories";
+import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component"
 
 <Meta of={ToastStories} />
 
 # Toast
 
-<a
-  target="_blank"
-  href="https://zeroheight.com/2ccf2b601/p/31d5ea-toast/b/227fa0"
-  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
-  rel="noreferrer"
->
-  Product Design System component
-</a>
-
-Toast is part of Carbon's Flashes components.
-Its purpose is to present quick confirmation of success or failure, relating to the task the user has just performed. Alternatively, use Toast messages for a longer, timely message that the user must dismiss.
-
-Various types are available:
-
-- **Error** - Shows an error or failed action or task. Includes next steps.
-- **Info** - Shows additional information when a task is completed.
-- **Success** - Shows a successful action or completion of a task.
-- **Warning** - Shows information about external factors that impact a task. For example, the user does not have access rights.
-- **Neutral** - Shows information or advice, or provides context.
-
-**Note:** Please use this component sparingly or as a last resort. It is not recommended to use this component as a replacement for form validation. 
-Instead, consider using these altrenatives:
-- Carbon's [built in input validation](../?path=/docs/documentation/validations--docs).
-- Setting focus to a newly-rendered [Message](../?path=/docs/message--docs#with-focus).
-- For error or warning messages that interrupt activity try using [Alert](../?path=/docs/alert--docs).
+<DeprecationWarning>
+Toast has been deprecated, if this pattern is still needed please see <a style={{color: "white"}} href="../?path=/docs/documentation-deprecation-migration--docs#recommended-alternatives">our deprecation migration docs</a> for a recommended alternative.
+</DeprecationWarning>
 
 ## Contents
 

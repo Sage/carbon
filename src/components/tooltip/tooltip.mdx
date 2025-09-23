@@ -1,23 +1,15 @@
 import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
 
 import * as TooltipStories from "./tooltip.stories";
+import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component"
 
 <Meta of={TooltipStories} />
 
 # Tooltip
 
-<a
-  target="_blank"
-  href="https://zeroheight.com/2ccf2b601/p/93ac95-tooltip"
-  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
-  rel="noreferrer"
->
-  Product Design System component
-</a>
-
-The `Tooltip` component is built using `tippyjs` to support features such as dynamic positioning where the tooltip will
-flip if there is no space in its default placement; and the arrow and tooltip will track the target element when a user scrolls
-or the window resizes.
+<DeprecationWarning>
+Tooltip has been deprecated, if this pattern is still needed please see <a style={{color: "white"}} href="../?path=/docs/documentation-deprecation-migration--docs#recommended-alternatives">our deprecation migration docs</a> for a recommended alternative.
+</DeprecationWarning>
 
 ## Contents
 
