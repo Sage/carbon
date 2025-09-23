@@ -55,16 +55,16 @@ export const DefaultStory = ({
   children,
   href,
   variant,
-  isDarkBackground,
+  inverse,
   ...args
 }: LinkStoryProps) => {
-  const backgroundColor = isDarkBackground ? "#000000" : "transparent";
+  const backgroundColor = inverse ? "#000000" : "transparent";
   const link = (
     <Link
       onClick={hasOnClick ? action("click") : undefined}
       href={href}
       variant={variant}
-      isDarkBackground={isDarkBackground}
+      inverse={inverse}
       {...args}
     >
       {children}
@@ -96,7 +96,7 @@ DefaultStory.args = {
   hasOnClick: false,
   target: "_blank",
   variant: "default",
-  isDarkBackground: false,
+  inverse: false,
 };
 
 export const FlexContainer = () => {
@@ -131,7 +131,7 @@ FlexContainer.parameters = { chromatic: { disableSnapshot: false } };
 
 export const HoverUnderlineAndWhiteVariant = () => {
   const link = (
-    <Link href="#foo" variant="subtle" isDarkBackground underline="hover">
+    <Link href="#foo" variant="subtle" inverse underline="hover">
       Link with underline on hover and subtle variant.
     </Link>
   );
