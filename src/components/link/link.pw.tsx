@@ -76,7 +76,7 @@ test.describe("check props for Link component", () => {
     const linkElement = linkChildren(page);
     await expect(linkElement).toHaveCSS(
       "text-decoration",
-      "underline solid rgb(8, 113, 30)",
+      "underline rgb(8, 113, 30)",
     );
   });
 
@@ -93,7 +93,7 @@ test.describe("check props for Link component", () => {
     await linkElement.hover();
     await expect(linkElement).toHaveCSS(
       "text-decoration",
-      "underline solid rgb(16, 96, 28)",
+      "underline rgb(16, 96, 28)",
     );
   });
 
@@ -107,10 +107,7 @@ test.describe("check props for Link component", () => {
       </LinkComponent>,
     );
     const linkElement = linkChildren(page);
-    await expect(linkElement).toHaveCSS(
-      "text-decoration",
-      "none solid rgb(8, 113, 30)",
-    );
+    await expect(linkElement).toHaveCSS("text-decoration", "rgb(8, 113, 30)");
   });
 
   test("when `underline` prop is 'hover' and component is hovered over, it should apply the text-decoration underline", async ({
@@ -126,7 +123,7 @@ test.describe("check props for Link component", () => {
     await linkElement.hover();
     await expect(linkElement).toHaveCSS(
       "text-decoration",
-      "underline solid rgb(16, 96, 28)",
+      "underline rgb(16, 96, 28)",
     );
   });
 
@@ -140,10 +137,7 @@ test.describe("check props for Link component", () => {
       </LinkComponent>,
     );
     const linkElement = linkChildren(page);
-    await expect(linkElement).toHaveCSS(
-      "text-decoration",
-      "none solid rgb(8, 113, 30)",
-    );
+    await expect(linkElement).toHaveCSS("text-decoration", "rgb(8, 113, 30)");
   });
 
   test("when `underline` prop is 'never' and component is hovered over, it should maintain no text-decoration", async ({
@@ -157,10 +151,7 @@ test.describe("check props for Link component", () => {
     );
     const linkElement = linkChildren(page);
     await linkElement.hover();
-    await expect(linkElement).toHaveCSS(
-      "text-decoration",
-      "none solid rgb(16, 96, 28)",
-    );
+    await expect(linkElement).toHaveCSS("text-decoration", "rgb(16, 96, 28)");
   });
 
   test("should render with icon prop", async ({ mount, page }) => {
@@ -314,7 +305,7 @@ test.describe("check props for Link component", () => {
     await expect(skipLinkElement).toHaveCSS("left", "0px");
     await expect(skipLinkElement).toHaveCSS(
       "text-decoration",
-      "underline 4px solid rgb(0, 0, 0)",
+      "underline 4px rgb(0, 0, 0)",
     );
     await expect(skipLinkElement).toHaveCSS("text-decoration-thickness", "4px");
     await expect(skipLinkElement).toHaveCSS("text-underline-offset", "3px");
