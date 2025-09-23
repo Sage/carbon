@@ -97,37 +97,65 @@ OnClick.storyName = "On Click";
 export const FocusAndHoverStates: Story = {
   render: () => (
     <>
-      <Button mt={2} buttonType="primary" size="medium" ml={2}>
+      <Button mt={2} buttonType="primary" size="medium" data-role="target">
         Primary
       </Button>
       <Box>
-        <Button mt={2} buttonType="secondary" size="medium" ml={2}>
+        <Button mt={2} buttonType="secondary" size="medium" data-role="target">
           Secondary
         </Button>
       </Box>
-      <Button mt={2} buttonType="tertiary" size="medium" ml={2}>
+      <Button mt={2} buttonType="tertiary" size="medium" data-role="target">
         Tertiary
       </Button>
       <Box>
-        <Button mt={2} buttonType="primary" size="medium" ml={2} destructive>
+        <Button
+          mt={2}
+          buttonType="primary"
+          size="medium"
+          destructive
+          data-role="target"
+        >
           Primary Destructive
         </Button>
       </Box>
-      <Button mt={2} buttonType="secondary" size="medium" ml={2} destructive>
+      <Button
+        mt={2}
+        buttonType="secondary"
+        size="medium"
+        destructive
+        data-role="target"
+      >
         Secondary Destructive
       </Button>
       <Box>
-        <Button mt={2} buttonType="tertiary" size="medium" ml={2} destructive>
+        <Button
+          mt={2}
+          buttonType="tertiary"
+          size="medium"
+          destructive
+          data-role="target"
+        >
           Tertiary Destructive
         </Button>
       </Box>
       <Box>
-        <Button mt={2} buttonType="gradient-white" size="medium" ml={2}>
+        <Button
+          mt={2}
+          buttonType="gradient-white"
+          size="medium"
+          data-role="target"
+        >
           Gradient White
         </Button>
       </Box>
       <Box>
-        <Button mt={2} buttonType="gradient-grey" size="medium" ml={2}>
+        <Button
+          mt={2}
+          buttonType="gradient-grey"
+          size="medium"
+          data-role="target"
+        >
           Gradient Grey
         </Button>
       </Box>
@@ -168,8 +196,8 @@ export const FocusAndHoverStates: Story = {
 FocusAndHoverStates.storyName = "Focus and Hover States";
 FocusAndHoverStates.parameters = {
   pseudo: {
-    hover: "button",
-    focus: "button",
+    hover: '[data-role="target"]',
+    focus: '[data-role="target"]',
   },
 };
 
