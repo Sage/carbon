@@ -34,7 +34,7 @@ test.describe("should render Breadcrumbs component", () => {
     await crumbElement.hover();
 
     const link = crumbElement.locator("a");
-    await expect(link).toHaveCSS("color", "rgb(0, 103, 56)");
+    await expect(link).toHaveCSS("color", "rgb(16, 96, 28)");
   });
 
   test("should check Breadcrumbs on focus", async ({ mount, page }) => {
@@ -55,11 +55,11 @@ test.describe("should render Breadcrumbs component", () => {
     await crumbAtIndex(page, 0).locator("button").focus();
     await expect(crumbAtIndex(page, 0).locator("button")).toHaveCSS(
       "background-color",
-      "rgb(255, 218, 128)",
+      "rgb(255, 210, 126)",
     );
     await expect(crumbAtIndex(page, 0).locator("span").first()).toHaveCSS(
       "box-shadow",
-      "rgba(0, 0, 0, 0.9) 0px 4px 0px 0px",
+      "rgb(0, 0, 0) 0px 4px 0px 0px",
     );
   });
 
@@ -72,11 +72,11 @@ test.describe("should render Breadcrumbs component", () => {
     await crumbAtIndex(page, 0).locator("a").focus();
     await expect(crumbAtIndex(page, 0).locator("a")).toHaveCSS(
       "background-color",
-      "rgb(255, 218, 128)",
+      "rgb(255, 210, 126)",
     );
     await expect(crumbAtIndex(page, 0).locator("span").first()).toHaveCSS(
       "box-shadow",
-      "rgba(0, 0, 0, 0.9) 0px 4px 0px 0px",
+      "rgb(0, 0, 0) 0px 4px 0px 0px",
     );
   });
 
@@ -158,11 +158,11 @@ test.describe("should render Breadcrumbs component", () => {
     await crumbAtIndex(page, 0).locator("a").press("Space");
     await expect(crumbAtIndex(page, 0).locator("a")).toHaveCSS(
       "background-color",
-      "rgb(255, 218, 128)",
+      "rgb(255, 210, 126)",
     );
     await expect(crumbAtIndex(page, 0).locator("span").first()).toHaveCSS(
       "box-shadow",
-      "rgba(0, 0, 0, 0.9) 0px 4px 0px 0px",
+      "rgb(0, 0, 0) 0px 4px 0px 0px",
     );
   });
 

@@ -76,7 +76,7 @@ test.describe("check props for Link component", () => {
     const linkElement = linkChildren(page);
     await expect(linkElement).toHaveCSS(
       "text-decoration",
-      "underline solid rgb(0, 126, 69)",
+      "underline solid rgb(8, 113, 30)",
     );
   });
 
@@ -93,7 +93,7 @@ test.describe("check props for Link component", () => {
     await linkElement.hover();
     await expect(linkElement).toHaveCSS(
       "text-decoration",
-      "underline solid rgb(0, 103, 56)",
+      "underline solid rgb(16, 96, 28)",
     );
   });
 
@@ -109,7 +109,7 @@ test.describe("check props for Link component", () => {
     const linkElement = linkChildren(page);
     await expect(linkElement).toHaveCSS(
       "text-decoration",
-      "none solid rgb(0, 126, 69)",
+      "none solid rgb(8, 113, 30)",
     );
   });
 
@@ -126,7 +126,7 @@ test.describe("check props for Link component", () => {
     await linkElement.hover();
     await expect(linkElement).toHaveCSS(
       "text-decoration",
-      "underline solid rgb(0, 103, 56)",
+      "underline solid rgb(16, 96, 28)",
     );
   });
 
@@ -142,7 +142,7 @@ test.describe("check props for Link component", () => {
     const linkElement = linkChildren(page);
     await expect(linkElement).toHaveCSS(
       "text-decoration",
-      "none solid rgb(0, 126, 69)",
+      "none solid rgb(8, 113, 30)",
     );
   });
 
@@ -159,7 +159,7 @@ test.describe("check props for Link component", () => {
     await linkElement.hover();
     await expect(linkElement).toHaveCSS(
       "text-decoration",
-      "none solid rgb(0, 103, 56)",
+      "none solid rgb(16, 96, 28)",
     );
   });
 
@@ -322,9 +322,9 @@ test.describe("check props for Link component", () => {
 
   (
     [
-      ["default", "rgb(0, 126, 69)"],
-      ["negative", "rgb(203, 55, 74)"],
-      ["neutral", "rgba(0, 0, 0, 0.9)"],
+      ["default", "rgb(8, 113, 30)"],
+      ["negative", "rgb(178, 51, 66)"],
+      ["neutral", "rgba(0, 0, 0, 0.898)"],
     ] as [LinkProps["variant"], string][]
   ).forEach(([variant, defaultColor]) => {
     test(`should render with variant prop set to ${variant}`, async ({
@@ -340,18 +340,18 @@ test.describe("check props for Link component", () => {
 
   (
     [
-      ["default", "rgb(77, 167, 126)"],
-      ["negative", "rgb(219, 115, 128)"],
-      ["neutral", "rgb(230, 235, 237)"],
+      ["default", "rgb(78, 220, 84)"],
+      ["negative", "rgb(232, 91, 102)"],
+      ["neutral", "rgb(255, 255, 255)"],
       ["subtle", "rgb(255, 255, 255)"],
     ] as [LinkProps["variant"], string][]
   ).forEach(([variant, defaultColor]) => {
-    test(`should render with variant prop set to ${variant} and isDarkBackground`, async ({
+    test(`should render with variant prop set to ${variant} and inverse`, async ({
       mount,
       page,
     }) => {
       await mount(
-        <LinkComponentWithDarkBackground variant={variant} isDarkBackground />,
+        <LinkComponentWithDarkBackground variant={variant} inverse />,
       );
 
       const linkElement = linkChildren(page);
@@ -361,9 +361,9 @@ test.describe("check props for Link component", () => {
 
   (
     [
-      ["default", "rgb(0, 103, 56)"],
-      ["negative", "rgb(162, 44, 59)"],
-      ["neutral", "rgb(0, 103, 56)"],
+      ["default", "rgb(16, 96, 28)"],
+      ["negative", "rgb(159, 48, 60)"],
+      ["neutral", "rgb(0, 0, 0)"],
     ] as [LinkProps["variant"], string][]
   ).forEach(([variant, hoverColor]) => {
     test(`should render with correct hover state with variant prop set to ${variant}`, async ({
@@ -380,18 +380,18 @@ test.describe("check props for Link component", () => {
 
   (
     [
-      ["default", "rgb(25, 142, 89)"],
-      ["negative", "rgb(208, 75, 92)"],
-      ["neutral", "rgb(25, 142, 89)"],
+      ["default", "rgb(114, 226, 111)"],
+      ["negative", "rgb(237, 110, 116)"],
+      ["neutral", "rgb(255, 255, 255)"],
       ["subtle", "rgb(255, 255, 255)"],
     ] as [LinkProps["variant"], string][]
   ).forEach(([variant, hoverColor]) => {
-    test(`should render with correct hover state with isDarkBackground prop set with ${variant} variant`, async ({
+    test(`should render with correct hover state with inverse prop set with ${variant} variant`, async ({
       mount,
       page,
     }) => {
       await mount(
-        <LinkComponentWithDarkBackground variant={variant} isDarkBackground />,
+        <LinkComponentWithDarkBackground variant={variant} inverse />,
       );
 
       const linkElement = linkChildren(page);
@@ -409,13 +409,13 @@ test("should render with the correct focus styling", async ({
 
   const linkElement = linkChildren(page);
   await linkElement.focus();
-  await expect(linkElement).toHaveCSS("background-color", "rgb(255, 218, 128)");
-  await expect(linkElement).toHaveCSS("color", "rgba(0, 0, 0, 0.9)");
+  await expect(linkElement).toHaveCSS("background-color", "rgb(255, 210, 126)");
+  await expect(linkElement).toHaveCSS("color", "rgb(0, 0, 0)");
   await expect(linkElement).toHaveCSS("border-radius", "2px");
   const linkWrapper = link(page);
   await expect(linkWrapper).toHaveCSS(
     "box-shadow",
-    "rgba(0, 0, 0, 0.9) 0px 4px 0px 0px",
+    "rgb(0, 0, 0) 0px 4px 0px 0px",
   );
   await expect(linkWrapper).toHaveCSS("max-width", "fit-content");
 });
@@ -491,7 +491,7 @@ test.describe("should check accessibility for Link component", () => {
     mount,
     page,
   }) => {
-    await mount(<LinkComponentWithDarkBackground isDarkBackground />);
+    await mount(<LinkComponentWithDarkBackground inverse />);
 
     await checkAccessibility(page);
   });
@@ -586,15 +586,12 @@ test.describe("should check accessibility for Link component", () => {
 
   (["default", "negative", "neutral"] as LinkProps["variant"][]).forEach(
     (variant) => {
-      test(`should pass accessibility tests with variant prop set to ${variant} and isDarkBackground`, async ({
+      test(`should pass accessibility tests with variant prop set to ${variant} and inverse`, async ({
         mount,
         page,
       }) => {
         await mount(
-          <LinkComponentWithDarkBackground
-            variant={variant}
-            isDarkBackground
-          />,
+          <LinkComponentWithDarkBackground variant={variant} inverse />,
         );
 
         await checkAccessibility(page);
