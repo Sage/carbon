@@ -1,3 +1,9 @@
+## [157.3.1](https://github.com/Sage/carbon/compare/v157.3.0...v157.3.1) (2025-09-23)
+
+### Bug Fixes
+
+* **link:** link audit changes ([7c6d54d](https://github.com/Sage/carbon/commit/7c6d54db52d601723752e0e140b387cff3b09ad5))
+
 ## [157.3.0](https://github.com/Sage/carbon/compare/v157.2.0...v157.3.0) (2025-09-18)
 
 ### Features
