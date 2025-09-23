@@ -11,7 +11,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof IconButton> = {
-  title: "Icon Button",
+  title: "Deprecated/Icon Button",
   component: IconButton,
   argTypes: {
     ...styledSystemProps,

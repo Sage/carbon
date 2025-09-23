@@ -10,7 +10,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof Number> = {
-  title: "Number Input",
+  title: "Deprecated/Number Input",
   component: Number,
   argTypes: {
     ...styledSystemProps,

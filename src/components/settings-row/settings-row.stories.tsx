@@ -10,7 +10,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof SettingsRow> = {
-  title: "Settings Row",
+  title: "Deprecated/Settings Row",
   component: SettingsRow,
   argTypes: {
     ...styledSystemProps,

@@ -9,7 +9,7 @@ import Button from "../button";
 import Box from "../box";
 
 export default {
-  title: "Pages/Test",
+  title: "Deprecated/Pages/Test",
   includeStories: ["DefaultStory", "DifferentPageHeights", "WithoutTitle"],
   parameters: {
     info: { disable: true },

@@ -15,7 +15,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof Heading> = {
-  title: "Heading",
+  title: "Deprecated/Heading",
   component: Heading,
   argTypes: {
     ...styledSystemProps,

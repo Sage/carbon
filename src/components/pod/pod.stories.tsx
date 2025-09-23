@@ -14,7 +14,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof Pod> = {
-  title: "Pod",
+  title: "Deprecated/Pod",
   component: Pod,
   argTypes: {
     ...styledSystemProps,

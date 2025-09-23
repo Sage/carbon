@@ -16,7 +16,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof InlineInputs> = {
-  title: "Inline Inputs",
+  title: "Deprecated/Inline Inputs",
   component: InlineInputs,
   argTypes: {
     ...styledSystemProps,

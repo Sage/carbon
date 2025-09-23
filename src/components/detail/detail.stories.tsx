@@ -15,7 +15,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof Detail> = {
-  title: "Detail",
+  title: "Deprecated/Detail",
   component: Detail,
   argTypes: {
     ...styledSystemProps,

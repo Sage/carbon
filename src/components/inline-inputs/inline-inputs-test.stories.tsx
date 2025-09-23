@@ -6,7 +6,7 @@ import SimpleSelect from "../select/simple-select";
 import Option from "../select/option";
 
 export default {
-  title: "Inline Inputs/Test",
+  title: "Deprecated/Inline Inputs/Test",
   includeStories: ["Default"],
   parameters: {
     info: { disable: true },

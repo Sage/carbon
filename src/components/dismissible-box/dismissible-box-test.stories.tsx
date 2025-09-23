@@ -8,7 +8,7 @@ import Image from "../image";
 import point from "../../../.assets/point.svg";
 
 export default {
-  title: "Dismissible Box/Test",
+  title: "Deprecated/Dismissible Box/Test",
   parameters: {
     info: { disable: true },
   },

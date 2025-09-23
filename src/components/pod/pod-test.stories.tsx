@@ -3,7 +3,7 @@ import Pod, { PodProps } from "./pod.component";
 import { POD_ALIGNMENTS, POD_SIZES, POD_VARIANTS } from "./pod.config";
 
 export default {
-  title: "Pod/Test",
+  title: "Deprecated/Pod/Test",
   includeStories: ["Default"],
   parameters: {
     info: { disable: true },

@@ -11,7 +11,7 @@ import {
 } from "../textbox/utils";
 
 export default {
-  title: "Number Input/Test",
+  title: "Deprecated/Number Input/Test",
   parameters: {
     info: { disable: true },
     chromatic: {
