@@ -116,6 +116,11 @@ export const MultiActionButton = forwardRef<
       ...filterOutStyledSystemSpacingProps(rest),
     };
 
+    // Pull ref out so it doesn't get passed to the container
+    // which breaks the component if it is mounted in a Dialog
+    // (but only in Safari)
+    const { ref: _wrapperRef, ...restWrapperProps } = wrapperProps;
+
     const renderAdditionalButtons = () => (
       <Popover
         disableBackgroundUI={isInFlatTable}
@@ -136,7 +141,7 @@ export const MultiActionButton = forwardRef<
       >
         <StyledButtonChildrenContainer
           id={submenuId.current}
-          {...wrapperProps}
+          {...restWrapperProps}
           align={align}
         >
           <SplitButtonContext.Provider value={contextValue}>
