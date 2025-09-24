@@ -1,3 +1,9 @@
+## [157.3.2](https://github.com/Sage/carbon/compare/v157.3.1...v157.3.2) (2025-09-24)
+
+### Bug Fixes
+
+* **numeral-date:** add ability to set ID values against individual inputs ([b9751a5](https://github.com/Sage/carbon/commit/b9751a55b4596da58f521950397020ed153a7a54)), closes [#7518](https://github.com/Sage/carbon/issues/7518)
+
 ## [157.3.1](https://github.com/Sage/carbon/compare/v157.3.0...v157.3.1) (2025-09-23)
 
 ### Bug Fixes
