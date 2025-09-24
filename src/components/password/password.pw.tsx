@@ -314,15 +314,10 @@ test.describe("aria-live region checks", () => {
     const hiddenStatus = page.getByRole("status");
 
     await expect(hiddenStatus).toBeVisible();
-    await expect(hiddenStatus).toHaveCSS(
-      "border",
-      "0px none rgba(0, 0, 0, 0.9)",
-    );
+    await expect(hiddenStatus).toHaveCSS("clip-path", "inset(50%)");
     await expect(hiddenStatus).toHaveCSS("height", "1px");
-    await expect(hiddenStatus).toHaveCSS("margin", "-1px");
     await expect(hiddenStatus).toHaveCSS("overflow", "hidden");
-    await expect(hiddenStatus).toHaveCSS("padding", "0px");
-    await expect(hiddenStatus).toHaveCSS("position", "absolute");
+    await expect(hiddenStatus).toHaveCSS("white-space", "nowrap");
     await expect(hiddenStatus).toHaveCSS("width", "1px");
   });
 });
