@@ -6,7 +6,6 @@ import AnchorNavigation from "./anchor-navigation.component";
 import { DefaultStory } from "./anchor-navigation.stories";
 
 import DefaultDecorator from "../../../.storybook/utils/default-decorator";
-import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
 
 type Story = StoryObj<typeof AnchorNavigation>;
 
@@ -25,8 +24,6 @@ const RenderFromDefault: StoryFn = () =>
 export const NavFocusManagement: Story = {
   render: RenderFromDefault,
   play: async ({ canvasElement }) => {
-    if (!allowInteractions()) return;
-
     const canvas = within(canvasElement);
     const links = canvas.getAllByRole("link");
 
@@ -55,8 +52,6 @@ NavFocusManagement.parameters = {
 export const ScrollAndFocusInput: Story = {
   render: RenderFromDefault,
   play: async ({ canvasElement }) => {
-    if (!allowInteractions()) return;
-
     const canvas = within(canvasElement);
 
     const secondHeading = canvas.getByRole("heading", {
@@ -72,15 +67,10 @@ export const ScrollAndFocusInput: Story = {
 
     await userEvent.click(secondNavLink);
 
-    const maybeSectionEl = secondHeading.closest(
+    const sectionEl = secondHeading.closest(
       '[data-carbon-anchornav-ref="true"]',
-    );
-
-    if (!(maybeSectionEl instanceof HTMLElement)) {
-      throw new Error("Anchor Navigation: section element not found");
-    }
-
-    const sectionEl: HTMLElement = maybeSectionEl;
+    ) as HTMLElement | null;
+    if (!sectionEl) return;
 
     await waitFor(() => expect(sectionEl).toHaveFocus());
 
