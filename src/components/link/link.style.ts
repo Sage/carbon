@@ -3,9 +3,20 @@ import applyBaseTheme from "../../style/themes/apply-base-theme";
 import StyledIcon from "../icon/icon.style";
 import StyledButton from "../button/button.style";
 
-type Variants = "default" | "negative" | "neutral" | "subtle";
+/** @deprecated The value 'default' for the variant prop is deprecated and will soon be removed. Please use value 'typical' instead. */
+type DeprecatedDefaultVariant = "default";
+
+/** @deprecated The value 'netural' for the variant prop is deprecated and will soon be removed. Please use value 'subtle' instead. */
+type DeprecatedNeutralVariant = "neutral";
+
+type Variants =
+  | "typical"
+  | "negative"
+  | "subtle"
+  | DeprecatedDefaultVariant
+  | DeprecatedNeutralVariant;
 export interface StyledLinkProps {
-  /** The disabled state of the link. */
+  /** @deprecated The disabled state of the link. This prop is deprecated and will soon be removed. */
   disabled?: boolean;
   /** Specifies when the link underline should be displayed. */
   underline?: "always" | "hover" | "never";
@@ -13,11 +24,15 @@ export interface StyledLinkProps {
   iconAlign?: "left" | "right";
   /** Allows to create skip link */
   isSkipLink?: boolean;
-  /** Sets the colour styling when component is rendered on a dark background */
-  isDarkBackground?: boolean;
   /** Allows link styling to be updated for light or dark backgrounds */
   variant?: Variants;
   hasFocus?: boolean;
+  /** Sets the correct link size */
+  linkSize?: "medium" | "large";
+  /** Sets the colour styling when component is rendered on a dark background */
+  inverse?: boolean;
+  /** @deprecated The 'isDarkBackground' prop in Link is deprecated and will soon be removed. Please use 'inverse' prop instead. */
+  isDarkBackground?: boolean;
 }
 interface PrivateStyledLinkProps {
   hasContent: boolean;
@@ -28,6 +43,9 @@ interface LinkColors {
   color: string;
   hoverColor: string;
   disabledColor: string;
+  focusColor: string;
+  focusBgColor: string;
+  focusBoxShadowColor: string;
 }
 
 type ColorMapProp = (variant?: Variants) => LinkColors;
@@ -39,31 +57,39 @@ interface ColorMap {
 
 const colorMap: ColorMap = {
   light: (variant) => {
-    let color = "var(--colorsActionMajor500)";
-    let hoverColor = "var(--colorsActionMajor600)";
+    let color = "#08711E";
+    let hoverColor = "#10601C";
+    const focusColor = "#000000";
+    const focusBgColor = "#FFD27E";
+    const focusBoxShadowColor = "#000000";
 
     if (variant === "negative") {
-      color = "var(--colorsSemanticNegative500)";
-      hoverColor = "var(--colorsSemanticNegative600)";
-    } else if (variant === "neutral") {
-      color = "var(--colorsActionMajorYin090)";
+      color = "#B23342";
+      hoverColor = "#9F303C";
+    } else if (variant === "subtle") {
+      color = "#000000E5";
+      hoverColor = "#000000";
     }
 
     return {
       color,
       hoverColor,
       disabledColor: "var(--colorsActionMajorYin030)",
+      focusColor,
+      focusBgColor,
+      focusBoxShadowColor,
     };
   },
   dark: (variant) => {
-    let color = "var(--colorsActionMajor350)";
-    let hoverColor = "var(--colorsActionMajor450)";
+    let color = "#4EDC54";
+    let hoverColor = "#72E26F";
+    const focusColor = "#FFFFFF";
+    const focusBgColor = "#926916";
+    const focusBoxShadowColor = "#FFB500";
 
     if (variant === "negative") {
-      color = "var(--colorsSemanticNegative350)";
-      hoverColor = "var(--colorsSemanticNegative450)";
-    } else if (variant === "neutral") {
-      color = "var(--colorsActionMinor100)";
+      color = "#E85B66";
+      hoverColor = "#ED6E74";
     } else if (variant === "subtle") {
       color = "var(--colorsUtilityYang100)";
       hoverColor = "var(--colorsUtilityYang100)";
@@ -73,6 +99,9 @@ const colorMap: ColorMap = {
       color,
       hoverColor,
       disabledColor: "var(--colorsActionMajorYang030)",
+      focusColor,
+      focusBgColor,
+      focusBoxShadowColor,
     };
   },
 };
@@ -88,12 +117,22 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
     disabled,
     underline,
     variant,
-    isDarkBackground,
+    inverse,
     isMenuItem,
     hasFocus,
+    linkSize,
   }) => {
-    const colorMapKey = isDarkBackground ? "dark" : "light";
-    const { color, hoverColor, disabledColor } = colorMap[colorMapKey](variant);
+    const colorMapKey = inverse ? "dark" : "light";
+    const {
+      color,
+      hoverColor,
+      disabledColor,
+      focusColor,
+      focusBgColor,
+      focusBoxShadowColor,
+    } = colorMap[colorMapKey](variant);
+    const fontSize =
+      linkSize === "medium" ? "var(---fontSizes100)" : "var(--fontSizes200)";
 
     return css`
       ${isSkipLink &&
@@ -109,7 +148,7 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
           box-shadow: var(--boxShadow300);
           border-radius: var(--spacing000) var(--spacing100) var(--spacing100)
             var(--spacing000);
-          font-size: var(--fontSizes100);
+          font-size: ${fontSize};
           color: var(--colorsUtilityYin090);
 
           &:hover {
@@ -142,7 +181,7 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
       css`
         > a,
         > button {
-          font-size: var(--fontSizes100);
+          font-size: ${fontSize};
 
           ${!disabled &&
           css`
@@ -160,7 +199,7 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
             }
 
             &:focus {
-              background-color: var(--colorsSemanticFocus250);
+              background-color: ${focusBgColor};
               border-radius: var(--borderRadius025);
             }
           `}
@@ -217,11 +256,11 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
         }
 
         &:focus {
-          color: var(--colorsActionMajorYin090);
+          color: ${focusColor};
           outline: none;
 
           ${StyledIcon} {
-            color: var(--colorsActionMajorYin090);
+            color: ${focusColor};
           }
         }
 
@@ -238,12 +277,12 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
         > a,
         > button {
           outline: none;
-          text-decoration: none;
+          text-decoration: underline;
           border-bottom-left-radius: var(--borderRadius000);
           border-bottom-right-radius: var(--borderRadius000);
         }
         max-width: fit-content;
-        box-shadow: 0 var(--spacing050) 0 0 var(--colorsUtilityYin090);
+        box-shadow: 0 var(--spacing050) 0 0 ${focusBoxShadowColor};
         border-bottom-left-radius: var(--borderRadius025);
         border-bottom-right-radius: var(--borderRadius025);
 

@@ -1265,10 +1265,7 @@ test.describe("Styling tests", () => {
 
     await link.focus();
     await expect(link).toHaveCSS("outline", "rgba(0, 0, 0, 0.9) none 0px");
-    await expect(link).toHaveCSS(
-      "text-decoration",
-      "none solid rgba(0, 0, 0, 0.9)",
-    );
+    await expect(link).toHaveCSS("text-decoration", "rgba(0, 0, 0, 0.9)");
     await expect(link).toHaveCSS("color", "rgba(0, 0, 0, 0.9)");
     await expect(link).toHaveCSS("background-color", "rgb(255, 218, 128)");
     await expect(link).toHaveCSS("border-radius", "2px");

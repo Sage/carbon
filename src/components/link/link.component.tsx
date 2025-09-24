@@ -8,6 +8,7 @@ import tagComponent, {
 } from "../../__internal__/utils/helpers/tags/tags";
 import useLocale from "../../hooks/__internal__/useLocale";
 import BatchSelectionContext from "../batch-selection/__internal__/batch-selection.context";
+import Logger from "../../__internal__/utils/logger";
 
 export interface LinkProps
   extends StyledLinkProps,
@@ -36,10 +37,6 @@ export interface LinkProps
       | React.MouseEvent<HTMLButtonElement>,
   ) => void;
 
-  /** [Legacy] A message to display as a tooltip to the link. */
-  tooltipMessage?: string;
-  /** [Legacy] Positions the tooltip with the link. */
-  tooltipPosition?: "bottom" | "left" | "right" | "top";
   /** Child content to render in the link. */
   children?: React.ReactNode;
   /** Target property in which link should open ie: _blank, _self, _parent, _top */
@@ -56,7 +53,29 @@ export interface LinkProps
    * @ignore
    * Sets className for component. INTERNAL USE ONLY. */
   className?: string;
+  /** [Legacy] A message to display as a tooltip to the link.
+   * @deprecated The tooltipMessage prop in Link is deprecated and will soon be removed. */
+  tooltipMessage?: string;
+  /** [Legacy] Positions the tooltip with the link.
+   * @deprecated The tooltipPosition prop in Link is deprecated and will soon be removed. */
+  tooltipPosition?: "bottom" | "left" | "right" | "top";
 }
+
+let deprecatedDisabledWarning = false;
+let deprecatedTooltipPositionWarning = false;
+let deprecatedTooltipMessageWarning = false;
+let deprecatedIsDarkBackgroundWarning = false;
+const deprecatedVariantValueWarning: Partial<Record<Variants, boolean>> = {
+  default: false,
+  neutral: false,
+};
+
+type Variants = Exclude<StyledLinkProps["variant"], undefined>;
+
+const variantAlias: Partial<Record<Variants, Variants>> = {
+  default: "typical",
+  neutral: "subtle",
+};
 
 export const Link = React.forwardRef<
   HTMLAnchorElement | HTMLButtonElement,
@@ -79,10 +98,12 @@ export const Link = React.forwardRef<
       tooltipMessage,
       tooltipPosition,
       target,
-      variant = "default",
+      variant = "typical",
       isDarkBackground,
+      inverse,
       removeAriaLabelOnIcon,
       className,
+      linkSize = "medium",
       ...rest
     }: LinkProps,
     ref,
@@ -92,6 +113,44 @@ export const Link = React.forwardRef<
     const { inMenu } = useContext(MenuContext);
     const { batchSelectionDisabled } = useContext(BatchSelectionContext);
     const isDisabled = disabled || batchSelectionDisabled;
+
+    if (!deprecatedDisabledWarning && disabled) {
+      deprecatedDisabledWarning = true;
+      Logger.deprecate(
+        "The 'disabled' prop in Link is deprecated and will soon be removed.",
+      );
+    }
+
+    if (!deprecatedTooltipMessageWarning && tooltipMessage) {
+      deprecatedTooltipMessageWarning = true;
+      Logger.deprecate(
+        "The 'tooltipMessage' prop in Link is deprecated and will soon be removed.",
+      );
+    }
+
+    if (!deprecatedTooltipPositionWarning && tooltipPosition) {
+      deprecatedTooltipPositionWarning = true;
+      Logger.deprecate(
+        "The 'tooltipPosition' prop in Link is deprecated and will soon be removed.",
+      );
+    }
+
+    if (!deprecatedIsDarkBackgroundWarning && isDarkBackground) {
+      deprecatedIsDarkBackgroundWarning = true;
+      Logger.deprecate(
+        "The 'isDarkBackground' prop in Link is deprecated and will soon be removed. Please use 'inverse' prop instead.",
+      );
+    }
+
+    if (!deprecatedVariantValueWarning[variant] && variantAlias[variant]) {
+      deprecatedVariantValueWarning[variant] = true;
+      Logger.deprecate(
+        `The value '${variant}' for the variant prop is deprecated and will soon be removed. Please use value '${variantAlias[variant]}' instead.`,
+      );
+    }
+
+    const effectiveInverse = inverse ?? isDarkBackground;
+    const effectiveVariant = variantAlias[variant] ?? variant;
 
     const setRefs = React.useCallback(
       (reference: HTMLAnchorElement) => {
@@ -192,12 +251,13 @@ export const Link = React.forwardRef<
         iconAlign={iconAlign}
         className={className}
         hasContent={Boolean(children)}
-        variant={variant}
-        isDarkBackground={isDarkBackground}
+        variant={effectiveVariant}
+        inverse={effectiveInverse}
         isMenuItem={inMenu}
         {...tagComponent("link", rest)}
         {...(isSkipLink && { "data-element": "skip-link" })}
         hasFocus={hasFocus}
+        linkSize={linkSize}
       >
         {createLinkBasedOnType()}
       </StyledLink>

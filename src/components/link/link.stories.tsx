@@ -40,7 +40,7 @@ export const WithUnderlineOnlyOnHover = () => {
     </Link>
   );
 };
-WithUnderlineOnlyOnHover.storyName = "With Underline Only On Hover";
+WithUnderlineOnlyOnHover.storyName = "With Underline On Hover and Focus";
 WithUnderlineOnlyOnHover.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithNoUnderline = () => {
@@ -146,6 +146,13 @@ export const Variants: Story = () => {
         href="https://carbon.sage.com"
         target="_blank"
         rel="noreferrer noopener"
+      >
+        This is a typical link
+      </Link>
+      <Link
+        href="https://carbon.sage.com"
+        target="_blank"
+        rel="noreferrer noopener"
         variant="negative"
       >
         This is a negative link
@@ -180,6 +187,31 @@ export const Variants: Story = () => {
   );
 };
 Variants.storyName = "Variants";
+
+export const LinkSize: Story = () => {
+  return (
+    <>
+      <Link
+        href="https://carbon.sage.com"
+        target="_blank"
+        rel="noreferrer noopener"
+      >
+        This is a 'medium' link
+      </Link>
+      <br />
+      <br />
+      <Link
+        href="https://carbon.sage.com"
+        target="_blank"
+        rel="noreferrer noopener"
+        linkSize="large"
+      >
+        This is a 'large' link
+      </Link>
+    </>
+  );
+};
+LinkSize.storyName = "Link Size";
 
 export const OnADarkBackground: Story = () => {
   return (
