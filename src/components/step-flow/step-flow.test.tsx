@@ -274,14 +274,11 @@ it.each(generateLimitedVariations())(
         `foo. bar. Step ${currentStep} of ${totalSteps}.`,
       ),
     ).toHaveStyle({
-      border: "0",
+      clipPath: "inset(50%)",
       height: "1px",
-      margin: "-1px",
       overflow: "hidden",
-      padding: "0",
-      position: "absolute",
+      whiteSpace: "nowrap",
       width: "1px",
-      "white-space": "nowrap",
     });
   },
 );
@@ -308,14 +305,11 @@ it.each(generateCurrentStepOverTotalStepsVariations())(
     expect(
       within(title).getByText(`foo. bar. Step ${totalSteps} of ${totalSteps}.`),
     ).toHaveStyle({
-      border: "0",
+      clipPath: "inset(50%)",
       height: "1px",
-      margin: "-1px",
       overflow: "hidden",
-      padding: "0",
-      position: "absolute",
+      whiteSpace: "nowrap",
       width: "1px",
-      "white-space": "nowrap",
     });
   },
 );

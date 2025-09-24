@@ -266,14 +266,11 @@ test("should render with visuallyHidden styles when 'screenReaderOnly' is true",
   render(<Typography screenReaderOnly>Test</Typography>);
 
   expect(screen.getByText("Test")).toHaveStyle({
-    border: "0",
+    clipPath: "inset(50%)",
     height: "1px",
-    margin: "-1px",
     overflow: "hidden",
-    padding: "0",
-    position: "absolute",
-    width: "1px",
     whiteSpace: "nowrap",
+    width: "1px",
   });
 });
 

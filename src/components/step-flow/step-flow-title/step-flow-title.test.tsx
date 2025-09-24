@@ -78,14 +78,11 @@ test("when the 'screenReaderOnlyTitle' prop is passed, it overrides the value pa
       `this title overrides the other title. Step 1 of 8.`,
     ),
   ).toHaveStyle({
-    border: "0",
+    clipPath: "inset(50%)",
     height: "1px",
-    margin: "-1px",
     overflow: "hidden",
-    padding: "0",
-    position: "absolute",
+    whiteSpace: "nowrap",
     width: "1px",
-    "white-space": "nowrap",
   });
 });
 

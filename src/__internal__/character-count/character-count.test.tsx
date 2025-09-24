@@ -103,14 +103,11 @@ test("visually hidden hint is visually hidden", () => {
 
   const visuallyHiddenHint = screen.getByTestId("visually-hidden-hint");
   expect(visuallyHiddenHint).toHaveStyle({
-    border: "0",
+    clipPath: "inset(50%)",
     height: "1px",
-    margin: "-1px",
     overflow: "hidden",
-    padding: "0",
-    position: "absolute",
+    whiteSpace: "nowrap",
     width: "1px",
-    "white-space": "nowrap",
   });
 });
 
