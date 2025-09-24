@@ -67,12 +67,10 @@ test("should render the aria-live region as visually hidden but available in the
   const liveRegion = screen.getByRole("status");
   expect(liveRegion).toBeInTheDocument();
   expect(liveRegion).toHaveStyle({
-    border: "0",
+    clipPath: "inset(50%)",
     height: "1px",
-    margin: "-1px",
     overflow: "hidden",
-    padding: "0",
-    position: "absolute",
+    whiteSpace: "nowrap",
     width: "1px",
   });
 });

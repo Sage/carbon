@@ -37,14 +37,11 @@ test("visually hidden character counter is visually hidden", () => {
     "visually-hidden-character-count",
   );
   expect(visuallyHiddenCharacterCount).toHaveStyle({
-    border: "0",
+    clipPath: "inset(50%)",
     height: "1px",
-    margin: "-1px",
     overflow: "hidden",
-    padding: "0",
-    position: "absolute",
+    whiteSpace: "nowrap",
     width: "1px",
-    "white-space": "nowrap",
   });
 });
 
