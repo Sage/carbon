@@ -2182,6 +2182,33 @@ test("should focus the first textbox when the component is programmatically focu
   expect(firstInput).toHaveFocus();
 });
 
+test("should use custom ids for the fields when `inputIds` prop is set", () => {
+  render(
+    <NumeralDate
+      dateFormat={["dd", "mm", "yyyy"]}
+      onChange={() => {}}
+      label="Numeral date"
+      value={{ mm: "", yyyy: "" }}
+      name="numeralDate_name"
+      id="numeralDate_id"
+      inputIds={{
+        day: "day-field-custom-id",
+        month: "month-field-custom-id",
+        year: "year-field-custom-id",
+      }}
+    />,
+  );
+
+  const dayInput = screen.getByRole("textbox", { name: "Day" });
+  expect(dayInput).toHaveAttribute("id", "day-field-custom-id");
+
+  const monthInput = screen.getByRole("textbox", { name: "Month" });
+  expect(monthInput).toHaveAttribute("id", "month-field-custom-id");
+
+  const yearInput = screen.getByRole("textbox", { name: "Year" });
+  expect(yearInput).toHaveAttribute("id", "year-field-custom-id");
+});
+
 // coverage
 test("when internal validation is enabled and the input blurs, it should use the current year as part of the validation if none is provided", async () => {
   jest.useFakeTimers().setSystemTime(new Date("2020-01-01"));

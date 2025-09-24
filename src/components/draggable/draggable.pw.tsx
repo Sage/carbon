@@ -148,7 +148,7 @@ test("can still check a draggable checkbox that has been dragged and dropped pre
   await apple.dragTo(neptune);
 
   const checkbox = apple.getByRole("checkbox");
-  await checkbox.check();
+  await checkbox.click();
 
   await expect(checkbox).toBeChecked();
 });

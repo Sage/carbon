@@ -61,20 +61,25 @@ test.describe("Prop checks for Pages component", () => {
     });
   });
 
-  (["slide", "fade"] as PagesProps["transition"][]).forEach((transition) => {
+  [
+    ["slide", "slide-next"],
+    ["fade", "carousel-transition-fade"],
+  ].forEach(([transition, className]) => {
     test(`should render component with transition set to ${transition}`, async ({
       mount,
       page,
     }) => {
+      await page.clock.install();
       await mount(<PagesComponent transition={transition} />);
 
       const pageComponent = getDataElementByValue(page, "visible-page").nth(0);
 
       await dataComponentButtonByText(page, "Open Preview").click();
       await dataComponentButtonByText(page, "Go to second page").click();
-      const classAttribute = await pageComponent.getAttribute("class");
 
-      expect(classAttribute).toContain(transition);
+      await page.clock.runFor(1000); // speed up animation
+
+      await expect(pageComponent).toContainClass(`${className}-enter-done`);
     });
   });
 

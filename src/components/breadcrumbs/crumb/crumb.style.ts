@@ -3,26 +3,24 @@ import Link, { LinkProps } from "../../link";
 
 interface StyleCrumbProps extends LinkProps {
   isCurrent?: boolean;
-  isDarkBackground: boolean;
+  inverse: boolean;
 }
 
-const getCurrentCrumbColor = (isDarkBackground: boolean) => {
-  return isDarkBackground
-    ? "var(--colorsUtilityYang100)"
-    : "var(--colorsUtilityYin090)";
+const getCurrentCrumbColor = (inverse: boolean) => {
+  return inverse ? "var(--colorsUtilityYang100)" : "var(--colorsUtilityYin090)";
 };
 
 export const StyledCrumb = styled(Link)<StyleCrumbProps>`
   font: var(--typographyLinkTextM);
-  ${({ isCurrent, isDarkBackground }) =>
+  ${({ isCurrent, inverse }) =>
     isCurrent &&
     css`
       a {
-        color: ${getCurrentCrumbColor(isDarkBackground)};
+        color: ${getCurrentCrumbColor(inverse)};
         text-decoration: none;
         font: var(--typographyBreadcrumbCurrentPageM);
         :hover {
-          color: ${getCurrentCrumbColor(isDarkBackground)};
+          color: ${getCurrentCrumbColor(inverse)};
           text-decoration: none;
           cursor: text;
         }
