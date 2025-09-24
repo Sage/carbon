@@ -50,6 +50,12 @@ export interface NumeralDateEvent {
   };
 }
 
+export interface DateInputIds {
+  day?: string;
+  month?: string;
+  year?: string;
+}
+
 export interface NumeralDateProps
   extends ValidationProps,
     MarginProps,
@@ -126,6 +132,8 @@ export interface NumeralDateProps
   yearRef?: React.ForwardedRef<HTMLInputElement>;
   /** Render the ValidationMessage above the NumeralDate inputs when validationRedesignOptIn flag is set */
   validationMessagePositionTop?: boolean;
+  /** Allow consumers to set IDs for each of the field inputs */
+  inputIds?: DateInputIds;
 }
 
 export type ValidDateFormat = (typeof ALLOWED_DATE_FORMATS)[number];
@@ -244,6 +252,7 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
       monthRef,
       yearRef,
       validationMessagePositionTop = true,
+      inputIds,
       ...rest
     },
     ref,
@@ -252,7 +261,13 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
     const { validationRedesignOptIn } = useContext(NewValidationContext);
 
     const { current: uniqueId } = useRef(id || guid());
-    const inputIds = useRef({ dd: guid(), mm: guid(), yyyy: guid() });
+    const defaultInputIds = useRef({ dd: guid(), mm: guid(), yyyy: guid() });
+
+    const actualInputIds = {
+      dd: inputIds?.day ?? defaultInputIds.current.dd,
+      mm: inputIds?.month ?? defaultInputIds.current.mm,
+      yyyy: inputIds?.year ?? defaultInputIds.current.yyyy,
+    };
 
     const refs = useRef<(HTMLInputElement | null)[]>(
       dateFormat.map(() => null),
@@ -419,7 +434,7 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
                   }
                 >
                   <Textbox
-                    id={inputIds.current[datePart]}
+                    id={actualInputIds[datePart]}
                     label={getDateLabel(datePart, locale)}
                     labelAlign={fieldLabelsAlign}
                     disabled={disabled}
