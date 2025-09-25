@@ -3,27 +3,15 @@ import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
 import * as GridContainerStories from "./grid-container/grid-container.stories";
 import * as GridItemStories from "./grid-item/grid-item.stories";
 import * as GridStories from "./grid.stories";
+import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component"
 
 <Meta of={GridStories} />
 
 # Grid
 
-<a
-  target="_blank"
-  href="https://zeroheight.com/2ccf2b601/p/58ef5d-grid-system"
-  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
-  rel="noreferrer"
->
-  Product Design System component
-</a>
-
-The Carbon responsive grid system is a layout component that provides guidance on how components should be positioned within a user interface, adapting to screen size and orientation.
-The Grid system is designed to provide:
-
-- A common language for designers and developers to use when discussing layout.
-- Structure and responsive layout without a developer writing additional CSS.
-- No fixed breakpoints; responsive adjustments can be customised at a GridItem level.
-- Position and width calculated dynamically.
+<DeprecationWarning>
+Grid has been deprecated, if this pattern is still needed please see <a style={{color: "white"}} href="../?path=/docs/documentation-deprecation-migration--docs#recommended-alternatives">our deprecation migration docs</a> for a recommended alternative.
+</DeprecationWarning>
 
 ## Contents
 

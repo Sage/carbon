@@ -1,9 +1,10 @@
+import { Unstyled } from "@storybook/addon-docs/blocks";
 import React from "react";
 
 const DeprecationWarning = ({ children }: { children: React.ReactNode }) => (
-  <div
+  <Unstyled
     style={{
-      backgroundColor: "red",
+      backgroundColor: "#cb374a",
       textAlign: "center",
       color: "white",
       padding: 20,
@@ -12,7 +13,7 @@ const DeprecationWarning = ({ children }: { children: React.ReactNode }) => (
     }}
   >
     {children}
-  </div>
+  </Unstyled>
 );
 
 export default DeprecationWarning;

@@ -10,7 +10,7 @@ import {
 import ButtonMinor from "../button-minor";
 
 export default {
-  title: "Button Bar/Test",
+  title: "Deprecated/Button Bar/Test",
   parameters: {
     info: { disable: true },
     chromatic: { disableSnapshot: true },
@@ -219,11 +219,4 @@ export const Preview = () => {
       </div>
     </>
   );
-};
-Preview.story = {
-  parameters: {
-    chromatic: {
-      disableSnapshot: false,
-    },
-  },
 };

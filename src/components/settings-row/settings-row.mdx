@@ -1,14 +1,15 @@
 import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
 
 import * as SettingsRowStories from "./settings-row.stories.tsx";
+import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component"
 
 <Meta of={SettingsRowStories} />
 
 # Settings Row
 
-SettingsRow implements our UX design for settings pages.
-Useful to create a series of rows with a heading, explanatory text, and UI controls in each row.
-A good example is a settings page, or step-by-step wizard.
+<DeprecationWarning>
+Settings Row has been deprecated, if this pattern is still needed please see <a style={{color: "white"}} href="../?path=/docs/documentation-deprecation-migration--docs#settings-row">our deprecation migration docs</a> for an alternative pattern.
+</DeprecationWarning>
 
 ## Contents
 

@@ -3,13 +3,15 @@ import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 import * as DismissibleBoxStories from "./dismissible-box.stories";
+import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component"
 
 <Meta of={DismissibleBoxStories} />
 
 # DismissibleBox
 
-The component is a dismissible container designed to be used inline within the layout of a page providing in context tips
-and ‘help’ information.
+<DeprecationWarning>
+DismissibleBox has been deprecated, if this pattern is still needed please see <a style={{color: "white"}} href="../?path=/docs/documentation-deprecation-migration--docs#dismissible-box">our deprecation migration docs</a> for an alternative pattern.
+</DeprecationWarning>
 
 ## Contents
 

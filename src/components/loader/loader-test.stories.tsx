@@ -5,7 +5,7 @@ import { LOADER_SIZES } from "./loader.config";
 import Box from "../box";
 
 export default {
-  title: "Loader/Test",
+  title: "Deprecated/Loader/Test",
   includeStories: ["Default", "InsideButtons"],
   parameters: {
     info: { disable: true },
@@ -107,6 +107,5 @@ export const InsideButtons = () => {
 };
 InsideButtons.storyName = "Inside Buttons";
 InsideButtons.parameters = {
-  chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
 };
