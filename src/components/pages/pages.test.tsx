@@ -5,6 +5,7 @@ import userEvent from "@testing-library/user-event";
 import Pages, { Page, PagesProps } from "./pages.component";
 import Button from "../button";
 import Heading from "../heading";
+import { assertDeprecationWarning } from "../../__spec_helper__/__internal__/test-utils";
 
 const PagesExample = ({
   initialIndex = 0,
@@ -60,6 +61,19 @@ beforeAll(() => {
 
 afterAll(() => {
   jest.useRealTimers();
+});
+
+test("displays a deprecation warning when used", () => {
+  assertDeprecationWarning({
+    component: (
+      <Pages pageIndex={100}>
+        <Page title={<Heading title="Page 1" />}>First Page</Page>
+        <Page title={<Heading title="Page 2" />}>Second Page</Page>
+        <Page title={<Heading title="Page 3" />}>Third Page</Page>
+      </Pages>
+    ),
+    deprecationMessage: `The Pages component is deprecated and will soon be removed.`,
+  });
 });
 
 test.each([

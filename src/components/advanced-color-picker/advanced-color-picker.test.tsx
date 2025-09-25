@@ -4,7 +4,10 @@ import { act, render, screen, waitFor } from "@testing-library/react";
 import AdvancedColorPicker, {
   AdvancedColorPickerProps,
 } from "./advanced-color-picker.component";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import {
+  testStyledSystemMargin,
+  assertDeprecationWarning,
+} from "../../__spec_helper__/__internal__/test-utils";
 
 const ControlledColorPicker = (props: Partial<AdvancedColorPickerProps>) => {
   const [color, setColor] = useState<string>("");
@@ -38,6 +41,14 @@ beforeAll(() => {
 
 afterAll(() => {
   jest.useRealTimers();
+});
+
+test("displays a deprecation warning if used", () => {
+  assertDeprecationWarning({
+    component: <ControlledColorPicker />,
+    deprecationMessage:
+      "The `AdvancedColorPicker` component is deprecated and will soon be removed.",
+  });
 });
 
 testStyledSystemMargin(

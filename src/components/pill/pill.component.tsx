@@ -40,6 +40,8 @@ export interface PillProps extends StyledPillProps, TagProps {
 }
 
 let neutralWhiteWarnTriggered = false;
+let deprecateXLSizeWarnTriggered = false;
+let deprecateColorVariantWarnTriggered = false;
 
 export const Pill = ({
   wrapText,
@@ -70,6 +72,24 @@ export const Pill = ({
       "[WARNING] The `neutralWhite` variant should only be used on dark backgrounds with fill set to true. " +
         "Please set the `isDarkBackground` and `fill` props to true or use another color variant.",
     );
+  }
+
+  if (!deprecateXLSizeWarnTriggered && size === "XL") {
+    Logger.deprecate(
+      "The `XL` size for the Pill component is deprecated and will soon be removed.",
+    );
+    deprecateXLSizeWarnTriggered = true;
+  }
+
+  if (
+    !deprecateColorVariantWarnTriggered &&
+    colorVariant &&
+    colorVariant !== "neutralWhite"
+  ) {
+    Logger.deprecate(
+      "The `colorVariant` prop for the Pill component is deprecated and will soon be replaced with a new `variant` prop.",
+    );
+    deprecateColorVariantWarnTriggered = true;
   }
 
   return (

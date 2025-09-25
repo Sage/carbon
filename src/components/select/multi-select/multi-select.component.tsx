@@ -31,6 +31,7 @@ import useStableCallback from "../../../hooks/__internal__/useStableCallback";
 import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibility/useInputAccessibility";
 import useAdaptiveSidebarModalFocus from "../../../hooks/__internal__/useAdaptiveSidebarModalFocus";
 import { CustomSelectChangeEvent } from "../simple-select";
+import Logger from "../../../__internal__/utils/logger";
 
 const FilterableSelectList = withFilter(SelectList);
 
@@ -46,7 +47,8 @@ export interface MultiSelectProps
   children: React.ReactNode;
   /** If true the loader animation is displayed in the option list */
   isLoading?: boolean;
-  /** When true component will work in multi column mode.
+  /**
+   * @deprecated When true component will work in multi column mode.
    * Children should consist of OptionRow components in this mode
    */
   multiColumn?: boolean;
@@ -90,6 +92,8 @@ export interface MultiSelectProps
   /** Override the default width of the list element. Number passed is converted into pixel value */
   listWidth?: number;
 }
+
+let deprecateMultiColumnWarningTriggered = false;
 
 export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
   (
@@ -157,6 +161,13 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
       label,
     });
     const focusTimer = useRef<null | ReturnType<typeof setTimeout>>(null);
+
+    if (!deprecateMultiColumnWarningTriggered && multiColumn !== undefined) {
+      Logger.deprecate(
+        `The 'multiColumn' prop of the MultiSelect component is deprecated and will soon be removed.`,
+      );
+      deprecateMultiColumnWarningTriggered = true;
+    }
 
     const setOpen = useCallback(() => {
       setOpenState((isAlreadyOpen) => {

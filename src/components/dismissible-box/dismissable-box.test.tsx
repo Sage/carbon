@@ -3,6 +3,15 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import DismissibleBox from "./dismissible-box.component";
+import { assertDeprecationWarning } from "../../__spec_helper__/__internal__/test-utils";
+
+test("displays a deprecation warning when used", () => {
+  assertDeprecationWarning({
+    component: <DismissibleBox onClose={() => {}} />,
+    deprecationMessage:
+      "The `DismissableBox` component is deprecated and will soon be removed.",
+  });
+});
 
 test("calls the `onClose` callback when the close button is clicked", async () => {
   const onCloseMock = jest.fn();

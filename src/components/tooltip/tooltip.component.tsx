@@ -24,6 +24,7 @@ import tagComponent, {
   TagProps,
 } from "../../__internal__/utils/helpers/tags/tags";
 import Portal from "../portal";
+import Logger from "../../__internal__/utils/logger";
 
 function preserveRef<ElementType>(
   ref: React.ForwardedRef<ElementType | null>,
@@ -75,6 +76,8 @@ export interface TooltipProps extends TagProps {
   inputSize?: InputSizes;
 }
 
+let deprecateWarningTriggered = false;
+
 export const Tooltip = React.forwardRef<HTMLDivElement | null, TooltipProps>(
   (
     {
@@ -95,6 +98,13 @@ export const Tooltip = React.forwardRef<HTMLDivElement | null, TooltipProps>(
     }: TooltipProps,
     ref,
   ) => {
+    if (!deprecateWarningTriggered) {
+      Logger.deprecate(
+        `The Tooltip component is deprecated and will soon be removed.`,
+      );
+      deprecateWarningTriggered = true;
+    }
+
     const targetInternalRef = useRef<HTMLElement | null>(null);
 
     const isControlled = isVisible !== undefined;

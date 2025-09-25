@@ -16,15 +16,16 @@ import {
 import StickyFooter from "../../__internal__/sticky-footer";
 import { TagProps } from "../../__internal__/utils/helpers/tags";
 import DrawerSidebarContext from "./__internal__/drawer-sidebar.context";
+import Logger from "../../__internal__/utils/logger";
 
 export interface DrawerProps extends TagProps {
-  /** Duration of a animation */
+  /** @deprecated Duration of a animation */
   animationDuration?: string;
   /** Specify an aria-label for the Drawer component */
   "aria-label"?: string;
   /** Specify an aria-label for the Drawer sidebar */
   sidebarAriaLabel?: string;
-  /** Sets color of sidebar's background */
+  /** @deprecated Sets color of sidebar's background */
   backgroundColor?: string;
   children: React.ReactNode;
   /** Set the default state of expansion of the Drawer if component is meant to be used as uncontrolled */
@@ -42,7 +43,7 @@ export interface DrawerProps extends TagProps {
   ) => void;
   /* Sidebar object either html or react component */
   sidebar?: React.ReactNode;
-  /** Enables expand/collapse button that controls drawer */
+  /** @deprecated Enables expand/collapse button that controls drawer */
   showControls?: boolean;
   /** Sets the heading of the drawer */
   title?: React.ReactNode;
@@ -53,6 +54,10 @@ export interface DrawerProps extends TagProps {
   /** Makes the footer of the drawer sticky. Footer prop must also be set. */
   stickyFooter?: boolean;
 }
+
+let deprecateAnimationDurationWarningTriggered = false;
+let deprecateShowControlsWarningTriggered = false;
+let deprecateBackgroundColourWarningTriggered = false;
 
 export const Drawer = ({
   "aria-label": ariaLabel,
@@ -84,6 +89,27 @@ export const Drawer = ({
     isControlled.current ? expanded : defaultExpanded,
   );
   const timer = useRef<null | ReturnType<typeof setTimeout>>(null);
+
+  if (animationDuration && !deprecateAnimationDurationWarningTriggered) {
+    Logger.deprecate(
+      "The `animationDuration` prop in `Drawer` is deprecated and will soon be removed.",
+    );
+    deprecateAnimationDurationWarningTriggered = true;
+  }
+
+  if (!!showControls && !deprecateShowControlsWarningTriggered) {
+    Logger.deprecate(
+      "The `showControls` prop in `Drawer` is deprecated and will soon be removed.",
+    );
+    deprecateShowControlsWarningTriggered = true;
+  }
+
+  if (!!backgroundColor && !deprecateBackgroundColourWarningTriggered) {
+    Logger.deprecate(
+      "The `backgroundColor` prop in `Drawer` is deprecated and will soon be removed. Only white will be supported.",
+    );
+    deprecateBackgroundColourWarningTriggered = true;
+  }
 
   const getAnimationDuration = useCallback(() => {
     if (animationDuration.indexOf("ms") !== -1) {

@@ -23,6 +23,7 @@ import useStableCallback from "../../../hooks/__internal__/useStableCallback";
 import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibility/useInputAccessibility";
 import useAdaptiveSidebarModalFocus from "../../../hooks/__internal__/useAdaptiveSidebarModalFocus";
 import { CustomSelectChangeEvent } from "../simple-select";
+import Logger from "../../../__internal__/utils/logger";
 
 const FilterableSelectList = withFilter<SelectListProps>(SelectList);
 
@@ -38,7 +39,8 @@ export interface FilterableSelectProps
   isLoading?: boolean;
   /** True for default text button or a Button Component to be rendered */
   listActionButton?: boolean | React.ReactElement<ButtonProps>;
-  /** When true component will work in multi column mode.
+  /**
+   * @deprecated When true component will work in multi column mode.
    * Children should consist of OptionRow components in this mode
    */
   multiColumn?: boolean;
@@ -87,6 +89,8 @@ export interface FilterableSelectProps
   /** Override the default width of the list element. Number passed is converted into pixel value */
   listWidth?: number;
 }
+
+let deprecateMultiColumnWarningTriggered = false;
 
 export const FilterableSelect = React.forwardRef<
   HTMLInputElement,
@@ -158,6 +162,13 @@ export const FilterableSelect = React.forwardRef<
     });
     const focusTimer = useRef<null | ReturnType<typeof setTimeout>>(null);
     const openOnFocusFlagBlock = useRef(false);
+
+    if (!deprecateMultiColumnWarningTriggered && multiColumn !== undefined) {
+      Logger.deprecate(
+        `The 'multiColumn' prop of the FilterableSelect component is deprecated and will soon be removed.`,
+      );
+      deprecateMultiColumnWarningTriggered = true;
+    }
 
     const createCustomEvent = useCallback(
       (

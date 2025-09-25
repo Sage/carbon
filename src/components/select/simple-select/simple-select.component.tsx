@@ -24,6 +24,7 @@ import isExpectedOption from "../__internal__/utils/is-expected-option";
 import isNavigationKey from "../__internal__/utils/is-navigation-key";
 import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibility/useInputAccessibility";
 import useAdaptiveSidebarModalFocus from "../../../hooks/__internal__/useAdaptiveSidebarModalFocus";
+import Logger from "../../../__internal__/utils/logger";
 
 export interface CustomSelectChangeEvent
   extends React.ChangeEvent<HTMLInputElement> {
@@ -42,7 +43,8 @@ export interface SimpleSelectProps
   children: React.ReactNode;
   /** If true the loader animation is displayed in the option list */
   isLoading?: boolean;
-  /** When true component will work in multi column mode.
+  /**
+   * @deprecated When true component will work in multi column mode.
    * Children should consist of OptionRow components in this mode
    */
   multiColumn?: boolean;
@@ -84,6 +86,8 @@ export interface SimpleSelectProps
   /** Override the default width of the list element. Number passed is converted into pixel value */
   listWidth?: number;
 }
+
+let deprecateMultiColumnWarningTriggered = false;
 
 export const SimpleSelect = React.forwardRef<
   HTMLInputElement,
@@ -148,6 +152,13 @@ export const SimpleSelect = React.forwardRef<
       label,
     });
     const focusTimer = useRef<number | undefined>(undefined);
+
+    if (!deprecateMultiColumnWarningTriggered && multiColumn !== undefined) {
+      Logger.deprecate(
+        `The 'multiColumn' prop of the SimpleSelect component is deprecated and will soon be removed.`,
+      );
+      deprecateMultiColumnWarningTriggered = true;
+    }
 
     const childOptions = useMemo(
       () => React.Children.toArray(children),

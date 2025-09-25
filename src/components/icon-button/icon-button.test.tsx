@@ -3,9 +3,24 @@ import { render, screen, within } from "@testing-library/react";
 
 import Icon from "../icon";
 import IconButton from ".";
-import { testStyledSystemSpacing } from "../../__spec_helper__/__internal__/test-utils";
+import {
+  testStyledSystemSpacing,
+  assertDeprecationWarning,
+} from "../../__spec_helper__/__internal__/test-utils";
 
 jest.mock("../../__internal__/utils/logger");
+
+test("displays a deprecation warning when used", () => {
+  assertDeprecationWarning({
+    component: (
+      <IconButton aria-label="icon-button">
+        <Icon type="bin" />
+      </IconButton>
+    ),
+    deprecationMessage:
+      "The `IconButton` component is deprecated and will soon be removed.",
+  });
+});
 
 test("should render with an `Icon` child", () => {
   render(

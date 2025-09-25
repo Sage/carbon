@@ -4,7 +4,10 @@ import userEvent from "@testing-library/user-event";
 import { Tabs, Tab } from ".";
 import { StyledTabsHeaderWrapper } from "./__internal__/tabs-header/tabs-header.style";
 import StyledTab from "./tab/tab.style";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import {
+  testStyledSystemMargin,
+  assertDeprecationWarning,
+} from "../../__spec_helper__/__internal__/test-utils";
 import Drawer from "../drawer";
 import Textbox from "../textbox";
 import NumeralDate from "../numeral-date";
@@ -19,6 +22,72 @@ beforeEach(() => {
 
 afterEach(() => {
   loggerSpy.mockRestore();
+});
+
+test("displays a deprecation warning if `extendedLine` prop is used", () => {
+  assertDeprecationWarning({
+    component: (
+      <Tabs extendedLine={false}>
+        <Tab title="Tab Title 1" tabId="foo" isTabSelected>
+          TabContent
+        </Tab>
+      </Tabs>
+    ),
+    deprecationMessage:
+      "The 'extendedLine' prop in the Tabs component is deprecated and will soon be removed.",
+  });
+});
+
+test("displays a deprecation warning if `align` prop is used with a value of 'right'", () => {
+  assertDeprecationWarning({
+    component: (
+      <Tabs align="right">
+        <Tab title="Tab Title 1" tabId="foo" isTabSelected>
+          TabContent
+        </Tab>
+      </Tabs>
+    ),
+    deprecationMessage: `The 'right' value of the 'align' prop in the Tabs component is deprecated and will soon be removed.`,
+  });
+});
+
+test("displays a deprecation warning if `borders` prop is used with a value other than 'off'", () => {
+  assertDeprecationWarning({
+    component: (
+      <Tabs borders="on">
+        <Tab title="Tab Title 1" tabId="foo" isTabSelected>
+          TabContent
+        </Tab>
+      </Tabs>
+    ),
+    deprecationMessage: `The 'borders' prop in the Tabs component is deprecated and will soon be removed.`,
+  });
+});
+
+test("displays a deprecation warning if `variant` prop is used with a value other than 'default'", () => {
+  assertDeprecationWarning({
+    component: (
+      <Tabs variant="alternate">
+        <Tab title="Tab Title 1" tabId="foo" isTabSelected>
+          TabContent
+        </Tab>
+      </Tabs>
+    ),
+    deprecationMessage: `The 'variant' prop in the Tabs component is deprecated and will soon be removed.`,
+  });
+});
+
+test("displays a deprecation warning if `showValidationsSummary` prop is used", () => {
+  assertDeprecationWarning({
+    component: (
+      <Tabs showValidationsSummary>
+        <Tab title="Tab Title 1" tabId="foo" isTabSelected>
+          TabContent
+        </Tab>
+      </Tabs>
+    ),
+    deprecationMessage: `The 'showValidationsSummary' prop in the Tabs component is deprecated and will soon be removed.`,
+  });
 });
 
 testStyledSystemMargin(

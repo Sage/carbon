@@ -24,13 +24,14 @@ import useChildButtons from "../../hooks/__internal__/useChildButtons";
 import useAdaptiveSidebarModalFocus from "../../hooks/__internal__/useAdaptiveSidebarModalFocus";
 import FlatTableContext from "../flat-table/__internal__/flat-table.context";
 import guid from "../../__internal__/utils/helpers/guid";
+import Logger from "../../__internal__/utils/logger";
 
 export interface MultiActionButtonProps
   extends WidthProps,
     Omit<SplitButtonProps, "buttonType" | "iconPosition" | "iconType"> {
   /** Button type: "primary" | "secondary" | "tertiary" */
   buttonType?: "primary" | "secondary" | "tertiary";
-  /** Second text child, renders under main text, only when size is "large" */
+  /** @deprecate Second text child, renders under main text, only when size is "large" */
   subtext?: string;
 }
 
@@ -38,6 +39,8 @@ export type MultiActionButtonHandle = {
   /** Programmatically focus the main button */
   focusMainButton: () => void;
 } | null;
+
+let deprecateSubtextWarningTriggered = false;
 
 export const MultiActionButton = forwardRef<
   MultiActionButtonHandle,
@@ -64,6 +67,13 @@ export const MultiActionButton = forwardRef<
     const buttonRef = useRef<HTMLButtonElement>(null);
     const { isInFlatTable } = useContext(FlatTableContext);
     const submenuId = useRef(guid());
+
+    if (!deprecateSubtextWarningTriggered && subtext !== undefined) {
+      Logger.deprecate(
+        `The 'subtext' prop in MultiActionButton is deprecated and will soon be removed.`,
+      );
+      deprecateSubtextWarningTriggered = true;
+    }
 
     useImperativeHandle<MultiActionButtonHandle, MultiActionButtonHandle>(
       ref,

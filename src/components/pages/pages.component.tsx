@@ -6,6 +6,7 @@ import tagComponent, {
 import Page from "./page";
 import { PagesWrapperStyle, PagesContent } from "./pages.style";
 import type { ThemeObject } from "../../style/themes/theme.types";
+import Logger from "../../__internal__/utils/logger";
 
 export interface PagesProps extends TagProps {
   /** The selected tab on page load */
@@ -24,6 +25,8 @@ const NEXT = "next";
 const PREVIOUS = "previous";
 const TRANSITION_TIME = 500;
 
+let deprecateWarningTriggered = false;
+
 const Pages = ({
   pageIndex: incomingPageIndex,
   initialpageIndex = 0,
@@ -31,6 +34,13 @@ const Pages = ({
   children,
   ...props
 }: PagesProps) => {
+  if (!deprecateWarningTriggered) {
+    Logger.deprecate(
+      `The Pages component is deprecated and will soon be removed.`,
+    );
+    deprecateWarningTriggered = true;
+  }
+
   const [pageIndex, setPageIndex] = useState(
     Number(incomingPageIndex) || Number(initialpageIndex),
   );

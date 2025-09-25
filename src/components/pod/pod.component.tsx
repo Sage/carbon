@@ -20,6 +20,7 @@ import Icon from "../icon";
 
 import Event from "../../__internal__/utils/helpers/events";
 import { PodAlignment, PodSize, PodVariant } from "./pod.config";
+import Logger from "../../__internal__/utils/logger";
 
 export interface PodProps extends MarginProps, TagProps {
   /** Aligns the title to left, right or center */
@@ -64,6 +65,8 @@ export interface PodProps extends MarginProps, TagProps {
   internalEditButton?: boolean;
 }
 
+let deprecateWarningTriggered = false;
+
 const Pod = React.forwardRef<HTMLDivElement, PodProps>(
   (
     {
@@ -94,6 +97,13 @@ const Pod = React.forwardRef<HTMLDivElement, PodProps>(
     const [isDeleteHovered, setDeleteHovered] = useState(false);
     const [isUndoFocused, setUndoFocused] = useState(false);
     const [isUndoHovered, setUndoHovered] = useState(false);
+
+    if (!deprecateWarningTriggered) {
+      Logger.deprecate(
+        `The Pod component is deprecated and will soon be removed.`,
+      );
+      deprecateWarningTriggered = true;
+    }
 
     const l = useLocale();
     const shouldContentHaveEditEvents = useMemo(

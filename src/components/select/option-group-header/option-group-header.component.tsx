@@ -14,7 +14,7 @@ export interface OptionGroupHeaderProps extends TagProps {
   id?: string;
   /** Heading text */
   label?: string;
-  /** Any valid Carbon icon name */
+  /** @deprecated Any valid Carbon icon name */
   icon?: IconProps["type"];
   /**
    * @private
@@ -28,6 +28,8 @@ export interface OptionGroupHeaderProps extends TagProps {
   children?: React.ReactNode;
 }
 
+let deprecateIconWarningTriggered = false;
+
 const OptionGroupHeader = React.forwardRef(
   (
     { label, icon, style, id, children, ...rest }: OptionGroupHeaderProps,
@@ -39,6 +41,13 @@ const OptionGroupHeader = React.forwardRef(
       Logger.warn(
         "OptionGroupHeader requires either a label or children to be provided",
       );
+    }
+
+    if (!deprecateIconWarningTriggered && icon !== undefined) {
+      Logger.deprecate(
+        `The 'icon' prop of the OptionGroupHeader component is deprecated and will soon be removed.`,
+      );
+      deprecateIconWarningTriggered = true;
     }
 
     return (

@@ -28,10 +28,10 @@ let deprecatedWarnTriggered = false;
 
 export const AccordionGroup = ({ children, ...rest }: AccordionGroupProps) => {
   if (!deprecatedWarnTriggered) {
-    deprecatedWarnTriggered = true;
     Logger.deprecate(
       "`AccordionGroup` is deprecated and will soon be removed.",
     );
+    deprecatedWarnTriggered = true;
   }
 
   const hasProperChildren = useMemo(() => {

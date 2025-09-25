@@ -12,6 +12,7 @@ import StyledLoaderSquare, {
   StyledLoaderPlaceholder,
 } from "./loader-square.style";
 import Typography from "../typography";
+import Logger from "../../__internal__/utils/logger";
 
 export interface LoaderProps
   extends Omit<StyledLoaderSquareProps, "backgroundColor">,
@@ -26,6 +27,8 @@ export interface LoaderProps
   loaderLabel?: string;
 }
 
+let deprecationWarningTriggered = false;
+
 export const Loader = ({
   variant = "default",
   size = "medium",
@@ -35,6 +38,13 @@ export const Loader = ({
   ...rest
 }: LoaderProps) => {
   const l = useLocale();
+
+  if (!deprecationWarningTriggered) {
+    Logger.deprecate(
+      "The `Loader` component is deprecated and will soon be removed. Please use `LoaderSpinner` instead.",
+    );
+    deprecationWarningTriggered = true;
+  }
 
   const allowMotion = useMediaQuery(
     "screen and (prefers-reduced-motion: no-preference)",

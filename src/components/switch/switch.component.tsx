@@ -16,14 +16,18 @@ import SwitchSlider from "./__internal__/switch-slider.component";
 import guid from "../../__internal__/utils/helpers/guid";
 import HintText from "../../__internal__/hint-text";
 import { filterStyledSystemMarginProps } from "../../style/utils";
+import Logger from "../../__internal__/utils/logger";
 
 export interface SwitchProps
-  extends Omit<CommonCheckableInputProps, "defaultChecked">,
+  extends Omit<
+      CommonCheckableInputProps,
+      "defaultChecked" | "fieldHelp" | "labelHelp" | "reverse" | "labelInline"
+    >,
     MarginProps,
     TagProps {
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLabelBreakpoint?: number;
-  /** When true label is inline */
+  /** @deprecated When true label is inline */
   labelInline?: boolean;
   /** Triggers loading animation */
   loading?: boolean;
@@ -45,7 +49,18 @@ export interface SwitchProps
   onChange: (ev: React.ChangeEvent<HTMLInputElement>) => void;
   /** Checked state of the input */
   checked: boolean;
+  /** @deprecated Help content to be displayed under an input */
+  fieldHelp?: React.ReactNode;
+  /** @deprecated The content for the help tooltip, to appear next to the Label */
+  labelHelp?: React.ReactNode;
+  /** @deprecated If true the label switches position with the input */
+  reverse?: boolean;
 }
+
+let deprecateLabelInlineWarningTriggered = false;
+let deprecateReverseWarningTriggered = false;
+let deprecateFieldHelpWarningTriggered = false;
+let deprecateLabelHelpWarningTriggered = false;
 
 export const Switch = React.forwardRef(
   (
@@ -85,6 +100,34 @@ export const Switch = React.forwardRef(
     ref: React.ForwardedRef<HTMLInputElement>,
   ) => {
     const { validationRedesignOptIn } = useContext(NewValidationContext);
+
+    if (!deprecateLabelInlineWarningTriggered && !!labelInline) {
+      Logger.deprecate(
+        `The 'labelInline' prop of the Switch component is deprecated and will soon be removed.`,
+      );
+      deprecateLabelInlineWarningTriggered = true;
+    }
+
+    if (!deprecateReverseWarningTriggered && reverse !== undefined) {
+      Logger.deprecate(
+        `The 'reverse' prop of the Switch component is deprecated and will soon be removed.`,
+      );
+      deprecateReverseWarningTriggered = true;
+    }
+
+    if (!deprecateFieldHelpWarningTriggered && rest.fieldHelp) {
+      Logger.deprecate(
+        `The 'fieldHelp' prop of the Switch component is deprecated and will soon be removed.`,
+      );
+      deprecateFieldHelpWarningTriggered = true;
+    }
+
+    if (!deprecateLabelHelpWarningTriggered && labelHelp !== undefined) {
+      Logger.deprecate(
+        `The 'labelHelp' prop of the Switch component is deprecated and will soon be removed.`,
+      );
+      deprecateLabelHelpWarningTriggered = true;
+    }
 
     const labelId = useRef(`${guid()}-label`);
     const inputHintId = useRef(`${guid()}-hint`);

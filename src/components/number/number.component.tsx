@@ -7,6 +7,7 @@ import {
   SIZE_DEFAULT,
 } from "../textbox/textbox.component";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
+import Logger from "../../__internal__/utils/logger";
 
 export interface NumberProps extends Omit<TextboxProps, "value"> {
   /** Value passed to the input */
@@ -19,6 +20,8 @@ function isValidNumber(value: string) {
 
   return result;
 }
+
+let deprecationWarningTriggered = false;
 
 export const Number = React.forwardRef(
   (
@@ -36,6 +39,13 @@ export const Number = React.forwardRef(
   ) => {
     const selectionStart = useRef<null | number>(null);
     const selectionEnd = useRef<null | number>(null);
+
+    if (!deprecationWarningTriggered) {
+      Logger.deprecate(
+        "The `Number` component is deprecated and will soon be removed. Please use the `Textbox` component instead.",
+      );
+      deprecationWarningTriggered = true;
+    }
 
     const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       if (isValidNumber(event.target.value)) {

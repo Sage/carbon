@@ -2,6 +2,43 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Button from "./button.component";
+import { assertDeprecationWarning } from "../../__spec_helper__/__internal__/test-utils";
+
+test("displays a deprecation warning if `darkBackground` buttonType used", () => {
+  assertDeprecationWarning({
+    component: <Button buttonType="darkBackground">foo</Button>,
+    deprecationMessage:
+      "The `darkBackground` buttonType is deprecated and will soon be removed.",
+  });
+});
+
+test("displays a deprecation warning if `isWhite` buttonType used", () => {
+  assertDeprecationWarning({
+    component: <Button isWhite>foo</Button>,
+    deprecationMessage:
+      "The `isWhite` prop is deprecated and will soon be removed.",
+  });
+});
+
+test("displays a deprecation warning if `destructive` buttonType used", () => {
+  assertDeprecationWarning({
+    component: <Button destructive>foo</Button>,
+    deprecationMessage:
+      "The `destructive` prop is deprecated and will soon be removed.",
+  });
+});
+
+test("displays a deprecation warning if `subtext` buttonType used", () => {
+  assertDeprecationWarning({
+    component: (
+      <Button subtext="test" size="large">
+        foo
+      </Button>
+    ),
+    deprecationMessage:
+      "The `subtext` prop is deprecated and will soon be removed.",
+  });
+});
 
 test("renders with text children", () => {
   render(<Button>foo</Button>);

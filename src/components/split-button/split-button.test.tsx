@@ -4,7 +4,10 @@ import userEvent from "@testing-library/user-event";
 import SplitButton, { SplitButtonHandle } from "./split-button.component";
 import Button from "../button";
 import { SizeOptions } from "../button/button.component";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import {
+  testStyledSystemMargin,
+  assertDeprecationWarning,
+} from "../../__spec_helper__/__internal__/test-utils";
 import I18nProvider from "../i18n-provider";
 
 jest.mock("../../__internal__/utils/helpers/guid", () => () => "guid-12345");
@@ -42,6 +45,37 @@ const buildSizeConfig = (size: SizeOptions): SizeConfig => {
     fontSize: "var(--fontSizes100)",
   };
 };
+
+test("displays a deprecation warning if `buttonType` prop is used", () => {
+  assertDeprecationWarning({
+    component: (
+      <SplitButton
+        data-role="split-button-container"
+        text="Test"
+        buttonType="secondary"
+      >
+        <Button>Test</Button>
+      </SplitButton>
+    ),
+    deprecationMessage: `The 'secondary' buttonType prop value in SplitButton is deprecated and will soon be removed.`,
+  });
+});
+
+test("displays a deprecation warning if `subtext` prop is used", () => {
+  assertDeprecationWarning({
+    component: (
+      <SplitButton
+        data-role="split-button-container"
+        text="Test"
+        size="large"
+        subtext="subtext"
+      >
+        <Button>Test</Button>
+      </SplitButton>
+    ),
+    deprecationMessage: `The 'subtext' prop in SplitButton is deprecated and will soon be removed.`,
+  });
+});
 
 testStyledSystemMargin(
   (props) => (

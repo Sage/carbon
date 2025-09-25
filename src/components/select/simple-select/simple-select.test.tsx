@@ -9,7 +9,10 @@ import {
 import userEvent from "@testing-library/user-event";
 import Box from "../../box";
 import Button from "../../button";
-import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/test-utils";
+import {
+  testStyledSystemMargin,
+  assertDeprecationWarning,
+} from "../../../__spec_helper__/__internal__/test-utils";
 import mockDOMRect from "../../../__spec_helper__/mock-dom-rect";
 
 import SimpleSelect, { CustomSelectChangeEvent, SimpleSelectProps } from ".";
@@ -55,6 +58,22 @@ const InteractiveComponent = ({
     </SimpleSelect>
   );
 };
+
+test("displays a deprecation warning if `multiColumn` is used", () => {
+  assertDeprecationWarning({
+    component: (
+      <SimpleSelect
+        data-role="my-select"
+        value={""}
+        onChange={() => {}}
+        multiColumn
+      >
+        <Option text="Amber" value="1" />
+      </SimpleSelect>
+    ),
+    deprecationMessage: `The 'multiColumn' prop of the SimpleSelect component is deprecated and will soon be removed.`,
+  });
+});
 
 test("renders a visually-hidden input box", () => {
   render(

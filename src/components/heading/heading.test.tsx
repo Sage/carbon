@@ -3,6 +3,21 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Pill from "../pill";
 import Heading, { HeadingType } from ".";
+import { assertDeprecationWarning } from "../../__spec_helper__/__internal__/test-utils";
+
+test("displays a deprecation warning when used", () => {
+  assertDeprecationWarning({
+    component: (
+      <Heading
+        title="foo"
+        data-role="heading-role"
+        data-element="heading-element"
+      />
+    ),
+    deprecationMessage:
+      "The `Heading` component is deprecated and will soon be removed.",
+  });
+});
 
 test("renders with custom data tags", () => {
   render(

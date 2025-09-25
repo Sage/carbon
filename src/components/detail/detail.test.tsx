@@ -1,7 +1,18 @@
 import React from "react";
 import { render, screen, within } from "@testing-library/react";
 import Detail from ".";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import {
+  testStyledSystemMargin,
+  assertDeprecationWarning,
+} from "../../__spec_helper__/__internal__/test-utils";
+
+test("displays a deprecation warning when used", () => {
+  assertDeprecationWarning({
+    component: <Detail>foo</Detail>,
+    deprecationMessage:
+      "The `Detail` component is deprecated and will soon be removed.",
+  });
+});
 
 test("renders children", () => {
   render(<Detail>foo</Detail>);

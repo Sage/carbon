@@ -1,7 +1,31 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import Typography, { List, ListItem } from ".";
-import { testStyledSystemSpacing } from "../../__spec_helper__/__internal__/test-utils";
+import {
+  testStyledSystemSpacing,
+  assertDeprecationWarning,
+} from "../../__spec_helper__/__internal__/test-utils";
+
+test(`displays a deprecation warning when the 'h1-large' option of 'variant' is used`, () => {
+  assertDeprecationWarning({
+    component: <Typography variant={"h1-large"}>Test</Typography>,
+    deprecationMessage: `The 'h1-large' variant prop value in Typography is deprecated and will soon be removed.`,
+  });
+});
+
+test(`displays a deprecation warning when the 'segment-header-small' option of 'variant' is used`, () => {
+  assertDeprecationWarning({
+    component: <Typography variant={"segment-header-small"}>Test</Typography>,
+    deprecationMessage: `The 'segment-header-small' variant prop value in Typography is deprecated and will soon be removed.`,
+  });
+});
+
+test(`displays a deprecation warning when the 'segment-subheader-alt' option of 'variant' is used`, () => {
+  assertDeprecationWarning({
+    component: <Typography variant={"segment-subheader-alt"}>Test</Typography>,
+    deprecationMessage: `The 'segment-subheader-alt' variant prop value in Typography is deprecated and will soon be removed.`,
+  });
+});
 
 test("should render with variant as 'p' by default", () => {
   render(<Typography>Test</Typography>);

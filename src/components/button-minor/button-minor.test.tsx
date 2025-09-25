@@ -2,7 +2,18 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import ButtonMinor from ".";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import {
+  testStyledSystemMargin,
+  assertDeprecationWarning,
+} from "../../__spec_helper__/__internal__/test-utils";
+
+test("displays a deprecation warning if used", () => {
+  assertDeprecationWarning({
+    component: <ButtonMinor>foo</ButtonMinor>,
+    deprecationMessage:
+      "The `ButtonMinor` component is deprecated and will soon be removed.",
+  });
+});
 
 test("should render with children", () => {
   render(<ButtonMinor>foo</ButtonMinor>);

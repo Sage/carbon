@@ -3,7 +3,21 @@ import { render, screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import MultiActionButton, { MultiActionButtonHandle } from ".";
 import Button from "../button";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import {
+  testStyledSystemMargin,
+  assertDeprecationWarning,
+} from "../../__spec_helper__/__internal__/test-utils";
+
+test("displays a deprecation warning if `subtext` is used", () => {
+  assertDeprecationWarning({
+    component: (
+      <MultiActionButton text="Main Button" subtext="Subtext" size="large">
+        <Button>First</Button>
+      </MultiActionButton>
+    ),
+    deprecationMessage: `The 'subtext' prop in MultiActionButton is deprecated and will soon be removed.`,
+  });
+});
 
 test("should render with provided 'text'", () => {
   render(

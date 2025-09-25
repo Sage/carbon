@@ -3,11 +3,37 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Password from "./password.component";
 import guid from "../../__internal__/utils/helpers/guid";
+import { assertDeprecationWarning } from "../../__spec_helper__/__internal__/test-utils";
 
 const mockedGuid = "guid-12345";
 jest.mock("../../__internal__/utils/helpers/guid");
 
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(() => mockedGuid);
+
+test("displays a deprecation warning if `prefix` is used", () => {
+  assertDeprecationWarning({
+    component: (
+      <Password label="password" value="" onChange={() => {}} prefix="?" />
+    ),
+    deprecationMessage:
+      "The 'prefix' prop in Password is deprecated and will soon be removed.",
+  });
+});
+
+test("displays a deprecation warning if `characterLimit` is used", () => {
+  assertDeprecationWarning({
+    component: (
+      <Password
+        label="password"
+        value=""
+        onChange={() => {}}
+        characterLimit={12}
+      />
+    ),
+    deprecationMessage:
+      "The 'characterLimit' prop in Password is deprecated and will soon be removed.",
+  });
+});
 
 test("should render a text input with type 'password'", () => {
   render(<Password label="password" value="" onChange={() => {}} />);

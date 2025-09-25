@@ -9,6 +9,7 @@ import {
   StyledContentBodyProps,
 } from "./content.style";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
+import Logger from "../../__internal__/utils/logger";
 
 export interface ContentProps
   extends StyledContentProps,
@@ -21,6 +22,8 @@ export interface ContentProps
   title?: React.ReactNode;
 }
 
+let deprecationWarningTriggered = false;
+
 export const Content = ({
   variant = "primary",
   children,
@@ -31,6 +34,13 @@ export const Content = ({
   bodyFullWidth = false,
   ...rest
 }: ContentProps) => {
+  if (!deprecationWarningTriggered) {
+    Logger.deprecate(
+      "The `Content` component is deprecated and will soon be removed.",
+    );
+    deprecationWarningTriggered = true;
+  }
+
   return (
     <StyledContent
       align={align}

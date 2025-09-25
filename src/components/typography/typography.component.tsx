@@ -6,6 +6,7 @@ import {
   filterStyledSystemPaddingProps,
 } from "../../style/utils";
 import StyledTypography from "./typography.style";
+import Logger from "../../__internal__/utils/logger";
 
 export const VARIANT_TYPES = [
   "h1-large",
@@ -113,6 +114,10 @@ const getAs = (variant?: VariantTypes) => {
   }
 };
 
+let deprecateVariantH1LargeWarningTriggered = false;
+let deprecateVariantSegmentHeaderSmallWarningTriggered = false;
+let deprecateVariantSegmentSubheaderAltWarningTriggered = false;
+
 export const Typography = ({
   "data-component": dataComponent,
   variant = "p",
@@ -142,6 +147,33 @@ export const Typography = ({
   className,
   ...rest
 }: TypographyProps) => {
+  if (!deprecateVariantH1LargeWarningTriggered && variant === "h1-large") {
+    Logger.deprecate(
+      `The 'h1-large' variant prop value in Typography is deprecated and will soon be removed.`,
+    );
+    deprecateVariantH1LargeWarningTriggered = true;
+  }
+
+  if (
+    !deprecateVariantSegmentHeaderSmallWarningTriggered &&
+    variant === "segment-header-small"
+  ) {
+    Logger.deprecate(
+      `The 'segment-header-small' variant prop value in Typography is deprecated and will soon be removed.`,
+    );
+    deprecateVariantSegmentHeaderSmallWarningTriggered = true;
+  }
+
+  if (
+    !deprecateVariantSegmentSubheaderAltWarningTriggered &&
+    variant === "segment-subheader-alt"
+  ) {
+    Logger.deprecate(
+      `The 'segment-subheader-alt' variant prop value in Typography is deprecated and will soon be removed.`,
+    );
+    deprecateVariantSegmentSubheaderAltWarningTriggered = true;
+  }
+
   return (
     <StyledTypography
       variant={variant}

@@ -1,6 +1,9 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import {
+  testStyledSystemMargin,
+  assertDeprecationWarning,
+} from "../../__spec_helper__/__internal__/test-utils";
 import Loader from ".";
 import useMediaQuery from "../../hooks/useMediaQuery";
 
@@ -20,6 +23,14 @@ beforeEach(() => {
 
 afterAll(() => {
   jest.restoreAllMocks();
+});
+
+test("displays a deprecation warning when used", () => {
+  assertDeprecationWarning({
+    component: <Loader />,
+    deprecationMessage:
+      "The `Loader` component is deprecated and will soon be removed. Please use `LoaderSpinner` instead.",
+  });
 });
 
 testStyledSystemMargin(

@@ -6,6 +6,7 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import Tooltip, { TooltipProps, InputSizes } from "./tooltip.component";
 import { TooltipPositions } from "./tooltip.config";
 import guid from "../../__internal__/utils/helpers/guid";
+import { assertDeprecationWarning } from "../../__spec_helper__/__internal__/test-utils";
 
 const mockedGuid = "guid-12345";
 jest.mock("../../__internal__/utils/helpers/guid");
@@ -20,6 +21,17 @@ function renderTooltip(props: Partial<TooltipProps> = {}) {
 }
 
 describe("Tooltip", () => {
+  test("displays a deprecation warning when used", () => {
+    assertDeprecationWarning({
+      component: (
+        <Tooltip message={"foo"}>
+          <div data-role="tooltip-target">Target</div>
+        </Tooltip>
+      ),
+      deprecationMessage: `The Tooltip component is deprecated and will soon be removed.`,
+    });
+  });
+
   describe("controlled", () => {
     it("matches snapshot when isVisible is true", () => {
       const { container } = renderTooltip({ isVisible: true });

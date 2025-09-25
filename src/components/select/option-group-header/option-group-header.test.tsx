@@ -1,6 +1,18 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import OptionGroupHeader from ".";
+import { assertDeprecationWarning } from "../../../__spec_helper__/__internal__/test-utils";
+
+test("displays a deprecation warning if `icon` is used", () => {
+  assertDeprecationWarning({
+    component: (
+      <OptionGroupHeader label="foo" icon="shop">
+        <h2>bar</h2>
+      </OptionGroupHeader>
+    ),
+    deprecationMessage: `The 'icon' prop of the OptionGroupHeader component is deprecated and will soon be removed.`,
+  });
+});
 
 test("should render the `label` and `icon` when no children are provided", () => {
   render(<OptionGroupHeader label="foo" icon="shop" />);

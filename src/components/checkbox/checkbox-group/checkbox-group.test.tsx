@@ -2,7 +2,62 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import { Checkbox, CheckboxGroup } from "..";
 import CarbonProvider from "../../carbon-provider";
-import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/test-utils";
+import {
+  testStyledSystemMargin,
+  assertDeprecationWarning,
+} from "../../../__spec_helper__/__internal__/test-utils";
+
+test("displays a deprecation warning if `legendHelp` is used", () => {
+  assertDeprecationWarning({
+    component: (
+      <CheckboxGroup legendHelp="legendHelp">
+        <Checkbox value="1" label="label-1" onChange={() => {}} checked />
+        <Checkbox value="2" label="label-2" onChange={() => {}} checked />
+      </CheckboxGroup>
+    ),
+    deprecationMessage:
+      "The `legendHelp` prop in `CheckboxGroup` is deprecated and will soon be removed.",
+  });
+});
+
+test("displays a deprecation warning if `legendInline` is used", () => {
+  assertDeprecationWarning({
+    component: (
+      <CheckboxGroup legendInline>
+        <Checkbox value="1" label="label-1" onChange={() => {}} checked />
+        <Checkbox value="2" label="label-2" onChange={() => {}} checked />
+      </CheckboxGroup>
+    ),
+    deprecationMessage:
+      "The `legendInline` prop in `CheckboxGroup` is deprecated and will soon be removed.",
+  });
+});
+
+test("displays a deprecation warning if `legendWidth` is used", () => {
+  assertDeprecationWarning({
+    component: (
+      <CheckboxGroup legendWidth={200}>
+        <Checkbox value="1" label="label-1" onChange={() => {}} checked />
+        <Checkbox value="2" label="label-2" onChange={() => {}} checked />
+      </CheckboxGroup>
+    ),
+    deprecationMessage:
+      "The `legendWidth` prop in `CheckboxGroup` is deprecated and will soon be removed.",
+  });
+});
+
+test("displays a deprecation warning if `legendAlign` is used and set to 'right'", () => {
+  assertDeprecationWarning({
+    component: (
+      <CheckboxGroup legendAlign="right">
+        <Checkbox value="1" label="label-1" onChange={() => {}} checked />
+        <Checkbox value="2" label="label-2" onChange={() => {}} checked />
+      </CheckboxGroup>
+    ),
+    deprecationMessage:
+      "The `legendAlign` prop in `CheckboxGroup` is deprecated and will soon be removed.",
+  });
+});
 
 test("should render with the provided children", () => {
   render(

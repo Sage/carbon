@@ -3,9 +3,21 @@ import { render, screen } from "@testing-library/react";
 import InlineInputs from ".";
 import Textbox from "../textbox";
 import {
+  assertDeprecationWarning,
   mockMatchMedia,
   testStyledSystemMargin,
 } from "../../__spec_helper__/__internal__/test-utils";
+
+test("displays a deprecation warning when used", () => {
+  assertDeprecationWarning({
+    component: (
+      <InlineInputs>
+        <Textbox value="" onChange={() => {}} />
+      </InlineInputs>
+    ),
+    deprecationMessage: `The 'InlineInputs' component is deprecated and will soon be removed.`,
+  });
+});
 
 test("renders single child", () => {
   render(

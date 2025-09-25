@@ -220,7 +220,7 @@
   "lint-staged": {
     "./**/*.{js,jsx,ts,tsx}": [
       "prettier --write",
-      "eslint"
+      "npm run lint"
     ]
   },
   "commitlint": {

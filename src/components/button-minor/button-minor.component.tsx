@@ -3,11 +3,14 @@ import StyledButtonMinor from "./button-minor.style";
 import { ButtonProps } from "../button";
 import ButtonBarContext from "../button-bar/__internal__/button-bar.context";
 import BatchSelectionContext from "../batch-selection/__internal__/batch-selection.context";
+import Logger from "../../__internal__/utils/logger";
 
 export interface ButtonMinorProps extends ButtonProps {
   /** @private @ignore */
   isInPassword?: boolean;
 }
+
+let deprecationWarningTriggered = false;
 
 export const ButtonMinor = React.forwardRef<
   HTMLButtonElement,
@@ -38,6 +41,13 @@ export const ButtonMinor = React.forwardRef<
     const iconPosition = iconPositionContext || iconPositionProp;
     const fullWidth = fullWidthContext || fullWidthProp;
     const isDisabled = disabled || batchSelectionDisabled;
+
+    if (!deprecationWarningTriggered) {
+      Logger.deprecate(
+        "The `ButtonMinor` component is deprecated and will soon be removed.",
+      );
+      deprecationWarningTriggered = true;
+    }
 
     return (
       <StyledButtonMinor

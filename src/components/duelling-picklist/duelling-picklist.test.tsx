@@ -11,6 +11,7 @@ import {
   PicklistPlaceholder,
   PicklistGroup,
 } from ".";
+import { assertDeprecationWarning } from "../../__spec_helper__/__internal__/test-utils";
 
 const reducer = (
   oldState: { selected: number[]; unselected: number[] },
@@ -256,6 +257,14 @@ const FullGroupedComponentExample = () => {
     </DuellingPicklist>
   );
 };
+
+test("displays a deprecation warning when used", () => {
+  assertDeprecationWarning({
+    component: <FullComponentExample />,
+    deprecationMessage:
+      "The `DuellingPicklist` component is deprecated and will soon be removed.",
+  });
+});
 
 test("an item that is added to the selected items has an animation", async () => {
   const user = userEvent.setup();

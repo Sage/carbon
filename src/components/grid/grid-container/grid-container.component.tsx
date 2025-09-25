@@ -4,6 +4,7 @@ import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags/tags";
 import StyledGridContainer from "./grid-container.style";
+import Logger from "../../../__internal__/utils/logger";
 
 export interface GridContainerProps
   extends SpaceProps,
@@ -14,8 +15,16 @@ export interface GridContainerProps
   children?: React.ReactNode;
 }
 
-export const GridContainer = (props: GridContainerProps) => (
-  <StyledGridContainer {...props} {...tagComponent("grid", props)} />
-);
+let deprecationWarningTriggered = false;
+
+export const GridContainer = (props: GridContainerProps) => {
+  if (!deprecationWarningTriggered) {
+    Logger.deprecate(
+      "The `Grid` component is deprecated and will soon be removed.",
+    );
+    deprecationWarningTriggered = true;
+  }
+  return <StyledGridContainer {...props} {...tagComponent("grid", props)} />;
+};
 
 export default GridContainer;

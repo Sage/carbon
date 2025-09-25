@@ -40,11 +40,11 @@ export interface TabsProps extends MarginProps, TagProps {
   position?: "top" | "left";
   /** Sets size of the tab titles. */
   size?: "default" | "large";
-  /** Sets the divider of the tab titles header to extend the full width of the parent. */
+  /** @deprecated Sets the divider of the tab titles header to extend the full width of the parent. */
   extendedLine?: boolean;
-  /** Adds a combination of borders to the tab titles. */
+  /** @deprecated Adds a combination of borders to the tab titles. */
   borders?: "off" | "on" | "no left side" | "no right side" | "no sides";
-  /** Adds an alternate styling variant to the tab titles. */
+  /** @deprecated Adds an alternate styling variant to the tab titles. */
   variant?: "default" | "alternate";
   /** sets width to the tab headers. Can be any valid CSS string.
    * The headerWidth prop works only for `position="left"`
@@ -60,11 +60,18 @@ export interface TabsProps extends MarginProps, TagProps {
       info?: boolean;
     };
   };
-  /** When this prop is set any string validation failures in the children of each Tab
+  /**
+   * @deprecated When this prop is set any string validation failures in the children of each Tab
    * will be summaraised in the Tooltip next to the Tab title
    */
   showValidationsSummary?: boolean;
 }
+
+let deprecateRightAlignedTextWarningTriggered = false;
+let deprecateExtendedLineWarningTriggered = false;
+let deprecateBordersWarningTriggered = false;
+let deprecateVariantWarningTriggered = false;
+let deprecateShowValidationsSummaryWarningTriggered = false;
 
 const Tabs = ({
   align = "left",
@@ -82,10 +89,48 @@ const Tabs = ({
   showValidationsSummary,
   ...rest
 }: TabsProps) => {
+  if (!deprecateExtendedLineWarningTriggered && extendedLine !== undefined) {
+    Logger.deprecate(
+      `The 'extendedLine' prop in the Tabs component is deprecated and will soon be removed.`,
+    );
+    deprecateExtendedLineWarningTriggered = true;
+  }
+
   if (position !== "left" && headerWidth !== undefined) {
     Logger.error(
       "Invalid usage of prop headerWidth in Tabs. The headerWidth can be used only if position is set to left",
     );
+  }
+
+  if (!deprecateRightAlignedTextWarningTriggered && align === "right") {
+    Logger.deprecate(
+      `The 'right' value of the 'align' prop in the Tabs component is deprecated and will soon be removed.`,
+    );
+    deprecateRightAlignedTextWarningTriggered = true;
+  }
+
+  if (!deprecateBordersWarningTriggered && borders !== "off") {
+    Logger.deprecate(
+      `The 'borders' prop in the Tabs component is deprecated and will soon be removed.`,
+    );
+    deprecateBordersWarningTriggered = true;
+  }
+
+  if (!deprecateVariantWarningTriggered && variant !== "default") {
+    Logger.deprecate(
+      `The 'variant' prop in the Tabs component is deprecated and will soon be removed.`,
+    );
+    deprecateVariantWarningTriggered = true;
+  }
+
+  if (
+    !deprecateShowValidationsSummaryWarningTriggered &&
+    showValidationsSummary
+  ) {
+    Logger.deprecate(
+      `The 'showValidationsSummary' prop in the Tabs component is deprecated and will soon be removed.`,
+    );
+    deprecateShowValidationsSummaryWarningTriggered = true;
   }
 
   /** The children nodes converted into an Array */

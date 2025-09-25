@@ -2,6 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Alert, { AlertProps } from ".";
+import { assertDeprecationWarning } from "../../__spec_helper__/__internal__/test-utils";
 
 const ControlledAlert = ({ onCancel, ...rest }: Partial<AlertProps>) => {
   const [open, setOpen] = React.useState(true);
@@ -19,6 +20,15 @@ const ControlledAlert = ({ onCancel, ...rest }: Partial<AlertProps>) => {
     />
   );
 };
+
+test("displays a deprecation warning if used", () => {
+  assertDeprecationWarning({
+    component: <Alert open />,
+    deprecationMessage:
+      "The `Alert` component is deprecated and will soon be removed.",
+  });
+});
+
 test("include correct component, element and role data tags", () => {
   render(
     <Alert

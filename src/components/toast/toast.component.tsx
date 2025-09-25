@@ -18,6 +18,7 @@ import useLocale from "../../hooks/__internal__/useLocale";
 import useModalManager from "../../hooks/__internal__/useModalManager";
 import guid from "../../__internal__/utils/helpers/guid";
 import Typography from "../typography";
+import Logger from "../../__internal__/utils/logger";
 
 type ToastVariants =
   | "error"
@@ -73,6 +74,8 @@ export interface ToastProps extends TagProps {
   disableAutoFocus?: boolean;
 }
 
+let deprecateWarningTriggered = false;
+
 export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
   (
     {
@@ -92,6 +95,13 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
     }: ToastProps,
     ref,
   ) => {
+    if (!deprecateWarningTriggered) {
+      Logger.deprecate(
+        `The Toast component is deprecated and will soon be removed.`,
+      );
+      deprecateWarningTriggered = true;
+    }
+
     const isNotice = variant === "notice";
     const isNotification = variant === "notification";
     const locale = useLocale();

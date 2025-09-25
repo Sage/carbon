@@ -13,6 +13,7 @@ import { InputGroupContext } from "../../__internal__/input-behaviour";
 import Logger from "../../__internal__/utils/logger";
 
 let deprecatePressedWarnTriggered = false;
+let deprecateButtonIconSizeWarnTriggered = false;
 
 export interface ButtonToggleProps
   extends Partial<StyledButtonToggleProps>,
@@ -62,9 +63,14 @@ export const ButtonToggle = ({
     "Either prop `buttonIcon` must be defined, or this node must have children",
   );
 
-  if (pressed && !deprecatePressedWarnTriggered) {
+  if (!!pressed && !deprecatePressedWarnTriggered) {
     Logger.deprecate("The `pressed` prop is deprecated.");
     deprecatePressedWarnTriggered = true;
+  }
+
+  if (!!buttonIconSize && !deprecateButtonIconSizeWarnTriggered) {
+    Logger.deprecate("The `buttonIconSize` prop is deprecated.");
+    deprecateButtonIconSizeWarnTriggered = true;
   }
 
   const buttonRef = useRef<HTMLButtonElement | null>(null);

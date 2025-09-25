@@ -7,6 +7,7 @@ import TextEditor, { TextEditorHandle, createEmpty, createFromHTML } from ".";
 import { COMPONENT_PREFIX } from "./__internal__/constants";
 
 import Logger from "../../__internal__/utils/logger";
+import { assertDeprecationWarning } from "../../__spec_helper__/__internal__/test-utils";
 
 jest.mock("../../__internal__/utils/logger");
 
@@ -42,6 +43,38 @@ const initialValue = {
     version: 1,
   },
 };
+
+test("displays a deprecation warning if `onCancel` prop is used", async () => {
+  await waitFor(() => {
+    assertDeprecationWarning({
+      component: (
+        <TextEditor
+          labelText="label"
+          initialValue={JSON.stringify(initialValue)}
+          onCancel={() => {}}
+        />
+      ),
+      deprecationMessage:
+        "`onCancel` is deprecated in TextEditor and support will soon be removed. Please ensure that `TextEditor` is used as a part of a `Form` component, which will handle the cancel functionality.",
+    });
+  });
+});
+
+test("displays a deprecation warning if `onSave` prop is used", async () => {
+  await waitFor(() => {
+    assertDeprecationWarning({
+      component: (
+        <TextEditor
+          labelText="label"
+          initialValue={JSON.stringify(initialValue)}
+          onSave={() => {}}
+        />
+      ),
+      deprecationMessage:
+        "`onSave` is deprecated in TextEditor and support will soon be removed. Please ensure that `TextEditor` is used as a part of a `Form` component, which will handle the save functionality.",
+    });
+  });
+});
 
 test("should display deprecation warning once when rendered with value prop", async () => {
   const loggerSpy = jest.spyOn(Logger, "deprecate");

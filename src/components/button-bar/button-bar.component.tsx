@@ -5,6 +5,7 @@ import ButtonBarContext, {
   ButtonBarContextProps,
 } from "./__internal__/button-bar.context";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
+import Logger from "../../__internal__/utils/logger";
 
 export interface ButtonBarProps
   extends ButtonBarContextProps,
@@ -14,26 +15,37 @@ export interface ButtonBarProps
   children: React.ReactNode;
 }
 
+let deprecationWarningTriggered = false;
+
 export const ButtonBar = ({
   children,
   size = "medium",
   iconPosition = "before",
   fullWidth = false,
   ...rest
-}: ButtonBarProps) => (
-  <StyledButtonBar
-    {...rest}
-    {...tagComponent("button-bar", rest)}
-    fullWidth={fullWidth}
-    size={size}
-  >
-    <ButtonBarContext.Provider
-      value={{ buttonType: "secondary", size, iconPosition, fullWidth }}
+}: ButtonBarProps) => {
+  if (!deprecationWarningTriggered) {
+    Logger.deprecate(
+      "The `ButtonBar` component is deprecated and will soon be removed.",
+    );
+    deprecationWarningTriggered = true;
+  }
+
+  return (
+    <StyledButtonBar
+      {...rest}
+      {...tagComponent("button-bar", rest)}
+      fullWidth={fullWidth}
+      size={size}
     >
-      {children}
-    </ButtonBarContext.Provider>
-  </StyledButtonBar>
-);
+      <ButtonBarContext.Provider
+        value={{ buttonType: "secondary", size, iconPosition, fullWidth }}
+      >
+        {children}
+      </ButtonBarContext.Provider>
+    </StyledButtonBar>
+  );
+};
 
 ButtonBar.displayName = "ButtonBar";
 

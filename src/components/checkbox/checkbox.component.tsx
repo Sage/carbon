@@ -12,12 +12,13 @@ import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import CheckboxGroupContext from "./checkbox-group/__internal__/checkbox-group.context";
 import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
 import { filterStyledSystemMarginProps } from "../../style/utils";
+import Logger from "../../__internal__/utils/logger";
 
 export interface CheckboxProps
   extends CommonCheckableInputProps,
     MarginProps,
     TagProps {
-  /** Breakpoint for adaptive spacing (left margin changes to 0). Enables the adaptive behaviour when set */
+  /** @deprecated Breakpoint for adaptive spacing (left margin changes to 0). Enables the adaptive behaviour when set */
   adaptiveSpacingBreakpoint?: number;
   /** Prop to specify the aria-labelledby property of the input */
   "aria-labelledby"?: string;
@@ -36,6 +37,9 @@ export interface CheckboxProps
   /** Checked state of the input */
   checked: boolean;
 }
+
+let deprecateFieldHelpWarningTriggered = false;
+let deprecateAdaptiveSpacingBreakpointWarningTriggered = false;
 
 export const Checkbox = React.forwardRef(
   (
@@ -74,6 +78,23 @@ export const Checkbox = React.forwardRef(
     }: CheckboxProps,
     ref: React.ForwardedRef<HTMLInputElement>,
   ) => {
+    if (fieldHelp !== undefined && !deprecateFieldHelpWarningTriggered) {
+      Logger.deprecate(
+        "The `fieldHelp` prop of the `Checkbox` component is deprecated and will soon be removed.",
+      );
+      deprecateFieldHelpWarningTriggered = true;
+    }
+
+    if (
+      adaptiveSpacingBreakpoint &&
+      !deprecateAdaptiveSpacingBreakpointWarningTriggered
+    ) {
+      Logger.deprecate(
+        "The `adaptiveSpacingBreakpoint` prop of the `Checkbox` component is deprecated and will soon be removed.",
+      );
+      deprecateAdaptiveSpacingBreakpointWarningTriggered = true;
+    }
+
     const { validationRedesignOptIn } = useContext(NewValidationContext);
 
     const largeScreen = useIsAboveBreakpoint(adaptiveSpacingBreakpoint);

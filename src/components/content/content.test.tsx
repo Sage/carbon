@@ -1,7 +1,18 @@
 import React from "react";
 import { render, screen, within } from "@testing-library/react";
 import Content from ".";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import {
+  testStyledSystemMargin,
+  assertDeprecationWarning,
+} from "../../__spec_helper__/__internal__/test-utils";
+
+test("displays a deprecation warning when used", () => {
+  assertDeprecationWarning({
+    component: <Content title="Title" />,
+    deprecationMessage:
+      "The `Content` component is deprecated and will soon be removed.",
+  });
+});
 
 test("renders the provided `title` as a string", () => {
   render(<Content title="Title" />);
