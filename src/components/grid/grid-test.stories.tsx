@@ -8,7 +8,7 @@ export default {
   title: "Deprecated/Grid/Test",
   parameters: {
     info: { disable: true },
-    chromatic: { viewports: [1500, 1300, 900] },
+    chromatic: { disableSnapshot: true, viewports: [1500, 1300, 900] },
   },
 };
 

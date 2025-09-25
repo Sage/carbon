@@ -16,6 +16,11 @@ const styledSystemProps = generateStyledSystemProps({
 
 const meta: Meta<typeof Heading> = {
   title: "Deprecated/Heading",
+  parameters: {
+    chromatic: {
+      disableSnapshot: true,
+    },
+  },
   component: Heading,
   argTypes: {
     ...styledSystemProps,

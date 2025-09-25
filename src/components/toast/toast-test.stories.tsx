@@ -313,9 +313,6 @@ Visual.args = {
   children: "My text",
 };
 Visual.parameters = {
-  chromatic: {
-    disableSnapshot: false,
-  },
   themeProvider: { chromatic: { theme: "sage" } },
 };
 

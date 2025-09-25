@@ -107,6 +107,5 @@ export const InsideButtons = () => {
 };
 InsideButtons.storyName = "Inside Buttons";
 InsideButtons.parameters = {
-  chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
 };

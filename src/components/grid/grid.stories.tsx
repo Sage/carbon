@@ -230,7 +230,6 @@ export const CustomSpacing: Story = () => {
   );
 };
 CustomSpacing.storyName = "Custom Spacing";
-CustomSpacing.parameters = { chromatic: { disableSnapshot: false } };
 
 export const ResponsiveSettings: Story = () => {
   return (
@@ -379,4 +378,3 @@ export const SubGrid: Story = () => {
   );
 };
 SubGrid.storyName = "Sub Grid";
-SubGrid.parameters = { chromatic: { disableSnapshot: false } };

@@ -10,7 +10,12 @@ import point from "../../../.assets/point.svg";
 export default {
   title: "Deprecated/Dismissible Box/Test",
   parameters: {
-    info: { disable: true },
+    info: {
+      disable: true,
+      chromatic: {
+        disableSnapshot: true,
+      },
+    },
   },
   argTypes: {
     width: {

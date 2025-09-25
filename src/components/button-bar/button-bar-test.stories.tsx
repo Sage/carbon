@@ -220,10 +220,3 @@ export const Preview = () => {
     </>
   );
 };
-Preview.story = {
-  parameters: {
-    chromatic: {
-      disableSnapshot: false,
-    },
-  },
-};

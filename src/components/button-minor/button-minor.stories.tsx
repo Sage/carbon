@@ -14,6 +14,11 @@ const styledSystemProps = generateStyledSystemProps(
 
 const meta: Meta<typeof ButtonMinor> = {
   title: "Deprecated/Button Minor",
+  parameters: {
+    chromatic: {
+      disableSnapshot: true,
+    },
+  },
   component: ButtonMinor,
   argTypes: {
     ...styledSystemProps,

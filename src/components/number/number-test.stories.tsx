@@ -139,7 +139,6 @@ export const Validation = () => {
 };
 Validation.storyName = "Validation";
 Validation.parameters = {
-  chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
@@ -184,7 +183,6 @@ export const NewValidation = () => {
 };
 NewValidation.storyName = "New Validation";
 NewValidation.parameters = {
-  chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
@@ -201,6 +199,5 @@ export const AutoFocus = () => {
 };
 AutoFocus.storyName = "Auto Focus";
 AutoFocus.parameters = {
-  chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
 };

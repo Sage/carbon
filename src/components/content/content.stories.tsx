@@ -20,7 +20,12 @@ const meta: Meta<typeof Content> = {
   argTypes: {
     ...styledSystemProps,
   },
-  parameters: { controls: { disabled: true } },
+  parameters: {
+    controls: { disabled: true },
+    chromatic: {
+      disableSnapshot: true,
+    },
+  },
 };
 
 export default meta;
