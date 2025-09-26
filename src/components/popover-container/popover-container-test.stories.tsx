@@ -717,3 +717,20 @@ WithinGlobalHeader.story = {
     shouldCoverButton: true,
   },
 };
+
+export const OnCloseTest = () => {
+  const [closeCount, setCloseCount] = useState(0);
+  const onClose = () => setCloseCount((count) => count + 1);
+  return (
+    <>
+      <PopoverContainer onClose={onClose}>Content</PopoverContainer>
+      <div>Close count: {closeCount}</div>
+    </>
+  );
+};
+
+OnCloseTest.storyName = "On Close Test";
+OnCloseTest.story = {
+  name: "on-close-test",
+  args: {},
+};
