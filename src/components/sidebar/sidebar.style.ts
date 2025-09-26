@@ -21,7 +21,7 @@ const StyledSidebar = styled.div.attrs(applyBaseTheme)<StyledSidebarProps>`
   }
 
   ${({ onCancel, position, size, theme, width }) => css`
-    background: var(--colorsUtilityMajor025);
+    background: var(--colorsUtilityYang100);
     border-radius: 1px;
     bottom: 0;
     position: fixed;

@@ -223,7 +223,7 @@ const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
   ${({ backgroundColor, dialogHeight, fullscreen, highlightVariant, size }) =>
     fullscreen
       ? css`
-          background-color: var(--colorsUtilityMajor025);
+          background-color: ${backgroundColor};
           height: 100%;
           width: 100%;
         `
