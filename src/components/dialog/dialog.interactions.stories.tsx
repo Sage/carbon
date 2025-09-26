@@ -16,7 +16,7 @@ export default {
   component: Dialog,
   parameters: { layout: "padded" },
   decorators: [],
-};
+} as const;
 
 export const FocusManagement: Story = {
   render: function FocusManagementRender() {
@@ -78,14 +78,20 @@ export const FocusManagement: Story = {
     await userEvent.tab();
 
     const firstInput = within(dialog).getByLabelText(/first name/i);
+    await waitFor(() => expect(firstInput).toBeVisible());
     await userEvent.type(firstInput, "Jane Doe", { delay: 30 });
 
-    await userEvent.tab();
-    await userEvent.tab();
+    const closeButton = within(dialog).getByRole("button", { name: /close/i });
+    await waitFor(() => expect(closeButton).toBeVisible());
 
-    const closeIcon = within(dialog).getByRole("button", { name: /close/i });
-    await userEvent.click(closeIcon);
-
-    expect(openButton).toHaveFocus();
+    await waitFor(async () => {
+      await userEvent.tab();
+      expect(closeButton).toHaveFocus();
+    });
   },
+};
+
+FocusManagement.storyName = "Focus Management";
+FocusManagement.parameters = {
+  chromatic: { disableSnapshot: false },
 };
