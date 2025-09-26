@@ -11,8 +11,7 @@ import Typography from "../typography";
 import Box from "../box";
 import { ActionPopover, ActionPopoverItem } from "../action-popover";
 import Icon from "../icon";
-import Hr from "../hr";
-import VerticalDivider from "../vertical-divider";
+import Divider from "../divider";
 import FlexTileDivider from "./flex-tile-divider";
 
 import {
@@ -139,7 +138,7 @@ export const WithTileFooter: Story = () => {
               Example header
             </Typography>
             <Typography>Labore ipsum nostrud quis aliquip</Typography>
-            <Hr />
+            <Divider type="horizontal" />
             <Typography>Labore ipsum nostrud quis aliquip</Typography>
           </Box>
           <TileFooter p={1}>
@@ -157,7 +156,7 @@ export const WithTileFooter: Story = () => {
               >
                 Edit Button
               </Button>
-              <VerticalDivider tint={80} py={0} px={2} h={20} />
+              <Divider py={0} px={2} h={20} />
               <Button
                 p={0}
                 iconPosition="after"
@@ -167,7 +166,7 @@ export const WithTileFooter: Story = () => {
               >
                 Edit Button
               </Button>
-              <VerticalDivider tint={80} py={0} px={2} h={20} />
+              <Divider py={0} px={2} h={20} />
               <Button
                 p={0}
                 iconPosition="after"
@@ -332,7 +331,7 @@ export const WithButtonInTileHeader: Story = () => {
             Example tile body
           </Typography>
           <Typography>{content1}</Typography>
-          <Hr />
+          <Divider type="horizontal" />
           <Typography>{content2}</Typography>
         </Box>
       </TileContent>

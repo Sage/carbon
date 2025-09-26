@@ -12,7 +12,7 @@ import {
 } from "./button.config";
 import { ButtonIconPosition, ButtonTypes } from "./button.component";
 import { Tile, TileContent } from "../tile";
-import Hr from "../hr";
+import Divider from "../divider";
 import Typography from "../typography";
 
 export default {
@@ -1247,7 +1247,7 @@ const Groups = () => {
   return (
     <Box display="flex" flexDirection="column" maxWidth="900px">
       <Box>
-        <Hr my={3} />
+        <Divider type="horizontal" my={3} />
       </Box>
       <Typography variant="h3">Some Title</Typography>
       <Typography variant="p">Some Description</Typography>
@@ -1296,7 +1296,7 @@ export const ButtonFocusNoScroll: Story = {
                     <Groups />
                     <Groups />
                     <Box>
-                      <Hr my={3} />
+                      <Divider type="horizontal" my={3} />
                     </Box>
                   </Box>
                 </Box>

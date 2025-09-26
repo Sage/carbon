@@ -20,7 +20,7 @@ import Number from "../number";
 import GroupedCharacter from "../grouped-character";
 import { SimpleColorPicker, SimpleColor } from "../simple-color-picker";
 import NumeralDate from "../numeral-date";
-import Hr from "../hr";
+import Divider from "../divider";
 import InlineInputs from "../inline-inputs";
 import Pager from "../pager";
 import Password from "../password";
@@ -71,7 +71,7 @@ export const AllInputs: StoryType = (args: FormProps) => (
       label="Outside of Form"
       characterLimit={100}
     />
-    <Hr />
+    <Divider type="horizontal" />
     <Form
       {...args}
       leftSideButtons={<Button>Cancel</Button>}
@@ -122,7 +122,7 @@ export const AllInputs: StoryType = (args: FormProps) => (
             <Option text="Blue" value="3" />
           </Select>
         </Fieldset>
-        <Hr />
+        <Divider type="horizontal" />
         <Time
           value={{
             hours: "",
@@ -433,7 +433,7 @@ export const FormAlignmentCustomMarginsTextInputs = (args: FormProps) => {
         <Textbox value="" onChange={() => {}} />
         <Textbox value="" onChange={() => {}} />
       </InlineInputs>
-      <Hr mx={1} my={0} />
+      <Divider type="horizontal" mx={1} my={0} />
     </Form>
   );
 };
@@ -523,7 +523,7 @@ export const FormAlignmentCustomMarginNonTextInputs = (args: FormProps) => {
           />
         ))}
       </SimpleColorPicker>
-      <Hr mx={1} my={0} />
+      <Divider type="horizontal" mx={1} my={0} />
     </Form>
   );
 };
@@ -669,7 +669,7 @@ export const MarginTest = () => {
         value={textareaValue}
         onChange={handleTextareaChange}
       />
-      <Hr />
+      <Divider type="horizontal" />
     </Form>
   );
 };

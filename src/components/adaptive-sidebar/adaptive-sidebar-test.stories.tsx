@@ -7,7 +7,7 @@ import Button from "../button";
 import { Checkbox } from "../checkbox";
 import DateInput, { DateChangeEvent } from "../date";
 import Form from "../form";
-import Hr from "../hr";
+import Divider from "../divider";
 import Icon from "../icon";
 import IconButton from "../icon-button";
 import Search from "../search";
@@ -295,7 +295,7 @@ export const ExampleImplementation: StoryObj = () => {
               Hide
             </Button>
           </Box>
-          <Hr my={1} />
+          <Divider type="horizontal" my={1} />
           <Box display="flex" flexDirection="column">
             <Typography variant="h3" mt={2} mb={2}>
               Search

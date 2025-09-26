@@ -5,7 +5,7 @@ import generateStyledSystemProps from "../../../.storybook/utils/styled-system-p
 
 import Card from "../card";
 import { Tile, TileContent } from "../tile";
-import Hr from "../hr";
+import Divider from "../divider";
 import Box from "../box";
 
 import Detail from ".";
@@ -54,13 +54,13 @@ export const DetailInsideCard: Story = () => (
     <Box pt="16px">
       <Detail>This example of Detail just has children.</Detail>
     </Box>
-    <Hr />
+    <Divider type="horizontal" />
     <Box pt="8px">
       <Detail footnote="This is a footnote">
         This example of Detail has children and also a footnote.
       </Detail>
     </Box>
-    <Hr />
+    <Divider type="horizontal" />
     <Box pb="16px">
       <Detail icon="settings" footnote="This is a footnote">
         Where as this example of Detail has a footnote and icon.
