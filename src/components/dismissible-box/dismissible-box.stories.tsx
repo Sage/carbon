@@ -16,7 +16,12 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof DismissibleBox> = {
-  title: "Dismissible Box",
+  title: "Deprecated/Dismissible Box",
+  parameters: {
+    chromatic: {
+      disableSnapshot: true,
+    },
+  },
   component: DismissibleBox,
   render: (args) => (
     <DismissibleBox {...args}>

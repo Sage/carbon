@@ -8,7 +8,7 @@ import Heading from "../heading";
 import Button from "../button";
 
 const meta: Meta<typeof Pages> = {
-  title: "Pages",
+  title: "Deprecated/Pages",
   component: Pages,
   parameters: { chromatic: { disableSnapshot: true } },
 };

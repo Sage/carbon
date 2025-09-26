@@ -1,11 +1,14 @@
 import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
 import * as AlertStories from "./alert.stories";
+import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component"
 
 <Meta of={AlertStories} />
 
 # Alert
 
-An important message that interrupts user activity, but can be dismissed.
+<DeprecationWarning>
+Alert has been deprecated, if this pattern is still needed please see <a style={{color: "white"}} href="../?path=/docs/documentation-deprecation-migration--docs#alert">our deprecation migration docs</a> for an alternative pattern.
+</DeprecationWarning>
 
 ## Contents
 

@@ -7,7 +7,7 @@ import { TooltipPositions } from "./tooltip.config";
 import Tooltip from ".";
 
 const meta: Meta<typeof Tooltip> = {
-  title: "Tooltip",
+  title: "Deprecated/Tooltip",
   component: Tooltip,
   parameters: { chromatic: { disableSnapshot: true } },
 };

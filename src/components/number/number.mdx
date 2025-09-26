@@ -1,12 +1,15 @@
 import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
 
 import * as NumberStories from "./number.stories.tsx";
+import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component"
 
 <Meta of={NumberStories} />
 
 # Number
 
-Capture whole numbers - without a decimal point.
+<DeprecationWarning>
+Number has been deprecated, if this pattern is still needed please see <a style={{color: "white"}} href="../?path=/docs/documentation-deprecation-migration--docs#number">our deprecation migration docs</a> for an alternative pattern.
+</DeprecationWarning>
 
 ## Contents
 

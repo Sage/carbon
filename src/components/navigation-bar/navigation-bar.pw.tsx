@@ -72,25 +72,30 @@ test.describe("Test props for NavigationBar component", () => {
     });
   });
 
-  ([true, false] as NavigationBarProps["isLoading"][]).forEach((boolean) => {
-    test(`should render with isLoading prop set to ${boolean}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <NavigationBarComponent isLoading={boolean}>
-          {testData}
-        </NavigationBarComponent>,
-      );
+  test("does not render content when isLoading prop is true", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <NavigationBarComponent isLoading>{testData}</NavigationBarComponent>,
+    );
 
-      const navigation = page.locator(`[data-component="navigation-bar"]`);
+    const navigationBar = page.getByRole("navigation");
+    await expect(navigationBar).not.toHaveText(testData);
+  });
 
-      if (boolean) {
-        await expect(navigation).not.toBeAttached;
-      } else {
-        await expect(navigation).toBeVisible();
-      }
-    });
+  test("renders content when isLoading prop is false", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <NavigationBarComponent isLoading={false}>
+        {testData}
+      </NavigationBarComponent>,
+    );
+
+    const navigationBar = page.getByRole("navigation");
+    await expect(navigationBar).toHaveText(testData);
   });
 
   (["fixed", "sticky"] as const).forEach((position) => {

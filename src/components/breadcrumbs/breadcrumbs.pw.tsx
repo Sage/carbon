@@ -14,7 +14,7 @@ import {
 import { checkAccessibility } from "../../../playwright/support/helper";
 import { CHARACTERS } from "../../../playwright/support/constants";
 
-test.describe("should render Breadcrumbs component", async () => {
+test.describe("should render Breadcrumbs component", () => {
   test("should check Breadcrumbs children is set visible", async ({
     mount,
     page,
@@ -34,7 +34,7 @@ test.describe("should render Breadcrumbs component", async () => {
     await crumbElement.hover();
 
     const link = crumbElement.locator("a");
-    await expect(link).toHaveCSS("color", "rgb(0, 103, 56)");
+    await expect(link).toHaveCSS("color", "rgb(16, 96, 28)");
   });
 
   test("should check Breadcrumbs on focus", async ({ mount, page }) => {
@@ -55,11 +55,11 @@ test.describe("should render Breadcrumbs component", async () => {
     await crumbAtIndex(page, 0).locator("button").focus();
     await expect(crumbAtIndex(page, 0).locator("button")).toHaveCSS(
       "background-color",
-      "rgb(255, 218, 128)",
+      "rgb(255, 210, 126)",
     );
     await expect(crumbAtIndex(page, 0).locator("span").first()).toHaveCSS(
       "box-shadow",
-      "rgba(0, 0, 0, 0.9) 0px 4px 0px 0px",
+      "rgb(0, 0, 0) 0px 4px 0px 0px",
     );
   });
 
@@ -72,11 +72,11 @@ test.describe("should render Breadcrumbs component", async () => {
     await crumbAtIndex(page, 0).locator("a").focus();
     await expect(crumbAtIndex(page, 0).locator("a")).toHaveCSS(
       "background-color",
-      "rgb(255, 218, 128)",
+      "rgb(255, 210, 126)",
     );
     await expect(crumbAtIndex(page, 0).locator("span").first()).toHaveCSS(
       "box-shadow",
-      "rgba(0, 0, 0, 0.9) 0px 4px 0px 0px",
+      "rgb(0, 0, 0) 0px 4px 0px 0px",
     );
   });
 
@@ -158,11 +158,11 @@ test.describe("should render Breadcrumbs component", async () => {
     await crumbAtIndex(page, 0).locator("a").press("Space");
     await expect(crumbAtIndex(page, 0).locator("a")).toHaveCSS(
       "background-color",
-      "rgb(255, 218, 128)",
+      "rgb(255, 210, 126)",
     );
     await expect(crumbAtIndex(page, 0).locator("span").first()).toHaveCSS(
       "box-shadow",
-      "rgba(0, 0, 0, 0.9) 0px 4px 0px 0px",
+      "rgb(0, 0, 0) 0px 4px 0px 0px",
     );
   });
 
@@ -232,7 +232,7 @@ test("when Crumb's isCurrent prop is true, Crumb divider should not exist", asyn
   );
 });
 
-test.describe("Accessibility tests for Breadcrumbs component", async () => {
+test.describe("Accessibility tests for Breadcrumbs component", () => {
   test("should pass accessibility tests for Breadcrumbs default story", async ({
     mount,
     page,

@@ -9,7 +9,7 @@ import {
 import {
   assertCssValueIsApproximately,
   checkAccessibility,
-  verifyRequiredAsteriskForLabel,
+  verifyRequiredAsteriskForLegend,
 } from "../../../playwright/support/helper";
 import TimeComponent from "./components.test-pw";
 import {
@@ -96,10 +96,7 @@ test.describe("Time component", () => {
   }) => {
     await mount(<TimeComponent label="label" required />);
 
-    await verifyRequiredAsteriskForLabel(
-      page,
-      getDataElementByValue(page, "legend").locator("span"),
-    );
+    await verifyRequiredAsteriskForLegend(page);
     await expect(
       getDataComponentByValue(page, "hours").locator("input"),
     ).toHaveAttribute("required", "");
@@ -437,7 +434,7 @@ test.describe("Time component", () => {
     });
   });
 
-  test.describe("Accessibility tests ", () => {
+  test.describe("Accessibility tests", () => {
     test("should pass for default implementation", async ({ mount, page }) => {
       await mount(
         <TimeComponent

@@ -1,7 +1,7 @@
 import type { Locator, Page } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { expect } from "@playwright/experimental-ct-react";
-import { label, legendSpan } from "../components/index";
+import { label, legend } from "../components/index";
 
 /**
  * Retrieve a computed style for an element.
@@ -237,7 +237,7 @@ const verifyRequiredAsterisk = async (locator: Locator) => {
   const contentValue = await locator.evaluate((el) =>
     window.getComputedStyle(el, "after").getPropertyValue("content"),
   );
-  await expect(contentValue).toBe('"*"');
+  expect(contentValue).toBe('"*"');
 };
 
 export const verifyRequiredAsteriskForLabel = (
@@ -251,7 +251,7 @@ export const verifyRequiredAsteriskForLabel = (
 };
 
 export const verifyRequiredAsteriskForLegend = (page: Page) =>
-  verifyRequiredAsterisk(legendSpan(page));
+  verifyRequiredAsterisk(legend(page));
 
 /**
  * Verifies whether an object exists while not visible to the user. */
@@ -348,4 +348,17 @@ export const waitForElementFocus = async (page: Page, locator: Locator) => {
     (element) => document.activeElement === element,
     focusedElement,
   );
+};
+
+export const checkNewFocusStyling = async (locator: Locator) => {
+  const shadowValue = await locator.evaluate((el) =>
+    window.getComputedStyle(el, "after").getPropertyValue("box-shadow"),
+  );
+  const outlineValue = await locator.evaluate((el) =>
+    window.getComputedStyle(el, "after").getPropertyValue("outline"),
+  );
+  expect(shadowValue).toBe(
+    `rgba(0, 0, 0, 0.9) 0px 0px 0px 3px inset, rgb(255, 188, 25) 0px 0px 0px 6px inset`,
+  );
+  expect(outlineValue).toBe(`rgba(0, 0, 0, 0) solid 3px`);
 };

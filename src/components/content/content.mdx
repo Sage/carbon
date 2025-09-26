@@ -1,15 +1,15 @@
 import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
 
 import * as ContentStories from "./content.stories.tsx";
+import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component"
 
 <Meta of={ContentStories} />
 
 # Content
 
-Text content with simple styles and useful to show simple text content in a common arrangement.
-The Content component shows a title in bold, with plain text content children. Make sure that the colour of all text has a
-contrast ratio of at least 4.5.1, to meet the [WCAG 2.0 AA standard](https://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-contrast.html)
-for text less than 19px in size. Webaim have a good online [Contrast Checker](http://webaim.org/resources/contrastchecker/).
+<DeprecationWarning>
+Content has been deprecated, if this pattern is still needed please see <a style={{color: "white"}} href="../?path=/docs/documentation-deprecation-migration--docs#content">our deprecation migration docs</a> for an alternative pattern.
+</DeprecationWarning>
 
 ## Contents
 

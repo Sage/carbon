@@ -1,22 +1,15 @@
 import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
 
 import * as ButtonMinorStories from "./button-minor.stories";
+import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component"
 
 <Meta of={ButtonMinorStories} />
 
 # Button Minor
 
-<a
-  target="_blank"
-  href="https://zeroheight.com/2ccf2b601/p/4121af-button-minor/b/03680d"
-  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
-  rel="noreferrer"
->
-  Product Design System component - Button Minor Component
-</a>
-
-- A minor button is a user interface button rather than a primary action button.
-- It is less prominent than a major button.
+<DeprecationWarning>
+Button Minor has been deprecated, if this pattern is still needed please see <a style={{color: "white"}} href="../?path=/docs/documentation-deprecation-migration--docs#recommended-alternatives">our deprecation migration docs</a> for a recommended alternative.
+</DeprecationWarning>
 
 ## Contents
 

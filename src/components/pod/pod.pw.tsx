@@ -351,7 +351,7 @@ test.describe("when onEdit prop is passed", () => {
       </Pod>,
     );
 
-    await expect(podEdit(page)).not.toBeVisible();
+    await expect(podEdit(page)).toBeHidden();
 
     await podContent(page).click();
     await expect(podEdit(page)).toBeVisible();
@@ -367,7 +367,7 @@ test.describe("when onEdit prop is passed", () => {
       </Pod>,
     );
 
-    await expect(podEdit(page)).not.toBeVisible();
+    await expect(podEdit(page)).toBeHidden();
     await podBlock(page).hover();
 
     await expect(podEdit(page)).toBeVisible();
@@ -383,7 +383,7 @@ test.describe("when onEdit prop is passed", () => {
       </Pod>,
     );
 
-    await expect(podEdit(page)).not.toBeVisible();
+    await expect(podEdit(page)).toBeHidden();
 
     await podBlock(page).focus();
     await expect(podEdit(page)).toBeVisible();
@@ -484,7 +484,7 @@ test.describe("when onUndo and softDelete props are passed", () => {
       if (boolVal) {
         await expect(podUndo(page)).toBeVisible();
       } else {
-        await expect(podUndo(page)).not.toBeVisible();
+        await expect(podUndo(page)).toBeHidden();
       }
     });
   });

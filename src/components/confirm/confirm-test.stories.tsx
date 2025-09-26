@@ -6,7 +6,7 @@ import Confirm, { ConfirmProps } from "./confirm.component";
 import { CONFIRM_SIZES } from "./confirm.config";
 
 export default {
-  title: "Confirm/Test",
+  title: "Deprecated/Confirm/Test",
   includeStories: ["Default"],
   parameters: {
     info: { disable: true },

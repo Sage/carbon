@@ -101,8 +101,8 @@ export const characterCount = (page: Page) => page.locator(CHARACTER_COUNT);
 export const characterLimitDefaultTextarea = (page: Page) =>
   page.locator(CHARACTER_LIMIT);
 
-export const legendSpan = (page: Page) => {
-  return page.locator("legend > span");
+export const legend = (page: Page) => {
+  return page.locator("legend");
 };
 
 export const openDialogByName = (page: Page, name: string) => {

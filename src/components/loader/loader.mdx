@@ -2,24 +2,15 @@ import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 import * as LoaderStories from "./loader.stories";
+import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component"
 
 <Meta of={LoaderStories} />
 
 # Loader
 
-<a
-  target="_blank"
-  href="https://zeroheight.com/2ccf2b601/p/74be25-loader"
-  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
-  rel="noreferrer"
->
-  Product Design System component
-</a>
-
-Use the Loader component to let users know a task or loading data is still in progress.
-Showing a Loader helps the user to understand that they should wait, rather than reload the page or abandon a process.
-In general, place a Loader in the centre and middle of the page or container it relates to.
-Like many Design System elements, Loaders are made of square elements. They usually take the accent colour of the product they're in.
+<DeprecationWarning>
+Loader has been deprecated, if this pattern is still needed please see <a style={{color: "white"}} href="../?path=/docs/documentation-deprecation-migration--docs#recommended-alternatives">our deprecation migration docs</a> for a recommended alternative.
+</DeprecationWarning>
 
 ## Contents
 

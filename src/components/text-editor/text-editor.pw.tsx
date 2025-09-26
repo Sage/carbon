@@ -121,10 +121,10 @@ test.describe("Prop tests", () => {
     test(`value of 0`, async ({ mount, page }) => {
       await mount(<TextEditorDefaultComponent characterLimit={0} />);
 
-      const displayedLimit = await page
-        .locator("div[data-role='pw-rte-character-limit']")
-        .isVisible();
-      expect(displayedLimit).toBe(false);
+      const displayedLimit = page.locator(
+        "div[data-role='pw-rte-character-limit']",
+      );
+      await expect(displayedLimit).toBeHidden();
     });
 
     [
@@ -136,10 +136,10 @@ test.describe("Prop tests", () => {
         await mount(
           <TextEditorDefaultComponent characterLimit={characterLimit} />,
         );
-        let displayedLimit = await page
-          .locator("div[data-role='pw-rte-character-limit']")
-          .textContent();
-        expect(displayedLimit).toBe(`${text} characters remaining`);
+        let displayedLimit = page.locator(
+          "div[data-role='pw-rte-character-limit']",
+        );
+        await expect(displayedLimit).toHaveText(`${text} characters remaining`);
 
         const stringToType = "a".repeat(characterLimit);
 
@@ -153,20 +153,20 @@ test.describe("Prop tests", () => {
         // eslint-disable-next-line playwright/no-wait-for-timeout
         await page.waitForTimeout(3000);
 
-        displayedLimit = await page
-          .locator("div[data-role='pw-rte-character-limit']")
-          .textContent();
-        expect(displayedLimit).toBe(`0 characters remaining`);
+        displayedLimit = page.locator(
+          "div[data-role='pw-rte-character-limit']",
+        );
+        await expect(displayedLimit).toHaveText(`0 characters remaining`);
 
         await textbox.fill(`${stringToType}1`);
 
         // eslint-disable-next-line playwright/no-wait-for-timeout
         await page.waitForTimeout(3000);
 
-        displayedLimit = await page
-          .locator("div[data-role='pw-rte-character-limit']")
-          .textContent();
-        expect(displayedLimit).toBe(`0 characters remaining`);
+        displayedLimit = page.locator(
+          "div[data-role='pw-rte-character-limit']",
+        );
+        await expect(displayedLimit).toHaveText(`0 characters remaining`);
 
         const displayedWarning = page.getByTestId("pw-rte-validation-message");
         await expect(displayedWarning).toHaveText(
@@ -458,10 +458,8 @@ test.describe("Prop tests", () => {
   test.describe("inputHint", () => {
     test(`value of 'hint'`, async ({ mount, page }) => {
       await mount(<TextEditorDefaultComponent inputHint="hint" />);
-      const hint = await page
-        .locator(`div[data-role='hint-text']`)
-        .textContent();
-      expect(hint).toBe("hint");
+      const hint = page.locator(`div[data-role='hint-text']`);
+      await expect(hint).toHaveText("hint");
     });
 
     test(`value not provided`, async ({ mount, page }) => {
@@ -475,10 +473,8 @@ test.describe("Prop tests", () => {
     [{ value: "Text Editor" }].forEach(({ value }) => {
       test(`value of ${value}`, async ({ mount, page }) => {
         await mount(<TextEditorDefaultComponent labelText={value} />);
-        const editorLabel = await page
-          .locator("label[data-element='label']")
-          .textContent();
-        expect(editorLabel).toBe(value);
+        const editorLabel = page.locator("label[data-element='label']");
+        await expect(editorLabel).toHaveText(value);
       });
     });
   });
@@ -487,10 +483,10 @@ test.describe("Prop tests", () => {
     [undefined, "Enter text here"].forEach((placeholder) => {
       test(`value of ${placeholder}`, async ({ mount, page }) => {
         await mount(<TextEditorDefaultComponent placeholder={placeholder} />);
-        const displayedPlaceholder = await page
-          .locator("div[data-role='pw-rte-placeholder']")
-          .textContent();
-        expect(displayedPlaceholder).toBe(placeholder || "");
+        const displayedPlaceholder = page.locator(
+          "div[data-role='pw-rte-placeholder']",
+        );
+        await expect(displayedPlaceholder).toHaveText(placeholder || "");
       });
     });
   });
@@ -545,30 +541,32 @@ test.describe("Prop tests", () => {
       await mount(
         <TextEditorDefaultComponent initialValue={preformattedValue} />,
       );
-      const defaultText = await page.locator("p").textContent();
-      expect(defaultText).toBe("Sample text with some formatting applied.");
+      const defaultText = page.locator("p");
+      await expect(defaultText).toHaveText(
+        "Sample text with some formatting applied.",
+      );
 
-      const normalText = await page.locator("p> span").nth(0).textContent();
-      expect(normalText).toBe("Sample text with ");
-      const boldText = await page.locator("p > strong").textContent();
-      expect(boldText).toBe("some formatting");
-      const italicText = await page.locator("p > em").textContent();
-      expect(italicText).toBe("applied");
+      const normalText = page.locator("p> span").nth(0);
+      await expect(normalText).toHaveText("Sample text with ");
+      const boldText = page.locator("p > strong");
+      await expect(boldText).toHaveText("some formatting");
+      const italicText = page.locator("p > em");
+      await expect(italicText).toHaveText("applied");
 
-      const textbox = await page.locator("div[role='textbox']");
+      const textbox = page.locator("div[role='textbox']");
       await textbox.click();
       await textbox.pressSequentially(" This is added text", { delay: 100 });
 
-      const updatedText = await page.locator("p").textContent();
-      expect(updatedText).toBe(
+      const updatedText = page.locator("p");
+      await expect(updatedText).toHaveText(
         "Sample text with some formatting applied. This is added text",
       );
 
       await textbox.press("Enter");
       await textbox.pressSequentially("New line text", { delay: 100 });
 
-      const newParagraph = await page.locator("p").nth(1).textContent();
-      expect(newParagraph).toBe("New line text");
+      const newParagraph = page.locator("p").nth(1);
+      await expect(newParagraph).toHaveText("New line text");
     });
   });
 
@@ -599,21 +597,19 @@ test.describe("Prop tests", () => {
       _.dispatchEvent(event);
     }, textToPaste);
 
-    const displayedLimitAfterPastingText = await page
-      .getByTestId("pw-rte-character-limit")
-      .textContent();
-
-    expect(displayedLimitAfterPastingText).toBe(
+    const displayedLimitAfterPastingText = page.getByTestId(
+      "pw-rte-character-limit",
+    );
+    await expect(displayedLimitAfterPastingText).toHaveText(
       `${remainingCharactersAfterPasting} characters remaining`,
     );
 
     await page.keyboard.type(textToType);
 
-    const displayedLimitAfterKeyboardUpdate = await page
-      .getByTestId("pw-rte-character-limit")
-      .textContent();
-
-    expect(displayedLimitAfterKeyboardUpdate).toBe(
+    const displayedLimitAfterKeyboardUpdate = page.getByTestId(
+      "pw-rte-character-limit",
+    );
+    await expect(displayedLimitAfterKeyboardUpdate).toHaveText(
       `${remainingCharsAfterTyping} characters remaining`,
     );
   });
@@ -645,21 +641,19 @@ test.describe("Prop tests", () => {
       _.dispatchEvent(event);
     }, textToPaste);
 
-    const displayedWarningAfterPastingText = await page
-      .getByTestId("pw-rte-validation-message")
-      .textContent();
-
-    expect(displayedWarningAfterPastingText).toBe(
+    const displayedWarningAfterPastingText = page.getByTestId(
+      "pw-rte-validation-message",
+    );
+    await expect(displayedWarningAfterPastingText).toHaveText(
       `You are ${charactersLimit} character(s) over the character limit`,
     );
 
     await page.keyboard.type(textToType);
 
-    const displayedWarningAfterKeyboardUpdate = await page
-      .getByTestId("pw-rte-validation-message")
-      .textContent();
-
-    expect(displayedWarningAfterKeyboardUpdate).toBe(
+    const displayedWarningAfterKeyboardUpdate = page.getByTestId(
+      "pw-rte-validation-message",
+    );
+    await expect(displayedWarningAfterKeyboardUpdate).toHaveText(
       `You are ${charactersLimitAfterTyping} character(s) over the character limit`,
     );
   });
@@ -669,9 +663,7 @@ test.describe("Prop tests", () => {
     page,
   }) => {
     await mount(<TextEditorDefaultComponent m={2} />);
-    const textEditorWrapper = await page.locator(
-      `div[data-component='text-editor']`,
-    );
+    const textEditorWrapper = page.locator(`div[data-component='text-editor']`);
     await expect(textEditorWrapper).toHaveCSS("margin", "16px");
   });
 
@@ -680,9 +672,7 @@ test.describe("Prop tests", () => {
     page,
   }) => {
     await mount(<TextEditorDefaultComponent m="16px" />);
-    const textEditorWrapper = await page.locator(
-      `div[data-component='text-editor']`,
-    );
+    const textEditorWrapper = page.locator(`div[data-component='text-editor']`);
     await expect(textEditorWrapper).toHaveCSS("margin", "16px");
   });
 });
@@ -699,15 +689,17 @@ test.describe("Functionality tests", () => {
           onCancel={() => {}}
         />,
       );
-      const textbox = await page.locator("div[role='textbox']");
+      const textbox = page.locator("div[role='textbox']");
       await textbox.click();
       await textbox.pressSequentially(" This is some text", { delay: 100 });
       const cancelButton = page.locator(
         "button[data-role='pw-rte-cancel-button']",
       );
       await cancelButton.click();
-      const displayedText = await textbox.textContent();
-      expect(displayedText).toBe("Sample text with some formatting applied.");
+      const displayedText = textbox;
+      await expect(displayedText).toHaveText(
+        "Sample text with some formatting applied.",
+      );
     });
   });
 
@@ -722,7 +714,7 @@ test.describe("Functionality tests", () => {
           }}
         />,
       );
-      const textbox = await page.locator("div[role='textbox']");
+      const textbox = page.locator("div[role='textbox']");
       await textbox.click();
       await textbox.pressSequentially(" This is some text", { delay: 100 });
 
@@ -753,7 +745,7 @@ test.describe("Functionality tests", () => {
           }}
         />,
       );
-      const textbox = await page.locator("div[role='textbox']");
+      const textbox = page.locator("div[role='textbox']");
       await textbox.click();
       await textbox.pressSequentially(" This is some text", { delay: 100 });
 
@@ -812,7 +804,7 @@ test.describe("Functionality tests", () => {
           }}
         />,
       );
-      const textbox = await page.locator("div[role='textbox']");
+      const textbox = page.locator("div[role='textbox']");
       await textbox.click();
       expect(currentValue).toBe(true);
     });
@@ -832,13 +824,11 @@ test.describe("Functionality tests", () => {
         />,
       );
 
-      const textbox = await page.locator("div[role='textbox']");
+      const textbox = page.locator("div[role='textbox']");
       await textbox.click();
       await textbox.pressSequentially("This is some text", { delay: 100 });
 
-      const saveButton = await page.locator(
-        "button[data-role='pw-rte-save-button']",
-      );
+      const saveButton = page.locator("button[data-role='pw-rte-save-button']");
       await saveButton.click();
       expect(_htmlString).not.toBeNull();
       expect(_json).not.toBeNull();
@@ -888,14 +878,12 @@ test.describe("Functionality tests", () => {
       await mount(
         <TextEditorDefaultComponent initialValue={unformattedValue} />,
       );
-      const textbox = await page.locator("div[role='textbox']");
+      const textbox = page.locator("div[role='textbox']");
       await textbox.selectText();
-      const boldButton = await page.locator(
-        "button[data-role='pw-rte-bold-button']",
-      );
+      const boldButton = page.locator("button[data-role='pw-rte-bold-button']");
       await boldButton.click();
-      const boldText = await page.locator("strong").textContent();
-      expect(boldText).toBe("This text needs formatting");
+      const boldText = page.locator("strong");
+      await expect(boldText).toHaveText("This text needs formatting");
       await textbox.selectText();
       await boldButton.click();
       expect(await page.locator("strong").count()).toBe(0);
@@ -909,7 +897,7 @@ test.describe("Functionality tests", () => {
         <TextEditorDefaultComponent initialValue={unformattedValue} />,
       );
 
-      const textbox = await page.locator("div[role='textbox']");
+      const textbox = page.locator("div[role='textbox']");
 
       expect(await page.locator("strong").count()).toBe(0);
       expect(await page.locator("span[data-lexical-text='true']").count()).toBe(
@@ -918,9 +906,7 @@ test.describe("Functionality tests", () => {
 
       await textbox.click();
 
-      const boldButton = await page.locator(
-        "button[data-role='pw-rte-bold-button']",
-      );
+      const boldButton = page.locator("button[data-role='pw-rte-bold-button']");
 
       await boldButton.click();
       await textbox.click();
@@ -954,14 +940,14 @@ test.describe("Functionality tests", () => {
       await mount(
         <TextEditorDefaultComponent initialValue={unformattedValue} />,
       );
-      const textbox = await page.locator("div[role='textbox']");
+      const textbox = page.locator("div[role='textbox']");
       await textbox.selectText();
-      const italicButton = await page.locator(
+      const italicButton = page.locator(
         "button[data-role='pw-rte-italic-button']",
       );
       await italicButton.click();
-      const italicText = await page.locator("em").textContent();
-      expect(italicText).toBe("This text needs formatting");
+      const italicText = page.locator("em");
+      await expect(italicText).toHaveText("This text needs formatting");
       await textbox.selectText();
       await italicButton.click();
       expect(await page.locator("em").count()).toBe(0);
@@ -975,7 +961,7 @@ test.describe("Functionality tests", () => {
         <TextEditorDefaultComponent initialValue={unformattedValue} />,
       );
 
-      const textbox = await page.locator("div[role='textbox']");
+      const textbox = page.locator("div[role='textbox']");
 
       expect(await page.locator("em").count()).toBe(0);
       expect(await page.locator("span[data-lexical-text='true']").count()).toBe(
@@ -984,7 +970,7 @@ test.describe("Functionality tests", () => {
 
       await textbox.click();
 
-      const italicButton = await page.locator(
+      const italicButton = page.locator(
         "button[data-role='pw-rte-italic-button']",
       );
 
@@ -1020,14 +1006,14 @@ test.describe("Functionality tests", () => {
       await mount(
         <TextEditorDefaultComponent initialValue={unformattedValue} />,
       );
-      const textbox = await page.locator("div[role='textbox']");
+      const textbox = page.locator("div[role='textbox']");
       await textbox.selectText();
-      const orderedListButton = await page.locator(
+      const orderedListButton = page.locator(
         "button[data-role='pw-rte-ordered-list-button']",
       );
       await orderedListButton.click();
-      const orderedList = await page.locator("ol").textContent();
-      expect(orderedList).toBe("This text needs formatting");
+      const orderedList = page.locator("ol");
+      await expect(orderedList).toHaveText("This text needs formatting");
       await orderedListButton.click();
       expect(await page.locator("ol").count()).toBe(0);
     });
@@ -1041,14 +1027,14 @@ test.describe("Functionality tests", () => {
       await mount(
         <TextEditorDefaultComponent initialValue={unformattedValue} />,
       );
-      const textbox = await page.locator("div[role='textbox']");
+      const textbox = page.locator("div[role='textbox']");
       await textbox.selectText();
-      const unorderedListButton = await page.locator(
+      const unorderedListButton = page.locator(
         "button[data-role='pw-rte-unordered-list-button']",
       );
       await unorderedListButton.click();
-      const unorderedList = await page.locator("ul").textContent();
-      expect(unorderedList).toBe("This text needs formatting");
+      const unorderedList = page.locator("ul");
+      await expect(unorderedList).toHaveText("This text needs formatting");
       await unorderedListButton.click();
       expect(await page.locator("ul").count()).toBe(0);
     });
@@ -1069,7 +1055,7 @@ test.describe("Events tests", () => {
           }}
         />,
       );
-      const textbox = await page.locator("div[role='textbox']");
+      const textbox = page.locator("div[role='textbox']");
       await textbox.click();
       await textbox.fill("https://www.");
       await textbox.press("g");
@@ -1089,7 +1075,7 @@ test.describe("Events tests", () => {
         await mount(
           <TextEditorDefaultComponent initialValue={unformattedValue} />,
         );
-        const textbox = await page.locator("div[role='textbox']");
+        const textbox = page.locator("div[role='textbox']");
         await textbox.selectText();
         await page.keyboard.press("ControlOrMeta+B");
         expect(await page.locator("strong").count()).toBe(1);
@@ -1102,7 +1088,7 @@ test.describe("Events tests", () => {
         page,
       }) => {
         await mount(<TextEditorDefaultComponent />);
-        const textbox = await page.locator("div[role='textbox']");
+        const textbox = page.locator("div[role='textbox']");
         await textbox.click();
         await textbox.pressSequentially("**", { delay: 100 });
         expect(await page.locator("strong").count()).toBe(0);
@@ -1118,7 +1104,7 @@ test.describe("Events tests", () => {
         await mount(
           <TextEditorDefaultComponent initialValue={unformattedValue} />,
         );
-        const textbox = await page.locator("div[role='textbox']");
+        const textbox = page.locator("div[role='textbox']");
         await textbox.selectText();
         await page.keyboard.press("ControlOrMeta+I");
         expect(await page.locator("em").count()).toBe(1);
@@ -1131,7 +1117,7 @@ test.describe("Events tests", () => {
         page,
       }) => {
         await mount(<TextEditorDefaultComponent />);
-        const textbox = await page.locator("div[role='textbox']");
+        const textbox = page.locator("div[role='textbox']");
         await textbox.click();
         await textbox.pressSequentially("*", { delay: 100 });
         expect(await page.locator("em").count()).toBe(0);
@@ -1150,7 +1136,7 @@ test.describe("Events tests", () => {
         await mount(
           <TextEditorDefaultComponent initialValue={unformattedValue} />,
         );
-        const textbox = await page.locator("div[role='textbox']");
+        const textbox = page.locator("div[role='textbox']");
         await textbox.click();
         await textbox.press("Home");
         expect(await page.locator("ul").count()).toBe(0);
@@ -1170,7 +1156,7 @@ test.describe("Events tests", () => {
       await mount(
         <TextEditorDefaultComponent initialValue={unformattedValue} />,
       );
-      const textbox = await page.locator("div[role='textbox']");
+      const textbox = page.locator("div[role='textbox']");
       await textbox.click();
       await textbox.press("Home");
       expect(await page.locator("ol").count()).toBe(0);
@@ -1187,7 +1173,7 @@ test.describe("Events tests", () => {
       page,
     }) => {
       await mount(<TextEditorDefaultComponent />);
-      const textbox = await page.locator("div[role='textbox']");
+      const textbox = page.locator("div[role='textbox']");
       await textbox.click();
       await textbox.pressSequentially(">", { delay: 100 });
       expect(await page.locator("blockquote").count()).toBe(0);
@@ -1208,7 +1194,7 @@ test.describe("Events tests", () => {
         page,
       }) => {
         await mount(<TextEditorDefaultComponent />);
-        const textbox = await page.locator("div[role='textbox']");
+        const textbox = page.locator("div[role='textbox']");
         await textbox.click();
         expect(await page.locator(tag).count()).toBe(0);
         await textbox.pressSequentially(`${headingChar} `, { delay: 100 });
@@ -1225,7 +1211,7 @@ test.describe("Events tests", () => {
       page,
     }) => {
       await mount(<TextEditorDefaultComponent />);
-      const textbox = await page.locator("div[role='textbox']");
+      const textbox = page.locator("div[role='textbox']");
       await textbox.click();
       await textbox.pressSequentially("[Link text](https://www.sage.com)", {
         delay: 100,
@@ -1251,7 +1237,7 @@ test.describe("Styling tests", () => {
       }) => {
         await mount(<TextEditorDefaultComponent rows={rows} />);
         await expect(
-          await page.locator("div[data-role='pw-rte-editable']"),
+          page.locator("div[data-role='pw-rte-editable']"),
         ).toHaveCSS("min-height", `${expectedHeight}px`);
       });
     });
@@ -1279,10 +1265,7 @@ test.describe("Styling tests", () => {
 
     await link.focus();
     await expect(link).toHaveCSS("outline", "rgba(0, 0, 0, 0.9) none 0px");
-    await expect(link).toHaveCSS(
-      "text-decoration",
-      "none solid rgba(0, 0, 0, 0.9)",
-    );
+    await expect(link).toHaveCSS("text-decoration", "rgba(0, 0, 0, 0.9)");
     await expect(link).toHaveCSS("color", "rgba(0, 0, 0, 0.9)");
     await expect(link).toHaveCSS("background-color", "rgb(255, 218, 128)");
     await expect(link).toHaveCSS("border-radius", "2px");

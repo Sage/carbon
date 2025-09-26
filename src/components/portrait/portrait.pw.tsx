@@ -1,12 +1,11 @@
 import React from "react";
 import { test, expect } from "../../../playwright/helpers/base-test";
-import { getDataElementByValue } from "../../../playwright/components";
+import { getDataElementByValue, icon } from "../../../playwright/components";
 import {
   portraitImage,
   portraitInitials,
   portraitPreview,
 } from "../../../playwright/components/portrait/index";
-import { icon } from "../../../playwright/components/index";
 import {
   CHARACTERS,
   COLOR,
@@ -299,7 +298,7 @@ test.describe("Prop checks for Portrait component", () => {
         await expect(tooltip).toBeVisible();
         await expect(tooltip).toHaveText("foo");
       } else {
-        await expect(tooltip).not.toBeVisible();
+        await expect(tooltip).toBeHidden();
       }
     });
   });

@@ -189,7 +189,7 @@ test.describe("SimpleSelect component", () => {
     await selectText(page).click();
     await expect(commonDataElementInputPreview(page)).not.toBeEditable();
     await expect(selectText(page)).toHaveAttribute("aria-hidden", "true");
-    await expect(selectListWrapper(page)).not.toBeVisible();
+    await expect(selectListWrapper(page)).toBeHidden();
   });
 
   test("should render icon with read only style", async ({ mount, page }) => {
@@ -380,7 +380,7 @@ test.describe("SimpleSelect component", () => {
     await expect(selectListWrapperElement).toBeVisible();
     await selectInputElement.press("Tab");
     await expect(selectInputElement).toHaveAttribute("aria-expanded", "false");
-    await expect(selectListWrapperElement).not.toBeVisible();
+    await expect(selectListWrapperElement).toBeHidden();
   });
 
   test("should close the list with the Esc key", async ({ mount, page }) => {
@@ -391,7 +391,7 @@ test.describe("SimpleSelect component", () => {
     await expect(selectListWrapperElement).toBeVisible();
     await commonDataElementInputPreview(page).press("Escape");
     await expect(selectInput(page)).toHaveAttribute("aria-expanded", "false");
-    await expect(selectListWrapperElement).not.toBeVisible();
+    await expect(selectListWrapperElement).toBeHidden();
   });
 
   test("should close the list by clicking out of the component", async ({
@@ -405,7 +405,7 @@ test.describe("SimpleSelect component", () => {
     await expect(selectListWrapperElement).toBeVisible();
     await page.locator("body").click();
     await expect(selectInput(page)).toHaveAttribute("aria-expanded", "false");
-    await expect(selectListWrapperElement).not.toBeVisible();
+    await expect(selectListWrapperElement).toBeHidden();
   });
 
   keyToTrigger.forEach((key) => {
@@ -432,7 +432,7 @@ test.describe("SimpleSelect component", () => {
       await selectOptionByText(page, option).click();
       await expect(getDataElementByValue(page, "input")).toHaveValue(option);
       await expect(selectInput(page)).toHaveAttribute("aria-expanded", "false");
-      await expect(selectListWrapper(page)).not.toBeVisible();
+      await expect(selectListWrapper(page)).toBeHidden();
     });
   });
 
@@ -532,17 +532,27 @@ test.describe("SimpleSelect component", () => {
   }) => {
     await mount(<SimpleSelectMultipleColumnsComponent />);
 
-    await page.getByText("Please Select...").click();
-    await page.getByRole("listbox").waitFor();
-
-    await page.keyboard.press("ArrowDown");
-    await page.keyboard.press("ArrowDown");
-    await page.keyboard.press("ArrowDown");
-    await page.keyboard.press("ArrowDown");
-    await page.keyboard.press("ArrowDown");
-
-    const lastOption = page.getByRole("option", { name: "Bill Zoe" });
     const input = page.getByRole("combobox");
+    await page.getByText("Please Select...").click();
+    await page.getByRole("listbox").waitFor({ state: "visible" });
+
+    await input.press("ArrowDown");
+    await expect(input).toHaveValue("John Doe");
+
+    await input.press("ArrowDown");
+    await expect(input).toHaveValue("Joe Vick");
+
+    await input.press("ArrowDown");
+    await expect(input).toHaveValue("Jane Poe");
+
+    await input.press("ArrowDown");
+    await expect(input).toHaveValue("Jill Moe");
+
+    await input.press("ArrowDown");
+
+    const lastOption = page.getByRole("option", {
+      name: "Bill Zoe Astronaut",
+    });
 
     await expect(lastOption).toBeInViewport();
     await expect(input).toHaveValue("Bill Zoe");
@@ -638,14 +648,14 @@ test.describe("SimpleSelect component", () => {
     await expect(headerElements).toHaveCount(columns);
     const headerAssertions = [];
     for (let i = 0; i < columns; i++) {
-      headerAssertions.push(expect(headerElements.nth(i)).toBeVisible());
+      headerAssertions.push(await expect(headerElements.nth(i)).toBeVisible());
     }
     await Promise.all(headerAssertions);
     const bodyElements = multiColumnsSelectListBody(page);
     await expect(bodyElements).toHaveCount(columns);
     const bodyAssertions = [];
     for (let i = 0; i < columns; i++) {
-      bodyAssertions.push(expect(bodyElements.nth(i)).toBeVisible());
+      bodyAssertions.push(await expect(bodyElements.nth(i)).toBeVisible());
     }
     await Promise.all(bodyAssertions);
     await expect(multiColumnsSelectListRow(page)).toHaveCSS(
@@ -1231,7 +1241,7 @@ test.describe("Check virtual scrolling", () => {
     });
     await selectOptionByText(page, "Yellow").click();
 
-    await expect(selectOptionByText(page, "Yellow")).not.toBeVisible();
+    await expect(selectOptionByText(page, "Yellow")).toBeHidden();
 
     await selectText(page).click();
     await expect(selectOptionByText(page, "Yellow")).toBeInViewport({
@@ -1285,10 +1295,10 @@ test.describe("When nested inside of a Dialog component", () => {
     const inputElement = commonDataElementInputPreview(page);
     const dialogElement = dialogWithRole(page, "dialog");
     await inputElement.press("Escape");
-    await expect(selectList(page)).not.toBeVisible();
+    await expect(selectList(page)).toBeHidden();
     await expect(dialogElement).toBeVisible();
     await inputElement.press("Escape");
-    await expect(dialogElement).not.toBeVisible();
+    await expect(dialogElement).toBeHidden();
   });
 
   test("should not refocus the select textbox when closing it by clicking outside", async ({
@@ -1299,7 +1309,7 @@ test.describe("When nested inside of a Dialog component", () => {
 
     await selectText(page).click();
     await dialogWithRole(page, "dialog").click();
-    await expect(selectList(page)).not.toBeVisible();
+    await expect(selectList(page)).toBeHidden();
     await expect(commonDataElementInputPreview(page)).not.toBeFocused();
   });
 
@@ -1313,7 +1323,7 @@ test.describe("When nested inside of a Dialog component", () => {
     await expect(selectList(page)).toBeVisible();
   });
 
-  test("should be able to focus the last item in the select list when the select list has an OptionGroupHeader ", async ({
+  test("should be able to focus the last item in the select list when the select list has an OptionGroupHeader", async ({
     mount,
     page,
   }) => {
@@ -1343,7 +1353,7 @@ test.describe("Selection confirmed", () => {
     await selectOptionByText(page, "Five").click();
     await expect(
       page.locator('[data-element="confirmed-selection-1"]'),
-    ).not.toBeVisible();
+    ).toBeHidden();
     await expect(
       page.locator('[data-element="confirmed-selection-5"]'),
     ).toBeVisible();
@@ -1351,7 +1361,7 @@ test.describe("Selection confirmed", () => {
     await selectOptionByText(page, "Seven").click();
     await expect(
       page.locator('[data-element="confirmed-selection-5"]'),
-    ).not.toBeVisible();
+    ).toBeHidden();
     await expect(
       page.locator('[data-element="confirmed-selection-7"]'),
     ).toBeVisible();
@@ -1378,7 +1388,7 @@ test.describe("Selection confirmed", () => {
     await inputElement.press("Enter");
     await expect(
       page.locator('[data-element="confirmed-selection-1"]'),
-    ).not.toBeVisible();
+    ).toBeHidden();
     await expect(
       page.locator('[data-element="confirmed-selection-3"]'),
     ).toBeVisible();
@@ -1388,7 +1398,7 @@ test.describe("Selection confirmed", () => {
     await inputElement.press("Enter");
     await expect(
       page.locator('[data-element="confirmed-selection-3"]'),
-    ).not.toBeVisible();
+    ).toBeHidden();
     await expect(
       page.locator('[data-element="confirmed-selection-5"]'),
     ).toBeVisible();
@@ -1397,7 +1407,7 @@ test.describe("Selection confirmed", () => {
     await inputElement.press("Enter");
     await expect(
       page.locator('[data-element="confirmed-selection-5"]'),
-    ).not.toBeVisible();
+    ).toBeHidden();
     await expect(
       page.locator('[data-element="confirmed-selection-6"]'),
     ).toBeVisible();
@@ -1424,7 +1434,7 @@ test.describe("Selection confirmed", () => {
     await inputElement.press("Enter");
     await expect(
       page.locator('[data-element="confirmed-selection-9"]'),
-    ).not.toBeVisible();
+    ).toBeHidden();
     await expect(
       page.locator('[data-element="confirmed-selection-7"]'),
     ).toBeVisible();
@@ -1434,7 +1444,7 @@ test.describe("Selection confirmed", () => {
     await inputElement.press("Enter");
     await expect(
       page.locator('[data-element="confirmed-selection-7"]'),
-    ).not.toBeVisible();
+    ).toBeHidden();
     await expect(
       page.locator('[data-element="confirmed-selection-5"]'),
     ).toBeVisible();
@@ -1443,7 +1453,7 @@ test.describe("Selection confirmed", () => {
     await inputElement.press("Enter");
     await expect(
       page.locator('[data-element="confirmed-selection-5"]'),
-    ).not.toBeVisible();
+    ).toBeHidden();
     await expect(
       page.locator('[data-element="confirmed-selection-4"]'),
     ).toBeVisible();
@@ -1460,7 +1470,7 @@ test.describe("Selection confirmed", () => {
     await inputElement.type("t");
     await expect(
       page.locator('[data-element="confirmed-selection-2"]'),
-    ).not.toBeVisible();
+    ).toBeHidden();
     await inputElement.press("Enter");
     await expect(
       page.locator('[data-element="confirmed-selection-2"]'),
