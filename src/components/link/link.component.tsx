@@ -1,4 +1,11 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, {
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  useRef,
+  useCallback,
+} from "react";
 
 import Icon, { IconType } from "../icon";
 import MenuContext from "../menu/__internal__/menu.context";
@@ -113,6 +120,7 @@ export const Link = React.forwardRef<
     const { inMenu } = useContext(MenuContext);
     const { batchSelectionDisabled } = useContext(BatchSelectionContext);
     const isDisabled = disabled || batchSelectionDisabled;
+    const linkRef = useRef<HTMLAnchorElement | HTMLButtonElement | null>(null);
 
     if (!deprecatedDisabledWarning && disabled) {
       deprecatedDisabledWarning = true;
@@ -152,15 +160,36 @@ export const Link = React.forwardRef<
     const effectiveInverse = inverse ?? isDarkBackground;
     const effectiveVariant = variantAlias[variant] ?? variant;
 
-    const setRefs = React.useCallback(
-      (reference: HTMLAnchorElement) => {
+    const setRefs = useCallback(
+      (reference: HTMLAnchorElement | HTMLButtonElement | null) => {
+        linkRef.current = reference;
         if (!ref) return;
-        if (typeof ref === "object") ref.current = reference;
+        if (typeof ref === "object")
+          (
+            ref as React.MutableRefObject<
+              HTMLAnchorElement | HTMLButtonElement | null
+            >
+          ).current = reference;
         if (typeof ref === "function") {
-          ref(reference);
+          ref(reference as HTMLAnchorElement & HTMLButtonElement);
         }
       },
       [ref],
+    );
+
+    const focusLink = useCallback(() => {
+      linkRef.current?.focus?.({ preventScroll: true } as FocusOptions);
+    }, []);
+
+    type LinkOnClick = NonNullable<LinkProps["onClick"]>;
+    type LinkOnClickEvent = Parameters<LinkOnClick>[0];
+
+    const handleClick = useCallback(
+      (event: LinkOnClickEvent) => {
+        focusLink();
+        onClick?.(event);
+      },
+      [onClick, focusLink],
     );
 
     const renderLinkIcon = (currentAlignment = "left") => {
@@ -191,7 +220,7 @@ export const Link = React.forwardRef<
     const componentProps = {
       onKeyDown,
       onMouseDown,
-      onClick,
+      onClick: handleClick,
       disabled: isDisabled,
       target,
       ref: setRefs,
