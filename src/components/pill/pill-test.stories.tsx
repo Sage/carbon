@@ -145,3 +145,15 @@ export const WithCustomAriaLabels = ({ ...args }: PillProps) => {
     </>
   );
 };
+
+export const LongWordThatWraps = {
+  render: ({ children, ...args }: PillProps) => (
+    <Pill {...args}>{children}</Pill>
+  ),
+  args: {
+    children: "ThisIsAVeryLongWordThatShouldWrap",
+    onDelete: false,
+    wrapText: true,
+    maxWidth: "100px",
+  },
+};
