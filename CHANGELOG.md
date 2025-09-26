@@ -1,3 +1,9 @@
+## [157.3.3](https://github.com/Sage/carbon/compare/v157.3.2...v157.3.3) (2025-09-26)
+
+### Bug Fixes
+
+* **pill:** ensure long words do not overflow ([c4148bc](https://github.com/Sage/carbon/commit/c4148bc9e9824d0bdac6e7f67603dd452d1a1191)), closes [#7530](https://github.com/Sage/carbon/issues/7530)
+
 ## [157.3.2](https://github.com/Sage/carbon/compare/v157.3.1...v157.3.2) (2025-09-24)
 
 ### Bug Fixes
