@@ -3,6 +3,17 @@ import { render, screen } from "@testing-library/react";
 import { testStyledSystemSpacing } from "../../__spec_helper__/__internal__/test-utils";
 import VerticalDivider from ".";
 import { Menu } from "../menu";
+import Logger from "../../__internal__/utils/logger";
+
+test("a deprecation warning should be displayed when `VerticalDivider` is used", () => {
+  const loggerSpy = jest.spyOn(Logger, "deprecate");
+  render(<VerticalDivider />);
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "`VerticalDivider` is deprecated and will soon be removed. Please use `Divider` instead.",
+  );
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
+});
 
 testStyledSystemSpacing(
   (props) => <VerticalDivider {...props} />,

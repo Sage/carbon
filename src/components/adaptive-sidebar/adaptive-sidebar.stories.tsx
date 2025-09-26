@@ -11,7 +11,7 @@ import { Select, Option } from "../select";
 import Typography from "../typography";
 
 import Button from "../button";
-import Hr from "../hr";
+import Divider from "../divider";
 import { Menu, MenuItem } from "../menu";
 import SplitButton from "../split-button";
 
@@ -139,7 +139,7 @@ export const Default: Story = () => {
           <Typography variant="h3">Content</Typography>
           <Button onClick={() => setAdaptiveSidebarOpen(false)}>Close</Button>
         </Box>
-        <Hr my={0} mx={0} />
+        <Divider type="horizontal" my={0} mx={0} />
         <Box display="flex" flexDirection="column" p={1}>
           <Typography>
             This is the main content of the adaptive sidebar
@@ -258,7 +258,7 @@ export const WithCustomWidth: Story = () => {
             <Typography variant="h3">Content</Typography>
             <Button onClick={() => setAdaptiveSidebarOpen(false)}>Close</Button>
           </Box>
-          <Hr my={0} />
+          <Divider type="horizontal" my={0} />
           <Box display="flex" flexDirection="column">
             <Typography>
               This is the main content of the adaptive sidebar
@@ -295,7 +295,7 @@ export const WithCustomHeight: Story = () => {
             <Typography variant="h3">Content</Typography>
             <Button onClick={() => setAdaptiveSidebarOpen(false)}>Close</Button>
           </Box>
-          <Hr my={0} />
+          <Divider type="horizontal" my={0} />
           <Box display="flex" flexDirection="column">
             <Typography>
               This is the main content of the adaptive sidebar
@@ -397,7 +397,7 @@ export const BackgroundVariants: Story = () => {
               Close
             </Button>
           </Box>
-          <Hr my={0} />
+          <Divider type="horizontal" my={0} />
           <Box display="flex" flexDirection="column">
             <Typography {...colours}>
               This is the main content of the adaptive sidebar
@@ -433,7 +433,7 @@ export const WithAdaptiveBreakpoint: Story = () => {
             <Typography variant="h3">Content</Typography>
             <Button onClick={() => setAdaptiveSidebarOpen(false)}>Close</Button>
           </Box>
-          <Hr my={0} />
+          <Divider type="horizontal" my={0} />
           <Box display="flex" flexDirection="column">
             <Typography>
               This is the main content of the adaptive sidebar
@@ -465,7 +465,7 @@ export const RenderAsModal: Story = () => {
             <Typography variant="h3">Content</Typography>
             <Button onClick={() => setAdaptiveSidebarOpen(false)}>Close</Button>
           </Box>
-          <Hr my={0} />
+          <Divider type="horizontal" my={0} />
           <Box display="flex" flexDirection="column">
             <Typography>
               This is the main content of the adaptive sidebar
@@ -521,7 +521,7 @@ export const WithCustomBorderColor: Story = () => {
           <Typography variant="h3">Content</Typography>
           <Button onClick={() => setAdaptiveSidebarOpen(false)}>Close</Button>
         </Box>
-        <Hr my={0} mx={0} />
+        <Divider type="horizontal" my={0} mx={0} />
         <Box display="flex" flexDirection="column" p={1}>
           <Typography>
             This is the main content of the adaptive sidebar
@@ -615,7 +615,7 @@ export const Hidden: Story = () => {
             </Button>
           </SplitButton>
         </Box>
-        <Hr my={0} mx={0} />
+        <Divider type="horizontal" my={0} mx={0} />
         <Box display="flex" flexDirection="column" p={1}>
           <Typography>
             This counter will update every second when the sidebar is open or

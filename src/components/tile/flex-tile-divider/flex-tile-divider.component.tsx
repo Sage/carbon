@@ -1,6 +1,6 @@
 import React from "react";
 import Box from "../../box";
-import Hr from "../../hr/hr.component";
+import Divider from "../../divider";
 
 export const FlexTileDivider = (): JSX.Element => {
   return (
@@ -12,7 +12,7 @@ export const FlexTileDivider = (): JSX.Element => {
       width="100vw"
       m="0px 0px -1px 0px"
     >
-      <Hr aria-hidden="true" data-role="hr" m={0} />
+      <Divider type="horizontal" aria-hidden={true} data-role="hr" m={0} />
     </Box>
   );
 };

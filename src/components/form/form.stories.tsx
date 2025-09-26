@@ -15,7 +15,7 @@ import DateInput, { DateChangeEvent } from "../date";
 import { Select, MultiSelect, Option } from "../select";
 import { RadioButton, RadioButtonGroup } from "../radio-button";
 import { Checkbox } from "../checkbox";
-import Hr from "../hr";
+import Divider from "../divider";
 import Switch from "../switch";
 import InlineInputs from "../inline-inputs";
 import Typography from "../typography";
@@ -816,7 +816,7 @@ export const FormAlignmentExample: Story = (args: FormProps) => {
         onChange={() => {}}
       />
       <Box ml="10%" mr="60%">
-        <Hr mb={7} />
+        <Divider type="horizontal" mb={7} />
       </Box>
       <Button buttonType="tertiary" ml="calc(10% - 24px)">
         Tertiary
