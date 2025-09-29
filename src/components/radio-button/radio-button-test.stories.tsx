@@ -5,6 +5,7 @@ import CarbonProvider from "../carbon-provider";
 import { Checkbox } from "../checkbox";
 import Switch from "../switch";
 import Box from "../box";
+import Textbox from "../textbox";
 
 export default {
   title: "Radio Button/Test",
@@ -540,3 +541,47 @@ export const HiddenInlineRadioButtons = () => {
   );
 };
 HiddenInlineRadioButtons.storyName = "Hidden Inline Radio Buttons";
+
+export const Test = () => {
+  const [value, setValue] = useState("");
+
+  const conditionalContent = (
+    <Box width="300px" pr={1}>
+      <Textbox value="" onChange={() => {}} label="Conditional Textbox" />
+    </Box>
+  );
+
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      <RadioButtonGroup
+        name="radio-button-group"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        legend="Radio group legend"
+      >
+        <RadioButton
+          id="small-1"
+          value="small-1"
+          label="Radio button 1 - small"
+          conditionalContent={conditionalContent}
+          size="small"
+          inputHint="*inputHint here*"
+        />
+        <RadioButton
+          id="medium-1"
+          value="medium-1"
+          label="Radio button 2 - medium"
+          conditionalContent={conditionalContent}
+          size="medium"
+        />
+        <RadioButton
+          id="large-1"
+          value="large-1"
+          label="Radio button 3 - large"
+          conditionalContent={conditionalContent}
+          size="large"
+        />
+      </RadioButtonGroup>
+    </CarbonProvider>
+  );
+};

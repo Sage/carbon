@@ -80,6 +80,9 @@ export interface FormFieldProps extends CommonFormFieldProps, TagProps {
   maxWidth?: string;
   /** @private @internal @ignore */
   "data-component"?: string;
+
+  /** placeholder */
+  inputHint?: string;
 }
 
 const FormField = ({
@@ -111,6 +114,7 @@ const FormField = ({
   isRequired,
   validationIconId,
   validationRedesignOptIn,
+  inputHint,
   ...rest
 }: FormFieldProps) => {
   const invalidValidationProp: string | undefined = useMemo(() => {
@@ -185,30 +189,35 @@ const FormField = ({
       >
         {reverse && children}
 
-        {label && (
-          <Label
-            labelId={labelId}
-            align={labelAlign}
-            disabled={disabled}
-            error={!validationRedesignOptIn && error}
-            warning={!validationRedesignOptIn && warning}
-            info={!validationRedesignOptIn && info}
-            help={labelHelp}
-            tooltipId={tooltipId}
-            htmlFor={id}
-            helpIcon={labelHelpIcon}
-            inline={inlineLabel}
-            width={labelWidth}
-            useValidationIcon={useValidationIcon}
-            pr={!reverse ? labelSpacing : undefined}
-            pl={reverse ? labelSpacing : undefined}
-            isRequired={isRequired}
-            validationIconId={validationIconId}
-            as={labelAs}
-          >
-            {label}
-          </Label>
-        )}
+        <div>
+          {label && (
+            <Label
+              labelId={labelId}
+              align={labelAlign}
+              disabled={disabled}
+              error={!validationRedesignOptIn && error}
+              warning={!validationRedesignOptIn && warning}
+              info={!validationRedesignOptIn && info}
+              help={labelHelp}
+              tooltipId={tooltipId}
+              htmlFor={id}
+              helpIcon={labelHelpIcon}
+              inline={inlineLabel}
+              width={labelWidth}
+              useValidationIcon={useValidationIcon}
+              pr={!reverse ? labelSpacing : undefined}
+              pl={reverse ? labelSpacing : undefined}
+              isRequired={isRequired}
+              validationIconId={validationIconId}
+              as={labelAs}
+            >
+              {label}
+            </Label>
+          )}
+
+          {/* placeholder */}
+          {inputHint}
+        </div>
 
         {fieldHelpInline && fieldHelp}
 

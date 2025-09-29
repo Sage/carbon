@@ -11,6 +11,7 @@ import { filterStyledSystemMarginProps } from "../../../style/utils";
 import { TooltipProvider } from "../../../__internal__/tooltip-provider";
 import { ValidationProps } from "../../../__internal__/validations";
 import NewValidationContext from "../../carbon-provider/__internal__/new-validation.context";
+import RadioButtonGroupContext from "../radio-button-group/___internal___/radio-button-group.context";
 import guid from "../../../__internal__/utils/helpers/guid";
 
 export interface RadioButtonGroupProps
@@ -22,30 +23,33 @@ export interface RadioButtonGroupProps
    * Will use a randomly generated GUID if none is provided.
    */
   id?: string;
-  /** Breakpoint for adaptive legend (inline labels change to top aligned). Enables the adaptive behaviour when set */
+  /** @deprecated Breakpoint for adaptive legend (inline labels change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLegendBreakpoint?: number;
-  /** Breakpoint for adaptive spacing (left margin changes to 0). Enables the adaptive behaviour when set */
+  /** @deprecated Breakpoint for adaptive spacing (left margin changes to 0). Enables the adaptive behaviour when set */
   adaptiveSpacingBreakpoint?: number;
   /** The RadioButton objects to be rendered in the group */
   children: React.ReactNode;
-  /** When true, RadioButtons children are in line */
+  /** When true, RadioButtons children are inline */
   inline?: boolean;
   /** Spacing between labels and radio buttons, given number will be multiplied by base spacing unit (8) */
   labelSpacing?: 1 | 2;
   /** The content for the RadioButtonGroup Legend */
   legend?: string;
+  /** Content for an additional hint text below the legend */
+  legendHint?: string;
   /**
+   * @deprecated
    * The content for the RadioButtonGroup hint text,
    * will only be rendered when `validationRedesignOptIn` is true.
    */
   legendHelp?: string;
-  /** [Legacy] Text alignment of legend when inline */
+  /** Text alignment of legend when inline */
   legendAlign?: "left" | "right";
-  /** [Legacy] When true, legend is placed in line with the RadioButtons */
+  /** @deprecated When true, legend is placed in line with the RadioButtons */
   legendInline?: boolean;
-  /** [Legacy] Spacing between legend and field for inline legend, number multiplied by base spacing unit (8) */
+  /** @deprecated Spacing between legend and field for inline legend, number multiplied by base spacing unit (8) */
   legendSpacing?: 1 | 2;
-  /** [Legacy] Percentage width of legend (only when legend is inline)  */
+  /** @deprecated Percentage width of legend (only when legend is inline)  */
   legendWidth?: number;
   /** Specifies the name prop to be applied to each button in the group */
   name: string;
@@ -57,7 +61,7 @@ export interface RadioButtonGroupProps
   required?: boolean;
   /** value of the selected RadioButton */
   value: string;
-  /** [Legacy] Overrides the default tooltip position */
+  /** @deprecated Overrides the default tooltip position */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
   /** Render the ValidationMessage above the RadioButton inputs when validationRedesignOptIn flag is set */
   validationMessagePositionTop?: boolean;
@@ -68,6 +72,7 @@ export const RadioButtonGroup = ({
   id,
   name,
   legend,
+  legendHint,
   legendHelp,
   error,
   warning,
@@ -119,7 +124,7 @@ export const RadioButtonGroup = ({
           applyNewValidation
           id={uniqueId}
           legend={legend}
-          inputHint={legendHelp}
+          inputHint={legendHint || legendHelp}
           legendAlign={legendAlign}
           isRequired={required}
           error={error}
@@ -133,28 +138,20 @@ export const RadioButtonGroup = ({
             data-component="radio-button-group"
             role="radiogroup"
             inline={inline}
-            legendInline={inlineLegend}
           >
-            <RadioButtonMapper
-              name={name}
-              onBlur={onBlur}
-              onChange={onChange}
-              value={value}
+            <RadioButtonGroupContext.Provider
+              value={{
+                error: !!error,
+                warning: !!warning,
+                inline,
+                onBlur,
+                onChange,
+                value,
+                name,
+              }}
             >
-              {React.Children.map(children, (child) => {
-                if (!React.isValidElement(child)) {
-                  return child;
-                }
-
-                return React.cloneElement(child, {
-                  inline,
-                  labelSpacing,
-                  error: !!error,
-                  warning: !!warning,
-                  ...child.props,
-                });
-              })}
-            </RadioButtonMapper>
+              {children}
+            </RadioButtonGroupContext.Provider>
           </RadioButtonGroupStyle>
         </Fieldset>
       ) : (
