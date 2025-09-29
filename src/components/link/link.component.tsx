@@ -167,7 +167,7 @@ export const Link = React.forwardRef<
 
         if (typeof ref === "function") {
           ref(reference);
-        } else {
+        } else if (typeof ref === "object") {
           ref.current = reference;
         }
       },
