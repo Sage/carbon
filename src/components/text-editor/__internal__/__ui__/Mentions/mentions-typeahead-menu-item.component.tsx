@@ -14,11 +14,7 @@ export const MentionsTypeaheadMenuItem = ({
   onMouseEnter: () => void;
   option: MentionTypeaheadOption;
 }) => {
-  let className = "item";
-
-  if (isSelected) {
-    className += " selected";
-  }
+  const className = "item" + (isSelected ? " selected" : "");
 
   return (
     <li
@@ -32,6 +28,7 @@ export const MentionsTypeaheadMenuItem = ({
       onMouseEnter={onMouseEnter}
       onClick={onClick}
       onKeyDown={onClick}
+      aria-label={option.name}
     >
       {option.picture}
       <span className="text">{option.name}</span>

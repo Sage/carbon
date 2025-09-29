@@ -33,9 +33,6 @@ export const StyledButton = styled.button<ButtonProps>`
   ${({ menuOpen }) =>
     menuOpen &&
     css`
-      /* border: 1px solid var(--colorsActionMinor500);
-      box-shadow: var(--boxShadow100);
-      background-color: var(--colorsUtilityYang100); */
       ${addFocusStyling(false)}
     `}
 

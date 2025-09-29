@@ -167,6 +167,9 @@ interface Locale {
     toolbarAriaLabel: () => string;
     underlineAria: () => string;
     unorderedListAria: () => string;
+    mentions: {
+      listAriaLabel: () => string;
+    };
   };
   search: {
     searchButtonText: () => string;

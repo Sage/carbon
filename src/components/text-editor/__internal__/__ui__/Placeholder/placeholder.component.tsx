@@ -6,7 +6,7 @@
 import React from "react";
 
 import StyledPlaceholder from "./placeholder.style";
-import { PlaceholderProps } from "../../__utils__/interfaces";
+import { PlaceholderProps } from "../../__utils__/interfaces.type";
 
 const Placeholder = ({ namespace, text = "" }: PlaceholderProps) => {
   return (

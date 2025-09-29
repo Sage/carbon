@@ -105,8 +105,7 @@ export const Demo: Story = {
       "ordered-list",
       "link",
     ],
-    // Deprecated
-    value: undefined,
+    initialValue: undefined,
     // Callbacks handled via actions
     onChange: action("onChange"),
     onFocus: action("onFocus"),
@@ -435,6 +434,9 @@ export const Translations: Story = () => {
             subtitle: () => "Subtitle",
             sectionHeader: () => "Section header",
             sectionSubheader: () => "Section subheader",
+          },
+          mentions: {
+            listAriaLabel: () => "List of mentionable people",
           },
         },
       }}

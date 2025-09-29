@@ -1,10 +1,14 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import React, { act, createRef } from "react";
 
-import TextEditor, { TextEditorHandle, createEmpty, createFromHTML } from "..";
+import TextEditor, {
+  EditorFormattedValues,
+  TextEditorHandle,
+  createEmpty,
+  createFromHTML,
+} from "..";
 
 import Logger from "../../../__internal__/utils/logger";
 import { COMPONENT_PREFIX } from "../__internal__/__utils__/constants";
@@ -415,7 +419,7 @@ test("serialisation of editor", async () => {
   render(
     <TextEditor
       labelText="Text Editor"
-      onSave={(values: any) => mockSave(values)}
+      onSave={(values: EditorFormattedValues) => mockSave(values)}
       initialValue={JSON.stringify(initialValue)}
     />,
   );

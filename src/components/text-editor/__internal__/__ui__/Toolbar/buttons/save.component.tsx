@@ -4,7 +4,7 @@ import React from "react";
 
 import Button from "../../../../../button";
 import useLocale from "../../../../../../hooks/__internal__/useLocale";
-import { SaveButtonProps } from "../../../__utils__/interfaces";
+import { SaveButtonProps } from "../../../__utils__/interfaces.type";
 import { SerializeLexical } from "../../../__utils__/helpers";
 
 // The `SaveButton` component is a button that saves the current state of the editor

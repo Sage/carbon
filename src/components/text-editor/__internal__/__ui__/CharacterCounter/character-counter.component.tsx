@@ -8,9 +8,10 @@ import {
 
 import useDebounce from "../../../../../hooks/__internal__/useDebounce";
 import useLocale from "../../../../../hooks/__internal__/useLocale";
-import { CharacterCounterPluginProps } from "../../__utils__/interfaces";
+import { CharacterCounterPluginProps } from "../../__utils__/interfaces.type";
 
 const CharacterCounterPlugin = ({
+  isFocused,
   maxChars,
   namespace,
 }: CharacterCounterPluginProps) => {
@@ -70,7 +71,7 @@ const CharacterCounterPlugin = ({
           getFormatNumber(rawCharactersRemaining),
         )}
       </StyledCharacterCounter>
-      <VisuallyHiddenCharacterCounter aria-live="polite">
+      <VisuallyHiddenCharacterCounter aria-live={isFocused ? "polite" : "off"}>
         {locale.textEditor.characterCounter(getFormatNumber(debouncedValue))}
       </VisuallyHiddenCharacterCounter>
     </>

@@ -4,6 +4,7 @@ import {
   EditorConfig,
   LexicalNode,
   NodeKey,
+  SerializedTextNode,
   TextNode,
 } from "lexical";
 import { TypographyKey } from "../__ui__/Toolbar/buttons/typography.component";
@@ -110,12 +111,16 @@ export class StyledSpanNode extends TextNode {
     return {
       span: (domNode: HTMLElement) => ({
         conversion: () => {
-          const fontWeight = domNode.style.fontWeight || "400";
-          const fontSize = domNode.style.fontSize || "14px";
-          const lineHeight = domNode.style.lineHeight || "21px";
+          const { textContent, style } = domNode;
+          const {
+            fontWeight = "400",
+            fontSize = "14px",
+            lineHeight = "21px",
+          } = style;
+
           return {
             node: new StyledSpanNode(
-              domNode.textContent || "",
+              textContent ?? "",
               fontWeight,
               fontSize,
               lineHeight,
@@ -140,8 +145,13 @@ export class StyledSpanNode extends TextNode {
   }
 
   // JSON import, used to deserialize the node from JSON
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  static importJSON(serializedNode: any): StyledSpanNode {
+  static importJSON(
+    serializedNode: SerializedTextNode & {
+      fontWeight: string;
+      fontSize: string;
+      lineHeight: string;
+    },
+  ): StyledSpanNode {
     return new StyledSpanNode(
       serializedNode.text,
       serializedNode.fontWeight,
@@ -169,18 +179,17 @@ export class StyledSpanNode extends TextNode {
   ): boolean {
     const updated = super.updateDOM(prevNode, dom, config);
 
-    let styleChanged = false;
     if (this.__fontWeight !== prevNode.__fontWeight) {
       dom.style.fontWeight = this.__fontWeight;
-      styleChanged = true;
+      return true;
     }
     if (this.__fontSize !== prevNode.__fontSize) {
       dom.style.fontSize = this.__fontSize;
-      styleChanged = true;
+      return true;
     }
     if (this.__lineHeight !== prevNode.__lineHeight) {
       dom.style.lineHeight = this.__lineHeight;
-      styleChanged = true;
+      return true;
     }
 
     // Return true if the node was updated, false otherwise
@@ -190,7 +199,7 @@ export class StyledSpanNode extends TextNode {
     // If neither has changed, we return false
     // This helps optimize rendering performance and ensures that the editor
     // only re-renders nodes when necessary
-    return updated || styleChanged;
+    return updated;
   }
 
   // Factory-style helper method to create a StyledSpanNode from a typography key.

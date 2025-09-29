@@ -1,16 +1,17 @@
 import React, { useRef, useEffect, useMemo } from "react";
-import Box from "../../../../../../box";
+
 import { StyledButton, StyledMenu, StyledMenuItem } from "./dropdown.style";
+import Box from "../../../../../../box";
+import useLocale from "../../../../../../../hooks/__internal__/useLocale";
 
 interface DropdownOption {
   id: string;
-  label: string;
+  label?: string;
   onClick: () => void;
   ariaLabel?: string;
 }
 
 interface ToolbarDropdownProps {
-  ariaLabel?: string;
   namespace: string;
   onChange?: (value: string) => void;
   options: DropdownOption[];
@@ -24,7 +25,6 @@ interface ToolbarDropdownProps {
 }
 
 const ToolbarDropdown = ({
-  ariaLabel = "Select an option",
   namespace,
   onChange,
   options,
@@ -36,14 +36,19 @@ const ToolbarDropdown = ({
   setFocusedIndex,
   size = "medium",
 }: ToolbarDropdownProps) => {
+  const locale = useLocale();
+
   const buttonRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLUListElement>(null);
   const menuId = `${namespace}-typography-menu`;
 
   const selectedOption = useMemo(() => {
     const selected = options.find((option) => option.id === value);
-    return selected?.label;
-  }, [options, value]);
+    if (!selected) return locale.textEditor.typography["paragraph"]();
+    const localeKey = selected.id as keyof typeof locale.textEditor.typography;
+    const label = locale.textEditor.typography[localeKey]();
+    return label;
+  }, [locale, options, value]);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -71,7 +76,7 @@ const ToolbarDropdown = ({
   useEffect(() => {
     if (isOpen && focusedIndex >= 0 && menuRef.current) {
       const items =
-        menuRef.current.querySelectorAll<HTMLElement>('[role="menuitem"]');
+        menuRef.current.querySelectorAll<HTMLElement>('[role="option"]');
       items[focusedIndex]?.focus();
     }
   }, [isOpen, focusedIndex]);
@@ -171,11 +176,14 @@ const ToolbarDropdown = ({
       <StyledButton
         ref={buttonRef}
         type="button"
-        aria-haspopup="menu"
-        aria-expanded={isOpen}
+        role="combobox"
+        aria-haspopup="listbox"
         menuOpen={isOpen}
         aria-controls={isOpen ? menuId : undefined}
-        aria-label={ariaLabel}
+        aria-label={
+          locale.textEditor.typography.selectAria() || "Select an option"
+        }
+        aria-activedescendant={options[focusedIndex]?.id}
         onKeyDown={handleKeyDown}
         onClick={handleButtonClick}
         className="toolbar-button"
@@ -194,27 +202,32 @@ const ToolbarDropdown = ({
       {isOpen && (
         <StyledMenu
           ref={menuRef}
-          role="menu"
+          role="listbox"
           id={menuId}
           aria-labelledby={buttonRef.current?.id}
           onKeyDown={handleKeyDown}
           size={size}
+          aria-expanded={isOpen}
         >
           {options.map((option) => {
+            const localeKey =
+              option.id as keyof typeof locale.textEditor.typography;
+            const ariaLabel = locale.textEditor.typography[localeKey]();
+
             return (
               <StyledMenuItem
                 key={option.id}
-                role="menuitem"
+                id={option.id}
+                role="option"
                 data-role={`${namespace}-typography-option-${option.id}`}
                 tabIndex={-1}
-                aria-label={`${option.ariaLabel || option.label}`}
                 onMouseDown={(e) => {
                   e.preventDefault();
                   handleOptionClick(option);
                 }}
                 isFocused={options[focusedIndex]?.id === option.id}
               >
-                {option.label}
+                {ariaLabel || option.label}
               </StyledMenuItem>
             );
           })}

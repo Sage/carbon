@@ -17,7 +17,7 @@ import { MARKDOWN_NODES } from "../../__utils__/constants";
 import Logger from "../../../../../__internal__/utils/logger";
 import StyledContentEditable from "../ContentEditor/content-editor.style";
 import { AutoLinkerPlugin } from "../../__plugins__";
-import { TextEditorProps } from "../../__utils__/interfaces";
+import { TextEditorProps } from "../../__utils__/interfaces.type";
 
 const wrapLinksInAnchors = (value: string) => {
   const urlRegex = /((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/g;

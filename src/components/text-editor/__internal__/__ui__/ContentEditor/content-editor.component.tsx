@@ -6,7 +6,7 @@ import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import React, { forwardRef } from "react";
 import StyledContentEditable from "./content-editor.style";
 
-import { ContentEditorProps } from "../../__utils__/interfaces";
+import { ContentEditorProps } from "../../__utils__/interfaces.type";
 import { useCursorAtEnd } from "../../__plugins__";
 import { LinkPreviewerPlugin } from "..";
 

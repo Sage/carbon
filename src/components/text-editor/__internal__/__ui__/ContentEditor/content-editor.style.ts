@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 
 import { getPaddingForSize } from "../Toolbar/toolbar.style";
 import addFocusStyling from "../../../../../style/utils/add-focus-styling";
-import { ContentEditorProps } from "../../__utils__/interfaces";
+import { ContentEditorProps } from "../../__utils__/interfaces.type";
 
 const DEFAULT_EDITOR_HEIGHT = 210;
 const FIXED_LINE_HEIGHT = 21;
