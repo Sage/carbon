@@ -1,4 +1,5 @@
 import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table"
 
 import * as NumberStories from "./number.stories.tsx";
 import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component"
@@ -89,3 +90,32 @@ Due to the `Textbox` component being used internally by the `Number` component, 
 <ArgTypes of={NumberStories} />
 
 **Any other supplied props will be provided to the underlying HTML input element**
+
+<TranslationKeysTable translationData={[
+     {
+      name: "characterCount.tooManyCharacters",
+      description:
+        "The message displayed below the input which will inform" +
+        " users if they have exceeded the set `characterLimit` and how much by." +
+        " This will also be announced to screen readers.",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "characterCount.charactersLeft",
+      description:
+        "The message displayed below the input which will inform" +
+        " users how many characters they have before they reach or exceed the" +
+        " set `characterLimit`. This will also be announced to screen readers.",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "characterCount.visuallyHiddenHint",
+      description:
+        "The message which will be read out to screen reader users, informing them" +
+        " of the set `characterLimit`.",
+      type: "func",
+      returnType: "string",
+    },
+]} />
