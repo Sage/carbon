@@ -17,6 +17,7 @@ import MentionTypeaheadOption from "./mention-typeahead-option.class";
 
 import { $createMentionNode } from "../../__nodes__/mention.node";
 import Icon from "../../../../icon";
+import useLocale from "../../../../../hooks/__internal__/useLocale";
 
 import "./style.css";
 
@@ -29,6 +30,7 @@ export const MentionsPlugin = ({
   const [editor] = useLexicalComposerContext();
   const [queryString, setQueryString] = useState<string | null>(null);
   const [results, setResults] = useState<Array<Mention>>([]);
+  const locale = useLocale();
 
   const lookupService = (
     string: string,
@@ -83,9 +85,9 @@ export const MentionsPlugin = ({
   );
 
   // Trigger function to check for mention matches in the text.
-  const checkForMentionMatch = useCallback((text: string) => {
+  const checkForMentionMatch = (text: string) => {
     return getPossibleQueryMatch(text);
-  }, []);
+  };
 
   useEffect(() => {
     const cachedResults = mentionsCache.get(queryString);
@@ -124,7 +126,11 @@ export const MentionsPlugin = ({
         anchorElementRef.current && results.length
           ? ReactDOM.createPortal(
               <div className="typeahead-popover mentions-menu">
-                <ul data-role="mention-list">
+                <ul
+                  data-role="mention-list"
+                  role="listbox"
+                  aria-label={locale.textEditor.mentions.listAriaLabel()}
+                >
                   {options.map((option, i: number) => (
                     <MentionsTypeaheadMenuItem
                       index={i}

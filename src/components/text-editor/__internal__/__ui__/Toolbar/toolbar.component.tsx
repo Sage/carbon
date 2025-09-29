@@ -18,7 +18,7 @@ import {
 
 import SaveButton from "./buttons/save.component";
 import ButtonGroup from "./button-group/button-group.component";
-import { ToolbarProps } from "../../__utils__/interfaces";
+import { ToolbarProps } from "../../__utils__/interfaces.type";
 import { TEXT_EDITOR_ACTION_TYPES } from "../../__utils__/constants";
 
 const Toolbar = ({
@@ -86,11 +86,11 @@ const Toolbar = ({
   const handleToolbarKeyDown = (event: React.KeyboardEvent) => {
     if (toolbarControls.length === 0 || !toolbarRef.current) return;
 
-    const currentButtons = Array.from(
+    const currentButtons: HTMLButtonElement[] = Array.from(
       toolbarRef.current?.querySelectorAll(
         'button[role="button"].toolbar-button, button.toolbar-button',
       ),
-    ) as HTMLButtonElement[];
+    );
 
     /* istanbul ignore if */
     if (!currentButtons.length) return;
@@ -126,10 +126,10 @@ const Toolbar = ({
 
     // Update tabIndex and focus
     currentButtons.forEach((button, index) => {
-      (button as HTMLButtonElement).tabIndex = index === nextIndex ? 0 : -1;
+      button.tabIndex = index === nextIndex ? 0 : -1;
     });
 
-    (currentButtons[nextIndex] as HTMLButtonElement)?.focus();
+    currentButtons[nextIndex]?.focus();
   };
 
   const ControlList = () => {

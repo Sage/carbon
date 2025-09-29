@@ -107,6 +107,8 @@ export interface ContentEditorProps {
 }
 
 export interface CharacterCounterPluginProps {
+  /** Whether the content editor has focused */
+  isFocused?: boolean;
   /** The maximum number of characters to allow before showing the warning */
   maxChars: number;
   /** The namespace of the editor that this counter belongs to */

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
@@ -196,7 +195,7 @@ export const OnChangeFormattedValues: Story = () => {
       <TextEditor
         namespace="storybook-onchange-formatted-values"
         labelText="Text Editor"
-        onChange={(_: any, { htmlString, json }: any) => {
+        onChange={(_, { htmlString, json }) => {
           setValueJSON(JSON.stringify(json, null, 2));
           setValueHTML(htmlString);
           action("onChange")({ htmlString, json });
@@ -237,7 +236,7 @@ export const ExternalOverwrite: Story = () => {
       key={resetKey}
       labelText="Message"
       initialValue={createFromHTML("<p>Hello world</p>")}
-      onChange={(value: string, formattedValues: any) => {
+      onChange={(value: string, formattedValues) => {
         action("onChange")({ value, formattedValues });
         setValue(createFromHTML(value));
       }}

@@ -204,6 +204,9 @@ const enGB: Locale = {
     toolbarAriaLabel: () => "Formatting",
     underlineAria: () => "Underline",
     unorderedListAria: () => "Unordered list",
+    mentions: {
+      listAriaLabel: () => "List of mentionable people",
+    },
   },
   search: {
     searchButtonText: () => "Search",

@@ -56,7 +56,7 @@ import ReadOnlyEditor from "./__internal__/__ui__/ReadOnlyEditor/read-only-rte.c
 import {
   TextEditorHandle,
   TextEditorProps,
-} from "./__internal__/__utils__/interfaces";
+} from "./__internal__/__utils__/interfaces.type";
 import { getTheme } from "./__internal__/__utils__/theme";
 import {
   CharacterCounterPlugin,
@@ -370,6 +370,7 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
 
               {characterLimit > 0 && !readOnly && (
                 <CharacterCounterPlugin
+                  isFocused={isFocused}
                   maxChars={characterLimit}
                   namespace={namespace}
                 />

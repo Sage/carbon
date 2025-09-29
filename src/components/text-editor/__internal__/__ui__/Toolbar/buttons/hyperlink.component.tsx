@@ -16,7 +16,7 @@ import {
   ParagraphNode,
 } from "lexical";
 import { $createLinkNode } from "@lexical/link";
-import { FormattingButtonProps } from "../../../__utils__/interfaces";
+import { FormattingButtonProps } from "../../../__utils__/interfaces.type";
 
 type HyperlinkButtonProps = Pick<
   FormattingButtonProps,

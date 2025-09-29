@@ -9,12 +9,9 @@ export function checkForAtSignMentions(
   minMatchLength: number,
 ): MenuTextMatch | null {
   // Check the text against the regex for mentions.
-  let match = AtSignMentionsRegex.exec(text);
 
-  // No match found, check for aliases.
-  if (match === null) {
-    match = AtSignMentionsRegexAliasRegex.exec(text);
-  }
+  const match =
+    AtSignMentionsRegex.exec(text) || AtSignMentionsRegexAliasRegex.exec(text);
 
   // If a match is found, check if it meets the minimum match length.
   // If it does, return the match details.

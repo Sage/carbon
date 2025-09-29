@@ -1,6 +1,6 @@
 import React from "react";
 import StyledButtonGroup from "./button-group.style";
-import { ButtonGroupProps } from "../../../__utils__/interfaces";
+import { ButtonGroupProps } from "../../../__utils__/interfaces.type";
 
 const ButtonGroup = ({
   children,
