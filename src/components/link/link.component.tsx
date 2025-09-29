@@ -164,32 +164,26 @@ export const Link = React.forwardRef<
       (reference: HTMLAnchorElement | HTMLButtonElement | null) => {
         linkRef.current = reference;
         if (!ref) return;
-        if (typeof ref === "object")
-          (
-            ref as React.MutableRefObject<
-              HTMLAnchorElement | HTMLButtonElement | null
-            >
-          ).current = reference;
+
         if (typeof ref === "function") {
-          ref(reference as HTMLAnchorElement & HTMLButtonElement);
+          ref(reference);
+        } else {
+          ref.current = reference;
         }
       },
       [ref],
     );
 
-    const focusLink = useCallback(() => {
-      linkRef.current?.focus?.({ preventScroll: true } as FocusOptions);
-    }, []);
-
-    type LinkOnClick = NonNullable<LinkProps["onClick"]>;
-    type LinkOnClickEvent = Parameters<LinkOnClick>[0];
-
     const handleClick = useCallback(
-      (event: LinkOnClickEvent) => {
-        focusLink();
+      (
+        event:
+          | React.MouseEvent<HTMLAnchorElement>
+          | React.MouseEvent<HTMLButtonElement>,
+      ) => {
+        linkRef.current?.focus?.({ preventScroll: true });
         onClick?.(event);
       },
-      [onClick, focusLink],
+      [onClick],
     );
 
     const renderLinkIcon = (currentAlignment = "left") => {
