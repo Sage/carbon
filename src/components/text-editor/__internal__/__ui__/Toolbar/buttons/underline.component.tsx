@@ -4,7 +4,7 @@ import React from "react";
 
 import { FormattingButton } from "../toolbar.style";
 import useLocale from "../../../../../../hooks/__internal__/useLocale";
-import { FormattingButtonProps } from "../../../__utils__/interfaces";
+import { FormattingButtonProps } from "../../../__utils__/interfaces.type";
 import { TEXT_EDITOR_ACTION_TYPES } from "../../../__utils__/constants";
 
 // The `UnderlineButton` component is a button that applies underline formatting to the selected text in the editor.

@@ -12,7 +12,6 @@ import React, { useEffect, useState } from "react";
 
 import Box from "../../../../../box";
 
-import useLocale from "../../../../../../hooks/__internal__/useLocale";
 import { StyledSpanNode } from "../../../__nodes__/styled-span.node";
 import ToolbarDropdown from "./typography-dropdown/dropdown.component";
 
@@ -65,7 +64,7 @@ const TypographySelector = ({
   size,
 }: TypographySelectorProps) => {
   const [editor] = useLexicalComposerContext();
-  const locale = useLocale();
+
   // State to manage the selected typography option, default
   // to "paragraph" for initial rendering
   const [selectedOption, setSelectedOption] =
@@ -166,29 +165,26 @@ const TypographySelector = ({
     });
   };
 
+  const options: TypographyKey[] = [
+    "title",
+    "subtitle",
+    "sectionHeader",
+    "sectionSubheader",
+    "paragraph",
+  ];
+
   return (
     <Box minWidth={"150px"} marginRight="spacing05">
       <ToolbarDropdown
         size={size}
-        aria-label={locale.textEditor.typography.selectAria()}
         namespace={namespace}
         onChange={(value) => handleChange(value)}
         value={selectedOption}
         isFirstButton={isFirstButton}
-        options={(
-          [
-            "title",
-            "subtitle",
-            "sectionHeader",
-            "sectionSubheader",
-            "paragraph",
-          ] as TypographyKey[]
-        ).map((key) => {
-          const ariaLabel = locale.textEditor.typography[key]();
+        options={options.map((key) => {
           return {
-            ariaLabel,
             id: key,
-            label: ariaLabel,
+            key,
             onClick: () => handleChange(key),
           };
         })}

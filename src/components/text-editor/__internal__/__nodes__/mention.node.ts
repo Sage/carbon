@@ -4,6 +4,7 @@ import {
   EditorConfig,
   LexicalNode,
   NodeKey,
+  SerializedTextNode,
   TextNode,
 } from "lexical";
 
@@ -20,6 +21,10 @@ const mentionStyle = `
   min-height: 21px;
   padding: 0px 8px;
 `;
+
+interface SerializedMentionNode extends SerializedTextNode {
+  mention: string;
+}
 
 export class MentionNode extends TextNode {
   // The mention name is the text that will be displayed in the editor
@@ -56,17 +61,13 @@ export class MentionNode extends TextNode {
       ...super.exportJSON(),
       type: "mention",
       version: 1,
+      mention: this.__mention,
     };
   }
 
   // JSON import, used to deserialize the node from JSON
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  static importJSON(serializedNode: any): MentionNode {
-    return new MentionNode(
-      serializedNode.__mention,
-      serializedNode.text,
-      serializedNode.key,
-    );
+  static importJSON(serializedNode: SerializedMentionNode): MentionNode {
+    return new MentionNode(serializedNode.mention, serializedNode.text);
   }
 }
 
@@ -89,9 +90,7 @@ export function $createMentionNode(
   return $applyNodeReplacement(mentionNode);
 }
 
-export function $isMentionNode(
-  node: LexicalNode | null | undefined,
-): node is MentionNode {
+export function $isMentionNode(node?: LexicalNode | null): node is MentionNode {
   return node instanceof MentionNode;
 }
 
@@ -103,7 +102,7 @@ export function convertMentionElement(
   const mentionName = domNode.getAttribute("data-lexical-mention-name");
 
   // If the text content is null, return null
-  if (!!textContent && textContent.length > 0) {
+  if (textContent?.length) {
     // Create a mention node with the text content and mention name
     // If mentionName is not a string, use textContent as the mention name
     const node = $createMentionNode(

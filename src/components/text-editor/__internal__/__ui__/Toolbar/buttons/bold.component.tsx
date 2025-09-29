@@ -6,7 +6,7 @@ import { FormattingButton } from "../toolbar.style";
 
 import useLocale from "../../../../../../hooks/__internal__/useLocale";
 import { TEXT_EDITOR_ACTION_TYPES } from "../../../__utils__/constants";
-import { FormattingButtonProps } from "../../../__utils__/interfaces";
+import { FormattingButtonProps } from "../../../__utils__/interfaces.type";
 
 // The `BoldButton` component is a button that applies bold formatting to the selected text in the editor.
 const BoldButton = React.forwardRef<HTMLButtonElement, FormattingButtonProps>(

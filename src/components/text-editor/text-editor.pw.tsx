@@ -12,7 +12,7 @@ import TextEditorDefaultComponent, {
   TextEditorWithFooterOnCancel,
   TextEditorWithMentions,
 } from "./components.test-pw";
-import { EditorFormattedValues } from "./__internal__/__utils__/interfaces";
+import { EditorFormattedValues } from "./__internal__/__utils__/interfaces.type";
 
 const preformattedJSON = {
   root: {
@@ -188,10 +188,8 @@ test.describe("Prop tests", () => {
       const button2 = page.getByRole("button", { name: "bar" });
       const button3 = page.getByRole("button", { name: "baz" });
       const editor = page.getByRole("textbox");
-      const typographyDropdown = page.locator(
-        "button[data-role='pw-rte-typography-dropdown']",
-      );
-      const editorWrapper = page.locator(`div[data-role='pw-rte-editable']`);
+      const typographyDropdown = page.getByTestId("pw-rte-typography-dropdown");
+      const editorWrapper = page.getByTestId(`pw-rte-editable`);
 
       await page.keyboard.press("Tab");
       await expect(button1).toBeFocused();
