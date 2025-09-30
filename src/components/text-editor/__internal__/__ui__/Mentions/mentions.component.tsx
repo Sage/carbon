@@ -22,8 +22,10 @@ import useLocale from "../../../../../hooks/__internal__/useLocale";
 import "./style.css";
 
 export const MentionsPlugin = ({
+  namespace,
   searchOptions,
 }: {
+  namespace: string;
   searchOptions: Array<Mention>;
 }) => {
   const mentionsCache = new Map();
@@ -125,9 +127,13 @@ export const MentionsPlugin = ({
       ) =>
         anchorElementRef.current && results.length
           ? ReactDOM.createPortal(
-              <div className="typeahead-popover mentions-menu">
+              <div
+                id={`${namespace}-mentions-menu`}
+                className="typeahead-popover mentions-menu"
+              >
                 <ul
-                  data-role="mention-list"
+                  data-role={`mention-list`}
+                  id={`${namespace}-mention-list`}
                   role="listbox"
                   aria-label={locale.textEditor.mentions.listAriaLabel()}
                 >
@@ -144,6 +150,7 @@ export const MentionsPlugin = ({
                       }}
                       key={option.id || option.key}
                       option={option}
+                      namespace={namespace}
                     />
                   ))}
                 </ul>
