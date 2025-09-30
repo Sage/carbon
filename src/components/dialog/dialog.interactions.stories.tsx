@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { StoryObj } from "@storybook/react";
-import { userEvent, within, expect, waitFor } from "@storybook/test";
+import { userEvent, within, expect } from "@storybook/test";
 
 import Dialog from ".";
 import Button from "../button";
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
-import Typography from "../typography";
 import Textbox from "../textbox";
 import Form from "../form";
 
@@ -46,16 +45,7 @@ export const FocusManagement: Story = {
               </Button>
             }
           >
-            <Typography>
-              This is an example of a dialog with a Form as content
-            </Typography>
-
-            <Textbox label="First Name" value="" onChange={() => {}} />
-            <Textbox label="Middle Name" value="" onChange={() => {}} />
-            <Textbox label="Surname" value="" onChange={() => {}} />
-            <Textbox label="Birth Place" value="" onChange={() => {}} />
-            <Textbox label="Favourite Colour" value="" onChange={() => {}} />
-            <Textbox label="Address" value="" onChange={() => {}} />
+            <Textbox label="Name" value="" onChange={() => {}} />
           </Form>
         </Dialog>
       </>
@@ -72,22 +62,20 @@ export const FocusManagement: Story = {
     await userEvent.click(openButton);
 
     const dialog = await portal.findByRole("dialog");
-    await waitFor(() => expect(dialog).toBeVisible());
-
-    await userEvent.tab();
-    await userEvent.tab();
-
-    const firstInput = within(dialog).getByLabelText(/first name/i);
-    await waitFor(() => expect(firstInput).toBeVisible());
-    await userEvent.type(firstInput, "Jane Doe", { delay: 30 });
-
     const closeButton = within(dialog).getByRole("button", { name: /close/i });
-    await waitFor(() => expect(closeButton).toBeVisible());
+    const firstInput = within(dialog).getByLabelText(/name/i);
 
-    await waitFor(async () => {
-      await userEvent.tab();
-      expect(closeButton).toHaveFocus();
-    });
+    await expect(dialog).toBeVisible();
+
+    await userEvent.tab();
+    await userEvent.tab();
+
+    await expect(firstInput).toHaveFocus();
+
+    await userEvent.tab();
+    await userEvent.tab();
+
+    await expect(closeButton).toHaveFocus();
   },
 };
 
