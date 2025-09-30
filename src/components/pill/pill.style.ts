@@ -97,8 +97,11 @@ const StyledPill = styled.span.attrs(applyBaseTheme)<AllStyledPillProps>`
 
       ${wrapText &&
       css`
-        white-space: break-spaces;
+        overflow-wrap: anywhere;
         hyphens: auto;
+        // disabled auto hyphens in Safari as it doesn't seem to play well with breaking words
+        // soft hyphens can still be added manually
+        -webkit-hyphens: manual;
       `}
 
       color: ${contentColor};

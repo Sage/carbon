@@ -475,6 +475,32 @@ WithLongTitle.parameters = {
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
+export const WithGreyBackground: StoryType = {
+  render: (args) => {
+    const { children, ...rest } = args;
+    return (
+      <Dialog fullscreen greyBackground {...rest}>
+        {children}
+      </Dialog>
+    );
+  },
+  args: {
+    children:
+      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Alias labore nostrum quo deserunt repellendus accusamus facilis voluptatem? Dicta illo esse non! Corrupti suscipit reprehenderit ea nesciunt delectus. Non voluptate expedita, repellendus ea vitae dolor nobis aperiam ullam unde ducimus aliquam quidem veniam necessitatibus, suscipit eaque exercitationem aut corrupti, qui ipsa.",
+    open: true,
+    title: "Title",
+    subtitle: "Subtitle",
+    showCloseIcon: true,
+    onCancel: () => {},
+  },
+};
+
+WithGreyBackground.storyName = "Fullscreen: With Grey Background";
+WithGreyBackground.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
+
 export const UsingDialogFullScreenAlias: StoryType = {
   render: (args) => {
     const { children, ...rest } = args;
