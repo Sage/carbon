@@ -1,3 +1,8 @@
+/**
+ * IMPORTANT: The methods and functions included in this file are to be consumed internally by
+ * `Lexical` only; they therefore should not be used directly. If you need similar functionality,
+ * please refer to the Lexical documentation and utilize the appropriate public APIs.
+ */
 import {
   DOMConversionMap,
   DOMExportOutput,
@@ -20,6 +25,12 @@ const typographyMap: Record<
   sectionSubheader: { weight: "700", lineHeight: "22.5px", size: "18px" },
   paragraph: { weight: "400", lineHeight: "21px", size: "14px" },
 };
+
+export interface SerializedSpanNode extends SerializedTextNode {
+  fontWeight: string;
+  fontSize: string;
+  lineHeight: string;
+}
 
 export class StyledSpanNode extends TextNode {
   __fontWeight: string;
@@ -142,13 +153,7 @@ export class StyledSpanNode extends TextNode {
   }
 
   // JSON import, used to deserialize the node from JSON
-  static importJSON(
-    serializedNode: SerializedTextNode & {
-      fontWeight: string;
-      fontSize: string;
-      lineHeight: string;
-    },
-  ): StyledSpanNode {
+  static importJSON(serializedNode: SerializedSpanNode): StyledSpanNode {
     return new StyledSpanNode(
       serializedNode.text,
       serializedNode.fontWeight,
