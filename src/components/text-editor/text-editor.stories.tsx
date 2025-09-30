@@ -58,7 +58,7 @@ export const Demo: Story = {
         {...args}
         customPlugins={
           <MentionsPlugin
-            namespace={args.namespace}
+            namespace={args.namespace || "storybook-mentions"}
             searchOptions={[
               {
                 id: "1",
@@ -539,7 +539,12 @@ export const Mentions: Story = ({ ...args }) => {
         labelText="Text Editor"
         inputHint="Press '@' to mention someone"
         onChange={action("onChange")}
-        customPlugins={[<MentionsPlugin searchOptions={mentionsData} />]}
+        customPlugins={[
+          <MentionsPlugin
+            namespace="storybook-mentions"
+            searchOptions={mentionsData}
+          />,
+        ]}
         {...args}
       />
     </>

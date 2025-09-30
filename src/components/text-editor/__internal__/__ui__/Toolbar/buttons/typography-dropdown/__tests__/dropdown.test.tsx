@@ -82,7 +82,12 @@ describe("ToolbarDropdown", () => {
     render(<TestEditorWithToolbar defaultState={false} />);
 
     expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
-    await userEvent.type(screen.getByRole("combobox"), "Enter");
+
+    act(() => {
+      screen.getByRole("combobox").focus();
+    });
+
+    await userEvent.keyboard("{Enter}");
     expect(screen.getByRole("listbox")).toBeInTheDocument();
   });
 

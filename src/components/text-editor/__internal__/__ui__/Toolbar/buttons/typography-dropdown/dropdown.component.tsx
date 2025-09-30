@@ -86,6 +86,7 @@ const ToolbarDropdown = ({
     switch (event.key) {
       case "Enter":
       case " ":
+        /* istanbul ignore if */
         if (!isOpen) {
           event.preventDefault();
           setIsOpen?.(true);
@@ -195,11 +196,10 @@ const ToolbarDropdown = ({
         role="combobox"
         aria-haspopup="listbox"
         menuOpen={isOpen}
-        aria-controls={isOpen ? menuId : undefined}
-        aria-label={
-          locale.textEditor.typography.selectAria() || "Select an option"
-        }
         aria-activedescendant={options[focusedIndex]?.id}
+        aria-controls={isOpen ? menuId : undefined}
+        aria-expanded={isOpen}
+        aria-label={locale.textEditor.typography.selectAria()}
         onKeyDown={handleKeyDown}
         onClick={handleButtonClick}
         className="toolbar-button"
@@ -243,7 +243,7 @@ const ToolbarDropdown = ({
                 }}
                 isFocused={options[focusedIndex]?.id === option.id}
               >
-                {ariaLabel || option.label}
+                {ariaLabel}
               </StyledMenuItem>
             );
           })}

@@ -123,6 +123,7 @@ export const TextEditorWithMentions = ({ ...args }) => (
     {...args}
     customPlugins={
       <MentionsPlugin
+        namespace="pw-rte-mentions"
         searchOptions={[
           {
             id: "1",
