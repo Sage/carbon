@@ -14,6 +14,7 @@ import {
   $createMentionNode,
   $isMentionNode,
   convertMentionElement,
+  SerializedMentionNode,
 } from "../mention.node";
 import TestEditor from "../../../__tests__/utils/TestEditor";
 
@@ -118,10 +119,15 @@ describe("MentionNode", () => {
     });
 
     test("should import from JSON correctly", () => {
-      const serializedNode = {
+      const serializedNode: SerializedMentionNode = {
         text: "John Doe",
         type: "mention",
         version: 1,
+        mention: "john_doe",
+        detail: 0,
+        format: 0,
+        mode: "normal",
+        style: "",
       };
 
       editor?.update(() => {

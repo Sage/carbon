@@ -8,12 +8,13 @@
  * generate link previews).
  */
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { AutoLinkNode } from "@lexical/link";
+import { $isAutoLinkNode, AutoLinkNode } from "@lexical/link";
 
 import { useContext, useEffect } from "react";
 
 import { validateUrl } from "../../__utils__/helpers";
 import TextEditorContext from "../../../text-editor.context";
+import { $getNodeByKey } from "lexical";
 
 const LinkMonitorPlugin = () => {
   // Get the editor instance
@@ -42,13 +43,15 @@ const LinkMonitorPlugin = () => {
             }
           } else {
             // Assume link has been destroyed, notify user
-            const deletedData = prevEditorState?._nodeMap.get(
-              nodeKey,
-            ) as AutoLinkNode;
-            if (deletedData) {
-              const { __url } = deletedData;
-              onLinkAdded?.(__url, mutation);
-            }
+            prevEditorState.read(() => {
+              const node = $getNodeByKey(nodeKey);
+
+              if (!$isAutoLinkNode(node)) {
+                return;
+              }
+
+              onLinkAdded?.(node.getURL(), mutation);
+            });
           }
         }
       },

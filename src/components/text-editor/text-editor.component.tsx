@@ -288,7 +288,12 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
                     {header}
                   </StyledHeaderWrapper>
                 )}
-                {!readOnly ? (
+                {readOnly ? (
+                  <ReadOnlyEditor
+                    initialValue={initialValue.current}
+                    size={size}
+                  />
+                ) : (
                   <>
                     <ToolbarPlugin
                       hasHeader={Boolean(header)}
@@ -338,11 +343,6 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
                       {customPlugins}
                     </StyledTextEditor>
                   </>
-                ) : (
-                  <ReadOnlyEditor
-                    initialValue={initialValue.current}
-                    size={size}
-                  />
                 )}
                 {footer && (
                   <StyledFooterWrapper
