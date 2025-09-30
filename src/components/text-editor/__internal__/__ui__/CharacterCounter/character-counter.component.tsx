@@ -71,7 +71,10 @@ const CharacterCounterPlugin = ({
           getFormatNumber(rawCharactersRemaining),
         )}
       </StyledCharacterCounter>
-      <VisuallyHiddenCharacterCounter aria-live={isFocused ? "polite" : "off"}>
+      <VisuallyHiddenCharacterCounter
+        id={`${namespace}-live-character-counter`}
+        aria-live={isFocused ? "polite" : "off"}
+      >
         {locale.textEditor.characterCounter(getFormatNumber(debouncedValue))}
       </VisuallyHiddenCharacterCounter>
     </>

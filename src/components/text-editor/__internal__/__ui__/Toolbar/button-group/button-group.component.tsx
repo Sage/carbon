@@ -16,7 +16,13 @@ const ButtonGroup = ({
       data-role={`btg-${namespace}-${name}`}
     >
       {children}
-      {showDivider && <div role="separator" className="button-group-divider" />}
+      {showDivider && (
+        <div
+          role="separator"
+          aria-hidden="true"
+          className="button-group-divider"
+        />
+      )}
     </StyledButtonGroup>
   );
 };
