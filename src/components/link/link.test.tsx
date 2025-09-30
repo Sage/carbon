@@ -750,3 +750,26 @@ test("logs a deprecation warning when tooltip props are used", async () => {
 
   loggerSpy.mockRestore();
 });
+
+test("forwards anchor element to object ref and resets to null on unmount", () => {
+  const writes: Array<HTMLAnchorElement | null> = [];
+  const objRef = new Proxy(
+    { current: null as HTMLAnchorElement | null },
+    {
+      set(target, prop, value) {
+        if (prop === "current") writes.push(value as HTMLAnchorElement | null);
+        return Reflect.set(target, prop, value);
+      },
+    },
+  );
+
+  const { unmount } = render(<Link href="#" ref={objRef} />);
+  const link = screen.getByRole("link");
+
+  expect(writes).toContain(link);
+
+  act(() => {
+    unmount();
+  });
+  expect(writes).toContain(null);
+});
