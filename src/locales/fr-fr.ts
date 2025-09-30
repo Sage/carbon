@@ -180,6 +180,7 @@ const frFR: Partial<Locale> = {
     saveButtonAria: () => "Enregistrer",
     toolbarAriaLabel: () => "Mise en forme",
     unorderedListAria: () => "Liste non ordonnée",
+    underlineAria: () => "Underline",
     hyperlink: {
       buttonAria: () => "Hyperlink",
       cancelButton: () => "Cancel",
@@ -198,7 +199,9 @@ const frFR: Partial<Locale> = {
       sectionHeader: () => "Section header",
       sectionSubheader: () => "Section subheader",
     },
-    underlineAria: () => "Underline",
+    mentions: {
+      listAriaLabel: () => "List of mentionable people",
+    },
   },
   search: {
     searchButtonText: () => "Rechercher",
