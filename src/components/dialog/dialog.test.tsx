@@ -455,6 +455,36 @@ describe("Fullscreen Dialog", () => {
     expect(screen.getByTestId("third-child")).toBeVisible();
   });
 
+  test("renders with white background when fullscreen prop is true and greyBackground prop is false", () => {
+    render(
+      <Dialog fullscreen open>
+        Inner content
+      </Dialog>,
+    );
+
+    const content = screen.getByRole("dialog");
+
+    expect(content).toHaveStyleRule(
+      "background-color",
+      "var(--colorsUtilityYang100)",
+    );
+  });
+
+  test("renders with grey background when fullscreen prop is true and greyBackground prop is true", () => {
+    render(
+      <Dialog fullscreen open greyBackground>
+        Inner content
+      </Dialog>,
+    );
+
+    const content = screen.getByRole("dialog");
+
+    expect(content).toHaveStyleRule(
+      "background-color",
+      "var(--colorsUtilityMajor025)",
+    );
+  });
+
   // test here for coverage only
   test("padding is removed from the content when the `contentPadding` prop is passed", () => {
     render(
