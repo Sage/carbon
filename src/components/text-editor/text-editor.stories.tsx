@@ -58,6 +58,7 @@ export const Demo: Story = {
         {...args}
         customPlugins={
           <MentionsPlugin
+            namespace={args.namespace}
             searchOptions={[
               {
                 id: "1",

@@ -196,7 +196,7 @@ const ToolbarDropdown = ({
         }
         size={size}
       >
-        {selectedOption} <span>{isOpen ? "▲" : "▼"}</span>
+        {selectedOption} <span aria-hidden="true">{isOpen ? "▲" : "▼"}</span>
       </StyledButton>
 
       {isOpen && (

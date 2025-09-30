@@ -4,12 +4,14 @@ import MentionTypeaheadOption from "./mention-typeahead-option.class";
 export const MentionsTypeaheadMenuItem = ({
   index,
   isSelected,
+  namespace,
   onClick,
   onMouseEnter,
   option,
 }: {
   index: number;
   isSelected: boolean;
+  namespace: string;
   onClick: () => void;
   onMouseEnter: () => void;
   option: MentionTypeaheadOption;
@@ -24,7 +26,7 @@ export const MentionsTypeaheadMenuItem = ({
       ref={option.setRefElement}
       role="option"
       aria-selected={isSelected}
-      id={`typeahead-item-${index}`}
+      id={`${namespace}-typeahead-item-${index}`}
       onMouseEnter={onMouseEnter}
       onClick={onClick}
       onKeyDown={onClick}
