@@ -9,7 +9,7 @@ import Icon from "../icon";
 import Box from "../box";
 import Button from "../button";
 import IconButton from "../icon-button";
-import VerticalDivider from "../vertical-divider";
+import Divider from "../divider";
 
 export const CardComponent = (props: Partial<CardProps>) => {
   return (
@@ -688,7 +688,7 @@ export const MoreExamplesOfCardFooter = () => {
             >
               Edit Button
             </Button>
-            <VerticalDivider tint={80} py={0} px={2} h={30} />
+            <Divider py={0} px={2} h={30} />
             <Button
               p={0}
               iconPosition="after"
@@ -698,7 +698,7 @@ export const MoreExamplesOfCardFooter = () => {
             >
               Edit Button
             </Button>
-            <VerticalDivider tint={80} py={0} px={2} h={30} />
+            <Divider py={0} px={2} h={30} />
             <Button
               p={0}
               iconPosition="after"
@@ -734,7 +734,7 @@ export const MoreExamplesOfCardFooter = () => {
             >
               Edit Button
             </Button>
-            <VerticalDivider tint={80} py={0} px={2} h={30} />
+            <Divider py={0} px={2} h={30} />
             <Button
               p={0}
               iconPosition="after"
@@ -744,7 +744,7 @@ export const MoreExamplesOfCardFooter = () => {
             >
               Edit Button
             </Button>
-            <VerticalDivider tint={80} py={0} px={2} h={30} />
+            <Divider py={0} px={2} h={30} />
             <Button
               p={0}
               iconPosition="after"

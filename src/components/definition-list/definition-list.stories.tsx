@@ -9,7 +9,7 @@ import Icon from "../icon";
 
 import Box from "../box";
 import { ActionPopover, ActionPopoverItem } from "../action-popover";
-import Hr from "../hr";
+import Divider from "../divider";
 import Typography from "../typography";
 
 const styledSystemProps = generateStyledSystemProps({
@@ -107,7 +107,7 @@ export const MultipleSingleColumnsWithSegments: Story = () => (
       <Typography color="rgba(0,0,0,0.55)" variant="h4">
         Segment Header
       </Typography>
-      <Hr ml={0} mt={2} />
+      <Divider type="horizontal" ml={0} mt={2} />
     </Box>
     <Box mb={3} display="flex">
       <Box flexGrow={1}>
@@ -145,7 +145,7 @@ export const MultipleSingleColumnsWithSegments: Story = () => (
       <Typography color="rgba(0,0,0,0.55)" variant="segment-subheader-alt">
         Segment Header
       </Typography>
-      <Hr ml={0} mt={2} />
+      <Divider type="horizontal" ml={0} mt={2} />
     </Box>
     <Box display="flex">
       <Box width="100%">
@@ -180,7 +180,7 @@ export const MultipleSingleColumnsWithSegments: Story = () => (
       </Box>
     </Box>
     <Box width="90%">
-      <Hr ml={0} mt={1} />
+      <Divider type="horizontal" ml={0} mt={1} />
     </Box>
   </Box>
 );

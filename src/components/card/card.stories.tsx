@@ -10,7 +10,7 @@ import Icon from "../icon";
 import Link from "../link";
 import Box from "../box";
 import Button from "../button";
-import VerticalDivider from "../vertical-divider";
+import Divider from "../divider";
 import IconButton from "../icon-button";
 
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
@@ -626,7 +626,7 @@ export const MoreExamplesOfCardFooter: Story = () => {
               >
                 Edit Button
               </Button>
-              <VerticalDivider tint={80} py={0} px={2} h={30} />
+              <Divider py={0} px={2} h={30} />
               <Button
                 p={0}
                 iconPosition="after"
@@ -636,7 +636,7 @@ export const MoreExamplesOfCardFooter: Story = () => {
               >
                 Edit Button
               </Button>
-              <VerticalDivider tint={80} py={0} px={2} h={30} />
+              <Divider py={0} px={2} h={30} />
               <Button
                 p={0}
                 iconPosition="after"
@@ -676,7 +676,7 @@ export const MoreExamplesOfCardFooter: Story = () => {
               >
                 Edit Button
               </Button>
-              <VerticalDivider tint={80} py={0} px={2} h={30} />
+              <Divider py={0} px={2} h={30} />
               <Button
                 p={0}
                 iconPosition="after"
@@ -686,7 +686,7 @@ export const MoreExamplesOfCardFooter: Story = () => {
               >
                 Edit Button
               </Button>
-              <VerticalDivider tint={80} py={0} px={2} h={30} />
+              <Divider py={0} px={2} h={30} />
               <Button
                 p={0}
                 iconPosition="after"
