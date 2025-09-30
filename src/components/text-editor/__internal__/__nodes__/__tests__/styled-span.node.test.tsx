@@ -10,6 +10,7 @@ import {
   StyledSpanNode,
   $createStyledSpanNode,
   $isStyledSpanNode,
+  SerializedSpanNode,
 } from "../styled-span.node";
 import { TypographyKey } from "../../__ui__/Toolbar/buttons/typography.component";
 import TestEditor from "../../../__tests__/utils/TestEditor";
@@ -342,13 +343,17 @@ describe("StyledSpanNode", () => {
 
     test("should import from JSON correctly", () => {
       editor?.update(() => {
-        const serializedNode = {
+        const serializedNode: SerializedSpanNode = {
           text: "JSON Import Test",
           type: "styled-span",
           version: 1,
           fontWeight: "700",
           fontSize: "24px",
           lineHeight: "30px",
+          detail: 0,
+          format: 0,
+          mode: "normal",
+          style: "",
         };
 
         const importedNode = StyledSpanNode.importJSON(serializedNode);

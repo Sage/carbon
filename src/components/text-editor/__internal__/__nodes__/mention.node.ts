@@ -1,3 +1,8 @@
+/**
+ * IMPORTANT: The methods and functions included in this file are to be consumed internally by
+ * `Lexical` only; they therefore should not be used directly. If you need similar functionality,
+ * please refer to the Lexical documentation and utilize the appropriate public APIs.
+ */
 import {
   $applyNodeReplacement,
   DOMConversionOutput,
@@ -22,7 +27,7 @@ const mentionStyle = `
   margin: 0px 4px;
 `;
 
-interface SerializedMentionNode extends SerializedTextNode {
+export interface SerializedMentionNode extends SerializedTextNode {
   mention: string;
 }
 
