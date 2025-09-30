@@ -1087,7 +1087,7 @@ test.describe("Functionality tests", () => {
 
       await expect(page.getByText("This text needs formatting")).toHaveCSS(
         "text-decoration",
-        "underline solid rgba(0, 0, 0, 0.9)",
+        "underline rgba(0, 0, 0, 0.9)",
       );
 
       await textbox.selectText();
@@ -1125,7 +1125,7 @@ test.describe("Functionality tests", () => {
 
       await expect(page.getByText("This is some underlined text")).toHaveCSS(
         "text-decoration",
-        "underline solid rgba(0, 0, 0, 0.9)",
+        "underline rgba(0, 0, 0, 0.9)",
       );
 
       await underlineButton.click();

@@ -197,6 +197,9 @@ const esES: Partial<Locale> = {
       sectionSubheader: () => "Section subheader",
     },
     underlineAria: () => "Underline",
+    mentions: {
+      listAriaLabel: () => "List of mentionable people",
+    },
   },
   search: {
     searchButtonText: () => "Buscar",
