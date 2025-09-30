@@ -330,6 +330,16 @@ test("ensures overflowing content is scrollable", () => {
   expect(sidebarContent).toHaveStyle("overflow-y: auto");
 });
 
+test("ensures correct background color is applied", () => {
+  render(<Sidebar open />);
+
+  const sidebarContent = screen.getByRole("dialog");
+  expect(sidebarContent).toHaveStyleRule(
+    "background",
+    "var(--colorsUtilityYang100)",
+  );
+});
+
 testStyledSystemWidth(
   (props) => (
     <CarbonProvider theme={sageTheme}>

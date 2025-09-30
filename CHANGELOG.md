@@ -1,3 +1,16 @@
+## [157.3.5](https://github.com/Sage/carbon/compare/v157.3.4...v157.3.5) (2025-09-30)
+
+### Bug Fixes
+
+* **popover-container:** ensure onClose is only called when container is an open state ([193b5d9](https://github.com/Sage/carbon/commit/193b5d9b722536ba5edc7ef5dab8450f089daf10)), closes [#7549](https://github.com/Sage/carbon/issues/7549)
+
+## [157.3.4](https://github.com/Sage/carbon/compare/v157.3.3...v157.3.4) (2025-09-30)
+
+### Bug Fixes
+
+* **dialog:** background color not defaulting to white ([f4d861f](https://github.com/Sage/carbon/commit/f4d861fa9267ea123386fb0a8437b93f7f6f17c6))
+* **sidebar:** background color not defaulting to white ([e78d388](https://github.com/Sage/carbon/commit/e78d388af9c55a79cf20752cbdb60b82eaccf0cb))
+
 ## [157.3.3](https://github.com/Sage/carbon/compare/v157.3.2...v157.3.3) (2025-09-26)
 
 ### Bug Fixes
