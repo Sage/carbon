@@ -129,6 +129,22 @@ const ToolbarDropdown = ({
         }
         break;
 
+      case "Home":
+        event.preventDefault();
+        /* istanbul ignore if */
+        if (isOpen) {
+          setFocusedIndex?.(0);
+        }
+        break;
+
+      case "End":
+        event.preventDefault();
+        /* istanbul ignore if */
+        if (isOpen) {
+          setFocusedIndex?.(options.length - 1);
+        }
+        break;
+
       case "Escape":
         /* istanbul ignore else */
         if (isOpen) {

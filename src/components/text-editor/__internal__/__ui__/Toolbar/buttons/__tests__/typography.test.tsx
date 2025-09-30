@@ -30,10 +30,10 @@ describe("TypographySelector", () => {
       </TestEditor>,
     );
 
-    const button = screen.getByRole("button");
+    const button = screen.getByRole("combobox");
 
     expect(button).toBeInTheDocument();
-    expect(button).toHaveTextContent("Paragraph");
+    expect(button).toHaveTextContent(/Paragraph/gi);
   });
 
   it("updates state when dropdown value changes", async () => {
@@ -57,13 +57,13 @@ describe("TypographySelector", () => {
       </TestEditor>,
     );
 
-    const button = screen.getByRole("button");
+    const button = screen.getByRole("combobox");
 
     await user.click(button);
-    const titleOption = screen.getByRole("menuitem", { name: "Title" });
+    const titleOption = screen.getByRole("option", { name: "Title" });
 
     await user.click(titleOption);
-    expect(button).toHaveTextContent("Title");
+    expect(button).toHaveTextContent(/Title/gi);
 
     jest.useRealTimers();
   });
