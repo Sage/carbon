@@ -1,12 +1,15 @@
 import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
 
 import * as IconButtonStories from "./icon-button.stories";
+import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component"
 
 <Meta of={IconButtonStories} />
 
 # Icon Button
 
-A component that can be used when a button with no text is needed
+<DeprecationWarning>
+Icon Button has been deprecated, if this pattern is still needed please see <a style={{color: "white"}} href="../?path=/docs/documentation-deprecation-migration--docs#recommended-alternatives">our deprecation migration docs</a> for a recommended alternative.
+</DeprecationWarning>
 
 ## Contents
 

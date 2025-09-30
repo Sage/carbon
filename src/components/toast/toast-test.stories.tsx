@@ -7,7 +7,7 @@ import { TOAST_COLORS } from "./toast.config";
 import Dialog from "../dialog";
 
 export default {
-  title: "Toast/Test",
+  title: "Deprecated/Toast/Test",
   excludeStories: ["TopAndBottom"],
   parameters: {
     info: { disable: true },
@@ -313,9 +313,6 @@ Visual.args = {
   children: "My text",
 };
 Visual.parameters = {
-  chromatic: {
-    disableSnapshot: false,
-  },
   themeProvider: { chromatic: { theme: "sage" } },
 };
 

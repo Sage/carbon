@@ -1,14 +1,15 @@
 import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
 
 import * as GroupedCharacterStories from "./grouped-character.stories";
+import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component"
 
 <Meta of={GroupedCharacterStories} />
 
 # GroupedCharacter
 
-Capture data with punctuation inside the field.
-
-Fields can have punctuation within them (most commonly characters like - or /). This gives the user a clue about the format accepted.
+<DeprecationWarning>
+GroupedCharacter has been deprecated, if this pattern is still needed please see <a style={{color: "white"}} href="../?path=/docs/documentation-deprecation-migration--docs#grouped-character">our deprecation migration docs</a> for an alternative pattern.
+</DeprecationWarning>
 
 ## Contents
 
