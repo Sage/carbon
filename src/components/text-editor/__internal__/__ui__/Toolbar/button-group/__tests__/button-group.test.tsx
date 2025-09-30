@@ -9,12 +9,16 @@ test("returns null if no children are provided", () => {
 });
 
 test("renders a divider if the `showDivider` prop is true", () => {
-  render(
+  const { container } = render(
     <ButtonGroup namespace="test" name="test" showDivider>
       <button type="button">Test Button</button>
     </ButtonGroup>,
   );
-  const divider = screen.getByRole("separator");
+
+  // Because the separator is hidden via aria-hidden we need to use the container
+  // to find it instead of screen.getByRole
+  // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+  const divider = container.querySelector("[role='separator']");
   expect(divider).toBeInTheDocument();
 });
 

@@ -47,6 +47,7 @@ describe("MentionsTypeaheadMenuItem", () => {
   it("renders correctly when not selected", () => {
     render(
       <MentionsTypeaheadMenuItem
+        namespace="test"
         index={0}
         isSelected={false}
         onClick={() => {}}
@@ -55,12 +56,13 @@ describe("MentionsTypeaheadMenuItem", () => {
       />,
     );
 
-    expect(screen.getByRole("option", { name: "A Alice" })).toHaveClass("item");
+    expect(screen.getByRole("option", { name: "Alice" })).toHaveClass("item");
   });
 
   it("renders correctly when selected", () => {
     render(
       <MentionsTypeaheadMenuItem
+        namespace="test"
         index={0}
         isSelected={true}
         onClick={() => {}}
@@ -69,7 +71,7 @@ describe("MentionsTypeaheadMenuItem", () => {
       />,
     );
 
-    expect(screen.getByRole("option", { name: "A Alice" })).toHaveClass(
+    expect(screen.getByRole("option", { name: "Alice" })).toHaveClass(
       "selected",
     );
   });

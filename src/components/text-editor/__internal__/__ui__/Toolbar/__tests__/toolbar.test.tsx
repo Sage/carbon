@@ -524,7 +524,8 @@ describe("Customisation", () => {
     const buttonGroups = screen.getAllByTestId(/btg-test/i);
     expect(buttonGroups.length).toEqual(3);
 
-    expect(within(toolbar).getAllByRole("button").length).toEqual(4);
+    expect(within(toolbar).getAllByRole("combobox").length).toEqual(1);
+    expect(within(toolbar).getAllByRole("button").length).toEqual(3);
     expect(screen.getByTestId("test-typography-dropdown")).toBeInTheDocument();
     expect(screen.queryByTestId("test-bold-button")).not.toBeInTheDocument();
     expect(screen.queryByTestId("test-italic-button")).not.toBeInTheDocument();
@@ -569,7 +570,8 @@ describe("Customisation", () => {
     const buttonGroups = screen.getAllByTestId(/btg-test/i);
     expect(buttonGroups.length).toEqual(3);
 
-    expect(within(toolbar).getAllByRole("button").length).toEqual(5);
+    expect(within(toolbar).getAllByRole("combobox").length).toEqual(1);
+    expect(within(toolbar).getAllByRole("button").length).toEqual(4);
     expect(screen.getByTestId("test-typography-dropdown")).toBeInTheDocument();
     expect(screen.getByTestId("test-bold-button")).toBeInTheDocument();
     expect(screen.getByTestId("test-italic-button")).toBeInTheDocument();
@@ -615,7 +617,8 @@ describe("Customisation", () => {
     const buttonGroups = screen.getAllByTestId(/btg-test/i);
     expect(buttonGroups.length).toEqual(3);
 
-    expect(within(toolbar).getAllByRole("button").length).toEqual(6);
+    expect(within(toolbar).getAllByRole("combobox").length).toEqual(1);
+    expect(within(toolbar).getAllByRole("button").length).toEqual(5);
     expect(screen.getByTestId("test-typography-dropdown")).toBeInTheDocument();
     expect(screen.getByTestId("test-bold-button")).toBeInTheDocument();
     expect(screen.getByTestId("test-italic-button")).toBeInTheDocument();
@@ -630,7 +633,7 @@ describe("Customisation", () => {
   });
 
   it("shows dividers between button groups, except after the last group", () => {
-    render(
+    const { container } = render(
       <LexicalComposer
         initialConfig={{
           nodes: [],
@@ -658,16 +661,18 @@ describe("Customisation", () => {
         />
       </LexicalComposer>,
     );
-    const toolbar = screen.getByTestId("test-toolbar");
     const buttonGroups = screen.getAllByTestId(/btg-test/i);
     expect(buttonGroups.length).toEqual(4);
 
-    const dividers = within(toolbar).getAllByRole("separator");
+    // Because the separator is hidden via aria-hidden we need to use the container
+    // to find it instead of screen.getByRole
+    // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+    const dividers = container.querySelectorAll("[role='separator']");
     expect(dividers.length).toEqual(3);
   });
 
   it("only shows a single divider when there are two adjacent button groups", () => {
-    render(
+    const { container } = render(
       <LexicalComposer
         initialConfig={{
           nodes: [],
@@ -687,10 +692,13 @@ describe("Customisation", () => {
         />
       </LexicalComposer>,
     );
-    const toolbar = screen.getByTestId("test-toolbar");
     const buttonGroups = screen.getAllByTestId(/btg-test/i);
     expect(buttonGroups.length).toEqual(2);
-    const dividers = within(toolbar).getAllByRole("separator");
+
+    // Because the separator is hidden via aria-hidden we need to use the container
+    // to find it instead of screen.getByRole
+    // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+    const dividers = container.querySelectorAll("[role='separator']");
     expect(dividers.length).toEqual(1);
   });
 

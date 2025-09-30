@@ -111,16 +111,13 @@ export class StyledSpanNode extends TextNode {
     return {
       span: (domNode: HTMLElement) => ({
         conversion: () => {
-          const { textContent, style } = domNode;
-          const {
-            fontWeight = "400",
-            fontSize = "14px",
-            lineHeight = "21px",
-          } = style;
+          const fontWeight = domNode.style.fontWeight || "400";
+          const fontSize = domNode.style.fontSize || "14px";
+          const lineHeight = domNode.style.lineHeight || "21px";
 
           return {
             node: new StyledSpanNode(
-              textContent ?? "",
+              domNode.textContent || "",
               fontWeight,
               fontSize,
               lineHeight,
@@ -177,19 +174,19 @@ export class StyledSpanNode extends TextNode {
     dom: HTMLElement,
     config: EditorConfig,
   ): boolean {
-    const updated = super.updateDOM(prevNode, dom, config);
+    let updated = super.updateDOM(prevNode, dom, config);
 
     if (this.__fontWeight !== prevNode.__fontWeight) {
       dom.style.fontWeight = this.__fontWeight;
-      return true;
+      updated = true;
     }
     if (this.__fontSize !== prevNode.__fontSize) {
       dom.style.fontSize = this.__fontSize;
-      return true;
+      updated = true;
     }
     if (this.__lineHeight !== prevNode.__lineHeight) {
       dom.style.lineHeight = this.__lineHeight;
-      return true;
+      updated = true;
     }
 
     // Return true if the node was updated, false otherwise
