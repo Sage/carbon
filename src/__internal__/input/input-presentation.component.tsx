@@ -24,6 +24,8 @@ export interface CommonInputPresentationProps extends ValidationProps {
    * Leaving the `maxWidth` prop with no value will default the width to '100%'
    */
   maxWidth?: string;
+  /** When true label is inline. */
+  labelInline?: boolean;
   /** If true, the component will be read-only */
   readOnly?: boolean;
   /** Size of an input */
@@ -52,6 +54,7 @@ const InputPresentation = ({
   info,
   inputWidth,
   maxWidth,
+  labelInline,
   positionedChildren,
   prefix,
   readOnly,
@@ -74,6 +77,35 @@ const InputPresentation = ({
     if (onMouseLeave) onMouseLeave();
     if (onGroupMouseLeave) onGroupMouseLeave();
   };
+
+  if (validationRedesignOptIn && labelInline) {
+    return (
+      <>
+        {positionedChildren}
+        <InputPresentationStyle
+          hasFocus={hasFocus}
+          role="presentation"
+          onMouseDown={onMouseDown}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          align={align}
+          prefix={prefix}
+          disabled={disabled}
+          readOnly={readOnly}
+          size={size}
+          warning={warning}
+          error={error}
+          info={info}
+          validationRedesignOptIn={validationRedesignOptIn}
+          hasIcon={hasIcon}
+          borderRadius={borderRadius}
+          hideBorders={hideBorders}
+        >
+          {children}
+        </InputPresentationStyle>
+      </>
+    );
+  }
 
   return (
     <StyledInputPresentationContainer

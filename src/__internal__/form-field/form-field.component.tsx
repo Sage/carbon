@@ -58,6 +58,10 @@ interface CommonFormFieldProps extends MarginProps, ValidationProps {
    * @private @ignore
    * Flag dedicating if latest validation design should be used */
   validationRedesignOptIn?: boolean;
+  /** @private @internal @ignore */
+  inputHint?: string;
+  /** @private @internal @ignore */
+  inputHintId?: string;
 }
 
 export interface FormFieldProps extends CommonFormFieldProps, TagProps {
@@ -104,6 +108,8 @@ const FormField = ({
   labelSpacing = 2,
   labelWidth,
   labelAs,
+  inputHint,
+  inputHintId,
   id,
   reverse,
   useValidationIcon,
@@ -179,15 +185,20 @@ const FormField = ({
   return (
     <FormFieldStyle {...tagComponent(dataComponent, rest)} {...marginProps}>
       <FieldLineStyle
+        validationRedesignOptIn={validationRedesignOptIn}
+        labelInline={labelInline}
         data-role="field-line"
         inline={inlineLabel}
         maxWidth={maxWidth}
       >
         {reverse && children}
 
-        {label && (
+        {(label || inputHint || (labelHelp && validationRedesignOptIn)) && (
           <Label
             labelId={labelId}
+            inputHint={inputHint}
+            inputHintId={inputHintId}
+            labelHelp={labelHelp}
             align={labelAlign}
             disabled={disabled}
             error={!validationRedesignOptIn && error}

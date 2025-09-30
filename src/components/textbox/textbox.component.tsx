@@ -5,7 +5,6 @@ import { MarginProps } from "styled-system";
 import Box from "../box";
 import { IconType } from "../icon";
 import FormField from "../../__internal__/form-field";
-import HintText from "../../__internal__/hint-text";
 import {
   Input,
   InputPresentation,
@@ -89,11 +88,11 @@ export interface CommonTextboxProps
    * prop is also passed.
    */
   labelHelp?: React.ReactNode;
-  /** [Legacy] When true label is inline. */
+  /** When true label is inline. */
   labelInline?: boolean;
-  /** [Legacy] Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8). */
+  /** Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8). */
   labelSpacing?: 1 | 2;
-  /** [Legacy] Label width as a percentage when label is inline. */
+  /** [LegaLabel width as a percentage when label is inline. */
   labelWidth?: number;
   /** Specify a callback triggered on change */
   onChange: (ev: React.ChangeEvent<HTMLInputElement>) => void;
@@ -211,10 +210,11 @@ export const Textbox = React.forwardRef(
     if (!textboxRenameTrigger && !isInTextInput) {
       textboxRenameTrigger = true;
       Logger.deprecate(
-        "`Textbox` will soon be renamed to `TextInput`. Replace `Textbox` with `TextInput` now to avoid a breaking change in a later Carbon version.")
-      }
-    
-        /* istanbul ignore else */
+        "`Textbox` will soon be renamed to `TextInput`. Replace `Textbox` with `TextInput` now to avoid a breaking change in a later Carbon version.",
+      );
+    }
+
+    /* istanbul ignore else */
     if (tooltipId && !deprecatedTooltipIdTrigger) {
       deprecatedTooltipIdTrigger = true;
       Logger.deprecate(
@@ -340,6 +340,7 @@ export const Textbox = React.forwardRef(
         prefix={prefix}
         inputWidth={inputWidth || 100 - labelWidth}
         maxWidth={labelInline || labelAlign !== "right" ? maxWidth : undefined}
+        labelInline={labelInline}
         positionedChildren={positionedChildren}
         hasIcon={hasIconInside}
       >
@@ -417,10 +418,12 @@ export const Textbox = React.forwardRef(
             label={label}
             labelId={labelId}
             labelAlign={labelAlign}
-            labelHelp={computeLabelPropValues(labelHelp)}
-            labelInline={computeLabelPropValues(labelInline)}
+            labelHelp={labelHelp}
+            labelInline={labelInline}
             labelSpacing={labelSpacing}
-            labelWidth={computeLabelPropValues(labelWidth)}
+            labelWidth={labelWidth}
+            inputHint={inputHint}
+            inputHintId={inputHintId}
             id={uniqueId}
             reverse={computeLabelPropValues(reverse)}
             useValidationIcon={computeLabelPropValues(validationOnLabel)}
@@ -435,54 +438,56 @@ export const Textbox = React.forwardRef(
             validationRedesignOptIn={validationRedesignOptIn}
             {...filterStyledSystemMarginProps(props)}
           >
-            {(inputHint || (labelHelp && validationRedesignOptIn)) && (
-              <HintText
-                align={labelAlign}
-                data-element="input-hint"
-                id={inputHintId}
-                isComponentInline={labelInline}
-              >
-                {inputHint || labelHelp}
-              </HintText>
-            )}
             {validationRedesignOptIn ? (
-              <Box position="relative">
-                {validationMessagePositionTop && (
-                  <>
-                    <ValidationMessage
-                      error={error}
-                      validationId={validationId}
-                      warning={warning}
-                      validationMessagePositionTop={
-                        validationMessagePositionTop
-                      }
-                    />
-                    {!disableErrorBorder && (error || warning) && (
-                      <ErrorBorder warning={!!(!error && warning)} />
-                    )}
-                  </>
-                )}
-                {input}
-                {!validationMessagePositionTop && (
-                  <>
-                    <ValidationMessage
-                      error={error}
-                      validationId={validationId}
-                      warning={warning}
-                      validationMessagePositionTop={
-                        validationMessagePositionTop
-                      }
-                    />
-                    {!disableErrorBorder && (error || warning) && (
-                      <ErrorBorder warning={!!(!error && warning)} />
-                    )}
-                  </>
-                )}
+              <Box
+                position="relative"
+                {...(labelInline && {
+                  flex: `0 0 ${inputWidth || 100 - labelWidth}%`,
+                  maxWidth: maxWidth || "100%",
+                })}
+              >
+                <Box position="relative">
+                  {validationMessagePositionTop && (
+                    <>
+                      <ValidationMessage
+                        error={error}
+                        validationId={validationId}
+                        warning={warning}
+                        validationMessagePositionTop={
+                          validationMessagePositionTop
+                        }
+                      />
+                      {!disableErrorBorder && (error || warning) && (
+                        <ErrorBorder warning={!!(!error && warning)} />
+                      )}
+                    </>
+                  )}
+                  {input}
+
+                  {!validationMessagePositionTop && (
+                    <>
+                      <ValidationMessage
+                        error={error}
+                        validationId={validationId}
+                        warning={warning}
+                        validationMessagePositionTop={
+                          validationMessagePositionTop
+                        }
+                      />
+                      {!disableErrorBorder && (error || warning) && (
+                        <ErrorBorder warning={!!(!error && warning)} />
+                      )}
+                    </>
+                  )}
+                </Box>
+                {characterCount}
               </Box>
             ) : (
-              input
+              <>
+                {input}
+                {characterCount}
+              </>
             )}
-            {characterCount}
           </FormField>
         </InputBehaviour>
       </TooltipProvider>

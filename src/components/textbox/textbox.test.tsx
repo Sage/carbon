@@ -917,14 +917,11 @@ describe("when rendered with new validations", () => {
       labelInline: true,
       label: "example label",
       labelAlign: "left",
-      labelWidth: 100,
-      labelSpacing: 1,
       reverse: true,
       value: "foo",
       onChange: jest.fn(),
     });
     const labelContainer = screen.getByTestId("label-container");
-    expect(labelContainer).toHaveStyle({ width: undefined });
     expect(labelContainer).toHaveStyle({ justifyContent: undefined });
     expect(labelContainer).toHaveStyle({ paddingLeft: undefined });
     expect(labelContainer).toHaveStyle({ paddingRight: undefined });
