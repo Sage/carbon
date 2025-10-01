@@ -114,7 +114,6 @@ interface StyledFlatTableWrapperProps
   hasVerticalScrollbar: boolean;
   lastColRowSpanIndex: number;
   firstColRowSpanIndex: number;
-  isFocused: boolean;
   bottomBorderRadius: NonNullable<FlatTableProps["bottomBorderRadius"]>;
 }
 
@@ -145,13 +144,12 @@ const StyledFlatTableWrapper = styled(StyledBox).attrs(
       border-bottom-right-radius: var(--${bottomBorderRadius});
     `}
 
-  ${({ isInSidebar, isFocused }) => css`
+  ${({ isInSidebar }) => css`
     box-sizing: border-box;
 
-    ${isFocused &&
-    css`
+    :has(${StyledTableContainer}:focus-visible) {
       ${addFocusStyling()}
-    `}
+    }
 
     ${isInSidebar ? "min-width: fit-content;" : ""}
   `}

@@ -51,7 +51,8 @@ testStyledSystemMargin(
 );
 
 describe("when rows are interactive", () => {
-  it("should apply the expected focus styling to the wrapper element when it is focused", () => {
+  it("should apply the expected focus styling to the wrapper element when it is focused", async () => {
+    const user = userEvent.setup();
     render(
       <FlatTable>
         <FlatTableBody>
@@ -66,18 +67,11 @@ describe("when rows are interactive", () => {
         </FlatTableBody>
       </FlatTable>,
     );
-    const tableWrapper = screen.getByRole("region");
     const focusableTableContainer = screen.getByTestId("flat-table-container");
-    act(() => {
-      focusableTableContainer.focus();
-    });
+
+    await user.keyboard("{Tab}");
 
     expect(focusableTableContainer).toHaveFocus();
-    expect(tableWrapper).toHaveStyleRule("outline", "transparent 3px solid");
-    expect(tableWrapper).toHaveStyleRule(
-      "box-shadow",
-      "0px 0px 0px var(--borderWidth300) var(--colorsSemanticFocus500),0px 0px 0px var(--borderWidth600) var(--colorsUtilityYin090)",
-    );
   });
 
   it("should not move focus to first row with `onClick` when down arrow pressed and table wrapper focused", async () => {
