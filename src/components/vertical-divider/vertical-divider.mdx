@@ -1,10 +1,15 @@
 import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
 
 import * as VerticalDividerStories from "./vertical-divider.stories";
+import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component"
 
 <Meta of={VerticalDividerStories} />
 
 # VerticalDivider
+
+<DeprecationWarning>
+VerticalDivider has been deprecated, if this pattern is still needed please see <a style={{color: "white"}} href="../?path=/docs/documentation-deprecation-migration--docs#recommended-alternatives">our deprecation migration docs</a> for a recommended alternative.
+</DeprecationWarning>
 
 Provides a vertical dividing line to make the adjacent components feel distinctly separate from one another.
 

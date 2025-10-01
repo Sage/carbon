@@ -26,7 +26,7 @@ import {
 import Dialog from "../dialog";
 import Form from "../form";
 import Link from "../link";
-import Hr from "../hr";
+import Divider from "../divider";
 import DateRange, { DateRangeChangeEvent } from "../date-range";
 import DateInput, { DateChangeEvent } from "../date";
 import GlobalHeader from "../global-header";
@@ -385,7 +385,7 @@ export const InsideMenuWithPrimaryOpenButtonResponsive = () => {
                 <Typography variant="segment-subheader" color="white" m={0}>
                   Lorem Ipsum
                 </Typography>
-                <Hr type="inverse" mt={1} mb={2} />
+                <Divider type="horizontal" inverse mt={1} mb={2} />
                 <Box display="flex" flexDirection="row" gap="32px">
                   <Box display="flex" flexDirection="column" gap="8px">
                     <PopoverLink text="Lorem ipsum dolor" />
@@ -415,7 +415,7 @@ export const InsideMenuWithPrimaryOpenButtonResponsive = () => {
                 <Typography variant="segment-subheader" color="white" m={0}>
                   Dolor Sit Amet
                 </Typography>
-                <Hr type="inverse" mt={1} mb={2} />
+                <Divider type="horizontal" inverse mt={1} mb={2} />
                 <Box display="flex" flexDirection="row" gap="32px">
                   <Box display="flex" flexDirection="column" gap="8px">
                     <PopoverLink text="Duis aute irure" />
