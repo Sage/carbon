@@ -164,12 +164,8 @@ export const Link = React.forwardRef<
       (reference: HTMLAnchorElement | HTMLButtonElement | null) => {
         linkRef.current = reference;
         if (!ref) return;
-
-        if (typeof ref === "function") {
-          ref(reference);
-        } else if (typeof ref === "object") {
-          ref.current = reference;
-        }
+        if (typeof ref === "object") ref.current = reference;
+        if (typeof ref === "function") ref(reference);
       },
       [ref],
     );
