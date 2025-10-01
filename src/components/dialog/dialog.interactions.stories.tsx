@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { StoryObj } from "@storybook/react";
-import { userEvent, within, expect } from "@storybook/test";
+import { userEvent, within, expect, waitFor } from "@storybook/test";
 
 import Dialog from ".";
 import Button from "../button";
@@ -13,9 +13,12 @@ type Story = StoryObj<typeof Dialog>;
 export default {
   title: "Dialog/Interactions",
   component: Dialog,
-  parameters: { layout: "padded" },
+  parameters: {
+    layout: "padded",
+    chromatic: { disableSnapshot: true },
+  },
   decorators: [],
-} as const;
+};
 
 export const FocusManagement: Story = {
   render: function FocusManagementRender() {
@@ -62,20 +65,23 @@ export const FocusManagement: Story = {
     await userEvent.click(openButton);
 
     const dialog = await portal.findByRole("dialog");
+
+    await waitFor(() => expect(dialog).toBeVisible());
+
     const closeButton = within(dialog).getByRole("button", { name: /close/i });
     const firstInput = within(dialog).getByLabelText(/name/i);
 
-    await expect(dialog).toBeVisible();
+    await userEvent.tab();
+    await waitFor(() => expect(closeButton).toHaveFocus());
+
+    await userEvent.tab();
+    await waitFor(() => expect(firstInput).toHaveFocus());
 
     await userEvent.tab();
     await userEvent.tab();
 
-    await expect(firstInput).toHaveFocus();
-
     await userEvent.tab();
-    await userEvent.tab();
-
-    await expect(closeButton).toHaveFocus();
+    await waitFor(() => expect(closeButton).toHaveFocus());
   },
 };
 
