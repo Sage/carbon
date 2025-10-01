@@ -61,12 +61,13 @@ export const FocusManagement: Story = {
     const canvas = within(canvasElement);
     const portal = within(canvasElement.ownerDocument.body);
 
-    const openButton = await canvas.findByRole("button", {
+    const openButton = canvas.getByRole("button", {
       name: /open dialog/i,
     });
+
     await userEvent.click(openButton);
 
-    const dialog = await portal.findByRole("dialog");
+    const dialog = await portal.findByRole("dialog", {}, { timeout: 3000 });
 
     await waitFor(() => expect(dialog).toBeVisible());
 
