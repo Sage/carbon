@@ -2371,6 +2371,24 @@ test.describe("Prop tests", () => {
       }
     });
   });
+
+  test(`should apply correct focus styling when wrapper is focused via keyboard`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<FlatTableComponent />);
+
+    await page.keyboard.press("Tab");
+
+    await expect(flatTableWrapper(page)).toHaveCSS(
+      "box-shadow",
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+    );
+    await expect(flatTableWrapper(page)).toHaveCSS(
+      "outline",
+      "rgba(0, 0, 0, 0) solid 3px",
+    );
+  });
 });
 
 test.describe("Accessibility tests", () => {
