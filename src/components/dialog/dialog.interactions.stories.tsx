@@ -58,16 +58,19 @@ export const FocusManagement: Story = {
   play: async ({ canvasElement }) => {
     if (!allowInteractions()) return;
 
-    const canvas = within(canvasElement);
     const portal = within(canvasElement.ownerDocument.body);
 
-    const openButton = canvas.getByRole("button", {
-      name: /open dialog/i,
-    });
+    const openButton = canvasElement.querySelector(
+      '[data-role="open-dialog-btn"]',
+    ) as HTMLElement;
+
+    if (!openButton) {
+      throw new Error("Open dialog button not found");
+    }
 
     await userEvent.click(openButton);
 
-    const dialog = await portal.findByRole("dialog", {}, { timeout: 3000 });
+    const dialog = await portal.findByRole("dialog");
 
     await waitFor(() => expect(dialog).toBeVisible());
 
