@@ -581,7 +581,7 @@ test("should not call the `onClick` handle when main button is clicked whilst di
   expect(onClickMock).not.toHaveBeenCalled();
 });
 
-test("should hide the additional buttons when a click event detected outside the component", async () => {
+test("closes additional buttons popup when a click occurs outside the component", async () => {
   const user = userEvent.setup();
   render(
     <SplitButton text="Main">
@@ -618,7 +618,7 @@ test("should hide the additional buttons when the list is open and 'Enter' key i
   expect(screen.queryByRole("list")).not.toBeInTheDocument();
 });
 
-test("should hide the additional buttons when the list is open and 'Space' key is pressed on the toggle button", async () => {
+test("closes additional buttons popup when 'Space' key is pressed on the toggle button", async () => {
   const user = userEvent.setup();
   render(
     <SplitButton text="Main">
@@ -627,18 +627,18 @@ test("should hide the additional buttons when the list is open and 'Space' key i
   );
 
   const toggle = screen.getByRole("button", { name: "Show more" });
-  toggle.focus();
-  await user.keyboard(" ");
+  await user.click(toggle);
+
   const childButton = await screen.findByRole("button", {
     name: "Single Button",
   });
-
   expect(childButton).toBeVisible();
+
   await user.keyboard(" ");
   expect(screen.queryByRole("list")).not.toBeInTheDocument();
 });
 
-test("should hide the additional buttons when a 'Escape' keydown event detected and focus is within component", async () => {
+test("closes additional buttons popup when Escape is pressed and focus is within the popup", async () => {
   const user = userEvent.setup();
   render(
     <SplitButton text="Main">
@@ -647,19 +647,18 @@ test("should hide the additional buttons when a 'Escape' keydown event detected 
   );
 
   const toggle = screen.getByRole("button", { name: "Show more" });
-  toggle.focus();
-  await user.keyboard("{arrowDown}");
+  await user.click(toggle);
 
   const button1 = await screen.findByRole("button", {
     name: "Single Button",
   });
-
   expect(button1).toBeVisible();
+
   await user.keyboard("{Escape}");
   expect(screen.queryByRole("list")).not.toBeInTheDocument();
 });
 
-test("should hide the additional buttons when a 'Escape' keydown event detected and focus is not within component", async () => {
+test("closes additional buttons popup when Escape is pressed and focus is not within the popup", async () => {
   const user = userEvent.setup();
   render(
     <SplitButton text="Main">
@@ -669,16 +668,17 @@ test("should hide the additional buttons when a 'Escape' keydown event detected 
 
   const toggle = await screen.findByRole("button", { name: "Show more" });
   await user.click(toggle);
+
   const button1 = await screen.findByRole("button", {
     name: "Single Button",
   });
-
   expect(button1).toBeVisible();
+
   await user.keyboard("{Escape}");
   expect(screen.queryByRole("list")).not.toBeInTheDocument();
 });
 
-test("should call the relevant 'onClick' callback and hide the additional buttons when a child button is clicked", async () => {
+test("calls child's onClick callback and closes additional buttons popup when a child button is clicked", async () => {
   const user = userEvent.setup();
   const onClickMock = jest.fn();
   const onClickOnChildMock = jest.fn();
@@ -699,7 +699,7 @@ test("should call the relevant 'onClick' callback and hide the additional button
   expect(screen.queryByRole("list")).not.toBeInTheDocument();
 });
 
-test("should hide the additional buttons when the main button is clicked", async () => {
+test("closes additional buttons popup when the main button is clicked", async () => {
   const user = userEvent.setup();
   render(
     <SplitButton text="Main">
@@ -721,7 +721,7 @@ test("should hide the additional buttons when the main button is clicked", async
   expect(childButton).not.toBeInTheDocument();
 });
 
-test("should hide the additional buttons when the list is open the toggle button is clicked", async () => {
+test("closes additional buttons popup when the toggle button is clicked", async () => {
   const user = userEvent.setup();
   render(
     <SplitButton text="Main">
@@ -742,7 +742,29 @@ test("should hide the additional buttons when the list is open the toggle button
   expect(screen.queryByRole("list")).not.toBeInTheDocument();
 });
 
-test("should hide the additional buttons when the list is open and a custom adaptive sidebar blur event is dispatched", async () => {
+test("closes additional buttons popup when focus is lost from it", async () => {
+  const user = userEvent.setup();
+  render(
+    <SplitButton text="Main">
+      <Button>Single Button</Button>
+    </SplitButton>,
+  );
+
+  await user.click(screen.getByRole("button", { name: "Show more" }));
+
+  const childButton = await screen.findByRole("button", {
+    name: "Single Button",
+  });
+  expect(childButton).toBeVisible();
+
+  await user.tab();
+  expect(childButton).toHaveFocus();
+
+  await user.tab({ shift: true });
+  expect(screen.queryByRole("list")).not.toBeInTheDocument();
+});
+
+test("closes additional buttons popup when a custom adaptive sidebar blur event is dispatched", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
   render(
@@ -772,7 +794,7 @@ test("should hide the additional buttons when the list is open and a custom adap
   expect(childButton).not.toBeInTheDocument();
 });
 
-test("should support navigating the additional buttons via down arrow key but stop on last button", async () => {
+test("can navigate through additional buttons via down key presses", async () => {
   const user = userEvent.setup();
   render(
     <SplitButton text="Main">
@@ -783,8 +805,8 @@ test("should support navigating the additional buttons via down arrow key but st
   );
 
   const toggle = screen.getByRole("button", { name: "Show more" });
-  toggle.focus();
-  await user.keyboard("{arrowDown}");
+  await user.click(toggle);
+
   const button1 = await screen.findByRole("button", {
     name: "Extra Button 1",
   });
@@ -805,7 +827,7 @@ test("should support navigating the additional buttons via down arrow key but st
   expect(button3).toHaveFocus();
 });
 
-test("should support navigating the additional buttons via up arrow key but stop on first button", async () => {
+test("can navigate through additional buttons via up key presses but stop on first button", async () => {
   const user = userEvent.setup();
   render(
     <SplitButton text="Main">
@@ -816,7 +838,8 @@ test("should support navigating the additional buttons via up arrow key but stop
   );
 
   const toggle = screen.getByRole("button", { name: "Show more" });
-  toggle.focus();
+  await user.click(toggle);
+
   await user.keyboard("{arrowDown}");
   const button1 = await screen.findByRole("button", {
     name: "Extra Button 1",
@@ -850,8 +873,8 @@ test("focuses last child button when End key is pressed", async () => {
   );
 
   const toggle = screen.getByRole("button", { name: "Show more" });
-  toggle.focus();
-  await user.keyboard("{arrowDown}");
+  await user.click(toggle);
+
   const button1 = await screen.findByRole("button", {
     name: "Extra Button 1",
   });
@@ -992,7 +1015,7 @@ test("focuses first child button when Meta and ArrowUp key are pressed together"
   expect(button1).toHaveFocus();
 });
 
-test("should support navigating the additional buttons via tab key", async () => {
+test("can navigate through additional buttons via tab key presses", async () => {
   const user = userEvent.setup();
   render(
     <SplitButton text="Main">
@@ -1023,7 +1046,7 @@ test("should support navigating the additional buttons via tab key", async () =>
   expect(button3).toHaveFocus();
 });
 
-test("should support navigating the additional buttons via shift+tab key, hide the list when pressed on first button and refocus toggle", async () => {
+test("can navigate through additional buttons via shift+tab key presses, hide the list when pressed on first button and refocus toggle", async () => {
   const user = userEvent.setup();
   render(
     <SplitButton text="Main">

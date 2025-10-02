@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
 import MultiActionButton, {
   MultiActionButtonProps,
@@ -11,10 +11,10 @@ import {
   MULTI_ACTION_BUTTON_THEMES,
   MULTI_ACTION_BUTTON_POSITIONS,
 } from "./multi-action-button.config";
+import Dialog from "../dialog";
 
 export default {
   title: "Multi Action Button/Test",
-  includeStories: ["MultiActionButtonStory"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -86,5 +86,27 @@ MultiActionButtonStory.story = {
     subtext: "",
     text: "Multi Action Button",
     position: "left",
+  },
+};
+
+export const WithinDialog = {
+  render: function WithinDialog() {
+    const [open, setOpen] = useState(false);
+
+    const handleClick = action("onClick");
+
+    return (
+      <>
+        <MultiActionButton text="Multi Action Button" buttonType="primary">
+          <Button onClick={handleClick}>Export file</Button>
+        </MultiActionButton>
+        <Button onClick={() => setOpen(true)}>Open dialog</Button>
+        <Dialog open={open} onCancel={() => setOpen(false)}>
+          <MultiActionButton text="Multi Action Button" buttonType="primary">
+            <Button onClick={handleClick}>Export file</Button>
+          </MultiActionButton>
+        </Dialog>
+      </>
+    );
   },
 };

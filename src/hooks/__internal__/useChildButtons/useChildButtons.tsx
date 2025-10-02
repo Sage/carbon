@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import Events from "../../../__internal__/utils/helpers/events";
 import useMenuKeyboardNavigation from "../useMenuKeyboardNavigation";
 
@@ -63,6 +63,11 @@ const useChildButtons = (
     showAdditionalButtons,
   );
 
+  const handleBlur = (ev: React.FocusEvent<HTMLElement>) => {
+    if (ev.currentTarget.contains(ev.relatedTarget)) return;
+    hideButtons();
+  };
+
   const onChildButtonClick =
     (childOnClick?: React.MouseEventHandler<HTMLButtonElement>) =>
     (ev: React.MouseEvent<HTMLButtonElement>) => {
@@ -75,6 +80,7 @@ const useChildButtons = (
     "data-element": "additional-buttons",
     role: "list",
     onKeyDown: handleKeyDown,
+    onBlur: handleBlur,
     minWidth,
     ref: childrenContainer,
   };
