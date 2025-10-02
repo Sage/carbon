@@ -72,6 +72,8 @@ export interface FieldsetProps extends MarginProps {
   validationMessagePositionTop?: boolean;
   /** Apply new validation styles */
   applyNewValidation?: boolean;
+  /** Set the size of the component */
+  size?: "small" | "medium" | "large";
 }
 
 const Fieldset = ({
@@ -94,6 +96,7 @@ const Fieldset = ({
   validationMessagePositionTop,
   applyNewValidation = false,
   id,
+  size,
   ...rest
 }: FieldsetProps) => {
   const { validationRedesignOptIn } = useContext(NewValidationContext);
@@ -179,6 +182,7 @@ const Fieldset = ({
             warning={warning}
             validationId={validationId}
             validationMessagePositionTop={validationMessagePositionTop}
+            isLarge={size === "large"}
           />
           <ErrorBorder warning={!!(!error && warning)} />
         </>
@@ -204,6 +208,7 @@ const Fieldset = ({
             isDisabled={isDisabled}
             data-element="legend"
             data-role="legend"
+            isLarge={size === "large"}
           >
             {legend}
           </StyledLegend>
@@ -214,6 +219,7 @@ const Fieldset = ({
             id={inputHintId}
             isDisabled={isDisabled}
             align={legendAlignment}
+            isLarge={size === "large"}
           >
             {inputHint}
           </HintText>
