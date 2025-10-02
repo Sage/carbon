@@ -145,7 +145,7 @@ describe("MentionNode", () => {
 
         expect(mentionNode.__mention).toBe("john_doe");
         expect(mentionNode.getTextContent()).toBe("john_doe");
-        expect(mentionNode.getMode()).toBe("segmented"); // segmented mode
+        expect(mentionNode.getMode()).toBe("token");
       });
     });
 
@@ -158,11 +158,11 @@ describe("MentionNode", () => {
       });
     });
 
-    test("should set node to segmented mode and directionless", () => {
+    test("should set node to token mode and directionless", () => {
       editor?.update(() => {
         const mentionNode = $createMentionNode("john_doe");
 
-        expect(mentionNode.getMode()).toBe("segmented");
+        expect(mentionNode.getMode()).toBe("token");
       });
     });
   });

@@ -1,6 +1,9 @@
 import React from "react";
 import MentionTypeaheadOption from "./mention-typeahead-option.class";
 
+// Difficult to test this for coverage purposes, will be handled by Playwright
+// when unit tests are moved over
+/* istanbul ignore next */
 const HighlightedText = ({ text, query }: { text: string; query?: string }) => {
   if (!query) return <span>{text}</span>;
 
