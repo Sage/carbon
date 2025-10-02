@@ -172,6 +172,113 @@ NewValidation.parameters = {
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
+export const NewValidationInline = ({ ...args }: Partial<TextboxProps>) => {
+  const { state, setValue } = useMultiInput();
+
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      <Box maxWidth="400px" backgroundColor="#f5f5f5" p={2}>
+        <Textbox
+          label="Just a label"
+          labelInline
+          mb={2}
+          name="Textbox-il"
+          value={state["textbox1"] || ""}
+          onChange={setValue}
+          {...args}
+        />
+        <Textbox
+          labelInline
+          label="Label"
+          inputHint="Hint text"
+          mb={2}
+          name="Textbox-il-hint"
+          value={state["textbox2"] || ""}
+          onChange={setValue}
+          {...args}
+        />
+        <Textbox
+          labelInline
+          inputHint="Just hint text"
+          fieldHelp="fieldHelp"
+          labelSpacing={1}
+          name="Textbox-il-field"
+          value={state["textbox3"] || ""}
+          onChange={setValue}
+          {...args}
+        />
+        <Textbox
+          label="Label"
+          labelInline
+          labelWidth={50}
+          inputHint="Really long hint text that should wrap to the next line if it gets too long because labelWidth is set to 50%"
+          fieldHelp="field help"
+          mt={2}
+          name="Textbox-il-long-help"
+          value={state["textbox4"] || ""}
+          onChange={setValue}
+        />
+
+        <Textbox
+          required
+          label="Label"
+          inputHint="Hint text"
+          error="Error Message (Fix is required)"
+          labelInline
+          my={2}
+          name="Textbox-il-hint-error"
+          value={state["textbox5"] || ""}
+          onChange={setValue}
+          {...args}
+        />
+        <Textbox
+          label="Label"
+          inputHint="Hint text"
+          error="Error Message (Fix is required)"
+          labelInline
+          characterLimit={500}
+          my={2}
+          name="Textbox-il-hint-error"
+          value={state["textbox5"] || ""}
+          onChange={setValue}
+          {...args}
+        />
+        <Textbox
+          label="Label"
+          warning="Warning Message (Fix is optional)"
+          labelInline
+          fieldHelp="fieldHelp"
+          mb={2}
+          mt="30px"
+          name="Textbox-il-field-warn"
+          value={state["textbox6"] || ""}
+          onChange={setValue}
+          {...args}
+        />
+        <Textbox
+          inputHint="Just hint text"
+          error="Error Message (Fix is required)"
+          labelInline
+          validationMessagePositionTop={false}
+          my={2}
+          name="Textbox-il-help-error-bot"
+          value={state["textbox7"] || ""}
+          onChange={setValue}
+          {...args}
+        />
+      </Box>
+    </CarbonProvider>
+  );
+};
+NewValidationInline.storyName = "New Validation Inline";
+NewValidationInline.args = {
+  labelInline: true,
+};
+NewValidationInline.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
+
 export const PrefixWithSizes = () => {
   const { state, setValue } = useMultiInput();
 

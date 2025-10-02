@@ -5,12 +5,12 @@ import { MarginProps } from "styled-system";
 import Box from "../box";
 import { IconType } from "../icon";
 import FormField from "../../__internal__/form-field";
-import HintText from "../../__internal__/hint-text";
 import {
   Input,
   InputPresentation,
   CommonInputProps,
 } from "../../__internal__/input";
+import TextInputContext from "../text-input/__internal__/text-input.context";
 import { InputBehaviour } from "../../__internal__/input-behaviour";
 import InputIconToggle from "../../__internal__/input-icon-toggle";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
@@ -19,6 +19,7 @@ import { ValidationProps } from "../../__internal__/validations";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
 import NumeralDateContext from "../numeral-date/__internal__/numeral-date.context";
+import Logger from "../../__internal__/utils/logger";
 import useCharacterCount from "../../hooks/useCharacterCount";
 import useUniqueId from "../../hooks/__internal__/useUniqueId";
 import guid from "../../__internal__/utils/helpers/guid";
@@ -87,11 +88,11 @@ export interface CommonTextboxProps
    * prop is also passed.
    */
   labelHelp?: React.ReactNode;
-  /** [Legacy] When true label is inline. */
+  /** When true label is inline. */
   labelInline?: boolean;
-  /** [Legacy] Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8). */
+  /** Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8). */
   labelSpacing?: 1 | 2;
-  /** [Legacy] Label width as a percentage when label is inline. */
+  /** [LegaLabel width as a percentage when label is inline. */
   labelWidth?: number;
   /** Specify a callback triggered on change */
   onChange: (ev: React.ChangeEvent<HTMLInputElement>) => void;
@@ -135,6 +136,14 @@ export interface TextboxProps extends Omit<CommonTextboxProps, "defaultValue"> {
   /** Character limit of the textarea */
   characterLimit?: number;
 }
+
+let textboxRenameTrigger = false;
+let deprecatedTooltipIdTrigger = false;
+let deprecatedHelpAriaLabelTrigger = false;
+let deprecatedTooltipPositionTrigger = false;
+let deprecatedLabelHelpTrigger = false;
+let deprecatedFieldHelpTrigger = false;
+let deprecatedInfoTrigger = false;
 
 export const Textbox = React.forwardRef(
   (
@@ -195,6 +204,70 @@ export const Textbox = React.forwardRef(
     }: TextboxProps,
     ref: React.ForwardedRef<HTMLInputElement>,
   ) => {
+    const { isInTextInput } = useContext(TextInputContext);
+
+    /* istanbul ignore else */
+    if (!textboxRenameTrigger && !isInTextInput) {
+      textboxRenameTrigger = true;
+      Logger.deprecate(
+        "`Textbox` will soon be renamed to `TextInput`. Replace `Textbox` with `TextInput` now to avoid a breaking change in a later Carbon version.",
+      );
+    }
+
+    /* istanbul ignore else */
+    if (tooltipId && !deprecatedTooltipIdTrigger) {
+      deprecatedTooltipIdTrigger = true;
+      Logger.deprecate(
+        "The `tooltipId` prop has been deprecated and will soon be removed. For accessibility purposes please " +
+          "use initially visible validation patterns instead of dynamic validation patterns such as tooltips.",
+      );
+    }
+
+    /* istanbul ignore else */
+    if (helpAriaLabel && !deprecatedHelpAriaLabelTrigger) {
+      deprecatedHelpAriaLabelTrigger = true;
+      Logger.deprecate(
+        "The `helpAriaLabel` prop has been deprecated and will soon be removed. For accessibility purposes please " +
+          "use initially visible validation patterns instead of dynamic validation patterns such as tooltips.",
+      );
+    }
+
+    /* istanbul ignore else */
+    if (tooltipPosition && !deprecatedTooltipPositionTrigger) {
+      deprecatedTooltipPositionTrigger = true;
+      Logger.deprecate(
+        "The `tooltipPosition` prop has been deprecated and will soon be removed. For accessibility purposes please " +
+          "use initially visible validation patterns instead of dynamic validation patterns such as tooltips.",
+      );
+    }
+
+    /* istanbul ignore else */
+    if (labelHelp && !deprecatedLabelHelpTrigger) {
+      deprecatedLabelHelpTrigger = true;
+      Logger.deprecate(
+        "The `labelHelp` prop has been deprecated and will soon be removed. For accessibility purposes please " +
+          "use initially visible validation patterns instead of dynamic validation patterns such as tooltips.",
+      );
+    }
+
+    /* istanbul ignore else */
+    if (fieldHelp && !deprecatedFieldHelpTrigger) {
+      deprecatedFieldHelpTrigger = true;
+      Logger.deprecate(
+        "The `fieldHelp` prop has been deprecated and will soon be removed. Please use `inputHint` instead " +
+          "which is rendered above the input.",
+      );
+    }
+
+    /* istanbul ignore else */
+    if (info && !deprecatedInfoTrigger) {
+      deprecatedInfoTrigger = true;
+      Logger.deprecate(
+        "The `info` prop has been deprecated and will soon be removed. For accessibility purposes please " +
+          "use initially visible validation patterns instead of dynamic validation patterns such as tooltips.",
+      );
+    }
+
     const characterCountValue = typeof value === "string" ? value : "";
 
     const [uniqueId, uniqueName] = useUniqueId(id, name);
@@ -267,6 +340,7 @@ export const Textbox = React.forwardRef(
         prefix={prefix}
         inputWidth={inputWidth || 100 - labelWidth}
         maxWidth={labelInline || labelAlign !== "right" ? maxWidth : undefined}
+        labelInline={labelInline}
         positionedChildren={positionedChildren}
         hasIcon={hasIconInside}
       >
@@ -344,10 +418,12 @@ export const Textbox = React.forwardRef(
             label={label}
             labelId={labelId}
             labelAlign={labelAlign}
-            labelHelp={computeLabelPropValues(labelHelp)}
-            labelInline={computeLabelPropValues(labelInline)}
+            labelHelp={labelHelp}
+            labelInline={labelInline}
             labelSpacing={labelSpacing}
-            labelWidth={computeLabelPropValues(labelWidth)}
+            labelWidth={labelWidth}
+            inputHint={inputHint}
+            inputHintId={inputHintId}
             id={uniqueId}
             reverse={computeLabelPropValues(reverse)}
             useValidationIcon={computeLabelPropValues(validationOnLabel)}
@@ -362,54 +438,56 @@ export const Textbox = React.forwardRef(
             validationRedesignOptIn={validationRedesignOptIn}
             {...filterStyledSystemMarginProps(props)}
           >
-            {(inputHint || (labelHelp && validationRedesignOptIn)) && (
-              <HintText
-                align={labelAlign}
-                data-element="input-hint"
-                id={inputHintId}
-                isComponentInline={labelInline}
-              >
-                {inputHint || labelHelp}
-              </HintText>
-            )}
             {validationRedesignOptIn ? (
-              <Box position="relative">
-                {validationMessagePositionTop && (
-                  <>
-                    <ValidationMessage
-                      error={error}
-                      validationId={validationId}
-                      warning={warning}
-                      validationMessagePositionTop={
-                        validationMessagePositionTop
-                      }
-                    />
-                    {!disableErrorBorder && (error || warning) && (
-                      <ErrorBorder warning={!!(!error && warning)} />
-                    )}
-                  </>
-                )}
-                {input}
-                {!validationMessagePositionTop && (
-                  <>
-                    <ValidationMessage
-                      error={error}
-                      validationId={validationId}
-                      warning={warning}
-                      validationMessagePositionTop={
-                        validationMessagePositionTop
-                      }
-                    />
-                    {!disableErrorBorder && (error || warning) && (
-                      <ErrorBorder warning={!!(!error && warning)} />
-                    )}
-                  </>
-                )}
+              <Box
+                position="relative"
+                {...(labelInline && {
+                  flex: `0 0 ${inputWidth || 100 - labelWidth}%`,
+                  maxWidth: maxWidth || "100%",
+                })}
+              >
+                <Box position="relative">
+                  {validationMessagePositionTop && (
+                    <>
+                      <ValidationMessage
+                        error={error}
+                        validationId={validationId}
+                        warning={warning}
+                        validationMessagePositionTop={
+                          validationMessagePositionTop
+                        }
+                      />
+                      {!disableErrorBorder && (error || warning) && (
+                        <ErrorBorder warning={!!(!error && warning)} />
+                      )}
+                    </>
+                  )}
+                  {input}
+
+                  {!validationMessagePositionTop && (
+                    <>
+                      <ValidationMessage
+                        error={error}
+                        validationId={validationId}
+                        warning={warning}
+                        validationMessagePositionTop={
+                          validationMessagePositionTop
+                        }
+                      />
+                      {!disableErrorBorder && (error || warning) && (
+                        <ErrorBorder warning={!!(!error && warning)} />
+                      )}
+                    </>
+                  )}
+                </Box>
+                {characterCount}
               </Box>
             ) : (
-              input
+              <>
+                {input}
+                {characterCount}
+              </>
             )}
-            {characterCount}
           </FormField>
         </InputBehaviour>
       </TooltipProvider>
