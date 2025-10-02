@@ -5,7 +5,13 @@
 /* istanbul ignore file */
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { LexicalTypeaheadMenuPlugin } from "@lexical/react/LexicalTypeaheadMenuPlugin";
-import { TextNode } from "lexical";
+import {
+  $getSelection,
+  $isRangeSelection,
+  COMMAND_PRIORITY_LOW,
+  KEY_BACKSPACE_COMMAND,
+  TextNode,
+} from "lexical";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import ReactDOM from "react-dom";
 
@@ -15,7 +21,10 @@ import Mention from "./mention.type";
 import MentionsTypeaheadMenuItem from "./mentions-typeahead-menu-item.component";
 import MentionTypeaheadOption from "./mention-typeahead-option.class";
 
-import { $createMentionNode } from "../../__nodes__/mention.node";
+import {
+  $createMentionNode,
+  $isMentionNode,
+} from "../../__nodes__/mention.node";
 import Icon from "../../../../icon";
 import useLocale from "../../../../../hooks/__internal__/useLocale";
 
@@ -114,6 +123,42 @@ export const MentionsPlugin = ({
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [queryString]);
+
+  // Difficult to test this for coverage purposes, will be handled by Playwright
+  // when unit tests are moved over
+  /* istanbul ignore next */
+  useEffect(() => {
+    // Handles the transition from MentionNode back to TextNode
+    // when backspace pressed
+    return editor.registerCommand(
+      KEY_BACKSPACE_COMMAND,
+      () => {
+        // Get the current selection
+        const selection = $getSelection();
+        // If nothing is highlighted, abort
+        if (!$isRangeSelection(selection) || !selection.isCollapsed()) {
+          return false;
+        }
+
+        // Get selection anchor point
+        const { anchor } = selection;
+        // Get node from anchor
+        const node = anchor.getNode();
+
+        // Check node is a mention
+        if ($isMentionNode(node)) {
+          // Instanciate a new TextNode using the existing content
+          const textNode = new TextNode(node.getTextContent());
+          // Replace the current node
+          node.replace(textNode);
+          return true;
+        }
+
+        return false;
+      },
+      COMMAND_PRIORITY_LOW,
+    );
+  }, [editor]);
 
   return (
     <LexicalTypeaheadMenuPlugin<MentionTypeaheadOption>
