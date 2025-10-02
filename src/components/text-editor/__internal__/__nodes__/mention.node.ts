@@ -86,10 +86,10 @@ export function $createMentionNode(
   // Create a new MentionNode with the mentionName and text
   const mentionNode = new MentionNode(mentionName, text);
 
-  // Set the mode to "segmented" and toggle directionless
-  // Segmented mode is used for mentions to allow the text to be broken into segments
+  // Set the mode to "token" and toggle directionless
+  // Token removes the whole mention on removal of characters
   // When a node is "directionless", it inherit the text direction from its parent
-  mentionNode.setMode("segmented").toggleDirectionless();
+  mentionNode.setMode("token").toggleDirectionless();
 
   // Apply the node replacement to the mentionNode
   return $applyNodeReplacement(mentionNode);
