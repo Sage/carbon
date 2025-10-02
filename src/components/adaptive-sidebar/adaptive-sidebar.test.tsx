@@ -11,7 +11,7 @@ import Typography from "../typography";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
 import useMediaQuery from "../../hooks/useMediaQuery";
 import SplitButton from "../split-button";
-import Hr from "../hr";
+import Divider from "../divider";
 
 const MockApp = ({
   ...props
@@ -117,7 +117,7 @@ const MockWithHiddenSupport = () => {
             </Button>
           </SplitButton>
         </Box>
-        <Hr my={0} mx={0} />
+        <Divider type="horizontal" my={0} mx={0} />
         <Box display="flex" flexDirection="column" p={1}>
           <Typography>My content</Typography>
         </Box>

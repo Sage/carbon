@@ -4,8 +4,19 @@ import {
   mockMatchMedia,
   testStyledSystemMargin,
 } from "../../__spec_helper__/__internal__/test-utils";
+import Logger from "../../__internal__/utils/logger";
 
 import Hr from "./hr.component";
+
+test("a deprecation warning should be displayed when `VerticalDivider` is used", () => {
+  const loggerSpy = jest.spyOn(Logger, "deprecate");
+  render(<Hr />);
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "`Hr` is deprecated and will soon be removed. Please use `Divider` instead.",
+  );
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
+});
 
 testStyledSystemMargin(
   (props) => <Hr {...props} />,

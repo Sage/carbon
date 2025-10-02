@@ -1,3 +1,15 @@
+## [157.4.0](https://github.com/Sage/carbon/compare/v157.3.5...v157.4.0) (2025-10-01)
+
+### Features
+
+* **divider:** divider audit changes ([c437f3a](https://github.com/Sage/carbon/commit/c437f3af7d3efe6d4d663a730f43559ca5aaaeca))
+
+## [157.3.5](https://github.com/Sage/carbon/compare/v157.3.4...v157.3.5) (2025-09-30)
+
+### Bug Fixes
+
+* **popover-container:** ensure onClose is only called when container is an open state ([193b5d9](https://github.com/Sage/carbon/commit/193b5d9b722536ba5edc7ef5dab8450f089daf10)), closes [#7549](https://github.com/Sage/carbon/issues/7549)
+
 ## [157.3.4](https://github.com/Sage/carbon/compare/v157.3.3...v157.3.4) (2025-09-30)
 
 ### Bug Fixes
