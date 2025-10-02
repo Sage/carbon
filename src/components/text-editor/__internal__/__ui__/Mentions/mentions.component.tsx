@@ -151,6 +151,7 @@ export const MentionsPlugin = ({
                       key={option.id || option.key}
                       option={option}
                       namespace={namespace}
+                      currentQueryString={queryString ?? undefined}
                     />
                   ))}
                 </ul>

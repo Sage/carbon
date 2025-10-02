@@ -14,7 +14,7 @@ interface StyledContentEditableProps extends ContentEditorProps {
 }
 
 const StyledContentEditable = styled.div<StyledContentEditableProps>`
-  ${({ error, namespace, rows, readOnly, size, warning }) => css`
+  ${({ error, namespace, rows, readOnly, size }) => css`
 
   ${
     readOnly &&
@@ -50,13 +50,9 @@ const StyledContentEditable = styled.div<StyledContentEditableProps>`
       border-bottom-left-radius: var(--borderRadius100);
 
       ${
-        (error || warning) &&
+        error &&
         css`
-          outline: none;
-          border: 2px solid
-            var(
-              --${warning ? "colorsSemanticCaution500" : "colorsSemanticNegative500"}
-            );
+          box-shadow: inset 0 0 0 2px var(--colorsSemanticNegative500);
           border-bottom-left-radius: var(--borderRadius100);
           border-bottom-right-radius: var(--borderRadius100);
           border-top-left-radius: 0;
@@ -70,6 +66,10 @@ const StyledContentEditable = styled.div<StyledContentEditableProps>`
 
       & > p:first-of-type {
         margin: 0;
+      }
+
+      & > p {
+        line-height: var(--lineHeights500);
       }
   `}
 `;
