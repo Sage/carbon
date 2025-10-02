@@ -279,6 +279,7 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
               )}
               <StyledEditorToolbarWrapper
                 data-role={`${namespace}-editor-toolbar-wrapper`}
+                error={!!error}
                 id={`${namespace}-editor-toolbar-wrapper`}
               >
                 {header && (
@@ -301,7 +302,10 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
                       {...toolbarProps}
                     />
 
-                    <StyledTextEditor data-role={`${namespace}-editor`}>
+                    <StyledTextEditor
+                      data-role={`${namespace}-editor`}
+                      error={!!error}
+                    >
                       <RichTextPlugin
                         contentEditable={
                           <ContentEditor

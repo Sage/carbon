@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useMemo } from "react";
 
 import { StyledButton, StyledMenu, StyledMenuItem } from "./dropdown.style";
 import Box from "../../../../../../box";
+import Icon from "../../../../../../icon";
 import useLocale from "../../../../../../../hooks/__internal__/useLocale";
 
 interface DropdownOption {
@@ -212,7 +213,10 @@ const ToolbarDropdown = ({
         }
         size={size}
       >
-        {selectedOption} <span aria-hidden="true">{isOpen ? "▲" : "▼"}</span>
+        {selectedOption}{" "}
+        <span aria-hidden="true">
+          <Icon type={isOpen ? "caret_up" : "caret_down"} />
+        </span>
       </StyledButton>
 
       {isOpen && (

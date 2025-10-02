@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { margin, MarginProps } from "styled-system";
 
 type StyledTextEditorWrapperProps = MarginProps;
@@ -7,9 +7,14 @@ interface StyledEditorToolbarWrapperProps {
   error?: boolean;
 }
 
-export const StyledTextEditor = styled.div`
+export const StyledTextEditor = styled.div<{ error?: boolean }>`
   position: relative;
   box-sizing: border-box;
+  ${({ error }) =>
+    error &&
+    css`
+      margin: -1px;
+    `}
 `;
 
 export const StyledTextEditorWrapper = styled.div<StyledTextEditorWrapperProps>`
@@ -54,7 +59,14 @@ export const StyledWrapper = styled.div`
 
 export const StyledEditorToolbarWrapper = styled.div<StyledEditorToolbarWrapperProps>`
   border-radius: var(--borderRadius100);
-  outline: 1px solid var(--colorsUtilityMajor200);
+  ${({ error }) =>
+    error
+      ? css`
+          border: 1px solid var(--colorsUtilityMajor200);
+        `
+      : css`
+          outline: 1px solid var(--colorsUtilityMajor200);
+        `}
 `;
 
 export const StyledHeaderWrapper = styled.div`
