@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { StoryObj } from "@storybook/react";
-import { userEvent, within, expect, waitFor } from "@storybook/test";
+import { userEvent, within, expect } from "@storybook/test";
 
 import Dialog from ".";
 import Button from "../button";
@@ -72,22 +72,20 @@ export const FocusManagement: Story = {
 
     const dialog = await portal.findByRole("dialog");
 
-    await waitFor(() => expect(dialog).toBeVisible());
-
     const closeButton = within(dialog).getByRole("button", { name: /close/i });
     const firstInput = within(dialog).getByLabelText(/name/i);
 
     await userEvent.tab();
-    await waitFor(() => expect(closeButton).toHaveFocus());
+    expect(closeButton).toHaveFocus();
 
     await userEvent.tab();
-    await waitFor(() => expect(firstInput).toHaveFocus());
+    expect(firstInput).toHaveFocus();
 
     await userEvent.tab();
     await userEvent.tab();
 
     await userEvent.tab();
-    await waitFor(() => expect(closeButton).toHaveFocus());
+    expect(closeButton).toHaveFocus();
   },
 };
 
