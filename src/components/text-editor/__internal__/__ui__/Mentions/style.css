@@ -79,6 +79,7 @@
 
 .typeahead-popover li:hover {
   background-color: #eee;
+  border-radius: 0;
 }
 
 .typeahead-popover li .text {

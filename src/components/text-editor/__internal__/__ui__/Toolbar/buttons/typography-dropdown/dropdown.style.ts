@@ -26,7 +26,7 @@ export const StyledButton = styled.button<ButtonProps>`
   background: transparent;
   border-radius: var(--borderRadius100);
   cursor: pointer;
-  font-size: var(--fontSizes200);
+  font-size: var(--fontSizes100);
 
   height: ${({ size }) => getSizeForComponent(size)};
 
@@ -52,6 +52,7 @@ export const StyledMenu = styled.ul<ListProps>`
   z-index: 1;
   background: white;
   border: 1px solid #ccc;
+  border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
   list-style: none;
   margin: 0;
