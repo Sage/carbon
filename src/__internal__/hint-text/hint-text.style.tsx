@@ -17,6 +17,12 @@ const StyledHintText = styled.div<HintTextProps>`
   align-items: center;
   font-size: 14px;
 
+  ${({ isLarge }) =>
+    isLarge &&
+    css`
+      font-size: var(--fontSizes200);
+    `}
+
   ${({ align }) => css`
     justify-content: ${align !== "right" ? "flex-start" : "flex-end"};
   `}
