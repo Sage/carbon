@@ -122,3 +122,13 @@ test("visually hidden hint renders with 'you can enter up to {count} character(s
     "You can enter up to 10 characters",
   );
 });
+
+// coverage
+test("renders with expected styles when `isLarge` is true", () => {
+  render(<CharacterCount isLarge value={5} limit={10} isOverLimit={false} />);
+
+  expect(screen.getByTestId("character-count")).toHaveStyleRule(
+    "font-size",
+    "var(--fontSizes200)",
+  );
+});
