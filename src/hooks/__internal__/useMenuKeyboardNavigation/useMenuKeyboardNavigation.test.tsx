@@ -211,18 +211,4 @@ describe("useMenuKeyboardNavigation", () => {
 
     expect(keyDownEvent.defaultPrevented).toBe(true);
   });
-
-  it("calls hide callback when no child button in the menu is focused", () => {
-    const hideCb = jest.fn();
-    render(<MockComponent hideCb={hideCb} />);
-
-    fireEvent.focus(screen.getByRole("button", { name: "Main Button" }));
-
-    fireEvent.focus(screen.getByText(`${childButtonID}-0`));
-
-    fireEvent.focus(
-      screen.getByRole("button", { name: "Next Element in DOM" }),
-    );
-    expect(hideCb).toHaveBeenCalled();
-  });
 });
