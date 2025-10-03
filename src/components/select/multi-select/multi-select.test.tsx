@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import { act, render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import mockDOMRect from "../../../__spec_helper__/mock-dom-rect";
-import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/test-utils";
+import {
+  testStyledSystemMargin,
+  assertDeprecationWarning,
+} from "../../../__spec_helper__/__internal__/test-utils";
 
 import MultiSelect, { MultiSelectProps } from ".";
 import { CustomSelectChangeEvent, Option } from "..";
@@ -53,6 +56,22 @@ const InteractiveComponent = ({
     </MultiSelect>
   );
 };
+
+test("displays a deprecation warning if `multiColumn` is used", () => {
+  assertDeprecationWarning({
+    component: (
+      <InteractiveComponent
+        data-role="my-select"
+        value={[""]}
+        onChange={() => {}}
+        multiColumn
+      >
+        <Option text="Amber" value="1" />
+      </InteractiveComponent>
+    ),
+    deprecationMessage: `The 'multiColumn' prop of the MultiSelect component is deprecated and will soon be removed.`,
+  });
+});
 
 test("displays default placeholder text when no value is selected", () => {
   render(

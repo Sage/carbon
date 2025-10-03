@@ -19,6 +19,7 @@ import {
   StyledHeadingPills,
 } from "./heading.style";
 import useLocale from "../../hooks/__internal__/useLocale";
+import Logger from "../../__internal__/utils/logger";
 
 export type HeadingType = "h1" | "h2" | "h3" | "h4" | "h5";
 export interface HeadingProps extends MarginProps, TagProps {
@@ -58,6 +59,8 @@ export interface HeadingProps extends MarginProps, TagProps {
   helpAriaLabel?: string;
 }
 
+let deprecationWarningTriggered = false;
+
 export const Heading = ({
   children,
   backLink,
@@ -74,6 +77,13 @@ export const Heading = ({
   titleId,
   ...rest
 }: HeadingProps) => {
+  if (!deprecationWarningTriggered) {
+    Logger.deprecate(
+      "The `Heading` component is deprecated and will soon be removed.",
+    );
+    deprecationWarningTriggered = true;
+  }
+
   const getHelp = () => {
     return (
       <StyledHeaderHelp

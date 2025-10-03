@@ -9,12 +9,13 @@ import filterStyledSystemMarginProps from "../../style/utils/filter-styled-syste
 import computeContentPadding from "./__internal__/compute-content-padding";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 import { TILE_HIGHLIGHT_VARIANTS } from "./tile.config";
+import Logger from "../../__internal__/utils/logger";
 
 type DesignTokensType = keyof typeof DesignTokens;
 type HighlightVariantType = (typeof TILE_HIGHLIGHT_VARIANTS)[number];
 
 export interface TileProps extends SpaceProps, WidthProps, TagProps {
-  /** Sets the theme of the tile */
+  /** @deprecated Sets the theme of the tile */
   variant?: "tile" | "transparent" | "active" | "grey";
   /**
    * The content to render within the tile. Each child will be wrapped with
@@ -24,7 +25,7 @@ export interface TileProps extends SpaceProps, WidthProps, TagProps {
    * Width will have no effect on a child component if the tile orientation is set to 'vertical'.
    */
   children?: React.ReactNode;
-  /** The orientation of the tile - set to either horizontal or vertical */
+  /** @deprecated The orientation of the tile - set to either horizontal or vertical */
   orientation?: "horizontal" | "vertical";
   /**
    * Set a percentage-based width for the whole Tile component, relative to its parent.
@@ -33,7 +34,7 @@ export interface TileProps extends SpaceProps, WidthProps, TagProps {
   width?: string | number;
   /** Sets the border width by using these design tokens */
   borderWidth?: Extract<DesignTokensType, `borderWidth${string}`>;
-  /** Sets the border variant that should be used */
+  /** @deprecated Sets the border variant that should be used */
   borderVariant?:
     | "default"
     | "selected"
@@ -50,6 +51,10 @@ export interface TileProps extends SpaceProps, WidthProps, TagProps {
   /** Sets the highlight variant */
   highlightVariant?: HighlightVariantType;
 }
+
+let deprecatedVariantWarningTriggered = false;
+let deprecatedOrientationWarningTriggered = false;
+let deprecatedBorderVariantWarningTriggered = false;
 
 export const Tile = ({
   variant = "tile",
@@ -68,6 +73,27 @@ export const Tile = ({
   const paddingProps = filterStyledSystemPaddingProps({ p, ...rest });
   const marginProps = filterStyledSystemMarginProps(rest);
   const contentPaddingProps = computeContentPadding(paddingProps, isHorizontal);
+
+  if (!deprecatedVariantWarningTriggered && variant !== "tile") {
+    Logger.deprecate(
+      `The \`variant\` prop in Tile is deprecated and will soon be removed.`,
+    );
+    deprecatedVariantWarningTriggered = true;
+  }
+
+  if (!deprecatedOrientationWarningTriggered && orientation !== "horizontal") {
+    Logger.deprecate(
+      `The \`orientation\` prop in Tile is deprecated and will soon be removed.`,
+    );
+    deprecatedOrientationWarningTriggered = true;
+  }
+
+  if (!deprecatedBorderVariantWarningTriggered && borderVariant !== undefined) {
+    Logger.deprecate(
+      `The \`borderVariant\` prop in Tile is deprecated and will soon be removed.`,
+    );
+    deprecatedBorderVariantWarningTriggered = true;
+  }
 
   return (
     <StyledTile

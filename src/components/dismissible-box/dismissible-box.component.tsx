@@ -10,6 +10,7 @@ import IconButton from "../icon-button";
 import Icon from "../icon";
 import { BoxProps } from "../box";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
+import Logger from "../../__internal__/utils/logger";
 
 export interface DismissibleBoxProps
   extends SpaceProps,
@@ -33,6 +34,8 @@ export interface DismissibleBoxProps
   width?: number | string;
 }
 
+let deprecationWarningTriggered = false;
+
 export const DismissibleBox = ({
   children,
   closeButtonDataProps,
@@ -41,6 +44,13 @@ export const DismissibleBox = ({
   ...rest
 }: DismissibleBoxProps) => {
   const locale = useLocale();
+
+  if (!deprecationWarningTriggered) {
+    Logger.deprecate(
+      "The `DismissableBox` component is deprecated and will soon be removed.",
+    );
+    deprecationWarningTriggered = true;
+  }
 
   return (
     <StyledDismissibleBox

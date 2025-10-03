@@ -3,6 +3,7 @@ import { act, render, screen, waitFor } from "@testing-library/react";
 
 import userEvent from "@testing-library/user-event";
 import Drawer from ".";
+import { assertDeprecationWarning } from "../../__spec_helper__/__internal__/test-utils";
 
 beforeEach(() => {
   jest.useFakeTimers();
@@ -11,6 +12,30 @@ beforeEach(() => {
 afterEach(() => {
   jest.runOnlyPendingTimers();
   jest.useRealTimers();
+});
+
+test("displays a deprecation warning if `animationDuration` is used", () => {
+  assertDeprecationWarning({
+    component: <Drawer animationDuration={"100"}>Foobar</Drawer>,
+    deprecationMessage:
+      "The `animationDuration` prop in `Drawer` is deprecated and will soon be removed.",
+  });
+});
+
+test("displays a deprecation warning if `backgroundColor` is used", () => {
+  assertDeprecationWarning({
+    component: <Drawer backgroundColor={"red"}>Foobar</Drawer>,
+    deprecationMessage:
+      "The `backgroundColor` prop in `Drawer` is deprecated and will soon be removed. Only white will be supported.",
+  });
+});
+
+test("displays a deprecation warning if `showControls` is used", () => {
+  assertDeprecationWarning({
+    component: <Drawer showControls>Foobar</Drawer>,
+    deprecationMessage:
+      "The `showControls` prop in `Drawer` is deprecated and will soon be removed.",
+  });
 });
 
 it("cleans ups timers on unmount", async () => {

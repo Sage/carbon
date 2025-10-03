@@ -15,6 +15,7 @@ import { TooltipPositions } from "../tooltip/tooltip.config";
 import ButtonBarContext from "../button-bar/__internal__/button-bar.context";
 import SplitButtonContext from "../split-button/__internal__/split-button.context";
 import BatchSelectionContext from "../batch-selection/__internal__/batch-selection.context";
+import Logger from "../../__internal__/utils/logger";
 
 export type ButtonTypes =
   | "primary"
@@ -45,7 +46,7 @@ export interface ButtonProps extends SpaceProps, TagProps {
   name?: string;
   /** Apply disabled state to the button */
   disabled?: boolean;
-  /** Apply destructive style to the button */
+  /** @deprecated Apply destructive style to the button */
   destructive?: boolean;
   /** Apply fullWidth style to the button */
   fullWidth?: boolean;
@@ -61,7 +62,7 @@ export interface ButtonProps extends SpaceProps, TagProps {
   iconType?: IconType;
   /** id attribute */
   id?: string;
-  /** Whether to use the white-on-dark colour variant */
+  /** @deprecated Whether to use the white-on-dark colour variant */
   isWhite?: boolean;
   /** If provided, the text inside a button will not wrap */
   noWrap?: boolean;
@@ -91,7 +92,7 @@ export interface ButtonProps extends SpaceProps, TagProps {
   ) => void;
   /** Assigns a size to the button: "small" | "medium" | "large" */
   size?: SizeOptions;
-  /** Second text child, renders under main text, only when size is "large" */
+  /** @deprecated Second text child, renders under main text, only when size is "large" */
   subtext?: string;
   /** HTML button type property */
   type?: string;
@@ -199,6 +200,11 @@ function renderChildren({
   );
 }
 
+let deprecatedButtonTypeWarningsTriggered = false;
+let deprecatedIsWhiteWarningTriggered = false;
+let deprecatedDestructiveWarningTriggered = false;
+let deprecatedSubtextWarningTriggered = false;
+
 const Button = React.forwardRef<
   HTMLButtonElement | HTMLAnchorElement,
   ButtonProps
@@ -244,6 +250,37 @@ const Button = React.forwardRef<
     const iconPosition = iconPositionContext || iconPositionProp;
     const fullWidth = fullWidthContext || fullWidthProp;
     const isDisabled = disabled || batchSelectionDisabled;
+
+    if (
+      !deprecatedButtonTypeWarningsTriggered &&
+      (buttonType === "darkBackground" || buttonType.startsWith("gradient"))
+    ) {
+      Logger.deprecate(
+        `The \`${buttonType}\` buttonType is deprecated and will soon be removed.`,
+      );
+      deprecatedButtonTypeWarningsTriggered = true;
+    }
+
+    if (!deprecatedIsWhiteWarningTriggered && !!isWhite) {
+      Logger.deprecate(
+        "The `isWhite` prop is deprecated and will soon be removed.",
+      );
+      deprecatedIsWhiteWarningTriggered = true;
+    }
+
+    if (!deprecatedDestructiveWarningTriggered && !!destructive) {
+      Logger.deprecate(
+        "The `destructive` prop is deprecated and will soon be removed.",
+      );
+      deprecatedDestructiveWarningTriggered = true;
+    }
+
+    if (!deprecatedSubtextWarningTriggered && !!subtext) {
+      Logger.deprecate(
+        "The `subtext` prop is deprecated and will soon be removed.",
+      );
+      deprecatedSubtextWarningTriggered = true;
+    }
 
     invariant(
       children !== undefined || !!iconType,

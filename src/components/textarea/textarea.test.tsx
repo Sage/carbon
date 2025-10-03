@@ -3,15 +3,16 @@ import { render, screen, fireEvent, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as floatingUi from "@floating-ui/react-dom";
 
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import {
+  testStyledSystemMargin,
+  assertDeprecationWarning,
+} from "../../__spec_helper__/__internal__/test-utils";
 import Textarea, { TextareaProps } from ".";
 import { EnterKeyHintTypes } from "../../__internal__/input";
 import guid from "../../__internal__/utils/helpers/guid";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import Logger from "../../__internal__/utils/logger";
 import StyledInput from "../../__internal__/input/input.style";
-
-jest.mock("../../__internal__/utils/logger");
 
 jest.mock("../../__internal__/utils/helpers/guid");
 const mockedGuid = "guid-12345";
@@ -33,24 +34,68 @@ const MockComponent = (props: CustomType) => {
 };
 
 test("should display deprecation warning once when rendered as optional", () => {
-  const loggerSpy = jest.spyOn(Logger, "deprecate");
+  assertDeprecationWarning({
+    component: (
+      <>
+        <MockComponent name="my-textarea" isOptional />
+        <MockComponent name="my-textarea" isOptional />
+      </>
+    ),
+    deprecationMessage:
+      "`isOptional` is deprecated in TextArea and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
+  });
+});
 
-  render(
-    <>
-      <MockComponent name="my-textarea" isOptional />
-      <MockComponent name="my-textarea" isOptional />
-    </>,
-  );
+test("should display deprecation warning once when rendered with fieldHelp", () => {
+  assertDeprecationWarning({
+    component: (
+      <>
+        <MockComponent name="my-textarea" fieldHelp="test" />
+        <MockComponent name="my-textarea" fieldHelp="test" />
+      </>
+    ),
+    deprecationMessage:
+      "The 'fieldHelp' prop in Textarea is deprecated and will soon be removed.",
+  });
+});
 
-  // Ensure the deprecation warning is logged only once
-  expect(loggerSpy).toHaveBeenCalledTimes(1);
+test("should display deprecation warning once when rendered with labelHelp", () => {
+  assertDeprecationWarning({
+    component: (
+      <>
+        <MockComponent name="my-textarea" labelHelp="test" />
+        <MockComponent name="my-textarea" labelHelp="test" />
+      </>
+    ),
+    deprecationMessage:
+      "The 'labelHelp' prop in Textarea is deprecated and will soon be removed.",
+  });
+});
 
-  expect(loggerSpy).toHaveBeenNthCalledWith(
-    1,
-    "`isOptional` is deprecated in TextArea and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
-  );
+test("should display deprecation warning once when rendered with hideBorders", () => {
+  assertDeprecationWarning({
+    component: (
+      <>
+        <MockComponent name="my-textarea" hideBorders />
+        <MockComponent name="my-textarea" hideBorders />
+      </>
+    ),
+    deprecationMessage:
+      "The 'hideBorders' prop in Textarea is deprecated and will soon be removed.",
+  });
+});
 
-  loggerSpy.mockRestore();
+test("should display deprecation warning once when rendered with borderRadius", () => {
+  assertDeprecationWarning({
+    component: (
+      <>
+        <MockComponent name="my-textarea" borderRadius="borderRadius000" />
+        <MockComponent name="my-textarea" borderRadius="borderRadius000" />
+      </>
+    ),
+    deprecationMessage:
+      "The 'borderRadius' prop in Textarea is deprecated and will soon be removed.",
+  });
 });
 
 test("should render a textarea element", () => {

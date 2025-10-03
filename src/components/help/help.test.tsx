@@ -3,6 +3,15 @@ import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Help from ".";
 import Icon from "../icon";
+import { assertDeprecationWarning } from "../../__spec_helper__/__internal__/test-utils";
+
+test("displays a deprecation warning when used", () => {
+  assertDeprecationWarning({
+    component: <Help>Foo</Help>,
+    deprecationMessage:
+      "The `Help` component is deprecated and will soon be removed.",
+  });
+});
 
 test("renders tooltip when help button is hovered and removes tooltip when unhovered", async () => {
   const user = userEvent.setup();

@@ -5,6 +5,21 @@ import Button from "../button";
 import Icon from "../icon";
 import IconButton from "../icon-button";
 import ButtonBar from "./button-bar.component";
+import { assertDeprecationWarning } from "../../__spec_helper__/__internal__/test-utils";
+
+test("displays a deprecation warning if used", () => {
+  assertDeprecationWarning({
+    component: (
+      <ButtonBar>
+        <Button aria-label="button-in-bar">foo</Button>
+        <Button aria-label="button-in-bar">bar</Button>
+        <Button aria-label="button-in-bar">baz</Button>
+      </ButtonBar>
+    ),
+    deprecationMessage:
+      "The `ButtonBar` component is deprecated and will soon be removed.",
+  });
+});
 
 describe("When ButtonBar children are Button components", () => {
   it("should render the Buttons as expected", () => {

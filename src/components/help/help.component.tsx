@@ -9,6 +9,7 @@ import { TooltipContext } from "../../__internal__/tooltip-provider";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { TooltipPositions } from "../tooltip/tooltip.config";
 import guid from "../../__internal__/utils/helpers/guid";
+import Logger from "../../__internal__/utils/logger";
 
 export interface HelpProps extends MarginProps, TagProps {
   /** Overrides the default 'as' attribute of the Help component */
@@ -45,6 +46,8 @@ export interface HelpProps extends MarginProps, TagProps {
   [key: string]: any;
 }
 
+let deprecationWarningTriggered = false;
+
 export const Help = ({
   as,
   ariaLabel = "help",
@@ -65,6 +68,13 @@ export const Help = ({
   const helpElement = useRef<HTMLDivElement>(null);
   const [isTooltipVisible, updateTooltipVisible] = useState(false);
   const { helpAriaLabel } = useContext(TooltipContext);
+
+  if (!deprecationWarningTriggered) {
+    Logger.deprecate(
+      "The `Help` component is deprecated and will soon be removed.",
+    );
+    deprecationWarningTriggered = true;
+  }
 
   useEffect(() => {
     function handleKeyPress(ev: KeyboardEvent) {

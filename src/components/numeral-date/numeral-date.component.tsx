@@ -26,6 +26,7 @@ import NewValidationContext from "../carbon-provider/__internal__/new-validation
 import NumeralDateContext from "./__internal__/numeral-date.context";
 import Locale from "../../locales/locale";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
+import Logger from "../../__internal__/utils/logger";
 
 export const ALLOWED_DATE_FORMATS = [
   ["dd", "mm", "yyyy"],
@@ -81,7 +82,7 @@ export interface NumeralDateProps
   enableInternalError?: boolean;
   /** When true, enables the internal warnings to be displayed */
   enableInternalWarning?: boolean;
-  /** [Legacy] Help content to be displayed under an input */
+  /** @deprecated Help content to be displayed under an input */
   fieldHelp?: React.ReactNode;
   /** `id` for events */
   id?: string;
@@ -94,7 +95,7 @@ export interface NumeralDateProps
   /** Field labels alignment */
   fieldLabelsAlign?: "left" | "right";
   /**
-   * Text applied to label help tooltip, will be rendered as
+   * @deprecated Text applied to label help tooltip, will be rendered as
    * hint text when `validationRedesignOptIn` is true.
    */
   labelHelp?: React.ReactNode;
@@ -218,6 +219,9 @@ const getDateLabel = (datePart: string, locale: Locale) => {
   }
 };
 
+let deprecateFieldHelpWarningTriggered = false;
+let deprecateLabelHelpWarningTriggered = false;
+
 export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
   (
     {
@@ -259,6 +263,20 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
   ) => {
     const locale = useLocale();
     const { validationRedesignOptIn } = useContext(NewValidationContext);
+
+    if (!deprecateFieldHelpWarningTriggered && fieldHelp) {
+      Logger.deprecate(
+        `The 'fieldHelp' prop in NumeralDate is deprecated and will soon be removed.`,
+      );
+      deprecateFieldHelpWarningTriggered = true;
+    }
+
+    if (!deprecateLabelHelpWarningTriggered && labelHelp) {
+      Logger.deprecate(
+        `The 'labelHelp' prop in NumeralDate is deprecated and will soon be removed.`,
+      );
+      deprecateLabelHelpWarningTriggered = true;
+    }
 
     const { current: uniqueId } = useRef(id || guid());
     const defaultInputIds = useRef({ dd: guid(), mm: guid(), yyyy: guid() });

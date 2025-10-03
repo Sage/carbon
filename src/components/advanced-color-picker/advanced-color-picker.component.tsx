@@ -15,6 +15,8 @@ import useLocale from "../../hooks/__internal__/useLocale";
 import { Dt, Dd } from "../definition-list";
 import { ModalProps } from "../modal";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
+import Logger from "../../__internal__/utils/logger";
+
 export interface AdvancedColor {
   label: string;
   value: string;
@@ -64,6 +66,8 @@ export interface AdvancedColorPickerProps
   selectedColor: string;
 }
 
+let deprecationWarningTriggered = false;
+
 export const AdvancedColorPicker = ({
   "aria-describedby": ariaDescribedBy,
   "aria-label": ariaLabel,
@@ -80,6 +84,13 @@ export const AdvancedColorPicker = ({
   restoreFocusOnClose = true,
   ...props
 }: AdvancedColorPickerProps) => {
+  if (!deprecationWarningTriggered) {
+    Logger.deprecate(
+      "The `AdvancedColorPicker` component is deprecated and will soon be removed.",
+    );
+    deprecationWarningTriggered = true;
+  }
+
   const [dialogOpen, setDialogOpen] = useState<boolean>();
   const [selectedColorRef, setSelectedColorRef] =
     useState<HTMLInputElement | null>(null);

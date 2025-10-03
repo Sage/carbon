@@ -2,9 +2,41 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Pill from ".";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import {
+  testStyledSystemMargin,
+  assertDeprecationWarning,
+} from "../../__spec_helper__/__internal__/test-utils";
 import { baseTheme } from "../../style/themes";
 import { toColor } from "../../style/utils/color";
+
+test("displays a deprecation warning if `colorVariant` is used", () => {
+  assertDeprecationWarning({
+    component: <Pill colorVariant="neutral">Test</Pill>,
+    deprecationMessage:
+      "The `colorVariant` prop for the Pill component is deprecated and will soon be replaced with a new `variant` prop.",
+  });
+});
+
+test("displays a deprecation warning if `neutralWhite` is used", () => {
+  assertDeprecationWarning({
+    component: (
+      <Pill isDarkBackground={false} fill={false} colorVariant="neutralWhite">
+        Test
+      </Pill>
+    ),
+    deprecationMessage:
+      "[WARNING] The `neutralWhite` variant should only be used on dark backgrounds with fill set to true. Please set the `isDarkBackground` and `fill` props to true or use another color variant.",
+    method: "warn",
+  });
+});
+
+test("displays a deprecation warning if `XL` is used for the 'size' prop", () => {
+  assertDeprecationWarning({
+    component: <Pill size="XL">Test</Pill>,
+    deprecationMessage:
+      "The `XL` size for the Pill component is deprecated and will soon be removed.",
+  });
+});
 
 test("should render with provided children", () => {
   render(<Pill>Test Pill</Pill>);
@@ -432,19 +464,6 @@ test("should render with expected styles when colorVariant is neutralWhite and i
   expect(screen.getByRole("button")).toHaveStyle({
     backgroundColor: "var(--colorsSemanticNeutralYin030)",
   });
-});
-
-test("should output a console warning when the neutralWhite colorVariant is used without isDarkBackground and fill props", () => {
-  const consoleSpy = jest.spyOn(console, "warn").mockImplementation(() => {});
-  render(<Pill colorVariant="neutralWhite">Test Pill</Pill>);
-
-  expect(consoleSpy).toHaveBeenCalledWith(
-    "[WARNING] The `neutralWhite` variant should only be used on dark backgrounds with fill set to true. " +
-      "Please set the `isDarkBackground` and `fill` props to true or use another color variant.",
-  );
-  expect(consoleSpy).toHaveBeenCalledTimes(1);
-
-  consoleSpy.mockRestore();
 });
 
 testStyledSystemMargin(

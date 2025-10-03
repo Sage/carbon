@@ -3,6 +3,7 @@ import React from "react";
 import Textbox, { TextboxProps } from "../textbox";
 import { generateGroups, toSum } from "./grouped-character.utils";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
+import Logger from "../../__internal__/utils/logger";
 
 type EventValue = {
   formattedValue: string;
@@ -46,6 +47,8 @@ export interface GroupedCharacterProps
   value: string;
 }
 
+let deprecateWarningTriggered = false;
+
 export const GroupedCharacter = React.forwardRef(
   (
     {
@@ -59,6 +62,13 @@ export const GroupedCharacter = React.forwardRef(
     }: GroupedCharacterProps,
     ref: React.ForwardedRef<HTMLInputElement>,
   ) => {
+    if (!deprecateWarningTriggered) {
+      Logger.deprecate(
+        `The GroupedCharacter component is deprecated and will soon be removed.`,
+      );
+      deprecateWarningTriggered = true;
+    }
+
     const separator = rawSeparator.substring(0, 1); // Ensure max length is 1
 
     const maxRawLength = groups.reduce(toSum);

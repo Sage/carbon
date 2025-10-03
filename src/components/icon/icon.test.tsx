@@ -2,7 +2,10 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import {
+  testStyledSystemMargin,
+  assertDeprecationWarning,
+} from "../../__spec_helper__/__internal__/test-utils";
 import Icon from "./icon.component";
 import { BackgroundShape } from "./icon.style";
 import iconConfig from "./icon-config";
@@ -11,6 +14,13 @@ import { IconType } from "./icon-type";
 import { TooltipPositions } from "../tooltip/tooltip.config";
 
 jest.mock("../../__internal__/utils/helpers/browser-type-check");
+
+test("displays a deprecation warning if `bgShape` prop is used", () => {
+  assertDeprecationWarning({
+    component: <Icon type="home" bgShape="circle" />,
+    deprecationMessage: `The 'bgShape' prop in Icon is deprecated and will soon be removed.`,
+  });
+});
 
 test("renders with an icon type, via the `type` prop", () => {
   render(<Icon type="home" />);

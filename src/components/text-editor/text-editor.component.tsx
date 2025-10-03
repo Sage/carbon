@@ -120,6 +120,8 @@ export interface TextEditorProps extends MarginProps, TagProps {
 }
 
 let deprecateValueTriggered = false;
+let deprecateOnCancelWarnTriggered = false;
+let deprecateOnSaveWarnTriggered = false;
 
 export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
   (
@@ -149,6 +151,19 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
     },
     ref,
   ) => {
+    if (!deprecateOnCancelWarnTriggered && onCancel !== undefined) {
+      deprecateOnCancelWarnTriggered = true;
+      Logger.deprecate(
+        "`onCancel` is deprecated in TextEditor and support will soon be removed. Please ensure that `TextEditor` is used as a part of a `Form` component, which will handle the cancel functionality.",
+      );
+    }
+    if (!deprecateOnSaveWarnTriggered && onSave !== undefined) {
+      deprecateOnSaveWarnTriggered = true;
+      Logger.deprecate(
+        "`onSave` is deprecated in TextEditor and support will soon be removed. Please ensure that `TextEditor` is used as a part of a `Form` component, which will handle the save functionality.",
+      );
+    }
+
     if (!deprecateValueTriggered && rest.value) {
       deprecateValueTriggered = true;
       Logger.deprecate(

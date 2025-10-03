@@ -2,8 +2,19 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Confirm from "../confirm";
+import { assertDeprecationWarning } from "../../__spec_helper__/__internal__/test-utils";
 
 jest.mock("../../__internal__/utils/helpers/guid", () => () => "guid-12345");
+
+test("displays a deprecation warning when used", () => {
+  assertDeprecationWarning({
+    component: (
+      <Confirm open title="Title" subtitle="Subtitle" onConfirm={() => {}} />
+    ),
+    deprecationMessage:
+      "The `Confirm` component is deprecated and will soon be removed.",
+  });
+});
 
 test("should render the component with expected title and subtitle", () => {
   render(

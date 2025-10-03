@@ -7,8 +7,39 @@ import { Menu, MenuItem } from ".";
 import {
   testStyledSystemLayout,
   testStyledSystemFlexBox,
+  assertDeprecationWarning,
 } from "../../__spec_helper__/__internal__/test-utils";
 import Button from "../../components/button";
+
+test("displays a deprecation warning if `menuType` is used with the 'white' variant", () => {
+  assertDeprecationWarning({
+    component: (
+      <Menu menuType="white">
+        <MenuItem href="#">test one</MenuItem>
+        <MenuItem href="#">test two</MenuItem>
+        <MenuItem href="#">test three</MenuItem>
+        <MenuItem href="#">test four</MenuItem>
+      </Menu>
+    ),
+    deprecationMessage:
+      "The `white` variant of the `Menu` component is deprecated and will soon be removed. Please use `light` instead.",
+  });
+});
+
+test("displays a deprecation warning if `menuType` is used with the 'black' variant", () => {
+  assertDeprecationWarning({
+    component: (
+      <Menu menuType="black">
+        <MenuItem href="#">test one</MenuItem>
+        <MenuItem href="#">test two</MenuItem>
+        <MenuItem href="#">test three</MenuItem>
+        <MenuItem href="#">test four</MenuItem>
+      </Menu>
+    ),
+    deprecationMessage:
+      "The `black` variant of the `Menu` component is deprecated and will soon be removed. Please use `dark` instead.",
+  });
+});
 
 testStyledSystemLayout(
   (props) => <Menu {...props}>Foo</Menu>,

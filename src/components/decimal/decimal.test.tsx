@@ -4,7 +4,10 @@ import userEvent from "@testing-library/user-event";
 
 import Decimal from "./decimal.component";
 import type { DecimalProps, CustomEvent } from "./decimal.component";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import {
+  testStyledSystemMargin,
+  assertDeprecationWarning,
+} from "../../__spec_helper__/__internal__/test-utils";
 import I18nProvider from "../i18n-provider";
 import Logger from "../../__internal__/utils/logger";
 
@@ -23,6 +26,22 @@ const ControlledDecimal = ({
 
   return <Decimal value={value} onChange={handleChange} {...rest} />;
 };
+
+test("displays a deprecation warning when `fieldHelp` used", () => {
+  assertDeprecationWarning({
+    component: <Decimal value={"123"} onChange={jest.fn} fieldHelp="help" />,
+    deprecationMessage:
+      "The `fieldHelp` prop of the `Decimal` component is deprecated and will soon be removed. Please use `inputHint` instead.",
+  });
+});
+
+test("displays a deprecation warning when `labelHelp` used", () => {
+  assertDeprecationWarning({
+    component: <Decimal value={"123"} onChange={jest.fn} labelHelp="help" />,
+    deprecationMessage:
+      "The `labelHelp` prop of the `Decimal` component is deprecated and will soon be removed. Please use `inputHint` instead.",
+  });
+});
 
 testStyledSystemMargin(
   (props) => (

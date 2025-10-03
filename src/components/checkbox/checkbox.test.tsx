@@ -6,7 +6,40 @@ import CarbonProvider from "../carbon-provider";
 import {
   mockMatchMedia,
   testStyledSystemMargin,
+  assertDeprecationWarning,
 } from "../../__spec_helper__/__internal__/test-utils";
+
+test("displays a deprecation warning if `fieldHelp` is used", () => {
+  assertDeprecationWarning({
+    component: (
+      <Checkbox
+        value="1"
+        label="label-1"
+        onChange={() => {}}
+        checked
+        fieldHelp="help"
+      />
+    ),
+    deprecationMessage:
+      "The `fieldHelp` prop of the `Checkbox` component is deprecated and will soon be removed.",
+  });
+});
+
+test("displays a deprecation warning if `adaptiveSpacingBreakpoint` is used", () => {
+  assertDeprecationWarning({
+    component: (
+      <Checkbox
+        value="1"
+        label="label-1"
+        onChange={() => {}}
+        checked
+        adaptiveSpacingBreakpoint={200}
+      />
+    ),
+    deprecationMessage:
+      "The `adaptiveSpacingBreakpoint` prop of the `Checkbox` component is deprecated and will soon be removed.",
+  });
+});
 
 test("should call onChange when checkbox is clicked", async () => {
   const user = userEvent.setup();

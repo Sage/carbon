@@ -15,6 +15,7 @@ import { Picklist, PicklistProps } from "./picklist/picklist.component";
 import FocusContext, {
   FocusContextType,
 } from "./__internal__/duelling-picklist.context";
+import Logger from "../../__internal__/utils/logger";
 
 export interface DuellingPicklistProps extends MarginProps, TagProps {
   /**
@@ -34,6 +35,8 @@ export interface DuellingPicklistProps extends MarginProps, TagProps {
   rightLabel?: string;
 }
 
+let deprecationWarningTriggered = false;
+
 export const DuellingPicklist = ({
   children,
   disabled,
@@ -49,6 +52,13 @@ export const DuellingPicklist = ({
     FocusContextType["elementToFocus"]
   >({});
   let pickListIndex = 0;
+
+  if (!deprecationWarningTriggered) {
+    Logger.deprecate(
+      "The `DuellingPicklist` component is deprecated and will soon be removed.",
+    );
+    deprecationWarningTriggered = true;
+  }
 
   const addElementToFocus = (
     itemIndex?: number,

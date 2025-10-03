@@ -6,7 +6,32 @@ import {
   testStyledSystemSpacing,
   testStyledSystemWidth,
   testStyledSystemHeight,
+  assertDeprecationWarning,
 } from "../../__spec_helper__/__internal__/test-utils";
+
+test("displays a deprecation warning if `variant` prop is used with a value other than 'tile'", () => {
+  assertDeprecationWarning({
+    component: <Tile data-role="tile" variant="active" />,
+    deprecationMessage:
+      "The `variant` prop in Tile is deprecated and will soon be removed.",
+  });
+});
+
+test("displays a deprecation warning if `orientation` prop is used with a value other than 'horizontal'", () => {
+  assertDeprecationWarning({
+    component: <Tile data-role="tile" orientation="vertical" />,
+    deprecationMessage:
+      "The `orientation` prop in Tile is deprecated and will soon be removed.",
+  });
+});
+
+test("displays a deprecation warning if `borderVariant` prop is used", () => {
+  assertDeprecationWarning({
+    component: <Tile data-role="tile" borderVariant="info" />,
+    deprecationMessage:
+      "The `borderVariant` prop in Tile is deprecated and will soon be removed.",
+  });
+});
 
 testStyledSystemSpacing(
   (props) => <Tile data-role="tile" {...props} />,

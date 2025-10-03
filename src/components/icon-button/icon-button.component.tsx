@@ -6,6 +6,7 @@ import StyledIconButton from "./icon-button.style";
 import { IconProps } from "../icon";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import BatchSelectionContext from "../batch-selection/__internal__/batch-selection.context";
+import Logger from "../../__internal__/utils/logger";
 
 export interface IconButtonProps extends SpaceProps, TagProps {
   /** Prop to specify the aria-label of the icon-button component */
@@ -28,6 +29,8 @@ export interface IconButtonProps extends SpaceProps, TagProps {
   "data-component"?: string;
 }
 
+let deprecationWarningTriggered = false;
+
 const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
   (
     {
@@ -39,6 +42,13 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
     }: IconButtonProps,
     ref,
   ) => {
+    if (!deprecationWarningTriggered) {
+      Logger.deprecate(
+        "The `IconButton` component is deprecated and will soon be removed.",
+      );
+      deprecationWarningTriggered = true;
+    }
+
     const { batchSelectionDisabled } = useContext(BatchSelectionContext);
     const isDisabled = disabled || batchSelectionDisabled;
     const [internalRef, setInternalRef] = useState<HTMLButtonElement>();

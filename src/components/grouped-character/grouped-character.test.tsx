@@ -3,7 +3,10 @@ import { render, screen } from "@testing-library/react";
 
 import userEvent from "@testing-library/user-event";
 import GroupedCharacter, { CustomEvent } from "./grouped-character.component";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import {
+  testStyledSystemMargin,
+  assertDeprecationWarning,
+} from "../../__spec_helper__/__internal__/test-utils";
 
 jest.mock("../../__internal__/utils/logger");
 
@@ -45,6 +48,19 @@ beforeEach(() => {
 afterEach(() => {
   jest.runOnlyPendingTimers();
   jest.useRealTimers();
+});
+
+test("displays a deprecation warning when used", () => {
+  assertDeprecationWarning({
+    component: (
+      <ControlledGroupedCharacter
+        data-role="grouped-character"
+        groupsConfig={[2, 2, 3]}
+        initialValue="12345678"
+      />
+    ),
+    deprecationMessage: `The GroupedCharacter component is deprecated and will soon be removed.`,
+  });
 });
 
 testStyledSystemMargin(

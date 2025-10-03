@@ -2,7 +2,10 @@ import React, { useEffect, useRef } from "react";
 import { act, render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { SimpleColor, SimpleColorPicker } from ".";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import {
+  testStyledSystemMargin,
+  assertDeprecationWarning,
+} from "../../__spec_helper__/__internal__/test-utils";
 
 jest.mock("../../__internal__/utils/logger");
 
@@ -12,6 +15,23 @@ beforeAll(() => {
 
 afterAll(() => {
   jest.useRealTimers();
+});
+
+test("displays a deprecation warning when used", () => {
+  assertDeprecationWarning({
+    component: (
+      <SimpleColorPicker
+        legend="SimpleColorPicker Legend"
+        name="test"
+        value="transparent"
+        onChange={jest.fn}
+      >
+        <SimpleColor id="foo" key="bar" value="#00A376" defaultChecked />
+      </SimpleColorPicker>
+    ),
+    deprecationMessage:
+      "The `SimpleColorPicker` component is deprecated and will soon be removed.",
+  });
 });
 
 testStyledSystemMargin(

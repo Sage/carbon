@@ -11,6 +11,7 @@ import { ValidationProps } from "../../../__internal__/validations";
 import NewValidationContext from "../../carbon-provider/__internal__/new-validation.context";
 import CheckboxGroupContext from "./__internal__/checkbox-group.context";
 import guid from "../../../__internal__/utils/helpers/guid";
+import Logger from "../../../__internal__/utils/logger";
 
 export interface CheckboxGroupProps
   extends ValidationProps,
@@ -24,15 +25,15 @@ export interface CheckboxGroupProps
   /** The content for the CheckboxGroup Legend */
   legend?: string;
   /**
-   * The content for the CheckboxGroup hint text,
+   * @deprecated The content for the CheckboxGroup hint text,
    * will only be rendered when `validationRedesignOptIn` is true.
    */
   legendHelp?: string;
-  /** [Legacy] When true, legend is placed inline with the checkboxes */
+  /** @deprecated When true, legend is placed inline with the checkboxes */
   legendInline?: boolean;
-  /** [Legacy] Percentage width of legend (only when legend is inline)  */
+  /** @deprecated Percentage width of legend (only when legend is inline)  */
   legendWidth?: number;
-  /** [Legacy] Text alignment of legend when inline */
+  /** @deprecated Text alignment of legend when inline */
   legendAlign?: "left" | "right";
   /** [Legacy] Spacing between legend and field for inline legend, number multiplied by base spacing unit (8) */
   legendSpacing?: 1 | 2;
@@ -49,6 +50,11 @@ export interface CheckboxGroupProps
   /** Render the ValidationMessage above the Checkbox inputs when validationRedesignOptIn flag is set */
   validationMessagePositionTop?: boolean;
 }
+
+let deprecateLegendHelpWarningTriggered = false;
+let deprecateLegendInlineWarningTriggered = false;
+let deprecateLegendWidthWarningTriggered = false;
+let deprecateLegendAlignWarningTriggered = false;
 
 export const CheckboxGroup = ({
   children,
@@ -71,6 +77,34 @@ export const CheckboxGroup = ({
   const { validationRedesignOptIn } = useContext(NewValidationContext);
   const internalId = useRef(guid());
   const uniqueId = id || internalId.current;
+
+  if (legendHelp && !deprecateLegendHelpWarningTriggered) {
+    Logger.deprecate(
+      "The `legendHelp` prop in `CheckboxGroup` is deprecated and will soon be removed.",
+    );
+    deprecateLegendHelpWarningTriggered = true;
+  }
+
+  if (legendInline && !deprecateLegendInlineWarningTriggered) {
+    Logger.deprecate(
+      "The `legendInline` prop in `CheckboxGroup` is deprecated and will soon be removed.",
+    );
+    deprecateLegendInlineWarningTriggered = true;
+  }
+
+  if (legendWidth && !deprecateLegendWidthWarningTriggered) {
+    Logger.deprecate(
+      "The `legendWidth` prop in `CheckboxGroup` is deprecated and will soon be removed.",
+    );
+    deprecateLegendWidthWarningTriggered = true;
+  }
+
+  if (legendAlign !== "left" && !deprecateLegendAlignWarningTriggered) {
+    Logger.deprecate(
+      "The `legendAlign` prop in `CheckboxGroup` is deprecated and will soon be removed.",
+    );
+    deprecateLegendAlignWarningTriggered = true;
+  }
 
   return (
     <>

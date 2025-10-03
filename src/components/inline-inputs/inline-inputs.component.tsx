@@ -10,6 +10,7 @@ import StyledInlineInputs, {
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 import { filterStyledSystemMarginProps } from "../../style/utils";
+import Logger from "../../__internal__/utils/logger";
 
 type GutterOptions =
   | "none"
@@ -61,6 +62,8 @@ const columnWrapper = (children: React.ReactNode, gutter: GutterOptions) => {
   });
 };
 
+let deprecateWarningTriggered = false;
+
 const InlineInputs = ({
   adaptiveLabelBreakpoint,
   label,
@@ -80,6 +83,13 @@ const InlineInputs = ({
   let inlineLabel: boolean | undefined = labelInline;
   if (adaptiveLabelBreakpoint) {
     inlineLabel = largeScreen;
+  }
+
+  if (!deprecateWarningTriggered) {
+    Logger.deprecate(
+      `The 'InlineInputs' component is deprecated and will soon be removed.`,
+    );
+    deprecateWarningTriggered = true;
   }
 
   function renderLabel() {

@@ -2,11 +2,70 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import Switch from "./switch.component";
 
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import {
+  testStyledSystemMargin,
+  assertDeprecationWarning,
+} from "../../__spec_helper__/__internal__/test-utils";
 import I18nProvider from "../../components/i18n-provider";
 import CarbonProvider from "../../components/carbon-provider";
 
 jest.mock("../../__internal__/utils/helpers/guid");
+
+test("displays a deprecation warning if `reverse` prop is used", () => {
+  assertDeprecationWarning({
+    component: (
+      <Switch
+        data-role="switch-wrapper"
+        checked={false}
+        onChange={() => {}}
+        reverse={false}
+      />
+    ),
+    deprecationMessage: `The 'reverse' prop of the Switch component is deprecated and will soon be removed.`,
+  });
+});
+
+test("displays a deprecation warning if `labelInline` prop is used", () => {
+  assertDeprecationWarning({
+    component: (
+      <Switch
+        data-role="switch-wrapper"
+        checked={false}
+        onChange={() => {}}
+        labelInline
+      />
+    ),
+    deprecationMessage: `The 'labelInline' prop of the Switch component is deprecated and will soon be removed.`,
+  });
+});
+
+test("displays a deprecation warning if `labelHelp` prop is used", () => {
+  assertDeprecationWarning({
+    component: (
+      <Switch
+        data-role="switch-wrapper"
+        checked={false}
+        onChange={() => {}}
+        labelHelp={"labelHelp"}
+      />
+    ),
+    deprecationMessage: `The 'labelHelp' prop of the Switch component is deprecated and will soon be removed.`,
+  });
+});
+
+test("displays a deprecation warning if `fieldHelp` prop is used", () => {
+  assertDeprecationWarning({
+    component: (
+      <Switch
+        data-role="switch-wrapper"
+        checked={false}
+        onChange={() => {}}
+        fieldHelp={"fieldHelp"}
+      />
+    ),
+    deprecationMessage: `The 'fieldHelp' prop of the Switch component is deprecated and will soon be removed.`,
+  });
+});
 
 testStyledSystemMargin(
   (props) => (

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Number from ".";
+import { assertDeprecationWarning } from "../../__spec_helper__/__internal__/test-utils";
 
 jest.mock("../../__internal__/utils/logger");
 
@@ -12,6 +13,14 @@ const ControlledNumber = () => {
   };
   return <Number value={state} onChange={setValue} />;
 };
+
+test("displays a deprecation warning when used", () => {
+  assertDeprecationWarning({
+    component: <Number label="foo" value="" onChange={jest.fn} />,
+    deprecationMessage:
+      "The `Number` component is deprecated and will soon be removed. Please use the `Textbox` component instead.",
+  });
+});
 
 test("renders a textbox with provided label", () => {
   render(<Number label="foo" value="" onChange={jest.fn} />);

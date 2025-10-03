@@ -1,7 +1,10 @@
 import React, { useRef, useState } from "react";
 import { act, render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/test-utils";
+import {
+  testStyledSystemMargin,
+  assertDeprecationWarning,
+} from "../../../__spec_helper__/__internal__/test-utils";
 import {
   FilterableSelect,
   Option,
@@ -18,6 +21,22 @@ jest.mock("../../../__internal__/utils/helpers/guid");
 
 beforeAll(() => {
   mockDOMRect(200, 200, "select-list-scrollable-container");
+});
+
+test("displays a deprecation warning if `multiColumn` is used", () => {
+  assertDeprecationWarning({
+    component: (
+      <FilterableSelect
+        data-role="my-select"
+        value=""
+        onChange={() => {}}
+        multiColumn
+      >
+        <Option text="Amber" value="1" />
+      </FilterableSelect>
+    ),
+    deprecationMessage: `The 'multiColumn' prop of the FilterableSelect component is deprecated and will soon be removed.`,
+  });
 });
 
 testStyledSystemMargin(

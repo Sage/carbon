@@ -17,6 +17,7 @@ import {
   StyledAccordionContainerProps,
 } from "./accordion.style";
 import ValidationIcon from "../../__internal__/validations";
+import Logger from "../../__internal__/utils/logger";
 
 export interface AccordionProps
   extends StyledAccordionContainerProps,
@@ -30,7 +31,7 @@ export interface AccordionProps
   disableContentPadding?: boolean;
   /** Sets the expansion state of the Accordion if component is meant to be used as controlled */
   expanded?: boolean;
-  /** An error message to be displayed in the tooltip */
+  /** @deprecated An error message to be displayed in the tooltip */
   error?: string;
   /** Styled system spacing props provided to Accordion Title */
   headerSpacing?: SpaceProps;
@@ -54,7 +55,7 @@ export interface AccordionProps
   size?: "large" | "small";
   /** Sets accordion sub title */
   subTitle?: string;
-  /** A warning message to be displayed in the tooltip */
+  /** @deprecated A warning message to be displayed in the tooltip */
   warning?: string;
 }
 
@@ -67,6 +68,11 @@ export interface AccordionInternalProps {
   /** @ignore @private */
   index?: number;
 }
+
+let deprecateErrorTriggered = false;
+let deprecateWarningTriggered = false;
+let deprecatedStandardVariantNameTriggered = false;
+let deprecatedTransparentBackgroundTriggered = false;
 
 export const Accordion = React.forwardRef<
   HTMLDivElement,
@@ -99,6 +105,34 @@ export const Accordion = React.forwardRef<
     }: AccordionProps & AccordionInternalProps,
     ref,
   ) => {
+    if (error !== undefined && !deprecateErrorTriggered) {
+      Logger.deprecate(
+        "The `error` prop in `Accordion` is deprecated and will soon be removed.",
+      );
+      deprecateErrorTriggered = true;
+    }
+
+    if (warning !== undefined && !deprecateWarningTriggered) {
+      Logger.deprecate(
+        "The `warning` prop in `Accordion` is deprecated and will soon be removed.",
+      );
+      deprecateWarningTriggered = true;
+    }
+
+    if (variant === "standard" && !deprecatedStandardVariantNameTriggered) {
+      Logger.deprecate(
+        "The `standard` variant in `Accordion` is deprecated and will soon be removed. Future versions of the component will use `typical` instead.",
+      );
+      deprecatedStandardVariantNameTriggered = true;
+    }
+
+    if (variant === "subtle" && !deprecatedTransparentBackgroundTriggered) {
+      Logger.deprecate(
+        "The transparent background of the `subtle` variant in `Accordion` is deprecated and will soon be removed.",
+      );
+      deprecatedTransparentBackgroundTriggered = true;
+    }
+
     const isControlled = expanded !== undefined;
 
     const [isExpandedInternal, setIsExpandedInternal] = useState(

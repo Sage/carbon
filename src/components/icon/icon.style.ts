@@ -26,7 +26,7 @@ export type FontSize = "small" | "medium" | "large" | "extra-large";
 export interface StyledIconProps {
   /** Background colour, provide any color from palette or any valid css color value. */
   bg?: string;
-  /** Background shape */
+  /** @deprecated Background shape */
   bgShape?: BackgroundShape;
   /** Background size */
   bgSize?: BgSize;

@@ -2,7 +2,17 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import { HeadingType } from "../heading";
 import SettingsRow from ".";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import {
+  testStyledSystemMargin,
+  assertDeprecationWarning,
+} from "../../__spec_helper__/__internal__/test-utils";
+
+test("displays a deprecation warning when used", () => {
+  assertDeprecationWarning({
+    component: <SettingsRow>hello world</SettingsRow>,
+    deprecationMessage: `The SettingsRow component is deprecated and will soon be removed.`,
+  });
+});
 
 test("renders with children", () => {
   render(<SettingsRow>hello world</SettingsRow>);

@@ -21,6 +21,7 @@ import ValidationIcon from "../../__internal__/validations/validation-icon.compo
 import { InputGroupContext } from "../../__internal__/input-behaviour";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { ValidationProps } from "../../__internal__/validations";
+import Logger from "../../__internal__/utils/logger";
 
 export interface SimpleColorPickerProps
   extends ValidationProps,
@@ -55,6 +56,8 @@ export interface SimpleColorPickerRef {
   gridItemRefs: (HTMLInputElement | null)[];
 }
 
+let deprecationWarningTriggered = false;
+
 export const SimpleColorPicker = React.forwardRef<
   SimpleColorPickerRef,
   SimpleColorPickerProps
@@ -76,6 +79,13 @@ export const SimpleColorPicker = React.forwardRef<
     required,
     ...rest
   } = props;
+
+  if (!deprecationWarningTriggered) {
+    Logger.deprecate(
+      "The `SimpleColorPicker` component is deprecated and will soon be removed.",
+    );
+    deprecationWarningTriggered = true;
+  }
 
   const hasProperChildren: boolean = useMemo(() => {
     const invalidChild = React.Children.toArray(children).find((child) => {

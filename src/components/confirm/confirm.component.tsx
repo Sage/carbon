@@ -9,6 +9,7 @@ import Icon, { IconType } from "../icon";
 import Loader from "../loader";
 import useLocale from "../../hooks/__internal__/useLocale";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
+import Logger from "../../__internal__/utils/logger";
 
 export interface ConfirmProps
   extends Omit<
@@ -63,6 +64,8 @@ export interface ConfirmProps
   onConfirm: (ev: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
+let deprecationWarningTriggered = false;
+
 export const Confirm = ({
   "aria-labelledby": ariaLabelledBy,
   "aria-describedby": ariaDescribedBy,
@@ -95,6 +98,13 @@ export const Confirm = ({
   ...rest
 }: ConfirmProps) => {
   const l = useLocale();
+
+  if (!deprecationWarningTriggered) {
+    Logger.deprecate(
+      "The `Confirm` component is deprecated and will soon be removed.",
+    );
+    deprecationWarningTriggered = true;
+  }
 
   const { current: titleId } = useRef(createGuid());
   const { current: subtitleId } = useRef(createGuid());

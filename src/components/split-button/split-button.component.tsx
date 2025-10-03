@@ -27,6 +27,7 @@ import SplitButtonContext from "./__internal__/split-button.context";
 import useLocale from "../../hooks/__internal__/useLocale";
 import FlatTableContext from "../flat-table/__internal__/flat-table.context";
 import { TagProps } from "../../__internal__/utils/helpers/tags";
+import Logger from "../../__internal__/utils/logger";
 
 const CONTENT_WIDTH_RATIO = 0.75;
 
@@ -50,7 +51,7 @@ export interface SplitButtonProps
   iconType?: IconType;
   /** The size of the buttons. */
   size?: "small" | "medium" | "large";
-  /** Second text child, renders under main text, only when size is "large" */
+  /** @deprecated Second text child, renders under main text, only when size is "large" */
   subtext?: string;
   /** The text to be displayed in the main button. */
   text: string;
@@ -66,6 +67,9 @@ export type SplitButtonHandle = {
   /** Programmatically focus the toggle button. */
   focusToggleButton: () => void;
 } | null;
+
+let deprecateSubtextWarningTriggerd = false;
+let deprecateSecondaryVariantWarningTriggered = false;
 
 export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
   (
@@ -89,6 +93,23 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
     },
     ref,
   ) => {
+    if (!deprecateSubtextWarningTriggerd && subtext !== undefined) {
+      Logger.deprecate(
+        `The 'subtext' prop in SplitButton is deprecated and will soon be removed.`,
+      );
+      deprecateSubtextWarningTriggerd = true;
+    }
+
+    if (
+      !deprecateSecondaryVariantWarningTriggered &&
+      buttonType === "secondary"
+    ) {
+      Logger.deprecate(
+        `The 'secondary' buttonType prop value in SplitButton is deprecated and will soon be removed.`,
+      );
+      deprecateSecondaryVariantWarningTriggered = true;
+    }
+
     const locale = useLocale();
     const theme = useContext(ThemeContext) || baseTheme;
     const buttonLabelId = useRef(guid());

@@ -2,7 +2,22 @@ import React from "react";
 import { screen, render } from "@testing-library/react";
 import Breadcrumbs from "./breadcrumbs.component";
 import Crumb from "./crumb/crumb.component";
-import { testStyledSystemSpacing } from "../../__spec_helper__/__internal__/test-utils";
+import {
+  testStyledSystemSpacing,
+  assertDeprecationWarning,
+} from "../../__spec_helper__/__internal__/test-utils";
+
+test("displays a deprecation warning if `isDarkBackground` is used", () => {
+  assertDeprecationWarning({
+    component: (
+      <Breadcrumbs isDarkBackground>
+        <Crumb href="#">Breadcrumb 1</Crumb>
+      </Breadcrumbs>
+    ),
+    deprecationMessage:
+      "The `isDarkBackground` prop in the Breadcrumbs component is deprecated and will soon be removed. Future versions of the component will use `inverse` instead.",
+  });
+});
 
 testStyledSystemSpacing(
   (props) => (

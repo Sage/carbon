@@ -4,6 +4,7 @@ import userEvent from "@testing-library/user-event";
 import {
   testStyledSystemMargin,
   mockMatchMedia,
+  assertDeprecationWarning,
 } from "../../__spec_helper__/__internal__/test-utils";
 
 import NumeralDate, {
@@ -55,6 +56,34 @@ const ControlledComponent = ({
 
   return <NumeralDate value={value} onChange={onChange} {...props} />;
 };
+
+test("displays a deprecation warning if `fieldHelp` is used", () => {
+  assertDeprecationWarning({
+    component: (
+      <NumeralDate
+        dateFormat={["dd", "mm", "yyyy"]}
+        value={{ dd: "", mm: "", yyyy: "" }}
+        onChange={() => {}}
+        fieldHelp="fieldHelp"
+      />
+    ),
+    deprecationMessage: `The 'fieldHelp' prop in NumeralDate is deprecated and will soon be removed.`,
+  });
+});
+
+test("displays a deprecation warning if `labelHelp` is used", () => {
+  assertDeprecationWarning({
+    component: (
+      <NumeralDate
+        dateFormat={["dd", "mm", "yyyy"]}
+        value={{ dd: "", mm: "", yyyy: "" }}
+        onChange={() => {}}
+        labelHelp="labelHelp"
+      />
+    ),
+    deprecationMessage: `The 'labelHelp' prop in NumeralDate is deprecated and will soon be removed.`,
+  });
+});
 
 test("should display an error when invalid `dateFormat` prop passed", () => {
   const consoleSpy = jest

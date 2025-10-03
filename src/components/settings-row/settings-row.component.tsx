@@ -11,6 +11,7 @@ import {
   StyledSettingsRowHeader,
   StyledSettingsRowInput,
 } from "./settings-row.style";
+import Logger from "../../__internal__/utils/logger";
 
 export interface SettingsRowProps extends MarginProps, TagProps {
   /**  A title for this group of settings. */
@@ -31,6 +32,8 @@ export interface SettingsRowProps extends MarginProps, TagProps {
   className?: string;
 }
 
+let deprecateWarningTriggered = false;
+
 export const SettingsRow = ({
   title,
   headingType = "h3",
@@ -39,6 +42,13 @@ export const SettingsRow = ({
   divider = true,
   ...rest
 }: SettingsRowProps) => {
+  if (!deprecateWarningTriggered) {
+    Logger.deprecate(
+      `The SettingsRow component is deprecated and will soon be removed.`,
+    );
+    deprecateWarningTriggered = true;
+  }
+
   const heading = () => {
     if (!title) return null;
 

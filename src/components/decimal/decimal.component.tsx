@@ -18,6 +18,9 @@ export interface CustomEvent {
   };
 }
 
+let deprecateFieldHelpWarningTriggered = false;
+let deprecateLabelHelpWarningTriggered = false;
+
 export interface DecimalProps
   extends Omit<CommonTextboxProps, "onChange" | "onBlur" | "data-component"> {
   /** Text alignment of the label */
@@ -79,6 +82,20 @@ export const Decimal = React.forwardRef(
     ref: React.ForwardedRef<HTMLInputElement>,
   ) => {
     const l = useContext(LocaleContext);
+
+    if (!deprecateFieldHelpWarningTriggered && rest.fieldHelp) {
+      Logger.deprecate(
+        "The `fieldHelp` prop of the `Decimal` component is deprecated and will soon be removed. Please use `inputHint` instead.",
+      );
+      deprecateFieldHelpWarningTriggered = true;
+    }
+
+    if (!deprecateLabelHelpWarningTriggered && rest.labelHelp) {
+      Logger.deprecate(
+        "The `labelHelp` prop of the `Decimal` component is deprecated and will soon be removed. Please use `inputHint` instead.",
+      );
+      deprecateLabelHelpWarningTriggered = true;
+    }
 
     const getSeparator = useCallback(
       (separatorType: string) => {

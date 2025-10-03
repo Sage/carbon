@@ -3,6 +3,33 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ButtonToggleGroup, ButtonToggle } from ".";
 import Logger from "../../__internal__/utils/logger";
+import { assertDeprecationWarning } from "../../__spec_helper__/__internal__/test-utils";
+
+test("displays a deprecation warning if `buttonIconSize` is used", () => {
+  assertDeprecationWarning({
+    component: (
+      <ButtonToggleGroup id="test" value="" onChange={() => {}}>
+        <ButtonToggle buttonIconSize="small" onClick={jest.fn}>
+          Button
+        </ButtonToggle>
+      </ButtonToggleGroup>
+    ),
+    deprecationMessage: "The `buttonIconSize` prop is deprecated.",
+  });
+});
+
+test("displays a deprecation warning if `pressed` prop is used", () => {
+  assertDeprecationWarning({
+    component: (
+      <ButtonToggleGroup id="test" value="" onChange={() => {}}>
+        <ButtonToggle pressed onClick={jest.fn}>
+          Button
+        </ButtonToggle>
+      </ButtonToggleGroup>
+    ),
+    deprecationMessage: "The `pressed` prop is deprecated.",
+  });
+});
 
 test("logs warning if not used within ButtonToggleGroup", () => {
   const loggerErrorSpy = jest
@@ -58,20 +85,6 @@ test("should call `onBlur` when the button is blurred", async () => {
   await user.click(screen.getByRole("button"));
   await user.tab();
   expect(onBlur).toHaveBeenCalledTimes(1);
-});
-
-test("logs deprecation warning if pressed prop is used", () => {
-  jest.spyOn(Logger, "error").mockImplementation(() => {});
-
-  const loggerDeprecateSpy = jest
-    .spyOn(Logger, "deprecate")
-    .mockImplementation(() => {});
-
-  render(<ButtonToggle pressed>Button</ButtonToggle>);
-
-  expect(loggerDeprecateSpy).toHaveBeenCalledWith(
-    expect.stringContaining("The `pressed` prop is deprecated."),
-  );
 });
 
 test("should render disabled button with expected styles", () => {

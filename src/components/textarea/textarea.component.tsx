@@ -59,7 +59,7 @@ export interface TextareaProps
   expandable?: boolean;
   /** A hint string rendered before the input but after the label. Intended to describe the purpose or content of the input. */
   inputHint?: string;
-  /** [Legacy] Help content to be displayed under an input */
+  /** @deprecated Help content to be displayed under an input */
   fieldHelp?: React.ReactNode;
   /** [Legacy] Aria label for rendered help component */
   helpAriaLabel?: string;
@@ -84,10 +84,10 @@ export interface TextareaProps
   maxWidth?: string;
   /** The content of the label for the input */
   label?: string;
-  /** Label alignment */
+  /** @deprecated Label alignment */
   labelAlign?: "left" | "right";
   /**
-   * [Legacy] Text applied to label help tooltip. When opted into new design validations
+   * @deprecated Text applied to label help tooltip. When opted into new design validations
    * it will render as a hint above the input, unless an `inputHint`
    * prop is also passed
    */
@@ -125,9 +125,9 @@ export interface TextareaProps
    * Pass true boolean to only display orange border.
    */
   warning?: boolean | string;
-  /** Specify a custom border radius for the component. Any valid border-radius design token, or an array of border-radius design tokens. */
+  /** @deprecated Specify a custom border radius for the component. Any valid border-radius design token, or an array of border-radius design tokens. */
   borderRadius?: BorderRadiusType | BorderRadiusType[];
-  /** Hides the borders for the component. Please note that validation and focus styling will still be applied */
+  /** @deprecated Hides the borders for the component. Please note that validation and focus styling will still be applied */
   hideBorders?: boolean;
   /** Specify the minimum height. This property is only applied if rows is not set. */
   minHeight?: number;
@@ -137,6 +137,11 @@ export interface TextareaProps
 
 let deprecateOptionalWarnTriggered = false;
 let warnBorderRadiusArrayTooLarge = false;
+
+let deprecateFieldHelpWarningTriggered = false;
+let deprecateLabelHelpWarningTriggered = false;
+let deprecateHideBordersWarningTriggered = false;
+let deprecateBorderRadiusWarningTriggered = false;
 
 export const Textarea = React.forwardRef(
   (
@@ -188,11 +193,40 @@ export const Textarea = React.forwardRef(
     ref: React.ForwardedRef<HTMLTextAreaElement>,
   ) => {
     if (!deprecateOptionalWarnTriggered && isOptional) {
-      deprecateOptionalWarnTriggered = true;
       Logger.deprecate(
         "`isOptional` is deprecated in TextArea and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
       );
+      deprecateOptionalWarnTriggered = true;
     }
+
+    if (!deprecateFieldHelpWarningTriggered && fieldHelp !== undefined) {
+      Logger.deprecate(
+        `The 'fieldHelp' prop in Textarea is deprecated and will soon be removed.`,
+      );
+      deprecateFieldHelpWarningTriggered = true;
+    }
+
+    if (!deprecateLabelHelpWarningTriggered && labelHelp !== undefined) {
+      Logger.deprecate(
+        `The 'labelHelp' prop in Textarea is deprecated and will soon be removed.`,
+      );
+      deprecateLabelHelpWarningTriggered = true;
+    }
+
+    if (!deprecateHideBordersWarningTriggered && hideBorders) {
+      Logger.deprecate(
+        `The 'hideBorders' prop in Textarea is deprecated and will soon be removed.`,
+      );
+      deprecateHideBordersWarningTriggered = true;
+    }
+
+    if (!deprecateBorderRadiusWarningTriggered && borderRadius !== undefined) {
+      Logger.deprecate(
+        `The 'borderRadius' prop in Textarea is deprecated and will soon be removed.`,
+      );
+      deprecateBorderRadiusWarningTriggered = true;
+    }
+
     const { validationRedesignOptIn } = useContext(NewValidationContext);
 
     const labelInlineWithNewValidation = validationRedesignOptIn

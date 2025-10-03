@@ -3,7 +3,17 @@ import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Pod from ".";
 import Typography from "../typography";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import {
+  testStyledSystemMargin,
+  assertDeprecationWarning,
+} from "../../__spec_helper__/__internal__/test-utils";
+
+test("displays a deprecation warning when used", () => {
+  assertDeprecationWarning({
+    component: <Pod title="Title" />,
+    deprecationMessage: `The Pod component is deprecated and will soon be removed.`,
+  });
+});
 
 test("renders with `title` as a string", () => {
   render(<Pod title="Title" />);

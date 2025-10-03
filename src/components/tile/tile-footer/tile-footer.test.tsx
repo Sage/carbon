@@ -1,7 +1,21 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import TileFooter, { TileFooterProps } from ".";
-import { testStyledSystemPadding } from "../../../__spec_helper__/__internal__/test-utils";
+import {
+  testStyledSystemPadding,
+  assertDeprecationWarning,
+} from "../../../__spec_helper__/__internal__/test-utils";
+
+test("displays a deprecation warning when used", () => {
+  assertDeprecationWarning({
+    component: (
+      <TileFooter data-element="foo" data-role="tile-footer">
+        content
+      </TileFooter>
+    ),
+    deprecationMessage: `The TileFooter component is deprecated and will soon be removed.`,
+  });
+});
 
 testStyledSystemPadding(
   (props) => <TileFooter data-role="footer" {...props} />,

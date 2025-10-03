@@ -10,6 +10,7 @@ import { ICON_TOOLTIP_POSITIONS } from "./icon-config";
 import { IconType } from "./icon-type";
 import { TooltipPositions } from "../tooltip/tooltip.config";
 import TabTitleContext from "../tabs/__internal__/tab-title/tab-title.context";
+import Logger from "../../__internal__/utils/logger";
 
 export type LegacyIconTypes =
   | "help"
@@ -60,6 +61,8 @@ export interface IconProps
   tabIndex?: number;
 }
 
+let deprecateBgShapeWarningTriggered = false;
+
 const Icon = React.forwardRef<HTMLSpanElement, IconProps>(
   (
     {
@@ -103,6 +106,13 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>(
         flipBehaviourCheck,
         `The tooltipFlipOverrides prop supplied to \`Icon\` must be an array containing some or all of ["top", "bottom", "left", "right"].`,
       );
+    }
+
+    if (!deprecateBgShapeWarningTriggered && bgShape !== undefined) {
+      Logger.deprecate(
+        `The 'bgShape' prop in Icon is deprecated and will soon be removed.`,
+      );
+      deprecateBgShapeWarningTriggered = true;
     }
 
     const isInteractive = !!tooltipMessage && !disabled;

@@ -4,6 +4,7 @@ import userEvent from "@testing-library/user-event";
 import Toast, { ToastProps } from "./toast.component";
 import ModalManager from "../modal/__internal__/modal-manager";
 import Logger from "../../__internal__/utils/logger";
+import { assertDeprecationWarning } from "../../__spec_helper__/__internal__/test-utils";
 
 let loggerSpy: jest.SpyInstance;
 
@@ -53,6 +54,13 @@ const MockToast = ({
     </>
   );
 };
+
+test("displays a deprecation warning when used", () => {
+  assertDeprecationWarning({
+    component: <Toast onDismiss={() => {}}>foobar</Toast>,
+    deprecationMessage: `The Toast component is deprecated and will soon be removed.`,
+  });
+});
 
 test("should be added to modal manager when it mounts", () => {
   jest.spyOn(ModalManager, "addModal");
