@@ -33,7 +33,7 @@ export const Tab = ({
   leftSlot,
   rightSlot,
 }: TabProps) => {
-  const { activeTab, focusIndex, setActiveTab, size } = useTabs();
+  const { activeTab, focusIndex, orientation, setActiveTab, size } = useTabs();
   const selected = activeTab === index;
 
   if (
@@ -61,6 +61,7 @@ export const Tab = ({
       aria-selected={selected ? "true" : "false"}
       id={id}
       onClick={() => setActiveTab(index)}
+      orientation={orientation}
       role="tab"
       size={size}
       type="button"
@@ -73,7 +74,7 @@ export const Tab = ({
           {rightSlot}
         </span>
       ) : (
-        label
+        <span className="tab-title-content-wrapper">{label}</span>
       )}
     </StyledTab>
   );
@@ -81,7 +82,7 @@ export const Tab = ({
 
 export const TabList = ({ children, ariaLabel }: TabListProps) => {
   const tabListRef = React.useRef<HTMLDivElement>(null);
-  const { focusIndex, setFocusIndex, setActiveTab } = useTabs();
+  const { focusIndex, orientation, setFocusIndex, setActiveTab } = useTabs();
 
   const countTabChildren = () => {
     if (tabListRef.current) {
@@ -115,6 +116,7 @@ export const TabList = ({ children, ariaLabel }: TabListProps) => {
         ariaLabel={ariaLabel}
         aria-labelledby={ariaLabel}
         onKeyDown={handleKeyDown}
+        orientation={orientation}
         ref={tabListRef}
         role="tablist"
         tabIndex={-1}
@@ -128,19 +130,20 @@ export const TabList = ({ children, ariaLabel }: TabListProps) => {
 
 export const Tabs = ({
   children,
-  colorMode = "light",
   labelledBy = "",
   orientation = "horizontal",
   size = "medium",
 }: TabsProps) => {
   return (
-    <TabsProvider
-      colorMode={colorMode}
-      labelledBy={labelledBy}
-      orientation={orientation}
-      size={size}
-    >
-      {children}
+    <TabsProvider labelledBy={labelledBy} orientation={orientation} size={size}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: orientation === "horizontal" ? "column" : "row",
+        }}
+      >
+        {children}
+      </div>
     </TabsProvider>
   );
 };
