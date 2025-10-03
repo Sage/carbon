@@ -8,7 +8,6 @@ import React, {
 
 interface TabsContextProps {
   activeTab: number;
-  colorMode?: "light" | "dark";
   focusIndex: number;
   labelledBy?: string;
   orientation?: "horizontal" | "vertical";
@@ -19,7 +18,6 @@ interface TabsContextProps {
 
 const initialContext: TabsContextProps = {
   activeTab: 0,
-  colorMode: "light",
   focusIndex: 0,
   labelledBy: "",
   orientation: "horizontal",
@@ -40,7 +38,7 @@ export const useTabs = () => {
 
 interface TabsProviderProps {
   children?: React.ReactNode;
-  colorMode?: "light" | "dark";
+
   labelledBy?: string;
   orientation?: "horizontal" | "vertical";
   size?: "medium" | "large";
@@ -48,7 +46,6 @@ interface TabsProviderProps {
 
 export const TabsProvider = ({
   children,
-  colorMode,
   labelledBy,
   orientation,
   size,
@@ -60,7 +57,7 @@ export const TabsProvider = ({
     <TabsContext.Provider
       value={{
         activeTab,
-        colorMode,
+
         focusIndex,
         labelledBy,
         orientation,

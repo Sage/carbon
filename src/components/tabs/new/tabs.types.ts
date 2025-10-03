@@ -18,13 +18,13 @@ export interface TabProps {
   index: number;
   label: React.ReactNode;
   leftSlot?: React.ReactNode;
+  orientation?: "horizontal" | "vertical";
   rightSlot?: React.ReactNode;
   size?: "medium" | "large";
 }
 
 export interface TabsProps {
   children?: React.ReactNode;
-  colorMode?: "light" | "dark";
   labelledBy?: string;
   orientation?: "horizontal" | "vertical";
   size?: "medium" | "large";

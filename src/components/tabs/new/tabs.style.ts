@@ -10,6 +10,8 @@ type Dimension = {
   width: number;
 };
 
+const VERTICAL_TAB_WIDTH = 200;
+
 const sizes: Record<string, Dimension> = {
   medium: {
     fontSize: 14,
@@ -31,9 +33,10 @@ const sizes: Record<string, Dimension> = {
 
 export const StyledTabList = styled.div<TabListProps>`
   display: flex;
-  flex-direction: ${({ orientation }) =>
-    orientation === "vertical" ? "column" : "row"};
-  margin-bottom: 8px;
+  ${({ orientation }) => css`
+    flex-direction: ${orientation === "vertical" ? "column" : "row"};
+    ${orientation === "horizontal" ? "margin-bottom" : "margin-right"}: 8px;
+  `}
 `;
 
 export const Spacer = styled.div`
@@ -82,14 +85,15 @@ export const StyledTab = styled.button<StyledTabProps>`
     padding: ${sizes[size].paddingY}px ${sizes[size].paddingX}px;
   `};
 
-  ${({ activeTab, size = "medium" }) =>
+  ${({ activeTab, orientation, size = "medium" }) =>
     activeTab &&
+    orientation === "horizontal" &&
     css`
       background-color: white;
       border: 2px solid #8b8b8bff;
       border-bottom: none;
 
-      padding: ${sizes[size].paddingY}px ${sizes[size].paddingX - 2}px
+      padding: ${sizes[size].paddingY - 2}px ${sizes[size].paddingX - 2}px
         ${sizes[size].paddingY + 4}px ${sizes[size].paddingX - 2}px;
 
       :hover {
@@ -108,4 +112,46 @@ export const StyledTab = styled.button<StyledTabProps>`
         min-width: 24px;
       }
     `};
+
+  ${({ activeTab, orientation, size = "medium" }) =>
+    orientation === "vertical"
+      ? css`
+          border: none;
+          border-right: 2px solid #d1d1d1;
+
+          border-bottom-left-radius: 8px;
+          border-bottom-right-radius: 0px;
+          border-top-left-radius: 8px;
+          border-top-right-radius: 0px;
+          max-width: ${VERTICAL_TAB_WIDTH}px;
+          min-width: ${VERTICAL_TAB_WIDTH}px;
+
+          ${activeTab &&
+          css`
+            background-color: white;
+            border: 2px solid #d1d1d1;
+            border-right: none;
+
+            padding: ${sizes[size].paddingY - 2}px ${sizes[size].paddingX - 2}px;
+
+            :hover {
+              background-color: white;
+            }
+
+            .tab-title-content-wrapper {
+              ::after {
+                content: "";
+                position: absolute;
+                right: 0;
+                top: 20%;
+                height: 60%;
+                width: 2px;
+                background-color: black;
+                border-radius: 2px;
+                min-height: 24px;
+              }
+            }
+          `}
+        `
+      : css``}
 `;
