@@ -105,7 +105,6 @@ export const DefaultStory: Story = ({ ...args }) => {
 };
 DefaultStory.storyName = "Default";
 DefaultStory.args = {
-  colorMode: "light",
   orientation: "horizontal",
   size: "medium",
 };
