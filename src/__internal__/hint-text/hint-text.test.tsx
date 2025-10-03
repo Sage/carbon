@@ -88,3 +88,13 @@ test("renders correctly with the appropriate top margin", () => {
   expect(screen.getByText("foo")).toBeVisible();
   expect(screen.getByText("foo")).toHaveStyleRule(`margin-top`, "16px");
 });
+
+// coverage
+test("renders with expected styles when `isLarge` is true", () => {
+  render(<HintText isLarge>foo</HintText>);
+
+  expect(screen.getByText("foo")).toHaveStyleRule(
+    "font-size",
+    "var(--fontSizes200)",
+  );
+});

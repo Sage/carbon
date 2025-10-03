@@ -75,3 +75,13 @@ test("renders with the correct colour when `isDarkBackground` is false", () => {
     color: "var(--colorsSemanticNegative500)",
   });
 });
+
+// coverage
+test("renders with the correct colour when `isLarge` is true", () => {
+  render(<ValidationMessage error="error" isLarge />);
+
+  expect(screen.getByText("error")).toHaveStyleRule(
+    "font-size",
+    "var(--fontSizes200)",
+  );
+});
