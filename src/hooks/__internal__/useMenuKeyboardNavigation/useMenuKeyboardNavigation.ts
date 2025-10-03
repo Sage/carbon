@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import Events from "../../../__internal__/utils/helpers/events";
 import useModalManager from "../useModalManager";
 
@@ -82,32 +82,6 @@ export default (
     },
     [getButtonChildren],
   );
-
-  // check if a child button is focused, if not hide the menu
-  const checkFocus = useCallback(() => {
-    const buttonChildren = getButtonChildren();
-
-    if (!buttonChildren) {
-      return;
-    }
-
-    const buttonChildrenFocused = Array.from(buttonChildren).some(
-      (button) => button === document.activeElement,
-    );
-
-    if (!buttonChildrenFocused) {
-      hide();
-    }
-  }, [getButtonChildren, hide]);
-
-  useEffect(() => {
-    document.addEventListener("focusin", checkFocus);
-    window.addEventListener("blur", hide);
-    return () => {
-      document.removeEventListener("focusin", checkFocus);
-      window.removeEventListener("blur", hide);
-    };
-  }, [checkFocus, hide]);
 
   return handleKeyDown;
 };

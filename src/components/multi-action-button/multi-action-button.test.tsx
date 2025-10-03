@@ -120,7 +120,7 @@ test("should open additional buttons when the main button is clicked", async () 
   expect(button).toBeVisible();
 });
 
-test("should close additional buttons when the toggle button is clicked", async () => {
+test("closes additional buttons popup when the toggle button is clicked", async () => {
   const user = userEvent.setup();
   render(
     <MultiActionButton text="Main Button">
@@ -137,7 +137,7 @@ test("should close additional buttons when the toggle button is clicked", async 
   ).not.toBeInTheDocument();
 });
 
-test("should close additional buttons when a child button is clicked", async () => {
+test("closes additional buttons popup when a child button is clicked", async () => {
   const user = userEvent.setup();
   render(
     <MultiActionButton text="Main Button">
@@ -153,7 +153,7 @@ test("should close additional buttons when a child button is clicked", async () 
   ).not.toBeInTheDocument();
 });
 
-test("should close additional buttons when a click occurs outside the component", async () => {
+test("closes additional buttons popup when a click occurs outside the component", async () => {
   const user = userEvent.setup();
   render(
     <MultiActionButton text="Main Button">
@@ -169,7 +169,27 @@ test("should close additional buttons when a click occurs outside the component"
   ).not.toBeInTheDocument();
 });
 
-test("should close additional buttons when a custom adaptive sidebar blur event is dispatched", async () => {
+test("closes additional buttons popup when focus is lost from it", async () => {
+  const user = userEvent.setup();
+  render(
+    <MultiActionButton text="Main Button">
+      <Button>First</Button>
+    </MultiActionButton>,
+  );
+
+  await user.click(screen.getByRole("button", { name: "Main Button" }));
+
+  const childButton = await screen.findByRole("button", { name: "First" });
+  expect(childButton).toBeVisible();
+
+  await user.tab();
+  expect(childButton).toHaveFocus();
+
+  await user.tab({ shift: true });
+  expect(screen.queryByRole("list")).not.toBeInTheDocument();
+});
+
+test("closes additional buttons popup when a custom adaptive sidebar blur event is dispatched", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
   render(
@@ -194,6 +214,24 @@ test("should close additional buttons when a custom adaptive sidebar blur event 
   });
 
   expect(button).not.toBeInTheDocument();
+});
+
+test("closes additional buttons popup when Escape key is pressed", async () => {
+  const user = userEvent.setup();
+  render(
+    <MultiActionButton text="Main Button">
+      <Button>First</Button>
+    </MultiActionButton>,
+  );
+
+  await user.click(screen.getByRole("button", { name: "Main Button" }));
+  expect(screen.getByRole("button", { name: "First" })).toBeVisible();
+
+  await user.keyboard("{Escape}");
+
+  expect(
+    screen.queryByRole("button", { name: "First" }),
+  ).not.toBeInTheDocument();
 });
 
 test("should render main button as disabled when 'disabled' prop is true", () => {
