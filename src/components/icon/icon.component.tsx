@@ -9,7 +9,7 @@ import StyledIcon, { StyledIconProps } from "./icon.style";
 import { ICON_TOOLTIP_POSITIONS } from "./icon-config";
 import { IconType } from "./icon-type";
 import { TooltipPositions } from "../tooltip/tooltip.config";
-import TabTitleContext from "../tabs/__internal__/tab-title/tab-title.context";
+import { useTabs } from "../tabs/__next__/tabs.context";
 
 export type LegacyIconTypes =
   | "help"
@@ -114,7 +114,7 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>(
       target,
     } = useContext(TooltipContext);
 
-    const { isInTab } = useContext(TabTitleContext);
+    const { isInTab } = useTabs();
 
     /** Return Icon type with overrides */
     const iconType = useMemo(() => {
