@@ -121,7 +121,7 @@
     "@typescript-eslint/parser": "^8.35.1",
     "babel-jest": "^29.7.0",
     "babel-plugin-dev-expression": "^0.2.3",
-    "browserslist": "^4.22.1",
+    "browserslist": "^4.26.3",
     "chromatic": "^6.17.4",
     "conventional-changelog-conventionalcommits": "^8.0.0",
     "core-js": "^3.33.3",
