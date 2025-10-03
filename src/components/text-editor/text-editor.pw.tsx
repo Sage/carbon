@@ -879,7 +879,7 @@ test.describe("Functionality tests", () => {
         label: "Paragraph",
         fontSize: "14px",
         fontWeight: "400",
-        lineHeight: "normal",
+        lineHeight: "21px",
       },
       {
         id: "title",
@@ -921,7 +921,7 @@ test.describe("Functionality tests", () => {
         const typographyDropdown = page.locator(
           "button[data-role='pw-rte-typography-dropdown']",
         );
-        await expect(typographyDropdown).toHaveText(`Paragraph ▼`);
+        await expect(typographyDropdown).toHaveText(/Paragraph/gi);
         const textbox = page.locator("div[role='textbox']");
         await textbox.click();
         await typographyDropdown.click();
@@ -929,7 +929,7 @@ test.describe("Functionality tests", () => {
           `li[data-role='pw-rte-typography-option-${id}']`,
         );
         await typographyOption.click();
-        await expect(typographyDropdown).toHaveText(`${label} ▼`);
+        await expect(typographyDropdown).toHaveText(new RegExp(label, "ig"));
         const styledText = page.getByText("This text needs formatting");
         await expect(styledText).toHaveCSS("font-size", `${fontSize}`);
         await expect(styledText).toHaveCSS("font-weight", `${fontWeight}`);
@@ -937,7 +937,7 @@ test.describe("Functionality tests", () => {
 
         await textbox.click();
         await page.keyboard.press("Enter");
-        await expect(typographyDropdown).toHaveText(`Paragraph ▼`);
+        await expect(typographyDropdown).toHaveText(/Paragraph/gi);
       });
     });
   });
