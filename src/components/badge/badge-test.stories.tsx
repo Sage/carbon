@@ -8,7 +8,7 @@ import SplitButton from "../split-button";
 import { Menu, MenuItem } from "../menu";
 import Icon from "../icon";
 import Portrait from "../portrait";
-import { Tabs, Tab } from "../tabs";
+import { Tabs, Tab } from "../tabs/";
 import Typography from "../typography";
 
 const meta: Meta<typeof Badge> = {
