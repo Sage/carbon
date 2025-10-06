@@ -65,7 +65,7 @@ export const Tab = ({
       role="tab"
       size={size}
       type="button"
-      tabIndex={index === 0 ? 0 : -1}
+      tabIndex={activeTab === index || index === 0 ? 0 : -1}
     >
       {typeof label === "string" ? (
         <span className="tab-title-content-wrapper">
@@ -80,7 +80,7 @@ export const Tab = ({
   );
 };
 
-export const TabList = ({ children, ariaLabel }: TabListProps) => {
+export const TabList = ({ ariaLabel, children }: TabListProps) => {
   const tabListRef = React.useRef<HTMLDivElement>(null);
   const { focusIndex, orientation, setFocusIndex, setActiveTab } = useTabs();
 
@@ -94,11 +94,27 @@ export const TabList = ({ children, ariaLabel }: TabListProps) => {
   const handleKeyDown = (event: React.KeyboardEvent) => {
     const numberOfTabs = countTabChildren();
     switch (event.key) {
+      case "Home":
+        setFocusIndex(0);
+        break;
+      case "End":
+        setFocusIndex(numberOfTabs - 1);
+        break;
       case "ArrowRight":
-        setFocusIndex((prev) => (prev + 1) % numberOfTabs);
+        if (orientation === "horizontal")
+          setFocusIndex((prev) => (prev + 1) % numberOfTabs);
         break;
       case "ArrowLeft":
-        setFocusIndex((prev) => (prev - 1 + numberOfTabs) % numberOfTabs);
+        if (orientation === "horizontal")
+          setFocusIndex((prev) => (prev - 1 + numberOfTabs) % numberOfTabs);
+        break;
+      case "ArrowUp":
+        if (orientation === "vertical")
+          setFocusIndex((prev) => (prev - 1 + numberOfTabs) % numberOfTabs);
+        break;
+      case "ArrowDown":
+        if (orientation === "vertical")
+          setFocusIndex((prev) => (prev + 1) % numberOfTabs);
         break;
       case "Enter":
       case " ":
@@ -109,12 +125,13 @@ export const TabList = ({ children, ariaLabel }: TabListProps) => {
 
   return (
     <>
-      <Typography id={ariaLabel} screenReaderOnly>
+      <Typography id={"tablist-aria-label"} screenReaderOnly>
         {ariaLabel}
       </Typography>
       <StyledTabList
         ariaLabel={ariaLabel}
-        aria-labelledby={ariaLabel}
+        aria-labelledby={"tablist-aria-label"}
+        id="tablist"
         onKeyDown={handleKeyDown}
         orientation={orientation}
         ref={tabListRef}
@@ -137,6 +154,7 @@ export const Tabs = ({
   return (
     <TabsProvider labelledBy={labelledBy} orientation={orientation} size={size}>
       <div
+        id="tabs-container"
         style={{
           display: "flex",
           flexDirection: orientation === "horizontal" ? "column" : "row",

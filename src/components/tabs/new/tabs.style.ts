@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { TabListProps, TabProps } from "./tabs.types";
+import addFocusStyling from "../../../style/utils/add-focus-styling";
 
 type Dimension = {
   fontSize: number;
@@ -106,7 +107,7 @@ export const StyledTab = styled.button<StyledTabProps>`
         bottom: 0;
         left: 20%;
         width: 60%;
-        height: 2px;
+        height: 4px;
         background-color: black;
         border-radius: 2px;
         min-width: 24px;
@@ -145,7 +146,7 @@ export const StyledTab = styled.button<StyledTabProps>`
                 right: 0;
                 top: 20%;
                 height: 60%;
-                width: 2px;
+                width: 4px;
                 background-color: black;
                 border-radius: 2px;
                 min-height: 24px;
@@ -154,4 +155,14 @@ export const StyledTab = styled.button<StyledTabProps>`
           `}
         `
       : css``}
+
+  :focus {
+    ${addFocusStyling()}
+    z-index: 1;
+
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
 `;
