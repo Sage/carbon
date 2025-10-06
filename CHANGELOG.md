@@ -1,3 +1,9 @@
+## [157.5.1](https://github.com/Sage/carbon/compare/v157.5.0...v157.5.1) (2025-10-06)
+
+### Bug Fixes
+
+* **multi-action-button:** prevent popup closing too early ([ec7ee65](https://github.com/Sage/carbon/commit/ec7ee65186d8b0efd63f2c58d94b22b945640e28)), closes [#7531](https://github.com/Sage/carbon/issues/7531)
+
 ## [157.5.0](https://github.com/Sage/carbon/compare/v157.4.0...v157.5.0) (2025-10-06)
 
 ### Features
