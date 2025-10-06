@@ -51,3 +51,33 @@ export interface MarginProps {
   /** Margin left property */
   marginLeft?: string | number;
 }
+
+// Size range from 3XS to 4XL
+export type SpacingSize =
+  | "none"
+  | "3XS"
+  | "2XS"
+  | "XS"
+  | "S"
+  | "M"
+  | "L"
+  | "XL"
+  | "2XL"
+  | "3XL"
+  | "4XL";
+
+// Mapping of size to multiplier value for spacing calculations
+// 3XS would be 1 * base spacing unit, 2XS would be 2 * base spacing unit, etc.
+export const spacingSizeMap: Record<SpacingSize, number> = {
+  none: 0,
+  "3XS": 1,
+  "2XS": 2,
+  XS: 3,
+  S: 4,
+  M: 5,
+  L: 6,
+  XL: 7,
+  "2XL": 8,
+  "3XL": 9,
+  "4XL": 10,
+};

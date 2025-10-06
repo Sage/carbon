@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import {
   testStyledMargin,
   testStyledPadding,
-} from "__spec_helper__/__internal__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 import DipsBox from "./dips-box.component";
 
 describe("DipsBox", () => {

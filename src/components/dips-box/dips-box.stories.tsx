@@ -29,6 +29,10 @@ export const Spacing: Story = () => {
       <DipsBox ml="9px" pt="33px">
         Margin Left and Padding Top String
       </DipsBox>
+
+      <DipsBox ml="XS" pt="L">
+        Margin Left and Padding Top String
+      </DipsBox>
     </>
   );
 };
