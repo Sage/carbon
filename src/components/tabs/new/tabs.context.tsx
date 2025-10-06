@@ -1,26 +1,12 @@
-import React, {
-  createContext,
-  Dispatch,
-  useState,
-  useContext,
-  SetStateAction,
-} from "react";
-
-interface TabsContextProps {
-  activeTab: number;
-  focusIndex: number;
-  labelledBy?: string;
-  orientation?: "horizontal" | "vertical";
-  setActiveTab: Dispatch<SetStateAction<number>>;
-  setFocusIndex: Dispatch<SetStateAction<number>>;
-  size?: "medium" | "large";
-}
+import React, { createContext, useState, useContext } from "react";
+import { TabsContextProps } from "./tabs.types";
 
 const initialContext: TabsContextProps = {
   activeTab: 0,
   focusIndex: 0,
   labelledBy: "",
   orientation: "horizontal",
+  selectedTabId: "",
   setActiveTab: () => {},
   setFocusIndex: () => {},
   size: "medium",
@@ -38,9 +24,9 @@ export const useTabs = () => {
 
 interface TabsProviderProps {
   children?: React.ReactNode;
-
   labelledBy?: string;
   orientation?: "horizontal" | "vertical";
+  selectedTabId?: string;
   size?: "medium" | "large";
 }
 
@@ -48,6 +34,7 @@ export const TabsProvider = ({
   children,
   labelledBy,
   orientation,
+  selectedTabId = "",
   size,
 }: TabsProviderProps) => {
   const [activeTab, setActiveTab] = useState<number>(0);
@@ -57,10 +44,10 @@ export const TabsProvider = ({
     <TabsContext.Provider
       value={{
         activeTab,
-
         focusIndex,
         labelledBy,
         orientation,
+        selectedTabId,
         setActiveTab,
         setFocusIndex,
         size,

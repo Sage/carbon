@@ -82,7 +82,13 @@ export const Tab = ({
 
 export const TabList = ({ ariaLabel, children }: TabListProps) => {
   const tabListRef = React.useRef<HTMLDivElement>(null);
-  const { focusIndex, orientation, setFocusIndex, setActiveTab } = useTabs();
+  const {
+    focusIndex,
+    orientation,
+    selectedTabId,
+    setFocusIndex,
+    setActiveTab,
+  } = useTabs();
 
   const countTabChildren = () => {
     if (tabListRef.current) {
@@ -121,6 +127,21 @@ export const TabList = ({ ariaLabel, children }: TabListProps) => {
     }
   };
 
+  useEffect(() => {
+    if (!selectedTabId) return;
+
+    const targetTab = React.Children.toArray(children).find(
+      (child) =>
+        React.isValidElement(child) && child.props?.id === selectedTabId,
+    );
+
+    if (targetTab && React.isValidElement(targetTab)) {
+      const { index } = targetTab.props;
+      setActiveTab(index);
+      setFocusIndex(index);
+    }
+  }, []);
+
   return (
     <>
       <Typography id={"tablist-aria-label"} screenReaderOnly>
@@ -147,10 +168,16 @@ export const Tabs = ({
   children,
   labelledBy = "",
   orientation = "horizontal",
+  selectedTabId,
   size = "medium",
 }: TabsProps) => {
   return (
-    <TabsProvider labelledBy={labelledBy} orientation={orientation} size={size}>
+    <TabsProvider
+      labelledBy={labelledBy}
+      orientation={orientation}
+      selectedTabId={selectedTabId}
+      size={size}
+    >
       <StyledTabs id="tabs-container">{children}</StyledTabs>
     </TabsProvider>
   );
