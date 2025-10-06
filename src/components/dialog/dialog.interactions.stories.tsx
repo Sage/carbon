@@ -66,7 +66,7 @@ export const FocusManagement: Story = {
     });
     await userEvent.click(openButton);
 
-    const dialog = await portal.findByRole("dialog");
+    const dialog = await portal.getByRole("dialog");
     const closeButton = within(dialog).getByRole("button", { name: /close/i });
     const firstInput = within(dialog).getByLabelText(/name/i);
 
