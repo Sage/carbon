@@ -1,3 +1,9 @@
+## [157.5.0](https://github.com/Sage/carbon/compare/v157.4.0...v157.5.0) (2025-10-06)
+
+### Features
+
+* add relative position to form field wrapper ([27a618a](https://github.com/Sage/carbon/commit/27a618aa2b41a82ed19dc1b36e5d8f6335c143cb))
+
 ## [157.4.0](https://github.com/Sage/carbon/compare/v157.3.5...v157.4.0) (2025-10-01)
 
 ### Features
