@@ -137,6 +137,14 @@ export const DefaultStory: Story = ({ ...args }) => {
           >
             Tab 6 Button
           </Button>
+
+          <Typography mt={2}>
+            This is bad, as using `leftSlot` and/or `rightSlot` should be
+            avoided when `label` is not a string. This warning is documented in
+            the console; developers can rectify it by using the slots with a
+            string `label` prop, or passing a `ReactNode` to `label` and
+            handling everything in that.
+          </Typography>
         </TabPanel>
       </Tabs>
     </Box>

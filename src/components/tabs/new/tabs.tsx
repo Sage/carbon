@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import Typography from "../../typography";
 import { TabsProvider, useTabs } from "./tabs.context";
 import { TabListProps, TabPanelProps, TabProps, TabsProps } from "./tabs.types";
-import { Spacer, StyledTab, StyledTabList } from "./tabs.style";
+import { Spacer, StyledTab, StyledTabList, StyledTabs } from "./tabs.style";
 import Logger from "../../../__internal__/utils/logger";
 
 export const TabPanel = ({
@@ -42,7 +42,7 @@ export const Tab = ({
     !unsupportedSlotConfigurationWarningTriggered
   ) {
     Logger.warn(
-      "[WARNING] Using `leftSlot` and/or `rightSlot` alongside `titleSlot` is not supported. Please use `leftSlot` and/or `rightSlot` alongside the `label` prop, or use the `titleSlot` prop on it's own.",
+      "[WARNING] Using `leftSlot` and/or `rightSlot` is not supported when `label` is not a string. Please use `leftSlot` and/or `rightSlot` alongside a string `label`, or use the `label` prop exclusively.",
     );
     unsupportedSlotConfigurationWarningTriggered = true;
   }
@@ -153,15 +153,7 @@ export const Tabs = ({
 }: TabsProps) => {
   return (
     <TabsProvider labelledBy={labelledBy} orientation={orientation} size={size}>
-      <div
-        id="tabs-container"
-        style={{
-          display: "flex",
-          flexDirection: orientation === "horizontal" ? "column" : "row",
-        }}
-      >
-        {children}
-      </div>
+      <StyledTabs id="tabs-container">{children}</StyledTabs>
     </TabsProvider>
   );
 };

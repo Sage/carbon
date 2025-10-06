@@ -166,3 +166,12 @@ export const StyledTab = styled.button<StyledTabProps>`
     border-top-right-radius: 8px;
   }
 `;
+
+export const StyledTabs = styled.div<{
+  orientation?: "horizontal" | "vertical";
+}>`
+  display: "flex";
+  ${({ orientation = "horizontal" }) => css`
+    flex-direction: ${orientation === "horizontal" ? "column" : "row"};
+  `}
+`;
