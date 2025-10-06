@@ -101,12 +101,10 @@ export const TabList = ({ ariaLabel, children }: TabListProps) => {
         setFocusIndex(numberOfTabs - 1);
         break;
       case "ArrowRight":
-        if (orientation === "horizontal")
-          setFocusIndex((prev) => (prev + 1) % numberOfTabs);
+        setFocusIndex((prev) => (prev + 1) % numberOfTabs);
         break;
       case "ArrowLeft":
-        if (orientation === "horizontal")
-          setFocusIndex((prev) => (prev - 1 + numberOfTabs) % numberOfTabs);
+        setFocusIndex((prev) => (prev - 1 + numberOfTabs) % numberOfTabs);
         break;
       case "ArrowUp":
         if (orientation === "vertical")
