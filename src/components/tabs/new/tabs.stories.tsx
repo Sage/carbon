@@ -3,8 +3,11 @@ import { Meta, StoryObj } from "@storybook/react";
 
 import { Tabs, Tab, TabList, TabPanel } from "./tabs";
 import Box from "../../box";
+import Button from "../../button";
 import Icon from "../../icon";
 import Pill from "../../pill";
+import Typography from "../../typography";
+import { action } from "@storybook/addon-actions";
 
 const meta: Meta<typeof Tabs> = {
   title: "Tabs/New",
@@ -82,22 +85,58 @@ export const DefaultStory: Story = ({ ...args }) => {
           />
         </TabList>
         <TabPanel id="tab-panel-1" labelledBy="tab-1" index={0}>
-          Content 1
+          <Typography>Content 1</Typography>
+          <Button
+            onClick={action("Button in tab 1 clicked")}
+            buttonType="primary"
+          >
+            Tab 1 Button
+          </Button>
         </TabPanel>
         <TabPanel id="tab-panel-2" labelledBy="tab-2" index={1}>
-          Content 2
+          <Typography>Content 2</Typography>
+          <Button
+            onClick={action("Button in tab 2 clicked")}
+            buttonType="primary"
+          >
+            Tab 2 Button
+          </Button>
         </TabPanel>
         <TabPanel id="tab-panel-3" labelledBy="tab-3" index={2}>
-          Content 3
+          <Typography>Content 3</Typography>
+          <Button
+            onClick={action("Button in tab 3 clicked")}
+            buttonType="primary"
+          >
+            Tab 3 Button
+          </Button>
         </TabPanel>
         <TabPanel id="tab-panel-4" labelledBy="tab-4" index={3}>
-          Content 4
+          <Typography>Content 4</Typography>
+          <Button
+            onClick={action("Button in tab 4 clicked")}
+            buttonType="primary"
+          >
+            Tab 4 Button
+          </Button>
         </TabPanel>
         <TabPanel id="tab-panel-5" labelledBy="tab-5" index={4}>
-          Content 5
+          <Typography>Content 5</Typography>
+          <Button
+            onClick={action("Button in tab 5 clicked")}
+            buttonType="primary"
+          >
+            Tab 5 Button
+          </Button>
         </TabPanel>
         <TabPanel id="tab-panel-6" labelledBy="tab-6" index={5}>
-          Content 6
+          <Typography>Content 6</Typography>
+          <Button
+            onClick={action("Button in tab 6 clicked")}
+            buttonType="primary"
+          >
+            Tab 6 Button
+          </Button>
         </TabPanel>
       </Tabs>
     </Box>
