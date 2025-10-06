@@ -88,6 +88,7 @@ export const Label = ({
   width = 30,
   className,
   "aria-label": ariaLabel,
+  isLarge,
 }: LabelProps) => {
   const [isFocused, setFocus] = useState(false);
   const { onMouseEnter, onMouseLeave } = useContext(InputContext);
@@ -182,6 +183,7 @@ export const Label = ({
         as={as}
         aria-label={ariaLabel}
         isDarkBackground={isDarkBackground}
+        isLarge={isLarge}
       >
         {children}
       </StyledLabel>
