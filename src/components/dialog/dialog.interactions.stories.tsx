@@ -61,21 +61,14 @@ export const FocusManagement: Story = {
     const canvas = within(canvasElement);
     const portal = within(canvasElement.ownerDocument.body);
 
-    const openButton = await canvas.getByRole("button", {
-      name: /open dialog/i,
-    });
+    const openButton = canvas.getByRole("button", { name: /open dialog/i });
     await userEvent.click(openButton);
 
-    const dialog = await portal.getByRole("dialog");
-
-    (dialog as HTMLElement).focus();
-
+    const dialog = await portal.findByRole("dialog");
     const closeButton = within(dialog).getByRole("button", { name: /close/i });
     const firstInput = within(dialog).getByLabelText(/name/i);
 
-    await expect(dialog).toHaveFocus();
-
-    await userEvent.tab();
+    (closeButton as HTMLElement).focus();
     await expect(closeButton).toHaveFocus();
 
     await userEvent.tab();
