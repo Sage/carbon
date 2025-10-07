@@ -178,7 +178,9 @@ export const Tabs = ({
       selectedTabId={selectedTabId}
       size={size}
     >
-      <StyledTabs id="tabs-container">{children}</StyledTabs>
+      <StyledTabs id="tabs-container" orientation={orientation}>
+        {children}
+      </StyledTabs>
     </TabsProvider>
   );
 };

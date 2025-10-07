@@ -170,7 +170,7 @@ export const StyledTab = styled.button<StyledTabProps>`
 export const StyledTabs = styled.div<{
   orientation?: "horizontal" | "vertical";
 }>`
-  display: "flex";
+  display: flex;
   ${({ orientation = "horizontal" }) => css`
     flex-direction: ${orientation === "horizontal" ? "column" : "row"};
   `}
