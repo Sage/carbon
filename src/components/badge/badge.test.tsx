@@ -2,47 +2,32 @@ import React from "react";
 import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Badge from "./badge.component";
-import Logger from "../../__internal__/utils/logger";
+import { assertLoggerComponentMessage } from "../../__spec_helper__/__internal__/test-utils";
 
 jest.mock("../../__internal__/utils/logger");
 
 test("should log a deprecation warning for onClick prop", () => {
-  const loggerSpy = jest.spyOn(Logger, "deprecate");
-  render(<Badge onClick={() => {}} />);
-
-  expect(loggerSpy).toHaveBeenCalledWith(
-    "The `onClick` prop in `Badge` is deprecated and will soon be removed.",
-  );
-  expect(loggerSpy).toHaveBeenCalledTimes(1);
-
-  loggerSpy.mockRestore();
-  loggerSpy.mockClear();
+  assertLoggerComponentMessage({
+    component: <Badge onClick={() => {}} />,
+    message:
+      "The `onClick` prop in `Badge` is deprecated and will soon be removed.",
+  });
 });
 
 test("should log a deprecation warning for aria-label prop", () => {
-  const loggerSpy = jest.spyOn(Logger, "deprecate");
-  render(<Badge aria-label="Test label" />);
-
-  expect(loggerSpy).toHaveBeenCalledWith(
-    "The `aria-label` prop in `Badge` is deprecated and will soon be removed.",
-  );
-  expect(loggerSpy).toHaveBeenCalledTimes(1);
-
-  loggerSpy.mockRestore();
-  loggerSpy.mockClear();
+  assertLoggerComponentMessage({
+    component: <Badge aria-label="Test label" />,
+    message:
+      "The `aria-label` prop in `Badge` is deprecated and will soon be removed.",
+  });
 });
 
 test("should log a deprecation warning for color prop", () => {
-  const loggerSpy = jest.spyOn(Logger, "deprecate");
-  render(<Badge color="red" />);
-
-  expect(loggerSpy).toHaveBeenCalledWith(
-    "The `color` prop in `Badge` is deprecated and will soon be removed.",
-  );
-  expect(loggerSpy).toHaveBeenCalledTimes(1);
-
-  loggerSpy.mockRestore();
-  loggerSpy.mockClear();
+  assertLoggerComponentMessage({
+    component: <Badge color="red" />,
+    message:
+      "The `color` prop in `Badge` is deprecated and will soon be removed.",
+  });
 });
 
 test("should render badge with children", () => {
