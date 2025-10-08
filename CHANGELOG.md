@@ -1,3 +1,9 @@
+## [157.5.2](https://github.com/Sage/carbon/compare/v157.5.1...v157.5.2) (2025-10-07)
+
+### Bug Fixes
+
+* **flat-table:** ensure focus is only applied when using keyboard navigation ([615ce9b](https://github.com/Sage/carbon/commit/615ce9b23e0cc5bcd8d14657f98cd279f6f22b56)), closes [#7467](https://github.com/Sage/carbon/issues/7467)
+
 ## [157.5.1](https://github.com/Sage/carbon/compare/v157.5.0...v157.5.1) (2025-10-06)
 
 ### Bug Fixes
