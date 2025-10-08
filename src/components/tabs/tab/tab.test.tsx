@@ -3,7 +3,22 @@ import { render, screen } from "@testing-library/react";
 import Tab from ".";
 import Textbox from "../../textbox";
 import StyledTab from "./tab.style";
-import { testStyledSystemPadding } from "../../../__spec_helper__/__internal__/test-utils";
+import {
+  assertLoggerComponentMessage,
+  testStyledSystemPadding,
+} from "../../../__spec_helper__/__internal__/test-utils";
+
+test("logs a deprecation warning when href is used", () => {
+  assertLoggerComponentMessage({
+    component: (
+      <Tab tabId="1" href="#">
+        TabContent
+      </Tab>
+    ),
+    message:
+      "The `href` prop is deprecated in the `Tab` component and will be removed in a future release.",
+  });
+});
 
 testStyledSystemPadding(
   (props) => (
