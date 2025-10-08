@@ -26,6 +26,7 @@ export type StyledLegendProps = {
   rightPadding?: 1 | 2;
   isRequired?: boolean;
   isDisabled?: boolean;
+  isLarge?: boolean;
 };
 
 export const StyledLegend = styled.legend<StyledLegendProps>`
@@ -35,6 +36,12 @@ export const StyledLegend = styled.legend<StyledLegendProps>`
   line-height: 24px;
   font-weight: var(--fontWeights500);
   color: var(--colorsUtilityYin090);
+
+  ${({ isLarge }) =>
+    isLarge &&
+    css`
+      font-size: var(--fontSizes200);
+    `}
 
   ${({ isRequired }) =>
     isRequired &&

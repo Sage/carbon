@@ -70,7 +70,7 @@ test("should render with expected styles when wrapText is true", () => {
   render(<Pill wrapText>Test Pill</Pill>);
 
   expect(screen.getByText("Test Pill")).toHaveStyle({
-    whiteSpace: "break-spaces",
+    overflowWrap: "anywhere",
     hyphens: "auto",
   });
 });

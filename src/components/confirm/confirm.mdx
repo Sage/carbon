@@ -3,12 +3,15 @@ import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 import * as ConfirmStories from "./confirm.stories";
+import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component"
 
 <Meta of={ConfirmStories} />
 
 # Confirm
 
-Confirms or cancels an action.
+<DeprecationWarning>
+Confirm has been deprecated, if this pattern is still needed please see <a style={{color: "white"}} href="../?path=/docs/documentation-deprecation-migration--docs#confirm">our deprecation migration docs</a> for an alternative pattern.
+</DeprecationWarning>
 
 ## Contents
 

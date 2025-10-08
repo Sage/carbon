@@ -258,28 +258,6 @@ test.describe("should render Pill component with props", () => {
       await expect(elementLocator).toHaveCSS("padding", padding);
     });
   });
-
-  (
-    [
-      [true, "break-spaces"],
-      [false, "nowrap"],
-    ] as const
-  ).forEach(([booleanState, cssValue]) => {
-    test(`should render wrapText prop set as ${booleanState}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <Pill maxWidth="44px" wrapText={booleanState}>
-          Wrapped pill
-        </Pill>,
-      );
-
-      const elementLocator = pillPreview(page);
-      await expect(elementLocator).toHaveText("Wrapped pill");
-      await expect(elementLocator).toHaveCSS("white-space", cssValue);
-    });
-  });
 });
 
 test.describe("should check focus outlines and border radius", () => {

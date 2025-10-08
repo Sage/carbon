@@ -5,7 +5,7 @@ import generateStyledSystemProps from "../../../.storybook/utils/styled-system-p
 
 import Box from "../box";
 import Typography from "../typography";
-import VerticalDivider from "../vertical-divider";
+import Divider from "../divider";
 import Image from "../image";
 import point from "../../../.assets/point.svg";
 
@@ -16,7 +16,12 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof DismissibleBox> = {
-  title: "Dismissible Box",
+  title: "Deprecated/Dismissible Box",
+  parameters: {
+    chromatic: {
+      disableSnapshot: true,
+    },
+  },
   component: DismissibleBox,
   render: (args) => (
     <DismissibleBox {...args}>
@@ -33,7 +38,7 @@ const meta: Meta<typeof DismissibleBox> = {
           good to know. Your head is not an artifact! Rrrrred alert! Rrrrred
           alert! Rrrrred alert!
         </Typography>
-        <VerticalDivider p={0} px={2} />
+        <Divider p={0} px={2} />
         <Image alt="Example alt text" src={point} width="120px" />
       </Box>
     </DismissibleBox>

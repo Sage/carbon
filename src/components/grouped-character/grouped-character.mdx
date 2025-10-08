@@ -1,14 +1,16 @@
 import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table"
 
 import * as GroupedCharacterStories from "./grouped-character.stories";
+import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component"
 
 <Meta of={GroupedCharacterStories} />
 
 # GroupedCharacter
 
-Capture data with punctuation inside the field.
-
-Fields can have punctuation within them (most commonly characters like - or /). This gives the user a clue about the format accepted.
+<DeprecationWarning>
+GroupedCharacter has been deprecated, if this pattern is still needed please see <a style={{color: "white"}} href="../?path=/docs/documentation-deprecation-migration--docs#grouped-character">our deprecation migration docs</a> for an alternative pattern.
+</DeprecationWarning>
 
 ## Contents
 
@@ -96,3 +98,32 @@ This component supports input validation, see our [Validations](../?path=/docs/d
 <ArgTypes of={GroupedCharacterStories} />
 
 **Any other supplied props will be provided to the underlying HTML input element**
+
+<TranslationKeysTable translationData={[
+     {
+      name: "characterCount.tooManyCharacters",
+      description:
+        "The message displayed below the input which will inform" +
+        " users if they have exceeded the set `characterLimit` and how much by." +
+        " This will also be announced to screen readers.",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "characterCount.charactersLeft",
+      description:
+        "The message displayed below the input which will inform" +
+        " users how many characters they have before they reach or exceed the" +
+        " set `characterLimit`. This will also be announced to screen readers.",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "characterCount.visuallyHiddenHint",
+      description:
+        "The message which will be read out to screen reader users, informing them" +
+        " of the set `characterLimit`.",
+      type: "func",
+      returnType: "string",
+    },
+]} />

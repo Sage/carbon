@@ -3,7 +3,7 @@ import Icon from "../icon";
 import IconButton, { IconButtonProps } from ".";
 
 export default {
-  title: "Icon Button/Test",
+  title: "Deprecated/Icon Button/Test",
   includeStories: ["Default"],
   parameters: {
     info: { disable: true },

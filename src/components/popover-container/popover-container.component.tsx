@@ -285,11 +285,11 @@ export const PopoverContainer = forwardRef<
           },
         );
 
-        if (!eventIsFromSelectInput && Events.isEscKey(ev)) {
+        if (!eventIsFromSelectInput && isOpen && Events.isEscKey(ev)) {
           closePopover(ev);
         }
       },
-      [closePopover],
+      [closePopover, isOpen],
     );
 
     useEffect(() => {

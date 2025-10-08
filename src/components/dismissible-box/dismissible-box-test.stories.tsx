@@ -3,14 +3,19 @@ import React from "react";
 import DismissibleBox, { DismissibleBoxProps } from ".";
 import Box from "../box";
 import Typography from "../typography";
-import VerticalDivider from "../vertical-divider";
+import Divider from "../divider";
 import Image from "../image";
 import point from "../../../.assets/point.svg";
 
 export default {
-  title: "Dismissible Box/Test",
+  title: "Deprecated/Dismissible Box/Test",
   parameters: {
-    info: { disable: true },
+    info: {
+      disable: true,
+      chromatic: {
+        disableSnapshot: true,
+      },
+    },
   },
   argTypes: {
     width: {
@@ -38,7 +43,7 @@ export const Default = (props: Partial<DismissibleBoxProps>) => {
       <DismissibleBox onClose={() => {}} {...props}>
         <Box display="flex">
           <Typography mb={0}>Hello All!</Typography>
-          <VerticalDivider p={0} px={2} />
+          <Divider p={0} px={2} />
           <Image alt="Example alt text" src={point} width="120px" />
         </Box>
       </DismissibleBox>
@@ -54,7 +59,7 @@ export const DarkDefault = () => {
       <DismissibleBox onClose={() => {}} variant="dark">
         <Box display="flex">
           <Typography mb={0}>Hello All!</Typography>
-          <VerticalDivider p={0} px={2} />
+          <Divider p={0} px={2} />
           <Image alt="Example alt text" src={point} width="120px" />
         </Box>
       </DismissibleBox>
@@ -70,7 +75,7 @@ export const HasNoBorderLeftHighlight = () => {
       <DismissibleBox onClose={() => {}} hasBorderLeftHighlight={false}>
         <Box display="flex">
           <Typography mb={0}>Hello All!</Typography>
-          <VerticalDivider p={0} px={2} />
+          <Divider p={0} px={2} />
           <Image alt="Example alt text" src={point} width="120px" />
         </Box>
       </DismissibleBox>

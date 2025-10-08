@@ -10,11 +10,12 @@ import Alert from ".";
 const defaultOpenState = isChromatic();
 
 const meta: Meta<typeof Alert> = {
-  title: "Alert",
+  title: "Deprecated/Alert",
   component: Alert,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
     chromatic: {
+      disableSnapshot: true,
       modes: {
         desktop: allModes.chromatic,
       },

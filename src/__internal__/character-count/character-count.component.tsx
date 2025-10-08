@@ -16,6 +16,8 @@ interface CharacterCountProps {
   isDebouncedOverLimit?: boolean;
   isOverLimit: boolean;
   visuallyHiddenHintId?: string;
+  /** Set large font-size */
+  isLarge?: boolean;
 }
 
 const CharacterCount = ({
@@ -26,6 +28,7 @@ const CharacterCount = ({
   isDebouncedOverLimit,
   isOverLimit,
   visuallyHiddenHintId,
+  isLarge,
 }: CharacterCountProps) => {
   const limitMinusValue: number = +limit - +value;
   const valueMinusLimit: number = +value - +limit;
@@ -52,6 +55,7 @@ const CharacterCount = ({
         isOverLimit={isOverLimit}
         data-element="character-count"
         data-role="character-count"
+        isLarge={isLarge}
       >
         {!isOverLimit
           ? l.characterCount.charactersLeft(

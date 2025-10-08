@@ -1,3 +1,52 @@
+## [157.5.3](https://github.com/Sage/carbon/compare/v157.5.2...v157.5.3) (2025-10-08)
+
+### Bug Fixes
+
+* **link:** enable focus on Safari ([4745c82](https://github.com/Sage/carbon/commit/4745c829b603b6fe696fa2474677ec8e550e6c69))
+
+## [157.5.2](https://github.com/Sage/carbon/compare/v157.5.1...v157.5.2) (2025-10-07)
+
+### Bug Fixes
+
+* **flat-table:** ensure focus is only applied when using keyboard navigation ([615ce9b](https://github.com/Sage/carbon/commit/615ce9b23e0cc5bcd8d14657f98cd279f6f22b56)), closes [#7467](https://github.com/Sage/carbon/issues/7467)
+
+## [157.5.1](https://github.com/Sage/carbon/compare/v157.5.0...v157.5.1) (2025-10-06)
+
+### Bug Fixes
+
+* **multi-action-button:** prevent popup closing too early ([ec7ee65](https://github.com/Sage/carbon/commit/ec7ee65186d8b0efd63f2c58d94b22b945640e28)), closes [#7531](https://github.com/Sage/carbon/issues/7531)
+
+## [157.5.0](https://github.com/Sage/carbon/compare/v157.4.0...v157.5.0) (2025-10-06)
+
+### Features
+
+* add relative position to form field wrapper ([27a618a](https://github.com/Sage/carbon/commit/27a618aa2b41a82ed19dc1b36e5d8f6335c143cb))
+
+## [157.4.0](https://github.com/Sage/carbon/compare/v157.3.5...v157.4.0) (2025-10-01)
+
+### Features
+
+* **divider:** divider audit changes ([c437f3a](https://github.com/Sage/carbon/commit/c437f3af7d3efe6d4d663a730f43559ca5aaaeca))
+
+## [157.3.5](https://github.com/Sage/carbon/compare/v157.3.4...v157.3.5) (2025-09-30)
+
+### Bug Fixes
+
+* **popover-container:** ensure onClose is only called when container is an open state ([193b5d9](https://github.com/Sage/carbon/commit/193b5d9b722536ba5edc7ef5dab8450f089daf10)), closes [#7549](https://github.com/Sage/carbon/issues/7549)
+
+## [157.3.4](https://github.com/Sage/carbon/compare/v157.3.3...v157.3.4) (2025-09-30)
+
+### Bug Fixes
+
+* **dialog:** background color not defaulting to white ([f4d861f](https://github.com/Sage/carbon/commit/f4d861fa9267ea123386fb0a8437b93f7f6f17c6))
+* **sidebar:** background color not defaulting to white ([e78d388](https://github.com/Sage/carbon/commit/e78d388af9c55a79cf20752cbdb60b82eaccf0cb))
+
+## [157.3.3](https://github.com/Sage/carbon/compare/v157.3.2...v157.3.3) (2025-09-26)
+
+### Bug Fixes
+
+* **pill:** ensure long words do not overflow ([c4148bc](https://github.com/Sage/carbon/commit/c4148bc9e9824d0bdac6e7f67603dd452d1a1191)), closes [#7530](https://github.com/Sage/carbon/issues/7530)
+
 ## [157.3.2](https://github.com/Sage/carbon/compare/v157.3.1...v157.3.2) (2025-09-24)
 
 ### Bug Fixes

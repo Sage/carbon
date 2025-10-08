@@ -272,4 +272,17 @@ describe("when `applyNewValidation` is provided", () => {
     expect(legend).toHaveStyleRule("color", "var(--colorsUtilityYin030)");
     expect(hint).toHaveStyleRule("color", "var(--colorsUtilityYin030)");
   });
+
+  // coverage
+  test("renders with expected styles when `size` is large", () => {
+    render(
+      <Fieldset applyNewValidation size="large" legend="Legend">
+        <input title="Test" placeholder="Placeholder" />
+      </Fieldset>,
+    );
+
+    const legend = screen.getByTestId("legend");
+
+    expect(legend).toHaveStyleRule("font-size", "var(--fontSizes200)");
+  });
 });

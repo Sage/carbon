@@ -1,0 +1,98 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+
+import * as DividerStories from "./divider.stories";
+
+<Meta of={DividerStories} />
+
+# Divider
+
+Provides a vertical or horizontal dividing line to make the adjacent components feel distinctly separate from one another. 
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+To use component, import the `Divider` and align it with the other components.
+
+```javascript
+import Divider from "carbon-react/lib/components/divider";
+```
+
+## Examples
+
+### Default
+The `Divider` component defaults to the `vertical` type, which spans the full height (`100%`) and includes `24px` of padding. When set to `horizontal`, it spans the full width (`100%`) and applies `24px` margins to the top and bottom.
+
+<Canvas of={DividerStories.Default} />
+
+### In a flex container
+
+It is possible to set a custom height for `vertical` type of the component by passing a value to the `h` prop as either a number or a string:
+if passing a number the height will be set in pixels; if passing a string you will need to ensure you provide the measurement unit.
+
+<Canvas of={DividerStories.InAFlexContainer} />
+
+### In a non-flex container
+
+When using the component in a non-flex container you can set the `displayInline` prop to true (default is false). This will
+add the css attribute `display: inline;` to the component.
+
+<Canvas of={DividerStories.InANonFlexContainer} />
+
+### With custom spacing and height
+
+The `p` prop allows for the spacing on all sides to be customised. The `pt` and `pb` props set the vertical spacing and
+the `pr` and `pr` props set the horizontal spacing. These props can be number mulitipliers of the base
+theme spacing which is `8px`, or any valid CSS string. The default for the `p` prop is `3` and therefore `24px`.
+
+<Canvas of={DividerStories.WithCustomSpacingHeight} />
+
+### With different vertical spacing
+
+The `mb` and `mt` props set the vertical spacing. These props are multipliers and are therefore multiplied by the base theme spacing which is `8px`. The default for both is `3` and therefore `24px`.
+
+<Canvas of={DividerStories.DifferentSpacing} />
+
+### In a Dialog
+
+<Canvas of={DividerStories.InADialog} />
+
+### In a Tile
+
+<Canvas of={DividerStories.InATile} />
+
+### In a grid container
+
+This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation.
+
+<Canvas of={DividerStories.InGridContainer} />
+
+### In a table
+
+<Canvas of={DividerStories.InATable} />
+
+### In a Menu
+
+<Canvas of={DividerStories.InAMenu} />
+
+### Inside a form
+
+<Canvas of={DividerStories.InsideForm} />
+
+### Inside a form with inline labels
+
+<Canvas of={DividerStories.InsideFormInlineLabels} />
+
+### Enabling the adaptive behaviour
+
+The left and right margins can be set to 0 below a screen width breakpoint. This can be switched on with the `adaptiveMxBreakpoint` prop by passing in a number corresponding to a px value screen width.
+
+<Canvas of={DividerStories.EnablingAdaptiveBehaviour} />
+
+## Props
+
+<ArgTypes of={DividerStories} />

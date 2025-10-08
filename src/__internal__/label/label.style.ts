@@ -7,6 +7,8 @@ export interface StyledLabelProps {
   isRequired?: boolean;
   /** Flag to determine whether to use colours for dark backgrounds */
   isDarkBackground?: boolean;
+  /** Set large font-size */
+  isLarge?: boolean;
 }
 
 const StyledLabel = styled.label<StyledLabelProps>`
@@ -17,6 +19,11 @@ const StyledLabel = styled.label<StyledLabelProps>`
   `}
   display: block;
   font-weight: var(--fontWeights500);
+  ${({ isLarge }) =>
+    isLarge &&
+    css`
+      font-size: var(--fontSizes200);
+    `}
 
   ${({ isRequired }) =>
     isRequired &&

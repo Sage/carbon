@@ -206,3 +206,13 @@ test("renders with normal styles when `isDarkBackground` is false", () => {
     color: "var(--colorsUtilityYin090)",
   });
 });
+
+// coverage
+test("renders with expected styles when `isLarge` is true", () => {
+  render(<Label isLarge>foo</Label>);
+
+  expect(screen.getByText("foo")).toHaveStyleRule(
+    "font-size",
+    "var(--fontSizes200)",
+  );
+});
