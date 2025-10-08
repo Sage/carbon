@@ -38,6 +38,16 @@ export const StyledTabList = styled.div<TabListProps>`
     flex-direction: ${orientation === "vertical" ? "column" : "row"};
     ${orientation === "horizontal" ? "margin-bottom" : "margin-right"}: 8px;
   `}
+  width: 100%;
+  height: fit-content;
+  white-space: nowrap;
+  overflow: scroll hidden;
+  padding: 6px;
+`;
+
+export const StyledTabListWrapper = styled.div`
+  display: flex;
+  z-index: 6;
 `;
 
 export const Spacer = styled.div`
@@ -45,6 +55,29 @@ export const Spacer = styled.div`
   background: #8b8b8bff;
   flex-grow: 1;
   height: 2px;
+`;
+
+export const StyledScrollButton = styled.button<{
+  position: "left" | "right";
+  size: "medium" | "large";
+}>`
+  height: ${({ size }) => (size === "medium" ? "40px" : "48px")};
+  width: ${({ size }) => (size === "medium" ? "40px" : "48px")};
+  border-radius: 0;
+  border-color: #8b8b8bff;
+  background: white;
+  border: none;
+  border-bottom: 4px solid #8b8b8bff;
+  top: 6px;
+  position: relative;
+  ${({ position }) =>
+    position === "left"
+      ? css`
+          border-right: 2px solid #8b8b8bff;
+        `
+      : css`
+          border-left: 2px solid #8b8b8bff;
+        `}
 `;
 
 interface StyledTabProps
@@ -82,7 +115,6 @@ export const StyledTab = styled.button<StyledTabProps>`
   ${({ size = "medium" }) => css`
     font-size: ${sizes[size].fontSize}px;
     height: ${sizes[size].height}px;
-    min-width: ${sizes[size].width}px;
     padding: ${sizes[size].paddingY}px ${sizes[size].paddingX}px;
   `};
 
