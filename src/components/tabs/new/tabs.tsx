@@ -1,10 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import Typography from "../../typography";
 import { TabsProvider, useTabs } from "./tabs.context";
 import { TabListProps, TabPanelProps, TabProps, TabsProps } from "./tabs.types";
-import { Spacer, StyledTab, StyledTabList, StyledTabs } from "./tabs.style";
+import {
+  Spacer,
+  StyledScrollButton,
+  StyledTab,
+  StyledTabList,
+  StyledTabListWrapper,
+  StyledTabs,
+} from "./tabs.style";
 import Logger from "../../../__internal__/utils/logger";
+import useResizeObserver from "../../../hooks/__internal__/useResizeObserver";
+import Icon from "../../icon";
 
 export const TabPanel = ({
   children,
@@ -88,6 +97,7 @@ export const TabList = ({ ariaLabel, children }: TabListProps) => {
     selectedTabId,
     setFocusIndex,
     setActiveTab,
+    size = "medium",
   } = useTabs();
 
   const countTabChildren = () => {
@@ -140,26 +150,88 @@ export const TabList = ({ ariaLabel, children }: TabListProps) => {
       setActiveTab(index);
       setFocusIndex(index);
     }
+  });
+
+  const [leftVisible, setLeftVisible] = useState<boolean>(false);
+  const [rightVisible, setRightVisible] = useState<boolean>(false);
+
+  const updateUI = useCallback(() => {
+    if (tabListRef.current) {
+      const maxScrollValue =
+        tabListRef.current.scrollWidth - tabListRef.current.clientWidth - 20;
+      setLeftVisible(tabListRef.current.scrollLeft >= 20);
+      setRightVisible(tabListRef.current.scrollLeft <= maxScrollValue);
+    }
   }, []);
+
+  useResizeObserver(tabListRef, () => {
+    updateUI();
+  });
+
+  useEffect(() => {
+    if (tabListRef.current) {
+      updateUI();
+    }
+  }, [updateUI]);
+
+  const onClickHandler = (direction: "left" | "right") => {
+    if (tabListRef.current) {
+      if (direction === "left") tabListRef.current.scrollLeft -= 200;
+      else tabListRef.current.scrollLeft += 200;
+
+      updateUI();
+    }
+  };
 
   return (
     <>
       <Typography id={"tablist-aria-label"} screenReaderOnly>
         {ariaLabel}
       </Typography>
-      <StyledTabList
-        ariaLabel={ariaLabel}
-        aria-labelledby={"tablist-aria-label"}
-        id="tablist"
-        onKeyDown={handleKeyDown}
-        orientation={orientation}
-        ref={tabListRef}
-        role="tablist"
-        tabIndex={-1}
-      >
-        {children}
-        <Spacer />
-      </StyledTabList>
+      <StyledTabListWrapper>
+        {orientation === "horizontal" && leftVisible ? (
+          <StyledScrollButton
+            data-role="tab-navigation-button-left"
+            id="tab-navigation-button-left"
+            onClick={() => onClickHandler("left")}
+            position="left"
+            size={size}
+            tabIndex={-1}
+            title="Scroll Tabs Left"
+            type="button"
+          >
+            <Icon type="chevron_left" />
+          </StyledScrollButton>
+        ) : null}
+        <StyledTabList
+          ariaLabel={ariaLabel}
+          aria-labelledby={"tablist-aria-label"}
+          id="tablist"
+          onKeyDown={handleKeyDown}
+          orientation={orientation}
+          ref={tabListRef}
+          role="tablist"
+          size={size}
+          tabIndex={-1}
+        >
+          {children}
+          <Spacer />
+        </StyledTabList>
+        {orientation === "horizontal" && rightVisible ? (
+          <StyledScrollButton
+            data-role="tab-navigation-button-right"
+            id="tab-navigation-button-right"
+            onClick={() => onClickHandler("right")}
+            position="right"
+            size={size}
+            tabIndex={-1}
+            title="Scroll Tabs Right"
+            type="button"
+          >
+            <Icon type="chevron_right" />
+          </StyledScrollButton>
+        ) : null}
+      </StyledTabListWrapper>
     </>
   );
 };
