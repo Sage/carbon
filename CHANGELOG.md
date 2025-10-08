@@ -1,3 +1,9 @@
+## [157.5.3](https://github.com/Sage/carbon/compare/v157.5.2...v157.5.3) (2025-10-08)
+
+### Bug Fixes
+
+* **link:** enable focus on Safari ([4745c82](https://github.com/Sage/carbon/commit/4745c829b603b6fe696fa2474677ec8e550e6c69))
+
 ## [157.5.2](https://github.com/Sage/carbon/compare/v157.5.1...v157.5.2) (2025-10-07)
 
 ### Bug Fixes
