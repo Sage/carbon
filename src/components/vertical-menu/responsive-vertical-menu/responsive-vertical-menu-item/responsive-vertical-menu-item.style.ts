@@ -44,10 +44,9 @@ const commonAttributes = css`
   font-weight: 500;
   justify-content: space-between;
   min-height: var(--sizing500);
-  padding: 0 var(--spacing200);
+  padding: var(--spacing100) var(--spacing200);
   width: 100%;
 
-  ${margin}
   ${padding}
 
   &:hover {
@@ -137,10 +136,8 @@ export const StyledNestedMenu = styled.ul<{
 
 export const StyledResponsiveMenuListItem = styled.li`
   list-style: none;
-  margin: 0;
+  ${margin}
   padding: 0;
-  width: 100%;
-  max-width: 340px;
 `;
 
 export const StyledResponsiveMenuItem = styled.button<StyledResponsiveMenuItemProps>`
@@ -181,7 +178,7 @@ export const StyledResponsiveMenuAction = styled.a<{
   responsive?: boolean;
 }>`
   ${commonAttributes}
-  height: 40px;
+  min-height: 40px;
   text-decoration: none;
 
   ${({ depth, responsive }) =>

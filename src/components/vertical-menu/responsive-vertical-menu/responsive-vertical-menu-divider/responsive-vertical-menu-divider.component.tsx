@@ -21,8 +21,9 @@ export const ResponsiveVerticalMenuDivider = (props: MarginProps) => {
       depth={depth}
       responsive={responsiveMode}
       aria-hidden="true"
+      {...filterStyledSystemMarginProps(props)}
     >
-      <StyledHr {...filterStyledSystemMarginProps(props)} />
+      <StyledHr />
     </StyledResponsiveVerticalMenuDivider>
   );
 };
