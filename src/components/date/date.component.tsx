@@ -27,7 +27,7 @@ import {
 } from "../../style/utils";
 import getFormatData from "./__internal__/date-formats";
 import StyledDateInput from "./date.style";
-import Textbox, { TextboxProps } from "../textbox";
+import TextInput, { TextInputProps } from "../text-input";
 import DatePicker, { PickerProps } from "./__internal__/date-picker";
 import DateRangeContext, {
   InputName,
@@ -58,7 +58,7 @@ export interface DateChangeEvent {
 
 export interface DateInputProps
   extends Omit<
-    TextboxProps,
+    TextInputProps,
     | "value"
     | "formattedValue"
     | "rawValue"
@@ -483,7 +483,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
           "data-role": dataRole,
         })}
       >
-        <Textbox
+        <TextInput
           {...filterOutStyledSystemSpacingProps(rest)}
           data-component="date-input"
           value={computedValue()}

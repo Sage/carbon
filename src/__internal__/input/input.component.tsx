@@ -64,6 +64,8 @@ export interface InputProps extends CommonInputProps {
   rows?: number;
   /** HTML type attribute of the input */
   type?: string;
+  /** Set large font-size */
+  isLarge?: boolean;
 }
 
 function selectTextOnFocus(
@@ -112,6 +114,7 @@ const Input = React.forwardRef<
       validationIconId,
       inputBorderRadius = "borderRadius050",
       enterKeyHint,
+      isLarge,
       ...rest
     }: InputProps,
     ref,
@@ -247,6 +250,7 @@ const Input = React.forwardRef<
         onClick={disabled || readOnly ? undefined : handleClick}
         onChange={handleChange}
         inputBorderRadius={inputBorderRadius}
+        isLarge={isLarge}
       />
     );
   },

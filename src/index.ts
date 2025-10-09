@@ -405,6 +405,12 @@ export type { TextareaProps } from "./components/textarea";
 export { default as Textbox } from "./components/textbox";
 export type { CommonTextboxProps, TextboxProps } from "./components/textbox";
 
+export { default as TextInput } from "./components/text-input";
+export type {
+  CommonTextInputProps,
+  TextInputProps,
+} from "./components/text-input";
+
 export { TileSelect, TileSelectGroup } from "./components/tile-select";
 export type {
   TileSelectProps,

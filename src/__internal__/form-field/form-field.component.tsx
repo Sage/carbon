@@ -58,6 +58,14 @@ interface CommonFormFieldProps extends MarginProps, ValidationProps {
    * @private @ignore
    * Flag dedicating if latest validation design should be used */
   validationRedesignOptIn?: boolean;
+  /** @private @internal @ignore */
+  inputHint?: string;
+  /** @private @internal @ignore */
+  inputHintId?: string;
+  /** Size of an input */
+  gap?: string;
+  /** margin */
+  labelMarginBottom?: string;
 }
 
 export interface FormFieldProps extends CommonFormFieldProps, TagProps {
@@ -80,6 +88,8 @@ export interface FormFieldProps extends CommonFormFieldProps, TagProps {
   maxWidth?: string;
   /** @private @internal @ignore */
   "data-component"?: string;
+  /** Set large font-size */
+  isLarge?: boolean;
 }
 
 const FormField = ({
@@ -104,6 +114,9 @@ const FormField = ({
   labelSpacing = 2,
   labelWidth,
   labelAs,
+  inputHint,
+  inputHintId,
+  gap,
   id,
   reverse,
   useValidationIcon,
@@ -111,6 +124,8 @@ const FormField = ({
   isRequired,
   validationIconId,
   validationRedesignOptIn,
+  labelMarginBottom,
+  isLarge,
   ...rest
 }: FormFieldProps) => {
   const invalidValidationProp: string | undefined = useMemo(() => {
@@ -179,15 +194,19 @@ const FormField = ({
   return (
     <FormFieldStyle {...tagComponent(dataComponent, rest)} {...marginProps}>
       <FieldLineStyle
+        gap={gap}
         data-role="field-line"
         inline={inlineLabel}
         maxWidth={maxWidth}
       >
         {reverse && children}
 
-        {label && (
+        {(label || inputHint || (labelHelp && validationRedesignOptIn)) && (
           <Label
             labelId={labelId}
+            inputHint={inputHint}
+            inputHintId={inputHintId}
+            labelHelp={labelHelp}
             align={labelAlign}
             disabled={disabled}
             error={!validationRedesignOptIn && error}
@@ -199,12 +218,14 @@ const FormField = ({
             helpIcon={labelHelpIcon}
             inline={inlineLabel}
             width={labelWidth}
+            marginBttom={labelMarginBottom}
             useValidationIcon={useValidationIcon}
             pr={!reverse ? labelSpacing : undefined}
             pl={reverse ? labelSpacing : undefined}
             isRequired={isRequired}
             validationIconId={validationIconId}
             as={labelAs}
+            isLarge={isLarge}
           >
             {label}
           </Label>
