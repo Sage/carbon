@@ -68,15 +68,17 @@ export const FocusManagement: Story = {
     const closeButton = within(dialog).getByRole("button", { name: /close/i });
     const firstInput = within(dialog).getByLabelText(/name/i);
 
-    (closeButton as HTMLElement).focus();
-    await expect(closeButton).toHaveFocus();
+    await expect(dialog).toBeVisible();
 
     await userEvent.tab();
+    await userEvent.tab();
+
     await expect(firstInput).toHaveFocus();
 
     await userEvent.tab();
     await userEvent.tab();
     await userEvent.tab();
+
     await expect(closeButton).toHaveFocus();
   },
 };
