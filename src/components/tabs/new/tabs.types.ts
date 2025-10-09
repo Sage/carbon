@@ -2,12 +2,19 @@ import React, { Dispatch, SetStateAction } from "react";
 
 export interface TabsContextProps {
   activeTab: number;
+  currentTabId?: string;
   focusIndex: number;
+  isInTab?: boolean;
   labelledBy?: string;
   orientation?: "horizontal" | "vertical";
   selectedTabId?: string;
   setActiveTab: Dispatch<SetStateAction<number>>;
   setFocusIndex: Dispatch<SetStateAction<number>>;
+  setCurrentTabId: Dispatch<SetStateAction<string>>;
+  setTabErrors: (childId: string, error: string | boolean) => void;
+  setTabWarnings: (childId: string, warning: string | boolean) => void;
+  tabErrors: Record<string, string | boolean>;
+  tabWarnings: Record<string, string | boolean>;
   size?: "medium" | "large";
 }
 

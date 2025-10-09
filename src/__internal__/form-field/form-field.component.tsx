@@ -14,12 +14,11 @@ import FormFieldStyle, { FieldLineStyle } from "./form-field.style";
 import Label, { LabelProps } from "../label";
 import FieldHelp from "../field-help";
 import tagComponent, { TagProps } from "../utils/helpers/tags/tags";
-import TabContext, {
-  TabContextProps,
-} from "../../components/tabs/tab/__internal__/tab.context";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
 import { IconType } from "../../components/icon";
 import { filterStyledSystemMarginProps } from "../../style/utils";
+import { TabsContextProps } from "../../components/tabs/new/tabs.types";
+import { TabsContext } from "../../components/tabs/new/tabs.context";
 
 interface CommonFormFieldProps extends MarginProps, ValidationProps {
   /** If true, the component will be disabled */
@@ -139,8 +138,8 @@ const FormField = ({
     inlineLabel = largeScreen;
   }
 
-  const { setError, setWarning, setInfo } =
-    useContext<TabContextProps>(TabContext);
+  const { setTabErrors, setTabWarnings } =
+    useContext<TabsContextProps>(TabsContext);
   const marginProps = filterStyledSystemMarginProps(rest);
   const isMounted = useRef(false);
 
@@ -153,18 +152,16 @@ const FormField = ({
   }, []);
 
   useEffect(() => {
-    if (setError) setError(id, error);
-    if (setWarning) setWarning(id, warning);
-    if (setInfo) setInfo(id, info);
+    if (setTabErrors) setTabErrors(id, error || false);
+    if (setTabWarnings) setTabWarnings(id, warning || false);
 
     return () => {
       if (!isMounted.current) {
-        if (setError && error) setError(id, false);
-        if (setWarning && warning) setWarning(id, false);
-        if (setInfo && info) setInfo(id, false);
+        if (setTabErrors && error) setTabErrors(id, false);
+        if (setTabWarnings && warning) setTabWarnings(id, false);
       }
     };
-  }, [id, setError, setWarning, setInfo, error, warning, info]);
+  }, [id, setTabErrors, setTabWarnings, error, warning, info]);
 
   const fieldHelp = fieldHelpContent ? (
     <FieldHelp

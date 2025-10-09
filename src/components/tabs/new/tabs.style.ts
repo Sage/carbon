@@ -83,6 +83,8 @@ export const StyledScrollButton = styled.button<{
 interface StyledTabProps
   extends Omit<TabProps, "controls" | "index" | "label"> {
   activeTab: boolean;
+  error?: string | boolean;
+  warning?: string | boolean;
 }
 
 export const StyledTab = styled.button<StyledTabProps>`
@@ -118,7 +120,7 @@ export const StyledTab = styled.button<StyledTabProps>`
     padding: ${sizes[size].paddingY}px ${sizes[size].paddingX}px;
   `};
 
-  ${({ activeTab, orientation, size = "medium" }) =>
+  ${({ activeTab, error, orientation, size = "medium", warning }) =>
     activeTab &&
     orientation === "horizontal" &&
     css`
@@ -140,13 +142,17 @@ export const StyledTab = styled.button<StyledTabProps>`
         left: 20%;
         width: 60%;
         height: 4px;
-        background-color: black;
+        background-color: ${() => {
+          if (error) return "#db004e";
+          if (warning) return "#d64309";
+          return "black";
+        }};
         border-radius: 2px;
         min-width: 24px;
       }
     `};
 
-  ${({ activeTab, orientation, size = "medium" }) =>
+  ${({ activeTab, error, orientation, size = "medium", warning }) =>
     orientation === "vertical"
       ? css`
           border: none;
@@ -179,7 +185,11 @@ export const StyledTab = styled.button<StyledTabProps>`
                 top: 20%;
                 height: 60%;
                 width: 4px;
-                background-color: black;
+                background-color: ${() => {
+                  if (error) return "#db004e";
+                  if (warning) return "#d64309";
+                  return "black";
+                }};
                 border-radius: 2px;
                 min-height: 24px;
               }

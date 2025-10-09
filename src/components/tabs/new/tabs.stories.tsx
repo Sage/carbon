@@ -8,6 +8,8 @@ import Icon from "../../icon";
 import Pill from "../../pill";
 import Typography from "../../typography";
 import { action } from "@storybook/addon-actions";
+import Form from "../../form";
+import Textbox from "../../textbox";
 
 const meta: Meta<typeof Tabs> = {
   title: "Tabs/New",
@@ -152,6 +154,62 @@ export const DefaultStory: Story = ({ ...args }) => {
 };
 DefaultStory.storyName = "Default";
 DefaultStory.args = {
+  orientation: "horizontal",
+  size: "medium",
+};
+
+export const WithErrorAndWarning: Story = ({ ...args }) => {
+  return (
+    <Box backgroundColor="#ddd" p={3}>
+      <Tabs {...args}>
+        <TabList ariaLabel="Sample Tabs">
+          <Tab id="tab-1" controls="tab-panel-1" index={0} label="Error" />
+          <Tab id="tab-2" controls="tab-panel-2" index={1} label="Warning" />
+          <Tab id="tab-3" controls="tab-panel-3" index={2} label="Default" />
+        </TabList>
+        <TabPanel id="tab-panel-1" labelledBy="tab-1" index={0}>
+          <Form
+            onSubmit={() => {}}
+            saveButton={
+              <Button buttonType="primary" type="submit">
+                Save
+              </Button>
+            }
+          >
+            <Textbox label="Textbox" onChange={() => {}} value="" error />
+          </Form>
+        </TabPanel>
+
+        <TabPanel id="tab-panel-2" labelledBy="tab-2" index={1}>
+          <Form
+            onSubmit={() => {}}
+            saveButton={
+              <Button buttonType="primary" type="submit">
+                Save
+              </Button>
+            }
+          >
+            <Textbox label="Textbox" onChange={() => {}} value="" warning />
+          </Form>
+        </TabPanel>
+        <TabPanel id="tab-panel-3" labelledBy="tab-3" index={2}>
+          <Form
+            onSubmit={() => {}}
+            saveButton={
+              <Button buttonType="primary" type="submit">
+                Save
+              </Button>
+            }
+          >
+            <Textbox label="Textbox" onChange={() => {}} value="" />
+          </Form>
+        </TabPanel>
+      </Tabs>
+    </Box>
+  );
+};
+WithErrorAndWarning.storyName = "With Error And Warning";
+WithErrorAndWarning.args = {
   orientation: "horizontal",
   size: "medium",
 };
