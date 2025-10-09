@@ -207,10 +207,6 @@ const ToolbarDropdown = ({
         tabIndex={isFirstButton ? 0 : -1}
         data-role={`${namespace}-typography-dropdown`}
         id={`${namespace}-typography-dropdown`}
-        onMouseDown={
-          /* istanbul ignore next */ (e: React.MouseEvent<HTMLButtonElement>) =>
-            e.preventDefault()
-        }
         size={size}
       >
         {selectedOption}{" "}

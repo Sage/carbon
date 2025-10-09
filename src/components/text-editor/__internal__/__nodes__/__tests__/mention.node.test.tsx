@@ -13,7 +13,7 @@ import {
   MentionNode,
   $createMentionNode,
   $isMentionNode,
-  convertMentionElement,
+  $convertMentionElement,
   SerializedMentionNode,
 } from "../mention.node";
 import TestEditor from "../../../__tests__/utils/TestEditor";
@@ -189,14 +189,14 @@ describe("MentionNode", () => {
     });
   });
 
-  describe("convertMentionElement function", () => {
+  describe("$convertMentionElement function", () => {
     test("should convert DOM element with mention data attribute", () => {
       const domElement = document.createElement("span");
       domElement.textContent = "John Doe";
       domElement.setAttribute("data-lexical-mention-name", "john_doe");
 
       editor?.update(() => {
-        const result = convertMentionElement(domElement);
+        const result = $convertMentionElement(domElement);
 
         expect(result).not.toBeNull();
         expect(result?.node).toBeInstanceOf(MentionNode);
@@ -212,7 +212,7 @@ describe("MentionNode", () => {
       domElement.textContent = "John Doe";
 
       editor?.update(() => {
-        const result = convertMentionElement(domElement);
+        const result = $convertMentionElement(domElement);
 
         expect(result).not.toBeNull();
         expect(result?.node).toBeInstanceOf(MentionNode);
@@ -228,7 +228,7 @@ describe("MentionNode", () => {
       domElement.textContent = null;
 
       editor?.update(() => {
-        const result = convertMentionElement(domElement);
+        const result = $convertMentionElement(domElement);
 
         expect(result).toBeNull();
       });
@@ -239,7 +239,7 @@ describe("MentionNode", () => {
       domElement.textContent = "";
 
       editor?.update(() => {
-        const result = convertMentionElement(domElement);
+        const result = $convertMentionElement(domElement);
 
         expect(result).toBeNull();
       });

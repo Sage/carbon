@@ -633,7 +633,7 @@ describe("Customisation", () => {
   });
 
   it("shows dividers between button groups, except after the last group", () => {
-    const { container } = render(
+    render(
       <LexicalComposer
         initialConfig={{
           nodes: [],
@@ -666,13 +666,12 @@ describe("Customisation", () => {
 
     // Because the separator is hidden via aria-hidden we need to use the container
     // to find it instead of screen.getByRole
-    // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-    const dividers = container.querySelectorAll("[role='separator']");
+    const dividers = screen.queryAllByRole("separator", { hidden: true });
     expect(dividers.length).toEqual(3);
   });
 
   it("only shows a single divider when there are two adjacent button groups", () => {
-    const { container } = render(
+    render(
       <LexicalComposer
         initialConfig={{
           nodes: [],
@@ -697,8 +696,7 @@ describe("Customisation", () => {
 
     // Because the separator is hidden via aria-hidden we need to use the container
     // to find it instead of screen.getByRole
-    // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-    const dividers = container.querySelectorAll("[role='separator']");
+    const dividers = screen.queryAllByRole("separator", { hidden: true });
     expect(dividers.length).toEqual(1);
   });
 

@@ -99,9 +99,9 @@ export function $isMentionNode(node?: LexicalNode | null): node is MentionNode {
   return node instanceof MentionNode;
 }
 
-export function convertMentionElement(
+export const $convertMentionElement = (
   domNode: HTMLElement,
-): DOMConversionOutput | null {
+): DOMConversionOutput | null => {
   // Get the text content and mention name from the DOM node
   const { textContent } = domNode;
   const mentionName = domNode.getAttribute("data-lexical-mention-name");
@@ -122,4 +122,4 @@ export function convertMentionElement(
   }
 
   return null;
-}
+};
