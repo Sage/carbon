@@ -42,8 +42,24 @@ export const Tab = ({
   leftSlot,
   rightSlot,
 }: TabProps) => {
-  const { activeTab, focusIndex, orientation, setActiveTab, size } = useTabs();
+  const [error, setError] = useState<boolean | string>(false);
+  const [warning, setWarning] = useState<boolean | string>(false);
+
+  const {
+    activeTab,
+    focusIndex,
+    orientation,
+    setActiveTab,
+    setCurrentTabId,
+    size,
+    tabErrors,
+    tabWarnings,
+  } = useTabs();
   const selected = activeTab === index;
+
+  useEffect(() => {
+    if (selected) setCurrentTabId(id);
+  }, [id, selected, setCurrentTabId]);
 
   if (
     (!!leftSlot || !!rightSlot) &&
@@ -61,13 +77,40 @@ export const Tab = ({
       const tabElement = document.getElementById(id);
       tabElement?.focus();
     }
-  }, [focusIndex, id, index]);
+  }, [focusIndex, id, index, setCurrentTabId]);
+
+  useEffect(() => {
+    const currentTabErrors = Object.keys(tabErrors).filter((k) =>
+      k.includes(id),
+    );
+    const tabHasErrors = currentTabErrors.length > 0;
+
+    const currentTabWarnings = Object.keys(tabWarnings).filter((k) =>
+      k.includes(id),
+    );
+    const tabHasWarnings = currentTabWarnings.length > 0;
+
+    if (tabHasErrors) {
+      setError(currentTabErrors.length === 1 ? currentTabErrors[0] : true);
+    } else {
+      setError(false);
+    }
+
+    if (tabHasWarnings) {
+      setWarning(
+        currentTabWarnings.length === 1 ? currentTabWarnings[0] : true,
+      );
+    } else {
+      setWarning(false);
+    }
+  }, [id, tabErrors, tabWarnings]);
 
   return (
     <StyledTab
       activeTab={activeTab === index}
       aria-controls={controls}
       aria-selected={selected ? "true" : "false"}
+      error={error}
       id={id}
       onClick={() => setActiveTab(index)}
       orientation={orientation}
@@ -75,6 +118,7 @@ export const Tab = ({
       size={size}
       type="button"
       tabIndex={activeTab === index || index === 0 ? 0 : -1}
+      warning={warning}
     >
       {typeof label === "string" ? (
         <span className="tab-title-content-wrapper">
