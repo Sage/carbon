@@ -1,15 +1,22 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
+import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
+
 import Badge from ".";
 import Button from "../button";
 import Box from "../box";
 import Icon from "../icon";
 
+const styledSystemProps = generateStyledSystemProps({
+  margin: true,
+});
+
 const meta: Meta<typeof Badge> = {
   title: "Badge",
   component: Badge,
   argTypes: {
+    ...styledSystemProps,
     counter: {
       control: {
         type: "text",
