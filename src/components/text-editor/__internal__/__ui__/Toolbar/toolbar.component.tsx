@@ -87,9 +87,7 @@ const Toolbar = ({
     if (toolbarControls.length === 0 || !toolbarRef.current) return;
 
     const currentButtons: HTMLButtonElement[] = Array.from(
-      toolbarRef.current?.querySelectorAll(
-        'button[role="button"].toolbar-button, button.toolbar-button',
-      ),
+      toolbarRef.current?.querySelectorAll("button.toolbar-button"),
     );
 
     /* istanbul ignore if */
