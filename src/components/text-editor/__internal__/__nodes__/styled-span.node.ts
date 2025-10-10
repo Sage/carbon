@@ -37,6 +37,10 @@ export class StyledSpanNode extends TextNode {
   __fontSize: string;
   __lineHeight: string;
 
+  /**
+   * Returns the custom type when requested
+   * @returns the custom "styled-span" typing
+   */
   static getType(): string {
     // Regardless of the text content, this node is always a StyledSpanNode
     // This is important for the editor to recognize it as a custom node
@@ -44,6 +48,10 @@ export class StyledSpanNode extends TextNode {
     return "styled-span";
   }
 
+  /**
+   * [INTERNAL] Copies the node. This method is internal to Lexical and should not be used;
+   * use $createStyledSpanNode instead.
+   */
   static clone(node: StyledSpanNode): StyledSpanNode {
     return new StyledSpanNode(
       node.__text,
@@ -54,6 +62,14 @@ export class StyledSpanNode extends TextNode {
     );
   }
 
+  /**
+   * Creates a new styled span node
+   * @param text The text of the node
+   * @param fontWeight The font weight
+   * @param fontSize The font size
+   * @param lineHeight The line height of the node
+   * @param key Lexical key
+   */
   constructor(
     text: string,
     fontWeight: string,
@@ -67,32 +83,61 @@ export class StyledSpanNode extends TextNode {
     this.__lineHeight = lineHeight;
   }
 
-  // Define getters for the typography style properties
+  /**
+   * Gets the font weight of the node
+   * @returns The font weight
+   */
   getFontWeight(): string {
     return this.__fontWeight;
   }
+
+  /**
+   * Gets the node's font size
+   * @returns The font size
+   */
   getFontSize(): string {
     return this.__fontSize;
   }
+
+  /**
+   * Gets the node's line height
+   * @returns The line height
+   */
   getLineHeight(): string {
     return this.__lineHeight;
   }
 
-  // Define setters for the typography style properties
+  /**
+   * Set the node's font weight
+   * @param weight the font's weight
+   */
   setFontWeight(weight: string) {
     const writable = this.getWritable();
     writable.__fontWeight = weight;
   }
+
+  /**
+   * Set the node's font size
+   * @param size the font's size
+   */
   setFontSize(size: string) {
     const writable = this.getWritable();
     writable.__fontSize = size;
   }
+
+  /**
+   * Set the node's font line height
+   * @param lineHeight the font's line height
+   */
   setLineHeight(lineHeight: string) {
     const writable = this.getWritable();
     writable.__lineHeight = lineHeight;
   }
 
-  // Determine the typography key based on the current styles
+  /**
+   * Determine the typography key based on the current styles
+   * @returns the variant of this styled span
+   */
   getTypographyKey(): TypographyKey {
     for (const key of Object.keys(typographyMap) as TypographyKey[]) {
       const { weight, size, lineHeight } = typographyMap[key];
@@ -107,7 +152,10 @@ export class StyledSpanNode extends TextNode {
     return "paragraph";
   }
 
-  // DOM export, used to convert the node to a DOM element for rendering
+  /**
+   * [INTERNAL] Convert the node to a DOM element for rendering
+   * @returns the exported DOM output
+   */
   exportDOM(): DOMExportOutput {
     const element = document.createElement("span");
     element.style.fontWeight = this.__fontWeight;
@@ -117,7 +165,10 @@ export class StyledSpanNode extends TextNode {
     return { element };
   }
 
-  // DOM import, used to convert a DOM element back to a StyledSpanNode
+  /**
+   * [INTERNAL] Convert a DOM element back to a StyledSpanNode
+   * @returns a StyledSpan node
+   */
   static importDOM(): DOMConversionMap | null {
     return {
       span: (domNode: HTMLElement) => ({
@@ -140,7 +191,10 @@ export class StyledSpanNode extends TextNode {
     };
   }
 
-  // JSON export, used to serialize the node for storage or transmission
+  /**
+   * [INTERNAL] Serialize the node for storage or transmission
+   * @returns JSON data of mention node
+   */
   exportJSON() {
     return {
       ...super.exportJSON(),
@@ -152,7 +206,11 @@ export class StyledSpanNode extends TextNode {
     };
   }
 
-  // JSON import, used to deserialize the node from JSON
+  /**
+   * [INTERNAL] Deserialize the node from JSON
+   * @param serializedNode the JSON representation of the mention node to import
+   * @returns the DOM representation of the node
+   */
   static importJSON(serializedNode: SerializedSpanNode): StyledSpanNode {
     return new StyledSpanNode(
       serializedNode.text,
@@ -162,7 +220,11 @@ export class StyledSpanNode extends TextNode {
     );
   }
 
-  // Create the DOM element for this node
+  /**
+   * [INTERNAL] Inserts a StyledSpan node into the editor
+   * @param config Lexical's editor config
+   * @returns the DOM element for the new node
+   */
   createDOM(_config: EditorConfig): HTMLElement {
     const dom = super.createDOM(_config);
     dom.style.fontWeight = this.__fontWeight;
@@ -171,9 +233,13 @@ export class StyledSpanNode extends TextNode {
     return dom;
   }
 
-  // Update the DOM element when the node is updated
-  // This is called when the node's properties change
-  // and ensures the DOM reflects the current state of the node
+  /**
+   * [INTERNAL] Update the DOM element when the node is updated. This is called when the node's properties change and ensures the DOM reflects the current state of the node
+   * @param prevNode Current DOM node
+   * @param dom A representation of the DOM to target
+   * @param config Lexical's editor config
+   * @returns the DOM element for the new node
+   */
   updateDOM(
     prevNode: StyledSpanNode,
     dom: HTMLElement,
@@ -204,8 +270,12 @@ export class StyledSpanNode extends TextNode {
     return updated;
   }
 
-  // Factory-style helper method to create a StyledSpanNode from a typography key.
-  // Initial text can be provided, defaulting to an empty string.
+  /**
+   * Factory-style helper method to create a StyledSpanNode from a typography key. Initial text can be provided, defaulting to an empty string.
+   * @param key Typography type to use
+   * @param text Text to set, or blank
+   * @returns StyledSpan node
+   */
   static createFromKey(key: TypographyKey, text: string = ""): StyledSpanNode {
     const { weight, size, lineHeight } = typographyMap[key];
     return new StyledSpanNode(text, weight, size, lineHeight);
@@ -215,6 +285,15 @@ export class StyledSpanNode extends TextNode {
 // Helper function to create a StyledSpanNode with default styles
 // This is useful for creating nodes with specific styles without needing to
 // manually specify the styles each time
+
+/**
+ * Create a StyledSpanNode with default styles. Removes the need to manually specify the styles each time
+ * @param text The text of the node
+ * @param weight The font weight
+ * @param size The font size
+ * @param lineHeight The line height
+ * @returns a StyledSpanNode representing the config
+ */
 export function $createStyledSpanNode(
   text: string,
   weight: string,
@@ -224,7 +303,11 @@ export function $createStyledSpanNode(
   return new StyledSpanNode(text, weight, size, lineHeight);
 }
 
-// Helper function to check if a node is a StyledSpanNode
+/**
+ * Determines whether a node is a StyledSpanNode
+ * @param node the node to check
+ * @returns true if a styled span, otherwise false
+ */
 export function $isStyledSpanNode(
   node: LexicalNode | null | undefined,
 ): node is StyledSpanNode {

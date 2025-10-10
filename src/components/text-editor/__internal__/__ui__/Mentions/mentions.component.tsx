@@ -43,17 +43,17 @@ export const MentionsPlugin = ({
   const [results, setResults] = useState<Array<Mention>>([]);
   const locale = useLocale();
 
-  const lookupService = (
-    string: string,
-    callback: (results: Array<Mention>) => void,
-  ): void => {
-    setTimeout(() => {
-      const results = searchOptions.filter((mention) =>
-        mention.name.toLowerCase().includes(string.toLowerCase()),
-      );
-      callback(results);
-    }, 500);
-  };
+  const lookupService = useCallback(
+    (string: string, callback: (results: Array<Mention>) => void): void => {
+      setTimeout(() => {
+        const results = searchOptions.filter((mention) =>
+          mention.name.toLowerCase().includes(string.toLowerCase()),
+        );
+        callback(results);
+      }, 500);
+    },
+    [searchOptions],
+  );
 
   const options = useMemo(
     () =>

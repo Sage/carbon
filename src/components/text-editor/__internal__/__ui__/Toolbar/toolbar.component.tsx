@@ -97,18 +97,22 @@ const Toolbar = ({
       (button) => button.id === document.activeElement?.id,
     );
 
-    let nextIndex;
+    let nextIndex: number;
 
     switch (event.key) {
       case "ArrowRight":
         event.preventDefault();
-        nextIndex =
-          currentIndex < currentButtons.length - 1 ? currentIndex + 1 : 0;
+        if (!typographyDropdownOpen) {
+          nextIndex =
+            currentIndex < currentButtons.length - 1 ? currentIndex + 1 : 0;
+        }
         break;
       case "ArrowLeft":
         event.preventDefault();
-        nextIndex =
-          currentIndex > 0 ? currentIndex - 1 : currentButtons.length - 1;
+        if (!typographyDropdownOpen) {
+          nextIndex =
+            currentIndex > 0 ? currentIndex - 1 : currentButtons.length - 1;
+        }
         break;
       case "Home":
         event.preventDefault();
