@@ -1,3 +1,9 @@
+## [157.6.0](https://github.com/Sage/carbon/compare/v157.5.3...v157.6.0) (2025-10-10)
+
+### Features
+
+* **tabs:** add warnings for upcoming deprecations ([5c797a6](https://github.com/Sage/carbon/commit/5c797a6a09677b83247c05aa50429946bcb5de78))
+
 ## [157.5.3](https://github.com/Sage/carbon/compare/v157.5.2...v157.5.3) (2025-10-08)
 
 ### Bug Fixes
