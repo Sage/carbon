@@ -28,7 +28,7 @@ import {
 import Icon from "../../../../icon";
 import useLocale from "../../../../../hooks/__internal__/useLocale";
 
-import "./style.css";
+import { MentionsList, TypeaheadPopover } from "./mentions.style";
 
 export const MentionsPlugin = ({
   namespace,
@@ -172,11 +172,8 @@ export const MentionsPlugin = ({
       ) =>
         anchorElementRef.current && results.length
           ? ReactDOM.createPortal(
-              <div
-                id={`${namespace}-mentions-menu`}
-                className="typeahead-popover mentions-menu"
-              >
-                <ul
+              <TypeaheadPopover id={`${namespace}-mentions-menu`}>
+                <MentionsList
                   data-role={`mention-list`}
                   id={`${namespace}-mention-list`}
                   role="listbox"
@@ -199,8 +196,8 @@ export const MentionsPlugin = ({
                       currentQueryString={queryString ?? undefined}
                     />
                   ))}
-                </ul>
-              </div>,
+                </MentionsList>
+              </TypeaheadPopover>,
               anchorElementRef.current,
             )
           : null
