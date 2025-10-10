@@ -3,12 +3,9 @@ import userEvent from "@testing-library/user-event";
 import { $getRoot, LexicalEditor, TextNode, ParagraphNode } from "lexical";
 import React from "react";
 
-import {
-  TestEditor,
-  TestEditorHelpers,
-} from "../../../../../__tests__/utils/TestEditor";
+import { TestEditor, TestEditorHelpers } from "../../../TestEditor";
 
-import { BoldButton } from "./..";
+import { BoldButton } from ".";
 
 describe("Bold button", () => {
   it("should render the bold button correctly if inactive", () => {

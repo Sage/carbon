@@ -11,9 +11,9 @@ import {
   $createStyledSpanNode,
   $isStyledSpanNode,
   SerializedSpanNode,
-} from "../styled-span.node";
-import { TypographyKey } from "../../__ui__/Toolbar/buttons/typography.component";
-import TestEditor from "../../../__tests__/utils/TestEditor";
+} from "./styled-span.node";
+import { TypographyKey } from "../__ui__/Toolbar/buttons/typography.component";
+import TestEditor from "../TestEditor";
 import { act, render } from "@testing-library/react";
 import React from "react";
 

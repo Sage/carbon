@@ -2,8 +2,8 @@ import { render, screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
 
-import ToolbarDropdown from "../dropdown.component";
-import { TestEditor } from "../../../../../../__tests__/utils/TestEditor";
+import ToolbarDropdown from "./dropdown.component";
+import { TestEditor } from "../../../../TestEditor";
 
 const options = [
   { id: "title", label: "Title", onClick: jest.fn() },

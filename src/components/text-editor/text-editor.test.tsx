@@ -8,12 +8,12 @@ import TextEditor, {
   TextEditorHandle,
   createEmpty,
   createFromHTML,
-} from "..";
+} from ".";
 
-import Logger from "../../../__internal__/utils/logger";
-import { COMPONENT_PREFIX } from "../__internal__/__utils__/constants";
+import Logger from "../../__internal__/utils/logger";
+import { COMPONENT_PREFIX } from "./__internal__/__utils__/constants";
 
-jest.mock("../../../__internal__/utils/logger");
+jest.mock("../../__internal__/utils/logger");
 
 // Reusable JSON object for testing the default state
 const initialValue = {

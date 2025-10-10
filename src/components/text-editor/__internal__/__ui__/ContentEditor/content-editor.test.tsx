@@ -1,8 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import React from "react";
 
-import ContentEditor from "../content-editor.component";
-import TestEditor from "../../../../__tests__/utils/TestEditor";
+import ContentEditor from "./content-editor.component";
+import TestEditor from "../../TestEditor";
 
 test("previews are rendered correctly if provided", () => {
   const previews = [<div key="preview-1">Preview 1</div>];

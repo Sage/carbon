@@ -9,7 +9,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
 
-import { SaveButton } from "./..";
+import { SaveButton } from ".";
 
 const mockedSerializeRespone = {
   htmlString: "<p><br></p>",
@@ -30,7 +30,7 @@ describe("Command buttons", () => {
     it("invokes the onSave callback with the serialized editor value", async () => {
       const user = userEvent.setup();
       const mockSerialize = jest.fn(() => mockedSerializeRespone);
-      jest.mock("../../../../__utils__/helpers", () => ({
+      jest.mock("../../../__utils__/helpers", () => ({
         SerializeLexical: mockSerialize,
       }));
       const onSave = jest.fn();
