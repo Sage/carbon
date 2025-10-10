@@ -10,6 +10,15 @@ body:
       value: |
         > ⚠️ **WARNING: This bug report is public**
         > Please do not include any confidential or commercially sensitive information.
+        > 
+        > **Do not share:**
+        > - Screenshots or links to internal products, dashboards, or interfaces
+        > - Links to internal tools, threads, non-public repositories or non-public websites
+        > - Customer data, API keys, tokens, or authentication credentials
+        > - Internal domain names, server addresses, or infrastructure details
+        > - Any references to non-public business logic, unreleased features or strategic information
+        > 
+        > If you are unsure about any of the following please feel free to reach out internally if possible or contact carbon@sage.com.
 
   - type: textarea
     id: description
@@ -116,6 +125,17 @@ body:
         - Other
     validations:
       required: true
+
+  - type: input
+    id: assistive-technologies
+    attributes:
+      label: Assistive technologies
+      description: |
+        If this feature request relates to accessibility or assistive technology support, please provide details about the specific assistive technologies involved.
+        
+        **Note:** Issues involving niche/third-party assistive technologies or unsupported OS/browser/assistive technology combinations may result in unintended behaviours that are not related to Carbon itself. We recommend testing with widely supported combinations where possible.
+    validations:
+      required: false
 
   - type: textarea
     id: additional-info

@@ -750,3 +750,50 @@ test("logs a deprecation warning when tooltip props are used", async () => {
 
   loggerSpy.mockRestore();
 });
+
+describe("ref forwarding", () => {
+  test("accepts ref as a ref object", () => {
+    const mockRef = { current: null };
+    render(
+      <Link href="#" ref={mockRef}>
+        bar
+      </Link>,
+    );
+    const link = screen.getByRole("link");
+    expect(mockRef.current).toBe(link);
+  });
+
+  test("accepts ref as a ref callback", () => {
+    const mockRef = jest.fn();
+    render(
+      <Link href="#" ref={mockRef}>
+        bar
+      </Link>,
+    );
+    const link = screen.getByRole("link");
+    expect(mockRef).toHaveBeenCalledWith(link);
+  });
+
+  test("sets ref to null after unmount", () => {
+    const mockRef = { current: null };
+    const { unmount } = render(
+      <Link href="#" ref={mockRef}>
+        bar
+      </Link>,
+    );
+    unmount();
+    expect(mockRef.current).toBe(null);
+  });
+
+  test("calls ref callback with null on unmount", () => {
+    const mockRef = jest.fn();
+    const { unmount } = render(
+      <Link href="#" ref={mockRef}>
+        bar
+      </Link>,
+    );
+    mockRef.mockClear();
+    unmount();
+    expect(mockRef).toHaveBeenCalledWith(null);
+  });
+});
