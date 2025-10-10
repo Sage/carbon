@@ -19,6 +19,7 @@ import React, {
   useRef,
   useState,
   forwardRef,
+  useEffect,
 } from "react";
 
 import Label from "../../__internal__/label";
@@ -137,26 +138,27 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
       [],
     );
 
-    // useEffect(() => {
-    //   const editorElement = contentEditorRef?.current;
+    // We need to handle focus and blur this way to prevent
+    useEffect(() => {
+      const editorElement = contentEditorRef?.current;
 
-    //   const handleFocus = () => {
-    //     setIsFocused(true);
-    //   };
-    //   const handleBlur = () => {
-    //     setIsFocused(false);
-    //   };
+      const handleFocus = () => {
+        setIsFocused(true);
+      };
+      const handleBlur = () => {
+        setIsFocused(false);
+      };
 
-    //   editorElement?.addEventListener("focus", handleFocus);
-    //   editorElement?.addEventListener("blur", handleBlur);
+      editorElement?.addEventListener("focus", handleFocus);
+      editorElement?.addEventListener("blur", handleBlur);
 
-    //   const cleanup = () => {
-    //     editorElement?.removeEventListener("focus", handleFocus);
-    //     editorElement?.removeEventListener("blur", handleBlur);
-    //   };
+      const cleanup = () => {
+        editorElement?.removeEventListener("focus", handleFocus);
+        editorElement?.removeEventListener("blur", handleBlur);
+      };
 
-    //   return cleanup;
-    // }, [contentEditorRef]);
+      return cleanup;
+    }, [contentEditorRef]);
 
     const initialConfig = useMemo<InitialConfigType>(() => {
       return {
@@ -236,13 +238,11 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
         onBlur={(ev) => {
           /* istanbul ignore next */
           if (!ev.currentTarget.contains(ev.relatedTarget)) {
-            setIsFocused(false);
             onBlur?.(ev);
           }
         }}
         onFocus={(ev) => {
           if (!ev.currentTarget.contains(ev.relatedTarget)) {
-            setIsFocused(true);
             onFocus?.(ev);
           }
         }}

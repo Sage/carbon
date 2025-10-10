@@ -7,6 +7,8 @@ import {
   TextNode,
   RangeSelection,
   LexicalNode,
+  $getRoot,
+  $isParagraphNode,
 } from "lexical";
 import React, { useEffect, useState } from "react";
 
@@ -161,6 +163,26 @@ const TypographySelector = ({
           // and both have the select method available
           (firstNewNode as StyledSpanNode).select(anchorOffset, focusOffset);
         }
+      } else {
+        let newNode: TextNode | StyledSpanNode;
+
+        /* istanbul ignore if */
+        if (key === "paragraph") {
+          // Use a regular TextNode for paragraphs. Doing so ensures that
+          // the mentions plugin can still function correctly
+          newNode = new TextNode("");
+        } else {
+          // Use StyledSpanNode for other typography styles.
+          newNode = StyledSpanNode.createFromKey(key, "");
+        }
+
+        const root = $getRoot();
+        const paragraph = root.getLastChild();
+        if ($isParagraphNode(paragraph)) {
+          paragraph.append(newNode);
+        } else {
+          root.append(newNode);
+        }
       }
     });
   };
@@ -178,14 +200,18 @@ const TypographySelector = ({
       <ToolbarDropdown
         size={size}
         namespace={namespace}
-        onChange={(value) => handleChange(value)}
+        onChange={(value) => {
+          handleChange(value);
+        }}
         value={selectedOption}
         isFirstButton={isFirstButton}
         options={options.map((key) => {
           return {
             id: key,
             key,
-            onClick: () => handleChange(key),
+            onClick: () => {
+              // handleChange(key);
+            },
           };
         })}
         isOpen={isOpen}
