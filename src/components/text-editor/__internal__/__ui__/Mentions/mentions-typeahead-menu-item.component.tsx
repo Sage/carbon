@@ -1,5 +1,6 @@
 import React from "react";
 import MentionTypeaheadOption from "./mention-typeahead-option.class";
+import { MentionsListItem } from "./mentions.style";
 
 // Difficult to test this for coverage purposes, will be handled by Playwright
 // when unit tests are moved over
@@ -48,7 +49,7 @@ export const MentionsTypeaheadMenuItem = ({
   const className = "item" + (isSelected ? " selected" : "");
 
   return (
-    <li
+    <MentionsListItem
       key={option.id}
       tabIndex={-1}
       className={className}
@@ -63,7 +64,7 @@ export const MentionsTypeaheadMenuItem = ({
     >
       {option.picture}
       <HighlightedText text={option.name} query={currentQueryString} />
-    </li>
+    </MentionsListItem>
   );
 };
 
