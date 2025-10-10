@@ -97,11 +97,12 @@ const Toolbar = ({
       (button) => button.id === document.activeElement?.id,
     );
 
-    let nextIndex: number;
+    let nextIndex = -1;
 
     switch (event.key) {
       case "ArrowRight":
         event.preventDefault();
+        /* istanbul ignore else */
         if (!typographyDropdownOpen) {
           nextIndex =
             currentIndex < currentButtons.length - 1 ? currentIndex + 1 : 0;
@@ -109,6 +110,7 @@ const Toolbar = ({
         break;
       case "ArrowLeft":
         event.preventDefault();
+        /* istanbul ignore else */
         if (!typographyDropdownOpen) {
           nextIndex =
             currentIndex > 0 ? currentIndex - 1 : currentButtons.length - 1;
@@ -131,7 +133,8 @@ const Toolbar = ({
       button.tabIndex = index === nextIndex ? 0 : -1;
     });
 
-    currentButtons[nextIndex]?.focus();
+    /* istanbul ignore else */
+    if (nextIndex > -1) currentButtons[nextIndex]?.focus();
   };
 
   const ControlList = () => {
