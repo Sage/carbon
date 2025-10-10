@@ -2,10 +2,8 @@ import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React, { act } from "react";
 
-import { HyperlinkButton } from "./..";
-import TestEditor, {
-  TestEditorHelpers,
-} from "../../../../../__tests__/utils/TestEditor";
+import { HyperlinkButton } from ".";
+import TestEditor, { TestEditorHelpers } from "../../../TestEditor";
 import { LexicalEditor } from "lexical";
 
 const HyperlinkDemo = ({

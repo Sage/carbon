@@ -18,14 +18,11 @@ import { ListItemNode, ListNode } from "@lexical/list";
 import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin";
 import { ClickableLinkPlugin } from "@lexical/react/LexicalClickableLinkPlugin";
 
-import {
-  AutoLinkerPlugin,
-  LinkMonitorPlugin,
-} from "../../__internal__/__plugins__/";
-import { validateUrl } from "../../__internal__/__utils__/helpers";
+import { AutoLinkerPlugin, LinkMonitorPlugin } from "./__plugins__";
+import { validateUrl } from "./__utils__/helpers";
 import { AutoLinkNode, LinkNode } from "@lexical/link";
-import { StyledSpanNode } from "../../__internal__/__nodes__/styled-span.node";
-import { MentionNode } from "../../__internal__/__nodes__/mention.node";
+import { StyledSpanNode } from "./__nodes__/styled-span.node";
+import { MentionNode } from "./__nodes__/mention.node";
 
 export type TestEditorHelpers = {
   /**  Function to set the entire content of the editor, unit-style. */

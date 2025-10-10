@@ -1,43 +1,40 @@
 import { render, screen } from "@testing-library/react";
 import React, { act } from "react";
-import {
-  TestEditor,
-  TestEditorHelpers,
-} from "../../../../../__tests__/utils/TestEditor";
+import { TestEditor, TestEditorHelpers } from "../../../TestEditor";
 
-import { UnderlineButton } from "./..";
+import { ItalicButton } from ".";
 import { $getRoot, LexicalEditor, ParagraphNode, TextNode } from "lexical";
 import userEvent from "@testing-library/user-event";
 
-describe("Underline button", () => {
-  it("should render the underline button correctly if inactive", () => {
+describe("Italic button", () => {
+  it("should render the italic button correctly if inactive", () => {
     render(
       <TestEditor>
-        <UnderlineButton isActive={false} namespace="test" />
+        <ItalicButton isActive={false} namespace="test" />
       </TestEditor>,
     );
-    const underlineButton = screen.getByRole("button");
-    expect(underlineButton).toBeInTheDocument();
-    expect(underlineButton).toHaveStyleRule("background-color", "transparent");
-    expect(underlineButton).toHaveAttribute("aria-pressed", "false");
+    const italicButton = screen.getByRole("button");
+    expect(italicButton).toBeInTheDocument();
+    expect(italicButton).toHaveStyleRule("background-color", "transparent");
+    expect(italicButton).toHaveAttribute("aria-pressed", "false");
   });
 
-  it("should render the underline button correctly if active", () => {
+  it("should render the italic button correctly if active", () => {
     render(
       <TestEditor>
-        <UnderlineButton isActive namespace="test" />
+        <ItalicButton isActive namespace="test" />
       </TestEditor>,
     );
-    const underlineButton = screen.getByRole("button");
-    expect(underlineButton).toBeInTheDocument();
-    expect(underlineButton).toHaveStyleRule(
+    const italicButton = screen.getByRole("button");
+    expect(italicButton).toBeInTheDocument();
+    expect(italicButton).toHaveStyleRule(
       "background-color",
       "var(--colorsActionMajor600)",
     );
-    expect(underlineButton).toHaveAttribute("aria-pressed", "true");
+    expect(italicButton).toHaveAttribute("aria-pressed", "true");
   });
 
-  it("applies underline formatting when UnderlineButton is clicked", async () => {
+  it("applies italic formatting when ItalicButton is clicked", async () => {
     let editorRef: LexicalEditor;
     let textEditorHelpers: TestEditorHelpers;
 
@@ -48,7 +45,7 @@ describe("Underline button", () => {
           textEditorHelpers = helpers;
         }}
       >
-        <UnderlineButton isActive={false} namespace="test" />
+        <ItalicButton isActive={false} namespace="test" />
       </TestEditor>,
     );
 
@@ -65,16 +62,16 @@ describe("Underline button", () => {
       });
     });
 
-    const underlineButton = screen.getByRole("button", { name: /underline/i });
+    const italicButton = screen.getByRole("button", { name: /italic/i });
 
-    await userEvent.click(underlineButton);
+    await userEvent.click(italicButton);
 
     act(() => {
       editorRef.getEditorState().read(() => {
         const root = $getRoot();
         const paragraph = root.getFirstChild() as ParagraphNode;
         const textNode = paragraph?.getFirstChild() as TextNode;
-        expect(textNode?.hasFormat("underline")).toBe(true);
+        expect(textNode?.hasFormat("italic")).toBe(true);
       });
     });
   });

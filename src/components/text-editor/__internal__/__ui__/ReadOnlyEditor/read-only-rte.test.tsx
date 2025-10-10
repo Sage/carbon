@@ -1,8 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import React from "react";
 
-import ReadOnlyEditor from "../read-only-rte.component";
-import { COMPONENT_PREFIX } from "../../../__utils__/constants";
+import ReadOnlyEditor from "./read-only-rte.component";
+import { COMPONENT_PREFIX } from "../../__utils__/constants";
 
 test("should render read-only editor with plain text", () => {
   render(<ReadOnlyEditor initialValue="Hello, World!" />);

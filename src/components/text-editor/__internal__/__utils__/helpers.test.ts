@@ -5,7 +5,7 @@ import {
   DeserializeHTML,
   SerializeLexical,
   validateUrl,
-} from "../helpers";
+} from "./helpers";
 import { act } from "react";
 import { $createParagraphNode, $createTextNode, $getRoot } from "lexical";
 

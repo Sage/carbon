@@ -1,11 +1,11 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import TypographySelector from "../typography.component";
+import TypographySelector from "./typography.component";
 import userEvent from "@testing-library/user-event";
 
-import { TestEditor } from "../../../../../__tests__/utils/TestEditor";
+import { TestEditor } from "../../../TestEditor";
 
-jest.mock("../../../../../../../hooks/__internal__/useLocale", () => () => ({
+jest.mock("../../../../../../hooks/__internal__/useLocale", () => () => ({
   textEditor: {
     typography: {
       selectAria: () => "Select an option",

@@ -2,10 +2,8 @@ import { act, render, screen, waitFor } from "@testing-library/react";
 import { LexicalEditor } from "lexical";
 import React from "react";
 
-import CharacterCounterPlugin from "../character-counter.component";
-import TestEditor, {
-  TestEditorHelpers,
-} from "../../../../__tests__/utils/TestEditor";
+import CharacterCounterPlugin from "./character-counter.component";
+import TestEditor, { TestEditorHelpers } from "../../TestEditor";
 
 describe("CharacterCounterPlugin", () => {
   it("correctly updates character count when editor state changes", async () => {

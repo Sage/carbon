@@ -8,9 +8,9 @@ import { render, screen, waitFor, within } from "@testing-library/react";
 import React from "react";
 
 import userEvent from "@testing-library/user-event";
-import { ToolbarPlugin } from "../..";
-import TextEditor from "../../../../text-editor.component";
-import { createFromHTML } from "../../../__utils__/helpers";
+import { ToolbarPlugin } from "..";
+import TextEditor from "../../../text-editor.component";
+import { createFromHTML } from "../../__utils__/helpers";
 
 /** This test renders the actual toolbar instead of using the mocked one to ensure
  * that the toolbar renders correctly with the default buttons.

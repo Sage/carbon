@@ -1,8 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import React from "react";
-import { checkForAtSignMentions, getPossibleQueryMatch } from "../helpers";
-import MentionsTypeaheadMenuItem from "../mentions-typeahead-menu-item.component";
-import MentionTypeaheadOption from "../mention-typeahead-option.class";
+import { checkForAtSignMentions, getPossibleQueryMatch } from "./helpers";
+import MentionsTypeaheadMenuItem from "./mentions-typeahead-menu-item.component";
+import MentionTypeaheadOption from "./mention-typeahead-option.class";
 
 describe("checkForAtSignMentions", () => {
   it("returns null for plain text", () => {

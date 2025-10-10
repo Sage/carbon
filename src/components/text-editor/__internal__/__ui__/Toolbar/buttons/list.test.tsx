@@ -2,12 +2,9 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React, { act } from "react";
 
-import {
-  TestEditor,
-  TestEditorHelpers,
-} from "../../../../../__tests__/utils/TestEditor";
+import { TestEditor, TestEditorHelpers } from "../../../TestEditor";
 
-import { ListControls } from "./..";
+import { ListControls } from ".";
 import { $getRoot, LexicalEditor, ParagraphNode, TextNode } from "lexical";
 import { ListItemNode, ListNode } from "@lexical/list";
 
