@@ -35,23 +35,38 @@ export class MentionNode extends TextNode {
   // The mention name is the text that will be displayed in the editor
   __mention: string;
 
-  // Returns the custom type when requested
+  /**
+   * Returns the custom type when requested
+   * @returns the custom "mention" typing
+   */
   static getType(): string {
     return "mention";
   }
 
-  // Copies the node
+  /**
+   * [INTERNAL] Copies the node. This method is internal to Lexical and should not be used;
+   * use $convertMentionElement or $createMentionNode
+   */
   static clone(node: MentionNode): MentionNode {
     return new MentionNode(node.__mention, node.__text, node.__key);
   }
 
-  // Initializes the node with the mention name and optional text/key
+  /**
+   * Initializes the node with the mention name and optional text/key
+   * @param mentionName The actual mention data
+   * @param text The displayed mention
+   * @param key Lexical key
+   */
   constructor(mentionName: string, text?: string, key?: NodeKey) {
     super(text ?? mentionName, key);
     this.__mention = mentionName;
   }
 
-  // Insert the new node into the editor
+  /**
+   * [INTERNAL] Inserts a Mention node into the editor
+   * @param config Lexical's editor config
+   * @returns the DOM element for the new node
+   */
   createDOM(config: EditorConfig): HTMLElement {
     const dom = super.createDOM(config);
     dom.style.cssText = mentionStyle;
@@ -60,7 +75,10 @@ export class MentionNode extends TextNode {
     return dom;
   }
 
-  // JSON export, used to serialize the node for storage or transmission
+  /**
+   * [INTERNAL] Serialize the node for storage or transmission
+   * @returns JSON data of mention node
+   */
   exportJSON() {
     return {
       ...super.exportJSON(),
@@ -70,12 +88,22 @@ export class MentionNode extends TextNode {
     };
   }
 
-  // JSON import, used to deserialize the node from JSON
+  /**
+   * [INTERNAL] Deserialize the node from JSON
+   * @param serializedNode the JSON representation of the mention node to import
+   * @returns the DOM representation of the node
+   */
   static importJSON(serializedNode: SerializedMentionNode): MentionNode {
     return new MentionNode(serializedNode.mention, serializedNode.text);
   }
 }
 
+/**
+ * Creates a new mention instance
+ * @param mentionName The underlying mention content e.g. `john-doe`
+ * @param textContent The text representation to display e.g. `John Doe`
+ * @returns a new MentionNode
+ */
 export function $createMentionNode(
   mentionName: string,
   textContent?: string,
@@ -95,10 +123,20 @@ export function $createMentionNode(
   return $applyNodeReplacement(mentionNode);
 }
 
+/**
+ * Determines whether a node is a MentionNode
+ * @param node the node to check
+ * @returns true if a mention, otherwise false
+ */
 export function $isMentionNode(node?: LexicalNode | null): node is MentionNode {
   return node instanceof MentionNode;
 }
 
+/**
+ * Converts a DOM node to a MentionNode
+ * @param domNode The DOM node to convert
+ * @returns a MentionNode
+ */
 export const $convertMentionElement = (
   domNode: HTMLElement,
 ): DOMConversionOutput | null => {
