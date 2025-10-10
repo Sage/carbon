@@ -37,23 +37,18 @@ export const MentionsPlugin = ({
   namespace: string;
   searchOptions: Array<Mention>;
 }) => {
-  const mentionsCache = new Map();
   const [editor] = useLexicalComposerContext();
   const [queryString, setQueryString] = useState<string | null>(null);
-  const [results, setResults] = useState<Array<Mention>>([]);
-  const locale = useLocale();
-
-  const lookupService = useCallback(
-    (string: string, callback: (results: Array<Mention>) => void): void => {
-      setTimeout(() => {
-        const results = searchOptions.filter((mention) =>
-          mention.name.toLowerCase().includes(string.toLowerCase()),
-        );
-        callback(results);
-      }, 500);
-    },
-    [searchOptions],
+  const results = useMemo(
+    () =>
+      queryString
+        ? searchOptions.filter((mention) =>
+            mention.name.toLowerCase().startsWith(queryString.toLowerCase()),
+          )
+        : [],
+    [queryString, searchOptions],
   );
+  const locale = useLocale();
 
   const options = useMemo(
     () =>
@@ -99,30 +94,6 @@ export const MentionsPlugin = ({
   const checkForMentionMatch = (text: string) => {
     return getPossibleQueryMatch(text);
   };
-
-  useEffect(() => {
-    const cachedResults = mentionsCache.get(queryString);
-
-    if (queryString == null) {
-      setResults([]);
-      return;
-    }
-
-    if (cachedResults === null) {
-      return;
-    }
-    if (cachedResults !== undefined) {
-      setResults(cachedResults);
-      return;
-    }
-
-    mentionsCache.set(queryString, null);
-    lookupService(queryString, (newResults) => {
-      mentionsCache.set(queryString, newResults);
-      setResults(newResults);
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [queryString]);
 
   // Difficult to test this for coverage purposes, will be handled by Playwright
   // when unit tests are moved over
