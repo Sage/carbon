@@ -99,10 +99,6 @@ export const StyledResponsiveMenu = styled.ul<StyledResponsiveMenuProps>`
     max-height: calc(100% - ${top === "auto" ? "40px" : top});
   `}
 
-  & > :last-child {
-    margin-bottom: 40px;
-  }
-
   ${({ childOpen }) =>
     childOpen &&
     css`

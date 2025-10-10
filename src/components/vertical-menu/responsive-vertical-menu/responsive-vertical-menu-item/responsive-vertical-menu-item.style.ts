@@ -47,7 +47,6 @@ const commonAttributes = css`
   padding: 0 var(--spacing200);
   width: 100%;
 
-  ${margin}
   ${padding}
 
   &:hover {
@@ -137,7 +136,7 @@ export const StyledNestedMenu = styled.ul<{
 
 export const StyledResponsiveMenuListItem = styled.li`
   list-style: none;
-  margin: 0;
+  ${margin}
   padding: 0;
   width: 100%;
   max-width: 340px;

@@ -7,6 +7,7 @@ interface StyledResponsiveVerticalMenuDividerProps {
 }
 
 export const StyledResponsiveVerticalMenuDivider = styled.div<StyledResponsiveVerticalMenuDividerProps>`
+  ${margin}
   width: ${({ depth, responsive }) =>
     depth > 0 && responsive ? "88%" : "100%"};
 `;
@@ -14,5 +15,4 @@ export const StyledResponsiveVerticalMenuDivider = styled.div<StyledResponsiveVe
 export const StyledHr = styled.hr<MarginProps>`
   border-color: #ffffff33;
   border-bottom: 1px;
-  ${margin}
 `;
