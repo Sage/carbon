@@ -54,6 +54,24 @@ const ContentEditor = forwardRef<HTMLDivElement, ContentEditorProps>(
           aria-invalid={error}
           className={`${namespace}-editable`}
           data-role={`${namespace}-editable`}
+          onBlur={(event) => {
+            /**
+             * Blur handler needs specific instructions to take focus
+             * back into the toolbar, otherwise it gets stuck.
+             * */
+
+            const targetInToolbar =
+              event.relatedTarget?.classList.contains("toolbar-button");
+            if (targetInToolbar) {
+              const targetId = event.relatedTarget?.id;
+              if (targetId) {
+                const targetElement = document.querySelector(
+                  `[id="${targetId}"]`,
+                );
+                if (targetElement) (targetElement as HTMLElement).focus();
+              }
+            }
+          }}
           onFocus={(event) => {
             // If the related target is not a toolbar button, focus at the end of the editor
             /* istanbul ignore next */
