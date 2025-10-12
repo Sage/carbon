@@ -298,6 +298,7 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
                 ) : (
                   <>
                     <ToolbarPlugin
+                      contentEditorRef={contentEditorRef}
                       hasHeader={Boolean(header)}
                       size={size}
                       {...toolbarProps}

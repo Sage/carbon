@@ -10,7 +10,7 @@ import {
   $getRoot,
   $isParagraphNode,
 } from "lexical";
-import React, { useEffect, useState } from "react";
+import React, { RefObject, useEffect, useState } from "react";
 
 import Box from "../../../../../box";
 
@@ -26,6 +26,8 @@ export type TypographyKey =
   | "sectionSubheader";
 
 export type TypographySelectorProps = {
+  /** Reference to the editor for the toolbar to consume */
+  contentEditorRef: RefObject<HTMLDivElement>;
   /** The namespace of the editor that this dropdown belongs to */
   namespace: string;
   /** Whether the button is the first in a group of buttons */
@@ -57,6 +59,7 @@ export function getStyledSpanFromSelection(
 }
 
 const TypographySelector = ({
+  contentEditorRef,
   namespace,
   isFirstButton = false,
   isOpen,
@@ -185,6 +188,11 @@ const TypographySelector = ({
         }
       }
     });
+
+    setTimeout(() => {
+      contentEditorRef.current?.focus();
+      editor.dispatchCommand(SELECTION_CHANGE_COMMAND, undefined);
+    }, 0);
   };
 
   const options: TypographyKey[] = [
@@ -210,7 +218,7 @@ const TypographySelector = ({
             id: key,
             key,
             onClick: () => {
-              // handleChange(key);
+              handleChange(key);
             },
           };
         })}

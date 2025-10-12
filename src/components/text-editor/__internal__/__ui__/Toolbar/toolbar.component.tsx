@@ -22,6 +22,7 @@ import { ToolbarProps } from "../../__utils__/interfaces.type";
 import { TEXT_EDITOR_ACTION_TYPES } from "../../__utils__/constants";
 
 const Toolbar = ({
+  contentEditorRef,
   namespace,
   hasHeader,
   onCancel,
@@ -162,6 +163,7 @@ const Toolbar = ({
             }
           >
             <TypographySelector
+              contentEditorRef={contentEditorRef}
               namespace={namespace}
               isFirstButton
               isOpen={typographyDropdownOpen}
