@@ -1,6 +1,13 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { mergeRegister } from "@lexical/utils";
-import { $getSelection, $isRangeSelection } from "lexical";
+import {
+  $createParagraphNode,
+  $createTextNode,
+  $getRoot,
+  $getSelection,
+  $isRangeSelection,
+  ParagraphNode,
+} from "lexical";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { StyledToolbar, CommandButtons } from "./toolbar.style";
@@ -20,6 +27,10 @@ import SaveButton from "./buttons/save.component";
 import ButtonGroup from "./button-group/button-group.component";
 import { ToolbarProps } from "../../__utils__/interfaces.type";
 import { TEXT_EDITOR_ACTION_TYPES } from "../../__utils__/constants";
+import Textbox from "../../../../textbox";
+import { $createLinkNode } from "@lexical/link";
+import Dialog from "../../../../dialog";
+import Form from "../../../../form";
 
 const Toolbar = ({
   contentEditorRef,
@@ -54,9 +65,22 @@ const Toolbar = ({
   const [typographyDropdownOpen, setTypographyDropdownOpen] = useState(false);
   const [typographyDropdownFocusedIndex, setTypographyDropdownFocusedIndex] =
     useState(-1);
+  const [linkText, setLinkText] = useState("");
+  const [linkUrl, setLinkUrl] = useState("");
 
   // Get the locale to enable translations
   const locale = useLocale();
+
+  const showTypographyFormattingSection =
+    toolbarControls.includes("typography");
+  const showTextFormattingSection =
+    toolbarControls.includes("bold") ||
+    toolbarControls.includes("italic") ||
+    toolbarControls.includes("underline");
+  const showListFormattingSection =
+    toolbarControls.includes("unordered-list") ||
+    toolbarControls.includes("ordered-list");
+  const showHyperlinkFormattingSection = toolbarControls.includes("link");
 
   // Update the toolbar based on the current selection
   const updateToolbar = useCallback(() => {
@@ -138,19 +162,57 @@ const Toolbar = ({
     if (nextIndex > -1) currentButtons[nextIndex]?.focus();
   };
 
-  const ControlList = () => {
-    const showTypographyFormattingSection =
-      toolbarControls.includes("typography");
-    const showTextFormattingSection =
-      toolbarControls.includes("bold") ||
-      toolbarControls.includes("italic") ||
-      toolbarControls.includes("underline");
-    const showListFormattingSection =
-      toolbarControls.includes("unordered-list") ||
-      toolbarControls.includes("ordered-list");
-    const showHyperlinkFormattingSection = toolbarControls.includes("link");
+  const resetDialog = () => {
+    setLinkText("");
+    setLinkUrl("");
+    setHyperlinkDialogOpen(false);
+  };
 
-    return (
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+
+    const isEditable = editor.isEditable();
+    /* istanbul ignore else */
+    if (isEditable) {
+      // Create a link node with the provided text and URL
+      editor.update(() => {
+        const root = $getRoot();
+        const numberOfChildren = root.getChildrenSize();
+        let paragraphNode: ParagraphNode | null = null;
+
+        if (numberOfChildren === 0) {
+          root.append($createParagraphNode());
+        } else {
+          paragraphNode = root.getLastChild();
+          /* istanbul ignore next */
+          if (!paragraphNode || paragraphNode.getType() !== "paragraph") {
+            root.append($createParagraphNode());
+          }
+        }
+
+        const linkNode = $createLinkNode(linkUrl, { target: "_blank" });
+        linkNode.append($createTextNode(linkText));
+        paragraphNode?.append(linkNode);
+      });
+
+      resetDialog();
+    }
+  };
+
+  if (!isEditable) return null;
+
+  return (
+    <StyledToolbar
+      role="toolbar"
+      hasHeader={hasHeader}
+      aria-label={locale.textEditor.toolbarAriaLabel()}
+      data-role={`${namespace}-toolbar`}
+      id={`${namespace}-toolbar`}
+      ref={toolbarRef}
+      size={size}
+      onKeyDown={handleToolbarKeyDown}
+      tabIndex={-1}
+    >
       <>
         {showTypographyFormattingSection && (
           <ButtonGroup
@@ -250,31 +312,12 @@ const Toolbar = ({
                 !showTextFormattingSection &&
                 !showListFormattingSection
               }
-              dialogOpen={hyperlinkDialogOpen}
               setDialogOpen={setHyperlinkDialogOpen}
               size={size}
             />
           </ButtonGroup>
         )}
       </>
-    );
-  };
-
-  if (!isEditable) return null;
-
-  return (
-    <StyledToolbar
-      role="toolbar"
-      hasHeader={hasHeader}
-      aria-label={locale.textEditor.toolbarAriaLabel()}
-      data-role={`${namespace}-toolbar`}
-      id={`${namespace}-toolbar`}
-      ref={toolbarRef}
-      size={size}
-      onKeyDown={handleToolbarKeyDown}
-      tabIndex={-1}
-    >
-      <ControlList />
 
       <CommandButtons data-role={`${namespace}-command-buttons`}>
         {onCancel && (
@@ -293,6 +336,58 @@ const Toolbar = ({
           <SaveButton namespace={namespace} onSave={onSave} size={size} />
         )}
       </CommandButtons>
+
+      <Dialog
+        open={hyperlinkDialogOpen}
+        onCancel={() => {
+          resetDialog();
+        }}
+        title={locale.textEditor.hyperlink.dialogTitle()}
+        data-role={`${namespace}-hyperlink-dialog`}
+        aria-label={locale.textEditor.hyperlink.dialogTitle()}
+        size="small"
+      >
+        <Form
+          leftSideButtons={
+            <Button
+              data-role={`${namespace}-hyperlink-cancel-button`}
+              onClick={() => {
+                resetDialog();
+              }}
+            >
+              Cancel
+            </Button>
+          }
+          saveButton={
+            <Button
+              buttonType="primary"
+              type="submit"
+              disabled={!linkText || !linkUrl}
+              data-role={`${namespace}-hyperlink-save-button`}
+            >
+              Save
+            </Button>
+          }
+          onSubmit={handleSubmit}
+        >
+          <Textbox
+            label={locale.textEditor.hyperlink.textFieldLabel()}
+            name="text"
+            required
+            data-role={`${namespace}-hyperlink-text-field`}
+            value={linkText}
+            onChange={(e) => setLinkText(e.target.value)}
+          />
+          <Textbox
+            label={locale.textEditor.hyperlink.linkFieldLabel()}
+            name="link"
+            required
+            data-role={`${namespace}-hyperlink-link-field`}
+            value={linkUrl}
+            onChange={(e) => setLinkUrl(e.target.value)}
+          />
+        </Form>
+      </Dialog>
     </StyledToolbar>
   );
 };
