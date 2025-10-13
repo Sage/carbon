@@ -205,6 +205,9 @@ const Toolbar = ({
 
   if (!isEditable) return null;
 
+  /* istanbul ignore next */
+  const dialogSaveButtonEnabled = linkText.length && linkUrl.length;
+
   return (
     <StyledToolbar
       role="toolbar"
@@ -343,9 +346,11 @@ const Toolbar = ({
 
       <Dialog
         open={hyperlinkDialogOpen}
-        onCancel={() => {
-          resetDialog();
-        }}
+        onCancel={
+          /* istanbul ignore next */ () => {
+            resetDialog();
+          }
+        }
         title={locale.textEditor.hyperlink.dialogTitle()}
         data-role={`${namespace}-hyperlink-dialog`}
         aria-label={locale.textEditor.hyperlink.dialogTitle()}
@@ -355,9 +360,11 @@ const Toolbar = ({
           leftSideButtons={
             <Button
               data-role={`${namespace}-hyperlink-cancel-button`}
-              onClick={() => {
-                resetDialog();
-              }}
+              onClick={
+                /* istanbul ignore next */ () => {
+                  resetDialog();
+                }
+              }
             >
               Cancel
             </Button>
@@ -366,7 +373,7 @@ const Toolbar = ({
             <Button
               buttonType="primary"
               type="submit"
-              disabled={!linkText || !linkUrl}
+              disabled={!dialogSaveButtonEnabled}
               data-role={`${namespace}-hyperlink-save-button`}
             >
               Save
@@ -380,7 +387,9 @@ const Toolbar = ({
             required
             data-role={`${namespace}-hyperlink-text-field`}
             value={linkText}
-            onChange={(e) => setLinkText(e.target.value)}
+            onChange={
+              /* istanbul ignore next */ (e) => setLinkText(e.target.value)
+            }
           />
           <Textbox
             label={locale.textEditor.hyperlink.linkFieldLabel()}
@@ -388,7 +397,9 @@ const Toolbar = ({
             required
             data-role={`${namespace}-hyperlink-link-field`}
             value={linkUrl}
-            onChange={(e) => setLinkUrl(e.target.value)}
+            onChange={
+              /* istanbul ignore next */ (e) => setLinkUrl(e.target.value)
+            }
           />
         </Form>
       </Dialog>

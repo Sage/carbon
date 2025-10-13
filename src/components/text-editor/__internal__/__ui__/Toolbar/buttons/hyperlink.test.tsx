@@ -191,8 +191,8 @@ describe("Hyperlink button", () => {
 
     let dialogContent = within(dialog);
 
-    const urlInput = dialogContent.getAllByRole("textbox")[0];
-    const textInput = dialogContent.getAllByRole("textbox")[1];
+    const textInput = dialogContent.getAllByRole("textbox")[0];
+    const urlInput = dialogContent.getAllByRole("textbox")[1];
 
     await user.type(urlInput, "https://carbon.sage.com");
 
@@ -218,8 +218,8 @@ describe("Hyperlink button", () => {
 
     dialogContent = within(dialog);
 
-    const newUrlInput = dialogContent.getAllByRole("textbox")[0];
-    const newTextInput = dialogContent.getAllByRole("textbox")[1];
+    const newTextInput = dialogContent.getAllByRole("textbox")[0];
+    const newUrlInput = dialogContent.getAllByRole("textbox")[1];
 
     expect(newUrlInput).toHaveValue("");
     expect(newTextInput).toHaveValue("");
@@ -241,8 +241,8 @@ describe("Hyperlink button", () => {
 
     let dialogContent = within(dialog);
 
-    const urlInput = dialogContent.getAllByRole("textbox")[0];
-    const textInput = dialogContent.getAllByRole("textbox")[1];
+    const textInput = dialogContent.getAllByRole("textbox")[0];
+    const urlInput = dialogContent.getAllByRole("textbox")[1];
 
     await user.type(urlInput, "https://carbon.sage.com");
 
@@ -264,8 +264,8 @@ describe("Hyperlink button", () => {
 
     dialogContent = within(dialog);
 
-    const newUrlInput = dialogContent.getAllByRole("textbox")[0];
-    const newTextInput = dialogContent.getAllByRole("textbox")[1];
+    const newTextInput = dialogContent.getAllByRole("textbox")[0];
+    const newUrlInput = dialogContent.getAllByRole("textbox")[1];
 
     expect(newUrlInput).toHaveValue("");
     expect(newTextInput).toHaveValue("");
@@ -296,8 +296,8 @@ describe("Hyperlink button", () => {
 
     const dialogContent = within(dialog);
 
-    const urlInput = dialogContent.getAllByRole("textbox")[0];
-    const textInput = dialogContent.getAllByRole("textbox")[1];
+    const textInput = dialogContent.getAllByRole("textbox")[0];
+    const urlInput = dialogContent.getAllByRole("textbox")[1];
 
     await user.type(urlInput, "https://carbon.sage.com");
 
@@ -338,8 +338,8 @@ describe("Hyperlink button", () => {
 
     const dialogContent = within(dialog);
 
-    const urlInput = dialogContent.getAllByRole("textbox")[0];
-    const textInput = dialogContent.getAllByRole("textbox")[1];
+    const textInput = dialogContent.getAllByRole("textbox")[0];
+    const urlInput = dialogContent.getAllByRole("textbox")[1];
 
     await user.type(urlInput, "https://carbon.sage.com");
 
