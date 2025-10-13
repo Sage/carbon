@@ -30,19 +30,30 @@ export interface TabsProps extends MarginProps, TagProps {
   selectedTabId?: string;
   /** The child elements of Tabs need to be Tab components. */
   children: React.ReactNode;
-  /** Sets the alignment of the tab titles. Possible values include. */
+  /**
+   * Sets the alignment of the tab titles. Possible values include.
+   * @deprecated In a future release, support for right-aligned tab content will be removed.
+   */
   align?: "left" | "right";
   /** A callback for when a tab is changed. You can use this to manually control
    * tab changing or to fire other events when a tab is changed.
    */
   onTabChange?: (tabId: string) => void;
-  /** The position of the tab title. */
+  /**
+   * The position of the tab title.
+   * */
   position?: "top" | "left";
   /** Sets size of the tab titles. */
   size?: "default" | "large";
-  /** Sets the divider of the tab titles header to extend the full width of the parent. */
+  /**
+   * Sets the divider of the tab titles header to extend the full width of the parent.
+   * @deprecated This prop will be deprecated in a future release
+   * */
   extendedLine?: boolean;
-  /** Adds a combination of borders to the tab titles. */
+  /**
+   * Adds a combination of borders to the tab titles.
+   * @deprecated This prop will be deprecated in a future release
+   * */
   borders?: "off" | "on" | "no left side" | "no right side" | "no sides";
   /** Adds an alternate styling variant to the tab titles. */
   variant?: "default" | "alternate";
@@ -60,11 +71,19 @@ export interface TabsProps extends MarginProps, TagProps {
       info?: boolean;
     };
   };
-  /** When this prop is set any string validation failures in the children of each Tab
+  /**
+   * When this prop is set any string validation failures in the children of each Tab
    * will be summaraised in the Tooltip next to the Tab title
+   * @deprecated This prop will be deprecated in a future release
    */
   showValidationsSummary?: boolean;
 }
+
+let deprecatedRightAlignedTabContentWarningTriggered = false;
+let deprecatedExtendedLineWarningTriggered = false;
+let deprecatedBordersWarningTriggered = false;
+let deprecatedValidationSummaryWarningTriggered = false;
+let deprecateCurrentImplementationWarningTriggered = false;
 
 const Tabs = ({
   align = "left",
@@ -82,6 +101,44 @@ const Tabs = ({
   showValidationsSummary,
   ...rest
 }: TabsProps) => {
+  if (!deprecateCurrentImplementationWarningTriggered) {
+    Logger.deprecate(
+      "The current implementation of the `Tabs` component is deprecated and will be changing in a future release.",
+    );
+    deprecateCurrentImplementationWarningTriggered = true;
+  }
+
+  if (
+    !!showValidationsSummary &&
+    !deprecatedValidationSummaryWarningTriggered
+  ) {
+    Logger.deprecate(
+      "The `showValidationsSummary` prop in the `Tabs` component is deprecated and will be removed in a future release.",
+    );
+    deprecatedValidationSummaryWarningTriggered = true;
+  }
+
+  if (align === "right" && !deprecatedRightAlignedTabContentWarningTriggered) {
+    Logger.deprecate(
+      "Support for the `right` value of `align` in the `Tabs` component is deprecated and will be removed in a future release.",
+    );
+    deprecatedRightAlignedTabContentWarningTriggered = true;
+  }
+
+  if (!extendedLine && !deprecatedExtendedLineWarningTriggered) {
+    Logger.deprecate(
+      "The `extendedLine` prop in the `Tabs` component is deprecated and will be removed in a future release.",
+    );
+    deprecatedExtendedLineWarningTriggered = true;
+  }
+
+  if (borders !== "off" && !deprecatedBordersWarningTriggered) {
+    Logger.deprecate(
+      "The `borders` prop in the `Tabs` component is deprecated and will be removed in a future release.",
+    );
+    deprecatedBordersWarningTriggered = true;
+  }
+
   if (position !== "left" && headerWidth !== undefined) {
     Logger.error(
       "Invalid usage of prop headerWidth in Tabs. The headerWidth can be used only if position is set to left",

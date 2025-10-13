@@ -9,6 +9,7 @@ import {
 
 import { space } from "../../style/themes/base/base-theme.config";
 import { mockMatchMedia } from "../mock-match-media";
+import Logger from "../../__internal__/utils/logger";
 
 const isUpper = (char: string) => char.toUpperCase() === char;
 const humpToDash = (acc: string, char: string) =>
@@ -344,7 +345,56 @@ const testStyledSystemFlexBox = (
   );
 };
 
+// Helper to assert that a deprecation warning is logged only once
+interface LoggerComponentMessageAssertionProps {
+  component: React.ReactNode;
+  message: string;
+  method?: "deprecate" | "warn" | "error";
+}
+
+/**
+ * assertLoggerComponentMessage
+ * @param component: The React component to render that triggers the deprecation warning.
+ * @param message: The expected deprecation warning message.
+ * @param method: The Logger method to spy on, either "deprecate", "warn" or "error". Defaults to "deprecate".
+ *
+ * This function renders the provided component and checks that the specified deprecation warning
+ * is logged exactly once during the initial render. It then re-renders the component and verifies
+ * that the warning is not logged again, ensuring that deprecation warnings are not repeated.
+ */
+const assertLoggerComponentMessage = ({
+  component,
+  message,
+  method = "deprecate",
+}: LoggerComponentMessageAssertionProps) => {
+  const loggerSpy = jest.spyOn(Logger, method);
+
+  const { rerender } = render(component);
+
+  // We do it this way to compensate for other logs that might be present
+  // e.g. in Password, ButtonMinor is used to render the toggle
+  // button. Using this helper in a test for Password would
+  // also capture the deprecation warning from ButtonMinor
+  // and cause issues.
+  const loggedMessages = loggerSpy.mock.calls.map((call) => call[0]);
+  expect(loggedMessages).toContain(message);
+
+  const messageInstances = loggedMessages.filter((msg) => msg === message);
+  expect(messageInstances).toHaveLength(1);
+
+  loggerSpy.mockReset();
+
+  rerender(component);
+  const loggedMessagesAfterRerender = loggerSpy.mock.calls.map(
+    (call) => call[0],
+  );
+  expect(loggedMessagesAfterRerender).not.toContain(message);
+
+  loggerSpy.mockRestore();
+};
+
 export {
+  assertLoggerComponentMessage,
   assertStyleMatch,
   toCSSCase,
   makeArrayKeys,
