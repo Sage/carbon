@@ -71,7 +71,6 @@ it("applies unordered list formatting when UnorderedList is clicked", async () =
       const paragraph = root.getFirstChild() as ParagraphNode;
       const textNode = paragraph?.getFirstChild() as TextNode;
 
-      // eslint-disable-next-line testing-library/no-node-access
       textNode?.select(0, textNode?.getTextContentSize());
     });
   });
@@ -123,7 +122,6 @@ it("applies ordered list formatting when OrderedList is clicked", async () => {
       const paragraph = root.getFirstChild() as ParagraphNode;
       const textNode = paragraph?.getFirstChild() as TextNode;
 
-      // eslint-disable-next-line testing-library/no-node-access
       textNode?.select(0, textNode?.getTextContentSize());
     });
   });
@@ -175,7 +173,6 @@ it("applies and removed unordered list formatting when UnorderedList is clicked"
       const paragraph = root.getFirstChild() as ParagraphNode;
       const textNode = paragraph?.getFirstChild() as TextNode;
 
-      // eslint-disable-next-line testing-library/no-node-access
       textNode?.select(0, textNode?.getTextContentSize());
     });
   });
@@ -242,7 +239,6 @@ it("applies and removed ordered list formatting when UnorderedList is clicked", 
       const paragraph = root.getFirstChild() as ParagraphNode;
       const textNode = paragraph?.getFirstChild() as TextNode;
 
-      // eslint-disable-next-line testing-library/no-node-access
       textNode?.select(0, textNode?.getTextContentSize());
     });
   });
@@ -309,7 +305,6 @@ it("applies and converts between list formatting types", async () => {
       const paragraph = root.getFirstChild() as ParagraphNode;
       const textNode = paragraph?.getFirstChild() as TextNode;
 
-      // eslint-disable-next-line testing-library/no-node-access
       textNode?.select(0, textNode?.getTextContentSize());
     });
   });

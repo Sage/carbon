@@ -57,7 +57,6 @@ describe("Underline button", () => {
         const paragraph = root.getFirstChild() as ParagraphNode;
         const textNode = paragraph?.getFirstChild() as TextNode;
 
-        // eslint-disable-next-line testing-library/no-node-access
         textNode?.select(0, textNode?.getTextContentSize());
       });
     });

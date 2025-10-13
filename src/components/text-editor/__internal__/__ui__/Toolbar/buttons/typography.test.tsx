@@ -24,9 +24,15 @@ describe("TypographySelector", () => {
   });
 
   it("renders with default paragraph option", () => {
+    const ref = React.createRef<HTMLDivElement>();
     render(
       <TestEditor>
-        <TypographySelector namespace="editor" isOpen setIsOpen={() => {}} />
+        <TypographySelector
+          namespace="editor"
+          isOpen
+          setIsOpen={() => {}}
+          contentEditorRef={ref}
+        />
       </TestEditor>,
     );
 
@@ -42,11 +48,13 @@ describe("TypographySelector", () => {
 
     const Component = () => {
       const [isOpen, setIsOpen] = React.useState(false);
+      const ref = React.createRef<HTMLDivElement>();
       return (
         <TypographySelector
           namespace="editor"
           isOpen={isOpen}
           setIsOpen={setIsOpen}
+          contentEditorRef={ref}
         />
       );
     };

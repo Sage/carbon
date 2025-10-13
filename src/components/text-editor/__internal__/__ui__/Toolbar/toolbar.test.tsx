@@ -16,6 +16,7 @@ import { createFromHTML } from "../../__utils__/helpers";
  * that the toolbar renders correctly with the default buttons.
  */
 test("renders the toolbar", () => {
+  const ref = React.createRef<HTMLDivElement>();
   render(
     <LexicalComposer
       initialConfig={{
@@ -26,11 +27,11 @@ test("renders the toolbar", () => {
     >
       <RichTextPlugin
         contentEditable={
-          <div role="textbox" contentEditable aria-label="test" />
+          <div role="textbox" contentEditable aria-label="test" ref={ref} />
         }
         ErrorBoundary={LexicalErrorBoundary}
       />
-      <ToolbarPlugin namespace="test" />
+      <ToolbarPlugin namespace="test" contentEditorRef={ref} />
     </LexicalComposer>,
   );
   const toolbar = screen.getByTestId("test-toolbar");
@@ -38,6 +39,7 @@ test("renders the toolbar", () => {
 });
 
 test("does not render the toolbar if the editor is disabled", () => {
+  const ref = React.createRef<HTMLDivElement>();
   render(
     <LexicalComposer
       initialConfig={{
@@ -49,11 +51,11 @@ test("does not render the toolbar if the editor is disabled", () => {
     >
       <RichTextPlugin
         contentEditable={
-          <div role="textbox" contentEditable aria-label="test" />
+          <div role="textbox" contentEditable aria-label="test" ref={ref} />
         }
         ErrorBoundary={LexicalErrorBoundary}
       />
-      <ToolbarPlugin namespace="test" />
+      <ToolbarPlugin namespace="test" contentEditorRef={ref} />
     </LexicalComposer>,
   );
   const toolbar = screen.queryByTestId("test-toolbar");
@@ -62,6 +64,7 @@ test("does not render the toolbar if the editor is disabled", () => {
 
 test("allows the buttons to be navigated with the arrow keys", async () => {
   const user = userEvent.setup();
+  const ref = React.createRef<HTMLDivElement>();
   render(
     <LexicalComposer
       initialConfig={{
@@ -72,11 +75,11 @@ test("allows the buttons to be navigated with the arrow keys", async () => {
     >
       <RichTextPlugin
         contentEditable={
-          <div role="textbox" contentEditable aria-label="test" />
+          <div role="textbox" contentEditable aria-label="test" ref={ref} />
         }
         ErrorBoundary={LexicalErrorBoundary}
       />
-      <ToolbarPlugin namespace="test" />
+      <ToolbarPlugin namespace="test" contentEditorRef={ref} />
     </LexicalComposer>,
   );
   const textbox = screen.getByRole("textbox");
@@ -157,6 +160,8 @@ test("allows the buttons to be navigated with the arrow keys", async () => {
 
 test("allows the buttons to be navigated with the Home and End keys", async () => {
   const user = userEvent.setup();
+  const ref = React.createRef<HTMLDivElement>();
+
   render(
     <LexicalComposer
       initialConfig={{
@@ -167,11 +172,11 @@ test("allows the buttons to be navigated with the Home and End keys", async () =
     >
       <RichTextPlugin
         contentEditable={
-          <div role="textbox" contentEditable aria-label="test" />
+          <div role="textbox" contentEditable aria-label="test" ref={ref} />
         }
         ErrorBoundary={LexicalErrorBoundary}
       />
-      <ToolbarPlugin namespace="test" />
+      <ToolbarPlugin namespace="test" contentEditorRef={ref} />
     </LexicalComposer>,
   );
   const textbox = screen.getByRole("textbox");
@@ -194,6 +199,8 @@ test("allows the buttons to be navigated with the Home and End keys", async () =
 
 test("does not allow the buttons to be navigated with other keys", async () => {
   const user = userEvent.setup();
+  const ref = React.createRef<HTMLDivElement>();
+
   render(
     <LexicalComposer
       initialConfig={{
@@ -204,11 +211,11 @@ test("does not allow the buttons to be navigated with other keys", async () => {
     >
       <RichTextPlugin
         contentEditable={
-          <div role="textbox" contentEditable aria-label="test" />
+          <div role="textbox" contentEditable aria-label="test" ref={ref} />
         }
         ErrorBoundary={LexicalErrorBoundary}
       />
-      <ToolbarPlugin namespace="test" />
+      <ToolbarPlugin namespace="test" contentEditorRef={ref} />
     </LexicalComposer>,
   );
   const textbox = screen.getByRole("textbox");
@@ -231,6 +238,8 @@ test("does not allow the buttons to be navigated with other keys", async () => {
 
 test("does not fire any navigation events when the toolbar is empty", async () => {
   const user = userEvent.setup();
+  const ref = React.createRef<HTMLDivElement>();
+
   render(
     <LexicalComposer
       initialConfig={{
@@ -241,11 +250,15 @@ test("does not fire any navigation events when the toolbar is empty", async () =
     >
       <RichTextPlugin
         contentEditable={
-          <div role="textbox" contentEditable aria-label="test" />
+          <div role="textbox" contentEditable aria-label="test" ref={ref} />
         }
         ErrorBoundary={LexicalErrorBoundary}
       />
-      <ToolbarPlugin namespace="test" toolbarControls={[]} />
+      <ToolbarPlugin
+        namespace="test"
+        toolbarControls={[]}
+        contentEditorRef={ref}
+      />
     </LexicalComposer>,
   );
   const textbox = screen.getByRole("textbox");
@@ -386,6 +399,7 @@ describe("Events", () => {
 describe("Styling", () => {
   ["small", "medium", "large"].forEach((size) => {
     it(`applies the correct padding for size=${size}`, () => {
+      const ref = React.createRef<HTMLDivElement>();
       const paddingMap: { [key: string]: string } = {
         small: "8px",
         medium: "12px",
@@ -401,13 +415,14 @@ describe("Styling", () => {
         >
           <RichTextPlugin
             contentEditable={
-              <div role="textbox" contentEditable aria-label="test" />
+              <div role="textbox" contentEditable aria-label="test" ref={ref} />
             }
             ErrorBoundary={LexicalErrorBoundary}
           />
           <ToolbarPlugin
             namespace="test"
             size={size as "small" | "medium" | "large"}
+            contentEditorRef={ref}
           />
         </LexicalComposer>,
       );
@@ -421,6 +436,7 @@ describe("Styling", () => {
 
 describe("Customisation", () => {
   it("renders only the buttons passed in the 'toolbarControls' prop", () => {
+    const ref = React.createRef<HTMLDivElement>();
     render(
       <LexicalComposer
         initialConfig={{
@@ -431,11 +447,15 @@ describe("Customisation", () => {
       >
         <RichTextPlugin
           contentEditable={
-            <div role="textbox" contentEditable aria-label="test" />
+            <div role="textbox" contentEditable aria-label="test" ref={ref} />
           }
           ErrorBoundary={LexicalErrorBoundary}
         />
-        <ToolbarPlugin namespace="test" toolbarControls={["bold", "italic"]} />
+        <ToolbarPlugin
+          namespace="test"
+          toolbarControls={["bold", "italic"]}
+          contentEditorRef={ref}
+        />
       </LexicalComposer>,
     );
     const toolbar = screen.getByTestId("test-toolbar");
@@ -449,6 +469,7 @@ describe("Customisation", () => {
   });
 
   it("does not render the typography formatting section if the typography button is not set", () => {
+    const ref = React.createRef<HTMLDivElement>();
     render(
       <LexicalComposer
         initialConfig={{
@@ -459,7 +480,7 @@ describe("Customisation", () => {
       >
         <RichTextPlugin
           contentEditable={
-            <div role="textbox" contentEditable aria-label="test" />
+            <div role="textbox" contentEditable aria-label="test" ref={ref} />
           }
           ErrorBoundary={LexicalErrorBoundary}
         />
@@ -473,6 +494,7 @@ describe("Customisation", () => {
             "unordered-list",
             "link",
           ]}
+          contentEditorRef={ref}
         />
       </LexicalComposer>,
     );
@@ -495,6 +517,7 @@ describe("Customisation", () => {
   });
 
   it("does not render the text formatting section if no text formatting buttons are set", () => {
+    const ref = React.createRef<HTMLDivElement>();
     render(
       <LexicalComposer
         initialConfig={{
@@ -505,7 +528,7 @@ describe("Customisation", () => {
       >
         <RichTextPlugin
           contentEditable={
-            <div role="textbox" contentEditable aria-label="test" />
+            <div role="textbox" contentEditable aria-label="test" ref={ref} />
           }
           ErrorBoundary={LexicalErrorBoundary}
         />
@@ -517,6 +540,7 @@ describe("Customisation", () => {
             "unordered-list",
             "link",
           ]}
+          contentEditorRef={ref}
         />
       </LexicalComposer>,
     );
@@ -540,6 +564,7 @@ describe("Customisation", () => {
   });
 
   it("does not render the list formatting section if no list formatting buttons are set", () => {
+    const ref = React.createRef<HTMLDivElement>();
     render(
       <LexicalComposer
         initialConfig={{
@@ -550,7 +575,7 @@ describe("Customisation", () => {
       >
         <RichTextPlugin
           contentEditable={
-            <div role="textbox" contentEditable aria-label="test" />
+            <div role="textbox" contentEditable aria-label="test" ref={ref} />
           }
           ErrorBoundary={LexicalErrorBoundary}
         />
@@ -563,6 +588,7 @@ describe("Customisation", () => {
             "underline",
             "link",
           ]}
+          contentEditorRef={ref}
         />
       </LexicalComposer>,
     );
@@ -586,6 +612,7 @@ describe("Customisation", () => {
   });
 
   it("does not render the hyperlink formatting section if the link button is not set", () => {
+    const ref = React.createRef<HTMLDivElement>();
     render(
       <LexicalComposer
         initialConfig={{
@@ -596,7 +623,7 @@ describe("Customisation", () => {
       >
         <RichTextPlugin
           contentEditable={
-            <div role="textbox" contentEditable aria-label="test" />
+            <div role="textbox" contentEditable aria-label="test" ref={ref} />
           }
           ErrorBoundary={LexicalErrorBoundary}
         />
@@ -610,6 +637,7 @@ describe("Customisation", () => {
             "ordered-list",
             "unordered-list",
           ]}
+          contentEditorRef={ref}
         />
       </LexicalComposer>,
     );
@@ -633,6 +661,7 @@ describe("Customisation", () => {
   });
 
   it("shows dividers between button groups, except after the last group", () => {
+    const ref = React.createRef<HTMLDivElement>();
     render(
       <LexicalComposer
         initialConfig={{
@@ -643,7 +672,7 @@ describe("Customisation", () => {
       >
         <RichTextPlugin
           contentEditable={
-            <div role="textbox" contentEditable aria-label="test" />
+            <div role="textbox" contentEditable aria-label="test" ref={ref} />
           }
           ErrorBoundary={LexicalErrorBoundary}
         />
@@ -658,6 +687,7 @@ describe("Customisation", () => {
             "unordered-list",
             "link",
           ]}
+          contentEditorRef={ref}
         />
       </LexicalComposer>,
     );
@@ -671,6 +701,7 @@ describe("Customisation", () => {
   });
 
   it("only shows a single divider when there are two adjacent button groups", () => {
+    const ref = React.createRef<HTMLDivElement>();
     render(
       <LexicalComposer
         initialConfig={{
@@ -681,13 +712,14 @@ describe("Customisation", () => {
       >
         <RichTextPlugin
           contentEditable={
-            <div role="textbox" contentEditable aria-label="test" />
+            <div role="textbox" contentEditable aria-label="test" ref={ref} />
           }
           ErrorBoundary={LexicalErrorBoundary}
         />
         <ToolbarPlugin
           namespace="test"
           toolbarControls={["typography", "link"]}
+          contentEditorRef={ref}
         />
       </LexicalComposer>,
     );
@@ -701,6 +733,7 @@ describe("Customisation", () => {
   });
 
   it("marks the typography button as the first button by default", () => {
+    const ref = React.createRef<HTMLDivElement>();
     render(
       <LexicalComposer
         initialConfig={{
@@ -711,11 +744,11 @@ describe("Customisation", () => {
       >
         <RichTextPlugin
           contentEditable={
-            <div role="textbox" contentEditable aria-label="test" />
+            <div role="textbox" contentEditable aria-label="test" ref={ref} />
           }
           ErrorBoundary={LexicalErrorBoundary}
         />
-        <ToolbarPlugin namespace="test" />
+        <ToolbarPlugin namespace="test" contentEditorRef={ref} />
       </LexicalComposer>,
     );
     const typographyButton = screen.getByTestId("test-typography-dropdown");
@@ -723,6 +756,7 @@ describe("Customisation", () => {
   });
 
   it("marks the bold button as the first button if the preceding buttons are not present", () => {
+    const ref = React.createRef<HTMLDivElement>();
     render(
       <LexicalComposer
         initialConfig={{
@@ -733,7 +767,7 @@ describe("Customisation", () => {
       >
         <RichTextPlugin
           contentEditable={
-            <div role="textbox" contentEditable aria-label="test" />
+            <div role="textbox" contentEditable aria-label="test" ref={ref} />
           }
           ErrorBoundary={LexicalErrorBoundary}
         />
@@ -747,6 +781,7 @@ describe("Customisation", () => {
             "unordered-list",
             "link",
           ]}
+          contentEditorRef={ref}
         />
       </LexicalComposer>,
     );
@@ -755,6 +790,7 @@ describe("Customisation", () => {
   });
 
   it("marks the italic button as the first button if the preceding buttons are not present", () => {
+    const ref = React.createRef<HTMLDivElement>();
     render(
       <LexicalComposer
         initialConfig={{
@@ -765,7 +801,7 @@ describe("Customisation", () => {
       >
         <RichTextPlugin
           contentEditable={
-            <div role="textbox" contentEditable aria-label="test" />
+            <div role="textbox" contentEditable aria-label="test" ref={ref} />
           }
           ErrorBoundary={LexicalErrorBoundary}
         />
@@ -778,6 +814,7 @@ describe("Customisation", () => {
             "unordered-list",
             "link",
           ]}
+          contentEditorRef={ref}
         />
       </LexicalComposer>,
     );
@@ -786,6 +823,7 @@ describe("Customisation", () => {
   });
 
   it("marks the underline button as the first button if the preceding buttons are not present", () => {
+    const ref = React.createRef<HTMLDivElement>();
     render(
       <LexicalComposer
         initialConfig={{
@@ -796,7 +834,7 @@ describe("Customisation", () => {
       >
         <RichTextPlugin
           contentEditable={
-            <div role="textbox" contentEditable aria-label="test" />
+            <div role="textbox" contentEditable aria-label="test" ref={ref} />
           }
           ErrorBoundary={LexicalErrorBoundary}
         />
@@ -808,6 +846,7 @@ describe("Customisation", () => {
             "unordered-list",
             "link",
           ]}
+          contentEditorRef={ref}
         />
       </LexicalComposer>,
     );
@@ -816,6 +855,7 @@ describe("Customisation", () => {
   });
 
   it("marks the unordered list button as the first button if the preceding buttons are not present", () => {
+    const ref = React.createRef<HTMLDivElement>();
     render(
       <LexicalComposer
         initialConfig={{
@@ -826,13 +866,14 @@ describe("Customisation", () => {
       >
         <RichTextPlugin
           contentEditable={
-            <div role="textbox" contentEditable aria-label="test" />
+            <div role="textbox" contentEditable aria-label="test" ref={ref} />
           }
           ErrorBoundary={LexicalErrorBoundary}
         />
         <ToolbarPlugin
           namespace="test"
           toolbarControls={["unordered-list", "ordered-list", "link"]}
+          contentEditorRef={ref}
         />
       </LexicalComposer>,
     );
@@ -843,6 +884,7 @@ describe("Customisation", () => {
   });
 
   it("marks the ordered list button as the first button if the preceding buttons are not present", () => {
+    const ref = React.createRef<HTMLDivElement>();
     render(
       <LexicalComposer
         initialConfig={{
@@ -853,13 +895,14 @@ describe("Customisation", () => {
       >
         <RichTextPlugin
           contentEditable={
-            <div role="textbox" contentEditable aria-label="test" />
+            <div role="textbox" contentEditable aria-label="test" ref={ref} />
           }
           ErrorBoundary={LexicalErrorBoundary}
         />
         <ToolbarPlugin
           namespace="test"
           toolbarControls={["ordered-list", "link"]}
+          contentEditorRef={ref}
         />
       </LexicalComposer>,
     );
@@ -868,6 +911,7 @@ describe("Customisation", () => {
   });
 
   it("marks the link button as the first button if all other buttons are not present", () => {
+    const ref = React.createRef<HTMLDivElement>();
     render(
       <LexicalComposer
         initialConfig={{
@@ -878,11 +922,15 @@ describe("Customisation", () => {
       >
         <RichTextPlugin
           contentEditable={
-            <div role="textbox" contentEditable aria-label="test" />
+            <div role="textbox" contentEditable aria-label="test" ref={ref} />
           }
           ErrorBoundary={LexicalErrorBoundary}
         />
-        <ToolbarPlugin namespace="test" toolbarControls={["link"]} />
+        <ToolbarPlugin
+          namespace="test"
+          toolbarControls={["link"]}
+          contentEditorRef={ref}
+        />
       </LexicalComposer>,
     );
     const linkButton = screen.getByTestId("test-hyperlink-button");

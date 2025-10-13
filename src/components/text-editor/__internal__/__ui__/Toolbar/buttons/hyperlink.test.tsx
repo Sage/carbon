@@ -1,25 +1,93 @@
 import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import React, { act } from "react";
+import React, { useState } from "react";
 
 import { HyperlinkButton } from ".";
-import TestEditor, { TestEditorHelpers } from "../../../TestEditor";
-import { LexicalEditor } from "lexical";
+import TestEditor from "../../../TestEditor";
+import Dialog from "../../../../../dialog";
+import Form from "../../../../../form";
+import Button from "../../../../../button";
+import Textbox from "../../../../../textbox";
 
 const HyperlinkDemo = ({
   firstButtonOverride = false,
+  namespace = "test",
 }: {
   firstButtonOverride?: boolean;
+  namespace?: string;
 }) => {
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [linkText, setLinkText] = useState("");
+  const [linkUrl, setLinkUrl] = useState("");
+
   return (
     <TestEditor>
       <HyperlinkButton
         namespace="test"
         setDialogOpen={setIsOpen}
-        dialogOpen={isOpen}
         isFirstButton={firstButtonOverride}
       />
+      <Dialog
+        open={isOpen}
+        onCancel={() => {
+          setLinkText("");
+          setLinkUrl("");
+          setIsOpen(false);
+        }}
+        title={"Add link"}
+        data-role={`${namespace}-hyperlink-dialog`}
+        aria-label={"Add link"}
+        size="small"
+      >
+        <Form
+          leftSideButtons={
+            <Button
+              data-role={`${namespace}-hyperlink-cancel-button`}
+              onClick={() => {
+                setLinkText("");
+                setLinkUrl("");
+                setIsOpen(false);
+              }}
+            >
+              Cancel
+            </Button>
+          }
+          saveButton={
+            <Button
+              buttonType="primary"
+              type="submit"
+              disabled={!linkText || !linkUrl}
+              data-role={`${namespace}-hyperlink-save-button`}
+            >
+              Save
+            </Button>
+          }
+          onSubmit={(e) => {
+            e.preventDefault();
+
+            setLinkText("");
+            setLinkUrl("");
+            setIsOpen(false);
+          }}
+        >
+          <Textbox
+            label={"Text"}
+            name="text"
+            required
+            data-role={`${namespace}-hyperlink-text-field`}
+            value={linkText}
+            onChange={(e) => setLinkText(e.target.value)}
+          />
+          <Textbox
+            label={"URL"}
+            name="link"
+            required
+            data-role={`${namespace}-hyperlink-link-field`}
+            value={linkUrl}
+            onChange={(e) => setLinkUrl(e.target.value)}
+          />
+        </Form>
+      </Dialog>
     </TestEditor>
   );
 };
@@ -250,43 +318,14 @@ describe("Hyperlink button", () => {
   it("should add a URL to the editor", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     jest.useFakeTimers();
-    let editorRef: LexicalEditor;
-    let textEditorHelpers: TestEditorHelpers;
 
-    const Component = ({
-      firstButtonOverride = false,
-    }: {
-      firstButtonOverride?: boolean;
-    }) => {
-      const [isOpen, setIsOpen] = React.useState(false);
-      return (
-        <TestEditor
-          onEditorReady={(editor, helpers) => {
-            editorRef = editor;
-            textEditorHelpers = helpers;
-          }}
-        >
-          <HyperlinkButton
-            namespace="test"
-            setDialogOpen={setIsOpen}
-            dialogOpen={isOpen}
-            isFirstButton={firstButtonOverride}
-          />
-        </TestEditor>
-      );
-    };
-
-    render(<Component />);
+    render(<HyperlinkDemo />);
 
     const editor = screen.getByRole("textbox");
 
     await user.click(editor);
 
-    act(() => {
-      editorRef.update(() => {
-        textEditorHelpers.setEditorContent(editorRef, "Hello ");
-      });
-    });
+    await user.keyboard("Hello");
 
     await user.tripleClick(editor);
 

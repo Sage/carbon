@@ -190,7 +190,7 @@ const TypographySelector = ({
     });
 
     setTimeout(() => {
-      contentEditorRef.current?.focus();
+      contentEditorRef?.current?.focus();
       editor.dispatchCommand(SELECTION_CHANGE_COMMAND, undefined);
     }, 0);
   };

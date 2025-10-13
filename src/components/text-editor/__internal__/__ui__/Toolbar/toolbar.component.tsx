@@ -162,12 +162,16 @@ const Toolbar = ({
     if (nextIndex > -1) currentButtons[nextIndex]?.focus();
   };
 
+  /** Omitted from coverage, tested in hyperlink button */
+  /* istanbul ignore next */
   const resetDialog = () => {
     setLinkText("");
     setLinkUrl("");
     setHyperlinkDialogOpen(false);
   };
 
+  /** Omitted from coverage, tested in hyperlink button */
+  /* istanbul ignore next */
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 

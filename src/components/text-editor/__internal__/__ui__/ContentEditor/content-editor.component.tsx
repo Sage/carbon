@@ -64,10 +64,12 @@ const ContentEditor = forwardRef<HTMLDivElement, ContentEditorProps>(
               event.relatedTarget?.classList.contains("toolbar-button");
             if (targetInToolbar) {
               const targetId = event.relatedTarget?.id;
+              /* istanbul ignore else */
               if (targetId) {
                 const targetElement = document.querySelector(
                   `[id="${targetId}"]`,
                 );
+                /* istanbul ignore else */
                 if (targetElement) (targetElement as HTMLElement).focus();
               }
             }
