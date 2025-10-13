@@ -14,21 +14,25 @@ import {
 import Logger from "../../../__internal__/utils/logger";
 import useResizeObserver from "../../../hooks/__internal__/useResizeObserver";
 import Icon from "../../icon";
+import { TabProvider } from "./tab.context";
 
 export const TabPanel = ({
   children,
   labelledBy,
   id,
   index,
+  tabId,
 }: TabPanelProps) => {
   const { activeTab } = useTabs();
 
   if (index !== activeTab) return null;
 
   return (
-    <div id={id} role="tabpanel" aria-labelledby={labelledBy}>
-      {children}
-    </div>
+    <TabProvider tabId={tabId}>
+      <div id={id} role="tabpanel" aria-labelledby={labelledBy}>
+        {children}
+      </div>
+    </TabProvider>
   );
 };
 
@@ -80,56 +84,42 @@ export const Tab = ({
   }, [focusIndex, id, index, setCurrentTabId]);
 
   useEffect(() => {
-    const currentTabErrors = Object.keys(tabErrors).filter((k) =>
-      k.includes(id),
-    );
+    const currentTabErrors = Object.keys(tabErrors).filter((k) => k === id);
     const tabHasErrors = currentTabErrors.length > 0;
+    setError(tabHasErrors);
 
-    const currentTabWarnings = Object.keys(tabWarnings).filter((k) =>
-      k.includes(id),
-    );
+    const currentTabWarnings = Object.keys(tabWarnings).filter((k) => k === id);
     const tabHasWarnings = currentTabWarnings.length > 0;
-
-    if (tabHasErrors) {
-      setError(currentTabErrors.length === 1 ? currentTabErrors[0] : true);
-    } else {
-      setError(false);
-    }
-
-    if (tabHasWarnings) {
-      setWarning(
-        currentTabWarnings.length === 1 ? currentTabWarnings[0] : true,
-      );
-    } else {
-      setWarning(false);
-    }
+    setWarning(tabHasWarnings);
   }, [id, tabErrors, tabWarnings]);
 
   return (
-    <StyledTab
-      activeTab={activeTab === index}
-      aria-controls={controls}
-      aria-selected={selected ? "true" : "false"}
-      error={error}
-      id={id}
-      onClick={() => setActiveTab(index)}
-      orientation={orientation}
-      role="tab"
-      size={size}
-      type="button"
-      tabIndex={activeTab === index || index === 0 ? 0 : -1}
-      warning={warning}
-    >
-      {typeof label === "string" ? (
-        <span className="tab-title-content-wrapper">
-          {leftSlot}
-          {label}
-          {rightSlot}
-        </span>
-      ) : (
-        <span className="tab-title-content-wrapper">{label}</span>
-      )}
-    </StyledTab>
+    <TabProvider tabId={id}>
+      <StyledTab
+        activeTab={activeTab === index}
+        aria-controls={controls}
+        aria-selected={selected ? "true" : "false"}
+        error={error}
+        id={id}
+        onClick={() => setActiveTab(index)}
+        orientation={orientation}
+        role="tab"
+        size={size}
+        type="button"
+        tabIndex={activeTab === index || index === 0 ? 0 : -1}
+        warning={warning}
+      >
+        {typeof label === "string" ? (
+          <span className="tab-title-content-wrapper">
+            {leftSlot}
+            {label}
+            {rightSlot}
+          </span>
+        ) : (
+          <span className="tab-title-content-wrapper">{label}</span>
+        )}
+      </StyledTab>
+    </TabProvider>
   );
 };
 

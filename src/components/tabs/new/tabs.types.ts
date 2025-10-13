@@ -1,5 +1,12 @@
 import React, { Dispatch, SetStateAction } from "react";
 
+export type TabValidationRecord = Record<string, string | boolean>;
+export type ValidationRecord = Record<string, TabValidationRecord>;
+
+export interface TabContextProps {
+  tabId: string;
+}
+
 export interface TabsContextProps {
   activeTab: number;
   currentTabId?: string;
@@ -11,10 +18,18 @@ export interface TabsContextProps {
   setActiveTab: Dispatch<SetStateAction<number>>;
   setFocusIndex: Dispatch<SetStateAction<number>>;
   setCurrentTabId: Dispatch<SetStateAction<string>>;
-  setTabErrors: (childId: string, error: string | boolean) => void;
-  setTabWarnings: (childId: string, warning: string | boolean) => void;
-  tabErrors: Record<string, string | boolean>;
-  tabWarnings: Record<string, string | boolean>;
+  setTabErrors: (
+    childId: string,
+    tabId: string,
+    error: string | boolean,
+  ) => void;
+  setTabWarnings: (
+    childId: string,
+    tabId: string,
+    warning: string | boolean,
+  ) => void;
+  tabErrors: ValidationRecord;
+  tabWarnings: ValidationRecord;
   size?: "medium" | "large";
 }
 
@@ -23,6 +38,7 @@ export interface TabPanelProps {
   id: string;
   index: number;
   labelledBy: string;
+  tabId: string;
 }
 
 export interface TabListProps {

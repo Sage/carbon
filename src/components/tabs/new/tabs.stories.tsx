@@ -86,7 +86,7 @@ export const DefaultStory: Story = ({ ...args }) => {
             }
           />
         </TabList>
-        <TabPanel id="tab-panel-1" labelledBy="tab-1" index={0}>
+        <TabPanel id="tab-panel-1" labelledBy="tab-1" tabId="tab-1" index={0}>
           <Typography>Content 1</Typography>
           <Button
             onClick={action("Button in tab 1 clicked")}
@@ -95,7 +95,7 @@ export const DefaultStory: Story = ({ ...args }) => {
             Tab 1 Button
           </Button>
         </TabPanel>
-        <TabPanel id="tab-panel-2" labelledBy="tab-2" index={1}>
+        <TabPanel id="tab-panel-2" labelledBy="tab-2" tabId="tab-2" index={1}>
           <Typography>Content 2</Typography>
           <Button
             onClick={action("Button in tab 2 clicked")}
@@ -104,7 +104,7 @@ export const DefaultStory: Story = ({ ...args }) => {
             Tab 2 Button
           </Button>
         </TabPanel>
-        <TabPanel id="tab-panel-3" labelledBy="tab-3" index={2}>
+        <TabPanel id="tab-panel-3" labelledBy="tab-3" tabId="tab-3" index={2}>
           <Typography>Content 3</Typography>
           <Button
             onClick={action("Button in tab 3 clicked")}
@@ -113,7 +113,7 @@ export const DefaultStory: Story = ({ ...args }) => {
             Tab 3 Button
           </Button>
         </TabPanel>
-        <TabPanel id="tab-panel-4" labelledBy="tab-4" index={3}>
+        <TabPanel id="tab-panel-4" labelledBy="tab-4" tabId="tab-4" index={3}>
           <Typography>Content 4</Typography>
           <Button
             onClick={action("Button in tab 4 clicked")}
@@ -122,7 +122,7 @@ export const DefaultStory: Story = ({ ...args }) => {
             Tab 4 Button
           </Button>
         </TabPanel>
-        <TabPanel id="tab-panel-5" labelledBy="tab-5" index={4}>
+        <TabPanel id="tab-panel-5" labelledBy="tab-5" tabId="tab-5" index={4}>
           <Typography>Content 5</Typography>
           <Button
             onClick={action("Button in tab 5 clicked")}
@@ -131,7 +131,7 @@ export const DefaultStory: Story = ({ ...args }) => {
             Tab 5 Button
           </Button>
         </TabPanel>
-        <TabPanel id="tab-panel-6" labelledBy="tab-6" index={5}>
+        <TabPanel id="tab-panel-6" labelledBy="tab-6" tabId="tab-6" index={5}>
           <Typography>Content 6</Typography>
           <Button
             onClick={action("Button in tab 6 clicked")}
@@ -167,7 +167,7 @@ export const WithErrorAndWarning: Story = ({ ...args }) => {
           <Tab id="tab-2" controls="tab-panel-2" index={1} label="Warning" />
           <Tab id="tab-3" controls="tab-panel-3" index={2} label="Default" />
         </TabList>
-        <TabPanel id="tab-panel-1" labelledBy="tab-1" index={0}>
+        <TabPanel id="tab-panel-1" labelledBy="tab-1" index={0} tabId={"tab-1"}>
           <Form
             onSubmit={() => {}}
             saveButton={
@@ -180,7 +180,7 @@ export const WithErrorAndWarning: Story = ({ ...args }) => {
           </Form>
         </TabPanel>
 
-        <TabPanel id="tab-panel-2" labelledBy="tab-2" index={1}>
+        <TabPanel id="tab-panel-2" labelledBy="tab-2" index={1} tabId={"tab-2"}>
           <Form
             onSubmit={() => {}}
             saveButton={
@@ -192,7 +192,7 @@ export const WithErrorAndWarning: Story = ({ ...args }) => {
             <Textbox label="Textbox" onChange={() => {}} value="" warning />
           </Form>
         </TabPanel>
-        <TabPanel id="tab-panel-3" labelledBy="tab-3" index={2}>
+        <TabPanel id="tab-panel-3" labelledBy="tab-3" index={2} tabId={"tab-3"}>
           <Form
             onSubmit={() => {}}
             saveButton={

@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext, useCallback } from "react";
-import { TabsContextProps } from "./tabs.types";
+import { TabsContextProps, ValidationRecord } from "./tabs.types";
 
 const initialContext: TabsContextProps = {
   activeTab: 0,
@@ -49,25 +49,42 @@ export const TabsProvider = ({
   const [activeTab, setActiveTab] = useState<number>(0);
   const [currentTabId, setCurrentTabId] = useState<string>("");
   const [focusIndex, setFocusIndex] = useState<number>(0);
-  const [errors, setErrors] = useState<Record<string, string | boolean>>({});
-  const [warnings, setWarnings] = useState<Record<string, string | boolean>>(
-    {},
-  );
+  const [errors, setErrors] = useState<ValidationRecord>({});
+  const [warnings, setWarnings] = useState<ValidationRecord>({});
 
   const setTabErrors = useCallback(
-    (childId: string, error: string | boolean) => {
-      setErrors((state) =>
-        state[childId] !== error ? { ...state, [childId]: error } : state,
-      );
+    (childId: string, tabId: string, error: string | boolean) => {
+      const validationEntry = {
+        [tabId]: {
+          [childId]: error,
+        },
+      };
+
+      setErrors((state) => {
+        if (!state[tabId]) state[tabId] = {};
+
+        return state[tabId][childId] !== error
+          ? { ...state, ...validationEntry }
+          : state;
+      });
     },
     [],
   );
 
   const setTabWarnings = useCallback(
-    (childId: string, warning: string | boolean) => {
-      setWarnings((state) =>
-        state[childId] !== warning ? { ...state, [childId]: warning } : state,
-      );
+    (childId: string, tabId: string, warning: string | boolean) => {
+      const validationEntry = {
+        [tabId]: {
+          [childId]: warning,
+        },
+      };
+
+      setWarnings((state) => {
+        if (!state[tabId]) state[tabId] = {};
+        return state[tabId][childId] !== warning
+          ? { ...state, ...validationEntry }
+          : state;
+      });
     },
     [],
   );

@@ -17,8 +17,12 @@ import tagComponent, { TagProps } from "../utils/helpers/tags/tags";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
 import { IconType } from "../../components/icon";
 import { filterStyledSystemMarginProps } from "../../style/utils";
-import { TabsContextProps } from "../../components/tabs/new/tabs.types";
+import {
+  TabContextProps,
+  TabsContextProps,
+} from "../../components/tabs/new/tabs.types";
 import { TabsContext } from "../../components/tabs/new/tabs.context";
+import { TabContext } from "../../components/tabs/new/tab.context";
 
 interface CommonFormFieldProps extends MarginProps, ValidationProps {
   /** If true, the component will be disabled */
@@ -140,6 +144,7 @@ const FormField = ({
 
   const { setTabErrors, setTabWarnings } =
     useContext<TabsContextProps>(TabsContext);
+  const { tabId } = useContext<TabContextProps>(TabContext);
   const marginProps = filterStyledSystemMarginProps(rest);
   const isMounted = useRef(false);
 
@@ -152,16 +157,16 @@ const FormField = ({
   }, []);
 
   useEffect(() => {
-    if (setTabErrors && error) setTabErrors(id, error);
-    if (setTabWarnings && warning) setTabWarnings(id, warning);
+    if (setTabErrors && error) setTabErrors(id, tabId, error);
+    if (setTabWarnings && warning) setTabWarnings(id, tabId, warning);
 
     return () => {
       if (!isMounted.current) {
-        if (setTabErrors && error) setTabErrors(id, false);
-        if (setTabWarnings && warning) setTabWarnings(id, false);
+        if (setTabErrors && error) setTabErrors(id, tabId, false);
+        if (setTabWarnings && warning) setTabWarnings(id, tabId, false);
       }
     };
-  }, [id, setTabErrors, setTabWarnings, error, warning, info]);
+  }, [id, setTabErrors, setTabWarnings, error, warning, info, tabId]);
 
   const fieldHelp = fieldHelpContent ? (
     <FieldHelp
