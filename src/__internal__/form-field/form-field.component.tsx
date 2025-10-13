@@ -152,8 +152,8 @@ const FormField = ({
   }, []);
 
   useEffect(() => {
-    if (setTabErrors) setTabErrors(id, error || false);
-    if (setTabWarnings) setTabWarnings(id, warning || false);
+    if (setTabErrors && error) setTabErrors(id, error);
+    if (setTabWarnings && warning) setTabWarnings(id, warning);
 
     return () => {
       if (!isMounted.current) {
