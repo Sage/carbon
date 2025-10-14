@@ -239,24 +239,6 @@ export const WithFieldHelp: Story = () => {
 };
 WithFieldHelp.storyName = "With Field Help";
 
-export const WithLabelHelp: Story = () => {
-  const [state, setState] = useState("01/10/2016");
-  const setValue = (ev: DateChangeEvent) => {
-    setState(ev.target.value.formattedValue);
-  };
-  return (
-    <DateInput
-      label="Date"
-      value={state}
-      onChange={setValue}
-      labelHelp="Help"
-      name="dateinput"
-      helpAriaLabel="Help"
-    />
-  );
-};
-WithLabelHelp.storyName = "With Label Help";
-
 export const WithDisabledPortal: Story = () => {
   const [state, setState] = useState("01/10/2016");
   const setValue = (ev: DateChangeEvent) => {

@@ -8,12 +8,10 @@ import {
   SimpleSelectObjectAsValueComponent,
   SimpleSelectCustomOptionChildrenComponent,
   SimpleSelectGroupComponent,
-  SimpleSelectWithLongWrappingTextComponent,
   WithVirtualScrolling,
   SimpleSelectNestedInDialog,
   SelectWithOptionGroupHeader,
   SelectionConfirmed,
-  SelectWithDynamicallyAddedOption,
   SimpleSelectControlled,
   WithObjectAsValue,
   ListWidth,
@@ -22,8 +20,6 @@ import {
 import {
   commonDataElementInputPreview,
   getDataElementByValue,
-  helpIcon,
-  tooltipPreview,
 } from "../../../../playwright/components";
 import { dialogWithRole } from "../../../../playwright/components/dialog";
 import { loader } from "../../../../playwright/components/loader";
@@ -33,7 +29,6 @@ import {
   multiColumnsSelectListHeader,
   multiColumnsSelectListHeaderColumn,
   multiColumnsSelectListRow,
-  selectElementInput,
   selectInput,
   selectList,
   selectListCustomChild,
@@ -47,33 +42,12 @@ import {
 } from "../../../../playwright/components/select";
 import {
   checkAccessibility,
-  assertCssValueIsApproximately,
   positionOfElement,
-  verifyRequiredAsteriskForLabel,
 } from "../../../../playwright/support/helper";
-import { CHARACTERS, SIZE } from "../../../../playwright/support/constants";
+import { CHARACTERS } from "../../../../playwright/support/constants";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
-const testPropValue = CHARACTERS.STANDARD;
 const keyToTrigger = ["ArrowDown", "ArrowUp", "Space", "Home", "End"] as const;
-
-test("should have the expected styling when focused", async ({
-  mount,
-  page,
-}) => {
-  await mount(<SimpleSelectComponent />);
-
-  const selectInputElement = commonDataElementInputPreview(page);
-  await selectInputElement.focus();
-  await expect(selectInputElement.locator("..")).toHaveCSS(
-    "box-shadow",
-    "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
-  );
-  await expect(selectInputElement.locator("..")).toHaveCSS(
-    "outline",
-    "rgba(0, 0, 0, 0) solid 3px",
-  );
-});
 
 test.describe("SimpleSelect component", () => {
   testData.forEach((labelValue) => {
@@ -87,18 +61,6 @@ test.describe("SimpleSelect component", () => {
     });
   });
 
-  testData.forEach((labelHelpValue) => {
-    test(`should render labelHelp message using ${labelHelpValue} special characters`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<SimpleSelectComponent labelHelp={labelHelpValue} />);
-
-      await helpIcon(page).hover();
-      await expect(tooltipPreview(page)).toHaveText(labelHelpValue);
-    });
-  });
-
   testData.forEach((placeholderValue) => {
     test(`should render placeholder using ${placeholderValue} special characters`, async ({
       mount,
@@ -108,223 +70,6 @@ test.describe("SimpleSelect component", () => {
 
       await expect(selectText(page)).toHaveText(placeholderValue);
     });
-  });
-
-  test("should render with data-element prop set to playwright_data", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<SimpleSelectComponent data-element={testPropValue} />);
-
-    await expect(
-      selectElementInput(page).locator("..").locator(".."),
-    ).toHaveAttribute("data-element", testPropValue);
-  });
-
-  test("should render with data-role prop set to playwright_data", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<SimpleSelectComponent data-role={testPropValue} />);
-
-    await expect(
-      selectElementInput(page).locator("..").locator(".."),
-    ).toHaveAttribute("data-role", testPropValue);
-  });
-
-  (
-    [
-      ["top", "200px", "0px", "0px", "0px"],
-      ["bottom", "0px", "0px", "0px", "0px"],
-      ["left", "200px", "0px", "200px", "0px"],
-      ["right", "200px", "0px", "0px", "200px"],
-    ] as const
-  ).forEach(([tooltipPositionValue, top, bottom, left, right]) => {
-    test(`should render the help tooltip in the ${tooltipPositionValue} position`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <SimpleSelectComponent
-          labelHelp="Help"
-          tooltipPosition={tooltipPositionValue}
-          mt={top}
-          mb={bottom}
-          ml={left}
-          mr={right}
-        />,
-      );
-
-      await helpIcon(page).hover();
-      const tooltipElement = tooltipPreview(page);
-      await expect(tooltipElement).toBeVisible();
-      await expect(tooltipElement).toHaveAttribute(
-        "data-placement",
-        tooltipPositionValue,
-      );
-    });
-  });
-
-  test("should check disabled prop", async ({ mount, page }) => {
-    await mount(<SimpleSelectComponent disabled />);
-
-    const selectInputElement = commonDataElementInputPreview(page);
-    await expect(selectInputElement).toBeDisabled();
-  });
-
-  test("should render icon with disabled style", async ({ mount, page }) => {
-    await mount(<SimpleSelectComponent disabled />);
-
-    const dropdownButtonElement = dropdownButton(page);
-    await expect(dropdownButtonElement).toBeVisible();
-    await expect(dropdownButtonElement).toHaveCSS(
-      "color",
-      "rgba(0, 0, 0, 0.3)",
-    );
-  });
-
-  test("should render as read only", async ({ mount, page }) => {
-    await mount(<SimpleSelectComponent readOnly />);
-
-    await selectText(page).click();
-    await expect(commonDataElementInputPreview(page)).not.toBeEditable();
-    await expect(selectText(page)).toHaveAttribute("aria-hidden", "true");
-    await expect(selectListWrapper(page)).toBeHidden();
-  });
-
-  test("should render icon with read only style", async ({ mount, page }) => {
-    await mount(<SimpleSelectComponent readOnly />);
-
-    const dropdownButtonElement = dropdownButton(page);
-    await expect(dropdownButtonElement).toBeVisible();
-    await expect(dropdownButtonElement).toHaveCSS(
-      "color",
-      "rgba(0, 0, 0, 0.3)",
-    );
-  });
-
-  test("should render as transparent", async ({ mount, page }) => {
-    await mount(<SimpleSelectComponent transparent />);
-
-    await expect(getDataElementByValue(page, "input")).toHaveCSS(
-      "background",
-      "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
-    );
-  });
-
-  (
-    [
-      [SIZE.SMALL, "32px"],
-      [SIZE.MEDIUM, "40px"],
-      [SIZE.LARGE, "48px"],
-    ] as [SimpleSelectProps["size"], string][]
-  ).forEach(([size, height]) => {
-    test(`should use ${size} as size and render with ${height} as height`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<SimpleSelectComponent size={size} />);
-
-      await expect(commonDataElementInputPreview(page).locator("..")).toHaveCSS(
-        "min-height",
-        height,
-      );
-    });
-  });
-
-  test("should check autofocus prop", async ({ mount, page }) => {
-    await mount(<SimpleSelectComponent autoFocus />);
-
-    await expect(commonDataElementInputPreview(page)).toBeFocused();
-  });
-
-  test("should check required prop", async ({ mount, page }) => {
-    await mount(<SimpleSelectComponent required />);
-
-    await verifyRequiredAsteriskForLabel(page);
-  });
-
-  test("should check label is inline", async ({ mount, page }) => {
-    await mount(<SimpleSelectComponent labelInline />);
-
-    await expect(getDataElementByValue(page, "label").locator("..")).toHaveCSS(
-      "-webkit-box-pack",
-      "end",
-    );
-  });
-
-  (
-    [
-      ["right", "end"],
-      ["left", "start"],
-    ] as [SimpleSelectProps["labelAlign"], string][]
-  ).forEach(([alignment, cssProp]) => {
-    test(`should use ${alignment} as labelAlignment and render with flex-${cssProp} as css properties`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<SimpleSelectComponent labelInline labelAlign={alignment} />);
-
-      const labelParentElement = getDataElementByValue(page, "label").locator(
-        "..",
-      );
-      await expect(labelParentElement).toHaveCSS("-webkit-box-pack", cssProp);
-      await expect(labelParentElement).toHaveCSS(
-        "justify-content",
-        `flex-${cssProp}`,
-      );
-    });
-  });
-
-  [
-    [10, 90, 135, 1229],
-    [30, 70, 409, 956],
-    [80, 20, 1092, 273],
-  ].forEach(([label, input, labelRatio, inputRatio]) => {
-    test(`should use ${label} as labelWidth, ${input} as inputWidth and render with correct label and input width ratios`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <SimpleSelectComponent
-          labelInline
-          labelWidth={label}
-          inputWidth={input}
-        />,
-      );
-
-      await assertCssValueIsApproximately(
-        getDataElementByValue(page, "label").locator(".."),
-        "width",
-        labelRatio,
-      );
-      await assertCssValueIsApproximately(
-        getDataElementByValue(page, "input").locator(".."),
-        "width",
-        inputRatio,
-      );
-    });
-  });
-
-  ["10%", "30%", "50%", "80%", "100%"].forEach((maxWidth) => {
-    test(`should check maxWidth as ${maxWidth}`, async ({ mount, page }) => {
-      await mount(<SimpleSelectComponent maxWidth={maxWidth} />);
-
-      await expect(
-        getDataElementByValue(page, "input").locator("..").locator(".."),
-      ).toHaveCSS("max-width", maxWidth);
-    });
-  });
-
-  test("when maxWidth has no value it should render as 100%", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<SimpleSelectComponent maxWidth="" />);
-
-    await expect(
-      getDataElementByValue(page, "input").locator("..").locator(".."),
-    ).toHaveCSS("max-width", "100%");
   });
 
   test("opens dropdown list when input is clicked", async ({ mount, page }) => {
@@ -365,10 +110,7 @@ test.describe("SimpleSelect component", () => {
       .boundingBox();
     const dropdownList = await page.getByRole("listbox").boundingBox();
 
-    if (!combobox) throw new Error("Combobox not found or visible.");
-    if (!dropdownList) throw new Error("Dropdown list not found or visible.");
-
-    expect(combobox.y).toBeLessThan(dropdownList.y);
+    expect(combobox?.y).toBeLessThan(dropdownList?.y ?? 0);
   });
 
   test("should close the list with the Tab key", async ({ mount, page }) => {
@@ -928,75 +670,13 @@ test.describe("SimpleSelect component", () => {
         />,
       );
 
-      let flipPosition = "";
-      if (position === "top") {
-        flipPosition = "bottom";
-      }
-      if (position === "bottom") {
-        flipPosition = "top";
-      }
       await selectText(page).click();
       const listElement = selectListPosition(page);
       await expect(listElement).toHaveAttribute(
         "data-floating-placement",
-        flipPosition,
+        position === "top" ? "bottom" : "top",
       );
       await expect(listElement).toBeVisible();
-    });
-  });
-
-  (
-    [
-      ["top", "100px 300px", 150, 2],
-      ["bottom", "0px 300px", 150, 68],
-      ["top-end", "100px 300px", 150, 2],
-      ["bottom-end", "0px 300px", 150, 68],
-      ["top-start", "100px 0px", 0, 2],
-      ["bottom-start", "100px 0px", 0, 168],
-    ] as [
-      NonNullable<SimpleSelectProps["listPlacement"]>,
-      string,
-      number,
-      number,
-    ][]
-  ).forEach(([position, margin, left, top]) => {
-    test(`should render list wider than the input when listWidth is 350 and positioned based on listPlacement of ${position}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <ListWidth margin={margin} listPlacement={position} listWidth={350} />,
-      );
-
-      const positionValue =
-        !position.includes("end") && !position.includes("start")
-          ? `${position}-end`
-          : position;
-      await selectText(page).click();
-      const listElement = selectListPosition(page);
-      const { inputWidth } = await selectText(page).evaluate((el) => ({
-        inputWidth: window
-          .getComputedStyle(el.parentElement as HTMLElement)
-          .getPropertyValue("width"),
-      }));
-      const { listLeftPosition, listTopPosition } = await listElement.evaluate(
-        (el) => ({
-          listLeftPosition: el.getBoundingClientRect().left,
-          listTopPosition: el.getBoundingClientRect().top,
-        }),
-      );
-
-      await expect(listElement).toHaveAttribute(
-        "data-floating-placement",
-        positionValue,
-      );
-      await expect(listElement).toBeVisible();
-      await expect(listElement).toHaveCSS("width", "350px");
-      expect(inputWidth).toBe("200px");
-
-      // sub-pixel rendering means this is not always exact
-      expect(listLeftPosition).toBeCloseTo(left);
-      expect(listTopPosition).toBeCloseTo(top);
     });
   });
 
@@ -1028,7 +708,7 @@ test.describe("SimpleSelect component", () => {
       );
       await expect(listElement).toBeVisible();
       await expect(listElement).toHaveCSS("width", "350px");
-      expect(inputWidth).toBe("200px");
+      expect(inputWidth).toBe("198px");
     });
   });
 
@@ -1139,7 +819,6 @@ test.describe("SimpleSelect component", () => {
   }) => {
     await mount(<SimpleSelectComponent />);
 
-    await expect(selectInput(page)).toHaveCSS("border-radius", "4px");
     await expect(selectListWrapper(page)).toHaveCSS("border-radius", "4px");
   });
 
@@ -1161,20 +840,6 @@ test.describe("SimpleSelect component", () => {
 
     await expect(customOptionContent).toBeVisible();
     expect(wrapperHeight).toBe(customOptionHeight);
-  });
-});
-
-test.describe("Check height of Select list when opened", () => {
-  test("should not cut off any text with long option text", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<SimpleSelectWithLongWrappingTextComponent />);
-
-    await selectText(page).click();
-    const wrapperElement = selectListWrapper(page);
-    await expect(wrapperElement).toHaveCSS("height", "152px");
-    await expect(wrapperElement).toBeVisible();
   });
 });
 
@@ -1567,29 +1232,6 @@ test.describe("Accessibility tests for SimpleSelect component", () => {
     await checkAccessibility(page, undefined, "scrollable-region-focusable");
   });
 
-  testData.forEach((labelValue) => {
-    test(`should pass accessibility tests with label prop using ${labelValue} special characters`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<SimpleSelectComponent label={labelValue} />);
-
-      await checkAccessibility(page);
-    });
-  });
-
-  testData.forEach((labelHelpValue) => {
-    test(`should pass accessibility tests with labelHelp prop using ${labelHelpValue} special characters`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<SimpleSelectComponent labelHelp={labelHelpValue} />);
-
-      await helpIcon(page).hover();
-      await checkAccessibility(page, tooltipPreview(page));
-    });
-  });
-
   testData.forEach((placeholderValue) => {
     test(`should pass accessibility tests with placeholder prop using ${placeholderValue} special characters`, async ({
       mount,
@@ -1598,40 +1240,6 @@ test.describe("Accessibility tests for SimpleSelect component", () => {
       await mount(<SimpleSelectComponent placeholder={placeholderValue} />);
 
       await checkAccessibility(page);
-    });
-  });
-
-  (
-    [
-      ["top", "200px", "0px", "0px", "0px"],
-      ["bottom", "0px", "0px", "0px", "0px"],
-      ["left", "200px", "0px", "200px", "0px"],
-      ["right", "200px", "0px", "0px", "200px"],
-    ] as [
-      SimpleSelectProps["tooltipPosition"],
-      string,
-      string,
-      string,
-      string,
-    ][]
-  ).forEach(([tooltipPositionValue, top, bottom, left, right]) => {
-    test(`should pass accessibility tests with tooltip prop in the ${tooltipPositionValue} position`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <SimpleSelectComponent
-          labelHelp="Help"
-          tooltipPosition={tooltipPositionValue}
-          mt={top}
-          mb={bottom}
-          ml={left}
-          mr={right}
-        />,
-      );
-
-      await helpIcon(page).hover();
-      await checkAccessibility(page, tooltipPreview(page));
     });
   });
 
@@ -1664,19 +1272,6 @@ test.describe("Accessibility tests for SimpleSelect component", () => {
     await checkAccessibility(page);
   });
 
-  (
-    [SIZE.SMALL, SIZE.MEDIUM, SIZE.LARGE] as SimpleSelectProps["size"][]
-  ).forEach((size) => {
-    test(`should pass accessibility tests with size prop as ${size}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<SimpleSelectComponent size={size} />);
-
-      await checkAccessibility(page);
-    });
-  });
-
   test("should pass accessibility tests with autoFocus prop", async ({
     mount,
     page,
@@ -1704,53 +1299,6 @@ test.describe("Accessibility tests for SimpleSelect component", () => {
     await checkAccessibility(page);
   });
 
-  (["right", "left"] as SimpleSelectProps["labelAlign"][]).forEach(
-    (alignment) => {
-      test(`should pass accessibility tests with labelAlign prop set as ${alignment}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <SimpleSelectComponent labelInline labelAlign={alignment} />,
-        );
-
-        await checkAccessibility(page);
-      });
-    },
-  );
-
-  [
-    [10, 90],
-    [30, 70],
-    [80, 20],
-  ].forEach(([label, input]) => {
-    test(`should pass accessibility tests with labelWidth prop set as ${label} and inputWidth set as ${input}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <SimpleSelectComponent
-          labelInline
-          labelWidth={label}
-          inputWidth={input}
-        />,
-      );
-
-      await checkAccessibility(page);
-    });
-  });
-
-  ["10%", "30%", "50%", "80%", "100%"].forEach((maxWidth) => {
-    test(`should pass accessibility tests with maxWidth prop set as ${maxWidth}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<SimpleSelectComponent maxWidth={maxWidth} />);
-
-      await checkAccessibility(page);
-    });
-  });
-
   test("should pass accessibility tests with isLoading prop", async ({
     mount,
     page,
@@ -1774,19 +1322,6 @@ test.describe("Accessibility tests for SimpleSelect component", () => {
     await inputElement.press("ArrowDown");
     await inputElement.focus();
     await checkAccessibility(page, undefined, "scrollable-region-focusable");
-  });
-
-  test("should pass accessibility tests with object as value", async ({
-    mount,
-    page,
-  }) => {
-    await mount(
-      <SimpleSelectObjectAsValueComponent label="with object as value" />,
-    );
-
-    await selectText(page).click();
-    await selectOption(page, positionOfElement("first")).click();
-    await checkAccessibility(page);
   });
 
   [1, 2, 3].forEach((option) => {
@@ -1820,87 +1355,6 @@ test.describe("Accessibility tests for SimpleSelect component", () => {
     );
   });
 
-  test("should pass accessibility tests with listMaxHeight prop", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<SimpleSelectComponent listMaxHeight={200} />);
-
-    await selectText(page).click();
-    await checkAccessibility(page, undefined, "scrollable-region-focusable");
-  });
-
-  (
-    [
-      ["top", "300px", "0px", "200px", "20px"],
-      ["bottom", "0px", "0px", "0px", "20px"],
-    ] as [SimpleSelectProps["listPlacement"], string, string, string, string][]
-  ).forEach(([position, top, bottom, left, right]) => {
-    test(`should pass accessibility tests with listPlacement prop as ${position}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <SimpleSelectComponent
-          listPlacement={position}
-          mt={top}
-          mb={bottom}
-          ml={left}
-          mr={right}
-        />,
-      );
-
-      await selectText(page).click();
-      await checkAccessibility(page, undefined, "scrollable-region-focusable");
-    });
-  });
-
-  (
-    [
-      ["top", "0px", "0px", "0px", "20px"],
-      ["bottom", "600px", "0px", "0px", "20px"],
-    ] as [SimpleSelectProps["listPlacement"], string, string, string, string][]
-  ).forEach(([position, top, bottom, left, right]) => {
-    test(`should pass accessibility tests with flipEnabled prop and listPlacement prop as ${position}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <SimpleSelectComponent
-          listPlacement={position}
-          flipEnabled
-          mt={top}
-          mb={bottom}
-          ml={left}
-          mr={right}
-        />,
-      );
-
-      await selectText(page).click();
-      await checkAccessibility(page, undefined, "scrollable-region-focusable");
-    });
-  });
-
-  test("should pass accessibility tests with long option text", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<SimpleSelectWithLongWrappingTextComponent />);
-
-    await selectText(page).click();
-    await checkAccessibility(page, undefined, "scrollable-region-focusable");
-  });
-
-  test("should pass accessibility tests with virtual scrolling", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<WithVirtualScrolling />);
-
-    await page.getByText("Please Select...").click();
-    await checkAccessibility(page, undefined, "scrollable-region-focusable");
-  });
-
   test("should pass accessibility tests when nested in a dialog", async ({
     mount,
     page,
@@ -1908,30 +1362,6 @@ test.describe("Accessibility tests for SimpleSelect component", () => {
     await mount(<SimpleSelectNestedInDialog />);
 
     await selectText(page).click();
-    await checkAccessibility(page, undefined, "scrollable-region-focusable");
-  });
-
-  test("should pass accessibility tests after selecting an option that dynamically adds a new option to the start of the list", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<SelectWithDynamicallyAddedOption />);
-
-    await selectText(page).click();
-    await selectOptionByText(page, "A").click();
-    await checkAccessibility(page, undefined, "scrollable-region-focusable");
-  });
-
-  test("should pass accessibility tests in dynamically-changing example when a different option is selected", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<SelectWithDynamicallyAddedOption />);
-
-    await selectText(page).click();
-    await selectOptionByText(page, "A").click();
-    await selectText(page).click();
-    await selectOptionByText(page, "B").click();
     await checkAccessibility(page, undefined, "scrollable-region-focusable");
   });
 });

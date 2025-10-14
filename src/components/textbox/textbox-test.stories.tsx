@@ -3,7 +3,6 @@ import { action } from "@storybook/addon-actions";
 import Textbox, { TextboxProps } from ".";
 import Box from "../box";
 import Link from "../link";
-import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import {
   CommonTextboxArgs,
   commonTextboxArgTypes,
@@ -52,126 +51,162 @@ export const Validation = () => {
 
   return (
     <>
-      <Textbox
-        name="textbox1"
-        label="Textbox"
-        error="Error Message"
-        value={state["textbox1"] || ""}
-        onChange={setValue}
-      />
-      <Textbox
-        name="textbox2"
-        label="Textbox"
-        warning="Warning Message"
-        value={state["textbox2"] || ""}
-        onChange={setValue}
-      />
-      <Textbox
-        name="textbox3"
-        label="Textbox"
-        info="Info Message"
-        value={state["textbox3"] || ""}
-        onChange={setValue}
-      />
-
-      <Textbox
-        name="textbox4"
-        label="Textbox"
-        error="Error Message"
-        validationOnLabel
-        value={state["textbox4"] || ""}
-        onChange={setValue}
-      />
-      <Textbox
-        name="textbox5"
-        label="Textbox"
-        warning="Warning Message"
-        validationOnLabel
-        value={state["textbox5"] || ""}
-        onChange={setValue}
-      />
-      <Textbox
-        name="textbox6"
-        label="Textbox"
-        info="Info Message"
-        validationOnLabel
-        value={state["textbox6"] || ""}
-        onChange={setValue}
-      />
-
-      <Textbox
-        name="textbox7"
-        label="Textbox"
-        error
-        value={state["textbox7"] || ""}
-        onChange={setValue}
-      />
-      <Textbox
-        name="textbox8"
-        label="Textbox"
-        warning
-        value={state["textbox8"] || ""}
-        onChange={setValue}
-      />
-      <Textbox
-        name="textbox9"
-        label="Textbox"
-        info
-        value={state["textbox9"] || ""}
-        onChange={setValue}
-      />
+      <Box display="flex" mb={2} justifyContent="space-evenly">
+        <Box display="flex" flexDirection="column" mb={1}>
+          <Textbox
+            name="textbox small error above"
+            label="Textbox small error above"
+            inputHint="Hint text"
+            size="small"
+            error="Error message"
+            value={state["textbox small error above"] || ""}
+            onChange={setValue}
+            mb={1}
+          />
+          <Textbox
+            name="textbox small warning above"
+            label="Textbox small warning above"
+            inputHint="Hint text"
+            size="small"
+            warning="Warning message"
+            value={state["textbox small warning above"] || ""}
+            onChange={setValue}
+            mb={1}
+          />
+        </Box>
+        <Box
+          display="flex"
+          flexDirection="column"
+          justifyContent="space-evenly"
+          mb={2}
+        >
+          <Textbox
+            name="textbox medium error above"
+            label="Textbox medium error above"
+            inputHint="Hint text"
+            size="medium"
+            error="Error message"
+            value={state["textbox medium error above"] || ""}
+            onChange={setValue}
+            mb={1}
+          />
+          <Textbox
+            name="textbox medium warning above"
+            label="Textbox medium warning above"
+            inputHint="Hint text"
+            size="medium"
+            warning="Warning message"
+            value={state["textbox medium warning above"] || ""}
+            onChange={setValue}
+            mb={1}
+          />
+        </Box>
+        <Box
+          display="flex"
+          flexDirection="column"
+          justifyContent="space-evenly"
+          mb={2}
+        >
+          <Textbox
+            name="textbox large error above"
+            label="Textbox large error above"
+            inputHint="Hint text"
+            size="large"
+            error="Error message"
+            value={state["textbox large error above"] || ""}
+            onChange={setValue}
+            mb={1}
+          />
+          <Textbox
+            name="textbox large warning above"
+            label="Textbox large warning above"
+            inputHint="Hint text"
+            size="large"
+            warning="Warning message"
+            value={state["textbox large warning above"] || ""}
+            onChange={setValue}
+            mb={1}
+          />
+        </Box>
+      </Box>
+      <Box display="flex" justifyContent="space-evenly">
+        <Box display="flex" flexDirection="column" mb={1}>
+          <Textbox
+            name="textbox small error below"
+            validationMessagePositionTop={false}
+            inputHint="Hint text"
+            size="small"
+            label="Textbox small error below"
+            error="Error message"
+            value={state["textbox small error below"] || ""}
+            onChange={setValue}
+            mb={1}
+          />
+          <Textbox
+            name="textbox small warning below"
+            validationMessagePositionTop={false}
+            inputHint="Hint text"
+            size="small"
+            label="Textbox small warning below"
+            warning="Warning message"
+            value={state["textbox small warning below"] || ""}
+            onChange={setValue}
+            mb={1}
+          />
+        </Box>
+        <Box display="flex" flexDirection="column" mb={1}>
+          <Textbox
+            name="textbox medium error below"
+            validationMessagePositionTop={false}
+            inputHint="Hint text"
+            size="medium"
+            label="Textbox medium error below"
+            error="Error message"
+            value={state["textbox medium error below"] || ""}
+            onChange={setValue}
+            mb={1}
+          />
+          <Textbox
+            name="textbox medium warning below"
+            validationMessagePositionTop={false}
+            inputHint="Hint text"
+            size="medium"
+            label="Textbox medium warning below"
+            warning="Warning message"
+            value={state["textbox medium warning below"] || ""}
+            onChange={setValue}
+            mb={1}
+          />
+        </Box>
+        <Box display="flex" flexDirection="column" mb={1}>
+          <Textbox
+            name="textbox large error below"
+            validationMessagePositionTop={false}
+            inputHint="Hint text"
+            size="large"
+            label="Textbox large error below"
+            error="Error message"
+            value={state["textbox large error below"] || ""}
+            onChange={setValue}
+            mb={1}
+          />
+          <Textbox
+            name="textbox large warning below"
+            validationMessagePositionTop={false}
+            inputHint="Hint text"
+            size="large"
+            label="Textbox large warning below"
+            warning="Warning message"
+            value={state["textbox large warning below"] || ""}
+            onChange={setValue}
+            mb={1}
+          />
+        </Box>
+      </Box>
     </>
   );
 };
 Validation.storyName = "Validation";
-Validation.parameters = {
-  chromatic: { disableSnapshot: false },
-  themeProvider: { chromatic: { theme: "sage" } },
-};
-
-export const NewValidation = () => {
-  const { state, setValue } = useMultiInput();
-
-  return (
-    <CarbonProvider validationRedesignOptIn>
-      <Textbox
-        name="textbox1"
-        label="Textbox"
-        error="Error Message"
-        value={state["textbox1"] || ""}
-        onChange={setValue}
-      />
-      <Textbox
-        name="textbox2"
-        label="Textbox"
-        warning="Warning Message"
-        value={state["textbox2"] || ""}
-        onChange={setValue}
-      />
-      <Textbox
-        name="textbox3"
-        validationMessagePositionTop={false}
-        label="Textbox"
-        error="Error Message"
-        value={state["textbox3"] || ""}
-        onChange={setValue}
-      />
-      <Textbox
-        name="textbox4"
-        validationMessagePositionTop={false}
-        label="Textbox"
-        warning="Warning Message"
-        value={state["textbox4"] || ""}
-        onChange={setValue}
-      />
-    </CarbonProvider>
-  );
-};
-NewValidation.storyName = "New Validation";
-NewValidation.parameters = {
-  chromatic: { disableSnapshot: false },
-  themeProvider: { chromatic: { theme: "sage" } },
-};
 
 export const PrefixWithSizes = () => {
   const { state, setValue } = useMultiInput();
@@ -196,72 +231,6 @@ export const PrefixWithSizes = () => {
 };
 PrefixWithSizes.storyName = "Prefix with sizes";
 
-export const LabelAndHintTextAlign = () => {
-  const variants = [
-    { inline: false, align: "left", error: "Error message" },
-    { inline: false, align: "left", error: undefined },
-    { inline: false, align: "right", error: "Error message" },
-    { inline: false, align: "right", error: undefined },
-    { inline: true, align: "left", error: "Error message" },
-    { inline: true, align: "left", error: undefined },
-    { inline: true, align: "right", error: "Error message" },
-    { inline: true, align: "right", error: undefined },
-  ];
-  const { state, setValue } = useMultiInput();
-
-  return (
-    <Box>
-      <h1>Old Validation</h1>
-      <Box>
-        {variants.map(({ inline, align, error: e }) => (
-          <Textbox
-            label={`${inline ? "Inline" : "Stacked"} - ${align}${e ? " with Error" : ""}`}
-            value={
-              state[`old-${inline}-${align}-${e ? "error" : "no-error"}`] || ""
-            }
-            name={`old-${inline}-${align}-${e ? "error" : "no-error"}`}
-            onChange={setValue}
-            inputWidth={50}
-            key={`${inline ? "inline" : "stacked"}-${align}-old-${e ? "error" : "no-error"}`}
-            labelAlign={align as TextboxProps["labelAlign"]}
-            inputHint="Hint text (optional)."
-            labelInline={inline}
-            error={e}
-          />
-        ))}
-      </Box>
-
-      <h1>New Validation</h1>
-      <CarbonProvider validationRedesignOptIn>
-        <Box>
-          {variants.map(({ inline, align, error: e }) => (
-            <Textbox
-              label={`${inline ? "Inline" : "Stacked"} - ${align}${e ? " with Error" : ""}`}
-              value={
-                state[`new-${inline}-${align}-${e ? "error" : "no-error"}`] ||
-                ""
-              }
-              name={`new-${inline}-${align}-${e ? "error" : "no-error"}`}
-              onChange={setValue}
-              inputWidth={50}
-              key={`${inline ? "inline" : "stacked"}-${align}-new-${e ? "error" : "no-error"}`}
-              labelAlign={align as TextboxProps["labelAlign"]}
-              inputHint="Hint text (optional)."
-              labelInline={inline}
-              error={e}
-            />
-          ))}
-        </Box>
-      </CarbonProvider>
-    </Box>
-  );
-};
-LabelAndHintTextAlign.storyName = "Label and hint text align";
-LabelAndHintTextAlign.parameters = {
-  chromatic: { disableSnapshot: false },
-  themeProvider: { chromatic: { theme: "sage" } },
-};
-
 export const AutoFocus = () => {
   const [state, setState] = useState("Textbox");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
@@ -274,10 +243,6 @@ export const AutoFocus = () => {
   );
 };
 AutoFocus.storyName = "Auto Focus";
-AutoFocus.parameters = {
-  chromatic: { disableSnapshot: false },
-  themeProvider: { chromatic: { theme: "sage" } },
-};
 
 export const FormFieldRelativePosition = () => {
   const [state, setState] = useState("Textbox");

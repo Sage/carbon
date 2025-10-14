@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import type { InputProps } from "../../__internal__/input";
+import type { InputProps } from "../../__internal__/legacy-input";
 import type { ValidationProps } from "../../__internal__/validations";
 import StyledTypography from "../typography/typography.style";
 

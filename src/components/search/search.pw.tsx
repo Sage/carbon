@@ -1,10 +1,6 @@
 import React from "react";
 import { test, expect } from "../../../playwright/helpers/base-test";
 import {
-  getDataElementByValue,
-  tooltipPreview,
-} from "../../../playwright/components";
-import {
   searchButton,
   searchCrossIcon,
   searchDefault,
@@ -35,23 +31,6 @@ const validationTypes: [string, string][] = [
 ];
 
 test.describe("When focused", () => {
-  test("should have the expected styling for the input", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<SearchComponent />);
-
-    const searchDefaultInputElement = searchDefaultInput(page);
-    await searchDefaultInputElement.focus();
-    const searchDefaultInputElementParent =
-      searchDefaultInputElement.locator("..");
-
-    await expect(searchDefaultInputElementParent).toHaveCSS(
-      "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
-    );
-  });
-
   test("should have the expected styling for the search icon", async ({
     mount,
     page,
@@ -63,6 +42,7 @@ test.describe("When focused", () => {
     await searchDefaultInputElement.fill(testDataStandard);
     const searchButtonElement = searchButton(page);
     await searchButtonElement.click({
+      // eslint-disable-next-line playwright/no-force-option
       force: true,
     });
 
@@ -149,21 +129,26 @@ test.describe("Prop tests for Search component", () => {
     );
   });
 
-  ([[true], [false]] as const).forEach(([searchButtonBool]) => {
-    test(`should render Search with searchButton prop set to ${searchButtonBool}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<SearchComponent searchButton={searchButtonBool} />);
+  test("should render Search with searchButton prop set to true", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<SearchComponent searchButton />);
 
-      const searchFindIconElement = searchIcon(page);
+    const searchFindIconElement = searchIcon(page);
 
-      if (searchButtonBool) {
-        await expect(searchFindIconElement).toBeInViewport();
-      } else {
-        await expect(searchFindIconElement).not.toBeInViewport();
-      }
-    });
+    await expect(searchFindIconElement).toBeInViewport();
+  });
+
+  test("should render Search with searchButton prop set to false", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<SearchComponent searchButton={false} />);
+
+    const searchFindIconElement = searchIcon(page);
+
+    await expect(searchFindIconElement).not.toBeInViewport();
   });
 
   test("should render Search with button text overridden when searchButton is passed a string value", async ({
@@ -310,116 +295,6 @@ test("should render Search with tabIndex prop", async ({ mount, page }) => {
   await expect(searchDefaultInputElement).toHaveAttribute("tabIndex", "-5");
 });
 
-validationTypes.forEach(([type, colour]) => {
-  test(`should render Search and set type to ${type} as string`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(
-      <SearchComponent
-        {...{
-          [type]: "Message",
-        }}
-      />,
-    );
-
-    const searchDefaultInputElementParent =
-      searchDefaultInput(page).locator("..");
-
-    await expect(searchDefaultInputElementParent).toHaveCSS(
-      "border-color",
-      colour,
-    );
-
-    const getDataElementByValueElementType = getDataElementByValue(page, type);
-    await expect(getDataElementByValueElementType).toBeVisible();
-  });
-});
-
-validationTypes.forEach((type) => {
-  test(`should render Search and set type to ${type} as boolean`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(
-      <SearchComponent
-        {...{
-          [type[0]]: true,
-        }}
-      />,
-    );
-    const searchDefaultInputElementParent =
-      searchDefaultInput(page).locator("..");
-
-    await expect(searchDefaultInputElementParent).toHaveCSS(
-      "border-color",
-      type[1],
-    );
-  });
-});
-
-test("should have the expected border radius styling when no search button enabled", async ({
-  mount,
-  page,
-}) => {
-  await mount(<SearchComponent />);
-
-  const searchDefaultInputElement = searchDefaultInput(page);
-  await expect(searchDefaultInputElement).toHaveCSS("border-radius", "4px");
-
-  const searchDefaultInputElementParent =
-    searchDefaultInput(page).locator("..");
-  await expect(searchDefaultInputElementParent).toHaveCSS(
-    "border-radius",
-    "4px",
-  );
-});
-
-test("should have the expected border radius styling when search button enabled", async ({
-  mount,
-  page,
-}) => {
-  await mount(<SearchComponent searchButton />);
-
-  const searchDefaultInputElementParent =
-    searchDefaultInput(page).locator("..");
-
-  await expect(searchDefaultInputElementParent).toHaveCSS(
-    "border-radius",
-    "4px 0px 0px 4px",
-  );
-});
-
-(
-  ["top", "bottom", "left", "right"] as SearchProps["tooltipPosition"][]
-).forEach((tooltipPositionValue) => {
-  test(`should render Search with the tooltip in the ${tooltipPositionValue} position`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(
-      <SearchComponent
-        m="250px"
-        error={testDataStandard}
-        tooltipPosition={tooltipPositionValue}
-      />,
-    );
-
-    const getDataElementByValueElementError = getDataElementByValue(
-      page,
-      "error",
-    );
-    await getDataElementByValueElementError.hover();
-    const tooltipPreviewElement = tooltipPreview(page);
-
-    await expect(tooltipPreviewElement).toHaveText(testDataStandard);
-    await expect(tooltipPreviewElement).toHaveAttribute(
-      "data-placement",
-      String(tooltipPositionValue),
-    );
-  });
-});
-
 test.describe("Functionality tests for Search component", () => {
   test("should verify proper color for Search icon button", async ({
     mount,
@@ -432,6 +307,7 @@ test.describe("Functionality tests for Search component", () => {
     await searchDefaultInputElement.fill(testDataStandard);
     const searchButtonElement = searchButton(page);
     await searchButtonElement.click({
+      // eslint-disable-next-line playwright/no-force-option
       force: true,
     });
     const mintColor = "rgb(0, 103, 56)";
@@ -451,25 +327,9 @@ test.describe("Functionality tests for Search component", () => {
     await searchDefaultInputElement.fill(testDataStandard);
     const searchCrossIconElement = searchCrossIcon(page);
     await searchCrossIconElement.click({
+      // eslint-disable-next-line playwright/no-force-option
       force: true,
     });
-
-    await expect(searchDefaultInputElement).toHaveValue("");
-    await expect(searchDefaultInputElement).toBeFocused();
-  });
-
-  test("should clear a Search input after enter key pressed and cross icon is focused", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<SearchComponent />);
-
-    const searchDefaultInputElement = searchDefaultInput(page);
-    await searchDefaultInputElement.clear();
-    await searchDefaultInputElement.fill(testDataStandard);
-    const searchCrossIconElementParent = searchCrossIcon(page).locator("..");
-    await searchCrossIconElementParent.focus();
-    await searchCrossIconElementParent.press("Enter");
 
     await expect(searchDefaultInputElement).toHaveValue("");
     await expect(searchDefaultInputElement).toBeFocused();
@@ -598,18 +458,6 @@ test.describe("Accessibility tests for Search", () => {
     await checkAccessibility(page);
   });
 
-  test("should check accessibility with id prop", async ({ mount, page }) => {
-    await mount(<SearchComponent id={testDataStandard} />);
-
-    await checkAccessibility(page);
-  });
-
-  test("should check accessibility with name prop", async ({ mount, page }) => {
-    await mount(<SearchComponent name={testDataStandard} />);
-
-    await checkAccessibility(page);
-  });
-
   test("should check accessibility with aria-label prop", async ({
     mount,
     page,
@@ -656,48 +504,6 @@ test.describe("Accessibility tests for Search", () => {
     await checkAccessibility(page);
   });
 
-  (["34%", "70%"] as const).forEach((widthInPercentage) => {
-    test(`should check accessibility with searchWidth prop set to ${widthInPercentage} percentage`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<SearchComponent searchWidth={widthInPercentage} />);
-
-      await checkAccessibility(page);
-    });
-  });
-
-  (["475px", "250px"] as const).forEach((width) => {
-    test(`should check accessibility with searchWidth prop set to ${width}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<SearchComponent searchWidth={width} />);
-
-      await checkAccessibility(page);
-    });
-  });
-
-  (["10%", "34%", "70%", "100%"] as const).forEach((widthInPercentage) => {
-    test(`should check accessibility with maxWidth prop set to ${widthInPercentage}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<SearchComponent maxWidth={widthInPercentage} />);
-
-      await checkAccessibility(page);
-    });
-  });
-
-  test("should check accessibility with tabIndex prop", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<SearchComponent tabIndex={-5} />);
-
-    await checkAccessibility(page);
-  });
-
   validationTypes.forEach((type) => {
     test(`should check accessibility and set type to ${type} as string`, async ({
       mount,
@@ -715,48 +521,22 @@ test.describe("Accessibility tests for Search", () => {
     });
   });
 
-  (
-    ["top", "bottom", "left", "right"] as SearchProps["tooltipPosition"][]
-  ).forEach((tooltipPositionValue) => {
-    test(`should check accessibility with the tooltip in the ${tooltipPositionValue} position`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <SearchComponent
-          m="250px"
-          error={testDataStandard}
-          tooltipPosition={tooltipPositionValue}
-        />,
-      );
+  test("should check accessibility with variant prop set to default", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<SearchComponent />);
 
-      const searchErrorIcon = getDataElementByValue(page, "error");
-      await searchErrorIcon.hover();
-      const tooltipPreviewElement = tooltipPreview(page);
+    await checkAccessibility(page);
 
-      await checkAccessibility(page, tooltipPreviewElement);
-    });
-  });
+    await page.keyboard.press("Tab");
+    await expect(page.getByRole("textbox")).toBeFocused();
 
-  // check accessibility when typing due to cursor colour changes
-  [true, false].forEach((showButton) => {
-    test(`should check accessibility with variant prop set to default and 'searchButton' is ${showButton}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<SearchComponent searchButton={showButton} />);
+    await checkAccessibility(page);
 
-      await checkAccessibility(page);
+    await page.keyboard.type("hello world");
 
-      await page.keyboard.press("Tab");
-      await expect(page.getByRole("textbox")).toBeFocused();
-
-      await checkAccessibility(page);
-
-      await page.keyboard.type("hello world");
-
-      await checkAccessibility(page);
-    });
+    await checkAccessibility(page);
   });
 
   // check accessibility when typing due to cursor colour changes

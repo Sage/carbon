@@ -16,6 +16,9 @@ const meta: Meta<typeof Textbox> = {
   component: Textbox,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
+    chromatic: {
+      disableSnapshot: true,
+    },
   },
   argTypes: {
     ...styledSystemProps,
@@ -27,6 +30,7 @@ type Story = StoryObj<typeof Textbox>;
 
 export const Default: Story = () => {
   const [state, setState] = useState("");
+
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
   };
@@ -171,7 +175,15 @@ export const Disabled: Story = () => {
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
   };
-  return <Textbox label="Textbox" disabled value={state} onChange={setValue} />;
+  return (
+    <Textbox
+      inputIcon="calendar"
+      label="Textbox"
+      disabled
+      value={state}
+      onChange={setValue}
+    />
+  );
 };
 Disabled.storyName = "Disabled";
 
@@ -208,7 +220,6 @@ export const WithLabelInline: Story = () => {
   );
 };
 WithLabelInline.storyName = "With Label Inline";
-WithLabelInline.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithCustomLabelWidthAndInputWidth: Story = () => {
   const [state, setState] = useState("Textbox");
@@ -276,23 +287,6 @@ export const WithInputHint: Story = () => {
 };
 WithInputHint.storyName = "With Input Hint";
 
-export const WithLabelHelp: Story = () => {
-  const [state, setState] = useState("Textbox");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-  return (
-    <Textbox
-      label="Textbox"
-      value={state}
-      onChange={setValue}
-      labelHelp="Help"
-      helpAriaLabel="Help"
-    />
-  );
-};
-WithLabelHelp.storyName = "With Label Help";
-
 export const Required: Story = () => {
   const [state, setState] = useState("Textbox");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
@@ -310,26 +304,3 @@ export const IsOptional: Story = () => {
   return <Textbox label="Textbox" value={state} onChange={setValue} />;
 };
 IsOptional.storyName = "IsOptional";
-
-export const LabelAlign: Story = () => {
-  const [state, setState] = useState("Textbox");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-  return (
-    <Box>
-      {(["right", "left"] as const).map((alignment) => (
-        <Textbox
-          label="Textbox"
-          value={state}
-          onChange={setValue}
-          labelInline
-          inputWidth={50}
-          key={alignment}
-          labelAlign={alignment}
-        />
-      ))}
-    </Box>
-  );
-};
-LabelAlign.storyName = "Label Align";

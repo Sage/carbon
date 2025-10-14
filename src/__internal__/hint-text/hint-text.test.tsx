@@ -1,100 +1,52 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
+import HintText from ".";
 
-import HintText, { HintTextProps } from "./hint-text.component";
-import CarbonProvider from "../../components/carbon-provider";
+test("should render with children", () => {
+  render(<HintText>This is a hint</HintText>);
 
-test("renders with children", () => {
-  render(<HintText>foo</HintText>);
+  expect(screen.getByText("This is a hint")).toBeVisible();
+});
 
-  expect(screen.getByText("foo")).toBeVisible();
-  expect(screen.getByText("foo")).toHaveStyleRule(
-    `color`,
-    "var(--colorsUtilityYin055)",
+test("should render with `id` prop", () => {
+  render(<HintText id="hint-1">hint text</HintText>);
+
+  expect(screen.getByTestId("hint-text")).toHaveAttribute("id", "hint-1");
+});
+
+test("should apply large font size when `isLarge` prop is true", () => {
+  render(<HintText isLarge>hint text</HintText>);
+
+  const element = screen.getByTestId("hint-text");
+  expect(element).toHaveStyleRule(
+    "font",
+    "var(--global-font-static-comp-regular-l)",
   );
 });
 
-["left", "right"].forEach((align) => {
-  test(`align="${align}"`, () => {
-    render(<HintText align={align as HintTextProps["align"]}>foo</HintText>);
+test("should apply medium font size when `isLarge` prop is false", () => {
+  render(<HintText isLarge={false}>hint text</HintText>);
 
-    expect(screen.getByText("foo")).toHaveStyleRule(
-      `justify-content`,
-      align === "left" ? "flex-start" : "flex-end",
-    );
-  });
-});
-
-test("does not render if isComponentInline is true and not using the new validation redesign opt-in", () => {
-  render(<HintText isComponentInline>foo</HintText>);
-
-  expect(screen.queryByText("foo")).not.toBeInTheDocument();
-});
-
-test("renders if isComponentInline is true and using the new validation redesign opt-in", () => {
-  render(
-    <CarbonProvider validationRedesignOptIn>
-      <HintText isComponentInline>foo</HintText>
-    </CarbonProvider>,
-  );
-
-  expect(screen.getByText("foo")).toBeInTheDocument();
-});
-
-test("renders correctly with a dark background", () => {
-  render(<HintText isDarkBackground>foo</HintText>);
-
-  expect(screen.getByText("foo")).toBeVisible();
-  expect(screen.getByText("foo")).toHaveStyleRule(
-    `color`,
-    "var(--colorsUtilityYang080)",
+  const element = screen.getByTestId("hint-text");
+  expect(element).toHaveStyleRule(
+    "font",
+    "var(--global-font-static-comp-regular-m)",
   );
 });
 
-test("renders correctly when disabled", () => {
-  render(<HintText isDisabled>foo</HintText>);
+test("should apply disabled colour when `disabled` prop is true", () => {
+  render(<HintText disabled>hint text</HintText>);
 
-  expect(screen.getByText("foo")).toBeVisible();
-  expect(screen.getByText("foo")).toHaveStyleRule(
-    `color`,
-    "var(--colorsUtilityYin030)",
+  const element = screen.getByTestId("hint-text");
+  expect(element).toHaveStyleRule(
+    "color",
+    "var(--input-labelset-label-disabled)",
   );
 });
 
-test("renders correctly with the appropriate font weight", () => {
-  render(<HintText fontWeight="400">foo</HintText>);
+test("should apply alt colour when `disabled` prop is false", () => {
+  render(<HintText disabled={false}>hint text</HintText>);
 
-  expect(screen.getByText("foo")).toBeVisible();
-  expect(screen.getByText("foo")).toHaveStyleRule(`font-weight`, "400");
-});
-
-test("renders correctly with the appropriate max width", () => {
-  render(<HintText maxWidth="160px">foo</HintText>);
-
-  expect(screen.getByText("foo")).toBeVisible();
-  expect(screen.getByText("foo")).toHaveStyleRule(`max-width`, "160px");
-});
-
-test("renders correctly with the appropriate bottom margin", () => {
-  render(<HintText marginBottom="16px">foo</HintText>);
-
-  expect(screen.getByText("foo")).toBeVisible();
-  expect(screen.getByText("foo")).toHaveStyleRule(`margin-bottom`, "16px");
-});
-
-test("renders correctly with the appropriate top margin", () => {
-  render(<HintText marginTop="16px">foo</HintText>);
-
-  expect(screen.getByText("foo")).toBeVisible();
-  expect(screen.getByText("foo")).toHaveStyleRule(`margin-top`, "16px");
-});
-
-// coverage
-test("renders with expected styles when `isLarge` is true", () => {
-  render(<HintText isLarge>foo</HintText>);
-
-  expect(screen.getByText("foo")).toHaveStyleRule(
-    "font-size",
-    "var(--fontSizes200)",
-  );
+  const element = screen.getByTestId("hint-text");
+  expect(element).toHaveStyleRule("color", "var(--input-labelset-label-alt)");
 });

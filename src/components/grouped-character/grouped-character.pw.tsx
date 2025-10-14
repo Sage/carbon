@@ -1,46 +1,18 @@
 import React from "react";
 import { test, expect } from "../../../playwright/helpers/base-test";
 import { GroupedCharacterProps } from "./grouped-character.component";
-import {
-  GroupedCharacterComponent,
-  Validations,
-  ValidationsStringComponent,
-  ValidationsStringLabel,
-  ValidationsBoolean,
-  ValidationsRedesign,
-} from "./components.test-pw";
-import {
-  getDataElementByValue,
-  tooltipPreview,
-  getElement,
-} from "../../../playwright/components/index";
+import GroupedCharacterComponent from "./components.test-pw";
+import { getDataElementByValue } from "../../../playwright/components/index";
 import { textbox } from "../../../playwright/components/textbox/index";
 import {
   checkAccessibility,
   verifyRequiredAsteriskForLabel,
 } from "../../../playwright/support/helper";
-import { SIZE, CHARACTERS } from "../../../playwright/support/constants";
+import { CHARACTERS } from "../../../playwright/support/constants";
 
 const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
 test.describe("Prop tests for GroupedCharacter", () => {
-  (
-    [
-      [SIZE.SMALL, "32px"],
-      [SIZE.MEDIUM, "40px"],
-      [SIZE.LARGE, "48px"],
-    ] as [GroupedCharacterProps["size"], string][]
-  ).forEach(([size, height]) => {
-    test(`should render with ${size} as size and ${height} as height`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<GroupedCharacterComponent size={size} />);
-
-      await expect(textbox(page)).toHaveCSS("min-height", height);
-    });
-  });
-
   (
     [
       [[1, 2, 3], "1234567", "1-23-456"],
@@ -119,19 +91,6 @@ test.describe("Input tests for GroupedCharacter", () => {
     });
   });
 
-  specialCharacters.forEach((specificValue) => {
-    test(`should render with ${specificValue} tooltip`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<GroupedCharacterComponent labelHelp={specificValue} />);
-
-      const question = getDataElementByValue(page, "question");
-      await question.hover();
-      await expect(tooltipPreview(page)).toHaveText(specificValue);
-    });
-  });
-
   test(`should render with add icon inside the component`, async ({
     mount,
     page,
@@ -158,41 +117,9 @@ test.describe("Input tests for GroupedCharacter", () => {
 
     await expect(getDataElementByValue(page, "input")).toBeFocused();
   });
-
-  (
-    [
-      ["right", "end"],
-      ["left", "start"],
-    ] as [GroupedCharacterProps["labelAlign"], string][]
-  ).forEach(([alignment, cssProp]) => {
-    test(`should render with labelAlignment ${alignment} and justify-content flex-${cssProp}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <GroupedCharacterComponent labelInline labelAlign={alignment} />,
-      );
-
-      const labelParent = getDataElementByValue(page, "label").locator("..");
-      await expect(labelParent).toHaveCSS("-webkit-box-pack", cssProp);
-      await expect(labelParent).toHaveCSS("justify-content", `flex-${cssProp}`);
-    });
-  });
 });
 
 test.describe("Event & Styling tests for GroupedCharacter", () => {
-  ["10%", "30%", "50%", "80%", "100%"].forEach((maxWidth) => {
-    test(`should render with maximum width of ${maxWidth}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<GroupedCharacterComponent maxWidth={maxWidth} />);
-
-      const inputParent = textbox(page).locator("..");
-      await expect(inputParent).toHaveCSS("max-width", maxWidth);
-    });
-  });
-
   test(`should render with max-width of 100%, when maxWidth prop is passed with no value`, async ({
     mount,
     page,
@@ -253,15 +180,6 @@ test.describe("Event & Styling tests for GroupedCharacter", () => {
     await input.blur();
     expect(callbackCount).toBe(1);
   });
-
-  test(`should render with the expected border radius styling`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<GroupedCharacterComponent />);
-
-    await expect(getElement(page, "input")).toHaveCSS("border-radius", "4px");
-  });
 });
 
 test.describe("Accessibility tests for GroupedCharacter", () => {
@@ -269,16 +187,6 @@ test.describe("Accessibility tests for GroupedCharacter", () => {
     await mount(<GroupedCharacterComponent />);
 
     await checkAccessibility(page);
-  });
-
-  (
-    [SIZE.SMALL, SIZE.MEDIUM, SIZE.LARGE] as GroupedCharacterProps["size"][]
-  ).forEach((size) => {
-    test(`should pass tests with size ${size}`, async ({ mount, page }) => {
-      await mount(<GroupedCharacterComponent size={size} />);
-
-      await checkAccessibility(page);
-    });
   });
 
   test(`should pass tests with autoFocus prop passed`, async ({
@@ -299,25 +207,8 @@ test.describe("Accessibility tests for GroupedCharacter", () => {
     await checkAccessibility(page);
   });
 
-  test(`should pass tests with labelInline prop passed`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<GroupedCharacterComponent labelInline />);
-
-    await checkAccessibility(page);
-  });
-
   test(`should pass tests for FieldHelp example`, async ({ mount, page }) => {
     await mount(<GroupedCharacterComponent fieldHelp="Help" />);
-
-    await checkAccessibility(page);
-  });
-
-  test(`should pass tests for LabelHelp example`, async ({ mount, page }) => {
-    await mount(
-      <GroupedCharacterComponent labelHelp="Help" helpAriaLabel="Help" />,
-    );
 
     await checkAccessibility(page);
   });
@@ -328,112 +219,13 @@ test.describe("Accessibility tests for GroupedCharacter", () => {
     await checkAccessibility(page);
   });
 
-  (["right", "left"] as GroupedCharacterProps["labelAlign"][]).forEach(
-    (labelAlign) => {
-      test(`should pass tests with label aligned ${labelAlign}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<GroupedCharacterComponent labelAlign={labelAlign} />);
-
-        await checkAccessibility(page);
-      });
-    },
-  );
-
-  [".", ",", " ", "-", "/", "|"].forEach((separator) => {
-    test(`should pass tests with separator ${separator}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <GroupedCharacterComponent separator={separator} value="123456" />,
-      );
-
-      await checkAccessibility(page);
-    });
-  });
-
-  (
-    [[[1, 2, 3]], [[5, 3, 1]], [[2, 4, 2]]] as [
-      GroupedCharacterProps["groups"],
-    ][]
-  ).forEach(([groups]) => {
-    test(`should pass tests for with ${groups} as group`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<GroupedCharacterComponent groups={groups} />);
-
-      await checkAccessibility(page);
-    });
-  });
-
-  test(`should pass tests for Validations example`, async ({ mount, page }) => {
-    await mount(<Validations />);
-
-    await checkAccessibility(page);
-  });
-
-  test(`should pass tests for ValidationsStringComponent example`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<ValidationsStringComponent />);
-
-    await checkAccessibility(page);
-  });
-
-  test(`should pass tests for ValidationsStringLabel example`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<ValidationsStringLabel />);
-
-    await checkAccessibility(page);
-  });
-
-  test(`should pass tests for ValidationsBoolean example`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<ValidationsBoolean />);
-
-    await checkAccessibility(page);
-  });
-
-  test(`should pass tests for ValidationsRedesign example`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<ValidationsRedesign />);
-
-    await checkAccessibility(page);
-  });
-
-  ["error", "warning", "info"].forEach((validationType) => {
+  ["error", "warning"].forEach((validationType) => {
     test(`should pass tests for with ${validationType} validation type`, async ({
       mount,
       page,
     }) => {
       await mount(
         <GroupedCharacterComponent {...{ [validationType]: "Message" }} />,
-      );
-
-      await checkAccessibility(page);
-    });
-  });
-
-  ["error", "warning", "info"].forEach((validationType) => {
-    test(`should pass tests for with ${validationType} validation type on label`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <GroupedCharacterComponent
-          {...{ [validationType]: "Message" }}
-          validationOnLabel
-        />,
       );
 
       await checkAccessibility(page);

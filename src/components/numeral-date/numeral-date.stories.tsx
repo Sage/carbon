@@ -3,7 +3,6 @@ import { Meta, StoryObj } from "@storybook/react";
 
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
-import CarbonProvider from "../carbon-provider";
 import NumeralDate, { NumeralDateHandle, NumeralDateProps } from ".";
 import Button from "../button";
 
@@ -49,14 +48,12 @@ export const WithInputHint: Story = () => {
   });
 
   return (
-    <CarbonProvider validationRedesignOptIn>
-      <NumeralDate
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        label="With label help"
-        labelHelp="Label help"
-      />
-    </CarbonProvider>
+    <NumeralDate
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+      label="With label help"
+      labelHelp="Label help"
+    />
   );
 };
 WithInputHint.storyName = "With Input Hint";
@@ -123,130 +120,38 @@ export const AllowedDateFormats: Story = () => {
 AllowedDateFormats.storyName = "Allowed Date Formats";
 
 export const InternalValidationError: Story = () => {
-  const [valueOld, setValueOld] = useState<NumeralDateProps["value"]>({
-    dd: "33",
-    mm: "01",
-    yyyy: "1999",
-  });
   const [valueNew, setValueNew] = useState<NumeralDateProps["value"]>({
     dd: "01",
     mm: "13",
     yyyy: "1999",
   });
   return (
-    <>
-      <NumeralDate
-        enableInternalError
-        onChange={(e) => setValueOld(e.target.value)}
-        label="Default - legacy validation"
-        value={valueOld}
-      />
-      <br />
-      <CarbonProvider validationRedesignOptIn>
-        <NumeralDate
-          enableInternalError
-          label="Default - new validation"
-          onChange={(e) => setValueNew(e.target.value)}
-          value={valueNew}
-        />
-      </CarbonProvider>
-    </>
+    <NumeralDate
+      enableInternalError
+      label="Default - new validation"
+      onChange={(e) => setValueNew(e.target.value)}
+      value={valueNew}
+    />
   );
 };
 InternalValidationError.storyName = "Internal Validation Error";
 
 export const InternalValidationWarning: Story = () => {
-  const [valueOld, setValueOld] = useState<NumeralDateProps["value"]>({
-    dd: "33",
-    mm: "01",
-    yyyy: "1999",
-  });
   const [valueNew, setValueNew] = useState<NumeralDateProps["value"]>({
     dd: "01",
     mm: "13",
     yyyy: "1999",
   });
   return (
-    <>
-      <NumeralDate
-        enableInternalWarning
-        label="Default - legacy validation"
-        onChange={(e) => setValueOld(e.target.value)}
-        value={valueOld}
-      />
-      <br />
-      <CarbonProvider validationRedesignOptIn>
-        <NumeralDate
-          enableInternalWarning
-          label="Default - new validation"
-          onChange={(e) => setValueNew(e.target.value)}
-          value={valueNew}
-        />
-      </CarbonProvider>
-    </>
+    <NumeralDate
+      enableInternalWarning
+      label="Default - new validation"
+      onChange={(e) => setValueNew(e.target.value)}
+      value={valueNew}
+    />
   );
 };
 InternalValidationWarning.storyName = "Internal Validation Warning";
-
-export const InlineLabel: Story = () => {
-  const [value, setValue] = useState<NumeralDateProps["value"]>({
-    dd: "",
-    mm: "",
-    yyyy: "",
-  });
-  return (
-    <NumeralDate
-      label="Inline"
-      labelInline
-      labelAlign="right"
-      labelWidth={30}
-      onChange={(e) => setValue(e.target.value)}
-      value={value}
-    />
-  );
-};
-InlineLabel.storyName = "Inline Label";
-
-export const EnablingAdaptiveBehaviour: Story = () => {
-  const [value, setValue] = useState<NumeralDateProps["value"]>({
-    dd: "",
-    mm: "",
-    yyyy: "",
-  });
-  return (
-    <NumeralDate
-      adaptiveLabelBreakpoint={960}
-      label="Adaptive behaviour"
-      labelInline
-      labelAlign="right"
-      labelWidth={30}
-      onChange={(e) => setValue(e.target.value)}
-      value={value}
-    />
-  );
-};
-EnablingAdaptiveBehaviour.storyName = "Enabling Adaptive Behaviour";
-EnablingAdaptiveBehaviour.parameters = {
-  chromatic: { disableSnapshot: true },
-};
-
-export const WithLabelHelp: Story = () => {
-  const [value, setValue] = useState<NumeralDateProps["value"]>({
-    dd: "",
-    mm: "",
-    yyyy: "",
-  });
-  return (
-    <NumeralDate
-      helpAriaLabel="Label help"
-      label="With label help"
-      labelHelp="Label help"
-      onChange={(e) => setValue(e.target.value)}
-      value={value}
-    />
-  );
-};
-WithLabelHelp.storyName = "With Label Help";
 
 export const WithFieldHelp: Story = () => {
   const [value, setValue] = useState<NumeralDateProps["value"]>({

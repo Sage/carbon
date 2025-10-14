@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 
 import FieldHelpStyle from "../field-help/field-help.style";
 import { FieldLineStyle } from "../form-field/form-field.style";
-import LabelStyle, { StyledLabelContainer } from "../label/label.style";
+import LabelStyle, { StyledLabelContainer } from "../legacy-label/label.style";
 import StyledValidationIcon from "../validations/validation-icon.style";
 import StyledHelp from "../../components/help/help.style";
 

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Textbox from "../textbox";
 import Decimal from "../decimal";
 import { Option, Select } from "../select";
-import Box from "../box";
 import InlineInputs from ".";
 
 export const Default = () => {
@@ -60,40 +59,6 @@ export const Default = () => {
         <Option text="Yellow" value="11" />
       </Select>
     </InlineInputs>
-  );
-};
-
-export const WithAdaptiveLabelBreakpoint = () => {
-  const [textValue, setTextValue] = useState("");
-
-  return (
-    <Box p={4}>
-      <InlineInputs
-        label="My Inline Inputs"
-        labelId="inline-inputs-adaptive"
-        adaptiveLabelBreakpoint={768}
-        labelWidth={30}
-        gutter="none"
-      >
-        <Textbox
-          aria-labelledby="inline-inputs-adaptive"
-          value={textValue}
-          onChange={(e) => setTextValue(e.target.value)}
-        />
-
-        <Textbox
-          aria-labelledby="inline-inputs-adaptive"
-          value={textValue}
-          onChange={(e) => setTextValue(e.target.value)}
-        />
-      </InlineInputs>
-      <Textbox
-        label="My Textbox"
-        adaptiveLabelBreakpoint={768}
-        value={textValue}
-        onChange={(e) => setTextValue(e.target.value)}
-      />
-    </Box>
   );
 };
 

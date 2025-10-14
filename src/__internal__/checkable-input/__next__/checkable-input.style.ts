@@ -1,5 +1,7 @@
 import styled, { css } from "styled-components";
-import StyledLabel, { StyledLabelContainer } from "../../label/label.style";
+import StyledLabel, {
+  StyledLabelContainer,
+} from "../../legacy-label/label.style";
 import StyledHintText from "../../hint-text/hint-text.style";
 
 const labelFont = {

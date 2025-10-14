@@ -277,7 +277,7 @@ export const Pager = ({
       {...tagComponent("pager", rest)}
     >
       {showPageSizeSelection && (
-        <StyledPagerSizeOptions>
+        <StyledPagerSizeOptions className="pager-size-options">
           {renderPageSizeOptions()}
         </StyledPagerSizeOptions>
       )}

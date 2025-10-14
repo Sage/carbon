@@ -27,7 +27,9 @@ export const Default: Story = () => {
   return (
     <Search
       placeholder="Search..."
-      onChange={(e) => setValue(e.target.value)}
+      onChange={(e) => {
+        setValue(e.target.value);
+      }}
       value={value}
     />
   );

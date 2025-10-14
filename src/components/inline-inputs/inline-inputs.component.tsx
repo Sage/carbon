@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import { MarginProps } from "styled-system";
-import Label from "../../__internal__/label";
+import Label from "../../__internal__/legacy-label";
 import StyledInlineInputs, {
   StyledContentContainer,
   StyledInlineInput,
@@ -29,7 +29,11 @@ export interface InlineInputsProps
     StyledContentContainerProps,
     StyledInlineInputsProps,
     TagProps {
-  /** Breakpoint for adaptive label (inline label change to top aligned). Enables the adaptive behaviour when set */
+  /**
+   * @deprecated `adaptiveLabelBreakpoint` has been deprecated.
+   * It is recommended to use `useMediaQuery` hook to implement adaptive behaviour.
+   * Breakpoint for adaptive label (inline label change to top aligned). Enables the adaptive behaviour when set
+   **/
   adaptiveLabelBreakpoint?: number;
   /** Children elements */
   children?: React.ReactNode;

@@ -1,17 +1,8 @@
 import React from "react";
 import { test, expect } from "../../../playwright/helpers/base-test";
-import { TextboxProps } from "../textbox";
-import {
-  textbox as password,
-  textboxInput as passwordInput,
-} from "../../../playwright/components/textbox";
+import { textboxInput as passwordInput } from "../../../playwright/components/textbox";
 import {
   PasswordComponent,
-  PasswordValidationsAsAStringWithTooltipDefault,
-  PasswordValidationsAsABoolean,
-  PasswordValidationsAsAString,
-  PasswordValidationsAsAStringWithTooltipCustom,
-  PasswordValidationsAsAStringDisplayedOnLabel,
   PasswordNewDesignsValidation,
 } from "../../../src/components/password/components.test-pw";
 import { buttonMinorComponent } from "../../../playwright/components/button";
@@ -19,9 +10,8 @@ import {
   fieldHelpPreview,
   getDataElementByValue,
   icon,
-  tooltipPreview,
 } from "../../../playwright/components/index";
-import { CHARACTERS, SIZE } from "../../../playwright/support/constants";
+import { CHARACTERS } from "../../../playwright/support/constants";
 import {
   checkAccessibility,
   getDesignTokensByCssProperty,
@@ -328,31 +318,6 @@ test.describe("aria-live region checks", () => {
 });
 
 test.describe("Prop checks for rendered Textbox", () => {
-  (
-    [
-      [SIZE.SMALL, "32px", "--sizing400"],
-      [SIZE.MEDIUM, "40px", "--sizing500"],
-      [SIZE.LARGE, "48px", "--sizing600"],
-    ] as [TextboxProps["size"], string, string][]
-  ).forEach(([size, height, token]) => {
-    test(`should render with ${size} size and ${height} height when size prop is ${size}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<PasswordComponent size={size} onChange={() => {}} />);
-
-      await expect(password(page)).toHaveCSS("min-height", height);
-
-      const tokenValues = await getDesignTokensByCssProperty(
-        page,
-        password(page),
-        "min-height",
-      );
-
-      expect(tokenValues[0]).toBe(token);
-    });
-  });
-
   specialCharacters.forEach((specificValue) => {
     test(`should render with label prop as ${specificValue}`, async ({
       mount,
@@ -380,20 +345,6 @@ test.describe("Prop checks for rendered Textbox", () => {
     });
   });
 
-  specialCharacters.forEach((specificValue) => {
-    test(`should render with labelHelp prop as ${specificValue}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <PasswordComponent labelHelp={specificValue} onChange={() => {}} />,
-      );
-
-      await getDataElementByValue(page, "question").hover();
-      await expect(tooltipPreview(page)).toHaveText(specificValue);
-    });
-  });
-
   test("should render with an input icon", async ({ mount, page }) => {
     await mount(<PasswordComponent inputIcon="add" onChange={() => {}} />);
 
@@ -410,53 +361,6 @@ test.describe("Prop checks for rendered Textbox", () => {
     await mount(<PasswordComponent autoFocus onChange={() => {}} />);
 
     await expect(passwordInput(page)).toBeFocused();
-  });
-
-  (
-    [
-      ["left", "start"],
-      ["right", "end"],
-    ] as [TextboxProps["labelAlign"], string][]
-  ).forEach(([labelAlign, cssValue]) => {
-    test(`should render with ${labelAlign} labelAlign prop`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <PasswordComponent
-          labelInline
-          labelAlign={labelAlign}
-          onChange={() => {}}
-        />,
-      );
-
-      const labelParent = getDataElementByValue(page, "label").locator("..");
-      await expect(labelParent).toHaveCSS("-webkit-box-pack", cssValue);
-    });
-  });
-
-  ["10%", "30%", "50%", "80%", "100%"].forEach((maxWidth) => {
-    test(`should render with ${maxWidth} max-width`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <PasswordComponent maxWidth={maxWidth} onChange={() => {}} />,
-      );
-
-      const passwordParent = password(page).locator("..");
-      await expect(passwordParent).toHaveCSS("max-width", maxWidth);
-    });
-  });
-
-  test("should render with max-width of 100%, when maxWidth prop is not passed", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<PasswordComponent onChange={() => {}} />);
-
-    const passwordParent = password(page).locator("..");
-    await expect(passwordParent).toHaveCSS("max-width", "100%");
   });
 });
 
@@ -509,59 +413,11 @@ test.describe("Accessibility tests for Password component", () => {
     await checkAccessibility(page);
   });
 
-  test("should pass accessibility when margin prop is passed", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<PasswordComponent m={4} onChange={() => {}} />);
-    await checkAccessibility(page);
-  });
-
   test("should pass accessibility tests when opted into new validation designs", async ({
     mount,
     page,
   }) => {
     await mount(<PasswordNewDesignsValidation />);
-    await checkAccessibility(page);
-  });
-
-  test("should pass accessibility tests when boolean validations are passed", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<PasswordValidationsAsABoolean />);
-    await checkAccessibility(page);
-  });
-
-  test("should pass accessibility tests when string validations are passed", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<PasswordValidationsAsAString />);
-    await checkAccessibility(page);
-  });
-
-  test("should pass accessibility tests when string validations are passed and displayed on label", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<PasswordValidationsAsAStringDisplayedOnLabel />);
-    await checkAccessibility(page);
-  });
-
-  test("should pass accessibility tests when custom string validations are passed and displayed on tooltip", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<PasswordValidationsAsAStringWithTooltipCustom />);
-    await checkAccessibility(page);
-  });
-
-  test("should pass accessibility tests when string validations are displayed on tooltip", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<PasswordValidationsAsAStringWithTooltipDefault />);
     await checkAccessibility(page);
   });
 
@@ -580,12 +436,4 @@ test.describe("Accessibility tests for Password component", () => {
     await mount(<PasswordComponent readOnly onChange={() => {}} />);
     await checkAccessibility(page);
   });
-});
-
-test("should have the expected border radius styling", async ({
-  mount,
-  page,
-}) => {
-  await mount(<PasswordComponent onChange={() => {}} />);
-  await expect(passwordInput(page)).toHaveCSS("border-radius", "4px");
 });

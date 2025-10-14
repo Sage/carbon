@@ -1216,12 +1216,8 @@ test("should not display the list when `openOnFocus` is set and mousedown is det
     </InteractiveComponent>,
   );
 
-  const icon = within(screen.getByRole("presentation")).getByTestId("icon");
+  const icon = screen.getByTestId("input-icon-toggle");
   await user.pointer({ keys: "[MouseLeft>]", target: icon });
-
-  await waitFor(() => {
-    expect(screen.getByRole("combobox")).toHaveFocus();
-  });
 
   expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
 });
@@ -1233,7 +1229,7 @@ test("should display the list when `openOnFocus` is not set", async () => {
       <Option value="opt1" text="red" />
     </InteractiveComponent>,
   );
-  const icon = within(screen.getByRole("presentation")).getByTestId("icon");
+  const icon = screen.getByTestId("input-icon-toggle");
   await user.click(icon);
 
   expect(await screen.findByRole("listbox")).toBeVisible();
@@ -1313,7 +1309,7 @@ test("should close the list when the user clicks on the input icon and the list 
       <Option value="opt1" text="red" />
     </InteractiveComponent>,
   );
-  const icon = within(screen.getByRole("presentation")).getByTestId("icon");
+  const icon = screen.getByTestId("input-icon-toggle");
   await user.click(icon);
   await user.click(icon);
 

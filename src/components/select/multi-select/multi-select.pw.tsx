@@ -19,8 +19,6 @@ import {
 import {
   commonDataElementInputPreview,
   getDataElementByValue,
-  helpIcon,
-  tooltipPreview,
 } from "../../../../playwright/components";
 import { dialogWithRole } from "../../../../playwright/components/dialog";
 import { loader } from "../../../../playwright/components/loader";
@@ -36,7 +34,6 @@ import {
   multiSelectPill,
   multiSelectPillByPosition,
   multiSelectPillByText,
-  selectElementInput,
   selectInput,
   selectList,
   selectListPosition,
@@ -46,12 +43,11 @@ import {
   selectOptionByText,
 } from "../../../../playwright/components/select";
 import {
-  assertCssValueIsApproximately,
   checkAccessibility,
   positionOfElement,
   verifyRequiredAsteriskForLabel,
 } from "../../../../playwright/support/helper";
-import { CHARACTERS, SIZE } from "../../../../playwright/support/constants";
+import { CHARACTERS } from "../../../../playwright/support/constants";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const testPropValue = CHARACTERS.STANDARD;
@@ -71,24 +67,6 @@ const keyToTrigger = [
   "Enter",
 ] as const;
 
-test("should have the expected styling when focused", async ({
-  mount,
-  page,
-}) => {
-  await mount(<MultiSelectComponent />);
-
-  const inputElement = commonDataElementInputPreview(page);
-  await inputElement.focus();
-  await expect(inputElement.locator("..")).toHaveCSS(
-    "box-shadow",
-    "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
-  );
-  await expect(inputElement.locator("..")).toHaveCSS(
-    "outline",
-    "rgba(0, 0, 0, 0) solid 3px",
-  );
-});
-
 test.describe("MultiSelect component", () => {
   testData.forEach((labelValue) => {
     test(`should render label using ${labelValue} special characters`, async ({
@@ -98,18 +76,6 @@ test.describe("MultiSelect component", () => {
       await mount(<MultiSelectComponent label={labelValue} />);
 
       await expect(getDataElementByValue(page, "label")).toHaveText(labelValue);
-    });
-  });
-
-  testData.forEach((labelHelpValue) => {
-    test(`should render labelHelp message using ${labelHelpValue} special characters`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<MultiSelectComponent labelHelp={labelHelpValue} />);
-
-      await helpIcon(page).hover();
-      await expect(tooltipPreview(page)).toHaveText(labelHelpValue);
     });
   });
 
@@ -148,68 +114,6 @@ test.describe("MultiSelect component", () => {
     await expect(commonDataElementInputPreview(page)).toHaveId(testPropValue);
   });
 
-  test("should render with data-element prop set to test value", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MultiSelectComponent data-element={testPropValue} />);
-
-    await expect(
-      selectElementInput(page).locator("..").locator(".."),
-    ).toHaveAttribute("data-element", testPropValue);
-  });
-
-  test("should render with data-role prop set to test value", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MultiSelectComponent data-role={testPropValue} />);
-
-    await expect(
-      selectElementInput(page).locator("..").locator(".."),
-    ).toHaveAttribute("data-role", testPropValue);
-  });
-
-  (
-    [
-      ["top", "200px", "0px", "0px", "0px"],
-      ["bottom", "0px", "0px", "0px", "0px"],
-      ["left", "200px", "0px", "200px", "0px"],
-      ["right", "200px", "0px", "0px", "200px"],
-    ] as const
-  ).forEach(([tooltipPositionValue, top, bottom, left, right]) => {
-    test(`should render the help tooltip in the ${tooltipPositionValue} position`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <MultiSelectComponent
-          labelHelp="Help"
-          tooltipPosition={tooltipPositionValue}
-          mt={top}
-          mb={bottom}
-          ml={left}
-          mr={right}
-        />,
-      );
-
-      await helpIcon(page).hover();
-      const tooltipElement = tooltipPreview(page);
-      await expect(tooltipElement).toBeVisible();
-      await expect(tooltipElement).toHaveAttribute(
-        "data-placement",
-        tooltipPositionValue,
-      );
-    });
-  });
-
-  test("should check disabled prop", async ({ mount, page }) => {
-    await mount(<MultiSelectComponent disabled />);
-
-    const selectInputElement = commonDataElementInputPreview(page);
-    await expect(selectInputElement).toBeDisabled();
-  });
-
   test("should render icon with disabled style", async ({ mount, page }) => {
     await mount(<MultiSelectComponent disabled />);
 
@@ -219,14 +123,6 @@ test.describe("MultiSelect component", () => {
       "color",
       "rgba(0, 0, 0, 0.3)",
     );
-  });
-
-  test("should render as read only", async ({ mount, page }) => {
-    await mount(<MultiSelectComponent readOnly />);
-
-    await expect(commonDataElementInputPreview(page)).not.toBeEditable();
-    await selectInput(page).click();
-    await expect(selectListWrapper(page)).toBeHidden();
   });
 
   test("should render icon with read only style", async ({ mount, page }) => {
@@ -240,26 +136,6 @@ test.describe("MultiSelect component", () => {
     );
   });
 
-  (
-    [
-      [SIZE.SMALL, "32px"],
-      [SIZE.MEDIUM, "40px"],
-      [SIZE.LARGE, "48px"],
-    ] as [MultiSelectProps["size"], string][]
-  ).forEach(([size, height]) => {
-    test(`should use ${size} as size and render MultiSelect with ${height} as height`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<MultiSelectComponent size={size} />);
-
-      await expect(commonDataElementInputPreview(page).locator("..")).toHaveCSS(
-        "min-height",
-        height,
-      );
-    });
-  });
-
   test("should check autofocus prop", async ({ mount, page }) => {
     await mount(<MultiSelectComponent autoFocus />);
 
@@ -270,106 +146,6 @@ test.describe("MultiSelect component", () => {
     await mount(<MultiSelectComponent required />);
 
     await verifyRequiredAsteriskForLabel(page);
-  });
-
-  test("should check label is inline", async ({ mount, page }) => {
-    await mount(<MultiSelectComponent labelInline />);
-
-    await expect(getDataElementByValue(page, "label").locator("..")).toHaveCSS(
-      "-webkit-box-pack",
-      "end",
-    );
-  });
-
-  (
-    [
-      ["flex", 399],
-      ["flex", 400],
-      ["block", 401],
-    ] as const
-  ).forEach(([displayValue, breakpoint]) => {
-    test(`should check label alignment is ${displayValue} with adaptiveLabelBreakpoint ${breakpoint} and viewport 400`, async ({
-      mount,
-      page,
-    }) => {
-      await page.setViewportSize({
-        width: 400,
-        height: 300,
-      });
-      await mount(
-        <MultiSelectComponent
-          labelInline
-          adaptiveLabelBreakpoint={breakpoint}
-        />,
-      );
-
-      await expect(
-        getDataElementByValue(page, "label").locator("..").locator(".."),
-      ).toHaveCSS("display", displayValue);
-    });
-  });
-
-  (
-    [
-      ["right", "end"],
-      ["left", "start"],
-    ] as [MultiSelectProps["labelAlign"], string][]
-  ).forEach(([alignment, cssProp]) => {
-    test(`should use ${alignment} as labelAlignment and render with flex-${cssProp} as css properties`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<MultiSelectComponent labelInline labelAlign={alignment} />);
-
-      const labelParentElement = getDataElementByValue(page, "label").locator(
-        "..",
-      );
-      await expect(labelParentElement).toHaveCSS("-webkit-box-pack", cssProp);
-      await expect(labelParentElement).toHaveCSS(
-        "justify-content",
-        `flex-${cssProp}`,
-      );
-    });
-  });
-
-  [
-    [10, 90, 135, 1229],
-    [30, 70, 409, 954],
-    [80, 20, 1092, 273],
-  ].forEach(([label, input, labelRatio, inputRatio]) => {
-    test(`should use ${label} as labelWidth, ${input} as inputWidth and render with correct label and input width ratios`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <MultiSelectComponent
-          labelInline
-          labelWidth={label}
-          inputWidth={input}
-        />,
-      );
-
-      await assertCssValueIsApproximately(
-        getDataElementByValue(page, "label").locator(".."),
-        "width",
-        labelRatio,
-      );
-      await assertCssValueIsApproximately(
-        getDataElementByValue(page, "input").locator(".."),
-        "width",
-        inputRatio,
-      );
-    });
-  });
-
-  ["10%", "30%", "50%", "80%", "100%"].forEach((maxWidth) => {
-    test(`should check maxWidth as ${maxWidth}`, async ({ mount, page }) => {
-      await mount(<MultiSelectComponent maxWidth={maxWidth} />);
-
-      await expect(
-        getDataElementByValue(page, "input").locator("..").locator(".."),
-      ).toHaveCSS("max-width", maxWidth);
-    });
   });
 
   test("when maxWidth has no value it should render as 100%", async ({
@@ -753,18 +529,11 @@ test.describe("MultiSelect component", () => {
         />,
       );
 
-      let flipPosition = "";
-      if (position === "top") {
-        flipPosition = "bottom";
-      }
-      if (position === "bottom") {
-        flipPosition = "top";
-      }
       await dropdownButton(page).click();
       const listElement = selectListPosition(page);
       await expect(listElement).toHaveAttribute(
         "data-floating-placement",
-        flipPosition,
+        position === "top" ? "bottom" : "top",
       );
       await expect(listElement).toBeVisible();
     });
@@ -1105,16 +874,6 @@ test.describe("MultiSelect component", () => {
     ).toHaveAttribute("data-element", "option-row");
   });
 
-  test("should have the expected border radius styling", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MultiSelectComponent />);
-
-    await expect(selectInput(page)).toHaveCSS("border-radius", "4px");
-    await expect(selectListWrapper(page)).toHaveCSS("border-radius", "4px");
-  });
-
   test("should delete options with when user clicks the close icon within a pill and there are options with same text", async ({
     mount,
     page,
@@ -1320,7 +1079,9 @@ test.describe("When error is triggered by onChange", () => {
     /* This is <p>Error</p> that displays the error message in the new validations.
       It does not have a data-element or data-component prop to target the element with.
       This can be refactored once this is implemented. */
-    const errorElement = page.locator("p");
+    const errorElement = page.locator(
+      'span[data-component="validation-message"]',
+    );
     await expect(errorElement).toBeVisible();
     await expect(errorElement).toHaveText("Error");
   });
@@ -1405,18 +1166,6 @@ test.describe("Accessibility tests for MultiSelect component", () => {
     });
   });
 
-  testData.forEach((labelHelpValue) => {
-    test(`should pass accessibility tests with labelHelp prop using ${labelHelpValue} special characters`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<MultiSelectComponent labelHelp={labelHelpValue} />);
-
-      await helpIcon(page).hover();
-      await checkAccessibility(page, tooltipPreview(page));
-    });
-  });
-
   testData.forEach((placeholderValue) => {
     test(`should pass accessibility tests with placeholder prop using ${placeholderValue} special characters`, async ({
       mount,
@@ -1425,34 +1174,6 @@ test.describe("Accessibility tests for MultiSelect component", () => {
       await mount(<MultiSelectComponent placeholder={placeholderValue} />);
 
       await checkAccessibility(page);
-    });
-  });
-
-  (
-    [
-      ["top", "200px", "0px", "0px", "0px"],
-      ["bottom", "0px", "0px", "0px", "0px"],
-      ["left", "200px", "0px", "200px", "0px"],
-      ["right", "200px", "0px", "0px", "200px"],
-    ] as [MultiSelectProps["tooltipPosition"], string, string, string, string][]
-  ).forEach(([tooltipPositionValue, top, bottom, left, right]) => {
-    test(`should pass accessibility tests with tooltip prop in the ${tooltipPositionValue} position`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <MultiSelectComponent
-          labelHelp="Help"
-          tooltipPosition={tooltipPositionValue}
-          mt={top}
-          mb={bottom}
-          ml={left}
-          mr={right}
-        />,
-      );
-
-      await helpIcon(page).hover();
-      await checkAccessibility(page, tooltipPreview(page));
     });
   });
 
@@ -1476,19 +1197,6 @@ test.describe("Accessibility tests for MultiSelect component", () => {
     await checkAccessibility(page);
   });
 
-  ([SIZE.SMALL, SIZE.MEDIUM, SIZE.LARGE] as MultiSelectProps["size"][]).forEach(
-    (size) => {
-      test(`should pass accessibility tests with size prop as ${size}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<MultiSelectComponent size={size} />);
-
-        await checkAccessibility(page);
-      });
-    },
-  );
-
   test("should pass accessibility tests with autoFocus prop", async ({
     mount,
     page,
@@ -1505,82 +1213,6 @@ test.describe("Accessibility tests for MultiSelect component", () => {
     await mount(<MultiSelectComponent required />);
 
     await checkAccessibility(page);
-  });
-
-  test("should pass accessibility tests with labelInline prop", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MultiSelectComponent labelInline />);
-
-    await checkAccessibility(page);
-  });
-
-  [399, 400, 401].forEach((breakpoint) => {
-    test(`should pass accessibility tests with adaptiveLabelBreakpoint prop set as ${breakpoint} and viewport 400`, async ({
-      mount,
-      page,
-    }) => {
-      await page.setViewportSize({
-        width: 400,
-        height: 300,
-      });
-      await mount(
-        <MultiSelectComponent
-          labelInline
-          adaptiveLabelBreakpoint={breakpoint}
-        />,
-      );
-
-      await checkAccessibility(page);
-    });
-  });
-
-  (["right", "left"] as MultiSelectProps["labelAlign"][]).forEach(
-    (alignment) => {
-      test(`should pass accessibility tests with labelAlign prop set as ${alignment}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <MultiSelectComponent labelInline labelAlign={alignment} />,
-        );
-
-        await checkAccessibility(page);
-      });
-    },
-  );
-
-  [
-    [10, 90],
-    [30, 70],
-    [80, 20],
-  ].forEach(([label, input]) => {
-    test(`should pass accessibility tests with labelWidth prop set as ${label} and inputWidth set as ${input}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <MultiSelectComponent
-          labelInline
-          labelWidth={label}
-          inputWidth={input}
-        />,
-      );
-
-      await checkAccessibility(page);
-    });
-  });
-
-  ["10%", "30%", "50%", "80%", "100%"].forEach((maxWidth) => {
-    test(`should pass accessibility tests with maxWidth prop set as ${maxWidth}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<MultiSelectComponent maxWidth={maxWidth} />);
-
-      await checkAccessibility(page);
-    });
   });
 
   test("should pass accessibility tests with isLoading prop", async ({
@@ -1604,43 +1236,6 @@ test.describe("Accessibility tests for MultiSelect component", () => {
     await checkAccessibility(page, undefined, "scrollable-region-focusable");
   });
 
-  test("should pass accessibility tests with object as value", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MultiSelectObjectAsValueComponent />);
-
-    await dropdownButton(page).click();
-    await selectOptionByText(page, option2).click();
-    await checkAccessibility(page, undefined, "scrollable-region-focusable");
-  });
-
-  (
-    [
-      ["top", "0px", "0px", "0px", "20px"],
-      ["bottom", "600px", "0px", "0px", "20px"],
-    ] as [MultiSelectProps["listPlacement"], string, string, string, string][]
-  ).forEach(([position, top, bottom, left, right]) => {
-    test(`should pass accessibility tests with flipEnabled prop and listPlacement set to ${position}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <MultiSelectComponent
-          listPlacement={position}
-          flipEnabled
-          mt={top}
-          mb={bottom}
-          ml={left}
-          mr={right}
-        />,
-      );
-
-      await dropdownButton(page).click();
-      await checkAccessibility(page, undefined, "scrollable-region-focusable");
-    });
-  });
-
   test("should pass accessibility tests with multiple columns", async ({
     mount,
     page,
@@ -1660,29 +1255,6 @@ test.describe("Accessibility tests for MultiSelect component", () => {
     await checkAccessibility(page);
   });
 
-  (["third", "fifth"] as const).forEach((option) => {
-    test(`should pass accessibility tests for MultiSelect wrapPillText prop when clicking on ${option} option`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<MultiSelectLongPillComponent wrapPillText />);
-
-      await dropdownButton(page).click();
-      await selectOption(page, positionOfElement(option)).click();
-      await checkAccessibility(page, undefined, "scrollable-region-focusable");
-    });
-  });
-
-  test("should pass accessibility tests with virtual scrolling", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<WithVirtualScrolling />);
-
-    await dropdownButton(page).click();
-    await checkAccessibility(page, undefined, "scrollable-region-focusable");
-  });
-
   test("should pass accessibility tests for MultiSelect in nested dialog", async ({
     mount,
     page,
@@ -1690,19 +1262,6 @@ test.describe("Accessibility tests for MultiSelect component", () => {
     await mount(<MultiSelectNestedInDialog />);
 
     await dropdownButton(page).click();
-    await checkAccessibility(page, undefined, "scrollable-region-focusable");
-  });
-
-  test("should pass accessibility tests when error is triggered by onChange", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MultiSelectErrorOnChangeNewValidation />);
-
-    await dropdownButton(page).click();
-    await selectOptionByText(page, option1).click();
-    await selectOptionByText(page, option2).click();
-    await selectOptionByText(page, option3).click();
     await checkAccessibility(page, undefined, "scrollable-region-focusable");
   });
 });

@@ -11,7 +11,7 @@ import invariant from "invariant";
 
 import { ValidationProps } from "../validations";
 import FormFieldStyle, { FieldLineStyle } from "./form-field.style";
-import Label, { LabelProps } from "../label";
+import Label, { LabelProps } from "../legacy-label";
 import FieldHelp from "../field-help";
 import tagComponent, { TagProps } from "../utils/helpers/tags/tags";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
