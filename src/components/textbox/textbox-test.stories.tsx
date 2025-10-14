@@ -13,7 +13,7 @@ import {
 import useMultiInput from "../../hooks/use-multi-input";
 
 export default {
-  title: "Textbox/Test",
+  title: "Deprecated/Textbox/Test",
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
     info: { disable: true },
@@ -124,10 +124,6 @@ export const Validation = () => {
   );
 };
 Validation.storyName = "Validation";
-Validation.parameters = {
-  chromatic: { disableSnapshot: false },
-  themeProvider: { chromatic: { theme: "sage" } },
-};
 
 export const NewValidation = () => {
   const { state, setValue } = useMultiInput();
@@ -168,10 +164,6 @@ export const NewValidation = () => {
   );
 };
 NewValidation.storyName = "New Validation";
-NewValidation.parameters = {
-  chromatic: { disableSnapshot: false },
-  themeProvider: { chromatic: { theme: "sage" } },
-};
 
 export const PrefixWithSizes = () => {
   const { state, setValue } = useMultiInput();
@@ -257,10 +249,6 @@ export const LabelAndHintTextAlign = () => {
   );
 };
 LabelAndHintTextAlign.storyName = "Label and hint text align";
-LabelAndHintTextAlign.parameters = {
-  chromatic: { disableSnapshot: false },
-  themeProvider: { chromatic: { theme: "sage" } },
-};
 
 export const AutoFocus = () => {
   const [state, setState] = useState("Textbox");
@@ -274,10 +262,6 @@ export const AutoFocus = () => {
   );
 };
 AutoFocus.storyName = "Auto Focus";
-AutoFocus.parameters = {
-  chromatic: { disableSnapshot: false },
-  themeProvider: { chromatic: { theme: "sage" } },
-};
 
 export const FormFieldRelativePosition = () => {
   const [state, setState] = useState("Textbox");

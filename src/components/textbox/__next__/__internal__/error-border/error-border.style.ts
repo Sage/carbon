@@ -5,10 +5,12 @@ const ErrorBorder = styled.span`
     width: 2px;
     position: absolute;
     left: -10px;
+    top: 0px;
+    bottom: 0px;
     z-index: 6;
     background-color: ${warning
-      ? "var(--colorsSemanticCaution500)"
-      : "var(--input-validation-border-error, --colorsSemanticNegative500)"};
+      ? "var(--input-validation-bar-warn)"
+      : "var(--input-validation-border-error)"};
   `}
   transform: scaleX(1);
 `;

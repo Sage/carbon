@@ -1,0 +1,134 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+import TranslationKeysTable from "../../../../.storybook/utils/translation-keys-table";
+import * as TextInputStories from "./text-input.stories";
+
+<Meta of={TextInputStories} />
+
+# TextInput
+
+<a
+target="_blank"
+href="https://zeroheight.com/35ee2cc26/v/latest/p/26354c-text-input"
+style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+rel="noreferrer"
+>
+  Product Design System component
+</a>
+
+Captures a single line of text.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Validation states](#validation-states)
+- [Props](#props)
+- [Translation keys](#translation-keys)
+
+## Quick Start
+
+```javascript
+import TextInput from "carbon-react/lib/components/textbox/__next__";
+```
+
+## Designer Notes
+
+- Use placeholder text to give the user examples of data formats (e.g. AB123456C for a UK National Insurance number).
+- You can disable a text input, but try to avoid this. If you need to, make it clear what the user needs to do in order to activate the text input.
+- Use wider fields for longer data (e.g. an address line), and narrower fields for shorter data (e.g. a postcode), to give the user a clue about the data expected.
+
+## Examples
+
+### Default
+
+<Canvas of={TextInputStories.Default} />
+
+### Required
+
+<Canvas of={TextInputStories.Required} />
+
+### Placeholder
+
+<Canvas of={TextInputStories.Placeholder} />
+
+### With Input Hint
+
+When the `inputHint` prop is passed, please use a full stop `.` at the end. This forces a pause
+before any other announcements, this well help screen reader users understand the hint fully.
+
+<Canvas of={TextInputStories.WithInputHint} />
+
+### With Input Icon
+
+<Canvas of={TextInputStories.WithInputIcon} />
+
+### Disabled
+
+<Canvas of={TextInputStories.Disabled} />
+
+### Read-Only
+
+<Canvas of={TextInputStories.ReadOnly} />
+
+### Label Inline
+
+<Canvas of={TextInputStories.LabelInline} />
+
+### Sizes
+
+<Canvas of={TextInputStories.Sizes} />
+
+### Input Width
+
+When `labelInline` is true, `inputWidth` controls the width of the input while maintaining visual balance with the label. 
+When `labelInline` is false, `inputWidth` only affects the input width; the label width remains unchanged.
+
+<Canvas of={TextInputStories.InputWidth} />
+
+### Container Width
+
+`containerWidth` controls the width of the entire component container which contains the input and the label. 
+
+<Canvas of={TextInputStories.ContainerWidth} />
+
+## Props
+
+<ArgTypes of={TextInputStories} />
+
+**Any other supplied props will be provided to the underlying HTML input element**
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the
+[i18nProvider](../?path=/docs/documentation-i18n--docs).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "characterCount.tooManyCharacters",
+      description:
+        "The message displayed below the input which will inform" +
+        " users if they have exceeded the set `characterLimit` and how much by." +
+        " This will also be announced to screen readers.",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "characterCount.charactersLeft",
+      description:
+        "The message displayed below the input which will inform" +
+        " users how many characters they have before they reach or exceed the" +
+        " set `characterLimit`. This will also be announced to screen readers.",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "characterCount.visuallyHiddenHint",
+      description:
+        "The message which will be read out to screen reader users, informing them" +
+        " of the set `characterLimit`.",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>
