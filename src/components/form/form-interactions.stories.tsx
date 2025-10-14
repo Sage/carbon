@@ -114,16 +114,18 @@ export const FocusManagement: Story = {
 
     const canvas = within(canvasElement);
 
-    const firstInput = canvas.getByRole("textbox", { name: /field 1/i });
-    const secondInput = canvas.getByRole("textbox", { name: /field 2/i });
+    const firstInput = canvas.getByRole("textbox", { name: /textbox 1/i });
+    const secondInput = canvas.getByRole("textbox", { name: /textbox 2/i });
     const firstRadio = canvas.getByRole("radio", { name: /option 1/i });
-    const datepickerInput = canvas.getByLabelText(/date picker/i);
-    const textarea = canvas.getByRole("textbox", { name: /field 3/i });
+    const datepickerInput = canvas.getByRole("textbox", {
+      name: /date picker/i,
+    });
+    const textarea = canvas.getByRole("textbox", { name: /textbox 3/i });
     const checkboxes = canvas.getAllByRole("checkbox", { name: /checkbox/i });
     const tertiaryButton = canvas.getByRole("button", { name: /tertiary/i });
-    const fourthInput = canvas.getByRole("textbox", { name: /field 4/i });
+    const fourthInput = canvas.getByRole("textbox", { name: /textbox 4/i });
     const switchElement = canvas.getByRole("switch", { name: /switch/i });
-    const fifthInput = canvas.getByRole("textbox", { name: /field 5/i });
+    const fifthInput = canvas.getByRole("textbox", { name: /textbox 5/i });
     const cancelButton = canvas.getByRole("button", { name: /cancel/i });
     const saveButton = canvas.getByRole("button", { name: /save/i });
 
