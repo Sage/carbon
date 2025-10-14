@@ -85,6 +85,42 @@ function adjustIconBgSize(fontSize?: FontSize, bgSize?: BgSize) {
   return bgSize ? iconConfig.backgroundSize[bgSize] : undefined;
 }
 
+const styleOverrides = css`
+  ${StyledNextButton} & {
+    color: currentColor;
+  }
+
+  .mentions-list-item && {
+    color: currentColor;
+  }
+
+  .mentions-list-item:hover &&,
+  .mentions-list-item.selected && {
+    color: currentColor;
+  }
+
+  .search & {
+    color: var(--colorsUtilityYin065);
+
+    :hover {
+      color: var(--colorsUtilityYin100);
+    }
+  }
+
+  .search.dark-background:not(.with-button) & {
+    color: var(--colorsUtilityYang080);
+
+    :hover {
+      color: var(--colorsUtilityYang100);
+    }
+  }
+
+  .multi-select &,
+  .filterable-select & {
+    cursor: pointer;
+  }
+`;
+
 const StyledIcon = styled.span.attrs(applyBaseTheme)<
   StyledIconProps & StyledIconInternalProps
 >`
@@ -180,21 +216,10 @@ const StyledIcon = styled.span.attrs(applyBaseTheme)<
       `}
 
       ${margin}
+
+      ${styleOverrides}
     `;
   }}
-
-  ${StyledNextButton} & {
-    color: currentColor;
-  }
-
-  .mentions-list-item && {
-    color: currentColor;
-  }
-
-  .mentions-list-item:hover &&,
-  .mentions-list-item.selected && {
-    color: currentColor;
-  }
 `;
 
 export default StyledIcon;

@@ -23,7 +23,7 @@ import React, {
   useEffect,
 } from "react";
 
-import Label from "../../__internal__/label";
+import Label from "../../__internal__/legacy-label";
 import useLocale from "../../hooks/__internal__/useLocale";
 import Logger from "../../__internal__/utils/logger";
 
@@ -49,9 +49,9 @@ import {
   SerializeLexical,
   validateUrl,
 } from "./__internal__/__utils__/helpers";
-import HintText from "../../__internal__/hint-text";
+import HintText from "../../__internal__/legacy-hint-text";
 import ValidationMessage from "../../__internal__/validation-message";
-import ErrorBorder from "../textbox/textbox.style";
+import ErrorBorder from "../../__internal__/legacy-error-border/error-border.style";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import tagComponent from "../../__internal__/utils/helpers/tags";
 import ReadOnlyEditor from "./__internal__/__ui__/ReadOnlyEditor/read-only-rte.component";

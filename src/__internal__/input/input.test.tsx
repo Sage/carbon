@@ -1,281 +1,223 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import Input, { EnterKeyHintTypes, InputProps } from "./input.component";
-import { InputContext } from "../input-behaviour";
+import Input from ".";
+import InputIconToggle from "../input-icon-toggle";
 
-test("renders an input element with type 'text'", () => {
-  render(<Input value="" />);
+test("should render text input element with `type` of 'text' by default", () => {
+  render(<Input value="" onChange={() => {}} />);
 
   const input = screen.getByRole("textbox");
   expect(input).toBeVisible();
+  expect(input).toHaveAttribute("type", "text");
 });
 
-test("focuses the input element when rendered if the `autoFocus` prop is true", () => {
-  render(<Input autoFocus value="" />);
+test("should render text input element with `type` of 'password'", () => {
+  render(
+    <Input value="" onChange={() => {}} type="password" data-role="input" />,
+  );
+
+  const input = screen.getByTestId("input");
+  expect(input).toBeVisible();
+  expect(input).toHaveAttribute("type", "password");
+});
+
+test("should render with `placeholder` prop", () => {
+  render(<Input value="" placeholder="Enter text" onChange={() => {}} />);
+
+  const input = screen.getByPlaceholderText("Enter text");
+  expect(input).toBeVisible();
+});
+
+test("should render with `value` prop", () => {
+  render(<Input value="test value" onChange={() => {}} />);
+
+  const input = screen.getByDisplayValue("test value");
+  expect(input).toBeVisible();
+});
+
+test("should render with `id` prop", () => {
+  render(<Input id="input-1" value="" onChange={() => {}} />);
 
   const input = screen.getByRole("textbox");
-  expect(input).toHaveFocus();
+  expect(input).toHaveAttribute("id", "input-1");
+});
+
+test("should render with `name` prop", () => {
+  render(<Input name="email" value="" onChange={() => {}} />);
+
+  const input = screen.getByRole("textbox");
+  expect(input).toHaveAttribute("name", "email");
+});
+
+test("should render with `aria-describedby` prop", () => {
+  render(<Input aria-describedby="hint-text" value="" onChange={() => {}} />);
+
+  const input = screen.getByRole("textbox");
+  expect(input).toHaveAttribute("aria-describedby", "hint-text");
+});
+
+test("should call `onChange` callback prop when value changes", async () => {
+  const handleChange = jest.fn();
+  render(<Input value="" onChange={handleChange} />);
+
+  const input = screen.getByRole("textbox");
+  await userEvent.type(input, "a");
+  expect(handleChange).toHaveBeenCalled();
+});
+
+test("should call `onBlur` callback prop when input loses focus", async () => {
+  const handleBlur = jest.fn();
+  render(<Input value="" onChange={() => {}} onBlur={handleBlur} />);
+
+  const input = screen.getByRole("textbox");
+  fireEvent.blur(input);
+  expect(handleBlur).toHaveBeenCalled();
+});
+
+test("should call `onFocus` callback prop when input gains focus", async () => {
+  const handleFocus = jest.fn();
+  render(<Input value="" onChange={() => {}} onFocus={handleFocus} />);
+
+  const input = screen.getByRole("textbox");
+  fireEvent.focus(input);
+  expect(handleFocus).toHaveBeenCalled();
+});
+
+test("should render with `required` prop", () => {
+  render(<Input required value="" onChange={() => {}} />);
+
+  const input = screen.getByRole("textbox");
+  expect(input).toBeRequired();
+});
+
+test("should focus input when `autoFocus` prop is set", async () => {
+  render(<Input autoFocus value="" onChange={() => {}} />);
+
+  const input = screen.getByRole("textbox");
+  await waitFor(() => {
+    expect(input).toHaveFocus();
+  });
 });
 
 test.each([
-  "enter",
-  "done",
-  "go",
-  "next",
-  "previous",
-  "search",
-  "send",
-] as EnterKeyHintTypes[])(
-  "'enterKeyHint' is correctly passed to the input when prop value is %s",
-  (keyHint) => {
-    render(<Input enterKeyHint={keyHint} value="" />);
+  ["small", "var(--global-size-s)"],
+  ["medium", "var(--global-size-m)"],
+  ["large", "var(--global-size-l)"],
+] as const)("should render with %s `size` prop", (size, expectedHeight) => {
+  render(<Input size={size} value="" onChange={() => {}} />);
 
-    const input = screen.getByRole("textbox");
-    expect(input).toHaveAttribute("enterKeyHint", keyHint);
-  },
-);
+  const inputContainer = screen.getByTestId("input-container");
+  expect(inputContainer).toHaveStyleRule("min-height", expectedHeight);
+});
 
-test("should invoke the `inputRef` callback from the input context provider, when the input is rendered", () => {
-  const inputRef = jest.fn();
-  render(
-    <InputContext.Provider value={{ inputRef }}>
-      <Input value="" />
-    </InputContext.Provider>,
+test("should apply error border styling when `error` prop is true", () => {
+  render(<Input error value="" onChange={() => {}} />);
+
+  const inputContainer = screen.getByTestId("input-container");
+  expect(inputContainer).toHaveStyleRule(
+    "border",
+    "var(--global-borderwidth-s) solid var(--input-validation-border-error)",
   );
-
-  expect(inputRef).toHaveBeenCalled();
 });
 
-test("triggers a passed function via the `onFocus` prop when the input is focused", () => {
-  const onFocusMock = jest.fn();
-  render(<Input onFocus={onFocusMock} value="" />);
+test("should apply default border when `error` prop is false", () => {
+  render(<Input error={false} value="" onChange={() => {}} />);
 
-  const input = screen.getByRole("textbox");
-  input.focus();
-
-  expect(onFocusMock).toHaveBeenCalled();
-});
-
-test("triggers a passed function via the `onFocus` prop from the input context provider, when the input is focused", () => {
-  const onFocusMock = jest.fn();
-  render(
-    <InputContext.Provider value={{ onFocus: onFocusMock }}>
-      <Input value="" />
-    </InputContext.Provider>,
+  const inputContainer = screen.getByTestId("input-container");
+  expect(inputContainer).toHaveStyleRule(
+    "border",
+    "var(--global-borderwidth-xs) solid var(--input-typical-border-default)",
   );
-
-  const input = screen.getByRole("textbox");
-  input.focus();
-
-  expect(onFocusMock).toHaveBeenCalled();
 });
 
-test("triggers a passed function via the `onBlur` prop when the input is blurred", async () => {
-  const onBlurMock = jest.fn();
-  render(<Input onBlur={onBlurMock} value="" />);
+test("should apply disabled border when `disabled` prop is true", () => {
+  render(<Input disabled value="" onChange={() => {}} />);
 
+  const inputContainer = screen.getByTestId("input-container");
+  expect(inputContainer).toHaveStyleRule(
+    "border",
+    "var(--global-borderwidth-xs) solid var(--input-typical-border-disabled)",
+    { modifier: "&&&" },
+  );
+});
+
+test("should apply readOnly border when `readOnly` prop is true", () => {
+  render(<Input readOnly value="" onChange={() => {}} />);
+
+  const inputContainer = screen.getByTestId("input-container");
+  expect(inputContainer).toHaveStyleRule(
+    "border",
+    "var(--global-borderwidth-xs) solid var(--input-typical-border-read-only)",
+    { modifier: "&&&" },
+  );
+});
+
+test("should apply `disabled` prop border precedence over `error` prop", () => {
+  render(<Input disabled error value="" onChange={() => {}} />);
+
+  const inputContainer = screen.getByTestId("input-container");
+  expect(inputContainer).toHaveStyleRule(
+    "border",
+    "var(--global-borderwidth-xs) solid var(--input-typical-border-disabled)",
+    { modifier: "&&&" },
+  );
+});
+
+test("should apply `readOnly` prop border precedence over `error` prop", () => {
+  render(<Input readOnly error value="" onChange={() => {}} />);
+
+  const inputContainer = screen.getByTestId("input-container");
+  expect(inputContainer).toHaveStyleRule(
+    "border",
+    "var(--global-borderwidth-xs) solid var(--input-typical-border-read-only)",
+    { modifier: "&&&" },
+  );
+});
+
+test("should apply disabled background colour when `disabled` prop is true", () => {
+  render(<Input disabled value="" onChange={() => {}} />);
+
+  const inputContainer = screen.getByTestId("input-container");
+  expect(inputContainer).toHaveStyleRule(
+    "background",
+    "var(--input-typical-bg-disabled)",
+    { modifier: "&&&" },
+  );
+});
+
+test("should apply readOnly background colour when `readOnly` prop is true", () => {
+  render(<Input readOnly value="" onChange={() => {}} />);
+
+  const inputContainer = screen.getByTestId("input-container");
+  expect(inputContainer).toHaveStyleRule(
+    "background",
+    "var(--input-typical-bg-read-only)",
+    { modifier: "&&&" },
+  );
+});
+
+test("should render with icon when `inputIcon` prop is provided", async () => {
   const user = userEvent.setup();
-  const input = screen.getByRole("textbox");
-
-  await user.click(input);
-  await user.tab();
-
-  expect(onBlurMock).toHaveBeenCalled();
-});
-
-test("triggers a passed function via the `onBlur` prop from the input context provider, when the input is blurred", async () => {
-  const onBlurMock = jest.fn();
-  render(
-    <InputContext.Provider value={{ onBlur: onBlurMock }}>
-      <Input value="" />
-    </InputContext.Provider>,
-  );
-
-  const user = userEvent.setup();
-  const input = screen.getByRole("textbox");
-
-  await user.click(input);
-  await user.tab();
-
-  expect(onBlurMock).toHaveBeenCalled();
-});
-
-const ControlledInput = (props: InputProps) => {
-  const [value, setValue] = React.useState(props.value || "");
-
-  return (
-    <Input
-      {...props}
-      value={value}
-      onChange={(e) => {
-        setValue(e.target.value);
-        props.onChange?.(e);
-      }}
-    />
-  );
-};
-
-test("triggers a passed function via the `onChange` prop when the input is changed", async () => {
-  const onChangeMock = jest.fn();
-  render(<ControlledInput onChange={onChangeMock} value="" />);
-
-  const user = userEvent.setup();
-  const input = screen.getByRole("textbox");
-
-  await user.type(input, "Hello, World!");
-
-  expect(onChangeMock).toHaveBeenCalled();
-});
-
-test("when the `onChangeDeferred `prop is passed and no `deferTimeout` prop is passed, the `handleDeferred` function is triggered after 750 ms", async () => {
-  const onChangeDeferredProp = jest.fn();
-  render(<Input onChangeDeferred={onChangeDeferredProp} value="" />);
-
-  jest.useFakeTimers();
-
-  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-  const input = screen.getByRole("textbox");
-
-  await user.type(input, "test");
-
-  jest.advanceTimersByTime(500);
-  expect(onChangeDeferredProp).not.toHaveBeenCalled();
-
-  jest.advanceTimersByTime(250);
-  expect(onChangeDeferredProp).toHaveBeenCalled();
-
-  jest.useRealTimers();
-});
-
-test("when the `onChangeDeferred` prop is passed with the `deferTimeout` prop, the `handleDeferred` function is triggered after the time passed to `deferTimeout`", async () => {
-  const onChangeDeferredProp = jest.fn();
+  const onClickMock = jest.fn();
   render(
     <Input
-      onChangeDeferred={onChangeDeferredProp}
-      deferTimeout={1000}
+      inputIcon={<InputIconToggle inputIcon="bin" onClick={onClickMock} />}
       value=""
+      onChange={() => {}}
     />,
   );
 
-  jest.useFakeTimers();
+  const icon = screen.getByTestId("icon");
+  await user.click(icon);
 
-  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-  const input = screen.getByRole("textbox");
-
-  await user.type(input, "test");
-
-  jest.advanceTimersByTime(800);
-  expect(onChangeDeferredProp).not.toHaveBeenCalled();
-
-  jest.advanceTimersByTime(200);
-  expect(onChangeDeferredProp).toHaveBeenCalled();
-
-  jest.useRealTimers();
-});
-
-test("triggers a passed function via the `onClick` prop when the input is clicked", async () => {
-  const onClickMock = jest.fn();
-  render(<Input onClick={onClickMock} value="" />);
-
-  const user = userEvent.setup();
-  const input = screen.getByRole("textbox");
-
-  await user.click(input);
-
+  expect(icon).toHaveAttribute("type", "bin");
   expect(onClickMock).toHaveBeenCalled();
 });
 
-test("selects all of the text when the first character within the input is focused", () => {
-  render(<Input value="hello" />);
+test("should render with prefix when `prefix` prop is provided", () => {
+  render(<Input prefix="$" value="" onChange={() => {}} />);
 
-  jest.useFakeTimers();
-  const input = screen.getByRole("textbox") as HTMLInputElement;
-  const setSelectionRangeSpy = jest.spyOn(input, "setSelectionRange");
-
-  input.selectionStart = 0;
-  input.selectionEnd = 0;
-  input.focus();
-  jest.runAllTimers();
-
-  expect(setSelectionRangeSpy).toHaveBeenCalledWith(0, 5);
-  jest.useRealTimers();
-});
-
-test("selects all of the text if the last character within the input is focused", async () => {
-  render(<Input value="hello" />);
-
-  jest.useFakeTimers();
-  const input = screen.getByRole("textbox") as HTMLInputElement;
-  const setSelectionRangeSpy = jest.spyOn(input, "setSelectionRange");
-
-  input.selectionStart = 5;
-  input.selectionEnd = 5;
-  input.focus();
-  jest.runAllTimers();
-
-  expect(setSelectionRangeSpy).toHaveBeenCalledWith(0, 5);
-  jest.useRealTimers();
-});
-
-test("does not select all of the text if an intermediate character within the input is focused", async () => {
-  render(<Input value="hello" />);
-
-  jest.useFakeTimers();
-  const input = screen.getByRole("textbox") as HTMLInputElement;
-  const setSelectionRangeSpy = jest.spyOn(input, "setSelectionRange");
-
-  input.selectionStart = 2;
-  input.selectionEnd = 2;
-  input.focus();
-  jest.runAllTimers();
-
-  expect(setSelectionRangeSpy).not.toHaveBeenCalled();
-  jest.useRealTimers();
-});
-
-test("when the input is rendered with a type other than 'text', setSelectionRange is not triggered on focus", () => {
-  render(<Input type="radio" value="" />);
-
-  jest.useFakeTimers();
-
-  const input = screen.getByRole("radio") as HTMLInputElement;
-  const setSelectionRangeSpy = jest.spyOn(input, "setSelectionRange");
-
-  input.focus();
-  jest.runAllTimers();
-
-  expect(setSelectionRangeSpy).not.toHaveBeenCalled();
-  jest.useRealTimers();
-});
-
-test("sets the provided `aria-describedby` to the accessible description of the input", () => {
-  render(<Input aria-describedby="description" value="" />);
-
-  const input = screen.getByRole("textbox");
-  expect(input).toHaveAttribute("aria-describedby", "description");
-});
-
-test("does not call onClick handler when input is disabled and is clicked", async () => {
-  const onClickMock = jest.fn();
-  const user = userEvent.setup();
-
-  render(<Input onClick={onClickMock} disabled value="" />);
-
-  const input = screen.getByRole("textbox");
-  await user.click(input);
-
-  expect(onClickMock).not.toHaveBeenCalled();
-});
-
-test("does not call onClick handler when input is readOnly and is clicked", async () => {
-  const onClickMock = jest.fn();
-  const user = userEvent.setup();
-
-  render(<Input onClick={onClickMock} readOnly value="" />);
-
-  const input = screen.getByRole("textbox");
-  await user.click(input);
-
-  expect(onClickMock).not.toHaveBeenCalled();
+  const prefix = screen.getByText("$");
+  expect(prefix).toBeVisible();
 });

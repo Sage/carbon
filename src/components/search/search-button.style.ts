@@ -15,8 +15,9 @@ const StyledSearchButton = styled.div.attrs(applyBaseTheme)`
   display: flex;
   align-self: end;
   border-bottom: none;
+  min-width: fit-content;
 
-  & ${StyledButton} {
+  &&& ${StyledButton} {
     color: var(--colorsActionMajorYang100);
     border-color: var(--colorsActionMajorTransparent);
     border-bottom-left-radius: var(--borderRadius000);
