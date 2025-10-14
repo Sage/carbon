@@ -15,9 +15,14 @@ const enableReactStrictMode = process.env.ENABLE_REACT_STRICT_MODE === "true";
 const isChromatic = !ignoreTests;
 const getStories = () =>
   glob.sync(`${projectRoot}/src/**/*.{mdx,stories.@(js|jsx|ts|tsx)}`, {
-    ...(ignoreTests && {
-      ignore: `${projectRoot}/src/**/*-@(interaction|test).stories.@(js|jsx|ts|tsx)`,
-    }),
+    ignore: [
+      `${projectRoot}/src/**/__legacy__/**`,
+      ...(ignoreTests
+        ? [
+            `${projectRoot}/src/**/*-@(interaction|test).stories.@(js|jsx|ts|tsx)`,
+          ]
+        : []),
+    ],
   });
 
 const config: StorybookConfig = {
