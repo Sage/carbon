@@ -8,15 +8,15 @@ export interface TabContextProps {
 }
 
 export interface TabsContextProps {
-  activeTab: number;
+  activeTab: string;
   currentTabId?: string;
-  focusIndex: number;
+  focusIndex: string;
   isInTab?: boolean;
   labelledBy?: string;
   orientation?: "horizontal" | "vertical";
   selectedTabId?: string;
-  setActiveTab: Dispatch<SetStateAction<number>>;
-  setFocusIndex: Dispatch<SetStateAction<number>>;
+  setActiveTab: Dispatch<SetStateAction<string>>;
+  setFocusIndex: Dispatch<SetStateAction<string>>;
   setCurrentTabId: Dispatch<SetStateAction<string>>;
   setTabErrors: (
     childId: string,
@@ -36,7 +36,6 @@ export interface TabsContextProps {
 export interface TabPanelProps {
   children?: React.ReactNode;
   id: string;
-  index: number;
   tabId: string;
 }
 
@@ -48,7 +47,6 @@ export interface TabListProps {
 export interface TabProps {
   controls: string;
   id: string;
-  index: number;
   label: React.ReactNode;
   leftSlot?: React.ReactNode;
   rightSlot?: React.ReactNode;

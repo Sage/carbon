@@ -2,9 +2,9 @@ import React, { createContext, useState, useContext, useCallback } from "react";
 import { TabsContextProps, ValidationRecord } from "./tabs.types";
 
 const initialContext: TabsContextProps = {
-  activeTab: 0,
+  activeTab: "",
   currentTabId: "",
-  focusIndex: 0,
+  focusIndex: "",
   isInTab: false,
   labelledBy: "",
   orientation: "horizontal",
@@ -46,9 +46,9 @@ export const TabsProvider = ({
   selectedTabId = "",
   size,
 }: TabsProviderProps) => {
-  const [activeTab, setActiveTab] = useState<number>(0);
+  const [activeTab, setActiveTab] = useState<string>(selectedTabId || "");
   const [currentTabId, setCurrentTabId] = useState<string>("");
-  const [focusIndex, setFocusIndex] = useState<number>(0);
+  const [focusIndex, setFocusIndex] = useState<string>("");
   const [errors, setErrors] = useState<ValidationRecord>({});
   const [warnings, setWarnings] = useState<ValidationRecord>({});
 

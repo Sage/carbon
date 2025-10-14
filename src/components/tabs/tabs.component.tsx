@@ -16,10 +16,10 @@ import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 import Icon from "../icon";
 import { TabProvider } from "./tab.context";
 
-export const TabPanel = ({ children, id, index, tabId }: TabPanelProps) => {
+export const TabPanel = ({ children, id, tabId }: TabPanelProps) => {
   const { activeTab } = useTabs();
 
-  if (index !== activeTab) return null;
+  if (tabId !== activeTab) return null;
 
   return (
     <TabProvider tabId={tabId}>
@@ -32,14 +32,7 @@ export const TabPanel = ({ children, id, index, tabId }: TabPanelProps) => {
 
 let unsupportedSlotConfigurationWarningTriggered = false;
 
-export const Tab = ({
-  controls,
-  id,
-  index,
-  label,
-  leftSlot,
-  rightSlot,
-}: TabProps) => {
+export const Tab = ({ controls, id, label, leftSlot, rightSlot }: TabProps) => {
   const [error, setError] = useState<boolean | string>(false);
   const [warning, setWarning] = useState<boolean | string>(false);
 
@@ -53,7 +46,7 @@ export const Tab = ({
     tabErrors,
     tabWarnings,
   } = useTabs();
-  const selected = activeTab === index;
+  const selected = activeTab === id;
 
   useEffect(() => {
     if (selected) setCurrentTabId(id);
@@ -71,11 +64,11 @@ export const Tab = ({
   }
 
   useEffect(() => {
-    if (focusIndex === index) {
+    if (focusIndex === id) {
       const tabElement = document.getElementById(id);
       tabElement?.focus();
     }
-  }, [focusIndex, id, index, setCurrentTabId]);
+  }, [focusIndex, id, setCurrentTabId]);
 
   useEffect(() => {
     const currentTabErrors = Object.keys(tabErrors).filter((k) => k === id);
@@ -104,17 +97,17 @@ export const Tab = ({
   return (
     <TabProvider tabId={id}>
       <StyledTab
-        activeTab={activeTab === index}
+        activeTab={activeTab === id}
         aria-controls={controls}
         aria-selected={selected ? "true" : "false"}
         error={error}
         id={id}
-        onClick={() => setActiveTab(index)}
+        onClick={() => setActiveTab(id)}
         orientation={orientation}
         role="tab"
         size={size}
         type="button"
-        tabIndex={activeTab === index || index === 0 ? 0 : -1}
+        tabIndex={activeTab === id ? 0 : -1}
         warning={warning}
       >
         {typeof label === "string" ? (
@@ -135,6 +128,7 @@ export const Tab = ({
 export const TabList = ({ ariaLabel, children }: TabListProps) => {
   const tabListRef = React.useRef<HTMLDivElement>(null);
   const {
+    activeTab,
     focusIndex,
     orientation = "horizontal",
     selectedTabId,
@@ -143,41 +137,70 @@ export const TabList = ({ ariaLabel, children }: TabListProps) => {
     size = "medium",
   } = useTabs();
 
-  const countTabChildren = () => {
-    if (tabListRef.current) {
-      return tabListRef.current.querySelectorAll('[role="tab"]').length;
+  useEffect(() => {
+    if (!activeTab || activeTab === "") {
+      const tabIds: string[] = React.Children.toArray(children)
+        .map((child: React.ReactNode) => {
+          if (React.isValidElement(child)) {
+            return child.props.id;
+          }
+          return null;
+        })
+        .filter((id): id is string => typeof id === "string");
+      const firstTab = tabIds[0];
+      setActiveTab(firstTab);
     }
-    return 0;
-  };
+  });
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
-    const numberOfTabs = countTabChildren();
+    const tabIds: string[] = React.Children.toArray(children)
+      .map((child: React.ReactNode) => {
+        if (React.isValidElement(child)) {
+          return child.props.id;
+        }
+        return null;
+      })
+      .filter((id): id is string => typeof id === "string");
+
+    const currentIndex = tabIds.indexOf(focusIndex || activeTab);
+    const lastIndex = tabIds.length - 1;
+
+    if (currentIndex === -1) return;
+
+    let nextIndex = currentIndex;
+
     switch (event.key) {
       case "Home":
-        setFocusIndex(0);
+        nextIndex = 0;
         break;
       case "End":
-        setFocusIndex(numberOfTabs - 1);
+        nextIndex = lastIndex;
         break;
       case "ArrowRight":
-        setFocusIndex((prev) => (prev + 1) % numberOfTabs);
+        nextIndex = (currentIndex + 1) % tabIds.length;
         break;
       case "ArrowLeft":
-        setFocusIndex((prev) => (prev - 1 + numberOfTabs) % numberOfTabs);
+        nextIndex = (currentIndex - 1 + tabIds.length) % tabIds.length;
         break;
       case "ArrowUp":
-        if (orientation === "vertical")
-          setFocusIndex((prev) => (prev - 1 + numberOfTabs) % numberOfTabs);
+        if (orientation === "vertical") {
+          nextIndex = (currentIndex - 1 + tabIds.length) % tabIds.length;
+        }
         break;
       case "ArrowDown":
-        if (orientation === "vertical")
-          setFocusIndex((prev) => (prev + 1) % numberOfTabs);
+        if (orientation === "vertical") {
+          nextIndex = (currentIndex + 1) % tabIds.length;
+        }
         break;
       case "Enter":
       case " ":
-        setActiveTab(focusIndex);
-        break;
+        setActiveTab(activeTab);
+        return;
+      default:
+        return;
     }
+
+    setFocusIndex(tabIds[nextIndex]);
   };
 
   useEffect(() => {

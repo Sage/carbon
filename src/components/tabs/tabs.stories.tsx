@@ -32,17 +32,17 @@ export const DefaultStory: Story = ({ ...args }) => {
   return (
     <Tabs {...args}>
       <TabList ariaLabel="Sample Tabs">
-        <Tab id="tab-1" controls="tab-panel-1" index={0} label="Tab One" />
-        <Tab id="tab-2" controls="tab-panel-2" index={1} label="Tab Two" />
-        <Tab id="tab-3" controls="tab-panel-3" index={2} label="Tab Three" />
+        <Tab id="tab-1" controls="tab-panel-1" label="Tab One" />
+        <Tab id="tab-2" controls="tab-panel-2" label="Tab Two" />
+        <Tab id="tab-3" controls="tab-panel-3" label="Tab Three" />
       </TabList>
-      <TabPanel id="tab-panel-1" tabId="tab-1" index={0}>
+      <TabPanel id="tab-panel-1" tabId="tab-1">
         <Typography>Content 1</Typography>
       </TabPanel>
-      <TabPanel id="tab-panel-2" tabId="tab-2" index={1}>
+      <TabPanel id="tab-panel-2" tabId="tab-2">
         <Typography>Content 2</Typography>
       </TabPanel>
-      <TabPanel id="tab-panel-3" tabId="tab-3" index={2}>
+      <TabPanel id="tab-panel-3" tabId="tab-3">
         <Typography>Content 3</Typography>
       </TabPanel>
     </Tabs>
@@ -58,17 +58,17 @@ export const LargeSize: Story = ({ ...args }) => {
   return (
     <Tabs {...args}>
       <TabList ariaLabel="Sample Tabs">
-        <Tab id="tab-1" controls="tab-panel-1" index={0} label="Tab One" />
-        <Tab id="tab-2" controls="tab-panel-2" index={1} label="Tab Two" />
-        <Tab id="tab-3" controls="tab-panel-3" index={2} label="Tab Three" />
+        <Tab id="tab-1" controls="tab-panel-1" label="Tab One" />
+        <Tab id="tab-2" controls="tab-panel-2" label="Tab Two" />
+        <Tab id="tab-3" controls="tab-panel-3" label="Tab Three" />
       </TabList>
-      <TabPanel id="tab-panel-1" tabId="tab-1" index={0}>
+      <TabPanel id="tab-panel-1" tabId="tab-1">
         <Typography>Content 1</Typography>
       </TabPanel>
-      <TabPanel id="tab-panel-2" tabId="tab-2" index={1}>
+      <TabPanel id="tab-panel-2" tabId="tab-2">
         <Typography>Content 2</Typography>
       </TabPanel>
-      <TabPanel id="tab-panel-3" tabId="tab-3" index={2}>
+      <TabPanel id="tab-panel-3" tabId="tab-3">
         <Typography>Content 3</Typography>
       </TabPanel>
     </Tabs>
@@ -84,17 +84,17 @@ export const VerticalOrientation: Story = ({ ...args }) => {
   return (
     <Tabs {...args}>
       <TabList ariaLabel="Sample Tabs">
-        <Tab id="tab-1" controls="tab-panel-1" index={0} label="Tab One" />
-        <Tab id="tab-2" controls="tab-panel-2" index={1} label="Tab Two" />
-        <Tab id="tab-3" controls="tab-panel-3" index={2} label="Tab Three" />
+        <Tab id="tab-1" controls="tab-panel-1" label="Tab One" />
+        <Tab id="tab-2" controls="tab-panel-2" label="Tab Two" />
+        <Tab id="tab-3" controls="tab-panel-3" label="Tab Three" />
       </TabList>
-      <TabPanel id="tab-panel-1" tabId="tab-1" index={0}>
+      <TabPanel id="tab-panel-1" tabId="tab-1">
         <Typography>Content 1</Typography>
       </TabPanel>
-      <TabPanel id="tab-panel-2" tabId="tab-2" index={1}>
+      <TabPanel id="tab-panel-2" tabId="tab-2">
         <Typography>Content 2</Typography>
       </TabPanel>
-      <TabPanel id="tab-panel-3" tabId="tab-3" index={2}>
+      <TabPanel id="tab-panel-3" tabId="tab-3">
         <Typography>Content 3</Typography>
       </TabPanel>
     </Tabs>
@@ -116,7 +116,6 @@ export const TabOverflow: Story = ({ ...args }) => {
             key={`tab-${index + 1}`}
             id={`tab-${index + 1}`}
             controls={`tab-panel-${index + 1}`}
-            index={index}
             label={`Tab ${index + 1}`}
           />
         ))}
@@ -126,7 +125,6 @@ export const TabOverflow: Story = ({ ...args }) => {
           key={`tab-panel-${index + 1}`}
           id={`tab-panel-${index + 1}`}
           tabId={`tab-${index + 1}`}
-          index={index}
         >
           <Typography>{`Content ${index + 1}`}</Typography>
         </TabPanel>
@@ -144,40 +142,37 @@ export const TitleSlots: Story = ({ ...args }) => {
   return (
     <Tabs {...args}>
       <TabList ariaLabel="Sample Tabs">
-        <Tab id="tab-1" controls="tab-panel-1" index={0} label="No Slots" />
+        <Tab id="tab-1" controls="tab-panel-1" label="No Slots" />
         <Tab
           id="tab-2"
           controls="tab-panel-2"
-          index={1}
           label="Left slot"
           leftSlot={<Icon type="home" />}
         />
         <Tab
           id="tab-3"
           controls="tab-panel-3"
-          index={2}
           label="Right slot"
           rightSlot={<Pill>Label</Pill>}
         />
         <Tab
           id="tab-4"
           controls="tab-panel-4"
-          index={3}
           label="Both slots"
           leftSlot={<Icon type="home" />}
           rightSlot={<Pill>Label</Pill>}
         />
       </TabList>
-      <TabPanel id="tab-panel-1" tabId="tab-1" index={0}>
+      <TabPanel id="tab-panel-1" tabId="tab-1">
         <Typography>Content 1</Typography>
       </TabPanel>
-      <TabPanel id="tab-panel-2" tabId="tab-2" index={1}>
+      <TabPanel id="tab-panel-2" tabId="tab-2">
         <Typography>Content 2</Typography>
       </TabPanel>
-      <TabPanel id="tab-panel-3" tabId="tab-3" index={2}>
+      <TabPanel id="tab-panel-3" tabId="tab-3">
         <Typography>Content 3</Typography>
       </TabPanel>
-      <TabPanel id="tab-panel-4" tabId="tab-4" index={3}>
+      <TabPanel id="tab-panel-4" tabId="tab-4">
         <Typography>Content 4</Typography>
       </TabPanel>
     </Tabs>
@@ -204,32 +199,17 @@ export const CustomTitle: Story = ({ ...args }) => {
   return (
     <Tabs {...args}>
       <TabList ariaLabel="Sample Tabs">
-        <Tab
-          id="tab-1"
-          controls="tab-panel-1"
-          index={0}
-          label={customHeader(0)}
-        />
-        <Tab
-          id="tab-2"
-          controls="tab-panel-2"
-          index={1}
-          label={customHeader(1)}
-        />
-        <Tab
-          id="tab-3"
-          controls="tab-panel-3"
-          index={2}
-          label={customHeader(2)}
-        />
+        <Tab id="tab-1" controls="tab-panel-1" label={customHeader(0)} />
+        <Tab id="tab-2" controls="tab-panel-2" label={customHeader(1)} />
+        <Tab id="tab-3" controls="tab-panel-3" label={customHeader(2)} />
       </TabList>
-      <TabPanel id="tab-panel-1" tabId="tab-1" index={0}>
+      <TabPanel id="tab-panel-1" tabId="tab-1">
         <Typography>Content 1</Typography>
       </TabPanel>
-      <TabPanel id="tab-panel-2" tabId="tab-2" index={1}>
+      <TabPanel id="tab-panel-2" tabId="tab-2">
         <Typography>Content 2</Typography>
       </TabPanel>
-      <TabPanel id="tab-panel-3" tabId="tab-3" index={2}>
+      <TabPanel id="tab-panel-3" tabId="tab-3">
         <Typography>Content 3</Typography>
       </TabPanel>
     </Tabs>
@@ -245,12 +225,12 @@ export const WithErrorAndWarning: Story = ({ ...args }) => {
   return (
     <Tabs {...args}>
       <TabList ariaLabel="Sample Tabs">
-        <Tab id="tab-1" controls="tab-panel-1" index={0} label="Default" />
-        <Tab id="tab-2" controls="tab-panel-2" index={1} label="Error" />
-        <Tab id="tab-3" controls="tab-panel-3" index={2} label="Warning" />
+        <Tab id="tab-1" controls="tab-panel-1" label="Default" />
+        <Tab id="tab-2" controls="tab-panel-2" label="Error" />
+        <Tab id="tab-3" controls="tab-panel-3" label="Warning" />
       </TabList>
 
-      <TabPanel id="tab-panel-1" index={0} tabId={"tab-1"}>
+      <TabPanel id="tab-panel-1" tabId={"tab-1"}>
         <Form
           onSubmit={() => {}}
           saveButton={
@@ -263,7 +243,7 @@ export const WithErrorAndWarning: Story = ({ ...args }) => {
         </Form>
       </TabPanel>
 
-      <TabPanel id="tab-panel-2" index={1} tabId={"tab-2"}>
+      <TabPanel id="tab-panel-2" tabId={"tab-2"}>
         <Form
           onSubmit={() => {}}
           saveButton={
@@ -276,7 +256,7 @@ export const WithErrorAndWarning: Story = ({ ...args }) => {
         </Form>
       </TabPanel>
 
-      <TabPanel id="tab-panel-3" index={2} tabId={"tab-3"}>
+      <TabPanel id="tab-panel-3" tabId={"tab-3"}>
         <Form
           onSubmit={() => {}}
           saveButton={
