@@ -9,9 +9,11 @@ interface ApplyBaseThemeArgs {
  * To be used by a styled component, this util applies Carbon's base theme to the component if no theme is provided from a parent `ThemeProvider`.
  * Otherwise, it preserves the provided theme.
  *
+ * `className` is destructured to prevent it being spread back on the styled-component and duplicated.
+ *
  * @see {@link https://styled-components.com/docs/api#themeprovider | `ThemeProvider`} docs
  */
-export default ({ theme, ...props }: ApplyBaseThemeArgs) => {
+export default ({ theme, className, ...props }: ApplyBaseThemeArgs) => {
   return {
     // A styled component's `theme` prop defaults to an empty object if ThemeProvider is not used.
     // This ensures that the base theme is applied if no theme is provided.

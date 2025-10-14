@@ -139,7 +139,6 @@ export const FilterableSelect = React.forwardRef<
     const listboxRef = useRef<HTMLDivElement>(null);
     const isMouseDownReported = useRef(false);
     const isInputFocused = useRef(false);
-    const isMouseDownOnInput = useRef(false);
     const [textboxRef, setTextboxRef] = useState<HTMLInputElement>();
     const [isOpen, setOpen] = useState(false);
     const [textValue, setTextValue] = useState("");
@@ -501,6 +500,8 @@ export const FilterableSelect = React.forwardRef<
       }
 
       setOpen((isAlreadyOpen) => {
+        openOnFocusFlagBlock.current = isAlreadyOpen;
+
         return !isAlreadyOpen;
       });
     }
@@ -538,10 +539,6 @@ export const FilterableSelect = React.forwardRef<
               isInputFocused.current = true;
             }
 
-            if (isMouseDownReported.current && !isMouseDownOnInput.current) {
-              return false;
-            }
-
             return true;
           });
         });
@@ -552,8 +549,6 @@ export const FilterableSelect = React.forwardRef<
     }
 
     function handleTextboxBlur(event: React.FocusEvent<HTMLInputElement>) {
-      isMouseDownOnInput.current = false;
-
       if (isMouseDownReported.current) {
         return;
       }
@@ -570,8 +565,11 @@ export const FilterableSelect = React.forwardRef<
     function handleTextboxMouseDown(event: React.MouseEvent<HTMLElement>) {
       isMouseDownReported.current = true;
 
-      if ((event.target as HTMLInputElement).dataset.element === "input") {
-        isMouseDownOnInput.current = true;
+      const targetElement = event.target as HTMLElement;
+
+      // prevent text selection on rapid clicks of non-input elements (e.g. the dropdown icon)
+      if (targetElement.dataset?.element !== "input") {
+        event.preventDefault();
       }
     }
 
@@ -682,6 +680,7 @@ export const FilterableSelect = React.forwardRef<
         data-role={dataRole}
         data-element={dataElement}
         isOpen={isOpen}
+        className="filterable-select"
         {...marginProps}
       >
         <div ref={containerRef}>
@@ -693,7 +692,7 @@ export const FilterableSelect = React.forwardRef<
             labelId={label ? labelId : undefined}
             aria-controls={selectListId.current}
             isOpen={isOpen}
-            hasTextCursor
+            selectType="filterable"
             {...getTextboxProps()}
             onChange={handleTextboxChange}
             value={textValue}

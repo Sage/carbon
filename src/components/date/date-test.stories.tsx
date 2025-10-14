@@ -4,7 +4,6 @@ import { StoryObj } from "@storybook/react";
 import { zhCN, de, enUS, enGB } from "date-fns/locale";
 
 import DateInput, { DateChangeEvent, DateInputProps } from "./date.component";
-import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import Box from "../box";
 import Confirm from "../confirm";
 import I18nProvider from "../i18n-provider";
@@ -32,11 +31,6 @@ export default {
   },
   argTypes: {
     fieldHelp: {
-      control: {
-        type: "text",
-      },
-    },
-    labelHelp: {
       control: {
         type: "text",
       },
@@ -93,6 +87,7 @@ export const Validation = () => {
       <DateInput
         label="Date"
         name="date-input"
+        inputHint="Input hint"
         error="Error Message"
         value={state}
         onChange={setValue}
@@ -107,122 +102,28 @@ export const Validation = () => {
         mb={2}
       />
       <DateInput
+        validationMessagePositionTop={false}
         label="Date"
         name="date-input"
-        info="Info Message"
-        value={state}
-        onChange={setValue}
-        mb={2}
-      />
-
-      <DateInput
-        label="Date"
-        name="date-input"
+        inputHint="Input hint"
         error="Error Message"
-        validationOnLabel
         value={state}
         onChange={setValue}
         mb={2}
       />
       <DateInput
+        validationMessagePositionTop={false}
         label="Date"
         name="date-input"
         warning="Warning Message"
-        validationOnLabel
         value={state}
         onChange={setValue}
-        mb={2}
-      />
-      <DateInput
-        label="Date"
-        name="date-input"
-        info="Info Message"
-        validationOnLabel
-        value={state}
-        onChange={setValue}
-        mb={2}
-      />
-
-      <DateInput
-        label="Date"
-        name="date-input"
-        error
-        value={state}
-        onChange={setValue}
-        mb={2}
-      />
-      <DateInput
-        label="Date"
-        name="date-input"
-        warning
-        value={state}
-        onChange={setValue}
-        mb={2}
-      />
-      <DateInput
-        label="Date"
-        name="date-input"
-        info
-        value={state}
-        onChange={setValue}
-        mb={2}
       />
     </>
   );
 };
 Validation.storyName = "Validation";
 Validation.parameters = {
-  chromatic: { disableSnapshot: false },
-  themeProvider: { chromatic: { theme: "sage" } },
-};
-
-export const NewValidation = () => {
-  const [state, setState] = useState("04/04/2019");
-  const setValue = (ev: DateChangeEvent) => {
-    setState(ev.target.value.formattedValue);
-  };
-  return (
-    <CarbonProvider validationRedesignOptIn>
-      <DateInput
-        label="Date"
-        name="date-input"
-        inputHint="Input hint"
-        error="Error Message"
-        value={state}
-        onChange={setValue}
-        mb={2}
-      />
-      <DateInput
-        label="Date"
-        name="date-input"
-        warning="Warning Message"
-        value={state}
-        onChange={setValue}
-        mb={2}
-      />
-      <DateInput
-        validationMessagePositionTop={false}
-        label="Date"
-        name="date-input"
-        inputHint="Input hint"
-        error="Error Message"
-        value={state}
-        onChange={setValue}
-        mb={2}
-      />
-      <DateInput
-        validationMessagePositionTop={false}
-        label="Date"
-        name="date-input"
-        warning="Warning Message"
-        value={state}
-        onChange={setValue}
-      />
-    </CarbonProvider>
-  );
-};
-NewValidation.storyName = "New Validation";
-NewValidation.parameters = {
   chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
 };
@@ -303,7 +204,7 @@ export const I18NStory = ({ locale, ...args }: DateInputI80NProps) => {
     setState(ev.target.value.formattedValue);
   };
   return (
-    <CarbonProvider validationRedesignOptIn>
+    <>
       <I18nProvider
         locale={{
           locale: () => locale,
@@ -334,7 +235,7 @@ export const I18NStory = ({ locale, ...args }: DateInputI80NProps) => {
           }
         />
       </I18nProvider>
-    </CarbonProvider>
+    </>
   );
 };
 I18NStory.storyName = "i18n Story";

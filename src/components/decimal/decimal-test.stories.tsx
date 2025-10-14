@@ -9,7 +9,6 @@ import {
   getCommonTextboxArgs,
   getCommonTextboxArgsWithSpecialCharacters,
 } from "../textbox/utils";
-import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
 export default {
   title: "Decimal Input/Test",
@@ -137,98 +136,25 @@ export const Validation = () => {
         mb={2}
       />
       <Decimal
-        label="Decimal"
-        info="Info Message"
-        value={state}
-        onChange={setValue}
-        mb={2}
-      />
-
-      <Decimal
+        validationMessagePositionTop={false}
         label="Decimal"
         error="Error Message"
-        validationOnLabel
         value={state}
         onChange={setValue}
         mb={2}
       />
       <Decimal
+        validationMessagePositionTop={false}
         label="Decimal"
         warning="Warning Message"
-        validationOnLabel
         value={state}
         onChange={setValue}
-        mb={2}
       />
-      <Decimal
-        label="Decimal"
-        info="Info Message"
-        validationOnLabel
-        value={state}
-        onChange={setValue}
-        mb={2}
-      />
-
-      <Decimal label="Decimal" error value={state} onChange={setValue} mb={2} />
-      <Decimal
-        label="Decimal"
-        warning
-        value={state}
-        onChange={setValue}
-        mb={2}
-      />
-      <Decimal label="Decimal" info value={state} onChange={setValue} mb={2} />
     </>
   );
 };
 Validation.storyName = "Validation";
 Validation.parameters = {
-  chromatic: { disableSnapshot: false },
-  themeProvider: { chromatic: { theme: "sage" } },
-};
-
-export const NewValidation = () => {
-  const [state, setState] = useState("0.01");
-  const setValue = ({ target }: CustomEvent) => {
-    setState(target.value.rawValue);
-  };
-
-  return (
-    <CarbonProvider validationRedesignOptIn>
-      <Decimal
-        label="Decimal"
-        error="Error Message"
-        value={state}
-        onChange={setValue}
-        mb={2}
-      />
-      <Decimal
-        label="Decimal"
-        warning="Warning Message"
-        value={state}
-        onChange={setValue}
-        mb={2}
-      />
-      <Decimal
-        validationMessagePositionTop={false}
-        label="Decimal"
-        error="Error Message"
-        value={state}
-        onChange={setValue}
-        mb={2}
-      />
-      <Decimal
-        validationMessagePositionTop={false}
-        label="Decimal"
-        warning="Warning Message"
-        value={state}
-        onChange={setValue}
-      />
-    </CarbonProvider>
-  );
-};
-NewValidation.storyName = "New Validation";
-NewValidation.parameters = {
   chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
 };

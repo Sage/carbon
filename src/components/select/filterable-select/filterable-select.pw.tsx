@@ -16,8 +16,6 @@ import {
 import {
   commonDataElementInputPreview,
   getDataElementByValue,
-  helpIcon,
-  tooltipPreview,
 } from "../../../../playwright/components";
 import { dialogWithRole } from "../../../../playwright/components/dialog";
 import { loader } from "../../../../playwright/components/loader";
@@ -31,7 +29,6 @@ import {
   multiColumnsSelectListHeaderColumn,
   multiColumnsSelectListNoResultsMessage,
   multiColumnsSelectListRow,
-  selectElementInput,
   selectInput,
   selectList,
   selectListPosition,
@@ -41,12 +38,10 @@ import {
   selectOptionByText,
 } from "../../../../playwright/components/select";
 import {
-  assertCssValueIsApproximately,
   checkAccessibility,
   positionOfElement,
-  verifyRequiredAsteriskForLabel,
 } from "../../../../playwright/support/helper";
-import { CHARACTERS, SIZE } from "../../../../playwright/support/constants";
+import { CHARACTERS } from "../../../../playwright/support/constants";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const testPropValue = CHARACTERS.STANDARD;
@@ -55,24 +50,6 @@ const columns = 3;
 const icon = "add";
 const keyToTrigger = ["ArrowDown", "ArrowUp", "Home", "End"] as const;
 const listOption = "Amber";
-
-test("should have the expected styling when focused", async ({
-  mount,
-  page,
-}) => {
-  await mount(<FilterableSelectComponent />);
-
-  const inputElement = commonDataElementInputPreview(page);
-  await inputElement.focus();
-  await expect(inputElement.locator("..")).toHaveCSS(
-    "box-shadow",
-    "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
-  );
-  await expect(inputElement.locator("..")).toHaveCSS(
-    "outline",
-    "rgba(0, 0, 0, 0) solid 3px",
-  );
-});
 
 test.describe("FilterableSelect component", () => {
   test("should not select an option when the user types non-matching filter text in the input and then presses the Enter key", async ({
@@ -119,18 +96,6 @@ test.describe("FilterableSelect component", () => {
     });
   });
 
-  testData.forEach((labelHelpValue) => {
-    test(`should render labelHelp message using ${labelHelpValue} special characters`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<FilterableSelectComponent labelHelp={labelHelpValue} />);
-
-      await helpIcon(page).hover();
-      await expect(tooltipPreview(page)).toHaveText(labelHelpValue);
-    });
-  });
-
   testData.forEach((placeholderValue) => {
     test(`should render placeholder using ${placeholderValue} special characters`, async ({
       mount,
@@ -164,61 +129,6 @@ test.describe("FilterableSelect component", () => {
     await mount(<FilterableSelectComponent id={testPropValue} />);
 
     await expect(commonDataElementInputPreview(page)).toHaveId(testPropValue);
-  });
-
-  test("should render with data-element prop set to test value", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FilterableSelectComponent data-element={testPropValue} />);
-
-    await expect(
-      selectElementInput(page).locator("..").locator(".."),
-    ).toHaveAttribute("data-element", testPropValue);
-  });
-
-  test("should render with data-role prop set to test value", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FilterableSelectComponent data-role={testPropValue} />);
-
-    await expect(
-      selectElementInput(page).locator("..").locator(".."),
-    ).toHaveAttribute("data-role", testPropValue);
-  });
-
-  (
-    [
-      ["top", "200px", "0px", "0px", "0px"],
-      ["bottom", "0px", "0px", "0px", "0px"],
-      ["left", "200px", "0px", "200px", "0px"],
-      ["right", "200px", "0px", "0px", "200px"],
-    ] as const
-  ).forEach(([tooltipPositionValue, top, bottom, left, right]) => {
-    test(`should render the help tooltip in the ${tooltipPositionValue} position`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <FilterableSelectComponent
-          labelHelp="Help"
-          tooltipPosition={tooltipPositionValue}
-          mt={top}
-          mb={bottom}
-          ml={left}
-          mr={right}
-        />,
-      );
-
-      await helpIcon(page).hover();
-      const tooltipElement = tooltipPreview(page);
-      await expect(tooltipElement).toBeVisible();
-      await expect(tooltipElement).toHaveAttribute(
-        "data-placement",
-        tooltipPositionValue,
-      );
-    });
   });
 
   test("should check disabled prop", async ({ mount, page }) => {
@@ -258,138 +168,10 @@ test.describe("FilterableSelect component", () => {
     );
   });
 
-  (
-    [
-      [SIZE.SMALL, "32px"],
-      [SIZE.MEDIUM, "40px"],
-      [SIZE.LARGE, "48px"],
-    ] as [FilterableSelectProps["size"], string][]
-  ).forEach(([size, height]) => {
-    test(`should use ${size} as size and render with ${height} as height`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<FilterableSelectComponent size={size} />);
-
-      await expect(commonDataElementInputPreview(page).locator("..")).toHaveCSS(
-        "min-height",
-        height,
-      );
-    });
-  });
-
   test("should check autofocus prop", async ({ mount, page }) => {
     await mount(<FilterableSelectComponent autoFocus />);
 
     await expect(commonDataElementInputPreview(page)).toBeFocused();
-  });
-
-  test("should check required prop", async ({ mount, page }) => {
-    await mount(<FilterableSelectComponent required />);
-
-    await verifyRequiredAsteriskForLabel(page);
-  });
-
-  test("should check label is inline", async ({ mount, page }) => {
-    await mount(<FilterableSelectComponent labelInline />);
-
-    await expect(getDataElementByValue(page, "label").locator("..")).toHaveCSS(
-      "-webkit-box-pack",
-      "end",
-    );
-  });
-
-  (
-    [
-      ["flex", 399],
-      ["flex", 400],
-      ["block", 401],
-    ] as [string, number][]
-  ).forEach(([displayValue, breakpoint]) => {
-    test(`should check label alignment is ${displayValue} with adaptiveLabelBreakpoint ${breakpoint} and viewport 400`, async ({
-      mount,
-      page,
-    }) => {
-      await page.setViewportSize({
-        width: 400,
-        height: 300,
-      });
-      await mount(
-        <FilterableSelectComponent
-          labelInline
-          adaptiveLabelBreakpoint={breakpoint}
-        />,
-      );
-
-      await expect(
-        getDataElementByValue(page, "label").locator("..").locator(".."),
-      ).toHaveCSS("display", displayValue);
-    });
-  });
-
-  (
-    [
-      ["right", "end"],
-      ["left", "start"],
-    ] as [FilterableSelectProps["labelAlign"], string][]
-  ).forEach(([alignment, cssProp]) => {
-    test(`should use ${alignment} as labelAligment and render with flex-${cssProp} as css properties`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <FilterableSelectComponent labelInline labelAlign={alignment} />,
-      );
-
-      const labelParentElement = getDataElementByValue(page, "label").locator(
-        "..",
-      );
-      await expect(labelParentElement).toHaveCSS("-webkit-box-pack", cssProp);
-      await expect(labelParentElement).toHaveCSS(
-        "justify-content",
-        `flex-${cssProp}`,
-      );
-    });
-  });
-
-  [
-    [10, 90, 135, 1229],
-    [30, 70, 409, 956],
-    [80, 20, 1092, 273],
-  ].forEach(([label, input, labelRatio, inputRatio]) => {
-    test(`should use ${label} as labelWidth, ${input} as inputWidth and render with correct label and input width ratios`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <FilterableSelectComponent
-          labelInline
-          labelWidth={label}
-          inputWidth={input}
-        />,
-      );
-
-      await assertCssValueIsApproximately(
-        getDataElementByValue(page, "label").locator(".."),
-        "width",
-        labelRatio,
-      );
-      await assertCssValueIsApproximately(
-        getDataElementByValue(page, "input").locator(".."),
-        "width",
-        inputRatio,
-      );
-    });
-  });
-
-  ["10%", "30%", "50%", "80%", "100%"].forEach((maxWidth) => {
-    test(`should check maxWidth as ${maxWidth}`, async ({ mount, page }) => {
-      await mount(<FilterableSelectComponent maxWidth={maxWidth} />);
-
-      await expect(
-        getDataElementByValue(page, "input").locator("..").locator(".."),
-      ).toHaveCSS("max-width", maxWidth);
-    });
   });
 
   test("when maxWidth has no value it should render as 100%", async ({
@@ -785,18 +567,11 @@ test.describe("FilterableSelect component", () => {
         />,
       );
 
-      let flipPosition = "";
-      if (position === "top") {
-        flipPosition = "bottom";
-      }
-      if (position === "bottom") {
-        flipPosition = "top";
-      }
       await dropdownButton(page).click();
       const listElement = selectListPosition(page);
       await expect(listElement).toHaveAttribute(
         "data-floating-placement",
-        flipPosition,
+        position === "top" ? "bottom" : "top",
       );
       await expect(listElement).toBeVisible();
     });
@@ -1042,16 +817,6 @@ test.describe("FilterableSelect component", () => {
       "background-color",
       "rgb(204, 214, 219)",
     );
-  });
-
-  test("should have the expected border radius styling", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FilterableSelectComponent />);
-
-    await expect(selectInput(page)).toHaveCSS("border-radius", "4px");
-    await expect(selectListWrapper(page)).toHaveCSS("border-radius", "4px");
   });
 
   test("should contain custom option row id 3", async ({ mount, page }) => {
@@ -1389,29 +1154,6 @@ test.describe("Accessibility tests for FilterableSelect component", () => {
     await checkAccessibility(page, undefined, "scrollable-region-focusable");
   });
 
-  testData.forEach((labelValue) => {
-    test(`should pass accessibility tests with label prop using ${labelValue} special characters`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<FilterableSelectComponent label={labelValue} />);
-
-      await checkAccessibility(page);
-    });
-  });
-
-  testData.forEach((labelHelpValue) => {
-    test(`should pass accessibility tests with labelHelp prop using ${labelHelpValue} special characters`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<FilterableSelectComponent labelHelp={labelHelpValue} />);
-
-      await helpIcon(page).hover();
-      await checkAccessibility(page, tooltipPreview(page));
-    });
-  });
-
   testData.forEach((placeholderValue) => {
     test(`should pass accessibility tests with placeholder prop using ${placeholderValue} special characters`, async ({
       mount,
@@ -1420,40 +1162,6 @@ test.describe("Accessibility tests for FilterableSelect component", () => {
       await mount(<FilterableSelectComponent placeholder={placeholderValue} />);
 
       await checkAccessibility(page);
-    });
-  });
-
-  (
-    [
-      ["top", "200px", "0px", "0px", "0px"],
-      ["bottom", "0px", "0px", "0px", "0px"],
-      ["left", "200px", "0px", "200px", "0px"],
-      ["right", "200px", "0px", "0px", "200px"],
-    ] as [
-      FilterableSelectProps["tooltipPosition"],
-      string,
-      string,
-      string,
-      string,
-    ][]
-  ).forEach(([tooltipPositionValue, top, bottom, left, right]) => {
-    test(`should pass accessibility tests with tooltip prop in the ${tooltipPositionValue} position`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <FilterableSelectComponent
-          labelHelp="Help"
-          tooltipPosition={tooltipPositionValue}
-          mt={top}
-          mb={bottom}
-          ml={left}
-          mr={right}
-        />,
-      );
-
-      await helpIcon(page).hover();
-      await checkAccessibility(page, tooltipPreview(page));
     });
   });
 
@@ -1477,19 +1185,6 @@ test.describe("Accessibility tests for FilterableSelect component", () => {
     await checkAccessibility(page);
   });
 
-  (
-    [SIZE.SMALL, SIZE.MEDIUM, SIZE.LARGE] as FilterableSelectProps["size"][]
-  ).forEach((size) => {
-    test(`should pass accessibility tests with size prop as ${size}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<FilterableSelectComponent size={size} />);
-
-      await checkAccessibility(page);
-    });
-  });
-
   test("should pass accessibility tests with autoFocus prop", async ({
     mount,
     page,
@@ -1506,82 +1201,6 @@ test.describe("Accessibility tests for FilterableSelect component", () => {
     await mount(<FilterableSelectComponent required />);
 
     await checkAccessibility(page);
-  });
-
-  test("should pass accessibility tests with labelInline prop", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FilterableSelectComponent labelInline />);
-
-    await checkAccessibility(page);
-  });
-
-  [399, 400, 401].forEach((breakpoint) => {
-    test(`should pass accessibility tests with adaptiveLabelBreakpoint prop set as ${breakpoint} and viewport 400`, async ({
-      mount,
-      page,
-    }) => {
-      await page.setViewportSize({
-        width: 400,
-        height: 300,
-      });
-      await mount(
-        <FilterableSelectComponent
-          labelInline
-          adaptiveLabelBreakpoint={breakpoint}
-        />,
-      );
-
-      await checkAccessibility(page);
-    });
-  });
-
-  (["right", "left"] as FilterableSelectProps["labelAlign"][]).forEach(
-    (alignment) => {
-      test(`should pass accessibility tests with labelAlign prop set as ${alignment}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <FilterableSelectComponent labelInline labelAlign={alignment} />,
-        );
-
-        await checkAccessibility(page);
-      });
-    },
-  );
-
-  [
-    [10, 90],
-    [30, 70],
-    [80, 20],
-  ].forEach(([label, input]) => {
-    test(`should pass accessibility tests with labelWidth prop set as ${label} and inputWidth set as ${input}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <FilterableSelectComponent
-          labelInline
-          labelWidth={label}
-          inputWidth={input}
-        />,
-      );
-
-      await checkAccessibility(page);
-    });
-  });
-
-  ["10%", "30%", "50%", "80%", "100%"].forEach((maxWidth) => {
-    test(`should pass accessibility tests with maxWidth prop set as ${maxWidth}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<FilterableSelectComponent maxWidth={maxWidth} />);
-
-      await checkAccessibility(page);
-    });
   });
 
   test("should pass accessibility tests with isLoading prop", async ({
@@ -1603,58 +1222,6 @@ test.describe("Accessibility tests for FilterableSelect component", () => {
 
     await commonDataElementInputPreview(page).focus();
     await checkAccessibility(page, undefined, "scrollable-region-focusable");
-  });
-
-  test("should pass accessibility tests for FilterableSelect with object as value", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FilterableSelectObjectAsValueComponent />);
-
-    await dropdownButton(page).click();
-    await checkAccessibility(page, undefined, "scrollable-region-focusable");
-  });
-
-  test("should pass accessibility tests with listMaxHeight prop", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FilterableSelectComponent listMaxHeight={200} />);
-
-    await dropdownButton(page).click();
-    await checkAccessibility(page, undefined, "scrollable-region-focusable");
-  });
-
-  (
-    [
-      ["top", "0px", "0px", "0px", "20px"],
-      ["bottom", "600px", "0px", "0px", "20px"],
-    ] as [
-      FilterableSelectProps["listPlacement"],
-      string,
-      string,
-      string,
-      string,
-    ][]
-  ).forEach(([position, top, bottom, left, right]) => {
-    test(`should pass accessibility tests with flipEnabled prop and listPlacement set to ${position}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <FilterableSelectComponent
-          listPlacement={position}
-          flipEnabled
-          mt={top}
-          mb={bottom}
-          ml={left}
-          mr={right}
-        />,
-      );
-
-      await dropdownButton(page).click();
-      await checkAccessibility(page, undefined, "scrollable-region-focusable");
-    });
   });
 
   test("should pass accessibility tests with multiple columns", async ({
@@ -1682,16 +1249,6 @@ test.describe("Accessibility tests for FilterableSelect component", () => {
     page,
   }) => {
     await mount(<FilterableSelectWithActionButtonComponent />);
-
-    await dropdownButton(page).click();
-    await checkAccessibility(page, undefined, "scrollable-region-focusable");
-  });
-
-  test("should pass accessibility tests with virtual scrolling", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<WithVirtualScrolling />);
 
     await dropdownButton(page).click();
     await checkAccessibility(page, undefined, "scrollable-region-focusable");

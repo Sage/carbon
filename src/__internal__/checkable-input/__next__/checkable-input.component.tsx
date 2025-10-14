@@ -21,7 +21,7 @@ import HiddenCheckableInput, {
 } from "../hidden-checkable-input.component";
 import guid from "../../utils/helpers/guid";
 import Label from "../../label/label.component";
-import HintText from "../../hint-text";
+import HintText from "../../legacy-hint-text";
 import useMediaQuery from "../../../hooks/useMediaQuery";
 
 import { TabsContext } from "../../../components/tabs/__next__/tabs.context";

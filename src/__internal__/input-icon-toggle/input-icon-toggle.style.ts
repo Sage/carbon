@@ -1,54 +1,58 @@
 import styled, { css } from "styled-components";
-import sizes from "../input/input-sizes.style";
+import sizes from "../legacy-input/input-sizes.style";
 import { ValidationProps } from "../validations";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 
-export interface InputIconToggleStyleProps extends ValidationProps {
-  size?: "small" | "medium" | "large";
-  disabled?: boolean;
-  readOnly?: boolean;
-  onClick?: (
-    event:
-      | React.MouseEvent<HTMLSpanElement>
-      | React.KeyboardEvent<HTMLSpanElement>,
-  ) => void;
+interface InputIconToggleStyleProps extends ValidationProps {
+  $size?: "small" | "medium" | "large";
+  $disabled?: boolean;
+  $readOnly?: boolean;
+  $blockFocusStyling?: boolean;
 }
 
-const InputIconToggleStyle = styled.span.attrs(
-  ({ onClick }: InputIconToggleStyleProps) => ({
-    onKeyDown: (event: React.KeyboardEvent<HTMLSpanElement>) => {
-      if (onClick && (event.key === " " || event.key === "Enter")) {
-        event.preventDefault();
-        return onClick(event);
-      }
-
-      return event;
-    },
-  }),
-)<InputIconToggleStyleProps & { tabIndex?: number }>`
+const InputIconToggleStyle = styled.span<
+  InputIconToggleStyleProps & { tabIndex?: number }
+>`
   align-items: center;
   cursor: pointer;
   display: flex;
   justify-content: center;
+  align-self: stretch;
 
-  ${({ size = "medium" }) => css`
-    width: ${sizes[size].height};
+  ${({ $size = "medium" }) => css`
+    width: ${sizes[$size].height};
   `}
 
-  ${({ disabled }) =>
-    disabled &&
+  ${({ $disabled }) =>
+    $disabled &&
     css`
       cursor: not-allowed;
     `}
   
-  ${({ readOnly }) =>
-    readOnly &&
+  ${({ $readOnly }) =>
+    $readOnly &&
     css`
       cursor: default;
     `}
 
-    &:focus {
-    ${addFocusStyling()}
+  ${({ $blockFocusStyling }) =>
+    !$blockFocusStyling &&
+    css`
+      &:focus {
+        ${addFocusStyling()}
+      }
+    `}
+
+  .pager-size-options & {
+    margin-left: 0;
+    width: 20px;
+    height: 24px;
+    align-self: center;
+  }
+
+  .multi-select &,
+  .filterable-select & {
+    cursor: pointer;
   }
 `;
 

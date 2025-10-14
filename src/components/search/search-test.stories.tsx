@@ -106,10 +106,8 @@ FilterOnClear.storyName = "Filter on clear";
 export const Validation = () => {
   const [state, setState] = useState("");
   const [state2, setState2] = useState("");
-  const [state3, setState3] = useState("");
   const [state4, setState4] = useState("");
   const [state5, setState5] = useState("");
-  const [state6, setState6] = useState("");
 
   return (
     <>
@@ -127,13 +125,6 @@ export const Validation = () => {
         warning="Warning Message"
         mb={2}
       />
-      <Search
-        onChange={(ev) => setState3(ev.target.value)}
-        value={state3}
-        searchButton
-        info="Info Message"
-        mb={2}
-      />
 
       <Search
         onChange={(ev) => setState4(ev.target.value)}
@@ -148,12 +139,6 @@ export const Validation = () => {
         searchButton
         warning
         mb={2}
-      />
-      <Search
-        onChange={(ev) => setState6(ev.target.value)}
-        value={state6}
-        searchButton
-        info
       />
     </>
   );

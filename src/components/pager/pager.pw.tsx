@@ -2,7 +2,6 @@ import React from "react";
 import { test, expect } from "../../../playwright/helpers/base-test";
 import { PagerProps } from "./pager.component";
 import { checkAccessibility } from "../../../playwright/support/helper";
-import { CHARACTERS } from "../../../playwright/support/constants";
 import {
   PagerComponent,
   PagerComponentResponsive,
@@ -11,66 +10,18 @@ import {
 } from "./components.test-pw";
 import {
   pageSelect,
-  maxPages,
   previousArrow,
   nextArrow,
   firstArrow,
   lastArrow,
   currentPageWrapper,
-  currentPageInput,
   pagerSummary,
   showLabelBefore,
   currentPageSection,
-  pager,
-  selectListWrapper,
   inputIconToggle,
 } from "../../../playwright/components/pager/index";
 
-const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
-
-const recordsDiff = [
-  [
-    {
-      id: "12",
-      name: 12,
-    },
-    "12",
-  ],
-  [
-    {
-      id: "135",
-      name: 135,
-    },
-    "135",
-  ],
-  [
-    {
-      id: "819",
-      name: 819,
-    },
-    "819",
-  ],
-] as const;
-
-const keysToTrigger = ["Enter", "Space"] as const;
-
 test.describe("Styling tests", () => {
-  test(`should have the expected focus styling`, async ({ mount, page }) => {
-    await mount(<PagerComponent />);
-
-    await page.keyboard.press("Tab");
-    const inputParent = currentPageInput(page).locator("..");
-
-    await expect(inputParent).toHaveCSS(
-      "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
-    );
-    await expect(inputParent).toHaveCSS(
-      "outline",
-      "rgba(0, 0, 0, 0) solid 3px",
-    );
-  });
-
   test(`when used inside a Form, the current page input box should have no bottom margin`, async ({
     mount,
     page,
@@ -81,189 +32,69 @@ test.describe("Styling tests", () => {
   });
 });
 
-test.describe("Prop tests", () => {
-  [
-    [1, 100],
-    [10, 10],
-    [25, 4],
-    [100, 1],
-  ].forEach(([pageSizeVal, pageSizeOf]) => {
-    test(`should render with pageSize prop set to ${pageSizeVal}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <PagerComponent pageSize={pageSizeVal} showPageSizeSelection />,
-      );
-
-      await expect(pageSelect(page)).toHaveAttribute("value", `${pageSizeVal}`);
-      await expect(maxPages(page)).toHaveText(`of ${pageSizeOf}`);
-    });
-  });
-
-  recordsDiff.forEach(([record, index]) => {
-    test(`should render with pageSizeSelectionOptions prop set to ${index}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <PagerComponentRecords
-          pageSizeSelectionOptions={[record]}
-          showPageSizeSelection
-        />,
-      );
-
-      await inputIconToggle(page).click();
-
-      await expect(
-        selectListWrapper(page).locator("ul").locator("li"),
-      ).toHaveAttribute("data-component", "option");
-    });
-  });
-
-  [true, false].forEach((showButtons) => {
-    test(`should render with showFirstAndLastButtons prop set to ${showButtons}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<PagerComponent showFirstAndLastButtons={showButtons} />);
-
-      if (showButtons) {
-        await expect(firstArrow(page)).toHaveCount(1);
-        await expect(lastArrow(page)).toHaveCount(1);
-      } else {
-        await expect(firstArrow(page)).toHaveCount(0);
-        await expect(lastArrow(page)).toHaveCount(0);
-      }
-    });
-  });
-
-  [true, false].forEach((showButtons) => {
-    test(`should render with showPreviousAndNextButtons prop set to ${showButtons}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<PagerComponent showPreviousAndNextButtons={showButtons} />);
-
-      if (showButtons) {
-        await expect(previousArrow(page)).toHaveCount(1);
-        await expect(nextArrow(page)).toHaveCount(1);
-      } else {
-        await expect(previousArrow(page)).toHaveCount(0);
-        await expect(nextArrow(page)).toHaveCount(0);
-      }
-    });
-  });
-
-  [true, false].forEach((showCount) => {
-    test(`should render with showPageCount prop set to ${showCount}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<PagerComponent showPageCount={showCount} />);
-
-      if (showCount) {
-        await expect(currentPageSection(page).first()).toBeVisible();
-      } else {
-        await expect(currentPageSection(page)).toBeHidden();
-      }
-    });
-  });
-
-  (
-    [
-      ["default", "rgb(250, 251, 251)"],
-      ["alternate", "rgb(237, 241, 242)"],
-    ] as [PagerProps["variant"], string][]
-  ).forEach(([variant, backgroundColor]) => {
-    test(`should render with variant prop set to ${variant}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<PagerComponent variant={variant} />);
-
-      if (variant === "default") {
-        await expect(pager(page)).toHaveCSS(
-          "background-color",
-          backgroundColor,
-        );
-        await expect(pager(page)).toHaveCSS(
-          "border-color",
-          "rgb(204, 214, 219)",
-        );
-      } else {
-        await expect(pager(page)).toHaveCSS(
-          "background-color",
-          backgroundColor,
-        );
-        await expect(pager(page)).toHaveCSS(
-          "border-color",
-          "rgb(204, 214, 219)",
-        );
-      }
-    });
-  });
-});
-
 test.describe("Functional tests", () => {
-  [...testData].forEach((totalRecords) => {
-    test(`should set totalRecords out of scope to ${totalRecords}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<PagerComponent totalRecords={totalRecords} />);
+  test("should render responsive pager at 901px width without first and last arrows", async ({
+    mount,
+    page,
+  }) => {
+    await page.setViewportSize({ width: 901, height: 768 });
+    await mount(<PagerComponentResponsive />);
 
-      await expect(pagerSummary(page)).toHaveText(`${totalRecords} items`);
-      await expect(maxPages(page)).toHaveText("of 1");
-    });
+    await expect(showLabelBefore(page)).toBeInViewport();
+    await expect(pagerSummary(page)).toBeInViewport();
+    await expect(firstArrow(page)).toHaveCount(0);
+    await expect(lastArrow(page)).toHaveCount(0);
+    await expect(nextArrow(page)).toBeInViewport();
+    await expect(previousArrow(page)).toBeInViewport();
+    await expect(currentPageSection(page).first()).toBeInViewport();
   });
 
-  [1001, 901, 701, 601, 450].forEach((viewportWidth) => {
-    test(`should render with ${viewportWidth}px width`, async ({
-      mount,
-      page,
-    }) => {
-      await page.setViewportSize({
-        width: Number(viewportWidth),
-        height: 768,
-      });
+  test("should render responsive pager at 701px width without label before, summary, first and last arrows", async ({
+    mount,
+    page,
+  }) => {
+    await page.setViewportSize({ width: 701, height: 768 });
+    await mount(<PagerComponentResponsive />);
 
-      await mount(<PagerComponentResponsive />);
+    await expect(showLabelBefore(page)).toHaveCount(0);
+    await expect(pagerSummary(page)).not.toBeInViewport();
+    await expect(firstArrow(page)).toHaveCount(0);
+    await expect(lastArrow(page)).toHaveCount(0);
+    await expect(nextArrow(page)).toBeInViewport();
+    await expect(previousArrow(page)).toBeInViewport();
+    await expect(currentPageSection(page).first()).toBeInViewport();
+  });
 
-      if (viewportWidth === 1001) {
-        await expect(showLabelBefore(page)).toBeInViewport();
-        await expect(pagerSummary(page)).toBeInViewport();
-        await expect(firstArrow(page)).toBeInViewport();
-        await expect(lastArrow(page)).toBeInViewport();
-      }
-      if (viewportWidth === 901) {
-        await expect(showLabelBefore(page)).toBeInViewport();
-        await expect(pagerSummary(page)).toBeInViewport();
-        await expect(firstArrow(page)).toHaveCount(0);
-        await expect(lastArrow(page)).toHaveCount(0);
-      }
-      if (viewportWidth === 701) {
-        await expect(showLabelBefore(page)).toHaveCount(0);
-        await expect(pagerSummary(page)).not.toBeInViewport();
-        await expect(firstArrow(page)).toHaveCount(0);
-        await expect(lastArrow(page)).toHaveCount(0);
-      }
-      if (viewportWidth === 601) {
-        await expect(showLabelBefore(page)).toHaveCount(0);
-        await expect(pagerSummary(page)).not.toBeInViewport();
-        await expect(firstArrow(page)).toHaveCount(0);
-        await expect(lastArrow(page)).toHaveCount(0);
-      }
-      if (viewportWidth === 450) {
-        await expect(showLabelBefore(page)).toHaveCount(0);
-        await expect(pagerSummary(page).first()).not.toBeInViewport();
-        await expect(firstArrow(page)).toHaveCount(0);
-        await expect(lastArrow(page)).toHaveCount(0);
-      }
-      await expect(nextArrow(page)).toBeInViewport();
-      await expect(previousArrow(page)).toBeInViewport();
-      await expect(currentPageSection(page).first()).toBeInViewport();
-    });
+  test("should render responsive pager at 601px width without label before, summary, first and last arrows", async ({
+    mount,
+    page,
+  }) => {
+    await page.setViewportSize({ width: 601, height: 768 });
+    await mount(<PagerComponentResponsive />);
+
+    await expect(showLabelBefore(page)).toHaveCount(0);
+    await expect(pagerSummary(page)).not.toBeInViewport();
+    await expect(firstArrow(page)).toHaveCount(0);
+    await expect(lastArrow(page)).toHaveCount(0);
+    await expect(nextArrow(page)).toBeInViewport();
+    await expect(previousArrow(page)).toBeInViewport();
+    await expect(currentPageSection(page).first()).toBeInViewport();
+  });
+
+  test("should render responsive pager at 450px width without label before, summary, first and last arrows", async ({
+    mount,
+    page,
+  }) => {
+    await page.setViewportSize({ width: 450, height: 768 });
+    await mount(<PagerComponentResponsive />);
+
+    await expect(showLabelBefore(page)).toHaveCount(0);
+    await expect(pagerSummary(page).first()).not.toBeInViewport();
+    await expect(firstArrow(page)).toHaveCount(0);
+    await expect(lastArrow(page)).toHaveCount(0);
+    await expect(nextArrow(page)).toBeInViewport();
+    await expect(previousArrow(page)).toBeInViewport();
+    await expect(currentPageSection(page).first()).toBeInViewport();
   });
 
   [1001, 901, 701, 601, 450].forEach((viewportWidth) => {
@@ -297,134 +128,7 @@ test.describe("Functional tests", () => {
   });
 });
 
-test.describe("Events test", () => {
-  [...keysToTrigger].forEach((key) => {
-    test(`should call onNext callback when a keyboard event is triggered by pressing ${key}`, async ({
-      mount,
-      page,
-    }) => {
-      let callbackCount = 0;
-      await mount(
-        <PagerComponent
-          onNext={() => {
-            callbackCount += 1;
-          }}
-        />,
-      );
-
-      await page.keyboard.press("Tab");
-      await page.keyboard.press("Tab");
-      await page.keyboard.press(key);
-
-      expect(callbackCount).toEqual(1);
-    });
-  });
-
-  [...keysToTrigger].forEach((key) => {
-    test(`should call onPrevious callback when a keyboard event is triggered by pressing ${key}`, async ({
-      mount,
-      page,
-    }) => {
-      let callbackCount = 0;
-      await mount(
-        <PagerComponent
-          onPrevious={() => {
-            callbackCount += 1;
-          }}
-          currentPage={5}
-        />,
-      );
-
-      await page.keyboard.press("Tab");
-      await page.keyboard.press("Tab");
-      await page.keyboard.press(key);
-
-      expect(callbackCount).toEqual(1);
-    });
-  });
-
-  [...keysToTrigger].forEach((key) => {
-    test(`should call onFirst callback when a keyboard event is triggered by pressing ${key}`, async ({
-      mount,
-      page,
-    }) => {
-      let callbackCount = 0;
-      await mount(
-        <PagerComponent
-          onFirst={() => {
-            callbackCount += 1;
-          }}
-          currentPage={5}
-        />,
-      );
-
-      await page.keyboard.press("Tab");
-      await page.keyboard.press(key);
-
-      expect(callbackCount).toEqual(1);
-    });
-  });
-
-  [...keysToTrigger].forEach((key) => {
-    test(`should call onLast callback when a keyboard event is triggered by pressing ${key}`, async ({
-      mount,
-      page,
-    }) => {
-      let callbackCount = 0;
-      await mount(
-        <PagerComponent
-          onLast={() => {
-            callbackCount += 1;
-          }}
-        />,
-      );
-
-      await page.keyboard.press("Tab");
-      await page.keyboard.press("Tab");
-      await page.keyboard.press("Tab");
-      await page.keyboard.press(key);
-
-      expect(callbackCount).toEqual(1);
-    });
-  });
-});
-
 test.describe("Accessibility tests", () => {
-  [2, 5, 7].forEach((currentPage) => {
-    test(`should render with currentPage prop set to ${currentPage} for accessibility tests`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<PagerComponent currentPage={currentPage} />);
-
-      await checkAccessibility(page);
-    });
-  });
-
-  [50, 100, 235].forEach((totalRecords) => {
-    test(`should render with totalRecords prop set to ${totalRecords} for accessibility tests`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<PagerComponent totalRecords={totalRecords} />);
-
-      await checkAccessibility(page);
-    });
-  });
-
-  [1, 10, 25, 100].forEach((pageSizeVal) => {
-    test(`should render with pageSize prop set to ${pageSizeVal} for accessibility tests`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <PagerComponent pageSize={pageSizeVal} showPageSizeSelection />,
-      );
-
-      await checkAccessibility(page);
-    });
-  });
-
   test(`should pass accessibility tests with pageSizeSelectionOptions prop`, async ({
     mount,
     page,
@@ -555,17 +259,6 @@ test.describe("Accessibility tests", () => {
     await mount(<PagerComponent currentPage={7} hideDisabledElements />);
 
     await checkAccessibility(page);
-  });
-
-  [-1, -10, -100, ...testData].forEach((totalRecords) => {
-    test(`should set totalRecords out of scope to ${totalRecords} for accessibility tests`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<PagerComponent totalRecords={totalRecords} />);
-
-      await checkAccessibility(page);
-    });
   });
 
   test(`should pass accessibility tests with nextArrow and lastArrow buttons disabled`, async ({

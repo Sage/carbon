@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { act, render, screen, waitFor, within } from "@testing-library/react";
+import { act, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/test-utils";
 import {
@@ -870,7 +870,7 @@ describe("when the user clicks on the input icon", () => {
         <Option value="opt1" text="red" />
       </FilterableSelect>,
     );
-    const icon = within(screen.getByRole("presentation")).getByTestId("icon");
+    const icon = screen.getByTestId("input-icon-toggle");
     await user.click(icon);
 
     expect(await screen.findByRole("listbox")).toBeVisible();
@@ -890,12 +890,8 @@ describe("when the user clicks on the input icon", () => {
       </FilterableSelect>,
     );
 
-    const icon = within(screen.getByRole("presentation")).getByTestId("icon");
+    const icon = screen.getByTestId("input-icon-toggle");
     await user.pointer({ keys: "[MouseLeft>]", target: icon });
-
-    await waitFor(() => {
-      expect(screen.getByRole("combobox")).toHaveFocus();
-    });
 
     expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
   });
@@ -907,8 +903,30 @@ describe("when the user clicks on the input icon", () => {
         <Option value="opt1" text="red" />
       </FilterableSelect>,
     );
-    const icon = within(screen.getByRole("presentation")).getByTestId("icon");
+    const icon = screen.getByTestId("input-icon-toggle");
     await user.click(icon);
+    await user.click(icon);
+
+    expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+  });
+
+  it("should close the list when the list is already open due to openOnFocus", async () => {
+    const user = userEvent.setup();
+    render(
+      <FilterableSelect
+        openOnFocus
+        label="filterable-select"
+        onChange={() => {}}
+        value=""
+      >
+        <Option value="opt1" text="red" />
+      </FilterableSelect>,
+    );
+    const icon = screen.getByTestId("input-icon-toggle");
+    await user.tab();
+
+    expect(await screen.findByRole("listbox")).toBeVisible();
+
     await user.click(icon);
 
     expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
@@ -927,7 +945,7 @@ describe("when the user clicks on the input icon", () => {
         <Option value="opt1" text="red" />
       </FilterableSelect>,
     );
-    const icon = within(screen.getByRole("presentation")).getByTestId("icon");
+    const icon = screen.getByTestId("input-icon-toggle");
     await user.click(icon);
 
     expect(onClickFn).toHaveBeenCalled();
@@ -946,7 +964,7 @@ describe("when the user clicks on the input icon", () => {
         <Option value="opt1" text="red" />
       </FilterableSelect>,
     );
-    const icon = within(screen.getByRole("presentation")).getByTestId("icon");
+    const icon = screen.getByTestId("input-icon-toggle");
     await user.click(icon);
 
     expect(onOpenFn).toHaveBeenCalled();
@@ -1944,19 +1962,18 @@ test("should apply the expected `maxWidth` styling when the prop is passed", () 
     </FilterableSelect>,
   );
 
-  expect(screen.getByTestId("input-presentation-container")).toHaveStyle(
-    "max-width: 69%",
-  );
+  expect(screen.getByTestId("input-wrapper")).toHaveStyle("max-width: 69%");
 });
 
-test("should apply the expected `maxWidth` styling when the prop is not passed", () => {
+test("should apply the expected widths when the `maxWidth` prop is not passed", () => {
   render(
     <FilterableSelect label="filterable-select" onChange={() => {}} value="">
       <Option value="opt1" text="green" />
     </FilterableSelect>,
   );
 
-  expect(screen.getByTestId("input-presentation-container")).toHaveStyle(
+  expect(screen.getByTestId("input-wrapper")).toHaveStyle("width: 100%");
+  expect(screen.getByTestId("input-wrapper")).not.toHaveStyle(
     "max-width: 100%",
   );
 });

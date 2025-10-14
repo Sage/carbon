@@ -5,7 +5,6 @@ import OptionRow from "../option-row/option-row.component";
 import Dialog from "../../dialog";
 import Button from "../../button";
 import Typography from "../../typography";
-import CarbonProvider from "../../carbon-provider";
 import useMultiInput from "../../../hooks/use-multi-input";
 
 export default {
@@ -63,11 +62,6 @@ export default {
         type: "text",
       },
     },
-    labelHelp: {
-      control: {
-        type: "text",
-      },
-    },
   },
 };
 
@@ -113,142 +107,6 @@ export const Validation = () => {
 
   return (
     <>
-      <FilterableSelect
-        name="filterable-error"
-        id="filterable-error"
-        label="Filterable Select"
-        error="Error Message"
-        mb={2}
-        value={state["filterable-error"] || ""}
-        onChange={setValue}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-      </FilterableSelect>
-      <FilterableSelect
-        name="filterable-warning"
-        id="filterable-warning"
-        label="Filterable Select"
-        warning="Warning Message"
-        mb={2}
-        value={state["filterable-warning"] || ""}
-        onChange={setValue}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-      </FilterableSelect>
-      <FilterableSelect
-        name="filterable-info"
-        id="filterable-info"
-        label="Filterable Select"
-        info="Info Message"
-        mb={2}
-        value={state["filterable-info"] || ""}
-        onChange={setValue}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-      </FilterableSelect>
-
-      <FilterableSelect
-        name="filterable-error-vol"
-        id="filterable-error"
-        label="Filterable Select"
-        error="Error Message"
-        validationOnLabel
-        mb={2}
-        value={state["filterable-error-vol"] || ""}
-        onChange={setValue}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-      </FilterableSelect>
-      <FilterableSelect
-        name="filterable-warning-vol"
-        id="filterable-warning-vol"
-        label="Filterable Select"
-        warning="Warning Message"
-        validationOnLabel
-        mb={2}
-        value={state["filterable-warning-vol"] || ""}
-        onChange={setValue}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-      </FilterableSelect>
-      <FilterableSelect
-        name="filterable-info-vol"
-        id="filterable-info-vol"
-        label="Filterable Select"
-        info="Info Message"
-        validationOnLabel
-        mb={2}
-        value={state["filterable-info-vol"] || ""}
-        onChange={setValue}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-      </FilterableSelect>
-
-      <FilterableSelect
-        name="filterable-error-bool"
-        id="filterable-error-bool"
-        label="Filterable Select"
-        error
-        mb={2}
-        value={state["filterable-error-bool"] || ""}
-        onChange={setValue}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-      </FilterableSelect>
-      <FilterableSelect
-        name="filterable-warning-bool"
-        id="filterable-warning-bool"
-        label="Filterable Select"
-        warning
-        mb={2}
-        value={state["filterable-warning-bool"] || ""}
-        onChange={setValue}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-      </FilterableSelect>
-      <FilterableSelect
-        name="filterable-info-bool"
-        id="filterable-info-bool"
-        label="Filterable Select"
-        info
-        mb={2}
-        value={state["filterable-info-bool"] || ""}
-        onChange={setValue}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-      </FilterableSelect>
-    </>
-  );
-};
-Validation.storyName = "Validation";
-Validation.parameters = {
-  chromatic: { disableSnapshot: true },
-  themeProvider: { chromatic: { theme: "sage" } },
-};
-
-export const NewValidation = () => {
-  const { state, setValue } = useMultiInput();
-
-  return (
-    <CarbonProvider validationRedesignOptIn>
       <FilterableSelect
         name="filterable1"
         id="filterable1"
@@ -303,11 +161,11 @@ export const NewValidation = () => {
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
       </FilterableSelect>
-    </CarbonProvider>
+    </>
   );
 };
-NewValidation.storyName = "New Validation";
-NewValidation.parameters = {
+Validation.storyName = "Validation";
+Validation.parameters = {
   chromatic: { disableSnapshot: true },
   themeProvider: { chromatic: { theme: "sage" } },
 };

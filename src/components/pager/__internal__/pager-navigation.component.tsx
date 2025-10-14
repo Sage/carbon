@@ -169,7 +169,10 @@ const PagerNavigation = ({
   );
 
   return (
-    <StyledPagerNavigation smallScreenBreakpoint={smallScreenBreakpoint}>
+    <StyledPagerNavigation
+      smallScreenBreakpoint={smallScreenBreakpoint}
+      className="pager-navigation"
+    >
       {!hasOnePage && renderButtonsBeforeCount()}
       {showPageCount &&
         (interactivePageNumber ? (
@@ -186,6 +189,7 @@ const PagerNavigation = ({
               onKeyUp={(ev) =>
                 Events.isEnterKey(ev) ? handlePageInputChange(ev) : false
               }
+              maxWidth="50px"
             />
             <StyledPagerNoSelect data-element="max-pages">
               {l.pager.ofY(pageCount)}

@@ -10,11 +10,14 @@ import { MarginProps } from "styled-system";
 import { IconType } from "../icon";
 import { ValidationProps } from "../../__internal__/validations";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
-import { CommonInputProps, InputPresentation } from "../../__internal__/input";
+import {
+  CommonInputProps,
+  InputPresentation,
+} from "../../__internal__/legacy-input";
 import FormField from "../../__internal__/form-field";
 import useCharacterCount from "../../hooks/useCharacterCount";
 
-import Input from "../../__internal__/input/input.component";
+import Input from "../../__internal__/legacy-input/input.component";
 import { InputBehaviour } from "../../__internal__/input-behaviour";
 import InputIconToggle from "../../__internal__/input-icon-toggle";
 import guid from "../../__internal__/utils/helpers/guid";
@@ -22,12 +25,12 @@ import StyledTextarea, { DEFAULT_MIN_HEIGHT } from "./textarea.style";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import useInputAccessibility from "../../hooks/__internal__/useInputAccessibility";
 import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
-import ErrorBorder from "../textbox/textbox.style";
+import ErrorBorder from "../../__internal__/legacy-error-border/error-border.style";
 import ValidationMessage from "../../__internal__/validation-message";
 import Box from "../box";
 import Logger from "../../__internal__/utils/logger";
 import { BorderRadiusType } from "../box/box.component";
-import HintText from "../../__internal__/hint-text";
+import HintText from "../../__internal__/legacy-hint-text";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 
 export interface TextareaProps
@@ -39,7 +42,9 @@ export interface TextareaProps
   "aria-labelledby"?: string;
   /** id of the input */
   id?: string;
-  /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
+  /**
+   * Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set
+   **/
   adaptiveLabelBreakpoint?: number;
   /** Automatically focus the input on component mount */
   autoFocus?: boolean;

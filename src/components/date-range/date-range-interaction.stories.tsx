@@ -313,38 +313,6 @@ TypingSyncDateRange.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const ValidationDateRange: Story = {
-  render: () => (
-    <DateRangeWithState
-      startLabel="Start"
-      endLabel="End"
-      name="date-range"
-      startError="Required"
-      endWarning="End Warning"
-      startInfo="Legacy info"
-      initialValue={["15/07/2025", "22/07/2025"]}
-    />
-  ),
-  play: async ({ canvasElement }) => {
-    if (!allowInteractions()) return;
-
-    const canvas = within(canvasElement);
-    const portal = within(document.body);
-
-    const errorIcon = canvas.getByTestId("icon-error");
-    const warningIcon = canvas.getByTestId("icon-warning");
-
-    await userEvent.hover(errorIcon);
-    await expect(await portal.findByText(/required/i)).toBeInTheDocument();
-
-    await userEvent.hover(warningIcon);
-    await expect(await portal.findByText(/end warning/i)).toBeInTheDocument();
-
-    const startInput = canvas.getByRole("textbox", { name: /start/i });
-    await expect(startInput).toBeInvalid();
-  },
-};
-
 export const MonthYearNavigationDateRange: Story = {
   render: () => (
     <DateRangeWithState

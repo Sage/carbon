@@ -2,6 +2,7 @@ import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
 import Textbox from "../src/components/textbox";
+import Textarea from "../src/components/textarea";
 import { RadioButton, RadioButtonGroup } from "../src/components/radio-button";
 import { Checkbox, CheckboxGroup } from "../src/components/checkbox";
 import CarbonProvider from "../src/components/carbon-provider";
@@ -20,20 +21,20 @@ export default meta;
 export const StringValidation: StoryObj = () => {
   return (
     <>
-      <Textbox
-        label="Textbox"
+      <Textarea
+        label="Textarea"
         value=""
         error="Error Message"
         onChange={() => {}}
       />
-      <Textbox
-        label="Textbox"
+      <Textarea
+        label="Textarea"
         value=""
         warning="Warning Message"
         onChange={() => {}}
       />
-      <Textbox
-        label="Textbox"
+      <Textarea
+        label="Textarea"
         value=""
         info="Info Message"
         onChange={() => {}}
@@ -44,14 +45,14 @@ export const StringValidation: StoryObj = () => {
 StringValidation.storyName = "String Validation";
 
 export const BooleanValidation: StoryObj = () => {
-  return <Textbox label="Textbox" value="" error onChange={() => {}} />;
+  return <Textarea label="Textarea" value="" error onChange={() => {}} />;
 };
 BooleanValidation.storyName = "Boolean Validation";
 
 export const ValidationOnLabel: StoryObj = () => {
   return (
-    <Textbox
-      label="Textbox"
+    <Textarea
+      label="Textarea"
       value=""
       error="Error Message"
       validationOnLabel
@@ -64,8 +65,8 @@ ValidationOnLabel.storyName = "Validation on Label";
 export const TooltipPosition: StoryObj = () => {
   const [state, setState] = React.useState("");
   return (
-    <Textbox
-      label="Textbox"
+    <Textarea
+      label="Textarea"
       onChange={(e) => setState(e.target.value)}
       value={state}
       error="Error Message"
@@ -127,26 +128,25 @@ export const GroupedLegendValidation: StoryObj = () => {
 GroupedLegendValidation.storyName = "Grouped Legend Validation";
 
 export const ValidationRedesign: StoryObj = () => {
-  const [state, setState] = React.useState("");
+  const [textarea1Value, setTextarea1Value] = React.useState("");
+  const [textarea2Value, setTextarea2Value] = React.useState("");
+
   return (
     <CarbonProvider validationRedesignOptIn>
       <Form>
         <RequiredFieldsIndicator mb={2}>
           Fill in all fields marked with
         </RequiredFieldsIndicator>
-        <Textbox
-          label="Textbox"
-          inputHint="Hint text"
-          value={state}
-          onChange={(e) => setState(e.target.value)}
-          required
+        <Textarea
+          label="Textarea"
+          onChange={(e) => setTextarea1Value(e.target.value)}
+          value={textarea1Value}
           error="Error Message (Fix is required)"
         />
-        <Textbox
-          label="Textbox"
-          inputHint="Hint text"
-          value={state}
-          onChange={(e) => setState(e.target.value)}
+        <Textarea
+          label="Textarea"
+          onChange={(e) => setTextarea2Value(e.target.value)}
+          value={textarea2Value}
           warning="Warning Message (Fix is optional)"
         />
       </Form>

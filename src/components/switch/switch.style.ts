@@ -6,7 +6,7 @@ import { StyledCheckableInput } from "../../__internal__/checkable-input/checkab
 import HiddenCheckableInputStyle from "../../__internal__/checkable-input/hidden-checkable-input.style";
 import FieldHelpStyle from "../../__internal__/field-help/field-help.style";
 import { FieldLineStyle } from "../../__internal__/form-field/form-field.style";
-import { StyledLabelContainer } from "../../__internal__/label/label.style";
+import { StyledLabelContainer } from "../../__internal__/legacy-label/label.style";
 import StyledValidationIcon from "../../__internal__/validations/validation-icon.style";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 import type { ThemeObject } from "../../style/themes/theme.types";

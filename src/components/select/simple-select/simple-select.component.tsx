@@ -148,6 +148,7 @@ export const SimpleSelect = React.forwardRef<
       label,
     });
     const focusTimer = useRef<number | undefined>(undefined);
+    const openOnFocusFlagBlock = useRef<boolean>(false);
 
     const childOptions = useMemo(
       () => React.Children.toArray(children),
@@ -297,6 +298,8 @@ export const SimpleSelect = React.forwardRef<
       onClick?.(event);
 
       setOpenState((isAlreadyOpen) => {
+        openOnFocusFlagBlock.current = isAlreadyOpen;
+
         if (isAlreadyOpen) {
           return false;
         }
@@ -345,6 +348,11 @@ export const SimpleSelect = React.forwardRef<
 
       if (openOnFocus) {
         window.clearTimeout(focusTimer.current);
+
+        if (openOnFocusFlagBlock.current) {
+          openOnFocusFlagBlock.current = false;
+          return;
+        }
 
         // we need to use a timeout here as there is a race condition when rendered in a modal
         // whereby the select list isn't visible when the select is auto focused straight away
@@ -503,6 +511,7 @@ export const SimpleSelect = React.forwardRef<
             aria-describedby={ariaDescribedBy}
             isOpen={isOpen}
             value={textValue}
+            selectType="simple"
             {...getTextboxProps()}
             onChange={() => {}}
           />
