@@ -9,7 +9,7 @@ import addFocusStyling from "../../style/utils/add-focus-styling";
 export const StyledInputPresentationContainer = styled.div<
   Pick<CommonInputPresentationProps, "inputWidth" | "maxWidth">
 >`
-  flex: 0 0 ${({ inputWidth }) => inputWidth}%;
+  ${({ inputWidth }) => inputWidth && `width: ${inputWidth}%;`}
   display: flex;
   position: relative;
   max-width: ${({ maxWidth }) => (maxWidth ? `${maxWidth}` : "100%")};

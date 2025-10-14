@@ -5,6 +5,7 @@ const ErrorBorder = styled.span`
     position: absolute;
     z-index: 6;
     width: 2px;
+    transform: scaleX(1);
     background-color: ${warning
       ? "var(--colorsSemanticCaution500)"
       : "var(--colorsSemanticNegative500)"};

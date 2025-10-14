@@ -1,8 +1,11 @@
 import styled, { css } from "styled-components";
-import { CommonInputProps } from "./input.component";
+import { CommonInputProps, InputProps } from "./input.component";
 
 const StyledInput = styled.input<
-  Pick<CommonInputProps, "align" | "disabled" | "inputBorderRadius"> & {
+  Pick<
+    CommonInputProps & InputProps,
+    "align" | "disabled" | "inputBorderRadius" | "isLarge"
+  > & {
     isInputInSelect: boolean;
   }
 >`
@@ -16,6 +19,12 @@ const StyledInput = styled.input<
   padding: 0;
   margin: 0;
   width: 30px;
+
+  ${({ isLarge }) =>
+    isLarge &&
+    css`
+      font-size: var(--fontSizes200);
+    `}
 
   &:-webkit-autofill {
     background-clip: text;
