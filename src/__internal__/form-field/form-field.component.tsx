@@ -20,9 +20,9 @@ import { filterStyledSystemMarginProps } from "../../style/utils";
 import {
   TabContextProps,
   TabsContextProps,
-} from "../../components/tabs/new/tabs.types";
-import { TabsContext } from "../../components/tabs/new/tabs.context";
-import { TabContext } from "../../components/tabs/new/tab.context";
+} from "../../components/tabs/tabs.types";
+import { TabsContext } from "../../components/tabs/tabs.context";
+import { TabContext } from "../../components/tabs/tab.context";
 
 interface CommonFormFieldProps extends MarginProps, ValidationProps {
   /** If true, the component will be disabled */

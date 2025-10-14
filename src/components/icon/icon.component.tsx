@@ -9,7 +9,7 @@ import StyledIcon, { StyledIconProps } from "./icon.style";
 import { ICON_TOOLTIP_POSITIONS } from "./icon-config";
 import { IconType } from "./icon-type";
 import { TooltipPositions } from "../tooltip/tooltip.config";
-import { useTabs } from "../tabs/new/tabs.context";
+import { useTabs } from "../tabs/tabs.context";
 
 export type LegacyIconTypes =
   | "help"
