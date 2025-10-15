@@ -9,6 +9,7 @@ import Icon, { IconType } from "../icon";
 import Loader from "../loader";
 import useLocale from "../../hooks/__internal__/useLocale";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
+// import UnifiedLoader from '../loader-unified/loader.component';
 
 export interface ConfirmProps
   extends Omit<
@@ -158,6 +159,8 @@ export const Confirm = ({
       {isLoadingConfirm ? (
         <Loader data-role="confirm-loader" isInsideButton isActive />
       ) : (
+        // <UnifiedLoader isActive data-role="confirm-loader" isInsideButton size="extra-small" variant="stacked" loaderType="ring" showLabel={false}/>
+
         confirmLabel || l.confirm.yes()
       )}
     </Button>

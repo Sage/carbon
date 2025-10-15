@@ -1,5 +1,6 @@
 import StyledIcon from "../icon/icon.style";
 import StyledLoaderSquare from "../loader/loader-square.style";
+// import {StyledRingCircleSvg} from "../loader-unified/loader.style";
 
 function makeColors(color: string) {
   return `
@@ -11,6 +12,11 @@ function makeColors(color: string) {
     background-color: ${color};
   }
   `;
+  // ${StyledRingCircleSvg} {
+  //   circle[data-role="inner-arc"] {
+  //     stroke: ${color};
+  //   }
+  // }
 }
 
 const disabledImageStyle = `

@@ -1,0 +1,316 @@
+import styled, { css, keyframes } from "styled-components";
+import { margin } from "styled-system";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
+import Typography from "../typography";
+
+const innerBarAnimationOne = keyframes`
+  0% {
+    left: 0%;
+    animation-timing-function: linear;
+  }
+  30% {
+    left: 10px;
+    animation-timing-function: cubic-bezier(0.5, 0.6, 0.4, 1);
+  }
+  100% {
+    left: calc(100% - 15px);
+  }
+`;
+
+const innerBarAnimationTwo = keyframes`
+  0% {
+    width: 15px;
+    animation-timing-function: cubic-bezier(0.7, 0, 0.8, 1);
+  }
+  50% {
+    width: 35%;
+  }
+  100% {
+    width: 15px;
+  }
+`;
+
+const ringDimensions: Record<string, number> = {
+  "extra-small": 20,
+  small: 32,
+  medium: 64,
+  large: 96,
+};
+
+const ringStrokeWidths: Record<string, number> = {
+  "extra-small": 2.7,
+  small: 2.7,
+  medium: 2.7,
+  large: 2.7,
+};
+
+const barHeights: Record<string, string> = {
+  small: "4px",
+  medium: "8px",
+  large: "16px",
+};
+
+const ringInlineLabelMargins: Record<string, string> = {
+  "extra-small": "8px",
+  small: "8px",
+  medium: "12px",
+  large: "16px",
+};
+
+const getBarStyles = (variant?: string, inverse?: boolean) => {
+  const outerBarBackground = inverse
+    ? "rgba(255, 255, 255, 0.08)"
+    : "rgba(0, 0, 0, 0.08)";
+
+  if (variant === "ai") {
+    return {
+      outerBarBackground,
+      innerBarBackground: inverse
+        ? "linear-gradient(90deg, var(--mode-color-ai-alt-stop-1, #00D639) 0%, var(--mode-color-ai-alt-stop-2, #00D6DE) 40%, var(--mode-color-ai-alt-stop-3, #9D60FF) 90%)"
+        : "linear-gradient(90deg, var(--mode-color-ai-stop-1, #13A038) 0%, var(--mode-color-ai-stop-2, #149197) 40%, var(--mode-color-ai-stop-3, #A87CFB) 90%)",
+    };
+  }
+
+  return {
+    outerBarBackground,
+    innerBarBackground: inverse ? "#FFFFFF" : "#000000",
+  };
+};
+
+const centeredFlexText = css`
+  display: flex;
+  justify-content: center;
+  text-align: center;
+`;
+
+export const StyledLoaderPlaceholder = styled.div`
+  display: inline-block;
+  min-width: var(--sizing800);
+`;
+
+export const StyledLoader = styled.div.attrs(applyBaseTheme)`
+  ${margin}
+  text-align: center;
+  white-space: nowrap;
+`;
+
+export const OuterBar = styled.div<{
+  size: string;
+  variant: string;
+  inverse: boolean;
+}>`
+  ${({ size, variant, inverse }) => css`
+    border-radius: var(--borderRadius400);
+    height: ${barHeights[size]};
+    width: 100%;
+    background: ${getBarStyles(variant, inverse).outerBarBackground};
+    overflow: hidden;
+    position: relative;
+  `}
+`;
+
+export const InnerBar = styled.div<{
+  size: string;
+  variant: string;
+  inverse: boolean;
+}>`
+  ${({ size, variant, inverse }) => css`
+    position: absolute;
+    background: ${getBarStyles(variant, inverse).innerBarBackground};
+    width: 15px;
+    height: ${barHeights[size]};
+    animation:
+      ${innerBarAnimationOne} 2s infinite,
+      ${innerBarAnimationTwo} 2s infinite;
+    border-radius: var(--borderRadius400);
+  `}
+`;
+
+interface RingSvgProps {
+  inverse?: boolean;
+  size: string;
+  variant?: string;
+  hasMotion?: boolean;
+  isTracked?: boolean;
+  isGradientVariant?: boolean;
+  animationTime?: number;
+  isInsideButton?: boolean;
+  isActive?: boolean;
+}
+
+export const StyledRingCircleSvg = styled.svg<RingSvgProps>`
+  ${({
+    inverse,
+    size,
+    hasMotion,
+    isTracked,
+    animationTime,
+    isInsideButton,
+    isActive,
+  }) => {
+    const dimension = `${ringDimensions[size]}px`;
+    const strokeWidth = ringStrokeWidths[size];
+
+    const outerStroke = inverse ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.08)";
+    const innerStroke = inverse ? "#FFFFFF" : "#000000";
+
+    const insideButtonOuterStroke = "transparent";
+    const insideButtonInnerStroke = isActive
+      ? "var(--colorsUtilityYang100)"
+      : "var(--colorsSemanticNeutral500)";
+
+    return css`
+      height: ${dimension};
+      min-height: ${dimension};
+
+      circle[data-role="outer-arc"] {
+        fill: transparent;
+        stroke-width: ${strokeWidth}px;
+        stroke: ${isInsideButton ? insideButtonOuterStroke : outerStroke};
+        cx: 12px;
+        cy: 12px;
+        r: 10px;
+      }
+
+      circle[data-role="inner-arc"] {
+        fill: transparent;
+        stroke-width: ${strokeWidth}px;
+        stroke: ${isInsideButton ? insideButtonInnerStroke : innerStroke};
+        stroke-linecap: round;
+        stroke-dasharray: 100px;
+        stroke-dashoffset: 80px;
+        transform-origin: 12px 12px 0px;
+        cx: 12px;
+        cy: 12px;
+        r: 10px;
+        transform: rotate(270deg);
+
+        @keyframes trackedAnimation {
+          from {
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+          }
+          to {
+            stroke-dasharray: 100;
+            stroke-dashoffset: 20;
+          }
+        }
+
+        @keyframes untrackedAnimation {
+          0% {
+            transform: rotate(-360deg);
+          }
+          100% {
+            transform: rotate(360deg);
+          }
+        }
+
+        animation-name: ${isTracked
+          ? "trackedAnimation"
+          : "untrackedAnimation"};
+
+        ${hasMotion && `animation-duration: ${animationTime}s;`}
+        // animation-timing-function: cubic-bezier(0, 0, 1, 1);
+        animation-timing-function: cubic-bezier(0.2, 0.1, 0.8, 1);
+        animation-iteration-count: ${hasMotion ? "infinite" : "none"};
+      }
+    `;
+  }}
+`;
+
+const STAR_CONTAINER_SIZE = "40px";
+
+export const StyledStars = styled.div`
+  position: relative;
+  width: ${STAR_CONTAINER_SIZE};
+  height: ${STAR_CONTAINER_SIZE};
+`;
+
+const LabelMargins: Record<string, Record<string, string>> = {
+  standalone: {
+    small: "4px",
+    medium: "8px",
+    large: "12px",
+  },
+  ring: {
+    "extra-small": "4px",
+    small: "8px",
+    medium: "8px",
+    large: "12px",
+  },
+};
+
+type LabelProps = {
+  size?: string;
+  loaderVariant?: string;
+  inverse?: boolean;
+  loaderType: string;
+};
+
+const getLabelStyles = ({
+  size = "medium",
+  inverse,
+  loaderType,
+  loaderVariant,
+}: LabelProps) => {
+  if (loaderType === "star") {
+    return css`
+      font-size: 16px;
+      font-weight: 400;
+      color: rgba(0, 0, 0, 0.65);
+      margin-left: 12px;
+      width: min-content;
+    `;
+  }
+
+  if (loaderType === "standalone") {
+    return css`
+      font-size: ${size === "large" ? "16px" : "14px"};
+      font-weight: 500;
+      color: ${inverse ? "rgba(255, 255, 255, 0.55)" : "rgba(0, 0, 0, 0.65)"};
+      width: 100%;
+      margin-top: ${LabelMargins[loaderType][size]};
+    `;
+  }
+
+  return css`
+    font-size: ${size === "large"
+      ? "16px"
+      : size === "extra-small"
+        ? "13px"
+        : "14px"};
+    font-weight: 500;
+    color: ${inverse ? "rgba(255, 255, 255, 0.55)" : "rgba(0, 0, 0, 0.65)"};
+    width: ${loaderVariant === "inline" ? "auto" : "100%"};
+    ${loaderVariant === "inline"
+      ? `margin-left: ${ringInlineLabelMargins[size]}`
+      : `margin-top: ${LabelMargins[loaderType][size]}`};
+  `;
+};
+
+export const StyledStarLoaderWrapper = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const StyledLoaderLabel = styled(Typography)<LabelProps>`
+  ${centeredFlexText}
+  line-height: 150%;
+  ${getLabelStyles}
+`;
+
+type RingLoaderWrapperProps = {
+  loaderVariant?: string;
+};
+
+export const StyledRingLoaderWrapper = styled.div<RingLoaderWrapperProps>`
+  ${({ loaderVariant }) => css`
+    display: flex;
+    flex-direction: ${loaderVariant === "inline" ? "row" : "column"};
+    align-items: center;
+    justify-content: center;
+    width: ${loaderVariant === "inline" ? "auto" : "100%"};
+  `}
+`;
