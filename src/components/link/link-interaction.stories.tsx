@@ -4,6 +4,7 @@ import { within, expect, userEvent } from "@storybook/test";
 
 import Link from ".";
 import Box from "../box";
+import { Menu, MenuItem } from "../menu";
 
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
 import DefaultDecorator from "../../../.storybook/utils/default-decorator";
@@ -264,20 +265,28 @@ export const Hover: Story = {
     const canvas = within(canvasElement);
     const links = canvas.getAllByRole("link");
 
+    await userEvent.hover(links[0]);
     await userEvent.click(links[0]);
     await expect(links[0]).toHaveFocus();
+    await userEvent.hover(links[1]);
     await userEvent.click(links[1]);
     await expect(links[1]).toHaveFocus();
+    await userEvent.hover(links[2]);
     await userEvent.click(links[2]);
     await expect(links[2]).toHaveFocus();
+    await userEvent.hover(links[3]);
     await userEvent.click(links[3]);
     await expect(links[3]).toHaveFocus();
+    await userEvent.hover(links[4]);
     await userEvent.click(links[4]);
     await expect(links[4]).toHaveFocus();
+    await userEvent.hover(links[5]);
     await userEvent.click(links[5]);
     await expect(links[5]).toHaveFocus();
+    await userEvent.hover(links[6]);
     await userEvent.click(links[6]);
     await expect(links[6]).toHaveFocus();
+    await userEvent.hover(links[7]);
     await userEvent.click(links[7]);
     await expect(links[7]).toHaveFocus();
     await userEvent.click(document.body);
@@ -298,17 +307,25 @@ Hover.parameters = {
 };
 
 export const IsSkipLink: Story = {
-  render: () => <Link href="#main-content" isSkipLink />,
+  render: () => (
+    <>
+      <Link href="#main-content" isSkipLink />
+      <Menu>
+        <MenuItem href="#">Menu Item 1</MenuItem>
+        <MenuItem href="#">Menu Item 2</MenuItem>
+      </Menu>
+    </>
+  ),
   play: async ({ canvasElement }) => {
     if (!allowInteractions()) {
       return;
     }
 
     const canvas = within(canvasElement);
-    const links = canvas.getByRole("link");
+    const links = canvas.getAllByRole("link");
 
     await userEvent.tab();
-    await expect(links).toHaveFocus();
+    await expect(links[0]).toHaveFocus();
   },
   decorators: [
     (StoryToRender) => (
