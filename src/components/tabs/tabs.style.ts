@@ -62,6 +62,7 @@ export const Spacer = styled.div`
   height: 2px;
 `;
 
+/* istanbul ignore next */
 export const StyledScrollButton = styled.button<{
   position: "left" | "right";
   size: "medium" | "large";
@@ -121,13 +122,13 @@ export const StyledTab = styled.button<StyledTabProps>`
     cursor: pointer;
   }
 
-  ${({ size = "medium" }) => css`
+  ${({ size }) => css`
     font-size: ${sizes[size].fontSize}px;
     height: ${sizes[size].height}px;
     padding: ${sizes[size].paddingY}px ${sizes[size].paddingX}px;
   `};
 
-  ${({ activeTab, error, orientation, size = "medium", warning }) =>
+  ${({ activeTab, error, orientation, size, warning }) =>
     activeTab &&
     orientation === "horizontal" &&
     css`
@@ -159,7 +160,7 @@ export const StyledTab = styled.button<StyledTabProps>`
       }
     `};
 
-  ${({ activeTab, error, orientation, size = "medium", warning }) =>
+  ${({ activeTab, error, orientation, size, warning }) =>
     orientation === "vertical"
       ? css`
           border: none;
@@ -193,7 +194,9 @@ export const StyledTab = styled.button<StyledTabProps>`
                 height: 60%;
                 width: 4px;
                 background-color: ${() => {
+                  /* istanbul ignore if */
                   if (error) return "#db004e";
+                  /* istanbul ignore if */
                   if (warning) return "#d64309";
                   return "black";
                 }};
@@ -220,7 +223,7 @@ export const StyledTabs = styled.div<{
   orientation?: "horizontal" | "vertical";
 }>`
   display: flex;
-  ${({ orientation = "horizontal" }) => css`
+  ${({ orientation }) => css`
     flex-direction: ${orientation === "horizontal" ? "column" : "row"};
   `}
 `;

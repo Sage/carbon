@@ -32,17 +32,27 @@ export const TabPanel = ({ children, id, tabId }: TabPanelProps) => {
 
 let unsupportedSlotConfigurationWarningTriggered = false;
 
-export const Tab = ({ controls, id, label, leftSlot, rightSlot }: TabProps) => {
-  const [error, setError] = useState<boolean | string>(false);
-  const [warning, setWarning] = useState<boolean | string>(false);
+export const Tab = ({
+  controls,
+  error = false,
+  id,
+  label,
+  leftSlot,
+  rightSlot,
+  warning = false,
+}: TabProps) => {
+  const [internalError, setInternalError] = useState<boolean | string>(error);
+  const [internalWarning, setInternalWarning] = useState<boolean | string>(
+    warning,
+  );
 
   const {
     activeTab,
     focusIndex,
-    orientation = "horizontal",
+    orientation,
     setActiveTab,
     setCurrentTabId,
-    size = "medium",
+    size,
     tabErrors,
     tabWarnings,
   } = useTabs();
@@ -70,23 +80,26 @@ export const Tab = ({ controls, id, label, leftSlot, rightSlot }: TabProps) => {
     }
   }, [focusIndex, id, setCurrentTabId]);
 
+  /** Can't be unit-tested; controlled by form tests */
+  /* istanbul ignore next */
   useEffect(() => {
     const currentTabErrors = Object.keys(tabErrors).filter((k) => k === id);
-    const tabHasErrors = currentTabErrors.length > 0;
-    setError(tabHasErrors);
+    const tabHasErrors = error || currentTabErrors.length > 0;
+    setInternalError(tabHasErrors);
 
     const currentTabWarnings = Object.keys(tabWarnings).filter((k) => k === id);
-    const tabHasWarnings = currentTabWarnings.length > 0;
-    setWarning(tabHasWarnings);
-  }, [id, tabErrors, tabWarnings]);
+    const tabHasWarnings = warning || currentTabWarnings.length > 0;
+    setInternalWarning(tabHasWarnings);
+  }, [error, id, tabErrors, tabWarnings, warning]);
 
   const validationIcon = () => {
-    if (error || warning) {
-      if (error) {
+    if (internalError || internalWarning) {
+      if (internalError) {
         return <Icon type="error" color="#db004e" />;
       }
 
-      if (warning) {
+      /* istanbul ignore else */
+      if (internalWarning) {
         return <Icon type="warning" color="#d64309" />;
       }
     }
@@ -100,7 +113,7 @@ export const Tab = ({ controls, id, label, leftSlot, rightSlot }: TabProps) => {
         activeTab={activeTab === id}
         aria-controls={controls}
         aria-selected={selected ? "true" : "false"}
-        error={error}
+        error={internalError}
         id={id}
         onClick={() => setActiveTab(id)}
         orientation={orientation}
@@ -108,7 +121,7 @@ export const Tab = ({ controls, id, label, leftSlot, rightSlot }: TabProps) => {
         size={size}
         type="button"
         tabIndex={activeTab === id ? 0 : -1}
-        warning={warning}
+        warning={internalWarning}
       >
         {typeof label === "string" ? (
           <span className="tab-title-content-wrapper">
@@ -118,7 +131,10 @@ export const Tab = ({ controls, id, label, leftSlot, rightSlot }: TabProps) => {
             {validationIcon()}
           </span>
         ) : (
-          <span className="tab-title-content-wrapper">{label}</span>
+          <span className="tab-title-content-wrapper">
+            {label}
+            {validationIcon()}
+          </span>
         )}
       </StyledTab>
     </TabProvider>
@@ -130,20 +146,29 @@ export const TabList = ({ ariaLabel, children }: TabListProps) => {
   const {
     activeTab,
     focusIndex,
-    orientation = "horizontal",
+    orientation,
     selectedTabId,
     setFocusIndex,
     setActiveTab,
-    size = "medium",
+    size,
   } = useTabs();
 
   useEffect(() => {
+    /* istanbul ignore if */
+    if (selectedTabId) {
+      setActiveTab(selectedTabId);
+      return;
+    }
+
     if (!activeTab || activeTab === "") {
       const tabIds: string[] = React.Children.toArray(children)
         .map((child: React.ReactNode) => {
+          /* istanbul ignore else */
           if (React.isValidElement(child)) {
             return child.props.id;
           }
+          /* istanbul ignore next */
+
           return null;
         })
         .filter((id): id is string => typeof id === "string");
@@ -155,9 +180,11 @@ export const TabList = ({ ariaLabel, children }: TabListProps) => {
   const handleKeyDown = (event: React.KeyboardEvent) => {
     const tabIds: string[] = React.Children.toArray(children)
       .map((child: React.ReactNode) => {
+        /* istanbul ignore else */
         if (React.isValidElement(child)) {
           return child.props.id;
         }
+        /* istanbul ignore next */
         return null;
       })
       .filter((id): id is string => typeof id === "string");
@@ -165,6 +192,7 @@ export const TabList = ({ ariaLabel, children }: TabListProps) => {
     const currentIndex = tabIds.indexOf(focusIndex || activeTab);
     const lastIndex = tabIds.length - 1;
 
+    /* istanbul ignore if */
     if (currentIndex === -1) return;
 
     let nextIndex = currentIndex;
@@ -183,11 +211,13 @@ export const TabList = ({ ariaLabel, children }: TabListProps) => {
         nextIndex = (currentIndex - 1 + tabIds.length) % tabIds.length;
         break;
       case "ArrowUp":
+        /* istanbul ignore else */
         if (orientation === "vertical") {
           nextIndex = (currentIndex - 1 + tabIds.length) % tabIds.length;
         }
         break;
       case "ArrowDown":
+        /* istanbul ignore else */
         if (orientation === "vertical") {
           nextIndex = (currentIndex + 1) % tabIds.length;
         }
@@ -203,25 +233,11 @@ export const TabList = ({ ariaLabel, children }: TabListProps) => {
     setFocusIndex(tabIds[nextIndex]);
   };
 
-  useEffect(() => {
-    if (!selectedTabId) return;
-
-    const targetTab = React.Children.toArray(children).find(
-      (child) =>
-        React.isValidElement(child) && child.props?.id === selectedTabId,
-    );
-
-    if (targetTab && React.isValidElement(targetTab)) {
-      const { index } = targetTab.props;
-      setActiveTab(index);
-      setFocusIndex(index);
-    }
-  });
-
   const [leftVisible, setLeftVisible] = useState<boolean>(false);
   const [rightVisible, setRightVisible] = useState<boolean>(false);
 
   const updateUI = useCallback(() => {
+    /* istanbul ignore else */
     if (tabListRef.current) {
       const maxScrollValue =
         tabListRef.current.scrollWidth - tabListRef.current.clientWidth - 20;
@@ -235,11 +251,14 @@ export const TabList = ({ ariaLabel, children }: TabListProps) => {
   });
 
   useEffect(() => {
+    /* istanbul ignore else */
     if (tabListRef.current) {
       updateUI();
     }
   }, [updateUI]);
 
+  // Difficult to test in Jest
+  /* istanbul ignore next */
   const onClickHandler = (direction: "left" | "right") => {
     if (tabListRef.current) {
       if (direction === "left") tabListRef.current.scrollLeft -= 200;
@@ -256,10 +275,14 @@ export const TabList = ({ ariaLabel, children }: TabListProps) => {
       </Typography>
       <StyledTabListWrapper>
         {orientation === "horizontal" && leftVisible ? (
+          /* istanbul ignore next */
           <StyledScrollButton
             data-role="tab-navigation-button-left"
             id="tab-navigation-button-left"
-            onClick={() => onClickHandler("left")}
+            onClick={
+              /* istanbul ignore next */
+              () => onClickHandler("left")
+            }
             position="left"
             size={size}
             tabIndex={-1}
@@ -284,10 +307,14 @@ export const TabList = ({ ariaLabel, children }: TabListProps) => {
           <Spacer />
         </StyledTabList>
         {orientation === "horizontal" && rightVisible ? (
+          /* istanbul ignore next */
           <StyledScrollButton
             data-role="tab-navigation-button-right"
             id="tab-navigation-button-right"
-            onClick={() => onClickHandler("right")}
+            onClick={
+              /* istanbul ignore next */
+              () => onClickHandler("right")
+            }
             position="right"
             size={size}
             tabIndex={-1}

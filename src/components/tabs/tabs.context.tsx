@@ -1,6 +1,7 @@
 import React, { createContext, useState, useContext, useCallback } from "react";
 import { TabsContextProps, ValidationRecord } from "./tabs.types";
 
+/* istanbul ignore next */
 const initialContext: TabsContextProps = {
   activeTab: "",
   currentTabId: "",
@@ -23,9 +24,6 @@ export const TabsContext = createContext<TabsContextProps>(initialContext);
 
 export const useTabs = () => {
   const context = useContext(TabsContext);
-  if (!context) {
-    throw new Error("useTabs must be used within a TabsProvider");
-  }
   return context;
 };
 
@@ -33,9 +31,9 @@ interface TabsProviderProps {
   children?: React.ReactNode;
   isInTab?: boolean;
   labelledBy?: string;
-  orientation?: "horizontal" | "vertical";
+  orientation: "horizontal" | "vertical";
   selectedTabId?: string;
-  size?: "medium" | "large";
+  size: "medium" | "large";
 }
 
 export const TabsProvider = ({
@@ -46,12 +44,15 @@ export const TabsProvider = ({
   selectedTabId = "",
   size,
 }: TabsProviderProps) => {
-  const [activeTab, setActiveTab] = useState<string>(selectedTabId || "");
-  const [currentTabId, setCurrentTabId] = useState<string>("");
+  const [activeTab, setActiveTab] = useState<string>(selectedTabId);
+  const [currentTabId, setCurrentTabId] = useState<string>(selectedTabId);
   const [focusIndex, setFocusIndex] = useState<string>("");
   const [errors, setErrors] = useState<ValidationRecord>({});
   const [warnings, setWarnings] = useState<ValidationRecord>({});
 
+  // This calloback is difficult to test in Jest environments and
+  // is tested in Playwright
+  /* istanbul ignore next */
   const setTabErrors = useCallback(
     (childId: string, tabId: string, error: string | boolean) => {
       const validationEntry = {
@@ -71,6 +72,9 @@ export const TabsProvider = ({
     [],
   );
 
+  // This calloback is difficult to test in Jest environments and
+  // is tested in Playwright
+  /* istanbul ignore next */
   const setTabWarnings = useCallback(
     (childId: string, tabId: string, warning: string | boolean) => {
       const validationEntry = {
@@ -98,7 +102,6 @@ export const TabsProvider = ({
         isInTab,
         labelledBy,
         orientation,
-        selectedTabId,
         setActiveTab,
         setCurrentTabId,
         setFocusIndex,

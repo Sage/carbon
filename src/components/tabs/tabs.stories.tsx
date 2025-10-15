@@ -226,6 +226,35 @@ export const WithErrorAndWarning: Story = ({ ...args }) => {
     <Tabs {...args}>
       <TabList ariaLabel="Sample Tabs">
         <Tab id="tab-1" controls="tab-panel-1" label="Default" />
+        <Tab id="tab-2" controls="tab-panel-2" label="Error" error />
+        <Tab id="tab-3" controls="tab-panel-3" label="Warning" warning />
+      </TabList>
+
+      <TabPanel id="tab-panel-1" tabId={"tab-1"}>
+        Content 1
+      </TabPanel>
+
+      <TabPanel id="tab-panel-2" tabId={"tab-2"}>
+        Content 2
+      </TabPanel>
+
+      <TabPanel id="tab-panel-3" tabId={"tab-3"}>
+        Content 3
+      </TabPanel>
+    </Tabs>
+  );
+};
+WithErrorAndWarning.storyName = "With Error And Warning";
+WithErrorAndWarning.args = {
+  orientation: "horizontal",
+  size: "medium",
+};
+
+export const WithErrorAndWarningInForm: Story = ({ ...args }) => {
+  return (
+    <Tabs {...args}>
+      <TabList ariaLabel="Sample Tabs">
+        <Tab id="tab-1" controls="tab-panel-1" label="Default" />
         <Tab id="tab-2" controls="tab-panel-2" label="Error" />
         <Tab id="tab-3" controls="tab-panel-3" label="Warning" />
       </TabList>
@@ -271,8 +300,39 @@ export const WithErrorAndWarning: Story = ({ ...args }) => {
     </Tabs>
   );
 };
-WithErrorAndWarning.storyName = "With Error And Warning";
-WithErrorAndWarning.args = {
+WithErrorAndWarningInForm.storyName = "With Error And Warning In Form";
+WithErrorAndWarningInForm.args = {
   orientation: "horizontal",
   size: "medium",
+};
+
+export const PreSelectedTab: Story = ({ ...args }) => {
+  return (
+    <Tabs {...args}>
+      <TabList ariaLabel="Sample Tabs">
+        <Tab id="tab-1" controls="tab-panel-1" label="Tab One" />
+        <Tab id="tab-2" controls="tab-panel-2" label="Tab Two" />
+        <Tab id="tab-3" controls="tab-panel-3" label="Tab Three" />
+      </TabList>
+      <TabPanel id="tab-panel-1" tabId="tab-1">
+        <Typography>Content 1</Typography>
+      </TabPanel>
+      <TabPanel id="tab-panel-2" tabId="tab-2">
+        <Typography>Content 2</Typography>
+      </TabPanel>
+      <TabPanel id="tab-panel-3" tabId="tab-3">
+        <Typography>Content 3</Typography>
+      </TabPanel>
+    </Tabs>
+  );
+};
+PreSelectedTab.storyName = "Pre-Selected Tab";
+PreSelectedTab.args = {
+  orientation: "horizontal",
+  size: "medium",
+  selectedTabId: "tab-3",
+};
+
+export const UnitTestingMock = () => {
+  return <Tab controls="" id="tab-1" label="Tab" />;
 };

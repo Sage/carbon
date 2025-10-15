@@ -1,15 +1,9 @@
-import React, { createContext, useContext } from "react";
+import React, { createContext } from "react";
 import { TabContextProps } from "./tabs.types";
 
-export const TabContext = createContext<TabContextProps>({ tabId: "" });
-
-export const useTab = () => {
-  const context = useContext(TabContext);
-  if (!context) {
-    throw new Error("useTab must be used within a TabProvider");
-  }
-  return context;
-};
+export const TabContext = createContext<TabContextProps>({
+  tabId: "",
+});
 
 interface TabProviderProps {
   children?: React.ReactNode;

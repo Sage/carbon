@@ -83,6 +83,21 @@ Combinations of `leftSlot`, `rightSlot` and `label` can be used to create custom
 
 <Canvas of={TabsStories.WithErrorAndWarning} name="validation-states" />
 
+#### Validation via Form
+
+`Tab` components will display errors and warnings from any child `Form` elements.
+
+<Canvas
+  of={TabsStories.WithErrorAndWarningInForm}
+  name="validation-states-form"
+/>
+
+### Pre-Selected Tabs
+
+`Tab` elements can be pre-selected through the `selectedTabId` prop. This can be used for e.g. setting the default tab based on routing or URL paths.
+
+<Canvas of={TabsStories.PreSelectedTab} name="pre-selected-tab" />
+
 ## Accessibility
 
 Users should be able to:

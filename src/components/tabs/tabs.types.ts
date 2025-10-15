@@ -4,7 +4,7 @@ export type TabValidationRecord = Record<string, string | boolean>;
 export type ValidationRecord = Record<string, TabValidationRecord>;
 
 export interface TabContextProps {
-  tabId: string;
+  tabId?: string;
 }
 
 export interface TabsContextProps {
@@ -13,7 +13,7 @@ export interface TabsContextProps {
   focusIndex: string;
   isInTab?: boolean;
   labelledBy?: string;
-  orientation?: "horizontal" | "vertical";
+  orientation: "horizontal" | "vertical";
   selectedTabId?: string;
   setActiveTab: Dispatch<SetStateAction<string>>;
   setFocusIndex: Dispatch<SetStateAction<string>>;
@@ -30,7 +30,7 @@ export interface TabsContextProps {
   ) => void;
   tabErrors: ValidationRecord;
   tabWarnings: ValidationRecord;
-  size?: "medium" | "large";
+  size: "medium" | "large";
 }
 
 export interface TabPanelProps {
@@ -47,9 +47,11 @@ export interface TabListProps {
 export interface TabProps {
   controls: string;
   id: string;
+  error?: boolean | string;
   label: React.ReactNode;
   leftSlot?: React.ReactNode;
   rightSlot?: React.ReactNode;
+  warning?: boolean | string;
 }
 
 export interface TabsProps {

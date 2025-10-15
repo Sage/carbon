@@ -157,13 +157,13 @@ const FormField = ({
   }, []);
 
   useEffect(() => {
-    if (setTabErrors && error) setTabErrors(id, tabId, error);
-    if (setTabWarnings && warning) setTabWarnings(id, tabId, warning);
+    if (setTabErrors && error) setTabErrors(id, tabId || "", error);
+    if (setTabWarnings && warning) setTabWarnings(id, tabId || "", warning);
 
     return () => {
       if (!isMounted.current) {
-        if (setTabErrors && error) setTabErrors(id, tabId, false);
-        if (setTabWarnings && warning) setTabWarnings(id, tabId, false);
+        if (setTabErrors && error) setTabErrors(id, tabId || "", false);
+        if (setTabWarnings && warning) setTabWarnings(id, tabId || "", false);
       }
     };
   }, [id, setTabErrors, setTabWarnings, error, warning, info, tabId]);
