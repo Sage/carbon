@@ -3,7 +3,7 @@ import React from "react";
 import { FormattingButton } from "../toolbar.style";
 
 import useLocale from "../../../../../../hooks/__internal__/useLocale";
-import { FormattingButtonProps } from "../../../__utils__/interfaces.type";
+import { FormattingButtonProps } from "../../../__utils__/interfaces.types";
 
 type HyperlinkButtonProps = Pick<
   FormattingButtonProps,

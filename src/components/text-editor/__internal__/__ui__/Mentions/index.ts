@@ -1,2 +1,2 @@
 export { default } from "./mentions.component";
-export type { Mention } from "./mention.type";
+export type { Mention } from "./mention.types";

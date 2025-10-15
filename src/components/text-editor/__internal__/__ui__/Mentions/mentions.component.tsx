@@ -17,7 +17,7 @@ import ReactDOM from "react-dom";
 
 import { SUGGESTION_LIST_LENGTH_LIMIT } from "./constants";
 import { getPossibleQueryMatch } from "./helpers";
-import Mention from "./mention.type";
+import Mention from "./mention.types";
 import MentionsTypeaheadMenuItem from "./mentions-typeahead-menu-item.component";
 import MentionTypeaheadOption from "./mention-typeahead-option.class";
 

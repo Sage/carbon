@@ -8,7 +8,7 @@ import {
 
 import useDebounce from "../../../../../hooks/__internal__/useDebounce";
 import useLocale from "../../../../../hooks/__internal__/useLocale";
-import { CharacterCounterPluginProps } from "../../__utils__/interfaces.type";
+import { CharacterCounterPluginProps } from "../../__utils__/interfaces.types";
 
 const CharacterCounterPlugin = ({
   isFocused,

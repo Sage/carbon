@@ -13,7 +13,7 @@ import {
   ParagraphNode,
   $createTextNode,
 } from "lexical";
-import { FocusCommandPayload } from "../../__utils__/interfaces.type";
+import { FocusCommandPayload } from "../../__utils__/interfaces.types";
 
 const FOCUS_COMMAND = createCommand("FOCUS_COMMAND");
 

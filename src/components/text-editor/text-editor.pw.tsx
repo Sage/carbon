@@ -12,7 +12,7 @@ import TextEditorDefaultComponent, {
   TextEditorWithFooterOnCancel,
   TextEditorWithMentions,
 } from "./components.test-pw";
-import { EditorFormattedValues } from "./__internal__/__utils__/interfaces.type";
+import { EditorFormattedValues } from "./__internal__/__utils__/interfaces.types";
 
 const preformattedJSON = {
   root: {

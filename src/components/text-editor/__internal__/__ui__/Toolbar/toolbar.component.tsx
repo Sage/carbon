@@ -25,7 +25,7 @@ import {
 
 import SaveButton from "./buttons/save.component";
 import ButtonGroup from "./button-group/button-group.component";
-import { ToolbarProps } from "../../__utils__/interfaces.type";
+import { ToolbarProps } from "../../__utils__/interfaces.types";
 import { TEXT_EDITOR_ACTION_TYPES } from "../../__utils__/constants";
 import Textbox from "../../../../textbox";
 import { $createLinkNode } from "@lexical/link";

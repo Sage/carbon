@@ -56,7 +56,7 @@ import ReadOnlyEditor from "./__internal__/__ui__/ReadOnlyEditor/read-only-rte.c
 import {
   TextEditorHandle,
   TextEditorProps,
-} from "./__internal__/__utils__/interfaces.type";
+} from "./__internal__/__utils__/interfaces.types";
 import { getTheme } from "./__internal__/__utils__/theme";
 import {
   CharacterCounterPlugin,

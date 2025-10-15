@@ -4,7 +4,7 @@ export type {
   TextEditorHandle,
   TextEditorProps,
   EditorFormattedValues,
-} from "./__internal__/__utils__/interfaces.type";
+} from "./__internal__/__utils__/interfaces.types";
 
 export { default as MentionsPlugin } from "./__internal__/__ui__/Mentions/";
 export type { Mention } from "./__internal__/__ui__/Mentions";

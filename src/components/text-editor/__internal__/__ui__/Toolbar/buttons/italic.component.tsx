@@ -4,7 +4,7 @@ import React from "react";
 
 import { FormattingButton } from "../toolbar.style";
 import useLocale from "../../../../../../hooks/__internal__/useLocale";
-import { FormattingButtonProps } from "../../../__utils__/interfaces.type";
+import { FormattingButtonProps } from "../../../__utils__/interfaces.types";
 import { TEXT_EDITOR_ACTION_TYPES } from "../../../__utils__/constants";
 
 // The `ItalicButton` component is a button that applies italic formatting to the selected text in the editor.
