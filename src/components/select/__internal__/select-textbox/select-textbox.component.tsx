@@ -6,13 +6,13 @@ import {
   StyledSelectTextChildrenWrapper,
 } from "./select-textbox.style";
 
-import Textbox, { CommonTextboxProps } from "../../../textbox";
+import TextInput, { CommonTextInputProps } from "../../../text-input";
 import useLocale from "../../../../hooks/__internal__/useLocale";
 import { ValidationProps } from "../../../../__internal__/validations";
 
 export interface FormInputPropTypes
   extends ValidationProps,
-    Omit<CommonTextboxProps, "onClick" | "onChange" | "data-component"> {
+    Omit<CommonTextInputProps, "onClick" | "onChange" | "data-component"> {
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLabelBreakpoint?: number;
   /** Prop to specify the aria-label attribute of the component input */
@@ -170,7 +170,7 @@ const SelectTextbox = React.forwardRef(
 
     return (
       <SelectTextboxContext.Provider value={{ isInputInSelect: true }}>
-        <Textbox
+        <TextInput
           aria-describedby={ariaDescribedBy}
           aria-label={ariaLabel}
           data-element="select-input"
@@ -208,7 +208,7 @@ const SelectTextbox = React.forwardRef(
               </StyledSelectTextChildrenWrapper>
             </StyledSelectText>
           )}
-        </Textbox>
+        </TextInput>
       </SelectTextboxContext.Provider>
     );
   },

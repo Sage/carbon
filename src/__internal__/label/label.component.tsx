@@ -12,6 +12,8 @@ import { InputContext, InputGroupContext } from "../input-behaviour";
 import { ValidationProps } from "../validations";
 import { IconType } from "../../components/icon";
 import createGuid from "../../__internal__/utils/helpers/guid";
+import HintText from "../hint-text";
+import newValidationContext from "../../components/carbon-provider/__internal__/new-validation.context";
 
 export interface LabelProps
   extends ValidationProps,
@@ -40,6 +42,14 @@ export interface LabelProps
    * @internal
    * Sets className for component. INTERNAL USE ONLY. */
   className?: string;
+  /** @private @internal @ignore */
+  inputHint?: string;
+  /** @private @internal @ignore */
+  inputHintId?: string;
+  /** @private @internal @ignore */
+  labelHelp?: React.ReactNode;
+  /** @private @internal @ignore */
+  marginBttom?: string;
   /** Sets aria-label for label element */
   "aria-label"?: string;
   /** Whether this component is shown against a dark background */
@@ -79,11 +89,15 @@ export const Label = ({
   isDarkBackground = false,
   isRequired,
   labelId,
+  inputHint,
+  inputHintId,
+  labelHelp,
   pr,
   pl,
   tooltipId,
   useValidationIcon = true,
   validationIconId,
+  marginBttom = "8px",
   warning,
   width = 30,
   className,
@@ -95,6 +109,8 @@ export const Label = ({
   const { onMouseEnter: onGroupMouseEnter, onMouseLeave: onGroupMouseLeave } =
     useContext(InputGroupContext);
   const guid = useRef(createGuid());
+
+  const { validationRedesignOptIn } = useContext(newValidationContext);
 
   const handleMouseEnter = () => {
     if (onMouseEnter) onMouseEnter();
@@ -167,26 +183,42 @@ export const Label = ({
       id={`label-container-${labelId ?? guid.current}`}
       align={alignment}
       inline={inline}
+      validationRedesignOptIn={validationRedesignOptIn}
       width={width}
+      marginBttom={marginBttom}
       pr={pr}
       pl={pl}
       className={className}
     >
-      <StyledLabel
-        data-element="label"
-        disabled={disabled}
-        id={labelId}
-        {...(as === "label" ? { htmlFor } : {})}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        isRequired={isRequired}
-        as={as}
-        aria-label={ariaLabel}
-        isDarkBackground={isDarkBackground}
-        isLarge={isLarge}
-      >
-        {children}
-      </StyledLabel>
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <StyledLabel
+          data-element="label"
+          disabled={disabled}
+          id={labelId}
+          {...(as === "label" ? { htmlFor } : {})}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          isRequired={isRequired}
+          as={as}
+          aria-label={ariaLabel}
+          isDarkBackground={isDarkBackground}
+          isLarge={isLarge}
+        >
+          {children}
+        </StyledLabel>
+        {(inputHint || (labelHelp && validationRedesignOptIn)) && (
+          <HintText
+            align={alignment}
+            data-element="input-hint"
+            id={inputHintId}
+            marginBottom="var(--spacing000)"
+            isLarge={isLarge}
+            isComponentInline={inline}
+          >
+            {inputHint || labelHelp}
+          </HintText>
+        )}
+      </div>
       {icon()}
     </StyledLabelContainer>
   );

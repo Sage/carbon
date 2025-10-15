@@ -33,6 +33,7 @@ export const Default: Story = () => {
   return (
     <Textbox
       label="Textbox"
+      inputHint="test"
       value={state}
       onChange={setValue}
       placeholder="Textbox"

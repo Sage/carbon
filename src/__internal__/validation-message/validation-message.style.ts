@@ -21,6 +21,7 @@ const StyledValidationMessage = styled.p<StyledValidationMessageProps>`
       color: ${isWarning ? "var(--tempColorsSemanticCaution600)" : darkBgColour};
       font-weight: ${isWarning ? "normal" : "500"};
       font-size: ${isLarge ? "var(--fontSizes200)" : "var(--fontSizes100)"};
+      line-height: 150%;
       margin: 0px;
       margin-${validationMessagePositionTop ? "bottom" : "top"}: 8px;
     `;
