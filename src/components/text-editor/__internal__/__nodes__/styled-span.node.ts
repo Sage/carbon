@@ -1,8 +1,3 @@
-/**
- * IMPORTANT: The methods and functions included in this file are to be consumed internally by
- * `Lexical` only; they therefore should not be used directly. If you need similar functionality,
- * please refer to the Lexical documentation and utilize the appropriate public APIs.
- */
 import {
   DOMConversionMap,
   DOMExportOutput,
@@ -151,11 +146,6 @@ export class StyledSpanNode extends TextNode {
     }
     return "paragraph";
   }
-
-  /**
-   * [INTERNAL] Convert the node to a DOM element for rendering
-   * @returns the exported DOM output
-   */
   exportDOM(): DOMExportOutput {
     const element = document.createElement("span");
     element.style.fontWeight = this.__fontWeight;
@@ -165,10 +155,6 @@ export class StyledSpanNode extends TextNode {
     return { element };
   }
 
-  /**
-   * [INTERNAL] Convert a DOM element back to a StyledSpanNode
-   * @returns a StyledSpan node
-   */
   static importDOM(): DOMConversionMap | null {
     return {
       span: (domNode: HTMLElement) => ({
@@ -191,10 +177,6 @@ export class StyledSpanNode extends TextNode {
     };
   }
 
-  /**
-   * [INTERNAL] Serialize the node for storage or transmission
-   * @returns JSON data of mention node
-   */
   exportJSON() {
     return {
       ...super.exportJSON(),
@@ -206,11 +188,6 @@ export class StyledSpanNode extends TextNode {
     };
   }
 
-  /**
-   * [INTERNAL] Deserialize the node from JSON
-   * @param serializedNode the JSON representation of the mention node to import
-   * @returns the DOM representation of the node
-   */
   static importJSON(serializedNode: SerializedSpanNode): StyledSpanNode {
     return new StyledSpanNode(
       serializedNode.text,
@@ -220,11 +197,6 @@ export class StyledSpanNode extends TextNode {
     );
   }
 
-  /**
-   * [INTERNAL] Inserts a StyledSpan node into the editor
-   * @param config Lexical's editor config
-   * @returns the DOM element for the new node
-   */
   createDOM(_config: EditorConfig): HTMLElement {
     const dom = super.createDOM(_config);
     dom.style.fontWeight = this.__fontWeight;
@@ -233,13 +205,6 @@ export class StyledSpanNode extends TextNode {
     return dom;
   }
 
-  /**
-   * [INTERNAL] Update the DOM element when the node is updated. This is called when the node's properties change and ensures the DOM reflects the current state of the node
-   * @param prevNode Current DOM node
-   * @param dom A representation of the DOM to target
-   * @param config Lexical's editor config
-   * @returns the DOM element for the new node
-   */
   updateDOM(
     prevNode: StyledSpanNode,
     dom: HTMLElement,

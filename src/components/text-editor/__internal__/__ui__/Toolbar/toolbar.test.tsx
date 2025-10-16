@@ -399,7 +399,7 @@ describe("Events", () => {
 describe("Styling", () => {
   ["small", "medium", "large"].forEach((size) => {
     it(`applies the correct padding for size=${size}`, () => {
-      const ref = React.createRef<HTMLDivElement>();
+      const ref = { current: null };
       const paddingMap: { [key: string]: string } = {
         small: "8px",
         medium: "12px",
@@ -436,7 +436,7 @@ describe("Styling", () => {
 
 describe("Customisation", () => {
   it("renders only the buttons passed in the 'toolbarControls' prop", () => {
-    const ref = React.createRef<HTMLDivElement>();
+    const ref = { current: null };
     render(
       <LexicalComposer
         initialConfig={{
@@ -469,7 +469,7 @@ describe("Customisation", () => {
   });
 
   it("does not render the typography formatting section if the typography button is not set", () => {
-    const ref = React.createRef<HTMLDivElement>();
+    const ref = { current: null };
     render(
       <LexicalComposer
         initialConfig={{
@@ -517,7 +517,7 @@ describe("Customisation", () => {
   });
 
   it("does not render the text formatting section if no text formatting buttons are set", () => {
-    const ref = React.createRef<HTMLDivElement>();
+    const ref = { current: null };
     render(
       <LexicalComposer
         initialConfig={{
@@ -564,7 +564,7 @@ describe("Customisation", () => {
   });
 
   it("does not render the list formatting section if no list formatting buttons are set", () => {
-    const ref = React.createRef<HTMLDivElement>();
+    const ref = { current: null };
     render(
       <LexicalComposer
         initialConfig={{
@@ -612,7 +612,7 @@ describe("Customisation", () => {
   });
 
   it("does not render the hyperlink formatting section if the link button is not set", () => {
-    const ref = React.createRef<HTMLDivElement>();
+    const ref = { current: null };
     render(
       <LexicalComposer
         initialConfig={{
@@ -661,7 +661,7 @@ describe("Customisation", () => {
   });
 
   it("shows dividers between button groups, except after the last group", () => {
-    const ref = React.createRef<HTMLDivElement>();
+    const ref = { current: null };
     render(
       <LexicalComposer
         initialConfig={{
@@ -701,7 +701,7 @@ describe("Customisation", () => {
   });
 
   it("only shows a single divider when there are two adjacent button groups", () => {
-    const ref = React.createRef<HTMLDivElement>();
+    const ref = { current: null };
     render(
       <LexicalComposer
         initialConfig={{
@@ -733,7 +733,7 @@ describe("Customisation", () => {
   });
 
   it("marks the typography button as the first button by default", () => {
-    const ref = React.createRef<HTMLDivElement>();
+    const ref = { current: null };
     render(
       <LexicalComposer
         initialConfig={{
@@ -756,7 +756,7 @@ describe("Customisation", () => {
   });
 
   it("marks the bold button as the first button if the preceding buttons are not present", () => {
-    const ref = React.createRef<HTMLDivElement>();
+    const ref = { current: null };
     render(
       <LexicalComposer
         initialConfig={{
@@ -790,7 +790,7 @@ describe("Customisation", () => {
   });
 
   it("marks the italic button as the first button if the preceding buttons are not present", () => {
-    const ref = React.createRef<HTMLDivElement>();
+    const ref = { current: null };
     render(
       <LexicalComposer
         initialConfig={{
@@ -823,7 +823,7 @@ describe("Customisation", () => {
   });
 
   it("marks the underline button as the first button if the preceding buttons are not present", () => {
-    const ref = React.createRef<HTMLDivElement>();
+    const ref = { current: null };
     render(
       <LexicalComposer
         initialConfig={{
@@ -855,7 +855,7 @@ describe("Customisation", () => {
   });
 
   it("marks the unordered list button as the first button if the preceding buttons are not present", () => {
-    const ref = React.createRef<HTMLDivElement>();
+    const ref = { current: null };
     render(
       <LexicalComposer
         initialConfig={{
@@ -884,7 +884,7 @@ describe("Customisation", () => {
   });
 
   it("marks the ordered list button as the first button if the preceding buttons are not present", () => {
-    const ref = React.createRef<HTMLDivElement>();
+    const ref = { current: null };
     render(
       <LexicalComposer
         initialConfig={{
@@ -911,7 +911,7 @@ describe("Customisation", () => {
   });
 
   it("marks the link button as the first button if all other buttons are not present", () => {
-    const ref = React.createRef<HTMLDivElement>();
+    const ref = { current: null };
     render(
       <LexicalComposer
         initialConfig={{

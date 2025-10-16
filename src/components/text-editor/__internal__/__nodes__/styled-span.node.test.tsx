@@ -13,7 +13,7 @@ import {
   SerializedSpanNode,
 } from "./styled-span.node";
 import { TypographyKey } from "../__ui__/Toolbar/buttons/typography.component";
-import TestEditor from "../TestEditor";
+import TestEditor from "../TestEditor.test";
 import { act, render } from "@testing-library/react";
 import React from "react";
 

@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import React, { act } from "react";
-import { TestEditor, TestEditorHelpers } from "../../../TestEditor";
+import { TestEditor, TestEditorHelpers } from "../../../TestEditor.test";
 
 import { UnderlineButton } from ".";
 import { $getRoot, LexicalEditor, ParagraphNode, TextNode } from "lexical";

@@ -3,7 +3,7 @@ import { LexicalEditor } from "lexical";
 import React from "react";
 
 import CharacterCounterPlugin from "./character-counter.component";
-import TestEditor, { TestEditorHelpers } from "../../TestEditor";
+import TestEditor, { TestEditorHelpers } from "../../TestEditor.test";
 
 describe("CharacterCounterPlugin", () => {
   it("correctly updates character count when editor state changes", async () => {

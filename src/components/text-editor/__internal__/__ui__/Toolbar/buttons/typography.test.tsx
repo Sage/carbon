@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import TypographySelector from "./typography.component";
 import userEvent from "@testing-library/user-event";
 
-import { TestEditor } from "../../../TestEditor";
+import { TestEditor } from "../../../TestEditor.test";
 
 jest.mock("../../../../../../hooks/__internal__/useLocale", () => () => ({
   textEditor: {
@@ -24,7 +24,7 @@ describe("TypographySelector", () => {
   });
 
   it("renders with default paragraph option", () => {
-    const ref = React.createRef<HTMLDivElement>();
+    const ref = { current: null };
     render(
       <TestEditor>
         <TypographySelector
@@ -48,7 +48,7 @@ describe("TypographySelector", () => {
 
     const Component = () => {
       const [isOpen, setIsOpen] = React.useState(false);
-      const ref = React.createRef<HTMLDivElement>();
+      const ref = { current: null };
       return (
         <TypographySelector
           namespace="editor"

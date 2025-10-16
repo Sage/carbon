@@ -16,7 +16,7 @@ import {
   $convertMentionElement,
   SerializedMentionNode,
 } from "./mention.node";
-import TestEditor from "../TestEditor";
+import TestEditor from "../TestEditor.test";
 
 // Mock DOM environment if needed
 Object.defineProperty(window, "getComputedStyle", {

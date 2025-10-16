@@ -108,12 +108,12 @@ const TypographySelector = ({
   // tests, so we ignore it for code coverage purposes.
   /* istanbul ignore next */
   const handleChange = (value: string) => {
-    const key = value as TypographyKey;
+    const option = value as TypographyKey;
     // Update the selected option state
     // This is needed to ensure the dropdown reflects the current selection
     // correctly; not having this would mean the dropdown was always one step behind
     // the actual selected type.
-    setSelectedOption(key);
+    setSelectedOption(option);
 
     // Apply the selected typography style to the current selection
     editor.update(() => {
@@ -137,14 +137,14 @@ const TypographySelector = ({
             let newNode: TextNode | StyledSpanNode;
 
             /* istanbul ignore if */
-            if (key === "paragraph") {
+            if (option === "paragraph") {
               // Use a regular TextNode for paragraphs. Doing so ensures that
               // the mentions plugin can still function correctly
               newNode = new TextNode(node.getTextContent());
             } else {
               // Use StyledSpanNode for other typography styles.
               newNode = StyledSpanNode.createFromKey(
-                key,
+                option,
                 node.getTextContent(),
               );
             }
@@ -170,13 +170,13 @@ const TypographySelector = ({
         let newNode: TextNode | StyledSpanNode;
 
         /* istanbul ignore if */
-        if (key === "paragraph") {
+        if (option === "paragraph") {
           // Use a regular TextNode for paragraphs. Doing so ensures that
           // the mentions plugin can still function correctly
           newNode = new TextNode("");
         } else {
           // Use StyledSpanNode for other typography styles.
-          newNode = StyledSpanNode.createFromKey(key, "");
+          newNode = StyledSpanNode.createFromKey(option, "");
         }
 
         const root = $getRoot();

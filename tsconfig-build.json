@@ -18,6 +18,5 @@
     "**/*.stories.*",
     "**/*.pw.ts*",
     "**/*.test-pw.ts*",
-    "**/TestEditor.tsx"
   ]
 }

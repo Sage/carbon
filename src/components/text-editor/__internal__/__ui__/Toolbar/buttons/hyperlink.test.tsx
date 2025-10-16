@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import React, { useState } from "react";
 
 import { HyperlinkButton } from ".";
-import TestEditor from "../../../TestEditor";
+import TestEditor from "../../../TestEditor.test";
 import Dialog from "../../../../../dialog";
 import Form from "../../../../../form";
 import Button from "../../../../../button";

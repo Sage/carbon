@@ -180,7 +180,6 @@ const ToolbarDropdown = ({
     option.onClick();
     setIsOpen?.(false);
     setFocusedIndex?.(-1);
-    // buttonRef.current?.focus();
     onChange?.(option.id);
   };
 

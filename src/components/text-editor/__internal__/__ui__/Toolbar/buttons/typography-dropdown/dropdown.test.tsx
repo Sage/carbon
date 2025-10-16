@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import React from "react";
 
 import ToolbarDropdown from "./dropdown.component";
-import { TestEditor } from "../../../../TestEditor";
+import { TestEditor } from "../../../../TestEditor.test";
 
 const options = [
   { id: "title", label: "Title", onClick: jest.fn() },

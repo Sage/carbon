@@ -1,8 +1,3 @@
-/**
- * IMPORTANT: The methods and functions included in this file are to be consumed internally by
- * `Lexical` only; they therefore should not be used directly. If you need similar functionality,
- * please refer to the Lexical documentation and utilize the appropriate public APIs.
- */
 import {
   $applyNodeReplacement,
   DOMConversionOutput,
@@ -62,11 +57,6 @@ export class MentionNode extends TextNode {
     this.__mention = mentionName;
   }
 
-  /**
-   * [INTERNAL] Inserts a Mention node into the editor
-   * @param config Lexical's editor config
-   * @returns the DOM element for the new node
-   */
   createDOM(config: EditorConfig): HTMLElement {
     const dom = super.createDOM(config);
     dom.style.cssText = mentionStyle;
@@ -75,10 +65,6 @@ export class MentionNode extends TextNode {
     return dom;
   }
 
-  /**
-   * [INTERNAL] Serialize the node for storage or transmission
-   * @returns JSON data of mention node
-   */
   exportJSON() {
     return {
       ...super.exportJSON(),
@@ -88,11 +74,6 @@ export class MentionNode extends TextNode {
     };
   }
 
-  /**
-   * [INTERNAL] Deserialize the node from JSON
-   * @param serializedNode the JSON representation of the mention node to import
-   * @returns the DOM representation of the node
-   */
   static importJSON(serializedNode: SerializedMentionNode): MentionNode {
     return new MentionNode(serializedNode.mention, serializedNode.text);
   }
