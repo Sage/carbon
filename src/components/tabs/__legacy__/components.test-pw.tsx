@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Tabs, Tab, TabsProps, TabProps } from ".";
-import useMediaQuery from "../../hooks/useMediaQuery";
-import { Checkbox } from "../checkbox";
-import Box from "../box";
-import Icon from "../icon";
-import Pill from "../pill";
-import Button from "../button";
+import useMediaQuery from "../../../hooks/useMediaQuery";
+import { Checkbox } from "../../checkbox";
+import Box from "../../box";
+import Icon from "../../icon";
+import Pill from "../../pill";
+import Button from "../../button";
 
-import DrawerSidebarContext from "../drawer/__internal__/drawer-sidebar.context";
+import DrawerSidebarContext from "../../drawer/__internal__/drawer-sidebar.context";
 
 export const TabsComponent = (
   props: Partial<TabsProps> & Partial<TabProps>,

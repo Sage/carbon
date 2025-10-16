@@ -332,7 +332,3 @@ PreSelectedTab.args = {
   size: "medium",
   selectedTabId: "tab-3",
 };
-
-export const UnitTestingMock = () => {
-  return <Tab controls="" id="tab-1" label="Tab" />;
-};
