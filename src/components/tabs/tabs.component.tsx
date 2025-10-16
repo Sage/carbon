@@ -83,8 +83,16 @@ export const Tab = ({
   /** Can't be unit-tested; controlled by form tests */
   /* istanbul ignore next */
   useEffect(() => {
-    const tabErrorEntries = tabErrors[id];
-    const tabWarningEntries = tabWarnings[id];
+    let tabErrorEntries = tabErrors[id];
+    let tabWarningEntries = tabWarnings[id];
+
+    if (error && !tabErrorEntries) {
+      tabErrorEntries = { static: error };
+    }
+
+    if (warning && !tabWarningEntries) {
+      tabWarningEntries = { static: error };
+    }
 
     if (!tabErrorEntries) {
       setInternalError(false);
