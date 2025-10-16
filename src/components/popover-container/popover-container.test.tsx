@@ -558,6 +558,33 @@ describe("closing the popup", () => {
     },
   );
 
+  it("calls onClose when escape key is pressed and popover is open", async () => {
+    const onClose = jest.fn();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    render(<PopoverContainer onClose={onClose}>Content</PopoverContainer>);
+
+    await user.click(screen.getByRole("button"));
+    await screen.findByRole("dialog");
+
+    await user.keyboard("{Escape}");
+
+    await waitFor(() => {
+      expect(onClose).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  it("does not call onClose when escape key is pressed and popover is closed", async () => {
+    const onClose = jest.fn();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    render(<PopoverContainer onClose={onClose}>Content</PopoverContainer>);
+
+    await user.keyboard("{Escape}");
+
+    await waitFor(() => {
+      expect(onClose).not.toHaveBeenCalled();
+    });
+  });
+
   it("calls onClose when content outside of the popup is clicked", async () => {
     const onClose = jest.fn();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });

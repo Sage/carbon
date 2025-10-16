@@ -15,6 +15,8 @@ export interface ValidationMessageProps extends TagProps {
   isDarkBackground?: boolean;
   /** Render the validation message above the input */
   validationMessagePositionTop?: boolean;
+  /** Set large font-size */
+  isLarge?: boolean;
 }
 
 const ValidationMessage = ({
@@ -25,6 +27,7 @@ const ValidationMessage = ({
   "data-element": dataElement,
   "data-role": dataRole = "validation-message",
   validationMessagePositionTop,
+  isLarge,
 }: ValidationMessageProps) => {
   const validation = error || warning;
   const isStringValidation = typeof validation === "string";
@@ -39,6 +42,7 @@ const ValidationMessage = ({
         "data-role": dataRole,
       })}
       validationMessagePositionTop={validationMessagePositionTop}
+      isLarge={isLarge}
     >
       {validation}
     </StyledValidationMessage>

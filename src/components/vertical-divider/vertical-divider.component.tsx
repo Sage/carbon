@@ -3,6 +3,7 @@ import { SpaceProps } from "styled-system";
 import MenuContext from "../menu/__internal__/menu.context";
 import { StyledVerticalWrapper, StyledDivider } from "./vertical-divider.style";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
+import Logger from "../../__internal__/utils/logger";
 
 type TintRange =
   | 1
@@ -125,6 +126,8 @@ export interface VerticalDividerProps extends SpaceProps, TagProps {
   "aria-hidden"?: boolean;
 }
 
+let deprecatedWarnTriggered = false;
+
 export const VerticalDivider = ({
   h,
   height,
@@ -133,6 +136,13 @@ export const VerticalDivider = ({
   "aria-hidden": ariaHidden,
   ...props
 }: VerticalDividerProps): JSX.Element => {
+  if (!deprecatedWarnTriggered) {
+    deprecatedWarnTriggered = true;
+    Logger.deprecate(
+      "`VerticalDivider` is deprecated and will soon be removed. Please use `Divider` instead.",
+    );
+  }
+
   const { inMenu } = useContext(MenuContext);
 
   return (

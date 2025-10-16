@@ -5,6 +5,7 @@ import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags/tags";
 import TabContext from "./__internal__/tab.context";
+import Logger from "../../../__internal__/utils/logger";
 
 export interface TabProps extends PaddingProps, TagProps {
   title?: string;
@@ -26,7 +27,10 @@ export interface TabProps extends PaddingProps, TagProps {
   siblings?: React.ReactNode;
   /** Position title before or after siblings */
   titlePosition?: "before" | "after";
-  /** Allows Tab to be a link */
+  /**
+   * Allows Tab to be a link
+   * @deprecated Using tabs as links is inaccessible; this prop will be deprecated in a future release.
+   * */
   href?: string;
   /** Overrides default layout with a one defined in this prop */
   customLayout?: React.ReactNode;
@@ -56,6 +60,8 @@ export interface TabProps extends PaddingProps, TagProps {
   ) => void;
 }
 
+let deprecateHrefWarningTriggered = false;
+
 export const Tab = ({
   ariaLabelledby,
   children,
@@ -73,6 +79,13 @@ export const Tab = ({
   titleProps,
   ...rest
 }: TabProps) => {
+  if (href !== undefined && !deprecateHrefWarningTriggered) {
+    Logger.deprecate(
+      "The `href` prop is deprecated in the `Tab` component and will be removed in a future release.",
+    );
+    deprecateHrefWarningTriggered = true;
+  }
+
   const [tabErrors, setTabErrors] = useState<
     Record<string, undefined | string | boolean>
   >({});

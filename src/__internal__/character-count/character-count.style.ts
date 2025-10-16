@@ -7,6 +7,7 @@ const StyledCharacterCountWrapper = styled.div``;
 
 const StyledCharacterCount = styled.div.attrs(applyBaseTheme)<{
   isOverLimit: boolean;
+  isLarge?: boolean;
 }>`
   text-align: left;
   font-size: var(--fontSizes100);
@@ -17,6 +18,11 @@ const StyledCharacterCount = styled.div.attrs(applyBaseTheme)<{
       ? "var(--colorsSemanticNegative500)"
       : "var(--colorsUtilityYin055)"};
 
+  ${({ isLarge }) =>
+    isLarge &&
+    css`
+      font-size: var(--fontSizes200);
+    `}
   ${({ isOverLimit }) =>
     isOverLimit &&
     css`

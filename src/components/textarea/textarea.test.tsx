@@ -3,12 +3,14 @@ import { render, screen, fireEvent, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as floatingUi from "@floating-ui/react-dom";
 
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import {
+  assertLoggerComponentMessage,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/__internal__/test-utils";
 import Textarea, { TextareaProps } from ".";
 import { EnterKeyHintTypes } from "../../__internal__/input";
 import guid from "../../__internal__/utils/helpers/guid";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
-import Logger from "../../__internal__/utils/logger";
 import StyledInput from "../../__internal__/input/input.style";
 
 jest.mock("../../__internal__/utils/logger");
@@ -33,24 +35,11 @@ const MockComponent = (props: CustomType) => {
 };
 
 test("should display deprecation warning once when rendered as optional", () => {
-  const loggerSpy = jest.spyOn(Logger, "deprecate");
-
-  render(
-    <>
-      <MockComponent name="my-textarea" isOptional />
-      <MockComponent name="my-textarea" isOptional />
-    </>,
-  );
-
-  // Ensure the deprecation warning is logged only once
-  expect(loggerSpy).toHaveBeenCalledTimes(1);
-
-  expect(loggerSpy).toHaveBeenNthCalledWith(
-    1,
-    "`isOptional` is deprecated in TextArea and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
-  );
-
-  loggerSpy.mockRestore();
+  assertLoggerComponentMessage({
+    component: <MockComponent name="my-textarea" isOptional />,
+    message:
+      "`isOptional` is deprecated in TextArea and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
+  });
 });
 
 test("should render a textarea element", () => {
@@ -758,25 +747,22 @@ test("renders with the expected custom border radius styling as an array", () =>
 });
 
 test("fires a console warning if more than four border-radius values are passed", () => {
-  const loggerSpy = jest.spyOn(Logger, "warn");
-
-  render(
-    <MockComponent
-      borderRadius={[
-        "borderRadius050",
-        "borderRadius100",
-        "borderRadius200",
-        "borderRadius400",
-        "borderRadius050",
-      ]}
-    />,
-  );
-
-  expect(loggerSpy).toHaveBeenCalledWith(
-    "The `borderRadius` prop in `Textarea` component only supports up to 4 values.",
-  );
-
-  loggerSpy.mockRestore();
+  assertLoggerComponentMessage({
+    component: (
+      <MockComponent
+        borderRadius={[
+          "borderRadius050",
+          "borderRadius100",
+          "borderRadius200",
+          "borderRadius400",
+          "borderRadius050",
+        ]}
+      />
+    ),
+    message:
+      "The `borderRadius` prop in `Textarea` component only supports up to 4 values.",
+    method: "warn",
+  });
 });
 
 test("should render component without borders when hideBorders prop is true", () => {

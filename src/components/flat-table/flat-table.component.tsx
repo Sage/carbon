@@ -84,7 +84,6 @@ export const FlatTable = ({
   const [hasHorizontalScrollbar, setHasHorizontalScrollbar] = useState(false);
   const [firstColRowSpanIndex, setFirstColRowSpanIndex] = useState(-1);
   const [lastColRowSpanIndex, setLastColRowSpanIndex] = useState(-1);
-  const [focused, setFocused] = useState(false);
   const addDefaultHeight = !height && (hasStickyHead || hasStickyFooter);
   const tableStylingProps = {
     caption,
@@ -266,19 +265,12 @@ export const FlatTable = ({
       firstColRowSpanIndex={firstColRowSpanIndex}
       lastColRowSpanIndex={lastColRowSpanIndex}
       onKeyDown={handleKeyDown}
-      isFocused={focused}
       {...rest}
       data-component="flat-table-wrapper"
       title={title}
     >
       <StyledTableContainer
         ref={container}
-        onFocus={() => {
-          if (container.current === document.activeElement) {
-            setFocused(true);
-          }
-        }}
-        onBlur={() => setFocused(false)}
         tabIndex={0}
         overflowX={overflowX}
         width={width}

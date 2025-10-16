@@ -3,7 +3,7 @@ import Dl, { DlProps } from "./dl.component";
 import Dt from "./dt/dt.component";
 import Dd from "./dd/dd.component";
 import Typography from "../typography";
-import Hr from "../hr";
+import Divider from "../divider";
 import Box from "../box";
 
 export const DLComponent = (props: Partial<DlProps>) => {
@@ -42,7 +42,7 @@ export const DLBoxComponent = () => {
           <Typography color="rgba(0,0,0,0.55)" variant="segment-subheader-alt">
             Segment Header
           </Typography>
-          <Hr ml={0} mt={2} />
+          <Divider type="horizontal" ml={0} mt={2} />
         </Box>
         <Box mb={3} display="flex">
           <Box mr={1}>

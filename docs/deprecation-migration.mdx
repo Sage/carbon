@@ -22,6 +22,8 @@ The following section provides migration guidance for deprecated components that
 - For `Pod`, [`Tile`](?path=/docs/tile--docs) is recommended as the preferred alternative. Any additional button's for save/edit functionality can be added via [`Button`](?path=/docs/button--docs) with an [`Icon`](?path=/docs/icon--docs) passed as a child.
 - For `Toast`, [`Message`](?path=/docs/message--docs) is recommended as the preferred alternative.
 - For `Tooltip`, using visible input hints are recommended as the preferred alternative. Relying on a tooltip can lead to discoverability issues, it's better to provide context directly which is instantly available.
+- For `Hr`, [`Divider`](?path=/docs/divider--docs) is recommended as the preferred alternative.
+- For `VerticalDivider`, [`Divider`](?path=/docs/divider--docs) is recommended as the preferred alternative.
 
 ## Alternative Patterns
 
@@ -36,6 +38,8 @@ The following sections provide migration guidance for deprecated components that
 - [Heading](#heading)
 - [Number](#number)
 - [Setting sRow](#settings-row)
+- [Hr](#hr)
+- [VerticalDivider](#vertical-divider)
 
 ## Alert
 
@@ -172,3 +176,15 @@ import Typography from "carbon-react/lib/components/typography";
 The `variant` prop on the `Typography` component can be used to render heading levels from `"h1"` - `"h5"`, this allows for a consistent visual hierarchy whilst maintaining semantic structure.
 
 <Canvas of={DeprecationMigrationStories.SettingsRowHeadingLevels} />
+
+## Hr
+
+The `Hr` component can be replaced by a `Divider` with type `horizontal`. The `Divider` component will provide consistent styling while maintaining the same functionality.
+
+<Canvas of={DeprecationMigrationStories.Hr} />
+
+## Vertical Divider
+
+The `VerticalDivider` component can be replaced by a `Divider`. The `Divider` component will provide consistent styling while maintaining the same functionality.
+
+<Canvas of={DeprecationMigrationStories.VerticalDivider} />

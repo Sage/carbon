@@ -24,6 +24,8 @@ export interface HintTextProps {
   marginTop?: string;
   /** Max width for the hint text */
   maxWidth?: string;
+  /** Set large font-size */
+  isLarge?: boolean;
 }
 
 export const HintText = ({
@@ -37,6 +39,7 @@ export const HintText = ({
   marginBottom = "var(--spacing100)",
   marginTop = "var(--spacing000)",
   maxWidth,
+  isLarge,
 }: HintTextProps) => {
   const { validationRedesignOptIn } = useContext(NewValidationContext);
 
@@ -54,6 +57,7 @@ export const HintText = ({
       marginBottom={marginBottom}
       marginTop={marginTop}
       maxWidth={maxWidth}
+      isLarge={isLarge}
     >
       {children}
     </StyledHintText>
