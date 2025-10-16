@@ -281,7 +281,12 @@ export const WithErrorAndWarningInForm: Story = ({ ...args }) => {
             </Button>
           }
         >
-          <Textbox label="Textbox" onChange={() => {}} value="" error />
+          <Textbox
+            label="Textbox"
+            onChange={() => {}}
+            value=""
+            error="Textbox must not be blank"
+          />
         </Form>
       </TabPanel>
 
@@ -294,7 +299,12 @@ export const WithErrorAndWarningInForm: Story = ({ ...args }) => {
             </Button>
           }
         >
-          <Textbox label="Textbox" onChange={() => {}} value="" warning />
+          <Textbox
+            label="Textbox"
+            onChange={() => {}}
+            value=""
+            warning="Textbox must not be blank"
+          />
         </Form>
       </TabPanel>
     </Tabs>

@@ -83,13 +83,32 @@ export const Tab = ({
   /** Can't be unit-tested; controlled by form tests */
   /* istanbul ignore next */
   useEffect(() => {
-    const currentTabErrors = Object.keys(tabErrors).filter((k) => k === id);
-    const tabHasErrors = error || currentTabErrors.length > 0;
-    setInternalError(tabHasErrors);
+    const tabErrorEntries = tabErrors[id];
+    const tabWarningEntries = tabWarnings[id];
 
-    const currentTabWarnings = Object.keys(tabWarnings).filter((k) => k === id);
-    const tabHasWarnings = warning || currentTabWarnings.length > 0;
-    setInternalWarning(tabHasWarnings);
+    if (!tabErrorEntries) {
+      setInternalError(false);
+      return;
+    } else {
+      const currentTabErrors = Object.keys(tabErrorEntries)
+        .map((k) => tabErrorEntries[k])
+        .filter((v) => v !== false);
+
+      const tabHasErrors = error || currentTabErrors.length > 0;
+      setInternalError(tabHasErrors);
+    }
+
+    if (!tabWarningEntries) {
+      setInternalWarning(false);
+      return;
+    } else {
+      const currentTabWarnings = Object.keys(tabWarningEntries)
+        .map((k) => tabWarningEntries[k])
+        .filter((v) => v !== false);
+
+      const tabHasWarnings = warning || currentTabWarnings.length > 0;
+      setInternalWarning(tabHasWarnings);
+    }
   }, [error, id, tabErrors, tabWarnings, warning]);
 
   const validationIcon = () => {
