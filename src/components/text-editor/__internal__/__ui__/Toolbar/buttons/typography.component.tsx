@@ -143,7 +143,7 @@ const TypographySelector = ({
               newNode = new TextNode(node.getTextContent());
             } else {
               // Use StyledSpanNode for other typography styles.
-              newNode = StyledSpanNode.createFromKey(
+              newNode = StyledSpanNode.createFromOption(
                 option,
                 node.getTextContent(),
               );
@@ -176,7 +176,7 @@ const TypographySelector = ({
           newNode = new TextNode("");
         } else {
           // Use StyledSpanNode for other typography styles.
-          newNode = StyledSpanNode.createFromKey(option, "");
+          newNode = StyledSpanNode.createFromOption(option, "");
         }
 
         const root = $getRoot();

@@ -64,7 +64,10 @@ describe("StyledSpanNode", () => {
     test("should clone node correctly", () => {
       editor?.update(() => {
         const paragraph = $createParagraphNode();
-        const original = StyledSpanNode.createFromKey("paragraph", "Test Text");
+        const original = StyledSpanNode.createFromOption(
+          "paragraph",
+          "Test Text",
+        );
 
         paragraph.append(original);
         $getRoot().append(paragraph);
@@ -82,7 +85,7 @@ describe("StyledSpanNode", () => {
 
     test("should create node from typography key", () => {
       editor?.update(() => {
-        const titleNode = StyledSpanNode.createFromKey("title", "My Title");
+        const titleNode = StyledSpanNode.createFromOption("title", "My Title");
 
         expect(titleNode.getTextContent()).toBe("My Title");
         expect(titleNode.getFontWeight()).toBe("700");
@@ -93,7 +96,7 @@ describe("StyledSpanNode", () => {
 
     test("should create node from typography key with empty text", () => {
       editor?.update(() => {
-        const paragraphNode = StyledSpanNode.createFromKey("paragraph");
+        const paragraphNode = StyledSpanNode.createFromOption("paragraph");
 
         expect(paragraphNode.getTextContent()).toBe("");
         expect(paragraphNode.getFontWeight()).toBe("400");
@@ -435,7 +438,7 @@ describe("StyledSpanNode", () => {
         editor?.update(() => {
           const root = $getRoot();
           const paragraph = $createParagraphNode();
-          const styledSpanNode = StyledSpanNode.createFromKey(
+          const styledSpanNode = StyledSpanNode.createFromOption(
             "title",
             "My Title",
           );
@@ -521,7 +524,7 @@ describe("StyledSpanNode", () => {
         const paragraph = $createParagraphNode();
 
         typographyKeys.forEach((key) => {
-          const node = StyledSpanNode.createFromKey(
+          const node = StyledSpanNode.createFromOption(
             key as TypographyKey,
             `${key} text`,
           );

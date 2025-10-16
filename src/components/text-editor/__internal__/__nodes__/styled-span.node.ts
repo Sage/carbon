@@ -237,12 +237,15 @@ export class StyledSpanNode extends TextNode {
 
   /**
    * Factory-style helper method to create a StyledSpanNode from a typography key. Initial text can be provided, defaulting to an empty string.
-   * @param key Typography type to use
+   * @param option Typography type to use
    * @param text Text to set, or blank
    * @returns StyledSpan node
    */
-  static createFromKey(key: TypographyKey, text: string = ""): StyledSpanNode {
-    const { weight, size, lineHeight } = typographyMap[key];
+  static createFromOption(
+    option: TypographyKey,
+    text: string = "",
+  ): StyledSpanNode {
+    const { weight, size, lineHeight } = typographyMap[option];
     return new StyledSpanNode(text, weight, size, lineHeight);
   }
 }

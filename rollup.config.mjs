@@ -33,8 +33,6 @@ export default {
           "**/test-utils.ts",
           /* We only want to include the mocks and spec helpers intended for public use */
           "**/__spec_helper__/__internal__/**",
-          /* Don't build the TEST TextEditor used in the unit tests */
-          "**/TestEditor.tsx",
         ],
       })
       .map((file) => {
