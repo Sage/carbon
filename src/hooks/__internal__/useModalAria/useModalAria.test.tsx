@@ -240,6 +240,47 @@ describe("with nested dialogs", () => {
   });
 });
 
+describe("hidden modal management", () => {
+  it("does not modify element when data-modal-hidden is present", async () => {
+    const user = userEvent.setup();
+    render(
+      <>
+        <ModalComponent openButtonText="open" closeButtonText="close" />
+        <div data-role="persistent-element" data-modal-hidden="true" />
+      </>,
+      {
+        wrapper: CarbonProvider,
+      },
+    );
+
+    await user.click(screen.getByRole("button", { name: "open" }));
+
+    const persistentElement = screen.getByTestId("persistent-element");
+    expect(persistentElement).not.toHaveAttribute("aria-hidden", "true");
+    expect(persistentElement).not.toHaveAttribute("inert", "");
+  });
+
+  it("does modify element when data-modal-hidden is not present", async () => {
+    const user = userEvent.setup();
+    render(
+      <>
+        <ModalComponent openButtonText="open" closeButtonText="close" />
+        <div data-role="persistent-element" />
+      </>,
+      {
+        wrapper: CarbonProvider,
+      },
+    );
+
+    await user.click(screen.getByRole("button", { name: "open" }));
+
+    const persistentElement = screen.getByTestId("persistent-element");
+    expect(persistentElement).toHaveAttribute("data-modal-hidden", "true");
+    expect(persistentElement).toHaveAttribute("aria-hidden", "true");
+    expect(persistentElement).toHaveAttribute("inert", "");
+  });
+});
+
 it("overrides any pre-existing aria-hidden and inert properties when modal is opened", async () => {
   const user = userEvent.setup();
   render(
