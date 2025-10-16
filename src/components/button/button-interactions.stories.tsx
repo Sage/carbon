@@ -9,7 +9,6 @@ import Loader from "../loader";
 import Typography from "../typography";
 
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
-import userInteractionPause from "../../../.storybook/utils/user-interaction-pause";
 import DefaultDecorator from "../../../.storybook/utils/default-decorator";
 
 export default {
@@ -68,21 +67,21 @@ export const OnClick: Story = {
     const canvas = within(canvasElement);
     const button = canvas.getAllByRole("button");
     await userEvent.click(button[0]);
-    await userInteractionPause(500);
+    await expect(button[0]).toHaveFocus();
     await userEvent.click(button[1]);
-    await userInteractionPause(500);
+    await expect(button[1]).toHaveFocus();
     await userEvent.click(button[2]);
-    await userInteractionPause(500);
+    await expect(button[2]).toHaveFocus();
     await userEvent.click(button[3]);
-    await userInteractionPause(500);
+    await expect(button[3]).toHaveFocus();
     await userEvent.click(button[4]);
-    await userInteractionPause(500);
+    await expect(button[4]).toHaveFocus();
     await userEvent.click(button[5]);
-    await userInteractionPause(500);
+    await expect(button[5]).toHaveFocus();
     await userEvent.click(button[6]);
-    await userInteractionPause(500);
+    await expect(button[6]).toHaveFocus();
     await userEvent.click(button[7]);
-    await userInteractionPause(500);
+    await expect(button[7]).toHaveFocus();
   },
   decorators: [
     (StoryToRender) => (
@@ -167,23 +166,31 @@ export const FocusAndHoverStates: Story = {
     }
 
     const canvas = within(canvasElement);
-    const button = canvas.getByRole("button", { name: "Primary" });
-    await userEvent.click(button);
-    await userInteractionPause(1000);
+    const button = canvas.getAllByRole("button");
+    await userEvent.hover(button[0]);
+    await userEvent.click(button[0]);
+    await expect(button[0]).toHaveFocus();
+    await userEvent.hover(button[1]);
     await userEvent.tab();
-    await userInteractionPause(500);
+    await expect(button[1]).toHaveFocus();
+    await userEvent.hover(button[2]);
     await userEvent.tab();
-    await userInteractionPause(500);
+    await expect(button[2]).toHaveFocus();
+    await userEvent.hover(button[3]);
     await userEvent.tab();
-    await userInteractionPause(500);
+    await expect(button[3]).toHaveFocus();
+    await userEvent.hover(button[4]);
     await userEvent.tab();
-    await userInteractionPause(500);
+    await expect(button[4]).toHaveFocus();
+    await userEvent.hover(button[5]);
     await userEvent.tab();
-    await userInteractionPause(500);
+    await expect(button[5]).toHaveFocus();
+    await userEvent.hover(button[6]);
     await userEvent.tab();
-    await userInteractionPause(500);
+    await expect(button[6]).toHaveFocus();
+    await userEvent.hover(button[7]);
     await userEvent.tab();
-    await userInteractionPause(500);
+    await expect(button[7]).toHaveFocus();
   },
   decorators: [
     (StoryToRender) => (
@@ -228,9 +235,9 @@ export const DisabledFocus: Story = {
     const button = canvas.getAllByRole("button");
 
     await userEvent.tab();
-    await userInteractionPause(500);
+    await expect(button[0]).toHaveFocus();
     await userEvent.tab();
-    await userInteractionPause(500);
+    await expect(button[1]).not.toHaveFocus();
     await expect(button[2]).toHaveFocus();
   },
   decorators: [
@@ -277,11 +284,10 @@ KeyboardInteraction.play = async ({ canvasElement }) => {
   const clickedText = canvas.getByRole("paragraph");
 
   await userEvent.tab();
-  await userInteractionPause(500);
+  await expect(button).toHaveFocus();
   await userEvent.keyboard("{Enter}");
-  await userInteractionPause(1000);
+  await expect(clickedText).toHaveTextContent("Button clicked: 1");
   await userEvent.type(button, "{space}");
-  await userInteractionPause(1000);
   await expect(clickedText).toHaveTextContent("Button clicked: 2");
 };
 KeyboardInteraction.decorators = [
@@ -374,7 +380,7 @@ ButtonLoader.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
   const button = canvas.getAllByRole("button");
   await userEvent.click(button[0]);
-  await userInteractionPause(1000);
+  await expect(button[0]).toHaveTextContent("Loading");
 };
 ButtonLoader.decorators = (StoryToRender) => (
   <DefaultDecorator>
