@@ -235,6 +235,9 @@ export type { LoaderSpinnerProps } from "./components/loader-spinner";
 export { default as LoaderStar } from "./components/loader-star";
 export type { LoaderStarProps } from "./components/loader-star";
 
+export { default as UnifiedLoader } from "./components/loader-unified";
+export type { LoaderProps as UnifiedLoaderProps } from "./components/loader-unified";
+
 export {
   Menu,
   MenuDivider,

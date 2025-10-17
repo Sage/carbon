@@ -10,6 +10,7 @@ import Typography from "../typography";
 
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
 import DefaultDecorator from "../../../.storybook/utils/default-decorator";
+// import UnifiedLoader from '../loader-unified/loader.component';
 
 export default {
   title: "Button/Interactions",
@@ -311,6 +312,7 @@ export const ButtonLoader: Story = () => {
     mimicLoading();
   };
   const buttonContent = isLoading ? <Loader isInsideButton /> : "Click Me";
+  // const buttonContent = isLoading ? <UnifiedLoader loaderType="ring" variant="inline" size="extra-small" showLabel /> : "Click Me";
 
   return (
     <>
