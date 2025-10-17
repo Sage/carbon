@@ -44,7 +44,7 @@ const baseProjectConfig: Config = {
 
 const clientConfig: Config = {
   displayName: "Client",
-  testMatch: ["**/!(*.server).+(spec|test).[jt]s?(x)"],
+  testMatch: ["**/!(*.server|TestEditor).+(spec|test).[jt]s?(x)"],
   testEnvironment: "jsdom",
   setupFilesAfterEnv: [
     "<rootDir>/src/__spec_helper__/__internal__/index.ts",
