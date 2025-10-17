@@ -120,12 +120,12 @@ export const Tab = ({
   const validationIcon = () => {
     if (internalError || internalWarning) {
       if (internalError) {
-        return <Icon type="error" color="#db004e" />;
+        return <Icon data-role="icon-error" type="error" color="#db004e" />;
       }
 
       /* istanbul ignore else */
       if (internalWarning) {
-        return <Icon type="warning" color="#d64309" />;
+        return <Icon data-role="icon-warning" type="warning" color="#d64309" />;
       }
     }
 
