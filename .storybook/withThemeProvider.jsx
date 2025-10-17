@@ -2,9 +2,9 @@ import { makeDecorator } from "@storybook/preview-api";
 import isChromatic from "./isChromatic";
 import React from "react";
 import styled from "styled-components";
-import CarbonProvider from "../src/components/carbon-provider";
 import { noTheme, sageTheme } from "../src/style/themes";
 import { config } from "react-transition-group";
+import CarbonProvider from "../src/components/carbon-provider";
 
 const themes = [noTheme, sageTheme].reduce((themesObject, theme) => {
   themesObject[theme.name] = theme;
