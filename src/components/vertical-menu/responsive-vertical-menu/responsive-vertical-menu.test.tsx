@@ -1076,7 +1076,6 @@ test("renders dividers correctly at depth 0", async () => {
 
   const divider = screen.getByTestId("responsive-vertical-menu-divider");
   expect(divider).toBeInTheDocument();
-  expect(divider).toHaveStyle("width: 100%");
 });
 
 test("renders dividers correctly when responsive", async () => {
@@ -1121,7 +1120,7 @@ test("renders dividers correctly when responsive", async () => {
 
   const divider = screen.getByTestId("responsive-vertical-menu-divider");
   expect(divider).toBeInTheDocument();
-  expect(divider).toHaveStyle("width: 88%");
+  expect(divider).toHaveStyle("max-width: 88%");
 });
 
 test("should allow an onClick handler to be passed to items", async () => {

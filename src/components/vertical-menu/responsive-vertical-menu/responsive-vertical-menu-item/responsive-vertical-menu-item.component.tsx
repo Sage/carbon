@@ -20,6 +20,7 @@ import {
   StyledResponsiveMenuItem,
   StyledResponsiveMenuListItem,
 } from "./responsive-vertical-menu-item.style";
+import { filterStyledSystemMarginProps } from "../../../../style/utils";
 import { IncreaseDepth, useDepth } from "../__internal__/depth.context";
 import { useMenuFocus } from "../__internal__/focus.context";
 import { useResponsiveVerticalMenu } from "../responsive-vertical-menu.context";
@@ -309,7 +310,7 @@ const BaseItem = forwardRef<HTMLElement, BaseItemProps>(
     };
 
     return (
-      <StyledResponsiveMenuListItem>
+      <StyledResponsiveMenuListItem {...filterStyledSystemMarginProps(rest)}>
         {hasChildren ? (
           <>
             <StyledResponsiveMenuItem

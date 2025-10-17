@@ -69,7 +69,7 @@ export const StyledGlobalVerticalMenuWrapper = styled.div`
 export const StyledResponsiveMenu = styled.ul<StyledResponsiveMenuProps>`
   margin: 0;
   padding: 0;
-  align-items: center;
+  align-items: stretch;
   background-color: var(--colorsUtilityYin100);
   box-sizing: border-box;
   display: flex;
@@ -98,10 +98,6 @@ export const StyledResponsiveMenu = styled.ul<StyledResponsiveMenuProps>`
     top: ${top};
     max-height: calc(100% - ${top === "auto" ? "40px" : top});
   `}
-
-  & > :last-child {
-    margin-bottom: 40px;
-  }
 
   ${({ childOpen }) =>
     childOpen &&

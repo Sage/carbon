@@ -160,6 +160,137 @@ export const Default = (props: Partial<ResponsiveVerticalMenuProps>) => {
 };
 Default.storyName = "Default";
 
+export const WithMarginAndPadding = (
+  props: Partial<ResponsiveVerticalMenuProps>,
+) => {
+  return (
+    <GlobalHeader>
+      <ResponsiveVerticalMenu {...props}>
+        <ResponsiveVerticalMenuItem p={4} icon="home" id="home" label="Home" />
+
+        <ResponsiveVerticalMenuDivider mt={2} />
+
+        <ResponsiveVerticalMenuItem
+          customIcon={<CustomAccountingIcon />}
+          id="accounting"
+          label="Accounting"
+          mx={8}
+          px={3}
+        >
+          <ResponsiveVerticalMenuItem my={2} id="summary" label="Summary" />
+
+          <ResponsiveVerticalMenuItem
+            pl={4}
+            id="sales-invoices"
+            label="Sales Invoices"
+          >
+            <ResponsiveVerticalMenuItem
+              mx={3}
+              id="quotes-and-estimates"
+              label="Quotes & Estimates"
+              href="#"
+            />
+
+            <ResponsiveVerticalMenuItem
+              mt={2}
+              id="new-sales-invoice"
+              label="New Sales Invoice"
+              href="#"
+            />
+
+            <ResponsiveVerticalMenuItem
+              py={3}
+              id="sales-summary"
+              label="Sales Summary"
+              href="#"
+            />
+          </ResponsiveVerticalMenuItem>
+
+          <ResponsiveVerticalMenuItem ml={3} id="contacts" label="Contacts">
+            <ResponsiveVerticalMenuItem
+              p={2}
+              id="nested-menu-item-1"
+              label="Nested Menu Item 1"
+            />
+          </ResponsiveVerticalMenuItem>
+
+          <ResponsiveVerticalMenuItem
+            pt={9}
+            id="products-and-services"
+            label="Products & Services"
+          />
+        </ResponsiveVerticalMenuItem>
+
+        <ResponsiveVerticalMenuDivider mt={2} />
+
+        <ResponsiveVerticalMenuItem pb={9} id="payroll" label="Payroll">
+          <ResponsiveVerticalMenuItem
+            m={4}
+            id="payroll-summary"
+            label="Summary"
+          />
+
+          <ResponsiveVerticalMenuItem mr={3} id="payroll-sales" label="Sales" />
+        </ResponsiveVerticalMenuItem>
+
+        <ResponsiveVerticalMenuDivider my={2} />
+
+        <ResponsiveVerticalMenuItem pr={4} id="profile" label="Profile">
+          <ResponsiveVerticalMenuItem
+            mb={2}
+            id="profile-my-profile"
+            label="My Profile"
+          />
+
+          <ResponsiveVerticalMenuItem
+            p={3}
+            id="profile-logout"
+            label="Log out"
+          />
+        </ResponsiveVerticalMenuItem>
+
+        <ResponsiveVerticalMenuDivider mt={3} />
+
+        <ResponsiveVerticalMenuItem
+          px={2}
+          id="manage-business-account"
+          label="Manage Business Account"
+        />
+
+        <ResponsiveVerticalMenuItem
+          py={2}
+          id="manage-users"
+          label="Manage Users"
+        />
+
+        <ResponsiveVerticalMenuDivider mb={1} />
+
+        <ResponsiveVerticalMenuItem my={3} id="help" label="Help">
+          <ResponsiveVerticalMenuItem
+            pl={3}
+            id="help-centre"
+            label={
+              <Box display="flex" width="100%" alignItems="center" gap={1}>
+                <span>Help Centre</span>
+                <Icon type="link" />
+              </Box>
+            }
+          />
+
+          <ResponsiveVerticalMenuItem pr={4} id="help-chat" label="Chat" />
+
+          <ResponsiveVerticalMenuItem
+            pt={2}
+            id="help-feedback"
+            label="Give feedback"
+          />
+        </ResponsiveVerticalMenuItem>
+      </ResponsiveVerticalMenu>
+    </GlobalHeader>
+  );
+};
+WithMarginAndPadding.storyName = "With Margin And Padding";
+
 export const WithoutGlobalHeader = (
   props: Partial<ResponsiveVerticalMenuProps>,
 ) => {
