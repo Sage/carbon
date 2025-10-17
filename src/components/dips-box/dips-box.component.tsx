@@ -1,8 +1,17 @@
 import React from "react";
 import { StyledDipsBox } from "./dips-box.style";
-import { PaddingProps, MarginProps } from "./utils/spacing-types";
+import {
+  PaddingProps,
+  MarginProps,
+  FlexboxProps,
+  LayoutProps,
+} from "./utils/spacing-types";
 
-export interface DipsBoxProps extends PaddingProps, MarginProps {
+export interface DipsBoxProps
+  extends PaddingProps,
+    MarginProps,
+    FlexboxProps,
+    LayoutProps {
   children?: React.ReactNode;
 }
 

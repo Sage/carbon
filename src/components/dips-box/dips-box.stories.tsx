@@ -37,3 +37,62 @@ export const Spacing: Story = () => {
   );
 };
 Spacing.storyName = "Spacing";
+
+export const Flexbox: Story = () => {
+  return (
+    <>
+      <DipsBox m="3px" p="3px" justifyContent="center" alignItems="center">
+        AlignItems
+      </DipsBox>
+
+      <DipsBox
+        m="3px"
+        p="3px"
+        justifyContent="space-between"
+        alignItems="center"
+      >
+        JustifyContent
+      </DipsBox>
+
+      <DipsBox m="3px" p="3px" flexDirection="column" alignItems="center">
+        FlexDirection
+      </DipsBox>
+
+      <DipsBox m="3px" p="3px" flexWrap="wrap" width="200px">
+        FlexWrap
+      </DipsBox>
+
+      <DipsBox m="3px" p="3px" flexGrow="1">
+        FlexGrow
+      </DipsBox>
+
+      <DipsBox m="3px" p="3px" flexShrink="1" width="200px">
+        FlexShrink
+      </DipsBox>
+
+      <DipsBox m="3px" p="3px" flexBasis="100px">
+        FlexBasis
+      </DipsBox>
+    </>
+  );
+};
+Flexbox.storyName = "Flexbox";
+
+export const Layout: Story = () => {
+  return (
+    <>
+      <DipsBox m="3px" p="3px" width="300px" height="50px">
+        Width and Height
+      </DipsBox>
+
+      <DipsBox m="3px" p="3px" maxWidth="400px" height="50px">
+        Max Width
+      </DipsBox>
+
+      <DipsBox m="3px" p="3px" minWidth="200px" height="50px">
+        Min Width
+      </DipsBox>
+    </>
+  );
+};
+Layout.storyName = "Layout";

@@ -1,6 +1,8 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import {
+  testStyledFlexBox,
+  testStyledLayout,
   testStyledMargin,
   testStyledPadding,
 } from "../../__spec_helper__/__internal__/test-utils";
@@ -27,6 +29,17 @@ describe("DipsBox", () => {
   );
 
   testStyledMargin(
+    (props) => <DipsBox data-role="box" {...props} />,
+    () => screen.getByTestId("box"),
+  );
+
+  testStyledFlexBox(
+    (props) => <DipsBox data-role="box" {...props} />,
+    () => screen.getByTestId("box"),
+  );
+
+  // Layout props are not fully supported so only test those that are.
+  testStyledLayout(
     (props) => <DipsBox data-role="box" {...props} />,
     () => screen.getByTestId("box"),
   );

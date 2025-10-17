@@ -2,7 +2,7 @@ import { css } from "styled-components";
 
 /** If we want to add TS support, we can use this. For now, leaving out to avoid complexity in JS life.
  * Size range from XS to XL
- * export type SpacingSize = "3XS" | "2XS" | "XS" | "S" | "M" | "L" | "XL"| "2XL" | "3XL" | "4XL";
+ * export type SpacingSize = "none" | "3XS" | "2XS" | "XS" | "S" | "M" | "L" | "XL"| "2XL" | "3XL" | "4XL";
  */
 
 // Mapping of size to multiplier value for spacing calculations
@@ -51,9 +51,51 @@ const spacingKeys = {
   paddingLeft: "padding-left",
 };
 
+const flexboxKeys = {
+  alignItems: "align-items",
+  justifyContent: "justify-content",
+  flexDirection: "flex-direction",
+  flexWrap: "flex-wrap",
+  flexGrow: "flex-grow",
+  flexShrink: "flex-shrink",
+  flexBasis: "flex-basis",
+  alignSelf: "align-self",
+  order: "order",
+  gap: "gap",
+  rowGap: "row-gap",
+  columnGap: "column-gap",
+  display: "display",
+  flex: "flex",
+  alignContent: "align-content",
+  justifyItems: "justify-items",
+  justifySelf: "justify-self",
+  placeItems: "place-items",
+  placeContent: "place-content",
+  placeSelf: "place-self",
+  inlineFlex: "inline-flex",
+};
+
+const layoutKeys = {
+  width: "width",
+  minWidth: "min-width",
+  maxWidth: "max-width",
+  height: "height",
+  minHeight: "min-height",
+  maxHeight: "max-height",
+  boxSizing: "box-sizing",
+  overflow: "overflow",
+  overflowX: "overflow-x",
+  overflowY: "overflow-y",
+  display: "display",
+  verticalAlign: "vertical-align",
+  visibility: "visibility",
+  aspectRatio: "aspect-ratio",
+};
+
 /** If we want to add TS support, we can use this. For now, leaving out to avoid complexity in JS life.
  * type Scale =
  *   | number
+ *   | string
  *   | ((n: number) => number | string)
  *   | Array<number | string>;
  */
@@ -69,6 +111,14 @@ function applyScale(n, scale) {
     if (typeof first === "number") return n * first;
     // If we can't infer a numeric base from array, just return n (spacingCss will handle the rest)
     return n;
+  }
+
+  // CSS token string (e.g., "var(--sizing025)")
+  if (typeof scale === "string") {
+    if (n === 0) return 0; // "0" is fine
+    if (n === 1) return scale; // 1 * token -> token
+    if (n === -1) return `calc(-1 * ${scale})`; // -1 * token
+    return `calc(${n} * ${scale})`; // general case
   }
   // numeric base (e.g., 8 → XS is 3 * 8 = 24)
   return n * scale;
@@ -122,9 +172,84 @@ export function getSpacingStyles(props, scale = 8, sizeMap = spacingSizeMap) {
   return style;
 }
 
-// For styled-components. I'm not sure we will need this if we move away from styled-components.
+/**
+ * This can be implemented by doing:
+ * `${(props) => spacingCss(props)}`
+ * in a styled component.
+ * To apply a different scale, do:
+ * `${(props) => spacingCss(props, 4)}` // for a scale of 4px
+ */
+// For styled-components.
+// I'm not sure we will need this if we move away from styled-components.
 export function spacingCss(props, scale = 8, sizeMap = spacingSizeMap) {
   const styles = getSpacingStyles(props, scale, sizeMap);
+  return css`
+    ${Object.entries(styles)
+      .map(
+        ([key, value]) =>
+          `${key}: ${typeof value === "number" ? `${value}px` : value};`,
+      )
+      .join("\n")}
+  `;
+}
+
+/* Flexbox and Layout support */
+export function getFlexboxStyles(props) {
+  const style = {};
+
+  for (const key in flexboxKeys) {
+    const value = props[key];
+    if (value == null) continue;
+
+    const cssKey = flexboxKeys[key];
+    style[cssKey] = value;
+  }
+
+  return style;
+}
+
+/** Apply flexbox styles
+ * This can be implemented by doing:
+ * `${(props) => flexboxCss(props)}`
+ * in a styled component.
+ */
+// Number has been added to the logic here in case we choose to support numbers. For now flexGrow and flexShrink are string values
+// but they are supposed to be numbers in CSS.
+export function flexboxCss(props) {
+  const styles = getFlexboxStyles(props);
+  return css`
+    ${Object.entries(styles)
+      .map(
+        ([key, value]) =>
+          `${key}: ${typeof value === "number" ? `${value}px` : value};`,
+      )
+      .join("\n")}
+  `;
+}
+
+export function getLayoutStyles(props) {
+  const style = {};
+
+  for (const key in layoutKeys) {
+    const value = props[key];
+    if (value == null) continue;
+
+    const cssKey = layoutKeys[key];
+    style[cssKey] = value;
+  }
+
+  return style;
+}
+
+/** Apply layout styles
+ * This can be implemented by doing:
+ * `${(props) => layoutCss(props)}`
+ * in a styled component.
+ */
+// Number has been added to the logic here in case we choose to support numbers.
+// For now width, height, minWidth, minHeight, maxWidth and maxHeight are string values.
+export function layoutCss(props) {
+  const styles = getLayoutStyles(props);
   return css`
     ${Object.entries(styles)
       .map(
