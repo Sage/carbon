@@ -1,3 +1,15 @@
+## [157.6.1](https://github.com/Sage/carbon/compare/v157.6.0...v157.6.1) (2025-10-16)
+
+### Bug Fixes
+
+* ensure aria-hidden & inert is handled correctly with open modals in different carbon instances ([0d0ccc8](https://github.com/Sage/carbon/commit/0d0ccc83107169f3e63bd621d47aab2ac7cbe930))
+
+## [157.6.0](https://github.com/Sage/carbon/compare/v157.5.3...v157.6.0) (2025-10-10)
+
+### Features
+
+* **tabs:** add warnings for upcoming deprecations ([5c797a6](https://github.com/Sage/carbon/commit/5c797a6a09677b83247c05aa50429946bcb5de78))
+
 ## [157.5.3](https://github.com/Sage/carbon/compare/v157.5.2...v157.5.3) (2025-10-08)
 
 ### Bug Fixes

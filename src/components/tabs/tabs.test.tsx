@@ -4,21 +4,75 @@ import userEvent from "@testing-library/user-event";
 import { Tabs, Tab } from ".";
 import { StyledTabsHeaderWrapper } from "./__internal__/tabs-header/tabs-header.style";
 import StyledTab from "./tab/tab.style";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import {
+  assertLoggerComponentMessage,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/__internal__/test-utils";
 import Drawer from "../drawer";
 import Textbox from "../textbox";
 import NumeralDate from "../numeral-date";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
-import Logger from "../../__internal__/utils/logger";
 
-let loggerSpy: jest.SpyInstance;
+describe("deprecation warnings", () => {
+  it("logs a deprecation warning when the component is used", () => {
+    assertLoggerComponentMessage({
+      component: (
+        <Tabs>
+          <Tab tabId="1" />
+        </Tabs>
+      ),
+      message:
+        "The current implementation of the `Tabs` component is deprecated and will be changing in a future release.",
+    });
+  });
 
-beforeEach(() => {
-  loggerSpy = jest.spyOn(Logger, "deprecate").mockImplementation(() => {});
-});
+  it("logs a deprecation warning when `extendedLine` is set", () => {
+    assertLoggerComponentMessage({
+      component: (
+        <Tabs extendedLine={false}>
+          <Tab tabId="1" />
+        </Tabs>
+      ),
+      message:
+        "The `extendedLine` prop in the `Tabs` component is deprecated and will be removed in a future release.",
+    });
+  });
 
-afterEach(() => {
-  loggerSpy.mockRestore();
+  it("logs a deprecation warning when `align` is set to `right`", () => {
+    assertLoggerComponentMessage({
+      component: (
+        <Tabs align="right">
+          <Tab tabId="1" />
+        </Tabs>
+      ),
+      message:
+        "Support for the `right` value of `align` in the `Tabs` component is deprecated and will be removed in a future release.",
+    });
+  });
+
+  it("logs a deprecation warning if the `borders` prop is used", () => {
+    assertLoggerComponentMessage({
+      component: (
+        <Tabs borders="on">
+          <Tab tabId="1" />
+        </Tabs>
+      ),
+      message:
+        "The `borders` prop in the `Tabs` component is deprecated and will be removed in a future release.",
+    });
+  });
+
+  it("logs a deprecation warning if the `showValidationsSummary` prop is used", () => {
+    assertLoggerComponentMessage({
+      component: (
+        <Tabs showValidationsSummary>
+          <Tab tabId="1" />
+        </Tabs>
+      ),
+      message:
+        "The `showValidationsSummary` prop in the `Tabs` component is deprecated and will be removed in a future release.",
+    });
+  });
 });
 
 testStyledSystemMargin(
