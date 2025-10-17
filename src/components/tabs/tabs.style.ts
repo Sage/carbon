@@ -227,3 +227,11 @@ export const StyledTabs = styled.div<{
     flex-direction: ${orientation === "horizontal" ? "column" : "row"};
   `}
 `;
+
+export const StyledTabProvider = styled.div<{
+  visible: boolean;
+}>`
+  ${({ visible }) => css`
+    display: ${visible ? "block" : "none"};
+  `}
+`;

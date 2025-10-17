@@ -44,11 +44,11 @@ test("throws a console error when `info` and `disabled` are both true", () => {
 });
 
 test("calls `setError` passed from `TabContext` when `error` is true", () => {
-  const setTabErrors = jest.fn();
+  const setErrors = jest.fn();
   render(
     <TabsContext.Provider
       value={{
-        setTabErrors,
+        setErrors,
         activeTab: "tab-1",
         currentTabId: "tab-1",
         focusIndex: "tab-1",
@@ -59,25 +59,25 @@ test("calls `setError` passed from `TabContext` when `error` is true", () => {
         setActiveTab: () => {},
         setFocusIndex: () => {},
         setCurrentTabId: () => {},
-        setTabWarnings: () => {},
+        setWarnings: () => {},
         size: "medium",
-        tabErrors: {},
-        tabWarnings: {},
+        errors: {},
+        warnings: {},
       }}
     >
       <FormField id="foo" error />
     </TabsContext.Provider>,
   );
 
-  expect(setTabErrors).toHaveBeenCalledWith("foo", "", true);
+  expect(setErrors).toHaveBeenCalledWith("foo", "", true);
 });
 
 test("calls `setWarning` passed from `TabContext` when `warning` is true", () => {
-  const setTabWarnings = jest.fn();
+  const setWarnings = jest.fn();
   render(
     <TabsContext.Provider
       value={{
-        setTabWarnings,
+        setWarnings,
         activeTab: "tab-1",
         currentTabId: "tab-1",
         focusIndex: "tab-1",
@@ -88,17 +88,17 @@ test("calls `setWarning` passed from `TabContext` when `warning` is true", () =>
         setActiveTab: () => {},
         setFocusIndex: () => {},
         setCurrentTabId: () => {},
-        setTabErrors: () => {},
+        setErrors: () => {},
         size: "medium",
-        tabErrors: {},
-        tabWarnings: {},
+        errors: {},
+        warnings: {},
       }}
     >
       <FormField id="foo" warning />
     </TabsContext.Provider>,
   );
 
-  expect(setTabWarnings).toHaveBeenCalledWith("foo", "", true);
+  expect(setWarnings).toHaveBeenCalledWith("foo", "", true);
 });
 
 test("should not render with `labelInline` when `adaptiveLabelBreakpoint` set and screen is smaller than the breakpoint", () => {

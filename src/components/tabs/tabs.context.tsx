@@ -13,11 +13,11 @@ const initialContext: TabsContextProps = {
   setActiveTab: () => {},
   setFocusIndex: () => {},
   setCurrentTabId: () => {},
-  setTabErrors: () => {},
-  setTabWarnings: () => {},
+  setErrors: () => {},
+  setWarnings: () => {},
   size: "medium",
-  tabErrors: {},
-  tabWarnings: {},
+  errors: {},
+  warnings: {},
 };
 
 export const TabsContext = createContext<TabsContextProps>(initialContext);
@@ -47,13 +47,13 @@ export const TabsProvider = ({
   const [activeTab, setActiveTab] = useState<string>(selectedTabId);
   const [currentTabId, setCurrentTabId] = useState<string>(selectedTabId);
   const [focusIndex, setFocusIndex] = useState<string>("");
-  const [errors, setErrors] = useState<ValidationRecord>({});
-  const [warnings, setWarnings] = useState<ValidationRecord>({});
+  const [tabErrors, setTabErrors] = useState<ValidationRecord>({});
+  const [tabWarnings, setTabWarnings] = useState<ValidationRecord>({});
 
   // This calloback is difficult to test in Jest environments and
   // is tested in Playwright
   /* istanbul ignore next */
-  const setTabErrors = useCallback(
+  const setErrors = useCallback(
     (childId: string, tabId: string, error: string | boolean) => {
       const validationEntry = {
         [tabId]: {
@@ -61,7 +61,7 @@ export const TabsProvider = ({
         },
       };
 
-      setErrors((state) => {
+      setTabErrors((state) => {
         if (!state[tabId]) state[tabId] = {};
 
         return state[tabId][childId] !== error
@@ -75,7 +75,7 @@ export const TabsProvider = ({
   // This calloback is difficult to test in Jest environments and
   // is tested in Playwright
   /* istanbul ignore next */
-  const setTabWarnings = useCallback(
+  const setWarnings = useCallback(
     (childId: string, tabId: string, warning: string | boolean) => {
       const validationEntry = {
         [tabId]: {
@@ -83,7 +83,7 @@ export const TabsProvider = ({
         },
       };
 
-      setWarnings((state) => {
+      setTabWarnings((state) => {
         if (!state[tabId]) state[tabId] = {};
         return state[tabId][childId] !== warning
           ? { ...state, ...validationEntry }
@@ -105,11 +105,11 @@ export const TabsProvider = ({
         setActiveTab,
         setCurrentTabId,
         setFocusIndex,
-        setTabErrors,
-        setTabWarnings,
+        setErrors,
+        setWarnings,
         size,
-        tabErrors: errors,
-        tabWarnings: warnings,
+        errors: tabErrors,
+        warnings: tabWarnings,
       }}
     >
       {children}

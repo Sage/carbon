@@ -19,10 +19,8 @@ import { TabProvider } from "./tab.context";
 export const TabPanel = ({ children, id, tabId }: TabPanelProps) => {
   const { activeTab } = useTabs();
 
-  if (tabId !== activeTab) return null;
-
   return (
-    <TabProvider tabId={tabId}>
+    <TabProvider tabId={tabId} visible={tabId === activeTab}>
       <div id={id} role="tabpanel" aria-labelledby={tabId}>
         {children}
       </div>
@@ -53,8 +51,8 @@ export const Tab = ({
     setActiveTab,
     setCurrentTabId,
     size,
-    tabErrors,
-    tabWarnings,
+    errors,
+    warnings,
   } = useTabs();
   const selected = activeTab === id;
 
@@ -83,8 +81,8 @@ export const Tab = ({
   /** Can't be unit-tested; controlled by form tests */
   /* istanbul ignore next */
   useEffect(() => {
-    let tabErrorEntries = tabErrors[id];
-    let tabWarningEntries = tabWarnings[id];
+    let tabErrorEntries = errors[id];
+    let tabWarningEntries = warnings[id];
 
     if (error && !tabErrorEntries) {
       tabErrorEntries = { static: error };
@@ -117,7 +115,7 @@ export const Tab = ({
       const tabHasWarnings = warning || currentTabWarnings.length > 0;
       setInternalWarning(tabHasWarnings);
     }
-  }, [error, id, tabErrors, tabWarnings, warning]);
+  }, [error, id, errors, warnings, warning]);
 
   const validationIcon = () => {
     if (internalError || internalWarning) {
@@ -135,7 +133,7 @@ export const Tab = ({
   };
 
   return (
-    <TabProvider tabId={id}>
+    <TabProvider tabId={id} visible>
       <StyledTab
         activeTab={activeTab === id}
         aria-controls={controls}

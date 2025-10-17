@@ -18,18 +18,14 @@ export interface TabsContextProps {
   setActiveTab: Dispatch<SetStateAction<string>>;
   setFocusIndex: Dispatch<SetStateAction<string>>;
   setCurrentTabId: Dispatch<SetStateAction<string>>;
-  setTabErrors: (
-    childId: string,
-    tabId: string,
-    error: string | boolean,
-  ) => void;
-  setTabWarnings: (
+  setErrors: (childId: string, tabId: string, error: string | boolean) => void;
+  setWarnings: (
     childId: string,
     tabId: string,
     warning: string | boolean,
   ) => void;
-  tabErrors: ValidationRecord;
-  tabWarnings: ValidationRecord;
+  errors: ValidationRecord;
+  warnings: ValidationRecord;
   size: "medium" | "large";
 }
 

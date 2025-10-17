@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
 
@@ -6,6 +6,7 @@ import Tabs, { Tab, TabList, TabPanel } from "./tabs.component";
 import Icon from "../icon";
 import Typography from "../typography";
 import { assertLoggerComponentMessage } from "../../__spec_helper__/__internal__/test-utils";
+import Textbox from "../textbox";
 
 const TestComponent = ({ ...args }) => {
   return (
@@ -277,6 +278,38 @@ test("shows a warning icon when the `warning` prop is specified", async () => {
   const icon = screen.getByTestId("icon");
   expect(icon).toBeInTheDocument();
   expect(icon).toHaveStyle("color: rgb(214, 67, 9)");
+});
+
+test("shows the validation icons regardless of whether tab panels are active", async () => {
+  render(
+    <Tabs>
+      <TabList ariaLabel="Sample Tabs">
+        <Tab id="tab-1" controls="tab-panel-1" label="Tab One" />
+        <Tab id="tab-2" controls="tab-panel-2" label="Tab Two" />
+        <Tab id="tab-3" controls="tab-panel-3" label="Tab Three" />
+      </TabList>
+      <TabPanel id="tab-panel-1" tabId="tab-1">
+        <Typography>Content 1</Typography>
+      </TabPanel>
+      <TabPanel id="tab-panel-2" tabId="tab-2">
+        <Textbox onChange={() => {}} value="" error />
+      </TabPanel>
+      <TabPanel id="tab-panel-3" tabId="tab-3">
+        <Textbox onChange={() => {}} value="" warning />
+      </TabPanel>
+    </Tabs>,
+  );
+
+  const tab2 = screen.getByRole("tab", { name: "Tab Two" });
+  const tab3 = screen.getByRole("tab", { name: "Tab Three" });
+
+  const errorIcon = within(tab2).getByTestId("icon");
+  expect(errorIcon).toBeInTheDocument();
+  expect(errorIcon).toHaveStyle("color: rgb(219, 0, 78)");
+
+  const warningIcon = within(tab3).getByTestId("icon");
+  expect(warningIcon).toBeInTheDocument();
+  expect(warningIcon).toHaveStyle("color: rgb(214, 67, 9)");
 });
 
 test("renders correctly when a default tab is specified", () => {
