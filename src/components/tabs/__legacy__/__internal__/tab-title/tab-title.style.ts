@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 
-import StyledIcon from "../../../icon/icon.style";
-import StyledValidationIcon from "../../../../__internal__/validations/validation-icon.style";
+import StyledIcon from "../../../../icon/icon.style";
+import StyledValidationIcon from "../../../../../__internal__/validations/validation-icon.style";
 
 import { TabTitleProps } from ".";
 
@@ -421,7 +421,7 @@ const tabTitleStyles = css<
         z-index: 6;
 
         > span[data-role="tab-title-content"] {
-          outline:none; 
+          outline:none;
           ${position === "top" && "top: 2px;"}
         }
 
@@ -477,7 +477,7 @@ const tabTitleStyles = css<
         }
         }
       }
-    
+
     ${
       position === "left" &&
       css`

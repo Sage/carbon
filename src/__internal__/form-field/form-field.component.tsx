@@ -14,12 +14,15 @@ import FormFieldStyle, { FieldLineStyle } from "./form-field.style";
 import Label, { LabelProps } from "../label";
 import FieldHelp from "../field-help";
 import tagComponent, { TagProps } from "../utils/helpers/tags/tags";
-import TabContext, {
-  TabContextProps,
-} from "../../components/tabs/tab/__internal__/tab.context";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
 import { IconType } from "../../components/icon";
 import { filterStyledSystemMarginProps } from "../../style/utils";
+import {
+  TabContextProps,
+  TabsContextProps,
+} from "../../components/tabs/tabs.types";
+import { TabsContext } from "../../components/tabs/tabs.context";
+import { TabContext } from "../../components/tabs/tab.context";
 
 interface CommonFormFieldProps extends MarginProps, ValidationProps {
   /** If true, the component will be disabled */
@@ -139,8 +142,8 @@ const FormField = ({
     inlineLabel = largeScreen;
   }
 
-  const { setError, setWarning, setInfo } =
-    useContext<TabContextProps>(TabContext);
+  const { setErrors, setWarnings } = useContext<TabsContextProps>(TabsContext);
+  const { tabId } = useContext<TabContextProps>(TabContext);
   const marginProps = filterStyledSystemMarginProps(rest);
   const isMounted = useRef(false);
 
@@ -153,18 +156,16 @@ const FormField = ({
   }, []);
 
   useEffect(() => {
-    if (setError) setError(id, error);
-    if (setWarning) setWarning(id, warning);
-    if (setInfo) setInfo(id, info);
+    if (setErrors) setErrors(id, tabId || "", error || false);
+    if (setWarnings) setWarnings(id, tabId || "", warning || false);
 
     return () => {
       if (!isMounted.current) {
-        if (setError && error) setError(id, false);
-        if (setWarning && warning) setWarning(id, false);
-        if (setInfo && info) setInfo(id, false);
+        if (setErrors) setErrors(id, tabId || "", false);
+        if (setWarnings) setWarnings(id, tabId || "", false);
       }
     };
-  }, [id, setError, setWarning, setInfo, error, warning, info]);
+  }, [id, setErrors, setWarnings, error, warning, info, tabId]);
 
   const fieldHelp = fieldHelpContent ? (
     <FieldHelp

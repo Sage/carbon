@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-import applyBaseTheme from "../../../../style/themes/apply-base-theme";
+import applyBaseTheme from "../../../../../style/themes/apply-base-theme";
 
 import { TabHeaderProps } from "./tabs-header.component";
 

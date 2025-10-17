@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { padding } from "styled-system";
-import applyBaseTheme from "../../../style/themes/apply-base-theme";
-import type { ThemeObject } from "../../../style/themes/theme.types";
+import applyBaseTheme from "../../../../style/themes/apply-base-theme";
+import type { ThemeObject } from "../../../../style/themes/theme.types";
 import { TabProps } from ".";
 
 export type StyledTabProps = Pick<TabProps, "position" | "isTabSelected"> & {

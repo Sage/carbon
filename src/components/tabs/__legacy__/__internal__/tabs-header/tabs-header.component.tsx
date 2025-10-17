@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import useResizeObserver from "../../../../hooks/__internal__/useResizeObserver";
+import useResizeObserver from "../../../../../hooks/__internal__/useResizeObserver";
 
-import StyledIcon from "../../../icon/icon.style";
+import StyledIcon from "../../../../icon/icon.style";
 
 import {
   StyledTabsHeaderWrapper,

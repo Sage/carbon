@@ -1,12 +1,11 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import Tab from ".";
-import Textbox from "../../textbox";
 import StyledTab from "./tab.style";
 import {
   assertLoggerComponentMessage,
   testStyledSystemPadding,
-} from "../../../__spec_helper__/__internal__/test-utils";
+} from "../../../../__spec_helper__/__internal__/test-utils";
 
 test("logs a deprecation warning when href is used", () => {
   assertLoggerComponentMessage({
@@ -115,28 +114,6 @@ test("does not render the children if the `href` prop is passed", () => {
   );
 
   expect(screen.queryByText("tab content")).not.toBeInTheDocument();
-});
-
-test("calls the `updateErrors` function prop when an error is present in a child component", () => {
-  const updateErrors = jest.fn();
-  render(
-    <Tab tabId="foo" updateErrors={updateErrors}>
-      <Textbox onChange={() => {}} id="bar" error value="" />
-    </Tab>,
-  );
-
-  expect(updateErrors).toHaveBeenCalledWith("foo", { bar: true });
-});
-
-test("calls the `updateWarnings` function prop when a warning is present in a child component", () => {
-  const updateWarnings = jest.fn();
-  render(
-    <Tab tabId="foo" updateWarnings={updateWarnings}>
-      <Textbox onChange={() => {}} id="bar" warning value="" />
-    </Tab>,
-  );
-
-  expect(updateWarnings).toHaveBeenCalledWith("foo", { bar: true });
 });
 
 test("renders with provided data- attributes", () => {

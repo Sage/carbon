@@ -1,1108 +1,344 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
-import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
-import Pill from "../pill";
-import Icon from "../icon";
+import { Tabs, Tab, TabList, TabPanel } from "./tabs.component";
 import Box from "../box";
-import { Tabs, Tab } from ".";
-import CarbonProvider from "../carbon-provider/carbon-provider.component";
+import Button from "../button";
+import Icon from "../icon";
+import Pill from "../pill";
+import Typography from "../typography";
+import Form from "../form";
 import Textbox from "../textbox";
-
-const styledSystemProps = generateStyledSystemProps({
-  margin: true,
-});
 
 const meta: Meta<typeof Tabs> = {
   title: "Tabs",
   component: Tabs,
-  argTypes: {
-    ...styledSystemProps,
+  parameters: {
+    themeProvider: { chromatic: { theme: "sage" } },
   },
+  decorators: [
+    (StoryToRender) => (
+      <Box backgroundColor="#ddd" p={3}>
+        <StoryToRender />
+      </Box>
+    ),
+  ],
 };
 
 export default meta;
 type Story = StoryObj<typeof Tabs>;
 
-export const DefaultStory: Story = () => {
+export const DefaultStory: Story = ({ ...args }) => {
   return (
-    <Box p="4px">
-      <Tabs align="left" position="top">
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-1"
-          title="Tab 1"
-          key="tab-1"
-        >
-          Content for tab 1
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-2"
-          title="Tab 2"
-          key="tab-2"
-        >
-          Content for tab 2
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-3"
-          title="Tab 3"
-          key="tab-3"
-        >
-          Content for tab 3
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-4"
-          title="Tab 4"
-          key="tab-4"
-        >
-          Content for tab 4
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-5"
-          title="Tab 5"
-          key="tab-5"
-        >
-          Content for tab 5
-        </Tab>
-      </Tabs>
-    </Box>
+    <Tabs {...args}>
+      <TabList ariaLabel="Sample Tabs">
+        <Tab id="tab-1" controls="tab-panel-1" label="Tab One" />
+        <Tab id="tab-2" controls="tab-panel-2" label="Tab Two" />
+        <Tab id="tab-3" controls="tab-panel-3" label="Tab Three" />
+      </TabList>
+      <TabPanel id="tab-panel-1" tabId="tab-1">
+        <Typography>Content 1</Typography>
+      </TabPanel>
+      <TabPanel id="tab-panel-2" tabId="tab-2">
+        <Typography>Content 2</Typography>
+      </TabPanel>
+      <TabPanel id="tab-panel-3" tabId="tab-3">
+        <Typography>Content 3</Typography>
+      </TabPanel>
+    </Tabs>
   );
 };
 DefaultStory.storyName = "Default";
+DefaultStory.args = {
+  orientation: "horizontal",
+  size: "medium",
+};
 
-export const PositionedTopAlignedRight: Story = () => {
+export const LargeSize: Story = ({ ...args }) => {
   return (
-    <Box p="4px">
-      <Tabs align="right" position="top">
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-1"
-          title="Tab 1"
-          key="tab-1"
-        >
-          Content for tab 1
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-2"
-          title="Tab 2"
-          key="tab-2"
-        >
-          Content for tab 2
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-3"
-          title="Tab 3"
-          key="tab-3"
-        >
-          Content for tab 3
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-4"
-          title="Tab 4"
-          key="tab-4"
-        >
-          Content for tab 4
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-5"
-          title="Tab 5"
-          key="tab-5"
-        >
-          Content for tab 5
-        </Tab>
-      </Tabs>
-    </Box>
+    <Tabs {...args}>
+      <TabList ariaLabel="Sample Tabs">
+        <Tab id="tab-1" controls="tab-panel-1" label="Tab One" />
+        <Tab id="tab-2" controls="tab-panel-2" label="Tab Two" />
+        <Tab id="tab-3" controls="tab-panel-3" label="Tab Three" />
+      </TabList>
+      <TabPanel id="tab-panel-1" tabId="tab-1">
+        <Typography>Content 1</Typography>
+      </TabPanel>
+      <TabPanel id="tab-panel-2" tabId="tab-2">
+        <Typography>Content 2</Typography>
+      </TabPanel>
+      <TabPanel id="tab-panel-3" tabId="tab-3">
+        <Typography>Content 3</Typography>
+      </TabPanel>
+    </Tabs>
   );
 };
-PositionedTopAlignedRight.storyName = "Positioned Top Aligned Right";
+LargeSize.storyName = "Large Size";
+LargeSize.args = {
+  orientation: "horizontal",
+  size: "large",
+};
 
-export const PositionedLeftAndAlignedLeft: Story = () => {
+export const VerticalOrientation: Story = ({ ...args }) => {
   return (
-    <Box p="32px" bg="#f2f5f6">
-      <Tabs align="left" position="left">
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-1"
-          title="Tab 1"
-          key="tab-1"
-        >
-          <Box bg="white" p="32px" height="calc(100% - 64px)">
-            Content for tab 1
-          </Box>
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-2"
-          title="Tab 2"
-          key="tab-2"
-        >
-          Content for tab 2
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-3"
-          title="Tab 3"
-          key="tab-3"
-        >
-          Content for tab 3
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-4"
-          title="Tab 4"
-          key="tab-4"
-        >
-          Content for tab 4
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-5"
-          title="Tab 5"
-          key="tab-5"
-        >
-          Content for tab 5
-        </Tab>
-      </Tabs>
-    </Box>
+    <Tabs {...args}>
+      <TabList ariaLabel="Sample Tabs">
+        <Tab id="tab-1" controls="tab-panel-1" label="Tab One" />
+        <Tab id="tab-2" controls="tab-panel-2" label="Tab Two" />
+        <Tab id="tab-3" controls="tab-panel-3" label="Tab Three" />
+      </TabList>
+      <TabPanel id="tab-panel-1" tabId="tab-1">
+        <Typography>Content 1</Typography>
+      </TabPanel>
+      <TabPanel id="tab-panel-2" tabId="tab-2">
+        <Typography>Content 2</Typography>
+      </TabPanel>
+      <TabPanel id="tab-panel-3" tabId="tab-3">
+        <Typography>Content 3</Typography>
+      </TabPanel>
+    </Tabs>
   );
 };
-PositionedLeftAndAlignedLeft.storyName = "Positioned Left Aligned Left";
-
-export const PositionedLeftAndAlignedRight: Story = () => {
-  return (
-    <Box p="4px">
-      <Tabs align="right" position="left">
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-1"
-          title="Tab 1"
-          key="tab-1"
-        >
-          Content for tab 1
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-2"
-          title="Tab 2"
-          key="tab-2"
-        >
-          Content for tab 2
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-3"
-          title="Tab 3"
-          key="tab-3"
-        >
-          Content for tab 3
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-4"
-          title="Tab 4"
-          key="tab-4"
-        >
-          Content for tab 4
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-5"
-          title="Tab 5"
-          key="tab-5"
-        >
-          Content for tab 5
-        </Tab>
-      </Tabs>
-    </Box>
-  );
+VerticalOrientation.storyName = "Vertical Orientation";
+VerticalOrientation.args = {
+  orientation: "vertical",
+  size: "medium",
 };
-PositionedLeftAndAlignedRight.storyName = "Positioned Left Aligned Right";
 
-export const WithLinkAsATab: Story = () => {
+export const TabOverflow: Story = ({ ...args }) => {
+  const tabCount = 20;
   return (
-    <Box p="4px">
-      <Tabs selectedTabId="tab-2" align="left" position="top">
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-1"
-          title="Tab 1"
-          key="tab-1"
-        >
-          Content for tab 1
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-2"
-          title="Tab 2"
-          key="tab-2"
-          href="https://carbon.sage.com/"
-        >
-          Content for tab 2
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-3"
-          title="Tab 3"
-          key="tab-3"
-        >
-          Content for tab 3
-        </Tab>
-      </Tabs>
-    </Box>
-  );
-};
-WithLinkAsATab.storyName = "With Link as a Tab";
-
-export const WithSpecifiedTabVisible: Story = () => {
-  return (
-    <Box p="4px">
-      <Tabs selectedTabId="tab-2" align="left" position="top">
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-1"
-          title="Tab 1"
-          key="tab-1"
-        >
-          Content for tab 1
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-2"
-          title="Tab 2"
-          key="tab-2"
-        >
-          Content for tab 2
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-3"
-          title="Tab 3"
-          key="tab-3"
-        >
-          Content for tab 3
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-4"
-          title="Tab 4"
-          key="tab-4"
-        >
-          Content for tab 4
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-5"
-          title="Tab 5"
-          key="tab-5"
-        >
-          Content for tab 5
-        </Tab>
-      </Tabs>
-    </Box>
-  );
-};
-WithSpecifiedTabVisible.storyName = "With Specified Tab Visible";
-
-export const WithoutExtendedDividingLine: Story = () => {
-  return (
-    <Box p="4px">
-      <Tabs extendedLine={false} align="left" position="top">
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-1"
-          title="Tab 1"
-          key="tab-1"
-        >
-          Content for tab 1
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-2"
-          title="Tab 2"
-          key="tab-2"
-        >
-          Content for tab 2
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-3"
-          title="Tab 3"
-          key="tab-3"
-        >
-          Content for tab 3
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-4"
-          title="Tab 4"
-          key="tab-4"
-        >
-          Content for tab 4
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-5"
-          title="Tab 5"
-          key="tab-5"
-        >
-          Content for tab 5
-        </Tab>
-      </Tabs>
-    </Box>
-  );
-};
-WithoutExtendedDividingLine.storyName = "Without Extended Dividing Line";
-
-export const WithLargeTabsPositionedTop: Story = () => {
-  return (
-    <Box p="4px">
-      <Tabs size="large" align="left" position="top">
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-1"
-          title="Tab 1"
-          key="tab-1"
-        >
-          Content for tab 1
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-2"
-          title="Tab 2"
-          key="tab-2"
-        >
-          Content for tab 2
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-3"
-          title="Tab 3"
-          key="tab-3"
-        >
-          Content for tab 3
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-4"
-          title="Tab 4"
-          key="tab-4"
-        >
-          Content for tab 4
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-5"
-          title="Tab 5"
-          key="tab-5"
-        >
-          Content for tab 5
-        </Tab>
-      </Tabs>
-    </Box>
-  );
-};
-WithLargeTabsPositionedTop.storyName = "With Large Tabs Positioned Top";
-
-export const WithLargeTabsPositionedLeft: Story = () => {
-  return (
-    <Box p="4px">
-      <Tabs size="large" align="left" position="left">
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-1"
-          title="Tab 1"
-          key="tab-1"
-        >
-          Content for tab 1
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-2"
-          title="Tab 2"
-          key="tab-2"
-        >
-          Content for tab 2
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-3"
-          title="Tab 3"
-          key="tab-3"
-        >
-          Content for tab 3
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-4"
-          title="Tab 4"
-          key="tab-4"
-        >
-          Content for tab 4
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-5"
-          title="Tab 5"
-          key="tab-5"
-        >
-          Content for tab 5
-        </Tab>
-      </Tabs>
-    </Box>
-  );
-};
-WithLargeTabsPositionedLeft.storyName = "With Large Tabs Positioned Left";
-
-export const WithBordersPositionedTop: Story = () => {
-  return (
-    <Box p="4px">
-      <Tabs borders="on" align="left">
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-1"
-          title="Tab 1"
-          key="tab-1"
-        >
-          Content for tab 1
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-2"
-          title="Tab 2"
-          key="tab-2"
-        >
-          Content for tab 2
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-3"
-          title="Tab 3"
-          key="tab-3"
-        >
-          Content for tab 3
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-4"
-          title="Tab 4"
-          key="tab-4"
-        >
-          Content for tab 4
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-5"
-          title="Tab 5"
-          key="tab-5"
-        >
-          Content for tab 5
-        </Tab>
-      </Tabs>
-    </Box>
-  );
-};
-WithBordersPositionedTop.storyName = "With Borders Positioned Top";
-
-export const WithNoSidesPositionedTop: Story = () => {
-  return (
-    <Box p="4px">
-      <Tabs borders="no sides" align="left">
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-1"
-          title="Tab 1"
-          key="tab-1"
-        >
-          Content for tab 1
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-2"
-          title="Tab 2"
-          key="tab-2"
-        >
-          Content for tab 2
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-3"
-          title="Tab 3"
-          key="tab-3"
-        >
-          Content for tab 3
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-4"
-          title="Tab 4"
-          key="tab-4"
-        >
-          Content for tab 4
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-5"
-          title="Tab 5"
-          key="tab-5"
-        >
-          Content for tab 5
-        </Tab>
-      </Tabs>
-    </Box>
-  );
-};
-WithNoSidesPositionedTop.storyName = "With No Sides Positioned Top";
-
-export const WithBordersPositionedLeft: Story = () => {
-  return (
-    <Box p="4px">
-      <Tabs borders="on" align="left" position="left">
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-1"
-          title="Tab 1"
-          key="tab-1"
-        >
-          Content for tab 1
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-2"
-          title="Tab 2"
-          key="tab-2"
-        >
-          Content for tab 2
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-3"
-          title="Tab 3"
-          key="tab-3"
-        >
-          Content for tab 3
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-4"
-          title="Tab 4"
-          key="tab-4"
-        >
-          Content for tab 4
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-5"
-          title="Tab 5"
-          key="tab-5"
-        >
-          Content for tab 5
-        </Tab>
-      </Tabs>
-    </Box>
-  );
-};
-WithBordersPositionedLeft.storyName = "With Borders Positioned Left";
-
-export const WithNoSidesPositionedLeft: Story = () => {
-  return (
-    <Box p="4px">
-      <Tabs borders="no sides" align="left" position="left">
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-1"
-          title="Tab 1"
-          key="tab-1"
-        >
-          Content for tab 1
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-2"
-          title="Tab 2"
-          key="tab-2"
-        >
-          Content for tab 2
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-3"
-          title="Tab 3"
-          key="tab-3"
-        >
-          Content for tab 3
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-4"
-          title="Tab 4"
-          key="tab-4"
-        >
-          Content for tab 4
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-5"
-          title="Tab 5"
-          key="tab-5"
-        >
-          Content for tab 5
-        </Tab>
-      </Tabs>
-    </Box>
-  );
-};
-WithNoSidesPositionedLeft.storyName = "With No Sides Positioned Left";
-
-export const WithAdditionalTitleSiblings: Story = () => {
-  return (
-    <Box p="4px">
-      <Tabs align="left" position="top">
-        <Tab
-          tabId="tab-1"
-          title="Tab 1"
-          key="tab-1"
-          siblings={[
-            <Pill size="S" pillRole="status" fill key="pill">
-              12
-            </Pill>,
-            <Icon type="home" key="icon" />,
-          ]}
-          titlePosition="before"
-        >
-          Content for tab 1
-        </Tab>
-        <Tab tabId="tab-2" title="Tab 2" key="tab-2" titlePosition="after">
-          Content for tab 2
-        </Tab>
-        <Tab
-          tabId="tab-3"
-          title="Tab 3"
-          key="tab-3"
-          siblings={[
-            <Pill size="S" pillRole="status" fill key="pill">
-              12
-            </Pill>,
-            <Icon type="home" key="icon" />,
-          ]}
-          titlePosition="after"
-        >
-          Content for tab 3
-        </Tab>
-      </Tabs>
-    </Box>
-  );
-};
-WithAdditionalTitleSiblings.storyName = "With Additional Title Siblings";
-
-export const WithAdditionalTitleSiblingsSizeLarge: Story = () => {
-  return (
-    <Box p="4px">
-      <Tabs size="large" align="left" position="top">
-        <Tab
-          tabId="tab-1"
-          title="Tab 1"
-          key="tab-1"
-          siblings={[
-            <Pill size="S" pillRole="status" fill key="pill">
-              12
-            </Pill>,
-            <Icon type="home" key="icon" />,
-          ]}
-          titlePosition="before"
-        >
-          Content for tab 1
-        </Tab>
-        <Tab tabId="tab-2" title="Tab 2" key="tab-2" titlePosition="after">
-          Content for tab 2
-        </Tab>
-        <Tab
-          tabId="tab-3"
-          title="Tab 3"
-          key="tab-3"
-          siblings={[
-            <Pill size="S" pillRole="status" fill key="pill">
-              12
-            </Pill>,
-            <Icon type="settings" key="icon" />,
-          ]}
-          titlePosition="after"
-        >
-          Content for tab 3
-        </Tab>
-      </Tabs>
-    </Box>
-  );
-};
-WithAdditionalTitleSiblingsSizeLarge.storyName =
-  "With Additional Title Siblings Size Large";
-
-export const WithCustomLayout: Story = () => {
-  return (
-    <Box p="4px">
-      <Tabs size="default" align="left" position="left">
-        <Tab
-          tabId="tab-1"
-          key="tab-1"
-          customLayout={
-            <Box
-              px={3}
-              py={1}
-              display="flex"
-              flexDirection="row"
-              alignItems="center"
-              justifyContent="space-between"
-            >
-              Tab 1
-              <Box>
-                <Icon type="settings" color="primary" />
-                <Icon type="home" />
-              </Box>
-            </Box>
-          }
-        >
-          Content for tab 1
-        </Tab>
-        <Tab
-          tabId="tab-2"
-          key="tab-2"
-          customLayout={
-            <Box
-              px={3}
-              py={1}
-              display="flex"
-              flexDirection="row"
-              alignItems="center"
-              justifyContent="space-between"
-            >
-              Tab 2
-              <Box>
-                <Icon type="settings" color="primary" />
-                <Icon type="home" />
-              </Box>
-            </Box>
-          }
-        >
-          Content for tab 2
-        </Tab>
-        <Tab
-          tabId="tab-3"
-          key="tab-3"
-          customLayout={
-            <Box
-              px={3}
-              py={1}
-              display="flex"
-              flexDirection="row"
-              alignItems="center"
-              justifyContent="space-between"
-            >
-              Tab 3
-              <Box>
-                <Icon type="settings" color="primary" />
-                <Icon type="home" />
-              </Box>
-            </Box>
-          }
-        >
-          Content for tab 3
-        </Tab>
-      </Tabs>
-    </Box>
-  );
-};
-WithCustomLayout.storyName = "With Custom Layout";
-
-export const WithAlternateStyling: Story = () => {
-  return (
-    <Box p="4px">
-      <Tabs variant="alternate" align="left" position="left">
-        <Tab tabId="tab-1" title="Tab 1" key="tab-1">
-          Content for tab 1
-        </Tab>
-        <Tab tabId="tab-2" title="Tab 2" key="tab-2">
-          Content for tab 2
-        </Tab>
-        <Tab tabId="tab-3" title="Tab 3" key="tab-3">
-          Content for tab 3
-        </Tab>
-      </Tabs>
-    </Box>
-  );
-};
-WithAlternateStyling.storyName = "With Alternate Styling";
-
-export const WithHeaderWidth: Story = () => {
-  return (
-    <Box p="4px">
-      <Tabs headerWidth="400px" align="left" position="left">
-        <Tab
-          tabId="tabs-1-tab-1"
-          title="Very long title for Tab 1 without headerWidth prop it would be not well aligned with the second Tabs group"
-          key="tabs-1-tab-1"
-        >
-          Content for tab 1
-        </Tab>
-        <Tab tabId="tabs-1-tab-2" title="Tab 2" key="tabs-1-tab-2">
-          Content for tab 2
-        </Tab>
-      </Tabs>
-      <Tabs headerWidth="400px" align="left" position="left">
-        <Tab tabId="tabs-2-tab-1" title="Tab 1" key="tabs-2-tab-1">
-          Content for tab 1
-        </Tab>
-        <Tab tabId="tabs-2-tab-2" title="Tab 2" key="tabs-2-tab-2">
-          Content for tab 2
-        </Tab>
-      </Tabs>
-    </Box>
-  );
-};
-WithHeaderWidth.storyName = "With Header Width";
-
-export const WithCustomSpacing: Story = () => {
-  return (
-    <Box p="4px">
-      <Tabs m={8} align="left" position="top">
-        <Tab tabId="tab-1" title="Tab 1" key="tab-1" p={5}>
-          Content for tab 1
-        </Tab>
-        <Tab tabId="tab-2" title="Tab 2" key="tab-2">
-          Content for tab 2
-        </Tab>
-        <Tab tabId="tab-3" title="Tab 3" key="tab-3">
-          Content for tab 3
-        </Tab>
-        <Tab tabId="tab-4" title="Tab 4" key="tab-4">
-          Content for tab 4
-        </Tab>
-        <Tab tabId="tab-5" title="Tab 5" key="tab-5">
-          Content for tab 5
-        </Tab>
-      </Tabs>
-    </Box>
-  );
-};
-WithCustomSpacing.storyName = "With Custom Spacing";
-
-export const Responsive: Story = () => {
-  const tabsData = Array(20)
-    .fill(0)
-    .map((_, index) => ({
-      tabId: `tab-${index + 1}`,
-      title: `Tab ${index + 1}`,
-      key: `tab-${index + 1}`,
-      content: `Content for tab ${index + 1}`,
-    }));
-
-  return (
-    <Box p="4px">
-      <Tabs align="left" position="top">
-        {tabsData.map((tabData) => (
-          <Tab role="tab" {...tabData} key={tabData.key}>
-            {tabData.content}
-          </Tab>
+    <Tabs {...args}>
+      <TabList ariaLabel="Sample Tabs">
+        {Array.from({ length: tabCount }, (_, index) => (
+          <Tab
+            key={`tab-${index + 1}`}
+            id={`tab-${index + 1}`}
+            controls={`tab-panel-${index + 1}`}
+            label={`Tab ${index + 1}`}
+          />
         ))}
-      </Tabs>
-    </Box>
+      </TabList>
+      {Array.from({ length: tabCount }, (_, index) => (
+        <TabPanel
+          key={`tab-panel-${index + 1}`}
+          id={`tab-panel-${index + 1}`}
+          tabId={`tab-${index + 1}`}
+        >
+          <Typography>{`Content ${index + 1}`}</Typography>
+        </TabPanel>
+      ))}
+    </Tabs>
   );
 };
-Responsive.storyName = "Responsive - Horizontal";
-
-export const ResponsiveVertical: Story = () => {
-  const tabsData = Array(20)
-    .fill(0)
-    .map((_, index) => ({
-      tabId: `tab-${index + 1}`,
-      title: `Tab ${index + 1}`,
-      key: `tab-${index + 1}`,
-      content: `Content for tab ${index + 1}`,
-    }));
-
-  return (
-    <Box p="4px">
-      <Tabs align="left" position="left">
-        {tabsData.map((tabData) => (
-          <Tab role="tab" {...tabData} key={tabData.key}>
-            {tabData.content}
-          </Tab>
-        ))}
-      </Tabs>
-    </Box>
-  );
+TabOverflow.storyName = "Tab Overflow";
+TabOverflow.args = {
+  orientation: "horizontal",
+  size: "medium",
 };
-ResponsiveVertical.storyName = "Responsive - Vertical";
 
-export const WithValidationState = () => {
+export const TitleSlots: Story = ({ ...args }) => {
   return (
-    <CarbonProvider validationRedesignOptIn>
-      <Tabs position="top">
+    <Tabs {...args}>
+      <TabList ariaLabel="Sample Tabs">
+        <Tab id="tab-1" controls="tab-panel-1" label="No Slots" />
         <Tab
-          errorMessage="Tab Error Message"
-          tabId="tab-1"
-          title="Tab 1"
-          key="tab-1"
+          id="tab-2"
+          controls="tab-panel-2"
+          label="Left slot"
+          leftSlot={<Icon type="home" />}
+        />
+        <Tab
+          id="tab-3"
+          controls="tab-panel-3"
+          label="Right slot"
+          rightSlot={<Pill>Label</Pill>}
+        />
+        <Tab
+          id="tab-4"
+          controls="tab-panel-4"
+          label="Both slots"
+          leftSlot={<Icon type="home" />}
+          rightSlot={<Pill>Label</Pill>}
+        />
+      </TabList>
+      <TabPanel id="tab-panel-1" tabId="tab-1">
+        <Typography>Content 1</Typography>
+      </TabPanel>
+      <TabPanel id="tab-panel-2" tabId="tab-2">
+        <Typography>Content 2</Typography>
+      </TabPanel>
+      <TabPanel id="tab-panel-3" tabId="tab-3">
+        <Typography>Content 3</Typography>
+      </TabPanel>
+      <TabPanel id="tab-panel-4" tabId="tab-4">
+        <Typography>Content 4</Typography>
+      </TabPanel>
+    </Tabs>
+  );
+};
+TitleSlots.storyName = "Title Slots";
+TitleSlots.args = {
+  orientation: "horizontal",
+  size: "medium",
+};
+
+export const CustomTitle: Story = ({ ...args }) => {
+  const customHeader = (index: number) => {
+    const colours = ["red", "green", "blue"];
+    return (
+      <div>
+        <Typography variant="h5" color={colours[index]}>
+          Tab {index}
+        </Typography>
+      </div>
+    );
+  };
+
+  return (
+    <Tabs {...args}>
+      <TabList ariaLabel="Sample Tabs">
+        <Tab id="tab-1" controls="tab-panel-1" label={customHeader(0)} />
+        <Tab id="tab-2" controls="tab-panel-2" label={customHeader(1)} />
+        <Tab id="tab-3" controls="tab-panel-3" label={customHeader(2)} />
+      </TabList>
+      <TabPanel id="tab-panel-1" tabId="tab-1">
+        <Typography>Content 1</Typography>
+      </TabPanel>
+      <TabPanel id="tab-panel-2" tabId="tab-2">
+        <Typography>Content 2</Typography>
+      </TabPanel>
+      <TabPanel id="tab-panel-3" tabId="tab-3">
+        <Typography>Content 3</Typography>
+      </TabPanel>
+    </Tabs>
+  );
+};
+CustomTitle.storyName = "Custom Title";
+CustomTitle.args = {
+  orientation: "horizontal",
+  size: "medium",
+};
+
+export const WithErrorAndWarning: Story = ({ ...args }) => {
+  return (
+    <Tabs {...args}>
+      <TabList ariaLabel="Sample Tabs">
+        <Tab id="tab-1" controls="tab-panel-1" label="Default" />
+        <Tab id="tab-2" controls="tab-panel-2" label="Error" error />
+        <Tab id="tab-3" controls="tab-panel-3" label="Warning" warning />
+      </TabList>
+
+      <TabPanel id="tab-panel-1" tabId={"tab-1"}>
+        Content 1
+      </TabPanel>
+
+      <TabPanel id="tab-panel-2" tabId={"tab-2"}>
+        Content 2
+      </TabPanel>
+
+      <TabPanel id="tab-panel-3" tabId={"tab-3"}>
+        Content 3
+      </TabPanel>
+    </Tabs>
+  );
+};
+WithErrorAndWarning.storyName = "With Error And Warning";
+WithErrorAndWarning.args = {
+  orientation: "horizontal",
+  size: "medium",
+};
+
+export const WithErrorAndWarningInForm: Story = ({ ...args }) => {
+  return (
+    <Tabs {...args}>
+      <TabList ariaLabel="Sample Tabs">
+        <Tab id="tab-1" controls="tab-panel-1" label="Default" />
+        <Tab id="tab-2" controls="tab-panel-2" label="Error" />
+        <Tab id="tab-3" controls="tab-panel-3" label="Warning" />
+      </TabList>
+
+      <TabPanel id="tab-panel-1" tabId={"tab-1"}>
+        <Form
+          onSubmit={() => {}}
+          saveButton={
+            <Button buttonType="primary" type="submit">
+              Save
+            </Button>
+          }
+        >
+          <Textbox label="Textbox" onChange={() => {}} value="" />
+        </Form>
+      </TabPanel>
+
+      <TabPanel id="tab-panel-2" tabId={"tab-2"}>
+        <Form
+          onSubmit={() => {}}
+          saveButton={
+            <Button buttonType="primary" type="submit">
+              Save
+            </Button>
+          }
         >
           <Textbox
             label="Textbox"
-            error="Error Message"
-            m={2}
             onChange={() => {}}
             value=""
+            error="Textbox must not be blank"
           />
-        </Tab>
-        <Tab
-          warningMessage="Tab Warning Message"
-          tabId="tab-2"
-          title="Tab 2"
-          key="tab-2"
+        </Form>
+      </TabPanel>
+
+      <TabPanel id="tab-panel-3" tabId={"tab-3"}>
+        <Form
+          onSubmit={() => {}}
+          saveButton={
+            <Button buttonType="primary" type="submit">
+              Save
+            </Button>
+          }
         >
           <Textbox
             label="Textbox"
-            warning="Warning Message"
-            m={2}
             onChange={() => {}}
             value=""
+            warning="Textbox must not be blank"
           />
-        </Tab>
-      </Tabs>
-    </CarbonProvider>
+        </Form>
+      </TabPanel>
+    </Tabs>
   );
 };
-WithValidationState.storyName = "With Validation State";
-WithValidationState.parameters = {
-  chromatic: { disableSnapshot: true },
+WithErrorAndWarningInForm.storyName = "With Error And Warning In Form";
+WithErrorAndWarningInForm.args = {
+  orientation: "horizontal",
+  size: "medium",
+};
+
+export const PreSelectedTab: Story = ({ ...args }) => {
+  return (
+    <Tabs {...args}>
+      <TabList ariaLabel="Sample Tabs">
+        <Tab id="tab-1" controls="tab-panel-1" label="Tab One" />
+        <Tab id="tab-2" controls="tab-panel-2" label="Tab Two" />
+        <Tab id="tab-3" controls="tab-panel-3" label="Tab Three" />
+      </TabList>
+      <TabPanel id="tab-panel-1" tabId="tab-1">
+        <Typography>Content 1</Typography>
+      </TabPanel>
+      <TabPanel id="tab-panel-2" tabId="tab-2">
+        <Typography>Content 2</Typography>
+      </TabPanel>
+      <TabPanel id="tab-panel-3" tabId="tab-3">
+        <Typography>Content 3</Typography>
+      </TabPanel>
+    </Tabs>
+  );
+};
+PreSelectedTab.storyName = "Pre-Selected Tab";
+PreSelectedTab.args = {
+  orientation: "horizontal",
+  size: "medium",
+  selectedTabId: "tab-3",
 };

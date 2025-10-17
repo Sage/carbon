@@ -7,7 +7,7 @@ import Tab from "../../tab/tab.component";
 import { StyledTabsHeaderList } from "./tabs-header.style";
 import TabTitle from "../tab-title/tab-title.component";
 
-jest.mock("../../../../hooks/__internal__/useResizeObserver");
+jest.mock("../../../../../hooks/__internal__/useResizeObserver");
 
 test("renders children correctly", () => {
   render(

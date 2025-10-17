@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import FormField from ".";
-import TabContext from "../../components/tabs/tab/__internal__/tab.context";
+import { TabsContext } from "../../components/tabs/tabs.context";
 import { mockMatchMedia } from "../../__spec_helper__/__internal__/test-utils";
 
 test("throws a console error when `error` and `disabled` are both true", () => {
@@ -44,36 +44,61 @@ test("throws a console error when `info` and `disabled` are both true", () => {
 });
 
 test("calls `setError` passed from `TabContext` when `error` is true", () => {
-  const setError = jest.fn();
+  const setErrors = jest.fn();
   render(
-    <TabContext.Provider value={{ setError }}>
+    <TabsContext.Provider
+      value={{
+        setErrors,
+        activeTab: "tab-1",
+        currentTabId: "tab-1",
+        focusIndex: "tab-1",
+        isInTab: false,
+        labelledBy: "",
+        orientation: "horizontal",
+        selectedTabId: "",
+        setActiveTab: () => {},
+        setFocusIndex: () => {},
+        setCurrentTabId: () => {},
+        setWarnings: () => {},
+        size: "medium",
+        errors: {},
+        warnings: {},
+      }}
+    >
       <FormField id="foo" error />
-    </TabContext.Provider>,
+    </TabsContext.Provider>,
   );
 
-  expect(setError).toHaveBeenCalledWith("foo", true);
+  expect(setErrors).toHaveBeenCalledWith("foo", "", true);
 });
 
 test("calls `setWarning` passed from `TabContext` when `warning` is true", () => {
-  const setWarning = jest.fn();
+  const setWarnings = jest.fn();
   render(
-    <TabContext.Provider value={{ setWarning }}>
+    <TabsContext.Provider
+      value={{
+        setWarnings,
+        activeTab: "tab-1",
+        currentTabId: "tab-1",
+        focusIndex: "tab-1",
+        isInTab: false,
+        labelledBy: "",
+        orientation: "horizontal",
+        selectedTabId: "",
+        setActiveTab: () => {},
+        setFocusIndex: () => {},
+        setCurrentTabId: () => {},
+        setErrors: () => {},
+        size: "medium",
+        errors: {},
+        warnings: {},
+      }}
+    >
       <FormField id="foo" warning />
-    </TabContext.Provider>,
+    </TabsContext.Provider>,
   );
 
-  expect(setWarning).toHaveBeenCalledWith("foo", true);
-});
-
-test("calls `setInfo` passed from `TabContext` when `info` is true", () => {
-  const setInfo = jest.fn();
-  render(
-    <TabContext.Provider value={{ setInfo }}>
-      <FormField id="foo" info />
-    </TabContext.Provider>,
-  );
-
-  expect(setInfo).toHaveBeenCalledWith("foo", true);
+  expect(setWarnings).toHaveBeenCalledWith("foo", "", true);
 });
 
 test("should not render with `labelInline` when `adaptiveLabelBreakpoint` set and screen is smaller than the breakpoint", () => {

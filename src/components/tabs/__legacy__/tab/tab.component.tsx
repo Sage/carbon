@@ -3,9 +3,9 @@ import { PaddingProps } from "styled-system";
 import StyledTab from "./tab.style";
 import tagComponent, {
   TagProps,
-} from "../../../__internal__/utils/helpers/tags/tags";
+} from "../../../../__internal__/utils/helpers/tags/tags";
 import TabContext from "./__internal__/tab.context";
-import Logger from "../../../__internal__/utils/logger";
+import Logger from "../../../../__internal__/utils/logger";
 
 export interface TabProps extends PaddingProps, TagProps {
   title?: string;

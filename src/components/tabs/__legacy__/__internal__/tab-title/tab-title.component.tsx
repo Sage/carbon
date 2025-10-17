@@ -7,14 +7,14 @@ import {
   StyledSelectedIndicator,
   StyledVerticalIndicator,
 } from "./tab-title.style";
-import tagComponent from "../../../../__internal__/utils/helpers/tags/tags";
-import ValidationIcon from "../../../../__internal__/validations/validation-icon.component";
-import Icon from "../../../icon";
-import Events from "../../../../__internal__/utils/helpers/events";
-import { TooltipProvider } from "../../../../__internal__/tooltip-provider";
+import tagComponent from "../../../../../__internal__/utils/helpers/tags/tags";
+import ValidationIcon from "../../../../../__internal__/validations/validation-icon.component";
+import Icon from "../../../../icon";
+import Events from "../../../../../__internal__/utils/helpers/events";
+import { TooltipProvider } from "../../../../../__internal__/tooltip-provider";
 import TabTitleContext from "./tab-title.context";
-import Typography from "../../../typography";
-import NewValidationContext from "../../../carbon-provider/__internal__/new-validation.context";
+import Typography from "../../../../typography";
+import NewValidationContext from "../../../../carbon-provider/__internal__/new-validation.context";
 
 export interface TabTitleProps {
   /** Identifier used for testing purposes */
