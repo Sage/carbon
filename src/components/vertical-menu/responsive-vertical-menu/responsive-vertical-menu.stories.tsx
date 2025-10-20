@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
 import allModes from "../../../../.storybook/modes";
@@ -7,9 +7,11 @@ import isChromatic from "../../../../.storybook/isChromatic";
 import {
   ResponsiveVerticalMenu,
   ResponsiveVerticalMenuDivider,
+  ResponsiveVerticalMenuHandle,
   ResponsiveVerticalMenuItem,
 } from ".";
 import Box from "../../box";
+import Button from "../../button";
 import Icon from "../../icon";
 import GlobalHeader from "../../global-header";
 
@@ -79,6 +81,57 @@ export const Default: Story = () => {
   );
 };
 Default.storyName = "Default";
+
+export const ProgrammaticFocus: Story = () => {
+  const responsiveVerticalMenuHandle =
+    useRef<ResponsiveVerticalMenuHandle>(null);
+
+  return (
+    <>
+      <GlobalHeader>
+        <ResponsiveVerticalMenu
+          ref={responsiveVerticalMenuHandle}
+          height="100%"
+        >
+          <ResponsiveVerticalMenuItem
+            icon="home"
+            id="primary-menu"
+            label="Primary Menu With Children"
+          >
+            <ResponsiveVerticalMenuItem
+              id="secondary-menu"
+              label="Secondary Menu With Children"
+            >
+              <ResponsiveVerticalMenuItem
+                id="tertiary-menu"
+                label="Tertiary Menu"
+              />
+            </ResponsiveVerticalMenuItem>
+            <ResponsiveVerticalMenuItem
+              id="secondary-menu-no-children"
+              label="Secondary Menu Item"
+            />
+          </ResponsiveVerticalMenuItem>
+          <ResponsiveVerticalMenuItem
+            icon="home"
+            id="primary-menu-no-children"
+            label="Primary Menu Item"
+          />
+        </ResponsiveVerticalMenu>
+      </GlobalHeader>
+      <Button
+        mt={5}
+        onClick={() =>
+          responsiveVerticalMenuHandle.current?.focusLaunchButton()
+        }
+      >
+        Focus Launch Button
+      </Button>
+    </>
+  );
+};
+ProgrammaticFocus.storyName = "Focusing Launch Button Programmatically";
+ProgrammaticFocus.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithDivider: Story = () => {
   return (
