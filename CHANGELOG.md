@@ -1,3 +1,9 @@
+## [157.7.0](https://github.com/Sage/carbon/compare/v157.6.2...v157.7.0) (2025-10-20)
+
+### Features
+
+* **responsive-vertical-menu:** add programmatic focus support for the responsive vertical menu ([1cdf5d7](https://github.com/Sage/carbon/commit/1cdf5d7a33b101dc5b7762d03f8fb94d12d8b146)), closes [#7574](https://github.com/Sage/carbon/issues/7574)
+
 ## [157.6.2](https://github.com/Sage/carbon/compare/v157.6.1...v157.6.2) (2025-10-17)
 
 ### Bug Fixes
