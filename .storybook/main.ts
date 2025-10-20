@@ -18,6 +18,7 @@ const getStories = () =>
     ...(ignoreTests && {
       ignore: [
         `${projectRoot}/src/**/*-@(interaction|test).stories.@(js|jsx|ts|tsx)`,
+        `${projectRoot}/src/__internals__/__stories__/*.*`,
       ],
     }),
   });
