@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { act, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { Tabs, Tab } from ".";
+import { Tabs, Tab, TabsHandle } from ".";
 import { StyledTabsHeaderWrapper } from "./__internal__/tabs-header/tabs-header.style";
 import StyledTab from "./tab/tab.style";
 import {
   assertLoggerComponentMessage,
   testStyledSystemMargin,
 } from "../../__spec_helper__/__internal__/test-utils";
+import Button from "../button";
 import Drawer from "../drawer";
 import Textbox from "../textbox";
 import NumeralDate from "../numeral-date";
@@ -147,6 +148,74 @@ test("should throw an error if rendered with `headerWidth` prop and `position` p
   );
 
   consoleSpy.mockRestore();
+});
+
+test("calling exposed focusTab method with correct tabId focuses chosen tab", async () => {
+  const user = userEvent.setup();
+  const MockComponent = () => {
+    const tabsHandle = React.useRef<TabsHandle>(null);
+
+    return (
+      <>
+        <Tabs ref={tabsHandle}>
+          <Tab title="Tab Title 1" tabId="uniqueid1">
+            TabContent
+          </Tab>
+        </Tabs>
+        <Button onClick={() => tabsHandle.current?.focusTab("uniqueid1")}>
+          Press me to focus on the only tab
+        </Button>
+      </>
+    );
+  };
+
+  render(<MockComponent />);
+  const button = screen.getByRole("button", {
+    name: "Press me to focus on the only tab",
+  });
+
+  await user.click(button);
+
+  const tab = screen.getByRole("tab", {
+    name: "Tab Title 1",
+  });
+
+  expect(tab).toHaveFocus();
+});
+
+test("exposed focusTab method handles being called with invalid tabId", async () => {
+  const user = userEvent.setup();
+  const MockComponent = () => {
+    const tabsHandle = React.useRef<TabsHandle>(null);
+
+    return (
+      <>
+        <Tabs ref={tabsHandle}>
+          <Tab title="Tab Title 1" tabId="uniqueid1">
+            TabContent
+          </Tab>
+        </Tabs>
+        <Button
+          onClick={() => tabsHandle.current?.focusTab("completely-wrong-id")}
+        >
+          Press me to focus on the only tab
+        </Button>
+      </>
+    );
+  };
+
+  render(<MockComponent />);
+  const button = screen.getByRole("button", {
+    name: "Press me to focus on the only tab",
+  });
+
+  await user.click(button);
+
+  const tab = screen.getByRole("tab", {
+    name: "Tab Title 1",
+  });
+
+  expect(tab).not.toHaveFocus();
 });
 
 test("the `selectedTabId` prop determines which child `Tab` is displayed", () => {
