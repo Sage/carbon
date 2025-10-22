@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import Textbox, { TextboxProps } from "../textbox";
+import TextInput, { TextInputProps } from "../text-input";
 import {
   ALIGN_DEFAULT,
   LABEL_VALIDATION_DEFAULT,
@@ -8,7 +8,7 @@ import {
 } from "../textbox/textbox.component";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 
-export interface NumberProps extends Omit<TextboxProps, "value"> {
+export interface NumberProps extends Omit<TextInputProps, "value"> {
   /** Value passed to the input */
   value: string;
 }
@@ -60,7 +60,7 @@ export const Number = React.forwardRef(
       }
     };
     return (
-      <Textbox
+      <TextInput
         {...rest}
         value={value}
         onChange={handleOnChange}

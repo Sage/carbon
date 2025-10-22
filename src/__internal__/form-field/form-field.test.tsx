@@ -87,7 +87,10 @@ test("should not render with `labelInline` when `adaptiveLabelBreakpoint` set an
     />,
   );
 
-  expect(screen.getByTestId("field-line")).toHaveStyle("display: block");
+  expect(screen.getByTestId("field-line")).toHaveStyle("display: flex");
+  expect(screen.getByTestId("field-line")).toHaveStyle(
+    "flex-direction: column",
+  );
 });
 
 test("should render with `labelInline` when `adaptiveLabelBreakpoint` set and screen is bigger than the breakpoint", () => {

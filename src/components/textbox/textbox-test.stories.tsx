@@ -135,7 +135,9 @@ export const NewValidation = () => {
   return (
     <CarbonProvider validationRedesignOptIn>
       <Textbox
+        size="large"
         name="textbox1"
+        inputHint="HWTL"
         label="Textbox"
         error="Error Message"
         value={state["textbox1"] || ""}
@@ -169,6 +171,188 @@ export const NewValidation = () => {
 };
 NewValidation.storyName = "New Validation";
 NewValidation.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
+
+export const NewValidationInline = ({ ...args }: Partial<TextboxProps>) => {
+  const { state, setValue } = useMultiInput();
+
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      <Box display="flex" flexDirection="row" gap="5px">
+        <Box width="400px" backgroundColor="#f5f5f5" p={2}>
+          <Textbox
+            label="Just a label"
+            labelInline
+            mb={2}
+            name="Textbox-il"
+            value={state["textbox1"] || ""}
+            onChange={setValue}
+            {...args}
+          />
+          <Textbox
+            labelInline
+            label="Label"
+            inputHint="Hint text"
+            mb={2}
+            name="Textbox-il-hint"
+            value={state["textbox2"] || ""}
+            onChange={setValue}
+            {...args}
+          />
+          <Textbox
+            labelInline
+            inputHint="Just hint text"
+            fieldHelp="fieldHelp"
+            labelSpacing={1}
+            name="Textbox-il-field"
+            value={state["textbox3"] || ""}
+            onChange={setValue}
+            {...args}
+          />
+          <Textbox
+            label="Label"
+            labelInline
+            labelWidth={50}
+            inputHint="Really long hint text that should wrap to the next line if it gets too long because labelWidth is set to 50%"
+            fieldHelp="field help"
+            mt={2}
+            name="Textbox-il-long-help"
+            value={state["textbox4"] || ""}
+            onChange={setValue}
+          />
+          <Textbox
+            required
+            labelAlign="right"
+            label="Label"
+            inputHint="Hint text"
+            error="Error Message (Fix is required)"
+            labelInline
+            my={2}
+            name="Textbox-il-hint-error"
+            value={state["textbox5"] || ""}
+            onChange={setValue}
+            {...args}
+          />
+          <Textbox
+            label="Label"
+            inputHint="Hint text"
+            error="Error Message (Fix is required)"
+            labelInline
+            characterLimit={500}
+            my={2}
+            name="Textbox-il-hint-error"
+            value={state["textbox5"] || ""}
+            onChange={setValue}
+            {...args}
+          />
+          <Textbox
+            label="Label"
+            inputHint="Hint text"
+            error="Error Message (Fix is required)"
+            labelInline
+            characterLimit={500}
+            my={2}
+            validationMessagePositionTop={false}
+            name="Textbox-il-hint-error"
+            value={state["textbox5"] || ""}
+            onChange={setValue}
+            {...args}
+          />
+        </Box>
+        <Box width="400px" backgroundColor="#f5f5f5" p={2}>
+          <Textbox
+            required
+            labelAlign="right"
+            label="Label"
+            inputHint="Hint text"
+            error="Error Message (Fix is required)"
+            labelInline
+            my={2}
+            name="Textbox-il-hint-error"
+            value={state["textbox5"] || ""}
+            onChange={setValue}
+            {...args}
+          />
+          <Textbox
+            label="Label"
+            inputHint="Hint text"
+            error="Error Message (Fix is required)"
+            labelInline
+            characterLimit={500}
+            my={2}
+            name="Textbox-il-hint-error"
+            value={state["textbox5"] || ""}
+            onChange={setValue}
+            {...args}
+          />
+          <Textbox
+            label="Label"
+            inputHint="Hint text"
+            error="Error Message (Fix is required)"
+            labelInline
+            characterLimit={500}
+            my={2}
+            validationMessagePositionTop={false}
+            name="Textbox-il-hint-error"
+            value={state["textbox5"] || ""}
+            onChange={setValue}
+            {...args}
+          />
+          <Textbox
+            label="Label"
+            size="small"
+            inputHint="Hint text"
+            error="Error Message (Fix is required)"
+            labelInline
+            characterLimit={500}
+            my={2}
+            validationMessagePositionTop={false}
+            name="Textbox-il-hint-error"
+            value={state["textbox5"] || ""}
+            onChange={setValue}
+            {...args}
+          />
+          <Textbox
+            label="Label"
+            size="medium"
+            inputHint="Hint text"
+            error="Error Message (Fix is required)"
+            labelInline
+            characterLimit={500}
+            my={2}
+            validationMessagePositionTop={false}
+            name="Textbox-il-hint-error"
+            value={state["textbox5"] || ""}
+            onChange={setValue}
+            {...args}
+          />
+          <Textbox
+            label="Label"
+            size="large"
+            inputHint="Hint text"
+            error="Error Message (Fix is required)"
+            labelInline
+            characterLimit={500}
+            my={2}
+            validationMessagePositionTop={false}
+            name="Textbox-il-hint-error"
+            value={state["textbox5"] || ""}
+            onChange={setValue}
+            {...args}
+          />
+        </Box>
+      </Box>
+    </CarbonProvider>
+  );
+};
+NewValidationInline.storyName = "New Validation Inline";
+NewValidationInline.args = {
+  labelInline: true,
+  LabelAlign: "right",
+};
+NewValidationInline.parameters = {
   chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
 };

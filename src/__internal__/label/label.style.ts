@@ -24,6 +24,7 @@ const StyledLabel = styled.label<StyledLabelProps>`
     css`
       font-size: var(--fontSizes200);
     `}
+  line-height: 150%;
 
   ${({ isRequired }) =>
     isRequired &&
@@ -54,27 +55,36 @@ export interface StyledLabelContainerProps {
   pl?: 1 | 2;
   /** Label width */
   width?: number;
+  validationRedesignOptIn?: boolean;
+  marginBttom?: string;
 }
 
 export const StyledLabelContainer = styled.div<StyledLabelContainerProps>`
   display: flex;
-  align-items: center;
-  margin-bottom: 8px;
-
+  align-items: ${({ validationRedesignOptIn }) =>
+    validationRedesignOptIn ? "top" : "center"};
+  ${({ inline }) => css`
+    text-align: ${inline ? "right" : "left"};
+  `}
+  ${({ marginBttom }) => css`
+    margin-bottom: ${marginBttom};
+  `}
   ${({ align }) => css`
     justify-content: ${align !== "right" ? "flex-start" : "flex-end"};
   `}
 
-  ${({ inline, pr, pl, width }) =>
+  ${({ inline, validationRedesignOptIn, pr, pl, width }) =>
     inline &&
     css`
       box-sizing: border-box;
       margin-bottom: 0;
       ${pr &&
+      !validationRedesignOptIn &&
       css`
         padding-right: var(${pr === 1 ? "--spacing100" : "--spacing200"});
       `};
       ${pl &&
+      !validationRedesignOptIn &&
       css`
         padding-left: var(${pl === 1 ? "--spacing100" : "--spacing200"});
       `};

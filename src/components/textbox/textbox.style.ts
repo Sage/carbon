@@ -8,7 +8,7 @@ const ErrorBorder = styled.span`
     background-color: ${warning
       ? "var(--colorsSemanticCaution500)"
       : "var(--colorsSemanticNegative500)"};
-    left: -12px;
+    left: -10px;
     bottom: 0px;
     top: 0px;
   `}

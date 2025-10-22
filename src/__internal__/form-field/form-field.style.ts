@@ -17,10 +17,13 @@ const FormFieldStyle = styled.div.attrs(applyBaseTheme)`
 export interface FieldLineStyleProps {
   inline?: boolean;
   maxWidth?: string;
+  gap?: string;
 }
 const FieldLineStyle = styled.div<FieldLineStyleProps>`
-  ${({ inline, maxWidth }) => css`
-    display: ${inline ? "flex" : "block"};
+  ${({ inline, maxWidth, gap }) => css`
+    ${gap && `gap: ${gap};`}
+    display: flex;
+    flex-direction: ${inline ? "row" : "column"};
     ${maxWidth && `max-width: ${maxWidth};`}
   `}
 `;
