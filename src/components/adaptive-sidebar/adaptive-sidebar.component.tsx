@@ -74,17 +74,16 @@ export const AdaptiveSidebar = ({
     }
   }, [open]);
 
-  // Remove inert attribute from elements when sidebar is hidden
-  /* istanbul ignore next */
-  useEffect(() => {
-    if (!hidden || !open) return;
+  // // Remove inert attribute from elements when sidebar is hidden
+  // /* istanbul ignore next */
+  // useEffect(() => {
+  //   if (!hidden || !open) return;
 
-    const inertElements = document.querySelectorAll("[inert]");
-
-    inertElements.forEach((element) => {
-      element.removeAttribute("inert");
-    });
-  }, [hidden, open]);
+  //   const inertElements = document.querySelectorAll("[inert]");
+  //   inertElements.forEach((element) => {
+  //     element.removeAttribute("inert");
+  //   });
+  // }, [hidden, open]);
 
   /* When the adaptive sidebar is conditionally rendered as a modal
    * we need to blur the previously active element to ensure

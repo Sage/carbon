@@ -3,6 +3,7 @@ import TopModalContext from "../../../components/carbon-provider/__internal__/to
 
 export default function useModalAria(
   containerRef: React.RefObject<HTMLDivElement>,
+  hidden?: boolean,
 ) {
   const { topModal } = useContext(TopModalContext);
   const isTopModal = topModal?.contains(containerRef.current);
@@ -14,7 +15,7 @@ export default function useModalAria(
       inert: string | null;
     }[] = [];
     const hideNonTopModalElements = (rootElement: HTMLElement) => {
-      if (rootElement.dataset.notInert === "true") {
+      if (hidden || rootElement.dataset.notInert === "true") {
         // stop recursing, and do nothing, if the container has the "data-not-inert" flag
         return;
       }
