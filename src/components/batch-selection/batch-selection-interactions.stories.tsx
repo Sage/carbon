@@ -3,7 +3,6 @@ import { StoryFn, StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/test";
 import BatchSelection from ".";
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
-import userInteractionPause from "../../../.storybook/utils/user-interaction-pause";
 import IconButton from "../icon-button";
 import Icon from "../icon";
 import Button from "../button";
@@ -41,12 +40,9 @@ export const ClickBatchSelection: Story = {
     if (!allowInteractions()) {
       return;
     }
-    await userInteractionPause(500);
 
     const canvas = within(canvasElement);
     const itemButton = canvas.getAllByRole("button");
-
-    await userInteractionPause(500);
     await userEvent.click(itemButton[0]);
     await userEvent.click(itemButton[1]);
     await userEvent.click(itemButton[2]);
@@ -91,7 +87,6 @@ export const hoverBatchSelection: Story = {
     const canvas = within(canvasElement);
     const ibutton = canvas.getAllByRole("button");
 
-    await userInteractionPause(1000);
     await userEvent.tab();
     await userEvent.hover(ibutton[0]);
     await userEvent.tab();
@@ -112,6 +107,6 @@ export const hoverBatchSelection: Story = {
 hoverBatchSelection.storyName = "Hover";
 hoverBatchSelection.parameters = {
   pseudo: {
-    hover: '[data-component="icon-button"]',
+    hover: '[data-component="button"], [data-component="icon-button"]',
   },
 };
