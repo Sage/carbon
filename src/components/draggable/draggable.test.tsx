@@ -6,7 +6,6 @@ import {
   waitFor,
   within,
 } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import {
   testStyledSystemMargin,
   testStyledSystemPadding,
@@ -22,41 +21,53 @@ afterEach(() => {
 test("dragging an item and dropping it after another item within the target container should reorder the items", () => {
   render(
     <DraggableContainer>
-      <DraggableItem id="apple">Apple</DraggableItem>
-      <DraggableItem id="mercury">Mercury</DraggableItem>
-      <DraggableItem id="venus">Venus</DraggableItem>
+      <DraggableItem id="apple" data-role="apple">
+        Apple - Drag me!
+      </DraggableItem>
+      <DraggableItem id="mercury" data-role="mercury">
+        Mercury - Drag me!
+      </DraggableItem>
+      <DraggableItem id="venus" data-role="venus">
+        Venus - Drag me!
+      </DraggableItem>
     </DraggableContainer>,
   );
 
-  const apple = screen.getByText("Apple");
-  const venus = screen.getByText("Venus");
+  const apple = screen.getByTestId("apple");
+  const venus = screen.getByTestId("venus");
   fireEvent.dragStart(apple);
   fireEvent.dragEnter(venus);
   fireEvent.dragOver(venus);
   fireEvent.drop(venus);
   fireEvent.dragEnd(apple);
 
-  const allItems = screen.getAllByTestId("draggable-item");
+  const allItems = screen.getAllByText(/Drag me/);
   expect(allItems).toHaveLength(3);
-  expect(allItems[0]).toHaveTextContent("Mercury");
-  expect(allItems[1]).toHaveTextContent("Venus");
-  expect(allItems[2]).toHaveTextContent("Apple");
+  expect(allItems[0]).toHaveTextContent(/Mercury/);
+  expect(allItems[1]).toHaveTextContent(/Venus/);
+  expect(allItems[2]).toHaveTextContent(/Apple/);
 });
 
 test("dragging an item and dropping it outside of the target container should not reorder the items", () => {
   render(
     <>
       <DraggableContainer>
-        <DraggableItem id="apple">Apple</DraggableItem>
-        <DraggableItem id="mercury">Mercury</DraggableItem>
-        <DraggableItem id="venus">Venus</DraggableItem>
+        <DraggableItem id="apple" data-role="apple">
+          Apple - Drag me!
+        </DraggableItem>
+        <DraggableItem id="mercury" data-role="mercury">
+          Mercury - Drag me!
+        </DraggableItem>
+        <DraggableItem id="venus" data-role="venus">
+          Venus - Drag me!
+        </DraggableItem>
       </DraggableContainer>
       <p>Outer content</p>
     </>,
   );
 
-  const apple = screen.getByText("Apple");
-  const venus = screen.getByText("Venus");
+  const apple = screen.getByTestId("apple");
+  const venus = screen.getByTestId("venus");
   fireEvent.dragStart(apple);
   fireEvent.dragEnter(venus);
   fireEvent.dragOver(venus);
@@ -65,7 +76,7 @@ test("dragging an item and dropping it outside of the target container should no
   fireEvent.drop(screen.getByText("Outer content"));
   fireEvent.dragEnd(apple);
 
-  const allItems = screen.getAllByTestId("draggable-item");
+  const allItems = screen.getAllByText(/Drag me/);
   expect(allItems).toHaveLength(3);
   expect(allItems[0]).toHaveTextContent("Apple");
   expect(allItems[1]).toHaveTextContent("Mercury");
@@ -99,14 +110,20 @@ test("calls getOrder callback, with an array of the new item order and the dragg
   const getOrder = jest.fn();
   render(
     <DraggableContainer getOrder={getOrder}>
-      <DraggableItem id="apple">Apple</DraggableItem>
-      <DraggableItem id="mercury">Mercury</DraggableItem>
-      <DraggableItem id="venus">Venus</DraggableItem>
+      <DraggableItem id="apple" data-role="apple">
+        Apple
+      </DraggableItem>
+      <DraggableItem id="mercury" data-role="mercury">
+        Mercury
+      </DraggableItem>
+      <DraggableItem id="venus" data-role="venus">
+        Venus
+      </DraggableItem>
     </DraggableContainer>,
   );
 
-  const apple = screen.getByText("Apple");
-  const venus = screen.getByText("Venus");
+  const apple = screen.getByTestId("apple");
+  const venus = screen.getByTestId("venus");
   fireEvent.dragStart(apple);
   fireEvent.dragEnter(venus);
   fireEvent.dragOver(venus);
@@ -118,29 +135,20 @@ test("calls getOrder callback, with an array of the new item order and the dragg
 });
 
 test("the actual rendered item element is hidden from view while the item is dragged", async () => {
-  jest.useFakeTimers();
-
-  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(
     <DraggableContainer>
-      <DraggableItem id="apple">Apple</DraggableItem>
+      <DraggableItem id="apple" data-role="apple">
+        Apple
+      </DraggableItem>
     </DraggableContainer>,
   );
 
-  const apple = screen.getByText("Apple");
-  await user.pointer({ keys: "[MouseLeft>]", target: apple });
+  const apple = screen.getByTestId("apple");
   fireEvent.dragStart(apple);
-  await user.pointer({ target: apple, coords: { x: 0, y: 0 } });
 
   await waitFor(() => {
-    expect(screen.getByTestId("draggable-item")).not.toBeVisible();
+    expect(apple).not.toBeVisible();
   });
-
-  fireEvent.dragEnd(apple);
-  await user.pointer("[/MouseLeft]");
-
-  jest.runOnlyPendingTimers();
-  jest.useRealTimers();
 });
 
 test("items are reordered when their order is manually changed", () => {
@@ -223,7 +231,7 @@ testStyledSystemPadding(
       </DraggableItem>
     </DraggableContainer>
   ),
-  () => screen.getByTestId("draggable-item"),
+  () => screen.getByTestId("draggable-item-content"),
 );
 
 test("should render with default padding when no padding props are passed", () => {
@@ -233,11 +241,11 @@ test("should render with default padding when no padding props are passed", () =
     </DraggableContainer>,
   );
 
-  expect(screen.getByTestId("draggable-item")).toHaveStyleRule(
+  expect(screen.getByTestId("draggable-item-content")).toHaveStyleRule(
     "padding-top",
     "var(--spacing100)",
   );
-  expect(screen.getByTestId("draggable-item")).toHaveStyleRule(
+  expect(screen.getByTestId("draggable-item-content")).toHaveStyleRule(
     "padding-bottom",
     "var(--spacing100)",
   );

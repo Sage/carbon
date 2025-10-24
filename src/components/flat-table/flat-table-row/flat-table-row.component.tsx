@@ -20,7 +20,7 @@ import FlatTableRowContext from "./__internal__/flat-table-row.context";
 import SubRowProvider, { SubRowContext } from "./__internal__/sub-row-provider";
 import { buildPositionMap } from "../__internal__";
 import FlatTableHeadContext from "../flat-table-head/__internal__/flat-table-head.context";
-import { useSortableItem } from "../../../__internal__/sortable";
+import { useSortableRow } from "../__internal__/sortable";
 
 export interface FlatTableRowProps extends TagProps {
   /** Overrides default cell color, provide design token, any color from palette or any valid css color value. */
@@ -262,7 +262,7 @@ export const FlatTableRow = React.forwardRef<
       return isSubRow ? "flat-table-sub-row" : "flat-table-row";
     };
 
-    const { isDragging } = useSortableItem({
+    const { isDragging } = useSortableRow({
       id: internalId.current,
       index: draggableProps?.index as number,
       ref: !!draggableProps ? rowRef : null,

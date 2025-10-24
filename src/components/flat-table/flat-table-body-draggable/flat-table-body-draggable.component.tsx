@@ -10,7 +10,7 @@ import arrayMove from "../../../__internal__/utils/helpers/array-move";
 import {
   DragDropProvider,
   DragDropProviderProps,
-} from "../../../__internal__/sortable";
+} from "../__internal__/sortable";
 
 export interface FlatTableBodyDraggableProps extends TagProps {
   /** Array of FlatTableRow. */

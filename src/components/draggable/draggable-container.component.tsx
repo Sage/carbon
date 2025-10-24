@@ -8,11 +8,11 @@ import DraggableItem, {
 } from "./draggable-item/draggable-item.component";
 import { TagProps } from "../../__internal__/utils/helpers/tags";
 import { StyledDraggableContainer } from "./draggable-item/draggable-item.style";
-import arrayMove from "../../__internal__/utils/helpers/array-move";
 import {
   DragDropProvider,
-  DragDropProviderProps,
-} from "../../__internal__/sortable";
+  type DragDropProviderProps,
+} from "./__internal__/drag-drop-provider";
+import arrayMove from "../../__internal__/utils/helpers/array-move";
 
 export interface DraggableContainerProps extends MarginProps, TagProps {
   /** Callback fired when an item is successfully dropped. */
@@ -78,34 +78,7 @@ const DraggableContainer = ({
 
   const handleDrop: DragDropProviderProps["onDrop"] = ({ dragged, target }) => {
     if (target) {
-      const childIds = draggableItems.map((child) => child.props.id);
-      getOrder?.(childIds, dragged.id);
-      return;
-    }
-
-    // Move dragged item back to original position
-    setDraggableItems(
-      arrayMove({
-        array: draggableItems,
-        startIndex: draggableItems.findIndex(
-          (child) => String(child.props.id) === dragged.id,
-        ),
-        endIndex: dragged.initialIndex,
-      }),
-    );
-  };
-
-  const handleDropTargetChange: DragDropProviderProps["onDropTargetChange"] = ({
-    dragged,
-    target,
-  }) => {
-    if (!target) {
-      return;
-    }
-
-    // Move dragged item to new position
-    setDraggableItems(
-      arrayMove({
+      const reorderedItems = arrayMove({
         array: draggableItems,
         startIndex: draggableItems.findIndex(
           (child) => String(child.props.id) === dragged.id,
@@ -113,8 +86,25 @@ const DraggableContainer = ({
         endIndex: draggableItems.findIndex(
           (child) => String(child.props.id) === target.id,
         ),
-      }),
-    );
+      });
+
+      const reorderedIds = reorderedItems.map((child) => child.props.id);
+      getOrder?.(reorderedIds, dragged.id);
+
+      // Move dragged item to new position
+      setDraggableItems(reorderedItems);
+    } else {
+      // Move dragged item back to original position
+      setDraggableItems(
+        arrayMove({
+          array: draggableItems,
+          startIndex: draggableItems.findIndex(
+            (child) => String(child.props.id) === dragged.id,
+          ),
+          endIndex: dragged.initialIndex,
+        }),
+      );
+    }
   };
 
   return (
@@ -124,10 +114,7 @@ const DraggableContainer = ({
       data-role={dataRole}
       {...marginProps}
     >
-      <DragDropProvider
-        onDrop={handleDrop}
-        onDropTargetChange={handleDropTargetChange}
-      >
+      <DragDropProvider onDrop={handleDrop}>
         {draggableItems.map((item, index) => {
           return React.cloneElement(
             item,
