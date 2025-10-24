@@ -15,6 +15,7 @@
     "**/*.test.*",
     "**/*.stories.*",
     "**/*.pw.ts*",
-    "**/*.test-pw.ts*"
+    "**/*.test-pw.ts*",
+    "**/tokens-wrapper/__internal__/*"
   ]
 }

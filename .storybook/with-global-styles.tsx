@@ -8,4 +8,5 @@ const withGlobalStyles: Decorator = (Story) => (
     <Story />
   </>
 );
+
 export default withGlobalStyles;
