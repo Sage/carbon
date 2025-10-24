@@ -1,1 +1,1 @@
-export { default } from "./read-only-rte.component";
+export { default } from "./__ui__/Mentions/";

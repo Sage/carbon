@@ -23,6 +23,9 @@ const meta: Meta<typeof Note> = {
   argTypes: {
     ...styledSystemProps,
   },
+  parameters: {
+    themeProvider: { chromatic: { theme: "sage" } },
+  },
 };
 
 export default meta;
