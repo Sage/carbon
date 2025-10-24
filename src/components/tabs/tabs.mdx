@@ -53,6 +53,18 @@ The tabs widget also allows you to select a tab on page load. By default this is
 
 <Canvas of={TabsStories.DefaultStory} />
 
+### Focusing a Tab Programmatically
+
+```javascript
+import { TabsHandle } from "carbon-react/lib/components/tabs";
+```
+
+The `TabsHandle` type provides an imperative handle for programmatic control over a desired `Tab`. 
+Using a ref, you can access its `focusTab()` method which accepts a `tabId` parameter.
+Pass the same ID that you've assigned to the `tabId` prop on the `Tab` you want to focus.
+
+<Canvas of={TabsStories.ProgrammaticFocus} />
+
 ### Positioned top and aligned right
 
 <Canvas of={TabsStories.PositionedTopAlignedRight} />
