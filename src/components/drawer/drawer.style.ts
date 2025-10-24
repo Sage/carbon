@@ -1,184 +1,107 @@
-import styled, { css, keyframes } from "styled-components";
-import StyledTabs from "../tabs/tabs.style";
-import Box from "../box";
-import StyledStickyFooter from "../../__internal__/sticky-footer/sticky-footer.style";
+import styled, { css } from "styled-components";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 
-const defaultExpandedWidth = "var(--sizing500)";
+export const StyledSidebarTitle = styled.div<{ stickyHeader?: boolean }>`
+  padding: var(--spacing300);
 
-const StyledSidebarHeader = styled.div<{ isExpanded?: boolean }>`
-  ${({ isExpanded }) => css`
-    position: sticky;
-    top: 0;
-
-    ${isExpanded &&
+  ${({ stickyHeader }) =>
+    stickyHeader &&
     css`
-      border-bottom: var(--sizing010) solid #ccd6db;
+      position: sticky;
+      top: 0;
+      border-bottom: var(--sizing010) solid #a0a0a0;
     `}
-  `}
 `;
 
-const StyledSidebarTitle = styled.div`
-  white-space: nowrap;
-  padding: var(--spacing300) var(--spacing500);
-`;
+export const StyledSidebarFooter = styled.div<{ stickyFooter?: boolean }>`
+  padding: var(--spacing300);
+  background-color: var(--colorsUtilityYang100);
 
-const StyledDrawerChildren = styled.div`
-  flex: 1;
-  margin-left: 1px;
-  overflow: auto;
-`;
-
-interface StyledDrawerSidebarProps {
-  isExpanded?: boolean;
-  hasControls: boolean;
-}
-
-const StyledDrawerSidebar = styled(Box)<StyledDrawerSidebarProps>`
-  ${({ hasControls, isExpanded }) => css`
-    ${!isExpanded &&
+  ${({ stickyFooter }) =>
+    stickyFooter &&
     css`
-      display: none;
-      opacity: 0;
+      position: sticky;
+      bottom: 0;
     `}
-
-    ${isExpanded &&
-    css`
-      display: flex;
-      flex-direction: column;
-      flex: 1 1 0%;
-    `}
-
-      ${hasControls &&
-    css`
-      ${StyledTabs} {
-        margin-top: 48px;
-        ${!isExpanded &&
-        css`
-          display: none;
-        `}
-      }
-    `}
-  `}
-
-  &::-webkit-scrollbar {
-    width: 12px;
-  }
 `;
 
-const sidebarVisible = () => keyframes`
-  0% {opacity: 0;}
-  50% {opacity: 0;}
-  100% {opacity: 1;}
-`;
-
-const sidebarHidden = () => keyframes`
-  0% {opacity: 1;}
-  100% {opacity: 0; display: none;}
-`;
-
-const drawerOpen = (expandedWidth: string) => keyframes`
-  0% {
-    width: ${defaultExpandedWidth};
-    overflow: hidden;
-    min-width: ${defaultExpandedWidth};
-  }
-  100% {
-    width: ${expandedWidth};
-    min-width: 52px;
-  }
-`;
-
-const drawerClose = (expandedWidth: string) => keyframes`
-  0% {width: ${expandedWidth};}
-  100% {width: ${defaultExpandedWidth};}
-`;
-
-const buttonOpen = () => keyframes`
-  0% {float: right;}
-  100% {float: right;}
-`;
-
-const buttonClose = () => keyframes`
-  0% {float: right;}
-  80% {float: right;}
-  100% {float: left;}
+const StyledDrawerSidebar = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0%;
+  overflow-y: auto;
+  outline: none;
 `;
 
 interface StyledDrawerContentProps {
   animationDuration?: string;
   backgroundColor?: string;
-  expandedWidth: string;
+  expandedWidth?: string;
+  isExpanded?: boolean;
+  showControls?: boolean;
 }
 
 const StyledDrawerContent = styled.aside<StyledDrawerContentProps>`
-  display: flex;
-  flex-direction: column;
-  min-width: ${defaultExpandedWidth};
-  width: ${defaultExpandedWidth};
-  min-height: 40px;
-  height: auto;
-  position: relative;
-  overflow: auto;
+  ${({
+    animationDuration,
+    backgroundColor,
+    expandedWidth,
+    isExpanded,
+    showControls,
+  }) => css`
+    flex-direction: column;
+    height: auto;
+    position: relative;
+    overflow: auto;
+    display: flex;
+    min-width: "288px";
+    width: ${expandedWidth};
+    max-width: "760px";
 
-  ${({ backgroundColor }) => css`
-    background-color: ${backgroundColor || "var(--colorsUtilityMajor040)"};
-    border-right: 1px solid ${backgroundColor || "var(--colorsUtilityMajor075)"};
+    ${!isExpanded &&
+    css`
+      display: none;
+      width: 0;
+      min-width: 0;
+    `}
+
+    background-color: ${backgroundColor || "var(--colorsUtilityYang100)"};
+
+    ${showControls &&
+    css`
+      display: flex;
+      overflow: hidden;
+      min-height: 40px;
+      transition: all ${animationDuration} ease-in-out;
+
+      ${StyledDrawerSidebar}, ${StyledSidebarTitle}, ${StyledSidebarFooter} {
+        transition: all ${animationDuration} ease-in-out;
+        white-space: nowrap;
+        overflow: hidden;
+        opacity: 1;
+      }
+
+      ${!isExpanded &&
+      css`
+        min-width: var(--sizing500);
+        width: var(--sizing500);
+        ${StyledDrawerSidebar}, ${StyledSidebarTitle}, ${StyledSidebarFooter} {
+          opacity: 0;
+        }
+      `}
+    `}
   `};
-
-  &.open {
-    min-width: 52px;
-    width: ${({ expandedWidth }) => expandedWidth};
-
-    ${StyledDrawerSidebar}, ${StyledSidebarTitle} {
-      display: block;
-      opacity: 1;
-    }
-  }
-
-  &.opening {
-    animation: ${({ animationDuration, expandedWidth }) => css`
-        ${drawerOpen(expandedWidth)} ${animationDuration}
-      `}
-      ease-in-out;
-
-    ${StyledDrawerSidebar}, ${StyledSidebarTitle} {
-      animation: ${sidebarVisible}
-        ${({ animationDuration }) => animationDuration} ease-in-out;
-    }
-  }
-
-  &.closed {
-    overflow: hidden;
-    ${StyledDrawerSidebar}, ${StyledSidebarTitle}, ${StyledStickyFooter} {
-      display: block;
-      opacity: 0;
-    }
-  }
-
-  &.closing {
-    animation: ${({ animationDuration, expandedWidth }) => css`
-        ${drawerClose(expandedWidth)} ${animationDuration}
-      `}
-      ease-in-out;
-
-    ${StyledDrawerSidebar}, ${StyledSidebarTitle}, ${StyledStickyFooter} {
-      animation: ${sidebarHidden}
-        ${({ animationDuration }) => animationDuration} ease-in-out;
-    }
-  }
 `;
 
 interface StyledSidebarToggleButtonProps {
-  animationDuration?: string;
   isExpanded?: boolean;
 }
 
 const StyledSidebarToggleButton = styled.button.attrs(applyBaseTheme).attrs({
   type: "button",
 })<StyledSidebarToggleButtonProps>`
-  ${({ animationDuration, isExpanded }) => css`
+  ${({ isExpanded }) => css`
     position: absolute;
     top: var(--spacing300);
     right: 8px;
@@ -188,12 +111,11 @@ const StyledSidebarToggleButton = styled.button.attrs(applyBaseTheme).attrs({
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: margin-right ${animationDuration} ease-in-out;
     background-color: transparent;
     border: none;
     z-index: 1;
-    animation: ${buttonClose} ${animationDuration} ease-in-out;
     border-radius: var(--borderRadius050);
+    transform: rotate(0deg);
 
     &:focus {
       ${addFocusStyling()}
@@ -205,23 +127,21 @@ const StyledSidebarToggleButton = styled.button.attrs(applyBaseTheme).attrs({
 
     ${isExpanded &&
     css`
-      transform: scaleX(-1);
-      animation: ${buttonOpen} ${animationDuration} ease-in-out;
+      transform: rotate(180deg);
     `}
   `}
 `;
 
-const StyledDrawerWrapper = styled.div<{ height: string }>`
+const StyledDrawerWrapper = styled.div<{ height?: string }>`
   display: flex;
-  height: ${({ height }) => height};
+  ${({ height }) => css`
+    height: ${height};
+  `}
 `;
 
 export {
-  StyledSidebarHeader,
   StyledDrawerWrapper,
   StyledDrawerContent,
-  StyledDrawerChildren,
   StyledDrawerSidebar,
-  StyledSidebarTitle,
   StyledSidebarToggleButton,
 };
