@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
+import addFocusStyling from "../../style/utils/add-focus-styling";
 import StyledIcon from "../icon/icon.style";
 import StyledButton from "../button/button.style";
 
@@ -24,6 +25,8 @@ export interface StyledLinkProps {
   iconAlign?: "left" | "right";
   /** Allows to create skip link */
   isSkipLink?: boolean;
+  /** Applies special focus styling for logo links */
+  isLogoFocused?: boolean;
   /** Allows link styling to be updated for light or dark backgrounds */
   variant?: Variants;
   hasFocus?: boolean;
@@ -111,6 +114,7 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
 >`
   ${({
     isSkipLink,
+    isLogoFocused,
     theme,
     iconAlign,
     hasContent,
@@ -198,10 +202,13 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
               }
             }
 
-            &:focus {
-              background-color: ${focusBgColor};
-              border-radius: var(--borderRadius025);
-            }
+            ${!isLogoFocused &&
+            css`
+              &:focus {
+                background-color: ${focusBgColor};
+                border-radius: var(--borderRadius025);
+              }
+            `}
           `}
 
           ${disabled &&
@@ -256,13 +263,27 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
         }
 
         &:focus {
-          color: ${focusColor};
-          outline: none;
-
-          ${StyledIcon} {
+          ${!isLogoFocused &&
+          css`
             color: ${focusColor};
-          }
+
+            ${StyledIcon} {
+              color: ${focusColor};
+            }
+          `}
+          outline: ${isLogoFocused ? "default" : "none"};
         }
+
+        ${isLogoFocused &&
+        !disabled &&
+        css`
+          display: inline-block;
+
+          &:focus {
+            ${addFocusStyling()}
+            border-radius: var(--borderRadius025);
+          }
+        `}
 
         ${disabled &&
         css`
@@ -273,6 +294,7 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
       ${!isSkipLink &&
       !disabled &&
       hasFocus &&
+      !isLogoFocused &&
       css`
         > a,
         > button {
@@ -289,6 +311,16 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
         &:has([data-popover-container-button="true"]) {
           border-bottom-left-radius: var(--borderRadius000);
           border-bottom-right-radius: var(--borderRadius000);
+        }
+      `}
+
+      ${isLogoFocused &&
+      !disabled &&
+      hasFocus &&
+      css`
+        > a,
+        > button {
+          ${addFocusStyling()}
         }
       `}
 

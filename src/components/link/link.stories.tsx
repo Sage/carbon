@@ -1,5 +1,7 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
+import carbonLogo from "../../../logo/carbon-logo.png";
+import GlobalHeader from "../global-header";
 
 import Link from ".";
 import Box from "../box";
@@ -327,3 +329,58 @@ export const Wrapping = () => {
   );
 };
 Wrapping.storyName = "Wrapping";
+
+export const WithLogo: Story = () => {
+  const Logo = () => <img height={28} src={carbonLogo} alt="Carbon logo" />;
+
+  return (
+    <Box display="flex" flexDirection="column" gap="32px">
+      <Box>
+        <Typography variant="h3" mb={2}>
+          Logo in GlobalHeader
+        </Typography>
+        <GlobalHeader>
+          <Box display="flex" alignItems="center" mr={2}>
+            <Link
+              href="#home"
+              ariaLabel="Carbon Home"
+              isLogoFocused
+              onClick={(e) => {
+                e.preventDefault();
+                alert("clicked");
+              }}
+            >
+              <Logo />
+            </Link>
+          </Box>
+          <Link href="#">Link</Link>
+          <Menu
+            menuType="black"
+            display="flex"
+            justifyContent="flex-end"
+            flex="1"
+          >
+            <MenuItem icon="entry" onClick={() => undefined} paddingX={1}>
+              Menu
+            </MenuItem>
+          </Menu>
+        </GlobalHeader>
+      </Box>
+
+      <Box>
+        <Link
+          href="#home"
+          ariaLabel="Carbon Home"
+          isLogoFocused
+          onClick={(e) => {
+            e.preventDefault();
+            alert("clicked");
+          }}
+        >
+          <Logo />
+        </Link>
+      </Box>
+    </Box>
+  );
+};
+WithLogo.storyName = "With Logo";

@@ -66,6 +66,8 @@ export interface LinkProps
   /** [Legacy] Positions the tooltip with the link.
    * @deprecated The tooltipPosition prop in Link is deprecated and will soon be removed. */
   tooltipPosition?: "bottom" | "left" | "right" | "top";
+  /** allows focus for Logo */
+  isLogoFocused?: boolean;
 }
 
 let deprecatedDisabledWarning = false;
@@ -98,6 +100,7 @@ export const Link = React.forwardRef<
       icon,
       iconAlign = "left",
       isSkipLink,
+      isLogoFocused,
       disabled = false,
       underline = "always",
       ariaLabel,
@@ -272,6 +275,7 @@ export const Link = React.forwardRef<
     return (
       <StyledLink
         isSkipLink={isSkipLink}
+        isLogoFocused={isLogoFocused}
         disabled={isDisabled}
         underline={underline}
         iconAlign={iconAlign}
