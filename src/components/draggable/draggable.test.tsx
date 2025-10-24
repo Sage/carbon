@@ -1,5 +1,11 @@
 import React from "react";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  within,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import {
   testStyledSystemMargin,
@@ -7,6 +13,11 @@ import {
 } from "../../__spec_helper__/__internal__/test-utils";
 
 import { DraggableContainer, DraggableItem } from ".";
+
+afterEach(() => {
+  fireEvent.dragEnd(window);
+  fireEvent.pointerMove(window);
+});
 
 test("dragging an item and dropping it after another item within the target container should reorder the items", () => {
   render(
@@ -19,12 +30,10 @@ test("dragging an item and dropping it after another item within the target cont
 
   const apple = screen.getByText("Apple");
   const venus = screen.getByText("Venus");
-  const draggableContainer = screen.getByTestId("draggable-container");
   fireEvent.dragStart(apple);
   fireEvent.dragEnter(venus);
   fireEvent.dragOver(venus);
-  fireEvent.dragLeave(venus);
-  fireEvent.drop(draggableContainer);
+  fireEvent.drop(venus);
   fireEvent.dragEnd(apple);
 
   const allItems = screen.getAllByTestId("draggable-item");
@@ -52,6 +61,7 @@ test("dragging an item and dropping it outside of the target container should no
   fireEvent.dragEnter(venus);
   fireEvent.dragOver(venus);
   fireEvent.dragLeave(venus);
+  fireEvent.dragLeave(screen.getByTestId("draggable-container"));
   fireEvent.drop(screen.getByText("Outer content"));
   fireEvent.dragEnd(apple);
 
@@ -97,12 +107,10 @@ test("calls getOrder callback, with an array of the new item order and the dragg
 
   const apple = screen.getByText("Apple");
   const venus = screen.getByText("Venus");
-  const draggableContainer = screen.getByTestId("draggable-container");
   fireEvent.dragStart(apple);
   fireEvent.dragEnter(venus);
   fireEvent.dragOver(venus);
-  fireEvent.dragLeave(venus);
-  fireEvent.drop(draggableContainer);
+  fireEvent.drop(venus);
   fireEvent.dragEnd(apple);
 
   expect(getOrder).toHaveBeenCalledTimes(1);
@@ -110,7 +118,9 @@ test("calls getOrder callback, with an array of the new item order and the dragg
 });
 
 test("the actual rendered item element is hidden from view while the item is dragged", async () => {
-  const user = userEvent.setup({ delay: null }); // delay set to null to prevent setTimeout(fn, 0) being called by react-dnd
+  jest.useFakeTimers();
+
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(
     <DraggableContainer>
       <DraggableItem id="apple">Apple</DraggableItem>
@@ -128,6 +138,9 @@ test("the actual rendered item element is hidden from view while the item is dra
 
   fireEvent.dragEnd(apple);
   await user.pointer("[/MouseLeft]");
+
+  jest.runOnlyPendingTimers();
+  jest.useRealTimers();
 });
 
 test("items are reordered when their order is manually changed", () => {
@@ -228,4 +241,32 @@ test("should render with default padding when no padding props are passed", () =
     "padding-bottom",
     "var(--spacing100)",
   );
+});
+
+test("when two containers have items with the same ids, reordering items in one container does not affect the other", () => {
+  render(
+    <>
+      <DraggableContainer data-role="fruits-container">
+        <DraggableItem id={0}>Apple</DraggableItem>
+        <DraggableItem id={1}>Banana</DraggableItem>
+      </DraggableContainer>
+      <DraggableContainer data-role="planets-container">
+        <DraggableItem id={0}>Mercury</DraggableItem>
+        <DraggableItem id={1}>Venus</DraggableItem>
+      </DraggableContainer>
+    </>,
+  );
+
+  const apple = screen.getByText("Apple");
+  const banana = screen.getByText("Banana");
+  fireEvent.dragStart(apple);
+  fireEvent.dragEnter(banana);
+  fireEvent.dragOver(banana);
+  fireEvent.drop(banana);
+  fireEvent.dragEnd(apple);
+
+  const planetsContainer = screen.getByTestId("planets-container");
+  const planets = within(planetsContainer).getAllByTestId("draggable-item");
+  expect(planets[0]).not.toHaveTextContent("Venus");
+  expect(planets[1]).not.toHaveTextContent("Mercury");
 });
