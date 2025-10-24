@@ -22,3 +22,5 @@ bundle-stats/
 playwright/test-results
 playwright/test-report
 playwright/.cache
+
+.hintrc

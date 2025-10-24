@@ -393,6 +393,17 @@ export { Tab, Tabs } from "./components/tabs";
 export type { TabProps, TabsProps } from "./components/tabs";
 
 export {
+  Tab as NewTab,
+  Tabs as NewTabs,
+  TabList as NewTabList,
+  TabPanel as NewTabPanel,
+} from "./components/tabs/__next__";
+export type {
+  TabProps as NewTabProps,
+  TabsProps as NewTabsProps,
+} from "./components/tabs/__next__";
+
+export {
   default as TextEditor,
   createEmpty,
   createFromHTML,
