@@ -1,3 +1,5 @@
+/* istanbul ignore file: Test with Playwright for better reliability */
+
 import React, { useEffect, useRef, useState } from "react";
 import { PaddingProps } from "styled-system";
 import invariant from "invariant";

@@ -1,3 +1,5 @@
+/* istanbul ignore file: Test with Playwright for better reliability */
+
 /** Helper functions for safer type checking. */
 
 const PRIVATE_DRAGGABLE_KEY = Symbol("drag");

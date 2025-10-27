@@ -1,3 +1,5 @@
+/* istanbul ignore file: Test with Playwright for better reliability */
+
 import React, { createContext, useEffect } from "react";
 import { Draggable, DropTarget, isDraggable, isDropTarget } from "./data";
 import { monitorForElements } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";

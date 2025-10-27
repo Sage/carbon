@@ -1,3 +1,5 @@
+/* istanbul ignore file: Test with Playwright for better reliability */
+
 import React, { useEffect, useState, useRef } from "react";
 import { MarginProps } from "styled-system";
 
