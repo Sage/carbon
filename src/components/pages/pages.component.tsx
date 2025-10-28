@@ -7,6 +7,9 @@ import Page from "./page";
 import { PagesWrapperStyle, PagesContent } from "./pages.style";
 import type { ThemeObject } from "../../style/themes/theme.types";
 
+/**
+ * @deprecated `Pages` has been deprecated. See the Carbon documentation for migration details.
+ */
 export interface PagesProps extends TagProps {
   /** The selected tab on page load */
   initialpageIndex?: number | string;
@@ -24,6 +27,9 @@ const NEXT = "next";
 const PREVIOUS = "previous";
 const TRANSITION_TIME = 500;
 
+/**
+ * @deprecated `Pages` has been deprecated. See the Carbon documentation for migration details.
+ */
 const Pages = ({
   pageIndex: incomingPageIndex,
   initialpageIndex = 0,

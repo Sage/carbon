@@ -5,6 +5,9 @@ import { StyledVerticalWrapper, StyledDivider } from "./vertical-divider.style";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 import Logger from "../../__internal__/utils/logger";
 
+/**
+ * @deprecated `VerticalDivider` has been deprecated. See the Carbon documentation for migration details.
+ */
 type TintRange =
   | 1
   | 2
@@ -107,6 +110,9 @@ type TintRange =
   | 99
   | 100;
 
+/**
+ * @deprecated `VerticalDivider` has been deprecated. See the Carbon documentation for migration details.
+ */
 export interface VerticalDividerProps extends SpaceProps, TagProps {
   /** Shorthand for the height attribute */
   h?: number | string;
@@ -128,6 +134,9 @@ export interface VerticalDividerProps extends SpaceProps, TagProps {
 
 let deprecatedWarnTriggered = false;
 
+/**
+ * @deprecated `VerticalDivider` has been deprecated. See the Carbon documentation for migration details.
+ */
 export const VerticalDivider = ({
   h,
   height,

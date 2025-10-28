@@ -6,6 +6,9 @@ import FocusContext from "../__internal__/duelling-picklist.context";
 import Events from "../../../__internal__/utils/helpers/events";
 import PicklistGroup from "../picklist-group/picklist-group.component";
 
+/**
+ * @deprecated `Picklist` has been deprecated. See the Carbon documentation for migration details.
+ */
 export interface PicklistProps {
   /** List of PicklistItem elements */
   children?: React.ReactNode;
@@ -17,6 +20,9 @@ export interface PicklistProps {
   index?: number;
 }
 
+/**
+ * @deprecated `Picklist` has been deprecated. See the Carbon documentation for migration details.
+ */
 export const Picklist = ({
   disabled,
   children,

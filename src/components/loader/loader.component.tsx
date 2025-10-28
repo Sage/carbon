@@ -13,6 +13,9 @@ import StyledLoaderSquare, {
 } from "./loader-square.style";
 import Typography from "../typography";
 
+/**
+ * @deprecated `Loader` has been deprecated. See the Carbon documentation for migration details.
+ */
 export interface LoaderProps
   extends Omit<StyledLoaderSquareProps, "backgroundColor">,
     MarginProps,
@@ -26,6 +29,9 @@ export interface LoaderProps
   loaderLabel?: string;
 }
 
+/**
+ * @deprecated `Loader` has been deprecated. See the Carbon documentation for migration details.
+ */
 export const Loader = ({
   variant = "default",
   size = "medium",

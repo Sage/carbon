@@ -3,6 +3,9 @@ import { StyledComponentProps } from "styled-components";
 
 import StyledPicklistDivider from "./picklist-divider.style";
 
+/**
+ * @deprecated `PicklistDivider` has been deprecated. See the Carbon documentation for migration details.
+ */
 export type PicklistDividerProps = StyledComponentProps<
   "div",
   Record<string, unknown>,
@@ -10,6 +13,9 @@ export type PicklistDividerProps = StyledComponentProps<
   ""
 >;
 
+/**
+ * @deprecated `PicklistDivider` has been deprecated. See the Carbon documentation for migration details.
+ */
 const PicklistDivider = (props: PicklistDividerProps) => (
   <StyledPicklistDivider {...props} data-element="picklist-divider" />
 );

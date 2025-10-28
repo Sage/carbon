@@ -7,6 +7,9 @@ import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint"
 
 import Logger from "../../__internal__/utils/logger";
 
+/**
+ * @deprecated `Hr` has been deprecated. See the Carbon documentation for migration details.
+ */
 export interface HrProps extends MarginProps, TagProps {
   /** Set whether the component should be recognised by assistive technologies */
   "aria-hidden"?: "true" | "false";
@@ -21,6 +24,9 @@ export interface HrProps extends MarginProps, TagProps {
 
 let deprecatedWarnTriggered = false;
 
+/**
+ * @deprecated `Hr` has been deprecated. See the Carbon documentation for migration details.
+ */
 export const Hr = ({
   adaptiveMxBreakpoint,
   ml,
