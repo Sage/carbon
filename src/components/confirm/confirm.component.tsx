@@ -10,6 +10,9 @@ import Loader from "../loader";
 import useLocale from "../../hooks/__internal__/useLocale";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
+/**
+ * @deprecated `Confirm` has been deprecated. See the Carbon documentation for migration details.
+ */
 export interface ConfirmProps
   extends Omit<
     DialogProps,
@@ -63,6 +66,9 @@ export interface ConfirmProps
   onConfirm: (ev: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
+/**
+ * @deprecated See the Carbon documentation for migration details.
+ */
 export const Confirm = ({
   "aria-labelledby": ariaLabelledBy,
   "aria-describedby": ariaDescribedBy,

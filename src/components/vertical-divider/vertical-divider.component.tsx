@@ -107,6 +107,9 @@ type TintRange =
   | 99
   | 100;
 
+/**
+ * @deprecated `VerticalDivider` has been deprecated. See the Carbon documentation for migration details.
+ */
 export interface VerticalDividerProps extends SpaceProps, TagProps {
   /** Shorthand for the height attribute */
   h?: number | string;
@@ -128,6 +131,9 @@ export interface VerticalDividerProps extends SpaceProps, TagProps {
 
 let deprecatedWarnTriggered = false;
 
+/**
+ * @deprecated See the Carbon documentation for migration details.
+ */
 export const VerticalDivider = ({
   h,
   height,

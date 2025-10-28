@@ -41,6 +41,9 @@ interface IconTypes {
   notice?: "none";
 }
 
+/**
+ * @deprecated `Toast` has been deprecated. See the Carbon documentation for migration details.
+ */
 export interface ToastProps extends TagProps {
   /** Sets the horizontal alignment of the component. */
   align?: AlignOptions;
@@ -73,6 +76,9 @@ export interface ToastProps extends TagProps {
   disableAutoFocus?: boolean;
 }
 
+/**
+ * @deprecated See the Carbon documentation for migration details.
+ */
 export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
   (
     {
