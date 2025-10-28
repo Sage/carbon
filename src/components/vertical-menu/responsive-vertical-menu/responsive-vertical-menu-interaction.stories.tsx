@@ -131,6 +131,32 @@ const DefaultResponsiveVerticalMenu = () => (
   </>
 );
 
+const ResponsiveVerticalMenuWithMarginTopAuto = () => (
+  <>
+    <GlobalHeader>
+      <ResponsiveVerticalMenu height="500px">
+        <ResponsiveVerticalMenuItem
+          id="primary-menu-one"
+          label="Primary Menu One"
+        ></ResponsiveVerticalMenuItem>
+        <ResponsiveVerticalMenuItem
+          id="primary-menu-two"
+          label="Primary Menu Two"
+        ></ResponsiveVerticalMenuItem>
+        <ResponsiveVerticalMenuItem
+          id="primary-menu-three"
+          label="Primary Menu Three"
+        ></ResponsiveVerticalMenuItem>
+        <ResponsiveVerticalMenuDivider marginTop="auto" />
+        <ResponsiveVerticalMenuItem
+          id="primary-menu-four"
+          label="Primary Menu Four"
+        ></ResponsiveVerticalMenuItem>
+      </ResponsiveVerticalMenu>
+    </GlobalHeader>
+  </>
+);
+
 export const ToggleOpenOnClick: Story = {
   render: () => <DefaultResponsiveVerticalMenu />,
   play: async ({ canvasElement }) => {
@@ -155,6 +181,31 @@ export const ToggleOpenOnClick: Story = {
 
 ToggleOpenOnClick.storyName = "Toggle Open On Click";
 ToggleOpenOnClick.parameters = { chromatic: { viewports: [1200, 500] } };
+
+export const MarginTopAuto: Story = {
+  render: () => <ResponsiveVerticalMenuWithMarginTopAuto />,
+  play: async ({ canvasElement }) => {
+    if (!allowInteractions()) {
+      return;
+    }
+
+    const canvas = within(canvasElement);
+    const menuToggle = canvas.getByRole("button");
+
+    await userEvent.click(menuToggle);
+    await userInteractionPause(1000);
+  },
+  decorators: [
+    (StoryToRender) => (
+      <DefaultDecorator>
+        <StoryToRender />
+      </DefaultDecorator>
+    ),
+  ],
+};
+
+MarginTopAuto.storyName = "With Margin Top Auto";
+MarginTopAuto.parameters = { chromatic: { viewports: [1200, 500] } };
 
 export const NavigateToSecondary: Story = {
   render: () => <DefaultResponsiveVerticalMenu />,

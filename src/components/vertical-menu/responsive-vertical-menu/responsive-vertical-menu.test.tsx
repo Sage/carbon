@@ -7,12 +7,14 @@ import {
   ResponsiveVerticalMenuDivider,
   ResponsiveVerticalMenuItem,
   ResponsiveVerticalMenuProvider,
+  ResponsiveVerticalMenuHandle,
 } from ".";
 import useIsAboveBreakpoint from "../../../hooks/__internal__/useIsAboveBreakpoint";
 import useMediaQuery from "../../../hooks/useMediaQuery";
 import guid from "../../../__internal__/utils/helpers/guid";
 import I18nProvider from "../../../components/i18n-provider";
 import Logger from "../../../__internal__/utils/logger";
+import Button from "../../button";
 
 jest.mock("../../../hooks/__internal__/useIsAboveBreakpoint");
 jest.mock("../../../hooks/useMediaQuery");
@@ -111,6 +113,44 @@ test("renders correctly", async () => {
   expect(screen.getByText("Menu Item 1")).toBeInTheDocument();
   expect(screen.getByText("Menu Item 2")).toBeInTheDocument();
   expect(screen.getByText("Menu Item 3")).toBeInTheDocument();
+});
+
+test("calling exposed focusLaunchButton method focuses launcher button", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  const MockComponent = () => {
+    const responsiveVerticalMenuHandle =
+      React.useRef<ResponsiveVerticalMenuHandle>(null);
+
+    return (
+      <>
+        <ResponsiveVerticalMenu ref={responsiveVerticalMenuHandle}>
+          <ResponsiveVerticalMenuItem id="menu-item-1" label="Menu Item 1" />
+          <ResponsiveVerticalMenuItem id="menu-item-2" label="Menu Item 2" />
+          <ResponsiveVerticalMenuItem id="menu-item-3" label="Menu Item 3" />
+        </ResponsiveVerticalMenu>
+        <Button
+          onClick={() =>
+            responsiveVerticalMenuHandle.current?.focusLaunchButton()
+          }
+        >
+          Press me to refocus on launch button
+        </Button>
+      </>
+    );
+  };
+
+  render(<MockComponent />);
+  const button = screen.getByRole("button", {
+    name: "Press me to refocus on launch button",
+  });
+
+  await user.click(button);
+
+  const launcherButton = screen.getByRole("button", {
+    name: "Product menu launcher",
+  });
+
+  expect(launcherButton).toHaveFocus();
 });
 
 test("throws if children are not wrapped in the provider", async () => {
@@ -1076,7 +1116,6 @@ test("renders dividers correctly at depth 0", async () => {
 
   const divider = screen.getByTestId("responsive-vertical-menu-divider");
   expect(divider).toBeInTheDocument();
-  expect(divider).toHaveStyle("width: 100%");
 });
 
 test("renders dividers correctly when responsive", async () => {
@@ -1121,7 +1160,7 @@ test("renders dividers correctly when responsive", async () => {
 
   const divider = screen.getByTestId("responsive-vertical-menu-divider");
   expect(divider).toBeInTheDocument();
-  expect(divider).toHaveStyle("width: 88%");
+  expect(divider).toHaveStyle("max-width: 88%");
 });
 
 test("should allow an onClick handler to be passed to items", async () => {

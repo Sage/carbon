@@ -1,3 +1,21 @@
+## [157.8.0](https://github.com/Sage/carbon/compare/v157.7.0...v157.8.0) (2025-10-23)
+
+### Features
+
+* **tabs:** add support for programmatic tab focus ([4167ec2](https://github.com/Sage/carbon/commit/4167ec2b321dc49a15fde152a6c741ca32740874)), closes [#7567](https://github.com/Sage/carbon/issues/7567)
+
+## [157.7.0](https://github.com/Sage/carbon/compare/v157.6.2...v157.7.0) (2025-10-20)
+
+### Features
+
+* **responsive-vertical-menu:** add programmatic focus support for the responsive vertical menu ([1cdf5d7](https://github.com/Sage/carbon/commit/1cdf5d7a33b101dc5b7762d03f8fb94d12d8b146)), closes [#7574](https://github.com/Sage/carbon/issues/7574)
+
+## [157.6.2](https://github.com/Sage/carbon/compare/v157.6.1...v157.6.2) (2025-10-17)
+
+### Bug Fixes
+
+* **responsive-vertical-menu:** ensure margin & padding props are applied correctly ([00bb729](https://github.com/Sage/carbon/commit/00bb729f6275f8343f1f0a801007b593b6afae6e))
+
 ## [157.6.1](https://github.com/Sage/carbon/compare/v157.6.0...v157.6.1) (2025-10-16)
 
 ### Bug Fixes

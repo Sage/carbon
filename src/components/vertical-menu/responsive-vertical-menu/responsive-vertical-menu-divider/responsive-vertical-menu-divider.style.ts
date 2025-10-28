@@ -7,12 +7,11 @@ interface StyledResponsiveVerticalMenuDividerProps {
 }
 
 export const StyledResponsiveVerticalMenuDivider = styled.div<StyledResponsiveVerticalMenuDividerProps>`
-  width: ${({ depth, responsive }) =>
-    depth > 0 && responsive ? "88%" : "100%"};
+  ${margin}
+  ${({ depth, responsive }) => depth > 0 && responsive && `max-width: 88%`};
 `;
 
 export const StyledHr = styled.hr<MarginProps>`
   border-color: #ffffff33;
   border-bottom: 1px;
-  ${margin}
 `;
