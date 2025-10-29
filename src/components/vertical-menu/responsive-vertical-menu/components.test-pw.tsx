@@ -199,3 +199,43 @@ export const WithDifferentDepthsAsLastItem = () => {
     </Box>
   );
 };
+
+export const WithButtonAndLinkActionItems = () => {
+  return (
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem id="item-1" label="Item one" href="#" />
+      <ResponsiveVerticalMenuItem
+        id="item-2"
+        label="Item two"
+        onClick={() => {}}
+      />
+    </ResponsiveVerticalMenu>
+  );
+};
+
+export const WithLongList = () => {
+  return (
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem
+        icon="home"
+        id="item-1"
+        label="Item one"
+        href="#"
+      />
+      <ResponsiveVerticalMenuItem id="item-2" label="Item two" href="#" />
+      <ResponsiveVerticalMenuItem id="item-3" label="Item three" href="#" />
+      <ResponsiveVerticalMenuItem id="item-4" label="Item four" href="#" />
+      <ResponsiveVerticalMenuItem id="item-5" label="Item five" href="#" />
+      <ResponsiveVerticalMenuItem id="item-6" label="Item six" href="#" />
+      <ResponsiveVerticalMenuItem id="item-7" label="Item seven" href="#" />
+      <ResponsiveVerticalMenuItem id="item-8" label="Item eight" href="#" />
+      <ResponsiveVerticalMenuItem id="item-9" label="Item nine" href="#" />
+      <ResponsiveVerticalMenuItem id="item-10" label="Item ten" href="#" />
+      <ResponsiveVerticalMenuItem id="item-11" label="Item eleven" href="#" />
+      <ResponsiveVerticalMenuItem id="item-12" label="Item twelve" href="#" />
+      <ResponsiveVerticalMenuItem id="item-13" label="Item thirteen" href="#" />
+      <ResponsiveVerticalMenuItem id="item-14" label="Item fourteen" href="#" />
+      <ResponsiveVerticalMenuItem id="item-15" label="Item fifteen" href="#" />
+    </ResponsiveVerticalMenu>
+  );
+};

@@ -16,7 +16,8 @@ import {
   StyledMenuItemContent,
   StyledNestedMenu,
   StyledNestedMenuWrapper,
-  StyledResponsiveMenuAction,
+  StyledResponsiveMenuActionLink,
+  StyledResponsiveMenuActionButton,
   StyledResponsiveMenuItem,
   StyledResponsiveMenuListItem,
 } from "./responsive-vertical-menu-item.style";
@@ -27,6 +28,10 @@ import { useResponsiveVerticalMenu } from "../responsive-vertical-menu.context";
 
 import Icon, { IconType } from "../../../icon";
 import guid from "../../../../__internal__/utils/helpers/guid";
+
+export type ResponsiveVerticalMenuItemClickEvent =
+  | React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
+  | React.KeyboardEvent<HTMLButtonElement | HTMLAnchorElement>;
 
 interface BaseItemProps extends MarginProps, PaddingProps {
   /** The content of the menu item. This will render the menu item as a parent menu. */
@@ -42,7 +47,7 @@ interface BaseItemProps extends MarginProps, PaddingProps {
   /** The label for the menu item. */
   label: React.ReactNode;
   /** A custom click handler to run when an anchor link is clicked */
-  onClick?: (event: React.MouseEvent<HTMLAnchorElement>) => void;
+  onClick?: (event: ResponsiveVerticalMenuItemClickEvent) => void;
   /** The rel attribute to be used for the underlying <a> tag */
   rel?: string;
   /** The target to use for the menu item. */
@@ -245,7 +250,21 @@ const BaseItem = forwardRef<HTMLElement, BaseItemProps>(
         // Handle activation keys
         case "Enter":
         case " ":
-          e.preventDefault();
+          // prevent default if there is children, if there is no children its the final available item and onClick must be triggered
+          if (hasChildren) {
+            e.preventDefault();
+          }
+
+          /*
+           * Prevent browser default behaviour for space key which causes a page scroll
+           * (similar to page down). This is only observed when space is pressed when the
+           * action item is rendered as a link. When rendered as a button the menu will
+           * close completely, meaning the behaviour is not observed at all.
+           */
+          /* istanbul ignore next - testing scroll behaviour in Playwright instead */
+          if (!onClick && e.key === " ") {
+            e.preventDefault();
+          }
 
           // If in responsive mode, do not toggle the menu
           /* istanbul ignore if */
@@ -295,7 +314,7 @@ const BaseItem = forwardRef<HTMLElement, BaseItemProps>(
       focusItem(id);
     };
 
-    const handleActionClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    const handleActionClick = (event: ResponsiveVerticalMenuItemClickEvent) => {
       onClick?.(event);
 
       setActive(false);
@@ -307,6 +326,62 @@ const BaseItem = forwardRef<HTMLElement, BaseItemProps>(
       }
 
       return `responsive-vertical-menu-secondary`;
+    };
+
+    const responsiveMenuAction = () => {
+      const sharedProps = {
+        "data-component": `responsive-vertical-menu-item-${id}`,
+        "data-depth": depth,
+        "data-role": `responsive-vertical-menu-item-${id}`,
+        depth,
+        href,
+        id,
+        onClick: handleActionClick,
+        onFocus: () => focusItem(id),
+        onKeyDown: (e: React.KeyboardEvent) => {
+          /* istanbul ignore else */
+          if (!responsiveMode) {
+            handleKeyDown(e);
+          }
+        },
+        rel,
+        responsive: responsiveMode,
+        tabIndex: 0,
+        target,
+        ...rest,
+      };
+
+      const menuItemContent = (
+        <MenuItemContent
+          customIcon={customIcon}
+          depth={depth}
+          hasChildren={false}
+          icon={icon}
+          label={label}
+          responsive={responsiveMode}
+        />
+      );
+
+      // This specific pattern has been used instead of the `as` prop as we want to avoid an over-reliance on styled components
+      if (onClick && !href) {
+        return (
+          <StyledResponsiveMenuActionButton
+            ref={ref as RefObject<HTMLButtonElement>}
+            {...sharedProps}
+          >
+            {menuItemContent}
+          </StyledResponsiveMenuActionButton>
+        );
+      }
+
+      return (
+        <StyledResponsiveMenuActionLink
+          ref={ref as RefObject<HTMLAnchorElement>}
+          {...sharedProps}
+        >
+          {menuItemContent}
+        </StyledResponsiveMenuActionLink>
+      );
     };
 
     return (
@@ -404,37 +479,7 @@ const BaseItem = forwardRef<HTMLElement, BaseItemProps>(
             )}
           </>
         ) : (
-          <StyledResponsiveMenuAction
-            data-component={`responsive-vertical-menu-item-${id}`}
-            data-depth={depth}
-            data-role={`responsive-vertical-menu-item-${id}`}
-            depth={depth}
-            href={href}
-            id={id}
-            onClick={handleActionClick}
-            onFocus={() => focusItem(id)}
-            onKeyDown={(e) => {
-              /* istanbul ignore else */
-              if (!responsiveMode) {
-                handleKeyDown(e);
-              }
-            }}
-            ref={ref as RefObject<HTMLAnchorElement>}
-            rel={rel}
-            responsive={responsiveMode}
-            tabIndex={0}
-            target={target}
-            {...rest}
-          >
-            <MenuItemContent
-              customIcon={customIcon}
-              depth={depth}
-              hasChildren={false}
-              icon={icon}
-              label={label}
-              responsive={responsiveMode}
-            />
-          </StyledResponsiveMenuAction>
+          responsiveMenuAction()
         )}
       </StyledResponsiveMenuListItem>
     );
