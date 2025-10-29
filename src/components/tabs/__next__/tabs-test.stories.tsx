@@ -35,13 +35,13 @@ export const FormExample: Story = ({ ...args }) => {
   return (
     <Tabs {...args}>
       <TabList ariaLabel="Sample Tabs">
-        <Tab id="tab-1" controls="tab-panel-1" label="Default" />
-        <Tab id="tab-2" controls="tab-panel-2" label="Error" />
-        <Tab id="tab-3" controls="tab-panel-3" label="Warning" />
-        <Tab id="tab-4" controls="tab-panel-4" label="Info" />
+        <Tab id="tab-1--form" controls="tab-panel-1--form" label="Default" />
+        <Tab id="tab-2--form" controls="tab-panel-2--form" label="Error" />
+        <Tab id="tab-3--form" controls="tab-panel-3--form" label="Warning" />
+        <Tab id="tab-4--form" controls="tab-panel-4--form" label="Info" />
       </TabList>
 
-      <TabPanel id="tab-panel-1" tabId={"tab-1"}>
+      <TabPanel id="tab-panel-1--form" tabId={"tab-1--form"}>
         <Form
           onSubmit={(e) => {
             e.preventDefault();
@@ -92,12 +92,16 @@ export const FormExample: Story = ({ ...args }) => {
         </Form>
       </TabPanel>
 
-      <TabPanel id="tab-panel-2" tabId={"tab-2"}>
+      <TabPanel id="tab-panel-2--form" tabId={"tab-2--form"}>
         <Typography>Content 2</Typography>
       </TabPanel>
 
-      <TabPanel id="tab-panel-3" tabId={"tab-3"}>
+      <TabPanel id="tab-panel-3--form" tabId={"tab-3--form"}>
         <Typography>Content 3</Typography>
+      </TabPanel>
+
+      <TabPanel id="tab-panel-4--form" tabId={"tab-4--form"}>
+        <Typography>Content 4</Typography>
       </TabPanel>
     </Tabs>
   );
