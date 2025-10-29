@@ -1,3 +1,9 @@
+## [157.9.0](https://github.com/Sage/carbon/compare/v157.8.0...v157.9.0) (2025-10-28)
+
+### Features
+
+* **tokens-wrapper:** add new wrapper component to support fusion tokens ([573ce49](https://github.com/Sage/carbon/commit/573ce4937ea34fa1d96d230829d5d78dca89c223))
+
 ## [157.8.0](https://github.com/Sage/carbon/compare/v157.7.0...v157.8.0) (2025-10-23)
 
 ### Features

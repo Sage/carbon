@@ -10,6 +10,7 @@ import withLocaleSelector from "./with-locale-selector";
 import withPortalProvider from "./with-portal-provider";
 import { withThemeProvider, globalThemeProvider } from "./withThemeProvider";
 import withReducedMotion from "./with-reduced-motion";
+import withFusionTokens from "./with-fusion-tokens";
 
 // Configure the testIdAttribute to look for data-role when querying elements using `getByTestId`.
 configure({ testIdAttribute: "data-role" });
@@ -63,6 +64,25 @@ const globalTypes = {
       ],
     },
   },
+  mode: {
+    name: "Colour Mode",
+    description: "Light or dark mode",
+    defaultValue: "auto",
+    toolbar: {
+      title: "Colour Mode",
+      icon: "circle",
+      items: [
+        { value: "light", title: "Light mode", icon: "sun" },
+        { value: "dark", title: "Dark mode", icon: "moon" },
+        {
+          value: "auto",
+          title: "Auto (system preference)",
+          icon: "contrast",
+        },
+      ],
+      showName: true,
+    },
+  },
   ...globalThemeProvider,
 };
 
@@ -70,6 +90,7 @@ const decorators = [
   withGlobalStyles,
   withThemeProvider,
   withLocaleSelector,
+  withFusionTokens,
   withPortalProvider,
   withReducedMotion,
 ];
