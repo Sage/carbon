@@ -1,3 +1,18 @@
+## [158.0.0](https://github.com/Sage/carbon/compare/v157.9.0...v158.0.0) (2025-10-29)
+
+### ⚠ BREAKING CHANGES
+
+* **reponsive-vertical-menu-item:** the onChange callback on responsive vertical menu item
+now handles for click/keyboard events on both anchor and button elements. If you
+have created a custom click handler with a typed event this will now cause a type error.
+This is due to a contravariance limitation, the type will not be able to accept a broader
+event union. We recommend importing the new ResponsiveVerticalMenuItemClickEvent type
+and using this in your custom click handler
+
+### Bug Fixes
+
+* **reponsive-vertical-menu-item:** item rendering and onClick behaviour consistency ([3437ec6](https://github.com/Sage/carbon/commit/3437ec6119cb77856eed8fcaec7616edd2f3d96a)), closes [#7575](https://github.com/Sage/carbon/issues/7575)
+
 ## [157.9.0](https://github.com/Sage/carbon/compare/v157.8.0...v157.9.0) (2025-10-28)
 
 ### Features
