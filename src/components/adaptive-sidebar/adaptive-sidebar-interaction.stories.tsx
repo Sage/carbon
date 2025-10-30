@@ -1,5 +1,5 @@
 import { StoryObj } from "@storybook/react";
-import { userEvent, within } from "@storybook/test";
+import { userEvent, within, expect } from "@storybook/test";
 import React, { useState } from "react";
 
 import AdaptiveSidebar from ".";
@@ -15,7 +15,6 @@ import Typography from "../typography";
 
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
 import DefaultDecorator from "../../../.storybook/utils/default-decorator";
-import userInteractionPause from "../../../.storybook/utils/user-interaction-pause";
 
 type Story = StoryObj<typeof AdaptiveSidebar>;
 
@@ -233,64 +232,15 @@ export const LaunchFromButton: Story = {
     const adaptiveSidebarToggle = canvas.getAllByRole("button");
 
     await userEvent.click(adaptiveSidebarToggle[0]);
-  },
-  decorators: [
-    (StoryToRender) => (
-      <DefaultDecorator>
-        <StoryToRender />
-      </DefaultDecorator>
-    ),
-  ],
-};
-
-export const CloseWithOriginalLauncher: Story = {
-  render: () => (
-    <SimpleAdaptiveSidebar defaultOpenState>
-      <Typography variant="p">
-        This is a simple adaptive sidebar that can be opened and closed.
-      </Typography>
-    </SimpleAdaptiveSidebar>
-  ),
-  play: async ({ canvasElement }) => {
-    if (!allowInteractions()) {
-      return;
-    }
-
-    const canvas = within(canvasElement);
-    const adaptiveSidebarToggle = canvas.getAllByRole("button");
-
+    await expect(await within(document.body).findByText("Hide")).toBeVisible();
     await userEvent.click(adaptiveSidebarToggle[0]);
-  },
-  decorators: [
-    (StoryToRender) => (
-      <DefaultDecorator>
-        <StoryToRender />
-      </DefaultDecorator>
-    ),
-  ],
-};
-
-CloseWithOriginalLauncher.storyName = "Close With Original Launcher";
-
-export const CloseFromWithin: Story = {
-  render: () => (
-    <SimpleAdaptiveSidebar defaultOpenState>
-      <Typography variant="p">
-        This is a simple adaptive sidebar that can be opened and closed.
-      </Typography>
-    </SimpleAdaptiveSidebar>
-  ),
-  play: async ({ canvasElement }) => {
-    if (!allowInteractions()) {
-      return;
-    }
-
-    const canvas = within(canvasElement);
-    const adaptiveSidebarToggle = canvas.getAllByRole("button", {
-      name: "Hide",
-    });
-
+    await expect(await within(document.body).findByText("Open")).toBeVisible();
     await userEvent.click(adaptiveSidebarToggle[0]);
+    await expect(await within(document.body).findByText("Hide")).toBeVisible();
+    await userEvent.tab();
+    await userEvent.keyboard("{Enter}");
+    await userEvent.click(adaptiveSidebarToggle[0]);
+    await expect(await within(document.body).findByText("Hide")).toBeVisible();
   },
   decorators: [
     (StoryToRender) => (
@@ -300,8 +250,6 @@ export const CloseFromWithin: Story = {
     ),
   ],
 };
-
-CloseFromWithin.storyName = "Close From Within";
 
 export const NestedComponentInteractions: Story = {
   render: () => (
@@ -341,7 +289,6 @@ export const NestedComponentInteractions: Story = {
     const birthdayInput = canvas.getByLabelText("Birthday");
     await userEvent.click(birthdayInput);
 
-    await userInteractionPause(100);
     const calendarDays = document.querySelectorAll(
       `[aria-label="Friday, June 3rd, 1994"]`,
     );
@@ -349,8 +296,6 @@ export const NestedComponentInteractions: Story = {
 
     const favouriteColourSelect = canvas.getByTestId("select-text");
     await userEvent.click(favouriteColourSelect);
-
-    await userInteractionPause(1000);
 
     const listOfColours = document.querySelectorAll("li");
 
@@ -365,7 +310,6 @@ export const NestedComponentInteractions: Story = {
     const petBirthdayInput = canvas.getByLabelText("Pet's birthday");
     await userEvent.click(petBirthdayInput);
 
-    await userInteractionPause(100);
     const petCalendarDays = document.querySelectorAll(
       `[aria-label="Wednesday, September 23rd, 2020"]`,
     );
@@ -380,6 +324,7 @@ export const NestedComponentInteractions: Story = {
       name: "Save",
     });
     saveButton[0].focus();
+    await expect(saveButton[0]).toHaveFocus();
   },
   decorators: [
     (StoryToRender) => (
