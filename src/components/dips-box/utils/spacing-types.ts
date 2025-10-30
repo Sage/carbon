@@ -83,41 +83,47 @@ export const spacingSizeMap: Record<SpacingSize, number> = {
 };
 
 export interface FlexboxProps {
+  /** Short hand `align-content` property */
+  alignContent?: string;
+  /** Short hand `justify-items` property */
+  justifyItems?: string;
   /** Short hand `align-items` property */
   alignItems?: string;
   /** Short hand `justify-content` property */
   justifyContent?: string;
+  /** Short hand `justify-self` property */
+  justifySelf?: string;
   /** Short hand `flex-direction` property */
   flexDirection?: string;
   /** Short hand `flex-wrap` property */
   flexWrap?: string;
   /** Short hand `flex-grow` property */
-  flexGrow?: string;
+  flexGrow?: string | number;
   /** Short hand `flex-shrink` property */
-  flexShrink?: string;
+  flexShrink?: string | number;
   /** Short hand `flex-basis` property */
-  flexBasis?: string;
+  flexBasis?: string | number;
   /** Short hand `flex` property */
   flex?: string;
   /** Short hand `align-self` property */
   alignSelf?: string;
   /** Short hand `order` property */
-  order?: string;
+  order?: string | number;
 }
 
 export interface LayoutProps {
   /** Short hand `width` property */
-  width?: string;
+  width?: string | number;
   /** Short hand `max-width` property */
-  maxWidth?: string;
+  maxWidth?: string | number;
   /** Short hand `min-width` property */
-  minWidth?: string;
+  minWidth?: string | number;
   /** Short hand `height` property */
-  height?: string;
+  height?: string | number;
   /** Short hand `max-height` property */
-  maxHeight?: string;
+  maxHeight?: string | number;
   /** Short hand `min-height` property */
-  minHeight?: string;
+  minHeight?: string | number;
   /** Short hand `display` property */
   display?: string;
   /** Short hand `overflow` property */

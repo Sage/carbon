@@ -52,7 +52,10 @@ const spacingKeys = {
 };
 
 const flexboxKeys = {
+  alignContent: "align-content",
+  justifyItems: "justify-items",
   alignItems: "align-items",
+  justifySelf: "justify-self",
   justifyContent: "justify-content",
   flexDirection: "flex-direction",
   flexWrap: "flex-wrap",
@@ -193,18 +196,29 @@ export function spacingCss(props, scale = 8, sizeMap = spacingSizeMap) {
   `;
 }
 
+/** CSS properties that are numbers and must NOT have a `px, rem` etc etc suffix */
+const PropertyWithoutSuffix = new Set(["order", "flex-grow", "flex-shrink"]);
+
+/** format a single value for output */
+function formatValue(cssKey, value) {
+  if (typeof value === "number") {
+    // If it's suffix-less return as raw number
+    if (PropertyWithoutSuffix.has(cssKey)) return String(value);
+
+    // interpret bare numbers as px for convenience
+    return `${value}px`;
+  }
+  return String(value);
+}
+
 /* Flexbox and Layout support */
 export function getFlexboxStyles(props) {
   const style = {};
-
   for (const key in flexboxKeys) {
     const value = props[key];
     if (value == null) continue;
-
-    const cssKey = flexboxKeys[key];
-    style[cssKey] = value;
+    style[flexboxKeys[key]] = value;
   }
-
   return style;
 }
 
@@ -219,10 +233,7 @@ export function flexboxCss(props) {
   const styles = getFlexboxStyles(props);
   return css`
     ${Object.entries(styles)
-      .map(
-        ([key, value]) =>
-          `${key}: ${typeof value === "number" ? `${value}px` : value};`,
-      )
+      .map(([key, value]) => `${key}: ${formatValue(key, value)};`)
       .join("\n")}
   `;
 }
