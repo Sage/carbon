@@ -1,5 +1,5 @@
 import { StoryObj } from "@storybook/react";
-import { userEvent, within } from "@storybook/test";
+import { userEvent, within, expect } from "@storybook/test";
 import React from "react";
 
 import {
@@ -13,7 +13,6 @@ import Box from "../box";
 
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
 import DefaultDecorator from "../../../.storybook/utils/default-decorator";
-import userInteractionPause from "../../../.storybook/utils/user-interaction-pause";
 
 type Story = StoryObj<typeof ActionPopover>;
 
@@ -74,10 +73,10 @@ export const ClickToToggle: Story = {
     const canvas = within(canvasElement);
     const actionPopoverToggle = canvas.getAllByRole("button");
 
-    await userInteractionPause(1000);
     await userEvent.click(actionPopoverToggle[0]);
-
-    await userInteractionPause(1000);
+    await expect(
+      await within(document.body).findByText("Email Invoice"),
+    ).toBeVisible();
     await userEvent.click(actionPopoverToggle[0]);
   },
   decorators: [
@@ -88,7 +87,7 @@ export const ClickToToggle: Story = {
     ),
   ],
 };
-
+ClickToToggle.parameters = { chromatic: { disableSnapshot: true } };
 ClickToToggle.storyName = "Click To Toggle";
 
 export const CloseOnOutsideClick: Story = {
@@ -131,10 +130,10 @@ export const CloseOnOutsideClick: Story = {
     const canvas = within(canvasElement);
     const actionPopoverToggle = canvas.getAllByRole("button");
 
-    await userInteractionPause(1000);
     await userEvent.click(actionPopoverToggle[0]);
-
-    await userInteractionPause(1000);
+    await expect(
+      await within(document.body).findByText("Email Invoice"),
+    ).toBeVisible();
     await userEvent.click(document.body);
   },
   decorators: [
@@ -145,7 +144,7 @@ export const CloseOnOutsideClick: Story = {
     ),
   ],
 };
-
+CloseOnOutsideClick.parameters = { chromatic: { disableSnapshot: true } };
 CloseOnOutsideClick.storyName = "Close On Outside Click";
 
 export const CloseOnEscPress: Story = {
@@ -188,10 +187,10 @@ export const CloseOnEscPress: Story = {
     const canvas = within(canvasElement);
     const actionPopoverToggle = canvas.getAllByRole("button");
 
-    await userInteractionPause(1000);
     await userEvent.click(actionPopoverToggle[0]);
-
-    await userInteractionPause(1000);
+    await expect(
+      await within(document.body).findByText("Email Invoice"),
+    ).toBeVisible();
     await userEvent.keyboard("{Escape}");
   },
   decorators: [
@@ -202,5 +201,57 @@ export const CloseOnEscPress: Story = {
     ),
   ],
 };
-
+CloseOnEscPress.parameters = { chromatic: { disableSnapshot: true } };
 CloseOnEscPress.storyName = "Close On ESC Press";
+
+export const SubmenuHover: Story = {
+  render: () => (
+    <Box mt={40} height={275}>
+      <ActionPopover onOpen={() => {}} onClose={() => {}}>
+        <ActionPopoverItem disabled icon="graph" onClick={() => {}}>
+          Business
+        </ActionPopoverItem>
+        <ActionPopoverItem icon="email" onClick={() => {}}>
+          Email Invoice
+        </ActionPopoverItem>
+        <ActionPopoverItem icon="print" onClick={() => {}} submenu={submenu}>
+          Print Invoice
+        </ActionPopoverItem>
+        <ActionPopoverItem icon="pdf" onClick={() => {}}>
+          Download PDF
+        </ActionPopoverItem>
+        <ActionPopoverItem icon="csv" onClick={() => {}}>
+          Download CSV
+        </ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem disabled icon="delete" onClick={() => {}}>
+          Delete
+        </ActionPopoverItem>
+      </ActionPopover>
+    </Box>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const actionPopoverButtons = canvas.getAllByRole("button");
+    await userEvent.click(actionPopoverButtons[0]);
+
+    const elementWithSubmenu = await within(document.body).findByText(
+      "Print Invoice",
+    );
+    await userEvent.hover(elementWithSubmenu, { delay: 200 });
+    await expect(
+      await within(document.body).findByText("Sub Menu 1"),
+    ).toBeVisible();
+  },
+  decorators: [
+    (StoryToRender) => (
+      <div style={{ height: "100vh", width: "100vw" }}>
+        <StoryToRender />
+      </div>
+    ),
+  ],
+};
+
+SubmenuHover.parameters = {
+  chromatic: { disableSnapshot: false },
+};

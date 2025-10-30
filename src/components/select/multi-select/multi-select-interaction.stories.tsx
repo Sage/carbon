@@ -1,5 +1,5 @@
 import { StoryObj } from "@storybook/react";
-import { userEvent, within } from "@storybook/test";
+import { userEvent, within, expect } from "@storybook/test";
 import React from "react";
 
 import {
@@ -13,7 +13,6 @@ import Box from "../../box";
 
 import { allowInteractions } from "../../../../.storybook/interaction-toggle/reduced-motion";
 import DefaultDecorator from "../../../../.storybook/utils/default-decorator";
-import userInteractionPause from "../../../../.storybook/utils/user-interaction-pause";
 
 type Story = StoryObj<typeof MultiSelect>;
 
@@ -80,12 +79,15 @@ export const HighlightedItem: Story = {
     }
     const canvas = within(canvasElement);
     const select = canvas.getByRole("combobox", { name: /Color/ });
-    await userEvent.click(select);
-    await userInteractionPause(1000);
+    await userEvent.click(select, { delay: 100 });
 
     await userEvent.keyboard("{ArrowDown}");
     await userEvent.keyboard("{ArrowDown}"); // highlight option 2
-    await userInteractionPause(1000);
+
+    const blackOption = within(document.body).getByRole("option", {
+      name: "Black",
+    });
+    await expect(blackOption).toBeVisible();
   },
   decorators: [
     (StoryToRender) => (
@@ -97,7 +99,7 @@ export const HighlightedItem: Story = {
 };
 HighlightedItem.storyName = "Highlighted Item";
 
-export const HoverItem: Story = {
+export const KeyboardInteraction: Story = {
   render: () => (
     <Box height={250}>
       <ControlledMultiSelect name="multi" id="multi" label="Color" />
@@ -110,11 +112,13 @@ export const HoverItem: Story = {
     const canvas = within(canvasElement);
     const select = canvas.getByRole("combobox", { name: /Color/ });
     await userEvent.click(select);
-    await userInteractionPause(1000);
 
     await userEvent.keyboard("{ArrowDown}");
     await userEvent.keyboard("{ArrowDown}"); // highlight option 2
-    await userInteractionPause(1000);
+    const blackOption = within(document.body).getByRole("option", {
+      name: "Black",
+    });
+    await expect(blackOption).toBeVisible();
   },
   decorators: [
     (StoryToRender) => (
@@ -124,8 +128,8 @@ export const HoverItem: Story = {
     ),
   ],
 };
-HoverItem.storyName = "Hover Item";
-HoverItem.parameters = {
+KeyboardInteraction.storyName = "Keyboard Interaction";
+KeyboardInteraction.parameters = {
   pseudo: {
     hover: ["[data-index='1']", "[data-index='3']"],
   },
@@ -182,8 +186,9 @@ export const MultiColumnList: Story = {
     }
     const canvas = within(canvasElement);
     const select = canvas.getByRole("combobox", { name: /Color/ });
-    await userEvent.click(select);
-    await userInteractionPause(1000);
+    await userEvent.click(select, { delay: 200 });
+    const userOption = document.getElementById("2");
+    await expect(userOption).toBeVisible();
   },
   decorators: [
     (StoryToRender) => (
@@ -234,8 +239,11 @@ export const GroupedOptions: Story = {
     }
     const canvas = within(canvasElement);
     const select = canvas.getByRole("combobox", { name: /Color/ });
-    await userEvent.click(select);
-    await userInteractionPause(1000);
+    await userEvent.click(select, { delay: 200 });
+    const blackOption = within(document.body).getByRole("option", {
+      name: "Black",
+    });
+    await expect(blackOption).toBeVisible();
   },
   decorators: [
     (StoryToRender) => (
@@ -276,11 +284,10 @@ export const WithCustomColoredPills: Story = {
     }
     const canvas = within(canvasElement);
     const select = canvas.getByRole("combobox", { name: /Color/ });
+    const closeButton = canvas.getAllByRole("button");
     await userEvent.click(select);
-    await userInteractionPause(1000);
-
     await userEvent.tab({ shift: true });
-    await userInteractionPause(1000);
+    await expect(closeButton[5]).toHaveFocus();
   },
   decorators: [
     (StoryToRender) => (

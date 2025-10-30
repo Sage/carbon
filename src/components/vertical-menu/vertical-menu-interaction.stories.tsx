@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { StoryObj } from "@storybook/react";
-import { userEvent, within } from "@storybook/test";
+import { userEvent, within, expect } from "@storybook/test";
 
 import {
   VerticalMenu,
@@ -12,7 +12,6 @@ import Pill from "../pill";
 
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
 import DefaultDecorator from "../../../.storybook/utils/default-decorator";
-import userInteractionPause from "../../../.storybook/utils/user-interaction-pause";
 
 type Story = StoryObj<typeof VerticalMenu>;
 
@@ -57,8 +56,10 @@ export const ClickToOpenSubmenu: Story = {
 
     const canvas = within(canvasElement);
     const submenuToggle = canvas.getByRole("button", { name: /item 3/i });
-
     await userEvent.click(submenuToggle);
+    await expect(
+      await within(document.body).findByText("ChildItem 1"),
+    ).toBeVisible();
   },
   decorators: [
     (StoryToRender) => (
@@ -107,7 +108,9 @@ export const NavigateToOpenSubmenu: Story = {
     await userEvent.tab(); // focus item 3
     await userEvent.tab(); // focus item 4
     await userEvent.keyboard("{Enter}"); // open item 4 submenu
-    await userInteractionPause(100);
+    await expect(
+      await within(document.body).findByText("ChildItem 1"),
+    ).toBeVisible();
   },
   decorators: [
     (StoryToRender) => (
@@ -165,8 +168,10 @@ export const ClickToOpenFullScreen: Story = {
     const canvas = within(canvasElement);
     const menuToggle = canvas.getByRole("button");
 
-    await userEvent.click(menuToggle);
-    await userInteractionPause(1000); // Pause to allow the full screen menu to open
+    await userEvent.click(menuToggle, { delay: 100 });
+    await expect(
+      await within(document.body).findByText("Item 3"),
+    ).toBeVisible();
   },
   decorators: [
     (StoryToRender) => (
@@ -186,11 +191,15 @@ export const NavigateFullScreen: Story = {
     }
 
     await userEvent.tab();
-    await userEvent.keyboard("{Enter}"); // open full screen menu
-    await userInteractionPause(1000); // Pause to allow the full screen menu to open
+    await userEvent.keyboard("{Enter}", { delay: 100 }); // open full screen menu
 
-    await userEvent.tab(); // focus close button
-    await userEvent.tab(); // focus item 1
+    await userEvent.tab({ delay: 100 }); // focus close button
+    await userEvent.tab({ delay: 100 }); // focus item 1
+    await userEvent.tab({ delay: 100 }); // focus item 2
+    const childLink = within(document.body).getByRole("link", {
+      name: "Item 2",
+    });
+    await expect(childLink).toHaveFocus();
   },
   decorators: [
     (StoryToRender) => (
