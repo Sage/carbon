@@ -299,9 +299,12 @@ test("should render the expected Icon styling when `colorTheme` is 'dark'", () =
     </FlatTable>,
   );
 
-  expect(screen.getByTestId("icon")).toHaveStyleRule(
+  expect(screen.getByRole("button")).toHaveStyleRule(
     "color",
     "var(--colorsActionMinorYang100)",
+    {
+      modifier: "span[data-component='icon']",
+    },
   );
 });
 
@@ -322,8 +325,11 @@ test.each<FlatTableProps["colorTheme"]>([
     </FlatTable>,
   );
 
-  expect(screen.getByTestId("icon")).toHaveStyleRule(
+  expect(screen.getByRole("button")).toHaveStyleRule(
     "color",
     "var(--colorActionMinor500)",
+    {
+      modifier: "span[data-component='icon']",
+    },
   );
 });
