@@ -39,14 +39,14 @@ To use `Drawer`, pass the main content as children and the drawer content via th
 
 By default the height of the component is set to `100%`, to set a custom height use the `height` prop.
 
-<Canvas of={DrawerStories.CustomHeight} />
+<Canvas of={DrawerStories.Height} />
 
 ### Sidebar Width
 
 By default, the width of the drawer when expanded is set to `30vw`, with a min-width of `288px` and a max-width of `760px`. 
 To set a custom width to the drawer, use the `expandedWidth` prop.
 
-<Canvas of={DrawerStories.ExpandedWidth} />
+<Canvas of={DrawerStories.SidebarWidth} />
 
 ### With Title
 
@@ -62,17 +62,23 @@ To render a footer within the `Drawer`, use the `footer` prop and pass any valid
 
 <Canvas of={DrawerStories.WithFooter} />
 
-### With Sticky Header & Footer
+### Sticky Header & Footer
 
 To render the title and/or footer as sticky, you can use the `stickyHeader` and `stickyFooter` props.
 
-<Canvas of={DrawerStories.WithSticky} />
+<Canvas of={DrawerStories.StickyHeaderAndFooter} />
 
 ### Sidebar Aria Label
 
 To give the sidebar an accessible label when not providing a `title` please use the `sidebarAriaLabel` prop.
 
-<Canvas of={DrawerStories.WithSidebarAriaLabel} />
+<Canvas of={DrawerStories.SidebarAriaLabel} />
+
+### Background Color
+
+To set a custom background color for the drawer sidebar, use the `backgroundColor` prop.
+
+<Canvas of={DrawerStories.WithBackgroundColor} />
 
 ### Controlled
 

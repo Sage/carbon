@@ -43,21 +43,3 @@ export const WithShowControls: Story = {
     showControls: true,
   },
 };
-
-export const WithBackgroundColor: Story = {
-  render: (args) => (
-    <Drawer {...args}>
-      <Box p={3}>Main body</Box>
-    </Drawer>
-  ),
-  args: {
-    sidebar: <Box p={3}>Drawer content</Box>,
-    title: <Typography variant="h2">Drawer Title</Typography>,
-    footer: (
-      <Box display="flex" justifyContent="flex-end">
-        <Button buttonType="primary">Footer Action</Button>
-      </Box>
-    ),
-    backgroundColor: "var(--colorsUtilityMajor050)",
-  },
-};

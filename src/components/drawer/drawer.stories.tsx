@@ -38,6 +38,22 @@ export const Default: Story = {
   },
 };
 
+export const Height: Story = {
+  ...Default,
+  args: {
+    ...Default.args,
+    height: "100px",
+  },
+};
+
+export const SidebarWidth: Story = {
+  ...Default,
+  args: {
+    ...Default.args,
+    expandedWidth: "400px",
+  },
+};
+
 export const WithTitle: Story = {
   ...Default,
   args: {
@@ -58,7 +74,7 @@ export const WithFooter: Story = {
   },
 };
 
-export const WithSticky: Story = {
+export const StickyHeaderAndFooter: Story = {
   ...WithFooter,
   args: {
     ...WithFooter.args,
@@ -77,27 +93,19 @@ export const WithSticky: Story = {
   },
 };
 
-export const CustomHeight: Story = {
-  ...Default,
-  args: {
-    ...Default.args,
-    height: "100px",
-  },
-};
-
-export const ExpandedWidth: Story = {
-  ...Default,
-  args: {
-    ...Default.args,
-    expandedWidth: "400px",
-  },
-};
-
-export const WithSidebarAriaLabel: Story = {
+export const SidebarAriaLabel: Story = {
   ...Default,
   args: {
     ...Default.args,
     sidebarAriaLabel: "This is a Drawer",
+  },
+};
+
+export const WithBackgroundColor: Story = {
+  ...Default,
+  args: {
+    ...Default.args,
+    backgroundColor: "var(--colorsUtilityMajor050)",
   },
 };
 
