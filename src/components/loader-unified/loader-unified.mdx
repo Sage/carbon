@@ -1,0 +1,128 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
+
+import * as UnifiedLoaderStories from "./loader-unified.stories";
+
+<Meta of={UnifiedLoaderStories} />
+
+# Unified Loader
+Use the `UnifiedLoader` component to clearly indicate that a task or data is still loading, helping users understand they should wait rather than refresh the page or abandon the process. The `UnifiedLoader` component offers three loading types: `standalone` (with `typical` and `ai` variants), `ring` (with `inline` or `stacked` variants) and `star` for clear visual feedback.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+- [Translation keys](#translation-keys)
+
+## Quick Start
+
+Import `UnifiedLoader` into the project.
+
+```javascript
+import UnifiedLoader from "carbon-react/lib/components/loader-unified";
+```
+
+## Examples
+
+### Loader Types
+
+The `UnifiedLoader` component offers three loading types: `standalone` (default), `ring` and `star`.
+
+#### Standalone
+
+<Canvas of={UnifiedLoaderStories.Standalone} />
+
+#### Ring
+
+<Canvas of={UnifiedLoaderStories.Ring} />
+
+#### Star
+
+<Canvas of={UnifiedLoaderStories.Star} />
+
+### Loader Variants
+
+#### Standalone variants
+
+The `standalone` loader type comes with two variants: `typical` (default) and `ai`.
+
+#### Typical
+
+<Canvas of={UnifiedLoaderStories.StandaloneTypicalVariant} />
+
+#### A.I.
+
+<Canvas of={UnifiedLoaderStories.StandaloneAiVariant} />
+
+#### Ring variants
+
+The `ring` loader type comes with two variants: `stacked` (default) and `inline`.
+
+#### Stacked
+
+<Canvas of={UnifiedLoaderStories.RingStackedVariant} />
+
+#### Inline
+
+<Canvas of={UnifiedLoaderStories.RingInlineVariant} />
+
+### Loader Sizes
+
+The UnifiedLoader component offers size flexibility based on the selected loader type: the Standalone loader supports three sizes—Small, Medium, and Large—while the Ring loader provides four options—Extra Small, Small, Medium, and Large. The Star loader type has a single default size, ensuring a consistent appearance across use cases.
+
+#### Standalone loader sizes
+<Canvas of={UnifiedLoaderStories.StandaloneSizes} />
+
+#### Ring loader sizes
+
+<Canvas of={UnifiedLoaderStories.RingSizes} />
+
+### Inverse
+
+You can use the `inverse` prop to render the UnifiedLoader's standalone and ring types with the inverse color scheme.
+
+#### Standalone typical inversed
+
+<Canvas of={UnifiedLoaderStories.StandaloneTypicalVariantInversed} />
+
+#### Standalone AI inversed
+
+<Canvas of={UnifiedLoaderStories.StandaloneAiVariantInversed} />
+
+#### Ring stacked inversed
+
+<Canvas of={UnifiedLoaderStories.RingStackedVariantInversed} />
+
+#### Ring inline inversed
+
+<Canvas of={UnifiedLoaderStories.RingInlineVariantInversed} />
+
+### Is Tracked
+
+When the `isTracked` prop is set to `true`, the ring will become tracked, for specific use cases where wait/loading times are predictable.
+
+<Canvas of={UnifiedLoaderStories.RingIsTracked} />
+
+#### Success State
+
+When the loader is tracked the prop `isSuccess` can be passed to display the success state
+
+<Canvas of={UnifiedLoaderStories.SuccessState} />
+
+#### Error State
+
+When the loader is tracked the prop `isError` can be passed to display the error state
+
+<Canvas of={UnifiedLoaderStories.ErrorState} />
+
+### Animation time
+
+The `animationTime` prop can also be set to any number, which will extend the animation time to that number in seconds.
+
+<Canvas of={UnifiedLoaderStories.AnimationTime} />
+
+
+
+
+

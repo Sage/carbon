@@ -5,11 +5,11 @@ import { userEvent, within, expect } from "@storybook/test";
 
 import Button, { ButtonProps } from ".";
 import Box from "../box";
-import Loader from "../loader";
 import Typography from "../typography";
 
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
 import DefaultDecorator from "../../../.storybook/utils/default-decorator";
+import UnifiedLoader from "../loader-unified/loader.component";
 
 export default {
   title: "Button/Interactions",
@@ -310,23 +310,68 @@ export const ButtonLoader: Story = () => {
   const handleButtonClick = () => {
     mimicLoading();
   };
-  const buttonContent = isLoading ? <Loader isInsideButton /> : "Click Me";
+  const typicalPrimaryButtonContent = isLoading ? (
+    <UnifiedLoader
+      loaderType="ring"
+      variant="inline"
+      size="extra-small"
+      showLabel
+      isInsideTypicalButton
+      isInsidePrimaryButton
+    />
+  ) : (
+    "Click Me"
+  );
+  const typicalButtonContent = isLoading ? (
+    <UnifiedLoader
+      loaderType="ring"
+      variant="inline"
+      size="extra-small"
+      showLabel
+      isInsideTypicalButton
+    />
+  ) : (
+    "Click Me"
+  );
+  const destructivePrimaryButtonContent = isLoading ? (
+    <UnifiedLoader
+      loaderType="ring"
+      variant="inline"
+      size="extra-small"
+      showLabel
+      isInsideDestructiveButton
+      isInsidePrimaryButton
+    />
+  ) : (
+    "Click Me"
+  );
+  const destructiveButtonContent = isLoading ? (
+    <UnifiedLoader
+      loaderType="ring"
+      variant="inline"
+      size="extra-small"
+      showLabel
+      isInsideDestructiveButton
+    />
+  ) : (
+    "Click Me"
+  );
 
   return (
     <>
       <Box height="50px">
         <Button m={2} buttonType="primary" onClick={handleButtonClick}>
-          {buttonContent}
+          {typicalPrimaryButtonContent}
         </Button>
       </Box>
       <Box height="50px">
         <Button m={2} buttonType="secondary" onClick={handleButtonClick}>
-          {buttonContent}
+          {typicalButtonContent}
         </Button>
       </Box>
       <Box height="50px">
         <Button m={2} buttonType="tertiary" onClick={handleButtonClick}>
-          {buttonContent}
+          {typicalButtonContent}
         </Button>
       </Box>
       <Box height="50px">
@@ -336,7 +381,7 @@ export const ButtonLoader: Story = () => {
           onClick={handleButtonClick}
           destructive
         >
-          {buttonContent}
+          {destructivePrimaryButtonContent}
         </Button>
       </Box>
       <Box height="50px">
@@ -346,7 +391,7 @@ export const ButtonLoader: Story = () => {
           onClick={handleButtonClick}
           destructive
         >
-          {buttonContent}
+          {destructiveButtonContent}
         </Button>
       </Box>
       <Box height="50px">
@@ -356,17 +401,17 @@ export const ButtonLoader: Story = () => {
           onClick={handleButtonClick}
           destructive
         >
-          {buttonContent}
+          {destructiveButtonContent}
         </Button>
       </Box>
       <Box height="50px">
         <Button m={2} buttonType="gradient-grey" onClick={handleButtonClick}>
-          {buttonContent}
+          {typicalButtonContent}
         </Button>
       </Box>
       <Box height="50px">
         <Button m={2} buttonType="gradient-white" onClick={handleButtonClick}>
-          {buttonContent}
+          {typicalButtonContent}
         </Button>
       </Box>
     </>
