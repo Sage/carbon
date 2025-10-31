@@ -1,3 +1,9 @@
+## [158.1.0](https://github.com/Sage/carbon/compare/v158.0.0...v158.1.0) (2025-10-31)
+
+### Features
+
+* **tabs:** implement changes for the Tabs component as part of the DS alignment work ([cf0c05f](https://github.com/Sage/carbon/commit/cf0c05f2c53c8725d77885cb2c039ab3ebd3f7c8))
+
 ## [158.0.0](https://github.com/Sage/carbon/compare/v157.9.0...v158.0.0) (2025-10-29)
 
 ### ⚠ BREAKING CHANGES
