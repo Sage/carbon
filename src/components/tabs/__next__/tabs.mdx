@@ -1,0 +1,133 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+import TranslationKeysTable from "../../../../.storybook/utils/translation-keys-table";
+
+import * as TabsStories from "./tabs.stories.tsx";
+import * as TabStories from "./__internal__/tab.stories.tsx";
+import * as TabListStories from "./__internal__/tab-list.stories.tsx";
+import * as TabPanelStories from "./__internal__/tab-panel.stories.tsx";
+
+<Meta of={TabsStories} />
+
+# Tabs
+
+<a
+  target="_blank"
+  href="https://designsystem.sage.com/35ee2cc26/p/59ef10-tabs"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
+>
+  Product Design System component
+</a>
+
+Tabs organise content, and let a user easily navigate and switch between content. Use tabs to structure content that does not need to be visible all at the same time. Responsive
+sizes should limit the number of tabs used to no more than 5.
+
+**This documentation is for the newer implementation of Tabs. If you are still using the older implementation, please use the <a href="../?path=/docs/deprecated-tabs--docs">Tabs documentation</a>.**
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Related Components](#related-components)
+- [Examples](#examples)
+- [Accessibility](#accessibility)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import {
+  Tabs,
+  Tab,
+  TabList,
+  TabPanel,
+} from "carbon-react/lib/components/tabs/__next__";
+```
+
+## Related Components
+
+- Navigating the hierarchy of the app? Try [Menu](../?path=/docs/menu--docs)
+- Positioning your primary navigation? Try [Navigation Bar](../?path=/docs/navigation-bar--docs)
+
+## Examples
+
+### Default
+
+<Canvas of={TabsStories.DefaultStory} name="default" />
+
+### Size
+
+Tabs are available in two sizes: `medium` (default) and `large`.
+
+<Canvas of={TabsStories.LargeSize} name="large-size" />
+
+### Orientation
+
+Use either `horizontal` (default) or `vertical` orientation.
+
+<Canvas of={TabsStories.VerticalOrientation} name="vertical-orientation" />
+
+### Responsive Overflow
+
+On a responsive device, when the screen is too small to show all tabs, tab overflow lets users navigate to hidden tabs.
+
+<Canvas of={TabsStories.TabOverflow} name="tab-overflow" />
+
+### Slots
+
+Use the `leftSlot` and `rightSlot` properties to control items before and after the `label` prop.
+
+<Canvas of={TabsStories.TitleSlots} name="title-slots" />
+
+### Validation States
+
+`Tab` elements can indicate when there is an error or warning present within it's child panel by setting the `error` or `warning` props respectively.
+
+<Canvas of={TabsStories.WithErrorAndWarning} name="validation-states" />
+
+#### Validation via Form
+
+`Tab` components will display errors and warnings from any child `Form` elements.
+
+<Canvas
+  of={TabsStories.WithErrorAndWarningInForm}
+  name="validation-states-form"
+/>
+
+### Pre-Selected Tabs
+
+`Tab` elements can be pre-selected through the `selectedTabId` prop. This can be used for e.g. setting the default tab based on routing or URL paths.
+
+<Canvas of={TabsStories.PreSelectedTab} name="pre-selected-tab" />
+
+## Accessibility
+
+Users should be able to:
+
+- Navigate to the tabs using assistive technology;
+- Identify tabs as a group of related content sections;
+- Display one section of content at a time.
+
+### Keyboard Interactions
+
+- Use the <kbd>Tab</kbd> key to move focus from the previous interactive element on the page to the first tab in the tab list.
+- Pressing the <kbd>Tab</kbd> key from the tab list moves focus to the next interactive element on the page.
+- To move between tabs, use the <kbd>LeftArrow</kbd> and <kbd>RightArrow</kbd> keys. Do not use the <kbd>Tab</kbd> key.
+- To display the selected `Tab` content, press <kbd>Enter</kbd> or <kbd>Space</kbd>.
+
+## Props
+
+### Tabs
+
+<ArgTypes of={TabsStories} />
+
+### Tab List
+
+<ArgTypes of={TabListStories} />
+
+### Tab
+
+<ArgTypes of={TabStories} />
+
+### Tab Panel
+
+<ArgTypes of={TabPanelStories} />
