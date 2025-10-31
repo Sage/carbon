@@ -1,6 +1,6 @@
 import React from "react";
 import { StoryObj } from "@storybook/react";
-import { userEvent, within } from "@storybook/test";
+import { userEvent, within, expect } from "@storybook/test";
 
 import {
   Menu,
@@ -17,7 +17,6 @@ import NavigationBar from "../navigation-bar";
 
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
 import DefaultDecorator from "../../../.storybook/utils/default-decorator";
-import userInteractionPause from "../../../.storybook/utils/user-interaction-pause";
 
 type Story = StoryObj<typeof Menu>;
 
@@ -257,11 +256,10 @@ export const WithSearch: Story = {
     await userEvent.hover(menuItemLight);
     await userEvent.hover(menuItemDark);
     await userEvent.hover(menuItemBlack);
-    await userInteractionPause(1000);
 
     const search = canvas.getAllByRole("textbox", { name: "search" });
     search[0].focus();
-    await userInteractionPause(1000);
+    await expect(search[0]).toHaveFocus();
   },
   decorators: [
     (StoryToRender) => (
@@ -309,12 +307,12 @@ export const WithScrollable: Story = {
     await userEvent.hover(menuItemLight);
     await userEvent.hover(menuItemDark);
     await userEvent.hover(menuItemBlack);
-    await userInteractionPause(1000);
 
     const lastItemInScrollable = canvas.getAllByRole("button", {
       name: "Alternative Scrollable Six",
     });
     lastItemInScrollable[0].focus();
+    await expect(lastItemInScrollable[0]).toHaveFocus();
   },
   decorators: [
     (StoryToRender) => (
@@ -362,12 +360,12 @@ export const WithSegmentTitle: Story = {
     await userEvent.hover(menuItemLight);
     await userEvent.hover(menuItemDark);
     await userEvent.hover(menuItemBlack);
-    await userInteractionPause(1000);
 
     const itemTwo = canvas.getAllByRole("button", {
       name: "Item Submenu Three",
     });
     itemTwo[0].focus();
+    await expect(itemTwo[0]).toHaveFocus();
   },
   decorators: [
     (StoryToRender) => (
@@ -406,7 +404,14 @@ export const WithCustomWidth: Story = {
 
     await userEvent.hover(menuItemMaxWidth);
     await userEvent.hover(menuItemMinWidth);
-    await userInteractionPause(1000);
+    await expect(
+      await within(document.body).findByText("Item Three"),
+    ).toBeVisible();
+    await expect(
+      await within(document.body).findByText(
+        "This is a longer text string. I will wrap instead of truncating!",
+      ),
+    ).toBeVisible();
   },
   decorators: [
     (StoryToRender) => (
@@ -429,7 +434,7 @@ export const InNavigationBarStory: Story = {
     const menuItem = canvas.getByRole("button", { name: "Menu Item" });
 
     await userEvent.click(menuItem);
-    await userInteractionPause(1000);
+    await expect(await within(document.body).findByText("Foo 1")).toBeVisible();
   },
   decorators: [
     (StoryToRender) => (
@@ -447,9 +452,11 @@ export const MenuFullScreenWithSegmentTitle: Story = {
     if (!allowInteractions()) {
       return;
     }
-
+    const closeButton = within(document.body).getByRole("button", {
+      name: "Close",
+    });
     await userEvent.tab(); // focus close button
-    await userInteractionPause(1000);
+    await expect(closeButton).toHaveFocus();
   },
   decorators: [
     (StoryToRender) => (
@@ -475,9 +482,10 @@ export const MenuFullScreenWithScrollableBlock: Story = {
       return;
     }
 
+    const search = within(document.body).getByRole("textbox");
     await userEvent.tab();
     await userEvent.tab(); // focus search input
-    await userInteractionPause(1000);
+    await expect(search).toHaveFocus();
   },
   decorators: [
     (StoryToRender) => (

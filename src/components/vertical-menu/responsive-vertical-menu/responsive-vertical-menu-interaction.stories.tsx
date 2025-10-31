@@ -12,7 +12,6 @@ import GlobalHeader from "../../global-header";
 
 import { allowInteractions } from "../../../../.storybook/interaction-toggle/reduced-motion";
 import DefaultDecorator from "../../../../.storybook/utils/default-decorator";
-import userInteractionPause from "../../../../.storybook/utils/user-interaction-pause";
 
 type Story = StoryObj<typeof ResponsiveVerticalMenu>;
 
@@ -168,7 +167,7 @@ export const ToggleOpenOnClick: Story = {
     const menuToggle = canvas.getByRole("button");
 
     await userEvent.click(menuToggle);
-    await userInteractionPause(1000);
+    await expect(menuToggle).toHaveAttribute("aria-expanded", "true");
   },
   decorators: [
     (StoryToRender) => (
@@ -193,7 +192,7 @@ export const MarginTopAuto: Story = {
     const menuToggle = canvas.getByRole("button");
 
     await userEvent.click(menuToggle);
-    await userInteractionPause(1000);
+    await expect(menuToggle).toHaveAttribute("aria-expanded", "true");
   },
   decorators: [
     (StoryToRender) => (
@@ -218,7 +217,6 @@ export const NavigateToSecondary: Story = {
 
     await userEvent.tab(); // focus toggle
     await userEvent.keyboard("{Enter}"); // open menu
-    await userInteractionPause(1000);
 
     await expect(
       canvas.getByRole("button", { name: "Primary Menu With Children" }),
@@ -226,7 +224,6 @@ export const NavigateToSecondary: Story = {
 
     await userEvent.tab(); // primary item
     await userEvent.keyboard("{Enter}"); // open secondary menu
-    await userInteractionPause(1000);
 
     await expect(
       canvas.getByRole("button", { name: "Secondary Menu With Children" }),
@@ -253,11 +250,17 @@ export const NavigateToSecondaryResponsive: Story = {
     }
 
     await userEvent.tab(); // focus toggle
-    await userEvent.keyboard("{Enter}"); // open menu
-    await userInteractionPause(1000);
+    await userEvent.keyboard("{Enter}", { delay: 500 }); // open menu
 
-    await userEvent.tab(); // close button
-    await userEvent.tab(); // secondary item
+    await userEvent.tab({ delay: 500 }); // close button
+    await userEvent.tab({ delay: 1000 }); // secondary item
+    const secondaryButton = await within(document.body).findAllByRole(
+      "button",
+      {
+        name: "Secondary Menu With Children",
+      },
+    );
+    await expect(secondaryButton[0]).toHaveFocus();
   },
   decorators: [
     (StoryToRender) => (
@@ -287,7 +290,6 @@ export const NavigateToTertiary: Story = {
 
     await userEvent.tab(); // focus toggle
     await userEvent.keyboard("{Enter}"); // open menu
-    await userInteractionPause(1000);
 
     await expect(
       canvas.getByRole("button", { name: "Primary Menu With Children" }),
@@ -295,7 +297,6 @@ export const NavigateToTertiary: Story = {
 
     await userEvent.tab(); // primary item
     await userEvent.keyboard("{Enter}"); // open secondary menu
-    await userInteractionPause(1000);
 
     await expect(
       canvas.getByRole("button", { name: "Secondary Menu With Children" }),
@@ -303,7 +304,6 @@ export const NavigateToTertiary: Story = {
 
     await userEvent.tab(); // secondary item
     await userEvent.keyboard("{Enter}"); // open tertiary menu
-    await userInteractionPause(1000);
 
     await userEvent.tab(); // tertiary item
 
@@ -327,16 +327,17 @@ export const NavigateToTertiaryResponsive: Story = {
       return;
     }
 
-    await userEvent.tab(); // focus toggle
-    await userEvent.keyboard("{Enter}"); // open menu
-    await userInteractionPause(1000);
+    await userEvent.tab({ delay: 1000 }); // focus toggle
+    await userEvent.keyboard("{Enter}", { delay: 1000 }); // open menu
 
-    await userEvent.tab(); // close button
-    await userEvent.tab(); // secondary item
-    await userEvent.keyboard("{Enter}"); // open tertiary menu
-    await userInteractionPause(1000);
-
-    await userEvent.tab(); // tertiary item
+    await userEvent.tab({ delay: 500 }); // close button
+    await userEvent.tab({ delay: 500 }); // secondary item
+    await userEvent.keyboard("{Enter}", { delay: 500 }); // open tertiary menu
+    await userEvent.tab({ delay: 500 }); // tertiary item
+    const tertiaryLink = within(document.body).getAllByRole("button", {
+      name: "Secondary Menu With Children",
+    });
+    await expect(tertiaryLink[0]).toHaveAttribute("aria-expanded", "true");
   },
   decorators: [
     (StoryToRender) => (

@@ -6,7 +6,6 @@ import Breadcrumbs from "./breadcrumbs.component";
 import Box from "../box";
 
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
-import userInteractionPause from "../../../.storybook/utils/user-interaction-pause";
 import { Crumb } from "./crumb";
 
 type Story = StoryObj<typeof Breadcrumbs>;
@@ -41,12 +40,10 @@ export const DefaultBreadcrumbs: Story = {
     expect(links.length).toBe(2);
 
     await userEvent.tab();
-    await userInteractionPause(100);
-    expect(links[0]).toHaveFocus();
+    await expect(links[0]).toHaveFocus();
 
     await userEvent.tab();
-    await userInteractionPause(100);
-    expect(links[1]).toHaveFocus();
+    await expect(links[1]).toHaveFocus();
   },
 };
 
@@ -69,14 +66,12 @@ export const DarkBackground: Story = {
 
     const firstLink = canvas.getByRole("link", { name: "Breadcrumb 1" });
     await userEvent.hover(firstLink);
-    await userInteractionPause(50);
 
     const nav = canvas.getByRole("navigation", { name: /breadcrumb/i });
-    expect(nav).toBeInTheDocument();
+    await expect(nav).toBeInTheDocument();
 
     await userEvent.tab();
-    await userInteractionPause(50);
-    expect(firstLink).toHaveFocus();
+    await expect(firstLink).toHaveFocus();
   },
 };
 
@@ -97,17 +92,18 @@ export const LongTrailBreadcrumbs: Story = {
     const canvas = within(canvasElement);
 
     const items = canvas.getAllByRole("listitem");
-    expect(items.length).toBe(5);
+    await expect(items.length).toBe(5);
 
     const links = canvas.getAllByRole("link");
     await userEvent.tab();
-    await userInteractionPause(120);
-    expect(links[0]).toHaveFocus();
+    await expect(links[0]).toHaveFocus();
 
     await userEvent.tab();
-    await userInteractionPause(120);
-    expect(links[1]).toHaveFocus();
+    await expect(links[1]).toHaveFocus();
   },
+};
+LongTrailBreadcrumbs.parameters = {
+  chromatic: { disableSnapshot: true },
 };
 
 export const FocusManagement: Story = {
@@ -126,25 +122,24 @@ export const FocusManagement: Story = {
     const canvas = within(canvasElement);
 
     const nav = canvas.getByRole("navigation", { name: /breadcrumbs/i });
-    expect(nav).toBeInTheDocument();
+    await expect(nav).toBeInTheDocument();
 
     const links = canvas.getAllByRole("link");
-    expect(links).toHaveLength(3);
+    await expect(links).toHaveLength(3);
 
     await userEvent.tab();
-    await userInteractionPause(120);
-    expect(links[0]).toHaveFocus();
+    await expect(links[0]).toHaveFocus();
 
     await userEvent.tab();
-    await userInteractionPause(120);
-    expect(links[1]).toHaveFocus();
+    await expect(links[1]).toHaveFocus();
 
     await userEvent.tab();
-    await userInteractionPause(120);
-    expect(links[2]).toHaveFocus();
+    await expect(links[2]).toHaveFocus();
 
     await userEvent.tab({ shift: true });
-    await userInteractionPause(120);
-    expect(links[1]).toHaveFocus();
+    await expect(links[1]).toHaveFocus();
   },
+};
+FocusManagement.parameters = {
+  chromatic: { disableSnapshot: true },
 };

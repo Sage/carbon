@@ -5,7 +5,6 @@ import AdvancedColorPicker from "./advanced-color-picker.component";
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
 import DefaultDecorator from "../../../.storybook/utils/default-decorator";
 import Box from "../box";
-import userInteractionPause from "../../../.storybook/utils/user-interaction-pause";
 
 type Story = StoryObj<typeof AdvancedColorPicker>;
 
@@ -91,6 +90,9 @@ export const ColorSelection: Story = {
   ],
 };
 ColorSelection.storyName = "Color Selection";
+ColorSelection.parameters = {
+  chromatic: { disableSnapshot: true },
+};
 
 export const ColorPreviewInteraction: Story = {
   render: () => (
@@ -135,6 +137,9 @@ export const ColorPreviewInteraction: Story = {
   ],
 };
 ColorPreviewInteraction.storyName = "Color Preview Interaction";
+ColorPreviewInteraction.parameters = {
+  chromatic: { disableSnapshot: true },
+};
 
 export const DialogOpenAndCloseStates: Story = {
   render: () => (
@@ -179,6 +184,9 @@ export const DialogOpenAndCloseStates: Story = {
   ],
 };
 DialogOpenAndCloseStates.storyName = "Dialog Open And Close States";
+DialogOpenAndCloseStates.parameters = {
+  chromatic: { disableSnapshot: true },
+};
 
 export const FocusManagement: Story = {
   render: () => (
@@ -193,7 +201,6 @@ export const FocusManagement: Story = {
     const trigger = canvas.getByRole("button", { name: /change colo(u)?r/i });
 
     await userEvent.click(trigger);
-    await userInteractionPause(300);
 
     const portal = within(document.body);
 
@@ -204,7 +211,6 @@ export const FocusManagement: Story = {
     const mintRadioOption = await portal.findByLabelText(/mint/i);
 
     await userEvent.keyboard("{Tab}");
-    await userInteractionPause(50);
 
     mintRadioOption.focus();
     await waitFor(() => expect(mintRadioOption).toHaveFocus());
@@ -217,7 +223,6 @@ export const FocusManagement: Story = {
     await waitFor(() => expect(trigger).toHaveFocus());
 
     await userEvent.click(trigger);
-    await userInteractionPause(300);
 
     const mintAgain = await portal.findByLabelText(/mint/i);
     mintAgain.focus();
@@ -232,6 +237,9 @@ export const FocusManagement: Story = {
   ],
 };
 FocusManagement.storyName = "Focus Management";
+FocusManagement.parameters = {
+  chromatic: { disableSnapshot: true },
+};
 
 export const RestoreOnFocus: Story = {
   render: () => (
@@ -324,3 +332,6 @@ export const ColorGridNavigation: Story = {
   ],
 };
 ColorGridNavigation.storyName = "Color Grid Navigation";
+ColorGridNavigation.parameters = {
+  chromatic: { disableSnapshot: true },
+};
