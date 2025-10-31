@@ -1,3 +1,9 @@
+## [158.1.1](https://github.com/Sage/carbon/compare/v158.1.0...v158.1.1) (2025-10-31)
+
+### Bug Fixes
+
+* **textarea:** ensure character count is included in form field ([74af629](https://github.com/Sage/carbon/commit/74af629b9038a828b464c215b4ad2f6e6d241789)), closes [#7592](https://github.com/Sage/carbon/issues/7592)
+
 ## [158.1.0](https://github.com/Sage/carbon/compare/v158.0.0...v158.1.0) (2025-10-31)
 
 ### Features
