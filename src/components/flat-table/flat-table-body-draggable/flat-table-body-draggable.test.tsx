@@ -114,6 +114,11 @@ const WithDynamicRow = () => {
   );
 };
 
+afterEach(() => {
+  fireEvent.dragEnd(window);
+  fireEvent.pointerMove(window);
+});
+
 test("should set the expected data- attributes on the table body", () => {
   render(
     <FlatTable>
@@ -183,6 +188,7 @@ describe("drag and drop functionality", () => {
     fireEvent.dragStart(elementToDrag);
     fireEvent.dragEnter(dropTarget);
     fireEvent.dragOver(dropTarget);
+    fireEvent.dragLeave(dropTarget);
     fireEvent.drop(window);
 
     expect(screen.getAllByRole("row").map((cell) => cell.textContent)).toEqual([
@@ -203,7 +209,7 @@ describe("drag and drop functionality", () => {
 
     await waitFor(() => {
       expect(screen.getByTestId("flat-table-body-draggable")).toHaveStyle(
-        "cursor: grabbing",
+        "cursor: grab",
       );
     });
   });
