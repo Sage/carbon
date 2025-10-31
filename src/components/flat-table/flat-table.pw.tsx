@@ -52,7 +52,7 @@ import {
   flatTableBody,
   flatTableCell,
   flatTableCheckboxHeader,
-  flatTableHeaderCellsIcon,
+  flatTableHeaderCellsButtonIcon,
   flatTableExpandableIcon,
   flatTableBodyRows,
   flatTableRowHeader,
@@ -73,6 +73,7 @@ import {
   flatTableCurrentPageInput,
   flatTableCheckboxCell,
   flatTableCheckboxAsProp,
+  flatTableHeaderCellsIcon,
 } from "../../../playwright/components/flat-table";
 import { CHARACTERS } from "../../../playwright/support/constants";
 import {
@@ -1281,7 +1282,7 @@ test.describe("Prop tests", () => {
       const totalTwo = "1349";
       const totalThree = "849";
       const totalFour = "3840";
-      const headerCellsIcon = flatTableHeaderCellsIcon(page);
+      const headerCellsIcon = flatTableHeaderCellsButtonIcon(page);
       const cell1 = flatTableCell(page, 0);
       const cell2 = flatTableCell(page, 1);
       const cell3 = flatTableCell(page, 2);
@@ -1373,7 +1374,7 @@ test.describe("Prop tests", () => {
       const totalTwo = "1349";
       const totalThree = "849";
       const totalFour = "3840";
-      const headerCellsIcon = flatTableHeaderCellsIcon(page);
+      const headerCellsIcon = flatTableHeaderCellsButtonIcon(page);
       const cell1 = flatTableCell(page, 0);
       const cell2 = flatTableCell(page, 1);
       const cell3 = flatTableCell(page, 2);
@@ -1465,7 +1466,7 @@ test.describe("Prop tests", () => {
       const totalTwo = "1349";
       const totalThree = "849";
       const totalFour = "3840";
-      const headerCellsIcon = flatTableHeaderCellsIcon(page);
+      const headerCellsIcon = flatTableHeaderCellsButtonIcon(page);
       const cell1 = flatTableCell(page, 0);
       const cell2 = flatTableCell(page, 1);
       const cell3 = flatTableCell(page, 2);
