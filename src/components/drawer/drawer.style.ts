@@ -1,5 +1,5 @@
 import styled, { css, keyframes } from "styled-components";
-import StyledTabs from "../tabs/tabs.style";
+import { StyledTabs } from "../tabs/__next__/tabs.style";
 import Box from "../box";
 import StyledStickyFooter from "../../__internal__/sticky-footer/sticky-footer.style";
 import addFocusStyling from "../../style/utils/add-focus-styling";
