@@ -1,5 +1,6 @@
 import React from "react";
 import TextEditor from "./text-editor.component";
+import MentionsPlugin from "./__internal__";
 
 const TextEditorDefaultComponent = ({ ...props }) => {
   return (
@@ -114,3 +115,34 @@ export const TextEditorWithFooterOnCancel = () => {
     />
   );
 };
+
+export const TextEditorWithMentions = ({ ...args }) => (
+  <TextEditor
+    labelText="Playwright Example"
+    namespace="pw-rte"
+    {...args}
+    customPlugins={
+      <MentionsPlugin
+        namespace="pw-rte-mentions"
+        searchOptions={[
+          {
+            id: "1",
+            name: "Amanda Ball",
+          },
+          {
+            id: "2",
+            name: "Anaya Underwood",
+          },
+          {
+            id: "3",
+            name: "Tylar Cox",
+          },
+          {
+            id: "4",
+            name: "Ibrahim Abbasov",
+          },
+        ]}
+      />
+    }
+  />
+);

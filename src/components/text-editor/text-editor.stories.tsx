@@ -20,8 +20,13 @@ import TextEditor, {
   createEmpty,
   createFromHTML,
   EditorFormattedValues,
+  TextEditorProps,
+  Mention,
+  MentionsPlugin,
 } from ".";
+
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
+import { action } from "@storybook/addon-actions";
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
@@ -41,10 +46,81 @@ const meta: Meta<typeof TextEditor> = {
 export default meta;
 type Story = StoryObj<typeof TextEditor>;
 
-export const Default: Story = () => {
-  return <TextEditor namespace="storybook-default" labelText="Text Editor" />;
+export const Demo: Story = {
+  render: (args: TextEditorProps) => (
+    <>
+      <Typography mb={2}>
+        This is an interactive demo of the Text Editor component. Use the
+        controls in the panel below to modify props and see how the component
+        behaves with different configurations.
+      </Typography>
+      <TextEditor
+        {...args}
+        customPlugins={
+          <MentionsPlugin
+            namespace={args.namespace || "storybook-mentions"}
+            searchOptions={[
+              {
+                id: "1",
+                name: "Amanda Ball",
+              },
+              {
+                id: "2",
+                name: "Anaya Underwood",
+              },
+              {
+                id: "3",
+                name: "Tylar Cox",
+              },
+              {
+                id: "4",
+                name: "Ibrahim Abbasov",
+              },
+            ]}
+          />
+        }
+      />
+    </>
+  ),
+  args: {
+    labelText: "Text Editor Label",
+    placeholder: "Enter your text here...",
+    rows: 4,
+    size: "medium",
+    namespace: "storybook-demo",
+    inputHint: "",
+    characterLimit: undefined,
+    required: false,
+    readOnly: false,
+    error: "",
+    warning: "",
+    validationMessagePositionTop: false,
+    header: "",
+    footer: "",
+    toolbarControls: [
+      "typography",
+      "bold",
+      "italic",
+      "underline",
+      "unordered-list",
+      "ordered-list",
+      "link",
+    ],
+    initialValue: undefined,
+    // Callbacks handled via actions
+    onChange: action("onChange"),
+    onFocus: action("onFocus"),
+    onBlur: action("onBlur"),
+    onLinkAdded: action("onLinkAdded"),
+    onCancel: action("onCancel"),
+    onSave: action("onSave"),
+  },
+  parameters: {
+    options: {
+      initialActive: "controls",
+    },
+  },
 };
-Default.storyName = "Default";
 
 export const ProgrammaticFocus = () => {
   const editorRef = useRef<TextEditorHandle>(null);
@@ -65,35 +141,16 @@ export const ProgrammaticFocus = () => {
 };
 ProgrammaticFocus.storyName = "Focusing the Text Editor Programmatically";
 
-export const Header: Story = () => {
-  return (
-    <TextEditor
-      namespace="storybook-header"
-      labelText="Text Editor"
-      header={<Button buttonType="gradient-white">Button</Button>}
-    />
-  );
+export const ToolbarControls: Story = {
+  render: (args: TextEditorProps) => <TextEditor {...args} />,
+  args: {
+    labelText: "Text Editor Label",
+    rows: 4,
+    size: "medium",
+    namespace: "storybook-demo",
+    toolbarControls: ["typography", "italic", "unordered-list", "link"],
+  },
 };
-Header.storyName = "With Header";
-
-export const Footer: Story = () => {
-  return (
-    <TextEditor
-      namespace="storybook-footer"
-      labelText="Text Editor"
-      footer={
-        <Typography color="--colorsUtilityYin055">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text{" "}
-          <Link href="https://carbon.sage.com/?path=/story/welcome--welcome-page">
-            ever since the 1500s
-          </Link>
-        </Typography>
-      }
-    />
-  );
-};
-Footer.storyName = "With Footer";
 
 export const HeaderAndFooter: Story = () => {
   return (
@@ -114,140 +171,6 @@ export const HeaderAndFooter: Story = () => {
   );
 };
 HeaderAndFooter.storyName = "With Header and Footer";
-
-export const UsingCreateEmpty: Story = () => {
-  const value = createEmpty();
-  return (
-    <TextEditor
-      namespace="storybook-usingcreateempty"
-      labelText="Text Editor"
-      initialValue={value}
-    />
-  );
-};
-UsingCreateEmpty.storyName = "Using CreateEmpty";
-UsingCreateEmpty.parameters = {
-  chromatic: { disableSnapshot: true },
-};
-
-export const Required: Story = () => {
-  return (
-    <TextEditor
-      namespace="storybook-required"
-      labelText="Text Editor"
-      required
-    />
-  );
-};
-Required.storyName = "Required";
-
-export const CharacterLimit: Story = () => {
-  return (
-    <TextEditor
-      namespace="storybook-characterlimit"
-      labelText="Text Editor"
-      characterLimit={50}
-    />
-  );
-};
-CharacterLimit.storyName = "Character Limit";
-
-export const CommandButtons: Story = () => {
-  return (
-    <TextEditor
-      namespace="storybook-commandbuttons"
-      labelText="Text Editor"
-      onCancel={() => alert("Cancelled")}
-      onSave={(values) => {
-        alert(JSON.stringify(values, null, 2));
-      }}
-    />
-  );
-};
-CommandButtons.storyName = "Command Buttons";
-
-export const OnBlur: Story = () => {
-  const [blurred, setBlurred] = React.useState<number>(0);
-  return (
-    <>
-      <TextEditor
-        namespace="storybook-onchange"
-        labelText="Text Editor"
-        onBlur={() => setBlurred((prev) => prev + 1)}
-      />
-      <div>Times blurred: {blurred}</div>
-    </>
-  );
-};
-OnBlur.storyName = "onBlur Handler";
-OnBlur.parameters = {
-  chromatic: { disableSnapshot: true },
-};
-
-export const onCancel: Story = () => {
-  const initialValue = {
-    root: {
-      children: [
-        {
-          children: [
-            {
-              detail: 0,
-              format: 0,
-              mode: "normal",
-              style: "",
-              text: "Make changes to this text and then press the ",
-              type: "text",
-              version: 1,
-            },
-            {
-              detail: 0,
-              format: 1,
-              mode: "normal",
-              style: "",
-              text: "Cancel",
-              type: "text",
-              version: 1,
-            },
-            {
-              detail: 0,
-              format: 0,
-              mode: "normal",
-              style: "",
-              text: " button to reset it to this default state.",
-              type: "text",
-              version: 1,
-            },
-          ],
-          direction: "ltr",
-          format: "",
-          indent: 0,
-          type: "paragraph",
-          version: 1,
-          textFormat: 0,
-          textStyle: "",
-        },
-      ],
-      direction: "ltr",
-      format: "",
-      indent: 0,
-      type: "root",
-      version: 1,
-    },
-  };
-  const value = JSON.stringify(initialValue);
-  return (
-    <TextEditor
-      namespace="storybook-oncancel"
-      labelText="Text Editor"
-      initialValue={value}
-      onCancel={() => {}}
-    />
-  );
-};
-onCancel.storyName = "onCancel Handler";
-onCancel.parameters = {
-  chromatic: { disableSnapshot: true },
-};
 
 export const OnChange: Story = () => {
   const [valueString, setValueString] = React.useState<string | undefined>(
@@ -324,24 +247,6 @@ ExternallyOverwriting.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const OnFocus: Story = () => {
-  const [focused, setFocused] = React.useState<number>(0);
-  return (
-    <>
-      <TextEditor
-        namespace="storybook-onchange"
-        labelText="Text Editor"
-        onFocus={() => setFocused((prev) => prev + 1)}
-      />
-      <div>Times focused: {focused}</div>
-    </>
-  );
-};
-OnFocus.storyName = "onFocus Handler";
-OnFocus.parameters = {
-  chromatic: { disableSnapshot: true },
-};
-
 export const OnSave: Story = () => {
   const [data, setData] = useState<EditorFormattedValues>({
     htmlString: "<p><br></p>",
@@ -394,9 +299,10 @@ OnSave.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const WithHTMLValue: Story = () => {
+export const SettingInitialValues: Story = () => {
   const initialValue = `<p dir="ltr"><span style="white-space: pre-wrap;">This is a HTML example.</span></p><ol><li value="1"><span style="white-space: pre-wrap;">Look, it has lists!</span></li></ol>`;
-  const value = createFromHTML(initialValue);
+  const value = createFromHTML(initialValue); // Use JSON.stringify(initialValue) when using JSON objects
+
   return (
     <TextEditor
       namespace="storybook-withhtmlvalue"
@@ -405,156 +311,10 @@ export const WithHTMLValue: Story = () => {
     />
   );
 };
-WithHTMLValue.storyName = "HTML As Initial Value";
-WithHTMLValue.parameters = {
+SettingInitialValues.storyName = "Setting Initial Values";
+SettingInitialValues.parameters = {
   chromatic: { disableSnapshot: true },
 };
-
-export const WithJSONValue: Story = () => {
-  const initialValue = {
-    root: {
-      children: [
-        {
-          children: [
-            {
-              detail: 0,
-              format: 0,
-              mode: "normal",
-              style: "",
-              text: "Sample text with ",
-              type: "text",
-              version: 1,
-            },
-            {
-              detail: 0,
-              format: 1,
-              mode: "normal",
-              style: "",
-              text: "some formatting",
-              type: "text",
-              version: 1,
-            },
-            {
-              detail: 0,
-              format: 0,
-              mode: "normal",
-              style: "",
-              text: " ",
-              type: "text",
-              version: 1,
-            },
-            {
-              detail: 0,
-              format: 2,
-              mode: "normal",
-              style: "",
-              text: "applied",
-              type: "text",
-              version: 1,
-            },
-            {
-              detail: 0,
-              format: 0,
-              mode: "normal",
-              style: "",
-              text: ".",
-              type: "text",
-              version: 1,
-            },
-          ],
-          direction: "ltr",
-          format: "",
-          indent: 0,
-          type: "paragraph",
-          version: 1,
-          textFormat: 0,
-          textStyle: "",
-        },
-      ],
-      direction: "ltr",
-      format: "",
-      indent: 0,
-      type: "root",
-      version: 1,
-    },
-  };
-  const value = JSON.stringify(initialValue);
-  return (
-    <TextEditor
-      namespace="storybook-withjsonvalue"
-      labelText="Text Editor"
-      initialValue={value}
-    />
-  );
-};
-WithJSONValue.storyName = "JSON As Initial Value";
-WithJSONValue.parameters = {
-  chromatic: { disableSnapshot: true },
-};
-
-export const InputHint: Story = () => {
-  return (
-    <TextEditor
-      namespace="storybook-inputhint"
-      labelText="Text Editor"
-      inputHint="This is an example input hint"
-    />
-  );
-};
-InputHint.storyName = "Input Hint";
-
-export const Rows: Story = () => {
-  return (
-    <TextEditor namespace="storybook-rows" labelText="Text Editor" rows={20} />
-  );
-};
-Rows.storyName = "Row Count";
-
-export const WithPlaceholder: Story = () => {
-  return (
-    <TextEditor
-      namespace="storybook-placeholder"
-      labelText="Text Editor"
-      placeholder="This is a much better placeholder"
-    />
-  );
-};
-WithPlaceholder.storyName = "Placeholder";
-
-export const WithCustomTranslations: Story = () => {
-  return (
-    <I18nProvider
-      locale={{
-        ...enGB,
-        textEditor: {
-          boldAria: () => "Make text bold",
-          cancelButton: () => "No",
-          cancelButtonAria: () => "Cancel the current content",
-          characterCounter: (count: string | number) =>
-            `You've got ${count} characters left`,
-          characterLimit: (count: number) =>
-            `Please delete the last ${count} characters`,
-          contentEditorAria: () => "Rich text content editor",
-          italicAria: () => "Make text italic",
-          orderedListAria: () => "Ordered list",
-          saveButton: () => "Yes",
-          saveButtonAria: () => "Save the current content",
-          toolbarAriaLabel: () => "Formatting",
-          unorderedListAria: () => "Unordered list",
-        },
-      }}
-    >
-      <TextEditor
-        namespace="storybook-customtranslations"
-        characterLimit={10}
-        labelText="Translated Text Editor"
-        onCancel={() => {}}
-        onSave={() => {}}
-      />
-    </I18nProvider>
-  );
-};
-WithCustomTranslations.storyName = "Translations";
 
 export const Links: Story = () => {
   const defaultHTML = `<a href="https://carbon.sage.com/?path=/story/welcome--welcome-page" rel="noreferrer" dir="ltr"><span data-lexical-text="true">Carbon</span></a>`;
@@ -602,33 +362,6 @@ WithLinkAddedCallback.parameters = {
 export const WithLinkPreviews: Story = () => {
   const initialValue = `<p dir="ltr"><span data-lexical-text="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc nisi ipsum, facilisis ut luctus non, gravida in orci. Aliquam risus massa, consequat non facilisis vel, bibendum quis nunc. Cras sit amet velit vel libero molestie accumsan. Integer id ipsum nec nunc porta bibendum. Aenean ut porta risus, eget dignissim felis. Praesent vitae tempus ante. Mauris nibh risus, congue ac augue ac, congue auctor metus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Maecenas vitae enim arcu. Integer quis mattis nunc, in porta neque. Proin sit amet purus congue, faucibus mauris id, consectetur justo. Vestibulum odio nisi, vehicula at odio ut, dapibus scelerisque tortor. Etiam vulputate massa orci, porttitor sollicitudin odio sollicitudin vitae. Mauris et eleifend dolor. Curabitur luctus lacinia sagittis. Interdum et malesuada fames ac ante ipsum primis in faucibus.</span></p>`;
   const value = createFromHTML(initialValue);
-  const previews = [
-    <a
-      dir="ltr"
-      href="https://carbon.sage.com/?path=/story/welcome--welcome-page"
-      key="key-0"
-      rel="noreferrer"
-    >
-      <span data-lexical-text="true">Carbon</span>
-    </a>,
-  ];
-
-  return (
-    <>
-      <TextEditor
-        namespace="storybook-linkpreviews"
-        labelText="Text Editor"
-        previews={previews}
-        initialValue={value}
-      />
-    </>
-  );
-};
-WithLinkPreviews.storyName = "Link Previews";
-
-export const WithComplexLinkPreviews: Story = () => {
-  const initialValue = `<p dir="ltr"><span data-lexical-text="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc nisi ipsum, facilisis ut luctus non, gravida in orci. Aliquam risus massa, consequat non facilisis vel, bibendum quis nunc. Cras sit amet velit vel libero molestie accumsan. Integer id ipsum nec nunc porta bibendum. Aenean ut porta risus, eget dignissim felis. Praesent vitae tempus ante. Mauris nibh risus, congue ac augue ac, congue auctor metus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Maecenas vitae enim arcu. Integer quis mattis nunc, in porta neque. Proin sit amet purus congue, faucibus mauris id, consectetur justo. Vestibulum odio nisi, vehicula at odio ut, dapibus scelerisque tortor. Etiam vulputate massa orci, porttitor sollicitudin odio sollicitudin vitae. Mauris et eleifend dolor. Curabitur luctus lacinia sagittis. Interdum et malesuada fames ac ante ipsum primis in faucibus.</span></p>`;
-  const value = createFromHTML(initialValue);
 
   const firstRender = useRef(false);
   const previews = useRef<React.JSX.Element[]>([]);
@@ -662,55 +395,64 @@ export const WithComplexLinkPreviews: Story = () => {
     </>
   );
 };
-WithComplexLinkPreviews.storyName = "Complex Link Previews";
+WithLinkPreviews.storyName = "Link Previews";
 
-export const WithMultipleLinkPreviews: Story = () => {
-  const initialValue = `<p dir="ltr"><span data-lexical-text="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc nisi ipsum, facilisis ut luctus non, gravida in orci. Aliquam risus massa, consequat non facilisis vel, bibendum quis nunc. Cras sit amet velit vel libero molestie accumsan. Integer id ipsum nec nunc porta bibendum. Aenean ut porta risus, eget dignissim felis. Praesent vitae tempus ante. Mauris nibh risus, congue ac augue ac, congue auctor metus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Maecenas vitae enim arcu. Integer quis mattis nunc, in porta neque. Proin sit amet purus congue, faucibus mauris id, consectetur justo. Vestibulum odio nisi, vehicula at odio ut, dapibus scelerisque tortor. Etiam vulputate massa orci, porttitor sollicitudin odio sollicitudin vitae. Mauris et eleifend dolor. Curabitur luctus lacinia sagittis. Interdum et malesuada fames ac ante ipsum primis in faucibus.</span></p>`;
-  const value = createFromHTML(initialValue);
-  const [previews, setPreviews] = useState<React.JSX.Element[]>([]);
-
-  const closePreview = useCallback((urlString: string | undefined) => {
-    if (!urlString) return;
-    setPreviews((prevPreviews) =>
-      prevPreviews.filter((preview) => preview.props.url !== urlString),
-    );
-  }, []);
-
-  useEffect(() => {
-    if (previews && previews.length === 0) {
-      setPreviews([
-        <a
-          dir="ltr"
-          href="https://carbon.sage.com/?path=/story/welcome--welcome-page"
-          key="key-0"
-          rel="noreferrer"
-        >
-          <span data-lexical-text="true">Carbon</span>
-        </a>,
-        <EditorLinkPreview
-          onClose={closePreview}
-          title="Han Shot First"
-          url="https://en.wikipedia.org/wiki/Han_shot_first"
-          description="Had a slight weapons malfunction but, uh everything's perfectly all right now. We're fine. We're all fine here now. Thank you. How are you?"
-          key="key-1"
-          as="div"
-        />,
-      ]);
-    }
-  }, [closePreview, previews]);
-
+export const Translations: Story = () => {
   return (
-    <>
+    <I18nProvider
+      locale={{
+        ...enGB,
+        textEditor: {
+          boldAria: () => "Make text bold",
+          cancelButton: () => "No",
+          cancelButtonAria: () => "Cancel the current content",
+          characterCounter: (count: string | number) =>
+            `You've got ${count} characters left`,
+          characterLimit: (count: number) =>
+            `Please delete the last ${count} characters`,
+          contentEditorAria: () => "Rich text content editor",
+          italicAria: () => "Make text italic",
+          orderedListAria: () => "Ordered list",
+          saveButton: () => "Yes",
+          saveButtonAria: () => "Save the current content",
+          toolbarAriaLabel: () => "Formatting",
+          unorderedListAria: () => "Unordered list",
+          underlineAria: () => "Underline text",
+          hyperlink: {
+            buttonAria: () => "Hyperlink",
+            cancelButton: () => "Cancel",
+            cancelButtonAria: () => "Cancel",
+            dialogTitle: () => "Add link",
+            linkFieldLabel: () => "Link",
+            saveButton: () => "Save",
+            saveButtonAria: () => "Save",
+            textFieldLabel: () => "Text",
+          },
+          typography: {
+            selectAria: () => "Heading type",
+            paragraph: () => "Paragraph",
+            title: () => "Title",
+            subtitle: () => "Subtitle",
+            sectionHeader: () => "Section header",
+            sectionSubheader: () => "Section subheader",
+          },
+          mentions: {
+            listAriaLabel: () => "List of mentionable people",
+          },
+        },
+      }}
+    >
       <TextEditor
-        namespace="storybook-multiplinkpreviews"
-        labelText="Text Editor"
-        previews={previews}
-        initialValue={value}
+        namespace="storybook-customtranslations"
+        characterLimit={10}
+        labelText="Translated Text Editor"
+        onCancel={() => {}}
+        onSave={() => {}}
       />
-    </>
+    </I18nProvider>
   );
 };
-WithMultipleLinkPreviews.storyName = "Multiple Link Previews";
+Translations.storyName = "Translations";
 
 export const ReadOnly: Story = () => {
   const initialValue = `<p dir="ltr"><span style="white-space: pre-wrap;">This is an HTML example.</span><br><a href="https://carbon.sage.com/?path=/story/welcome--welcome-page" rel="noreferrer" dir="ltr"><span data-lexical-text="true">Carbon</span></a></p>`;
@@ -769,3 +511,69 @@ export const WithCustomPlugins: Story = () => {
   );
 };
 WithCustomPlugins.storyName = "With Custom Plugin";
+
+export const Mentions: Story = ({ ...args }) => {
+  const mentionsData: Mention[] = [
+    {
+      id: "1",
+      name: "Amanda Ball",
+    },
+    {
+      id: "2",
+      name: "Anaya Underwood",
+      initials: "AU",
+    },
+    {
+      id: "3",
+      name: "Alastair Cox",
+      initials: "AC",
+    },
+    {
+      id: "4",
+      name: "Anwar al-Awlaki",
+      src: "https://loremfaces.net/24/id/2.jpg",
+    },
+    {
+      id: "5",
+      name: "Angela Alabaster",
+      src: "https://loremfaces.net/24/id/1.jpg",
+    },
+    {
+      id: "6",
+      name: "Alfred Jones",
+      iconType: "accessibility_web",
+    },
+  ];
+
+  return (
+    <>
+      <TextEditor
+        namespace="storybook-mentions"
+        labelText="Text Editor"
+        inputHint="Press '@' to mention someone"
+        onChange={action("onChange")}
+        customPlugins={[
+          <MentionsPlugin
+            namespace="storybook-mentions"
+            searchOptions={mentionsData}
+          />,
+        ]}
+        {...args}
+      />
+    </>
+  );
+};
+Mentions.storyName = "Mentions";
+Mentions.parameters = {
+  chromatic: { disableSnapshot: false },
+};
+Mentions.args = {
+  characterLimit: 1000,
+  error: "",
+  inputHint: "Type '@' to mention someone",
+  labelText: "Text Editor with Mentions support",
+  namespace: "storybook-mentions",
+  readOnly: false,
+  size: "medium",
+  warning: "",
+};
