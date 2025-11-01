@@ -7,6 +7,10 @@ export interface TabContextProps {
   tabId?: string;
 }
 
+export interface TabListHandle {
+  focusTab: (id: string) => void;
+}
+
 export interface TabsContextProps {
   activeTab: string;
   currentTabId?: string;
