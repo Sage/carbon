@@ -7,6 +7,14 @@ export interface TabContextProps {
   tabId?: string;
 }
 
+export type TabListHandle = {
+  /**
+   * Programmatically focus on a specific tab.
+   * @param id - The ID of the tab to focus. Must match the `id` prop of the target `Tab` component.
+   */
+  focusTab: (id: string) => void;
+};
+
 export interface TabsContextProps {
   activeTab: string;
   currentTabId?: string;
