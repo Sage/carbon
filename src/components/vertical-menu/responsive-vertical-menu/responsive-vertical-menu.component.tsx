@@ -137,7 +137,7 @@ const BaseMenu = forwardRef<
       } else {
         setTop("auto");
       }
-    }, [active, menu, responsiveMode, activeMenuItem, button]);
+    }, [active, responsiveMode, activeMenuItem, menu, button, setLeft, setTop]);
 
     const handleOutsideClick = useCallback(
       (event: MouseEvent) => {
@@ -149,14 +149,14 @@ const BaseMenu = forwardRef<
           setActive(false);
         }
       },
-      [containerRef],
+      [containerRef, setActive],
     );
 
     const handleActiveToggle = useCallback(() => {
       setActive((previous) => !previous);
       // Make sure the menu is closed when the button is clicked (prevents historic menu items being retained in memory)
       setActiveMenuItem(null);
-    }, [active, setActive, setActiveMenuItem]);
+    }, [setActive, setActiveMenuItem]);
 
     useLayoutEffect(() => {
       measureDimensions();
@@ -250,6 +250,7 @@ const BaseMenu = forwardRef<
       containerRef,
       handleOutsideClick,
       responsiveMode,
+      setActive,
     ]);
 
     useEffect(() => {
