@@ -1,3 +1,15 @@
+## [158.2.0](https://github.com/Sage/carbon/compare/v158.1.1...v158.2.0) (2025-11-03)
+
+### Features
+
+* **draggable:** replace react-dnd with pragmatic-drag-and-drop ([cc17eba](https://github.com/Sage/carbon/commit/cc17eba57ba30ed834fd84359a6e7b8d0cd836ce))
+* **flat-table-body-draggable:** replace react-dnd with pragmatic-drag-and-drop ([aca4a08](https://github.com/Sage/carbon/commit/aca4a086515787ce51ec519e83f25bdb3cc7a008))
+* remove react-dnd as dependency ([d2f3056](https://github.com/Sage/carbon/commit/d2f3056b7c095449dfa22cab4310672d74d547eb))
+
+### Bug Fixes
+
+* **draggable, flat-table-body-draggable:** render grab cursor on hover ([86fe097](https://github.com/Sage/carbon/commit/86fe097bf1dff3307f974fe79f7a2d580af1e1fc))
+
 ## [158.1.1](https://github.com/Sage/carbon/compare/v158.1.0...v158.1.1) (2025-10-31)
 
 ### Bug Fixes
