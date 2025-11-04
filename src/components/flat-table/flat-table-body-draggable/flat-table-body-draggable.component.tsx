@@ -1,49 +1,32 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useDrop, DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
 
 import { TagProps } from "../../../__internal__/utils/helpers/tags";
 import StyledIcon from "../../icon/icon.style";
 import StyledFlatTableBodyDraggable from "./flat-table-body-draggable.style";
 import FlatTableCell from "../flat-table-cell/flat-table-cell.component";
+import { type FlatTableRowProps } from "../flat-table-row";
+import invariant from "invariant";
+import arrayMove from "../../../__internal__/utils/helpers/array-move";
+import {
+  DragDropProvider,
+  DragDropProviderProps,
+} from "../__internal__/sortable";
 
 export interface FlatTableBodyDraggableProps extends TagProps {
   /** Array of FlatTableRow. */
   children: React.ReactNode;
   /** Callback fired when order is changed */
-  getOrder?: (draggableItemIds?: number[]) => void;
+  getOrder?: (draggableItemIds?: (string | number | undefined)[]) => void;
 }
 
-const DropTarget = ({
-  children,
-  getOrder,
-  ...rest
-}: FlatTableBodyDraggableProps) => {
-  const [isDragging, setIsDragging] = useState(false);
-
-  const [, drop] = useDrop({
-    accept: "flatTableRow",
-    hover: (_, monitor) => {
-      if (!isDragging && monitor.isOver()) setIsDragging(true);
-    },
-    drop() {
-      setIsDragging(false);
-      getOrder?.();
-    },
-  });
-
+function isFlatTableRow(
+  node: unknown,
+): node is React.ReactElement<FlatTableRowProps> {
   return (
-    <StyledFlatTableBodyDraggable
-      data-component="flat-table-body-draggable"
-      data-role="flat-table-body-draggable"
-      ref={drop}
-      isDragging={isDragging}
-      {...rest}
-    >
-      {children}
-    </StyledFlatTableBodyDraggable>
+    React.isValidElement(node) &&
+    (node.type as React.FunctionComponent).displayName === "FlatTableRow"
   );
-};
+}
 
 export const FlatTableBodyDraggable = ({
   children,
@@ -63,64 +46,83 @@ export const FlatTableBodyDraggable = ({
     }
   }, [children]);
 
-  const findItem = (id: string | number) => {
-    const draggableItem = draggableItems.filter(
-      (item) => React.isValidElement(item) && `${item.props.id}` === id,
-    )[0];
+  const hasValidChildren = draggableItems.every(isFlatTableRow);
 
-    return {
-      draggableItem,
-      index: draggableItems.indexOf(draggableItem),
-    };
-  };
+  invariant(
+    hasValidChildren,
+    "FlatTableBodyDraggable only accepts children of type FlatTableRow.",
+  );
 
-  const moveItem = (id: string | number, atIndex: number) => {
-    const { draggableItem, index } = findItem(id);
-    if (!draggableItem) return;
-
-    const copyOfDraggableItems = [...draggableItems];
-    copyOfDraggableItems.splice(index, 1);
-    copyOfDraggableItems.splice(atIndex, 0, draggableItem);
-    setDraggableItems(copyOfDraggableItems);
-  };
-
-  const getItemsId = () => {
-    if (!getOrder) {
+  const handleDrop: DragDropProviderProps["onDrop"] = ({ dragged, target }) => {
+    if (target) {
+      const childRowIds = draggableItems.map((row) => row.props.id);
+      getOrder?.(childRowIds);
       return;
     }
 
-    const draggableItemIds = draggableItems.map(
-      (draggableItem) =>
-        React.isValidElement(draggableItem) && draggableItem.props.id,
+    // Move dragged row back to original position
+    setDraggableItems(
+      arrayMove({
+        array: draggableItems,
+        startIndex: draggableItems.findIndex(
+          (row) => String(row.props.id) === dragged.id,
+        ),
+        endIndex: dragged.initialIndex,
+      }),
     );
+  };
 
-    getOrder(draggableItemIds);
+  const handleDropTargetChange: DragDropProviderProps["onDropTargetChange"] = ({
+    dragged,
+    target,
+  }) => {
+    if (!target) {
+      return;
+    }
+
+    // Move dragged row to new position
+    setDraggableItems(
+      arrayMove({
+        array: draggableItems,
+        startIndex: draggableItems.findIndex(
+          (row) => String(row.props.id) === dragged.id,
+        ),
+        endIndex: draggableItems.findIndex(
+          (row) => String(row.props.id) === target.id,
+        ),
+      }),
+    );
   };
 
   return (
-    <DndProvider backend={HTML5Backend}>
-      <DropTarget getOrder={getItemsId} {...rest}>
-        {draggableItems.map(
-          (item) =>
-            React.isValidElement(item) &&
-            React.cloneElement(
-              item as React.ReactElement,
-              {
-                id: `${item.props.id}`,
-                moveItem,
-                findItem,
-                draggable: true,
+    <StyledFlatTableBodyDraggable
+      data-component="flat-table-body-draggable"
+      data-role="flat-table-body-draggable"
+      {...rest}
+    >
+      <DragDropProvider
+        onDrop={handleDrop}
+        onDropTargetChange={handleDropTargetChange}
+      >
+        {draggableItems.map((item, index) =>
+          React.cloneElement(
+            item,
+            {
+              id: `${item.props.id}`,
+              draggableProps: {
+                index,
               },
-              [
-                <FlatTableCell key={item.props.id}>
-                  <StyledIcon type="drag" />
-                </FlatTableCell>,
-                item.props.children,
-              ],
-            ),
+            },
+            [
+              <FlatTableCell key={item.props.id}>
+                <StyledIcon type="drag" />
+              </FlatTableCell>,
+              item.props.children,
+            ],
+          ),
         )}
-      </DropTarget>
-    </DndProvider>
+      </DragDropProvider>
+    </StyledFlatTableBodyDraggable>
   );
 };
 

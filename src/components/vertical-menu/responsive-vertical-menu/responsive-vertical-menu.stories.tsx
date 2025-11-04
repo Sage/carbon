@@ -9,6 +9,7 @@ import {
   ResponsiveVerticalMenuDivider,
   ResponsiveVerticalMenuHandle,
   ResponsiveVerticalMenuItem,
+  ResponsiveVerticalMenuItemClickEvent,
 } from ".";
 import Box from "../../box";
 import Button from "../../button";
@@ -347,7 +348,7 @@ export const CustomIcon: Story = () => {
 CustomIcon.storyName = "Custom Icon";
 
 export const ItemWithOnClickHandler: Story = () => {
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleClick = (e: ResponsiveVerticalMenuItemClickEvent) => {
     e.preventDefault();
     window.open("https://carbon.sage.com", "_blank", "noopener noreferrer");
   };

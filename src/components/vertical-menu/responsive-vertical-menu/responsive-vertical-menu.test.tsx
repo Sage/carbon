@@ -115,6 +115,265 @@ test("renders correctly", async () => {
   expect(screen.getByText("Menu Item 3")).toBeInTheDocument();
 });
 
+test("responsive vertical menu item renders as a link when only a href is passed", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  render(
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem
+        href="https://example.com"
+        id="menu-item-1"
+        label="Menu Item 1"
+      />
+    </ResponsiveVerticalMenu>,
+  );
+
+  const launcherButton = screen.getByTestId(
+    "responsive-vertical-menu-launcher",
+  );
+  await user.click(launcherButton);
+
+  expect(screen.getByRole("link", { name: "Menu Item 1" })).toBeInTheDocument();
+});
+
+test("responsive vertical menu item renders as a link when a href and onClick is passed", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  render(
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem
+        href="https://example.com"
+        onClick={() => {}}
+        id="menu-item-1"
+        label="Menu Item 1"
+      />
+    </ResponsiveVerticalMenu>,
+  );
+
+  const launcherButton = screen.getByTestId(
+    "responsive-vertical-menu-launcher",
+  );
+  await user.click(launcherButton);
+
+  expect(screen.getByRole("link", { name: "Menu Item 1" })).toBeInTheDocument();
+});
+
+test("responsive vertical menu item renders as a button when only an onClick is passed", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem
+        onClick={() => {}}
+        id="menu-item-1"
+        label="Menu Item 1"
+      />
+    </ResponsiveVerticalMenu>,
+  );
+
+  const launcherButton = screen.getByTestId(
+    "responsive-vertical-menu-launcher",
+  );
+  await user.click(launcherButton);
+
+  expect(
+    screen.getByRole("button", { name: "Menu Item 1" }),
+  ).toBeInTheDocument();
+});
+
+describe("when responsive vertical menu item renders as a button", () => {
+  test("calls onClick on click event", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    const mockOnClick = jest.fn();
+
+    render(
+      <ResponsiveVerticalMenu>
+        <ResponsiveVerticalMenuItem
+          onClick={mockOnClick}
+          id="menu-item-1"
+          label="Menu Item 1"
+          data-role="menu-item-1"
+        />
+      </ResponsiveVerticalMenu>,
+    );
+
+    const launcherButton = screen.getByTestId(
+      "responsive-vertical-menu-launcher",
+    );
+    await user.click(launcherButton);
+
+    const menuItem = screen.getByRole("button", { name: "Menu Item 1" });
+    await user.click(menuItem);
+
+    await waitFor(() => {
+      expect(mockOnClick).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  test("calls onClick on Enter key", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    const mockOnClick = jest.fn();
+
+    render(
+      <ResponsiveVerticalMenu>
+        <ResponsiveVerticalMenuItem
+          onClick={mockOnClick}
+          id="menu-item-1"
+          label="Menu Item 1"
+          data-role="menu-item-1"
+        />
+      </ResponsiveVerticalMenu>,
+    );
+
+    const launcherButton = screen.getByTestId(
+      "responsive-vertical-menu-launcher",
+    );
+    await user.click(launcherButton);
+
+    const menuItem = screen.getByRole("button", { name: "Menu Item 1" });
+
+    act(() => {
+      menuItem.focus();
+    });
+
+    await user.keyboard("{Enter}");
+
+    await waitFor(() => {
+      expect(mockOnClick).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  test("calls onClick on Space key", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    const mockOnClick = jest.fn();
+
+    render(
+      <ResponsiveVerticalMenu>
+        <ResponsiveVerticalMenuItem
+          onClick={mockOnClick}
+          id="menu-item-1"
+          label="Menu Item 1"
+          data-role="menu-item-1"
+        />
+      </ResponsiveVerticalMenu>,
+    );
+
+    const launcherButton = screen.getByTestId(
+      "responsive-vertical-menu-launcher",
+    );
+    await user.click(launcherButton);
+
+    const menuItem = screen.getByRole("button", { name: "Menu Item 1" });
+
+    act(() => {
+      menuItem.focus();
+    });
+
+    await user.keyboard(" ");
+
+    await waitFor(() => {
+      expect(mockOnClick).toHaveBeenCalledTimes(1);
+    });
+  });
+});
+
+describe("when responsive vertical menu item renders as an anchor", () => {
+  test("calls onClick on click event", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    const mockOnClick = jest.fn();
+
+    render(
+      <ResponsiveVerticalMenu>
+        <ResponsiveVerticalMenuItem
+          href="#"
+          onClick={mockOnClick}
+          id="menu-item-1"
+          label="Menu Item 1"
+          data-role="menu-item-1"
+        />
+      </ResponsiveVerticalMenu>,
+    );
+
+    const launcherButton = screen.getByTestId(
+      "responsive-vertical-menu-launcher",
+    );
+    await user.click(launcherButton);
+
+    const menuItem = screen.getByRole("link", { name: "Menu Item 1" });
+    await user.click(menuItem);
+
+    await waitFor(() => {
+      expect(mockOnClick).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  test("calls onClick on Enter key", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    const mockOnClick = jest.fn();
+
+    render(
+      <ResponsiveVerticalMenu>
+        <ResponsiveVerticalMenuItem
+          href="#"
+          onClick={mockOnClick}
+          id="menu-item-1"
+          label="Menu Item 1"
+          data-role="menu-item-1"
+        />
+      </ResponsiveVerticalMenu>,
+    );
+
+    const launcherButton = screen.getByTestId(
+      "responsive-vertical-menu-launcher",
+    );
+    await user.click(launcherButton);
+
+    const menuItem = screen.getByRole("link", { name: "Menu Item 1" });
+
+    act(() => {
+      menuItem.focus();
+    });
+
+    await user.keyboard("{Enter}");
+
+    await waitFor(() => {
+      expect(mockOnClick).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  test("does not call onClick on Space key", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    const mockOnClick = jest.fn();
+
+    render(
+      <ResponsiveVerticalMenu>
+        <ResponsiveVerticalMenuItem
+          href="#"
+          onClick={mockOnClick}
+          id="menu-item-1"
+          label="Menu Item 1"
+          data-role="menu-item-1"
+        />
+      </ResponsiveVerticalMenu>,
+    );
+
+    const launcherButton = screen.getByTestId(
+      "responsive-vertical-menu-launcher",
+    );
+    await user.click(launcherButton);
+
+    const menuItem = screen.getByRole("link", { name: "Menu Item 1" });
+
+    act(() => {
+      menuItem.focus();
+    });
+
+    await user.keyboard(" ");
+
+    await waitFor(() => {
+      expect(mockOnClick).not.toHaveBeenCalled();
+    });
+  });
+});
+
 test("calling exposed focusLaunchButton method focuses launcher button", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const MockComponent = () => {
@@ -1671,6 +1930,63 @@ test("applies the correct styling at depth level 4 when responsive", async () =>
             data-role="menu-item-3"
           >
             <ResponsiveVerticalMenuItem
+              id="menu-item-4"
+              data-role="menu-item-4"
+              label="Menu Item 4"
+            />
+          </ResponsiveVerticalMenuItem>
+        </ResponsiveVerticalMenuItem>
+      </ResponsiveVerticalMenuItem>
+    </ResponsiveVerticalMenu>,
+  );
+
+  const launcherButton = screen.getByTestId(
+    "responsive-vertical-menu-launcher",
+  );
+
+  await user.click(launcherButton);
+
+  const menuItem = screen.getByTestId("menu-item-1");
+  await user.click(menuItem);
+
+  const menuItem2 = screen.getByTestId("menu-item-2");
+  await user.click(menuItem2);
+
+  const menuItem3 = screen.getByTestId("menu-item-3");
+  expect(menuItem3).toHaveStyleRule("font-weight", "var(--fontWeights400)", {
+    modifier: "&",
+  });
+
+  const menuItem4 = screen.getByTestId("menu-item-4");
+
+  expect(menuItem4).toHaveStyleRule("font-weight", "var(--fontWeights400)", {
+    modifier: "&&",
+  });
+});
+
+test("applies the correct styling at depth level 4 when responsive and rendered as a button", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  mockUseIsAboveBreakpoint.mockReturnValue(false);
+
+  render(
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem
+        id="menu-item-1"
+        label="Menu Item 1"
+        data-role="menu-item-1"
+      >
+        <ResponsiveVerticalMenuItem
+          id="menu-item-2"
+          label="Menu Item 2"
+          data-role="menu-item-2"
+        >
+          <ResponsiveVerticalMenuItem
+            id="menu-item-3"
+            label="Menu Item 3"
+            data-role="menu-item-3"
+          >
+            <ResponsiveVerticalMenuItem
+              onClick={() => {}}
               id="menu-item-4"
               data-role="menu-item-4"
               label="Menu Item 4"

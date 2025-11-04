@@ -5,6 +5,8 @@ import {
   ResponsiveVerticalMenuDefaultComponent,
   ResponsiveVerticalMenuIconMixture,
   WithDifferentDepthsAsLastItem,
+  WithLongList,
+  WithButtonAndLinkActionItems,
 } from "./components.test-pw";
 
 import {
@@ -176,7 +178,125 @@ test.describe("functional tests", () => {
   });
 });
 
+test.describe("when responsive vertical menu item renders as an anchor", () => {
+  test("should close menu when click is pressed", async ({ mount, page }) => {
+    await mount(<WithButtonAndLinkActionItems />);
+
+    await responsiveVerticalMenuLauncher(page).click();
+    await expect(responsiveVerticalMenuPrimary(page)).toBeVisible();
+
+    const linkItem = page.getByRole("link", { name: "Item one" });
+    await linkItem.click();
+
+    await expect(responsiveVerticalMenuPrimary(page)).toBeHidden();
+  });
+
+  test("should close menu when enter key is pressed", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<WithButtonAndLinkActionItems />);
+
+    await responsiveVerticalMenuLauncher(page).click();
+    await expect(responsiveVerticalMenuPrimary(page)).toBeVisible();
+
+    const linkItem = page.getByRole("link", { name: "Item one" });
+    await linkItem.focus();
+    await page.keyboard.press("Enter");
+
+    await expect(responsiveVerticalMenuPrimary(page)).toBeHidden();
+  });
+
+  test("should keep menu open when space key is pressed", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<WithButtonAndLinkActionItems />);
+
+    await responsiveVerticalMenuLauncher(page).click();
+    await expect(responsiveVerticalMenuPrimary(page)).toBeVisible();
+
+    const linkItem = page.getByRole("link", { name: "Item one" });
+    await linkItem.focus();
+    await page.keyboard.press("Space");
+
+    await expect(responsiveVerticalMenuPrimary(page)).toBeVisible();
+  });
+});
+
+test.describe("when responsive vertical menu item renders as a button", () => {
+  test("should close menu when click is pressed", async ({ mount, page }) => {
+    await mount(<WithButtonAndLinkActionItems />);
+
+    await responsiveVerticalMenuLauncher(page).click();
+    await expect(responsiveVerticalMenuPrimary(page)).toBeVisible();
+
+    const buttonItem = page.getByRole("button", { name: "Item two" });
+    await buttonItem.click();
+
+    await expect(responsiveVerticalMenuPrimary(page)).toBeHidden();
+  });
+
+  test("should close menu when enter key is pressed", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<WithButtonAndLinkActionItems />);
+
+    await responsiveVerticalMenuLauncher(page).click();
+    await expect(responsiveVerticalMenuPrimary(page)).toBeVisible();
+
+    const buttonItem = page.getByRole("button", { name: "Item two" });
+    await buttonItem.focus();
+    await page.keyboard.press("Enter");
+
+    await expect(responsiveVerticalMenuPrimary(page)).toBeHidden();
+  });
+
+  test("should close menu when space key is pressed", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<WithButtonAndLinkActionItems />);
+
+    await responsiveVerticalMenuLauncher(page).click();
+    await expect(responsiveVerticalMenuPrimary(page)).toBeVisible();
+
+    const buttonItem = page.getByRole("button", { name: "Item two" });
+    await buttonItem.focus();
+    await page.keyboard.press("Space");
+
+    await expect(responsiveVerticalMenuPrimary(page)).toBeHidden();
+  });
+});
+
 test.describe("keyboard navigation tests", () => {
+  test("should prevent any scroll when Space is pressed on a menu item rendered as a link", async ({
+    mount,
+    page,
+  }) => {
+    await page.setViewportSize({
+      width: 700,
+      height: 300,
+    });
+    await mount(<WithLongList />);
+
+    await responsiveVerticalMenuLauncher(page).click();
+
+    await page.keyboard.press("Tab");
+
+    const firstMenuItem = page.getByRole("link", { name: "Item One" });
+    await expect(firstMenuItem).toBeFocused();
+
+    await page.keyboard.press("Space");
+
+    // we have to use a slight delay here as the assertion fires just before the scroll occurs
+    // without it, it asserts it is in the viewport before any scrolling can occur making the test redundant
+    // eslint-disable-next-line playwright/no-wait-for-timeout
+    await page.waitForTimeout(1000);
+    await expect(firstMenuItem).toBeInViewport();
+  });
+
   test("should loop back to primary menu item when Tab is pressed on last secondary menu item", async ({
     mount,
     page,

@@ -485,8 +485,8 @@ export const Textarea = React.forwardRef(
               ) : (
                 input
               )}
+              {characterCount}
             </FormField>
-            {characterCount}
           </StyledTextarea>
         </InputBehaviour>
       </TooltipProvider>

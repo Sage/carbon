@@ -32,7 +32,9 @@ export default {
           "**/*.svg",
           "**/test-utils.ts",
           /* We only want to include the mocks and spec helpers intended for public use */
-          "**/__spec_helper__/__internal__/**"
+          "**/__spec_helper__/__internal__/**",
+          /* ignoring the tokens hooks for now as we don't want to support dark mode in production yet */
+          "**/tokens-wrapper/__internal__/hooks/**",
         ],
       })
       .map((file) => {

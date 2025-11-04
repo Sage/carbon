@@ -22,3 +22,6 @@ bundle-stats/
 playwright/test-results
 playwright/test-report
 playwright/.cache
+
+src/components/tokens-wrapper/__internal__/static-tokens/
+.hintrc
