@@ -169,32 +169,6 @@ const BaseMenu = forwardRef<
       };
     }, [active, measureDimensions, menu, responsiveMode]);
 
-    const isResizingRef = useRef(false);
-    const resizeTimeoutRef = useRef<number | null>(null);
-
-    useEffect(() => {
-      const handleResize = () => {
-        isResizingRef.current = true;
-
-        if (resizeTimeoutRef.current !== null) {
-          clearTimeout(resizeTimeoutRef.current);
-        }
-
-        resizeTimeoutRef.current = window.setTimeout(() => {
-          isResizingRef.current = false;
-        }, 100);
-      };
-
-      window.addEventListener("resize", handleResize);
-
-      return () => {
-        window.removeEventListener("resize", handleResize);
-        if (resizeTimeoutRef.current !== null) {
-          clearTimeout(resizeTimeoutRef.current);
-        }
-      };
-    }, []);
-
     useEffect(() => {
       let timeout: NodeJS.Timeout | null = null;
       const handleBlur = (ev: FocusEvent) => {
