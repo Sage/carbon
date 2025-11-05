@@ -467,6 +467,13 @@ test.describe("keyboard navigation tests", () => {
 });
 
 test.describe("accessibility tests", () => {
+  test("default menu closed", async ({ mount, page }) => {
+    await mount(<ResponsiveVerticalMenuDefaultComponent />);
+
+    await expect(responsiveVerticalMenuLauncher(page)).toBeVisible();
+    await checkAccessibility(page);
+  });
+
   test(`default menu with only primary menu active`, async ({
     mount,
     page,
@@ -533,6 +540,15 @@ test.describe("accessibility tests", () => {
     await page.locator("[id='secondary-menu']").click();
     await expect(page.locator("[id='tertiary-menu']")).toBeVisible();
 
+    await checkAccessibility(page);
+  });
+
+  test("responsive menu closed", async ({ mount, page }) => {
+    await mount(
+      <ResponsiveVerticalMenuDefaultComponent responsiveBreakpoint={3200} />,
+    );
+
+    await expect(responsiveVerticalMenuLauncher(page)).toBeVisible();
     await checkAccessibility(page);
   });
 });

@@ -307,8 +307,6 @@ const BaseMenu = forwardRef<
     const buttonAriaProps = () => {
       if (responsiveMode) {
         return {
-          "aria-expanded": undefined,
-          "aria-controls": "responsive-vertical-menu-dialog",
           "aria-label":
             locale.verticalMenu.ariaLabels?.responsiveMenuLauncher(),
         };
