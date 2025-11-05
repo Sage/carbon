@@ -1,3 +1,9 @@
+## [158.3.1](https://github.com/Sage/carbon/compare/v158.3.0...v158.3.1) (2025-11-05)
+
+### Bug Fixes
+
+* **flat-table:** prevent sorting indicators from impacting text wrapping ([b15a385](https://github.com/Sage/carbon/commit/b15a38534dee648aae83cf34f71836ed8f30f059))
+
 ## [158.3.0](https://github.com/Sage/carbon/compare/v158.2.1...v158.3.0) (2025-11-05)
 
 ### Features
