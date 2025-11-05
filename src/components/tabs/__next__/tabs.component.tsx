@@ -10,7 +10,7 @@ import React, {
 import Typography from "../../typography";
 import { TabsProvider, useTabs } from "./tabs.context";
 import {
-  TabListHandle,
+  TabsHandle,
   TabListProps,
   TabPanelProps,
   TabProps,
@@ -209,7 +209,7 @@ export const Tab = ({
   );
 };
 
-export const TabList = forwardRef<TabListHandle, TabListProps>(
+export const TabList = forwardRef<TabsHandle, TabListProps>(
   ({ ariaLabel, children }, ref) => {
     const tabListRef = useRef<HTMLDivElement>(null);
     const {

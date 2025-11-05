@@ -7,7 +7,7 @@ import Icon from "../../icon";
 import Typography from "../../typography";
 import { assertLoggerComponentMessage } from "../../../__spec_helper__/__internal__/test-utils";
 import Textbox from "../../textbox";
-import { TabListHandle } from "./tabs.types";
+import { TabsHandle } from "./tabs.types";
 import Button from "../../button";
 
 const TestComponent = ({ ...args }) => {
@@ -365,7 +365,7 @@ test("renders correctly when a default tab is specified", () => {
 test("calling exposed focusTab method with correct tabId focuses chosen tab", async () => {
   const user = userEvent.setup();
   const MockComponent = () => {
-    const tabsHandle = React.useRef<TabListHandle>(null);
+    const tabsHandle = React.useRef<TabsHandle>(null);
 
     return (
       <>

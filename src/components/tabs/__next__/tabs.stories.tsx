@@ -9,7 +9,7 @@ import Pill from "../../pill";
 import Typography from "../../typography";
 import Form from "../../form";
 import Textbox from "../../textbox";
-import { TabListHandle } from "./tabs.types";
+import { TabsHandle } from "./tabs.types";
 
 const meta: Meta<typeof Tabs> = {
   title: "Tabs",
@@ -391,7 +391,7 @@ PreSelectedTab.args = {
 };
 
 export const ProgrammaticFocus: Story = ({ ...args }) => {
-  const tabsHandle = useRef<TabListHandle>(null);
+  const tabsHandle = useRef<TabsHandle>(null);
 
   return (
     <>
