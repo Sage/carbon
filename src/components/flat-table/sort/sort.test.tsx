@@ -53,7 +53,7 @@ test("should render 'sort_up' Icon if `sortType` is 'ascending'", () => {
     </FlatTable>,
   );
 
-  expect(screen.getByTestId("icon")).toHaveAttribute("data-element", "sort_up");
+  expect(screen.getByTestId("icon")).toHaveAttribute("type", "sort_up");
 });
 
 test("should render 'sort_down' Icon if `sortType` is 'descending'", () => {
@@ -69,10 +69,7 @@ test("should render 'sort_down' Icon if `sortType` is 'descending'", () => {
     </FlatTable>,
   );
 
-  expect(screen.getByTestId("icon")).toHaveAttribute(
-    "data-element",
-    "sort_down",
-  );
+  expect(screen.getByTestId("icon")).toHaveAttribute("type", "sort_down");
 });
 
 test("should render the correct accessible name when the `accessibleName` prop is passed", () => {
@@ -299,9 +296,12 @@ test("should render the expected Icon styling when `colorTheme` is 'dark'", () =
     </FlatTable>,
   );
 
-  expect(screen.getByTestId("icon")).toHaveStyleRule(
+  expect(screen.getByRole("button")).toHaveStyleRule(
     "color",
     "var(--colorsActionMinorYang100)",
+    {
+      modifier: "span[data-component='icon']",
+    },
   );
 });
 
@@ -322,8 +322,11 @@ test.each<FlatTableProps["colorTheme"]>([
     </FlatTable>,
   );
 
-  expect(screen.getByTestId("icon")).toHaveStyleRule(
+  expect(screen.getByRole("button")).toHaveStyleRule(
     "color",
     "var(--colorActionMinor500)",
+    {
+      modifier: "span[data-component='icon']",
+    },
   );
 });

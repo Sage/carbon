@@ -1,11 +1,12 @@
 import React, { useRef } from "react";
-import { TagProps } from "../../../__internal__/utils/helpers/tags";
-import Event from "../../../__internal__/utils/helpers/events";
-import Typography from "../../typography";
-import { StyledSort, StyledSpaceHolder, StyledSortIcon } from "./sort.style";
-import guid from "../../../__internal__/utils/helpers/guid";
-import useLocale from "../../../hooks/__internal__/useLocale";
 import { useStrictFlatTableContext } from "../__internal__/strict-flat-table.context";
+import Typography from "../../typography";
+import Event from "../../../__internal__/utils/helpers/events";
+import guid from "../../../__internal__/utils/helpers/guid";
+import { TagProps } from "../../../__internal__/utils/helpers/tags";
+import useLocale from "../../../hooks/__internal__/useLocale";
+import Icon from "../../icon";
+import StyledSortButton from "./sort.style";
 
 export interface SortProps extends TagProps {
   /** if `asc` it will show `sort_up` icon, if `desc` it will show `sort_down` */
@@ -29,7 +30,9 @@ export const Sort = ({
   const id = useRef(guid());
   const locale = useLocale();
 
-  const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+  const onKeyDown = (
+    e: React.KeyboardEvent<HTMLButtonElement | HTMLAnchorElement>,
+  ) => {
     if (Event.isEnterOrSpaceKey(e)) {
       e.preventDefault();
       return onClick?.();
@@ -40,35 +43,34 @@ export const Sort = ({
 
   const { colorTheme } = useStrictFlatTableContext();
 
+  const icon = () =>
+    sortType ? (
+      <Icon
+        data-element="sort-icon"
+        type={sortType === "ascending" ? "sort_up" : "sort_down"}
+      />
+    ) : (
+      <span data-role="sort-placeholder" />
+    );
+
   return (
     <>
       <Typography screenReaderOnly id={id.current}>
         {accessibleName || locale.sort.accessibleName(children, sortType)}
       </Typography>
-      <StyledSort
-        role="button"
-        onKeyDown={onKeyDown}
-        tabIndex={0}
-        onClick={onClick}
-        sortType={sortType}
+
+      <StyledSortButton
         aria-labelledby={id.current}
+        colorTheme={colorTheme}
         data-component="sort"
         data-element={dataElement}
         data-role={dataRole}
+        onClick={onClick}
+        onKeyDown={onKeyDown}
       >
-        {children}
-        {sortType && (
-          <StyledSortIcon
-            type={sortType === "ascending" ? "sort_up" : "sort_down"}
-            iconColor={
-              colorTheme === "dark"
-                ? "--colorsActionMinorYang100"
-                : "--colorActionMinor500"
-            }
-          />
-        )}
-      </StyledSort>
-      {!sortType && <StyledSpaceHolder data-role="sort-placeholder" />}
+        <span>{children}</span>
+        {icon()}
+      </StyledSortButton>
     </>
   );
 };
