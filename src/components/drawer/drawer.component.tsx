@@ -5,20 +5,26 @@ import createGuid from "../../__internal__/utils/helpers/guid";
 import usePrevious from "../../hooks/__internal__/usePrevious";
 import Icon from "../icon";
 import {
-  StyledSidebarHeader,
   StyledDrawerWrapper,
   StyledDrawerContent,
   StyledSidebarToggleButton,
-  StyledDrawerChildren,
   StyledDrawerSidebar,
   StyledSidebarTitle,
+  StyledSidebarFooter,
 } from "./drawer.style";
-import StickyFooter from "../../__internal__/sticky-footer";
-import { TagProps } from "../../__internal__/utils/helpers/tags";
+import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 import DrawerSidebarContext from "./__internal__/drawer-sidebar.context";
+import Logger from "../../__internal__/utils/logger";
+
+let deprecatedAnimationDurationWarn = false;
+let deprecatedDefaultExpandedWarn = false;
+let deprecatedShowControlsWarn = false;
 
 export interface DrawerProps extends TagProps {
-  /** Duration of a animation */
+  /**
+   * Duration of a animation
+   * @deprecated This prop will soon be removed.
+   */
   animationDuration?: string;
   /** Specify an aria-label for the Drawer component */
   "aria-label"?: string;
@@ -26,23 +32,30 @@ export interface DrawerProps extends TagProps {
   sidebarAriaLabel?: string;
   /** Sets color of sidebar's background */
   backgroundColor?: string;
+  /** Main content to display */
   children: React.ReactNode;
-  /** Set the default state of expansion of the Drawer if component is meant to be used as uncontrolled */
+  /**
+   * Set the default state of expansion of the Drawer if component is meant to be used as uncontrolled
+   * @deprecated This prop will soon be removed, please use the `expanded` prop instead.
+   */
   defaultExpanded?: boolean;
   /** Sets the expansion state of the Drawer if component is meant to be used as controlled */
   expanded?: boolean;
-  /* The (% or px) width of the expanded sidebar  */
+  /** The width of the expanded sidebar */
   expandedWidth?: string;
-  /** Sets custom height to Drawer component */
+  /** Sets the height of the component */
   height?: string;
   /** Callback fired when expansion state changes, onChange(event: object, isExpanded: boolean) */
   onChange?: (
     e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
     isExpanded: boolean,
   ) => void;
-  /* Sidebar object either html or react component */
+  /** Drawer sidebar content */
   sidebar?: React.ReactNode;
-  /** Enables expand/collapse button that controls drawer */
+  /**
+   * Enables expand/collapse button that controls drawer
+   * @deprecated This prop will soon be removed, this component is now intended to be non-dismissible.
+   */
   showControls?: boolean;
   /** Sets the heading of the drawer */
   title?: React.ReactNode;
@@ -57,13 +70,11 @@ export interface DrawerProps extends TagProps {
 export const Drawer = ({
   "aria-label": ariaLabel,
   sidebarAriaLabel,
-  "data-element": dataElement,
-  "data-role": dataRole = "drawer",
-  defaultExpanded = true,
+  defaultExpanded,
   expanded,
   onChange,
   children,
-  expandedWidth = "40%",
+  expandedWidth = "30vw",
   sidebar,
   animationDuration = "400ms",
   backgroundColor,
@@ -73,63 +84,39 @@ export const Drawer = ({
   height = "100%",
   stickyHeader,
   stickyFooter,
+  ...rest
 }: DrawerProps) => {
+  if (animationDuration !== "400ms" && !deprecatedAnimationDurationWarn) {
+    Logger.deprecate(
+      "The `animationDuration` prop in `Drawer` is deprecated and will soon be removed.",
+    );
+    deprecatedAnimationDurationWarn = true;
+  }
+
+  if (showControls !== undefined && !deprecatedShowControlsWarn) {
+    Logger.deprecate(
+      "The `showControls` prop in `Drawer` is deprecated and will soon be removed.",
+    );
+    deprecatedShowControlsWarn = true;
+  }
+
+  if (defaultExpanded !== undefined && !deprecatedDefaultExpandedWarn) {
+    Logger.deprecate(
+      "The `defaultExpanded` prop in `Drawer` is deprecated and will soon be removed.",
+    );
+    deprecatedDefaultExpandedWarn = true;
+  }
+
+  const guid = useRef(createGuid());
+  const sidebarId = `DrawerSidebar_${guid.current}`;
+  const titleId = `DrawerTitle_${guid.current}`;
   const drawerSidebarContentRef = useRef<HTMLDivElement | null>(null);
   const scrollableContentRef = useRef<HTMLDivElement | null>(null);
 
   const isControlled = useRef(expanded !== undefined);
-  const [isOpening, setIsOpening] = useState(false);
-  const [isClosing, setIsClosing] = useState(false);
   const [isExpanded, setIsExpanded] = useState(
-    isControlled.current ? expanded : defaultExpanded,
+    isControlled.current ? expanded : (defaultExpanded ?? true),
   );
-  const timer = useRef<null | ReturnType<typeof setTimeout>>(null);
-
-  const getAnimationDuration = useCallback(() => {
-    if (animationDuration.indexOf("ms") !== -1) {
-      const animationTime = animationDuration.substring(
-        0,
-        animationDuration.length - 2,
-      );
-      return parseInt(animationTime);
-    }
-
-    if (
-      animationDuration.indexOf(".") !== -1 ||
-      animationDuration.indexOf("s") !== -1
-    ) {
-      const animationTime = animationDuration.substring(
-        0,
-        animationDuration.length - 1,
-      );
-      return parseFloat(animationTime) * 1000;
-    }
-
-    return parseInt(animationDuration);
-  }, [animationDuration]);
-
-  const toggleAnimation = useCallback(() => {
-    const timeout = getAnimationDuration();
-
-    if (timer.current) {
-      clearTimeout(timer.current);
-    }
-
-    if (!isExpanded) {
-      setIsClosing(false);
-      setIsOpening(true);
-      timer.current = setTimeout(() => {
-        setIsOpening(false);
-      }, timeout);
-    } else {
-      setIsOpening(false);
-      setIsClosing(true);
-      timer.current = setTimeout(() => {
-        setIsClosing(false);
-      }, timeout);
-    }
-  }, [getAnimationDuration, isExpanded]);
-
   const previousValue = usePrevious(expanded);
 
   useEffect(() => {
@@ -141,20 +128,21 @@ export const Drawer = ({
 
     if (isControlled.current && previousValue !== expanded) {
       setIsExpanded(expanded);
+    }
+  }, [expanded, previousValue, showControls]);
 
-      if (!showControls && ![expanded, previousValue].includes(undefined)) {
-        toggleAnimation();
+  // add tabindex to scrollable sidebar when content overflows, tested in playwright
+  /* istanbul ignore next */
+  useEffect(() => {
+    const scrollableContent = scrollableContentRef.current;
+    if (scrollableContent) {
+      if (scrollableContent.scrollHeight > scrollableContent.clientHeight) {
+        scrollableContent.setAttribute("tabindex", "0");
+      } else {
+        scrollableContent.removeAttribute("tabindex");
       }
     }
-  }, [expanded, toggleAnimation, previousValue, showControls]);
-
-  useEffect(() => {
-    return function cleanup() {
-      if (timer.current) {
-        clearTimeout(timer.current);
-      }
-    };
-  }, []);
+  }, [sidebar, isExpanded]);
 
   const toggleDrawer = useCallback(
     (ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => {
@@ -163,33 +151,11 @@ export const Drawer = ({
       if (isExpanded && drawerSidebarContentRef.current) {
         drawerSidebarContentRef.current.scrollTop = 0;
       }
-
-      toggleAnimation();
     },
-    [toggleAnimation, isExpanded, onChange],
+    [isExpanded, onChange],
   );
 
-  const guid = useRef(createGuid());
-  const sidebarId = `DrawerSidebar_${guid.current}`;
-  const titleId = `DrawerTitle_${guid.current}`;
-
-  const getClassNames = useCallback(() => {
-    const classes = [isExpanded ? "open" : "closed"];
-
-    if (isOpening) {
-      classes.push("opening");
-    }
-
-    if (isClosing) {
-      classes.push("closing");
-    }
-
-    return classes.join(" ");
-  }, [isExpanded, isOpening, isClosing]);
-
   const getControls = () => {
-    if (showControls === undefined) return null;
-
     return (
       <StyledSidebarToggleButton
         aria-label="toggle sidebar"
@@ -198,7 +164,6 @@ export const Drawer = ({
         data-element="drawer-toggle"
         onClick={toggleDrawer}
         isExpanded={isExpanded}
-        animationDuration={animationDuration}
       >
         <Icon type="chevron_right" />
       </StyledSidebarToggleButton>
@@ -208,15 +173,14 @@ export const Drawer = ({
   return (
     <StyledDrawerWrapper
       aria-label={ariaLabel}
-      data-component="drawer"
-      data-element={dataElement}
-      data-role={dataRole}
       height={height}
+      {...tagComponent("drawer", rest)}
     >
       <StyledDrawerContent
         expandedWidth={expandedWidth}
         animationDuration={animationDuration}
-        className={getClassNames()}
+        isExpanded={isExpanded}
+        showControls={showControls}
         ref={drawerSidebarContentRef}
         backgroundColor={backgroundColor}
         data-element="drawer-content"
@@ -224,47 +188,28 @@ export const Drawer = ({
         aria-label={sidebarAriaLabel}
         aria-labelledby={title ? titleId : undefined}
       >
-        {stickyHeader && (
-          <StyledSidebarHeader
-            data-role="drawer-sidebar-header"
-            isExpanded={isExpanded}
-          >
-            {title && (
-              <StyledSidebarTitle id={titleId}>{title}</StyledSidebarTitle>
-            )}
-            {getControls()}
-          </StyledSidebarHeader>
+        {title && (
+          <StyledSidebarTitle id={titleId} stickyHeader={stickyHeader}>
+            {title}
+          </StyledSidebarTitle>
         )}
-        {!stickyHeader && (
-          <>
-            {title && (
-              <StyledSidebarTitle id={titleId}>{title}</StyledSidebarTitle>
-            )}
-            {getControls()}
-          </>
-        )}
+        {showControls && getControls()}
         <StyledDrawerSidebar
-          hasControls={!!showControls}
+          data-element="drawer-sidebar"
           id={sidebarId}
-          isExpanded={isExpanded}
-          overflowY={isExpanded ? "auto" : undefined}
-          scrollVariant="light"
           ref={scrollableContentRef}
         >
           <DrawerSidebarContext.Provider value={{ isInSidebar: true }}>
             {sidebar}
           </DrawerSidebarContext.Provider>
-          {footer && (
-            <StickyFooter
-              containerRef={scrollableContentRef}
-              disableSticky={!stickyFooter}
-            >
-              {footer}
-            </StickyFooter>
-          )}
         </StyledDrawerSidebar>
+        {footer && (
+          <StyledSidebarFooter stickyFooter={stickyFooter}>
+            {footer}
+          </StyledSidebarFooter>
+        )}
       </StyledDrawerContent>
-      <StyledDrawerChildren>{children}</StyledDrawerChildren>
+      {children}
     </StyledDrawerWrapper>
   );
 };
