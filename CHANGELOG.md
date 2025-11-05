@@ -1,3 +1,9 @@
+## [158.3.0](https://github.com/Sage/carbon/compare/v158.2.1...v158.3.0) (2025-11-05)
+
+### Features
+
+* **drawer:** audit changes ([172530b](https://github.com/Sage/carbon/commit/172530b35df29be2d4d6b4782ab6d84ba6b54b05))
+
 ## [158.2.1](https://github.com/Sage/carbon/compare/v158.2.0...v158.2.1) (2025-11-05)
 
 ### Bug Fixes
