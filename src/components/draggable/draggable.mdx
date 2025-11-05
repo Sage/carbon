@@ -14,6 +14,7 @@ with possibility to change their order with drag and drop mechanics
 
 - [Quick Start](#quick-start)
 - [Examples](#examples)
+- [Testing drag behaviour](#testing-drag-behaviour)
 - [Props](#props)
 
 ## Quick Start
@@ -51,6 +52,104 @@ import {
 ### With getOrder callback
 
 <Canvas of={DraggableStories.GetOrderCallbackStory} />
+
+## Testing drag behaviour
+
+### Recommended approach
+
+We recommend testing drag and drop interactions in browser environments using tools like Playwright or Cypress, rather than Node-based environments like JSDOM. Since JSDOM does not render visual content, tests will require extensive mocking to simulate drag and drop behaviour, making them less effective.
+
+### JSDOM tests (if required)
+
+If you need to test within JSDOM, you can test drag and drop behaviour by using a `DragEvent` polyfill and mocking the bounding boxes of any drop targets.
+
+[Pragmatic Drag and Drop](https://atlassian.design/components/pragmatic-drag-and-drop/core-package/testing/about) provides a `DragEvent` polyfill specifically designed for unit tests in JSDOM. To set it up, first install the package:
+
+```bash
+npm install --save-dev @atlaskit/pragmatic-drag-and-drop/unit-testing
+```
+
+Then, import the polyfill into your test runner's setup file:
+
+```javascript
+// jest.config.js
+module.exports = {
+    setupFiles: ['./tests/setup-drag-events.js'],
+};
+
+// tests/setup-drag-events.js
+import '@atlaskit/pragmatic-drag-and-drop/unit-testing/drag-event-polyfill';
+```
+
+In your tests, mock the bounding boxes of any rendered `DraggableItem` components designated as drop targets. This will ensure all hitbox calculations work correctly:
+
+```tsx
+import React from "react";
+import { render, screen, fireEvent } from "@testing-library/react";
+import { DraggableContainer, DraggableItem } from "carbon-react/lib/components/draggable";
+
+const mockedDOMRect = ({
+  width,
+  height,
+  x,
+  y,
+}: {
+  width: number;
+  height: number;
+  x: number;
+  y: number;
+}): DOMRect => {
+  return {
+    width,
+    height,
+    top: y,
+    left: x,
+    bottom: y + height,
+    right: x + width,
+    x,
+    y,
+    toJSON: () => {},
+  };
+};
+
+test("positions dragged item below target when dropped near its bottom edge", () => {
+  render(
+    <DraggableContainer data-role="container">
+      <DraggableItem id="apple" data-role="apple">
+        Apple
+      </DraggableItem>
+      <DraggableItem id="banana">Banana</DraggableItem>
+      <DraggableItem id="cherry" data-role="cherry">
+        Cherry
+      </DraggableItem>
+    </DraggableContainer>,
+  );
+
+  const apple = screen.getByTestId("apple");
+  const cherry = screen.getByTestId("cherry");
+
+  const CHERRY_RECT = mockedDOMRect({
+    x: 0,
+    y: 80,
+    width: 100,
+    height: 40,
+  });
+
+  jest.spyOn(cherry, "getBoundingClientRect").mockReturnValue(CHERRY_RECT);
+
+  fireEvent.dragStart(apple);
+  fireEvent.dragEnter(cherry);
+  fireEvent.dragOver(cherry, {
+    clientX: CHERRY_RECT.x,
+    clientY: CHERRY_RECT.y + CHERRY_RECT.height,
+  });
+  fireEvent.drop(cherry);
+  fireEvent.dragEnd(apple);
+
+  const container = screen.getByTestId("container");
+  expect(container).toHaveTextContent(/BananaCherryApple/);
+});
+```
 
 ## Props
 

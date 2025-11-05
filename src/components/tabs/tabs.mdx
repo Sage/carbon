@@ -3,9 +3,21 @@ import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
 import * as TabStories from "./tab/tab.stories";
 import * as TabsStories from "./tabs.stories";
 
+import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component";
+
 <Meta of={TabsStories} />
 
 # Tabs
+
+<DeprecationWarning>
+  This version of the Tabs component is no longer supported and will be removed
+  in a future release. Please consider moving to the{" "}
+  <a style={{ color: "white" }} href="../?path=/docs/tabs--docs">
+    {" "}
+    newer implementation
+  </a>{" "}
+  as soon as possible.
+</DeprecationWarning>
 
 <a
   target="_blank"
@@ -59,7 +71,7 @@ The tabs widget also allows you to select a tab on page load. By default this is
 import { TabsHandle } from "carbon-react/lib/components/tabs";
 ```
 
-The `TabsHandle` type provides an imperative handle for programmatic control over a desired `Tab`. 
+The `TabsHandle` type provides an imperative handle for programmatic control over a desired `Tab`.
 Using a ref, you can access its `focusTab()` method which accepts a `tabId` parameter.
 Pass the same ID that you've assigned to the `tabId` prop on the `Tab` you want to focus.
 
@@ -169,7 +181,7 @@ CSS string.
 
 #### Horizontal
 
-__Note: This story is best viewed in the `canvas` view and by adjusting the size of the window.__
+**Note: This story is best viewed in the `canvas` view and by adjusting the size of the window.**
 
 The `Tabs` component is responsive and will display navigation buttons to the left and right when the following conditions are met:
 
@@ -184,7 +196,7 @@ respective navigation button will not appear.
 
 #### Vertical
 
-__Note: This story is best viewed in the `canvas` view and by adjusting the size of the window.__
+**Note: This story is best viewed in the `canvas` view and by adjusting the size of the window.**
 
 The `Tabs` component is also responsive when oriented vertically. Please note that the navigation buttons described above will not appear
 when the `position` prop is set to `left`.
@@ -257,7 +269,7 @@ const App = () => {
 
 ## Validation States
 
-If some input-based Carbon component within a `Tab` is in an error or warning state, the `Tab` will also render with the same state - showing a visual, 
+If some input-based Carbon component within a `Tab` is in an error or warning state, the `Tab` will also render with the same state - showing a visual,
 coloured outline and icon to signify it contains an invalid input field the user needs to address.
 You can also use the `errorMessage` and/or `warningMessage` props on the `Tab` component to set a descriptive message for assistive technology users when the `Tab` is in an error or warning state.
 

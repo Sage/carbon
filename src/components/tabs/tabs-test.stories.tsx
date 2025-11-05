@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Tabs, Tab, TabsProps, TabProps } from ".";
+import { Tabs as Tabs, Tab as Tab, TabsProps, TabProps } from ".";
 import DrawerSidebarContext from "../drawer/__internal__/drawer-sidebar.context";
 import Box from "../box";
 import Form from "../form";
@@ -10,7 +10,7 @@ import Pill from "../pill";
 import Icon from "../icon";
 
 export default {
-  title: "Tabs/Test",
+  title: "Deprecated/Tabs/Test",
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -51,7 +51,7 @@ export default {
   },
 };
 
-export const Default = (args: TabsProps) => {
+export const LegacyDefault = (args: TabsProps) => {
   return (
     <Tabs {...args}>
       <Tab
@@ -117,9 +117,9 @@ export const Default = (args: TabsProps) => {
   );
 };
 
-Default.storyName = "Default";
+LegacyDefault.storyName = "Default";
 
-export const ValidationPositionTop = () => {
+export const LegacyValidationPositionTop = () => {
   return (
     <Tabs position="top">
       <Tab errorMessage="Error Message" tabId="tab-1" title="Tab 1" key="tab-1">
@@ -139,13 +139,13 @@ export const ValidationPositionTop = () => {
     </Tabs>
   );
 };
-ValidationPositionTop.storyName = "Validation position top";
-ValidationPositionTop.parameters = {
+LegacyValidationPositionTop.storyName = "Validation position top";
+LegacyValidationPositionTop.parameters = {
   chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
-export const ValidationPositionLeft = () => {
+export const LegacyValidationPositionLeft = () => {
   return (
     <Tabs position="left">
       <Tab errorMessage="Error Message" tabId="tab-1" title="Tab 1" key="tab-1">
@@ -165,13 +165,13 @@ export const ValidationPositionLeft = () => {
     </Tabs>
   );
 };
-ValidationPositionLeft.storyName = "Validation position left";
-ValidationPositionLeft.parameters = {
+LegacyValidationPositionLeft.storyName = "Validation position left";
+LegacyValidationPositionLeft.parameters = {
   chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
-export const NewValidationPositionTop = () => {
+export const LegacyNewValidationPositionTop = () => {
   return (
     <CarbonProvider validationRedesignOptIn>
       <Tabs position="top">
@@ -207,13 +207,13 @@ export const NewValidationPositionTop = () => {
     </CarbonProvider>
   );
 };
-NewValidationPositionTop.storyName = "New Validation position top";
-NewValidationPositionTop.parameters = {
+LegacyNewValidationPositionTop.storyName = "New Validation position top";
+LegacyNewValidationPositionTop.parameters = {
   chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
-export const NewValidationPositionLeft = () => {
+export const LegacyNewValidationPositionLeft = () => {
   return (
     <CarbonProvider validationRedesignOptIn>
       <Tabs position="left">
@@ -249,13 +249,13 @@ export const NewValidationPositionLeft = () => {
     </CarbonProvider>
   );
 };
-NewValidationPositionLeft.storyName = "New Validation position left";
-NewValidationPositionLeft.parameters = {
+LegacyNewValidationPositionLeft.storyName = "New Validation position left";
+LegacyNewValidationPositionLeft.parameters = {
   chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
-export const WithAdditionalTitleSiblingsRedesign = () => {
+export const LegacyWithAdditionalTitleSiblingsRedesign = () => {
   const [errors, setErrors] = useState({
     one: true,
     two: false,
@@ -327,14 +327,14 @@ export const WithAdditionalTitleSiblingsRedesign = () => {
     </CarbonProvider>
   );
 };
-WithAdditionalTitleSiblingsRedesign.storyName =
+LegacyWithAdditionalTitleSiblingsRedesign.storyName =
   "New Validation Additional Title Siblings";
-WithAdditionalTitleSiblingsRedesign.parameters = {
+LegacyWithAdditionalTitleSiblingsRedesign.parameters = {
   chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
-export const WithStringValidationsSummarised = () => {
+export const LegacyWithStringValidationsSummarised = () => {
   type TabValidations = { one: string | boolean; two: string | boolean };
   const [errors, setErrors] = useState<TabValidations>({
     one: "This is an error",
@@ -424,10 +424,10 @@ export const WithStringValidationsSummarised = () => {
     </Box>
   );
 };
-WithStringValidationsSummarised.storyName =
+LegacyWithStringValidationsSummarised.storyName =
   "With String Validations Summarised";
 
-export const ResponsiveValidation = () => {
+export const LegacyResponsiveValidation = () => {
   const tabsData = Array(20)
     .fill(0)
     .map((_, index) => ({
@@ -458,13 +458,13 @@ export const ResponsiveValidation = () => {
     </Box>
   );
 };
-ResponsiveValidation.storyName = "Responsive with error";
-ResponsiveValidation.parameters = {
+LegacyResponsiveValidation.storyName = "Responsive with error";
+LegacyResponsiveValidation.parameters = {
   chromatic: { disableSnapshot: false, viewports: [1200, 500] },
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
-export const ResponsiveLarge = () => {
+export const LegacyResponsiveLarge = () => {
   const tabsData = Array(20)
     .fill(0)
     .map((_, index) => ({
@@ -495,8 +495,8 @@ export const ResponsiveLarge = () => {
     </Box>
   );
 };
-ResponsiveLarge.storyName = "Responsive Large with error";
-ResponsiveLarge.parameters = {
+LegacyResponsiveLarge.storyName = "Responsive Large with error";
+LegacyResponsiveLarge.parameters = {
   chromatic: { disableSnapshot: false, viewports: [1200, 600] },
   themeProvider: { chromatic: { theme: "sage" } },
 };
@@ -564,7 +564,6 @@ export const TabsInSidebar = (
     </DrawerSidebarContext.Provider>
   );
 };
-
 TabsInSidebar.storyName = "Tabs in sidebar";
 TabsInSidebar.parameters = {
   info: { disable: true },
@@ -636,7 +635,6 @@ export const TabsInSidebarPositionedLeft = (
     </DrawerSidebarContext.Provider>
   );
 };
-
 TabsInSidebarPositionedLeft.storyName = "Tabs in sidebar positioned left";
 TabsInSidebarPositionedLeft.parameters = {
   info: { disable: true },
@@ -645,7 +643,7 @@ TabsInSidebarPositionedLeft.parameters = {
   },
 };
 
-export const WithHorizontalScrollbarInsideForm = (args: TabsProps) => {
+export const LegacyWithHorizontalScrollbarInsideForm = (args: TabsProps) => {
   const onSubmit = () => {};
 
   return (
@@ -723,6 +721,5 @@ export const WithHorizontalScrollbarInsideForm = (args: TabsProps) => {
     </Form>
   );
 };
-
-WithHorizontalScrollbarInsideForm.storyName =
+LegacyWithHorizontalScrollbarInsideForm.storyName =
   "With Horizontal Scrollbar Inside Form";
