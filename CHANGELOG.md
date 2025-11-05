@@ -1,3 +1,9 @@
+## [158.2.1](https://github.com/Sage/carbon/compare/v158.2.0...v158.2.1) (2025-11-05)
+
+### Bug Fixes
+
+* **responsive-vertical-menu:** invalid aria when modal is closed ([714fac1](https://github.com/Sage/carbon/commit/714fac1c2642ef061d54bd13cf2b0ab7322617df))
+
 ## [158.2.0](https://github.com/Sage/carbon/compare/v158.1.1...v158.2.0) (2025-11-03)
 
 ### Features
