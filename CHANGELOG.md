@@ -1,3 +1,9 @@
+## [158.4.0](https://github.com/Sage/carbon/compare/v158.3.1...v158.4.0) (2025-11-06)
+
+### Features
+
+* **tabs:** add support for programmatic tab focus to new Tabs ([73d84a1](https://github.com/Sage/carbon/commit/73d84a11439f84b5c7213692b3eb7b7fc558545a))
+
 ## [158.3.1](https://github.com/Sage/carbon/compare/v158.3.0...v158.3.1) (2025-11-05)
 
 ### Bug Fixes
