@@ -16,6 +16,9 @@ import FocusContext, {
   FocusContextType,
 } from "./__internal__/duelling-picklist.context";
 
+/**
+ * @deprecated `DuellingPicklist` has been deprecated. See the Carbon documentation for migration details.
+ */
 export interface DuellingPicklistProps extends MarginProps, TagProps {
   /**
    * Content of the component, should contain two Picklist children
@@ -34,6 +37,9 @@ export interface DuellingPicklistProps extends MarginProps, TagProps {
   rightLabel?: string;
 }
 
+/**
+ * @deprecated `DuellingPicklist` has been deprecated. See the Carbon documentation for migration details.
+ */
 export const DuellingPicklist = ({
   children,
   disabled,

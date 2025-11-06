@@ -2,6 +2,9 @@ import React from "react";
 
 import Dialog, { DialogProps } from "../dialog";
 
+/**
+ * @deprecated Alert has been deprecated. See the Carbon documentation for migration details.
+ */
 export const Alert = ({
   children,
   size = "extra-small",

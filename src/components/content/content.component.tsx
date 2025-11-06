@@ -10,6 +10,9 @@ import {
 } from "./content.style";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
+/**
+ * @deprecated `Content` has been deprecated. See the Carbon documentation for migration details.
+ */
 export interface ContentProps
   extends StyledContentProps,
     StyledContentTitleProps,
@@ -21,6 +24,9 @@ export interface ContentProps
   title?: React.ReactNode;
 }
 
+/**
+ * @deprecated `Content` has been deprecated. See the Carbon documentation for migration details.
+ */
 export const Content = ({
   variant = "primary",
   children,

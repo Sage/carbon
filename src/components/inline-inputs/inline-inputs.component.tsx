@@ -21,6 +21,9 @@ type GutterOptions =
   | "large"
   | "extra-large";
 
+/**
+ * @deprecated `InlineInputs` has been deprecated. See the Carbon documentation for migration details.
+ */
 export interface InlineInputsProps
   extends MarginProps,
     StyledContentContainerProps,
@@ -61,6 +64,9 @@ const columnWrapper = (children: React.ReactNode, gutter: GutterOptions) => {
   });
 };
 
+/**
+ * @deprecated `InlineInputs` has been deprecated. See the Carbon documentation for migration details.
+ */
 const InlineInputs = ({
   adaptiveLabelBreakpoint,
   label,

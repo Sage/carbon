@@ -4,11 +4,17 @@ import { ButtonProps } from "../button";
 import ButtonBarContext from "../button-bar/__internal__/button-bar.context";
 import BatchSelectionContext from "../batch-selection/__internal__/batch-selection.context";
 
+/**
+ * @deprecated `ButtonMinor` has been deprecated. See the Carbon documentation for migration details.
+ */
 export interface ButtonMinorProps extends ButtonProps {
   /** @private @ignore */
   isInPassword?: boolean;
 }
 
+/**
+ * @deprecated `ButtonMinor` has been deprecated. See the Carbon documentation for migration details.
+ */
 export const ButtonMinor = React.forwardRef<
   HTMLButtonElement,
   ButtonMinorProps
