@@ -99,6 +99,44 @@ Use the `leftSlot` and `rightSlot` properties to control items before and after 
 
 <Canvas of={TabsStories.PreSelectedTab} name="pre-selected-tab" />
 
+### Focusing a Tab Programmatically
+
+```javascript
+import { TabsHandle } from "carbon-react/lib/components/tabs/__next";
+```
+
+The `TabsHandle` type lets you control which tab is focused through code. By attaching a `ref` to your TabList, you can access an imperative method called
+`focusTab()`, which takes a tab’s `id` as an argument and sets focus to it when called. To do this, first import the handle as above, and then use React's
+`useRef` hook to create a reference,
+
+```javascript
+const tabsHandle = useRef < TabsHandle > null;
+```
+
+Attach it to the `TabList` component via the `ref` prop:
+
+```javascript
+<TabList ariaLabel="Sample Tabs" ref={tabsHandle}>
+  <Tab id="tab-1--programmatic" />
+  <Tab id="tab-2--programmatic" />
+  <Tab id="tab-3--programmatic" />
+</TabList>
+```
+
+And then use it to call the `focusTab` method when e.g. a `Button` is clicked. Note that the value passed to the method is the value of the `id` prop for
+the target tab:
+
+```javascript
+<Button
+  buttonType="primary"
+  onClick={() => tabsHandle.current?.focusTab("tab-3--programmatic")}
+>
+  Focus Tab 3
+</Button>
+```
+
+<Canvas of={TabsStories.ProgrammaticFocus} />
+
 ## Accessibility
 
 Users should be able to:

@@ -1,8 +1,21 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from "react";
 
 import Typography from "../../typography";
 import { TabsProvider, useTabs } from "./tabs.context";
-import { TabListProps, TabPanelProps, TabProps, TabsProps } from "./tabs.types";
+import {
+  TabsHandle,
+  TabListProps,
+  TabPanelProps,
+  TabProps,
+  TabsProps,
+} from "./tabs.types";
 import {
   Spacer,
   StyledScrollButton,
@@ -196,196 +209,209 @@ export const Tab = ({
   );
 };
 
-export const TabList = ({ ariaLabel, children }: TabListProps) => {
-  const tabListRef = React.useRef<HTMLDivElement>(null);
-  const {
-    activeTab,
-    focusIndex,
-    orientation,
-    selectedTabId,
-    setFocusIndex,
-    setActiveTab,
-    size,
-  } = useTabs();
+export const TabList = forwardRef<TabsHandle, TabListProps>(
+  ({ ariaLabel, children }, ref) => {
+    const tabListRef = useRef<HTMLDivElement>(null);
+    const {
+      activeTab,
+      focusIndex,
+      orientation,
+      selectedTabId,
+      setFocusIndex,
+      setActiveTab,
+      size,
+    } = useTabs();
 
-  const getTabIds = useCallback(() => {
-    const tabList =
-      tabListRef.current?.querySelectorAll("[role='tab']") ||
-      /* istanbul ignore next */ [];
+    useImperativeHandle(ref, () => ({
+      focusTab: (id: string) => {
+        const tab = tabListRef.current?.querySelector(`#${id}`) as
+          | HTMLButtonElement
+          | undefined;
+        tab?.focus();
+        setFocusIndex(id);
+        setActiveTab(id);
+      },
+    }));
 
-    return Array.from(tabList)
-      .map((tab) => tab.id)
-      .filter((id) => id);
-  }, []);
+    const getTabIds = useCallback(() => {
+      const tabList =
+        tabListRef.current?.querySelectorAll("[role='tab']") ||
+        /* istanbul ignore next */ [];
 
-  useEffect(() => {
-    /* istanbul ignore if */
-    if (selectedTabId) {
-      setActiveTab(selectedTabId);
-      return;
-    }
+      return Array.from(tabList)
+        .map((tab) => tab.id)
+        .filter((id) => id);
+    }, []);
 
-    if (!activeTab) {
+    useEffect(() => {
+      /* istanbul ignore if */
+      if (selectedTabId) {
+        setActiveTab(selectedTabId);
+        return;
+      }
+
+      if (!activeTab) {
+        const tabIds = getTabIds();
+        const firstTab = tabIds[0];
+        setActiveTab(firstTab);
+      }
+    }, [activeTab, getTabIds, selectedTabId, setActiveTab]);
+
+    const handleKeyDown = (event: React.KeyboardEvent) => {
       const tabIds = getTabIds();
-      const firstTab = tabIds[0];
-      setActiveTab(firstTab);
-    }
-  }, [activeTab, getTabIds, selectedTabId, setActiveTab]);
 
-  const handleKeyDown = (event: React.KeyboardEvent) => {
-    const tabIds = getTabIds();
+      const currentIndex = tabIds.indexOf(focusIndex || activeTab);
+      const lastIndex = tabIds.length - 1;
 
-    const currentIndex = tabIds.indexOf(focusIndex || activeTab);
-    const lastIndex = tabIds.length - 1;
+      /* istanbul ignore if */
+      if (currentIndex === -1) return;
 
-    /* istanbul ignore if */
-    if (currentIndex === -1) return;
+      let nextIndex = currentIndex;
 
-    let nextIndex = currentIndex;
-
-    switch (event.key) {
-      case "Home":
-        nextIndex = 0;
-        break;
-      case "End":
-        nextIndex = lastIndex;
-        break;
-      case "ArrowRight":
-        nextIndex = (currentIndex + 1) % tabIds.length;
-        break;
-      case "ArrowLeft":
-        nextIndex = (currentIndex - 1 + tabIds.length) % tabIds.length;
-        break;
-      case "ArrowUp":
-        /* istanbul ignore else */
-        if (orientation === "vertical") {
-          nextIndex = (currentIndex - 1 + tabIds.length) % tabIds.length;
-        }
-        break;
-      case "ArrowDown":
-        /* istanbul ignore else */
-        if (orientation === "vertical") {
+      switch (event.key) {
+        case "Home":
+          nextIndex = 0;
+          break;
+        case "End":
+          nextIndex = lastIndex;
+          break;
+        case "ArrowRight":
           nextIndex = (currentIndex + 1) % tabIds.length;
-        }
-        break;
-      case "Enter":
-      case " ":
-        setActiveTab(activeTab);
-        return;
-      default:
-        return;
-    }
+          break;
+        case "ArrowLeft":
+          nextIndex = (currentIndex - 1 + tabIds.length) % tabIds.length;
+          break;
+        case "ArrowUp":
+          /* istanbul ignore else */
+          if (orientation === "vertical") {
+            nextIndex = (currentIndex - 1 + tabIds.length) % tabIds.length;
+          }
+          break;
+        case "ArrowDown":
+          /* istanbul ignore else */
+          if (orientation === "vertical") {
+            nextIndex = (currentIndex + 1) % tabIds.length;
+          }
+          break;
+        case "Enter":
+        case " ":
+          setActiveTab(activeTab);
+          return;
+        default:
+          return;
+      }
 
-    setFocusIndex(tabIds[nextIndex]);
-  };
+      setFocusIndex(tabIds[nextIndex]);
+    };
 
-  const [scrollRequired, setScrollRequired] = useState<boolean>(false);
-  const [leftVisible, setLeftVisible] = useState<boolean>(false);
-  const [rightVisible, setRightVisible] = useState<boolean>(false);
+    const [scrollRequired, setScrollRequired] = useState<boolean>(false);
+    const [leftVisible, setLeftVisible] = useState<boolean>(false);
+    const [rightVisible, setRightVisible] = useState<boolean>(false);
 
-  const updateUI = useCallback(() => {
-    /* istanbul ignore else */
-    if (tabListRef.current) {
-      const maxScrollValue =
-        tabListRef.current.scrollWidth - tabListRef.current.clientWidth - 20;
-      setScrollRequired(maxScrollValue > 0);
-      setLeftVisible(tabListRef.current.scrollLeft >= 20);
-      setRightVisible(tabListRef.current.scrollLeft <= maxScrollValue);
-    }
-  }, []);
+    const updateUI = useCallback(() => {
+      /* istanbul ignore else */
+      if (tabListRef.current) {
+        const maxScrollValue =
+          tabListRef.current.scrollWidth - tabListRef.current.clientWidth - 20;
+        setScrollRequired(maxScrollValue > 0);
+        setLeftVisible(tabListRef.current.scrollLeft >= 20);
+        setRightVisible(tabListRef.current.scrollLeft <= maxScrollValue);
+      }
+    }, []);
 
-  useResizeObserver(tabListRef, () => {
-    updateUI();
-  });
-
-  useEffect(() => {
-    /* istanbul ignore else */
-    if (tabListRef.current) {
+    useResizeObserver(tabListRef, () => {
       updateUI();
-    }
-  }, [updateUI]);
+    });
 
-  // Difficult to test in Jest owing to the fact that scrolling and offsets
-  // would need to be mocked, which is unreliable and potential flake.
-  // Implementation will be tested in PW.
-  /* istanbul ignore next */
-  const onClickHandler = (direction: "left" | "right") => {
-    if (tabListRef.current) {
-      if (direction === "left") tabListRef.current.scrollLeft -= 200;
-      else tabListRef.current.scrollLeft += 200;
+    useEffect(() => {
+      /* istanbul ignore else */
+      if (tabListRef.current) {
+        updateUI();
+      }
+    }, [updateUI]);
 
-      updateUI();
-    }
-  };
+    // Difficult to test in Jest owing to the fact that scrolling and offsets
+    // would need to be mocked, which is unreliable and potential flake.
+    // Implementation will be tested in PW.
+    /* istanbul ignore next */
+    const onClickHandler = (direction: "left" | "right") => {
+      if (tabListRef.current) {
+        if (direction === "left") tabListRef.current.scrollLeft -= 200;
+        else tabListRef.current.scrollLeft += 200;
 
-  // Coverage disabled owing to the above comment.
-  /* istanbul ignore next */
-  const renderLeftScroll = () => {
-    if (orientation === "vertical" || !scrollRequired) return null;
-    return leftVisible ? (
-      <StyledScrollButton
-        data-role="tab-navigation-button-left"
-        id="tab-navigation-button-left"
-        onClick={() => onClickHandler("left")}
-        size={size}
-        tabIndex={-1}
-        title="Scroll Tabs Left"
-        type="button"
-      >
-        <Icon type="chevron_left" />
-      </StyledScrollButton>
-    ) : (
-      <StyledScrollButtonPlaceholder size={size} />
-    );
-  };
+        updateUI();
+      }
+    };
 
-  // Coverage disabled owing to the above comment.
-  /* istanbul ignore next */
-  const renderRightScroll = () => {
-    if (orientation === "vertical" || !scrollRequired) return null;
-    return rightVisible ? (
-      <StyledScrollButton
-        data-role="tab-navigation-button-right"
-        id="tab-navigation-button-right"
-        onClick={() => onClickHandler("right")}
-        size={size}
-        tabIndex={-1}
-        title="Scroll Tabs Right"
-        type="button"
-      >
-        <Icon type="chevron_right" />
-      </StyledScrollButton>
-    ) : (
-      <StyledScrollButtonPlaceholder size={size} />
-    );
-  };
-
-  return (
-    <>
-      <Typography id={"tablist-aria-label"} screenReaderOnly>
-        {ariaLabel}
-      </Typography>
-      <StyledTabListWrapper>
-        {renderLeftScroll()}
-        <StyledTabList
-          ariaLabel={ariaLabel}
-          aria-labelledby={"tablist-aria-label"}
-          id="tablist"
-          onKeyDown={handleKeyDown}
-          orientation={orientation}
-          ref={tabListRef}
-          role="tablist"
+    // Coverage disabled owing to the above comment.
+    /* istanbul ignore next */
+    const renderLeftScroll = () => {
+      if (orientation === "vertical" || !scrollRequired) return null;
+      return leftVisible ? (
+        <StyledScrollButton
+          data-role="tab-navigation-button-left"
+          id="tab-navigation-button-left"
+          onClick={() => onClickHandler("left")}
           size={size}
           tabIndex={-1}
+          title="Scroll Tabs Left"
+          type="button"
         >
-          {children}
-          <Spacer />
-        </StyledTabList>
-        {renderRightScroll()}
-      </StyledTabListWrapper>
-    </>
-  );
-};
+          <Icon type="chevron_left" />
+        </StyledScrollButton>
+      ) : (
+        <StyledScrollButtonPlaceholder size={size} />
+      );
+    };
+
+    // Coverage disabled owing to the above comment.
+    /* istanbul ignore next */
+    const renderRightScroll = () => {
+      if (orientation === "vertical" || !scrollRequired) return null;
+      return rightVisible ? (
+        <StyledScrollButton
+          data-role="tab-navigation-button-right"
+          id="tab-navigation-button-right"
+          onClick={() => onClickHandler("right")}
+          size={size}
+          tabIndex={-1}
+          title="Scroll Tabs Right"
+          type="button"
+        >
+          <Icon type="chevron_right" />
+        </StyledScrollButton>
+      ) : (
+        <StyledScrollButtonPlaceholder size={size} />
+      );
+    };
+
+    return (
+      <>
+        <Typography id={"tablist-aria-label"} screenReaderOnly>
+          {ariaLabel}
+        </Typography>
+        <StyledTabListWrapper>
+          {renderLeftScroll()}
+          <StyledTabList
+            ariaLabel={ariaLabel}
+            aria-labelledby={"tablist-aria-label"}
+            id="tablist"
+            onKeyDown={handleKeyDown}
+            orientation={orientation}
+            ref={tabListRef}
+            role="tablist"
+            size={size}
+            tabIndex={-1}
+          >
+            {children}
+            <Spacer />
+          </StyledTabList>
+          {renderRightScroll()}
+        </StyledTabListWrapper>
+      </>
+    );
+  },
+);
 
 export const Tabs = ({
   children,

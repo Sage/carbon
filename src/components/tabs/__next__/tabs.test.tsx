@@ -7,6 +7,8 @@ import Icon from "../../icon";
 import Typography from "../../typography";
 import { assertLoggerComponentMessage } from "../../../__spec_helper__/__internal__/test-utils";
 import Textbox from "../../textbox";
+import { TabsHandle } from "./tabs.types";
+import Button from "../../button";
 
 const TestComponent = ({ ...args }) => {
   return (
@@ -358,4 +360,49 @@ test("renders correctly when a default tab is specified", () => {
   expect(tab).toHaveAttribute("aria-selected", "true");
   expect(tabPanel).toBeInTheDocument();
   expect(tabPanel).toHaveTextContent("Content 3");
+});
+
+test("calling exposed focusTab method with correct tabId focuses chosen tab", async () => {
+  const user = userEvent.setup();
+  const MockComponent = () => {
+    const tabsHandle = React.useRef<TabsHandle>(null);
+
+    return (
+      <>
+        <Tabs>
+          <TabList ariaLabel="Sample Tabs" ref={tabsHandle}>
+            <Tab id="tab-1" controls="tab-panel-1" label="Tab One" />
+            <Tab id="tab-2" controls="tab-panel-2" label="Tab Two" />
+            <Tab id="tab-3" controls="tab-panel-3" label="Tab Three" />
+          </TabList>
+          <TabPanel id="tab-panel-1" tabId="tab-1">
+            <Typography>Content 1</Typography>
+            <button data-role="test-button">Test button</button>
+          </TabPanel>
+          <TabPanel id="tab-panel-2" tabId="tab-2">
+            <Typography>Content 2</Typography>
+          </TabPanel>
+          <TabPanel id="tab-panel-3" tabId="tab-3">
+            <Typography>Content 3</Typography>
+          </TabPanel>
+        </Tabs>
+        <Button onClick={() => tabsHandle.current?.focusTab("tab-3")}>
+          Focus Tab 3
+        </Button>
+      </>
+    );
+  };
+
+  render(<MockComponent />);
+
+  const thirdTab = screen.getByRole("tab", {
+    name: "Tab Three",
+  });
+  const button = screen.getByRole("button", {
+    name: "Focus Tab 3",
+  });
+
+  await user.click(button);
+
+  expect(thirdTab).toHaveFocus();
 });
