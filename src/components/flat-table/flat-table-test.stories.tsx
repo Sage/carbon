@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { action } from "@storybook/addon-actions";
 import {
   FlatTable,
@@ -13,6 +13,7 @@ import {
   FlatTableHeaderProps,
   FlatTableRowHeaderProps,
   FlatTableCellProps,
+  Sort,
 } from ".";
 import Button from "../../../src/components/button";
 import Box from "../../../src/components/box";
@@ -39,20 +40,6 @@ import PopoverContainer from "../popover-container";
 
 export default {
   title: "Flat Table/Test",
-  includeStories: [
-    "FlatTableStory",
-    "ExpandableWithLink",
-    "ExpandableWithActionPopover",
-    "SortableStory",
-    "SubRowsAsAComponentStory",
-    "FlatTableSizeFocus",
-    "FlatTableInsideDrawer",
-    "FlatRowHeaderWithNoPaddingAndButtons",
-    "FlatTableThemesWithAlternateHeaderBackground",
-    "FlatTableThemesWithStickyHead",
-    "FlatTableWithStickyHeadAndFooter",
-    "WithLongRowHeader",
-  ],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -1239,3 +1226,146 @@ export const WithLongRowHeader = () => {
   );
 };
 WithLongRowHeader.storyName = "With Long Row Header";
+
+type SortType = "ascending" | "descending";
+type TableRowData = Record<string, string | number>;
+
+export const ExtendedColumnSorting = (args: FlatTableProps) => {
+  const initialHeaders = [
+    { name: "client", label: "Client", isActive: true },
+    { name: "region", label: "Region", isActive: false },
+    { name: "total", label: "Total (£)", isActive: false },
+    { name: "orders", label: "Orders", isActive: false },
+    { name: "lastPurchase", label: "Last Purchase", isActive: false },
+  ];
+
+  const data: TableRowData[] = useMemo(() => {
+    return [
+      {
+        id: 1,
+        client: "Jason Atkinson",
+        region: "London",
+        total: 1349,
+        orders: 12,
+        lastPurchase: "2025-09-18",
+      },
+      {
+        id: 2,
+        client: "Monty Parker",
+        region: "Manchester",
+        total: 849,
+        orders: 8,
+        lastPurchase: "2025-10-04",
+      },
+      {
+        id: 3,
+        client: "Blake Sutton",
+        region: "Bristol",
+        total: 3840,
+        orders: 25,
+        lastPurchase: "2025-09-22",
+      },
+      {
+        id: 4,
+        client: "Tyler Webb",
+        region: "Leeds",
+        total: 280,
+        orders: 3,
+        lastPurchase: "2025-10-10",
+      },
+      {
+        id: 5,
+        client: "Sophie Evans",
+        region: "Cardiff",
+        total: 1620,
+        orders: 15,
+        lastPurchase: "2025-10-02",
+      },
+      {
+        id: 6,
+        client: "Amelia Wright",
+        region: "Liverpool",
+        total: 2195,
+        orders: 17,
+        lastPurchase: "2025-09-30",
+      },
+    ];
+  }, []);
+
+  const [headers, setHeaders] = useState(initialHeaders);
+  const [sortBy, setSortBy] = useState(initialHeaders[0].name);
+  const [sortType, setSortType] = useState<SortType>("ascending");
+
+  const handleSortClick = (columnName: string) => {
+    setHeaders((prev) =>
+      prev.map((h) => ({
+        ...h,
+        isActive: h.name === columnName,
+      })),
+    );
+    setSortBy(columnName);
+    setSortType((prev) => (prev === "ascending" ? "descending" : "ascending"));
+  };
+
+  const sortedData = useMemo(() => {
+    const sortFn = (a: TableRowData, b: TableRowData) => {
+      const valA = a[sortBy];
+      const valB = b[sortBy];
+      const isAscending = sortType === "ascending";
+
+      if (typeof valA === "number" && typeof valB === "number") {
+        return isAscending ? valA - valB : valB - valA;
+      }
+
+      const isDate =
+        typeof valA === "string" &&
+        typeof valB === "string" &&
+        /^\d{4}-\d{2}-\d{2}$/.test(valA) &&
+        /^\d{4}-\d{2}-\d{2}$/.test(valB);
+
+      if (isDate) {
+        const dateA = new Date(valA).getTime();
+        const dateB = new Date(valB).getTime();
+        return isAscending ? dateA - dateB : dateB - dateA;
+      }
+
+      const strA = String(valA).toUpperCase();
+      const strB = String(valB).toUpperCase();
+
+      if (strA < strB) return isAscending ? -1 : 1;
+      if (strA > strB) return isAscending ? 1 : -1;
+      return 0;
+    };
+
+    return [...data].sort(sortFn);
+  }, [data, sortBy, sortType]);
+
+  return (
+    <FlatTable {...args} title="Sales Overview Table">
+      <FlatTableHead>
+        <FlatTableRow>
+          {headers.map(({ name, label, isActive }) => (
+            <FlatTableHeader key={name}>
+              <Sort
+                onClick={() => handleSortClick(name)}
+                {...(isActive && { sortType })}
+              >
+                {label}
+              </Sort>
+            </FlatTableHeader>
+          ))}
+        </FlatTableRow>
+      </FlatTableHead>
+
+      <FlatTableBody>
+        {sortedData.map((row) => (
+          <FlatTableRow key={row.id}>
+            {headers.map(({ name }) => (
+              <FlatTableCell key={name}>{row[name]}</FlatTableCell>
+            ))}
+          </FlatTableRow>
+        ))}
+      </FlatTableBody>
+    </FlatTable>
+  );
+};
