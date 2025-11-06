@@ -11,6 +11,9 @@ import Icon from "../icon";
 import { BoxProps } from "../box";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
+/**
+ * @deprecated `DimissibleBox` has been deprecated. See the Carbon documentation for migration details.
+ */
 export interface DismissibleBoxProps
   extends SpaceProps,
     StyledDismissibleBoxProps,
@@ -33,6 +36,9 @@ export interface DismissibleBoxProps
   width?: number | string;
 }
 
+/**
+ * @deprecated `DismissibleBox` has been deprecated. See the Carbon documentation for migration details.
+ */
 export const DismissibleBox = ({
   children,
   closeButtonDataProps,

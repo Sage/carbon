@@ -1,8 +1,11 @@
 import React from "react";
-import { act, render, screen, waitFor } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 
 import userEvent from "@testing-library/user-event";
 import Drawer from ".";
+import { assertLoggerComponentMessage } from "../../__spec_helper__/__internal__/test-utils";
+
+jest.mock("../../__internal__/utils/logger");
 
 beforeEach(() => {
   jest.useFakeTimers();
@@ -13,21 +16,31 @@ afterEach(() => {
   jest.useRealTimers();
 });
 
-it("cleans ups timers on unmount", async () => {
-  const clearTimeoutSpy = jest.spyOn(window, "clearTimeout");
-  const { unmount } = render(<Drawer>Foobar</Drawer>);
-
-  unmount();
-  await waitFor(() => {
-    expect(screen.queryByTestId("drawer")).not.toBeInTheDocument();
+test("should log a deprecation warning for `animationDuration` prop", () => {
+  assertLoggerComponentMessage({
+    component: <Drawer animationDuration="500ms">Foobar</Drawer>,
+    message:
+      "The `animationDuration` prop in `Drawer` is deprecated and will soon be removed.",
   });
-
-  expect(clearTimeoutSpy).toHaveBeenCalledTimes(1);
-
-  clearTimeoutSpy.mockRestore();
 });
 
-it("sets correct data-* props on main dialog element", () => {
+test("should log a deprecation warning for `showControls` prop", () => {
+  assertLoggerComponentMessage({
+    component: <Drawer showControls>Foobar</Drawer>,
+    message:
+      "The `showControls` prop in `Drawer` is deprecated and will soon be removed.",
+  });
+});
+
+test("should log a deprecation warning for `defaultExpanded` prop", () => {
+  assertLoggerComponentMessage({
+    component: <Drawer defaultExpanded>Foobar</Drawer>,
+    message:
+      "The `defaultExpanded` prop in `Drawer` is deprecated and will soon be removed.",
+  });
+});
+
+test("sets correct data-* props on main dialog element", () => {
   render(
     <Drawer data-element="foo" data-role="bar">
       Foobar
@@ -39,58 +52,61 @@ it("sets correct data-* props on main dialog element", () => {
   expect(drawer).toHaveAttribute("data-element", "foo");
 });
 
-it("has accessible name when ariaLabel prop is provided", () => {
-  render(<Drawer aria-label="test">Foobar</Drawer>);
+test("has accessible name when ariaLabel prop is provided", () => {
+  render(
+    <Drawer data-role="drawer" aria-label="test">
+      Foobar
+    </Drawer>,
+  );
+
   expect(screen.getByTestId("drawer")).toHaveAccessibleName("test");
 });
 
-it("displays heading when title prop is provided", () => {
+test("displays heading when title prop is provided", () => {
   render(
     <Drawer title={<h2>Test title</h2>} sidebar="Sidebar content">
       Foobar
     </Drawer>,
   );
+
   expect(
     screen.getByRole("heading", { name: "Test title", level: 2 }),
   ).toBeVisible();
 });
 
-it("has accessible name on the sidebar when sidebarAriaLabel prop is provided", () => {
+test("has accessible name on the sidebar when sidebarAriaLabel prop is provided", () => {
   render(
     <Drawer sidebarAriaLabel="test" sidebar="Sidebar content">
       Foobar
     </Drawer>,
   );
 
-  expect(screen.getByTestId("drawer-content")).toHaveAccessibleName("test");
+  expect(screen.getByRole("complementary")).toHaveAccessibleName("test");
 });
 
-it("renders sidebar with accessible name set to the `title` when provided", () => {
+test("renders sidebar with accessible name set to the `title` when provided", () => {
   render(
     <Drawer title={<h2>Test title</h2>} sidebar="Sidebar content">
       Foobar
     </Drawer>,
   );
 
-  expect(screen.getByTestId("drawer-content")).toHaveAccessibleName(
-    "Test title",
-  );
+  expect(screen.getByRole("complementary")).toHaveAccessibleName("Test title");
 });
 
-it("renders sidebar header as sticky when stickyHeader prop is true", () => {
+test("renders sidebar header as sticky when stickyHeader prop is true", () => {
   render(
     <Drawer stickyHeader expanded title="Test title" sidebar="Sidebar content">
       Foobar
     </Drawer>,
   );
-  expect(screen.getByTestId("drawer-sidebar-header")).toHaveStyle({
+  expect(screen.getByText("Test title")).toHaveStyle({
     position: "sticky",
     top: "0",
-    borderBottom: "var(--sizing010) solid #ccd6db",
   });
 });
 
-it("renders sidebar footer when footer prop is provided", () => {
+test("renders sidebar footer when footer prop is provided", () => {
   render(
     <Drawer footer="Test footer" sidebar="Sidebar content">
       Foobar
@@ -99,7 +115,7 @@ it("renders sidebar footer when footer prop is provided", () => {
   expect(screen.getByText("Test footer")).toBeVisible();
 });
 
-it("renders sidebar footer as sticky when stickyFooter prop is true", () => {
+test("renders sidebar footer as sticky when stickyFooter prop is true", () => {
   render(
     <Drawer stickyFooter footer="Test footer" sidebar="Sidebar content">
       Foobar
@@ -111,7 +127,7 @@ it("renders sidebar footer as sticky when stickyFooter prop is true", () => {
   });
 });
 
-it("calls onChange callback when provided with isExpanded value as false, when sidebar is collapsed", async () => {
+test("calls onChange callback when provided with isExpanded value as false, when sidebar is collapsed", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const onChange = jest.fn();
   render(
@@ -123,8 +139,6 @@ it("calls onChange callback when provided with isExpanded value as false, when s
   const button = screen.getByRole("button", { name: "toggle sidebar" });
   await user.click(button);
 
-  expect(await screen.findByTestId("drawer-content")).toHaveClass("closing");
-
   act(() => {
     jest.advanceTimersByTime(500);
   });
@@ -132,7 +146,7 @@ it("calls onChange callback when provided with isExpanded value as false, when s
   expect(onChange).toHaveBeenCalledWith(expect.anything(), false);
 });
 
-it("calls onChange callback when provided with isExpanded value as true, when sidebar is expanded", async () => {
+test("calls onChange callback when provided with isExpanded value as true, when sidebar is expanded", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const onChange = jest.fn();
   render(
@@ -144,8 +158,6 @@ it("calls onChange callback when provided with isExpanded value as true, when si
   const button = screen.getByRole("button", { name: "toggle sidebar" });
   await user.click(button);
 
-  expect(await screen.findByTestId("drawer-content")).toHaveClass("opening");
-
   act(() => {
     jest.advanceTimersByTime(500);
   });
@@ -153,240 +165,12 @@ it("calls onChange callback when provided with isExpanded value as true, when si
   expect(onChange).toHaveBeenCalledWith(expect.anything(), true);
 });
 
-it("sets sidebar background color as red when backgroundColor prop is provided", () => {
+test("sets sidebar background color when `backgroundColor` prop is provided", () => {
   render(<Drawer backgroundColor="#FF0000">Foobar</Drawer>);
+
   expect(screen.getByTestId("drawer-content")).toHaveStyle({
     backgroundColor: "#FF0000",
   });
-});
-
-it("triggers opening animation sequence with correct timing, when animationDuration prop is specified", async () => {
-  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-  render(
-    <Drawer expanded={false} showControls animationDuration="500">
-      Foobar
-    </Drawer>,
-  );
-
-  const button = screen.getByRole("button", { name: "toggle sidebar" });
-  await user.click(button);
-
-  expect(await screen.findByTestId("drawer-content")).toHaveClass("opening");
-
-  act(() => {
-    jest.advanceTimersByTime(500);
-  });
-
-  const content = screen.getByTestId("drawer-content");
-  expect(content).toHaveClass("open");
-  expect(content).not.toHaveClass("opening");
-});
-
-it("triggers closing animation sequence with correct timing, when animationDuration prop is specified", async () => {
-  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-  render(
-    <Drawer expanded showControls animationDuration="500">
-      Foobar
-    </Drawer>,
-  );
-
-  const button = screen.getByRole("button", { name: "toggle sidebar" });
-  await user.click(button);
-
-  expect(await screen.findByTestId("drawer-content")).toHaveClass("closing");
-
-  act(() => {
-    jest.advanceTimersByTime(500);
-  });
-
-  const content = screen.getByTestId("drawer-content");
-  expect(content).toHaveClass("closed");
-  expect(content).not.toHaveClass("closing");
-});
-
-it("triggers opening animation sequence with correct timing, when animationDuration prop is specified in milliseconds", async () => {
-  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-  render(
-    <Drawer expanded={false} showControls animationDuration="500ms">
-      Foobar
-    </Drawer>,
-  );
-
-  const button = screen.getByRole("button", { name: "toggle sidebar" });
-  await user.click(button);
-
-  expect(await screen.findByTestId("drawer-content")).toHaveClass("opening");
-
-  act(() => {
-    jest.advanceTimersByTime(500);
-  });
-
-  const content = screen.getByTestId("drawer-content");
-  expect(content).toHaveClass("open");
-  expect(content).not.toHaveClass("opening");
-});
-
-it("triggers closing animation sequence with correct timing, when animationDuration prop is specified in milliseconds", async () => {
-  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-  render(
-    <Drawer expanded showControls animationDuration="500ms">
-      Foobar
-    </Drawer>,
-  );
-
-  const button = screen.getByRole("button", { name: "toggle sidebar" });
-  await user.click(button);
-
-  expect(await screen.findByTestId("drawer-content")).toHaveClass("closing");
-
-  act(() => {
-    jest.advanceTimersByTime(500);
-  });
-
-  const content = screen.getByTestId("drawer-content");
-  expect(content).toHaveClass("closed");
-  expect(content).not.toHaveClass("closing");
-});
-
-it("triggers opening animation sequence with correct timing, when animationDuration prop is specified in seconds", async () => {
-  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-  render(
-    <Drawer expanded={false} showControls animationDuration="0.5s">
-      Foobar
-    </Drawer>,
-  );
-
-  const button = screen.getByRole("button", { name: "toggle sidebar" });
-  await user.click(button);
-
-  expect(await screen.findByTestId("drawer-content")).toHaveClass("opening");
-
-  act(() => {
-    jest.advanceTimersByTime(500);
-  });
-
-  const content = screen.getByTestId("drawer-content");
-  expect(content).toHaveClass("open");
-  expect(content).not.toHaveClass("opening");
-});
-
-it("triggers closing animation sequence with correct timing, when animationDuration prop is specified in seconds", async () => {
-  const user = userEvent.setup({
-    advanceTimers: jest.advanceTimersByTime,
-  });
-  render(
-    <Drawer
-      expanded
-      sidebar="Sidebar content"
-      showControls
-      animationDuration="0.5s"
-    >
-      Foobar
-    </Drawer>,
-  );
-
-  const button = screen.getByRole("button", { name: "toggle sidebar" });
-  await user.click(button);
-
-  expect(await screen.findByTestId("drawer-content")).toHaveClass("closing");
-
-  act(() => {
-    jest.advanceTimersByTime(500);
-  });
-
-  const content = screen.getByTestId("drawer-content");
-  expect(content).toHaveClass("closed");
-  expect(content).not.toHaveClass("closing");
-});
-
-it("triggers opening animation sequence, when expanded prop is updated to true", async () => {
-  const MockApp = () => {
-    const [expanded, setExpanded] = React.useState(false);
-    return (
-      <>
-        <button type="button" onClick={() => setExpanded(true)}>
-          Expand
-        </button>
-        <Drawer expanded={expanded} animationDuration="500">
-          Foobar
-        </Drawer>
-      </>
-    );
-  };
-  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-  render(<MockApp />);
-
-  await user.click(screen.getByRole("button", { name: "Expand" }));
-
-  expect(await screen.findByTestId("drawer-content")).toHaveClass("opening");
-
-  act(() => {
-    jest.advanceTimersByTime(500);
-  });
-
-  const content = screen.getByTestId("drawer-content");
-  expect(content).toHaveClass("open");
-  expect(content).not.toHaveClass("opening");
-});
-
-it("triggers closing animation sequence, when expanded prop is updated to false", async () => {
-  const MockApp = () => {
-    const [expanded, setExpanded] = React.useState(true);
-    return (
-      <>
-        <button type="button" onClick={() => setExpanded(false)}>
-          Collapse
-        </button>
-        <Drawer expanded={expanded} animationDuration="500">
-          Foobar
-        </Drawer>
-      </>
-    );
-  };
-  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-  render(<MockApp />);
-
-  await user.click(screen.getByRole("button", { name: "Collapse" }));
-
-  expect(await screen.findByTestId("drawer-content")).toHaveClass("closing");
-
-  act(() => {
-    jest.advanceTimersByTime(500);
-  });
-
-  const content = screen.getByTestId("drawer-content");
-  expect(content).toHaveClass("closed");
-  expect(content).not.toHaveClass("closing");
-});
-
-it("interrupts opening animation sequence, when user clicks on toggle button before animation is completed", async () => {
-  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-  render(
-    <Drawer expanded={false} showControls animationDuration="500">
-      Foobar
-    </Drawer>,
-  );
-
-  const button = screen.getByRole("button", { name: "toggle sidebar" });
-  await user.click(button);
-
-  expect(await screen.findByTestId("drawer-content")).toHaveClass("opening");
-
-  act(() => {
-    jest.advanceTimersByTime(250);
-  });
-
-  await user.click(button);
-
-  expect(await screen.findByTestId("drawer-content")).toHaveClass("closing");
-
-  act(() => {
-    jest.advanceTimersByTime(500);
-  });
-
-  const content = screen.getByTestId("drawer-content");
-  expect(content).toHaveClass("closed");
-  expect(content).not.toHaveClass("closing");
 });
 
 describe("uncontrolled behaviour", () => {

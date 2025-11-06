@@ -40,7 +40,7 @@ export const flatTableBodyRows = (page: Page) =>
 export const flatTableClickableRow = (page: Page, index: number) =>
   page.locator(FLAT_TABLE_COMPONENT).locator("tbody tr").nth(index);
 export const flatTableSortable = (page: Page) =>
-  page.locator(FLAT_TABLE_COMPONENT).locator("thead tr th div [role=button]");
+  page.locator(FLAT_TABLE_COMPONENT).locator("thead tr th button");
 export const flatTableCell = (page: Page, index: number) =>
   page.locator(FLAT_TABLE_CELL).nth(index);
 export const flatTableCheckboxCell = (page: Page, index: number) =>
@@ -73,8 +73,8 @@ export const flatTableCurrentPageInput = (page: Page) =>
 
 export const flatTableRowHeader = (page: Page) =>
   page.locator(FLAT_TABLE_STICKY_ROW);
-export const flatTableHeaderCellsIcon = (page: Page) =>
-  flatTableHeader(page).locator("th > div > div").locator("span");
+export const flatTableHeaderCellsButtonIcon = (page: Page) =>
+  flatTableHeader(page).locator("[data-element='sort-icon']");
 export const flatTableExpandableIcon = (page: Page, index: number) =>
   flatTableCell(page, index).locator(FLAT_TABLE_ICON);
 

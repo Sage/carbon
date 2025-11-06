@@ -16,6 +16,9 @@ import {
 import FocusContext from "../__internal__/duelling-picklist.context";
 import Events from "../../../__internal__/utils/helpers/events";
 
+/**
+ * @deprecated `PicklistGroup` has been deprecated. See the Carbon documentation for migration details.
+ */
 export interface PicklistGroupProps {
   /** Group title */
   title: React.ReactNode;
@@ -33,6 +36,9 @@ export interface PicklistGroupProps {
   isLastGroup?: boolean;
 }
 
+/**
+ * @deprecated `PicklistGroup` has been deprecated. See the Carbon documentation for migration details.
+ */
 export const PicklistGroup = React.forwardRef<
   HTMLButtonElement,
   PicklistGroupProps

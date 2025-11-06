@@ -40,8 +40,14 @@ function preserveRef<ElementType>(
 
 const TOOLTIP_DELAY = 100;
 
+/**
+ * @deprecated `Tooltip` has been deprecated. See the Carbon documentation for migration details.
+ */
 export type InputSizes = "small" | "medium" | "large";
 
+/**
+ * @deprecated `Tooltip` has been deprecated. See the Carbon documentation for migration details.
+ */
 export interface TooltipProps extends TagProps {
   /** The message to be displayed within the tooltip */
   message: React.ReactNode;
@@ -75,6 +81,9 @@ export interface TooltipProps extends TagProps {
   inputSize?: InputSizes;
 }
 
+/**
+ * @deprecated `Tooltip` has been deprecated. See the Carbon documentation for migration details.
+ */
 export const Tooltip = React.forwardRef<HTMLDivElement | null, TooltipProps>(
   (
     {

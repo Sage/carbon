@@ -1,3 +1,27 @@
+## [158.4.0](https://github.com/Sage/carbon/compare/v158.3.1...v158.4.0) (2025-11-06)
+
+### Features
+
+* **tabs:** add support for programmatic tab focus to new Tabs ([73d84a1](https://github.com/Sage/carbon/commit/73d84a11439f84b5c7213692b3eb7b7fc558545a))
+
+## [158.3.1](https://github.com/Sage/carbon/compare/v158.3.0...v158.3.1) (2025-11-05)
+
+### Bug Fixes
+
+* **flat-table:** prevent sorting indicators from impacting text wrapping ([b15a385](https://github.com/Sage/carbon/commit/b15a38534dee648aae83cf34f71836ed8f30f059))
+
+## [158.3.0](https://github.com/Sage/carbon/compare/v158.2.1...v158.3.0) (2025-11-05)
+
+### Features
+
+* **drawer:** audit changes ([172530b](https://github.com/Sage/carbon/commit/172530b35df29be2d4d6b4782ab6d84ba6b54b05))
+
+## [158.2.1](https://github.com/Sage/carbon/compare/v158.2.0...v158.2.1) (2025-11-05)
+
+### Bug Fixes
+
+* **responsive-vertical-menu:** invalid aria when modal is closed ([714fac1](https://github.com/Sage/carbon/commit/714fac1c2642ef061d54bd13cf2b0ab7322617df))
+
 ## [158.2.0](https://github.com/Sage/carbon/compare/v158.1.1...v158.2.0) (2025-11-03)
 
 ### Features

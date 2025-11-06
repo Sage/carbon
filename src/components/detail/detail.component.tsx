@@ -12,6 +12,9 @@ import {
   StyledDetailFootnote,
 } from "./detail.style";
 
+/**
+ * @deprecated `Detail` has been deprecated. See the Carbon documentation for migration details.
+ */
 export interface DetailProps extends MarginProps, TagProps {
   /**
    * @private
@@ -27,6 +30,9 @@ export interface DetailProps extends MarginProps, TagProps {
   children?: React.ReactNode;
 }
 
+/**
+ * @deprecated `Detail` has been deprecated. See the Carbon documentation for migration details.
+ */
 export const Detail = ({
   className,
   icon,

@@ -8,6 +8,9 @@ import {
 } from "../textbox/textbox.component";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 
+/**
+ * @deprecated `Number` has been deprecated. See the Carbon documentation for migration details.
+ */
 export interface NumberProps extends Omit<TextboxProps, "value"> {
   /** Value passed to the input */
   value: string;
@@ -20,6 +23,9 @@ function isValidNumber(value: string) {
   return result;
 }
 
+/**
+ * @deprecated `Number` has been deprecated. See the Carbon documentation for migration details.
+ */
 export const Number = React.forwardRef(
   (
     {
