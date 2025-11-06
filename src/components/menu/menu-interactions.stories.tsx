@@ -259,7 +259,7 @@ export const WithSearch: Story = {
     await userEvent.hover(menuItemBlack);
     await userInteractionPause(1000);
 
-    const search = canvas.getAllByRole("textbox", { name: "search" });
+    const search = canvas.getAllByRole("textbox", { name: "Search" });
     search[0].focus();
     await userInteractionPause(1000);
   },
