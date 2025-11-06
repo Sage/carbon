@@ -26,7 +26,7 @@ const meta: Meta<typeof Tab> = {
 export default meta;
 type Story = StoryObj<typeof Tab>;
 
-export const Default: Story = {
+export const LegacyDefault: Story = {
   args: {
     children: [],
   },

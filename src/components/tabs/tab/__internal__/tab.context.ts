@@ -6,4 +6,6 @@ export interface TabContextProps {
   setInfo?: (childId: string, info?: boolean | string) => void;
 }
 
-export default React.createContext<TabContextProps>({});
+export const TabContext = React.createContext<TabContextProps>({});
+
+export default TabContext;

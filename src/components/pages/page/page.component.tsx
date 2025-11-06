@@ -9,6 +9,9 @@ import Box from "../../box";
 import { StyledPage, StyledPageContent } from "./page.style";
 import { filterStyledSystemPaddingProps } from "../../../style/utils";
 
+/**
+ * @deprecated `Page` has been deprecated. See the Carbon documentation for migration details.
+ */
 export interface PageProps extends PaddingProps, TagProps {
   /** The title for the page, normally a Heading component. */
   title?: React.ReactNode;
@@ -20,6 +23,9 @@ export interface PageProps extends PaddingProps, TagProps {
   transitionName?: () => string;
 }
 
+/**
+ * @deprecated `Page` has been deprecated. See the Carbon documentation for migration details.
+ */
 const Page = ({ role, title, children, ...rest }: PageProps) => {
   const styledPageNodeRef = useRef(null);
   const { transitionName } = rest;

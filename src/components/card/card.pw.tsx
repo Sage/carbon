@@ -5,8 +5,6 @@ import {
   card,
   cardContent,
   columnCard,
-  draggableCard,
-  draggableContainer,
   footerCard,
 } from "../../../playwright/components/card/index";
 import { CHARACTERS, SIZE } from "../../../playwright/support/constants";
@@ -18,7 +16,6 @@ import { Card } from "../../../src/components/card";
 import {
   CardComponent,
   CardTextAlignment,
-  DraggableExample,
   SmallSpacing,
   LargeSpacing,
   WithWidthProvided,
@@ -28,7 +25,6 @@ import {
   DifferentCardRowPadding,
   Interactive,
   MoreExamplesOfCardFooter,
-  WithDraggable,
   WithStringAsChild,
 } from "../../../src/components/card/components.test-pw";
 
@@ -177,49 +173,6 @@ test.describe("Check Card component properties", () => {
     });
   });
 
-  (
-    [
-      [1, 2, 2, 2],
-      [3, 1, 4, 0],
-      [4, 2, 2, 2],
-    ] as const
-  ).forEach(
-    ([
-      draggableCardItem,
-      columnName,
-      countOfFirstColumn,
-      countOfSecondColumn,
-    ]) => {
-      test(`drag card item ${draggableCardItem} to column ${columnName}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<DraggableExample />);
-
-        await draggableCard(page, draggableCardItem - 1).dragTo(
-          draggableContainer(page, columnName),
-        );
-
-        await expect(
-          draggableContainer(page, columnName).locator(
-            `[data-element="draggable-card-${draggableCardItem - 1}"]`,
-          ),
-        ).toBeVisible();
-
-        const resultForColumnOne = await draggableContainer(page, 1)
-          .locator('[data-component="card"]')
-          .count();
-        const resultForColumnTwo = await draggableContainer(page, 2)
-          .locator('[data-component="card"]')
-          .count();
-
-        expect(resultForColumnOne).toEqual(countOfFirstColumn);
-
-        expect(resultForColumnTwo).toEqual(countOfSecondColumn);
-      });
-    },
-  );
-
   test("should check that the expected dataRole is set on the component", async ({
     mount,
     page,
@@ -359,15 +312,6 @@ test.describe("Accessibility tests for Card component", () => {
     page,
   }) => {
     await mount(<WithStringAsChild />);
-
-    await checkAccessibility(page);
-  });
-
-  test("should pass accessibility tests for draggable example", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<WithDraggable />);
 
     await checkAccessibility(page);
   });

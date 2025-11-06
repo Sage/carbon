@@ -15,6 +15,9 @@ type CustomTarget = {
   value: EventValue;
 };
 
+/**
+ * @deprecated `GroupedCharacter` has been deprecated. See the Carbon documentation for migration details.
+ */
 export interface CustomEvent
   extends Omit<React.ChangeEvent<HTMLInputElement>, "target"> {
   target: CustomTarget;
@@ -32,6 +35,9 @@ const buildCustomTarget = (
   };
 };
 
+/**
+ * @deprecated `GroupedCharacter` has been deprecated. See the Carbon documentation for migration details.
+ */
 export interface GroupedCharacterProps
   extends Omit<TextboxProps, "onChange" | "onBlur" | "data-component"> {
   /** pattern by which input value should be grouped */
@@ -46,6 +52,9 @@ export interface GroupedCharacterProps
   value: string;
 }
 
+/**
+ * @deprecated `GroupedCharacter` has been deprecated. See the Carbon documentation for migration details.
+ */
 export const GroupedCharacter = React.forwardRef(
   (
     {

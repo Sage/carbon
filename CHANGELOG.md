@@ -1,3 +1,51 @@
+## [158.4.0](https://github.com/Sage/carbon/compare/v158.3.1...v158.4.0) (2025-11-06)
+
+### Features
+
+* **tabs:** add support for programmatic tab focus to new Tabs ([73d84a1](https://github.com/Sage/carbon/commit/73d84a11439f84b5c7213692b3eb7b7fc558545a))
+
+## [158.3.1](https://github.com/Sage/carbon/compare/v158.3.0...v158.3.1) (2025-11-05)
+
+### Bug Fixes
+
+* **flat-table:** prevent sorting indicators from impacting text wrapping ([b15a385](https://github.com/Sage/carbon/commit/b15a38534dee648aae83cf34f71836ed8f30f059))
+
+## [158.3.0](https://github.com/Sage/carbon/compare/v158.2.1...v158.3.0) (2025-11-05)
+
+### Features
+
+* **drawer:** audit changes ([172530b](https://github.com/Sage/carbon/commit/172530b35df29be2d4d6b4782ab6d84ba6b54b05))
+
+## [158.2.1](https://github.com/Sage/carbon/compare/v158.2.0...v158.2.1) (2025-11-05)
+
+### Bug Fixes
+
+* **responsive-vertical-menu:** invalid aria when modal is closed ([714fac1](https://github.com/Sage/carbon/commit/714fac1c2642ef061d54bd13cf2b0ab7322617df))
+
+## [158.2.0](https://github.com/Sage/carbon/compare/v158.1.1...v158.2.0) (2025-11-03)
+
+### Features
+
+* **draggable:** replace react-dnd with pragmatic-drag-and-drop ([cc17eba](https://github.com/Sage/carbon/commit/cc17eba57ba30ed834fd84359a6e7b8d0cd836ce))
+* **flat-table-body-draggable:** replace react-dnd with pragmatic-drag-and-drop ([aca4a08](https://github.com/Sage/carbon/commit/aca4a086515787ce51ec519e83f25bdb3cc7a008))
+* remove react-dnd as dependency ([d2f3056](https://github.com/Sage/carbon/commit/d2f3056b7c095449dfa22cab4310672d74d547eb))
+
+### Bug Fixes
+
+* **draggable, flat-table-body-draggable:** render grab cursor on hover ([86fe097](https://github.com/Sage/carbon/commit/86fe097bf1dff3307f974fe79f7a2d580af1e1fc))
+
+## [158.1.1](https://github.com/Sage/carbon/compare/v158.1.0...v158.1.1) (2025-10-31)
+
+### Bug Fixes
+
+* **textarea:** ensure character count is included in form field ([74af629](https://github.com/Sage/carbon/commit/74af629b9038a828b464c215b4ad2f6e6d241789)), closes [#7592](https://github.com/Sage/carbon/issues/7592)
+
+## [158.1.0](https://github.com/Sage/carbon/compare/v158.0.0...v158.1.0) (2025-10-31)
+
+### Features
+
+* **tabs:** implement changes for the Tabs component as part of the DS alignment work ([cf0c05f](https://github.com/Sage/carbon/commit/cf0c05f2c53c8725d77885cb2c039ab3ebd3f7c8))
+
 ## [158.0.0](https://github.com/Sage/carbon/compare/v157.9.0...v158.0.0) (2025-10-29)
 
 ### ⚠ BREAKING CHANGES

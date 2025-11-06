@@ -9,7 +9,7 @@ import LoaderBar from "../../../src/components/loader-bar";
 import MultiActionButton from "../../../src/components/multi-action-button";
 import Pill from "../../../src/components/pill";
 import SplitButton from "../../../src/components/split-button";
-import { Tabs, Tab } from "../../../src/components/tabs";
+import { Tabs, Tab } from "../tabs";
 
 import { buttonDataComponent } from "../../../playwright/components/button/index";
 import {

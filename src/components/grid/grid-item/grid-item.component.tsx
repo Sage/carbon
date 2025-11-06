@@ -4,6 +4,9 @@ import tagComponent, {
 } from "../../../__internal__/utils/helpers/tags/tags";
 import StyledGridItem, { StyledGridItemProps } from "./grid-item.style";
 
+/**
+ * @deprecated `GridItem` has been deprecated. See the Carbon documentation for migration details.
+ */
 export interface GridItemProps
   extends StyledGridItemProps,
     React.HTMLAttributes<HTMLDivElement>,
@@ -12,6 +15,9 @@ export interface GridItemProps
   children?: React.ReactNode;
 }
 
+/**
+ * @deprecated `GridItem` has been deprecated. See the Carbon documentation for migration details.
+ */
 export const GridItem = (props: GridItemProps) => {
   const { children, responsiveSettings, ...rest } = props;
   return (
