@@ -6,6 +6,9 @@ import ButtonBarContext, {
 } from "./__internal__/button-bar.context";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
+/**
+ * @deprecated `ButtonBar` has been deprecated. See the Carbon documentation for migration details.
+ */
 export interface ButtonBarProps
   extends ButtonBarContextProps,
     SpaceProps,
@@ -14,6 +17,9 @@ export interface ButtonBarProps
   children: React.ReactNode;
 }
 
+/**
+ * @deprecated `ButtonBar` has been deprecated. See the Carbon documentation for migration details.
+ */
 export const ButtonBar = ({
   children,
   size = "medium",

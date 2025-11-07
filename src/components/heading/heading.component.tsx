@@ -20,7 +20,14 @@ import {
 } from "./heading.style";
 import useLocale from "../../hooks/__internal__/useLocale";
 
+/**
+ * @deprecated `Heading` has been deprecated. See the Carbon documentation for migration details.
+ */
 export type HeadingType = "h1" | "h2" | "h3" | "h4" | "h5";
+
+/**
+ * @deprecated `Heading` has been deprecated. See the Carbon documentation for migration details.
+ */
 export interface HeadingProps extends MarginProps, TagProps {
   /** Child elements */
   children?: React.ReactNode;
@@ -58,6 +65,9 @@ export interface HeadingProps extends MarginProps, TagProps {
   helpAriaLabel?: string;
 }
 
+/**
+ * @deprecated `Heading` has been deprecated. See the Carbon documentation for migration details.
+ */
 export const Heading = ({
   children,
   backLink,

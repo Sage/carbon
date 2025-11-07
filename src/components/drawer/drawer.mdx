@@ -8,16 +8,12 @@ import * as DrawerStories from "./drawer.stories";
 
 <a
   target="_blank"
-  href="https://zeroheight.com/2ccf2b601/p/77fb82-drawer/b/665a20"
+  href="https://designsystem.sage.com/35ee2cc26/p/300879-drawer"
   style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
   rel="noreferrer"
 >
   Product Design System component
 </a>
-
-Drawer is a two column layout container.
-It is designed to have left hand side container expand and collapse to respectively reveal and hide the content of that container.
-Drawer component is designed to fill the space of the element that it is put inside.
 
 ## Contents
 
@@ -35,85 +31,60 @@ import Drawer from "carbon-react/lib/components/drawer";
 
 ### Default
 
+To use `Drawer`, pass the main content as children and the drawer content via the `sidebar` prop as any valid React node.
+
 <Canvas of={DrawerStories.Default} />
 
-### Custom height
+### Height
 
-<Canvas of={DrawerStories.CustomHeight} />
+By default the height of the component is set to `100%`, to set a custom height use the `height` prop.
 
-### Custom Background Color (Red)
+<Canvas of={DrawerStories.Height} />
 
-<Canvas of={DrawerStories.BackgroundColorRed} />
+### Sidebar Width
 
-### Custom Background Color (White)
+By default, the width of the drawer when expanded is set to `30vw`, with a min-width of `288px` and a max-width of `760px`. 
+To set a custom width to the drawer, use the `expandedWidth` prop.
 
-Note: parent container background-color is set to red for demonstration purpose.
+<Canvas of={DrawerStories.SidebarWidth} />
 
-<Canvas of={DrawerStories.BackgroundColorWhite} />
+### With Title
 
-### Custom Background Color (Transparent)
+To render a title within the `Drawer`, use the `title` prop and pass any valid React node.
 
-Note: parent container background-color is set to red for demonstration purpose.
+The `aria-labelledby` attribute will be automatically applied to the sidebar when the title prop is provided.
 
-<Canvas of={DrawerStories.BackgroundColorTransparent} />
+<Canvas of={DrawerStories.WithTitle} />
 
-### Custom Title
+### With Footer
 
-<Canvas of={DrawerStories.Title} />
+To render a footer within the `Drawer`, use the `footer` prop and pass any valid React node.
+
+<Canvas of={DrawerStories.WithFooter} />
+
+### Sticky Header & Footer
+
+To render the title and/or footer as sticky, you can use the `stickyHeader` and `stickyFooter` props.
+
+<Canvas of={DrawerStories.StickyHeaderAndFooter} />
 
 ### Sidebar Aria Label
 
 To give the sidebar an accessible label when not providing a `title` please use the `sidebarAriaLabel` prop.
 
-<Canvas of={DrawerStories.WithSidebarAriaLabel} />
+<Canvas of={DrawerStories.SidebarAriaLabel} />
 
-### With Controls usage
+### Background Color
 
-<Canvas of={DrawerStories.WithControls} />
+To set a custom background color for the drawer sidebar, use the `backgroundColor` prop.
 
-### With sticky header
+<Canvas of={DrawerStories.WithBackgroundColor} />
 
-<Canvas of={DrawerStories.WithStickyHeader} />
+### Controlled
 
-### With footer
-
-<Canvas of={DrawerStories.WithFooter} />
-
-### With sticky footer
-
-<Canvas of={DrawerStories.WithStickyFooter} />
-
-### Custom Sidebar - FlatTable component as sidebar content
-
-<Canvas of={DrawerStories.CustomSidebar} />
-
-### Custom Content - FlatTable component as drawer content
-
-<Canvas of={DrawerStories.CustomContent} />
-
-### Different expanded width
-
-Use the `expandedWidth` prop to alter the width of the open `Drawer`.
-
-<Canvas of={DrawerStories.DifferentExpandedWidth} />
-
-### Different Animation Speed
-
-Use the `animationDuration` prop to alter the speed of the `Drawer` opening/closing.
-
-<Canvas of={DrawerStories.DifferentAnimationSpeed} />
-
-### Controlled Usage
+To control the visibility of the drawer, you can use the `expanded` prop.
 
 <Canvas of={DrawerStories.Controlled} />
-
-### With Tab controls
-
-You will need to override the targeting when using Tabs inside of the Drawer's sidebar. This can be done using the
-`onTabChange` callback. If you also need to override the validation statuses, this can be done using the
-`validationStatusOverride` prop.
-
-<Canvas of={DrawerStories.WithTabControls} />
 
 ## Props
 

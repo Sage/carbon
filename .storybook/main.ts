@@ -16,7 +16,10 @@ const isChromatic = !ignoreTests;
 const getStories = () =>
   glob.sync(`${projectRoot}/src/**/*.{mdx,stories.@(js|jsx|ts|tsx)}`, {
     ...(ignoreTests && {
-      ignore: `${projectRoot}/src/**/*-@(interaction|test).stories.@(js|jsx|ts|tsx)`,
+      ignore: [
+        `${projectRoot}/src/**/*-@(interaction|test).stories.@(js|jsx|ts|tsx)`,
+        `${projectRoot}/src/__internals__/__stories__/*.*`,
+      ],
     }),
   });
 

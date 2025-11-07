@@ -5,6 +5,9 @@ import tagComponent, {
 } from "../../../__internal__/utils/helpers/tags/tags";
 import StyledGridContainer from "./grid-container.style";
 
+/**
+ * @deprecated `GridContainer` has been deprecated. See the Carbon documentation for migration details.
+ */
 export interface GridContainerProps
   extends SpaceProps,
     GridProps,
@@ -14,6 +17,9 @@ export interface GridContainerProps
   children?: React.ReactNode;
 }
 
+/**
+ * @deprecated `GridContainer` has been deprecated. See the Carbon documentation for migration details.
+ */
 export const GridContainer = (props: GridContainerProps) => (
   <StyledGridContainer {...props} {...tagComponent("grid", props)} />
 );

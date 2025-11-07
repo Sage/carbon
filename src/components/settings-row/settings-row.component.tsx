@@ -12,6 +12,9 @@ import {
   StyledSettingsRowInput,
 } from "./settings-row.style";
 
+/**
+ * @deprecated `SettingsRow` has been deprecated. See the Carbon documentation for migration details.
+ */
 export interface SettingsRowProps extends MarginProps, TagProps {
   /**  A title for this group of settings. */
   title?: string;
@@ -31,6 +34,9 @@ export interface SettingsRowProps extends MarginProps, TagProps {
   className?: string;
 }
 
+/**
+ * @deprecated `SettingsRow` has been deprecated. See the Carbon documentation for migration details.
+ */
 export const SettingsRow = ({
   title,
   headingType = "h3",

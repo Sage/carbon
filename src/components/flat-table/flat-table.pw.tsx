@@ -52,7 +52,7 @@ import {
   flatTableBody,
   flatTableCell,
   flatTableCheckboxHeader,
-  flatTableHeaderCellsIcon,
+  flatTableHeaderCellsButtonIcon,
   flatTableExpandableIcon,
   flatTableBodyRows,
   flatTableRowHeader,
@@ -178,20 +178,6 @@ test.describe("Prop tests", () => {
     await mount(<FlatTableComponent />);
 
     await expect(flatTable(page).locator("thead").locator("tr")).toHaveCount(1);
-  });
-
-  test(`should render header with icon nodes as children`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FlatTableComponent />);
-
-    for await (const i of indexes(4)) {
-      await expect(flatTableHeaderCellsIcon(page).nth(i)).toHaveAttribute(
-        "data-component",
-        "icon",
-      );
-    }
   });
 
   test(`should render with icon node as children`, async ({ mount, page }) => {
@@ -1281,7 +1267,7 @@ test.describe("Prop tests", () => {
       const totalTwo = "1349";
       const totalThree = "849";
       const totalFour = "3840";
-      const headerCellsIcon = flatTableHeaderCellsIcon(page);
+      const headerCellsIcon = flatTableHeaderCellsButtonIcon(page);
       const cell1 = flatTableCell(page, 0);
       const cell2 = flatTableCell(page, 1);
       const cell3 = flatTableCell(page, 2);
@@ -1292,10 +1278,7 @@ test.describe("Prop tests", () => {
       const cell8 = flatTableCell(page, 7);
 
       if (colPosition === "first" && sortOrder === "desc") {
-        await expect(headerCellsIcon).toHaveAttribute(
-          "data-element",
-          "sort_down",
-        );
+        await expect(headerCellsIcon).toHaveAttribute("type", "sort_down");
         await expect(headerCellsIcon).toBeVisible();
         await expect(cell1).toHaveText(valueOne);
         await expect(cell1).toBeVisible();
@@ -1306,10 +1289,7 @@ test.describe("Prop tests", () => {
         await expect(cell7).toHaveText(valueFour);
         await expect(cell7).toBeVisible();
       } else if (colPosition === "first" && sortOrder === "asc") {
-        await expect(headerCellsIcon).toHaveAttribute(
-          "data-element",
-          "sort_up",
-        );
+        await expect(headerCellsIcon).toHaveAttribute("type", "sort_up");
         await expect(headerCellsIcon).toBeVisible();
         await expect(cell1).toHaveText(valueFour);
         await expect(cell1).toBeVisible();
@@ -1320,10 +1300,7 @@ test.describe("Prop tests", () => {
         await expect(cell7).toHaveText(valueOne);
         await expect(cell7).toBeVisible();
       } else if (colPosition === "second" && sortOrder === "desc") {
-        await expect(headerCellsIcon).toHaveAttribute(
-          "data-element",
-          "sort_down",
-        );
+        await expect(headerCellsIcon).toHaveAttribute("type", "sort_down");
         await expect(headerCellsIcon).toBeVisible();
         await expect(cell2).toHaveText(totalFour);
         await expect(cell2).toBeVisible();
@@ -1334,10 +1311,7 @@ test.describe("Prop tests", () => {
         await expect(cell8).toHaveText(totalOne);
         await expect(cell8).toBeVisible();
       } else {
-        await expect(headerCellsIcon).toHaveAttribute(
-          "data-element",
-          "sort_up",
-        );
+        await expect(headerCellsIcon).toHaveAttribute("type", "sort_up");
         await expect(headerCellsIcon).toBeVisible();
         await expect(cell2).toHaveText(totalOne);
         await expect(cell2).toBeVisible();
@@ -1373,7 +1347,7 @@ test.describe("Prop tests", () => {
       const totalTwo = "1349";
       const totalThree = "849";
       const totalFour = "3840";
-      const headerCellsIcon = flatTableHeaderCellsIcon(page);
+      const headerCellsIcon = flatTableHeaderCellsButtonIcon(page);
       const cell1 = flatTableCell(page, 0);
       const cell2 = flatTableCell(page, 1);
       const cell3 = flatTableCell(page, 2);
@@ -1384,10 +1358,7 @@ test.describe("Prop tests", () => {
       const cell8 = flatTableCell(page, 7);
 
       if (colPosition === "first" && sortOrder === "desc") {
-        await expect(headerCellsIcon).toHaveAttribute(
-          "data-element",
-          "sort_down",
-        );
+        await expect(headerCellsIcon).toHaveAttribute("type", "sort_down");
         await expect(headerCellsIcon).toBeVisible();
         await expect(cell1).toHaveText(valueOne);
         await expect(cell1).toBeVisible();
@@ -1398,10 +1369,7 @@ test.describe("Prop tests", () => {
         await expect(cell7).toHaveText(valueFour);
         await expect(cell7).toBeVisible();
       } else if (colPosition === "first" && sortOrder === "asc") {
-        await expect(headerCellsIcon).toHaveAttribute(
-          "data-element",
-          "sort_up",
-        );
+        await expect(headerCellsIcon).toHaveAttribute("type", "sort_up");
         await expect(headerCellsIcon).toBeVisible();
         await expect(cell1).toHaveText(valueFour);
         await expect(cell1).toBeVisible();
@@ -1412,10 +1380,7 @@ test.describe("Prop tests", () => {
         await expect(cell7).toHaveText(valueOne);
         await expect(cell7).toBeVisible();
       } else if (colPosition === "second" && sortOrder === "desc") {
-        await expect(headerCellsIcon).toHaveAttribute(
-          "data-element",
-          "sort_down",
-        );
+        await expect(headerCellsIcon).toHaveAttribute("type", "sort_down");
         await expect(headerCellsIcon).toBeVisible();
         await expect(cell2).toHaveText(totalFour);
         await expect(cell2).toBeVisible();
@@ -1426,10 +1391,7 @@ test.describe("Prop tests", () => {
         await expect(cell8).toHaveText(totalOne);
         await expect(cell8).toBeVisible();
       } else {
-        await expect(headerCellsIcon).toHaveAttribute(
-          "data-element",
-          "sort_up",
-        );
+        await expect(headerCellsIcon).toHaveAttribute("type", "sort_up");
         await expect(headerCellsIcon).toBeVisible();
         await expect(cell2).toHaveText(totalOne);
         await expect(cell2).toBeVisible();
@@ -1465,7 +1427,7 @@ test.describe("Prop tests", () => {
       const totalTwo = "1349";
       const totalThree = "849";
       const totalFour = "3840";
-      const headerCellsIcon = flatTableHeaderCellsIcon(page);
+      const headerCellsIcon = flatTableHeaderCellsButtonIcon(page);
       const cell1 = flatTableCell(page, 0);
       const cell2 = flatTableCell(page, 1);
       const cell3 = flatTableCell(page, 2);
@@ -1476,10 +1438,7 @@ test.describe("Prop tests", () => {
       const cell8 = flatTableCell(page, 7);
 
       if (colPosition === "first" && sortOrder === "desc") {
-        await expect(headerCellsIcon).toHaveAttribute(
-          "data-element",
-          "sort_down",
-        );
+        await expect(headerCellsIcon).toHaveAttribute("type", "sort_down");
         await expect(headerCellsIcon).toBeVisible();
         await expect(cell1).toHaveText(valueOne);
         await expect(cell1).toBeVisible();
@@ -1491,7 +1450,8 @@ test.describe("Prop tests", () => {
         await expect(cell7).toBeVisible();
       } else if (colPosition === "first" && sortOrder === "asc") {
         await expect(headerCellsIcon).toHaveAttribute(
-          "data-element",
+          "type",
+
           "sort_up",
         );
         await expect(headerCellsIcon).toBeVisible();
@@ -1504,10 +1464,7 @@ test.describe("Prop tests", () => {
         await expect(cell7).toHaveText(valueOne);
         await expect(cell7).toBeVisible();
       } else if (colPosition === "second" && sortOrder === "desc") {
-        await expect(headerCellsIcon).toHaveAttribute(
-          "data-element",
-          "sort_down",
-        );
+        await expect(headerCellsIcon).toHaveAttribute("type", "sort_down");
         await expect(headerCellsIcon).toBeVisible();
         await expect(cell2).toHaveText(totalFour);
         await expect(cell2).toBeVisible();
@@ -1518,10 +1475,7 @@ test.describe("Prop tests", () => {
         await expect(cell8).toHaveText(totalOne);
         await expect(cell8).toBeVisible();
       } else {
-        await expect(headerCellsIcon).toHaveAttribute(
-          "data-element",
-          "sort_up",
-        );
+        await expect(headerCellsIcon).toHaveAttribute("type", "sort_up");
         await expect(headerCellsIcon).toBeVisible();
         await expect(cell2).toHaveText(totalOne);
         await expect(cell2).toBeVisible();

@@ -173,7 +173,31 @@ export const StyledResponsiveMenuItem = styled.button<StyledResponsiveMenuItemPr
     `}
 `;
 
-export const StyledResponsiveMenuAction = styled.a<{
+export const StyledResponsiveMenuActionLink = styled.a<{
+  depth: number;
+  responsive?: boolean;
+}>`
+  ${commonAttributes}
+  min-height: 40px;
+  text-decoration: none;
+
+  ${({ depth, responsive }) =>
+    depth >= 2 &&
+    css`
+      && {
+        color: var(--colorsUtilityYang080);
+        font-weight: var(--fontWeights400);
+
+        ${responsive &&
+        depth >= 3 &&
+        css`
+          margin-left: var(--spacing300);
+        `}
+      }
+    `}
+`;
+
+export const StyledResponsiveMenuActionButton = styled.button<{
   depth: number;
   responsive?: boolean;
 }>`

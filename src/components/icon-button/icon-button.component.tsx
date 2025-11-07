@@ -7,6 +7,9 @@ import { IconProps } from "../icon";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import BatchSelectionContext from "../batch-selection/__internal__/batch-selection.context";
 
+/**
+ * @deprecated `IconButton` has been deprecated. See the Carbon documentation for migration details.
+ */
 export interface IconButtonProps extends SpaceProps, TagProps {
   /** Prop to specify the aria-label of the icon-button component */
   "aria-label"?: string;
@@ -28,6 +31,9 @@ export interface IconButtonProps extends SpaceProps, TagProps {
   "data-component"?: string;
 }
 
+/**
+ * @deprecated `IconButton` has been deprecated. See the Carbon documentation for migration details.
+ */
 const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
   (
     {

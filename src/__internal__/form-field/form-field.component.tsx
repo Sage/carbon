@@ -14,12 +14,18 @@ import FormFieldStyle, { FieldLineStyle } from "./form-field.style";
 import Label, { LabelProps } from "../label";
 import FieldHelp from "../field-help";
 import tagComponent, { TagProps } from "../utils/helpers/tags/tags";
-import TabContext, {
-  TabContextProps,
-} from "../../components/tabs/tab/__internal__/tab.context";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
 import { IconType } from "../../components/icon";
 import { filterStyledSystemMarginProps } from "../../style/utils";
+import TabContext, {
+  TabContextProps,
+} from "../../components/tabs/tab/__internal__/tab.context";
+import { TabsContext as NewTabsContext } from "../../components/tabs/__next__/tabs.context";
+import { TabContext as NewTabContext } from "../../components/tabs/__next__/tab.context";
+import type {
+  TabContextProps as NewTabContextProps,
+  TabsContextProps as NewTabsContextProps,
+} from "../../components/tabs/__next__/tabs.types";
 
 interface CommonFormFieldProps extends MarginProps, ValidationProps {
   /** If true, the component will be disabled */
@@ -139,8 +145,13 @@ const FormField = ({
     inlineLabel = largeScreen;
   }
 
+  const { setErrors, setWarnings, setInfos } =
+    useContext<NewTabsContextProps>(NewTabsContext);
+  const { tabId } = useContext<NewTabContextProps>(NewTabContext);
+
   const { setError, setWarning, setInfo } =
     useContext<TabContextProps>(TabContext);
+
   const marginProps = filterStyledSystemMarginProps(rest);
   const isMounted = useRef(false);
 
@@ -152,6 +163,23 @@ const FormField = ({
     };
   }, []);
 
+  /* istanbul ignore next */
+  useEffect(() => {
+    if (setErrors) setErrors(id, tabId || "", error || false);
+    if (setWarnings) setWarnings(id, tabId || "", warning || false);
+    if (setInfos) setInfos(id, tabId || "", info || false);
+
+    return () => {
+      if (!isMounted.current) {
+        if (setErrors) setErrors(id, tabId || "", false);
+        if (setWarnings) setWarnings(id, tabId || "", false);
+        if (setInfos) setInfos(id, tabId || "", false);
+      }
+    };
+  }, [id, setErrors, setWarnings, error, warning, info, tabId, setInfos]);
+
+  // This useEffect handles support for the old Tab instances and can be removed in favour of the above once
+  // the legacy work in Tabs is removed
   useEffect(() => {
     if (setError) setError(id, error);
     if (setWarning) setWarning(id, warning);
