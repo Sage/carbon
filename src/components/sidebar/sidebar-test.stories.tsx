@@ -276,3 +276,20 @@ export const DarkHeaderExampleImplementation = () => {
     </Sidebar>
   );
 };
+
+export const WithLongHeader = () => {
+  const headerNode = (
+    <Typography variant="h2">
+      Really long header that should not overlap with the close button
+    </Typography>
+  );
+
+  return (
+    <Sidebar header={headerNode} open onCancel={() => {}} width="460px">
+      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sint iure
+      assumenda recusandae veniam deleniti adipisci dicta exercitationem
+      delectus atque, quidem, eaque facilis dignissimos rem, minus cupiditate ad
+      sed dolorem minima?
+    </Sidebar>
+  );
+};

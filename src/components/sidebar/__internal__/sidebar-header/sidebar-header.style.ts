@@ -23,6 +23,7 @@ const StyledSidebarHeader = styled.div.attrs(applyBaseTheme)<{
     css`
       display: flex;
       justify-content: space-between;
+      gap: var(--spacing200);
       > ${StyledIconButton}:first-of-type {
         ${headerVariant === "dark" &&
         css`
@@ -30,9 +31,7 @@ const StyledSidebarHeader = styled.div.attrs(applyBaseTheme)<{
             color: var(--colorsUtilityYang080);
           }
         `}
-        position: absolute;
-        z-index: 1;
-        right: 25px;
+        align-self: flex-start;
       }
     `}
   div[data-element="sidebar-heading"] {
