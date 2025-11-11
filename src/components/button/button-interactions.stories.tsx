@@ -12,7 +12,7 @@ import { allowInteractions } from "../../../.storybook/interaction-toggle/reduce
 import DefaultDecorator from "../../../.storybook/utils/default-decorator";
 
 export default {
-  title: "Button/Interactions",
+  title: "Deprecated/Button/Interactions",
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
   },

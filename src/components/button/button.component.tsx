@@ -16,13 +16,19 @@ import ButtonBarContext from "../button-bar/__internal__/button-bar.context";
 import SplitButtonContext from "../split-button/__internal__/split-button.context";
 import BatchSelectionContext from "../batch-selection/__internal__/batch-selection.context";
 
+/**
+ * @deprecated Use "primary", "secondary", "tertiary" or "ai" instead.
+ */
+export type DeprecatedButtonTypes =
+  | "darkBackground"
+  | "gradient-grey"
+  | "gradient-white";
+
 export type ButtonTypes =
   | "primary"
   | "secondary"
   | "tertiary"
-  | "darkBackground"
-  | "gradient-grey"
-  | "gradient-white";
+  | DeprecatedButtonTypes;
 
 export type SizeOptions = "small" | "medium" | "large";
 export type ButtonIconPosition = "before" | "after";
@@ -37,7 +43,9 @@ export interface ButtonProps extends SpaceProps, TagProps {
   "aria-labelledby"?: string;
   /** Identifies the element(s) offering additional information about the button the user might require. */
   "aria-describedby"?: string;
-  /** Color variants for new business themes: "primary" | "secondary" | "tertiary" | "darkBackground" */
+  /**
+   * @deprecated Color variants for new business themes: "primary" | "secondary" | "tertiary" | "darkBackground"
+   * */
   buttonType?: ButtonTypes;
   /** The text the button displays */
   children?: React.ReactNode;
@@ -45,7 +53,9 @@ export interface ButtonProps extends SpaceProps, TagProps {
   name?: string;
   /** Apply disabled state to the button */
   disabled?: boolean;
-  /** Apply destructive style to the button */
+  /**
+   * @deprecated Apply destructive style to the button
+   * */
   destructive?: boolean;
   /** Apply fullWidth style to the button */
   fullWidth?: boolean;
@@ -61,7 +71,9 @@ export interface ButtonProps extends SpaceProps, TagProps {
   iconType?: IconType;
   /** id attribute */
   id?: string;
-  /** Whether to use the white-on-dark colour variant */
+  /**
+   * @deprecated Whether to use the white-on-dark colour variant
+   * */
   isWhite?: boolean;
   /** If provided, the text inside a button will not wrap */
   noWrap?: boolean;
@@ -91,7 +103,9 @@ export interface ButtonProps extends SpaceProps, TagProps {
   ) => void;
   /** Assigns a size to the button: "small" | "medium" | "large" */
   size?: SizeOptions;
-  /** Second text child, renders under main text, only when size is "large" */
+  /**
+   * @deprecated Second text child, renders under main text, only when size is "large"
+   * */
   subtext?: string;
   /** HTML button type property */
   type?: string;
