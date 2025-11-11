@@ -12,7 +12,8 @@ export const StyledButtonIcon = styled.div`
 `;
 
 const StyledSearchButton = styled.div.attrs(applyBaseTheme)`
-  display: inline-flex;
+  display: flex;
+  align-self: end;
   border-bottom: none;
 
   & ${StyledButton} {
