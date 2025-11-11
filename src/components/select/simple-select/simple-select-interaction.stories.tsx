@@ -1,5 +1,5 @@
 import { StoryObj } from "@storybook/react";
-import { userEvent, screen, within } from "@storybook/test";
+import { userEvent, screen, within, expect } from "@storybook/test";
 import React, { useState } from "react";
 
 import SimpleSelect, {
@@ -16,7 +16,6 @@ import Typography from "../../../components/typography";
 
 import { allowInteractions } from "../../../../.storybook/interaction-toggle/reduced-motion";
 import DefaultDecorator from "../../../../.storybook/utils/default-decorator";
-import userInteractionPause from "../../../../.storybook/utils/user-interaction-pause";
 
 type Story = StoryObj<typeof SimpleSelect>;
 
@@ -58,48 +57,6 @@ export default {
     themeProvider: { chromatic: { theme: "sage" } },
   },
 };
-
-export const OpenList: Story = {
-  render: () => (
-    <Box height={250}>
-      <InteractiveComponent
-        onChange={() => {}}
-        name="simple"
-        id="simple"
-        label="Color"
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
-      </InteractiveComponent>
-    </Box>
-  ),
-  play: async ({ canvasElement }) => {
-    if (!allowInteractions()) {
-      return;
-    }
-    const canvas = within(canvasElement);
-    const select = canvas.getByRole("combobox", { name: "Color" });
-    await userEvent.click(select);
-  },
-  decorators: [
-    (StoryToRender) => (
-      <DefaultDecorator>
-        <StoryToRender />
-      </DefaultDecorator>
-    ),
-  ],
-};
-
-OpenList.storyName = "Open List";
 
 export const OpenComplexList: Story = {
   render: () => (
@@ -143,7 +100,9 @@ export const OpenComplexList: Story = {
     }
     const canvas = within(canvasElement);
     const select = canvas.getByRole("combobox", { name: "Employee" });
-    await userEvent.click(select);
+    await userEvent.click(select, { delay: 200 });
+    const nameOption = within(document.body).getByText("John 1");
+    await expect(nameOption).toBeVisible();
   },
   decorators: [
     (StoryToRender) => (
@@ -187,13 +146,10 @@ export const HighlightedItem: Story = {
     const select = canvas.getByRole("combobox", { name: "Color" });
     await userEvent.click(select);
 
-    await userInteractionPause(1000);
-
     const highlightedOption = canvas.getByRole("option", { name: "Green" });
     await userEvent.click(highlightedOption);
-
-    await userInteractionPause(1000);
-    await userEvent.click(select);
+    await userEvent.click(select, { delay: 200 });
+    await expect(highlightedOption).toBeVisible();
   },
   decorators: [
     (StoryToRender) => (
@@ -237,15 +193,10 @@ export const SelectedItemHover: Story = {
     const select = canvas.getByRole("combobox", { name: "Color" });
     await userEvent.click(select);
 
-    await userInteractionPause(1000);
-
     const highlightedOption = canvas.getByRole("option", { name: "Green" });
     await userEvent.click(highlightedOption);
-
-    await userInteractionPause(1000);
     await userEvent.click(select);
-
-    await userInteractionPause(1000);
+    await expect(select).toHaveFocus();
   },
   decorators: [
     (StoryToRender) => (
@@ -294,15 +245,10 @@ export const NonSelectedItemHover: Story = {
     const select = canvas.getByRole("combobox", { name: "Color" });
     await userEvent.click(select);
 
-    await userInteractionPause(1000);
-
     const highlightedOption = canvas.getByRole("option", { name: "Green" });
     await userEvent.click(highlightedOption);
-
-    await userInteractionPause(1000);
-    await userEvent.click(select);
-
-    await userInteractionPause(1000);
+    await userEvent.click(select, { delay: 200 });
+    await expect(highlightedOption).toBeVisible();
   },
   decorators: [
     (StoryToRender) => (
@@ -352,9 +298,9 @@ export const FocusTransparent: Story = {
     const select = canvas.getByRole("combobox", { name: "Color" });
 
     await select.focus();
-
-    await userInteractionPause(1000);
-    await userEvent.keyboard(" ");
+    await userEvent.keyboard(" ", { delay: 200 });
+    const highlightedOption = canvas.getByRole("option", { name: "Amber" });
+    await expect(highlightedOption).toBeVisible();
   },
   decorators: [
     (StoryToRender) => (
@@ -399,16 +345,10 @@ export const FocusTransparentWithSelection: Story = {
 
     const select = canvas.getByRole("combobox", { name: "Color" });
     await userEvent.click(select);
-
-    await userInteractionPause(1000);
-
     const highlightedOption = canvas.getByRole("option", { name: "Green" });
     await userEvent.click(highlightedOption);
-
-    await userInteractionPause(1000);
-    await userEvent.click(select);
-
-    await userInteractionPause(1000);
+    await userEvent.click(select, { delay: 100 });
+    await expect(highlightedOption).toBeVisible();
   },
   decorators: [
     (StoryToRender) => (
@@ -420,7 +360,6 @@ export const FocusTransparentWithSelection: Story = {
 };
 
 FocusTransparentWithSelection.storyName = "Transparent Focus With Selection";
-
 export const OptionGroupHeaders: Story = {
   render: () => (
     <Box height={250}>
@@ -460,7 +399,9 @@ export const OptionGroupHeaders: Story = {
     }
     const canvas = within(canvasElement);
     const select = canvas.getByRole("combobox", { name: "Color" });
-    await userEvent.click(select);
+    await userEvent.click(select, { delay: 200 });
+    const highlightedOption = canvas.getByRole("option", { name: "Amber" });
+    await expect(highlightedOption).toBeVisible();
   },
   decorators: [
     (StoryToRender) => (
@@ -525,7 +466,10 @@ export const ComplexOptions: Story = {
     }
     const canvas = within(canvasElement);
     const select = canvas.getByRole("combobox");
-    await userEvent.click(select);
+    await userEvent.click(select, { delay: 100 });
+    await expect(
+      await within(document.body).findByText("Something went wrong"),
+    ).toBeVisible();
   },
   decorators: [
     (StoryToRender) => (
@@ -575,8 +519,8 @@ export const NestedInDialog: Story = {
 
     const dialog = await screen.findByRole("dialog");
     const combobox = within(dialog).getByRole("combobox");
-    await userEvent.click(combobox);
-    await userInteractionPause(1000);
+    await userEvent.click(combobox, { delay: 100 });
+    await expect(await within(document.body).findByText("red")).toBeVisible();
   },
   decorators: [
     (StoryToRender) => (

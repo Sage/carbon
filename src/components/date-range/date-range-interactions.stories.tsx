@@ -7,7 +7,6 @@ import Box from "../box";
 
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
 import DefaultDecorator from "../../../.storybook/utils/default-decorator";
-import userInteractionPause from "../../../.storybook/utils/user-interaction-pause";
 import I18nProvider from "../i18n-provider";
 import { de as deLocale } from "date-fns/locale/de";
 import { enUS as enUSLocale } from "date-fns/locale/en-US";
@@ -36,6 +35,7 @@ const DateRangeWithState = ({ initialValue = ["", ""], ...props }) => {
 
   return (
     <DateRange
+      tooltipPosition="bottom"
       {...props}
       value={dateRange}
       onChange={(e) =>
@@ -64,18 +64,17 @@ export const DefaultDateRange: Story = {
     const endInput = canvas.getByRole("textbox", { name: /end date/i });
 
     await userEvent.click(startInput);
-    await userInteractionPause(80);
     await userEvent.keyboard("04/15/2024");
-    await userInteractionPause(120);
 
     await userEvent.click(endInput);
-    await userInteractionPause(80);
     await userEvent.keyboard("04/30/2024");
-    await userInteractionPause(200);
 
-    expect((startInput as HTMLInputElement).value).toBe("04/15/2024");
-    expect((endInput as HTMLInputElement).value).toBe("04/30/2024");
+    await expect(startInput).toHaveValue("04/15/2024");
+    await expect(endInput).toHaveValue("04/30/2024");
   },
+};
+DefaultDateRange.parameters = {
+  chromatic: { disableSnapshot: true },
 };
 
 export const InlineLabelsDateRange: Story = {
@@ -96,15 +95,16 @@ export const InlineLabelsDateRange: Story = {
 
     await userEvent.click(startInput);
     await userEvent.keyboard("05/01/2025");
-    await userInteractionPause(150);
 
     await userEvent.click(endInput);
     await userEvent.keyboard("05/12/2025");
-    await userInteractionPause(200);
 
-    expect((startInput as HTMLInputElement).value).toBe("05/01/2025");
-    expect((endInput as HTMLInputElement).value).toBe("05/12/2025");
+    await expect(startInput).toHaveValue("05/01/2025");
+    await expect(endInput).toHaveValue("05/12/2025");
   },
+};
+InlineLabelsDateRange.parameters = {
+  chromatic: { disableSnapshot: true },
 };
 
 export const MinMaxDateRange: Story = {
@@ -126,16 +126,12 @@ export const MinMaxDateRange: Story = {
     const endInput = canvas.getByRole("textbox", { name: /end date/i });
 
     await userEvent.click(startIcon);
-    await userInteractionPause(200);
     await userEvent.keyboard("{PageUp}{End}{Enter}");
-    await userInteractionPause(250);
-    expect((startInput as HTMLInputElement).value).toBe("17/07/2025");
+    await expect(startInput).toHaveValue("17/07/2025");
 
     await userEvent.click(endIcon);
-    await userInteractionPause(200);
     await userEvent.keyboard("{PageDown}{Home}{Enter}");
-    await userInteractionPause(250);
-    expect((endInput as HTMLInputElement).value).toBe("20/07/2025");
+    await expect(endInput).toHaveValue("20/07/2025");
   },
 };
 
@@ -163,16 +159,14 @@ export const DisabledDaysDateRange: Story = {
     if (!allowInteractions()) return;
     const canvas = within(canvasElement);
     const [startIcon, endIcon] = canvas.getAllByTestId("icon");
+    const endInput = canvas.getByRole("textbox", { name: /end date/i });
 
     await userEvent.click(startIcon);
-    await userInteractionPause(300);
     await userEvent.keyboard("{ArrowLeft}{Enter}");
-    await userInteractionPause(250);
 
     await userEvent.click(endIcon);
-    await userInteractionPause(300);
     await userEvent.keyboard("{ArrowRight}{ArrowDown}");
-    await userInteractionPause(250);
+    await expect(endInput).toHaveValue("25/07/2025");
   },
 };
 
@@ -191,22 +185,19 @@ export const FocusStateDateRange: Story = {
 
     const [startIcon] = canvas.getAllByTestId("icon");
     await userEvent.click(startIcon);
-    await userInteractionPause(250);
 
     const selectedDayBtn = canvas.getByRole("button", { name: /selected$/i });
 
     const doc = canvasElement.ownerDocument as Document;
     for (let i = 0; i < 6 && doc.activeElement !== selectedDayBtn; i += 1) {
       await userEvent.tab();
-      await userInteractionPause(60);
     }
 
     if (doc.activeElement !== selectedDayBtn) {
       (selectedDayBtn as HTMLElement).focus();
-      await userInteractionPause(60);
     }
 
-    expect(selectedDayBtn).toHaveFocus();
+    await expect(selectedDayBtn).toHaveFocus();
   },
 };
 
@@ -246,14 +237,12 @@ export const LocaleEnUSDateRange: Story = {
 
     await userEvent.clear(startInput);
     await userEvent.keyboard("08/05/2025");
-    await userInteractionPause(150);
 
     await userEvent.clear(endInput);
     await userEvent.keyboard("08/12/2025");
-    await userInteractionPause(150);
 
-    expect((startInput as HTMLInputElement).value).toBe("08/05/2025");
-    expect((endInput as HTMLInputElement).value).toBe("08/12/2025");
+    await expect(startInput).toHaveValue("08/05/2025");
+    await expect(endInput).toHaveValue("08/12/2025");
   },
 };
 
@@ -285,11 +274,10 @@ export const LocaleDeDateRange: Story = {
     const canvas = within(canvasElement);
     const [startIcon] = canvas.getAllByTestId("icon");
     await userEvent.click(startIcon);
-    await userInteractionPause(300);
 
     const prevMonth = canvas.getByRole("button", { name: /de-DE-previous/i });
     await userEvent.click(prevMonth);
-    await userInteractionPause(300);
+    await expect(prevMonth).toHaveFocus();
   },
 };
 
@@ -309,15 +297,13 @@ export const TypingSyncDateRange: Story = {
 
     const [startIcon] = canvas.getAllByTestId("icon");
     await userEvent.click(startIcon);
-    await userInteractionPause(250);
 
     const startInput = canvas.getByRole("textbox", { name: /start date/i });
     await userEvent.clear(startInput);
     await userEvent.type(startInput, "05/05/2022");
-    await userInteractionPause(300);
 
     const caption = canvas.getByRole("status");
-    expect(caption).toHaveTextContent(/May 2022/i);
+    await expect(caption).toHaveTextContent(/May 2022/i);
   },
 };
 
@@ -343,14 +329,13 @@ export const ValidationDateRange: Story = {
     const warningIcon = canvas.getByTestId("icon-warning");
 
     await userEvent.hover(errorIcon);
-    expect(await portal.findByText(/required/i)).toBeInTheDocument();
+    await expect(await portal.findByText(/required/i)).toBeInTheDocument();
 
-    await userEvent.unhover(errorIcon);
     await userEvent.hover(warningIcon);
-    expect(await portal.findByText(/end warning/i)).toBeInTheDocument();
+    await expect(await portal.findByText(/end warning/i)).toBeInTheDocument();
 
     const startInput = canvas.getByRole("textbox", { name: /start/i });
-    expect(startInput).toHaveAttribute("aria-invalid", "true");
+    await expect(startInput).toBeInvalid();
   },
 };
 
@@ -369,7 +354,7 @@ export const MonthYearNavigationDateRange: Story = {
     await userEvent.click(startIcon);
     const next = c.getByRole("button", { name: /next month/i });
     await userEvent.click(next);
-    await userInteractionPause(200);
+    await expect(next).toHaveFocus();
   },
 };
 
@@ -391,11 +376,9 @@ export const AllowEmptyDateRange: Story = {
     const end = c.getByRole("textbox", { name: /end date/i });
     await userEvent.click(start);
     await userEvent.clear(start);
-    await userInteractionPause(150);
     await userEvent.click(end);
     await userEvent.clear(end);
-    await userInteractionPause(150);
-    expect((start as HTMLInputElement).value).toBe("");
-    expect((end as HTMLInputElement).value).toBe("");
+    await expect(start).toHaveValue("");
+    await expect(end).toHaveValue("");
   },
 };

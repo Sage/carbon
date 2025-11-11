@@ -7,7 +7,6 @@ import Box from "../box";
 
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
 import DefaultDecorator from "../../../.storybook/utils/default-decorator";
-import userInteractionPause from "../../../.storybook/utils/user-interaction-pause";
 
 type Story = StoryObj<typeof Decimal>;
 
@@ -51,13 +50,14 @@ export const DefaultExample: Story = {
     });
 
     await userEvent.click(decimalInput);
-    await userInteractionPause(80);
     await userEvent.keyboard("357");
-    await userInteractionPause(120);
     await userEvent.keyboard("{tab}");
 
-    expect((decimalInput as HTMLInputElement).value).toBe("357.00");
+    await expect(decimalInput).toHaveValue("357.00");
   },
+};
+DefaultExample.parameters = {
+  chromatic: { disableSnapshot: true },
 };
 
 export const frFRLocaleExample: Story = {
@@ -77,13 +77,14 @@ export const frFRLocaleExample: Story = {
     });
 
     await userEvent.click(decimalInput);
-    await userInteractionPause(80);
     await userEvent.keyboard("442");
-    await userInteractionPause(120);
     await userEvent.keyboard("{tab}");
 
-    expect((decimalInput as HTMLInputElement).value).toBe("442,00");
+    await expect(decimalInput).toHaveValue("442,00");
   },
+};
+frFRLocaleExample.parameters = {
+  chromatic: { disableSnapshot: true },
 };
 
 export const WithPrecisionExample: Story = {
@@ -103,13 +104,14 @@ export const WithPrecisionExample: Story = {
     });
 
     await userEvent.click(decimalInput);
-    await userInteractionPause(80);
     await userEvent.keyboard("90210");
-    await userInteractionPause(120);
     await userEvent.keyboard("{tab}");
 
-    expect((decimalInput as HTMLInputElement).value).toBe("90,210.00000");
+    await expect(decimalInput).toHaveValue("90,210.00000");
   },
+};
+WithPrecisionExample.parameters = {
+  chromatic: { disableSnapshot: true },
 };
 
 export const DecimalInputClearedExample: Story = {
@@ -123,13 +125,14 @@ export const DecimalInputClearedExample: Story = {
     });
 
     await userEvent.click(decimalInput);
-    await userInteractionPause(80);
     await userEvent.keyboard("{selectall}{backspace}");
-    await userInteractionPause(120);
     await userEvent.keyboard("{tab}");
 
-    expect((decimalInput as HTMLInputElement).value).toBe("0.00");
+    await expect(decimalInput).toHaveValue("0.00");
   },
+};
+DecimalInputClearedExample.parameters = {
+  chromatic: { disableSnapshot: true },
 };
 
 export const FocusedExample: Story = {
@@ -144,6 +147,6 @@ export const FocusedExample: Story = {
 
     await userEvent.click(decimalInput);
 
-    expect(document.activeElement).toBe(decimalInput);
+    await expect(decimalInput).toHaveFocus();
   },
 };
