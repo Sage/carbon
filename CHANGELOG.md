@@ -1,3 +1,9 @@
+## [158.5.0](https://github.com/Sage/carbon/compare/v158.4.0...v158.5.0) (2025-11-11)
+
+### Features
+
+* **search:** add label and input hint ([682647d](https://github.com/Sage/carbon/commit/682647d17d86e9de411f72bb45f71b1382b1f0aa)), closes [#7603](https://github.com/Sage/carbon/issues/7603)
+
 ## [158.4.0](https://github.com/Sage/carbon/compare/v158.3.1...v158.4.0) (2025-11-06)
 
 ### Features
