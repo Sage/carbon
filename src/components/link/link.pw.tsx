@@ -19,6 +19,7 @@ import {
   LinkComponent,
   LinkComponentAsButton,
   LinkComponentWithDarkBackground,
+  LinkComponentWithImage,
 } from "../../../src/components/link/components.test-pw";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
@@ -409,6 +410,23 @@ test("should render with the correct focus styling", async ({
     "rgb(0, 0, 0) 0px 4px 0px 0px",
   );
   await expect(linkWrapper).toHaveCSS("max-width", "fit-content");
+});
+
+test("should render with the correct focus styling when link contains an image", async ({
+  mount,
+  page,
+}) => {
+  await mount(<LinkComponentWithImage />);
+
+  const linkElement = linkChildren(page);
+  const linkAnchor = page.locator('[data-role="link-anchor"]');
+
+  await linkElement.focus();
+  await expect(linkAnchor).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
+  await expect(linkAnchor).toHaveCSS(
+    "box-shadow",
+    "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+  );
 });
 
 test.describe("check events for Link component", () => {

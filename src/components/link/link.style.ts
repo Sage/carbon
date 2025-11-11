@@ -1,12 +1,13 @@
 import styled, { css } from "styled-components";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
+import addFocusStyling from "../../style/utils/add-focus-styling";
 import StyledIcon from "../icon/icon.style";
 import StyledButton from "../button/button.style";
 
 /** @deprecated The value 'default' for the variant prop is deprecated and will soon be removed. Please use value 'typical' instead. */
 type DeprecatedDefaultVariant = "default";
 
-/** @deprecated The value 'netural' for the variant prop is deprecated and will soon be removed. Please use value 'subtle' instead. */
+/** @deprecated The value 'neutral' for the variant prop is deprecated and will soon be removed. Please use value 'subtle' instead. */
 type DeprecatedNeutralVariant = "neutral";
 
 type Variants =
@@ -37,6 +38,7 @@ export interface StyledLinkProps {
 interface PrivateStyledLinkProps {
   hasContent: boolean;
   isMenuItem?: boolean;
+  hasImageAsChild?: boolean;
 }
 
 interface LinkColors {
@@ -111,6 +113,7 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
 >`
   ${({
     isSkipLink,
+    hasImageAsChild,
     theme,
     iconAlign,
     hasContent,
@@ -198,10 +201,13 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
               }
             }
 
-            &:focus {
-              background-color: ${focusBgColor};
-              border-radius: var(--borderRadius025);
-            }
+            ${!hasImageAsChild &&
+            css`
+              &:focus {
+                background-color: ${focusBgColor};
+                border-radius: var(--borderRadius025);
+              }
+            `}
           `}
 
           ${disabled &&
@@ -256,13 +262,27 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
         }
 
         &:focus {
-          color: ${focusColor};
-          outline: none;
-
-          ${StyledIcon} {
+          ${!hasImageAsChild &&
+          css`
             color: ${focusColor};
-          }
+
+            ${StyledIcon} {
+              color: ${focusColor};
+            }
+          `}
+          outline: ${hasImageAsChild ? "default" : "none"};
         }
+
+        ${hasImageAsChild &&
+        !disabled &&
+        css`
+          display: inline-block;
+
+          &:focus {
+            ${addFocusStyling()}
+            border-radius: var(--borderRadius025);
+          }
+        `}
 
         ${disabled &&
         css`
@@ -273,6 +293,7 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
       ${!isSkipLink &&
       !disabled &&
       hasFocus &&
+      !hasImageAsChild &&
       css`
         > a,
         > button {
@@ -289,6 +310,16 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
         &:has([data-popover-container-button="true"]) {
           border-bottom-left-radius: var(--borderRadius000);
           border-bottom-right-radius: var(--borderRadius000);
+        }
+      `}
+
+      ${hasImageAsChild &&
+      !disabled &&
+      hasFocus &&
+      css`
+        > a,
+        > button {
+          ${addFocusStyling()}
         }
       `}
 
