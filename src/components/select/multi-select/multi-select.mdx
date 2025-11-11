@@ -16,7 +16,7 @@ Select multiple options from the drop-down menu. MultiSelect is a component that
 - [Quick Start](#quick-start)
 - [Examples](#examples)
 - [Validation states](#validation-states)
-- [Testing with React Testing Library](#testing-with-react-testing-library-rtl)
+- [Testing](#testing)
 - [Props](#props)
 - [Translation keys](#translation-keys)
 
@@ -134,10 +134,27 @@ be customised if desired using the `virtualScrollOverscan` prop. Higher values w
 
 This component supports input validation, see our [Validations](../?path=/docs/documentation-validations--docs) documentation page for more information.
 
-## Testing with React Testing Library (RTL)
+## Testing
 
-Testing with RTL is supported for the `MultiSelect` component, please consult the [Testing with RTL](../?path=/docs/select--docs#testing-with-react-testing-library-rtl)
-section in `SimpleSelect` for more information.
+For testing interactions with `MultiSelect` as part of a broader user journey, we recommend testing within a browser environment using tools like Playwright or Cypress, rather than Node-based environments like JSDOM. Since JSDOM does not render visual content, mocking will be required to ensure the component's internal layout calculations function correctly, making your tests less effective.
+
+### JSDOM tests (if required)
+
+If you need to test within JSDOM, we provide a utility function for setting up any required global mocks:
+
+```javascript
+import { setupSelectMocks } from "carbon-react/lib/components/select";
+
+describe("Select tests", () => {
+  beforeAll(() => {
+    setupSelectMocks();
+  });
+
+  test("should render", () => {
+    // your test code here
+  });
+})
+```
 
 ## Props
 

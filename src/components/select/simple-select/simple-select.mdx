@@ -25,7 +25,7 @@ Select one of available options from the drop-down menu. Simple Select is a Carb
 - [Quick Start](#quick-start)
 - [Examples](#examples)
 - [Validation states](#validation-states)
-- [Testing with React Testing Library](#testing-with-react-testing-library-rtl)
+- [Testing](#testing)
 - [Props](#props)
 - [Translation keys](#translation-keys)
 
@@ -200,18 +200,20 @@ for users who rely on assistive technology.
 
 This component supports input validation, see our [Validations](../?path=/docs/documentation-validations--docs) documentation page for more information.
 
-## Testing with React Testing Library (RTL)
+## Testing
 
-If you use [React Testing Library](https://testing-library.com/docs/react-testing-library/intro) in your project, you may need to mock the
-`getBoundingClientRect` method of the `Element` prototype in order to correctly test the `Select` component. You can do this manually in your
-test setup file, or import the `mockDOMRect` method to do it for you.
+For testing interactions with `SimpleSelect` as part of a broader user journey, we recommend testing within a browser environment using tools like Playwright or Cypress, rather than Node-based environments like JSDOM. Since JSDOM does not render visual content, mocking will be required to ensure the component's internal layout calculations function correctly, making your tests less effective.
+
+### JSDOM tests (if required)
+
+If you need to test within JSDOM, we provide a utility function for setting up any required global mocks:
 
 ```javascript
-import mockDOMRect from "carbon-react/lib/__spec_helper__/mock-dom-rect";
+import { setupSelectMocks } from "carbon-react/lib/components/select";
 
 describe("Select tests", () => {
   beforeAll(() => {
-    mockDOMRect(200, 200, "select-list-scrollable-container");
+    setupSelectMocks();
   });
 
   test("should render", () => {
