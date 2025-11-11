@@ -8,16 +8,15 @@ import {
   within,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import mockDOMRect from "../../../../__spec_helper__/mock-dom-rect";
 
 import SelectList, { SelectListProps } from "./select-list.component";
 import Option from "../../option";
 import OptionRow from "../../option-row";
+import setupSelectMocks from "../../setup-select-mocks";
 
 beforeEach(() => {
   jest.useFakeTimers();
-  // Mock non-zero dimensions for the scrollable container. To ensure react-virtual renders the list options correctly.
-  mockDOMRect(40, 100, "select-list-scrollable-container");
+  setupSelectMocks();
 });
 
 afterEach(() => {
