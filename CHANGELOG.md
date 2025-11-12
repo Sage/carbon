@@ -1,3 +1,9 @@
+## [158.6.1](https://github.com/Sage/carbon/compare/v158.6.0...v158.6.1) (2025-11-12)
+
+### Bug Fixes
+
+* **sidebar:** ensure header and close icon do not overlap ([e33ab3f](https://github.com/Sage/carbon/commit/e33ab3fdbd84abbb271a48a8600d56525a866166)), closes [#7598](https://github.com/Sage/carbon/issues/7598)
+
 ## [158.6.0](https://github.com/Sage/carbon/compare/v158.5.0...v158.6.0) (2025-11-11)
 
 ### Features
