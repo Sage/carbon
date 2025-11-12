@@ -16,6 +16,7 @@ type Variants =
   | "subtle"
   | DeprecatedDefaultVariant
   | DeprecatedNeutralVariant;
+
 export interface StyledLinkProps {
   /** @deprecated The disabled state of the link. This prop is deprecated and will soon be removed. */
   disabled?: boolean;
@@ -35,10 +36,10 @@ export interface StyledLinkProps {
   /** @deprecated The 'isDarkBackground' prop in Link is deprecated and will soon be removed. Please use 'inverse' prop instead. */
   isDarkBackground?: boolean;
 }
+
 interface PrivateStyledLinkProps {
   hasContent: boolean;
   isMenuItem?: boolean;
-  hasImageAsChild?: boolean;
 }
 
 interface LinkColors {
@@ -113,7 +114,6 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
 >`
   ${({
     isSkipLink,
-    hasImageAsChild,
     theme,
     iconAlign,
     hasContent,
@@ -135,7 +135,7 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
       focusBoxShadowColor,
     } = colorMap[colorMapKey](variant);
     const fontSize =
-      linkSize === "medium" ? "var(---fontSizes100)" : "var(--fontSizes200)";
+      linkSize === "medium" ? "var(--fontSizes100)" : "var(--fontSizes200)";
 
     return css`
       ${isSkipLink &&
@@ -201,13 +201,10 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
               }
             }
 
-            ${!hasImageAsChild &&
-            css`
-              &:focus {
-                background-color: ${focusBgColor};
-                border-radius: var(--borderRadius025);
-              }
-            `}
+            &:not(:has(img, svg, picture)):focus {
+              background-color: ${focusBgColor};
+              border-radius: var(--borderRadius025);
+            }
           `}
 
           ${disabled &&
@@ -261,26 +258,26 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
           `}
         }
 
-        &:focus {
-          ${!hasImageAsChild &&
-          css`
-            color: ${focusColor};
+        &:not(:has(img, svg, picture)):focus {
+          color: ${focusColor};
 
-            ${StyledIcon} {
-              color: ${focusColor};
-            }
-          `}
-          outline: ${hasImageAsChild ? "default" : "none"};
+          ${StyledIcon} {
+            color: ${focusColor};
+          }
+
+          outline: none;
         }
 
-        ${hasImageAsChild &&
-        !disabled &&
+        ${!disabled &&
         css`
-          display: inline-block;
+          &:has(img, svg, picture) {
+            display: inline-block;
+          }
 
-          &:focus {
+          &:has(img, svg, picture):focus {
             ${addFocusStyling()}
             border-radius: var(--borderRadius025);
+            outline: default;
           }
         `}
 
@@ -293,33 +290,35 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
       ${!isSkipLink &&
       !disabled &&
       hasFocus &&
-      !hasImageAsChild &&
       css`
-        > a,
-        > button {
-          outline: none;
-          text-decoration: underline;
-          border-bottom-left-radius: var(--borderRadius000);
-          border-bottom-right-radius: var(--borderRadius000);
-        }
-        max-width: fit-content;
-        box-shadow: 0 var(--spacing050) 0 0 ${focusBoxShadowColor};
-        border-bottom-left-radius: var(--borderRadius025);
-        border-bottom-right-radius: var(--borderRadius025);
+        &:not(:has(img, svg, picture)) {
+          > a,
+          > button {
+            outline: none;
+            text-decoration: underline;
+            border-bottom-left-radius: var(--borderRadius000);
+            border-bottom-right-radius: var(--borderRadius000);
+          }
+          max-width: fit-content;
+          box-shadow: 0 var(--spacing050) 0 0 ${focusBoxShadowColor};
+          border-bottom-left-radius: var(--borderRadius025);
+          border-bottom-right-radius: var(--borderRadius025);
 
-        &:has([data-popover-container-button="true"]) {
-          border-bottom-left-radius: var(--borderRadius000);
-          border-bottom-right-radius: var(--borderRadius000);
+          &:has([data-popover-container-button="true"]) {
+            border-bottom-left-radius: var(--borderRadius000);
+            border-bottom-right-radius: var(--borderRadius000);
+          }
         }
       `}
 
-      ${hasImageAsChild &&
-      !disabled &&
+      ${!disabled &&
       hasFocus &&
       css`
-        > a,
-        > button {
-          ${addFocusStyling()}
+        &:has(img, svg, picture) {
+          > a,
+          > button {
+            ${addFocusStyling()}
+          }
         }
       `}
 

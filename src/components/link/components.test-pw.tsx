@@ -1,5 +1,4 @@
 import React from "react";
-import carbonLogo from "../../../logo/carbon-logo.png";
 import Link, { LinkProps } from "./link.component";
 import Box from "../box";
 
@@ -8,17 +7,6 @@ export const LinkComponent = (props: LinkProps) => {
     <Box m="100px">
       <Link href="#foo" target="_blank" rel="noreferrer noopener" {...props}>
         This is a link
-      </Link>
-    </Box>
-  );
-};
-
-export const LinkComponentWithImage = (props: LinkProps) => {
-  const Logo = () => <img src={carbonLogo} alt="Logo" height="30px" />;
-  return (
-    <Box m={4}>
-      <Link href="#foo" target="_blank" rel="noreferrer noopener" {...props}>
-        <Logo />
       </Link>
     </Box>
   );

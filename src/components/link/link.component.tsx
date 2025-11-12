@@ -5,7 +5,6 @@ import React, {
   useState,
   useRef,
   useCallback,
-  useLayoutEffect,
 } from "react";
 
 import Icon, { IconType } from "../icon";
@@ -117,7 +116,6 @@ export const Link = React.forwardRef<
     ref,
   ) => {
     const [hasFocus, setHasFocus] = useState(false);
-    const [hasImageAsChild, setHasImageAsChild] = useState(false);
 
     const l = useLocale();
     const { inMenu } = useContext(MenuContext);
@@ -272,20 +270,9 @@ export const Link = React.forwardRef<
       }
     }, [disabled, href, onClick]);
 
-    useLayoutEffect(() => {
-      const element = linkRef?.current as
-        | HTMLAnchorElement
-        | HTMLButtonElement
-        | null;
-
-      const img = element?.querySelector("img, svg, picture");
-      setHasImageAsChild(!!img);
-    }, [children]);
-
     return (
       <StyledLink
         isSkipLink={isSkipLink}
-        hasImageAsChild={hasImageAsChild}
         disabled={isDisabled}
         underline={underline}
         iconAlign={iconAlign}
