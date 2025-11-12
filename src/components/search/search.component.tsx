@@ -6,7 +6,7 @@ import { filterStyledSystemMarginProps } from "../../style/utils";
 import StyledSearch from "./search.style";
 import StyledSearchButton from "./search-button.style";
 import Icon from "../icon";
-import Textbox from "../textbox";
+import Textbox, { CommonTextboxProps } from "../textbox";
 import Button from "../button";
 import { ValidationProps } from "../../__internal__/validations";
 import useLocale from "../../hooks/__internal__/useLocale";
@@ -20,7 +20,11 @@ export interface SearchEvent {
   };
 }
 
-export interface SearchProps extends ValidationProps, MarginProps, TagProps {
+export interface SearchProps
+  extends ValidationProps,
+    MarginProps,
+    TagProps,
+    Pick<CommonTextboxProps, "label" | "inputHint"> {
   /** Prop to specify the aria-label of the search component */
   "aria-label"?: string;
   /** Prop to specify the aria-label of the search button */
@@ -89,13 +93,15 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
       value,
       id,
       name,
+      label,
+      inputHint,
       searchWidth,
       maxWidth,
       searchButton,
       searchButtonAriaLabel,
       placeholder,
       variant = "default",
-      "aria-label": ariaLabel = "search",
+      "aria-label": ariaLabel,
       tabIndex,
       error,
       warning,
@@ -238,7 +244,11 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
           iconTabIndex={!isSearchValueEmpty ? 0 : -1}
           iconOnClick={handleIconClick}
           iconOnMouseDown={handleMouseDown}
-          aria-label={ariaLabel}
+          aria-label={
+            ariaLabel || (label ? undefined : locale.search.searchButtonText())
+          }
+          label={label}
+          inputHint={inputHint}
           onFocus={handleFocus}
           onBlur={handleBlur}
           onChange={handleChange}

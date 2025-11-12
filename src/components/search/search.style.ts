@@ -42,7 +42,6 @@ const StyledSearch = styled.div.attrs(applyBaseTheme)<StyledSearchProps>`
       background-color: transparent;
       display: inline-flex;
       font-size: var(--fontSize100);
-      font-weight: 500;
 
       ${!showSearchButton &&
       css`

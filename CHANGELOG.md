@@ -1,3 +1,15 @@
+## [158.6.0](https://github.com/Sage/carbon/compare/v158.5.0...v158.6.0) (2025-11-11)
+
+### Features
+
+* **select:** add new `setupSelectMocks` util for JSDOM testing ([54fd9bf](https://github.com/Sage/carbon/commit/54fd9bf5efb1ad6e7848ac64a99976f4c73402d1))
+
+## [158.5.0](https://github.com/Sage/carbon/compare/v158.4.0...v158.5.0) (2025-11-11)
+
+### Features
+
+* **search:** add label and input hint ([682647d](https://github.com/Sage/carbon/commit/682647d17d86e9de411f72bb45f71b1382b1f0aa)), closes [#7603](https://github.com/Sage/carbon/issues/7603)
+
 ## [158.4.0](https://github.com/Sage/carbon/compare/v158.3.1...v158.4.0) (2025-11-06)
 
 ### Features

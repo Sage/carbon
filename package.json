@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "158.4.0",
+  "version": "158.6.0",
   "description": "A library of reusable React components for easily building user interfaces.",
   "files": [
     "lib",
@@ -201,7 +201,7 @@
     "@lexical/react": "^0.21.0",
     "@lexical/selection": "^0.21.0",
     "@styled-system/prop-types": "^5.1.5",
-    "@tanstack/react-virtual": "^3.11.2",
+    "@tanstack/react-virtual": "^3.13.12",
     "@types/styled-system": "^5.1.22",
     "chalk": "^4.1.2",
     "crypto-js": "^4.2.0",
