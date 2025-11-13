@@ -19,6 +19,14 @@ type ColorConfig = {
   };
 };
 
+type InverseColorConfig = {
+  [key in VariantType]?: {
+    background: ConfigEntry;
+    border: ConfigEntry;
+    label: ConfigEntry;
+  };
+};
+
 type PropConfig = {
   [key in Size]: {
     borderRadius: string;
@@ -72,6 +80,108 @@ const propsForSize: PropConfig = {
     lineHeight: "150%",
     paddingVertical: "8px",
     paddingHorizontal: "16px",
+  },
+};
+
+const inverseColourSettings: InverseColorConfig = {
+  primary: {
+    background: {
+      active: "var(--button-typical-primary-inverse-bg-active, #8FFF98)",
+      default: "var(--button-typical-primary-inverse-bg-default, #00F142)",
+      disabled:
+        "var(--button-typical-primary-inverse-bg-disabled, rgba(255, 255, 255, 0.30))",
+      hover: "var(--button-typical-primary-inverse-bg-hover, #46FB5E)",
+    },
+    border: {
+      active: "transparent",
+      default: "transparent",
+      disabled: "transparent",
+      hover: "transparent",
+    },
+    label: {
+      active: "var(--button-typical-primary-label-active, #000)",
+      default: "var(--button-typical-primary-inverse-label-default, #000)",
+      disabled: "var(--button-typical-primary-inverse-label-disabled, #000)",
+      hover: "var(--button-typical-primary-inverse-label-active, #000)",
+    },
+  },
+  secondary: {
+    background: {
+      active:
+        "var(--button-typical-secondary-inverse-bg-active, rgba(0, 241, 67, 0.30))",
+      default:
+        "var(--button-typical-secondary-inverse-bg-default, rgba(0, 241, 67, 0.03))",
+      disabled: "transparent",
+      hover:
+        "var(--button-typical-secondary-inverse-bg-hover, rgba(0, 241, 67, 0.15))",
+    },
+    border: {
+      active: "var(--button-typical-secondary-inverse-border-active, #8FFF98)",
+      default:
+        "var(--button-typical-secondary-inverse-border-default, rgba(0, 241, 67, 0.80))",
+      disabled:
+        "var(--button-typical-secondary-inverse-border-disabled, rgba(255, 255, 255, 0.30))",
+      hover: "var(--button-typical-secondary-inverse-border-hover, #46FB5E)",
+    },
+    label: {
+      active: "var(--button-typical-secondary-inverse-label-actve, #FFF)",
+      default:
+        "var(--button-typical-secondary-inverse-label-default, rgba(255, 255, 255, 0.90))",
+      disabled:
+        "var(--button-typical-secondary-inverse-label-disabled, rgba(255, 255, 255, 0.42))",
+      hover: "var(--button-typical-secondary-inverse-label-hover, #FFF)",
+    },
+  },
+  tertiary: {
+    background: {
+      active:
+        "var(--button-typical-tertiary-inverse-bg-active, rgba(0, 241, 67, 0.30))",
+      default:
+        "var(--button-typical-tertiary-inverse-bg-default, rgba(255, 255, 255, 0.00))",
+      disabled: "transparent",
+      hover:
+        "var(--button-typical-tertiary-inverse-bg-hover, rgba(0, 241, 67, 0.15))",
+    },
+    border: {
+      active: "var(--button-typical-tertiary-inverse-border-active, #8FFF98)",
+      default:
+        "var(--button-typical-tertiary-inverse-border-default, rgba(0, 241, 67, 0.80))",
+      disabled:
+        "var(--button-typical-tertiary-inverse-border-disabled, rgba(255, 255, 255, 0.30))",
+      hover: "var(--button-typical-tertiary-inverse-border-hover, #46FB5E)",
+    },
+    label: {
+      active: "var(--button-typical-tertiary-inverse-label-active, #FFF)",
+      default:
+        "var(--button-typical-tertiary-inverse-label-default, rgba(255, 255, 255, 0.90))",
+      disabled:
+        "var(--button-typical-tertiary-inverse-label-disabled, rgba(255, 255, 255, 0.42))",
+      hover: "var(--button-typical-tertiary-inverse-label-hover, #FFF)",
+    },
+  },
+  subtle: {
+    background: {
+      active:
+        "var(--button-typical-subtle-inverse-bg-active, rgba(255, 255, 255, 0.15))",
+      default: "transparent",
+      disabled: "transparent",
+      hover:
+        "var(--button-typical-subtle-inverse-bg-hover, rgba(255, 255, 255, 0.10))",
+    },
+    border: {
+      active: "transparent",
+      default: "transparent",
+      disabled: "transparent",
+      hover: "transparent",
+    },
+    label: {
+      active: "var(--button-typical-subtle-inverse-label-active, #FFF)",
+      default:
+        "var(--button-typical-subtle-inverse-label-default, rgba(255, 255, 255, 0.90))",
+      disabled:
+        "var(--button-typical-subtle-inverse-label-disabled, rgba(255, 255, 255, 0.42))",
+      hover: "var(--button-typical-subtle-inverse-label-hover, #FFF)",
+    },
   },
 };
 
@@ -326,6 +436,47 @@ const getCSSForAIStyle = ({
   `}
 `;
 
+const getCSSForInverseStyle = ({
+  disabled,
+  size,
+  variantType,
+}: Pick<ButtonProps, "disabled" | "size" | "variantType">) => css`
+  background-color: ${inverseColourSettings[variantType]?.background.default};
+  border: ${variantType === "tertiary" ? "1px" : "2px"} solid
+    ${inverseColourSettings[variantType]?.border.default};
+  border-radius: ${propsForSize[size].borderRadius};
+  color: ${inverseColourSettings[variantType]?.label.default};
+  font-size: ${propsForSize[size].fontSize};
+  font-weight: ${propsForSize[size].fontWeight};
+  line-height: ${propsForSize[size].lineHeight};
+  min-height: ${propsForSize[size].height};
+  padding: ${propsForSize[size].paddingVertical}
+    ${propsForSize[size].paddingHorizontal};
+
+  ${disabled
+    ? css`
+        background-color: ${inverseColourSettings[variantType]?.background
+          .disabled};
+        border: ${variantType === "tertiary" ? "1px" : "2px"} solid
+          ${inverseColourSettings[variantType]?.border.disabled};
+        color: ${inverseColourSettings[variantType]?.label.disabled};
+        cursor: not-allowed;
+      `
+    : css`
+        &:active {
+          background-color: ${inverseColourSettings[variantType]?.background
+            .active};
+          color: ${inverseColourSettings[variantType]?.label.active};
+        }
+
+        &:hover {
+          background-color: ${inverseColourSettings[variantType]?.background
+            .hover};
+          color: ${inverseColourSettings[variantType]?.label.hover};
+        }
+      `}
+`;
+
 const getCSSForStyle = ({
   disabled,
   size,
@@ -400,7 +551,15 @@ export const StyledButton = styled.button<StyledButtonProps>`
   text-decoration: none;
   vertical-align: middle;
 
-  ${({ disabled, size, variant, variantType }) => {
+  ${({ disabled, inverse, size, variant, variantType }) => {
+    if (inverse) {
+      return getCSSForInverseStyle({
+        disabled,
+        size: size as Size,
+        variantType: variantType as VariantType,
+      });
+    }
+
     if (variant === "ai") {
       return getCSSForAIStyle({
         disabled,

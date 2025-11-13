@@ -200,6 +200,14 @@ export const Button = forwardRef<ButtonHandle, ButtonProps>(
           : "var(--button-ai-label-active, #000)";
       }
 
+      if (inverse) {
+        if (variantType === "primary") {
+          iconColour = "#000";
+        } else {
+          iconColour = disabled ? "rgba(255, 255, 255, 0.42)" : "#FFF";
+        }
+      }
+
       return <Icon type={iconType as IconType} color={iconColour} />;
     };
 

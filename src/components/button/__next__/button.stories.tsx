@@ -98,3 +98,12 @@ export const AllVariations: Story = (args: ButtonProps) => {
   );
 };
 AllVariations.storyName = "All Variations";
+
+export const Inverse: Story = (args: ButtonProps) => {
+  return (
+    <div style={{ backgroundColor: "#333", padding: "16px" }}>
+      <Button {...args} inverse />
+    </div>
+  );
+};
+Inverse.storyName = "Inverse";
