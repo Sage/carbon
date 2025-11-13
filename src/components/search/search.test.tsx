@@ -37,14 +37,28 @@ testStyledSystemMargin(
   () => screen.getByTestId("search"),
 );
 
-test("the search input has a default accessible name of `search`", () => {
+test("the search input has a default accessible name of `Search`", () => {
   render(<Search value="" onChange={jest.fn} />);
 
-  expect(screen.getByRole("textbox")).toHaveAccessibleName("search");
+  expect(screen.getByRole("textbox")).toHaveAccessibleName("Search");
+});
+
+test("the label prop passes a custom accessible name to the search input", () => {
+  render(<Search value="" onChange={jest.fn} label="baz" />);
+
+  expect(screen.getByRole("textbox")).toHaveAccessibleName("baz");
 });
 
 test("the `aria-label` prop passes a custom accessible name to the search input", () => {
   render(<Search value="" onChange={jest.fn} aria-label="foobar" />);
+
+  expect(screen.getByRole("textbox")).toHaveAccessibleName("foobar");
+});
+
+test("aria-label prop takes precedence over label prop for the search input accessible name", () => {
+  render(
+    <Search value="" onChange={jest.fn} aria-label="foobar" label="baz" />,
+  );
 
   expect(screen.getByRole("textbox")).toHaveAccessibleName("foobar");
 });
@@ -428,7 +442,6 @@ test("applies the correct width specified by the user", () => {
 
   expect(search).toHaveStyle({
     display: "inline-flex",
-    "font-weight": "500",
     width: "400px",
   });
   expect(search).toHaveStyleRule(

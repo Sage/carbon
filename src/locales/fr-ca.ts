@@ -180,6 +180,28 @@ const frCA: Partial<Locale> = {
     saveButtonAria: () => "Enregistrer",
     toolbarAriaLabel: () => "Mise en forme",
     unorderedListAria: () => "Liste non ordonnée",
+    underlineAria: () => "Underline",
+    hyperlink: {
+      buttonAria: () => "Hyperlink",
+      cancelButton: () => "Cancel",
+      cancelButtonAria: () => "Cancel",
+      dialogTitle: () => "Add link",
+      linkFieldLabel: () => "Link",
+      saveButton: () => "Save",
+      saveButtonAria: () => "Save",
+      textFieldLabel: () => "Text",
+    },
+    typography: {
+      selectAria: () => "Heading type",
+      paragraph: () => "Paragraph",
+      title: () => "Title",
+      subtitle: () => "Subtitle",
+      sectionHeader: () => "Section header",
+      sectionSubheader: () => "Section subheader",
+    },
+    mentions: {
+      listAriaLabel: () => "List of mentionable people",
+    },
   },
   search: {
     searchButtonText: () => "Chercher",

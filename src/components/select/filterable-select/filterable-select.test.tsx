@@ -7,9 +7,9 @@ import {
   Option,
   FilterableSelectProps,
   CustomSelectChangeEvent,
+  setupSelectMocks,
 } from "..";
 import guid from "../../../__internal__/utils/helpers/guid";
-import mockDOMRect from "../../../__spec_helper__/mock-dom-rect";
 
 const mockedGuid = "mocked-guid";
 jest.mock("../../../__internal__/utils/logger");
@@ -17,7 +17,7 @@ jest.mock("../../../__internal__/utils/helpers/guid");
 (guid as jest.MockedFunction<typeof guid>).mockReturnValue(mockedGuid);
 
 beforeAll(() => {
-  mockDOMRect(200, 200, "select-list-scrollable-container");
+  setupSelectMocks();
 });
 
 testStyledSystemMargin(

@@ -5,17 +5,10 @@ import userEvent from "@testing-library/user-event";
 import Pager from "./pager.component";
 import I18nProvider from "../i18n-provider";
 import { frFR } from "../../locales";
-import mockDOMRect from "../../__spec_helper__/mock-dom-rect";
-
-const { getBoundingClientRect } = Element.prototype;
+import { setupSelectMocks } from "../select";
 
 beforeAll(() => {
-  // need to mock getBoundingClientRect so that all options are rendered in the select list in js-dom
-  mockDOMRect(200, 200, "select-list-scrollable-container");
-});
-
-afterAll(() => {
-  Element.prototype.getBoundingClientRect = getBoundingClientRect;
+  setupSelectMocks();
 });
 
 test("the total records number is set to 0 by default", () => {

@@ -37,6 +37,16 @@ import Search from "carbon-react/lib/components/search";
 
 <Canvas of={SearchStories.Default} />
 
+
+### With Label and Hint Text
+
+You can pass a visible label and hint text to the `Search` component via the `label` & `inputHint` props. 
+
+When the `inputHint` prop is passed, please use a full stop `.` at the end. This forces a pause
+before any other announcements, this well help screen reader users understand the hint fully.
+
+<Canvas of={SearchStories.WithLabelAndInputHint} />
+
 ### With Search Button
 
 You can pass the `searchButton` prop to render a search button.
