@@ -111,3 +111,109 @@ FormExample.args = {
   orientation: "horizontal",
   size: "medium",
 };
+
+export const FocusAndHover: Story = {
+  render: () => (
+    <Box width="600px" height="60px">
+      <Tabs>
+        <TabList ariaLabel="Primary Tab Group">
+          <Tab
+            id="tab-1"
+            controls="tab-panel-1"
+            label="Default"
+            data-role="target"
+          />
+          <Tab
+            id="tab-2"
+            controls="tab-panel-2"
+            label="Info"
+            info
+            data-role="target"
+          />
+          <Tab
+            id="tab-3"
+            controls="tab-panel-3"
+            label="Warning"
+            warning
+            data-role="target"
+          />
+          <Tab
+            id="tab-4"
+            controls="tab-panel-4"
+            label="Error"
+            error
+            data-role="target"
+          />
+          <Tab
+            id="tab-5"
+            controls="tab-panel-5"
+            label="Default 2"
+            data-role="target"
+          />
+          <Tab
+            id="tab-6"
+            controls="tab-panel-6"
+            label="Default 3"
+            data-role="target"
+          />
+        </TabList>
+        <TabPanel id="tab-panel-1" tabId={"tab-1"}>
+          Content 1
+        </TabPanel>
+
+        <TabPanel id="tab-panel-2" tabId={"tab-2"}>
+          Content 2
+        </TabPanel>
+
+        <TabPanel id="tab-panel-3" tabId={"tab-3"}>
+          Content 3
+        </TabPanel>
+
+        <TabPanel id="tab-panel-4" tabId={"tab-4"}>
+          Content 4
+        </TabPanel>
+
+        <TabPanel id="tab-panel-5" tabId={"tab-5"}>
+          Content 5
+        </TabPanel>
+
+        <TabPanel id="tab-panel-6" tabId={"tab-6"}>
+          Content 6
+        </TabPanel>
+      </Tabs>
+      <br></br>
+      <Tabs>
+        <TabList ariaLabel="Error Tab Example">
+          <Tab id="tab-7" controls="tab-panel-7" label="Error" error />
+        </TabList>
+        <TabPanel id="tab-panel-7" tabId="tab-7">
+          Error Content
+        </TabPanel>
+      </Tabs>
+      <Tabs>
+        <TabList ariaLabel="Info Tab Example">
+          <Tab id="tab-8" controls="tab-panel-8" label="Info" info />
+        </TabList>
+        <TabPanel id="tab-panel-8" tabId="tab-8">
+          Info Content
+        </TabPanel>
+      </Tabs>
+      <Tabs>
+        <TabList ariaLabel="Warning Tab Example">
+          <Tab id="tab-9" controls="tab-panel-9" label="Warning" warning />
+        </TabList>
+        <TabPanel id="tab-panel-9" tabId="tab-9">
+          Warning Content
+        </TabPanel>
+      </Tabs>
+    </Box>
+  ),
+};
+FocusAndHover.storyName = "Focus and Hover";
+FocusAndHover.parameters = {
+  chromatic: { disableSnapshot: false },
+  pseudo: {
+    hover: '[role="tab"],[data-role="target"]',
+    focus: "#tab-1, #tab-7, #tab-8, #tab-9",
+  },
+};
