@@ -258,7 +258,7 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
           `}
         }
 
-        &:not(:has(img, svg, picture)):focus {
+        &:focus {
           color: ${focusColor};
 
           ${StyledIcon} {
@@ -291,23 +291,21 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
       !disabled &&
       hasFocus &&
       css`
-        &:not(:has(img, svg, picture)) {
-          > a,
-          > button {
-            outline: none;
-            text-decoration: underline;
-            border-bottom-left-radius: var(--borderRadius000);
-            border-bottom-right-radius: var(--borderRadius000);
-          }
-          max-width: fit-content;
-          box-shadow: 0 var(--spacing050) 0 0 ${focusBoxShadowColor};
-          border-bottom-left-radius: var(--borderRadius025);
-          border-bottom-right-radius: var(--borderRadius025);
+        > a,
+        > button {
+          outline: none;
+          text-decoration: underline;
+          border-bottom-left-radius: var(--borderRadius000);
+          border-bottom-right-radius: var(--borderRadius000);
+        }
+        max-width: fit-content;
+        box-shadow: 0 var(--spacing050) 0 0 ${focusBoxShadowColor};
+        border-bottom-left-radius: var(--borderRadius025);
+        border-bottom-right-radius: var(--borderRadius025);
 
-          &:has([data-popover-container-button="true"]) {
-            border-bottom-left-radius: var(--borderRadius000);
-            border-bottom-right-radius: var(--borderRadius000);
-          }
+        &:has([data-popover-container-button="true"]) {
+          border-bottom-left-radius: var(--borderRadius000);
+          border-bottom-right-radius: var(--borderRadius000);
         }
       `}
 
