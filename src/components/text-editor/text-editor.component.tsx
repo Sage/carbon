@@ -14,15 +14,13 @@ import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import { $getRoot, EditorState, LexicalEditor } from "lexical";
 import React, {
   useCallback,
-  useEffect,
   useImperativeHandle,
   useMemo,
   useRef,
   useState,
   forwardRef,
+  useEffect,
 } from "react";
-import { MarginProps } from "styled-system";
-import { SerializeLexical, validateUrl } from "./__internal__/helpers";
 
 import Label from "../../__internal__/label";
 import useLocale from "../../hooks/__internal__/useLocale";
@@ -30,17 +28,12 @@ import Logger from "../../__internal__/utils/logger";
 
 import {
   COMPONENT_PREFIX,
-  markdownNodes,
-  theme,
-} from "./__internal__/constants";
+  MARKDOWN_NODES,
+} from "./__internal__/__utils__/constants";
 import {
   AutoLinkerPlugin,
-  CharacterCounterPlugin,
-  ContentEditor,
   LinkMonitorPlugin,
-  Placeholder,
-  ToolbarPlugin,
-} from "./__internal__/plugins";
+} from "./__internal__/__plugins__";
 import TextEditorContext from "./text-editor.context";
 import StyledTextEditor, {
   StyledEditorToolbarWrapper,
@@ -49,77 +42,33 @@ import StyledTextEditor, {
   StyledTextEditorWrapper,
   StyledWrapper,
 } from "./text-editor.style";
-import { EditorFormattedValues as SaveCallbackProps } from "./__internal__/plugins/Toolbar/buttons/save.component";
-import { createEmpty } from "./utils";
+import {
+  createEmpty,
+  SerializeLexical,
+  validateUrl,
+} from "./__internal__/__utils__/helpers";
 import HintText from "../../__internal__/hint-text";
 import ValidationMessage from "../../__internal__/validation-message";
 import ErrorBorder from "../textbox/textbox.style";
 import { filterStyledSystemMarginProps } from "../../style/utils";
-import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
-
-export interface TextEditorHandle {
-  /** Programmatically focus on the text editor. */
-  focus: () => void;
-}
-
-export type EditorFormattedValues = SaveCallbackProps;
-
-export interface TextEditorProps extends MarginProps, TagProps {
-  /** The maximum number of characters allowed in the editor */
-  characterLimit?: number;
-  /** The message to be shown when the editor is in an error state */
-  error?: string;
-  /** Custom footer content to be displayed below the editor */
-  footer?: React.ReactNode;
-  /** Custom header content to be displayed above the editor */
-  header?: React.ReactNode;
-  /** A hint string rendered before the editor but after the label. Intended to describe the purpose or content of the input. */
-  inputHint?: string;
-  /** The label to display above the editor */
-  labelText: string;
-  /** The identifier for the Text Editor. This allows for the using of multiple Text Editors on a screen */
-  namespace?: string;
-  /** Callback that is triggered when the editor loses focus. */
-  onBlur?: (ev: React.FocusEvent<HTMLElement>) => void;
-  /** Callback that is triggered when the editor's cancel button is activated. The cancel button is rendered when this function is provided.  */
-  onCancel?: () => void;
-  /** Callback that is triggered when the editor's text content is modified or styled. */
-  onChange?: (value: string, formattedValues: EditorFormattedValues) => void;
-  /** Callback that is triggered when the editor gains focus. */
-  onFocus?: (ev: React.FocusEvent<HTMLElement>) => void;
-  /** Callback that is triggered when a link is added in the editor's content. */
-  onLinkAdded?: (link: string, state: string) => void;
-  /** Callback that is triggered when the editor's save button is activated. The save button is rendered when this function is provided. */
-  onSave?: (value: SaveCallbackProps) => void;
-  /** The placeholder to display when the editor is empty */
-  placeholder?: string;
-  /** An array of link preview nodes to render in the editor */
-  previews?: React.JSX.Element[];
-  /** Whether the editor is read-only */
-  readOnly?: boolean;
-  /** Whether the content of the editor is required to have a value */
-  required?: boolean;
-  /** Number greater than 2 multiplied to override the default min-height of the editor */
-  rows?: number;
-  /** The message to be shown when the editor is in an warning state */
-  warning?: string;
-  /**
-   * Alias of `initialValue` prop.
-   * @deprecated Please use `initialValue` instead.
-   */
-  value?: string | undefined;
-  /** The initial value of the editor, as a HTML string, or JSON */
-  initialValue?: string | undefined;
-  /**
-   * Allows the injection of one or more Lexical-compatible React components into the editor to extend its functionality.
-   * This prop is optional and supports a single plugin, multiple plugins (via fragments or arrays), or `null`.
-   */
-  customPlugins?: React.ReactNode;
-  /** Render the ValidationMessage above the TextEditor */
-  validationMessagePositionTop?: boolean;
-}
+import tagComponent from "../../__internal__/utils/helpers/tags";
+import ReadOnlyEditor from "./__internal__/__ui__/ReadOnlyEditor/read-only-rte.component";
+import {
+  TextEditorHandle,
+  TextEditorProps,
+} from "./__internal__/__utils__/interfaces.types";
+import { getTheme } from "./__internal__/__utils__/theme";
+import {
+  CharacterCounterPlugin,
+  ContentEditor,
+  Placeholder,
+  ToolbarPlugin,
+} from "./__internal__/__ui__";
+import StyledSpanEnterPlugin from "./__internal__/__plugins__/StyledSpanEnter/styled-span-enter.plugin";
 
 let deprecateValueTriggered = false;
+let deprecateOnCancelWarnTriggered = false;
+let deprecateOnSaveWarnTriggered = false;
 
 export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
   (
@@ -142,9 +91,11 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
       readOnly = false,
       required = false,
       rows,
+      size = "medium",
       warning,
       customPlugins,
-      validationMessagePositionTop = true,
+      validationMessagePositionTop = false,
+      toolbarControls,
       ...rest
     },
     ref,
@@ -153,6 +104,18 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
       deprecateValueTriggered = true;
       Logger.deprecate(
         "`value` is deprecated in TextEditor and support will soon be removed. Please use `initialValue` instead.",
+      );
+    }
+    if (!deprecateOnCancelWarnTriggered && onCancel) {
+      deprecateOnCancelWarnTriggered = true;
+      Logger.deprecate(
+        "`onCancel` is deprecated in TextEditor and support will soon be removed. Please ensure that `TextEditor` is used as a part of a `Form` component, which will handle the cancel functionality.",
+      );
+    }
+    if (!deprecateOnSaveWarnTriggered && onSave) {
+      deprecateOnSaveWarnTriggered = true;
+      Logger.deprecate(
+        "`onSave` is deprecated in TextEditor and support will soon be removed. Please ensure that `TextEditor` is used as a part of a `Form` component, which will handle the save functionality.",
       );
     }
 
@@ -200,9 +163,9 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
     const initialConfig = useMemo<InitialConfigType>(() => {
       return {
         namespace,
-        nodes: markdownNodes,
+        nodes: MARKDOWN_NODES,
         onError: /* istanbul ignore next */ (e) => Logger.error(e.message),
-        theme,
+        theme: getTheme(),
         editorState: initialValue.current,
         editable: !readOnly,
       };
@@ -262,16 +225,29 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
         namespace,
         onCancel: onCancel ? handleCancel : undefined,
         onSave,
+        toolbarControls,
       }),
-      [handleCancel, namespace, onCancel, onSave],
+      [handleCancel, namespace, onCancel, onSave, toolbarControls],
     );
 
     const warningMessage = warning || characterLimitWarning;
+
+    const getMarginsForSize = () => {
+      switch (size) {
+        case "large":
+          return "var(--spacing150)";
+        case "small":
+          return "var(--spacing050)";
+        default:
+          return "var(--spacing100)";
+      }
+    };
 
     return (
       <StyledTextEditorWrapper
         data-role={`${namespace}-editor-wrapper`}
         onBlur={(ev) => {
+          /* istanbul ignore next */
           if (!ev.currentTarget.contains(ev.relatedTarget)) {
             onBlur?.(ev);
           }
@@ -289,10 +265,10 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
             {labelText}
           </Label>
 
-          {inputHint && (
+          {inputHint && !readOnly && (
             <HintText
               id={`${namespace}-input-hint`}
-              marginBottom="var(--spacing100)"
+              marginBottom={getMarginsForSize()}
             >
               {inputHint}
             </HintText>
@@ -315,9 +291,8 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
               )}
               <StyledEditorToolbarWrapper
                 data-role={`${namespace}-editor-toolbar-wrapper`}
-                id={`${namespace}-editor-toolbar-wrapper`}
-                focused={isFocused}
                 error={!!error}
+                id={`${namespace}-editor-toolbar-wrapper`}
               >
                 {header && (
                   <StyledHeaderWrapper
@@ -326,51 +301,74 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
                     {header}
                   </StyledHeaderWrapper>
                 )}
-                {!readOnly && (
-                  <ToolbarPlugin
-                    hasHeader={Boolean(header)}
-                    {...toolbarProps}
+                {readOnly ? (
+                  <ReadOnlyEditor
+                    initialValue={
+                      contentEditorRef.current?.innerHTML ||
+                      initialValue.current
+                    }
+                    size={size}
                   />
-                )}
-                <StyledTextEditor data-role={`${namespace}-editor`}>
-                  <RichTextPlugin
-                    contentEditable={
-                      <ContentEditor
-                        ref={contentEditorRef}
-                        inputHint={inputHint}
-                        namespace={namespace}
-                        previews={previews}
-                        rows={rows}
-                        readOnly={readOnly}
-                        required={required}
-                        error={!!error}
-                        warning={!!warning || !!characterLimitWarning}
-                        validationMessagePositionTop={
-                          validationMessagePositionTop
+                ) : (
+                  <>
+                    <ToolbarPlugin
+                      contentEditorRef={contentEditorRef}
+                      hasHeader={Boolean(header)}
+                      size={size}
+                      {...toolbarProps}
+                    />
+
+                    <StyledTextEditor
+                      data-role={`${namespace}-editor`}
+                      error={!!error}
+                    >
+                      <RichTextPlugin
+                        contentEditable={
+                          <ContentEditor
+                            ref={contentEditorRef}
+                            inputHint={inputHint}
+                            isFocused={isFocused}
+                            namespace={namespace}
+                            previews={previews}
+                            rows={rows}
+                            readOnly={readOnly}
+                            required={required}
+                            error={!!error}
+                            warning={!!warning || !!characterLimitWarning}
+                            validationMessagePositionTop={
+                              validationMessagePositionTop
+                            }
+                            size={size}
+                          />
                         }
+                        placeholder={
+                          <Placeholder
+                            namespace={namespace}
+                            text={placeholder}
+                          />
+                        }
+                        ErrorBoundary={LexicalErrorBoundary}
                       />
-                    }
-                    placeholder={
-                      <Placeholder namespace={namespace} text={placeholder} />
-                    }
-                    ErrorBoundary={LexicalErrorBoundary}
-                  />
-                  <ListPlugin />
-                  <HistoryPlugin />
-                  <MarkdownShortcutPlugin />
-                  <OnChangePlugin
-                    onChange={handleChange}
-                    ignoreHistoryMergeTagChange
-                    ignoreSelectionChange
-                  />
-                  <LinkPlugin validateUrl={validateUrl} />
-                  <ClickableLinkPlugin newTab />
-                  <AutoLinkerPlugin />
-                  {customPlugins}
-                </StyledTextEditor>
+                      <ListPlugin />
+                      <HistoryPlugin />
+                      <MarkdownShortcutPlugin />
+                      <OnChangePlugin
+                        onChange={handleChange}
+                        ignoreHistoryMergeTagChange
+                        ignoreSelectionChange
+                      />
+                      <LinkPlugin validateUrl={validateUrl} />
+                      <ClickableLinkPlugin newTab />
+                      <AutoLinkerPlugin />
+                      <StyledSpanEnterPlugin />
+                      {customPlugins}
+                    </StyledTextEditor>
+                  </>
+                )}
                 {footer && (
                   <StyledFooterWrapper
                     data-role={`${namespace}-footer-wrapper`}
+                    size={size}
                   >
                     {footer}
                   </StyledFooterWrapper>
@@ -394,8 +392,10 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
 
               {characterLimit > 0 && !readOnly && (
                 <CharacterCounterPlugin
+                  isFocused={isFocused}
                   maxChars={characterLimit}
                   namespace={namespace}
+                  marginTop={getMarginsForSize()}
                 />
               )}
             </StyledWrapper>

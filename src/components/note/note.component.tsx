@@ -12,7 +12,7 @@ import {
 } from "./note.style";
 import StatusIcon from "./__internal__/status-icon";
 import { ActionPopover } from "../action-popover";
-import ReadOnlyEditor from "../text-editor/__internal__";
+import ReadOnlyEditor from "../text-editor/__internal__/__ui__/ReadOnlyEditor/read-only-rte.component";
 import TextEditorContext from "../text-editor/text-editor.context";
 import LinkPreview, { LinkPreviewProps } from "../link-preview";
 import Typography from "../typography";
@@ -103,7 +103,10 @@ export const Note = ({
               ) : (
                 <StyledTitleWrapper>{title}</StyledTitleWrapper>
               ))}
-            <ReadOnlyEditor initialValue={noteContent} />
+            <ReadOnlyEditor
+              initialValue={noteContent}
+              useBackgroundColor={false}
+            />
           </StyledNoteContent>
           {inlineControl && (
             <StyledInlineControl>{inlineControl}</StyledInlineControl>
