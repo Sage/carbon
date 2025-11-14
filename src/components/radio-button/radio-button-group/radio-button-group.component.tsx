@@ -13,6 +13,9 @@ import { ValidationProps } from "../../../__internal__/validations";
 import NewValidationContext from "../../carbon-provider/__internal__/new-validation.context";
 import guid from "../../../__internal__/utils/helpers/guid";
 
+/**
+ * @deprecated This version of `RadioButtonGroup` is deprecated. See the Carbon documentation for more details.
+ */
 export interface RadioButtonGroupProps
   extends ValidationProps,
     MarginProps,
