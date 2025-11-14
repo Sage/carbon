@@ -10,8 +10,9 @@ import { MarginProps } from "styled-system";
 import invariant from "invariant";
 
 import { ValidationProps } from "../validations";
-import FormFieldStyle, { FieldLineStyle } from "./form-field.style";
+import FormFieldStyle, { FieldLineStyle, LabelField } from "./form-field.style";
 import Label, { LabelProps } from "../label";
+import HintText from "../../__internal__/hint-text";
 import FieldHelp from "../field-help";
 import tagComponent, { TagProps } from "../utils/helpers/tags/tags";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
@@ -40,6 +41,10 @@ interface CommonFormFieldProps extends MarginProps, ValidationProps {
   fieldHelpId?: string;
   /** Label content */
   label?: React.ReactNode;
+  /** A hint string rendered before the input but after the label. Intended to describe the purpose or content of the input. */
+  inputHint?: string;
+  /** The unique identifier for the hint element. Useful for accessibility (e.g., connecting via aria-describedby). */
+  inputHintId?: string;
   /** Text alignment of the label */
   labelAlign?: "left" | "right";
   /** A message that the Help component will display */
@@ -86,6 +91,7 @@ export interface FormFieldProps extends CommonFormFieldProps, TagProps {
   maxWidth?: string;
   /** @private @internal @ignore */
   "data-component"?: string;
+  size?: "small" | "medium" | "large";
 }
 
 const FormField = ({
@@ -102,6 +108,8 @@ const FormField = ({
   tooltipId,
   fieldHelpId,
   label,
+  inputHint,
+  inputHintId,
   labelId,
   labelAlign,
   labelHelp,
@@ -117,6 +125,7 @@ const FormField = ({
   isRequired,
   validationIconId,
   validationRedesignOptIn,
+  size,
   ...rest
 }: FormFieldProps) => {
   const invalidValidationProp: string | undefined = useMemo(() => {
@@ -204,39 +213,56 @@ const FormField = ({
     </FieldHelp>
   ) : null;
 
+  const computedLabelWidth = labelWidth;
+
+  const labelProps = {
+    labelId,
+    align: labelAlign,
+    disabled,
+    error: !validationRedesignOptIn && error,
+    warning: !validationRedesignOptIn && warning,
+    info: !validationRedesignOptIn && info,
+    help: labelHelp,
+    tooltipId,
+    htmlFor: id,
+    helpIcon: labelHelpIcon,
+    inline: inlineLabel,
+    width: computedLabelWidth,
+    useValidationIcon,
+    pr: !reverse && !inlineLabel ? labelSpacing : undefined,
+    pl: reverse && !inlineLabel ? labelSpacing : undefined,
+    isRequired,
+    validationIconId,
+    as: labelAs,
+  };
+
   return (
     <FormFieldStyle {...tagComponent(dataComponent, rest)} {...marginProps}>
       <FieldLineStyle
         data-role="field-line"
         inline={inlineLabel}
         maxWidth={maxWidth}
+        labelInline={labelInline}
+        size={size}
       >
         {reverse && children}
 
-        {label && (
-          <Label
-            labelId={labelId}
-            align={labelAlign}
-            disabled={disabled}
-            error={!validationRedesignOptIn && error}
-            warning={!validationRedesignOptIn && warning}
-            info={!validationRedesignOptIn && info}
-            help={labelHelp}
-            tooltipId={tooltipId}
-            htmlFor={id}
-            helpIcon={labelHelpIcon}
-            inline={inlineLabel}
-            width={labelWidth}
-            useValidationIcon={useValidationIcon}
-            pr={!reverse ? labelSpacing : undefined}
-            pl={reverse ? labelSpacing : undefined}
-            isRequired={isRequired}
-            validationIconId={validationIconId}
-            as={labelAs}
-          >
-            {label}
-          </Label>
-        )}
+        <LabelField
+          labelInline={labelInline}
+          width={computedLabelWidth}
+          isLarge={size === "large"}
+        >
+          <Label {...labelProps}>{label}</Label>
+          {inputHint && (
+            <HintText
+              marginBottom="0"
+              data-element="input-hint"
+              id={inputHintId}
+            >
+              {inputHint}
+            </HintText>
+          )}
+        </LabelField>
 
         {fieldHelpInline && fieldHelp}
 

@@ -1,5 +1,6 @@
 import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
+import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component"
 
 import * as TextboxStories from "./textbox.stories";
 
@@ -17,6 +18,12 @@ import * as TextboxStories from "./textbox.stories";
 </a>
 
 Captures a single line of text.
+
+<DeprecationWarning>
+This version of `Textbox` is deprecated and has been replaced by a new version named `TextInput` located in the `__next__` directory.
+
+Please see the <a style={{color: "white"}} href="../?path=/docs/text-input--docs">new documentation page</a> for more information.
+</DeprecationWarning>
 
 ## Contents
 

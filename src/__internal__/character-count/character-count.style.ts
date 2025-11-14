@@ -11,6 +11,7 @@ const StyledCharacterCount = styled.div.attrs(applyBaseTheme)<{
 }>`
   text-align: left;
   font-size: var(--fontSizes100);
+  line-height: 150%;
   margin-top: var(--spacing050);
   margin-bottom: var(--spacing050);
   color: ${({ isOverLimit }) =>

@@ -18,6 +18,7 @@ const StyledValidationMessage = styled.p<StyledValidationMessageProps>`
       ? "var(--colorsSemanticNegative450)"
       : "var(--colorsSemanticNegative500)";
     return css`
+      line-height: 150%;
       color: ${isWarning ? "var(--tempColorsSemanticCaution600)" : darkBgColour};
       font-weight: ${isWarning ? "normal" : "500"};
       font-size: ${isLarge ? "var(--fontSizes200)" : "var(--fontSizes100)"};
