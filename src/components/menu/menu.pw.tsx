@@ -695,7 +695,7 @@ test.describe("Prop tests for Menu component", () => {
     ] as [MenuProps["flexGrow"], string][]
   ).forEach(([value, growText]) => {
     test(`should render with flexGrow as ${value}`, async ({ mount, page }) => {
-      await mount(<MenuComponent flex="auto" flexGrow={value} />);
+      await mount(<MenuComponent flexGrow={value} />);
 
       const thisMenu = menu(page).first();
       await expect(thisMenu).toHaveCSS("flex-grow", growText);
@@ -713,7 +713,7 @@ test.describe("Prop tests for Menu component", () => {
       mount,
       page,
     }) => {
-      await mount(<MenuComponent flex="auto" flexShrink={value} />);
+      await mount(<MenuComponent flexShrink={value} />);
 
       const thisMenu = menu(page).first();
       await expect(thisMenu).toHaveCSS("flex-shrink", shrinkText);

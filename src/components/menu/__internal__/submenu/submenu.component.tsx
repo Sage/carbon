@@ -6,7 +6,8 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { MaxWidthProps } from "styled-system";
+// import { MaxWidthProps } from "styled-system";
+import { MaxWidthProps } from "../../../dips-box/utils/spacing-types";
 
 import StyledMenuItemWrapper from "../../menu-item/menu-item.style";
 import { StyledSubmenu, StyledSubmenuWrapper } from "./submenu.style";
