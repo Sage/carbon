@@ -4,6 +4,9 @@ import { ICONS } from "../icon/icon-config";
 import { LINK_ALIGNMENTS, LINK_POSITIONS, LINK_VARIANTS } from "./link.config";
 import Link, { LinkProps } from "./link.component";
 import Box from "../box";
+import GlobalHeader from "../global-header";
+
+import carbonLogo from "../../../logo/carbon-logo.png";
 
 export default {
   title: "Link/Test",
@@ -11,6 +14,7 @@ export default {
     "DefaultStory",
     "FlexContainer",
     "HoverUnderlineAndWhiteVariant",
+    "LinkComponentWithAnImage",
   ],
   parameters: {
     info: { disable: true },
@@ -164,5 +168,23 @@ export const LinkComponent = (props: LinkProps) => {
         This is a link
       </Link>
     </div>
+  );
+};
+
+export const LinkComponentWithAnImage = () => {
+  const Logo = () => <img src={carbonLogo} alt="Logo" height={25} />;
+  return (
+    <GlobalHeader>
+      <Box display="flex" alignItems="center" mr={2}>
+        <Link
+          href="#"
+          onClick={() => {
+            alert("clicked");
+          }}
+        >
+          <Logo />
+        </Link>
+      </Box>
+    </GlobalHeader>
   );
 };

@@ -1,12 +1,13 @@
 import styled, { css } from "styled-components";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
+import addFocusStyling from "../../style/utils/add-focus-styling";
 import StyledIcon from "../icon/icon.style";
 import StyledButton from "../button/button.style";
 
 /** @deprecated The value 'default' for the variant prop is deprecated and will soon be removed. Please use value 'typical' instead. */
 type DeprecatedDefaultVariant = "default";
 
-/** @deprecated The value 'netural' for the variant prop is deprecated and will soon be removed. Please use value 'subtle' instead. */
+/** @deprecated The value 'neutral' for the variant prop is deprecated and will soon be removed. Please use value 'subtle' instead. */
 type DeprecatedNeutralVariant = "neutral";
 
 type Variants =
@@ -15,6 +16,7 @@ type Variants =
   | "subtle"
   | DeprecatedDefaultVariant
   | DeprecatedNeutralVariant;
+
 export interface StyledLinkProps {
   /** @deprecated The disabled state of the link. This prop is deprecated and will soon be removed. */
   disabled?: boolean;
@@ -34,6 +36,7 @@ export interface StyledLinkProps {
   /** @deprecated The 'isDarkBackground' prop in Link is deprecated and will soon be removed. Please use 'inverse' prop instead. */
   isDarkBackground?: boolean;
 }
+
 interface PrivateStyledLinkProps {
   hasContent: boolean;
   isMenuItem?: boolean;
@@ -132,7 +135,7 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
       focusBoxShadowColor,
     } = colorMap[colorMapKey](variant);
     const fontSize =
-      linkSize === "medium" ? "var(---fontSizes100)" : "var(--fontSizes200)";
+      linkSize === "medium" ? "var(--fontSizes100)" : "var(--fontSizes200)";
 
     return css`
       ${isSkipLink &&
@@ -198,7 +201,7 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
               }
             }
 
-            &:focus {
+            &:not(:has(img, svg, picture)):focus {
               background-color: ${focusBgColor};
               border-radius: var(--borderRadius025);
             }
@@ -257,12 +260,26 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
 
         &:focus {
           color: ${focusColor};
-          outline: none;
 
           ${StyledIcon} {
             color: ${focusColor};
           }
+
+          outline: none;
         }
+
+        ${!disabled &&
+        css`
+          &:has(img, svg, picture) {
+            display: inline-block;
+          }
+
+          &:has(img, svg, picture):focus {
+            ${addFocusStyling()}
+            border-radius: var(--borderRadius025);
+            outline: default;
+          }
+        `}
 
         ${disabled &&
         css`
@@ -289,6 +306,17 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
         &:has([data-popover-container-button="true"]) {
           border-bottom-left-radius: var(--borderRadius000);
           border-bottom-right-radius: var(--borderRadius000);
+        }
+      `}
+
+      ${!disabled &&
+      hasFocus &&
+      css`
+        &:has(img, svg, picture) {
+          > a,
+          > button {
+            ${addFocusStyling()}
+          }
         }
       `}
 
