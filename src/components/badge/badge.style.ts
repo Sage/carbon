@@ -5,41 +5,39 @@ import Button from "../button";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 import { toColor } from "../../style/utils/color";
 
-// size of badge + 2px border
 const getSize = (size?: string) => {
   switch (size) {
     case "small":
       return css`
-        width: 12px;
-        height: 12px;
+        width: var(--global-size4xs, 8px);
+        height: var(--global-size4xs, 8px);
       `;
     case "large":
       return css`
-        min-width: 28px;
-        height: 28px;
-        padding: 0px 4px 1px;
+        min-width: var(--global-size2xs, 20px);
+        height: var(--global-size-xs, 24px);
+        padding: 0 var(--global-space-comp2xs, 2px);
       `;
     // medium
     default:
       return css`
-        min-width: 24px;
-        height: 24px;
-        padding: 0px 2px 1px;
+        min-width: var(--global-size3xs, 16px);
+        height: var(--global-size2xs, 20px);
+        padding: 0 var(--global-space-comp2xs, 2px);
       `;
   }
 };
 
-// TODO: replace with design tokens
 const getVariantColor = (variant?: string, inverse?: boolean) => {
   switch (variant) {
     case "subtle":
       return `
-        ${inverse ? "#007ED9" : "#0060A7"};
+        ${inverse ? "var(--badge-inverse-bg-alt, #007FD9)" : "var(--badge-bg-alt, #0071C3)"};
       `;
     // typical
     default:
       return `
-        ${inverse ? "#E13E53" : "#CD384B"};
+        ${inverse ? "var(--badge-inverse-bg-default, #F50059)" : "var(--badge-bg-default, #DB004E)"};
       `;
   }
 };
@@ -53,14 +51,14 @@ const getPosition = (size?: string) => {
       `;
     case "large":
       return css`
-        top: -14px;
+        top: -12px;
         right: -8px;
       `;
     // medium
     default:
       return css`
-        top: -12px;
-        right: -8px;
+        top: -10px;
+        right: -6px;
       `;
   }
 };
@@ -89,13 +87,13 @@ const StyledBadge = styled.span.attrs(applyBaseTheme).attrs(({ onClick }) => ({
   as: onClick ? Button : undefined,
 }))<StyledBadgeProps>`
   ${margin}
-  box-sizing: border-box;
+  box-sizing: content-box;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  border-radius: 999px;
-  border: solid 2px;
+  border-radius: var(--global-radius-container-circle, 999px);
+  border: solid var(--global-borderwidth-s, 2px);
 
   ${({
     size,
@@ -110,11 +108,11 @@ const StyledBadge = styled.span.attrs(applyBaseTheme).attrs(({ onClick }) => ({
     background-color: ${getVariantColor(variant, inverse)};
 
     border-color: ${inverse
-      ? "var(--colorsUtilityYin100)"
-      : "var(--colorsUtilityYang100)"};
+      ? "var(--badge-inverse-border-default, #000)"
+      : "var(--badge-border-default, #FFF)"};
     color: ${inverse
-      ? "var(--colorsUtilityYin100)"
-      : "var(--colorsUtilityYang100)"};
+      ? "var(--badge-inverse-label-default, #000)"
+      : "var(--badge-label-default, #FFF)"};
 
     ${hasChildren &&
     css`
@@ -135,15 +133,15 @@ const StyledBadge = styled.span.attrs(applyBaseTheme).attrs(({ onClick }) => ({
         ${StyledIcon} {
           margin: 0;
           color: ${inverse
-            ? "var(--colorsUtilityYin100)"
-            : "var(--colorsUtilityYang100)"};
+            ? "var(--badge-inverse-label-default, #000)"
+            : "var(--badge-label-default, #FFF)"};
         }
       }
     `}
 
     ${customColor &&
     css`
-      background-color: var(--colorsUtilityYang100);
+      background-color: var(--badge-border-default, #fff);
       border-color: ${toColor(theme, customColor)};
       color: ${toColor(theme, customColor)};
 

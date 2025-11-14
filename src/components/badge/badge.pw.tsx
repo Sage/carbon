@@ -69,11 +69,8 @@ test.describe("should render Badge component", () => {
     await badgeElement.hover();
     await expect(crossIcon).toBeVisible();
     await expect(crossIcon).toHaveCSS("color", "rgb(255, 255, 255)");
-    await expect(badgeElement).toHaveCSS("border-color", "rgb(205, 56, 75)");
-    await expect(badgeElement).toHaveCSS(
-      "background-color",
-      "rgb(205, 56, 75)",
-    );
+    await expect(badgeElement).toHaveCSS("border-color", "rgb(219, 0, 78)");
+    await expect(badgeElement).toHaveCSS("background-color", "rgb(219, 0, 78)");
     await expect(badgeElement).toHaveCSS("cursor", "pointer");
   });
 
@@ -89,11 +86,8 @@ test.describe("should render Badge component", () => {
     await badgeElement.click();
     await expect(crossIcon).toBeVisible();
     await expect(crossIcon).toHaveCSS("color", "rgb(255, 255, 255)");
-    await expect(badgeElement).toHaveCSS("border-color", "rgb(205, 56, 75)");
-    await expect(badgeElement).toHaveCSS(
-      "background-color",
-      "rgb(205, 56, 75)",
-    );
+    await expect(badgeElement).toHaveCSS("border-color", "rgb(219, 0, 78)");
+    await expect(badgeElement).toHaveCSS("background-color", "rgb(219, 0, 78)");
     await expect(badgeElement).toHaveCSS("cursor", "pointer");
   });
 

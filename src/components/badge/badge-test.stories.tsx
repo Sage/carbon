@@ -8,7 +8,7 @@ import SplitButton from "../split-button";
 import { Menu, MenuItem } from "../menu";
 import Icon from "../icon";
 import Portrait from "../portrait";
-import { Tabs, Tab } from "../tabs/";
+import { Tabs, TabList, Tab, TabPanel } from "../tabs/__next__";
 import Typography from "../typography";
 
 const meta: Meta<typeof Badge> = {
@@ -137,20 +137,26 @@ InMenu.parameters = {
 export const InTabs = ({ ...args }) => {
   return (
     <Tabs>
-      <Tab
-        tabId="tab-1"
-        title="Tab 1"
-        siblings={<Badge mb="2px" counter={55} {...args} />}
-      >
-        Content
-      </Tab>
-      <Tab
-        tabId="tab-2"
-        title="Tab 2"
-        siblings={<Badge mb="2px" counter={555} {...args} />}
-      >
-        Content
-      </Tab>
+      <TabList ariaLabel="Tabs with Badge">
+        <Tab
+          controls="tab-panel-1"
+          id="tab-1"
+          label="Tab 1"
+          rightSlot={<Badge counter={55} size="large" {...args} />}
+        />
+        <Tab
+          controls="tab-panel-2"
+          id="tab-2"
+          label="Tab 2"
+          rightSlot={<Badge counter={555} size="large" {...args} />}
+        />
+      </TabList>
+      <TabPanel id="tab-panel-1" tabId="tab-1">
+        <Typography>Content 1</Typography>
+      </TabPanel>
+      <TabPanel id="tab-panel-2" tabId="tab-2">
+        <Typography>Content 2</Typography>
+      </TabPanel>
     </Tabs>
   );
 };
