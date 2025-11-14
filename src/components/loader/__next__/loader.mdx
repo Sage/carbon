@@ -1,0 +1,140 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+import TranslationKeysTable from "../../../../.storybook/utils/translation-keys-table";
+
+import * as LoaderStories from "./loader.stories";
+
+<Meta of={LoaderStories} />
+
+# Loader
+Use the `Loader` component to clearly indicate that a task or data is still loading, helping users understand they should wait rather than refresh the page or abandon the process. The `Loader` component offers three loading types: `standalone` (with `typical` and `ai` variants), `ring` (with `inline` or `stacked` variants) and `star` for clear visual feedback.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+- [Translation keys](#translation-keys)
+
+## Quick Start
+
+Import `Loader` into the project.
+
+```javascript
+import Loader from "carbon-react/lib/components/loader/__next__";
+```
+
+## Examples
+
+### Loader Types
+
+The `Loader` component offers three loading types: `standalone` (default), `ring` and `star`.
+
+#### Standalone
+
+<Canvas of={LoaderStories.Standalone} />
+
+#### Ring
+
+<Canvas of={LoaderStories.Ring} />
+
+#### Star
+
+<Canvas of={LoaderStories.Star} />
+
+### Loader Variants
+
+#### Standalone variants
+
+The `standalone` loader type comes with two variants: `typical` (default) and `ai`.
+
+#### Typical
+
+<Canvas of={LoaderStories.StandaloneTypicalVariant} />
+
+#### A.I.
+
+<Canvas of={LoaderStories.StandaloneAiVariant} />
+
+#### Ring variants
+
+The `ring` loader type comes with two variants: `stacked` (default) and `inline`.
+
+#### Stacked
+
+<Canvas of={LoaderStories.RingStackedVariant} />
+
+#### Inline
+
+<Canvas of={LoaderStories.RingInlineVariant} />
+
+### Loader Sizes
+
+The `Loader` component offers size flexibility based on the selected loader type: the Standalone loader supports three sizes—Small, Medium, and Large—while the Ring loader provides four options—Extra Small, Small, Medium, and Large. The Star loader type has a single default size, ensuring a consistent appearance across use cases.
+
+#### Standalone loader sizes
+<Canvas of={LoaderStories.StandaloneSizes} />
+
+#### Ring loader sizes
+
+<Canvas of={LoaderStories.RingSizes} />
+
+### Inverse
+
+You can use the `inverse` prop to render the Loader's standalone and ring types with the inverse color scheme.
+
+#### Standalone typical inversed
+
+<Canvas of={LoaderStories.StandaloneTypicalVariantInversed} />
+
+#### Standalone AI inversed
+
+<Canvas of={LoaderStories.StandaloneAiVariantInversed} />
+
+#### Ring stacked inversed
+
+<Canvas of={LoaderStories.RingStackedVariantInversed} />
+
+#### Ring inline inversed
+
+<Canvas of={LoaderStories.RingInlineVariantInversed} />
+
+### Is Tracked
+
+When the `isTracked` prop is set to `true`, the ring will become tracked, for specific use cases where wait/loading times are predictable.
+
+<Canvas of={LoaderStories.RingIsTracked} />
+
+#### Success State
+
+When the loader is tracked the prop `isSuccess` can be passed to display the success state
+
+<Canvas of={LoaderStories.SuccessState} />
+
+#### Error State
+
+When the loader is tracked the prop `isError` can be passed to display the error state
+
+<Canvas of={LoaderStories.ErrorState} />
+
+### Animation time
+
+The `animationTime` prop can also be set to any number, which will extend the animation time to that number in seconds.
+
+<Canvas of={LoaderStories.AnimationTime} />
+
+## Props
+
+<ArgTypes of={LoaderStories} />
+
+## Translation keys
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "loader.loading",
+      description: "The text which specifies the loading state",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>

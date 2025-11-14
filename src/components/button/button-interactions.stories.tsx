@@ -5,11 +5,11 @@ import { userEvent, within, expect } from "@storybook/test";
 
 import Button, { ButtonProps } from ".";
 import Box from "../box";
-import Loader from "../loader";
 import Typography from "../typography";
 
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
 import DefaultDecorator from "../../../.storybook/utils/default-decorator";
+import Loader from "../loader/__next__";
 
 export default {
   title: "Button/Interactions",
@@ -310,7 +310,11 @@ export const ButtonLoader: Story = () => {
   const handleButtonClick = () => {
     mimicLoading();
   };
-  const buttonContent = isLoading ? <Loader isInsideButton /> : "Click Me";
+  const buttonContent = isLoading ? (
+    <Loader loaderType="ring" variant="inline" size="extra-small" showLabel />
+  ) : (
+    "Click Me"
+  );
 
   return (
     <>

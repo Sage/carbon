@@ -3,7 +3,7 @@ import Box from "../box";
 import LoaderStar, { LoaderStarProps } from ".";
 
 export default {
-  title: "Loader Star/Test",
+  title: "Deprecated/Loader Star/Test",
   includeStories: ["Default"],
   parameters: {
     info: { disable: true },

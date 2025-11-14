@@ -2,10 +2,15 @@ import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 import * as LoaderBarStories from "./loader-bar.stories.tsx";
+import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component"
 
 <Meta of={LoaderBarStories} />
 
 # LoaderBar
+
+<DeprecationWarning>
+Loader Bar has been deprecated, if this pattern is still needed please see <a style={{color: "white"}} href="../?path=/docs/documentation-deprecation-migration--docs#recommended-alternatives">our deprecation migration docs</a> for a recommended alternative.
+</DeprecationWarning>
 
 <a
   target="_blank"
