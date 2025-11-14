@@ -14,6 +14,9 @@ interface InternalRadioButtonProps {
   inline?: boolean;
 }
 
+/**
+ * @deprecated This version of RadioButton is deprecated. Please use the RadioButton component in the `__next__` folder instead. See the Carbon documentation for more details.
+ */
 export interface RadioButtonProps
   extends Omit<CommonCheckableInputProps, "required">,
     MarginProps,
