@@ -1,22 +1,26 @@
 import styled, { css } from "styled-components";
-
 import { margin, MarginProps } from "styled-system";
-import addFocusStyling from "../../style/utils/add-focus-styling";
 
 type StyledTextEditorWrapperProps = MarginProps;
 
 interface StyledEditorToolbarWrapperProps {
-  focused?: boolean;
   error?: boolean;
 }
 
-export const StyledTextEditor = styled.div`
+export const StyledTextEditor = styled.div<{ error?: boolean }>`
   position: relative;
+  box-sizing: border-box;
+  ${({ error }) =>
+    error &&
+    css`
+      margin: -1px;
+    `}
 `;
 
 export const StyledTextEditorWrapper = styled.div<StyledTextEditorWrapperProps>`
   margin-bottom: var(--fieldSpacing);
   ${margin}
+  min-width: 288px;
 `;
 
 export const StyledWrapper = styled.div`
@@ -25,8 +29,13 @@ export const StyledWrapper = styled.div`
   .textBold {
     font-weight: bold;
   }
+
   .textItalic {
     font-style: italic;
+  }
+
+  .textUnderline {
+    text-decoration: underline;
   }
 
   a:not([data-component="link-preview"]) {
@@ -49,27 +58,35 @@ export const StyledWrapper = styled.div`
 `;
 
 export const StyledEditorToolbarWrapper = styled.div<StyledEditorToolbarWrapperProps>`
-  ${({ focused, error }) => css`
-    border-radius: var(--borderRadius100);
-    outline: 1px solid var(--colorsUtilityMajor200);
-
-    ${error &&
-    css`
-      outline: none;
-      border: 2px solid var(--colorsSemanticNegative500);
-    `}
-
-    ${focused && addFocusStyling()}
-  `}
+  border-radius: var(--borderRadius100);
+  ${({ error }) =>
+    error
+      ? css`
+          border: 1px solid var(--colorsUtilityMajor200);
+        `
+      : css`
+          outline: 1px solid var(--colorsUtilityMajor200);
+        `}
 `;
 
 export const StyledHeaderWrapper = styled.div`
   padding: var(--spacing200);
 `;
 
-export const StyledFooterWrapper = styled.div`
+export const StyledFooterWrapper = styled.div<{
+  size: "small" | "medium" | "large";
+}>`
   border-top: 1px solid var(--colorsUtilityMajor200);
-  padding: var(--spacing200);
+  padding: ${({ size }) => {
+    switch (size) {
+      case "large":
+        return "var(--spacing200)";
+      case "small":
+        return "var(--spacing100)";
+      default:
+        return "var(--spacing150)";
+    }
+  }};
 `;
 
 export default StyledTextEditor;

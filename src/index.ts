@@ -338,6 +338,7 @@ export {
   Option,
   OptionGroupHeader,
   OptionRow,
+  setupSelectMocks,
 } from "./components/select";
 export type {
   CustomSelectChangeEvent,

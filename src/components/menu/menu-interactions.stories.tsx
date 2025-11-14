@@ -257,7 +257,7 @@ export const WithSearch: Story = {
     await userEvent.hover(menuItemDark);
     await userEvent.hover(menuItemBlack);
 
-    const search = canvas.getAllByRole("textbox", { name: "search" });
+    const search = canvas.getAllByRole("textbox", { name: "Search" });
     search[0].focus();
     await expect(search[0]).toHaveFocus();
   },

@@ -1,17 +1,15 @@
 import React, { useState } from "react";
 import { act, render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import mockDOMRect from "../../../__spec_helper__/mock-dom-rect";
 import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/test-utils";
 
 import MultiSelect, { MultiSelectProps } from ".";
-import { CustomSelectChangeEvent, Option } from "..";
+import { CustomSelectChangeEvent, Option, setupSelectMocks } from "..";
 
 import Modal from "../../modal";
 
 beforeEach(() => {
-  // Mock non-zero dimensions for the scrollable container in dropdown list. To ensure react-virtual renders options in the dropdown list correctly.
-  mockDOMRect(40, 100, "select-list-scrollable-container");
+  setupSelectMocks();
 });
 
 afterEach(() => {

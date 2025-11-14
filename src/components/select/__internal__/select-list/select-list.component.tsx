@@ -705,6 +705,7 @@ const SelectList = React.forwardRef(
               ref={listContainerRef}
               maxHeight={listMaxHeight}
               data-component="select-list-scrollable-container"
+              data-element="select-list-scrollable-container"
               data-role="select-list-scrollable-container"
               hasActionButton={!!listActionButton}
             >
