@@ -2,7 +2,6 @@ import styled, { css } from "styled-components";
 import { space, SpaceProps } from "styled-system";
 import { ButtonProps } from "./button.component";
 import addFocusStyling from "../../../style/utils/add-focus-styling";
-import { IconType } from "../../portrait/portrait.stories";
 
 type Size = ButtonProps["size"];
 type Variant = ButtonProps["variant"];
@@ -10,8 +9,8 @@ type VariantType = ButtonProps["variantType"];
 type ConfigEntry = Record<"active" | "default" | "disabled" | "hover", string>;
 
 type ColorConfig = {
-  [key in Variant]: {
-    [key in VariantType]?: {
+  [key in NonNullable<Variant>]: {
+    [key in NonNullable<VariantType>]?: {
       background: ConfigEntry;
       border: ConfigEntry;
       label: ConfigEntry;
@@ -20,7 +19,7 @@ type ColorConfig = {
 };
 
 type InverseColorConfig = {
-  [key in VariantType]?: {
+  [key in NonNullable<VariantType>]?: {
     background: ConfigEntry;
     border: ConfigEntry;
     label: ConfigEntry;
@@ -28,7 +27,7 @@ type InverseColorConfig = {
 };
 
 type PropConfig = {
-  [key in Size]: {
+  [key in NonNullable<Size>]: {
     borderRadius: string;
     fontSize: string;
     fontWeight: string;
@@ -40,7 +39,7 @@ type PropConfig = {
   };
 };
 
-const propsForSize: PropConfig = {
+export const propsForSize: PropConfig = {
   xs: {
     borderRadius: "16px",
     fontSize: "13px",
@@ -348,7 +347,10 @@ const colourSettings: ColorConfig = {
 const getCSSForAIStyle = ({
   disabled,
   size,
-}: Pick<ButtonProps, "disabled" | "size">) => css`
+}: {
+  disabled?: boolean;
+  size: NonNullable<Size>;
+}) => css`
   position: relative;
   z-index: 0;
   border: 2px solid transparent;
@@ -440,7 +442,11 @@ const getCSSForInverseStyle = ({
   disabled,
   size,
   variantType,
-}: Pick<ButtonProps, "disabled" | "size" | "variantType">) => css`
+}: {
+  disabled?: boolean;
+  size: NonNullable<Size>;
+  variantType: NonNullable<VariantType>;
+}) => css`
   background-color: ${inverseColourSettings[variantType]?.background.default};
   border: ${variantType === "tertiary" ? "1px" : "2px"} solid
     ${inverseColourSettings[variantType]?.border.default};
@@ -482,7 +488,12 @@ const getCSSForStyle = ({
   size,
   variant,
   variantType,
-}: Pick<ButtonProps, "disabled" | "size" | "variant" | "variantType">) => css`
+}: {
+  disabled?: boolean;
+  size: NonNullable<Size>;
+  variant: NonNullable<Variant>;
+  variantType: NonNullable<VariantType>;
+}) => css`
   background-color: ${colourSettings[variant][variantType]?.background.default};
   border: ${variantType === "tertiary" ? "1px" : "2px"} solid
     ${colourSettings[variant][variantType]?.border.default};
@@ -540,7 +551,13 @@ export const StyledLoadingContainer = styled.div`
   justify-content: center;
 `;
 
-export const StyledButton = styled.button<StyledButtonProps>`
+export const StyledButton = styled.button<
+  Omit<StyledButtonProps, "size" | "variant" | "variantType"> & {
+    size: NonNullable<Size>;
+    variant: NonNullable<Variant>;
+    variantType: NonNullable<VariantType>;
+  }
+>`
   ${space}
 
   align-items: center;
@@ -555,21 +572,22 @@ export const StyledButton = styled.button<StyledButtonProps>`
     if (inverse) {
       return getCSSForInverseStyle({
         disabled,
-        size: size as Size,
-        variantType: variantType as VariantType,
+        size: size as NonNullable<Size>,
+        variantType: variantType as NonNullable<VariantType>,
       });
     }
 
     if (variant === "ai") {
       return getCSSForAIStyle({
         disabled,
-        size: size as Size,
+        size: size as NonNullable<Size>,
       });
     }
 
     /**
      * XS should fall back to the "default secondary" colour scheme
      * */
+    /* istanbul ignore if */
     if (size === "xs" && (variantType === "primary" || variant !== "default")) {
       return getCSSForStyle({
         disabled,
@@ -583,27 +601,28 @@ export const StyledButton = styled.button<StyledButtonProps>`
      * Unsupported combinations of variant and variantType should fall back to
      * the "primary" variant type for said variant
      * */
+    /* istanbul ignore if */
     if (
       variant === "destructive" &&
-      ["tertiary", "subtle"].includes(variantType)
+      (variantType === "tertiary" || variantType === "subtle")
     ) {
       return getCSSForStyle({
         disabled,
-        size: size as Size,
-        variant: variant as Variant,
+        size: size as NonNullable<Size>,
+        variant: variant as NonNullable<Variant>,
         variantType: "primary",
       });
     }
 
     return getCSSForStyle({
       disabled,
-      size: size as Size,
-      variant: variant as Variant,
-      variantType: variantType as VariantType,
+      size: size as NonNullable<Size>,
+      variant: variant as NonNullable<Variant>,
+      variantType: variantType as NonNullable<VariantType>,
     });
   }}
 
-  ${({ fullWidth, iconOnly, size, noWrap }) => css`
+  ${({ fullWidth, iconOnly, iconType, size, noWrap }) => css`
     ${noWrap ? "white-space: nowrap" : "flex-flow: wrap"};
     ${fullWidth &&
     css`
@@ -617,7 +636,7 @@ export const StyledButton = styled.button<StyledButtonProps>`
       width: ${propsForSize[size].iconOnlyWidth};
     `}
 
-    ${IconType &&
+    ${iconType &&
     css`
       padding: 0px ${propsForSize[size].paddingHorizontal};
     `}

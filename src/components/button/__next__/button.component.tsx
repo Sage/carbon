@@ -16,9 +16,7 @@ import { LoaderSpinner } from "../../loader-spinner";
 import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags/tags";
-
 import useMediaQuery from "../../../hooks/useMediaQuery";
-import createPropValidator from "../../../__internal__/utils/helpers/prop-validator";
 
 export type ButtonHandle = {
   focusButton: () => void;
@@ -28,7 +26,7 @@ export interface ButtonProps extends SpaceProps, TagProps {
   "aria-label"?: string;
   "aria-labelledby"?: string;
   "aria-describedby"?: string;
-  children: ReactNode;
+  children?: ReactNode;
   disabled?: boolean;
   fullWidth?: boolean;
   href?: string;
@@ -58,52 +56,17 @@ export interface ButtonProps extends SpaceProps, TagProps {
   onKeyDown?: (
     ev: React.KeyboardEvent<HTMLButtonElement | HTMLAnchorElement>,
   ) => void;
-  size: "xs" | "small" | "medium" | "large";
+  size?: "xs" | "small" | "medium" | "large";
   type?: "button" | "reset" | "submit";
   target?: string;
   rel?: string;
-  variant: "default" | "destructive" | "ai";
-  variantType: "primary" | "secondary" | "tertiary" | "subtle";
+  variant?: "default" | "destructive" | "ai";
+  variantType?: "primary" | "secondary" | "tertiary" | "subtle";
 }
 
-const validateProps = createPropValidator<ButtonProps>("Button", [
-  ({ children, fullWidth, iconType }) =>
-    iconType && (!children || children === undefined) && fullWidth
-      ? `'iconType' cannot be used with 'fullWidth'.`
-      : null,
-
-  ({ children, iconType }) =>
-    !iconType && (!children || children === undefined)
-      ? `Button must have at least one of the 'iconType' or 'children' props set.`
-      : null,
-
-  ({ variant, variantType }) =>
-    variant === "destructive" && ["tertiary", "subtle"].includes(variantType)
-      ? `Variant 'destructive' cannot be used in conjunction with the '${variantType}' variant type.`
-      : null,
-
-  ({ variant, variantType }) =>
-    variant === "ai" &&
-    ["secondary", "tertiary", "subtle"].includes(variantType)
-      ? `Variant 'ai' cannot be used in conjunction with the '${variantType}' variant type.`
-      : null,
-
-  ({ size, variant }) =>
-    size === "xs" && variant !== "default"
-      ? `'xs' size cannot be used in conjunction with the '${variant}' variant.`
-      : null,
-
-  ({ size, variantType }) =>
-    size === "xs" && variantType === "primary"
-      ? `'xs' size cannot be used in conjunction with the 'primary' variant type.`
-      : null,
-]);
-
 export const Button = forwardRef<ButtonHandle, ButtonProps>(
-  (props: ButtonProps, ref) => {
-    validateProps(props);
-
-    const {
+  (
+    {
       "aria-describedby": ariaDescribedBy,
       "aria-label": ariaLabel,
       "aria-labelledby": ariaLabelledBy,
@@ -126,8 +89,9 @@ export const Button = forwardRef<ButtonHandle, ButtonProps>(
       variant = "default",
       variantType = "primary",
       ...rest
-    } = props;
-
+    }: ButtonProps,
+    ref,
+  ) => {
     const buttonRef = useRef<HTMLButtonElement>(null);
 
     const focusButton = useCallback(() => {
@@ -154,8 +118,6 @@ export const Button = forwardRef<ButtonHandle, ButtonProps>(
     const handleLinkKeyDown = (
       event: React.KeyboardEvent<HTMLButtonElement | HTMLAnchorElement>,
     ) => {
-      if (disabled) return;
-
       if (event.key === " ") {
         event.preventDefault();
         buttonRef.current?.click();
@@ -167,8 +129,6 @@ export const Button = forwardRef<ButtonHandle, ButtonProps>(
         | React.MouseEvent<HTMLAnchorElement>
         | React.MouseEvent<HTMLButtonElement>,
     ) => {
-      if (disabled) return;
-
       buttonRef.current?.focus({ preventScroll: true });
 
       onClick?.(event);
@@ -232,7 +192,10 @@ export const Button = forwardRef<ButtonHandle, ButtonProps>(
 
     const showChildren = () => {
       return (
-        <StyledChildContainer flip={iconPosition === "right"}>
+        <StyledChildContainer
+          data-role="button-child-container"
+          flip={iconPosition === "right"}
+        >
           {iconType && showIcon()}
           {children}
         </StyledChildContainer>
@@ -247,6 +210,7 @@ export const Button = forwardRef<ButtonHandle, ButtonProps>(
           !hasValidChildren && iconType ? ariaLabel || iconType : ariaLabel
         }
         aria-labelledby={ariaLabelledBy}
+        as={!disabled && href ? "a" : "button"}
         data-component={""}
         data-element={""}
         data-role={""}
@@ -259,10 +223,7 @@ export const Button = forwardRef<ButtonHandle, ButtonProps>(
         id={id}
         name={name}
         noWrap={noWrap}
-        onBlur={() => {}}
-        onChange={() => {}}
         onClick={handleClick}
-        onFocus={() => {}}
         onKeyDown={href ? handleLinkKeyDown : undefined}
         ref={buttonRef}
         rel={rel}

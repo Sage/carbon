@@ -4,7 +4,11 @@
     "declaration": true,
     "noEmit": false,
     "rootDir": "src/",
-    "emitDeclarationOnly": true
+    "emitDeclarationOnly": true,
+    "types": [
+      "jest",
+      "@testing-library/jest-dom"
+    ]
   },
   "include": [
     "src"
