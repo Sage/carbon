@@ -300,6 +300,11 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
               event.preventDefault();
               closeSubmenu();
             }
+
+            // close submenu on Shift + Tab from parent item
+            if (Events.isShiftKey(event) && Events.isTabKey(event)) {
+              closeSubmenu();
+            }
           }
 
           if (Events.isDownKey(event)) {
