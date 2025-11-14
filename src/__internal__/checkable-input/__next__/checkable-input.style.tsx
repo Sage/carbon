@@ -136,10 +136,6 @@ export const StyledAccordionLine = styled.div<StyledAccordionContentProps>`
     `}
 `;
 
-export const StyledAccordionContent = styled.div<StyledAccordionContentProps>`
-  ${({ size }) =>
-    size &&
-    css`
-      padding: ${contentPadding} 0;
-    `}
+export const StyledAccordionContent = styled.div`
+  padding: ${contentPadding} 0;
 `;

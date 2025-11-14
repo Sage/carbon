@@ -142,7 +142,7 @@ const CheckableInput = React.forwardRef(
             <StyledLineContainer size={size}>
               <StyledAccordionLine size={size} />
             </StyledLineContainer>
-            <StyledAccordionContent size={size}>
+            <StyledAccordionContent>
               {conditionalContent}
             </StyledAccordionContent>
           </StyledAccordion>
