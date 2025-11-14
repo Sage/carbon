@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 import Button, { ButtonProps } from ".";
+import Box from "../../box";
 
 const meta: Meta<typeof Button> = {
   title: "Button",
@@ -24,10 +25,22 @@ const meta: Meta<typeof Button> = {
 export default meta;
 type Story = StoryObj<typeof Button>;
 
-export const Default: Story = (args: ButtonProps) => {
-  return <Button {...args} />;
+export const Default: Story = () => {
+  return <Button>Button</Button>;
 };
 Default.storyName = "Default";
+
+export const Sizes: Story = () => {
+  return (
+    <Box display="flex" gap={3} flexDirection="row" alignItems={"flex-start"}>
+      <Button size="xs">Small</Button>
+      <Button size="small">Small</Button>
+      <Button>Medium</Button>
+      <Button size="large">Large</Button>
+    </Box>
+  );
+};
+Sizes.storyName = "Sizes";
 
 export const AllVariations: Story = (args: ButtonProps) => {
   return (
@@ -101,9 +114,9 @@ AllVariations.storyName = "All Variations";
 
 export const Inverse: Story = (args: ButtonProps) => {
   return (
-    <div style={{ backgroundColor: "#333", padding: "16px" }}>
+    <Box backgroundColor="#333" p={2}>
       <Button {...args} inverse />
-    </div>
+    </Box>
   );
 };
 Inverse.storyName = "Inverse";

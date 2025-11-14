@@ -1,0 +1,55 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+
+import * as ButtonStories from "./button.stories";
+
+<Meta of={ButtonStories} />
+
+# Button
+
+<a
+  target="_blank"
+  href="https://zeroheight.com/35ee2cc26/v/latest/p/58dc6d-simple-button"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
+>
+  Product Design System component - Simple Button Component
+</a>
+
+A Button triggers a single action or event.
+Use it to submit a form (Save), to advance to the next step in a process (Next), or to create a new item (New).
+
+**This documentation is for the newer implementation of Button. If you are still using the older implementation, please use the <a href="../?path=/docs/deprecated-button--docs">Button documentation</a>.**
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quickstart
+
+```javascript
+import Button from "carbon-react/lib/components/button/__next__";
+```
+
+## Examples
+
+### Default Button
+
+For the single most prominent call-to-action on the page (e.g. Save, Submit, Continue).
+
+<Canvas of={ButtonStories.Default} />
+
+### Variants
+
+<Canvas of={ButtonStories.AllVariations} />
+
+### Sizes
+
+<Canvas of={ButtonStories.Sizes} />
+
+## Props
+
+### Button
+
+<ArgTypes of={ButtonStories} />
