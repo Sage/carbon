@@ -221,7 +221,10 @@ test("should render with correct style when variant is typical", () => {
 
   const badge = screen.getByTestId("badge");
 
-  expect(badge).toHaveStyle({ backgroundColor: "#CD384B" });
+  expect(badge).toHaveStyleRule(
+    "background-color",
+    "var(--badge-bg-default,#DB004E)",
+  );
 });
 
 // coverage
@@ -230,7 +233,10 @@ test("should render with correct style when variant is subtle", () => {
 
   const badge = screen.getByTestId("badge");
 
-  expect(badge).toHaveStyle({ backgroundColor: "#0060A7" });
+  expect(badge).toHaveStyleRule(
+    "background-color",
+    "var(--badge-bg-alt,#0071C3)",
+  );
 });
 
 // coverage
@@ -239,9 +245,18 @@ test("should render with correct style when variant is typical and inverse prop 
 
   const badge = screen.getByTestId("badge");
 
-  expect(badge).toHaveStyle({ backgroundColor: "#E13E53" });
-  expect(badge).toHaveStyleRule("border-color", "var(--colorsUtilityYin100)");
-  expect(badge).toHaveStyleRule("color", "var(--colorsUtilityYin100)");
+  expect(badge).toHaveStyleRule(
+    "background-color",
+    "var(--badge-inverse-bg-default,#F50059)",
+  );
+  expect(badge).toHaveStyleRule(
+    "border-color",
+    "var(--badge-inverse-border-default,#000)",
+  );
+  expect(badge).toHaveStyleRule(
+    "color",
+    "var(--badge-inverse-label-default,#000)",
+  );
 });
 
 // coverage
@@ -250,9 +265,18 @@ test("should render with correct style when variant is subtle and inverse prop i
 
   const badge = screen.getByTestId("badge");
 
-  expect(badge).toHaveStyle({ backgroundColor: "#007ED9" });
-  expect(badge).toHaveStyleRule("border-color", "var(--colorsUtilityYin100)");
-  expect(badge).toHaveStyleRule("color", "var(--colorsUtilityYin100)");
+  expect(badge).toHaveStyleRule(
+    "background-color",
+    "var(--badge-inverse-bg-alt,#007FD9)",
+  );
+  expect(badge).toHaveStyleRule(
+    "border-color",
+    "var(--badge-inverse-border-default,#000)",
+  );
+  expect(badge).toHaveStyleRule(
+    "color",
+    "var(--badge-inverse-label-default,#000)",
+  );
 });
 
 // coverage
@@ -266,11 +290,11 @@ test("should render with correct style size is small and badge has children", ()
   const badge = screen.getByTestId("badge");
 
   expect(badge).toHaveStyle({
-    width: "12px",
-    height: "12px",
     top: "-3px",
     right: "-2px",
   });
+  expect(badge).toHaveStyleRule("width", "var(--global-size4xs,8px)");
+  expect(badge).toHaveStyleRule("height", "var(--global-size4xs,8px)");
 });
 
 // coverage
@@ -284,9 +308,9 @@ test("should render with correct style size is large and badge has children", ()
   const badge = screen.getByTestId("badge");
 
   expect(badge).toHaveStyle({
-    minWidth: "28px",
-    height: "28px",
-    top: "-14px",
+    top: "-12px",
     right: "-8px",
   });
+  expect(badge).toHaveStyleRule("min-width", "var(--global-size2xs,20px)");
+  expect(badge).toHaveStyleRule("height", "var(--global-size-xs,24px)");
 });
