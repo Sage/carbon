@@ -41,32 +41,52 @@ export interface TabsContextProps {
 }
 
 export interface TabPanelProps {
+  /** The content to be shown in the tab panel */
   children?: React.ReactNode;
+  /** The ID of the tab panel */
   id: string;
+  /** The ID of the controlling tab */
   tabId: string;
 }
 
 export interface TabListProps {
+  /** The label read out when the tab list gains focus */
   ariaLabel: string;
+  /** The tabs to be shown in the tab list */
   children?: React.ReactNode;
 }
 
 export interface TabProps {
+  /** The tab panel that this tab controls */
   controls: string;
+  /** The ID of the tab */
   id: string;
+  /** The error state of the tab */
   error?: boolean | string;
+  /** The label shown on the tab */
   label: React.ReactNode;
+  /** The item shown to the left of the label */
   leftSlot?: React.ReactNode;
+  /** The item shown to the right of the label */
   rightSlot?: React.ReactNode;
+  /** The warning state of the tab */
   warning?: boolean | string;
-  // DEPRECATED - to be removed when legacy tabs removed
+  /**
+   * The info state of the tab
+   * @deprecated to be removed when legacy `Tabs` and `Tab` are removed
+   * */
   info?: boolean | string;
 }
 
 export interface TabsProps {
+  /** The tab list to be rendered within this set of tabs  */
   children?: React.ReactNode;
+  /** The label associated with this set of tabs, for assistive technologies */
   labelledBy?: string;
+  /** The orientation of the tabs */
   orientation?: "horizontal" | "vertical";
+  /** The pre-selected tab to show e.g when restoring from URL  */
   selectedTabId?: string;
+  /** The size of the tabs to use */
   size?: "medium" | "large";
 }
