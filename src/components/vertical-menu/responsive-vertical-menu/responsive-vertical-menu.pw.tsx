@@ -7,6 +7,7 @@ import {
   WithDifferentDepthsAsLastItem,
   WithLongList,
   WithButtonAndLinkActionItems,
+  WithSiblingControl,
 } from "./components.test-pw";
 
 import {
@@ -221,6 +222,33 @@ test.describe("when responsive vertical menu item renders as an anchor", () => {
     await page.keyboard.press("Space");
 
     await expect(responsiveVerticalMenuPrimary(page)).toBeVisible();
+  });
+
+  test("background controls cannot be interacted with while menu is open", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<WithSiblingControl />);
+
+    const launcherButton = page.getByRole("button", {
+      name: /Product menu launcher/,
+    });
+    await launcherButton.click();
+
+    const menuItem = page.getByRole("button", {
+      name: /Primary Menu With Children/,
+    });
+    await menuItem.waitFor();
+
+    const outsideCheckbox = page.getByRole("checkbox");
+
+    const { x, y } = (await outsideCheckbox.boundingBox()) as {
+      x: number;
+      y: number;
+    };
+    await page.mouse.click(x, y);
+
+    await expect(outsideCheckbox).not.toBeChecked();
   });
 });
 

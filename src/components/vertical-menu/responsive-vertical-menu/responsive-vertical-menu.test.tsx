@@ -775,7 +775,7 @@ test("closes menu when Escape key is pressed", async () => {
   expect(screen.queryByText("Menu Item 1")).not.toBeInTheDocument();
 });
 
-test("closes menu when focus is lost", async () => {
+test("closes menu when focus is lost from it", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(
     <ResponsiveVerticalMenu>
@@ -843,6 +843,28 @@ test("does not close the menu when the user clicks outside of the menu but respo
   expect(screen.getByText("Menu Item 1")).toBeInTheDocument();
 
   await user.click(document.body);
+
+  expect(screen.getByText("Menu Item 1")).toBeInTheDocument();
+});
+
+test("does not close menu when user clicks it instead of an item", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem id="menu-item-1" label="Menu Item 1" />
+    </ResponsiveVerticalMenu>,
+  );
+
+  const launcherButton = screen.getByTestId(
+    "responsive-vertical-menu-launcher",
+  );
+  await user.click(launcherButton);
+
+  expect(screen.getByText("Menu Item 1")).toBeInTheDocument();
+
+  const menu = screen.getByRole("list");
+  await user.click(menu);
 
   expect(screen.getByText("Menu Item 1")).toBeInTheDocument();
 });
@@ -1978,7 +2000,7 @@ describe("Focus Trap", () => {
     );
     const closeButton = screen.getByTestId("responsive-vertical-menu-close");
 
-    await expect(closeButton).toBeInTheDocument();
+    expect(closeButton).toBeInTheDocument();
 
     act(() => {
       closeButton.focus();

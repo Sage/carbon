@@ -239,3 +239,39 @@ export const WithLongList = () => {
     </ResponsiveVerticalMenu>
   );
 };
+
+export const WithSiblingControl = () => (
+  <Box height="100vh">
+    <label>
+      Check me!
+      <input type="checkbox" />
+    </label>
+    <ResponsiveVerticalMenu height="100%">
+      <ResponsiveVerticalMenuItem
+        icon="home"
+        id="primary-menu"
+        label="Primary Menu With Children"
+      >
+        <ResponsiveVerticalMenuItem
+          id="secondary-menu"
+          label="Secondary Menu With Children"
+        >
+          <ResponsiveVerticalMenuItem
+            id="tertiary-menu"
+            label="Tertiary Menu"
+          />
+        </ResponsiveVerticalMenuItem>
+        <ResponsiveVerticalMenuItem
+          id="secondary-menu-no-children"
+          label="Secondary Menu Item"
+        />
+      </ResponsiveVerticalMenuItem>
+      <ResponsiveVerticalMenuDivider />
+      <ResponsiveVerticalMenuItem
+        icon="home"
+        id="primary-menu-no-children"
+        label="Primary Menu Item"
+      />
+    </ResponsiveVerticalMenu>
+  </Box>
+);

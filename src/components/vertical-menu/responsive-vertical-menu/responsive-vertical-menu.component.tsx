@@ -17,6 +17,7 @@ import {
 } from "./responsive-vertical-menu.context";
 import {
   ModalContainer,
+  StyledBackdrop,
   StyledButton,
   StyledCloseButton,
   StyledGlobalVerticalMenuWrapper,
@@ -34,7 +35,6 @@ import FocusTrap from "../../../__internal__/focus-trap";
 import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags";
-import Events from "../../../__internal__/utils/helpers/events";
 
 export interface ResponsiveVerticalMenuProps extends TagProps {
   /** The content of the menu */
@@ -77,7 +77,6 @@ const BaseMenu = forwardRef<
       containerRef,
       menuRef,
       responsiveMode,
-      top,
       setActive,
       setActiveMenuItem,
       setReducedMotion,
@@ -139,25 +138,6 @@ const BaseMenu = forwardRef<
       }
     }, [active, responsiveMode, activeMenuItem, menu, button, setLeft, setTop]);
 
-    const handleOutsideClick = useCallback(
-      (event: MouseEvent) => {
-        const notInContainer =
-          containerRef.current &&
-          !containerRef.current.contains(event.target as Node);
-
-        if (notInContainer) {
-          setActive(false);
-        }
-      },
-      [containerRef, setActive],
-    );
-
-    const handleActiveToggle = useCallback(() => {
-      setActive((previous) => !previous);
-      // Make sure the menu is closed when the button is clicked (prevents historic menu items being retained in memory)
-      setActiveMenuItem(null);
-    }, [setActive, setActiveMenuItem]);
-
     useLayoutEffect(() => {
       measureDimensions();
 
@@ -169,63 +149,40 @@ const BaseMenu = forwardRef<
       };
     }, [active, measureDimensions, menu, responsiveMode]);
 
+    const handleButtonClick = () => {
+      setActive((previous) => !previous);
+      // Make sure the menu is closed when the button is clicked (prevents historic menu items being retained in memory)
+      setActiveMenuItem(null);
+    };
+
     useEffect(() => {
-      let timeout: NodeJS.Timeout | null = null;
-      const handleBlur = (ev: FocusEvent) => {
-        /* istanbul ignore if */
-        if (!containerRef.current) {
-          return;
-        }
+      const container = containerRef.current;
 
+      const handleFocusOut = (event: FocusEvent) => {
         if (
-          Events.composedPath(ev).includes(buttonRef.current as EventTarget)
+          active &&
+          !responsiveMode &&
+          !container?.contains(event.relatedTarget as HTMLElement)
         ) {
-          return;
-        }
-
-        if (timeout) {
-          clearTimeout(timeout);
-          timeout = null;
-        }
-
-        timeout = setTimeout(() => {
-          if (!containerRef.current?.contains(document.activeElement)) {
-            setActive(false);
-          }
-        }, 0);
-      };
-
-      const handleClose = (e: KeyboardEvent) => {
-        if (e.key === "Escape") {
-          e.preventDefault();
           setActive(false);
         }
       };
 
-      const currentContainer = containerRef.current;
+      const handleClose = (event: KeyboardEvent) => {
+        if (active && !responsiveMode && event.key === "Escape") {
+          event.preventDefault();
+          setActive(false);
+        }
+      };
 
-      if (active && !responsiveMode) {
-        document.addEventListener("keydown", handleClose);
-        window.addEventListener("click", handleOutsideClick);
-        currentContainer?.addEventListener("focusout", handleBlur);
-      }
+      container?.addEventListener("focusout", handleFocusOut);
+      document.addEventListener("keydown", handleClose);
 
       return () => {
+        container?.removeEventListener("focusout", handleFocusOut);
         document.removeEventListener("keydown", handleClose);
-        window.removeEventListener("click", handleOutsideClick);
-        currentContainer?.removeEventListener("focusout", handleBlur);
-        if (timeout) clearTimeout(timeout);
-        timeout = null;
       };
-    }, [
-      active,
-      activeMenuItem,
-      buttonRef,
-      containerRef,
-      handleOutsideClick,
-      responsiveMode,
-      setActive,
-    ]);
+    }, [active, containerRef, responsiveMode, setActive]);
 
     useEffect(() => {
       setReducedMotion?.(reduceMotion);
@@ -301,14 +258,23 @@ const BaseMenu = forwardRef<
       };
     };
 
+    /* istanbul ignore next - assert with Playwright */
+    const handleBackdropMouseDown = (event: React.MouseEvent) => {
+      event.preventDefault();
+      setActive(false);
+    };
+
     return (
       <div ref={containerRef}>
+        {active && !responsiveMode && (
+          <StyledBackdrop onMouseDown={handleBackdropMouseDown} />
+        )}
         <StyledButton
           active={active}
           buttonType="tertiary"
           iconType="squares_nine"
           id="responsive-vertical-menu-launcher"
-          onClick={handleActiveToggle}
+          onClick={handleButtonClick}
           ref={buttonRef}
           {...tagComponent("responsive-vertical-menu-launcher", {
             "data-role": "responsive-vertical-menu-launcher",
@@ -316,7 +282,7 @@ const BaseMenu = forwardRef<
           })}
           {...buttonAriaProps()}
         />
-        {responsiveMode ? (
+        {responsiveMode && (
           <Modal open={active}>
             <FocusTrap wrapperRef={wrapperRef} isOpen={active}>
               <ModalContainer
@@ -363,31 +329,27 @@ const BaseMenu = forwardRef<
               </ModalContainer>
             </FocusTrap>
           </Modal>
-        ) : (
+        )}
+        {active && !responsiveMode && (
           <StyledGlobalVerticalMenuWrapper
             {...rest}
             {...tagComponent("responsive-vertical-menu", rest)}
           >
-            {active && (
-              <>
-                <StyledResponsiveMenu
-                  childOpen={!!activeMenuItem}
-                  data-component="responsive-vertical-menu-primary"
-                  data-role="responsive-vertical-menu-primary"
-                  height={height || "100%"}
-                  id="responsive-vertical-menu-primary"
-                  menu="primary"
-                  reduceMotion={reduceMotion}
-                  ref={menuRef}
-                  responsive={false}
-                  tabIndex={-1}
-                  top={top}
-                  width={width}
-                >
-                  {children}
-                </StyledResponsiveMenu>
-              </>
-            )}
+            <StyledResponsiveMenu
+              childOpen={!!activeMenuItem}
+              data-component="responsive-vertical-menu-primary"
+              data-role="responsive-vertical-menu-primary"
+              height={height || "100%"}
+              id="responsive-vertical-menu-primary"
+              menu="primary"
+              reduceMotion={reduceMotion}
+              ref={menuRef}
+              responsive={false}
+              tabIndex={-1}
+              width={width}
+            >
+              {children}
+            </StyledResponsiveMenu>
           </StyledGlobalVerticalMenuWrapper>
         )}
       </div>
