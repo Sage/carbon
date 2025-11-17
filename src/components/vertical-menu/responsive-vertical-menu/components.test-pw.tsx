@@ -195,6 +195,11 @@ export const WithDifferentDepthsAsLastItem = () => {
             </ResponsiveVerticalMenuItem>
           </ResponsiveVerticalMenuItem>
         </ResponsiveVerticalMenuItem>
+        <ResponsiveVerticalMenuItem
+          id="primary-last-menu-item"
+          label="Last Primary Menu Item"
+          onClick={() => {}}
+        />
       </ResponsiveVerticalMenu>
     </Box>
   );
@@ -242,10 +247,6 @@ export const WithLongList = () => {
 
 export const WithSiblingControl = () => (
   <Box height="100vh">
-    <label>
-      Check me!
-      <input type="checkbox" />
-    </label>
     <ResponsiveVerticalMenu height="100%">
       <ResponsiveVerticalMenuItem
         icon="home"
@@ -271,7 +272,12 @@ export const WithSiblingControl = () => (
         icon="home"
         id="primary-menu-no-children"
         label="Primary Menu Item"
+        onClick={() => {}}
       />
     </ResponsiveVerticalMenu>
+    <label>
+      Check me!
+      <input type="checkbox" />
+    </label>
   </Box>
 );
