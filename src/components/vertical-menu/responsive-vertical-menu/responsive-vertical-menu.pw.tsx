@@ -568,6 +568,11 @@ test.describe("accessibility tests", () => {
     await page.locator("[id='secondary-menu']").click();
     await expect(page.locator("[id='tertiary-menu']")).toBeVisible();
 
+    // Wait for fade in animation to complete before scanning
+    // to ensure colours aren't slightly transparent
+    const modal = page.getByTestId("modal");
+    await expect(modal).toHaveAttribute("data-state", "open");
+
     await checkAccessibility(page);
   });
 
