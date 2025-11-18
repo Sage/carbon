@@ -210,7 +210,9 @@
   },
   "overrides": {
     "playwright-core": "$@playwright/experimental-ct-react",
-    "jsdom": "$jsdom"
+    "jsdom": "$jsdom",
+    "glob": "$glob",
+    "js-yaml": "^4.1.1"
   },
   "lint-staged": {
     "./**/*.{js,jsx,ts,tsx}": [
