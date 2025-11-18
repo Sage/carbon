@@ -1,3 +1,9 @@
+## [158.7.2](https://github.com/Sage/carbon/compare/v158.7.1...v158.7.2) (2025-11-18)
+
+### Bug Fixes
+
+* **menu:** ensure submenu closes when Shift+Tab from parent item ([e70ac52](https://github.com/Sage/carbon/commit/e70ac52595318e7779d4354b1df8bbf7703bad1f))
+
 ## [158.7.1](https://github.com/Sage/carbon/compare/v158.7.0...v158.7.1) (2025-11-14)
 
 ### Bug Fixes
