@@ -211,7 +211,7 @@ export class StyledSpanNode extends TextNode {
     dom: HTMLElement,
     config: EditorConfig,
   ): boolean {
-    let updated = super.updateDOM(prevNode, dom, config);
+    let updated = super.updateDOM(this, dom, config);
 
     if (this.__fontWeight !== prevNode.__fontWeight) {
       dom.style.fontWeight = this.__fontWeight;
