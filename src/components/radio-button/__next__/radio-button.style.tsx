@@ -50,7 +50,7 @@ const RadioButtonStyle = styled.div.attrs(
     svg {
       box-sizing: border-box;
       background-color: var(--input-typical-bg-default, #fff);
-      border: 1px solid var(--input-typical-border-default, #7c7c7c);
+      border: 1px solid var(--input-typical-border-default, #668494);
       ${!disabled &&
       css`
         /* istanbul ignore next */
