@@ -6,7 +6,9 @@
     "rootDir": "src/",
     "emitDeclarationOnly": true
   },
-  "include": ["src"],
+  "include": [
+    "src"
+  ],
   "exclude": [
     "./src/__spec_helper__/__internal__/",
     "**/__spec__/*",
@@ -16,6 +18,7 @@
     "**/*.stories.*",
     "**/*.pw.ts*",
     "**/*.test-pw.ts*",
-    "**/tokens-wrapper/__internal__/*"
+    "**/tokens-wrapper/__internal__/*",
+    "**/text-editor/__internal__/TestEditor.component.tsx",
   ]
 }

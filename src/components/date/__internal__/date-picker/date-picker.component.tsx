@@ -240,6 +240,7 @@ export const DatePicker = ({
         middleware={popoverMiddleware}
         disablePortal={disablePortal}
         disableBackgroundUI={isInFlatTable}
+        popoverStrategy="fixed"
       >
         <StyledDayPicker
           id="styled-day-picker"

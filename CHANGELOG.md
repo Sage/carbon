@@ -1,3 +1,15 @@
+## [158.7.1](https://github.com/Sage/carbon/compare/v158.7.0...v158.7.1) (2025-11-14)
+
+### Bug Fixes
+
+* **date-picker:** ensure calendar renders at correct depth level ([7740e11](https://github.com/Sage/carbon/commit/7740e11d70a665cc048930c36a966dd4ec4a2a81))
+
+## [158.7.0](https://github.com/Sage/carbon/compare/v158.6.1...v158.7.0) (2025-11-13)
+
+### Features
+
+* **text-editor:** implement changes for the TextEditor component as part of the DS alignment work ([7556b0f](https://github.com/Sage/carbon/commit/7556b0f82c9a8b5dc1cd8fd3f185b641ea97fe4c))
+
 ## [158.6.1](https://github.com/Sage/carbon/compare/v158.6.0...v158.6.1) (2025-11-12)
 
 ### Bug Fixes
