@@ -1,3 +1,9 @@
+## [158.7.3](https://github.com/Sage/carbon/compare/v158.7.2...v158.7.3) (2025-11-20)
+
+### Bug Fixes
+
+* **link:** ensure if component has an image it receives correct focus styling ([f189680](https://github.com/Sage/carbon/commit/f189680e7d1544c46fb9bdb635106a1e026044f1)), closes [#6890](https://github.com/Sage/carbon/issues/6890)
+
 ## [158.7.2](https://github.com/Sage/carbon/compare/v158.7.1...v158.7.2) (2025-11-18)
 
 ### Bug Fixes
