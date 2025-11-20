@@ -102,13 +102,17 @@ const StyledTitleContent = styled.span<StyledTitleContentProps>`
 
     ${borders &&
     css`
-      border-top: 1px solid var(--colorsActionMinor100);
-      border-left: 1px solid var(--colorsActionMinor100);
-      border-right: 1px solid var(--colorsActionMinor100);
+      border-top: 1px solid
+        var(--mode-color-generic-bg-delicate, var(--colorsActionMinor100));
+      border-left: 1px solid
+        var(--mode-color-generic-bg-delicate, var(--colorsActionMinor100));
+      border-right: 1px solid
+        var(--mode-color-generic-bg-delicate, var(--colorsActionMinor100));
 
       ${position === "left" &&
       css`
-        border-bottom: 1px solid var(--colorsActionMinor100);
+        border-bottom: 1px solid
+          var(--mode-color-generic-bg-delicate, var(--colorsActionMinor100));
         ${!alternateStyling && `margin-right: -1px;`}
       `}
 
@@ -118,7 +122,8 @@ const StyledTitleContent = styled.span<StyledTitleContentProps>`
 
         ${!noRightBorder &&
         css`
-          border-right: 1px solid var(--colorsActionMinor100);
+          border-right: 1px solid
+            var(--mode-color-generic-bg-delicate, var(--colorsActionMinor100));
         `}
       `}
 
@@ -379,7 +384,10 @@ const tabTitleStyles = css<
         `}
 
         &:hover {
-          background: var(--colorsActionMinor100);
+          background: var(
+            --mode-color-generic-bg-delicate,
+            var(--colorsActionMinor100)
+          );
           ${validationRedesignOptIn &&
           css`
             background: var(--colorsUtilityMajor100);
@@ -408,7 +416,7 @@ const tabTitleStyles = css<
         &:hover {
           background-color: var(--colorsActionMajorYang100);
           border-bottom-color: ${alternateStyling
-            ? "var(--colorsActionMinor100)"
+            ? "var(--mode-color-generic-bg-delicate, var(--colorsActionMinor100))"
             : "var(--colorsActionMajor500)"};
           color: var(--colorsActionMajorYin090);
           cursor: default;
@@ -491,7 +499,8 @@ const tabTitleStyles = css<
           border-right: ${alternateStyling
               ? "1px"
               : "var(--border-right-value)"}
-            solid var(--colorsActionMinor100);
+            solid
+            var(--mode-color-generic-bg-delicate, var(--colorsActionMinor100));
         `}
 
         ${!borders &&
@@ -511,7 +520,7 @@ const tabTitleStyles = css<
 
         &:hover {
           ${alternateStyling &&
-          "border-right-color: var(--colorsActionMinor100)"}
+          "border-right-color: var(--mode-color-generic-bg-delicate, var(--colorsActionMinor100))"}
         }
 
         ${(warning || info) &&
@@ -521,14 +530,20 @@ const tabTitleStyles = css<
 
         ${!isTabSelected &&
         css`
-          border-right-color: var(--colorsActionMinor100);
+          border-right-color: var(
+            --mode-color-generic-bg-delicate,
+            var(--colorsActionMinor100)
+          );
         `}
 
       ${isTabSelected &&
         css`
           ${alternateStyling &&
           css`
-            border-right-color: var(--colorsActionMinor100);
+            border-right-color: var(
+              --mode-color-generic-bg-delicate,
+              var(--colorsActionMinor100)
+            );
           `}
 
           ${!alternateStyling &&
@@ -548,7 +563,7 @@ const tabTitleStyles = css<
 
           &:hover {
             ${alternateStyling &&
-            "border-right-color: var(--colorsActionMinor100);"}
+            "border-right-color: var(--mode-color-generic-bg-delicate, var(--colorsActionMinor100));"}
             background-color: var(--colorsActionMajorYang100);
             ${(error || warning || info) &&
             "border-right-color: var(--colorsSemanticNegative500);"}
@@ -566,18 +581,24 @@ const tabTitleStyles = css<
       alternateStyling &&
       css`
         &:focus {
-          background-color: var(--colorsActionMinor200);
+          background-color: var(
+            --mode-color-generic-bg-moderate,
+            var(--colorsActionMinor200)
+          );
         }
 
         &:hover {
           background-color: ${isTabSelected
-            ? "var(--colorsActionMinor200)"
-            : "var(--colorsActionMinor250)"};
+            ? "var(--mode-color-generic-bg-moderate, var(--colorsActionMinor200))"
+            : "var(--mode-color-generic-bg-firm, var(--colorsActionMinor250))"};
         }
 
         ${isTabSelected &&
         css`
-          background-color: var(--colorsActionMinor200);
+          background-color: var(
+            --mode-color-generic-bg-moderate,
+            var(--colorsActionMinor200)
+          );
         `}
       `
     }
@@ -652,7 +673,7 @@ const StyledVerticalIndicator = styled.div`
   bottom: 0px;
   right: 0px;
   box-shadow: inset calc(-1 * var(--sizing050)) 0px 0px 0px
-    var(--colorsActionMinor100);
+    var(--mode-color-generic-bg-delicate, var(--colorsActionMinor100));
   width: 2px;
   z-index: 1;
 `;
@@ -675,7 +696,10 @@ const StyledSelectedIndicator = styled.div<StyledSelectedIndicatorProps>`
   `}
 
   ${({ position = "top", warning, error }) => css`
-    --selected-indicator-color: var(--colorsActionMajor500);
+    --selected-indicator-color: var(
+      --mode-color-action-main-default,
+      var(--colorsActionMajor500)
+    );
 
     ${warning &&
     css`
