@@ -8,7 +8,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof LoaderBar> = {
-  title: "Loader Bar",
+  title: "Deprecated/Loader Bar",
   component: LoaderBar,
   argTypes: {
     ...styledSystemProps,
