@@ -6,7 +6,7 @@ import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/te
 import MultiSelect, { MultiSelectProps } from ".";
 import { CustomSelectChangeEvent, Option, setupSelectMocks } from "..";
 
-import Modal from "../../modal";
+import Modal from "../../../__internal__/modal";
 
 beforeEach(() => {
   setupSelectMocks();
