@@ -712,3 +712,40 @@ export const FullScreenDefault: Story = () => {
 };
 FullScreenDefault.storyName = "Fullscreen: Default";
 FullScreenDefault.parameters = { chromatic: { disableSnapshot: true } };
+
+const childrenText = `At vero facilisis interdum sed vitae integer. Ut placerat morbi aenean sagittis nunc non feugiat. Est ac nulla dui tempus ullamcorper in id. Proin elementum vel magna feugiat luctus aliquam tristique ornare. Donec volutpat tempor accumsan est, vel ultrices lectus sed gravida. Mi commodo id dignissim posuere ultricies. Mauris tristique tincidunt sit amet senectus lectus vitae sollicitudin et. Sed fermentum id semper felis convallis tincidunt feugiat.
+Fusce aliquam vel nec justo quisque sagittis habitasse dui. Vel hendrerit proin amet tempus consequat faucibus non. Mi convallis elementum diam suspendisse aliquet augue sed feugiat vestibulum. Risus mauris sem commodo feugiat suspendisse. Lectus scelerisque tincidunt facilisi non pharetra. Integer pulvinar accumsan diam eget. Nullam magna amet viverra luctus duis malesuada morbi. At lacus feugiat proin tortor lacus aliquet in.
+Magna sed sapien risus mauris et aliquam tempus diam. Gravida amet non ornare suspendisse tempor. Tempor mattis aliquet massa imperdiet curabitur integer blandit laoreet. Sed convallis semper bibendum nisi neque aliquet felis imperdiet. Ultrices leo risus cursus est laoreet sociis. Id pretium congue ultricies donec aliquam sodales convallis auctor. Tincidunt viverra sem eleifend viverra id adipiscing eget cursus. Id diam eget tempus arcu.
+`;
+export const WithScrollableContent: Story = {
+  render: function WithScrollableContentExample(args) {
+    const { children, open, ...rest } = args;
+    const [isOpen, setIsOpen] = useState(false);
+
+    return (
+      <>
+        <Button onClick={() => setIsOpen(true)}>Open Dialog</Button>
+        <Dialog open={isOpen} onCancel={() => setIsOpen(false)} {...rest}>
+          {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
+          <div tabIndex={0}>{children}</div>
+        </Dialog>
+      </>
+    );
+  },
+  args: {
+    children: childrenText.repeat(2),
+    title: "Dialog with scrollable content",
+    subtitle: "amet non ornare suspendisse tempor.",
+    height: "200px",
+  },
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
+  decorators: [
+    (Story) => (
+      <Box height="900px" width="100%">
+        <Story />
+      </Box>
+    ),
+  ],
+};
