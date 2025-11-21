@@ -17,13 +17,13 @@ The following section provides migration guidance for deprecated components that
 - For `Grid`, [`Box`](?path=/docs/box--docs) is recommended as the preferred alternative, `Box` has all of the necessary grid layout capabilities through its style properties.
 - For `IconButton`, eventually [`Button`](?path=/docs/button--docs) with an [`Icon`](?path=/docs/icon--docs) passed as a child will be the preferred alternative.
 - For `InlineInput`, using inputs which are placed next to each other horizontally is recommended as the preferred alternative - **however** ensure labels are clearly associated with the relevant input for accessibility.
-- For `Loader` (also known as `LoaderSquare`/`LoaderDots`) [`LoaderSpinner`](?path=/docs/loader-spinner--docs) or [`LoaderBar`](?path=/docs/loader-bar--docs) is recommended as the preferred alternative.
 - For `Pages`, [`StepFlow`](?path=/docs/step-flow--docs) is recommended as the preferred alternative.
 - For `Pod`, [`Tile`](?path=/docs/tile--docs) is recommended as the preferred alternative. Any additional button's for save/edit functionality can be added via [`Button`](?path=/docs/button--docs) with an [`Icon`](?path=/docs/icon--docs) passed as a child.
 - For `Toast`, [`Message`](?path=/docs/message--docs) is recommended as the preferred alternative.
 - For `Tooltip`, using visible input hints are recommended as the preferred alternative. Relying on a tooltip can lead to discoverability issues, it's better to provide context directly which is instantly available.
 - For `Hr`, [`Divider`](?path=/docs/divider--docs) is recommended as the preferred alternative.
 - For `VerticalDivider`, [`Divider`](?path=/docs/divider--docs) is recommended as the preferred alternative.
+- For `LoaderBar`, `LoaderStar` and `LoaderSpinner`: the new [`Loader`](?path=/docs/loader--docs) is recommended as the preferred alternative.
 
 ## Alternative Patterns
 
