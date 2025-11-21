@@ -66,6 +66,9 @@ export interface RadioButtonGroupProps
   validationMessagePositionTop?: boolean;
 }
 
+/**
+ * @deprecated This version of `RadioButtonGroup` is deprecated. See the Carbon documentation for more details.
+ */
 export const RadioButtonGroup = ({
   children,
   id,

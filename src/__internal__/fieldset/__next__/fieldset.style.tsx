@@ -104,7 +104,6 @@ export const StyledLegend = styled.legend<StyledLegendProps>`
       text-align: ${align};
       justify-content: ${align === "right" ? "flex-end" : "flex-start"};
     `};
-  ${margin}
 `;
 
 export const StyledFieldsetContentWrapper = styled.div<{
@@ -133,8 +132,4 @@ export const StyledFieldsetContent = styled.div<{
       gap: 12px var(--global-space-comp-l, 16px);
     `}
   `};
-`;
-
-export const StyledIconWrapper = styled.div`
-  margin-left: var(--spacing050);
 `;
