@@ -1,3 +1,9 @@
+## [158.8.0](https://github.com/Sage/carbon/compare/v158.7.3...v158.8.0) (2025-11-21)
+
+### Features
+
+* **loader:** loader audit changes ([3049b10](https://github.com/Sage/carbon/commit/3049b10458172299997fa4c6911549bd476374c4))
+
 ## [158.7.3](https://github.com/Sage/carbon/compare/v158.7.2...v158.7.3) (2025-11-20)
 
 ### Bug Fixes
