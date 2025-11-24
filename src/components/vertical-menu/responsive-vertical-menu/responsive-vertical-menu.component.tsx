@@ -10,7 +10,6 @@ import React, {
 } from "react";
 
 import { DepthProvider } from "./__internal__/depth.context";
-import { MenuFocusProvider } from "./__internal__/focus.context";
 import {
   useResponsiveVerticalMenu,
   ResponsiveVerticalMenuProvider,
@@ -363,13 +362,11 @@ export const ResponsiveVerticalMenu = forwardRef<
 >(({ children, width, height, ...props }, ref) => {
   return (
     <DepthProvider>
-      <MenuFocusProvider>
-        <ResponsiveVerticalMenuProvider width={width} height={height}>
-          <BaseMenu ref={ref} width={width} height={height} {...props}>
-            {children}
-          </BaseMenu>
-        </ResponsiveVerticalMenuProvider>
-      </MenuFocusProvider>
+      <ResponsiveVerticalMenuProvider width={width} height={height}>
+        <BaseMenu ref={ref} width={width} height={height} {...props}>
+          {children}
+        </BaseMenu>
+      </ResponsiveVerticalMenuProvider>
     </DepthProvider>
   );
 });

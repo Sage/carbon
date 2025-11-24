@@ -325,7 +325,7 @@ test.describe("keyboard navigation tests", () => {
     await expect(firstMenuItem).toBeInViewport();
   });
 
-  test("should loop back to primary menu item when Tab is pressed on last secondary menu item", async ({
+  test("should navigate to the next parent item when last menu item is depth 2", async ({
     mount,
     page,
   }) => {
@@ -345,10 +345,14 @@ test.describe("keyboard navigation tests", () => {
     await page.keyboard.press("Tab");
     await expect(secondaryMenuItem).toBeFocused();
     await page.keyboard.press("Tab");
-    await expect(primaryMenuItem).toBeFocused();
+
+    const nextPrimaryMenuItem = page.getByRole("button", {
+      name: "With Level 3",
+    });
+    await expect(nextPrimaryMenuItem).toBeFocused();
   });
 
-  test("should loop back to primary menu item when Tab is pressed on last tertiary menu item", async ({
+  test("should navigate to the next parent item when last menu item is depth 3", async ({
     mount,
     page,
   }) => {
@@ -372,10 +376,14 @@ test.describe("keyboard navigation tests", () => {
     await page.keyboard.press("Tab");
     await expect(tertiaryMenuItem).toBeFocused();
     await page.keyboard.press("Tab");
-    await expect(primaryMenuItem).toBeFocused();
+
+    const nextPrimaryMenuItem = page.getByRole("button", {
+      name: "With Level 4",
+    });
+    await expect(nextPrimaryMenuItem).toBeFocused();
   });
 
-  test("should loop back to primary menu item when Tab is pressed on last level 4 item", async ({
+  test("should navigate to the next parent item when last menu item is depth 4", async ({
     mount,
     page,
   }) => {
@@ -402,11 +410,32 @@ test.describe("keyboard navigation tests", () => {
     await expect(quaternaryMenuItem).toBeFocused();
     await page.keyboard.press("Tab");
 
-    // TODO: FE-7448
-    // await expect(primaryMenuItem).toBeFocused();
+    const nextPrimaryMenuItem = page.getByRole("button", {
+      name: "Last Primary Menu Item",
+    });
+    await expect(nextPrimaryMenuItem).toBeFocused();
   });
 
-  test("should go to last secondary menu item when Shift+Tab is pressed on the primary menu", async ({
+  test("should close the menu and focus the next element in the tab order when tabbing out of the menu", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<WithSiblingControl />);
+
+    await responsiveVerticalMenuLauncher(page).click();
+
+    const lastItem = page.getByRole("button", { name: "Primary Menu Item" });
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("Tab");
+    await expect(lastItem).toBeFocused();
+
+    // press tab to move focus out of the menu
+    await page.keyboard.press("Tab");
+    const externalInput = page.getByRole("checkbox");
+    await expect(externalInput).toBeFocused();
+  });
+
+  test("should go to last secondary menu item when Shift+Tab is pressed on the next parent item", async ({
     mount,
     page,
   }) => {
@@ -415,21 +444,25 @@ test.describe("keyboard navigation tests", () => {
     await responsiveVerticalMenuLauncher(page).click();
 
     const primaryMenuItem = page.getByRole("button", { name: "With Level 2" });
-    await page.keyboard.press("Tab");
-    await expect(primaryMenuItem).toBeFocused();
-    await page.keyboard.press("Enter");
+    const nextPrimaryMenuItem = page.getByRole("button", {
+      name: "With Level 3",
+    });
 
+    await primaryMenuItem.click(); // open primary menu
     const secondaryMenuItem = page.getByRole("link", {
       name: "Level 2 As Last Item",
     });
     await expect(secondaryMenuItem).toBeVisible();
+
+    await nextPrimaryMenuItem.focus();
+
     await page.keyboard.press("Shift+Tab");
     await expect(secondaryMenuItem).toBeFocused();
     await page.keyboard.press("Shift+Tab");
     await expect(primaryMenuItem).toBeFocused();
   });
 
-  test("should go to last tertiary menu item when Shift+Tab is pressed on the secondary menu", async ({
+  test("should go to last tertiary menu item when Shift+Tab is pressed on the next parent item", async ({
     mount,
     page,
   }) => {
@@ -438,6 +471,10 @@ test.describe("keyboard navigation tests", () => {
     await responsiveVerticalMenuLauncher(page).click();
 
     const primaryMenuItem = page.getByRole("button", { name: "With Level 3" });
+    const nextPrimaryMenuItem = page.getByRole("button", {
+      name: "With Level 4",
+    });
+
     await primaryMenuItem.click(); // open primary menu
     const secondaryMenuItem = page.getByRole("button", {
       name: "Level 2 Parent",
@@ -448,7 +485,7 @@ test.describe("keyboard navigation tests", () => {
     });
     await expect(tertiaryMenuItem).toBeVisible();
 
-    await primaryMenuItem.focus();
+    await nextPrimaryMenuItem.focus();
 
     await page.keyboard.press("Shift+Tab");
     await expect(tertiaryMenuItem).toBeFocused();
@@ -458,8 +495,7 @@ test.describe("keyboard navigation tests", () => {
     await expect(primaryMenuItem).toBeFocused();
   });
 
-  // TODO: FE-7448
-  test.skip("should go to last level 4 item when Shift+Tab is pressed on the tertiary menu", async ({
+  test("should go to last level 4 item when Shift+Tab is pressed on the next parent item", async ({
     mount,
     page,
   }) => {
@@ -468,6 +504,10 @@ test.describe("keyboard navigation tests", () => {
     await responsiveVerticalMenuLauncher(page).click();
 
     const primaryMenuItem = page.getByRole("button", { name: "With Level 4" });
+    const nextPrimaryMenuItem = page.getByRole("button", {
+      name: "Last Primary Menu Item",
+    });
+
     await primaryMenuItem.click(); // open primary menu
     const secondaryMenuItem = page.getByRole("button", {
       name: "Level 2 Parent",
@@ -481,7 +521,7 @@ test.describe("keyboard navigation tests", () => {
     });
     await expect(quaternaryMenuItem).toBeVisible();
 
-    await primaryMenuItem.focus();
+    await nextPrimaryMenuItem.focus();
 
     await page.keyboard.press("Shift+Tab");
     await expect(quaternaryMenuItem).toBeFocused();
