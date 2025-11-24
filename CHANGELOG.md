@@ -1,3 +1,9 @@
+## [158.10.1](https://github.com/Sage/carbon/compare/v158.10.0...v158.10.1) (2025-11-24)
+
+### Bug Fixes
+
+* **responsive-vertical-menu:** ensure keyboard nav follows natural DOM order ([9c12dfa](https://github.com/Sage/carbon/commit/9c12dfaf8ea414facd661287ec349a118a0b33a5))
+
 ## [158.10.0](https://github.com/Sage/carbon/compare/v158.9.0...v158.10.0) (2025-11-24)
 
 ### Features
