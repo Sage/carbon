@@ -40,8 +40,6 @@ export interface RadioButtonGroupProps extends MarginProps, TagProps {
   size?: "small" | "medium" | "large";
   /** Error message to be displayed when validation fails. */
   error?: string;
-  /** Warning message to be displayed when validation warning occurs. */
-  warning?: string;
   /** Render the ValidationMessage above the RadioButtonGroup when validationRedesignOptIn flag is set. */
   validationMessagePositionTop?: boolean;
 }
@@ -54,7 +52,6 @@ export const RadioButtonGroup = ({
   legendHint,
   legendAlign,
   error,
-  warning,
   onBlur,
   onChange,
   value,
@@ -77,7 +74,6 @@ export const RadioButtonGroup = ({
       isDisabled={disabled}
       isRequired={required}
       error={error}
-      warning={warning}
       validationMessagePositionTop={validationMessagePositionTop}
       size={size}
       inline={inline}

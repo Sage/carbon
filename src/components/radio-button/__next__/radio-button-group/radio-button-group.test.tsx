@@ -71,25 +71,6 @@ test("renders with `error` message", () => {
   expect(group).toHaveAccessibleDescription("Error Message");
 });
 
-test("renders with `warning` message", () => {
-  render(
-    <RadioButtonGroup
-      name="radio-group"
-      value=""
-      onChange={() => {}}
-      legend="Radio Group Legend"
-      warning="Warning Message"
-    >
-      <RadioButton value="radio" label="Radio Button" />
-    </RadioButtonGroup>,
-  );
-
-  const group = screen.getByRole("group", { name: "Radio Group Legend" });
-
-  expect(screen.getByText("Warning Message")).toBeVisible();
-  expect(group).toHaveAccessibleDescription("Warning Message");
-});
-
 test("checks the correct RadioButton based on `value`", () => {
   render(
     <RadioButtonGroup name="radio-group" value="radio-2" onChange={() => {}}>

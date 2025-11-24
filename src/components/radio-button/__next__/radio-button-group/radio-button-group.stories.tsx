@@ -19,7 +19,6 @@ const meta: Meta<typeof RadioButtonGroup> = {
   argTypes: {
     ...styledSystemProps,
     error: { control: "text" },
-    warning: { control: "text" },
   },
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },

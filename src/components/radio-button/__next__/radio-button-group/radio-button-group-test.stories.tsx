@@ -18,7 +18,6 @@ const meta: Meta<typeof RadioButtonGroup> = {
   argTypes: {
     ...styledSystemProps,
     error: { control: "text" },
-    warning: { control: "text" },
   },
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
@@ -77,27 +76,10 @@ export const Validation = ({ ...args }) => {
           {...args}
         />
         <RadioButtonGroupComponent
-          id="warning-group-small"
-          name="warning-group-small"
-          legend="With Warning Small"
-          warning="Warning Message"
-          size="small"
-          {...args}
-        />
-        <RadioButtonGroupComponent
           id="error-bottom-small-group"
           name="error-bottom-small-group"
           legend="With Error at Bottom Small"
           error="Error Message"
-          validationMessagePositionTop={false}
-          size="small"
-          {...args}
-        />
-        <RadioButtonGroupComponent
-          id="warning-bottom-small-group"
-          name="warning-bottom-small-group"
-          legend="With Warning at Bottom Small"
-          warning="Warning Message"
           validationMessagePositionTop={false}
           size="small"
           {...args}
@@ -113,25 +95,10 @@ export const Validation = ({ ...args }) => {
           {...args}
         />
         <RadioButtonGroupComponent
-          id="warning-group"
-          name="warning-group"
-          legend="With Warning"
-          warning="Warning Message"
-          {...args}
-        />
-        <RadioButtonGroupComponent
           id="error-bottom-group"
           name="error-bottom-group"
           legend="With Error at Bottom"
           error="Error Message"
-          validationMessagePositionTop={false}
-          {...args}
-        />
-        <RadioButtonGroupComponent
-          id="warning-bottom-group"
-          name="warning-bottom-group"
-          legend="With Warning at Bottom"
-          warning="Warning Message"
           validationMessagePositionTop={false}
           {...args}
         />
@@ -147,27 +114,10 @@ export const Validation = ({ ...args }) => {
           {...args}
         />
         <RadioButtonGroupComponent
-          id="warning-large-group"
-          name="warning-large-group"
-          legend="With Warning Large"
-          warning="Warning Message"
-          size="large"
-          {...args}
-        />
-        <RadioButtonGroupComponent
           id="error-bottom-large-group"
           name="error-bottom-large-group"
           legend="With Error at Bottom Large"
           error="Error Message"
-          validationMessagePositionTop={false}
-          size="large"
-          {...args}
-        />
-        <RadioButtonGroupComponent
-          id="warning-bottom-large-group"
-          name="warning-bottom-large-group"
-          legend="With Warning at Bottom Large"
-          warning="Warning Message"
           validationMessagePositionTop={false}
           size="large"
           {...args}

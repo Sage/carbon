@@ -115,19 +115,6 @@ test.describe("Accessibility tests for RadioButton", () => {
     await checkAccessibility(page);
   });
 
-  test("should pass accessibility when `warning` is set", async ({
-    mount,
-    page,
-  }) => {
-    await mount(
-      <RadioButtonGroupControlled
-        legend="Radio Group Legend"
-        warning="This is a warning"
-      />,
-    );
-    await checkAccessibility(page);
-  });
-
   test("should pass accessibility when `inputHint` is set on RadioButton", async ({
     mount,
     page,
