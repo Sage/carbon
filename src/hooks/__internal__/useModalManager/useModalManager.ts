@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useCallback } from "react";
-import ModalManager from "../../../components/modal/__internal__/modal-manager";
+import ModalManager from "../../../__internal__/modal/modal-manager";
 
 type UseModalManagerArgs = {
   open: boolean;

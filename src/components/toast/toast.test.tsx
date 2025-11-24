@@ -2,7 +2,7 @@ import React from "react";
 import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Toast, { ToastProps } from "./toast.component";
-import ModalManager from "../modal/__internal__/modal-manager";
+import ModalManager from "../../__internal__/modal/modal-manager";
 import Logger from "../../__internal__/utils/logger";
 
 let loggerSpy: jest.SpyInstance;

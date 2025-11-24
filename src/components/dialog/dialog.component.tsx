@@ -16,7 +16,7 @@ import {
 import Heading from "../heading";
 import Icon from "../icon";
 import IconButton from "../icon-button";
-import Modal, { ModalProps } from "../modal";
+import Modal, { ModalProps } from "../../__internal__/modal";
 
 import FocusTrap from "../../__internal__/focus-trap";
 import FullScreenHeading from "../../__internal__/full-screen-heading";
