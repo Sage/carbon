@@ -13,7 +13,7 @@ import { filterStyledSystemMarginProps } from "../../style/utils";
 import guid from "../../__internal__/utils/helpers/guid";
 import useLocale from "../../hooks/__internal__/useLocale";
 import { Dt, Dd } from "../definition-list";
-import { ModalProps } from "../modal";
+import { ModalProps } from "../../__internal__/modal";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 export interface AdvancedColor {
   label: string;

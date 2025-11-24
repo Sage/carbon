@@ -11,9 +11,7 @@ import { flip, Placement, Middleware } from "@floating-ui/dom";
 import useFloating from "../../hooks/__internal__/useFloating";
 import { StyledBackdrop, StyledPopoverContent } from "./popover.style";
 import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component";
-import ModalContext, {
-  ModalContextProps,
-} from "../../components/modal/__internal__/modal.context";
+import ModalContext, { ModalContextProps } from "../modal/modal.context";
 
 export interface PopoverProps {
   /**

@@ -874,6 +874,32 @@ describe("when MenuItem has a submenu", () => {
     expect(submenuParentItem).toHaveFocus();
   });
 
+  it("closes submenu when shift tabbing from the parent menu item and focuses on the previous menu item", async () => {
+    const user = userEvent.setup();
+    render(
+      <Menu>
+        <MenuItem href="#">Item One</MenuItem>
+        <MenuItem submenu="Item Two">
+          <MenuItem href="#">Submenu Item One</MenuItem>
+          <MenuItem href="#">Submenu Item Two</MenuItem>
+          <MenuItem href="#">Submenu Item Three</MenuItem>
+        </MenuItem>
+      </Menu>,
+    );
+    const submenuParentItem = screen.getByRole("button", { name: "Item Two" });
+    await user.tab();
+    await user.tab(); // focus item two
+    await user.keyboard("{Enter}"); // open submenu
+    const submenuItem = screen.getByRole("link", { name: /Submenu Item One/ });
+
+    expect(submenuParentItem).toHaveFocus();
+    expect(submenuItem).toBeVisible();
+
+    await user.tab({ shift: true });
+    expect(submenuItem).not.toBeVisible();
+    expect(screen.getByRole("link", { name: "Item One" })).toHaveFocus();
+  });
+
   it("allows focus on the last submenu item to be lost, when tabbing on it", async () => {
     const user = userEvent.setup();
     render(

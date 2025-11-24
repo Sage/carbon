@@ -14,9 +14,7 @@ import {
   onTabGuardFocus,
   trapFunction,
 } from "./focus-trap-utils";
-import ModalContext, {
-  ModalContextProps,
-} from "../../components/modal/__internal__/modal.context";
+import ModalContext, { ModalContextProps } from "../modal/modal.context";
 import usePrevious from "../../hooks/__internal__/usePrevious";
 import TopModalContext from "../../components/carbon-provider/__internal__/top-modal.context";
 

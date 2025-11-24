@@ -1,6 +1,6 @@
 import { action } from "@storybook/addon-actions";
 import { StoryObj } from "@storybook/react";
-import { userEvent, within } from "@storybook/test";
+import { userEvent, within, expect } from "@storybook/test";
 import React from "react";
 
 import { Accordion, AccordionGroup } from ".";
@@ -9,7 +9,6 @@ import Textbox, { TextboxProps } from "../textbox";
 
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
 import DefaultDecorator from "../../../.storybook/utils/default-decorator";
-import userInteractionPause from "../../../.storybook/utils/user-interaction-pause";
 
 type Story = StoryObj<typeof Accordion>;
 
@@ -73,9 +72,9 @@ export const ClickToOpen: Story = {
         width: "100%",
       }}
     >
-      <Box mt={2}>Content</Box>
-      <Box>Content</Box>
-      <Box>Content</Box>
+      <Box mt={2}>Content1</Box>
+      <Box>Content2</Box>
+      <Box>Content3</Box>
     </Accordion>
   ),
   play: async ({ canvasElement }) => {
@@ -87,6 +86,11 @@ export const ClickToOpen: Story = {
     const accordionToggle = canvas.getAllByRole("button");
 
     await userEvent.click(accordionToggle[0]);
+    await userEvent.click(accordionToggle[0]);
+    await userEvent.click(accordionToggle[0]);
+    await expect(
+      await within(document.body).findByText("Content1"),
+    ).toBeInTheDocument();
   },
   decorators: [
     (StoryToRender) => (
@@ -99,60 +103,6 @@ export const ClickToOpen: Story = {
 
 ClickToOpen.storyName = "Click To Open";
 ClickToOpen.parameters = {
-  themeProvider: { chromatic: { theme: "sage" } },
-  chromatic: { disableSnapshot: false },
-};
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const ClosableAccordion = (args: any) => {
-  const [open, setOpen] = React.useState(true);
-
-  return (
-    <Accordion
-      expanded={open}
-      defaultExpanded={open}
-      onChange={() => {
-        setOpen(!open);
-      }}
-      {...{
-        ...args,
-        "data-role": "accordion",
-        customPadding: 0,
-        title: "Title",
-        subTitle: "Sub Title",
-        width: "100%",
-      }}
-    >
-      <Box mt={2}>Content</Box>
-      <Box>Content</Box>
-      <Box>Content</Box>
-    </Accordion>
-  );
-};
-
-export const ClickToClose: Story = {
-  render: (args) => <ClosableAccordion {...args} />,
-  play: async ({ canvasElement }) => {
-    if (!allowInteractions()) {
-      return;
-    }
-
-    const canvas = within(canvasElement);
-    const accordionToggle = canvas.getAllByRole("button");
-
-    await userEvent.click(accordionToggle[0]);
-  },
-  decorators: [
-    (StoryToRender) => (
-      <DefaultDecorator>
-        <StoryToRender />
-      </DefaultDecorator>
-    ),
-  ],
-};
-
-ClickToClose.storyName = "Click To Close";
-ClickToClose.parameters = {
   themeProvider: { chromatic: { theme: "sage" } },
   chromatic: { disableSnapshot: false },
 };
@@ -170,22 +120,22 @@ export const FocusManagement: Story = {
         width: "100%",
       }}
     >
-      <Box mt={2}>Content</Box>
-      <Box>Content</Box>
-      <Box>Content</Box>
+      <Box mt={2}>Content1</Box>
+      <Box>Content2</Box>
+      <Box>Content3</Box>
     </Accordion>
   ),
   play: async () => {
     if (!allowInteractions()) {
       return;
     }
-
     await userEvent.tab();
 
+    await userEvent.keyboard("{Enter}", { delay: 100 });
+    await expect(
+      await within(document.body).findByText("Content1"),
+    ).toBeVisible();
     await userEvent.keyboard("{Enter}");
-    await userEvent.keyboard("{Enter}", { delay: 1000 });
-
-    await userEvent.tab();
   },
   decorators: [
     (StoryToRender) => (
@@ -253,9 +203,10 @@ export const MixedAccordionStates: Story = {
     const accordionToggles = canvas.getAllByRole("button");
 
     await userEvent.click(accordionToggles[2]);
-    await userEvent.click(accordionToggles[0], { delay: 1000 });
-    await userEvent.click(accordionToggles[2], { delay: 1000 });
-    await userEvent.click(accordionToggles[1], { delay: 1000 });
+    await userEvent.click(accordionToggles[0], { delay: 200 });
+    await userEvent.click(accordionToggles[2], { delay: 200 });
+    await userEvent.click(accordionToggles[1], { delay: 200 });
+    await expect(accordionToggles[1]).toHaveFocus();
   },
   decorators: [
     (StoryToRender) => (
@@ -310,15 +261,16 @@ export const NestedComponentInteractions: Story = {
     const canvas = within(canvasElement);
     const accordionToggle = canvas.getAllByRole("button");
 
-    await userEvent.click(accordionToggle[0]);
-
-    await userInteractionPause(500);
+    await userEvent.click(accordionToggle[0], { delay: 100 });
 
     const textboxes = canvas.queryAllByRole("textbox");
     const textbox = textboxes[0];
     await userEvent.type(textbox, "Text input in Accordion", { delay: 100 });
-    await userEvent.click(accordionToggle[0], { delay: 1000 });
-    await userEvent.click(accordionToggle[0], { delay: 1000 });
+    await userEvent.click(accordionToggle[0], { delay: 100 });
+    await userEvent.click(accordionToggle[0], { delay: 100 });
+    await expect(
+      await within(document.body).findByText("Textbox in an Accordion"),
+    ).toBeVisible();
   },
   decorators: [
     (StoryToRender) => (
@@ -378,17 +330,12 @@ export const ToggleGroupedAccordions: Story = {
     const accordionToggles = canvas.getAllByRole("button");
 
     accordionToggles.forEach(async (toggle) => {
-      await userInteractionPause(1000);
       await userEvent.click(toggle);
-      await userInteractionPause(1000);
     });
 
-    await userInteractionPause(1000);
-
     accordionToggles.forEach(async (toggle) => {
-      await userInteractionPause(1000);
-      await userEvent.click(toggle);
-      await userInteractionPause(1000);
+      await userEvent.click(toggle, { delay: 500 });
+      await expect(accordionToggles[2]).toHaveFocus();
     });
   },
   decorators: [
@@ -419,9 +366,9 @@ export const ToggleViaKeyboard: Story = {
         width: "100%",
       }}
     >
-      <Box mt={2}>Content</Box>
-      <Box>Content</Box>
-      <Box>Content</Box>
+      <Box mt={2}>Content1</Box>
+      <Box>Content2</Box>
+      <Box>Content3</Box>
     </Accordion>
   ),
   play: async ({ canvasElement }) => {
@@ -435,10 +382,16 @@ export const ToggleViaKeyboard: Story = {
     accordionToggle[0].focus();
 
     await userEvent.keyboard("{Enter}");
-    await userEvent.keyboard("{Enter}", { delay: 1000 });
+    await expect(
+      await within(document.body).findByText("Content1"),
+    ).toBeVisible();
+    await userEvent.keyboard("{Enter}", { delay: 500 });
 
+    await userEvent.keyboard(" ", { delay: 500 });
+    await expect(
+      await within(document.body).findByText("Content1"),
+    ).toBeVisible();
     await userEvent.keyboard(" ");
-    await userEvent.keyboard(" ", { delay: 1000 });
   },
   decorators: [
     (StoryToRender) => (
@@ -452,5 +405,5 @@ export const ToggleViaKeyboard: Story = {
 ToggleViaKeyboard.storyName = "Toggle Via Keyboard";
 ToggleViaKeyboard.parameters = {
   themeProvider: { chromatic: { theme: "sage" } },
-  chromatic: { disableSnapshot: false },
+  chromatic: { disableSnapshot: true },
 };

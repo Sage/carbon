@@ -19,6 +19,9 @@ import useModalManager from "../../hooks/__internal__/useModalManager";
 import guid from "../../__internal__/utils/helpers/guid";
 import Typography from "../typography";
 
+/**
+ * @deprecated `Toast` has been deprecated. See the Carbon documentation for migration details.
+ */
 type ToastVariants =
   | "error"
   | "info"
@@ -28,7 +31,14 @@ type ToastVariants =
   | "neutral"
   | "notification";
 
+/**
+ * @deprecated `Toast` has been deprecated. See the Carbon documentation for migration details.
+ */
 type AlignOptions = "left" | "center" | "right";
+
+/**
+ * @deprecated `Toast` has been deprecated. See the Carbon documentation for migration details.
+ */
 type AlignYOptions = "top" | "center" | "bottom";
 
 interface IconTypes {
@@ -41,6 +51,9 @@ interface IconTypes {
   notice?: "none";
 }
 
+/**
+ * @deprecated `Toast` has been deprecated. See the Carbon documentation for migration details.
+ */
 export interface ToastProps extends TagProps {
   /** Sets the horizontal alignment of the component. */
   align?: AlignOptions;
@@ -73,6 +86,9 @@ export interface ToastProps extends TagProps {
   disableAutoFocus?: boolean;
 }
 
+/**
+ * @deprecated `Toast` has been deprecated. See the Carbon documentation for migration details.
+ */
 export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
   (
     {

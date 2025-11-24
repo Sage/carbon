@@ -236,7 +236,10 @@ test.each([
 
 test("cleans up event listeners after unmounting", () => {
   const { unmount } = render(<MockComponent />);
-  const addEventListenerSpy = jest.spyOn(window, "removeEventListener");
+  const addEventListenerSpy: jest.SpyInstance = jest.spyOn(
+    window,
+    "removeEventListener",
+  );
 
   unmount();
 

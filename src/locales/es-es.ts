@@ -178,6 +178,28 @@ const esES: Partial<Locale> = {
     saveButtonAria: () => "Guardar",
     toolbarAriaLabel: () => "Formato",
     unorderedListAria: () => "Lista no ordenada",
+    hyperlink: {
+      buttonAria: () => "Hyperlink",
+      cancelButton: () => "Cancel",
+      cancelButtonAria: () => "Cancel",
+      dialogTitle: () => "Add link",
+      linkFieldLabel: () => "Link",
+      saveButton: () => "Save",
+      saveButtonAria: () => "Save",
+      textFieldLabel: () => "Text",
+    },
+    typography: {
+      selectAria: () => "Heading type",
+      paragraph: () => "Paragraph",
+      title: () => "Title",
+      subtitle: () => "Subtitle",
+      sectionHeader: () => "Section header",
+      sectionSubheader: () => "Section subheader",
+    },
+    underlineAria: () => "Underline",
+    mentions: {
+      listAriaLabel: () => "List of mentionable people",
+    },
   },
   search: {
     searchButtonText: () => "Buscar",

@@ -28,7 +28,7 @@ import { filterStyledSystemPaddingProps } from "../../style/utils";
 import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
 import Events from "../../__internal__/utils/helpers/events";
 import FocusTrap from "../../__internal__/focus-trap";
-import ModalContext from "../modal/__internal__/modal.context";
+import ModalContext from "../../__internal__/modal/modal.context";
 import useFocusPortalContent from "../../hooks/__internal__/useFocusPortalContent";
 import tagComponent, {
   TagProps,

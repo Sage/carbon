@@ -1,7 +1,7 @@
 import React, { useCallback, useRef, RefObject } from "react";
 import { PaddingProps, WidthProps } from "styled-system";
 
-import Modal, { ModalProps } from "../modal";
+import Modal, { ModalProps } from "../../__internal__/modal";
 import { StyledSidebar, StyledSidebarContent } from "./sidebar.style";
 import IconButton from "../icon-button";
 import Icon from "../icon";

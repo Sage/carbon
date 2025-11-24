@@ -1,3 +1,57 @@
+## [158.9.0](https://github.com/Sage/carbon/compare/v158.8.0...v158.9.0) (2025-11-24)
+
+### Features
+
+* **modal:** deprecate `Modal` ([f5a4c6a](https://github.com/Sage/carbon/commit/f5a4c6a7fc31496417348a6c9fc53c13eda58d89))
+
+## [158.8.0](https://github.com/Sage/carbon/compare/v158.7.3...v158.8.0) (2025-11-21)
+
+### Features
+
+* **loader:** loader audit changes ([3049b10](https://github.com/Sage/carbon/commit/3049b10458172299997fa4c6911549bd476374c4))
+
+## [158.7.3](https://github.com/Sage/carbon/compare/v158.7.2...v158.7.3) (2025-11-20)
+
+### Bug Fixes
+
+* **link:** ensure if component has an image it receives correct focus styling ([f189680](https://github.com/Sage/carbon/commit/f189680e7d1544c46fb9bdb635106a1e026044f1)), closes [#6890](https://github.com/Sage/carbon/issues/6890)
+
+## [158.7.2](https://github.com/Sage/carbon/compare/v158.7.1...v158.7.2) (2025-11-18)
+
+### Bug Fixes
+
+* **menu:** ensure submenu closes when Shift+Tab from parent item ([e70ac52](https://github.com/Sage/carbon/commit/e70ac52595318e7779d4354b1df8bbf7703bad1f))
+
+## [158.7.1](https://github.com/Sage/carbon/compare/v158.7.0...v158.7.1) (2025-11-14)
+
+### Bug Fixes
+
+* **date-picker:** ensure calendar renders at correct depth level ([7740e11](https://github.com/Sage/carbon/commit/7740e11d70a665cc048930c36a966dd4ec4a2a81))
+
+## [158.7.0](https://github.com/Sage/carbon/compare/v158.6.1...v158.7.0) (2025-11-13)
+
+### Features
+
+* **text-editor:** implement changes for the TextEditor component as part of the DS alignment work ([7556b0f](https://github.com/Sage/carbon/commit/7556b0f82c9a8b5dc1cd8fd3f185b641ea97fe4c))
+
+## [158.6.1](https://github.com/Sage/carbon/compare/v158.6.0...v158.6.1) (2025-11-12)
+
+### Bug Fixes
+
+* **sidebar:** ensure header and close icon do not overlap ([e33ab3f](https://github.com/Sage/carbon/commit/e33ab3fdbd84abbb271a48a8600d56525a866166)), closes [#7598](https://github.com/Sage/carbon/issues/7598)
+
+## [158.6.0](https://github.com/Sage/carbon/compare/v158.5.0...v158.6.0) (2025-11-11)
+
+### Features
+
+* **select:** add new `setupSelectMocks` util for JSDOM testing ([54fd9bf](https://github.com/Sage/carbon/commit/54fd9bf5efb1ad6e7848ac64a99976f4c73402d1))
+
+## [158.5.0](https://github.com/Sage/carbon/compare/v158.4.0...v158.5.0) (2025-11-11)
+
+### Features
+
+* **search:** add label and input hint ([682647d](https://github.com/Sage/carbon/commit/682647d17d86e9de411f72bb45f71b1382b1f0aa)), closes [#7603](https://github.com/Sage/carbon/issues/7603)
+
 ## [158.4.0](https://github.com/Sage/carbon/compare/v158.3.1...v158.4.0) (2025-11-06)
 
 ### Features

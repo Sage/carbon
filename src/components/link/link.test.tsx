@@ -699,6 +699,68 @@ describe("link display styling", () => {
   });
 });
 
+// Test is just for coverage
+test("applies the correct focus styling when child contains an image as a child", async () => {
+  const user = userEvent.setup();
+  render(
+    <Link href="foo.com">
+      <img src="logo.png" alt="logo" />
+    </Link>,
+  );
+
+  const linkElement = screen.getByTestId("link-anchor");
+
+  await user.tab();
+
+  expect(linkElement).toHaveStyle({
+    outline: "transparent 3px solid",
+  });
+});
+
+// Test is just for coverage
+test("applies the correct focus styling when child component contains an image as a child", async () => {
+  const user = userEvent.setup();
+  const LogoComponent = () => <img src="logo.png" alt="logo" />;
+  render(
+    <Link href="foo.com">
+      <LogoComponent />
+    </Link>,
+  );
+
+  const linkElement = screen.getByTestId("link-anchor");
+
+  await user.tab();
+
+  expect(linkElement).toHaveStyle({
+    outline: "transparent 3px solid",
+  });
+});
+
+// Test is just for coverage
+test("applies the correct focus styling when child contains an svg as a child", async () => {
+  const user = userEvent.setup();
+  render(
+    <Link href="foo.com">
+      <svg
+        width="100"
+        height="100"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <circle cx="50" cy="50" r="40" fill="blue" />
+      </svg>
+    </Link>,
+  );
+
+  const linkElement = screen.getByTestId("link-anchor");
+
+  await user.tab();
+
+  expect(linkElement).toHaveStyle({
+    outline: "transparent 3px solid",
+  });
+});
+
 test("accepts ref as a ref object", () => {
   const mockRef = { current: null };
   render(<Link href="#" ref={mockRef} />);

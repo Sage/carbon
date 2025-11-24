@@ -8,7 +8,6 @@ import Box from "../box";
 
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
 import DefaultDecorator from "../../../.storybook/utils/default-decorator";
-import userInteractionPause from "../../../.storybook/utils/user-interaction-pause";
 
 type Story = StoryObj<typeof SplitButton>;
 
@@ -44,7 +43,6 @@ export const PrimarySplitButton: Story = {
     const primaryToggle = canvas.getByRole("button", { name: /show more/i });
 
     await userEvent.click(primaryToggle);
-    await userInteractionPause(300);
     expect(primaryToggle).toHaveAttribute("aria-expanded", "true");
   },
 };
@@ -64,7 +62,6 @@ export const SecondarySplitButton: Story = {
     const secondaryToggle = canvas.getByRole("button", { name: /show more/i });
 
     await userEvent.click(secondaryToggle);
-    await userInteractionPause(300);
     expect(secondaryToggle).toHaveAttribute("aria-expanded", "true");
   },
 };
@@ -90,8 +87,7 @@ export const WhiteSecondarySplitButton: Story = {
     const whiteToggle = canvas.getByRole("button", { name: /show more/i });
 
     await userEvent.click(whiteToggle);
-    await userInteractionPause(500);
-    expect(whiteToggle).toHaveAttribute("aria-expanded", "true");
+    await expect(whiteToggle).toHaveAttribute("aria-expanded", "true");
   },
 };
 
@@ -110,8 +106,7 @@ export const SmallSplitButton: Story = {
     const smallToggle = canvas.getByRole("button", { name: /show more/i });
 
     await userEvent.click(smallToggle);
-    await userInteractionPause(500);
-    expect(smallToggle).toHaveAttribute("aria-expanded", "true");
+    await expect(smallToggle).toHaveAttribute("aria-expanded", "true");
   },
 };
 
@@ -130,8 +125,7 @@ export const MediumSplitButton: Story = {
     const mediumToggle = canvas.getByRole("button", { name: /show more/i });
 
     await userEvent.click(mediumToggle);
-    await userInteractionPause(300);
-    expect(mediumToggle).toHaveAttribute("aria-expanded", "true");
+    await expect(mediumToggle).toHaveAttribute("aria-expanded", "true");
   },
 };
 
@@ -150,8 +144,7 @@ export const LargeSplitButton: Story = {
     const largeToggle = canvas.getByRole("button", { name: /show more/i });
 
     await userEvent.click(largeToggle);
-    await userInteractionPause(500);
-    expect(largeToggle).toHaveAttribute("aria-expanded", "true");
+    await expect(largeToggle).toHaveAttribute("aria-expanded", "true");
   },
 };
 
@@ -170,7 +163,6 @@ export const DisabledChildSplitButton: Story = {
     const toggle = canvas.getByRole("button", { name: /show more/i });
 
     await userEvent.click(toggle);
-    await userInteractionPause(500);
 
     const allChildButtons = canvas
       .getAllByRole("button")
@@ -191,8 +183,7 @@ export const DisabledChildSplitButton: Story = {
     expect(enabledChild2).not.toBeDisabled();
 
     await userEvent.hover(disabledChild);
-    await userInteractionPause(300);
-    expect(disabledChild).toBeDisabled();
+    await expect(disabledChild).toBeDisabled();
   },
 };
 
@@ -213,14 +204,12 @@ export const IconsSplitButton: Story = {
     const toggle = canvas.getByRole("button", { name: /show more/i });
 
     await userEvent.click(toggle);
-    await userInteractionPause(500);
 
     const iconOnly = canvas.getByLabelText("Info");
     await userEvent.hover(iconOnly);
-    await userInteractionPause(500);
 
-    expect(iconOnly).toHaveAccessibleName("Info");
-    expect(iconOnly).toHaveAttribute("aria-label", "Info");
+    await expect(iconOnly).toHaveAccessibleName("Info");
+    await expect(iconOnly).toHaveAttribute("aria-label", "Info");
   },
 };
 
@@ -239,8 +228,7 @@ export const LeftPositionSplitButton: Story = {
     const leftToggle = canvas.getByRole("button", { name: /show more/i });
 
     await userEvent.click(leftToggle);
-    await userInteractionPause(500);
-    expect(leftToggle).toHaveAttribute("aria-expanded", "true");
+    await expect(leftToggle).toHaveAttribute("aria-expanded", "true");
   },
 };
 
@@ -259,8 +247,7 @@ export const RightPositionSplitButton: Story = {
     const rightToggle = canvas.getByRole("button", { name: /show more/i });
 
     await userEvent.click(rightToggle);
-    await userInteractionPause(500);
-    expect(rightToggle).toHaveAttribute("aria-expanded", "true");
+    await expect(rightToggle).toHaveAttribute("aria-expanded", "true");
   },
 };
 
@@ -278,7 +265,6 @@ export const ChildButtonFocusState: Story = {
     const toggleButton = canvas.getByRole("button", { name: /show more/i });
 
     await userEvent.click(toggleButton);
-    await userInteractionPause(500);
 
     const childButtons = [
       canvasElement.querySelector('[data-role="first-child"]'),
@@ -304,8 +290,7 @@ export const ChildButtonFocusState: Story = {
     expect(childButtons[0]).toHaveFocus();
 
     await userEvent.keyboard("{End}");
-    await userInteractionPause(100);
-    expect(childButtons[2]).toHaveFocus();
+    await expect(childButtons[2]).toHaveFocus();
 
     expect(toggleButton).toHaveAttribute("aria-expanded", "true");
   },

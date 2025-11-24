@@ -24,7 +24,7 @@ import {
 } from "./responsive-vertical-menu.style";
 
 import Box from "../../box";
-import Modal from "../../modal";
+import Modal from "../../../__internal__/modal";
 
 import useIsAboveBreakpoint from "../../../hooks/__internal__/useIsAboveBreakpoint";
 import useMediaQuery from "../../../hooks/useMediaQuery";

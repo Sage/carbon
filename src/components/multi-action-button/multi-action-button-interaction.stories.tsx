@@ -1,5 +1,5 @@
 import { StoryObj } from "@storybook/react";
-import { userEvent, within } from "@storybook/test";
+import { userEvent, within, expect } from "@storybook/test";
 import React from "react";
 
 import MultiActionButton from ".";
@@ -9,7 +9,6 @@ import { Accordion } from "../accordion";
 
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
 import DefaultDecorator from "../../../.storybook/utils/default-decorator";
-import userInteractionPause from "../../../.storybook/utils/user-interaction-pause";
 
 type Story = StoryObj<typeof MultiActionButton>;
 
@@ -131,7 +130,8 @@ export const ButtonTypes: Story = {
     const canvas = within(canvasElement);
     const button = canvas.getByRole("button", { name: "Multi Action Button" });
     await userEvent.click(button);
-    await userInteractionPause(1000);
+    const menuButton = within(document.body).getByText("Button - primary");
+    await expect(menuButton).toBeVisible();
   },
   decorators: [
     (StoryToRender) => (
@@ -179,11 +179,11 @@ export const SmallLeft: Story = {
     const canvas = within(canvasElement);
     const button = canvas.getByRole("button", { name: "Multi Action Button" });
     await userEvent.click(button);
-    await userInteractionPause(1000);
 
     await userEvent.tab();
     await userEvent.tab();
-    await userInteractionPause(1000);
+    const menuButton = within(document.body).getByText("Button 2");
+    await expect(menuButton).toBeVisible();
   },
   decorators: [
     (StoryToRender) => (
@@ -251,11 +251,11 @@ export const LargeRight: Story = {
     const canvas = within(canvasElement);
     const button = canvas.getByRole("button", { name: "Multi Action Button" });
     await userEvent.click(button);
-    await userInteractionPause(1000);
 
     await userEvent.tab();
     await userEvent.tab();
-    await userInteractionPause(1000);
+    const menuButton = within(document.body).getByText("Button 2");
+    await expect(menuButton).toBeVisible();
   },
   decorators: [
     (StoryToRender) => (
@@ -291,12 +291,12 @@ export const InOverflowHiddenContainer: Story = {
 
     const canvas = within(canvasElement);
     const accordion = canvas.getByRole("button", { name: "Heading" });
-    await userEvent.click(accordion);
-    await userInteractionPause(1000);
+    await userEvent.click(accordion, { delay: 500 });
 
     const button = canvas.getByRole("button", { name: "Multi Action Button" });
     await userEvent.click(button);
-    await userInteractionPause(1000);
+    const menuButton = within(document.body).getByText("Button 1");
+    await expect(menuButton).toBeVisible();
   },
   decorators: [
     (StoryToRender) => (

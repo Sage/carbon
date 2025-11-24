@@ -21,6 +21,9 @@ import Icon from "../icon";
 import Event from "../../__internal__/utils/helpers/events";
 import { PodAlignment, PodSize, PodVariant } from "./pod.config";
 
+/**
+ * @deprecated `Pod` has been deprecated. See the Carbon documentation for migration details.
+ */
 export interface PodProps extends MarginProps, TagProps {
   /** Aligns the title to left, right or center */
   alignTitle?: PodAlignment;
@@ -64,6 +67,9 @@ export interface PodProps extends MarginProps, TagProps {
   internalEditButton?: boolean;
 }
 
+/**
+ * @deprecated `Pod` has been deprecated. See the Carbon documentation for migration details.
+ */
 const Pod = React.forwardRef<HTMLDivElement, PodProps>(
   (
     {

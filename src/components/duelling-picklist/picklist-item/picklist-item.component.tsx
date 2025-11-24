@@ -11,6 +11,9 @@ import Events from "../../../__internal__/utils/helpers/events";
 
 type Item = Record<string, unknown> | string | number;
 
+/**
+ * @deprecated `PicklistItem` has been deprecated. See the Carbon documentation for migration details.
+ */
 export interface PicklistItemProps {
   /** Item content */
   children: React.ReactNode;
@@ -36,6 +39,9 @@ export interface PicklistItemProps {
   isLastGroup?: boolean;
 }
 
+/**
+ * @deprecated `PicklistItem` has been deprecated. See the Carbon documentation for migration details.
+ */
 export const PicklistItem = React.forwardRef<
   HTMLButtonElement,
   PicklistItemProps

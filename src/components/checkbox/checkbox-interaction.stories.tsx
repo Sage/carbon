@@ -7,7 +7,6 @@ import { Checkbox, CheckboxProps } from ".";
 
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
 import DefaultDecorator from "../../../.storybook/utils/default-decorator";
-import userInteractionPause from "../../../.storybook/utils/user-interaction-pause";
 
 type Story = StoryObj<typeof Checkbox>;
 
@@ -69,7 +68,6 @@ export const hoverCheckbox: Story = {
     await userEvent.hover(checkbox[1]);
     await userEvent.hover(checkbox[2]);
     await userEvent.hover(checkbox[3]);
-    await userInteractionPause(1000);
   },
   decorators: [
     (StoryToRender) => (
@@ -102,11 +100,8 @@ export const clickAndKeyInteraction: Story = {
     const canvas = within(canvasElement);
     const checkbox = canvas.getAllByRole("checkbox");
     await userEvent.click(checkbox[0]);
-    await userInteractionPause(500);
     await userEvent.keyboard("{Tab}");
-    await userInteractionPause(500);
     await userEvent.type(checkbox[2], "{Space}");
-    await userInteractionPause(500);
     await expect(checkbox[0]).toBeChecked();
     await expect(checkbox[2]).toBeChecked();
   },
