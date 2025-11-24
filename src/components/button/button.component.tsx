@@ -15,7 +15,6 @@ import { TooltipPositions } from "../tooltip/tooltip.config";
 import ButtonBarContext from "../button-bar/__internal__/button-bar.context";
 import SplitButtonContext from "../split-button/__internal__/split-button.context";
 import BatchSelectionContext from "../batch-selection/__internal__/batch-selection.context";
-import ButtonContext from "./__internal__/button.context";
 
 export type ButtonTypes =
   | "primary"
@@ -138,7 +137,6 @@ function renderChildren({
   iconTooltipMessage,
   iconTooltipPosition,
   tooltipTarget,
-  destructive,
 }: RenderChildrenProps) {
   const iconColor = () => {
     if (buttonType === "primary") {
@@ -172,15 +170,7 @@ function renderChildren({
       {isValidChildren && (
         <span>
           <StyledButtonMainText data-element="main-text">
-            <ButtonContext.Provider
-              value={{
-                isInsideTypicalButton: !destructive,
-                isInsideDestructiveButton: destructive,
-                isInsidePrimaryButton: buttonType === "primary",
-              }}
-            >
-              {children}
-            </ButtonContext.Provider>
+            {children}
           </StyledButtonMainText>
           {size === "large" && (
             <StyledButtonSubtext data-element="subtext" data-role="subtext">

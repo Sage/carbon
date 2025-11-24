@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 import applyBaseTheme from "../../../style/themes/apply-base-theme";
 import Typography from "../../typography";
+import StyledButton from "../../button/button.style";
 
 const ringDimensions: Record<string, number> = {
   "extra-small": 20,
@@ -146,92 +147,7 @@ interface RingSvgProps {
 }
 
 export const StyledRingCircleSvg = styled.svg<RingSvgProps>`
-  ${({
-    inverse,
-    size,
-    hasMotion,
-    isTracked,
-    animationTime,
-    isInsideTypicalButton,
-    isInsideDestructiveButton,
-    isInsidePrimaryButton,
-    isSuccess,
-    isError,
-  }) => {
-    const getStrokeStyling = ({
-      isInsideTypicalButton,
-      isInsideDestructiveButton,
-      isInsidePrimaryButton,
-      inverse,
-      isTracked,
-      isSuccess,
-      isError,
-    }: {
-      isInsideTypicalButton?: boolean;
-      isInsideDestructiveButton?: boolean;
-      isInsidePrimaryButton?: boolean;
-      inverse?: boolean;
-      isTracked?: boolean;
-      isSuccess?: boolean;
-      isError?: boolean;
-    }) => {
-      if (isInsideTypicalButton || isInsideDestructiveButton) {
-        if (isInsidePrimaryButton) {
-          if (inverse) {
-            return {
-              outerStroke: "rgba(0, 0, 0, 0.08)",
-              innerStroke: "#000",
-            };
-          }
-
-          return {
-            outerStroke: "rgba(255, 255, 255, 0.08)",
-            innerStroke: "#FFF",
-          };
-        }
-
-        if (inverse) {
-          return {
-            outerStroke: "rgba(255, 255, 255, 0.08)",
-            innerStroke: "#FFF",
-          };
-        }
-
-        return {
-          outerStroke: "rgba(0, 0, 0, 0.08)",
-          innerStroke: "#000",
-        };
-      }
-
-      if (inverse) {
-        return {
-          outerStroke: "rgba(255,255,255,0.08)",
-          innerStroke: "#FFF",
-        };
-      }
-
-      if (isTracked) {
-        if (isSuccess) {
-          return {
-            outerStroke: "rgba(0, 0, 0, 0.08)",
-            innerStroke: "#00811F",
-          };
-        }
-
-        if (isError) {
-          return {
-            outerStroke: "rgba(0, 0, 0, 0.08)",
-            innerStroke: "#DB004E",
-          };
-        }
-      }
-
-      return {
-        outerStroke: "rgba(0,0,0,0.08)",
-        innerStroke: "#000000",
-      };
-    };
-
+  ${({ inverse, size, hasMotion, isTracked, animationTime }) => {
     const dimension = `${ringDimensions[size]}px`;
     const strokeWidth = ringStrokeWidths[size];
 
@@ -242,15 +158,7 @@ export const StyledRingCircleSvg = styled.svg<RingSvgProps>`
       circle[data-role="outer-arc"] {
         fill: transparent;
         stroke-width: ${strokeWidth}px;
-        stroke: ${getStrokeStyling({
-          isInsideTypicalButton,
-          isInsideDestructiveButton,
-          isInsidePrimaryButton,
-          inverse,
-          isTracked,
-          isSuccess,
-          isError,
-        }).outerStroke};
+        stroke: ${inverse ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.08)"};
         cx: 12px;
         cy: 12px;
         r: 10px;
@@ -259,15 +167,7 @@ export const StyledRingCircleSvg = styled.svg<RingSvgProps>`
       circle[data-role="inner-arc"] {
         fill: transparent;
         stroke-width: ${strokeWidth}px;
-        stroke: ${getStrokeStyling({
-          isInsideTypicalButton,
-          isInsideDestructiveButton,
-          isInsidePrimaryButton,
-          inverse,
-          isTracked,
-          isSuccess,
-          isError,
-        }).innerStroke};
+        stroke: ${inverse ? "#FFF" : "#000000"};
         stroke-linecap: round;
         stroke-dasharray: 100px;
         stroke-dashoffset: 95px;
@@ -315,6 +215,10 @@ export const StyledRingCircleSvg = styled.svg<RingSvgProps>`
       }
     `;
   }}
+
+  ${StyledButton} & circle[data-role="inner-arc"] {
+    stroke: currentColor;
+  }
 `;
 
 const STAR_CONTAINER_SIZE = "40px";
@@ -350,85 +254,15 @@ type LabelProps = {
   hasMotion?: boolean;
 };
 
-const getLabelColor = ({
-  loaderType,
-  inverse,
-  isInsideTypicalButton,
-  isInsideDestructiveButton,
-  isInsidePrimaryButton,
-}: {
-  loaderType?: string;
-  inverse?: boolean;
-  isInsideButton?: boolean;
-  isInsideTypicalButton?: boolean;
-  isInsideDestructiveButton?: boolean;
-  isInsidePrimaryButton?: boolean;
-}) => {
-  if (loaderType === "standalone") {
-    if (inverse) {
-      return "rgba(255, 255, 255, 0.55)";
-    }
-
-    return "rgba(0, 0, 0, 0.65)";
-  }
-
-  if (loaderType === "ring") {
-    if (isInsideTypicalButton) {
-      if (isInsidePrimaryButton) {
-        if (inverse) {
-          return "#000";
-        }
-
-        return "#FFF";
-      }
-
-      if (inverse) {
-        return "rgba(255, 255, 255, 0.90)";
-      }
-
-      return "rgba(0, 0, 0, 0.90)";
-    }
-
-    if (isInsideDestructiveButton) {
-      if (isInsidePrimaryButton) {
-        return "#FFF";
-      }
-
-      // return "#DB004E";
-      return "rgba(0, 0, 0, 0.90)";
-    }
-
-    if (inverse) {
-      return "rgba(255, 255, 255, 0.55)";
-    }
-
-    return "rgba(0, 0, 0, 0.65)";
-  }
-
-  // star
-  return "rgba(0, 0, 0, 0.65)";
-};
-
 const getLabelStyles = ({
   size = "medium",
-  inverse,
   loaderType,
   loaderVariant,
-  isInsideTypicalButton,
-  isInsideDestructiveButton,
-  isInsidePrimaryButton,
 }: LabelProps) => {
   if (loaderType === "star") {
     return css`
       font-size: 16px;
       font-weight: 400;
-      color: ${getLabelColor({
-        loaderType,
-        inverse,
-        isInsideTypicalButton,
-        isInsideDestructiveButton,
-        isInsidePrimaryButton,
-      })};
       margin-left: 12px;
       width: min-content;
     `;
@@ -438,13 +272,6 @@ const getLabelStyles = ({
     return css`
       font-size: ${size === "large" ? "16px" : "14px"};
       font-weight: 500;
-      color: ${getLabelColor({
-        loaderType,
-        inverse,
-        isInsideTypicalButton,
-        isInsideDestructiveButton,
-        isInsidePrimaryButton,
-      })};
       width: 100%;
       margin-top: ${LabelMargins[loaderType][size]};
     `;
@@ -457,13 +284,6 @@ const getLabelStyles = ({
         ? "13px"
         : "14px"};
     font-weight: 500;
-    color: ${getLabelColor({
-      loaderType,
-      inverse,
-      isInsideTypicalButton,
-      isInsideDestructiveButton,
-      isInsidePrimaryButton,
-    })};
     width: ${loaderVariant === "inline" ? "auto" : "100%"};
     ${loaderVariant === "inline"
       ? `margin-left: ${ringInlineLabelMargins[size]}`
@@ -481,6 +301,13 @@ export const StyledStarLoaderWrapper = styled.div`
 export const StyledLoaderLabel = styled(Typography)<LabelProps>`
   ${centeredFlexText}
   line-height: 150%;
+  color: ${({ inverse }) =>
+    inverse ? "rgba(255, 255, 255, 0.90)" : "rgba(0, 0, 0, 0.65)"};
+
+  ${StyledButton} & {
+    color: currentColor;
+  }
+
   ${getLabelStyles}
 `;
 
