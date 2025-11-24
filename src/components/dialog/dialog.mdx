@@ -147,6 +147,13 @@ Setting the `highlightVariant` prop will add a highlight above the Dialog. Pleas
 
 <Canvas of={DialogStories.HighlightVariant} />
 
+## Accessibility
+
+If your content is scrollable, you will need to ensure that the scrollable region has keyboard access. To do this we recommend
+adding `tabIndex="0"` to the scrollable content container so that keyboard users can access it. An example of this can be seen below:
+
+<Canvas of={DialogStories.WithScrollableContent} />
+
 ## Fullscreen
 
 ## Examples
