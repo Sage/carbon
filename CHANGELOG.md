@@ -1,3 +1,9 @@
+## [158.10.0](https://github.com/Sage/carbon/compare/v158.9.0...v158.10.0) (2025-11-24)
+
+### Features
+
+* **responsive-vertical-menu:** prevent background interaction while menu open ([46bf584](https://github.com/Sage/carbon/commit/46bf5846f5f3d8874f1eadd09c2a504e2db93152)), closes [#7579](https://github.com/Sage/carbon/issues/7579)
+
 ## [158.9.0](https://github.com/Sage/carbon/compare/v158.8.0...v158.9.0) (2025-11-24)
 
 ### Features
