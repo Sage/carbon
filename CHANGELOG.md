@@ -1,3 +1,9 @@
+## [158.9.0](https://github.com/Sage/carbon/compare/v158.8.0...v158.9.0) (2025-11-24)
+
+### Features
+
+* **modal:** deprecate `Modal` ([f5a4c6a](https://github.com/Sage/carbon/commit/f5a4c6a7fc31496417348a6c9fc53c13eda58d89))
+
 ## [158.8.0](https://github.com/Sage/carbon/compare/v158.7.3...v158.8.0) (2025-11-21)
 
 ### Features
