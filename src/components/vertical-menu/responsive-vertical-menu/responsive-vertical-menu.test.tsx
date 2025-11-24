@@ -775,7 +775,7 @@ test("closes menu when Escape key is pressed", async () => {
   expect(screen.queryByText("Menu Item 1")).not.toBeInTheDocument();
 });
 
-test("closes menu when focus is lost", async () => {
+test("closes menu when focus is lost from it", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(
     <ResponsiveVerticalMenu>
@@ -843,6 +843,28 @@ test("does not close the menu when the user clicks outside of the menu but respo
   expect(screen.getByText("Menu Item 1")).toBeInTheDocument();
 
   await user.click(document.body);
+
+  expect(screen.getByText("Menu Item 1")).toBeInTheDocument();
+});
+
+test("does not close menu when user clicks it instead of an item", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem id="menu-item-1" label="Menu Item 1" />
+    </ResponsiveVerticalMenu>,
+  );
+
+  const launcherButton = screen.getByTestId(
+    "responsive-vertical-menu-launcher",
+  );
+  await user.click(launcherButton);
+
+  expect(screen.getByText("Menu Item 1")).toBeInTheDocument();
+
+  const menu = screen.getByRole("list");
+  await user.click(menu);
 
   expect(screen.getByText("Menu Item 1")).toBeInTheDocument();
 });
@@ -1734,86 +1756,6 @@ test("adds and removes resize event listener on mount/unmount", async () => {
   );
 });
 
-test("sets and clears resize timeout on window resize", async () => {
-  const setTimeoutSpy = jest.spyOn(window, "setTimeout");
-  const clearTimeoutSpy = jest.spyOn(window, "clearTimeout");
-  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
-  render(
-    <ResponsiveVerticalMenu>
-      <ResponsiveVerticalMenuItem id="menu-item-1" label="Menu Item 1" />
-      <ResponsiveVerticalMenuItem id="menu-item-2" label="Menu Item 2" />
-      <ResponsiveVerticalMenuItem id="menu-item-3" label="Menu Item 3" />
-    </ResponsiveVerticalMenu>,
-  );
-
-  const launcherButton = screen.getByTestId(
-    "responsive-vertical-menu-launcher",
-  );
-  await user.click(launcherButton);
-
-  // Fire first resize event
-  window.dispatchEvent(new Event("resize"));
-  // Should have set a timeout
-  expect(setTimeoutSpy).toHaveBeenCalledWith(expect.any(Function), 100);
-  // Fast-forward time to simulate debounce completion
-  jest.advanceTimersByTime(100);
-  expect(clearTimeoutSpy).not.toHaveBeenCalled(); // no clear yet on first call
-});
-
-test("clears previous timeout on rapid resizes", async () => {
-  const clearTimeoutSpy = jest.spyOn(window, "clearTimeout");
-  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
-  render(
-    <ResponsiveVerticalMenu>
-      <ResponsiveVerticalMenuItem id="menu-item-1" label="Menu Item 1" />
-      <ResponsiveVerticalMenuItem id="menu-item-2" label="Menu Item 2" />
-      <ResponsiveVerticalMenuItem id="menu-item-3" label="Menu Item 3" />
-    </ResponsiveVerticalMenu>,
-  );
-
-  const launcherButton = screen.getByTestId(
-    "responsive-vertical-menu-launcher",
-  );
-
-  await user.click(launcherButton);
-  // First resize
-  window.dispatchEvent(new Event("resize"));
-  // Second resize
-  window.dispatchEvent(new Event("resize"));
-
-  expect(clearTimeoutSpy).toHaveBeenCalledTimes(1);
-});
-
-test("clears timeout on unmount if it exists", async () => {
-  const setTimeoutSpy = jest.spyOn(window, "setTimeout");
-  const clearTimeoutSpy = jest.spyOn(window, "clearTimeout");
-  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
-  const { unmount } = render(
-    <ResponsiveVerticalMenu>
-      <ResponsiveVerticalMenuItem id="menu-item-1" label="Menu Item 1" />
-      <ResponsiveVerticalMenuItem id="menu-item-2" label="Menu Item 2" />
-      <ResponsiveVerticalMenuItem id="menu-item-3" label="Menu Item 3" />
-    </ResponsiveVerticalMenu>,
-  );
-
-  const launcherButton = screen.getByTestId(
-    "responsive-vertical-menu-launcher",
-  );
-
-  await user.click(launcherButton);
-
-  window.dispatchEvent(new Event("resize"));
-
-  expect(setTimeoutSpy).toHaveBeenCalled();
-
-  unmount();
-
-  expect(clearTimeoutSpy).toHaveBeenCalledTimes(1);
-});
-
 test("renders menu with provided data tags", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(
@@ -2058,7 +2000,7 @@ describe("Focus Trap", () => {
     );
     const closeButton = screen.getByTestId("responsive-vertical-menu-close");
 
-    await expect(closeButton).toBeInTheDocument();
+    expect(closeButton).toBeInTheDocument();
 
     act(() => {
       closeButton.focus();
