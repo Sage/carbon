@@ -224,9 +224,7 @@ test("renders correctly when `loaderType` is `ring` and `trackedAnimation` prop 
 });
 
 test("renders correctly when `loaderType` is `ring` and `isSuccess` is true", () => {
-  render(
-    <Loader loaderLabel="Loading" loaderType="ring" isTracked isSuccess />,
-  );
+  render(<Loader loaderLabel="Loading" loaderType="ring" isSuccess />);
 
   expect(screen.getByRole("presentation")).toHaveStyleRule(
     "stroke",
@@ -236,7 +234,7 @@ test("renders correctly when `loaderType` is `ring` and `isSuccess` is true", ()
 });
 
 test("renders correctly when `loaderType` is `ring` and `isError` is true", () => {
-  render(<Loader loaderLabel="Loading" loaderType="ring" isTracked isError />);
+  render(<Loader loaderLabel="Loading" loaderType="ring" isError />);
 
   expect(screen.getByRole("presentation")).toHaveStyleRule(
     "stroke",
@@ -251,60 +249,6 @@ test("renders correctly when `loaderType` is `ring` and `hasMotion` prop is not 
     "animation-iteration-count",
     "none",
     { modifier: "circle[data-role='inner-arc']" },
-  );
-});
-
-test("renders correctly with the expected background colour when `loaderType` is `ring` and it is inside a primary `Button`", () => {
-  render(
-    <Button buttonType="primary" onClick={() => {}}>
-      <Loader loaderType="ring" variant="inline" size="extra-small" showLabel />
-    </Button>,
-  );
-
-  expect(screen.getByRole("presentation")).toHaveStyleRule("stroke", "#FFF", {
-    modifier: "circle[data-role='inner-arc']",
-  });
-
-  expect(screen.getByRole("presentation")).toHaveStyleRule(
-    "stroke",
-    "rgba(255,255,255,0.08)",
-    { modifier: "circle[data-role='outer-arc']" },
-  );
-});
-
-test("renders correctly with the expected background color when `loaderType` is ring and it uses the `inverse` color scheme inside a primary `Button`", () => {
-  render(
-    <Button buttonType="primary" onClick={() => {}}>
-      <Loader loaderType="ring" inverse />
-    </Button>,
-  );
-
-  expect(screen.getByRole("presentation")).toHaveStyleRule("stroke", "#000", {
-    modifier: "circle[data-role='inner-arc']",
-  });
-
-  expect(screen.getByRole("presentation")).toHaveStyleRule(
-    "stroke",
-    "rgba(0,0,0,0.08)",
-    { modifier: "circle[data-role='outer-arc']" },
-  );
-});
-
-test("renders correctly with the expected background colour when `loaderType` is `ring` and it is inside a secondary `Button`", () => {
-  render(
-    <Button buttonType="secondary" onClick={() => {}}>
-      <Loader loaderType="ring" variant="inline" size="extra-small" showLabel />
-    </Button>,
-  );
-
-  expect(screen.getByRole("presentation")).toHaveStyleRule("stroke", "#000", {
-    modifier: "circle[data-role='inner-arc']",
-  });
-
-  expect(screen.getByRole("presentation")).toHaveStyleRule(
-    "stroke",
-    "rgba(0,0,0,0.08)",
-    { modifier: "circle[data-role='outer-arc']" },
   );
 });
 
@@ -332,42 +276,6 @@ test("renders correctly with the expected background color when `loaderType` is 
   );
 });
 
-test("renders correctly with the expected background colour when `loaderType` is `ring` and it is inside a primary destructive `Button`", () => {
-  render(
-    <Button buttonType="primary" destructive={true} onClick={() => {}}>
-      <Loader loaderType="ring" variant="inline" size="extra-small" showLabel />
-    </Button>,
-  );
-
-  expect(screen.getByRole("presentation")).toHaveStyleRule("stroke", "#FFF", {
-    modifier: "circle[data-role='inner-arc']",
-  });
-
-  expect(screen.getByRole("presentation")).toHaveStyleRule(
-    "stroke",
-    "rgba(255,255,255,0.08)",
-    { modifier: "circle[data-role='outer-arc']" },
-  );
-});
-
-test("renders correctly with the expected background colour when `loaderType` is `ring` and it is inside a secondary destructive `Button`", () => {
-  render(
-    <Button buttonType="secondary" destructive onClick={() => {}}>
-      <Loader loaderType="ring" variant="inline" size="extra-small" showLabel />
-    </Button>,
-  );
-
-  expect(screen.getByRole("presentation")).toHaveStyleRule("stroke", "#000", {
-    modifier: "circle[data-role='inner-arc']",
-  });
-
-  expect(screen.getByRole("presentation")).toHaveStyleRule(
-    "stroke",
-    "rgba(0,0,0,0.08)",
-    { modifier: "circle[data-role='outer-arc']" },
-  );
-});
-
 test("renders correctly when `loaderType` is `ring` and `animationTime` prop is set", () => {
   render(<Loader loaderType="ring" animationTime={2} />);
 
@@ -382,4 +290,18 @@ test("when the user disallows animations or their preference cannot be determine
   render(<Loader loaderType="star" />);
 
   expect(screen.getByText("Loading")).toBeVisible();
+});
+
+test("uses text colour of a parent Button to style its text and inner ring arc", () => {
+  render(
+    <Button buttonType="primary" onClick={() => {}}>
+      <Loader loaderType="ring" variant="inline" size="extra-small" showLabel />
+    </Button>,
+  );
+
+  const labelText = screen.getByText("Loading");
+  expect(labelText).toHaveStyle("color: currentColor");
+
+  const innerArc = screen.getByTestId("inner-arc");
+  expect(innerArc).toHaveStyle("stroke: currentColor");
 });
