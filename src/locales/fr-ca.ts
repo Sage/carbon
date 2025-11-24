@@ -98,7 +98,7 @@ const frCA: Partial<Locale> = {
     skipLinkLabel: () => "Passer au contenu principal",
   },
   loader: {
-    loading: () => "Chargement",
+    loading: () => "Chargement...",
   },
   loaderSpinner: {
     loading: () => "Chargement...",

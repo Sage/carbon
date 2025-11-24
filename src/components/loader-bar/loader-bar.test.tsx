@@ -23,7 +23,7 @@ afterAll(() => {
 
 test("renders", () => {
   render(<LoaderBar />);
-  const loaderBar = screen.getByRole("progressbar", { name: "Loading" });
+  const loaderBar = screen.getByRole("progressbar", { name: "Loading..." });
   expect(loaderBar).toBeVisible();
 });
 
@@ -47,8 +47,8 @@ test("renders with custom data role and element", () => {
 test("renders alternative loading text if user prefers reduced motion", () => {
   mockUseMediaQuery.mockReturnValueOnce(false);
   render(<LoaderBar />);
-  const loaderBar = screen.getByRole("progressbar", { name: "Loading" });
-  expect(loaderBar).toHaveTextContent("Loading");
+  const loaderBar = screen.getByRole("progressbar", { name: "Loading..." });
+  expect(loaderBar).toHaveTextContent("Loading...");
 });
 
 /* Styling test for coverage */

@@ -75,8 +75,8 @@ test("when the user disallows animations, alternative loading text is rendered w
   mockUseMediaQuery.mockReturnValueOnce(false);
   render(<Loader />);
 
-  expect(screen.getByText("Loading")).toBeVisible();
-  expect(screen.getByText("Loading")).toHaveStyleRule(
+  expect(screen.getByText("Loading...")).toBeVisible();
+  expect(screen.getByText("Loading...")).toHaveStyleRule(
     "color",
     "rgba(0,0,0,0.90)",
   );
@@ -86,8 +86,8 @@ test("when the user disallows animations, alternative loading text is rendered w
   mockUseMediaQuery.mockReturnValueOnce(false);
   render(<Loader inverse />);
 
-  expect(screen.getByText("Loading")).toBeVisible();
-  expect(screen.getByText("Loading")).toHaveStyleRule(
+  expect(screen.getByText("Loading...")).toBeVisible();
+  expect(screen.getByText("Loading...")).toHaveStyleRule(
     "color",
     "rgba(255,255,255,0.90)",
   );
@@ -97,7 +97,7 @@ test("when the user disallows animations or their preference cannot be determine
   mockUseMediaQuery.mockReturnValueOnce(undefined);
   render(<Loader />);
 
-  expect(screen.getByText("Loading")).toBeVisible();
+  expect(screen.getByText("Loading...")).toBeVisible();
 });
 
 test("when the user disallows animations or their preference cannot be determined, the provided `loaderLabel` is rendered", () => {
@@ -109,7 +109,10 @@ test("when the user disallows animations or their preference cannot be determine
 test("when `showLabel` prop is not set, the correct aria attributes are applied", () => {
   render(<Loader showLabel={false} data-role="loader" />);
 
-  expect(screen.getByTestId("loader")).toHaveAttribute("aria-label", "Loading");
+  expect(screen.getByTestId("loader")).toHaveAttribute(
+    "aria-label",
+    "Loading...",
+  );
 });
 
 test("when no `loaderType` is specified it renders the `standalone` type", () => {
@@ -289,7 +292,7 @@ test("renders correctly when `loaderType` is `ring` and `animationTime` prop is 
 test("when the user disallows animations or their preference cannot be determined and the `loaderType` is `star` alternative loading text is rendered", () => {
   render(<Loader loaderType="star" />);
 
-  expect(screen.getByText("Loading")).toBeVisible();
+  expect(screen.getByText("Loading...")).toBeVisible();
 });
 
 test("uses text colour of a parent Button to style its text and inner ring arc", () => {
@@ -299,7 +302,7 @@ test("uses text colour of a parent Button to style its text and inner ring arc",
     </Button>,
   );
 
-  const labelText = screen.getByText("Loading");
+  const labelText = screen.getByText("Loading...");
   expect(labelText).toHaveStyle("color: currentColor");
 
   const innerArc = screen.getByTestId("inner-arc");

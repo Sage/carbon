@@ -52,13 +52,13 @@ test("when the user disallows animations, alternative loading text is rendered",
   render(<Loader />);
 
   expect(screen.queryByTestId("hidden-label")).not.toBeInTheDocument();
-  expect(screen.getByText("Loading")).toBeVisible();
+  expect(screen.getByText("Loading...")).toBeVisible();
 });
 
 test("when the user disallows animations or their preference cannot be determined, alternative loading text is rendered", () => {
   render(<Loader />);
 
-  expect(screen.getByText("Loading")).toBeVisible();
+  expect(screen.getByText("Loading...")).toBeVisible();
 });
 
 test("when the user disallows animations or their preference cannot be determined, the provided `loaderLabel` is rendered", () => {

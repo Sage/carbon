@@ -98,7 +98,7 @@ const frFR: Partial<Locale> = {
     skipLinkLabel: () => "Passer au contenu principal",
   },
   loader: {
-    loading: () => "Chargement en cours",
+    loading: () => "Chargement en cours...",
   },
   loaderSpinner: {
     loading: () => "Chargement en cours...",
