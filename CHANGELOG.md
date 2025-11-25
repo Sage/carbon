@@ -1,3 +1,33 @@
+## [158.10.1](https://github.com/Sage/carbon/compare/v158.10.0...v158.10.1) (2025-11-24)
+
+### Bug Fixes
+
+* **responsive-vertical-menu:** ensure keyboard nav follows natural DOM order ([9c12dfa](https://github.com/Sage/carbon/commit/9c12dfaf8ea414facd661287ec349a118a0b33a5))
+
+## [158.10.0](https://github.com/Sage/carbon/compare/v158.9.0...v158.10.0) (2025-11-24)
+
+### Features
+
+* **responsive-vertical-menu:** prevent background interaction while menu open ([46bf584](https://github.com/Sage/carbon/commit/46bf5846f5f3d8874f1eadd09c2a504e2db93152)), closes [#7579](https://github.com/Sage/carbon/issues/7579)
+
+## [158.9.0](https://github.com/Sage/carbon/compare/v158.8.0...v158.9.0) (2025-11-24)
+
+### Features
+
+* **modal:** deprecate `Modal` ([f5a4c6a](https://github.com/Sage/carbon/commit/f5a4c6a7fc31496417348a6c9fc53c13eda58d89))
+
+## [158.8.0](https://github.com/Sage/carbon/compare/v158.7.3...v158.8.0) (2025-11-21)
+
+### Features
+
+* **loader:** loader audit changes ([3049b10](https://github.com/Sage/carbon/commit/3049b10458172299997fa4c6911549bd476374c4))
+
+## [158.7.3](https://github.com/Sage/carbon/compare/v158.7.2...v158.7.3) (2025-11-20)
+
+### Bug Fixes
+
+* **link:** ensure if component has an image it receives correct focus styling ([f189680](https://github.com/Sage/carbon/commit/f189680e7d1544c46fb9bdb635106a1e026044f1)), closes [#6890](https://github.com/Sage/carbon/issues/6890)
+
 ## [158.7.2](https://github.com/Sage/carbon/compare/v158.7.1...v158.7.2) (2025-11-18)
 
 ### Bug Fixes

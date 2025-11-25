@@ -19,6 +19,11 @@ interface StyledButtonProps {
   active?: boolean;
 }
 
+export const StyledBackdrop = styled.div`
+  position: fixed;
+  inset: 0;
+`;
+
 export const ModalContainer = styled.div<{ width: string }>`
   position: fixed;
   top: 0;

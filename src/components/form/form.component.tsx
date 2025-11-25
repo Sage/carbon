@@ -11,7 +11,7 @@ import {
   StyledRightButtons,
 } from "./form.style";
 import { FormButtonAlignment, formSpacing } from "./form.config";
-import ModalContext from "../modal/__internal__/modal.context";
+import ModalContext from "../../__internal__/modal/modal.context";
 
 export interface FormProps extends SpaceProps, TagProps {
   /** Alignment of buttons */

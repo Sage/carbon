@@ -235,6 +235,9 @@ export type { LoaderSpinnerProps } from "./components/loader-spinner";
 export { default as LoaderStar } from "./components/loader-star";
 export type { LoaderStarProps } from "./components/loader-star";
 
+export { default as NextLoader } from "./components/loader/__next__";
+export type { LoaderProps as NextLoaderProps } from "./components/loader/__next__";
+
 export {
   Menu,
   MenuDivider,

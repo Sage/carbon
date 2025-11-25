@@ -2,13 +2,13 @@ import React, { useEffect, useRef, useCallback, useState } from "react";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 import useScrollBlock from "../../hooks/__internal__/useScrollBlock";
-import Portal from "../portal";
+import Portal from "../../components/portal";
 import { getDocument } from "../../__internal__/dom/globals";
 import Events from "../../__internal__/utils/helpers/events";
 import useModalManager from "../../hooks/__internal__/useModalManager";
 import { StyledModal, StyledModalBackground } from "./modal.style";
 import { TagProps } from "../../__internal__/utils/helpers/tags";
-import ModalContext from "./__internal__/modal.context";
+import ModalContext from "./modal.context";
 
 export interface ModalProps extends TagProps {
   /**
@@ -129,7 +129,7 @@ const Modal = ({
         data-component="modal"
         data-element={dataElement}
         data-role={dataRole}
-        data-state={open ? "open" : "closed"}
+        data-state={open && isAnimationComplete ? "open" : "closed"}
         transitionName="modal"
         transitionTime={MODAL__ANIMATION_DURATION}
         topModalOverride={topModalOverride}

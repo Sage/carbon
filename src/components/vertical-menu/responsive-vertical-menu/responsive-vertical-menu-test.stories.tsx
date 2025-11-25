@@ -781,7 +781,7 @@ export const FocusTrap = {
           <ResponsiveVerticalMenuItem id="contact" label="Contact" />
         </ResponsiveVerticalMenu>
       </GlobalHeader>
-      <Box p={3}>
+      <Box position="fixed" right={0} p={3}>
         <Typography>
           The controls below the menu should be focusable using keyboard
           navigation (e.g. Tab key) when the menu is closed, or when open in

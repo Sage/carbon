@@ -11,7 +11,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof LoaderSpinner> = {
-  title: "Loader Spinner",
+  title: "Deprecated/Loader Spinner",
   component: LoaderSpinner,
   argTypes: {
     ...styledSystemProps,
