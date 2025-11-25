@@ -1,3 +1,9 @@
+## [158.11.0](https://github.com/Sage/carbon/compare/v158.10.1...v158.11.0) (2025-11-25)
+
+### Features
+
+* **tabs:** re-introduce handler for monitoring tab changes ([50cb9c7](https://github.com/Sage/carbon/commit/50cb9c7fa61b4355cd31cc59fee558d49d5fa92e)), closes [#7622](https://github.com/Sage/carbon/issues/7622)
+
 ## [158.10.1](https://github.com/Sage/carbon/compare/v158.10.0...v158.10.1) (2025-11-24)
 
 ### Bug Fixes
