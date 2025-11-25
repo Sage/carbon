@@ -373,6 +373,15 @@ export const MenuWithTwoSegments = () => {
           </ScrollableBlock>
           <MenuItem href="#">Item Submenu FFS</MenuItem>
         </MenuItem>
+        <MenuItem submenu="Menu Item Five">
+          <MenuSegmentTitle text="segment title">
+            <MenuItem href="#">Item Submenu One</MenuItem>
+            <MenuItem href="#">Item Submenu Two</MenuItem>
+          </MenuSegmentTitle>
+          <MenuSegmentTitle variant="alternate" text="alternate title">
+            <MenuItem href="#">Item Submenu Three</MenuItem>
+          </MenuSegmentTitle>
+        </MenuItem>
       </Menu>
     </Box>
   );
