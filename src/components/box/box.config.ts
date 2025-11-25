@@ -5,7 +5,7 @@ export default {
   },
 
   dark: {
-    thumb: "var(--colorsUtilityMajor200)",
-    track: "var(--colorsUtilityMajor400)",
+    thumb: "#b3b3b3",
+    track: "#4d4d4d",
   },
 };
