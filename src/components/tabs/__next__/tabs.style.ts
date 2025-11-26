@@ -244,7 +244,14 @@ export const StyledTab = styled.button<StyledTabProps>`
     ${addFocusStyling()}
     z-index: 1;
 
-    border-radius: 8px;
+    ${({ orientation }) => css`
+      border-top-left-radius: 8px;
+      border-top-right-radius: ${orientation === "horizontal" ? "8px" : "0"};
+      border-bottom-left-radius: ${orientation === "horizontal"
+        ? "0px"
+        : "8px"};
+      border-bottom-right-radius: 0px;
+    `}
   }
 `;
 
