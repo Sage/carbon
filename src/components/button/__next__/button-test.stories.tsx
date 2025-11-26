@@ -82,7 +82,7 @@ export const ARIA: Story = () => {
     <main>
       <h1>Supported ARIA attributes</h1>
       <Button onClick={() => setShowSROnly((prev) => !prev)}>
-        {showSROnly ? "Hide" : "Show"} screen-reader-only content
+        {`${showSROnly ? "Hide" : "Show"} screen-reader-only content`}
       </Button>
       <h2>aria-label</h2>
       <p>
