@@ -3,8 +3,6 @@ import React, {
   forwardRef,
   ReactNode,
   RefObject,
-  useContext,
-  useEffect,
   useMemo,
   useRef,
   useState,
@@ -23,11 +21,11 @@ import {
 } from "./responsive-vertical-menu-item.style";
 import { filterStyledSystemMarginProps } from "../../../../style/utils";
 import { IncreaseDepth, useDepth } from "../__internal__/depth.context";
-import { useMenuFocus } from "../__internal__/focus.context";
 import { useResponsiveVerticalMenu } from "../responsive-vertical-menu.context";
 
 import Icon, { IconType } from "../../../icon";
 import guid from "../../../../__internal__/utils/helpers/guid";
+import Events from "../../../../__internal__/utils/helpers/events";
 
 export type ResponsiveVerticalMenuItemClickEvent =
   | React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
@@ -132,7 +130,6 @@ const BaseItem = forwardRef<HTMLElement, BaseItemProps>(
   ) => {
     const {
       activeMenuItem,
-      containerRef,
       responsiveMode,
       setActive,
       setActiveMenuItem,
@@ -143,18 +140,9 @@ const BaseItem = forwardRef<HTMLElement, BaseItemProps>(
       height,
     } = useResponsiveVerticalMenu();
 
-    const {
-      expandItem,
-      focusItem,
-      getRegisteredItems,
-      moveFocus,
-      registerMenuItem,
-    } = useMenuFocus();
-
     const depth = useDepth();
     const isActive = activeMenuItem?.id === id;
     const hasChildren = React.Children.count(children) > 0;
-    const parentId = useContext(ParentItemContext);
     const subMenuRef = useRef<HTMLUListElement>(null);
     const responsiveDisplay = useMemo(
       () => responsiveMode && depth === 0,
@@ -164,136 +152,43 @@ const BaseItem = forwardRef<HTMLElement, BaseItemProps>(
       (responsiveDisplay && hasChildren) || depth >= 2,
     );
 
-    // Register the menu item with the focus context
-    // We can do this here as well as in the wrapping component to ensure
-    // that the item is registered even if it is used as-is (as opposed to
-    // via ResponsiveVerticalMenuItem).
-    useEffect(() => {
-      registerMenuItem(id, ref as RefObject<HTMLElement>, parentId);
-    }, [id, parentId, ref, registerMenuItem]);
-
     // Handle keyboard navigation
     const handleKeyDown = (e: React.KeyboardEvent) => {
-      // Store a list of siblings
-      let siblings;
-      let siblingsAtDepth;
+      if (Events.isEnterKey(e) || Events.isSpaceKey(e)) {
+        // prevent default if there is children, if there is no children its the final available item and onClick must be triggered
+        if (hasChildren) {
+          e.preventDefault();
+        }
 
-      switch (e.key) {
-        case "Tab":
-          siblingsAtDepth =
-            containerRef.current?.querySelectorAll(`[data-depth="${depth}"]`) ||
-            /* istanbul ignore next */ [];
-          siblings = Array.from(siblingsAtDepth);
+        /*
+         * Prevent browser default behaviour for space key which causes a page scroll
+         * (similar to page down). This is only observed when space is pressed when the
+         * action item is rendered as a link. When rendered as a button the menu will
+         * close completely, meaning the behaviour is not observed at all.
+         */
+        /* istanbul ignore next - testing scroll behaviour in Playwright instead */
+        if (!onClick && Events.isSpaceKey(e)) {
+          e.preventDefault();
+        }
 
-          // Primary-level menu items
-          if (depth === 0 && hasChildren && activeMenuItem?.id === id) {
-            // If item is active and has children, move focus to last child if Shift is pressed
-            if (e.shiftKey) {
-              e.preventDefault();
-              moveFocus("lastChild");
-            }
+        // If in responsive mode, do not toggle the menu
+        /* istanbul ignore if */
+        if (responsiveDisplay) return;
+
+        if (hasChildren) {
+          // Toggle expanded state if not in responsive mode
+          if (depth === 0 && !responsiveMode) {
+            const itemToggled = activeMenuItem?.id === id;
+            const newActiveMenuItem = itemToggled
+              ? null
+              : { id, label, children };
+            // Set the active menu item
+            setActiveMenuItem(newActiveMenuItem);
+          } else {
+            // Expand the menu
+            setExpanded(!expanded);
           }
-
-          // Secondary-level menu items
-          if (depth === 1) {
-            const currentIndex = siblings.findIndex((el) => el.id === id);
-            const isLastSibling = currentIndex === siblings.length - 1;
-
-            // If the item is the last sibling and has no children (or it does but isn't expanded), move focus to the parent when forward-tabbing
-            /* istanbul ignore else */
-            if (isLastSibling && (!hasChildren || (hasChildren && !expanded))) {
-              if (!e.shiftKey) {
-                e.preventDefault();
-                moveFocus("parent");
-              }
-            }
-          }
-
-          // Tertiary-level menu items
-          if (depth === 2) {
-            const currentIndex = siblings.findIndex((el) => el.id === id);
-            const isLastSibling = currentIndex === siblings.length - 1;
-
-            // If the item is the last sibling and has no children (or it does but isn't expanded),
-            // and parent is the last sibling in the level above, move focus to the grandparent when forward-tabbing
-            /* istanbul ignore else */
-            if (isLastSibling && (!hasChildren || (hasChildren && !expanded))) {
-              // If the item is the last sibling, find the grand-parent in the menu hierarchy
-              const allMenuItems = getRegisteredItems();
-              const parent = allMenuItems.find((item) => item.id === parentId);
-              const grandParent = allMenuItems.find(
-                (item) => item.id === parent?.parentId,
-              );
-
-              /* istanbul ignore else */
-              if (grandParent) {
-                // Check if the parent is the last sibling under the grand-parent
-                const parentSiblings = Array.from(
-                  containerRef.current?.querySelectorAll(
-                    `[data-depth="${depth - 1}"]`,
-                  ) || /* istanbul ignore next */ [],
-                );
-                const parentIsLastSibling =
-                  parentSiblings.findIndex((el) => el.id === parentId) ===
-                  parentSiblings.length - 1;
-
-                // If the parent is the last sibling and shift is not pressed, move focus to the grand-parent
-                if (parentIsLastSibling && !e.shiftKey) {
-                  e.preventDefault();
-                  focusItem(grandParent.id);
-                }
-              }
-            }
-          }
-          break;
-
-        // Handle activation keys
-        case "Enter":
-        case " ":
-          // prevent default if there is children, if there is no children its the final available item and onClick must be triggered
-          if (hasChildren) {
-            e.preventDefault();
-          }
-
-          /*
-           * Prevent browser default behaviour for space key which causes a page scroll
-           * (similar to page down). This is only observed when space is pressed when the
-           * action item is rendered as a link. When rendered as a button the menu will
-           * close completely, meaning the behaviour is not observed at all.
-           */
-          /* istanbul ignore next - testing scroll behaviour in Playwright instead */
-          if (!onClick && e.key === " ") {
-            e.preventDefault();
-          }
-
-          // If in responsive mode, do not toggle the menu
-          /* istanbul ignore if */
-          if (responsiveDisplay) return;
-
-          /* istanbul ignore else */
-          if (hasChildren) {
-            // Toggle expanded state if not in responsive mode
-            if (depth === 0 && !responsiveMode) {
-              const itemToggled = activeMenuItem?.id === id;
-              const newActiveMenuItem = itemToggled
-                ? null
-                : { id, label, children };
-              // Set the active menu item
-              setActiveMenuItem(newActiveMenuItem);
-            } else {
-              // Expand the menu
-              setExpanded(!expanded);
-              expandItem(id, !expanded);
-            }
-          } else if (href && e.key === "Enter") {
-            // If no children, navigate to the href. Can only be activated with Enter key,
-            // as per accessibility guidelines.
-            window.location.href = href;
-          }
-          break;
-
-        default:
-          break;
+        }
       }
     };
 
@@ -308,10 +203,7 @@ const BaseItem = forwardRef<HTMLElement, BaseItemProps>(
         setActiveMenuItem(newActiveMenuItem);
       } else {
         setExpanded(!expanded);
-        expandItem(id, !expanded);
       }
-      // Focus the clicked item
-      focusItem(id);
     };
 
     const handleActionClick = (event: ResponsiveVerticalMenuItemClickEvent) => {
@@ -337,7 +229,6 @@ const BaseItem = forwardRef<HTMLElement, BaseItemProps>(
         href,
         id,
         onClick: handleActionClick,
-        onFocus: () => focusItem(id),
         onKeyDown: (e: React.KeyboardEvent) => {
           /* istanbul ignore else */
           if (!responsiveMode) {
@@ -407,7 +298,6 @@ const BaseItem = forwardRef<HTMLElement, BaseItemProps>(
                   handleKeyDown(e);
                 }
               }}
-              onFocus={() => focusItem(id)}
               ref={ref as RefObject<HTMLButtonElement>}
               responsive={responsiveMode}
               tabIndex={responsiveDisplay ? -1 : 0}
@@ -495,17 +385,8 @@ export const ResponsiveVerticalMenuItem = ({
 }: ResponsiveVerticalMenuItemProps) => {
   const depth = useDepth();
   const itemRef = useRef<HTMLElement>(null);
-  const { registerMenuItem } = useMenuFocus();
-  const parentId = useContext(ParentItemContext);
 
   const uniqueId = useRef(id || guid());
-
-  // Register the menu item with the focus context
-  useEffect(() => {
-    const currentId = uniqueId.current;
-
-    registerMenuItem(currentId, itemRef, parentId);
-  }, [parentId, registerMenuItem]);
 
   return (
     <BaseItem

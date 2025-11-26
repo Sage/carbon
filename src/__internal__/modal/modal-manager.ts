@@ -1,4 +1,4 @@
-import { getWindow } from "../../../__internal__/dom/globals";
+import { getWindow } from "../dom/globals";
 
 type SetTriggerRefocusFlag = (boolean: boolean) => void;
 

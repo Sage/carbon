@@ -7,7 +7,7 @@ import {
 } from "./loader-spinner.config";
 
 export default {
-  title: "Loader Spinner/Test",
+  title: "Deprecated/Loader Spinner/Test",
   includeStories: ["Default"],
   parameters: {
     info: { disable: true },
