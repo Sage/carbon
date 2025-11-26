@@ -11,6 +11,7 @@ import {
   Variant,
   VariantType,
 } from "./button.config";
+import { ReactNode } from "react";
 
 const getCSSForAIStyle = ({
   allowMotion = true,
@@ -183,9 +184,10 @@ const getCSSForStyle = ({
       `}
 `;
 
-type StyledButtonProps = ButtonProps &
+type StyledButtonProps = Omit<ButtonProps, "children"> &
   SpaceProps & {
     allowMotion?: boolean;
+    children?: ReactNode;
     iconOnly?: boolean;
   };
 
