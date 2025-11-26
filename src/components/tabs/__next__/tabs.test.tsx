@@ -406,3 +406,42 @@ test("calling exposed focusTab method with correct tabId focuses chosen tab", as
 
   expect(thirdTab).toHaveFocus();
 });
+
+test("invokes the onTabChange handler the active tab changes", async () => {
+  const user = userEvent.setup();
+  const mockTabChangeFn = jest.fn();
+
+  render(
+    <Tabs>
+      <TabList ariaLabel="Sample Tabs" onTabChange={mockTabChangeFn}>
+        <Tab id="tab-1" controls="tab-panel-1" label="Tab One" />
+        <Tab id="tab-2" controls="tab-panel-2" label="Tab Two" />
+        <Tab id="tab-3" controls="tab-panel-3" label="Tab Three" />
+      </TabList>
+      <TabPanel id="tab-panel-1" tabId="tab-1">
+        <Typography>Content 1</Typography>
+      </TabPanel>
+      <TabPanel id="tab-panel-2" tabId="tab-2">
+        <Typography>Content 2</Typography>
+      </TabPanel>
+      <TabPanel id="tab-panel-3" tabId="tab-3">
+        <Typography>Content 3</Typography>
+      </TabPanel>
+    </Tabs>,
+  );
+
+  const tab1 = screen.getByRole("tab", { name: "Tab One" });
+  const tab2 = screen.getByRole("tab", { name: "Tab Two" });
+  const tab3 = screen.getByRole("tab", { name: "Tab Three" });
+
+  // Clicking the active tab should not fire the change event
+  await user.click(tab1);
+  expect(mockTabChangeFn).not.toHaveBeenCalled();
+
+  await user.click(tab2);
+  expect(mockTabChangeFn).toHaveBeenCalledWith("tab-2");
+  await user.click(tab3);
+  expect(mockTabChangeFn).toHaveBeenCalledWith("tab-3");
+  await user.click(tab1);
+  expect(mockTabChangeFn).toHaveBeenCalledWith("tab-1");
+});

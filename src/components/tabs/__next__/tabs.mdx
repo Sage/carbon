@@ -95,7 +95,8 @@ Use the `leftSlot` and `rightSlot` properties to control items before and after 
 
 ### Pre-Selected Tabs
 
-`Tab` elements can be pre-selected through the `selectedTabId` prop. This can be used for e.g. setting the default tab based on routing or URL paths.
+`Tab` elements can be pre-selected through the `selectedTabId` prop. This can be used for e.g. setting the default tab based on routing or URL paths. See
+[Handle Tab Changes](#handle-tab-changes) for information on how to obtain the tab ID programmatically.
 
 <Canvas of={TabsStories.PreSelectedTab} name="pre-selected-tab" />
 
@@ -136,6 +137,14 @@ the target tab:
 ```
 
 <Canvas of={TabsStories.ProgrammaticFocus} />
+
+### Handle Tab Changes
+
+By passing a function to the `onTabChange` property of `TabList`, you can react to user-driven tab changes. The function takes one argument which represents
+ID of the tab that has become active, which you can then use to e.g. update the URL. This can then be combined with [Pre-Selected Tabs](#pre-selected-tabs)
+to automatically select a tab on page load.
+
+<Canvas of={TabsStories.HandleTabChanges} name="handle-tab-changes" />
 
 ## Accessibility
 

@@ -28,6 +28,7 @@ import Logger from "../../../__internal__/utils/logger";
 import useResizeObserver from "../../../hooks/__internal__/useResizeObserver";
 import Icon from "../../icon";
 import { TabProvider } from "./tab.context";
+import usePrevious from "../../../hooks/__internal__/usePrevious";
 
 export const TabPanel = ({ children, id, tabId }: TabPanelProps) => {
   const { activeTab } = useTabs();
@@ -208,7 +209,7 @@ export const Tab = ({
 };
 
 export const TabList = forwardRef<TabsHandle, TabListProps>(
-  ({ ariaLabel, children }, ref) => {
+  ({ ariaLabel, children, onTabChange }, ref) => {
     const tabListRef = useRef<HTMLDivElement>(null);
     const {
       activeTab,
@@ -254,6 +255,14 @@ export const TabList = forwardRef<TabsHandle, TabListProps>(
         setActiveTab(firstTab);
       }
     }, [activeTab, getTabIds, selectedTabId, setActiveTab]);
+
+    const prevActiveTab = usePrevious(activeTab);
+
+    useEffect(() => {
+      if (prevActiveTab && prevActiveTab !== activeTab) {
+        onTabChange?.(activeTab);
+      }
+    }, [activeTab, onTabChange, prevActiveTab]);
 
     const handleKeyDown = (event: React.KeyboardEvent) => {
       const tabIds = getTabIds();
