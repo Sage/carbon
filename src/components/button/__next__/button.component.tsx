@@ -1,6 +1,5 @@
 import React, {
   forwardRef,
-  ReactNode,
   useCallback,
   useImperativeHandle,
   useRef,
@@ -34,7 +33,7 @@ export interface ButtonProps extends SpaceProps, TagProps {
   /** Identifies the element(s) labelling the button. */
   "aria-labelledby"?: string;
   /** The text that the button displays. */
-  children?: ReactNode;
+  children?: string;
   /** Flag to indicate that the button is disabled. */
   disabled?: boolean;
   /** Flag to indicate that the button can be full-width. */
