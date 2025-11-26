@@ -1,7 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { render, screen } from "@testing-library/react";
-
+import userEvent from "@testing-library/user-event";
 import { RadioButton, RadioButtonGroup } from "..";
+
+const ControlledRadioButtonGroup = () => {
+  const [value, setValue] = useState("radio1");
+
+  return (
+    <RadioButtonGroup
+      name="radio-group"
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+    >
+      <RadioButton id="radio-1" value="radio1" label="Radio Button 1" />
+      <RadioButton id="radio-2" value="radio2" label="Radio Button 2" />
+      <RadioButton id="radio-3" value="radio3" label="Radio Button 3" />
+    </RadioButtonGroup>
+  );
+};
 
 test("renders with RadioButton children", () => {
   render(
@@ -119,4 +135,20 @@ test("renders RadioButton children as disabled when `disabled` is true", () => {
 
   expect(screen.getByRole("radio", { name: "Radio Button 1" })).toBeDisabled();
   expect(screen.getByRole("radio", { name: "Radio Button 2" })).toBeDisabled();
+});
+
+// coverage
+test("checks RadioButton child when clicked", async () => {
+  const user = userEvent.setup();
+  render(<ControlledRadioButtonGroup />);
+
+  const radio1 = screen.getByRole("radio", { name: "Radio Button 1" });
+  const radio2 = screen.getByRole("radio", { name: "Radio Button 2" });
+  const radio3 = screen.getByRole("radio", { name: "Radio Button 3" });
+
+  await user.click(radio2);
+
+  expect(radio1).not.toBeChecked();
+  expect(radio2).toBeChecked();
+  expect(radio3).not.toBeChecked();
 });

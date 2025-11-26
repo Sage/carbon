@@ -8,15 +8,12 @@ import addFocusStyling from "../../../style/utils/add-focus-styling";
 const svgSize = {
   small: {
     size: "var(--global-size3xs, 16px)",
-    radius: 4.285,
   },
   medium: {
     size: "var(--global-size-xs, 24px)",
-    radius: 4.09,
   },
   large: {
     size: "var(--global-size-s, 32px)",
-    radius: 4,
   },
 };
 
@@ -57,10 +54,6 @@ const RadioButtonStyle = styled.div.attrs(
         ${error &&
         `border: 2px solid var(--input-validation-border-error, #DB004E);`}
       `}
-    }
-
-    circle {
-      r: ${svgSize[size].radius};
     }
 
     ${HiddenCheckableInputStyle}:checked + ${StyledCheckableInputSvgWrapper} circle {

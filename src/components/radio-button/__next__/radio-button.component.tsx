@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import RadioButtonSvg from "../radio-button-svg.component";
+import RadioButtonSvg from "./___internal___/radio-button-svg.component";
 import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags";
