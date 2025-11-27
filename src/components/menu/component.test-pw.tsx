@@ -67,9 +67,7 @@ export const MenuComponentWithSubmenuNodes = () => (
           <Portrait initials={initials} />
           <Typography
             variant="b"
-            color={
-              menuType === "black" || menuType === "dark" ? "white" : "black"
-            }
+            inverse={menuType === "black" || menuType === "dark"}
           >
             {name}
           </Typography>
