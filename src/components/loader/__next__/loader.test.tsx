@@ -223,6 +223,26 @@ test("renders correctly when `loaderType` is `ring` and `trackedAnimation` prop 
   );
 });
 
+test("renders correctly when `loaderType` is `ring` and `isSuccess` is true", () => {
+  render(<Loader loaderLabel="Loading" loaderType="ring" isSuccess />);
+
+  expect(screen.getByRole("presentation")).toHaveStyleRule(
+    "stroke",
+    "#00811F",
+    { modifier: "circle[data-role='inner-arc']" },
+  );
+});
+
+test("renders correctly when `loaderType` is `ring` and `isError` is true", () => {
+  render(<Loader loaderLabel="Loading" loaderType="ring" isError />);
+
+  expect(screen.getByRole("presentation")).toHaveStyleRule(
+    "stroke",
+    "#DB004E",
+    { modifier: "circle[data-role='inner-arc']" },
+  );
+});
+
 test("renders correctly when `loaderType` is `ring` and `hasMotion` prop is not set", () => {
   render(<Loader loaderLabel="Loading" loaderType="ring" hasMotion={false} />);
   expect(screen.getByRole("presentation")).toHaveStyleRule(

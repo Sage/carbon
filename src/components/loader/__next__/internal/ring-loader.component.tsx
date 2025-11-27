@@ -30,14 +30,7 @@ const RingLoader = ({
   showLabel,
   isSuccess,
   isError,
-  isInsideTypicalButton,
-  isInsideDestructiveButton,
-  isInsidePrimaryButton,
-}: LoaderProps & {
-  isInsideTypicalButton?: boolean;
-  isInsideDestructiveButton?: boolean;
-  isInsidePrimaryButton?: boolean;
-}) => {
+}: LoaderProps) => {
   const locale = useLocale();
 
   const ringVariant =
@@ -59,9 +52,6 @@ const RingLoader = ({
         isTracked={isTracked}
         animationTime={calculateDefaultAnimationTime(animationTime)}
         viewBox="0 0 24 24"
-        isInsideTypicalButton={isInsideTypicalButton}
-        isInsideDestructiveButton={isInsideDestructiveButton}
-        isInsidePrimaryButton={isInsidePrimaryButton}
         isSuccess={isSuccess}
         isError={isError}
       >
@@ -77,9 +67,6 @@ const RingLoader = ({
           loaderVariant={ringVariant}
           loaderType="ring"
           size={ringSize}
-          isInsideTypicalButton={isInsideTypicalButton}
-          isInsideDestructiveButton={isInsideDestructiveButton}
-          isInsidePrimaryButton={isInsidePrimaryButton}
         >
           {loaderLabel || locale?.loader.loading()}
         </StyledLoaderLabel>

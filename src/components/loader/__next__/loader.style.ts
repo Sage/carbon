@@ -139,15 +139,35 @@ interface RingSvgProps {
   isTracked?: boolean;
   isGradientVariant?: boolean;
   animationTime?: number;
-  isInsideTypicalButton?: boolean;
-  isInsideDestructiveButton?: boolean;
   isSuccess?: boolean;
   isError?: boolean;
-  isInsidePrimaryButton?: boolean;
 }
 
+const getStrokeColor = ({
+  inverse,
+  isSuccess,
+  isError,
+}: {
+  inverse?: boolean;
+  isSuccess?: boolean;
+  isError?: boolean;
+}) => {
+  if (isError) return "#DB004E;";
+  if (isSuccess) return "#00811F;";
+  if (inverse) return "#FFF;";
+  return "#000000";
+};
+
 export const StyledRingCircleSvg = styled.svg<RingSvgProps>`
-  ${({ inverse, size, hasMotion, isTracked, animationTime }) => {
+  ${({
+    inverse,
+    size,
+    hasMotion,
+    isTracked,
+    isError,
+    isSuccess,
+    animationTime,
+  }) => {
     const dimension = `${ringDimensions[size]}px`;
     const strokeWidth = ringStrokeWidths[size];
 
@@ -167,7 +187,9 @@ export const StyledRingCircleSvg = styled.svg<RingSvgProps>`
       circle[data-role="inner-arc"] {
         fill: transparent;
         stroke-width: ${strokeWidth}px;
-        stroke: ${inverse ? "#FFF" : "#000000"};
+
+        stroke: ${getStrokeColor({ inverse, isSuccess, isError })};
+
         stroke-linecap: round;
         stroke-dasharray: 100px;
         stroke-dashoffset: 95px;
@@ -248,10 +270,6 @@ type LabelProps = {
   loaderVariant?: string;
   inverse?: boolean;
   loaderType: string;
-  isInsideTypicalButton?: boolean;
-  isInsideDestructiveButton?: boolean;
-  isInsidePrimaryButton?: boolean;
-  hasMotion?: boolean;
 };
 
 const getLabelStyles = ({
