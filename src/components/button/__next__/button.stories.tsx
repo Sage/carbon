@@ -2,7 +2,10 @@ import { Meta, StoryObj } from "@storybook/react";
 import React, { useState } from "react";
 import Button, { ButtonProps } from ".";
 import Box from "../../box";
+import Icon from "../../icon";
 import I18nProvider from "../../i18n-provider";
+
+import getIconColor from "../__utils__/utils";
 
 const meta: Meta<typeof Button> = {
   title: "Button",
@@ -12,7 +15,6 @@ const meta: Meta<typeof Button> = {
     children: "Button",
     disabled: false,
     fullWidth: false,
-    iconPosition: "left",
     inverse: false,
     loading: false,
     noWrap: true,
@@ -35,6 +37,35 @@ export const Default: Story = () => {
   return <Button>Button</Button>;
 };
 Default.storyName = "Default";
+
+export const ButtonContent: Story = () => {
+  const iconColor = getIconColor({
+    inverse: false,
+    variant: "default",
+    variantType: "primary",
+    disabled: false,
+  });
+  return (
+    <Box display={"flex"} gap={2}>
+      <Button aria-label="Return to the home page">
+        <Icon color={iconColor} type="home" />
+      </Button>
+      <Button>
+        <>
+          <Icon color={iconColor} type="home" />
+          Return to the home page
+        </>
+      </Button>
+      <Button>
+        <>
+          Return to the home page
+          <Icon color={iconColor} type="home" />
+        </>
+      </Button>
+    </Box>
+  );
+};
+ButtonContent.storyName = "Button Content";
 
 export const ClickHandler: Story = () => {
   const [value, setValue] = useState(0);
@@ -119,19 +150,6 @@ export const FullWidth: Story = () => {
   );
 };
 FullWidth.storyName = "Full-Width";
-
-export const Icons: Story = () => {
-  return (
-    <Box display={"flex"} gap={2}>
-      <Button iconType="home" aria-label="Return to the home page" />
-      <Button iconType="home">Button</Button>
-      <Button iconType="home" iconPosition="right">
-        Button
-      </Button>
-    </Box>
-  );
-};
-Icons.storyName = "Icons";
 
 export const Inverse: Story = (args: ButtonProps) => {
   return (
