@@ -44,7 +44,7 @@ test("renders input with 'aria-describedby' as the id of the validation tooltip 
     input.focus();
   });
 
-  expect(input).toHaveAttribute("aria-describedby", "foo-validation");
+  expect(input).toHaveAttribute("aria-describedby", "foo-validation-0");
 });
 
 test("appends the id of the validation tooltip to the input's 'aria-describedby' when fieldHelp is set and the input is focused", () => {
@@ -67,7 +67,7 @@ test("appends the id of the validation tooltip to the input's 'aria-describedby'
 
   expect(input).toHaveAttribute(
     "aria-describedby",
-    "foo-field-help foo-validation",
+    "foo-field-help foo-validation-0",
   );
 });
 
