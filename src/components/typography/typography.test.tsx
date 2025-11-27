@@ -338,3 +338,59 @@ describe("Lists", () => {
     });
   });
 });
+
+describe("Next Typography interface props (size, weight, tint, fluid, inverse, overflow)", () => {
+  it("should apply large size font token when `size` is large", () => {
+    render(
+      <Typography variant="p" size="large">
+        Text
+      </Typography>,
+    );
+
+    const paragraph = screen.getByRole("paragraph");
+
+    expect(paragraph).toHaveStyle(
+      "font: var(--global-font-static-body-regular-l)",
+    );
+  });
+
+  it("should apply medium weight font token when `weight` is medium", () => {
+    render(
+      <Typography variant="p" weight="medium">
+        Text
+      </Typography>,
+    );
+
+    const paragraph = screen.getByRole("paragraph");
+
+    expect(paragraph).toHaveStyle(
+      "font: var(--global-font-static-body-medium-m)",
+    );
+  });
+
+  it("should apply fluid font token when `fluid` is true", () => {
+    render(
+      <Typography variant="p" fluid weight="medium" size="large">
+        Text
+      </Typography>,
+    );
+
+    const paragraph = screen.getByRole("paragraph");
+
+    expect(paragraph).toHaveStyle(
+      "font: var(--global-font-fluid-body-medium-l)",
+    );
+  });
+
+  it("should apply overflow property when `overflow` is provided", () => {
+    render(
+      <Typography variant="p" overflow="hidden">
+        Text
+      </Typography>,
+    );
+
+    const paragraph = screen.getByRole("paragraph");
+
+    expect(paragraph).toHaveStyle("overflow: hidden");
+  });
+});

@@ -66,7 +66,7 @@ const RingLoader = ({
           variant="span"
           loaderVariant={ringVariant}
           loaderType="ring"
-          size={ringSize}
+          $size={ringSize}
         >
           {loaderLabel || locale?.loader.loading()}
         </StyledLoaderLabel>

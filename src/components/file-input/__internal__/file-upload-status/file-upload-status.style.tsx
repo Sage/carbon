@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import StyledTypography from "../../../typography/typography.style";
 import StyledIcon from "../../../icon/icon.style";
 import {
   StyledProgressBar,
@@ -66,7 +65,7 @@ export const StyledFileUploadStatusRow = styled.div<StyledFileUploadStatusRowPro
   ${({ lowerPadding }) =>
     lowerPadding ? "padding-bottom: var(--spacing125);" : ""}
 
-  ${StyledTypography} {
+  [data-component="typography"] {
     color: var(--colorsUtilityYin055);
   }
 `;
@@ -85,7 +84,7 @@ export const StyledFileUploadStatus = styled.div<StyledFileUploadStatusProps>`
     return css`
       border: var(--${borderWidthToken}) solid var(--${colorToken});
       ${hasError &&
-      `&& ${StyledTypography} {
+      `&& [data-component="typography"] {
         color: var(--${colorToken});
         font-weight: 400;
       }`}
