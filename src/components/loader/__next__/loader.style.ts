@@ -261,17 +261,18 @@ const LabelMargins: Record<string, Record<string, string>> = {
 };
 
 type LabelProps = {
-  size?: string;
+  $size?: string;
   loaderVariant?: string;
   inverse?: boolean;
   loaderType: string;
 };
 
 const getLabelStyles = ({
-  size = "medium",
+  $size = "medium",
   loaderType,
   loaderVariant,
 }: LabelProps) => {
+  const size = $size;
   if (loaderType === "star") {
     return css`
       font-size: 16px;
