@@ -1,10 +1,29 @@
 import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
 
+import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component";
 import * as TypographyStories from "./typography.stories.tsx";
 
 <Meta of={TypographyStories} />
 
 # Typography
+
+<DeprecationWarning>
+  This version of the `Typography` component and its sub-components (`List`, `ListItem`) are no longer supported and will be removed
+  in a future release. Please consider moving to the{" "}
+  <a style={{ color: "white" }} href="../?path=/docs/typography--docs">
+    {" "}
+    newer implementation
+  </a>{" "}
+  as soon as possible.
+  
+  For lists, use proper semantic HTML elements with the new Typography component:
+  ```tsx
+  <ul>
+    <li><Typography>Item 1</Typography></li>
+    <li><Typography>Item 2</Typography></li>
+  </ul>
+  ```
+</DeprecationWarning>
 
 ## Contents
 
@@ -54,19 +73,6 @@ By default, this prop will truncate the text with an ellipsis, but you can also 
 This prop will only work with block level elements, so ensure `display="block"` or similar is set to enable this functionality.
 
 <Canvas of={TypographyStories.TruncateStory} />
-
-## Recommended body text colors
-
-| Color                 | White Background | App Background | Notes              |
-| --------------------- | ---------------- | -------------- | ------------------ |
-| blackOpacity90        | ✅               | ✅             | Default text color |
-| blackOpacity74        | ✅               | ✅             |                    |
-| blackOpacity65        | ✅               | ✅             |                    |
-| blackOpacity60        | ✅               | ✅             |                    |
-| blackOpacity55        | ✅               | ❌             |                    |
-| blackOpacity30        | ✅               | ✅             | Disabled text only |
-| brilliantGreenShade38 | ✅               | ✅             | Positive text      |
-| errorRed              | ✅               | ✅             | Negative text      |
 
 ## Screen reader only text
 

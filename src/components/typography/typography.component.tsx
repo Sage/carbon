@@ -5,7 +5,13 @@ import {
   filterStyledSystemMarginProps,
   filterStyledSystemPaddingProps,
 } from "../../style/utils";
-import StyledTypography from "./typography.style";
+import NextTypography from "./__next__/typography.component";
+import type {
+  TypographyProps as NextTypographyProps,
+  ValidHtmlVariant,
+  LegacyValidHtmlVariant,
+} from "./__next__/typography.component";
+import Logger from "../../__internal__/utils/logger";
 
 export const VARIANT_TYPES = [
   "h1-large",
@@ -33,20 +39,46 @@ export const VARIANT_TYPES = [
 
 export type VariantTypes = (typeof VARIANT_TYPES)[number];
 
-export interface TypographyProps extends SpaceProps, TagProps {
+export interface TypographyProps
+  extends SpaceProps,
+    TagProps,
+    Pick<
+      NextTypographyProps,
+      "weight" | "tint" | "size" | "fluid" | "inverse" | "overflow"
+    > {
   /** Override the variant component */
-  as?: React.ElementType;
+  as?: React.ElementType | ValidHtmlVariant;
   /** Set the ID attribute of the Typography component */
   id?: string;
   /** Content to be rendered inside the Typography component */
   children?: React.ReactNode;
-  /** The visual style to apply to the component */
+  /**
+   * The visual style to apply to the component.
+   *
+   * The following variant values are deprecated:
+   * - "h1-large" → use the "h1" variant instead
+   * - "segment-header" → use the "section-heading" variant instead
+   * - "segment-header-small" → use the "section-subheading" variant instead
+   * - "segment-subheader" → use the "h5" variant instead
+   * - "segment-subheader-alt" → use the "h5" variant instead
+   * - "span", "small", "big", "sup", "sub", "strong", "b", "em" → use the "p" variant instead
+   * - "ul", "ol" → use proper semantic HTML list elements with the "p" variant inside instead
+   *
+   * Migrate to the next version of Typography (from carbon-react/__next__) which uses semantic variants:
+   * h1, h2, h3, h4, h5, section-heading, section-subheading and p
+   */
   variant?: VariantTypes;
-  /** Override the variant font-size */
+  /**
+   * @deprecated Support for custom font sizes has been removed. Use the new `size` prop for paragraphs or choose the appropriate variant for other variants.
+   * Override the variant font-size */
   fontSize?: string;
-  /** Override the variant font-weight */
+  /**
+   * @deprecated Support for custom font weights has been removed. Use the new `weight` prop for paragraphs or choose the appropriate variant for other variants.
+   * Override the variant font-weight */
   fontWeight?: string;
-  /** Override the variant line-height */
+  /**
+   * @deprecated Support for custom line heights has been removed. Use the new `size` prop for paragraphs or choose the appropriate variant for other variants.
+   * Override the variant line-height */
   lineHeight?: string;
   /** Override the variant text-transform */
   textTransform?: string;
@@ -54,7 +86,9 @@ export interface TypographyProps extends SpaceProps, TagProps {
   textDecoration?: string;
   /** Override the variant display */
   display?: string;
-  /** Override the list-style-type */
+  /**
+   * @deprecated Support for custom list styles has been removed. Use semantic HTML instead.
+   * Override the list-style-type */
   listStyleType?: string;
   /** Override the white-space */
   whiteSpace?: string;
@@ -66,15 +100,25 @@ export interface TypographyProps extends SpaceProps, TagProps {
   textAlign?: string;
   /** Override the text-overflow */
   textOverflow?: string;
-  /** Apply truncation */
+  /**
+   * @deprecated Support for truncate has been deprecated. Use `textOverflow` and `whiteSpace` props instead.
+   * Apply truncation */
   truncate?: boolean;
-  /** Override the color style */
+  /**
+   * @deprecated Support for custom colors has been removed. Use the `inverse` or `tint` props instead.
+   * Override the color style */
   color?: string;
-  /** Override the backgroundColor style */
+  /**
+   * @deprecated Support for background colors has been removed.
+   * Override the backgroundColor style */
   backgroundColor?: string;
-  /** Override the bg value shorthand for backgroundColor */
+  /**
+   * @deprecated Support for bg has been removed.
+   * Override the bg value shorthand for backgroundColor */
   bg?: string;
-  /** Override the opacity value */
+  /**
+   * @deprecated Support for custom opacity has been removed. Use the `tint` prop on paragraph elements instead.
+   * Override the opacity value */
   opacity?: string | number;
   /** Set whether it will be visually hidden
    * NOTE: This is for screen readers only and will make a lot of the other props redundant */
@@ -101,27 +145,72 @@ export interface TypographyProps extends SpaceProps, TagProps {
   "data-component"?: string;
 }
 
-const getAs = (variant?: VariantTypes) => {
+let typographyLegacyWarned = false;
+
+// Maps deprecated variants to new semantic variants to avoid breaking changes
+const getNextVariant = (
+  variant?: VariantTypes,
+): NextTypographyProps["variant"] => {
   switch (variant) {
+    case "h1":
     case "h1-large":
       return "h1";
+    case "h2":
+    case "h3":
+    case "h4":
+      return variant;
     case "segment-header":
+      return "section-heading";
     case "segment-header-small":
+      return "section-subheading";
+    case "h5":
     case "segment-subheader":
     case "segment-subheader-alt":
       return "h5";
-    case "big":
-      return "p";
     default:
-      return variant;
+      return "p";
   }
 };
 
+/* Returns the variant if it's a valid semantic HTML element, ensuring deprecated variants render the correct underlying HTML structure */
+const getSemanticElement = (
+  variant?: VariantTypes,
+): ValidHtmlVariant | LegacyValidHtmlVariant | undefined => {
+  switch (variant) {
+    case "h1":
+    case "h2":
+    case "h3":
+    case "h4":
+    case "h5":
+    case "p":
+    case "span":
+    case "strong":
+    case "b":
+    case "em":
+    case "small":
+    case "sub":
+    case "sup":
+    case "ul":
+    case "ol":
+      return variant as LegacyValidHtmlVariant;
+    default:
+      return undefined;
+  }
+};
+
+/**
+ * @deprecated This component is deprecated and will be removed in a future release.
+ * Please use the Typography component from `carbon-react/__next__` instead, which provides improved
+ * semantic variants (h1, h2, h3, h4, h5, section-heading, section-subheading, and p) and better
+ * design token alignment.
+ */
 export const Typography = ({
   "data-component": dataComponent,
   variant = "p",
   as,
   id,
+  fluid = false,
+  inverse = false,
   fontSize,
   fontWeight,
   textTransform,
@@ -134,54 +223,77 @@ export const Typography = ({
   wordWrap,
   textAlign,
   textOverflow,
+  overflow,
   truncate,
-  color = "blackOpacity90",
+  color,
   backgroundColor,
   bg,
   opacity,
   children,
   screenReaderOnly,
-  isDisabled,
+  size = "regular",
+  tint = "default",
+  weight = "regular",
   "aria-live": ariaLive,
   role,
   "aria-hidden": ariaHidden,
   className,
   ...rest
 }: TypographyProps) => {
+  if (!typographyLegacyWarned) {
+    Logger.warn(
+      "Warning: This version of the `Typography` component is intended to help migration to the `next` version and will be removed in a future release.",
+    );
+    typographyLegacyWarned = true;
+  }
+
+  const nextVariant = getNextVariant(variant);
+  const finalAs = as || getSemanticElement(variant);
+
+  /* Only forwarding CSS properties that are supported by the new component.
+  Properties like `fontSize`, `fontWeight`, `lineHeight` and `listStyleType` are accepted for backward compatibility
+  but not forwarded to the new component as they can conflict with design tokens */
+
+  const cssProps: Record<string, string> = {};
+
+  if (textTransform !== undefined) cssProps.textTransform = textTransform;
+  if (textDecoration !== undefined) cssProps.textDecoration = textDecoration;
+  if (display !== undefined) cssProps.display = display;
+  if (whiteSpace !== undefined) cssProps.whiteSpace = whiteSpace;
+  if (wordBreak !== undefined) cssProps.wordBreak = wordBreak;
+  if (wordWrap !== undefined) cssProps.wordWrap = wordWrap;
+  if (textAlign !== undefined) cssProps.textAlign = textAlign;
+  if (textOverflow !== undefined) cssProps.textOverflow = textOverflow;
+  if (overflow !== undefined) cssProps.overflow = overflow;
+
+  if (truncate) {
+    cssProps.whiteSpace = "nowrap";
+    cssProps.overflow = "hidden";
+    cssProps.textOverflow = "ellipsis";
+  }
+
   return (
-    <StyledTypography
-      variant={variant}
-      as={as || getAs(variant)}
+    <NextTypography
+      variant={nextVariant}
+      as={finalAs as ValidHtmlVariant | LegacyValidHtmlVariant}
       id={id}
-      fontSize={fontSize}
-      fontWeight={fontWeight}
-      textTransform={textTransform}
-      lineHeight={lineHeight}
-      textDecoration={textDecoration}
-      display={display}
-      listStyleType={listStyleType}
-      whiteSpace={whiteSpace}
-      wordWrap={wordWrap}
-      wordBreak={wordBreak}
-      textAlign={textAlign}
-      textOverflow={textOverflow}
-      truncate={truncate}
-      color={color}
-      backgroundColor={backgroundColor}
-      bg={bg}
-      opacity={opacity}
+      {...cssProps}
       screenReaderOnly={screenReaderOnly}
-      isDisabled={isDisabled}
       aria-hidden={ariaHidden}
       className={className}
       role={role}
       aria-live={ariaLive}
+      size={size}
+      tint={tint}
+      weight={weight}
+      fluid={fluid}
+      inverse={inverse}
       {...tagComponent(dataComponent, rest)}
       {...filterStyledSystemMarginProps(rest)}
       {...filterStyledSystemPaddingProps(rest)}
     >
       {children}
-    </StyledTypography>
+    </NextTypography>
   );
 };
 
