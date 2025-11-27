@@ -180,7 +180,7 @@
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-swc3": "^0.12.1",
     "rollup-plugin-visualizer": "^5.14.0",
-    "semantic-release": "^24.2.3",
+    "semantic-release": "^25.0.2",
     "semver": "^7.5.4",
     "storybook": "~8.6.12",
     "storybook-addon-pseudo-states": "~4.0.2",
