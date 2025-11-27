@@ -60,8 +60,10 @@ to determine the correct color for your chosen variant. Use it as follows:
 import { getIconColor } from "carbon-react/lib/components/button";
 
 <Button>
-  <Icon color={getIconColor()} type="home" />
-  Return to the home page
+  <>
+    <Icon color={getIconColor()} type="home" />
+    Return to the home page
+  </>
 </Button>;
 ```
 
