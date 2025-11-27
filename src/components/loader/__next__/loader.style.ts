@@ -320,7 +320,7 @@ export const StyledLoaderLabel = styled(Typography)<LabelProps>`
   ${centeredFlexText}
   line-height: 150%;
   color: ${({ inverse }) =>
-    inverse ? "rgba(255, 255, 255, 0.90)" : "rgba(0, 0, 0, 0.65)"};
+    inverse ? "rgba(255, 255, 255, 0.55)" : "rgba(0, 0, 0, 0.65)"};
 
   ${StyledButton} & {
     color: currentColor;
