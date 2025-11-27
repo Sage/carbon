@@ -128,7 +128,7 @@ Playground.parameters = {
 };
 
 export const Functions = ({ ...props }: Partial<TextEditorProps>) => {
-  const initialValue = `<p dir="ltr"><span style="white-space: pre-wrap;">This is a HTML example.</span></p><ol><li value="1"><span style="white-space: pre-wrap;">Look, it has lists!</span></li></ol>`;
+  const initialValue = `<p><span style="white-space: pre-wrap;">This is a HTML example.</span></p><ol><li value="1"><span style="white-space: pre-wrap;">Look, it has lists!</span></li></ol>`;
   const defaultValue = createFromHTML(initialValue);
 
   const handleChange = useDebounce<NonNullable<TextEditorProps["onChange"]>>(
@@ -162,7 +162,7 @@ export const ReadOnlyEditorForNotes = () => {
   const defaultValue = `This is a plain text example`;
 
   const htmlValue = createFromHTML(
-    `<p dir="ltr"><span style="white-space: pre-wrap;">This is a HTML example.</span></p><ol><li value="1"><span style="white-space: pre-wrap;">Look, it has lists <strong>and formatting</strong>!</span></li></ol>`,
+    `<p><span style="white-space: pre-wrap;">This is a HTML example.</span></p><ol><li value="1"><span style="white-space: pre-wrap;">Look, it has lists <strong>and formatting</strong>!</span></li></ol>`,
   );
 
   return (

@@ -6,6 +6,8 @@ import coverageThresholds from "./coverage-thresholds.json";
 const rootDir = resolve(__dirname, ".");
 const isCI = process.env.CI === "true";
 
+const esmOnlyPackages = ["react-error-boundary"];
+
 const baseProjectConfig: Config = {
   rootDir,
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "mjs"],
@@ -29,6 +31,9 @@ const baseProjectConfig: Config = {
     "<rootDir>/node_modules",
     "<rootDir>/lib",
     "<rootDir>/esm",
+  ],
+  transformIgnorePatterns: [
+    `<rootDir>/node_modules/(?!(${esmOnlyPackages.join("|")}))`,
   ],
 };
 

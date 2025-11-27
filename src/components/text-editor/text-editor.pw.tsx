@@ -65,7 +65,7 @@ const preformattedJSON = {
             version: 1,
           },
         ],
-        direction: "ltr",
+
         format: "",
         indent: 0,
         type: "paragraph",
@@ -74,7 +74,7 @@ const preformattedJSON = {
         textStyle: "",
       },
     ],
-    direction: "ltr",
+
     format: "",
     indent: 0,
     type: "root",
@@ -97,7 +97,7 @@ const unformattedJSON = {
             version: 1,
           },
         ],
-        direction: "ltr",
+
         format: "",
         indent: 0,
         type: "paragraph",
@@ -106,7 +106,7 @@ const unformattedJSON = {
         textStyle: "",
       },
     ],
-    direction: "ltr",
+
     format: "",
     indent: 0,
     type: "root",
@@ -759,7 +759,7 @@ test.describe("Functionality tests", () => {
 
       expect(currentValue).toBe(" This is some text");
       expect(currentHtmlValue).toBe(
-        '<p dir="ltr"><span style="white-space: pre-wrap;"> This is some text</span></p>',
+        '<p><span style="white-space: pre-wrap;"> This is some text</span></p>',
       );
       expect(currentJSON).toEqual({
         root: {
@@ -776,7 +776,7 @@ test.describe("Functionality tests", () => {
                   version: 1,
                 },
               ],
-              direction: "ltr",
+              direction: null,
               format: "",
               indent: 0,
               type: "paragraph",
@@ -785,7 +785,7 @@ test.describe("Functionality tests", () => {
               textStyle: "",
             },
           ],
-          direction: "ltr",
+          direction: null,
           format: "",
           indent: 0,
           type: "root",
@@ -835,7 +835,7 @@ test.describe("Functionality tests", () => {
       expect(_htmlString).not.toBeNull();
       expect(_json).not.toBeNull();
       expect(_htmlString).toBe(
-        '<p dir="ltr"><span style="white-space: pre-wrap;">This is some text</span></p>',
+        '<p><span style="white-space: pre-wrap;">This is some text</span></p>',
       );
 
       expect(_json).toEqual({
@@ -853,7 +853,7 @@ test.describe("Functionality tests", () => {
                   version: 1,
                 },
               ],
-              direction: "ltr",
+              direction: null,
               format: "",
               indent: 0,
               type: "paragraph",
@@ -862,7 +862,7 @@ test.describe("Functionality tests", () => {
               textStyle: "",
             },
           ],
-          direction: "ltr",
+          direction: null,
           format: "",
           indent: 0,
           type: "root",
@@ -1425,7 +1425,6 @@ test.describe("Styling tests", () => {
       <a
         href="https://carbon.sage.com/?path=/story/welcome--welcome-page"
         rel="noreferrer"
-        dir="ltr"
       >
         <span data-lexical-text="true">Carbon</span>
       </a>,

@@ -19,6 +19,8 @@ import Typography from "../typography";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
 export interface NoteProps extends MarginProps, TagProps {
+  /** The aria-label to be used when no title is present */
+  "aria-label"?: string;
   /** Adds a created on date to the Note footer */
   createdDate: string;
   /** renders a control for the Note */
@@ -50,6 +52,7 @@ function hasExpectedDisplayName(
 }
 
 export const Note = ({
+  "aria-label": ariaLabel,
   createdDate,
   inlineControl,
   name,
@@ -104,6 +107,7 @@ export const Note = ({
                 <StyledTitleWrapper>{title}</StyledTitleWrapper>
               ))}
             <ReadOnlyEditor
+              aria-label={ariaLabel}
               initialValue={noteContent}
               useBackgroundColor={false}
             />

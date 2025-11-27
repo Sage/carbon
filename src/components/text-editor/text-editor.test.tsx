@@ -31,7 +31,6 @@ const initialValue = {
             version: 1,
           },
         ],
-        direction: "ltr",
         format: "",
         indent: 0,
         type: "paragraph",
@@ -40,7 +39,7 @@ const initialValue = {
         textStyle: "",
       },
     ],
-    direction: "ltr",
+
     format: "",
     indent: 0,
     type: "root",
@@ -523,7 +522,7 @@ test("editor is focused when the focus method is invoked via imperative handle",
 });
 
 test("valid data is parsed when HTML is passed into the createFromHTML function", async () => {
-  const html = `<p dir="ltr"><span style="white-space: pre-wrap;">This is a HTML example.</span></p><ol><li value="1"><span style="white-space: pre-wrap;">Look, it has lists!</span></li></ol>`;
+  const html = `<p><span style="white-space: pre-wrap;">This is a HTML example.</span></p><ol><li value="1"><span style="white-space: pre-wrap;">Look, it has lists!</span></li></ol>`;
   const value = createFromHTML(html);
   expect(JSON.parse(value)).toEqual({
     root: {

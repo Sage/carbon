@@ -56,7 +56,7 @@ test("should render read-only editor with JSON", () => {
                   version: 1,
                 },
               ],
-              direction: "ltr",
+
               format: "",
               indent: 0,
               type: "autolink",
@@ -68,14 +68,14 @@ test("should render read-only editor with JSON", () => {
               isUnlinked: false,
             },
           ],
-          direction: "ltr",
+
           format: "",
           indent: 0,
           type: "code",
           version: 1,
         },
       ],
-      direction: "ltr",
+
       format: "",
       indent: 0,
       type: "root",
