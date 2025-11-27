@@ -231,11 +231,11 @@ test.describe("Prop checks for Loader Spinner component", () => {
 
   (
     [
-      "rgba(0, 0, 0, 0.9)",
-      "rgba(0, 0, 0, 0.9)",
-      "rgb(255, 255, 255)",
-      "rgba(0, 0, 0, 0.9)",
-      "rgb(255, 255, 255)",
+      "rgba(0, 0, 0, 0.95)",
+      "rgba(0, 0, 0, 0.95)",
+      "rgba(255, 255, 255, 0.95)",
+      "rgba(0, 0, 0, 0.95)",
+      "rgba(255, 255, 255, 0.95)",
     ] as string[]
   ).forEach((labelColorValues, index) => {
     test(`when the 'variant' prop is passed as '${variants[index]}' the correct font color is rendered`, async ({
