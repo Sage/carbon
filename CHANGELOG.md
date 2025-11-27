@@ -1,3 +1,9 @@
+## [158.13.0](https://github.com/Sage/carbon/compare/v158.12.0...v158.13.0) (2025-11-27)
+
+### Features
+
+* **text-editor:** upgrade Lexical packages ([1ea9c8b](https://github.com/Sage/carbon/commit/1ea9c8b8065a376ef2e679adfef0e232c3f94415))
+
 ## [158.12.0](https://github.com/Sage/carbon/compare/v158.11.0...v158.12.0) (2025-11-26)
 
 ### Features
