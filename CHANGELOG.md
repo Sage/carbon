@@ -1,3 +1,13 @@
+## [158.12.0](https://github.com/Sage/carbon/compare/v158.11.0...v158.12.0) (2025-11-26)
+
+### Features
+
+* **tabs:** add squared borders at active indicator edges ([ba18714](https://github.com/Sage/carbon/commit/ba18714b1d050205f2c36ec3bc0584a041b3d47b))
+
+### Bug Fixes
+
+* **tabs:** fix aria-label issue ([40e421e](https://github.com/Sage/carbon/commit/40e421ee3eacda1b9c015588f9005f53ecb5f4ad))
+
 ## [158.11.0](https://github.com/Sage/carbon/compare/v158.10.1...v158.11.0) (2025-11-25)
 
 ### Features

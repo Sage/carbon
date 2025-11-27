@@ -6,8 +6,6 @@ import React, {
   useRef,
   useState,
 } from "react";
-
-import Typography from "../../typography";
 import { TabsProvider, useTabs } from "./tabs.context";
 import {
   TabsHandle,
@@ -396,14 +394,10 @@ export const TabList = forwardRef<TabsHandle, TabListProps>(
 
     return (
       <>
-        <Typography id={"tablist-aria-label"} screenReaderOnly>
-          {ariaLabel}
-        </Typography>
         <StyledTabListWrapper>
           {renderLeftScroll()}
           <StyledTabList
             ariaLabel={ariaLabel}
-            aria-labelledby={"tablist-aria-label"}
             id="tablist"
             onKeyDown={handleKeyDown}
             orientation={orientation}
