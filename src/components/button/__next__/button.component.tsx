@@ -1,16 +1,13 @@
 import React, {
   forwardRef,
+  ReactNode,
   useCallback,
   useImperativeHandle,
   useRef,
 } from "react";
 import { SpaceProps } from "styled-system";
 
-import StyledButton, {
-  StyledChildContainer,
-  StyledLoadingContainer,
-} from "./button.style";
-import Icon, { IconType } from "../../icon";
+import StyledButton, { StyledContentContainer } from "./button.style";
 import { Loader } from "../../loader/__next__/loader.component";
 import tagComponent, {
   TagProps,
@@ -27,21 +24,16 @@ export interface ButtonProps extends SpaceProps, TagProps {
   "aria-describedby"?: string;
   /**
    * The aria-label attribute of the button.
-   * Defaults to the iconType, when the component has only an icon.
    */
   "aria-label"?: string;
   /** Identifies the element(s) labelling the button. */
   "aria-labelledby"?: string;
-  /** The text that the button displays. */
-  children?: string;
+  /** The content that the button displays. */
+  children?: ReactNode;
   /** Flag to indicate that the button is disabled. */
   disabled?: boolean;
   /** Flag to indicate that the button can be full-width. */
   fullWidth?: boolean;
-  /** Defines the position of the chosen icon relative to the children. */
-  iconPosition?: "left" | "right";
-  /** The icon to display. */
-  iconType?: IconType;
   /** The ID of the button. */
   id?: string;
   /** Set the button to use a dark-mode appearance. */
@@ -89,8 +81,6 @@ export const Button = forwardRef<ButtonHandle, ButtonProps>(
       children,
       disabled = false,
       fullWidth = false,
-      iconPosition = "left",
-      iconType,
       id,
       inverse,
       loading = false,
@@ -126,8 +116,6 @@ export const Button = forwardRef<ButtonHandle, ButtonProps>(
       "screen and (prefers-reduced-motion: no-preference)",
     );
 
-    const hasValidChildren = children !== undefined;
-
     const handleClick = (
       event:
         | React.MouseEvent<HTMLAnchorElement>
@@ -138,44 +126,6 @@ export const Button = forwardRef<ButtonHandle, ButtonProps>(
       buttonRef.current?.focus({ preventScroll: true });
 
       onClick?.(event);
-    };
-
-    const getIconColor = () => {
-      if (inverse) {
-        if (variantType === "primary") {
-          return "#000";
-        }
-        if (disabled) {
-          return "rgba(255, 255, 255, 0.42)";
-        }
-        return "#FFF";
-      }
-
-      if (variant === "ai") {
-        return disabled
-          ? "var(--button-ai-label-disabled, #0000006B)"
-          : "var(--button-ai-label-active, #000)";
-      }
-
-      if (variantType === "primary") {
-        return "var(--button-typical-primary-label-default, #FFF)";
-      }
-
-      if (variant === "destructive") {
-        return disabled
-          ? "var(--button-destructive-secondary-label-disabled, rgba(0, 0, 0, 0.42))"
-          : "var(--button-destructive-secondary-label-default, #DB004E)";
-      }
-
-      return disabled
-        ? "var(--button-typical-secondary-label-disabled, #0000006B)"
-        : "var(--button-typical--secondary-label-active, #000)";
-    };
-
-    const showIcon = () => {
-      if (size === "xs") return null;
-
-      return <Icon type={iconType as IconType} color={getIconColor()} />;
     };
 
     const showLoader = () => {
@@ -192,7 +142,7 @@ export const Button = forwardRef<ButtonHandle, ButtonProps>(
       }
 
       return (
-        <StyledLoadingContainer>
+        <>
           <Loader
             variant="inline"
             loaderType="ring"
@@ -202,19 +152,7 @@ export const Button = forwardRef<ButtonHandle, ButtonProps>(
             loaderLabel={locale.loaderSpinner.loading()}
           />
           {allowMotion && locale.loaderSpinner.loading()}
-        </StyledLoadingContainer>
-      );
-    };
-
-    const showChildren = () => {
-      return (
-        <StyledChildContainer
-          data-role="button-child-container"
-          flip={iconPosition === "right"}
-        >
-          {iconType && showIcon()}
-          {children}
-        </StyledChildContainer>
+        </>
       );
     };
 
@@ -222,16 +160,11 @@ export const Button = forwardRef<ButtonHandle, ButtonProps>(
       <StyledButton
         allowMotion={allowMotion}
         aria-describedby={ariaDescribedBy}
-        aria-label={
-          !hasValidChildren && iconType ? ariaLabel || iconType : ariaLabel
-        }
+        aria-label={ariaLabel}
         aria-labelledby={ariaLabelledBy}
         disabled={disabled}
         fullWidth={fullWidth}
         inverse={inverse}
-        iconOnly={!hasValidChildren && !!iconType}
-        iconPosition={iconPosition}
-        iconType={iconType}
         id={id}
         name={name}
         noWrap={noWrap}
@@ -243,7 +176,9 @@ export const Button = forwardRef<ButtonHandle, ButtonProps>(
         {...tagComponent("button", rest)}
         {...rest}
       >
-        {loading ? showLoader() : showChildren()}
+        <StyledContentContainer data-role="button-child-container">
+          {loading ? showLoader() : children}
+        </StyledContentContainer>
       </StyledButton>
     );
   },

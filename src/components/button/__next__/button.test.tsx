@@ -1,10 +1,11 @@
-import { render, screen, within } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
 import Button, { ButtonHandle, ButtonProps } from "./button.component";
 import Box from "../../box";
 
 import useMediaQuery from "../../../hooks/useMediaQuery";
+import Icon from "../../icon";
 
 jest.mock("../../../hooks/useMediaQuery", () => ({
   __esModule: true,
@@ -20,6 +21,85 @@ test("renders correctly", () => {
   const button = screen.getByRole("button");
   expect(button).toBeInTheDocument();
 
+  expect(button).toHaveStyle(
+    "border-radius: var(--global-radius-action-xl,20px)",
+  );
+  expect(button).toHaveStyle("height: var(--global-size-m,40px)");
+  expect(button).toHaveStyleRule("font-size", "14px");
+  expect(button).toHaveStyleRule("padding", "6px 16px");
+});
+
+test("renders correctly when inverse", () => {
+  render(<Button inverse>Test Button</Button>);
+  const button = screen.getByRole("button");
+  expect(button).toBeInTheDocument();
+
+  expect(button).toHaveStyleRule(
+    "background-color: var(--button-typical-primary-inverse-bg-default, #00F142)",
+  );
+  expect(button).toHaveStyle(
+    "border-radius: var(--global-radius-action-xl,20px)",
+  );
+  expect(button).toHaveStyle("height: var(--global-size-m,40px)");
+  expect(button).toHaveStyleRule("font-size", "14px");
+  expect(button).toHaveStyleRule("padding", "6px 16px");
+});
+
+test("renders correctly when inverse and tertiary", () => {
+  render(
+    <Button inverse variantType="tertiary">
+      Test Button
+    </Button>,
+  );
+  const button = screen.getByRole("button");
+  expect(button).toBeInTheDocument();
+
+  expect(button).toHaveStyleRule(
+    "border: 1px solid var(--button-typical-tertiary-inverse-border-default, #00F142)",
+  );
+  expect(button).toHaveStyle(
+    "border-radius: var(--global-radius-action-xl,20px)",
+  );
+  expect(button).toHaveStyle("height: var(--global-size-m,40px)");
+  expect(button).toHaveStyleRule("font-size", "14px");
+  expect(button).toHaveStyleRule("padding", "6px 16px");
+});
+
+test("renders correctly when inverse and disabled", () => {
+  render(
+    <Button inverse disabled>
+      Test Button
+    </Button>,
+  );
+  const button = screen.getByRole("button");
+  expect(button).toBeInTheDocument();
+
+  expect(button).toHaveStyleRule(
+    "background-color: var(--button-typical-primary-inverse-bg-disabled, rgba(255, 255, 255, 0.30))",
+  );
+  expect(button).toHaveStyle(
+    "border-radius: var(--global-radius-action-xl,20px)",
+  );
+  expect(button).toHaveStyle("height: var(--global-size-m,40px)");
+  expect(button).toHaveStyleRule("font-size", "14px");
+  expect(button).toHaveStyleRule("padding", "6px 16px");
+});
+
+test("renders correctly when inverse, disabled and tertiary", () => {
+  render(
+    <Button inverse disabled variantType="tertiary">
+      Test Button
+    </Button>,
+  );
+  const button = screen.getByRole("button");
+  expect(button).toBeInTheDocument();
+
+  expect(button).toHaveStyleRule(
+    "background-color: var(--button-typical-primary-inverse-bg-disabled, rgba(255, 255, 255, 0.30))",
+  );
+  expect(button).toHaveStyleRule(
+    "border: 1px solid var(--button-typical-tertiary-inverse-border-disabled, rgba(255, 255, 255, 0.30))",
+  );
   expect(button).toHaveStyle(
     "border-radius: var(--global-radius-action-xl,20px)",
   );
@@ -83,9 +163,11 @@ describe("variant: default", () => {
               size={size as ButtonProps["size"]}
               variant="default"
               variantType="primary"
-              iconType="alert"
             >
-              Test Button
+              <>
+                <Icon type="alert" />
+                Test Button
+              </>
             </Button>,
           );
           expect(screen.getByTestId("icon")).toBeInTheDocument();
@@ -98,9 +180,11 @@ describe("variant: default", () => {
               variant="default"
               variantType="primary"
               disabled
-              iconType="alert"
             >
-              Test Button
+              <>
+                <Icon type="alert" />
+                Test Button
+              </>
             </Button>,
           );
           const btn = screen.getByRole("button");
@@ -163,9 +247,11 @@ describe("variant: default", () => {
               size={size as ButtonProps["size"]}
               variant="default"
               variantType="secondary"
-              iconType="alert"
             >
-              Test Button
+              <>
+                <Icon type="alert" />
+                Test Button
+              </>
             </Button>,
           );
           expect(screen.getByTestId("icon")).toBeInTheDocument();
@@ -178,9 +264,11 @@ describe("variant: default", () => {
               variant="default"
               variantType="secondary"
               disabled
-              iconType="alert"
             >
-              Test Button
+              <>
+                <Icon type="alert" />
+                Test Button
+              </>
             </Button>,
           );
           expect(screen.getByRole("button")).toBeDisabled();
@@ -243,9 +331,11 @@ describe("variant: default", () => {
               size={size as ButtonProps["size"]}
               variant="default"
               variantType="tertiary"
-              iconType="alert"
             >
-              Test Button
+              <>
+                <Icon type="alert" />
+                Test Button
+              </>
             </Button>,
           );
           expect(screen.getByTestId("icon")).toBeInTheDocument();
@@ -258,9 +348,11 @@ describe("variant: default", () => {
               variant="default"
               variantType="tertiary"
               disabled
-              iconType="alert"
             >
-              Test Button
+              <>
+                <Icon type="alert" />
+                Test Button
+              </>
             </Button>,
           );
           expect(screen.getByRole("button")).toBeDisabled();
@@ -323,9 +415,11 @@ describe("variant: default", () => {
               size={size as ButtonProps["size"]}
               variant="default"
               variantType="subtle"
-              iconType="alert"
             >
-              Test Button
+              <>
+                <Icon type="alert" />
+                Test Button
+              </>
             </Button>,
           );
           expect(screen.getByTestId("icon")).toBeInTheDocument();
@@ -338,9 +432,11 @@ describe("variant: default", () => {
               variant="default"
               variantType="subtle"
               disabled
-              iconType="alert"
             >
-              Test Button
+              <>
+                <Icon type="alert" />
+                Test Button
+              </>
             </Button>,
           );
           expect(screen.getByRole("button")).toBeDisabled();
@@ -406,9 +502,11 @@ describe("variant: destructive", () => {
                 size={size as ButtonProps["size"]}
                 variant="destructive"
                 variantType={variantType as ButtonProps["variantType"]}
-                iconType="alert"
               >
-                Test Button
+                <>
+                  <Icon type="alert" />
+                  Test Button
+                </>
               </Button>,
             );
             expect(screen.getByTestId("icon")).toBeInTheDocument();
@@ -421,9 +519,11 @@ describe("variant: destructive", () => {
                 variant="destructive"
                 variantType={variantType as ButtonProps["variantType"]}
                 disabled
-                iconType="alert"
               >
-                Test Button
+                <>
+                  <Icon type="alert" />
+                  Test Button
+                </>
               </Button>,
             );
             expect(screen.getByRole("button")).toBeDisabled();
@@ -489,9 +589,11 @@ describe("variant: ai", () => {
               size={size as ButtonProps["size"]}
               variant="ai"
               variantType="secondary"
-              iconType="alert"
             >
-              Test Button
+              <>
+                <Icon type="alert" />
+                Test Button
+              </>
             </Button>,
           );
           expect(screen.getByTestId("icon")).toBeInTheDocument();
@@ -504,9 +606,11 @@ describe("variant: ai", () => {
               variant="ai"
               variantType="secondary"
               disabled
-              iconType="alert"
             >
-              Test Button
+              <>
+                <Icon type="alert" />
+                Test Button
+              </>
             </Button>,
           );
           expect(screen.getByRole("button")).toBeDisabled();
@@ -517,31 +621,12 @@ describe("variant: ai", () => {
   });
 });
 
-test("renders correctly with an icon on the left", () => {
-  render(<Button iconType="alert">Test Button</Button>);
-  const button = screen.getByRole("button");
-  const icon = screen.getByTestId("icon");
-  expect(button).toBeInTheDocument();
-  expect(icon).toBeInTheDocument();
-});
-
-test("renders correctly with an icon on the right", () => {
+test("renders correctly with an icon and no text", () => {
   render(
-    <Button iconType="alert" iconPosition="right">
-      Test Button
+    <Button>
+      <Icon type="alert" />
     </Button>,
   );
-  const button = screen.getByRole("button");
-  const icon = screen.getByTestId("icon");
-  expect(button).toBeInTheDocument();
-  expect(icon).toBeInTheDocument();
-
-  const childWrapper = within(button).getByTestId("button-child-container");
-  expect(childWrapper).toHaveStyleRule("flex-direction", "row-reverse");
-});
-
-test("renders correctly with an icon and no text", () => {
-  render(<Button iconType="alert" />);
   const button = screen.getByRole("button");
   const icon = screen.getByTestId("icon");
   expect(button).toBeInTheDocument();
@@ -559,23 +644,6 @@ test("renders correctly when 'fullWidth' is specified", () => {
   expect(button).toHaveStyleRule("width", "100%");
 });
 
-test("does not show an icon when size is 'xs'", () => {
-  render(
-    <Button
-      size="xs"
-      variant="default"
-      variantType="secondary"
-      iconType="alert"
-    >
-      Test Button
-    </Button>,
-  );
-  const button = screen.getByRole("button");
-  const icon = screen.queryByTestId("icon");
-  expect(button).toBeInTheDocument();
-  expect(icon).not.toBeInTheDocument();
-});
-
 test("does not show a loader when size is 'xs'", () => {
   render(
     <Button size="xs" variant="default" variantType="secondary" loading>
@@ -586,90 +654,6 @@ test("does not show a loader when size is 'xs'", () => {
   const loader = screen.queryByRole("status");
   expect(button).toBeInTheDocument();
   expect(loader).not.toBeInTheDocument();
-});
-
-test("renders correctly with an icon and inverse", () => {
-  render(
-    <Button iconType="alert" inverse>
-      Test Button
-    </Button>,
-  );
-  const button = screen.getByRole("button");
-  const icon = screen.getByTestId("icon");
-  expect(button).toBeInTheDocument();
-  expect(icon).toBeInTheDocument();
-});
-
-test("renders correctly with an icon when inverse and secondary", () => {
-  render(
-    <Button iconType="alert" inverse variantType="secondary">
-      Test Button
-    </Button>,
-  );
-  const button = screen.getByRole("button");
-  const icon = screen.getByTestId("icon");
-  expect(button).toBeInTheDocument();
-  expect(icon).toBeInTheDocument();
-});
-
-test("renders correctly with an icon when inverse and tertiary", () => {
-  render(
-    <Button iconType="alert" inverse variantType="tertiary">
-      Test Button
-    </Button>,
-  );
-  const button = screen.getByRole("button");
-  const icon = screen.getByTestId("icon");
-  expect(button).toBeInTheDocument();
-  expect(icon).toBeInTheDocument();
-});
-
-test("renders correctly with an icon when inverse and subtle", () => {
-  render(
-    <Button iconType="alert" inverse variantType="subtle">
-      Test Button
-    </Button>,
-  );
-  const button = screen.getByRole("button");
-  const icon = screen.getByTestId("icon");
-  expect(button).toBeInTheDocument();
-  expect(icon).toBeInTheDocument();
-});
-
-test("renders correctly with an icon when inverse, secondary and disabled", () => {
-  render(
-    <Button iconType="alert" inverse variantType="secondary" disabled>
-      Test Button
-    </Button>,
-  );
-  const button = screen.getByRole("button");
-  const icon = screen.getByTestId("icon");
-  expect(button).toBeInTheDocument();
-  expect(icon).toBeInTheDocument();
-});
-
-test("renders correctly with an icon when inverse, tertiary and disabled", () => {
-  render(
-    <Button iconType="alert" inverse variantType="tertiary" disabled>
-      Test Button
-    </Button>,
-  );
-  const button = screen.getByRole("button");
-  const icon = screen.getByTestId("icon");
-  expect(button).toBeInTheDocument();
-  expect(icon).toBeInTheDocument();
-});
-
-test("renders correctly with an icon when inverse, subtle and disabled", () => {
-  render(
-    <Button iconType="alert" inverse variantType="subtle" disabled>
-      Test Button
-    </Button>,
-  );
-  const button = screen.getByRole("button");
-  const icon = screen.getByTestId("icon");
-  expect(button).toBeInTheDocument();
-  expect(icon).toBeInTheDocument();
 });
 
 test("calling exposed focusButton method focuses chosen button", async () => {

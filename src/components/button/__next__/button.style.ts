@@ -11,7 +11,6 @@ import {
   Variant,
   VariantType,
 } from "./button.config";
-import { ReactNode } from "react";
 
 const getCSSForAIStyle = ({
   allowMotion = true,
@@ -184,22 +183,14 @@ const getCSSForStyle = ({
       `}
 `;
 
-type StyledButtonProps = Omit<ButtonProps, "children"> &
+type StyledButtonProps = ButtonProps &
   SpaceProps & {
     allowMotion?: boolean;
-    children?: ReactNode;
+
     iconOnly?: boolean;
   };
 
-export const StyledChildContainer = styled.div<{ flip: boolean }>`
-  display: flex;
-  flex-direction: ${({ flip }) => (flip ? "row-reverse" : "row")};
-  gap: var(--spacing100);
-  align-items: center;
-  justify-content: center;
-`;
-
-export const StyledLoadingContainer = styled.div`
+export const StyledContentContainer = styled.span`
   display: flex;
   gap: var(--spacing100);
   align-items: center;
@@ -281,24 +272,12 @@ export const StyledButton = styled.button<
     });
   }}
 
-  ${({ fullWidth, iconOnly, iconType, size, noWrap }) => css`
+  ${({ fullWidth, size, noWrap }) => css`
     ${fullWidth
       ? css`
           width: 100%;
         `
       : `width: max-content;`}
-
-    ${iconOnly &&
-    css`
-      height: ${propsForSize[size].height};
-      padding: 0;
-      width: ${propsForSize[size].iconOnlyWidth};
-    `}
-
-    ${iconType &&
-    css`
-      padding: 0px ${propsForSize[size].paddingHorizontal};
-    `}
 
     ${noWrap
       ? css`

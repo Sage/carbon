@@ -6,6 +6,7 @@ import Form from "../../form";
 import Textbox from "../../textbox";
 import { action } from "@storybook/addon-actions";
 import Typography from "../../typography";
+import Icon from "../../icon";
 
 const meta: Meta<typeof Button> = {
   title: "Button/Test",
@@ -15,7 +16,6 @@ const meta: Meta<typeof Button> = {
     children: "Button",
     disabled: false,
     fullWidth: false,
-    iconPosition: "left",
     inverse: false,
     loading: false,
     noWrap: true,
@@ -113,7 +113,9 @@ export const ARIA: Story = () => {
       >
         Return to the home page
       </Typography>
-      <Button aria-labelledby="labelledby-descriptor" iconType="home" />
+      <Button aria-labelledby="labelledby-descriptor">
+        <Icon type="home" />
+      </Button>
 
       <h2>aria-describedby</h2>
       <p>
@@ -400,135 +402,105 @@ export const AllSizesVariantsTypes: Story = () => {
           >
             <h3>Typical/Default</h3>
             <Box display="flex" flexDirection="row" gap={1}>
-              <Button
-                variant="default"
-                variantType="primary"
-                size="small"
-                iconType="alert"
-              >
-                Primary Small
+              <Button variant="default" variantType="primary" size="small">
+                <>
+                  <Icon type="alert" />
+                  Primary Small
+                </>
               </Button>
-              <Button
-                variant="default"
-                variantType="primary"
-                size="medium"
-                iconType="alert"
-              >
-                Primary Medium
+              <Button variant="default" variantType="primary" size="medium">
+                <>
+                  <Icon type="alert" />
+                  Primary Medium
+                </>
               </Button>
-              <Button
-                variant="default"
-                variantType="primary"
-                size="large"
-                iconType="alert"
-              >
-                Primary Large
+              <Button variant="default" variantType="primary" size="large">
+                <>
+                  <Icon type="alert" />
+                  Primary Large
+                </>
               </Button>
             </Box>
             <Box display="flex" flexDirection="row" gap={1}>
-              <Button
-                variant="default"
-                variantType="secondary"
-                size="small"
-                iconType="alert"
-              >
-                Secondary Small
+              <Button variant="default" variantType="secondary" size="small">
+                <>
+                  <Icon type="alert" />
+                  Secondary Small
+                </>
               </Button>
-              <Button
-                variant="default"
-                variantType="secondary"
-                size="medium"
-                iconType="alert"
-              >
-                Secondary Medium
+              <Button variant="default" variantType="secondary" size="medium">
+                <>
+                  <Icon type="alert" />
+                  Secondary Medium
+                </>
               </Button>
-              <Button
-                variant="default"
-                variantType="secondary"
-                size="large"
-                iconType="alert"
-              >
-                Secondary Large
+              <Button variant="default" variantType="secondary" size="large">
+                <>
+                  <Icon type="alert" />
+                  Secondary Large
+                </>
               </Button>
             </Box>
             <Box display="flex" flexDirection="row" gap={1}>
-              <Button
-                variant="default"
-                variantType="tertiary"
-                size="small"
-                iconType="alert"
-              >
-                Tertiary Small
+              <Button variant="default" variantType="tertiary" size="small">
+                <>
+                  <Icon type="alert" />
+                  Tertiary Small
+                </>
               </Button>
-              <Button
-                variant="default"
-                variantType="tertiary"
-                size="medium"
-                iconType="alert"
-              >
-                Tertiary Medium
+              <Button variant="default" variantType="tertiary" size="medium">
+                <>
+                  <Icon type="alert" />
+                  Tertiary Medium
+                </>
               </Button>
-              <Button
-                variant="default"
-                variantType="tertiary"
-                size="large"
-                iconType="alert"
-              >
-                Tertiary Large
+              <Button variant="default" variantType="tertiary" size="large">
+                <>
+                  <Icon type="alert" />
+                  Tertiary Large
+                </>
               </Button>
             </Box>
             <Box display="flex" flexDirection="row" gap={1}>
-              <Button
-                variant="default"
-                variantType="subtle"
-                size="small"
-                iconType="alert"
-              >
-                Subtle Small
+              <Button variant="default" variantType="subtle" size="small">
+                <>
+                  <Icon type="alert" />
+                  Subtle Small
+                </>
               </Button>
-              <Button
-                variant="default"
-                variantType="subtle"
-                size="medium"
-                iconType="alert"
-              >
-                Subtle Medium
+              <Button variant="default" variantType="subtle" size="medium">
+                <>
+                  <Icon type="alert" />
+                  Subtle Medium
+                </>
               </Button>
-              <Button
-                variant="default"
-                variantType="subtle"
-                size="large"
-                iconType="alert"
-              >
-                Subtle Large
+              <Button variant="default" variantType="subtle" size="large">
+                <>
+                  <Icon type="alert" />
+                  Subtle Large
+                </>
               </Button>
             </Box>
 
             <h3>Destructive</h3>
             <Box display="flex" flexDirection="row" gap={1}>
-              <Button
-                variant="destructive"
-                variantType="primary"
-                size="small"
-                iconType="alert"
-              >
-                Primary Small
+              <Button variant="destructive" variantType="primary" size="small">
+                <>
+                  <Icon type="alert" />
+                  Primary Small
+                </>
               </Button>
-              <Button
-                variant="destructive"
-                variantType="primary"
-                size="medium"
-                iconType="alert"
-              >
-                Primary Medium
+              <Button variant="destructive" variantType="primary" size="medium">
+                <>
+                  <Icon type="alert" />
+                  Primary Medium
+                </>
               </Button>
-              <Button
-                variant="destructive"
-                variantType="primary"
-                size="large"
-                iconType="alert"
-              >
-                Primary Large
+              <Button variant="destructive" variantType="primary" size="large">
+                <>
+                  <Icon type="alert" />
+                  Primary Large
+                </>
               </Button>
             </Box>
             <Box display="flex" flexDirection="row" gap={1}>
@@ -536,81 +508,75 @@ export const AllSizesVariantsTypes: Story = () => {
                 variant="destructive"
                 variantType="secondary"
                 size="small"
-                iconType="alert"
               >
-                Secondary Small
+                <>
+                  <Icon type="alert" />
+                  Secondary Small
+                </>
               </Button>
               <Button
                 variant="destructive"
                 variantType="secondary"
                 size="medium"
-                iconType="alert"
               >
-                Secondary Medium
+                <>
+                  <Icon type="alert" />
+                  Secondary Medium
+                </>
               </Button>
               <Button
                 variant="destructive"
                 variantType="secondary"
                 size="large"
-                iconType="alert"
               >
-                Secondary Large
+                <>
+                  <Icon type="alert" />
+                  Secondary Large
+                </>
               </Button>
             </Box>
 
             <h3>AI</h3>
             <Box display="flex" flexDirection="row" gap={1}>
-              <Button
-                variant="ai"
-                variantType="secondary"
-                size="small"
-                iconType="alert"
-              >
-                Secondary Small
+              <Button variant="ai" variantType="secondary" size="small">
+                <>
+                  <Icon type="alert" />
+                  Secondary Small
+                </>
               </Button>
-              <Button
-                variant="ai"
-                variantType="secondary"
-                size="medium"
-                iconType="alert"
-              >
-                Secondary Medium
+              <Button variant="ai" variantType="secondary" size="medium">
+                <>
+                  <Icon type="alert" />
+                  Secondary Medium
+                </>
               </Button>
-              <Button
-                variant="ai"
-                variantType="secondary"
-                size="large"
-                iconType="alert"
-              >
-                Secondary Large
+              <Button variant="ai" variantType="secondary" size="large">
+                <>
+                  <Icon type="alert" />
+                  Secondary Large
+                </>
               </Button>
             </Box>
 
             <h3>XS Variant</h3>
             <Box display="flex" flexDirection="row" gap={1}>
-              <Button
-                variant="default"
-                variantType="secondary"
-                size="xs"
-                iconType="alert"
-              >
-                XS Secondary
+              <Button variant="default" variantType="secondary" size="xs">
+                <>
+                  <Icon type="alert" />
+                  XS Secondary
+                </>
               </Button>
-              <Button
-                variant="default"
-                variantType="tertiary"
-                size="xs"
-                iconType="alert"
-              >
-                XS Tertiary
+              <Button variant="default" variantType="tertiary" size="xs">
+                <>
+                  <Icon type="alert" />
+                  XS Tertiary
+                </>
               </Button>
-              <Button
-                variant="default"
-                variantType="subtle"
-                size="xs"
-                iconType="alert"
-              >
-                XS Subtle
+              <Button variant="default" variantType="subtle" size="xs">
+                <>
+                  <Icon type="alert" />
+                  XS Subtle
+                </>
               </Button>
             </Box>
           </Box>
@@ -628,148 +594,97 @@ export const AllSizesVariantsTypes: Story = () => {
           >
             <h3>Typical/Default</h3>
             <Box display="flex" flexDirection="row" gap={1}>
-              <Button
-                variant="default"
-                variantType="primary"
-                size="small"
-                iconType="alert"
-              />
-              <Button
-                variant="default"
-                variantType="primary"
-                size="medium"
-                iconType="alert"
-              />
-              <Button
-                variant="default"
-                variantType="primary"
-                size="large"
-                iconType="alert"
-              />
+              <Button variant="default" variantType="primary" size="small">
+                <Icon type="alert" />
+              </Button>
+              <Button variant="default" variantType="primary" size="medium">
+                <Icon type="alert" />
+              </Button>
+              <Button variant="default" variantType="primary" size="large">
+                <Icon type="alert" />
+              </Button>
             </Box>
             <Box display="flex" flexDirection="row" gap={1}>
-              <Button
-                variant="default"
-                variantType="secondary"
-                size="small"
-                iconType="alert"
-              />
-              <Button
-                variant="default"
-                variantType="secondary"
-                size="medium"
-                iconType="alert"
-              />
-              <Button
-                variant="default"
-                variantType="secondary"
-                size="large"
-                iconType="alert"
-              />
+              <Button variant="default" variantType="secondary" size="small">
+                <Icon type="alert" />
+              </Button>
+              <Button variant="default" variantType="secondary" size="medium">
+                <Icon type="alert" />
+              </Button>
+              <Button variant="default" variantType="secondary" size="large">
+                <Icon type="alert" />
+              </Button>
             </Box>
             <Box display="flex" flexDirection="row" gap={1}>
-              <Button
-                variant="default"
-                variantType="tertiary"
-                size="small"
-                iconType="alert"
-              />
-              <Button
-                variant="default"
-                variantType="tertiary"
-                size="medium"
-                iconType="alert"
-              />
-              <Button
-                variant="default"
-                variantType="tertiary"
-                size="large"
-                iconType="alert"
-              />
+              <Button variant="default" variantType="tertiary" size="small">
+                <Icon type="alert" />
+              </Button>
+              <Button variant="default" variantType="tertiary" size="medium">
+                <Icon type="alert" />
+              </Button>
+              <Button variant="default" variantType="tertiary" size="large">
+                <Icon type="alert" />
+              </Button>
             </Box>
             <Box display="flex" flexDirection="row" gap={1}>
-              <Button
-                variant="default"
-                variantType="subtle"
-                size="small"
-                iconType="alert"
-              />
-              <Button
-                variant="default"
-                variantType="subtle"
-                size="medium"
-                iconType="alert"
-              />
-              <Button
-                variant="default"
-                variantType="subtle"
-                size="large"
-                iconType="alert"
-              />
+              <Button variant="default" variantType="subtle" size="small">
+                <Icon type="alert" />
+              </Button>
+              <Button variant="default" variantType="subtle" size="medium">
+                <Icon type="alert" />
+              </Button>
+              <Button variant="default" variantType="subtle" size="large">
+                <Icon type="alert" />
+              </Button>
             </Box>
 
             <h3>Destructive</h3>
             <Box display="flex" flexDirection="row" gap={1}>
-              <Button
-                variant="destructive"
-                variantType="primary"
-                size="small"
-                iconType="alert"
-              />
-              <Button
-                variant="destructive"
-                variantType="primary"
-                size="medium"
-                iconType="alert"
-              />
-              <Button
-                variant="destructive"
-                variantType="primary"
-                size="large"
-                iconType="alert"
-              />
+              <Button variant="destructive" variantType="primary" size="small">
+                <Icon type="alert" />
+              </Button>
+              <Button variant="destructive" variantType="primary" size="medium">
+                <Icon type="alert" />
+              </Button>
+              <Button variant="destructive" variantType="primary" size="large">
+                <Icon type="alert" />
+              </Button>
             </Box>
             <Box display="flex" flexDirection="row" gap={1}>
               <Button
                 variant="destructive"
                 variantType="secondary"
                 size="small"
-                iconType="alert"
-              />
+              >
+                <Icon type="alert" />
+              </Button>
               <Button
                 variant="destructive"
                 variantType="secondary"
                 size="medium"
-                iconType="alert"
-              />
+              >
+                <Icon type="alert" />
+              </Button>
               <Button
                 variant="destructive"
                 variantType="secondary"
                 size="large"
-                iconType="alert"
-              />
+              >
+                <Icon type="alert" />
+              </Button>
             </Box>
 
             <h3>AI</h3>
             <Box display="flex" flexDirection="row" gap={1}>
-              <Button
-                variant="ai"
-                variantType="secondary"
-                size="small"
-                iconType="alert"
-              />
-              <Button
-                variant="ai"
-                variantType="secondary"
-                size="medium"
-                iconType="alert"
-              />
-              <Button
-                variant="ai"
-                variantType="secondary"
-                size="large"
-                iconType="alert"
-              />
+              <Button variant="ai" variantType="secondary" size="small">
+                <Icon type="alert" />
+              </Button>
+              <Button variant="ai" variantType="secondary" size="medium">
+                <Icon type="alert" />
+              </Button>
+              <Button variant="ai" variantType="secondary" size="large">
+                <Icon type="alert" />
+              </Button>
             </Box>
           </Box>
         </Box>

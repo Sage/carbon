@@ -41,6 +41,30 @@ primary button, with the `button` HTML type.
 
 <Canvas of={ButtonStories.Default} />
 
+### Button Content
+
+Button content is composable; in other words, it's up to you to decide what you
+want the button to show, and how. In the following example, you can see how to
+implement [Icons](../?path=/story/icon--docs) into buttons. If you have multiple
+child elements, wrap them in a `Fragment` to ensure that the correct styling is
+maintained.
+
+<Canvas of={ButtonStories.ButtonContent} />
+
+#### Icon Styling
+
+If passing an icon as a child, you can import the `getIconColor` helper function
+to determine the correct color for your chosen variant. Use it as follows:
+
+```tsx
+import { getIconColor } from "carbon-react/lib/components/button";
+
+<Button>
+  <Icon color={getIconColor()} type="home" />
+  Return to the home page
+</Button>;
+```
+
 ### Click Handler
 
 To make use of non-submit and non-reset buttons, provide an `onClick` handler to
@@ -97,27 +121,6 @@ Passing the `fullWidth` property will allow buttons to use the full horizontal
 space around them.
 
 <Canvas of={ButtonStories.FullWidth} />
-
-### Icons
-
-Buttons can have an icon associated with them. Pass the `iconType` property to
-the button ([a full list of icons is available here](../?path=/story/icon--list-of-icons)).
-
-You can use the `iconPosition` prop to determine whether the icon appears on
-the left or right of the text.
-
-Additionally, buttons can also be icon-only; simply pass an `iconType` and
-self-close the `Button` element:
-
-```ts
-  <Button iconType="home" aria-label="Return to the home page" />
-```
-
-If using icon-only buttons, please make sure that they are marked up correctly
-by passing `aria-label` as a prop to ensure that they are announced to
-assistive technologies correctly.
-
-<Canvas of={ButtonStories.Icons} />
 
 ### Inverse
 
