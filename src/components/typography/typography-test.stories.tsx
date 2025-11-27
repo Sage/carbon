@@ -3,7 +3,7 @@ import Typography, { TypographyProps, List, ListItem } from ".";
 import { VARIANT_TYPES } from "./typography.component";
 
 export default {
-  title: "Typography/Test",
+  title: "Deprecated/Typography/Test",
   includeStories: ["Default", "ListComponent"],
   parameters: {
     info: { disable: true },
