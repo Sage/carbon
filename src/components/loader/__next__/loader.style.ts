@@ -327,12 +327,14 @@ export const StyledRingLoaderWrapper = styled.div<RingLoaderWrapperProps>`
 
 type StyledLabelProps = {
   inverse?: boolean;
-  isInsideButton?: boolean;
 };
 
 export const StyledLabel = styled.span<StyledLabelProps>`
-  ${({ inverse, isInsideButton }) => css`
-    ${!isInsideButton &&
-    `color: ${inverse ? "rgba(255, 255, 255, 0.90)" : "rgba(0, 0, 0, 0.90)"}`};
-  `}
+  ${({ inverse }) => css`
+    color: ${inverse ? "rgba(255, 255, 255, 0.90)" : "rgba(0, 0, 0, 0.90)"};
+
+    ${StyledButton} & {
+      color: currentColor;
+    }
+  `};
 `;
