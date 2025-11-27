@@ -71,7 +71,7 @@ const getCSSForAIStyle = ({
     ${allowMotion &&
     css`
       background-size: 300% 100%;
-      animation: gradient-loop 1000ms linear infinite;
+      animation: gradient-loop 1000ms linear 1;
     `}
   }
 
