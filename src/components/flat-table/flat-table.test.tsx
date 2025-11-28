@@ -681,7 +681,7 @@ describe("when the first column is expandable", () => {
   });
 });
 
-test("should ensure the table has an accessible desctription when `ariaDescribedby` prop is passed", () => {
+test("should ensure the table has an accessible description when `ariaDescribedby` prop is passed", () => {
   render(
     <>
       <div id="foo">here is some text to describe the table</div>
@@ -780,7 +780,7 @@ test("should render the `caption` element and set the accessible name of the tab
   expect(screen.getByRole("table")).toHaveAccessibleName("this is a caption");
 });
 
-test("should apply the expeced box sizing styling to the wrapper element when it's height exceeds it's parent", () => {
+test("should apply the expected box sizing styling to the wrapper element when it's height exceeds it's parent", () => {
   render(
     <div style={{ height: "100px" }}>
       <FlatTable data-role="ft-wrapper" footer={<div>foo</div>}>
@@ -1104,7 +1104,7 @@ describe("rounded corners are enabled", () => {
   });
 });
 
-test("should apply the exected min-width styling when rendered inside the drawer sidebar", () => {
+test("should apply the expected min-width styling when rendered inside the drawer sidebar", () => {
   render(
     <DrawerSidebarContext.Provider value={{ isInSidebar: true }}>
       <FlatTable data-role="ft-wrapper">
