@@ -10,7 +10,7 @@ import {
 import Box from "../../box";
 import GlobalHeader from "../../global-header";
 import Icon from "../../icon";
-import Loader from "../../loader";
+import Loader from "../../loader/__next__";
 import Typography from "../../typography";
 
 export default {
@@ -384,7 +384,7 @@ export const WithFullIcons = (props: Partial<ResponsiveVerticalMenuProps>) => {
             justifyContent="center"
             color="white"
           >
-            <Loader />
+            <Loader loaderType="ring" inverse showLabel={false} />
             <span>Loading, please wait...</span>
           </Box>
         </ResponsiveVerticalMenuItem>
@@ -428,7 +428,7 @@ export const NoIcons = (props: Partial<ResponsiveVerticalMenuProps>) => {
             justifyContent="center"
             color="white"
           >
-            <Loader />
+            <Loader loaderType="ring" inverse showLabel={false} />
             <span>Loading, please wait...</span>
           </Box>
         </ResponsiveVerticalMenuItem>
@@ -482,7 +482,7 @@ export const MixedIcons = (props: Partial<ResponsiveVerticalMenuProps>) => {
             justifyContent="center"
             color="white"
           >
-            <Loader />
+            <Loader loaderType="ring" inverse showLabel={false} />
             <span>Loading, please wait...</span>
           </Box>
         </ResponsiveVerticalMenuItem>
