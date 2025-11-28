@@ -242,8 +242,8 @@ const enGB: Locale = {
     closeIconAriaLabel: () => "Close",
   },
   switch: {
-    on: () => "ON",
-    off: () => "OFF",
+    on: () => "On",
+    off: () => "Off",
   },
   tileSelect: {
     deselect: () => "Deselect",

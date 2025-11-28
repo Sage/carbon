@@ -2,17 +2,17 @@ import React, { useState } from "react";
 import { StoryObj } from "@storybook/react";
 import { userEvent, within, expect } from "@storybook/test";
 
-import CarbonProvider from "../carbon-provider/carbon-provider.component";
-import Box from "../box";
+import CarbonProvider from "../../carbon-provider/carbon-provider.component";
+import Box from "../../box";
 import Switch from ".";
 
-import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
-import DefaultDecorator from "../../../.storybook/utils/default-decorator";
+import { allowInteractions } from "../../../../.storybook/interaction-toggle/reduced-motion";
+import DefaultDecorator from "../../../../.storybook/utils/default-decorator";
 
 type Story = StoryObj<typeof Switch>;
 
 export default {
-  title: "Deprecated/Switch/Interactions",
+  title: "Switch/Interactions",
   component: Switch,
   argTypes: {},
   parameters: {

@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
-import I18nProvider from "../i18n-provider/i18n-provider.component";
-import CarbonProvider from "../carbon-provider/carbon-provider.component";
+import I18nProvider from "../../i18n-provider/i18n-provider.component";
+import CarbonProvider from "../../carbon-provider/carbon-provider.component";
 import Switch, { SwitchProps } from "./switch.component";
-import Box from "../box/box.component";
-import { useMultiInputBoolean } from "../../hooks/use-multi-input/use-multi-input";
+import Box from "../../box/box.component";
+import { useMultiInputBoolean } from "../../../hooks/use-multi-input/use-multi-input";
 
 const meta: Meta<typeof Switch> = {
-  title: "Deprecated/Switch/Test",
+  title: "Switch/Test",
   component: Switch,
   parameters: {
     info: { disable: true },

@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
-import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
-import CarbonProvider from "../carbon-provider/carbon-provider.component";
-import Box from "../box";
+import generateStyledSystemProps from "../../../../.storybook/utils/styled-system-props";
+import CarbonProvider from "../../carbon-provider/carbon-provider.component";
+import Box from "../../box";
 import Switch from ".";
-import { useMultiInputBoolean } from "../../hooks/use-multi-input/use-multi-input";
+import { useMultiInputBoolean } from "../../../hooks/use-multi-input/use-multi-input";
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
 });
 
 const meta: Meta<typeof Switch> = {
-  title: "Deprecated/Switch",
+  title: "Switch",
   component: Switch,
   argTypes: {
     ...styledSystemProps,
@@ -45,7 +45,7 @@ export const WithInputHint: Story = () => {
       <Switch
         label="Label"
         name="switch-name"
-        labelHelp="Label Help"
+        labelHint="Hint text"
         checked={isChecked}
         onChange={(e) => setIsChecked(e.target.checked)}
       />
@@ -115,20 +115,6 @@ export const Required: Story = () => {
 };
 Required.storyName = "Required";
 
-export const Reversed: Story = () => {
-  const [isChecked, setIsChecked] = useState(false);
-  return (
-    <Switch
-      label="Reversed switch"
-      name="reversed"
-      reverse={false}
-      checked={isChecked}
-      onChange={(e) => setIsChecked(e.target.checked)}
-    />
-  );
-};
-Reversed.storyName = "Reversed";
-
 export const Loading: Story = () => {
   const [state1, setState1] = useState(true);
   const [state2, setState2] = useState(false);
@@ -191,58 +177,10 @@ export const WithLabelInline: Story = () => {
         checked={state["with-label-inline"] || false}
         onChange={setValue}
       />
-      <Switch
-        label="With labelInline and reversed"
-        labelInline
-        reverse={false}
-        name="with-label-inline-rev"
-        checked={state["with-label-inline-rev"] || false}
-        onChange={setValue}
-      />
     </>
   );
 };
 WithLabelInline.storyName = "With labelInline";
-
-export const WithFieldHelp: Story = () => {
-  const [isChecked, setIsChecked] = useState(false);
-  const [isChecked2, setIsChecked2] = useState(false);
-  return (
-    <>
-      <Switch
-        label="With fieldHelp"
-        fieldHelp="This text provides help for the input."
-        checked={isChecked}
-        onChange={(e) => setIsChecked(e.target.checked)}
-      />
-      <Switch
-        label="With inline fieldHelp"
-        labelInline
-        fieldHelp="This text provides help for the input."
-        fieldHelpInline
-        mt={2}
-        checked={isChecked2}
-        onChange={(e) => setIsChecked2(e.target.checked)}
-      />
-    </>
-  );
-};
-WithFieldHelp.storyName = "With fieldHelp";
-
-export const WithLabelHelp: Story = () => {
-  const [isChecked, setIsChecked] = useState(false);
-  return (
-    <Switch
-      label="With labelHelp"
-      labelHelp="This text provides more information for the label."
-      helpAriaLabel="This text provides more information for the label."
-      name="with-label-help"
-      checked={isChecked}
-      onChange={(e) => setIsChecked(e.target.checked)}
-    />
-  );
-};
-WithLabelHelp.storyName = "With labelHelp";
 
 export const WithDarkBackground: Story = () => {
   const [isChecked, setIsChecked] = useState(false);
@@ -253,7 +191,6 @@ export const WithDarkBackground: Story = () => {
       <CarbonProvider validationRedesignOptIn>
         <Switch
           label="Example Switch"
-          isDarkBackground
           mb="2"
           fieldHelp="Field help text"
           checked={isChecked}
@@ -261,10 +198,9 @@ export const WithDarkBackground: Story = () => {
         />
         <Switch
           label="Example Switch"
-          labelHelp="Hint text"
+          labelHint="Hint text"
           error="Error message"
           fieldHelp="Field help text"
-          isDarkBackground
           checked={isChecked2}
           onChange={(e) => setIsChecked2(e.target.checked)}
         />

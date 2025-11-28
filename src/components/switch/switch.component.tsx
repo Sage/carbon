@@ -27,17 +27,17 @@ export interface SwitchProps
   labelInline?: boolean;
   /** Triggers loading animation */
   loading?: boolean;
-  /** [Legacy] When true, validation icon will be placed on label instead of being placed on the input */
+  /** @deprecated [Legacy] When true, validation icon will be placed on label instead of being placed on the input */
   validationOnLabel?: boolean;
   /** The value of the switch, passed on form submit */
   value?: string;
   /** [Legacy] Overrides the default tooltip position */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
-  /** [Legacy] Aria label for rendered help component */
+  /** @deprecated [Legacy] Aria label for rendered help component */
   helpAriaLabel?: string;
-  /** Whether this component resides on a dark background */
+  /** @deprecated Whether this component resides on a dark background */
   isDarkBackground?: boolean;
-  /** Render the ValidationMessage above the Switch input when validationRedesignOptIn flag is set */
+  /** @deprecated Render the ValidationMessage above the Switch input when validationRedesignOptIn flag is set */
   validationMessagePositionTop?: boolean;
   /** Label width, as a percentage, when labelInline is true */
   labelWidth?: number;
@@ -47,6 +47,9 @@ export interface SwitchProps
   checked: boolean;
 }
 
+/**
+ * @deprecated Switch has been deprecated. See the Carbon documentation for migration details.
+ */
 export const Switch = React.forwardRef(
   (
     {
