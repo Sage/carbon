@@ -8,8 +8,8 @@ import {
   ListNode,
   ListType,
   REMOVE_LIST_COMMAND,
-  insertList,
-  removeList,
+  $insertList,
+  $removeList,
 } from "@lexical/list";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { mergeRegister } from "@lexical/utils";
@@ -60,7 +60,7 @@ const ListControls = ({
       editor.registerCommand(
         INSERT_ORDERED_LIST_COMMAND,
         () => {
-          insertList(editor, TEXT_EDITOR_ACTION_TYPES.OrderedList);
+          $insertList(TEXT_EDITOR_ACTION_TYPES.OrderedList);
           return true;
         },
         COMMAND_PRIORITY_LOW,
@@ -68,7 +68,7 @@ const ListControls = ({
       editor.registerCommand(
         INSERT_UNORDERED_LIST_COMMAND,
         () => {
-          insertList(editor, TEXT_EDITOR_ACTION_TYPES.UnorderedList);
+          $insertList(TEXT_EDITOR_ACTION_TYPES.UnorderedList);
           return true;
         },
         COMMAND_PRIORITY_LOW,
@@ -76,7 +76,7 @@ const ListControls = ({
       editor.registerCommand(
         REMOVE_LIST_COMMAND,
         () => {
-          removeList(editor);
+          $removeList();
           return true;
         },
         COMMAND_PRIORITY_LOW,
