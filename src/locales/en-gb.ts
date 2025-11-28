@@ -99,7 +99,7 @@ const enGB: Locale = {
     skipLinkLabel: () => "Skip to main content",
   },
   loader: {
-    loading: () => "Loading",
+    loading: () => "Loading...",
   },
   loaderSpinner: {
     loading: () => "Loading...",
