@@ -247,7 +247,7 @@ describe("custom background colours", () => {
     expect(container).toHaveStyleRule("color", "#A0FFAF");
   });
 
-  it("supports design tokens being used for the `backgroundColor` and `forefroundColor` props", () => {
+  it("supports design tokens being used for the `backgroundColor` and `foregroundColor` props", () => {
     render(
       <Portrait
         data-role="portrait"
