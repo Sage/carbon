@@ -105,7 +105,7 @@ export const Visual = ({ children, ...args }: Partial<ToastProps>) => {
   };
   return (
     <div>
-      {/* centered examples */}
+      {/* centred examples */}
       <Toast
         variant="info"
         id="toast-quick-start"
