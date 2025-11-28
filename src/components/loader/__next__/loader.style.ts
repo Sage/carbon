@@ -50,7 +50,7 @@ const getBarStyles = (variant?: string, inverse?: boolean) => {
   };
 };
 
-const centeredFlexText = css`
+const centredFlexText = css`
   display: flex;
   justify-content: center;
   text-align: center;
@@ -479,7 +479,7 @@ export const StyledStarLoaderWrapper = styled.div`
 `;
 
 export const StyledLoaderLabel = styled(Typography)<LabelProps>`
-  ${centeredFlexText}
+  ${centredFlexText}
   line-height: 150%;
   ${getLabelStyles}
 `;
