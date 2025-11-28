@@ -17,13 +17,19 @@ import SplitButtonContext from "../split-button/__internal__/split-button.contex
 import BatchSelectionContext from "../batch-selection/__internal__/batch-selection.context";
 import ButtonContext from "./__internal__/button.context";
 
+/**
+ * @deprecated Use "primary", "secondary", "tertiary" or "ai" instead.
+ */
+export type DeprecatedButtonTypes =
+  | "darkBackground"
+  | "gradient-grey"
+  | "gradient-white";
+
 export type ButtonTypes =
   | "primary"
   | "secondary"
   | "tertiary"
-  | "darkBackground"
-  | "gradient-grey"
-  | "gradient-white";
+  | DeprecatedButtonTypes;
 
 export type SizeOptions = "small" | "medium" | "large";
 export type ButtonIconPosition = "before" | "after";
@@ -38,7 +44,9 @@ export interface ButtonProps extends SpaceProps, TagProps {
   "aria-labelledby"?: string;
   /** Identifies the element(s) offering additional information about the button the user might require. */
   "aria-describedby"?: string;
-  /** Color variants for new business themes: "primary" | "secondary" | "tertiary" | "darkBackground" */
+  /**
+   * @deprecated Color variants for new business themes: "primary" | "secondary" | "tertiary" | "darkBackground"
+   * */
   buttonType?: ButtonTypes;
   /** The text the button displays */
   children?: React.ReactNode;
@@ -46,11 +54,15 @@ export interface ButtonProps extends SpaceProps, TagProps {
   name?: string;
   /** Apply disabled state to the button */
   disabled?: boolean;
-  /** Apply destructive style to the button */
+  /**
+   * @deprecated Apply destructive style to the button
+   * */
   destructive?: boolean;
   /** Apply fullWidth style to the button */
   fullWidth?: boolean;
-  /** Used to transform button into anchor */
+  /**
+   * @deprecated Used to transform button into anchor
+   * */
   href?: string;
   /** Defines an Icon position related to the children: "before" | "after" */
   iconPosition?: ButtonIconPosition;
@@ -62,7 +74,9 @@ export interface ButtonProps extends SpaceProps, TagProps {
   iconType?: IconType;
   /** id attribute */
   id?: string;
-  /** Whether to use the white-on-dark colour variant */
+  /**
+   * @deprecated Whether to use the white-on-dark colour variant
+   * */
   isWhite?: boolean;
   /** If provided, the text inside a button will not wrap */
   noWrap?: boolean;
@@ -92,13 +106,19 @@ export interface ButtonProps extends SpaceProps, TagProps {
   ) => void;
   /** Assigns a size to the button: "small" | "medium" | "large" */
   size?: SizeOptions;
-  /** Second text child, renders under main text, only when size is "large" */
+  /**
+   * @deprecated Second text child, renders under main text, only when size is "large"
+   * */
   subtext?: string;
   /** HTML button type property */
   type?: string;
-  /** HTML target attribute */
+  /**
+   * @deprecated HTML target attribute
+   * */
   target?: string;
-  /** HTML rel attribute */
+  /**
+   * @deprecated HTML rel attribute
+   * */
   rel?: string;
   /**
    * @private
@@ -210,6 +230,9 @@ function renderChildren({
   );
 }
 
+/**
+ * @deprecated This version of Button has been deprecated. See the Carbon documentation for migration details.
+ */
 const Button = React.forwardRef<
   HTMLButtonElement | HTMLAnchorElement,
   ButtonProps
