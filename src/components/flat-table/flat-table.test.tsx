@@ -1104,7 +1104,7 @@ describe("rounded corners are enabled", () => {
   });
 });
 
-test("should apply the executed min-width styling when rendered inside the drawer sidebar", () => {
+test("should apply the expected min-width styling when rendered inside the drawer sidebar", () => {
   render(
     <DrawerSidebarContext.Provider value={{ isInSidebar: true }}>
       <FlatTable data-role="ft-wrapper">
