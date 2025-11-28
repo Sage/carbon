@@ -22,7 +22,7 @@ test.describe("Should render AnchorNavigation component", () => {
     ["Navigation item with very long label", "Fourth section"],
     ["Fifth", "Fifth section"],
   ].forEach(([sectionIndex, sectionName]) => {
-    test(`should scrolldown to the ${sectionIndex} AnchorNavigation section after pressing Tab on the ${sectionName}`, async ({
+    test(`should scroll down to the ${sectionIndex} AnchorNavigation section after pressing Tab on the ${sectionName}`, async ({
       mount,
       page,
     }) => {

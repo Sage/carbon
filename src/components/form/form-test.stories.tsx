@@ -381,8 +381,8 @@ export const FormAlignmentCustomMarginsTextInputs = (args: FormProps) => {
       </Select>
       <FilterableSelect
         mb={1}
-        name="fiterable-select"
-        id="fiterable-select"
+        name="filterable-select"
+        id="filterable-select"
         labelInline
         label="Filterable Select"
         value=""

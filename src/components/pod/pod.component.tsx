@@ -53,7 +53,7 @@ export interface PodProps extends MarginProps, TagProps {
   onUndo?: (
     ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
   ) => void;
-  /** Sets softboolean; delete state */
+  /** Sets soft boolean delete state */
   softDelete?: boolean;
   /** Determines if the editable pod content should be full width */
   editContentFullWidth?: boolean;
