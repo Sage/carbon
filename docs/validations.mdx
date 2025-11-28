@@ -64,6 +64,9 @@ Component props that are not supported if the opt-in flag is set to true are lab
 The legacy validation pattern is still available for use, but we recommend using the new validation pattern for a more consistent and user-friendly experience.
 This pattern uses tooltips to provide feedback to users about the state of their input.
 
+The `Textbox` component is used below for documentation purposes, but it is recommend to use the new `TextInput` component instead which only uses the new validation pattern 
+by default.
+
 #### States
 
 Each input component that supports validations accepts the following props - `error`, `warning` and `info`.
@@ -117,7 +120,7 @@ For more information on how to use React Hook Form, please refer to the [React H
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import Button from 'carbon-react/lib/components/button';
 import Form from 'carbon-react/lib/components/form';
-import Textbox from 'carbon-react/lib/components/textbox';
+import TextInput from 'carbon-react/lib/components/textbox/__next__';
 
 interface FormValues {
   name: string;
@@ -146,7 +149,7 @@ const MyForm = () => {
           required: 'Name is required',
         }}
         render={({ field: { onChange, onBlur, value }, fieldState }) => (
-          <Textbox
+          <TextInput
             label="Name"
             required
             value={value}
@@ -167,4 +170,3 @@ export default MyForm;
 
 For legacy projects who still use Formik, please refer to our previous documentation on using 
 [Formik](https://carbon.sage.com/v/154.0.0/index.html?path=/docs/documentation-validations--docs#formik-overview) with Carbon components.
-
