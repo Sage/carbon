@@ -179,7 +179,8 @@ const StyledContainer = styled.div<{ size: string }>`
 
 const StyledBottomBorder = styled.div`
   height: auto;
-  border-bottom: 2px solid var(--colorsActionMinor100);
+  border-bottom: 2px solid
+    var(--mode-color-generic-bg-delicate, var(--colorsActionMinor100));
   bottom: 0;
   left: 4px;
   right: 4px;

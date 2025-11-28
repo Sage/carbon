@@ -544,15 +544,15 @@ test("applies proper styling when `borders` prop is true and `position` is `left
 
   expect(screen.getByTestId("tab-title-content")).toHaveStyleRule(
     "border-top",
-    "1px solid var(--colorsActionMinor100)",
+    "1px solid var(--mode-color-generic-bg-delicate,var(--colorsActionMinor100))",
   );
   expect(screen.getByTestId("tab-title-content")).toHaveStyleRule(
     "border-left",
-    "1px solid var(--colorsActionMinor100)",
+    "1px solid var(--mode-color-generic-bg-delicate,var(--colorsActionMinor100))",
   );
   expect(screen.getByTestId("tab-title-content")).toHaveStyleRule(
     "border-bottom",
-    "1px solid var(--colorsActionMinor100)",
+    "1px solid var(--mode-color-generic-bg-delicate,var(--colorsActionMinor100))",
   );
 });
 
@@ -569,15 +569,15 @@ test("applies proper styling when `borders` prop is true and `size` is `large`",
 
   expect(screen.getByTestId("tab-title-content")).toHaveStyleRule(
     "border-top",
-    "1px solid var(--colorsActionMinor100)",
+    "1px solid var(--mode-color-generic-bg-delicate,var(--colorsActionMinor100))",
   );
   expect(screen.getByTestId("tab-title-content")).toHaveStyleRule(
     "border-left",
-    "1px solid var(--colorsActionMinor100)",
+    "1px solid var(--mode-color-generic-bg-delicate,var(--colorsActionMinor100))",
   );
   expect(screen.getByTestId("tab-title-content")).toHaveStyleRule(
     "border-bottom",
-    "1px solid var(--colorsActionMinor100)",
+    "1px solid var(--mode-color-generic-bg-delicate,var(--colorsActionMinor100))",
   );
 });
 
@@ -594,7 +594,7 @@ test("overrides the border-right-color when `alternateStyling` prop is `true` an
 
   expect(screen.getByRole("tab")).toHaveStyleRule(
     "border-right-color",
-    "var(--colorsActionMinor100)",
+    "var(--mode-color-generic-bg-delicate,var(--colorsActionMinor100))",
     { modifier: ":hover" },
   );
 });
