@@ -68,8 +68,8 @@ export const Variants = () => (
       </Typography>
     </Typography>
     <Typography variant="small" display="block" mb={1}>
-      The small variant renders a small elemevant, which is used for small
-      print. The small variant also has a smaller appearance.
+      The small variant renders a small element, which is used for small print.
+      The small variant also has a smaller appearance.
     </Typography>
     <Typography variant="big" display="block" mb={1}>
       The big variant uses larger font-face to draw attention but content has
