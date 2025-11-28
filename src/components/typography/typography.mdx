@@ -1,10 +1,21 @@
 import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
 
+import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component";
 import * as TypographyStories from "./typography.stories.tsx";
 
 <Meta of={TypographyStories} />
 
 # Typography
+
+<DeprecationWarning>
+  This version of the `Typography` component is no longer supported and will be removed
+  in a future release. Please consider moving to the{" "}
+  <a style={{ color: "white" }} href="../?path=/docs/typography--docs">
+    {" "}
+    newer implementation
+  </a>{" "}
+  as soon as possible.
+</DeprecationWarning>
 
 ## Contents
 
