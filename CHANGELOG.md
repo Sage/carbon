@@ -1,3 +1,9 @@
+## [158.13.1](https://github.com/Sage/carbon/compare/v158.13.0...v158.13.1) (2025-12-01)
+
+### Bug Fixes
+
+* **loader:** inherit text colour from parent Button, if it exists ([6902378](https://github.com/Sage/carbon/commit/690237889b69a6a564933ea8d0228766f4f8b061))
+
 ## [158.13.0](https://github.com/Sage/carbon/compare/v158.12.0...v158.13.0) (2025-11-27)
 
 ### Features
