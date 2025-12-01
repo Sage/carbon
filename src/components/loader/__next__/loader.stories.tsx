@@ -200,7 +200,7 @@ export const AnimationTime: Story = {
 };
 AnimationTime.storyName = "Animation Time";
 
-export const HasMotion: Story = {
+export const DisabledMotion: Story = {
   render: () => (
     <Box>
       <Loader loaderType="ring" animationTime={3} mb={4} hasMotion={false} />
@@ -215,7 +215,7 @@ export const HasMotion: Story = {
     </Box>
   ),
 };
-HasMotion.storyName = "Has Motion";
+DisabledMotion.storyName = "Disabled Motion";
 
 export const InsideButtons: Story = {
   render: () => (
