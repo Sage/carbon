@@ -336,344 +336,123 @@ describe("when using the underline prop", () => {
   });
 });
 
-// Test is just for coverage
-test("neutral `variant` has the expected styling when `inverse` is false", () => {
+// Coverage
+test("renders with expected font-weight when `bold` is true", () => {
   render(
-    <Link
-      href="foo.com"
-      inverse={false}
-      icon="home"
-      variant="neutral"
-      data-role="link"
-    />,
+    <Link href="foo.com" data-role="link" bold>
+      Test Content
+    </Link>,
   );
 
   const linkElement = screen.getByTestId("link");
-  const iconElement = screen.getByTestId("icon");
 
-  expect(linkElement).toHaveStyle("color: var(--colorsActionMajorYin090)");
-  expect(iconElement).toHaveStyle("color: rgba(0, 0, 0, 0.898)");
+  expect(linkElement).toHaveStyleRule("font-weight", "600", {
+    modifier: "> a",
+  });
 });
 
-// Test is just for coverage
-test("neutral `variant` has the expected styling when `inverse` is false and is hovered over", async () => {
+// Coverage
+test("negative `variant` has the expected styling when `inverse` is false", async () => {
   const user = userEvent.setup();
   render(
-    <Link
-      href="foo.com"
-      inverse={false}
-      icon="home"
-      variant="neutral"
-      data-role="link"
-    />,
+    <Link href="foo.com" data-role="link" variant="negative">
+      Test Content
+    </Link>,
   );
 
   const linkElement = screen.getByTestId("link");
-  const iconElement = screen.getByTestId("icon");
+
+  expect(linkElement).toHaveStyleRule(
+    "color",
+    "var(--link-destructive-label-default,var(--colorsSemanticNegative500))",
+    { modifier: "> a" },
+  );
 
   await user.hover(linkElement);
 
-  expect(linkElement).toHaveStyle("color: var(--colorsActionMajor600)");
-  expect(iconElement).toHaveStyle("color: rgba(0, 0, 0, 0.898)");
+  expect(linkElement).toHaveStyleRule(
+    "color",
+    "var(--link-destructive-label-hover,var(--colorsSemanticNegative600))",
+    { modifier: "> a:hover" },
+  );
 });
 
-// Test is just for coverage
-test("neutral `variant` has the expected styling when `inverse` is false and is focused", async () => {
+// Coverage
+test("subtle `variant` has the expected styling when `inverse` is false", async () => {
   const user = userEvent.setup();
   render(
-    <Link
-      href="foo.com"
-      inverse={false}
-      icon="home"
-      variant="neutral"
-      data-role="link"
-    />,
+    <Link href="foo.com" data-role="link" variant="subtle">
+      Test Content
+    </Link>,
   );
 
   const linkElement = screen.getByTestId("link");
-  const iconElement = screen.getByTestId("icon");
 
-  await user.tab();
-
-  expect(linkElement).toHaveStyle({
-    color: "var(--colorsActionMajorYin090)",
-    backgroundColor: "var(--colorsSemanticFocus250)",
-  });
-  expect(iconElement).toHaveStyle("color: rgb(0, 0, 0)");
-});
-
-// Test is just for coverage
-test("negative `variant` has the expected styling when `inverse` is false", () => {
-  render(
-    <Link
-      href="foo.com"
-      inverse={false}
-      icon="home"
-      variant="negative"
-      data-role="link"
-    />,
+  expect(linkElement).toHaveStyleRule(
+    "color",
+    "var(--link-subtle-label-default,var(--colorsUtilityYin090))",
+    { modifier: "> a" },
   );
-
-  const linkElement = screen.getByTestId("link");
-  const iconElement = screen.getByTestId("icon");
-
-  expect(linkElement).toHaveStyle("color: var(--colorsSemanticNegative500)");
-  expect(iconElement).toHaveStyle("color: rgb(178, 51, 66)");
-});
-
-// Test is just for coverage
-test("negative `variant` has the expected styling when `inverse` is false and is hovered", async () => {
-  const user = userEvent.setup();
-  render(
-    <Link
-      href="foo.com"
-      inverse={false}
-      icon="home"
-      variant="neutral"
-      data-role="link"
-    />,
-  );
-
-  const linkElement = screen.getByTestId("link");
-  const iconElement = screen.getByTestId("icon");
 
   await user.hover(linkElement);
 
-  expect(linkElement).toHaveStyle("color: var(--colorsSemanticNegative600)");
-  expect(iconElement).toHaveStyle("color: rgba(0, 0, 0, 0.898)");
+  expect(linkElement).toHaveStyleRule(
+    "color",
+    "var(--link-subtle-label-hover,var(--colorsUtilityYin090))",
+    { modifier: "> a:hover" },
+  );
 });
 
-// Tests are just for coverage
-describe("inverse", () => {
-  it("matches the expected styling with default `variant`", () => {
-    render(<Link href="foo.com" inverse icon="home" data-role="link" />);
+// Coverage
+test("negative `variant` has the expected styling when `inverse` is true", async () => {
+  const user = userEvent.setup();
+  render(
+    <Link href="foo.com" data-role="link" variant="negative" inverse>
+      Test Content
+    </Link>,
+  );
 
-    const linkElement = screen.getByTestId("link");
-    const iconElement = screen.getByTestId("icon");
+  const linkElement = screen.getByTestId("link");
 
-    expect(linkElement).toHaveStyle(`color: var(--colorsActionMajor350)`);
-    expect(iconElement).toHaveStyle(`color: rgb(78, 220, 84)`);
-  });
+  expect(linkElement).toHaveStyleRule(
+    "color",
+    "var(--link-destructive-inverse-label-default,var(--colorsSemanticNegative350))",
+    { modifier: "> a" },
+  );
 
-  it("matches the expected styling with default `variant` when hovered over", async () => {
-    const user = userEvent.setup();
-    render(<Link href="foo.com" inverse icon="home" data-role="link" />);
+  await user.hover(linkElement);
 
-    const linkElement = screen.getByTestId("link");
-    const iconElement = screen.getByTestId("icon");
+  expect(linkElement).toHaveStyleRule(
+    "color",
+    "var(--link-destructive-inverse-label-hover,var(--colorsSemanticNegative600))",
+    { modifier: "> a:hover" },
+  );
+});
 
-    await user.hover(linkElement);
+// Coverage
+test("subtle `variant` has the expected styling when `inverse` is true", async () => {
+  const user = userEvent.setup();
+  render(
+    <Link href="foo.com" data-role="link" variant="subtle" inverse>
+      Test Content
+    </Link>,
+  );
 
-    expect(linkElement).toHaveStyle(`color: var(--colorsActionMajor450)`);
-    expect(iconElement).toHaveStyle(`color: rgb(78, 220, 84)`);
-  });
+  const linkElement = screen.getByTestId("link");
 
-  it("matches the expected styling with default `variant` when focused", async () => {
-    const user = userEvent.setup();
-    render(<Link href="foo.com" inverse icon="home" data-role="link" />);
+  expect(linkElement).toHaveStyleRule(
+    "color",
+    "var(--link-subtle-inverse-label-default,var(--colorsUtilityYang100))",
+    { modifier: "> a" },
+  );
 
-    const linkElement = screen.getByTestId("link");
-    const iconElement = screen.getByTestId("icon");
+  await user.hover(linkElement);
 
-    await user.tab();
-
-    expect(linkElement).toHaveStyle({
-      color: "var(--colorsActionMajorYin090)",
-      backgroundColor: "var(--colorsSemanticFocus250)",
-    });
-    expect(iconElement).toHaveStyle(`color: rgb(255, 255, 255)`);
-  });
-
-  it("matches the expected styling when disabled", () => {
-    render(<Link href="foo.com" inverse disabled data-role="link" />);
-
-    const linkElement = screen.getByTestId("link");
-
-    expect(linkElement).toHaveStyle(`color: var(--colorsActionMajorYang030)`);
-  });
-
-  it("matches the styling when `variant` is set to negative", () => {
-    render(
-      <Link
-        href="foo.com"
-        inverse
-        icon="home"
-        variant="negative"
-        data-role="link"
-      />,
-    );
-
-    const linkElement = screen.getByTestId("link");
-    const iconElement = screen.getByTestId("icon");
-
-    expect(linkElement).toHaveStyle(`color: var(--colorsSemanticNegative350)`);
-    expect(iconElement).toHaveStyle(`color: rgb(232, 91, 102)`);
-  });
-
-  it("matches the styling when `variant` is set to negative and hovered over", async () => {
-    const user = userEvent.setup();
-    render(
-      <Link
-        href="foo.com"
-        inverse
-        icon="home"
-        variant="negative"
-        data-role="link"
-      />,
-    );
-
-    const linkElement = screen.getByTestId("link");
-    const iconElement = screen.getByTestId("icon");
-
-    await user.hover(linkElement);
-
-    expect(linkElement).toHaveStyle(`color: var(--colorsSemanticNegative450)`);
-    expect(iconElement).toHaveStyle(`color: rgb(232, 91, 102)`);
-  });
-
-  it("matches the styling when `variant` is set to negative and focused", async () => {
-    const user = userEvent.setup();
-    render(
-      <Link
-        href="foo.com"
-        inverse
-        icon="home"
-        variant="negative"
-        data-role="link"
-      />,
-    );
-
-    const linkElement = screen.getByTestId("link");
-    const iconElement = screen.getByTestId("icon");
-
-    await user.tab();
-
-    expect(linkElement).toHaveStyle({
-      color: "var(--colorsActionMajorYin090)",
-      backgroundColor: "var(--colorsSemanticFocus250)",
-    });
-    expect(iconElement).toHaveStyle(`color: rgb(255, 255, 255)`);
-  });
-
-  it("matches the styling when `variant` is set to neutral", () => {
-    render(
-      <Link
-        href="foo.com"
-        inverse
-        icon="home"
-        variant="neutral"
-        data-role="link"
-      />,
-    );
-
-    const linkElement = screen.getByTestId("link");
-    const iconElement = screen.getByTestId("icon");
-
-    expect(linkElement).toHaveStyle(`color: var(--colorsActionMinor100)`);
-    expect(iconElement).toHaveStyle(`color: var(--colorsActionMinor100)`);
-  });
-
-  it("matches the styling when `variant` is set to neutral and is hovered over", () => {
-    render(
-      <Link
-        href="foo.com"
-        inverse
-        icon="home"
-        variant="neutral"
-        data-role="link"
-      />,
-    );
-
-    const linkElement = screen.getByTestId("link");
-    const iconElement = screen.getByTestId("icon");
-
-    expect(linkElement).toHaveStyle(`color: var(--colorsActionMajor450)`);
-    expect(iconElement).toHaveStyle(`color: var(--colorsActionMajor450)`);
-  });
-
-  it("matches the styling when `variant` is set to neutral and is focused", () => {
-    render(
-      <Link
-        href="foo.com"
-        inverse
-        icon="home"
-        variant="neutral"
-        data-role="link"
-      />,
-    );
-
-    const linkElement = screen.getByTestId("link");
-    const iconElement = screen.getByTestId("icon");
-
-    expect(linkElement).toHaveStyle({
-      color: "var(--colorsActionMajorYin090)",
-      backgroundColor: "var(--colorsSemanticFocus250)",
-    });
-    expect(iconElement).toHaveStyle("color: var(--colorsActionMajorYin090)");
-  });
-
-  it("matches the styling when `variant` is set to subtle", () => {
-    render(
-      <Link
-        href="foo.com"
-        inverse
-        icon="home"
-        variant="subtle"
-        data-role="link"
-      />,
-    );
-
-    const linkElement = screen.getByTestId("link");
-    const iconElement = screen.getByTestId("icon");
-
-    expect(linkElement).toHaveStyle(`color: var(--colorsUtilityYang100)`);
-    expect(iconElement).toHaveStyle(`color: var(--colorsUtilityYang100)`);
-  });
-
-  it("matches the styling when `variant` is set to subtle and is hovered over", async () => {
-    const user = userEvent.setup();
-    render(
-      <Link
-        href="foo.com"
-        inverse
-        icon="home"
-        variant="subtle"
-        data-role="link"
-      />,
-    );
-
-    const linkElement = screen.getByTestId("link");
-    const iconElement = screen.getByTestId("icon");
-
-    await user.hover(linkElement);
-
-    expect(linkElement).toHaveStyle(`color: var(--colorsUtilityYang100)`);
-    expect(iconElement).toHaveStyle(`color: var(--colorsUtilityYang100)`);
-  });
-
-  it("matches the styling when `variant` is set to subtle and is focused", async () => {
-    const user = userEvent.setup();
-    render(
-      <Link
-        href="foo.com"
-        inverse
-        icon="home"
-        variant="subtle"
-        data-role="link"
-      />,
-    );
-
-    const linkElement = screen.getByTestId("link");
-    const iconElement = screen.getByTestId("icon");
-
-    await user.tab();
-
-    expect(linkElement).toHaveStyle({
-      color: "var(--colorsActionMajorYin090)",
-      backgroundColor: "var(--colorsSemanticFocus250)",
-    });
-    expect(iconElement).toHaveStyle("color: rgb(255, 255, 255)");
-  });
+  expect(linkElement).toHaveStyleRule(
+    "color",
+    "var(--link-subtle-inverse-label-hover,var(--colorsUtilityYang100))",
+    { modifier: "> a:hover" },
+  );
 });
 
 // Test is just for coverage
@@ -696,68 +475,6 @@ describe("link display styling", () => {
     const linkElement = screen.getByRole("link");
 
     expect(linkElement).not.toHaveStyle(`display: inline-block`);
-  });
-});
-
-// Test is just for coverage
-test("applies the correct focus styling when child contains an image as a child", async () => {
-  const user = userEvent.setup();
-  render(
-    <Link href="foo.com">
-      <img src="logo.png" alt="logo" />
-    </Link>,
-  );
-
-  const linkElement = screen.getByTestId("link-anchor");
-
-  await user.tab();
-
-  expect(linkElement).toHaveStyle({
-    outline: "transparent 3px solid",
-  });
-});
-
-// Test is just for coverage
-test("applies the correct focus styling when child component contains an image as a child", async () => {
-  const user = userEvent.setup();
-  const LogoComponent = () => <img src="logo.png" alt="logo" />;
-  render(
-    <Link href="foo.com">
-      <LogoComponent />
-    </Link>,
-  );
-
-  const linkElement = screen.getByTestId("link-anchor");
-
-  await user.tab();
-
-  expect(linkElement).toHaveStyle({
-    outline: "transparent 3px solid",
-  });
-});
-
-// Test is just for coverage
-test("applies the correct focus styling when child contains an svg as a child", async () => {
-  const user = userEvent.setup();
-  render(
-    <Link href="foo.com">
-      <svg
-        width="100"
-        height="100"
-        viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <circle cx="50" cy="50" r="40" fill="blue" />
-      </svg>
-    </Link>,
-  );
-
-  const linkElement = screen.getByTestId("link-anchor");
-
-  await user.tab();
-
-  expect(linkElement).toHaveStyle({
-    outline: "transparent 3px solid",
   });
 });
 
