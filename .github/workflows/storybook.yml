@@ -13,7 +13,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ">=22.14.0 22"
-      - run: npm ci
+      - run: npm ci --ignore-scripts
       - run: npm run build-storybook:prod
       - uses: aws-actions/configure-aws-credentials@v2
         with:
