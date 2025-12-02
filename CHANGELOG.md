@@ -1,3 +1,9 @@
+## [158.13.2](https://github.com/Sage/carbon/compare/v158.13.1...v158.13.2) (2025-12-02)
+
+### Bug Fixes
+
+* **loader:** add three dots in loading translation ([ed3f729](https://github.com/Sage/carbon/commit/ed3f72914c470b924cae760b2c4755f72ddfe4e3))
+
 ## [158.13.1](https://github.com/Sage/carbon/compare/v158.13.0...v158.13.1) (2025-12-01)
 
 ### Bug Fixes
