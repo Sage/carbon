@@ -1,5 +1,8 @@
 import inquirer from 'inquirer';
 import { execSync } from 'child_process';
+import fs from 'fs';
+import path from 'path';
+import os from 'os';
 
 // Commit types are currently aligned with https://github.com/commitizen/conventional-commit-types
 const commitTypes = [
@@ -176,6 +179,7 @@ async function buildCommit() {
 }
 
 async function commit() {
+  let tempFile;
   try {
     const message = await buildCommit();
     console.log('\n📝 Commit message:\n');
@@ -197,20 +201,33 @@ async function commit() {
       process.exit(0);
     }
 
+    // Create temp file for commit message
+    tempFile = path.join(os.tmpdir(), `commit-msg-${Date.now()}.txt`);
+    fs.writeFileSync(tempFile, message, 'utf8');
+
     // Validates with commitlint before committing
     try {
-      execSync(`echo "${message.replace(/"/g, '\\"')}" | commitlint`, { stdio: 'pipe' });
+      execSync(`commitlint --edit "${tempFile}"`, { stdio: 'pipe' });
     } catch (error) {
       console.error('\n❌ Commit message failed commitlint validation:\n');
       console.error(error.stderr?.toString() || error.stdout?.toString() || error.message);
       process.exit(1);
     }
 
-    execSync(`git commit -m "${message.replace(/"/g, '\\"')}"`, { stdio: 'inherit' });
+    execSync(`git commit -F "${tempFile}"`, { stdio: 'inherit' });
     console.log('\n✅ Commit successful!');
   } catch (error) {
     console.error('\n❌ Commit failed:', error.message);
     process.exit(1);
+  } finally {
+    // Clean up temp file at the end
+    if (tempFile && fs.existsSync(tempFile)) {
+      try {
+        fs.unlinkSync(tempFile);
+      } catch (error) {
+        console.error('\n❌ Clean up failed:', error.message);
+      }
+    }
   }
 }
 
