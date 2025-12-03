@@ -303,6 +303,7 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
                 )}
                 {readOnly ? (
                   <ReadOnlyEditor
+                    aria-label={labelText}
                     initialValue={
                       contentEditorRef.current?.innerHTML ||
                       initialValue.current

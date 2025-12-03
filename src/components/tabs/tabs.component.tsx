@@ -83,7 +83,7 @@ export interface TabsProps extends MarginProps, TagProps {
   };
   /**
    * When this prop is set any string validation failures in the children of each Tab
-   * will be summaraised in the Tooltip next to the Tab title
+   * will be summarised in the Tooltip next to the Tab title
    * @deprecated This prop will be deprecated in a future release
    */
   showValidationsSummary?: boolean;

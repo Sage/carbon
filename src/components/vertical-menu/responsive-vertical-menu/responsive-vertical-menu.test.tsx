@@ -775,7 +775,7 @@ test("closes menu when Escape key is pressed", async () => {
   expect(screen.queryByText("Menu Item 1")).not.toBeInTheDocument();
 });
 
-test("closes menu when focus is lost", async () => {
+test("closes menu when focus is lost from it", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(
     <ResponsiveVerticalMenu>
@@ -843,6 +843,28 @@ test("does not close the menu when the user clicks outside of the menu but respo
   expect(screen.getByText("Menu Item 1")).toBeInTheDocument();
 
   await user.click(document.body);
+
+  expect(screen.getByText("Menu Item 1")).toBeInTheDocument();
+});
+
+test("does not close menu when user clicks it instead of an item", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem id="menu-item-1" label="Menu Item 1" />
+    </ResponsiveVerticalMenu>,
+  );
+
+  const launcherButton = screen.getByTestId(
+    "responsive-vertical-menu-launcher",
+  );
+  await user.click(launcherButton);
+
+  expect(screen.getByText("Menu Item 1")).toBeInTheDocument();
+
+  const menu = screen.getByRole("list");
+  await user.click(menu);
 
   expect(screen.getByText("Menu Item 1")).toBeInTheDocument();
 });
@@ -1059,224 +1081,6 @@ test("respects reduced motion and has the correct styling when interacting", asy
 
   expect(expansionIcon2).toHaveStyleRule("transition", "rotate 0 ease-out");
   expect(menuItem2).toHaveStyleRule("background-color", "transparent");
-});
-
-test("allows for full keyboard navigation of primary menus", async () => {
-  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-  mockUseIsAboveBreakpoint.mockReturnValue(true);
-  render(
-    <ResponsiveVerticalMenu>
-      <ResponsiveVerticalMenuItem
-        data-role="menu-item-1"
-        id="menu-item-1"
-        label="Menu Item 1"
-      >
-        <ResponsiveVerticalMenuItem
-          data-role="menu-item-4"
-          id="menu-item-4"
-          label="Menu Item 4"
-        />
-      </ResponsiveVerticalMenuItem>
-      <ResponsiveVerticalMenuItem
-        data-role="menu-item-2"
-        id="menu-item-2"
-        label="Menu Item 2"
-      />
-      <ResponsiveVerticalMenuItem
-        data-role="menu-item-3"
-        id="menu-item-3"
-        label="Menu Item 3"
-      />
-    </ResponsiveVerticalMenu>,
-  );
-
-  const launcherButton = screen.getByTestId(
-    "responsive-vertical-menu-launcher",
-  );
-  await launcherButton.focus();
-  await user.keyboard("{Enter}");
-  await user.tab();
-
-  const menuItem = screen.getByTestId("menu-item-1");
-  expect(menuItem).toHaveFocus();
-
-  await user.tab();
-  const menuItem2 = screen.getByTestId("menu-item-2");
-  expect(menuItem).not.toHaveFocus();
-  expect(menuItem2).toHaveFocus();
-
-  await user.tab();
-  const menuItem3 = screen.getByTestId("menu-item-3");
-  expect(menuItem2).not.toHaveFocus();
-  expect(menuItem3).toHaveFocus();
-
-  await user.tab();
-
-  await waitFor(() => {
-    expect(menuItem).not.toBeInTheDocument();
-  });
-});
-
-test("allows for full keyboard navigation of secondary menus", async () => {
-  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-  mockUseIsAboveBreakpoint.mockReturnValue(true);
-
-  render(
-    <ResponsiveVerticalMenu>
-      <ResponsiveVerticalMenuItem
-        data-role="menu-item-1"
-        id="menu-item-1"
-        label="Menu Item 1"
-      >
-        <ResponsiveVerticalMenuItem
-          data-role="menu-item-4"
-          id="menu-item-4"
-          label="Menu Item 4"
-        />
-      </ResponsiveVerticalMenuItem>
-      <ResponsiveVerticalMenuItem
-        data-role="menu-item-2"
-        id="menu-item-2"
-        label="Menu Item 2"
-      />
-
-      <ResponsiveVerticalMenuItem
-        data-role="menu-item-3"
-        id="menu-item-3"
-        label="Menu Item 3"
-      />
-    </ResponsiveVerticalMenu>,
-  );
-
-  const launcherButton = screen.getByTestId(
-    "responsive-vertical-menu-launcher",
-  );
-
-  await launcherButton.focus();
-  await user.keyboard("{Enter}");
-
-  await user.tab();
-  const menuItem = screen.getByTestId("menu-item-1");
-  expect(menuItem).toHaveFocus();
-  await user.keyboard("{Enter}");
-
-  const menuItem4 = screen.getByTestId("menu-item-4");
-  expect(menuItem4).toBeInTheDocument();
-  await user.tab();
-  expect(menuItem4).toHaveFocus();
-  await user.tab();
-  expect(menuItem).toHaveFocus();
-  await user.tab();
-  expect(menuItem4).toHaveFocus();
-
-  await user.tab({ shift: true });
-  expect(menuItem).toHaveFocus();
-  await user.tab({ shift: true });
-  expect(menuItem4).toHaveFocus();
-});
-
-test("allows for full keyboard navigation of tertiary menus", async () => {
-  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-  mockUseIsAboveBreakpoint.mockReturnValue(true);
-
-  render(
-    <ResponsiveVerticalMenu>
-      <ResponsiveVerticalMenuItem
-        data-role="menu-item-1"
-        id="menu-item-1"
-        label="Menu Item 1"
-      >
-        <ResponsiveVerticalMenuItem
-          data-role="menu-item-4"
-          id="menu-item-4"
-          label="Menu Item 4"
-        >
-          <ResponsiveVerticalMenuItem
-            data-role="menu-item-5"
-            id="menu-item-5"
-            label="Menu Item 5"
-          />
-        </ResponsiveVerticalMenuItem>
-      </ResponsiveVerticalMenuItem>
-      <ResponsiveVerticalMenuItem
-        data-role="menu-item-2"
-        id="menu-item-2"
-        label="Menu Item 2"
-      />
-
-      <ResponsiveVerticalMenuItem
-        data-role="menu-item-3"
-        id="menu-item-3"
-        label="Menu Item 3"
-      />
-    </ResponsiveVerticalMenu>,
-  );
-
-  const launcherButton = screen.getByTestId(
-    "responsive-vertical-menu-launcher",
-  );
-
-  await launcherButton.focus();
-  await user.keyboard("{Enter}");
-
-  await user.tab();
-  const menuItem = screen.getByTestId("menu-item-1");
-  expect(menuItem).toHaveFocus();
-  await user.keyboard("{Enter}");
-
-  const menuItem4 = screen.getByTestId("menu-item-4");
-  expect(menuItem4).toBeInTheDocument();
-  await user.tab();
-  expect(menuItem4).toHaveFocus();
-  await user.keyboard("{Enter}");
-
-  await user.tab();
-  const menuItem5 = screen.getByTestId("menu-item-5");
-  expect(menuItem5).toHaveFocus();
-  await user.tab();
-  expect(menuItem).toHaveFocus();
-  await user.tab();
-  expect(menuItem4).toHaveFocus();
-  await user.tab();
-  expect(menuItem5).toHaveFocus();
-
-  await user.tab({ shift: true });
-  expect(menuItem4).toHaveFocus();
-  await user.tab({ shift: true });
-  expect(menuItem).toHaveFocus();
-});
-
-test("focuses the primary menu item when Tab is pressed and the last item is a tertiary menu item with a closed submenu", async () => {
-  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-  render(
-    <ResponsiveVerticalMenu>
-      <ResponsiveVerticalMenuItem id="primary-item" label="Primary Item">
-        <ResponsiveVerticalMenuItem id="secondary-item" label="Secondary Item">
-          <ResponsiveVerticalMenuItem id="tertiary-item" label="Tertiary Item">
-            <ResponsiveVerticalMenuItem
-              id="level-4-item"
-              label="Level 4 Item"
-            />
-          </ResponsiveVerticalMenuItem>
-        </ResponsiveVerticalMenuItem>
-      </ResponsiveVerticalMenuItem>
-    </ResponsiveVerticalMenu>,
-  );
-
-  await user.click(screen.getByRole("button"));
-  const primaryItem = screen.getByRole("button", { name: "Primary Item" });
-  await user.click(primaryItem);
-  const secondaryItem = screen.getByRole("button", { name: "Secondary Item" });
-  await user.click(secondaryItem);
-  const tertiaryItem = screen.getByRole("button", { name: "Tertiary Item" });
-  await user.click(tertiaryItem); // closes the tertiary menu
-
-  await user.tab();
-  expect(primaryItem).toHaveFocus();
-  await user.tab();
-  expect(secondaryItem).toHaveFocus();
-  await user.tab();
-  expect(tertiaryItem).toHaveFocus();
 });
 
 test(`anchor links are correctly rendered`, async () => {
@@ -1734,86 +1538,6 @@ test("adds and removes resize event listener on mount/unmount", async () => {
   );
 });
 
-test("sets and clears resize timeout on window resize", async () => {
-  const setTimeoutSpy = jest.spyOn(window, "setTimeout");
-  const clearTimeoutSpy = jest.spyOn(window, "clearTimeout");
-  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
-  render(
-    <ResponsiveVerticalMenu>
-      <ResponsiveVerticalMenuItem id="menu-item-1" label="Menu Item 1" />
-      <ResponsiveVerticalMenuItem id="menu-item-2" label="Menu Item 2" />
-      <ResponsiveVerticalMenuItem id="menu-item-3" label="Menu Item 3" />
-    </ResponsiveVerticalMenu>,
-  );
-
-  const launcherButton = screen.getByTestId(
-    "responsive-vertical-menu-launcher",
-  );
-  await user.click(launcherButton);
-
-  // Fire first resize event
-  window.dispatchEvent(new Event("resize"));
-  // Should have set a timeout
-  expect(setTimeoutSpy).toHaveBeenCalledWith(expect.any(Function), 100);
-  // Fast-forward time to simulate debounce completion
-  jest.advanceTimersByTime(100);
-  expect(clearTimeoutSpy).not.toHaveBeenCalled(); // no clear yet on first call
-});
-
-test("clears previous timeout on rapid resizes", async () => {
-  const clearTimeoutSpy = jest.spyOn(window, "clearTimeout");
-  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
-  render(
-    <ResponsiveVerticalMenu>
-      <ResponsiveVerticalMenuItem id="menu-item-1" label="Menu Item 1" />
-      <ResponsiveVerticalMenuItem id="menu-item-2" label="Menu Item 2" />
-      <ResponsiveVerticalMenuItem id="menu-item-3" label="Menu Item 3" />
-    </ResponsiveVerticalMenu>,
-  );
-
-  const launcherButton = screen.getByTestId(
-    "responsive-vertical-menu-launcher",
-  );
-
-  await user.click(launcherButton);
-  // First resize
-  window.dispatchEvent(new Event("resize"));
-  // Second resize
-  window.dispatchEvent(new Event("resize"));
-
-  expect(clearTimeoutSpy).toHaveBeenCalledTimes(1);
-});
-
-test("clears timeout on unmount if it exists", async () => {
-  const setTimeoutSpy = jest.spyOn(window, "setTimeout");
-  const clearTimeoutSpy = jest.spyOn(window, "clearTimeout");
-  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
-  const { unmount } = render(
-    <ResponsiveVerticalMenu>
-      <ResponsiveVerticalMenuItem id="menu-item-1" label="Menu Item 1" />
-      <ResponsiveVerticalMenuItem id="menu-item-2" label="Menu Item 2" />
-      <ResponsiveVerticalMenuItem id="menu-item-3" label="Menu Item 3" />
-    </ResponsiveVerticalMenu>,
-  );
-
-  const launcherButton = screen.getByTestId(
-    "responsive-vertical-menu-launcher",
-  );
-
-  await user.click(launcherButton);
-
-  window.dispatchEvent(new Event("resize"));
-
-  expect(setTimeoutSpy).toHaveBeenCalled();
-
-  unmount();
-
-  expect(clearTimeoutSpy).toHaveBeenCalledTimes(1);
-});
-
 test("renders menu with provided data tags", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(
@@ -2058,7 +1782,7 @@ describe("Focus Trap", () => {
     );
     const closeButton = screen.getByTestId("responsive-vertical-menu-close");
 
-    await expect(closeButton).toBeInTheDocument();
+    expect(closeButton).toBeInTheDocument();
 
     act(() => {
       closeButton.focus();

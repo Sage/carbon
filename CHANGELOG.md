@@ -1,3 +1,49 @@
+## [158.13.2](https://github.com/Sage/carbon/compare/v158.13.1...v158.13.2) (2025-12-02)
+
+### Bug Fixes
+
+* **loader:** add three dots in loading translation ([ed3f729](https://github.com/Sage/carbon/commit/ed3f72914c470b924cae760b2c4755f72ddfe4e3))
+
+## [158.13.1](https://github.com/Sage/carbon/compare/v158.13.0...v158.13.1) (2025-12-01)
+
+### Bug Fixes
+
+* **loader:** inherit text colour from parent Button, if it exists ([6902378](https://github.com/Sage/carbon/commit/690237889b69a6a564933ea8d0228766f4f8b061))
+
+## [158.13.0](https://github.com/Sage/carbon/compare/v158.12.0...v158.13.0) (2025-11-27)
+
+### Features
+
+* **text-editor:** upgrade Lexical packages ([1ea9c8b](https://github.com/Sage/carbon/commit/1ea9c8b8065a376ef2e679adfef0e232c3f94415))
+
+## [158.12.0](https://github.com/Sage/carbon/compare/v158.11.0...v158.12.0) (2025-11-26)
+
+### Features
+
+* **tabs:** add squared borders at active indicator edges ([ba18714](https://github.com/Sage/carbon/commit/ba18714b1d050205f2c36ec3bc0584a041b3d47b))
+
+### Bug Fixes
+
+* **tabs:** fix aria-label issue ([40e421e](https://github.com/Sage/carbon/commit/40e421ee3eacda1b9c015588f9005f53ecb5f4ad))
+
+## [158.11.0](https://github.com/Sage/carbon/compare/v158.10.1...v158.11.0) (2025-11-25)
+
+### Features
+
+* **tabs:** re-introduce handler for monitoring tab changes ([50cb9c7](https://github.com/Sage/carbon/commit/50cb9c7fa61b4355cd31cc59fee558d49d5fa92e)), closes [#7622](https://github.com/Sage/carbon/issues/7622)
+
+## [158.10.1](https://github.com/Sage/carbon/compare/v158.10.0...v158.10.1) (2025-11-24)
+
+### Bug Fixes
+
+* **responsive-vertical-menu:** ensure keyboard nav follows natural DOM order ([9c12dfa](https://github.com/Sage/carbon/commit/9c12dfaf8ea414facd661287ec349a118a0b33a5))
+
+## [158.10.0](https://github.com/Sage/carbon/compare/v158.9.0...v158.10.0) (2025-11-24)
+
+### Features
+
+* **responsive-vertical-menu:** prevent background interaction while menu open ([46bf584](https://github.com/Sage/carbon/commit/46bf5846f5f3d8874f1eadd09c2a504e2db93152)), closes [#7579](https://github.com/Sage/carbon/issues/7579)
+
 ## [158.9.0](https://github.com/Sage/carbon/compare/v158.8.0...v158.9.0) (2025-11-24)
 
 ### Features

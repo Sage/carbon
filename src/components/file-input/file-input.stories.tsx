@@ -263,7 +263,7 @@ export const UploadStatusAlternative: Story = () => {
     // or use a WebSocket connection for the server to give regular updates.
     const interval = setInterval(() => {
       const randomNumber = Math.floor(Math.random() * 20);
-      // mock possiblity of server error
+      // mock possibility of server error
       if (randomNumber === 0) {
         setUploadStatus({
           status: "error",

@@ -54,6 +54,8 @@ export interface TabListProps {
   ariaLabel: string;
   /** The tabs to be shown in the tab list */
   children?: React.ReactNode;
+  /** A callback for when the active tab is changed */
+  onTabChange?: (tabId: string) => void;
 }
 
 export interface TabProps {

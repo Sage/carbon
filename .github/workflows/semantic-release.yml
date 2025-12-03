@@ -23,7 +23,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ">=22.14.0 22"
-      - run: npm ci
+      - run: npm ci --ignore-scripts
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v3.0.1
         with:
@@ -53,7 +53,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ">=22.14.0 22"
-      - run: npm ci
+      - run: npm ci --ignore-scripts
       - name: Generate metadata file
         run: npm run generate-metadata
       - run: npm run build-storybook:prod

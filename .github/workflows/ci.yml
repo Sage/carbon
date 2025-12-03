@@ -11,7 +11,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ">=22.14.0 22"
-      - run: npm ci
+      - run: npm ci --ignore-scripts
       - run: npx prettier --check './src/**/*.{js,jsx,ts,tsx}'
       - run: npm run lint
       - run: npm run type-check
@@ -33,7 +33,7 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --ignore-scripts
 
       - name: Run test shard
         run: |
@@ -83,8 +83,8 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: npm
 
-      - name: Install nyc
-        run: npm install nyc@17.0.0 --save-dev
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
 
       - name: Download shard coverage reports
         uses: actions/download-artifact@v4

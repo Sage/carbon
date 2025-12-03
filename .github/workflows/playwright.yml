@@ -35,7 +35,7 @@ jobs:
       
       - name: Install dependencies
         run: |
-          npm ci
+          npm ci --ignore-scripts
           npx playwright --version
 
       - name: Install Playwright Browsers
@@ -63,7 +63,7 @@ jobs:
         with:
           node-version: ">=22.14.0 22"
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --ignore-scripts
 
       - name: Download blob reports from GitHub Actions Artifacts
         uses: actions/download-artifact@v4

@@ -13,6 +13,7 @@ const NoteComponent = ({
 }) => {
   return (
     <Note
+      aria-label="Note"
       title="Here is a Title"
       name="Lauren Smith"
       noteContent={text || ""}
@@ -34,6 +35,7 @@ const NoteComponentWithInlineControl = () => {
   );
   return (
     <Note
+      aria-label="Note"
       title="Here is a Title"
       inlineControl={inlineControl}
       noteContent={html}
@@ -62,6 +64,7 @@ const NoteComponentWithPreviews = () => {
   return (
     <div style={{ width: "50%" }}>
       <Note
+        aria-label="Note"
         title="Here is a Title"
         name="Lauren Smith"
         createdDate="23 May 2020, 12:08 PM"

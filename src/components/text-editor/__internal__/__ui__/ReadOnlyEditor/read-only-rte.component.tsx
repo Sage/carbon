@@ -44,13 +44,14 @@ const determineFormat = (value: string | undefined) => {
     if (isHTML) {
       return createFromHTML(value);
     }
-    const wrappedPlainText = `<p dir="ltr"><span data-lexical-text="true">${wrapLinksInAnchors(value)}</span></p>`;
+    const wrappedPlainText = `<p><span data-lexical-text="true">${wrapLinksInAnchors(value)}</span></p>`;
     return createFromHTML(wrappedPlainText);
   }
   return value;
 };
 
 const ReadOnlyEditor = ({
+  "aria-label": ariaLabel,
   initialValue,
   namespace = "carbon-rte-readonly",
   size = "medium",
@@ -80,6 +81,7 @@ const ReadOnlyEditor = ({
         <RichTextPlugin
           contentEditable={
             <ContentEditable
+              aria-label={ariaLabel}
               data-role={`${namespace}-content-editor`}
               /** The following are automatically added by Lexical but violate WCAG 4.1.2 Name, Role, Value and so have been overriden */
               aria-autocomplete={undefined}

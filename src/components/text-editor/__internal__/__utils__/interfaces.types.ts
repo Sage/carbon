@@ -10,6 +10,8 @@ export interface TextEditorHandle {
 }
 
 export interface TextEditorProps extends MarginProps, TagProps {
+  /** The aria-label to be rendered when in read-only mode */
+  "aria-label"?: string;
   /** The maximum number of characters allowed in the editor */
   characterLimit?: number;
   /** The message to be shown when the editor is in an error state */

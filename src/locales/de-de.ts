@@ -89,7 +89,7 @@ const deDE: Partial<Locale> = {
     skipLinkLabel: () => "Zum Hauptinhalt springen",
   },
   loader: {
-    loading: () => "Laden",
+    loading: () => "Laden...",
   },
   loaderSpinner: {
     loading: () => "Laden...",

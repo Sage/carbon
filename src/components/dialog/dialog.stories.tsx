@@ -10,7 +10,7 @@ import Form from "../form";
 import Typography from "../typography";
 import Textbox from "../textbox";
 import Fieldset from "../fieldset";
-import Loader from "../loader";
+import Loader from "../loader/__next__";
 import Toast from "../toast";
 import Message from "../message";
 import Textarea from "../textarea";
@@ -279,7 +279,7 @@ export const LoadingContent: Story = () => {
         onCancel={() => setIsOpen(false)}
       >
         {isLoading ? (
-          <Loader isActive isInsideButton={false} size="small" />
+          <Loader loaderType="ring" />
         ) : (
           <>
             <Textbox
