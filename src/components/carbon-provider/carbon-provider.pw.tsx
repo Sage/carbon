@@ -38,9 +38,9 @@ const commonColors = ["rgb(0, 130, 0)", "rgb(0, 126, 69)"];
 
 const commonColorsOnHover = ["rgb(0, 99, 0)", "rgb(0, 103, 56)"];
 
-const linkCommonColors = ["rgb(8, 113, 30)", "rgb(8, 113, 30)"];
+const linkCommonColors = ["rgb(0, 130, 0)", "rgb(0, 126, 69)"];
 
-const linkCommonColorsOnHover = ["rgb(16, 96, 28)", "rgb(16, 96, 28)"];
+const linkCommonColorsOnHover = ["rgb(0, 99, 0)", "rgb(0, 103, 56)"];
 
 const loaderBarColors = ["rgb(179, 224, 179)", "rgb(179, 217, 200)"];
 

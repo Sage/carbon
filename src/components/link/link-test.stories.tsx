@@ -1,21 +1,17 @@
 import React from "react";
+import { Meta, StoryObj } from "@storybook/react";
+
 import { action } from "@storybook/addon-actions";
-import { ICONS } from "../icon/icon-config";
-import { LINK_ALIGNMENTS, LINK_POSITIONS, LINK_VARIANTS } from "./link.config";
 import Link, { LinkProps } from "./link.component";
 import Box from "../box";
 import GlobalHeader from "../global-header";
+import Typography from "../typography";
 
 import carbonLogo from "../../../logo/carbon-logo.png";
 
-export default {
+const meta: Meta<typeof Link> = {
   title: "Link/Test",
-  includeStories: [
-    "DefaultStory",
-    "FlexContainer",
-    "HoverUnderlineAndWhiteVariant",
-    "LinkComponentWithAnImage",
-  ],
+  component: Link,
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -23,84 +19,93 @@ export default {
     },
   },
   argTypes: {
-    icon: {
-      options: ["", ...ICONS],
+    onClick: {
       control: {
-        type: "select",
+        type: "boolean",
       },
     },
-    iconAlign: {
-      options: LINK_ALIGNMENTS,
+    children: {
       control: {
-        type: "select",
-      },
-    },
-    tooltipPosition: {
-      options: LINK_POSITIONS,
-      control: {
-        type: "select",
-      },
-    },
-    variant: {
-      options: LINK_VARIANTS,
-      control: {
-        type: "select",
+        type: "text",
       },
     },
   },
 };
 
-interface LinkStoryProps extends LinkProps {
-  hasOnClick: boolean;
-}
+export default meta;
+type Story = StoryObj<typeof Link>;
 
-export const DefaultStory = ({
-  hasOnClick,
-  children,
-  href,
-  variant,
-  inverse,
-  ...args
-}: LinkStoryProps) => {
-  const backgroundColor = inverse ? "#000000" : "transparent";
-  const link = (
-    <Link
-      onClick={hasOnClick ? action("click") : undefined}
-      href={href}
-      variant={variant}
-      inverse={inverse}
-      {...args}
-    >
-      {children}
-    </Link>
-  );
-  return (
-    <div
-      style={{
-        margin: "64px",
-        backgroundColor,
-        width: "fit-content",
-        padding: "8px",
-      }}
-    >
-      {link}
-    </div>
-  );
+const getBackgroundColor = (inverse?: boolean) =>
+  inverse ? "#000000" : "transparent";
+
+export const Default: Story = {
+  render: ({ inverse, onClick, children, ...args }: LinkProps) => (
+    <Box p={4} backgroundColor={getBackgroundColor(inverse)}>
+      <Link
+        onClick={onClick ? action("click") : undefined}
+        inverse={inverse}
+        {...args}
+      >
+        {children}
+      </Link>
+    </Box>
+  ),
+  args: {
+    children: "Link",
+    href: "#",
+    target: "_blank",
+  },
 };
 
-DefaultStory.storyName = "default";
-DefaultStory.args = {
-  children: "Link",
-  disabled: false,
-  href: "",
-  icon: "",
-  iconAlign: "left",
-  tooltipMessage: "",
-  tooltipPosition: "bottom",
-  hasOnClick: false,
-  target: "_blank",
-  variant: "default",
-  inverse: false,
+export const AllVariantsWithIcons: Story = {
+  render: (args) => (
+    <>
+      <Box p={2} display="flex" flexDirection="row" gap={4}>
+        <Typography>
+          <Link variant="typical" {...args}>
+            This is a typical link
+          </Link>
+        </Typography>
+        <Typography>
+          <Link variant="negative" {...args}>
+            This is a negative link
+          </Link>
+        </Typography>
+        <Typography>
+          <Link variant="subtle" {...args}>
+            This is a subtle link
+          </Link>
+        </Typography>
+      </Box>
+      <Box
+        p={2}
+        display="flex"
+        flexDirection="row"
+        gap={4}
+        backgroundColor="#000"
+      >
+        <Typography>
+          <Link variant="typical" inverse {...args}>
+            This is a typical link
+          </Link>
+        </Typography>
+        <Typography>
+          <Link variant="negative" inverse {...args}>
+            This is a negative link
+          </Link>
+        </Typography>
+        <Typography>
+          <Link variant="subtle" inverse {...args}>
+            This is a subtle link
+          </Link>
+        </Typography>
+      </Box>
+    </>
+  ),
+  args: {
+    href: "https://carbon.sage.com",
+    icon: "settings",
+  },
 };
 
 export const FlexContainer = () => {
@@ -130,46 +135,7 @@ export const FlexContainer = () => {
     </div>
   );
 };
-
 FlexContainer.parameters = { chromatic: { disableSnapshot: false } };
-
-export const HoverUnderlineAndWhiteVariant = () => {
-  const link = (
-    <Link href="#foo" variant="subtle" inverse underline="hover">
-      Link with underline on hover and subtle variant.
-    </Link>
-  );
-  return (
-    <div
-      style={{
-        margin: "64px",
-        backgroundColor: "#000000",
-        width: "fit-content",
-        padding: "8px",
-      }}
-    >
-      {link}
-    </div>
-  );
-};
-
-HoverUnderlineAndWhiteVariant.parameters = {
-  chromatic: { disableSnapshot: false },
-};
-
-export const LinkComponent = (props: LinkProps) => {
-  return (
-    <div
-      style={{
-        margin: "100px",
-      }}
-    >
-      <Link href="#foo" target="_blank" rel="noreferrer noopener" {...props}>
-        This is a link
-      </Link>
-    </div>
-  );
-};
 
 export const LinkComponentWithAnImage = () => {
   const Logo = () => <img src={carbonLogo} alt="Logo" height={25} />;
@@ -187,4 +153,24 @@ export const LinkComponentWithAnImage = () => {
       </Box>
     </GlobalHeader>
   );
+};
+
+export const LinkThatWraps: Story = {
+  render: (args) => (
+    <Box padding="25px" width="250px" backgroundColor="--colorsUtilityMajor025">
+      <Typography>We&apos;ll be sorry to see you go</Typography>
+      <Typography lineHeight="150%">
+        If your subscription isn&apos;t quite right, we can help you{" "}
+        <Link
+          href="http://carbon.sage.com"
+          target="_blank"
+          icon="settings"
+          {...args}
+        >
+          find one that suits your business needs (new tab)
+        </Link>
+      </Typography>
+    </Box>
+  ),
+  parameters: { chromatic: { disableSnapshot: false } },
 };

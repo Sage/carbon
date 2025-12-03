@@ -111,6 +111,7 @@ export const Link = React.forwardRef<
       removeAriaLabelOnIcon,
       className,
       linkSize = "medium",
+      bold = false,
       ...rest
     }: LinkProps,
     ref,
@@ -285,6 +286,7 @@ export const Link = React.forwardRef<
         {...(isSkipLink && { "data-element": "skip-link" })}
         hasFocus={hasFocus}
         linkSize={linkSize}
+        bold={bold}
       >
         {createLinkBasedOnType()}
       </StyledLink>

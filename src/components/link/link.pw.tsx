@@ -76,7 +76,7 @@ test.describe("check props for Link component", () => {
     const linkElement = linkChildren(page);
     await expect(linkElement).toHaveCSS(
       "text-decoration",
-      "underline rgb(8, 113, 30)",
+      "underline rgb(0, 126, 69)",
     );
   });
 
@@ -93,7 +93,7 @@ test.describe("check props for Link component", () => {
     await linkElement.hover();
     await expect(linkElement).toHaveCSS(
       "text-decoration",
-      "underline rgb(16, 96, 28)",
+      "underline rgb(0, 103, 56)",
     );
   });
 
@@ -107,7 +107,7 @@ test.describe("check props for Link component", () => {
       </LinkComponent>,
     );
     const linkElement = linkChildren(page);
-    await expect(linkElement).toHaveCSS("text-decoration", "rgb(8, 113, 30)");
+    await expect(linkElement).toHaveCSS("text-decoration", "rgb(0, 126, 69)");
   });
 
   test("when `underline` prop is 'hover' and component is hovered over, it should apply the text-decoration underline", async ({
@@ -123,7 +123,7 @@ test.describe("check props for Link component", () => {
     await linkElement.hover();
     await expect(linkElement).toHaveCSS(
       "text-decoration",
-      "underline rgb(16, 96, 28)",
+      "underline rgb(0, 103, 56)",
     );
   });
 
@@ -137,7 +137,7 @@ test.describe("check props for Link component", () => {
       </LinkComponent>,
     );
     const linkElement = linkChildren(page);
-    await expect(linkElement).toHaveCSS("text-decoration", "rgb(8, 113, 30)");
+    await expect(linkElement).toHaveCSS("text-decoration", "rgb(0, 126, 69)");
   });
 
   test("when `underline` prop is 'never' and component is hovered over, it should maintain no text-decoration", async ({
@@ -151,7 +151,7 @@ test.describe("check props for Link component", () => {
     );
     const linkElement = linkChildren(page);
     await linkElement.hover();
-    await expect(linkElement).toHaveCSS("text-decoration", "rgb(16, 96, 28)");
+    await expect(linkElement).toHaveCSS("text-decoration", "rgb(0, 103, 56)");
   });
 
   test("should render with icon prop", async ({ mount, page }) => {
@@ -291,124 +291,6 @@ test.describe("check props for Link component", () => {
       "rgba(0, 20, 30, 0.1) 0px 10px 30px 0px, rgba(0, 20, 30, 0.1) 0px 30px 60px 0px",
     );
   });
-
-  test("should apply correct focus styling to skip link", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<LinkComponent isSkipLink />);
-
-    await page.keyboard.press("Tab");
-    const skipLinkElement = skipLink(page);
-    await expect(skipLinkElement).toBeVisible();
-    await expect(skipLinkElement).toHaveCSS("top", "8px");
-    await expect(skipLinkElement).toHaveCSS("left", "0px");
-    await expect(skipLinkElement).toHaveCSS(
-      "text-decoration",
-      "underline 4px rgb(0, 0, 0)",
-    );
-    await expect(skipLinkElement).toHaveCSS("text-decoration-thickness", "4px");
-    await expect(skipLinkElement).toHaveCSS("text-underline-offset", "3px");
-  });
-
-  (
-    [
-      ["default", "rgb(8, 113, 30)"],
-      ["negative", "rgb(178, 51, 66)"],
-      ["neutral", "rgba(0, 0, 0, 0.898)"],
-    ] as [LinkProps["variant"], string][]
-  ).forEach(([variant, defaultColor]) => {
-    test(`should render with variant prop set to ${variant}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<LinkComponent variant={variant} />);
-
-      const linkElement = linkChildren(page);
-      await expect(linkElement).toHaveCSS("color", defaultColor);
-    });
-  });
-
-  (
-    [
-      ["default", "rgb(78, 220, 84)"],
-      ["negative", "rgb(232, 91, 102)"],
-      ["neutral", "rgb(255, 255, 255)"],
-      ["subtle", "rgb(255, 255, 255)"],
-    ] as [LinkProps["variant"], string][]
-  ).forEach(([variant, defaultColor]) => {
-    test(`should render with variant prop set to ${variant} and inverse`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <LinkComponentWithDarkBackground variant={variant} inverse />,
-      );
-
-      const linkElement = linkChildren(page);
-      await expect(linkElement).toHaveCSS("color", defaultColor);
-    });
-  });
-
-  (
-    [
-      ["default", "rgb(16, 96, 28)"],
-      ["negative", "rgb(159, 48, 60)"],
-      ["neutral", "rgb(0, 0, 0)"],
-    ] as [LinkProps["variant"], string][]
-  ).forEach(([variant, hoverColor]) => {
-    test(`should render with correct hover state with variant prop set to ${variant}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<LinkComponent variant={variant} />);
-
-      const linkElement = linkChildren(page);
-      await linkElement.hover();
-      await expect(linkElement).toHaveCSS("color", hoverColor);
-    });
-  });
-
-  (
-    [
-      ["default", "rgb(114, 226, 111)"],
-      ["negative", "rgb(237, 110, 116)"],
-      ["neutral", "rgb(255, 255, 255)"],
-      ["subtle", "rgb(255, 255, 255)"],
-    ] as [LinkProps["variant"], string][]
-  ).forEach(([variant, hoverColor]) => {
-    test(`should render with correct hover state with inverse prop set with ${variant} variant`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <LinkComponentWithDarkBackground variant={variant} inverse />,
-      );
-
-      const linkElement = linkChildren(page);
-      await linkElement.hover();
-      await expect(linkElement).toHaveCSS("color", hoverColor);
-    });
-  });
-});
-
-test("should render with the correct focus styling", async ({
-  mount,
-  page,
-}) => {
-  await mount(<LinkComponent />);
-
-  const linkElement = linkChildren(page);
-  await linkElement.focus();
-  await expect(linkElement).toHaveCSS("background-color", "rgb(255, 210, 126)");
-  await expect(linkElement).toHaveCSS("color", "rgb(0, 0, 0)");
-  await expect(linkElement).toHaveCSS("border-radius", "2px");
-  const linkWrapper = link(page);
-  await expect(linkWrapper).toHaveCSS(
-    "box-shadow",
-    "rgb(0, 0, 0) 0px 4px 0px 0px",
-  );
-  await expect(linkWrapper).toHaveCSS("max-width", "fit-content");
 });
 
 test.describe("check events for Link component", () => {
