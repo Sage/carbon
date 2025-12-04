@@ -108,8 +108,11 @@ export const FileUploadStatus = ({
       {buttonText}
     </ButtonMinor>
   );
+
   const fileLink = linkProps ? (
-    <Link {...linkProps}>{filename}</Link>
+    <Link download={Boolean(status === "completed")} {...linkProps}>
+      {filename}
+    </Link>
   ) : (
     <>
       <Icon type={iconType} />

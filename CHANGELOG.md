@@ -1,3 +1,13 @@
+## [158.14.0](https://github.com/Sage/carbon/compare/v158.13.2...v158.14.0) (2025-12-04)
+
+### Features
+
+* **link:** add support for the download attribute ([789f94f](https://github.com/Sage/carbon/commit/789f94f7901f3848aa73f482ef86797525041ead))
+
+### Bug Fixes
+
+* **file-input:** add download attribute to completed state link ([6971449](https://github.com/Sage/carbon/commit/6971449b682830e9a02bcb04b89405965fb58c54)), closes [#7633](https://github.com/Sage/carbon/issues/7633)
+
 ## [158.13.2](https://github.com/Sage/carbon/compare/v158.13.1...v158.13.2) (2025-12-02)
 
 ### Bug Fixes
