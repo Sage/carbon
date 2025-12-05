@@ -35,13 +35,13 @@ Below are some useful extensions that we recommend using with Carbon:
 
 ### Node.js & NPM
 
-**NOTE: Carbon requires all contributors be on Node version 20 ("iron").**
+**NOTE: Carbon requires all contributors be on Node version 24 ("Krypton").**
 
 The recommended way to install Node and npm is using [Node Version Manager (`nvm`)](https://github.com/nvm-sh/nvm).
 Once you have installed nvm, you should run:
 
 ```sh
-nvm install lts/iron
+nvm install lts/krypton
 ```
 
 which will install the correct version of Node and npm. You can verify the installed versions using `node --version` and `npm --v`.
