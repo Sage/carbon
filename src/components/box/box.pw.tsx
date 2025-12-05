@@ -676,7 +676,7 @@ test.describe("should render Box component", () => {
   (
     [
       ["light", "rgb(102, 132, 148) rgb(242, 245, 246)"],
-      ["dark", "rgb(153, 173, 183) rgb(51, 91, 112)"],
+      ["dark", "rgb(179, 179, 179) rgb(77, 77, 77)"],
     ] as const
   ).forEach(([variant, scrollbarColor]) => {
     test(`scrollbar has correct colours when scrollVariant prop is ${variant}`, async ({

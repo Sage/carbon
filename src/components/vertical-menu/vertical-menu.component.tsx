@@ -28,7 +28,7 @@ export const VerticalMenu = ({
   return (
     <StyledVerticalMenu
       boxSizing="border-box"
-      scrollVariant="light"
+      scrollVariant="dark"
       backgroundColor="var(--colorsComponentsLeftnavWinterStandardBackground)"
       width={width}
       height={height}
