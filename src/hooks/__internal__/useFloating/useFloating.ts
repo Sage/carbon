@@ -59,6 +59,11 @@ const useFloating = ({
           middleware,
           placement,
         }).then(({ x, y, placement: currentPlacement }) => {
+          const currentZIndexValue = parseInt(
+            window.getComputedStyle(floatingElement).zIndex,
+            10,
+          );
+
           Object.assign(floatingElement.style, {
             left: `${x}px`,
             top: `${y}px`,
@@ -68,7 +73,7 @@ const useFloating = ({
              * the floating element appears over the top of other elements on
              * the same "layer" correctly (i.e. a date picker in a dialog)
              * */
-            "z-index": 1001,
+            ...(currentZIndexValue !== 10000 ? { "z-index": 1001 } : {}),
           });
 
           floatingElement.setAttribute(

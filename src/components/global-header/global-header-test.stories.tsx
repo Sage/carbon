@@ -2,6 +2,9 @@ import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
 
 import GlobalHeader from "./global-header.component";
+import Button from "../button";
+import PopoverContainer from "../popover-container/popover-container.component";
+import Box from "../box";
 import { Menu, MenuItem } from "../menu";
 import Divider from "../divider";
 import carbonLogo from "../../../logo/carbon-logo.png";
@@ -51,5 +54,38 @@ MenuWithIconOnlyButtonsStory.parameters = {
       story:
         "Disclaimer: use of Icon-only buttons is not recommended due to poor accessibility",
     },
+  },
+};
+
+export const GlobalHeaderWithPopover: StoryFn<typeof GlobalHeader> = () => {
+  const [isContainerOpen, setIsContainerOpen] = React.useState(false);
+
+  return (
+    <GlobalHeader logo={<img height={28} src={carbonLogo} alt="Carbon logo" />}>
+      <Button
+        size="small"
+        buttonType="primary"
+        onClick={() => {
+          setIsContainerOpen(true);
+        }}
+      >
+        Notifications
+      </Button>
+      <PopoverContainer
+        shouldCoverButton
+        open={isContainerOpen}
+        onClose={() => setIsContainerOpen(false)}
+      >
+        <Box height="300px" width="300px">
+          content
+        </Box>
+      </PopoverContainer>
+    </GlobalHeader>
+  );
+};
+GlobalHeaderWithPopover.storyName = "global header with popover container";
+GlobalHeaderWithPopover.parameters = {
+  chromatic: {
+    disableSnapshot: true,
   },
 };
