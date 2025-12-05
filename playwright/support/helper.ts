@@ -1,6 +1,6 @@
 import type { Locator, Page } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
-import { expect } from "@playwright/experimental-ct-react";
+import { expect, test } from "@playwright/experimental-ct-react";
 import { label, legend } from "../components/index";
 
 /**
@@ -63,23 +63,43 @@ export const checkAccessibility = async (
 
   const isCI = process.env.CI === "true";
 
-  if (accessibilityScanResults.incomplete.length > 0 && !isCI) {
-    // Capture the calling stack
-    const { stack } = new Error();
+  const testInfo = test.info();
 
-    // Parse stack to find the test file name
-    const testFileMatch = stack?.match(/at .*?(\/[^\s]+\.pw\.tsx):(\d+):(\d+)/);
-    const componentName = testFileMatch
-      ? testFileMatch[1].split("/").slice(-2, -1)[0]
-      : "Unknown component";
+  if (!isCI) {
+    if (accessibilityScanResults.incomplete.length > 0) {
+      // Capture the calling stack
+      const { stack } = new Error();
 
-    // eslint-disable-next-line no-console
-    console.warn(
-      `\nACCESSIBILITY SCAN INCOMPLETE. Incomplete rules: ${accessibilityScanResults.incomplete.map(
-        (rule) =>
-          `\n\t- ${rule.id}: this is a ${rule.impact} accessibility issue. ${rule.description}`,
-      )}\nPlease check and ensure that the "${componentName}" component meets accessibility criteria manually.\n`,
-    );
+      // Parse stack to find the test file name
+      const testFileMatch = stack?.match(
+        /at .*?(\/[^\s]+\.pw\.tsx):(\d+):(\d+)/,
+      );
+      const componentName = testFileMatch
+        ? testFileMatch[1].split("/").slice(-2, -1)[0]
+        : "Unknown component";
+
+      // eslint-disable-next-line no-console
+      console.warn(
+        `\nACCESSIBILITY SCAN INCOMPLETE. Incomplete rules: ${accessibilityScanResults.incomplete.map(
+          (rule) =>
+            `\n\t- ${rule.id}: this is a ${rule.impact} accessibility issue. ${rule.description}`,
+        )}\nPlease check and ensure that the "${componentName}" component meets accessibility criteria manually.\n`,
+      );
+    }
+  } else {
+    if (accessibilityScanResults.incomplete.length > 0) {
+      await testInfo.attach("accessibility-incomplete.json", {
+        body: JSON.stringify(accessibilityScanResults.incomplete, null, 2),
+        contentType: "application/json",
+      });
+    }
+
+    if (accessibilityScanResults.violations.length > 0) {
+      await testInfo.attach("accessibility-violations.json", {
+        body: JSON.stringify(accessibilityScanResults.violations, null, 2),
+        contentType: "application/json",
+      });
+    }
   }
 
   expect(accessibilityScanResults.violations).toEqual([]);
