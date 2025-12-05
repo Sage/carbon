@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useCallback, useContext, useRef } from "react";
 import StyledFlatTableCheckbox from "./flat-table-checkbox.style";
 import { Checkbox } from "../../checkbox";
 import Events from "../../../__internal__/utils/helpers/events/events";
@@ -46,16 +46,22 @@ export const FlatTableCheckbox = ({
 
   const dataElement = `flat-table-checkbox-${as === "td" ? "cell" : "header"}`;
 
-  const handleClick = (event: React.MouseEvent<HTMLInputElement>) => {
-    event.stopPropagation();
-    onClick?.(event);
-  };
-
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (!Events.isDownKey(event) && !Events.isUpKey(event)) {
+  const handleClick = useCallback(
+    (event: React.MouseEvent<HTMLInputElement>) => {
       event.stopPropagation();
-    }
-  };
+      onClick?.(event);
+    },
+    [onClick],
+  );
+
+  const handleKeyDown = useCallback(
+    (event: React.KeyboardEvent<HTMLInputElement>) => {
+      if (!Events.isDownKey(event) && !Events.isUpKey(event)) {
+        event.stopPropagation();
+      }
+    },
+    [],
+  );
 
   return (
     <StyledFlatTableCheckbox
