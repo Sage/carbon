@@ -43,7 +43,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: ">=22.14.0 22"
+          node-version: ">=24.11.0 24"
 
       - name: Install dependencies
         run: npm ci
