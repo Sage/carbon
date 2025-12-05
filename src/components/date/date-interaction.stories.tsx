@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/test";
 
-import DateInput, { DateChangeEvent } from "./date.component";
+import DateInput from "./date.component";
 
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
 import DefaultDecorator from "../../../.storybook/utils/default-decorator";
@@ -13,9 +13,6 @@ import { de as deLocale } from "date-fns/locale/de";
 import { enUS as enUSLocale } from "date-fns/locale/en-US";
 
 import Box from "../box";
-import Dialog from "../dialog";
-import Form from "../form";
-import Button from "../button";
 
 type Story = StoryObj<typeof DateInput>;
 
@@ -222,61 +219,3 @@ export const WeekStartDay: Story = {
   ],
 };
 WeekStartDay.storyName = "Week Start Day";
-
-const DialogBasedDate = () => {
-  const [open, setOpen] = useState(true);
-
-  const [state, setState] = useState("01/10/2016");
-  const setValue = (ev: DateChangeEvent) => {
-    setState(ev.target.value.formattedValue);
-  };
-
-  return (
-    <Dialog open={open} title={"Dialog Overflow"}>
-      <Form
-        stickyFooter={true}
-        leftSideButtons={
-          <Button
-            name="edit-info-cancel-btn"
-            buttonType="tertiary"
-            onClick={() => {
-              setOpen(false);
-            }}
-          >
-            Cancel
-          </Button>
-        }
-        saveButton={
-          <Button
-            name="edit-info-save-btn"
-            buttonType="primary"
-            onClick={() => {
-              setOpen(false);
-            }}
-          >
-            Accept
-          </Button>
-        }
-      >
-        <DateInput label="Date" value={state} onChange={setValue} autoFocus />
-      </Form>
-    </Dialog>
-  );
-};
-
-export const DialogOverflow: Story = {
-  render: () => <DialogBasedDate />,
-
-  play: async () => {
-    if (!allowInteractions()) {
-      return;
-    }
-    const firstIcon = document.querySelector('[data-role="icon"]');
-    if (firstIcon) await userEvent.click(firstIcon);
-  },
-};
-DialogOverflow.storyName = "Dialog Overflow";
-DialogOverflow.parameters = {
-  themeProvider: { chromatic: { fourColumnLayout: true, theme: "sage" } },
-  chromatic: { disableSnapshot: false },
-};

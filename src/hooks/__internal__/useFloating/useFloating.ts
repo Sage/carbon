@@ -63,12 +63,6 @@ const useFloating = ({
             left: `${x}px`,
             top: `${y}px`,
             position: strategy,
-            /**
-             * The z-index of the popover needs to be adjusted to ensure that
-             * the floating element appears over the top of other elements on
-             * the same "layer" correctly (i.e. a date picker in a dialog)
-             * */
-            "z-index": 1001,
           });
 
           floatingElement.setAttribute(
