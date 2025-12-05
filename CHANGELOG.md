@@ -1,3 +1,9 @@
+## [158.14.1](https://github.com/Sage/carbon/compare/v158.14.0...v158.14.1) (2025-12-05)
+
+### Bug Fixes
+
+* **submenu:** ensure correct focus styling is applied to menu-item ([21b1519](https://github.com/Sage/carbon/commit/21b1519594f8320f80d3c9ee22cc131f0a103390))
+
 ## [158.14.0](https://github.com/Sage/carbon/compare/v158.13.2...v158.14.0) (2025-12-04)
 
 ### Features
