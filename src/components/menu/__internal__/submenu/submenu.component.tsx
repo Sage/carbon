@@ -180,40 +180,63 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
 
     useEffect(() => {
       const handleBorderRadiusStyling = () => {
+        /* istanbul ignore next */
+        if (!submenuRef) return;
+
+        const allMenuItems = Array.from(
+          submenuRef.querySelectorAll("[data-component='menu-item']") ||
+            /* istanbul ignore next */ [],
+        );
+
+        const lastMenuItem =
+          allMenuItems.length > 0
+            ? allMenuItems[allMenuItems.length - 1]
+            : null;
+
+        lastMenuItemElement.current = lastMenuItem ?? undefined;
+
+        // Clear any previous markers in this submenu in case menu items have changed since last opening
+        submenuRef
+          .querySelectorAll("[data-last-visible-menu-item]")
+          .forEach((el) => el.removeAttribute("data-last-visible-menu-item"));
+
+        // Mark the actual last menu item
+        if (lastMenuItem) {
+          lastMenuItem.setAttribute("data-last-visible-menu-item", "true");
+        }
+
         // Finds all ul elements that are not submenus
         const ulElements = Array.from(
-          submenuRef?.querySelectorAll("ul:not([data-component='submenu'])") ||
+          submenuRef.querySelectorAll("ul:not([data-component='submenu'])") ||
             /* istanbul ignore next */ [],
         );
 
-        // Terminate early if there are no ul elements as we have nothing we need to apply styles to.
-        if (ulElements.length === 0) return;
-
-        // Get the last menu item in the submenu
-        const lastMenuItem = Array.from(
-          submenuRef?.querySelectorAll("[data-component='menu-item']") ||
-            /* istanbul ignore next */ [],
-        ).pop();
-
-        lastMenuItemElement.current = lastMenuItem;
+        // If there are no segment blocks we can bail early after marking the last item.
+        if (ulElements.length === 0) {
+          setApplyFocusRadius(false);
+          setApplyFocusRadiusToLastItem(false);
+          return;
+        }
 
         // Get the last segment block
-        const lastSegmentBlock = ulElements.pop();
+        const lastSegmentBlock = ulElements[ulElements.length - 1];
 
         // Check if the last segment block is a scrollable block
-        const isLastSegmentBlockScrollableBlock = Boolean(
+        const isLastSegmentBlockScrollableBlock =
           lastSegmentBlock?.parentElement?.dataset.component ===
-            SCROLLABLE_BLOCK,
-        );
+          SCROLLABLE_BLOCK;
 
         // Get all the menu items from the last segment block
         const segmentBlockMenuItems = Array.from(
-          lastSegmentBlock?.querySelectorAll("[data-component='menu-item']") ||
+          lastSegmentBlock.querySelectorAll("[data-component='menu-item']") ||
             /* istanbul ignore next */ [],
         );
 
         // Get the last menu item in the last segment block
-        const lastMenuItemInSegmentBlock = segmentBlockMenuItems.pop();
+        const lastMenuItemInSegmentBlock =
+          segmentBlockMenuItems.length > 0
+            ? segmentBlockMenuItems[segmentBlockMenuItems.length - 1]
+            : null;
 
         // Check to see if the last menu item in the last segment block is visible
         let isLastMenuItemInSegmentBlockVisible = false;
@@ -226,6 +249,7 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
         // Check if the last item in the segment block is the same as the last MenuItem in the submenu
         const menuItemsMatch =
           !!lastMenuItemInSegmentBlock &&
+          !!lastMenuItem &&
           lastMenuItemInSegmentBlock === lastMenuItem;
 
         // Applies the focus radius to the StyledBox of the StyledScrollableBlock
