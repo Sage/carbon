@@ -38,6 +38,10 @@ export interface AdaptiveSidebarProps
   open: boolean;
   /** Whether to render the sidebar as a modal component instead of as an inline sidebar */
   renderAsModal?: boolean;
+  /** Prop to specify the aria-label of the component, applied when the component is rendered as a modal */
+  "aria-label"?: string;
+  /** Prop to specify the aria-labelledby property of the component, applied when the component is rendered as a modal */
+  "aria-labelledby"?: string;
   /** The width of the sidebar */
   width?: string;
 }
@@ -53,6 +57,8 @@ export const AdaptiveSidebar = ({
   renderAsModal = false,
   width = "320px",
   restoreFocusOnClose = false,
+  "aria-label": ariaLabel,
+  "aria-labelledby": ariaLabelledBy,
   ...props
 }: AdaptiveSidebarProps) => {
   const largeScreen = useIsAboveBreakpoint(adaptiveBreakpoint);
@@ -116,6 +122,8 @@ export const AdaptiveSidebar = ({
         open={open}
         p={0}
         ref={adaptiveSidebarRef}
+        aria-label={ariaLabel}
+        aria-labelledby={ariaLabelledBy}
       >
         <Box
           data-role="adaptive-sidebar-content-wrapper"

@@ -94,7 +94,11 @@ export const Basic: Story = () => {
           eu elit eget lacus fermentum porta at ut dui.
         </Typography>
       </Box>
-      <AdaptiveSidebar open={adaptiveSidebarOpen} width="300px">
+      <AdaptiveSidebar
+        aria-label="adaptive-sidebar"
+        open={adaptiveSidebarOpen}
+        width="300px"
+      >
         <Box p={2} display="flex" flexDirection="column">
           <Button onClick={() => setAdaptiveSidebarOpen(false)} mb={2}>
             Close
@@ -129,7 +133,11 @@ export const Default: Story = () => {
           eu elit eget lacus fermentum porta at ut dui.
         </Typography>
       </Box>
-      <AdaptiveSidebar open={adaptiveSidebarOpen} width="300px">
+      <AdaptiveSidebar
+        aria-label="adaptive-sidebar"
+        open={adaptiveSidebarOpen}
+        width="300px"
+      >
         <Box
           display="flex"
           flexDirection="row"
@@ -182,7 +190,11 @@ export const Complex: Story = () => {
               dui.
             </Typography>
           </Box>
-          <AdaptiveSidebar open={adaptiveSidebarOpen} width="500px">
+          <AdaptiveSidebar
+            aria-label="adaptive-sidebar"
+            open={adaptiveSidebarOpen}
+            width="500px"
+          >
             <Box display="flex" flexDirection="column" pb={5}>
               <Button onClick={() => setAdaptiveSidebarOpen(false)} m={2}>
                 Close
@@ -247,7 +259,11 @@ export const WithCustomWidth: Story = () => {
     <Box display="flex" flexDirection="row">
       {CommonTemplate(adaptiveSidebarOpen, setAdaptiveSidebarOpen)}
 
-      <AdaptiveSidebar open={adaptiveSidebarOpen} width="70%">
+      <AdaptiveSidebar
+        aria-label="adaptive-sidebar"
+        open={adaptiveSidebarOpen}
+        width="70%"
+      >
         <Box display="flex" flexDirection="column">
           <Box
             display="flex"
@@ -284,7 +300,11 @@ export const WithCustomHeight: Story = () => {
     >
       {CommonTemplate(adaptiveSidebarOpen, setAdaptiveSidebarOpen)}
 
-      <AdaptiveSidebar open={adaptiveSidebarOpen} height="98vh">
+      <AdaptiveSidebar
+        aria-label="adaptive-sidebar"
+        open={adaptiveSidebarOpen}
+        height="98vh"
+      >
         <Box display="flex" flexDirection="column">
           <Box
             display="flex"
@@ -376,6 +396,7 @@ export const BackgroundVariants: Story = () => {
       </Box>
 
       <AdaptiveSidebar
+        aria-label="adaptive-sidebar"
         backgroundColor={colour as "white" | "black" | "app"}
         open={adaptiveSidebarOpen}
         width="300px"
@@ -419,6 +440,7 @@ export const WithAdaptiveBreakpoint: Story = () => {
       {CommonTemplate(adaptiveSidebarOpen, setAdaptiveSidebarOpen)}
 
       <AdaptiveSidebar
+        aria-label="adaptive-sidebar"
         adaptiveBreakpoint={650}
         open={adaptiveSidebarOpen}
         width="300px"
@@ -454,7 +476,12 @@ export const RenderAsModal: Story = () => {
     <Box display="flex" flexDirection="row">
       {CommonTemplate(adaptiveSidebarOpen, setAdaptiveSidebarOpen)}
 
-      <AdaptiveSidebar renderAsModal open={adaptiveSidebarOpen} width="300px">
+      <AdaptiveSidebar
+        aria-label="adaptive-sidebar"
+        renderAsModal
+        open={adaptiveSidebarOpen}
+        width="300px"
+      >
         <Box display="flex" flexDirection="column" m={2}>
           <Box
             display="flex"
@@ -508,6 +535,7 @@ export const WithCustomBorderColor: Story = () => {
         </Typography>
       </Box>
       <AdaptiveSidebar
+        aria-label="adaptive-sidebar"
         open={adaptiveSidebarOpen}
         width="300px"
         borderColor="--colorsActionMajor500"
@@ -590,6 +618,7 @@ export const Hidden: Story = () => {
         </Typography>
       </Box>
       <AdaptiveSidebar
+        aria-label="adaptive-sidebar"
         hidden={adaptiveSidebarHidden}
         open={adaptiveSidebarOpen}
         width="300px"
