@@ -7,6 +7,11 @@ import {
   GridProps,
 } from "styled-system";
 
+import {
+  FlexboxProps as StyledFlexboxProps,
+  LayoutProps as StyledLayoutProps,
+} from "../../components/dips-box/utils/spacing-types";
+
 import { space } from "../../style/themes/base/base-theme.config";
 import { mockMatchMedia } from "../mock-match-media";
 import Logger from "../../__internal__/utils/logger";
@@ -82,6 +87,20 @@ const layoutProps = [
   ["maxHeight", "max-height", "120px"],
   ["size", "width", "120px"],
   ["size", "height", "120px"],
+  ["display", "display", "inline-block"],
+  ["verticalAlign", "vertical-align", "baseline"],
+  ["overflow", "overflow", "hidden"],
+  ["overflowX", "overflow-x", "hidden"],
+  ["overflowY", "overflow-y", "hidden"],
+] as const;
+
+const testLayoutProps = [
+  widthProps,
+  heightProps,
+  ["minWidth", "min-width", "120px"],
+  ["maxWidth", "max-width", "120px"],
+  ["minHeight", "min-height", "120px"],
+  ["maxHeight", "max-height", "120px"],
   ["display", "display", "inline-block"],
   ["verticalAlign", "vertical-align", "baseline"],
   ["overflow", "overflow", "hidden"],
@@ -251,6 +270,44 @@ const testStyledSystemPadding = (
   );
 };
 
+// Our test for new padding props in place of styled-system.
+const testStyledPadding = (
+  component: (spacingProps?: PaddingProps) => JSX.Element,
+  elementQuery: () => HTMLElement,
+  assertOpts?: jest.Options,
+) => {
+  describe.each(paddingProps)(
+    'when a custom spacing is specified using the "%s" styled props',
+    (styledProp, propName) => {
+      it(`should set ${propName} styling correctly`, () => {
+        const props = { [styledProp]: 3 };
+        render(component({ ...props }));
+
+        assertStyleMatch({ [propName]: "24px" }, elementQuery(), assertOpts);
+      });
+    },
+  );
+};
+
+// Same as testStyledPadding but for margin props
+const testStyledMargin = (
+  component: (spacingProps?: MarginProps) => JSX.Element,
+  elementQuery: () => HTMLElement,
+  assertOpts?: jest.Options,
+) => {
+  describe.each(marginProps)(
+    'when a custom spacing is specified using the "%s" styled props',
+    (styledProp, propName) => {
+      it(`should set ${propName} styling correctly`, () => {
+        const props = { [styledProp]: 3 };
+        render(component({ ...props }));
+
+        assertStyleMatch({ [propName]: "24px" }, elementQuery(), assertOpts);
+      });
+    },
+  );
+};
+
 const testStyledSystemSpacing = (
   component: (spacingProps?: MarginProps | PaddingProps) => JSX.Element,
   elementQuery: () => HTMLElement,
@@ -328,6 +385,25 @@ const testStyledSystemLayout = (
   );
 };
 
+// Same as testStyledSystemLayout but uses StyledLayoutProps from dips-box
+const testStyledLayout = (
+  component: (layoutProperties?: StyledLayoutProps) => JSX.Element,
+  elementQuery: () => HTMLElement,
+) => {
+  describe.each(testLayoutProps)(
+    'when a prop is specified using the "%s" layout styled props',
+    (styledProp, propName, value) => {
+      it(`should set ${propName} styling correctly`, () => {
+        const props = { [styledProp]: value };
+        render(component({ ...props }));
+        const StyleElement = elementQuery();
+        // Some props need to have camelcase so used toHaveStyleRule rather than assertStyleMatch
+        expect(StyleElement).toHaveStyleRule(propName, value);
+      });
+    },
+  );
+};
+
 const testStyledSystemFlexBox = (
   component: (flexboxProperties?: FlexboxProps) => JSX.Element,
   elementQuery: () => HTMLElement,
@@ -337,6 +413,24 @@ const testStyledSystemFlexBox = (
     (styledSystemProp, propName, value) => {
       it(`should set ${propName} styling correctly`, () => {
         const props = { [styledSystemProp]: value };
+        render(component(props));
+
+        assertStyleMatch({ [propName]: value }, elementQuery());
+      });
+    },
+  );
+};
+
+// Same as testStyledSystemFlexBox but uses StyledFlexboxProps from dips-box
+const testStyledFlexBox = (
+  component: (flexboxProperties?: StyledFlexboxProps) => JSX.Element,
+  elementQuery: () => HTMLElement,
+) => {
+  describe.each(flexBoxProps)(
+    'when a prop is specified using the "%s" flexbox styled props',
+    (styledProp, propName, value) => {
+      it(`should set ${propName} styling correctly`, () => {
+        const props = { [styledProp]: value };
         render(component(props));
 
         assertStyleMatch({ [propName]: value }, elementQuery());
@@ -406,6 +500,10 @@ export {
   testStyledSystemBackground,
   testStyledSystemPosition,
   testStyledSystemSpacing,
+  testStyledPadding,
+  testStyledMargin,
+  testStyledLayout,
+  testStyledFlexBox,
   testStyledSystemMargin,
   testStyledSystemPadding,
   testStyledSystemWidth,
