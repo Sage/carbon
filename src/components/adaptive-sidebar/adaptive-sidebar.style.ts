@@ -33,6 +33,7 @@ const StyledAdaptiveSidebar = styled(Box)<StyledAdaptiveSidebarProps>`
     max-width: ${width};
     min-width: ${width};
     overflow-y: auto;
+    outline: none;
 
     ${margin}
     ${padding}
