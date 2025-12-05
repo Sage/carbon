@@ -417,6 +417,22 @@ test.describe("with uploadStatus prop", () => {
     await expect(link).toHaveAttribute("rel", "noreferrer");
   });
 
+  test("in the completed state, clicking a suitable file link downloads the file", async ({
+    mount,
+    page,
+  }) => {
+    const downloadStatusProps: FileUploadStatusProps = {
+      ...completedStatusProps,
+      href: "foo.pdf",
+    };
+    const downloadPromise = page.waitForEvent("download");
+    await mount(<FileInputComponent uploadStatus={downloadStatusProps} />);
+    const link = page.getByRole("link", { name: "foo.pdf" });
+    await link.click();
+    const download = await downloadPromise;
+    expect(download.suggestedFilename()).toBe("foo.pdf");
+  });
+
   test("in the completed state, it does not render a progress bar", async ({
     mount,
     page,

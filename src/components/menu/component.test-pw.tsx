@@ -940,3 +940,19 @@ export const FullscreenWithNonInteractiveItem = () => (
     </MenuFullscreen>
   </Menu>
 );
+
+export const MenuSegmentTitleWithNoMenuItemOutside = () => {
+  return (
+    <Menu>
+      <MenuItem submenu="Menu Item">
+        <MenuSegmentTitle text="segment title">
+          <MenuItem href="#">Item Submenu One</MenuItem>
+          <MenuItem href="#">Item Submenu Two</MenuItem>
+        </MenuSegmentTitle>
+        <MenuSegmentTitle variant="alternate" text="alternate title">
+          <MenuItem href="#">Item Submenu Three</MenuItem>
+        </MenuSegmentTitle>
+      </MenuItem>
+    </Menu>
+  );
+};
