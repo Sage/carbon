@@ -23,7 +23,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ">=22.14.0 22"
-      - run: npm ci --ignore-scripts
+      - run: npm ci
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v3.0.1
         with:
@@ -31,6 +31,8 @@ jobs:
           passphrase: ${{ secrets.GPG_PASSPHRASE }}
           git-user-signingkey: true
           git-commit-gpgsign: true
+      - name: Run build
+        run: npm run build
       - run: npx semantic-release
         env:
           # A personal access token is required to publish from protected branches
@@ -53,7 +55,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ">=22.14.0 22"
-      - run: npm ci --ignore-scripts
+      - run: npm ci
       - name: Generate metadata file
         run: npm run generate-metadata
       - run: npm run build-storybook:prod

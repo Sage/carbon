@@ -1,12 +1,13 @@
 {
   "name": "carbon-react",
-  "version": "158.14.1",
+  "version": "158.14.2",
   "description": "A library of reusable React components for easily building user interfaces.",
   "files": [
     "lib",
     "esm"
   ],
   "scripts": {
+    "setup": "npm ci && npm run prepare",
     "start": "npm run generate-tokens:dev && node ./scripts/check_node_version.mjs && dotenvx run -- storybook dev -p 9001 -c .storybook",
     "start:strict-mode": "npm run generate-tokens:dev && node ./scripts/check_node_version.mjs && dotenvx run --env ENABLE_REACT_STRICT_MODE=true -- storybook dev -p 9001 -c .storybook",
     "test": "npm run generate-tokens:dev && jest --config=./jest.config.ts",
@@ -14,8 +15,6 @@
     "test-storybook": "test-storybook --url http://127.0.0.1:9001",
     "format": "prettier --write './{src,playwright}/**/*.{js,jsx,ts,tsx}'",
     "lint": "npm run generate-tokens:dev && eslint ./src ./playwright --max-warnings=636 --report-unused-disable-directives",
-    "precompile": "npm run generate-tokens && npm run type-check && npm run build",
-    "prepublishOnly": "npm run precompile",
     "build-storybook": "npm run generate-tokens:dev && dotenvx run -- storybook build -c .storybook",
     "build-storybook:prod": "npm run generate-tokens && dotenvx run -f .env.production -- storybook build -c .storybook",
     "start:static": "npx http-server -p 9001 ./storybook-static",
@@ -33,7 +32,7 @@
     "clear-playwright-coverage-json": "rimraf ./playwright/coverage/*.json",
     "test:ct:coverage": "npm run generate-tokens:dev && npm run clear-playwright-cache && npm run clear-playwright-coverage-json && rimraf ./playwright/coverage && playwright test -c playwright-ct.config.ts",
     "pw:coverage:report": "nyc report --reporter=html --report-dir=./playwright/coverage --temp-dir=./playwright/coverage",
-    "build": "npm run clean-lib && rollup -c \"./rollup.config.mjs\" && npm run build:generate-package-json-files && npm run build:move-svg && npm run build:types",
+    "build": "npm run clean-lib && npm run generate-tokens && npm run type-check && rollup -c \"./rollup.config.mjs\" && npm run build:generate-package-json-files && npm run build:move-svg && npm run build:types",
     "build:generate-package-json-files": "node ./scripts/generate_package_json_files/index.js",
     "build:move-svg": "node ./scripts/copy_svg/index.js",
     "generate-tokens": "rimraf ./src/components/tokens-wrapper/static-tokens && node ./scripts/generate_tokens/generate_tokens.mjs",
@@ -128,7 +127,7 @@
     "babel-jest": "^29.7.0",
     "babel-plugin-dev-expression": "^0.2.3",
     "browserslist": "^4.26.3",
-    "chromatic": "^6.17.4",
+    "chromatic": "13.3.3",
     "conventional-changelog-conventionalcommits": "^8.0.0",
     "core-js": "^3.45.1",
     "css-loader": "^6.8.1",
