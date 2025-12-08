@@ -1,3 +1,9 @@
+## [158.14.2](https://github.com/Sage/carbon/compare/v158.14.1...v158.14.2) (2025-12-08)
+
+### Bug Fixes
+
+* **flat-table:** optimise component to reduce re-renders ([74e39d3](https://github.com/Sage/carbon/commit/74e39d3cc1892be5197d2d7d4348a6bf3f81e936)), closes [#7657](https://github.com/Sage/carbon/issues/7657)
+
 ## [158.14.1](https://github.com/Sage/carbon/compare/v158.14.0...v158.14.1) (2025-12-05)
 
 ### Bug Fixes
