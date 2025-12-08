@@ -5,6 +5,7 @@ import React, {
   useRef,
   useState,
   useLayoutEffect,
+  useCallback,
 } from "react";
 import invariant from "invariant";
 
@@ -181,38 +182,43 @@ export const FlatTableRow = React.forwardRef<
       useStrictFlatTableContext();
     const { isInSidebar } = useContext(DrawerSidebarContext);
     const { stickyOffsets } = useContext(FlatTableHeadContext);
-    const toggleExpanded = () => setIsExpanded(!isExpanded);
 
-    function onKeyDown(
-      ev: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>,
-    ) {
-      const isEnterOrSpaceKey =
-        Event.isEnterKey(ev as React.KeyboardEvent<HTMLElement>) ||
-        Event.isSpaceKey(ev as React.KeyboardEvent<HTMLElement>);
+    const onKeyDown = useCallback(
+      (
+        ev: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>,
+      ) => {
+        const isEnterOrSpaceKey =
+          Event.isEnterKey(ev as React.KeyboardEvent<HTMLElement>) ||
+          Event.isSpaceKey(ev as React.KeyboardEvent<HTMLElement>);
 
-      if (
-        expandable &&
-        !firstColumnExpandable &&
-        document.activeElement === rowRef.current &&
-        isEnterOrSpaceKey
-      ) {
-        ev.preventDefault();
-        toggleExpanded();
-      }
+        if (
+          expandable &&
+          !firstColumnExpandable &&
+          document.activeElement === rowRef.current &&
+          isEnterOrSpaceKey
+        ) {
+          ev.preventDefault();
+          setIsExpanded((prev) => !prev);
+        }
 
-      if (isEnterOrSpaceKey && onClick) {
-        onClick(ev as React.MouseEvent<HTMLElement>);
-      }
-    }
+        if (isEnterOrSpaceKey && onClick) {
+          onClick(ev as React.MouseEvent<HTMLElement>);
+        }
+      },
+      [expandable, firstColumnExpandable, onClick],
+    );
 
-    function handleClick(ev: React.MouseEvent<HTMLElement>) {
-      if (onClick) {
-        onClick(ev);
-      }
-      if (expandable && !firstColumnExpandable) {
-        toggleExpanded();
-      }
-    }
+    const handleClick = useCallback(
+      (ev: React.MouseEvent<HTMLElement>) => {
+        if (onClick) {
+          onClick(ev);
+        }
+        if (expandable && !firstColumnExpandable) {
+          setIsExpanded((prev) => !prev);
+        }
+      },
+      [onClick, expandable, firstColumnExpandable],
+    );
 
     if (onClick || expandable) {
       interactiveRowProps = {
@@ -224,15 +230,15 @@ export const FlatTableRow = React.forwardRef<
       };
     }
 
-    function handleCellKeyDown(ev: React.KeyboardEvent<HTMLElement>) {
+    const handleCellKeyDown = (ev: React.KeyboardEvent<HTMLElement>) => {
       const isEnterOrSpaceKey = Event.isEnterKey(ev) || Event.isSpaceKey(ev);
 
       /* istanbul ignore else */
       if (isEnterOrSpaceKey) {
         ev.preventDefault();
-        toggleExpanded();
+        setIsExpanded((prev) => !prev);
       }
-    }
+    };
 
     useEffect(() => {
       setIsExpanded(expanded);
@@ -256,11 +262,11 @@ export const FlatTableRow = React.forwardRef<
 
     const isFirstSubRow = firstRowId === internalId.current;
 
-    const getDataElement = () => {
+    const getDataElement = useCallback(() => {
       if (dataElement) return dataElement;
 
       return isSubRow ? "flat-table-sub-row" : "flat-table-row";
-    };
+    }, [dataElement, isSubRow]);
 
     const { isDragging } = useSortableRow({
       id: internalId.current,
@@ -319,7 +325,7 @@ export const FlatTableRow = React.forwardRef<
               rightPositions,
               firstColumnExpandable,
               onKeyDown: handleCellKeyDown,
-              onClick: () => toggleExpanded(),
+              onClick: () => setIsExpanded((prev) => !prev),
               highlighted,
               selected,
             }}
