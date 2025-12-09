@@ -1,3 +1,9 @@
+## [158.14.3](https://github.com/Sage/carbon/compare/v158.14.2...v158.14.3) (2025-12-09)
+
+### Bug Fixes
+
+* **adaptive-sidebar:** ensure rendered sidebar can have accessible name ([d9fb9c3](https://github.com/Sage/carbon/commit/d9fb9c3fdd1eb2d055f603580646ebe9f6672e65)), closes [#7632](https://github.com/Sage/carbon/issues/7632)
+
 ## [158.14.2](https://github.com/Sage/carbon/compare/v158.14.1...v158.14.2) (2025-12-08)
 
 ### Bug Fixes
