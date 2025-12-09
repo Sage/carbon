@@ -20,6 +20,9 @@ closed by the user, and can be used to display additional information or actions
 To use the adaptive sidebar, import `AdaptiveSidebar` into your project. All content within the `AdaptiveSidebar` component is determined by the user; by
 default, the component will be empty, allowing for complete control of layout, etc.
 
+As the `AdaptiveSidebar` can be rendered as a modal, it is **strongly** recommended that the component is given an accessible name.
+This can be generated via the `aria-label` or `aria-labelledby` attributes.
+
 ```javascript
 import AdaptiveSidebar from "carbon-react/lib/components/adaptive-sidebar";
 ```
