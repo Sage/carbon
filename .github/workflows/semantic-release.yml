@@ -31,6 +31,8 @@ jobs:
           passphrase: ${{ secrets.GPG_PASSPHRASE }}
           git-user-signingkey: true
           git-commit-gpgsign: true
+      - name: Run build
+        run: npm run build
       - run: npx semantic-release
         env:
           # A personal access token is required to publish from protected branches

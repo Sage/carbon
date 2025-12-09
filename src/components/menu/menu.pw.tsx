@@ -70,6 +70,7 @@ import {
   WithNonInteractiveItem,
   WithNonInteractiveSubmenuItem,
   FullscreenWithNonInteractiveItem,
+  MenuSegmentTitleWithNoMenuItemOutside,
 } from "./component.test-pw";
 
 const span = "span";
@@ -2244,6 +2245,20 @@ test.describe("Styling, Scrolling & Navigation Bar Tests for Menu Component", ()
     const scrollableItem = scrollBlock(page).locator("a").last();
 
     await expect(scrollableItem).toHaveCSS("border-radius", "0px 0px 0px 8px");
+  });
+
+  test(`renders last MenuItem in the first segment block with square corners, if there is another segment block after it and no MenuItem after the last segment block in the submenu`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MenuSegmentTitleWithNoMenuItemOutside />);
+
+    const subMenu = submenu(page).first();
+    await subMenu.hover();
+    const lastSegmentItem = submenu(page).locator("a").nth(1);
+    await lastSegmentItem.focus();
+
+    await expect(lastSegmentItem).toHaveCSS("border-radius", "0px");
   });
 
   test("should apply the expected styling to the scrollbar when menuType is white", async ({

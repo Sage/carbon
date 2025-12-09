@@ -2,51 +2,31 @@
 
 This guide will provide you with the information you need to be able to get started on your development journey.
 
-## Contents
+- [Getting Your Dev Environment Started](#getting-your-dev-environment-started)
+  - [Prerequisites](#prerequisites)
+    - [Node.js \& NPM](#nodejs--npm)
+    - [Git](#git)
+      - [New to Git?](#new-to-git)
+      - [Git Alias](#git-alias)
+    - [Signing commits](#signing-commits)
+  - [First time setup](#first-time-setup)
+  - [Optional supplementary tools](#optional-supplementary-tools)
 
-- [Text Editor](#text-editor)
-- [Useful VSCode Extensions to Install](#useful-vscode-extensions-to-install)
-- [Installing Node.js, NPM, and Git](#installing-nodejs-npm-and-git)
-
-## Text Editor
-
-[VSCode](https://code.visualstudio.com/) is our preferred text editor. We advise that you follow the installation instructions provided by Microsoft. Installation instructions can be found [here](https://code.visualstudio.com/docs/setup/mac) for Mac users and [here](https://code.visualstudio.com/docs/setup/windows) for Windows users.
-
-## Useful VSCode Extensions to Install
-
-You can browse and install extensions from within VS Code. Simply bring up the Extensions view by clicking on the [Extensions icon](https://code.visualstudio.com/assets/docs/editor/extension-gallery/extensions-view-icon.png) in the Activity Bar on the side of VS Code or the `View: Extensions command` (⇧+⌘+X) on Mac or (shift+alt+x) on Windows.
-
-Below are some useful extensions that we recommend using with Carbon:
-
-- [Auto Close Tag](https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-close-tag) - automatically adds the closing tags for HTML and XML.
-- [Auto Rename Tag](https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-rename-tag) - automatically renames HTML and XML tags.
-- [CodeSnap](https://marketplace.visualstudio.com/items?itemName=adpyke.codesnap) - lets you take screenshots of your code and save them to a clipboard.
-- [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker) - basic spelling checker that works well with many file types. There is an [additional extension for getting the British English dictionary](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker-british-english).
-- [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) - a code quality tool that checks your code for syntax errors and can automatically fix the syntax errors.
-- [GitLens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens) - provides a list of complementary features for use with git repositories, such as in-editor file annotations identifying who changed a line of code last.
-- [markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint) - linter and style checker for markdown files.
-- [MDX](https://marketplace.visualstudio.com/items?itemName=unifiedjs.vscode-mdx) - official extension for supporting MDX files.
-- [Package Json Upgrade](https://marketplace.visualstudio.com/items?itemName=codeandstuff.package-json-upgrade) - adds in-editor file annotations to `package.json` stating if an installed package has a newly available version.
-- [Playwright Test for VSCode](https://marketplace.visualstudio.com/items?itemName=ms-playwright.playwright) - for running Playwright tests directly within VSCode.
-- [Total TypeScript](https://marketplace.visualstudio.com/items?itemName=mattpocock.ts-error-translator) - provides human-readable hints for TypeScript errors that are difficult to decipher.
-- [vscode-styled-components](https://marketplace.visualstudio.com/items?itemName=styled-components.vscode-styled-components) - this extension helps with the readability of the code for styled-components. The tool highlights syntax and reports any syntax errors in the code.
-
-## Installing Node.js, NPM, and Git
+## Prerequisites
 
 ### Node.js & NPM
 
-**NOTE: Carbon requires all contributors be on Node version 20 ("iron").**
-
-The recommended way to install Node and npm is using [Node Version Manager (`nvm`)](https://github.com/nvm-sh/nvm).
-Once you have installed nvm, you should run:
+Carbon is developed against a specific version of Node.js specified in the `.nvmrc` file. We recommend using [nvm](https://github.com/nvm-sh/nvm) for installing the correct version of Node.js and npm, this will allow you to install the correct version by running the following command:
 
 ```sh
-nvm install lts/iron
+# Check node version you're currently using:
+node --version
+
+# Switch to version required for Carbon:
+nvm use
 ```
 
-which will install the correct version of Node and npm. You can verify the installed versions using `node --version` and `npm --v`.
-
-> If you are already a `nvm` user, you can also do `nvm use` which will automatically switch to the correct Node and npm versions.
+If you are a Windows user, you'll need to [enable the Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install) to allow you to execute our scripts.
 
 ### Git
 
@@ -73,11 +53,11 @@ You need to add the following to `~/.gitconfig`:
 
 This allows you to review PRs very easily. For example, if you are reviewing [https://github.com/Sage/carbon/pull/2408/](https://github.com/Sage/carbon/pull/2408/), you can use `git pr 2408` which will check out a new branch named pr/2408. This gives you the ability to review, change branches, merge and make experimental changes. The second command `git pr-clean` removes all branches that start with pr/. This is a useful for housekeeping of branches.
 
-#### GPG Verification
+### Signing commits
 
-We strongly encourage our contributors to verify their commits with a GPG key. To set this up, please follow these instructions from GitHub [to enable GPG commit signing](https://docs.github.com/en/authentication/managing-commit-signature-verification).
+Carbon requires all git commits to be signed with a GPG key for verification. To set this up, please follow these instructions [to create a GPG key](https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification#gpg-commit-signature-verification) and associate it with Git and your GitHub account.
 
-Then add this to your profile (i.e`~/.zshrc` or `~/.bashrc`) so `gpg-agent` can prompt for your passphrase:
+Then add this to your shell profile (i.e`~/.zshrc` or `~/.bashrc`), so `gpg-agent` can prompt for your passphrase:
 
 `export GPG_TTY=$(tty)`
 
@@ -88,3 +68,30 @@ Then execute this command to sign all of your commits by default:
 Restart of gpg-agent may be required. Use the command below to kill it (it will start next time its needed):
 
 `$ gpgconf --kill gpg-agent`
+
+## First time setup
+
+Run the following command once to set-up your local environment:
+
+```sh
+npm run setup
+```
+
+Now you're ready to contribute!
+
+## Optional supplementary tools
+
+If you use VSCode, we suggest using the following extensions as useful aids:
+
+- [Auto Close Tag](https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-close-tag) - automatically adds the closing tags for HTML and XML.
+- [Auto Rename Tag](https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-rename-tag) - automatically renames HTML and XML tags.
+- [CodeSnap](https://marketplace.visualstudio.com/items?itemName=adpyke.codesnap) - lets you take screenshots of your code and save them to a clipboard.
+- [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker) - basic spelling checker that works well with many file types. There is an [additional extension for getting the British English dictionary](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker-british-english).
+- [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) - a code quality tool that checks your code for syntax errors and can automatically fix the syntax errors.
+- [GitLens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens) - provides a list of complementary features for use with git repositories, such as in-editor file annotations identifying who changed a line of code last.
+- [markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint) - linter and style checker for markdown files.
+- [MDX](https://marketplace.visualstudio.com/items?itemName=unifiedjs.vscode-mdx) - official extension for supporting MDX files.
+- [Package Json Upgrade](https://marketplace.visualstudio.com/items?itemName=codeandstuff.package-json-upgrade) - adds in-editor file annotations to `package.json` stating if an installed package has a newly available version.
+- [Playwright Test for VSCode](https://marketplace.visualstudio.com/items?itemName=ms-playwright.playwright) - for running Playwright tests directly within VSCode.
+- [Total TypeScript](https://marketplace.visualstudio.com/items?itemName=mattpocock.ts-error-translator) - provides human-readable hints for TypeScript errors that are difficult to decipher.
+- [vscode-styled-components](https://marketplace.visualstudio.com/items?itemName=styled-components.vscode-styled-components) - this extension helps with the readability of the code for styled-components. The tool highlights syntax and reports any syntax errors in the code.

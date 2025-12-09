@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { action } from "@storybook/addon-actions";
 import {
   FlatTable,
@@ -8,6 +8,7 @@ import {
   FlatTableHeader,
   FlatTableRowHeader,
   FlatTableCell,
+  FlatTableCheckbox,
   FlatTableProps,
   FlatTableRowProps,
   FlatTableHeaderProps,
@@ -1364,6 +1365,99 @@ export const ExtendedColumnSorting = (args: FlatTableProps) => {
               <FlatTableCell key={name}>{row[name]}</FlatTableCell>
             ))}
           </FlatTableRow>
+        ))}
+      </FlatTableBody>
+    </FlatTable>
+  );
+};
+
+const data = Array.from({ length: 300 }, (_, index) => ({
+  id: index + 1,
+  name: `Item ${index + 1}`,
+  value: Math.floor(Math.random() * 1000),
+  status: index % 2 === 0 ? "Active" : "Inactive",
+}));
+
+const MemoizedRow = React.memo(
+  ({
+    rowId,
+    row,
+    isChecked,
+    onSelect,
+  }: {
+    rowId: string;
+    row: (typeof data)[number];
+    isChecked: boolean;
+    onSelect: (id: string) => void;
+  }) => {
+    return (
+      <FlatTableRow>
+        <FlatTableCheckbox
+          checked={isChecked}
+          onChange={() => onSelect(rowId)}
+          ariaLabelledBy={`row-${row.id}-id row-${row.id}-name row-${row.id}-value row-${row.id}-status`}
+        />
+        <FlatTableCell id={`row-${row.id}-id`}>{row.id}</FlatTableCell>
+        <FlatTableCell id={`row-${row.id}-name`}>{row.name}</FlatTableCell>
+        <FlatTableCell id={`row-${row.id}-value`}>{row.value}</FlatTableCell>
+        <FlatTableCell id={`row-${row.id}-status`}>{row.status}</FlatTableCell>
+      </FlatTableRow>
+    );
+  },
+);
+
+export const WithSelectableRows = () => {
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+
+  const isChecked = (id: string) => selectedIds.has(id);
+
+  const handleSelectAll = useCallback(() => {
+    setSelectedIds((prev) => {
+      if (prev.size === data.length) {
+        return new Set();
+      } else {
+        return new Set(data.map((row) => row.id.toString()));
+      }
+    });
+  }, []);
+
+  const handleRowSelect = useCallback((id: string) => {
+    setSelectedIds((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(id)) {
+        newSet.delete(id);
+      } else {
+        newSet.add(id);
+      }
+      return newSet;
+    });
+  }, []);
+
+  return (
+    <FlatTable colorTheme="light" width="100%">
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableCheckbox
+            as="th"
+            checked={selectedIds.size === data.length}
+            onChange={handleSelectAll}
+            ariaLabelledBy="header-id header-name header-value header-status"
+          />
+          <FlatTableHeader id="header-id">ID</FlatTableHeader>
+          <FlatTableHeader id="header-name">Name</FlatTableHeader>
+          <FlatTableHeader id="header-value">Value</FlatTableHeader>
+          <FlatTableHeader id="header-status">Status</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        {data.map((row) => (
+          <MemoizedRow
+            key={row.id}
+            rowId={row.id.toString()}
+            row={row}
+            onSelect={handleRowSelect}
+            isChecked={isChecked(row.id.toString())}
+          />
         ))}
       </FlatTableBody>
     </FlatTable>

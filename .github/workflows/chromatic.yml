@@ -49,4 +49,4 @@ jobs:
         run: npm ci
 
       - name: Run chromatic on branch
-        run: npx chromatic@latest --project-token ${{ secrets.CHROMATIC_PROJECT_TOKEN }} --exit-once-uploaded --branch-name="${{ needs.check.outputs.branch_name }}" --only-changed true
+        run: npx chromatic --project-token ${{ secrets.CHROMATIC_PROJECT_TOKEN }} --exit-once-uploaded --branch-name="${{ needs.check.outputs.branch_name }}" --only-changed true
