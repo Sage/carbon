@@ -36,7 +36,7 @@ export const DefaultAdaptiveSidebar = ({ ...props }) => {
           >
             Close
           </Button>
-          Adaptive sidebar content
+          <span id="accessible-name">Adaptive sidebar content</span>
         </AdaptiveSidebar>
       </Box>
     </>
