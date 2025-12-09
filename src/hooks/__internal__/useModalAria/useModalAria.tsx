@@ -3,6 +3,7 @@ import TopModalContext from "../../../components/carbon-provider/__internal__/to
 
 export default function useModalAria(
   containerRef: React.RefObject<HTMLDivElement>,
+  hidden?: boolean,
 ) {
   const { topModal } = useContext(TopModalContext);
   const isTopModal = topModal?.contains(containerRef.current);
@@ -55,7 +56,7 @@ export default function useModalAria(
       }
     };
 
-    if (isTopModal) {
+    if (isTopModal && !hidden) {
       hideNonTopModalElements(document.body);
     }
 
@@ -75,7 +76,10 @@ export default function useModalAria(
           element.removeAttribute("data-modal-hidden");
         },
       );
-  }, [topModal, isTopModal]);
+    /* hidden is included as a dependency so that when it becomes true, cleanup runs
+      and restores the original aria-hidden and inert attributes, treating it the same
+      as a modal close. */
+  }, [topModal, isTopModal, hidden]);
 
   return isTopModal;
 }
