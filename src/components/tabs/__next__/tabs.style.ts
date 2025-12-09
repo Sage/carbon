@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { TabListProps, TabProps } from "./tabs.types";
+import { TabProps } from "./tabs.types";
 import addFocusStyling from "../../../style/utils/add-focus-styling";
 
 type Dimension = {
@@ -32,7 +32,7 @@ const sizes: Record<string, Dimension> = {
   },
 };
 
-interface StyledTabListProps extends TabListProps {
+interface StyledTabListProps {
   orientation: "horizontal" | "vertical";
   size: "medium" | "large";
 }
