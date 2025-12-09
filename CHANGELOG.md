@@ -1,3 +1,9 @@
+## [158.14.4](https://github.com/Sage/carbon/compare/v158.14.3...v158.14.4) (2025-12-09)
+
+### Bug Fixes
+
+* **adaptive-sidebar:** ensure sidebar has no focus outline ([fdd3717](https://github.com/Sage/carbon/commit/fdd37171686745d76cc7f5a9059a6144abb734f9))
+
 ## [158.14.3](https://github.com/Sage/carbon/compare/v158.14.2...v158.14.3) (2025-12-09)
 
 ### Bug Fixes
