@@ -123,6 +123,22 @@ test("when component receives a `href` prop it should render an `<a>` element wi
   expect(linkElement).toHaveAttribute("href", href);
 });
 
+test("when component receives the `download` prop, and the component renders as a `<a>` it should render with the download attribute", () => {
+  render(<Link href="#test" download />);
+
+  const linkElement = screen.getByRole("link");
+
+  expect(linkElement).toHaveAttribute("download", "");
+});
+
+test("when component receives the `download` prop, and the component renders as a `<button>` it should not render with the download attribute", () => {
+  render(<Link onClick={() => {}} download />);
+
+  const buttonElement = screen.getByRole("button");
+
+  expect(buttonElement).not.toHaveAttribute("download", "");
+});
+
 test("should render an `Icon` correctly with the `basket` value", () => {
   render(
     <Link href="#test" icon="basket">

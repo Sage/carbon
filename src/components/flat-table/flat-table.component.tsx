@@ -1,4 +1,11 @@
-import React, { useLayoutEffect, useRef, useState, useContext } from "react";
+import React, {
+  useLayoutEffect,
+  useRef,
+  useState,
+  useContext,
+  useCallback,
+  useMemo,
+} from "react";
 import { MarginProps } from "styled-system";
 import * as DesignTokens from "@sage/design-tokens/js/base/common";
 
@@ -136,7 +143,7 @@ export const FlatTable = ({
         );
       }
     }
-  }, [footer, children, height, minHeight]);
+  }, [footer, height, minHeight]);
 
   const findParentIndexOfFocusedChild = (array: Element[]) =>
     array.findIndex((el) => {
@@ -160,68 +167,75 @@ export const FlatTable = ({
       return false;
     });
 
-  const handleKeyDown = (ev: React.KeyboardEvent<HTMLDivElement>) => {
-    const focusableElements = tableRef.current?.querySelectorAll(
-      FOCUSABLE_ROW_AND_CELL_QUERY,
-    );
+  const handleKeyDown = useCallback(
+    (ev: React.KeyboardEvent<HTMLDivElement>) => {
+      const focusableElements = tableRef.current?.querySelectorAll(
+        FOCUSABLE_ROW_AND_CELL_QUERY,
+      );
 
-    const focusableElementsArray = Array.from(
-      focusableElements || /* istanbul ignore next */ [],
-    );
+      const focusableElementsArray = Array.from(
+        focusableElements || /* istanbul ignore next */ [],
+      );
 
-    /* istanbul ignore if */
-    if (!focusableElementsArray.length) {
-      return;
-    }
+      /* istanbul ignore if */
+      if (!focusableElementsArray.length) {
+        return;
+      }
 
-    const currentFocusIndex = focusableElementsArray.findIndex(
-      (el) => el === document.activeElement,
-    );
+      const currentFocusIndex = focusableElementsArray.findIndex(
+        (el) => el === document.activeElement,
+      );
 
-    if (hasOpenDatePicker && (hasStickyHead || hasStickyFooter)) {
-      if (
-        Events.isPageUpKey(ev) ||
-        Events.isPageDownKey(ev) ||
-        Events.isHomeKey(ev) ||
-        Events.isEndKey(ev)
-      ) {
+      if (hasOpenDatePicker && (hasStickyHead || hasStickyFooter)) {
+        if (
+          Events.isPageUpKey(ev) ||
+          Events.isPageDownKey(ev) ||
+          Events.isHomeKey(ev) ||
+          Events.isEndKey(ev)
+        ) {
+          ev.preventDefault();
+        }
+        return;
+      }
+
+      if (Events.isDownKey(ev)) {
         ev.preventDefault();
-      }
-      return;
-    }
+        if (
+          currentFocusIndex !== -1 &&
+          currentFocusIndex < focusableElementsArray.length
+        ) {
+          (
+            focusableElementsArray[currentFocusIndex + 1] as HTMLElement
+          )?.focus();
+        } else {
+          // it may be that an element within the row currently has focus
+          const index = findParentIndexOfFocusedChild(focusableElementsArray);
 
-    if (Events.isDownKey(ev)) {
-      ev.preventDefault();
-      if (
-        currentFocusIndex !== -1 &&
-        currentFocusIndex < focusableElementsArray.length
-      ) {
-        (focusableElementsArray[currentFocusIndex + 1] as HTMLElement)?.focus();
-      } else {
-        // it may be that an element within the row currently has focus
-        const index = findParentIndexOfFocusedChild(focusableElementsArray);
+          /* istanbul ignore else */
+          if (index !== -1 && index < focusableElementsArray.length) {
+            (focusableElementsArray[index + 1] as HTMLElement)?.focus();
+          }
+        }
+      } else if (Events.isUpKey(ev)) {
+        ev.preventDefault();
+        if (currentFocusIndex > 0) {
+          (
+            focusableElementsArray[currentFocusIndex - 1] as HTMLElement
+          )?.focus();
+        } else {
+          // it may be that an element within the row currently has focus
+          const index = findParentIndexOfFocusedChild(focusableElementsArray);
 
-        /* istanbul ignore else */
-        if (index !== -1 && index < focusableElementsArray.length) {
-          (focusableElementsArray[index + 1] as HTMLElement)?.focus();
+          if (index > 0) {
+            (focusableElementsArray[index - 1] as HTMLElement)?.focus();
+          }
         }
       }
-    } else if (Events.isUpKey(ev)) {
-      ev.preventDefault();
-      if (currentFocusIndex > 0) {
-        (focusableElementsArray[currentFocusIndex - 1] as HTMLElement)?.focus();
-      } else {
-        // it may be that an element within the row currently has focus
-        const index = findParentIndexOfFocusedChild(focusableElementsArray);
+    },
+    [hasOpenDatePicker, hasStickyFooter, hasStickyHead],
+  );
 
-        if (index > 0) {
-          (focusableElementsArray[index - 1] as HTMLElement)?.focus();
-        }
-      }
-    }
-  };
-
-  const getTabStopElementId = () => {
+  const getTabStopElementId = useCallback(() => {
     const focusableElements = Array.from(
       tableRef.current?.querySelectorAll(FOCUSABLE_ROW_AND_CELL_QUERY) ||
         /* istanbul ignore next */ [],
@@ -237,7 +251,24 @@ export const FlatTable = ({
     const currentlySelectedId = focusableElement?.getAttribute("id") || "";
 
     return currentlySelectedId;
-  };
+  }, []);
+
+  const strictFlatTableValue = useMemo(
+    () => ({
+      colorTheme,
+      size,
+      getTabStopElementId,
+    }),
+    [colorTheme, size, getTabStopElementId],
+  );
+
+  const flatTableValue = useMemo(
+    () => ({
+      isInFlatTable: true,
+      setHasOpenDatePicker,
+    }),
+    [setHasOpenDatePicker],
+  );
 
   return (
     <StyledFlatTableWrapper
@@ -282,19 +313,8 @@ export const FlatTable = ({
           {...tableStylingProps}
         >
           {caption ? <caption>{caption}</caption> : null}
-          <StrictFlatTableProvider
-            value={{
-              colorTheme,
-              size,
-              getTabStopElementId,
-            }}
-          >
-            <FlatTableContext.Provider
-              value={{
-                isInFlatTable: true,
-                setHasOpenDatePicker,
-              }}
-            >
+          <StrictFlatTableProvider value={strictFlatTableValue}>
+            <FlatTableContext.Provider value={flatTableValue}>
               {children}
             </FlatTableContext.Provider>
           </StrictFlatTableProvider>

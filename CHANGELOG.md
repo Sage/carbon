@@ -1,3 +1,37 @@
+## [158.14.4](https://github.com/Sage/carbon/compare/v158.14.3...v158.14.4) (2025-12-09)
+
+### Bug Fixes
+
+* **adaptive-sidebar:** ensure sidebar has no focus outline ([fdd3717](https://github.com/Sage/carbon/commit/fdd37171686745d76cc7f5a9059a6144abb734f9))
+
+## [158.14.3](https://github.com/Sage/carbon/compare/v158.14.2...v158.14.3) (2025-12-09)
+
+### Bug Fixes
+
+* **adaptive-sidebar:** ensure rendered sidebar can have accessible name ([d9fb9c3](https://github.com/Sage/carbon/commit/d9fb9c3fdd1eb2d055f603580646ebe9f6672e65)), closes [#7632](https://github.com/Sage/carbon/issues/7632)
+
+## [158.14.2](https://github.com/Sage/carbon/compare/v158.14.1...v158.14.2) (2025-12-08)
+
+### Bug Fixes
+
+* **flat-table:** optimise component to reduce re-renders ([74e39d3](https://github.com/Sage/carbon/commit/74e39d3cc1892be5197d2d7d4348a6bf3f81e936)), closes [#7657](https://github.com/Sage/carbon/issues/7657)
+
+## [158.14.1](https://github.com/Sage/carbon/compare/v158.14.0...v158.14.1) (2025-12-05)
+
+### Bug Fixes
+
+* **submenu:** ensure correct focus styling is applied to menu-item ([21b1519](https://github.com/Sage/carbon/commit/21b1519594f8320f80d3c9ee22cc131f0a103390))
+
+## [158.14.0](https://github.com/Sage/carbon/compare/v158.13.2...v158.14.0) (2025-12-04)
+
+### Features
+
+* **link:** add support for the download attribute ([789f94f](https://github.com/Sage/carbon/commit/789f94f7901f3848aa73f482ef86797525041ead))
+
+### Bug Fixes
+
+* **file-input:** add download attribute to completed state link ([6971449](https://github.com/Sage/carbon/commit/6971449b682830e9a02bcb04b89405965fb58c54)), closes [#7633](https://github.com/Sage/carbon/issues/7633)
+
 ## [158.13.2](https://github.com/Sage/carbon/compare/v158.13.1...v158.13.2) (2025-12-02)
 
 ### Bug Fixes

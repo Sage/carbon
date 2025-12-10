@@ -158,6 +158,20 @@ test("when `status` is completed, the component renders the file name as a link 
   expect(link).toHaveAttribute("rel", "noreferrer");
 });
 
+test("when `status` is completed, the component renders a link with the download attribute", () => {
+  render(
+    <FileUploadStatus
+      status="completed"
+      filename="foo.pdf"
+      href="http://carbon.sage.com"
+      onAction={() => {}}
+    />,
+  );
+
+  const link = screen.queryByRole("link", { name: "foo.pdf" });
+  expect(link).toHaveAttribute("download", "");
+});
+
 test("when `status` is completed, the component does not render a progress bar", () => {
   render(
     <FileUploadStatus
