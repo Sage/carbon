@@ -1,12 +1,6 @@
 import styled, { css } from "styled-components";
 import { padding as paddingFn, PaddingProps } from "styled-system";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
-import {
-  StyledHeaderContent,
-  StyledHeading,
-  StyledHeadingTitle,
-  StyledHeader,
-} from "../heading/heading.style";
 import StyledIconButton from "../icon-button/icon-button.style";
 import { ContentPaddingInterface, DialogProps } from "./dialog.component";
 import {
@@ -196,11 +190,11 @@ function computePagesStyling({
         padding: 32px 32px 0;
       }
 
-      ${StyledHeading} {
+      [data-element="dialog-title-container"] {
         width: auto;
         padding-top: 4px;
 
-        ${StyledHeader} {
+        [data-element="dialog-title"] {
           margin: 0 0 0 3px;
           box-sizing: content-box;
           width: 100%;
@@ -274,10 +268,6 @@ const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
           `}
         `}
 
-  ${StyledHeaderContent} {
-    align-items: baseline;
-  }
-
   > ${StyledIconButton} {
     margin: 0;
     position: absolute;
@@ -315,18 +305,17 @@ const StyledDialogTitle = styled.div<StyledDialogTitleProps>`
       border-top-left-radius: var(--borderRadius200);
       ${showCloseIcon && "padding-right: 85px"};
 
-      ${StyledHeaderContent} {
+      [data-element="dialog-title-help-wrapper"] {
+        display: inline-flex;
         align-items: baseline;
       }
 
-      ${StyledHeading} {
+      [data-element="dialog-title-container"] {
         margin-bottom: 20px;
 
-        ${StyledHeadingTitle} {
+        [data-element="dialog-title"] {
           color: var(--colorsUtilityYin090);
           display: block;
-          overflow: hidden;
-          text-overflow: ellipsis;
           padding: ${!hasSubtitle && "4px 0px"};
         }
       }
