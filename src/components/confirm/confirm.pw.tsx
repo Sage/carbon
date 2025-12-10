@@ -86,7 +86,7 @@ test.describe("should render Confirm component", () => {
 
       await expect(page.getByText(titleText)).toHaveAttribute(
         "data-element",
-        "title",
+        "dialog-title",
       );
     });
   });

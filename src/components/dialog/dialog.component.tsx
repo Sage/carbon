@@ -13,9 +13,10 @@ import {
   DialogPositioner,
 } from "./dialog.style";
 
-import Heading from "../heading";
+import { StyledHeaderHelp } from "../heading/heading.style";
 import Icon from "../icon";
 import IconButton from "../icon-button";
+import Typography from "../typography";
 import Modal, { ModalProps } from "../../__internal__/modal";
 
 import FocusTrap from "../../__internal__/focus-trap";
@@ -224,50 +225,70 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
     );
 
     const dialogTitle = () => {
-      if (fullscreen) {
-        return (
-          <FullScreenHeading
-            hasContent={!!title}
-            hasCloseButton={showCloseIcon}
-            ref={headingRef}
-          >
-            {typeof title === "string" ? (
-              <Heading
-                data-element="dialog-title"
-                title={title}
-                titleId={titleId}
-                subheader={subtitle}
-                subtitleId={subtitleId}
-                divider={false}
-                help={help}
-              />
-            ) : (
-              title
-            )}
-            {headerChildren}
-          </FullScreenHeading>
-        );
-      }
-
-      return (
+      const renderTitle = (
+        <div data-element="dialog-title-container">
+          {typeof title === "string" ? (
+            <>
+              {help ? (
+                <div data-element="dialog-title-help-wrapper">
+                  <Typography
+                    wordWrap="break-word"
+                    wordBreak="normal"
+                    variant="h1"
+                    marginRight="16px"
+                    data-element="dialog-title"
+                    id={titleId}
+                  >
+                    {title}
+                  </Typography>
+                  <StyledHeaderHelp data-element="help" tooltipPosition="right">
+                    {help}
+                  </StyledHeaderHelp>
+                </div>
+              ) : (
+                <Typography
+                  wordWrap="break-word"
+                  wordBreak="normal"
+                  variant="h1"
+                  data-element="dialog-title"
+                  id={titleId}
+                >
+                  {title}
+                </Typography>
+              )}
+            </>
+          ) : (
+            title
+          )}
+          {subtitle && (
+            <div
+              style={{ marginTop: "5px", width: "100%", flexBasis: "100%" }}
+              data-element="subtitle"
+              data-role="subtitle"
+              id={subtitleId}
+            >
+              {subtitle}
+            </div>
+          )}
+        </div>
+      );
+      return fullscreen ? (
+        <FullScreenHeading
+          hasContent={!!title}
+          hasCloseButton={showCloseIcon}
+          ref={headingRef}
+        >
+          {renderTitle}
+          {headerChildren}
+        </FullScreenHeading>
+      ) : (
         <StyledDialogTitle
           hasSubtitle={!!subtitle}
           ref={titleRef}
           showCloseIcon={showCloseIcon}
         >
-          {typeof title === "string" ? (
-            <Heading
-              data-element="dialog-title"
-              divider={false}
-              help={help}
-              subheader={subtitle}
-              subtitleId={subtitleId}
-              title={title}
-              titleId={titleId}
-            />
-          ) : (
-            title
-          )}
+          {renderTitle}
+          {headerChildren}
         </StyledDialogTitle>
       );
     };
