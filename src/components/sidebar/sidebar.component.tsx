@@ -96,7 +96,7 @@ export interface SidebarProps
    * @internal
    * Sets className for component. INTERNAL USE ONLY. */
   className?: string;
-  /** @private @ignore */
+  /** @private @ignore Whether the `Sidebar` is hidden from view when rendered in an `AdaptiveSidebar`. */
   hidden?: boolean;
 }
 

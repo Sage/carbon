@@ -312,7 +312,6 @@ it("overrides any pre-existing aria-hidden and inert properties when modal is op
     <>
       <div data-role="old-aria-hidden" aria-hidden="false" />
       <ModalComponent openButtonText="open" closeButtonText="close" />
-      {/* @ts-expect-error inert property not recognised by React. Support to be added in React 19 https://github.com/facebook/react/pull/24730 */}
       <div data-role="old-inert" inert="foo" />
     </>,
     { wrapper: CarbonProvider },
@@ -337,7 +336,6 @@ it("restores any previously-overridden aria-hidden and inert properties when mod
     <>
       <div data-role="old-aria-hidden" aria-hidden="false" />
       <ModalComponent openButtonText="open" closeButtonText="close" />
-      {/* @ts-expect-error inert property not recognised by React. Support to be added in React 19 https://github.com/facebook/react/pull/24730 */}
       <div data-role="old-inert" inert="foo" />
     </>,
     { wrapper: CarbonProvider },
@@ -363,7 +361,6 @@ it("restores any previously-overridden aria-hidden and inert properties when mod
     <>
       <div data-role="old-aria-hidden" aria-hidden="false" />
       <HiddenModal />
-      {/* @ts-expect-error inert property not recognised by React. Support to be added in React 19 https://github.com/facebook/react/pull/24730 */}
       <div data-role="old-inert" inert="foo" />
     </>,
     { wrapper: CarbonProvider },

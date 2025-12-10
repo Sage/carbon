@@ -15,7 +15,7 @@ export default function useModalAria(
       inert: string | null;
     }[] = [];
     const hideNonTopModalElements = (rootElement: HTMLElement) => {
-      if (rootElement.dataset.notInert === "true") {
+      if (hidden || rootElement.dataset.notInert === "true") {
         // stop recursing, and do nothing, if the container has the "data-not-inert" flag
         return;
       }
@@ -56,7 +56,7 @@ export default function useModalAria(
       }
     };
 
-    if (isTopModal && !hidden) {
+    if (isTopModal) {
       hideNonTopModalElements(document.body);
     }
 
@@ -76,9 +76,6 @@ export default function useModalAria(
           element.removeAttribute("data-modal-hidden");
         },
       );
-    /* hidden is included as a dependency so that when it becomes true, cleanup runs
-      and restores the original aria-hidden and inert attributes, treating it the same
-      as a modal close. */
   }, [topModal, isTopModal, hidden]);
 
   return isTopModal;
