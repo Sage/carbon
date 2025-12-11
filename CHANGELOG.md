@@ -1,3 +1,39 @@
+## [158.14.6](https://github.com/Sage/carbon/compare/v158.14.5...v158.14.6) (2025-12-11)
+
+### Bug Fixes
+
+* **verticalmenu:** correct scrollbar style and colors ([f13e810](https://github.com/Sage/carbon/commit/f13e810e840c18609791eb0628edd67e566d6cf3))
+
+## [158.14.5](https://github.com/Sage/carbon/compare/v158.14.4...v158.14.5) (2025-12-11)
+
+### Bug Fixes
+
+* **date, popover-container:** ensure popovers render with correct z-index ([10b60ce](https://github.com/Sage/carbon/commit/10b60ce3904ee872acd5faa33ba49220af6f8d0d)), closes [#7636](https://github.com/Sage/carbon/issues/7636)
+
+## [158.14.4](https://github.com/Sage/carbon/compare/v158.14.3...v158.14.4) (2025-12-09)
+
+### Bug Fixes
+
+* **adaptive-sidebar:** ensure sidebar has no focus outline ([fdd3717](https://github.com/Sage/carbon/commit/fdd37171686745d76cc7f5a9059a6144abb734f9))
+
+## [158.14.3](https://github.com/Sage/carbon/compare/v158.14.2...v158.14.3) (2025-12-09)
+
+### Bug Fixes
+
+* **adaptive-sidebar:** ensure rendered sidebar can have accessible name ([d9fb9c3](https://github.com/Sage/carbon/commit/d9fb9c3fdd1eb2d055f603580646ebe9f6672e65)), closes [#7632](https://github.com/Sage/carbon/issues/7632)
+
+## [158.14.2](https://github.com/Sage/carbon/compare/v158.14.1...v158.14.2) (2025-12-08)
+
+### Bug Fixes
+
+* **flat-table:** optimise component to reduce re-renders ([74e39d3](https://github.com/Sage/carbon/commit/74e39d3cc1892be5197d2d7d4348a6bf3f81e936)), closes [#7657](https://github.com/Sage/carbon/issues/7657)
+
+## [158.14.1](https://github.com/Sage/carbon/compare/v158.14.0...v158.14.1) (2025-12-05)
+
+### Bug Fixes
+
+* **submenu:** ensure correct focus styling is applied to menu-item ([21b1519](https://github.com/Sage/carbon/commit/21b1519594f8320f80d3c9ee22cc131f0a103390))
+
 ## [158.14.0](https://github.com/Sage/carbon/compare/v158.13.2...v158.14.0) (2025-12-04)
 
 ### Features

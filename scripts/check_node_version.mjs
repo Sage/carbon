@@ -1,7 +1,7 @@
 import semver from "semver";
 import chalk from "chalk";
 
-const versionRange = ">=20";
+const versionRange = ">=24";
 if (!semver.satisfies(process.version, versionRange)) {
   // eslint-disable-next-line no-console
   console.error(

@@ -99,42 +99,6 @@ export const HighlightedItem: Story = {
 };
 HighlightedItem.storyName = "Highlighted Item";
 
-export const KeyboardInteraction: Story = {
-  render: () => (
-    <Box height={250}>
-      <ControlledMultiSelect name="multi" id="multi" label="Color" />
-    </Box>
-  ),
-  play: async ({ canvasElement }) => {
-    if (!allowInteractions()) {
-      return;
-    }
-    const canvas = within(canvasElement);
-    const select = canvas.getByRole("combobox", { name: /Color/ });
-    await userEvent.click(select);
-
-    await userEvent.keyboard("{ArrowDown}");
-    await userEvent.keyboard("{ArrowDown}"); // highlight option 2
-    const blackOption = within(document.body).getByRole("option", {
-      name: "Black",
-    });
-    await expect(blackOption).toBeVisible();
-  },
-  decorators: [
-    (StoryToRender) => (
-      <DefaultDecorator>
-        <StoryToRender />
-      </DefaultDecorator>
-    ),
-  ],
-};
-KeyboardInteraction.storyName = "Keyboard Interaction";
-KeyboardInteraction.parameters = {
-  pseudo: {
-    hover: ["[data-index='1']", "[data-index='3']"],
-  },
-};
-
 export const MultiColumnList: Story = {
   render: () => (
     <Box height={250}>

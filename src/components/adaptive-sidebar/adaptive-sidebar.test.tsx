@@ -39,7 +39,7 @@ const MockApp = ({
           </Typography>
         </Box>
         <AdaptiveSidebar open={adaptiveSidebarOpen} {...props}>
-          My Content
+          <span id="accessible-name">My Content</span>
           <Button data-role="custom-close-button" onClick={() => {}}>
             Custom close
           </Button>
@@ -204,6 +204,32 @@ test("should render the AdaptiveSidebar component as a modal", async () => {
   expect(screen.getByText("My Content")).toBeInTheDocument();
 
   expect(screen.getByTestId("modal-background")).toBeInTheDocument();
+});
+
+test("when rendered as a modal, the accessible name of the modal is set via `aria-label`", async () => {
+  const user = userEvent.setup();
+
+  render(<MockApp renderAsModal aria-label="sidebar" />);
+
+  const openButton = screen.getByTestId("adaptive-sidebar-control-button");
+  await user.click(openButton);
+
+  const modal = screen.getByRole("dialog");
+
+  expect(modal).toHaveAccessibleName("sidebar");
+});
+
+test("when rendered as a modal, the accessible name of the modal is set via `aria-labelledby`", async () => {
+  const user = userEvent.setup();
+
+  render(<MockApp renderAsModal aria-labelledby="accessible-name" />);
+
+  const openButton = screen.getByTestId("adaptive-sidebar-control-button");
+  await user.click(openButton);
+
+  const modal = screen.getByRole("dialog");
+
+  expect(modal).toHaveAccessibleName("My Content");
 });
 
 test("should close the AdaptiveSidebar component when the control button is clicked", async () => {
