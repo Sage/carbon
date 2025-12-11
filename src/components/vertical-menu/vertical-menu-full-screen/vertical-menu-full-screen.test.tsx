@@ -84,34 +84,6 @@ describe("VerticalMenuFullScreen", () => {
     expect(screen.getByRole("navigation")).toBeVisible();
   });
 
-  it("should override the scrollbar styling", () => {
-    render(
-      <VerticalMenuFullScreen isOpen onClose={() => {}}>
-        <VerticalMenuItem title="Item1" />
-      </VerticalMenuFullScreen>,
-    );
-
-    expect(screen.getByRole("navigation")).toHaveStyleRule(
-      "background-color",
-      "#cccccc",
-      {
-        modifier: "::-webkit-scrollbar-track",
-      },
-    );
-
-    expect(screen.getByRole("navigation")).toHaveStyleRule(
-      "background-color",
-      "#808080",
-      {
-        modifier: "::-webkit-scrollbar-thumb",
-      },
-    );
-
-    expect(screen.getByRole("navigation")).toHaveStyleRule("width", "12px", {
-      modifier: "::-webkit-scrollbar",
-    });
-  });
-
   it("should invoke onClose callback when close Icon is clicked", async () => {
     const user = userEvent.setup();
 

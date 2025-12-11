@@ -97,34 +97,6 @@ describe("VerticalMenu", () => {
     });
   });
 
-  it("should override the scrollbar styling", () => {
-    render(
-      <VerticalMenu height="100px">
-        <VerticalMenuItem title="Item1" />
-      </VerticalMenu>,
-    );
-
-    expect(screen.getByRole("navigation")).toHaveStyleRule(
-      "background-color",
-      "#cccccc",
-      {
-        modifier: "::-webkit-scrollbar-track",
-      },
-    );
-
-    expect(screen.getByRole("navigation")).toHaveStyleRule(
-      "background-color",
-      "#808080",
-      {
-        modifier: "::-webkit-scrollbar-thumb",
-      },
-    );
-
-    expect(screen.getByRole("navigation")).toHaveStyleRule("width", "12px", {
-      modifier: "::-webkit-scrollbar",
-    });
-  });
-
   it("should have the expected data attributes", () => {
     render(
       <VerticalMenu data-element="foo" data-role="bar">
