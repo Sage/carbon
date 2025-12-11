@@ -2,9 +2,21 @@ import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
 
 import * as ButtonStories from "./button.stories";
 
+import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component";
+
 <Meta of={ButtonStories} />
 
 # Button
+
+<DeprecationWarning>
+  This version of the Button component is no longer supported and will be
+  removed in a future release. Please consider moving to the{" "}
+  <a style={{ color: "white" }} href="../?path=/docs/button--docs">
+    {" "}
+    newer implementation
+  </a>{" "}
+  as soon as possible.
+</DeprecationWarning>
 
 <a
   target="_blank"
