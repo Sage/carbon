@@ -18,3 +18,9 @@ declare global {
     };
   }
 }
+
+declare module "react" {
+  interface HTMLAttributes {
+    inert?: "" | "true" | string;
+  }
+}
