@@ -1,3 +1,9 @@
+## [158.14.5](https://github.com/Sage/carbon/compare/v158.14.4...v158.14.5) (2025-12-11)
+
+### Bug Fixes
+
+* **date, popover-container:** ensure popovers render with correct z-index ([10b60ce](https://github.com/Sage/carbon/commit/10b60ce3904ee872acd5faa33ba49220af6f8d0d)), closes [#7636](https://github.com/Sage/carbon/issues/7636)
+
 ## [158.14.4](https://github.com/Sage/carbon/compare/v158.14.3...v158.14.4) (2025-12-09)
 
 ### Bug Fixes
