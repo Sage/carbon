@@ -1,3 +1,9 @@
+## [158.14.6](https://github.com/Sage/carbon/compare/v158.14.5...v158.14.6) (2025-12-11)
+
+### Bug Fixes
+
+* **verticalmenu:** correct scrollbar style and colors ([f13e810](https://github.com/Sage/carbon/commit/f13e810e840c18609791eb0628edd67e566d6cf3))
+
 ## [158.14.5](https://github.com/Sage/carbon/compare/v158.14.4...v158.14.5) (2025-12-11)
 
 ### Bug Fixes
