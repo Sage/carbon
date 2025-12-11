@@ -18,8 +18,8 @@ import SubmenuContext from "../__internal__/submenu/submenu.context";
 import menuConfigVariants from "../menu.config";
 
 import {
-  testStyledSystemFlexBox,
-  testStyledSystemPadding,
+  testStyledFlexBox,
+  testStyledPadding,
 } from "../../../__spec_helper__/__internal__/test-utils";
 import Logger from "../../../__internal__/utils/logger";
 
@@ -44,7 +44,7 @@ test("logs error if not used within Menu", () => {
 });
 
 describe("When MenuItem has no submenu", () => {
-  testStyledSystemPadding(
+  testStyledPadding(
     (props) => (
       <Menu>
         <MenuItem href="#" {...props}>
@@ -56,7 +56,7 @@ describe("When MenuItem has no submenu", () => {
     { modifier: "&&& > a" },
   );
 
-  testStyledSystemFlexBox(
+  testStyledFlexBox(
     (props) => (
       <Menu>
         <MenuItem href="#" {...props}>
