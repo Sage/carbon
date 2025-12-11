@@ -44,8 +44,8 @@ export const ClickToOpenSubmenu: Story = {
         iconType="calendar"
         title="Item 4 - More text to wrap the whole title. More text to wrap the whole title. More text to wrap the whole title."
       >
-        <VerticalMenuItem title="ChildItem 1" href="/child-item-1" />
-        <VerticalMenuItem title="ChildItem 2" href="/child-item-2" />
+        <VerticalMenuItem title="ChildItem 1" href="#" />
+        <VerticalMenuItem title="ChildItem 2" href="#" />
       </VerticalMenuItem>
     </VerticalMenu>
   ),
@@ -93,8 +93,8 @@ export const NavigateToOpenSubmenu: Story = {
         iconType="calendar"
         title="Item 4 - More text to wrap the whole title. More text to wrap the whole title. More text to wrap the whole title."
       >
-        <VerticalMenuItem title="ChildItem 1" href="/child-item-1" />
-        <VerticalMenuItem title="ChildItem 2" href="/child-item-2" />
+        <VerticalMenuItem title="ChildItem 1" href="#" />
+        <VerticalMenuItem title="ChildItem 2" href="#" />
       </VerticalMenuItem>
     </VerticalMenu>
   ),
@@ -150,8 +150,8 @@ const FullScreenMenu = () => {
           iconType="calendar"
           title="Item 4 - More text to wrap the whole title. More text to wrap the whole title. More text to wrap the whole title."
         >
-          <VerticalMenuItem title="ChildItem 1" href="/child-item-1" />
-          <VerticalMenuItem title="ChildItem 2" href="/child-item-2" />
+          <VerticalMenuItem title="ChildItem 1" href="#" />
+          <VerticalMenuItem title="ChildItem 2" href="#" />
         </VerticalMenuItem>
       </VerticalMenuFullScreen>
     </>

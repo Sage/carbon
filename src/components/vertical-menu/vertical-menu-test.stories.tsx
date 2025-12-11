@@ -59,17 +59,17 @@ export const Default = (props: Partial<VerticalMenuProps>) => {
         >
           <VerticalMenuItem
             title="ChildItem 1"
-            href="/child-item-1"
+            href="#"
             adornment={
               <Pill borderColor="#fff" fill size="S">
                 10
               </Pill>
             }
           />
-          <VerticalMenuItem href="/child-item-2" title="ChildItem 2" />
+          <VerticalMenuItem href="#" title="ChildItem 2" />
         </VerticalMenuItem>
 
-        <VerticalMenuItem iconType="admin" href="/item1" title="Item 2" />
+        <VerticalMenuItem iconType="admin" href="#" title="Item 2" />
 
         <VerticalMenuItem
           iconType="home"
@@ -85,7 +85,7 @@ export const Default = (props: Partial<VerticalMenuProps>) => {
         >
           <VerticalMenuItem
             title="Very long text that will be wrapped"
-            href="/very-long-text-that-will-be-wrapped"
+            href="#"
             adornment={
               <Pill borderColor="#fff" fill size="S">
                 100
@@ -94,7 +94,7 @@ export const Default = (props: Partial<VerticalMenuProps>) => {
           />
           <VerticalMenuItem
             title="Active item"
-            href="/active-item"
+            href="#"
             active
             adornment={
               <Pill borderColor="#fff" fill size="S">
@@ -104,21 +104,21 @@ export const Default = (props: Partial<VerticalMenuProps>) => {
           />
         </VerticalMenuItem>
 
-        <VerticalMenuItem iconType="alert" title="Item 4" href="/item-4" />
+        <VerticalMenuItem iconType="alert" title="Item 4" href="#" />
 
         <VerticalMenuItem iconType="bank" title="Item 5">
-          <VerticalMenuItem title="ChildItem 1" href="/child-item-1" />
-          <VerticalMenuItem title="ChildItem 2" href="/child-item-2" />
+          <VerticalMenuItem title="ChildItem 1" href="#" />
+          <VerticalMenuItem title="ChildItem 2" href="#" />
         </VerticalMenuItem>
 
-        <VerticalMenuItem iconType="basket" title="Item 6" href="/item-6" />
+        <VerticalMenuItem iconType="basket" title="Item 6" href="#" />
 
         <VerticalMenuItem
           iconType="calendar"
           title="Item 7 - More text to wrap the whole title. More text to wrap the whole title. More text to wrap the whole title."
         >
-          <VerticalMenuItem title="ChildItem 1" href="/child-item-1" />
-          <VerticalMenuItem title="ChildItem 2" href="/child-item-2" />
+          <VerticalMenuItem title="ChildItem 1" href="#" />
+          <VerticalMenuItem title="ChildItem 2" href="#" />
         </VerticalMenuItem>
       </VerticalMenu>
     </Box>
@@ -137,22 +137,22 @@ export const FullScreenWithModal = () => {
       <VerticalMenuItem iconType="analysis" title="Item 1">
         <VerticalMenuItem
           title="ChildItem 1"
-          href="/child-item-1"
+          href="#"
           adornment={
             <Pill borderColor="#fff" fill size="S">
               10
             </Pill>
           }
         />
-        <VerticalMenuItem href="/child-item-2" title="ChildItem 2" />
+        <VerticalMenuItem href="#" title="ChildItem 2" />
       </VerticalMenuItem>
 
-      <VerticalMenuItem iconType="admin" href="/item1" title="Item 2" />
+      <VerticalMenuItem iconType="admin" href="#" title="Item 2" />
 
       <VerticalMenuItem iconType="home" title="Item 3">
         <VerticalMenuItem
           title="Very long text that will be wrapped"
-          href="/very-long-text-that-will-be-wrapped"
+          href="#"
           adornment={
             <Pill borderColor="#fff" fill size="S">
               100
@@ -161,7 +161,7 @@ export const FullScreenWithModal = () => {
         />
         <VerticalMenuItem
           title="Active item"
-          href="/active-item"
+          href="#"
           active
           adornment={
             <Pill borderColor="#fff" fill size="S">
@@ -171,21 +171,21 @@ export const FullScreenWithModal = () => {
         />
       </VerticalMenuItem>
 
-      <VerticalMenuItem iconType="alert" title="Item 4" href="/item-4" />
+      <VerticalMenuItem iconType="alert" title="Item 4" href="#" />
 
       <VerticalMenuItem iconType="bank" title="Item 5">
-        <VerticalMenuItem title="ChildItem 1" href="/child-item-1" />
-        <VerticalMenuItem title="ChildItem 2" href="/child-item-2" />
+        <VerticalMenuItem title="ChildItem 1" href="#" />
+        <VerticalMenuItem title="ChildItem 2" href="#" />
       </VerticalMenuItem>
 
-      <VerticalMenuItem iconType="basket" title="Item 6" href="/item-6" />
+      <VerticalMenuItem iconType="basket" title="Item 6" href="#" />
 
       <VerticalMenuItem
         iconType="calendar"
         title="Item 7 - More text to wrap the whole title. More text to wrap the whole title. More text to wrap the whole title. More text to wrap the whole title. "
       >
-        <VerticalMenuItem title="ChildItem 1" href="/child-item-1" />
-        <VerticalMenuItem title="ChildItem 2" href="/child-item-2" />
+        <VerticalMenuItem title="ChildItem 1" href="#" />
+        <VerticalMenuItem title="ChildItem 2" href="#" />
       </VerticalMenuItem>
     </>
   );
