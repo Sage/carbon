@@ -133,7 +133,7 @@ const DefaultResponsiveVerticalMenu = () => (
 const ResponsiveVerticalMenuWithMarginTopAuto = () => (
   <>
     <GlobalHeader>
-      <ResponsiveVerticalMenu height="500px">
+      <ResponsiveVerticalMenu>
         <ResponsiveVerticalMenuItem
           id="primary-menu-one"
           label="Primary Menu One"
@@ -208,4 +208,3 @@ export const MarginTopAuto: Story = {
 };
 
 MarginTopAuto.storyName = "With Margin Top Auto";
-MarginTopAuto.parameters = { chromatic: { viewports: [1200, 500] } };

@@ -76,6 +76,7 @@ const BaseMenu = forwardRef<
       containerRef,
       menuRef,
       responsiveMode,
+      top,
       setActive,
       setActiveMenuItem,
       setReducedMotion,
@@ -345,6 +346,9 @@ const BaseMenu = forwardRef<
               ref={menuRef}
               responsive={false}
               tabIndex={-1}
+              /* CRITICAL: `top` is passed below to ensure the `max-height` is calculated accordingly, fixing 
+              an issue where the last item in a list with overflow can become unreachable. Removing this will break the layout. */
+              top={top}
               width={width}
             >
               {children}
