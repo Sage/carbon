@@ -303,9 +303,9 @@ const officialReactDayPickerStyling = () => css`
 
 const StyledDayPicker = styled.div.attrs(applyBaseTheme)`
   ${officialReactDayPickerStyling}
+  z-index: 2000;
 
   .rdp-root {
-    z-index: 2000;
     top: calc(100% + 1px);
     left: 0;
     background-color: var(--colorsUtilityYang100);

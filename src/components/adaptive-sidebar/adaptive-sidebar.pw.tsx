@@ -132,5 +132,33 @@ test.describe("Component properties", () => {
         await checkAccessibility(page);
       });
     });
+
+    test("should pass accessibility tests for Adaptive Sidebar when `renderAsModal` is true and an accessible name is provided via `aria-label`", async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <DefaultAdaptiveSidebar renderAsModal aria-label="sidebar" open />,
+      );
+
+      // We're skipping colour contrast rules here as axe is incorrectly registering the disabled UI with black text as a violation
+      await checkAccessibility(page, undefined, "color-contrast");
+    });
+
+    test("should pass accessibility tests for Adaptive Sidebar when `renderAsModal` is true and an accessible name is provided via `aria-labelledby`", async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <DefaultAdaptiveSidebar
+          renderAsModal
+          aria-labelledby="accessible-name"
+          open
+        />,
+      );
+
+      // We're skipping colour contrast rules here as axe is incorrectly registering the disabled UI with black text as a violation
+      await checkAccessibility(page, undefined, "color-contrast");
+    });
   });
 });

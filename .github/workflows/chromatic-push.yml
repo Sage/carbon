@@ -19,8 +19,8 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
-          node-version: ">=22.14.0 22"
-      - run: npm ci --ignore-scripts
+          node-version: ">=24.11.0 24"
+      - run: npm ci
       - uses: chromaui/action@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}

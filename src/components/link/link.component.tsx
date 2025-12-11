@@ -20,6 +20,7 @@ import Logger from "../../__internal__/utils/logger";
 export interface LinkProps
   extends StyledLinkProps,
     React.AriaAttributes,
+    Pick<React.AnchorHTMLAttributes<HTMLAnchorElement>, "download">,
     TagProps {
   /** An href for an anchor tag. */
   href?: string;
@@ -111,6 +112,7 @@ export const Link = React.forwardRef<
       removeAriaLabelOnIcon,
       className,
       linkSize = "medium",
+      download,
       ...rest
     }: LinkProps,
     ref,
@@ -250,6 +252,7 @@ export const Link = React.forwardRef<
             }
           : {
               ...componentProps,
+              download,
               "data-role": "link-anchor",
             },
         <>

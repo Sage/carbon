@@ -134,28 +134,36 @@ const StyledSubmenu = styled.ul<StyledSubmenuProps>`
       overflow-y: auto;
       ${maxHeight && `max-height: ${maxHeight};`}
 
-      ${StyledMenuItem}:last-child a,
-      ${StyledMenuItem}:last-child button,
-      ${StyledMenuItem}:last-child > span,
-      ${StyledMenuItem}:last-child > div {
-        border-bottom-left-radius: var(--borderRadius100);
-        border-bottom-right-radius: var(--borderRadius100);
+      /* last item in each segment has square corners,
+        except when it is the last menu item in the whole submenu. */
+      & ${StyledSegmentChildren}
+      > ${StyledMenuItem}:last-of-type:not([data-last-visible-menu-item='true']) {
+        a,
+        button,
+        > span,
+        > div {
+          border-bottom-right-radius: var(--borderRadius000);
+          border-bottom-left-radius: var(--borderRadius000);
+
+          :focus {
+            border-bottom-right-radius: var(--borderRadius000);
+            border-bottom-left-radius: var(--borderRadius000);
+          }
+        }
       }
 
-      & ${StyledSegmentChildren} > ${StyledMenuItem}:last-of-type a,
-      ${StyledSegmentChildren} > ${StyledMenuItem}:last-of-type button,
-      ${StyledSegmentChildren} > ${StyledMenuItem}:last-of-type > span,
-      ${StyledSegmentChildren} > ${StyledMenuItem}:last-of-type > div {
-        border-bottom-right-radius: var(--borderRadius000);
-        border-bottom-left-radius: var(--borderRadius000);
+      [data-last-visible-menu-item="true"] {
+        a,
+        button,
+        > span,
+        > div {
+          border-bottom-left-radius: var(--borderRadius100);
+          border-bottom-right-radius: var(--borderRadius100);
 
-        :focus {
-          border-bottom-right-radius: ${applyFocusRadiusStylingToLastItem
-            ? "var(--borderRadius100)"
-            : "var(--borderRadius000)"};
-          border-bottom-left-radius: ${applyFocusRadiusStylingToLastItem
-            ? "var(--borderRadius100)"
-            : "var(--borderRadius000)"};
+          :focus {
+            border-bottom-right-radius: var(--borderRadius100);
+            border-bottom-left-radius: var(--borderRadius100);
+          }
         }
       }
 
@@ -166,7 +174,8 @@ const StyledSubmenu = styled.ul<StyledSubmenuProps>`
             ? "var(--borderRadius100)"
             : "var(--borderRadius000)"};
 
-          ${StyledMenuItem}:last-child ${StyledLink}, ${StyledMenuItem}:last-child a,
+          ${StyledMenuItem}:last-child ${StyledLink},
+          ${StyledMenuItem}:last-child a,
           ${StyledMenuItem}:last-child button {
             border-bottom-right-radius: var(--borderRadius000);
             border-bottom-left-radius: ${applyFocusRadiusStylingToLastItem
