@@ -1,3 +1,9 @@
+## [158.14.7](https://github.com/Sage/carbon/compare/v158.14.6...v158.14.7) (2025-12-11)
+
+### Bug Fixes
+
+* **tabs:** ensure ariaLabel is applied to tablist ([e98d745](https://github.com/Sage/carbon/commit/e98d7459d83080266d3f58eeedd0f484f4bc2b38)), closes [#7667](https://github.com/Sage/carbon/issues/7667)
+
 ## [158.14.6](https://github.com/Sage/carbon/compare/v158.14.5...v158.14.6) (2025-12-11)
 
 ### Bug Fixes
