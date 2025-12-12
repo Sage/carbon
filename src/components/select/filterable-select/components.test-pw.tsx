@@ -308,48 +308,6 @@ export const FilterableSelectNestedInDialog = ({
   );
 };
 
-export const SelectionConfirmed = () => {
-  const [value, setValue] = useState("");
-  const [confirmedSelection, setConfirmedSelection] = useState("");
-  const [selectionConfirmed, setSelectionConfirmed] = useState(false);
-
-  const handleChange = (event: CustomSelectChangeEvent) => {
-    setValue(event.target.value);
-    setSelectionConfirmed(!!event.selectionConfirmed);
-    if (event.selectionConfirmed) {
-      setConfirmedSelection(event.target.value);
-    }
-  };
-  return (
-    <>
-      <FilterableSelect
-        name="testing"
-        value={value}
-        onChange={handleChange}
-        openOnFocus
-        label="Test"
-        placeholder=" "
-      >
-        <Option value="1" text="One" />
-        <Option value="2" text="Two" />
-        <Option value="3" text="Three" />
-        <Option value="4" text="Four" />
-        <Option value="5" text="Five" />
-        <Option value="6" text="Six" />
-        <Option value="7" text="Seven" />
-        <Option value="8" text="Eight" />
-        <Option value="9" text="Nine" />
-      </FilterableSelect>
-
-      {selectionConfirmed ? (
-        <span data-element={`confirmed-selection-${confirmedSelection}`}>
-          {confirmedSelection}
-        </span>
-      ) : null}
-    </>
-  );
-};
-
 export const FilterableSelectWithDisabledOption = () => {
   const [value, setValue] = useState("");
   const [confirmedSelection, setConfirmedSelection] = useState("");
