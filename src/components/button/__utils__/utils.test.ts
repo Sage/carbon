@@ -42,7 +42,7 @@ describe("getIconColor", () => {
         expect(
           getIconColor({
             inverse: false,
-            variant: "ai",
+            variant: "gradient",
             variantType: undefined,
             disabled: true,
           }),
@@ -53,7 +53,7 @@ describe("getIconColor", () => {
         expect(
           getIconColor({
             inverse: false,
-            variant: "ai",
+            variant: "gradient",
             variantType: undefined,
             disabled: false,
           }),

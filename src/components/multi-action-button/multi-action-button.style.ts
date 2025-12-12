@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
-import StyledButton from "../button/button.style";
+import StyledButton from "../button/__internal__/__next__/button.style";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 import StyledIcon from "../icon/icon.style";
 import { MultiActionButtonProps } from "./multi-action-button.component";

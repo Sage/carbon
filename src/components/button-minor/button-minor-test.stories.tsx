@@ -6,7 +6,7 @@ import {
   BUTTON_SIZES,
   BUTTON_VARIANTS,
   BUTTON_ICON_POSITIONS,
-} from "../button/button.config";
+} from "../../__internal__/__legacy__/button/button.config";
 
 export default {
   title: "Deprecated/Button Minor/Test",

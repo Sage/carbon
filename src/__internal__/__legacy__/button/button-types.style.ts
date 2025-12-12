@@ -1,5 +1,5 @@
-import StyledIcon from "../icon/icon.style";
-import StyledLoaderSquare from "../loader/loader-square.style";
+import StyledIcon from "../../../components/icon/icon.style";
+import StyledLoaderSquare from "../../../components/loader/loader-square.style";
 
 function makeColors(color: string) {
   return `

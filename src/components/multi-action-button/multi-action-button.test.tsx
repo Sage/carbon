@@ -15,16 +15,6 @@ test("should render with provided 'text'", () => {
   expect(screen.getByRole("button", { name: "Main Button" })).toBeVisible();
 });
 
-test("should render with provided 'subtext' when 'size' is 'large'", () => {
-  render(
-    <MultiActionButton text="Main Button" subtext="Subtext" size="large">
-      <Button>First</Button>
-    </MultiActionButton>,
-  );
-
-  expect(screen.getByText("Subtext")).toBeVisible();
-});
-
 test("should render when children are non-Carbon Button children", async () => {
   const user = userEvent.setup();
   render(

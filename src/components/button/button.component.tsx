@@ -1,229 +1,61 @@
-import React, { useCallback, useState, useContext } from "react";
-import { SpaceProps } from "styled-system";
-import invariant from "invariant";
-
-import Icon, { IconType, IconProps } from "../icon";
-import StyledButton, {
-  StyledButtonSubtext,
-  StyledButtonMainText,
-} from "./button.style";
-import tagComponent, {
-  TagProps,
-} from "../../__internal__/utils/helpers/tags/tags";
+import React, { forwardRef, useCallback, useContext, useState } from "react";
+import { ButtonProps as OldButtonProps } from "../../__internal__/__legacy__/button/button.component";
+import {
+  Button as NextButton,
+  ButtonProps as NextButtonProps,
+} from "./__internal__/__next__/button.component";
+import Icon from "../icon";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
-import { TooltipPositions } from "../tooltip/tooltip.config";
-import ButtonBarContext from "../button-bar/__internal__/button-bar.context";
-import SplitButtonContext from "../split-button/__internal__/split-button.context";
 import BatchSelectionContext from "../batch-selection/__internal__/batch-selection.context";
+import ButtonBarContext from "../button-bar/__internal__/button-bar.context";
 
-/**
- * @deprecated Use "primary", "secondary", "tertiary" or "ai" instead.
- */
-export type DeprecatedButtonTypes =
-  | "darkBackground"
-  | "gradient-grey"
-  | "gradient-white";
+export interface ButtonProps
+  extends Omit<OldButtonProps, "size">,
+    Pick<
+      NextButtonProps,
+      "variant" | "variantType" | "inverse" | "size" | "loading"
+    > {}
 
-export type ButtonTypes =
-  | "primary"
-  | "secondary"
-  | "tertiary"
-  | DeprecatedButtonTypes;
-
-export type SizeOptions = "small" | "medium" | "large";
-export type ButtonIconPosition = "before" | "after";
-
-export interface ButtonProps extends SpaceProps, TagProps {
-  /**
-   * Prop to specify the aria-label attribute of the component
-   * Defaults to the iconType, when the component has only an icon
-   */
-  "aria-label"?: string;
-  /** Identifies the element(s) labelling the button. */
-  "aria-labelledby"?: string;
-  /** Identifies the element(s) offering additional information about the button the user might require. */
-  "aria-describedby"?: string;
-  /**
-   * @deprecated Color variants for new business themes: "primary" | "secondary" | "tertiary" | "darkBackground"
-   * */
-  buttonType?: ButtonTypes;
-  /** The text the button displays */
-  children?: React.ReactNode;
-  /** Name attribute */
-  name?: string;
-  /** Apply disabled state to the button */
-  disabled?: boolean;
-  /**
-   * @deprecated Apply destructive style to the button
-   * */
-  destructive?: boolean;
-  /** Apply fullWidth style to the button */
-  fullWidth?: boolean;
-  /**
-   * @deprecated Used to transform button into anchor
-   * */
-  href?: string;
-  /** Defines an Icon position related to the children: "before" | "after" */
-  iconPosition?: ButtonIconPosition;
-  /** [Legacy] Provides a tooltip message when the icon is hovered. */
-  iconTooltipMessage?: string;
-  /** [Legacy] Provides positioning when the tooltip is displayed. */
-  iconTooltipPosition?: TooltipPositions;
-  /** Defines an Icon type within the button */
-  iconType?: IconType;
-  /** id attribute */
-  id?: string;
-  /**
-   * @deprecated Whether to use the white-on-dark colour variant
-   * */
-  isWhite?: boolean;
-  /** If provided, the text inside a button will not wrap */
-  noWrap?: boolean;
-  /** Specify a callback triggered on blur */
-  onBlur?: (
-    ev: React.FocusEvent<HTMLButtonElement | HTMLAnchorElement>,
-  ) => void;
-  /** Specify a callback triggered on change */
-  onChange?: (
-    ev:
-      | React.FormEvent<HTMLButtonElement | HTMLAnchorElement>
-      | React.ChangeEvent<HTMLButtonElement | HTMLAnchorElement>,
-  ) => void;
-  /** Specify a callback triggered on focus */
-  onFocus?: (
-    ev: React.FocusEvent<HTMLButtonElement | HTMLAnchorElement>,
-  ) => void;
-  /** Specify a callback triggered on keyDown */
-  onKeyDown?: (
-    ev: React.KeyboardEvent<HTMLButtonElement | HTMLAnchorElement>,
-  ) => void;
-  /** onClick handler */
-  onClick?: (
-    ev:
-      | React.MouseEvent<HTMLAnchorElement>
-      | React.MouseEvent<HTMLButtonElement>,
-  ) => void;
-  /** Assigns a size to the button: "small" | "medium" | "large" */
-  size?: SizeOptions;
-  /**
-   * @deprecated Second text child, renders under main text, only when size is "large"
-   * */
-  subtext?: string;
-  /** HTML button type property */
-  type?: string;
-  /**
-   * @deprecated HTML target attribute
-   * */
-  target?: string;
-  /**
-   * @deprecated HTML rel attribute
-   * */
-  rel?: string;
-  /**
-   * @private
-   * @internal
-   * @ignore
-   * Set a class name on the button element. INTERNAL USE ONLY.
-   */
-  className?: string;
-}
-
-interface RenderChildrenProps
-  extends Pick<
-    ButtonProps,
-    | "iconType"
-    | "iconPosition"
-    | "size"
-    | "subtext"
-    | "children"
-    | "disabled"
-    | "buttonType"
-    | "iconTooltipMessage"
-    | "iconTooltipPosition"
-    | "destructive"
-  > {
-  buttonType: ButtonTypes;
-  tooltipTarget?: HTMLElement;
-}
-
-function renderChildren({
-  iconType,
-  iconPosition,
-  size,
-  subtext,
-  children,
-  disabled,
+const mapButtonTypeToVariantType = ({
   buttonType,
-  iconTooltipMessage,
-  iconTooltipPosition,
-  tooltipTarget,
-}: RenderChildrenProps) {
-  const iconColor = () => {
-    if (buttonType === "primary") {
-      return "--colorsActionMajorYang100";
-    }
+  destructive,
+  variant,
+  variantType,
+}: {
+  buttonType?: OldButtonProps["buttonType"];
+  destructive?: OldButtonProps["destructive"];
+  variant?: NextButtonProps["variant"];
+  variantType?: NextButtonProps["variantType"];
+}): Pick<NextButtonProps, "variant" | "variantType"> => {
+  // when buttonType and destructive are not set, use the variant and variantType directly
+  if (!buttonType && !destructive) {
+    return { variant, variantType };
+  }
 
-    if (buttonType.includes("gradient")) {
-      return "--colorsActionMinorYin090";
-    }
+  if (destructive) {
+    const type = buttonType ?? variantType;
+    return {
+      variant: "destructive",
+      variantType: type === "primary" ? "primary" : "secondary",
+    };
+  }
 
-    return "--colorsActionMajor500";
-  };
+  switch (buttonType) {
+    case "primary":
+      return { variant: "default", variantType: "primary" };
+    case "tertiary":
+      return { variant: "default", variantType: "tertiary" };
+    case "darkBackground":
+      return { variant: "default", variantType: "secondary" };
+    case "gradient-grey":
+    case "gradient-white":
+      return { variant: "gradient", variantType: "secondary" };
+    default:
+      return { variant: "default", variantType: "secondary" };
+  }
+};
 
-  const iconProps: Pick<
-    IconProps,
-    "aria-hidden" | "disabled" | "color" | "bg"
-  > = {
-    "aria-hidden": true,
-    disabled,
-    color: iconColor(),
-    bg: "transparent",
-  };
-
-  const isValidChildren = children !== undefined && children !== false;
-
-  return (
-    <>
-      {iconType && iconPosition === "before" && isValidChildren && (
-        <Icon type={iconType} {...iconProps} />
-      )}
-      {isValidChildren && (
-        <span>
-          <StyledButtonMainText data-element="main-text">
-            {children}
-          </StyledButtonMainText>
-          {size === "large" && (
-            <StyledButtonSubtext data-element="subtext" data-role="subtext">
-              {subtext}
-            </StyledButtonSubtext>
-          )}
-        </span>
-      )}
-      {iconType && !isValidChildren && (
-        <TooltipProvider
-          disabled={disabled}
-          focusable={false}
-          target={tooltipTarget}
-        >
-          <Icon
-            type={iconType}
-            {...iconProps}
-            tooltipMessage={iconTooltipMessage}
-            tooltipPosition={iconTooltipPosition}
-          />
-        </TooltipProvider>
-      )}
-      {iconType && iconPosition === "after" && children && (
-        <Icon type={iconType} {...iconProps} />
-      )}
-    </>
-  );
-}
-
-/**
- * @deprecated This version of Button has been deprecated. See the Carbon documentation for migration details.
- */
-const Button = React.forwardRef<
+export const Button = forwardRef<
   HTMLButtonElement | HTMLAnchorElement,
   ButtonProps
 >(
@@ -232,101 +64,56 @@ const Button = React.forwardRef<
       "aria-describedby": ariaDescribedBy,
       "aria-label": ariaLabel,
       "aria-labelledby": ariaLabelledBy,
-      buttonType: buttonTypeProp = "secondary",
+      buttonType,
       children,
-      destructive = false,
+      destructive,
       disabled = false,
-      isWhite = false,
-      fullWidth: fullWidthProp = false,
-      href,
-      iconPosition: iconPositionProp = "before",
+      fullWidth = false,
+      iconPosition = "before",
       iconTooltipMessage,
       iconTooltipPosition,
       iconType,
-      m = 0,
+      isWhite = false,
+      name,
       noWrap,
+      onBlur,
       onClick,
-      px,
-      rel,
-      size: sizeProp = "medium",
-      subtext = "",
-      target,
+      onFocus,
+      onKeyDown,
+      size = "medium",
+      type,
+      id,
+      variant = "default",
+      variantType = "primary",
       ...rest
     }: ButtonProps,
     ref,
   ) => {
-    const {
-      buttonType: buttonTypeContext,
-      size: sizeContext,
-      iconPosition: iconPositionContext,
-      fullWidth: fullWidthContext,
-    } = useContext(ButtonBarContext);
     const { batchSelectionDisabled } = useContext(BatchSelectionContext);
+    const {
+      buttonType: buttonBarButtonType,
+      size: buttonBarSize,
+      iconPosition: buttonBarIconPosition,
+      fullWidth: buttonBarFullWidth,
+    } = useContext(ButtonBarContext);
 
-    const buttonType = buttonTypeContext || buttonTypeProp;
-    const size = sizeContext || sizeProp;
-    const iconPosition = iconPositionContext || iconPositionProp;
-    const fullWidth = fullWidthContext || fullWidthProp;
-    const isDisabled = disabled || batchSelectionDisabled;
+    // Map old API to new API
+    const { variant: computedVariant, variantType: computedVariantType } =
+      mapButtonTypeToVariantType({
+        buttonType: buttonBarButtonType || buttonType,
+        destructive,
+        variant,
+        variantType,
+      });
 
-    invariant(
-      children !== undefined || !!iconType,
-      "Either prop `iconType` must be defined or this node must have children.",
-    );
-    if (subtext) {
-      invariant(
-        size === "large",
-        "subtext prop has no effect unless the button is large.",
-      );
-    }
-
-    const [internalRef, setInternalRef] = useState<
+    // console.log("ADAPTER SIZE ===>", size, rest)
+    const [buttonRef, setButtonRef] = useState<
       HTMLButtonElement | HTMLAnchorElement | null
     >(null);
 
-    const { inSplitButton, onChildButtonClick } =
-      useContext(SplitButtonContext);
-
-    let paddingX;
-
-    const handleLinkKeyDown = (
-      event: React.KeyboardEvent<HTMLButtonElement | HTMLAnchorElement>,
-    ) => {
-      // If space key click link
-      if (event.key === " ") {
-        event.preventDefault();
-        internalRef?.click();
-      }
-    };
-
-    const handleClick = (
-      event:
-        | React.MouseEvent<HTMLAnchorElement>
-        | React.MouseEvent<HTMLButtonElement>,
-    ) => {
-      internalRef?.focus({ preventScroll: true });
-
-      if (inSplitButton) {
-        onChildButtonClick?.(onClick)?.(event);
-      } else if (onClick) {
-        onClick(event);
-      }
-    };
-
-    switch (size) {
-      case "small":
-        paddingX = 2;
-        break;
-      case "large":
-        paddingX = 4;
-        break;
-      default:
-        paddingX = 3;
-    }
-
     const setRefs = useCallback(
       (reference: HTMLButtonElement | HTMLAnchorElement | null) => {
-        setInternalRef(reference);
+        setButtonRef(reference);
         if (!ref) return;
         if (typeof ref === "object") ref.current = reference;
         if (typeof ref === "function") ref(reference);
@@ -334,56 +121,96 @@ const Button = React.forwardRef<
       [ref],
     );
 
-    const isValidChildren = children !== undefined && children !== false;
+    const renderChildrenWithIcon = () => {
+      if (!iconType) {
+        return children;
+      }
+
+      const iconProps = {
+        "aria-hidden": true,
+        bg: "transparent",
+      };
+
+      if (children === undefined && children === false) {
+        return (
+          <Icon
+            type={iconType}
+            {...iconProps}
+            tooltipMessage={iconTooltipMessage}
+            tooltipPosition={iconTooltipPosition}
+          />
+        );
+      }
+
+      const getIcon = () => {
+        if (iconTooltipMessage) {
+          return (
+            <TooltipProvider
+              disabled={disabled}
+              focusable={false}
+              target={buttonRef as HTMLElement}
+            >
+              <Icon
+                type={iconType}
+                {...iconProps}
+                tooltipMessage={iconTooltipMessage}
+                tooltipPosition={iconTooltipPosition}
+              />
+            </TooltipProvider>
+          );
+        }
+
+        return <Icon type={iconType} {...iconProps} />;
+      };
+
+      if (iconPosition === "before" || buttonBarIconPosition === "before") {
+        return (
+          <>
+            {getIcon()}
+            {children}
+          </>
+        );
+      }
+
+      return (
+        <>
+          {children}
+          {getIcon()}
+        </>
+      );
+    };
+
+    const isDisabled = disabled || batchSelectionDisabled;
 
     return (
-      <StyledButton
-        aria-label={
-          !isValidChildren && iconType ? ariaLabel || iconType : ariaLabel
-        }
-        aria-labelledby={ariaLabelledBy}
+      <NextButton
         aria-describedby={ariaDescribedBy}
-        as={!isDisabled && href ? "a" : "button"}
-        onKeyDown={href ? handleLinkKeyDown : undefined}
-        onClick={handleClick}
-        draggable={false}
-        buttonType={buttonType}
+        aria-label={ariaLabel || (!children && iconType ? iconType : undefined)}
+        aria-labelledby={ariaLabelledBy}
         disabled={isDisabled}
-        destructive={destructive}
-        isWhite={isWhite}
-        type={href ? undefined : "button"}
-        iconType={iconType}
-        size={size}
-        px={px ?? paddingX}
-        m={m}
+        fullWidth={buttonBarFullWidth || fullWidth}
+        id={id}
+        inverse={isWhite || buttonType === "darkBackground"}
+        name={name}
         noWrap={noWrap}
-        iconOnly={!isValidChildren && !!iconType}
-        iconPosition={iconPosition}
-        target={target}
-        rel={rel}
-        fullWidth={fullWidth}
-        {...tagComponent("button", rest)}
-        {...rest}
-        {...(href && { href })}
+        onBlur={onBlur}
+        onClick={!rest.href ? onClick : undefined}
+        as={!isDisabled && rest.href ? "a" : "button"}
+        onFocus={onFocus}
+        onKeyDown={onKeyDown}
         ref={setRefs}
+        size={buttonBarSize || size}
+        type={type as NextButtonProps["type"]}
+        variant={computedVariant}
+        variantType={computedVariantType}
+        {...rest}
       >
-        {renderChildren({
-          iconType,
-          iconPosition,
-          size,
-          subtext,
-          children,
-          disabled: isDisabled,
-          buttonType,
-          iconTooltipMessage,
-          iconTooltipPosition,
-          destructive,
-          tooltipTarget: internalRef as HTMLElement | undefined,
-        })}
-      </StyledButton>
+        {renderChildrenWithIcon()}
+      </NextButton>
     );
   },
 );
 
 Button.displayName = "Button";
+
 export default Button;

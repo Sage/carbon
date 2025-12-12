@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import Button from "../button";
+import Button from "../../__internal__/__legacy__/button/button.component";
 import { ButtonMinorProps } from "./button-minor.component";
 
 import StyledIcon from "../icon/icon.style";

@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 import StyledIcon from "../icon/icon.style";
-import StyledButton from "../button/button.style";
+import LegacyStyledButton from "../../__internal__/__legacy__/button/button.style";
 
 /** @deprecated The value 'default' for the variant prop is deprecated and will soon be removed. Please use value 'typical' instead. */
 type DeprecatedDefaultVariant = "default";
@@ -320,7 +320,7 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
         }
       `}
 
-      > button, ${StyledButton}:not(.search-button) {
+      > button, ${LegacyStyledButton}:not(.search-button) {
         background-color: transparent;
         border: none;
         padding: 0;

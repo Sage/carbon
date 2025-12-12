@@ -1,4 +1,4 @@
-import { ButtonProps } from "../__next__/button.component";
+import { ButtonProps } from "../__internal__/__next__/button.component";
 
 const getIconColor = ({
   inverse,
@@ -16,7 +16,7 @@ const getIconColor = ({
     return "#FFF";
   }
 
-  if (variant === "ai") {
+  if (variant === "gradient") {
     return disabled
       ? "var(--button-ai-label-disabled, #0000006B)"
       : "var(--button-ai-label-active, #000)";

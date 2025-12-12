@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { margin } from "styled-system";
-import StyledButton from "../button/button.style";
+import StyledButton from "../button/__internal__/__next__/button.style";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 
 const StyledSplitButton = styled.div.attrs(applyBaseTheme)`

@@ -7,7 +7,7 @@ import StyledSearch from "./search.style";
 import StyledSearchButton from "./search-button.style";
 import Icon from "../icon";
 import Textbox, { CommonTextboxProps } from "../textbox";
-import Button from "../button";
+import Button from "../../__internal__/__legacy__/button/button.component";
 import { ValidationProps } from "../../__internal__/validations";
 import useLocale from "../../hooks/__internal__/useLocale";
 import Events from "../../__internal__/utils/helpers/events";

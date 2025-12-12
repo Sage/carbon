@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { space } from "styled-system";
-import StyledButton from "../button/button.style";
+import StyledButton from "../button/__internal__/__next__/button.style";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 import { DlProps } from "./dl.component";
 
@@ -62,7 +62,6 @@ export const StyledDd = styled.dd<
 
   ${StyledButton} {
     padding: 0;
-    border: none;
   }
   ${space}
 `;

@@ -1,12 +1,11 @@
 import React from "react";
 
 import { MenuButtonOverrideWrapper } from "../action-popover.style";
-import Button from "../../button";
-import {
+import Button, {
   ButtonIconPosition,
   ButtonTypes,
   SizeOptions,
-} from "../../button/button.component";
+} from "../../../__internal__/__legacy__/button/button.component";
 import { IconType } from "../../icon";
 
 export type ActionPopoverMenuButtonAria = {

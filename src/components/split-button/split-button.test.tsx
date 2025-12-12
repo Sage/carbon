@@ -3,7 +3,6 @@ import { render, screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import SplitButton, { SplitButtonHandle } from "./split-button.component";
 import Button from "../button";
-import { SizeOptions } from "../button/button.component";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import I18nProvider from "../i18n-provider";
 
@@ -16,7 +15,7 @@ type SizeConfig = {
   paddingRight: string;
 };
 
-const buildSizeConfig = (size: SizeOptions): SizeConfig => {
+const buildSizeConfig = (size: "small" | "medium" | "large"): SizeConfig => {
   if (size === "small") {
     return {
       minHeight: "32px",
@@ -59,7 +58,6 @@ const MockComponent = () => {
       <SplitButton ref={splitButtonHandle} text="Main Button">
         <Button>Single Button</Button>
       </SplitButton>
-      ,
       <Button onClick={() => splitButtonHandle.current?.focusMainButton()}>
         Press me to focus on the main button
       </Button>
@@ -1093,21 +1091,9 @@ test("should render white variant", async () => {
   const mainButton = screen.getByRole("button", { name: "Main" });
 
   expect(mainButton).toHaveStyleRule(
-    "border-color",
+    "border",
     "var(--colorsActionMajorYang100)",
   );
-});
-
-test("should render disabled white variant", () => {
-  render(
-    <SplitButton text="Main" isWhite disabled>
-      <Button>Single Button</Button>
-    </SplitButton>,
-  );
-
-  const mainButton = screen.getByRole("button", { name: "Main" });
-
-  expect(mainButton).toHaveStyleRule("border-color", "#4B4B4B");
 });
 
 test("should have the correct colors when the toggle button is clicked in the white variant", async () => {
@@ -1122,7 +1108,7 @@ test("should have the correct colors when the toggle button is clicked in the wh
   await user.click(toggle);
 
   expect(toggle).toHaveStyleRule(
-    "background",
+    "background-color",
     "var(--colorsActionMajorYang100)",
     {
       modifier: ":hover",

@@ -80,6 +80,7 @@ const MockWithHiddenSupport = () => {
             setAdaptiveSidebarOpen(true);
           }}
           mb={2}
+          size="medium"
         >
           {buttonText}
         </Button>
@@ -360,7 +361,7 @@ test("hides the sidebar when the `hidden` prop is set to `true`", async () => {
   expect(screen.getByText("My content")).toBeVisible();
 });
 
-test("hides the sidebar when the `hidden` prop is set to `true` and below the scren breakpoint", async () => {
+test("hides the sidebar when the `hidden` prop is set to `true` and below the screen breakpoint", async () => {
   const user = userEvent.setup();
   mockUseIsAboveBreakpoint.mockReturnValue(false);
 

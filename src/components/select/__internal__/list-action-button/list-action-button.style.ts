@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import StyledButton from "../../../button/button.style";
+import StyledButton from "../../../button/__internal__/__next__/button.style";
 
 const StyledListActionButtonWrapper = styled.div`
   padding-top: var(--spacing100);

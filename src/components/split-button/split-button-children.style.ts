@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 import type { ThemeObject } from "../../style/themes/theme.types";
-import StyledButton from "../button/button.style";
+import StyledButton from "../button/__internal__/__next__/button.style";
 
 export const borderRadiusStyling = `
   > {

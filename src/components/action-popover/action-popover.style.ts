@@ -4,7 +4,7 @@ import { margin } from "styled-system";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 import Icon from "../icon";
 import StyledIcon from "../icon/icon.style";
-import StyledButton from "../button/button.style";
+import LegacyStyledButton from "../../__internal__/__legacy__/button/button.style";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 
 const Menu = styled.ul.attrs(applyBaseTheme)<{
@@ -203,7 +203,7 @@ const SubMenuItemIcon = styled(ButtonIcon)`
 `;
 
 const MenuButtonOverrideWrapper = styled.div`
-  ${StyledButton} {
+  ${LegacyStyledButton} {
     padding: 0px var(--sizing100);
     width: 100%;
 

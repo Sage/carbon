@@ -16,6 +16,7 @@ import browserTypeCheck, {
 import iconConfig from "./icon-config";
 import { IconType } from "./icon-type";
 import iconUnicodes from "./icon-unicodes";
+import StyledButton from "../button/__internal__/__next__/button.style";
 
 export type BackgroundShape = "circle" | "rounded-rect" | "square";
 
@@ -181,6 +182,10 @@ const StyledIcon = styled.span.attrs(applyBaseTheme)<
       ${margin}
     `;
   }}
+
+  ${StyledButton} & {
+    color: currentColor;
+  }
 `;
 
 export default StyledIcon;

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import StyledButton from "../button/button.style";
+import LegacyStyledButton from "../../__internal__/__legacy__/button/button.style";
 import StyledIcon from "../icon/icon.style";
 
 import applyBaseTheme from "../../style/themes/apply-base-theme";
@@ -16,7 +16,7 @@ const StyledSearchButton = styled.div.attrs(applyBaseTheme)`
   align-self: end;
   border-bottom: none;
 
-  & ${StyledButton} {
+  & ${LegacyStyledButton} {
     color: var(--colorsActionMajorYang100);
     border-color: var(--colorsActionMajorTransparent);
     border-bottom-left-radius: var(--borderRadius000);

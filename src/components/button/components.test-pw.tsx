@@ -2,8 +2,14 @@ import React from "react";
 
 import Button, { ButtonProps } from ".";
 import Box from "../box";
-import { BUTTON_SIZES, BUTTON_VARIANTS } from "./button.config";
-import { ButtonIconPosition, ButtonTypes } from "./button.component";
+import {
+  BUTTON_SIZES,
+  BUTTON_VARIANTS,
+} from "../../__internal__/__legacy__/button/button.config";
+import {
+  ButtonIconPosition,
+  ButtonTypes,
+} from "../../__internal__/__legacy__/button/button.component";
 
 export const ButtonDefault = ({
   subtext,

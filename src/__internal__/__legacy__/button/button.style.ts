@@ -2,10 +2,10 @@ import styled, { css } from "styled-components";
 
 import { space, SpaceProps } from "styled-system";
 
-import { IconType } from "../icon";
-import StyledIcon from "../icon/icon.style";
-import applyBaseTheme from "../../style/themes/apply-base-theme";
-import addFocusStyling from "../../style/utils/add-focus-styling";
+import { IconType } from "../../../components/icon";
+import StyledIcon from "../../../components/icon/icon.style";
+import applyBaseTheme from "../../../style/themes/apply-base-theme";
+import addFocusStyling from "../../../style/utils/add-focus-styling";
 
 import buttonTypes from "./button-types.style";
 import { ButtonProps, SizeOptions } from "./button.component";

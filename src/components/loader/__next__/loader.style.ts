@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 import applyBaseTheme from "../../../style/themes/apply-base-theme";
 import Typography from "../../typography";
-import StyledButton from "../../button/button.style";
+import StyledButton from "../../button/__internal__/__next__/button.style";
 
 const ringDimensions: Record<string, number> = {
   "extra-small": 20,

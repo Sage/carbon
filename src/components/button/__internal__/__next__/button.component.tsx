@@ -1,23 +1,14 @@
-import React, {
-  forwardRef,
-  ReactNode,
-  useCallback,
-  useImperativeHandle,
-  useRef,
-} from "react";
+import React, { forwardRef, ReactNode, useCallback, useState } from "react";
 import { SpaceProps } from "styled-system";
 
 import StyledButton, { StyledContentContainer } from "./button.style";
-import { Loader } from "../../loader/__next__/loader.component";
+import { Loader } from "../../../loader/__next__/loader.component";
 import tagComponent, {
   TagProps,
-} from "../../../__internal__/utils/helpers/tags/tags";
-import useMediaQuery from "../../../hooks/useMediaQuery";
-import useLocale from "../../../hooks/__internal__/useLocale";
-
-export type ButtonHandle = {
-  focusButton: () => void;
-} | null;
+} from "../../../../__internal__/utils/helpers/tags/tags";
+import useMediaQuery from "../../../../hooks/useMediaQuery";
+import useLocale from "../../../../hooks/__internal__/useLocale";
+import { Size, Variant, VariantType } from "./button.config";
 
 export interface ButtonProps extends SpaceProps, TagProps {
   /** Identifies the element(s) offering additional information about the button that the user might require. */
@@ -63,16 +54,28 @@ export interface ButtonProps extends SpaceProps, TagProps {
     ev: React.KeyboardEvent<HTMLButtonElement | HTMLAnchorElement>,
   ) => void;
   /** The size of the button. */
-  size?: "xs" | "small" | "medium" | "large";
+  size?: Size;
   /** The HTML type that this button should use. */
   type?: "button" | "reset" | "submit";
   /** The variant of the button. */
-  variant?: "default" | "destructive" | "ai";
+  variant?: Variant;
   /** The variant type of the button. */
-  variantType?: "primary" | "secondary" | "tertiary" | "subtle";
+  variantType?: VariantType;
+
+  /**
+   * @internal
+   * @private
+   * @ignore
+   * @legacy
+   * Sets the underlying HTML element if href is passed
+   */
+  as?: "button" | "a";
 }
 
-export const Button = forwardRef<ButtonHandle, ButtonProps>(
+export const Button = forwardRef<
+  HTMLButtonElement | HTMLAnchorElement,
+  ButtonProps
+>(
   (
     {
       "aria-describedby": ariaDescribedBy,
@@ -94,22 +97,20 @@ export const Button = forwardRef<ButtonHandle, ButtonProps>(
     }: ButtonProps,
     ref,
   ) => {
-    const buttonRef = useRef<HTMLButtonElement>(null);
     const locale = useLocale();
 
-    const focusButton = useCallback(() => {
-      const button = buttonRef.current;
-      button?.focus();
-    }, []);
+    const [buttonRef, setButtonRef] = useState<
+      HTMLButtonElement | HTMLAnchorElement | null
+    >(null);
 
-    useImperativeHandle<ButtonHandle, ButtonHandle>(
-      ref,
-      () => ({
-        focusButton() {
-          focusButton();
-        },
-      }),
-      [focusButton],
+    const setRefs = useCallback(
+      (reference: HTMLButtonElement | HTMLAnchorElement | null) => {
+        setButtonRef(reference);
+        if (!ref) return;
+        if (typeof ref === "object") ref.current = reference;
+        if (typeof ref === "function") ref(reference);
+      },
+      [ref],
     );
 
     const allowMotion = useMediaQuery(
@@ -123,7 +124,7 @@ export const Button = forwardRef<ButtonHandle, ButtonProps>(
     ) => {
       if (loading) return;
 
-      buttonRef.current?.focus({ preventScroll: true });
+      buttonRef?.focus({ preventScroll: true });
 
       onClick?.(event);
     };
@@ -136,7 +137,7 @@ export const Button = forwardRef<ButtonHandle, ButtonProps>(
       if (
         (variantType !== "primary" && variant === "default") ||
         (variantType === "secondary" && variant === "destructive") ||
-        variant === "ai"
+        variant === "gradient"
       ) {
         useWhiteRing = false;
       }
@@ -158,21 +159,21 @@ export const Button = forwardRef<ButtonHandle, ButtonProps>(
 
     return (
       <StyledButton
-        allowMotion={allowMotion}
+        $allowMotion={allowMotion}
         aria-describedby={ariaDescribedBy}
         aria-label={ariaLabel}
         aria-labelledby={ariaLabelledBy}
         disabled={disabled}
-        fullWidth={fullWidth}
-        inverse={inverse}
+        $fullWidth={fullWidth}
+        $inverse={inverse}
         id={id}
         name={name}
-        noWrap={noWrap}
+        $noWrap={noWrap}
         onClick={handleClick}
-        ref={buttonRef}
-        size={size}
-        variant={variant}
-        variantType={variantType}
+        ref={setRefs}
+        $size={size}
+        $variant={variant}
+        $variantType={variantType}
         {...tagComponent("button", rest)}
         {...rest}
       >

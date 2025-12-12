@@ -1,828 +1,197 @@
-import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import Button from ".";
+import React, { useState } from "react";
+import Button, { ButtonProps } from "./button.component";
 import Box from "../box";
-import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
-
-const styledSystemProps = generateStyledSystemProps(
-  {
-    spacing: true,
-  },
-  { pt: "1px", pb: "1px", px: "24px" },
-);
+import Icon from "../icon";
+import I18nProvider from "../i18n-provider";
 
 const meta: Meta<typeof Button> = {
-  title: "Deprecated/Button",
+  title: "Button",
   component: Button,
-  argTypes: {
-    ...styledSystemProps,
-  },
   parameters: { chromatic: { disableSnapshot: true } },
+  args: {
+    children: "Button",
+    disabled: false,
+    fullWidth: false,
+    inverse: false,
+    loading: false,
+    noWrap: true,
+    size: "medium",
+    type: "button",
+    variant: "default",
+    variantType: "primary",
+  },
+  decorators: (StoryToRender) => (
+    <Box minHeight="80px" p={2}>
+      <StoryToRender />
+    </Box>
+  ),
 };
 
 export default meta;
 type Story = StoryObj<typeof Button>;
 
-export const PrimaryButton: Story = () => {
+export const Default: Story = () => {
   return (
-    <Box>
-      <Button mt={2} buttonType="primary" size="small" ml={2}>
-        Small
+    <Button iconType="info" iconTooltipMessage="Tooltip message">
+      Button
+    </Button>
+  );
+};
+Default.storyName = "Default";
+
+export const ButtonContent: Story = () => {
+  return (
+    <Box display={"flex"} gap={2}>
+      <Button aria-label="Return to the home page">
+        <Icon type="home" />
       </Button>
-      <Button mt={2} buttonType="primary" ml={2}>
-        Medium
+      <Button>
+        <>
+          <Icon type="home" />
+          Return to the home page
+        </>
       </Button>
-      <Button mt={2} buttonType="primary" size="large" ml={2}>
-        Large
+      <Button>
+        <>
+          Return to the home page
+          <Icon type="home" />
+        </>
       </Button>
     </Box>
   );
 };
-PrimaryButton.storyName = "Primary";
+ButtonContent.storyName = "Button Content";
 
-export const PrimaryButtonDestructive: Story = () => {
+export const ClickHandler: Story = () => {
+  const [value, setValue] = useState(0);
   return (
-    <Box>
-      <Button mt={2} buttonType="primary" destructive size="small" ml={2}>
-        Small
-      </Button>
-      <Button mt={2} buttonType="primary" destructive ml={2}>
-        Medium
-      </Button>
-      <Button mt={2} buttonType="primary" destructive size="large" ml={2}>
-        Large
-      </Button>
-    </Box>
+    <Button onClick={() => setValue((p) => p + 1)}>
+      Button Clicked {value} Times
+    </Button>
   );
 };
-PrimaryButtonDestructive.storyName = "Primary/Destructive";
+ClickHandler.storyName = "Click Handler";
 
-export const PrimaryButtonDisabled: Story = () => {
+export const Variations: Story = (args: ButtonProps) => {
   return (
-    <Box>
-      <Button mt={2} buttonType="primary" disabled size="small" ml={2}>
-        Small
-      </Button>
-      <Button mt={2} buttonType="primary" disabled ml={2}>
-        Medium
-      </Button>
-      <Button mt={2} buttonType="primary" disabled size="large" ml={2}>
-        Large
-      </Button>
-    </Box>
-  );
-};
-PrimaryButtonDisabled.storyName = "Primary/Disabled";
-
-export const PrimaryButtonIcon: Story = () => {
-  return (
-    <Box>
-      <Button ml={2} mt={2} buttonType="primary" iconType="print">
-        Medium
-      </Button>
-      <Button
-        mt={2}
-        buttonType="primary"
-        destructive
-        iconType="delete"
-        iconPosition="after"
-        ml={2}
-      >
-        Medium
-      </Button>
-      <Button
-        mt={2}
-        buttonType="primary"
-        disabled
-        iconType="print"
-        iconPosition="after"
-        ml={2}
-      >
-        Medium
-      </Button>
-    </Box>
-  );
-};
-PrimaryButtonIcon.storyName = "Primary/Icon";
-
-export const PrimaryButtonFullWitdth: Story = () => {
-  return (
-    <Box>
-      <Button mt={2} buttonType="primary" fullWidth>
-        Full Width
-      </Button>
-    </Box>
-  );
-};
-PrimaryButtonFullWitdth.storyName = "Primary/Full Width";
-
-export const PrimaryButtonNoWrap: Story = () => {
-  return (
-    <Box width="40px">
-      <Button ml={2} mt={2} buttonType="primary" noWrap>
-        Long button text
-      </Button>
-    </Box>
-  );
-};
-PrimaryButtonNoWrap.storyName = "Primary/No Wrap";
-
-export const SecondaryButton: Story = () => {
-  return (
-    <Box>
-      <Button mt={2} size="small" ml={2}>
-        Small
-      </Button>
-      <Button mt={2} ml={2}>
-        Medium
-      </Button>
-      <Button mt={2} size="large" ml={2}>
-        Large
-      </Button>
-    </Box>
-  );
-};
-SecondaryButton.storyName = "Secondary";
-
-export const SecondaryButtonDestructive: Story = () => {
-  return (
-    <Box>
-      <Button mt={2} destructive size="small" ml={2}>
-        Small
-      </Button>
-      <Button mt={2} destructive ml={2}>
-        Medium
-      </Button>
-      <Button mt={2} destructive size="large" ml={2}>
-        Large
-      </Button>
-    </Box>
-  );
-};
-SecondaryButtonDestructive.storyName = "Secondary/Destructive";
-
-export const SecondaryButtonDisabled: Story = () => {
-  return (
-    <Box>
-      <Button mt={2} size="small" disabled ml={2}>
-        Small
-      </Button>
-      <Button mt={2} disabled ml={2}>
-        Medium
-      </Button>
-      <Button mt={2} size="large" disabled ml={2}>
-        Large
-      </Button>
-    </Box>
-  );
-};
-SecondaryButtonDisabled.storyName = "Secondary/Disabled";
-
-export const SecondaryButtonIcon: Story = () => {
-  return (
-    <Box>
-      <Button mt={2} iconType="print" ml={2}>
-        Medium
-      </Button>
-      <Button mt={2} destructive iconType="delete" iconPosition="after" ml={2}>
-        Medium
-      </Button>
-      <Button mt={2} disabled iconType="print" iconPosition="after" ml={2}>
-        Medium
-      </Button>
-    </Box>
-  );
-};
-SecondaryButtonIcon.storyName = "Secondary/Icon";
-
-export const SecondaryButtonFullWidth: Story = () => {
-  return (
-    <Box>
-      <Button mt={2} buttonType="secondary" fullWidth>
-        Full Width
-      </Button>
-    </Box>
-  );
-};
-SecondaryButtonFullWidth.storyName = "Secondary/Full Width";
-
-export const SecondaryButtonNoWrap: Story = () => {
-  return (
-    <Box width="40px">
-      <Button ml={2} mt={2} buttonType="secondary" noWrap>
-        Long button text
-      </Button>
-    </Box>
-  );
-};
-SecondaryButtonNoWrap.storyName = "Secondary/No Wrap";
-
-export const SecondaryButtonWhite: Story = () => {
-  return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      gap={2}
-      backgroundColor="var(--colorsUtilityYin100)"
-    >
-      <Box
-        height="80px"
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        gap={2}
-      >
-        <Button size="small" isWhite>
-          Small White
-        </Button>
-        <Button isWhite>Medium White</Button>
-        <Button size="large" isWhite>
-          Large White
-        </Button>
+    <Box display="flex" flexDirection="row" gap="24px" alignItems="flex-start">
+      <Box display="flex" flexDirection="column" alignItems="flex-start">
+        <h1>Default</h1>
+        <h2>Primary</h2>
+        <>
+          <Button {...args} variant="default" variantType="primary" />
+        </>
+        <h2>Secondary</h2>
+        <>
+          <Button {...args} variant="default" variantType="secondary" />
+        </>
+        <h2>Tertiary</h2>
+        <>
+          <Button {...args} variant="default" variantType="tertiary" />
+        </>
+        <h2>Subtle</h2>
+        <>
+          <Button {...args} variant="default" variantType="subtle" />
+        </>
       </Box>
-      <Box
-        height="80px"
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        gap={2}
-      >
-        <Button size="small" iconType="placeholder" isWhite>
-          Small White & Icon
-        </Button>
-        <Button iconType="placeholder" isWhite>
-          Medium White & Icon
-        </Button>
-        <Button iconType="placeholder" size="large" isWhite>
-          Large White & Icon
-        </Button>
+      <Box display="flex" flexDirection="column" alignItems="flex-start">
+        <h1>Destructive</h1>
+        <h2>Primary</h2>
+        <>
+          <Button {...args} variant="destructive" variantType="primary" />
+        </>
+        <h2>Secondary</h2>
+        <>
+          <Button {...args} destructive buttonType="secondary" />
+        </>
       </Box>
-      <Box
-        height="80px"
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        gap={2}
-      >
-        <Button disabled isWhite>
-          Disabled & White
-        </Button>
-        <Button destructive isWhite>
-          Destructive & White
-        </Button>
-        <Button disabled destructive isWhite>
-          Disabled, Destructive & White
-        </Button>
-      </Box>
-      <Box
-        height="80px"
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        gap={2}
-      >
-        <Button disabled isWhite iconType="placeholder">
-          Disabled & White
-        </Button>
-        <Button destructive isWhite iconType="placeholder">
-          Destructive & White
-        </Button>
-        <Button disabled destructive isWhite iconType="placeholder">
-          Disabled, Destructive & White
-        </Button>
+      <Box display="flex" flexDirection="column" alignItems="flex-start">
+        <h1>AI</h1>
+        <h2>Secondary</h2>
+        <>
+          <Button {...args} variant="gradient" variantType="secondary" />
+        </>
       </Box>
     </Box>
   );
 };
-SecondaryButtonWhite.storyName = "Secondary/White";
-SecondaryButtonWhite.parameters = { chromatic: { disableSnapshot: false } };
+Variations.storyName = "Variations";
 
-export const TertiaryButton: Story = () => {
+export const Sizes: Story = () => {
   return (
-    <Box>
-      <Button mt={2} buttonType="tertiary" size="small" ml={2}>
-        Small
-      </Button>
-      <Button mt={2} buttonType="tertiary" ml={2}>
-        Medium
-      </Button>
-      <Button mt={2} buttonType="tertiary" size="large" ml={2}>
-        Large
-      </Button>
+    <Box display="flex" gap={3} flexDirection="row" alignItems={"flex-start"}>
+      <Button size="xs">XS</Button>
+      <Button size="small">Small</Button>
+      <Button>Medium</Button>
+      <Button size="large">Large</Button>
     </Box>
   );
 };
-TertiaryButton.storyName = "Tertiary";
+Sizes.storyName = "Sizes";
 
-export const TertiaryButtonDestructive: Story = () => {
+export const Disabled: Story = () => {
+  return <Button disabled>Button</Button>;
+};
+Disabled.storyName = "Disabled";
+
+export const FullWidth: Story = () => {
   return (
-    <Box>
-      <Button mt={2} buttonType="tertiary" destructive size="small" ml={2}>
-        Small
-      </Button>
-      <Button mt={2} buttonType="tertiary" destructive ml={2}>
-        Medium
-      </Button>
-      <Button mt={2} buttonType="tertiary" destructive size="large" ml={2}>
-        Large
-      </Button>
+    <Box width="500px" display={"flex"} flexDirection={"column"} gap={1}>
+      <Button fullWidth>Full-Width Button</Button>
+      <br />
+      <br />
+      <Button>Normal Button</Button>
     </Box>
   );
 };
-TertiaryButtonDestructive.storyName = "Tertiary/Destructive";
+FullWidth.storyName = "Full-Width";
 
-export const TertiaryButtonDisabled: Story = () => {
+export const Inverse: Story = (args: ButtonProps) => {
   return (
-    <Box>
-      <Button mt={2} buttonType="tertiary" disabled size="small" ml={2}>
-        Small
-      </Button>
-      <Button mt={2} buttonType="tertiary" disabled ml={2}>
-        Medium
-      </Button>
-      <Button mt={2} buttonType="tertiary" disabled size="large" ml={2}>
-        Large
-      </Button>
+    <Box backgroundColor="#333" p={2}>
+      <Button {...args} inverse />
     </Box>
   );
 };
-TertiaryButtonDisabled.storyName = "Tertiary/Disabled";
+Inverse.storyName = "Inverse";
 
-export const TertiaryButtonIcon: Story = () => {
+export const Loading: Story = () => {
   return (
-    <Box>
-      <Button mt={2} buttonType="tertiary" iconType="print" ml={2}>
-        Medium
-      </Button>
-      <Button
-        mt={2}
-        buttonType="tertiary"
-        destructive
-        iconType="delete"
-        iconPosition="after"
-        ml={2}
+    <Box display={"flex"} flexDirection={"column"} gap={2}>
+      <Button loading>Button</Button>
+      <I18nProvider
+        locale={{ loaderSpinner: { loading: () => "Saving, please wait..." } }}
       >
-        Medium
-      </Button>
-      <Button
-        mt={2}
-        buttonType="tertiary"
-        disabled
-        iconType="print"
-        iconPosition="after"
-        ml={2}
+        <Button loading>Button</Button>
+      </I18nProvider>
+      <I18nProvider
+        locale={{ loaderSpinner: { loading: () => "Chargement..." } }}
       >
-        Medium
-      </Button>
+        <Button loading>Button</Button>
+      </I18nProvider>
     </Box>
   );
 };
-TertiaryButtonIcon.storyName = "Tertiary/Icon";
+Loading.storyName = "Loading";
 
-export const TertiaryButtonFullWidth: Story = () => {
+export const WrappingText: Story = () => {
   return (
-    <Box>
-      <Button mt={2} buttonType="tertiary" fullWidth>
-        Full Width
-      </Button>
+    <Box width="80px" display={"flex"} gap={2}>
+      <Button noWrap>No Wrapping</Button>
+      <Button noWrap={false}>With Wrapping</Button>
     </Box>
   );
 };
-TertiaryButtonFullWidth.storyName = "Tertiary/Full Width";
+WrappingText.storyName = "Wrapping Text";
 
-export const TertiaryButtonNoWrap: Story = () => {
+export const HTMLButtonType: Story = () => {
   return (
-    <Box width="40px">
-      <Button ml={2} mt={2} buttonType="tertiary" noWrap>
-        Long button text
-      </Button>
+    <Box width="80px" display={"flex"} gap={2}>
+      <Button type="button">Button</Button>
+      <Button type="reset">Reset</Button>
+      <Button type="submit">Submit</Button>
     </Box>
   );
 };
-TertiaryButtonNoWrap.storyName = "Tertiary/No Wrap";
-
-export const DarkBackgroundButton: Story = () => {
-  return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      gap={2}
-      backgroundColor="var(--colorsUtilityYin100)"
-    >
-      <Box
-        height="80px"
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        gap={2}
-      >
-        <Button my={2} buttonType="darkBackground" size="small">
-          Small
-        </Button>
-        <Button my={2} buttonType="darkBackground">
-          Medium
-        </Button>
-        <Button my={2} buttonType="darkBackground" size="large">
-          Large
-        </Button>
-      </Box>
-    </Box>
-  );
-};
-DarkBackgroundButton.storyName = "Dark Background";
-DarkBackgroundButton.parameters = { chromatic: { disableSnapshot: false } };
-
-export const DarkBackgroundButtonDisabled: Story = () => {
-  return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      gap={2}
-      backgroundColor="var(--colorsUtilityYin100)"
-    >
-      <Box
-        height="80px"
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        gap={2}
-      >
-        <Button my={2} buttonType="darkBackground" disabled size="small">
-          Small
-        </Button>
-        <Button my={2} buttonType="darkBackground" disabled>
-          Medium
-        </Button>
-        <Button my={2} buttonType="darkBackground" disabled size="large">
-          Large
-        </Button>
-      </Box>
-    </Box>
-  );
-};
-DarkBackgroundButtonDisabled.storyName = "Dark Background/Disabled";
-DarkBackgroundButtonDisabled.parameters = {
-  chromatic: { disableSnapshot: false },
-};
-
-export const DarkBackgroundButtonIcon: Story = () => {
-  return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      gap={2}
-      backgroundColor="var(--colorsUtilityYin100)"
-    >
-      <Box
-        height="80px"
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        gap={2}
-      >
-        <Button my={2} buttonType="darkBackground" iconType="add" size="small">
-          Small
-        </Button>
-        <Button
-          my={2}
-          buttonType="darkBackground"
-          iconType="add"
-          iconPosition="after"
-        >
-          Medium
-        </Button>
-        <Button
-          my={2}
-          buttonType="darkBackground"
-          disabled
-          iconType="add"
-          size="small"
-        >
-          Small
-        </Button>
-        <Button
-          my={2}
-          buttonType="darkBackground"
-          disabled
-          iconType="add"
-          iconPosition="after"
-        >
-          Medium
-        </Button>
-      </Box>
-    </Box>
-  );
-};
-DarkBackgroundButtonIcon.storyName = "Dark Background/Icon";
-DarkBackgroundButtonIcon.parameters = { chromatic: { disableSnapshot: false } };
-
-export const DarkBackgroundButtonFullWidth: Story = () => {
-  return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      gap={2}
-      backgroundColor="var(--colorsUtilityYin100)"
-    >
-      <Box
-        height="80px"
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        gap={2}
-      >
-        <Button my={2} buttonType="darkBackground" fullWidth>
-          Full Width
-        </Button>
-      </Box>
-    </Box>
-  );
-};
-DarkBackgroundButtonFullWidth.storyName = "Dark Background/Full Width";
-DarkBackgroundButtonFullWidth.parameters = {
-  chromatic: { disableSnapshot: false },
-};
-
-export const DarkBackgroundButtonNoWrap: Story = () => {
-  return (
-    <Box backgroundColor="var(--colorsUtilityYin100)" width="80px">
-      <Button my={2} buttonType="darkBackground" noWrap>
-        Long button text
-      </Button>
-    </Box>
-  );
-};
-DarkBackgroundButtonNoWrap.storyName = "Dark Background/No Wrap";
-DarkBackgroundButtonNoWrap.parameters = {
-  chromatic: { disableSnapshot: false },
-};
-
-export const ButtonAsALink: Story = () => {
-  return (
-    <Box>
-      <Button ml={2} mt={2} buttonType="primary" href="/">
-        I&#39;m a link
-      </Button>
-      <Button
-        mt={2}
-        buttonType="primary"
-        href="/"
-        target="_blank"
-        rel="noopener noreferrer"
-        ml={4}
-      >
-        Open in new tab
-      </Button>
-    </Box>
-  );
-};
-ButtonAsALink.storyName = "As a Link";
-
-export const ButtonIconOnly: Story = () => {
-  return (
-    <Box>
-      <Button
-        mt={2}
-        ml={2}
-        buttonType="primary"
-        size="small"
-        iconType="bin"
-        aria-label="Delete"
-      />
-      <Button mt={2} destructive ml={2} iconType="bin" aria-label="Delete" />
-      <Button
-        mt={2}
-        disabled
-        size="large"
-        ml={2}
-        iconType="bin"
-        aria-label="Delete"
-      />
-    </Box>
-  );
-};
-ButtonIconOnly.storyName = "Icon Only Button";
-
-export const ButtonIconTooltipMessage: Story = () => {
-  return (
-    <Box>
-      <Button
-        mt={2}
-        ml={2}
-        buttonType="primary"
-        size="small"
-        iconType="bin"
-        iconTooltipMessage="This is a tooltip"
-        aria-label="Delete"
-      />
-      <Button
-        destructive
-        ml={2}
-        mt={2}
-        iconType="bin"
-        iconTooltipMessage="This is a tooltip"
-        aria-label="Delete"
-      />
-      <Button
-        mt={2}
-        ml={2}
-        disabled
-        size="large"
-        iconType="bin"
-        iconTooltipMessage="This is a tooltip"
-        aria-label="Delete"
-      />
-    </Box>
-  );
-};
-ButtonIconTooltipMessage.storyName = "Icon Only Button with Tooltip";
-
-export const GradientWhite: Story = () => {
-  return (
-    <Box>
-      <Button mt={2} buttonType="gradient-white" size="small" ml={2}>
-        Small
-      </Button>
-      <Button mt={2} buttonType="gradient-white" ml={2}>
-        Medium
-      </Button>
-      <Button mt={2} buttonType="gradient-white" size="large" ml={2}>
-        Large
-      </Button>
-    </Box>
-  );
-};
-GradientWhite.storyName = "Gradient/White";
-
-export const GradientWhiteDisabled: Story = () => {
-  return (
-    <Box>
-      <Button mt={2} buttonType="gradient-white" size="small" ml={2} disabled>
-        Small
-      </Button>
-      <Button mt={2} buttonType="gradient-white" ml={2} disabled>
-        Medium
-      </Button>
-      <Button mt={2} buttonType="gradient-white" size="large" ml={2} disabled>
-        Large
-      </Button>
-    </Box>
-  );
-};
-GradientWhiteDisabled.storyName = "Gradient/White/Disabled";
-
-export const GradientWhiteIcon: Story = () => {
-  return (
-    <Box>
-      <Button mt={2} buttonType="gradient-white" iconType="print" ml={2}>
-        Medium
-      </Button>
-      <Button
-        mt={2}
-        buttonType="gradient-white"
-        iconType="delete"
-        iconPosition="after"
-        ml={2}
-      >
-        Medium
-      </Button>
-      <Button
-        mt={2}
-        buttonType="gradient-white"
-        disabled
-        iconType="print"
-        ml={2}
-      >
-        Medium
-      </Button>
-      <Button
-        mt={2}
-        buttonType="gradient-white"
-        disabled
-        iconType="print"
-        iconPosition="after"
-        ml={2}
-      >
-        Medium
-      </Button>
-    </Box>
-  );
-};
-GradientWhiteIcon.storyName = "Gradient/White/Icon";
-
-export const GradientWhiteFullWidth: Story = () => {
-  return (
-    <Box>
-      <Button mt={2} buttonType="gradient-white" fullWidth>
-        Full Width
-      </Button>
-    </Box>
-  );
-};
-GradientWhiteFullWidth.storyName = "Gradient/White/Full Width";
-
-export const GradientWhiteNoWrap: Story = () => {
-  return (
-    <Box width="40px">
-      <Button ml={2} mt={2} buttonType="gradient-white" noWrap>
-        Long button text
-      </Button>
-    </Box>
-  );
-};
-GradientWhiteNoWrap.storyName = "Gradient/White/No Wrap";
-
-export const GradientGrey: Story = () => {
-  return (
-    <Box>
-      <Button mt={2} buttonType="gradient-grey" size="small" ml={2}>
-        Small
-      </Button>
-      <Button mt={2} buttonType="gradient-grey" ml={2}>
-        Medium
-      </Button>
-      <Button mt={2} buttonType="gradient-grey" size="large" ml={2}>
-        Large
-      </Button>
-    </Box>
-  );
-};
-GradientGrey.storyName = "Gradient/Grey";
-
-export const GradientGreyDisabled: Story = () => {
-  return (
-    <Box>
-      <Button mt={2} buttonType="gradient-grey" size="small" ml={2} disabled>
-        Small
-      </Button>
-      <Button mt={2} buttonType="gradient-grey" ml={2} disabled>
-        Medium
-      </Button>
-      <Button mt={2} buttonType="gradient-grey" size="large" ml={2} disabled>
-        Large
-      </Button>
-    </Box>
-  );
-};
-GradientGreyDisabled.storyName = "Gradient/Grey/Disabled";
-
-export const GradientGreyIcon: Story = () => {
-  return (
-    <Box>
-      <Button mt={2} buttonType="gradient-grey" iconType="print" ml={2}>
-        Medium
-      </Button>
-      <Button
-        mt={2}
-        buttonType="gradient-grey"
-        iconType="delete"
-        iconPosition="after"
-        ml={2}
-      >
-        Medium
-      </Button>
-      <Button
-        mt={2}
-        buttonType="gradient-grey"
-        disabled
-        iconType="print"
-        ml={2}
-      >
-        Medium
-      </Button>
-      <Button
-        mt={2}
-        buttonType="gradient-grey"
-        disabled
-        iconType="print"
-        iconPosition="after"
-        ml={2}
-      >
-        Medium
-      </Button>
-    </Box>
-  );
-};
-GradientGreyIcon.storyName = "Gradient/Grey/Icon";
-
-export const GradientGreyFullWidth: Story = () => {
-  return (
-    <Box>
-      <Button mt={2} buttonType="gradient-grey" fullWidth>
-        Full Width
-      </Button>
-    </Box>
-  );
-};
-GradientGreyFullWidth.storyName = "Gradient/Grey/Full Width";
-
-export const GradientGreyNoWrap: Story = () => {
-  return (
-    <Box width="40px">
-      <Button ml={2} mt={2} buttonType="gradient-grey" noWrap>
-        Long button text
-      </Button>
-    </Box>
-  );
-};
-GradientGreyNoWrap.storyName = "Gradient/Grey/No Wrap";
+HTMLButtonType.storyName = "HTML Button Types";

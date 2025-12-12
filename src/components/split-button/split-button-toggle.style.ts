@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import StyledButton from "../button/button.style";
+import StyledButton from "../button/__internal__/__next__/button.style";
 import StyledIcon from "../icon/icon.style";
 
 const horizontalPaddingSizes = {

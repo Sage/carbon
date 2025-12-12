@@ -27,7 +27,7 @@ import {
   IconOnlyWithTooltipButton,
 } from "./components.test-pw";
 import { buttonMinorComponent } from "../../../playwright/components/button/index";
-import { BUTTON_ICON_POSITIONS } from "../button/button.config";
+import { BUTTON_ICON_POSITIONS } from "../../__internal__/__legacy__/button/button.config";
 import { ICON } from "../../../playwright/components/locators";
 import {
   dlsRoot,

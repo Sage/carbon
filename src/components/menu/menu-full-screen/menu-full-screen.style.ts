@@ -4,7 +4,7 @@ import StyledIconButton from "../../icon-button/icon-button.style";
 import StyledBox from "../../box/box.style";
 import StyledSearch from "../../search/search.style";
 import StyledIcon from "../../icon/icon.style";
-import StyledButton from "../../button/button.style";
+import LegacyStyledButton from "../../../__internal__/__legacy__/button/button.style";
 import menuConfigVariants from "../menu.config";
 import addFocusStyling from "../../../style/utils/add-focus-styling";
 import { StyledLink } from "../../link/link.style";
@@ -77,7 +77,7 @@ const StyledMenuModal = styled.div.attrs(applyBaseTheme)<{
           bottom: auto;
         }
 
-        ${StyledButton} {
+        ${LegacyStyledButton} {
           display: flex;
           line-height: normal;
           padding-bottom: 0;

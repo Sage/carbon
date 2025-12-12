@@ -4,7 +4,7 @@ import { padding, PaddingProps } from "styled-system";
 
 import menuConfigVariants from "../menu.config";
 import Link from "../../link";
-import StyledButton from "../../button/button.style";
+import LegacyStyledButton from "../../../__internal__/__legacy__/button/button.style";
 import StyledIconButton from "../../icon-button/icon-button.style";
 import StyledIcon from "../../icon/icon.style";
 import { StyledContent, StyledLink } from "../../link/link.style";
@@ -195,7 +195,7 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
 
         a:hover,
         button:hover {
-          ${StyledButton} {
+          ${LegacyStyledButton} {
             border-radius: 0;
             background-color: transparent;
           }
@@ -227,7 +227,7 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
             padding: 11px 16px;
           }
 
-          > a:has(${StyledButton}:not(.search-button)) {
+          > a:has(${LegacyStyledButton}:not(.search-button)) {
             height: 100%;
 
             ${StyledContent} {
@@ -238,7 +238,7 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
               }
             }
 
-            ${StyledButton} {
+            ${LegacyStyledButton} {
               min-height: 40px;
               padding: 10px 0px;
               box-sizing: border-box;
