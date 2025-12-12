@@ -713,33 +713,34 @@ describe("when dropdown list is opened", () => {
 });
 
 test.each(["Backspace", "Delete"])(
-  "pressing %s key within the input removes the last selected option if it exists",
+  "calls onChange with the last selected value removed, when %s key is pressed in a populated combobox",
   async (key) => {
     const user = userEvent.setup();
+    const handleChange = jest.fn();
 
-    const ControlledMultiSelect = () => {
-      const [value, setValue] = React.useState(["amber"]);
-
-      return (
-        <InteractiveComponent
-          label="Colour"
-          value={value}
-          onChange={(event) => {
-            setValue(event.target.value as unknown as string[]);
-          }}
-        >
-          <Option text="amber" value="amber" />
-        </InteractiveComponent>
-      );
-    };
-    render(<ControlledMultiSelect />);
+    render(
+      <MultiSelect
+        label="Color"
+        value={["red", "orange"]}
+        onChange={handleChange}
+      >
+        <Option text="red" value="red" />
+        <Option text="orange" value="orange" />
+        <Option text="yellow" value="yellow" />
+      </MultiSelect>,
+    );
 
     await user.click(screen.getByRole("combobox"));
-    await user.click(await screen.findByRole("option", { name: "amber" }));
     await user.keyboard(`{${key}}`);
 
-    const amberPill = screen.queryByTitle("amber");
-    expect(amberPill).not.toBeInTheDocument();
+    expect(handleChange).toHaveBeenCalledWith(
+      expect.objectContaining({
+        target: {
+          value: ["red"],
+        },
+        selectionConfirmed: true,
+      }),
+    );
   },
 );
 
