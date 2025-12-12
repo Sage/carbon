@@ -1467,136 +1467,170 @@ describe("when the user types in the input", () => {
   });
 });
 
-describe("when the user selects an option", () => {
-  it("should update the input value when the user clicks", async () => {
-    const user = userEvent.setup();
-    render(
-      <FilterableSelectWithState value="opt1">
-        <Option value="opt1" text="red" />
-        <Option value="opt2" text="green" />
-      </FilterableSelectWithState>,
-    );
-    await user.click(screen.getByRole("combobox"));
-    await user.click(await screen.findByRole("option", { name: "green" }));
+it("should update the input value when the user clicks", async () => {
+  const user = userEvent.setup();
+  render(
+    <FilterableSelectWithState value="opt1">
+      <Option value="opt1" text="red" />
+      <Option value="opt2" text="green" />
+    </FilterableSelectWithState>,
+  );
+  await user.click(screen.getByRole("combobox"));
+  await user.click(await screen.findByRole("option", { name: "green" }));
 
-    expect(screen.getByRole("combobox")).toHaveValue("green");
+  expect(screen.getByRole("combobox")).toHaveValue("green");
+});
+
+it("should call `onChange` with new value and selectionConfirmed as true, when the user clicks an option", async () => {
+  const user = userEvent.setup();
+  const handleChange = jest.fn();
+  render(
+    <FilterableSelect
+      label="filterable-select"
+      onChange={handleChange}
+      value=""
+    >
+      <Option value="opt1" text="green" />
+    </FilterableSelect>,
+  );
+  const input = screen.getByRole("combobox");
+  await user.click(input);
+  await user.click(await screen.findByRole("option", { name: "green" }));
+
+  expect(handleChange).toHaveBeenCalledWith(
+    expect.objectContaining({
+      target: { value: "opt1" },
+      selectionConfirmed: true,
+    }),
+  );
+});
+
+it("should call `onChange` when the user presses the 'Enter' key while an option is highlighted", async () => {
+  const handleChange = jest.fn();
+  const user = userEvent.setup();
+
+  render(
+    <FilterableSelect
+      label="filterable-select"
+      onChange={handleChange}
+      value=""
+    >
+      <Option value="opt1" text="green" />
+    </FilterableSelect>,
+  );
+  act(() => {
+    screen.getByRole("combobox").focus();
   });
+  await user.keyboard("{ArrowDown}");
+  await user.keyboard("{ArrowDown}");
 
-  it("should call `onSelect` when the user clicks", async () => {
-    const user = userEvent.setup();
-    const onSelectFn = jest.fn();
-    render(
-      <FilterableSelect
-        label="filterable-select"
-        onChange={() => {}}
-        value=""
-        onSelect={onSelectFn}
-      >
-        <Option value="opt1" text="green" />
-      </FilterableSelect>,
-    );
-    const input = screen.getByRole("combobox");
-    await user.click(input);
-    await user.click(await screen.findByRole("option", { name: "green" }));
+  handleChange.mockClear();
+  await user.keyboard("{Enter}");
 
-    expect(onSelectFn).toHaveBeenCalled();
+  expect(handleChange).toHaveBeenCalledTimes(1);
+});
+
+it("should call `onChange` when the user presses the 'Space' key while an option is highlighted", async () => {
+  const handleChange = jest.fn();
+  const user = userEvent.setup();
+  render(
+    <FilterableSelect
+      label="filterable-select"
+      onChange={handleChange}
+      value=""
+    >
+      <Option value="opt1" text="green" />
+    </FilterableSelect>,
+  );
+  act(() => {
+    screen.getByRole("combobox").focus();
   });
+  await user.keyboard("{ArrowDown}");
+  await user.keyboard("{ArrowDown}");
 
-  it("should call `onSelect` when the user presses the 'Enter' key", async () => {
-    const onSelectFn = jest.fn();
-    const user = userEvent.setup();
-    render(
-      <FilterableSelect
-        label="filterable-select"
-        onChange={() => {}}
-        value=""
-        onSelect={onSelectFn}
-      >
-        <Option value="opt1" text="green" />
-      </FilterableSelect>,
-    );
-    act(() => {
-      screen.getByRole("combobox").focus();
-    });
-    await user.keyboard("{ArrowDown}");
-    await user.keyboard("{ArrowDown}");
-    await user.keyboard("{Enter}");
+  handleChange.mockClear();
+  await user.keyboard(" ");
 
-    expect(onSelectFn).toHaveBeenCalled();
+  expect(handleChange).toHaveBeenCalledTimes(1);
+});
+
+it("should call `onChange` each time the user presses the 'ArrowDown' key to navigate the list", async () => {
+  const handleChange = jest.fn();
+  const user = userEvent.setup();
+  render(
+    <FilterableSelect
+      label="filterable-select"
+      onChange={handleChange}
+      value=""
+    >
+      <Option value="opt1" text="green" />
+      <Option value="opt2" text="blue" />
+    </FilterableSelect>,
+  );
+  act(() => {
+    screen.getByRole("combobox").focus();
   });
+  await user.keyboard("{ArrowDown}");
+  await user.keyboard("{ArrowDown}");
 
-  it("should call `onSelect` when the user presses the 'Space' key", async () => {
-    const onSelectFn = jest.fn();
-    const user = userEvent.setup();
-    render(
-      <FilterableSelect
-        label="filterable-select"
-        onChange={() => {}}
-        value=""
-        onSelect={onSelectFn}
-      >
-        <Option value="opt1" text="green" />
-      </FilterableSelect>,
-    );
-    act(() => {
-      screen.getByRole("combobox").focus();
-    });
-    await user.keyboard("{ArrowDown}");
-    await user.keyboard("{ArrowDown}");
-    await user.keyboard(" ");
+  expect(handleChange).toHaveBeenCalledTimes(1);
+  handleChange.mockReset();
 
-    expect(onSelectFn).toHaveBeenCalled();
+  await user.keyboard("{ArrowDown}");
+  expect(handleChange).toHaveBeenCalledTimes(1);
+});
+
+it("should call `onChange` each time the user presses the 'ArrowUp' key to navigate the list", async () => {
+  const handleChange = jest.fn();
+  const user = userEvent.setup();
+  render(
+    <FilterableSelect
+      label="filterable-select"
+      onChange={handleChange}
+      value=""
+    >
+      <Option value="opt1" text="green" />
+      <Option value="opt2" text="blue" />
+    </FilterableSelect>,
+  );
+  act(() => {
+    screen.getByRole("combobox").focus();
   });
+  await user.keyboard("{ArrowUp}");
+  await user.keyboard("{ArrowUp}");
 
-  it("should call `onSelect` each time the user presses the 'ArrowDown' key to navigate the list", async () => {
-    const onSelectFn = jest.fn();
-    const user = userEvent.setup();
-    render(
-      <FilterableSelect
-        label="filterable-select"
-        onChange={() => {}}
-        value=""
-        onSelect={onSelectFn}
-      >
-        <Option value="opt1" text="green" />
-        <Option value="opt2" text="blue" />
-      </FilterableSelect>,
-    );
-    act(() => {
-      screen.getByRole("combobox").focus();
-    });
-    await user.keyboard("{ArrowDown}");
+  expect(handleChange).toHaveBeenCalledTimes(1);
+  handleChange.mockReset();
 
-    expect(onSelectFn).toHaveBeenCalled();
-    onSelectFn.mockReset();
-    await user.keyboard("{ArrowDown}");
-    expect(onSelectFn).toHaveBeenCalled();
-  });
+  await user.keyboard("{ArrowUp}");
+  expect(handleChange).toHaveBeenCalledTimes(1);
+});
 
-  it("should call `onSelect` each time the user presses the 'ArrowUp' key to navigate the list", async () => {
-    const onSelectFn = jest.fn();
-    const user = userEvent.setup();
-    render(
-      <FilterableSelect
-        label="filterable-select"
-        onChange={() => {}}
-        value=""
-        onSelect={onSelectFn}
-      >
-        <Option value="opt1" text="green" />
-        <Option value="opt2" text="blue" />
-      </FilterableSelect>,
-    );
-    act(() => {
-      screen.getByRole("combobox").focus();
-    });
-    await user.keyboard("{ArrowUp}");
+it("calls `onChange` with selectionConfirmed set to false, when Enter key is pressed while list displays no results", async () => {
+  const user = userEvent.setup();
+  const handleChange = jest.fn();
 
-    expect(onSelectFn).toHaveBeenCalled();
-    onSelectFn.mockReset();
-    await user.keyboard("{ArrowUp}");
-    expect(onSelectFn).toHaveBeenCalled();
-  });
+  render(
+    <FilterableSelect label="Colors" onChange={handleChange} value="">
+      <Option value="opt1" text="green" />
+      <Option value="opt2" text="blue" />
+    </FilterableSelect>,
+  );
+
+  const combobox = screen.getByRole("combobox", { name: "Colors" });
+  await user.click(combobox);
+
+  await user.keyboard(`apple`);
+  await screen.findByText(/No results for/);
+
+  handleChange.mockClear();
+  await user.keyboard("{Enter}");
+
+  expect(handleChange).toHaveBeenCalledWith(
+    expect.objectContaining({
+      selectionConfirmed: false,
+    }),
+  );
 });
 
 test("should close the list when the user presses `Escape` key", async () => {
@@ -1805,32 +1839,6 @@ describe("when the `listActionButton` is passed", () => {
     await user.keyboard(" ");
 
     expect(onListActionFn).toHaveBeenCalled();
-  });
-
-  it("should call the `onSelect` callback when the user presses tab and the action button is focused", async () => {
-    const user = userEvent.setup();
-    const onSelectFn = jest.fn();
-
-    render(
-      <FilterableSelect
-        onSelect={onSelectFn}
-        openOnFocus
-        onListAction={() => {}}
-        label="filterable-select"
-        onChange={() => {}}
-        value=""
-        listActionButton={<button type="button">mock button</button>}
-      >
-        <Option value="opt1" text="green" />
-      </FilterableSelect>,
-    );
-    act(() => {
-      screen.getByRole("combobox").focus();
-    });
-    await user.tab();
-    await user.tab();
-
-    expect(onSelectFn).toHaveBeenCalled();
   });
 
   it("allows next focusable element to be focused, when 'Tab' is pressed while action button is focused", async () => {

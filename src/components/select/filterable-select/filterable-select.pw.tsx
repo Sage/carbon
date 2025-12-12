@@ -9,7 +9,6 @@ import {
   FilterableSelectWithActionButtonComponent,
   WithVirtualScrolling,
   FilterableSelectNestedInDialog,
-  SelectionConfirmed,
   FilterableSelectWithDisabledOption,
   FilterableSelectControlled,
   WithObjectAsValue,
@@ -1328,164 +1327,6 @@ test.describe("When nested inside of a Dialog component", () => {
   });
 });
 
-test.describe("Selection confirmed", () => {
-  test("is set on the event when options are clicked", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<SelectionConfirmed />);
-
-    await dropdownButton(page).click();
-    await selectOptionByText(page, "One").click();
-    await expect(
-      page.locator('[data-element="confirmed-selection-1"]'),
-    ).toBeVisible();
-    await dropdownButton(page).click();
-    await selectOptionByText(page, "Five").click();
-    await expect(
-      page.locator('[data-element="confirmed-selection-1"]'),
-    ).toBeHidden();
-    await expect(
-      page.locator('[data-element="confirmed-selection-5"]'),
-    ).toBeVisible();
-    await dropdownButton(page).click();
-    await selectOptionByText(page, "Seven").click();
-    await expect(
-      page.locator('[data-element="confirmed-selection-5"]'),
-    ).toBeHidden();
-    await expect(
-      page.locator('[data-element="confirmed-selection-7"]'),
-    ).toBeVisible();
-  });
-
-  test("is set on the event when Enter key is pressed on an option using ArrowDown key to navigate", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<SelectionConfirmed />);
-
-    await dropdownButton(page).click();
-    const inputElement = selectInput(page);
-    await inputElement.press("ArrowDown");
-    await inputElement.press("Enter");
-    await expect(
-      page.locator('[data-element="confirmed-selection-1"]'),
-    ).toBeVisible();
-    // to work around a race condition in the keydown handler, we fire a click first to ensure React knows the SelectList is open.
-    // This ensures the down-arrow press moves to the next option when the test runs.
-    await dropdownButton(page).click();
-    await inputElement.press("ArrowDown");
-    await inputElement.press("ArrowDown");
-    await inputElement.press("Enter");
-    await expect(
-      page.locator('[data-element="confirmed-selection-1"]'),
-    ).toBeHidden();
-    await expect(
-      page.locator('[data-element="confirmed-selection-3"]'),
-    ).toBeVisible();
-    await dropdownButton(page).click();
-    await inputElement.press("ArrowDown");
-    await inputElement.press("ArrowDown");
-    await inputElement.press("Enter");
-    await expect(
-      page.locator('[data-element="confirmed-selection-3"]'),
-    ).toBeHidden();
-    await expect(
-      page.locator('[data-element="confirmed-selection-5"]'),
-    ).toBeVisible();
-    await dropdownButton(page).click();
-    await inputElement.press("ArrowDown");
-    await inputElement.press("Enter");
-    await expect(
-      page.locator('[data-element="confirmed-selection-5"]'),
-    ).toBeHidden();
-    await expect(
-      page.locator('[data-element="confirmed-selection-6"]'),
-    ).toBeVisible();
-  });
-
-  test("is set on the event when Enter key is pressed on an option using ArrowUp key to navigate", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<SelectionConfirmed />);
-
-    await dropdownButton(page).click();
-    const inputElement = selectInput(page);
-    await inputElement.press("ArrowUp");
-    await inputElement.press("Enter");
-    await expect(
-      page.locator('[data-element="confirmed-selection-9"]'),
-    ).toBeVisible();
-    // to work around a race condition in the keydown handler, we fire a click first to ensure React knows the SelectList is open.
-    // This ensures the up-arrow press moves to the next option when the test runs.
-    await dropdownButton(page).click();
-    await inputElement.press("ArrowUp");
-    await inputElement.press("ArrowUp");
-    await inputElement.press("Enter");
-    await expect(
-      page.locator('[data-element="confirmed-selection-9"]'),
-    ).toBeHidden();
-    await expect(
-      page.locator('[data-element="confirmed-selection-7"]'),
-    ).toBeVisible();
-    await dropdownButton(page).click();
-    await inputElement.press("ArrowUp");
-    await inputElement.press("ArrowUp");
-    await inputElement.press("Enter");
-    await expect(
-      page.locator('[data-element="confirmed-selection-7"]'),
-    ).toBeHidden();
-    await expect(
-      page.locator('[data-element="confirmed-selection-5"]'),
-    ).toBeVisible();
-    await dropdownButton(page).click();
-    await inputElement.press("ArrowUp");
-    await inputElement.press("Enter");
-    await expect(
-      page.locator('[data-element="confirmed-selection-5"]'),
-    ).toBeHidden();
-    await expect(
-      page.locator('[data-element="confirmed-selection-4"]'),
-    ).toBeVisible();
-  });
-
-  test("is set on the event when Enter key is pressed on an option after filtering", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<SelectionConfirmed />);
-
-    await dropdownButton(page).click();
-    const inputElement = selectInput(page);
-    await inputElement.fill("th");
-    await expect(
-      page.locator('[data-element="confirmed-selection-3"]'),
-    ).toBeHidden();
-    await inputElement.press("Enter");
-    await expect(
-      page.locator('[data-element="confirmed-selection-3"]'),
-    ).toBeVisible();
-  });
-
-  test("is not set on the event when Enter key is pressed when there is no match", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<SelectionConfirmed />);
-
-    const inputElement = selectInput(page);
-    await inputElement.fill("foo");
-    await inputElement.press("Enter");
-    // note: need to check count rather than visibility here - when the test fails and selectionConfirmed is set,
-    // the span with the data-element prop exists but has size 0 due to having no text content - which Playwright
-    // counts as not being visible
-    expect(
-      await page.locator('[data-element^="confirmed-selection-"]').count(),
-    ).toBe(0);
-  });
-});
-
 test("should not throw when filter text does not match option text", async ({
   mount,
   page,
@@ -1499,24 +1340,21 @@ test("should not throw when filter text does not match option text", async ({
   await expect(getDataElementByValue(page, "input")).toHaveValue("");
 });
 
-test("should not select a disabled option when a filter is typed", async ({
+test("skips disabled option while navigating via arrow keys", async ({
   mount,
   page,
 }) => {
   await mount(<FilterableSelectWithDisabledOption />);
 
-  await dropdownButton(page).click();
-  const inputElement = selectInput(page);
-  await inputElement.fill("t");
-  await inputElement.press("Enter");
-  await expect(
-    page.locator('[data-element="confirmed-selection-2"]'),
-  ).toBeHidden();
-  await inputElement.press("ArrowDown");
-  await inputElement.press("Enter");
-  await expect(
-    page.locator('[data-element="confirmed-selection-3"]'),
-  ).toBeVisible();
+  const combobox = page.getByRole("combobox");
+  await combobox.press("ArrowDown");
+
+  const listbox = page.getByRole("listbox");
+  await listbox.waitFor();
+  await expect(combobox).toHaveValue("One");
+
+  await combobox.press("ArrowDown");
+  await expect(combobox).toHaveValue("Three");
 });
 
 // see https://github.com/Sage/carbon/issues/6399
