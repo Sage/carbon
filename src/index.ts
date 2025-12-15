@@ -63,7 +63,7 @@ export type {
   ButtonToggleGroupProps,
 } from "./components/button-toggle";
 
-export { default as Button, getIconColor } from "./components/button";
+export { default as Button } from "./components/button";
 export type { ButtonProps } from "./components/button";
 
 export { default as CarbonProvider } from "./components/carbon-provider";

@@ -234,13 +234,13 @@ export const AllSizesVariantsTypes: Story = () => {
 
             <h3>AI</h3>
             <Box display="flex" flexDirection="row" gap={1}>
-              <Button variant="ai" variantType="secondary" size="small">
+              <Button variant="gradient" variantType="secondary" size="small">
                 Primary Small
               </Button>
-              <Button variant="ai" variantType="secondary" size="medium">
+              <Button variant="gradient" variantType="secondary" size="medium">
                 Primary Medium
               </Button>
-              <Button variant="ai" variantType="secondary" size="large">
+              <Button variant="gradient" variantType="secondary" size="large">
                 Primary Large
               </Button>
             </Box>
@@ -538,19 +538,19 @@ export const AllSizesVariantsTypes: Story = () => {
 
             <h3>AI</h3>
             <Box display="flex" flexDirection="row" gap={1}>
-              <Button variant="ai" variantType="secondary" size="small">
+              <Button variant="gradient" variantType="secondary" size="small">
                 <>
                   <Icon type="alert" />
                   Secondary Small
                 </>
               </Button>
-              <Button variant="ai" variantType="secondary" size="medium">
+              <Button variant="gradient" variantType="secondary" size="medium">
                 <>
                   <Icon type="alert" />
                   Secondary Medium
                 </>
               </Button>
-              <Button variant="ai" variantType="secondary" size="large">
+              <Button variant="gradient" variantType="secondary" size="large">
                 <>
                   <Icon type="alert" />
                   Secondary Large
@@ -676,13 +676,13 @@ export const AllSizesVariantsTypes: Story = () => {
 
             <h3>AI</h3>
             <Box display="flex" flexDirection="row" gap={1}>
-              <Button variant="ai" variantType="secondary" size="small">
+              <Button variant="gradient" variantType="secondary" size="small">
                 <Icon type="alert" />
               </Button>
-              <Button variant="ai" variantType="secondary" size="medium">
+              <Button variant="gradient" variantType="secondary" size="medium">
                 <Icon type="alert" />
               </Button>
-              <Button variant="ai" variantType="secondary" size="large">
+              <Button variant="gradient" variantType="secondary" size="large">
                 <Icon type="alert" />
               </Button>
             </Box>
@@ -698,7 +698,7 @@ AllSizesVariantsTypes.parameters = {
 };
 
 export const AIHoverStyling: Story = () => {
-  return <Button variant="ai">Button</Button>;
+  return <Button variant="gradient">Button</Button>;
 };
 AIHoverStyling.storyName = "AI Hover Styling";
 

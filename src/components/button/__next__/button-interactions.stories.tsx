@@ -31,7 +31,7 @@ export const FocusAndHoverStates: Story = {
         Secondary Destructive
       </Button>
 
-      <Button variant="ai">AI Secondary</Button>
+      <Button variant="gradient">AI Secondary</Button>
 
       <Button variantType="secondary" size="xs">
         Secondary

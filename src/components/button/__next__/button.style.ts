@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components";
 import { space, SpaceProps } from "styled-system";
-import { ButtonProps } from "./button.component";
 import addFocusStyling from "../../../style/utils/add-focus-styling";
 import {
   colourSettings,
@@ -19,79 +18,79 @@ const getCSSForAIStyle = ({
 }: {
   allowMotion?: boolean;
   disabled?: boolean;
-  size: NonNullable<Size>;
-}) => css`
-  position: relative;
-  z-index: 0;
-  border: none;
-  border-radius: ${propsForSize[size].borderRadius};
-  background: white;
-  color: var(--button-ai-label-default, #000000e6);
-  font-size: ${propsForSize[size].fontSize};
-  font-weight: var(--fontWeights500);
-  line-height: var(--lineHeights500);
-  height: ${propsForSize[size].height};
-  padding: ${propsForSize[size].paddingVertical}
-    ${propsForSize[size].paddingHorizontal};
-  overflow: hidden;
+  size: Size;
+}) => {
+  const { borderRadius, font, height, paddingVertical, paddingHorizontal } =
+    propsForSize[size];
 
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    padding: 2px;
-    border-radius: inherit;
-    z-index: -1;
-
-    background: linear-gradient(
-      90deg,
-      var(--mode-color-ai-stop-1, #13a038) 0%,
-      var(--mode-color-ai-stop-2, #149197) 40%,
-      var(--mode-color-ai-stop-3, #a87cfb) 100%
-    );
-    background-position: 0% 0;
-
-    -webkit-mask:
-      linear-gradient(#000 0 0) content-box,
-      linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-  }
-
-  &:hover {
-    background: linear-gradient(
-      90deg,
-      var(--mode-color-action-ai-hover-stop-1, rgba(18, 160, 56, 0.08)) 0%,
-      var(--mode-color-action-ai-hover-stop-2, rgba(20, 145, 151, 0.08)) 40%,
-      var(--mode-color-action-ai-hover-stop-3, rgba(168, 124, 251, 0.08)) 90%
-    );
-  }
-
-  &:hover::before {
-    ${allowMotion &&
-    css`
-      background-size: 300% 100%;
-      animation: gradient-loop 1000ms linear 1;
-    `}
-  }
-
-  ${disabled &&
-  css`
-    opacity: 0.6;
-    pointer-events: none;
+  return css`
+    position: relative;
+    z-index: 0;
+    border: none;
+    border-radius: ${borderRadius};
+    background: white;
+    color: var(--button-ai-label-default);
+    font: ${font};
+    height: ${height};
+    padding: ${paddingVertical} ${paddingHorizontal};
+    overflow: hidden;
 
     &::before {
-      animation: none;
-      background: none;
-      -webkit-mask: none;
-      mask: none;
-      border: 2px solid var(--button-ai-border-disabled, rgba(0, 0, 0, 0.3));
-      padding: 0;
+      content: "";
+      position: absolute;
+      inset: 0;
+      padding: 2px;
+      border-radius: inherit;
+      z-index: -1;
+
+      background: var(--button-ai-border-default);
+      background-position: 0% 0;
+
+      -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+      mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
     }
 
-    color: var(--button-ai-label-disabled, #0000006b);
-  `}
-`;
+    &:hover {
+      background: linear-gradient(
+        90deg,
+        var(--mode-color-action-ai-hover-stop-1) 0%,
+        var(--mode-color-action-ai-hover-stop-2) 40%,
+        var(--mode-color-action-ai-hover-stop-3) 90%
+      );
+    }
+
+    &:hover::before {
+      ${allowMotion &&
+      css`
+        background-size: 300% 100%;
+        animation: gradient-loop 1000ms linear 1;
+      `}
+    }
+
+    ${disabled &&
+    css`
+      opacity: 0.6;
+      pointer-events: none;
+
+      &::before {
+        animation: none;
+        background: none;
+        -webkit-mask: none;
+        mask: none;
+        border: 2px solid var(--button-ai-border-disabled);
+        padding: 0;
+      }
+
+      color: var(--button-ai-label-disabled);
+    `}
+  `;
+};
 
 const getCSSForInverseStyle = ({
   disabled,
@@ -99,43 +98,43 @@ const getCSSForInverseStyle = ({
   variantType,
 }: {
   disabled?: boolean;
-  size: NonNullable<Size>;
-  variantType: NonNullable<VariantType>;
-}) => css`
-  background-color: ${inverseColourSettings[variantType]?.background.default};
-  border: ${variantType === "tertiary" ? "1px" : "2px"} solid
-    ${inverseColourSettings[variantType]?.border.default};
-  border-radius: ${propsForSize[size].borderRadius};
-  color: ${inverseColourSettings[variantType]?.label.default};
-  font-size: ${propsForSize[size].fontSize};
-  font-weight: var(--fontWeights500);
-  line-height: var(--lineHeights500);
-  min-height: ${propsForSize[size].height};
-  padding: ${propsForSize[size].paddingVertical}
-    ${propsForSize[size].paddingHorizontal};
+  size: Size;
+  variantType: VariantType;
+}) => {
+  const { background, border, label } = inverseColourSettings[variantType];
+  const { borderRadius, font, height, paddingVertical, paddingHorizontal } =
+    propsForSize[size];
 
-  ${disabled
-    ? css`
-        background-color: ${inverseColourSettings[variantType]?.background
-          .disabled};
-        border: ${variantType === "tertiary" ? "1px" : "2px"} solid
-          ${inverseColourSettings[variantType]?.border.disabled};
-        color: ${inverseColourSettings[variantType]?.label.disabled};
-      `
-    : css`
-        &:active {
-          background-color: ${inverseColourSettings[variantType]?.background
-            .active};
-          color: ${inverseColourSettings[variantType]?.label.active};
-        }
+  return css`
+    background-color: ${background.default};
+    border: ${variantType === "tertiary" ? "1px" : "2px"} solid
+      ${border.default};
+    border-radius: ${borderRadius};
+    color: ${label.default};
+    font: ${font};
+    min-height: ${height};
+    padding: ${paddingVertical} ${paddingHorizontal};
 
-        &:hover {
-          background-color: ${inverseColourSettings[variantType]?.background
-            .hover};
-          color: ${inverseColourSettings[variantType]?.label.hover};
-        }
-      `}
-`;
+    ${disabled
+      ? css`
+          background-color: ${background.disabled};
+          border: ${variantType === "tertiary" ? "1px" : "2px"} solid
+            ${border.disabled};
+          color: ${label.disabled};
+        `
+      : css`
+          &:active {
+            background-color: ${background.active};
+            color: ${label.active};
+          }
+
+          &:hover {
+            background-color: ${background.hover};
+            color: ${label.hover};
+          }
+        `}
+  `;
+};
 
 const getCSSForStyle = ({
   disabled,
@@ -144,51 +143,53 @@ const getCSSForStyle = ({
   variantType,
 }: {
   disabled?: boolean;
-  size: NonNullable<Size>;
-  variant: NonNullable<Variant>;
-  variantType: NonNullable<VariantType>;
-}) => css`
-  background-color: ${colourSettings[variant][variantType]?.background.default};
-  border: ${variantType === "tertiary" ? "1px" : "2px"} solid
-    ${colourSettings[variant][variantType]?.border.default};
-  border-radius: ${propsForSize[size].borderRadius};
-  color: ${colourSettings[variant][variantType]?.label.default};
-  font-size: ${propsForSize[size].fontSize};
-  font-weight: var(--fontWeights500);
-  line-height: var(--lineHeights500);
-  height: ${propsForSize[size].height};
-  padding: ${propsForSize[size].paddingVertical}
-    ${propsForSize[size].paddingHorizontal};
+  size: Size;
+  variant: Variant;
+  variantType: VariantType;
+}) => {
+  const { background, border, label } =
+    colourSettings[variant][variantType] || /* istanbul ignore next */ {};
+  const { borderRadius, font, height, paddingVertical, paddingHorizontal } =
+    propsForSize[size];
 
-  ${disabled
-    ? css`
-        background-color: ${colourSettings[variant][variantType]?.background
-          .disabled};
-        border: ${variantType === "tertiary" ? "1px" : "2px"} solid
-          ${colourSettings[variant][variantType]?.border.disabled};
-        color: ${colourSettings[variant][variantType]?.label.disabled};
-      `
-    : css`
-        &:active {
-          background-color: ${colourSettings[variant][variantType]?.background
-            .active};
-          color: ${colourSettings[variant][variantType]?.label.active};
-        }
+  return css`
+    background-color: ${background?.default};
+    border: ${variantType === "tertiary" ? "1px" : "2px"} solid
+      ${border?.default};
+    border-radius: ${borderRadius};
+    color: ${label?.default};
+    font: ${font};
+    height: ${height};
+    padding: ${paddingVertical} ${paddingHorizontal};
 
-        &:hover {
-          background-color: ${colourSettings[variant][variantType]?.background
-            .hover};
-          color: ${colourSettings[variant][variantType]?.label.hover};
-        }
-      `}
-`;
+    ${disabled
+      ? css`
+          background-color: ${background?.disabled};
+          border: ${variantType === "tertiary" ? "1px" : "2px"} solid
+            ${border?.disabled};
+          color: ${label?.disabled};
+        `
+      : css`
+          &:active {
+            background-color: ${background?.active};
+            color: ${label?.active};
+          }
 
-type StyledButtonProps = ButtonProps &
-  SpaceProps & {
-    allowMotion?: boolean;
+          &:hover {
+            background-color: ${background?.hover};
+            color: ${label?.hover};
+          }
+        `}
+  `;
+};
 
-    iconOnly?: boolean;
-  };
+type StyledButtonProps = SpaceProps & {
+  $allowMotion?: boolean;
+  $inverse?: boolean;
+  $fullWidth?: boolean;
+  $noWrap?: boolean;
+  $iconOnly?: boolean;
+};
 
 export const StyledContentContainer = styled.span`
   display: flex;
@@ -199,38 +200,39 @@ export const StyledContentContainer = styled.span`
 
 export const StyledButton = styled.button<
   Omit<StyledButtonProps, "size" | "variant" | "variantType"> & {
-    size: NonNullable<Size>;
-    variant: NonNullable<Variant>;
-    variantType: NonNullable<VariantType>;
+    $size: Size;
+    $variant: Variant;
+    $variantType: VariantType;
   }
 >`
   ${space}
 
   align-items: center;
   box-sizing: border-box;
-  cursor: pointer;
   display: inline-flex;
   justify-content: center;
   outline-offset: 0;
   text-decoration: none;
   vertical-align: middle;
 
-  ${({ allowMotion, disabled, inverse, size, variant, variantType }) => {
-    if (inverse) {
+  ${({ disabled }) => !disabled && "cursor: pointer;"}
+
+  ${({ $allowMotion, disabled, $inverse, $size, $variant, $variantType }) => {
+    if ($inverse) {
       return getCSSForInverseStyle({
         disabled,
-        size: size as NonNullable<Size>,
-        variantType: variantType as NonNullable<VariantType>,
+        size: $size,
+        variantType: $variantType,
       });
     }
 
-    if (variant === "ai") {
+    if ($variant === "gradient") {
       return css`
         ${gradientAnimation}
         ${getCSSForAIStyle({
-          allowMotion,
+          allowMotion: $allowMotion,
           disabled,
-          size,
+          size: $size,
         })}
       `;
     }
@@ -238,7 +240,10 @@ export const StyledButton = styled.button<
     /**
      * XS should fall back to the "default secondary" colour scheme
      * */
-    if (size === "xs" && (variantType === "primary" || variant !== "default")) {
+    if (
+      $size === "xs" &&
+      ($variantType === "primary" || $variant !== "default")
+    ) {
       return getCSSForStyle({
         disabled,
         size: "xs",
@@ -253,45 +258,41 @@ export const StyledButton = styled.button<
      * */
     /* istanbul ignore if */
     if (
-      variant === "destructive" &&
-      (variantType === "tertiary" || variantType === "subtle")
+      $variant === "destructive" &&
+      ($variantType === "tertiary" || $variantType === "subtle")
     ) {
       return getCSSForStyle({
         disabled,
-        size,
-        variant,
+        size: $size,
+        variant: $variant,
         variantType: "primary",
       });
     }
 
     return getCSSForStyle({
       disabled,
-      size,
-      variant,
-      variantType,
+      size: $size,
+      variant: $variant,
+      variantType: $variantType,
     });
   }}
 
-  ${({ fullWidth, size, noWrap }) => css`
-    ${fullWidth
-      ? css`
-          width: 100%;
-        `
-      : `width: max-content;`}
+  ${({ $fullWidth, $size, $noWrap }) => css`
+    ${$fullWidth ? "width: 100%;" : "width: max-content;"}
 
-    ${noWrap
-      ? css`
-          white-space: nowrap;
-        `
-      : css`
-          flex-flow: wrap;
-          min-height: ${propsForSize[size].height};
-          height: unset;
-        `}
+    ${$noWrap
+      ? "white-space: nowrap;"
+      : `
+      flex-flow: wrap;
+      min-height: ${propsForSize[$size].height};
+      height: unset;
+    `}
   `}
 
   &:focus {
     ${addFocusStyling()}
+    position: relative;
+    z-index: 1;
   }
 `;
 

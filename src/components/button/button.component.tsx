@@ -17,7 +17,7 @@ import SplitButtonContext from "../split-button/__internal__/split-button.contex
 import BatchSelectionContext from "../batch-selection/__internal__/batch-selection.context";
 
 /**
- * @deprecated Use "primary", "secondary", "tertiary" or "ai" instead.
+ * @deprecated Use "primary", "secondary", "tertiary" or "gradient" instead.
  */
 export type DeprecatedButtonTypes =
   | "darkBackground"

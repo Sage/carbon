@@ -51,22 +51,6 @@ maintained.
 
 <Canvas of={ButtonStories.ButtonContent} />
 
-#### Icon Styling
-
-If passing an icon as a child, you can import the `getIconColor` helper function
-to determine the correct color for your chosen variant. Use it as follows:
-
-```tsx
-import { getIconColor } from "carbon-react/lib/components/button";
-
-<Button>
-  <>
-    <Icon color={getIconColor()} type="home" />
-    Return to the home page
-  </>
-</Button>;
-```
-
 ### Click Handler
 
 To make use of non-submit and non-reset buttons, provide an `onClick` handler to
@@ -76,7 +60,7 @@ enable actions to take place when users click the button.
 
 ### Variants
 
-Buttons come in three variants: `default`, `destructive` and `ai`. To set your
+Buttons come in three variants: `default`, `destructive` and `gradient`. To set your
 desired variant, pass the `variant` prop; if no value is passed, `default` is
 used.
 
@@ -86,9 +70,9 @@ as follows:
 
 | Variant       | Primary | Secondary | Tertiary | Subtle |
 | ------------- | ------- | --------- | -------- | ------ |
-| `default`     | ✅      | ✅        | ✅       | ✅     |
-| `destructive` | ✅      | ✅        | ❌       | ❌     |
-| `ai`          | ❌      | ✅        | ❌       | ❌     |
+| `default`     | ✅      | ✅        | ✅       | ✅      |
+| `destructive` | ✅      | ✅        | ❌       | ❌      |
+| `gradient`    | ❌      | ✅        | ❌       | ❌      |
 
 By default, the `primary` variant type will be used if no `variantType` property
 is passed
@@ -156,6 +140,20 @@ allows `Button` instances to be used as standard buttons in elements
 such as forms.
 
 <Canvas of={ButtonStories.HTMLButtonType} />
+
+### Legacy support
+
+To help with migration, this component can also accept the following legacy props:
+- the `buttonType` prop, which maps to the `variant` and `variantType` props as follows:
+  - `primary` -> `variant="default"` and `variantType="primary"`
+  - `secondary` -> `variant="default"` and `variantType="secondary"`
+  - `tertiary` -> `variant="default"` and `variantType="tertiary"`
+  - `destructive` -> `variant="destructive"` and `variantType="primary"`
+  - `gradient-grey` -> `variant="gradient"` and `variantType="secondary"`
+  - `gradient-white` -> `variant="gradient"` and `variantType="secondary"`
+  - `darkBackground` -> `variant="default"` and `variantType="secondary"` with `inverse` set to `true`
+- the `iconType` and `iconPosition` props, which are equivalent to composing an `Icon` component as a child
+- the `isWhite` prop, which maps to the `inverse` prop
 
 ## Props
 

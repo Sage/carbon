@@ -1,12 +1,12 @@
 import React, {
   forwardRef,
   ReactNode,
-  useCallback,
-  useImperativeHandle,
   useRef,
+  useImperativeHandle,
 } from "react";
 import { SpaceProps } from "styled-system";
 
+import { ButtonProps as LegacyButtonProps } from "../button.component";
 import StyledButton, { StyledContentContainer } from "./button.style";
 import { Loader } from "../../loader/__next__/loader.component";
 import tagComponent, {
@@ -14,12 +14,20 @@ import tagComponent, {
 } from "../../../__internal__/utils/helpers/tags/tags";
 import useMediaQuery from "../../../hooks/useMediaQuery";
 import useLocale from "../../../hooks/__internal__/useLocale";
+import { Size, Variant, VariantType } from "./button.config";
+import Icon from "../../icon";
 
 export type ButtonHandle = {
   focusButton: () => void;
 } | null;
 
-export interface ButtonProps extends SpaceProps, TagProps {
+export interface ButtonProps
+  extends Omit<
+      LegacyButtonProps,
+      "size" | "type" | "iconTooltipMessage" | "iconTooltipPosition"
+    >,
+    SpaceProps,
+    TagProps {
   /** Identifies the element(s) offering additional information about the button that the user might require. */
   "aria-describedby"?: string;
   /**
@@ -63,14 +71,62 @@ export interface ButtonProps extends SpaceProps, TagProps {
     ev: React.KeyboardEvent<HTMLButtonElement | HTMLAnchorElement>,
   ) => void;
   /** The size of the button. */
-  size?: "xs" | "small" | "medium" | "large";
+  size?: Size;
   /** The HTML type that this button should use. */
   type?: "button" | "reset" | "submit";
   /** The variant of the button. */
-  variant?: "default" | "destructive" | "ai";
+  variant?: Variant;
   /** The variant type of the button. */
-  variantType?: "primary" | "secondary" | "tertiary" | "subtle";
+  variantType?: VariantType;
+
+  /**
+   * @internal
+   * @private
+   * @ignore
+   * @legacy
+   * Sets the underlying HTML element if href is passed
+   */
+  as?: "button" | "a";
 }
+
+const mapButtonTypeToVariantType = ({
+  buttonType,
+  destructive,
+  variant,
+  variantType,
+}: {
+  buttonType?: ButtonProps["buttonType"];
+  destructive?: ButtonProps["destructive"];
+  variant: Variant;
+  variantType: VariantType;
+}): { variant: Variant; variantType: VariantType } => {
+  // when buttonType and destructive are not set, use the variant and variantType directly
+  if (!buttonType && !destructive) {
+    return { variant, variantType };
+  }
+
+  if (destructive) {
+    const type = buttonType ?? variantType;
+    return {
+      variant: "destructive",
+      variantType: type === "primary" ? "primary" : "secondary",
+    };
+  }
+
+  switch (buttonType) {
+    case "primary":
+      return { variant: "default", variantType: "primary" };
+    case "tertiary":
+      return { variant: "default", variantType: "tertiary" };
+    case "darkBackground":
+      return { variant: "default", variantType: "secondary" };
+    case "gradient-grey":
+    case "gradient-white":
+      return { variant: "gradient", variantType: "secondary" };
+    default:
+      return { variant: "default", variantType: "secondary" };
+  }
+};
 
 export const Button = forwardRef<ButtonHandle, ButtonProps>(
   (
@@ -90,31 +146,40 @@ export const Button = forwardRef<ButtonHandle, ButtonProps>(
       size = "medium",
       variant = "default",
       variantType = "primary",
+      buttonType,
+      destructive,
+      iconType,
+      iconPosition = "before",
+      isWhite,
       ...rest
     }: ButtonProps,
     ref,
   ) => {
-    const buttonRef = useRef<HTMLButtonElement>(null);
     const locale = useLocale();
 
-    const focusButton = useCallback(() => {
-      const button = buttonRef.current;
-      button?.focus();
-    }, []);
+    const buttonRef = useRef<HTMLButtonElement>(null);
 
     useImperativeHandle<ButtonHandle, ButtonHandle>(
       ref,
       () => ({
-        focusButton() {
-          focusButton();
+        focusButton: () => {
+          buttonRef.current?.focus();
         },
       }),
-      [focusButton],
+      [],
     );
 
     const allowMotion = useMediaQuery(
       "screen and (prefers-reduced-motion: no-preference)",
     );
+
+    const { variant: computedVariant, variantType: computedVariantType } =
+      mapButtonTypeToVariantType({
+        buttonType,
+        destructive,
+        variant,
+        variantType,
+      });
 
     const handleClick = (
       event:
@@ -128,18 +193,10 @@ export const Button = forwardRef<ButtonHandle, ButtonProps>(
       onClick?.(event);
     };
 
-    const showLoader = () => {
-      if (size === "xs") return null;
-
-      let useWhiteRing = !inverse;
-
-      if (
-        (variantType !== "primary" && variant === "default") ||
-        (variantType === "secondary" && variant === "destructive") ||
-        variant === "ai"
-      ) {
-        useWhiteRing = false;
-      }
+    const renderLoader = () => {
+      const useWhiteRing =
+        (!inverse && variant === "default" && variantType === "primary") ||
+        (variant === "destructive" && variantType === "primary");
 
       return (
         <>
@@ -156,28 +213,69 @@ export const Button = forwardRef<ButtonHandle, ButtonProps>(
       );
     };
 
+    const renderChildren = () => {
+      if (size !== "xs" && loading) {
+        return renderLoader();
+      }
+
+      if (!iconType) {
+        return children;
+      }
+
+      const iconProps = {
+        "aria-hidden": true,
+        bg: "transparent",
+      };
+
+      if (children === undefined || children === false) {
+        return (
+          <Icon type={iconType} {...iconProps} data-role="button-icon-only" />
+        );
+      }
+
+      if (iconPosition === "before") {
+        return (
+          <>
+            <Icon
+              type={iconType}
+              {...iconProps}
+              data-role="button-icon-before"
+            />
+            {children}
+          </>
+        );
+      }
+
+      return (
+        <>
+          {children}
+          <Icon type={iconType} {...iconProps} data-role="button-icon-after" />
+        </>
+      );
+    };
+
     return (
       <StyledButton
-        allowMotion={allowMotion}
+        $allowMotion={allowMotion}
         aria-describedby={ariaDescribedBy}
         aria-label={ariaLabel}
         aria-labelledby={ariaLabelledBy}
         disabled={disabled}
-        fullWidth={fullWidth}
-        inverse={inverse}
+        $fullWidth={fullWidth}
+        $inverse={inverse || buttonType === "darkBackground" || isWhite}
         id={id}
         name={name}
-        noWrap={noWrap}
+        $noWrap={noWrap}
         onClick={handleClick}
         ref={buttonRef}
-        size={size}
-        variant={variant}
-        variantType={variantType}
+        $size={size}
+        $variant={computedVariant}
+        $variantType={computedVariantType}
         {...tagComponent("button", rest)}
         {...rest}
       >
         <StyledContentContainer data-role="button-child-container">
-          {loading ? showLoader() : children}
+          {renderChildren()}
         </StyledContentContainer>
       </StyledButton>
     );

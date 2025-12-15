@@ -1,11 +1,9 @@
 import { Meta, StoryObj } from "@storybook/react";
 import React, { useState } from "react";
-import Button, { ButtonProps } from ".";
+import Button, { ButtonProps } from "./button.component";
 import Box from "../../box";
 import Icon from "../../icon";
 import I18nProvider from "../../i18n-provider";
-
-import getIconColor from "../__utils__/utils";
 
 const meta: Meta<typeof Button> = {
   title: "Button",
@@ -39,27 +37,21 @@ export const Default: Story = () => {
 Default.storyName = "Default";
 
 export const ButtonContent: Story = () => {
-  const iconColor = getIconColor({
-    inverse: false,
-    variant: "default",
-    variantType: "primary",
-    disabled: false,
-  });
   return (
     <Box display={"flex"} gap={2}>
       <Button aria-label="Return to the home page">
-        <Icon color={iconColor} type="home" />
+        <Icon type="home" />
       </Button>
       <Button>
         <>
-          <Icon color={iconColor} type="home" />
+          <Icon type="home" />
           Return to the home page
         </>
       </Button>
       <Button>
         <>
           Return to the home page
-          <Icon color={iconColor} type="home" />
+          <Icon type="home" />
         </>
       </Button>
     </Box>
@@ -107,14 +99,14 @@ export const Variations: Story = (args: ButtonProps) => {
         </>
         <h2>Secondary</h2>
         <>
-          <Button {...args} variant="destructive" variantType="secondary" />
+          <Button {...args} />
         </>
       </Box>
       <Box display="flex" flexDirection="column" alignItems="flex-start">
         <h1>AI</h1>
         <h2>Secondary</h2>
         <>
-          <Button {...args} variant="ai" variantType="secondary" />
+          <Button {...args} variant="gradient" variantType="secondary" />
         </>
       </Box>
     </Box>

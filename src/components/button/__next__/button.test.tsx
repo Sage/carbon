@@ -1,16 +1,20 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
-import Button, { ButtonHandle, ButtonProps } from "./button.component";
+import Button, { ButtonHandle } from "./button.component";
 import Box from "../../box";
 
 import useMediaQuery from "../../../hooks/useMediaQuery";
 import Icon from "../../icon";
+import { Size, VariantType } from "./button.config";
 
 jest.mock("../../../hooks/useMediaQuery", () => ({
   __esModule: true,
   default: jest.fn(),
 }));
+
+const sizes: Partial<Size>[] = ["small", "medium", "large"];
+const variantTypes: VariantType[] = ["primary", "secondary"];
 
 const mockUseMediaQuery = useMediaQuery as jest.MockedFunction<
   typeof useMediaQuery
@@ -19,29 +23,23 @@ const mockUseMediaQuery = useMediaQuery as jest.MockedFunction<
 test("renders correctly", () => {
   render(<Button>Test Button</Button>);
   const button = screen.getByRole("button");
-  expect(button).toBeInTheDocument();
 
-  expect(button).toHaveStyle(
-    "border-radius: var(--global-radius-action-xl,20px)",
-  );
-  expect(button).toHaveStyle("height: var(--global-size-m,40px)");
-  expect(button).toHaveStyleRule("font-size", "14px");
+  expect(button).toBeInTheDocument();
+  expect(button).toHaveStyle("border-radius: var(--global-radius-action-xl)");
+  expect(button).toHaveStyle("height: var(--global-size-m)");
   expect(button).toHaveStyleRule("padding", "6px 16px");
 });
 
 test("renders correctly when inverse", () => {
   render(<Button inverse>Test Button</Button>);
   const button = screen.getByRole("button");
-  expect(button).toBeInTheDocument();
 
+  expect(button).toBeInTheDocument();
   expect(button).toHaveStyleRule(
-    "background-color: var(--button-typical-primary-inverse-bg-default, #00F142)",
+    "background-color: var(--button-typical-primary-inverse-bg-default)",
   );
-  expect(button).toHaveStyle(
-    "border-radius: var(--global-radius-action-xl,20px)",
-  );
-  expect(button).toHaveStyle("height: var(--global-size-m,40px)");
-  expect(button).toHaveStyleRule("font-size", "14px");
+  expect(button).toHaveStyle("border-radius: var(--global-radius-action-xl)");
+  expect(button).toHaveStyle("height: var(--global-size-m)");
   expect(button).toHaveStyleRule("padding", "6px 16px");
 });
 
@@ -52,16 +50,13 @@ test("renders correctly when inverse and tertiary", () => {
     </Button>,
   );
   const button = screen.getByRole("button");
-  expect(button).toBeInTheDocument();
 
+  expect(button).toBeInTheDocument();
   expect(button).toHaveStyleRule(
-    "border: 1px solid var(--button-typical-tertiary-inverse-border-default, #00F142)",
+    "border: 1px solid var(--button-typical-tertiary-inverse-border-default)",
   );
-  expect(button).toHaveStyle(
-    "border-radius: var(--global-radius-action-xl,20px)",
-  );
-  expect(button).toHaveStyle("height: var(--global-size-m,40px)");
-  expect(button).toHaveStyleRule("font-size", "14px");
+  expect(button).toHaveStyle("border-radius: var(--global-radius-action-xl)");
+  expect(button).toHaveStyle("height: var(--global-size-m)");
   expect(button).toHaveStyleRule("padding", "6px 16px");
 });
 
@@ -72,16 +67,13 @@ test("renders correctly when inverse and disabled", () => {
     </Button>,
   );
   const button = screen.getByRole("button");
-  expect(button).toBeInTheDocument();
 
+  expect(button).toBeInTheDocument();
   expect(button).toHaveStyleRule(
-    "background-color: var(--button-typical-primary-inverse-bg-disabled, rgba(255, 255, 255, 0.30))",
+    "background-color: var(--button-typical-primary-inverse-bg-disabled)",
   );
-  expect(button).toHaveStyle(
-    "border-radius: var(--global-radius-action-xl,20px)",
-  );
-  expect(button).toHaveStyle("height: var(--global-size-m,40px)");
-  expect(button).toHaveStyleRule("font-size", "14px");
+  expect(button).toHaveStyle("border-radius: var(--global-radius-action-xl)");
+  expect(button).toHaveStyle("height: var(--global-size-m)");
   expect(button).toHaveStyleRule("padding", "6px 16px");
 });
 
@@ -92,43 +84,51 @@ test("renders correctly when inverse, disabled and tertiary", () => {
     </Button>,
   );
   const button = screen.getByRole("button");
-  expect(button).toBeInTheDocument();
 
+  expect(button).toBeInTheDocument();
   expect(button).toHaveStyleRule(
-    "background-color: var(--button-typical-primary-inverse-bg-disabled, rgba(255, 255, 255, 0.30))",
+    "background-color: var(--button-typical-primary-inverse-bg-disabled)",
   );
   expect(button).toHaveStyleRule(
-    "border: 1px solid var(--button-typical-tertiary-inverse-border-disabled, rgba(255, 255, 255, 0.30))",
+    "border: 1px solid var(--button-typical-tertiary-inverse-border-disabled)",
   );
-  expect(button).toHaveStyle(
-    "border-radius: var(--global-radius-action-xl,20px)",
-  );
-  expect(button).toHaveStyle("height: var(--global-size-m,40px)");
-  expect(button).toHaveStyleRule("font-size", "14px");
+  expect(button).toHaveStyle("border-radius: var(--global-radius-action-xl)");
+  expect(button).toHaveStyle("height: var(--global-size-m)");
   expect(button).toHaveStyleRule("padding", "6px 16px");
 });
 
+test.each(["xs", ...sizes] as Size[])(
+  "renders correctly when size is %s",
+  (size) => {
+    render(<Button size={size}>Test Button</Button>);
+    const button = screen.getByRole("button");
+    const abbreviation = size === "xs" ? size : size.charAt(0);
+
+    expect(button).toHaveStyleRule(
+      "font",
+      `var(--global-font-static-comp-medium-${abbreviation})`,
+    );
+  },
+);
+
 describe("variant: default", () => {
   describe("variantType: primary", () => {
-    ["small", "medium", "large"].forEach((size) => {
+    sizes.forEach((size) => {
       describe(`size: ${size}`, () => {
         it("renders correctly", () => {
           render(
-            <Button
-              size={size as ButtonProps["size"]}
-              variant="default"
-              variantType="primary"
-            >
+            <Button size={size} variant="default" variantType="primary">
               Test Button
             </Button>,
           );
+
           expect(screen.getByRole("button")).toBeInTheDocument();
         });
 
         it("renders correctly when disabled", () => {
           render(
             <Button
-              size={size as ButtonProps["size"]}
+              size={size}
               variant="default"
               variantType="primary"
               disabled
@@ -136,47 +136,41 @@ describe("variant: default", () => {
               Test Button
             </Button>,
           );
-          const btn = screen.getByRole("button");
-          expect(btn).toBeInTheDocument();
-          expect(btn).toBeDisabled();
+          const button = screen.getByRole("button");
+
+          expect(button).toBeInTheDocument();
+          expect(button).toBeDisabled();
         });
 
         it("renders correctly when loading", () => {
           render(
-            <Button
-              size={size as ButtonProps["size"]}
-              variant="default"
-              variantType="primary"
-              loading
-            >
+            <Button size={size} variant="default" variantType="primary" loading>
               Test Button
             </Button>,
           );
           const loader = screen.getByRole("status");
+
           expect(loader).toBeInTheDocument();
           expect(loader).toHaveAttribute("data-component", "loader");
         });
 
         it("renders correctly with an icon", () => {
           render(
-            <Button
-              size={size as ButtonProps["size"]}
-              variant="default"
-              variantType="primary"
-            >
+            <Button size={size} variant="default" variantType="primary">
               <>
                 <Icon type="alert" />
                 Test Button
               </>
             </Button>,
           );
+
           expect(screen.getByTestId("icon")).toBeInTheDocument();
         });
 
         it("renders correctly with disabled and with an icon", () => {
           render(
             <Button
-              size={size as ButtonProps["size"]}
+              size={size}
               variant="default"
               variantType="primary"
               disabled
@@ -187,8 +181,9 @@ describe("variant: default", () => {
               </>
             </Button>,
           );
-          const btn = screen.getByRole("button");
-          expect(btn).toBeDisabled();
+          const button = screen.getByRole("button");
+
+          expect(button).toBeDisabled();
           expect(screen.getByTestId("icon")).toBeInTheDocument();
         });
       });
@@ -196,25 +191,22 @@ describe("variant: default", () => {
   });
 
   describe("variantType: secondary", () => {
-    ["small", "medium", "large"].forEach((size) => {
+    sizes.forEach((size) => {
       describe(`size: ${size}`, () => {
         test("renders correctly", () => {
           render(
-            <Button
-              size={size as ButtonProps["size"]}
-              variant="default"
-              variantType="secondary"
-            >
+            <Button size={size} variant="default" variantType="secondary">
               Test Button
             </Button>,
           );
+
           expect(screen.getByRole("button")).toBeInTheDocument();
         });
 
         test("renders correctly when disabled", () => {
           render(
             <Button
-              size={size as ButtonProps["size"]}
+              size={size}
               variant="default"
               variantType="secondary"
               disabled
@@ -222,14 +214,15 @@ describe("variant: default", () => {
               Test Button
             </Button>,
           );
-          const btn = screen.getByRole("button");
-          expect(btn).toBeDisabled();
+          const button = screen.getByRole("button");
+
+          expect(button).toBeDisabled();
         });
 
         test("renders correctly when loading", () => {
           render(
             <Button
-              size={size as ButtonProps["size"]}
+              size={size}
               variant="default"
               variantType="secondary"
               loading
@@ -238,29 +231,27 @@ describe("variant: default", () => {
             </Button>,
           );
           const loader = screen.getByRole("status");
+
           expect(loader).toHaveAttribute("data-component", "loader");
         });
 
         test("renders correctly with an icon", () => {
           render(
-            <Button
-              size={size as ButtonProps["size"]}
-              variant="default"
-              variantType="secondary"
-            >
+            <Button size={size} variant="default" variantType="secondary">
               <>
                 <Icon type="alert" />
                 Test Button
               </>
             </Button>,
           );
+
           expect(screen.getByTestId("icon")).toBeInTheDocument();
         });
 
         test("renders correctly with disabled and with an icon", () => {
           render(
             <Button
-              size={size as ButtonProps["size"]}
+              size={size}
               variant="default"
               variantType="secondary"
               disabled
@@ -271,6 +262,7 @@ describe("variant: default", () => {
               </>
             </Button>,
           );
+
           expect(screen.getByRole("button")).toBeDisabled();
           expect(screen.getByTestId("icon")).toBeInTheDocument();
         });
@@ -279,25 +271,22 @@ describe("variant: default", () => {
   });
 
   describe("variantType: tertiary", () => {
-    ["small", "medium", "large"].forEach((size) => {
+    sizes.forEach((size) => {
       describe(`size: ${size}`, () => {
         it("renders correctly", () => {
           render(
-            <Button
-              size={size as ButtonProps["size"]}
-              variant="default"
-              variantType="tertiary"
-            >
+            <Button size={size} variant="default" variantType="tertiary">
               Test Button
             </Button>,
           );
+
           expect(screen.getByRole("button")).toBeInTheDocument();
         });
 
         it("renders correctly when disabled", () => {
           render(
             <Button
-              size={size as ButtonProps["size"]}
+              size={size}
               variant="default"
               variantType="tertiary"
               disabled
@@ -305,13 +294,14 @@ describe("variant: default", () => {
               Test Button
             </Button>,
           );
+
           expect(screen.getByRole("button")).toBeDisabled();
         });
 
         it("renders correctly when loading", () => {
           render(
             <Button
-              size={size as ButtonProps["size"]}
+              size={size}
               variant="default"
               variantType="tertiary"
               loading
@@ -319,6 +309,7 @@ describe("variant: default", () => {
               Test Button
             </Button>,
           );
+
           expect(screen.getByRole("status")).toHaveAttribute(
             "data-component",
             "loader",
@@ -327,24 +318,21 @@ describe("variant: default", () => {
 
         it("renders correctly with an icon", () => {
           render(
-            <Button
-              size={size as ButtonProps["size"]}
-              variant="default"
-              variantType="tertiary"
-            >
+            <Button size={size} variant="default" variantType="tertiary">
               <>
                 <Icon type="alert" />
                 Test Button
               </>
             </Button>,
           );
+
           expect(screen.getByTestId("icon")).toBeInTheDocument();
         });
 
         it("renders correctly with disabled and with an icon", () => {
           render(
             <Button
-              size={size as ButtonProps["size"]}
+              size={size}
               variant="default"
               variantType="tertiary"
               disabled
@@ -355,6 +343,7 @@ describe("variant: default", () => {
               </>
             </Button>,
           );
+
           expect(screen.getByRole("button")).toBeDisabled();
           expect(screen.getByTestId("icon")).toBeInTheDocument();
         });
@@ -363,46 +352,35 @@ describe("variant: default", () => {
   });
 
   describe("variantType: subtle", () => {
-    ["small", "medium", "large"].forEach((size) => {
+    sizes.forEach((size) => {
       describe(`size: ${size}`, () => {
         it("renders correctly", () => {
           render(
-            <Button
-              size={size as ButtonProps["size"]}
-              variant="default"
-              variantType="subtle"
-            >
+            <Button size={size} variant="default" variantType="subtle">
               Test Button
             </Button>,
           );
+
           expect(screen.getByRole("button")).toBeInTheDocument();
         });
 
         it("renders correctly when disabled", () => {
           render(
-            <Button
-              size={size as ButtonProps["size"]}
-              variant="default"
-              variantType="subtle"
-              disabled
-            >
+            <Button size={size} variant="default" variantType="subtle" disabled>
               Test Button
             </Button>,
           );
+
           expect(screen.getByRole("button")).toBeDisabled();
         });
 
         it("renders correctly when loading", () => {
           render(
-            <Button
-              size={size as ButtonProps["size"]}
-              variant="default"
-              variantType="subtle"
-              loading
-            >
+            <Button size={size} variant="default" variantType="subtle" loading>
               Test Button
             </Button>,
           );
+
           expect(screen.getByRole("status")).toHaveAttribute(
             "data-component",
             "loader",
@@ -411,34 +389,27 @@ describe("variant: default", () => {
 
         it("renders correctly with an icon", () => {
           render(
-            <Button
-              size={size as ButtonProps["size"]}
-              variant="default"
-              variantType="subtle"
-            >
+            <Button size={size} variant="default" variantType="subtle">
               <>
                 <Icon type="alert" />
                 Test Button
               </>
             </Button>,
           );
+
           expect(screen.getByTestId("icon")).toBeInTheDocument();
         });
 
         it("renders correctly with disabled and with an icon", () => {
           render(
-            <Button
-              size={size as ButtonProps["size"]}
-              variant="default"
-              variantType="subtle"
-              disabled
-            >
+            <Button size={size} variant="default" variantType="subtle" disabled>
               <>
                 <Icon type="alert" />
                 Test Button
               </>
             </Button>,
           );
+
           expect(screen.getByRole("button")).toBeDisabled();
           expect(screen.getByTestId("icon")).toBeInTheDocument();
         });
@@ -448,48 +419,51 @@ describe("variant: default", () => {
 });
 
 describe("variant: destructive", () => {
-  ["primary", "secondary"].forEach((variantType) => {
+  variantTypes.forEach((variantType) => {
     describe(`variantType: ${variantType}`, () => {
-      ["small", "medium", "large"].forEach((size) => {
+      sizes.forEach((size) => {
         describe(`size: ${size}`, () => {
           it("renders correctly", () => {
             render(
               <Button
-                size={size as ButtonProps["size"]}
+                size={size}
                 variant="destructive"
-                variantType={variantType as ButtonProps["variantType"]}
+                variantType={variantType}
               >
                 Test Button
               </Button>,
             );
+
             expect(screen.getByRole("button")).toBeInTheDocument();
           });
 
           it("renders correctly when disabled", () => {
             render(
               <Button
-                size={size as ButtonProps["size"]}
+                size={size}
                 variant="destructive"
-                variantType={variantType as ButtonProps["variantType"]}
+                variantType={variantType}
                 disabled
               >
                 Test Button
               </Button>,
             );
+
             expect(screen.getByRole("button")).toBeDisabled();
           });
 
           it("renders correctly when loading", () => {
             render(
               <Button
-                size={size as ButtonProps["size"]}
+                size={size}
                 variant="destructive"
-                variantType={variantType as ButtonProps["variantType"]}
+                variantType={variantType}
                 loading
               >
                 Test Button
               </Button>,
             );
+
             expect(screen.getByRole("status")).toHaveAttribute(
               "data-component",
               "loader",
@@ -499,9 +473,9 @@ describe("variant: destructive", () => {
           it("renders correctly with an icon", () => {
             render(
               <Button
-                size={size as ButtonProps["size"]}
+                size={size}
                 variant="destructive"
-                variantType={variantType as ButtonProps["variantType"]}
+                variantType={variantType}
               >
                 <>
                   <Icon type="alert" />
@@ -509,15 +483,16 @@ describe("variant: destructive", () => {
                 </>
               </Button>,
             );
+
             expect(screen.getByTestId("icon")).toBeInTheDocument();
           });
 
           it("renders correctly with disabled and with an icon", () => {
             render(
               <Button
-                size={size as ButtonProps["size"]}
+                size={size}
                 variant="destructive"
-                variantType={variantType as ButtonProps["variantType"]}
+                variantType={variantType}
                 disabled
               >
                 <>
@@ -526,6 +501,7 @@ describe("variant: destructive", () => {
                 </>
               </Button>,
             );
+
             expect(screen.getByRole("button")).toBeDisabled();
             expect(screen.getByTestId("icon")).toBeInTheDocument();
           });
@@ -535,48 +511,47 @@ describe("variant: destructive", () => {
   });
 });
 
-describe("variant: ai", () => {
+describe("variant: gradient", () => {
   describe("variantType: secondary", () => {
-    ["small", "medium", "large"].forEach((size) => {
+    sizes.forEach((size) => {
       describe(`size: ${size}`, () => {
         it("renders correctly", () => {
           render(
-            <Button
-              size={size as ButtonProps["size"]}
-              variant="ai"
-              variantType="secondary"
-            >
+            <Button size={size} variant="gradient" variantType="secondary">
               Test Button
             </Button>,
           );
+
           expect(screen.getByRole("button")).toBeInTheDocument();
         });
 
         it("renders correctly when disabled", () => {
           render(
             <Button
-              size={size as ButtonProps["size"]}
-              variant="ai"
+              size={size}
+              variant="gradient"
               variantType="secondary"
               disabled
             >
               Test Button
             </Button>,
           );
+
           expect(screen.getByRole("button")).toBeDisabled();
         });
 
         it("renders correctly when loading", () => {
           render(
             <Button
-              size={size as ButtonProps["size"]}
-              variant="ai"
+              size={size}
+              variant="gradient"
               variantType="secondary"
               loading
             >
               Test Button
             </Button>,
           );
+
           expect(screen.getByRole("status")).toHaveAttribute(
             "data-component",
             "loader",
@@ -585,25 +560,22 @@ describe("variant: ai", () => {
 
         it("renders correctly with an icon", () => {
           render(
-            <Button
-              size={size as ButtonProps["size"]}
-              variant="ai"
-              variantType="secondary"
-            >
+            <Button size={size} variant="gradient" variantType="secondary">
               <>
                 <Icon type="alert" />
                 Test Button
               </>
             </Button>,
           );
+
           expect(screen.getByTestId("icon")).toBeInTheDocument();
         });
 
         it("renders correctly with disabled and with an icon", () => {
           render(
             <Button
-              size={size as ButtonProps["size"]}
-              variant="ai"
+              size={size}
+              variant="gradient"
               variantType="secondary"
               disabled
             >
@@ -613,6 +585,7 @@ describe("variant: ai", () => {
               </>
             </Button>,
           );
+
           expect(screen.getByRole("button")).toBeDisabled();
           expect(screen.getByTestId("icon")).toBeInTheDocument();
         });
@@ -629,6 +602,7 @@ test("renders correctly with an icon and no text", () => {
   );
   const button = screen.getByRole("button");
   const icon = screen.getByTestId("icon");
+
   expect(button).toBeInTheDocument();
   expect(icon).toBeInTheDocument();
 });
@@ -640,6 +614,7 @@ test("renders correctly when 'fullWidth' is specified", () => {
     </Box>,
   );
   const button = screen.getByRole("button");
+
   expect(button).toBeInTheDocument();
   expect(button).toHaveStyleRule("width", "100%");
 });
@@ -650,8 +625,9 @@ test("does not show a loader when size is 'xs'", () => {
       Test Button
     </Button>,
   );
-  const button = screen.getByRole("button");
+  const button = screen.getByRole("button", { name: "Test Button" });
   const loader = screen.queryByRole("status");
+
   expect(button).toBeInTheDocument();
   expect(loader).not.toBeInTheDocument();
 });
@@ -688,6 +664,7 @@ test("calling exposed focusButton method focuses chosen button", async () => {
 test("renders correctly with noWrap set", () => {
   render(<Button noWrap>Test Button</Button>);
   const button = screen.getByRole("button");
+
   expect(button).toBeInTheDocument();
   expect(button).toHaveStyleRule("white-space", "nowrap");
 });
@@ -697,10 +674,11 @@ test("renders correctly with wrapping text", () => {
     <Button noWrap={false}>Test Button With Some Really Long Text</Button>,
   );
   const button = screen.getByRole("button");
+
   expect(button).toBeInTheDocument();
   expect(button).toHaveStyleRule("flex-flow", "wrap");
   expect(button).toHaveStyleRule("height", "unset");
-  expect(button).toHaveStyle("min-height: var(--global-size-m,40px)");
+  expect(button).toHaveStyle("min-height: var(--global-size-m)");
 });
 
 test("does not render 'xs' buttons when `variantType` is set to 'primary' and `variant` is set to 'default'", () => {
@@ -710,6 +688,7 @@ test("does not render 'xs' buttons when `variantType` is set to 'primary' and `v
     </Button>,
   );
   const button = screen.getByRole("button");
+
   expect(button).toBeInTheDocument();
   expect(button).toHaveStyle(
     "background: var(--button-typical-secondary-bg-default, #00812008)",
@@ -733,19 +712,183 @@ test("does not fire the onClick handler when loading and clicked", async () => {
   );
   const button = screen.getByRole("button");
   await user.click(button);
+
   expect(clickMock).not.toHaveBeenCalled();
 });
 
 test("does not show the loading spinner if reduced motion is active", async () => {
   mockUseMediaQuery.mockReturnValueOnce(false);
   render(<Button loading>Test Button</Button>);
-  const buttonText = screen.getByRole("button").textContent;
-  expect(buttonText).toEqual("Loading...");
+  const { textContent } = screen.getByRole("button");
+
+  expect(textContent).toEqual("Loading...");
 });
 
 test("shows the loading spinner if reduced motion is not set", async () => {
   mockUseMediaQuery.mockReturnValueOnce(true);
   render(<Button loading>Test Button</Button>);
-  const buttonText = screen.getByRole("button").textContent;
-  expect(buttonText).toEqual("Loading...Loading...");
+  const { textContent } = screen.getByRole("button");
+
+  expect(textContent).toEqual("Loading...Loading...");
+});
+
+describe("When passing legacy interface", () => {
+  it("renders as expected when 'primary' 'buttonType' is used", () => {
+    render(<Button buttonType="primary">Test Button</Button>);
+    const button = screen.getByRole("button");
+
+    expect(button).toBeInTheDocument();
+    expect(button).toHaveStyle(
+      "background: var(--button-typical-primary-bg-default)",
+    );
+  });
+
+  it("renders as expected when 'secondary' 'buttonType' is used", () => {
+    render(<Button buttonType="secondary">Test Button</Button>);
+    const button = screen.getByRole("button");
+
+    expect(button).toBeInTheDocument();
+    expect(button).toHaveStyle(
+      "background: var(--button-typical-secondary-bg-default)",
+    );
+  });
+
+  it("renders as expected when 'tertiary' 'buttonType' is used", () => {
+    render(<Button buttonType="tertiary">Test Button</Button>);
+    const button = screen.getByRole("button");
+
+    expect(button).toHaveStyle(
+      "background: var(--button-typical-secondary-bg-default)",
+    );
+  });
+
+  it("renders as expected when 'gradient-grey' 'buttonType' is used", () => {
+    render(<Button buttonType="gradient-grey">Test Button</Button>);
+    const button = screen.getByRole("button");
+
+    expect(button).toHaveStyle("background: white");
+  });
+
+  it("renders as expected when 'gradient-white' 'buttonType' is used", () => {
+    render(<Button buttonType="gradient-white">Test Button</Button>);
+    const button = screen.getByRole("button");
+
+    expect(button).toHaveStyle("background: white");
+  });
+
+  it("renders as expected when 'primary' 'buttonType' and 'destructive' are used", () => {
+    render(
+      <Button buttonType="primary" destructive>
+        Test Button
+      </Button>,
+    );
+    const button = screen.getByRole("button");
+
+    expect(button).toHaveStyleRule(
+      "background-color",
+      "var(--button-destructive-primary-bg-default)",
+    );
+    expect(button).toHaveStyleRule(
+      "color",
+      "var(--button-destructive-primary-label-default)",
+    );
+  });
+
+  it("renders as expected when 'secondary' 'buttonType' and 'destructive' are used", () => {
+    render(
+      <Button buttonType="secondary" destructive>
+        Test Button
+      </Button>,
+    );
+    const button = screen.getByRole("button");
+
+    expect(button).toHaveStyleRule("background-color", "transparent");
+    expect(button).toHaveStyleRule(
+      "color",
+      "var(--button-destructive-secondary-label-default)",
+    );
+  });
+
+  it("renders as expected when 'tertiary' 'buttonType' and 'destructive' are used", () => {
+    render(
+      <Button buttonType="tertiary" destructive>
+        Test Button
+      </Button>,
+    );
+    const button = screen.getByRole("button");
+
+    expect(button).toHaveStyleRule("background-color", "transparent");
+    expect(button).toHaveStyleRule(
+      "color",
+      "var(--button-destructive-secondary-label-default)",
+    );
+  });
+
+  it("renders as expected when 'darkBackground' 'buttonType' is used", () => {
+    render(<Button buttonType="darkBackground">Test Button</Button>);
+    const button = screen.getByRole("button");
+
+    expect(button).toHaveStyleRule(
+      "background-color",
+      "var(--button-typical-secondary-inverse-bg-default)",
+    );
+    expect(button).toHaveStyleRule(
+      "color",
+      "var(--button-typical-secondary-inverse-label-default)",
+    );
+  });
+
+  it("renders as expected when 'isWhite' is used", () => {
+    render(
+      <Button buttonType="primary" isWhite>
+        Test Button
+      </Button>,
+    );
+    const button = screen.getByRole("button");
+
+    expect(button).toHaveStyleRule(
+      "background-color",
+      "var(--button-typical-primary-inverse-bg-default)",
+    );
+    expect(button).toHaveStyleRule(
+      "color",
+      "var(--button-typical-primary-inverse-label-default)",
+    );
+  });
+
+  it("renders using the 'variantType' if 'destructive' is used without 'buttonType'", () => {
+    render(<Button destructive>Test Button</Button>);
+    const button = screen.getByRole("button");
+
+    expect(button).toHaveStyleRule(
+      "background-color",
+      "var(--button-destructive-primary-bg-default)",
+    );
+    expect(button).toHaveStyleRule(
+      "color",
+      "var(--button-destructive-primary-label-default)",
+    );
+  });
+
+  it("renders as expected when 'iconType' is used", () => {
+    render(<Button iconType="services">Test Button</Button>);
+
+    expect(screen.getByTestId("button-icon-before")).toBeInTheDocument();
+  });
+
+  it("renders as expected when 'iconType' and 'iconPosition' are used", () => {
+    render(
+      <Button iconType="services" iconPosition="after">
+        Test Button
+      </Button>,
+    );
+
+    expect(screen.getByTestId("button-icon-after")).toBeInTheDocument();
+  });
+
+  it("renders as expected when 'iconType' is used without 'children'", () => {
+    render(<Button iconType="services" />);
+
+    expect(screen.getByTestId("button-icon-only")).toBeInTheDocument();
+  });
 });
