@@ -1,3 +1,9 @@
+## [158.14.8](https://github.com/Sage/carbon/compare/v158.14.7...v158.14.8) (2025-12-15)
+
+### Bug Fixes
+
+* ensure static token keys match the ones found in the CSS output ([434b1ce](https://github.com/Sage/carbon/commit/434b1ce930657dca660d5c9d14d2e2062ba7bd2a))
+
 ## [158.14.7](https://github.com/Sage/carbon/compare/v158.14.6...v158.14.7) (2025-12-11)
 
 ### Bug Fixes
