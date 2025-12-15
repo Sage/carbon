@@ -9,21 +9,21 @@ const getSize = (size?: string) => {
   switch (size) {
     case "small":
       return css`
-        width: var(--global-size4xs, 8px);
-        height: var(--global-size4xs, 8px);
+        width: var(--global-size-4-xs, 8px);
+        height: var(--global-size-4-xs, 8px);
       `;
     case "large":
       return css`
-        min-width: var(--global-size2xs, 20px);
+        min-width: var(--global-size-2-xs, 20px);
         height: var(--global-size-xs, 24px);
-        padding: 0 var(--global-space-comp2xs, 2px);
+        padding: 0 var(--global-space-comp-2-xs, 2px);
       `;
     // medium
     default:
       return css`
-        min-width: var(--global-size3xs, 16px);
-        height: var(--global-size2xs, 20px);
-        padding: 0 var(--global-space-comp2xs, 2px);
+        min-width: var(--global-size-3-xs, 16px);
+        height: var(--global-size-2-xs, 20px);
+        padding: 0 var(--global-space-comp-2-xs, 2px);
       `;
   }
 };
