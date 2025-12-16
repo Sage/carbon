@@ -1,3 +1,9 @@
+## [158.14.10](https://github.com/Sage/carbon/compare/v158.14.9...v158.14.10) (2025-12-16)
+
+### Bug Fixes
+
+* **vertical-menu:** ensure scrollbar has correct style in safari ([321d622](https://github.com/Sage/carbon/commit/321d6223abcb6dbe48f71239b1ff56625e089a93))
+
 ## [158.14.9](https://github.com/Sage/carbon/compare/v158.14.8...v158.14.9) (2025-12-16)
 
 ### Bug Fixes
