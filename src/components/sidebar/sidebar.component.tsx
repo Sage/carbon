@@ -96,6 +96,8 @@ export interface SidebarProps
    * @internal
    * Sets className for component. INTERNAL USE ONLY. */
   className?: string;
+  /** @private @ignore Whether the `Sidebar` is hidden from view when rendered in an `AdaptiveSidebar`. */
+  hidden?: boolean;
 }
 
 export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
@@ -129,6 +131,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
       topModalOverride,
       restoreFocusOnClose = true,
       className,
+      hidden,
       ...rest
     }: SidebarProps,
     ref,
@@ -149,7 +152,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
       [ref],
     );
 
-    const isTopModal = useModalAria(sidebarRef);
+    const isTopModal = useModalAria(sidebarRef, hidden);
 
     const closeIcon = () => {
       if (!onCancel) return null;
