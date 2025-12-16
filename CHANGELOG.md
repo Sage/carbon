@@ -1,3 +1,9 @@
+## [158.14.9](https://github.com/Sage/carbon/compare/v158.14.8...v158.14.9) (2025-12-16)
+
+### Bug Fixes
+
+* **adaptive-sidebar:** modal aria is correct when hidden ([98578f7](https://github.com/Sage/carbon/commit/98578f745bbead901860279044c7847951651cc8))
+
 ## [158.14.8](https://github.com/Sage/carbon/compare/v158.14.7...v158.14.8) (2025-12-15)
 
 ### Bug Fixes
