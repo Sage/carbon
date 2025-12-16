@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import ReactDOM from "react-dom";
 import styled, { css } from "styled-components";
 
@@ -7,7 +7,6 @@ import applyBaseTheme from "../../style/themes/apply-base-theme";
 
 import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component";
 import StyledPortalEntrance from "./portal.style";
-import PortalContext from "./__internal__/portal.context";
 
 const Container = styled.div.attrs(applyBaseTheme)`
   ${({ theme }) => css`
@@ -48,7 +47,6 @@ export const Portal = ({
 }: PortalProps) => {
   const [portalNode, setPortalNode] = useState<HTMLElement | null>(null);
   const uniqueId = useMemo(() => guid(), []);
-  const { renderInRoot } = useContext(PortalContext);
 
   useEffect(() => {
     if (onReposition) {
@@ -101,14 +99,7 @@ export const Portal = ({
       }
       setPortalNode(node);
 
-      let mainNode = document.body;
-      const rootDiv = document.getElementById("root");
-
-      if (rootDiv && renderInRoot) {
-        mainNode = rootDiv;
-      }
-
-      mainNode.appendChild(node);
+      document.body.appendChild(node);
     }
 
     if (className) {
