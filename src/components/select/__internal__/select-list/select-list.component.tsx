@@ -280,9 +280,9 @@ const SelectList = React.forwardRef(
     const handleSelect = useCallback<NonNullable<OptionProps["onSelect"]>>(
       (optionData) => {
         onSelect({
-          id: optionData.id ?? "",
-          text: optionData.text ?? "",
-          value: optionData.value ?? "",
+          id: optionData.id ?? /* istanbul ignore next */ "",
+          text: optionData.text ?? /* istanbul ignore next */ "",
+          value: optionData.value ?? /* istanbul ignore next */ "",
           selectionType: "click",
           selectionConfirmed: true,
         });

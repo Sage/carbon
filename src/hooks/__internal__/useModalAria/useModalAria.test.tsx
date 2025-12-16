@@ -33,9 +33,10 @@ const ModalComponent = ({
   closeButtonText,
   dialogLabel = "dialog",
   children,
-}: ModalComponentProps) => {
+  hidden = false,
+}: ModalComponentProps & { hidden?: boolean }) => {
   const modalRef = useRef(null);
-  const isTopModal = useModalAria(modalRef);
+  const isTopModal = useModalAria(modalRef, hidden);
   const [isOpen, setOpen] = useState(false);
   const closeModal = () => setOpen(false);
 
@@ -57,6 +58,30 @@ const ModalComponent = ({
           {children}
         </div>
       </MockModal>
+    </>
+  );
+};
+
+const HiddenModal = () => {
+  const [isHidden, setHidden] = useState(false);
+
+  return (
+    <>
+      {/* data-not-inert needs to be set to ensure the button remains accessible when the modal is open for testing purposes. */}
+      <button
+        data-not-inert="true"
+        type="button"
+        onClick={() => setHidden(true)}
+      >
+        Set hidden
+      </button>
+      <ModalComponent
+        openButtonText="Open modal 1"
+        closeButtonText="Close modal 1"
+        hidden={isHidden}
+      >
+        Some content
+      </ModalComponent>
     </>
   );
 };
@@ -287,7 +312,6 @@ it("overrides any pre-existing aria-hidden and inert properties when modal is op
     <>
       <div data-role="old-aria-hidden" aria-hidden="false" />
       <ModalComponent openButtonText="open" closeButtonText="close" />
-      {/* @ts-expect-error inert property not recognised by React. Support to be added in React 19 https://github.com/facebook/react/pull/24730 */}
       <div data-role="old-inert" inert="foo" />
     </>,
     { wrapper: CarbonProvider },
@@ -312,7 +336,6 @@ it("restores any previously-overridden aria-hidden and inert properties when mod
     <>
       <div data-role="old-aria-hidden" aria-hidden="false" />
       <ModalComponent openButtonText="open" closeButtonText="close" />
-      {/* @ts-expect-error inert property not recognised by React. Support to be added in React 19 https://github.com/facebook/react/pull/24730 */}
       <div data-role="old-inert" inert="foo" />
     </>,
     { wrapper: CarbonProvider },
@@ -320,6 +343,38 @@ it("restores any previously-overridden aria-hidden and inert properties when mod
 
   await user.click(screen.getByRole("button", { name: "open" }));
   await user.click(screen.getByRole("button", { name: "close" }));
+
+  await waitFor(() =>
+    expect(screen.getByTestId("old-aria-hidden")).toHaveAttribute(
+      "aria-hidden",
+      "false",
+    ),
+  );
+  await waitFor(() =>
+    expect(screen.getByTestId("old-inert")).toHaveAttribute("inert", "foo"),
+  );
+});
+
+it("restores any previously-overridden aria-hidden and inert properties when modal is hidden", async () => {
+  const user = userEvent.setup();
+  render(
+    <>
+      <div data-role="old-aria-hidden" aria-hidden="false" />
+      <HiddenModal />
+      <div data-role="old-inert" inert="foo" />
+    </>,
+    { wrapper: CarbonProvider },
+  );
+
+  await user.click(screen.getByRole("button", { name: "Open modal 1" }));
+
+  expect(screen.getByTestId("old-aria-hidden")).toHaveAttribute(
+    "aria-hidden",
+    "true",
+  );
+  expect(screen.getByTestId("old-inert")).toHaveAttribute("inert", "");
+
+  await user.click(screen.getByRole("button", { name: "Set hidden" }));
 
   await waitFor(() =>
     expect(screen.getByTestId("old-aria-hidden")).toHaveAttribute(

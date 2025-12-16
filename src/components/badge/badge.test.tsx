@@ -293,8 +293,8 @@ test("should render with correct style size is small and badge has children", ()
     top: "-3px",
     right: "-2px",
   });
-  expect(badge).toHaveStyleRule("width", "var(--global-size4xs,8px)");
-  expect(badge).toHaveStyleRule("height", "var(--global-size4xs,8px)");
+  expect(badge).toHaveStyleRule("width", "var(--global-size-4-xs,8px)");
+  expect(badge).toHaveStyleRule("height", "var(--global-size-4-xs,8px)");
 });
 
 // coverage
@@ -311,6 +311,6 @@ test("should render with correct style size is large and badge has children", ()
     top: "-12px",
     right: "-8px",
   });
-  expect(badge).toHaveStyleRule("min-width", "var(--global-size2xs,20px)");
+  expect(badge).toHaveStyleRule("min-width", "var(--global-size-2-xs,20px)");
   expect(badge).toHaveStyleRule("height", "var(--global-size-xs,24px)");
 });
