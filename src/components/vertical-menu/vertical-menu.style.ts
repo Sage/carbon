@@ -102,13 +102,6 @@ export const StyledChevronIcon = styled(Icon)`
 `;
 
 export const StyledVerticalMenu = styled(StyledBox)`
-  // TODO remove hardcoded values when DS have had chance to review which token to use
-  &::-webkit-scrollbar-track {
-    background-color: #cccccc;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: #808080;
-  }
   &::-webkit-scrollbar {
     width: 12px;
   }
@@ -152,13 +145,6 @@ export const StyledVerticalMenuFullScreen = styled(StyledBox)<FullScreenProps>`
       visibility: hidden;
     `}
 
-  // TODO remove hardcoded values when DS have had chance to review which token to use
-  &::-webkit-scrollbar-track {
-    background-color: #cccccc;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: #808080;
-  }
   &::-webkit-scrollbar {
     width: 12px;
   }
