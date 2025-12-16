@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 import Icon from "../icon";
@@ -86,10 +92,7 @@ export interface ToastProps extends TagProps {
   disableAutoFocus?: boolean;
 }
 
-/**
- * @deprecated `Toast` has been deprecated. See the Carbon documentation for migration details.
- */
-export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
+const ToastRoot = forwardRef<HTMLDivElement, ToastProps>(
   (
     {
       align = "center",
@@ -268,28 +271,38 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
     }
 
     return (
-      <StyledPortal
-        id={targetPortalId}
+      <ToastWrapper
         align={align}
-        alignY={alignY}
+        ref={refToPass}
         isNotice={isNotice}
+        data-role="toast-wrapper"
+        role="region"
+        aria-hidden={!open}
+        aria-labelledby={open ? ariaLabelledBy : undefined}
       >
-        <ToastWrapper
-          align={align}
-          ref={refToPass}
-          isNotice={isNotice}
-          data-role="toast-wrapper"
-          role="region"
-          aria-hidden={!open}
-          aria-labelledby={open ? ariaLabelledBy : undefined}
-        >
-          <TransitionGroup>{renderToastContent()}</TransitionGroup>
-        </ToastWrapper>
-      </StyledPortal>
+        <TransitionGroup>{renderToastContent()}</TransitionGroup>
+      </ToastWrapper>
     );
   },
 );
 
+/**
+ * @deprecated `Toast` has been deprecated. See the Carbon documentation for migration details.
+ */
+export const Toast = forwardRef<HTMLDivElement, ToastProps>((props, ref) => {
+  const { targetPortalId, align, alignY, variant } = props;
+
+  return (
+    <StyledPortal
+      id={targetPortalId}
+      align={align ?? "center"}
+      alignY={alignY}
+      isNotice={variant === "notice"}
+    >
+      <ToastRoot {...props} ref={ref} />
+    </StyledPortal>
+  );
+});
 Toast.displayName = "Toast";
 
 export default Toast;

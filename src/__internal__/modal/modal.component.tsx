@@ -41,7 +41,7 @@ export interface ModalProps extends TagProps {
 
 const MODAL__ANIMATION_DURATION = 300;
 
-const Modal = ({
+const ModalRoot = ({
   children,
   "data-element": dataElement,
   "data-role": dataRole = "modal",
@@ -124,56 +124,60 @@ const Modal = ({
   }
 
   return (
-    <Portal>
-      <StyledModal
-        data-component="modal"
-        data-element={dataElement}
-        data-role={dataRole}
-        data-state={open && isAnimationComplete ? "open" : "closed"}
-        transitionName="modal"
-        transitionTime={MODAL__ANIMATION_DURATION}
-        topModalOverride={topModalOverride}
-        ref={ref}
-        {...rest}
-      >
-        <TransitionGroup>
-          {background && (
-            <CSSTransition
-              nodeRef={backgroundNodeRef}
-              key="modal"
-              appear
-              classNames="modal-background"
-              timeout={MODAL__ANIMATION_DURATION}
-              onEntered={() => setAnimationComplete(true)}
-              onExiting={() => setAnimationComplete(false)}
+    <StyledModal
+      data-component="modal"
+      data-element={dataElement}
+      data-role={dataRole}
+      data-state={open && isAnimationComplete ? "open" : "closed"}
+      transitionName="modal"
+      transitionTime={MODAL__ANIMATION_DURATION}
+      topModalOverride={topModalOverride}
+      ref={ref}
+      {...rest}
+    >
+      <TransitionGroup>
+        {background && (
+          <CSSTransition
+            nodeRef={backgroundNodeRef}
+            key="modal"
+            appear
+            classNames="modal-background"
+            timeout={MODAL__ANIMATION_DURATION}
+            onEntered={() => setAnimationComplete(true)}
+            onExiting={() => setAnimationComplete(false)}
+          >
+            {background}
+          </CSSTransition>
+        )}
+      </TransitionGroup>
+      <TransitionGroup>
+        {content && (
+          <CSSTransition
+            nodeRef={contentNodeRef}
+            appear
+            classNames="modal"
+            timeout={MODAL__ANIMATION_DURATION}
+          >
+            <ModalContext.Provider
+              value={{
+                isAnimationComplete,
+                triggerRefocusFlag,
+                isInModal: true,
+              }}
             >
-              {background}
-            </CSSTransition>
-          )}
-        </TransitionGroup>
-        <TransitionGroup>
-          {content && (
-            <CSSTransition
-              nodeRef={contentNodeRef}
-              appear
-              classNames="modal"
-              timeout={MODAL__ANIMATION_DURATION}
-            >
-              <ModalContext.Provider
-                value={{
-                  isAnimationComplete,
-                  triggerRefocusFlag,
-                  isInModal: true,
-                }}
-              >
-                <div ref={contentNodeRef}>{content}</div>
-              </ModalContext.Provider>
-            </CSSTransition>
-          )}
-        </TransitionGroup>
-      </StyledModal>
-    </Portal>
+              <div ref={contentNodeRef}>{content}</div>
+            </ModalContext.Provider>
+          </CSSTransition>
+        )}
+      </TransitionGroup>
+    </StyledModal>
   );
 };
+
+const Modal = (props: ModalProps) => (
+  <Portal>
+    <ModalRoot {...props} />
+  </Portal>
+);
 
 export default Modal;
