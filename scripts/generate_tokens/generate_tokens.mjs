@@ -27,7 +27,13 @@ const projectRoot = process.cwd();
 const args = process.argv.slice(2);
 const includeDarkMode = args.includes('--include-dark') || args.includes('--dark');
 
-const camelToKebab = (str) => str.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase();
+const camelToKebab = (str) => 
+  str
+    .replace(/([a-z])([A-Z])/g, "$1-$2") // camelCase to kebab-case
+    .replace(/([a-zA-Z])(\d+)([a-zA-Z])/g, "$1-$2-$3") // letter-number-letter: container2xs -> container-2-xs
+    .toLowerCase()
+    .replace(/stop(\d)/g, "stop-$1") // stop1 -> stop-1
+    .replace(/w([a-z])$/g, "w-$1"); // max-ws -> max-w-s etc.
 
 const formatBoxShadowString = (boxShadowArray) => 
   boxShadowArray

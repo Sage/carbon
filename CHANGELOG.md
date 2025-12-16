@@ -1,3 +1,27 @@
+## [158.14.9](https://github.com/Sage/carbon/compare/v158.14.8...v158.14.9) (2025-12-16)
+
+### Bug Fixes
+
+* **adaptive-sidebar:** modal aria is correct when hidden ([98578f7](https://github.com/Sage/carbon/commit/98578f745bbead901860279044c7847951651cc8))
+
+## [158.14.8](https://github.com/Sage/carbon/compare/v158.14.7...v158.14.8) (2025-12-15)
+
+### Bug Fixes
+
+* ensure static token keys match the ones found in the CSS output ([434b1ce](https://github.com/Sage/carbon/commit/434b1ce930657dca660d5c9d14d2e2062ba7bd2a))
+
+## [158.14.7](https://github.com/Sage/carbon/compare/v158.14.6...v158.14.7) (2025-12-11)
+
+### Bug Fixes
+
+* **tabs:** ensure ariaLabel is applied to tablist ([e98d745](https://github.com/Sage/carbon/commit/e98d7459d83080266d3f58eeedd0f484f4bc2b38)), closes [#7667](https://github.com/Sage/carbon/issues/7667)
+
+## [158.14.6](https://github.com/Sage/carbon/compare/v158.14.5...v158.14.6) (2025-12-11)
+
+### Bug Fixes
+
+* **verticalmenu:** correct scrollbar style and colors ([f13e810](https://github.com/Sage/carbon/commit/f13e810e840c18609791eb0628edd67e566d6cf3))
+
 ## [158.14.5](https://github.com/Sage/carbon/compare/v158.14.4...v158.14.5) (2025-12-11)
 
 ### Bug Fixes
