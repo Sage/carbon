@@ -1,3 +1,9 @@
+## [158.14.11](https://github.com/Sage/carbon/compare/v158.14.10...v158.14.11) (2025-12-17)
+
+### Bug Fixes
+
+* **responsive-vertical-menu:** last li can be reached in menu overflow ([61b6c8b](https://github.com/Sage/carbon/commit/61b6c8b4bebdb45289592b0982fd71c45e4af558)), closes [#7668](https://github.com/Sage/carbon/issues/7668)
+
 ## [158.14.10](https://github.com/Sage/carbon/compare/v158.14.9...v158.14.10) (2025-12-16)
 
 ### Bug Fixes
