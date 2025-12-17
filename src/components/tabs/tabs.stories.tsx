@@ -6,9 +6,10 @@ import Pill from "../pill";
 import Icon from "../icon";
 import Button from "../button";
 import Box from "../box";
-import { Tabs, Tab, TabsHandle } from ".";
+import { TabsHandle } from ".";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import Textbox from "../textbox";
+import { Tabs, Tab } from "./tabs.adapter";
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
@@ -30,8 +31,8 @@ export const DefaultStory: Story = () => {
     <Box p="4px">
       <Tabs align="left" position="top">
         <Tab
-          errorMessage="error"
-          warningMessage="warning"
+          // errorMessage="error"
+          // warningMessage="warning"
           infoMessage="info"
           tabId="tab-1"
           title="Tab 1"

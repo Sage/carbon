@@ -128,11 +128,17 @@ export const StyledTab = styled.button<StyledTabProps>`
     align-items: center;
     display: flex;
     gap: 8px;
+
     ${({ activeTab, size }) =>
       activeTab &&
-      size === "large" &&
       css`
-        margin-top: -4px;
+        position: relative;
+        top: 1px;
+
+        ${size === "large" &&
+        css`
+          margin-top: -4px;
+        `}
       `}
   }
 
