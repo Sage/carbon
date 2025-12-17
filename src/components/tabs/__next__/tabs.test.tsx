@@ -33,6 +33,7 @@ const TestComponent = ({ ...args }) => {
 };
 
 test("shows a warning when slots are used with a non-string label", () => {
+  const jestWarnSpy = jest.spyOn(console, "warn").mockImplementation();
   const slotContent = <Icon type="blocked_square" />;
 
   assertLoggerComponentMessage({
@@ -56,6 +57,7 @@ test("shows a warning when slots are used with a non-string label", () => {
       "[WARNING] Using `leftSlot` and/or `rightSlot` is not supported when `label` is not a string. Please use `leftSlot` and/or `rightSlot` alongside a string `label`, or use the `label` prop exclusively.",
     method: "warn",
   });
+  jestWarnSpy.mockRestore();
 });
 
 test("renders correctly with defaults", () => {
@@ -307,6 +309,24 @@ test("shows an info icon when the `info` prop is specified", async () => {
   const icon = screen.getByTestId("icon-info");
   expect(icon).toBeInTheDocument();
   expect(icon).toHaveStyle("color: rgb(0, 96, 167)");
+});
+
+test("renders tablist with expected accessible name when `ariaLabel` prop is provided", () => {
+  const ariaLabel = "Custom Tab List Label";
+
+  render(
+    <Tabs>
+      <TabList ariaLabel={ariaLabel}>
+        <Tab id="tab-1" controls="tab-panel-1" label="Tab One" />
+      </TabList>
+      <TabPanel id="tab-panel-1" tabId="tab-1">
+        <Typography>Content 1</Typography>
+      </TabPanel>
+    </Tabs>,
+  );
+
+  const tabList = screen.getByRole("tablist");
+  expect(tabList).toHaveAccessibleName(ariaLabel);
 });
 
 test("shows the validation icons regardless of whether tab panels are active", async () => {

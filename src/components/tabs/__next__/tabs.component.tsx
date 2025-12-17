@@ -209,7 +209,7 @@ export const Tab = ({
 };
 
 export const TabList = forwardRef<TabsHandle, TabListProps>(
-  ({ ariaLabel, children, onTabChange }, ref) => {
+  ({ ariaLabel, children, onTabChange }: TabListProps, ref) => {
     const tabListRef = useRef<HTMLDivElement>(null);
     const {
       activeTab,
@@ -397,7 +397,7 @@ export const TabList = forwardRef<TabsHandle, TabListProps>(
         <StyledTabListWrapper>
           {renderLeftScroll()}
           <StyledTabList
-            ariaLabel={ariaLabel}
+            aria-label={ariaLabel}
             id="tablist"
             onKeyDown={handleKeyDown}
             orientation={orientation}
