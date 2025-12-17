@@ -112,14 +112,13 @@ const getCSSForInverseStyle = ({
     border-radius: ${borderRadius};
     color: ${label.default};
     font: ${font};
-    min-height: ${height};
+    height: ${height};
     padding: ${paddingVertical} ${paddingHorizontal};
 
     ${disabled
       ? css`
           background-color: ${background.disabled};
-          border: ${variantType === "tertiary" ? "1px" : "2px"} solid
-            ${border.disabled};
+          border-color: ${border.disabled};
           color: ${label.disabled};
         `
       : css`
@@ -165,8 +164,7 @@ const getCSSForStyle = ({
     ${disabled
       ? css`
           background-color: ${background?.disabled};
-          border: ${variantType === "tertiary" ? "1px" : "2px"} solid
-            ${border?.disabled};
+          border-color: ${border?.disabled};
           color: ${label?.disabled};
         `
       : css`

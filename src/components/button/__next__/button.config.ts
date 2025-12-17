@@ -43,16 +43,16 @@ export const propsForSize: PropConfig = {
     font: "var(--global-font-static-comp-medium-xs)",
     height: "var(--global-size-xs)",
     iconOnlyWidth: "var(--global-size-xs)",
-    paddingVertical: "0px",
-    paddingHorizontal: "8px",
+    paddingVertical: "var(--global-space-none)",
+    paddingHorizontal: "var(--global-space-layout-3-xs)",
   },
   small: {
     borderRadius: "var(--global-radius-action-l)",
     font: "var(--global-font-static-comp-medium-s)",
     height: "var(--global-size-s)",
     iconOnlyWidth: "var(--global-size-s)",
-    paddingVertical: "2px",
-    paddingHorizontal: "12px",
+    paddingVertical: "var(--global-space-comp-2-xs)",
+    paddingHorizontal: "var(--global-space-comp-2-m)",
   },
   medium: {
     borderRadius: "var(--global-radius-action-xl)",
@@ -60,7 +60,7 @@ export const propsForSize: PropConfig = {
     height: "var(--global-size-m)",
     iconOnlyWidth: "var(--global-size-m)",
     paddingVertical: "6px",
-    paddingHorizontal: "16px",
+    paddingHorizontal: "var(--global-space-layout-2-xs)",
   },
   large: {
     borderRadius: "var(--global-radius-action-2-xl)",
@@ -68,7 +68,7 @@ export const propsForSize: PropConfig = {
     height: "var(--global-size-l)",
     iconOnlyWidth: "var(--global-size-l)",
     paddingVertical: "6px",
-    paddingHorizontal: "16px",
+    paddingHorizontal: "var(--global-space-layout-2-xs)",
   },
 };
 

@@ -25,9 +25,15 @@ test("renders correctly", () => {
   const button = screen.getByRole("button");
 
   expect(button).toBeInTheDocument();
-  expect(button).toHaveStyle("border-radius: var(--global-radius-action-xl)");
-  expect(button).toHaveStyle("height: var(--global-size-m)");
-  expect(button).toHaveStyleRule("padding", "6px 16px");
+  expect(button).toHaveStyleRule(
+    "border-radius",
+    "var(--global-radius-action-xl)",
+  );
+  expect(button).toHaveStyleRule("height", "var(--global-size-m)");
+  expect(button).toHaveStyleRule(
+    "padding",
+    "6px var(--global-space-layout-2-xs)",
+  );
 });
 
 test("renders correctly when inverse", () => {
@@ -36,11 +42,18 @@ test("renders correctly when inverse", () => {
 
   expect(button).toBeInTheDocument();
   expect(button).toHaveStyleRule(
-    "background-color: var(--button-typical-primary-inverse-bg-default)",
+    "background-color",
+    "var(--button-typical-primary-inverse-bg-default)",
   );
-  expect(button).toHaveStyle("border-radius: var(--global-radius-action-xl)");
-  expect(button).toHaveStyle("height: var(--global-size-m)");
-  expect(button).toHaveStyleRule("padding", "6px 16px");
+  expect(button).toHaveStyleRule(
+    "border-radius",
+    "var(--global-radius-action-xl)",
+  );
+  expect(button).toHaveStyleRule("height", "var(--global-size-m)");
+  expect(button).toHaveStyleRule(
+    "padding",
+    "6px var(--global-space-layout-2-xs)",
+  );
 });
 
 test("renders correctly when inverse and tertiary", () => {
@@ -53,11 +66,18 @@ test("renders correctly when inverse and tertiary", () => {
 
   expect(button).toBeInTheDocument();
   expect(button).toHaveStyleRule(
-    "border: 1px solid var(--button-typical-tertiary-inverse-border-default)",
+    "border",
+    "1px solid var(--button-typical-tertiary-inverse-border-default)",
   );
-  expect(button).toHaveStyle("border-radius: var(--global-radius-action-xl)");
-  expect(button).toHaveStyle("height: var(--global-size-m)");
-  expect(button).toHaveStyleRule("padding", "6px 16px");
+  expect(button).toHaveStyleRule(
+    "border-radius",
+    "var(--global-radius-action-xl)",
+  );
+  expect(button).toHaveStyleRule("height", "var(--global-size-m)");
+  expect(button).toHaveStyleRule(
+    "padding",
+    "6px var(--global-space-layout-2-xs)",
+  );
 });
 
 test("renders correctly when inverse and disabled", () => {
@@ -70,11 +90,18 @@ test("renders correctly when inverse and disabled", () => {
 
   expect(button).toBeInTheDocument();
   expect(button).toHaveStyleRule(
-    "background-color: var(--button-typical-primary-inverse-bg-disabled)",
+    "background-color",
+    "var(--button-typical-primary-inverse-bg-disabled)",
   );
-  expect(button).toHaveStyle("border-radius: var(--global-radius-action-xl)");
-  expect(button).toHaveStyle("height: var(--global-size-m)");
-  expect(button).toHaveStyleRule("padding", "6px 16px");
+  expect(button).toHaveStyleRule(
+    "border-radius",
+    "var(--global-radius-action-xl)",
+  );
+  expect(button).toHaveStyleRule("height", "var(--global-size-m)");
+  expect(button).toHaveStyleRule(
+    "padding",
+    "6px var(--global-space-layout-2-xs)",
+  );
 });
 
 test("renders correctly when inverse, disabled and tertiary", () => {
@@ -86,15 +113,20 @@ test("renders correctly when inverse, disabled and tertiary", () => {
   const button = screen.getByRole("button");
 
   expect(button).toBeInTheDocument();
+  expect(button).toHaveStyleRule("background-color", "transparent");
   expect(button).toHaveStyleRule(
-    "background-color: var(--button-typical-primary-inverse-bg-disabled)",
+    "border-color",
+    "var(--button-typical-tertiary-inverse-border-disabled)",
   );
   expect(button).toHaveStyleRule(
-    "border: 1px solid var(--button-typical-tertiary-inverse-border-disabled)",
+    "border-radius",
+    "var(--global-radius-action-xl)",
   );
-  expect(button).toHaveStyle("border-radius: var(--global-radius-action-xl)");
-  expect(button).toHaveStyle("height: var(--global-size-m)");
-  expect(button).toHaveStyleRule("padding", "6px 16px");
+  expect(button).toHaveStyleRule("height", "var(--global-size-m)");
+  expect(button).toHaveStyleRule(
+    "padding",
+    "6px var(--global-space-layout-2-xs)",
+  );
 });
 
 test.each(["xs", ...sizes] as Size[])(
@@ -616,7 +648,7 @@ test("renders correctly when 'fullWidth' is specified", () => {
   const button = screen.getByRole("button");
 
   expect(button).toBeInTheDocument();
-  expect(button).toHaveStyleRule("width", "100%");
+  expect(button).toHaveStyle("width: 100%");
 });
 
 test("does not show a loader when size is 'xs'", () => {
@@ -666,7 +698,7 @@ test("renders correctly with noWrap set", () => {
   const button = screen.getByRole("button");
 
   expect(button).toBeInTheDocument();
-  expect(button).toHaveStyleRule("white-space", "nowrap");
+  expect(button).toHaveStyle("white-space: nowrap");
 });
 
 test("renders correctly with wrapping text", () => {
@@ -676,9 +708,9 @@ test("renders correctly with wrapping text", () => {
   const button = screen.getByRole("button");
 
   expect(button).toBeInTheDocument();
-  expect(button).toHaveStyleRule("flex-flow", "wrap");
-  expect(button).toHaveStyleRule("height", "unset");
-  expect(button).toHaveStyle("min-height: var(--global-size-m)");
+  expect(button).toHaveStyle("flex-flow: wrap");
+  expect(button).toHaveStyle("height: unset");
+  expect(button).toHaveStyleRule("min-height", "var(--global-size-m)");
 });
 
 test("does not render 'xs' buttons when `variantType` is set to 'primary' and `variant` is set to 'default'", () => {
@@ -690,8 +722,9 @@ test("does not render 'xs' buttons when `variantType` is set to 'primary' and `v
   const button = screen.getByRole("button");
 
   expect(button).toBeInTheDocument();
-  expect(button).toHaveStyle(
-    "background: var(--button-typical-secondary-bg-default, #00812008)",
+  expect(button).toHaveStyleRule(
+    "background-color",
+    "var(--button-typical-secondary-bg-default)",
   );
 });
 
@@ -738,8 +771,9 @@ describe("When passing legacy interface", () => {
     const button = screen.getByRole("button");
 
     expect(button).toBeInTheDocument();
-    expect(button).toHaveStyle(
-      "background: var(--button-typical-primary-bg-default)",
+    expect(button).toHaveStyleRule(
+      "background-color",
+      "var(--button-typical-primary-bg-default)",
     );
   });
 
@@ -748,8 +782,9 @@ describe("When passing legacy interface", () => {
     const button = screen.getByRole("button");
 
     expect(button).toBeInTheDocument();
-    expect(button).toHaveStyle(
-      "background: var(--button-typical-secondary-bg-default)",
+    expect(button).toHaveStyleRule(
+      "background-color",
+      "var(--button-typical-secondary-bg-default)",
     );
   });
 
@@ -757,8 +792,9 @@ describe("When passing legacy interface", () => {
     render(<Button buttonType="tertiary">Test Button</Button>);
     const button = screen.getByRole("button");
 
-    expect(button).toHaveStyle(
-      "background: var(--button-typical-secondary-bg-default)",
+    expect(button).toHaveStyleRule(
+      "background-color",
+      "var(--button-typical-tertiary-bg-default)",
     );
   });
 
@@ -802,7 +838,7 @@ describe("When passing legacy interface", () => {
     );
     const button = screen.getByRole("button");
 
-    expect(button).toHaveStyleRule("background-color", "transparent");
+    expect(button).toHaveStyle("background-color: transparent");
     expect(button).toHaveStyleRule(
       "color",
       "var(--button-destructive-secondary-label-default)",
@@ -817,7 +853,7 @@ describe("When passing legacy interface", () => {
     );
     const button = screen.getByRole("button");
 
-    expect(button).toHaveStyleRule("background-color", "transparent");
+    expect(button).toHaveStyle("background-color: transparent");
     expect(button).toHaveStyleRule(
       "color",
       "var(--button-destructive-secondary-label-default)",

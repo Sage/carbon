@@ -99,7 +99,7 @@ export const Variations: Story = (args: ButtonProps) => {
         </>
         <h2>Secondary</h2>
         <>
-          <Button {...args} />
+          <Button {...args} variant="destructive" variantType="secondary" />
         </>
       </Box>
       <Box display="flex" flexDirection="column" alignItems="flex-start">

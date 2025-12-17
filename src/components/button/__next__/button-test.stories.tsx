@@ -7,6 +7,7 @@ import Textbox from "../../textbox";
 import { action } from "@storybook/addon-actions";
 import Typography from "../../typography";
 import Icon from "../../icon";
+import DefaultDecorator from "../../../../.storybook/utils/default-decorator";
 
 const meta: Meta<typeof Button> = {
   title: "Button/Test",
@@ -232,7 +233,7 @@ export const AllSizesVariantsTypes: Story = () => {
               </Button>
             </Box>
 
-            <h3>AI</h3>
+            <h3>Gradient</h3>
             <Box display="flex" flexDirection="row" gap={1}>
               <Button variant="gradient" variantType="secondary" size="small">
                 Primary Small
@@ -536,7 +537,7 @@ export const AllSizesVariantsTypes: Story = () => {
               </Button>
             </Box>
 
-            <h3>AI</h3>
+            <h3>Gradient</h3>
             <Box display="flex" flexDirection="row" gap={1}>
               <Button variant="gradient" variantType="secondary" size="small">
                 <>
@@ -674,7 +675,7 @@ export const AllSizesVariantsTypes: Story = () => {
               </Button>
             </Box>
 
-            <h3>AI</h3>
+            <h3>Gradient</h3>
             <Box display="flex" flexDirection="row" gap={1}>
               <Button variant="gradient" variantType="secondary" size="small">
                 <Icon type="alert" />
@@ -696,11 +697,6 @@ AllSizesVariantsTypes.storyName = "All Size, Variants and Types";
 AllSizesVariantsTypes.parameters = {
   chromatic: { disableSnapshot: false },
 };
-
-export const AIHoverStyling: Story = () => {
-  return <Button variant="gradient">Button</Button>;
-};
-AIHoverStyling.storyName = "AI Hover Styling";
 
 export const InverseVariants: Story = () => {
   return (
@@ -729,4 +725,89 @@ export const InverseVariants: Story = () => {
 InverseVariants.storyName = "Inverse Variants";
 InverseVariants.parameters = {
   chromatic: { disableSnapshot: false },
+};
+
+const FocusAndHoverStateButtons = () => (
+  <Box display="flex" flexDirection="column" gap={2}>
+    <Box display="flex" gap={2}>
+      <Button data-role="primary" variantType="primary">
+        Primary
+      </Button>
+      <Button data-role="secondary" variantType="secondary">
+        Secondary
+      </Button>
+      <Button data-role="tertiary" variantType="tertiary">
+        Tertiary
+      </Button>
+      <Button data-role="subtle" variantType="subtle">
+        Subtle
+      </Button>
+    </Box>
+    <Box display="flex" gap={2}>
+      <Button
+        data-role="primary-destructive"
+        variantType="primary"
+        variant="destructive"
+      >
+        Primary Destructive
+      </Button>
+      <Button
+        data-role="secondary-destructive"
+        variantType="secondary"
+        variant="destructive"
+      >
+        Secondary Destructive
+      </Button>
+      <Button data-role="gradient-secondary" variant="gradient">
+        Gradient Secondary
+      </Button>
+    </Box>
+    <Box display="flex" gap={2}>
+      <Button data-role="secondary-xs" variantType="secondary" size="xs">
+        Secondary
+      </Button>
+      <Button data-role="tertiary-xs" variantType="tertiary" size="xs">
+        Tertiary
+      </Button>
+      <Button data-role="subtle-xs" variantType="subtle" size="xs">
+        Subtle
+      </Button>
+    </Box>
+  </Box>
+);
+
+export const FocusStates: Story = {
+  render: () => <FocusAndHoverStateButtons />,
+  decorators: [
+    (StoryToRender) => (
+      <DefaultDecorator>
+        <StoryToRender />
+      </DefaultDecorator>
+    ),
+  ],
+};
+FocusStates.storyName = "Focus States";
+FocusStates.parameters = {
+  pseudo: {
+    focus:
+      "[data-role='primary'], [data-role='secondary'], [data-role='tertiary'], [data-role='subtle'], [data-role='primary-destructive'], [data-role='secondary-destructive'], [data-role='gradient-secondary'], [data-role='secondary-xs'], [data-role='tertiary-xs'], [data-role='subtle-xs']",
+  },
+};
+
+export const HoverStates: Story = {
+  render: () => <FocusAndHoverStateButtons />,
+  decorators: [
+    (StoryToRender) => (
+      <DefaultDecorator>
+        <StoryToRender />
+      </DefaultDecorator>
+    ),
+  ],
+};
+HoverStates.storyName = "Hover States";
+HoverStates.parameters = {
+  pseudo: {
+    hover:
+      "[data-role='primary'], [data-role='secondary'], [data-role='tertiary'], [data-role='subtle'], [data-role='primary-destructive'], [data-role='secondary-destructive'], [data-role='gradient-secondary'], [data-role='secondary-xs'], [data-role='tertiary-xs'], [data-role='subtle-xs']",
+  },
 };
