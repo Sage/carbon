@@ -9,28 +9,31 @@ import {
 import { TabProps as LegacyTabProps } from "./tab/tab.component";
 import { TabProps as NextTabProps } from "./__next__/tabs.types";
 
-export const Tab = ({
-  tabId,
-  title,
-  errorMessage,
-  warningMessage,
-  infoMessage,
-  customLayout,
-  siblings,
-  titlePosition,
-  validationStatusOverride,
-  ...rest
-}: LegacyTabProps &
-  Partial<NextTabProps> & {
-    validationStatusOverride?: LegacyTabsProps["validationStatusOverride"];
-  }) => {
-  const overrides = validationStatusOverride?.[tabId];
-  const error = overrides?.error || !!errorMessage;
-  const warning = overrides?.warning || !!warningMessage;
-  const info = overrides?.info || !!infoMessage;
+export const Tab = (
+  {
+    tabId,
+    title,
+    // errorMessage,
+    // warningMessage,
+    // infoMessage,
+    customLayout,
+    siblings,
+    titlePosition,
+    // validationStatusOverride,
+    ...rest
+  }: LegacyTabProps & Partial<NextTabProps>,
+  // & {
+  //   validationStatusOverride?: LegacyTabsProps["validationStatusOverride"];
+  // }
+) => {
+  // const overrides = validationStatusOverride?.[tabId];
+  // const [hasError, setHasError] = useState(false); // !!overrides?.error;
+  // const [hasWarning, setHasWarning] = useState(false); // !!(!overrides?.error && overrides?.warning);
+  // const [hasInfo, setHasInfo] = useState(false); // !!(!overrides?.error && !overrides?.warning && overrides?.info);
 
   let label: React.ReactNode = title;
 
+  // needs tweaks in next as layout is borked
   if (customLayout) {
     label = customLayout;
   } else if (siblings) {
@@ -54,9 +57,13 @@ export const Tab = ({
       id={tabId}
       controls={`${tabId}-panel`}
       label={label}
-      error={error}
-      warning={warning}
-      info={info}
+      // can remove if no need for tooltip support etc
+      // setHasError={setHasError}
+      // setHasWarning={setHasWarning}
+      // setHasInfo={setHasInfo}
+      // error={hasError ? errorMessage || true : false}
+      // warning={hasWarning ? warningMessage || true : false}
+      // info={hasInfo ? infoMessage || true : false}
       {...rest}
     />
   );

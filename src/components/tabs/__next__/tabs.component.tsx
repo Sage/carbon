@@ -53,6 +53,9 @@ export const Tab = ({
   rightSlot,
   warning = false,
   info = false,
+  setHasError,
+  setHasWarning,
+  setHasInfo,
 }: TabProps) => {
   const [internalError, setInternalError] = useState<boolean | string>(error);
   const [internalWarning, setInternalWarning] = useState<boolean | string>(
@@ -117,17 +120,20 @@ export const Tab = ({
 
     if (!tabErrorEntries) {
       setInternalError(false);
+      setHasError?.(false);
       return;
     }
     const currentTabErrors = Object.keys(tabErrorEntries)
       .map((k) => tabErrorEntries[k])
       .filter((v) => v !== false);
 
-    const tabHasErrors = error || currentTabErrors.length > 0;
+    const tabHasErrors = error || !currentTabErrors.length;
     setInternalError(tabHasErrors);
+    setHasError?.(!!tabHasErrors);
 
     if (!tabWarningEntries) {
       setInternalWarning(false);
+      setHasWarning?.(false);
       return;
     }
 
@@ -135,21 +141,35 @@ export const Tab = ({
       .map((k) => tabWarningEntries[k])
       .filter((v) => v !== false);
 
-    const tabHasWarnings = warning || currentTabWarnings.length > 0;
+    const tabHasWarnings = warning || !currentTabWarnings.length;
     setInternalWarning(tabHasWarnings);
+    setHasWarning?.(!!tabHasWarnings);
 
     if (!tabInfoEntries) {
       setInternalInfo(false);
+      setHasInfo?.(false);
       return;
     }
     const currentTabInfos = Object.keys(tabInfoEntries)
       .map((k) => tabInfoEntries[k])
       .filter((v) => v !== false);
 
-    const tabHasInfo = info || currentTabInfos.length > 0;
+    const tabHasInfo = info || !currentTabInfos.length;
     setInternalInfo(tabHasInfo);
-  }, [error, id, errors, warnings, warning, infos, info]);
+  }, [
+    error,
+    id,
+    errors,
+    warnings,
+    warning,
+    infos,
+    info,
+    setHasError,
+    setHasWarning,
+    setHasInfo,
+  ]);
 
+  // potential rewrite if they want the tooltip
   const validationIcon = () => {
     if (internalError || internalWarning || internalInfo) {
       if (internalError) {
@@ -177,6 +197,7 @@ export const Tab = ({
         aria-controls={controls}
         aria-selected={selected ? "true" : "false"}
         error={internalError}
+        warning={internalWarning}
         info={internalInfo}
         id={id}
         onClick={() => {
@@ -188,7 +209,6 @@ export const Tab = ({
         size={size}
         type="button"
         tabIndex={activeTab === id ? 0 : -1}
-        warning={internalWarning}
       >
         {typeof label === "string" ? (
           <span className="tab-title-content-wrapper">

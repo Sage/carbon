@@ -78,6 +78,20 @@ export interface TabProps {
    * @deprecated to be removed when legacy `Tabs` and `Tab` are removed
    * */
   info?: boolean | string;
+
+  /**
+   * @internal @private @ignore
+   */
+  setHasError?: (hasError: boolean) => void;
+  /**
+   * @internal @private @ignore
+   */
+  setHasWarning?: (hasWarning: boolean) => void;
+
+  /**
+   * @internal @private @ignore
+   */
+  setHasInfo?: (hasInfo: boolean) => void;
 }
 
 export interface TabsProps {

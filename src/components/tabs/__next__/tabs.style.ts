@@ -129,11 +129,14 @@ export const StyledTab = styled.button<StyledTabProps>`
     display: flex;
     gap: 8px;
 
-    ${({ activeTab, size }) =>
+    ${({ activeTab, orientation, size }) =>
       activeTab &&
       css`
-        position: relative;
-        top: 1px;
+        ${orientation === "horizontal" &&
+        css`
+          position: relative;
+          top: 1px;
+        `}
 
         ${size === "large" &&
         css`
@@ -210,7 +213,7 @@ export const StyledTab = styled.button<StyledTabProps>`
             padding-top: ${size === "medium"
               ? sizes.medium.paddingY - 2
               : 4}px !important;
-            padding-right: ${sizes[size].paddingX - 2}px;
+            padding-right: 0px;
             padding-bottom: ${size === "medium"
               ? sizes.medium.paddingY - 2
               : sizes.large.paddingY}px;
@@ -225,7 +228,7 @@ export const StyledTab = styled.button<StyledTabProps>`
                 content: "";
                 position: absolute;
                 right: 0;
-                top: 20%;
+                // top: 20%;
                 height: 60%;
                 width: 4px;
                 background-color: ${() => {
