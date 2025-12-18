@@ -787,6 +787,7 @@ export const FocusStates: Story = {
 };
 FocusStates.storyName = "Focus States";
 FocusStates.parameters = {
+  chromatic: { disableSnapshot: false },
   pseudo: {
     focus:
       "[data-role='primary'], [data-role='secondary'], [data-role='tertiary'], [data-role='subtle'], [data-role='primary-destructive'], [data-role='secondary-destructive'], [data-role='gradient-secondary'], [data-role='secondary-xs'], [data-role='tertiary-xs'], [data-role='subtle-xs']",
@@ -805,6 +806,7 @@ export const HoverStates: Story = {
 };
 HoverStates.storyName = "Hover States";
 HoverStates.parameters = {
+  chromatic: { disableSnapshot: false },
   pseudo: {
     hover:
       "[data-role='primary'], [data-role='secondary'], [data-role='tertiary'], [data-role='subtle'], [data-role='primary-destructive'], [data-role='secondary-destructive'], [data-role='gradient-secondary'], [data-role='secondary-xs'], [data-role='tertiary-xs'], [data-role='subtle-xs']",
