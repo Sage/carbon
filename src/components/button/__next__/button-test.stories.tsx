@@ -18,7 +18,6 @@ const meta: Meta<typeof Button> = {
     disabled: false,
     fullWidth: false,
     inverse: false,
-    loading: false,
     noWrap: true,
     size: "medium",
     type: "button",

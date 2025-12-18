@@ -52,7 +52,7 @@ export const propsForSize: PropConfig = {
     height: "var(--global-size-s)",
     iconOnlyWidth: "var(--global-size-s)",
     paddingVertical: "var(--global-space-comp-2-xs)",
-    paddingHorizontal: "var(--global-space-comp-2-m)",
+    paddingHorizontal: "var(--global-space-comp-m)",
   },
   medium: {
     borderRadius: "var(--global-radius-action-xl)",

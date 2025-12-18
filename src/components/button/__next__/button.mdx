@@ -119,8 +119,8 @@ be ignored.
 
 ### Loading
 
-Loading state can be applied to buttons by passing the `loading` prop. To show
-different text, use the [Loader translation keys](../?path=/docs/loader--docs#translation-keys)
+Loading state can be applied to buttons by passing the [Loader component](?path=/docs/loader--docs) 
+via the composable `children` prop.
 
 <Canvas of={ButtonStories.Loading} />
 
@@ -143,7 +143,8 @@ such as forms.
 
 ### Legacy support
 
-To help with migration, this component can also accept the following legacy props:
+To help with migration, this component can also accept the following 
+[legacy Button](?path=/docs/deprecated-button--docs) props:
 - the `buttonType` prop, which maps to the `variant` and `variantType` props as follows:
   - `primary` -> `variant="default"` and `variantType="primary"`
   - `secondary` -> `variant="default"` and `variantType="secondary"`

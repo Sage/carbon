@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Button, { ButtonProps } from "./button.component";
 import Box from "../../box";
 import Icon from "../../icon";
-import I18nProvider from "../../i18n-provider";
+import { Loader } from "../../loader/__next__/loader.component";
 
 const meta: Meta<typeof Button> = {
   title: "Button",
@@ -14,7 +14,6 @@ const meta: Meta<typeof Button> = {
     disabled: false,
     fullWidth: false,
     inverse: false,
-    loading: false,
     noWrap: true,
     size: "medium",
     type: "button",
@@ -103,7 +102,7 @@ export const Variations: Story = (args: ButtonProps) => {
         </>
       </Box>
       <Box display="flex" flexDirection="column" alignItems="flex-start">
-        <h1>AI</h1>
+        <h1>Gradient</h1>
         <h2>Secondary</h2>
         <>
           <Button {...args} variant="gradient" variantType="secondary" />
@@ -155,17 +154,22 @@ Inverse.storyName = "Inverse";
 export const Loading: Story = () => {
   return (
     <Box display={"flex"} flexDirection={"column"} gap={2}>
-      <Button loading>Button</Button>
-      <I18nProvider
-        locale={{ loaderSpinner: { loading: () => "Saving, please wait..." } }}
-      >
-        <Button loading>Button</Button>
-      </I18nProvider>
-      <I18nProvider
-        locale={{ loaderSpinner: { loading: () => "Chargement..." } }}
-      >
-        <Button loading>Button</Button>
-      </I18nProvider>
+      <Button>
+        <Loader
+          variant="inline"
+          loaderType="ring"
+          loaderLabel="Loading"
+          size="extra-small"
+        />
+      </Button>
+      <Button>
+        <Loader
+          variant="inline"
+          loaderType="ring"
+          loaderLabel="Chargement..."
+          size="extra-small"
+        />
+      </Button>
     </Box>
   );
 };

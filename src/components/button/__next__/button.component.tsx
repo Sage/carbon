@@ -8,12 +8,10 @@ import { SpaceProps } from "styled-system";
 
 import { ButtonProps as LegacyButtonProps } from "../button.component";
 import StyledButton, { StyledContentContainer } from "./button.style";
-import { Loader } from "../../loader/__next__/loader.component";
 import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags/tags";
 import useMediaQuery from "../../../hooks/useMediaQuery";
-import useLocale from "../../../hooks/__internal__/useLocale";
 import { Size, Variant, VariantType } from "./button.config";
 import Icon from "../../icon";
 
@@ -46,8 +44,6 @@ export interface ButtonProps
   id?: string;
   /** Set the button to use a dark-mode appearance. */
   inverse?: boolean;
-  /** Flag to indicate that the button is in a loading state. */
-  loading?: boolean;
   /** The name of the button. */
   name?: string;
   /** Flag to indicate whether the button text can wrap over multiple lines. */
@@ -78,15 +74,18 @@ export interface ButtonProps
   variant?: Variant;
   /** The variant type of the button. */
   variantType?: VariantType;
-
   /**
-   * @internal
-   * @private
-   * @ignore
-   * @legacy
-   * Sets the underlying HTML element if href is passed
-   */
-  as?: "button" | "a";
+   * @deprecated Please use `variantType` prop instead.
+   * */
+  buttonType?: LegacyButtonProps["buttonType"];
+  /**
+   * @deprecated Please use `variant="destructive"` instead.
+   * */
+  destructive?: LegacyButtonProps["destructive"];
+  /**
+   * @deprecated Please use `inverse` instead.
+   * */
+  isWhite?: LegacyButtonProps["isWhite"];
 }
 
 const mapButtonTypeToVariantType = ({
@@ -139,7 +138,6 @@ export const Button = forwardRef<ButtonHandle, ButtonProps>(
       fullWidth = false,
       id,
       inverse,
-      loading = false,
       name,
       noWrap = true,
       onClick,
@@ -151,12 +149,11 @@ export const Button = forwardRef<ButtonHandle, ButtonProps>(
       iconType,
       iconPosition = "before",
       isWhite,
+      href,
       ...rest
     }: ButtonProps,
     ref,
   ) => {
-    const locale = useLocale();
-
     const buttonRef = useRef<HTMLButtonElement>(null);
 
     useImperativeHandle<ButtonHandle, ButtonHandle>(
@@ -186,38 +183,12 @@ export const Button = forwardRef<ButtonHandle, ButtonProps>(
         | React.MouseEvent<HTMLAnchorElement>
         | React.MouseEvent<HTMLButtonElement>,
     ) => {
-      if (loading) return;
-
       buttonRef.current?.focus({ preventScroll: true });
 
       onClick?.(event);
     };
 
-    const renderLoader = () => {
-      const useWhiteRing =
-        (!inverse && variant === "default" && variantType === "primary") ||
-        (variant === "destructive" && variantType === "primary");
-
-      return (
-        <>
-          <Loader
-            variant="inline"
-            loaderType="ring"
-            size={size !== "large" ? "extra-small" : "small"}
-            inverse={useWhiteRing}
-            showLabel={false}
-            loaderLabel={locale.loaderSpinner.loading()}
-          />
-          {allowMotion && locale.loaderSpinner.loading()}
-        </>
-      );
-    };
-
     const renderChildren = () => {
-      if (size !== "xs" && loading) {
-        return renderLoader();
-      }
-
       if (!iconType) {
         return children;
       }
@@ -266,11 +237,13 @@ export const Button = forwardRef<ButtonHandle, ButtonProps>(
         id={id}
         name={name}
         $noWrap={noWrap}
-        onClick={handleClick}
+        onClick={!href ? handleClick : undefined}
         ref={buttonRef}
         $size={size}
         $variant={computedVariant}
         $variantType={computedVariantType}
+        as={!disabled && href ? "a" : "button"}
+        href={href}
         {...tagComponent("button", rest)}
         {...rest}
       >

@@ -11,7 +11,7 @@ import {
   VariantType,
 } from "./button.config";
 
-const getCSSForAIStyle = ({
+const getCSSForGradientStyle = ({
   allowMotion = true,
   disabled,
   size,
@@ -227,7 +227,7 @@ export const StyledButton = styled.button<
     if ($variant === "gradient") {
       return css`
         ${gradientAnimation}
-        ${getCSSForAIStyle({
+        ${getCSSForGradientStyle({
           allowMotion: $allowMotion,
           disabled,
           size: $size,
@@ -254,7 +254,6 @@ export const StyledButton = styled.button<
      * Unsupported combinations of variant and variantType should fall back to
      * the "primary" variant type for said variant
      * */
-    /* istanbul ignore if */
     if (
       $variant === "destructive" &&
       ($variantType === "tertiary" || $variantType === "subtle")
