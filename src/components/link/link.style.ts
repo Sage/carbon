@@ -35,6 +35,8 @@ export interface StyledLinkProps {
   inverse?: boolean;
   /** @deprecated The 'isDarkBackground' prop in Link is deprecated and will soon be removed. Please use 'inverse' prop instead. */
   isDarkBackground?: boolean;
+  /** Sets the link style to bold */
+  bold?: boolean;
 }
 
 interface PrivateStyledLinkProps {
@@ -45,7 +47,6 @@ interface PrivateStyledLinkProps {
 interface LinkColors {
   color: string;
   hoverColor: string;
-  disabledColor: string;
   focusColor: string;
   focusBgColor: string;
   focusBoxShadowColor: string;
@@ -60,53 +61,68 @@ interface ColorMap {
 
 const colorMap: ColorMap = {
   light: (variant) => {
-    let color = "#08711E";
-    let hoverColor = "#10601C";
-    const focusColor = "#000000";
-    const focusBgColor = "#FFD27E";
-    const focusBoxShadowColor = "#000000";
-
+    let color = "var(--link-typical-label-default)";
+    let hoverColor = "var(--link-typical-label-hover)";
+    const focusColor = "var(--focus-label)";
+    const focusBgColor = "var(--focus-bg)";
+    const focusBoxShadowColor = "var(--focus-borderalt)";
     if (variant === "negative") {
-      color = "#B23342";
-      hoverColor = "#9F303C";
+      color = "var(--link-destructive-label-default)";
+      hoverColor = "var(--link-destructive-label-hover)";
     } else if (variant === "subtle") {
-      color = "#000000E5";
-      hoverColor = "#000000";
+      color = "var(--link-subtle-label-default)";
+      hoverColor = "var(--link-subtle-label-hover)";
     }
 
     return {
       color,
       hoverColor,
-      disabledColor: "var(--colorsActionMajorYin030)",
       focusColor,
       focusBgColor,
       focusBoxShadowColor,
     };
   },
   dark: (variant) => {
-    let color = "#4EDC54";
-    let hoverColor = "#72E26F";
-    const focusColor = "#FFFFFF";
-    const focusBgColor = "#926916";
-    const focusBoxShadowColor = "#FFB500";
+    let color = "var(--link-typical-inverse-label-default)";
+    let hoverColor = "var(--link-typical-inverse-label-hover)";
+    const focusColor = "var(--focus-inverse-label)";
+    const focusBgColor = "var(--focus-inverse-bg)";
+    const focusBoxShadowColor = "var(--focus-inverse-borderalt)";
 
     if (variant === "negative") {
-      color = "#E85B66";
-      hoverColor = "#ED6E74";
+      color = "var(--link-destructive-inverse-label-default)";
+      hoverColor = "var(--link-destructive-inverse-label-hover)";
     } else if (variant === "subtle") {
-      color = "var(--colorsUtilityYang100)";
-      hoverColor = "var(--colorsUtilityYang100)";
+      color = "var(--link-subtle-inverse-label-default)";
+      hoverColor = "var(--link-subtle-inverse-label-hover)";
     }
 
     return {
       color,
       hoverColor,
-      disabledColor: "var(--colorsActionMajorYang030)",
       focusColor,
       focusBgColor,
       focusBoxShadowColor,
     };
   },
+};
+
+const getFontStyle = (linkSize?: "medium" | "large", bold?: boolean) => {
+  let font: string;
+
+  if (linkSize === "large") {
+    font = bold
+      ? "--global-font-static-comp-lined-medium-l"
+      : "--global-font-static-comp-regular-l";
+  } else {
+    font = bold
+      ? "--global-font-static-comp-lined-medium-m"
+      : "--global-font-static-comp-regular-m";
+  }
+
+  return css`
+    font: var(${font});
+  `;
 };
 
 const StyledLink = styled.span.attrs(applyBaseTheme)<
@@ -124,77 +140,92 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
     isMenuItem,
     hasFocus,
     linkSize,
+    bold,
   }) => {
     const colorMapKey = inverse ? "dark" : "light";
-    const {
-      color,
-      hoverColor,
-      disabledColor,
-      focusColor,
-      focusBgColor,
-      focusBoxShadowColor,
-    } = colorMap[colorMapKey](variant);
-    const fontSize =
-      linkSize === "medium" ? "var(--fontSizes100)" : "var(--fontSizes200)";
+    const { color, hoverColor, focusColor, focusBgColor, focusBoxShadowColor } =
+      colorMap[colorMapKey](variant);
 
     return css`
       ${isSkipLink &&
       css`
         a {
           position: absolute;
-          padding-left: var(--spacing300);
-          padding-right: var(--spacing300);
-          line-height: var(--sizing600);
+          box-sizing: border-box;
+          display: inline-flex;
+          min-height: var(--global-size-m);
+          padding: var(--global-space-comp-m) var(--global-space-comp-xl);
+          flex-direction: column;
+          justify-content: center;
+          align-items: flex-start;
+
           left: -999em;
           z-index: ${theme.zIndex.aboveAll};
-          border: 3px solid var(--colorsUtilityYin100);
-          box-shadow: var(--boxShadow300);
-          border-radius: var(--spacing000) var(--spacing100) var(--spacing100)
-            var(--spacing000);
-          font-size: ${fontSize};
-          color: var(--colorsUtilityYin090);
 
-          &:hover {
-            cursor: pointer;
-            color: var(--colorsUtilityYin090);
+          border: var(--global-borderwidth-s) solid var(--focus-borderalt);
+          box-shadow: var(--global-depth-lvl1);
+          border-radius: 0 var(--global-radius-action-m)
+            var(--global-radius-action-m) 0;
+          background-color: var(--focus-bg);
 
-            ${StyledIcon} {
-              color: var(--colorsActionMajor600);
-            }
-          }
+          font: var(--global-font-static-comp-regular-m);
+          color: var(--link-subtle-label-default);
+          text-decoration: underline;
+          outline: none;
 
           &:focus {
-            background-color: var(--colorsSemanticFocus500);
-            text-decoration: underline var(--colorsUtilityYin100);
-            text-decoration-thickness: 4px;
-            text-underline-offset: 3px;
-            -webkit-text-decoration: underline var(--colorsUtilityYin100);
-            -webkit-text-decoration-thickness: 4px;
-            -webkit-text-underline-offset: 3px;
+            top: var(--global-space-comp-s);
+            left: 0;
           }
-        }
-
-        a:focus {
-          top: var(--spacing100);
-          left: var(--spacing000);
         }
       `}
 
       ${!isSkipLink &&
+      !isMenuItem &&
       css`
         > a,
         > button {
-          font-size: ${fontSize};
+          ${getFontStyle(linkSize, bold)}
+          text-decoration: ${hasContent && underline === "always"
+            ? "underline"
+            : "none"};
 
           ${!disabled &&
           css`
             color: ${color};
             ${StyledIcon} {
+              width: 20px;
+              height: 20px;
               color: ${color};
+
+              ::before {
+                font-size: 18px;
+                line-height: 18px;
+              }
+
+              ${iconAlign === "left" &&
+              css`
+                margin-right: ${hasContent ? "var(--global-space-comp-s)" : 0};
+              `}
+
+              ${iconAlign === "right" &&
+              /* istanbul ignore next: tested in chromatic, couldn't test in jest */
+              css`
+                margin-right: 0;
+                margin-left: ${
+                  /* istanbul ignore next */ hasContent
+                    ? "var(--global-space-comp-s)"
+                    : 0
+                };
+              `}
             }
 
             &:hover {
               color: ${hoverColor};
+              text-decoration: ${hasContent &&
+              (underline === "hover" || underline === "always")
+                ? "underline"
+                : "none"};
 
               > ${StyledIcon} {
                 color: ${hoverColor};
@@ -202,17 +233,33 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
             }
 
             &:not(:has(img, svg, picture)):focus {
-              background-color: ${focusBgColor};
-              border-radius: var(--borderRadius025);
+              color: ${focusColor};
+              text-decoration: none;
+
+              ${StyledIcon} {
+                color: ${focusColor};
+              }
+            }
+
+            &:has(img, svg, picture) {
+              display: inline-block;
+              vertical-align: middle;
+            }
+
+            &:has(img, svg, picture):focus {
+              ${addFocusStyling()}
+              border-radius: var(--global-radius-action-xs);
+              outline: default;
             }
           `}
 
           ${disabled &&
           css`
-            color: ${disabledColor};
+            color: var(--colorsActionMajorYin030);
             &:hover,
             &:focus {
-              color: ${disabledColor};
+              cursor: not-allowed;
+              color: var(--colorsActionMajorYin030);
             }
           `}
         }
@@ -228,96 +275,34 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
 
       > a,
       > button {
-        text-decoration: ${hasContent && underline === "always"
-          ? "underline"
-          : "none"};
-
-        :hover {
-          text-decoration: ${
-            /* istanbul ignore next - having issues testing CSS :hover pseudo-states in jsdom */
-            hasContent && (underline === "hover" || underline === "always")
-              ? "underline"
-              : "none"
-          };
-        }
-
         ${isMenuItem && "display: inline-block;"}
 
         > ${StyledIcon} {
           display: ${hasContent ? "inline-block" : "inline"};
           position: relative;
           vertical-align: middle;
-          ${iconAlign === "left" &&
-          css`
-            margin-right: ${hasContent ? "var(--spacing050)" : 0};
-          `}
-          ${iconAlign === "right" &&
-          css`
-            margin-right: 0;
-            margin-left: ${hasContent ? "var(--spacing100)" : 0};
-          `}
         }
 
         &:focus {
-          color: ${focusColor};
-
-          ${StyledIcon} {
-            color: ${focusColor};
-          }
-
           outline: none;
         }
-
-        ${!disabled &&
-        css`
-          &:has(img, svg, picture) {
-            display: inline-block;
-            vertical-align: middle;
-          }
-
-          &:has(img, svg, picture):focus {
-            ${addFocusStyling()}
-            border-radius: var(--borderRadius025);
-            outline: default;
-          }
-        `}
-
-        ${disabled &&
-        css`
-          cursor: not-allowed;
-        `}
       }
 
       ${!isSkipLink &&
       !disabled &&
+      !isMenuItem &&
       hasFocus &&
       css`
-        > a,
-        > button {
-          outline: none;
-          text-decoration: underline;
-          border-bottom-left-radius: var(--borderRadius000);
-          border-bottom-right-radius: var(--borderRadius000);
-        }
         max-width: fit-content;
-        box-shadow: 0 var(--spacing050) 0 0 ${focusBoxShadowColor};
-        border-bottom-left-radius: var(--borderRadius025);
-        border-bottom-right-radius: var(--borderRadius025);
+        &:not(:has(img, svg, picture)) {
+          border-radius: var(--global-radius-action-xs);
+          background-color: ${focusBgColor};
+          box-shadow: 0 var(--global-size-5-xs) 0 0 ${focusBoxShadowColor};
+        }
 
         &:has([data-popover-container-button="true"]) {
-          border-bottom-left-radius: var(--borderRadius000);
-          border-bottom-right-radius: var(--borderRadius000);
-        }
-      `}
-
-      ${!disabled &&
-      hasFocus &&
-      css`
-        &:has(img, svg, picture) {
-          > a,
-          > button {
-            ${addFocusStyling()}
-          }
+          border-bottom-left-radius: 0;
+          border-bottom-right-radius: 0;
         }
       `}
 

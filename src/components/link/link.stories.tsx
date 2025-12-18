@@ -9,87 +9,70 @@ import Typography from "../typography";
 const meta: Meta<typeof Link> = {
   title: "Link",
   component: Link,
-  parameters: { controls: { disable: true } },
+  parameters: {
+    themeProvider: { chromatic: { theme: "sage" } },
+  },
 };
 
 export default meta;
 type Story = StoryObj<typeof Link>;
 
-export const DefaultStory: Story = () => {
-  return (
-    <Link
-      href="https://carbon.sage.com"
-      target="_blank"
-      rel="noreferrer noopener"
-    >
-      This is a link
-    </Link>
-  );
+export const Default: Story = {
+  render: (args) => <Link {...args}>{args.children}</Link>,
+  args: {
+    children: "This is an anchor link",
+    href: "https://carbon.sage.com",
+  },
 };
-DefaultStory.storyName = "Default";
 
-export const WithDisabled = () => {
-  return <Link disabled>This is a disabled anchor link</Link>;
+export const WithUnderlineOnlyOnHover: Story = {
+  ...Default,
+  args: {
+    ...Default.args,
+    children: "This is an anchor link with an underline applied on hover",
+    underline: "hover",
+  },
+  parameters: { chromatic: { disableSnapshot: true } },
 };
-WithDisabled.storyName = "With Disabled";
 
-export const WithUnderlineOnlyOnHover = () => {
-  return (
-    <Link underline="hover" href="#foo">
-      This is an anchor link with an underline applied on hover
-    </Link>
-  );
+export const WithNoUnderline: Story = {
+  ...Default,
+  args: {
+    ...Default.args,
+    children: "This is an anchor link with no underline",
+    underline: "never",
+  },
 };
-WithUnderlineOnlyOnHover.storyName = "With Underline On Hover and Focus";
-WithUnderlineOnlyOnHover.parameters = { chromatic: { disableSnapshot: true } };
 
-export const WithNoUnderline = () => {
-  return (
-    <Link underline="never" href="#foo">
-      This is an anchor link with no underline
-    </Link>
-  );
+export const WithIcon: Story = {
+  render: (args) => (
+    <>
+      <Typography>
+        <Link iconAlign="left" {...args}>
+          Link with left icon
+        </Link>
+      </Typography>
+      <Typography>
+        <Link iconAlign="right" {...args}>
+          Link with right icon
+        </Link>
+      </Typography>
+    </>
+  ),
+  args: {
+    href: "https://carbon.sage.com",
+    icon: "settings",
+  },
+  decorators: [
+    (Story) => (
+      <Box display="flex" flexDirection="row" gap={4}>
+        <Story />
+      </Box>
+    ),
+  ],
 };
-WithNoUnderline.storyName = "Without Underline";
 
-export const WithIcon: Story = () => {
-  return (
-    <Link icon="settings" href="#foo">
-      This is a link
-    </Link>
-  );
-};
-WithIcon.storyName = "With Icon";
-WithIcon.parameters = { chromatic: { disableSnapshot: true } };
-
-export const WithIconAlign: Story = () => {
-  return (["left", "right"] as const).map((align) => (
-    <div key={align} style={{ margin: "64px" }}>
-      <Link icon="settings" iconAlign={align} href="#foo">
-        This is a link
-      </Link>
-    </div>
-  ));
-};
-WithIconAlign.storyName = "With Icon Align";
-
-export const WithTooltip: Story = () => {
-  return (
-    <div style={{ margin: "64px" }}>
-      <Link
-        icon="settings"
-        tooltipMessage="This is a tooltip message"
-        href="#foo"
-      >
-        This is a link
-      </Link>
-    </div>
-  );
-};
-WithTooltip.storyName = "With Tooltip";
-WithTooltip.parameters = { chromatic: { disableSnapshot: true } };
-
-export const WithIsSkipLink: Story = () => {
+export const AsSkipLink: Story = () => {
   return (
     <>
       <Link href="#main-content" isSkipLink />
@@ -102,8 +85,7 @@ export const WithIsSkipLink: Story = () => {
       </Menu>
       <Box py={2} id="main-content">
         <Typography mb={1} variant="h2">
-          {" "}
-          This is header of main content container{" "}
+          This is header of main content container
         </Typography>
         <Typography variant="p">
           Laborum anim magna pariatur ea mollit elit cillum exercitation irure
@@ -126,8 +108,109 @@ export const WithIsSkipLink: Story = () => {
     </>
   );
 };
-WithIsSkipLink.storyName = "With Is Skip Link";
-WithIsSkipLink.parameters = { chromatic: { disableSnapshot: true } };
+AsSkipLink.storyName = "As Skip Link";
+AsSkipLink.parameters = { chromatic: { disableSnapshot: true } };
+
+export const LinkSize: Story = {
+  render: (args) => (
+    <>
+      <Typography>
+        <Link linkSize="medium" {...args}>
+          This is a medium link
+        </Link>
+      </Typography>
+      <Typography>
+        <Link linkSize="large" {...args}>
+          This is a large link
+        </Link>
+      </Typography>
+    </>
+  ),
+  args: {
+    href: "https://carbon.sage.com",
+  },
+  decorators: [
+    (Story) => (
+      <Box display="flex" flexDirection="row" gap={4}>
+        <Story />
+      </Box>
+    ),
+  ],
+};
+
+export const Bold: Story = {
+  ...Default,
+  args: {
+    ...Default.args,
+    children: "This is a bold link",
+    bold: true,
+  },
+};
+
+export const Variants: Story = {
+  render: (args) => (
+    <>
+      <Typography>
+        <Link variant="typical" {...args}>
+          This is a typical link
+        </Link>
+      </Typography>
+      <Typography>
+        <Link variant="negative" {...args}>
+          This is a negative link
+        </Link>
+      </Typography>
+      <Typography>
+        <Link variant="subtle" {...args}>
+          This is a subtle link
+        </Link>
+      </Typography>
+    </>
+  ),
+  args: {
+    href: "https://carbon.sage.com",
+  },
+  decorators: [
+    (Story) => (
+      <Box display="flex" flexDirection="row" gap={4}>
+        <Story />
+      </Box>
+    ),
+  ],
+};
+
+export const Inverse: Story = {
+  render: (args) => (
+    <>
+      <Typography>
+        <Link variant="typical" {...args}>
+          This is an inverse typical link
+        </Link>
+      </Typography>
+      <Typography>
+        <Link variant="negative" {...args}>
+          This is an inverse negative link
+        </Link>
+      </Typography>
+      <Typography>
+        <Link variant="subtle" {...args}>
+          This is an inverse subtle link
+        </Link>
+      </Typography>
+    </>
+  ),
+  args: {
+    href: "https://carbon.sage.com",
+    inverse: true,
+  },
+  decorators: [
+    (Story) => (
+      <Box p={2} display="flex" flexDirection="row" gap={4} bg="#000">
+        <Story />
+      </Box>
+    ),
+  ],
+};
 
 export const WithOnClick: Story = () => {
   return (
@@ -138,192 +221,3 @@ export const WithOnClick: Story = () => {
 };
 WithOnClick.storyName = "With On Click";
 WithOnClick.parameters = { chromatic: { disableSnapshot: true } };
-
-export const Variants: Story = () => {
-  return (
-    <Box width="max-content" display="flex" flexDirection="column" gap="32px">
-      <Link
-        href="https://carbon.sage.com"
-        target="_blank"
-        rel="noreferrer noopener"
-      >
-        This is a typical link
-      </Link>
-      <Link
-        href="https://carbon.sage.com"
-        target="_blank"
-        rel="noreferrer noopener"
-        variant="negative"
-      >
-        This is a negative link
-      </Link>
-      <Link
-        href="https://carbon.sage.com"
-        target="_blank"
-        rel="noreferrer noopener"
-        variant="neutral"
-      >
-        This is a neutral link
-      </Link>
-      <Box
-        backgroundColor="#000000"
-        width="max-content"
-        padding="20px 10px"
-        display="flex"
-        flexDirection="column"
-        alignItems="center"
-      >
-        <Link
-          href="https://carbon.sage.com"
-          target="_blank"
-          rel="noreferrer noopener"
-          variant="subtle"
-          isDarkBackground
-        >
-          This is a subtle link
-        </Link>
-      </Box>
-    </Box>
-  );
-};
-Variants.storyName = "Variants";
-
-export const LinkSize: Story = () => {
-  return (
-    <>
-      <Link
-        href="https://carbon.sage.com"
-        target="_blank"
-        rel="noreferrer noopener"
-      >
-        This is a 'medium' link
-      </Link>
-      <br />
-      <br />
-      <Link
-        href="https://carbon.sage.com"
-        target="_blank"
-        rel="noreferrer noopener"
-        linkSize="large"
-      >
-        This is a 'large' link
-      </Link>
-    </>
-  );
-};
-LinkSize.storyName = "Link Size";
-
-export const OnADarkBackground: Story = () => {
-  return (
-    <Box
-      backgroundColor="#000000"
-      width="max-content"
-      padding="20px 10px"
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      gap="16px"
-    >
-      <Link
-        href="https://carbon.sage.com"
-        target="_blank"
-        rel="noreferrer noopener"
-        isDarkBackground
-      >
-        This is a link
-      </Link>
-      {(["left", "right"] as const).map((align) => (
-        <React.Fragment key={`${align}-default-variant`}>
-          <Link icon="settings" isDarkBackground iconAlign={align} href="#foo">
-            This is a link
-          </Link>
-        </React.Fragment>
-      ))}
-      <Link
-        href="https://carbon.sage.com"
-        target="_blank"
-        rel="noreferrer noopener"
-        isDarkBackground
-        variant="negative"
-      >
-        This is a link
-      </Link>
-      {(["left", "right"] as const).map((align) => (
-        <React.Fragment key={`${align}-negative-variant`}>
-          <Link
-            icon="settings"
-            isDarkBackground
-            variant="negative"
-            iconAlign={align}
-            href="#foo"
-          >
-            This is a link
-          </Link>
-        </React.Fragment>
-      ))}
-      <Link
-        href="https://carbon.sage.com"
-        target="_blank"
-        rel="noreferrer noopener"
-        isDarkBackground
-        variant="neutral"
-      >
-        This is a link
-      </Link>
-      {(["left", "right"] as const).map((align) => (
-        <React.Fragment key={`${align}-neutral-variant`}>
-          <Link
-            icon="settings"
-            isDarkBackground
-            variant="neutral"
-            iconAlign={align}
-            href="#foo"
-          >
-            This is a link
-          </Link>
-        </React.Fragment>
-      ))}
-      <Link
-        href="https://carbon.sage.com"
-        target="_blank"
-        rel="noreferrer noopener"
-        isDarkBackground
-        variant="subtle"
-      >
-        This is a link
-      </Link>
-      {(["left", "right"] as const).map((align) => (
-        <React.Fragment key={`${align}-subtle-variant`}>
-          <Link
-            icon="settings"
-            isDarkBackground
-            variant="subtle"
-            iconAlign={align}
-            href="#foo"
-          >
-            This is a link
-          </Link>
-        </React.Fragment>
-      ))}
-      <Link isDarkBackground disabled>
-        This is a link
-      </Link>
-    </Box>
-  );
-};
-OnADarkBackground.storyName = "On A Dark Background";
-
-export const Wrapping = () => {
-  return (
-    <Box padding="25px" width="250px" backgroundColor="--colorsUtilityMajor025">
-      <Typography>We&apos;ll be sorry to see you go</Typography>
-      <Typography>
-        If your subscription isn&apos;t quite right, we can help you{" "}
-        <Link href="http://carbon.sage.com" target="_blank">
-          find one that suits your business needs (new tab)
-        </Link>
-      </Typography>
-    </Box>
-  );
-};
-Wrapping.storyName = "Wrapping";
