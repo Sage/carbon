@@ -47,7 +47,7 @@ export interface SwitchProps
   checked: boolean;
 }
 
-export const Switch = React.forwardRef(
+const SwitchComponent = React.forwardRef(
   (
     {
       autoFocus,
@@ -356,6 +356,7 @@ export const Switch = React.forwardRef(
   },
 );
 
-Switch.displayName = "Switch";
+SwitchComponent.displayName = "Switch";
 
-export default Switch;
+export { SwitchComponent as Switch };
+export default SwitchComponent;
