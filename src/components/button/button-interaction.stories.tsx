@@ -12,7 +12,7 @@ import DefaultDecorator from "../../../.storybook/utils/default-decorator";
 import Loader from "../loader/__next__";
 
 export default {
-  title: "Button/Interactions",
+  title: "Deprecated/Button/Interactions",
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
   },

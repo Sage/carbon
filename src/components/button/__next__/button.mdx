@@ -1,0 +1,163 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+
+import * as ButtonStories from "./button.stories";
+
+<Meta of={ButtonStories} />
+
+# Button
+
+<a
+  target="_blank"
+  href="https://zeroheight.com/35ee2cc26/v/latest/p/58dc6d-simple-button"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
+>
+  Product Design System component - Simple Button Component
+</a>
+
+A Button triggers a single action or event.
+Use it to submit a form (Save), to advance to the next step in a process (Next), or to create a new item (New).
+
+**This documentation is for the newer implementation of Button. If you are still using the older implementation, please use the <a href="../?path=/docs/deprecated-button--docs">Button documentation</a>.**
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quickstart
+
+```javascript
+import Button from "carbon-react/lib/components/button/__next__";
+```
+
+## Examples
+
+### Default Button
+
+By default, a `Button` with no additional properties pass will render a default
+primary button, with the `button` HTML type.
+
+<Canvas of={ButtonStories.Default} />
+
+### Button Content
+
+Button content is composable; in other words, it's up to you to decide what you
+want the button to show, and how. In the following example, you can see how to
+implement [Icons](../?path=/story/icon--docs) into buttons. If you have multiple
+child elements, wrap them in a `Fragment` to ensure that the correct styling is
+maintained.
+
+<Canvas of={ButtonStories.ButtonContent} />
+
+### Click Handler
+
+To make use of non-submit and non-reset buttons, provide an `onClick` handler to
+enable actions to take place when users click the button.
+
+<Canvas of={ButtonStories.ClickHandler} />
+
+### Variants
+
+Buttons come in three variants: `default`, `destructive` and `gradient`. To set your
+desired variant, pass the `variant` prop; if no value is passed, `default` is
+used.
+
+Similarly, variants can be one of up to four variant types: `primary`,
+`secondary`, `tertiary` and `subtle`. Supported variant-type combinations are
+as follows:
+
+| Variant       | Primary | Secondary | Tertiary | Subtle |
+| ------------- | ------- | --------- | -------- | ------ |
+| `default`     | ✅      | ✅        | ✅       | ✅      |
+| `destructive` | ✅      | ✅        | ❌       | ❌      |
+| `gradient`    | ❌      | ✅        | ❌       | ❌      |
+
+By default, the `primary` variant type will be used if no `variantType` property
+is passed
+
+<Canvas of={ButtonStories.Variations} />
+
+### Sizes
+
+Buttons can be one of four sizes: `xs`, `small`, `medium` and `large`. Pass the
+required size with the `size` property.
+
+#### A note on the `xs` size
+
+The `xs` button size is designed for use only in tables where spacing is limited;
+**it is not meant for use beyond that**. XS buttons cannot use the `primary`
+variant type, and will instead default to `secondary` if no variant is specified.
+If `primary` is set, it will be ignored automatically. XS buttons should also use
+only text content (i.e. no icons).
+
+<Canvas of={ButtonStories.Sizes} />
+
+### Disabled
+
+You can disable buttons using the `disabled` property. Before doing that, think
+about whether a disabled button really makes sense for your situation — it's
+best to save this option for times when other approaches won’t quite do the job.
+
+<Canvas of={ButtonStories.Disabled} />
+
+### Full-Width
+
+Passing the `fullWidth` property will allow buttons to use the full horizontal
+space around them.
+
+<Canvas of={ButtonStories.FullWidth} />
+
+### Inverse
+
+Buttons can be marked as `inverse` for scenarios where they require a dark mode
+appearance. Only the `default` variant supports `inverse`; other variants will
+be ignored.
+
+<Canvas of={ButtonStories.Inverse} />
+
+### Loading
+
+Loading state can be applied to buttons by passing the [Loader component](?path=/docs/loader--docs) 
+via the composable `children` prop.
+
+<Canvas of={ButtonStories.Loading} />
+
+### Wrapping Text
+
+If you require button text that does not wrap (due to e.g. limited spacing),
+use the `noWrap` prop to prevent the text from wrapping across multiple
+lines.
+
+<Canvas of={ButtonStories.WrappingText} />
+
+### HTML Button Type
+
+Standard HTML buttons can be one of three types: `button`, `submit` or
+`reset`. This functionality is available via the `type` prop, which
+allows `Button` instances to be used as standard buttons in elements
+such as forms.
+
+<Canvas of={ButtonStories.HTMLButtonType} />
+
+### Legacy support
+
+To help with migration, this component can also accept the following 
+[legacy Button](?path=/docs/deprecated-button--docs) props:
+- the `buttonType` prop, which maps to the `variant` and `variantType` props as follows:
+  - `primary` -> `variant="default"` and `variantType="primary"`
+  - `secondary` -> `variant="default"` and `variantType="secondary"`
+  - `tertiary` -> `variant="default"` and `variantType="tertiary"`
+  - `destructive` -> `variant="destructive"` and `variantType="primary"`
+  - `gradient-grey` -> `variant="gradient"` and `variantType="secondary"`
+  - `gradient-white` -> `variant="gradient"` and `variantType="secondary"`
+  - `darkBackground` -> `variant="default"` and `variantType="secondary"` with `inverse` set to `true`
+- the `iconType` and `iconPosition` props, which are equivalent to composing an `Icon` component as a child
+- the `isWhite` prop, which maps to the `inverse` prop
+
+## Props
+
+### Button
+
+<ArgTypes of={ButtonStories} />
