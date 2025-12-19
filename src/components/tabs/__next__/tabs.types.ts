@@ -82,16 +82,10 @@ export interface TabProps {
   /**
    * @internal @private @ignore
    */
-  setHasError?: (hasError: boolean) => void;
-  /**
-   * @internal @private @ignore
-   */
-  setHasWarning?: (hasWarning: boolean) => void;
+  hasCustomLayout?: boolean;
 
-  /**
-   * @internal @private @ignore
-   */
-  setHasInfo?: (hasInfo: boolean) => void;
+  /** @private @ignore @internal */
+  headerWidth?: string;
 }
 
 export interface TabsProps {

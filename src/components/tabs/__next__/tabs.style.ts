@@ -33,7 +33,7 @@ const sizes: Record<string, Dimension> = {
 };
 
 interface StyledTabListProps {
-  orientation: "horizontal" | "vertical";
+  $orientation: "horizontal" | "vertical";
   size: "medium" | "large";
 }
 
@@ -43,13 +43,21 @@ export const StyledTabPanel = styled.div`
 
 export const StyledTabList = styled.div<StyledTabListProps>`
   display: flex;
-  ${({ orientation }) => css`
-    flex-direction: ${orientation === "vertical" ? "column" : "row"};
-    ${orientation === "horizontal" ? "margin-bottom" : "margin-right"}: 8px;
+  ${({ $orientation }) => css`
+    ${$orientation === "horizontal" &&
+    css`
+      flex-direction: row;
+      margin-bottom: 8px;
+    `}
+
+    ${$orientation === "vertical" &&
+    css`
+      flex-direction: column;
+      flex-wrap: wrap;
+      margin-right: 8px;
+      width: 100%;
+    `}
   `}
-  width: 100%;
-  height: fit-content;
-  white-space: nowrap;
   padding: 6px;
   overflow-x: hidden;
 `;
@@ -106,6 +114,8 @@ interface StyledTabProps
   warning?: string | boolean;
   orientation: "horizontal" | "vertical";
   size: "medium" | "large";
+  $hasCustomLayout?: boolean;
+  $headerWidth?: string;
 }
 
 export const StyledTab = styled.button<StyledTabProps>`
@@ -118,6 +128,9 @@ export const StyledTab = styled.button<StyledTabProps>`
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
 
+  white-space: nowrap;
+  height: fit-content;
+
   color: var(--colorsYin090);
 
   font-weight: var(--fontWeights500);
@@ -125,14 +138,19 @@ export const StyledTab = styled.button<StyledTabProps>`
   position: relative;
 
   .tab-title-content-wrapper {
-    align-items: center;
-    display: flex;
-    gap: 8px;
+    ${({ $hasCustomLayout }) =>
+      !$hasCustomLayout &&
+      css`
+        align-items: center;
+        display: flex;
+        gap: 8px;
+      `}
 
-    ${({ activeTab, orientation, size }) =>
+    ${({ activeTab, orientation, size, error, warning, info }) =>
       activeTab &&
       css`
         ${orientation === "horizontal" &&
+        (error || warning || info) &&
         css`
           position: relative;
           top: 1px;
@@ -150,10 +168,17 @@ export const StyledTab = styled.button<StyledTabProps>`
     cursor: pointer;
   }
 
-  ${({ size }) => css`
+  ${({ size, $hasCustomLayout }) => css`
     font-size: ${sizes[size].fontSize}px;
     height: ${sizes[size].height}px;
-    padding: ${sizes[size].paddingY}px ${sizes[size].paddingX}px;
+
+    ${$hasCustomLayout
+      ? css`
+          padding: 0;
+        `
+      : css`
+          padding: ${sizes[size].paddingY}px ${sizes[size].paddingX}px;
+        `}
   `};
 
   ${({ activeTab, error, info, orientation, size, warning }) =>
@@ -191,63 +216,88 @@ export const StyledTab = styled.button<StyledTabProps>`
       }
     `};
 
-  ${({ activeTab, error, info, orientation, size, warning }) =>
-    orientation === "vertical"
-      ? css`
-          border: none;
-          border-right: 2px solid #8b8b8bff;
+  ${({
+    activeTab,
+    error,
+    info,
+    orientation,
+    size,
+    warning,
+    $hasCustomLayout,
+    $headerWidth,
+  }) =>
+    orientation === "vertical" &&
+    css`
+      border: none;
+      border-right: 2px solid #8b8b8bff;
 
-          border-bottom-left-radius: 8px;
-          border-bottom-right-radius: 0px;
-          border-top-left-radius: 8px;
-          border-top-right-radius: 0px;
-          max-width: ${VERTICAL_TAB_WIDTH}px;
-          min-width: ${VERTICAL_TAB_WIDTH}px;
+      border-bottom-left-radius: 8px;
+      border-bottom-right-radius: 0px;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 0px;
+      max-width: ${$headerWidth ?? `${VERTICAL_TAB_WIDTH}px`};
+      min-width: ${$headerWidth ?? `${VERTICAL_TAB_WIDTH}px`};
 
-          ${activeTab &&
+      ${$headerWidth &&
+      css`
+        white-space: normal;
+        height: auto;
+      `}
+
+      ${activeTab &&
+      css`
+        background-color: white;
+        border: 2px solid #8b8b8bff;
+        border-right: none;
+
+        ${!$hasCustomLayout &&
+        css`
+          padding-top: ${size === "medium" ? sizes.medium.paddingY - 2 : 4}px;
+          padding-right: var(--global-space-none);
+          padding-bottom: ${size === "medium"
+            ? sizes.medium.paddingY - 2
+            : sizes.large.paddingY}px;
+          padding-left: ${sizes[size].paddingX - 2}px;
+        `}
+
+        :hover {
+          background-color: white;
+        }
+
+        .tab-title-content-wrapper {
+          ${$headerWidth &&
+          !$hasCustomLayout &&
           css`
-            background-color: white;
-            border: 2px solid #8b8b8bff;
-            border-right: none;
-
-            padding-top: ${size === "medium"
-              ? sizes.medium.paddingY - 2
-              : 4}px !important;
-            padding-right: 0px;
-            padding-bottom: ${size === "medium"
-              ? sizes.medium.paddingY - 2
-              : sizes.large.paddingY}px;
-            padding-left: ${sizes[size].paddingX - 2}px;
-
-            :hover {
-              background-color: white;
-            }
-
-            .tab-title-content-wrapper {
-              ::after {
-                content: "";
-                position: absolute;
-                right: 0;
-                // top: 20%;
-                height: 60%;
-                width: 4px;
-                background-color: ${() => {
-                  /* istanbul ignore if */
-                  if (error) return "#db004e";
-                  /* istanbul ignore if */
-                  if (warning) return "#d64309";
-                  /* istanbul ignore if */
-                  if (info) return "#0060a7ff";
-
-                  return "black";
-                }};
-                border-radius: 2px;
-                min-height: 24px;
-              }
-            }
+            padding-right: 18px;
           `}
-        `
-      : css``}
+
+          ::after {
+            content: "";
+            position: absolute;
+            right: 0;
+            width: 4px;
+            ${$hasCustomLayout &&
+            css`
+              top: 20%;
+              width: 3px;
+            `}
+            height: 60%;
+            background-color: ${() => {
+              /* istanbul ignore if */
+              if (error) return "#db004e";
+              /* istanbul ignore if */
+              if (warning) return "#d64309";
+              /* istanbul ignore if */
+              if (info) return "#0060a7ff";
+
+              return "black";
+            }};
+            border-radius: 2px;
+            min-height: 24px;
+          }
+        }
+      `}
+    `}
 
   :focus {
     ${addFocusStyling()}

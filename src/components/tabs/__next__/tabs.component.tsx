@@ -53,9 +53,8 @@ export const Tab = ({
   rightSlot,
   warning = false,
   info = false,
-  setHasError,
-  setHasWarning,
-  setHasInfo,
+  hasCustomLayout,
+  headerWidth,
 }: TabProps) => {
   const [internalError, setInternalError] = useState<boolean | string>(error);
   const [internalWarning, setInternalWarning] = useState<boolean | string>(
@@ -120,20 +119,17 @@ export const Tab = ({
 
     if (!tabErrorEntries) {
       setInternalError(false);
-      setHasError?.(false);
       return;
     }
     const currentTabErrors = Object.keys(tabErrorEntries)
       .map((k) => tabErrorEntries[k])
       .filter((v) => v !== false);
 
-    const tabHasErrors = error || !currentTabErrors.length;
+    const tabHasErrors = error || !!currentTabErrors.length;
     setInternalError(tabHasErrors);
-    setHasError?.(!!tabHasErrors);
 
     if (!tabWarningEntries) {
       setInternalWarning(false);
-      setHasWarning?.(false);
       return;
     }
 
@@ -141,50 +137,32 @@ export const Tab = ({
       .map((k) => tabWarningEntries[k])
       .filter((v) => v !== false);
 
-    const tabHasWarnings = warning || !currentTabWarnings.length;
+    const tabHasWarnings = warning || !!currentTabWarnings.length;
     setInternalWarning(tabHasWarnings);
-    setHasWarning?.(!!tabHasWarnings);
 
     if (!tabInfoEntries) {
       setInternalInfo(false);
-      setHasInfo?.(false);
       return;
     }
     const currentTabInfos = Object.keys(tabInfoEntries)
       .map((k) => tabInfoEntries[k])
       .filter((v) => v !== false);
 
-    const tabHasInfo = info || !currentTabInfos.length;
+    const tabHasInfo = info || !!currentTabInfos.length;
     setInternalInfo(tabHasInfo);
-  }, [
-    error,
-    id,
-    errors,
-    warnings,
-    warning,
-    infos,
-    info,
-    setHasError,
-    setHasWarning,
-    setHasInfo,
-  ]);
+  }, [error, id, errors, warnings, warning, infos, info]);
 
-  // potential rewrite if they want the tooltip
   const validationIcon = () => {
-    if (internalError || internalWarning || internalInfo) {
-      if (internalError) {
-        return <Icon data-role="icon-error" type="error" color="#db004e" />;
-      }
+    if (internalError) {
+      return <Icon data-role="icon-error" type="error" color="#db004e" />;
+    }
 
-      /* istanbul ignore else */
-      if (internalWarning) {
-        return <Icon data-role="icon-warning" type="warning" color="#d64309" />;
-      }
+    if (internalWarning) {
+      return <Icon data-role="icon-warning" type="warning" color="#d64309" />;
+    }
 
-      /* istanbul ignore else */
-      if (internalInfo) {
-        return <Icon data-role="icon-info" type="info" color="#0060a7ff" />;
-      }
+    if (internalInfo) {
+      return <Icon data-role="icon-info" type="info" color="#0060a7ff" />;
     }
 
     return null;
@@ -209,6 +187,8 @@ export const Tab = ({
         size={size}
         type="button"
         tabIndex={activeTab === id ? 0 : -1}
+        $hasCustomLayout={hasCustomLayout}
+        $headerWidth={headerWidth}
       >
         {typeof label === "string" ? (
           <span className="tab-title-content-wrapper">
@@ -420,7 +400,7 @@ export const TabList = forwardRef<TabsHandle, TabListProps>(
             aria-label={ariaLabel}
             id="tablist"
             onKeyDown={handleKeyDown}
-            orientation={orientation}
+            $orientation={orientation}
             ref={tabListRef}
             role="tablist"
             size={size}
