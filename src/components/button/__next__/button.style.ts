@@ -15,10 +15,12 @@ const getCSSForGradientStyle = ({
   allowMotion = true,
   disabled,
   size,
+  iconOnly,
 }: {
   allowMotion?: boolean;
   disabled?: boolean;
   size: Size;
+  iconOnly?: boolean;
 }) => {
   const { borderRadius, font, height, paddingVertical, paddingHorizontal } =
     propsForSize[size];
@@ -32,7 +34,7 @@ const getCSSForGradientStyle = ({
     color: var(--button-ai-label-default);
     font: ${font};
     height: ${height};
-    padding: ${paddingVertical} ${paddingHorizontal};
+    padding: ${paddingVertical} ${iconOnly ? "" : paddingHorizontal};
     overflow: hidden;
 
     &::before {
@@ -77,6 +79,7 @@ const getCSSForGradientStyle = ({
     css`
       opacity: 0.6;
       pointer-events: none;
+      cursor: not-allowed;
 
       &::before {
         animation: none;
@@ -96,10 +99,12 @@ const getCSSForInverseStyle = ({
   disabled,
   size,
   variantType,
+  iconOnly,
 }: {
   disabled?: boolean;
   size: Size;
   variantType: VariantType;
+  iconOnly?: boolean;
 }) => {
   const { background, border, label } = inverseColourSettings[variantType];
   const { borderRadius, font, height, paddingVertical, paddingHorizontal } =
@@ -113,13 +118,14 @@ const getCSSForInverseStyle = ({
     color: ${label.default};
     font: ${font};
     height: ${height};
-    padding: ${paddingVertical} ${paddingHorizontal};
+    padding: ${paddingVertical} ${iconOnly ? "" : paddingHorizontal};
 
     ${disabled
       ? css`
           background-color: ${background.disabled};
           border-color: ${border.disabled};
           color: ${label.disabled};
+          cursor: not-allowed;
         `
       : css`
           &:active {
@@ -140,11 +146,13 @@ const getCSSForStyle = ({
   size,
   variant,
   variantType,
+  iconOnly,
 }: {
   disabled?: boolean;
   size: Size;
   variant: Variant;
   variantType: VariantType;
+  iconOnly?: boolean;
 }) => {
   const { background, border, label } =
     colourSettings[variant][variantType] || /* istanbul ignore next */ {};
@@ -159,13 +167,14 @@ const getCSSForStyle = ({
     color: ${label?.default};
     font: ${font};
     height: ${height};
-    padding: ${paddingVertical} ${paddingHorizontal};
+    padding: ${paddingVertical} ${iconOnly ? "" : paddingHorizontal};
 
     ${disabled
       ? css`
           background-color: ${background?.disabled};
           border-color: ${border?.disabled};
           color: ${label?.disabled};
+          cursor: not-allowed;
         `
       : css`
           &:active {
@@ -191,7 +200,7 @@ type StyledButtonProps = SpaceProps & {
 
 export const StyledContentContainer = styled.span`
   display: flex;
-  gap: var(--spacing100);
+  gap: var(--global-space-comp-s);
   align-items: center;
   justify-content: center;
 `;
@@ -212,15 +221,23 @@ export const StyledButton = styled.button<
   outline-offset: 0;
   text-decoration: none;
   vertical-align: middle;
+  cursor: pointer;
 
-  ${({ disabled }) => !disabled && "cursor: pointer;"}
-
-  ${({ $allowMotion, disabled, $inverse, $size, $variant, $variantType }) => {
+  ${({
+    $allowMotion,
+    disabled,
+    $inverse,
+    $size,
+    $variant,
+    $variantType,
+    $iconOnly,
+  }) => {
     if ($inverse) {
       return getCSSForInverseStyle({
         disabled,
         size: $size,
         variantType: $variantType,
+        iconOnly: $iconOnly,
       });
     }
 
@@ -231,6 +248,7 @@ export const StyledButton = styled.button<
           allowMotion: $allowMotion,
           disabled,
           size: $size,
+          iconOnly: $iconOnly,
         })}
       `;
     }
@@ -247,6 +265,7 @@ export const StyledButton = styled.button<
         size: "xs",
         variant: "default",
         variantType: "secondary",
+        iconOnly: $iconOnly,
       });
     }
 
@@ -263,6 +282,7 @@ export const StyledButton = styled.button<
         size: $size,
         variant: $variant,
         variantType: "primary",
+        iconOnly: $iconOnly,
       });
     }
 
@@ -271,6 +291,7 @@ export const StyledButton = styled.button<
       size: $size,
       variant: $variant,
       variantType: $variantType,
+      iconOnly: $iconOnly,
     });
   }}
 
@@ -280,10 +301,10 @@ export const StyledButton = styled.button<
     ${$noWrap
       ? "white-space: nowrap;"
       : `
-      flex-flow: wrap;
-      min-height: ${propsForSize[$size].height};
-      height: unset;
-    `}
+        flex-flow: wrap;
+        min-height: ${propsForSize[$size].height};
+        height: unset;
+      `}
   `}
 
   &:focus {

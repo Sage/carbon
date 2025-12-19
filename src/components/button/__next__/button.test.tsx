@@ -25,10 +25,7 @@ test("renders correctly", () => {
     "var(--global-radius-action-xl)",
   );
   expect(button).toHaveStyleRule("height", "var(--global-size-m)");
-  expect(button).toHaveStyleRule(
-    "padding",
-    "6px var(--global-space-layout-2-xs)",
-  );
+  expect(button).toHaveStyleRule("padding", "6px var(--global-space-comp-l)");
 });
 
 test("renders correctly when inverse", () => {
@@ -45,10 +42,7 @@ test("renders correctly when inverse", () => {
     "var(--global-radius-action-xl)",
   );
   expect(button).toHaveStyleRule("height", "var(--global-size-m)");
-  expect(button).toHaveStyleRule(
-    "padding",
-    "6px var(--global-space-layout-2-xs)",
-  );
+  expect(button).toHaveStyleRule("padding", "6px var(--global-space-comp-l)");
 });
 
 test("renders correctly when inverse and tertiary", () => {
@@ -69,10 +63,7 @@ test("renders correctly when inverse and tertiary", () => {
     "var(--global-radius-action-xl)",
   );
   expect(button).toHaveStyleRule("height", "var(--global-size-m)");
-  expect(button).toHaveStyleRule(
-    "padding",
-    "6px var(--global-space-layout-2-xs)",
-  );
+  expect(button).toHaveStyleRule("padding", "6px var(--global-space-comp-l)");
 });
 
 test("renders correctly when inverse and disabled", () => {
@@ -93,10 +84,8 @@ test("renders correctly when inverse and disabled", () => {
     "var(--global-radius-action-xl)",
   );
   expect(button).toHaveStyleRule("height", "var(--global-size-m)");
-  expect(button).toHaveStyleRule(
-    "padding",
-    "6px var(--global-space-layout-2-xs)",
-  );
+  expect(button).toHaveStyleRule("padding", "6px var(--global-space-comp-l)");
+  expect(button).toHaveStyle("cursor: not-allowed");
 });
 
 test("renders correctly when inverse, disabled and tertiary", () => {
@@ -118,10 +107,7 @@ test("renders correctly when inverse, disabled and tertiary", () => {
     "var(--global-radius-action-xl)",
   );
   expect(button).toHaveStyleRule("height", "var(--global-size-m)");
-  expect(button).toHaveStyleRule(
-    "padding",
-    "6px var(--global-space-layout-2-xs)",
-  );
+  expect(button).toHaveStyleRule("padding", "6px var(--global-space-comp-l)");
 });
 
 test.each(["xs", ...sizes] as Size[])(
@@ -137,6 +123,28 @@ test.each(["xs", ...sizes] as Size[])(
     );
   },
 );
+
+test("renders correctly with only an icon and 'gradient' `variant`", () => {
+  render(
+    <Button variant="gradient">
+      <Icon type="alert" />
+    </Button>,
+  );
+
+  expect(screen.getByTestId("icon")).toBeInTheDocument();
+  expect(screen.getByRole("button")).toHaveStyleRule("padding", "6px");
+});
+
+test("renders correctly with only an icon an `inverse`", () => {
+  render(
+    <Button inverse>
+      <Icon type="alert" />
+    </Button>,
+  );
+
+  expect(screen.getByTestId("icon")).toBeInTheDocument();
+  expect(screen.getByRole("button")).toHaveStyleRule("padding", "6px");
+});
 
 describe.each<{ variant: Variant; variantType: VariantType; size: Size }>([
   { variant: "default", variantType: "primary", size: "small" },

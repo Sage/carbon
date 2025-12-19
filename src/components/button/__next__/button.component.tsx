@@ -13,6 +13,7 @@ import tagComponent, {
 } from "../../../__internal__/utils/helpers/tags/tags";
 import useMediaQuery from "../../../hooks/useMediaQuery";
 import { Size, Variant, VariantType } from "./button.config";
+import isIconOnly from "./__internal__/utils/is-icon-only";
 import Icon from "../../icon";
 
 export type ButtonHandle = {
@@ -155,6 +156,9 @@ export const Button = forwardRef<ButtonHandle, ButtonProps>(
     ref,
   ) => {
     const buttonRef = useRef<HTMLButtonElement>(null);
+    const hasChildren = children !== undefined && children !== false;
+
+    const iconOnly = (!!iconType && !hasChildren) || isIconOnly(children);
 
     useImperativeHandle<ButtonHandle, ButtonHandle>(
       ref,
@@ -198,7 +202,7 @@ export const Button = forwardRef<ButtonHandle, ButtonProps>(
         bg: "transparent",
       };
 
-      if (children === undefined || children === false) {
+      if (!hasChildren) {
         return (
           <Icon type={iconType} {...iconProps} data-role="button-icon-only" />
         );
@@ -244,6 +248,7 @@ export const Button = forwardRef<ButtonHandle, ButtonProps>(
         $variantType={computedVariantType}
         as={!disabled && href ? "a" : "button"}
         href={href}
+        $iconOnly={iconOnly}
         {...tagComponent("button", rest)}
         {...rest}
       >
