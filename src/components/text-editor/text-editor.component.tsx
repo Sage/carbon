@@ -362,7 +362,7 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
                       <ClickableLinkPlugin newTab />
                       <AutoLinkerPlugin />
                       <StyledSpanEnterPlugin />
-                      {customPlugins}
+                      {React.Children.toArray(customPlugins)}
                     </StyledTextEditor>
                   </>
                 )}
