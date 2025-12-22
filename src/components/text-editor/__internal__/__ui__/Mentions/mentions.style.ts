@@ -72,6 +72,7 @@ export const MentionsListItem = styled.li`
     align-items: center;
     font-size: 14px;
     margin-top: -1px;
+    white-space: pre;
   }
 
   div[data-component="portrait"] {

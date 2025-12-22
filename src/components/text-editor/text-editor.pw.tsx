@@ -1492,7 +1492,7 @@ test.describe("Mentions", () => {
 
     let mentionList = page.locator("ul[data-role='mention-list']");
     await expect(mentionList).toBeVisible();
-    expect(await mentionList.locator("li").count()).toBe(2);
+    expect(await mentionList.locator("li").count()).toBe(4);
 
     await page.keyboard.press("Backspace");
     await expect(mentionList).toBeHidden();
