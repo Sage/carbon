@@ -99,18 +99,23 @@ export const Decimal = React.forwardRef(
      */
     const formatValue = useCallback(
       (valueToFormat: string) => {
+        // Check if original value had a leading plus
+        const hasLeadingPlus = valueToFormat.startsWith("+");
+
         if (isNaN(valueToFormat)) {
           return valueToFormat;
         }
 
         /* Guards against any white-space only strings like "   " being
-       mishandled and returned as `NaN` for the value displayed in the textbox */
+        mishandled and returned as `NaN` for the value displayed in the textbox */
         if (valueToFormat === "" || valueToFormat.match(/\s+/g)) {
           return valueToFormat;
         }
 
         const separator = getSeparator("decimal");
-        const [integer, remainder] = valueToFormat.split(".");
+        // Remove the plus sign before splitting
+        const cleanValue = valueToFormat.replace(/^\+/, "");
+        const [integer, remainder] = cleanValue.split(".");
 
         const formattedInteger = Intl.NumberFormat(locale || l.locale(), {
           maximumFractionDigits: 0,
@@ -128,6 +133,12 @@ export const Decimal = React.forwardRef(
             precision ? separator + "0".repeat(precision) : ""
           }`;
         }
+
+        // Re-add the plus sign if it was there and the number is positive
+        if (hasLeadingPlus && +integer >= 0) {
+          formattedNumber = "+" + formattedNumber;
+        }
+
         return formattedNumber;
       },
       [getSeparator, isNaN, l, locale, precision],
