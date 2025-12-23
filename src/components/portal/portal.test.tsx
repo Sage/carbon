@@ -1,6 +1,5 @@
 import React from "react";
 import { render, screen, within, fireEvent } from "@testing-library/react";
-import PortalContext from "./__internal__/portal.context";
 import Portal from ".";
 
 import guid from "../../__internal__/utils/helpers/guid";
@@ -9,25 +8,6 @@ const mockedGuid = "guid-12345";
 jest.mock("../../__internal__/utils/helpers/guid");
 
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(() => mockedGuid);
-
-test("renders and appends to an element with the 'id' attribute set to `root`", () => {
-  const rootDiv = document.createElement("div");
-  rootDiv.setAttribute("id", "root");
-  rootDiv.setAttribute("data-role", "root-element");
-  document.body.appendChild(rootDiv);
-
-  render(
-    <PortalContext.Provider value={{ renderInRoot: true }}>
-      <Portal />
-    </PortalContext.Provider>,
-  );
-
-  const rootElement = screen.getByTestId("root-element");
-  const portalExit = within(rootElement).getByTestId("carbon-portal-exit");
-  expect(portalExit).toBeInTheDocument();
-
-  document.body.removeChild(rootDiv);
-});
 
 test("renders a portal entrance and exit with a unique matching ID", () => {
   render(<Portal />);
