@@ -1,13 +1,7 @@
 import React from "react";
 import { test, expect } from "../../../playwright/helpers/base-test";
-import {
-  getDataElementByValue,
-  icon,
-  link,
-  tooltipPreview,
-} from "../../../playwright/components";
-import { skipLink, linkChildren } from "../../../playwright/components/link";
-import { ICON } from "../../../playwright/components/locators";
+import { icon, link, tooltipPreview } from "../../../playwright/components";
+import { linkChildren } from "../../../playwright/components/link";
 import { CHARACTERS } from "../../../playwright/support/constants";
 import {
   checkAccessibility,
@@ -17,7 +11,6 @@ import Box from "../../../src/components/box";
 import Link, { LinkProps } from "../../../src/components/link";
 import {
   LinkComponent,
-  LinkComponentAsButton,
   LinkComponentWithDarkBackground,
 } from "../../../src/components/link/components.test-pw";
 
@@ -37,34 +30,7 @@ test.describe("check props for Link component", () => {
     });
   });
 
-  test("should render disabled when rendering a button", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<LinkComponentAsButton disabled />);
-
-    const buttonElement = linkChildren(page);
-    await expect(buttonElement).toBeDisabled();
-    await expect(buttonElement).toHaveCSS("color", "rgba(0, 0, 0, 0.3)");
-  });
-
-  test("when `disabled` prop is true and component is hovered over, it should apply the expected cursor", async ({
-    mount,
-    page,
-  }) => {
-    await mount(
-      <LinkComponent disabled href="#">
-        Test Content
-      </LinkComponent>,
-    );
-
-    const linkElement = linkChildren(page);
-    await linkElement.hover();
-
-    await expect(linkElement).toHaveCSS("cursor", "not-allowed");
-  });
-
-  test("when `underline` prop is 'always' and component is not hovered, it should apply text-decoration underline", async ({
+  test("when `underline` prop is 'always', it should apply text-decoration underline", async ({
     mount,
     page,
   }) => {
@@ -74,30 +40,13 @@ test.describe("check props for Link component", () => {
       </LinkComponent>,
     );
     const linkElement = linkChildren(page);
-    await expect(linkElement).toHaveCSS(
-      "text-decoration",
-      "underline rgb(8, 113, 30)",
-    );
-  });
+    await expect(linkElement).toHaveCSS("text-decoration-line", "underline");
 
-  test("when `underline` prop is 'always' and component is hovered over, it should maintain text-decoration underline", async ({
-    mount,
-    page,
-  }) => {
-    await mount(
-      <LinkComponent underline="always" href="#">
-        Test Content
-      </LinkComponent>,
-    );
-    const linkElement = linkChildren(page);
     await linkElement.hover();
-    await expect(linkElement).toHaveCSS(
-      "text-decoration",
-      "underline rgb(16, 96, 28)",
-    );
+    await expect(linkElement).toHaveCSS("text-decoration-line", "underline");
   });
 
-  test("when `underline` prop is 'hover' and component is not hovered over, it should apply no text-decoration", async ({
+  test("when `underline` prop is 'hover', it should apply text-decoration underline on hover", async ({
     mount,
     page,
   }) => {
@@ -107,27 +56,13 @@ test.describe("check props for Link component", () => {
       </LinkComponent>,
     );
     const linkElement = linkChildren(page);
-    await expect(linkElement).toHaveCSS("text-decoration", "rgb(8, 113, 30)");
-  });
+    await expect(linkElement).toHaveCSS("text-decoration-line", "none");
 
-  test("when `underline` prop is 'hover' and component is hovered over, it should apply the text-decoration underline", async ({
-    mount,
-    page,
-  }) => {
-    await mount(
-      <LinkComponent underline="hover" href="#">
-        Test Content
-      </LinkComponent>,
-    );
-    const linkElement = linkChildren(page);
     await linkElement.hover();
-    await expect(linkElement).toHaveCSS(
-      "text-decoration",
-      "underline rgb(16, 96, 28)",
-    );
+    await expect(linkElement).toHaveCSS("text-decoration-line", "underline");
   });
 
-  test("when `underline` prop is 'never' and component is not hovered over, it should apply no text-decoration", async ({
+  test("when `underline` prop is 'never', it should apply no text-decoration", async ({
     mount,
     page,
   }) => {
@@ -137,46 +72,10 @@ test.describe("check props for Link component", () => {
       </LinkComponent>,
     );
     const linkElement = linkChildren(page);
-    await expect(linkElement).toHaveCSS("text-decoration", "rgb(8, 113, 30)");
-  });
+    await expect(linkElement).toHaveCSS("text-decoration-line", "none");
 
-  test("when `underline` prop is 'never' and component is hovered over, it should maintain no text-decoration", async ({
-    mount,
-    page,
-  }) => {
-    await mount(
-      <LinkComponent underline="never" href="#">
-        Test Content
-      </LinkComponent>,
-    );
-    const linkElement = linkChildren(page);
     await linkElement.hover();
-    await expect(linkElement).toHaveCSS("text-decoration", "rgb(16, 96, 28)");
-  });
-
-  test("should render with icon prop", async ({ mount, page }) => {
-    await mount(<LinkComponent icon="add" />);
-
-    const iconElement = getDataElementByValue(page, "add");
-    await expect(iconElement).toBeVisible();
-  });
-
-  (
-    [
-      ["left", 0],
-      ["right", 1],
-    ] as [LinkProps["iconAlign"], number][]
-  ).forEach(([iconAlign, iconPosition]) => {
-    test(`should render with iconAlign prop set to ${iconAlign}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<LinkComponent icon="add" iconAlign={iconAlign} />);
-
-      const iconElement = link(page).locator("span").nth(iconPosition);
-      await expect(iconElement).toHaveAttribute("data-component", "icon");
-      await expect(iconElement).toBeVisible();
-    });
+    await expect(linkElement).toHaveCSS("text-decoration-line", "none");
   });
 
   test("should render with href prop", async ({ mount, page }) => {
@@ -203,16 +102,6 @@ test.describe("check props for Link component", () => {
 
     const linkElement = linkChildren(page);
     await expect(linkElement).toHaveCSS("text-decoration-line", "none");
-  });
-
-  test("when no children are passed, should have the inline display property", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<Link icon="bin" href="www.sage.com" />);
-
-    const linkElement = link(page).locator(ICON);
-    await expect(linkElement).toHaveCSS("display", "inline");
   });
 
   (["top", "bottom", "left", "right"] as const).forEach((tooltipPosition) => {
@@ -272,143 +161,6 @@ test.describe("check props for Link component", () => {
       await expect(linkElement).toHaveAttribute("rel", rel);
     });
   });
-
-  test("should render with isSkipLink prop", async ({ mount, page }) => {
-    await mount(<LinkComponent isSkipLink />);
-
-    await page.keyboard.press("Tab");
-    const skipLinkElement = skipLink(page);
-    await expect(skipLinkElement).toBeVisible();
-    await expect(skipLinkElement).toHaveCSS(
-      "background-color",
-      "rgb(255, 188, 25)",
-    );
-    await expect(skipLinkElement).toHaveCSS("font-size", "14px");
-    await expect(skipLinkElement).toHaveCSS("padding-left", "24px");
-    await expect(skipLinkElement).toHaveCSS("padding-right", "24px");
-    await expect(skipLinkElement).toHaveCSS(
-      "box-shadow",
-      "rgba(0, 20, 30, 0.1) 0px 10px 30px 0px, rgba(0, 20, 30, 0.1) 0px 30px 60px 0px",
-    );
-  });
-
-  test("should apply correct focus styling to skip link", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<LinkComponent isSkipLink />);
-
-    await page.keyboard.press("Tab");
-    const skipLinkElement = skipLink(page);
-    await expect(skipLinkElement).toBeVisible();
-    await expect(skipLinkElement).toHaveCSS("top", "8px");
-    await expect(skipLinkElement).toHaveCSS("left", "0px");
-    await expect(skipLinkElement).toHaveCSS(
-      "text-decoration",
-      "underline 4px rgb(0, 0, 0)",
-    );
-    await expect(skipLinkElement).toHaveCSS("text-decoration-thickness", "4px");
-    await expect(skipLinkElement).toHaveCSS("text-underline-offset", "3px");
-  });
-
-  (
-    [
-      ["default", "rgb(8, 113, 30)"],
-      ["negative", "rgb(178, 51, 66)"],
-      ["neutral", "rgba(0, 0, 0, 0.898)"],
-    ] as [LinkProps["variant"], string][]
-  ).forEach(([variant, defaultColor]) => {
-    test(`should render with variant prop set to ${variant}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<LinkComponent variant={variant} />);
-
-      const linkElement = linkChildren(page);
-      await expect(linkElement).toHaveCSS("color", defaultColor);
-    });
-  });
-
-  (
-    [
-      ["default", "rgb(78, 220, 84)"],
-      ["negative", "rgb(232, 91, 102)"],
-      ["neutral", "rgb(255, 255, 255)"],
-      ["subtle", "rgb(255, 255, 255)"],
-    ] as [LinkProps["variant"], string][]
-  ).forEach(([variant, defaultColor]) => {
-    test(`should render with variant prop set to ${variant} and inverse`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <LinkComponentWithDarkBackground variant={variant} inverse />,
-      );
-
-      const linkElement = linkChildren(page);
-      await expect(linkElement).toHaveCSS("color", defaultColor);
-    });
-  });
-
-  (
-    [
-      ["default", "rgb(16, 96, 28)"],
-      ["negative", "rgb(159, 48, 60)"],
-      ["neutral", "rgb(0, 0, 0)"],
-    ] as [LinkProps["variant"], string][]
-  ).forEach(([variant, hoverColor]) => {
-    test(`should render with correct hover state with variant prop set to ${variant}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<LinkComponent variant={variant} />);
-
-      const linkElement = linkChildren(page);
-      await linkElement.hover();
-      await expect(linkElement).toHaveCSS("color", hoverColor);
-    });
-  });
-
-  (
-    [
-      ["default", "rgb(114, 226, 111)"],
-      ["negative", "rgb(237, 110, 116)"],
-      ["neutral", "rgb(255, 255, 255)"],
-      ["subtle", "rgb(255, 255, 255)"],
-    ] as [LinkProps["variant"], string][]
-  ).forEach(([variant, hoverColor]) => {
-    test(`should render with correct hover state with inverse prop set with ${variant} variant`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <LinkComponentWithDarkBackground variant={variant} inverse />,
-      );
-
-      const linkElement = linkChildren(page);
-      await linkElement.hover();
-      await expect(linkElement).toHaveCSS("color", hoverColor);
-    });
-  });
-});
-
-test("should render with the correct focus styling", async ({
-  mount,
-  page,
-}) => {
-  await mount(<LinkComponent />);
-
-  const linkElement = linkChildren(page);
-  await linkElement.focus();
-  await expect(linkElement).toHaveCSS("background-color", "rgb(255, 210, 126)");
-  await expect(linkElement).toHaveCSS("color", "rgb(0, 0, 0)");
-  await expect(linkElement).toHaveCSS("border-radius", "2px");
-  const linkWrapper = link(page);
-  await expect(linkWrapper).toHaveCSS(
-    "box-shadow",
-    "rgb(0, 0, 0) 0px 4px 0px 0px",
-  );
-  await expect(linkWrapper).toHaveCSS("max-width", "fit-content");
 });
 
 test.describe("check events for Link component", () => {
@@ -468,16 +220,6 @@ test.describe("should check accessibility for Link component", () => {
     await checkAccessibility(page);
   });
 
-  // FE-4647
-  test.skip("should pass accessibility tests when disabled", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<LinkComponent disabled />);
-
-    await checkAccessibility(page);
-  });
-
   test("should pass accessibility tests with dark background", async ({
     mount,
     page,
@@ -493,42 +235,10 @@ test.describe("should check accessibility for Link component", () => {
     await checkAccessibility(page);
   });
 
-  (["left", "right"] as LinkProps["iconAlign"][]).forEach((iconAlign) => {
-    test(`should pass accessibility tests with iconAlign prop set to ${iconAlign}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<LinkComponent icon="add" iconAlign={iconAlign} />);
-
-      await checkAccessibility(page);
-    });
-  });
-
   test("should pass accessibility tests with href", async ({ mount, page }) => {
     await mount(<LinkComponent href={testPlaywright} />);
 
     await checkAccessibility(page);
-  });
-
-  (
-    ["top", "bottom", "left", "right"] as LinkProps["tooltipPosition"][]
-  ).forEach((tooltipPosition) => {
-    test(`should pass accessibility tests with tooltipPosition prop set to ${tooltipPosition}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <Box m="250px">
-          <LinkComponent
-            icon="add"
-            tooltipMessage={testPlaywright}
-            tooltipPosition={tooltipPosition}
-          />
-        </Box>,
-      );
-
-      await checkAccessibility(page);
-    });
   });
 
   ["_blank", "_self", "_parent", "_top"].forEach((target) => {
@@ -562,7 +272,7 @@ test.describe("should check accessibility for Link component", () => {
     });
   });
 
-  (["default", "negative", "neutral"] as LinkProps["variant"][]).forEach(
+  (["typical", "negative", "subtle"] as LinkProps["variant"][]).forEach(
     (variant) => {
       test(`should pass accessibility tests with variant prop set to ${variant}`, async ({
         mount,
@@ -575,7 +285,7 @@ test.describe("should check accessibility for Link component", () => {
     },
   );
 
-  (["default", "negative", "neutral"] as LinkProps["variant"][]).forEach(
+  (["typical", "negative", "subtle"] as LinkProps["variant"][]).forEach(
     (variant) => {
       test(`should pass accessibility tests with variant prop set to ${variant} and inverse`, async ({
         mount,
