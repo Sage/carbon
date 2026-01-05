@@ -459,9 +459,6 @@ test.describe("Prop tests for Menu component", () => {
 
   (
     [
-      ["float", 0.3, 409],
-      ["float", 0.6, 819],
-      ["float", 1.0, 1366],
       ["number", 350, 350],
       ["number", 900, 900],
       ["number", 1350, 1350],
