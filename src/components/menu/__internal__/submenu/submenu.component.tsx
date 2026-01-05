@@ -7,7 +7,7 @@ import React, {
   useState,
 } from "react";
 // import { MaxWidthProps } from "styled-system";
-import { MaxWidthProps } from "../../../dips-box/utils/spacing-types";
+import { LayoutProps } from "../../../dips-box/utils/spacing-types";
 
 import StyledMenuItemWrapper from "../../menu-item/menu-item.style";
 import { StyledSubmenu, StyledSubmenuWrapper } from "./submenu.style";
@@ -57,7 +57,7 @@ export interface SubmenuProps {
   /** The href to use for the menu item. */
   href?: string;
   /** Maximum width. Any valid CSS string */
-  maxWidth?: MaxWidthProps["maxWidth"];
+  maxWidth?: LayoutProps["maxWidth"];
   /** Used to set a submenu parent to passive styling in MenuFullscreen */
   asPassiveItem?: boolean;
   /** Callback triggered when submenu opens. Only valid with submenu prop */
@@ -527,7 +527,7 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
           onClick={handleClick}
           clickToOpen={clickToOpen}
           href={href}
-          maxWidth={maxWidth}
+          maxWidth={String(maxWidth)}
           aria-expanded={submenuOpen}
           data-role="submenu-parent-item"
         >
