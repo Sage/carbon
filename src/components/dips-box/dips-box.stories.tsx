@@ -30,7 +30,7 @@ export const Spacing: Story = () => {
         Margin Left and Padding Top String
       </DipsBox>
 
-      <DipsBox ml="XS" pt="L">
+      <DipsBox ml="var(--spacing300)" pt="var(--spacing600)">
         Margin Left and Padding Top String
       </DipsBox>
     </>

@@ -7,6 +7,7 @@ import {
   testStyledPadding,
 } from "../../__spec_helper__/__internal__/test-utils";
 import DipsBox from "./dips-box.component";
+import CarbonProvider from "../carbon-provider";
 
 describe("DipsBox", () => {
   it("renders without crashing", () => {
@@ -24,23 +25,39 @@ describe("DipsBox", () => {
   });
 
   testStyledPadding(
-    (props) => <DipsBox data-role="box" {...props} />,
+    (props) => (
+      <CarbonProvider>
+        <DipsBox data-role="box" {...props} />
+      </CarbonProvider>
+    ),
     () => screen.getByTestId("box"),
   );
 
   testStyledMargin(
-    (props) => <DipsBox data-role="box" {...props} />,
+    (props) => (
+      <CarbonProvider>
+        <DipsBox data-role="box" {...props} />
+      </CarbonProvider>
+    ),
     () => screen.getByTestId("box"),
   );
 
   testStyledFlexBox(
-    (props) => <DipsBox data-role="box" {...props} />,
+    (props) => (
+      <CarbonProvider>
+        <DipsBox data-role="box" {...props} />
+      </CarbonProvider>
+    ),
     () => screen.getByTestId("box"),
   );
 
   // Layout props are not fully supported so only test those that are.
   testStyledLayout(
-    (props) => <DipsBox data-role="box" {...props} />,
+    (props) => (
+      <CarbonProvider>
+        <DipsBox data-role="box" {...props} />
+      </CarbonProvider>
+    ),
     () => screen.getByTestId("box"),
   );
 });

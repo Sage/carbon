@@ -280,10 +280,14 @@ const testStyledPadding = (
     'when a custom spacing is specified using the "%s" styled props',
     (styledProp, propName) => {
       it(`should set ${propName} styling correctly`, () => {
-        const props = { [styledProp]: 3 };
+        const props = { [styledProp]: 2 };
         render(component({ ...props }));
 
-        assertStyleMatch({ [propName]: "24px" }, elementQuery(), assertOpts);
+        assertStyleMatch(
+          { [propName]: "var(--spacing200)" },
+          elementQuery(),
+          assertOpts,
+        );
       });
     },
   );
@@ -299,10 +303,14 @@ const testStyledMargin = (
     'when a custom spacing is specified using the "%s" styled props',
     (styledProp, propName) => {
       it(`should set ${propName} styling correctly`, () => {
-        const props = { [styledProp]: 3 };
+        const props = { [styledProp]: 2 };
         render(component({ ...props }));
 
-        assertStyleMatch({ [propName]: "24px" }, elementQuery(), assertOpts);
+        assertStyleMatch(
+          { [propName]: "var(--spacing200)" },
+          elementQuery(),
+          assertOpts,
+        );
       });
     },
   );
