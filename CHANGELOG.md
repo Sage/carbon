@@ -1,3 +1,9 @@
+## [158.15.0](https://github.com/Sage/carbon/compare/v158.14.11...v158.15.0) (2026-01-06)
+
+### Features
+
+* **text-editor:** update mentions to allow fuzzy searching ([684d0ee](https://github.com/Sage/carbon/commit/684d0ee247b4ab9b2339d33e977c14af4c4088d1))
+
 ## [158.14.11](https://github.com/Sage/carbon/compare/v158.14.10...v158.14.11) (2025-12-17)
 
 ### Bug Fixes
