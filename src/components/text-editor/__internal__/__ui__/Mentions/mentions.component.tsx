@@ -8,6 +8,8 @@ import { LexicalTypeaheadMenuPlugin } from "@lexical/react/LexicalTypeaheadMenuP
 import {
   $getSelection,
   $isRangeSelection,
+  $createTextNode,
+  $isTextNode,
   COMMAND_PRIORITY_LOW,
   KEY_BACKSPACE_COMMAND,
   TextNode,
@@ -42,7 +44,7 @@ export const MentionsPlugin = ({
     () =>
       queryString
         ? searchOptions.filter((mention) =>
-            mention.name.toLowerCase().startsWith(queryString.toLowerCase()),
+            mention.name.toLowerCase().includes(queryString.toLowerCase()),
           )
         : [],
     [queryString, searchOptions],
@@ -77,7 +79,17 @@ export const MentionsPlugin = ({
         if (nodeToReplace) {
           nodeToReplace.replace(mentionNode);
         }
-        mentionNode.select();
+        const nextSibling = mentionNode.getNextSibling();
+        if (
+          $isTextNode(nextSibling) &&
+          nextSibling.getTextContent().startsWith(" ")
+        ) {
+          nextSibling.select(1, 1);
+        } else {
+          const spaceNode = $createTextNode(" ");
+          mentionNode.insertAfter(spaceNode);
+          spaceNode.select();
+        }
         closeMenu();
       });
     },
@@ -144,23 +156,28 @@ export const MentionsPlugin = ({
                   role="listbox"
                   aria-label={locale.textEditor.mentions.listAriaLabel()}
                 >
-                  {options.map((option, i: number) => (
-                    <MentionsTypeaheadMenuItem
-                      index={i}
-                      isSelected={selectedIndex === i}
-                      onClick={() => {
-                        setHighlightedIndex(i);
-                        selectOptionAndCleanUp(option);
-                      }}
-                      onMouseEnter={() => {
-                        setHighlightedIndex(i);
-                      }}
-                      key={option.key}
-                      option={option}
-                      namespace={namespace}
-                      currentQueryString={queryString ?? undefined}
-                    />
-                  ))}
+                  {options.map((option, i: number) => {
+                    const optionKey =
+                      option.key ?? option.id ?? `${namespace}-${i}`;
+
+                    return (
+                      <MentionsTypeaheadMenuItem
+                        index={i}
+                        isSelected={selectedIndex === i}
+                        onClick={() => {
+                          setHighlightedIndex(i);
+                          selectOptionAndCleanUp(option);
+                        }}
+                        onMouseEnter={() => {
+                          setHighlightedIndex(i);
+                        }}
+                        key={optionKey}
+                        option={option}
+                        namespace={namespace}
+                        currentQueryString={queryString ?? undefined}
+                      />
+                    );
+                  })}
                 </MentionsList>
               </TypeaheadPopover>,
               anchorElementRef.current,
