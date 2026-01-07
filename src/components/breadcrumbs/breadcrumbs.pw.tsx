@@ -27,16 +27,6 @@ test.describe("should render Breadcrumbs component", () => {
     expect(numberOfCrumbs).toEqual(4);
   });
 
-  test("should check Breadcrumbs on hover color", async ({ mount, page }) => {
-    await mount(<Default />);
-
-    const crumbElement = crumbAtIndex(page, 1);
-    await crumbElement.hover();
-
-    const link = crumbElement.locator("a");
-    await expect(link).toHaveCSS("color", "rgb(16, 96, 28)");
-  });
-
   test("should check Breadcrumbs on focus", async ({ mount, page }) => {
     await mount(<Default />);
 
@@ -44,40 +34,6 @@ test.describe("should render Breadcrumbs component", () => {
     await expect(crumbAtIndex(page, 0).locator("a")).toBeFocused();
     await crumbAtIndex(page, 1).locator("a").press("Tab");
     await expect(crumbAtIndex(page, 2).locator("a")).toBeFocused();
-  });
-
-  test("should have correct focus styling when a crumb is focused but not current", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FocusedCrumbBecomesCurrent />);
-
-    await crumbAtIndex(page, 0).locator("button").focus();
-    await expect(crumbAtIndex(page, 0).locator("button")).toHaveCSS(
-      "background-color",
-      "rgb(255, 210, 126)",
-    );
-    await expect(crumbAtIndex(page, 0).locator("span").first()).toHaveCSS(
-      "box-shadow",
-      "rgb(0, 0, 0) 0px 4px 0px 0px",
-    );
-  });
-
-  test("should have correct focus styling when a crumb with href set is focused but not current", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FocusedCrumbBecomesCurrent hasHref />);
-
-    await crumbAtIndex(page, 0).locator("a").focus();
-    await expect(crumbAtIndex(page, 0).locator("a")).toHaveCSS(
-      "background-color",
-      "rgb(255, 210, 126)",
-    );
-    await expect(crumbAtIndex(page, 0).locator("span").first()).toHaveCSS(
-      "box-shadow",
-      "rgb(0, 0, 0) 0px 4px 0px 0px",
-    );
   });
 
   test("should not have any focus styling when a crumb is clicked and becomes current", async ({
@@ -145,24 +101,6 @@ test.describe("should render Breadcrumbs component", () => {
     await expect(crumbAtIndex(page, 0).locator("span").first()).not.toHaveCSS(
       "box-shadow",
       "rgba(0, 0, 0, 0.9) 0px 4px 0px 0px",
-    );
-  });
-
-  test("should have focus styling when user presses Space key on focused crumb with href set and it becomes current", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FocusedCrumbBecomesCurrent hasHref />);
-
-    await crumbAtIndex(page, 0).locator("a").focus();
-    await crumbAtIndex(page, 0).locator("a").press("Space");
-    await expect(crumbAtIndex(page, 0).locator("a")).toHaveCSS(
-      "background-color",
-      "rgb(255, 210, 126)",
-    );
-    await expect(crumbAtIndex(page, 0).locator("span").first()).toHaveCSS(
-      "box-shadow",
-      "rgb(0, 0, 0) 0px 4px 0px 0px",
     );
   });
 

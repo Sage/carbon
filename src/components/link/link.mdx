@@ -43,99 +43,79 @@ By default an anchor element will be rendered.
 
 `target` and `rel` props will be passed down to the anchor element when provided.
 
-<Canvas of={LinkStories.DefaultStory} />
+<Canvas of={LinkStories.Default} />
 
 ### Underline
 
-Setting the `underline` prop to `"hover"` will render the link with no underline by default, but will add an underline when the link is hovered over.
+By default, the `Link` component will always render with an underline.
+
+Setting the `underline` prop to `"hover"` will only show the underline when the user hovers over the link.
 
 <Canvas of={LinkStories.WithUnderlineOnlyOnHover} />
 
 Setting the `underline` prop to `"never"` removes the underline from the link.
 
-<Canvas of={LinkStories.WithNoUnderline} />
-
 **Please note**: Without the underline, context must be provided to the user to indicate that the text is a link.
+
+<Canvas of={LinkStories.WithNoUnderline} />
 
 ### Icon
 
-The `icon` prop allows you to render an icon.
+You can render an icon alongside the `Link` text by passing a valid icon to the `icon` prop.
+To see the list of available icons, please refer to the [Icon documentation](../?path=/docs/components-icon--docs).
+
+You can control the position of the icon using the `iconAlign` prop.
 
 <Canvas of={LinkStories.WithIcon} />
 
-#### Icon Align
+### Skip Link
 
-The `iconAlign` prop allows you to control if the icon renders to left or right of the Link.
+A skip link allows users to bypass repetitive content and navigate directly to the main content of the page.
 
-**Please note**: To be used only when the `icon` prop is defined.
+To render a skip link, set the `isSkipLink` prop to true. The `href` prop should point to the ID of part of the page the user will be skipping to.
+Once the user Tabs into the page, the skip link will become visible. When the user activates the link, they will be taken to the target location.
 
-<Canvas of={LinkStories.WithIconAlign} />
+You can use the `link.skipLinkLabel` translation key to override the default label for the skip link.
 
-### isSkipLink
+<Canvas of={LinkStories.AsSkipLink} />
 
-`Skip Link` is specific use case for the `Link` component, specifically to enhance keyboard accessibility.
-The `Skip Link` has been created to allow users to use keyboard controls to skip over something like a `Menu`.
-It allows a user to jump into the main content without going through the whole `Menu` component, button by button.
-To show how it works, press the TAB key and you will be able to see how `Skip Link` will displays.
+### Sizes
 
-<Canvas of={LinkStories.WithIsSkipLink} />
+Setting the `linkSize` prop to either `medium` or `large` will change the font size accordingly.
+
+<Canvas of={LinkStories.LinkSize} />
+
+### Bold
+
+Setting the `bold` prop to true will render the `Link` text in bold.
+
+<Canvas of={LinkStories.Bold} />
+
+### Variants
+
+You can use the `variant` prop to change the visual style of the Link. Available variants are `typical`, `negative` and `subtle`.
+
+<Canvas of={LinkStories.Variants} />
+
+### Inverse
+
+You can use the `inverse` prop to render the `Link` with the inverse color scheme.
+
+<Canvas of={LinkStories.Inverse} />
 
 ### onClick
 
 A custom `onClick` function can be passed to the Link component to render it as a button instead of an anchor.
 
 **Please note**: using the `onClick` prop with no `href` is bad for accessibility, as the output looks like a link but behaves like an HTML button.
-If the `onClick` performs an on-page action, so you want a genuine button, please consider using the [Button component](../?path=/docs/button--docs) instead so that the styles match the semantics. If the `onClick` function performs navigation, an `href` prop is necessary either instead or in addition, so that an
-HTML `<a>` tag is used instead. See for example our [React Router docs](../?path=/docs/documentation-usage-with-routing--docs), where we use `Link` with `onClick` to
+If the `onClick` performs an on-page action, so you want a genuine button, please consider using the [Button component](../?path=/docs/button--docs) instead so that the styles match the semantics. 
+If the `onClick` function performs navigation, an `href` prop is necessary either instead or in addition, so that an HTML `<a>` tag is used instead. 
+See for example our [React Router docs](../?path=/docs/documentation-usage-with-routing--docs), where we use `Link` with `onClick` to
 perform client-side routing, but still provide the `href` to render an HTML link rather than a button.
 
 <Canvas of={LinkStories.WithOnClick} />
 
-### variants
-
-Setting the `variant` prop to either `negative`, or `subtle` enables overriding of the `typical` variant which is the default styling of the `Link` component.
-
-<Canvas of={LinkStories.Variants} />
-
-### sizes
-
-Setting the `linkSize` prop to either `medium` or `large` will change the font size accordingly
-
-<Canvas of={LinkStories.LinkSize} />
-
-
-### On a dark background
-
-When the `Link` component is rendered on a dark background, the `inverse` prop can be used to update the colour styling
-to ensure there is enough contrast.
-
-<Canvas of={LinkStories.OnADarkBackground} />
-
-### Link that wraps
-
-Just as with a native HTML anchor element, `Link` components will wrap onto the next line if they contain long text.
-
-<Canvas of={LinkStories.Wrapping} />
-
-### (Deprecated) Disabled
-
-Setting the `disabled` prop to true disables the link.
-
-**Please note**: To disable an anchor, the `href` prop must not be defined.
-
-<Canvas of={LinkStories.WithDisabled} />
-
-### (Deprecated) Tooltip
-
-By rendering an icon and providing a string to the `tooltipMessage` prop, a tooltip message can be displayed when hovering over the icon.
-
-**Please note**: To be used only when the `icon` prop is defined.
-
-<Canvas of={LinkStories.WithTooltip} />
-
 ## Props
-
-### Link
 
 <ArgTypes of={LinkStories} />
 
