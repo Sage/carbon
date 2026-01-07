@@ -7,7 +7,6 @@ import isChromatic from "./isChromatic";
 import sageStorybookTheme from "./sage-storybook-theme";
 import withGlobalStyles from "./with-global-styles";
 import withLocaleSelector from "./with-locale-selector";
-import withPortalProvider from "./with-portal-provider";
 import { withThemeProvider, globalThemeProvider } from "./withThemeProvider";
 import withReducedMotion from "./with-reduced-motion";
 import withFusionTokens from "./with-fusion-tokens";
@@ -91,7 +90,6 @@ const decorators = [
   withThemeProvider,
   withLocaleSelector,
   withFusionTokens,
-  withPortalProvider,
   withReducedMotion,
 ];
 
