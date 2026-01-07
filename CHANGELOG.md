@@ -1,3 +1,9 @@
+## [158.15.1](https://github.com/Sage/carbon/compare/v158.15.0...v158.15.1) (2026-01-07)
+
+### Bug Fixes
+
+* **dialog:** long titles now wrap ([fe2d086](https://github.com/Sage/carbon/commit/fe2d08611479bfdd681da9258cb7da33f579ec5c)), closes [#7653](https://github.com/Sage/carbon/issues/7653)
+
 ## [158.15.0](https://github.com/Sage/carbon/compare/v158.14.11...v158.15.0) (2026-01-06)
 
 ### Features
