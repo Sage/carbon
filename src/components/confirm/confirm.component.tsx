@@ -1,12 +1,12 @@
 import React, { useRef } from "react";
 
 import createGuid from "../../__internal__/utils/helpers/guid";
-import Heading from "../heading";
 import Dialog, { DialogProps } from "../dialog";
 import { StyledConfirmButtons, StyledConfirmHeading } from "./confirm.style";
 import Button from "../button/button.component";
 import Icon, { IconType } from "../icon";
 import Loader from "../loader";
+import Typography from "../typography";
 import useLocale from "../../hooks/__internal__/useLocale";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
@@ -174,13 +174,15 @@ export const Confirm = ({
       return (
         <StyledConfirmHeading type={iconType} data-element={iconType}>
           <Icon type={iconType} fontSize="medium" />
-          <Heading
-            title={title}
-            titleId={titleId}
-            subheader={subtitle}
-            subtitleId={subtitleId}
-            divider={false}
-          />
+          <Typography
+            wordWrap="break-word"
+            wordBreak="normal"
+            variant="h1"
+            data-element="dialog-title"
+            id={titleId}
+          >
+            {title}
+          </Typography>
         </StyledConfirmHeading>
       );
     }

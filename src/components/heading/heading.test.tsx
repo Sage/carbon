@@ -43,6 +43,11 @@ test("should render with children", () => {
   expect(childrenText).toBeVisible();
 });
 
+it("should render as null when `title` is not provided", () => {
+  render(<Heading />);
+  expect(screen.queryByRole("heading")).not.toBeInTheDocument();
+});
+
 test("should render with a custom subheader node as a descendant of the subtitle node, via the `subheader` prop", () => {
   const subheader = <span>subheader node</span>;
   render(<Heading title="foo" subheader={subheader} />);
