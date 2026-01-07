@@ -3,6 +3,7 @@ import { margin } from "styled-system";
 import applyBaseTheme from "../../../style/themes/apply-base-theme";
 import Typography from "../../typography";
 import StyledButton from "../../button/button.style";
+import StyledNextButton from "../../button/__next__/button.style";
 
 const ringDimensions: Record<string, number> = {
   "extra-small": 20,
@@ -238,6 +239,7 @@ export const StyledRingCircleSvg = styled.svg<RingSvgProps>`
     `;
   }}
 
+  ${StyledNextButton} & circle[data-role="inner-arc"],
   ${StyledButton} & circle[data-role="inner-arc"] {
     stroke: currentColor;
   }
@@ -322,7 +324,7 @@ export const StyledLoaderLabel = styled(Typography)<LabelProps>`
   color: ${({ inverse }) =>
     inverse ? "rgba(255, 255, 255, 0.55)" : "rgba(0, 0, 0, 0.65)"};
 
-  ${StyledButton} & {
+  ${StyledNextButton} &, ${StyledButton} & {
     color: currentColor;
   }
 
@@ -351,7 +353,7 @@ export const StyledLabel = styled.span<StyledLabelProps>`
   ${({ inverse }) => css`
     color: ${inverse ? "rgba(255, 255, 255, 0.90)" : "rgba(0, 0, 0, 0.90)"};
 
-    ${StyledButton} & {
+    ${StyledNextButton} &, ${StyledButton} & {
       color: currentColor;
     }
   `};
