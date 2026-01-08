@@ -1,0 +1,33 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+
+import * as DipsBoxStories from "./dips-box.stories";
+
+<Meta of={DipsBoxStories} />
+
+# Box
+
+Basic component that gives access to a number of styling options. Should be used to achieve more precise layouts when required. Gives access to Spacing, Color, Layout and FlexBox attributes.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+Import the box component to start using
+
+```javascript
+import DipsBox from "carbon-react/lib/components/dips-box";
+```
+
+## Examples
+
+### Spacing
+
+<Canvas of={DipsBoxStories.Spacing} />
+
+## Props
+
+<ArgTypes of={DipsBoxStories} />

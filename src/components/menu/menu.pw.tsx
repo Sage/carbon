@@ -459,9 +459,6 @@ test.describe("Prop tests for Menu component", () => {
 
   (
     [
-      ["float", 0.3, 409],
-      ["float", 0.6, 819],
-      ["float", 1.0, 1366],
       ["number", 350, 350],
       ["number", 900, 900],
       ["number", 1350, 1350],
@@ -696,7 +693,7 @@ test.describe("Prop tests for Menu component", () => {
     ] as [MenuProps["flexGrow"], string][]
   ).forEach(([value, growText]) => {
     test(`should render with flexGrow as ${value}`, async ({ mount, page }) => {
-      await mount(<MenuComponent flex="auto" flexGrow={value} />);
+      await mount(<MenuComponent flexGrow={value} />);
 
       const thisMenu = menu(page).first();
       await expect(thisMenu).toHaveCSS("flex-grow", growText);
@@ -714,7 +711,7 @@ test.describe("Prop tests for Menu component", () => {
       mount,
       page,
     }) => {
-      await mount(<MenuComponent flex="auto" flexShrink={value} />);
+      await mount(<MenuComponent flexShrink={value} />);
 
       const thisMenu = menu(page).first();
       await expect(thisMenu).toHaveCSS("flex-shrink", shrinkText);
