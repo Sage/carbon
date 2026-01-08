@@ -155,6 +155,40 @@ describe("Accordion", () => {
     expect(screen.getByText("child content")).not.toBeVisible();
   });
 
+  it("sets hidden='until-found' on the content container when collapsed", () => {
+    render(<Accordion title="Title">child content</Accordion>);
+
+    expect(screen.getByTestId("accordion-content-container")).toHaveAttribute(
+      "hidden",
+      "until-found",
+    );
+  });
+
+  it("removes hidden='until-found' from the content container when expanded", async () => {
+    const user = userEvent.setup();
+    render(<Accordion title="Title">child content</Accordion>);
+
+    const header = screen.getByRole("button");
+    await user.click(header);
+
+    expect(
+      screen.getByTestId("accordion-content-container"),
+    ).not.toHaveAttribute("hidden");
+  });
+
+  it("expands the content when `beforematch` event is fired", async () => {
+    render(<Accordion title="Title">child content</Accordion>);
+
+    expect(screen.getByText("child content")).not.toBeVisible();
+
+    act(() => {
+      const event = new Event("beforematch");
+      screen.getByTestId("accordion-content-container").dispatchEvent(event);
+    });
+
+    expect(screen.getByText("child content")).toBeVisible();
+  });
+
   it("recalculates the height of the content container when the content height changes", async () => {
     const user = userEvent.setup();
     render(<Accordion title="Title">child content</Accordion>);
