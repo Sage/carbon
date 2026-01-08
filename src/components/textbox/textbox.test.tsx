@@ -483,9 +483,9 @@ test.each(validationTypes)(
 
     expect(await screen.findByRole("tooltip")).toHaveAttribute(
       "id",
-      "foo-validation",
+      "foo-validation-0",
     );
-    expect(input).toHaveAttribute("aria-describedby", "foo-validation");
+    expect(input).toHaveAttribute("aria-describedby", "foo-validation-0");
   },
 );
 
@@ -507,11 +507,11 @@ test.each(validationTypes)(
 
     expect(await screen.findByRole("tooltip")).toHaveAttribute(
       "id",
-      `${mockedGuid}-validation`,
+      `${mockedGuid}-validation-0`,
     );
     expect(input).toHaveAttribute(
       "aria-describedby",
-      `${mockedGuid}-validation`,
+      `${mockedGuid}-validation-0`,
     );
   },
 );
@@ -569,12 +569,12 @@ test.each(validationTypes)(
 
     expect(await screen.findByRole("tooltip")).toHaveAttribute(
       "id",
-      "foo-validation",
+      "foo-validation-0",
     );
     expect(screen.getByText("baz")).toHaveAttribute("id", "foo-field-help");
     expect(input).toHaveAttribute(
       "aria-describedby",
-      "foo-field-help foo-validation",
+      "foo-field-help foo-validation-0",
     );
   },
 );
@@ -752,11 +752,11 @@ describe("when rendered with new validations", () => {
 
     expect(screen.getByText("bar")).toHaveAttribute(
       "id",
-      `${mockId}-validation`,
+      `${mockId}-validation-0`,
     );
     expect(screen.getByRole("textbox")).toHaveAttribute(
       "aria-describedby",
-      `${mockId}-validation`,
+      `${mockId}-validation-0`,
     );
   });
 
