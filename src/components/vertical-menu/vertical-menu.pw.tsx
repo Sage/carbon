@@ -100,7 +100,7 @@ test.describe("should render Vertical Menu component", () => {
     test(`should render with ${title} as title`, async ({ mount, page }) => {
       await mount(<VerticalMenuItemCustom title={title} />);
 
-      await expect(verticalMenuItem(page).locator("h3").first()).toHaveText(
+      await expect(verticalMenuItem(page).locator("span").nth(1)).toHaveText(
         title,
       );
     });
@@ -220,10 +220,10 @@ test.describe("should render Vertical Menu component", () => {
       await mount(<VerticalMenuItemCustom defaultOpen={open} />);
 
       const menuItem1 = verticalMenuItem(page)
-        .locator("h3")
+        .locator("span")
         .filter({ hasText: "ChildItem 1" });
       const menuItem2 = verticalMenuItem(page)
-        .locator("h3")
+        .locator("span")
         .filter({ hasText: "ChildItem 2" });
 
       if (open) {
@@ -443,7 +443,7 @@ test.describe("with beforeEach for VerticalMenuFullScreen", () => {
     await verticalMenuItem(page).nth(2).click();
 
     await expect(
-      verticalMenuItem(page).locator("h3").filter({ hasText: "Active Item" }),
+      verticalMenuItem(page).locator("span").filter({ hasText: "Active Item" }),
     ).toBeVisible();
   });
 
@@ -454,7 +454,7 @@ test.describe("with beforeEach for VerticalMenuFullScreen", () => {
     await verticalMenuItem(page).nth(2).click();
 
     await expect(
-      verticalMenuItem(page).locator("h3").filter({ hasText: "Active Item" }),
+      verticalMenuItem(page).locator("span").filter({ hasText: "Active Item" }),
     ).toBeHidden();
   });
 
@@ -480,14 +480,14 @@ test.describe("with beforeEach for VerticalMenuFullScreen", () => {
       if (action === "expand") {
         await expect(
           verticalMenuItem(page)
-            .locator("h3")
+            .locator("span")
             .filter({ hasText: "Active Item" }),
         ).toBeVisible();
       }
       if (action === "collapse") {
         await expect(
           verticalMenuItem(page)
-            .locator("h3")
+            .locator("span")
             .filter({ hasText: "Active Item" }),
         ).toBeHidden();
       }
