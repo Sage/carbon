@@ -277,6 +277,22 @@ test("shows an error icon when the `error` prop is specified", async () => {
   expect(icon).toHaveStyle("color: rgb(219, 0, 78)");
 });
 
+test("includes error description in tab accessible name when `error` prop is specified", () => {
+  render(
+    <Tabs>
+      <TabList ariaLabel="Sample Tabs">
+        <Tab id="tab-1" controls="tab-panel-1" label="Tab One" error />
+      </TabList>
+      <TabPanel id="tab-panel-1" tabId="tab-1">
+        <Typography>Content 1</Typography>
+      </TabPanel>
+    </Tabs>,
+  );
+
+  const tab = screen.getByRole("tab");
+  expect(tab).toHaveAccessibleName(/contains errors/i);
+});
+
 test("shows a warning icon when the `warning` prop is specified", async () => {
   render(
     <Tabs>
@@ -294,6 +310,22 @@ test("shows a warning icon when the `warning` prop is specified", async () => {
   expect(icon).toHaveStyle("color: rgb(214, 67, 9)");
 });
 
+test("includes warning description in tab accessible name when `warning` prop is specified", () => {
+  render(
+    <Tabs>
+      <TabList ariaLabel="Sample Tabs">
+        <Tab id="tab-1" controls="tab-panel-1" label="Tab One" warning />
+      </TabList>
+      <TabPanel id="tab-panel-1" tabId="tab-1">
+        <Typography>Content 1</Typography>
+      </TabPanel>
+    </Tabs>,
+  );
+
+  const tab = screen.getByRole("tab");
+  expect(tab).toHaveAccessibleName(/contains warnings/i);
+});
+
 test("shows an info icon when the `info` prop is specified", async () => {
   render(
     <Tabs>
@@ -309,6 +341,22 @@ test("shows an info icon when the `info` prop is specified", async () => {
   const icon = screen.getByTestId("icon-info");
   expect(icon).toBeInTheDocument();
   expect(icon).toHaveStyle("color: rgb(0, 96, 167)");
+});
+
+test("includes info description in tab accessible name when `info` prop is specified", () => {
+  render(
+    <Tabs>
+      <TabList ariaLabel="Sample Tabs">
+        <Tab id="tab-1" controls="tab-panel-1" label="Tab One" info />
+      </TabList>
+      <TabPanel id="tab-panel-1" tabId="tab-1">
+        <Typography>Content 1</Typography>
+      </TabPanel>
+    </Tabs>,
+  );
+
+  const tab = screen.getByRole("tab");
+  expect(tab).toHaveAccessibleName(/contains information/i);
 });
 
 test("renders tablist with expected accessible name when `ariaLabel` prop is provided", () => {
@@ -354,9 +402,11 @@ test("shows the validation icons regardless of whether tab panels are active", a
     </Tabs>,
   );
 
-  const tab2 = screen.getByRole("tab", { name: "Tab Two" });
-  const tab3 = screen.getByRole("tab", { name: "Tab Three" });
-  const tab4 = screen.getByRole("tab", { name: "Tab Four" });
+  const tab2 = screen.getByRole("tab", { name: "Tab Two contains errors" });
+  const tab3 = screen.getByRole("tab", { name: "Tab Three contains warnings" });
+  const tab4 = screen.getByRole("tab", {
+    name: "Tab Four contains information",
+  });
 
   const errorIcon = within(tab2).getByTestId("icon-error");
   expect(errorIcon).toBeInTheDocument();

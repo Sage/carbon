@@ -135,6 +135,11 @@ interface Locale {
   pod: {
     undo: () => string;
   };
+  tabs: {
+    error: () => string;
+    warning: () => string;
+    info: () => string;
+  };
   textEditor: {
     boldAria: () => string;
     cancelButton: () => string;
