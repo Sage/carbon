@@ -1,3 +1,9 @@
+## [158.15.2](https://github.com/Sage/carbon/compare/v158.15.1...v158.15.2) (2026-01-12)
+
+### Bug Fixes
+
+* **vertical-menu:** amend h3 to span for childitem ([7c1a8f0](https://github.com/Sage/carbon/commit/7c1a8f0872e73fc7f0fc51345a36a77eb05d3619))
+
 ## [158.15.1](https://github.com/Sage/carbon/compare/v158.15.0...v158.15.1) (2026-01-07)
 
 ### Bug Fixes
