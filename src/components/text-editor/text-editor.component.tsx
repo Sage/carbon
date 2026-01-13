@@ -10,6 +10,7 @@ import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin";
 import { ListPlugin } from "@lexical/react/LexicalListPlugin";
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
+import { PluginProvider } from "./__internal__/__providers__/plugin-provider";
 
 import { $getRoot, EditorState, LexicalEditor } from "lexical";
 import React, {
@@ -127,6 +128,7 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
       string | undefined
     >(undefined);
     const contentEditorRef = useRef<HTMLDivElement>(null);
+    const [parentRef, setParentRef] = useState<HTMLDivElement | null>(null);
     const [isFocused, setIsFocused] = useState<boolean>(false);
 
     useImperativeHandle<TextEditorHandle, TextEditorHandle>(
@@ -274,7 +276,10 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
             </HintText>
           )}
           <LexicalComposer initialConfig={initialConfig}>
-            <StyledWrapper data-role={`${namespace}-wrapper`}>
+            <StyledWrapper
+              data-role={`${namespace}-wrapper`}
+              ref={setParentRef}
+            >
               {validationMessagePositionTop && (
                 <>
                   <ValidationMessage
@@ -362,7 +367,9 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
                       <ClickableLinkPlugin newTab />
                       <AutoLinkerPlugin />
                       <StyledSpanEnterPlugin />
-                      {React.Children.toArray(customPlugins)}
+                      <PluginProvider parentRef={parentRef}>
+                        {customPlugins}
+                      </PluginProvider>
                     </StyledTextEditor>
                   </>
                 )}

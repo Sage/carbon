@@ -30,6 +30,7 @@ import {
 import useLocale from "../../../../../hooks/__internal__/useLocale";
 
 import { MentionsList, TypeaheadPopover } from "./mentions.style";
+import { usePluginContext } from "../../__providers__/plugin-provider";
 
 export const MentionsPlugin = ({
   namespace,
@@ -137,12 +138,15 @@ export const MentionsPlugin = ({
     );
   }, [editor]);
 
+  const { getParentRef } = usePluginContext();
+
   return (
     <LexicalTypeaheadMenuPlugin<MentionTypeaheadOption>
       onQueryChange={setQueryString}
       onSelectOption={onSelectOption}
       triggerFn={checkForMentionMatch}
       options={options}
+      parent={getParentRef()}
       menuRenderFn={(
         anchorElementRef,
         { selectedIndex, selectOptionAndCleanUp, setHighlightedIndex },
