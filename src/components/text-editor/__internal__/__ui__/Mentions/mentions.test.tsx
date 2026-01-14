@@ -27,7 +27,19 @@ jest.mock("../../__nodes__/mention.node", () => ({
 }));
 
 jest.mock("@lexical/react/LexicalTypeaheadMenuPlugin", () => ({
-  LexicalTypeaheadMenuPlugin: jest.fn(() => null),
+  LexicalTypeaheadMenuPlugin: jest.fn((props) => {
+    // Store the menuRenderFn and other props for testing
+    if (props.menuRenderFn && props.options && props.options.length > 0) {
+      const mockAnchorRef = { current: document.createElement("div") };
+      document.body.appendChild(mockAnchorRef.current);
+      return props.menuRenderFn(mockAnchorRef, {
+        selectedIndex: 0,
+        selectOptionAndCleanUp: jest.fn(),
+        setHighlightedIndex: jest.fn(),
+      });
+    }
+    return null;
+  }),
   MenuOption: class {
     key: string;
     constructor(key: string) {
@@ -167,7 +179,7 @@ describe("MentionsPlugin", () => {
     expect(updatedProps.options[0].name).toBe("Will Seabrook");
   });
 
-  it("filters options case-insensitively", async () => {
+  it("renders MentionsList and TypeaheadPopover when there are search results", async () => {
     render(<MentionsPlugin namespace="test" searchOptions={searchOptions} />);
 
     const { calls } = (LexicalTypeaheadMenuPlugin as jest.Mock).mock;
@@ -175,21 +187,40 @@ describe("MentionsPlugin", () => {
     const { onQueryChange } = props;
 
     act(() => {
-      onQueryChange("seabrook");
+      onQueryChange("Will");
     });
 
     await waitFor(() => {
-      const { calls: updatedCalls } = (LexicalTypeaheadMenuPlugin as jest.Mock)
-        .mock;
-      const [updatedProps] = updatedCalls[updatedCalls.length - 1];
-
-      expect(updatedProps.options).toHaveLength(1);
+      expect(screen.getByRole("listbox", { name: "Mentions list" })).toBeInTheDocument();
     });
 
-    const { calls: updatedCalls } = (LexicalTypeaheadMenuPlugin as jest.Mock)
-      .mock;
-    const [updatedProps] = updatedCalls[updatedCalls.length - 1];
-    expect(updatedProps.options[0].name).toBe("Will Seabrook");
+    expect(
+      document.querySelector('[id="test-mentions-menu"]'),
+    ).toBeInTheDocument();
+
+    expect(
+      document.querySelector('[id="test-mention-list"]'),
+    ).toBeInTheDocument();
+
+    expect(screen.getAllByRole("option")).toHaveLength(1);
+  });
+
+  it("does not render MentionsList when there are no search results", async () => {
+    render(<MentionsPlugin namespace="test" searchOptions={searchOptions} />);
+
+    const { calls } = (LexicalTypeaheadMenuPlugin as jest.Mock).mock;
+    const [props] = calls[calls.length - 1];
+    const { onQueryChange } = props;
+
+    act(() => {
+      onQueryChange("XYZ123NonExistent");
+    });
+
+    await waitFor(() => {
+      expect(
+        screen.queryByRole("listbox", { name: "Mentions list" }),
+      ).not.toBeInTheDocument();
+    });
   });
 
   describe("onSelectOption", () => {

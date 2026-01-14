@@ -390,7 +390,7 @@ export const TabList = forwardRef<TabsHandle, TabListProps>(
           <Icon type="chevron_left" />
         </StyledScrollButton>
       ) : (
-        <StyledScrollButtonPlaceholder size={size} />
+        <StyledScrollButtonPlaceholder data-role="scroll-button-placeholder" size={size} />
       );
     };
 
@@ -411,7 +411,7 @@ export const TabList = forwardRef<TabsHandle, TabListProps>(
           <Icon type="chevron_right" />
         </StyledScrollButton>
       ) : (
-        <StyledScrollButtonPlaceholder size={size} />
+        <StyledScrollButtonPlaceholder data-role="scroll-button-placeholder" size={size} />
       );
     };
 

@@ -360,7 +360,7 @@ const BaseMenu = forwardRef<
   },
 );
 
-export const ResponsiveVerticalMenu = forwardRef<
+const ResponsiveVerticalMenu = forwardRef<
   ResponsiveVerticalMenuHandle,
   ResponsiveVerticalMenuProps
 >(({ children, width, height, ...props }, ref) => {
@@ -375,4 +375,11 @@ export const ResponsiveVerticalMenu = forwardRef<
   );
 });
 
+/**
+ * Named export is marked as uncovered by SWC instrumentation.
+ * Remove in next breaking change to resolve coverage reporting.
+ * @see https://github.com/vercel/next.js/discussions/49504
+ * @todo Remove named export in next breaking change (FE-7579)
+ */
+export { ResponsiveVerticalMenu };
 export default ResponsiveVerticalMenu;

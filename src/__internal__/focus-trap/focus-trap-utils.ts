@@ -241,7 +241,6 @@ const trapFunction = (
 
 export {
   defaultFocusableSelectors,
-  getNextElement,
   setElementFocus,
   onTabGuardFocus,
   trapFunction,

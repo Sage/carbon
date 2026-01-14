@@ -3,7 +3,12 @@ import { TransitionGroup } from "react-transition-group";
 import tagComponent, {
   TagProps,
 } from "../../__internal__/utils/helpers/tags/tags";
-import Page from "./page";
+/**
+ * Re-export syntax avoids SWC coverage instrumentation issues.
+ * @see https://github.com/vercel/next.js/discussions/49504
+ * @todo Remove in next breaking change (FE-7579)
+ */
+export { default as Page } from "./page";
 import { PagesWrapperStyle, PagesContent } from "./pages.style";
 import type { ThemeObject } from "../../style/themes/theme.types";
 
@@ -116,5 +121,3 @@ const Pages = ({
 Pages.displayName = "Pages";
 
 export default Pages;
-
-export { Page };

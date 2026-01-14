@@ -9,6 +9,7 @@ import {
   ResponsiveVerticalMenuProvider,
   ResponsiveVerticalMenuHandle,
 } from ".";
+import ResponsiveVerticalMenuDefault from "./responsive-vertical-menu.component"
 import useIsAboveBreakpoint from "../../../hooks/__internal__/useIsAboveBreakpoint";
 import useMediaQuery from "../../../hooks/useMediaQuery";
 import guid from "../../../__internal__/utils/helpers/guid";
@@ -93,6 +94,14 @@ afterEach(() => {
 
   jest.clearAllMocks();
 });
+
+/**
+ * Verify named export exists. Named export appears uncovered in SWC
+ * instrumentation but is required for backwards compatibility until FE-7579.
+ */
+  test('should export ResponsiveVerticalMenu as a default export', () => {
+    expect(ResponsiveVerticalMenuDefault).toBeDefined();
+  });
 
 test("renders correctly", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });

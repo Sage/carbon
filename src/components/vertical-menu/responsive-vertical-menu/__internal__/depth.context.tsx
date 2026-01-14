@@ -51,5 +51,3 @@ export const IncreaseDepth = ({ children }: { children: ReactNode }) => {
     </DepthContext.Provider>
   );
 };
-
-export default DepthContext;

@@ -14,7 +14,13 @@ import React, {
   useImperativeHandle,
 } from "react";
 import { MarginProps } from "styled-system";
-import Tab from "./tab";
+/**
+ * Re-export syntax avoids SWC coverage instrumentation issues.
+ * @see https://github.com/vercel/next.js/discussions/49504
+ * @todo Remove in next breaking change (FE-7579)
+ */
+export { default as Tab } from "./tab";
+import Tab from "./tab"
 import Event from "../../__internal__/utils/helpers/events";
 import tagComponent, {
   TagProps,
@@ -512,4 +518,4 @@ const Tabs = forwardRef<TabsHandle, TabsProps>(
   },
 );
 
-export { Tabs, Tab };
+export { Tabs };

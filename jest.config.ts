@@ -1,19 +1,17 @@
 import { Config } from "jest";
 import { resolve } from "path";
-
 import coverageThresholds from "./coverage-thresholds.json";
 
 const rootDir = resolve(__dirname, ".");
 const isCI = process.env.CI === "true";
-
 const esmOnlyPackages = ["react-error-boundary"];
 
 const baseProjectConfig: Config = {
   rootDir,
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "mjs"],
   transform: {
-    "^.+\\.(js|mjs|jsx|ts|tsx)$": "babel-jest",
-    "^.+\\.svg$": "<rootDir>/svgTransform.mjs",
+"^.+\\.(js|mjs|jsx|ts|tsx)$": "@swc/jest",
+"^.+\\.svg$": "<rootDir>/svgTransform.mjs",
   },
   moduleDirectories: ["src", "node_modules"],
   moduleNameMapper: {
@@ -25,7 +23,9 @@ const baseProjectConfig: Config = {
     "<rootDir>/src/locales",
     "<rootDir>/lib",
     "<rootDir>/esm",
-  ],
+    ".*/index\\.ts$",
+    ".*[.-]config\\.ts$",
+      ],
   coverageDirectory: "<rootDir>/coverage",
   testPathIgnorePatterns: [
     "<rootDir>/node_modules",

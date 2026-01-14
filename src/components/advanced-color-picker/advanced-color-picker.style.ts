@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
-import StyledAdvancedColorPickerCell from "./advanced-color-picker-cell.style";
 import { StyledColorOptions } from "../simple-color-picker/simple-color-picker.style";
 import { StyledSimpleColor } from "../simple-color-picker/simple-color/simple-color.style";
 import { StyledDialogContent } from "../dialog/dialog.style";
@@ -83,7 +82,6 @@ const DialogStyle = styled(Dialog)`
 export {
   StyledAdvancedColorPickerWrapper,
   HiddenCurrentColorList,
-  StyledAdvancedColorPickerCell,
   StyledAdvancedColorPickerPreview,
   DialogStyle,
 };

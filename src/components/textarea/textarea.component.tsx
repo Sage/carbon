@@ -138,7 +138,13 @@ export interface TextareaProps
 let deprecateOptionalWarnTriggered = false;
 let warnBorderRadiusArrayTooLarge = false;
 
-export const Textarea = React.forwardRef(
+/**
+ * Previous export method was being treated as an uncovered statement.
+ * @see https://github.com/vercel/next.js/discussions/49504
+ * @todo Stop exporting the below, rename to Textarea 
+ * and ensure there is only one default export (FE-7579)
+ */
+export const OriginalTextarea = React.forwardRef(
   (
     {
       "aria-labelledby": ariaLabelledBy,
@@ -494,7 +500,6 @@ export const Textarea = React.forwardRef(
   },
 );
 
-Textarea.displayName = "Textarea";
+OriginalTextarea.displayName = "Textarea";
 
-export { Textarea as OriginalTextarea };
-export default Textarea;
+export default OriginalTextarea;

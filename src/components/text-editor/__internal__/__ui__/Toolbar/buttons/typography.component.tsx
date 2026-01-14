@@ -43,7 +43,7 @@ export type TypographySelectorProps = {
 // Coverage check skipped as this is covered by Playwright test
 // functionality
 /* istanbul ignore next */
-export function getStyledSpanFromSelection(
+function getStyledSpanFromSelection(
   selection: RangeSelection,
 ): StyledSpanNode | null {
   // This is recursive to ensure that we can always find the StyledSpanNode

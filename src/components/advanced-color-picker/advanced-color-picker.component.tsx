@@ -3,10 +3,10 @@ import { MarginProps } from "styled-system";
 import {
   StyledAdvancedColorPickerWrapper,
   HiddenCurrentColorList,
-  StyledAdvancedColorPickerCell,
   StyledAdvancedColorPickerPreview,
   DialogStyle,
 } from "./advanced-color-picker.style";
+import StyledAdvancedColorPickerCell from "./advanced-color-picker-cell.style";
 import { SimpleColorPicker, SimpleColor } from "../simple-color-picker";
 import Events from "../../__internal__/utils/helpers/events";
 import { filterStyledSystemMarginProps } from "../../style/utils";

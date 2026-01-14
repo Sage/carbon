@@ -1,6 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import Switch from "./switch.component";
+import { Switch as SwitchB } from "./switch.component";
 
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import I18nProvider from "../../components/i18n-provider";
@@ -19,6 +20,14 @@ testStyledSystemMargin(
   ),
   () => screen.getByTestId("switch-wrapper"),
 );
+
+/**
+ * Verify named export exists. Named export appears uncovered in SWC
+ * instrumentation but is required for backwards compatibility until FE-7579.
+ */
+  test('should export Switch as named export', () => {
+    expect(SwitchB).toBeDefined();
+  });
 
 test("accepts ref as a ref object", () => {
   const ref = { current: null };

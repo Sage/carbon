@@ -47,7 +47,7 @@ export interface SwitchProps
   checked: boolean;
 }
 
-const SwitchComponent = React.forwardRef(
+const Switch = React.forwardRef(
   (
     {
       autoFocus,
@@ -356,7 +356,13 @@ const SwitchComponent = React.forwardRef(
   },
 );
 
-SwitchComponent.displayName = "Switch";
+Switch.displayName = "Switch";
 
-export { SwitchComponent as Switch };
-export default SwitchComponent;
+/**
+ * Named export is marked as uncovered by SWC instrumentation.
+ * Remove in next breaking change to resolve coverage reporting.
+ * @see https://github.com/vercel/next.js/discussions/49504
+ * @todo Remove named export in next breaking change (FE-7579)
+ */
+export { Switch };
+export default Switch;

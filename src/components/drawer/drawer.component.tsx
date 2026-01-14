@@ -13,7 +13,13 @@ import {
   StyledSidebarFooter,
 } from "./drawer.style";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
-import DrawerSidebarContext from "./__internal__/drawer-sidebar.context";
+/**
+ * Re-export syntax avoids SWC coverage instrumentation issues.
+ * @see https://github.com/vercel/next.js/discussions/49504
+ * @todo Remove in next breaking change (FE-7579)
+ */
+export { default as DrawerSidebarContext } from "./__internal__/drawer-sidebar.context";
+import DrawerSidebarContext from "./__internal__/drawer-sidebar.context"
 import Logger from "../../__internal__/utils/logger";
 
 let deprecatedAnimationDurationWarn = false;
@@ -214,6 +220,5 @@ export const Drawer = ({
   );
 };
 
-export { DrawerSidebarContext };
 
 export default Drawer;

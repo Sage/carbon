@@ -1,0 +1,24 @@
+{
+  "jsc": {
+    "parser": {
+      "syntax": "typescript",
+      "tsx": true,
+      "decorators": false,
+      "dynamicImport": true
+    },
+    "transform": {
+      "react": {
+        "runtime": "automatic"
+      }
+    },
+    "target": "es2020",
+    "experimental": {
+      "plugins": [["@swc-contrib/mut-cjs-exports", {}]]
+    },
+    "preserveAllComments": true
+  },
+  "module": {
+    "type": "commonjs"
+  },
+  "inlineSourcesContent": true
+}

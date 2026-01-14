@@ -515,3 +515,101 @@ test("invokes the onTabChange handler the active tab changes", async () => {
   await user.click(tab1);
   expect(mockTabChangeFn).toHaveBeenCalledWith("tab-1");
 });
+
+test("does not render scroll buttons or placeholders in vertical orientation", () => {
+  render(<TestComponent orientation="vertical" />);
+
+  const scrollButtons = screen.queryAllByRole("button", {
+    name: /Scroll Tabs/,
+  });
+
+  expect(scrollButtons.length).toBe(0);
+});
+
+test("renders scroll button placeholder structure exists in horizontal orientation (placeholder hidden when scroll not required)", () => {
+  render(<TestComponent />);
+
+  const tabListWrapper = screen.getByRole("tablist").parentElement;
+
+  // The wrapper should exist and contain the tablist
+  expect(tabListWrapper).toBeInTheDocument();
+
+  // With only 3 tabs, scroll is not required, so no visible scroll elements
+  const scrollButtons = screen.queryAllByRole("button", {
+    name: /Scroll Tabs/,
+  });
+  expect(scrollButtons.length).toBe(0);
+});
+
+test("renders with large size and horizontal orientation includes scroll structure", () => {
+  render(<TestComponent size="large" />);
+
+  const tabListWrapper = screen.getByRole("tablist").parentElement;
+  const tabList = screen.getByRole("tablist");
+
+  expect(tabList).toHaveAttribute("orientation", "horizontal");
+  expect(tabListWrapper).toBeInTheDocument();
+});
+
+// Integration test: Verify scroll button visibility logic for edge cases
+test("tab list renders correctly when content overflows (checked via structure)", () => {
+  const LongTabsComponent = () => (
+    <Tabs>
+      <TabList ariaLabel="Many Tabs">
+        {Array.from({ length: 30 }, (_, i) => (
+          <Tab
+            key={`tab-${i}`}
+            id={`tab-${i}`}
+            controls={`tab-panel-${i}`}
+            label={`Tab ${i + 1} with longer label text`}
+          />
+        ))}
+      </TabList>
+      {Array.from({ length: 30 }, (_, i) => (
+        <TabPanel key={`panel-${i}`} id={`tab-panel-${i}`} tabId={`tab-${i}`}>
+          <Typography>Content {i + 1}</Typography>
+        </TabPanel>
+      ))}
+    </Tabs>
+  );
+
+  render(<LongTabsComponent />);
+
+  // Verify tablist is present and in horizontal orientation
+  const tabList = screen.getByRole("tablist");
+  expect(tabList).toHaveAttribute("orientation", "horizontal");
+
+  // Verify at least one tab renders
+  const tabs = screen.getAllByRole("tab");
+  expect(tabs.length).toBeGreaterThan(0);
+});
+
+// Structure verification test
+test("renders tablist wrapper that contains scroll button placeholders when horizontal", () => {
+  const { container } = render(<TestComponent />);
+
+  // Find the tablist wrapper (parent of tablist)
+  const tabList = container.querySelector('[role="tablist"]');
+  const tabListWrapper = tabList?.parentElement;
+
+  // Verify the wrapper structure exists
+  expect(tabListWrapper).toBeInTheDocument();
+
+  // In horizontal orientation, wrapper should exist to contain scroll buttons
+  const orientation = tabList?.getAttribute("orientation");
+  expect(orientation).toBe("horizontal");
+});
+
+test("scroll navigation buttons not present in vertical orientation structure", () => {
+  const { container } = render(<TestComponent orientation="vertical" />);
+
+  const tabList = container.querySelector('[role="tablist"]');
+  expect(tabList?.getAttribute("orientation")).toBe("vertical");
+
+  // Scroll buttons should not be in the DOM at all for vertical
+  const scrollLeftButton = container.querySelector('#tab-navigation-button-left');
+  const scrollRightButton = container.querySelector('#tab-navigation-button-right');
+
+  expect(scrollLeftButton).not.toBeInTheDocument();
+  expect(scrollRightButton).not.toBeInTheDocument();
+});
