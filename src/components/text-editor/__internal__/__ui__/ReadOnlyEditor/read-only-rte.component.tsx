@@ -86,6 +86,12 @@ const ReadOnlyEditor = ({
               /** The following are automatically added by Lexical but violate WCAG 4.1.2 Name, Role, Value and so have been overriden */
               aria-autocomplete={undefined}
               aria-readonly={undefined}
+              /**
+               * We don't have access to the underlying element, setting a role here means the element will remain a div
+               * but assistive technologies will recognise the element as an article. Which is more suitable for an element which
+               * is meant to be read-only and non interactive/editable.
+               */
+              role="article"
             />
           }
           ErrorBoundary={LexicalErrorBoundary}
