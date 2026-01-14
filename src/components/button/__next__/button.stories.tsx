@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Button, { ButtonProps } from "./button.component";
 import Box from "../../box";
 import Icon from "../../icon";
-import { Loader } from "../../loader/__next__/loader.component";
+import Loader from "../../loader/__next__/loader.component";
 
 const meta: Meta<typeof Button> = {
   title: "Button",

@@ -1,4 +1,31 @@
-import { mergeDeep } from "./merge-deep";
+import { mergeDeep, isObject } from "./merge-deep";
+
+describe("isObject", () => {
+  it("returns true for plain objects", () => {
+    expect(isObject({})).toBe(true);
+    expect(isObject({ a: 1 })).toBe(true);
+    expect(isObject({ nested: { key: "value" } })).toBe(true);
+  });
+
+  it("returns false for arrays", () => {
+    expect(isObject([])).toBe(false);
+    expect(isObject([1, 2, 3])).toBe(false);
+  });
+
+  it("returns falsy for primitives", () => {
+    expect(isObject(null)).toBeFalsy();
+    expect(isObject(undefined)).toBeFalsy();
+    expect(isObject("string")).toBe(false);
+    expect(isObject(123)).toBe(false);
+    expect(isObject(true)).toBe(false);
+  });
+
+  it("returns false for functions", () => {
+    expect(isObject(() => {})).toBe(false);
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    expect(isObject(function () {})).toBe(false);
+  });
+});
 
 describe("mergeDeep", () => {
   let base: Record<string, unknown>;

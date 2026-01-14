@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useMemo } from "react";
-import { Checkbox } from "../checkbox/checkbox.component";
+import Checkbox from "../checkbox/checkbox.component";
 import Button from "../button/button.component";
 import Dialog from "../dialog/dialog.component";
 import Typography from "../typography/typography.component";

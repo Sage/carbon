@@ -65,7 +65,7 @@ const tooltipPosition = ({
   return (error || warning || info) && inline ? "top" : "right";
 };
 
-export const Label = ({
+const Label = ({
   align,
   as = "label",
   children,

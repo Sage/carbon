@@ -25,11 +25,7 @@ export interface FormSummaryProps {
   fullWidth?: boolean;
 }
 
-export const Summary = ({
-  type,
-  errorCount = 0,
-  warningCount = 0,
-}: SummaryProps) => {
+const Summary = ({ type, errorCount = 0, warningCount = 0 }: SummaryProps) => {
   const l = useLocale();
   const messages = {
     errorCount,

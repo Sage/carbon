@@ -11,7 +11,7 @@ import {
   StyledControlsContainer,
   StyledControl,
 } from "./duelling-picklist.style";
-import { Picklist, PicklistProps } from "./picklist/picklist.component";
+import Picklist, { PicklistProps } from "./picklist/picklist.component";
 import FocusContext, {
   FocusContextType,
 } from "./__internal__/duelling-picklist.context";
@@ -40,7 +40,7 @@ export interface DuellingPicklistProps extends MarginProps, TagProps {
 /**
  * @deprecated `DuellingPicklist` has been deprecated. See the Carbon documentation for migration details.
  */
-export const DuellingPicklist = ({
+const DuellingPicklist = ({
   children,
   disabled,
   leftControls,

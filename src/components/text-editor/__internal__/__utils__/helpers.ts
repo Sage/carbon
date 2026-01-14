@@ -3,7 +3,7 @@ import { $generateHtmlFromNodes, $generateNodesFromDOM } from "@lexical/html";
 import { $getRoot, $getSelection, LexicalEditor } from "lexical";
 
 import { MARKDOWN_NODES } from "./constants";
-import { getTheme } from "./theme";
+import getTheme from "./theme";
 
 import Logger from "../../../../__internal__/utils/logger";
 

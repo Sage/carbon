@@ -3,6 +3,10 @@ import userEvent from "@testing-library/user-event";
 import React from "react";
 
 import Tabs, { Tab, TabList, TabPanel } from "./tabs.component";
+import {
+  StyledScrollButton,
+  StyledScrollButtonPlaceholder,
+} from "./tabs.style";
 import Icon from "../../icon";
 import Typography from "../../typography";
 import { assertLoggerComponentMessage } from "../../../__spec_helper__/__internal__/test-utils";
@@ -31,6 +35,20 @@ const TestComponent = ({ ...args }) => {
     </Tabs>
   );
 };
+
+/**
+ * These styled component exports are marked as uncovered by SWC instrumentation.
+ * Also unable to instanbul ignore exports.
+ * @see https://github.com/vercel/next.js/discussions/49504
+ * @todo Find way to cover using JSDOM in future if able
+ */
+test("`StyledScrollButton` is defined", () => {
+  expect(StyledScrollButton).toBeDefined();
+});
+
+test("`StyledScrollButtonPlaceholder` is defined", () => {
+  expect(StyledScrollButtonPlaceholder).toBeDefined();
+});
 
 test("shows a warning when slots are used with a non-string label", () => {
   const jestWarnSpy = jest.spyOn(console, "warn").mockImplementation();

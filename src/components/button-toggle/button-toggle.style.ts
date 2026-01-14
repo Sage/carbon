@@ -37,15 +37,6 @@ const paddingLargeIconConfig = {
   large: "var(--spacing100) var(--spacing300)",
 };
 
-const StyledButtonToggleContentWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  flex-flow: wrap;
-`;
-
 export interface StyledButtonToggleProps {
   /** The icon to be rendered inside of the button */
   buttonIcon?: IconType;
@@ -190,5 +181,4 @@ export {
   StyledButtonToggle,
   StyledButtonToggleWrapper,
   StyledButtonToggleIcon,
-  StyledButtonToggleContentWrapper,
 };

@@ -12,7 +12,7 @@ export interface BreadcrumbsProps extends TagProps, SpaceProps {
   isDarkBackground?: boolean;
 }
 
-export const Breadcrumbs = React.forwardRef<HTMLElement, BreadcrumbsProps>(
+const Breadcrumbs = React.forwardRef<HTMLElement, BreadcrumbsProps>(
   ({ children, isDarkBackground = false, ...rest }: BreadcrumbsProps, ref) => {
     const l = useLocale();
     return (

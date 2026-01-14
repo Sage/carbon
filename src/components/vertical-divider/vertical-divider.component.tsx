@@ -137,7 +137,7 @@ let deprecatedWarnTriggered = false;
 /**
  * @deprecated `VerticalDivider` has been deprecated. See the Carbon documentation for migration details.
  */
-export const VerticalDivider = ({
+const VerticalDivider = ({
   h,
   height,
   displayInline = false,

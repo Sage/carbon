@@ -3,7 +3,7 @@ import { StoryObj, composeStory } from "@storybook/react";
 import { userEvent, within, expect } from "@storybook/test";
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
 import DefaultDecorator from "../../../.storybook/utils/default-decorator";
-import { FlatTable } from "./flat-table.component";
+import FlatTable from "./flat-table.component";
 import meta, { DefaultStory, Paginated } from "./flat-table.stories";
 
 type Story = StoryObj<typeof FlatTable>;

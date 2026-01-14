@@ -75,7 +75,7 @@ export interface MessageProps extends MarginProps, TagProps {
   size?: "medium" | "large";
 }
 
-export const Message = React.forwardRef<HTMLDivElement, MessageProps>(
+const Message = React.forwardRef<HTMLDivElement, MessageProps>(
   (
     {
       open = true,

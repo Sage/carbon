@@ -28,7 +28,7 @@ export interface StepSequenceItemProps extends TagProps {
   children: React.ReactNode;
 }
 
-export const StepSequenceItem = ({
+const StepSequenceItem = ({
   hideIndicator = false,
   indicator,
   status = "incomplete",

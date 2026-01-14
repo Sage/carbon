@@ -45,7 +45,7 @@ export interface HelpProps extends MarginProps, TagProps {
   [key: string]: any;
 }
 
-export const Help = ({
+const Help = ({
   as,
   ariaLabel = "help",
   children,

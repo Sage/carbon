@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import Pages, { Page, PagesProps } from "./pages.component";
+import Pages, { PagesProps } from "./pages.component";
+import Page from "./page";
 import Button from "../button";
 import Heading from "../heading";
 

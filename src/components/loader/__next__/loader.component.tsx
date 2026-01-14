@@ -46,7 +46,7 @@ type CommonLoaderProps = {
 
 export type LoaderProps = MarginProps & TagProps & CommonLoaderProps;
 
-export const Loader = ({
+const Loader = ({
   animationTime,
   hasMotion = true,
   isTracked = false,

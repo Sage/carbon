@@ -18,7 +18,7 @@ export interface LoaderBarProps
     MarginProps,
     TagProps {}
 
-export const LoaderBar = ({ size = "medium", ...rest }: LoaderBarProps) => {
+const LoaderBar = ({ size = "medium", ...rest }: LoaderBarProps) => {
   const l = useLocale();
 
   const allowMotion = useMediaQuery(

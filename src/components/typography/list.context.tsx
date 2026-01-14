@@ -5,6 +5,6 @@ export interface ListContextProps {
   variant?: VariantTypes;
 }
 
-export const ListContext = React.createContext<ListContextProps>({});
+const ListContext = React.createContext<ListContextProps>({});
 
 export default ListContext;

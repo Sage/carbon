@@ -58,7 +58,7 @@ const getValidationType = ({ error, warning, info }: ValidationProps) => {
   return null;
 };
 
-export const ValidationIcon = ({
+const ValidationIcon = ({
   error,
   warning,
   info,

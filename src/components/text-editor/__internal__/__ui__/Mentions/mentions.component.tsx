@@ -31,7 +31,7 @@ import useLocale from "../../../../../hooks/__internal__/useLocale";
 
 import { MentionsList, TypeaheadPopover } from "./mentions.style";
 
-export const MentionsPlugin = ({
+const MentionsPlugin = ({
   namespace,
   searchOptions,
 }: {

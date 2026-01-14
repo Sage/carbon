@@ -68,7 +68,7 @@ export interface HeadingProps extends MarginProps, TagProps {
 /**
  * @deprecated `Heading` has been deprecated. See the Carbon documentation for migration details.
  */
-export const Heading = ({
+const Heading = ({
   children,
   backLink,
   divider = true,

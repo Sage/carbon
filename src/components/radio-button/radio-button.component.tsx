@@ -28,7 +28,7 @@ export interface RadioButtonProps
   helpAriaLabel?: string;
 }
 
-export const RadioButton = React.forwardRef<
+const RadioButton = React.forwardRef<
   HTMLInputElement,
   RadioButtonProps & InternalRadioButtonProps
 >(

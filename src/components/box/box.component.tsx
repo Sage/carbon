@@ -87,7 +87,7 @@ export interface BoxProps
   tabIndex?: number;
 }
 
-export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
+const Box = React.forwardRef<HTMLDivElement, BoxProps>(
   (
     {
       "data-component": dataComponent,

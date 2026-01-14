@@ -15,12 +15,7 @@ export interface FieldsetProps extends MarginProps, TagProps {
   required?: boolean;
 }
 
-export const Fieldset = ({
-  children,
-  legend,
-  required,
-  ...rest
-}: FieldsetProps) => {
+const Fieldset = ({ children, legend, required, ...rest }: FieldsetProps) => {
   const [ref, setRef] = useState<HTMLFieldSetElement | null>(null);
   const marginProps = filterStyledSystemMarginProps(rest);
   const { validationRedesignOptIn } = useContext(NewValidationContext);

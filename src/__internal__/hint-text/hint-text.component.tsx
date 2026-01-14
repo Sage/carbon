@@ -28,7 +28,7 @@ export interface HintTextProps {
   isLarge?: boolean;
 }
 
-export const HintText = ({
+const HintText = ({
   align,
   children,
   fontWeight,

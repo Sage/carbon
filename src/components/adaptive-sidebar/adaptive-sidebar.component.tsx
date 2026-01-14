@@ -46,7 +46,7 @@ export interface AdaptiveSidebarProps
   width?: string;
 }
 
-export const AdaptiveSidebar = ({
+const AdaptiveSidebar = ({
   adaptiveBreakpoint = 768,
   backgroundColor = "white",
   borderColor = "none",

@@ -39,10 +39,7 @@ export interface PicklistGroupProps {
 /**
  * @deprecated `PicklistGroup` has been deprecated. See the Carbon documentation for migration details.
  */
-export const PicklistGroup = React.forwardRef<
-  HTMLButtonElement,
-  PicklistGroupProps
->(
+const PicklistGroup = React.forwardRef<HTMLButtonElement, PicklistGroupProps>(
   (
     {
       title,

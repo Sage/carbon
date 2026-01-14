@@ -38,7 +38,7 @@ export interface FlatTableRowHeaderProps extends PaddingProps, TagProps {
   id?: string;
 }
 
-export const FlatTableRowHeader = ({
+const FlatTableRowHeader = ({
   align = "left",
   children,
   width,

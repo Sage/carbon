@@ -3,7 +3,7 @@ import { IconType } from "../icon";
 import { TooltipPositions } from "../tooltip/tooltip.config";
 import { HELP_POSITIONS } from "./help.config";
 import { ICONS } from "../icon/icon-config";
-import { Help } from "./help.component";
+import Help from "./help.component";
 
 export default {
   title: "Help/Test",

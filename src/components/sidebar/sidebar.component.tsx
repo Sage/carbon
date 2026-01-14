@@ -100,7 +100,7 @@ export interface SidebarProps
   hidden?: boolean;
 }
 
-export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
+const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
   (
     {
       "aria-describedby": ariaDescribedBy,

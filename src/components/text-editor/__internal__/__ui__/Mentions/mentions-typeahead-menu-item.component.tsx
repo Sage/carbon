@@ -30,7 +30,7 @@ const HighlightedText = ({ text, query }: { text: string; query?: string }) => {
   );
 };
 
-export const MentionsTypeaheadMenuItem = ({
+const MentionsTypeaheadMenuItem = ({
   index,
   isSelected,
   namespace,

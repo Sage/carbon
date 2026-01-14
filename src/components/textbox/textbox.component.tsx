@@ -136,7 +136,7 @@ export interface TextboxProps extends Omit<CommonTextboxProps, "defaultValue"> {
   characterLimit?: number;
 }
 
-export const Textbox = React.forwardRef(
+const Textbox = React.forwardRef(
   (
     {
       "aria-labelledby": ariaLabelledBy,

@@ -18,7 +18,7 @@ export interface GridItemProps
 /**
  * @deprecated `GridItem` has been deprecated. See the Carbon documentation for migration details.
  */
-export const GridItem = (props: GridItemProps) => {
+const GridItem = (props: GridItemProps) => {
   const { children, responsiveSettings, ...rest } = props;
   return (
     <StyledGridItem

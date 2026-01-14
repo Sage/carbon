@@ -91,7 +91,7 @@ export interface MultiSelectProps
   listWidth?: number;
 }
 
-export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
+const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
   (
     {
       "aria-label": ariaLabel,

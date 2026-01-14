@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-export const StyledPlaceHolder = styled.div`
+const StyledPlaceHolder = styled.div`
   overflow: hidden;
   position: relative;
   height: 152px;

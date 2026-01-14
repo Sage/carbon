@@ -1,6 +1,6 @@
 export { ResponsiveVerticalMenuProvider } from "./responsive-vertical-menu.context";
 
-export { ResponsiveVerticalMenu } from "./responsive-vertical-menu.component";
+export { default as ResponsiveVerticalMenu } from "./responsive-vertical-menu.component";
 export type {
   ResponsiveVerticalMenuProps,
   ResponsiveVerticalMenuHandle,

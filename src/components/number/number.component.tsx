@@ -26,7 +26,7 @@ function isValidNumber(value: string) {
 /**
  * @deprecated `Number` has been deprecated. See the Carbon documentation for migration details.
  */
-export const Number = React.forwardRef(
+const Number = React.forwardRef(
   (
     {
       onChange,

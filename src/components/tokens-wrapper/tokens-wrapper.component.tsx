@@ -19,10 +19,7 @@ const TokensGlobalStyle = createGlobalStyle`
   }
 `;
 
-export const TokensWrapper = ({
-  children,
-  height = "auto",
-}: TokenWrapperProps) => (
+const TokensWrapper = ({ children, height = "auto" }: TokenWrapperProps) => (
   <StyledTokensWrapper
     data-component="tokens-wrapper"
     data-role="tokens-wrapper"

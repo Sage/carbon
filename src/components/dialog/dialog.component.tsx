@@ -134,7 +134,7 @@ export type DialogHandle = {
 let deprecatedDisableCloseTrigger = false;
 let deprecatedPagesStylingTrigger = false;
 
-export const Dialog = forwardRef<DialogHandle, DialogProps>(
+const Dialog = forwardRef<DialogHandle, DialogProps>(
   (
     {
       className,

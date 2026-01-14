@@ -113,7 +113,7 @@ const getAs = (variant?: VariantTypes) => {
   }
 };
 
-export const Typography = ({
+const Typography = ({
   "data-component": dataComponent,
   variant = "p",
   as,

@@ -123,10 +123,7 @@ export type MenuItemHandle = {
   focus: () => void;
 } | null;
 
-export const MenuItem = forwardRef<
-  MenuItemHandle,
-  MenuWithChildren | MenuWithIcon
->(
+const MenuItem = forwardRef<MenuItemHandle, MenuWithChildren | MenuWithIcon>(
   (
     {
       submenu,

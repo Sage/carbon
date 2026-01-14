@@ -26,7 +26,7 @@ export interface AccordionGroupProps extends MarginProps, TagProps {
 
 let deprecatedWarnTriggered = false;
 
-export const AccordionGroup = ({ children, ...rest }: AccordionGroupProps) => {
+const AccordionGroup = ({ children, ...rest }: AccordionGroupProps) => {
   if (!deprecatedWarnTriggered) {
     deprecatedWarnTriggered = true;
     Logger.deprecate(

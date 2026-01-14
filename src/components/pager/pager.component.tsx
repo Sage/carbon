@@ -78,7 +78,7 @@ export interface PagerProps extends TagProps {
   smallScreenBreakpoint?: string;
 }
 
-export const Pager = ({
+const Pager = ({
   currentPage = 1,
   hideDisabledElements = false,
   interactivePageNumber = true,

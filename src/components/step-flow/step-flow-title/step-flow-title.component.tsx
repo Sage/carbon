@@ -17,7 +17,7 @@ export interface StepFlowTitleProps {
   screenReaderOnlyTitle?: string;
 }
 
-export const StepFlowTitle = ({
+const StepFlowTitle = ({
   titleString,
   titleVariant,
   screenReaderOnlyTitle,

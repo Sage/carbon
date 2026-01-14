@@ -12,7 +12,7 @@ import { createFromHTML, validateUrl } from "../../__utils__/helpers";
 
 import React, { useMemo } from "react";
 
-import { getTheme } from "../../__utils__/theme";
+import getTheme from "../../__utils__/theme";
 import { MARKDOWN_NODES } from "../../__utils__/constants";
 import Logger from "../../../../../__internal__/utils/logger";
 import StyledContentEditable from "../ContentEditor/content-editor.style";

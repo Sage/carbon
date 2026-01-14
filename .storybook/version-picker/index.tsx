@@ -7,7 +7,7 @@ import {
 } from "@storybook/components";
 import compareBuild from "semver/functions/compare-build";
 
-import { TOOL_ID } from "./constants";
+import { TOOL_ID } from "./constants/constants";
 import fetchData from "./fetch-data";
 
 const getDisplayedItems = (

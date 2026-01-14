@@ -21,7 +21,7 @@ export interface BatchSelectionProps extends TagProps {
   selectedCount: number;
 }
 
-export const BatchSelection = ({
+const BatchSelection = ({
   disabled = false,
   children,
   colorTheme = "transparent",

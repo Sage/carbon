@@ -47,7 +47,7 @@ type TestEditorProps = {
   onEditorReady?: (editor: LexicalEditor, helpers: TestEditorHelpers) => void;
 };
 
-export const TestEditor = ({
+const TestEditor = ({
   children,
   namespace = "test",
   onEditorReady,

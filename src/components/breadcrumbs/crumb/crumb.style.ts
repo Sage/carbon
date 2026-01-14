@@ -45,5 +45,3 @@ export const Divider = styled.span<DividerProps>`
     `}
   }
 `;
-
-export default { StyledCrumb, Divider };

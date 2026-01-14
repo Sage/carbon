@@ -42,10 +42,7 @@ export interface PicklistItemProps {
 /**
  * @deprecated `PicklistItem` has been deprecated. See the Carbon documentation for migration details.
  */
-export const PicklistItem = React.forwardRef<
-  HTMLButtonElement,
-  PicklistItemProps
->(
+const PicklistItem = React.forwardRef<HTMLButtonElement, PicklistItemProps>(
   (
     {
       children,

@@ -41,7 +41,7 @@ export interface PillProps extends StyledPillProps, TagProps {
 
 let neutralWhiteWarnTriggered = false;
 
-export const Pill = ({
+const Pill = ({
   wrapText,
   borderColor,
   colorVariant = "neutral",

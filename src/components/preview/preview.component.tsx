@@ -26,7 +26,7 @@ export interface PreviewProps extends MarginProps, TagProps {
   disableAnimation?: boolean;
 }
 
-export const Preview = ({
+const Preview = ({
   children,
   loading,
   lines = 1,

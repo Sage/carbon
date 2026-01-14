@@ -69,7 +69,7 @@ export interface ConfirmProps
 /**
  * @deprecated See the Carbon documentation for migration details.
  */
-export const Confirm = ({
+const Confirm = ({
   "aria-labelledby": ariaLabelledBy,
   "aria-describedby": ariaDescribedBy,
   "aria-label": ariaLabel,

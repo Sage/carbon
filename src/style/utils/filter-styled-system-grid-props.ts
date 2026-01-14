@@ -1,7 +1,7 @@
 import { GridProps } from "styled-system";
 import filterObjectProperties from "../../__internal__/filter-object-properties";
 
-export const gridPropertyNames = [
+const gridPropertyNames = [
   "gridColumn",
   "gridRow",
   "gridArea",

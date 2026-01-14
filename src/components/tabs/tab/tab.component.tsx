@@ -62,7 +62,7 @@ export interface TabProps extends PaddingProps, TagProps {
 
 let deprecateHrefWarningTriggered = false;
 
-export const Tab = ({
+const Tab = ({
   ariaLabelledby,
   children,
   isTabSelected,

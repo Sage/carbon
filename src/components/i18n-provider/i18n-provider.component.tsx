@@ -9,7 +9,7 @@ export interface I18nProviderProps {
   children: React.ReactNode;
 }
 
-export const I18nProvider = ({ locale, children }: I18nProviderProps) =>
+const I18nProvider = ({ locale, children }: I18nProviderProps) =>
   locale ? (
     <Context.Provider value={merge({}, enGB, locale)}>
       {children}

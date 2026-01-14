@@ -377,7 +377,7 @@ const BaseItem = forwardRef<HTMLElement, BaseItemProps>(
 );
 
 // Main component for the responsive vertical menu item
-export const ResponsiveVerticalMenuItem = ({
+const ResponsiveVerticalMenuItem = ({
   children,
   id,
   label,

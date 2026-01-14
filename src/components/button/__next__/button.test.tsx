@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import React from "react";
 import Button, { ButtonHandle } from "./button.component";
 import Box from "../../box";
-import { Loader } from "../../loader/__next__/loader.component";
+import Loader from "../../loader/__next__/loader.component";
 
 import Icon from "../../icon";
 import { Size, Variant, VariantType } from "./button.config";

@@ -37,7 +37,7 @@ export interface SettingsRowProps extends MarginProps, TagProps {
 /**
  * @deprecated `SettingsRow` has been deprecated. See the Carbon documentation for migration details.
  */
-export const SettingsRow = ({
+const SettingsRow = ({
   title,
   headingType = "h3",
   children,

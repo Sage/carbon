@@ -3,7 +3,7 @@ import { useRef, useCallback } from "react";
 // This is a hook that returns a memoized callback that is guaranteed to be the same reference between renders.
 // This is useful when a stable reference is required to prevent unnecessary re-renders.
 
-export function useStableCallback(callback?: (...args: unknown[]) => unknown) {
+function useStableCallback(callback?: (...args: unknown[]) => unknown) {
   const ref = useRef(callback);
   ref.current = callback;
 

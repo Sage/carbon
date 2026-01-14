@@ -38,7 +38,7 @@ export interface SimpleColorProps {
   className?: string;
 }
 
-export const SimpleColor = React.forwardRef<HTMLInputElement, SimpleColorProps>(
+const SimpleColor = React.forwardRef<HTMLInputElement, SimpleColorProps>(
   (props: SimpleColorProps, ref) => {
     const {
       onChange,

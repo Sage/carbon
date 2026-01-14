@@ -23,7 +23,7 @@ export interface PicklistProps {
 /**
  * @deprecated `Picklist` has been deprecated. See the Carbon documentation for migration details.
  */
-export const Picklist = ({
+const Picklist = ({
   disabled,
   children,
   placeholder,

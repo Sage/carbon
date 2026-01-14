@@ -1,5 +1,8 @@
 import { RefObject } from "react";
 
+export const TAB_GUARD_TOP = "tab-guard-top";
+export const TAB_GUARD_BOTTOM = "tab-guard-bottom";
+
 const defaultFocusableSelectors =
   'button:not([disabled]), [href], input:not([type="hidden"]):not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]';
 
@@ -241,7 +244,6 @@ const trapFunction = (
 
 export {
   defaultFocusableSelectors,
-  getNextElement,
   setElementFocus,
   onTabGuardFocus,
   trapFunction,

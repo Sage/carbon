@@ -1,7 +1,7 @@
 import React, { useState, useEffect, ReactNode } from "react";
 import TopModalContext from "./top-modal.context";
 
-export const TopModalProvider = ({ children }: { children: ReactNode }) => {
+const TopModalProvider = ({ children }: { children: ReactNode }) => {
   const [topModal, setTopModal] = useState<HTMLElement | null>(null);
 
   useEffect(() => {

@@ -8,6 +8,7 @@ import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext
 import { LexicalTypeaheadMenuPlugin } from "@lexical/react/LexicalTypeaheadMenuPlugin";
 import { $createMentionNode } from "../../__nodes__/mention.node";
 import { $createTextNode, $isTextNode } from "lexical";
+import { MentionsList, TypeaheadPopover } from "./mentions.style";
 
 // Mock the Lexical hooks and components
 jest.mock("@lexical/react/LexicalComposerContext", () => ({
@@ -43,6 +44,20 @@ jest.mock("../../../../../hooks/__internal__/useLocale", () => () => ({
     },
   },
 }));
+
+/**
+ * These styled component exports are marked as uncovered by SWC instrumentation.
+ * Also unable to instanbul ignore exports.
+ * @see https://github.com/vercel/next.js/discussions/49504
+ * @todo Find way to cover using JSDOM in future if able, or remove test suite in favour of playwright
+ */
+test("`TypeaheadPopover` is defined", () => {
+  expect(TypeaheadPopover).toBeDefined();
+});
+
+test("`MentionsList` is defined", () => {
+  expect(MentionsList).toBeDefined();
+});
 
 describe("when checkForAtSignMentions function is called", () => {
   it("returns null for plain text", () => {

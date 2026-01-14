@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { $getRoot, LexicalEditor, TextNode, ParagraphNode } from "lexical";
 import React from "react";
 
-import { TestEditor, TestEditorHelpers } from "../../../TestEditor.component";
+import TestEditor, { TestEditorHelpers } from "../../../TestEditor.component";
 
 import { BoldButton } from ".";
 

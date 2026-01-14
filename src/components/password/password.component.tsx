@@ -11,7 +11,7 @@ export interface PasswordProps extends Omit<TextboxProps, "data-component"> {
   forceObscurity?: boolean;
 }
 
-export const Password = ({
+const Password = ({
   id,
   disabled,
   forceObscurity = false,

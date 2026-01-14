@@ -3,7 +3,7 @@ import invariant from "invariant";
 import { StyledImage, StyledImageProps } from "./image.style";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 
-export const Image = ({
+const Image = ({
   alt,
   decorative = false,
   src,

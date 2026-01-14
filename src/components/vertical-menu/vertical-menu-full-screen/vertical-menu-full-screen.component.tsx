@@ -37,7 +37,7 @@ export interface VerticalMenuFullScreenProps extends TagProps {
   ) => void;
 }
 
-export const VerticalMenuFullScreen = ({
+const VerticalMenuFullScreen = ({
   "aria-label": ariaLabel,
   "aria-labelledby": ariaLabelledBy,
   children,

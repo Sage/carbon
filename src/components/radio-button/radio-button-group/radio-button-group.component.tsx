@@ -63,7 +63,7 @@ export interface RadioButtonGroupProps
   validationMessagePositionTop?: boolean;
 }
 
-export const RadioButtonGroup = ({
+const RadioButtonGroup = ({
   children,
   id,
   name,
