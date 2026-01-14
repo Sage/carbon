@@ -1,3 +1,9 @@
+## [158.16.1](https://github.com/Sage/carbon/compare/v158.16.0...v158.16.1) (2026-01-14)
+
+### Bug Fixes
+
+* **text-editor:** assistive technologies announce read only when appropriate ([21b2575](https://github.com/Sage/carbon/commit/21b25758bcd3a0d64502e26e978ef2851a897329)), closes [#7693](https://github.com/Sage/carbon/issues/7693)
+
 ## [158.16.0](https://github.com/Sage/carbon/compare/v158.15.2...v158.16.0) (2026-01-12)
 
 ### Features
