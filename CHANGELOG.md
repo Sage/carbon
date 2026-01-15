@@ -1,3 +1,9 @@
+## [158.18.0](https://github.com/Sage/carbon/compare/v158.17.0...v158.18.0) (2026-01-15)
+
+### Features
+
+* **version-picker:** remove env variable check ([1954632](https://github.com/Sage/carbon/commit/1954632b9be9088de4fa33e3d461eb803e24ffc2))
+
 ## [158.17.0](https://github.com/Sage/carbon/compare/v158.16.1...v158.17.0) (2026-01-15)
 
 ### Features
