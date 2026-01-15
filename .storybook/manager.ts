@@ -9,14 +9,18 @@ import { InteractionToggle } from "./interaction-toggle/reduced-motion";
 import VersionPicker from "./version-picker";
 import { API_PreparedIndexEntry, API_StatusObject } from "@storybook/types";
 
-addons.register(ADDON_ID, () => {
-  addons.add(TOOL_ID, {
-    type: types.TOOL,
-    title: "Version picker",
-    match: ({ viewMode }) => !!(viewMode && viewMode.match(/^(story|docs)$/)),
-    render: VersionPicker,
+const useVersionPicker = process.env.USE_VERSION_PICKER === "true";
+
+if (useVersionPicker) {
+  addons.register(ADDON_ID, () => {
+    addons.add(TOOL_ID, {
+      type: types.TOOL,
+      title: "Version picker",
+      match: ({ viewMode }) => !!(viewMode && viewMode.match(/^(story|docs)$/)),
+      render: VersionPicker,
+    });
   });
-});
+}
 
 addons.register(INTERACTION_TOGGLE_ADDON_ID, () => {
   addons.add(INTERACTION_TOGGLE_TOOL_ID, {
