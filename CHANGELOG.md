@@ -1,3 +1,9 @@
+## [158.19.0](https://github.com/Sage/carbon/compare/v158.18.0...v158.19.0) (2026-01-15)
+
+### Features
+
+* **locale:** add portuguese locale ([028f994](https://github.com/Sage/carbon/commit/028f9946d1d7d3a5c6549bd4dcbce55ea376ee6f))
+
 ## [158.18.0](https://github.com/Sage/carbon/compare/v158.17.0...v158.18.0) (2026-01-15)
 
 ### Features
