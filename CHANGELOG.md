@@ -1,3 +1,9 @@
+## [158.19.1](https://github.com/Sage/carbon/compare/v158.19.0...v158.19.1) (2026-01-15)
+
+### Bug Fixes
+
+* **tabs:** tabs announce status states ([b760662](https://github.com/Sage/carbon/commit/b7606623e3f947726db2e9f0f0c7542419babff4)), closes [#7692](https://github.com/Sage/carbon/issues/7692)
+
 ## [158.19.0](https://github.com/Sage/carbon/compare/v158.18.0...v158.19.0) (2026-01-15)
 
 ### Features
