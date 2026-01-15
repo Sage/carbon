@@ -26,6 +26,7 @@ import {
 } from "./tabs.style";
 import Logger from "../../../__internal__/utils/logger";
 import useResizeObserver from "../../../hooks/__internal__/useResizeObserver";
+import useLocale from "../../../hooks/__internal__/useLocale";
 import Icon from "../../icon";
 import { TabProvider } from "./tab.context";
 import usePrevious from "../../../hooks/__internal__/usePrevious";
@@ -54,6 +55,7 @@ export const Tab = ({
   warning = false,
   info = false,
 }: TabProps) => {
+  const locale = useLocale();
   const [internalError, setInternalError] = useState<boolean | string>(error);
   const [internalWarning, setInternalWarning] = useState<boolean | string>(
     warning,
@@ -153,17 +155,38 @@ export const Tab = ({
   const validationIcon = () => {
     if (internalError || internalWarning || internalInfo) {
       if (internalError) {
-        return <Icon data-role="icon-error" type="error" color="#db004e" />;
+        return (
+          <Icon
+            data-role="icon-error"
+            type="error"
+            ariaLabel={locale.tabs.error()}
+            color="#db004e"
+          />
+        );
       }
 
       /* istanbul ignore else */
       if (internalWarning) {
-        return <Icon data-role="icon-warning" type="warning" color="#d64309" />;
+        return (
+          <Icon
+            data-role="icon-warning"
+            type="warning"
+            ariaLabel={locale.tabs.warning()}
+            color="#d64309"
+          />
+        );
       }
 
       /* istanbul ignore else */
       if (internalInfo) {
-        return <Icon data-role="icon-info" type="info" color="#0060a7ff" />;
+        return (
+          <Icon
+            data-role="icon-info"
+            type="info"
+            ariaLabel={locale.tabs.info()}
+            color="#0060a7ff"
+          />
+        );
       }
     }
 

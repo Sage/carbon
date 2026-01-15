@@ -61,6 +61,7 @@ const globalTypes = {
         { value: "es-ES", right: "🇪🇸", title: "Español" },
         { value: "fr-FR", right: "🇫🇷", title: "Français" },
         { value: "fr-CA", right: "🇨🇦", title: "Français - Canada" },
+        { value: "pt-PT", right: "🇵🇹", title: "Português - Portugal" },
       ],
     },
   },
