@@ -203,6 +203,13 @@ test("calls onChange once when selected text content is removed", async () => {
   });
 });
 
+test("renders content editor with provided id", () => {
+  render(<TextEditor labelText="Example" id="text-editor-id" />);
+  const editor = screen.getByRole("textbox", { name: "Example" });
+
+  expect(editor).toHaveAttribute("id", "text-editor-id");
+});
+
 test("input hint renders correctly when inputHint prop is provided", () => {
   // render the TextEditor component with an input hint
   render(<TextEditor inputHint="This is an input hint" labelText="Example" />);
