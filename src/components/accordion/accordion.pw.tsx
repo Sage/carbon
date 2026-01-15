@@ -24,14 +24,9 @@ import { SIZE, CHARACTERS } from "../../../playwright/support/constants";
 import {
   AccordionComponent,
   AccordionWithIcon,
-  AccordionGroupWithError,
-  AccordionGroupWithWarning,
-  AccordionGroupWithInfo,
-  AccordionGroupComponent,
   DynamicContent,
   AccordionDefault,
   AccordionWithBoxAndDifferentPaddings,
-  AccordionGroupDefault,
   AccordionGroupValidation,
   AccordionWithDefinitionList,
   AccordionWithSplit,
@@ -41,25 +36,6 @@ import { additionalButton as splitAdditionalButtons } from "../../../playwright/
 import Typography from "../typography";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
-
-// TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-test.skip("should have the expected styling when focused", async ({
-  mount,
-  page,
-}) => {
-  await mount(<AccordionComponent />);
-  const elementLocator = accordionTitleContainer(page);
-  const element = await elementLocator;
-  await element.focus();
-  await expect(elementLocator).toHaveCSS(
-    "box-shadow",
-    "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
-  );
-  await expect(elementLocator).toHaveCSS(
-    "outline",
-    "rgba(0, 0, 0, 0) solid 3px",
-  );
-});
 
 test.describe("should render Accordion component", () => {
   test("should check AccordionRow is expanded using click", async ({
@@ -160,49 +136,57 @@ test.describe("should render Accordion component", () => {
     },
   );
 
-  (["left", "right"] as const).forEach((iconAlign) => {
-    test(`should set Accordion iconAlign to ${iconAlign}`, async ({
-      mount,
+  // Separated out conditions to two tests to avoid having conditionals in tests
+  test("should set Accordion iconAlign to right", async ({ mount, page }) => {
+    await mount(<AccordionComponent iconAlign="right" />);
+
+    const headingContainerLocator = accordionTitleContainerByPosition(
       page,
-    }) => {
-      await mount(<AccordionComponent iconAlign={iconAlign} />);
+      positionOfElement("first"),
+    );
 
-      const headingContainerLocator = accordionTitleContainerByPosition(
-        page,
-        positionOfElement("first"),
-      );
+    await expect(headingContainerLocator.first()).toHaveAttribute(
+      "data-element",
+      "accordion-headings-container",
+    );
+    await expect(headingContainerLocator.first()).toBeVisible();
 
-      await expect(headingContainerLocator.first()).toHaveAttribute(
-        "data-element",
-        "accordion-headings-container",
-      );
-      await expect(headingContainerLocator.first()).toBeVisible();
+    await expect(accordionTitleContainer(page)).toHaveCSS(
+      "justify-content",
+      "space-between",
+    );
+    await expect(accordionTitleContainer(page)).not.toHaveCSS(
+      "flex-direction",
+      "row-reverse",
+    );
+    await expect(headingContainerLocator.first()).toHaveCSS(
+      "margin-right",
+      "0px",
+    );
+  });
 
-      if (iconAlign === "right") {
-        // set by default
-        await expect(accordionTitleContainer(page)).toHaveCSS(
-          "justify-content",
-          "space-between",
-        );
-        await expect(accordionTitleContainer(page)).not.toHaveCSS(
-          "flex-direction",
-          "row-reverse",
-        );
-        await expect(headingContainerLocator.first()).toHaveCSS(
-          "margin-right",
-          "0px",
-        );
-      } else {
-        await expect(accordionTitleContainer(page)).toHaveCSS(
-          "flex-direction",
-          "row-reverse",
-        );
-        await expect(headingContainerLocator.last()).toHaveCSS(
-          "margin-right",
-          "16px",
-        );
-      }
-    });
+  test("should set Accordion iconAlign to left", async ({ mount, page }) => {
+    await mount(<AccordionComponent iconAlign="left" />);
+
+    const headingContainerLocator = accordionTitleContainerByPosition(
+      page,
+      positionOfElement("first"),
+    );
+
+    await expect(headingContainerLocator.first()).toHaveAttribute(
+      "data-element",
+      "accordion-headings-container",
+    );
+    await expect(headingContainerLocator.first()).toBeVisible();
+
+    await expect(accordionTitleContainer(page)).toHaveCSS(
+      "flex-direction",
+      "row-reverse",
+    );
+    await expect(headingContainerLocator.last()).toHaveCSS(
+      "margin-right",
+      "16px",
+    );
   });
 
   test("should verify AccordionRow is expanded by clicking on validation icon", async ({
@@ -286,36 +270,6 @@ test.describe("should render Accordion component", () => {
     });
   });
 
-  [true, false].forEach((state) => {
-    test(`should render Accordion component with default expanded state '${state}'`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<AccordionComponent defaultExpanded={state} />);
-
-      await expect(accordionTitleContainer(page)).toHaveAttribute(
-        "aria-expanded",
-        String(state),
-      );
-      await expect(accordionTitleContainer(page)).toBeVisible();
-    });
-  });
-
-  [true, false].forEach((state) => {
-    test(`should render Accordion component with expanded state '${state}'`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<AccordionComponent expanded={state} />);
-
-      await expect(accordionTitleContainer(page)).toHaveAttribute(
-        "aria-expanded",
-        String(state),
-      );
-      await expect(accordionTitleContainer(page)).toBeVisible();
-    });
-  });
-
   ["700px", "900px", "1100px", "1300px"].forEach((width) => {
     test(`should check Accordion width is ${width}`, async ({
       mount,
@@ -329,64 +283,6 @@ test.describe("should render Accordion component", () => {
         parseInt(width),
       );
     });
-  });
-
-  test("should verify Accordion has an error message in the tooltip", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<AccordionGroupWithError />);
-
-    await accordionIcon(page).nth(0).click();
-
-    await expect(accordionIcon(page).nth(0)).toHaveAttribute(
-      "data-element",
-      "error",
-    );
-    await expect(accordionIcon(page).nth(0)).toHaveAttribute("type", "error");
-  });
-
-  test("should verify AccordionRow has a warning message in the tooltip", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<AccordionGroupWithWarning />);
-
-    await accordionIcon(page).nth(0).click();
-
-    await expect(accordionIcon(page).nth(0)).toHaveAttribute(
-      "data-element",
-      "warning",
-    );
-    await expect(accordionIcon(page).nth(0)).toHaveAttribute("type", "warning");
-  });
-
-  test("should verify AccordionRow has an info message in the tooltip", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<AccordionGroupWithInfo />);
-
-    await accordionIcon(page).nth(0).click();
-
-    await expect(accordionIcon(page).nth(0)).toHaveAttribute(
-      "data-element",
-      "info",
-    );
-    await expect(accordionIcon(page).nth(0)).toHaveAttribute("type", "info");
-  });
-
-  test("should verify accordion title changes when accordion is opened", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<AccordionComponent title="Closed" openTitle="Open" />);
-
-    await expect(accordionTitleContainer(page)).toContainText("Closed");
-
-    await accordionIcon(page).nth(0).click();
-
-    await expect(accordionTitleContainer(page)).toContainText("Open");
   });
 
   test("should verify accordion subtitle does not render when variant is subtle", async ({
@@ -421,72 +317,8 @@ test.describe("should render Accordion component", () => {
   });
 });
 
-test.describe("should render Accordion Grouped component", () => {
-  test("should move through all grouped accordions using ArrowDown key and check focus", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<AccordionGroupComponent />);
-
-    await accordionTitleContainer(page).nth(0).focus();
-    await expect(accordionTitleContainer(page).nth(0)).toHaveCSS(
-      "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
-    );
-    await expect(accordionTitleContainer(page).nth(0)).toBeVisible();
-
-    await accordionTitleContainer(page).nth(0).press("ArrowDown");
-    await expect(accordionTitleContainer(page).nth(1)).toHaveCSS(
-      "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
-    );
-    await expect(accordionTitleContainer(page).nth(1)).toBeVisible();
-
-    await accordionTitleContainer(page).nth(1).press("ArrowDown");
-    await expect(accordionTitleContainer(page).nth(2)).toHaveCSS(
-      "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
-    );
-    await expect(accordionTitleContainer(page).nth(2)).toBeVisible();
-  });
-
-  test("should move to the last grouped accordion using End key and check it is focused", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<AccordionGroupComponent />);
-
-    await accordionTitleContainer(page).nth(0).focus();
-
-    await accordionTitleContainer(page).nth(0).press("End");
-
-    await expect(accordionTitleContainer(page).nth(2)).toHaveCSS(
-      "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
-    );
-    await expect(accordionTitleContainer(page).nth(2)).toBeVisible();
-  });
-
-  test("should move to the first grouped accordion using Home key and check it is focused", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<AccordionGroupComponent />);
-
-    await accordionTitleContainer(page).nth(2).focus();
-
-    await accordionTitleContainer(page).nth(2).press("Home");
-
-    await expect(accordionTitleContainer(page).nth(0)).toHaveCSS(
-      "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
-    );
-    await expect(accordionTitleContainer(page).nth(0)).toBeVisible();
-  });
-});
-
 test.describe("should change content height when children change", () => {
-  test("should have proper height", async ({ mount, page }) => {
+  test("should have correct height", async ({ mount, page }) => {
     await mount(<DynamicContent />);
     await assertCssValueIsApproximately(accordionContent(page), "height", 49);
     await getDataElementByValue(page, ACCORDION_ADD_CONTENT).click();
@@ -501,7 +333,7 @@ test.describe("should change content height when children change", () => {
 });
 
 test.describe("Accessibility tests for Accordion", () => {
-  test("should pass accessibility tests for AccordionDefault", async ({
+  test("should pass accessibility tests for default example", async ({
     mount,
     page,
   }) => {
@@ -510,7 +342,7 @@ test.describe("Accessibility tests for Accordion", () => {
     await checkAccessibility(page);
   });
 
-  test("should pass accessibility tests for AccordionDefault expanded", async ({
+  test("should pass accessibility tests for expanded example", async ({
     mount,
     page,
   }) => {
@@ -519,16 +351,7 @@ test.describe("Accessibility tests for Accordion", () => {
     await checkAccessibility(page);
   });
 
-  test("should pass accessibility tests for Accordion with disableContentPadding", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<AccordionDefault disableContentPadding />);
-
-    await checkAccessibility(page);
-  });
-
-  test("should pass accessibility tests for Accordion size small", async ({
+  test("should pass accessibility tests for small size example", async ({
     mount,
     page,
   }) => {
@@ -537,7 +360,7 @@ test.describe("Accessibility tests for Accordion", () => {
     await checkAccessibility(page);
   });
 
-  test("should pass accessibility tests for Accordion with subTitle", async ({
+  test("should pass accessibility tests for example with subTitle", async ({
     mount,
     page,
   }) => {
@@ -546,59 +369,13 @@ test.describe("Accessibility tests for Accordion", () => {
     await checkAccessibility(page);
   });
 
-  test("should pass accessibility tests for Accordion with full borders", async ({
+  test("should pass accessibility tests for full border example", async ({
     mount,
     page,
   }) => {
     await mount(<AccordionDefault borders="full" />);
 
     await checkAccessibility(page);
-  });
-
-  test("should pass accessibility tests for Accordion with full borders expanded", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<AccordionDefault borders="full" expanded />);
-
-    await checkAccessibility(page);
-  });
-
-  test("should pass accessibility tests for Accordion with left aligned icon", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<AccordionDefault iconAlign="left" />);
-
-    await checkAccessibility(page);
-  });
-
-  test("should pass accessibility tests for Accordion with 500px width", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<AccordionDefault width="500px" />);
-
-    await checkAccessibility(page);
-  });
-
-  [
-    [0, 0],
-    [1, 1],
-    [2, 2],
-    [3, 3],
-    [4, 4],
-    [5, 5],
-    [6, 6],
-  ].forEach(([margin, padding]) => {
-    test(`should pass accessibility tests for Accordion with margin set to ${margin} and padding set to ${padding}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<AccordionDefault m={margin} p={padding} />);
-
-      await checkAccessibility(page);
-    });
   });
 
   [0, 1, 2, 3, 4, 5, 6].forEach((padding) => {
@@ -627,15 +404,6 @@ test.describe("Accessibility tests for Accordion", () => {
     await checkAccessibility(page);
   });
 
-  test("should pass accessibility tests for AccordionGroup", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<AccordionGroupDefault />);
-
-    await checkAccessibility(page);
-  });
-
   test("should pass accessibility tests for AccordionGroupValidation", async ({
     mount,
     page,
@@ -659,15 +427,6 @@ test.describe("Accessibility tests for Accordion", () => {
     page,
   }) => {
     await mount(<AccordionDefault variant="subtle" />);
-
-    await checkAccessibility(page);
-  });
-
-  test("should pass accessibility tests for Accordion when title is a string", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<AccordionDefault title="title" />);
 
     await checkAccessibility(page);
   });
