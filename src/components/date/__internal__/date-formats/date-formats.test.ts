@@ -9,6 +9,7 @@ const euLocales = [
   "de",
   "pl",
   "bg",
+  "pt",
   "zh-HK", // currently still using EU style formatting
 ];
 const naLocales = ["en-US", "en-CA"];
