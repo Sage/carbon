@@ -17,6 +17,10 @@ import {
 import MenuItemContext from "./__internal__/menu-item.context";
 import { useVerticalMenuContext } from "../__internal__/vertical-menu.context";
 
+export type VerticalMenuItemClickEvent =
+  | React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
+  | React.KeyboardEvent<HTMLButtonElement | HTMLAnchorElement>;
+
 export interface VerticalMenuItemProps<T = React.ElementType>
   extends PaddingProps,
     TagProps {
@@ -36,6 +40,8 @@ export interface VerticalMenuItemProps<T = React.ElementType>
   height?: string;
   /**  Href, when passed the menu item will be rendered as an anchor tag */
   href?: string;
+  /** A custom click handler to run when the menu item is clicked */
+  onClick?: (event: VerticalMenuItemClickEvent) => void;
   /** Optional component to render instead of the default div, useful for rendering router link components */
   component?: T;
 }
@@ -55,14 +61,18 @@ export const VerticalMenuItem = <T,>({
   active,
   height = "56px",
   href,
+  onClick,
   ...rest
 }: T extends React.ElementType
   ? InferredComponentProps<T> & VerticalMenuItemProps<T>
   : VerticalMenuItemProps) => {
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
-  const handleOnClick = () => {
+  const handleOnClick = (e: VerticalMenuItemClickEvent) => {
     setIsOpen((state) => !state);
+    if (onClick) {
+      onClick(e);
+    }
   };
 
   const { level } = useContext(MenuItemContext);
@@ -75,32 +85,28 @@ export const VerticalMenuItem = <T,>({
   const shouldDisplayActiveState =
     typeof active === "function" ? active(isOpen) : active;
 
-  let itemProps = {};
-
-  if (href) {
-    itemProps = {
+  const itemProps = {
+    ...(href && {
       as: "a",
       href,
-    };
-  }
-
-  if (component) {
-    itemProps = {
-      as: component,
-      href,
-      tabIndex: 0,
-      ...rest,
-    };
-  }
-
-  if (children) {
-    itemProps = {
-      as: "button",
-      type: "button",
-      "aria-expanded": isOpen,
+    }),
+    ...(!href &&
+      component && {
+        as: component,
+        tabIndex: 0,
+      }),
+    ...(!href &&
+      !component &&
+      (children || onClick) && {
+        as: "button",
+        type: "button",
+        "aria-expanded": isOpen,
+      }),
+    ...((href || !component) && {
       onClick: handleOnClick,
-    };
-  }
+    }),
+    ...rest,
+  };
 
   const paddingX = `calc(var(--spacing500) + (${level} * var(--spacing400)))`;
 

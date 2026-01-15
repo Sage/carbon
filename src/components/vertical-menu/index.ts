@@ -2,7 +2,10 @@ export { default as VerticalMenu } from "./vertical-menu.component";
 export type { VerticalMenuProps } from "./vertical-menu.component";
 
 export { default as VerticalMenuItem } from "./vertical-menu-item/vertical-menu-item.component";
-export type { VerticalMenuItemProps } from "./vertical-menu-item/vertical-menu-item.component";
+export type {
+  VerticalMenuItemClickEvent,
+  VerticalMenuItemProps,
+} from "./vertical-menu-item/vertical-menu-item.component";
 
 export { default as VerticalMenuFullScreen } from "./vertical-menu-full-screen/vertical-menu-full-screen.component";
 export type { VerticalMenuFullScreenProps } from "./vertical-menu-full-screen/vertical-menu-full-screen.component";

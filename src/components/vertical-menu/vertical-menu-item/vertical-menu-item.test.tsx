@@ -118,6 +118,28 @@ describe("VerticalMenuItem", () => {
       expect(link).toBeVisible();
     });
 
+    it("should render as a button when children are passed", () => {
+      render(
+        <VerticalMenu>
+          <VerticalMenuItem title="Item1">
+            <VerticalMenuItem title="ChildItem1" />
+          </VerticalMenuItem>
+        </VerticalMenu>,
+      );
+      const button = screen.getByRole("button");
+      expect(button).toBeVisible();
+    });
+
+    it("should render as a button when `onClick` is passed without children", () => {
+      render(
+        <VerticalMenu>
+          <VerticalMenuItem title="Item1" onClick={() => {}} />
+        </VerticalMenu>,
+      );
+      const button = screen.getByRole("button");
+      expect(button).toBeVisible();
+    });
+
     it("should render custom component when passed as a prop", () => {
       interface CustomComponentProps {
         customComponentTitle: string;
@@ -144,6 +166,136 @@ describe("VerticalMenuItem", () => {
         </VerticalMenu>,
       );
       expect(screen.getByText("Custom component")).toBeVisible();
+    });
+
+    it("should render anchor with precedence when both `href` and children are passed", () => {
+      render(
+        <VerticalMenu>
+          <VerticalMenuItem title="Item1" href="#">
+            <VerticalMenuItem title="ChildItem1" />
+          </VerticalMenuItem>
+        </VerticalMenu>,
+      );
+      const link = screen.getByRole("link");
+      expect(link).toBeVisible();
+      expect(screen.queryByRole("button")).not.toBeInTheDocument();
+    });
+
+    it("should render anchor with precedence when both `href` and `onClick` are passed", () => {
+      render(
+        <VerticalMenu>
+          <VerticalMenuItem title="Item1" href="#" onClick={() => {}} />
+        </VerticalMenu>,
+      );
+      const link = screen.getByRole("link");
+      expect(link).toBeVisible();
+      expect(screen.queryByRole("button")).not.toBeInTheDocument();
+    });
+
+    it("should render custom component with precedence when both component and children are passed", () => {
+      interface CustomComponentProps {
+        customComponentTitle: string;
+        children?: React.ReactNode;
+      }
+
+      const CustomComponent = ({
+        customComponentTitle,
+        children,
+      }: CustomComponentProps) => (
+        <>
+          <div>{customComponentTitle}</div>
+          <div>{children}</div>
+        </>
+      );
+
+      render(
+        <VerticalMenu>
+          <VerticalMenuItem
+            title="Item1"
+            component={CustomComponent}
+            customComponentTitle="Custom component"
+          >
+            <VerticalMenuItem title="ChildItem1" />
+          </VerticalMenuItem>
+        </VerticalMenu>,
+      );
+      expect(screen.getByText("Custom component")).toBeVisible();
+      expect(screen.queryByRole("button")).not.toBeInTheDocument();
+    });
+
+    it("should render custom component with precedence when both component and `onClick` are passed", () => {
+      interface CustomComponentProps {
+        customComponentTitle: string;
+        children?: React.ReactNode;
+      }
+
+      const CustomComponent = ({
+        customComponentTitle,
+        children,
+      }: CustomComponentProps) => (
+        <>
+          <div>{customComponentTitle}</div>
+          <div>{children}</div>
+        </>
+      );
+
+      render(
+        <VerticalMenu>
+          <VerticalMenuItem
+            title="Item1"
+            component={CustomComponent}
+            customComponentTitle="Custom component"
+            onClick={() => []}
+          />
+        </VerticalMenu>,
+      );
+      expect(screen.getByText("Custom component")).toBeVisible();
+      expect(screen.queryByRole("button")).not.toBeInTheDocument();
+    });
+
+    it("should render as button when both children and `onClick` are passed", () => {
+      render(
+        <VerticalMenu>
+          <VerticalMenuItem title="Item1" onClick={() => {}}>
+            <VerticalMenuItem title="ChildItem1" />
+          </VerticalMenuItem>
+        </VerticalMenu>,
+      );
+      const button = screen.getByRole("button");
+      expect(button).toBeVisible();
+    });
+
+    it("should render anchor with precedence when `href`, component, and children are all passed", () => {
+      interface CustomComponentProps {
+        customComponentTitle: string;
+        children?: React.ReactNode;
+      }
+
+      const CustomComponent = ({
+        customComponentTitle,
+        children,
+      }: CustomComponentProps) => (
+        <>
+          <div>{customComponentTitle}</div>
+          <div>{children}</div>
+        </>
+      );
+
+      render(
+        <VerticalMenu>
+          <VerticalMenuItem
+            title="Item1"
+            component={CustomComponent}
+            customComponentTitle="Custom component"
+            href="#"
+          >
+            <VerticalMenuItem title="ChildItem1" />
+          </VerticalMenuItem>
+        </VerticalMenu>,
+      );
+      const link = screen.getByRole("link");
+      expect(link).toBeVisible();
+      expect(screen.queryByText("Custom component")).not.toBeInTheDocument();
     });
   });
 
@@ -387,5 +539,93 @@ describe("VerticalMenuItem", () => {
         modifier: ":before",
       },
     );
+  });
+
+  describe("onClick callback", () => {
+    it("should trigger onClick when rendered as an anchor and clicked", async () => {
+      const onClickMock = jest.fn();
+      const user = userEvent.setup();
+      render(
+        <VerticalMenu>
+          <VerticalMenuItem title="Item1" href="#" onClick={onClickMock} />
+        </VerticalMenu>,
+      );
+      await user.click(screen.getByRole("link"));
+      expect(onClickMock).toHaveBeenCalledTimes(1);
+    });
+
+    it("should trigger onClick when rendered as an anchor and Enter key is pressed", async () => {
+      const onClickMock = jest.fn();
+      const user = userEvent.setup();
+      render(
+        <VerticalMenu>
+          <VerticalMenuItem title="Item1" href="#" onClick={onClickMock} />
+        </VerticalMenu>,
+      );
+      const link = screen.getByRole("link");
+      await user.click(link);
+      await user.keyboard("{Enter}");
+      expect(onClickMock).toHaveBeenCalled();
+    });
+
+    it("should not trigger onClick when rendered as an anchor and Space key is pressed", async () => {
+      const onClickMock = jest.fn();
+      const user = userEvent.setup();
+      render(
+        <VerticalMenu>
+          <VerticalMenuItem title="Item1" href="#" onClick={onClickMock} />
+        </VerticalMenu>,
+      );
+      const link = screen.getByRole("link");
+      link.focus();
+      await user.keyboard(" ");
+      expect(onClickMock).not.toHaveBeenCalled();
+    });
+
+    it("should trigger onClick when rendered as a button and clicked", async () => {
+      const onClickMock = jest.fn();
+      const user = userEvent.setup();
+      render(
+        <VerticalMenu>
+          <VerticalMenuItem title="Item1" onClick={onClickMock}>
+            <VerticalMenuItem title="ChildItem1" />
+          </VerticalMenuItem>
+        </VerticalMenu>,
+      );
+      await user.click(screen.getByRole("button"));
+      expect(onClickMock).toHaveBeenCalledTimes(1);
+    });
+
+    it("should trigger onClick when rendered as a button and Enter key is pressed", async () => {
+      const onClickMock = jest.fn();
+      const user = userEvent.setup();
+      render(
+        <VerticalMenu>
+          <VerticalMenuItem title="Item1" onClick={onClickMock}>
+            <VerticalMenuItem title="ChildItem1" />
+          </VerticalMenuItem>
+        </VerticalMenu>,
+      );
+      const button = screen.getByRole("button");
+      button.focus();
+      await user.keyboard("{Enter}");
+      expect(onClickMock).toHaveBeenCalledTimes(1);
+    });
+
+    it("should trigger onClick when rendered as a button and Space key is pressed", async () => {
+      const onClickMock = jest.fn();
+      const user = userEvent.setup();
+      render(
+        <VerticalMenu>
+          <VerticalMenuItem title="Item1" onClick={onClickMock}>
+            <VerticalMenuItem title="ChildItem1" />
+          </VerticalMenuItem>
+        </VerticalMenu>,
+      );
+      const button = screen.getByRole("button");
+      button.focus();
+      await user.keyboard(" ");
+      expect(onClickMock).toHaveBeenCalledTimes(1);
+    });
   });
 });
