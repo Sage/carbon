@@ -15,24 +15,21 @@ const getDisplayedItems = (
   onHide: () => void,
 ): TooltipLinkListLink[] => {
   const formattedVersions = Object.entries(versions)
-    .reduce<(TooltipLinkListLink & { title: string })[]>(
-      (acc, [key, value]) => {
-        if (!key.match(/-beta\.\d+$/)) {
-          acc.push({
-            id: key,
-            title: key,
-            onClick: onHide,
-            active: false,
-            href: value,
-          });
-        }
-        return acc;
-      },
-      [],
-    )
+    .reduce<TooltipLinkListLink[]>((acc, [key, value]) => {
+      if (!key.match(/-beta\.\d+$/)) {
+        acc.push({
+          id: key,
+          title: key,
+          onClick: onHide,
+          active: false,
+          href: value,
+        });
+      }
+      return acc;
+    }, [])
     .sort((a, b) => compareBuild(b.id, a.id));
 
-  formattedVersions[0].title = `${formattedVersions[0].title} (latest)`;
+  formattedVersions[0].content = `${formattedVersions[0].content} (latest)`;
 
   return formattedVersions;
 };
