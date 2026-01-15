@@ -1,3 +1,9 @@
+## [158.20.0](https://github.com/Sage/carbon/compare/v158.19.1...v158.20.0) (2026-01-15)
+
+### Features
+
+* **accordion:** add support to search content within collapsed panels ([d8b66de](https://github.com/Sage/carbon/commit/d8b66de88e8d6cfbd70d98eea142433a695f8275)), closes [#7672](https://github.com/Sage/carbon/issues/7672)
+
 ## [158.19.1](https://github.com/Sage/carbon/compare/v158.19.0...v158.19.1) (2026-01-15)
 
 ### Bug Fixes
