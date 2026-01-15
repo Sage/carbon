@@ -1,3 +1,9 @@
+## [158.17.0](https://github.com/Sage/carbon/compare/v158.16.1...v158.17.0) (2026-01-15)
+
+### Features
+
+* **version-picker:** update version picker to use correct property ([122a2b0](https://github.com/Sage/carbon/commit/122a2b0c70952bfbf7865fd1356eeab297225207))
+
 ## [158.16.1](https://github.com/Sage/carbon/compare/v158.16.0...v158.16.1) (2026-01-14)
 
 ### Bug Fixes
