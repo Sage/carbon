@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { ReactNode, useState, useContext } from "react";
 import { PaddingProps } from "styled-system";
 import tagComponent, {
   TagProps,
@@ -13,6 +13,7 @@ import {
   StyledList,
   StyledChevronIcon,
   StyledTitleIcon,
+  StyledCustomIconWrapper,
 } from "../vertical-menu.style";
 import MenuItemContext from "./__internal__/menu-item.context";
 import { useVerticalMenuContext } from "../__internal__/vertical-menu.context";
@@ -26,13 +27,15 @@ export interface VerticalMenuItemProps<T = React.ElementType>
     TagProps {
   /** Children of the menu item - another level of VerticalMenuItems */
   children?: React.ReactNode;
+  /** Custom icon to be displayed. Takes precedence over `iconType` if both are specified. */
+  customIcon?: ReactNode;
   /** Default open state of the component */
   defaultOpen?: boolean;
   /** Title of the menu item */
   title: string;
   /** Adornment of the menu item meant to be rendered on the right side */
   adornment?: React.ReactNode | ((isOpen: boolean) => React.ReactNode);
-  /** Icon meant to be rendered on the left side */
+  /** The Carbon icon to be displayed. Defers to `customIcon` if both are defined. */
   iconType?: IconType;
   /** Whether the menu item is active or not */
   active?: boolean | ((isOpen: boolean) => boolean);
@@ -57,6 +60,7 @@ export const VerticalMenuItem = <T,>({
   iconType,
   adornment,
   children,
+  customIcon,
   component,
   active,
   height = "56px",
@@ -121,7 +125,12 @@ export const VerticalMenuItem = <T,>({
         {...filterStyledSystemPaddingProps(rest)}
         {...tagComponent("vertical-menu-item", rest)}
       >
-        {iconType && <StyledTitleIcon type={iconType} />}
+        {(iconType || customIcon) &&
+          (customIcon ? (
+            <StyledCustomIconWrapper>{customIcon}</StyledCustomIconWrapper>
+          ) : (
+            iconType && <StyledTitleIcon type={iconType} />
+          ))}
 
         <StyledTitle>{title}</StyledTitle>
 

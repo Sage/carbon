@@ -93,6 +93,23 @@ describe("VerticalMenuItem", () => {
       );
     });
 
+    it("should render a custom icon when the `customIcon` prop is passed", () => {
+      render(
+        <VerticalMenu>
+          <VerticalMenuItem
+            title="Item1"
+            customIcon={
+              <svg width="24" height="24" data-role="custom-svg">
+                <circle cx="12" cy="12" r="10" fill="red" />
+              </svg>
+            }
+          />
+        </VerticalMenu>,
+      );
+
+      expect(screen.getByTestId("custom-svg")).toBeVisible();
+    });
+
     it("should render proper Icon when iconType prop is passed", () => {
       render(
         <VerticalMenu>
@@ -103,6 +120,27 @@ describe("VerticalMenuItem", () => {
         expect.objectContaining({ type: "add" }),
         {},
       );
+
+      IconMock.mockClear();
+    });
+
+    it("should render a custom icon with precedence when both `customIcon` & `iconType` are passed", () => {
+      render(
+        <VerticalMenu>
+          <VerticalMenuItem
+            title="Item1"
+            iconType="add"
+            customIcon={
+              <svg width="24" height="24" data-role="custom-svg">
+                <circle cx="12" cy="12" r="10" fill="red" />
+              </svg>
+            }
+          />
+        </VerticalMenu>,
+      );
+
+      expect(screen.getByTestId("custom-svg")).toBeVisible();
+      expect(Icon).not.toHaveBeenCalled();
 
       IconMock.mockClear();
     });

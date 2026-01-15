@@ -94,6 +94,11 @@ export const StyledTitleIcon = styled(Icon)`
   color: var(--colorsComponentsLeftnavWinterStandardContent);
 `;
 
+export const StyledCustomIconWrapper = styled.div`
+  margin-right: 12px;
+  width: 20px;
+`;
+
 export const StyledChevronIcon = styled(Icon)`
   margin-left: auto;
   padding-left: 12px;
