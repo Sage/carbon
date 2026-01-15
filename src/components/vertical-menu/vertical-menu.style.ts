@@ -72,7 +72,7 @@ export const StyledVerticalMenuItem = styled.div.attrs(
   }
 `;
 
-export const StyledTitle = styled.h3`
+export const StyledTitle = styled.span`
   font-weight: 500;
   font-size: 14px;
   line-height: 21px;

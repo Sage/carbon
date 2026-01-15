@@ -1,3 +1,45 @@
+## [158.19.0](https://github.com/Sage/carbon/compare/v158.18.0...v158.19.0) (2026-01-15)
+
+### Features
+
+* **locale:** add portuguese locale ([028f994](https://github.com/Sage/carbon/commit/028f9946d1d7d3a5c6549bd4dcbce55ea376ee6f))
+
+## [158.18.0](https://github.com/Sage/carbon/compare/v158.17.0...v158.18.0) (2026-01-15)
+
+### Features
+
+* **version-picker:** remove env variable check ([1954632](https://github.com/Sage/carbon/commit/1954632b9be9088de4fa33e3d461eb803e24ffc2))
+
+## [158.17.0](https://github.com/Sage/carbon/compare/v158.16.1...v158.17.0) (2026-01-15)
+
+### Features
+
+* **version-picker:** update version picker to use correct property ([122a2b0](https://github.com/Sage/carbon/commit/122a2b0c70952bfbf7865fd1356eeab297225207))
+
+## [158.16.1](https://github.com/Sage/carbon/compare/v158.16.0...v158.16.1) (2026-01-14)
+
+### Bug Fixes
+
+* **text-editor:** assistive technologies announce read only when appropriate ([21b2575](https://github.com/Sage/carbon/commit/21b25758bcd3a0d64502e26e978ef2851a897329)), closes [#7693](https://github.com/Sage/carbon/issues/7693)
+
+## [158.16.0](https://github.com/Sage/carbon/compare/v158.15.2...v158.16.0) (2026-01-12)
+
+### Features
+
+* **version-picker:** remove env variable check for version picker ([e8f58de](https://github.com/Sage/carbon/commit/e8f58de836aeeda1a1cdf6e8de9d0e28df4ce5d5))
+
+## [158.15.2](https://github.com/Sage/carbon/compare/v158.15.1...v158.15.2) (2026-01-12)
+
+### Bug Fixes
+
+* **vertical-menu:** amend h3 to span for childitem ([7c1a8f0](https://github.com/Sage/carbon/commit/7c1a8f0872e73fc7f0fc51345a36a77eb05d3619))
+
+## [158.15.1](https://github.com/Sage/carbon/compare/v158.15.0...v158.15.1) (2026-01-07)
+
+### Bug Fixes
+
+* **dialog:** long titles now wrap ([fe2d086](https://github.com/Sage/carbon/commit/fe2d08611479bfdd681da9258cb7da33f579ec5c)), closes [#7653](https://github.com/Sage/carbon/issues/7653)
+
 ## [158.15.0](https://github.com/Sage/carbon/compare/v158.14.11...v158.15.0) (2026-01-06)
 
 ### Features

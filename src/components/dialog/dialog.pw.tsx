@@ -958,7 +958,9 @@ test.describe("Fullscreen Dialog component", () => {
       }) => {
         await mount(<FullScreenDialogComponent title={title} />);
 
-        await expect(getDataElementByValue(page, "title")).toHaveText(title);
+        await expect(getDataElementByValue(page, "dialog-title")).toHaveText(
+          title,
+        );
       });
     });
 
@@ -1609,7 +1611,7 @@ test.describe("Fullscreen Dialog component", () => {
         .getByRole("button")
         .filter({ hasText: "Open Dialog" });
       await openButton.click();
-      await expect(getDataElementByValue(page, "title")).toHaveText(
+      await expect(getDataElementByValue(page, "dialog-title")).toHaveText(
         "Dialog Title",
       );
 

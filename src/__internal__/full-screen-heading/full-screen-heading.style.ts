@@ -1,8 +1,4 @@
 import styled, { css } from "styled-components";
-import {
-  StyledHeader,
-  StyledHeading,
-} from "../../components/heading/heading.style";
 
 export interface StyledFullScreenHeadingProps {
   hasContent?: boolean;
@@ -46,14 +42,20 @@ const StyledFullScreenHeading = styled.div<StyledFullScreenHeadingProps>`
       }
     `}
 
-  ${StyledHeading} {
-    width: auto;
-    margin-bottom: 24px;
+  [data-element="dialog-title-container"] {
+    &:has([data-element="dialog-title"]) {
+      width: auto;
+      margin-bottom: 24px;
 
-    ${StyledHeader} {
-      background-color: transparent;
-      padding-bottom: 0;
-      margin: 22px 24px 0 0;
+      [data-element="dialog-title"] {
+        background-color: transparent;
+        padding-bottom: 0;
+        margin: 22px 24px 0 0;
+      }
+    }
+
+    &:not(:has([data-element="dialog-title"])) {
+      width: 100%;
     }
   }
 `;
