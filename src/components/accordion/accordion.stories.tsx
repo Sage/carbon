@@ -64,18 +64,25 @@ export const WithComplexTitle: Story = () => {
 WithComplexTitle.storyName = "With Complex Title";
 
 export const WithDisableContentPadding: Story = () => {
+  const [accordionExpanded, setAccordionExpanded] = useState<boolean>(true);
+  const toggleAccordion = () => {
+    setAccordionExpanded(!accordionExpanded);
+  };
+
   return (
-    <Accordion disableContentPadding title="Heading">
+    <Accordion
+      disableContentPadding
+      title="Heading"
+      expanded={accordionExpanded}
+      onChange={toggleAccordion}
+    >
       <Box mt={2}>Content</Box>
       <Box>Content</Box>
       <Box>Content</Box>
     </Accordion>
   );
 };
-WithDisableContentPadding.storyName = "With Disabled Content Padding";
-WithDisableContentPadding.parameters = {
-  chromatic: { disableSnapshot: false },
-};
+WithDisableContentPadding.storyName = "Content Padding Disabled";
 
 export const Small: Story = () => {
   return (
