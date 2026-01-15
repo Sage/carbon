@@ -110,6 +110,7 @@ export const Accordion = React.forwardRef<
     );
 
     const accordionContent = useRef<HTMLDivElement>(null);
+    const accordionContentContainer = useRef<HTMLDivElement>(null);
 
     const isExpanded = isControlled ? expanded : isExpandedInternal;
 
@@ -132,6 +133,37 @@ export const Accordion = React.forwardRef<
       },
       [isControlled, isExpanded, onChange],
     );
+
+    // React yet to add built-in support for hidden="until-found" and onBeforeMatch event
+    // See https://github.com/facebook/react/issues/24740
+    useEffect(() => {
+      if (!isExpanded) {
+        accordionContentContainer.current?.setAttribute(
+          "hidden",
+          "until-found",
+        );
+      } else {
+        accordionContentContainer.current?.removeAttribute("hidden");
+      }
+    }, [isExpanded]);
+
+    useEffect(() => {
+      const container = accordionContentContainer.current;
+      // istanbul ignore next
+      if (!container) return;
+
+      const handleBeforeMatch = (e: Event) => {
+        toggleAccordion(
+          e as unknown as
+            | React.MouseEvent<HTMLElement>
+            | React.KeyboardEvent<HTMLElement>,
+        );
+      };
+
+      container.addEventListener("beforematch", handleBeforeMatch);
+      return () =>
+        container.removeEventListener("beforematch", handleBeforeMatch);
+    }, [toggleAccordion, isControlled, onChange]);
 
     const handleKeyDown = useCallback(
       (ev: React.KeyboardEvent<HTMLElement>) => {
@@ -229,6 +261,7 @@ export const Accordion = React.forwardRef<
           />
         </StyledAccordionTitleContainer>
         <StyledAccordionContentContainer
+          ref={accordionContentContainer}
           isExpanded={isExpanded}
           maxHeight={contentHeight}
           data-role="accordion-content-container"
