@@ -1,3 +1,10 @@
+## [158.21.0](https://github.com/Sage/carbon/compare/v158.20.0...v158.21.0) (2026-01-16)
+
+### Features
+
+* **vertical-menu-item:** add customIcon prop ([51749e6](https://github.com/Sage/carbon/commit/51749e63fc4857d9a63c4426da1a319e5ef5dd51))
+* **vertical-menu-item:** add onClick handler ([554c954](https://github.com/Sage/carbon/commit/554c954aee048efae2613a1c867dd54bec410f79))
+
 ## [158.20.0](https://github.com/Sage/carbon/compare/v158.19.1...v158.20.0) (2026-01-15)
 
 ### Features
