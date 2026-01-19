@@ -6,3 +6,4 @@ export { default as enUS } from "./en-us";
 export { default as esES } from "./es-es";
 export { default as frCA } from "./fr-ca";
 export { default as frFR } from "./fr-fr";
+export { default as ptPT } from "./pt-pt";

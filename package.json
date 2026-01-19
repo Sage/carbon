@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "158.16.0",
+  "version": "158.21.0",
   "description": "A library of reusable React components for easily building user interfaces.",
   "files": [
     "lib",
@@ -50,7 +50,7 @@
   "homepage": "https://carbon.sage.com",
   "peerDependencies": {
     "@sage/design-tokens": "^4.17.0",
-    "@sage/design-tokens-fusion": "npm:@sage/design-tokens@^17.4.0",
+    "@sage/design-tokens-fusion": "npm:@sage/design-tokens@^17.6.0",
     "react": "^17.0.2 || ^18.0.0",
     "react-dom": "^17.0.2 || ^18.0.0",
     "styled-components": "^5.3.11"
@@ -78,7 +78,7 @@
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-url": "^8.0.2",
     "@sage/design-tokens": "^4.17.0",
-    "@sage/design-tokens-fusion": "npm:@sage/design-tokens@^17.4.0",
+    "@sage/design-tokens-fusion": "npm:@sage/design-tokens@^17.6.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/exec": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
@@ -126,7 +126,7 @@
     "@typescript-eslint/parser": "^8.35.1",
     "babel-jest": "^29.7.0",
     "babel-plugin-dev-expression": "^0.2.3",
-    "browserslist": "^4.26.3",
+    "browserslist": "^4.28.1",
     "chromatic": "13.3.3",
     "conventional-changelog-conventionalcommits": "^8.0.0",
     "core-js": "^3.45.1",
