@@ -1,3 +1,9 @@
+## [158.22.0](https://github.com/Sage/carbon/compare/v158.21.0...v158.22.0) (2026-01-19)
+
+### Features
+
+* **button:** align with the new DS styling and functionality ([72f5969](https://github.com/Sage/carbon/commit/72f5969210325838ec69d1aa1f98dfc47f254b0a))
+
 ## [158.21.0](https://github.com/Sage/carbon/compare/v158.20.0...v158.21.0) (2026-01-16)
 
 ### Features
