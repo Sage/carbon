@@ -26,6 +26,8 @@ export interface TextEditorProps extends MarginProps, TagProps {
   labelText: string;
   /** The identifier for the Text Editor. This allows for the using of multiple Text Editors on a screen */
   namespace?: string;
+  /** The id attribute, set on the content editable div within the Text Editor */
+  id?: string;
   /** Callback that is triggered when the editor loses focus. */
   onBlur?: (ev: React.FocusEvent<HTMLElement>) => void;
   /**
@@ -104,9 +106,10 @@ export interface ContentEditorProps {
   warning?: boolean;
   /** Render the ValidationMessage above the Editor */
   validationMessagePositionTop?: boolean;
-
   /** The size of the content editor */
   size?: "small" | "medium" | "large";
+  /** The id attribute */
+  id?: string;
 }
 
 export interface CharacterCounterPluginProps {
