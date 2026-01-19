@@ -1,3 +1,9 @@
+## [158.23.0](https://github.com/Sage/carbon/compare/v158.22.0...v158.23.0) (2026-01-19)
+
+### Features
+
+* **text-editor:** add `id` prop ([4776b91](https://github.com/Sage/carbon/commit/4776b91089f466380bb24eb18b6a508a899b8602)), closes [#7683](https://github.com/Sage/carbon/issues/7683)
+
 ## [158.22.0](https://github.com/Sage/carbon/compare/v158.21.0...v158.22.0) (2026-01-19)
 
 ### Features
