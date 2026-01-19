@@ -68,32 +68,32 @@ export interface FlexboxProps {
   /** Short hand `flex-wrap` property */
   flexWrap?: string;
   /** Short hand `flex-grow` property */
-  flexGrow?: string | number;
+  flexGrow?: string;
   /** Short hand `flex-shrink` property */
-  flexShrink?: string | number;
+  flexShrink?: string;
   /** Short hand `flex-basis` property */
-  flexBasis?: string | number;
+  flexBasis?: string;
   /** Short hand `flex` property */
   flex?: string;
   /** Short hand `align-self` property */
   alignSelf?: string;
   /** Short hand `order` property */
-  order?: string | number;
+  order?: string;
 }
 
 export interface LayoutProps {
   /** Short hand `width` property */
-  width?: string | number;
+  width?: string;
   /** Short hand `max-width` property */
-  maxWidth?: string | number;
+  maxWidth?: string;
   /** Short hand `min-width` property */
-  minWidth?: string | number;
+  minWidth?: string;
   /** Short hand `height` property */
-  height?: string | number;
+  height?: string;
   /** Short hand `max-height` property */
-  maxHeight?: string | number;
+  maxHeight?: string;
   /** Short hand `min-height` property */
-  minHeight?: string | number;
+  minHeight?: string;
   /** Short hand `display` property */
   display?: string;
   /** Short hand `overflow` property */
