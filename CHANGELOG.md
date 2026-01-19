@@ -1,3 +1,40 @@
+## [158.22.0](https://github.com/Sage/carbon/compare/v158.21.0...v158.22.0) (2026-01-19)
+
+### Features
+
+* **button:** align with the new DS styling and functionality ([72f5969](https://github.com/Sage/carbon/commit/72f5969210325838ec69d1aa1f98dfc47f254b0a))
+
+## [158.21.0](https://github.com/Sage/carbon/compare/v158.20.0...v158.21.0) (2026-01-16)
+
+### Features
+
+* **vertical-menu-item:** add customIcon prop ([51749e6](https://github.com/Sage/carbon/commit/51749e63fc4857d9a63c4426da1a319e5ef5dd51))
+* **vertical-menu-item:** add onClick handler ([554c954](https://github.com/Sage/carbon/commit/554c954aee048efae2613a1c867dd54bec410f79))
+
+## [158.20.0](https://github.com/Sage/carbon/compare/v158.19.1...v158.20.0) (2026-01-15)
+
+### Features
+
+* **accordion:** add support to search content within collapsed panels ([d8b66de](https://github.com/Sage/carbon/commit/d8b66de88e8d6cfbd70d98eea142433a695f8275)), closes [#7672](https://github.com/Sage/carbon/issues/7672)
+
+## [158.19.1](https://github.com/Sage/carbon/compare/v158.19.0...v158.19.1) (2026-01-15)
+
+### Bug Fixes
+
+* **tabs:** tabs announce status states ([b760662](https://github.com/Sage/carbon/commit/b7606623e3f947726db2e9f0f0c7542419babff4)), closes [#7692](https://github.com/Sage/carbon/issues/7692)
+
+## [158.19.0](https://github.com/Sage/carbon/compare/v158.18.0...v158.19.0) (2026-01-15)
+
+### Features
+
+* **locale:** add portuguese locale ([028f994](https://github.com/Sage/carbon/commit/028f9946d1d7d3a5c6549bd4dcbce55ea376ee6f))
+
+## [158.18.0](https://github.com/Sage/carbon/compare/v158.17.0...v158.18.0) (2026-01-15)
+
+### Features
+
+* **version-picker:** remove env variable check ([1954632](https://github.com/Sage/carbon/commit/1954632b9be9088de4fa33e3d461eb803e24ffc2))
+
 ## [158.17.0](https://github.com/Sage/carbon/compare/v158.16.1...v158.17.0) (2026-01-15)
 
 ### Features

@@ -209,11 +209,6 @@ const StyledAccordionContentContainer = styled.div<StyledAccordionContentContain
   ${({ maxHeight, isExpanded }) => css`
     max-height: ${isExpanded ? `${maxHeight}px` : "0px"};
     height: ${isExpanded ? `${maxHeight}px` : "0px"};
-
-    ${!isExpanded &&
-    `
-      visibility: hidden;
-    `}
   `}
 `;
 
