@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 
 import STATIC_TOKENS_CSS from "./__internal__/static-tokens";
 
@@ -9,8 +9,14 @@ export interface TokenWrapperProps {
 }
 
 const StyledTokensWrapper = styled.div<TokenWrapperProps>`
-  ${STATIC_TOKENS_CSS}
   height: ${({ height }) => height};
+`;
+
+const TokensGlobalStyle = createGlobalStyle`
+  [data-component="tokens-wrapper"],
+  [class*="carbon-portal"] {
+    ${STATIC_TOKENS_CSS}
+  }
 `;
 
 export const TokensWrapper = ({
@@ -22,6 +28,7 @@ export const TokensWrapper = ({
     data-role="tokens-wrapper"
     height={height}
   >
+    <TokensGlobalStyle />
     {children}
   </StyledTokensWrapper>
 );
