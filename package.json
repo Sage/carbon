@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "158.20.0",
+  "version": "158.23.0",
   "description": "A library of reusable React components for easily building user interfaces.",
   "files": [
     "lib",
@@ -126,7 +126,7 @@
     "@typescript-eslint/parser": "^8.35.1",
     "babel-jest": "^29.7.0",
     "babel-plugin-dev-expression": "^0.2.3",
-    "browserslist": "^4.26.3",
+    "browserslist": "^4.28.1",
     "chromatic": "13.3.3",
     "conventional-changelog-conventionalcommits": "^8.0.0",
     "core-js": "^3.45.1",

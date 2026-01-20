@@ -16,6 +16,7 @@ import ReadOnlyEditor from "./__internal__/__ui__/ReadOnlyEditor/read-only-rte.c
 import createGuid from "../../__internal__/utils/helpers/guid";
 import CarbonProvider from "../carbon-provider";
 import Textbox from "../textbox";
+import Link from "../link";
 
 const meta: Meta<typeof TextEditor> = {
   title: "Text Editor/Test",
@@ -408,4 +409,31 @@ LargeMentionCount.args = {
   readOnly: false,
   size: "medium",
   warning: "",
+};
+
+export const LinkToEditor: Story = () => {
+  return (
+    <Box
+      display="flex"
+      flexDirection="column"
+      justifyContent="space-between"
+      height="1200px"
+    >
+      <Link href="#test-text-editor" target="_self">
+        Go To TextEditor
+      </Link>
+      <TextEditor
+        validationMessagePositionTop
+        namespace="storybook-error-bottom"
+        labelText="Text Editor"
+        inputHint="Hint text"
+        characterLimit={100}
+        id="test-text-editor"
+      />
+    </Box>
+  );
+};
+LinkToEditor.storyName = "Link To Editor";
+LinkToEditor.parameters = {
+  chromatic: { disableSnapshot: true },
 };

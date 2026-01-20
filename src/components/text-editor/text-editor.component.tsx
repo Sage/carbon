@@ -80,6 +80,7 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
       inputHint,
       labelText,
       namespace = COMPONENT_PREFIX,
+      id,
       onBlur,
       onCancel,
       onChange,
@@ -326,6 +327,7 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
                       <RichTextPlugin
                         contentEditable={
                           <ContentEditor
+                            id={id}
                             ref={contentEditorRef}
                             inputHint={inputHint}
                             isFocused={isFocused}
