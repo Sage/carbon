@@ -1,3 +1,9 @@
+## [158.23.2](https://github.com/Sage/carbon/compare/v158.23.1...v158.23.2) (2026-01-20)
+
+### Bug Fixes
+
+* **multi-action-button, split-button:** ensure submenu stays open on android devices ([0f1eaa3](https://github.com/Sage/carbon/commit/0f1eaa305a6a8be3a326474d4a191ee530f1df3b)), closes [#7690](https://github.com/Sage/carbon/issues/7690)
+
 ## [158.23.1](https://github.com/Sage/carbon/compare/v158.23.0...v158.23.1) (2026-01-20)
 
 ### Bug Fixes
