@@ -168,6 +168,11 @@ const enGB: Locale = {
   pod: {
     undo: () => "Undo",
   },
+  tabs: {
+    error: () => "contains errors",
+    warning: () => "contains warnings",
+    info: () => "contains information",
+  },
   textEditor: {
     boldAria: () => "Bold",
     cancelButton: () => "Cancel",

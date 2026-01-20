@@ -296,7 +296,7 @@ export const WithCustomHeight: Story = () => {
       display="flex"
       flexDirection="row"
       height="100%"
-      backgroundColor="lightgray"
+      backgroundColor="#f2f5f6"
     >
       {CommonTemplate(adaptiveSidebarOpen, setAdaptiveSidebarOpen)}
 
