@@ -1,3 +1,9 @@
+## [158.23.1](https://github.com/Sage/carbon/compare/v158.23.0...v158.23.1) (2026-01-20)
+
+### Bug Fixes
+
+* **adaptive-sidebar:** fix accessibility issue ([7b56ef7](https://github.com/Sage/carbon/commit/7b56ef7561da5d8b2fe472dcb2686dcd4505fb4a))
+
 ## [158.23.0](https://github.com/Sage/carbon/compare/v158.22.0...v158.23.0) (2026-01-19)
 
 ### Features
