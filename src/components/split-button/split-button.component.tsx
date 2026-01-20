@@ -165,7 +165,6 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
       isWhite: shouldRenderIsWhiteVariant,
       disabled,
       displayed: showAdditionalButtons,
-      onTouchStart: showButtons,
       onKeyDown: handleToggleButtonKeyDown,
       onClick: handleToggleClick,
       buttonType,
