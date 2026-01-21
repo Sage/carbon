@@ -1,3 +1,4 @@
+import { renderHook } from "@testing-library/react";
 import useInputAccessibility from ".";
 
 const id = "test-id";
@@ -8,7 +9,11 @@ const warning = "warning";
 const info = "info";
 
 test("returns all aria related props when all arguments are passed", () => {
-  expect(useInputAccessibility({ id, label, fieldHelp })).toMatchObject({
+  const { result } = renderHook(() =>
+    useInputAccessibility({ id, label, fieldHelp }),
+  );
+
+  expect(result.current).toMatchObject({
     labelId: `${id}-label`,
     validationId: undefined,
     fieldHelpId: `${id}-field-help`,
@@ -17,7 +22,9 @@ test("returns all aria related props when all arguments are passed", () => {
 });
 
 test("returns aria props without labelId when label is not provided", () => {
-  expect(useInputAccessibility({ id, fieldHelp })).toMatchObject({
+  const { result } = renderHook(() => useInputAccessibility({ id, fieldHelp }));
+
+  expect(result.current).toMatchObject({
     labelId: undefined,
     validationId: undefined,
     fieldHelpId: `${id}-field-help`,
@@ -26,51 +33,64 @@ test("returns aria props without labelId when label is not provided", () => {
 });
 
 test("returns ariaDescribedBy with fieldHelp and validationId combined when the fieldHelp is provided and string validation is set, with validationRedesignOptIn set to true", () => {
-  expect(
+  const { result } = renderHook(() =>
     useInputAccessibility({
       id,
       fieldHelp,
       error,
       validationRedesignOptIn: true,
     }),
-  ).toEqual(
+  );
+
+  expect(result.current).toEqual(
     expect.objectContaining({
-      ariaDescribedBy: `${id}-field-help ${id}-validation`,
+      ariaDescribedBy: `${id}-field-help ${id}-validation-1`,
     }),
   );
 });
 
-describe.each([error, info, warning])(
-  "when the id and %s prop is provided",
-  (key) => {
-    it(`returns validationIconId based on that id for ${key}`, () => {
-      expect(useInputAccessibility({ id, [key]: key })).toEqual(
-        expect.objectContaining({
-          validationId: `${id}-validation`,
-        }),
-      );
-    });
+describe.each([
+  ["error", error],
+  ["info", info],
+  ["warning", warning],
+])("when the id and %s prop is provided", (keyName, keyValue) => {
+  it(`returns validationIconId based on that id for ${keyName}`, () => {
+    const { result } = renderHook(() =>
+      useInputAccessibility({ id, [keyName]: keyValue }),
+    );
 
-    it(`returns undefined ariaDescribedby prop for ${key}`, () => {
-      expect(useInputAccessibility({ id, [key]: key })).toEqual(
-        expect.objectContaining({
-          ariaDescribedBy: undefined,
-        }),
-      );
-    });
+    expect(result.current).toEqual(
+      expect.objectContaining({
+        validationId: `${id}-validation-1`,
+      }),
+    );
+  });
 
-    it(`returns ariaDescribedBy containing validationId based on that id for ${key} with validationRedesignOptIn set to true`, () => {
-      expect(
-        useInputAccessibility({
-          id,
-          [key]: key,
-          validationRedesignOptIn: true,
-        }),
-      ).toEqual(
-        expect.objectContaining({
-          ariaDescribedBy: `${id}-validation`,
-        }),
-      );
-    });
-  },
-);
+  it(`returns undefined ariaDescribedby prop for ${keyName}`, () => {
+    const { result } = renderHook(() =>
+      useInputAccessibility({ id, [keyName]: keyValue }),
+    );
+
+    expect(result.current).toEqual(
+      expect.objectContaining({
+        ariaDescribedBy: undefined,
+      }),
+    );
+  });
+
+  it(`returns ariaDescribedBy containing validationId based on that id for ${keyName} with validationRedesignOptIn set to true`, () => {
+    const { result } = renderHook(() =>
+      useInputAccessibility({
+        id,
+        [keyName]: keyValue,
+        validationRedesignOptIn: true,
+      }),
+    );
+
+    expect(result.current).toEqual(
+      expect.objectContaining({
+        ariaDescribedBy: `${id}-validation-1`,
+      }),
+    );
+  });
+});

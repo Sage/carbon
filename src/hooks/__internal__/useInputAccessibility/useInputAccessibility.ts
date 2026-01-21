@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react";
+import usePrevious from "../usePrevious";
+
 export default function useInputAccessibility({
   id,
   validationRedesignOptIn,
@@ -22,10 +25,29 @@ export default function useInputAccessibility({
 } {
   const labelId = label ? `${id}-label` : undefined;
 
+  const currentValidationMessage =
+    (typeof error === "string" && error) ||
+    (typeof warning === "string" && warning) ||
+    (typeof info === "string" && info) ||
+    "";
+
+  const [validationCounter, setValidationCounter] = useState(1);
+  const previousMessage = usePrevious(currentValidationMessage);
+
+  useEffect(() => {
+    if (
+      previousMessage !== undefined &&
+      currentValidationMessage &&
+      currentValidationMessage !== previousMessage
+    ) {
+      setValidationCounter((count) => count + 1);
+    }
+  }, [currentValidationMessage, previousMessage]);
+
   const validationId = [error, warning, info].filter(
     (validation) => validation && typeof validation === "string",
   ).length
-    ? `${id}-validation`
+    ? `${id}-validation-${validationCounter}`
     : undefined;
 
   const fieldHelpId = fieldHelp ? `${id}-field-help` : undefined;

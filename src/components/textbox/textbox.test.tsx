@@ -483,9 +483,9 @@ test.each(validationTypes)(
 
     expect(await screen.findByRole("tooltip")).toHaveAttribute(
       "id",
-      "foo-validation",
+      "foo-validation-1",
     );
-    expect(input).toHaveAttribute("aria-describedby", "foo-validation");
+    expect(input).toHaveAttribute("aria-describedby", "foo-validation-1");
   },
 );
 
@@ -507,11 +507,11 @@ test.each(validationTypes)(
 
     expect(await screen.findByRole("tooltip")).toHaveAttribute(
       "id",
-      `${mockedGuid}-validation`,
+      `${mockedGuid}-validation-1`,
     );
     expect(input).toHaveAttribute(
       "aria-describedby",
-      `${mockedGuid}-validation`,
+      `${mockedGuid}-validation-1`,
     );
   },
 );
@@ -569,12 +569,12 @@ test.each(validationTypes)(
 
     expect(await screen.findByRole("tooltip")).toHaveAttribute(
       "id",
-      "foo-validation",
+      "foo-validation-1",
     );
     expect(screen.getByText("baz")).toHaveAttribute("id", "foo-field-help");
     expect(input).toHaveAttribute(
       "aria-describedby",
-      "foo-field-help foo-validation",
+      "foo-field-help foo-validation-1",
     );
   },
 );
@@ -598,7 +598,7 @@ test.each(validationTypes)(
 
     expect(await screen.findByRole("tooltip")).toHaveAttribute(
       "id",
-      `${mockedGuid}-validation`,
+      `${mockedGuid}-validation-1`,
     );
     expect(screen.getByText("baz")).toHaveAttribute(
       "id",
@@ -606,7 +606,7 @@ test.each(validationTypes)(
     );
     expect(input).toHaveAttribute(
       "aria-describedby",
-      `${mockedGuid}-field-help ${mockedGuid}-validation`,
+      `${mockedGuid}-field-help ${mockedGuid}-validation-1`,
     );
   },
 );
@@ -752,11 +752,11 @@ describe("when rendered with new validations", () => {
 
     expect(screen.getByText("bar")).toHaveAttribute(
       "id",
-      `${mockId}-validation`,
+      `${mockId}-validation-1`,
     );
     expect(screen.getByRole("textbox")).toHaveAttribute(
       "aria-describedby",
-      `${mockId}-validation`,
+      `${mockId}-validation-1`,
     );
   });
 
