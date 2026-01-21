@@ -729,3 +729,52 @@ export const WithSetHeight = (args: FormProps) => (
   </Box>
 );
 WithSetHeight.storyName = "With Set Height";
+
+export const DynamicValidations = (args: FormProps) => {
+  const [textboxOneValue, setTextboxOneValue] = useState("");
+  const [textboxOneError, setTextboxOneError] = useState<string | boolean>(
+    false,
+  );
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event?.preventDefault();
+    let hasError = false;
+
+    if (textboxOneValue.trim() === "") {
+      setTextboxOneError("This field is required");
+      hasError = true;
+    } else if (textboxOneValue.length < 3) {
+      setTextboxOneError("Minimum 3 characters required");
+      hasError = true;
+    } else if (textboxOneValue.length > 10) {
+      setTextboxOneError("Maximum 10 characters allowed");
+      hasError = true;
+    } else {
+      setTextboxOneError(false);
+    }
+
+    if (!hasError) {
+      alert("Form submitted successfully!");
+      setTextboxOneValue("");
+    }
+  };
+
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      <Form height="80%" {...args} m={2} onSubmit={handleSubmit}>
+        <Box height="100%">
+          <Textbox
+            required
+            label="Textbox"
+            value={textboxOneValue}
+            onChange={(e) => setTextboxOneValue(e.target.value)}
+            error={textboxOneError}
+          />
+
+          <Button type="submit">Submit</Button>
+        </Box>
+      </Form>
+    </CarbonProvider>
+  );
+};
+DynamicValidations.storyName = "Dynamic validations";
