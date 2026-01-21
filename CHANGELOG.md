@@ -1,3 +1,9 @@
+## [158.23.3](https://github.com/Sage/carbon/compare/v158.23.2...v158.23.3) (2026-01-21)
+
+### Bug Fixes
+
+* **tokens-wrapper:** ensure tokens are provided in scope of portals ([4525632](https://github.com/Sage/carbon/commit/452563207b96520d8dbb5739142a8ee184a8f827))
+
 ## [158.23.2](https://github.com/Sage/carbon/compare/v158.23.1...v158.23.2) (2026-01-20)
 
 ### Bug Fixes
