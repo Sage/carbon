@@ -138,7 +138,9 @@ const Popover = ({
   }
 
   return ReactDOM.createPortal(
-    <CarbonScopedTokensProvider>{content}</CarbonScopedTokensProvider>,
+    <CarbonScopedTokensProvider className="carbon-portal-scoped-tokens-provider">
+      {content}
+    </CarbonScopedTokensProvider>,
     elementDOM.current as HTMLDivElement,
   );
 };

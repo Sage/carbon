@@ -149,7 +149,10 @@ export const MentionsPlugin = ({
       ) =>
         anchorElementRef.current && results.length
           ? ReactDOM.createPortal(
-              <TypeaheadPopover id={`${namespace}-mentions-menu`}>
+              <TypeaheadPopover
+                className="carbon-portal-mentions"
+                id={`${namespace}-mentions-menu`}
+              >
                 <MentionsList
                   data-role={`mention-list`}
                   id={`${namespace}-mention-list`}

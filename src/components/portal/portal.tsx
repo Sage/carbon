@@ -130,7 +130,7 @@ export const Portal = ({
       data-portal-entrance={uniqueId}
     >
       {ReactDOM.createPortal(
-        <CarbonScopedTokensProvider>
+        <CarbonScopedTokensProvider className="carbon-portal-scoped-tokens-provider">
           {portalContent}
         </CarbonScopedTokensProvider>,
         getPortalContainer(),
