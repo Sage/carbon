@@ -554,6 +554,7 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
                 blockIndex,
                 updateFocusId: setSubmenuFocusId,
                 submenuHasMaxWidth: !!submenuMaxWidth,
+                closeSubmenu,
               }}
             >
               {children}
