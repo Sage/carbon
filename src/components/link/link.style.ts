@@ -272,6 +272,7 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
         css`
           &:has(img, svg, picture) {
             display: inline-block;
+            vertical-align: middle;
           }
 
           &:has(img, svg, picture):focus {

@@ -11,12 +11,16 @@ import {
   MenuFullscreen,
   MenuProps,
 } from ".";
+
 import Box from "../box";
 import Search from "../search";
 import NavigationBar from "../navigation-bar";
+import Image from "../image";
 
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
 import DefaultDecorator from "../../../.storybook/utils/default-decorator";
+
+import CarbonLogo from "../../../logo/carbon-logo.png";
 
 type Story = StoryObj<typeof Menu>;
 
@@ -502,5 +506,24 @@ MenuFullScreenWithScrollableBlock.parameters = {
     hover: "[data-role='target'] a",
     focus: "[data-role='target'] button",
     rootSelector: "body",
+  },
+};
+
+export const ItemWithImage: Story = {
+  render: () => (
+    <Menu menuType="black">
+      <MenuItem href="#">Item 1</MenuItem>
+      <MenuItem href="#" data-role="target">
+        <Box alignItems="center" display="flex" gap={1} justifyContent="center">
+          <Image size={20} src={CarbonLogo} alt="" decorative />
+          Carbon docs
+        </Box>
+      </MenuItem>
+    </Menu>
+  ),
+  parameters: {
+    pseudo: {
+      focus: "a",
+    },
   },
 };

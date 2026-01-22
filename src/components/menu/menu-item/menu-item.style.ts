@@ -117,8 +117,8 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
       box-sizing: border-box;
     }
 
-    a:focus,
-    button:focus {
+    && a:focus,
+    && button:focus {
       ${addFocusStyling(true)}
     }
 

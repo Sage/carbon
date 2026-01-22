@@ -182,9 +182,16 @@ export const LinkComponentWithAnImage = () => {
             alert("clicked");
           }}
         >
-          <Logo />
+          <Box display="flex" alignItems="center">
+            <Logo />
+          </Box>
         </Link>
       </Box>
     </GlobalHeader>
   );
+};
+LinkComponentWithAnImage.parameters = {
+  chromatic: {
+    disableSnapshot: false,
+  },
 };
