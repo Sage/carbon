@@ -1,3 +1,9 @@
+## [158.24.0](https://github.com/Sage/carbon/compare/v158.23.4...v158.24.0) (2026-01-22)
+
+### Features
+
+* **link:** update styles and design-tokens ([bb5c7a2](https://github.com/Sage/carbon/commit/bb5c7a2bb95ebcb6997f1f87180e7c4668380dab))
+
 ## [158.23.4](https://github.com/Sage/carbon/compare/v158.23.3...v158.23.4) (2026-01-22)
 
 ### Bug Fixes
