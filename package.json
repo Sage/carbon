@@ -6,6 +6,9 @@
     "lib",
     "esm"
   ],
+  "engines": {
+    "npm": ">=11.8.0"
+  },
   "scripts": {
     "setup": "npm ci && npm run prepare",
     "start": "npm run generate-tokens:dev && node ./scripts/check_node_version.mjs && dotenvx run -- storybook dev -p 9001 -c .storybook",
