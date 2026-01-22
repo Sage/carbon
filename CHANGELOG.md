@@ -1,3 +1,10 @@
+## [158.23.4](https://github.com/Sage/carbon/compare/v158.23.3...v158.23.4) (2026-01-22)
+
+### Bug Fixes
+
+* **link:** vertically centre when containing an image ([b817a4e](https://github.com/Sage/carbon/commit/b817a4ec3fdb31f08c85c2708a3333a4938720a0))
+* **menu-item:** ensure focus border is inset when item contains an image ([d3f96c4](https://github.com/Sage/carbon/commit/d3f96c41457c998f27dfdc6d1a6b8b4735365fa6))
+
 ## [158.23.3](https://github.com/Sage/carbon/compare/v158.23.2...v158.23.3) (2026-01-21)
 
 ### Bug Fixes
