@@ -793,6 +793,124 @@ describe("when rendered with new validations", () => {
   });
 });
 
+describe("when validation message changes", () => {
+  const renderWithNewValidations = (props: TextboxProps) =>
+    render(
+      <CarbonProvider validationRedesignOptIn>
+        <Textbox {...props} />
+      </CarbonProvider>,
+    );
+
+  const newValidationTypes = ["error", "warning"] as const;
+
+  it.each(newValidationTypes)(
+    "updates the %s validation id from validation-1 to validation-2 when the message changes",
+    (validationType) => {
+      const mockId = "foo";
+      const { rerender } = renderWithNewValidations({
+        id: mockId,
+        [validationType]: "first message",
+        value: "foo",
+        onChange: jest.fn(),
+      });
+
+      expect(screen.getByText("first message")).toHaveAttribute(
+        "id",
+        `${mockId}-validation-1`,
+      );
+      expect(screen.getByRole("textbox")).toHaveAttribute(
+        "aria-describedby",
+        `${mockId}-validation-1`,
+      );
+
+      rerender(
+        <CarbonProvider validationRedesignOptIn>
+          <Textbox
+            id={mockId}
+            {...{ [validationType]: "different message" }}
+            value="foo"
+            onChange={jest.fn()}
+          />
+        </CarbonProvider>,
+      );
+
+      expect(screen.getByText("different message")).toHaveAttribute(
+        "id",
+        `${mockId}-validation-2`,
+      );
+      expect(screen.getByRole("textbox")).toHaveAttribute(
+        "aria-describedby",
+        `${mockId}-validation-2`,
+      );
+    },
+  );
+
+  it.each(newValidationTypes)(
+    "keeps the same %s validation id when the message stays the same",
+    (validationType) => {
+      const mockId = "foo";
+      const { rerender } = renderWithNewValidations({
+        id: mockId,
+        [validationType]: "same message",
+        value: "foo",
+        onChange: jest.fn(),
+      });
+
+      expect(screen.getByText("same message")).toHaveAttribute(
+        "id",
+        `${mockId}-validation-1`,
+      );
+
+      rerender(
+        <CarbonProvider validationRedesignOptIn>
+          <Textbox
+            id={mockId}
+            {...{ [validationType]: "same message" }}
+            value="foo"
+            onChange={jest.fn()}
+          />
+        </CarbonProvider>,
+      );
+
+      expect(screen.getByText("same message")).toHaveAttribute(
+        "id",
+        `${mockId}-validation-1`,
+      );
+    },
+  );
+
+  it("updates validation id when switching from error to warning", () => {
+    const mockId = "foo";
+    const { rerender } = renderWithNewValidations({
+      id: mockId,
+      error: "error message",
+      value: "foo",
+      onChange: jest.fn(),
+    });
+
+    expect(screen.getByText("error message")).toHaveAttribute(
+      "id",
+      `${mockId}-validation-1`,
+    );
+
+    rerender(
+      <CarbonProvider validationRedesignOptIn>
+        <Textbox
+          id={mockId}
+          warning="warning message"
+          value="foo"
+          onChange={jest.fn()}
+        />
+      </CarbonProvider>,
+    );
+
+    expect(screen.getByText("warning message")).toHaveAttribute(
+      "id",
+      `${mockId}-validation-2`,
+    );
+  });
+});
+
 test("renders with the expected border radius styling", () => {
   render(<Textbox value="foo" onChange={() => {}} />);
   expect(screen.getByRole("textbox")).toHaveStyleRule(

@@ -94,3 +94,69 @@ describe.each([
     );
   });
 });
+
+describe("when validation message changes", () => {
+  it("updates validationId from validation-1 to validation-2 when error message changes", () => {
+    const { result, rerender } = renderHook(
+      ({ validationProps }) => useInputAccessibility(validationProps),
+      {
+        initialProps: {
+          validationProps: {
+            id,
+            error: "first error",
+            validationRedesignOptIn: true,
+          },
+        },
+      },
+    );
+
+    expect(result.current).toEqual(
+      expect.objectContaining({
+        validationId: `${id}-validation-1`,
+        ariaDescribedBy: `${id}-validation-1`,
+      }),
+    );
+
+    rerender({
+      validationProps: {
+        id,
+        error: "different error",
+        validationRedesignOptIn: true,
+      },
+    });
+
+    expect(result.current).toEqual(
+      expect.objectContaining({
+        validationId: `${id}-validation-2`,
+        ariaDescribedBy: `${id}-validation-2`,
+      }),
+    );
+  });
+
+  it("keeps the same validationId when the message stays the same", () => {
+    const { result, rerender } = renderHook(
+      ({ validationProps }) => useInputAccessibility(validationProps),
+      {
+        initialProps: {
+          validationProps: {
+            id,
+            error: "first error",
+            validationRedesignOptIn: true,
+          },
+        },
+      },
+    );
+
+    expect(result.current.validationId).toBe(`${id}-validation-1`);
+
+    rerender({
+      validationProps: {
+        id,
+        error: "first error",
+        validationRedesignOptIn: true,
+      },
+    });
+
+    expect(result.current.validationId).toBe(`${id}-validation-1`);
+  });
+});
