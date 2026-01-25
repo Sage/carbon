@@ -43,7 +43,7 @@ const initialValue = {
 describe("Bold button", () => {
   it("should render the bold button correctly if inactive", () => {
     render(
-      <TextEditor labelText="Test Editor" namespace="test-rte" />
+      <TextEditor labelText="Test Editor" />
     );
     const boldButton = screen.getByRole("button", {name: "Bold"});
     expect(boldButton).toBeInTheDocument();

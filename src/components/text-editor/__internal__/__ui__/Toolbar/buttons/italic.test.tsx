@@ -43,7 +43,7 @@ const initialValue = {
 describe("Italic button", () => {
   it("should render the italic button correctly if inactive", () => {
     render(
-      <TextEditor labelText="Test Editor" namespace="test-rte" />
+      <TextEditor labelText="Test Editor" />
     );
     const italicButton = screen.getByRole("button", {name: "Italic"});
     expect(italicButton).toBeInTheDocument();

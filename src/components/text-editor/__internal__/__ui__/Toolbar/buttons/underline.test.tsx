@@ -40,7 +40,7 @@ const initialValue = {
 
 describe("Underline button", () => {
   it("should render the underline button correctly if inactive", () => {
-    render(<TextEditor labelText="Test Editor" namespace="test-rte" />);
+    render(<TextEditor labelText="Test Editor" />);
 
     const underlineButton = screen.getByRole("button", { name: "Underline" });
     expect(underlineButton).toBeInTheDocument();

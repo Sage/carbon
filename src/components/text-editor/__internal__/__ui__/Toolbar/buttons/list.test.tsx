@@ -1,21 +1,64 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import React, { act } from "react";
+import React from "react";
 
-import { TestEditor, TestEditorHelpers } from "../../../TestEditor.component";
-
-import { ListControls } from ".";
-import { $getRoot, LexicalEditor, ParagraphNode, TextNode } from "lexical";
+import { $getRoot, LexicalEditor } from "lexical";
+import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { ListItemNode, ListNode } from "@lexical/list";
+
+import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
+
+import ListControls from "./list.component";
+
+import TextEditor from '../../../../text-editor.component'
+
+const EditorRefPlugin = ({ onReady }: { onReady: (editor: LexicalEditor) => void }) => {
+  const [editor] = useLexicalComposerContext();
+  React.useEffect(() => {
+    onReady(editor);
+  }, [editor, onReady]);
+  return null;
+};
+
+// Reusable JSON object for testing the default state
+const initialValue = {
+  root: {
+    children: [
+      {
+        children: [
+          {
+            detail: 0,
+            format: 0,
+            mode: "normal",
+            style: "",
+            text: "Sample text",
+            type: "text",
+            version: 1,
+          },
+        ],
+        format: "",
+        indent: 0,
+        type: "paragraph",
+        version: 1,
+        textFormat: 0,
+        textStyle: "",
+      },
+    ],
+
+    format: "",
+    indent: 0,
+    type: "root",
+    version: 1,
+  },
+};
 
 it("should render the ordered list control correctly", async () => {
   const user = userEvent.setup();
   render(
-    <TestEditor>
-      <ListControls namespace="test" />
-    </TestEditor>,
+    <TextEditor labelText="Test Editor" namespace="test" />
   );
   const olButton = screen.getByTestId(`test-ordered-list-button`);
+
   expect(olButton).toBeInTheDocument();
   expect(olButton).toHaveStyleRule("background-color", "transparent");
   expect(olButton).toHaveAttribute("aria-pressed", "false");
@@ -31,9 +74,7 @@ it("should render the ordered list control correctly", async () => {
 it("should render the unordered list control correctly", async () => {
   const user = userEvent.setup();
   render(
-    <TestEditor>
-      <ListControls namespace="test" />
-    </TestEditor>,
+    <TextEditor labelText="Test Editor" namespace="test" />
   );
   const ulButton = screen.getByTestId(`test-unordered-list-button`);
   expect(ulButton).toBeInTheDocument();
@@ -50,38 +91,26 @@ it("should render the unordered list control correctly", async () => {
 
 it("applies unordered list formatting when UnorderedList is clicked", async () => {
   let editorRef: LexicalEditor;
-  let textEditorHelpers: TestEditorHelpers;
+  const user = userEvent.setup();
 
-  render(
-    <TestEditor
-      onEditorReady={(editor, helpers) => {
-        editorRef = editor;
-        textEditorHelpers = helpers;
-      }}
-    >
-      <ListControls namespace="test" />
-    </TestEditor>,
-  );
+  render(<TextEditor 
+    labelText="Test Editor" 
+    initialValue={JSON.stringify(initialValue)}
+    customPlugins={<EditorRefPlugin onReady={(editor) => { editorRef = editor; }} />}
+    namespace="test"
+  />);
 
-  act(() => {
-    textEditorHelpers.setEditorContent(editorRef, "Hello");
-
-    editorRef.update(() => {
-      const root = $getRoot();
-      const paragraph = root.getFirstChild() as ParagraphNode;
-      const textNode = paragraph?.getFirstChild() as TextNode;
-
-      textNode?.select(0, textNode?.getTextContentSize());
-    });
-  });
+  const editor = screen.getByRole("textbox");
+  await user.tripleClick(editor);
 
   const ulButton = screen.getByTestId("test-unordered-list-button");
-
   await userEvent.click(ulButton);
 
   await waitFor(() => {
     expect(ulButton).toHaveAttribute("aria-pressed", "true");
   });
+
+  expect(screen.getByText("Sample text")).toBeInTheDocument();
 
   await waitFor(() => {
     editorRef.getEditorState().read(() => {
@@ -94,37 +123,25 @@ it("applies unordered list formatting when UnorderedList is clicked", async () =
         (firstNode?.getChildren()[0] as ListItemNode)
           .getChildren()[0]
           .getTextContent(),
-      ).toBe("Hello");
+      ).toBe("Sample text");
     });
   });
 });
 
 it("applies ordered list formatting when OrderedList is clicked", async () => {
   let editorRef: LexicalEditor;
-  let textEditorHelpers: TestEditorHelpers;
+  const user = userEvent.setup();
 
-  render(
-    <TestEditor
-      onEditorReady={(editor, helpers) => {
-        editorRef = editor;
-        textEditorHelpers = helpers;
-      }}
-    >
-      <ListControls namespace="test" />
-    </TestEditor>,
-  );
+  render(<TextEditor 
+    labelText="Test Editor" 
+    initialValue={JSON.stringify(initialValue)}
+    customPlugins={<EditorRefPlugin onReady={(editor) => { editorRef = editor; }} />}
+    namespace="test"
+  />);
 
-  act(() => {
-    textEditorHelpers.setEditorContent(editorRef, "Hello");
-
-    editorRef.update(() => {
-      const root = $getRoot();
-      const paragraph = root.getFirstChild() as ParagraphNode;
-      const textNode = paragraph?.getFirstChild() as TextNode;
-
-      textNode?.select(0, textNode?.getTextContentSize());
-    });
-  });
+  const editor = screen.getByRole("textbox");
+  
+  await user.tripleClick(editor);
 
   const olButton = screen.getByTestId("test-ordered-list-button");
 
@@ -145,37 +162,25 @@ it("applies ordered list formatting when OrderedList is clicked", async () => {
         (firstNode?.getChildren()[0] as ListItemNode)
           .getChildren()[0]
           .getTextContent(),
-      ).toBe("Hello");
+      ).toBe("Sample text");
     });
   });
 });
 
 it("applies and removed unordered list formatting when UnorderedList is clicked", async () => {
   let editorRef: LexicalEditor;
-  let textEditorHelpers: TestEditorHelpers;
+  const user = userEvent.setup();
 
-  render(
-    <TestEditor
-      onEditorReady={(editor, helpers) => {
-        editorRef = editor;
-        textEditorHelpers = helpers;
-      }}
-    >
-      <ListControls namespace="test" />
-    </TestEditor>,
-  );
+  render(<TextEditor 
+    labelText="Test Editor" 
+    initialValue={JSON.stringify(initialValue)}
+    customPlugins={<EditorRefPlugin onReady={(editor) => { editorRef = editor; }} />}
+    namespace="test"
+  />);
 
-  act(() => {
-    textEditorHelpers.setEditorContent(editorRef, "Hello");
-
-    editorRef.update(() => {
-      const root = $getRoot();
-      const paragraph = root.getFirstChild() as ParagraphNode;
-      const textNode = paragraph?.getFirstChild() as TextNode;
-
-      textNode?.select(0, textNode?.getTextContentSize());
-    });
-  });
+  const editor = screen.getByRole("textbox");
+  
+  await user.tripleClick(editor);
 
   const ulButton = screen.getByTestId("test-unordered-list-button");
 
@@ -196,7 +201,7 @@ it("applies and removed unordered list formatting when UnorderedList is clicked"
         (firstNode?.getChildren()[0] as ListItemNode)
           .getChildren()[0]
           .getTextContent(),
-      ).toBe("Hello");
+      ).toBe("Sample text");
     });
   });
 
@@ -211,37 +216,25 @@ it("applies and removed unordered list formatting when UnorderedList is clicked"
       const root = $getRoot();
       const firstNode = root.getFirstChild();
       expect(firstNode?.getType()).toBe("paragraph");
-      expect(firstNode?.getTextContent()).toBe("Hello");
+      expect(firstNode?.getTextContent()).toBe("Sample text");
     });
   });
 });
 
 it("applies and removed ordered list formatting when UnorderedList is clicked", async () => {
   let editorRef: LexicalEditor;
-  let textEditorHelpers: TestEditorHelpers;
+  const user = userEvent.setup();
 
-  render(
-    <TestEditor
-      onEditorReady={(editor, helpers) => {
-        editorRef = editor;
-        textEditorHelpers = helpers;
-      }}
-    >
-      <ListControls namespace="test" />
-    </TestEditor>,
-  );
+  render(<TextEditor 
+    labelText="Test Editor" 
+    initialValue={JSON.stringify(initialValue)}
+    customPlugins={<EditorRefPlugin onReady={(editor) => { editorRef = editor; }} />}
+    namespace="test"
+  />);
 
-  act(() => {
-    textEditorHelpers.setEditorContent(editorRef, "Hello");
-
-    editorRef.update(() => {
-      const root = $getRoot();
-      const paragraph = root.getFirstChild() as ParagraphNode;
-      const textNode = paragraph?.getFirstChild() as TextNode;
-
-      textNode?.select(0, textNode?.getTextContentSize());
-    });
-  });
+  const editor = screen.getByRole("textbox");
+  
+  await user.tripleClick(editor);
 
   const olButton = screen.getByTestId("test-ordered-list-button");
 
@@ -262,7 +255,7 @@ it("applies and removed ordered list formatting when UnorderedList is clicked", 
         (firstNode?.getChildren()[0] as ListItemNode)
           .getChildren()[0]
           .getTextContent(),
-      ).toBe("Hello");
+      ).toBe("Sample text");
     });
   });
 
@@ -277,38 +270,24 @@ it("applies and removed ordered list formatting when UnorderedList is clicked", 
       const root = $getRoot();
       const firstNode = root.getFirstChild();
       expect(firstNode?.getType()).toBe("paragraph");
-      expect(firstNode?.getTextContent()).toBe("Hello");
+      expect(firstNode?.getTextContent()).toBe("Sample text");
     });
   });
 });
 
 it("applies and converts between list formatting types", async () => {
   let editorRef: LexicalEditor;
-  let textEditorHelpers: TestEditorHelpers;
+  const user = userEvent.setup();
 
-  render(
-    <TestEditor
-      onEditorReady={(editor, helpers) => {
-        editorRef = editor;
-        textEditorHelpers = helpers;
-      }}
-    >
-      <ListControls namespace="test" />
-    </TestEditor>,
-  );
+  render(<TextEditor 
+    labelText="Test Editor" 
+    initialValue={JSON.stringify(initialValue)}
+    customPlugins={<EditorRefPlugin onReady={(editor) => { editorRef = editor; }} />}
+    namespace="test"
+  />);
 
-  act(() => {
-    textEditorHelpers.setEditorContent(editorRef, "Hello");
-
-    editorRef.update(() => {
-      const root = $getRoot();
-      const paragraph = root.getFirstChild() as ParagraphNode;
-      const textNode = paragraph?.getFirstChild() as TextNode;
-
-      textNode?.select(0, textNode?.getTextContentSize());
-    });
-  });
-
+  const editor = screen.getByRole("textbox");
+  await user.tripleClick(editor);
   const olButton = screen.getByTestId("test-ordered-list-button");
   const ulButton = screen.getByTestId("test-unordered-list-button");
 
@@ -329,7 +308,7 @@ it("applies and converts between list formatting types", async () => {
         (firstNode?.getChildren()[0] as ListItemNode)
           .getChildren()[0]
           .getTextContent(),
-      ).toBe("Hello");
+      ).toBe("Sample text");
     });
   });
 
@@ -353,7 +332,7 @@ it("applies and converts between list formatting types", async () => {
         (firstNode?.getChildren()[0] as ListItemNode)
           .getChildren()[0]
           .getTextContent(),
-      ).toBe("Hello");
+      ).toBe("Sample text");
     });
   });
 
@@ -377,42 +356,24 @@ it("applies and converts between list formatting types", async () => {
         (firstNode?.getChildren()[0] as ListItemNode)
           .getChildren()[0]
           .getTextContent(),
-      ).toBe("Hello");
+      ).toBe("Sample text");
     });
   });
 });
 
-it("applies list changes correctly", async () => {
-  let editorRef: LexicalEditor;
-  let textEditorHelpers: TestEditorHelpers;
-
+it("defaults showUL and showOL to true when props are not specified", () => {
+  const initialConfig = {
+    namespace: "test-list-composer",
+    nodes: [],
+    onError: () => {},
+  };
+  
   render(
-    <TestEditor
-      onEditorReady={(editor, helpers) => {
-        editorRef = editor;
-        textEditorHelpers = helpers;
-      }}
-    >
+    <LexicalComposer  initialConfig={initialConfig}>
       <ListControls namespace="test" />
-    </TestEditor>,
+    </LexicalComposer>,
   );
 
-  const ulButton = screen.getByTestId("test-unordered-list-button");
-
-  await userEvent.click(ulButton);
-
-  act(() => {
-    expect(ulButton).toHaveAttribute("aria-pressed", "true");
-  });
-
-  await act(() => {
-    editorRef.update(() => {
-      textEditorHelpers.typeIntoEditor("Foo");
-      textEditorHelpers.typeIntoEditor("{enter}");
-      textEditorHelpers.typeIntoEditor("Bar");
-      textEditorHelpers.typeIntoEditor("{enter}");
-      textEditorHelpers.typeIntoEditor("Baz");
-      textEditorHelpers.typeIntoEditor("{enter}");
-    });
-  });
+  expect(screen.getByTestId("test-unordered-list-button")).toBeInTheDocument();
+  expect(screen.getByTestId("test-ordered-list-button")).toBeInTheDocument();
 });

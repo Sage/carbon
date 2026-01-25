@@ -79,10 +79,10 @@ describe("CharacterCounterPlugin", () => {
     const user = userEvent.setup();
 
     render(
-      <TextEditor labelText="Test Editor" namespace="test-rte" characterLimit={10} />,
+      <TextEditor labelText="Test Editor" namespace="test" characterLimit={10} />,
     );
 
-    const visibleCounter = screen.getByTestId("test-rte-character-limit");
+    const visibleCounter = screen.getByTestId("test-character-limit");
     expect(visibleCounter).toHaveTextContent("10 characters remaining");
 
     const editor = screen.getByRole("textbox");
