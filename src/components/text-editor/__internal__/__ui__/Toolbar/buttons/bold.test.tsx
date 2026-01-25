@@ -6,7 +6,7 @@ import { LexicalComposer } from "@lexical/react/LexicalComposer";
 
 import BoldButton from "./bold.component";
 
-import TextEditor from '../../../../text-editor.component'
+import TextEditor from "../../../../text-editor.component";
 
 // Reusable JSON object for testing the default state
 const initialValue = {
@@ -42,10 +42,8 @@ const initialValue = {
 
 describe("Bold button", () => {
   it("should render the bold button correctly if inactive", () => {
-    render(
-      <TextEditor labelText="Test Editor" />
-    );
-    const boldButton = screen.getByRole("button", {name: "Bold"});
+    render(<TextEditor labelText="Test Editor" />);
+    const boldButton = screen.getByRole("button", { name: "Bold" });
     expect(boldButton).toBeInTheDocument();
     expect(boldButton).toHaveStyleRule("background-color", "transparent");
     expect(boldButton).toHaveAttribute("aria-pressed", "false");
@@ -53,7 +51,10 @@ describe("Bold button", () => {
 
   it("should render the bold button correctly if active", async () => {
     render(
-      <TextEditor labelText="Test Editor" initialValue={JSON.stringify(initialValue)} />,
+      <TextEditor
+        labelText="Test Editor"
+        initialValue={JSON.stringify(initialValue)}
+      />,
     );
 
     const editor = screen.getByRole("textbox");
@@ -71,12 +72,12 @@ describe("Bold button", () => {
     expect(boldButton).toHaveAttribute("aria-pressed", "true");
   });
 
-  it("applies bold formatting when BoldButton is clicked", async () => {    
+  it("applies bold formatting when BoldButton is clicked", async () => {
     render(
       <TextEditor
         labelText="Example"
         initialValue={JSON.stringify(initialValue)}
-      />
+      />,
     );
 
     const editor = screen.getByRole("textbox");
@@ -106,4 +107,4 @@ describe("Bold button", () => {
     const boldButton = screen.getByRole("button", { name: "Bold" });
     expect(boldButton).toHaveAttribute("tabindex", "-1");
   });
-})
+});

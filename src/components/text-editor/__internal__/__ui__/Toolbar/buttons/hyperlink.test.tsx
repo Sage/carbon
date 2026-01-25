@@ -1,4 +1,4 @@
-import { render, screen, waitFor, within} from "@testing-library/react";
+import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
 
@@ -11,7 +11,7 @@ import { HyperlinkButton } from ".";
 // import Button from "../../../../../button";
 // import Textbox from "../../../../../textbox";
 
-import TextEditor from '../../../../text-editor.component'
+import TextEditor from "../../../../text-editor.component";
 
 // Reusable JSON object for testing the default state
 const initialValue = {
@@ -130,18 +130,14 @@ const initialValue = {
 
 describe("Hyperlink button", () => {
   it("should render the hyperlink button correctly", () => {
-    render(
-      <TextEditor labelText="Test Editor" namespace="test-rte" />
-    );
+    render(<TextEditor labelText="Test Editor" namespace="test-rte" />);
     const linkButton = screen.getByTestId(`test-rte-hyperlink-button`);
     expect(linkButton).toBeInTheDocument();
     expect(linkButton).toHaveStyleRule("background-color", "transparent");
   });
 
   it("should render the dialog correctly when the button is clicked", async () => {
-    render(
-      <TextEditor labelText="Test Editor" namespace="test-rte" />
-    );
+    render(<TextEditor labelText="Test Editor" namespace="test-rte" />);
     const linkButton = screen.getByTestId(`test-rte-hyperlink-button`);
     expect(linkButton).toBeInTheDocument();
 
@@ -168,9 +164,7 @@ describe("Hyperlink button", () => {
   });
 
   it("should close the dialog when the cancel button is clicked", async () => {
-    render(
-      <TextEditor labelText="Test Editor" namespace="test-rte" />
-    );
+    render(<TextEditor labelText="Test Editor" namespace="test-rte" />);
     const linkButton = screen.getByTestId(`test-rte-hyperlink-button`);
     expect(linkButton).toBeInTheDocument();
 
@@ -195,7 +189,11 @@ describe("Hyperlink button", () => {
 
   it(`should focus the hyperlink button when isFirstButton is set to true`, async () => {
     render(
-      <TextEditor labelText="Test Editor" namespace="test-rte" toolbarControls={['link']}/>
+      <TextEditor
+        labelText="Test Editor"
+        namespace="test-rte"
+        toolbarControls={["link"]}
+      />,
     );
     const linkButton = screen.getByTestId(`test-rte-hyperlink-button`);
     expect(linkButton).toBeInTheDocument();
@@ -211,7 +209,11 @@ describe("Hyperlink button", () => {
 
   it.skip(`should not focus the hyperlink button when isFirstButton is set to false`, async () => {
     render(
-      <TextEditor labelText="Test Editor" namespace="test-rte" toolbarControls={['bold', 'link']}/>
+      <TextEditor
+        labelText="Test Editor"
+        namespace="test-rte"
+        toolbarControls={["bold", "link"]}
+      />,
     );
     const linkButton = screen.getByTestId(`test-rte-hyperlink-button`);
     expect(linkButton).toBeInTheDocument();
@@ -221,13 +223,17 @@ describe("Hyperlink button", () => {
     await userEvent.tab();
 
     expect(linkButton).not.toHaveFocus();
-  }); 
+  });
 
   it.skip(`should not persist data between modals when the close button is pressed`, async () => {
-    const user = userEvent.setup({delay: null})
+    const user = userEvent.setup({ delay: null });
 
     render(
-      <TextEditor labelText="Test Editor" namespace="test-rte" initialValue={JSON.stringify(initialValue)}/>
+      <TextEditor
+        labelText="Test Editor"
+        namespace="test-rte"
+        initialValue={JSON.stringify(initialValue)}
+      />,
     );
     const linkButton = screen.getByTestId(`test-rte-hyperlink-button`);
     expect(linkButton).toBeInTheDocument();
@@ -273,9 +279,15 @@ describe("Hyperlink button", () => {
   });
 
   it.skip(`should not persist data between modals when the ESC key is pressed`, async () => {
-    const user = userEvent.setup({delay: null});
+    const user = userEvent.setup({ delay: null });
 
-    render(<TextEditor labelText="Test Editor" namespace="test-rte" initialValue={JSON.stringify(initialValue)}/>);
+    render(
+      <TextEditor
+        labelText="Test Editor"
+        namespace="test-rte"
+        initialValue={JSON.stringify(initialValue)}
+      />,
+    );
     const linkButton = screen.getByTestId(`test-rte-hyperlink-button`);
     expect(linkButton).toBeInTheDocument();
     await userEvent.click(linkButton);
@@ -284,12 +296,12 @@ describe("Hyperlink button", () => {
     expect(dialog).toBeInTheDocument();
 
     const dialogContent = within(dialog);
-    
+
     const urlInput = dialogContent.getAllByRole("textbox")[1];
 
     // await waitFor(async () => {
-      // await user.click(urlInput)
-      await user.type(urlInput, "https://carbon.sage.com");
+    // await user.click(urlInput)
+    await user.type(urlInput, "https://carbon.sage.com");
     // });
 
     // await act(async () => {
@@ -297,12 +309,12 @@ describe("Hyperlink button", () => {
     //   await user.keyboard("https://carbon.sage.com");
 
     // })
-    
+
     await waitFor(() =>
       expect(urlInput).toHaveValue("https://carbon.sage.com"),
     );
-    
-    // const textInput = dialogContent.getAllByRole("textbox")[0]; 
+
+    // const textInput = dialogContent.getAllByRole("textbox")[0];
     // await user.click(textInput);
     // await user.keyboard("Carbon");
 
@@ -320,7 +332,7 @@ describe("Hyperlink button", () => {
 
     // const newDialog = screen.getByRole("dialog");
 
-    // await waitFor(() => 
+    // await waitFor(() =>
     //   expect(newDialog).toBeInTheDocument(),
     // );
 
@@ -340,9 +352,13 @@ describe("Hyperlink button", () => {
 
   it("should submit the form when the save button is clicked", async () => {
     const user = userEvent.setup();
-    
+
     render(
-      <TextEditor labelText="Test Editor" namespace="test-rte" initialValue={JSON.stringify(initialValue)}/>
+      <TextEditor
+        labelText="Test Editor"
+        namespace="test-rte"
+        initialValue={JSON.stringify(initialValue)}
+      />,
     );
 
     const editor = screen.getByRole("textbox");
@@ -389,7 +405,11 @@ describe("Hyperlink button", () => {
   it("should add a URL to the editor", async () => {
     const user = userEvent.setup();
     render(
-      <TextEditor labelText="Test Editor" namespace="test-rte" initialValue={JSON.stringify(initialValue)}/>
+      <TextEditor
+        labelText="Test Editor"
+        namespace="test-rte"
+        initialValue={JSON.stringify(initialValue)}
+      />,
     );
 
     const editor = screen.getByRole("textbox");
@@ -402,7 +422,6 @@ describe("Hyperlink button", () => {
     const linkButton = screen.getByTestId(`test-rte-hyperlink-button`);
     await user.click(linkButton);
 
-    
     const dialog = await screen.findByRole("dialog");
 
     await waitFor(() => {
@@ -410,7 +429,7 @@ describe("Hyperlink button", () => {
     });
 
     const dialogContent = within(dialog);
-    
+
     const textInput = await dialogContent.findByLabelText("Text");
     const urlInput = await dialogContent.findByLabelText("Link");
 
@@ -423,7 +442,7 @@ describe("Hyperlink button", () => {
     await waitFor(() => {
       expect(urlInput).toHaveValue("https://carbon.sage.com");
     });
-    
+
     await waitFor(() => {
       expect(textInput).toHaveValue("Carbon");
     });
@@ -447,7 +466,10 @@ describe("Hyperlink button", () => {
 
     render(
       <LexicalComposer initialConfig={initialConfig}>
-        <HyperlinkButton namespace="test-bold-composer" setDialogOpen={() => {}}/>
+        <HyperlinkButton
+          namespace="test-bold-composer"
+          setDialogOpen={() => {}}
+        />
       </LexicalComposer>,
     );
 

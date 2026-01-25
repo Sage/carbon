@@ -101,10 +101,7 @@ describe("Underline button", () => {
 
     render(
       <LexicalComposer initialConfig={initialConfig}>
-        <UnderlineButton
-          isActive={false}
-          namespace="test-underline-composer"
-        />
+        <UnderlineButton isActive={false} namespace="test-underline-composer" />
       </LexicalComposer>,
     );
 

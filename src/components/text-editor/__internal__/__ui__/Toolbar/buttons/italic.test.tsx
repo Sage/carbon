@@ -5,7 +5,7 @@ import { LexicalComposer } from "@lexical/react/LexicalComposer";
 
 import userEvent from "@testing-library/user-event";
 
-import TextEditor from '../../../../text-editor.component'
+import TextEditor from "../../../../text-editor.component";
 import ItalicButton from "./italic.component";
 
 // Reusable JSON object for testing the default state
@@ -42,10 +42,8 @@ const initialValue = {
 
 describe("Italic button", () => {
   it("should render the italic button correctly if inactive", () => {
-    render(
-      <TextEditor labelText="Test Editor" />
-    );
-    const italicButton = screen.getByRole("button", {name: "Italic"});
+    render(<TextEditor labelText="Test Editor" />);
+    const italicButton = screen.getByRole("button", { name: "Italic" });
     expect(italicButton).toBeInTheDocument();
     expect(italicButton).toHaveStyleRule("background-color", "transparent");
     expect(italicButton).toHaveAttribute("aria-pressed", "false");
@@ -53,14 +51,17 @@ describe("Italic button", () => {
 
   it("should render the italic button correctly if active", async () => {
     render(
-      <TextEditor labelText="Test Editor" initialValue={JSON.stringify(initialValue)} />,
+      <TextEditor
+        labelText="Test Editor"
+        initialValue={JSON.stringify(initialValue)}
+      />,
     );
 
     const editor = screen.getByRole("textbox");
     await userEvent.click(editor);
     await userEvent.type(editor, " italic");
 
-    const italicButton = screen.getByRole("button", {name: "Italic"});
+    const italicButton = screen.getByRole("button", { name: "Italic" });
     await userEvent.click(italicButton);
 
     expect(italicButton).toBeInTheDocument();
@@ -76,7 +77,7 @@ describe("Italic button", () => {
       <TextEditor
         labelText="Example"
         initialValue={JSON.stringify(initialValue)}
-      />
+      />,
     );
 
     const editor = screen.getByRole("textbox");

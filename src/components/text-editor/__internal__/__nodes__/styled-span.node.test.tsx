@@ -25,7 +25,11 @@ Object.defineProperty(window, "getComputedStyle", {
   }),
 });
 
-const EditorRefPlugin = ({ onReady }: { onReady: (editor: LexicalEditor) => void }) => {
+const EditorRefPlugin = ({
+  onReady,
+}: {
+  onReady: (editor: LexicalEditor) => void;
+}) => {
   const [editor] = useLexicalComposerContext();
   React.useEffect(() => {
     onReady(editor);
@@ -118,11 +122,19 @@ describe("StyledSpanNode", () => {
   describe("Getters and Setters", () => {
     test("should get font weight, size and line height correctly", () => {
       let editorRef: LexicalEditor | undefined;
-      
-      render(<TextEditor 
-        labelText="Test Editor" 
-        customPlugins={<EditorRefPlugin onReady={(editor) => { editorRef = editor; }} />}
-      />);
+
+      render(
+        <TextEditor
+          labelText="Test Editor"
+          customPlugins={
+            <EditorRefPlugin
+              onReady={(editor) => {
+                editorRef = editor;
+              }}
+            />
+          }
+        />,
+      );
 
       act(() => {
         editorRef?.update(() => {
@@ -137,11 +149,19 @@ describe("StyledSpanNode", () => {
     // tested in playwright test: `renders with the correct style for the ${id} typography`
     test("should set font weight, size and line height", () => {
       let editorRef: LexicalEditor | undefined;
-      
-      render(<TextEditor 
-        labelText="Test Editor" 
-        customPlugins={<EditorRefPlugin onReady={(editor) => { editorRef = editor; }} />}
-      />);
+
+      render(
+        <TextEditor
+          labelText="Test Editor"
+          customPlugins={
+            <EditorRefPlugin
+              onReady={(editor) => {
+                editorRef = editor;
+              }}
+            />
+          }
+        />,
+      );
 
       editorRef?.update(() => {
         const node = new StyledSpanNode("Test", "400", "14px", "21px");

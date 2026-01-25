@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 
-import TextEditor from '../../../../text-editor.component'
+import TextEditor from "../../../../text-editor.component";
 import TypographySelector from "./typography.component";
 
 const TypographyInComposer = () => {
@@ -31,9 +31,7 @@ const TypographyInComposer = () => {
 
 describe("TypographySelector", () => {
   it("renders with default paragraph option", () => {
-    render(
-      <TextEditor labelText="Test Editor" />,
-    );
+    render(<TextEditor labelText="Test Editor" />);
 
     const button = screen.getByRole("combobox");
 
@@ -42,9 +40,7 @@ describe("TypographySelector", () => {
   });
 
   it("updates state when dropdown value changes", async () => {
-    render(
-      <TextEditor labelText="Test Editor" />,
-    );
+    render(<TextEditor labelText="Test Editor" />);
 
     const button = screen.getByRole("combobox");
 

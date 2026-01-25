@@ -14,17 +14,13 @@ describe("ToolbarDropdown", () => {
 
   it("renders with default selected option", () => {
     // render(<TestEditorWithToolbar defaultState={false} />);
-    render(
-      <TextEditor labelText="Test Editor" namespace="test" />
-    );
+    render(<TextEditor labelText="Test Editor" namespace="test" />);
     expect(screen.getByRole("combobox")).toBeInTheDocument();
     expect(screen.getByRole("combobox")).toHaveTextContent(/Paragraph/gi);
   });
 
   it("opens menu on button click", async () => {
-    render(
-      <TextEditor labelText="Test Editor" namespace="test" />
-    );
+    render(<TextEditor labelText="Test Editor" namespace="test" />);
 
     expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
     await userEvent.click(screen.getByRole("combobox"));
@@ -32,9 +28,7 @@ describe("ToolbarDropdown", () => {
   });
 
   it("closes menu on button click when already open", async () => {
-    render(
-      <TextEditor labelText="Test Editor" namespace="test"/>
-    );
+    render(<TextEditor labelText="Test Editor" namespace="test" />);
 
     await userEvent.click(screen.getByRole("combobox"));
 
@@ -46,9 +40,7 @@ describe("ToolbarDropdown", () => {
   });
 
   it("closes menu when clicking outside", async () => {
-    render(
-      <TextEditor labelText="Test Editor" namespace="test"/>
-    );
+    render(<TextEditor labelText="Test Editor" namespace="test" />);
 
     await userEvent.click(screen.getByRole("combobox"));
     expect(screen.getByRole("listbox")).toBeInTheDocument();
@@ -57,9 +49,7 @@ describe("ToolbarDropdown", () => {
   });
 
   it("handles keyboard Enter to open menu", async () => {
-    render(
-      <TextEditor labelText="Test Editor" namespace="test"/>
-    );
+    render(<TextEditor labelText="Test Editor" namespace="test" />);
 
     expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
 
@@ -73,9 +63,7 @@ describe("ToolbarDropdown", () => {
   });
 
   it("handles keyboard Enter to select option", async () => {
-    render(
-      <TextEditor labelText="Test Editor" namespace="test"/>
-    );
+    render(<TextEditor labelText="Test Editor" namespace="test" />);
 
     await userEvent.click(screen.getByRole("combobox"));
     expect(screen.getByRole("listbox")).toBeInTheDocument();
@@ -87,13 +75,11 @@ describe("ToolbarDropdown", () => {
   });
 
   it("navigates with ArrowDown", async () => {
-    render(
-      <TextEditor labelText="Test Editor" namespace="test"/>
-    );
+    render(<TextEditor labelText="Test Editor" namespace="test" />);
     await userEvent.click(screen.getByRole("combobox"));
 
     const menuitems = screen.getAllByRole("option");
-    
+
     await userEvent.keyboard("{ArrowDown}");
     expect(menuitems[0]).toHaveFocus();
 
@@ -114,9 +100,7 @@ describe("ToolbarDropdown", () => {
   });
 
   it("navigates with ArrowUp", async () => {
-    render(
-      <TextEditor labelText="Test Editor" namespace="test"/>
-    );
+    render(<TextEditor labelText="Test Editor" namespace="test" />);
     await userEvent.click(screen.getByRole("combobox"));
 
     const menuitems = screen.getAllByRole("option");
@@ -141,9 +125,7 @@ describe("ToolbarDropdown", () => {
   });
 
   it("navigates with Home", async () => {
-    render(
-      <TextEditor labelText="Test Editor" namespace="test"/>
-    );
+    render(<TextEditor labelText="Test Editor" namespace="test" />);
     act(() => {
       screen.getByRole("combobox").focus();
     });
@@ -164,9 +146,7 @@ describe("ToolbarDropdown", () => {
   });
 
   it("navigates with End", async () => {
-    render(
-      <TextEditor labelText="Test Editor" namespace="test"/>
-    );
+    render(<TextEditor labelText="Test Editor" namespace="test" />);
     act(() => {
       screen.getByRole("combobox").focus();
     });
@@ -181,9 +161,7 @@ describe("ToolbarDropdown", () => {
   });
 
   it("closes with Escape key", async () => {
-    render(
-      <TextEditor labelText="Test Editor" namespace="test"/>
-    );
+    render(<TextEditor labelText="Test Editor" namespace="test" />);
 
     await userEvent.click(screen.getByRole("combobox"));
     expect(screen.getByRole("listbox")).toBeInTheDocument();
@@ -192,9 +170,7 @@ describe("ToolbarDropdown", () => {
   });
 
   it("closes with Tab key", async () => {
-    render(
-      <TextEditor labelText="Test Editor" namespace="test"/>
-    );
+    render(<TextEditor labelText="Test Editor" namespace="test" />);
     await userEvent.click(screen.getByRole("combobox"));
     expect(screen.getByRole("listbox")).toBeInTheDocument();
     await userEvent.tab();
@@ -202,9 +178,7 @@ describe("ToolbarDropdown", () => {
   });
 
   it("selects option with mouse click", async () => {
-    render(
-      <TextEditor labelText="Test Editor" namespace="test"/>
-    );
+    render(<TextEditor labelText="Test Editor" namespace="test" />);
 
     await userEvent.click(screen.getByRole("combobox"));
     expect(screen.getByRole("listbox")).toBeInTheDocument();
@@ -214,9 +188,7 @@ describe("ToolbarDropdown", () => {
   });
 
   it("applies correct aria attributes", async () => {
-    render(
-      <TextEditor labelText="Test Editor" namespace="test"/>
-    );
+    render(<TextEditor labelText="Test Editor" namespace="test" />);
 
     await userEvent.click(screen.getByRole("combobox"));
 
@@ -228,7 +200,7 @@ describe("ToolbarDropdown", () => {
 
   it("renders correctly when size is set to small", async () => {
     render(
-      <TextEditor labelText="Test Editor" namespace="test" size="small"/>
+      <TextEditor labelText="Test Editor" namespace="test" size="small" />,
     );
 
     await userEvent.click(screen.getByRole("combobox"));
@@ -241,9 +213,9 @@ describe("ToolbarDropdown", () => {
     });
   });
 
-  it("renders correctly when size is set to medium", async() => {
+  it("renders correctly when size is set to medium", async () => {
     render(
-      <TextEditor labelText="Test Editor" namespace="test" size="medium"/>
+      <TextEditor labelText="Test Editor" namespace="test" size="medium" />,
     );
 
     await userEvent.click(screen.getByRole("combobox"));
@@ -258,7 +230,7 @@ describe("ToolbarDropdown", () => {
 
   it("renders correctly when size is set to large", async () => {
     render(
-      <TextEditor labelText="Test Editor" namespace="test" size="large"/>
+      <TextEditor labelText="Test Editor" namespace="test" size="large" />,
     );
 
     await userEvent.click(screen.getByRole("combobox"));
@@ -280,7 +252,7 @@ describe("ToolbarDropdown", () => {
 
     render(
       <LexicalComposer initialConfig={initialConfig}>
-        <ToolbarDropdown 
+        <ToolbarDropdown
           options={[
             { id: "title", label: "Title", onClick: jest.fn() },
             { id: "subtitle", label: "Subtitle", onClick: jest.fn() },

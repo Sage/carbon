@@ -10,9 +10,13 @@ import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext
 
 import ListControls from "./list.component";
 
-import TextEditor from '../../../../text-editor.component'
+import TextEditor from "../../../../text-editor.component";
 
-const EditorRefPlugin = ({ onReady }: { onReady: (editor: LexicalEditor) => void }) => {
+const EditorRefPlugin = ({
+  onReady,
+}: {
+  onReady: (editor: LexicalEditor) => void;
+}) => {
   const [editor] = useLexicalComposerContext();
   React.useEffect(() => {
     onReady(editor);
@@ -54,9 +58,7 @@ const initialValue = {
 
 it("should render the ordered list control correctly", async () => {
   const user = userEvent.setup();
-  render(
-    <TextEditor labelText="Test Editor" namespace="test" />
-  );
+  render(<TextEditor labelText="Test Editor" namespace="test" />);
   const olButton = screen.getByTestId(`test-ordered-list-button`);
 
   expect(olButton).toBeInTheDocument();
@@ -73,9 +75,7 @@ it("should render the ordered list control correctly", async () => {
 
 it("should render the unordered list control correctly", async () => {
   const user = userEvent.setup();
-  render(
-    <TextEditor labelText="Test Editor" namespace="test" />
-  );
+  render(<TextEditor labelText="Test Editor" namespace="test" />);
   const ulButton = screen.getByTestId(`test-unordered-list-button`);
   expect(ulButton).toBeInTheDocument();
   expect(ulButton).toHaveStyleRule("background-color", "transparent");
@@ -93,12 +93,20 @@ it("applies unordered list formatting when UnorderedList is clicked", async () =
   let editorRef: LexicalEditor;
   const user = userEvent.setup();
 
-  render(<TextEditor 
-    labelText="Test Editor" 
-    initialValue={JSON.stringify(initialValue)}
-    customPlugins={<EditorRefPlugin onReady={(editor) => { editorRef = editor; }} />}
-    namespace="test"
-  />);
+  render(
+    <TextEditor
+      labelText="Test Editor"
+      initialValue={JSON.stringify(initialValue)}
+      customPlugins={
+        <EditorRefPlugin
+          onReady={(editor) => {
+            editorRef = editor;
+          }}
+        />
+      }
+      namespace="test"
+    />,
+  );
 
   const editor = screen.getByRole("textbox");
   await user.tripleClick(editor);
@@ -132,15 +140,23 @@ it("applies ordered list formatting when OrderedList is clicked", async () => {
   let editorRef: LexicalEditor;
   const user = userEvent.setup();
 
-  render(<TextEditor 
-    labelText="Test Editor" 
-    initialValue={JSON.stringify(initialValue)}
-    customPlugins={<EditorRefPlugin onReady={(editor) => { editorRef = editor; }} />}
-    namespace="test"
-  />);
+  render(
+    <TextEditor
+      labelText="Test Editor"
+      initialValue={JSON.stringify(initialValue)}
+      customPlugins={
+        <EditorRefPlugin
+          onReady={(editor) => {
+            editorRef = editor;
+          }}
+        />
+      }
+      namespace="test"
+    />,
+  );
 
   const editor = screen.getByRole("textbox");
-  
+
   await user.tripleClick(editor);
 
   const olButton = screen.getByTestId("test-ordered-list-button");
@@ -171,15 +187,23 @@ it("applies and removed unordered list formatting when UnorderedList is clicked"
   let editorRef: LexicalEditor;
   const user = userEvent.setup();
 
-  render(<TextEditor 
-    labelText="Test Editor" 
-    initialValue={JSON.stringify(initialValue)}
-    customPlugins={<EditorRefPlugin onReady={(editor) => { editorRef = editor; }} />}
-    namespace="test"
-  />);
+  render(
+    <TextEditor
+      labelText="Test Editor"
+      initialValue={JSON.stringify(initialValue)}
+      customPlugins={
+        <EditorRefPlugin
+          onReady={(editor) => {
+            editorRef = editor;
+          }}
+        />
+      }
+      namespace="test"
+    />,
+  );
 
   const editor = screen.getByRole("textbox");
-  
+
   await user.tripleClick(editor);
 
   const ulButton = screen.getByTestId("test-unordered-list-button");
@@ -225,15 +249,23 @@ it("applies and removed ordered list formatting when UnorderedList is clicked", 
   let editorRef: LexicalEditor;
   const user = userEvent.setup();
 
-  render(<TextEditor 
-    labelText="Test Editor" 
-    initialValue={JSON.stringify(initialValue)}
-    customPlugins={<EditorRefPlugin onReady={(editor) => { editorRef = editor; }} />}
-    namespace="test"
-  />);
+  render(
+    <TextEditor
+      labelText="Test Editor"
+      initialValue={JSON.stringify(initialValue)}
+      customPlugins={
+        <EditorRefPlugin
+          onReady={(editor) => {
+            editorRef = editor;
+          }}
+        />
+      }
+      namespace="test"
+    />,
+  );
 
   const editor = screen.getByRole("textbox");
-  
+
   await user.tripleClick(editor);
 
   const olButton = screen.getByTestId("test-ordered-list-button");
@@ -279,12 +311,20 @@ it("applies and converts between list formatting types", async () => {
   let editorRef: LexicalEditor;
   const user = userEvent.setup();
 
-  render(<TextEditor 
-    labelText="Test Editor" 
-    initialValue={JSON.stringify(initialValue)}
-    customPlugins={<EditorRefPlugin onReady={(editor) => { editorRef = editor; }} />}
-    namespace="test"
-  />);
+  render(
+    <TextEditor
+      labelText="Test Editor"
+      initialValue={JSON.stringify(initialValue)}
+      customPlugins={
+        <EditorRefPlugin
+          onReady={(editor) => {
+            editorRef = editor;
+          }}
+        />
+      }
+      namespace="test"
+    />,
+  );
 
   const editor = screen.getByRole("textbox");
   await user.tripleClick(editor);
@@ -367,9 +407,9 @@ it("defaults showUL and showOL to true when props are not specified", () => {
     nodes: [],
     onError: () => {},
   };
-  
+
   render(
-    <LexicalComposer  initialConfig={initialConfig}>
+    <LexicalComposer initialConfig={initialConfig}>
       <ListControls namespace="test" />
     </LexicalComposer>,
   );

@@ -58,7 +58,12 @@ describe("CharacterCounterPlugin", () => {
     const user = userEvent.setup();
 
     render(
-      <TextEditor labelText="Test Editor" namespace="test" characterLimit={100} initialValue={JSON.stringify(initialValue)} />,
+      <TextEditor
+        labelText="Test Editor"
+        namespace="test"
+        characterLimit={100}
+        initialValue={JSON.stringify(initialValue)}
+      />,
     );
 
     const visibleCounter = screen.getByTestId("test-character-limit");
@@ -79,7 +84,11 @@ describe("CharacterCounterPlugin", () => {
     const user = userEvent.setup();
 
     render(
-      <TextEditor labelText="Test Editor" namespace="test" characterLimit={10} />,
+      <TextEditor
+        labelText="Test Editor"
+        namespace="test"
+        characterLimit={10}
+      />,
     );
 
     const visibleCounter = screen.getByTestId("test-character-limit");
