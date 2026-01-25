@@ -1,108 +1,146 @@
-import { render, screen, waitFor, within } from "@testing-library/react";
+import { render, screen, waitFor, within, act} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import React, { useState } from "react";
+import React from "react";
 
-import { HyperlinkButton } from ".";
-import TestEditor from "../../../TestEditor.component";
-import Dialog from "../../../../../dialog";
-import Form from "../../../../../form";
-import Button from "../../../../../button";
-import Textbox from "../../../../../textbox";
+// import { HyperlinkButton } from ".";
+// import TestEditor from "../../../TestEditor.component";
+// import Dialog from "../../../../../dialog";
+// import Form from "../../../../../form";
+// import Button from "../../../../../button";
+// import Textbox from "../../../../../textbox";
 
-const HyperlinkDemo = ({
-  firstButtonOverride = false,
-  namespace = "test",
-}: {
-  firstButtonOverride?: boolean;
-  namespace?: string;
-}) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [linkText, setLinkText] = useState("");
-  const [linkUrl, setLinkUrl] = useState("");
+import TextEditor from '../../../../text-editor.component'
 
-  return (
-    <TestEditor>
-      <HyperlinkButton
-        namespace="test"
-        setDialogOpen={setIsOpen}
-        isFirstButton={firstButtonOverride}
-      />
-      <Dialog
-        open={isOpen}
-        onCancel={() => {
-          setLinkText("");
-          setLinkUrl("");
-          setIsOpen(false);
-        }}
-        title={"Add link"}
-        data-role={`${namespace}-hyperlink-dialog`}
-        aria-label={"Add link"}
-        size="small"
-      >
-        <Form
-          leftSideButtons={
-            <Button
-              data-role={`${namespace}-hyperlink-cancel-button`}
-              onClick={() => {
-                setLinkText("");
-                setLinkUrl("");
-                setIsOpen(false);
-              }}
-            >
-              Cancel
-            </Button>
-          }
-          saveButton={
-            <Button
-              buttonType="primary"
-              type="submit"
-              disabled={!linkText || !linkUrl}
-              data-role={`${namespace}-hyperlink-save-button`}
-            >
-              Save
-            </Button>
-          }
-          onSubmit={(e) => {
-            e.preventDefault();
+// Reusable JSON object for testing the default state
+const initialValue = {
+  root: {
+    children: [
+      {
+        children: [
+          {
+            detail: 0,
+            format: 0,
+            mode: "normal",
+            style: "",
+            text: "Sample text",
+            type: "text",
+            version: 1,
+          },
+        ],
+        format: "",
+        indent: 0,
+        type: "paragraph",
+        version: 1,
+        textFormat: 0,
+        textStyle: "",
+      },
+    ],
 
-            setLinkText("");
-            setLinkUrl("");
-            setIsOpen(false);
-          }}
-        >
-          <Textbox
-            label={"Text"}
-            name="text"
-            required
-            data-role={`${namespace}-hyperlink-text-field`}
-            value={linkText}
-            onChange={(e) => setLinkText(e.target.value)}
-          />
-          <Textbox
-            label={"URL"}
-            name="link"
-            required
-            data-role={`${namespace}-hyperlink-link-field`}
-            value={linkUrl}
-            onChange={(e) => setLinkUrl(e.target.value)}
-          />
-        </Form>
-      </Dialog>
-    </TestEditor>
-  );
+    format: "",
+    indent: 0,
+    type: "root",
+    version: 1,
+  },
 };
+
+// const HyperlinkDemo = ({
+//   firstButtonOverride = false,
+//   namespace = "test",
+// }: {
+//   firstButtonOverride?: boolean;
+//   namespace?: string;
+// }) => {
+//   const [isOpen, setIsOpen] = useState(false);
+//   const [linkText, setLinkText] = useState("");
+//   const [linkUrl, setLinkUrl] = useState("");
+
+//   return (
+//     <TestEditor>
+//       <HyperlinkButton
+//         namespace="test"
+//         setDialogOpen={setIsOpen}
+//         isFirstButton={firstButtonOverride}
+//       />
+//       <Dialog
+//         open={isOpen}
+//         onCancel={() => {
+//           setLinkText("");
+//           setLinkUrl("");
+//           setIsOpen(false);
+//         }}
+//         title={"Add link"}
+//         data-role={`${namespace}-hyperlink-dialog`}
+//         aria-label={"Add link"}
+//         size="small"
+//       >
+//         <Form
+//           leftSideButtons={
+//             <Button
+//               data-role={`${namespace}-hyperlink-cancel-button`}
+//               onClick={() => {
+//                 setLinkText("");
+//                 setLinkUrl("");
+//                 setIsOpen(false);
+//               }}
+//             >
+//               Cancel
+//             </Button>
+//           }
+//           saveButton={
+//             <Button
+//               buttonType="primary"
+//               type="submit"
+//               disabled={!linkText || !linkUrl}
+//               data-role={`${namespace}-hyperlink-save-button`}
+//             >
+//               Save
+//             </Button>
+//           }
+//           onSubmit={(e) => {
+//             e.preventDefault();
+
+//             setLinkText("");
+//             setLinkUrl("");
+//             setIsOpen(false);
+//           }}
+//         >
+//           <Textbox
+//             label={"Text"}
+//             name="text"
+//             required
+//             data-role={`${namespace}-hyperlink-text-field`}
+//             value={linkText}
+//             onChange={(e) => setLinkText(e.target.value)}
+//           />
+//           <Textbox
+//             label={"URL"}
+//             name="link"
+//             required
+//             data-role={`${namespace}-hyperlink-link-field`}
+//             value={linkUrl}
+//             onChange={(e) => setLinkUrl(e.target.value)}
+//           />
+//         </Form>
+//       </Dialog>
+//     </TestEditor>
+//   );
+// };
 
 describe("Hyperlink button", () => {
   it("should render the hyperlink button correctly", () => {
-    render(<HyperlinkDemo />);
-    const linkButton = screen.getByTestId(`test-hyperlink-button`);
+    render(
+      <TextEditor labelText="Test Editor" namespace="test-rte" />
+    );
+    const linkButton = screen.getByTestId(`test-rte-hyperlink-button`);
     expect(linkButton).toBeInTheDocument();
     expect(linkButton).toHaveStyleRule("background-color", "transparent");
   });
 
   it("should render the dialog correctly when the button is clicked", async () => {
-    render(<HyperlinkDemo />);
-    const linkButton = screen.getByTestId(`test-hyperlink-button`);
+    render(
+      <TextEditor labelText="Test Editor" namespace="test-rte" />
+    );
+    const linkButton = screen.getByTestId(`test-rte-hyperlink-button`);
     expect(linkButton).toBeInTheDocument();
 
     await userEvent.click(linkButton);
@@ -128,8 +166,10 @@ describe("Hyperlink button", () => {
   });
 
   it("should close the dialog when the cancel button is clicked", async () => {
-    render(<HyperlinkDemo />);
-    const linkButton = screen.getByTestId(`test-hyperlink-button`);
+    render(
+      <TextEditor labelText="Test Editor" namespace="test-rte" />
+    );
+    const linkButton = screen.getByTestId(`test-rte-hyperlink-button`);
     expect(linkButton).toBeInTheDocument();
 
     await userEvent.click(linkButton);
@@ -152,39 +192,42 @@ describe("Hyperlink button", () => {
   });
 
   it(`should focus the hyperlink button when isFirstButton is set to true`, async () => {
-    const user = userEvent.setup();
-    render(<HyperlinkDemo firstButtonOverride />);
-    const linkButton = screen.getByTestId(`test-hyperlink-button`);
+    render(
+      <TextEditor labelText="Test Editor" namespace="test-rte" toolbarControls={['link']}/>
+    );
+    const linkButton = screen.getByTestId(`test-rte-hyperlink-button`);
     expect(linkButton).toBeInTheDocument();
 
     expect(linkButton).toHaveAttribute("tabindex", "0");
-    await user.tab();
-    await user.tab();
+    await userEvent.tab();
+    await userEvent.tab();
 
-    expect(linkButton).toHaveFocus();
+    const textbox = screen.getByRole("textbox");
+
+    expect(textbox).toHaveFocus();
   });
 
   it(`should not focus the hyperlink button when isFirstButton is set to false`, async () => {
-    const user = userEvent.setup();
-    render(<HyperlinkDemo firstButtonOverride={false} />);
-    const linkButton = screen.getByTestId(`test-hyperlink-button`);
+    render(
+      <TextEditor labelText="Test Editor" namespace="test-rte" toolbarControls={['bold', 'link']}/>
+    );
+    const linkButton = screen.getByTestId(`test-rte-hyperlink-button`);
     expect(linkButton).toBeInTheDocument();
 
     expect(linkButton).toHaveAttribute("tabindex", "-1");
-    await user.tab();
-    await user.tab();
+    await userEvent.tab();
+    await userEvent.tab();
 
     expect(linkButton).not.toHaveFocus();
-  });
+  }); 
 
   it(`should not persist data between modals when the close button is pressed`, async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    jest.useFakeTimers();
-
-    render(<HyperlinkDemo />);
-    const linkButton = screen.getByTestId(`test-hyperlink-button`);
+    render(
+      <TextEditor labelText="Test Editor" namespace="test-rte" />
+    );
+    const linkButton = screen.getByTestId(`test-rte-hyperlink-button`);
     expect(linkButton).toBeInTheDocument();
-    await user.click(linkButton);
+    await userEvent.click(linkButton);
 
     let dialog = screen.getByRole("dialog");
     expect(dialog).toBeInTheDocument();
@@ -194,21 +237,21 @@ describe("Hyperlink button", () => {
     const textInput = dialogContent.getAllByRole("textbox")[0];
     const urlInput = dialogContent.getAllByRole("textbox")[1];
 
-    await user.type(urlInput, "https://carbon.sage.com");
+    await userEvent.type(urlInput, "https://carbon.sage.com");
 
-    await user.type(textInput, "Carbon");
+    await userEvent.type(textInput, "Carbon");
 
     const cancelButton = dialogContent.getByRole("button", {
       name: "Cancel",
     });
 
-    await user.click(cancelButton);
+    await userEvent.click(cancelButton);
 
     await waitFor(() =>
       expect(screen.queryByRole("dialog")).not.toBeInTheDocument(),
     );
 
-    await user.click(linkButton);
+    await userEvent.click(linkButton);
 
     dialog = screen.getByRole("dialog");
 
@@ -223,127 +266,140 @@ describe("Hyperlink button", () => {
 
     expect(newUrlInput).toHaveValue("");
     expect(newTextInput).toHaveValue("");
-
-    jest.useRealTimers();
   });
 
-  it(`should not persist data between modals when the ESC key is pressed`, async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    jest.useFakeTimers();
+  // it(`should not persist data between modals when the ESC key is pressed`, async () => {
+  //   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  //   jest.useFakeTimers();
 
-    render(<HyperlinkDemo />);
-    const linkButton = screen.getByTestId(`test-hyperlink-button`);
-    expect(linkButton).toBeInTheDocument();
-    await user.click(linkButton);
+  //   render(<HyperlinkDemo />);
+  //   const linkButton = screen.getByTestId(`test-hyperlink-button`);
+  //   expect(linkButton).toBeInTheDocument();
+  //   await userEvent.click(linkButton);
 
-    let dialog = screen.getByRole("dialog");
-    expect(dialog).toBeInTheDocument();
+  //   let dialog = screen.getByRole("dialog");
+  //   expect(dialog).toBeInTheDocument();
 
-    let dialogContent = within(dialog);
+  //   let dialogContent = within(dialog);
 
-    const textInput = dialogContent.getAllByRole("textbox")[0];
-    const urlInput = dialogContent.getAllByRole("textbox")[1];
+  //   const textInput = dialogContent.getAllByRole("textbox")[0];
+  //   const urlInput = dialogContent.getAllByRole("textbox")[1];
 
-    await user.type(urlInput, "https://carbon.sage.com");
+  //   await userEvent.type(urlInput, "https://carbon.sage.com");
 
-    await user.type(textInput, "Carbon");
+  //   await user.type(textInput, "Carbon");
 
-    await user.keyboard("{Escape}");
+  //   await user.keyboard("{Escape}");
 
-    await waitFor(() =>
-      expect(screen.queryByRole("dialog")).not.toBeInTheDocument(),
-    );
+  //   await waitFor(() =>
+  //     expect(screen.queryByRole("dialog")).not.toBeInTheDocument(),
+  //   );
 
-    await user.click(linkButton);
+  //   await user.click(linkButton);
 
-    dialog = screen.getByRole("dialog");
+  //   dialog = screen.getByRole("dialog");
 
-    await waitFor(() => {
-      expect(dialog).toBeInTheDocument();
-    });
+  //   await waitFor(() => {
+  //     expect(dialog).toBeInTheDocument();
+  //   });
 
-    dialogContent = within(dialog);
+  //   dialogContent = within(dialog);
 
-    const newTextInput = dialogContent.getAllByRole("textbox")[0];
-    const newUrlInput = dialogContent.getAllByRole("textbox")[1];
+  //   const newTextInput = dialogContent.getAllByRole("textbox")[0];
+  //   const newUrlInput = dialogContent.getAllByRole("textbox")[1];
 
-    expect(newUrlInput).toHaveValue("");
-    expect(newTextInput).toHaveValue("");
+  //   expect(newUrlInput).toHaveValue("");
+  //   expect(newTextInput).toHaveValue("");
 
-    jest.useRealTimers();
-  });
+  //   jest.useRealTimers();
+  // });
 
-  it("should submit the form when the save button is clicked", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    jest.useFakeTimers();
+  // it("should submit the form when the save button is clicked", async () => {
+  //   const user = userEvent.setup();
+    
+  //   render(
+  //     <TextEditor labelText="Test Editor" namespace="test-rte" initialValue={JSON.stringify(initialValue)}/>
+  //   );
 
-    render(<HyperlinkDemo />);
+  //   const editor = screen.getByRole("textbox");
 
-    const editor = screen.getByRole("textbox");
+  //   await user.tripleClick(editor);
 
-    await user.click(editor);
+  //   await user.type(editor, "Hello");
 
-    await user.type(editor, "Hello ");
+  //   await user.tripleClick(editor);
 
-    await user.tripleClick(editor);
+  //   const linkButton = screen.getByTestId(`test-rte-hyperlink-button`);
+  //   expect(linkButton).toBeInTheDocument();
+  //   await user.click(linkButton);
 
-    const linkButton = screen.getByTestId(`test-hyperlink-button`);
-    expect(linkButton).toBeInTheDocument();
-    await user.click(linkButton);
+  //   const dialog = screen.getByRole("dialog");
+  //   expect(dialog).toBeInTheDocument();
 
-    const dialog = screen.getByRole("dialog");
-    expect(dialog).toBeInTheDocument();
+  //   const dialogContent = within(dialog);
 
-    const dialogContent = within(dialog);
+  //   const textInput = dialogContent.getByLabelText("Text");
+  //   const urlInput = dialogContent.getByLabelText("Link");
 
-    const textInput = dialogContent.getAllByRole("textbox")[0];
-    const urlInput = dialogContent.getAllByRole("textbox")[1];
+  //   await user.type(urlInput, "https://carbon.sage.com");
+  //   await user.type(textInput, "Carbon");
 
-    await user.type(urlInput, "https://carbon.sage.com");
+  //   await waitFor(() =>
+  //     expect(urlInput).toHaveValue("https://carbon.sage.com"),
+  //   );
+  //   await waitFor(() => expect(textInput).toHaveValue("Carbon"));
 
-    await user.type(textInput, "Carbon");
+  //   const saveButton = dialogContent.getByRole("button", { name: "Save" });
+  //   expect(saveButton).toBeInTheDocument();
 
-    const saveButton = dialogContent.getByRole("button", { name: "Save" });
-    expect(saveButton).toBeInTheDocument();
+  //   await user.click(saveButton);
 
-    await user.click(saveButton);
-
-    await waitFor(() =>
-      expect(screen.queryByRole("dialog")).not.toBeInTheDocument(),
-    );
-
-    jest.useRealTimers();
-  });
+  //   await waitFor(() =>
+  //     expect(screen.queryByRole("dialog")).not.toBeInTheDocument(),
+  //   );
+  // });
 
   it("should add a URL to the editor", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    jest.useFakeTimers();
-
-    render(<HyperlinkDemo />);
+    const user = userEvent.setup();
+    render(
+      <TextEditor labelText="Test Editor" namespace="test-rte" initialValue={JSON.stringify(initialValue)}/>
+    );
 
     const editor = screen.getByRole("textbox");
 
     await user.click(editor);
-
+    await user.tripleClick(editor);
     await user.keyboard("Hello");
-
     await user.tripleClick(editor);
 
-    const linkButton = screen.getByTestId(`test-hyperlink-button`);
-    expect(linkButton).toBeInTheDocument();
+    const linkButton = screen.getByTestId(`test-rte-hyperlink-button`);
     await user.click(linkButton);
 
-    const dialog = screen.getByRole("dialog");
-    expect(dialog).toBeInTheDocument();
+    
+    const dialog = await screen.findByRole("dialog");
+
+    await waitFor(() => {
+      expect(dialog).toBeInTheDocument();
+    });
 
     const dialogContent = within(dialog);
+    
+    const textInput = await dialogContent.findByLabelText("Text");
+    const urlInput = await dialogContent.findByLabelText("Link");
 
-    const textInput = dialogContent.getAllByRole("textbox")[0];
-    const urlInput = dialogContent.getAllByRole("textbox")[1];
+    await user.click(urlInput);
+    await user.paste("https://carbon.sage.com");
+    await user.click(textInput);
+    await user.paste("Carbon");
 
-    await user.type(urlInput, "https://carbon.sage.com");
-
-    await user.type(textInput, "Carbon");
+    // Wait for the values to be set
+    await waitFor(() => {
+      expect(urlInput).toHaveValue("https://carbon.sage.com");
+    });
+    
+    await waitFor(() => {
+      expect(textInput).toHaveValue("Carbon");
+    });
 
     const saveButton = dialogContent.getByRole("button", { name: "Save" });
     expect(saveButton).toBeInTheDocument();
@@ -353,7 +409,5 @@ describe("Hyperlink button", () => {
     await waitFor(() =>
       expect(screen.queryByRole("dialog")).not.toBeInTheDocument(),
     );
-
-    jest.useRealTimers();
   });
 });

@@ -5,6 +5,7 @@ import {
   LexicalEditor,
   ParagraphNode,
 } from "lexical";
+import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { createHeadlessEditor } from "@lexical/headless";
 import {
   StyledSpanNode,
@@ -13,9 +14,9 @@ import {
   SerializedSpanNode,
 } from "./styled-span.node";
 import { TypographyKey } from "../__ui__/Toolbar/buttons/typography.component";
-import TestEditor from "../TestEditor.component";
 import { act, render } from "@testing-library/react";
 import React from "react";
+import TextEditor from "../../text-editor.component";
 
 // Mock DOM environment if needed
 Object.defineProperty(window, "getComputedStyle", {
@@ -23,6 +24,14 @@ Object.defineProperty(window, "getComputedStyle", {
     getPropertyValue: () => "",
   }),
 });
+
+const EditorRefPlugin = ({ onReady }: { onReady: (editor: LexicalEditor) => void }) => {
+  const [editor] = useLexicalComposerContext();
+  React.useEffect(() => {
+    onReady(editor);
+  }, [editor, onReady]);
+  return null;
+};
 
 const staticConfig = {
   nodes: [StyledSpanNode],
@@ -108,15 +117,12 @@ describe("StyledSpanNode", () => {
 
   describe("Getters and Setters", () => {
     test("should get font weight, size and line height correctly", () => {
-      let editorRef: LexicalEditor;
-
-      render(
-        <TestEditor
-          onEditorReady={(editor) => {
-            editorRef = editor;
-          }}
-        />,
-      );
+      let editorRef: LexicalEditor | undefined;
+      
+      render(<TextEditor 
+        labelText="Test Editor" 
+        customPlugins={<EditorRefPlugin onReady={(editor) => { editorRef = editor; }} />}
+      />);
 
       act(() => {
         editorRef?.update(() => {
@@ -128,9 +134,16 @@ describe("StyledSpanNode", () => {
       });
     });
 
+    // tested in playwright test: `renders with the correct style for the ${id} typography`
     test("should set font weight, size and line height", () => {
-      render(<TestEditor />);
-      editor?.update(() => {
+      let editorRef: LexicalEditor | undefined;
+      
+      render(<TextEditor 
+        labelText="Test Editor" 
+        customPlugins={<EditorRefPlugin onReady={(editor) => { editorRef = editor; }} />}
+      />);
+
+      editorRef?.update(() => {
         const node = new StyledSpanNode("Test", "400", "14px", "21px");
         node.setFontWeight("700");
         expect(node.getFontWeight()).toBe("700");

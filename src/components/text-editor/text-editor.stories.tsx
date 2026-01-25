@@ -152,7 +152,7 @@ export const ToolbarControls: Story = {
     rows: 4,
     size: "medium",
     namespace: "storybook-demo",
-    toolbarControls: ["typography", "italic", "unordered-list", "link"],
+    toolbarControls: ["link"],
   },
 };
 

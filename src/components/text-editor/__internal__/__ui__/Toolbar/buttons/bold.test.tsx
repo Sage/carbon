@@ -1,32 +1,68 @@
-import { act, render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { $getRoot, LexicalEditor, TextNode, ParagraphNode } from "lexical";
 import React from "react";
 
-import { TestEditor, TestEditorHelpers } from "../../../TestEditor.component";
+import { LexicalComposer } from "@lexical/react/LexicalComposer";
 
-import { BoldButton } from ".";
+import BoldButton from "./bold.component";
+
+import TextEditor from '../../../../text-editor.component'
+
+// Reusable JSON object for testing the default state
+const initialValue = {
+  root: {
+    children: [
+      {
+        children: [
+          {
+            detail: 0,
+            format: 0,
+            mode: "normal",
+            style: "",
+            text: "Sample text",
+            type: "text",
+            version: 1,
+          },
+        ],
+        format: "",
+        indent: 0,
+        type: "paragraph",
+        version: 1,
+        textFormat: 0,
+        textStyle: "",
+      },
+    ],
+
+    format: "",
+    indent: 0,
+    type: "root",
+    version: 1,
+  },
+};
 
 describe("Bold button", () => {
   it("should render the bold button correctly if inactive", () => {
     render(
-      <TestEditor>
-        <BoldButton isActive={false} namespace="test" />
-      </TestEditor>,
+      <TextEditor labelText="Test Editor" namespace="test-rte" />
     );
-    const boldButton = screen.getByRole("button");
+    const boldButton = screen.getByRole("button", {name: "Bold"});
     expect(boldButton).toBeInTheDocument();
     expect(boldButton).toHaveStyleRule("background-color", "transparent");
     expect(boldButton).toHaveAttribute("aria-pressed", "false");
   });
 
-  it("should render the bold button correctly if active", () => {
+  it("should render the bold button correctly if active", async () => {
     render(
-      <TestEditor>
-        <BoldButton isActive namespace="test" />
-      </TestEditor>,
+      <TextEditor labelText="Test Editor" initialValue={JSON.stringify(initialValue)} />,
     );
-    const boldButton = screen.getByRole("button");
+
+    const editor = screen.getByRole("textbox");
+    await userEvent.click(editor);
+    await userEvent.type(editor, " bold");
+
+    const boldButton = screen.getByRole("button", { name: "Bold" });
+    await userEvent.click(boldButton);
+
     expect(boldButton).toBeInTheDocument();
     expect(boldButton).toHaveStyleRule(
       "background-color",
@@ -35,44 +71,39 @@ describe("Bold button", () => {
     expect(boldButton).toHaveAttribute("aria-pressed", "true");
   });
 
-  it("applies bold formatting when BoldButton is clicked", async () => {
-    let editorRef: LexicalEditor;
-    let textEditorHelpers: TestEditorHelpers;
-
+  it("applies bold formatting when BoldButton is clicked", async () => {    
     render(
-      <TestEditor
-        onEditorReady={(editor, helpers) => {
-          editorRef = editor;
-          textEditorHelpers = helpers;
-        }}
-      >
-        <BoldButton isActive={false} namespace="test" />
-      </TestEditor>,
+      <TextEditor
+        labelText="Example"
+        initialValue={JSON.stringify(initialValue)}
+      />
     );
 
-    act(() => {
-      textEditorHelpers.setEditorContent(editorRef, "Hello");
+    const editor = screen.getByRole("textbox");
+    await userEvent.tripleClick(editor);
 
-      editorRef.update(() => {
-        const root = $getRoot();
-        const paragraph = root.getFirstChild() as ParagraphNode;
-        const textNode = paragraph?.getFirstChild() as TextNode;
-
-        textNode?.select(0, textNode?.getTextContentSize());
-      });
-    });
-
-    const boldButton = screen.getByRole("button", { name: /bold/i });
-
+    const boldButton = screen.getByRole("button", { name: "Bold" });
     await userEvent.click(boldButton);
 
-    act(() => {
-      editorRef.getEditorState().read(() => {
-        const root = $getRoot();
-        const paragraph = root.getFirstChild() as ParagraphNode;
-        const textNode = paragraph?.getFirstChild() as TextNode;
-        expect(textNode?.hasFormat("bold")).toBe(true);
-      });
+    await waitFor(() => {
+      expect(screen.getByText("Sample text")).toHaveStyle("font-weight: bold");
     });
   });
-});
+
+  it("defaults isFirstButton to false when rendered with LexicalComposer", () => {
+    const initialConfig = {
+      namespace: "test-bold-composer",
+      nodes: [],
+      onError: () => {},
+    };
+
+    render(
+      <LexicalComposer initialConfig={initialConfig}>
+        <BoldButton isActive={false} namespace="test-bold-composer" />
+      </LexicalComposer>,
+    );
+
+    const boldButton = screen.getByRole("button", { name: "Bold" });
+    expect(boldButton).toHaveAttribute("tabindex", "-1");
+  });
+})

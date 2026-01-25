@@ -1,78 +1,67 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { render, screen } from "@testing-library/react";
-import TypographySelector from "./typography.component";
 import userEvent from "@testing-library/user-event";
+import { LexicalComposer } from "@lexical/react/LexicalComposer";
 
-import { TestEditor } from "../../../TestEditor.component";
+import TextEditor from '../../../../text-editor.component'
+import TypographySelector from "./typography.component";
 
-jest.mock("../../../../../../hooks/__internal__/useLocale", () => () => ({
-  textEditor: {
-    typography: {
-      selectAria: () => "Select an option",
-      paragraph: () => "Paragraph",
-      title: () => "Title",
-      subtitle: () => "Subtitle",
-      sectionHeader: () => "Section Header",
-      sectionSubheader: () => "Section Subheader",
-    },
-  },
-}));
+const TypographyInComposer = () => {
+  const contentEditorRef = useRef<HTMLDivElement>(null);
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <LexicalComposer
+      initialConfig={{
+        namespace: "test-typography",
+        nodes: [],
+        onError: () => {},
+      }}
+    >
+      <TypographySelector
+        contentEditorRef={contentEditorRef}
+        namespace="test-typography"
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        setFocusedIndex={() => {}}
+      />
+    </LexicalComposer>
+  );
+};
 
 describe("TypographySelector", () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
   it("renders with default paragraph option", () => {
-    const ref = { current: null };
     render(
-      <TestEditor>
-        <TypographySelector
-          namespace="editor"
-          isOpen
-          setIsOpen={() => {}}
-          contentEditorRef={ref}
-        />
-      </TestEditor>,
+      <TextEditor labelText="Test Editor" />,
     );
 
     const button = screen.getByRole("combobox");
 
     expect(button).toBeInTheDocument();
-    expect(button).toHaveTextContent(/Paragraph/gi);
+    expect(button).toHaveTextContent("Paragraph");
   });
 
   it("updates state when dropdown value changes", async () => {
-    jest.useFakeTimers();
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
-    const Component = () => {
-      const [isOpen, setIsOpen] = React.useState(false);
-      const ref = { current: null };
-      return (
-        <TypographySelector
-          namespace="editor"
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
-          contentEditorRef={ref}
-        />
-      );
-    };
-
     render(
-      <TestEditor>
-        <Component />
-      </TestEditor>,
+      <TextEditor labelText="Test Editor" />,
     );
 
     const button = screen.getByRole("combobox");
 
-    await user.click(button);
+    await userEvent.click(button);
     const titleOption = screen.getByRole("option", { name: "Title" });
 
-    await user.click(titleOption);
+    await userEvent.click(titleOption);
     expect(button).toHaveTextContent(/Title/gi);
+  });
 
-    jest.useRealTimers();
+  it("defaults to size medium when rendered inside LexicalComposer", async () => {
+    render(<TypographyInComposer />);
+
+    const button = screen.getByRole("combobox");
+    await userEvent.click(button);
+
+    const menu = screen.getByRole("listbox");
+    expect(menu).toHaveStyle({ top: "46px" });
   });
 });
