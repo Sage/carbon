@@ -57,6 +57,8 @@ export interface SearchProps
    * Pass a string to override the text in the search Button
    * */
   searchButton?: boolean | string;
+  /** Data tag prop bag for searchButton */
+  searchButtonDataProps?: TagProps;
   /**
    * Prop for specifying an input width length.
    * Leaving the `searchWidth` prop with no value will default the width to '100%'
@@ -98,6 +100,7 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
       searchWidth,
       maxWidth,
       searchButton,
+      searchButtonDataProps,
       searchButtonAriaLabel,
       placeholder,
       variant = "default",
@@ -274,6 +277,10 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
               iconPosition="before"
               iconType="search"
               className="search-button"
+              {...tagComponent(`${searchButtonText}-button`, {
+                "data-element": `${searchButtonText}-button`,
+                ...searchButtonDataProps,
+              })}
               {...buttonProps}
             >
               {searchButtonText}
