@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import { margin } from "styled-system";
 import applyBaseTheme from "../../../style/themes/apply-base-theme";
 import Typography from "../../typography";
@@ -31,6 +31,59 @@ const ringInlineLabelMargins: Record<string, string> = {
   medium: "12px",
   large: "16px",
 };
+
+const innerBarAnimationOne = keyframes`
+  0% {
+    left: 0%;
+    animation-timing-function: linear;
+  }
+  30% {
+    left: 10px;
+    animation-timing-function: cubic-bezier(0.5, 0.6, 0.4, 1);
+  }
+  100% {
+    left: calc(100% - 15px);
+  }
+`;
+
+const innerBarAnimationTwo = keyframes`
+  0% {
+    width: 15px;
+    animation-timing-function: cubic-bezier(0.7, 0, 0.8, 1);
+  }
+  50% {
+    width: 35%;
+  }
+  100% {
+    width: 15px;
+  }
+`;
+
+const trackedAnimation = keyframes`
+  from {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+  }
+  to {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 20;
+  }
+`;
+
+const untrackedAnimation = keyframes`
+  0% {
+    transform: rotate(-90deg);
+    stroke-dashoffset: 95;
+  }
+  50% {
+    transform: rotate(90deg);
+    stroke-dashoffset: 80;
+  }
+  100% {
+    transform: rotate(270deg);
+    stroke-dashoffset: 95;
+  }
+`;
 
 const getBarStyles = (variant?: string, inverse?: boolean) => {
   const outerBarBackground = inverse
@@ -92,39 +145,12 @@ export const InnerBar = styled.div<{
   hasMotion?: boolean;
 }>`
   ${({ size, variant, inverse, animationTime, hasMotion }) => css`
-    @keyframes innerBarAnimationOne {
-      0% {
-        left: 0%;
-        animation-timing-function: linear;
-      }
-      30% {
-        left: 10px;
-        animation-timing-function: cubic-bezier(0.5, 0.6, 0.4, 1);
-      }
-      100% {
-        left: calc(100% - 15px);
-      }
-    }
-
-    @keyframes innerBarAnimationTwo {
-      0% {
-        width: 15px;
-        animation-timing-function: cubic-bezier(0.7, 0, 0.8, 1);
-      }
-      50% {
-        width: 35%;
-      }
-      100% {
-        width: 15px;
-      }
-    }
-
     position: absolute;
     background: ${getBarStyles(variant, inverse).innerBarBackground};
     width: 15px;
     height: ${barHeights[size]};
     border-radius: var(--borderRadius400);
-    animation-name: innerBarAnimationOne, innerBarAnimationTwo;
+    animation-name: ${innerBarAnimationOne}, ${innerBarAnimationTwo};
     ${hasMotion && `animation-duration: ${animationTime}s, ${animationTime}s;`}
     animation-iteration-count: ${hasMotion
       ? "infinite, infinite"
@@ -188,9 +214,7 @@ export const StyledRingCircleSvg = styled.svg<RingSvgProps>`
       circle[data-role="inner-arc"] {
         fill: transparent;
         stroke-width: ${strokeWidth}px;
-
         stroke: ${getStrokeColor({ inverse, isSuccess, isError })};
-
         stroke-linecap: round;
         stroke-dasharray: 100px;
         stroke-dashoffset: 95px;
@@ -200,38 +224,7 @@ export const StyledRingCircleSvg = styled.svg<RingSvgProps>`
         r: 10px;
         transform: rotate(-90deg);
 
-        @keyframes trackedAnimation {
-          from {
-            stroke-dasharray: 100;
-            stroke-dashoffset: 100;
-          }
-          to {
-            stroke-dasharray: 100;
-            stroke-dashoffset: 20;
-          }
-        }
-
-        @keyframes untrackedAnimation {
-          0% {
-            transform: rotate(-90deg);
-            stroke-dashoffset: 95;
-          }
-
-          50% {
-            transform: rotate(90deg);
-            stroke-dashoffset: 80;
-          }
-
-          100% {
-            transform: rotate(270deg);
-            stroke-dashoffset: 95;
-          }
-        }
-
-        animation-name: ${isTracked
-          ? "trackedAnimation"
-          : "untrackedAnimation"};
-
+        animation-name: ${isTracked ? trackedAnimation : untrackedAnimation};
         ${hasMotion && `animation-duration: ${animationTime}s;`}
         animation-timing-function: cubic-bezier(0, 0, 1, 1);
         animation-iteration-count: ${hasMotion ? "infinite" : "none"};
