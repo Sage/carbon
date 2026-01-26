@@ -16,7 +16,6 @@ import {
   loaderComponent,
 } from "../../../playwright/components/themes/index";
 import { pillPreview } from "../../../playwright/components/index";
-import multiActionButtonComponent from "../../../playwright/components/carbon-provider/index";
 import { checkAccessibility } from "../../../playwright/support/helper";
 
 const themes = ["noMountedTheme", "sage"];
@@ -77,11 +76,12 @@ test.describe("Carbon Provider", () => {
           { hooksConfig: { theme: `${theme}` } },
         );
 
-        await expect(buttonDataComponent(page)).toHaveCSS("color", color);
-        await expect(buttonDataComponent(page)).toHaveCSS(
-          "border-color",
-          color,
-        );
+        const multiActionButton = page.getByRole("button", {
+          name: "Multi Action Button",
+        });
+
+        await expect(multiActionButton).toHaveCSS("color", color);
+        await expect(multiActionButton).toHaveCSS("border-color", color);
       });
 
       test(`Pill component should render with ${theme} theme and verify theme color`, async ({
@@ -106,11 +106,10 @@ test.describe("Carbon Provider", () => {
           { hooksConfig: { theme: `${theme}` } },
         );
 
-        await expect(buttonDataComponent(page)).toHaveCSS("color", color);
-        await expect(buttonDataComponent(page)).toHaveCSS(
-          "border-color",
-          color,
-        );
+        const splitButton = page.getByRole("button", { name: "Split button" });
+
+        await expect(splitButton).toHaveCSS("color", color);
+        await expect(splitButton).toHaveCSS("border-color", color);
       });
 
       test(`Tabs component should render with ${theme} theme and verify theme color`, async ({
@@ -195,10 +194,12 @@ test.describe("Hover styling", () => {
           },
         );
 
-        await multiActionButtonComponent(page).locator("button").hover();
-        await expect(
-          multiActionButtonComponent(page).locator("button"),
-        ).toHaveCSS("background-color", color);
+        const multiActionButton = page.getByRole("button", {
+          name: "Multi Action Button",
+        });
+
+        await multiActionButton.hover();
+        await expect(multiActionButton).toHaveCSS("background-color", color);
       });
     });
   });
