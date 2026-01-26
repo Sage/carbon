@@ -1,3 +1,9 @@
+## [158.25.0](https://github.com/Sage/carbon/compare/v158.24.1...v158.25.0) (2026-01-26)
+
+### Features
+
+* **search:** data props can now be passed to search button ([7809ad0](https://github.com/Sage/carbon/commit/7809ad0ce30eb103655e385c434839b8eca61dc2)), closes [#7714](https://github.com/Sage/carbon/issues/7714)
+
 ## [158.24.1](https://github.com/Sage/carbon/compare/v158.24.0...v158.24.1) (2026-01-26)
 
 ### Bug Fixes
