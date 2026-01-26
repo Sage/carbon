@@ -381,6 +381,36 @@ describe("When MenuItem has no submenu", () => {
     expect(screen.getByTestId("icon")).not.toHaveAttribute("aria-label");
   });
 
+  it("should add any passed `aria-current` to the underlying link element", () => {
+    render(
+      <Menu>
+        <MenuItem icon="settings" href="#" ariaCurrent="page">
+          Item One
+        </MenuItem>
+      </Menu>,
+    );
+
+    expect(screen.getByRole("link", { name: "Item One" })).toHaveAttribute(
+      "aria-current",
+      "page",
+    );
+  });
+
+  it("should add any passed `aria-current` to the underlying button element`", () => {
+    render(
+      <Menu>
+        <MenuItem icon="settings" onClick={() => {}} ariaCurrent="page">
+          Item One
+        </MenuItem>
+      </Menu>,
+    );
+
+    expect(screen.getByRole("button", { name: "Item One" })).toHaveAttribute(
+      "aria-current",
+      "page",
+    );
+  });
+
   it("should throw an error when `aria-label` is not set and menu item has no child text", () => {
     const consoleSpy = jest
       .spyOn(global.console, "error")
