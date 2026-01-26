@@ -1,3 +1,10 @@
+## [158.24.1](https://github.com/Sage/carbon/compare/v158.24.0...v158.24.1) (2026-01-26)
+
+### Bug Fixes
+
+* resolve strict mode incompatibilities with popups ([5d48148](https://github.com/Sage/carbon/commit/5d481489253c97990c706aecb3409d491a21f29e))
+* resolve strict mode incompatibilities with portals ([240ef27](https://github.com/Sage/carbon/commit/240ef27ddbf42ec1820dbc874ce0cb310238c693))
+
 ## [158.24.0](https://github.com/Sage/carbon/compare/v158.23.4...v158.24.0) (2026-01-22)
 
 ### Features

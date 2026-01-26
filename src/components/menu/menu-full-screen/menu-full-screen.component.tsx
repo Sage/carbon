@@ -44,7 +44,7 @@ export interface MenuFullscreenProps extends TagProps {
   topModalOverride?: boolean;
 }
 
-export const MenuFullscreen = ({
+const MenuFullscreenRoot = ({
   "aria-label": ariaLabel = "Fullscreen menu",
   "data-element": dataElement,
   "data-role": dataRole,
@@ -103,74 +103,80 @@ export const MenuFullscreen = ({
   });
 
   return (
+    <CSSTransition
+      nodeRef={menuRef}
+      in={isOpen}
+      timeout={transitionDuration}
+      unmountOnExit
+    >
+      <StyledMenuFullscreen
+        ref={menuRef}
+        startPosition={startPosition}
+        transitionDuration={transitionDuration}
+      >
+        <FocusTrap wrapperRef={modalRef} isOpen={isOpen}>
+          <StyledMenuModal
+            aria-label={ariaLabel}
+            aria-modal={isTopModal ? true : undefined}
+            data-component="menu-fullscreen"
+            data-element={dataElement}
+            data-role={dataRole}
+            menuType={menuType}
+            ref={modalRef}
+            role="dialog"
+            tabIndex={-1}
+          >
+            <StyledMenuFullscreenHeader menuType={menuType}>
+              <IconButton
+                aria-label={locale.menuFullscreen.ariaLabels.closeButton()}
+                onClick={onClose}
+                data-element="close"
+              >
+                <Icon
+                  type="close"
+                  color={isDarkVariant ? "--colorsYang100" : undefined}
+                />
+              </IconButton>
+            </StyledMenuFullscreenHeader>
+            <Box
+              overflowY="auto"
+              scrollVariant={isDarkVariant ? "dark" : "light"}
+              width="100%"
+              height="calc(100% - 40px)"
+            >
+              <StyledMenuWrapper
+                data-component="menu"
+                menuType={menuType}
+                ref={contentRef}
+                display="flex"
+                flexDirection="column"
+                role="list"
+                inFullscreenView
+              >
+                <StrictMenuProvider
+                  value={{
+                    inFullscreenView: true,
+                    menuType,
+                    openSubmenuId: null,
+                    setOpenSubmenuId: /* istanbul ignore next */ () => {},
+                  }}
+                >
+                  {childArray}
+                </StrictMenuProvider>
+              </StyledMenuWrapper>
+            </Box>
+          </StyledMenuModal>
+        </FocusTrap>
+      </StyledMenuFullscreen>
+    </CSSTransition>
+  );
+};
+
+export const MenuFullscreen = (props: MenuFullscreenProps) => {
+  return (
     <li>
       <Portal>
-        <CSSTransition
-          nodeRef={menuRef}
-          in={isOpen}
-          timeout={transitionDuration}
-          unmountOnExit
-        >
-          <StyledMenuFullscreen
-            ref={menuRef}
-            startPosition={startPosition}
-            transitionDuration={transitionDuration}
-          >
-            <FocusTrap wrapperRef={modalRef} isOpen={isOpen}>
-              <StyledMenuModal
-                aria-label={ariaLabel}
-                aria-modal={isTopModal ? true : undefined}
-                data-component="menu-fullscreen"
-                data-element={dataElement}
-                data-role={dataRole}
-                menuType={menuType}
-                ref={modalRef}
-                role="dialog"
-                tabIndex={-1}
-              >
-                <StyledMenuFullscreenHeader menuType={menuType}>
-                  <IconButton
-                    aria-label={locale.menuFullscreen.ariaLabels.closeButton()}
-                    onClick={onClose}
-                    data-element="close"
-                  >
-                    <Icon
-                      type="close"
-                      color={isDarkVariant ? "--colorsYang100" : undefined}
-                    />
-                  </IconButton>
-                </StyledMenuFullscreenHeader>
-                <Box
-                  overflowY="auto"
-                  scrollVariant={isDarkVariant ? "dark" : "light"}
-                  width="100%"
-                  height="calc(100% - 40px)"
-                >
-                  <StyledMenuWrapper
-                    data-component="menu"
-                    menuType={menuType}
-                    ref={contentRef}
-                    display="flex"
-                    flexDirection="column"
-                    role="list"
-                    inFullscreenView
-                  >
-                    <StrictMenuProvider
-                      value={{
-                        inFullscreenView: true,
-                        menuType,
-                        openSubmenuId: null,
-                        setOpenSubmenuId: /* istanbul ignore next */ () => {},
-                      }}
-                    >
-                      {childArray}
-                    </StrictMenuProvider>
-                  </StyledMenuWrapper>
-                </Box>
-              </StyledMenuModal>
-            </FocusTrap>
-          </StyledMenuFullscreen>
-        </CSSTransition>
+        <MenuFullscreenRoot {...props} />
       </Portal>
     </li>
   );

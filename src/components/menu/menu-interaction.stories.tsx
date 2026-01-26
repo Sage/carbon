@@ -456,7 +456,7 @@ export const MenuFullScreenWithSegmentTitle: Story = {
     if (!allowInteractions()) {
       return;
     }
-    const closeButton = within(document.body).getByRole("button", {
+    const closeButton = await within(document.body).findByRole("button", {
       name: "Close",
     });
     await userEvent.tab(); // focus close button
@@ -486,7 +486,7 @@ export const MenuFullScreenWithScrollableBlock: Story = {
       return;
     }
 
-    const search = within(document.body).getByRole("textbox");
+    const search = await within(document.body).findByRole("textbox");
     await userEvent.tab();
     await userEvent.tab(); // focus search input
     await expect(search).toHaveFocus();

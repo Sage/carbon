@@ -1,13 +1,12 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
-import ReactDOM from "react-dom";
+import React, { useEffect, useRef } from "react";
 import styled, { css } from "styled-components";
+
+import SafePortal from "./__internal__/safe-portal";
+import StyledPortalEntrance from "./portal.style";
 
 import guid from "../../__internal__/utils/helpers/guid";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
-
 import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component";
-import StyledPortalEntrance from "./portal.style";
-import PortalContext from "./__internal__/portal.context";
 
 const Container = styled.div.attrs(applyBaseTheme)`
   ${({ theme }) => css`
@@ -39,16 +38,15 @@ export interface PortalProps {
   inertOptOut?: boolean;
 }
 
-export const Portal = ({
+const Portal = ({
   children,
   className,
-  id,
+  id: externalId,
   onReposition,
   inertOptOut,
 }: PortalProps) => {
-  const [portalNode, setPortalNode] = useState<HTMLElement | null>(null);
-  const uniqueId = useMemo(() => guid(), []);
-  const { renderInRoot } = useContext(PortalContext);
+  const { current: internalId } = useRef(guid());
+  const id = externalId ?? internalId;
 
   useEffect(() => {
     if (onReposition) {
@@ -63,80 +61,25 @@ export const Portal = ({
     };
   }, [onReposition]);
 
-  useEffect(() => {
-    return () => {
-      portalNode?.remove();
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const addClassNames = (node: HTMLElement | null) => {
-    className?.split(" ").forEach((el) => {
-      node?.classList.add(el);
-    });
-
-    return node;
-  };
-
-  const getPortalContainer = () => {
-    const portalClassName = "carbon-portal";
-    let node = portalNode;
-
-    if (!node && id !== undefined && document.getElementById(id)) {
-      node = document.getElementById(id);
-      setPortalNode(node);
-    } else if (
-      !node ||
-      document.getElementsByClassName(portalClassName).length === 0
-    ) {
-      node = document.createElement("div");
-      node.classList.add(portalClassName);
-      node.setAttribute("data-portal-exit", uniqueId);
-      node.setAttribute("data-role", "carbon-portal-exit");
-      if (id !== undefined) {
-        node.setAttribute("id", id);
-      }
-      if (inertOptOut) {
-        node.setAttribute("data-not-inert", "true");
-      }
-      setPortalNode(node);
-
-      let mainNode = document.body;
-      const rootDiv = document.getElementById("root");
-
-      if (rootDiv && renderInRoot) {
-        mainNode = rootDiv;
-      }
-
-      mainNode.appendChild(node);
-    }
-
-    if (className) {
-      node = addClassNames(node);
-    }
-
-    return node as HTMLElement;
-  };
-
-  const portalContent = inertOptOut ? (
-    <Container>{children}</Container>
-  ) : (
-    children
-  );
-
   return (
     <StyledPortalEntrance
       data-role="data-portal-entrance"
-      data-portal-entrance={uniqueId}
+      data-portal-entrance={id}
     >
-      {ReactDOM.createPortal(
+      <SafePortal
+        id={id}
+        className={`carbon-portal ${className ?? ""}`.trim()}
+        attributes={{
+          "data-portal-exit": id,
+          "data-role": "carbon-portal-exit",
+          ...(inertOptOut && { "data-not-inert": "true" }),
+        }}
+      >
         <CarbonScopedTokensProvider className="carbon-portal-scoped-tokens-provider">
-          {portalContent}
-        </CarbonScopedTokensProvider>,
-        getPortalContainer(),
-      )}
+          {inertOptOut ? <Container>{children}</Container> : children}
+        </CarbonScopedTokensProvider>
+      </SafePortal>
     </StyledPortalEntrance>
   );
 };
-
 export default Portal;

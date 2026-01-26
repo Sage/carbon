@@ -69,7 +69,7 @@ export const DateInputInDialog: StoryObj = {
   play: async () => {
     if (!allowInteractions()) return;
 
-    const modal = screen.getByTestId("modal");
+    const modal = await screen.findByTestId("modal");
     await waitFor(async () => {
       await expect(modal).toHaveAttribute("data-state", "open");
     });
@@ -133,12 +133,12 @@ export const ActionPopoverInDialog: StoryObj = {
   play: async () => {
     if (!allowInteractions()) return;
 
-    const modal = screen.getByTestId("modal");
+    const modal = await screen.findByTestId("modal");
     await waitFor(async () => {
       await expect(modal).toHaveAttribute("data-state", "open");
     });
 
-    const actions = screen.getByRole("button", { name: /actions/i });
+    const actions = await screen.findByRole("button", { name: /actions/i });
     await userEvent.click(actions);
 
     const downloadCSV = await screen.findByRole("button", {
@@ -187,12 +187,12 @@ export const SelectInDialog: StoryObj = {
   play: async () => {
     if (!allowInteractions()) return;
 
-    const modal = screen.getByTestId("modal");
+    const modal = await screen.findByTestId("modal");
     await waitFor(async () => {
       await expect(modal).toHaveAttribute("data-state", "open");
     });
 
-    const select = screen.getByRole("combobox", { name: /color/i });
+    const select = await screen.findByRole("combobox", { name: /color/i });
     await userEvent.click(select);
 
     const option = await screen.findByRole("option", { name: /red/i });
@@ -227,12 +227,12 @@ export const MultiActionButtonInDialog: StoryObj = {
   play: async () => {
     if (!allowInteractions()) return;
 
-    const modal = screen.getByTestId("modal");
+    const modal = await screen.findByTestId("modal");
     await waitFor(async () => {
       await expect(modal).toHaveAttribute("data-state", "open");
     });
 
-    const multiActionButton = screen.getByRole("button", {
+    const multiActionButton = await screen.findByRole("button", {
       name: /multi action button/i,
     });
     await userEvent.click(multiActionButton);
@@ -277,12 +277,14 @@ export const PopoverContainerInDialog: StoryObj = {
   play: async () => {
     if (!allowInteractions()) return;
 
-    const modal = screen.getByTestId("modal");
+    const modal = await screen.findByTestId("modal");
     await waitFor(async () => {
       await expect(modal).toHaveAttribute("data-state", "open");
     });
 
-    const popoverButton = screen.getByRole("button", { name: /filter/i });
+    const popoverButton = await screen.findByRole("button", {
+      name: /filter/i,
+    });
     await userEvent.click(popoverButton);
 
     const popover = await screen.findByRole("dialog", { name: /filter/i });
@@ -370,7 +372,7 @@ export const ComplexPopoverContainer: StoryObj = {
   play: async () => {
     if (!allowInteractions()) return;
 
-    const select = screen.getByRole("combobox", { name: /color/i });
+    const select = await screen.findByRole("combobox", { name: /color/i });
     await userEvent.click(select);
 
     const option = await screen.findByRole("option", { name: /amber/i });
