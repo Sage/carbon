@@ -33,7 +33,7 @@ test.describe("Prop tests", () => {
     }) => {
       await mount(<MultiActionButtonList text={text} />);
 
-      await expect(getDataElementByValue(page, "main-text")).toHaveText(text);
+      await expect(page.getByRole("button", { name: text })).toBeVisible();
     });
   });
 
@@ -887,7 +887,7 @@ test.describe("Accessibility tests", () => {
     await mount(<InOverflowHiddenContainer />);
 
     await getDataElementByValue(page, "accordion-title-container").click();
-    await getComponent(page, "multi-action-button").locator("button").click();
+    await page.getByRole("button", { name: "Multi Action Button" }).click();
     await checkAccessibility(page);
   });
 });
