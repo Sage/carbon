@@ -509,6 +509,34 @@ describe("VerticalMenuItem", () => {
     });
   });
 
+  describe("aria-current", () => {
+    it("should pass aria-current to anchor menu items", () => {
+      render(
+        <VerticalMenu>
+          <VerticalMenuItem title="Item1" href="#" ariaCurrent="page" />
+        </VerticalMenu>,
+      );
+
+      const link = screen.getByRole("link");
+      expect(link).toHaveAttribute("aria-current", "page");
+    });
+
+    it("should pass aria-current to button menu items", () => {
+      render(
+        <VerticalMenu>
+          <VerticalMenuItem
+            title="Item1"
+            onClick={() => {}}
+            ariaCurrent="page"
+          />
+        </VerticalMenu>,
+      );
+
+      const button = screen.getByRole("button");
+      expect(button).toHaveAttribute("aria-current", "page");
+    });
+  });
+
   describe("when rendered inside of VerticalMenuFullScreen", () => {
     it("always render VerticalMenuItems open on all levels", () => {
       render(
