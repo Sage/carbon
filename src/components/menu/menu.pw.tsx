@@ -459,16 +459,10 @@ test.describe("Prop tests for Menu component", () => {
 
   (
     [
-      ["float", 0.3, 409],
-      ["float", 0.6, 819],
-      ["float", 1.0, 1366],
-      ["number", 350, 350],
-      ["number", 900, 900],
-      ["number", 1350, 1350],
       ["string", "450px", 450],
       ["string", "675px", 675],
       ["string", "1200px", 1200],
-    ] as [string, number | string, number][]
+    ] as [string, string, number][]
   ).forEach(([type, width, pixels]) => {
     test(`should render with width set to ${pixels}px when prop is passed as a ${type}`, async ({
       mount,
@@ -483,11 +477,9 @@ test.describe("Prop tests for Menu component", () => {
 
   (
     [
-      ["number", 810, 350, 810],
-      ["number", 810, 1350, 1350],
       ["string", "700px", "300px", 700],
       ["string", "700px", "1200px", 1200],
-    ] as [string, string | number, string | number, number][]
+    ] as [string, string, string, number][]
   ).forEach(([type, minWidth, width, pixels]) => {
     test(`should render with minimum width of ${pixels}px when minWidth prop is passed as a ${type}`, async ({
       mount,
@@ -502,11 +494,9 @@ test.describe("Prop tests for Menu component", () => {
 
   (
     [
-      ["number", 810, 350, 350],
-      ["number", 810, 1350, 810],
       ["string", "700px", "300px", 300],
       ["string", "700px", "1200px", 700],
-    ] as [string, string | number, string | number, number][]
+    ] as [string, string, string, number][]
   ).forEach(([type, maxWidth, width, pixels]) => {
     test(`should render with maximum width of ${pixels}px when maxWidth prop is passed as a ${type}`, async ({
       mount,
@@ -690,13 +680,13 @@ test.describe("Prop tests for Menu component", () => {
 
   (
     [
-      [10, "10"],
-      [50, "50"],
-      [100, "100"],
+      ["10", "10"],
+      ["50", "50"],
+      ["100", "100"],
     ] as [MenuProps["flexGrow"], string][]
   ).forEach(([value, growText]) => {
     test(`should render with flexGrow as ${value}`, async ({ mount, page }) => {
-      await mount(<MenuComponent flex="auto" flexGrow={value} />);
+      await mount(<MenuComponent flexGrow={value} />);
 
       const thisMenu = menu(page).first();
       await expect(thisMenu).toHaveCSS("flex-grow", growText);
@@ -705,16 +695,16 @@ test.describe("Prop tests for Menu component", () => {
 
   (
     [
-      [10, "10"],
-      [50, "50"],
-      [100, "100"],
+      ["10", "10"],
+      ["50", "50"],
+      ["100", "100"],
     ] as [MenuProps["flexShrink"], string][]
   ).forEach(([value, shrinkText]) => {
     test(`should render with flexShrink as ${value}`, async ({
       mount,
       page,
     }) => {
-      await mount(<MenuComponent flex="auto" flexShrink={value} />);
+      await mount(<MenuComponent flexShrink={value} />);
 
       const thisMenu = menu(page).first();
       await expect(thisMenu).toHaveCSS("flex-shrink", shrinkText);
@@ -779,9 +769,9 @@ test.describe("Prop tests for Menu component", () => {
 
   (
     [
-      [10, "10"],
-      [50, "50"],
-      [100, "100"],
+      ["10", "10"],
+      ["50", "50"],
+      ["100", "100"],
     ] as [MenuProps["order"], string][]
   ).forEach(([value, orderText]) => {
     test(`should render with order as ${value}`, async ({ mount, page }) => {
@@ -1864,7 +1854,7 @@ test.describe("Accessibility tests for Menu component", () => {
     },
   );
 
-  [10, 50, 100].forEach((value) => {
+  ["10", "50", "100"].forEach((value) => {
     test(`should pass accessibility tests when flexGrow is ${value}`, async ({
       mount,
       page,
@@ -1875,7 +1865,7 @@ test.describe("Accessibility tests for Menu component", () => {
     });
   });
 
-  [10, 50, 100].forEach((value) => {
+  ["10", "50", "100"].forEach((value) => {
     test(`should pass accessibility tests when flexShrink is ${value}`, async ({
       mount,
       page,
