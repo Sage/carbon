@@ -309,3 +309,23 @@ export const FormFieldRelativePosition = () => {
   );
 };
 FormFieldRelativePosition.storyName = "Form Field Relative Position";
+
+export const InFlexContainer = () => {
+  const [value, setValue] = useState("Textbox");
+  const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(target.value);
+  };
+  return (
+    <>
+      In flexbox with one input:
+      <Box display="flex" mb={2}>
+        <Textbox label="Textbox" value={value} onChange={handleChange} />
+      </Box>
+      In flexbox with two inputs:
+      <Box display="flex" gap={2}>
+        <Textbox label="Textbox" value={value} onChange={handleChange} />
+        <Textbox label="Textbox" value={value} onChange={handleChange} m={0} />
+      </Box>
+    </>
+  );
+};

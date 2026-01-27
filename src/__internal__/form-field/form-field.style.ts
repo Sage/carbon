@@ -5,6 +5,8 @@ import applyBaseTheme from "../../style/themes/apply-base-theme";
 const FormFieldStyle = styled.div.attrs(applyBaseTheme)`
   position: relative;
   margin-bottom: var(--fieldSpacing);
+  flex-grow: 1;
+
   & + & {
     margin-top: 16px;
   }

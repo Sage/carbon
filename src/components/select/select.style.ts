@@ -16,6 +16,7 @@ export interface StyledSelectProps
 const StyledSelect = styled.div.attrs(applyBaseTheme)<StyledSelectProps>`
   ${({ hasTextCursor, disabled, readOnly, theme, transparent, isOpen }) => css`
     margin-bottom: var(--fieldSpacing);
+    flex-grow: 1;
     ${margin}
 
     position: relative;
