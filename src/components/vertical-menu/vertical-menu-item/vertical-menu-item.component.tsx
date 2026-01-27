@@ -18,6 +18,11 @@ import {
 import MenuItemContext from "./__internal__/menu-item.context";
 import { useVerticalMenuContext } from "../__internal__/vertical-menu.context";
 
+type AriaCurrent = Pick<
+  React.HTMLAttributes<HTMLElement>,
+  "aria-current"
+>["aria-current"];
+
 export type VerticalMenuItemClickEvent =
   | React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
   | React.KeyboardEvent<HTMLButtonElement | HTMLAnchorElement>;
@@ -47,6 +52,8 @@ export interface VerticalMenuItemProps<T = React.ElementType>
   onClick?: (event: VerticalMenuItemClickEvent) => void;
   /** Optional component to render instead of the default div, useful for rendering router link components */
   component?: T;
+  /** Marks the element as the current item within a navigation context. */
+  ariaCurrent?: AriaCurrent;
 }
 
 type InferredComponentProps<T extends React.ElementType> = Omit<
@@ -66,6 +73,7 @@ export const VerticalMenuItem = <T,>({
   height = "56px",
   href,
   onClick,
+  ariaCurrent,
   ...rest
 }: T extends React.ElementType
   ? InferredComponentProps<T> & VerticalMenuItemProps<T>
@@ -109,6 +117,7 @@ export const VerticalMenuItem = <T,>({
     ...((href || !component) && {
       onClick: handleOnClick,
     }),
+    "aria-current": ariaCurrent,
     ...rest,
   };
 

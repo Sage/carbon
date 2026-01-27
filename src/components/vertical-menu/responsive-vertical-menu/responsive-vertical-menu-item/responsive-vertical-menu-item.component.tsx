@@ -27,6 +27,11 @@ import Icon, { IconType } from "../../../icon";
 import guid from "../../../../__internal__/utils/helpers/guid";
 import Events from "../../../../__internal__/utils/helpers/events";
 
+type AriaCurrent = Pick<
+  React.HTMLAttributes<HTMLElement>,
+  "aria-current"
+>["aria-current"];
+
 export type ResponsiveVerticalMenuItemClickEvent =
   | React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
   | React.KeyboardEvent<HTMLButtonElement | HTMLAnchorElement>;
@@ -50,6 +55,8 @@ interface BaseItemProps extends MarginProps, PaddingProps {
   rel?: string;
   /** The target to use for the menu item. */
   target?: string;
+  /** Marks the element as the current item within a navigation context. */
+  ariaCurrent?: AriaCurrent;
 }
 
 // Standard TS pattern for overriding props
@@ -124,6 +131,7 @@ const BaseItem = forwardRef<HTMLElement, BaseItemProps>(
       onClick,
       rel,
       target,
+      ariaCurrent,
       ...rest
     }: BaseItemProps,
     ref,
@@ -225,6 +233,7 @@ const BaseItem = forwardRef<HTMLElement, BaseItemProps>(
         "data-component": `responsive-vertical-menu-item-${id}`,
         "data-depth": depth,
         "data-role": `responsive-vertical-menu-item-${id}`,
+        "aria-current": ariaCurrent,
         depth,
         href,
         id,

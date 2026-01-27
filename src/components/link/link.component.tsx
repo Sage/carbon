@@ -17,6 +17,11 @@ import useLocale from "../../hooks/__internal__/useLocale";
 import BatchSelectionContext from "../batch-selection/__internal__/batch-selection.context";
 import Logger from "../../__internal__/utils/logger";
 
+type AriaCurrent = Pick<
+  React.HTMLAttributes<HTMLElement>,
+  "aria-current"
+>["aria-current"];
+
 export interface LinkProps
   extends StyledLinkProps,
     React.AriaAttributes,
@@ -51,6 +56,13 @@ export interface LinkProps
   target?: string;
   /** Aria label for accessibility purposes */
   ariaLabel?: string;
+  /**
+   * @private
+   * @internal
+   * @ignore
+   * Marks the element as the current item within a navigation context. Private on `Link` but needed for `MenuItem`.
+   */
+  ariaCurrent?: AriaCurrent;
   /** allows to set rel property in <a> tag */
   rel?: string;
   /** @ignore @private internal prop to be set when no aria-label should be specified */
@@ -102,6 +114,7 @@ export const Link = React.forwardRef<
       disabled = false,
       underline = "always",
       ariaLabel,
+      ariaCurrent,
       rel,
       tooltipMessage,
       tooltipPosition,
@@ -228,6 +241,7 @@ export const Link = React.forwardRef<
       href,
       rel,
       "aria-label": ariaLabel,
+      "aria-current": ariaCurrent,
       ...ariaProps,
       onFocus: () => setHasFocus(true),
       onBlur: () => setHasFocus(false),

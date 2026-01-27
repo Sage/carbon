@@ -216,6 +216,22 @@ test("when rendered as a `button` element, it should set the aria attributes on 
   expect(buttonElement).toHaveAccessibleName("test");
 });
 
+test("when rendered as an `<a>` element, it should set the aria-controls attribute on the anchor", () => {
+  render(<Link aria-controls="page" />);
+
+  const linkElement = screen.getByTestId("link-anchor");
+
+  expect(linkElement).toHaveAttribute("aria-controls", "page");
+});
+
+test("when rendered as a `button` element, it should set the aria-controls attribute on the button", () => {
+  render(<Link onClick={() => {}} aria-controls="page" />);
+
+  const buttonElement = screen.getByRole("button");
+
+  expect(buttonElement).toHaveAttribute("aria-controls", "page");
+});
+
 test("when `removeAriaLabelOnIcon` is true, it should set aria-label as undefined on the icon", () => {
   render(
     <Link
