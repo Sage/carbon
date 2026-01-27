@@ -19,7 +19,9 @@ export const TabProvider = ({ children, tabId, visible }: TabProviderProps) => {
         tabId,
       }}
     >
-      <StyledTabProvider visible={visible}>{children}</StyledTabProvider>
+      <StyledTabProvider visible={visible} role="presentation">
+        {children}
+      </StyledTabProvider>
     </TabContext.Provider>
   );
 };
