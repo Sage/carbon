@@ -345,6 +345,7 @@ const Toolbar = ({
           open={hyperlinkDialogOpen}
           onCancel={
             /* istanbul ignore next */ () => {
+              // console.log('\n\n\n\n on cancel! \n\n\n\n')
               resetDialog();
             }
           }
