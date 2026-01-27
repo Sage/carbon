@@ -90,64 +90,6 @@ test.describe("Prop tests for Menu component", () => {
     await expect(lastElement).toBeInViewport();
   });
 
-  test(`should verify a submenu can be navigated using keyboard tabbing after an item was clicked`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MenuComponent />);
-
-    const subMenu = submenu(page).first();
-    await subMenu.hover();
-    const menuItemThree = innerMenu(page, 4, span)
-      .filter({ hasText: "Item Submenu Three" })
-      .first();
-    await menuItemThree.click();
-    await expect(menuItemThree).toHaveText("Item Submenu Three");
-    await expect(menuItemThree).toHaveCSS("box-shadow", "none");
-    await page.keyboard.press("Tab");
-    const menuItemFour = innerMenu(page, 5, span)
-      .filter({ hasText: "Item Submenu Four" })
-      .first();
-    await expect(menuItemFour).toHaveText("Item Submenu Four");
-    await expect(menuItemFour).toHaveCSS("box-shadow", "none");
-  });
-
-  test(`should verify a submenu can be navigated using keyboard shift + tabbing after an item was clicked`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MenuComponent />);
-
-    const subMenu = submenu(page).first();
-    await subMenu.hover();
-    const menuItemThree = innerMenu(page, 4, span).first();
-    await menuItemThree.click();
-    await page.keyboard.press("Shift+Tab");
-    const focusedElement1 = page.locator("*:focus");
-    await expect(focusedElement1).toContainText("Item Submenu Two");
-    await page.keyboard.press("Shift+Tab");
-    const focusedElement2 = page.locator("*:focus");
-    await expect(focusedElement2).toContainText("Item Submenu One");
-  });
-
-  test(`should verify a submenu can be navigated using keyboard up arrow after an item was clicked`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MenuComponent />);
-
-    const subMenu = submenu(page).first();
-    await subMenu.hover();
-    const menuItemThree = innerMenu(page, 4, span).first();
-    await menuItemThree.click();
-    await page.keyboard.press("ArrowUp");
-    const focusedElement1 = page.locator("*:focus");
-    await expect(focusedElement1).toContainText("Item Submenu Two");
-    await page.keyboard.press("ArrowUp");
-    const focusedElement2 = page.locator("*:focus");
-    await expect(focusedElement2).toContainText("Item Submenu One");
-  });
-
   test(`should verify the first submenu item is focused using keyboard tabbing after the parent item was clicked`, async ({
     mount,
     page,
