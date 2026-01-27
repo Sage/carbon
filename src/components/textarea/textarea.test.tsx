@@ -319,7 +319,7 @@ test.each(["info", "warning", "error"])(
 
 test.each(["info", "warning", "error"])(
   "with id prop not provided, fieldHelp present, %s prop set as a string and the textarea element focused, the fieldHelp and the validation tooltip are combined to provide an accessible description for the textarea element",
-  (validationType) => {
+  async (validationType) => {
     render(
       <MockComponent
         label="bar"
