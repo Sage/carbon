@@ -190,6 +190,7 @@ test("closes additional buttons popup when focus is lost from it", async () => {
 });
 
 test("closes additional buttons popup when a custom adaptive sidebar blur event is dispatched", async () => {
+  jest.useFakeTimers();
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
   render(
@@ -213,7 +214,10 @@ test("closes additional buttons popup when a custom adaptive sidebar blur event 
     );
   });
 
-  expect(button).not.toBeInTheDocument();
+  expect(button).not.toBeVisible();
+  expect(screen.queryByRole("list")).not.toBeInTheDocument();
+
+  jest.useRealTimers();
 });
 
 test("closes additional buttons popup when Escape key is pressed", async () => {
