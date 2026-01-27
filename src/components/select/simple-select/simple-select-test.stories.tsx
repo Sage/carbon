@@ -1010,3 +1010,25 @@ export const SimpleSelectWithAriaDescribedby = () => {
 
 SimpleSelectWithAriaDescribedby.storyName =
   "SimpleSelect with aria-describedby";
+
+export const InFlexContainer = () => {
+  const [value, setValue] = useState("Textbox");
+  const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(target.value);
+  };
+  return (
+    <Box display="flex">
+      <Select
+        name="simple"
+        id="simple"
+        label="Color"
+        value={value}
+        onChange={handleChange}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </Select>
+    </Box>
+  );
+};

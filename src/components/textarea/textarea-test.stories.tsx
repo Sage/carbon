@@ -439,3 +439,15 @@ AutoFocusStory.parameters = {
   chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
 };
+
+export const InFlexContainer = () => {
+  const [value, setValue] = useState("Textbox");
+  const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(target.value);
+  };
+  return (
+    <Box display="flex">
+      <Textarea label="Textarea" value={value} onChange={handleChange} />
+    </Box>
+  );
+};

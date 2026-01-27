@@ -18,6 +18,7 @@ export interface StyledTextAreaProps extends Pick<TextareaProps, "minHeight"> {
 
 const StyledTextarea = styled.div.attrs(applyBaseTheme)<StyledTextAreaProps>`
   margin-bottom: var(--fieldSpacing);
+  width: 100%;
   ${margin};
 
   ${StyledInput} {
