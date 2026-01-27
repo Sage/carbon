@@ -309,3 +309,15 @@ export const FormFieldRelativePosition = () => {
   );
 };
 FormFieldRelativePosition.storyName = "Form Field Relative Position";
+
+export const InFlexContainer = () => {
+  const [value, setValue] = useState("Textbox");
+  const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(target.value);
+  };
+  return (
+    <Box display="flex">
+      <Textbox label="Textbox" value={value} onChange={handleChange} />
+    </Box>
+  );
+};
