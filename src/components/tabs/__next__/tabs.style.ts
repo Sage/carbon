@@ -61,7 +61,7 @@ export const StyledTabListWrapper = styled.div`
 
 export const Spacer = styled.div`
   align-self: flex-end;
-  background: #8b8b8bff;
+  background: var(--tab-border-active-alt);
   flex-grow: 1;
   height: 2px;
 `;
@@ -76,10 +76,10 @@ export const StyledScrollButton = styled.button<{
   border-radius: 0px;
   border-top-right-radius: 8px;
   border-top-left-radius: 8px;
-  border-color: #8b8b8bff;
+  border-color: var(--tab-border-active-alt);
   background: white;
   border: none;
-  border-bottom: 2px solid #8b8b8bff;
+  border-bottom: 2px solid var(--tab-border-active-alt);
   top: 6px;
   position: relative;
 `;
@@ -92,9 +92,9 @@ export const StyledScrollButtonPlaceholder = styled.div<{
   height: ${({ size }) => (size === "medium" ? "40px" : "48px")};
   width: ${({ size }) => (size === "medium" ? "40px" : "48px")};
   border-radius: 0;
-  border-color: #8b8b8bff;
+  border-color: var(--tab-border-active-alt);
   border: none;
-  border-bottom: 2px solid #8b8b8bff;
+  border-bottom: 2px solid var(--tab-border-active-alt);
   top: 4px;
   position: relative;
 `;
@@ -111,7 +111,7 @@ interface StyledTabProps
 export const StyledTab = styled.button<StyledTabProps>`
   background-color: transparent;
   border: none;
-  border-bottom: 2px solid #8b8b8bff;
+  border-bottom: 2px solid var(--tab-border-active-alt);
 
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
@@ -137,7 +137,7 @@ export const StyledTab = styled.button<StyledTabProps>`
   }
 
   :hover {
-    background-color: #00000010;
+    background-color: var(--tab-bg-hover);
     cursor: pointer;
   }
 
@@ -152,7 +152,7 @@ export const StyledTab = styled.button<StyledTabProps>`
     orientation === "horizontal" &&
     css`
       background-color: white;
-      border: 2px solid #8b8b8bff;
+      border: 2px solid var(--tab-border-active-alt);
       border-bottom: none;
 
       padding-top: ${sizes[size].paddingY - 4}px;
@@ -186,7 +186,7 @@ export const StyledTab = styled.button<StyledTabProps>`
     orientation === "vertical"
       ? css`
           border: none;
-          border-right: 2px solid #8b8b8bff;
+          border-right: 2px solid var(--tab-border-active-alt);
 
           border-bottom-left-radius: 8px;
           border-bottom-right-radius: 0px;
@@ -198,7 +198,7 @@ export const StyledTab = styled.button<StyledTabProps>`
           ${activeTab &&
           css`
             background-color: white;
-            border: 2px solid #8b8b8bff;
+            border: 2px solid var(--tab-border-active-alt);
             border-right: none;
 
             padding-top: ${size === "medium"
