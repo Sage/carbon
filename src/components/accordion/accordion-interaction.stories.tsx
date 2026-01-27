@@ -152,13 +152,14 @@ FocusManagement.parameters = {
   chromatic: { disableSnapshot: false },
 };
 
-export const MixedAccordionStates: Story = {
+export const MixedAccordionStatesAndIcons: Story = {
   render: (args) => (
     <AccordionGroup>
       <Accordion
         {...args}
         onChange={action("expansionToggled")}
         title="First Accordion"
+        iconType="chevron_down"
       >
         <Box p={2}>
           <Textbox
@@ -172,6 +173,7 @@ export const MixedAccordionStates: Story = {
         {...args}
         onChange={action("expansionToggled")}
         title="Second Accordion"
+        iconType="chevron_down_thick"
       >
         <Box p={2}>
           <Textbox
@@ -185,6 +187,7 @@ export const MixedAccordionStates: Story = {
         {...args}
         onChange={action("expansionToggled")}
         title="Third Accordion"
+        iconType="dropdown"
       >
         <Box p={2}>
           <Box mt={2}>Content</Box>
@@ -217,8 +220,8 @@ export const MixedAccordionStates: Story = {
   ],
 };
 
-MixedAccordionStates.storyName = "Mixed Accordion States";
-MixedAccordionStates.parameters = {
+MixedAccordionStatesAndIcons.storyName = "Mixed Accordion States and Icons";
+MixedAccordionStatesAndIcons.parameters = {
   themeProvider: { chromatic: { theme: "sage" } },
   chromatic: { disableSnapshot: false },
 };
