@@ -1,18 +1,4 @@
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-  createRef,
-  cloneElement,
-  Children,
-  ReactElement,
-  ComponentProps,
-  forwardRef,
-  useImperativeHandle,
-} from "react";
+import React, { forwardRef, useEffect, useMemo, useState } from "react";
 import { MarginProps } from "styled-system";
 import Tab from "./tab";
 import Event from "../../__internal__/utils/helpers/events";
@@ -24,6 +10,7 @@ import StyledTabs from "./tabs.style";
 import TabsHeader from "./__internal__/tabs-header";
 import TabTitle from "./__internal__/tab-title";
 import DrawerSidebarContext from "../drawer/__internal__/drawer-sidebar.context";
+import usePrevious from "../../hooks/__internal__/usePrevious";
 
 export type TabsHandle = {
   /**
@@ -456,9 +443,13 @@ const Tabs = forwardRef<TabsHandle, TabsProps>(
       );
     };
 
-    /** Builds all tabs where non selected tabs have class of hidden */
-    const renderTabs = () => {
-      if (isInSidebar) return null;
+    const [selectedTabIdInternal, setSelectedTabIdInternal] = useState<
+      string | undefined
+    >(selectedTabId || tabData[0]?.props.id || tabData[0]?.props.tabId);
+    const mappedSize = size === "default" ? "medium" : "large";
+    const { isInSidebar } = React.useContext(DrawerSidebarContext);
+    const orientation =
+      isInSidebar || position === "left" ? "vertical" : "horizontal";
 
       if (!renderHiddenTabs) {
         const tab = filteredChildren.find((child) =>
@@ -496,18 +487,74 @@ const Tabs = forwardRef<TabsHandle, TabsProps>(
       });
     };
 
+    const previousSelectedTabId = usePrevious(selectedTabId);
+
+    useEffect(() => {
+      if (
+        selectedTabId !== previousSelectedTabId &&
+        selectedTabId !== selectedTabIdInternal
+      ) {
+        setSelectedTabIdInternal(selectedTabId);
+      }
+    }, [selectedTabId, previousSelectedTabId, selectedTabIdInternal]);
+
     return (
-      <StyledTabs
-        position={isInSidebar ? "left" : position}
-        data-role="tabs"
-        isInSidebar={isInSidebar}
-        headerWidth={headerWidth}
+      <NextTabs
+        orientation={orientation}
+        selectedTabId={selectedTabIdInternal}
+        size={mappedSize}
         {...rest}
         {...tagComponent("tabs", rest)}
       >
-        {renderTabHeaders()}
-        {renderTabs()}
-      </StyledTabs>
+        <NextTabList
+          ref={ref}
+          ariaLabel="Tabs"
+          onTabChange={(id) => {
+            setSelectedTabIdInternal(id);
+            onTabChange?.(id);
+          }}
+          headerWidth={isInSidebar ? "100%" : undefined}
+        >
+          {tabData.map(({ props }) => {
+            const idToUse = props.id || props.tabId;
+            if (!idToUse) {
+              Logger.warn(
+                "Warning: Tab component is missing a unique identifier. Please provide an `id` prop to ensure proper functionality.",
+              );
+              return null;
+            }
+
+            return (
+              <Tab
+                headerWidth={isInSidebar ? "100%" : headerWidth}
+                {...props}
+                key={idToUse}
+              />
+            );
+          })}
+        </NextTabList>
+
+        {!isInSidebar &&
+          tabPanelsToRender.map(({ props }) => {
+            const idToUse = props.id || props.tabId;
+            if (!idToUse) {
+              Logger.warn(
+                "Warning: Each `Tab` component must have an `id` or `tabId` prop to associate it with a TabPanel.",
+              );
+              return null;
+            }
+
+            return (
+              <NextTabPanel
+                key={`${idToUse}-panel`}
+                id={`${idToUse}-panel`}
+                tabId={idToUse}
+              >
+                {props.children}
+              </NextTabPanel>
+            );
+          })}
+      </NextTabs>
     );
   },
 );

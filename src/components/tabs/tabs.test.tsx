@@ -1962,3 +1962,73 @@ describe("check events for Tabs component", () => {
     });
   });
 });
+
+test("updates the selected tab when the `selectedTabId` prop changes", () => {
+  const { rerender } = render(
+    <Tabs selectedTabId="foo">
+      <Tab id="foo" label="Tab 1">
+        Content 1
+      </Tab>
+      <Tab id="bar" label="Tab 2">
+        Content 2
+      </Tab>
+    </Tabs>,
+  );
+
+  const tab1 = screen.getByRole("tab", { name: "Tab 1" });
+  const tab2 = screen.getByRole("tab", { name: "Tab 2" });
+
+  expect(tab1).toHaveAttribute("aria-selected", "true");
+  expect(tab2).toHaveAttribute("aria-selected", "false");
+
+  rerender(
+    <Tabs selectedTabId="bar">
+      <Tab id="foo" label="Tab 1">
+        Content 1
+      </Tab>
+      <Tab id="bar" label="Tab 2">
+        Content 2
+      </Tab>
+    </Tabs>,
+  );
+
+  expect(tab1).toHaveAttribute("aria-selected", "false");
+  expect(tab2).toHaveAttribute("aria-selected", "true");
+});
+
+test("logs warnings when no `id` or `tabId` prop is provided to Tab", () => {
+  const loggerSpy = jest.spyOn(Logger, "warn");
+
+  render(
+    <DrawerSidebarContext.Provider value={{ isInSidebar: true }}>
+      <Tabs>
+        <Tab title="Tab 1">Content 1</Tab>
+      </Tabs>
+    </DrawerSidebarContext.Provider>,
+  );
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "Warning: Tab component is missing a unique identifier. Please provide an `id` prop to ensure proper functionality.",
+  );
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
+  loggerSpy.mockRestore();
+});
+
+test("logs warnings when `TabPanel` cannot associate `id` or `tabId` prop is to a Tab", () => {
+  const loggerSpy = jest.spyOn(Logger, "warn");
+
+  render(
+    <Tabs>
+      <Tab title="Tab 1">Content 1</Tab>
+      <Tab tabId="bar" title="Tab 2">
+        Content 2
+      </Tab>
+    </Tabs>,
+  );
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "Warning: Each `Tab` component must have an `id` or `tabId` prop to associate it with a TabPanel.",
+  );
+  expect(loggerSpy).toHaveBeenCalledTimes(2);
+  loggerSpy.mockRestore();
+});
