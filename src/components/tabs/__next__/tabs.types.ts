@@ -1,4 +1,5 @@
 import React, { Dispatch, SetStateAction } from "react";
+import { TagProps } from "../../../__internal__/utils/helpers/tags";
 
 export type TabValidationRecord = Record<string, string | boolean>;
 export type ValidationRecord = Record<string, TabValidationRecord>;
@@ -56,9 +57,14 @@ export interface TabListProps {
   children?: React.ReactNode;
   /** A callback for when the active tab is changed */
   onTabChange?: (tabId: string) => void;
+
+  /**
+   * @private @ignore @internal
+   */
+  headerWidth?: string;
 }
 
-export interface TabProps {
+export interface TabProps extends TagProps {
   /** The tab panel that this tab controls */
   controls: string;
   /** The ID of the tab */
@@ -78,6 +84,17 @@ export interface TabProps {
    * @deprecated to be removed when legacy `Tabs` and `Tab` are removed
    * */
   info?: boolean | string;
+
+  /**
+   * @internal @private @ignore
+   */
+  hasCustomLayout?: boolean;
+
+  /** @private @ignore @internal */
+  headerWidth?: string;
+
+  /** @private @ignore @internal */
+  href?: string;
 }
 
 export interface TabsProps {

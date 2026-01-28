@@ -14,13 +14,17 @@ test("should render with scroll buttons on smaller screens if there are large nu
   // Resize the window to a smaller size to cause the scroll buttons to actually appear
   await page.setViewportSize({ width: 350, height: 250 });
 
-  const scrollButtonRight = page.locator("#tab-navigation-button-right");
+  const scrollButtonRight = page.locator(
+    "[data-role='tab-navigation-button-right']",
+  );
 
   await expect(scrollButtonRight).toBeVisible();
 
   await scrollButtonRight.click();
 
-  const scrollButtonLeft = page.locator("#tab-navigation-button-left");
+  const scrollButtonLeft = page.locator(
+    "[data-role='tab-navigation-button-left']",
+  );
 
   await expect(scrollButtonLeft).toBeVisible();
 
@@ -49,8 +53,12 @@ test("should render without scroll buttons on smaller screens if there are large
 
   await page.setViewportSize({ width: 350, height: 250 });
 
-  const scrollButtonLeft = page.locator("#tab-navigation-button-left");
-  const scrollButtonRight = page.locator("#tab-navigation-button-right");
+  const scrollButtonLeft = page.locator(
+    "[data-role='tab-navigation-button-left']",
+  );
+  const scrollButtonRight = page.locator(
+    "[data-role='tab-navigation-button-right']",
+  );
 
   await expect(scrollButtonLeft).toHaveCount(0);
   await expect(scrollButtonRight).toHaveCount(0);

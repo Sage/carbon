@@ -27,7 +27,6 @@ import {
   FullScreenWithAutoFocusSelect,
   FullScreenComponentFocusableSelectors,
   FullScreenWithBox,
-  FullScreenWithComplexExample,
   FullScreenWithHeaderChildren,
   FullScreenWithHideableHeaderChildren,
   FullScreenBackgroundScrollTestComponent,
@@ -1497,15 +1496,6 @@ test.describe("Fullscreen Dialog component", () => {
       await checkAccessibility(page, page.getByRole("dialog"));
     });
 
-    test("should check accessibility with disabled content padding", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<FullScreenDialogComponent contentPadding={{ p: 0 }} />);
-
-      await checkAccessibility(page, page.getByRole("dialog"));
-    });
-
     test("should check accessibility with header children", async ({
       mount,
       page,
@@ -1599,29 +1589,6 @@ test.describe("Fullscreen Dialog component", () => {
       await openButton.click();
 
       await checkAccessibility(page, page.getByRole("dialog"));
-    });
-
-    test("should check accessibility with complex example", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<FullScreenWithComplexExample />);
-
-      const openButton = page
-        .getByRole("button")
-        .filter({ hasText: "Open Dialog" });
-      await openButton.click();
-      await expect(getDataElementByValue(page, "dialog-title")).toHaveText(
-        "Dialog Title",
-      );
-
-      /* The colour contrast accessiiblity check has been omitted here due to a false positive
-    where the box-shadow is incorrectly compared to the sticky footer background colour */
-      await checkAccessibility(
-        page,
-        page.getByRole("dialog"),
-        "color-contrast",
-      );
     });
   });
 

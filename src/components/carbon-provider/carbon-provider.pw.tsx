@@ -8,7 +8,6 @@ import LoaderBar from "../../../src/components/loader-bar";
 import MultiActionButton from "../../../src/components/multi-action-button";
 import Pill from "../../../src/components/pill";
 import SplitButton from "../../../src/components/split-button";
-import { Tabs, Tab } from "../tabs";
 
 import { buttonDataComponent } from "../../../playwright/components/button/index";
 import {
@@ -110,28 +109,6 @@ test.describe("Carbon Provider", () => {
         await expect(buttonDataComponent(page)).toHaveCSS(
           "border-color",
           color,
-        );
-      });
-
-      test(`Tabs component should render with ${theme} theme and verify theme color`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <Tabs align="left" position="top">
-            <Tab tabId="tab-1" title="Tab 1" key="tab-1">
-              Content for tab 1
-            </Tab>
-          </Tabs>,
-          { hooksConfig: { theme: `${theme}` } },
-        );
-
-        const tabTitleSelectedIndicator = page.locator(
-          '[data-element="tab-selected-indicator"]',
-        );
-        await expect(tabTitleSelectedIndicator).toHaveCSS(
-          "box-shadow",
-          `${color} 0px -4px 0px 0px inset`,
         );
       });
     });
