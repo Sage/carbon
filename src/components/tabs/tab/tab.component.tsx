@@ -2,6 +2,7 @@ import React from "react";
 import { PaddingProps } from "styled-system";
 import { TagProps } from "../../../__internal__/utils/helpers/tags/tags";
 import { Tab as NextTab } from "../__next__/tabs.component";
+import type { TabProps as NextTabProps } from "../__next__";
 import Logger from "../../../__internal__/utils/logger";
 
 export type TabsHandle = {
@@ -11,7 +12,10 @@ export type TabsHandle = {
   focusTab: (tabId: string) => void;
 } | null;
 
-export interface TabProps extends PaddingProps, TagProps {
+export interface TabProps
+  extends PaddingProps,
+    TagProps,
+    Partial<NextTabProps> {
   /**
    * The title of the Tab.
    * @deprecated Support will be removed in a future release, it is recommended to use `label` prop instead.
@@ -21,7 +25,7 @@ export interface TabProps extends PaddingProps, TagProps {
    * A unique ID to identify this specific tab.
    * @deprecated Support will be removed in a future release, it is recommended to use `id` instead.
    * */
-  tabId: string;
+  tabId?: string;
   /** The child elements of Tab component. */
   children?: React.ReactNode;
   /** @ignore @private Boolean indicating selected state of Tab. */
@@ -68,7 +72,7 @@ export interface TabProps extends PaddingProps, TagProps {
   href?: string;
   /**
    * Overrides default layout with a one defined in this prop
-   * @deprecated Support for customLayout will be removed in a future release, it is recommended to use `label` prop instead.
+   * @deprecated Support for customLayout will be removed in a future release, it is recommended to use the `label` prop instead.
    * */
   customLayout?: React.ReactNode;
   /** Additional props to be passed to the Tab's corresponding title. */
@@ -103,6 +107,12 @@ export const Tab = ({
   warningMessage,
   infoMessage,
   titleProps,
+  controls,
+  id,
+  label,
+  error,
+  warning,
+  info,
   ...rest
 }: TabProps) => {
   if (!tabLegacyWarned) {
@@ -112,36 +122,51 @@ export const Tab = ({
     tabLegacyWarned = true;
   }
 
-  let label: React.ReactNode = title;
+  let labelContent: React.ReactNode = "";
 
-  if (customLayout) {
-    label = customLayout;
-  } else if (siblings) {
-    const titleNode = <span>{title}</span>;
-    label =
-      titlePosition === "after" ? (
-        <>
-          {siblings}
-          {titleNode}
-        </>
-      ) : (
-        <>
-          {titleNode}
-          {siblings}
-        </>
-      );
+  if (label) {
+    labelContent = label;
+  } else if (customLayout) {
+    labelContent = customLayout;
+  } else {
+    labelContent = title;
+    if (siblings) {
+      const titleNode = <span>{label || title}</span>;
+      labelContent =
+        titlePosition === "after" ? (
+          <>
+            {siblings}
+            {titleNode}
+          </>
+        ) : (
+          <>
+            {titleNode}
+            {siblings}
+          </>
+        );
+    }
   }
 
-  const { error, warning, info } = validationStatusOverride || {};
+  const {
+    error: errorOverride,
+    warning: warningOverride,
+    info: infoOverride,
+  } = validationStatusOverride || {};
+  const idToUse = id || tabId;
+
+  /* istanbul ignore if */
+  if (!idToUse) {
+    return null;
+  }
 
   return (
     <NextTab
-      id={tabId}
-      controls={`${tabId}-panel`}
-      label={label}
-      error={error}
-      warning={warning}
-      info={info}
+      id={idToUse}
+      controls={controls || `${idToUse}-panel`}
+      label={labelContent}
+      error={error || errorOverride}
+      warning={warning || warningOverride}
+      info={info || infoOverride}
       hasCustomLayout={!!customLayout}
       data-role={titleProps?.["data-role"]}
       {...rest}
