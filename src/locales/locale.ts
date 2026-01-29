@@ -135,6 +135,11 @@ interface Locale {
   pod: {
     undo: () => string;
   };
+  popoverContainer: {
+    openButton: {
+      text: () => string;
+    };
+  };
   tabs: {
     error: () => string;
     warning: () => string;

@@ -6,7 +6,7 @@ import generateStyledSystemProps from "../../../.storybook/utils/styled-system-p
 import Box from "../box";
 import { DraggableContainer, DraggableItem } from "../draggable";
 import { Checkbox } from "../checkbox";
-import Button from "../button";
+import Button, { ButtonHandle } from "../button/__next__";
 import Link from "../link";
 import Pill from "../pill";
 import Badge from "../badge";
@@ -17,6 +17,7 @@ import PopoverContainer, {
 } from "./popover-container.component";
 import Textbox from "../textbox";
 import Form from "../form";
+import Icon from "../icon";
 
 const styledSystemProps = generateStyledSystemProps({
   padding: true,
@@ -200,17 +201,16 @@ export const RenderProps: Story = () => {
           "aria-haspopup": ariaHasPopup,
         }) => (
           <Button
-            iconType={!isOpen ? "filter_new" : "close"}
-            iconPosition="after"
             data-element={dataElement}
             aria-label={ariaLabel}
             aria-haspopup={ariaHasPopup}
             aria-expanded={ariaExpanded}
-            ref={ref}
+            ref={ref as React.RefObject<ButtonHandle>}
             id={id}
             onClick={onClick}
           >
             Filter
+            <Icon type={!isOpen ? "filter_new" : "close"} />
           </Button>
         )}
         renderCloseComponent={({
@@ -222,7 +222,7 @@ export const RenderProps: Story = () => {
           <Button
             data-element={dataElement}
             aria-label={ariaLabel}
-            ref={ref}
+            ref={ref as React.RefObject<ButtonHandle>}
             onClick={onClick}
           >
             Close
@@ -425,14 +425,14 @@ export const Filter: Story = () => {
           <Badge counter={filters.length} onClick={handleBadgeClose}>
             <Button
               mr={0}
-              buttonType={isOpen ? "primary" : "darkBackground"}
-              iconPosition="after"
-              iconType={!isOpen ? "filter_new" : "close"}
+              variantType={"primary"}
+              inverse={!isOpen}
               size="small"
-              ref={ref}
+              ref={ref as React.RefObject<ButtonHandle>}
               {...rest}
             >
               Filter
+              {<Icon type={!isOpen ? "filter_new" : "close"} />}
             </Button>
           </Badge>
         )}
@@ -480,14 +480,15 @@ export const FocusButton = () => {
       open={isPopOverOpen}
       onOpen={() => setIsPopOverOpen(true)}
       onClose={() => setIsPopOverOpen(false)}
-      renderOpenComponent={({ ...props }) => (
+      renderOpenComponent={({ ref, ...props }) => (
         <Button
           size="small"
-          buttonType="secondary"
-          iconType="settings"
+          variantType="primary"
+          ref={ref as React.RefObject<ButtonHandle>}
           {...props}
         >
-          popover
+          <Icon type="settings" />
+          Popover
         </Button>
       )}
       renderCloseComponent={() => <></>}
@@ -497,7 +498,7 @@ export const FocusButton = () => {
         onSubmit={() => {}}
         leftSideButtons={<Button onClick={() => handleCancel()}>Cancel</Button>}
         saveButton={
-          <Button buttonType="primary" type="submit">
+          <Button variantType="primary" type="submit">
             Save
           </Button>
         }

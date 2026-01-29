@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import useMediaQuery from "../../hooks/useMediaQuery";
-import Button from "../button";
+import Button, { ButtonHandle } from "../button/__next__";
 import Box from "../box";
 import PopoverContainer, {
   PopoverContainerProps,
@@ -101,32 +101,7 @@ export const InAScrollableBlock = () => {
       <Box bg="#ccd6dbff" height={500} width={1100} />
       <Box height={400} overflow="scroll">
         <Box height={400} position="fixed">
-          <PopoverContainer
-            title="This is the title"
-            disableAnimation
-            renderOpenComponent={({
-              "data-element": dataElement,
-              onClick,
-              ref,
-              "aria-label": ariaLabel,
-              id,
-              "aria-expanded": ariaExpanded,
-              "aria-haspopup": ariaHasPopup,
-            }) => (
-              <Button
-                iconType="settings"
-                iconPosition="after"
-                data-element={dataElement}
-                aria-label={ariaLabel}
-                aria-haspopup={ariaHasPopup}
-                aria-expanded={ariaExpanded}
-                ref={ref}
-                id={id}
-                onClick={onClick}
-                m={2}
-              />
-            )}
-          >
+          <PopoverContainer title="This is the title" disableAnimation>
             <Button>View all notifications</Button>
           </PopoverContainer>
         </Box>
@@ -147,7 +122,11 @@ export const InsideMenu = () => {
           onClose={() => setOpen(false)}
           open={open}
           renderOpenComponent={({ ref, onClick }) => (
-            <IconButton aria-label="Notifications" ref={ref} onClick={onClick}>
+            <IconButton
+              aria-label="Notifications"
+              ref={ref as React.RefObject<HTMLButtonElement>}
+              onClick={onClick}
+            >
               <Icon type="alert" />
             </IconButton>
           )}
@@ -211,7 +190,11 @@ export const InsideMenuWithOpenButton = () => {
           open={open}
           renderOpenComponent={({ ref, onClick }) => (
             <Box data-role="gblnav-notificationui-bell">
-              <Button aria-label="Notifications" ref={ref} onClick={onClick}>
+              <Button
+                aria-label="Notifications"
+                ref={ref as React.RefObject<ButtonHandle>}
+                onClick={onClick}
+              >
                 <Box alignItems="center" display="flex" px={2}>
                   <Icon type="alert" />
                   notifications
@@ -270,7 +253,7 @@ export const InsideMenuWithPrimaryOpenButton = () => {
             <Box data-role="gblnav-notificationui-bell">
               <Button
                 aria-label="Notifications"
-                ref={ref}
+                ref={ref as React.RefObject<ButtonHandle>}
                 onClick={onClick}
                 data-popover-container-button={dataPopoverContainerButton}
               >
@@ -326,7 +309,7 @@ export const InsideMenuWithPrimaryOpenButtonResponsive = () => {
             }) => (
               <Button
                 aria-label="Create"
-                ref={ref}
+                ref={ref as React.RefObject<ButtonHandle>}
                 onClick={onClick}
                 data-popover-container-button={dataPopoverContainerButton}
               >
@@ -340,7 +323,7 @@ export const InsideMenuWithPrimaryOpenButtonResponsive = () => {
               <Box position="absolute" right="15px" top="15px">
                 <IconButton
                   aria-label="Close Create Popover"
-                  ref={ref}
+                  ref={ref as React.RefObject<HTMLButtonElement>}
                   onClick={onClick}
                 >
                   <Icon color="var(--colorsActionMajorYang100)" type="close" />
@@ -450,7 +433,7 @@ export const WithFullWidthButton = () => {
           iconPosition="after"
           iconType="filter_new"
           fullWidth
-          ref={ref}
+          ref={ref as React.RefObject<ButtonHandle>}
           {...rest}
         >
           Filter
@@ -472,11 +455,6 @@ export const WithRadioButtons = () => {
         onOpen={() => setOpen1(true)}
         onClose={() => setOpen1(false)}
         open={open1}
-        renderOpenComponent={({ ref, onClick }) => (
-          <Button aria-label="Notifications" ref={ref} onClick={onClick}>
-            With Radio children
-          </Button>
-        )}
         p={0}
       >
         <Box display="flex" justifyContent="space-between" p={2}>

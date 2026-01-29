@@ -4,7 +4,7 @@ import { defaultFocusableSelectors } from "../../../__internal__/focus-trap/focu
 
 export default (
   container?: RefObject<HTMLElement>,
-  target?: RefObject<HTMLElement>,
+  target?: RefObject<HTMLElement | null | undefined>,
   focusCallback?: (ev: KeyboardEvent) => void,
 ) => {
   useEffect(() => {
