@@ -483,9 +483,9 @@ test.each(validationTypes)(
 
     expect(await screen.findByRole("tooltip")).toHaveAttribute(
       "id",
-      "foo-validation",
+      "foo-validation-1",
     );
-    expect(input).toHaveAttribute("aria-describedby", "foo-validation");
+    expect(input).toHaveAttribute("aria-describedby", "foo-validation-1");
   },
 );
 
@@ -507,11 +507,11 @@ test.each(validationTypes)(
 
     expect(await screen.findByRole("tooltip")).toHaveAttribute(
       "id",
-      `${mockedGuid}-validation`,
+      `${mockedGuid}-validation-1`,
     );
     expect(input).toHaveAttribute(
       "aria-describedby",
-      `${mockedGuid}-validation`,
+      `${mockedGuid}-validation-1`,
     );
   },
 );
@@ -569,12 +569,12 @@ test.each(validationTypes)(
 
     expect(await screen.findByRole("tooltip")).toHaveAttribute(
       "id",
-      "foo-validation",
+      "foo-validation-1",
     );
     expect(screen.getByText("baz")).toHaveAttribute("id", "foo-field-help");
     expect(input).toHaveAttribute(
       "aria-describedby",
-      "foo-field-help foo-validation",
+      "foo-field-help foo-validation-1",
     );
   },
 );
@@ -598,7 +598,7 @@ test.each(validationTypes)(
 
     expect(await screen.findByRole("tooltip")).toHaveAttribute(
       "id",
-      `${mockedGuid}-validation`,
+      `${mockedGuid}-validation-1`,
     );
     expect(screen.getByText("baz")).toHaveAttribute(
       "id",
@@ -606,7 +606,7 @@ test.each(validationTypes)(
     );
     expect(input).toHaveAttribute(
       "aria-describedby",
-      `${mockedGuid}-field-help ${mockedGuid}-validation`,
+      `${mockedGuid}-field-help ${mockedGuid}-validation-1`,
     );
   },
 );
@@ -752,11 +752,11 @@ describe("when rendered with new validations", () => {
 
     expect(screen.getByText("bar")).toHaveAttribute(
       "id",
-      `${mockId}-validation`,
+      `${mockId}-validation-1`,
     );
     expect(screen.getByRole("textbox")).toHaveAttribute(
       "aria-describedby",
-      `${mockId}-validation`,
+      `${mockId}-validation-1`,
     );
   });
 
@@ -790,6 +790,124 @@ describe("when rendered with new validations", () => {
     expect(hintText).toHaveStyleRule("font-size", "14px");
     expect(hintText).toHaveStyleRule("margin-top", "var(--spacing000)");
     expect(hintText).toHaveStyleRule("margin-bottom", "var(--spacing100)");
+  });
+});
+
+describe("when validation message changes", () => {
+  const renderWithNewValidations = (props: TextboxProps) =>
+    render(
+      <CarbonProvider validationRedesignOptIn>
+        <Textbox {...props} />
+      </CarbonProvider>,
+    );
+
+  const newValidationTypes = ["error", "warning"] as const;
+
+  it.each(newValidationTypes)(
+    "updates the %s validation id from validation-1 to validation-2 when the message changes",
+    (validationType) => {
+      const mockId = "foo";
+      const { rerender } = renderWithNewValidations({
+        id: mockId,
+        [validationType]: "first message",
+        value: "foo",
+        onChange: jest.fn(),
+      });
+
+      expect(screen.getByText("first message")).toHaveAttribute(
+        "id",
+        `${mockId}-validation-1`,
+      );
+      expect(screen.getByRole("textbox")).toHaveAttribute(
+        "aria-describedby",
+        `${mockId}-validation-1`,
+      );
+
+      rerender(
+        <CarbonProvider validationRedesignOptIn>
+          <Textbox
+            id={mockId}
+            {...{ [validationType]: "different message" }}
+            value="foo"
+            onChange={jest.fn()}
+          />
+        </CarbonProvider>,
+      );
+
+      expect(screen.getByText("different message")).toHaveAttribute(
+        "id",
+        `${mockId}-validation-2`,
+      );
+      expect(screen.getByRole("textbox")).toHaveAttribute(
+        "aria-describedby",
+        `${mockId}-validation-2`,
+      );
+    },
+  );
+
+  it.each(newValidationTypes)(
+    "keeps the same %s validation id when the message stays the same",
+    (validationType) => {
+      const mockId = "foo";
+      const { rerender } = renderWithNewValidations({
+        id: mockId,
+        [validationType]: "same message",
+        value: "foo",
+        onChange: jest.fn(),
+      });
+
+      expect(screen.getByText("same message")).toHaveAttribute(
+        "id",
+        `${mockId}-validation-1`,
+      );
+
+      rerender(
+        <CarbonProvider validationRedesignOptIn>
+          <Textbox
+            id={mockId}
+            {...{ [validationType]: "same message" }}
+            value="foo"
+            onChange={jest.fn()}
+          />
+        </CarbonProvider>,
+      );
+
+      expect(screen.getByText("same message")).toHaveAttribute(
+        "id",
+        `${mockId}-validation-1`,
+      );
+    },
+  );
+
+  it("updates validation id when switching from error to warning", () => {
+    const mockId = "foo";
+    const { rerender } = renderWithNewValidations({
+      id: mockId,
+      error: "error message",
+      value: "foo",
+      onChange: jest.fn(),
+    });
+
+    expect(screen.getByText("error message")).toHaveAttribute(
+      "id",
+      `${mockId}-validation-1`,
+    );
+
+    rerender(
+      <CarbonProvider validationRedesignOptIn>
+        <Textbox
+          id={mockId}
+          warning="warning message"
+          value="foo"
+          onChange={jest.fn()}
+        />
+      </CarbonProvider>,
+    );
+
+    expect(screen.getByText("warning message")).toHaveAttribute(
+      "id",
+      `${mockId}-validation-2`,
+    );
   });
 });
 
