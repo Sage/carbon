@@ -17,9 +17,6 @@ import tagComponent, { TagProps } from "../utils/helpers/tags/tags";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
 import { IconType } from "../../components/icon";
 import { filterStyledSystemMarginProps } from "../../style/utils";
-import TabContext, {
-  TabContextProps,
-} from "../../components/tabs/tab/__internal__/tab.context";
 import { TabsContext as NewTabsContext } from "../../components/tabs/__next__/tabs.context";
 import { TabContext as NewTabContext } from "../../components/tabs/__next__/tab.context";
 import type {
@@ -149,9 +146,6 @@ const FormField = ({
     useContext<NewTabsContextProps>(NewTabsContext);
   const { tabId } = useContext<NewTabContextProps>(NewTabContext);
 
-  const { setError, setWarning, setInfo } =
-    useContext<TabContextProps>(TabContext);
-
   const marginProps = filterStyledSystemMarginProps(rest);
   const isMounted = useRef(false);
 
@@ -177,22 +171,6 @@ const FormField = ({
       }
     };
   }, [id, setErrors, setWarnings, error, warning, info, tabId, setInfos]);
-
-  // This useEffect handles support for the old Tab instances and can be removed in favour of the above once
-  // the legacy work in Tabs is removed
-  useEffect(() => {
-    if (setError) setError(id, error);
-    if (setWarning) setWarning(id, warning);
-    if (setInfo) setInfo(id, info);
-
-    return () => {
-      if (!isMounted.current) {
-        if (setError && error) setError(id, false);
-        if (setWarning && warning) setWarning(id, false);
-        if (setInfo && info) setInfo(id, false);
-      }
-    };
-  }, [id, setError, setWarning, setInfo, error, warning, info]);
 
   const fieldHelp = fieldHelpContent ? (
     <FieldHelp

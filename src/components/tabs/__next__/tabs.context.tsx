@@ -1,5 +1,12 @@
-import React, { createContext, useState, useContext, useCallback } from "react";
+import React, {
+  createContext,
+  useState,
+  useContext,
+  useCallback,
+  useEffect,
+} from "react";
 import { TabsContextProps, ValidationRecord } from "./tabs.types";
+import usePrevious from "../../../hooks/__internal__/usePrevious";
 
 /* istanbul ignore next */
 const initialContext: TabsContextProps = {
@@ -119,6 +126,15 @@ export const TabsProvider = ({
     },
     [],
   );
+
+  const previousSelectedTabId = usePrevious(selectedTabId);
+
+  useEffect(() => {
+    if (selectedTabId && selectedTabId !== previousSelectedTabId) {
+      setActiveTab(selectedTabId);
+      setCurrentTabId(selectedTabId);
+    }
+  }, [selectedTabId, previousSelectedTabId]);
 
   return (
     <TabsContext.Provider
