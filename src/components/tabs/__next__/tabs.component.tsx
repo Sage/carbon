@@ -30,13 +30,19 @@ import useLocale from "../../../hooks/__internal__/useLocale";
 import Icon from "../../icon";
 import { TabProvider } from "./tab.context";
 import usePrevious from "../../../hooks/__internal__/usePrevious";
+import tagComponent from "../../../__internal__/utils/helpers/tags";
 
-export const TabPanel = ({ children, id, tabId }: TabPanelProps) => {
+export const TabPanel = ({ children, id, tabId, ...rest }: TabPanelProps) => {
   const { activeTab } = useTabs();
 
   return (
     <TabProvider tabId={tabId} visible={tabId === activeTab}>
-      <StyledTabPanel id={id} role="tabpanel" aria-labelledby={tabId}>
+      <StyledTabPanel
+        id={id}
+        role="tabpanel"
+        aria-labelledby={tabId}
+        {...tagComponent("tab-panel", rest)}
+      >
         {children}
       </StyledTabPanel>
     </TabProvider>
@@ -54,6 +60,7 @@ export const Tab = ({
   rightSlot,
   warning = false,
   info = false,
+  ...rest
 }: TabProps) => {
   const locale = useLocale();
   const [internalError, setInternalError] = useState<boolean | string>(error);
@@ -212,6 +219,7 @@ export const Tab = ({
         type="button"
         tabIndex={activeTab === id ? 0 : -1}
         warning={internalWarning}
+        {...tagComponent("tab", rest)}
       >
         {typeof label === "string" ? (
           <span className="tab-title-content-wrapper">
@@ -232,7 +240,7 @@ export const Tab = ({
 };
 
 export const TabList = forwardRef<TabsHandle, TabListProps>(
-  ({ ariaLabel, children, onTabChange }: TabListProps, ref) => {
+  ({ ariaLabel, children, onTabChange, ...rest }: TabListProps, ref) => {
     const tabListRef = useRef<HTMLDivElement>(null);
     const {
       activeTab,
@@ -428,6 +436,7 @@ export const TabList = forwardRef<TabsHandle, TabListProps>(
             role="tablist"
             size={size}
             tabIndex={-1}
+            {...tagComponent("tab-list", rest)}
           >
             {children}
             <Spacer />
@@ -445,6 +454,7 @@ export const Tabs = ({
   orientation = "horizontal",
   selectedTabId,
   size = "medium",
+  ...rest
 }: TabsProps) => {
   return (
     <TabsProvider
@@ -453,7 +463,11 @@ export const Tabs = ({
       selectedTabId={selectedTabId}
       size={size}
     >
-      <StyledTabs id="tabs-container" orientation={orientation}>
+      <StyledTabs
+        id="tabs-container"
+        orientation={orientation}
+        {...tagComponent("tabs", rest)}
+      >
         {children}
       </StyledTabs>
     </TabsProvider>
