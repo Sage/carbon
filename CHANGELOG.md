@@ -1,3 +1,9 @@
+## [158.25.2](https://github.com/Sage/carbon/compare/v158.25.1...v158.25.2) (2026-01-29)
+
+### Bug Fixes
+
+* **useInputAccessibility:** current validation message is annouced ([42c3492](https://github.com/Sage/carbon/commit/42c349220cde3baae2544d11fad7b76ed3e22deb)), closes [#7612](https://github.com/Sage/carbon/issues/7612)
+
 ## [158.25.1](https://github.com/Sage/carbon/compare/v158.25.0...v158.25.1) (2026-01-29)
 
 ### Bug Fixes
