@@ -1,3 +1,9 @@
+## [158.26.0](https://github.com/Sage/carbon/compare/v158.25.2...v158.26.0) (2026-01-29)
+
+### Features
+
+* **tabs:** add support for data- tag props on next components ([3cdc312](https://github.com/Sage/carbon/commit/3cdc3121439fc9d87611e0630abb7ba42ff9e38e))
+
 ## [158.25.2](https://github.com/Sage/carbon/compare/v158.25.1...v158.25.2) (2026-01-29)
 
 ### Bug Fixes
