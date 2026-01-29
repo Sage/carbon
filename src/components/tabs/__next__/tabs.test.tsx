@@ -515,3 +515,47 @@ test("invokes the onTabChange handler the active tab changes", async () => {
   await user.click(tab1);
   expect(mockTabChangeFn).toHaveBeenCalledWith("tab-1");
 });
+
+test("applies the `data-element` and `data-role` props to expected elements", () => {
+  render(
+    <Tabs data-element="tabs-foo" data-role="tabs-bar">
+      <TabList
+        ariaLabel="Sample Tabs"
+        data-element="tablist-foo"
+        data-role="tablist-bar"
+      >
+        <Tab
+          data-element="tab-foo"
+          data-role="tab-bar"
+          id="tab-1"
+          controls="tab-panel-1"
+          label="Tab One"
+        />
+      </TabList>
+      <TabPanel
+        data-element="tabpanel-foo"
+        data-role="tabpanel-bar"
+        id="tab-panel-1"
+        tabId="tab-1"
+      >
+        <Typography>Content 1</Typography>
+      </TabPanel>
+    </Tabs>,
+  );
+  const tabs = screen.getByTestId("tabs-bar");
+  const tabsList = screen.getByRole("tablist");
+  const tab1 = screen.getByRole("tab", { name: "Tab One" });
+  const tabPanel1 = screen.getByRole("tabpanel");
+
+  expect(tabs).toHaveAttribute("data-component", "tabs");
+  expect(tabs).toHaveAttribute("data-element", "tabs-foo");
+  expect(tabsList).toHaveAttribute("data-component", "tab-list");
+  expect(tabsList).toHaveAttribute("data-element", "tablist-foo");
+  expect(tabsList).toHaveAttribute("data-role", "tablist-bar");
+  expect(tab1).toHaveAttribute("data-component", "tab");
+  expect(tab1).toHaveAttribute("data-element", "tab-foo");
+  expect(tab1).toHaveAttribute("data-role", "tab-bar");
+  expect(tabPanel1).toHaveAttribute("data-component", "tab-panel");
+  expect(tabPanel1).toHaveAttribute("data-element", "tabpanel-foo");
+  expect(tabPanel1).toHaveAttribute("data-role", "tabpanel-bar");
+});
