@@ -1,3 +1,9 @@
+## [158.25.1](https://github.com/Sage/carbon/compare/v158.25.0...v158.25.1) (2026-01-29)
+
+### Bug Fixes
+
+* **tabs:** include role:presentation to ensure tabs are grouped ([b62839e](https://github.com/Sage/carbon/commit/b62839ef2b3905017a2f05704b0954062ca9f72e)), closes [#7691](https://github.com/Sage/carbon/issues/7691)
+
 ## [158.25.0](https://github.com/Sage/carbon/compare/v158.24.1...v158.25.0) (2026-01-26)
 
 ### Features
