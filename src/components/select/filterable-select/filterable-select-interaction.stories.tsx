@@ -3,12 +3,12 @@ import React from "react";
 import { StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/test";
 
-import { FilterableSelect, FilterableSelectProps, Option } from "../select";
-import Box from "../box";
-import Button from "../button";
+import { FilterableSelect, FilterableSelectProps, Option } from "..";
+import Box from "../../box";
+import Button from "../../button";
 
-import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
-import DefaultDecorator from "../../../.storybook/utils/default-decorator";
+import { allowInteractions } from "../../../../.storybook/interaction-toggle/reduced-motion";
+import DefaultDecorator from "../../../../.storybook/utils/default-decorator";
 
 type Story = StoryObj<typeof FilterableSelect>;
 
@@ -19,6 +19,7 @@ export default {
   },
 };
 
+/* Also demonstrates that falsy children are filtered out correctly */
 const ControlledFilterableSelect = (
   props: Omit<FilterableSelectProps, "children" | "onChange" | "value">,
 ) => {
@@ -29,6 +30,9 @@ const ControlledFilterableSelect = (
       value={value}
       onChange={(e) => setValue(e.target.value)}
     >
+      {undefined}
+      {null}
+      {false}
       <Option text="Amber" value="1" />
       <Option text="Black" value="2" />
       <Option text="Blue" value="3" />
