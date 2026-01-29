@@ -20,6 +20,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ">=24.11.0 24"
+      - name: Update npm to 11.8
+        run: npm install -g npm@11.8
       - run: npm ci
       - uses: chromaui/action@v1
         with:

@@ -11,12 +11,16 @@ import {
   MenuFullscreen,
   MenuProps,
 } from ".";
+
 import Box from "../box";
 import Search from "../search";
 import NavigationBar from "../navigation-bar";
+import Image from "../image";
 
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
 import DefaultDecorator from "../../../.storybook/utils/default-decorator";
+
+import CarbonLogo from "../../../logo/carbon-logo.png";
 
 type Story = StoryObj<typeof Menu>;
 
@@ -452,7 +456,7 @@ export const MenuFullScreenWithSegmentTitle: Story = {
     if (!allowInteractions()) {
       return;
     }
-    const closeButton = within(document.body).getByRole("button", {
+    const closeButton = await within(document.body).findByRole("button", {
       name: "Close",
     });
     await userEvent.tab(); // focus close button
@@ -482,7 +486,7 @@ export const MenuFullScreenWithScrollableBlock: Story = {
       return;
     }
 
-    const search = within(document.body).getByRole("textbox");
+    const search = await within(document.body).findByRole("textbox");
     await userEvent.tab();
     await userEvent.tab(); // focus search input
     await expect(search).toHaveFocus();
@@ -502,5 +506,24 @@ MenuFullScreenWithScrollableBlock.parameters = {
     hover: "[data-role='target'] a",
     focus: "[data-role='target'] button",
     rootSelector: "body",
+  },
+};
+
+export const ItemWithImage: Story = {
+  render: () => (
+    <Menu menuType="black">
+      <MenuItem href="#">Item 1</MenuItem>
+      <MenuItem href="#" data-role="target">
+        <Box alignItems="center" display="flex" gap={1} justifyContent="center">
+          <Image size={20} src={CarbonLogo} alt="" decorative />
+          Carbon docs
+        </Box>
+      </MenuItem>
+    </Menu>
+  ),
+  parameters: {
+    pseudo: {
+      focus: "a",
+    },
   },
 };

@@ -7,7 +7,6 @@ import isChromatic from "./isChromatic";
 import sageStorybookTheme from "./sage-storybook-theme";
 import withGlobalStyles from "./with-global-styles";
 import withLocaleSelector from "./with-locale-selector";
-import withPortalProvider from "./with-portal-provider";
 import { withThemeProvider, globalThemeProvider } from "./withThemeProvider";
 import withReducedMotion from "./with-reduced-motion";
 import withFusionTokens from "./with-fusion-tokens";
@@ -61,6 +60,7 @@ const globalTypes = {
         { value: "es-ES", right: "🇪🇸", title: "Español" },
         { value: "fr-FR", right: "🇫🇷", title: "Français" },
         { value: "fr-CA", right: "🇨🇦", title: "Français - Canada" },
+        { value: "pt-PT", right: "🇵🇹", title: "Português - Portugal" },
       ],
     },
   },
@@ -91,7 +91,6 @@ const decorators = [
   withThemeProvider,
   withLocaleSelector,
   withFusionTokens,
-  withPortalProvider,
   withReducedMotion,
 ];
 

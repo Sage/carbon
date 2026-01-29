@@ -3,7 +3,6 @@ import { test, expect } from "../../../playwright/helpers/base-test";
 import { HooksConfig } from "../../../playwright";
 import { SageTheme as SageThemeStory, AllThemes } from "./components.test-pw";
 import Button from "../../../src/components/button";
-import Link from "../../../src/components/link";
 import Loader from "../../../src/components/loader";
 import LoaderBar from "../../../src/components/loader-bar";
 import MultiActionButton from "../../../src/components/multi-action-button";
@@ -13,7 +12,6 @@ import { Tabs, Tab } from "../tabs";
 
 import { buttonDataComponent } from "../../../playwright/components/button/index";
 import {
-  linkComponent,
   loaderBarComponent,
   loaderComponent,
 } from "../../../playwright/components/themes/index";
@@ -37,10 +35,6 @@ const buildTestDataWithTwoArrays = (
 const commonColors = ["rgb(0, 130, 0)", "rgb(0, 126, 69)"];
 
 const commonColorsOnHover = ["rgb(0, 99, 0)", "rgb(0, 103, 56)"];
-
-const linkCommonColors = ["rgb(8, 113, 30)", "rgb(8, 113, 30)"];
-
-const linkCommonColorsOnHover = ["rgb(16, 96, 28)", "rgb(16, 96, 28)"];
 
 const loaderBarColors = ["rgb(179, 224, 179)", "rgb(179, 217, 200)"];
 
@@ -142,28 +136,6 @@ test.describe("Carbon Provider", () => {
       });
     });
   });
-
-  buildTestArray(linkCommonColors).forEach(([theme, color]) => {
-    test.describe(`should render components with ${theme} and verify theme color`, () => {
-      test(`Link component should render with ${theme} theme and verify theme color`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <Link
-            href="https://carbon.sage.com"
-            target="_blank"
-            rel="noreferrer noopener"
-          >
-            This is a link
-          </Link>,
-          { hooksConfig: { theme: `${theme}` } },
-        );
-
-        await expect(linkComponent(page)).toHaveCSS("color", color);
-      });
-    });
-  });
 });
 
 test.describe("Hover styling", () => {
@@ -227,26 +199,6 @@ test.describe("Hover styling", () => {
         await expect(
           multiActionButtonComponent(page).locator("button"),
         ).toHaveCSS("background-color", color);
-      });
-    });
-  });
-
-  buildTestArray(linkCommonColorsOnHover).forEach(([theme, color]) => {
-    test.describe(`should render components with ${theme} theme onHover`, () => {
-      test("Link component and verify theme color", async ({ mount, page }) => {
-        await mount(
-          <Link
-            href="https://carbon.sage.com"
-            target="_blank"
-            rel="noreferrer noopener"
-          >
-            This is a link
-          </Link>,
-          { hooksConfig: { theme: `${theme}` } },
-        );
-
-        await linkComponent(page).hover();
-        await expect(linkComponent(page)).toHaveCSS("color", color);
       });
     });
   });

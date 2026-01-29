@@ -1,3 +1,114 @@
+## [158.25.0](https://github.com/Sage/carbon/compare/v158.24.1...v158.25.0) (2026-01-26)
+
+### Features
+
+* **search:** data props can now be passed to search button ([7809ad0](https://github.com/Sage/carbon/commit/7809ad0ce30eb103655e385c434839b8eca61dc2)), closes [#7714](https://github.com/Sage/carbon/issues/7714)
+
+## [158.24.1](https://github.com/Sage/carbon/compare/v158.24.0...v158.24.1) (2026-01-26)
+
+### Bug Fixes
+
+* resolve strict mode incompatibilities with popups ([5d48148](https://github.com/Sage/carbon/commit/5d481489253c97990c706aecb3409d491a21f29e))
+* resolve strict mode incompatibilities with portals ([240ef27](https://github.com/Sage/carbon/commit/240ef27ddbf42ec1820dbc874ce0cb310238c693))
+
+## [158.24.0](https://github.com/Sage/carbon/compare/v158.23.4...v158.24.0) (2026-01-22)
+
+### Features
+
+* **link:** update styles and design-tokens ([bb5c7a2](https://github.com/Sage/carbon/commit/bb5c7a2bb95ebcb6997f1f87180e7c4668380dab))
+
+## [158.23.4](https://github.com/Sage/carbon/compare/v158.23.3...v158.23.4) (2026-01-22)
+
+### Bug Fixes
+
+* **link:** vertically centre when containing an image ([b817a4e](https://github.com/Sage/carbon/commit/b817a4ec3fdb31f08c85c2708a3333a4938720a0))
+* **menu-item:** ensure focus border is inset when item contains an image ([d3f96c4](https://github.com/Sage/carbon/commit/d3f96c41457c998f27dfdc6d1a6b8b4735365fa6))
+
+## [158.23.3](https://github.com/Sage/carbon/compare/v158.23.2...v158.23.3) (2026-01-21)
+
+### Bug Fixes
+
+* **tokens-wrapper:** ensure tokens are provided in scope of portals ([4525632](https://github.com/Sage/carbon/commit/452563207b96520d8dbb5739142a8ee184a8f827))
+
+## [158.23.2](https://github.com/Sage/carbon/compare/v158.23.1...v158.23.2) (2026-01-20)
+
+### Bug Fixes
+
+* **multi-action-button, split-button:** ensure submenu stays open on android devices ([0f1eaa3](https://github.com/Sage/carbon/commit/0f1eaa305a6a8be3a326474d4a191ee530f1df3b)), closes [#7690](https://github.com/Sage/carbon/issues/7690)
+
+## [158.23.1](https://github.com/Sage/carbon/compare/v158.23.0...v158.23.1) (2026-01-20)
+
+### Bug Fixes
+
+* **adaptive-sidebar:** fix accessibility issue ([7b56ef7](https://github.com/Sage/carbon/commit/7b56ef7561da5d8b2fe472dcb2686dcd4505fb4a))
+
+## [158.23.0](https://github.com/Sage/carbon/compare/v158.22.0...v158.23.0) (2026-01-19)
+
+### Features
+
+* **text-editor:** add `id` prop ([4776b91](https://github.com/Sage/carbon/commit/4776b91089f466380bb24eb18b6a508a899b8602)), closes [#7683](https://github.com/Sage/carbon/issues/7683)
+
+## [158.22.0](https://github.com/Sage/carbon/compare/v158.21.0...v158.22.0) (2026-01-19)
+
+### Features
+
+* **button:** align with the new DS styling and functionality ([72f5969](https://github.com/Sage/carbon/commit/72f5969210325838ec69d1aa1f98dfc47f254b0a))
+
+## [158.21.0](https://github.com/Sage/carbon/compare/v158.20.0...v158.21.0) (2026-01-16)
+
+### Features
+
+* **vertical-menu-item:** add customIcon prop ([51749e6](https://github.com/Sage/carbon/commit/51749e63fc4857d9a63c4426da1a319e5ef5dd51))
+* **vertical-menu-item:** add onClick handler ([554c954](https://github.com/Sage/carbon/commit/554c954aee048efae2613a1c867dd54bec410f79))
+
+## [158.20.0](https://github.com/Sage/carbon/compare/v158.19.1...v158.20.0) (2026-01-15)
+
+### Features
+
+* **accordion:** add support to search content within collapsed panels ([d8b66de](https://github.com/Sage/carbon/commit/d8b66de88e8d6cfbd70d98eea142433a695f8275)), closes [#7672](https://github.com/Sage/carbon/issues/7672)
+
+## [158.19.1](https://github.com/Sage/carbon/compare/v158.19.0...v158.19.1) (2026-01-15)
+
+### Bug Fixes
+
+* **tabs:** tabs announce status states ([b760662](https://github.com/Sage/carbon/commit/b7606623e3f947726db2e9f0f0c7542419babff4)), closes [#7692](https://github.com/Sage/carbon/issues/7692)
+
+## [158.19.0](https://github.com/Sage/carbon/compare/v158.18.0...v158.19.0) (2026-01-15)
+
+### Features
+
+* **locale:** add portuguese locale ([028f994](https://github.com/Sage/carbon/commit/028f9946d1d7d3a5c6549bd4dcbce55ea376ee6f))
+
+## [158.18.0](https://github.com/Sage/carbon/compare/v158.17.0...v158.18.0) (2026-01-15)
+
+### Features
+
+* **version-picker:** remove env variable check ([1954632](https://github.com/Sage/carbon/commit/1954632b9be9088de4fa33e3d461eb803e24ffc2))
+
+## [158.17.0](https://github.com/Sage/carbon/compare/v158.16.1...v158.17.0) (2026-01-15)
+
+### Features
+
+* **version-picker:** update version picker to use correct property ([122a2b0](https://github.com/Sage/carbon/commit/122a2b0c70952bfbf7865fd1356eeab297225207))
+
+## [158.16.1](https://github.com/Sage/carbon/compare/v158.16.0...v158.16.1) (2026-01-14)
+
+### Bug Fixes
+
+* **text-editor:** assistive technologies announce read only when appropriate ([21b2575](https://github.com/Sage/carbon/commit/21b25758bcd3a0d64502e26e978ef2851a897329)), closes [#7693](https://github.com/Sage/carbon/issues/7693)
+
+## [158.16.0](https://github.com/Sage/carbon/compare/v158.15.2...v158.16.0) (2026-01-12)
+
+### Features
+
+* **version-picker:** remove env variable check for version picker ([e8f58de](https://github.com/Sage/carbon/commit/e8f58de836aeeda1a1cdf6e8de9d0e28df4ce5d5))
+
+## [158.15.2](https://github.com/Sage/carbon/compare/v158.15.1...v158.15.2) (2026-01-12)
+
+### Bug Fixes
+
+* **vertical-menu:** amend h3 to span for childitem ([7c1a8f0](https://github.com/Sage/carbon/commit/7c1a8f0872e73fc7f0fc51345a36a77eb05d3619))
+
 ## [158.15.1](https://github.com/Sage/carbon/compare/v158.15.0...v158.15.1) (2026-01-07)
 
 ### Bug Fixes

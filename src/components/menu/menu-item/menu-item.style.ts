@@ -104,8 +104,6 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
   }) => css`
     display: flex;
     align-items: center;
-    font-size: 14px;
-    font-weight: 500;
     min-height: 40px;
     position: relative;
     box-shadow: none;
@@ -115,10 +113,16 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
       min-height: 40px;
       height: 100%;
       box-sizing: border-box;
+      font-size: 14px;
+      font-weight: 500;
+
+      &:not(.search-button) > ${StyledIcon} {
+        margin-right: var(--spacing050);
+      }
     }
 
-    a:focus,
-    button:focus {
+    && a:focus,
+    && button:focus {
       ${addFocusStyling(true)}
     }
 
@@ -312,6 +316,7 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
       css`
         a > ${StyledIcon}, button > ${StyledIcon} {
           display: inline-block;
+
           height: 18px;
           top: -2px;
         }

@@ -18,6 +18,7 @@ const TokensWrapperDemo = ({
   return (
     <TokensWrapper>
       <div
+        // this div is added to demo dark mode in storybook
         data-component="tokens-wrapper-demo"
         className={`carbon-${modePreference}-mode`}
         data-carbon-theme={modePreference === "dark" ? "dark" : "light"}

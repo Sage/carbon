@@ -32,7 +32,10 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-      
+
+      - name: Update npm to 11.8
+        run: npm install -g npm@11.8
+
       - name: Install dependencies
         run: |
           npm ci
@@ -62,6 +65,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ">=24.11.0 24"
+
+      - name: Update npm to 11.8
+        run: npm install -g npm@11.8
+
       - name: Install dependencies
         run: npm ci
 

@@ -33,7 +33,6 @@ const GlobalStyle = createGlobalStyle`
 
   body:has(.adaptive-sidebar-modal-view) {
   --adaptiveSidebarModalBackdrop: ${baseTheme.zIndex.overlay};
-  
   }
 `;
 

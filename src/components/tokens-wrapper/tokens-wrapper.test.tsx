@@ -1,7 +1,13 @@
 import React from "react";
-
 import { render, screen } from "@testing-library/react";
+import styled from "styled-components";
+
 import TokensWrapper from "./tokens-wrapper.component";
+import Portal from "../portal";
+
+const PortalChild = styled.div`
+  background-color: var(--badge-bg-default);
+`;
 
 describe("TokensWrapper", () => {
   it("renders children correctly", () => {
@@ -12,16 +18,6 @@ describe("TokensWrapper", () => {
     );
 
     expect(screen.getByText("Test Child")).toBeInTheDocument();
-  });
-
-  it("applies the tokens correctly", () => {
-    render(
-      <TokensWrapper>
-        <div>Test Child</div>
-      </TokensWrapper>,
-    );
-
-    expect(screen.getByTestId("tokens-wrapper")).toMatchSnapshot();
   });
 
   it("has correct default height", () => {
@@ -42,5 +38,20 @@ describe("TokensWrapper", () => {
     );
 
     expect(screen.getByTestId("tokens-wrapper")).toHaveStyle("height: 100px");
+  });
+
+  it("provides tokens in scope of Portals", () => {
+    render(
+      <TokensWrapper>
+        <Portal>
+          <PortalChild>Portal Child</PortalChild>
+        </Portal>
+      </TokensWrapper>,
+    );
+
+    expect(screen.getByText("Portal Child")).toHaveStyleRule(
+      "background-color",
+      "var(--badge-bg-default)",
+    );
   });
 });

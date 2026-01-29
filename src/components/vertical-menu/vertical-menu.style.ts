@@ -72,7 +72,7 @@ export const StyledVerticalMenuItem = styled.div.attrs(
   }
 `;
 
-export const StyledTitle = styled.h3`
+export const StyledTitle = styled.span`
   font-weight: 500;
   font-size: 14px;
   line-height: 21px;
@@ -92,6 +92,11 @@ export const StyledTitleIcon = styled(Icon)`
   margin-right: 12px;
   width: 20px;
   color: var(--colorsComponentsLeftnavWinterStandardContent);
+`;
+
+export const StyledCustomIconWrapper = styled.div`
+  margin-right: 12px;
+  width: 20px;
 `;
 
 export const StyledChevronIcon = styled(Icon)`

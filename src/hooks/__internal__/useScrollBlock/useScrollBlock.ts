@@ -9,7 +9,7 @@ const scrollBlockManager = new ScrollBlockManager();
 
 type Rule = {
   element: HTMLElement;
-  property: "position" | "overflow" | "paddingRight";
+  property: "position" | "overflow" | "padding-right";
   blockingValue: string;
 };
 
@@ -45,7 +45,7 @@ const getRules = (): Rule[] => {
     },
     {
       element: body,
-      property: "paddingRight",
+      property: "padding-right",
       blockingValue: `${bodyPaddingRight + scrollBarWidth}px`,
     },
   ];
@@ -60,7 +60,7 @@ const useScrollBlock = (): {
 
   const restoreValues = useCallback(() => {
     getRules().forEach(({ element, property }, index) => {
-      element.style[property] = originalValuesRef.current[index];
+      element.style.setProperty(property, originalValuesRef.current[index]);
     });
   }, []);
 
@@ -72,8 +72,8 @@ const useScrollBlock = (): {
     if (isBlocked) {
       return;
     }
-    const originalValues = rules.map(
-      ({ element, property }) => element.style[property],
+    const originalValues = rules.map(({ element, property }) =>
+      element.style.getPropertyValue(property),
     );
 
     originalValuesRef.current = originalValues;
@@ -82,7 +82,7 @@ const useScrollBlock = (): {
     scrollBlockManager.saveOriginalValues(originalValues);
     // TODO: slice san be removed
     rules.slice(-3).forEach(({ element, property, blockingValue }) => {
-      element.style[property] = blockingValue;
+      element.style.setProperty(property, blockingValue);
     });
   }, [restoreValues, containerGuid]);
 
@@ -104,7 +104,7 @@ const useScrollBlock = (): {
     const originalValues = scrollBlockManager.getOriginalValues();
 
     getRules().forEach(({ element, property }, index) => {
-      element.style[property] = originalValues[index];
+      element.style.setProperty(property, originalValues[index]);
     });
 
     scrollBlockManager.saveOriginalValues([]);

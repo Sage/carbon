@@ -23,6 +23,7 @@ const ContentEditor = forwardRef<HTMLDivElement, ContentEditorProps>(
       warning,
       validationMessagePositionTop,
       size = "medium",
+      id,
     },
     ref,
   ) => {
@@ -47,6 +48,7 @@ const ContentEditor = forwardRef<HTMLDivElement, ContentEditorProps>(
         size={size}
       >
         <ContentEditable
+          id={id}
           ref={ref}
           aria-describedby={ariaDescribedBy}
           aria-labelledby={`${namespace}-label`}

@@ -90,17 +90,14 @@ test("`ButtonMinor` children should be automatically disabled via context", () =
 test("`Link` children should be automatically disabled via context", () => {
   render(
     <BatchSelection selectedCount={0} disabled>
-      <Link>Link as an anchor</Link>
+      <Link href="#">Link as an anchor</Link>
     </BatchSelection>,
   );
 
-  const link = screen.getByTestId("link-anchor");
+  const link = screen.getByRole("link");
 
-  expect(link).toHaveStyle("cursor: not-allowed");
-
-  link.focus();
-
-  expect(link).not.toHaveFocus();
+  // eslint-disable-next-line jest-dom/prefer-enabled-disabled
+  expect(link).toHaveAttribute("disabled");
 });
 
 test("`Link` children rendered as a button should be automatically disabled via context", () => {

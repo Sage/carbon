@@ -107,7 +107,6 @@ export const MultiActionButton = forwardRef<
     const mainButtonProps = {
       disabled,
       displayed: showAdditionalButtons,
-      onTouchStart: showButtons,
       onKeyDown: handleToggleButtonKeyDown,
       onClick: handleClick,
       buttonType,

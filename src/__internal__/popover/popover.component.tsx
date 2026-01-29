@@ -1,17 +1,12 @@
-import React, {
-  MutableRefObject,
-  useContext,
-  useEffect,
-  useRef,
-  RefObject,
-} from "react";
-import ReactDOM from "react-dom";
+import React, { MutableRefObject, useContext, useRef, RefObject } from "react";
+import { createPortal } from "react-dom";
 import { flip, Placement, Middleware } from "@floating-ui/dom";
 
 import useFloating from "../../hooks/__internal__/useFloating";
 import { StyledBackdrop, StyledPopoverContent } from "./popover.style";
 import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component";
 import ModalContext, { ModalContextProps } from "../modal/modal.context";
+import useIsBrowser from "../../hooks/__internal__/useIsBrowser";
 
 export interface PopoverProps {
   /**
@@ -64,10 +59,9 @@ const defaultMiddleware = [
   }),
 ];
 
-const Popover = ({
+const PopoverRoot = ({
   children,
   placement,
-  disablePortal,
   reference,
   middleware = defaultMiddleware,
   disableBackgroundUI,
@@ -75,17 +69,7 @@ const Popover = ({
   animationFrame,
   popoverStrategy = "absolute",
   childRefOverride,
-}: PopoverProps) => {
-  const elementDOM = useRef<HTMLDivElement | null>(null);
-  const { isInModal } = useContext<ModalContextProps>(ModalContext);
-  const candidateNode = reference.current?.closest("[role='dialog']");
-  const mountNode = isInModal && candidateNode ? candidateNode : document.body;
-
-  if (!elementDOM.current && !disablePortal) {
-    elementDOM.current = document.createElement("div");
-    mountNode.appendChild(elementDOM.current);
-  }
-
+}: Omit<PopoverProps, "disablePortal">) => {
   const childRef =
     childRefOverride ||
     (React.Children.only(children) as React.FunctionComponentElement<unknown>)
@@ -110,36 +94,36 @@ const Popover = ({
     strategy: popoverStrategy,
   });
 
-  useEffect(() => {
-    return () => {
-      if (!disablePortal && elementDOM.current) {
-        mountNode.removeChild(elementDOM.current);
-        elementDOM.current = null;
-      }
-    };
-  }, [disablePortal, mountNode]);
-
-  if (!disableBackgroundUI) {
-    content = (
-      <StyledPopoverContent isOpen={isOpen}>{content}</StyledPopoverContent>
-    );
-  }
-
-  if (disableBackgroundUI) {
-    content = (
-      <StyledPopoverContent isOpen={isOpen}>
+  return (
+    <StyledPopoverContent isOpen={isOpen}>
+      {disableBackgroundUI ? (
         <StyledBackdrop data-role="popup-backdrop">{content}</StyledBackdrop>
-      </StyledPopoverContent>
-    );
-  }
+      ) : (
+        content
+      )}
+    </StyledPopoverContent>
+  );
+};
+
+const Popover = ({ disablePortal, ...props }: PopoverProps) => {
+  const { isBrowser } = useIsBrowser();
+  const { isInModal } = useContext<ModalContextProps>(ModalContext);
+  const closestDialog =
+    props.reference.current?.closest<HTMLElement>("[role='dialog']");
 
   if (disablePortal) {
-    return content;
+    return <PopoverRoot {...props} />;
   }
 
-  return ReactDOM.createPortal(
-    <CarbonScopedTokensProvider>{content}</CarbonScopedTokensProvider>,
-    elementDOM.current as HTMLDivElement,
+  if (!isBrowser) {
+    return null;
+  }
+
+  return createPortal(
+    <CarbonScopedTokensProvider className="carbon-portal-scoped-tokens-provider">
+      <PopoverRoot {...props} />
+    </CarbonScopedTokensProvider>,
+    isInModal && closestDialog ? closestDialog : document.body,
   );
 };
 

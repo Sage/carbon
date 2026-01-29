@@ -25,6 +25,7 @@ const ProfileEmailStyle = styled(Link)<
     font-size: ${({ size = "M" }) => profileConfigSizes[size].emailSize};
     color: ${({ darkBackground }) =>
       darkBackground && "var(--colorsActionMajor350)"};
+    line-height: ${({ size = "M" }) => profileConfigSizes[size].lineHeight};
   }
 `;
 
