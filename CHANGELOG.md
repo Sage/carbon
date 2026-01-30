@@ -1,3 +1,9 @@
+## [158.26.2](https://github.com/Sage/carbon/compare/v158.26.1...v158.26.2) (2026-01-30)
+
+### Bug Fixes
+
+* **select:** ensure that falsy children are filtered out of list options ([a0f7709](https://github.com/Sage/carbon/commit/a0f770934e4d801d78f25c051f46201ffe91fcf3)), closes [#7687](https://github.com/Sage/carbon/issues/7687)
+
 ## [158.26.1](https://github.com/Sage/carbon/compare/v158.26.0...v158.26.1) (2026-01-30)
 
 ### Bug Fixes
