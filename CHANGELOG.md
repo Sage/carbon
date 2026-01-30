@@ -1,3 +1,9 @@
+## [158.26.1](https://github.com/Sage/carbon/compare/v158.26.0...v158.26.1) (2026-01-30)
+
+### Bug Fixes
+
+* **menu-item:** ensure submenu closes when child item is clicked ([baf61a4](https://github.com/Sage/carbon/commit/baf61a486784a7601eae2a6dad37194537600a00)), closes [#6820](https://github.com/Sage/carbon/issues/6820)
+
 ## [158.26.0](https://github.com/Sage/carbon/compare/v158.25.2...v158.26.0) (2026-01-29)
 
 ### Features
