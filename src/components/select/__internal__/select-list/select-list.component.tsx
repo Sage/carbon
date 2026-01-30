@@ -170,7 +170,8 @@ const SelectList = React.forwardRef(
     };
 
     const virtualizer = useVirtualizer({
-      count: React.Children.count(children),
+      count: React.Children.toArray(children).filter((item) => Boolean(item))
+        .length,
       getScrollElement: () =>
         isOpen
           ? (listContainerRef as React.RefObject<HTMLDivElement>).current
