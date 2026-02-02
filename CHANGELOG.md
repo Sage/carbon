@@ -1,3 +1,9 @@
+## [158.26.4](https://github.com/Sage/carbon/compare/v158.26.3...v158.26.4) (2026-02-02)
+
+### Bug Fixes
+
+* ensure depth tokens are formatted correctly ([c53f144](https://github.com/Sage/carbon/commit/c53f144de66ec9a207d6962065d1cc40ab0fd8ef))
+
 ## [158.26.3](https://github.com/Sage/carbon/compare/v158.26.2...v158.26.3) (2026-02-02)
 
 ### Bug Fixes
