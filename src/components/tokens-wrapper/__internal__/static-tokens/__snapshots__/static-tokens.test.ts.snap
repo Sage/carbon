@@ -9,6 +9,12 @@ exports[`builds the static tokens as expected 1`] = `
   --global-borderwidth-l: 4px;
   --global-borderwidth-xl: 6px;
   --global-borderwidth-xxl: 8px;
+  --global-breakpoint-xs: 320px;
+  --global-breakpoint-s: 600px;
+  --global-breakpoint-m: 960px;
+  --global-breakpoint-l: 1260px;
+  --global-breakpoint-xl: 1600px;
+  --global-breakpoint-xxl: 1920px;
   --global-font-fluid-heading-s: 500 clamp(1.1646rem, 1.1207rem + 0.2195vw, 1.2964rem)/1.25 Sage UI;
   --global-font-fluid-heading-m: 700 clamp(1.2811rem, 1.2155rem + 0.3279vw, 1.4778rem)/1.25 Sage UI;
   --global-font-fluid-heading-l: 700 clamp(1.5869rem, 1.417rem + 0.8494vw, 2.4363rem)/1.25 Sage UI;
