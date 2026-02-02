@@ -205,6 +205,31 @@ test("responds to horizontal keyboard interactions", async () => {
   expect(screen.getByRole("tabpanel")).toHaveTextContent("Content 1");
 });
 
+test("updates the focus index when a user presses 'tab' key", async () => {
+  const user = userEvent.setup();
+  render(<TestComponent />);
+
+  const tab1 = screen.getByRole("tab", { name: "Tab One" });
+  const tab2 = screen.getByRole("tab", { name: "Tab Two" });
+  const tab3 = screen.getByRole("tab", { name: "Tab Three" });
+
+  await user.click(tab2);
+  await user.keyboard("{ArrowRight}");
+  expect(tab3).toHaveFocus();
+
+  await user.keyboard("{Tab}");
+  expect(document.body).toHaveFocus();
+
+  await user.keyboard("{Tab}");
+  expect(tab2).toHaveFocus();
+
+  await user.keyboard("{ArrowRight}");
+  expect(tab3).toHaveFocus();
+
+  await user.keyboard("{ArrowRight}");
+  expect(tab1).toHaveFocus();
+});
+
 test("responds to vertical keyboard interactions", async () => {
   const user = userEvent.setup();
 
@@ -258,6 +283,31 @@ test("responds to vertical keyboard interactions", async () => {
 
   await user.keyboard(" ");
   expect(screen.getByRole("tabpanel")).toHaveTextContent("Content 1");
+});
+
+test("updates the focus index when a user presses 'tab' key and `orientation` is 'vertical'", async () => {
+  const user = userEvent.setup();
+  render(<TestComponent orientation="vertical" />);
+
+  const tab1 = screen.getByRole("tab", { name: "Tab One" });
+  const tab2 = screen.getByRole("tab", { name: "Tab Two" });
+  const tab3 = screen.getByRole("tab", { name: "Tab Three" });
+
+  await user.click(tab2);
+  await user.keyboard("{ArrowDown}");
+  expect(tab3).toHaveFocus();
+
+  await user.keyboard("{Tab}");
+  expect(document.body).toHaveFocus();
+
+  await user.keyboard("{Tab}");
+  expect(tab2).toHaveFocus();
+
+  await user.keyboard("{ArrowDown}");
+  expect(tab3).toHaveFocus();
+
+  await user.keyboard("{ArrowDown}");
+  expect(tab1).toHaveFocus();
 });
 
 test("shows an error icon when the `error` prop is specified", async () => {
