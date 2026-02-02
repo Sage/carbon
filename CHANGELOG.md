@@ -1,3 +1,27 @@
+## [158.26.2](https://github.com/Sage/carbon/compare/v158.26.1...v158.26.2) (2026-01-30)
+
+### Bug Fixes
+
+* **select:** ensure that falsy children are filtered out of list options ([a0f7709](https://github.com/Sage/carbon/commit/a0f770934e4d801d78f25c051f46201ffe91fcf3)), closes [#7687](https://github.com/Sage/carbon/issues/7687)
+
+## [158.26.1](https://github.com/Sage/carbon/compare/v158.26.0...v158.26.1) (2026-01-30)
+
+### Bug Fixes
+
+* **menu-item:** ensure submenu closes when child item is clicked ([baf61a4](https://github.com/Sage/carbon/commit/baf61a486784a7601eae2a6dad37194537600a00)), closes [#6820](https://github.com/Sage/carbon/issues/6820)
+
+## [158.26.0](https://github.com/Sage/carbon/compare/v158.25.2...v158.26.0) (2026-01-29)
+
+### Features
+
+* **tabs:** add support for data- tag props on next components ([3cdc312](https://github.com/Sage/carbon/commit/3cdc3121439fc9d87611e0630abb7ba42ff9e38e))
+
+## [158.25.2](https://github.com/Sage/carbon/compare/v158.25.1...v158.25.2) (2026-01-29)
+
+### Bug Fixes
+
+* **useInputAccessibility:** current validation message is annouced ([42c3492](https://github.com/Sage/carbon/commit/42c349220cde3baae2544d11fad7b76ed3e22deb)), closes [#7612](https://github.com/Sage/carbon/issues/7612)
+
 ## [158.25.1](https://github.com/Sage/carbon/compare/v158.25.0...v158.25.1) (2026-01-29)
 
 ### Bug Fixes

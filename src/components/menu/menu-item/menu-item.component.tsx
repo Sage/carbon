@@ -198,6 +198,7 @@ export const MenuItem = forwardRef<
       updateFocusId: updateSubmenuFocusId,
       handleKeyDown: handleSubmenuKeyDown,
       submenuHasMaxWidth,
+      closeSubmenu: closeParentSubmenu,
     } = submenuContext;
 
     const focusFromMenu = focusId === menuItemId.current;
@@ -279,10 +280,20 @@ export const MenuItem = forwardRef<
       handleSubmenuKeyDown?.(event);
     };
 
+    const handleClick = (
+      event:
+        | React.MouseEvent<HTMLAnchorElement>
+        | React.MouseEvent<HTMLButtonElement>,
+    ) => {
+      onClick?.(event);
+      closeParentSubmenu?.();
+    };
+
     const elementProps = {
       className: href || onClick ? "carbon-menu-item--has-link" : "",
       href: firstFocusableChild ? undefined : href,
-      onClick: firstFocusableChild ? undefined : onClick,
+      onClick:
+        !firstFocusableChild && (href || onClick) ? handleClick : undefined,
       target,
       rel,
       icon,
