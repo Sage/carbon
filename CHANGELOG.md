@@ -1,3 +1,9 @@
+## [158.26.3](https://github.com/Sage/carbon/compare/v158.26.2...v158.26.3) (2026-02-02)
+
+### Bug Fixes
+
+* **tabs:** ensure __next__ version updates focus index when user tabs off component ([b986218](https://github.com/Sage/carbon/commit/b986218e3845f66f4e4c95b728af7a58e23e0ca4))
+
 ## [158.26.2](https://github.com/Sage/carbon/compare/v158.26.1...v158.26.2) (2026-01-30)
 
 ### Bug Fixes
