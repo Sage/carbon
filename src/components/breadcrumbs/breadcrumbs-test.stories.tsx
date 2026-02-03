@@ -1,64 +1,34 @@
 import React from "react";
-import { Breadcrumbs, BreadcrumbsProps } from ".";
-import { Crumb, CrumbProps } from "./crumb";
+import { Meta, StoryObj } from "@storybook/react";
 
-export default {
+import { Breadcrumbs, Crumb } from ".";
+import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
+
+const styledSystemProps = generateStyledSystemProps({
+  spacing: true,
+});
+
+const meta: Meta<typeof Breadcrumbs> = {
   title: "Breadcrumbs/Test",
-  includeStories: ["DefaultCrumb", "WhenFocusedCrumbBecomesCurrent"],
-  parameters: {
-    info: { disable: true },
-    chromatic: {
-      disableSnapshot: true,
-    },
-  },
+  component: Breadcrumbs,
+  subcomponents: { Crumb },
   argTypes: {
-    isCurrent: {
-      control: {
-        type: "boolean",
-      },
-    },
-    href: {
-      control: {
-        type: "text",
-      },
-    },
-    isDarkBackground: {
-      control: {
-        type: "boolean",
-      },
-    },
+    ...styledSystemProps,
+  },
+  parameters: {
+    chromatic: { disableSnapshot: true },
   },
 };
 
-export const Default = (props: Partial<BreadcrumbsProps>) => {
-  return (
-    <Breadcrumbs {...props}>
-      <Crumb href="#">Breadcrumb 1</Crumb>
-      <Crumb href="#">Breadcrumb 2</Crumb>
-      <Crumb href="#">Breadcrumb 3</Crumb>
-      <Crumb href="#" isCurrent>
-        Current Page
-      </Crumb>
-    </Breadcrumbs>
-  );
-};
+export default meta;
+type Story = StoryObj<typeof Breadcrumbs>;
 
-export const DefaultCrumb = (props: Partial<CrumbProps>) => {
-  return (
-    <Breadcrumbs>
-      <Crumb href="#" {...props}>
-        Breadcrumb 1
-      </Crumb>
-    </Breadcrumbs>
-  );
-};
-
-export const WhenFocusedCrumbBecomesCurrent = () => {
+export const WhenFocusedCrumbBecomesCurrent: Story = ({ ...args }) => {
   const [current, setCurrent] = React.useState(false);
 
   return (
     <>
-      <Breadcrumbs>
+      <Breadcrumbs {...args}>
         <Crumb href="#bar" onClick={() => setCurrent(true)} isCurrent={current}>
           Crumb{current ? "" : " not"} current
         </Crumb>
@@ -68,7 +38,4 @@ export const WhenFocusedCrumbBecomesCurrent = () => {
     </>
   );
 };
-
-Default.storyName = "default";
-DefaultCrumb.storyName = "single crumb";
 WhenFocusedCrumbBecomesCurrent.storyName = "when focused crumb becomes current";
