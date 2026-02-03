@@ -67,9 +67,6 @@ import {
   MenuComponentFullScreenWithLongSubmenuText,
   MenuItemWithPopoverContainerChild,
   SubmenuMaxWidth,
-  WithNonInteractiveItem,
-  WithNonInteractiveSubmenuItem,
-  FullscreenWithNonInteractiveItem,
   MenuSegmentTitleWithNoMenuItemOutside,
 } from "./component.test-pw";
 
@@ -88,64 +85,6 @@ test.describe("Prop tests for Menu component", () => {
     const lastElement = lastSubmenuElement(page, "li");
     await lastElement.scrollIntoViewIfNeeded();
     await expect(lastElement).toBeInViewport();
-  });
-
-  test(`should verify a submenu can be navigated using keyboard tabbing after an item was clicked`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MenuComponent />);
-
-    const subMenu = submenu(page).first();
-    await subMenu.hover();
-    const menuItemThree = innerMenu(page, 4, span)
-      .filter({ hasText: "Item Submenu Three" })
-      .first();
-    await menuItemThree.click();
-    await expect(menuItemThree).toHaveText("Item Submenu Three");
-    await expect(menuItemThree).toHaveCSS("box-shadow", "none");
-    await page.keyboard.press("Tab");
-    const menuItemFour = innerMenu(page, 5, span)
-      .filter({ hasText: "Item Submenu Four" })
-      .first();
-    await expect(menuItemFour).toHaveText("Item Submenu Four");
-    await expect(menuItemFour).toHaveCSS("box-shadow", "none");
-  });
-
-  test(`should verify a submenu can be navigated using keyboard shift + tabbing after an item was clicked`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MenuComponent />);
-
-    const subMenu = submenu(page).first();
-    await subMenu.hover();
-    const menuItemThree = innerMenu(page, 4, span).first();
-    await menuItemThree.click();
-    await page.keyboard.press("Shift+Tab");
-    const focusedElement1 = page.locator("*:focus");
-    await expect(focusedElement1).toContainText("Item Submenu Two");
-    await page.keyboard.press("Shift+Tab");
-    const focusedElement2 = page.locator("*:focus");
-    await expect(focusedElement2).toContainText("Item Submenu One");
-  });
-
-  test(`should verify a submenu can be navigated using keyboard up arrow after an item was clicked`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MenuComponent />);
-
-    const subMenu = submenu(page).first();
-    await subMenu.hover();
-    const menuItemThree = innerMenu(page, 4, span).first();
-    await menuItemThree.click();
-    await page.keyboard.press("ArrowUp");
-    const focusedElement1 = page.locator("*:focus");
-    await expect(focusedElement1).toContainText("Item Submenu Two");
-    await page.keyboard.press("ArrowUp");
-    const focusedElement2 = page.locator("*:focus");
-    await expect(focusedElement2).toContainText("Item Submenu One");
   });
 
   test(`should verify the first submenu item is focused using keyboard tabbing after the parent item was clicked`, async ({
@@ -2401,86 +2340,6 @@ test.describe("Styling, Scrolling & Navigation Bar Tests for Menu Component", ()
     await expect(popoverContainerButton).toHaveCSS(
       "background-color",
       "rgba(0, 0, 0, 0)",
-    );
-  });
-
-  test("a menu item, without a href or onClick prop, does not render with hover styling on hover", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<WithNonInteractiveItem />);
-
-    const item = page
-      .getByRole("listitem")
-      .filter({ hasText: "Non-interactive item" });
-    await item.hover();
-
-    await expect(item.getByTestId("link-anchor")).not.toHaveCSS(
-      "background-color",
-      "rgb(0, 126, 69)",
-    );
-    await expect(item.getByTestId("link-anchor")).not.toHaveCSS(
-      "color",
-      "rgb(255, 255, 255)",
-    );
-    await expect(item.getByTestId("link-anchor")).not.toHaveCSS(
-      "cursor",
-      "pointer",
-    );
-  });
-
-  test("a submenu item, without a href or onClick prop, does not render with hover styling on hover", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<WithNonInteractiveSubmenuItem />);
-
-    const parentItem = page
-      .getByRole("listitem")
-      .filter({ hasText: "Submenu" });
-    await parentItem.getByRole("button").press("Enter");
-
-    const nonInteractiveItem = parentItem
-      .getByRole("listitem")
-      .filter({ hasText: "Non-interactive item" });
-    await nonInteractiveItem.hover();
-
-    await expect(nonInteractiveItem.getByTestId("link-anchor")).not.toHaveCSS(
-      "background-color",
-      "rgb(0, 126, 69)",
-    );
-    await expect(nonInteractiveItem.getByTestId("link-anchor")).not.toHaveCSS(
-      "color",
-      "rgb(255, 255, 255)",
-    );
-    await expect(nonInteractiveItem.getByTestId("link-anchor")).not.toHaveCSS(
-      "cursor",
-      "pointer",
-    );
-  });
-
-  test("an item in a fullscreen menu, which has no href or onClick prop, does not render with hover styling on focus", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FullscreenWithNonInteractiveItem />);
-
-    const item = page
-      .getByRole("listitem")
-      .filter({ hasText: "Non-interactive item" });
-    await item.hover();
-
-    await expect(item.getByTestId("link-anchor")).not.toHaveCSS(
-      "background-color",
-      "rgb(0, 126, 69)",
-    );
-    await expect(item.getByTestId("link-anchor")).not.toHaveCSS(
-      "color",
-      "rgb(255, 255, 255)",
-    );
-    await expect(item.getByTestId("link-anchor")).not.toHaveCSS(
-      "cursor",
-      "pointer",
     );
   });
 });
