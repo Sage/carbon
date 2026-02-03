@@ -1,3 +1,9 @@
+## [158.26.5](https://github.com/Sage/carbon/compare/v158.26.4...v158.26.5) (2026-02-03)
+
+### Bug Fixes
+
+* **heading:** ensure back link has correct focus style ([d5b7749](https://github.com/Sage/carbon/commit/d5b7749277524cdfcdd4ca9a5402286c6b76890c))
+
 ## [158.26.4](https://github.com/Sage/carbon/compare/v158.26.3...v158.26.4) (2026-02-02)
 
 ### Bug Fixes
