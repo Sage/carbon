@@ -15,7 +15,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof Detail> = {
-  title: "Deprecated/Detail",
+  title: "Components/Deprecated/Detail",
   parameters: {
     chromatic: {
       disableSnapshot: true,

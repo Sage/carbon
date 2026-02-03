@@ -3,7 +3,7 @@ import { action } from "@storybook/addon-actions";
 import { ButtonToggle, ButtonToggleGroup } from "..";
 
 export default {
-  title: "Button Toggle/Button Toggle Group/Test",
+  title: "Components/Button Toggle/Button Toggle Group/Test",
   includeStories: ["DefaultStory"],
   parameters: {
     info: { disable: true },

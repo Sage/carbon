@@ -6,7 +6,7 @@ import CarbonProvider from ".";
 import { sageTheme } from "../../style/themes";
 
 const meta: Meta<typeof CarbonProvider> = {
-  title: "Carbon Provider",
+  title: "Providers/Carbon Provider",
   component: CarbonProvider,
   parameters: { chromatic: { disableSnapshot: true } },
 };

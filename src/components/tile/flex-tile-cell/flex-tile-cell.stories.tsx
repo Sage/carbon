@@ -21,7 +21,7 @@ const styledSystemProps = generateStyledSystemProps(
 );
 
 const meta: Meta<typeof FlexTileCell> = {
-  title: "Flex Tile Cell",
+  title: "Components/Flex Tile Cell",
   component: FlexTileCell,
   tags: ["hideInSidebar"],
   argTypes: {

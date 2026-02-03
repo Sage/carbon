@@ -12,7 +12,7 @@ import DefaultDecorator from "../../../.storybook/utils/default-decorator";
 type Story = StoryObj<typeof Switch>;
 
 export default {
-  title: "Switch/Interactions",
+  title: "Components/Switch/Interactions",
   component: Switch,
   argTypes: {},
   parameters: {

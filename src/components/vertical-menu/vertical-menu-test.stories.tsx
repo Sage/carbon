@@ -11,7 +11,7 @@ import Pill from "../pill";
 import Confirm from "../confirm";
 
 export default {
-  title: "Vertical Menu/Test",
+  title: "Components/Vertical Menu/Test",
   parameters: {
     info: { disable: true },
     chromatic: {

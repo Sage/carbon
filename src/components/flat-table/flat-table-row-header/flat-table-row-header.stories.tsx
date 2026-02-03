@@ -15,7 +15,7 @@ const styledSystemProps = generateStyledSystemProps(
 );
 
 const meta: Meta<typeof FlatTableRowHeader> = {
-  title: "Flat Table Row Header",
+  title: "Components/Flat Table Row Header",
   component: FlatTableRowHeader,
   tags: ["hideInSidebar"],
   argTypes: {

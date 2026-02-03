@@ -16,7 +16,7 @@ import Divider from "../divider";
 import Typography from "../typography";
 
 export default {
-  title: "Deprecated/Button/Test",
+  title: "Components/Deprecated/Button/Test",
   excludeStories: [
     "ButtonDifferentTypes",
     "generateButtons",

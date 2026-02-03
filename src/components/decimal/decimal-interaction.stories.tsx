@@ -11,7 +11,7 @@ import DefaultDecorator from "../../../.storybook/utils/default-decorator";
 type Story = StoryObj<typeof Decimal>;
 
 export default {
-  title: "Decimal Input/Interactions",
+  title: "Components/Decimal Input/Interactions",
   component: Decimal,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },

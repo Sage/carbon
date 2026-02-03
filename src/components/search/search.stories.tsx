@@ -12,7 +12,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof Search> = {
-  title: "Search",
+  title: "Components/Search",
   component: Search,
   argTypes: {
     ...styledSystemProps,

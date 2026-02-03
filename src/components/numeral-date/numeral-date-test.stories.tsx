@@ -6,7 +6,7 @@ import { NumeralDateProps } from "./numeral-date.component";
 import CarbonProvider from "../carbon-provider";
 
 export default {
-  title: "Numeral Date/Test",
+  title: "Components/Numeral Date/Test",
   component: NumeralDate,
   parameters: {
     info: { disable: true },

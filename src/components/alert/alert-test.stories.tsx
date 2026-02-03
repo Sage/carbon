@@ -4,7 +4,7 @@ import Alert from ".";
 import Button from "../button";
 
 export default {
-  title: "Deprecated/Alert/Test",
+  title: "Components/Deprecated/Alert/Test",
   includeStories: ["DefaultStory"],
   parameters: {
     info: { disable: true },

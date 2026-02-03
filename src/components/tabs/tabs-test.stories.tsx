@@ -10,7 +10,7 @@ import Pill from "../pill";
 import Icon from "../icon";
 
 export default {
-  title: "Deprecated/Tabs/Test",
+  title: "Components/Deprecated/Tabs/Test",
   parameters: {
     info: { disable: true },
     chromatic: {

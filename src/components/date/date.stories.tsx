@@ -15,7 +15,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof DateInput> = {
-  title: "Date Input",
+  title: "Components/Date Input",
   component: DateInput,
   argTypes: {
     ...styledSystemProps,

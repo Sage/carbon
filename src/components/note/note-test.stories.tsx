@@ -7,7 +7,7 @@ import Box from "../box";
 import Typography from "../typography";
 
 export default {
-  title: "Note/Test",
+  title: "Components/Note/Test",
   parameters: {
     info: { disable: true },
     chromatic: {

@@ -6,7 +6,7 @@ import Box from "../box";
 import Typography from "../typography";
 
 export default {
-  title: "Deprecated/Loader Bar/Test",
+  title: "Components/Deprecated/Loader Bar/Test",
   includeStories: ["DefaultStory", "LoaderBarWithMinHeight"],
   parameters: {
     info: { disable: true },

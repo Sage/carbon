@@ -9,7 +9,7 @@ const styledSystemProps = generateStyledSystemProps({
 }) as Partial<ArgTypes<DecimalProps>>;
 
 const meta: Meta<typeof Decimal> = {
-  title: "Decimal Input",
+  title: "Components/Decimal Input",
   component: Decimal,
   argTypes: {
     ...styledSystemProps,

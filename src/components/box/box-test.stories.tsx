@@ -2,7 +2,7 @@ import React from "react";
 import Box, { BoxProps } from ".";
 
 export default {
-  title: "Box/Test",
+  title: "Components/Box/Test",
   includeStories: ["Default"],
   parameters: {
     info: { disable: true },

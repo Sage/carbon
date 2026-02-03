@@ -13,7 +13,7 @@ import DefaultDecorator from "../../../.storybook/utils/default-decorator";
 type Story = StoryObj<typeof Accordion>;
 
 export default {
-  title: "Accordion/Interactions",
+  title: "Components/Accordion/Interactions",
   parameters: {
     info: { disable: true },
     chromatic: {

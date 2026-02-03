@@ -10,7 +10,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof SettingsRow> = {
-  title: "Deprecated/Settings Row",
+  title: "Components/Deprecated/Settings Row",
   parameters: {
     chromatic: {
       disableSnapshot: true,

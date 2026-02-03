@@ -4,7 +4,7 @@ import { ButtonToggle, ButtonToggleGroup } from ".";
 import Box from "../box";
 
 const meta: Meta<typeof ButtonToggle> = {
-  title: "Button Toggle",
+  title: "Components/Button Toggle",
   component: ButtonToggle,
   parameters: { themeProvider: { chromatic: { theme: "sage" } } },
 };

@@ -19,7 +19,7 @@ import Textbox from "../textbox";
 import Link from "../link";
 
 const meta: Meta<typeof TextEditor> = {
-  title: "Text Editor/Test",
+  title: "Components/Text Editor/Test",
   component: TextEditor,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },

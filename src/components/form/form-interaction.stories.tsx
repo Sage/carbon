@@ -16,7 +16,7 @@ import Switch from "../switch";
 type Story = StoryObj<typeof Form>;
 
 export default {
-  title: "Form/Interactions",
+  title: "Components/Form/Interactions",
   component: Form,
   parameters: {
     info: { disable: true },

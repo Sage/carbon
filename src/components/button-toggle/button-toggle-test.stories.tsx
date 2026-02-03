@@ -4,7 +4,7 @@ import { ButtonToggle, ButtonToggleGroup, ButtonToggleProps } from ".";
 import Box from "../box";
 
 export default {
-  title: "Button Toggle/Test",
+  title: "Components/Button Toggle/Test",
   parameters: {
     info: { disable: true },
     chromatic: {

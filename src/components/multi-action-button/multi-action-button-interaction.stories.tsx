@@ -13,7 +13,7 @@ import DefaultDecorator from "../../../.storybook/utils/default-decorator";
 type Story = StoryObj<typeof MultiActionButton>;
 
 export default {
-  title: "Multi Action Button/Interactions",
+  title: "Components/Multi Action Button/Interactions",
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
   },

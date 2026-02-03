@@ -14,7 +14,7 @@ import {
 import Dialog from "../dialog";
 
 export default {
-  title: "Multi Action Button/Test",
+  title: "Components/Multi Action Button/Test",
   parameters: {
     info: { disable: true },
     chromatic: {

@@ -9,7 +9,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof FileInput> = {
-  title: "File Input",
+  title: "Components/File Input",
   component: FileInput,
   argTypes: {
     ...styledSystemProps,

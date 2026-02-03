@@ -9,7 +9,7 @@ import {
 } from "../button/button.config";
 
 export default {
-  title: "Deprecated/Button Minor/Test",
+  title: "Components/Deprecated/Button Minor/Test",
   parameters: {
     info: { disable: true },
     chromatic: { disableSnapshot: true },

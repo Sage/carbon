@@ -7,7 +7,7 @@ import DateRange, {
 import CarbonProvider from "../carbon-provider";
 
 export default {
-  title: "Date Range/Test",
+  title: "Components/Date Range/Test",
   parameters: {
     info: { disable: true },
     chromatic: {

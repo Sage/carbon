@@ -4,7 +4,7 @@ import Detail, { DetailProps } from ".";
 
 export default {
   component: Detail,
-  title: "Deprecated/Detail/Test",
+  title: "Components/Deprecated/Detail/Test",
   includeStories: ["Default"],
   parameters: {
     info: { disable: true },

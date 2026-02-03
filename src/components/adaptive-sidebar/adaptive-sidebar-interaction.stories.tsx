@@ -209,7 +209,7 @@ const SimpleAdaptiveSidebar = ({
 };
 
 export default {
-  title: "Adaptive Sidebar/Interactions",
+  title: "Components/Adaptive Sidebar/Interactions",
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
   },

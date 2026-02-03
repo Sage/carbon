@@ -7,7 +7,7 @@ import StepSequenceItem from "./step-sequence-item.component";
  */
 
 const meta: Meta<typeof StepSequenceItem> = {
-  title: "Step Sequence Item",
+  title: "Components/Step Sequence Item",
   component: StepSequenceItem,
   tags: ["hideInSidebar"],
   parameters: {

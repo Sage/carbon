@@ -5,7 +5,7 @@ import Search from ".";
 import { SearchEvent } from "./search.component";
 
 export default {
-  title: "Search/Test",
+  title: "Components/Search/Test",
   parameters: {
     info: { disable: true },
     chromatic: {

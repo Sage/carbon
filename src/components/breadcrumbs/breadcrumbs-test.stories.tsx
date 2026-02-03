@@ -3,7 +3,7 @@ import { Breadcrumbs, BreadcrumbsProps } from ".";
 import { Crumb, CrumbProps } from "./crumb";
 
 export default {
-  title: "Breadcrumbs/Test",
+  title: "Components/Breadcrumbs/Test",
   includeStories: ["DefaultCrumb", "WhenFocusedCrumbBecomesCurrent"],
   parameters: {
     info: { disable: true },

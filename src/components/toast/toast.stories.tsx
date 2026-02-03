@@ -10,7 +10,7 @@ import Icon from "../icon";
 import Toast from ".";
 
 const meta: Meta<typeof Toast> = {
-  title: "Deprecated/Toast",
+  title: "Components/Deprecated/Toast",
   component: Toast,
   parameters: { chromatic: { disableSnapshot: true } },
 };

@@ -20,7 +20,7 @@ import {
 import Box from "../box";
 
 export default {
-  title: "Action Popover/Test",
+  title: "Components/Action Popover/Test",
   includeStories: [
     "Default",
     "LongMenuExample",

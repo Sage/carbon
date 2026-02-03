@@ -9,7 +9,7 @@ import Box from "../box";
 type Story = StoryObj<typeof AdvancedColorPicker>;
 
 export default {
-  title: "Advanced Color Picker/Interactions",
+  title: "Components/Advanced Color Picker/Interactions",
   component: AdvancedColorPicker,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },

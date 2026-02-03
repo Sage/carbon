@@ -15,7 +15,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof Box> = {
-  title: "Box",
+  title: "Components/Box",
   component: Box,
   argTypes: {
     ...styledSystemProps,

@@ -18,7 +18,7 @@ import {
 const defaultOpenState = isChromatic();
 
 const meta: Meta<typeof VerticalMenu> = {
-  title: "Vertical Menu",
+  title: "Components/Vertical Menu",
   component: VerticalMenu,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },

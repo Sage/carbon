@@ -6,7 +6,7 @@ import { action } from "@storybook/addon-actions";
 type Story = StoryObj<typeof LinkPreview>;
 
 export default {
-  title: "Link Preview/Interactions",
+  title: "Components/Link Preview/Interactions",
   parameters: {
     info: { disable: true },
     themeProvider: { chromatic: { theme: "sage" } },

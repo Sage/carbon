@@ -14,7 +14,7 @@ import {
 const meta: Meta<typeof AnchorNavigation> = {
   component: AnchorNavigation,
   includeStories: ["DefaultStory", "InFullScreenDialogStory"],
-  title: "Anchor Navigation/Test",
+  title: "Components/Anchor Navigation/Test",
   parameters: {
     info: { disable: true },
     chromatic: {

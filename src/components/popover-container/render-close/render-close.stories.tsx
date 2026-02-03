@@ -7,7 +7,7 @@ import { renderClose } from "../popover-container.component";
  */
 
 const meta: Meta<typeof renderClose> = {
-  title: "Render Close",
+  title: "Components/Render Close",
   component: renderClose,
   tags: ["hideInSidebar"],
   parameters: {

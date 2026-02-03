@@ -58,7 +58,7 @@ type SubRowsShapeChildrenOnlySelectableStoryKey =
   keyof SubRowsShapeChildrenOnlySelectableStory;
 
 const meta: Meta<typeof FlatTable> = {
-  title: "Flat Table/Expandable",
+  title: "Components/Flat Table/Expandable",
   component: FlatTable,
 };
 

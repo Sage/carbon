@@ -12,7 +12,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof GridItem> = {
-  title: "Grid Item",
+  title: "Components/Grid Item",
   component: GridItem,
   tags: ["hideInSidebar"],
   argTypes: {

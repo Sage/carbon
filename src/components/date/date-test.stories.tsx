@@ -10,7 +10,7 @@ import Confirm from "../confirm";
 import I18nProvider from "../i18n-provider";
 
 export default {
-  title: "Date Input/Test",
+  title: "Components/Date Input/Test",
   component: DateInput,
   parameters: {
     info: { disable: true },

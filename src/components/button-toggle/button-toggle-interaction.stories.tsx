@@ -11,7 +11,7 @@ import DefaultDecorator from "../../../.storybook/utils/default-decorator";
 type Story = StoryObj<typeof ButtonToggle>;
 
 export default {
-  title: "Button Toggle/Interactions",
+  title: "Components/Button Toggle/Interactions",
   parameters: { themeProvider: { chromatic: { theme: "sage" } } },
 };
 

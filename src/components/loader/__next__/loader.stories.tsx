@@ -8,7 +8,7 @@ import Loader, { LoaderProps } from ".";
 import Button from "../../button/button.component";
 
 const meta: Meta<typeof Loader> = {
-  title: "Loader",
+  title: "Components/Loader",
   component: Loader,
   parameters: { chromatic: { disabledSnapshot: false } },
 };

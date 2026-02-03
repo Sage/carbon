@@ -14,7 +14,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof Pod> = {
-  title: "Deprecated/Pod",
+  title: "Components/Deprecated/Pod",
   parameters: {
     chromatic: {
       disableSnapshot: true,

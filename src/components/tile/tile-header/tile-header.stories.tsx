@@ -12,7 +12,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof TileHeader> = {
-  title: "Tile Header",
+  title: "Components/Tile Header",
   component: TileHeader,
   tags: ["hideInSidebar"],
   argTypes: {

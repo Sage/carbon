@@ -7,7 +7,7 @@ import ActionPopoverMenu from "./action-popover-menu.component";
  */
 
 const meta: Meta<typeof ActionPopoverMenu> = {
-  title: "ActionPopoverMenu",
+  title: "Components/ActionPopoverMenu",
   component: ActionPopoverMenu,
   tags: ["hideInSidebar"],
   parameters: {

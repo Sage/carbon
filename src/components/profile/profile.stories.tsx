@@ -7,7 +7,7 @@ import Box from "../box";
 import Profile from ".";
 
 const meta: Meta<typeof Profile> = {
-  title: "Profile",
+  title: "Components/Profile",
   component: Profile,
 };
 

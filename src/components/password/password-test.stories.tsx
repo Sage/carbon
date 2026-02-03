@@ -3,7 +3,7 @@ import Password, { PasswordProps } from ".";
 import CarbonProvider from "../carbon-provider";
 
 export default {
-  title: "Password/Test",
+  title: "Components/Password/Test",
   parameters: {
     info: { disable: true },
     chromatic: {

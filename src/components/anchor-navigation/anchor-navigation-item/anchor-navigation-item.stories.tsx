@@ -7,7 +7,7 @@ import AnchorNavigationItem from "./anchor-navigation-item.component";
  */
 
 const meta: Meta<typeof AnchorNavigationItem> = {
-  title: "AnchorNavigationItem",
+  title: "Components/AnchorNavigationItem",
   component: AnchorNavigationItem,
   tags: ["hideInSidebar"],
   parameters: {

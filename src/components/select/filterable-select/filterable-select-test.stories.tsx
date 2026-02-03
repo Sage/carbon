@@ -10,7 +10,7 @@ import useMultiInput from "../../../hooks/use-multi-input";
 
 export default {
   component: FilterableSelect,
-  title: "Select/Filterable/Test",
+  title: "Components/Select/Filterable/Test",
   parameters: {
     info: { disable: true },
     chromatic: {

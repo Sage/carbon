@@ -9,7 +9,7 @@ import meta, { DefaultStory, Paginated } from "./flat-table.stories";
 type Story = StoryObj<typeof FlatTable>;
 
 export default {
-  title: "Flat Table/Interactions",
+  title: "Components/Flat Table/Interactions",
   component: FlatTable,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },

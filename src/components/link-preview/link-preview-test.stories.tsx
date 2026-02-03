@@ -4,7 +4,7 @@ import { action } from "@storybook/addon-actions";
 import LinkPreview from "./link-preview.component";
 
 export default {
-  title: "Link Preview/Test",
+  title: "Components/Link Preview/Test",
   includeStories: ["Default"],
   parameters: {
     info: { disable: true },

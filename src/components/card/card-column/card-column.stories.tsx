@@ -7,7 +7,7 @@ import CardColumn from ".";
  */
 
 const meta: Meta<typeof CardColumn> = {
-  title: "CardColumn",
+  title: "Components/CardColumn",
   component: CardColumn,
   tags: ["hideInSidebar"],
   parameters: {

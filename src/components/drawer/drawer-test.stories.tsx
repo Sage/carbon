@@ -6,7 +6,7 @@ import Box from "../box";
 import Button from "../button";
 
 const meta: Meta<typeof Drawer> = {
-  title: "Drawer/Test",
+  title: "Components/Drawer/Test",
   component: Drawer,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },

@@ -17,7 +17,7 @@ import DefaultDecorator from "../../../../.storybook/utils/default-decorator";
 type Story = StoryObj<typeof MultiSelect>;
 
 export default {
-  title: "Select/MultiSelect/Interactions",
+  title: "Components/Select/MultiSelect/Interactions",
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
   },

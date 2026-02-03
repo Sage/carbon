@@ -27,7 +27,7 @@ const submenu = (
 );
 
 export default {
-  title: "Action Popover/Interactions",
+  title: "Components/Action Popover/Interactions",
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
   },

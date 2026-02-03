@@ -9,7 +9,7 @@ import Form from "../../form";
 import Textbox from "../../textbox";
 
 const meta: Meta<typeof Tabs> = {
-  title: "Tabs/Test",
+  title: "Components/Tabs/Test",
   component: Tabs,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },

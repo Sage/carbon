@@ -16,7 +16,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof InlineInputs> = {
-  title: "Deprecated/Inline Inputs",
+  title: "Components/Deprecated/Inline Inputs",
   parameters: {
     chromatic: {
       disableSnapshot: true,

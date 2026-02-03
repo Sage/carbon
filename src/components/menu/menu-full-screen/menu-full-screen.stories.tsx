@@ -8,7 +8,7 @@ import MenuFullscreen from "./menu-full-screen.component";
  */
 
 const meta: Meta<typeof MenuFullscreen> = {
-  title: "Menu Full Screen",
+  title: "Components/Menu Full Screen",
   component: MenuFullscreen,
   tags: ["hideInSidebar"],
   parameters: {

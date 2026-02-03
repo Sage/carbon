@@ -7,7 +7,7 @@ import FlatTableRow from "./flat-table-row.component";
  */
 
 const meta: Meta<typeof FlatTableRow> = {
-  title: "Flat Table Row",
+  title: "Components/Flat Table Row",
   component: FlatTableRow,
   tags: ["hideInSidebar"],
   parameters: {

@@ -2,7 +2,7 @@ import React from "react";
 import Content from ".";
 
 export default {
-  title: "Deprecated/Content/Test",
+  title: "Components/Deprecated/Content/Test",
   includeStories: ["DefaultStory"],
   parameters: {
     info: { disable: true },

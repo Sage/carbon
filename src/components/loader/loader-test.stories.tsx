@@ -5,7 +5,7 @@ import { LOADER_SIZES } from "./loader.config";
 import Box from "../box";
 
 export default {
-  title: "Deprecated/Loader/Test",
+  title: "Components/Deprecated/Loader/Test",
   includeStories: ["Default", "InsideButtons"],
   parameters: {
     info: { disable: true },

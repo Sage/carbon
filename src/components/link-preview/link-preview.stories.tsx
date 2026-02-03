@@ -5,7 +5,7 @@ import { action } from "@storybook/addon-actions";
 import LinkPreview from ".";
 
 const meta: Meta<typeof LinkPreview> = {
-  title: "Link Preview",
+  title: "Components/Link Preview",
   component: LinkPreview,
 };
 

@@ -14,7 +14,7 @@ import { enUS as enUSLocale } from "date-fns/locale/en-US";
 type Story = StoryObj<typeof DateRange>;
 
 export default {
-  title: "Date Range/Interactions",
+  title: "Components/Date Range/Interactions",
   component: DateRange,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },

@@ -11,7 +11,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof IconButton> = {
-  title: "Deprecated/Icon Button",
+  title: "Components/Deprecated/Icon Button",
   parameters: {
     chromatic: {
       disableSnapshot: true,

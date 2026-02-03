@@ -7,7 +7,7 @@ import Switch from "../switch";
 import Box from "../box";
 
 export default {
-  title: "Radio Button/Test",
+  title: "Components/Radio Button/Test",
   parameters: {
     info: { disable: true },
     chromatic: {

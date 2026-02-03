@@ -13,7 +13,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof DateRange> = {
-  title: "Date Range",
+  title: "Components/Date Range",
   component: DateRange,
   argTypes: {
     ...styledSystemProps,

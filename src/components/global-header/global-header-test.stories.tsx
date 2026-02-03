@@ -7,7 +7,7 @@ import Divider from "../divider";
 import carbonLogo from "../../../logo/carbon-logo.png";
 
 export default {
-  title: "Global Header/Test",
+  title: "Components/Global Header/Test",
   parameters: {
     info: { disable: true },
     chromatic: {

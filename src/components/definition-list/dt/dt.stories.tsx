@@ -15,7 +15,7 @@ const styledSystemProps = generateStyledSystemProps(
 );
 
 const meta: Meta<typeof Dt> = {
-  title: "Dt",
+  title: "Components/Dt",
   component: Dt,
   tags: ["hideInSidebar"],
   argTypes: {

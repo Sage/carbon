@@ -3,7 +3,7 @@ import Typography from "../typography";
 import { StepFlow, StepFlowProps } from ".";
 
 export default {
-  title: "Step Flow/Test",
+  title: "Components/Step Flow/Test",
   parameters: {
     info: { disable: true },
     chromatic: {

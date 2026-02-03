@@ -7,7 +7,7 @@ import { TabList } from "../tabs.component";
  */
 
 const meta: Meta<typeof TabList> = {
-  title: "TabList",
+  title: "Components/TabList",
   component: TabList,
   tags: ["hideInSidebar"],
   parameters: {

@@ -23,7 +23,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof StepFlow> = {
-  title: "Step Flow",
+  title: "Components/Step Flow",
   component: StepFlow,
   argTypes: {
     ...styledSystemProps,

@@ -32,7 +32,7 @@ const styledSystemProps = generateStyledSystemProps(
 );
 
 const meta: Meta<typeof Tile> = {
-  title: "Tile",
+  title: "Components/Tile",
   component: Tile,
   argTypes: {
     ...styledSystemProps,

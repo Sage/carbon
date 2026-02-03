@@ -25,7 +25,7 @@ const styledSystemProps = generateStyledSystemProps({
 const defaultOpenState = isChromatic();
 
 const meta: Meta<typeof PopoverContainer> = {
-  title: "Popover Container",
+  title: "Components/Popover Container",
   component: PopoverContainer,
   argTypes: {
     ...styledSystemProps,

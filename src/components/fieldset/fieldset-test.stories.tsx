@@ -9,7 +9,7 @@ import { Checkbox } from "../checkbox";
 import CarbonProvider from "../carbon-provider";
 
 const meta: Meta<typeof Fieldset> = {
-  title: "Fieldset/Test",
+  title: "Components/Fieldset/Test",
   component: Fieldset,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },

@@ -7,7 +7,7 @@ import SelectTextbox from "./select-textbox.component";
  */
 
 const meta: Meta<typeof SelectTextbox> = {
-  title: "Select Textbox",
+  title: "Components/Select Textbox",
   component: SelectTextbox,
   tags: ["hideInSidebar"],
   parameters: {

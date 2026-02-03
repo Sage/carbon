@@ -28,7 +28,7 @@ const styledSystemProps = generateStyledSystemProps({
 const defaultOpenState = isChromatic();
 
 const meta: Meta<typeof Form> = {
-  title: "Form",
+  title: "Components/Form",
   component: Form,
   args: {
     onSubmit: (ev: React.FormEvent) => {

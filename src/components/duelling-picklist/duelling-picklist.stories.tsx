@@ -26,7 +26,7 @@ const styledSystemProps = generateStyledSystemProps({
 const defaultOpenState = isChromatic();
 
 const meta: Meta<typeof DuellingPicklist> = {
-  title: "Deprecated/Duelling Picklist",
+  title: "Components/Deprecated/Duelling Picklist",
   parameters: {
     chromatic: {
       disableSnapshot: true,

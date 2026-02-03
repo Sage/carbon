@@ -16,7 +16,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof MultiActionButton> = {
-  title: "Multi Action Button",
+  title: "Components/Multi Action Button",
   component: MultiActionButton,
   argTypes: {
     ...styledSystemProps,

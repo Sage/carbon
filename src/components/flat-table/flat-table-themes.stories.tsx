@@ -11,7 +11,7 @@ import {
 } from ".";
 
 const meta: Meta<typeof FlatTable> = {
-  title: "Flat Table/Color theming",
+  title: "Components/Flat Table/Color theming",
   component: FlatTable,
 };
 

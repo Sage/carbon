@@ -8,7 +8,7 @@ import DefaultDecorator from "../../../.storybook/utils/default-decorator";
 type Story = StoryObj<typeof Loader>;
 
 export default {
-  title: "Deprecated/Loader/Interactions",
+  title: "Components/Deprecated/Loader/Interactions",
   parameters: {
     chromatic: {
       disableSnapshot: true,

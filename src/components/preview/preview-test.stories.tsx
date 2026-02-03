@@ -2,7 +2,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import Preview from "./preview.component";
 
 const meta: Meta<typeof Preview> = {
-  title: "Preview/Test",
+  title: "Components/Preview/Test",
   component: Preview,
   parameters: {
     info: { disable: true },
