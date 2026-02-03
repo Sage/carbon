@@ -161,6 +161,11 @@ const esES: Partial<Locale> = {
   pod: {
     undo: () => "Deshacer",
   },
+  tabs: {
+    error: () => "contiene errores",
+    warning: () => "contiene avisos",
+    info: () => "contiene información",
+  },
   textEditor: {
     boldAria: () => "Negrita",
     cancelButton: () => "Cancelar",

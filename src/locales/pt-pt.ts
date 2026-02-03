@@ -167,6 +167,11 @@ const ptPT: Partial<Locale> = {
   pod: {
     undo: () => "Anular",
   },
+  tabs: {
+    error: () => "contém erros",
+    warning: () => "contém avisos",
+    info: () => "contém informações",
+  },
   textEditor: {
     boldAria: () => "Negrito",
     cancelButton: () => "Cancelar",

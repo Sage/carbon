@@ -163,6 +163,11 @@ const frFR: Partial<Locale> = {
   pod: {
     undo: () => "Annuler",
   },
+  tabs: {
+    error: () => "contient des erreurs",
+    warning: () => "contient des avertissements",
+    info: () => "contient des informations",
+  },
   textEditor: {
     boldAria: () => "Gras",
     cancelButton: () => "Annuler",
