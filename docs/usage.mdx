@@ -22,18 +22,22 @@ A basic project `index.(jsx|tsx)` file would resemble this example:
 ```jsx
 import React from "react";
 import { createRoot } from 'react-dom/client';
+
+import TokensWrapper from "carbon-react/lib/components/tokens-wrapper";
 import CarbonProvider from "carbon-react/lib/components/carbon-provider";
 import GlobalStyle from "carbon-react/lib/style/global-style";
 import sageTheme from "carbon-react/lib/style/themes/sage";
-import "carbon-react/lib/style/fonts.css";
 import Typography from "carbon-react/lib/components/typography";
+import "carbon-react/lib/style/fonts.css";
 
 const App = (props) => {
   return (
-    <CarbonProvider theme={sageTheme}>
-      <GlobalStyle />
-      <Typography>Hello Carbon</Typography>
-    </CarbonProvider>
+    <TokensWrapper>
+      <CarbonProvider theme={sageTheme}>
+        <GlobalStyle />
+        <Typography>Hello Carbon</Typography>
+      </CarbonProvider>
+    </TokensWrapper>
   );
 };
 
