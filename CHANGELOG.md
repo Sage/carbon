@@ -1,3 +1,11 @@
+## [158.27.0](https://github.com/Sage/carbon/compare/v158.26.5...v158.27.0) (2026-02-03)
+
+### Features
+
+* **menu-item:** add aria-current attribute ([5d77dbc](https://github.com/Sage/carbon/commit/5d77dbc700af2a0dcc5e86aef8328d440b0f2e04)), closes [#7704](https://github.com/Sage/carbon/issues/7704)
+* **responsive-vertical-menu-item:** add aria-current attribute ([20e54eb](https://github.com/Sage/carbon/commit/20e54ebf26b5783fa5ef1e3685b42df000acdcb5)), closes [#7704](https://github.com/Sage/carbon/issues/7704)
+* **vertical-menu-item:** add aria-current attribute ([242e23d](https://github.com/Sage/carbon/commit/242e23db07e0f417902005e3dcc9a8402b0ad886))
+
 ## [158.26.5](https://github.com/Sage/carbon/compare/v158.26.4...v158.26.5) (2026-02-03)
 
 ### Bug Fixes
