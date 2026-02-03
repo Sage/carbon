@@ -3,6 +3,25 @@ import { screen, render } from "@testing-library/react";
 import Breadcrumbs from "./breadcrumbs.component";
 import Crumb from "./crumb/crumb.component";
 import { testStyledSystemSpacing } from "../../__spec_helper__/__internal__/test-utils";
+import Logger from "../../__internal__/utils/logger";
+
+test("logs deprecation warning when using isDarkBackground prop", () => {
+  const loggerSpy = jest
+    .spyOn(Logger, "deprecate")
+    .mockImplementation(() => {});
+
+  render(
+    <Breadcrumbs isDarkBackground>
+      <Crumb href="#">Breadcrumb 1</Crumb>
+    </Breadcrumbs>,
+  );
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "The 'isDarkBackground' prop in Breadcrumbs is deprecated and will soon be removed. Please use the 'inverse' prop instead.",
+  );
+
+  loggerSpy.mockRestore();
+});
 
 testStyledSystemSpacing(
   (props) => (
@@ -39,34 +58,22 @@ test("renders with provided data- attributes", () => {
   expect(screen.getByTestId("baz")).toHaveAttribute("data-element", "bar");
 });
 
-// coverage
-test("renders children with expected colour when isDarkBackground is false", () => {
+test("renders with provided aria-label", () => {
   render(
-    <Breadcrumbs>
+    <Breadcrumbs aria-label="Custom aria label">
       <Crumb href="#">Breadcrumb 1</Crumb>
-      <Crumb href="#">Breadcrumb 2</Crumb>
-      <Crumb href="#" isCurrent data-role="current-crumb">
-        Breadcrumb 3
-      </Crumb>
     </Breadcrumbs>,
   );
 
-  const currentCrumb = screen.getByTestId("current-crumb");
-
-  expect(currentCrumb).toHaveStyleRule("color", "var(--colorsUtilityYin090)", {
-    modifier: "a",
-  });
-  expect(screen.getAllByTestId("crumb-divider")[0]).toHaveStyleRule(
-    "color",
-    "var(--colorsUtilityYin055)",
-    { modifier: "::after" },
+  expect(screen.getByRole("navigation")).toHaveAccessibleName(
+    "Custom aria label",
   );
 });
 
 // coverage
-test("renders children with expected colour when isDarkBackground is true", () => {
+test("renders children with expected colour when inverse is true", () => {
   render(
-    <Breadcrumbs isDarkBackground>
+    <Breadcrumbs inverse>
       <Crumb href="#">Breadcrumb 1</Crumb>
       <Crumb href="#">Breadcrumb 2</Crumb>
       <Crumb href="#" isCurrent data-role="current-crumb">
@@ -77,12 +84,16 @@ test("renders children with expected colour when isDarkBackground is true", () =
 
   const currentCrumb = screen.getByTestId("current-crumb");
 
-  expect(currentCrumb).toHaveStyleRule("color", "var(--colorsUtilityYang100)", {
-    modifier: "a",
-  });
+  expect(currentCrumb).toHaveStyleRule(
+    "color",
+    "var(--container-standard-inverse-txt-alt)",
+    {
+      modifier: "a",
+    },
+  );
   expect(screen.getAllByTestId("crumb-divider")[0]).toHaveStyleRule(
     "color",
-    "var(--colorsUtilityYang100)",
+    "var(--container-standard-inverse-txt-alt)",
     { modifier: "::after" },
   );
 });

@@ -12,35 +12,25 @@ const styledSystemProps = generateStyledSystemProps({
 const meta: Meta<typeof Breadcrumbs> = {
   title: "Breadcrumbs",
   component: Breadcrumbs,
+  subcomponents: { Crumb },
   argTypes: {
     ...styledSystemProps,
+  },
+  parameters: {
+    themeProvider: { chromatic: { theme: "sage" } },
+    controls: {
+      exclude: ["children"],
+    },
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof Breadcrumbs>;
 
-export const Default: Story = () => {
-  return (
-    <Breadcrumbs aria-label="Default breadcrumbs">
-      <Crumb href="#">Breadcrumb 1</Crumb>
-      <Crumb href="#">Breadcrumb 2</Crumb>
-      <Crumb href="#">Breadcrumb 3</Crumb>
-      <Crumb href="#" isCurrent>
-        Current Page
-      </Crumb>
-    </Breadcrumbs>
-  );
-};
-Default.storyName = "Default";
-
-export const OnDarkBackground: Story = () => {
-  return (
-    <Box p={2} bg="#000">
-      <Breadcrumbs
-        isDarkBackground
-        aria-label="Breadcrumbs on a dark background"
-      >
+export const Default: Story = {
+  render: ({ ...args }) => {
+    return (
+      <Breadcrumbs aria-label="Default breadcrumbs" {...args}>
         <Crumb href="#">Breadcrumb 1</Crumb>
         <Crumb href="#">Breadcrumb 2</Crumb>
         <Crumb href="#">Breadcrumb 3</Crumb>
@@ -48,7 +38,26 @@ export const OnDarkBackground: Story = () => {
           Current Page
         </Crumb>
       </Breadcrumbs>
-    </Box>
-  );
+    );
+  },
 };
-OnDarkBackground.storyName = "On Dark Background";
+
+export const Inverse: Story = {
+  render: ({ ...args }) => {
+    return (
+      <Box p={2} bg="#000">
+        <Breadcrumbs aria-label="Breadcrumbs with inverse styling" {...args}>
+          <Crumb href="#">Breadcrumb 1</Crumb>
+          <Crumb href="#">Breadcrumb 2</Crumb>
+          <Crumb href="#">Breadcrumb 3</Crumb>
+          <Crumb href="#" isCurrent>
+            Current Page
+          </Crumb>
+        </Breadcrumbs>
+      </Box>
+    );
+  },
+  args: {
+    inverse: true,
+  },
+};

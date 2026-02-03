@@ -1,7 +1,6 @@
 import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
-import * as CrumbStories from "./crumb/crumb.stories.tsx";
 import * as BreadcrumbsStories from "./breadcrumbs.stories.tsx";
 
 <Meta of={BreadcrumbsStories} />
@@ -10,7 +9,7 @@ import * as BreadcrumbsStories from "./breadcrumbs.stories.tsx";
 
 <a
   target="_blank"
-  href="https://zeroheight.com/2ccf2b601/p/32c1b6-breadcrumbs/b/87b2c7"
+  href="https://zeroheight.com/35ee2cc26/v/latest/p/081839-breadcrumbs"
   style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
   rel="noreferrer"
 >
@@ -40,21 +39,15 @@ import { Breadcrumbs, Crumb } from "carbon-react/lib/components/breadcrumbs";
 
 <Canvas of={BreadcrumbsStories.Default} />
 
-### On Dark Background
+### Inverse
 
-You can use the `isDarkBackground` prop to change the colour of the breadcrumbs when they are on a dark background.
+You can use the `inverse` prop to render the Breadcrumbs with inverse styling.
 
-<Canvas of={BreadcrumbsStories.OnDarkBackground} />
+<Canvas of={BreadcrumbsStories.Inverse} />
 
 ## Props
 
-### Breadcrumbs
-
 <ArgTypes of={BreadcrumbsStories} />
-
-### Crumb
-
-<ArgTypes of={CrumbStories} />
 
 ## Translation keys
 

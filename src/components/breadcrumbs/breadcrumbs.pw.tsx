@@ -1,52 +1,36 @@
 import React from "react";
 import { test, expect } from "../../../playwright/helpers/base-test";
-import {
-  breadcrumbsComponent,
-  allCrumbs,
-  crumbAtIndex,
-} from "../../../playwright/components/breadcrumbs/index";
+import { linkComponent } from "../../../playwright/components/link";
 import {
   Default,
-  DefaultCrumb,
   FocusedCrumbBecomesCurrent,
-  OnDarkBackground,
+  Inverse,
 } from "./components.test-pw";
 import { checkAccessibility } from "../../../playwright/support/helper";
-import { CHARACTERS } from "../../../playwright/support/constants";
 
 test.describe("should render Breadcrumbs component", () => {
-  test("should check Breadcrumbs children is set visible", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<Default />);
-
-    await expect(breadcrumbsComponent(page)).toBeVisible();
-
-    const numberOfCrumbs = await allCrumbs(page).count();
-    expect(numberOfCrumbs).toEqual(4);
-  });
-
-  test("should check Breadcrumbs on focus", async ({ mount, page }) => {
-    await mount(<Default />);
-
-    await page.locator("body").press("Tab");
-    await expect(crumbAtIndex(page, 0).locator("a")).toBeFocused();
-    await crumbAtIndex(page, 1).locator("a").press("Tab");
-    await expect(crumbAtIndex(page, 2).locator("a")).toBeFocused();
-  });
-
   test("should not have any focus styling when a crumb is clicked and becomes current", async ({
     mount,
     page,
   }) => {
     await mount(<FocusedCrumbBecomesCurrent />);
 
-    await crumbAtIndex(page, 0).locator("button").click();
-    await expect(crumbAtIndex(page, 0).locator("span").first()).not.toHaveCSS(
+    await linkComponent(page).press("Tab");
+    await expect(linkComponent(page)).toHaveCSS(
       "box-shadow",
-      "rgba(0, 0, 0, 0.9) 0px 4px 0px 0px",
+      "rgb(0, 0, 0) 0px 4px 0px 0px",
     );
+    await expect(linkComponent(page)).toHaveCSS(
+      "background-color",
+      "rgb(255, 210, 116)",
+    );
+
+    await linkComponent(page).click();
+    await expect(linkComponent(page)).not.toHaveCSS(
+      "box-shadow",
+      "rgb(0, 0, 0) 0px 4px 0px 0px",
+    );
+    await expect(linkComponent(page)).not.toHaveCSS("background-color", "none");
   });
 
   test("should not have any focus styling when a crumb with href set is clicked and becomes current", async ({
@@ -55,11 +39,22 @@ test.describe("should render Breadcrumbs component", () => {
   }) => {
     await mount(<FocusedCrumbBecomesCurrent hasHref />);
 
-    await crumbAtIndex(page, 0).locator("a").click();
-    await expect(crumbAtIndex(page, 0).locator("span").first()).not.toHaveCSS(
+    await linkComponent(page).press("Tab");
+    await expect(linkComponent(page)).toHaveCSS(
       "box-shadow",
-      "rgba(0, 0, 0, 0.9) 0px 4px 0px 0px",
+      "rgb(0, 0, 0) 0px 4px 0px 0px",
     );
+    await expect(linkComponent(page)).toHaveCSS(
+      "background-color",
+      "rgb(255, 210, 116)",
+    );
+
+    await linkComponent(page).click();
+    await expect(linkComponent(page)).not.toHaveCSS(
+      "box-shadow",
+      "rgb(0, 0, 0) 0px 4px 0px 0px",
+    );
+    await expect(linkComponent(page)).not.toHaveCSS("background-color", "none");
   });
 
   test("should not have any focus styling when user presses Enter key on focused crumb and it becomes current", async ({
@@ -68,12 +63,22 @@ test.describe("should render Breadcrumbs component", () => {
   }) => {
     await mount(<FocusedCrumbBecomesCurrent />);
 
-    await crumbAtIndex(page, 0).locator("button").focus();
-    await crumbAtIndex(page, 0).locator("button").press("Enter");
-    await expect(crumbAtIndex(page, 0).locator("span").first()).not.toHaveCSS(
+    await linkComponent(page).press("Tab");
+    await expect(linkComponent(page)).toHaveCSS(
       "box-shadow",
-      "rgba(0, 0, 0, 0.9) 0px 4px 0px 0px",
+      "rgb(0, 0, 0) 0px 4px 0px 0px",
     );
+    await expect(linkComponent(page)).toHaveCSS(
+      "background-color",
+      "rgb(255, 210, 116)",
+    );
+
+    await linkComponent(page).press("Enter");
+    await expect(linkComponent(page)).not.toHaveCSS(
+      "box-shadow",
+      "rgb(0, 0, 0) 0px 4px 0px 0px",
+    );
+    await expect(linkComponent(page)).not.toHaveCSS("background-color", "none");
   });
 
   test("should not have any focus styling when user presses Enter key on focused crumb with href set and it becomes current", async ({
@@ -81,97 +86,27 @@ test.describe("should render Breadcrumbs component", () => {
     page,
   }) => {
     await mount(<FocusedCrumbBecomesCurrent hasHref />);
-
-    await crumbAtIndex(page, 0).locator("a").focus();
-    await crumbAtIndex(page, 0).locator("a").press("Enter");
-    await expect(crumbAtIndex(page, 0).locator("span").first()).not.toHaveCSS(
+    await linkComponent(page).press("Tab");
+    await expect(linkComponent(page)).toHaveCSS(
       "box-shadow",
-      "rgba(0, 0, 0, 0.9) 0px 4px 0px 0px",
+      "rgb(0, 0, 0) 0px 4px 0px 0px",
     );
-  });
+    await expect(linkComponent(page)).toHaveCSS(
+      "background-color",
+      "rgb(255, 210, 116)",
+    );
 
-  test("should not have any focus styling when user presses Space key on focused crumb and it becomes current", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FocusedCrumbBecomesCurrent />);
-
-    await crumbAtIndex(page, 0).locator("button").focus();
-    await crumbAtIndex(page, 0).locator("button").press("Space");
-    await expect(crumbAtIndex(page, 0).locator("span").first()).not.toHaveCSS(
+    await linkComponent(page).press("Enter");
+    await expect(linkComponent(page)).not.toHaveCSS(
       "box-shadow",
-      "rgba(0, 0, 0, 0.9) 0px 4px 0px 0px",
+      "rgb(0, 0, 0) 0px 4px 0px 0px",
     );
+    await expect(linkComponent(page)).not.toHaveCSS("background-color", "none");
   });
-
-  test("should have correct color when Crumb is current and isDarkBackground is true", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<OnDarkBackground />);
-
-    const currentCrumb = crumbAtIndex(page, 3).locator("a");
-    await expect(currentCrumb).toHaveCSS("color", "rgb(255, 255, 255)");
-    await currentCrumb.hover();
-    await expect(currentCrumb).toHaveCSS("color", "rgb(255, 255, 255)");
-    await expect(currentCrumb).toHaveCSS("cursor", "text");
-  });
-
-  [
-    {
-      isCurrent: true,
-      expectedAttribute: "aria-current",
-      expectedValue: "page",
-    },
-    {
-      isCurrent: false,
-      expectedAttribute: "href",
-      expectedValue: "#",
-    },
-  ].forEach(({ isCurrent, expectedAttribute, expectedValue }) => {
-    test(`should check Crumb with isCurrent prop is ${isCurrent}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<DefaultCrumb isCurrent={isCurrent} />);
-      await expect(crumbAtIndex(page, 0).locator("a")).toHaveAttribute(
-        expectedAttribute,
-        expectedValue,
-      );
-    });
-  });
-
-  test("should check Crumb with href prop set to default val", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<DefaultCrumb href={CHARACTERS.STANDARD} />);
-    await expect(crumbAtIndex(page, 0).locator("a")).toHaveAttribute(
-      "href",
-      CHARACTERS.STANDARD,
-    );
-  });
-});
-
-test("when Crumb's isCurrent prop is true, Crumb divider should not exist", async ({
-  mount,
-  page,
-}) => {
-  await mount(<DefaultCrumb isCurrent />);
-
-  const crumbElement = crumbAtIndex(page, 0);
-  await expect(crumbElement.locator("a")).toHaveAttribute(
-    "aria-current",
-    "page",
-  );
-  await expect(crumbElement.locator("span").nth(1)).toHaveCSS(
-    "color",
-    "rgba(0, 0, 0, 0.9)",
-  );
 });
 
 test.describe("Accessibility tests for Breadcrumbs component", () => {
-  test("should pass accessibility tests for Breadcrumbs default story", async ({
+  test("should pass accessibility tests for default Breadcrumbs", async ({
     mount,
     page,
   }) => {
@@ -179,19 +114,11 @@ test.describe("Accessibility tests for Breadcrumbs component", () => {
     await checkAccessibility(page);
   });
 
-  test("should pass accessibility tests for Crumb default story", async ({
+  test("should pass accessibility tests for inverse Breadcrumbs", async ({
     mount,
     page,
   }) => {
-    await mount(<DefaultCrumb />);
-    await checkAccessibility(page);
-  });
-
-  test("should pass accessibility tests for Breadcrumbs dark background story", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<OnDarkBackground />);
+    await mount(<Inverse />);
     await checkAccessibility(page);
   });
 });
