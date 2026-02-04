@@ -1,3 +1,9 @@
+## [158.27.1](https://github.com/Sage/carbon/compare/v158.27.0...v158.27.1) (2026-02-04)
+
+### Bug Fixes
+
+* **multi-action-button, split-button:** ensure VoiceOver can access open popup ([ada3bfb](https://github.com/Sage/carbon/commit/ada3bfb241718316871ed56f5c9338fb9730dbf9)), closes [#7705](https://github.com/Sage/carbon/issues/7705)
+
 ## [158.27.0](https://github.com/Sage/carbon/compare/v158.26.5...v158.27.0) (2026-02-03)
 
 ### Features
