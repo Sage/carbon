@@ -77,7 +77,7 @@ export const Default = ({ ...args }) => (
   </Accordion>
 );
 
-Default.storyName = "default";
+Default.storyName = "Default";
 
 export const Grouped = ({ ...args }) => (
   <AccordionGroup>
@@ -113,9 +113,9 @@ export const Grouped = ({ ...args }) => (
   </AccordionGroup>
 );
 
-Grouped.storyName = "grouped";
+Grouped.storyName = "Grouped";
 
-export const AccordionWithMultiAction = () => {
+export const WithMultiAction = () => {
   return (
     <Accordion title="Accordion">
       <MultiActionButton text="Multi Action Button">
@@ -136,10 +136,9 @@ export const AccordionWithMultiAction = () => {
   );
 };
 
-AccordionWithMultiAction.storyName =
-  "Accordion with MultiAction and Split Button";
+WithMultiAction.storyName = "With MultiAction and Split Button";
 
-export const AccordionWithDefinitionList = () => {
+export const WithDefinitionList = () => {
   const [isOpen, setOpen] = useState<boolean>(true);
   return (
     <Accordion
@@ -183,9 +182,9 @@ export const AccordionWithDefinitionList = () => {
     </Accordion>
   );
 };
-AccordionWithDefinitionList.storyName = "Accordion With Definition List";
+WithDefinitionList.storyName = "With Definition List";
 
-export const AccordionWithLongSubtitle = () => (
+export const WithLongSubtitle = () => (
   <Accordion
     title="Heading"
     subTitle="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
@@ -193,12 +192,12 @@ export const AccordionWithLongSubtitle = () => (
   />
 );
 
-AccordionWithLongSubtitle.storyName = "Accordion With Long Subtitle";
-AccordionWithLongSubtitle.parameters = {
+WithLongSubtitle.storyName = "With Long Subtitle";
+WithLongSubtitle.parameters = {
   chromatic: { disableSnapshot: false },
 };
 
-export const AccordionWithValidations = () => {
+export const WithValidations = () => {
   const [validationKey, setValidationKey] = useState<string>("error");
   const props = useMemo(() => {
     return {
@@ -235,12 +234,9 @@ export const AccordionWithValidations = () => {
     </AccordionGroup>
   );
 };
-AccordionWithValidations.storyName = "Accordion With Validation";
-AccordionWithValidations.parameters = {
-  chromatic: { disableSnapshot: false },
-};
+WithValidations.storyName = "With Validations";
 
-export const WithBoxComponentAndDifferentPaddings = () => {
+export const WithBoxComponentAndCustomPaddings = () => {
   const [isOpen, setOpen] = useState(true);
   return (
     <>
@@ -352,61 +348,29 @@ export const WithBoxComponentAndDifferentPaddings = () => {
     </>
   );
 };
-WithBoxComponentAndDifferentPaddings.storyName =
-  "With Box Component and Different Padding";
-WithBoxComponentAndDifferentPaddings.parameters = {
+WithBoxComponentAndCustomPaddings.storyName =
+  "With Box Component and Custom Paddings";
+WithBoxComponentAndCustomPaddings.parameters = {
   chromatic: { disableSnapshot: false },
 };
 
-export const WithValidationIcon = () => {
-  const [firstAccordionExpanded, setFirstAccordionExpanded] =
-    useState<boolean>(true);
-  const [secondAccordionExpanded, setSecondAccordionExpanded] =
-    useState<boolean>(true);
-  const [thirdAccordionExpanded, setThirdAccordionExpanded] =
-    useState<boolean>(true);
-
-  const toggleFirstAccordion = () => {
-    setFirstAccordionExpanded(!firstAccordionExpanded);
-  };
-  const toggleSecondAccordion = () => {
-    setSecondAccordionExpanded(!secondAccordionExpanded);
-  };
-  const toggleThirdAccordion = () => {
-    setThirdAccordionExpanded(!thirdAccordionExpanded);
-  };
-
+export const IconAlign = () => {
   return (
-    <AccordionGroup>
+    <>
       <Accordion
-        title="First Heading"
-        expanded={firstAccordionExpanded}
-        onChange={toggleFirstAccordion}
-        error="This is an error state"
-      >
-        <Box>Content</Box>
-      </Accordion>
+        title="Heading"
+        subTitle="Icon Left-Aligned"
+        iconAlign="left"
+      />
       <Accordion
-        title="Second Heading"
-        expanded={secondAccordionExpanded}
-        onChange={toggleSecondAccordion}
-        warning="This is a warning state"
-      >
-        <Box>Content</Box>
-      </Accordion>
-      <Accordion
-        title="Third Heading"
-        expanded={thirdAccordionExpanded}
-        onChange={toggleThirdAccordion}
-        info="This is an info state"
-      >
-        <Box>Content</Box>
-      </Accordion>
-    </AccordionGroup>
+        title="Heading"
+        subTitle="Icon Right-Aligned"
+        iconAlign="right"
+      />
+    </>
   );
 };
-WithValidationIcon.storyName = "With Validation Icon";
-WithBoxComponentAndDifferentPaddings.parameters = {
+IconAlign.storyName = "Icon Align";
+IconAlign.parameters = {
   chromatic: { disableSnapshot: false },
-  themeProvider: { chromatic: { theme: "sage" } },
 };
