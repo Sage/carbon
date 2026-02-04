@@ -316,6 +316,12 @@ describe("Accordion", () => {
     );
   });
 
+  it("should not render `subtitle` when `variant` is 'subtle'", () => {
+    render(<Accordion variant="subtle" title="Title" subTitle="Subtitle" />);
+
+    expect(screen.queryByText("Subtitle")).not.toBeInTheDocument();
+  });
+
   // coverage - disableContentPadding is tested in Chromatic
   it("renders content without paddings if `disableCustomPadding` is applied", () => {
     render(<Accordion title="Title" disableContentPadding />);

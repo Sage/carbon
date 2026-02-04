@@ -10,6 +10,7 @@ export interface SubmenuContextProps {
   ) => void;
   blockIndex?: number;
   submenuHasMaxWidth?: boolean;
+  closeSubmenu?: () => void;
 }
 
 const SubmenuContext = React.createContext<SubmenuContextProps>({});

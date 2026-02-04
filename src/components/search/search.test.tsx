@@ -86,6 +86,25 @@ test("when the `searchButton` prop is `true`, a button with search icon is shown
   ).not.toBeInTheDocument();
 });
 
+test("when the `searchButton` prop is `true`, the appropriate `data-` tags can be set via `searchButtonDataProps`", () => {
+  render(
+    <Search
+      searchButton
+      value=""
+      searchButtonDataProps={{
+        "data-role": "foo",
+        "data-element": "bar",
+      }}
+      searchButtonAriaLabel="search button"
+      onChange={jest.fn}
+    />,
+  );
+
+  const searchButton = screen.getByRole("button", { name: "search button" });
+  expect(searchButton).toHaveAttribute("data-role", "foo");
+  expect(searchButton).toHaveAttribute("data-element", "bar");
+});
+
 test("when the `searchButton` prop is a string value, a button with search icon is shown, and no icon appears in the textbox", () => {
   render(
     <Search

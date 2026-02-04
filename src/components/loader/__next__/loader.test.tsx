@@ -219,11 +219,20 @@ test("renders correctly when `loaderType` is `ring` and `inverse` prop is set", 
 
 test("renders correctly when `loaderType` is `ring` and `trackedAnimation` prop is set", () => {
   render(<Loader loaderLabel="Loading" loaderType="ring" isTracked />);
-  expect(screen.getByRole("presentation")).toHaveStyleRule(
-    "animation-name",
-    "trackedAnimation",
+  const element = screen.getByRole("presentation");
+  const styles = window.getComputedStyle(element);
+
+  expect(styles.animationName).not.toBe("none");
+
+  expect(element).toHaveStyleRule(
+    "animation-duration",
+    expect.stringMatching(/\d+(\.\d+)?s/),
     { modifier: "circle[data-role='inner-arc']" },
   );
+
+  expect(element).toHaveStyleRule("stroke-dashoffset", "95px", {
+    modifier: "circle[data-role='inner-arc']",
+  });
 });
 
 test("renders correctly when `loaderType` is `ring` and `isSuccess` is true", () => {

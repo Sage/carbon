@@ -381,6 +381,36 @@ describe("When MenuItem has no submenu", () => {
     expect(screen.getByTestId("icon")).not.toHaveAttribute("aria-label");
   });
 
+  it("should add any passed `aria-current` to the underlying link element", () => {
+    render(
+      <Menu>
+        <MenuItem icon="settings" href="#" ariaCurrent="page">
+          Item One
+        </MenuItem>
+      </Menu>,
+    );
+
+    expect(screen.getByRole("link", { name: "Item One" })).toHaveAttribute(
+      "aria-current",
+      "page",
+    );
+  });
+
+  it("should add any passed `aria-current` to the underlying button element`", () => {
+    render(
+      <Menu>
+        <MenuItem icon="settings" onClick={() => {}} ariaCurrent="page">
+          Item One
+        </MenuItem>
+      </Menu>,
+    );
+
+    expect(screen.getByRole("button", { name: "Item One" })).toHaveAttribute(
+      "aria-current",
+      "page",
+    );
+  });
+
   it("should throw an error when `aria-label` is not set and menu item has no child text", () => {
     const consoleSpy = jest
       .spyOn(global.console, "error")
@@ -1163,6 +1193,56 @@ describe("when MenuItem has a submenu", () => {
     expect(onClick).toHaveBeenCalled();
   });
 
+  it("should close the submenu when the user clicks on a link submenu item", async () => {
+    const user = userEvent.setup();
+    render(
+      <Menu>
+        <MenuItem submenu="Menu Item Three">
+          <MenuItem href="#1">Item Submenu One</MenuItem>
+          <MenuItem href="#2">Item Submenu Two</MenuItem>
+        </MenuItem>
+      </Menu>,
+    );
+    const submenuParentItem = screen.getByRole("button", {
+      name: "Menu Item Three",
+    });
+    await user.click(submenuParentItem);
+
+    const submenuItem = screen.getByRole("link", { name: "Item Submenu One" });
+    expect(submenuItem).toBeVisible();
+    await user.click(submenuItem);
+
+    expect(
+      screen.queryByRole("link", { name: "Item Submenu One" }),
+    ).not.toBeInTheDocument();
+  });
+
+  it("should close the submenu when the user clicks on a button submenu item", async () => {
+    const user = userEvent.setup();
+    render(
+      <Menu>
+        <MenuItem submenu="Menu Item Three">
+          <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
+          <MenuItem href="#2">Item Submenu Two</MenuItem>
+        </MenuItem>
+      </Menu>,
+    );
+    const submenuParentItem = screen.getByRole("button", {
+      name: "Menu Item Three",
+    });
+    await user.click(submenuParentItem);
+
+    const submenuItem = screen.getByRole("button", {
+      name: "Item Submenu One",
+    });
+    expect(submenuItem).toBeVisible();
+    await user.click(submenuItem);
+
+    expect(
+      screen.queryByRole("button", { name: "Item Submenu One" }),
+    ).not.toBeInTheDocument();
+  });
+
   it("should focus the first item when parent has `href` user presses 'arrowdown' key twice", async () => {
     const user = userEvent.setup();
     render(
@@ -1485,31 +1565,6 @@ describe("when MenuItem has a submenu", () => {
         </Menu>,
       );
     }).not.toThrow();
-  });
-
-  it("should update the focused element when a user clicks a child item", async () => {
-    const user = userEvent.setup();
-    render(
-      <Menu>
-        <MenuItem href="#" submenu="Item One">
-          <MenuItem onClick={() => {}}>Submenu Item One</MenuItem>
-          <MenuItem onClick={() => {}}>Submenu Item Two</MenuItem>
-          <MenuItem onClick={() => {}}>Submenu Item Three</MenuItem>
-        </MenuItem>
-      </Menu>,
-    );
-
-    const parentItem = screen.getByRole("listitem");
-
-    await user.tab();
-    await user.keyboard("{arrowdown}");
-
-    const subitems = within(parentItem).getAllByRole("listitem");
-    const thirdItemButton = within(subitems[2]).getByRole("button");
-
-    await user.click(thirdItemButton);
-
-    expect(thirdItemButton).toHaveFocus();
   });
 
   it("should call the `handleKeyDown` function when one is passed via `submenuContext`", () => {

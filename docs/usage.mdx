@@ -7,13 +7,14 @@ import { Meta } from "@storybook/blocks";
 ## Contents
 
 - [Quick start](#quick-start)
+- [Importing components](#importing-components)
 - [Globals](#globals)
   - [Global styles](#global-styles)
   - [Theming](#theming)
   - [Localisation](#localisation)
   - [Validation](#validation)
-  - [A Note On PropTypes](#a-note-on-proptypes)
-
+  - [PropTypes Support Removed](#proptypes-support-removed)
+  
 ## Quick start
 
 A basic project `index.(jsx|tsx)` file would resemble this example:
@@ -44,6 +45,19 @@ root.render(<App />);
 You can also find this in this live sandbox:
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/fork/github/Parsium/carbon-starter)
+
+
+## Importing components
+
+All components should be imported from their respective component index paths. For example:
+
+```jsx
+import { StepFlow, StepFlowTitle, StepFlowHandle, Steps } from "carbon-react/lib/components/step-flow";
+import Textbox from "carbon-react/lib/components/textbox";
+```
+**Important:** Only import components from their index paths as shown above. Any files such as component, context or style files are implementation details and should not be imported directly. 
+These files may change or be removed at any time without notice, so importing from them directly could break your application unexpectedly.
+Always refer to the documented import paths for each component.
 
 ## Globals
 
@@ -86,11 +100,19 @@ Carbon provides built-in validation states for input components. For more inform
 
 To opt into the new validation pattern, set the `validationRedesignOptIn` flag to true in the [CarbonProvider](../?path=/docs/carbon-provider--docs).
 
-### A Note On PropTypes
+### PropTypes Support Removed
 
-We recently removed support for `PropTypes` in Carbon components. This was done as a prerequisite of upgrading to React 19; it also encourages the use of TypeScript over JavaScript. If you are still using JavaScript, we recommend migrating your project to TypeScript to take advantage of the benefits it provides.
+As of the React 18 upgrade, Carbon components no longer support `prop-types`. This change encourages the use of TypeScript for type safety and better development experience.
 
-If you need type checking in your JavaScript project, you can add a `.tsconfig` file to your project and set the `checkJs` flag to `true`. This will enable type checking for JavaScript files in your project.
+#### Migrating to TypeScript
+
+If you're using JavaScript, we strongly recommend migrating your project to TypeScript. It provides robust type checking, improved IDE support, and catches errors at development time rather than runtime.
+
+For migration guidance, see the [TypeScript handbook](https://www.typescriptlang.org/docs/handbook/migrating-from-javascript.html).
+
+#### Type Checking in JavaScript Projects
+
+If you need type checking in a JavaScript project without fully migrating to TypeScript, you can enable the TypeScript compiler's `checkJs` option:
 
 ```json
 {
@@ -100,4 +122,6 @@ If you need type checking in your JavaScript project, you can add a `.tsconfig` 
 }
 ```
 
-More information on the `checkJs` TSConfig option can be found [here](https://www.typescriptlang.org/tsconfig/#checkJs). For further information on migrating to TypeScript, see the [TypeScript documentation](https://www.typescriptlang.org/docs/handbook/migrating-from-javascript.html).
+This will enable type checking for JavaScript files using JSDoc comments and your project's TypeScript configuration. Note that this provides a lighter-weight alternative to full TypeScript adoption but doesn't offer the same level of type safety.
+
+For more details on the `checkJs` option, see the [TypeScript TSConfig reference](https://www.typescriptlang.org/tsconfig/#checkJs).

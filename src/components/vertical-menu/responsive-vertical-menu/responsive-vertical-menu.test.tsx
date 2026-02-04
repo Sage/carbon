@@ -1455,6 +1455,54 @@ test("correct aria-label values are set", async () => {
   );
 });
 
+test("passes aria-current to button menu items", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem
+        data-role="menu-item-1"
+        id="menu-item-1"
+        label="Menu Item 1"
+        onClick={() => {}}
+        aria-current="page"
+      />
+    </ResponsiveVerticalMenu>,
+  );
+
+  const launcherButton = screen.getByTestId(
+    "responsive-vertical-menu-launcher",
+  );
+  await user.click(launcherButton);
+
+  const menuItem = screen.getByRole("button", { name: "Menu Item 1" });
+  expect(menuItem).toHaveAttribute("aria-current", "page");
+});
+
+test("passes aria-current to anchor menu items", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <ResponsiveVerticalMenu>
+      <ResponsiveVerticalMenuItem
+        data-role="menu-item-1"
+        id="menu-item-1"
+        label="Menu Item 1"
+        href="https://example.com"
+        aria-current="page"
+      />
+    </ResponsiveVerticalMenu>,
+  );
+
+  const launcherButton = screen.getByTestId(
+    "responsive-vertical-menu-launcher",
+  );
+  await user.click(launcherButton);
+
+  const menuItem = screen.getByRole("link", { name: "Menu Item 1" });
+  expect(menuItem).toHaveAttribute("aria-current", "page");
+});
+
 // coverage: children is an empty array
 test("children populated by empty map", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });

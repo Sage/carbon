@@ -126,8 +126,8 @@ const MenuWithCustomWidth = () => (
         submenu="With maxWidth"
         submenuDirection="left"
       >
+        <MenuItem data-role="hover">Non Interactive Item</MenuItem>
         <MenuItem href="#">Item One</MenuItem>
-        <MenuItem href="#">Item Two</MenuItem>
         <MenuItem href="#">
           This is a longer text string. I will wrap instead of truncating!
         </MenuItem>
@@ -175,6 +175,7 @@ const MenuInNavigationBar = () => (
 const FullScreenWithSegmentTitle = () => (
   <Menu menuType="dark">
     <MenuFullscreen isOpen onClose={() => {}}>
+      <MenuItem data-role="hover">Non Interactive Item</MenuItem>
       <MenuItem data-role="target" href="#">
         Item One
       </MenuItem>
@@ -387,6 +388,7 @@ WithSegmentTitle.parameters = {
   },
 };
 
+// Tests non-interactive item in submenu
 export const WithCustomWidth: Story = {
   render: () => (
     <Box ml="150px" display="flex" flexDirection="row" gap="100px">
@@ -406,7 +408,7 @@ export const WithCustomWidth: Story = {
       name: "With minWidth",
     });
 
-    await userEvent.hover(menuItemMaxWidth);
+    await userEvent.click(menuItemMaxWidth);
     await userEvent.hover(menuItemMinWidth);
     await expect(
       await within(document.body).findByText("Item Three"),
@@ -416,6 +418,13 @@ export const WithCustomWidth: Story = {
         "This is a longer text string. I will wrap instead of truncating!",
       ),
     ).toBeVisible();
+
+    // Ensure focus lands on first focusable menu item
+    await userEvent.tab();
+    const firstItems = within(document.body).getAllByRole("link", {
+      name: "Item One",
+    });
+    await expect(firstItems[0]).toHaveFocus();
   },
   decorators: [
     (StoryToRender) => (
@@ -426,6 +435,12 @@ export const WithCustomWidth: Story = {
   ],
 };
 WithCustomWidth.storyName = "With Custom Width";
+WithCustomWidth.parameters = {
+  pseudo: {
+    hover: "[data-role='hover'] a",
+    rootSelector: "body",
+  },
+};
 
 export const InNavigationBarStory: Story = {
   render: () => <MenuInNavigationBar />,
@@ -450,13 +465,14 @@ export const InNavigationBarStory: Story = {
 };
 InNavigationBarStory.storyName = "In NavigationBar";
 
+// Tests non-interactive item within fullscreen menu
 export const MenuFullScreenWithSegmentTitle: Story = {
   render: () => <FullScreenWithSegmentTitle />,
   play: async () => {
     if (!allowInteractions()) {
       return;
     }
-    const closeButton = within(document.body).getByRole("button", {
+    const closeButton = await within(document.body).findByRole("button", {
       name: "Close",
     });
     await userEvent.tab(); // focus close button
@@ -473,7 +489,7 @@ export const MenuFullScreenWithSegmentTitle: Story = {
 MenuFullScreenWithSegmentTitle.storyName = "MenuFullScreen With Segment Title";
 MenuFullScreenWithSegmentTitle.parameters = {
   pseudo: {
-    hover: "[data-role='target'] button",
+    hover: ["[data-role='target'] button", "[data-role='hover'] a"],
     focus: "[data-role='target'] a",
     rootSelector: "body",
   },
@@ -486,7 +502,7 @@ export const MenuFullScreenWithScrollableBlock: Story = {
       return;
     }
 
-    const search = within(document.body).getByRole("textbox");
+    const search = await within(document.body).findByRole("textbox");
     await userEvent.tab();
     await userEvent.tab(); // focus search input
     await expect(search).toHaveFocus();

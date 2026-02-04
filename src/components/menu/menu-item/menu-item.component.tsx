@@ -34,6 +34,10 @@ import { TagProps } from "../../../__internal__/utils/helpers/tags";
 
 export type VariantType = "default" | "alternate";
 
+type AriaCurrent = Pick<
+  React.HTMLAttributes<HTMLElement>,
+  "aria-current"
+>["aria-current"];
 interface MenuItemBaseProps
   extends TagProps,
     Pick<LayoutProps, "width" | "maxWidth" | "minWidth">,
@@ -69,6 +73,8 @@ interface MenuItemBaseProps
   showDropdownArrow?: boolean;
   /** If no text is provided an ariaLabel should be given to facilitate accessibility. */
   ariaLabel?: string;
+  /** Marks the element as the current item within a navigation context. */
+  ariaCurrent?: AriaCurrent;
   /** Callback triggered when submenu opens. Only valid with submenu prop */
   onSubmenuOpen?: () => void;
   /** Callback triggered when submenu closes. Only valid with submenu prop */
@@ -143,6 +149,7 @@ export const MenuItem = forwardRef<
       variant = "default",
       showDropdownArrow = true,
       ariaLabel,
+      ariaCurrent,
       clickToOpen,
       maxWidth,
       onSubmenuOpen,
@@ -198,6 +205,7 @@ export const MenuItem = forwardRef<
       updateFocusId: updateSubmenuFocusId,
       handleKeyDown: handleSubmenuKeyDown,
       submenuHasMaxWidth,
+      closeSubmenu: closeParentSubmenu,
     } = submenuContext;
 
     const focusFromMenu = focusId === menuItemId.current;
@@ -279,10 +287,20 @@ export const MenuItem = forwardRef<
       handleSubmenuKeyDown?.(event);
     };
 
+    const handleClick = (
+      event:
+        | React.MouseEvent<HTMLAnchorElement>
+        | React.MouseEvent<HTMLButtonElement>,
+    ) => {
+      onClick?.(event);
+      closeParentSubmenu?.();
+    };
+
     const elementProps = {
       className: href || onClick ? "carbon-menu-item--has-link" : "",
       href: firstFocusableChild ? undefined : href,
-      onClick: firstFocusableChild ? undefined : onClick,
+      onClick:
+        !firstFocusableChild && (href || onClick) ? handleClick : undefined,
       target,
       rel,
       icon,
@@ -373,6 +391,7 @@ export const MenuItem = forwardRef<
           {...elementProps}
           menuItemVariant={variant}
           ariaLabel={ariaLabel}
+          aria-current={ariaCurrent}
           maxWidth={!submenuHasMaxWidth ? itemMaxWidth : undefined}
           inFullscreenView={inFullscreenView}
           asPassiveItem={asPassiveItem}

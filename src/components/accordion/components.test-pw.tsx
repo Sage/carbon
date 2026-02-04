@@ -218,7 +218,7 @@ export const AccordionDefault = (props: Partial<AccordionProps>) => {
   );
 };
 
-export const AccordionWithBoxAndDifferentPaddings = () => {
+export const AccordionWithBoxAndCustomPaddings = () => {
   return (
     <Box>
       <Accordion

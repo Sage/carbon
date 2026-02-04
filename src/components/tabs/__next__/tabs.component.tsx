@@ -30,13 +30,19 @@ import useLocale from "../../../hooks/__internal__/useLocale";
 import Icon from "../../icon";
 import { TabProvider } from "./tab.context";
 import usePrevious from "../../../hooks/__internal__/usePrevious";
+import tagComponent from "../../../__internal__/utils/helpers/tags";
 
-export const TabPanel = ({ children, id, tabId }: TabPanelProps) => {
+export const TabPanel = ({ children, id, tabId, ...rest }: TabPanelProps) => {
   const { activeTab } = useTabs();
 
   return (
     <TabProvider tabId={tabId} visible={tabId === activeTab}>
-      <StyledTabPanel id={id} role="tabpanel" aria-labelledby={tabId}>
+      <StyledTabPanel
+        id={id}
+        role="tabpanel"
+        aria-labelledby={tabId}
+        {...tagComponent("tab-panel", rest)}
+      >
         {children}
       </StyledTabPanel>
     </TabProvider>
@@ -54,6 +60,7 @@ export const Tab = ({
   rightSlot,
   warning = false,
   info = false,
+  ...rest
 }: TabProps) => {
   const locale = useLocale();
   const [internalError, setInternalError] = useState<boolean | string>(error);
@@ -212,6 +219,7 @@ export const Tab = ({
         type="button"
         tabIndex={activeTab === id ? 0 : -1}
         warning={internalWarning}
+        {...tagComponent("tab", rest)}
       >
         {typeof label === "string" ? (
           <span className="tab-title-content-wrapper">
@@ -232,7 +240,7 @@ export const Tab = ({
 };
 
 export const TabList = forwardRef<TabsHandle, TabListProps>(
-  ({ ariaLabel, children, onTabChange }: TabListProps, ref) => {
+  ({ ariaLabel, children, onTabChange, ...rest }: TabListProps, ref) => {
     const tabListRef = useRef<HTMLDivElement>(null);
     const {
       activeTab,
@@ -287,52 +295,66 @@ export const TabList = forwardRef<TabsHandle, TabListProps>(
       }
     }, [activeTab, onTabChange, prevActiveTab]);
 
-    const handleKeyDown = (event: React.KeyboardEvent) => {
-      const tabIds = getTabIds();
+    const handleKeyDown = useCallback(
+      (event: React.KeyboardEvent) => {
+        const tabIds = getTabIds();
 
-      const currentIndex = tabIds.indexOf(focusIndex || activeTab);
-      const lastIndex = tabIds.length - 1;
+        const currentIndex = tabIds.indexOf(focusIndex || activeTab);
+        const lastIndex = tabIds.length - 1;
 
-      /* istanbul ignore if */
-      if (currentIndex === -1) return;
+        /* istanbul ignore if */
+        if (currentIndex === -1) return;
 
-      let nextIndex = currentIndex;
+        let nextIndex = currentIndex;
 
-      switch (event.key) {
-        case "Home":
-          nextIndex = 0;
-          break;
-        case "End":
-          nextIndex = lastIndex;
-          break;
-        case "ArrowRight":
-          nextIndex = (currentIndex + 1) % tabIds.length;
-          break;
-        case "ArrowLeft":
-          nextIndex = (currentIndex - 1 + tabIds.length) % tabIds.length;
-          break;
-        case "ArrowUp":
-          /* istanbul ignore else */
-          if (orientation === "vertical") {
-            nextIndex = (currentIndex - 1 + tabIds.length) % tabIds.length;
-          }
-          break;
-        case "ArrowDown":
-          /* istanbul ignore else */
-          if (orientation === "vertical") {
+        switch (event.key) {
+          case "Home":
+            nextIndex = 0;
+            break;
+          case "End":
+            nextIndex = lastIndex;
+            break;
+          case "ArrowRight":
             nextIndex = (currentIndex + 1) % tabIds.length;
-          }
-          break;
-        case "Enter":
-        case " ":
-          setActiveTab(activeTab);
-          return;
-        default:
-          return;
-      }
+            break;
+          case "ArrowLeft":
+            nextIndex = (currentIndex - 1 + tabIds.length) % tabIds.length;
+            break;
+          case "ArrowUp":
+            /* istanbul ignore else */
+            if (orientation === "vertical") {
+              nextIndex = (currentIndex - 1 + tabIds.length) % tabIds.length;
+            }
+            break;
+          case "ArrowDown":
+            /* istanbul ignore else */
+            if (orientation === "vertical") {
+              nextIndex = (currentIndex + 1) % tabIds.length;
+            }
+            break;
+          case "Enter":
+          case " ":
+            setActiveTab(activeTab);
+            return;
+          case "Tab":
+            setFocusIndex(activeTab);
+            return;
+          /* istanbul ignore next */
+          default:
+            return;
+        }
 
-      setFocusIndex(tabIds[nextIndex]);
-    };
+        setFocusIndex(tabIds[nextIndex]);
+      },
+      [
+        activeTab,
+        focusIndex,
+        getTabIds,
+        orientation,
+        setActiveTab,
+        setFocusIndex,
+      ],
+    );
 
     const [scrollRequired, setScrollRequired] = useState<boolean>(false);
     const [leftVisible, setLeftVisible] = useState<boolean>(false);
@@ -428,6 +450,7 @@ export const TabList = forwardRef<TabsHandle, TabListProps>(
             role="tablist"
             size={size}
             tabIndex={-1}
+            {...tagComponent("tab-list", rest)}
           >
             {children}
             <Spacer />
@@ -445,6 +468,7 @@ export const Tabs = ({
   orientation = "horizontal",
   selectedTabId,
   size = "medium",
+  ...rest
 }: TabsProps) => {
   return (
     <TabsProvider
@@ -453,7 +477,11 @@ export const Tabs = ({
       selectedTabId={selectedTabId}
       size={size}
     >
-      <StyledTabs id="tabs-container" orientation={orientation}>
+      <StyledTabs
+        id="tabs-container"
+        orientation={orientation}
+        {...tagComponent("tabs", rest)}
+      >
         {children}
       </StyledTabs>
     </TabsProvider>

@@ -1,3 +1,72 @@
+## [158.27.0](https://github.com/Sage/carbon/compare/v158.26.5...v158.27.0) (2026-02-03)
+
+### Features
+
+* **menu-item:** add aria-current attribute ([5d77dbc](https://github.com/Sage/carbon/commit/5d77dbc700af2a0dcc5e86aef8328d440b0f2e04)), closes [#7704](https://github.com/Sage/carbon/issues/7704)
+* **responsive-vertical-menu-item:** add aria-current attribute ([20e54eb](https://github.com/Sage/carbon/commit/20e54ebf26b5783fa5ef1e3685b42df000acdcb5)), closes [#7704](https://github.com/Sage/carbon/issues/7704)
+* **vertical-menu-item:** add aria-current attribute ([242e23d](https://github.com/Sage/carbon/commit/242e23db07e0f417902005e3dcc9a8402b0ad886))
+
+## [158.26.5](https://github.com/Sage/carbon/compare/v158.26.4...v158.26.5) (2026-02-03)
+
+### Bug Fixes
+
+* **heading:** ensure back link has correct focus style ([d5b7749](https://github.com/Sage/carbon/commit/d5b7749277524cdfcdd4ca9a5402286c6b76890c))
+
+## [158.26.4](https://github.com/Sage/carbon/compare/v158.26.3...v158.26.4) (2026-02-02)
+
+### Bug Fixes
+
+* ensure depth tokens are formatted correctly ([c53f144](https://github.com/Sage/carbon/commit/c53f144de66ec9a207d6962065d1cc40ab0fd8ef))
+
+## [158.26.3](https://github.com/Sage/carbon/compare/v158.26.2...v158.26.3) (2026-02-02)
+
+### Bug Fixes
+
+* **tabs:** ensure __next__ version updates focus index when user tabs off component ([b986218](https://github.com/Sage/carbon/commit/b986218e3845f66f4e4c95b728af7a58e23e0ca4))
+
+## [158.26.2](https://github.com/Sage/carbon/compare/v158.26.1...v158.26.2) (2026-01-30)
+
+### Bug Fixes
+
+* **select:** ensure that falsy children are filtered out of list options ([a0f7709](https://github.com/Sage/carbon/commit/a0f770934e4d801d78f25c051f46201ffe91fcf3)), closes [#7687](https://github.com/Sage/carbon/issues/7687)
+
+## [158.26.1](https://github.com/Sage/carbon/compare/v158.26.0...v158.26.1) (2026-01-30)
+
+### Bug Fixes
+
+* **menu-item:** ensure submenu closes when child item is clicked ([baf61a4](https://github.com/Sage/carbon/commit/baf61a486784a7601eae2a6dad37194537600a00)), closes [#6820](https://github.com/Sage/carbon/issues/6820)
+
+## [158.26.0](https://github.com/Sage/carbon/compare/v158.25.2...v158.26.0) (2026-01-29)
+
+### Features
+
+* **tabs:** add support for data- tag props on next components ([3cdc312](https://github.com/Sage/carbon/commit/3cdc3121439fc9d87611e0630abb7ba42ff9e38e))
+
+## [158.25.2](https://github.com/Sage/carbon/compare/v158.25.1...v158.25.2) (2026-01-29)
+
+### Bug Fixes
+
+* **useInputAccessibility:** current validation message is annouced ([42c3492](https://github.com/Sage/carbon/commit/42c349220cde3baae2544d11fad7b76ed3e22deb)), closes [#7612](https://github.com/Sage/carbon/issues/7612)
+
+## [158.25.1](https://github.com/Sage/carbon/compare/v158.25.0...v158.25.1) (2026-01-29)
+
+### Bug Fixes
+
+* **tabs:** include role:presentation to ensure tabs are grouped ([b62839e](https://github.com/Sage/carbon/commit/b62839ef2b3905017a2f05704b0954062ca9f72e)), closes [#7691](https://github.com/Sage/carbon/issues/7691)
+
+## [158.25.0](https://github.com/Sage/carbon/compare/v158.24.1...v158.25.0) (2026-01-26)
+
+### Features
+
+* **search:** data props can now be passed to search button ([7809ad0](https://github.com/Sage/carbon/commit/7809ad0ce30eb103655e385c434839b8eca61dc2)), closes [#7714](https://github.com/Sage/carbon/issues/7714)
+
+## [158.24.1](https://github.com/Sage/carbon/compare/v158.24.0...v158.24.1) (2026-01-26)
+
+### Bug Fixes
+
+* resolve strict mode incompatibilities with popups ([5d48148](https://github.com/Sage/carbon/commit/5d481489253c97990c706aecb3409d491a21f29e))
+* resolve strict mode incompatibilities with portals ([240ef27](https://github.com/Sage/carbon/commit/240ef27ddbf42ec1820dbc874ce0cb310238c693))
+
 ## [158.24.0](https://github.com/Sage/carbon/compare/v158.23.4...v158.24.0) (2026-01-22)
 
 ### Features
