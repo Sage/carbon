@@ -127,31 +127,13 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
     const handleMainClick = (
       ev: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
     ) => {
-      // ensure button is focused when clicked (Safari)
-      mainButtonRef.current?.focus();
-      if (onClick) {
-        onClick(ev as React.MouseEvent<HTMLButtonElement>);
+      onClick?.(ev as React.MouseEvent<HTMLButtonElement>);
+      if (showAdditionalButtons) {
+        hideButtons();
       }
     };
 
-    const mainButtonProps = {
-      onFocus: hideButtons,
-      onTouchStart: hideButtons,
-      iconPosition,
-      buttonType,
-      disabled,
-      iconType,
-      onClick: handleMainClick,
-      size,
-      subtext,
-      isWhite: shouldRenderIsWhiteVariant,
-      ...filterOutStyledSystemSpacingProps(rest),
-    };
-
     const handleToggleClick = () => {
-      // ensure button is focused when clicked (Safari)
-      toggleButtonRef.current?.focus({ preventScroll: true });
-
       if (showAdditionalButtons) {
         hideButtons();
       } else {
@@ -161,24 +143,6 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
 
     useAdaptiveSidebarModalFocus(() => hideButtons());
 
-    const toggleButtonProps = {
-      isWhite: shouldRenderIsWhiteVariant,
-      disabled,
-      displayed: showAdditionalButtons,
-      onKeyDown: handleToggleButtonKeyDown,
-      onClick: handleToggleClick,
-      buttonType,
-      size,
-    };
-
-    function componentTags() {
-      return {
-        "data-component": "split-button",
-        "data-element": dataElement,
-        "data-role": dataRole,
-      };
-    }
-
     function getIconColor() {
       const colorsMap = {
         primary: theme.colors.white,
@@ -187,17 +151,25 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
       return colorsMap[buttonType];
     }
 
-    function renderMainButton() {
-      return [
+    const renderMainButton = () => (
+      <>
         <Button
           data-element="main-button"
           key="main-button"
           id={buttonLabelId.current}
           ref={mainButtonRef}
-          {...mainButtonProps}
+          isWhite={shouldRenderIsWhiteVariant}
+          subtext={subtext}
+          size={size}
+          iconType={iconType}
+          disabled={disabled}
+          buttonType={buttonType}
+          iconPosition={iconPosition}
+          onClick={handleMainClick}
+          {...filterOutStyledSystemSpacingProps(rest)}
         >
           {text}
-        </Button>,
+        </Button>
         <StyledSplitButtonToggle
           aria-expanded={showAdditionalButtons}
           aria-controls={submenuId.current}
@@ -206,7 +178,13 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
           key="toggle-button"
           type="button"
           ref={toggleButtonRef}
-          {...toggleButtonProps}
+          isWhite={shouldRenderIsWhiteVariant}
+          disabled={disabled}
+          displayed={showAdditionalButtons}
+          buttonType={buttonType}
+          size={size}
+          onKeyDown={handleToggleButtonKeyDown}
+          onClick={handleToggleClick}
         >
           <Icon
             type="dropdown"
@@ -214,55 +192,51 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
             bg="transparent"
             disabled={disabled}
           />
-        </StyledSplitButtonToggle>,
-      ];
-    }
+        </StyledSplitButtonToggle>
+      </>
+    );
 
-    function renderAdditionalButtons() {
-      if (!showAdditionalButtons) return null;
-
-      return (
-        <Popover
-          disableBackgroundUI={isInFlatTable}
-          disablePortal
-          placement={
-            position === "left"
-              ? /* istanbul ignore next */ "bottom-start"
-              : "bottom-end"
-          }
-          popoverStrategy="fixed"
-          reference={buttonNode}
-          middleware={[
-            offset(6),
-            flip({
-              fallbackStrategy: "initialPlacement",
-            }),
-          ]}
+    const renderAdditionalButtons = () => (
+      <Popover
+        disableBackgroundUI={isInFlatTable}
+        disablePortal
+        placement={
+          position === "left"
+            ? /* istanbul ignore next */ "bottom-start"
+            : "bottom-end"
+        }
+        popoverStrategy="fixed"
+        reference={buttonNode}
+        middleware={[
+          offset(6),
+          flip({
+            fallbackStrategy: "initialPlacement",
+          }),
+        ]}
+      >
+        <StyledSplitButtonChildrenContainer
+          id={submenuId.current}
+          {...wrapperProps}
+          align={align}
+          hidden={!showAdditionalButtons}
         >
-          <StyledSplitButtonChildrenContainer
-            id={submenuId.current}
-            {...wrapperProps}
-            align={align}
-          >
-            <SplitButtonContext.Provider value={contextValue}>
-              {React.Children.map(children, (child) => (
-                <li>{child}</li>
-              ))}
-            </SplitButtonContext.Provider>
-          </StyledSplitButtonChildrenContainer>
-        </Popover>
-      );
-    }
-
-    const handleClick = useClickAwayListener(hideButtons);
-    const marginProps = filterStyledSystemMarginProps(rest);
+          <SplitButtonContext.Provider value={contextValue}>
+            {React.Children.map(children, (child) => (
+              <li>{child}</li>
+            ))}
+          </SplitButtonContext.Provider>
+        </StyledSplitButtonChildrenContainer>
+      </Popover>
+    );
 
     return (
       <StyledSplitButton
-        onClick={handleClick}
+        data-component="split-button"
+        data-element={dataElement}
+        data-role={dataRole}
+        onClick={useClickAwayListener(hideButtons)}
         ref={buttonNode}
-        {...componentTags()}
-        {...marginProps}
+        {...filterStyledSystemMarginProps(rest)}
       >
         {renderMainButton()}
         {renderAdditionalButtons()}

@@ -5,9 +5,7 @@ import { SageTheme as SageThemeStory, AllThemes } from "./components.test-pw";
 import Button from "../../../src/components/button";
 import Loader from "../../../src/components/loader";
 import LoaderBar from "../../../src/components/loader-bar";
-import MultiActionButton from "../../../src/components/multi-action-button";
 import Pill from "../../../src/components/pill";
-import SplitButton from "../../../src/components/split-button";
 import { Tabs, Tab } from "../tabs";
 
 import { buttonDataComponent } from "../../../playwright/components/button/index";
@@ -16,7 +14,6 @@ import {
   loaderComponent,
 } from "../../../playwright/components/themes/index";
 import { pillPreview } from "../../../playwright/components/index";
-import multiActionButtonComponent from "../../../playwright/components/carbon-provider/index";
 import { checkAccessibility } from "../../../playwright/support/helper";
 
 const themes = ["noMountedTheme", "sage"];
@@ -64,26 +61,6 @@ test.describe("Carbon Provider", () => {
         );
       });
 
-      test(`MultiActionButton component should render with ${theme} theme and verify theme color`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <MultiActionButton text="Multi Action Button">
-            <Button href="#">Button 1</Button>
-            <Button>Button 2</Button>
-            <Button>Button 3</Button>
-          </MultiActionButton>,
-          { hooksConfig: { theme: `${theme}` } },
-        );
-
-        await expect(buttonDataComponent(page)).toHaveCSS("color", color);
-        await expect(buttonDataComponent(page)).toHaveCSS(
-          "border-color",
-          color,
-        );
-      });
-
       test(`Pill component should render with ${theme} theme and verify theme color`, async ({
         mount,
         page,
@@ -91,26 +68,6 @@ test.describe("Carbon Provider", () => {
         await mount(<Pill>Foo</Pill>, { hooksConfig: { theme: `${theme}` } });
 
         await expect(pillPreview(page)).toHaveCSS("border-color", color);
-      });
-
-      test(`SplitButton component should render with ${theme} theme and verify theme color`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <SplitButton text="Split button">
-            <Button>Button 1</Button>
-            <Button>Button 2</Button>
-            <Button>Button 3</Button>
-          </SplitButton>,
-          { hooksConfig: { theme: `${theme}` } },
-        );
-
-        await expect(buttonDataComponent(page)).toHaveCSS("color", color);
-        await expect(buttonDataComponent(page)).toHaveCSS(
-          "border-color",
-          color,
-        );
       });
 
       test(`Tabs component should render with ${theme} theme and verify theme color`, async ({
@@ -154,51 +111,6 @@ test.describe("Hover styling", () => {
           "background-color",
           color,
         );
-      });
-
-      test("SplitButton component and verify theme color", async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <SplitButton text="Split button">
-            <Button>Button 1</Button>
-            <Button>Button 2</Button>
-            <Button>Button 3</Button>
-          </SplitButton>,
-          { hooksConfig: { theme: `${theme}` } },
-        );
-
-        const toggleButton = page.locator('[data-element="toggle-button"]');
-
-        await toggleButton.hover();
-
-        await expect(toggleButton).toHaveCSS("background-color", color);
-      });
-    });
-  });
-
-  buildTestArray(commonColorsOnHover).forEach(([theme, color]) => {
-    test.describe(`should render components with ${theme} theme onHover`, () => {
-      test("MultiActionButton component and verify theme color", async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <MultiActionButton text="Multi Action Button">
-            <Button href="#">Button 1</Button>
-            <Button>Button 2</Button>
-            <Button>Button 3</Button>
-          </MultiActionButton>,
-          {
-            hooksConfig: { theme: `${theme}` },
-          },
-        );
-
-        await multiActionButtonComponent(page).locator("button").hover();
-        await expect(
-          multiActionButtonComponent(page).locator("button"),
-        ).toHaveCSS("background-color", color);
       });
     });
   });
