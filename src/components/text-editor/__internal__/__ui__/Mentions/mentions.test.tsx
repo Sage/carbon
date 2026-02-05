@@ -87,7 +87,6 @@ describe("when MentionsTypeaheadMenuItem component is rendered", () => {
   it("renders correctly when not selected", () => {
     render(
       <MentionsTypeaheadMenuItem
-        namespace="test"
         index={0}
         isSelected={false}
         onClick={() => {}}
@@ -102,7 +101,6 @@ describe("when MentionsTypeaheadMenuItem component is rendered", () => {
   it("renders correctly when selected", () => {
     render(
       <MentionsTypeaheadMenuItem
-        namespace="test"
         index={0}
         isSelected={true}
         onClick={() => {}}
