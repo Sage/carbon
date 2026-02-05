@@ -1,10 +1,15 @@
 import styled from "styled-components";
 
-export const TypeaheadPopover = styled.div`
+export const TypeaheadPopover = styled.div<{
+  parentOffsetLeft: number;
+  parentOffsetTop: number;
+}>`
   background: #fff;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
   border-radius: 8px;
   position: relative;
+  top: ${({ parentOffsetTop }) => -parentOffsetTop}px;
+  left: ${({ parentOffsetLeft }) => -parentOffsetLeft}px;
   width: 250px; /* .mentions-menu class */
 `;
 
