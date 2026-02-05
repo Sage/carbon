@@ -10,6 +10,8 @@ import {
   $getRoot,
   $isParagraphNode,
 } from "lexical";
+
+import { $isListItemNode } from "@lexical/list";
 import React, { RefObject, useEffect, useState } from "react";
 
 import Box from "../../../../../box";
@@ -133,30 +135,42 @@ const TypographySelector = ({
           let firstNewNode: TextNode | StyledSpanNode | null = null;
 
           nodes.forEach((node) => {
-            /* istanbul ignore else */
-            if (node instanceof TextNode || node instanceof StyledSpanNode) {
-              let newNode: TextNode | StyledSpanNode;
+            // Only handle text-like nodes, paragraph nodes and list item nodes
+            const isTextLike =
+              node instanceof TextNode || node instanceof StyledSpanNode;
+            const isParagraph = $isParagraphNode(node);
+            const isListItem = $isListItemNode(node);
 
-              /* istanbul ignore if */
-              if (option === "paragraph") {
-                // Use a regular TextNode for paragraphs. Doing so ensures that
-                // the mentions plugin can still function correctly
-                newNode = new TextNode(node.getTextContent());
-              } else {
-                // Use StyledSpanNode for other typography styles.
-                newNode = StyledSpanNode.createFromOption(
-                  option,
-                  node.getTextContent(),
-                );
-              }
-              // Replace the current node with the new node
+            if (!isTextLike && !isParagraph && !isListItem) return;
+
+            const isPlainParagraph = option === "paragraph";
+
+            // Text content differs depending on whether we're converting existing text or
+            // creating a fresh selectable node inside an empty paragraph. When a fresh
+            // selectable node is added inside an empty paragraph the zero width space
+            // character ensures the cursor can be placed inside the new node.
+
+            const content =
+              isParagraph || isListItem ? "\u200B" : node.getTextContent();
+
+            // Create the appropriate node type based on the selected typography option:
+            // - Use a plain TextNode for paragraphs to preserve compatibility (e.g. mentions plugin)
+            // - Use a StyledSpanNode for all other typography styles
+            const newNode: TextNode | StyledSpanNode = isPlainParagraph
+              ? new TextNode(content)
+              : StyledSpanNode.createFromOption(option, content);
+
+            if (isTextLike) {
+              // Replace existing text node
               node.replace(newNode);
+            } else {
+              // Append a new child to the paragraph
+              node.append(newNode);
+            }
 
-              /* istanbul ignore else */
-              if (!firstNewNode) {
-                // If this is the first new node, store it to restore cursor position later
-                firstNewNode = newNode;
-              }
+            /* istanbul ignore else */
+            if (!firstNewNode) {
+              firstNewNode = newNode;
             }
           });
 
