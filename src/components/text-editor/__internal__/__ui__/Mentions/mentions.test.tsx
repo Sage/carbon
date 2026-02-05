@@ -4,6 +4,7 @@ import { checkForAtSignMentions, getPossibleQueryMatch } from "./helpers";
 import MentionsTypeaheadMenuItem from "./mentions-typeahead-menu-item.component";
 import MentionTypeaheadOption from "./mention-typeahead-option.class";
 import MentionsPlugin from "./mentions.component";
+import { TypeaheadPopover } from "./mentions.style";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { LexicalTypeaheadMenuPlugin } from "@lexical/react/LexicalTypeaheadMenuPlugin";
 import { $createMentionNode } from "../../__nodes__/mention.node";
@@ -254,5 +255,34 @@ describe("MentionsPlugin", () => {
       expect(mockNextSibling.select).toHaveBeenCalledWith(1, 1);
       expect(closeMenu).toHaveBeenCalled();
     });
+  });
+});
+
+/* these styling tests are for coverage purposes only */
+describe("When TypeaheadPopover is opened", () => {
+  it("applies offsets based on the parent position", () => {
+    render(
+      <TypeaheadPopover parentOffsetLeft={16} parentOffsetTop={24}>
+        Content
+      </TypeaheadPopover>,
+    );
+
+    const popover = screen.getByText("Content");
+
+    expect(popover).toHaveStyle("left: -16px");
+    expect(popover).toHaveStyle("top: -24px");
+  });
+
+  it("renders the base popover styling", () => {
+    render(
+      <TypeaheadPopover parentOffsetLeft={0} parentOffsetTop={0}>
+        Content
+      </TypeaheadPopover>,
+    );
+
+    const popover = screen.getByText("Content");
+
+    expect(popover).toHaveStyle("width: 250px");
+    expect(popover).toHaveStyle("border-radius: var(--global-radius-action-m)");
   });
 });

@@ -1,10 +1,15 @@
 import styled from "styled-components";
 
-export const TypeaheadPopover = styled.div`
+export const TypeaheadPopover = styled.div<{
+  parentOffsetLeft: number;
+  parentOffsetTop: number;
+}>`
   background: var(--popover-bg-default);
   box-shadow: var(--global-depth-lvl1);
   border-radius: var(--global-radius-action-m);
   position: relative;
+  top: ${({ parentOffsetTop }) => -parentOffsetTop}px;
+  left: ${({ parentOffsetLeft }) => -parentOffsetLeft}px;
   width: 250px; /* .mentions-menu class */
 `;
 
@@ -39,38 +44,12 @@ export const MentionsListItem = styled.li`
   &:hover {
     color: var(--popover-label-hover);
     border-radius: 0;
-
-    div[data-component="portrait"] {
-      color: var(--popover-label-hover);
-
-      [data-element="initials"],
-      [data-component="icon"] {
-        color: var(--popover-label-hover);
-      }
     }
   }
-
-  /* Ask Damo what the purpose of this actually is
-    &.active {
-      display: flex;
-      width: 20px;
-      height: 20px;
-      background-size: contain;
-    }
-  */
 
   &.selected {
     background: var(--popover-bg-hover);
     color: var(--popover-label-hover);
-
-    div[data-component="portrait"] {
-      color: var(--popover-label-hover);
-
-      [data-element="initials"],
-      [data-component="icon"] {
-        color: var(--popover-label-hover);
-      }
-    }
   }
 
   .text {

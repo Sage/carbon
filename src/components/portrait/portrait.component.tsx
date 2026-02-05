@@ -20,6 +20,8 @@ export type PortraitShapes = "circle" | "square";
 export type PortraitSizes = "XS" | "S" | "M" | "ML" | "L" | "XL" | "XXL";
 
 export interface PortraitProps extends MarginProps, TagProps {
+  /** @private @ignore */
+  className?: string;
   /** A custom image URL. */
   src?: string;
   /** The size of the Portrait. */
@@ -64,6 +66,7 @@ export const Portrait = ({
   alt,
   backgroundColor,
   foregroundColor = undefined,
+  className,
   name,
   darkBackground = false,
   iconType = "individual",
@@ -128,6 +131,7 @@ export const Portrait = ({
           <StyledPortraitContainer
             {...filterStyledSystemMarginProps(rest)}
             onClick={onClick}
+            className={className}
             {...tagProps}
             hasValidImg={hasValidImg}
             darkBackground={darkBackground}
@@ -146,6 +150,7 @@ export const Portrait = ({
       <StyledPortraitContainer
         {...filterStyledSystemMarginProps(rest)}
         onClick={onClick}
+        className={className}
         {...tagProps}
         hasValidImg={hasValidImg}
         darkBackground={darkBackground}
