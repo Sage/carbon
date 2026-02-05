@@ -30,6 +30,7 @@ import {
 import useLocale from "../../../../../hooks/__internal__/useLocale";
 
 import { MentionsList, TypeaheadPopover } from "./mentions.style";
+import { usePluginContext } from "../../__providers__/plugin-provider";
 
 export const MentionsPlugin = ({
   namespace,
@@ -137,12 +138,19 @@ export const MentionsPlugin = ({
     );
   }, [editor]);
 
+  const { getParentRef } = usePluginContext();
+  const parentElement = getParentRef();
+  const parentRect = parentElement?.getBoundingClientRect();
+  const parentOffsetLeft = parentRect?.left ?? 0;
+  const parentOffsetTop = parentRect?.top ?? 0;
+
   return (
     <LexicalTypeaheadMenuPlugin<MentionTypeaheadOption>
       onQueryChange={setQueryString}
       onSelectOption={onSelectOption}
       triggerFn={checkForMentionMatch}
       options={options}
+      parent={parentElement}
       menuRenderFn={(
         anchorElementRef,
         { selectedIndex, selectOptionAndCleanUp, setHighlightedIndex },
@@ -163,6 +171,8 @@ export const MentionsPlugin = ({
           <TypeaheadPopover
             className="carbon-portal-mentions"
             id={`${namespace}-mentions-menu`}
+            parentOffsetLeft={parentOffsetLeft}
+            parentOffsetTop={parentOffsetTop}
           >
             <MentionsList
               data-role={`mention-list`}

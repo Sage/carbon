@@ -34,6 +34,15 @@ export const StyledPortraitInitials = styled.div<
   justify-content: center;
   height: inherit;
   width: inherit;
+
+  .mentions-list-item && {
+    color: var(--input-dropdown-label-default);
+  }
+
+  .mentions-list-item:hover &&,
+  .mentions-list-item.selected && {
+    color: var(--popover-label-hover);
+  }
 `;
 
 export const StyledCustomImg = styled.img`
@@ -77,4 +86,13 @@ export const StyledPortraitContainer = styled.div.attrs(applyBaseTheme)<
 
   ${({ onClick }) => onClick && "cursor: pointer"}
   ${margin}
+
+  .mentions-list-item && {
+    color: currentColor;
+  }
+
+  .mentions-list-item:hover &&,
+  .mentions-list-item.selected && {
+    color: currentColor;
+  }
 `;

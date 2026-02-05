@@ -37,6 +37,7 @@ export const MentionsTypeaheadMenuItem = ({
   onMouseEnter,
   option,
   currentQueryString,
+  ...rest
 }: {
   index: number;
   isSelected: boolean;
@@ -45,7 +46,7 @@ export const MentionsTypeaheadMenuItem = ({
   option: MentionTypeaheadOption;
   currentQueryString?: string;
 }) => {
-  const className = "item" + (isSelected ? " selected" : "");
+  const className = "item mentions-list-item" + (isSelected ? " selected" : "");
 
   return (
     <MentionsListItem
@@ -60,6 +61,7 @@ export const MentionsTypeaheadMenuItem = ({
       onClick={onClick}
       onKeyDown={onClick}
       aria-label={option.name}
+      {...rest}
     >
       <Portrait
         initials={option.initials}
