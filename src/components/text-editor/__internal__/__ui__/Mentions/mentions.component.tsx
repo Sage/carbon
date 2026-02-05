@@ -146,47 +146,56 @@ export const MentionsPlugin = ({
       menuRenderFn={(
         anchorElementRef,
         { selectedIndex, selectOptionAndCleanUp, setHighlightedIndex },
-      ) =>
-        anchorElementRef.current && results.length
-          ? ReactDOM.createPortal(
-              <TypeaheadPopover
-                className="carbon-portal-mentions"
-                id={`${namespace}-mentions-menu`}
-              >
-                <MentionsList
-                  data-role={`mention-list`}
-                  id={`${namespace}-mention-list`}
-                  role="listbox"
-                  aria-label={locale.textEditor.mentions.listAriaLabel()}
-                >
-                  {options.map((option, i: number) => {
-                    const optionKey =
-                      option.key ?? option.id ?? `${namespace}-${i}`;
+      ) => {
+        const anchorElement = anchorElementRef.current;
 
-                    return (
-                      <MentionsTypeaheadMenuItem
-                        index={i}
-                        isSelected={selectedIndex === i}
-                        onClick={() => {
-                          setHighlightedIndex(i);
-                          selectOptionAndCleanUp(option);
-                        }}
-                        onMouseEnter={() => {
-                          setHighlightedIndex(i);
-                        }}
-                        key={optionKey}
-                        option={option}
-                        namespace={namespace}
-                        currentQueryString={queryString ?? undefined}
-                      />
-                    );
-                  })}
-                </MentionsList>
-              </TypeaheadPopover>,
-              anchorElementRef.current,
-            )
-          : null
-      }
+        if (!anchorElement || results.length === 0) {
+          anchorElement?.removeAttribute("aria-label");
+          return null;
+        }
+
+        anchorElement.setAttribute(
+          "aria-label",
+          locale.textEditor.mentions.listAriaLabel(),
+        );
+
+        return ReactDOM.createPortal(
+          <TypeaheadPopover
+            className="carbon-portal-mentions"
+            id={`${namespace}-mentions-menu`}
+          >
+            <MentionsList
+              data-role={`mention-list`}
+              id={`${namespace}-mention-list`}
+              role="group"
+              tabIndex={0}
+            >
+              {options.map((option, i: number) => {
+                const optionKey =
+                  option.key ?? option.id ?? `${namespace}-${i}`;
+
+                return (
+                  <MentionsTypeaheadMenuItem
+                    index={i}
+                    isSelected={selectedIndex === i}
+                    onClick={() => {
+                      setHighlightedIndex(i);
+                      selectOptionAndCleanUp(option);
+                    }}
+                    onMouseEnter={() => {
+                      setHighlightedIndex(i);
+                    }}
+                    key={optionKey}
+                    option={option}
+                    currentQueryString={queryString ?? undefined}
+                  />
+                );
+              })}
+            </MentionsList>
+          </TypeaheadPopover>,
+          anchorElement,
+        );
+      }}
     />
   );
 };

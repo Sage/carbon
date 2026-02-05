@@ -33,7 +33,6 @@ const HighlightedText = ({ text, query }: { text: string; query?: string }) => {
 export const MentionsTypeaheadMenuItem = ({
   index,
   isSelected,
-  namespace,
   onClick,
   onMouseEnter,
   option,
@@ -41,7 +40,6 @@ export const MentionsTypeaheadMenuItem = ({
 }: {
   index: number;
   isSelected: boolean;
-  namespace: string;
   onClick: () => void;
   onMouseEnter: () => void;
   option: MentionTypeaheadOption;
@@ -57,7 +55,7 @@ export const MentionsTypeaheadMenuItem = ({
       ref={option.setRefElement}
       role="option"
       aria-selected={isSelected}
-      id={`${namespace}-typeahead-item-${index}`}
+      id={`typeahead-item-${index}`}
       onMouseEnter={onMouseEnter}
       onClick={onClick}
       onKeyDown={onClick}
