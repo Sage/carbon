@@ -93,6 +93,11 @@ const config: StorybookConfig = {
           "~@sage": path.resolve(__dirname, "../node_modules/@sage/"),
         },
       },
+      server: {
+        watch: {
+          ignored: ["**/coverage/**", "**/node_modules/**"],
+        },
+      },
       build: {
         rollupOptions: {
           output: {
