@@ -313,7 +313,7 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
         {...filterStyledSystemMarginProps(rest)}
         {...tagComponent("time", rest)}
       >
-        <Box display="flex">
+        <Box display="flex" alignItems="end">
           <div>
             <StyledLabel
               aria-label={hrsAriaLabel}
@@ -346,6 +346,7 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
             justifyContent="center"
             mx={1}
             aria-hidden="true"
+            alignSelf="center"
           >
             <span>&nbsp;</span>
             <Typography isDisabled={disabled} variant="span" mb="-4px">
