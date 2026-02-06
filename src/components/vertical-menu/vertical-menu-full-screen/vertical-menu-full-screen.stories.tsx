@@ -7,7 +7,7 @@ import VerticalMenuFullScreen from "./vertical-menu-full-screen.component";
  */
 
 const meta: Meta<typeof VerticalMenuFullScreen> = {
-  title: "Vertical Menu Full Screen",
+  title: "Components/Vertical Menu Full Screen",
   component: VerticalMenuFullScreen,
   tags: ["hideInSidebar"],
   parameters: {

@@ -8,7 +8,7 @@ import FlatTableBody from "./flat-table-body.component";
  */
 
 const meta: Meta<typeof FlatTableBody> = {
-  title: "Flat Table Body",
+  title: "Components/Flat Table Body",
   component: FlatTableBody,
   tags: ["hideInSidebar"],
   parameters: {

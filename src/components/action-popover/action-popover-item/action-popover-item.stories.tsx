@@ -7,7 +7,7 @@ import { ActionPopoverItem } from "./action-popover-item.component";
  */
 
 const meta: Meta<typeof ActionPopoverItem> = {
-  title: "ActionPopoverItem",
+  title: "Components/ActionPopoverItem",
   component: ActionPopoverItem,
   tags: ["hideInSidebar"],
   parameters: {

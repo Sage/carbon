@@ -10,7 +10,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof Content> = {
-  title: "Deprecated/Content",
+  title: "Components/Deprecated/Content",
   component: Content,
   render: (args) => (
     <Content title="Title" {...args}>

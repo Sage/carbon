@@ -12,7 +12,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof TileSelectGroup> = {
-  title: "Tile Select Group",
+  title: "Components/Tile Select Group",
   component: TileSelectGroup,
   tags: ["hideInSidebar"],
   argTypes: {

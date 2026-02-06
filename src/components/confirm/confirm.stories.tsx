@@ -10,7 +10,7 @@ import Confirm from ".";
 const defaultOpenState = isChromatic();
 
 const meta: Meta<typeof Confirm> = {
-  title: "Deprecated/Confirm",
+  title: "Components/Deprecated/Confirm",
   component: Confirm,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },

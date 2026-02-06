@@ -17,7 +17,7 @@ import useMultiInput from "../../../hooks/use-multi-input";
 
 export default {
   component: Select,
-  title: "Select/Test",
+  title: "Components/Select/Test",
   parameters: {
     info: { disable: true },
     chromatic: {

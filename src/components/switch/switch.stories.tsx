@@ -12,7 +12,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof Switch> = {
-  title: "Switch",
+  title: "Components/Switch",
   component: Switch,
   argTypes: {
     ...styledSystemProps,

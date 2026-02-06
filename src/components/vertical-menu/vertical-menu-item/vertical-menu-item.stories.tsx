@@ -12,7 +12,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof VerticalMenuItem> = {
-  title: "Vertical Menu Item",
+  title: "Components/Vertical Menu Item",
   component: VerticalMenuItem,
   tags: ["hideInSidebar"],
   argTypes: {

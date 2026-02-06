@@ -14,7 +14,7 @@ import Loader from "../../loader/__next__";
 import Typography from "../../typography";
 
 export default {
-  title: "Vertical Menu/Responsive/Test",
+  title: "Components/Vertical Menu/Responsive/Test",
   component: ResponsiveVerticalMenu,
   parameters: {
     info: { disable: true },

@@ -8,7 +8,7 @@ import PicklistItem from "./picklist-item.component";
  */
 
 const meta: Meta<typeof PicklistItem> = {
-  title: "Picklist Item",
+  title: "Components/Picklist Item",
   component: PicklistItem,
   tags: ["hideInSidebar"],
   parameters: {

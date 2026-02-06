@@ -12,7 +12,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof FlatTableCell> = {
-  title: "Flat Table Cell",
+  title: "Components/Flat Table Cell",
   component: FlatTableCell,
   tags: ["hideInSidebar"],
   argTypes: {

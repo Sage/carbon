@@ -18,7 +18,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof TileSelect> = {
-  title: "Tile Select",
+  title: "Components/Tile Select",
   component: TileSelect,
   argTypes: {
     ...styledSystemProps,

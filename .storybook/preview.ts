@@ -42,6 +42,22 @@ const parameters = {
   chromatic: { disableSnapshot: false },
   viewport: { viewports: customViewports },
   viewMode: import.meta.env.STORYBOOK_VIEW_MODE,
+  options: {
+    storySort: {
+      method: "alphabetical",
+      order: [
+        "Welcome",
+        "Getting Started",
+        "Documentation",
+        "Contributing",
+        "Providers",
+        "Components",
+        ["Deprecated", "*"],
+        "Hooks",
+        "*",
+      ],
+    },
+  },
 };
 
 const globalTypes = {

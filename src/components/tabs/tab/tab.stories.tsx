@@ -12,7 +12,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof Tab> = {
-  title: "Tab",
+  title: "Components/Tab",
   component: Tab,
   tags: ["hideInSidebar"],
   argTypes: {

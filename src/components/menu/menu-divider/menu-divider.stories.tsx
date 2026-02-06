@@ -8,7 +8,7 @@ import MenuDivider from "./menu-divider.component";
  */
 
 const meta: Meta<typeof MenuDivider> = {
-  title: "Menu Divider",
+  title: "Components/Menu Divider",
   component: MenuDivider,
   tags: ["hideInSidebar"],
   parameters: {

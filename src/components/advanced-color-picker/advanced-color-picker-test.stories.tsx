@@ -3,7 +3,7 @@ import { action } from "@storybook/addon-actions";
 import AdvancedColorPicker, { AdvancedColorPickerProps } from ".";
 
 export default {
-  title: "Advanced Color Picker/Test",
+  title: "Components/Advanced Color Picker/Test",
   component: AdvancedColorPicker,
   parameters: {
     info: { disable: true },

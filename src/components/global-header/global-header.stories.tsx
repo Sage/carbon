@@ -20,7 +20,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof GlobalHeader> = {
-  title: "Global Header",
+  title: "Components/Global Header",
   component: GlobalHeader,
   argTypes: {
     ...styledSystemProps,

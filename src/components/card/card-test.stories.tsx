@@ -8,7 +8,7 @@ import Typography from "../typography";
 import Icon from "../icon";
 
 export default {
-  title: "Card/Test",
+  title: "Components/Card/Test",
   component: Card,
   parameters: {
     docs: {

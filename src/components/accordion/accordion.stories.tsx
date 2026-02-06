@@ -14,7 +14,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof Accordion> = {
-  title: "Accordion",
+  title: "Components/Accordion",
   component: Accordion,
   argTypes: {
     ...styledSystemProps,

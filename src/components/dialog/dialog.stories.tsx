@@ -21,7 +21,7 @@ import type { DialogHandle, DialogProps } from ".";
 import Dialog from ".";
 
 const meta: Meta<typeof Dialog> = {
-  title: "Dialog",
+  title: "Components/Dialog",
   component: Dialog,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },

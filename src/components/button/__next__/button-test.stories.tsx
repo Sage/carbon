@@ -9,7 +9,7 @@ import Icon from "../../icon";
 import DefaultDecorator from "../../../../.storybook/utils/default-decorator";
 
 const meta: Meta<typeof Button> = {
-  title: "Button/Test",
+  title: "Components/Button/Test",
   component: Button,
   parameters: { chromatic: { disableSnapshot: true } },
   args: {

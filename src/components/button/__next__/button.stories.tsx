@@ -6,7 +6,7 @@ import Icon from "../../icon";
 import { Loader } from "../../loader/__next__/loader.component";
 
 const meta: Meta<typeof Button> = {
-  title: "Button",
+  title: "Components/Button",
   component: Button,
   parameters: { chromatic: { disableSnapshot: true } },
   args: {

@@ -6,7 +6,7 @@ import Button from "../button";
 import { sageTheme, baseTheme, noTheme } from "../../style/themes";
 
 const meta: Meta<typeof CarbonProvider> = {
-  title: "Carbon Provider/Test",
+  title: "Providers/Carbon Provider/Test",
   component: CarbonProvider,
   argTypes: {
     theme: {

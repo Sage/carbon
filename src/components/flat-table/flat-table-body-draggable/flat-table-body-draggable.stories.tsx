@@ -8,7 +8,7 @@ import FlatTableBodyDraggable from "./flat-table-body-draggable.component";
  */
 
 const meta: Meta<typeof FlatTableBodyDraggable> = {
-  title: "Flat Table Body Draggable",
+  title: "Components/Flat Table Body Draggable",
   component: FlatTableBodyDraggable,
   tags: ["hideInSidebar"],
   parameters: {

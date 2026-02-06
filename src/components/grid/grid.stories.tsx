@@ -15,7 +15,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta = {
-  title: "Deprecated/Grid",
+  title: "Components/Deprecated/Grid",
   argTypes: {
     ...styledSystemProps,
     alignSelf: {

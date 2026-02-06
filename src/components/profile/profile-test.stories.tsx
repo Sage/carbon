@@ -3,7 +3,7 @@ import Profile, { ProfileProps } from "./profile.component";
 import Box from "../box";
 
 export default {
-  title: "Profile/Test",
+  title: "Components/Profile/Test",
   component: Profile,
   parameters: {
     info: { disable: true },

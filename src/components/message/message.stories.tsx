@@ -10,7 +10,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof Message> = {
-  title: "Message",
+  title: "Components/Message",
   component: Message,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },

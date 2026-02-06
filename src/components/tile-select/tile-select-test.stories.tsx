@@ -5,7 +5,7 @@ import Pill from "../pill";
 import Icon from "../icon";
 
 export default {
-  title: "Tile Select/Test",
+  title: "Components/Tile Select/Test",
   includeStories: ["DefaultStory"],
   parameters: {
     info: { disable: true },

@@ -11,7 +11,7 @@ import DefaultDecorator from "../../../.storybook/utils/default-decorator";
 type Story = StoryObj<typeof BatchSelection>;
 
 export default {
-  title: "Batch Selection/Interactions",
+  title: "Components/Batch Selection/Interactions",
   component: BatchSelection,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },

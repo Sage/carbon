@@ -5,7 +5,7 @@ import Pod from "../pod";
 import { GridContainer, GridItem } from ".";
 
 export default {
-  title: "Deprecated/Grid/Test",
+  title: "Components/Deprecated/Grid/Test",
   parameters: {
     info: { disable: true },
     chromatic: { disableSnapshot: true, viewports: [1500, 1300, 900] },

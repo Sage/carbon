@@ -17,7 +17,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof Dl> = {
-  title: "Definition List",
+  title: "Components/Definition List",
   component: Dl,
   argTypes: {
     ...styledSystemProps,

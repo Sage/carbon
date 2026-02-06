@@ -8,7 +8,7 @@ import ScrollableBlock from "./scrollable-block.component";
  */
 
 const meta: Meta<typeof ScrollableBlock> = {
-  title: "Scrollable Block",
+  title: "Components/Scrollable Block",
   component: ScrollableBlock,
   tags: ["hideInSidebar"],
   parameters: {

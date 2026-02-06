@@ -5,7 +5,7 @@ import Pager, { PagerProps } from ".";
 import useMediaQuery from "../../hooks/useMediaQuery";
 
 const meta: Meta<typeof Pager> = {
-  title: "Pager",
+  title: "Components/Pager",
   component: Pager,
 };
 

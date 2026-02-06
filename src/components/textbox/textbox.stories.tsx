@@ -12,7 +12,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof Textbox> = {
-  title: "Textbox",
+  title: "Components/Textbox",
   component: Textbox,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },

@@ -7,7 +7,7 @@ import PicklistPlaceholder from "./picklist-placeholder.component";
  */
 
 const meta: Meta<typeof PicklistPlaceholder> = {
-  title: "Picklist Placeholder",
+  title: "Components/Picklist Placeholder",
   component: PicklistPlaceholder,
   tags: ["hideInSidebar"],
   parameters: {

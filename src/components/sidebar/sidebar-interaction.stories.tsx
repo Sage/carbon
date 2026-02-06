@@ -42,7 +42,7 @@ const BasicSidebar = ({ children }: { children?: React.ReactNode }) => {
 };
 
 export default {
-  title: "Sidebar/Interactions",
+  title: "Components/Sidebar/Interactions",
   parameters: {
     info: { disable: true },
     themeProvider: { chromatic: { theme: "sage" } },

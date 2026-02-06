@@ -7,7 +7,7 @@ import MenuSegmentTitle from "./menu-segment-title.component";
  */
 
 const meta: Meta<typeof MenuSegmentTitle> = {
-  title: "Menu Segment Title",
+  title: "Components/Menu Segment Title",
   component: MenuSegmentTitle,
   tags: ["hideInSidebar"],
   parameters: {

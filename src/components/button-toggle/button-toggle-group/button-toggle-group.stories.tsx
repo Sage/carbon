@@ -13,7 +13,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof ButtonToggleGroup> = {
-  title: "Button Toggle/Button Toggle Group",
+  title: "Components/Button Toggle/Button Toggle Group",
   component: ButtonToggleGroup,
   argTypes: {
     ...styledSystemProps,

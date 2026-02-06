@@ -21,7 +21,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof SimpleSelect> = {
-  title: "Select",
+  title: "Components/Select",
   component: SimpleSelect,
   argTypes: {
     ...styledSystemProps,

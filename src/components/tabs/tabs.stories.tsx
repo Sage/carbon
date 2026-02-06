@@ -15,7 +15,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof Tabs> = {
-  title: "Deprecated/Tabs",
+  title: "Components/Deprecated/Tabs",
   component: Tabs,
   argTypes: {
     ...styledSystemProps,

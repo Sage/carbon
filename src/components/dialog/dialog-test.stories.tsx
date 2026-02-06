@@ -20,7 +20,7 @@ import { StepFlow } from "../step-flow";
 import DialogFullScreen from "../dialog-full-screen";
 
 export default {
-  title: "Dialog/Test",
+  title: "Components/Dialog/Test",
   component: Dialog,
   parameters: {
     info: { disable: true },

@@ -4,7 +4,7 @@ import { StyledImageProps } from "./image.style";
 import pointSvg from "../../../.assets/point.svg";
 
 export default {
-  title: "Image/Test",
+  title: "Components/Image/Test",
   includeStories: ["Default"],
   parameters: {
     info: { disable: true },

@@ -9,7 +9,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof GroupedCharacter> = {
-  title: "Deprecated/Grouped Character",
+  title: "Components/Deprecated/Grouped Character",
   parameters: {
     chromatic: {
       disableSnapshot: true,

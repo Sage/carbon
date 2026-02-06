@@ -7,7 +7,7 @@ import { renderOpen } from "../popover-container.component";
  */
 
 const meta: Meta<typeof renderOpen> = {
-  title: "Render Open",
+  title: "Components/Render Open",
   component: renderOpen,
   tags: ["hideInSidebar"],
   parameters: {

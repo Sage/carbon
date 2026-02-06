@@ -7,7 +7,7 @@ import { Tab } from "../tabs.component";
  */
 
 const meta: Meta<typeof Tab> = {
-  title: "Tab",
+  title: "Components/Tab",
   component: Tab,
   tags: ["hideInSidebar"],
   parameters: {

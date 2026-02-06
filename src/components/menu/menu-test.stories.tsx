@@ -24,7 +24,7 @@ import Pill from "../pill";
 const defaultOpenState = isChromatic();
 
 const meta: Meta<typeof Menu> = {
-  title: "Menu/Test",
+  title: "Components/Menu/Test",
   parameters: {
     info: { disable: true },
     chromatic: {

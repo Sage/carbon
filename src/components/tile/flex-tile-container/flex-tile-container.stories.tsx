@@ -7,7 +7,7 @@ import FlexTileContainer from "./flex-tile-container.component";
  */
 
 const meta: Meta<typeof FlexTileContainer> = {
-  title: "Flex Tile Container",
+  title: "Components/Flex Tile Container",
   component: FlexTileContainer,
   tags: ["hideInSidebar"],
   parameters: {

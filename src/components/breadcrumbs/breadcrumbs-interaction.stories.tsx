@@ -11,7 +11,7 @@ import { Crumb } from "./crumb";
 type Story = StoryObj<typeof Breadcrumbs>;
 
 export default {
-  title: "Breadcrumbs/Interactions",
+  title: "Components/Breadcrumbs/Interactions",
   component: Breadcrumbs,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },

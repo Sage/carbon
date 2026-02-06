@@ -17,7 +17,7 @@ import Link from "../link";
 
 const meta: Meta<typeof Sidebar> = {
   component: Sidebar,
-  title: "Sidebar/Test",
+  title: "Components/Sidebar/Test",
   parameters: {
     themeProvider: { chromatic: { theme: "none" } },
   },

@@ -22,7 +22,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof FilterableSelect> = {
-  title: "Select/Filterable",
+  title: "Components/Select/Filterable",
   component: FilterableSelect,
   argTypes: {
     ...styledSystemProps,

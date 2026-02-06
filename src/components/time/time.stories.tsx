@@ -18,7 +18,7 @@ const styledSystemProps = generateStyledSystemProps({
 }) as Partial<ArgTypes<TimeProps>>;
 
 const meta: Meta<typeof Time> = {
-  title: "Time",
+  title: "Components/Time",
   component: Time,
   parameters: {
     controls: {

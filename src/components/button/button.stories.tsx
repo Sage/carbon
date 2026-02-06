@@ -12,7 +12,7 @@ const styledSystemProps = generateStyledSystemProps(
 );
 
 const meta: Meta<typeof Button> = {
-  title: "Deprecated/Button",
+  title: "Components/Deprecated/Button",
   component: Button,
   argTypes: {
     ...styledSystemProps,

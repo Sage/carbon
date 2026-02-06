@@ -31,7 +31,7 @@ const styledSystemProps = generateStyledSystemProps(
 );
 
 const meta: Meta<typeof VerticalDivider> = {
-  title: "Deprecated/Vertical Divider",
+  title: "Components/Deprecated/Vertical Divider",
   component: VerticalDivider,
   argTypes: {
     ...styledSystemProps,

@@ -8,7 +8,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta = {
-  title: "Checkbox",
+  title: "Components/Checkbox",
   component: Checkbox,
   argTypes: {
     ...styledSystemProps,

@@ -14,7 +14,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof Fieldset> = {
-  title: "Fieldset",
+  title: "Components/Fieldset",
   component: Fieldset,
   argTypes: {
     ...styledSystemProps,

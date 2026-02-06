@@ -12,7 +12,7 @@ import Search, { SearchEvent } from "../search";
 import { Checkbox } from "../checkbox";
 
 export default {
-  title: "Deprecated/Duelling Picklist/Test",
+  title: "Components/Deprecated/Duelling Picklist/Test",
   includeStories: ["Default"],
   parameters: {
     info: { disable: true },

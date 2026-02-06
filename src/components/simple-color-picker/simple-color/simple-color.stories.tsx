@@ -7,7 +7,7 @@ import SimpleColor from "./simple-color.component";
  */
 
 const meta: Meta<typeof SimpleColor> = {
-  title: "Simple Color",
+  title: "Components/Simple Color",
   component: SimpleColor,
   tags: ["hideInSidebar"],
   parameters: {

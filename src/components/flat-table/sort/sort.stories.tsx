@@ -7,7 +7,7 @@ import Sort from "./sort.component";
  */
 
 const meta: Meta<typeof Sort> = {
-  title: "Sort",
+  title: "Components/Sort",
   component: Sort,
   tags: ["hideInSidebar"],
   parameters: {

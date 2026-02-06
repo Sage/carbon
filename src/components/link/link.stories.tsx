@@ -7,7 +7,7 @@ import { Menu, MenuItem } from "../menu";
 import Typography from "../typography";
 
 const meta: Meta<typeof Link> = {
-  title: "Link",
+  title: "Components/Link",
   component: Link,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },

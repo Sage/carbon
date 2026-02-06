@@ -3,7 +3,7 @@ import { action } from "@storybook/addon-actions";
 import { SimpleColorPicker, SimpleColor } from ".";
 
 export default {
-  title: "Simple Color Picker/Test",
+  title: "Components/Simple Color Picker/Test",
   includeStories: [
     "Default",
     "ValidationsStringComponent",

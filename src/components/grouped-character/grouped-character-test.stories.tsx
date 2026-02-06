@@ -10,7 +10,7 @@ import GroupedCharacter, { CustomEvent } from "./grouped-character.component";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
 export default {
-  title: "Deprecated/Grouped Character/Test",
+  title: "Components/Deprecated/Grouped Character/Test",
   parameters: {
     info: { disable: true },
     chromatic: {

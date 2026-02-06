@@ -12,7 +12,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof AccordionGroup> = {
-  title: "AccordionGroup",
+  title: "Components/AccordionGroup",
   component: AccordionGroup,
   tags: ["hideInSidebar"],
   argTypes: {

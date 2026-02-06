@@ -11,7 +11,7 @@ import DefaultDecorator from "../../../.storybook/utils/default-decorator";
 type Story = StoryObj<typeof Checkbox>;
 
 export default {
-  title: "Checkbox/Interactions",
+  title: "Components/Checkbox/Interactions",
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
   },

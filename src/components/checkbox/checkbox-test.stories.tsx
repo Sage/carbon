@@ -6,7 +6,7 @@ import Box from "../box";
 import CarbonProvider from "../carbon-provider";
 
 export default {
-  title: "Checkbox/Test",
+  title: "Components/Checkbox/Test",
   parameters: {
     info: { disable: true },
     chromatic: {

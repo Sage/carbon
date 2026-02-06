@@ -3,7 +3,7 @@ import { action } from "@storybook/addon-actions";
 import Pager, { PagerProps } from ".";
 
 export default {
-  title: "Pager/Test",
+  title: "Components/Pager/Test",
   includeStories: ["Default"],
   parameters: {
     info: { disable: true },

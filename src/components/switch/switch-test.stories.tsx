@@ -8,7 +8,7 @@ import Box from "../box/box.component";
 import { useMultiInputBoolean } from "../../hooks/use-multi-input/use-multi-input";
 
 const meta: Meta<typeof Switch> = {
-  title: "Switch/Test",
+  title: "Components/Switch/Test",
   component: Switch,
   parameters: {
     info: { disable: true },

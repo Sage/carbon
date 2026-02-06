@@ -12,7 +12,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof CardFooter> = {
-  title: "CardFooter",
+  title: "Components/CardFooter",
   component: CardFooter,
   tags: ["hideInSidebar"],
   argTypes: {

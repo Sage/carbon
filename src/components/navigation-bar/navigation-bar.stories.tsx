@@ -13,7 +13,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof NavigationBar> = {
-  title: "Navigation Bar",
+  title: "Components/Navigation Bar",
   component: NavigationBar,
   argTypes: {
     ...styledSystemProps,

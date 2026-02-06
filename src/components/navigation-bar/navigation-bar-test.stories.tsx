@@ -6,7 +6,7 @@ import Box from "../box";
 import useMediaQuery from "../../hooks/useMediaQuery";
 
 export default {
-  title: "Navigation Bar/Test",
+  title: "Components/Navigation Bar/Test",
   includeStories: [
     "DefaultStory",
     "NavigationBarWithSubmenuAndChangingHeight",

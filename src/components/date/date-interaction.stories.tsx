@@ -17,7 +17,7 @@ import Box from "../box";
 type Story = StoryObj<typeof DateInput>;
 
 export default {
-  title: "Date Input/Interactions",
+  title: "Components/Date Input/Interactions",
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
   },

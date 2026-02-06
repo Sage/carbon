@@ -28,7 +28,7 @@ const styledSystemProps = generateStyledSystemProps(
 );
 
 const meta: Meta<typeof MenuItem> = {
-  title: "Menu Item",
+  title: "Components/Menu Item",
   component: MenuItem,
   tags: ["hideInSidebar"],
   argTypes: {

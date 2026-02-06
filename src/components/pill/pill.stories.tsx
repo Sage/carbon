@@ -12,7 +12,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof Pill> = {
-  title: "Pill",
+  title: "Components/Pill",
   component: Pill,
   argTypes: {
     ...styledSystemProps,

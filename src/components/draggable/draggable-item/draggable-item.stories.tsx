@@ -15,7 +15,7 @@ const styledSystemProps = generateStyledSystemProps(
 );
 
 const meta: Meta<typeof DraggableItem> = {
-  title: "Draggable Item",
+  title: "Components/Draggable Item",
   component: DraggableItem,
   tags: ["hideInSidebar"],
   argTypes: {

@@ -11,7 +11,7 @@ import Dialog from "../../dialog";
 
 export default {
   component: MultiSelect,
-  title: "Select/MultiSelect/Test",
+  title: "Components/Select/MultiSelect/Test",
   parameters: {
     info: { disable: true },
     chromatic: {

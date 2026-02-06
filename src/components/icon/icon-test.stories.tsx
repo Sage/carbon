@@ -10,7 +10,7 @@ import {
 import Icon from ".";
 
 export default {
-  title: "Icon/Test",
+  title: "Components/Icon/Test",
   component: Icon,
   parameters: {
     info: { disable: true },

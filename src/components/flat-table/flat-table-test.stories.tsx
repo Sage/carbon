@@ -40,7 +40,7 @@ import DateRange, { DateRangeChangeEvent } from "../date-range";
 import PopoverContainer from "../popover-container";
 
 export default {
-  title: "Flat Table/Test",
+  title: "Components/Flat Table/Test",
   parameters: {
     info: { disable: true },
     chromatic: {

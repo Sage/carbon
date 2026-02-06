@@ -2,7 +2,7 @@ import React from "react";
 import VerticalDivider from "./vertical-divider.component";
 
 export default {
-  title: "Deprecated/Vertical Divider/Test",
+  title: "Components/Deprecated/Vertical Divider/Test",
   includeStories: ["Default"],
   parameters: {
     info: { disable: true },

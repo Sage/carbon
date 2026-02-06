@@ -11,7 +11,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof Loader> = {
-  title: "Deprecated/Loader",
+  title: "Components/Deprecated/Loader",
   component: Loader,
   argTypes: {
     ...styledSystemProps,

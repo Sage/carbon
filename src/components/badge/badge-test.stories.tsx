@@ -12,7 +12,7 @@ import { Tabs, TabList, Tab, TabPanel } from "../tabs/__next__";
 import Typography from "../typography";
 
 const meta: Meta<typeof Badge> = {
-  title: "Badge/Test",
+  title: "Components/Badge/Test",
   component: Badge,
   parameters: {
     info: { disable: true },

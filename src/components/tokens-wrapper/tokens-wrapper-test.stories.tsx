@@ -2,7 +2,7 @@ import React from "react";
 import TokensWrapper from "./tokens-wrapper.component";
 
 export default {
-  title: "Tokens Wrapper/Test",
+  title: "Providers/Tokens Wrapper/Test",
   includeStories: ["LightAndDarkMode"],
   component: TokensWrapper,
   parameters: {

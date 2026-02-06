@@ -5,7 +5,7 @@ import { TooltipProps } from "./tooltip.component";
 import { ButtonProps } from "../button";
 
 export default {
-  title: "Deprecated/Tooltip/Test",
+  title: "Components/Deprecated/Tooltip/Test",
   includeStories: ["DefaultStory"],
   parameters: {
     info: { disable: true },

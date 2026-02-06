@@ -12,7 +12,7 @@ import DefaultDecorator from "../../../.storybook/utils/default-decorator";
 type Story = StoryObj<typeof Link>;
 
 export default {
-  title: "Link/Interactions",
+  title: "Components/Link/Interactions",
   component: Link,
   parameters: {
     info: { disable: true },

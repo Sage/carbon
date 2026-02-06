@@ -7,7 +7,7 @@ import Option from "./option.component";
  */
 
 const meta: Meta<typeof Option> = {
-  title: "Select/Option",
+  title: "Components/Select/Option",
   component: Option,
   tags: ["hideInSidebar"],
   parameters: {

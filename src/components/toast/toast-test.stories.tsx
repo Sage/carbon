@@ -7,7 +7,7 @@ import { TOAST_COLORS } from "./toast.config";
 import Dialog from "../dialog";
 
 export default {
-  title: "Deprecated/Toast/Test",
+  title: "Components/Deprecated/Toast/Test",
   excludeStories: ["TopAndBottom"],
   parameters: {
     info: { disable: true },

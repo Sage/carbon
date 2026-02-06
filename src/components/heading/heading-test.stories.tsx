@@ -2,7 +2,7 @@ import React from "react";
 import Heading, { HeadingProps } from ".";
 
 export default {
-  title: "Deprecated/Heading/Test",
+  title: "Components/Deprecated/Heading/Test",
   includeStories: ["Default"],
   parameters: {
     info: { disable: true },

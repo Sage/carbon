@@ -35,7 +35,7 @@ const styledSystemProps = generateStyledSystemProps(
 );
 
 const meta: Meta<typeof Divider> = {
-  title: "Divider",
+  title: "Components/Divider",
   component: Divider,
   argTypes: {
     ...styledSystemProps,

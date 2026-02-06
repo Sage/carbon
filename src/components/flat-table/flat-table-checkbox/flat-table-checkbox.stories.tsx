@@ -7,7 +7,7 @@ import FlatTableCheckbox from "./flat-table-checkbox.component";
  */
 
 const meta: Meta<typeof FlatTableCheckbox> = {
-  title: "Flat Table Checkbox",
+  title: "Components/Flat Table Checkbox",
   component: FlatTableCheckbox,
   tags: ["hideInSidebar"],
   parameters: {

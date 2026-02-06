@@ -18,7 +18,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof Card> = {
-  title: "Card",
+  title: "Components/Card",
   component: Card,
   argTypes: {
     ...styledSystemProps,

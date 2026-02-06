@@ -16,7 +16,7 @@ import DefaultDecorator from "../../../.storybook/utils/default-decorator";
 type Story = StoryObj<typeof VerticalMenu>;
 
 export default {
-  title: "Vertical Menu/Interactions",
+  title: "Components/Vertical Menu/Interactions",
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
   },

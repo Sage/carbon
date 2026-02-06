@@ -7,7 +7,7 @@ import FileUploadStatus from "./file-upload-status.component";
  */
 
 const meta: Meta<typeof FileUploadStatus> = {
-  title: "File Upload Status",
+  title: "Components/File Upload Status",
   component: FileUploadStatus,
   tags: ["hideInSidebar"],
   parameters: {

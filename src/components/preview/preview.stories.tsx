@@ -11,7 +11,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof Preview> = {
-  title: "Preview",
+  title: "Components/Preview",
   component: Preview,
   argTypes: {
     ...styledSystemProps,

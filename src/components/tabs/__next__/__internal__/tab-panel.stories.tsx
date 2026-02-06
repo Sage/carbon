@@ -7,7 +7,7 @@ import { TabPanel } from "../tabs.component";
  */
 
 const meta: Meta<typeof TabPanel> = {
-  title: "TabPanel",
+  title: "Components/TabPanel",
   component: TabPanel,
   tags: ["hideInSidebar"],
   parameters: {

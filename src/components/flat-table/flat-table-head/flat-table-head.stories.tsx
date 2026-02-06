@@ -8,7 +8,7 @@ import FlatTableHead from "./flat-table-head.component";
  */
 
 const meta: Meta<typeof FlatTableHead> = {
-  title: "Flat Table Head",
+  title: "Components/Flat Table Head",
   component: FlatTableHead,
   tags: ["hideInSidebar"],
   parameters: {

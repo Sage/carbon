@@ -5,7 +5,7 @@ import StepSequenceItem, {
 } from "./step-sequence-item/step-sequence-item.component";
 
 export default {
-  title: "Step Sequence/Test",
+  title: "Components/Step Sequence/Test",
   parameters: {
     info: { disable: true },
     chromatic: {

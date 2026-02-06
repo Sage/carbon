@@ -7,7 +7,7 @@ import Crumb from "./crumb.component";
  */
 
 const meta: Meta<typeof Crumb> = {
-  title: "Crumb",
+  title: "Components/Crumb",
   component: Crumb,
   tags: ["hideInSidebar"],
   parameters: {

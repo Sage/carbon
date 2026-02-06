@@ -30,7 +30,7 @@ import TextEditor from "../text-editor";
 import CarbonProvider from "../carbon-provider";
 
 export default {
-  title: "Form/Test",
+  title: "Components/Form/Test",
   component: Form,
   parameters: {
     info: { disable: true },

@@ -13,7 +13,7 @@ import Link from "../link/link.component";
 import { Checkbox } from "../checkbox";
 
 export default {
-  title: "Accordion/Test",
+  title: "Components/Accordion/Test",
   parameters: {
     info: { disable: true },
     chromatic: {
