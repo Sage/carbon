@@ -53,6 +53,12 @@ test("should render counter as a string", () => {
   expect(screen.getByText("99+")).toBeVisible();
 });
 
+test("should render counter when it is exactly 999", () => {
+  render(<Badge counter={999} />);
+
+  expect(screen.getByText("999")).toBeVisible();
+});
+
 test("should render `999+` when counter is a number higher than 999", () => {
   render(<Badge counter={1000} />);
 
@@ -73,6 +79,12 @@ test("should not render badge when counter is not set", () => {
 
 test("should not render badge when counter is `0` as a number", () => {
   render(<Badge data-role="badge" counter={0} />);
+
+  expect(screen.queryByTestId("badge")).not.toBeInTheDocument();
+});
+
+test("should not render badge when counter is a negative number", () => {
+  render(<Badge data-role="badge" counter={-1} />);
 
   expect(screen.queryByTestId("badge")).not.toBeInTheDocument();
 });
@@ -101,6 +113,13 @@ test("should render with provided id", () => {
 
   const badge = screen.getByTestId("badge");
   expect(badge).toHaveAttribute("id", "custom-id");
+});
+
+test("should render with provided id when used as a button", () => {
+  render(<Badge counter={9} id="badge-button-id" onClick={() => {}} />);
+
+  const badgeButton = screen.getByRole("button");
+  expect(badgeButton).toHaveAttribute("id", "badge-button-id");
 });
 
 test("should not render as a button if onClick is not set", () => {
