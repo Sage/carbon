@@ -1,9 +1,9 @@
 import React from "react";
 import { Breadcrumbs, BreadcrumbsProps } from ".";
-import { Crumb, CrumbProps } from "./crumb";
+import { Crumb } from "./crumb";
 import Box from "../box";
 
-const Default = (props: Partial<BreadcrumbsProps>) => {
+export const Default = (props: Partial<BreadcrumbsProps>) => {
   return (
     <Breadcrumbs {...props}>
       <Crumb href="#">Breadcrumb 1</Crumb>
@@ -16,17 +16,7 @@ const Default = (props: Partial<BreadcrumbsProps>) => {
   );
 };
 
-const DefaultCrumb = (props: Partial<CrumbProps>) => {
-  return (
-    <Breadcrumbs>
-      <Crumb href="#" {...props}>
-        Breadcrumb 1
-      </Crumb>
-    </Breadcrumbs>
-  );
-};
-
-const FocusedCrumbBecomesCurrent = ({ hasHref = false }) => {
+export const FocusedCrumbBecomesCurrent = ({ hasHref = false }) => {
   const [current, setCurrent] = React.useState(false);
 
   return (
@@ -45,10 +35,10 @@ const FocusedCrumbBecomesCurrent = ({ hasHref = false }) => {
   );
 };
 
-export const OnDarkBackground = () => {
+export const Inverse = () => {
   return (
     <Box p={2} bg="#000">
-      <Breadcrumbs isDarkBackground>
+      <Breadcrumbs inverse>
         <Crumb href="#">Breadcrumb 1</Crumb>
         <Crumb href="#">Breadcrumb 2</Crumb>
         <Crumb href="#">Breadcrumb 3</Crumb>
@@ -59,5 +49,3 @@ export const OnDarkBackground = () => {
     </Box>
   );
 };
-
-export { Default, DefaultCrumb, FocusedCrumbBecomesCurrent };
