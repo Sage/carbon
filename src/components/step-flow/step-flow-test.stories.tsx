@@ -71,6 +71,18 @@ export const Default = (props: Partial<StepFlowProps>) => (
 
 Default.storyName = "Default";
 
+export const DefaultWithMargin = (props: Partial<StepFlowProps>) => (
+  <StepFlow
+    title="default"
+    currentStep={1}
+    totalSteps={8}
+    {...props}
+    m="20px"
+  />
+);
+
+DefaultWithMargin.storyName = "Default with margin";
+
 export const DefaultWithAriaLabel = () => (
   <StepFlow
     title="default"
