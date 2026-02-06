@@ -8,12 +8,7 @@ export interface WeekdayProps {
   children?: React.ReactNode;
 }
 
-export const Weekday = ({
-  className,
-  title,
-  children,
-  ...props
-}: WeekdayProps) => (
+const Weekday = ({ className, title, children, ...props }: WeekdayProps) => (
   <StyledWeekday className={className} role="columnheader" {...props}>
     <StyledAbbr title={title}>{children}</StyledAbbr>
   </StyledWeekday>

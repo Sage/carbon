@@ -2,7 +2,7 @@ import React from "react";
 import Box from "../../box";
 import Divider from "../../divider";
 
-export const FlexTileDivider = (): JSX.Element => {
+const FlexTileDivider = (): JSX.Element => {
   return (
     <Box
       position="absolute"

@@ -61,7 +61,7 @@ type InferredComponentProps<T extends React.ElementType> = Omit<
   keyof VerticalMenuItemProps<T>
 >;
 
-export const VerticalMenuItem = <T,>({
+const VerticalMenuItem = <T,>({
   defaultOpen = false,
   title,
   iconType,

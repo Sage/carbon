@@ -110,9 +110,7 @@ interface VerticalDividerArgs {
   displayInline: boolean;
 }
 
-export const VerticalDividerComponent = (
-  props: Partial<VerticalDividerArgs>,
-) => {
+const VerticalDividerComponent = (props: Partial<VerticalDividerArgs>) => {
   return <VerticalDivider {...props} />;
 };
 

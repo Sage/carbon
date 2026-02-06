@@ -360,7 +360,7 @@ const BaseMenu = forwardRef<
   },
 );
 
-export const ResponsiveVerticalMenu = forwardRef<
+const ResponsiveVerticalMenu = forwardRef<
   ResponsiveVerticalMenuHandle,
   ResponsiveVerticalMenuProps
 >(({ children, width, height, ...props }, ref) => {

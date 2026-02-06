@@ -9,7 +9,7 @@ import { MENU_ITEM_CHILDREN_LOCATOR } from "./__internal__/locators";
 
 import type { MenuProps } from "./menu.types";
 
-export const Menu = ({ menuType = "light", children, ...rest }: MenuProps) => {
+const Menu = ({ menuType = "light", children, ...rest }: MenuProps) => {
   const [openSubmenuId, setOpenSubmenuId] = useState<string | null>(null);
   const ref = useRef<HTMLUListElement>(null);
   const [focusId, setFocusId] = useState<string | undefined>(undefined);

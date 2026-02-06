@@ -51,7 +51,7 @@ export interface TileProps extends SpaceProps, WidthProps, TagProps {
   highlightVariant?: HighlightVariantType;
 }
 
-export const Tile = ({
+const Tile = ({
   variant = "tile",
   p = 3,
   children,

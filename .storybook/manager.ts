@@ -1,6 +1,6 @@
 import { addons, types } from "@storybook/manager-api";
 import sageTheme from "./sage-docs-theme";
-import { ADDON_ID, TOOL_ID } from "./version-picker/constants";
+import { ADDON_ID, TOOL_ID } from "./version-picker/constants/constants";
 import {
   INTERACTION_TOGGLE_ADDON_ID,
   INTERACTION_TOGGLE_TOOL_ID,

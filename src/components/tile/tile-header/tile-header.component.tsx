@@ -12,7 +12,7 @@ export interface TileHeaderProps extends PaddingProps, TagProps {
   variant?: "default" | "black" | "transparent" | "grey";
 }
 
-export const TileHeader = ({ variant, children, ...rest }: TileHeaderProps) => (
+const TileHeader = ({ variant, children, ...rest }: TileHeaderProps) => (
   <StyledTileHeader
     variant={variant}
     {...filterStyledSystemPaddingProps(rest)}

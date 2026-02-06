@@ -50,7 +50,7 @@ export interface CheckboxGroupProps
   validationMessagePositionTop?: boolean;
 }
 
-export const CheckboxGroup = ({
+const CheckboxGroup = ({
   children,
   legend,
   error,

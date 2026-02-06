@@ -85,10 +85,7 @@ export type ActionPopoverHandle = {
 const onOpenDefault = () => {};
 const onCloseDefault = () => {};
 
-export const ActionPopover = forwardRef<
-  ActionPopoverHandle,
-  ActionPopoverProps
->(
+const ActionPopover = forwardRef<ActionPopoverHandle, ActionPopoverProps>(
   (
     {
       children,

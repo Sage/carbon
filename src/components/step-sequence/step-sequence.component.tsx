@@ -11,7 +11,7 @@ export interface StepSequenceProps extends SpaceProps, TagProps {
   orientation?: "horizontal" | "vertical";
 }
 
-export const StepSequence = ({
+const StepSequence = ({
   children,
   orientation = "horizontal",
   ...props

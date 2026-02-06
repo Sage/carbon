@@ -512,4 +512,4 @@ const Tabs = forwardRef<TabsHandle, TabsProps>(
   },
 );
 
-export { Tabs, Tab };
+export { Tabs };

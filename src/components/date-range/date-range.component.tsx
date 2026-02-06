@@ -128,7 +128,7 @@ export interface DateRangeProps
   validationMessagePositionTop?: boolean;
 }
 
-export const DateRange = ({
+const DateRange = ({
   endDateProps = {},
   id,
   labelsInline,

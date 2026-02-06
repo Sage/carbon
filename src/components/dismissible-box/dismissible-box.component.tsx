@@ -39,7 +39,7 @@ export interface DismissibleBoxProps
 /**
  * @deprecated `DismissibleBox` has been deprecated. See the Carbon documentation for migration details.
  */
-export const DismissibleBox = ({
+const DismissibleBox = ({
   children,
   closeButtonDataProps,
   onClose,

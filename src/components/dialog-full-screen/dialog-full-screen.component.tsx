@@ -5,7 +5,7 @@ import Dialog, { DialogProps } from "../dialog/dialog.component";
 
 let deprecatedDialogFullScreenTrigger = false;
 
-export const DialogFullScreen = ({ ...props }: DialogProps) => {
+const DialogFullScreen = ({ ...props }: DialogProps) => {
   /* istanbul ignore else */
   if (!deprecatedDialogFullScreenTrigger) {
     deprecatedDialogFullScreenTrigger = true;

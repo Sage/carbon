@@ -172,7 +172,7 @@ const MenuFullscreenRoot = ({
   );
 };
 
-export const MenuFullscreen = (props: MenuFullscreenProps) => {
+const MenuFullscreen = (props: MenuFullscreenProps) => {
   return (
     <li>
       <Portal>

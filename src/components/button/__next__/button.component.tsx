@@ -128,7 +128,7 @@ const mapButtonTypeToVariantType = ({
   }
 };
 
-export const Button = forwardRef<ButtonHandle, ButtonProps>(
+const Button = forwardRef<ButtonHandle, ButtonProps>(
   (
     {
       "aria-describedby": ariaDescribedBy,

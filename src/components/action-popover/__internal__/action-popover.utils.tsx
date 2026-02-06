@@ -1,5 +1,5 @@
 import React from "react";
-import { ActionPopoverItem } from "../action-popover-item/action-popover-item.component";
+import ActionPopoverItem from "../action-popover-item/action-popover-item.component";
 
 // Reusable type alias for item types
 type ReactItem = React.ReactChild | React.ReactFragment | React.ReactPortal;

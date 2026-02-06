@@ -4,7 +4,7 @@ import Form from "../form";
 import Textbox from "../textbox";
 import Button from "../button";
 
-export const DividerComponent = (props: Partial<DividerProps>) => {
+const DividerComponent = (props: Partial<DividerProps>) => {
   return <Divider {...props} />;
 };
 

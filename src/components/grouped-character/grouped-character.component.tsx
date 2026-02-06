@@ -55,7 +55,7 @@ export interface GroupedCharacterProps
 /**
  * @deprecated `GroupedCharacter` has been deprecated. See the Carbon documentation for migration details.
  */
-export const GroupedCharacter = React.forwardRef(
+const GroupedCharacter = React.forwardRef(
   (
     {
       groups,

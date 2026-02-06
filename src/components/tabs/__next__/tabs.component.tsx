@@ -462,7 +462,7 @@ export const TabList = forwardRef<TabsHandle, TabListProps>(
   },
 );
 
-export const Tabs = ({
+const Tabs = ({
   children,
   labelledBy = "",
   orientation = "horizontal",

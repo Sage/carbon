@@ -24,7 +24,7 @@ export interface ScrollableBlockProps extends TagProps {
   parentVariant?: VariantType;
 }
 
-export const ScrollableBlock = ({
+const ScrollableBlock = ({
   children,
   height,
   variant = "default",

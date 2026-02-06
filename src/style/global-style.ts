@@ -2,7 +2,7 @@ import { createGlobalStyle } from "styled-components";
 import {
   TAB_GUARD_TOP,
   TAB_GUARD_BOTTOM,
-} from "../__internal__/focus-trap/focus-trap.component";
+} from "../__internal__/focus-trap/focus-trap-utils";
 import { baseTheme } from "./themes";
 
 const GlobalStyle = createGlobalStyle`

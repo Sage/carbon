@@ -20,7 +20,7 @@ export interface GridContainerProps
 /**
  * @deprecated `GridContainer` has been deprecated. See the Carbon documentation for migration details.
  */
-export const GridContainer = (props: GridContainerProps) => (
+const GridContainer = (props: GridContainerProps) => (
   <StyledGridContainer {...props} {...tagComponent("grid", props)} />
 );
 

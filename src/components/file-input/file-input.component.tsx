@@ -60,7 +60,7 @@ export interface FileInputProps
   validationMessagePositionTop?: boolean;
 }
 
-export const FileInput = React.forwardRef(
+const FileInput = React.forwardRef(
   (
     {
       accept,

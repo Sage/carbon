@@ -1,7 +1,7 @@
 import React from "react";
 import AdvancedColorPicker, { AdvancedColorPickerProps } from ".";
 
-export const AdvancedColorPickerCustom = ({
+const AdvancedColorPickerCustom = ({
   onChange,
   ...props
 }: Partial<AdvancedColorPickerProps>) => {

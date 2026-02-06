@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { ActionPopoverItem } from "./action-popover-item.component";
+import ActionPopoverItem from "./action-popover-item.component";
 
 /**
  * This file is used primarily as a means to generate the props table.

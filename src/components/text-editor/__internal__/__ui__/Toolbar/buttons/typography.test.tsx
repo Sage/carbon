@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import TypographySelector from "./typography.component";
 import userEvent from "@testing-library/user-event";
 
-import { TestEditor } from "../../../TestEditor.component";
+import TestEditor from "../../../TestEditor.component";
 
 jest.mock("../../../../../../hooks/__internal__/useLocale", () => () => ({
   textEditor: {

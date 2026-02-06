@@ -42,7 +42,7 @@ export interface DividerProps extends SpaceProps, TagProps {
   adaptiveMxBreakpoint?: number;
 }
 
-export const Divider = ({
+const Divider = ({
   type = "vertical",
   h,
   height,

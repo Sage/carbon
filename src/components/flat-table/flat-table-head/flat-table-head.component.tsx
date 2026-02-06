@@ -9,7 +9,7 @@ export interface FlatTableHeadProps extends TagProps {
   children: React.ReactNode;
 }
 
-export const FlatTableHead = ({ children, ...rest }: FlatTableHeadProps) => {
+const FlatTableHead = ({ children, ...rest }: FlatTableHeadProps) => {
   const ref = useRef<HTMLTableSectionElement>(null);
   const [stickyOffsets, setStickyOffsets] = useState<Record<string, number>>(
     {},

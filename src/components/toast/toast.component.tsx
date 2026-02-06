@@ -289,7 +289,7 @@ const ToastRoot = forwardRef<HTMLDivElement, ToastProps>(
 /**
  * @deprecated `Toast` has been deprecated. See the Carbon documentation for migration details.
  */
-export const Toast = forwardRef<HTMLDivElement, ToastProps>((props, ref) => {
+const Toast = forwardRef<HTMLDivElement, ToastProps>((props, ref) => {
   const { targetPortalId, align, alignY, variant } = props;
 
   return (

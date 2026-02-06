@@ -16,7 +16,7 @@ export interface VerticalMenuTriggerProps extends PaddingProps, TagProps {
   onClick: (ev: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-export const VerticalMenuTrigger = ({
+const VerticalMenuTrigger = ({
   height = "40px",
   p = 2,
   onClick,

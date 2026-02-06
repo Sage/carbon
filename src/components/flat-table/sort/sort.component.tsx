@@ -19,7 +19,7 @@ export interface SortProps extends TagProps {
   accessibleName?: string;
 }
 
-export const Sort = ({
+const Sort = ({
   children,
   onClick,
   sortType,

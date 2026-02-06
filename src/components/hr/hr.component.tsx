@@ -27,7 +27,7 @@ let deprecatedWarnTriggered = false;
 /**
  * @deprecated `Hr` has been deprecated. See the Carbon documentation for migration details.
  */
-export const Hr = ({
+const Hr = ({
   adaptiveMxBreakpoint,
   ml,
   mr,

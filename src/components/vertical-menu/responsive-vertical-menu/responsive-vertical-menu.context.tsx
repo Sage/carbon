@@ -42,8 +42,9 @@ export interface MenuContextType {
   setTop: (top: string) => void;
 }
 
-export const ResponsiveVerticalMenuContext =
-  createContext<MenuContextType | null>(null);
+const ResponsiveVerticalMenuContext = createContext<MenuContextType | null>(
+  null,
+);
 
 export const useResponsiveVerticalMenu = () => {
   const context = useContext(ResponsiveVerticalMenuContext);

@@ -229,7 +229,7 @@ export const StyledContentContainer = styled.span`
   justify-content: center;
 `;
 
-export const StyledButton = styled.button<
+const StyledButton = styled.button<
   Omit<StyledButtonProps, "size" | "variant" | "variantType"> & {
     $size: Size;
     $variant: Variant;

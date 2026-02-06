@@ -3,7 +3,7 @@ import tagComponent, {
   TagProps,
 } from "../../__internal__/utils/helpers/tags/tags";
 
-export const AiIcon = ({ ...rest }: TagProps) => (
+const AiIcon = ({ ...rest }: TagProps) => (
   <svg
     {...tagComponent("ai-icon", rest)}
     xmlns="http://www.w3.org/2000/svg"

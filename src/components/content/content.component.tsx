@@ -27,7 +27,7 @@ export interface ContentProps
 /**
  * @deprecated `Content` has been deprecated. See the Carbon documentation for migration details.
  */
-export const Content = ({
+const Content = ({
   variant = "primary",
   children,
   title,

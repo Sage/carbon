@@ -27,7 +27,7 @@ import NumeralDateContext from "./__internal__/numeral-date.context";
 import Locale from "../../locales/locale";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
 
-export const ALLOWED_DATE_FORMATS = [
+const ALLOWED_DATE_FORMATS = [
   ["dd", "mm", "yyyy"],
   ["mm", "dd", "yyyy"],
   ["yyyy", "mm", "dd"],
@@ -218,7 +218,7 @@ const getDateLabel = (datePart: string, locale: Locale) => {
   }
 };
 
-export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
+const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
   (
     {
       dateFormat = ["dd", "mm", "yyyy"],

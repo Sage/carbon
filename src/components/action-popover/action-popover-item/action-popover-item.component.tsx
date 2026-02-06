@@ -81,7 +81,7 @@ function calculateSubmenuPosition(
   return windowWidth >= right + offsetWidth ? "right" : "left";
 }
 
-export const ActionPopoverItem = ({
+const ActionPopoverItem = ({
   children,
   icon,
   disabled = false,

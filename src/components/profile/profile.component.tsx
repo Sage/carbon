@@ -56,7 +56,7 @@ export interface ProfileProps extends MarginProps, TagProps {
   foregroundColor?: string;
 }
 
-export const Profile = ({
+const Profile = ({
   src,
   alt,
   className,

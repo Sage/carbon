@@ -68,7 +68,7 @@ export interface AccordionInternalProps {
   index?: number;
 }
 
-export const Accordion = React.forwardRef<
+const Accordion = React.forwardRef<
   HTMLDivElement,
   AccordionProps & AccordionInternalProps
 >(

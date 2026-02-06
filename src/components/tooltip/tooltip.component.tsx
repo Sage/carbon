@@ -84,7 +84,7 @@ export interface TooltipProps extends TagProps {
 /**
  * @deprecated `Tooltip` has been deprecated. See the Carbon documentation for migration details.
  */
-export const Tooltip = React.forwardRef<HTMLDivElement | null, TooltipProps>(
+const Tooltip = React.forwardRef<HTMLDivElement | null, TooltipProps>(
   (
     {
       children,

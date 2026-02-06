@@ -138,7 +138,7 @@ export interface TextareaProps
 let deprecateOptionalWarnTriggered = false;
 let warnBorderRadiusArrayTooLarge = false;
 
-export const Textarea = React.forwardRef(
+const Textarea = React.forwardRef(
   (
     {
       "aria-labelledby": ariaLabelledBy,
@@ -496,5 +496,4 @@ export const Textarea = React.forwardRef(
 
 Textarea.displayName = "Textarea";
 
-export { Textarea as OriginalTextarea };
 export default Textarea;

@@ -7,7 +7,7 @@ export interface FlexTileContainerProps
   children: React.ReactNode;
 }
 
-export const FlexTileContainer = ({
+const FlexTileContainer = ({
   children,
   columnGap = 2,
   overflow = "hidden",

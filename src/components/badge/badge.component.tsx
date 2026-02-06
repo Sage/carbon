@@ -34,7 +34,7 @@ export interface BadgeProps extends TagProps, MarginProps {
   inverse?: boolean;
 }
 
-export const Badge = ({
+const Badge = ({
   "aria-label": ariaLabel,
   children,
   counter = 0,

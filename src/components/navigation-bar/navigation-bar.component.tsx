@@ -30,7 +30,7 @@ export interface NavigationBarProps
   isGlobal?: boolean;
 }
 
-export const NavigationBar = ({
+const NavigationBar = ({
   navigationType = "light",
   isLoading = false,
   children,

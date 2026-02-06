@@ -60,7 +60,7 @@ export interface DecimalProps
   locale?: string;
 }
 
-export const Decimal = React.forwardRef(
+const Decimal = React.forwardRef(
   (
     {
       align = "right",

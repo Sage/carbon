@@ -7,7 +7,7 @@ interface StyledEditorToolbarWrapperProps {
   error?: boolean;
 }
 
-export const StyledTextEditor = styled.div<{ error?: boolean }>`
+const StyledTextEditor = styled.div<{ error?: boolean }>`
   position: relative;
   box-sizing: border-box;
   ${({ error }) =>

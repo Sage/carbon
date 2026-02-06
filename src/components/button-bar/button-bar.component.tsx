@@ -20,7 +20,7 @@ export interface ButtonBarProps
 /**
  * @deprecated `ButtonBar` has been deprecated. See the Carbon documentation for migration details.
  */
-export const ButtonBar = ({
+const ButtonBar = ({
   children,
   size = "medium",
   iconPosition = "before",

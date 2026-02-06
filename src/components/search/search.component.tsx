@@ -84,7 +84,7 @@ export type SearchHandle = {
   focus: () => void;
 } | null;
 
-export const Search = React.forwardRef<SearchHandle, SearchProps>(
+const Search = React.forwardRef<SearchHandle, SearchProps>(
   (
     {
       onChange,

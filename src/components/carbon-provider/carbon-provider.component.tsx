@@ -17,7 +17,7 @@ export interface CarbonProviderProps extends NewValidationContextProps {
   theme?: Partial<ThemeObject>;
 }
 
-export const CarbonProvider = ({
+const CarbonProvider = ({
   children,
   theme = sageTheme,
   validationRedesignOptIn = false,

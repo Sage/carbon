@@ -4,9 +4,18 @@ import FixedNavigationBarContext, {
   FixedNavigationBarContextProvider,
   FixedNavigationBarContextProviderProps,
 } from "./fixed-navigation-bar.context";
-import * as useResizeObserverModule from "../../../hooks/__internal__/useResizeObserver/useResizeObserver";
+import useResizeObserver from "../../../hooks/__internal__/useResizeObserver/useResizeObserver";
 
-const useResizeObserverSpy = jest.spyOn(useResizeObserverModule, "default");
+jest.mock("../../../hooks/__internal__/useResizeObserver/useResizeObserver");
+
+const useResizeObserverMock = useResizeObserver as jest.MockedFunction<
+  typeof useResizeObserver
+>;
+let capturedResizeCallback: (() => void) | null = null;
+
+useResizeObserverMock.mockImplementation((ref, callback) => {
+  capturedResizeCallback = callback;
+});
 
 const ConsumerComponent = () => {
   const { submenuMaxHeight } = useContext(FixedNavigationBarContext);
@@ -78,12 +87,12 @@ describe("FixedNavigationBarContextProvider", () => {
 
       act(() => {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore:next-line jest provided property
+        // @ts-ignore:next-line
         mockNavbarElement.offsetHeight = 75;
 
-        useResizeObserverSpy.mock.calls[
-          useResizeObserverSpy.mock.calls.length - 1
-        ][1]();
+        if (capturedResizeCallback) {
+          capturedResizeCallback();
+        }
       });
 
       const resizeResult = screen.getByTestId("output");

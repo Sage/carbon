@@ -1,7 +1,6 @@
 import React from "react";
 import { test } from "../../../playwright/helpers/base-test";
-import {
-  DividerComponent,
+import DividerComponent, {
   DifferentSpacing,
   EnablingAdaptiveBehaviour,
   InsideForm,

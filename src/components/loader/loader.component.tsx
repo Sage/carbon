@@ -32,7 +32,7 @@ export interface LoaderProps
 /**
  * @deprecated `Loader` has been deprecated. See the Carbon documentation for migration details.
  */
-export const Loader = ({
+const Loader = ({
   variant = "default",
   size = "medium",
   isInsideButton = false,

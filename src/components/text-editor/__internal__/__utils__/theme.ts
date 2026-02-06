@@ -11,4 +11,4 @@ const THEME: EditorThemeClasses = {
 
 const getTheme = () => THEME;
 
-export { getTheme, THEME };
+export default getTheme;

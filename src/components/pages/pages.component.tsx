@@ -3,7 +3,6 @@ import { TransitionGroup } from "react-transition-group";
 import tagComponent, {
   TagProps,
 } from "../../__internal__/utils/helpers/tags/tags";
-import Page from "./page";
 import { PagesWrapperStyle, PagesContent } from "./pages.style";
 import type { ThemeObject } from "../../style/themes/theme.types";
 
@@ -116,5 +115,3 @@ const Pages = ({
 Pages.displayName = "Pages";
 
 export default Pages;
-
-export { Page };

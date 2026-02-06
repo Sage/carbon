@@ -57,7 +57,7 @@ import {
   TextEditorHandle,
   TextEditorProps,
 } from "./__internal__/__utils__/interfaces.types";
-import { getTheme } from "./__internal__/__utils__/theme";
+import getTheme from "./__internal__/__utils__/theme";
 import {
   CharacterCounterPlugin,
   ContentEditor,
@@ -70,7 +70,7 @@ let deprecateValueTriggered = false;
 let deprecateOnCancelWarnTriggered = false;
 let deprecateOnSaveWarnTriggered = false;
 
-export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
+const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
   (
     {
       characterLimit = 3000,
