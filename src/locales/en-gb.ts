@@ -169,9 +169,9 @@ const enGB: Locale = {
     undo: () => "Undo",
   },
   tabs: {
-    error: () => "contains errors",
-    warning: () => "contains warnings",
-    info: () => "contains information",
+    error: (tabTitle) => `The ${tabTitle} tab contains errors`,
+    info: (tabTitle) => `The ${tabTitle} tab contains information`,
+    warning: (tabTitle) => `The ${tabTitle} tab contains warnings`,
   },
   textEditor: {
     boldAria: () => "Bold",
