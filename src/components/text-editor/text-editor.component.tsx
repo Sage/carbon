@@ -262,7 +262,11 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
         {...tagComponent("text-editor", rest)}
       >
         <TextEditorContext.Provider value={{ onLinkAdded }}>
-          <Label isRequired={required} labelId={`${namespace}-label`}>
+          <Label
+            onClick={() => contentEditorRef.current?.focus()}
+            isRequired={required}
+            labelId={`${namespace}-label`}
+          >
             {labelText}
           </Label>
 
