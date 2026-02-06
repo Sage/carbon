@@ -30,6 +30,7 @@ import {
 import useLocale from "../../../../../hooks/__internal__/useLocale";
 
 import { MentionsList, TypeaheadPopover } from "./mentions.style";
+import { usePluginContext } from "../../__providers__/plugin-provider";
 
 export const MentionsPlugin = ({
   namespace,
@@ -137,56 +138,74 @@ export const MentionsPlugin = ({
     );
   }, [editor]);
 
+  const { getParentRef } = usePluginContext();
+  const parentElement = getParentRef();
+  const parentRect = parentElement?.getBoundingClientRect();
+  const parentOffsetLeft = parentRect?.left ?? 0;
+  const parentOffsetTop = parentRect?.top ?? 0;
+
   return (
     <LexicalTypeaheadMenuPlugin<MentionTypeaheadOption>
       onQueryChange={setQueryString}
       onSelectOption={onSelectOption}
       triggerFn={checkForMentionMatch}
       options={options}
+      parent={parentElement}
       menuRenderFn={(
         anchorElementRef,
         { selectedIndex, selectOptionAndCleanUp, setHighlightedIndex },
-      ) =>
-        anchorElementRef.current && results.length
-          ? ReactDOM.createPortal(
-              <TypeaheadPopover
-                className="carbon-portal-mentions"
-                id={`${namespace}-mentions-menu`}
-              >
-                <MentionsList
-                  data-role={`mention-list`}
-                  id={`${namespace}-mention-list`}
-                  role="listbox"
-                  aria-label={locale.textEditor.mentions.listAriaLabel()}
-                >
-                  {options.map((option, i: number) => {
-                    const optionKey =
-                      option.key ?? option.id ?? `${namespace}-${i}`;
+      ) => {
+        const anchorElement = anchorElementRef.current;
 
-                    return (
-                      <MentionsTypeaheadMenuItem
-                        index={i}
-                        isSelected={selectedIndex === i}
-                        onClick={() => {
-                          setHighlightedIndex(i);
-                          selectOptionAndCleanUp(option);
-                        }}
-                        onMouseEnter={() => {
-                          setHighlightedIndex(i);
-                        }}
-                        key={optionKey}
-                        option={option}
-                        namespace={namespace}
-                        currentQueryString={queryString ?? undefined}
-                      />
-                    );
-                  })}
-                </MentionsList>
-              </TypeaheadPopover>,
-              anchorElementRef.current,
-            )
-          : null
-      }
+        if (!anchorElement || results.length === 0) {
+          anchorElement?.removeAttribute("aria-label");
+          return null;
+        }
+
+        anchorElement.setAttribute(
+          "aria-label",
+          locale.textEditor.mentions.listAriaLabel(),
+        );
+
+        return ReactDOM.createPortal(
+          <TypeaheadPopover
+            className="carbon-portal-mentions"
+            id={`${namespace}-mentions-menu`}
+            parentOffsetLeft={parentOffsetLeft}
+            parentOffsetTop={parentOffsetTop}
+          >
+            <MentionsList
+              data-role={`mention-list`}
+              id={`${namespace}-mention-list`}
+              role="group"
+              tabIndex={0}
+            >
+              {options.map((option, i: number) => {
+                const optionKey =
+                  option.key ?? option.id ?? `${namespace}-${i}`;
+
+                return (
+                  <MentionsTypeaheadMenuItem
+                    index={i}
+                    isSelected={selectedIndex === i}
+                    onClick={() => {
+                      setHighlightedIndex(i);
+                      selectOptionAndCleanUp(option);
+                    }}
+                    onMouseEnter={() => {
+                      setHighlightedIndex(i);
+                    }}
+                    key={optionKey}
+                    option={option}
+                    currentQueryString={queryString ?? undefined}
+                  />
+                );
+              })}
+            </MentionsList>
+          </TypeaheadPopover>,
+          anchorElement,
+        );
+      }}
     />
   );
 };

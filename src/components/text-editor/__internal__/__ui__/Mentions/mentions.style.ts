@@ -1,10 +1,15 @@
 import styled from "styled-components";
 
-export const TypeaheadPopover = styled.div`
+export const TypeaheadPopover = styled.div<{
+  parentOffsetLeft: number;
+  parentOffsetTop: number;
+}>`
   background: #fff;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
   border-radius: 8px;
   position: relative;
+  top: ${({ parentOffsetTop }) => -parentOffsetTop}px;
+  left: ${({ parentOffsetLeft }) => -parentOffsetLeft}px;
   width: 250px; /* .mentions-menu class */
 `;
 
@@ -25,7 +30,7 @@ export const MentionsList = styled.ul`
 
 export const MentionsListItem = styled.li`
   padding: 8px 24px;
-  color: #0000008c;
+  color: var(--input-dropdown-label-default);
   cursor: pointer;
   line-height: 16px;
   font-size: 15px;
@@ -61,6 +66,16 @@ export const MentionsListItem = styled.li`
 
   &.selected {
     background: #eee;
+    color: #000;
+
+    div[data-component="portrait"] {
+      color: #000;
+
+      [data-element="initials"],
+      [data-component="icon"] {
+        color: #000;
+      }
+    }
   }
 
   .text {
@@ -76,8 +91,8 @@ export const MentionsListItem = styled.li`
   }
 
   div[data-component="portrait"] {
-    background-color: #f2f5f6ff;
-    color: #000000e6;
+    background-color: #fff;
+    color: var(--input-dropdown-label-default);
     min-width: 24px;
     height: 24px;
     overflow: hidden;
@@ -88,7 +103,7 @@ export const MentionsListItem = styled.li`
 
     [data-element="initials"],
     [data-component="icon"] {
-      color: #8b8b8b;
+      color: var(--input-dropdown-label-default);
     }
   }
 `;

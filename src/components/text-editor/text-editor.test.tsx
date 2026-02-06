@@ -515,12 +515,12 @@ test("serialisation of editor", async () => {
   expect(mockSave).toHaveBeenCalledTimes(1);
 });
 
-test("editor is focused when the focus method is invoked via imperative handle", () => {
+test("editor is focused when the focus method is invoked via imperative handle", async () => {
   const editorRef = createRef<TextEditorHandle>();
 
   render(<TextEditor labelText="Text Editor" ref={editorRef} />);
 
-  act(() => {
+  await act(async () => {
     editorRef.current?.focus();
   });
 
