@@ -90,6 +90,8 @@ export const MultiActionButton = forwardRef<
     const handleClick = (
       ev: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
     ) => {
+      onClick?.(ev as React.MouseEvent<HTMLButtonElement>);
+
       if (showAdditionalButtons) {
         hideButtons();
       } else {
@@ -97,23 +99,9 @@ export const MultiActionButton = forwardRef<
       }
 
       handleInsideClick();
-      if (onClick) {
-        onClick(ev as React.MouseEvent<HTMLButtonElement>);
-      }
     };
 
     useAdaptiveSidebarModalFocus(() => hideButtons());
-
-    const mainButtonProps = {
-      disabled,
-      displayed: showAdditionalButtons,
-      onKeyDown: handleToggleButtonKeyDown,
-      onClick: handleClick,
-      buttonType,
-      size,
-      subtext,
-      ...filterOutStyledSystemSpacingProps(rest),
-    };
 
     const renderAdditionalButtons = () => (
       <Popover
@@ -137,6 +125,7 @@ export const MultiActionButton = forwardRef<
           id={submenuId.current}
           {...wrapperProps}
           align={align}
+          hidden={!showAdditionalButtons}
         >
           <SplitButtonContext.Provider value={contextValue}>
             {React.Children.map(children, (child) => (
@@ -147,8 +136,6 @@ export const MultiActionButton = forwardRef<
       </Popover>
     );
 
-    const marginProps = filterStyledSystemMarginProps(rest);
-
     return (
       <StyledMultiActionButton
         ref={buttonNode}
@@ -157,21 +144,27 @@ export const MultiActionButton = forwardRef<
         data-role={dataRole}
         displayed={showAdditionalButtons}
         width={width}
-        {...marginProps}
+        {...filterStyledSystemMarginProps(rest)}
       >
         <Button
           aria-expanded={showAdditionalButtons}
           aria-controls={submenuId.current}
           data-element="toggle-button"
           key="toggle-button"
-          {...mainButtonProps}
           ref={buttonRef}
           iconPosition="after"
           iconType="dropdown"
+          disabled={disabled}
+          buttonType={buttonType}
+          size={size}
+          subtext={subtext}
+          onKeyDown={handleToggleButtonKeyDown}
+          onClick={handleClick}
+          {...filterOutStyledSystemSpacingProps(rest)}
         >
           {text}
         </Button>
-        {showAdditionalButtons && renderAdditionalButtons()}
+        {renderAdditionalButtons()}
       </StyledMultiActionButton>
     );
   },

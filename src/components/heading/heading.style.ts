@@ -55,7 +55,12 @@ const StyledHeader = styled.div<StyledHeaderProps>`
 const StyledHeadingBackButton = styled(Link)`
   margin-right: 5px;
   margin-top: 2px;
-  box-shadow: none;
+
+  && {
+    box-shadow: none;
+    background-color: transparent;
+  }
+
   a,
   button {
     margin: 0 1px 0 0;

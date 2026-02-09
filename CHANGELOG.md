@@ -1,3 +1,35 @@
+## [158.27.1](https://github.com/Sage/carbon/compare/v158.27.0...v158.27.1) (2026-02-04)
+
+### Bug Fixes
+
+* **multi-action-button, split-button:** ensure VoiceOver can access open popup ([ada3bfb](https://github.com/Sage/carbon/commit/ada3bfb241718316871ed56f5c9338fb9730dbf9)), closes [#7705](https://github.com/Sage/carbon/issues/7705)
+
+## [158.27.0](https://github.com/Sage/carbon/compare/v158.26.5...v158.27.0) (2026-02-03)
+
+### Features
+
+* **menu-item:** add aria-current attribute ([5d77dbc](https://github.com/Sage/carbon/commit/5d77dbc700af2a0dcc5e86aef8328d440b0f2e04)), closes [#7704](https://github.com/Sage/carbon/issues/7704)
+* **responsive-vertical-menu-item:** add aria-current attribute ([20e54eb](https://github.com/Sage/carbon/commit/20e54ebf26b5783fa5ef1e3685b42df000acdcb5)), closes [#7704](https://github.com/Sage/carbon/issues/7704)
+* **vertical-menu-item:** add aria-current attribute ([242e23d](https://github.com/Sage/carbon/commit/242e23db07e0f417902005e3dcc9a8402b0ad886))
+
+## [158.26.5](https://github.com/Sage/carbon/compare/v158.26.4...v158.26.5) (2026-02-03)
+
+### Bug Fixes
+
+* **heading:** ensure back link has correct focus style ([d5b7749](https://github.com/Sage/carbon/commit/d5b7749277524cdfcdd4ca9a5402286c6b76890c))
+
+## [158.26.4](https://github.com/Sage/carbon/compare/v158.26.3...v158.26.4) (2026-02-02)
+
+### Bug Fixes
+
+* ensure depth tokens are formatted correctly ([c53f144](https://github.com/Sage/carbon/commit/c53f144de66ec9a207d6962065d1cc40ab0fd8ef))
+
+## [158.26.3](https://github.com/Sage/carbon/compare/v158.26.2...v158.26.3) (2026-02-02)
+
+### Bug Fixes
+
+* **tabs:** ensure __next__ version updates focus index when user tabs off component ([b986218](https://github.com/Sage/carbon/commit/b986218e3845f66f4e4c95b728af7a58e23e0ca4))
+
 ## [158.26.2](https://github.com/Sage/carbon/compare/v158.26.1...v158.26.2) (2026-01-30)
 
 ### Bug Fixes

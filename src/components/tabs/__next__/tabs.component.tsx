@@ -295,52 +295,66 @@ export const TabList = forwardRef<TabsHandle, TabListProps>(
       }
     }, [activeTab, onTabChange, prevActiveTab]);
 
-    const handleKeyDown = (event: React.KeyboardEvent) => {
-      const tabIds = getTabIds();
+    const handleKeyDown = useCallback(
+      (event: React.KeyboardEvent) => {
+        const tabIds = getTabIds();
 
-      const currentIndex = tabIds.indexOf(focusIndex || activeTab);
-      const lastIndex = tabIds.length - 1;
+        const currentIndex = tabIds.indexOf(focusIndex || activeTab);
+        const lastIndex = tabIds.length - 1;
 
-      /* istanbul ignore if */
-      if (currentIndex === -1) return;
+        /* istanbul ignore if */
+        if (currentIndex === -1) return;
 
-      let nextIndex = currentIndex;
+        let nextIndex = currentIndex;
 
-      switch (event.key) {
-        case "Home":
-          nextIndex = 0;
-          break;
-        case "End":
-          nextIndex = lastIndex;
-          break;
-        case "ArrowRight":
-          nextIndex = (currentIndex + 1) % tabIds.length;
-          break;
-        case "ArrowLeft":
-          nextIndex = (currentIndex - 1 + tabIds.length) % tabIds.length;
-          break;
-        case "ArrowUp":
-          /* istanbul ignore else */
-          if (orientation === "vertical") {
-            nextIndex = (currentIndex - 1 + tabIds.length) % tabIds.length;
-          }
-          break;
-        case "ArrowDown":
-          /* istanbul ignore else */
-          if (orientation === "vertical") {
+        switch (event.key) {
+          case "Home":
+            nextIndex = 0;
+            break;
+          case "End":
+            nextIndex = lastIndex;
+            break;
+          case "ArrowRight":
             nextIndex = (currentIndex + 1) % tabIds.length;
-          }
-          break;
-        case "Enter":
-        case " ":
-          setActiveTab(activeTab);
-          return;
-        default:
-          return;
-      }
+            break;
+          case "ArrowLeft":
+            nextIndex = (currentIndex - 1 + tabIds.length) % tabIds.length;
+            break;
+          case "ArrowUp":
+            /* istanbul ignore else */
+            if (orientation === "vertical") {
+              nextIndex = (currentIndex - 1 + tabIds.length) % tabIds.length;
+            }
+            break;
+          case "ArrowDown":
+            /* istanbul ignore else */
+            if (orientation === "vertical") {
+              nextIndex = (currentIndex + 1) % tabIds.length;
+            }
+            break;
+          case "Enter":
+          case " ":
+            setActiveTab(activeTab);
+            return;
+          case "Tab":
+            setFocusIndex(activeTab);
+            return;
+          /* istanbul ignore next */
+          default:
+            return;
+        }
 
-      setFocusIndex(tabIds[nextIndex]);
-    };
+        setFocusIndex(tabIds[nextIndex]);
+      },
+      [
+        activeTab,
+        focusIndex,
+        getTabIds,
+        orientation,
+        setActiveTab,
+        setFocusIndex,
+      ],
+    );
 
     const [scrollRequired, setScrollRequired] = useState<boolean>(false);
     const [leftVisible, setLeftVisible] = useState<boolean>(false);
