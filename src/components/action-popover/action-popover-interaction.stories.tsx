@@ -7,12 +7,12 @@ import {
   ActionPopoverDivider,
   ActionPopoverItem,
   ActionPopoverMenu,
+  ActionPopoverMenuButton,
 } from ".";
 
 import Box from "../box";
 
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
-import DefaultDecorator from "../../../.storybook/utils/default-decorator";
 
 type Story = StoryObj<typeof ActionPopover>;
 
@@ -33,204 +33,78 @@ export default {
   },
 };
 
-export const ClickToToggle: Story = {
+export const SubmenuHoverAndFocus: Story = {
   render: () => (
-    <Box mt={40} height={275}>
-      <ActionPopover onOpen={() => {}} onClose={() => {}}>
-        <ActionPopoverItem
-          disabled
-          icon="graph"
-          submenu={submenu}
-          onClick={() => {}}
+    <>
+      <Box mt={40} height={275}>
+        <ActionPopover onOpen={() => {}} onClose={() => {}}>
+          <ActionPopoverItem disabled icon="graph" onClick={() => {}}>
+            Business
+          </ActionPopoverItem>
+          <ActionPopoverItem icon="email" onClick={() => {}}>
+            Email Invoice
+          </ActionPopoverItem>
+          <ActionPopoverItem
+            icon="print"
+            onClick={() => {}}
+            submenu={submenu}
+            data-element="print-invoice"
+          >
+            Print Invoice
+          </ActionPopoverItem>
+          <ActionPopoverItem icon="pdf" onClick={() => {}}>
+            Download PDF
+          </ActionPopoverItem>
+          <ActionPopoverItem icon="csv" onClick={() => {}}>
+            Download CSV
+          </ActionPopoverItem>
+          <ActionPopoverDivider />
+          <ActionPopoverItem disabled icon="delete" onClick={() => {}}>
+            Delete
+          </ActionPopoverItem>
+        </ActionPopover>
+      </Box>
+      <Box mt={10} height={10}>
+        <ActionPopover onOpen={() => {}} onClose={() => {}} data-role="target">
+          <ActionPopoverItem icon="email" onClick={() => {}}>
+            email
+          </ActionPopoverItem>
+        </ActionPopover>
+      </Box>
+      <Box mt={10} height={10}>
+        <ActionPopover
+          data-role="target"
+          renderButton={({
+            tabIndex,
+            "data-element": dataElement,
+            ariaAttributes,
+          }) => (
+            <ActionPopoverMenuButton
+              buttonType="tertiary"
+              iconType="dropdown"
+              iconPosition="after"
+              size="small"
+              tabIndex={tabIndex}
+              data-element={dataElement}
+              ariaAttributes={ariaAttributes}
+            />
+          )}
         >
-          Business
-        </ActionPopoverItem>
-        <ActionPopoverItem icon="email" onClick={() => {}}>
-          Email Invoice
-        </ActionPopoverItem>
-        <ActionPopoverItem icon="print" onClick={() => {}} submenu={submenu}>
-          Print Invoice
-        </ActionPopoverItem>
-        <ActionPopoverItem icon="pdf" submenu={submenu} onClick={() => {}}>
-          Download PDF
-        </ActionPopoverItem>
-        <ActionPopoverItem icon="csv" onClick={() => {}}>
-          Download CSV
-        </ActionPopoverItem>
-        <ActionPopoverDivider />
-        <ActionPopoverItem disabled icon="delete" onClick={() => {}}>
-          Delete
-        </ActionPopoverItem>
-      </ActionPopover>
-    </Box>
+          <ActionPopoverItem icon="email" onClick={() => {}}>
+            Email Invoice
+          </ActionPopoverItem>
+          <ActionPopoverDivider />
+          <ActionPopoverItem onClick={() => {}} icon="delete">
+            Delete
+          </ActionPopoverItem>
+        </ActionPopover>
+      </Box>
+    </>
   ),
-
   play: async ({ canvasElement }) => {
     if (!allowInteractions()) {
       return;
     }
-
-    const canvas = within(canvasElement);
-    const actionPopoverToggle = canvas.getAllByRole("button");
-
-    await userEvent.click(actionPopoverToggle[0]);
-    await expect(
-      await within(document.body).findByText("Email Invoice"),
-    ).toBeVisible();
-    await userEvent.click(actionPopoverToggle[0]);
-  },
-  decorators: [
-    (StoryToRender) => (
-      <DefaultDecorator>
-        <StoryToRender />
-      </DefaultDecorator>
-    ),
-  ],
-};
-ClickToToggle.parameters = { chromatic: { disableSnapshot: true } };
-ClickToToggle.storyName = "Click To Toggle";
-
-export const CloseOnOutsideClick: Story = {
-  render: () => (
-    <Box mt={40} height={275}>
-      <ActionPopover onOpen={() => {}} onClose={() => {}}>
-        <ActionPopoverItem
-          disabled
-          icon="graph"
-          submenu={submenu}
-          onClick={() => {}}
-        >
-          Business
-        </ActionPopoverItem>
-        <ActionPopoverItem icon="email" onClick={() => {}}>
-          Email Invoice
-        </ActionPopoverItem>
-        <ActionPopoverItem icon="print" onClick={() => {}} submenu={submenu}>
-          Print Invoice
-        </ActionPopoverItem>
-        <ActionPopoverItem icon="pdf" submenu={submenu} onClick={() => {}}>
-          Download PDF
-        </ActionPopoverItem>
-        <ActionPopoverItem icon="csv" onClick={() => {}}>
-          Download CSV
-        </ActionPopoverItem>
-        <ActionPopoverDivider />
-        <ActionPopoverItem disabled icon="delete" onClick={() => {}}>
-          Delete
-        </ActionPopoverItem>
-      </ActionPopover>
-    </Box>
-  ),
-
-  play: async ({ canvasElement }) => {
-    if (!allowInteractions()) {
-      return;
-    }
-
-    const canvas = within(canvasElement);
-    const actionPopoverToggle = canvas.getAllByRole("button");
-
-    await userEvent.click(actionPopoverToggle[0]);
-    await expect(
-      await within(document.body).findByText("Email Invoice"),
-    ).toBeVisible();
-    await userEvent.click(document.body);
-  },
-  decorators: [
-    (StoryToRender) => (
-      <DefaultDecorator>
-        <StoryToRender />
-      </DefaultDecorator>
-    ),
-  ],
-};
-CloseOnOutsideClick.parameters = { chromatic: { disableSnapshot: true } };
-CloseOnOutsideClick.storyName = "Close On Outside Click";
-
-export const CloseOnEscPress: Story = {
-  render: () => (
-    <Box mt={40} height={275}>
-      <ActionPopover onOpen={() => {}} onClose={() => {}}>
-        <ActionPopoverItem
-          disabled
-          icon="graph"
-          submenu={submenu}
-          onClick={() => {}}
-        >
-          Business
-        </ActionPopoverItem>
-        <ActionPopoverItem icon="email" onClick={() => {}}>
-          Email Invoice
-        </ActionPopoverItem>
-        <ActionPopoverItem icon="print" onClick={() => {}} submenu={submenu}>
-          Print Invoice
-        </ActionPopoverItem>
-        <ActionPopoverItem icon="pdf" submenu={submenu} onClick={() => {}}>
-          Download PDF
-        </ActionPopoverItem>
-        <ActionPopoverItem icon="csv" onClick={() => {}}>
-          Download CSV
-        </ActionPopoverItem>
-        <ActionPopoverDivider />
-        <ActionPopoverItem disabled icon="delete" onClick={() => {}}>
-          Delete
-        </ActionPopoverItem>
-      </ActionPopover>
-    </Box>
-  ),
-
-  play: async ({ canvasElement }) => {
-    if (!allowInteractions()) {
-      return;
-    }
-
-    const canvas = within(canvasElement);
-    const actionPopoverToggle = canvas.getAllByRole("button");
-
-    await userEvent.click(actionPopoverToggle[0]);
-    await expect(
-      await within(document.body).findByText("Email Invoice"),
-    ).toBeVisible();
-    await userEvent.keyboard("{Escape}");
-  },
-  decorators: [
-    (StoryToRender) => (
-      <DefaultDecorator>
-        <StoryToRender />
-      </DefaultDecorator>
-    ),
-  ],
-};
-CloseOnEscPress.parameters = { chromatic: { disableSnapshot: true } };
-CloseOnEscPress.storyName = "Close On ESC Press";
-
-export const SubmenuHover: Story = {
-  render: () => (
-    <Box mt={40} height={275}>
-      <ActionPopover onOpen={() => {}} onClose={() => {}}>
-        <ActionPopoverItem disabled icon="graph" onClick={() => {}}>
-          Business
-        </ActionPopoverItem>
-        <ActionPopoverItem icon="email" onClick={() => {}}>
-          Email Invoice
-        </ActionPopoverItem>
-        <ActionPopoverItem icon="print" onClick={() => {}} submenu={submenu}>
-          Print Invoice
-        </ActionPopoverItem>
-        <ActionPopoverItem icon="pdf" onClick={() => {}}>
-          Download PDF
-        </ActionPopoverItem>
-        <ActionPopoverItem icon="csv" onClick={() => {}}>
-          Download CSV
-        </ActionPopoverItem>
-        <ActionPopoverDivider />
-        <ActionPopoverItem disabled icon="delete" onClick={() => {}}>
-          Delete
-        </ActionPopoverItem>
-      </ActionPopover>
-    </Box>
-  ),
-  play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const actionPopoverButtons = canvas.getAllByRole("button");
     await userEvent.click(actionPopoverButtons[0]);
@@ -252,6 +126,9 @@ export const SubmenuHover: Story = {
   ],
 };
 
-SubmenuHover.parameters = {
+SubmenuHoverAndFocus.parameters = {
   chromatic: { disableSnapshot: false },
+  pseudo: {
+    focus: '[data-role="target"] [data-element="action-popover-button"]',
+  },
 };
