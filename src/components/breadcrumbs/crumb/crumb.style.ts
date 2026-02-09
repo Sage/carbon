@@ -1,9 +1,8 @@
 import styled, { css } from "styled-components";
 import Link, { LinkProps } from "../../link";
 
-interface StyleCrumbProps extends LinkProps {
-  isCurrent?: boolean;
-  inverse?: boolean;
+interface StyledCrumbProps extends LinkProps {
+  $isCurrent?: boolean;
 }
 
 const getTextColor = (inverse?: boolean) => {
@@ -12,9 +11,9 @@ const getTextColor = (inverse?: boolean) => {
     : "var(--container-standard-txt-alt)";
 };
 
-export const StyledCrumb = styled(Link)<StyleCrumbProps>`
-  ${({ isCurrent, inverse }) =>
-    isCurrent &&
+export const StyledCrumb = styled(Link)<StyledCrumbProps>`
+  ${({ $isCurrent, inverse }) =>
+    $isCurrent &&
     css`
       a {
         color: ${getTextColor(inverse)};
@@ -29,7 +28,7 @@ export const StyledCrumb = styled(Link)<StyleCrumbProps>`
 `;
 
 interface DividerProps {
-  inverse?: boolean;
+  $inverse?: boolean;
 }
 
 export const Divider = styled.span<DividerProps>`
@@ -38,8 +37,8 @@ export const Divider = styled.span<DividerProps>`
     margin-left: var(--global-space-comp-s);
     font: var(--global-font-static-comp-regular-m);
 
-    ${({ inverse }) => css`
-      color: ${getTextColor(inverse)};
+    ${({ $inverse }) => css`
+      color: ${getTextColor($inverse)};
     `}
   }
 `;

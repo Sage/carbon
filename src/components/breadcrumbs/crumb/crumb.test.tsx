@@ -5,86 +5,6 @@ import Crumb from "./crumb.component";
 import Logger from "../../../__internal__/utils/logger";
 import Breadcrumbs from "../breadcrumbs.component";
 
-test("logs deprecation warning when using hasFocus prop", () => {
-  const loggerSpy = jest
-    .spyOn(Logger, "deprecate")
-    .mockImplementation(() => {});
-
-  render(
-    <Breadcrumbs>
-      <Crumb href="#" hasFocus>
-        Link text
-      </Crumb>
-    </Breadcrumbs>,
-  );
-
-  expect(loggerSpy).toHaveBeenCalledWith(
-    "The 'hasFocus' prop in Crumb is deprecated and will soon be removed.",
-  );
-
-  loggerSpy.mockRestore();
-});
-
-test("logs deprecation warning when using underline prop", () => {
-  const loggerSpy = jest
-    .spyOn(Logger, "deprecate")
-    .mockImplementation(() => {});
-
-  render(
-    <Breadcrumbs>
-      <Crumb href="#" underline="always">
-        Link text
-      </Crumb>
-    </Breadcrumbs>,
-  );
-
-  expect(loggerSpy).toHaveBeenCalledWith(
-    "The 'underline' prop in Crumb is deprecated and will soon be removed.",
-  );
-
-  loggerSpy.mockRestore();
-});
-
-test("logs deprecation warning when using linkSize prop", () => {
-  const loggerSpy = jest
-    .spyOn(Logger, "deprecate")
-    .mockImplementation(() => {});
-
-  render(
-    <Breadcrumbs>
-      <Crumb href="#" linkSize="large">
-        Link text
-      </Crumb>
-    </Breadcrumbs>,
-  );
-
-  expect(loggerSpy).toHaveBeenCalledWith(
-    "The 'linkSize' prop in Crumb is deprecated and will soon be removed.",
-  );
-
-  loggerSpy.mockRestore();
-});
-
-test("logs deprecation warning when using bold prop", () => {
-  const loggerSpy = jest
-    .spyOn(Logger, "deprecate")
-    .mockImplementation(() => {});
-
-  render(
-    <Breadcrumbs>
-      <Crumb href="#" bold>
-        Link text
-      </Crumb>
-    </Breadcrumbs>,
-  );
-
-  expect(loggerSpy).toHaveBeenCalledWith(
-    "The 'bold' prop in Crumb is deprecated and will soon be removed.",
-  );
-
-  loggerSpy.mockRestore();
-});
-
 test("logs warning when not used within Breadcrumbs", () => {
   const loggerSpy = jest.spyOn(Logger, "error").mockImplementation(() => {});
 
@@ -99,7 +19,7 @@ test("logs warning when not used within Breadcrumbs", () => {
   loggerSpy.mockRestore();
 });
 
-test("passes href to the anchor element when isCurrent is false", () => {
+test("passes `href` to the anchor element when `isCurrent` is false", () => {
   render(
     <Breadcrumbs>
       <Crumb href="foo">Link text</Crumb>
@@ -111,7 +31,7 @@ test("passes href to the anchor element when isCurrent is false", () => {
   expect(link).toHaveAttribute("href", "foo");
 });
 
-test("does not pass href to the anchor element when isCurrent is true", () => {
+test("does not pass `href` to the anchor element when `isCurrent` is true", () => {
   render(
     <Breadcrumbs>
       <Crumb href="foo" data-role="crumb" isCurrent>
@@ -125,7 +45,7 @@ test("does not pass href to the anchor element when isCurrent is true", () => {
   expect(anchor).not.toHaveAttribute("href", "foo");
 });
 
-test("calls onClick callback when the crumb link is clicked", async () => {
+test("calls `onClick` callback when the crumb link is clicked", async () => {
   const onClick = jest.fn();
   const user = userEvent.setup();
   render(
@@ -142,7 +62,7 @@ test("calls onClick callback when the crumb link is clicked", async () => {
   expect(onClick).toHaveBeenCalledTimes(1);
 });
 
-test("does not call onClick callback when isCurrent is true", async () => {
+test("does not call `onClick` callback when `isCurrent` is true", async () => {
   const onClick = jest.fn();
   const user = userEvent.setup();
   render(
@@ -159,7 +79,7 @@ test("does not call onClick callback when isCurrent is true", async () => {
   expect(onClick).toHaveBeenCalledTimes(0);
 });
 
-test("applies aria-current attribute when isCurrent is true", () => {
+test("applies `aria-current` attribute when `isCurrent` is true", () => {
   render(
     <Breadcrumbs>
       <Crumb href="#" isCurrent>

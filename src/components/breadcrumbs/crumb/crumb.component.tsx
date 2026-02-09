@@ -5,12 +5,6 @@ import tagComponent, {
 } from "../../../__internal__/utils/helpers/tags";
 import { StyledCrumb, Divider } from "./crumb.style";
 import { useBreadcrumbsContext } from "../__internal__/breadcrumbs.context";
-import Logger from "../../../__internal__/utils/logger";
-
-let deprecatedHasFocusWarn = false;
-let deprecatedUnderlineWarn = false;
-let deprecatedLinkSizeWarn = false;
-let deprecatedBoldWarn = false;
 
 export interface CrumbProps
   extends Pick<
@@ -43,39 +37,11 @@ export const Crumb = React.forwardRef<HTMLAnchorElement, CrumbProps>(
   ({ href, isCurrent, children, onClick, ...rest }: CrumbProps, ref) => {
     const { inverse } = useBreadcrumbsContext();
 
-    if (rest.hasFocus && !deprecatedHasFocusWarn) {
-      Logger.deprecate(
-        "The 'hasFocus' prop in Crumb is deprecated and will soon be removed.",
-      );
-      deprecatedHasFocusWarn = true;
-    }
-
-    if (rest.underline && !deprecatedUnderlineWarn) {
-      Logger.deprecate(
-        "The 'underline' prop in Crumb is deprecated and will soon be removed.",
-      );
-      deprecatedUnderlineWarn = true;
-    }
-
-    if (rest.linkSize && !deprecatedLinkSizeWarn) {
-      Logger.deprecate(
-        "The 'linkSize' prop in Crumb is deprecated and will soon be removed.",
-      );
-      deprecatedLinkSizeWarn = true;
-    }
-
-    if (rest.bold && !deprecatedBoldWarn) {
-      Logger.deprecate(
-        "The 'bold' prop in Crumb is deprecated and will soon be removed.",
-      );
-      deprecatedBoldWarn = true;
-    }
-
     return (
       <li>
         <StyledCrumb
           ref={ref}
-          isCurrent={isCurrent}
+          $isCurrent={isCurrent}
           aria-current={isCurrent ? "page" : undefined}
           inverse={inverse}
           {...rest}
@@ -91,7 +57,7 @@ export const Crumb = React.forwardRef<HTMLAnchorElement, CrumbProps>(
           <Divider
             data-role="crumb-divider"
             aria-hidden="true"
-            inverse={inverse}
+            $inverse={inverse}
           />
         )}
       </li>

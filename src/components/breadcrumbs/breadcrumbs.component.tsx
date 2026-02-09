@@ -25,7 +25,7 @@ export const Breadcrumbs = React.forwardRef<HTMLElement, BreadcrumbsProps>(
     { children, isDarkBackground = false, inverse, ...rest }: BreadcrumbsProps,
     ref,
   ) => {
-    const l = useLocale();
+    const locale = useLocale();
 
     if (isDarkBackground && !deprecatedIsDarkBackgroundWarn) {
       Logger.deprecate(
@@ -39,7 +39,7 @@ export const Breadcrumbs = React.forwardRef<HTMLElement, BreadcrumbsProps>(
         <StyledBreadcrumbs
           ref={ref}
           role="navigation"
-          aria-label={l.breadcrumbs.ariaLabel()}
+          aria-label={locale.breadcrumbs.ariaLabel()}
           {...rest}
           {...tagComponent("breadcrumbs", rest)}
         >
