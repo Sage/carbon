@@ -1,3 +1,9 @@
+## [158.27.2](https://github.com/Sage/carbon/compare/v158.27.1...v158.27.2) (2026-02-09)
+
+### Bug Fixes
+
+* **text-editor:** move unit tests to playwright ([65f5c25](https://github.com/Sage/carbon/commit/65f5c25697d1e09a6caa555dbad95144de00a8ca))
+
 ## [158.27.1](https://github.com/Sage/carbon/compare/v158.27.0...v158.27.1) (2026-02-04)
 
 ### Bug Fixes

@@ -872,6 +872,52 @@ test.describe("Functionality tests", () => {
     });
   });
 
+  test.describe("Toolbar", () => {
+    test("allows the buttons to be navigated with the arrow keys", async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <TextEditorDefaultComponent initialValue={unformattedValue} />,
+      );
+      const typographyButton = page.locator(
+        "button[data-role='pw-rte-typography-dropdown']",
+      );
+      const boldButton = page.locator("button[data-role='pw-rte-bold-button']");
+
+      await page.keyboard.press("Tab");
+
+      await expect(typographyButton).toBeFocused();
+      await page.keyboard.press("ArrowRight");
+      await expect(boldButton).toBeFocused();
+      await page.keyboard.press("ArrowLeft");
+      await expect(typographyButton).toBeFocused();
+    });
+
+    test("allows the buttons to be navigated with the Home and End keys", async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <TextEditorDefaultComponent initialValue={unformattedValue} />,
+      );
+      const typographyButton = page.locator(
+        "button[data-role='pw-rte-typography-dropdown']",
+      );
+      const hyperlinkButton = page.locator(
+        "button[data-role='pw-rte-hyperlink-button']",
+      );
+
+      await page.keyboard.press("Tab");
+
+      await expect(typographyButton).toBeFocused();
+      await page.keyboard.press("End");
+      await expect(hyperlinkButton).toBeFocused();
+      await page.keyboard.press("Home");
+      await expect(typographyButton).toBeFocused();
+    });
+  });
+
   test.describe("Typography", () => {
     [
       {
@@ -940,6 +986,173 @@ test.describe("Functionality tests", () => {
         await expect(typographyDropdown).toHaveText(/Paragraph/gi);
       });
     });
+
+    test("opens the menu on button click", async ({ mount, page }) => {
+      await mount(
+        <TextEditorDefaultComponent initialValue={unformattedValue} />,
+      );
+      const typographyDropdown = page.locator(
+        "button[data-role='pw-rte-typography-dropdown']",
+      );
+      const textbox = page.locator("div[role='textbox']");
+      await textbox.click();
+      await typographyDropdown.click();
+
+      const dropdownList = page.locator("ul[role='listbox']");
+      await expect(dropdownList).toBeVisible();
+    });
+
+    test("closes the menu on button click when already opened", async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <TextEditorDefaultComponent initialValue={unformattedValue} />,
+      );
+      const typographyDropdown = page.locator(
+        "button[data-role='pw-rte-typography-dropdown']",
+      );
+      const textbox = page.locator("div[role='textbox']");
+      await textbox.click();
+      await typographyDropdown.click();
+
+      const dropdownList = page.locator("ul[role='listbox']");
+      await expect(dropdownList).toBeVisible();
+
+      await typographyDropdown.click();
+      await expect(dropdownList).toBeHidden();
+    });
+
+    test("closes the menu when clicking outside", async ({ mount, page }) => {
+      await mount(
+        <TextEditorDefaultComponent initialValue={unformattedValue} />,
+      );
+      const typographyDropdown = page.locator(
+        "button[data-role='pw-rte-typography-dropdown']",
+      );
+      const textbox = page.locator("div[role='textbox']");
+      await textbox.click();
+      await typographyDropdown.click();
+
+      const dropdownList = page.locator("ul[role='listbox']");
+      await expect(dropdownList).toBeVisible();
+
+      await page.click("body");
+      await expect(dropdownList).toBeHidden();
+    });
+
+    test("handles keyboard Enter to open the menu", async ({ mount, page }) => {
+      await mount(
+        <TextEditorDefaultComponent initialValue={unformattedValue} />,
+      );
+      const typographyDropdown = page.locator(
+        "button[data-role='pw-rte-typography-dropdown']",
+      );
+      await page.keyboard.press("Tab");
+      await expect(typographyDropdown).toBeFocused();
+
+      await page.keyboard.press("Enter");
+
+      const dropdownList = page.locator("ul[role='listbox']");
+      await expect(dropdownList).toBeVisible();
+    });
+
+    test("handles keyboard navigation with ArrowUp and ArrowDown keys", async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <TextEditorDefaultComponent initialValue={unformattedValue} />,
+      );
+      const typographyDropdown = page.locator(
+        "button[data-role='pw-rte-typography-dropdown']",
+      );
+      await typographyDropdown.click();
+
+      const dropdownList = page.locator("ul[role='listbox']");
+      await expect(dropdownList).toBeVisible();
+
+      await page.keyboard.press("ArrowDown");
+
+      const titleOption = page.locator(
+        "li[data-role='pw-rte-typography-option-title']",
+      );
+      await expect(titleOption).toBeFocused();
+
+      await page.keyboard.press("ArrowDown");
+
+      const subtitleOption = page.locator(
+        "li[data-role='pw-rte-typography-option-subtitle']",
+      );
+      await expect(subtitleOption).toBeFocused();
+
+      await page.keyboard.press("ArrowUp");
+      await expect(titleOption).toBeFocused();
+    });
+
+    test("handles keyboard navigation with Home and End", async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <TextEditorDefaultComponent initialValue={unformattedValue} />,
+      );
+      const typographyDropdown = page.locator(
+        "button[data-role='pw-rte-typography-dropdown']",
+      );
+      await typographyDropdown.click();
+
+      const dropdownList = page.locator("ul[role='listbox']");
+      await expect(dropdownList).toBeVisible();
+
+      await page.keyboard.press("End");
+
+      const paragraphOption = page.locator(
+        "li[data-role='pw-rte-typography-option-paragraph']",
+      );
+      await expect(paragraphOption).toBeFocused();
+
+      await page.keyboard.press("Home");
+
+      const titleOption = page.locator(
+        "li[data-role='pw-rte-typography-option-title']",
+      );
+      await expect(titleOption).toBeFocused();
+    });
+
+    test("closes with Escape key", async ({ mount, page }) => {
+      await mount(
+        <TextEditorDefaultComponent initialValue={unformattedValue} />,
+      );
+      const typographyDropdown = page.locator(
+        "button[data-role='pw-rte-typography-dropdown']",
+      );
+      await typographyDropdown.click();
+
+      const dropdownList = page.locator("ul[role='listbox']");
+      await expect(dropdownList).toBeVisible();
+
+      await page.keyboard.press("Escape");
+
+      await expect(dropdownList).toBeHidden();
+    });
+
+    test("closes with Tab key", async ({ mount, page }) => {
+      await mount(
+        <TextEditorDefaultComponent initialValue={unformattedValue} />,
+      );
+      const typographyDropdown = page.locator(
+        "button[data-role='pw-rte-typography-dropdown']",
+      );
+      await typographyDropdown.click();
+
+      const dropdownList = page.locator("ul[role='listbox']");
+      await expect(dropdownList).toBeVisible();
+
+      await page.keyboard.press("Tab");
+
+      await expect(dropdownList).toBeHidden();
+    });
   });
 
   test.describe("Bold", () => {
@@ -1001,6 +1214,28 @@ test.describe("Functionality tests", () => {
         "font-weight",
         "400",
       );
+    });
+
+    test("bold button is rendered correctly in the active/inactive states", async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <TextEditorDefaultComponent initialValue={unformattedValue} />,
+      );
+      const textbox = page.locator("div[role='textbox']");
+      await textbox.selectText();
+      const boldButton = page.locator("button[data-role='pw-rte-bold-button']");
+      await expect(boldButton).toHaveCSS(
+        "background-color",
+        "rgba(0, 0, 0, 0)",
+      );
+      await expect(boldButton).toHaveAttribute("aria-pressed", "false");
+
+      await boldButton.click();
+
+      await expect(boldButton).toHaveCSS("background-color", "rgb(0, 103, 56)");
+      await expect(boldButton).toHaveAttribute("aria-pressed", "true");
     });
   });
 
@@ -1067,6 +1302,33 @@ test.describe("Functionality tests", () => {
         "font-style",
         "normal",
       );
+    });
+
+    test("italic button is rendered correctly in the active/inactive states", async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <TextEditorDefaultComponent initialValue={unformattedValue} />,
+      );
+      const textbox = page.locator("div[role='textbox']");
+      await textbox.selectText();
+      const italicButton = page.locator(
+        "button[data-role='pw-rte-italic-button']",
+      );
+      await expect(italicButton).toHaveCSS(
+        "background-color",
+        "rgba(0, 0, 0, 0)",
+      );
+      await expect(italicButton).toHaveAttribute("aria-pressed", "false");
+
+      await italicButton.click();
+
+      await expect(italicButton).toHaveCSS(
+        "background-color",
+        "rgb(0, 103, 56)",
+      );
+      await expect(italicButton).toHaveAttribute("aria-pressed", "true");
     });
   });
 
@@ -1141,6 +1403,33 @@ test.describe("Functionality tests", () => {
         "none",
       );
     });
+
+    test("underline button is rendered correctly in the active/inactive states", async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <TextEditorDefaultComponent initialValue={unformattedValue} />,
+      );
+      const textbox = page.locator("div[role='textbox']");
+      await textbox.selectText();
+      const underlineButton = page.locator(
+        "button[data-role='pw-rte-underline-button']",
+      );
+      await expect(underlineButton).toHaveCSS(
+        "background-color",
+        "rgba(0, 0, 0, 0)",
+      );
+      await expect(underlineButton).toHaveAttribute("aria-pressed", "false");
+
+      await underlineButton.click();
+
+      await expect(underlineButton).toHaveCSS(
+        "background-color",
+        "rgb(0, 103, 56)",
+      );
+      await expect(underlineButton).toHaveAttribute("aria-pressed", "true");
+    });
   });
 
   test.describe("Ordered List", () => {
@@ -1162,6 +1451,27 @@ test.describe("Functionality tests", () => {
       await orderedListButton.click();
       expect(await page.locator("ol").count()).toBe(0);
     });
+
+    test("ordered list button is rendered correctly in the active/inactive states", async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <TextEditorDefaultComponent initialValue={unformattedValue} />,
+      );
+      const textbox = page.locator("div[role='textbox']");
+      await textbox.selectText();
+      const olButton = page.locator(
+        "button[data-role='pw-rte-ordered-list-button']",
+      );
+      await expect(olButton).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
+      await expect(olButton).toHaveAttribute("aria-pressed", "false");
+
+      await olButton.click();
+
+      await expect(olButton).toHaveCSS("background-color", "rgb(0, 103, 56)");
+      await expect(olButton).toHaveAttribute("aria-pressed", "true");
+    });
   });
 
   test.describe("Unordered List", () => {
@@ -1182,6 +1492,27 @@ test.describe("Functionality tests", () => {
       await expect(unorderedList).toHaveText("This text needs formatting");
       await unorderedListButton.click();
       expect(await page.locator("ul").count()).toBe(0);
+    });
+
+    test("unordered list button is rendered correctly in the active/inactive states", async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <TextEditorDefaultComponent initialValue={unformattedValue} />,
+      );
+      const textbox = page.locator("div[role='textbox']");
+      await textbox.selectText();
+      const ulButton = page.locator(
+        "button[data-role='pw-rte-unordered-list-button']",
+      );
+      await expect(ulButton).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
+      await expect(ulButton).toHaveAttribute("aria-pressed", "false");
+
+      await ulButton.click();
+
+      await expect(ulButton).toHaveCSS("background-color", "rgb(0, 103, 56)");
+      await expect(ulButton).toHaveAttribute("aria-pressed", "true");
     });
   });
 
@@ -1214,6 +1545,103 @@ test.describe("Functionality tests", () => {
       await expect(linkText).toHaveText("Sage Website");
       const linkHref = page.locator("a");
       await expect(linkHref).toHaveAttribute("href", "https://www.sage.com");
+
+      await expect(titleInput).not.toBeVisible();
+    });
+
+    test("should not persist data between modals when the Cancel button is pressed", async ({
+      mount,
+      page,
+    }) => {
+      await mount(<TextEditorDefaultComponent />);
+
+      const textbox = page.locator("div[role='textbox']");
+      await textbox.click();
+
+      const linkButton = page.locator(
+        "button[data-role='pw-rte-hyperlink-button']",
+      );
+      await linkButton.click();
+
+      const titleInput = page.locator(
+        "div[data-role='pw-rte-hyperlink-text-field'] input",
+      );
+      await titleInput.fill("Sage Website");
+      const urlInput = page.locator(
+        "div[data-role='pw-rte-hyperlink-link-field'] input",
+      );
+      await urlInput.fill("https://www.sage.com");
+      const cancelButton = page.locator(
+        "button[data-role='pw-rte-hyperlink-cancel-button']",
+      );
+      await cancelButton.click();
+
+      await linkButton.click();
+
+      await expect(titleInput).toBeEmpty();
+      await expect(urlInput).toBeEmpty();
+    });
+
+    test("should not persist data between modals when the Esc key is pressed", async ({
+      mount,
+      page,
+    }) => {
+      await mount(<TextEditorDefaultComponent />);
+
+      const textbox = page.locator("div[role='textbox']");
+      await textbox.click();
+
+      const linkButton = page.locator(
+        "button[data-role='pw-rte-hyperlink-button']",
+      );
+      await linkButton.click();
+
+      const titleInput = page.locator(
+        "div[data-role='pw-rte-hyperlink-text-field'] input",
+      );
+      await titleInput.fill("Sage Website");
+      const urlInput = page.locator(
+        "div[data-role='pw-rte-hyperlink-link-field'] input",
+      );
+      await urlInput.fill("https://www.sage.com");
+
+      await page.keyboard.press("Escape");
+
+      await linkButton.click();
+
+      await expect(titleInput).toBeEmpty();
+      await expect(urlInput).toBeEmpty();
+    });
+
+    test("should not persist data between modals when the Close button is pressed", async ({
+      mount,
+      page,
+    }) => {
+      await mount(<TextEditorDefaultComponent />);
+
+      const textbox = page.locator("div[role='textbox']");
+      await textbox.click();
+
+      const linkButton = page.locator(
+        "button[data-role='pw-rte-hyperlink-button']",
+      );
+      await linkButton.click();
+
+      const titleInput = page.locator(
+        "div[data-role='pw-rte-hyperlink-text-field'] input",
+      );
+      await titleInput.fill("Sage Website");
+      const urlInput = page.locator(
+        "div[data-role='pw-rte-hyperlink-link-field'] input",
+      );
+      await urlInput.fill("https://www.sage.com");
+
+      await page.getByRole("button", { name: "Close" }).click();
+
+      await linkButton.click();
+
+      await expect(titleInput).toBeEmpty();
+      await expect(urlInput).toBeEmpty();
     });
   });
 });

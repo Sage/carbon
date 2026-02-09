@@ -1,46 +1,11 @@
 import { render, screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
+import { LexicalComposer } from "@lexical/react/LexicalComposer";
 
 import ToolbarDropdown from "./dropdown.component";
-import { TestEditor } from "../../../../TestEditor.component";
 
-const options = [
-  { id: "title", label: "Title", onClick: jest.fn() },
-  { id: "subtitle", label: "Subtitle", onClick: jest.fn() },
-  { id: "sectionHeader", label: "Section header", onClick: jest.fn() },
-  { id: "sectionSubheader", label: "Section subheader", onClick: jest.fn() },
-  { id: "paragraph", label: "Paragraph", onClick: jest.fn() },
-];
-
-const TestEditorWithToolbar = ({
-  defaultState = false,
-  size = "medium",
-}: {
-  defaultState: boolean;
-  size?: "small" | "medium" | "large";
-}) => {
-  const [isOpen, setIsOpen] = React.useState(defaultState);
-  const [focusedIndex, setFocusedIndex] = React.useState(0);
-  const [value, setValue] = React.useState("0");
-  const onChange = (id: string) => setValue(id);
-
-  return (
-    <TestEditor>
-      <ToolbarDropdown
-        options={options}
-        value={value}
-        isOpen={isOpen}
-        focusedIndex={focusedIndex}
-        setIsOpen={setIsOpen}
-        setFocusedIndex={setFocusedIndex}
-        onChange={onChange}
-        namespace="test"
-        size={size}
-      />
-    </TestEditor>
-  );
-};
+import TextEditor from "../../../../../text-editor.component";
 
 describe("ToolbarDropdown", () => {
   beforeEach(() => {
@@ -48,14 +13,13 @@ describe("ToolbarDropdown", () => {
   });
 
   it("renders with default selected option", () => {
-    render(<TestEditorWithToolbar defaultState={false} />);
-
+    render(<TextEditor labelText="Test Editor" namespace="test" />);
     expect(screen.getByRole("combobox")).toBeInTheDocument();
     expect(screen.getByRole("combobox")).toHaveTextContent(/Paragraph/gi);
   });
 
   it("opens menu on button click", async () => {
-    render(<TestEditorWithToolbar defaultState={false} />);
+    render(<TextEditor labelText="Test Editor" namespace="test" />);
 
     expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
     await userEvent.click(screen.getByRole("combobox"));
@@ -63,7 +27,8 @@ describe("ToolbarDropdown", () => {
   });
 
   it("closes menu on button click when already open", async () => {
-    render(<TestEditorWithToolbar defaultState={true} />);
+    render(<TextEditor labelText="Test Editor" namespace="test" />);
+    await userEvent.click(screen.getByRole("combobox"));
 
     expect(screen.getByRole("listbox")).toBeInTheDocument();
     await userEvent.click(screen.getByRole("combobox"));
@@ -71,15 +36,16 @@ describe("ToolbarDropdown", () => {
   });
 
   it("closes menu when clicking outside", async () => {
-    render(<TestEditorWithToolbar defaultState={true} />);
+    render(<TextEditor labelText="Test Editor" namespace="test" />);
 
+    await userEvent.click(screen.getByRole("combobox"));
     expect(screen.getByRole("listbox")).toBeInTheDocument();
     await userEvent.click(document.body);
     expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
   });
 
   it("handles keyboard Enter to open menu", async () => {
-    render(<TestEditorWithToolbar defaultState={false} />);
+    render(<TextEditor labelText="Test Editor" namespace="test" />);
 
     expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
 
@@ -92,26 +58,22 @@ describe("ToolbarDropdown", () => {
   });
 
   it("handles keyboard Enter to select option", async () => {
-    render(<TestEditorWithToolbar defaultState={true} />);
+    render(<TextEditor labelText="Test Editor" namespace="test" />);
 
+    await userEvent.click(screen.getByRole("combobox"));
     expect(screen.getByRole("listbox")).toBeInTheDocument();
     await userEvent.keyboard("{ArrowDown}");
     await userEvent.keyboard("{Enter}");
-    expect(options[1].onClick).toHaveBeenCalled();
+    expect(screen.getByRole("combobox")).toHaveTextContent(/Title/gi);
     expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
   });
 
   it("navigates with ArrowDown", async () => {
-    render(<TestEditorWithToolbar defaultState={false} />);
+    render(<TextEditor labelText="Test Editor" namespace="test" />);
     await userEvent.click(screen.getByRole("combobox"));
 
-    const menu = screen.getByRole("listbox");
-
-    act(() => {
-      menu.focus();
-    });
-
     const menuitems = screen.getAllByRole("option");
+    await userEvent.keyboard("{ArrowDown}");
     expect(menuitems[0]).toHaveFocus();
 
     await userEvent.keyboard("{ArrowDown}");
@@ -131,17 +93,10 @@ describe("ToolbarDropdown", () => {
   });
 
   it("navigates with ArrowUp", async () => {
-    render(<TestEditorWithToolbar defaultState={false} />);
+    render(<TextEditor labelText="Test Editor" namespace="test" />);
     await userEvent.click(screen.getByRole("combobox"));
 
-    const menu = screen.getByRole("listbox");
-
-    act(() => {
-      menu.focus();
-    });
-
     const menuitems = screen.getAllByRole("option");
-    expect(menuitems[0]).toHaveFocus();
 
     await userEvent.keyboard("{ArrowUp}");
     expect(menuitems[4]).toHaveFocus();
@@ -157,17 +112,17 @@ describe("ToolbarDropdown", () => {
 
     await userEvent.keyboard("{ArrowUp}");
     expect(menuitems[0]).toHaveFocus();
+
+    await userEvent.keyboard("{ArrowUp}");
+    expect(menuitems[4]).toHaveFocus();
   });
 
   it("navigates with Home", async () => {
-    render(<TestEditorWithToolbar defaultState={false} />);
-    await userEvent.click(screen.getByRole("combobox"));
-
-    const menu = screen.getByRole("listbox");
-
+    render(<TextEditor labelText="Test Editor" namespace="test" />);
     act(() => {
-      menu.focus();
+      screen.getByRole("combobox").focus();
     });
+    await userEvent.keyboard("{Enter}");
 
     const menuitems = screen.getAllByRole("option");
     expect(menuitems[0]).toHaveFocus();
@@ -183,14 +138,11 @@ describe("ToolbarDropdown", () => {
   });
 
   it("navigates with End", async () => {
-    render(<TestEditorWithToolbar defaultState={false} />);
-    await userEvent.click(screen.getByRole("combobox"));
-
-    const menu = screen.getByRole("listbox");
-
+    render(<TextEditor labelText="Test Editor" namespace="test" />);
     act(() => {
-      menu.focus();
+      screen.getByRole("combobox").focus();
     });
+    await userEvent.keyboard("{Enter}");
 
     const menuitems = screen.getAllByRole("option");
     expect(menuitems[0]).toHaveFocus();
@@ -200,40 +152,49 @@ describe("ToolbarDropdown", () => {
   });
 
   it("closes with Escape key", async () => {
-    render(<TestEditorWithToolbar defaultState={true} />);
+    render(<TextEditor labelText="Test Editor" namespace="test" />);
 
+    await userEvent.click(screen.getByRole("combobox"));
     expect(screen.getByRole("listbox")).toBeInTheDocument();
     await userEvent.keyboard("{Escape}");
     expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
   });
 
   it("closes with Tab key", async () => {
-    render(<TestEditorWithToolbar defaultState={true} />);
+    render(<TextEditor labelText="Test Editor" namespace="test" />);
+    await userEvent.click(screen.getByRole("combobox"));
     expect(screen.getByRole("listbox")).toBeInTheDocument();
     await userEvent.tab();
     expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
   });
 
   it("selects option with mouse click", async () => {
-    render(<TestEditorWithToolbar defaultState={true} />);
+    render(<TextEditor labelText="Test Editor" namespace="test" />);
 
+    await userEvent.click(screen.getByRole("combobox"));
     expect(screen.getByRole("listbox")).toBeInTheDocument();
     await userEvent.click(screen.getByText("Subtitle"));
-    expect(options[1].onClick).toHaveBeenCalled();
     expect(screen.getByRole("combobox")).toHaveTextContent(/Subtitle/gi);
     expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
   });
 
-  it("applies correct aria attributes", () => {
-    render(<TestEditorWithToolbar defaultState={true} />);
+  it("applies correct aria attributes", async () => {
+    render(<TextEditor labelText="Test Editor" namespace="test" />);
+
+    await userEvent.click(screen.getByRole("combobox"));
+
     expect(screen.getByRole("combobox")).toHaveAttribute(
       "aria-controls",
       "test-typography-menu",
     );
   });
 
-  it("renders correctly when size is set to small", () => {
-    render(<TestEditorWithToolbar defaultState={true} size="small" />);
+  it("renders correctly when size is set to small", async () => {
+    render(
+      <TextEditor labelText="Test Editor" namespace="test" size="small" />,
+    );
+
+    await userEvent.click(screen.getByRole("combobox"));
     expect(screen.getByRole("combobox")).toHaveStyle({
       height: "32px",
     });
@@ -242,8 +203,13 @@ describe("ToolbarDropdown", () => {
     });
   });
 
-  it("renders correctly when size is set to medium", () => {
-    render(<TestEditorWithToolbar defaultState={true} />);
+  it("renders correctly when size is set to medium", async () => {
+    render(
+      <TextEditor labelText="Test Editor" namespace="test" size="medium" />,
+    );
+
+    await userEvent.click(screen.getByRole("combobox"));
+
     expect(screen.getByRole("combobox")).toHaveStyle({
       height: "40px",
     });
@@ -252,13 +218,43 @@ describe("ToolbarDropdown", () => {
     });
   });
 
-  it("renders correctly when size is set to large", () => {
-    render(<TestEditorWithToolbar defaultState={true} size="large" />);
+  it("renders correctly when size is set to large", async () => {
+    render(
+      <TextEditor labelText="Test Editor" namespace="test" size="large" />,
+    );
+
+    await userEvent.click(screen.getByRole("combobox"));
+
     expect(screen.getByRole("combobox")).toHaveStyle({
       height: "48px",
     });
     expect(screen.getByRole("listbox")).toHaveStyle({
       top: "54px",
     });
+  });
+
+  it("defaults isFirstButton to false when rendered with LexicalComposer", () => {
+    const initialConfig = {
+      namespace: "test-dropdown-composer",
+      nodes: [],
+      onError: () => {},
+    };
+
+    render(
+      <LexicalComposer initialConfig={initialConfig}>
+        <ToolbarDropdown
+          options={[
+            { id: "title", label: "Title", onClick: jest.fn() },
+            { id: "subtitle", label: "Subtitle", onClick: jest.fn() },
+          ]}
+          value="0"
+          isOpen={false}
+          namespace="test-dropdown"
+          focusedIndex={0}
+        />
+      </LexicalComposer>,
+    );
+
+    expect(screen.getByRole("combobox")).toHaveAttribute("tabindex", "-1");
   });
 });

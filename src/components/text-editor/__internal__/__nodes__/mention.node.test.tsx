@@ -1,5 +1,5 @@
 import { createHeadlessEditor } from "@lexical/headless";
-import { act, render } from "@testing-library/react";
+import { act } from "@testing-library/react";
 import {
   $createParagraphNode,
   $createTextNode,
@@ -7,7 +7,6 @@ import {
   LexicalEditor,
   ParagraphNode,
 } from "lexical";
-import React from "react";
 
 import {
   MentionNode,
@@ -16,7 +15,6 @@ import {
   $convertMentionElement,
   SerializedMentionNode,
 } from "./mention.node";
-import TestEditor from "../TestEditor.component";
 
 // Mock DOM environment if needed
 Object.defineProperty(window, "getComputedStyle", {
@@ -69,27 +67,18 @@ describe("MentionNode", () => {
       });
     });
 
-    test("should clone node correctly", async () => {
-      let editorRef: LexicalEditor;
+    test("should clone node correctly", () => {
+      editor?.update(() => {
+        const original = $createMentionNode("john_doe", "John Doe");
+        const paragraph = $createParagraphNode();
+        paragraph.append(original);
+        $getRoot().append(paragraph);
 
-      render(
-        <TestEditor
-          onEditorReady={(editor) => {
-            editorRef = editor;
-          }}
-        />,
-      );
-
-      await act(() => {
-        editorRef?.update(() => {
-          const original = new MentionNode("john_doe", "John Doe", "test-key");
-          const cloned = MentionNode.clone(original);
-
-          expect(cloned.__mention).toBe(original.__mention);
-          expect(cloned.__text).toBe(original.getTextContent());
-          expect(cloned.__key).toBe(original.getKey());
-          expect(cloned).not.toBe(original); // Should be different instances
-        });
+        const cloned = MentionNode.clone(original);
+        expect(cloned.__mention).toBe(original.__mention);
+        expect(cloned.__text).toBe(original.getTextContent());
+        expect(cloned.__key).toBe(original.getKey());
+        expect(cloned).not.toBe(original);
       });
     });
 
