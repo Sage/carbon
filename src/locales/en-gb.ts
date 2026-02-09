@@ -172,6 +172,8 @@ const enGB: Locale = {
     error: (tabTitle) => `The ${tabTitle} tab contains errors`,
     info: (tabTitle) => `The ${tabTitle} tab contains information`,
     warning: (tabTitle) => `The ${tabTitle} tab contains warnings`,
+    scrollLeftText: () => "Scroll Tabs Left",
+    scrollRightText: () => "Scroll Tabs Right",
   },
   textEditor: {
     boldAria: () => "Bold",

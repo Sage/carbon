@@ -30,6 +30,7 @@ import useLocale from "../../../hooks/__internal__/useLocale";
 import Icon from "../../icon";
 import { TabProvider } from "./tab.context";
 import usePrevious from "../../../hooks/__internal__/usePrevious";
+import guid from "../../../__internal__/utils/helpers/guid";
 import tagComponent from "../../../__internal__/utils/helpers/tags";
 import extractTextFromNode from "../../../__internal__/utils/helpers/extract-text";
 
@@ -61,6 +62,9 @@ export const Tab = ({
   rightSlot,
   warning = false,
   info = false,
+  hasCustomLayout,
+  headerWidth,
+  href,
   ...rest
 }: TabProps) => {
   const locale = useLocale();
@@ -133,7 +137,7 @@ export const Tab = ({
       .map((k) => tabErrorEntries[k])
       .filter((v) => v !== false);
 
-    const tabHasErrors = error || currentTabErrors.length > 0;
+    const tabHasErrors = error || !!currentTabErrors.length;
     setInternalError(tabHasErrors);
 
     if (!tabWarningEntries) {
@@ -145,7 +149,7 @@ export const Tab = ({
       .map((k) => tabWarningEntries[k])
       .filter((v) => v !== false);
 
-    const tabHasWarnings = warning || currentTabWarnings.length > 0;
+    const tabHasWarnings = warning || !!currentTabWarnings.length;
     setInternalWarning(tabHasWarnings);
 
     if (!tabInfoEntries) {
@@ -156,7 +160,7 @@ export const Tab = ({
       .map((k) => tabInfoEntries[k])
       .filter((v) => v !== false);
 
-    const tabHasInfo = info || currentTabInfos.length > 0;
+    const tabHasInfo = info || !!currentTabInfos.length;
     setInternalInfo(tabHasInfo);
   }, [error, id, errors, warnings, warning, infos, info]);
 
@@ -207,22 +211,37 @@ export const Tab = ({
     <TabProvider tabId={id} visible>
       <StyledTab
         activeTab={activeTab === id}
+        className={activeTab === id ? "active-tab" : ""}
         aria-controls={controls}
         aria-selected={selected ? "true" : "false"}
         error={internalError}
+        warning={internalWarning}
         info={internalInfo}
         id={id}
         onClick={() => {
           setActiveTab(id);
           setFocusIndex(id);
         }}
-        orientation={orientation}
+        $orientation={orientation}
         role="tab"
-        size={size}
-        type="button"
+        $size={size}
+        type={!href ? "button" : undefined}
         tabIndex={activeTab === id ? 0 : -1}
-        warning={internalWarning}
+        // below props can be removed when legacy support is dropped
+        $hasCustomLayout={hasCustomLayout}
+        $headerWidth={headerWidth}
         {...tagComponent("tab", rest)}
+        data-tabid={id}
+        as={href ? "a" : undefined}
+        {...(href && {
+          href,
+          target: "_blank",
+          style: {
+            textDecoration: "none",
+            display: "block",
+            boxSizing: "border-box",
+          },
+        })}
       >
         {typeof label === "string" ? (
           <span className="tab-title-content-wrapper">
@@ -243,7 +262,10 @@ export const Tab = ({
 };
 
 export const TabList = forwardRef<TabsHandle, TabListProps>(
-  ({ ariaLabel, children, onTabChange, ...rest }: TabListProps, ref) => {
+  (
+    { ariaLabel, children, onTabChange, headerWidth, ...rest }: TabListProps,
+    ref,
+  ) => {
     const tabListRef = useRef<HTMLDivElement>(null);
     const {
       activeTab,
@@ -254,6 +276,10 @@ export const TabList = forwardRef<TabsHandle, TabListProps>(
       setActiveTab,
       size,
     } = useTabs();
+    const idLeftNav = useRef(guid());
+    const idRightNav = useRef(guid());
+    const idTabList = useRef(guid());
+    const locale = useLocale();
 
     useImperativeHandle(ref, () => ({
       focusTab: (id: string) => {
@@ -405,17 +431,17 @@ export const TabList = forwardRef<TabsHandle, TabListProps>(
       return leftVisible ? (
         <StyledScrollButton
           data-role="tab-navigation-button-left"
-          id="tab-navigation-button-left"
+          id={`tab-navigation-button-left-${idLeftNav.current}`}
           onClick={() => onClickHandler("left")}
-          size={size}
+          $size={size}
           tabIndex={-1}
-          title="Scroll Tabs Left"
+          title={locale.tabs.scrollLeftText?.()}
           type="button"
         >
           <Icon type="chevron_left" />
         </StyledScrollButton>
       ) : (
-        <StyledScrollButtonPlaceholder size={size} />
+        <StyledScrollButtonPlaceholder $size={size} />
       );
     };
 
@@ -426,32 +452,34 @@ export const TabList = forwardRef<TabsHandle, TabListProps>(
       return rightVisible ? (
         <StyledScrollButton
           data-role="tab-navigation-button-right"
-          id="tab-navigation-button-right"
+          id={`tab-navigation-button-right-${idRightNav.current}`}
           onClick={() => onClickHandler("right")}
-          size={size}
+          $size={size}
           tabIndex={-1}
-          title="Scroll Tabs Right"
+          title={locale.tabs.scrollRightText?.()}
           type="button"
         >
           <Icon type="chevron_right" />
         </StyledScrollButton>
       ) : (
-        <StyledScrollButtonPlaceholder size={size} />
+        <StyledScrollButtonPlaceholder $size={size} />
       );
     };
 
     return (
       <>
-        <StyledTabListWrapper>
+        <StyledTabListWrapper
+          $headerWidth={headerWidth}
+          data-role="tab-list-wrapper"
+        >
           {renderLeftScroll()}
           <StyledTabList
             aria-label={ariaLabel}
-            id="tablist"
+            id={`tablist-${idTabList.current}`}
             onKeyDown={handleKeyDown}
-            orientation={orientation}
+            $orientation={orientation}
             ref={tabListRef}
             role="tablist"
-            size={size}
             tabIndex={-1}
             {...tagComponent("tab-list", rest)}
           >
@@ -473,6 +501,8 @@ export const Tabs = ({
   size = "medium",
   ...rest
 }: TabsProps) => {
+  const id = useRef(guid());
+
   return (
     <TabsProvider
       labelledBy={labelledBy}
@@ -481,8 +511,8 @@ export const Tabs = ({
       size={size}
     >
       <StyledTabs
-        id="tabs-container"
-        orientation={orientation}
+        id={`tabs-container-${id.current}`}
+        $orientation={orientation}
         {...tagComponent("tabs", rest)}
       >
         {children}
