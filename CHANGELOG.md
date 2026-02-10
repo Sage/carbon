@@ -1,3 +1,9 @@
+## [158.27.3](https://github.com/Sage/carbon/compare/v158.27.2...v158.27.3) (2026-02-10)
+
+### Bug Fixes
+
+* **text-editor:** ensure label click focuses editor ([8896307](https://github.com/Sage/carbon/commit/88963077e79ce5749202a3dbf1c73c0570387a94))
+
 ## [158.27.2](https://github.com/Sage/carbon/compare/v158.27.1...v158.27.2) (2026-02-09)
 
 ### Bug Fixes
