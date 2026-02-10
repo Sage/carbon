@@ -1,3 +1,9 @@
+## [158.27.4](https://github.com/Sage/carbon/compare/v158.27.3...v158.27.4) (2026-02-10)
+
+### Bug Fixes
+
+* **text-editor:** style selection stuck to paragraph on empty line ([c855567](https://github.com/Sage/carbon/commit/c85556750ec8d0d2de90d172c86e88cbfd8335f4))
+
 ## [158.27.3](https://github.com/Sage/carbon/compare/v158.27.2...v158.27.3) (2026-02-10)
 
 ### Bug Fixes
