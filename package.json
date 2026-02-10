@@ -1,13 +1,13 @@
 {
   "name": "carbon-react",
-  "version": "158.27.1",
+  "version": "158.27.2",
   "description": "A library of reusable React components for easily building user interfaces.",
   "files": [
     "lib",
     "esm"
   ],
   "engines": {
-    "npm": ">=11.8.0"
+    "npm": ">=11.9.0"
   },
   "scripts": {
     "setup": "npm ci && npm run prepare",

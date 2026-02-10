@@ -1,33 +1,42 @@
 import { render, screen } from "@testing-library/react";
+import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import React from "react";
 
+import TextEditor from "../../../text-editor.component";
 import ContentEditor from "./content-editor.component";
-import TestEditor from "../../TestEditor.component";
 
 test("previews are rendered correctly if provided", () => {
   const previews = [<div key="preview-1">Preview 1</div>];
-
-  render(
-    <TestEditor>
-      <ContentEditor namespace="test" previews={previews} />
-    </TestEditor>,
-  );
+  render(<TextEditor previews={previews} labelText="Example" />);
 
   const preview = screen.getByText("Preview 1");
 
-  // expect the preview to be rendered
-  expect(preview).toBeInTheDocument();
+  expect(preview).toBeVisible();
 });
 
 test("no previews are rendered if the prop is not provided", () => {
-  render(
-    <TestEditor>
-      <ContentEditor namespace="test" />
-    </TestEditor>,
-  );
+  render(<TextEditor labelText="Example" />);
 
   const preview = screen.queryByText("Preview 1");
 
-  // expect the preview not to be rendered
   expect(preview).not.toBeInTheDocument();
+});
+
+test("defaults previews and size when rendered in a minimal lexical composer", () => {
+  const initialConfig = {
+    namespace: "test-content",
+    nodes: [],
+    onError: () => {},
+  };
+
+  render(
+    <LexicalComposer initialConfig={initialConfig}>
+      <ContentEditor namespace="test-content" />
+    </LexicalComposer>,
+  );
+
+  const wrapper = screen.getByTestId("test-content-content-editable");
+  expect(wrapper).toHaveStyleRule("padding", "12px", {
+    modifier: ".test-content-editable",
+  });
 });
