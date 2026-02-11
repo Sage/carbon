@@ -1,3 +1,22 @@
+## [158.28.0](https://github.com/Sage/carbon/compare/v158.27.4...v158.28.0) (2026-02-11)
+
+### Features
+
+* **tabs:** add de-De, fr-CA, fr-FR & pt-PT status translations ([562004e](https://github.com/Sage/carbon/commit/562004ece07134174bcdf218ac7b2d6c7dab4f89))
+* **tabs:** update en-GB status translation to include tab title ([e0c3e78](https://github.com/Sage/carbon/commit/e0c3e78af74d47e13ce8cb037f1b72fbe4071405))
+
+## [158.27.4](https://github.com/Sage/carbon/compare/v158.27.3...v158.27.4) (2026-02-10)
+
+### Bug Fixes
+
+* **text-editor:** style selection stuck to paragraph on empty line ([c855567](https://github.com/Sage/carbon/commit/c85556750ec8d0d2de90d172c86e88cbfd8335f4))
+
+## [158.27.3](https://github.com/Sage/carbon/compare/v158.27.2...v158.27.3) (2026-02-10)
+
+### Bug Fixes
+
+* **text-editor:** ensure label click focuses editor ([8896307](https://github.com/Sage/carbon/commit/88963077e79ce5749202a3dbf1c73c0570387a94))
+
 ## [158.27.2](https://github.com/Sage/carbon/compare/v158.27.1...v158.27.2) (2026-02-09)
 
 ### Bug Fixes

@@ -50,6 +50,17 @@ test("calls `onMouseEnter` and `onMouseLeave` callbacks passed from InputGroupCo
   expect(onMouseLeave).toHaveBeenCalledTimes(1);
 });
 
+test("calls `onClick` callback when clicked", async () => {
+  const user = userEvent.setup();
+  const onClick = jest.fn();
+  render(<Label onClick={onClick}>foo</Label>);
+
+  const label = screen.getByText("foo");
+  await user.click(label);
+
+  expect(onClick).toHaveBeenCalledTimes(1);
+});
+
 test("renders Help icon with provided tooltip content when the `help` prop is passed", async () => {
   const user = userEvent.setup();
   render(<Label help="bar">foo</Label>);
