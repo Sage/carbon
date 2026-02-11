@@ -35,6 +35,8 @@ jobs:
           git-commit-gpgsign: true
       - name: Run build
         run: npm run build
+      - name: Build Carbon skills
+        run: npm run build:skills
       - run: npx semantic-release
         env:
           # A personal access token is required to publish from protected branches

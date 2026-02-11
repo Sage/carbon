@@ -4,7 +4,8 @@
   "description": "A library of reusable React components for easily building user interfaces.",
   "files": [
     "lib",
-    "esm"
+    "esm",
+    "skills"
   ],
   "engines": {
     "npm": ">=11.9.0"
@@ -38,6 +39,7 @@
     "build": "npm run clean-lib && npm run generate-tokens && npm run type-check && rollup -c \"./rollup.config.mjs\" && npm run build:generate-package-json-files && npm run build:move-svg && npm run build:types",
     "build:generate-package-json-files": "node ./scripts/generate_package_json_files/index.js",
     "build:move-svg": "node ./scripts/copy_svg/index.js",
+    "build:skills": "node ./scripts/skills/build_skills.mjs",
     "generate-tokens": "rimraf ./src/components/tokens-wrapper/static-tokens && node ./scripts/generate_tokens/generate_tokens.mjs",
     "generate-tokens:dev": "rimraf ./src/components/tokens-wrapper/static-tokens && node ./scripts/generate_tokens/generate_tokens.mjs --include-dark"
   },
@@ -188,6 +190,7 @@
     "storybook-addon-pseudo-states": "~4.0.3",
     "styled-components": "^5.3.11",
     "typescript": "^5.8.3",
+    "ts-morph": "^23.0.0",
     "url-loader": "^4.1.1",
     "uuid": "^8.3.2",
     "vite": "^6.3.4",
