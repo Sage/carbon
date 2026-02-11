@@ -1057,6 +1057,38 @@ test.describe("Functionality tests", () => {
       await expect(dropdownList).toBeVisible();
     });
 
+    test("renders correctly when typography is selected on a new row prior to input", async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <TextEditorDefaultComponent initialValue={unformattedValue} />,
+      );
+      const typographyDropdown = page.locator(
+        "button[data-role='pw-rte-typography-dropdown']",
+      );
+      await expect(typographyDropdown).toHaveText(/Paragraph/gi);
+
+      const textbox = page.locator("div[role='textbox']");
+      await textbox.click();
+      await page.keyboard.press("Enter");
+
+      await typographyDropdown.click();
+      const typographyOption = page.locator(
+        `li[data-role='pw-rte-typography-option-subtitle']`,
+      );
+      await typographyOption.click();
+      await expect(typographyDropdown).toHaveText(/Subtitle/gi);
+
+      await textbox.click();
+      await page.keyboard.type("Test");
+
+      const styledText = page.getByText("Test");
+      await expect(styledText).toHaveCSS("font-size", "21px");
+      await expect(styledText).toHaveCSS("font-weight", "500");
+      await expect(styledText).toHaveCSS("line-height", "26.25px");
+    });
+
     test("handles keyboard navigation with ArrowUp and ArrowDown keys", async ({
       mount,
       page,
@@ -1152,6 +1184,42 @@ test.describe("Functionality tests", () => {
       await page.keyboard.press("Tab");
 
       await expect(dropdownList).toBeHidden();
+    });
+
+    test("renders correctly when typography is selected on a new row prior to input inside of an unordered list", async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <TextEditorDefaultComponent initialValue={unformattedValue} />,
+      );
+      const typographyDropdown = page.locator(
+        "button[data-role='pw-rte-typography-dropdown']",
+      );
+      await expect(typographyDropdown).toHaveText(/Paragraph/gi);
+
+      const textbox = page.locator("div[role='textbox']");
+      await textbox.click();
+
+      const unorderedListButton = page.locator(
+        "button[data-role='pw-rte-unordered-list-button']",
+      );
+      await unorderedListButton.click();
+
+      await typographyDropdown.click();
+      const typographyOption = page.locator(
+        `li[data-role='pw-rte-typography-option-subtitle']`,
+      );
+      await typographyOption.click();
+      await expect(typographyDropdown).toHaveText(/Subtitle/gi);
+
+      await textbox.click();
+      await page.keyboard.type("Test");
+
+      const styledText = page.getByText("Test");
+      await expect(styledText).toHaveCSS("font-size", "21px");
+      await expect(styledText).toHaveCSS("font-weight", "500");
+      await expect(styledText).toHaveCSS("line-height", "26.25px");
     });
   });
 
