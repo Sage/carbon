@@ -25,3 +25,4 @@ playwright/.cache
 
 src/components/tokens-wrapper/__internal__/static-tokens/index.js
 .hintrc
+skills/**/*.md
