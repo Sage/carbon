@@ -1,4 +1,5 @@
 import React, { Dispatch, SetStateAction } from "react";
+import { TagProps } from "../../../__internal__/utils/helpers/tags";
 
 export type TabValidationRecord = Record<string, string | boolean>;
 export type ValidationRecord = Record<string, TabValidationRecord>;
@@ -40,7 +41,7 @@ export interface TabsContextProps {
   setInfos: (childId: string, tabId: string, info: string | boolean) => void;
 }
 
-export interface TabPanelProps {
+export interface TabPanelProps extends TagProps {
   /** The content to be shown in the tab panel */
   children?: React.ReactNode;
   /** The ID of the tab panel */
@@ -49,7 +50,7 @@ export interface TabPanelProps {
   tabId: string;
 }
 
-export interface TabListProps {
+export interface TabListProps extends TagProps {
   /** The label read out when the tab list gains focus */
   ariaLabel: string;
   /** The tabs to be shown in the tab list */
@@ -58,7 +59,7 @@ export interface TabListProps {
   onTabChange?: (tabId: string) => void;
 }
 
-export interface TabProps {
+export interface TabProps extends TagProps {
   /** The tab panel that this tab controls */
   controls: string;
   /** The ID of the tab */
@@ -80,7 +81,7 @@ export interface TabProps {
   info?: boolean | string;
 }
 
-export interface TabsProps {
+export interface TabsProps extends TagProps {
   /** The tab list to be rendered within this set of tabs  */
   children?: React.ReactNode;
   /** The label associated with this set of tabs, for assistive technologies */

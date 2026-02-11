@@ -184,7 +184,7 @@ test.describe("Prop tests", () => {
     test(`should render with ${text} as text`, async ({ mount, page }) => {
       await mount(<SplitButtonList text={text} />);
 
-      await expect(getDataElementByValue(page, "main-text")).toHaveText(text);
+      await expect(page.getByRole("button", { name: text })).toBeVisible();
     });
   });
 

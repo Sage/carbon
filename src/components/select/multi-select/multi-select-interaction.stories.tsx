@@ -29,6 +29,7 @@ interface ControlledMultiSelectProps
   value?: string[];
 }
 
+/* Also demonstrates that falsy children are filtered out correctly */
 const ControlledMultiSelect = (props: ControlledMultiSelectProps) => {
   const [value, setValue] = React.useState<string[]>(props.value || []);
   return (
@@ -37,6 +38,9 @@ const ControlledMultiSelect = (props: ControlledMultiSelectProps) => {
       value={value}
       onChange={(e) => setValue(e.target.value as unknown as string[])}
     >
+      {undefined}
+      {null}
+      {false}
       <Option text="Amber" value="1" />
       <Option text="Black" value="2" />
       <Option text="Blue" value="3" />

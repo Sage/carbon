@@ -205,6 +205,31 @@ test("responds to horizontal keyboard interactions", async () => {
   expect(screen.getByRole("tabpanel")).toHaveTextContent("Content 1");
 });
 
+test("updates the focus index when a user presses 'tab' key", async () => {
+  const user = userEvent.setup();
+  render(<TestComponent />);
+
+  const tab1 = screen.getByRole("tab", { name: "Tab One" });
+  const tab2 = screen.getByRole("tab", { name: "Tab Two" });
+  const tab3 = screen.getByRole("tab", { name: "Tab Three" });
+
+  await user.click(tab2);
+  await user.keyboard("{ArrowRight}");
+  expect(tab3).toHaveFocus();
+
+  await user.keyboard("{Tab}");
+  expect(document.body).toHaveFocus();
+
+  await user.keyboard("{Tab}");
+  expect(tab2).toHaveFocus();
+
+  await user.keyboard("{ArrowRight}");
+  expect(tab3).toHaveFocus();
+
+  await user.keyboard("{ArrowRight}");
+  expect(tab1).toHaveFocus();
+});
+
 test("responds to vertical keyboard interactions", async () => {
   const user = userEvent.setup();
 
@@ -258,6 +283,31 @@ test("responds to vertical keyboard interactions", async () => {
 
   await user.keyboard(" ");
   expect(screen.getByRole("tabpanel")).toHaveTextContent("Content 1");
+});
+
+test("updates the focus index when a user presses 'tab' key and `orientation` is 'vertical'", async () => {
+  const user = userEvent.setup();
+  render(<TestComponent orientation="vertical" />);
+
+  const tab1 = screen.getByRole("tab", { name: "Tab One" });
+  const tab2 = screen.getByRole("tab", { name: "Tab Two" });
+  const tab3 = screen.getByRole("tab", { name: "Tab Three" });
+
+  await user.click(tab2);
+  await user.keyboard("{ArrowDown}");
+  expect(tab3).toHaveFocus();
+
+  await user.keyboard("{Tab}");
+  expect(document.body).toHaveFocus();
+
+  await user.keyboard("{Tab}");
+  expect(tab2).toHaveFocus();
+
+  await user.keyboard("{ArrowDown}");
+  expect(tab3).toHaveFocus();
+
+  await user.keyboard("{ArrowDown}");
+  expect(tab1).toHaveFocus();
 });
 
 test("shows an error icon when the `error` prop is specified", async () => {
@@ -402,10 +452,14 @@ test("shows the validation icons regardless of whether tab panels are active", a
     </Tabs>,
   );
 
-  const tab2 = screen.getByRole("tab", { name: "Tab Two contains errors" });
-  const tab3 = screen.getByRole("tab", { name: "Tab Three contains warnings" });
+  const tab2 = screen.getByRole("tab", {
+    name: "Tab Two The Tab Two tab contains errors",
+  });
+  const tab3 = screen.getByRole("tab", {
+    name: "Tab Three The Tab Three tab contains warnings",
+  });
   const tab4 = screen.getByRole("tab", {
-    name: "Tab Four contains information",
+    name: "Tab Four The Tab Four tab contains information",
   });
 
   const errorIcon = within(tab2).getByTestId("icon-error");
@@ -514,4 +568,48 @@ test("invokes the onTabChange handler the active tab changes", async () => {
   expect(mockTabChangeFn).toHaveBeenCalledWith("tab-3");
   await user.click(tab1);
   expect(mockTabChangeFn).toHaveBeenCalledWith("tab-1");
+});
+
+test("applies the `data-element` and `data-role` props to expected elements", () => {
+  render(
+    <Tabs data-element="tabs-foo" data-role="tabs-bar">
+      <TabList
+        ariaLabel="Sample Tabs"
+        data-element="tablist-foo"
+        data-role="tablist-bar"
+      >
+        <Tab
+          data-element="tab-foo"
+          data-role="tab-bar"
+          id="tab-1"
+          controls="tab-panel-1"
+          label="Tab One"
+        />
+      </TabList>
+      <TabPanel
+        data-element="tabpanel-foo"
+        data-role="tabpanel-bar"
+        id="tab-panel-1"
+        tabId="tab-1"
+      >
+        <Typography>Content 1</Typography>
+      </TabPanel>
+    </Tabs>,
+  );
+  const tabs = screen.getByTestId("tabs-bar");
+  const tabsList = screen.getByRole("tablist");
+  const tab1 = screen.getByRole("tab", { name: "Tab One" });
+  const tabPanel1 = screen.getByRole("tabpanel");
+
+  expect(tabs).toHaveAttribute("data-component", "tabs");
+  expect(tabs).toHaveAttribute("data-element", "tabs-foo");
+  expect(tabsList).toHaveAttribute("data-component", "tab-list");
+  expect(tabsList).toHaveAttribute("data-element", "tablist-foo");
+  expect(tabsList).toHaveAttribute("data-role", "tablist-bar");
+  expect(tab1).toHaveAttribute("data-component", "tab");
+  expect(tab1).toHaveAttribute("data-element", "tab-foo");
+  expect(tab1).toHaveAttribute("data-role", "tab-bar");
+  expect(tabPanel1).toHaveAttribute("data-component", "tab-panel");
+  expect(tabPanel1).toHaveAttribute("data-element", "tabpanel-foo");
+  expect(tabPanel1).toHaveAttribute("data-role", "tabpanel-bar");
 });

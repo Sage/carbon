@@ -38,8 +38,8 @@ const camelToKebab = (str) =>
 const formatBoxShadowString = (boxShadowArray) => 
   boxShadowArray
     .map((boxShadow) => {
-      const { type, offsetX, offsetY, blur, spread, color } = boxShadow;
-      return `${type} ${offsetX} ${offsetY} ${blur} ${spread} ${color}`;
+      const { offsetX, offsetY, blur, spread, color } = boxShadow;
+      return `${offsetX} ${offsetY} ${blur} ${spread} ${color}`;
     })
     .join(", ");
 

@@ -25,9 +25,10 @@ export default {
   parameters: {
     info: { disable: true },
     chromatic: {
-      disableSnapshot: true,
+      disableSnapshot: false,
       delay: 2000,
     },
+    themeProvider: { chromatic: { theme: "sage" } },
   },
 };
 
@@ -47,12 +48,16 @@ Default.story = {
 };
 
 export const WithSelect = () => {
+  const [open, setOpen] = useState(defaultOpenState);
   return (
     <div style={{ height: 100 }}>
       <PopoverContainer
         containerAriaLabel="popover-container"
         openButtonAriaLabel="open"
         title="select example"
+        open={open}
+        onOpen={() => setOpen(true)}
+        onClose={() => setOpen(false)}
       >
         <Select label="my select" value="red" onChange={() => {}}>
           <Option value="red" text="red" />
@@ -66,6 +71,9 @@ export const WithSelect = () => {
 
 WithSelect.story = {
   name: "with select",
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
 };
 
 export const WithMultiSelect = () => {
@@ -91,8 +99,13 @@ export const WithMultiSelect = () => {
   );
 };
 
-WithSelect.story = {
+WithMultiSelect.story = {
   name: "with multiSelect",
+  parameters: {
+    chromatic: {
+      disableSnapshot: true,
+    },
+  },
 };
 
 export const InAScrollableBlock = () => {
@@ -134,9 +147,17 @@ export const InAScrollableBlock = () => {
     </Box>
   );
 };
+InAScrollableBlock.story = {
+  name: "in a scrollable block",
+  parameters: {
+    chromatic: {
+      disableSnapshot: true,
+    },
+  },
+};
 
 export const InsideMenu = () => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(defaultOpenState);
   return (
     <Menu menuType="black">
       <MenuItem flex="0 0 auto">
@@ -173,6 +194,14 @@ export const InsideMenu = () => {
       </MenuItem>
     </Menu>
   );
+};
+InsideMenu.story = {
+  name: "inside menu",
+  parameters: {
+    chromatic: {
+      disableSnapshot: true,
+    },
+  },
 };
 
 export const InsideMenuWithOpenButton = () => {
@@ -227,9 +256,17 @@ export const InsideMenuWithOpenButton = () => {
     </Menu>
   );
 };
+InsideMenuWithOpenButton.story = {
+  name: "inside menu with open button",
+  parameters: {
+    chromatic: {
+      disableSnapshot: true,
+    },
+  },
+};
 
 export const InsideMenuWithPrimaryOpenButton = () => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(defaultOpenState);
   return (
     <Menu menuType="black">
       <MenuItem href="#">Menu Item One</MenuItem>
@@ -288,6 +325,14 @@ export const InsideMenuWithPrimaryOpenButton = () => {
       <MenuItem href="#">Menu Item Six</MenuItem>
     </Menu>
   );
+};
+InsideMenuWithPrimaryOpenButton.story = {
+  name: "inside menu with primary open button",
+  parameters: {
+    chromatic: {
+      disableSnapshot: true,
+    },
+  },
 };
 
 export const InsideMenuWithPrimaryOpenButtonResponsive = () => {
@@ -439,12 +484,24 @@ export const InsideMenuWithPrimaryOpenButtonResponsive = () => {
     </GlobalHeader>
   );
 };
+InsideMenuWithPrimaryOpenButtonResponsive.story = {
+  name: "inside menu with primary open button responsive",
+  parameters: {
+    chromatic: {
+      disableSnapshot: true,
+    },
+  },
+};
 
 export const WithFullWidthButton = () => {
+  const [open, setOpen] = useState(defaultOpenState);
   return (
     <PopoverContainer
       title="This is the title"
       hasFullWidth
+      onOpen={() => setOpen(true)}
+      onClose={() => setOpen(false)}
+      open={open}
       renderOpenComponent={({ ref, ...rest }) => (
         <Button
           iconPosition="after"
@@ -490,6 +547,14 @@ export const WithRadioButtons = () => {
     </Box>
   );
 };
+WithRadioButtons.story = {
+  name: "with radio buttons",
+  parameters: {
+    chromatic: {
+      disableSnapshot: true,
+    },
+  },
+};
 
 export const WithinGlobalHeader = ({
   shouldCoverButton,
@@ -532,6 +597,11 @@ WithinGlobalHeader.story = {
   args: {
     shouldCoverButton: true,
   },
+  parameters: {
+    chromatic: {
+      disableSnapshot: true,
+    },
+  },
 };
 
 export const OnCloseTest = () => {
@@ -549,4 +619,9 @@ OnCloseTest.storyName = "On Close Test";
 OnCloseTest.story = {
   name: "on-close-test",
   args: {},
+  parameters: {
+    chromatic: {
+      disableSnapshot: true,
+    },
+  },
 };

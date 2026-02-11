@@ -162,6 +162,7 @@ export const HighlightedItem: Story = {
 
 HighlightedItem.storyName = "Highlighted Item";
 
+/* Also demonstrates that falsy children are filtered out correctly */
 export const SelectedItemHover: Story = {
   render: () => (
     <Box height={250}>
@@ -175,6 +176,9 @@ export const SelectedItemHover: Story = {
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
         <Option text="Brown" value="4" />
+        {undefined}
+        {null}
+        {false}
         <Option text="Green" value="5" />
         <Option text="Orange" value="6" />
         <Option text="Pink" value="7" />

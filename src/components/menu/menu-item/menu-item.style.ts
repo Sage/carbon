@@ -23,6 +23,7 @@ interface StyledMenuItemWrapperProps
       | "overrideColor"
       | "clickToOpen"
       | "maxWidth"
+      | "ariaCurrent"
     >,
     PaddingProps {
   menuType: MenuType;
