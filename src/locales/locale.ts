@@ -192,10 +192,16 @@ interface Locale {
     };
   };
   sort: {
-    accessibleName: (
+    /**
+     * @deprecated The `sort.accessibleName` locale string is deprecated in favour of using `aria-live` regions.
+     * Use an `aria-live` region to announce changes in sort order to assistive technologies.
+     */
+    accessibleName?: (
       sortContent?: string,
       sortType?: "ascending" | "descending",
     ) => string;
+    /* TODO make ariaRoleDescription required as part of FE-7599 */
+    ariaRoleDescription?: () => string;
   };
   splitButton: {
     ariaLabel: () => string;
