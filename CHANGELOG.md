@@ -1,3 +1,10 @@
+## [158.28.0](https://github.com/Sage/carbon/compare/v158.27.4...v158.28.0) (2026-02-11)
+
+### Features
+
+* **tabs:** add de-De, fr-CA, fr-FR & pt-PT status translations ([562004e](https://github.com/Sage/carbon/commit/562004ece07134174bcdf218ac7b2d6c7dab4f89))
+* **tabs:** update en-GB status translation to include tab title ([e0c3e78](https://github.com/Sage/carbon/commit/e0c3e78af74d47e13ce8cb037f1b72fbe4071405))
+
 ## [158.27.4](https://github.com/Sage/carbon/compare/v158.27.3...v158.27.4) (2026-02-10)
 
 ### Bug Fixes
