@@ -154,6 +154,11 @@ const deDE: Partial<Locale> = {
   pod: {
     undo: () => "Rückgängig",
   },
+  tabs: {
+    error: (tabTitle) => `Die Registerkarte ${tabTitle} enthält Fehler`,
+    info: (tabTitle) => `Die Registerkarte ${tabTitle} enthält Informationen`,
+    warning: (tabTitle) => `Die Registerkarte ${tabTitle} enthält Warnungen`,
+  },
   textEditor: {
     boldAria: () => "Fett",
     cancelButton: () => "Abbrechen",
