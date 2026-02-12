@@ -10,6 +10,42 @@ import {
   Variant,
   VariantType,
 } from "./button.config";
+import { ListItem } from "../../../__internal__/popover-menu/menu-item.component";
+
+const MenuPopoverItemOverrides = css`
+  ${ListItem} & {
+    background-color: transparent;
+    border: none;
+    border-radius: 0px;
+    color: currentColor;
+    width: 100%;
+    justify-content: flex-start;
+    position: relative;
+    padding: var(--global-space-comp-s) var(--global-space-comp-m);
+
+    :focus {
+      ${addFocusStyling(true)}
+      border-radius: var(--global-radius-container-m);
+    }
+
+    :hover {
+      color: var(--popover-label-hover);
+      background-color: var(--popover-bg-hover);
+    }
+  }
+
+  ${ListItem} > & {
+    :active {
+      color: var(--popover-label-active);
+      background-color: var(--popover-bg-active);
+    }
+  }
+
+  ${ListItem}.submenu_open > & {
+    color: var(--popover-label-hover);
+    background-color: var(--popover-bg-hover);
+  }
+`;
 
 const getCSSForGradientStyle = ({
   allowMotion = true,
@@ -339,6 +375,8 @@ export const StyledButton = styled.button<
     position: relative;
     z-index: 1;
   }
+
+  ${MenuPopoverItemOverrides}
 `;
 
 export default StyledButton;

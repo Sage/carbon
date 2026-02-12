@@ -17,6 +17,7 @@ import iconConfig from "./icon-config";
 import { IconType } from "./icon-type";
 import iconUnicodes from "./icon-unicodes";
 import StyledNextButton from "../button/__next__/button.style";
+import { ListItem } from "../../__internal__/popover-menu/menu-item.component";
 
 export type BackgroundShape = "circle" | "rounded-rect" | "square";
 
@@ -183,7 +184,7 @@ const StyledIcon = styled.span.attrs(applyBaseTheme)<
     `;
   }}
 
-  ${StyledNextButton} & {
+  ${StyledNextButton} &, ${ListItem} & {
     color: currentColor;
   }
 

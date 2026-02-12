@@ -1,5 +1,4 @@
 import React from "react";
-import { action } from "@storybook/addon-actions";
 
 import {
   ActionPopover,
@@ -18,6 +17,11 @@ import {
   FlatTableCell,
 } from "../flat-table";
 import Box from "../box";
+
+import { MenuItem, PopoverMenu } from "../../__internal__/popover-menu";
+import Button from "../button/__next__";
+import Icon from "../icon";
+import Logger from "../../__internal__/utils/logger";
 
 export default {
   title: "Action Popover/Test",
@@ -38,114 +42,122 @@ export default {
 };
 
 export const Default = () => {
-  const submenu = (
-    <ActionPopoverMenu>
-      <ActionPopoverItem onClick={action("sub menu 1")}>
-        Sub Menu 1
-      </ActionPopoverItem>
-      <ActionPopoverItem onClick={action("sub menu 2")}>
-        Sub Menu 2
-      </ActionPopoverItem>
-      <ActionPopoverItem disabled onClick={action("sub menu 3")}>
-        Sub Menu 3
-      </ActionPopoverItem>
-    </ActionPopoverMenu>
-  );
-  const submenuWithIcons = (
-    <ActionPopoverMenu>
-      <ActionPopoverItem icon="graph" onClick={action("sub menu 1")}>
-        Sub Menu 1
-      </ActionPopoverItem>
-      <ActionPopoverItem icon="add" onClick={action("sub menu 2")}>
-        Sub Menu 2
-      </ActionPopoverItem>
-      <ActionPopoverItem icon="print" disabled onClick={action("sub menu 3")}>
-        Sub Menu 3
-      </ActionPopoverItem>
-    </ActionPopoverMenu>
-  );
+  const [open, setOpen] = React.useState(false);
   return (
-    <div style={{ marginTop: "40px", height: "275px" }}>
-      <FlatTable isZebra>
-        <FlatTableHead>
-          <FlatTableRow>
-            <FlatTableHeader>First Name</FlatTableHeader>
-            <FlatTableHeader>Last Name</FlatTableHeader>
-            <FlatTableHeader>Options</FlatTableHeader>
-          </FlatTableRow>
-        </FlatTableHead>
-        <FlatTableBody>
-          <FlatTableRow>
-            <FlatTableCell>John</FlatTableCell>
-            <FlatTableCell>Doe</FlatTableCell>
-            <FlatTableCell>
-              <ActionPopover
-                onOpen={action("popover opened")}
-                onClose={action("popover closed")}
-              >
-                <ActionPopoverItem
-                  disabled
-                  icon="graph"
-                  submenu={submenu}
-                  onClick={action("email")}
+    <div style={{ margin: "140px", height: "275px" }}>
+      <PopoverMenu
+        onClose={() => setOpen(false)}
+        open={open}
+        popoverControl={
+          <Button variantType="secondary" onClick={() => setOpen((p) => !p)}>
+            Action
+            <Icon type="caret_down" />
+          </Button>
+        }
+      >
+        <MenuItem>
+          <Button
+            onClick={() => {
+              setOpen(false);
+              Logger.warn("Clicked menu item 1");
+            }}
+          >
+            <Icon type="home" />
+            Menu Item 1
+          </Button>
+        </MenuItem>
+        <MenuItem>
+          <Button
+            onClick={() => {
+              setOpen(false);
+              Logger.warn("Clicked menu item 2");
+            }}
+          >
+            Menu Item 2
+          </Button>
+        </MenuItem>
+        <MenuItem
+          // smallScreen
+          submenu={
+            <>
+              <MenuItem>
+                <Button
+                  onClick={() => {
+                    setOpen(false);
+                    Logger.warn("Clicked submenu item 1");
+                  }}
                 >
-                  Business
-                </ActionPopoverItem>
-                <ActionPopoverItem icon="email" onClick={action("email")}>
-                  Email Invoice
-                </ActionPopoverItem>
-                <ActionPopoverItem
-                  icon="print"
-                  onClick={action("print")}
-                  submenu={submenu}
+                  Submenu Item 1
+                </Button>
+              </MenuItem>
+              <MenuItem>
+                <Button
+                  onClick={() => {
+                    setOpen(false);
+                    Logger.warn("Clicked submenu item 2");
+                  }}
                 >
-                  Print Invoice
-                </ActionPopoverItem>
-                <ActionPopoverItem
-                  icon="pdf"
-                  submenu={submenu}
-                  onClick={action("pdf")}
+                  Submenu Item 2
+                </Button>
+                <Button
+                  onClick={() => {
+                    setOpen(false);
+                    Logger.warn("Clicked submenu item 3");
+                  }}
                 >
-                  Download PDF
-                </ActionPopoverItem>
-                <ActionPopoverItem icon="csv" onClick={action("csv")}>
-                  Download CSV
-                </ActionPopoverItem>
-                <ActionPopoverDivider />
-                <ActionPopoverItem icon="delete" onClick={action("delete")}>
-                  Delete
-                </ActionPopoverItem>
-              </ActionPopover>
-            </FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow>
-            <FlatTableCell>Jane</FlatTableCell>
-            <FlatTableCell>Smith</FlatTableCell>
-            <FlatTableCell>
-              <ActionPopover>
-                <ActionPopoverItem icon="csv" onClick={action("csv")}>
-                  Download CSV
-                </ActionPopoverItem>
-              </ActionPopover>
-            </FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow>
-            <FlatTableCell>Bob</FlatTableCell>
-            <FlatTableCell>Jones</FlatTableCell>
-            <FlatTableCell>
-              <ActionPopover>
-                <ActionPopoverItem
-                  icon="csv"
-                  submenu={submenuWithIcons}
-                  onClick={action("csv")}
+                  Submenu Item 3
+                </Button>
+              </MenuItem>
+              <MenuItem>
+                <Button
+                  onClick={() => {
+                    setOpen(false);
+                    Logger.warn("Clicked submenu item 4");
+                  }}
                 >
-                  Download CSV
-                </ActionPopoverItem>
-              </ActionPopover>
-            </FlatTableCell>
-          </FlatTableRow>
-        </FlatTableBody>
-      </FlatTable>
+                  Submenu Item 4
+                </Button>
+                <Button
+                  onClick={() => {
+                    setOpen(false);
+                    Logger.warn("Clicked submenu item 5");
+                  }}
+                >
+                  Submenu Item 5
+                </Button>
+              </MenuItem>
+              <MenuItem>
+                <Button
+                  onClick={() => {
+                    setOpen(false);
+                    Logger.warn("Clicked submenu item 6");
+                  }}
+                >
+                  Submenu Item 6
+                </Button>
+              </MenuItem>
+            </>
+          }
+        >
+          <Button
+            onClick={() => {
+              Logger.warn("Clicked menu item 3");
+            }}
+          >
+            Menu Item 3
+          </Button>
+        </MenuItem>
+        <MenuItem>
+          <Button
+            onClick={() => {
+              setOpen(false);
+              Logger.warn("Clicked menu item 4");
+            }}
+          >
+            Menu Item 4
+          </Button>
+        </MenuItem>
+      </PopoverMenu>
     </div>
   );
 };
