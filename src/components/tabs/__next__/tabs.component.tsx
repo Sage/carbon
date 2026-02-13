@@ -31,6 +31,7 @@ import Icon from "../../icon";
 import { TabProvider } from "./tab.context";
 import usePrevious from "../../../hooks/__internal__/usePrevious";
 import tagComponent from "../../../__internal__/utils/helpers/tags";
+import extractTextFromNode from "../../../__internal__/utils/helpers/extract-text";
 
 export const TabPanel = ({ children, id, tabId, ...rest }: TabPanelProps) => {
   const { activeTab } = useTabs();
@@ -160,13 +161,15 @@ export const Tab = ({
   }, [error, id, errors, warnings, warning, infos, info]);
 
   const validationIcon = () => {
+    const labelText = extractTextFromNode(label);
+
     if (internalError || internalWarning || internalInfo) {
       if (internalError) {
         return (
           <Icon
             data-role="icon-error"
             type="error"
-            ariaLabel={locale.tabs.error()}
+            ariaLabel={locale.tabs.error(labelText)}
             color="#db004e"
           />
         );
@@ -178,7 +181,7 @@ export const Tab = ({
           <Icon
             data-role="icon-warning"
             type="warning"
-            ariaLabel={locale.tabs.warning()}
+            ariaLabel={locale.tabs.warning(labelText)}
             color="#d64309"
           />
         );
@@ -190,7 +193,7 @@ export const Tab = ({
           <Icon
             data-role="icon-info"
             type="info"
-            ariaLabel={locale.tabs.info()}
+            ariaLabel={locale.tabs.info(labelText)}
             color="#0060a7ff"
           />
         );

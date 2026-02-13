@@ -136,9 +136,9 @@ interface Locale {
     undo: () => string;
   };
   tabs: {
-    error: () => string;
-    warning: () => string;
-    info: () => string;
+    error: (tabTitle?: string) => string;
+    warning: (tabTitle?: string) => string;
+    info: (tabTitle?: string) => string;
   };
   textEditor: {
     boldAria: () => string;
