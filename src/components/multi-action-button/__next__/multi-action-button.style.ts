@@ -1,13 +1,13 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
-import StyledButton from "../button/button.style";
-import applyBaseTheme from "../../style/themes/apply-base-theme";
-import StyledIcon from "../icon/icon.style";
+import StyledButton from "../../button/button.style";
+import applyBaseTheme from "../../../style/themes/apply-base-theme";
+import StyledIcon from "../../icon/icon.style";
 import { MultiActionButtonProps } from "./multi-action-button.component";
-import computeSizing from "../../style/utils/element-sizing";
-import { borderRadiusStyling } from "../split-button/split-button-children.style";
+import computeSizing from "../../../style/utils/element-sizing";
+import { borderRadiusStyling } from "../../split-button/split-button-children.style";
 
-type StyledMultiActionButtonProps = Pick<MultiActionButtonProps, "width" | "menuWidth" | "fullWidth"> & {
+type StyledMultiActionButtonProps = Pick<MultiActionButtonProps, "menuWidth" | "fullWidth"> & {
   displayed: boolean;
 };
 
@@ -19,10 +19,10 @@ const StyledMultiActionButton = styled.div.attrs(
   display: inline-block;
   position: relative;
 
-  ${({ fullWidth, menuWidth, width }) =>
-    (menuWidth || width || fullWidth) &&
+  ${({ fullWidth, menuWidth }) =>
+    (fullWidth || menuWidth) &&
     css`
-      ${computeSizing({ width: fullWidth ? '100%' : (menuWidth ?? width) })}
+      ${computeSizing({ width: fullWidth ? '100%' : menuWidth })}
 
       ${StyledButton} {
         width: 100%;
@@ -69,14 +69,13 @@ const StyledMultiActionButton = styled.div.attrs(
 `;
 
 type StyledButtonChildrenContainerProps = {
-  align: "left" | "right";
   minWidth: number;
 };
 
 const StyledButtonChildrenContainer = styled.ul.attrs(
   applyBaseTheme,
 )<StyledButtonChildrenContainerProps>`
-  ${({ theme, align, minWidth }) => css`
+  ${({ theme, minWidth }) => css`
     background-color: var(--colorsActionMajorYang100);
     min-width: ${minWidth}px;
     white-space: nowrap;
@@ -92,10 +91,10 @@ const StyledButtonChildrenContainer = styled.ul.attrs(
     ${StyledButton} {
       border: 1px solid var(--colorsActionMajorTransparent);
       display: flex;
-      justify-content: ${align};
+      justify-content: left;
       margin-left: 0;
       min-width: 100%;
-      text-align: ${align};
+      text-align: left;
 
       & + & {
         margin-top: 3px;

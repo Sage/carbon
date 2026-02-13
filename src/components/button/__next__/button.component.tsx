@@ -18,6 +18,7 @@ import Icon from "../../icon";
 
 export type ButtonHandle = {
   focusButton: () => void;
+  element: HTMLButtonElement | null;
 } | null;
 
 export interface ButtonProps
@@ -166,6 +167,7 @@ export const Button = forwardRef<ButtonHandle, ButtonProps>(
         focusButton: () => {
           buttonRef.current?.focus();
         },
+        element: buttonRef.current,
       }),
       [],
     );

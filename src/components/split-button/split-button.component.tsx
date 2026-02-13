@@ -34,7 +34,7 @@ export interface SplitButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     MarginProps,
     TagProps {
-  /** Set align of the rendered content */
+  /** @deprecated Set align of the rendered content */
   align?: "left" | "right";
   /** Button type: "primary" | "secondary" */
   buttonType?: "primary" | "secondary";

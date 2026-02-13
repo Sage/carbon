@@ -3,40 +3,33 @@ import React, {
   forwardRef,
   useImperativeHandle,
   useContext,
+  useEffect,
 } from "react";
 import { WidthProps } from "styled-system";
 import { flip, offset } from "@floating-ui/dom";
 
-import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
-import { SplitButtonProps } from "../split-button";
-import SplitButtonContext from "../split-button/__internal__/split-button.context";
+import useClickAwayListener from "../../../hooks/__internal__/useClickAwayListener";
+import { SplitButtonProps } from "../../split-button";
+import SplitButtonContext from "../../split-button/__internal__/split-button.context";
 import {
   StyledMultiActionButton,
   StyledButtonChildrenContainer,
 } from "./multi-action-button.style";
-import Button from "../button";
-import Popover from "../../__internal__/popover";
+import Button from "../../button/__next__";
+import Popover from "../../../__internal__/popover";
 import {
   filterStyledSystemMarginProps,
   filterOutStyledSystemSpacingProps,
-} from "../../style/utils";
-import useChildButtons from "../../hooks/__internal__/useChildButtons";
-import useAdaptiveSidebarModalFocus from "../../hooks/__internal__/useAdaptiveSidebarModalFocus";
-import FlatTableContext from "../flat-table/__internal__/flat-table.context";
-import guid from "../../__internal__/utils/helpers/guid";
-import Logger from "../../__internal__/utils/logger";
+} from "../../../style/utils";
+import useChildButtons from "../../../hooks/__internal__/useChildButtons";
+import useAdaptiveSidebarModalFocus from "../../../hooks/__internal__/useAdaptiveSidebarModalFocus";
+import FlatTableContext from "../../flat-table/__internal__/flat-table.context";
+import guid from "../../../__internal__/utils/helpers/guid";
+import { ButtonHandle } from "../../button/__next__/button.component";
 
 export interface MultiActionButtonProps
   extends Omit<WidthProps, "width">,
     Omit<SplitButtonProps, "buttonType" | "iconPosition" | "iconType" | "isWhite"> {
-  /** @deprecated Button type: "primary" | "secondary" | "tertiary" */
-  buttonType?: "primary" | "secondary" | "tertiary";
-  /** @deprecated Second text child, renders under main text, only when size is "large" */
-  subtext?: string;
-  /** @deprecated The component width */
-  width?: WidthProps["width"]
-  /** @deprecated Renders the white variant of the secondary split button */
-  isWhite?: boolean
   /** Allows override of the default menu width */
   menuWidth?: WidthProps["width"]
   /** Apply fullWidth style to the button */
@@ -48,31 +41,20 @@ export type MultiActionButtonHandle = {
   focusMainButton: () => void;
 } | null;
 
-let deprecatedAlignTriggered = false;
-let deprecatedSubtextTriggered = false;
-let deprecatedButtonTypeTriggered = false;
-let deprecatedIsWhiteTriggered = false;
-let deprecatedWidthTriggered = false;
-
 export const MultiActionButton = forwardRef<
   MultiActionButtonHandle,
   MultiActionButtonProps
 >(
   (
     {
-      align = "left",
       position = "right",
       disabled,
-      buttonType,
       size,
       children,
       text,
-      subtext,
-      width,
       onClick,
       "data-element": dataElement,
       "data-role": dataRole,
-      isWhite,
       menuWidth,
       fullWidth,
       ...rest
@@ -80,50 +62,20 @@ export const MultiActionButton = forwardRef<
     ref,
   ) => {
 
-    if (!deprecatedAlignTriggered && align) {
-      deprecatedAlignTriggered = true;
-      Logger.deprecate(
-        "The align prop in Multi Action Button is deprecated and will soon be removed.",
-      );
-    }
-
-    if (!deprecatedSubtextTriggered && subtext) {
-      deprecatedSubtextTriggered = true;
-      Logger.deprecate(
-        "The subtext prop in Multi Action Button is deprecated and will soon be removed.",
-      );
-    }
-
-    if (!deprecatedButtonTypeTriggered && subtext) {
-      deprecatedButtonTypeTriggered = true;
-      Logger.deprecate(
-        "The buttonType prop in Multi Action Button is deprecated and will soon be removed.",
-      );
-    }
-
-    if (!deprecatedIsWhiteTriggered && subtext) {
-      deprecatedIsWhiteTriggered = true;
-      Logger.deprecate(
-        "The isWhite prop in Multi Action Button is deprecated and will soon be removed.",
-      );
-    }
-
-    if (!deprecatedWidthTriggered && subtext) {
-      deprecatedWidthTriggered = true;
-      Logger.deprecate(
-        "The width prop in Multi Action Button is deprecated and will soon be removed.",
-      );
-    }
-
-    const buttonRef = useRef<HTMLButtonElement>(null);
+    const buttonRef = useRef<ButtonHandle>(null);
+    const buttonElementRef = useRef<HTMLButtonElement | null>(null);
     const { isInFlatTable } = useContext(FlatTableContext);
     const submenuId = useRef(guid());
+
+    useEffect(() => {
+      buttonElementRef.current = buttonRef.current?.element ?? null;
+    });
 
     useImperativeHandle<MultiActionButtonHandle, MultiActionButtonHandle>(
       ref,
       () => ({
         focusMainButton() {
-          buttonRef.current?.focus({ preventScroll: true });
+          buttonRef.current?.element?.focus({ preventScroll: true });
         },
       }),
       [],
@@ -137,7 +89,7 @@ export const MultiActionButton = forwardRef<
       handleToggleButtonKeyDown,
       wrapperProps,
       contextValue,
-    } = useChildButtons(buttonRef);
+    } = useChildButtons(buttonElementRef);
 
     const handleInsideClick = useClickAwayListener(hideButtons);
 
@@ -178,7 +130,6 @@ export const MultiActionButton = forwardRef<
         <StyledButtonChildrenContainer
           id={submenuId.current}
           {...wrapperProps}
-          align={align}
           hidden={!showAdditionalButtons}
         >
           <SplitButtonContext.Provider value={contextValue}>
@@ -197,7 +148,6 @@ export const MultiActionButton = forwardRef<
         data-element={dataElement}
         data-role={dataRole}
         displayed={showAdditionalButtons}
-        width={width}
         menuWidth={menuWidth}
         fullWidth={fullWidth}
         {...filterStyledSystemMarginProps(rest)}
@@ -211,12 +161,9 @@ export const MultiActionButton = forwardRef<
           iconPosition="after"
           iconType="dropdown"
           disabled={disabled}
-          buttonType={buttonType}
           size={size}
-          subtext={subtext}
           onKeyDown={handleToggleButtonKeyDown}
           onClick={handleClick}
-          isWhite={isWhite}
           fullWidth={fullWidth}
           {...filterOutStyledSystemSpacingProps(rest)}
         >

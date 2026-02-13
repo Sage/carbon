@@ -3,17 +3,17 @@ import { userEvent, within, expect } from "@storybook/test";
 import React from "react";
 
 import MultiActionButton from ".";
-import Button from "../button";
-import Box from "../box";
-import { Accordion } from "../accordion";
+import Button from "../../button";
+import Box from "../../box";
+import { Accordion } from "../../accordion";
 
-import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
-import DefaultDecorator from "../../../.storybook/utils/default-decorator";
+import { allowInteractions } from "../../../../.storybook/interaction-toggle/reduced-motion";
+import DefaultDecorator from "../../../../.storybook/utils/default-decorator";
 
 type Story = StoryObj<typeof MultiActionButton>;
 
 export default {
-  title: "Deprecated/Multi Action Button/Interactions",
+  title: "Multi Action Button/Interactions",
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
   },

@@ -1,15 +1,15 @@
 import React, { useRef } from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import Divider from "../divider";
+import Divider from "../../divider";
 
-import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
+import generateStyledSystemProps from "../../../../.storybook/utils/styled-system-props";
 
 import MultiActionButton, {
   MultiActionButtonProps,
   MultiActionButtonHandle,
 } from ".";
-import Button from "../button";
-import Box from "../box";
+import Button from "../../button";
+import Box from "../../box";
 
 const styledSystemProps = generateStyledSystemProps({
   width: true,
@@ -17,7 +17,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof MultiActionButton> = {
-  title: "Deprecated/Multi Action Button",
+  title: "Multi Action Button",
   component: MultiActionButton,
   argTypes: {
     ...styledSystemProps,
@@ -113,24 +113,6 @@ CustomWidth.args = {
   text: "Multi Action Button",
   menuWidth: 0.7,
 };
-
-export const ButtonTypes: Story = () => {
-  return (["primary", "secondary", "tertiary"] as const).map(
-    (buttonType: MultiActionButtonProps["buttonType"]) => (
-      <Box key={buttonType} mb={3}>
-        <MultiActionButton
-          buttonType={buttonType}
-          text={`Multi Action Button - ${buttonType}`}
-        >
-          <Button href="#">Button 1</Button>
-          <Button>Button 2</Button>
-          <Button>Button 3</Button>
-        </MultiActionButton>
-      </Box>
-    ),
-  );
-};
-ButtonTypes.storyName = "Button Types";
 
 export const ChildButtonTypes: Story = () => {
   return (
