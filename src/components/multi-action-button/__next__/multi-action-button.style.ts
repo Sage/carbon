@@ -7,7 +7,10 @@ import { MultiActionButtonProps } from "./multi-action-button.component";
 import computeSizing from "../../../style/utils/element-sizing";
 import { borderRadiusStyling } from "../../split-button/split-button-children.style";
 
-type StyledMultiActionButtonProps = Pick<MultiActionButtonProps, "menuWidth" | "fullWidth"> & {
+type StyledMultiActionButtonProps = Pick<
+  MultiActionButtonProps,
+  "menuWidth" | "fullWidth"
+> & {
   displayed: boolean;
 };
 
@@ -22,7 +25,7 @@ const StyledMultiActionButton = styled.div.attrs(
   ${({ fullWidth, menuWidth }) =>
     (fullWidth || menuWidth) &&
     css`
-      ${computeSizing({ width: fullWidth ? '100%' : menuWidth })}
+      ${computeSizing({ width: fullWidth ? "100%" : menuWidth })}
 
       ${StyledButton} {
         width: 100%;

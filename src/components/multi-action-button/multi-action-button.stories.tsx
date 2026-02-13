@@ -89,7 +89,7 @@ export const Sizes: Story = () => {
           </Button>
           <Button size={size}>Button 2</Button>
           <Box px={3}>
-            <Divider type="horizontal" my={1} px={1}/>
+            <Divider type="horizontal" my={1} px={1} />
           </Box>
           <Button size={size}>Button 3</Button>
         </MultiActionButton>

@@ -29,11 +29,14 @@ import { ButtonHandle } from "../../button/__next__/button.component";
 
 export interface MultiActionButtonProps
   extends Omit<WidthProps, "width">,
-    Omit<SplitButtonProps, "buttonType" | "iconPosition" | "iconType" | "isWhite"> {
+    Omit<
+      SplitButtonProps,
+      "buttonType" | "iconPosition" | "iconType" | "isWhite"
+    > {
   /** Allows override of the default menu width */
-  menuWidth?: WidthProps["width"]
+  menuWidth?: WidthProps["width"];
   /** Apply fullWidth style to the button */
-  fullWidth?: boolean
+  fullWidth?: boolean;
 }
 
 export type MultiActionButtonHandle = {
@@ -61,7 +64,6 @@ export const MultiActionButton = forwardRef<
     },
     ref,
   ) => {
-
     const buttonRef = useRef<ButtonHandle>(null);
     const buttonElementRef = useRef<HTMLButtonElement | null>(null);
     const { isInFlatTable } = useContext(FlatTableContext);

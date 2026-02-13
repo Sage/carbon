@@ -28,19 +28,22 @@ import Logger from "../../__internal__/utils/logger";
 
 export interface MultiActionButtonProps
   extends Omit<WidthProps, "width">,
-    Omit<SplitButtonProps, "buttonType" | "iconPosition" | "iconType" | "isWhite"> {
+    Omit<
+      SplitButtonProps,
+      "buttonType" | "iconPosition" | "iconType" | "isWhite"
+    > {
   /** @deprecated Button type: "primary" | "secondary" | "tertiary" */
   buttonType?: "primary" | "secondary" | "tertiary";
   /** @deprecated Second text child, renders under main text, only when size is "large" */
   subtext?: string;
   /** @deprecated The component width */
-  width?: WidthProps["width"]
+  width?: WidthProps["width"];
   /** @deprecated Renders the white variant of the secondary split button */
-  isWhite?: boolean
+  isWhite?: boolean;
   /** Allows override of the default menu width */
-  menuWidth?: WidthProps["width"]
+  menuWidth?: WidthProps["width"];
   /** Apply fullWidth style to the button */
-  fullWidth?: boolean
+  fullWidth?: boolean;
 }
 
 export type MultiActionButtonHandle = {
@@ -79,7 +82,6 @@ export const MultiActionButton = forwardRef<
     },
     ref,
   ) => {
-
     if (!deprecatedAlignTriggered && align) {
       deprecatedAlignTriggered = true;
       Logger.deprecate(
