@@ -1,3 +1,9 @@
+## [158.30.0](https://github.com/Sage/carbon/compare/v158.29.0...v158.30.0) (2026-02-16)
+
+### Features
+
+* **tabs:** map legacy interface to next version of component ([38a5539](https://github.com/Sage/carbon/commit/38a553946066a3a8ed7f43856490edf9274c408c))
+
 ## [158.29.0](https://github.com/Sage/carbon/compare/v158.28.0...v158.29.0) (2026-02-13)
 
 ### Features
