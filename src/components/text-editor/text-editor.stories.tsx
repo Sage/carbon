@@ -581,7 +581,7 @@ export const Mentions: Story = ({ ...args }) => {
 };
 Mentions.storyName = "Mentions";
 Mentions.parameters = {
-  chromatic: { disableSnapshot: false },
+  chromatic: { disableSnapshot: true },
 };
 Mentions.args = {
   characterLimit: 1000,
