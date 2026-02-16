@@ -245,7 +245,6 @@ export const RestoreOnFocus: Story = {
 
     const purple = await portal.findByLabelText(/purple/i);
     await userEvent.click(purple);
-    purple.focus();
     await userEvent.keyboard(" ");
 
     await waitFor(() => expect(portal.queryAllByRole("radio")).toHaveLength(0));
@@ -255,9 +254,13 @@ export const RestoreOnFocus: Story = {
     const purpleChecked = await portal.findByLabelText(/purple/i, {
       selector: "input:checked",
     });
-
     purpleChecked.focus();
     await waitFor(() => expect(purpleChecked).toHaveFocus());
+
+    const closeButton = await portal.findByRole("button", { name: /close/i });
+    await userEvent.click(closeButton);
+    await waitFor(() => expect(portal.queryAllByRole("radio")).toHaveLength(0));
+    await waitFor(() => expect(trigger).toHaveFocus());
   },
   decorators: [
     (StoryToRender) => (
