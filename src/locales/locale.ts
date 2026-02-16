@@ -139,6 +139,8 @@ interface Locale {
     error: (tabTitle?: string) => string;
     warning: (tabTitle?: string) => string;
     info: (tabTitle?: string) => string;
+    scrollLeftText?: () => string;
+    scrollRightText?: () => string;
   };
   textEditor: {
     boldAria: () => string;
