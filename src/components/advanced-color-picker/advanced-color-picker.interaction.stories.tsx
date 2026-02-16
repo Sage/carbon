@@ -58,42 +58,6 @@ async function ensurePickerIsOpen(trigger: HTMLElement) {
   await waitFor(() => expect(radiosCount()).toBeGreaterThan(0));
 }
 
-export const ColorSelection: Story = {
-  render: () => (
-    <Box mb={3}>
-      <AdvancedColorPickerWithState />
-    </Box>
-  ),
-  play: async ({ canvasElement }) => {
-    if (!allowInteractions()) return;
-
-    const canvas = within(canvasElement);
-
-    const trigger = canvas.getByRole("button", { name: /change colo(u)?r/i });
-    await userEvent.click(trigger);
-
-    const portal = within(document.body);
-
-    const blue = await portal.findByLabelText(/blue/i);
-    await userEvent.click(blue);
-
-    await portal.findByLabelText(/blue/i, { selector: "input:checked" });
-
-    await ensurePickerIsOpen(trigger);
-  },
-  decorators: [
-    (StoryToRender) => (
-      <DefaultDecorator>
-        <StoryToRender />
-      </DefaultDecorator>
-    ),
-  ],
-};
-ColorSelection.storyName = "Color Selection";
-ColorSelection.parameters = {
-  chromatic: { disableSnapshot: true },
-};
-
 export const ColorPreviewInteraction: Story = {
   render: () => (
     <Box mb={3}>
@@ -147,9 +111,6 @@ export const DialogOpenAndCloseStates: Story = {
       <AdvancedColorPickerWithState />
     </Box>
   ),
-  parameters: {
-    chromatic: { disableSnapshot: true },
-  },
   play: async ({ canvasElement }) => {
     if (!allowInteractions()) return;
 
@@ -163,17 +124,40 @@ export const DialogOpenAndCloseStates: Story = {
     const blueRadioOption = await portal.findByLabelText(/blue/i);
     expect(blueRadioOption).toBeInTheDocument();
 
-    await userEvent.click(blueRadioOption);
-    await userEvent.keyboard("{Enter}");
+    blueRadioOption.focus();
+    await waitFor(() => expect(blueRadioOption).toHaveFocus());
 
+    await userEvent.keyboard("{ArrowLeft}");
+    const colorBlack = await portal.findByLabelText(/black/i);
+    await expect(colorBlack).toHaveFocus();
+
+    await userEvent.keyboard("{ArrowRight}");
+    const colorBlue = await portal.findByLabelText(/blue/i);
+    await expect(colorBlue).toHaveFocus();
+
+    await userEvent.keyboard("{ArrowDown}");
+    const colorDesert = await portal.findByLabelText(/desert/i);
+    await expect(colorDesert).toHaveFocus();
+
+    await userEvent.keyboard("{ArrowUp}");
+    await expect(colorBlue).toHaveFocus();
+
+    await userEvent.keyboard("{Escape}");
     await waitFor(() =>
       expect(portal.queryByLabelText(/blue/i)).not.toBeInTheDocument(),
     );
-
     await userEvent.click(trigger);
     await portal.findByLabelText(/blue/i);
 
     await ensurePickerIsOpen(trigger);
+
+    const blueForTab = await portal.findByLabelText(/blue/i);
+    blueForTab.focus();
+    await waitFor(() => expect(blueForTab).toHaveFocus());
+
+    await userEvent.tab();
+    const closeButton = await portal.findByRole("button", { name: /close/i });
+    await expect(closeButton).toHaveFocus();
   },
   decorators: [
     (StoryToRender) => (
@@ -185,7 +169,7 @@ export const DialogOpenAndCloseStates: Story = {
 };
 DialogOpenAndCloseStates.storyName = "Dialog Open And Close States";
 DialogOpenAndCloseStates.parameters = {
-  chromatic: { disableSnapshot: true },
+  chromatic: { disableSnapshot: false },
 };
 
 export const FocusManagement: Story = {
@@ -284,54 +268,6 @@ export const RestoreOnFocus: Story = {
   ],
 };
 RestoreOnFocus.storyName = "Restore On Focus";
-
-export const ColorGridNavigation: Story = {
-  render: () => (
-    <Box mb={3}>
-      <AdvancedColorPickerWithState />
-    </Box>
-  ),
-  play: async ({ canvasElement }) => {
-    if (!allowInteractions()) return;
-
-    const canvas = within(canvasElement);
-    const trigger = canvas.getByRole("button", { name: /change colo(u)?r/i });
-    await userEvent.click(trigger);
-
-    const portal = within(document.body);
-    const labels = ["white", "blue", "pink", "turquoise", "mint"] as const;
-
-    for (const label of labels) {
-      const option = await portal.findByLabelText(
-        new RegExp(`^${label}$`, "i"),
-      );
-      await userEvent.click(option);
-      await portal.findByLabelText(new RegExp(`^${label}$`, "i"), {
-        selector: "input:checked",
-      });
-    }
-
-    const lastOption = portal.getByLabelText(/mint/i);
-    lastOption.focus();
-    await userEvent.keyboard(" ");
-    await waitFor(() => expect(portal.queryByRole("radio")).toBeNull());
-
-    await ensurePickerIsOpen(trigger);
-    const mintForSnapshot = await within(document.body).findByLabelText(
-      /mint/i,
-    );
-    mintForSnapshot.focus();
-    await waitFor(() => expect(mintForSnapshot).toHaveFocus());
-  },
-  decorators: [
-    (StoryToRender) => (
-      <DefaultDecorator>
-        <StoryToRender />
-      </DefaultDecorator>
-    ),
-  ],
-};
-ColorGridNavigation.storyName = "Color Grid Navigation";
-ColorGridNavigation.parameters = {
-  chromatic: { disableSnapshot: true },
+RestoreOnFocus.parameters = {
+  chromatic: { disableSnapshot: false },
 };
