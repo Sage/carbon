@@ -30,7 +30,7 @@ test("should log a deprecation warning for color prop", () => {
   });
 });
 
-test("should render badge with children", () => {
+test("should render with children", () => {
   render(
     <Badge counter={5}>
       <span>Test Badge</span>
@@ -53,43 +53,55 @@ test("should render counter as a string", () => {
   expect(screen.getByText("99+")).toBeVisible();
 });
 
-test("should render `999+` when counter is a number higher than 999", () => {
+test("should render '999' when counter is 999", () => {
+  render(<Badge counter={999} />);
+
+  expect(screen.getByText("999")).toBeVisible();
+});
+
+test("should render `999+` when counter is higher than 999", () => {
   render(<Badge counter={1000} />);
 
   expect(screen.getByText("999+")).toBeVisible();
 });
 
-test("should trim the counter when it is a string longer than 4 characters", () => {
+test("should trim counter when string is longer than 4 characters", () => {
   render(<Badge counter="12345" />);
 
   expect(screen.getByText("1234")).toBeVisible();
 });
 
-test("should not render badge when counter is not set", () => {
+test("should not render when counter is not set", () => {
   render(<Badge data-role="badge" />);
 
   expect(screen.queryByTestId("badge")).not.toBeInTheDocument();
 });
 
-test("should not render badge when counter is `0` as a number", () => {
+test("should not render when counter is 0", () => {
   render(<Badge data-role="badge" counter={0} />);
 
   expect(screen.queryByTestId("badge")).not.toBeInTheDocument();
 });
 
-test("should not render badge when counter is a decimal number", () => {
+test("should not render when counter is negative", () => {
+  render(<Badge data-role="badge" counter={-1} />);
+
+  expect(screen.queryByTestId("badge")).not.toBeInTheDocument();
+});
+
+test("should not render when counter is decimal", () => {
   render(<Badge data-role="badge" counter={3.14} />);
 
   expect(screen.queryByTestId("badge")).not.toBeInTheDocument();
 });
 
-test("should not render badge when counter is an empty string", () => {
+test("should not render when counter is empty string", () => {
   render(<Badge data-role="badge" counter="" />);
 
   expect(screen.queryByTestId("badge")).not.toBeInTheDocument();
 });
 
-test("should not render counter if size is small", () => {
+test("should not render counter when size is small", () => {
   render(<Badge data-role="badge" counter={9} size="small" />);
 
   expect(screen.queryByText("9")).not.toBeInTheDocument();
@@ -103,21 +115,21 @@ test("should render with provided id", () => {
   expect(badge).toHaveAttribute("id", "custom-id");
 });
 
-test("should not render as a button if onClick is not set", () => {
+test("should not render as button when onClick is not set", () => {
   render(<Badge counter={9} />);
 
   expect(screen.getByText("9")).toBeVisible();
   expect(screen.queryByRole("button")).not.toBeInTheDocument();
 });
 
-test("should render as a button when onClick is set", () => {
+test("should render as button when onClick is set", () => {
   render(<Badge counter={9} onClick={() => {}} />);
 
   expect(screen.getByText("9")).toBeVisible();
   expect(screen.getByRole("button")).toBeVisible();
 });
 
-test("should not render as a button when onClick is set and size is small", () => {
+test("should not render as button when onClick is set and size is small", () => {
   render(
     <Badge data-role="badge" counter={9} onClick={() => {}} size="small" />,
   );
@@ -126,7 +138,7 @@ test("should not render as a button when onClick is set and size is small", () =
   expect(screen.queryByRole("button")).not.toBeInTheDocument();
 });
 
-test("calls onClick callback when badge is clicked", async () => {
+test("should call onClick when clicked", async () => {
   const onClick = jest.fn();
   const user = userEvent.setup();
 
@@ -138,7 +150,6 @@ test("calls onClick callback when badge is clicked", async () => {
   expect(onClick).toHaveBeenCalledTimes(1);
 });
 
-// coverage
 test("should render cross icon when onClick is set and badge is focused", async () => {
   render(<Badge counter={9} onClick={() => {}} />);
 
@@ -164,7 +175,6 @@ test("should render cross icon when onClick is set and badge is focused", async 
   expect(badgeCounter).toBeVisible();
 });
 
-// coverage
 test("should render cross icon when onClick is set and badge is hovered", async () => {
   const user = userEvent.setup();
   render(<Badge counter={9} onClick={() => {}} inverse />);
@@ -194,14 +204,13 @@ test("should have the relevant aria-label when aria-label is specified", () => {
   expect(badgeButton).toHaveAccessibleName("Remove filters");
 });
 
-test("should render with provided data- attributes", () => {
+test("should render with provided data attributes", () => {
   render(<Badge counter={9} data-element="bar" data-role="baz" />);
 
   expect(screen.getByTestId("baz")).toHaveAttribute("data-element", "bar");
 });
 
-// coverage
-test("should render with correct style when color prop is specified", () => {
+test("should apply custom color styling", () => {
   render(
     <Badge data-role="badge" counter={9} color="--colorsSemanticNegative500" />,
   );
@@ -215,8 +224,7 @@ test("should render with correct style when color prop is specified", () => {
   expect(badge).toHaveStyleRule("color", "var(--colorsSemanticNegative500)");
 });
 
-// coverage
-test("should render with correct style when variant is typical", () => {
+test("should apply typical variant styling", () => {
   render(<Badge data-role="badge" counter={9} variant="typical" />);
 
   const badge = screen.getByTestId("badge");
@@ -227,8 +235,7 @@ test("should render with correct style when variant is typical", () => {
   );
 });
 
-// coverage
-test("should render with correct style when variant is subtle", () => {
+test("should apply subtle variant styling", () => {
   render(<Badge data-role="badge" counter={9} variant="subtle" />);
 
   const badge = screen.getByTestId("badge");
@@ -239,8 +246,7 @@ test("should render with correct style when variant is subtle", () => {
   );
 });
 
-// coverage
-test("should render with correct style when variant is typical and inverse prop is true", () => {
+test("should apply inverse typical variant styling", () => {
   render(<Badge data-role="badge" counter={9} inverse variant="typical" />);
 
   const badge = screen.getByTestId("badge");
@@ -259,8 +265,7 @@ test("should render with correct style when variant is typical and inverse prop 
   );
 });
 
-// coverage
-test("should render with correct style when variant is subtle and inverse prop is true", () => {
+test("should apply inverse subtle variant styling", () => {
   render(<Badge data-role="badge" counter={9} inverse variant="subtle" />);
 
   const badge = screen.getByTestId("badge");
@@ -279,8 +284,7 @@ test("should render with correct style when variant is subtle and inverse prop i
   );
 });
 
-// coverage
-test("should render with correct style size is small and badge has children", () => {
+test("should apply small size styling with children", () => {
   render(
     <Badge data-role="badge" counter={9} size="small">
       Test
@@ -297,8 +301,7 @@ test("should render with correct style size is small and badge has children", ()
   expect(badge).toHaveStyleRule("height", "var(--global-size-4-xs,8px)");
 });
 
-// coverage
-test("should render with correct style size is large and badge has children", () => {
+test("should apply large size styling with children", () => {
   render(
     <Badge data-role="badge" counter={9} size="large">
       Test
