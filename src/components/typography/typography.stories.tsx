@@ -11,7 +11,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof Typography> = {
-  title: "Typography",
+  title: "Deprecated/Typography",
   component: Typography,
   argTypes: {
     ...styledSystemProps,
