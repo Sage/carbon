@@ -38,6 +38,7 @@ import SplitButton from "../../components/split-button";
 import MultiActionButton from "../../components/multi-action-button";
 import DateRange, { DateRangeChangeEvent } from "../date-range";
 import PopoverContainer from "../popover-container";
+import Typography from "../typography";
 
 export default {
   title: "Flat Table/Test",
@@ -1342,32 +1343,37 @@ export const ExtendedColumnSorting = (args: FlatTableProps) => {
   }, [data, sortBy, sortType]);
 
   return (
-    <FlatTable {...args} title="Sales Overview Table">
-      <FlatTableHead>
-        <FlatTableRow>
-          {headers.map(({ name, label, isActive }) => (
-            <FlatTableHeader key={name}>
-              <Sort
-                onClick={() => handleSortClick(name)}
-                {...(isActive && { sortType })}
-              >
-                {label}
-              </Sort>
-            </FlatTableHeader>
-          ))}
-        </FlatTableRow>
-      </FlatTableHead>
-
-      <FlatTableBody>
-        {sortedData.map((row) => (
-          <FlatTableRow key={row.id}>
-            {headers.map(({ name }) => (
-              <FlatTableCell key={name}>{row[name]}</FlatTableCell>
+    <>
+      <Typography as="div" role="status" aria-live="polite" screenReaderOnly>
+        {`Sort by ${sortBy} (${sortType})`}
+      </Typography>
+      <FlatTable {...args} title="Sales Overview Table">
+        <FlatTableHead>
+          <FlatTableRow>
+            {headers.map(({ name, label, isActive }) => (
+              <FlatTableHeader key={name}>
+                <Sort
+                  onClick={() => handleSortClick(name)}
+                  {...(isActive && { sortType })}
+                >
+                  {label}
+                </Sort>
+              </FlatTableHeader>
             ))}
           </FlatTableRow>
-        ))}
-      </FlatTableBody>
-    </FlatTable>
+        </FlatTableHead>
+
+        <FlatTableBody>
+          {sortedData.map((row) => (
+            <FlatTableRow key={row.id}>
+              {headers.map(({ name }) => (
+                <FlatTableCell key={name}>{row[name]}</FlatTableCell>
+              ))}
+            </FlatTableRow>
+          ))}
+        </FlatTableBody>
+      </FlatTable>
+    </>
   );
 };
 

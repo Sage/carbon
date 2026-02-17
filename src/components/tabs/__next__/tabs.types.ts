@@ -57,6 +57,11 @@ export interface TabListProps extends TagProps {
   children?: React.ReactNode;
   /** A callback for when the active tab is changed */
   onTabChange?: (tabId: string) => void;
+
+  /**
+   * @private @ignore @internal
+   */
+  headerWidth?: string;
 }
 
 export interface TabProps extends TagProps {
@@ -79,6 +84,17 @@ export interface TabProps extends TagProps {
    * @deprecated to be removed when legacy `Tabs` and `Tab` are removed
    * */
   info?: boolean | string;
+
+  /**
+   * @internal @private @ignore
+   */
+  hasCustomLayout?: boolean;
+
+  /** @private @ignore @internal */
+  headerWidth?: string;
+
+  /** @private @ignore @internal */
+  href?: string;
 }
 
 export interface TabsProps extends TagProps {
