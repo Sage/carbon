@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "158.27.1",
+  "version": "158.31.0",
   "description": "A library of reusable React components for easily building user interfaces.",
   "files": [
     "lib",
@@ -62,8 +62,6 @@
     "@atlaskit/pragmatic-drag-and-drop-unit-testing": "^1.1.1",
     "@axe-core/playwright": "~4.10.2",
     "@babel/core": "^7.23.3",
-    "@babel/plugin-proposal-class-properties": "^7.18.6",
-    "@babel/plugin-transform-classes": "^7.23.3",
     "@babel/preset-env": "^7.23.3",
     "@babel/preset-react": "^7.23.3",
     "@babel/preset-typescript": "^7.23.3",

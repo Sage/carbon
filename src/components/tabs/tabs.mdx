@@ -10,8 +10,9 @@ import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.co
 # Tabs
 
 <DeprecationWarning>
-  This version of the Tabs component is no longer supported and will be removed
-  in a future release. Please consider moving to the{" "}
+  This version of the Tabs and Tab components are deprecated and will be removed in a future release. 
+  The legacy interface has been adapted to use the new implementation, but some 
+  features could not be maintained and have been removed. Please migrate to the{" "}
   <a style={{ color: "white" }} href="../?path=/docs/tabs--docs">
     {" "}
     newer implementation
@@ -77,34 +78,15 @@ Pass the same ID that you've assigned to the `tabId` prop on the `Tab` you want 
 
 <Canvas of={TabsStories.ProgrammaticFocus} />
 
-### Positioned top and aligned right
+### Positioned left
 
-<Canvas of={TabsStories.PositionedTopAlignedRight} />
-
-### Positioned left and aligned left
-
-<Canvas of={TabsStories.PositionedLeftAndAlignedLeft} />
-
-### Positioned left and aligned right
-
-<Canvas of={TabsStories.PositionedLeftAndAlignedRight} />
-
-### With Link as a Tab
-
-<Canvas of={TabsStories.WithLinkAsATab} />
+<Canvas of={TabsStories.PositionedLeft} />
 
 ### With specified tab visible
 
 To set a different tab on page load pass a `tabId` to the `selectedTabId` prop as shown in the example below.
 
 <Canvas of={TabsStories.WithSpecifiedTabVisible} />
-
-### Without extended dividing line
-
-By setting the `extendedLine` prop to "false" it is possible to trim the excess line from the `TabHeading`, by default this
-is set to "true".
-
-<Canvas of={TabsStories.WithoutExtendedDividingLine} />
 
 ### Large tabs
 
@@ -117,27 +99,6 @@ The `size` prop can be used to set the `TabTitle` to either "default" or "large"
 #### Positioned left
 
 <Canvas of={TabsStories.WithLargeTabsPositionedLeft} />
-
-### With borders
-
-The `borders` prop can be used to add a combination of borders to the `TabTitle`. The prop accepts one of the following values:
-"off" (default), "on", "no left side", "no right side" and "no sides".
-
-#### Positioned top, borders on
-
-<Canvas of={TabsStories.WithBordersPositionedTop} />
-
-#### Positioned top, borders with no sides
-
-<Canvas of={TabsStories.WithNoSidesPositionedTop} />
-
-#### Positioned left, borders on
-
-<Canvas of={TabsStories.WithBordersPositionedLeft} />
-
-#### Positioned left, borders with no sides
-
-<Canvas of={TabsStories.WithNoSidesPositionedLeft} />
 
 ### With additional title siblings
 
@@ -157,25 +118,11 @@ prop to the `Tab` component.
 
 <Canvas of={TabsStories.WithCustomLayout} />
 
-### With alternate styling
-
-By setting the `variant` prop to "alternate" it is possible to apply some additional styling variants as seen below.
-
-<Canvas of={TabsStories.WithAlternateStyling} />
-
 ### With headerWidth
 
 The `headerWidth` prop works only if prop `position` is set to `left`.
 
 <Canvas of={TabsStories.WithHeaderWidth} />
-
-### With custom spacing
-
-The `Tabs`component also allows you to pass custom margin spacing, whilst `Tab` components support custom padding spacings.
-The spacing modifiers support being passed either a number between 1 and 8 that is then multiplied by `8px` or any valid
-CSS string.
-
-<Canvas of={TabsStories.WithCustomSpacing} />
 
 ### Responsive
 

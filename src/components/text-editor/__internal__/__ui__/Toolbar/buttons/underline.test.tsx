@@ -1,31 +1,68 @@
-import { render, screen } from "@testing-library/react";
-import React, { act } from "react";
-import { TestEditor, TestEditorHelpers } from "../../../TestEditor.component";
-
-import { UnderlineButton } from ".";
-import { $getRoot, LexicalEditor, ParagraphNode, TextNode } from "lexical";
+import { render, screen, waitFor } from "@testing-library/react";
+import React from "react";
+import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import userEvent from "@testing-library/user-event";
+
+import TextEditor from "../../../../text-editor.component";
+import UnderlineButton from "./underline.component";
+
+// Reusable JSON object for testing the default state
+const initialValue = {
+  root: {
+    children: [
+      {
+        children: [
+          {
+            detail: 0,
+            format: 0,
+            mode: "normal",
+            style: "",
+            text: "Sample text",
+            type: "text",
+            version: 1,
+          },
+        ],
+        format: "",
+        indent: 0,
+        type: "paragraph",
+        version: 1,
+        textFormat: 0,
+        textStyle: "",
+      },
+    ],
+
+    format: "",
+    indent: 0,
+    type: "root",
+    version: 1,
+  },
+};
 
 describe("Underline button", () => {
   it("should render the underline button correctly if inactive", () => {
-    render(
-      <TestEditor>
-        <UnderlineButton isActive={false} namespace="test" />
-      </TestEditor>,
-    );
-    const underlineButton = screen.getByRole("button");
+    render(<TextEditor labelText="Test Editor" />);
+
+    const underlineButton = screen.getByRole("button", { name: "Underline" });
     expect(underlineButton).toBeInTheDocument();
     expect(underlineButton).toHaveStyleRule("background-color", "transparent");
     expect(underlineButton).toHaveAttribute("aria-pressed", "false");
   });
 
-  it("should render the underline button correctly if active", () => {
+  it("should render the underline button correctly if active", async () => {
     render(
-      <TestEditor>
-        <UnderlineButton isActive namespace="test" />
-      </TestEditor>,
+      <TextEditor
+        labelText="Test Editor"
+        initialValue={JSON.stringify(initialValue)}
+      />,
     );
-    const underlineButton = screen.getByRole("button");
+
+    const editor = screen.getByRole("textbox");
+    await userEvent.click(editor);
+    await userEvent.type(editor, " underline");
+
+    const underlineButton = screen.getByRole("button", { name: "Underline" });
+    await userEvent.click(underlineButton);
+
     expect(underlineButton).toBeInTheDocument();
     expect(underlineButton).toHaveStyleRule(
       "background-color",
@@ -35,43 +72,40 @@ describe("Underline button", () => {
   });
 
   it("applies underline formatting when UnderlineButton is clicked", async () => {
-    let editorRef: LexicalEditor;
-    let textEditorHelpers: TestEditorHelpers;
-
     render(
-      <TestEditor
-        onEditorReady={(editor, helpers) => {
-          editorRef = editor;
-          textEditorHelpers = helpers;
-        }}
-      >
-        <UnderlineButton isActive={false} namespace="test" />
-      </TestEditor>,
+      <TextEditor
+        labelText="Example"
+        initialValue={JSON.stringify(initialValue)}
+      />,
     );
 
-    act(() => {
-      textEditorHelpers.setEditorContent(editorRef, "Hello");
+    const editor = screen.getByRole("textbox");
+    await userEvent.tripleClick(editor);
 
-      editorRef.update(() => {
-        const root = $getRoot();
-        const paragraph = root.getFirstChild() as ParagraphNode;
-        const textNode = paragraph?.getFirstChild() as TextNode;
-
-        textNode?.select(0, textNode?.getTextContentSize());
-      });
-    });
-
-    const underlineButton = screen.getByRole("button", { name: /underline/i });
-
+    const underlineButton = screen.getByRole("button", { name: "Underline" });
     await userEvent.click(underlineButton);
 
-    act(() => {
-      editorRef.getEditorState().read(() => {
-        const root = $getRoot();
-        const paragraph = root.getFirstChild() as ParagraphNode;
-        const textNode = paragraph?.getFirstChild() as TextNode;
-        expect(textNode?.hasFormat("underline")).toBe(true);
-      });
+    await waitFor(() => {
+      expect(screen.getByText("Sample text")).toHaveStyle(
+        "text-decoration: underline",
+      );
     });
+  });
+
+  it("defaults isFirstButton to false when rendered with LexicalComposer", () => {
+    const initialConfig = {
+      namespace: "test-underline-composer",
+      nodes: [],
+      onError: () => {},
+    };
+
+    render(
+      <LexicalComposer initialConfig={initialConfig}>
+        <UnderlineButton isActive={false} namespace="test-underline-composer" />
+      </LexicalComposer>,
+    );
+
+    const underlineButton = screen.getByRole("button", { name: "Underline" });
+    expect(underlineButton).toHaveAttribute("tabindex", "-1");
   });
 });

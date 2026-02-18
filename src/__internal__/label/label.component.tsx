@@ -44,6 +44,8 @@ export interface LabelProps
   "aria-label"?: string;
   /** Whether this component is shown against a dark background */
   isDarkBackground?: boolean;
+  /** @internal @private */
+  onClick?: () => void;
 }
 
 const shouldDisplayValidationIcon = ({
@@ -87,6 +89,7 @@ export const Label = ({
   warning,
   width = 30,
   className,
+  onClick,
   "aria-label": ariaLabel,
   isLarge,
 }: LabelProps) => {
@@ -171,6 +174,7 @@ export const Label = ({
       pr={pr}
       pl={pl}
       className={className}
+      onClick={onClick}
     >
       <StyledLabel
         data-element="label"

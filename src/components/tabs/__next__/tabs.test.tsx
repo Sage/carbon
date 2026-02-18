@@ -452,10 +452,14 @@ test("shows the validation icons regardless of whether tab panels are active", a
     </Tabs>,
   );
 
-  const tab2 = screen.getByRole("tab", { name: "Tab Two contains errors" });
-  const tab3 = screen.getByRole("tab", { name: "Tab Three contains warnings" });
+  const tab2 = screen.getByRole("tab", {
+    name: "Tab Two The Tab Two tab contains errors",
+  });
+  const tab3 = screen.getByRole("tab", {
+    name: "Tab Three The Tab Three tab contains warnings",
+  });
   const tab4 = screen.getByRole("tab", {
-    name: "Tab Four contains information",
+    name: "Tab Four The Tab Four tab contains information",
   });
 
   const errorIcon = within(tab2).getByTestId("icon-error");
