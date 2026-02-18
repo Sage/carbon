@@ -1,5 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { Card, CardProps, CardRow, CardFooter } from ".";
 
 test("renders with correct data attributes", () => {
@@ -120,4 +121,21 @@ test("when draggable prop is true cursor changes to move icon when Card is hover
   const cardElement = screen.getByTestId("card");
 
   expect(cardElement).toHaveStyle({ cursor: "move" });
+});
+
+test("should call onClick callback when card is clicked", async () => {
+  const handleClick = jest.fn();
+  const user = userEvent.setup();
+
+  render(
+    <Card onClick={handleClick} data-role="card">
+      <CardRow>Content</CardRow>
+    </Card>,
+  );
+
+  const cardButton = screen.getByRole("button");
+
+  await user.click(cardButton);
+
+  expect(handleClick).toHaveBeenCalledTimes(1);
 });
