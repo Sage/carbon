@@ -81,6 +81,8 @@ export interface BoxProps
   opacity?: string | number;
   /** Set the container to be hidden from screen readers */
   "aria-hidden"?: "true" | "false";
+  /** Make the container an aria-live region */
+  "aria-live"?: "off" | "assertive" | "polite";
   /** @private @internal @ignore */
   "data-component"?: string;
   /** @private @internal @ignore */
@@ -113,6 +115,7 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
       width,
       hidden,
       "aria-hidden": ariaHidden,
+      "aria-live": ariaLive,
       ...rest
     }: BoxProps,
     ref,
@@ -158,6 +161,7 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
         $borderRadius={borderRadius}
         aria-hidden={ariaHidden}
         hidden={hidden}
+        aria-live={ariaLive}
         {...tagComponent(dataComponent, rest)}
         {...filterStyledSystemMarginProps(rest)}
         {...filterStyledSystemPaddingProps(rest)}

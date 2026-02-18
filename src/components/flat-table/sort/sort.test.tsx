@@ -9,6 +9,7 @@ import FlatTable, { FlatTableProps } from "../flat-table.component";
 import FlatTableHead from "../flat-table-head";
 import FlatTableRow from "../flat-table-row";
 import FlatTableHeader from "../flat-table-header";
+import I18nProvider from "../../i18n-provider";
 
 test("logs error when not within FlatTable", () => {
   const loggerSpy = jest.spyOn(Logger, "error").mockImplementation(() => {});
@@ -38,6 +39,76 @@ test("should not render Icon if `sortType` does not exist", () => {
   );
 
   expect(screen.queryByTestId("icon")).not.toBeInTheDocument();
+});
+
+test("should render with the expected `aria-roledescription` attribute", () => {
+  render(
+    <FlatTable>
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>
+            <Sort>Name</Sort>
+          </FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+    </FlatTable>,
+  );
+
+  expect(screen.getByRole("button")).toHaveAttribute(
+    "aria-roledescription",
+    "Sortable column header",
+  );
+});
+
+test("should render with the overridden `aria-roledescription` attribute", () => {
+  render(
+    <FlatTable>
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>
+            <Sort aria-roledescription="Custom sortable column header">
+              Name
+            </Sort>
+          </FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+    </FlatTable>,
+  );
+
+  expect(screen.getByRole("button")).toHaveAttribute(
+    "aria-roledescription",
+    "Custom sortable column header",
+  );
+});
+
+test("should render with the overridden `aria-describedby` and `aria-roledescription` attribute via the I18nProvider", () => {
+  render(
+    <I18nProvider
+      locale={{
+        sort: {
+          accessibleName: () => "foo",
+          ariaRoleDescription: () => "Custom sortable column header",
+        },
+      }}
+    >
+      <FlatTable>
+        <FlatTableHead>
+          <FlatTableRow>
+            <FlatTableHeader>
+              <Sort aria-roledescription="Custom sortable column header">
+                Name
+              </Sort>
+            </FlatTableHeader>
+          </FlatTableRow>
+        </FlatTableHead>
+      </FlatTable>
+    </I18nProvider>,
+  );
+
+  expect(screen.getByRole("button")).toHaveAttribute(
+    "aria-roledescription",
+    "Custom sortable column header",
+  );
 });
 
 test("should render 'sort_up' Icon if `sortType` is 'ascending'", () => {
@@ -72,7 +143,8 @@ test("should render 'sort_down' Icon if `sortType` is 'descending'", () => {
   expect(screen.getByTestId("icon")).toHaveAttribute("type", "sort_down");
 });
 
-test("should render the correct accessible name when the `accessibleName` prop is passed", () => {
+test("should log a deprecation warning when the `accessibleName` prop is passed", () => {
+  const loggerSpy = jest.spyOn(Logger, "deprecate");
   const customAccessibleName =
     "Sort all accountants below in an ascending order.";
   render(
@@ -89,79 +161,11 @@ test("should render the correct accessible name when the `accessibleName` prop i
     </FlatTable>,
   );
 
-  expect(screen.getByRole("button")).toHaveAccessibleName(customAccessibleName);
-});
-
-test("should render a default accessible name when a child and the `sortType` prop is passed", () => {
-  render(
-    <FlatTable>
-      <FlatTableHead>
-        <FlatTableRow>
-          <FlatTableHeader>
-            <Sort sortType="ascending">Name</Sort>
-          </FlatTableHeader>
-        </FlatTableRow>
-      </FlatTableHead>
-    </FlatTable>,
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "The `accessibleName` prop has been deprecated in favour of using `aria-live` regions. Please use an `aria-live` region to announce changes in sort order to assistive technologies.",
   );
 
-  expect(screen.getByRole("button")).toHaveAccessibleName(
-    "Sort all Name in an ascending order.",
-  );
-});
-
-test("should render a default accessible name when just a child is passed", () => {
-  render(
-    <FlatTable>
-      <FlatTableHead>
-        <FlatTableRow>
-          <FlatTableHeader>
-            <Sort>Name</Sort>
-          </FlatTableHeader>
-        </FlatTableRow>
-      </FlatTableHead>
-    </FlatTable>,
-  );
-
-  expect(screen.getByRole("button")).toHaveAccessibleName(
-    "Sort all Name in an ascending or descending order.",
-  );
-});
-
-test("should render a default accessible name when just the `sortType` prop is passed", () => {
-  render(
-    <FlatTable>
-      <FlatTableHead>
-        <FlatTableRow>
-          <FlatTableHeader>
-            <Sort sortType="ascending" />
-          </FlatTableHeader>
-        </FlatTableRow>
-      </FlatTableHead>
-    </FlatTable>,
-  );
-
-  expect(screen.getByRole("button")).toHaveAccessibleName(
-    "Sort all contents in an ascending order.",
-  );
-});
-
-test("should render a default accessible name when neither a child or the `sortType` prop is passed", () => {
-  render(
-    <FlatTable>
-      <FlatTableHead>
-        <FlatTableRow>
-          <FlatTableHeader>
-            <Sort />
-          </FlatTableHeader>
-        </FlatTableRow>
-      </FlatTableHead>
-    </FlatTable>,
-  );
-
-  expect(screen.getByRole("button")).toHaveAccessibleName(
-    "Sort all contents in an ascending or descending order.",
-  );
+  loggerSpy.mockRestore();
 });
 
 test("should call `onClick` callback when user clicks on the element and prop is passed", async () => {

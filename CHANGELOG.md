@@ -1,3 +1,9 @@
+## [158.31.0](https://github.com/Sage/carbon/compare/v158.30.0...v158.31.0) (2026-02-17)
+
+### Features
+
+* **sort, flat-table-header:** add additional aria support and general accessibility improvements ([6815a80](https://github.com/Sage/carbon/commit/6815a801aeb37cdd0ebb03f2143821ae613a5c2b))
+
 ## [158.30.0](https://github.com/Sage/carbon/compare/v158.29.0...v158.30.0) (2026-02-16)
 
 ### Features
