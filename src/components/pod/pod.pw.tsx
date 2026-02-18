@@ -61,7 +61,6 @@ test.describe("Prop tests for Pod", () => {
     }) => {
       await mount(<PodExample>{children}</PodExample>);
 
-      page.getByText(children);
       await expect(podContent(page)).toHaveCSS("text-align", "left");
     });
   });
