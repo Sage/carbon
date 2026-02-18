@@ -3,59 +3,73 @@ import { LinkProps } from "../../link";
 import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags";
-import { StyledCrumb, Divider } from "./crumb.style";
+import { StyledCrumb, StyledCrumbCurrent, Divider } from "./crumb.style";
 import { useBreadcrumbsContext } from "../__internal__/breadcrumbs.context";
 
 export interface CrumbProps
-  extends Omit<
+  extends Pick<
       LinkProps,
-      | "tooltipMessage"
-      | "tooltipPosition"
-      | "iconType"
-      | "iconAlign"
-      | "isSkipLink"
-      | "isDarkBackground"
-      | "inverse"
-      | "ariaLabel"
-      | "className"
-      | "variant"
-      | "target"
-      | "rel"
-      | "icon"
-      | "disabled"
+      "href" | "onClick" | "onKeyDown" | "onMouseDown" | "children"
     >,
     TagProps {
   /** This sets the Crumb to current, does not render Link */
   isCurrent?: boolean;
+  /** @deprecated Intended for internal use only */
+  hasFocus?: boolean;
+  /**
+   * Specifies when the link underline should be displayed.
+   * @deprecated The 'underline' prop in Crumb is deprecated and will soon be removed.
+   */
+  underline?: "always" | "hover" | "never";
+  /**
+   * Sets the correct link size
+   * @deprecated The 'linkSize' prop in Crumb is deprecated and will soon be removed.
+   */
+  linkSize?: "medium" | "large";
+  /**
+   * Sets the link style to bold
+   * @deprecated The 'bold' prop in Crumb is deprecated and will soon be removed.
+   */
+  bold?: boolean;
 }
 
-const Crumb = React.forwardRef<HTMLAnchorElement, CrumbProps>(
+export const Crumb = React.forwardRef<HTMLAnchorElement, CrumbProps>(
   ({ href, isCurrent, children, onClick, ...rest }: CrumbProps, ref) => {
-    const { isDarkBackground } = useBreadcrumbsContext();
+    const { inverse } = useBreadcrumbsContext();
+
+    if (isCurrent) {
+      return (
+        <li>
+          <StyledCrumbCurrent
+            ref={ref}
+            aria-current="page"
+            inverse={inverse}
+            {...rest}
+            {...tagComponent("crumb", rest)}
+          >
+            {children}
+          </StyledCrumbCurrent>
+        </li>
+      );
+    }
 
     return (
       <li>
         <StyledCrumb
           ref={ref}
-          isCurrent={isCurrent}
-          aria-current={isCurrent ? "page" : undefined}
-          inverse={isDarkBackground}
+          inverse={inverse}
+          href={href}
+          onClick={onClick}
           {...rest}
           {...tagComponent("crumb", rest)}
-          {...(!isCurrent && {
-            href,
-            onClick,
-          })}
         >
           {children}
         </StyledCrumb>
-        {!isCurrent && (
-          <Divider
-            data-role="crumb-divider"
-            aria-hidden="true"
-            isDarkBackground={isDarkBackground}
-          />
-        )}
+        <Divider
+          data-role="crumb-divider"
+          aria-hidden="true"
+          $inverse={inverse}
+        />
       </li>
     );
   },
