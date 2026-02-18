@@ -444,3 +444,27 @@ test("sets ref to empty after unmount", () => {
 
   expect(mockRef.current).toBe(null);
 });
+
+test("calls onBlur callback when focus is lost", async () => {
+  const user = userEvent.setup();
+  const onBlurMock = jest.fn();
+  render(<Button onBlur={onBlurMock}>foo</Button>);
+
+  const button = screen.getByRole("button", { name: "foo" });
+  await user.click(button);
+  await user.tab();
+
+  expect(onBlurMock).toHaveBeenCalledTimes(1);
+});
+
+test("calls onKeyDown callback when a key is pressed", async () => {
+  const user = userEvent.setup();
+  const onKeyDownMock = jest.fn();
+  render(<Button onKeyDown={onKeyDownMock}>foo</Button>);
+
+  const button = screen.getByRole("button", { name: "foo" });
+  button.focus();
+  await user.keyboard("{Enter}");
+
+  expect(onKeyDownMock).toHaveBeenCalledTimes(1);
+});
