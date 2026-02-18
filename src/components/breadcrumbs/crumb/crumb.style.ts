@@ -11,20 +11,14 @@ const getTextColor = (inverse?: boolean) => {
     : "var(--container-standard-txt-alt)";
 };
 
-export const StyledCrumb = styled(Link)<StyledCrumbProps>`
-  ${({ $isCurrent, inverse }) =>
-    $isCurrent &&
-    css`
-      a {
-        color: ${getTextColor(inverse)};
-        text-decoration: none;
-        :hover {
-          color: ${getTextColor(inverse)};
-          text-decoration: none;
-          cursor: text;
-        }
-      }
-    `}
+export const StyledCrumb = styled(Link)<StyledCrumbProps>``;
+
+export const StyledCrumbCurrent = styled.span<StyledCrumbProps>`
+  ${({ inverse }) => css`
+    font: var(--global-font-static-comp-regular-m);
+    cursor: text;
+    color: ${getTextColor(inverse)};
+  `}
 `;
 
 interface DividerProps {
