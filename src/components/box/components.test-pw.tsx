@@ -20,45 +20,6 @@ export const Default = (props: Partial<BoxProps>) => {
   );
 };
 
-export const BoxComponentMulti = (props: Partial<BoxProps>) => {
-  return (
-    <div>
-      <Box display="flex" data-element="box" bg="blue" {...props}>
-        <Box
-          width="100px"
-          height="100px"
-          bg="primary"
-          color="yellow"
-          data-element="boxone"
-          {...props}
-        >
-          Supercalifrajilisticexpialidocious Word
-        </Box>
-        <Box
-          width="100px"
-          height="100px"
-          bg="primary"
-          color="yellow"
-          data-element="boxtwo"
-          {...props}
-        >
-          Box Two Box Two Box Two Box Two Box Two
-        </Box>
-        <Box
-          width="100px"
-          height="100px"
-          bg="primary"
-          color="yellow"
-          data-element="boxthree"
-          {...props}
-        >
-          Box Three Box Three Box Three Box Three
-        </Box>
-      </Box>
-    </div>
-  );
-};
-
 export const Spacing = () => {
   return (
     <Box m={3} p={3} bg="secondary">
