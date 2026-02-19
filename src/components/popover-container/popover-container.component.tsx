@@ -37,6 +37,7 @@ import { BoxProps } from "../box";
 import { defaultFocusableSelectors } from "../../__internal__/focus-trap/focus-trap-utils";
 import FlatTableContext from "../flat-table/__internal__/flat-table.context";
 import { useGlobalHeader } from "../global-header/__internal__/global-header.context";
+import MenuContext from "../menu/__internal__/menu.context";
 
 export interface RenderOpenProps {
   tabIndex: number;
@@ -422,18 +423,20 @@ export const PopoverContainer = forwardRef<
         zIndex={isWithinGlobalHeader ? 10000 : 2000}
         {...filterStyledSystemPaddingProps(rest)}
       >
-        <PopoverContainerHeaderStyle>
-          {title && (
-            <PopoverContainerTitleStyle
-              id={popoverContainerId}
-              data-element="popover-container-title"
-            >
-              {title}
-            </PopoverContainerTitleStyle>
-          )}
-          {renderCloseComponent(renderCloseComponentProps)}
-        </PopoverContainerHeaderStyle>
-        {children}
+        <MenuContext.Provider value={{ inMenu: false }}>
+          <PopoverContainerHeaderStyle>
+            {title && (
+              <PopoverContainerTitleStyle
+                id={popoverContainerId}
+                data-element="popover-container-title"
+              >
+                {title}
+              </PopoverContainerTitleStyle>
+            )}
+            {renderCloseComponent(renderCloseComponentProps)}
+          </PopoverContainerHeaderStyle>
+          {children}
+        </MenuContext.Provider>
       </PopoverContainerContentStyle>
     );
 
