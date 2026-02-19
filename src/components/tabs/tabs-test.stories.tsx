@@ -54,60 +54,22 @@ export default {
 export const LegacyDefault = (args: TabsProps) => {
   return (
     <Tabs {...args}>
-      <Tab
-        errorMessage="error"
-        warningMessage="warning"
-        infoMessage="info"
-        tabId="tab-1"
-        title="Tab 1"
-        key="tab-1"
-      >
+      <Tab tabId="tab-1" title="Tab 1" key="tab-1">
         Content for tab 1
       </Tab>
-      <Tab
-        errorMessage="error"
-        warningMessage="warning"
-        infoMessage="info"
-        tabId="tab-2"
-        title="Tab 2"
-        key="tab-2"
-      >
+      <Tab tabId="tab-2" title="Tab 2" key="tab-2">
         Content for tab 2
       </Tab>
-      <Tab
-        errorMessage="error"
-        warningMessage="warning"
-        infoMessage="info"
-        tabId="tab-3"
-        title="Tab 3"
-        key="tab-3"
-      >
+      <Tab tabId="tab-3" title="Tab 3" key="tab-3">
         Content for tab 3
       </Tab>
-      <Tab
-        errorMessage="error"
-        warningMessage="warning"
-        infoMessage="info"
-        tabId="tab-4"
-        title="Tab 4"
-        key="tab-4"
-      >
+      <Tab tabId="tab-4" title="Tab 4" key="tab-4">
         Content for tab 4
       </Tab>
-      <Tab
-        errorMessage="error"
-        warningMessage="warning"
-        infoMessage="info"
-        tabId="tab-5"
-        title="Tab 5"
-        key="tab-5"
-      >
+      <Tab tabId="tab-5" title="Tab 5" key="tab-5">
         Content for tab 5
       </Tab>
       <Tab
-        errorMessage="error"
-        warningMessage="warning"
-        infoMessage="info"
         tabId="tab-6"
         title="Tab 6"
         key="tab-6"
@@ -119,68 +81,11 @@ export const LegacyDefault = (args: TabsProps) => {
 
 LegacyDefault.storyName = "Default";
 
-export const LegacyValidationPositionTop = () => {
-  return (
-    <Tabs position="top">
-      <Tab errorMessage="Error Message" tabId="tab-1" title="Tab 1" key="tab-1">
-        <Textbox label="textbox" error onChange={() => {}} value="" />
-      </Tab>
-      <Tab
-        warningMessage="Warning Message"
-        tabId="tab-2"
-        title="Tab 2"
-        key="tab-2"
-      >
-        <Textbox label="textbox" warning onChange={() => {}} value="" />
-      </Tab>
-      <Tab infoMessage="Info Message" tabId="tab-3" title="Tab 3" key="tab-3">
-        <Textbox label="textbox" info onChange={() => {}} value="" />
-      </Tab>
-    </Tabs>
-  );
-};
-LegacyValidationPositionTop.storyName = "Validation position top";
-LegacyValidationPositionTop.parameters = {
-  chromatic: { disableSnapshot: false },
-  themeProvider: { chromatic: { theme: "sage" } },
-};
-
-export const LegacyValidationPositionLeft = () => {
-  return (
-    <Tabs position="left">
-      <Tab errorMessage="Error Message" tabId="tab-1" title="Tab 1" key="tab-1">
-        <Textbox label="textbox" error onChange={() => {}} value="" />
-      </Tab>
-      <Tab
-        warningMessage="Warning Message"
-        tabId="tab-2"
-        title="Tab 2"
-        key="tab-2"
-      >
-        <Textbox label="textbox" warning onChange={() => {}} value="" />
-      </Tab>
-      <Tab infoMessage="Info Message" tabId="tab-3" title="Tab 3" key="tab-3">
-        <Textbox label="textbox" info onChange={() => {}} value="" />
-      </Tab>
-    </Tabs>
-  );
-};
-LegacyValidationPositionLeft.storyName = "Validation position left";
-LegacyValidationPositionLeft.parameters = {
-  chromatic: { disableSnapshot: false },
-  themeProvider: { chromatic: { theme: "sage" } },
-};
-
-export const LegacyNewValidationPositionTop = () => {
+export const ValidationPositionTop = () => {
   return (
     <CarbonProvider validationRedesignOptIn>
       <Tabs position="top">
-        <Tab
-          errorMessage="Tab Error Message"
-          tabId="tab-1"
-          title="Tab 1"
-          key="tab-1"
-        >
+        <Tab tabId="tab-1" title="Tab 1" key="tab-1">
           <Textbox
             label="textbox"
             error="Error Message"
@@ -189,12 +94,7 @@ export const LegacyNewValidationPositionTop = () => {
             value=""
           />
         </Tab>
-        <Tab
-          warningMessage="Tab Warning Message"
-          tabId="tab-2"
-          title="Tab 2"
-          key="tab-2"
-        >
+        <Tab tabId="tab-2" title="Tab 2" key="tab-2">
           <Textbox
             label="textbox"
             warning="Warning Message"
@@ -207,22 +107,17 @@ export const LegacyNewValidationPositionTop = () => {
     </CarbonProvider>
   );
 };
-LegacyNewValidationPositionTop.storyName = "New Validation position top";
-LegacyNewValidationPositionTop.parameters = {
+ValidationPositionTop.storyName = "Validation position top";
+ValidationPositionTop.parameters = {
   chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
-export const LegacyNewValidationPositionLeft = () => {
+export const ValidationPositionLeft = () => {
   return (
     <CarbonProvider validationRedesignOptIn>
       <Tabs position="left">
-        <Tab
-          errorMessage="Tab Error Message"
-          tabId="tab-1"
-          title="Tab 1"
-          key="tab-1"
-        >
+        <Tab tabId="tab-1" title="Tab 1" key="tab-1">
           <Textbox
             label="textbox"
             error="Error Message"
@@ -231,12 +126,7 @@ export const LegacyNewValidationPositionLeft = () => {
             value=""
           />
         </Tab>
-        <Tab
-          warningMessage="Tab Warning Message"
-          tabId="tab-2"
-          title="Tab 2"
-          key="tab-2"
-        >
+        <Tab tabId="tab-2" title="Tab 2" key="tab-2">
           <Textbox
             label="textbox"
             warning="Warning Message"
@@ -249,13 +139,13 @@ export const LegacyNewValidationPositionLeft = () => {
     </CarbonProvider>
   );
 };
-LegacyNewValidationPositionLeft.storyName = "New Validation position left";
-LegacyNewValidationPositionLeft.parameters = {
+ValidationPositionLeft.storyName = "Validation position left";
+ValidationPositionLeft.parameters = {
   chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
-export const LegacyWithAdditionalTitleSiblingsRedesign = () => {
+export const WithAdditionalTitleSiblingsRedesign = () => {
   const [errors, setErrors] = useState({
     one: true,
     two: false,
@@ -266,7 +156,6 @@ export const LegacyWithAdditionalTitleSiblingsRedesign = () => {
       <Box p="4px">
         <Tabs align="left" position="top">
           <Tab
-            errorMessage="Tab Error Message"
             tabId="tab-1"
             title="Tab 1"
             key="tab-1"
@@ -286,13 +175,7 @@ export const LegacyWithAdditionalTitleSiblingsRedesign = () => {
               m={2}
             />
           </Tab>
-          <Tab
-            errorMessage="Tab Error Message"
-            tabId="tab-2"
-            title="Tab 2"
-            key="tab-2"
-            titlePosition="after"
-          >
+          <Tab tabId="tab-2" title="Tab 2" key="tab-2" titlePosition="after">
             <Checkbox
               label="Add error"
               error={errors.two}
@@ -302,7 +185,6 @@ export const LegacyWithAdditionalTitleSiblingsRedesign = () => {
             />
           </Tab>
           <Tab
-            errorMessage="Tab Error Message"
             tabId="tab-3"
             title="Tab 3"
             key="tab-3"
@@ -327,140 +209,10 @@ export const LegacyWithAdditionalTitleSiblingsRedesign = () => {
     </CarbonProvider>
   );
 };
-LegacyWithAdditionalTitleSiblingsRedesign.storyName =
-  "New Validation Additional Title Siblings";
-LegacyWithAdditionalTitleSiblingsRedesign.parameters = {
+WithAdditionalTitleSiblingsRedesign.storyName =
+  "Validation Additional Title Siblings";
+WithAdditionalTitleSiblingsRedesign.parameters = {
   chromatic: { disableSnapshot: false },
-  themeProvider: { chromatic: { theme: "sage" } },
-};
-
-export const LegacyWithStringValidationsSummarised = () => {
-  type TabValidations = { one: string | boolean; two: string | boolean };
-  const [errors, setErrors] = useState<TabValidations>({
-    one: "This is an error",
-    two: "Here is another error",
-  });
-  const [warnings, setWarnings] = useState<TabValidations>({
-    one: "This is a warning",
-    two: "Here is another warning",
-  });
-  const [infos, setInfos] = useState<TabValidations>({
-    one: "This is an info",
-    two: "Here is another info",
-  });
-  return (
-    <Box p="4px">
-      <Tabs align="left" position="top" showValidationsSummary>
-        <Tab tabId="tab-1" title="Tab 1" key="tab-1">
-          <Checkbox
-            label="Error 1"
-            error={errors.one}
-            onChange={(e) =>
-              e.target.checked
-                ? setErrors({ ...errors, one: "This is an error" })
-                : setErrors({ ...errors, one: "" })
-            }
-            checked={!!errors.one}
-          />
-          <Checkbox
-            label="Error 2"
-            error={errors.two}
-            onChange={(e) =>
-              e.target.checked
-                ? setErrors({ ...errors, two: "Here is another error" })
-                : setErrors({ ...errors, two: "" })
-            }
-            checked={!!errors.two}
-          />
-        </Tab>
-        <Tab tabId="tab-2" title="Tab 2" key="tab-2">
-          <Checkbox
-            label="Warning 1"
-            warning={warnings.one}
-            onChange={(e) =>
-              e.target.checked
-                ? setWarnings({ ...warnings, one: "This is a warning" })
-                : setWarnings({ ...warnings, one: "" })
-            }
-            checked={!!warnings.one}
-          />
-          <Checkbox
-            label="Warning 2"
-            warning={warnings.two}
-            onChange={(e) =>
-              e.target.checked
-                ? setWarnings({
-                    ...warnings,
-                    two: "Here is another warning",
-                  })
-                : setWarnings({ ...warnings, two: "" })
-            }
-            checked={!!warnings.two}
-          />
-        </Tab>
-        <Tab tabId="tab-3" title="Tab 3" key="tab-3">
-          <Checkbox
-            label="Info 1"
-            info={infos.one}
-            onChange={(e) =>
-              e.target.checked
-                ? setInfos({ ...infos, one: true })
-                : setInfos({ ...infos, one: "" })
-            }
-            checked={!!infos.one}
-          />
-          <Checkbox
-            label="Info 2"
-            info={infos.two}
-            onChange={(e) =>
-              e.target.checked
-                ? setInfos({ ...infos, two: "This is a warning" })
-                : setInfos({ ...infos, two: "" })
-            }
-            checked={!!infos.two}
-          />
-        </Tab>
-      </Tabs>
-    </Box>
-  );
-};
-LegacyWithStringValidationsSummarised.storyName =
-  "With String Validations Summarised";
-
-export const LegacyResponsiveValidation = () => {
-  const tabsData = Array(20)
-    .fill(0)
-    .map((_, index) => ({
-      tabId: `tab-${index + 1}`,
-      title: `Tab ${index + 1}`,
-      key: `tab-${index + 1}`,
-      content: `Content for tab ${index + 1}`,
-      errorMessage: index === 5 ? "error" : undefined,
-    }));
-
-  return (
-    <Box p="4px">
-      <Tabs align="left" position="top">
-        {tabsData.map((tabData) => (
-          <Tab role="tab" {...tabData} key={tabData.key}>
-            {tabData.content}
-            {tabData.errorMessage && (
-              <Checkbox
-                label="Add error"
-                error="error"
-                onChange={() => {}}
-                checked
-              />
-            )}
-          </Tab>
-        ))}
-      </Tabs>
-    </Box>
-  );
-};
-LegacyResponsiveValidation.storyName = "Responsive with error";
-LegacyResponsiveValidation.parameters = {
-  chromatic: { disableSnapshot: false, viewports: [1200, 500] },
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
@@ -508,55 +260,19 @@ export const TabsInSidebar = (
     <DrawerSidebarContext.Provider value={{ isInSidebar: true }}>
       <Box p="4px">
         <Tabs align="left" position="top" {...props}>
-          <Tab
-            errorMessage="error"
-            warningMessage="warning"
-            infoMessage="info"
-            tabId="tab-1"
-            title="Tab 1"
-            key="tab-1"
-            {...props}
-          >
+          <Tab tabId="tab-1" title="Tab 1" key="tab-1" {...props}>
             Content for tab 1
           </Tab>
-          <Tab
-            errorMessage="error"
-            warningMessage="warning"
-            infoMessage="info"
-            tabId="tab-2"
-            title="Tab 2"
-            key="tab-2"
-          >
+          <Tab tabId="tab-2" title="Tab 2" key="tab-2">
             Content for tab 2
           </Tab>
-          <Tab
-            errorMessage="error"
-            warningMessage="warning"
-            infoMessage="info"
-            tabId="tab-3"
-            title="Tab 3"
-            key="tab-3"
-          >
+          <Tab tabId="tab-3" title="Tab 3" key="tab-3">
             Content for tab 3
           </Tab>
-          <Tab
-            errorMessage="error"
-            warningMessage="warning"
-            infoMessage="info"
-            tabId="tab-4"
-            title="Tab 4"
-            key="tab-4"
-          >
+          <Tab tabId="tab-4" title="Tab 4" key="tab-4">
             Content for tab 4
           </Tab>
-          <Tab
-            errorMessage="error"
-            warningMessage="warning"
-            infoMessage="info"
-            tabId="tab-5"
-            title="Tab 5"
-            key="tab-5"
-          >
+          <Tab tabId="tab-5" title="Tab 5" key="tab-5">
             Content for tab 5
           </Tab>
         </Tabs>
@@ -579,55 +295,19 @@ export const TabsInSidebarPositionedLeft = (
     <DrawerSidebarContext.Provider value={{ isInSidebar: true }}>
       <Box p="4px">
         <Tabs align="left" position="left" {...props}>
-          <Tab
-            errorMessage="error"
-            warningMessage="warning"
-            infoMessage="info"
-            tabId="tab-1"
-            title="Tab 1"
-            key="tab-1"
-            {...props}
-          >
+          <Tab tabId="tab-1" title="Tab 1" key="tab-1" {...props}>
             Content for tab 1
           </Tab>
-          <Tab
-            errorMessage="error"
-            warningMessage="warning"
-            infoMessage="info"
-            tabId="tab-2"
-            title="Tab 2"
-            key="tab-2"
-          >
+          <Tab tabId="tab-2" title="Tab 2" key="tab-2">
             Content for tab 2
           </Tab>
-          <Tab
-            errorMessage="error"
-            warningMessage="warning"
-            infoMessage="info"
-            tabId="tab-3"
-            title="Tab 3"
-            key="tab-3"
-          >
+          <Tab tabId="tab-3" title="Tab 3" key="tab-3">
             Content for tab 3
           </Tab>
-          <Tab
-            errorMessage="error"
-            warningMessage="warning"
-            infoMessage="info"
-            tabId="tab-4"
-            title="Tab 4"
-            key="tab-4"
-          >
+          <Tab tabId="tab-4" title="Tab 4" key="tab-4">
             Content for tab 4
           </Tab>
-          <Tab
-            errorMessage="error"
-            warningMessage="warning"
-            infoMessage="info"
-            tabId="tab-5"
-            title="Tab 5"
-            key="tab-5"
-          >
+          <Tab tabId="tab-5" title="Tab 5" key="tab-5">
             Content for tab 5
           </Tab>
         </Tabs>
@@ -657,60 +337,22 @@ export const LegacyWithHorizontalScrollbarInsideForm = (args: TabsProps) => {
         maxWidth="1024px"
       >
         <Tabs {...args}>
-          <Tab
-            errorMessage="error"
-            warningMessage="warning"
-            infoMessage="info"
-            tabId="tab-1"
-            title="Tab 1"
-            key="tab-1"
-          >
+          <Tab tabId="tab-1" title="Tab 1" key="tab-1">
             Content for tab 1
           </Tab>
-          <Tab
-            errorMessage="error"
-            warningMessage="warning"
-            infoMessage="info"
-            tabId="tab-2"
-            title="Tab 2"
-            key="tab-2"
-          >
+          <Tab tabId="tab-2" title="Tab 2" key="tab-2">
             Content for tab 2
           </Tab>
-          <Tab
-            errorMessage="error"
-            warningMessage="warning"
-            infoMessage="info"
-            tabId="tab-3"
-            title="Tab 3"
-            key="tab-3"
-          >
+          <Tab tabId="tab-3" title="Tab 3" key="tab-3">
             Content for tab 3
           </Tab>
-          <Tab
-            errorMessage="error"
-            warningMessage="warning"
-            infoMessage="info"
-            tabId="tab-4"
-            title="Tab 4"
-            key="tab-4"
-          >
+          <Tab tabId="tab-4" title="Tab 4" key="tab-4">
             Content for tab 4
           </Tab>
-          <Tab
-            errorMessage="error"
-            warningMessage="warning"
-            infoMessage="info"
-            tabId="tab-5"
-            title="Tab 5"
-            key="tab-5"
-          >
+          <Tab tabId="tab-5" title="Tab 5" key="tab-5">
             Content for tab 5
           </Tab>
           <Tab
-            errorMessage="error"
-            warningMessage="warning"
-            infoMessage="info"
             tabId="tab-6"
             title="Tab 6"
             key="tab-6"
@@ -723,3 +365,37 @@ export const LegacyWithHorizontalScrollbarInsideForm = (args: TabsProps) => {
 };
 LegacyWithHorizontalScrollbarInsideForm.storyName =
   "With Horizontal Scrollbar Inside Form";
+
+export const TabsWithHref = (args: TabsProps) => (
+  <Box
+    margin="var(--spacing200)"
+    display="flex"
+    flexDirection="column"
+    gap="var(--spacing200)"
+    minWidth="320px"
+    maxWidth="1024px"
+  >
+    <Tabs {...args}>
+      <Tab tabId="tab-1" title="Tab 1" key="tab-1" href="#">
+        Content for tab 1
+      </Tab>
+      <Tab tabId="tab-2" title="Tab 2" key="tab-2" href="#">
+        Content for tab 2
+      </Tab>
+    </Tabs>
+    <br />
+    <Tabs {...args} position="left">
+      <Tab tabId="tab-3" title="Tab 3" key="tab-3" href="#">
+        Content for tab 3
+      </Tab>
+      <Tab tabId="tab-4" title="Tab 4" key="tab-4" href="#">
+        Content for tab 4
+      </Tab>
+    </Tabs>
+  </Box>
+);
+TabsWithHref.storyName = "Tabs as links (with href)";
+TabsWithHref.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
+};

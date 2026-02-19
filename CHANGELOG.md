@@ -1,3 +1,21 @@
+## [158.31.0](https://github.com/Sage/carbon/compare/v158.30.0...v158.31.0) (2026-02-17)
+
+### Features
+
+* **sort, flat-table-header:** add additional aria support and general accessibility improvements ([6815a80](https://github.com/Sage/carbon/commit/6815a801aeb37cdd0ebb03f2143821ae613a5c2b))
+
+## [158.30.0](https://github.com/Sage/carbon/compare/v158.29.0...v158.30.0) (2026-02-16)
+
+### Features
+
+* **tabs:** map legacy interface to next version of component ([38a5539](https://github.com/Sage/carbon/commit/38a553946066a3a8ed7f43856490edf9274c408c))
+
+## [158.29.0](https://github.com/Sage/carbon/compare/v158.28.0...v158.29.0) (2026-02-13)
+
+### Features
+
+* **icon:** 3 new icons added ([916ce11](https://github.com/Sage/carbon/commit/916ce11568fe040980053c6595182be4603da67f))
+
 ## [158.28.0](https://github.com/Sage/carbon/compare/v158.27.4...v158.28.0) (2026-02-11)
 
 ### Features
