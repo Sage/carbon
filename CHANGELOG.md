@@ -1,3 +1,15 @@
+## [158.32.0](https://github.com/Sage/carbon/compare/v158.31.1...v158.32.0) (2026-02-19)
+
+### Features
+
+* **vertical-menu-item:** add support for margin props ([29299a5](https://github.com/Sage/carbon/commit/29299a524814d4e191b9f6daed39004ee7442e1f))
+
+## [158.31.1](https://github.com/Sage/carbon/compare/v158.31.0...v158.31.1) (2026-02-19)
+
+### Bug Fixes
+
+* **decimal:** preserve leading positive sign in formatted value ([03f4101](https://github.com/Sage/carbon/commit/03f41013e0daf43c4c640ce9b408111a00cf86a6)), closes [#7682](https://github.com/Sage/carbon/issues/7682)
+
 ## [158.31.0](https://github.com/Sage/carbon/compare/v158.30.0...v158.31.0) (2026-02-17)
 
 ### Features
