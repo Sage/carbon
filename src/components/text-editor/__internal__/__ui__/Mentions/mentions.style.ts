@@ -1,18 +1,23 @@
 import styled from "styled-components";
 
-export const TypeaheadPopover = styled.div`
-  background: #fff;
-  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
-  border-radius: 8px;
+export const TypeaheadPopover = styled.div<{
+  parentOffsetLeft: number;
+  parentOffsetTop: number;
+}>`
+  background: var(--popover-bg-default);
+  box-shadow: var(--global-depth-lvl1);
+  border-radius: var(--global-radius-action-m);
   position: relative;
+  top: ${({ parentOffsetTop }) => -parentOffsetTop}px;
+  left: ${({ parentOffsetLeft }) => -parentOffsetLeft}px;
   width: 250px; /* .mentions-menu class */
 `;
 
 export const MentionsList = styled.ul`
-  padding: 8px 0;
+  padding: var(--global-space-comp-s) 0;
   list-style: none;
   margin: 0;
-  border-radius: 8px;
+  border-radius: var(--global-radius-container-m);
   max-height: 200px;
   overflow-y: scroll;
 
@@ -24,71 +29,53 @@ export const MentionsList = styled.ul`
 `;
 
 export const MentionsListItem = styled.li`
-  padding: 8px 24px;
-  color: #0000008c;
+  padding: var(--global-space-comp-s) var(--global-space-comp-xl);
+  color: var(--input-dropdown-label-default);
   cursor: pointer;
-  line-height: 16px;
-  font-size: 15px;
+  font: var(--global-font-static-comp-regular-m);
   display: flex;
   align-content: center;
   flex-direction: row;
   flex-shrink: 0;
-  background-color: #fff;
+  background-color: var(--popover-bg-default);
   border-radius: 0;
   border: 0;
 
   &:hover {
-    background-color: #eee;
-    color: #000;
+    color: var(--popover-label-hover);
     border-radius: 0;
-
-    div[data-component="portrait"] {
-      color: #000;
-
-      [data-element="initials"],
-      [data-component="icon"] {
-        color: #000;
-      }
     }
   }
 
-  &.active {
-    display: flex;
-    width: 20px;
-    height: 20px;
-    background-size: contain;
-  }
-
   &.selected {
-    background: #eee;
+    background: var(--popover-bg-hover);
+    color: var(--popover-label-hover);
   }
 
   .text {
     display: flex;
-    line-height: 20px;
+    font: var(--global-font-static-comp-regular-m);
     flex-grow: 1;
     min-width: 150px;
-    margin-left: 8px;
+    margin-left: var(--global-space-comp-xs);
     align-items: center;
-    font-size: 14px;
     margin-top: -1px;
     white-space: pre;
   }
 
   div[data-component="portrait"] {
-    background-color: #f2f5f6ff;
-    color: #000000e6;
-    min-width: 24px;
-    height: 24px;
+    color: var(--input-dropdown-label-default);
+    font: var(--profile-font-initials-xs);
+    min-width: var(--profile-size-outside-xs);
+    height: var(--profile-size-outside-xs);
     overflow: hidden;
-    border-radius: 50%;
-    border: 1px solid #ccd6dbff;
+    border-radius: var(--global-radius-container-circle);
+    border: var(--global-borderwidth-xs) solid var(--profile-border-default);
     display: inline-block;
-    font-size: 13px;
 
     [data-element="initials"],
     [data-component="icon"] {
-      color: #8b8b8b;
+      color: var(--input-dropdown-label-default);
     }
   }
 `;
