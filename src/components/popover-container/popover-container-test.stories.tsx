@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import useMediaQuery from "../../hooks/useMediaQuery";
+
 import Button from "../button";
 import Box from "../box";
 import PopoverContainer, {
@@ -13,10 +13,9 @@ import Search from "../search";
 import IconButton from "../icon-button";
 import Icon from "../icon";
 import RadioButton, { RadioButtonGroup } from "../radio-button";
-import Link from "../link";
-import Divider from "../divider";
+
 import GlobalHeader from "../global-header";
-import carbonLogo from "../../../logo/carbon-logo.png";
+
 import isChromatic from "../../../.storybook/isChromatic";
 
 export default {
@@ -328,164 +327,6 @@ export const InsideMenuWithPrimaryOpenButton = () => {
 };
 InsideMenuWithPrimaryOpenButton.story = {
   name: "inside menu with primary open button",
-  parameters: {
-    chromatic: {
-      disableSnapshot: true,
-    },
-  },
-};
-
-export const InsideMenuWithPrimaryOpenButtonResponsive = () => {
-  const Logo = () => <img height={28} src={carbonLogo} alt="Carbon logo" />;
-  const [open, setOpen] = useState(false);
-  const isMid = useMediaQuery("(max-width: 1075px)");
-  const isSmall = useMediaQuery("(max-width: 512px)");
-
-  const PopoverLink = ({ text }: { text: string }) => (
-    <Link href="#" variant="subtle" isDarkBackground underline="hover">
-      {text}
-    </Link>
-  );
-
-  return (
-    <GlobalHeader logo={Logo()}>
-      <Menu menuType="black" flex="1">
-        <MenuItem flex="1" submenu="Product Switcher">
-          <MenuItem href="#">Product A</MenuItem>
-        </MenuItem>
-        <MenuItem href="#" flex="0 0 auto">
-          <PopoverContainer
-            containerAriaLabel="Create"
-            closeButtonAriaLabel="Close Create Popover"
-            position={isSmall || !isMid ? "center" : "right"}
-            offset={0}
-            p={0}
-            borderRadius="borderRadius000 borderRadius000 borderRadius200 borderRadius200"
-            onOpen={() => setOpen(true)}
-            onClose={() => setOpen(false)}
-            open={open}
-            renderOpenComponent={({
-              ref,
-              onClick,
-              "data-popover-container-button": dataPopoverContainerButton,
-            }) => (
-              <Button
-                aria-label="Create"
-                ref={ref}
-                onClick={onClick}
-                data-popover-container-button={dataPopoverContainerButton}
-              >
-                <Box alignItems="center" display="flex" px={2}>
-                  <Icon type="plus" />
-                  Create
-                </Box>
-              </Button>
-            )}
-            renderCloseComponent={({ ref, onClick }) => (
-              <Box position="absolute" right="15px" top="15px">
-                <IconButton
-                  aria-label="Close Create Popover"
-                  ref={ref}
-                  onClick={onClick}
-                >
-                  <Icon color="var(--colorsActionMajorYang100)" type="close" />
-                </IconButton>
-              </Box>
-            )}
-          >
-            <Box
-              display="flex"
-              flexDirection={!isMid ? "row" : "column"}
-              gap={!isMid ? "64px" : "24px"}
-              padding="24px 32px"
-              borderRadius="borderRadius000 borderRadius000 borderRadius200 borderRadius200"
-              backgroundColor="var(--colorsActionMajor500)"
-              boxSizing="border-box"
-              marginLeft="0"
-              maxHeight="410px"
-              overflowY="auto"
-              {...(isSmall && { width: "100vw" })}
-            >
-              <Box
-                display="flex"
-                flexDirection="column"
-                boxSizing="border-box"
-                margin="0"
-                padding="0"
-              >
-                <Typography variant="segment-subheader" color="white" m={0}>
-                  Lorem Ipsum
-                </Typography>
-                <Divider type="horizontal" inverse mt={1} mb={2} />
-                <Box display="flex" flexDirection="row" gap="32px">
-                  <Box display="flex" flexDirection="column" gap="8px">
-                    <PopoverLink text="Lorem ipsum dolor" />
-                    <PopoverLink text="Sit amet consectetur" />
-                    <PopoverLink text="Adipiscing elit sed" />
-                    <PopoverLink text="Do eiusmod tempor" />
-                    <PopoverLink text="Incididunt ut labore" />
-                    <PopoverLink text="Et dolore magna" />
-                  </Box>
-                  <Box display="flex" flexDirection="column" gap="8px">
-                    <PopoverLink text="Aliqua ut enim" />
-                    <PopoverLink text="Ad minim veniam" />
-                    <PopoverLink text="Quis nostrud exercitation" />
-                    <PopoverLink text="Ullamco laboris nisi" />
-                    <PopoverLink text="Ut aliquip ex" />
-                    <PopoverLink text="Ea commodo consequat" />
-                  </Box>
-                </Box>
-              </Box>
-              <Box
-                display="flex"
-                flexDirection="column"
-                boxSizing="border-box"
-                margin="0"
-                padding="0"
-              >
-                <Typography variant="segment-subheader" color="white" m={0}>
-                  Dolor Sit Amet
-                </Typography>
-                <Divider type="horizontal" inverse mt={1} mb={2} />
-                <Box display="flex" flexDirection="row" gap="32px">
-                  <Box display="flex" flexDirection="column" gap="8px">
-                    <PopoverLink text="Duis aute irure" />
-                    <PopoverLink text="Dolor in reprehenderit" />
-                    <PopoverLink text="In voluptate velit" />
-                    <PopoverLink text="Esse cillum dolore" />
-                    <PopoverLink text="Eu fugiat nulla" />
-                  </Box>
-                  <Box display="flex" flexDirection="column" gap="8px">
-                    <PopoverLink text="Pariatur excepteur sint" />
-                    <PopoverLink text="Occaecat cupidatat non" />
-                    <PopoverLink text="Proident sunt in" />
-                    <PopoverLink text="Culpa qui officia" />
-                    <PopoverLink text="Deserunt mollit anim" />
-                  </Box>
-                </Box>
-              </Box>
-            </Box>
-          </PopoverContainer>
-        </MenuItem>
-        <MenuItem href="#" flex="0 0 auto" icon="person">
-          User name
-        </MenuItem>
-        <MenuItem href="#" flex="0 0 auto" icon="person">
-          User name
-        </MenuItem>
-        <MenuItem flex="0 0 auto" submenu="Selected role">
-          <MenuItem href="#">Administrator</MenuItem>
-        </MenuItem>
-        <MenuItem ariaLabel="search" icon="search" href="#" />
-        <MenuItem ariaLabel="alert" icon="alert" href="#" />
-        <MenuItem ariaLabel="settings" icon="settings" href="#" />
-        <MenuItem ariaLabel="logout" icon="logout" href="#" />
-      </Menu>
-    </GlobalHeader>
-  );
-};
-InsideMenuWithPrimaryOpenButtonResponsive.story = {
-  name: "inside menu with primary open button responsive",
   parameters: {
     chromatic: {
       disableSnapshot: true,
