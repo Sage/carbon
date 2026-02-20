@@ -7,7 +7,7 @@
     "esm"
   ],
   "engines": {
-    "npm": ">=11.9.0"
+    "npm": ">=11.10.1"
   },
   "scripts": {
     "setup": "npm ci && npm run prepare",
