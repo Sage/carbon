@@ -1,7 +1,7 @@
 import createStrictContext from "../../../__internal__/utils/createStrictContext";
 
 export type BreadcrumbsContextType = {
-  isDarkBackground: boolean;
+  inverse?: boolean;
 };
 
 const [BreadcrumbsProvider, useBreadcrumbsContext] =
@@ -10,7 +10,7 @@ const [BreadcrumbsProvider, useBreadcrumbsContext] =
     errorMessage:
       "Carbon Breadcrumbs: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
     defaultValue: {
-      isDarkBackground: false,
+      inverse: false,
     },
   });
 
