@@ -1,3 +1,9 @@
+## [158.34.0](https://github.com/Sage/carbon/compare/v158.33.0...v158.34.0) (2026-02-24)
+
+### Features
+
+* **breadcrumbs:** align with Fusion DS ([4f56235](https://github.com/Sage/carbon/commit/4f56235de8932012543d2ba8dda49a978f63e459))
+
 ## [158.33.0](https://github.com/Sage/carbon/compare/v158.32.0...v158.33.0) (2026-02-24)
 
 ### Features
