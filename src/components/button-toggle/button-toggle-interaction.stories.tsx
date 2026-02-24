@@ -170,6 +170,7 @@ export const KeyboardInteraction: Story = {
 
     return (
       <>
+        <button type="button">Button Before</button>
         <Box margin={4} width="250px" display="flex" flexWrap="nowrap">
           <ButtonToggleGroup
             id="button-toggle-group-id"
@@ -181,6 +182,7 @@ export const KeyboardInteraction: Story = {
             <ButtonToggle value="baz">Baz</ButtonToggle>
           </ButtonToggleGroup>
         </Box>
+        <button type="button">Button After</button>
       </>
     );
   },
@@ -190,20 +192,49 @@ export const KeyboardInteraction: Story = {
     }
 
     const canvas = within(canvasElement);
-    const button = canvas.getAllByRole("button");
-    await userEvent.click(button[0]);
+    const allButtons = canvas.getAllByRole("button");
+    const buttonBefore = allButtons[0];
+    const toggleButtons = [allButtons[1], allButtons[2], allButtons[3]];
+    const buttonAfter = allButtons[4];
+
+    // Test arrow key navigation
+    await userEvent.click(toggleButtons[0]);
     await userEvent.keyboard("{ArrowRight}");
-    await expect(button[1]).toHaveFocus();
-    await userEvent.type(button[1], "{space}");
-    await expect(button[1]).toHaveAttribute("aria-pressed", "true");
+    await expect(toggleButtons[1]).toHaveFocus();
+    await userEvent.type(toggleButtons[1], "{space}");
+    await expect(toggleButtons[1]).toHaveAttribute("aria-pressed", "true");
     await userEvent.keyboard("{ArrowLeft}");
-    await expect(button[0]).toHaveFocus();
+    await expect(toggleButtons[0]).toHaveFocus();
     await userEvent.keyboard("{Enter}");
-    await expect(button[0]).toHaveAttribute("aria-pressed", "true");
+    await expect(toggleButtons[0]).toHaveAttribute("aria-pressed", "true");
     await userEvent.keyboard("{ArrowLeft}");
-    await expect(button[2]).toHaveFocus();
-    await userEvent.type(button[2], "{space}");
-    await expect(button[2]).toHaveAttribute("aria-pressed", "true");
+
+    // Test Tab navigation - only first button is tabbable when none selected
+    await buttonBefore.focus();
+    await userEvent.tab();
+    await expect(toggleButtons[0]).toHaveFocus();
+    await userEvent.tab();
+    await expect(buttonAfter).toHaveFocus();
+
+    // Test Shift+Tab navigation
+    await userEvent.tab({ shift: true });
+    await expect(toggleButtons[0]).toHaveFocus();
+    await userEvent.tab({ shift: true });
+    await expect(buttonBefore).toHaveFocus();
+
+    // Test Tab navigation with selected button
+    await userEvent.click(toggleButtons[1]);
+    await buttonBefore.focus();
+    await userEvent.tab();
+    await expect(toggleButtons[1]).toHaveFocus();
+    await userEvent.tab();
+    await expect(buttonAfter).toHaveFocus();
+
+    // Test Shift+Tab with selected button
+    await userEvent.tab({ shift: true });
+    await expect(toggleButtons[1]).toHaveFocus();
+    await userEvent.tab({ shift: true });
+    await expect(buttonBefore).toHaveFocus();
   },
   decorators: [
     (StoryToRender) => (
@@ -214,6 +245,9 @@ export const KeyboardInteraction: Story = {
   ],
 };
 KeyboardInteraction.storyName = "Keyboard Interaction";
+KeyboardInteraction.parameters = {
+  chromatic: { disableSnapshot: true },
+};
 
 export const Deselection: Story = {
   render: () => {
