@@ -1,10 +1,13 @@
 import React, { ReactNode, useState, useContext } from "react";
-import { PaddingProps } from "styled-system";
+import { PaddingProps, MarginProps } from "styled-system";
 import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags";
 
-import { filterStyledSystemPaddingProps } from "../../../style/utils";
+import {
+  filterStyledSystemPaddingProps,
+  filterStyledSystemMarginProps,
+} from "../../../style/utils";
 import { IconType } from "../../icon";
 import {
   StyledVerticalMenuItem,
@@ -14,6 +17,7 @@ import {
   StyledChevronIcon,
   StyledTitleIcon,
   StyledCustomIconWrapper,
+  StyledListItem,
 } from "../vertical-menu.style";
 import MenuItemContext from "./__internal__/menu-item.context";
 import { useVerticalMenuContext } from "../__internal__/vertical-menu.context";
@@ -29,6 +33,7 @@ export type VerticalMenuItemClickEvent =
 
 export interface VerticalMenuItemProps<T = React.ElementType>
   extends PaddingProps,
+    MarginProps,
     TagProps {
   /** Children of the menu item - another level of VerticalMenuItems */
   children?: React.ReactNode;
@@ -124,7 +129,7 @@ export const VerticalMenuItem = <T,>({
   const paddingX = `calc(var(--spacing500) + (${level} * var(--spacing400)))`;
 
   return (
-    <li>
+    <StyledListItem {...filterStyledSystemMarginProps(rest)}>
       <StyledVerticalMenuItem
         height={height}
         px={paddingX}
@@ -157,7 +162,7 @@ export const VerticalMenuItem = <T,>({
           <StyledList>{children}</StyledList>
         </MenuItemContext.Provider>
       )}
-    </li>
+    </StyledListItem>
   );
 };
 

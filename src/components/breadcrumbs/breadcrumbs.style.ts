@@ -11,6 +11,7 @@ const StyledBreadcrumbs = styled.nav.attrs(applyBaseTheme)`
     list-style: none;
     display: flex;
     flex-wrap: wrap;
+    gap: var(--global-space-layout-3-xs);
   }
 `;
 

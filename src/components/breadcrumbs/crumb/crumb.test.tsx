@@ -19,7 +19,7 @@ test("logs warning when not used within Breadcrumbs", () => {
   loggerSpy.mockRestore();
 });
 
-test("passes href to the anchor element when isCurrent is false", () => {
+test("passes `href` to the anchor element when `isCurrent` is false", () => {
   render(
     <Breadcrumbs>
       <Crumb href="foo">Link text</Crumb>
@@ -31,7 +31,7 @@ test("passes href to the anchor element when isCurrent is false", () => {
   expect(link).toHaveAttribute("href", "foo");
 });
 
-test("does not pass href to the anchor element when isCurrent is true", () => {
+test("does not pass `href` to the anchor element when `isCurrent` is true", () => {
   render(
     <Breadcrumbs>
       <Crumb href="foo" data-role="crumb" isCurrent>
@@ -45,7 +45,7 @@ test("does not pass href to the anchor element when isCurrent is true", () => {
   expect(anchor).not.toHaveAttribute("href", "foo");
 });
 
-test("calls onClick callback when the crumb link is clicked", async () => {
+test("calls `onClick` callback when the crumb link is clicked", async () => {
   const onClick = jest.fn();
   const user = userEvent.setup();
   render(
@@ -62,7 +62,7 @@ test("calls onClick callback when the crumb link is clicked", async () => {
   expect(onClick).toHaveBeenCalledTimes(1);
 });
 
-test("does not call onClick callback when isCurrent is true", async () => {
+test("does not call `onClick` callback when `isCurrent` is true", async () => {
   const onClick = jest.fn();
   const user = userEvent.setup();
   render(
@@ -77,6 +77,20 @@ test("does not call onClick callback when isCurrent is true", async () => {
   await user.click(link);
 
   expect(onClick).toHaveBeenCalledTimes(0);
+});
+
+test("applies `aria-current` attribute when `isCurrent` is true", () => {
+  render(
+    <Breadcrumbs>
+      <Crumb href="#" isCurrent>
+        Link text
+      </Crumb>
+    </Breadcrumbs>,
+  );
+
+  const anchor = screen.getByTestId("link-anchor");
+
+  expect(anchor).toHaveAttribute("aria-current", "page");
 });
 
 test("renders with provided data- attributes", () => {

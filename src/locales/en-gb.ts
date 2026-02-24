@@ -235,6 +235,7 @@ const enGB: Locale = {
           ? ` in an ${sortType} order.`
           : " in an ascending or descending order."
       }`,
+    ariaRoleDescription: () => "Sortable column header",
   },
   splitButton: {
     ariaLabel: () => "Show more",

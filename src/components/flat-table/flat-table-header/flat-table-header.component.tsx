@@ -8,6 +8,8 @@ import { useStrictFlatTableContext } from "../__internal__/strict-flat-table.con
 import guid from "../../../__internal__/utils/helpers/guid";
 import useTableCell from "../__internal__/use-table-cell";
 
+type SortType = "ascending" | "descending" | "none";
+
 export interface FlatTableHeaderProps extends PaddingProps, TagProps {
   /** Content alignment */
   align?: TableCellAlign;
@@ -49,6 +51,16 @@ export const FlatTableHeader = ({
     internalId.current,
   );
 
+  const getSortElementDirection = () => {
+    const sortElement = ref.current?.querySelector("[data-component='sort']");
+
+    if (!sortElement) {
+      return undefined;
+    }
+
+    return sortElement.getAttribute("data-sort-type") as SortType;
+  };
+
   return (
     <StyledFlatTableHeader
       ref={ref}
@@ -68,6 +80,7 @@ export const FlatTableHeader = ({
       data-element={dataElement || "flat-table-header"}
       data-role={dataRole}
       id={internalId.current}
+      aria-sort={getSortElementDirection()}
     >
       <div data-role="flat-table-header-content">{children}</div>
     </StyledFlatTableHeader>
