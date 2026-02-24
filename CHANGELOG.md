@@ -1,3 +1,9 @@
+## [158.33.0](https://github.com/Sage/carbon/compare/v158.32.0...v158.33.0) (2026-02-24)
+
+### Features
+
+* **tabs:** add es-ES status translations ([14f0914](https://github.com/Sage/carbon/commit/14f0914376d8df383b7bd6351501e4d31f1b31e7))
+
 ## [158.32.0](https://github.com/Sage/carbon/compare/v158.31.1...v158.32.0) (2026-02-19)
 
 ### Features
