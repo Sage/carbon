@@ -190,7 +190,7 @@
     "storybook-addon-pseudo-states": "~4.0.3",
     "styled-components": "^5.3.11",
     "typescript": "^5.8.3",
-    "ts-morph": "^23.0.0",
+    "ts-morph": "^27.0.2",
     "url-loader": "^4.1.1",
     "uuid": "^8.3.2",
     "vite": "^6.3.4",
