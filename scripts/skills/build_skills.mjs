@@ -61,6 +61,8 @@ import { JSDoc, Project, SyntaxKind } from "ts-morph";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, "../..");
 const packageName = "carbon-sage";
+
+const checkMode = process.argv.includes("--check");
 const buildOutputFolder = "lib";
 const indexFilePath = path.join(repoRoot, "src", "index.ts");
 const skillsRoot = path.join(repoRoot, "skills", "carbon-react");
@@ -199,14 +201,30 @@ for (const candidate of componentCandidates) {
 
 const storyDataByComponent = await extractStoryData(project, repoRoot);
 
-await fs.rm(componentsOutDir, { recursive: true, force: true });
-await fs.rm(referencesDir, { recursive: true, force: true });
-await fs.mkdir(componentsOutDir, { recursive: true });
-await fs.mkdir(skillsRoot, { recursive: true });
-await fs.mkdir(referencesDir, { recursive: true });
+/** @type {Array<{path: string, content: string}>} */
+const wouldWrite = [];
 
-await writeSkillRoot(skillsRoot);
-await copyDocsReferences(repoRoot, referencesDir);
+if (!checkMode) {
+  await fs.rm(componentsOutDir, { recursive: true, force: true });
+  await fs.rm(referencesDir, { recursive: true, force: true });
+  await fs.mkdir(componentsOutDir, { recursive: true });
+  await fs.mkdir(skillsRoot, { recursive: true });
+  await fs.mkdir(referencesDir, { recursive: true });
+}
+
+const skillRootContent = renderSkillRootContent();
+wouldWrite.push({ path: path.join(skillsRoot, "SKILL.md"), content: skillRootContent });
+
+for (const relativePath of docsReferenceFiles) {
+  const sourcePath = path.join(repoRoot, relativePath);
+  if (!existsSync(sourcePath)) {
+    continue;
+  }
+  const fileName = path.basename(sourcePath);
+  const targetPath = path.join(referencesDir, fileName).replace(/\.mdx?$/, ".md");
+  const content = await fs.readFile(sourcePath, "utf8");
+  wouldWrite.push({ path: targetPath, content });
+}
 
 const indexLines = ["# Carbon Component Catalog", "", "## Components", ""];
 
@@ -218,26 +236,45 @@ for (const component of componentData.sort((a, b) =>
   const filePath = path.join(componentsOutDir, fileName);
   const markdown = renderComponentMarkdown(component, stories);
 
-  await fs.writeFile(filePath, markdown, "utf8");
+  wouldWrite.push({ path: filePath, content: markdown });
   const deprecatedLabel = component.deprecated ? " (deprecated)" : "";
   indexLines.push(
     `- [${component.name}](components/${fileName})${deprecatedLabel}`,
   );
 }
 
-await fs.writeFile(
-  path.join(skillsRoot, "index.md"),
-  indexLines.join("\n"),
-  "utf8",
-);
+const indexContent = indexLines.join("\n");
+wouldWrite.push({ path: path.join(skillsRoot, "index.md"), content: indexContent });
 
-// eslint-disable-next-line no-console -- Log summary of generated components and output location
-console.log(
-  `Generated ${componentData.length} component skill files in ${path.relative(
-    repoRoot,
+if (checkMode) {
+  const { hasDiff, diffSummary } = await checkWouldWrite(wouldWrite, {
     componentsOutDir,
-  )}`,
-);
+    referencesDir,
+  });
+  if (hasDiff) {
+    // eslint-disable-next-line no-console -- CI output
+    console.error("Skills build check failed: files on disk differ from expected output:\n");
+    // eslint-disable-next-line no-console -- CI output
+    console.error(diffSummary);
+    process.exit(1);
+  }
+  // eslint-disable-next-line no-console -- CI output
+  console.log(
+    `Check passed: ${componentData.length} component skill files are up to date.`,
+  );
+} else {
+  for (const { path: filePath, content } of wouldWrite) {
+    await fs.mkdir(path.dirname(filePath), { recursive: true });
+    await fs.writeFile(filePath, content, "utf8");
+  }
+  // eslint-disable-next-line no-console -- Log summary of generated components and output location
+  console.log(
+    `Generated ${componentData.length} component skill files in ${path.relative(
+      repoRoot,
+      componentsOutDir,
+    )}`,
+  );
+}
 
 /**
  * Resolve a module specifier from the index file to an absolute file path.
@@ -1030,38 +1067,63 @@ function extractMdxExamples(content) {
 }
 
 /**
- * Writes the root skill file with metadata and instructions for the Carbon React skill.
- * @param {string} rootDir
- * @returns {Promise<void>}
+ * Renders the content for the root skill file.
+ * @returns {string}
  */
-async function writeSkillRoot(rootDir) {
-  const skillFilePath = path.join(rootDir, "SKILL.md");
+function renderSkillRootContent() {
   const docsList = docsReferenceTargets
     .map((fileName) => `- \`${fileName}\``)
     .join("\n");
-  const content = `---\nname: carbon-react\ndescription: Carbon component catalog with typed props, Storybook usage examples, and curated docs references. Use when answering questions about Carbon components, props, and usage guidance.\n---\n\n# Carbon Component Catalog\n\nUse \`index.md\` to find the component file.\nUse \`components/*.md\` to read props and examples.\nUse these docs references:\n${docsList}\nDeprecated components are marked in \`index.md\` and in each component file.\n`;
-
-  await fs.mkdir(rootDir, { recursive: true });
-  await fs.writeFile(skillFilePath, content, "utf8");
+  return `---\nname: carbon-react\ndescription: Carbon component catalog with typed props, Storybook usage examples, and curated docs references. Use when answering questions about Carbon components, props, and usage guidance.\n---\n\n# Carbon Component Catalog\n\nUse \`index.md\` to find the component file.\nUse \`components/*.md\` to read props and examples.\nUse these docs references:\n${docsList}\nDeprecated components are marked in \`index.md\` and in each component file.\n`;
 }
 
 /**
- * Copies the specified documentation reference files from the root directory to the output directory, converting them to markdown format if necessary.
- * @param {string} rootDir
- * @param {string} outputDir
- * @returns {Promise<void>}
+ * Checks that files on disk match the expected content. Returns diffs for CI.
+ * @param {Array<{path: string, content: string}>} wouldWrite
+ * @param {{componentsOutDir: string, referencesDir: string}} outputDirs
+ * @returns {Promise<{hasDiff: boolean, diffSummary: string}>}
  */
-async function copyDocsReferences(rootDir, outputDir) {
-  for (const relativePath of docsReferenceFiles) {
-    const sourcePath = path.join(rootDir, relativePath);
-    if (!existsSync(sourcePath)) {
+async function checkWouldWrite(wouldWrite, { componentsOutDir, referencesDir }) {
+  /** @type {string[]} */
+  const diffs = [];
+  const expectedPaths = new Set(wouldWrite.map((w) => w.path));
+
+  for (const { path: filePath, content } of wouldWrite) {
+    let existing;
+    try {
+      existing = await fs.readFile(filePath, "utf8");
+    } catch (err) {
+      if (err?.code === "ENOENT") {
+        diffs.push(`  Missing: ${path.relative(repoRoot, filePath)}`);
+        continue;
+      }
+      throw err;
+    }
+    if (existing !== content) {
+      diffs.push(`  Modified: ${path.relative(repoRoot, filePath)}`);
+    }
+  }
+
+  for (const dir of [componentsOutDir, referencesDir]) {
+    if (!existsSync(dir)) {
       continue;
     }
-    const fileName = path.basename(sourcePath);
-    const targetPath = path.join(outputDir, fileName).replace(/\.mdx?$/, ".md");
-    const content = await fs.readFile(sourcePath, "utf8");
-    await fs.writeFile(targetPath, content, "utf8");
+    const entries = await fs.readdir(dir, { withFileTypes: true });
+    for (const entry of entries) {
+      if (!entry.isFile()) {
+        continue;
+      }
+      const fullPath = path.join(dir, entry.name);
+      if (!expectedPaths.has(fullPath)) {
+        diffs.push(`  Extra: ${path.relative(repoRoot, fullPath)}`);
+      }
+    }
   }
+
+  return {
+    hasDiff: diffs.length > 0,
+    diffSummary: diffs.join("\n"),
+  };
 }
 
 /**
