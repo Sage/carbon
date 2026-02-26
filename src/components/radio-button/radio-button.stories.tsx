@@ -12,7 +12,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof RadioButton> = {
-  title: "Radio Button",
+  title: "Deprecated/Radio Button",
   component: RadioButton,
   argTypes: {
     ...styledSystemProps,

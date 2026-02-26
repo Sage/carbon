@@ -14,6 +14,9 @@ interface InternalRadioButtonProps {
   inline?: boolean;
 }
 
+/**
+ * @deprecated This version of `RadioButton` is deprecated. See the Carbon documentation for more details.
+ */
 export interface RadioButtonProps
   extends Omit<CommonCheckableInputProps, "required">,
     MarginProps,
@@ -28,6 +31,9 @@ export interface RadioButtonProps
   helpAriaLabel?: string;
 }
 
+/**
+ * @deprecated This version of `RadioButton` is deprecated. See the Carbon documentation for more details.
+ */
 export const RadioButton = React.forwardRef<
   HTMLInputElement,
   RadioButtonProps & InternalRadioButtonProps

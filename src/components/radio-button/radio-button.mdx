@@ -2,6 +2,7 @@ import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
 
 import * as RadioButtonGroupStories from "./radio-button-group/radio-button-group.stories";
 import * as RadioButtonStories from "./radio-button.stories";
+import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component"
 
 <Meta of={RadioButtonStories} />
 
@@ -17,6 +18,12 @@ import * as RadioButtonStories from "./radio-button.stories";
 </a>
 
 Used to provide a group of selectable radio buttons.
+
+<DeprecationWarning>
+This version of `RadioButton` and `RadioButtonGroup` is deprecated and has been replaced by a new version located in the `__next__` directory.
+
+Please see the <a style={{color: "white"}} href="../?path=/docs/radio-button--docs">new documentation page</a> for more information.
+</DeprecationWarning>
 
 ## Contents
 
