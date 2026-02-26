@@ -144,3 +144,81 @@ it("applies the correct styling from the cssProps, when the width and height are
     height: "50%",
   });
 });
+
+describe("ARIA attributes", () => {
+  describe("aria-hidden", () => {
+    test("visible element renders with the 'aria-hidden' attribute and correct value when 'true' is passed", () => {
+      render(<Box aria-hidden="true" data-role="box" />);
+
+      const box = screen.getByTestId("box");
+      expect(box).toHaveAttribute("aria-hidden", "true");
+    });
+
+    test("visible element renders with the 'aria-hidden' attribute and correct value when 'false' is passed", () => {
+      render(<Box aria-hidden="false" data-role="box" />);
+
+      const box = screen.getByTestId("box");
+      expect(box).toHaveAttribute("aria-hidden", "false");
+    });
+
+    test("visible element renders without the 'aria-hidden' attribute if not passed", () => {
+      render(<Box data-role="box" />);
+
+      const box = screen.getByTestId("box");
+      expect(box).not.toHaveAttribute("aria-hidden");
+    });
+  });
+
+  describe("aria-live", () => {
+    test("visible element renders with the 'aria-live' attribute and correct value when 'off' is passed", () => {
+      render(<Box aria-live="off" data-role="box" />);
+
+      const box = screen.getByTestId("box");
+      expect(box).toHaveAttribute("aria-live", "off");
+    });
+
+    test("visible element renders with the 'aria-live' attribute and correct value when 'assertive' is passed", () => {
+      render(<Box aria-live="assertive" data-role="box" />);
+
+      const box = screen.getByTestId("box");
+      expect(box).toHaveAttribute("aria-live", "assertive");
+    });
+
+    test("visible element renders with the 'aria-live' attribute and correct value when 'polite' is passed", () => {
+      render(<Box aria-live="polite" data-role="box" />);
+
+      const box = screen.getByTestId("box");
+      expect(box).toHaveAttribute("aria-live", "polite");
+    });
+
+    test("visible element renders without the 'aria-live' attribute if not passed", () => {
+      render(<Box data-role="box" />);
+
+      const box = screen.getByTestId("box");
+      expect(box).not.toHaveAttribute("aria-live");
+    });
+  });
+
+  describe("aria-atomic", () => {
+    test("visible element renders with the 'aria-atomic' attribute and correct value when 'true' is passed", () => {
+      render(<Box aria-atomic="true" data-role="box" />);
+
+      const box = screen.getByTestId("box");
+      expect(box).toHaveAttribute("aria-atomic", "true");
+    });
+
+    test("visible element renders with the 'aria-atomic' attribute and correct value when 'false' is passed", () => {
+      render(<Box aria-atomic="false" data-role="box" />);
+
+      const box = screen.getByTestId("box");
+      expect(box).toHaveAttribute("aria-atomic", "false");
+    });
+
+    test("visible element renders without the 'aria-atomic' attribute if not passed", () => {
+      render(<Box data-role="box" />);
+
+      const box = screen.getByTestId("box");
+      expect(box).not.toHaveAttribute("aria-atomic");
+    });
+  });
+});
