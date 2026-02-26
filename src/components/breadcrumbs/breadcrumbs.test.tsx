@@ -76,20 +76,17 @@ test("renders children with expected colour when inverse is true", () => {
     <Breadcrumbs inverse>
       <Crumb href="#">Breadcrumb 1</Crumb>
       <Crumb href="#">Breadcrumb 2</Crumb>
-      <Crumb href="#" isCurrent data-role="current-crumb">
+      <Crumb href="#" isCurrent data-role="foo">
         Breadcrumb 3
       </Crumb>
     </Breadcrumbs>,
   );
 
-  const currentCrumb = screen.getByTestId("current-crumb");
+  const currentBreadcrumbElement = screen.getByTestId("foo");
 
-  expect(currentCrumb).toHaveStyleRule(
+  expect(currentBreadcrumbElement).toHaveStyleRule(
     "color",
     "var(--container-standard-inverse-txt-alt)",
-    {
-      modifier: "a",
-    },
   );
   expect(screen.getAllByTestId("crumb-divider")[0]).toHaveStyleRule(
     "color",

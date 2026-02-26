@@ -1,9 +1,9 @@
 import React from "react";
-import { LinkProps } from "../../link";
+import Link, { LinkProps } from "../../link";
 import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags";
-import { StyledCrumb, Divider } from "./crumb.style";
+import { StyledCrumbCurrent, Divider } from "./crumb.style";
 import { useBreadcrumbsContext } from "../__internal__/breadcrumbs.context";
 
 export interface CrumbProps
@@ -37,29 +37,39 @@ export const Crumb = React.forwardRef<HTMLAnchorElement, CrumbProps>(
   ({ href, isCurrent, children, onClick, ...rest }: CrumbProps, ref) => {
     const { inverse } = useBreadcrumbsContext();
 
+    if (isCurrent) {
+      return (
+        <li>
+          <StyledCrumbCurrent
+            ref={ref}
+            aria-current="page"
+            inverse={inverse}
+            {...rest}
+            {...tagComponent("crumb", rest)}
+          >
+            {children}
+          </StyledCrumbCurrent>
+        </li>
+      );
+    }
+
     return (
       <li>
-        <StyledCrumb
+        <Link
           ref={ref}
-          $isCurrent={isCurrent}
-          aria-current={isCurrent ? "page" : undefined}
           inverse={inverse}
+          href={href}
+          onClick={onClick}
           {...rest}
           {...tagComponent("crumb", rest)}
-          {...(!isCurrent && {
-            href,
-            onClick,
-          })}
         >
           {children}
-        </StyledCrumb>
-        {!isCurrent && (
-          <Divider
-            data-role="crumb-divider"
-            aria-hidden="true"
-            $inverse={inverse}
-          />
-        )}
+        </Link>
+        <Divider
+          data-role="crumb-divider"
+          aria-hidden="true"
+          $inverse={inverse}
+        />
       </li>
     );
   },
