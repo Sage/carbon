@@ -1366,7 +1366,20 @@ function renderComponentMarkdown(component, stories) {
   if (!component.props.length) {
     lines.push("No props metadata found.");
   } else {
-    const hasDeprecatedProps = component.props.some((prop) => prop.deprecated);
+    const sortedProps = [...component.props].sort((a, b) => {
+      if (a.deprecated !== b.deprecated) return a.deprecated ? 1 : -1;
+      if (a.required !== b.required) return a.required ? -1 : 1;
+      const aData = a.name.startsWith("data-");
+      const bData = b.name.startsWith("data-");
+      const aAria = a.name.startsWith("aria-");
+      const bAria = b.name.startsWith("aria-");
+      const groupOrder = (/** @type {boolean} */ data, /** @type {boolean} */ aria) => (data ? 1 : aria ? 2 : 0);
+      const ga = groupOrder(aData, aAria);
+      const gb = groupOrder(bData, bAria);
+      if (ga !== gb) return ga - gb;
+      return a.name.localeCompare(b.name);
+    });
+    const hasDeprecatedProps = sortedProps.some((prop) => prop.deprecated);
     if (hasDeprecatedProps) {
       lines.push(
         "| Name | Type | Required | Literals | Deprecated | Deprecation reason | Description | Default |",
@@ -1378,7 +1391,7 @@ function renderComponentMarkdown(component, stories) {
         "| --- | --- | --- | --- | --- | --- |",
       );
     }
-    for (const prop of component.props) {
+    for (const prop of sortedProps) {
       const literals = prop.literals?.join(" | ") ?? "";
       const description = prop.description?.replace(/\s+/g, " ") ?? "";
       const defaultValue = prop.defaultValue ?? "";
