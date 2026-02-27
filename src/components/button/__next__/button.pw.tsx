@@ -1,10 +1,10 @@
 import React from "react";
-import { test } from "../../../playwright/helpers/base-test";
+import { test } from "../../../../playwright/helpers/base-test";
 
-import { checkAccessibility } from "../../../playwright/support/helper";
-import { CHARACTERS } from "../../../playwright/support/constants";
+import { checkAccessibility } from "../../../../playwright/support/helper";
+import { CHARACTERS } from "../../../../playwright/support/constants";
 
-import Button from "../../../src/components/button";
+import Button from "./button.component";
 import {
   ButtonDefault,
   ButtonIconAfter,
@@ -96,7 +96,11 @@ test.describe("Accessibility tests for Button", () => {
     mount,
     page,
   }) => {
-    await mount(<Button buttonType="gradient-white">Foo</Button>);
+    await mount(
+      <Button variant="gradient" variantType="secondary">
+        Foo
+      </Button>,
+    );
     await checkAccessibility(page);
   });
 
@@ -105,7 +109,7 @@ test.describe("Accessibility tests for Button", () => {
     page,
   }) => {
     await mount(
-      <Button buttonType="gradient-white" iconType="home">
+      <Button variant="gradient" variantType="secondary" iconType="home">
         Foo
       </Button>,
     );
@@ -116,7 +120,11 @@ test.describe("Accessibility tests for Button", () => {
     mount,
     page,
   }) => {
-    await mount(<Button buttonType="gradient-grey">Foo</Button>);
+    await mount(
+      <Button variant="gradient" variantType="secondary">
+        Foo
+      </Button>,
+    );
     await checkAccessibility(page);
   });
 
@@ -125,7 +133,7 @@ test.describe("Accessibility tests for Button", () => {
     page,
   }) => {
     await mount(
-      <Button buttonType="gradient-grey" iconType="home">
+      <Button variant="gradient" variantType="secondary" iconType="home">
         Foo
       </Button>,
     );
@@ -153,7 +161,12 @@ test.describe("Accessibility tests for Button", () => {
     page,
   }) => {
     await mount(
-      <Button buttonType="primary" iconType="bin" aria-label="bin-icon" />,
+      <Button
+        variant="default"
+        variantType="primary"
+        iconType="bin"
+        aria-label="bin-icon"
+      />,
     );
     await checkAccessibility(page);
   });
