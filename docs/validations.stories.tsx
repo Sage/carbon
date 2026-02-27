@@ -2,6 +2,7 @@ import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
 import Textbox from "../src/components/textbox";
+import TextInput from "../src/components/textbox/__next__";
 import { RadioButton, RadioButtonGroup } from "../src/components/radio-button";
 import { Checkbox, CheckboxGroup } from "../src/components/checkbox";
 import CarbonProvider from "../src/components/carbon-provider";
@@ -134,7 +135,7 @@ export const ValidationRedesign: StoryObj = () => {
         <RequiredFieldsIndicator mb={2}>
           Fill in all fields marked with
         </RequiredFieldsIndicator>
-        <Textbox
+        <TextInput
           label="Textbox"
           inputHint="Hint text"
           value={state}
@@ -142,7 +143,7 @@ export const ValidationRedesign: StoryObj = () => {
           required
           error="Error Message (Fix is required)"
         />
-        <Textbox
+        <TextInput
           label="Textbox"
           inputHint="Hint text"
           value={state}
