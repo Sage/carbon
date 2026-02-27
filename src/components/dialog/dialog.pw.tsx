@@ -108,12 +108,12 @@ test.describe("Dialog component", () => {
     });
 
     [
-      { size: SIZE.EXTRASMALL, width: "300px" },
-      { size: SIZE.SMALL, width: "380px" },
-      { size: SIZE.MEDIUMSMALL, width: "540px" },
-      { size: SIZE.MEDIUM, width: "750px" },
-      { size: SIZE.MEDIUMLARGE, width: "850px" },
-      { size: SIZE.LARGE, width: "960px" },
+      { size: SIZE.EXTRASMALL, width: "540px" },
+      { size: SIZE.SMALL, width: "540px" },
+      { size: SIZE.MEDIUMSMALL, width: "850px" },
+      { size: SIZE.MEDIUM, width: "850px" },
+      { size: SIZE.MEDIUMLARGE, width: "1080px" },
+      { size: SIZE.LARGE, width: "1080px" },
       { size: SIZE.EXTRALARGE, width: "1080px" },
     ].forEach(({ size, width }) => {
       test(`when size prop is ${size}, Dialog width should be ${width}`, async ({
@@ -262,13 +262,13 @@ test.describe("Dialog component", () => {
       );
     });
 
-    test("when disableClose prop is passed, close icon should be disabled", async ({
+    test("when disableClose prop is passed, close icon should not be disabled because it is deprecated", async ({
       mount,
       page,
     }) => {
       await mount(<DialogComponent disableClose />);
 
-      await expect(page.getByLabel("Close")).toBeDisabled();
+      await expect(page.getByLabel("Close")).toBeEnabled();
     });
 
     test("when help prop is provided, hovering over the rendered help icon displays help text", async ({
@@ -646,7 +646,7 @@ test.describe("Dialog component", () => {
   test("Dialog should have rounded corners", async ({ mount, page }) => {
     await mount(<DialogComponent />);
 
-    await expect(page.getByRole("dialog")).toHaveCSS("border-radius", "16px");
+    await expect(page.getByRole("dialog")).toHaveCSS("border-radius", "24px");
   });
 
   // TODO: Skipped due to flaky focus behaviour. To review in FE-6428

@@ -1,0 +1,219 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+import TranslationKeysTable from "../../../../.storybook/utils/translation-keys-table";
+
+import * as DialogStories from "./dialog.stories.tsx";
+
+<Meta of={DialogStories} />
+
+# Dialog
+
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/497e21-dialog/b/310ef2"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
+>
+  Product Design System component
+</a>
+
+A dialog box overlaid on top of any page.
+
+**This documentation is for the newer implementation of Dialog. If you are still using the older implementation, please use the <a href="../?path=/docs/deprecated-dialog--docs">Dialog documentation</a>.**
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Related Components](#related-components)
+- [Examples](#examples)
+- [Header Variations](#header-variations)
+- [Accessibility](#accessibility)
+- [Props](#props)
+- [Translation keys](#translation-keys)
+
+## Quick Start
+
+```javascript
+import Dialog from "carbon-react/lib/components/dialog/__next__";
+```
+
+## Related Components
+
+- Need to refer back to the underlying page? [Try Sidebar](../?path=/docs/sidebar--docs).
+
+## Examples
+
+### Default
+
+The call-to-action element should always be focused when the `Dialog` is closed. However, in some instances it may not receive focus
+due to specific browser design choices. The below example shows how to programmatically focus the call-to-action element when the `Dialog` is closed
+to ensure behaviour is consistent across all browsers.
+
+<Canvas of={DialogStories.NextDefaultStory} />
+
+### Default with Form
+
+<Canvas of={DialogStories.NextDefaultStoryWithForm} />
+
+### Sizes
+
+The `Dialog` component supports four sizes following the design system's standard naming conventions. All dialogs have a minimum width of 288px.
+
+- **small**: 540px max-width
+- **medium**: 850px max-width (default)
+- **large**: 1080px max-width
+- **fullscreen**: 100% width and height
+
+#### Small (540px)
+
+<Canvas of={DialogStories.SmallSize} />
+
+#### Medium (850px) - Default
+
+<Canvas of={DialogStories.MediumSize} />
+
+#### Large (1080px)
+
+<Canvas of={DialogStories.LargeSize} />
+
+#### Full Screen
+
+<Canvas of={DialogStories.FullScreenSize} />
+
+### With gradientKeyLine
+
+Setting the `gradientKeyLine` prop will add a gradient-styled keyline to the dialog header.
+
+<Canvas of={DialogStories.GradientKeyLine} />
+
+### Sticky Footer
+
+There are two approaches to achieving a sticky footer in the Dialog:
+
+**Using the Dialog's `stickyFooter` and `footer` props** — the Dialog manages the sticky footer directly:
+
+<Canvas of={DialogStories.StickyFooter} />
+
+**Using a Form component with `stickyFooter`** — the Form manages its own sticky footer internally:
+
+<Canvas of={DialogStories.StickyFooterWithForm} />
+
+### With Height
+
+The `height` prop allows you to set a specific height for the dialog in pixels.
+
+<Canvas of={DialogStories.WithHeight} />
+
+### With Header Children
+
+The `headerChildren` prop allows you to render additional content in the dialog header area, below the title and subtitle.
+
+<Canvas of={DialogStories.WithHeaderChildren} />
+
+### Content Padding
+
+The `contentPadding` prop allows you to override the default padding on the dialog content area. It accepts `p`, `py`, and `px` values.
+
+Remove all content padding:
+
+<Canvas of={DialogStories.WithContentPadding} />
+
+Set custom content padding:
+
+<Canvas of={DialogStories.WithContentPaddingCustom} />
+
+## Header Variations
+
+Use the `withDialogHeader` higher-order component to enhance the Dialog with status icon headings or fully custom heading renderers.
+
+```javascript
+import Dialog, { withDialogHeader } from "carbon-react/lib/components/dialog/__next__/dialog.component";
+
+const EnhancedDialog = withDialogHeader(Dialog);
+```
+
+### Status Icon
+
+Use the `statusIcon` prop to display a coloured status icon to the left of the dialog title. Use header variations separately or together. Available variants:
+
+- **subtle** — grey info icon for neutral/informational context
+- **positive** — green tick icon for success states
+- **negative** — red error icon for error/destructive states
+- **caution** — amber warning icon for cautionary messages
+- **info** — blue info icon for informational messages
+
+Only use a dialog to provide the user with **critical information immediately related** to their task.
+
+#### Subtle
+
+<Canvas of={DialogStories.HeadingWithSubtleIcon} />
+
+#### Positive
+
+<Canvas of={DialogStories.HeadingWithPositiveIcon} />
+
+#### Negative
+
+<Canvas of={DialogStories.HeadingWithNegativeIcon} />
+
+#### Caution
+
+<Canvas of={DialogStories.HeadingWithCautionIcon} />
+
+#### Info
+
+<Canvas of={DialogStories.HeadingWithInfoIcon} />
+
+### Custom Heading Renderer
+
+Use the `renderHeading` prop for full control over the heading area. The function receives `title` and `subtitle` as arguments and should return the custom heading JSX. When `renderHeading` is provided, the `subtitle` prop is not passed to the underlying Dialog separately — your renderer is responsible for composing both.
+
+<Canvas of={DialogStories.HeadingWithCustomRenderer} />
+
+## Accessibility
+
+Users should be able to:
+
+- Navigate to the dialog and its contents using assistive technology;
+- Close the dialog using the <kbd>Escape</kbd> key;
+- Return focus to the triggering element when the dialog is closed.
+
+### Keyboard Interactions
+
+- Use the <kbd>Tab</kbd> key to move focus between interactive elements within the dialog. Focus is trapped inside the dialog while it is open.
+- Press <kbd>Escape</kbd> to close the dialog (unless `disableEscKey` is set).
+- When the dialog closes, focus is restored to the previously focused element (unless `restoreFocusOnClose` is set to `false`).
+
+### Small Screen Behavior
+
+Setting the `disableStickyOnSmallScreen` prop ensures that on small screen devices (below 600px), the dialog header and footer
+become unstickied, the dialog becomes full width, and the dimmer is removed. This is an accessibility requirement to ensure
+content is fully accessible on mobile devices.
+
+<Canvas of={DialogStories.SmallScreenBehavior} />
+
+### Scrollable Content
+
+If your content is scrollable, you will need to ensure that the scrollable region has keyboard access. To do this we recommend
+adding `tabIndex="0"` to the scrollable content container so that keyboard users can access it.
+
+## Props
+
+### Dialog
+
+<ArgTypes of={DialogStories} />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the
+[i18nProvider](../?path=/docs/documentation-i18n--docs).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "dialog.ariaLabels.close",
+      description: "The text for close button aria-label attribute",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>
