@@ -18,7 +18,7 @@ describe("DialogFullScreen", () => {
     expect(loggerSpy).toHaveBeenCalledWith(
       "`DialogFullscreen` has been deprecated and will soon be removed. Use `Dialog` with the `fullscreen` prop instead.",
     );
-    expect(loggerSpy).toHaveBeenCalledTimes(1);
+    expect(loggerSpy).toHaveBeenCalledTimes(2); // This wil not stay as 2. This is because DialogFullscreen uses Dialog and the fullscreen prop is deprecated
 
     loggerSpy.mockRestore();
   });

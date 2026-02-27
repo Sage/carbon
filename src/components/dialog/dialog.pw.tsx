@@ -57,12 +57,12 @@ test.describe("Dialog component", () => {
     });
 
     [
-      { size: SIZE.EXTRASMALL, width: "300px" },
-      { size: SIZE.SMALL, width: "380px" },
-      { size: SIZE.MEDIUMSMALL, width: "540px" },
-      { size: SIZE.MEDIUM, width: "750px" },
-      { size: SIZE.MEDIUMLARGE, width: "850px" },
-      { size: SIZE.LARGE, width: "960px" },
+      { size: SIZE.EXTRASMALL, width: "540px" },
+      { size: SIZE.SMALL, width: "540px" },
+      { size: SIZE.MEDIUMSMALL, width: "850px" },
+      { size: SIZE.MEDIUM, width: "850px" },
+      { size: SIZE.MEDIUMLARGE, width: "1080px" },
+      { size: SIZE.LARGE, width: "1080px" },
       { size: SIZE.EXTRALARGE, width: "1080px" },
     ].forEach(({ size, width }) => {
       test(`when size prop is ${size}, Dialog width should be ${width}`, async ({
