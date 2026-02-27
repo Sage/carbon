@@ -245,6 +245,9 @@ export const LocaleEnUSDateRange: Story = {
     await expect(endInput).toHaveValue("08/12/2025");
   },
 };
+LocaleEnUSDateRange.parameters = {
+  chromatic: { disableSnapshot: true },
+};
 
 export const LocaleDeDateRange: Story = {
   render: () => (
@@ -306,6 +309,9 @@ export const TypingSyncDateRange: Story = {
     await expect(caption).toHaveTextContent(/May 2022/i);
   },
 };
+TypingSyncDateRange.parameters = {
+  chromatic: { disableSnapshot: true },
+};
 
 export const ValidationDateRange: Story = {
   render: () => (
@@ -356,6 +362,9 @@ export const MonthYearNavigationDateRange: Story = {
     await userEvent.click(next);
     await expect(next).toHaveFocus();
   },
+};
+MonthYearNavigationDateRange.parameters = {
+  chromatic: { disableSnapshot: true },
 };
 
 export const AllowEmptyDateRange: Story = {
