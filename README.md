@@ -10,6 +10,16 @@ Our [getting started guide](https://carbon.sage.com/?path=/docs/getting-started-
 
 See our [docs](https://carbon.sage.com/) for live examples.
 
+## Agent skills
+
+After installing `carbon-react`, add the Carbon agent skills to your project:
+
+```shell
+npx skills add Sage/carbon
+```
+
+These skills give agents full context about the Carbon library, including component props, usage examples, deprecation notices, migration guides, and documentation references.
+
 ## Browser Support
 
 We support and test the Carbon Library against the latest versions of the following browsers:
