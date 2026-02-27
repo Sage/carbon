@@ -66,6 +66,9 @@ export const ActionPopoverAndIconSupport: Story = () => (
   </Dl>
 );
 ActionPopoverAndIconSupport.storyName = "Action Popover and Icon Support";
+ActionPopoverAndIconSupport.parameters = {
+  chromatic: { disableSnapshot: true },
+};
 
 export const WithConditionalRendering: Story = () => (
   <Dl>

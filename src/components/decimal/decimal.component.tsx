@@ -109,6 +109,7 @@ export const Decimal = React.forwardRef(
           return valueToFormat;
         }
 
+        const sign = valueToFormat.startsWith("+") ? "+" : "";
         const separator = getSeparator("decimal");
         const [integer, remainder] = valueToFormat.split(".");
 
@@ -116,7 +117,7 @@ export const Decimal = React.forwardRef(
           maximumFractionDigits: 0,
         }).format(+integer);
 
-        let formattedNumber = formattedInteger;
+        let formattedNumber = sign + formattedInteger;
         if (remainder?.length > precision) {
           formattedNumber += `${separator + remainder}`;
         } else if (remainder?.length <= precision) {
