@@ -520,9 +520,17 @@ function extractPropsFromDefinition(propsDefinition, defaultsMap) {
       ? !declaration.hasQuestionToken()
       : true;
 
+    const resolvedText = propType.getText(declaration ?? propsDefinition.node);
+    const typeNode = declaration?.getTypeNode?.();
+    const typeText = (
+      resolvedText.includes("import(") && typeNode
+        ? typeNode.getText()
+        : resolvedText
+    ).replace(/\s+/g, " ").trim();
+
     return {
       name: symbol.getName(),
-      type: propType.getText(declaration ?? propsDefinition.node),
+      type: typeText,
       required,
       literals,
       description: description || null,
