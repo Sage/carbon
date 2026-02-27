@@ -26,11 +26,17 @@ test.describe("should render Breadcrumbs component", () => {
     );
 
     await linkComponent(page).click();
-    await expect(linkComponent(page)).not.toHaveCSS(
+
+    await expect(linkComponent(page)).not.toBeAttached();
+
+    const currentBreadcrumb = page.locator('[data-component="crumb"]');
+
+    await expect(currentBreadcrumb).not.toHaveCSS(
       "box-shadow",
       "rgb(0, 0, 0) 0px 4px 0px 0px",
     );
-    await expect(linkComponent(page)).not.toHaveCSS("background-color", "none");
+
+    await expect(currentBreadcrumb).not.toHaveCSS("background-color", "none");
   });
 
   test("should not have any focus styling when a crumb with href set is clicked and becomes current", async ({
@@ -50,11 +56,16 @@ test.describe("should render Breadcrumbs component", () => {
     );
 
     await linkComponent(page).click();
-    await expect(linkComponent(page)).not.toHaveCSS(
+
+    await expect(linkComponent(page)).not.toBeAttached();
+
+    const currentBreadcrumb = page.locator('[data-component="crumb"]');
+
+    await expect(currentBreadcrumb).not.toHaveCSS(
       "box-shadow",
       "rgb(0, 0, 0) 0px 4px 0px 0px",
     );
-    await expect(linkComponent(page)).not.toHaveCSS("background-color", "none");
+    await expect(currentBreadcrumb).not.toHaveCSS("background-color", "none");
   });
 
   test("should not have any focus styling when user presses Enter key on focused crumb and it becomes current", async ({
@@ -74,11 +85,16 @@ test.describe("should render Breadcrumbs component", () => {
     );
 
     await linkComponent(page).press("Enter");
-    await expect(linkComponent(page)).not.toHaveCSS(
+
+    await expect(linkComponent(page)).not.toBeAttached();
+
+    const currentBreadcrumb = page.locator('[data-component="crumb"]');
+
+    await expect(currentBreadcrumb).not.toHaveCSS(
       "box-shadow",
       "rgb(0, 0, 0) 0px 4px 0px 0px",
     );
-    await expect(linkComponent(page)).not.toHaveCSS("background-color", "none");
+    await expect(currentBreadcrumb).not.toHaveCSS("background-color", "none");
   });
 
   test("should not have any focus styling when user presses Enter key on focused crumb with href set and it becomes current", async ({
@@ -97,11 +113,16 @@ test.describe("should render Breadcrumbs component", () => {
     );
 
     await linkComponent(page).press("Enter");
-    await expect(linkComponent(page)).not.toHaveCSS(
+
+    await expect(linkComponent(page)).not.toBeAttached();
+
+    const currentBreadcrumb = page.locator('[data-component="crumb"]');
+
+    await expect(currentBreadcrumb).not.toHaveCSS(
       "box-shadow",
       "rgb(0, 0, 0) 0px 4px 0px 0px",
     );
-    await expect(linkComponent(page)).not.toHaveCSS("background-color", "none");
+    await expect(currentBreadcrumb).not.toHaveCSS("background-color", "none");
   });
 });
 

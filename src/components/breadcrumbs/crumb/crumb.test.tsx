@@ -31,18 +31,34 @@ test("passes `href` to the anchor element when `isCurrent` is false", () => {
   expect(link).toHaveAttribute("href", "foo");
 });
 
-test("does not pass `href` to the anchor element when `isCurrent` is true", () => {
+test("does not pass `href` to the element when `isCurrent` is true", () => {
   render(
     <Breadcrumbs>
-      <Crumb href="foo" data-role="crumb" isCurrent>
+      <Crumb href="foo" data-role="bar" isCurrent>
         Link text
       </Crumb>
     </Breadcrumbs>,
   );
 
-  const anchor = screen.getByTestId("link-anchor");
+  const breadcrumbElement = screen.getByTestId("bar");
 
-  expect(anchor).not.toHaveAttribute("href", "foo");
+  expect(breadcrumbElement).not.toHaveAttribute("href", "foo");
+});
+
+test("when `isCurrent` is true it renders as a span", () => {
+  render(
+    <Breadcrumbs>
+      <Crumb href="foo" data-role="bar" isCurrent>
+        Link text
+      </Crumb>
+    </Breadcrumbs>,
+  );
+
+  const breadcrumbElement = screen.getByTestId("bar");
+
+  expect(screen.queryByTestId("link-anchor")).not.toBeInTheDocument();
+
+  expect(breadcrumbElement.tagName).toBe("SPAN");
 });
 
 test("calls `onClick` callback when the crumb link is clicked", async () => {
@@ -82,15 +98,15 @@ test("does not call `onClick` callback when `isCurrent` is true", async () => {
 test("applies `aria-current` attribute when `isCurrent` is true", () => {
   render(
     <Breadcrumbs>
-      <Crumb href="#" isCurrent>
+      <Crumb href="#" isCurrent data-role="bar">
         Link text
       </Crumb>
     </Breadcrumbs>,
   );
 
-  const anchor = screen.getByTestId("link-anchor");
+  const breadcrumbElement = screen.getByTestId("bar");
 
-  expect(anchor).toHaveAttribute("aria-current", "page");
+  expect(breadcrumbElement).toHaveAttribute("aria-current", "page");
 });
 
 test("renders with provided data- attributes", () => {
