@@ -8,11 +8,10 @@ import {
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import CarbonProvider from "../../carbon-provider";
+import CarbonProvider from "../../../carbon-provider";
 import Dialog from ".";
 import { DialogHandle, DialogProps } from "./dialog.component";
-import Logger from "../../../__internal__/utils/logger";
-import Form from "../../form";
+import Form from "../../../form";
 
 beforeEach(() => {
   jest.useFakeTimers();
@@ -21,32 +20,6 @@ beforeEach(() => {
 afterEach(() => {
   jest.runOnlyPendingTimers();
   jest.useRealTimers();
-});
-
-describe("Deprecation warnings", () => {
-  afterEach(() => {
-    jest.restoreAllMocks();
-  });
-
-  test("logs a deprecation warning when fullscreen prop is used", () => {
-    const loggerSpy = jest.spyOn(Logger, "deprecate");
-    render(<Dialog fullscreen open />);
-
-    expect(loggerSpy).toHaveBeenCalledWith(
-      'The fullscreen prop in Dialog is deprecated. Please use size="fullScreen" instead.',
-    );
-    expect(loggerSpy).toHaveBeenCalledTimes(1);
-  });
-
-  test("logs a deprecation warning when highlightVariant prop is used", () => {
-    const loggerSpy = jest.spyOn(Logger, "deprecate");
-    render(<Dialog open highlightVariant="ai" />);
-
-    expect(loggerSpy).toHaveBeenCalledWith(
-      "The highlightVariant prop in Dialog is deprecated. Please use aiKeyLine instead.",
-    );
-    expect(loggerSpy).toHaveBeenCalledTimes(1);
-  });
 });
 
 describe("Modal Dialog", () => {
@@ -399,9 +372,9 @@ describe("Modal Dialog", () => {
     expect(screen.getByRole("dialog")).toHaveAccessibleName("Outer dialog");
   });
 
-  test("should render with the AI keyline when aiKeyLine prop is true", () => {
+  test("should render with the AI keyline when gradientKeyLine prop is true", () => {
     render(
-      <Dialog open title="My dialog" aiKeyLine>
+      <Dialog open title="My dialog" gradientKeyLine>
         Inner content
       </Dialog>,
     );
@@ -416,18 +389,6 @@ describe("Modal Dialog", () => {
     );
 
     expect(dialogElement).toBeVisible();
-  });
-
-  test("no padding is rendered around dialog content, when zero padding is specified via disableContentPadding prop", () => {
-    render(
-      <Dialog open title="My dialog" disableContentPadding>
-        Inner content
-      </Dialog>,
-    );
-
-    const content = screen.getByTestId("dialog-content");
-
-    expect(content).toHaveStyle({ padding: "0px" });
   });
 
   describe("Form with sticky footer", () => {
@@ -452,7 +413,7 @@ describe("Modal Dialog", () => {
 
     test("renders Form with stickyFooter inside fullscreen dialog content area", () => {
       render(
-        <Dialog open size="fullScreen" title="My dialog">
+        <Dialog open size="fullscreen" title="My dialog">
           <Form
             aria-label="Test form"
             stickyFooter
@@ -474,7 +435,7 @@ describe("Modal Dialog", () => {
 describe("Fullscreen Dialog", () => {
   test("renders the fullscreen dialog correctly", () => {
     render(
-      <Dialog size="fullScreen" open>
+      <Dialog size="fullscreen" open>
         <button type="button" data-role="first-child">
           first child
         </button>
@@ -489,9 +450,9 @@ describe("Fullscreen Dialog", () => {
   });
 
   // This test ensures that fullscreen dialog has a grey background at all times as per the DS designs.
-  test("renders with grey background when size is fullScreen and greyBackground is false", () => {
+  test("renders with grey background when size is fullscreen and greyBackground is false", () => {
     render(
-      <Dialog size="fullScreen" open>
+      <Dialog size="fullscreen" open>
         Inner content
       </Dialog>,
     );
@@ -504,11 +465,11 @@ describe("Fullscreen Dialog", () => {
     );
   });
 
-  // This test ensures that the grey background is applied when both size is fullScreen and greyBackground is true,
+  // This test ensures that the grey background is applied when both size is fullscreen and greyBackground is true,
   // even though the greyBackground prop should be redundant in this case.
-  test("renders with grey background when size is fullScreen and greyBackground is true", () => {
+  test("renders with grey background when size is fullscreen and greyBackground is true", () => {
     render(
-      <Dialog size="fullScreen" open greyBackground>
+      <Dialog size="fullscreen" open greyBackground>
         Inner content
       </Dialog>,
     );
@@ -523,7 +484,7 @@ describe("Fullscreen Dialog", () => {
 
   test("padding is removed from the content when the contentPadding prop is passed", () => {
     render(
-      <Dialog size="fullScreen" open contentPadding={{ p: 0 }}>
+      <Dialog size="fullscreen" open contentPadding={{ p: 0 }}>
         <div>test content</div>
       </Dialog>,
     );
@@ -533,13 +494,13 @@ describe("Fullscreen Dialog", () => {
   });
 
   test("when the title prop is a string, this value is set as the dialog's accessible name", () => {
-    render(<Dialog size="fullScreen" open title="Test" />);
+    render(<Dialog size="fullscreen" open title="Test" />);
 
     expect(screen.getByRole("dialog")).toHaveAccessibleName("Test");
   });
 
   test("when the title and subtitle props are provided, the subtitle is set as the dialog's accessible description", () => {
-    render(<Dialog size="fullScreen" open title="Title" subtitle="Subtitle" />);
+    render(<Dialog size="fullscreen" open title="Title" subtitle="Subtitle" />);
 
     expect(screen.getByRole("dialog")).toHaveAccessibleDescription("Subtitle");
   });
@@ -549,7 +510,7 @@ describe("Fullscreen Dialog", () => {
       <>
         <h2 id="test-id">custom title</h2>
         <Dialog
-          size="fullScreen"
+          size="fullscreen"
           open
           title={<h2>test</h2>}
           aria-labelledby="test-id"
@@ -558,18 +519,6 @@ describe("Fullscreen Dialog", () => {
     );
 
     expect(screen.getByRole("dialog")).toHaveAccessibleName("custom title");
-  });
-
-  test("no padding is rendered around dialog content, when zero padding is specified via disableContentPadding prop", () => {
-    render(
-      <Dialog open size="fullScreen" title="My dialog" disableContentPadding>
-        Inner content
-      </Dialog>,
-    );
-
-    const content = screen.getByTestId("dialog-content");
-
-    expect(content).toHaveStyle({ padding: "0px" });
   });
 });
 
@@ -691,7 +640,7 @@ describe("Fullscreen Dialog with footer", () => {
     render(
       <Dialog
         open
-        size="fullScreen"
+        size="fullscreen"
         title="Fullscreen dialog"
         footer={<button type="button">Save</button>}
       >
@@ -709,7 +658,7 @@ describe("Fullscreen Dialog with footer", () => {
     render(
       <Dialog
         open
-        size="fullScreen"
+        size="fullscreen"
         title="Fullscreen dialog"
         footer={<button type="button">Save</button>}
         stickyFooter

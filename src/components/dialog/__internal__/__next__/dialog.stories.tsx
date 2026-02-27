@@ -1,16 +1,16 @@
 import React, { useRef, useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
-import isChromatic from "../../../../.storybook/isChromatic";
-import allModes from "../../../../.storybook/modes";
+import isChromatic from "../../../../../.storybook/isChromatic";
+import allModes from "../../../../../.storybook/modes";
 
-import Box from "../../box";
-import Button from "../../button/__next__/";
-import type { ButtonHandle } from "../../button/__next__/button.component";
-import Form from "../../form";
-import Typography from "../../typography";
-import Textbox from "../../textbox";
-import Message from "../../message";
+import Box from "../../../box";
+import Button from "../../../button/__next__/";
+import type { ButtonHandle } from "../../../button/__next__/button.component";
+import Form from "../../../form";
+import Typography from "../../../typography";
+import Textbox from "../../../textbox";
+import Message from "../../../message";
 
 import type { DialogProps } from "./dialog.component";
 import Dialog, { withDialogHeader } from "./dialog.component";
@@ -243,12 +243,12 @@ export const SmallSize: Story = {
   },
 };
 
-export const AIKeyLine: Story = {
+export const GradientKeyLine: Story = {
   ...NextDefaultStory,
-  name: "With AI Keyline",
+  name: "With Gradient Keyline",
   args: {
     ...NextDefaultStory.args,
-    aiKeyLine: true,
+    gradientKeyLine: true,
   },
 };
 
@@ -280,7 +280,7 @@ export const FullScreenSize: Story = () => {
         Open Dialog
       </Button>
       <Dialog
-        size="fullScreen"
+        size="fullscreen"
         open={isOpen}
         onCancel={() => {
           setIsOpen(false);

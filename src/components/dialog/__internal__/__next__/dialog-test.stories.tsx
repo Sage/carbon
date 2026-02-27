@@ -1,12 +1,12 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
-import allModes from "../../../../.storybook/modes";
+import allModes from "../../../../../.storybook/modes";
 
-import Box from "../../box";
-import Button from "../../button/__next__/";
-import Typography from "../../typography";
-import Textbox from "../../textbox";
+import Box from "../../../box";
+import Button from "../../../button/__next__/";
+import Typography from "../../../typography";
+import Textbox from "../../../textbox";
 
 import Dialog, { withDialogHeader } from "./dialog.component";
 
@@ -115,7 +115,7 @@ export const SizeFullScreen: Story = {
       open
       title="Full Screen Dialog"
       subtitle="Subtitle"
-      size="fullScreen"
+      size="fullscreen"
       onCancel={() => {}}
       footer={<Buttons />}
     >

@@ -1,5 +1,5 @@
 /** New size type following design system naming conventions */
-export type Size = "small" | "medium" | "large" | "fullScreen";
+export type Size = "small" | "medium" | "large" | "fullscreen";
 
 /** @deprecated Use Size instead */
 export type DialogSizes =
@@ -9,7 +9,8 @@ export type DialogSizes =
   | "medium"
   | "medium-large"
   | "large"
-  | "extra-large";
+  | "extra-large"
+  | "auto";
 
 type PaddingValues = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
@@ -39,7 +40,7 @@ export const DIALOG_SIZE_CONFIG = {
     maxWidth: "1080px",
     minWidth: DIALOG_MIN_WIDTH,
   },
-  fullScreen: {
+  fullscreen: {
     maxWidth: "100%",
     minWidth: "100%",
   },

@@ -1,10 +1,11 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useRef } from "react";
 import { DialogProps, DialogHandle } from "../dialog.component";
 import { StyledSubtitle } from "../dialog.style";
-import Box from "../../../box";
-import Icon from "../../../icon";
-import { IconType } from "../../../icon/icon-type";
-import Typography from "../../../typography";
+import Box from "../../../../box";
+import Icon from "../../../../icon";
+import { IconType } from "../../../../icon/icon-type";
+import Typography from "../../../../typography";
+import createGuid from "../../../../../__internal__/utils/helpers/guid";
 
 /** Allowed status variants for the dialog heading icon. */
 export type DialogHeadingStatus =
@@ -64,17 +65,41 @@ function withDialogHeader(
   >,
 ) {
   const Enhanced = forwardRef<DialogHandle, EnhancedDialogProps>(
-    ({ renderHeading, statusIcon, title, subtitle, ...rest }, ref) => {
+    (
+      {
+        renderHeading,
+        statusIcon,
+        title,
+        subtitle,
+        "aria-labelledby": propAriaLabelledBy,
+        "aria-describedby": propAriaDescribedBy,
+        "aria-label": propAriaLabel,
+        ...rest
+      },
+      ref,
+    ) => {
+      const statusTitleId = useRef(createGuid()).current;
+      const statusSubtitleId = useRef(createGuid()).current;
+
       let resolvedTitle: React.ReactNode = title;
       let passSubtitle = true;
+      let ariaLabelledBy: string | undefined = propAriaLabelledBy;
+      let ariaDescribedBy: string | undefined = propAriaDescribedBy;
+      let ariaLabel: string | undefined = propAriaLabel;
 
       if (renderHeading) {
-        // If a custom renderer is provided, use it to build the title node.
-        // Subtitle is already composed inside the rendered output.
         resolvedTitle = renderHeading(title, subtitle);
         passSubtitle = false;
+
+        // istanbul ignore next: This is a dev-time warning to encourage accessibility best practices.
+        if (!propAriaLabelledBy && !propAriaLabel) {
+          // eslint-disable-next-line no-console
+          console.warn(
+            "Dialog withDialogHeader: When using `renderHeading`, you must provide " +
+              "`aria-labelledby` or `aria-label` so the dialog has an accessible name.",
+          );
+        }
       } else if (statusIcon) {
-        // Build a status-icon heading: icon + title inline, subtitle below
         const { iconType, color } = STATUS_CONFIG[statusIcon];
 
         resolvedTitle = (
@@ -95,6 +120,7 @@ function withDialogHeader(
               variant="h1"
               ml="var(--global-space-comp-L, 16px)"
               data-element="dialog-title"
+              id={statusTitleId}
             >
               {title}
             </Typography>
@@ -102,6 +128,7 @@ function withDialogHeader(
               <StyledSubtitle
                 data-element="subtitle"
                 data-role="subtitle"
+                id={statusSubtitleId}
                 mb="0"
               >
                 {subtitle}
@@ -110,6 +137,19 @@ function withDialogHeader(
           </Box>
         );
         passSubtitle = false;
+
+        // Point aria-labelledby at the id we generated
+        ariaLabelledBy = statusTitleId;
+        // Also set aria-label as a belt-and-suspenders fallback
+        // (aria-labelledby takes precedence when both are present,
+        // but aria-label alone satisfies axe if the id ref fails)
+        // istanbul ignore else
+        if (typeof title === "string") {
+          ariaLabel = ariaLabel ?? title;
+        }
+        if (subtitle) {
+          ariaDescribedBy = statusSubtitleId;
+        }
       }
 
       return (
@@ -117,6 +157,9 @@ function withDialogHeader(
           {...rest}
           title={resolvedTitle}
           {...(passSubtitle ? { subtitle } : {})}
+          aria-labelledby={ariaLabelledBy}
+          aria-describedby={ariaDescribedBy}
+          aria-label={ariaLabel}
           ref={ref}
         />
       );

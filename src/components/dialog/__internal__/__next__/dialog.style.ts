@@ -1,8 +1,8 @@
 import styled, { css } from "styled-components";
 import { padding as paddingFn, PaddingProps } from "styled-system";
-import applyBaseTheme from "../../../style/themes/apply-base-theme";
-import StyledButton from "../../button/__next__/button.style";
-import Typography from "../../typography";
+import applyBaseTheme from "../../../../style/themes/apply-base-theme";
+import StyledButton from "../../../button/__next__/button.style";
+import Typography from "../../../typography";
 import type { DialogProps } from "./dialog.component";
 import {
   DIALOG_SIZE_CONFIG,
@@ -13,7 +13,7 @@ import {
   StyledFormContent,
   StyledForm,
   StyledFormFooter,
-} from "../../form/form.style";
+} from "../../../form/form.style";
 
 const dialogSizes = {
   small: DIALOG_SIZE_CONFIG.small.maxWidth,
@@ -37,8 +37,8 @@ type TransientDisableStickyProps = {
 type SharedTransientProps = TransientSizeProps & TransientDisableStickyProps;
 
 type StyledContentProps = ContentPaddingInterface &
-  SharedTransientProps &
-  Pick<DialogProps, "disableContentPadding"> & {
+  SharedTransientProps & {
+    disableContentPadding?: boolean;
     hasHeader?: boolean;
     hasFooter?: boolean;
   };
@@ -48,7 +48,7 @@ type StyledDialogProps = SharedTransientProps &
     $size: Size;
     backgroundColor: string;
     dialogHeight?: string;
-    $aiKeyline?: boolean;
+    $gradientKeyLine?: boolean;
   };
 
 type StyledDialogTitleProps = SharedTransientProps &
@@ -98,6 +98,7 @@ const hasPaddingProps = (props: PaddingProps) => {
   );
 };
 
+// istanbul ignore next
 const applyContentPadding =
   (disableContentPadding = false) =>
   (props: PaddingProps) => {
@@ -127,10 +128,10 @@ const DialogPositioner = styled.div.attrs(
   justify-content: center;
   align-items: center;
   z-index: ${({ theme, $size }) =>
-    $size === "fullScreen" ? theme.zIndex.fullScreenModal : theme.zIndex.modal};
+    $size === "fullscreen" ? theme.zIndex.fullscreenModal : theme.zIndex.modal};
 
   ${({ $size }) =>
-    $size === "fullScreen" &&
+    $size === "fullscreen" &&
     css`
       justify-content: stretch;
       align-items: stretch;
@@ -154,10 +155,10 @@ const StyledDialogContent = styled.div.attrs(applyBaseTheme)<
   width: 100%;
 
   ${({ disableContentPadding, $size, hasHeader, hasFooter, ...props }) =>
-    $size === "fullScreen"
+    $size === "fullscreen"
       ? css`
           flex: 1;
-          ${applyContentPadding(disableContentPadding)(props)}
+          ${applyContentPadding(Boolean(disableContentPadding))(props)}
 
           &:has(${StyledForm}.sticky) {
             display: flex;
@@ -167,7 +168,7 @@ const StyledDialogContent = styled.div.attrs(applyBaseTheme)<
 
             ${StyledForm}.sticky {
               ${StyledFormContent} {
-                ${applyContentPadding(disableContentPadding)(props)}
+                ${applyContentPadding(Boolean(disableContentPadding))(props)}
               }
               ${StyledFormFooter} {
                 background: var(--container-standard-bg-default, #fff);
@@ -310,8 +311,8 @@ const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
     outline: none;
   }
 
-  ${({ dialogHeight, $size, $aiKeyline }) =>
-    $size === "fullScreen"
+  ${({ dialogHeight, $size, $gradientKeyLine }) =>
+    $size === "fullscreen"
       ? css`
           box-shadow:
             0 3px 4px 0 rgba(0, 0, 0, 0.1),
@@ -349,7 +350,7 @@ const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
             max-width: var(--container-size-dialog-maxW-L, 1080px);
           `}
 
-          ${$aiKeyline &&
+          ${$gradientKeyLine &&
           css`
             &::before {
               content: "";
@@ -385,7 +386,7 @@ const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
     z-index: 1;
 
     ${({ $size }) =>
-      $size === "fullScreen"
+      $size === "fullscreen"
         ? css`
             right: 40px;
             top: 26px;

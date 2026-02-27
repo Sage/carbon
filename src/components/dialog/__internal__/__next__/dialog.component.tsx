@@ -14,27 +14,26 @@ import {
   StyledSubtitle,
 } from "./dialog.style";
 
-import { StyledHeaderHelp } from "../../heading/heading.style";
-import Icon from "../../icon";
-import Typography from "../../typography";
-import Modal, { ModalProps } from "../../../__internal__/modal";
+import { StyledHeaderHelp } from "../../../heading/heading.style";
+import Icon from "../../../icon";
+import Typography from "../../../typography";
+import Modal, { ModalProps } from "../../../../__internal__/modal";
 
-import FocusTrap from "../../../__internal__/focus-trap";
-import FullScreenHeading from "../../../__internal__/full-screen-heading";
-import createGuid from "../../../__internal__/utils/helpers/guid";
+import FocusTrap from "../../../../__internal__/focus-trap";
+import FullScreenHeading from "../../../../__internal__/full-screen-heading";
+import createGuid from "../../../../__internal__/utils/helpers/guid";
 import tagComponent, {
   TagProps,
-} from "../../../__internal__/utils/helpers/tags";
-import Logger from "../../../__internal__/utils/logger";
+} from "../../../../__internal__/utils/helpers/tags";
 
-import useLocale from "../../../hooks/__internal__/useLocale";
-import useModalAria from "../../../hooks/__internal__/useModalAria/useModalAria";
-import useMediaQuery from "../../../hooks/useMediaQuery";
-import Button from "../../button/__next__";
+import useLocale from "../../../../hooks/__internal__/useLocale";
+import useModalAria from "../../../../hooks/__internal__/useModalAria/useModalAria";
+import useMediaQuery from "../../../../hooks/useMediaQuery";
+import Button from "../../../button/__next__";
 
-import { Size, DialogSizes, ContentPaddingInterface } from "./dialog.config";
+import { Size, ContentPaddingInterface } from "./dialog.config";
 
-export type { Size, DialogSizes, ContentPaddingInterface };
+export type { Size, ContentPaddingInterface };
 
 export interface DialogProps extends ModalProps, TagProps {
   /** Prop to specify the aria-describedby property of the Dialog component */
@@ -78,11 +77,6 @@ export interface DialogProps extends ModalProps, TagProps {
   "data-component"?: string;
   /* Disables auto focus functionality on child elements */
   disableAutoFocus?: boolean;
-  /**
-   * [Legacy] Flag to remove padding from content.
-   * @deprecated Use `contentPadding` instead.
-   */
-  disableContentPadding?: boolean;
   /* Disables the focus trap when the dialog is open */
   disableFocusTrap?: boolean;
   /** an optional array of refs to containers whose content should also be reachable by tabbing from the dialog */
@@ -101,8 +95,8 @@ export interface DialogProps extends ModalProps, TagProps {
   height?: string;
   /** Adds Help tooltip to Header */
   help?: string;
-  /** Adds an AI-styled keyline to the dialog header */
-  aiKeyLine?: boolean;
+  /** Adds a gradient keyline to the dialog header */
+  gradientKeyLine?: boolean;
   /** A custom close event handler */
   onCancel?: (
     ev:
@@ -120,7 +114,7 @@ export interface DialogProps extends ModalProps, TagProps {
    * - small: 288px min-width, 540px max-width
    * - medium: 540px min-width, 850px max-width (default)
    * - large: 850px min-width, 1080px max-width
-   * - fullScreen: full viewport
+   * - fullscreen: full viewport
    */
   size?: Size;
   /** Makes the footer stick to the bottom of the dialog when content scrolls */
@@ -134,70 +128,13 @@ export interface DialogProps extends ModalProps, TagProps {
    * On small screen devices, the dialog becomes full width and has no dimmer.
    */
   disableStickyOnSmallScreen?: boolean;
-
-  // ============ DEPRECATED PROPS ============
-
-  /**
-   * @deprecated Use `size="fullScreen"` instead.
-   */
-  fullscreen?: boolean;
-  /**
-   * @deprecated Use `aiKeyLine` instead.
-   */
-  highlightVariant?: string;
+  disableContentPadding?: boolean;
 }
 
 export type DialogHandle = {
   /** Programmatically focus on root container of Dialog. */
   focus: () => void;
 } | null;
-
-let deprecatedFullscreenTrigger = false;
-let deprecatedHighlightVariantTrigger = false;
-
-/**
- * Maps legacy size values to new size values
- */
-const mapLegacySizeToSize = (
-  legacySize?: DialogSizes | Size,
-  fullscreen?: boolean,
-): Size => {
-  if (fullscreen) {
-    return "fullScreen";
-  }
-
-  switch (legacySize) {
-    case "extra-small":
-    case "small":
-      return "small";
-    case "medium-small":
-    case "medium":
-      return "medium";
-    case "medium-large":
-    case "large":
-    case "extra-large":
-      return "large";
-    case "fullScreen":
-      return "fullScreen";
-    /* istanbul ignore next -- safety fallback, all valid sizes are handled above */
-    default:
-      return "medium";
-  }
-};
-
-/**
- * Maps highlightVariant to aiKeyLine
- */
-const mapHighlightVariantToAiKeyLine = (
-  highlightVariant?: string,
-  aiKeyLine?: boolean,
-): boolean => {
-  if (aiKeyLine !== undefined) {
-    return aiKeyLine;
-  }
-
-  return highlightVariant !== undefined && highlightVariant !== "default";
-};
 
 export const Dialog = forwardRef<DialogHandle, DialogProps>(
   (
@@ -209,18 +146,19 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
       children,
       open,
       height,
-      size: sizeProp = "medium",
+      size = "medium",
       title,
       disableEscKey,
       subtitle,
       disableAutoFocus = false,
+      disableContentPadding = false,
       focusFirstElement,
       focusableSelectors,
       onCancel,
       showCloseIcon = true,
       bespokeFocusTrap,
       help,
-      aiKeyLine,
+      gradientKeyLine = false,
       role = "dialog",
       contentPadding,
       greyBackground = false,
@@ -236,10 +174,6 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
       disableStickyOnSmallScreen = false,
       footer,
       stickyFooter = false,
-      // Deprecated props
-      disableContentPadding,
-      fullscreen,
-      highlightVariant,
       ...rest
     },
     ref,
@@ -259,31 +193,7 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
     const isSmallScreen = useMediaQuery("(max-width: 599px)");
     const shouldDisableSticky = disableStickyOnSmallScreen && isSmallScreen;
 
-    // Deprecation warnings
-    if (!deprecatedFullscreenTrigger && fullscreen !== undefined) {
-      deprecatedFullscreenTrigger = true;
-      Logger.deprecate(
-        'The fullscreen prop in Dialog is deprecated. Please use size="fullScreen" instead.',
-      );
-    }
-
-    if (!deprecatedHighlightVariantTrigger && highlightVariant !== undefined) {
-      deprecatedHighlightVariantTrigger = true;
-      Logger.deprecate(
-        "The highlightVariant prop in Dialog is deprecated. Please use aiKeyLine instead.",
-      );
-    }
-
-    // Map deprecated props to new props
-    const computedSize = mapLegacySizeToSize(
-      sizeProp as DialogSizes | Size,
-      fullscreen,
-    );
-    const computedAiKeyLine = mapHighlightVariantToAiKeyLine(
-      highlightVariant,
-      aiKeyLine,
-    );
-    const isFullScreen = computedSize === "fullScreen";
+    const isFullScreen = size === "fullscreen";
 
     // On small screen with disableStickyOnSmallScreen, dialog becomes full width with no dimmer
     const effectiveFullWidth = shouldDisableSticky || isFullScreen;
@@ -390,7 +300,7 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
       return (
         <StyledDialogFooter
           ref={footerRef}
-          $size={computedSize}
+          $size={size}
           $sticky={effectiveStickyFooter}
           $disableSticky={shouldDisableSticky}
           data-role="dialog-footer"
@@ -437,7 +347,7 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
           wrapperRef={containerRef}
         >
           <DialogPositioner
-            $size={computedSize}
+            $size={size}
             $fullscreen={isFullScreen}
             $fullWidth={effectiveFullWidth}
             $disableSticky={shouldDisableSticky}
@@ -454,8 +364,8 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
               data-element={dataElement}
               data-role={dataRole}
               dialogHeight={dialogHeight}
-              $aiKeyline={computedAiKeyLine}
-              $size={computedSize}
+              $gradientKeyLine={gradientKeyLine}
+              $size={size}
               $disableSticky={shouldDisableSticky}
               ref={containerRef}
               role={role}
@@ -466,15 +376,15 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
               {closeIcon}
               <StyledDialogContent
                 {...contentPadding}
-                $size={computedSize}
+                $size={size}
                 data-role="dialog-content"
                 data-element="dialog-content"
-                disableContentPadding={disableContentPadding}
                 hasHeader={title !== undefined}
                 hasFooter={footer !== undefined}
                 tabIndex={-1}
                 ref={contentRef}
                 $disableSticky={shouldDisableSticky}
+                disableContentPadding={disableContentPadding}
               >
                 {children}
               </StyledDialogContent>
@@ -491,8 +401,8 @@ Dialog.displayName = "Dialog";
 
 export default Dialog;
 
-export { default as withDialogHeader } from "./__internal__/dialog-header.component";
+export { default as withDialogHeader } from "./dialog-header/dialog-header.component";
 export type {
   EnhancedDialogProps,
   DialogHeadingStatus,
-} from "./__internal__/dialog-header.component";
+} from "./dialog-header/dialog-header.component";
