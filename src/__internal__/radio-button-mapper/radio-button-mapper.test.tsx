@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import RadioButtonMapper from ".";
-import RadioButton from "../../components/radio-button";
 
 const ControlledRadioButtons = () => {
   const [value, setValue] = useState<string | undefined>(undefined);
@@ -18,17 +17,17 @@ const ControlledRadioButtons = () => {
         setValue(e.target.value);
       }}
     >
-      <RadioButton id="radio-1" value="one" label="One" />
-      <RadioButton id="radio-2" value="two" label="Two" />
+      <input type="radio" id="radio-1" value="one" />
+      <input type="radio" id="radio-2" value="two" />
     </RadioButtonMapper>
   );
 };
 
-test("renders RadioButton children with expected `name` prop", () => {
+test("renders radio children with expected `name` prop", () => {
   render(
     <RadioButtonMapper name="test">
-      <RadioButton id="radio-1" value="one" />
-      <RadioButton id="radio-2" value="two" />
+      <input type="radio" id="radio-1" value="one" />
+      <input type="radio" id="radio-2" value="two" />
     </RadioButtonMapper>,
   );
 
@@ -38,12 +37,14 @@ test("renders RadioButton children with expected `name` prop", () => {
   expect(radioButtons[1]).toHaveAttribute("name", "test");
 });
 
-test("checks and unchecks correct RadioButtons when inputs are controlled", async () => {
+test("checks and unchecks correct radios when inputs are controlled", async () => {
   const user = userEvent.setup();
   render(<ControlledRadioButtons />);
 
-  const radio1 = screen.getByRole("radio", { name: "One" });
-  const radio2 = screen.getByRole("radio", { name: "Two" });
+  const radios = screen.getAllByRole("radio");
+
+  const radio1 = radios[0];
+  const radio2 = radios[1];
 
   expect(radio1).not.toBeChecked();
   expect(radio2).not.toBeChecked();
@@ -59,17 +60,18 @@ test("checks and unchecks correct RadioButtons when inputs are controlled", asyn
   expect(radio2).toBeChecked();
 });
 
-test("checks and unchecks correct RadioButtons when inputs are uncontrolled", async () => {
+test("checks and unchecks correct radios when inputs are uncontrolled", async () => {
   const user = userEvent.setup();
   render(
     <RadioButtonMapper name="test">
-      <RadioButton id="radio-1" value="one" label="One" />
-      <RadioButton id="radio-2" value="two" label="Two" />
+      <input type="radio" id="radio-1" value="one" />
+      <input type="radio" id="radio-2" value="two" />
     </RadioButtonMapper>,
   );
 
-  const radio1 = screen.getByRole("radio", { name: "One" });
-  const radio2 = screen.getByRole("radio", { name: "Two" });
+  const radios = screen.getAllByRole("radio");
+  const radio1 = radios[0];
+  const radio2 = radios[1];
 
   expect(radio1).not.toBeChecked();
   expect(radio2).not.toBeChecked();
@@ -85,17 +87,18 @@ test("checks and unchecks correct RadioButtons when inputs are uncontrolled", as
   expect(radio2).toBeChecked();
 });
 
-test("checks and unchecks correct RadioButtons when `defaultChecked` is set", async () => {
+test("checks and unchecks correct radios when `defaultChecked` is set", async () => {
   const user = userEvent.setup();
   render(
     <RadioButtonMapper name="test">
-      <RadioButton id="radio-1" value="one" defaultChecked label="One" />
-      <RadioButton id="radio-2" value="two" label="Two" />
+      <input type="radio" id="radio-1" value="one" defaultChecked />
+      <input type="radio" id="radio-2" value="two" />
     </RadioButtonMapper>,
   );
 
-  const radio1 = screen.getByRole("radio", { name: "One" });
-  const radio2 = screen.getByRole("radio", { name: "Two" });
+  const radios = screen.getAllByRole("radio");
+  const radio1 = radios[0];
+  const radio2 = radios[1];
 
   expect(radio1).toBeChecked();
   expect(radio2).not.toBeChecked();
@@ -106,37 +109,38 @@ test("checks and unchecks correct RadioButtons when `defaultChecked` is set", as
   expect(radio2).toBeChecked();
 });
 
-test("calls `onChange` callback when a RadioButton child is clicked", async () => {
+test("calls `onChange` callback when a radio child is clicked", async () => {
   const user = userEvent.setup();
   const onChange = jest.fn();
   render(
     <RadioButtonMapper name="test" onChange={onChange}>
-      <RadioButton id="radio-1" value="one" label="One" />
-      <RadioButton id="radio-2" value="two" label="Two" />
+      <input type="radio" id="radio-1" value="one" />
     </RadioButtonMapper>,
   );
 
-  const radio1 = screen.getByRole("radio", { name: "One" });
-  await user.click(radio1);
+  const radio = screen.getByRole("radio");
+  await user.click(radio);
 
   expect(onChange).toHaveBeenCalledTimes(1);
   expect(onChange).toHaveBeenCalledWith(
-    expect.objectContaining({ target: radio1 }),
+    expect.objectContaining({ target: radio }),
   );
 });
 
-test("calls `onBlur` callback when a RadioButton child is blurred", async () => {
+test("calls `onBlur` callback when a radio child is blurred", async () => {
   const user = userEvent.setup();
   const onBlur = jest.fn();
   render(
     <RadioButtonMapper name="test" onBlur={onBlur}>
-      <RadioButton id="radio-1" value="one" label="One" />
-      <RadioButton id="radio-2" value="two" label="Two" />
+      <input type="radio" id="radio-1" value="one" />
+      <input type="radio" id="radio-2" value="two" />
     </RadioButtonMapper>,
   );
 
-  const radio1 = screen.getByRole("radio", { name: "One" });
-  const radio2 = screen.getByRole("radio", { name: "Two" });
+  const radios = screen.getAllByRole("radio");
+  const radio1 = radios[0];
+  const radio2 = radios[1];
+
   await user.click(radio1);
   await user.click(radio2);
 
@@ -146,7 +150,7 @@ test("calls `onBlur` callback when a RadioButton child is blurred", async () => 
   );
 });
 
-test("accepts non-RadioButton children", () => {
+test("accepts non-valid React element children", () => {
   expect(() => {
     render(
       <RadioButtonMapper name="test">
