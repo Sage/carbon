@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { margin, MarginProps } from "styled-system";
 import applyBaseTheme from "../../../style/themes/apply-base-theme";
-import StyledTypography from "../../typography/typography.style";
 
 export interface RequiredIndicatorProps extends MarginProps {
   children: React.ReactNode;
@@ -11,7 +10,7 @@ export interface RequiredIndicatorProps extends MarginProps {
 const StyledIndicatorContainer = styled.div.attrs(applyBaseTheme)`
   ${margin}
 
-  ${StyledTypography} {
+  [data-component="typography"] {
     color: var(--colorsUtilityYin090);
   }
   ::after {

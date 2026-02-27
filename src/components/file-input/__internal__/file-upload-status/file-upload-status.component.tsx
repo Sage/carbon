@@ -1,7 +1,7 @@
 import React from "react";
 import Link, { LinkProps } from "../../../link";
 import ButtonMinor from "../../../button-minor";
-import StyledTypography from "../../../typography/typography.style";
+import StyledTypography from "../../../typography";
 import {
   StyledProgressBar,
   InnerBar,

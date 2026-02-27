@@ -1,7 +1,6 @@
 import styled, { css } from "styled-components";
 import type { InputProps } from "../../__internal__/input";
 import type { ValidationProps } from "../../__internal__/validations";
-import StyledTypography from "../typography/typography.style";
 
 // Because inputs with type="file" cannot have a value, we need to omit it from the InputProps type.
 // This is a workaround to avoid TypeScript errors when using the InputProps type.
@@ -67,7 +66,7 @@ export const StyledFileInputPresentation = styled.div<StyledFileInputPresentatio
         border-radius: var(--borderRadius050);
         border: var(--${borderWidthToken}) dashed var(--${borderColorToken});
         background: var(--${backgroundColorToken});
-        ${StyledTypography} {
+        [data-component="typography"] {
           color: var(--colorsUtilityYin055);
         }
       `
