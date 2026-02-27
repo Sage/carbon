@@ -12,36 +12,13 @@ See our [docs](https://carbon.sage.com/) for live examples.
 
 ## Agent skills
 
-After installing `carbon-react`, create a symlink so your tooling can read skills from `.github/skills/carbon-react` while the files live in `node_modules`.
-
-```txt
-.github/skills/carbon-react  ->  node_modules/carbon-react/skills/carbon-react
-```
-
-From your consuming project:
+After installing `carbon-react`, install the Carbon agent skills from your project with:
 
 ```shell
-mkdir -p .github/skills
-# Symlink the skills path to the installed package
-ln -s "$(pwd)/node_modules/carbon-react/skills/carbon-react" .github/skills/carbon-react
+npx skills add Sage/carbon
 ```
 
-<details>
-<summary><strong>Using pnpm? Expand for fallback setup</strong></summary>
-
-If the direct `node_modules/carbon-react/...` path is not present in your setup, patch your consuming project's `package.json` with a `postinstall` script that recreates the symlink using the resolved package location:
-
-```json
-{
-  "scripts": {
-    "postinstall": "node -e \"const fs=require('node:fs');const path=require('node:path');const pkg=path.dirname(require.resolve('carbon-react/package.json'));const src=path.join(pkg,'skills','carbon-react');const dst=path.join(process.cwd(),'.github','skills','carbon-react');fs.mkdirSync(path.dirname(dst),{recursive:true});fs.rmSync(dst,{recursive:true,force:true});fs.symlinkSync(src,dst,'dir');\""
-  }
-}
-```
-
-</details>
-
-Then point your agent tooling at `.github/skills/carbon-react` to include the Carbon skills in your agent's context.
+The Carbon skills provide agents with context about the Carbon library, including component props, usage examples, deprecation notices, migration guides, and documentation references.
 
 ## Browser Support
 
