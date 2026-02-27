@@ -25,6 +25,9 @@ import {
   ActionPopoverItem,
   ActionPopoverDivider,
 } from "../../components/action-popover";
+import SplitButton from "../split-button";
+import Button from "../button";
+import MultiActionButton from "../multi-action-button";
 
 testStyledSystemMargin(
   (props) => (
@@ -1833,4 +1836,205 @@ test("when a DateInput is opened inside the FlatTable that has sticky footer, sc
   await user.keyboard("{End}");
 
   expect(preventDefaultSpy).toHaveBeenCalled();
+});
+
+test("when a SplitButton is opened inside the FlatTable, it will have the background disabled to prevent scrolling in the table", async () => {
+  const user = userEvent.setup();
+
+  render(
+    <FlatTable
+      hasStickyHead
+      colorTheme="transparent-base"
+      height="400px"
+      footer={
+        <Pager
+          currentPage="1"
+          onFirst={() => {}}
+          onLast={() => {}}
+          onNext={() => {}}
+          onPagination={() => {}}
+          onPrevious={() => {}}
+          pageSizeSelectionOptions={[
+            {
+              id: "1",
+              name: 1,
+            },
+            {
+              id: "10",
+              name: 10,
+            },
+            {
+              id: "25",
+              name: 25,
+            },
+            {
+              id: "50",
+              name: 50,
+            },
+            {
+              id: "100",
+              name: 100,
+            },
+          ]}
+          totalRecords="100"
+        />
+      }
+    >
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>Header Cell</FlatTableHeader>
+          <FlatTableHeader>Header Cell</FlatTableHeader>
+          <FlatTableHeader>Header Cell</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        {new Array(25)
+          .fill("")
+          .map((_, index) => index)
+          .map((key) => {
+            return (
+              <FlatTableRow key={key}>
+                <FlatTableCell>Cell Data</FlatTableCell>
+                <FlatTableCell>
+                  <SplitButton text="Bar">
+                    <Button>Child 1</Button>
+                    <Button>Child 2</Button>
+                  </SplitButton>
+                </FlatTableCell>
+                <FlatTableCell>Cell Data</FlatTableCell>
+              </FlatTableRow>
+            );
+          })}
+      </FlatTableBody>
+    </FlatTable>,
+  );
+  const button = screen.getAllByRole("button")[5];
+
+  await user.click(button);
+
+  expect(screen.getByRole("list")).toBeVisible();
+
+  const backdrop = screen.getByTestId("popup-backdrop");
+
+  expect(backdrop).toHaveStyle({
+    background: "transparent",
+    position: "fixed",
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+  });
+
+  const backdropIndex = getComputedStyle(backdrop).getPropertyValue("z-index");
+
+  // non-default value
+  expect(backdropIndex).toContain("--adaptiveSidebarModalBackdrop");
+  // default value
+  expect(backdropIndex).toContain("6000");
+
+  await user.click(backdrop);
+
+  expect(backdrop).not.toBeInTheDocument();
+  expect(screen.queryByRole("list")).not.toBeInTheDocument();
+});
+
+test("when a MultiActionButton is opened inside the FlatTable, it will have the background disabled to prevent scrolling in the table", async () => {
+  const user = userEvent.setup();
+
+  render(
+    <FlatTable
+      hasStickyHead
+      colorTheme="transparent-base"
+      height="400px"
+      footer={
+        <Pager
+          currentPage="1"
+          onFirst={() => {}}
+          onLast={() => {}}
+          onNext={() => {}}
+          onPagination={() => {}}
+          onPrevious={() => {}}
+          pageSizeSelectionOptions={[
+            {
+              id: "1",
+              name: 1,
+            },
+            {
+              id: "10",
+              name: 10,
+            },
+            {
+              id: "25",
+              name: 25,
+            },
+            {
+              id: "50",
+              name: 50,
+            },
+            {
+              id: "100",
+              name: 100,
+            },
+          ]}
+          totalRecords="100"
+        />
+      }
+    >
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>Header Cell</FlatTableHeader>
+          <FlatTableHeader>Header Cell</FlatTableHeader>
+          <FlatTableHeader>Header Cell</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        {new Array(25)
+          .fill("")
+          .map((_, index) => index)
+          .map((key) => {
+            return (
+              <FlatTableRow key={key}>
+                <FlatTableCell>Cell Data</FlatTableCell>
+                <FlatTableCell>
+                  <MultiActionButton text="Multi Action Button">
+                    <Button>Button 1</Button>
+                    <Button>Button 2</Button>
+                    <Button>Button 3</Button>
+                  </MultiActionButton>
+                </FlatTableCell>
+                <FlatTableCell>Cell Data</FlatTableCell>
+              </FlatTableRow>
+            );
+          })}
+      </FlatTableBody>
+    </FlatTable>,
+  );
+  const button = screen.getAllByRole("button")[5];
+
+  await user.click(button);
+
+  expect(screen.getByRole("list")).toBeVisible();
+
+  const backdrop = screen.getByTestId("popup-backdrop");
+
+  expect(backdrop).toHaveStyle({
+    background: "transparent",
+    position: "fixed",
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+  });
+
+  const backdropIndex = getComputedStyle(backdrop).getPropertyValue("z-index");
+
+  // non-default value
+  expect(backdropIndex).toContain("--adaptiveSidebarModalBackdrop");
+  // default value
+  expect(backdropIndex).toContain("6000");
+
+  await user.click(document.body);
+
+  expect(backdrop).not.toBeInTheDocument();
+  expect(screen.queryByRole("list")).not.toBeInTheDocument();
 });

@@ -105,7 +105,7 @@ export const MultiActionButton = forwardRef<
 
     const renderAdditionalButtons = () => (
       <Popover
-        disableBackgroundUI={isInFlatTable}
+        disableBackgroundUI={isInFlatTable && showAdditionalButtons}
         disablePortal
         placement={
           position === "left"
