@@ -9,6 +9,7 @@ import { JSDoc, Project, SyntaxKind } from "ts-morph";
 /**
  * @typedef {Object} ComponentCandidate
  * @property {string} name
+ * @property {string} [displayName]
  * @property {string} moduleSpecifier
  */
 
@@ -102,6 +103,37 @@ const indexFile = project.getSourceFileOrThrow(indexFilePath);
 /** @type {ComponentCandidate[]} */
 const componentCandidates = [];
 
+// Scan __next__ directories for upcoming components
+const nextComponentFiles = fg.sync(
+  ["src/components/**/__next__/index.{ts,tsx}", "src/components/**/__next__/*.component.{ts,tsx}"],
+  { 
+    cwd: repoRoot, 
+    absolute: true,
+    ignore: ["**/__internal__/**"]
+  }
+);
+
+for (const filePath of nextComponentFiles) {
+  const sourceFile = project.addSourceFileAtPathIfExists(filePath);
+  if (!sourceFile) continue;
+  
+  const exported = sourceFile.getExportedDeclarations();
+  for (const [exportName, declarations] of exported.entries()) {
+    if (exportName === "default" || exportName.endsWith("Props")) continue;
+    if (!/^[A-Z]/.test(exportName)) continue;
+    
+    const relativePath = "./" + path.relative(path.join(repoRoot, "src"), filePath).replace(/\\/g, "/");
+    const moduleSpecifier = relativePath.replace(/\/index\.(ts|tsx)$/, "").replace(/\.(ts|tsx)$/, "");
+    
+    // Keep original name for props lookup, use display name for output
+    componentCandidates.push({
+      name: exportName,  // Original name for props lookup
+      displayName: `${exportName}Next`,  // Display name for output files
+      moduleSpecifier,
+    });
+  }
+}
+
 for (const exportDecl of indexFile.getExportDeclarations()) {
   const moduleSpecifier = exportDecl.getModuleSpecifierValue();
   if (!moduleSpecifier || !moduleSpecifier.startsWith("./components/")) {
@@ -188,7 +220,7 @@ for (const candidate of componentCandidates) {
     : [];
 
   componentData.push({
-    name: candidate.name,
+    name: candidate.displayName ?? candidate.name,
     moduleSpecifier: candidate.moduleSpecifier,
     props,
     missingPropsInterface: !propsDefinition,
@@ -1093,7 +1125,7 @@ async function checkWouldWrite(wouldWrite, { componentsOutDir, referencesDir }) 
     try {
       existing = await fs.readFile(filePath, "utf8");
     } catch (err) {
-      if (err?.code === "ENOENT") {
+      if (err && typeof err === 'object' && 'code' in err && err?.code === "ENOENT") {
         diffs.push(`  Missing: ${path.relative(repoRoot, filePath)}`);
         continue;
       }
