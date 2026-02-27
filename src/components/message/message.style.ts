@@ -135,7 +135,7 @@ export const TypeIconStyle = styled.div<MessageStyleProps>`
 
     ${isSubtle &&
     css`
-      padding-top: 2px;
+      padding-top: 6px;
       background-color: transparent;
       span {
         &:before {

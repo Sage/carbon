@@ -220,7 +220,6 @@ export const Message = React.forwardRef<HTMLDivElement, MessageProps>(
             <Button
               my={size === "large" ? 2 : 1}
               mr={size === "large" ? 2 : 1}
-              p="4px"
               data-element="close"
               aria-label={
                 closeButtonAriaLabel || locale.message.closeButtonAriaLabel()
