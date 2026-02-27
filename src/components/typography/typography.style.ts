@@ -4,9 +4,10 @@ import styledColor from "../../style/utils/color";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 import { TypographyProps, VariantTypes } from "./typography.component";
 import visuallyHidden from "../../style/utils/visually-hidden";
+import Typography from "./__next__";
 
-const getSize = (variant?: VariantTypes) => {
-  switch (variant) {
+const getSize = (styledVariant?: VariantTypes) => {
+  switch (styledVariant) {
     case "h1-large":
       return "40px";
     case "h1":
@@ -38,8 +39,8 @@ const getSize = (variant?: VariantTypes) => {
   }
 };
 
-const getLineHeight = (variant?: VariantTypes) => {
-  switch (variant) {
+const getLineHeight = (styledVariant?: VariantTypes) => {
+  switch (styledVariant) {
     case "h1-large":
       return "50px";
     case "h1":
@@ -75,8 +76,8 @@ const getLineHeight = (variant?: VariantTypes) => {
   }
 };
 
-const getWeight = (variant?: VariantTypes) => {
-  switch (variant) {
+const getWeight = (styledVariant?: VariantTypes) => {
+  switch (styledVariant) {
     case "h1-large":
     case "h1":
     case "h2":
@@ -103,26 +104,32 @@ const getWeight = (variant?: VariantTypes) => {
   }
 };
 
-const getTransform = (variant?: VariantTypes) => {
-  if (variant === "segment-subheader-alt") {
+const getTransform = (styledVariant?: VariantTypes) => {
+  if (styledVariant === "segment-subheader-alt") {
     return "uppercase";
   }
   return "none";
 };
 
-const getDecoration = (variant?: VariantTypes) => {
-  if (variant === "em") {
+const getDecoration = (styledVariant?: VariantTypes) => {
+  if (styledVariant === "em") {
     return "underline";
   }
   return "none";
 };
 
-const StyledTypography = styled.span.attrs(applyBaseTheme)<TypographyProps>`
+interface StyledTypographyProps extends TypographyProps {
+  styledVariant?: VariantTypes;
+}
+
+const StyledTypography = styled(Typography).attrs(
+  applyBaseTheme,
+)<StyledTypographyProps>`
   ${({
     fontSize,
     fontWeight,
     display,
-    variant,
+    styledVariant,
     lineHeight: lHeight,
     listStyleType,
     whiteSpace,
@@ -135,12 +142,12 @@ const StyledTypography = styled.span.attrs(applyBaseTheme)<TypographyProps>`
     truncate,
     screenReaderOnly,
   }) => {
-    const size = fontSize || getSize(variant);
-    const weight = fontWeight || getWeight(variant);
-    const textTransform = transform || getTransform(variant);
-    const textDecoration = decoration || getDecoration(variant);
-    const lineHeight = lHeight || getLineHeight(variant);
-    const defaultMargin = variant === "p" ? "0 0 16px" : "0";
+    const size = fontSize || getSize(styledVariant);
+    const weight = fontWeight || getWeight(styledVariant);
+    const textTransform = transform || getTransform(styledVariant);
+    const textDecoration = decoration || getDecoration(styledVariant);
+    const lineHeight = lHeight || getLineHeight(styledVariant);
+    const defaultMargin = styledVariant === "p" ? "0 0 16px" : "0";
 
     return css`
       font-style: normal;
@@ -161,8 +168,8 @@ const StyledTypography = styled.span.attrs(applyBaseTheme)<TypographyProps>`
         overflow: hidden;
       `};
       ${screenReaderOnly && visuallyHidden}
-      ${variant === "sup" && "vertical-align: super;"}
-      ${variant === "sub" && "vertical-align: sub;"}
+      ${styledVariant === "sup" && "vertical-align: super;"}
+      ${styledVariant === "sub" && "vertical-align: sub;"}
       ${display && `display: ${display};`}
       ${listStyleType && `list-style-type: ${listStyleType};`}
     `;

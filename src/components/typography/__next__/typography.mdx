@@ -1,0 +1,85 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+
+import * as TypographyStories from "./typography.stories.tsx";
+
+<Meta of={TypographyStories} />
+
+# Typography
+
+<a
+  target="_blank"
+  href="https://zeroheight.com/35ee2cc26/v/latest/p/29b3b7-typography"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
+>
+  Product Design System component
+</a>
+
+Manages text styles and content hierarchies.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import Typography from "carbon-react/lib/components/typography/__next__/";
+```
+
+## Designer Notes
+
+- The Typography component provides a consistent and flexible system for managing text styles across your design. 
+- It includes multiple heading and body text options to accommodate various content hierarchies.
+- With theme support for large screens and small screens, this helps ensure readability and brand alignment across different contexts. 
+
+## Examples
+
+### Variants
+
+Use the `variant` prop to render an element and creates a visual style associated with said element. The `as` prop can also be 
+used to override the underlying HTML element.
+
+<Canvas of={TypographyStories.VariantsStory} />
+
+
+## Fluid
+
+When set to `true`, the component uses fluid typography with CSS clamp() values for responsive sizing. 
+This allows the text to scale smoothly between breakpoints without requiring media queries.
+
+<Canvas of={TypographyStories.FluidStory} />
+
+## Inverse
+
+When set to `true`, inverts the font colour for use on darker backgrounds. 
+This ensures sufficient contrast and readability when the Typography component is placed over dark container backgrounds.
+
+<Canvas of={TypographyStories.InverseStory} />
+
+## Size
+
+The `size` prop controls the font size applied to paragraph text. 
+Only available when `variant` is set to `"p"`. Choose between `"regular"` for standard text and `"large"` for emphasis.
+
+<Canvas of={TypographyStories.SizeStory} />
+
+## Tint
+
+The `tint` prop applies a colour tint to paragraph text. 
+Only available when `variant` is set to `"p"`. Use `"default"` for standard text colour or `"alt"` for alternative text colour.
+
+<Canvas of={TypographyStories.TintStory} />
+
+## Weight
+
+The `weight` prop controls the font weight applied to paragraph text. 
+Only available when `variant` is set to `"p"`. Choose between `"regular"` for normal weight or `"medium"` for heavier emphasis.
+
+<Canvas of={TypographyStories.WeightStory} />
+
+## Props
+
+<ArgTypes of={TypographyStories} />
