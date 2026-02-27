@@ -1,548 +1,299 @@
 import React, { useState } from "react";
-import { RadioButtonGroup, RadioButton } from ".";
-import { RadioButtonGroupProps } from "./radio-button-group/radio-button-group.component";
-import CarbonProvider from "../carbon-provider";
-import { Checkbox } from "../checkbox";
-import Switch from "../switch";
+import { Meta, StoryObj } from "@storybook/react";
+import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
+
+import { RadioButton, RadioButtonGroup, RadioButtonGroupProps } from ".";
+
 import Box from "../box";
+import Textbox from "../textbox";
 
-export default {
+const styledSystemProps = generateStyledSystemProps({
+  margin: true,
+});
+
+const meta: Meta<typeof RadioButtonGroup> = {
   title: "Radio Button/Test",
-  parameters: {
-    info: { disable: true },
-    chromatic: {
-      disableSnapshot: true,
-    },
-    themeProvider: { chromatic: { theme: "sage" } },
-  },
+  component: RadioButtonGroup,
+  subcomponents: { RadioButton },
   argTypes: {
-    labelSpacing: {
-      options: [1, 2],
-      control: {
-        type: "select",
-      },
-    },
-    size: {
-      options: ["small", "large"],
-      control: {
-        type: "select",
-      },
+    ...styledSystemProps,
+    error: { control: "text" },
+    warning: { control: "text" },
+  },
+  parameters: {
+    themeProvider: { chromatic: { theme: "sage" } },
+    controls: {
+      exclude: ["children", "onBlur", "onChange"],
     },
   },
 };
 
-export const WithLabelHelp = ({ ...args }) => {
-  const [value, setValue] = useState("");
+export default meta;
+type Story = StoryObj<typeof RadioButtonGroup>;
 
+interface RadioButtonGroupComponentProps
+  extends Omit<RadioButtonGroupProps, "value" | "onChange" | "children"> {
+  name: string;
+  id: string;
+}
+
+const RadioButtonGroupComponent = ({
+  name,
+  id,
+  ...args
+}: RadioButtonGroupComponentProps) => {
+  const [value, setValue] = useState("");
   return (
     <RadioButtonGroup
-      name="labelHelp"
-      legend="Radio group legend"
+      name={name}
       value={value}
-      onChange={(e) => setValue(e.target.value)}
-    >
-      <RadioButton
-        id="radio-1"
-        value="radio1"
-        label="Radio Option 1"
-        labelHelp="Radio 1"
-        {...args}
-      />
-      <RadioButton
-        id="radio-2"
-        value="radio2"
-        label="Radio Option 2"
-        labelHelp="Radio 2"
-        {...args}
-      />
-      <RadioButton
-        id="radio-3"
-        value="radio3"
-        label="Radio Option 3"
-        labelHelp="Radio 3"
-        {...args}
-      />
-    </RadioButtonGroup>
-  );
-};
-WithLabelHelp.storyName = "With labelHelp";
-WithLabelHelp.parameters = {
-  chromatic: { disableSnapshot: false },
-  themeProvider: { chromatic: { theme: "sage" } },
-};
-
-export const WithValidationsOnButtons = ({ ...args }) => {
-  const [value, setValue] = useState("");
-
-  return (
-    <RadioButtonGroup
-      name="validations-on-buttons-group"
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
+      onChange={(ev) => setValue(ev.target.value)}
+      legendHint="Legend Hint"
       {...args}
     >
+      <RadioButton id={`${id}-1`} value={`${id}-1`} label="Radio Option 1" />
+      <RadioButton id={`${id}-2`} value={`${id}-2`} label="Radio Option 2" />
       <RadioButton
-        id="validations-on-buttons-radio-1"
-        value="radio1"
-        label="Radio Option 1"
-        error="message"
-        fieldHelp="Some help text for this input."
-      />
-      <RadioButton
-        id="validations-on-buttons-radio-2"
-        value="radio2"
-        label="Radio Option 2"
-        warning="message"
-      />
-      <RadioButton
-        id="validations-on-buttons-radio-3"
-        value="radio3"
+        id={`${id}-3`}
+        value={`${id}-3`}
         label="Radio Option 3"
-        info="message"
+        inputHint="Input Hint"
       />
     </RadioButtonGroup>
   );
 };
-WithValidationsOnButtons.storyName = "Validations on RadioButton";
-WithValidationsOnButtons.args = {
-  legend: "Radio group legend",
-  legendInline: false,
-  required: false,
-  inline: false,
-};
-WithValidationsOnButtons.parameters = {
-  chromatic: { disableSnapshot: false },
-  themeProvider: { chromatic: { theme: "sage" } },
-};
 
-export const WithValidationsOnRadioGroup = ({ ...args }) => {
-  const [errorValue, setErrorValue] = useState("");
-  const [warningValue, setWarningValue] = useState("");
-  const [infoValue, setInfoValue] = useState("");
-
+export const Validation = ({ ...args }) => {
   return (
-    <>
-      <RadioButtonGroup
-        name="error-validations-on-group"
-        value={errorValue}
-        onChange={(e) => setErrorValue(e.target.value)}
-        error="Error message"
-        mb={2}
-        {...args}
-      >
-        <RadioButton
-          id="error-validations-on-group-radio-1"
-          value="error-validations-on-group-radio-1"
-          label="Error Radio Option 1"
+    <Box m={2} display="flex" gap={4}>
+      <Box display="flex" flexDirection="column" gap={2}>
+        <RadioButtonGroupComponent
+          id="error-group-small"
+          name="error-group-small"
+          legend="With Error Small"
+          error="Error Message"
+          size="small"
+          required
+          {...args}
         />
-        <RadioButton
-          id="error-validations-on-group-radio-2"
-          value="error-validations-on-group-radio-2"
-          label="Error Radio Option 2"
+        <RadioButtonGroupComponent
+          id="warning-group-small"
+          name="warning-group-small"
+          legend="With Warning Small"
+          warning="Warning Message"
+          size="small"
+          {...args}
         />
-        <RadioButton
-          id="error-validations-on-group-radio-3"
-          value="error-validations-on-group-radio-3"
-          label="Error Radio Option 3"
+        <RadioButtonGroupComponent
+          id="error-bottom-small-group"
+          name="error-bottom-small-group"
+          legend="With Error at Bottom Small"
+          error="Error Message"
+          validationMessagePositionTop={false}
+          size="small"
+          {...args}
         />
-      </RadioButtonGroup>
-
-      <RadioButtonGroup
-        name="warning-validations-on-group"
-        value={warningValue}
-        onChange={(e) => setWarningValue(e.target.value)}
-        warning="Warning message"
-        mb={2}
-        {...args}
-      >
-        <RadioButton
-          id="warning-validations-on-group-radio-1"
-          value="warning-validations-on-group-radio-1"
-          label="Warning Radio Option 1"
+        <RadioButtonGroupComponent
+          id="warning-bottom-small-group"
+          name="warning-bottom-small-group"
+          legend="With Warning at Bottom Small"
+          warning="Warning Message"
+          validationMessagePositionTop={false}
+          size="small"
+          {...args}
         />
-        <RadioButton
-          id="warning-validations-on-group-radio-2"
-          value="warning-validations-on-group-radio-2"
-          label="Warning Radio Option 2"
-        />
-        <RadioButton
-          id="warning-validations-on-group-radio-3"
-          value="warning-validations-on-group-radio-3"
-          label="Warning Radio Option 3"
-        />
-      </RadioButtonGroup>
-
-      <RadioButtonGroup
-        name="info-validations-on-group"
-        value={infoValue}
-        onChange={(e) => setInfoValue(e.target.value)}
-        info="Info message"
-        mb={2}
-        {...args}
-      >
-        <RadioButton
-          id="info-validations-on-group-radio-1"
-          value="info-validations-on-group-radio-1"
-          label="Info Radio Option 1"
-        />
-        <RadioButton
-          id="info-validations-on-group-radio-2"
-          value="info-validations-on-group-radio-2"
-          label="Info Radio Option 2"
-        />
-        <RadioButton
-          id="info-validations-on-group-radio-3"
-          value="info-validations-on-group-radio-3"
-          label="Info Radio Option 3"
-        />
-      </RadioButtonGroup>
-    </>
-  );
-};
-WithValidationsOnRadioGroup.storyName = "Validations on RadioButtonGroup";
-WithValidationsOnRadioGroup.args = {
-  legend: "Radio group legend",
-  legendInline: false,
-  required: false,
-  inline: false,
-  legendAlign: "left",
-};
-WithValidationsOnRadioGroup.parameters = {
-  chromatic: { disableSnapshot: false },
-  themeProvider: { chromatic: { theme: "sage" } },
-};
-
-export const NewValidation = ({ ...props }: Partial<RadioButtonGroupProps>) => {
-  const [errorValueTop, setErrorValueTop] = useState("");
-  const [errorValue, setErrorValue] = useState("");
-  const [warningValueTop, setWarningValueTop] = useState("");
-  const [warningValue, setWarningValue] = useState("");
-
-  return (
-    <CarbonProvider validationRedesignOptIn>
-      <RadioButtonGroup
-        name="radio-button-group-error-top"
-        error="Error Message"
-        mb={2}
-        value={errorValueTop}
-        onChange={(e) => setErrorValueTop(e.target.value)}
-        id="validation-1"
-        {...props}
-      >
-        <RadioButton
-          id="error-top-radio-1"
-          value="error-top-radio-1"
-          label="Yes"
-        />
-        <RadioButton
-          id="error-top-radio-2"
-          value="error-top-radio-2"
-          label="No"
-        />
-        <RadioButton
-          id="error-top-radio-3"
-          value="error-top-radio-3"
-          label="Maybe"
-          fieldHelp="fieldHelp text"
-        />
-      </RadioButtonGroup>
-      <RadioButtonGroup
-        name="radio-button-group-warning-top"
-        warning="Warning Message"
-        mb={2}
-        value={warningValueTop}
-        onChange={(e) => setWarningValueTop(e.target.value)}
-        id="validation-2"
-        {...props}
-      >
-        <RadioButton
-          id="warning-top-radio-1"
-          value="warning-top-radio-1"
-          label="Yes"
-        />
-        <RadioButton
-          id="warning-top-radio-2"
-          value="warning-top-radio-2"
-          label="No"
-        />
-        <RadioButton
-          id="warning-top-radio-3"
-          value="warning-top-radio-3"
-          label="Maybe"
-          fieldHelp="fieldHelp text"
-        />
-      </RadioButtonGroup>
-      <RadioButtonGroup
-        validationMessagePositionTop={false}
-        name="radio-button-group-error-bottom"
-        error="Error Message"
-        mb={2}
-        value={errorValue}
-        onChange={(e) => setErrorValue(e.target.value)}
-        id="validation-3"
-        {...props}
-      >
-        <RadioButton id="error-radio-1" value="error-radio-1" label="Yes" />
-        <RadioButton id="error-radio-2" value="error-radio-2" label="No" />
-        <RadioButton
-          id="error-radio-3"
-          value="error-radio-3"
-          label="Maybe"
-          fieldHelp="fieldHelp text"
-        />
-      </RadioButtonGroup>
-      <RadioButtonGroup
-        validationMessagePositionTop={false}
-        name="radio-button-group-warning-bottom"
-        warning="Warning Message"
-        value={warningValue}
-        onChange={(e) => setWarningValue(e.target.value)}
-        id="validation-4"
-        {...props}
-      >
-        <RadioButton id="warning-radio-1" value="warning-radio-1" label="Yes" />
-        <RadioButton id="warning-radio-2" value="warning-radio-2" label="No" />
-        <RadioButton
-          id="warning-radio-3"
-          value="warning-radio-3"
-          label="Maybe"
-          fieldHelp="fieldHelp text"
-        />
-      </RadioButtonGroup>
-    </CarbonProvider>
-  );
-};
-NewValidation.args = {
-  legend: "Radio group legend",
-  legendHelp: "Legend help text",
-  legendAlign: "left",
-  required: true,
-  inline: false,
-};
-NewValidation.parameters = {
-  chromatic: { disableSnapshot: false },
-  themeProvider: { chromatic: { theme: "sage" } },
-};
-
-export const NewValidationInline = ({
-  ...props
-}: Partial<RadioButtonGroupProps>) => {
-  const [errorValueTop, setErrorValueTop] = useState("");
-  const [errorValue, setErrorValue] = useState("");
-  const [warningValueTop, setWarningValueTop] = useState("");
-  const [warningValue, setWarningValue] = useState("");
-
-  return (
-    <CarbonProvider validationRedesignOptIn>
-      <RadioButtonGroup
-        name="radio-button-group-error-top"
-        error="Error Message"
-        mb={2}
-        inline
-        value={errorValueTop}
-        onChange={(e) => setErrorValueTop(e.target.value)}
-        id="validation-1"
-        {...props}
-      >
-        <RadioButton
-          id="error-top-radio-1"
-          value="error-top-radio-1"
-          label="Yes"
-        />
-        <RadioButton
-          id="error-top-radio-2"
-          value="error-top-radio-2"
-          label="No"
-        />
-        <RadioButton
-          id="error-top-radio-3"
-          value="error-top-radio-3"
-          label="Maybe"
-          fieldHelp="fieldHelp text"
-        />
-      </RadioButtonGroup>
-      <RadioButtonGroup
-        name="radio-button-group-warning-top"
-        warning="Warning Message"
-        mb={2}
-        inline
-        value={warningValueTop}
-        onChange={(e) => setWarningValueTop(e.target.value)}
-        id="validation-2"
-        {...props}
-      >
-        <RadioButton
-          id="warning-top-radio-1"
-          value="warning-top-radio-1"
-          label="Yes"
-        />
-        <RadioButton
-          id="warning-top-radio-2"
-          value="warning-top-radio-2"
-          label="No"
-        />
-        <RadioButton
-          id="warning-top-radio-3"
-          value="warning-top-radio-3"
-          label="Maybe"
-          fieldHelp="fieldHelp text"
-        />
-      </RadioButtonGroup>
-      <RadioButtonGroup
-        validationMessagePositionTop={false}
-        name="radio-button-group-error-bottom"
-        error="Error Message"
-        mb={2}
-        inline
-        value={errorValue}
-        onChange={(e) => setErrorValue(e.target.value)}
-        id="validation-3"
-        {...props}
-      >
-        <RadioButton id="error-radio-1" value="error-radio-1" label="Yes" />
-        <RadioButton id="error-radio-2" value="error-radio-2" label="No" />
-        <RadioButton
-          id="error-radio-3"
-          value="error-radio-3"
-          label="Maybe"
-          fieldHelp="fieldHelp text"
-        />
-      </RadioButtonGroup>
-      <RadioButtonGroup
-        validationMessagePositionTop={false}
-        name="radio-button-group-warning-bottom"
-        warning="Warning Message"
-        inline
-        value={warningValue}
-        onChange={(e) => setWarningValue(e.target.value)}
-        id="validation-4"
-        {...props}
-      >
-        <RadioButton id="warning-radio-1" value="warning-radio-1" label="Yes" />
-        <RadioButton id="warning-radio-2" value="warning-radio-2" label="No" />
-        <RadioButton
-          id="warning-radio-3"
-          value="warning-radio-3"
-          label="Maybe"
-          fieldHelp="fieldHelp text"
-        />
-      </RadioButtonGroup>
-    </CarbonProvider>
-  );
-};
-NewValidationInline.args = {
-  legend: "Radio group legend",
-  legendHelp: "Legend help text",
-  legendAlign: "left",
-  required: true,
-  inline: true,
-};
-NewValidationInline.parameters = {
-  chromatic: { disableSnapshot: false },
-  themeProvider: { chromatic: { theme: "sage" } },
-};
-
-export const WithLegendAlignment = ({
-  ...props
-}: Partial<RadioButtonGroupProps>) => {
-  const [valueLeft, setValueLeft] = useState("");
-  const [valueRight, setValueRight] = useState("");
-
-  return (
-    <CarbonProvider validationRedesignOptIn>
-      <RadioButtonGroup
-        name="radio-button-group-left"
-        value={valueLeft}
-        onChange={(e) => setValueLeft(e.target.value)}
-        {...props}
-        legendAlign="left"
-        mb={2}
-      >
-        <RadioButton id="radio-1-left" value="radio1-left" label="Yes" />
-        <RadioButton id="radio-2-left" value="radio2-left" label="No" />
-        <RadioButton
-          id="radio-3-left"
-          value="radio3-left"
-          label="RadioButton with a longer label"
-          fieldHelp="fieldHelp text"
-        />
-      </RadioButtonGroup>
-      <RadioButtonGroup
-        name="radio-button-group-right"
-        value={valueRight}
-        onChange={(e) => setValueRight(e.target.value)}
-        {...props}
-        legendAlign="right"
-      >
-        <RadioButton id="radio-1-right" value="radio1-right" label="Yes" />
-        <RadioButton id="radio-2-right" value="radio2-right" label="No" />
-        <RadioButton
-          id="radio-3-right"
-          value="radio3-right"
-          label="RadioButton with a longer label"
-          fieldHelp="fieldHelp text"
-        />
-      </RadioButtonGroup>
-    </CarbonProvider>
-  );
-};
-
-WithLegendAlignment.args = {
-  id: "with-legend-alignment",
-  legend: "Radio group legend",
-  error: "Error message",
-  warning: "",
-  legendHelp: "Legend help text",
-  required: true,
-  inline: false,
-};
-WithLegendAlignment.parameters = {
-  chromatic: { disableSnapshot: false },
-};
-
-export const HiddenInlineRadioButtons = () => {
-  const [value, setValue] = useState("");
-  const [isCheckboxChecked, setIsCheckboxChecked] = React.useState(false);
-  const [isSwitchChecked, setIsSwitchChecked] = React.useState(false);
-
-  return (
-    <CarbonProvider validationRedesignOptIn>
-      <Box height="90vh" overflowY="auto">
-        <Box position="sticky" height="300px" top="0%" bg="black" />
-        <Box height="1200px">
-          <Box m={2}>
-            <RadioButtonGroup
-              legend="Radio Buttons"
-              name="radio-buttons"
-              value={value}
-              onChange={(e) => setValue(e.target.value)}
-            >
-              <RadioButton id="first" value="1" label="first" size="large" />
-              <RadioButton id="second" value="2" label="second" size="large" />
-            </RadioButtonGroup>
-          </Box>
-          <Box m={2}>
-            <Checkbox
-              label="Checkbox"
-              name="checkbox-default"
-              size="large"
-              checked={isCheckboxChecked}
-              onChange={(e) => setIsCheckboxChecked(e.target.checked)}
-            />
-          </Box>
-          <Box m={2}>
-            <Switch
-              checked={isSwitchChecked}
-              label="Switch"
-              size="small"
-              onChange={() => {
-                setIsSwitchChecked(!isSwitchChecked);
-              }}
-            />
-          </Box>
-        </Box>
       </Box>
-    </CarbonProvider>
+      <Box display="flex" flexDirection="column" gap={2}>
+        <RadioButtonGroupComponent
+          id="error-group"
+          name="error-group"
+          legend="With Error"
+          error="Error Message"
+          required
+          {...args}
+        />
+        <RadioButtonGroupComponent
+          id="warning-group"
+          name="warning-group"
+          legend="With Warning"
+          warning="Warning Message"
+          {...args}
+        />
+        <RadioButtonGroupComponent
+          id="error-bottom-group"
+          name="error-bottom-group"
+          legend="With Error at Bottom"
+          error="Error Message"
+          validationMessagePositionTop={false}
+          {...args}
+        />
+        <RadioButtonGroupComponent
+          id="warning-bottom-group"
+          name="warning-bottom-group"
+          legend="With Warning at Bottom"
+          warning="Warning Message"
+          validationMessagePositionTop={false}
+          {...args}
+        />
+      </Box>
+      <Box display="flex" flexDirection="column" gap={2}>
+        <RadioButtonGroupComponent
+          id="error-large-group"
+          name="error-large-group"
+          legend="With Error Large"
+          error="Error Message"
+          size="large"
+          required
+          {...args}
+        />
+        <RadioButtonGroupComponent
+          id="warning-large-group"
+          name="warning-large-group"
+          legend="With Warning Large"
+          warning="Warning Message"
+          size="large"
+          {...args}
+        />
+        <RadioButtonGroupComponent
+          id="error-bottom-large-group"
+          name="error-bottom-large-group"
+          legend="With Error at Bottom Large"
+          error="Error Message"
+          validationMessagePositionTop={false}
+          size="large"
+          {...args}
+        />
+        <RadioButtonGroupComponent
+          id="warning-bottom-large-group"
+          name="warning-bottom-large-group"
+          legend="With Warning at Bottom Large"
+          warning="Warning Message"
+          validationMessagePositionTop={false}
+          size="large"
+          {...args}
+        />
+      </Box>
+    </Box>
   );
 };
-HiddenInlineRadioButtons.storyName = "Hidden Inline Radio Buttons";
+Validation.storyName = "Validation";
+
+export const ValidationInline: Story = {
+  render: (args) => <Validation {...args} />,
+  args: {
+    inline: true,
+  },
+};
+
+export const SizesWithProgressiveDisclosure: Story = ({ ...args }) => {
+  const [valueSmall, setValueSmall] = useState("small1");
+  const [valueMedium, setValueMedium] = useState("medium1");
+  const [valueLarge, setValueLarge] = useState("large1");
+
+  const [textboxValue, setTextboxValue] = useState("");
+
+  const conditionalContent = (
+    <Box mr={1} width="300px">
+      <Textbox
+        label="Revealed Textbox"
+        value={textboxValue}
+        onChange={(ev) => setTextboxValue(ev.target.value)}
+      />
+    </Box>
+  );
+
+  return (
+    <Box m={2} display="flex" flexDirection="column" gap={2}>
+      <RadioButtonGroup
+        name="size-group-small"
+        legend="Small Radio Buttons"
+        value={valueSmall}
+        onChange={(ev) => setValueSmall(ev.target.value)}
+        size="small"
+        {...args}
+      >
+        <RadioButton
+          id="small-radio-1"
+          value="small1"
+          label="Radio Option 1"
+          conditionalContent={conditionalContent}
+        />
+        <RadioButton id="small-radio-2" value="small2" label="Radio Option 2" />
+        <RadioButton id="small-radio-3" value="small3" label="Radio Option 3" />
+      </RadioButtonGroup>
+
+      <RadioButtonGroup
+        name="size-group-medium"
+        legend="Medium Radio Buttons"
+        value={valueMedium}
+        onChange={(ev) => setValueMedium(ev.target.value)}
+        size="medium"
+        {...args}
+      >
+        <RadioButton
+          id="medium-radio-1"
+          value="medium1"
+          label="Radio Option 1"
+          conditionalContent={conditionalContent}
+        />
+        <RadioButton
+          id="medium-radio-2"
+          value="medium2"
+          label="Radio Option 2"
+        />
+        <RadioButton
+          id="medium-radio-3"
+          value="medium3"
+          label="Radio Option 3"
+        />
+      </RadioButtonGroup>
+
+      <RadioButtonGroup
+        name="size-group-large"
+        legend="Large Radio Buttons"
+        value={valueLarge}
+        onChange={(ev) => setValueLarge(ev.target.value)}
+        size="large"
+        {...args}
+      >
+        <RadioButton
+          id="large-radio-1"
+          value="large1"
+          label="Radio Option 1"
+          conditionalContent={conditionalContent}
+        />
+        <RadioButton id="large-radio-2" value="large2" label="Radio Option 2" />
+        <RadioButton id="large-radio-3" value="large3" label="Radio Option 3" />
+      </RadioButtonGroup>
+    </Box>
+  );
+};
+SizesWithProgressiveDisclosure.storyName = "Sizes with Progressive Disclosure";
+SizesWithProgressiveDisclosure.parameters = {
+  chromatic: { delay: 500 },
+};
+
+export const LegendAlignment: Story = ({ ...args }) => {
+  return (
+    <Box m={2} display="flex" flexDirection="column" gap={4}>
+      <RadioButtonGroupComponent
+        id="radio-group-left"
+        name="radio-group-left"
+        legend="Group Left"
+        legendHint="Legend Hint"
+        legendAlign="left"
+        {...args}
+      />
+
+      <RadioButtonGroupComponent
+        id="radio-group-right"
+        name="radio-group-right"
+        legend="Group Right"
+        legendHint="Legend Hint"
+        legendAlign="right"
+        {...args}
+      />
+    </Box>
+  );
+};
+LegendAlignment.storyName = "Legend Alignment";

@@ -1,34 +1,30 @@
 import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
 
-import * as RadioButtonGroupStories from "./radio-button-group/radio-button-group.stories";
-import * as RadioButtonStories from "./radio-button.stories";
+import * as RadioButtonGroupStories from "./radio-button.stories";
 
-<Meta of={RadioButtonStories} />
+<Meta of={RadioButtonGroupStories} />
 
-# RadioButton/RadioButtonGroup
+# Radio Button
 
 <a
   target="_blank"
-  href="https://zeroheight.com/2ccf2b601/p/647e16-radio-button"
+  href="https://zeroheight.com/35ee2cc26/v/latest/p/23d57a-radio-button"
   style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
   rel="noreferrer"
 >
   Product Design System component
 </a>
 
-Used to provide a group of selectable radio buttons.
-
 ## Contents
 
 - [Quick Start](#quick-start)
-- [Related Components](#related-components)
 - [Examples](#examples)
 - [Validation states](#validation-states)
 - [Props](#props)
 
 ## Quick Start
 
-To use these components, import both `RadioButtonGroup` and `RadioButton`, and pass the radio buttons as children of the radio group.
+To use these components, import both `RadioButtonGroup` and `RadioButton`, and pass `RadioButton` as children of `RadioButtonGroup`.
 
 ```javascript
 import {
@@ -37,96 +33,68 @@ import {
 } from "carbon-react/lib/components/radio-button";
 ```
 
-## Related Components
-
-- Choosing one option from a very long list? [Try Select](../?path=/docs/select--docs).
-- Choosing more than one option? [Try Checkbox](../?path=/docs/checkbox--docs).
-- Choosing one option from a highly visible small range? [Try Button Toggle](../?path=/docs/button-toggle--docs).
-
 ## Examples
 
-### Default
+### With Legend
 
-<Canvas of={RadioButtonStories.Default} />
+A legend can be set on the group by passing the `legend` prop to `RadioButtonGroup` with a string value.
 
-### With legend
+<Canvas of={RadioButtonGroupStories.WithLegend} />
 
-A legend can be set for the group of radio buttons with the `legend` prop on `RadioButtonGroup`
+### With Legend Hint
 
-<Canvas of={RadioButtonStories.WithLegendAndLabels} />
+To add a hint below the legend, pass the `legendHint` prop to `RadioButtonGroup` with a string value.
 
-### With legend Help
+<Canvas of={RadioButtonGroupStories.WithLegendHint} />
 
-To add an input hint to the legend, use the `legendHelp` prop.
+### With Input Hint
 
-**Note:** The `legendHelp` prop will only render when the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *true*.
+To add a hint to an individual radio button, pass the `inputHint` prop to `RadioButton` with a string value.
 
-<Canvas of={RadioButtonStories.WithLegendHelp} />
+<Canvas of={RadioButtonGroupStories.WithInputHint} />
 
-### Label spacing
+### Inline
 
-The spacing between radio buttons and their labels can be changed with the `labelSpacing` prop. Similarly to the `legendSpacing` prop, this is a number which is multiplied by the base theme spacing constant. It defaults to `1` which is therefore `8px`.
+`RadioButton` children can be displayed inline by passing the `inline` prop to `RadioButtonGroup`.
 
-<Canvas of={RadioButtonStories.DifferentLabelSpacing} />
+<Canvas of={RadioButtonGroupStories.InlineRadioButtons} />
 
-### Inline radio buttons
+### Sizes
 
-The radio buttons can be made inline with the `inline` prop.
+The size of the component can be changed by passing the `size` prop to `RadioButtonGroup`. Available options are `small`, `medium`, and `large`.
 
-<Canvas of={RadioButtonStories.InlineRadioButtons} />
+<Canvas of={RadioButtonGroupStories.Sizes} />
 
-### Reverse radio buttons
+### Progressive Disclosure
 
-The radio buttons and labels can be flipped around using the `reverse` prop on each radio button. The same spacing options between the label and radio button as above apply.
+`RadioButton` can be used to conditionally reveal additional content when selected. 
+This can be achieved by passing the content to the `conditionalContent` prop in `RadioButton`, which accepts any valid ReactNode.
 
-<Canvas of={RadioButtonStories.ReverseRadioButtons} />
+It is recommended that you provide limited amounts of content within conditionally revealed sections, if you need to disclose larger amounts of content, please consider using a different pattern.
 
-### Disable radio buttons
+**Please Note**: Progressive disclosure is not supported when the `inline` prop is set on `RadioButtonGroup`.
 
-The radio buttons and labels can be disabled using the `disabled` prop on each radio button.
+<Canvas of={RadioButtonGroupStories.ProgressiveDisclosure} />
 
-**Please Note**: Even though Carbon does support disabled radio buttons, their use is not generally recommended by Design System.
+### With Custom Labels
 
-<Canvas of={RadioButtonStories.DisableRadioButtons} />
+The `label` prop in `RadioButton` accepts a ReactNode, which allows for custom content to be displayed as the label.
 
-### With field help
-
-Help text for each input can be added with the `fieldHelp` prop on `RadioButton`. This can be made inline with the `fieldHelpInline` prop.
-
-<Canvas of={RadioButtonStories.WithFieldHelp} />
-
-### With large radio buttons
-
-Passing in `large` for the `size` prop on each radio button will increase the size of the button.
-
-<Canvas of={RadioButtonStories.WithLargeRadioButtons} />
-
-### With custom styled labels
-
-The `label` prop can be set to a ReactNode to allow for custom styling of the label.
-
-<Canvas of={RadioButtonStories.WithCustomStyledLabels} />
+<Canvas of={RadioButtonGroupStories.WithCustomLabels} />
 
 ### Required
 
-You can use the `required` prop to indicate if the fields are mandatory.
+`RadioButtonGroup` can be marked as required by passing the `required` prop.
 
-<Canvas of={RadioButtonStories.Required} />
+<Canvas of={RadioButtonGroupStories.Required} />
 
-### With inline legend (legacy)
+### Disabled
 
-Use the `legendInline` prop to display the group legend on the same horizontal row as the grouped radio buttons. You can adjust its appearance using the `legendWidth` and 
-`legendAlign` props to control the width and text alignment of the legend. The `legendSpacing` prop can be used to control the spacing between the legend and the grouped radio buttons.
+`RadioButton`s can be disabled using the `disabled` prop either on the `RadioButtonGroup` to disable all radio buttons, or on individual `RadioButton`s to disable them individually.
 
-**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *false*.
+**Please Note**: Even though Carbon does support disabled radio buttons, their use is not generally recommended by Design System.
 
-<Canvas of={RadioButtonStories.WithInlineLegend} />
-
-### Enable adaptive behaviour
-
-Passing in the `adaptiveLegendBreakpoint` and `adaptiveSpacingBreakpoint` props will enable the adaptive behaviour.
-
-<Canvas of={RadioButtonStories.EnableAdaptiveBehaviour} />
+<Canvas of={RadioButtonGroupStories.Disabled} />
 
 ## Validation States
 
@@ -134,12 +102,6 @@ This component supports input validation, see our [Validations](../?path=/docs/d
 
 ## Props
 
-### RadioButton
-
-<ArgTypes of={RadioButtonStories} />
-
-**Any other supplied props will be provided to the underlying HTML input element**
-
-### RadioButtonGroup
+**Any other supplied props in `RadioButton` will be provided to the underlying HTML input element**
 
 <ArgTypes of={RadioButtonGroupStories} />
