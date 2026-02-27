@@ -13,8 +13,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ">=24.11.0 24"
-      - name: Update npm to 11.9
-        run: npm install -g npm@11.9
+      - name: Update npm to 11.10.1
+        run: npm install -g npm@11.10.1
       - run: npm ci
       - run: npm run build-storybook:prod
       - uses: aws-actions/configure-aws-credentials@v2
