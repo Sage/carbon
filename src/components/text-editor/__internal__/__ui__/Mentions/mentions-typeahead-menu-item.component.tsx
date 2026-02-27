@@ -33,21 +33,20 @@ const HighlightedText = ({ text, query }: { text: string; query?: string }) => {
 export const MentionsTypeaheadMenuItem = ({
   index,
   isSelected,
-  namespace,
   onClick,
   onMouseEnter,
   option,
   currentQueryString,
+  ...rest
 }: {
   index: number;
   isSelected: boolean;
-  namespace: string;
   onClick: () => void;
   onMouseEnter: () => void;
   option: MentionTypeaheadOption;
   currentQueryString?: string;
 }) => {
-  const className = "item" + (isSelected ? " selected" : "");
+  const className = "item mentions-list-item" + (isSelected ? " selected" : "");
 
   return (
     <MentionsListItem
@@ -57,11 +56,12 @@ export const MentionsTypeaheadMenuItem = ({
       ref={option.setRefElement}
       role="option"
       aria-selected={isSelected}
-      id={`${namespace}-typeahead-item-${index}`}
+      id={`typeahead-item-${index}`}
       onMouseEnter={onMouseEnter}
       onClick={onClick}
       onKeyDown={onClick}
       aria-label={option.name}
+      {...rest}
     >
       <Portrait
         initials={option.initials}
