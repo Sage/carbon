@@ -235,6 +235,7 @@ export const Button = forwardRef<ButtonHandle, ButtonProps>(
         aria-describedby={ariaDescribedBy}
         aria-label={ariaLabel}
         aria-labelledby={ariaLabelledBy}
+        type="button"
         disabled={disabled}
         $fullWidth={fullWidth}
         $inverse={inverse || buttonType === "darkBackground" || isWhite}
