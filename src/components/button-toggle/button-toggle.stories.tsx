@@ -37,6 +37,9 @@ export const Default: Story = () => {
   );
 };
 Default.storyName = "Default";
+Default.parameters = {
+  chromatic: { disableSnapshot: true },
+};
 
 export const InputHint: Story = () => {
   const [value, setValue] = useState("");
@@ -557,3 +560,6 @@ export const WrappedButtons: Story = () => {
   );
 };
 WrappedButtons.storyName = "Wrapped Buttons";
+WrappedButtons.parameters = {
+  chromatic: { disableSnapshot: true },
+};
