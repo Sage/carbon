@@ -1,3 +1,9 @@
+## [158.35.0](https://github.com/Sage/carbon/compare/v158.34.1...v158.35.0) (2026-03-02)
+
+### Features
+
+* **tokens:** upgrade token version to v18.0.0 ([669dd0c](https://github.com/Sage/carbon/commit/669dd0ce1b85e029a0651e90a479c9911c9cef1e))
+
 ## [158.34.1](https://github.com/Sage/carbon/compare/v158.34.0...v158.34.1) (2026-02-27)
 
 ### Bug Fixes
