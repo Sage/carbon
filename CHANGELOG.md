@@ -1,3 +1,9 @@
+## [158.35.1](https://github.com/Sage/carbon/compare/v158.35.0...v158.35.1) (2026-03-02)
+
+### Bug Fixes
+
+* **button:** add type attribute to component ([0becea3](https://github.com/Sage/carbon/commit/0becea3edeff255544e6b0e9b1d210e04e38e694))
+
 ## [158.35.0](https://github.com/Sage/carbon/compare/v158.34.1...v158.35.0) (2026-03-02)
 
 ### Features
