@@ -17,11 +17,18 @@ type Story = StoryObj<typeof ResponsiveVerticalMenu>;
 
 export default {
   title: "Vertical Menu/Responsive/Interactions",
+
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
     viewport: {
       viewports: INITIAL_VIEWPORTS,
-      defaultViewport: "desktop",
+    },
+  },
+
+  globals: {
+    viewport: {
+      value: "desktop",
+      isRotated: false,
     },
   },
 };
