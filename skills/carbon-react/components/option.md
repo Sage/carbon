@@ -80,7 +80,7 @@ description: Carbon Option component props and usage examples.
 | onAnimationStartCapture | AnimationEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onAuxClick | MouseEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onAuxClickCapture | MouseEventHandler<T> \| undefined | No |  |  |  |  |  |
-| onBeforeInput | InputEventHandler<T> \| undefined | No |  |  |  |  |  |
+| onBeforeInput | FormEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onBeforeInputCapture | FormEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onBlur | FocusEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onBlurCapture | FocusEventHandler<T> \| undefined | No |  |  |  |  |  |
@@ -194,6 +194,8 @@ description: Carbon Option component props and usage examples.
 | onRateChangeCapture | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onReset | FormEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onResetCapture | FormEventHandler<T> \| undefined | No |  |  |  |  |  |
+| onResize | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
+| onResizeCapture | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onScroll | UIEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onScrollCapture | UIEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onSeeked | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |

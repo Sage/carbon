@@ -1,13 +1,18 @@
-import { StorybookConfig } from "@storybook/react-vite";
+// This file has been automatically migrated to valid ESM format by Storybook.
+import { fileURLToPath } from "node:url";
+import type { StorybookConfig } from "@storybook/react-vite";
 
 import react from "@vitejs/plugin-react";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 
-import path from "path";
+import path, { dirname } from "path";
 
 import glob from "glob";
 
 import remarkGfm from "remark-gfm";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const projectRoot = path.resolve(__dirname, "../");
 const ignoreTests = process.env.IGNORE_TESTS === "true";
@@ -59,12 +64,14 @@ const config: StorybookConfig = {
 
   staticDirs: ["../.assets", "../logo"],
 
-  viteFinal: async (config) => {
+  viteFinal: async (config: Record<string, any>) => {
     const { mergeConfig } = await import("vite");
 
     return mergeConfig(config, {
       plugins: [
-        react(),
+        react({
+          exclude: [/\.storybook\//],
+        }),
         viteStaticCopy({
           targets: [
             {
@@ -103,12 +110,12 @@ const config: StorybookConfig = {
   },
 
   ...(isChromatic && {
-    previewHead: (head) => `
-      ${head}
+    previewHead: (head: string | undefined) => `
+      ${head || ""}
       <meta name="robots" content="noindex">
   `,
-    managerHead: (head) => `
-      ${head}
+    managerHead: (head: string | undefined) => `
+      ${head || ""}
       <meta name="robots" content="noindex">
   `,
   }),
@@ -116,6 +123,16 @@ const config: StorybookConfig = {
   typescript: {
     check: false,
     reactDocgen: "react-docgen-typescript",
+    reactDocgenTypescriptOptions: {
+      shouldExtractLiteralValuesFromEnum: true,
+      shouldRemoveUndefinedFromOptional: true,
+      propFilter: (prop) => {
+        if (prop.parent) {
+          return !prop.parent.fileName.includes(".storybook");
+        }
+        return true;
+      },
+    },
   },
 
   docs: {},

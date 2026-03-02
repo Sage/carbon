@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StoryObj } from "@storybook/react/*";
+import { StoryObj } from "@storybook/react";
 import Textarea, { TextareaProps } from ".";
 import Dialog from "../dialog";
 import Form from "../form";
