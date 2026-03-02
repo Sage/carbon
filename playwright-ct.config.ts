@@ -2,13 +2,13 @@ import { defineConfig, devices } from "@playwright/experimental-ct-react";
 
 import { resolve } from "path";
 
-const playwrightDir = resolve(__dirname, "./playwright");
+const playwrightDir = resolve(import.meta.dirname, "./playwright");
 
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  testDir: resolve(__dirname, "./src/components"),
+  testDir: resolve(import.meta.dirname, "./src/components"),
 
   snapshotDir: resolve(playwrightDir, "./__snapshots__"),
 
@@ -35,7 +35,7 @@ export default defineConfig({
       resolve: {
         alias: {
           // Required to load font assets correctly from @sage/design-tokens package
-          "~@sage": resolve(__dirname, "./node_modules/@sage/"),
+          "~@sage": resolve(import.meta.dirname, "./node_modules/@sage/"),
         },
       },
     },
@@ -53,5 +53,5 @@ export default defineConfig({
     },
   ],
 
-  globalTeardown: require.resolve("./playwright/global-teardown"),
+  globalTeardown: resolve(import.meta.dirname, "./playwright/global-teardown.js"),
 });

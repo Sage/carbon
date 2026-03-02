@@ -1,6 +1,6 @@
 import React from "react";
 import { StoryObj, StoryFn } from "@storybook/react";
-import { userEvent } from "@storybook/test";
+import { userEvent } from "storybook/test";
 
 import Box from "../box";
 import Search from "./search.component";

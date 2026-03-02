@@ -5,3 +5,84 @@
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
 <meta name="msapplication-TileColor" content="#da532c" />
 <meta name="theme-color" content="#ffffff" />
+
+<style>
+  #storybook-explorer-toolbar,
+  [role="toolbar"],
+  [role="region"][data-testid="sb-preview-toolbar"] {
+    background-color: #000000 !important;
+    background: #000000 !important;
+    box-shadow: black 0px -1px 0px 0px inset !important;
+  }
+  
+  #storybook-explorer-toolbar *,
+  [role="toolbar"] * {
+    color: #FFFFFF !important;
+  }
+  
+  #storybook-explorer-toolbar button,
+  #storybook-explorer-toolbar svg,
+  [role="toolbar"] button,
+  [role="toolbar"] svg {
+    color: #FFFFFF !important;
+    fill: #FFFFFF !important;
+  }
+  
+  [role="toolbar"] button,
+  [role="toolbar"] button *,
+  [role="toolbar"] div {
+    background-color: transparent !important;
+    background: transparent !important;
+  }
+
+  [role="toolbar"] button:hover,
+  [role="toolbar"] button *,
+  [role="toolbar"] button svg {
+    color: #FFFFFF !important;
+    fill: #FFFFFF !important;
+  }
+  
+  [role="toolbar"] button:hover,
+  [role="toolbar"] button:hover *,
+  [role="toolbar"] button:hover svg {
+    color: #00DC00 !important;
+    fill: #00DC00 !important;
+    opacity: 0.8 !important;
+  }
+
+  [role="toolbar"] button[aria-label*="Locale"],
+  [role="toolbar"] button[aria-label*="Colour Mode"],
+  [role="toolbar"] button[aria-label*="Theme"],
+  [role="toolbar"] button[aria-label*="locale"],
+  [role="toolbar"] button[aria-label*="mode"],
+  [role="toolbar"] button[aria-label*="theme"],
+  [role="toolbar"] button[aria-label*="Locale"] *,
+  [role="toolbar"] button[aria-label*="Colour Mode"] *,
+  [role="toolbar"] button[aria-label*="Theme"] *,
+  [role="toolbar"] button[aria-label*="locale"] *,
+  [role="toolbar"] button[aria-label*="mode"] *,
+  [role="toolbar"] button[aria-label*="theme"] *,
+  [role="toolbar"] button[aria-label*="Locale"] svg,
+  [role="toolbar"] button[aria-label*="Colour Mode"] svg,
+  [role="toolbar"] button[aria-label*="Theme"] svg,
+  [role="toolbar"] button[aria-label*="locale"] svg,
+  [role="toolbar"] button[aria-label*="mode"] svg,
+  [role="toolbar"] button[aria-label*="theme"] svg {
+    color: #00DC00 !important;
+    fill: #00DC00 !important;
+  }
+
+  [role="toolbar"] button[title*="version"] *,
+  [role="toolbar"] button[aria-label*="interaction"] * {
+    color: #00DC00 !important;
+    fill: #00DC00 !important;
+  }
+
+  [role="toolbar"] button[title*="version"],
+  [role="toolbar"] button[aria-label*="interaction"] {
+    color: #00DC00 !important;
+    fill: #00DC00 !important;
+    box-shadow: #00DC00 0px 0px 0px 1px inset !important;
+  }
+  
+</style>

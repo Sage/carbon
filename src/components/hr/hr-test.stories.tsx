@@ -1,5 +1,5 @@
 import React from "react";
-import { StoryObj } from "@storybook/react/*";
+import { StoryObj } from "@storybook/react";
 import Box from "../box";
 import Typography from "../typography";
 import Hr, { HrProps } from ".";
