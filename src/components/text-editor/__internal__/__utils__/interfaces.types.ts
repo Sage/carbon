@@ -182,6 +182,7 @@ export interface SaveProps {
 
 export interface EditorFormattedValues {
   htmlString?: string;
+  htmlWithInlineStyles?: string;
   json?: {
     root: {
       children: SaveProps[];
