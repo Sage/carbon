@@ -1,3 +1,10 @@
+## [158.34.1](https://github.com/Sage/carbon/compare/v158.34.0...v158.34.1) (2026-02-27)
+
+### Bug Fixes
+
+* **mentions:** resolve accessibility issues ([7b1e008](https://github.com/Sage/carbon/commit/7b1e008294f127faecb0980e17845a46b40dd218))
+* **mentions:** resolve landmark issue ([790d1a2](https://github.com/Sage/carbon/commit/790d1a26054a0dfea7fb07ea565bbca58a33f8b1))
+
 ## [158.34.0](https://github.com/Sage/carbon/compare/v158.33.0...v158.34.0) (2026-02-24)
 
 ### Features
