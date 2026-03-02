@@ -11,7 +11,7 @@
     "jsx": "react",
     "lib": ["esnext", "dom", "dom.iterable"],
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noUnusedLocals": true,
