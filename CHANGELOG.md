@@ -1,3 +1,9 @@
+## [158.35.2](https://github.com/Sage/carbon/compare/v158.35.1...v158.35.2) (2026-03-03)
+
+### Bug Fixes
+
+* **splitbutton, multiactionbutton:** cannot interact when inside a table ([68d8449](https://github.com/Sage/carbon/commit/68d844924d5a1b52c50ebb50de5ba27336e6e356)), closes [#7747](https://github.com/Sage/carbon/issues/7747)
+
 ## [158.35.1](https://github.com/Sage/carbon/compare/v158.35.0...v158.35.1) (2026-03-02)
 
 ### Bug Fixes
