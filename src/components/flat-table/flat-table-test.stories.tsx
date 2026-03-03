@@ -1469,3 +1469,45 @@ export const WithSelectableRows = () => {
     </FlatTable>
   );
 };
+
+export const FlatTableWithStickyHeadAndButtons = () => {
+  return (
+    <FlatTable height="250px" mt={1} hasStickyHead>
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>Name</FlatTableHeader>
+          <FlatTableHeader>Split Button</FlatTableHeader>
+          <FlatTableHeader>Multi Action Button</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        {new Array(7)
+          .fill("")
+          .map((_, index) => index)
+          .map((key) => {
+            return (
+              <FlatTableRow key={key}>
+                <FlatTableCell>John</FlatTableCell>
+                <FlatTableCell>
+                  <SplitButton text="Split Button">
+                    <Button>Button 1</Button>
+                    <Button>Button 2</Button>
+                  </SplitButton>
+                </FlatTableCell>
+                <FlatTableCell>
+                  <MultiActionButton text="Multi Action Button">
+                    <Button>Button 1</Button>
+                    <Button>Button 2</Button>
+                  </MultiActionButton>
+                </FlatTableCell>
+              </FlatTableRow>
+            );
+          })}
+      </FlatTableBody>
+    </FlatTable>
+  );
+};
+
+FlatTableWithStickyHeadAndButtons.parameters = {
+  chromatic: { disableSnapshot: true },
+};
