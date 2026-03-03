@@ -26,10 +26,19 @@ type Story = StoryObj<typeof Breadcrumbs>;
 export const WhenFocusedCrumbBecomesCurrent: Story = ({ ...args }) => {
   const [current, setCurrent] = React.useState(false);
 
+  const handleClick = (
+    e:
+      | React.MouseEvent<HTMLAnchorElement, MouseEvent>
+      | React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    e.preventDefault();
+    setCurrent(true);
+  };
+
   return (
     <>
       <Breadcrumbs {...args}>
-        <Crumb href="#bar" onClick={() => setCurrent(true)} isCurrent={current}>
+        <Crumb href="#bar" onClick={handleClick} isCurrent={current}>
           Crumb{current ? "" : " not"} current
         </Crumb>
       </Breadcrumbs>
