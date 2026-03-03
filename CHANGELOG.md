@@ -1,3 +1,9 @@
+## [158.35.4](https://github.com/Sage/carbon/compare/v158.35.3...v158.35.4) (2026-03-03)
+
+### Bug Fixes
+
+* **tabs:** add missing next TabsHandle export ([4deaf94](https://github.com/Sage/carbon/commit/4deaf949a7ebe575b0e5b978961d94790edb226f))
+
 ## [158.35.3](https://github.com/Sage/carbon/compare/v158.35.2...v158.35.3) (2026-03-03)
 
 ### Bug Fixes
