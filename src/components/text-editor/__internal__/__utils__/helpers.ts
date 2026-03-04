@@ -7,16 +7,84 @@ import { getTheme } from "./theme";
 
 import Logger from "../../../../__internal__/utils/logger";
 
+const fontFamily = "font-family: 'Sage UI', sans-serif;";
+const linkStyles = `color: #007e45ff; cursor: pointer; text-decoration: underline; ${fontFamily}`;
+
+const classToStyleMap: Record<string, string> = {
+  textBold: "font-weight: bold;",
+  textItalic: "font-style: italic;",
+  textUnderline: "text-decoration: underline;",
+};
+
 /**
- * This helper takes the current state of the editor and serializes it into two formats:
+ * Post-processes HTML serialized from the Lexical editor, converting class-based
+ * text formatting to inline styles and applying brand-consistent defaults to all elements.
+ *
+ * Specifically:
+ * - Converts Lexical's text format classes (textBold, textItalic, textUnderline)
+ *   to their inline style equivalents
+ * - Applies the Sage UI font family to all elements
+ * - Applies link styles (color, cursor, underline) to anchor elements
+ * - Preserves any existing inline styles set by Lexical (e.g. white-space: pre-wrap)
+ *
+ * This ensures the output HTML is portable and renders correctly in contexts where
+ * the Lexical stylesheet is not present, such as email templates or external consumers.
+ */
+const generateHTMLWithInlineStyles = (html: string): string => {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, "text/html");
+
+  doc.body.querySelectorAll("*").forEach((el) => {
+    const element = el as HTMLElement;
+
+    // Accumulate new inline styles
+    const newStyles: string[] = [];
+
+    // Map class names to inline styles
+    const classList = Array.from(element.classList);
+    classList.forEach((className) => {
+      const mappedStyle = classToStyleMap[className];
+      if (mappedStyle) {
+        newStyles.push(mappedStyle);
+        element.classList.remove(className);
+      }
+    });
+
+    // Apply link styles
+    if (element.tagName === "A") {
+      newStyles.push(linkStyles);
+    } else {
+      // Apply font family to all non-link elements (links get it via linkStyles)
+      newStyles.push(fontFamily);
+    }
+
+    // Merge with any existing inline styles
+    const existingStyle = element.getAttribute("style") ?? "";
+    const mergedStyle = [existingStyle, ...newStyles].filter(Boolean).join(" ");
+
+    element.setAttribute("style", mergedStyle);
+
+    // Remove class attribute if now empty
+    if (element.classList.length === 0) {
+      element.removeAttribute("class");
+    }
+  });
+
+  return doc.body.innerHTML;
+};
+
+/**
+ * This helper takes the current state of the editor and serializes it into three formats:
  * 1. HTML
- * 2. JSON
+ * 2. HTML with inline styles (for use in email templates and contexts without stylesheets)
+ * 3. JSON
  * This allows the editor state to be saved and restored at a later time, in a format suitable
  * for the majority of customers' use cases.
  */
 
 const SerializeLexical = (editor: LexicalEditor) => {
-  let htmlString;
+  let htmlString: string | undefined;
+  let htmlWithInlineStyles: string | undefined;
   let json;
 
   editor.read(() => {
@@ -26,9 +94,11 @@ const SerializeLexical = (editor: LexicalEditor) => {
     json = editorState.toJSON();
     // Generate HTML from the editor state
     htmlString = $generateHtmlFromNodes(editor, null);
+    // Generate HTML with inline styles for portable use
+    htmlWithInlineStyles = generateHTMLWithInlineStyles(htmlString);
   });
 
-  return { htmlString, json };
+  return { htmlString, htmlWithInlineStyles, json };
 };
 
 /**
@@ -104,6 +174,7 @@ const createEmpty = () => {
 };
 
 export {
+  generateHTMLWithInlineStyles,
   createEmpty,
   createFromHTML,
   DeserializeHTML,

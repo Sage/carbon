@@ -13,6 +13,7 @@ import { SaveButton } from ".";
 
 const mockedSerializeRespone = {
   htmlString: "<p><br></p>",
+  htmlWithInlineStyles: "<p><br></p>",
   json: {
     root: {
       children: [],
@@ -55,6 +56,9 @@ describe("Command buttons", () => {
       await user.click(saveButton);
       expect(onSave).toHaveBeenCalledTimes(1);
       expect(onSave.mock.calls[0][0].htmlString).toEqual("<p><br></p>");
+      expect(onSave.mock.calls[0][0].htmlWithInlineStyles).toContain(
+        "font-family: 'Sage UI', sans-serif;",
+      );
     });
   });
 });

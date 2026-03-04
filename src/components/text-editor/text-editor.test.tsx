@@ -515,6 +515,60 @@ test("serialisation of editor", async () => {
   expect(mockSave).toHaveBeenCalledTimes(1);
 });
 
+test("onChange receives htmlWithInlineStyles in formatted values", async () => {
+  const user = userEvent.setup();
+  const onChange = jest.fn();
+
+  render(
+    <TextEditor
+      labelText="Text Editor"
+      onChange={onChange}
+      initialValue={JSON.stringify(initialValue)}
+    />,
+  );
+
+  const editor = screen.getByRole("textbox");
+  await user.type(editor, "test");
+
+  await waitFor(() => {
+    expect(onChange).toHaveBeenCalled();
+  });
+
+  // Verify the most recent call included htmlWithInlineStyles with font-family
+  const lastCall = onChange.mock.calls[onChange.mock.calls.length - 1];
+  const formattedValues = lastCall[1] as EditorFormattedValues;
+
+  expect(formattedValues.htmlWithInlineStyles).toBeDefined();
+  expect(formattedValues.htmlWithInlineStyles).toContain(
+    "font-family: 'Sage UI', sans-serif;",
+  );
+});
+
+test("onSave receives htmlWithInlineStyles in formatted values", async () => {
+  const user = userEvent.setup();
+  const onSave = jest.fn();
+
+  render(
+    <TextEditor
+      labelText="Text Editor"
+      onSave={(values: EditorFormattedValues) => onSave(values)}
+      initialValue={JSON.stringify(initialValue)}
+    />,
+  );
+
+  const saveButton = screen.getByText("Save");
+  await user.click(saveButton);
+
+  expect(onSave).toHaveBeenCalledTimes(1);
+
+  const formattedValues = onSave.mock.calls[0][0] as EditorFormattedValues;
+
+  expect(formattedValues.htmlWithInlineStyles).toBeDefined();
+  expect(formattedValues.htmlWithInlineStyles).toContain(
+    "font-family: 'Sage UI', sans-serif;",
+  );
+});
+
 test("editor is focused when the focus method is invoked via a click on the editor label", async () => {
   const user = userEvent.setup();
 

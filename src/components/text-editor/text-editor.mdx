@@ -84,9 +84,12 @@ Providing an `onChange` callback allows for accessing any content updates within
 #### Parameters
 
 - `value`: The updated text content as a string.
-- `formattedValues`: An object containing two properties that represent the editor's content in a serialised format. This can be used to save the content to an external store like a database or local storage.
+- `formattedValues`: An object containing three properties that represent the editor's content in a serialised format. This can be used to save the content to an external store like a database or local storage.
   - `htmlString`: A HTML representation of the editor content, as a string.
+  - `htmlWithInlineStyles` (optional): A HTML representation of the editor content with all formatting converted to inline styles. This format is portable and suitable for use in email templates or contexts where stylesheets are not available.
   - `json`: The JSON representation of the editor content, as a string.
+
+> **Note**: The `htmlWithInlineStyles` property is optional and is only provided if you need portable HTML output. You can ignore this property if you only need `htmlString` or `json`.
 
 > **Note**: `TextEditor` is an uncontrolled component. See [Externally overwriting the editor's content](#externally-overwriting-the-editors-content) for details on updating content after initialization.
 
@@ -105,13 +108,13 @@ Updating the component's `key` will force React to re-create it, which will rese
 ### onSave Handler
 
 To handle the content of the editor when the `Save` button is clicked, you can set the `onSave` property to a function. The callback function
-returns two values: the JSON and HTML content of the editor. The value of `json` reflects the structure that the editor understands/uses
+returns three values: the JSON, HTML, and HTML with inline styles content of the editor. The value of `json` reflects the structure that the editor understands/uses
 internally; the value of `htmlString` is the raw content of the editor in HTML format (note that the HTML returned is not complete HTML - only
-the content of the editor is converted).
+the content of the editor is converted); the value of `htmlWithInlineStyles` is the HTML content with all formatting converted to inline styles, making it suitable for use in email templates and other contexts where stylesheets are not available.
 
 If the `onSave` property is not provided, the `Save` button will not be displayed.
 
-Type into the editor and the click the **Show Data Formats** button in the example below to see the JSON and HTML content of the editor.
+Type into the editor and the click the **Show Data Formats** button in the example below to see the JSON, HTML, and HTML with inline styles content of the editor.
 
 <Canvas of={TextEditorStories.OnSave} />
 

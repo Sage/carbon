@@ -185,11 +185,14 @@ export const OnChange: Story = () => {
   const [valueHTML, setValueHTML] = React.useState<string | undefined>(
     undefined,
   );
+  const [valueHTMLWithInlineStyles, setValueHTMLWithInlineStyles] =
+    React.useState<string | undefined>(undefined);
 
   const handleChange = useCallback(
     (value: string, formattedValues: EditorFormattedValues) => {
       setValueString(value);
       setValueHTML(formattedValues.htmlString);
+      setValueHTMLWithInlineStyles(formattedValues.htmlWithInlineStyles);
     },
     [],
   );
@@ -205,6 +208,12 @@ export const OnChange: Story = () => {
       <div>
         HTML formatted content:{" "}
         {valueHTML === "<p><br></p>" ? "No content" : valueHTML}
+      </div>
+      <div>
+        HTML with inline styles (portable):{" "}
+        {valueHTMLWithInlineStyles === "<p><br></p>"
+          ? "No content"
+          : valueHTMLWithInlineStyles}
       </div>
     </Box>
   );
@@ -258,6 +267,7 @@ ExternallyOverwriting.parameters = {
 export const OnSave: Story = () => {
   const [data, setData] = useState<EditorFormattedValues>({
     htmlString: "<p><br></p>",
+    htmlWithInlineStyles: "<p><br></p>",
     json: undefined,
   });
   const [showData, setShowData] = useState(false);
@@ -267,7 +277,9 @@ export const OnSave: Story = () => {
         <TextEditor
           namespace="storybook-onsave"
           labelText="Text Editor"
-          onSave={({ htmlString, json }) => setData({ htmlString, json })}
+          onSave={({ htmlString, htmlWithInlineStyles, json }) =>
+            setData({ htmlString, htmlWithInlineStyles, json })
+          }
         />
       </>
       <Button
@@ -290,6 +302,12 @@ export const OnSave: Story = () => {
               HTML
             </Typography>
             {data?.htmlString || "No content"}
+          </Box>
+          <Box maxWidth="30%">
+            <Typography variant="h4" mb={1}>
+              HTML with Inline Styles
+            </Typography>
+            {data?.htmlWithInlineStyles || "No content"}
           </Box>
           <Box maxWidth="30%">
             <Typography variant="h4" mb={1}>
