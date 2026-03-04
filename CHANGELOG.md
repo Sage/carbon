@@ -1,3 +1,40 @@
+## [158.35.4](https://github.com/Sage/carbon/compare/v158.35.3...v158.35.4) (2026-03-03)
+
+### Bug Fixes
+
+* **tabs:** add missing next TabsHandle export ([4deaf94](https://github.com/Sage/carbon/commit/4deaf949a7ebe575b0e5b978961d94790edb226f))
+
+## [158.35.3](https://github.com/Sage/carbon/compare/v158.35.2...v158.35.3) (2026-03-03)
+
+### Bug Fixes
+
+* **breadcrumbs:** don't render link for selected crumb ([3179d3d](https://github.com/Sage/carbon/commit/3179d3d6edea767f5b22a644f84dd745fda5c076))
+
+## [158.35.2](https://github.com/Sage/carbon/compare/v158.35.1...v158.35.2) (2026-03-03)
+
+### Bug Fixes
+
+* **splitbutton, multiactionbutton:** cannot interact when inside a table ([68d8449](https://github.com/Sage/carbon/commit/68d844924d5a1b52c50ebb50de5ba27336e6e356)), closes [#7747](https://github.com/Sage/carbon/issues/7747)
+
+## [158.35.1](https://github.com/Sage/carbon/compare/v158.35.0...v158.35.1) (2026-03-02)
+
+### Bug Fixes
+
+* **button:** add type attribute to component ([0becea3](https://github.com/Sage/carbon/commit/0becea3edeff255544e6b0e9b1d210e04e38e694))
+
+## [158.35.0](https://github.com/Sage/carbon/compare/v158.34.1...v158.35.0) (2026-03-02)
+
+### Features
+
+* **tokens:** upgrade token version to v18.0.0 ([669dd0c](https://github.com/Sage/carbon/commit/669dd0ce1b85e029a0651e90a479c9911c9cef1e))
+
+## [158.34.1](https://github.com/Sage/carbon/compare/v158.34.0...v158.34.1) (2026-02-27)
+
+### Bug Fixes
+
+* **mentions:** resolve accessibility issues ([7b1e008](https://github.com/Sage/carbon/commit/7b1e008294f127faecb0980e17845a46b40dd218))
+* **mentions:** resolve landmark issue ([790d1a2](https://github.com/Sage/carbon/commit/790d1a26054a0dfea7fb07ea565bbca58a33f8b1))
+
 ## [158.34.0](https://github.com/Sage/carbon/compare/v158.33.0...v158.34.0) (2026-02-24)
 
 ### Features

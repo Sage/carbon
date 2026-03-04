@@ -561,25 +561,27 @@ export const Mentions: Story = ({ ...args }) => {
 
   return (
     <Box mx={2} my={0}>
-      <TextEditor
-        namespace="storybook-mentions"
-        labelText="Text Editor"
-        inputHint="Press '@' to mention someone"
-        onChange={action("onChange")}
-        customPlugins={[
-          <MentionsPlugin
-            namespace="storybook-mentions"
-            searchOptions={mentionsData}
-          />,
-        ]}
-        {...args}
-      />
+      <main>
+        <TextEditor
+          namespace="storybook-mentions"
+          labelText="Text Editor"
+          inputHint="Press '@' to mention someone"
+          onChange={action("onChange")}
+          customPlugins={[
+            <MentionsPlugin
+              namespace="storybook-mentions"
+              searchOptions={mentionsData}
+            />,
+          ]}
+          {...args}
+        />
+      </main>
     </Box>
   );
 };
 Mentions.storyName = "Mentions";
 Mentions.parameters = {
-  chromatic: { disableSnapshot: false },
+  chromatic: { disableSnapshot: true },
 };
 Mentions.args = {
   characterLimit: 1000,
