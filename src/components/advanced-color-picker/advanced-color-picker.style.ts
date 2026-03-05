@@ -5,7 +5,6 @@ import { StyledColorOptions } from "../simple-color-picker/simple-color-picker.s
 import { StyledSimpleColor } from "../simple-color-picker/simple-color/simple-color.style";
 import { StyledDialogContent } from "../dialog/__internal__/__next__/dialog.style";
 import Dialog from "../dialog/dialog.component";
-import StyledIconButton from "../icon-button/icon-button.style";
 import checkerBoardSvg from "../simple-color-picker/simple-color/checker-board.svg";
 import visuallyHiddenStyles from "../../style/utils/visually-hidden";
 import { Dl } from "../definition-list";
@@ -68,11 +67,6 @@ const DialogStyle = styled(Dialog)`
 
   ${StyledColorOptions} {
     border: none;
-  }
-
-  ${StyledIconButton} {
-    top: 20px;
-    right: 13px;
   }
 
   [data-component="icon"] {

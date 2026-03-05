@@ -85,6 +85,21 @@ test("calls onCancel when Escape key is pressed", async () => {
   expect(onCancel).toHaveBeenCalledTimes(1);
 });
 
+test("should render disabled cancel button and close icon when disableCancel is set", () => {
+  render(
+    <Confirm
+      open
+      onConfirm={() => {}}
+      onCancel={() => {}}
+      showCloseIcon
+      disableCancel
+    />,
+  );
+
+  expect(screen.getByRole("button", { name: "No" })).toBeDisabled();
+  expect(screen.getByRole("button", { name: "Close" })).toBeDisabled();
+});
+
 test("should render disabled confirm button with Loader if isLoadingConfirm is set", () => {
   render(
     <Confirm
