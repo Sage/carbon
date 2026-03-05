@@ -6,7 +6,7 @@ description: Carbon OptionGroupHeader component props and usage examples.
 # OptionGroupHeader
 
 ## Import
-`import { OptionGroupHeader } from "carbon-sage/lib/components/select";`
+`import { OptionGroupHeader } from "carbon-react/lib/components/select";`
 
 ## Source
 - Export: `./components/select`

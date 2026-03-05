@@ -6,7 +6,7 @@ description: Carbon ScrollableBlock component props and usage examples.
 # ScrollableBlock
 
 ## Import
-`import { ScrollableBlock } from "carbon-sage/lib/components/menu";`
+`import { ScrollableBlock } from "carbon-react/lib/components/menu";`
 
 ## Source
 - Export: `./components/menu`

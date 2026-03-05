@@ -6,7 +6,7 @@ description: Carbon TabsHandleNext component props and usage examples.
 # TabsHandleNext
 
 ## Import
-`import { TabsHandleNext } from "carbon-sage/lib/components/tabs/__next__";`
+`import { TabsHandle } from "carbon-react/lib/components/tabs/__next__";`
 
 ## Source
 - Export: `./components/tabs/__next__`

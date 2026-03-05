@@ -6,7 +6,7 @@ description: Carbon FlexTileContainer component props and usage examples.
 # FlexTileContainer
 
 ## Import
-`import { FlexTileContainer } from "carbon-sage/lib/components/tile";`
+`import { FlexTileContainer } from "carbon-react/lib/components/tile";`
 
 ## Source
 - Export: `./components/tile`

@@ -6,7 +6,7 @@ description: Carbon Drawer component props and usage examples.
 # Drawer
 
 ## Import
-`import Drawer from "carbon-sage/lib/components/drawer";`
+`import Drawer from "carbon-react/lib/components/drawer";`
 
 ## Source
 - Export: `./components/drawer`

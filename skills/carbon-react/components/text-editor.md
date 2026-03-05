@@ -6,7 +6,7 @@ description: Carbon TextEditor component props and usage examples.
 # TextEditor
 
 ## Import
-`import TextEditor from "carbon-sage/lib/components/text-editor";`
+`import TextEditor from "carbon-react/lib/components/text-editor";`
 
 ## Source
 - Export: `./components/text-editor`

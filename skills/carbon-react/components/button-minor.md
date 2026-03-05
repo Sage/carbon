@@ -6,7 +6,7 @@ description: Carbon ButtonMinor component props and usage examples.
 # ButtonMinor
 
 ## Import
-`import ButtonMinor from "carbon-sage/lib/components/button-minor/button-minor.component";`
+`import ButtonMinor from "carbon-react/lib/components/button-minor/button-minor.component";`
 
 ## Source
 - Export: `./components/button-minor/button-minor.component`

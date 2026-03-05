@@ -6,7 +6,7 @@ description: Carbon CardRow component props and usage examples.
 # CardRow
 
 ## Import
-`import CardRow from "carbon-sage/lib/components/card";`
+`import CardRow from "carbon-react/lib/components/card";`
 
 ## Source
 - Export: `./components/card`

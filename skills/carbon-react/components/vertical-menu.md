@@ -6,7 +6,7 @@ description: Carbon VerticalMenu component props and usage examples.
 # VerticalMenu
 
 ## Import
-`import { VerticalMenu } from "carbon-sage/lib/components/vertical-menu";`
+`import { VerticalMenu } from "carbon-react/lib/components/vertical-menu";`
 
 ## Source
 - Export: `./components/vertical-menu`

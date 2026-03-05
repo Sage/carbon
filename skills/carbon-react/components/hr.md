@@ -6,7 +6,7 @@ description: Carbon Hr component props and usage examples.
 # Hr
 
 ## Import
-`import Hr from "carbon-sage/lib/components/hr";`
+`import Hr from "carbon-react/lib/components/hr";`
 
 ## Source
 - Export: `./components/hr`

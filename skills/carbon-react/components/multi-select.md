@@ -6,7 +6,7 @@ description: Carbon MultiSelect component props and usage examples.
 # MultiSelect
 
 ## Import
-`import { MultiSelect } from "carbon-sage/lib/components/select";`
+`import { MultiSelect } from "carbon-react/lib/components/select";`
 
 ## Source
 - Export: `./components/select`

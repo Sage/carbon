@@ -6,7 +6,7 @@ description: Carbon SimpleColor component props and usage examples.
 # SimpleColor
 
 ## Import
-`import { SimpleColor } from "carbon-sage/lib/components/simple-color-picker";`
+`import { SimpleColor } from "carbon-react/lib/components/simple-color-picker";`
 
 ## Source
 - Export: `./components/simple-color-picker`

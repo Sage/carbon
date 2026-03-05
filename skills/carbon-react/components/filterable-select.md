@@ -6,7 +6,7 @@ description: Carbon FilterableSelect component props and usage examples.
 # FilterableSelect
 
 ## Import
-`import { FilterableSelect } from "carbon-sage/lib/components/select";`
+`import { FilterableSelect } from "carbon-react/lib/components/select";`
 
 ## Source
 - Export: `./components/select`

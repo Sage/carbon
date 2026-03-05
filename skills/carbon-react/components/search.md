@@ -6,7 +6,7 @@ description: Carbon Search component props and usage examples.
 # Search
 
 ## Import
-`import Search from "carbon-sage/lib/components/search/search.component";`
+`import Search from "carbon-react/lib/components/search/search.component";`
 
 ## Source
 - Export: `./components/search/search.component`

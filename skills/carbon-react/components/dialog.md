@@ -6,7 +6,7 @@ description: Carbon Dialog component props and usage examples.
 # Dialog
 
 ## Import
-`import Dialog from "carbon-sage/lib/components/dialog";`
+`import Dialog from "carbon-react/lib/components/dialog";`
 
 ## Source
 - Export: `./components/dialog`

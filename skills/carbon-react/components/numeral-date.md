@@ -6,7 +6,7 @@ description: Carbon NumeralDate component props and usage examples.
 # NumeralDate
 
 ## Import
-`import NumeralDate from "carbon-sage/lib/components/numeral-date";`
+`import NumeralDate from "carbon-react/lib/components/numeral-date";`
 
 ## Source
 - Export: `./components/numeral-date`

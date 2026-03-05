@@ -6,7 +6,7 @@ description: Carbon Note component props and usage examples.
 # Note
 
 ## Import
-`import Note from "carbon-sage/lib/components/note";`
+`import Note from "carbon-react/lib/components/note";`
 
 ## Source
 - Export: `./components/note`

@@ -6,7 +6,7 @@ description: Carbon MenuSegmentTitle component props and usage examples.
 # MenuSegmentTitle
 
 ## Import
-`import { MenuSegmentTitle } from "carbon-sage/lib/components/menu";`
+`import { MenuSegmentTitle } from "carbon-react/lib/components/menu";`
 
 ## Source
 - Export: `./components/menu`

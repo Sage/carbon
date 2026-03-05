@@ -6,7 +6,7 @@ description: Carbon Preview component props and usage examples.
 # Preview
 
 ## Import
-`import Preview from "carbon-sage/lib/components/preview";`
+`import Preview from "carbon-react/lib/components/preview";`
 
 ## Source
 - Export: `./components/preview`

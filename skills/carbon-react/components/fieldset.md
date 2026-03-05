@@ -6,7 +6,7 @@ description: Carbon Fieldset component props and usage examples.
 # Fieldset
 
 ## Import
-`import Fieldset from "carbon-sage/lib/components/fieldset";`
+`import Fieldset from "carbon-react/lib/components/fieldset";`
 
 ## Source
 - Export: `./components/fieldset`

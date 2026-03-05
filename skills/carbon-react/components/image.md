@@ -6,7 +6,7 @@ description: Carbon Image component props and usage examples.
 # Image
 
 ## Import
-`import Image from "carbon-sage/lib/components/image";`
+`import Image from "carbon-react/lib/components/image";`
 
 ## Source
 - Export: `./components/image`

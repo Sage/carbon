@@ -6,7 +6,7 @@ description: Carbon DraggableContainer component props and usage examples.
 # DraggableContainer
 
 ## Import
-`import { DraggableContainer } from "carbon-sage/lib/components/draggable";`
+`import { DraggableContainer } from "carbon-react/lib/components/draggable";`
 
 ## Source
 - Export: `./components/draggable`

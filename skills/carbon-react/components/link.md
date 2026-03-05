@@ -6,7 +6,7 @@ description: Carbon Link component props and usage examples.
 # Link
 
 ## Import
-`import Link from "carbon-sage/lib/components/link";`
+`import Link from "carbon-react/lib/components/link";`
 
 ## Source
 - Export: `./components/link`

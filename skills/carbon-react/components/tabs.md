@@ -6,7 +6,7 @@ description: Carbon Tabs component props and usage examples.
 # Tabs
 
 ## Import
-`import { Tabs } from "carbon-sage/lib/components/tabs";`
+`import { Tabs } from "carbon-react/lib/components/tabs";`
 
 ## Source
 - Export: `./components/tabs`

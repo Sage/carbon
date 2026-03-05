@@ -6,10 +6,10 @@ description: Carbon ButtonHandleNext component props and usage examples.
 # ButtonHandleNext
 
 ## Import
-`import ButtonHandleNext from "carbon-sage/lib/components/button/__next__/button.component";`
+`import ButtonHandle from "carbon-react/lib/components/button/__next__";`
 
 ## Source
-- Export: `./components/button/__next__/button.component`
+- Export: `./components/button/__next__`
 - Props interface: not found
 
 ## Props

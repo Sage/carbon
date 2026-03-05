@@ -6,7 +6,7 @@ description: Carbon Pager component props and usage examples.
 # Pager
 
 ## Import
-`import Pager from "carbon-sage/lib/components/pager";`
+`import Pager from "carbon-react/lib/components/pager";`
 
 ## Source
 - Export: `./components/pager`

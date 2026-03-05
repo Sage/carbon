@@ -6,7 +6,7 @@ description: Carbon PicklistGroup component props and usage examples.
 # PicklistGroup
 
 ## Import
-`import { PicklistGroup } from "carbon-sage/lib/components/duelling-picklist";`
+`import { PicklistGroup } from "carbon-react/lib/components/duelling-picklist";`
 
 ## Source
 - Export: `./components/duelling-picklist`

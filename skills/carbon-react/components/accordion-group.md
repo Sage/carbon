@@ -6,7 +6,7 @@ description: Carbon AccordionGroup component props and usage examples.
 # AccordionGroup
 
 ## Import
-`import { AccordionGroup } from "carbon-sage/lib/components/accordion";`
+`import { AccordionGroup } from "carbon-react/lib/components/accordion";`
 
 ## Source
 - Export: `./components/accordion`

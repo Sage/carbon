@@ -6,7 +6,7 @@ description: Carbon List component props and usage examples.
 # List
 
 ## Import
-`import List from "carbon-sage/lib/components/typography";`
+`import List from "carbon-react/lib/components/typography";`
 
 ## Source
 - Export: `./components/typography`

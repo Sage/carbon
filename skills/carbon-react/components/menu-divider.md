@@ -6,7 +6,7 @@ description: Carbon MenuDivider component props and usage examples.
 # MenuDivider
 
 ## Import
-`import { MenuDivider } from "carbon-sage/lib/components/menu";`
+`import { MenuDivider } from "carbon-react/lib/components/menu";`
 
 ## Source
 - Export: `./components/menu`

@@ -6,7 +6,7 @@ description: Carbon DraggableItem component props and usage examples.
 # DraggableItem
 
 ## Import
-`import { DraggableItem } from "carbon-sage/lib/components/draggable";`
+`import { DraggableItem } from "carbon-react/lib/components/draggable";`
 
 ## Source
 - Export: `./components/draggable`

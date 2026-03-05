@@ -6,7 +6,7 @@ description: Carbon ButtonBar component props and usage examples.
 # ButtonBar
 
 ## Import
-`import ButtonBar from "carbon-sage/lib/components/button-bar";`
+`import ButtonBar from "carbon-react/lib/components/button-bar";`
 
 ## Source
 - Export: `./components/button-bar`

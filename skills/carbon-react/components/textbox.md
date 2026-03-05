@@ -6,7 +6,7 @@ description: Carbon Textbox component props and usage examples.
 # Textbox
 
 ## Import
-`import Textbox from "carbon-sage/lib/components/textbox";`
+`import Textbox from "carbon-react/lib/components/textbox";`
 
 ## Source
 - Export: `./components/textbox`

@@ -6,7 +6,7 @@ description: Carbon FlatTableBodyDraggable component props and usage examples.
 # FlatTableBodyDraggable
 
 ## Import
-`import { FlatTableBodyDraggable } from "carbon-sage/lib/components/flat-table";`
+`import { FlatTableBodyDraggable } from "carbon-react/lib/components/flat-table";`
 
 ## Source
 - Export: `./components/flat-table`

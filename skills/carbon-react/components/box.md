@@ -6,7 +6,7 @@ description: Carbon Box component props and usage examples.
 # Box
 
 ## Import
-`import Box from "carbon-sage/lib/components/box";`
+`import Box from "carbon-react/lib/components/box";`
 
 ## Source
 - Export: `./components/box`

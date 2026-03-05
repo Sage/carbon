@@ -6,7 +6,7 @@ description: Carbon LoaderSpinner component props and usage examples.
 # LoaderSpinner
 
 ## Import
-`import { LoaderSpinner } from "carbon-sage/lib/components/loader-spinner";`
+`import { LoaderSpinner } from "carbon-react/lib/components/loader-spinner";`
 
 ## Source
 - Export: `./components/loader-spinner`

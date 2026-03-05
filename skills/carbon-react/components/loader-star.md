@@ -6,7 +6,7 @@ description: Carbon LoaderStar component props and usage examples.
 # LoaderStar
 
 ## Import
-`import LoaderStar from "carbon-sage/lib/components/loader-star";`
+`import LoaderStar from "carbon-react/lib/components/loader-star";`
 
 ## Source
 - Export: `./components/loader-star`

@@ -6,7 +6,7 @@ description: Carbon CheckboxGroup component props and usage examples.
 # CheckboxGroup
 
 ## Import
-`import { CheckboxGroup } from "carbon-sage/lib/components/checkbox";`
+`import { CheckboxGroup } from "carbon-react/lib/components/checkbox";`
 
 ## Source
 - Export: `./components/checkbox`

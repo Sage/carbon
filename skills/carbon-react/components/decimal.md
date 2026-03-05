@@ -6,7 +6,7 @@ description: Carbon Decimal component props and usage examples.
 # Decimal
 
 ## Import
-`import Decimal from "carbon-sage/lib/components/decimal";`
+`import Decimal from "carbon-react/lib/components/decimal";`
 
 ## Source
 - Export: `./components/decimal`

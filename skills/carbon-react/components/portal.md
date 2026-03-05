@@ -6,7 +6,7 @@ description: Carbon Portal component props and usage examples.
 # Portal
 
 ## Import
-`import Portal from "carbon-sage/lib/components/portal";`
+`import Portal from "carbon-react/lib/components/portal";`
 
 ## Source
 - Export: `./components/portal`

@@ -6,7 +6,7 @@ description: Carbon ActionPopoverMenuButton component props and usage examples.
 # ActionPopoverMenuButton
 
 ## Import
-`import { ActionPopoverMenuButton } from "carbon-sage/lib/components/action-popover";`
+`import { ActionPopoverMenuButton } from "carbon-react/lib/components/action-popover";`
 
 ## Source
 - Export: `./components/action-popover`

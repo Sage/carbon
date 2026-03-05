@@ -6,7 +6,7 @@ description: Carbon PicklistPlaceholder component props and usage examples.
 # PicklistPlaceholder
 
 ## Import
-`import { PicklistPlaceholder } from "carbon-sage/lib/components/duelling-picklist";`
+`import { PicklistPlaceholder } from "carbon-react/lib/components/duelling-picklist";`
 
 ## Source
 - Export: `./components/duelling-picklist`

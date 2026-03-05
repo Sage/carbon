@@ -6,7 +6,7 @@ description: Carbon Content component props and usage examples.
 # Content
 
 ## Import
-`import Content from "carbon-sage/lib/components/content";`
+`import Content from "carbon-react/lib/components/content";`
 
 ## Source
 - Export: `./components/content`

@@ -6,7 +6,7 @@ description: Carbon AdaptiveSidebar component props and usage examples.
 # AdaptiveSidebar
 
 ## Import
-`import AdaptiveSidebar from "carbon-sage/lib/components/adaptive-sidebar";`
+`import AdaptiveSidebar from "carbon-react/lib/components/adaptive-sidebar";`
 
 ## Source
 - Export: `./components/adaptive-sidebar`

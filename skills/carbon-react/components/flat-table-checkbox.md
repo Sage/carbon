@@ -6,7 +6,7 @@ description: Carbon FlatTableCheckbox component props and usage examples.
 # FlatTableCheckbox
 
 ## Import
-`import { FlatTableCheckbox } from "carbon-sage/lib/components/flat-table";`
+`import { FlatTableCheckbox } from "carbon-react/lib/components/flat-table";`
 
 ## Source
 - Export: `./components/flat-table`

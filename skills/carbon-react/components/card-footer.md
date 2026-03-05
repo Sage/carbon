@@ -6,7 +6,7 @@ description: Carbon CardFooter component props and usage examples.
 # CardFooter
 
 ## Import
-`import CardFooter from "carbon-sage/lib/components/card";`
+`import CardFooter from "carbon-react/lib/components/card";`
 
 ## Source
 - Export: `./components/card`

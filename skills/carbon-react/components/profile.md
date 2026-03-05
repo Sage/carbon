@@ -6,7 +6,7 @@ description: Carbon Profile component props and usage examples.
 # Profile
 
 ## Import
-`import Profile from "carbon-sage/lib/components/profile";`
+`import Profile from "carbon-react/lib/components/profile";`
 
 ## Source
 - Export: `./components/profile`

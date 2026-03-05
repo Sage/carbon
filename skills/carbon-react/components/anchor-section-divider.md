@@ -6,7 +6,7 @@ description: Carbon AnchorSectionDivider component props and usage examples.
 # AnchorSectionDivider
 
 ## Import
-`import { AnchorSectionDivider } from "carbon-sage/lib/components/anchor-navigation";`
+`import { AnchorSectionDivider } from "carbon-react/lib/components/anchor-navigation";`
 
 ## Source
 - Export: `./components/anchor-navigation`

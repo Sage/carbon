@@ -6,7 +6,7 @@ description: Carbon ButtonToggle component props and usage examples.
 # ButtonToggle
 
 ## Import
-`import { ButtonToggle } from "carbon-sage/lib/components/button-toggle";`
+`import { ButtonToggle } from "carbon-react/lib/components/button-toggle";`
 
 ## Source
 - Export: `./components/button-toggle`

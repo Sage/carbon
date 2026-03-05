@@ -6,7 +6,7 @@ description: Carbon PicklistDivider component props and usage examples.
 # PicklistDivider
 
 ## Import
-`import { PicklistDivider } from "carbon-sage/lib/components/duelling-picklist";`
+`import { PicklistDivider } from "carbon-react/lib/components/duelling-picklist";`
 
 ## Source
 - Export: `./components/duelling-picklist`

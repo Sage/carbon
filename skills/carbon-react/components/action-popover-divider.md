@@ -6,7 +6,7 @@ description: Carbon ActionPopoverDivider component props and usage examples.
 # ActionPopoverDivider
 
 ## Import
-`import { ActionPopoverDivider } from "carbon-sage/lib/components/action-popover";`
+`import { ActionPopoverDivider } from "carbon-react/lib/components/action-popover";`
 
 ## Source
 - Export: `./components/action-popover`

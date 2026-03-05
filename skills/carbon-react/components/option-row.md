@@ -6,7 +6,7 @@ description: Carbon OptionRow component props and usage examples.
 # OptionRow
 
 ## Import
-`import { OptionRow } from "carbon-sage/lib/components/select";`
+`import { OptionRow } from "carbon-react/lib/components/select";`
 
 ## Source
 - Export: `./components/select`

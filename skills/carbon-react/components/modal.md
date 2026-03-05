@@ -6,7 +6,7 @@ description: Carbon Modal component props and usage examples.
 # Modal
 
 ## Import
-`import Modal from "carbon-sage/lib/components/modal";`
+`import Modal from "carbon-react/lib/components/modal";`
 
 ## Source
 - Export: `./components/modal`

@@ -6,7 +6,7 @@ description: Carbon StepSequence component props and usage examples.
 # StepSequence
 
 ## Import
-`import { StepSequence } from "carbon-sage/lib/components/step-sequence";`
+`import { StepSequence } from "carbon-react/lib/components/step-sequence";`
 
 ## Source
 - Export: `./components/step-sequence`

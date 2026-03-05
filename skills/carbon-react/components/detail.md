@@ -6,7 +6,7 @@ description: Carbon Detail component props and usage examples.
 # Detail
 
 ## Import
-`import Detail from "carbon-sage/lib/components/detail";`
+`import Detail from "carbon-react/lib/components/detail";`
 
 ## Source
 - Export: `./components/detail`

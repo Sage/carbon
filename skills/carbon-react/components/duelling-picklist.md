@@ -6,7 +6,7 @@ description: Carbon DuellingPicklist component props and usage examples.
 # DuellingPicklist
 
 ## Import
-`import { DuellingPicklist } from "carbon-sage/lib/components/duelling-picklist";`
+`import { DuellingPicklist } from "carbon-react/lib/components/duelling-picklist";`
 
 ## Source
 - Export: `./components/duelling-picklist`

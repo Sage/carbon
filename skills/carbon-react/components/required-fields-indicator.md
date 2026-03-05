@@ -6,7 +6,7 @@ description: Carbon RequiredFieldsIndicator component props and usage examples.
 # RequiredFieldsIndicator
 
 ## Import
-`import RequiredFieldsIndicator from "carbon-sage/lib/components/form";`
+`import RequiredFieldsIndicator from "carbon-react/lib/components/form";`
 
 ## Source
 - Export: `./components/form`

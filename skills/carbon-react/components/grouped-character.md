@@ -6,7 +6,7 @@ description: Carbon GroupedCharacter component props and usage examples.
 # GroupedCharacter
 
 ## Import
-`import GroupedCharacter from "carbon-sage/lib/components/grouped-character";`
+`import GroupedCharacter from "carbon-react/lib/components/grouped-character";`
 
 ## Source
 - Export: `./components/grouped-character`

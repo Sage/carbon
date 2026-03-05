@@ -6,7 +6,7 @@ description: Carbon Switch component props and usage examples.
 # Switch
 
 ## Import
-`import Switch from "carbon-sage/lib/components/switch";`
+`import Switch from "carbon-react/lib/components/switch";`
 
 ## Source
 - Export: `./components/switch`

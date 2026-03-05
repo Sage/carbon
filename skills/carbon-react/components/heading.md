@@ -6,7 +6,7 @@ description: Carbon Heading component props and usage examples.
 # Heading
 
 ## Import
-`import Heading from "carbon-sage/lib/components/heading";`
+`import Heading from "carbon-react/lib/components/heading";`
 
 ## Source
 - Export: `./components/heading`

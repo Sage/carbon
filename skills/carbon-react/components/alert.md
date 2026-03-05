@@ -6,7 +6,7 @@ description: Carbon Alert component props and usage examples.
 # Alert
 
 ## Import
-`import Alert from "carbon-sage/lib/components/alert";`
+`import Alert from "carbon-react/lib/components/alert";`
 
 ## Source
 - Export: `./components/alert`

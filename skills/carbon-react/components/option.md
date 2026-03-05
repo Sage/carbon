@@ -6,7 +6,7 @@ description: Carbon Option component props and usage examples.
 # Option
 
 ## Import
-`import { Option } from "carbon-sage/lib/components/select";`
+`import { Option } from "carbon-react/lib/components/select";`
 
 ## Source
 - Export: `./components/select`

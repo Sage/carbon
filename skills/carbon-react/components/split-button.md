@@ -6,7 +6,7 @@ description: Carbon SplitButton component props and usage examples.
 # SplitButton
 
 ## Import
-`import SplitButton from "carbon-sage/lib/components/split-button/split-button.component";`
+`import SplitButton from "carbon-react/lib/components/split-button/split-button.component";`
 
 ## Source
 - Export: `./components/split-button/split-button.component`

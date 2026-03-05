@@ -6,7 +6,7 @@ description: Carbon IconButton component props and usage examples.
 # IconButton
 
 ## Import
-`import IconButton from "carbon-sage/lib/components/icon-button";`
+`import IconButton from "carbon-react/lib/components/icon-button";`
 
 ## Source
 - Export: `./components/icon-button`

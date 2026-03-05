@@ -6,7 +6,7 @@ description: Carbon DateRange component props and usage examples.
 # DateRange
 
 ## Import
-`import DateRange from "carbon-sage/lib/components/date-range";`
+`import DateRange from "carbon-react/lib/components/date-range";`
 
 ## Source
 - Export: `./components/date-range`

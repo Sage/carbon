@@ -6,7 +6,7 @@ description: Carbon CardColumn component props and usage examples.
 # CardColumn
 
 ## Import
-`import CardColumn from "carbon-sage/lib/components/card";`
+`import CardColumn from "carbon-react/lib/components/card";`
 
 ## Source
 - Export: `./components/card`

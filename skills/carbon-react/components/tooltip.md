@@ -6,7 +6,7 @@ description: Carbon Tooltip component props and usage examples.
 # Tooltip
 
 ## Import
-`import Tooltip from "carbon-sage/lib/components/tooltip";`
+`import Tooltip from "carbon-react/lib/components/tooltip";`
 
 ## Source
 - Export: `./components/tooltip`

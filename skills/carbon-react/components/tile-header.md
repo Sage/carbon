@@ -6,7 +6,7 @@ description: Carbon TileHeader component props and usage examples.
 # TileHeader
 
 ## Import
-`import { TileHeader } from "carbon-sage/lib/components/tile";`
+`import { TileHeader } from "carbon-react/lib/components/tile";`
 
 ## Source
 - Export: `./components/tile`

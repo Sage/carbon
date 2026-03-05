@@ -6,7 +6,7 @@ description: Carbon BatchSelection component props and usage examples.
 # BatchSelection
 
 ## Import
-`import BatchSelection from "carbon-sage/lib/components/batch-selection";`
+`import BatchSelection from "carbon-react/lib/components/batch-selection";`
 
 ## Source
 - Export: `./components/batch-selection`

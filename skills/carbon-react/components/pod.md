@@ -6,7 +6,7 @@ description: Carbon Pod component props and usage examples.
 # Pod
 
 ## Import
-`import Pod from "carbon-sage/lib/components/pod";`
+`import Pod from "carbon-react/lib/components/pod";`
 
 ## Source
 - Export: `./components/pod`

@@ -6,7 +6,7 @@ description: Carbon NextLoader component props and usage examples.
 # NextLoader
 
 ## Import
-`import NextLoader from "carbon-sage/lib/components/loader/__next__";`
+`import NextLoader from "carbon-react/lib/components/loader/__next__";`
 
 ## Source
 - Export: `./components/loader/__next__`

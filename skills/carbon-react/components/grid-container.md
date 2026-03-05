@@ -6,7 +6,7 @@ description: Carbon GridContainer component props and usage examples.
 # GridContainer
 
 ## Import
-`import { GridContainer } from "carbon-sage/lib/components/grid";`
+`import { GridContainer } from "carbon-react/lib/components/grid";`
 
 ## Source
 - Export: `./components/grid`

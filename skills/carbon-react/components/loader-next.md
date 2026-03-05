@@ -6,10 +6,10 @@ description: Carbon LoaderNext component props and usage examples.
 # LoaderNext
 
 ## Import
-`import LoaderNext from "carbon-sage/lib/components/loader/__next__/loader.component";`
+`import Loader from "carbon-react/lib/components/loader/__next__";`
 
 ## Source
-- Export: `./components/loader/__next__/loader.component`
+- Export: `./components/loader/__next__`
 - Props interface: `LoaderProps`
 
 ## Props

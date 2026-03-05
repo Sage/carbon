@@ -6,7 +6,7 @@ description: Carbon Badge component props and usage examples.
 # Badge
 
 ## Import
-`import Badge from "carbon-sage/lib/components/badge";`
+`import Badge from "carbon-react/lib/components/badge";`
 
 ## Source
 - Export: `./components/badge`

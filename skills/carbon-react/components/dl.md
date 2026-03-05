@@ -6,7 +6,7 @@ description: Carbon Dl component props and usage examples.
 # Dl
 
 ## Import
-`import { Dl } from "carbon-sage/lib/components/definition-list";`
+`import { Dl } from "carbon-react/lib/components/definition-list";`
 
 ## Source
 - Export: `./components/definition-list`

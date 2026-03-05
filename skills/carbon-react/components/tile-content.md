@@ -6,7 +6,7 @@ description: Carbon TileContent component props and usage examples.
 # TileContent
 
 ## Import
-`import { TileContent } from "carbon-sage/lib/components/tile";`
+`import { TileContent } from "carbon-react/lib/components/tile";`
 
 ## Source
 - Export: `./components/tile`

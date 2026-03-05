@@ -6,7 +6,7 @@ description: Carbon Menu component props and usage examples.
 # Menu
 
 ## Import
-`import { Menu } from "carbon-sage/lib/components/menu";`
+`import { Menu } from "carbon-react/lib/components/menu";`
 
 ## Source
 - Export: `./components/menu`

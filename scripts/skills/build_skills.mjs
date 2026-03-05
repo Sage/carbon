@@ -34,6 +34,7 @@ import { JSDoc, Project, SyntaxKind } from "ts-morph";
 /**
  * @typedef {Object} ComponentData
  * @property {string} name
+ * @property {string} importName
  * @property {string} moduleSpecifier
  * @property {PropInfo[]} props
  * @property {boolean} missingPropsInterface
@@ -61,7 +62,7 @@ import { JSDoc, Project, SyntaxKind } from "ts-morph";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, "../..");
-const packageName = "carbon-sage";
+const packageName = "carbon-react";
 
 const checkMode = process.argv.includes("--check");
 const buildOutputFolder = "lib";
@@ -123,7 +124,13 @@ for (const filePath of nextComponentFiles) {
     if (!/^[A-Z]/.test(exportName)) continue;
     
     const relativePath = "./" + path.relative(path.join(repoRoot, "src"), filePath).replace(/\\/g, "/");
-    const moduleSpecifier = relativePath.replace(/\/index\.(ts|tsx)$/, "").replace(/\.(ts|tsx)$/, "");
+    const rawModuleSpecifier = relativePath
+      .replace(/\/index\.(ts|tsx)$/, "")
+      .replace(/\.(ts|tsx)$/, "");
+    const moduleSpecifier = rawModuleSpecifier.replace(
+      /(\/__next__)\/.*\.component$/,
+      "$1",
+    );
     
     // Keep original name for props lookup, use display name for output
     componentCandidates.push({
@@ -164,10 +171,12 @@ for (const exportDecl of indexFile.getExportDeclarations()) {
   }
 }
 
+const uniqueComponentCandidates = dedupeComponentCandidates(componentCandidates);
+
 /** @type {ComponentData[]} */
 const componentData = [];
 
-for (const candidate of componentCandidates) {
+for (const candidate of uniqueComponentCandidates) {
   const modulePath = resolveModulePath(
     indexFilePath,
     candidate.moduleSpecifier,
@@ -221,6 +230,7 @@ for (const candidate of componentCandidates) {
 
   componentData.push({
     name: candidate.displayName ?? candidate.name,
+    importName: candidate.name,
     moduleSpecifier: candidate.moduleSpecifier,
     props,
     missingPropsInterface: !propsDefinition,
@@ -1341,8 +1351,8 @@ function renderComponentMarkdown(component, stories) {
 
   const importPath = `${packageName}/${buildOutputFolder}/${component.moduleSpecifier.replace("./", "")}`;
   const importStatement = component.hasDefaultExport
-    ? `import ${component.name} from "${importPath}";`
-    : `import { ${component.name} } from "${importPath}";`;
+    ? `import ${component.importName} from "${importPath}";`
+    : `import { ${component.importName} } from "${importPath}";`;
 
   lines.push("## Import");
   lines.push(`\`${importStatement}\`\n`);
@@ -1477,4 +1487,49 @@ function toPascalCase(value) {
     .split(" ")
     .map((part) => capitalizeFirstLetter(part))
     .join("");
+}
+
+/**
+ * Deduplicate component candidates by their rendered output name.
+ * Prefers candidates that preserve original symbol names for props lookup
+ * and candidates whose module specifier points at an index barrel.
+ * @param {ComponentCandidate[]} candidates
+ * @returns {ComponentCandidate[]}
+ */
+function dedupeComponentCandidates(candidates) {
+  /** @type {Map<string, ComponentCandidate>} */
+  const byOutputName = new Map();
+
+  for (const candidate of candidates) {
+    const outputName = candidate.displayName ?? candidate.name;
+    const existing = byOutputName.get(outputName);
+    if (!existing) {
+      byOutputName.set(outputName, candidate);
+      continue;
+    }
+
+    if (scoreComponentCandidate(candidate) > scoreComponentCandidate(existing)) {
+      byOutputName.set(outputName, candidate);
+    }
+  }
+
+  return Array.from(byOutputName.values());
+}
+
+/**
+ * Score a candidate for deterministic duplicate resolution.
+ * @param {ComponentCandidate} candidate
+ * @returns {number}
+ */
+function scoreComponentCandidate(candidate) {
+  let score = 0;
+  if (candidate.displayName) {
+    // Preserves original export name for props lookup (e.g., Tab -> TabNext).
+    score += 2;
+  }
+  if (!candidate.moduleSpecifier.includes(".component")) {
+    // Prefer index/barrel paths over concrete implementation files.
+    score += 1;
+  }
+  return score;
 }

@@ -6,7 +6,7 @@ description: Carbon Crumb component props and usage examples.
 # Crumb
 
 ## Import
-`import { Crumb } from "carbon-sage/lib/components/breadcrumbs";`
+`import { Crumb } from "carbon-react/lib/components/breadcrumbs";`
 
 ## Source
 - Export: `./components/breadcrumbs`

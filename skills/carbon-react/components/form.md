@@ -6,7 +6,7 @@ description: Carbon Form component props and usage examples.
 # Form
 
 ## Import
-`import Form from "carbon-sage/lib/components/form";`
+`import Form from "carbon-react/lib/components/form";`
 
 ## Source
 - Export: `./components/form`

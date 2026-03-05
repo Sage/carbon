@@ -6,7 +6,7 @@ description: Carbon PicklistItem component props and usage examples.
 # PicklistItem
 
 ## Import
-`import { PicklistItem } from "carbon-sage/lib/components/duelling-picklist";`
+`import { PicklistItem } from "carbon-react/lib/components/duelling-picklist";`
 
 ## Source
 - Export: `./components/duelling-picklist`

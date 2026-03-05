@@ -6,7 +6,7 @@ description: Carbon MultiActionButton component props and usage examples.
 # MultiActionButton
 
 ## Import
-`import MultiActionButton from "carbon-sage/lib/components/multi-action-button";`
+`import MultiActionButton from "carbon-react/lib/components/multi-action-button";`
 
 ## Source
 - Export: `./components/multi-action-button`

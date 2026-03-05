@@ -6,7 +6,7 @@ description: Carbon I18nProvider component props and usage examples.
 # I18nProvider
 
 ## Import
-`import I18nProvider from "carbon-sage/lib/components/i18n-provider";`
+`import I18nProvider from "carbon-react/lib/components/i18n-provider";`
 
 ## Source
 - Export: `./components/i18n-provider`

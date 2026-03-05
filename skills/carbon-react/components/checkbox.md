@@ -6,7 +6,7 @@ description: Carbon Checkbox component props and usage examples.
 # Checkbox
 
 ## Import
-`import { Checkbox } from "carbon-sage/lib/components/checkbox";`
+`import { Checkbox } from "carbon-react/lib/components/checkbox";`
 
 ## Source
 - Export: `./components/checkbox`

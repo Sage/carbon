@@ -6,7 +6,7 @@ description: Carbon Dt component props and usage examples.
 # Dt
 
 ## Import
-`import { Dt } from "carbon-sage/lib/components/definition-list";`
+`import { Dt } from "carbon-react/lib/components/definition-list";`
 
 ## Source
 - Export: `./components/definition-list`

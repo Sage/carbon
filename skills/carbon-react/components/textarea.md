@@ -6,7 +6,7 @@ description: Carbon Textarea component props and usage examples.
 # Textarea
 
 ## Import
-`import Textarea from "carbon-sage/lib/components/textarea";`
+`import Textarea from "carbon-react/lib/components/textarea";`
 
 ## Source
 - Export: `./components/textarea`

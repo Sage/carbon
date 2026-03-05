@@ -6,7 +6,7 @@ description: Carbon MenuFullscreen component props and usage examples.
 # MenuFullscreen
 
 ## Import
-`import { MenuFullscreen } from "carbon-sage/lib/components/menu";`
+`import { MenuFullscreen } from "carbon-react/lib/components/menu";`
 
 ## Source
 - Export: `./components/menu`

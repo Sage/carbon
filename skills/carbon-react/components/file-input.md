@@ -6,7 +6,7 @@ description: Carbon FileInput component props and usage examples.
 # FileInput
 
 ## Import
-`import FileInput from "carbon-sage/lib/components/file-input";`
+`import FileInput from "carbon-react/lib/components/file-input";`
 
 ## Source
 - Export: `./components/file-input`

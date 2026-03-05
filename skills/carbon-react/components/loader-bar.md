@@ -6,7 +6,7 @@ description: Carbon LoaderBar component props and usage examples.
 # LoaderBar
 
 ## Import
-`import LoaderBar from "carbon-sage/lib/components/loader-bar";`
+`import LoaderBar from "carbon-react/lib/components/loader-bar";`
 
 ## Source
 - Export: `./components/loader-bar`

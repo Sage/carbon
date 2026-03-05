@@ -6,7 +6,7 @@ description: Carbon AnchorNavigationItem component props and usage examples.
 # AnchorNavigationItem
 
 ## Import
-`import { AnchorNavigationItem } from "carbon-sage/lib/components/anchor-navigation";`
+`import { AnchorNavigationItem } from "carbon-react/lib/components/anchor-navigation";`
 
 ## Source
 - Export: `./components/anchor-navigation`

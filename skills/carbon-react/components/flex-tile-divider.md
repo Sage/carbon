@@ -6,7 +6,7 @@ description: Carbon FlexTileDivider component props and usage examples.
 # FlexTileDivider
 
 ## Import
-`import { FlexTileDivider } from "carbon-sage/lib/components/tile";`
+`import { FlexTileDivider } from "carbon-react/lib/components/tile";`
 
 ## Source
 - Export: `./components/tile`

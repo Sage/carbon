@@ -6,7 +6,7 @@ description: Carbon AdvancedColorPicker component props and usage examples.
 # AdvancedColorPicker
 
 ## Import
-`import AdvancedColorPicker from "carbon-sage/lib/components/advanced-color-picker";`
+`import AdvancedColorPicker from "carbon-react/lib/components/advanced-color-picker";`
 
 ## Source
 - Export: `./components/advanced-color-picker`

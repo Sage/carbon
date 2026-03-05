@@ -6,7 +6,7 @@ description: Carbon Breadcrumbs component props and usage examples.
 # Breadcrumbs
 
 ## Import
-`import { Breadcrumbs } from "carbon-sage/lib/components/breadcrumbs";`
+`import { Breadcrumbs } from "carbon-react/lib/components/breadcrumbs";`
 
 ## Source
 - Export: `./components/breadcrumbs`

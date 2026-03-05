@@ -6,7 +6,7 @@ description: Carbon RadioButtonGroup component props and usage examples.
 # RadioButtonGroup
 
 ## Import
-`import RadioButtonGroup from "carbon-sage/lib/components/radio-button";`
+`import RadioButtonGroup from "carbon-react/lib/components/radio-button";`
 
 ## Source
 - Export: `./components/radio-button`

@@ -6,7 +6,7 @@ description: Carbon DateInput component props and usage examples.
 # DateInput
 
 ## Import
-`import DateInput from "carbon-sage/lib/components/date";`
+`import DateInput from "carbon-react/lib/components/date";`
 
 ## Source
 - Export: `./components/date`

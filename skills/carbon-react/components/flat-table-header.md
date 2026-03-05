@@ -6,7 +6,7 @@ description: Carbon FlatTableHeader component props and usage examples.
 # FlatTableHeader
 
 ## Import
-`import { FlatTableHeader } from "carbon-sage/lib/components/flat-table";`
+`import { FlatTableHeader } from "carbon-react/lib/components/flat-table";`
 
 ## Source
 - Export: `./components/flat-table`

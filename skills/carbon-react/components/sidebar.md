@@ -6,7 +6,7 @@ description: Carbon Sidebar component props and usage examples.
 # Sidebar
 
 ## Import
-`import Sidebar from "carbon-sage/lib/components/sidebar";`
+`import Sidebar from "carbon-react/lib/components/sidebar";`
 
 ## Source
 - Export: `./components/sidebar`

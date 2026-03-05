@@ -6,7 +6,7 @@ description: Carbon Select component props and usage examples.
 # Select
 
 ## Import
-`import { Select } from "carbon-sage/lib/components/select";`
+`import { Select } from "carbon-react/lib/components/select";`
 
 ## Source
 - Export: `./components/select`

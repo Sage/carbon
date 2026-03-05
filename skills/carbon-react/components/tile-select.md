@@ -6,7 +6,7 @@ description: Carbon TileSelect component props and usage examples.
 # TileSelect
 
 ## Import
-`import { TileSelect } from "carbon-sage/lib/components/tile-select";`
+`import { TileSelect } from "carbon-react/lib/components/tile-select";`
 
 ## Source
 - Export: `./components/tile-select`

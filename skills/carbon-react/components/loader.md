@@ -6,7 +6,7 @@ description: Carbon Loader component props and usage examples.
 # Loader
 
 ## Import
-`import Loader from "carbon-sage/lib/components/loader";`
+`import Loader from "carbon-react/lib/components/loader";`
 
 ## Source
 - Export: `./components/loader`

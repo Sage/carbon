@@ -6,7 +6,7 @@ description: Carbon Time component props and usage examples.
 # Time
 
 ## Import
-`import { Time } from "carbon-sage/lib/components/time";`
+`import { Time } from "carbon-react/lib/components/time";`
 
 ## Source
 - Export: `./components/time`

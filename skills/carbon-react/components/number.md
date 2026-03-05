@@ -6,7 +6,7 @@ description: Carbon Number component props and usage examples.
 # Number
 
 ## Import
-`import Number from "carbon-sage/lib/components/number";`
+`import Number from "carbon-react/lib/components/number";`
 
 ## Source
 - Export: `./components/number`

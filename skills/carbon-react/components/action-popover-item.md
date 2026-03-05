@@ -6,7 +6,7 @@ description: Carbon ActionPopoverItem component props and usage examples.
 # ActionPopoverItem
 
 ## Import
-`import { ActionPopoverItem } from "carbon-sage/lib/components/action-popover";`
+`import { ActionPopoverItem } from "carbon-react/lib/components/action-popover";`
 
 ## Source
 - Export: `./components/action-popover`

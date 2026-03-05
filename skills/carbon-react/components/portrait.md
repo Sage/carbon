@@ -6,7 +6,7 @@ description: Carbon Portrait component props and usage examples.
 # Portrait
 
 ## Import
-`import Portrait from "carbon-sage/lib/components/portrait";`
+`import Portrait from "carbon-react/lib/components/portrait";`
 
 ## Source
 - Export: `./components/portrait`

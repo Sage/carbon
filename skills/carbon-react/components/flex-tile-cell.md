@@ -6,7 +6,7 @@ description: Carbon FlexTileCell component props and usage examples.
 # FlexTileCell
 
 ## Import
-`import { FlexTileCell } from "carbon-sage/lib/components/tile";`
+`import { FlexTileCell } from "carbon-react/lib/components/tile";`
 
 ## Source
 - Export: `./components/tile`

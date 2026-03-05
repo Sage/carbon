@@ -6,7 +6,7 @@ description: Carbon StepFlowTitle component props and usage examples.
 # StepFlowTitle
 
 ## Import
-`import StepFlowTitle from "carbon-sage/lib/components/step-flow/step-flow-title/step-flow-title.component";`
+`import StepFlowTitle from "carbon-react/lib/components/step-flow/step-flow-title/step-flow-title.component";`
 
 ## Source
 - Export: `./components/step-flow/step-flow-title/step-flow-title.component`

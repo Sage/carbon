@@ -6,7 +6,7 @@ description: Carbon CarbonProvider component props and usage examples.
 # CarbonProvider
 
 ## Import
-`import CarbonProvider from "carbon-sage/lib/components/carbon-provider";`
+`import CarbonProvider from "carbon-react/lib/components/carbon-provider";`
 
 ## Source
 - Export: `./components/carbon-provider`

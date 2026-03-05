@@ -6,7 +6,7 @@ description: Carbon Confirm component props and usage examples.
 # Confirm
 
 ## Import
-`import Confirm from "carbon-sage/lib/components/confirm";`
+`import Confirm from "carbon-react/lib/components/confirm";`
 
 ## Source
 - Export: `./components/confirm`

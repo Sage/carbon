@@ -6,7 +6,7 @@ description: Carbon ListItem component props and usage examples.
 # ListItem
 
 ## Import
-`import ListItem from "carbon-sage/lib/components/typography";`
+`import ListItem from "carbon-react/lib/components/typography";`
 
 ## Source
 - Export: `./components/typography`

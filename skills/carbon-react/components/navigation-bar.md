@@ -6,7 +6,7 @@ description: Carbon NavigationBar component props and usage examples.
 # NavigationBar
 
 ## Import
-`import NavigationBar from "carbon-sage/lib/components/navigation-bar";`
+`import NavigationBar from "carbon-react/lib/components/navigation-bar";`
 
 ## Source
 - Export: `./components/navigation-bar`

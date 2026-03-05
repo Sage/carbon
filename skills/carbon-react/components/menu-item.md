@@ -6,7 +6,7 @@ description: Carbon MenuItem component props and usage examples.
 # MenuItem
 
 ## Import
-`import { MenuItem } from "carbon-sage/lib/components/menu";`
+`import { MenuItem } from "carbon-react/lib/components/menu";`
 
 ## Source
 - Export: `./components/menu`

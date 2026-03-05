@@ -6,7 +6,7 @@ description: Carbon SettingsRow component props and usage examples.
 # SettingsRow
 
 ## Import
-`import SettingsRow from "carbon-sage/lib/components/settings-row";`
+`import SettingsRow from "carbon-react/lib/components/settings-row";`
 
 ## Source
 - Export: `./components/settings-row`

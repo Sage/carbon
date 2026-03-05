@@ -6,7 +6,7 @@ description: Carbon Pill component props and usage examples.
 # Pill
 
 ## Import
-`import Pill from "carbon-sage/lib/components/pill";`
+`import Pill from "carbon-react/lib/components/pill";`
 
 ## Source
 - Export: `./components/pill`

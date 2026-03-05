@@ -6,7 +6,7 @@ description: Carbon GridItem component props and usage examples.
 # GridItem
 
 ## Import
-`import { GridItem } from "carbon-sage/lib/components/grid";`
+`import { GridItem } from "carbon-react/lib/components/grid";`
 
 ## Source
 - Export: `./components/grid`

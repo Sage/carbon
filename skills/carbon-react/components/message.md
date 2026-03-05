@@ -6,7 +6,7 @@ description: Carbon Message component props and usage examples.
 # Message
 
 ## Import
-`import Message from "carbon-sage/lib/components/message";`
+`import Message from "carbon-react/lib/components/message";`
 
 ## Source
 - Export: `./components/message`

@@ -6,10 +6,10 @@ description: Carbon ButtonNext component props and usage examples.
 # ButtonNext
 
 ## Import
-`import ButtonNext from "carbon-sage/lib/components/button/__next__/button.component";`
+`import Button from "carbon-react/lib/components/button/__next__";`
 
 ## Source
-- Export: `./components/button/__next__/button.component`
+- Export: `./components/button/__next__`
 - Props interface: `ButtonProps`
 
 ## Props

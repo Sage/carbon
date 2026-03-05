@@ -6,7 +6,7 @@ description: Carbon TileFooter component props and usage examples.
 # TileFooter
 
 ## Import
-`import { TileFooter } from "carbon-sage/lib/components/tile";`
+`import { TileFooter } from "carbon-react/lib/components/tile";`
 
 ## Source
 - Export: `./components/tile`

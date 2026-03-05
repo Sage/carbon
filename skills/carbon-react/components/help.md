@@ -6,7 +6,7 @@ description: Carbon Help component props and usage examples.
 # Help
 
 ## Import
-`import Help from "carbon-sage/lib/components/help";`
+`import Help from "carbon-react/lib/components/help";`
 
 ## Source
 - Export: `./components/help`

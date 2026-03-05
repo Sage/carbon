@@ -6,7 +6,7 @@ description: Carbon VerticalDivider component props and usage examples.
 # VerticalDivider
 
 ## Import
-`import VerticalDivider from "carbon-sage/lib/components/vertical-divider";`
+`import VerticalDivider from "carbon-react/lib/components/vertical-divider";`
 
 ## Source
 - Export: `./components/vertical-divider`

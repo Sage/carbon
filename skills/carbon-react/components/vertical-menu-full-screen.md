@@ -6,7 +6,7 @@ description: Carbon VerticalMenuFullScreen component props and usage examples.
 # VerticalMenuFullScreen
 
 ## Import
-`import { VerticalMenuFullScreen } from "carbon-sage/lib/components/vertical-menu";`
+`import { VerticalMenuFullScreen } from "carbon-react/lib/components/vertical-menu";`
 
 ## Source
 - Export: `./components/vertical-menu`

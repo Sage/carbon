@@ -6,7 +6,7 @@ description: Carbon Password component props and usage examples.
 # Password
 
 ## Import
-`import Password from "carbon-sage/lib/components/password";`
+`import Password from "carbon-react/lib/components/password";`
 
 ## Source
 - Export: `./components/password`

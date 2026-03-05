@@ -6,7 +6,7 @@ description: Carbon Toast component props and usage examples.
 # Toast
 
 ## Import
-`import Toast from "carbon-sage/lib/components/toast";`
+`import Toast from "carbon-react/lib/components/toast";`
 
 ## Source
 - Export: `./components/toast`

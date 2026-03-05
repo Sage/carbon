@@ -6,7 +6,7 @@ description: Carbon LinkPreview component props and usage examples.
 # LinkPreview
 
 ## Import
-`import LinkPreview from "carbon-sage/lib/components/link-preview";`
+`import LinkPreview from "carbon-react/lib/components/link-preview";`
 
 ## Source
 - Export: `./components/link-preview`

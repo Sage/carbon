@@ -6,7 +6,7 @@ description: Carbon Button component props and usage examples.
 # Button
 
 ## Import
-`import Button from "carbon-sage/lib/components/button";`
+`import Button from "carbon-react/lib/components/button";`
 
 ## Source
 - Export: `./components/button`

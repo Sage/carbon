@@ -6,7 +6,7 @@ description: Carbon ProgressTracker component props and usage examples.
 # ProgressTracker
 
 ## Import
-`import ProgressTracker from "carbon-sage/lib/components/progress-tracker";`
+`import ProgressTracker from "carbon-react/lib/components/progress-tracker";`
 
 ## Source
 - Export: `./components/progress-tracker`

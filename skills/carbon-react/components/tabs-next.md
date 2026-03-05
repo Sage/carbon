@@ -6,10 +6,10 @@ description: Carbon TabsNext component props and usage examples.
 # TabsNext
 
 ## Import
-`import TabsNext from "carbon-sage/lib/components/tabs/__next__/tabs.component";`
+`import { Tabs } from "carbon-react/lib/components/tabs/__next__";`
 
 ## Source
-- Export: `./components/tabs/__next__/tabs.component`
+- Export: `./components/tabs/__next__`
 - Props interface: `TabsProps`
 
 ## Props

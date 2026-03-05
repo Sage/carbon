@@ -6,7 +6,7 @@ description: Carbon Card component props and usage examples.
 # Card
 
 ## Import
-`import Card from "carbon-sage/lib/components/card";`
+`import Card from "carbon-react/lib/components/card";`
 
 ## Source
 - Export: `./components/card`

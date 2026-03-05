@@ -6,7 +6,7 @@ description: Carbon GlobalHeader component props and usage examples.
 # GlobalHeader
 
 ## Import
-`import GlobalHeader from "carbon-sage/lib/components/global-header";`
+`import GlobalHeader from "carbon-react/lib/components/global-header";`
 
 ## Source
 - Export: `./components/global-header`

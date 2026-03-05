@@ -6,7 +6,7 @@ description: Carbon InlineInputs component props and usage examples.
 # InlineInputs
 
 ## Import
-`import InlineInputs from "carbon-sage/lib/components/inline-inputs";`
+`import InlineInputs from "carbon-react/lib/components/inline-inputs";`
 
 ## Source
 - Export: `./components/inline-inputs`

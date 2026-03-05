@@ -6,7 +6,7 @@ description: Carbon Icon component props and usage examples.
 # Icon
 
 ## Import
-`import Icon from "carbon-sage/lib/components/icon";`
+`import Icon from "carbon-react/lib/components/icon";`
 
 ## Source
 - Export: `./components/icon`

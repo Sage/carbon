@@ -6,7 +6,7 @@ description: Carbon FlatTable component props and usage examples.
 # FlatTable
 
 ## Import
-`import { FlatTable } from "carbon-sage/lib/components/flat-table";`
+`import { FlatTable } from "carbon-react/lib/components/flat-table";`
 
 ## Source
 - Export: `./components/flat-table`

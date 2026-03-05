@@ -6,7 +6,7 @@ description: Carbon Typography component props and usage examples.
 # Typography
 
 ## Import
-`import Typography from "carbon-sage/lib/components/typography";`
+`import Typography from "carbon-react/lib/components/typography";`
 
 ## Source
 - Export: `./components/typography`

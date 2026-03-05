@@ -6,7 +6,7 @@ description: Carbon FlatTableRowHeader component props and usage examples.
 # FlatTableRowHeader
 
 ## Import
-`import { FlatTableRowHeader } from "carbon-sage/lib/components/flat-table";`
+`import { FlatTableRowHeader } from "carbon-react/lib/components/flat-table";`
 
 ## Source
 - Export: `./components/flat-table`

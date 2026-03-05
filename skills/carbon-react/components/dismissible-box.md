@@ -6,7 +6,7 @@ description: Carbon DismissibleBox component props and usage examples.
 # DismissibleBox
 
 ## Import
-`import DismissibleBox from "carbon-sage/lib/components/dismissible-box";`
+`import DismissibleBox from "carbon-react/lib/components/dismissible-box";`
 
 ## Source
 - Export: `./components/dismissible-box`

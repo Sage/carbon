@@ -6,7 +6,7 @@ description: Carbon StepFlow component props and usage examples.
 # StepFlow
 
 ## Import
-`import StepFlow from "carbon-sage/lib/components/step-flow/step-flow.component";`
+`import StepFlow from "carbon-react/lib/components/step-flow/step-flow.component";`
 
 ## Source
 - Export: `./components/step-flow/step-flow.component`

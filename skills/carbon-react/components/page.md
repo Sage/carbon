@@ -6,7 +6,7 @@ description: Carbon Page component props and usage examples.
 # Page
 
 ## Import
-`import Page from "carbon-sage/lib/components/pages";`
+`import Page from "carbon-react/lib/components/pages";`
 
 ## Source
 - Export: `./components/pages`

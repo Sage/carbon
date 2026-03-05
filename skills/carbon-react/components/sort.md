@@ -6,7 +6,7 @@ description: Carbon Sort component props and usage examples.
 # Sort
 
 ## Import
-`import { Sort } from "carbon-sage/lib/components/flat-table";`
+`import { Sort } from "carbon-react/lib/components/flat-table";`
 
 ## Source
 - Export: `./components/flat-table`

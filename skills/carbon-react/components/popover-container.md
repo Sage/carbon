@@ -6,7 +6,7 @@ description: Carbon PopoverContainer component props and usage examples.
 # PopoverContainer
 
 ## Import
-`import PopoverContainer from "carbon-sage/lib/components/popover-container";`
+`import PopoverContainer from "carbon-react/lib/components/popover-container";`
 
 ## Source
 - Export: `./components/popover-container`

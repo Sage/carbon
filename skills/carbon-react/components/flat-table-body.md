@@ -6,7 +6,7 @@ description: Carbon FlatTableBody component props and usage examples.
 # FlatTableBody
 
 ## Import
-`import { FlatTableBody } from "carbon-sage/lib/components/flat-table";`
+`import { FlatTableBody } from "carbon-react/lib/components/flat-table";`
 
 ## Source
 - Export: `./components/flat-table`
