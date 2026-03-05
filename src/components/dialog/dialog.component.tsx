@@ -57,7 +57,7 @@ const mapLegacySizeToSize = (
     case "fullscreen":
       return "fullscreen";
     case "auto":
-      return "fullscreen";
+      return "large";
     case "maximise":
       return "fullscreen";
     default:
@@ -70,7 +70,7 @@ const mapHighlightVariantToGradientKeyLine = (
   gradientKeyLine?: boolean,
 ): boolean => {
   if (gradientKeyLine !== undefined) return gradientKeyLine;
-  return highlightVariant !== undefined && highlightVariant !== "default";
+  return highlightVariant === "ai";
 };
 
 let dialogLegacyWarned = false;
@@ -78,6 +78,7 @@ let deprecatedFullscreenTrigger = false;
 let deprecatedHighlightVariantTrigger = false;
 let deprecatedDisableCloseTrigger = false;
 let deprecatedPagesStylingTrigger = false;
+let deprecatedSizeAutoTrigger = false;
 
 export const Dialog = forwardRef<DialogHandle, DialogProps>(
   (
@@ -128,6 +129,13 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
       );
     }
 
+    if (!deprecatedSizeAutoTrigger && sizeProp === "auto") {
+      deprecatedSizeAutoTrigger = true;
+      Logger.deprecate(
+        'The `size="auto"` prop in Dialog is deprecated and has been defaulted to `size="large"`. Please use a specific size value instead.',
+      );
+    }
+
     // Map legacy props to new API
     const computedSize = mapLegacySizeToSize(sizeProp, fullscreen);
     const computedGradientKeyLine = mapHighlightVariantToGradientKeyLine(
@@ -141,6 +149,7 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
         size={computedSize}
         gradientKeyLine={computedGradientKeyLine}
         disableContentPadding={disableContentPadding}
+        disableClose={disableClose}
         {...rest}
       />
     );

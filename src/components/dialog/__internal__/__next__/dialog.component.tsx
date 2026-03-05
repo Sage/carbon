@@ -28,7 +28,6 @@ import tagComponent, {
 
 import useLocale from "../../../../hooks/__internal__/useLocale";
 import useModalAria from "../../../../hooks/__internal__/useModalAria/useModalAria";
-import useMediaQuery from "../../../../hooks/useMediaQuery";
 import Button from "../../../button/__next__";
 
 import { Size, ContentPaddingInterface } from "./dialog.config";
@@ -79,6 +78,8 @@ export interface DialogProps extends ModalProps, TagProps {
   disableAutoFocus?: boolean;
   /* Disables the focus trap when the dialog is open */
   disableFocusTrap?: boolean;
+  /** @deprecated Determines if the Dialog can be closed */
+  disableClose?: boolean;
   /** an optional array of refs to containers whose content should also be reachable by tabbing from the dialog */
   focusableContainers?: RefObject<HTMLElement>[];
   /** Optional selector to identify the focusable elements, if not provided a default selector is used */
@@ -157,6 +158,7 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
       onCancel,
       showCloseIcon = true,
       bespokeFocusTrap,
+      disableClose,
       help,
       gradientKeyLine = false,
       role = "dialog",
@@ -189,17 +191,7 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
 
     const isTopModal = useModalAria(containerRef);
 
-    // Detect small screen for accessibility requirements
-    const isSmallScreen = useMediaQuery("(max-width: 599px)");
-    const shouldDisableSticky = disableStickyOnSmallScreen && isSmallScreen;
-
     const isFullScreen = size === "fullscreen";
-
-    // On small screen with disableStickyOnSmallScreen, dialog becomes full width with no dimmer
-    const effectiveFullWidth = shouldDisableSticky || isFullScreen;
-
-    // Compute effective sticky state for footer
-    const effectiveStickyFooter = stickyFooter && !shouldDisableSticky;
 
     useImperativeHandle<DialogHandle, DialogHandle>(
       ref,
@@ -214,6 +206,7 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
     const closeIcon = showCloseIcon && onCancel && (
       <Button
         aria-label={locale.dialog.ariaLabels.close()}
+        disabled={disableClose}
         onClick={(ev) => onCancel(ev as React.MouseEvent<HTMLButtonElement>)}
         {...tagComponent("close", {
           "data-element": "close",
@@ -288,7 +281,7 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
           hasSubtitle={!!subtitle}
           ref={titleRef}
           showCloseIcon={showCloseIcon}
-          $disableSticky={shouldDisableSticky}
+          $disableStickyOnSmallScreen={disableStickyOnSmallScreen}
         >
           {renderTitle}
           {headerChildren}
@@ -301,8 +294,8 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
         <StyledDialogFooter
           ref={footerRef}
           $size={size}
-          $sticky={effectiveStickyFooter}
-          $disableSticky={shouldDisableSticky}
+          $sticky={stickyFooter}
+          $disableStickyOnSmallScreen={disableStickyOnSmallScreen}
           data-role="dialog-footer"
           data-element="dialog-footer"
         >
@@ -329,11 +322,11 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
       <Modal
         className={className ? `${className} carbon-dialog` : "carbon-dialog"}
         disableEscKey={disableEscKey}
+        disableClose={disableClose}
         onCancel={onCancel}
         open={open}
         restoreFocusOnClose={restoreFocusOnClose}
         topModalOverride={topModalOverride}
-        enableBackgroundUI={shouldDisableSticky}
         {...tagComponent("dialog", rest)}
         {...rest}
       >
@@ -349,8 +342,7 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
           <DialogPositioner
             $size={size}
             $fullscreen={isFullScreen}
-            $fullWidth={effectiveFullWidth}
-            $disableSticky={shouldDisableSticky}
+            $disableStickyOnSmallScreen={disableStickyOnSmallScreen}
           >
             <StyledDialog
               aria-modal={role === "dialog" && isTopModal ? true : undefined}
@@ -366,7 +358,7 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
               dialogHeight={dialogHeight}
               $gradientKeyLine={gradientKeyLine}
               $size={size}
-              $disableSticky={shouldDisableSticky}
+              $disableStickyOnSmallScreen={disableStickyOnSmallScreen}
               ref={containerRef}
               role={role}
               tabIndex={-1}
@@ -383,7 +375,7 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
                 hasFooter={footer !== undefined}
                 tabIndex={-1}
                 ref={contentRef}
-                $disableSticky={shouldDisableSticky}
+                $disableStickyOnSmallScreen={disableStickyOnSmallScreen}
                 disableContentPadding={disableContentPadding}
               >
                 {children}

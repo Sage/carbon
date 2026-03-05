@@ -30,7 +30,7 @@ type TransientSizeProps = {
 
 /** Transient prop to disable sticky behaviour on small screens */
 type TransientDisableStickyProps = {
-  $disableSticky?: boolean;
+  $disableStickyOnSmallScreen?: boolean;
 };
 
 /** Base transient props shared by most styled dialog sub-components */
@@ -62,7 +62,6 @@ type StyledDialogFooterProps = SharedTransientProps & {
 
 type StyledDialogPositionerProps = SharedTransientProps & {
   $fullscreen?: boolean;
-  $fullWidth?: boolean;
 };
 
 const applyDefaultPadding = () => css`
@@ -128,7 +127,7 @@ const DialogPositioner = styled.div.attrs(
   justify-content: center;
   align-items: center;
   z-index: ${({ theme, $size }) =>
-    $size === "fullscreen" ? theme.zIndex.fullscreenModal : theme.zIndex.modal};
+    $size === "fullscreen" ? theme.zIndex.fullScreenModal : theme.zIndex.modal};
 
   ${({ $size }) =>
     $size === "fullscreen" &&
@@ -137,8 +136,8 @@ const DialogPositioner = styled.div.attrs(
       align-items: stretch;
     `}
 
-  ${({ $disableSticky }) =>
-    $disableSticky &&
+  ${({ $disableStickyOnSmallScreen }) =>
+    $disableStickyOnSmallScreen &&
     css`
       @media screen and (max-width: ${smallScreenBreakpoint}) {
         background-color: transparent;
@@ -218,8 +217,8 @@ const StyledDialogContent = styled.div.attrs(applyBaseTheme)<
           }
         `}
 
-  ${({ $disableSticky }) =>
-    $disableSticky &&
+  ${({ $disableStickyOnSmallScreen }) =>
+    $disableStickyOnSmallScreen &&
     css`
       @media screen and (max-width: ${smallScreenBreakpoint}) {
         overflow-y: visible;
@@ -254,8 +253,8 @@ const StyledDialogFooter = styled.div<StyledDialogFooterProps>`
       z-index: 1;
     `}
 
-  ${({ $disableSticky }) =>
-    $disableSticky &&
+  ${({ $disableStickyOnSmallScreen }) =>
+    $disableStickyOnSmallScreen &&
     css`
       @media screen and (max-width: ${smallScreenBreakpoint}) {
         position: static;
@@ -269,8 +268,8 @@ const StyledDialogTitle = styled.div<StyledDialogTitleProps>`
   padding: var(--global-space-comp-XL, 24px);
   gap: var(--global-space-comp-L, 16px);
   border-bottom: 1px solid #a3adb5;
-  border-top-right-radius: var(--borderRadius200);
-  border-top-left-radius: var(--borderRadius200);
+  border-top-right-radius: var(--global-radius-container-XL, 24px);
+  border-top-left-radius: var(--global-radius-container-XL, 24px);
 
   ${({ showCloseIcon }) => showCloseIcon && "padding-right: 85px"};
 
@@ -291,8 +290,8 @@ const StyledDialogTitle = styled.div<StyledDialogTitleProps>`
     }
   }
 
-  ${({ $disableSticky }) =>
-    $disableSticky &&
+  ${({ $disableStickyOnSmallScreen }) =>
+    $disableStickyOnSmallScreen &&
     css`
       @media screen and (max-width: ${smallScreenBreakpoint}) {
         border-radius: 0;
@@ -311,7 +310,7 @@ const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
     outline: none;
   }
 
-  ${({ dialogHeight, $size, $gradientKeyLine }) =>
+  ${({ dialogHeight, $size, $gradientKeyLine, backgroundColor }) =>
     $size === "fullscreen"
       ? css`
           box-shadow:
@@ -328,7 +327,7 @@ const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
             0 3px 4px 0 rgba(0, 0, 0, 0.1),
             10px 10px 60px 0 rgba(0, 0, 0, 0.1);
           border-radius: var(--global-radius-container-XL, 24px);
-          background: var(--container-standard-bg-default, #fff);
+          background: ${backgroundColor};
           max-height: 90vh;
           width: 100%;
 
@@ -366,12 +365,13 @@ const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
                 #00d6de 40%,
                 #9d60ff 90%
               );
-              border-radius: var(--borderRadius200) var(--borderRadius200) 0 0;
+              border-radius: var(--global-radius-container-XL, 24px)
+                var(--global-radius-container-XL, 24px) 0 0;
             }
           `}
 
           @media screen and (max-width: ${dialogSizes[$size]}) {
-            max-width: calc(100% - var(--spacing400));
+            max-width: calc(100% - var(--global-space-comp-2XL, 32px));
           }
 
           ${dialogHeight &&
@@ -397,8 +397,8 @@ const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
           `}
   }
 
-  ${({ $disableSticky }) =>
-    $disableSticky &&
+  ${({ $disableStickyOnSmallScreen }) =>
+    $disableStickyOnSmallScreen &&
     css`
       @media screen and (max-width: ${smallScreenBreakpoint}) {
         width: 100%;
