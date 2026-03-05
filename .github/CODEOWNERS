@@ -15,6 +15,10 @@
 /playwright/             @Sage/carbon-qa
 playwright-ct.config.ts  @Sage/carbon-qa
 
+# Skills files must be approved by a Carbon Admin because they inject content into the agent's context and responses,
+# so we want to ensure they are carefully reviewed.
+/skills/                 @Sage/carbon-admin
+
 # .github/workflows file changes must be approved by a Carbon Admin.
 /.github/workflows/       @Sage/carbon-admin
 
