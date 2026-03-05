@@ -205,7 +205,6 @@
     "chalk": "^4.1.2",
     "crypto-js": "^4.2.0",
     "date-fns": "^4.1.0",
-    "immutable": "~3.8.2",
     "invariant": "^2.2.4",
     "lexical": "0.38.2",
     "lodash": "^4.17.21",
