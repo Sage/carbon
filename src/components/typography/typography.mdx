@@ -1,10 +1,29 @@
 import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
 
+import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component";
 import * as TypographyStories from "./typography.stories.tsx";
 
 <Meta of={TypographyStories} />
 
 # Typography
+
+<DeprecationWarning>
+  This version of the `Typography` component and its sub-components (`List`, `ListItem`) are no longer supported and will be removed
+  in a future release. Please consider moving to the{" "}
+  <a style={{ color: "white" }} href="../?path=/docs/typography--docs">
+    {" "}
+    newer implementation
+  </a>{" "}
+  as soon as possible.
+
+  For lists, use proper semantic HTML elements with the new Typography component:
+  ```tsx
+  <ul>
+    <li><Typography>Item 1</Typography></li>
+    <li><Typography>Item 2</Typography></li>
+  </ul>
+  ```
+</DeprecationWarning>
 
 ## Contents
 

@@ -80,7 +80,7 @@ export const LoaderSpinner = ({
       data-role="visible-label"
       variant="span"
       fontWeight="400"
-      size={size}
+      $size={size}
       color={
         isLabelDark
           ? "var(--colorsUtilityYin090);"
