@@ -1,239 +1,236 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import RadioButton from ".";
+import { RadioButton, RadioButtonGroup } from ".";
 
 test("renders with provided `label`", () => {
-  render(<RadioButton value="radio1" label="Radio Button 1" />);
-
-  const radioButton = screen.getByRole("radio", { name: "Radio Button 1" });
-
-  expect(radioButton).toBeInTheDocument();
-  expect(screen.getByTestId("radio-svg")).toBeVisible();
-  expect(screen.getByText("Radio Button 1")).toBeVisible();
-});
-
-test("calls `onClick` when provided and the radio button is clicked", async () => {
-  const user = userEvent.setup();
-  const onClick = jest.fn();
   render(
-    <RadioButton value="radio1" label="Radio Button 1" onClick={onClick} />,
+    <RadioButtonGroup name="radio-group" value="" onChange={() => {}}>
+      <RadioButton value="radio" label="Radio Button" />
+    </RadioButtonGroup>,
   );
 
-  const radioButton = screen.getByRole("radio");
+  expect(
+    screen.getByRole("radio", { name: "Radio Button" }),
+  ).toBeInTheDocument();
+  expect(screen.getByTestId("radio-svg")).toBeVisible();
+  expect(screen.getByText("Radio Button")).toBeVisible();
+});
 
-  await user.click(radioButton);
+test("renders with provided `inputHint`", () => {
+  render(
+    <RadioButtonGroup name="radio-group" value="" onChange={() => {}}>
+      <RadioButton value="radio" label="Radio Button" inputHint="Input Hint" />
+    </RadioButtonGroup>,
+  );
 
-  expect(onClick).toHaveBeenCalledTimes(1);
+  expect(screen.getByText("Input Hint")).toBeVisible();
+  expect(
+    screen.getByRole("radio", { name: "Radio Button" }),
+  ).toHaveAccessibleDescription("Input Hint");
 });
 
 test("calls `onChange` when provided and the radio button is clicked", async () => {
   const user = userEvent.setup();
   const onChange = jest.fn();
   render(
-    <RadioButton value="radio1" label="Radio Button 1" onChange={onChange} />,
+    <RadioButtonGroup name="radio-group" value="" onChange={() => {}}>
+      <RadioButton value="radio" onChange={onChange} />
+    </RadioButtonGroup>,
   );
 
-  const radioButton = screen.getByRole("radio");
-
-  await user.click(radioButton);
+  await user.click(screen.getByRole("radio"));
 
   expect(onChange).toHaveBeenCalledTimes(1);
+});
+
+test("calls `onChange` from context when provided and the radio button is clicked", async () => {
+  const user = userEvent.setup();
+  const onChange = jest.fn();
+  render(
+    <RadioButtonGroup name="radio-group" value="" onChange={onChange}>
+      <RadioButton value="radio" />
+    </RadioButtonGroup>,
+  );
+
+  await user.click(screen.getByRole("radio"));
+
+  expect(onChange).toHaveBeenCalledTimes(1);
+});
+
+test("calls `onBlur` when provided and the radio button is blurred", async () => {
+  const user = userEvent.setup();
+  const onBlur = jest.fn();
+  render(
+    <RadioButtonGroup name="radio-group" value="" onChange={() => {}}>
+      <RadioButton value="radio" onBlur={onBlur} />
+    </RadioButtonGroup>,
+  );
+
+  await user.click(screen.getByRole("radio"));
+  await user.tab();
+
+  expect(onBlur).toHaveBeenCalledTimes(1);
+});
+
+test("calls `onBlur` from context when provided and the radio button is blurred", async () => {
+  const user = userEvent.setup();
+  const onBlur = jest.fn();
+  render(
+    <RadioButtonGroup
+      name="radio-group"
+      value=""
+      onBlur={onBlur}
+      onChange={() => {}}
+    >
+      <RadioButton value="radio" />
+    </RadioButtonGroup>,
+  );
+
+  await user.click(screen.getByRole("radio"));
+  await user.tab();
+
+  expect(onBlur).toHaveBeenCalledTimes(1);
+});
+
+test("calls `onClick` when provided and the radio button is clicked", async () => {
+  const user = userEvent.setup();
+  const onClick = jest.fn();
+  render(
+    <RadioButtonGroup name="radio-group" value="" onChange={() => {}}>
+      <RadioButton value="radio" onClick={onClick} />
+    </RadioButtonGroup>,
+  );
+
+  await user.click(screen.getByRole("radio"));
+
+  expect(onClick).toHaveBeenCalledTimes(1);
 });
 
 test("calls `onFocus` when provided and the radio button is focused", async () => {
   const user = userEvent.setup();
   const onFocus = jest.fn();
   render(
-    <RadioButton value="radio1" label="Radio Button 1" onFocus={onFocus} />,
+    <RadioButtonGroup name="radio-group" value="" onChange={() => {}}>
+      <RadioButton value="radio" onFocus={onFocus} />
+    </RadioButtonGroup>,
   );
 
-  const radioButton = screen.getByRole("radio", { name: "Radio Button 1" });
-  await user.click(radioButton);
+  await user.click(screen.getByRole("radio"));
 
   expect(onFocus).toHaveBeenCalledTimes(1);
-});
-
-test("calls `onBlur` when provided and the radio button is blurred", async () => {
-  const user = userEvent.setup();
-  const onBlur = jest.fn();
-  render(<RadioButton value="radio1" label="Radio Button 1" onBlur={onBlur} />);
-
-  const radioButton = screen.getByRole("radio", { name: "Radio Button 1" });
-  await user.click(radioButton);
-  await user.tab();
-
-  expect(onBlur).toHaveBeenCalledTimes(1);
 });
 
 test("calls `onMouseEnter` when provided and the radio button is hovered", async () => {
   const user = userEvent.setup();
   const onMouseEnter = jest.fn();
   render(
-    <RadioButton
-      value="radio1"
-      label="Radio Button 1"
-      onMouseEnter={onMouseEnter}
-    />,
+    <RadioButtonGroup name="radio-group" value="" onChange={() => {}}>
+      <RadioButton value="radio" onMouseEnter={onMouseEnter} />
+    </RadioButtonGroup>,
   );
 
-  const radioButton = screen.getByRole("radio");
-
-  await user.hover(radioButton);
+  await user.hover(screen.getByRole("radio"));
 
   expect(onMouseEnter).toHaveBeenCalledTimes(1);
 });
 
-test("calls `onMouseLeave` when provided and the radio button is no longer hovered", async () => {
+test("calls `onMouseLeave` when provided and the radio button is unhovered", async () => {
   const user = userEvent.setup();
   const onMouseLeave = jest.fn();
   render(
-    <RadioButton
-      value="radio1"
-      label="Radio Button 1"
-      onMouseLeave={onMouseLeave}
-    />,
+    <RadioButtonGroup name="radio-group" value="" onChange={() => {}}>
+      <RadioButton value="radio" onMouseLeave={onMouseLeave} />
+    </RadioButtonGroup>,
   );
 
-  const radioButton = screen.getByRole("radio");
+  const radio = screen.getByRole("radio");
 
-  await user.hover(radioButton);
-  await user.unhover(radioButton);
+  await user.hover(radio);
+  await user.unhover(radio);
 
   expect(onMouseLeave).toHaveBeenCalledTimes(1);
 });
 
+test("should accept ref as an object", () => {
+  const ref = { current: null };
+  render(
+    <RadioButtonGroup name="radio-group" value="" onChange={() => {}}>
+      <RadioButton value="radio" ref={ref} />
+    </RadioButtonGroup>,
+  );
+
+  expect(ref.current).not.toBeNull();
+});
+
+test("should accept ref as a callback", () => {
+  const ref = jest.fn();
+  render(
+    <RadioButtonGroup name="radio-group" value="" onChange={() => {}}>
+      <RadioButton value="radio" ref={ref} />
+    </RadioButtonGroup>,
+  );
+
+  expect(ref).toHaveBeenCalledTimes(1);
+});
+
+test("should set ref to empty after unmount", () => {
+  const ref = { current: null };
+  const { unmount } = render(
+    <RadioButtonGroup name="radio-group" value="" onChange={() => {}}>
+      <RadioButton value="radio" ref={ref} />
+    </RadioButtonGroup>,
+  );
+
+  unmount();
+  expect(ref.current).toBeNull();
+});
+
+test("renders disabled when `disabled` prop is true", () => {
+  render(
+    <RadioButtonGroup name="radio-group" value="" onChange={() => {}}>
+      <RadioButton value="radio" disabled />
+    </RadioButtonGroup>,
+  );
+
+  expect(screen.getByRole("radio")).toBeDisabled();
+});
+
 test("forwards the provided ref to the input", () => {
   const ref = React.createRef<HTMLInputElement>();
-  render(<RadioButton value="radio1" label="Radio Button 1" ref={ref} />);
+  render(
+    <RadioButtonGroup name="radio-group" value="" onChange={() => {}}>
+      <RadioButton value="radio" label="Radio Button" ref={ref} />
+    </RadioButtonGroup>,
+  );
 
-  const radioButton = screen.getByRole("radio", { name: "Radio Button 1" });
+  const radioButton = screen.getByRole("radio", { name: "Radio Button" });
 
   expect(ref.current).toBe(radioButton);
 });
 
-test("throws an error if children are passed", () => {
-  const consoleError = jest
-    .spyOn(console, "error")
-    .mockImplementation(() => {});
-
-  expect(() => {
-    render(
-      <RadioButton value="radio1" label="Radio Button 1">
-        <div>child</div>
-      </RadioButton>,
-    );
-  }).toThrow(
-    "This component is meant to be used as a self-closing tag. " +
-      "You should probably use the label prop instead.",
-  );
-
-  consoleError.mockRestore();
-});
-
-test("renders disabled when `disabled` prop is true", () => {
-  render(<RadioButton value="radio1" label="Radio Button 1" disabled />);
-
-  const radioButton = screen.getByRole("radio");
-
-  expect(radioButton).toBeDisabled();
-});
-
-test("renders checked when `checked` prop is true", () => {
-  render(<RadioButton value="radio1" label="Radio Button 1" checked />);
-
-  const radioButton = screen.getByRole("radio");
-
-  expect(radioButton).toBeChecked();
-});
-
-test("renders with a help tooltip if `labelHelp` is provided", async () => {
-  const user = userEvent.setup();
+test("renders with `labelHelp` as `inputHint`", async () => {
   render(
-    <RadioButton value="radio1" label="Radio Button 1" labelHelp="labelHelp" />,
+    <RadioButtonGroup name="radio-group" value="" onChange={() => {}}>
+      <RadioButton value="radio" label="Radio Button" labelHelp="Input Hint" />
+    </RadioButtonGroup>,
   );
 
-  const helpIcon = screen.getByRole("button", { name: "help" });
-  await user.hover(helpIcon);
-
-  const helpTooltip = screen.getByRole("tooltip", { name: "labelHelp" });
-
-  expect(helpTooltip).toBeVisible();
+  expect(screen.getByText("Input Hint")).toBeVisible();
+  expect(
+    screen.getByRole("radio", { name: "Radio Button" }),
+  ).toHaveAccessibleDescription("Input Hint");
 });
 
-test("sets the aria-label of the help icon to the provided `helpAriaLabel`", () => {
+test("renders with `fieldHelp` as `inputHint`", async () => {
   render(
-    <RadioButton
-      value="radio1"
-      label="Radio Button 1"
-      labelHelp="labelHelp"
-      helpAriaLabel="helpAriaLabel"
-    />,
+    <RadioButtonGroup name="radio-group" value="" onChange={() => {}}>
+      <RadioButton value="radio" label="Radio Button" fieldHelp="Input Hint" />
+    </RadioButtonGroup>,
   );
 
-  const helpIcon = screen.getByRole("button", { name: "helpAriaLabel" });
-
-  expect(helpIcon).toBeVisible();
-});
-
-test("renders with provided data- attributes", () => {
-  render(
-    <RadioButton
-      value="radio1"
-      label="Radio Button 1"
-      data-role="bar"
-      data-element="baz"
-    />,
-  );
-
-  expect(screen.getByTestId("bar")).toHaveAttribute("data-element", "baz");
-});
-
-// coverage
-test("renders with expected styles when `size` is 'large'", () => {
-  render(<RadioButton value="radio1" label="Radio Button 1" size="large" />);
-
-  const radioButton = screen.getByRole("radio");
-
-  expect(radioButton).toHaveStyle({ width: "24px", height: "24px" });
-  expect(screen.getByTestId("radio-svg")).toHaveStyle({
-    width: "24px",
-    height: "24px",
-  });
-});
-
-// coverage
-test("renders with expected styles when `reverse` prop is true", () => {
-  render(
-    <RadioButton
-      value="radio1"
-      label="Radio Button 1"
-      fieldHelp="fieldHelp"
-      reverse
-    />,
-  );
-
-  expect(screen.getByText("fieldHelp")).toHaveStyle({
-    marginLeft: "0px",
-    marginRight: "6px",
-  });
-
-  expect(screen.getByText("Radio Button 1")).toHaveStyle({ flex: "0 1 auto" });
-});
-
-// coverage
-test("renders `fieldHelp` with expected styles when `size` is 'large' and `reverse` is true", () => {
-  render(
-    <RadioButton
-      value="radio1"
-      label="Radio Button 1"
-      size="large"
-      fieldHelp="fieldHelp"
-      reverse
-    />,
-  );
-
-  expect(screen.getByText("fieldHelp")).toHaveStyle({
-    padding: "0",
-  });
+  expect(screen.getByText("Input Hint")).toBeVisible();
+  expect(
+    screen.getByRole("radio", { name: "Radio Button" }),
+  ).toHaveAccessibleDescription("Input Hint");
 });
