@@ -493,6 +493,26 @@ test.describe("Prop tests", () => {
     });
   });
 
+  test("placeholder does not block editor focus on click", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <TextEditorDefaultComponent
+        labelText="Example"
+        placeholder="This is a nice placeholder"
+      />,
+    );
+
+    const editor = page.getByRole("textbox");
+    const placeholder = page.locator("div[data-role='pw-rte-placeholder']");
+
+    // eslint-disable-next-line playwright/no-force-option
+    await placeholder.click({ force: true });
+
+    await expect(editor).toBeFocused();
+  });
+
   test.describe("previews", () => {
     test("simple", async ({ mount, page }) => {
       const previews = [
@@ -1614,7 +1634,7 @@ test.describe("Functionality tests", () => {
       const linkHref = page.locator("a");
       await expect(linkHref).toHaveAttribute("href", "https://www.sage.com");
 
-      await expect(titleInput).not.toBeVisible();
+      await expect(titleInput).toBeHidden();
     });
 
     test("should not persist data between modals when the Cancel button is pressed", async ({
