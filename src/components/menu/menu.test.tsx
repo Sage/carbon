@@ -5,16 +5,16 @@ import userEvent from "@testing-library/user-event";
 import { Menu, MenuItem } from ".";
 
 import {
-  testStyledSystemLayout,
-  testStyledSystemFlexBox,
+  testStyledLayout,
+  testStyledFlexBox,
 } from "../../__spec_helper__/__internal__/test-utils";
 import Button from "../../components/button";
 
-testStyledSystemLayout(
+testStyledLayout(
   (props) => <Menu {...props}>Foo</Menu>,
   () => screen.getByRole("list"),
 );
-testStyledSystemFlexBox(
+testStyledFlexBox(
   (props) => <Menu {...props}>Foo</Menu>,
   () => screen.getByRole("list"),
 );
