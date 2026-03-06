@@ -1,11 +1,23 @@
 import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
+import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component";
 
 import * as DialogStories from "./dialog.stories.tsx";
 
 <Meta of={DialogStories} />
 
 # Dialog
+
+<DeprecationWarning>
+  This version of the Dialog component is deprecated and will be removed in a future release.
+  The legacy interface has been adapted to use the new implementation, but some
+  features could not be maintained and have been removed. Please migrate to the{" "}
+  <a style={{ color: "white" }} href="../?path=/docs/dialog--docs">
+    {" "}
+    newer implementation
+  </a>{" "}
+  as soon as possible.
+</DeprecationWarning>
 
 <a
   target="_blank"

@@ -133,12 +133,12 @@ test.describe("should render Confirm component", () => {
 
   (
     [
-      [SIZE.EXTRASMALL, 300],
-      [SIZE.SMALL, 380],
-      [SIZE.MEDIUMSMALL, 540],
-      [SIZE.MEDIUM, 750],
-      [SIZE.MEDIUMLARGE, 850],
-      [SIZE.LARGE, 960],
+      [SIZE.EXTRASMALL, 540],
+      [SIZE.SMALL, 540],
+      [SIZE.MEDIUMSMALL, 850],
+      [SIZE.MEDIUM, 850],
+      [SIZE.MEDIUMLARGE, 1080],
+      [SIZE.LARGE, 1080],
       [SIZE.EXTRALARGE, 1080],
     ] as [ConfirmProps["size"], number][]
   ).forEach(([sizeName, size]) => {

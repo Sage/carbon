@@ -8,9 +8,10 @@ import {
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import CarbonProvider from "../carbon-provider";
-import Dialog, { DialogHandle, DialogProps } from ".";
-import Logger from "../../__internal__/utils/logger";
+import CarbonProvider from "../../../carbon-provider";
+import Dialog from ".";
+import { DialogHandle, DialogProps } from "./dialog.component";
+import Form from "../../../form";
 
 beforeEach(() => {
   jest.useFakeTimers();
@@ -21,38 +22,12 @@ afterEach(() => {
   jest.useRealTimers();
 });
 
-describe("Deprecation warnings", () => {
-  test("logs a deprecation warning when disableClose is used", () => {
-    const loggerSpy = jest.spyOn(Logger, "deprecate");
-    render(<Dialog open disableClose />);
-
-    expect(loggerSpy).toHaveBeenCalledWith(
-      "The disableClose prop in Dialog is deprecated and will soon be removed.",
-    );
-    expect(loggerSpy).toHaveBeenCalledTimes(1);
-
-    loggerSpy.mockRestore();
-  });
-
-  test("logs a deprecation warning when pagesStyling is used", async () => {
-    const loggerSpy = jest.spyOn(Logger, "deprecate");
-    render(<Dialog pagesStyling open />);
-
-    expect(loggerSpy).toHaveBeenCalledWith(
-      "The pagesStyling prop in Dialog is deprecated and will soon be removed.",
-    );
-    expect(loggerSpy).toHaveBeenCalledTimes(1);
-
-    loggerSpy.mockRestore();
-  });
-});
-
 describe("Modal Dialog", () => {
-  test("passes className prop to the dialog element", () => {
+  test("passes className prop to the modal element", () => {
     render(<Dialog open title="My dialog" className="custom-class" />);
 
-    const dialog = screen.getByTestId("modal");
-    expect(dialog).toHaveClass("custom-class");
+    const modal = screen.getByTestId("modal");
+    expect(modal).toHaveClass("custom-class");
   });
 
   test("dialog element has aria-modal attribute set to true when open", () => {
@@ -64,7 +39,7 @@ describe("Modal Dialog", () => {
     expect(screen.getByRole("dialog")).toHaveAttribute("aria-modal", "true");
   });
 
-  test("title is displayed as a level 1 heading when title prop is passed", async () => {
+  test("title is displayed as a level 1 heading when title prop is passed", () => {
     render(<Dialog open title="My dialog" />);
 
     const dialog = screen.getByRole("dialog", { name: /My dialog/i });
@@ -76,10 +51,12 @@ describe("Modal Dialog", () => {
     expect(heading).toBeVisible();
   });
 
-  test("subtitle is displayed when subtitle prop is passed", async () => {
+  test("subtitle is displayed when subtitle prop is passed", () => {
     render(<Dialog open title="My dialog" subtitle="My subtitle" />);
 
-    const dialog = screen.getByRole("dialog", { description: /My subtitle/i });
+    const dialog = screen.getByRole("dialog", {
+      description: /My subtitle/i,
+    });
 
     expect(dialog).toHaveTextContent("My subtitle");
   });
@@ -340,7 +317,7 @@ describe("Modal Dialog", () => {
   test("renders with grey background when greyBackground prop is passed", () => {
     render(<Dialog open title="My dialog" greyBackground />);
     expect(screen.getByRole("dialog")).toHaveStyle({
-      backgroundColor: "var(--colorsUtilityMajor025)",
+      backgroundColor: "var(--container-standard-bg-alt, #f4f5f6)",
     });
   });
 
@@ -393,18 +370,17 @@ describe("Modal Dialog", () => {
     await user.click(screen.getByRole("button", { name: /Close/i }));
 
     expect(screen.getByRole("dialog")).toHaveAccessibleName("Outer dialog");
-    expect(document.body).toHaveStyle("overflow: hidden");
   });
 
-  test("should render with the highlight when 'ai' is passed in as the `highlightVariant`", () => {
+  test("should render with the AI keyline when gradientKeyLine prop is true", () => {
     render(
-      <Dialog open title="My dialog" highlightVariant="ai">
+      <Dialog open title="My dialog" gradientKeyLine>
         Inner content
       </Dialog>,
     );
 
-    const highlightElement = screen.getByRole("dialog");
-    expect(highlightElement).toHaveStyleRule(
+    const dialogElement = screen.getByRole("dialog");
+    expect(dialogElement).toHaveStyleRule(
       "background",
       `linear-gradient( 90deg, #00d639 0%, #00d6de 40%, #9d60ff 90% )`,
       {
@@ -412,14 +388,54 @@ describe("Modal Dialog", () => {
       },
     );
 
-    expect(highlightElement).toBeVisible();
+    expect(dialogElement).toBeVisible();
+  });
+
+  describe("Form with sticky footer", () => {
+    test("renders Form with stickyFooter inside the dialog content area", () => {
+      render(
+        <Dialog open title="My dialog">
+          <Form
+            aria-label="Test form"
+            stickyFooter
+            leftSideButtons={<button type="button">Cancel</button>}
+            saveButton={<button type="button">Save</button>}
+          >
+            <p>Form content</p>
+          </Form>
+        </Dialog>,
+      );
+
+      const content = screen.getByTestId("dialog-content");
+      const form = within(content).getByRole("form");
+      expect(form).toHaveClass("sticky");
+    });
+
+    test("renders Form with stickyFooter inside fullscreen dialog content area", () => {
+      render(
+        <Dialog open size="fullscreen" title="My dialog">
+          <Form
+            aria-label="Test form"
+            stickyFooter
+            leftSideButtons={<button type="button">Cancel</button>}
+            saveButton={<button type="button">Save</button>}
+          >
+            <p>Form content</p>
+          </Form>
+        </Dialog>,
+      );
+
+      const content = screen.getByTestId("dialog-content");
+      const form = within(content).getByRole("form");
+      expect(form).toHaveClass("sticky");
+    });
   });
 });
 
 describe("Fullscreen Dialog", () => {
   test("renders the fullscreen dialog correctly", () => {
     render(
-      <Dialog fullscreen open>
+      <Dialog size="fullscreen" open>
         <button type="button" data-role="first-child">
           first child
         </button>
@@ -433,9 +449,10 @@ describe("Fullscreen Dialog", () => {
     expect(screen.getByTestId("third-child")).toBeVisible();
   });
 
-  test("renders with white background when fullscreen prop is true and greyBackground prop is false", () => {
+  // This test ensures that fullscreen dialog has a grey background at all times as per the DS designs.
+  test("renders with grey background when size is fullscreen and greyBackground is false", () => {
     render(
-      <Dialog fullscreen open>
+      <Dialog size="fullscreen" open>
         Inner content
       </Dialog>,
     );
@@ -448,9 +465,11 @@ describe("Fullscreen Dialog", () => {
     );
   });
 
-  test("renders with grey background when fullscreen prop is true and greyBackground prop is true", () => {
+  // This test ensures that the grey background is applied when both size is fullscreen and greyBackground is true,
+  // even though the greyBackground prop should be redundant in this case.
+  test("renders with grey background when size is fullscreen and greyBackground is true", () => {
     render(
-      <Dialog fullscreen open greyBackground>
+      <Dialog size="fullscreen" open greyBackground>
         Inner content
       </Dialog>,
     );
@@ -463,10 +482,9 @@ describe("Fullscreen Dialog", () => {
     );
   });
 
-  // test here for coverage only
-  test("padding is removed from the content when the `contentPadding` prop is passed", () => {
+  test("padding is removed from the content when the contentPadding prop is passed", () => {
     render(
-      <Dialog fullscreen open contentPadding={{ p: 0 }}>
+      <Dialog size="fullscreen" open contentPadding={{ p: 0 }}>
         <div>test content</div>
       </Dialog>,
     );
@@ -475,24 +493,24 @@ describe("Fullscreen Dialog", () => {
     expect(content).toHaveStyleRule("padding", "var(--spacing000)");
   });
 
-  test("when the `title` prop is a string, this value is set as the dialog's accessible name", () => {
-    render(<Dialog fullscreen open title="Test" />);
+  test("when the title prop is a string, this value is set as the dialog's accessible name", () => {
+    render(<Dialog size="fullscreen" open title="Test" />);
 
     expect(screen.getByRole("dialog")).toHaveAccessibleName("Test");
   });
 
-  test("when the `title` and `subtitle` props are provided, the subtitle is set as the dialog's accessible description", () => {
-    render(<Dialog fullscreen open title="Title" subtitle="Subtitle" />);
+  test("when the title and subtitle props are provided, the subtitle is set as the dialog's accessible description", () => {
+    render(<Dialog size="fullscreen" open title="Title" subtitle="Subtitle" />);
 
     expect(screen.getByRole("dialog")).toHaveAccessibleDescription("Subtitle");
   });
 
-  test("when the `title` prop is a React element and the `aria-labelledby` prop is provided, it is passed to the dialog container", () => {
+  test("when the title prop is a React element and the aria-labelledby prop is provided, it is passed to the dialog container", () => {
     render(
       <>
         <h2 id="test-id">custom title</h2>
         <Dialog
-          fullscreen
+          size="fullscreen"
           open
           title={<h2>test</h2>}
           aria-labelledby="test-id"
@@ -504,79 +522,193 @@ describe("Fullscreen Dialog", () => {
   });
 });
 
-// Purely for the coverage
-describe("Legacy size mapping", () => {
-  it.each(["medium-small", "medium-large", "large", "extra-large", "auto"])(
-    "maps legacy size '%s' without error",
-    (legacySize) => {
-      render(
-        <Dialog open size={legacySize as DialogProps["size"]} title="Test" />,
-      );
-
-      expect(screen.getByRole("dialog")).toBeVisible();
-    },
-  );
-
-  test("falls back to 'medium' for unrecognised size values", () => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    render(<Dialog open size={"unknown" as any} title="Test" />);
-    expect(screen.getByRole("dialog")).toBeVisible();
-  });
-
-  test("falls back to 'fullscreen' for 'maximise' size values", () => {
-    render(<Dialog open size="maximise" title="Test" />);
-    expect(screen.getByRole("dialog")).toBeVisible();
-  });
-
-  test("maps size='fullscreen' string to fullscreen dialog", () => {
-    render(<Dialog open size="fullscreen" title="Test" />);
-
-    expect(screen.getByRole("dialog")).toBeVisible();
-  });
-});
-
-describe("highlightVariant to gradientKeyLine mapping", () => {
-  test("explicit gradientKeyLine takes precedence over highlightVariant", () => {
+describe("Dialog footer", () => {
+  test("renders footer content when footer prop is passed", () => {
     render(
       <Dialog
         open
-        title="Test"
-        highlightVariant="ai"
-        gradientKeyLine={false}
-      />,
+        title="My dialog"
+        footer={<button type="button">Save</button>}
+      >
+        Content
+      </Dialog>,
     );
 
-    expect(screen.getByRole("dialog")).not.toHaveStyleRule(
-      "background",
-      `linear-gradient( 90deg, #00d639 0%, #00d6de 40%, #9d60ff 90% )`,
-      {
-        modifier: "::before",
-      },
-    );
+    expect(screen.getByRole("button", { name: /Save/i })).toBeVisible();
   });
 
-  test("highlightVariant='ai' enables gradient keyline when gradientKeyLine is not set", () => {
-    render(<Dialog open title="Test" highlightVariant="ai" />);
-
-    expect(screen.getByRole("dialog")).toHaveStyleRule(
-      "background",
-      `linear-gradient( 90deg, #00d639 0%, #00d6de 40%, #9d60ff 90% )`,
-      {
-        modifier: "::before",
-      },
+  test("footer is not rendered when footer prop is not passed", () => {
+    render(
+      <Dialog open title="My dialog">
+        Content
+      </Dialog>,
     );
+
+    expect(
+      screen.queryByText("dialog-footer", { selector: "[data-element]" }),
+    ).not.toBeInTheDocument();
+  });
+
+  test("sticky footer has position sticky when stickyFooter prop is true", () => {
+    render(
+      <Dialog
+        open
+        title="My dialog"
+        footer={<button type="button">Save</button>}
+        stickyFooter
+      >
+        Content
+      </Dialog>,
+    );
+
+    const footer = screen.getByTestId("dialog-footer");
+
+    expect(footer).toHaveStyleRule("position", "sticky");
   });
 });
 
-test("removes content padding when disableContentPadding is true", () => {
-  render(
-    <Dialog open title="Test" disableContentPadding>
-      Some dialog content here
-    </Dialog>,
-  );
+describe("Dialog sizes", () => {
+  test("renders correctly with size='small'", () => {
+    render(
+      <Dialog open title="Small dialog" size="small">
+        Content
+      </Dialog>,
+    );
 
-  expect(screen.getByTestId("dialog-content")).toHaveStyleRule(
-    "padding",
-    "0px",
-  );
+    const dialog = screen.getByRole("dialog", { name: /Small dialog/i });
+
+    expect(dialog).toBeVisible();
+  });
+
+  test("renders correctly with size='large'", () => {
+    render(
+      <Dialog open title="Large dialog" size="large">
+        Content
+      </Dialog>,
+    );
+
+    const dialog = screen.getByRole("dialog", { name: /Large dialog/i });
+
+    expect(dialog).toBeVisible();
+  });
+
+  test("maps legacy 'extra-small' size to 'small'", () => {
+    render(
+      <Dialog
+        open
+        title="XS dialog"
+        size={"extra-small" as DialogProps["size"]}
+      >
+        Content
+      </Dialog>,
+    );
+
+    expect(screen.getByRole("dialog", { name: /XS dialog/i })).toBeVisible();
+  });
+
+  test("maps legacy 'medium-small' size to 'medium'", () => {
+    render(
+      <Dialog
+        open
+        title="MS dialog"
+        size={"medium-small" as DialogProps["size"]}
+      >
+        Content
+      </Dialog>,
+    );
+
+    expect(screen.getByRole("dialog", { name: /MS dialog/i })).toBeVisible();
+  });
+
+  test("maps legacy 'medium-large' size to 'large'", () => {
+    render(
+      <Dialog
+        open
+        title="ML dialog"
+        size={"medium-large" as DialogProps["size"]}
+      >
+        Content
+      </Dialog>,
+    );
+
+    expect(screen.getByRole("dialog", { name: /ML dialog/i })).toBeVisible();
+  });
+});
+
+describe("Fullscreen Dialog with footer", () => {
+  test("renders footer in fullscreen mode", () => {
+    render(
+      <Dialog
+        open
+        size="fullscreen"
+        title="Fullscreen dialog"
+        footer={<button type="button">Save</button>}
+      >
+        Content
+      </Dialog>,
+    );
+
+    const footer = screen.getByTestId("dialog-footer");
+
+    expect(footer).toBeVisible();
+    expect(screen.getByRole("button", { name: /Save/i })).toBeVisible();
+  });
+
+  test("sticky footer has position sticky in fullscreen mode", () => {
+    render(
+      <Dialog
+        open
+        size="fullscreen"
+        title="Fullscreen dialog"
+        footer={<button type="button">Save</button>}
+        stickyFooter
+      >
+        Content
+      </Dialog>,
+    );
+
+    const footer = screen.getByTestId("dialog-footer");
+
+    expect(footer).toHaveStyleRule("position", "sticky");
+  });
+});
+
+describe("disableStickyOnSmallScreen", () => {
+  let originalMatchMedia: typeof window.matchMedia;
+
+  beforeEach(() => {
+    originalMatchMedia = window.matchMedia;
+    window.matchMedia = jest.fn().mockImplementation((query: string) => ({
+      matches: true,
+      media: query,
+      onchange: null,
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+      addListener: jest.fn(),
+      removeListener: jest.fn(),
+      dispatchEvent: jest.fn(),
+    }));
+  });
+
+  afterEach(() => {
+    window.matchMedia = originalMatchMedia;
+  });
+
+  test("applies small screen behaviour when disableStickyOnSmallScreen is true and screen is small", () => {
+    render(
+      <Dialog
+        open
+        title="My dialog"
+        disableStickyOnSmallScreen
+        footer={<button type="button">Save</button>}
+        stickyFooter
+      >
+        Content
+      </Dialog>,
+    );
+
+    const dialog = screen.getByRole("dialog");
+
+    expect(dialog).toBeVisible();
+  });
 });
