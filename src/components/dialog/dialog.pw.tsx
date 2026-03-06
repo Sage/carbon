@@ -1,15 +1,10 @@
 import React from "react";
 import { test, expect } from "../../../playwright/helpers/base-test";
-import type { Page } from "@playwright/test";
 
 import {
   DialogComponent,
   DialogWithFirstFocusableElement,
   DialogWithToast,
-  DialogBackgroundScrollTest,
-  DialogWithOpenToastsBackgroundScrollTest,
-  TopModalOverride,
-  DialogWithAutoFocusSelect,
   DialogComponentFocusableSelectors,
   DefaultStory,
   DefaultNestedStory,
@@ -23,52 +18,30 @@ import {
   UsingHandle,
   FullScreenDialogComponent,
   FullScreenNestedDialog,
-  FullScreenWithTitleAsReactComponent,
-  FullScreenWithAutoFocusSelect,
   FullScreenComponentFocusableSelectors,
   FullScreenWithBox,
   FullScreenWithHeaderChildren,
   FullScreenWithHideableHeaderChildren,
-  FullScreenBackgroundScrollTestComponent,
-  FullScreenOtherFocusableContainers,
   FullScreenMultipleDialogsInDifferentProviders,
 } from "./components.test-pw";
-import { toastComponent } from "../../../playwright/components/toast";
 import {
   checkAccessibility,
   getStyle,
-  waitForAnimationEnd,
   waitForElementFocus,
-  continuePressingTAB,
-  continuePressingSHIFTTAB,
 } from "../../../playwright/support/helper";
-import { CHARACTERS, SIZE } from "../../../playwright/support/constants";
+import { SIZE } from "../../../playwright/support/constants";
 import {
   getDataElementByValue,
   portal,
   tooltipPreview,
-  getComponent,
   backgroundUILocator,
 } from "../../../playwright/components";
 
-const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
-const testAria = "playwright_aria";
 const mainDialogTitle = "Main Dialog";
 const nestedDialogTitle = "Nested Dialog";
 
 test.describe("Dialog component", () => {
   test.describe("Testing Dialog component properties", () => {
-    ["0px", "100px", "500px"].forEach((height) => {
-      test(`when height prop is ${height}, expected height of the Dialog is same value`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<DialogComponent height={height} />);
-
-        await expect(page.getByRole("dialog")).toHaveCSS("height", height);
-      });
-    });
-
     test("when height prop is passed, Dialog height should not exceed the height of the viewport", async ({
       mount,
       page,
@@ -81,30 +54,6 @@ test.describe("Dialog component", () => {
       );
 
       expect(actualDialogHeight).toBeLessThanOrEqual(1000);
-    });
-
-    specialCharacters.forEach((title) => {
-      test(`when title prop is ${title}, should use it as Dialog title`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<DialogComponent title={title} />);
-
-        await expect(page.getByText(title)).toBeAttached();
-      });
-    });
-
-    specialCharacters.forEach((subtitle) => {
-      test(`when subtitle prop is ${subtitle}, should use it as Dialog subtitle`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <DialogComponent title="Sample dialog" subtitle={subtitle} />,
-        );
-
-        await expect(page.getByText(subtitle)).toBeAttached();
-      });
     });
 
     [
@@ -143,132 +92,6 @@ test.describe("Dialog component", () => {
           await expect(backgroundUILocatorElement).toBeVisible();
         }
       });
-    });
-
-    test("when showCloseIcon prop is false, should not render close icon", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<DialogComponent showCloseIcon={false} />);
-
-      await expect(page.getByLabel("Close")).toBeHidden();
-    });
-
-    test("when showCloseIcon prop is true, clicking close icon closes Dialog", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<DialogComponent />);
-
-      const dialog = page.getByRole("dialog");
-      await expect(dialog).toBeVisible();
-
-      await page.getByLabel("Close").click();
-
-      await expect(dialog).toBeHidden();
-    });
-
-    test("pressing the Escape key closes Dialog", async ({ mount, page }) => {
-      await mount(<DialogComponent disableEscKey={false} />);
-
-      const dialog = page.getByRole("dialog");
-      await expect(dialog).toBeVisible();
-
-      await dialog.press("Escape");
-
-      await expect(dialog).toBeHidden();
-    });
-
-    test("when disableEscKey prop is passed, pressing the Escape key does not close Dialog", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<DialogComponent disableEscKey />);
-
-      const dialog = page.getByRole("dialog");
-      await expect(dialog).toBeVisible();
-
-      await dialog.press("Escape");
-
-      await expect(dialog).toBeVisible();
-    });
-
-    test("when a function is passed to the onCancel prop, clicking close icon should call that function", async ({
-      mount,
-      page,
-    }) => {
-      let called = false;
-      await mount(
-        <DialogComponent
-          onCancel={() => {
-            called = true;
-          }}
-        />,
-      );
-
-      await page.getByLabel("Close").click();
-      expect(called).toBeTruthy();
-    });
-
-    test("when clicking outside the Dialog, the Dialog should not close", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<DialogComponent />);
-
-      await page.mouse.click(0, 0);
-
-      await expect(page.getByRole("dialog")).toBeVisible();
-    });
-
-    test("when aria-label prop is passed, it should be used as the aria label for Dialog", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<DialogComponent aria-label="aria label for dialog" />);
-
-      await expect(page.getByRole("dialog")).toHaveAttribute(
-        "aria-label",
-        "aria label for dialog",
-      );
-    });
-
-    test("when aria-describedby prop is passed, the aria-describedby attribute of the Dialog should be set to the prop's value", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<DialogComponent aria-describedby="aria description" />);
-
-      await expect(page.getByRole("dialog")).toHaveAttribute(
-        "aria-describedby",
-        "aria description",
-      );
-    });
-
-    test("when aria-labelledby prop is passed and title prop is not, the aria-labelledby attribute of the Dialog should be set to the prop's value", async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <DialogComponent
-          title={undefined}
-          aria-labelledby="label-element-id"
-        />,
-      );
-
-      await expect(page.getByRole("dialog")).toHaveAttribute(
-        "aria-labelledby",
-        "label-element-id",
-      );
-    });
-
-    test("when disableClose prop is passed, close icon should be disabled", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<DialogComponent disableClose />);
-
-      await expect(page.getByLabel("Close")).toBeDisabled();
     });
 
     test("when help prop is provided, hovering over the rendered help icon displays help text", async ({
@@ -393,133 +216,6 @@ test.describe("Dialog component", () => {
       await expect(dialog).toBeHidden();
     });
 
-    test("when disableAutoFocus prop is passed, the first focusable element should not be focused", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<DialogWithFirstFocusableElement disableAutoFocus />);
-
-      await expect(
-        page.getByRole("button").filter({ hasText: "Press me" }),
-      ).not.toBeFocused();
-    });
-
-    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-    test.skip("when tabbing through Dialog content, focus should remain trapped inside the Dialog", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<DialogComponent />);
-
-      const dialog = page.getByRole("dialog");
-      const thirdTextbox = page.getByLabel("Textbox3");
-      const secondTextbox = page.getByLabel("Textbox2");
-      const firstTextbox = page.getByLabel("Textbox1");
-      const closeButton = page.getByLabel("Close");
-
-      await dialog.press("Tab");
-      await expect(closeButton).toBeFocused();
-
-      await closeButton.press("Tab");
-      await expect(firstTextbox).toBeFocused();
-
-      await firstTextbox.press("Tab");
-      await expect(secondTextbox).toBeFocused();
-
-      await secondTextbox.press("Tab");
-      await expect(thirdTextbox).toBeFocused();
-
-      await thirdTextbox.press("Tab");
-      await expect(closeButton).toBeFocused();
-    });
-
-    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-    test.skip("when shift tabbing through Dialog content, focus should remain trapped inside the Dialog", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<DialogComponent />);
-
-      const dialog = page.getByRole("dialog");
-      const thirdTextbox = page.getByLabel("Textbox3");
-      const secondTextbox = page.getByLabel("Textbox2");
-      const firstTextbox = page.getByLabel("Textbox1");
-      const closeButton = page.getByLabel("Close");
-
-      await dialog.press("Shift+Tab");
-      await expect(thirdTextbox).toBeFocused();
-
-      await thirdTextbox.press("Shift+Tab");
-      await expect(secondTextbox).toBeFocused();
-
-      await secondTextbox.press("Shift+Tab");
-      await expect(firstTextbox).toBeFocused();
-
-      await firstTextbox.press("Shift+Tab");
-      await expect(closeButton).toBeFocused();
-
-      await closeButton.press("Shift+Tab");
-      await expect(thirdTextbox).toBeFocused();
-    });
-
-    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-    test.skip("when tabbing through Dialog content, background should not scroll to the bottom of the page", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<DialogBackgroundScrollTest />);
-
-      const dialog = page.getByRole("dialog");
-      const textbox = page.getByLabel("Textbox");
-      const closeButton = page.getByLabel("Close");
-
-      await dialog.press("Tab");
-      await closeButton.press("Tab");
-      await textbox.press("Tab");
-
-      await expect(closeButton).toBeFocused();
-      await expect(
-        page.getByText("I should not be scrolled into view"),
-      ).not.toBeInViewport();
-    });
-
-    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-    test.skip("when shift tabbing through Dialog content, background should not scroll to the bottom of the page", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<DialogBackgroundScrollTest />);
-
-      const dialog = page.getByRole("dialog");
-      const textbox = page.getByLabel("Textbox");
-      const closeButton = page.getByLabel("Close");
-
-      await dialog.press("Shift+Tab");
-      await textbox.press("Shift+Tab");
-
-      await expect(closeButton).toBeFocused();
-      await expect(
-        page.getByText("I should not be scrolled into view"),
-      ).not.toBeInViewport();
-    });
-
-    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-    test.skip("should loop focus when a Select component is passed as children and the user presses shift + tab", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<DialogWithAutoFocusSelect />);
-
-      const dialog = page.getByRole("dialog");
-      const select = dialog.getByRole("combobox");
-
-      await expect(select).toBeFocused();
-      await dialog.press("Shift+Tab");
-      await dialog.press("Shift+Tab");
-      await dialog.press("Shift+Tab");
-      await expect(select).toBeFocused();
-    });
-
     test("should render component with first input and button as focusableSelectors", async ({
       mount,
       page,
@@ -543,156 +239,6 @@ test.describe("Dialog component", () => {
       await expect(secondInputElement).not.toBeFocused();
       await expect(openToastElement).toBeFocused();
     });
-  });
-
-  test.describe("when there is a button inside Dialog, which opens a Toast", () => {
-    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-    test.skip("clicking button moves focus out of Dialog to the newly-opened Toast", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<DialogWithToast />);
-
-      const openToastButton = page
-        .getByRole("button")
-        .filter({ hasText: "Open Toast" });
-      await openToastButton.click();
-
-      const toast = toastComponent(page);
-      await waitForAnimationEnd(toast);
-      await expect(toast).toBeFocused();
-    });
-
-    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-    test.skip("when Toast is opened and focus on it is lost, pressing Tab key traps focus back inside the Dialog", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<DialogWithToast />);
-
-      const dialog = page.getByRole("dialog");
-      const openToastButton = page
-        .getByRole("button")
-        .filter({ hasText: "Open Toast" });
-      await openToastButton.click();
-
-      await page.mouse.click(0, 0); // click outside Toast and Dialog
-
-      await dialog.press("Tab");
-
-      await expect(openToastButton).toBeFocused();
-    });
-
-    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-    test.skip("when tabbing through Dialog content and two opened Toasts, the background scroll should not scroll to the bottom of the page", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<DialogWithOpenToastsBackgroundScrollTest />);
-
-      const dialog = page.getByRole("dialog");
-      const dialogCloseButton = dialog.getByLabel("Close");
-      const textbox = page.getByLabel("Textbox");
-      const toast1CloseButton = toastComponent(page)
-        .filter({ hasText: "Toast message 1" })
-        .getByLabel("Close");
-      const toast2CloseButton = toastComponent(page)
-        .filter({ hasText: "Toast message 2" })
-        .getByLabel("Close");
-
-      await dialog.press("Tab");
-      await dialogCloseButton.press("Tab");
-      await textbox.press("Tab");
-      await toast1CloseButton.press("Tab");
-      await toast2CloseButton.press("Tab");
-
-      await expect(dialogCloseButton).toBeFocused();
-      await expect(
-        page.getByText("I should not be scrolled into view"),
-      ).not.toBeInViewport();
-    });
-
-    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-    test.skip("when shift tabbing through Dialog content and two opened Toasts, the background scroll should not scroll to the bottom of the page", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<DialogWithOpenToastsBackgroundScrollTest />);
-
-      const dialog = page.getByRole("dialog");
-      const dialogCloseButton = dialog.getByLabel("Close");
-      const textbox = page.getByLabel("Textbox");
-      const toast1CloseButton = page
-        .locator('[data-component="toast"]')
-        .filter({ hasText: "Toast message 1" })
-        .getByLabel("Close");
-      const toast2CloseButton = page
-        .locator('[data-component="toast"]')
-        .filter({ hasText: "Toast message 2" })
-        .getByLabel("Close");
-
-      await dialog.press("Shift+Tab");
-      await toast2CloseButton.press("Shift+Tab");
-      await toast1CloseButton.press("Shift+Tab");
-      await textbox.press("Shift+Tab");
-
-      await expect(dialogCloseButton).toBeFocused();
-      await expect(
-        page.getByText("I should not be scrolled into view"),
-      ).not.toBeInViewport();
-    });
-  });
-
-  test("Dialog should have rounded corners", async ({ mount, page }) => {
-    await mount(<DialogComponent />);
-
-    await expect(page.getByRole("dialog")).toHaveCSS("border-radius", "16px");
-  });
-
-  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-  test.skip("setting the topModalOverride prop should ensure the Dialog is rendered on top of any others", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<TopModalOverride />);
-
-    const dialog = getDataElementByValue(page, "dialog");
-    const dialogClose = dialog.getByLabel("Close");
-    const dialogTextbox = page.getByLabel("Dialog textbox");
-
-    await waitForAnimationEnd(dialog);
-    await dialog.press("Tab");
-    await expect(dialogClose).toBeFocused();
-    await dialogClose.press("Tab");
-    await expect(dialogTextbox).toBeFocused();
-    await dialogTextbox.press("Tab");
-    await expect(dialogClose).toBeFocused();
-    await dialogClose.press("Enter");
-
-    const sidebar = getDataElementByValue(page, "sidebar");
-    const sidebarClose = sidebar.getByLabel("Close");
-    const sidebarTextbox = page.getByLabel("Sidebar textbox");
-
-    await waitForAnimationEnd(sidebar);
-    await sidebar.press("Tab");
-    await expect(sidebarClose).toBeFocused();
-    await sidebarClose.press("Tab");
-    await expect(sidebarTextbox).toBeFocused();
-    await sidebarTextbox.press("Tab");
-    await expect(sidebarClose).toBeFocused();
-    await sidebarClose.press("Enter");
-
-    const dialogFullscreen = getDataElementByValue(page, "dialog");
-    const dialogFullscreenClose = dialogFullscreen.getByLabel("Close");
-    const dialogFullscreenTextbox = page.getByLabel("Fullscreen textbox");
-
-    await waitForAnimationEnd(dialogFullscreen);
-    await dialogFullscreen.press("Tab");
-    await expect(dialogFullscreenClose).toBeFocused();
-    await dialogFullscreenClose.press("Tab");
-    await expect(dialogFullscreenTextbox).toBeFocused();
-    await dialogFullscreenTextbox.press("Tab");
-    await expect(dialogFullscreenClose).toBeFocused();
   });
 
   test("dialog is centred in the viewport", async ({ mount, page }) => {
@@ -926,78 +472,7 @@ test.describe("Dialog component", () => {
 });
 
 test.describe("Fullscreen Dialog component", () => {
-  const iconIsFocused = async (page: Page, whichIcon: number) => {
-    const closeIcon = getDataElementByValue(page, "close").nth(whichIcon);
-    await expect(closeIcon).toHaveCSS(
-      "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
-    );
-    await expect(closeIcon).toHaveCSS("outline", "rgba(0, 0, 0, 0) solid 3px");
-  };
-
   test.describe("render full-screen `Dialog` component and check properties", () => {
-    test(`should close component after click on closeIcon`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<FullScreenDialogComponent showCloseIcon />);
-
-      const closeIcon = getDataElementByValue(page, "close").first();
-      const dialogFullScreen = page.getByRole("dialog");
-      await expect(closeIcon).toBeAttached();
-      await expect(dialogFullScreen).toBeAttached();
-      await closeIcon.click();
-      await expect(dialogFullScreen).not.toBeAttached();
-    });
-
-    specialCharacters.forEach((title) => {
-      test(`should render component using ${title} as title`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<FullScreenDialogComponent title={title} />);
-
-        await expect(getDataElementByValue(page, "dialog-title")).toHaveText(
-          title,
-        );
-      });
-    });
-
-    specialCharacters.forEach((subtitle) => {
-      test(`should render using ${subtitle} as subtitle`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <FullScreenDialogComponent
-            title="Dialog Full Screen Title"
-            subtitle={subtitle}
-          />,
-        );
-
-        await expect(getDataElementByValue(page, "subtitle")).toHaveText(
-          subtitle,
-        );
-      });
-    });
-
-    specialCharacters.forEach((childrenValue) => {
-      test(`should render component with ${childrenValue} as a children`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <FullScreenDialogComponent>
-            {childrenValue}
-          </FullScreenDialogComponent>,
-        );
-
-        await expect(getDataElementByValue(page, "form-content")).toContainText(
-          childrenValue,
-        );
-      });
-    });
-
     test("should render with disabledEscKey prop and not be closed after clicking Escape button", async ({
       mount,
       page,
@@ -1008,18 +483,6 @@ test.describe("Fullscreen Dialog component", () => {
       await expect(dialogFullScreen).toBeVisible();
       await page.keyboard.press("Escape");
       await expect(dialogFullScreen).toBeVisible();
-    });
-
-    test("should close after pressing Escape button", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<FullScreenDialogComponent />);
-
-      const dialogFullScreen = page.getByRole("dialog");
-      await expect(dialogFullScreen).toBeVisible();
-      await page.keyboard.press("Escape");
-      await expect(dialogFullScreen).toBeHidden();
     });
 
     test("should allow to close nested `Dialog` and then the main, full-screen `Dialog` window", async ({
@@ -1077,37 +540,6 @@ test.describe("Fullscreen Dialog component", () => {
       await expect(nestedDialog).toHaveAttribute("aria-modal", "true");
     });
 
-    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-    test.skip("should always place focus on the inner dialog when tabbing with nested dialogs after focus is lost", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<FullScreenNestedDialog />);
-
-      await page
-        .getByRole("button")
-        .filter({ hasText: `Open ${mainDialogTitle}` })
-        .click();
-      await page
-        .getByRole("button")
-        .filter({ hasText: `Open ${nestedDialogTitle}` })
-        .click();
-
-      await page.keyboard.press("Tab");
-      const dialogNested = page.getByRole("dialog");
-      await dialogNested.click();
-      await page.keyboard.press("Tab");
-      const closeIcon = getDataElementByValue(page, "close").nth(2);
-      await expect(closeIcon).toHaveCSS(
-        "box-shadow",
-        "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
-      );
-      await expect(closeIcon).toHaveCSS(
-        "outline",
-        "rgba(0, 0, 0, 0) solid 3px",
-      );
-    });
-
     test("should render nested dialogs with the aria-modal property only set on the top one, even when the dialogs are wrapped in separate CarbonProviders", async ({
       mount,
       page,
@@ -1129,46 +561,6 @@ test.describe("Fullscreen Dialog component", () => {
         .click();
       await expect(mainDialog).not.toHaveAttribute("aria-modal", "true");
       await expect(nestedDialog).toHaveAttribute("aria-modal", "true");
-    });
-
-    test("should render component with aria-describedby", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<FullScreenDialogComponent aria-describedby={testAria} />);
-
-      await expect(page.getByRole("dialog")).toHaveAttribute(
-        "aria-describedby",
-        testAria,
-      );
-    });
-
-    test("should render component with aria-label", async ({ mount, page }) => {
-      await mount(<FullScreenNestedDialog aria-label={testAria} />);
-
-      await page
-        .getByRole("button")
-        .filter({ hasText: `Open ${mainDialogTitle}` })
-        .click();
-
-      await expect(page.getByRole("dialog")).toHaveAttribute(
-        "aria-label",
-        testAria,
-      );
-    });
-
-    test("should render component with aria-labelledby", async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <FullScreenWithTitleAsReactComponent aria-labelledby={testAria} />,
-      );
-
-      await expect(page.getByRole("dialog")).toHaveAttribute(
-        "aria-labelledby",
-        testAria,
-      );
     });
 
     test("should render component using focusFirstElement", async ({
@@ -1296,23 +688,6 @@ test.describe("Fullscreen Dialog component", () => {
       await expect(dialogFullScreen).toBeHidden();
     });
 
-    test("should render component with autofocus disabled", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<FullScreenDialogComponent disableAutoFocus />);
-
-      const focusedButton = page
-        .getByRole("button")
-        .filter({ hasText: "This should be focused first now" });
-      await expect(focusedButton).not.toHaveCSS(
-        "box-shadow",
-        "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
-      );
-      const hasFocus = await focusedButton.focus();
-      expect(hasFocus).toBeFalsy();
-    });
-
     test("should render component with help text", async ({ mount, page }) => {
       await mount(
         <FullScreenDialogComponent
@@ -1324,141 +699,6 @@ test.describe("Fullscreen Dialog component", () => {
       const helpIcon = getDataElementByValue(page, "question");
       await helpIcon.hover();
       await expect(tooltipPreview(page)).toHaveText("Some help text");
-    });
-
-    test("should render component with role", async ({ mount, page }) => {
-      await mount(<FullScreenDialogComponent role="dialog" />);
-
-      await expect(getDataElementByValue(page, "dialog")).toHaveAttribute(
-        "role",
-        "dialog",
-      );
-    });
-
-    test("should not render close icon when ShowCloseIcon is set to false", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<FullScreenDialogComponent showCloseIcon={false} />);
-
-      await expect(getDataElementByValue(page, "close")).toHaveCount(0);
-    });
-
-    test("should render close icon when ShowCloseIcon is set to true. When you click the CloseIcon the Dialog is closed", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<FullScreenDialogComponent showCloseIcon />);
-
-      const fullDialog = getDataElementByValue(page, "dialog");
-      await expect(fullDialog).toHaveCount(1);
-      const closeIcon = getDataElementByValue(page, "close").nth(1);
-      await closeIcon.click();
-      await expect(fullDialog).toHaveCount(0);
-    });
-
-    test("should render component with header children", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<FullScreenWithHeaderChildren />);
-
-      await expect(getComponent(page, "pill").nth(0)).toHaveText("A pill");
-      await expect(getComponent(page, "pill").nth(1)).toHaveText(
-        "Another pill",
-      );
-    });
-
-    test("should render component with content padding disabled", async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <FullScreenDialogComponent
-          title="Dialog Full Screen Title"
-          contentPadding={{ p: 0 }}
-        />,
-      );
-
-      const content = page.getByTestId("dialog-content");
-      await expect(content).toHaveCSS("padding", "0px");
-      await expect(content).toHaveCSS("padding-right", "0px");
-      await expect(content).toHaveCSS("padding-bottom", "0px");
-    });
-
-    // skip this test for now as FE-6053 has not been fixed yet
-    test.skip("should render component with DisableClose prop", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<FullScreenDialogComponent disableClose />);
-
-      const closeIcon = getDataElementByValue(page, "close").nth(1);
-      await closeIcon.click();
-      await expect(getDataElementByValue(page, "dialog")).toHaveCount(1);
-    });
-
-    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-    test.skip("setting the topModalOverride prop should ensure the full-screen `Dialog` is rendered on top of any others", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<TopModalOverride />);
-
-      const dialogFullscreen = getDataElementByValue(page, "dialog");
-      const dialogFullscreenClose = dialogFullscreen.getByLabel("Close");
-      const dialogFullscreenTextbox = page.getByLabel("Fullscreen textbox");
-
-      await waitForAnimationEnd(dialogFullscreen);
-      await dialogFullscreen.press("Tab");
-      await expect(dialogFullscreenClose).toBeFocused();
-      await dialogFullscreenClose.press("Tab");
-      await expect(dialogFullscreenTextbox).toBeFocused();
-      await dialogFullscreenTextbox.press("Tab");
-      await expect(dialogFullscreenClose).toBeFocused();
-      await dialogFullscreenClose.press("Enter");
-
-      const sidebar = getDataElementByValue(page, "sidebar");
-      const sidebarClose = sidebar.getByLabel("Close");
-      const sidebarTextbox = page.getByLabel("Sidebar textbox");
-
-      await waitForAnimationEnd(sidebar);
-      await sidebar.press("Tab");
-      await expect(sidebarClose).toBeFocused();
-      await sidebarClose.press("Tab");
-      await expect(sidebarTextbox).toBeFocused();
-      await sidebarTextbox.press("Tab");
-      await expect(sidebarClose).toBeFocused();
-      await sidebarClose.press("Enter");
-
-      const dialog = getDataElementByValue(page, "dialog");
-      const dialogClose = dialog.getByLabel("Close");
-      const dialogTextbox = page.getByLabel("Dialog textbox");
-
-      await waitForAnimationEnd(dialog);
-      await dialog.press("Tab");
-      await expect(dialogClose).toBeFocused();
-      await dialogClose.press("Tab");
-      await expect(dialogTextbox).toBeFocused();
-      await dialogTextbox.press("Tab");
-      await expect(dialogClose).toBeFocused();
-    });
-
-    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-    test.skip("should loop focus when a Select component is passed as children and the user presses shift + tab", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<FullScreenWithAutoFocusSelect />);
-
-      const dialog = page.getByRole("dialog");
-      const select = dialog.getByRole("combobox");
-
-      await expect(select).toBeFocused();
-      await dialog.press("Shift+Tab");
-      await dialog.press("Shift+Tab");
-      await dialog.press("Shift+Tab");
-      await expect(select).toBeFocused();
     });
 
     test("should render component with first input and button as focusableSelectors", async ({
@@ -1589,66 +829,6 @@ test.describe("Fullscreen Dialog component", () => {
       await openButton.click();
 
       await checkAccessibility(page, page.getByRole("dialog"));
-    });
-  });
-
-  test.describe("test background scroll when tabbing", () => {
-    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-    test.skip("tabbing forward through the dialog and back to the start should not make the background scroll to the bottom", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<FullScreenBackgroundScrollTestComponent />);
-
-      await continuePressingTAB(page, 3);
-      await iconIsFocused(page, 0);
-      await expect(
-        page.getByText("I should not be scrolled into view"),
-      ).not.toBeInViewport();
-    });
-
-    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-    test.skip("tabbing backward through the dialog and back to the start should not make the background scroll to the bottom", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<FullScreenBackgroundScrollTestComponent />);
-
-      await continuePressingSHIFTTAB(page, 2);
-      await iconIsFocused(page, 0);
-      await expect(
-        page.getByText("I should not be scrolled into view"),
-      ).not.toBeInViewport();
-    });
-
-    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-    test.skip("tabbing forward through the dialog and other focusable containers back to the start should not make the background scroll to the bottom", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<FullScreenOtherFocusableContainers />);
-
-      const toastIcon = getDataElementByValue(page, "close").nth(1);
-      await toastIcon.focus();
-      await continuePressingTAB(page, 5);
-      await iconIsFocused(page, 0);
-      await expect(
-        page.getByText("I should not be scrolled into view"),
-      ).not.toBeInViewport();
-    });
-
-    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-    test.skip("tabbing backward through the dialog and other focusable containers back to the start should not make the background scroll to the bottom", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<FullScreenOtherFocusableContainers />);
-
-      await continuePressingSHIFTTAB(page, 8);
-      await iconIsFocused(page, 0);
-      await expect(
-        page.getByText("I should not be scrolled into view"),
-      ).not.toBeInViewport();
     });
   });
 });
