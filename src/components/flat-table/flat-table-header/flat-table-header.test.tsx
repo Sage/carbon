@@ -9,6 +9,7 @@ import FlatTable from "../flat-table.component";
 import FlatTableRow from "../flat-table-row";
 import FlatTableHead from "../flat-table-head/flat-table-head.component";
 import FlatTableBody from "../flat-table-body";
+import Sort from "../sort";
 
 test("logs error when not used within FlatTable", () => {
   const loggerSpy = jest.spyOn(Logger, "error").mockImplementation(() => {});
@@ -254,4 +255,55 @@ test("should render with the expected background-color when `alternativeBgColor`
     getAlternativeBackgroundColor("transparent-base"),
     { modifier: "&&&" },
   );
+});
+
+test("should set the `aria-sort` attribute to 'none' when the `Sort` component is a child and has no `sortType` set", () => {
+  render(
+    <FlatTable>
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>
+            <Sort>Column header</Sort>
+          </FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+    </FlatTable>,
+  );
+
+  const cell = screen.getByRole("columnheader");
+  expect(cell).toHaveAttribute("aria-sort", "none");
+});
+
+test("should set the `aria-sort` attribute to 'ascending' when the `Sort` component is a child and has `sortType` set to 'ascending'", () => {
+  render(
+    <FlatTable>
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>
+            <Sort sortType="ascending">Column header</Sort>
+          </FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+    </FlatTable>,
+  );
+
+  const cell = screen.getByRole("columnheader");
+  expect(cell).toHaveAttribute("aria-sort", "ascending");
+});
+
+test("should set the `aria-sort` attribute to 'descending' when the `Sort` component is a child and has `sortType` set to 'descending'", () => {
+  render(
+    <FlatTable>
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>
+            <Sort sortType="descending">Column header</Sort>
+          </FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+    </FlatTable>,
+  );
+
+  const cell = screen.getByRole("columnheader");
+  expect(cell).toHaveAttribute("aria-sort", "descending");
 });

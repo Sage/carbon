@@ -163,6 +163,11 @@ const frCA: Partial<Locale> = {
   pod: {
     undo: () => "Annuler",
   },
+  tabs: {
+    error: (tabTitle) => `L'onglet ${tabTitle} contient des erreurs`,
+    info: (tabTitle) => `L'onglet ${tabTitle} contient des informations`,
+    warning: (tabTitle) => `L'onglet ${tabTitle} contient des avertissements`,
+  },
   textEditor: {
     boldAria: () => "Gras",
     cancelButton: () => "Annuler",

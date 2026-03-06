@@ -226,6 +226,7 @@ export const NewValidation = ({ ...props }: Partial<RadioButtonGroupProps>) => {
         mb={2}
         value={errorValueTop}
         onChange={(e) => setErrorValueTop(e.target.value)}
+        id="validation-1"
         {...props}
       >
         <RadioButton
@@ -251,6 +252,7 @@ export const NewValidation = ({ ...props }: Partial<RadioButtonGroupProps>) => {
         mb={2}
         value={warningValueTop}
         onChange={(e) => setWarningValueTop(e.target.value)}
+        id="validation-2"
         {...props}
       >
         <RadioButton
@@ -277,6 +279,7 @@ export const NewValidation = ({ ...props }: Partial<RadioButtonGroupProps>) => {
         mb={2}
         value={errorValue}
         onChange={(e) => setErrorValue(e.target.value)}
+        id="validation-3"
         {...props}
       >
         <RadioButton id="error-radio-1" value="error-radio-1" label="Yes" />
@@ -294,6 +297,7 @@ export const NewValidation = ({ ...props }: Partial<RadioButtonGroupProps>) => {
         warning="Warning Message"
         value={warningValue}
         onChange={(e) => setWarningValue(e.target.value)}
+        id="validation-4"
         {...props}
       >
         <RadioButton id="warning-radio-1" value="warning-radio-1" label="Yes" />
@@ -309,7 +313,6 @@ export const NewValidation = ({ ...props }: Partial<RadioButtonGroupProps>) => {
   );
 };
 NewValidation.args = {
-  id: "new-validation",
   legend: "Radio group legend",
   legendHelp: "Legend help text",
   legendAlign: "left",
@@ -338,6 +341,7 @@ export const NewValidationInline = ({
         inline
         value={errorValueTop}
         onChange={(e) => setErrorValueTop(e.target.value)}
+        id="validation-1"
         {...props}
       >
         <RadioButton
@@ -364,6 +368,7 @@ export const NewValidationInline = ({
         inline
         value={warningValueTop}
         onChange={(e) => setWarningValueTop(e.target.value)}
+        id="validation-2"
         {...props}
       >
         <RadioButton
@@ -391,6 +396,7 @@ export const NewValidationInline = ({
         inline
         value={errorValue}
         onChange={(e) => setErrorValue(e.target.value)}
+        id="validation-3"
         {...props}
       >
         <RadioButton id="error-radio-1" value="error-radio-1" label="Yes" />
@@ -409,6 +415,7 @@ export const NewValidationInline = ({
         inline
         value={warningValue}
         onChange={(e) => setWarningValue(e.target.value)}
+        id="validation-4"
         {...props}
       >
         <RadioButton id="warning-radio-1" value="warning-radio-1" label="Yes" />
@@ -424,7 +431,6 @@ export const NewValidationInline = ({
   );
 };
 NewValidationInline.args = {
-  id: "new-validation",
   legend: "Radio group legend",
   legendHelp: "Legend help text",
   legendAlign: "left",

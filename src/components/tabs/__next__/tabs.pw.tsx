@@ -14,13 +14,17 @@ test("should render with scroll buttons on smaller screens if there are large nu
   // Resize the window to a smaller size to cause the scroll buttons to actually appear
   await page.setViewportSize({ width: 350, height: 250 });
 
-  const scrollButtonRight = page.locator("#tab-navigation-button-right");
+  const scrollButtonRight = page.locator(
+    "[data-role='tab-navigation-button-right']",
+  );
 
   await expect(scrollButtonRight).toBeVisible();
 
   await scrollButtonRight.click();
 
-  const scrollButtonLeft = page.locator("#tab-navigation-button-left");
+  const scrollButtonLeft = page.locator(
+    "[data-role='tab-navigation-button-left']",
+  );
 
   await expect(scrollButtonLeft).toBeVisible();
 
@@ -39,6 +43,35 @@ test("should render with scroll buttons on smaller screens if there are large nu
   await expect(scrollButtonRight).toBeHidden();
 });
 
+test("should support overriding the rendered scroll button titles via the I18nProvider", async ({
+  mount,
+  page,
+}) => {
+  // Set up enough tabs that reducing the window causes the scroll buttons to appear
+  await mount(<DefaultTabsComponent numberOfTabs={20} />);
+
+  // Resize the window to a smaller size to cause the scroll buttons to actually appear
+  await page.setViewportSize({ width: 350, height: 250 });
+
+  const scrollButtonRight = page.locator(
+    "[data-role='tab-navigation-button-right']",
+  );
+
+  await expect(scrollButtonRight).toBeVisible();
+  await expect(scrollButtonRight).toHaveAttribute("title", "bar");
+
+  await scrollButtonRight.click();
+
+  const scrollButtonLeft = page.locator(
+    "[data-role='tab-navigation-button-left']",
+  );
+
+  await expect(scrollButtonLeft).toBeVisible();
+  await expect(scrollButtonLeft).toHaveAttribute("title", "foo");
+
+  await scrollButtonLeft.click();
+});
+
 test("should render without scroll buttons on smaller screens if there are large numbers of tabs but orientation is set to vertical", async ({
   mount,
   page,
@@ -49,8 +82,12 @@ test("should render without scroll buttons on smaller screens if there are large
 
   await page.setViewportSize({ width: 350, height: 250 });
 
-  const scrollButtonLeft = page.locator("#tab-navigation-button-left");
-  const scrollButtonRight = page.locator("#tab-navigation-button-right");
+  const scrollButtonLeft = page.locator(
+    "[data-role='tab-navigation-button-left']",
+  );
+  const scrollButtonRight = page.locator(
+    "[data-role='tab-navigation-button-right']",
+  );
 
   await expect(scrollButtonLeft).toHaveCount(0);
   await expect(scrollButtonRight).toHaveCount(0);

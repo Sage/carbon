@@ -47,22 +47,6 @@ export const CardComponent = (props: Partial<CardProps>) => {
   );
 };
 
-export const CardTextAlignment = ({ ...props }) => {
-  return (
-    <Card>
-      <CardRow>
-        <CardColumn {...props}>
-          <Typography fontSize="16px" m={0} fontWeight="bold">
-            Stripe Balance
-          </Typography>
-          <Heading title="£ 0.00" divider={false} />
-          <Typography>LAST ENTRY: 15 DAYS AGO</Typography>
-        </CardColumn>
-      </CardRow>
-    </Card>
-  );
-};
-
 export const SmallSpacing = () => (
   <Card spacing="small">
     <CardRow>

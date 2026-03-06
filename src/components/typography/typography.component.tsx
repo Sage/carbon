@@ -85,6 +85,10 @@ export interface TypographyProps extends SpaceProps, TagProps {
    * Override the default color of the rendered element to match disabled styling
    * */
   isDisabled?: boolean;
+  /** Make the element an aria-live region */
+  "aria-live"?: "off" | "assertive" | "polite";
+  /** Set the role of the element when it is a live region */
+  role?: "status" | "alert";
   /** @private @ignore Set whether the component should be recognised by assistive technologies */
   "aria-hidden"?: "true" | "false";
   /**
@@ -138,6 +142,8 @@ export const Typography = ({
   children,
   screenReaderOnly,
   isDisabled,
+  "aria-live": ariaLive,
+  role,
   "aria-hidden": ariaHidden,
   className,
   ...rest
@@ -168,6 +174,8 @@ export const Typography = ({
       isDisabled={isDisabled}
       aria-hidden={ariaHidden}
       className={className}
+      role={role}
+      aria-live={ariaLive}
       {...tagComponent(dataComponent, rest)}
       {...filterStyledSystemMarginProps(rest)}
       {...filterStyledSystemPaddingProps(rest)}

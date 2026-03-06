@@ -244,6 +244,18 @@ export const CustomItemPadding: Story = () => (
 );
 CustomItemPadding.storyName = "Custom Item Padding";
 
+export const CustomItemMargin: Story = () => (
+  <VerticalMenu
+    height="100vh"
+    aria-label="Vertical menu with custom item margin"
+  >
+    <VerticalMenuItem iconType="analysis" title="Item 1" />
+    <VerticalMenuItem title="Item 2" />
+    <VerticalMenuItem title="Item 3" mt="auto" />
+  </VerticalMenu>
+);
+CustomItemMargin.storyName = "Custom Item Margin";
+
 export const CustomItemHeight: Story = () => (
   <VerticalMenu aria-label="Vertical menu with custom item height">
     <VerticalMenuItem height="100px" iconType="analysis" title="Item 1" />
@@ -317,6 +329,7 @@ export const FullScreen: Story = () => {
       <VerticalMenuItem iconType="basket" title="Item 6" href="#" />
 
       <VerticalMenuItem
+        mt="auto"
         iconType="calendar"
         title="Item 7 - More text to wrap the whole title. More text to wrap the whole title. More text to wrap the whole title. More text to wrap the whole title. "
       >

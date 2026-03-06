@@ -9,6 +9,7 @@ import VerticalMenuItem from "./vertical-menu-item.component";
 
 const styledSystemProps = generateStyledSystemProps({
   padding: true,
+  margin: true,
 });
 
 const meta: Meta<typeof VerticalMenuItem> = {

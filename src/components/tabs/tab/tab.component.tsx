@@ -1,38 +1,79 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React from "react";
 import { PaddingProps } from "styled-system";
-import StyledTab from "./tab.style";
-import tagComponent, {
-  TagProps,
-} from "../../../__internal__/utils/helpers/tags/tags";
-import TabContext from "./__internal__/tab.context";
+import { TagProps } from "../../../__internal__/utils/helpers/tags/tags";
+import { Tab as NextTab } from "../__next__/tabs.component";
+import type { TabProps as NextTabProps } from "../__next__";
 import Logger from "../../../__internal__/utils/logger";
 
-export interface TabProps extends PaddingProps, TagProps {
+export type TabsHandle = {
+  /** Programmatically focus on a specific tab.
+   * @param tabId - The ID of the tab to focus. Must match the `tabId` prop of the target `Tab` component.
+   */
+  focusTab: (tabId: string) => void;
+} | null;
+
+export interface TabProps
+  extends PaddingProps,
+    TagProps,
+    Partial<NextTabProps> {
+  /**
+   * The title of the Tab.
+   * @deprecated Support will be removed in a future release, it is recommended to use `label` prop instead.
+   */
   title?: string;
-  /** A unique ID to identify this specific tab. */
-  tabId: string;
+  /**
+   * A unique ID to identify this specific tab.
+   * @deprecated Support will be removed in a future release, it is recommended to use `id` instead.
+   * */
+  tabId?: string;
   /** The child elements of Tab component. */
   children?: React.ReactNode;
   /** @ignore @private Boolean indicating selected state of Tab. */
   isTabSelected?: boolean;
-  /** The position of the Tab. */
+  /**
+   * The position of the Tab.
+   * @deprecated Support will be removed in a future release.
+   * */
   position?: "top" | "left";
-  /** Message displayed when Tab has error */
+  /**
+   * @deprecated
+   * Message displayed when Tab has error
+   * The legacy validation pattern is being removed in a future release.
+   * */
   errorMessage?: string;
-  /** Message displayed when Tab has warning */
+  /**
+   * @deprecated
+   * Message displayed when Tab has warning
+   * The legacy validation pattern is being removed in a future release.
+   * */
   warningMessage?: string;
-  /** Message displayed when Tab has warning */
+  /**
+   * @deprecated
+   * Message displayed when Tab has info
+   * The legacy validation pattern is being removed in a future release.
+   * */
   infoMessage?: string;
-  /** Additional content to display with title */
+  /**
+   * Additional content to display with title
+   * @deprecated Support for siblings will be removed in a future release.
+   * It is recommended to use `label` prop to compose what you want.
+   * */
   siblings?: React.ReactNode;
-  /** Position title before or after siblings */
+  /**
+   * Position title before or after siblings
+   * @deprecated Support for titlePosition will be removed in a future release.
+   * It is recommended to use `label` prop to compose what you want.
+   * */
   titlePosition?: "before" | "after";
   /**
    * Allows Tab to be a link
    * @deprecated Using tabs as links is inaccessible; this prop will be deprecated in a future release.
    * */
   href?: string;
-  /** Overrides default layout with a one defined in this prop */
+  /**
+   * Overrides default layout with a one defined in this prop
+   * @deprecated Support for customLayout will be removed in a future release, it is recommended to use the `label` prop instead.
+   * */
   customLayout?: React.ReactNode;
   /** Additional props to be passed to the Tab's corresponding title. */
   titleProps?: {
@@ -43,112 +84,95 @@ export interface TabProps extends PaddingProps, TagProps {
   role?: string;
   /** @private @ignore */
   ariaLabelledby?: string;
-  /** @private @ignore */
-  updateErrors?: (
-    id: string,
-    errors: Record<string, undefined | string | boolean>,
-  ) => void;
-  /** @private @ignore */
-  updateWarnings?: (
-    id: string,
-    warnings: Record<string, undefined | string | boolean>,
-  ) => void;
-  /** @private @ignore */
-  updateInfos?: (
-    id: string,
-    infos: Record<string, undefined | string | boolean>,
-  ) => void;
+  /** @private @ignore @internal */
+  validationStatusOverride?: {
+    error?: boolean;
+    warning?: boolean;
+    info?: boolean;
+  };
+  /** @private @ignore @internal */
+  headerWidth?: string;
 }
 
-let deprecateHrefWarningTriggered = false;
+let tabLegacyWarned = false;
 
 export const Tab = ({
-  ariaLabelledby,
-  children,
-  isTabSelected,
-  position = "top",
-  role = "tabpanel",
   tabId,
-  updateErrors,
-  updateWarnings,
-  updateInfos,
-  href,
-  // title is destructured purely to NOT spread it as part of rest to the underlying HTML element.
-  // Both this and titleProps are used as part of child.props inside Tabs component
   title,
+  customLayout,
+  siblings,
+  titlePosition,
+  validationStatusOverride,
+  errorMessage,
+  warningMessage,
+  infoMessage,
   titleProps,
+  controls,
+  id,
+  label,
+  error,
+  warning,
+  info,
   ...rest
 }: TabProps) => {
-  if (href !== undefined && !deprecateHrefWarningTriggered) {
-    Logger.deprecate(
-      "The `href` prop is deprecated in the `Tab` component and will be removed in a future release.",
+  if (!tabLegacyWarned) {
+    Logger.warn(
+      "Warning: This version of the `Tab` component is intended to help migration to the `next` version and will be removed in a future release.",
     );
-    deprecateHrefWarningTriggered = true;
+    tabLegacyWarned = true;
   }
 
-  const [tabErrors, setTabErrors] = useState<
-    Record<string, undefined | string | boolean>
-  >({});
-  const [tabWarnings, setTabWarnings] = useState<
-    Record<string, undefined | string | boolean>
-  >({});
-  const [tabInfos, setTabInfos] = useState<
-    Record<string, undefined | string | boolean>
-  >({});
+  let labelContent: React.ReactNode = "";
 
-  const setError = useCallback((childId: string, error?: string | boolean) => {
-    setTabErrors((state) =>
-      state[childId] !== error ? { ...state, [childId]: error } : state,
-    );
-  }, []);
-
-  const setWarning = useCallback(
-    (childId: string, warning?: string | boolean) => {
-      setTabWarnings((state) =>
-        state[childId] !== warning ? { ...state, [childId]: warning } : state,
-      );
-    },
-    [],
-  );
-
-  const setInfo = useCallback((childId: string, info?: string | boolean) => {
-    setTabInfos((state) =>
-      state[childId] !== info ? { ...state, [childId]: info } : state,
-    );
-  }, []);
-
-  useEffect(() => {
-    if (updateErrors) {
-      updateErrors(tabId, tabErrors);
+  if (label) {
+    labelContent = label;
+  } else if (customLayout) {
+    labelContent = customLayout;
+  } else {
+    labelContent = title;
+    if (siblings) {
+      const titleNode = <span>{label || title}</span>;
+      labelContent =
+        titlePosition === "after" ? (
+          <>
+            {siblings}
+            {titleNode}
+          </>
+        ) : (
+          <>
+            {titleNode}
+            {siblings}
+          </>
+        );
     }
-  }, [tabId, tabErrors, updateErrors]);
+  }
 
-  useEffect(() => {
-    if (updateWarnings) {
-      updateWarnings(tabId, tabWarnings);
-    }
-  }, [tabId, tabWarnings, updateWarnings]);
+  const {
+    error: errorOverride,
+    warning: warningOverride,
+    info: infoOverride,
+  } = validationStatusOverride || {};
+  const idToUse = id || tabId;
 
-  useEffect(() => {
-    if (updateInfos) {
-      updateInfos(tabId, tabInfos);
-    }
-  }, [tabId, tabInfos, updateInfos]);
+  /* istanbul ignore if */
+  if (!idToUse) {
+    return null;
+  }
 
   return (
-    <TabContext.Provider value={{ setError, setWarning, setInfo }}>
-      <StyledTab
-        role={role}
-        isTabSelected={isTabSelected}
-        aria-labelledby={ariaLabelledby}
-        position={position}
-        {...rest}
-        {...tagComponent("tab", rest)}
-      >
-        {!href && children}
-      </StyledTab>
-    </TabContext.Provider>
+    <NextTab
+      id={idToUse}
+      controls={controls || `${idToUse}-panel`}
+      label={labelContent}
+      error={error || errorOverride}
+      warning={warning || warningOverride}
+      info={info || infoOverride}
+      hasCustomLayout={!!customLayout}
+      data-role={titleProps?.["data-role"]}
+      {...rest}
+    />
   );
 };
+Tab.displayName = "Tab";
 
 export default Tab;

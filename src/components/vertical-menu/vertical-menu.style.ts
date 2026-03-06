@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { padding, PaddingProps } from "styled-system";
+import { margin, padding, PaddingProps } from "styled-system";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 
@@ -8,9 +8,17 @@ import Icon from "../icon";
 import StyledBox from "../box/box.style";
 
 export const StyledList = styled.ul`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
   list-style: none;
   margin: 0;
   padding: 0;
+`;
+
+export const StyledListItem = styled.li.attrs(applyBaseTheme)`
+  ${margin}
 `;
 
 interface StyledVerticalMenuProps extends PaddingProps {
@@ -107,6 +115,7 @@ export const StyledChevronIcon = styled(Icon)`
 `;
 
 export const StyledVerticalMenu = styled(StyledBox)`
+  display: flex;
   &::-webkit-scrollbar {
     width: 12px;
   }
@@ -118,6 +127,8 @@ interface FullScreenProps {
 }
 
 export const StyledVerticalMenuFullScreen = styled(StyledBox)<FullScreenProps>`
+  display: flex;
+  flex-direction: column;
   position: fixed;
   top: 0;
   bottom: 0;

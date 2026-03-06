@@ -19,7 +19,7 @@ test("logs warning when not used within Breadcrumbs", () => {
   loggerSpy.mockRestore();
 });
 
-test("passes href to the anchor element when isCurrent is false", () => {
+test("passes `href` to the anchor element when `isCurrent` is false", () => {
   render(
     <Breadcrumbs>
       <Crumb href="foo">Link text</Crumb>
@@ -31,21 +31,37 @@ test("passes href to the anchor element when isCurrent is false", () => {
   expect(link).toHaveAttribute("href", "foo");
 });
 
-test("does not pass href to the anchor element when isCurrent is true", () => {
+test("does not pass `href` to the element when `isCurrent` is true", () => {
   render(
     <Breadcrumbs>
-      <Crumb href="foo" data-role="crumb" isCurrent>
+      <Crumb href="foo" data-role="bar" isCurrent>
         Link text
       </Crumb>
     </Breadcrumbs>,
   );
 
-  const anchor = screen.getByTestId("link-anchor");
+  const breadcrumbElement = screen.getByTestId("bar");
 
-  expect(anchor).not.toHaveAttribute("href", "foo");
+  expect(breadcrumbElement).not.toHaveAttribute("href", "foo");
 });
 
-test("calls onClick callback when the crumb link is clicked", async () => {
+test("when `isCurrent` is true it renders as a span", () => {
+  render(
+    <Breadcrumbs>
+      <Crumb href="foo" data-role="bar" isCurrent>
+        Link text
+      </Crumb>
+    </Breadcrumbs>,
+  );
+
+  const breadcrumbElement = screen.getByTestId("bar");
+
+  expect(screen.queryByTestId("link-anchor")).not.toBeInTheDocument();
+
+  expect(breadcrumbElement.tagName).toBe("SPAN");
+});
+
+test("calls `onClick` callback when the crumb link is clicked", async () => {
   const onClick = jest.fn();
   const user = userEvent.setup();
   render(
@@ -62,7 +78,7 @@ test("calls onClick callback when the crumb link is clicked", async () => {
   expect(onClick).toHaveBeenCalledTimes(1);
 });
 
-test("does not call onClick callback when isCurrent is true", async () => {
+test("does not call `onClick` callback when `isCurrent` is true", async () => {
   const onClick = jest.fn();
   const user = userEvent.setup();
   render(
@@ -77,6 +93,20 @@ test("does not call onClick callback when isCurrent is true", async () => {
   await user.click(link);
 
   expect(onClick).toHaveBeenCalledTimes(0);
+});
+
+test("applies `aria-current` attribute when `isCurrent` is true", () => {
+  render(
+    <Breadcrumbs>
+      <Crumb href="#" isCurrent data-role="bar">
+        Link text
+      </Crumb>
+    </Breadcrumbs>,
+  );
+
+  const breadcrumbElement = screen.getByTestId("bar");
+
+  expect(breadcrumbElement).toHaveAttribute("aria-current", "page");
 });
 
 test("renders with provided data- attributes", () => {

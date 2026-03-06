@@ -37,12 +37,16 @@ To change the `aria-label` of the close button, you can use the `closeButtonAria
 
 <Canvas of={MessageStories.WithCloseButton} />
 
-### Programmatic Focus
+### Programmatic Focus and Aria-Live Regions
 
-When rendering a `Message`, we recommend ensuring focus is managed appropriately to provide the best experience for users.
-This can be done by programmatically moving focus to the `Message` component when it appears to ensure users are aware of the newly rendered content and that is announced by screen readers.
+Programmatic focus should only be used for "error" messages to ensure users are immediately aware of critical issues.
+This can be done by programmatically moving focus to the `Message` component when an error appears to ensure users are aware of the newly rendered content and that it is announced by screen readers.
 
 **Note:** The `Message` component will not render with a focus outline when focused programmatically, this is done intentionally as the container is not meant to be interacted with directly.
+
+For non-error messages, we recommend using aria-live regions to announce messages to screen reader users. Aria-live regions should be rendered to the page on load and remain present in the DOM.
+Place messages within the aria-live region to ensure they are announced automatically without requiring focus management.
+This approach works well for success, warning, info, and other non-critical message variants that should be announced but do not require immediate focus.
 
 <Canvas of={MessageStories.ProgrammaticFocus} />
 

@@ -3,6 +3,7 @@ import React, {
   useRef,
   forwardRef,
   useImperativeHandle,
+  useEffect,
 } from "react";
 import { ThemeContext } from "styled-components";
 import { MarginProps } from "styled-system";
@@ -124,6 +125,26 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
       contextValue,
     } = useChildButtons(toggleButtonRef, CONTENT_WIDTH_RATIO);
 
+    useEffect(() => {
+      if (!isInFlatTable) return;
+
+      const handleClickOnPopupBackdrop = (ev: MouseEvent) => {
+        if (
+          ev.target instanceof HTMLElement &&
+          ev.target.dataset.role === "popup-backdrop" &&
+          showAdditionalButtons
+        ) {
+          hideButtons();
+        }
+      };
+
+      document.addEventListener("click", handleClickOnPopupBackdrop);
+
+      return () => {
+        document.removeEventListener("click", handleClickOnPopupBackdrop);
+      };
+    }, [hideButtons, isInFlatTable, showAdditionalButtons]);
+
     const handleMainClick = (
       ev: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
     ) => {
@@ -198,7 +219,7 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
 
     const renderAdditionalButtons = () => (
       <Popover
-        disableBackgroundUI={isInFlatTable}
+        disableBackgroundUI={isInFlatTable && showAdditionalButtons}
         disablePortal
         placement={
           position === "left"

@@ -41,6 +41,7 @@ it.each([
   ["123", "123.00"],
   ["456", "456.00"],
   ["", ""],
+  ["+123", "+123.00"],
 ])("renders the value prop %s in the input", (rawValue, formattedValue) => {
   render(<Decimal value={rawValue} onChange={jest.fn} />);
 

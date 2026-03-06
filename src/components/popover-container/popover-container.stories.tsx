@@ -63,7 +63,14 @@ export const Default: Story = () => {
     </Box>
   );
 };
-Default.storyName = "Default";
+Default.story = {
+  name: "Default",
+  parameters: {
+    chromatic: {
+      disableSnapshot: true,
+    },
+  },
+};
 
 export const Title: Story = () => {
   const [open, setOpen] = useState(defaultOpenState);
