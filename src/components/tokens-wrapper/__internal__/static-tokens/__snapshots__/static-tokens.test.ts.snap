@@ -1251,7 +1251,18 @@ exports[`builds the static tokens as expected 1`] = `
   --table-footer-border-default: var(--mode-color-generic-fg-soft);
   --table-footer-label-default: var(--mode-color-generic-txt-severe);
 
-carbon-dark-mode, [data-carbon-theme="dark"] {
+  --carbon-zindex-small-overlay: 10;
+  --carbon-zindex-overlay: 1000;
+  --carbon-zindex-nav: 2998;
+  --carbon-zindex-global-nav: 2999;
+  --carbon-zindex-modal: 3000;
+  --carbon-zindex-header: 4000;
+  --carbon-zindex-full-screen-modal: 5000;
+  --carbon-zindex-popover: 6000;
+  --carbon-zindex-notification: 7000;
+  --carbon-zindex-above-all: 9999;
+
+.carbon-dark-mode, [data-carbon-theme="dark"] {
     --mode-color-ai-stop-1: #00d639;
   --mode-color-ai-stop-2: #00d6de;
   --mode-color-ai-stop-3: #9d60ff;
