@@ -136,3 +136,21 @@ test("renders with provided `helpId` and `tooltipId`", async () => {
     "bar",
   );
 });
+
+test("is not keyboard focusable when tabIndex is -1", async () => {
+  const user = userEvent.setup();
+  render(<Help tabIndex={-1} />);
+
+  await user.tab();
+
+  expect(screen.getByRole("button", { name: "help" })).not.toHaveFocus();
+});
+
+test("is keyboard focusable when tabIndex is 0 or greater", async () => {
+  const user = userEvent.setup();
+  render(<Help tabIndex={0} />);
+
+  await user.tab();
+
+  expect(screen.getByRole("button", { name: "help" })).toHaveFocus();
+});
