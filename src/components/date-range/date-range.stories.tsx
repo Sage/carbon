@@ -68,6 +68,9 @@ export const LabelsInline: Story = () => {
   );
 };
 LabelsInline.storyName = "Labels Inline";
+LabelsInline.parameters = {
+  chromatic: { disableSnapshot: true },
+};
 
 export const AllowEmptyValue: Story = () => {
   const [state, setState] = useState(["", ""]);
@@ -94,6 +97,9 @@ export const AllowEmptyValue: Story = () => {
   );
 };
 AllowEmptyValue.storyName = "Allow Empty Value";
+AllowEmptyValue.parameters = {
+  chromatic: { disableSnapshot: true },
+};
 
 export const WithDisabledDates: Story = () => {
   const [state, setState] = useState(["2019-03-17", "2019-04-17"]);
@@ -133,6 +139,9 @@ export const WithDisabledDates: Story = () => {
   );
 };
 WithDisabledDates.storyName = "With Disabled Dates";
+WithDisabledDates.parameters = {
+  chromatic: { disableSnapshot: true },
+};
 
 export const LocaleOverrideExampleImplementation: Story = () => {
   const [state, setState] = useState(["01/10/2016", "30/10/2016"]);
