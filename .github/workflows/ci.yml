@@ -18,6 +18,8 @@ jobs:
       - run: npx prettier --check './src/**/*.{js,jsx,ts,tsx}'
       - run: npm run lint
       - run: npm run type-check
+      - name: Ensure the Carbon skills are up to date (run npm run build:skills locally to fix this error)
+        run: npm run build:skills -- --check
 
   test:
     name: Test with Node ${{ matrix.node }} (${{ matrix.shard }}, 4)
