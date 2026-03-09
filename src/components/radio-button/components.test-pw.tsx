@@ -34,11 +34,11 @@ export const RadioButtonControlled = ({ ...args }) => {
   );
 };
 
-export const RadioButtonWithConditionalContent = ({ ...args }) => {
+export const RadioButtonWithProgressiveDisclosure = ({ ...args }) => {
   const [value, setValue] = useState("radio1");
   const [textboxValue, setTextboxValue] = useState("");
 
-  const conditionalContent = (
+  const progressiveDisclosure = (
     <Box mr={1} width="300px">
       <Textbox
         label="Revealed Textbox"
@@ -58,7 +58,7 @@ export const RadioButtonWithConditionalContent = ({ ...args }) => {
         id="radio-1"
         value="radio1"
         label="Radio Button 1"
-        conditionalContent={conditionalContent}
+        progressiveDisclosure={progressiveDisclosure}
         {...args}
       />
       <RadioButton id="radio-2" value="radio2" label="Radio Button 2" />

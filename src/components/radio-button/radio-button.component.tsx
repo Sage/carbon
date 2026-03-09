@@ -1,10 +1,23 @@
-import React from "react";
-import {
-  RadioButtonProps as NextProps,
-  RadioButton as NextRadioButton,
-} from "./___internal___/__next__/radio-button.component";
+import React, { useCallback } from "react";
+import RadioButtonSvg from "./___internal___/radio-button-svg.component";
+import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
-export interface RadioButtonProps extends NextProps {
+import CheckableInput, {
+  CommonCheckableInputProps,
+} from "../../__internal__/checkable-input/__next__/checkable-input.component";
+import RadioButtonStyle from "./radio-button.style";
+import { useRadioButtonGroupContext } from "./___internal___/radio-button-group.context";
+
+export interface RadioButtonProps extends CommonCheckableInputProps, TagProps {
+  /** Callback fired when the RadioButton is clicked. */
+  onClick?: (ev: React.MouseEvent<HTMLInputElement>) => void;
+  /** The value of the RadioButton. */
+  value: string;
+  /**
+   * Size of the RadioButton.
+   * @deprecated The `size` prop is deprecated and will be removed in a future release. Please set the size on the `RadioButtonGroup` component instead.
+   */
+  size?: "small" | "large";
   /**
    * Overrides the default tooltip position
    * @deprecated Tooltips are no longer supported on this component.
@@ -17,7 +30,7 @@ export interface RadioButtonProps extends NextProps {
   helpAriaLabel?: string;
   /**
    * Indicate that an error has occurred.
-   * @deprecated The `error` state is deprecated and will be removed in a future release. Please pass any validation message to the `RadioButtonGroup` component instead.
+   * @deprecated Error validation is no longer supported on this component. Please pass validation messages to the `RadioButtonGroup` component instead.
    */
   error?: string | boolean;
   /**
@@ -27,7 +40,7 @@ export interface RadioButtonProps extends NextProps {
   info?: string | boolean;
   /**
    * Indicate that warning has occurred.
-   * @deprecated The `warning` state is deprecated and will be removed in a future release.
+   * @deprecated Warning validation is no longer supported on this component. Please pass validation messages to the `RadioButtonGroup` component instead.
    */
   warning?: string | boolean;
   /**
@@ -79,17 +92,107 @@ export interface RadioButtonProps extends NextProps {
 }
 
 export const RadioButton = React.forwardRef<HTMLInputElement, RadioButtonProps>(
-  ({ fieldHelp, labelHelp, inputHint, ...props }: RadioButtonProps, ref) => {
+  (
+    {
+      autoFocus,
+      disabled,
+      id,
+      label,
+      inputHint,
+      name,
+      onChange,
+      onBlur,
+      value,
+      progressiveDisclosure,
+      size,
+      "data-element": dataElement,
+      "data-role": dataRole,
+      tooltipPosition,
+      helpAriaLabel,
+      error,
+      info,
+      warning,
+      reverse,
+      validationIconId,
+      fieldHelp,
+      inputWidth,
+      labelHelp,
+      labelSpacing,
+      labelWidth,
+      validationOnLabel,
+      fieldHelpInline,
+      ...props
+    }: RadioButtonProps,
+    ref,
+  ) => {
+    const {
+      error: contextError,
+      warning: contextWarning,
+      inline,
+      onBlur: contextOnBlur,
+      onChange: contextOnChange,
+      value: contextValue,
+      name: contextName,
+      size: contextSize,
+      disabled: contextDisabled,
+      required: contextRequired,
+    } = useRadioButtonGroupContext();
+
+    const isChecked = contextValue === value;
+
+    const handleChange = useCallback(
+      (event: React.ChangeEvent<HTMLInputElement>) => {
+        onChange?.(event);
+        contextOnChange?.(event);
+      },
+      [onChange, contextOnChange],
+    );
+
+    const handleBlur = useCallback(
+      (event: React.FocusEvent<HTMLInputElement>) => {
+        onBlur?.(event);
+        contextOnBlur?.(event);
+      },
+      [onBlur, contextOnBlur],
+    );
+
     return (
-      <NextRadioButton
-        inputHint={inputHint || labelHelp || fieldHelp}
-        ref={ref}
-        {...props}
-      />
+      <RadioButtonStyle
+        $size={size || contextSize}
+        $error={contextError}
+        $isDisabled={contextDisabled || disabled}
+        {...tagComponent("radio-button", {
+          "data-element": dataElement,
+          "data-role": dataRole,
+        })}
+      >
+        <CheckableInput
+          type="radio"
+          id={id}
+          name={name || contextName}
+          value={value}
+          label={label}
+          inputHint={inputHint || labelHelp || fieldHelp}
+          disabled={contextDisabled || disabled}
+          required={contextRequired}
+          checked={isChecked}
+          ref={ref}
+          autoFocus={autoFocus}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          size={size || contextSize}
+          error={contextError}
+          warning={contextWarning}
+          {...(!inline && { progressiveDisclosure })}
+          {...props}
+        >
+          <RadioButtonSvg />
+        </CheckableInput>
+      </RadioButtonStyle>
     );
   },
 );
 
 RadioButton.displayName = "RadioButton";
 
-export default React.memo(RadioButton);
+export default RadioButton;

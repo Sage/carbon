@@ -1,9 +1,9 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
-import HiddenCheckableInputStyle from "../../../../__internal__/checkable-input/hidden-checkable-input.style";
-import StyledCheckableInputSvgWrapper from "../../../../__internal__/checkable-input/checkable-input-svg-wrapper.style";
-import applyBaseTheme from "../../../../style/themes/apply-base-theme";
-import addFocusStyling from "../../../../style/utils/add-focus-styling";
+import HiddenCheckableInputStyle from "../../__internal__/checkable-input/hidden-checkable-input.style";
+import StyledCheckableInputSvgWrapper from "../../__internal__/checkable-input/checkable-input-svg-wrapper.style";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
+import addFocusStyling from "../../style/utils/add-focus-styling";
 
 const svgSize = {
   small: {
@@ -51,7 +51,6 @@ const RadioButtonStyle = styled.div.attrs(
 
       ${!$isDisabled &&
       $error &&
-      /* istanbul ignore next */
       css`
         border: 2px solid var(--input-validation-border-error);
       `}

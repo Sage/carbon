@@ -180,7 +180,7 @@ export const ProgressiveDisclosure: Story = () => {
   const [value, setValue] = useState("radio1");
   const [textboxValue, setTextboxValue] = useState("");
 
-  const conditionalContent = (
+  const progressiveDisclosure = (
     <Box mr={1} width="300px">
       <Textbox
         label="Revealed Textbox"
@@ -201,19 +201,19 @@ export const ProgressiveDisclosure: Story = () => {
         id="progressive-radio-1"
         value="radio1"
         label="Radio Option 1"
-        conditionalContent={conditionalContent}
+        progressiveDisclosure={progressiveDisclosure}
       />
       <RadioButton
         id="progressive-radio-2"
         value="radio2"
         label="Radio Option 2"
-        conditionalContent={conditionalContent}
+        progressiveDisclosure={progressiveDisclosure}
       />
       <RadioButton
         id="progressive-radio-3"
         value="radio3"
         label="Radio Option 3"
-        conditionalContent={conditionalContent}
+        progressiveDisclosure={progressiveDisclosure}
       />
     </RadioButtonGroup>
   );

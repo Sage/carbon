@@ -7,8 +7,7 @@
  * Styles of any children should be handled in their respective component files.
  */
 
-import React, { useRef, useState, useEffect } from "react";
-import useResizeObserver from "../../../hooks/__internal__/useResizeObserver";
+import React, { useRef, useEffect, useContext, useLayoutEffect } from "react";
 import {
   StyledCheckableInput,
   StyledCheckableInputWrapper,
@@ -25,6 +24,13 @@ import Label from "../../label/label.component";
 import HintText from "../../hint-text";
 import useMediaQuery from "../../../hooks/useMediaQuery";
 
+import { TabsContext } from "../../../components/tabs/__next__/tabs.context";
+import { TabContext } from "../../../components/tabs/__next__/tab.context";
+import type {
+  TabContextProps,
+  TabsContextProps,
+} from "../../../components/tabs/__next__/tabs.types";
+
 // TODO: Remove omitted prop from CommonHiddenCheckableInputProps when legacy props are removed
 export interface CommonCheckableInputProps
   extends Omit<CommonHiddenCheckableInputProps, "validationIconId"> {
@@ -37,7 +43,7 @@ export interface CommonCheckableInputProps
   /** If true, the component will be disabled. */
   disabled?: boolean;
   /** Content to be rendered below the input when checked, is not supported when inputs are inline. */
-  conditionalContent?: React.ReactNode;
+  progressiveDisclosure?: React.ReactNode;
 }
 
 export interface CheckableInputProps extends CommonCheckableInputProps {
@@ -49,6 +55,10 @@ export interface CheckableInputProps extends CommonCheckableInputProps {
   value?: string;
   /** Size of the component. */
   size?: "small" | "medium" | "large";
+  /** Set error state - passed to Tabs context */
+  error?: boolean;
+  /** Set warning state - passed to Tabs context */
+  warning?: boolean;
 }
 
 const CheckableInput = React.forwardRef(
@@ -63,8 +73,10 @@ const CheckableInput = React.forwardRef(
       label,
       inputHint,
       checked,
-      conditionalContent,
+      progressiveDisclosure,
       size = "medium",
+      error,
+      warning,
       ...props
     }: CheckableInputProps,
     ref: React.ForwardedRef<HTMLInputElement>,
@@ -73,22 +85,43 @@ const CheckableInput = React.forwardRef(
     const inputHintId = inputHint ? `${id}-hint` : undefined;
 
     const accordionContainer = useRef<HTMLDivElement>(null);
-    const [contentHeight, setContentHeight] = useState<string | number>(0);
     const allowMotion = useMediaQuery(
       "screen and (prefers-reduced-motion: no-preference)",
     );
 
-    useResizeObserver(accordionContainer, () => {
-      setContentHeight(accordionContainer.current?.scrollHeight as number);
-    });
+    const { scrollHeight } = accordionContainer.current || {};
+    /* istanbul ignore next */
+    const contentHeight = checked && scrollHeight ? String(scrollHeight) : "0";
 
+    const { setErrors, setWarnings } =
+      useContext<TabsContextProps>(TabsContext);
+    const { tabId } = useContext<TabContextProps>(TabContext);
+    const isMounted = useRef(false);
+
+    useLayoutEffect(() => {
+      isMounted.current = true;
+
+      return () => {
+        isMounted.current = false;
+      };
+    }, []);
+
+    /* istanbul ignore next */
     useEffect(() => {
-      setContentHeight(accordionContainer.current?.scrollHeight as number);
-    }, [checked]);
+      if (setErrors) setErrors(id, tabId || "", error || false);
+      if (setWarnings) setWarnings(id, tabId || "", warning || false);
+
+      return () => {
+        if (!isMounted.current) {
+          if (setErrors) setErrors(id, tabId || "", false);
+          if (setWarnings) setWarnings(id, tabId || "", false);
+        }
+      };
+    }, [id, setErrors, setWarnings, error, warning, tabId]);
 
     return (
       <>
-        <StyledCheckableInput $isDisabled={disabled}>
+        <StyledCheckableInput $size={size}>
           <StyledCheckableInputWrapper>
             <HiddenCheckableInput
               id={id}
@@ -119,9 +152,9 @@ const CheckableInput = React.forwardRef(
             </HintText>
           )}
         </StyledCheckableInput>
-        {conditionalContent && (
+        {progressiveDisclosure && (
           <StyledAccordion
-            data-role="conditional-content-accordion"
+            data-role="progressive-disclosure-accordion"
             ref={accordionContainer}
             $expanded={checked}
             $contentHeight={contentHeight}
@@ -131,7 +164,7 @@ const CheckableInput = React.forwardRef(
               <StyledAccordionLine $size={size} />
             </StyledLineContainer>
             <StyledAccordionContent>
-              {conditionalContent}
+              {progressiveDisclosure}
             </StyledAccordionContent>
           </StyledAccordion>
         )}

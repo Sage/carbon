@@ -6,6 +6,7 @@ import { RadioButton, RadioButtonGroup, RadioButtonGroupProps } from ".";
 
 import Box from "../box";
 import Textbox from "../textbox";
+import { Tabs, Tab, TabList, TabPanel } from "../tabs/__next__";
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
@@ -192,7 +193,7 @@ export const SizesWithProgressiveDisclosure: Story = ({ ...args }) => {
 
   const [textboxValue, setTextboxValue] = useState("");
 
-  const conditionalContent = (
+  const progressiveDisclosure = (
     <Box mr={1} width="300px">
       <Textbox
         label="Revealed Textbox"
@@ -216,7 +217,7 @@ export const SizesWithProgressiveDisclosure: Story = ({ ...args }) => {
           id="small-radio-1"
           value="small1"
           label="Radio Option 1"
-          conditionalContent={conditionalContent}
+          progressiveDisclosure={progressiveDisclosure}
         />
         <RadioButton id="small-radio-2" value="small2" label="Radio Option 2" />
         <RadioButton id="small-radio-3" value="small3" label="Radio Option 3" />
@@ -234,7 +235,7 @@ export const SizesWithProgressiveDisclosure: Story = ({ ...args }) => {
           id="medium-radio-1"
           value="medium1"
           label="Radio Option 1"
-          conditionalContent={conditionalContent}
+          progressiveDisclosure={progressiveDisclosure}
         />
         <RadioButton
           id="medium-radio-2"
@@ -260,7 +261,7 @@ export const SizesWithProgressiveDisclosure: Story = ({ ...args }) => {
           id="large-radio-1"
           value="large1"
           label="Radio Option 1"
-          conditionalContent={conditionalContent}
+          progressiveDisclosure={progressiveDisclosure}
         />
         <RadioButton id="large-radio-2" value="large2" label="Radio Option 2" />
         <RadioButton id="large-radio-3" value="large3" label="Radio Option 3" />
@@ -297,3 +298,33 @@ export const LegendAlignment: Story = ({ ...args }) => {
   );
 };
 LegendAlignment.storyName = "Legend Alignment";
+
+export const InTabs: Story = () => {
+  return (
+    <Tabs>
+      <TabList ariaLabel="Sample Tabs">
+        <Tab id="tab-1" controls="tab-panel-1" label="Tab with Error" />
+        <Tab id="tab-2" controls="tab-panel-2" label="Tab with Warning" />
+      </TabList>
+      <TabPanel id="tab-panel-1" tabId="tab-1">
+        <RadioButtonGroupComponent
+          id="error-group"
+          name="error-group"
+          legend="With Error"
+          error="Error Message"
+          required
+        />
+      </TabPanel>
+      <TabPanel id="tab-panel-2" tabId="tab-2">
+        <RadioButtonGroupComponent
+          id="warning-group"
+          name="warning-group"
+          legend="With Warning"
+          warning="Warning Message"
+          required
+        />
+      </TabPanel>
+    </Tabs>
+  );
+};
+InTabs.storyName = "In Tabs";

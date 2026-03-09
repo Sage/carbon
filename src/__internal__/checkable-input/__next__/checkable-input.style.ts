@@ -1,13 +1,16 @@
 import styled, { css } from "styled-components";
-import { StyledLabelContainer } from "../../label/label.style";
-import HiddenCheckableInputStyle from "../hidden-checkable-input.style";
+import StyledLabel, { StyledLabelContainer } from "../../label/label.style";
 import StyledHintText from "../../hint-text/hint-text.style";
 
-interface StyledCheckableProps {
-  $isDisabled?: boolean;
-}
+const labelFont = {
+  small: "var(--global-font-static-comp-regular-s)",
+  medium: "var(--global-font-static-comp-regular-m)",
+  large: "var(--global-font-static-comp-regular-l)",
+};
 
-export const StyledCheckableInput = styled.div<StyledCheckableProps>`
+export const StyledCheckableInput = styled.div<{
+  $size: "small" | "medium" | "large";
+}>`
   display: grid;
   grid-template-columns: auto 1fr;
   grid-column-gap: var(--global-space-comp-s);
@@ -15,31 +18,19 @@ export const StyledCheckableInput = styled.div<StyledCheckableProps>`
   ${StyledLabelContainer} {
     padding: 0;
     margin: 0;
+  }
 
-    label {
-      font-weight: 400;
-
-      &:hover {
-        cursor: pointer;
-      }
-    }
+  ${StyledLabel} {
+    ${({ $size }) =>
+      $size &&
+      css`
+        font: ${labelFont[$size]};
+      `}
   }
 
   ${StyledHintText} {
     grid-area: 2 / 2;
   }
-
-  ${({ $isDisabled }) =>
-    $isDisabled &&
-    css`
-      ${HiddenCheckableInputStyle}, label {
-        &:hover,
-        &:focus {
-          outline: none;
-          cursor: not-allowed;
-        }
-      }
-    `}
 `;
 
 export const StyledCheckableInputWrapper = styled.div`

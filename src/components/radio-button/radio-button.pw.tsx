@@ -6,7 +6,7 @@ import { checkAccessibility } from "../../../playwright/support/helper";
 import {
   RadioButtonControlled,
   RadioButtonGroupControlled,
-  RadioButtonWithConditionalContent,
+  RadioButtonWithProgressiveDisclosure,
 } from "./components.test-pw";
 
 test("keyboard navigation works correctly in RadioButtonGroup", async ({
@@ -58,11 +58,11 @@ test("clicking on a RadioButton selects it", async ({ mount, page }) => {
   await expect(radio3).toBeChecked();
 });
 
-test("renders `conditionalContent` when RadioButton is selected and closes when another RadioButton is selected", async ({
+test("renders `progressiveDisclosure` when RadioButton is selected and closes when another RadioButton is selected", async ({
   mount,
   page,
 }) => {
-  await mount(<RadioButtonWithConditionalContent />);
+  await mount(<RadioButtonWithProgressiveDisclosure />);
 
   await page.getByRole("radio", { name: "Radio Button 1" }).click();
   await expect(
@@ -118,11 +118,11 @@ test.describe("Accessibility tests for RadioButton", () => {
     await checkAccessibility(page);
   });
 
-  test("should pass accessibility when `conditionalContent` is set on RadioButton", async ({
+  test("should pass accessibility when `progressiveDisclosure` is set on RadioButton", async ({
     mount,
     page,
   }) => {
-    await mount(<RadioButtonWithConditionalContent />);
+    await mount(<RadioButtonWithProgressiveDisclosure />);
 
     await page.getByRole("radio", { name: "Radio Button 1" }).click();
 

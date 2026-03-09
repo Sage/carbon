@@ -4,6 +4,7 @@ import createStrictContext from "../../../__internal__/utils/createStrictContext
 interface RadioButtonGroupContextType {
   inline?: boolean;
   error?: boolean;
+  warning?: boolean;
   name?: string;
   onBlur?: (ev: React.FocusEvent<HTMLInputElement>) => void;
   onChange?: (ev: React.ChangeEvent<HTMLInputElement>) => void;

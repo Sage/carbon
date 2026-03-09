@@ -59,29 +59,31 @@ test("renders input disabled when `disabled` prop is true", () => {
   expect(screen.getByRole("radio")).toBeDisabled();
 });
 
-test("displays conditional content when provided and input is checked", () => {
+test("displays progressive disclosure content when provided and input is checked", () => {
   render(
     <CommonCheckableInput
       type="radio"
       checked
-      conditionalContent={<div>Conditional Content</div>}
+      progressiveDisclosure={<div>Progressive disclosure content</div>}
       onChange={() => {}}
     />,
   );
 
-  expect(screen.getByText("Conditional Content")).toBeVisible();
+  expect(screen.getByText("Progressive disclosure content")).toBeVisible();
 });
 
-test("does not display conditional content when input is not checked", () => {
+test("does not display progressive disclosure content when input is not checked", () => {
   render(
     <CommonCheckableInput
       type="radio"
-      conditionalContent={<div>Conditional Content</div>}
+      progressiveDisclosure={<div>Progressive disclosure content</div>}
       onChange={() => {}}
     />,
   );
 
-  expect(screen.queryByText("Conditional Content")).not.toBeVisible();
+  expect(
+    screen.queryByText("Progressive disclosure content"),
+  ).not.toBeVisible();
 });
 
 test("applies accordion animation when reduced motion is not preferred", () => {
@@ -91,12 +93,12 @@ test("applies accordion animation when reduced motion is not preferred", () => {
   render(
     <CommonCheckableInput
       type="radio"
-      conditionalContent={<div>Conditional Content</div>}
+      progressiveDisclosure={<div>Progressive disclosure content</div>}
       onChange={() => {}}
     />,
   );
 
-  expect(screen.getByTestId("conditional-content-accordion")).toHaveStyle(
+  expect(screen.getByTestId("progressive-disclosure-accordion")).toHaveStyle(
     "transition: all 0.4s;",
   );
 });
