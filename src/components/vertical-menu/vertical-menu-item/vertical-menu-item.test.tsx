@@ -2,7 +2,10 @@ import React from "react";
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { testStyledSystemPadding } from "../../../__spec_helper__/__internal__/test-utils";
+import {
+  testStyledSystemPadding,
+  testStyledSystemMargin,
+} from "../../../__spec_helper__/__internal__/test-utils";
 import Icon from "../../icon";
 import { VerticalMenuItem, VerticalMenuFullScreen, VerticalMenu } from "..";
 
@@ -22,6 +25,17 @@ describe("VerticalMenuItem", () => {
       </VerticalMenu>
     ),
     () => screen.getByRole("button"),
+  );
+
+  testStyledSystemMargin(
+    (props) => (
+      <VerticalMenu>
+        <VerticalMenuItem title="Item1" {...props}>
+          foo
+        </VerticalMenuItem>
+      </VerticalMenu>
+    ),
+    () => screen.getByRole("listitem"),
   );
 
   describe("when is rendered without children", () => {

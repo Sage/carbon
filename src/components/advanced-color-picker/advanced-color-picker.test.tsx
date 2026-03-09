@@ -361,3 +361,64 @@ test("when the 'open' prop is true, the dialog is open on mount", async () => {
 
   expect(await screen.findByRole("dialog")).toBeVisible();
 });
+
+test("renders with aria-describedby prop", () => {
+  render(
+    <>
+      <span id="test-id">This is a description</span>
+      <ControlledColorPicker open aria-describedby="test-id" />
+      test
+    </>,
+  );
+
+  expect(screen.getByRole("dialog")).toHaveAccessibleDescription(
+    "This is a description",
+  );
+});
+
+test("renders with aria-label prop on dialog", () => {
+  render(<ControlledColorPicker open aria-label="test label" />);
+
+  expect(screen.getByRole("dialog")).toHaveAttribute(
+    "aria-label",
+    "test label",
+  );
+});
+
+test("button uses default accessible name", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(<ControlledColorPicker />);
+
+  const button = screen.getByRole("button", { name: "Change colour" });
+  expect(button).toBeInTheDocument();
+
+  await user.click(button);
+  expect(await screen.findByRole("dialog")).toBeVisible();
+});
+
+test("renders with aria-labelledby prop", () => {
+  render(
+    <>
+      <span id="test-label">Color Picker Label</span>
+      <ControlledColorPicker open aria-labelledby="test-label" />
+    </>,
+  );
+
+  expect(screen.getByRole("dialog")).toHaveAccessibleName("Color Picker Label");
+});
+
+test("renders with custom role prop", () => {
+  render(<ControlledColorPicker open role="region" />);
+
+  expect(screen.getByRole("region")).toBeInTheDocument();
+});
+
+test("renders color inputs with name prop", () => {
+  render(<ControlledColorPicker open name="color-picker-name" />);
+
+  const colorInputs = screen.getAllByRole("radio");
+  colorInputs.forEach((input) => {
+    expect(input).toHaveAttribute("name", "color-picker-name");
+  });
+});

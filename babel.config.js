@@ -18,10 +18,6 @@ module.exports = (api) => {
       "@babel/preset-react",
       "@babel/preset-typescript",
     ],
-    plugins: [
-      "@babel/plugin-proposal-class-properties",
-      "@babel/plugin-transform-classes",
-      "babel-plugin-dev-expression",
-    ].filter(Boolean),
+    plugins: ["babel-plugin-dev-expression"],
   };
 };

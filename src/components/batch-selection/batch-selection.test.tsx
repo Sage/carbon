@@ -113,3 +113,23 @@ test("`Link` children rendered as a button should be automatically disabled via 
 
   expect(linkButton).toBeDisabled();
 });
+
+test.each([
+  [0, "0 selected"],
+  [1, "1 selected"],
+  [10, "10 selected"],
+  [100, "100 selected"],
+])(
+  "Renders correct text for different selectedCount values",
+  (count, expectedText) => {
+    render(
+      <BatchSelection selectedCount={count} data-role="batch-selection-count">
+        <IconButton>
+          <Icon type="edit" />
+        </IconButton>
+      </BatchSelection>,
+    );
+    const batchSelection = screen.getByTestId("batch-selection-count");
+    expect(batchSelection).toHaveTextContent(expectedText);
+  },
+);

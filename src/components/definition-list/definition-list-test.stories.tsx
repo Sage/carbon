@@ -128,10 +128,6 @@ export const UsingBoxToOverrideBackgroundColor = () => (
   </Tile>
 );
 
-UsingBoxToOverrideBackgroundColor.parameters = {
-  chromatic: { disableSnapshot: false },
-};
-
 export const TextAlignExamples = () => {
   return (
     <>
@@ -166,10 +162,6 @@ export const CustomStylingDd = () => {
   );
 };
 
-CustomStylingDd.parameters = {
-  chromatic: { disableSnapshot: false },
-};
-
 export const CustomSpacingStylingDt = () => {
   return (
     <Dl>
@@ -181,10 +173,6 @@ export const CustomSpacingStylingDt = () => {
       <Dd>Description</Dd>
     </Dl>
   );
-};
-
-CustomSpacingStylingDt.parameters = {
-  chromatic: { disableSnapshot: false },
 };
 
 export const AsSingleColumnCustomDtStyling = () => {
@@ -200,10 +188,6 @@ export const AsSingleColumnCustomDtStyling = () => {
       </Dl>
     </Box>
   );
-};
-
-AsSingleColumnCustomDtStyling.parameters = {
-  chromatic: { disableSnapshot: false },
 };
 
 export const customWidthExample = () => {

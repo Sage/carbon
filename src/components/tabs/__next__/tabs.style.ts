@@ -33,8 +33,7 @@ const sizes: Record<string, Dimension> = {
 };
 
 interface StyledTabListProps {
-  orientation: "horizontal" | "vertical";
-  size: "medium" | "large";
+  $orientation: "horizontal" | "vertical";
 }
 
 export const StyledTabPanel = styled.div`
@@ -43,20 +42,33 @@ export const StyledTabPanel = styled.div`
 
 export const StyledTabList = styled.div<StyledTabListProps>`
   display: flex;
-  ${({ orientation }) => css`
-    flex-direction: ${orientation === "vertical" ? "column" : "row"};
-    ${orientation === "horizontal" ? "margin-bottom" : "margin-right"}: 8px;
+  ${({ $orientation }) => css`
+    ${$orientation === "horizontal" &&
+    css`
+      margin-bottom: 8px;
+    `}
+
+    ${$orientation === "vertical" &&
+    css`
+      flex-direction: column;
+      flex-wrap: wrap;
+      margin-right: 8px;
+    `}
   `}
   width: 100%;
-  height: fit-content;
-  white-space: nowrap;
   padding: 6px;
   overflow-x: hidden;
 `;
 
-export const StyledTabListWrapper = styled.div`
+export const StyledTabListWrapper = styled.div<{ $headerWidth?: string }>`
   display: flex;
   z-index: 6;
+
+  ${({ $headerWidth }) =>
+    $headerWidth &&
+    css`
+      width: ${$headerWidth};
+    `};
 `;
 
 export const Spacer = styled.div`
@@ -69,10 +81,10 @@ export const Spacer = styled.div`
 // Can't be easily tested in Jest owing to lack of an actual DOM
 /* istanbul ignore next */
 export const StyledScrollButton = styled.button<{
-  size: "medium" | "large";
+  $size: "medium" | "large";
 }>`
-  height: ${({ size }) => (size === "medium" ? "40px" : "48px")};
-  width: ${({ size }) => (size === "medium" ? "40px" : "48px")};
+  height: ${({ $size }) => ($size === "medium" ? "40px" : "48px")};
+  width: ${({ $size }) => ($size === "medium" ? "40px" : "48px")};
   border-radius: 0px;
   border-top-right-radius: 8px;
   border-top-left-radius: 8px;
@@ -87,10 +99,10 @@ export const StyledScrollButton = styled.button<{
 // Again, can't be easily tested in Jest owing to lack of an actual DOM
 /* istanbul ignore next */
 export const StyledScrollButtonPlaceholder = styled.div<{
-  size: "medium" | "large";
+  $size: "medium" | "large";
 }>`
-  height: ${({ size }) => (size === "medium" ? "40px" : "48px")};
-  width: ${({ size }) => (size === "medium" ? "40px" : "48px")};
+  height: ${({ $size }) => ($size === "medium" ? "40px" : "48px")};
+  width: ${({ $size }) => ($size === "medium" ? "40px" : "48px")};
   border-radius: 0;
   border-color: #8b8b8bff;
   border: none;
@@ -104,8 +116,10 @@ interface StyledTabProps
   activeTab: boolean;
   error?: string | boolean;
   warning?: string | boolean;
-  orientation: "horizontal" | "vertical";
-  size: "medium" | "large";
+  $orientation: "horizontal" | "vertical";
+  $size: "medium" | "large";
+  $hasCustomLayout?: boolean;
+  $headerWidth?: string;
 }
 
 export const StyledTab = styled.button<StyledTabProps>`
@@ -118,6 +132,9 @@ export const StyledTab = styled.button<StyledTabProps>`
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
 
+  white-space: nowrap;
+  height: fit-content;
+
   color: var(--colorsYin090);
 
   font-weight: var(--fontWeights500);
@@ -125,14 +142,44 @@ export const StyledTab = styled.button<StyledTabProps>`
   position: relative;
 
   .tab-title-content-wrapper {
-    align-items: center;
-    display: flex;
-    gap: 8px;
-    ${({ activeTab, size }) =>
-      activeTab &&
-      size === "large" &&
+    ${({ $hasCustomLayout }) =>
+      !$hasCustomLayout &&
       css`
-        margin-top: -4px;
+        align-items: center;
+        display: flex;
+        gap: 8px;
+      `}
+
+    ${({
+      activeTab,
+      $orientation,
+      $size,
+      error,
+      warning,
+      info,
+      $hasCustomLayout,
+    }) =>
+      activeTab &&
+      css`
+        ${$orientation === "horizontal" &&
+        (error || warning || info) &&
+        css`
+          position: relative;
+          top: 1px;
+        `}
+
+        ${$size === "large" &&
+        css`
+          margin-top: -4px;
+        `}
+
+        ${$hasCustomLayout &&
+        $orientation === "horizontal" &&
+        css`
+          position: relative;
+          top: -2px;
+          left: 1px;
+        `}
       `}
   }
 
@@ -141,24 +188,42 @@ export const StyledTab = styled.button<StyledTabProps>`
     cursor: pointer;
   }
 
-  ${({ size }) => css`
-    font-size: ${sizes[size].fontSize}px;
-    height: ${sizes[size].height}px;
-    padding: ${sizes[size].paddingY}px ${sizes[size].paddingX}px;
+  ${({ $size, $hasCustomLayout }) => css`
+    font-size: ${sizes[$size].fontSize}px;
+    height: ${sizes[$size].height}px;
+
+    ${$hasCustomLayout
+      ? css`
+          padding: 0;
+        `
+      : css`
+          padding: ${sizes[$size].paddingY}px ${sizes[$size].paddingX}px;
+        `}
   `};
 
-  ${({ activeTab, error, info, orientation, size, warning }) =>
+  ${({
+    activeTab,
+    error,
+    info,
+    $orientation,
+    $size,
+    warning,
+    $hasCustomLayout,
+  }) =>
     activeTab &&
-    orientation === "horizontal" &&
+    $orientation === "horizontal" &&
     css`
       background-color: white;
       border: 2px solid #8b8b8bff;
       border-bottom: none;
 
-      padding-top: ${sizes[size].paddingY - 4}px;
-      padding-right: ${sizes[size].paddingX - 2}px;
-      padding-bottom: ${sizes[size].paddingY}px;
-      padding-left: ${sizes[size].paddingX - 2}px;
+      ${!$hasCustomLayout &&
+      css`
+        padding-top: ${sizes[$size].paddingY - 4}px;
+        padding-right: ${sizes[$size].paddingX - 2}px;
+        padding-bottom: ${sizes[$size].paddingY}px;
+        padding-left: ${sizes[$size].paddingX - 2}px;
+      `}
 
       :hover {
         background-color: white;
@@ -182,72 +247,108 @@ export const StyledTab = styled.button<StyledTabProps>`
       }
     `};
 
-  ${({ activeTab, error, info, orientation, size, warning }) =>
-    orientation === "vertical"
-      ? css`
-          border: none;
-          border-right: 2px solid #8b8b8bff;
+  ${({
+    activeTab,
+    error,
+    info,
+    $orientation,
+    $size,
+    warning,
+    $hasCustomLayout,
+    $headerWidth,
+  }) =>
+    $orientation === "vertical" &&
+    css`
+      border: none;
+      border-right: 2px solid #8b8b8bff;
 
-          border-bottom-left-radius: 8px;
-          border-bottom-right-radius: 0px;
-          border-top-left-radius: 8px;
-          border-top-right-radius: 0px;
-          max-width: ${VERTICAL_TAB_WIDTH}px;
-          min-width: ${VERTICAL_TAB_WIDTH}px;
+      border-bottom-left-radius: 8px;
+      border-bottom-right-radius: 0px;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 0px;
+      max-width: ${$headerWidth ?? `${VERTICAL_TAB_WIDTH}px`};
+      width: ${$headerWidth ?? `${VERTICAL_TAB_WIDTH}px`};
 
-          ${activeTab &&
+      ${$headerWidth &&
+      css`
+        white-space: normal;
+        height: auto;
+      `}
+
+      ${activeTab &&
+      css`
+        background-color: white;
+        border: 2px solid #8b8b8bff;
+        border-right: none;
+
+        ${!$hasCustomLayout &&
+        css`
+          padding-top: ${$size === "medium" ? sizes.medium.paddingY - 2 : 4}px;
+          padding-right: var(--global-space-none);
+          padding-bottom: ${$size === "medium"
+            ? sizes.medium.paddingY - 2
+            : sizes.large.paddingY}px;
+          padding-left: ${sizes[$size].paddingX - 2}px;
+        `}
+
+        :hover {
+          background-color: white;
+        }
+
+        .tab-title-content-wrapper {
+          ${$headerWidth &&
+          !$hasCustomLayout &&
           css`
-            background-color: white;
-            border: 2px solid #8b8b8bff;
-            border-right: none;
+            padding-right: 18px;
+          `}
 
-            padding-top: ${size === "medium"
-              ? sizes.medium.paddingY - 2
-              : 4}px !important;
-            padding-right: ${sizes[size].paddingX - 2}px;
-            padding-bottom: ${size === "medium"
-              ? sizes.medium.paddingY - 2
-              : sizes.large.paddingY}px;
-            padding-left: ${sizes[size].paddingX - 2}px;
+          ${$hasCustomLayout &&
+          css`
+            width: 100%;
 
-            :hover {
-              background-color: white;
-            }
-
-            .tab-title-content-wrapper {
-              ::after {
-                content: "";
-                position: absolute;
-                right: 0;
-                top: 20%;
-                height: 60%;
-                width: 4px;
-                background-color: ${() => {
-                  /* istanbul ignore if */
-                  if (error) return "#db004e";
-                  /* istanbul ignore if */
-                  if (warning) return "#d64309";
-                  /* istanbul ignore if */
-                  if (info) return "#0060a7ff";
-
-                  return "black";
-                }};
-                border-radius: 2px;
-                min-height: 24px;
-              }
+            > * {
+              position: relative;
+              left: -2px;
+              top: -2px;
             }
           `}
-        `
-      : css``}
+
+          ::after {
+            content: "";
+            position: absolute;
+            right: 0;
+            width: 4px;
+            ${$hasCustomLayout &&
+            css`
+              top: 20%;
+              right: 0px;
+            `}
+            height: 60%;
+            background-color: ${() => {
+              /* istanbul ignore if */
+              if (error) return "#db004e";
+              /* istanbul ignore if */
+              if (warning) return "#d64309";
+              /* istanbul ignore if */
+              if (info) return "#0060a7ff";
+
+              return "black";
+            }};
+            border-radius: 2px;
+            min-height: 24px;
+          }
+        }
+      `}
+    `}
 
   :focus {
     ${addFocusStyling()}
     z-index: 1;
 
-    ${({ orientation }) => css`
+    ${({ $orientation }) => css`
       border-top-left-radius: 8px;
-      border-top-right-radius: ${orientation === "horizontal" ? "8px" : "0"};
-      border-bottom-left-radius: ${orientation === "horizontal"
+      border-top-right-radius: ${$orientation === "horizontal" ? "8px" : "0"};
+      border-bottom-left-radius: ${$orientation === "horizontal"
         ? "0px"
         : "8px"};
       border-bottom-right-radius: 0px;
@@ -256,11 +357,11 @@ export const StyledTab = styled.button<StyledTabProps>`
 `;
 
 export const StyledTabs = styled.div<{
-  orientation?: "horizontal" | "vertical";
+  $orientation?: "horizontal" | "vertical";
 }>`
   display: flex;
-  ${({ orientation }) => css`
-    flex-direction: ${orientation === "horizontal" ? "column" : "row"};
+  ${({ $orientation }) => css`
+    flex-direction: ${$orientation === "horizontal" ? "column" : "row"};
   `}
 `;
 

@@ -11,13 +11,15 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ">=24.11.0 24"
-      - name: Update npm to 11.9
-        run: npm install -g npm@11.9
+      - name: Update npm to 11.10.1
+        run: npm install -g npm@11.10.1
 
       - run: npm ci
       - run: npx prettier --check './src/**/*.{js,jsx,ts,tsx}'
       - run: npm run lint
       - run: npm run type-check
+      - name: Ensure the Carbon skills are up to date (run npm run build:skills locally to fix this error)
+        run: npm run build:skills -- --check
 
   test:
     name: Test with Node ${{ matrix.node }} (${{ matrix.shard }}, 4)
@@ -35,8 +37,8 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: npm
 
-      - name: Update npm to 11.9
-        run: npm install -g npm@11.9
+      - name: Update npm to 11.10.1
+        run: npm install -g npm@11.10.1
 
       - name: Install dependencies
         run: npm ci
@@ -89,8 +91,8 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: npm
 
-      - name: Update npm to 11.9
-        run: npm install -g npm@11.9
+      - name: Update npm to 11.10.1
+        run: npm install -g npm@11.10.1
 
       - name: Install dependencies
         run: npm ci
