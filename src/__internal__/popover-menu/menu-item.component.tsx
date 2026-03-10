@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 import PopoverMenu, { List } from "./popover-menu.component";
 import Icon from "../../components/icon";
 import { flip, offset } from "@floating-ui/react";
-import useMenuItem from "./useMenuItem";
+import useMenuItem from "./wrap-children-in-item.util";
 
 export const ListItem = styled.li`
   color: var(--popover-label-default);

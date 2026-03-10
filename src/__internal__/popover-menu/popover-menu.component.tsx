@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import styled, { css } from "styled-components";
 import Popover from "../popover";
 import { flip, offset } from "@floating-ui/react";
-import useMenuItem from "./useMenuItem";
+import useMenuItem from "./wrap-children-in-item.util";
 import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
 
 const PopoverControlWrapper = styled.div`
@@ -107,6 +107,14 @@ export interface PopoverMenuProps {
     | "right-end";
   middleware?: typeof menuPopoverMiddleware;
   submenuControlRef?: React.RefObject<HTMLElement>;
+  /** Ref forwarded to the inner List (ul) element */
+  listRef?: React.RefObject<HTMLUListElement>;
+  /** id applied to the outer wrapper element (e.g. for aria-controls) */
+  id?: string;
+  /** Keydown handler for the outer wrapper element */
+  onKeyDown?: React.KeyboardEventHandler<HTMLDivElement>;
+  /** Blur handler for the outer wrapper element */
+  onBlur?: React.FocusEventHandler<HTMLDivElement>;
 
   onOpen?: () => void;
   onClose?: (e?: Event) => void;
@@ -135,6 +143,7 @@ export default ({
   placement = "bottom-end",
   middleware = menuPopoverMiddleware,
   submenuControlRef,
+  listRef,
   onOpen,
   onClose,
   // smallScreen = false,
@@ -180,7 +189,9 @@ export default ({
             data-component="scroll-wrapper"
             $isSubmenu={isSubmenu}
           >
-            <List $size={size}>{wrappedChildren}</List>
+            <List $size={size} ref={listRef}>
+              {wrappedChildren}
+            </List>
           </Wrapper>
         </Popover>
       )}

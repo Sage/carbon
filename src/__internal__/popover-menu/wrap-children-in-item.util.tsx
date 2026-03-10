@@ -1,7 +1,7 @@
 import React from "react";
 import MenuItem from "./menu-item.component";
 
-const wrapChildren = (
+const wrapChildrenInItem = (
   children: React.ReactNode,
 ): React.ReactNode[] | undefined =>
   React.Children.map(children, (child) => {
@@ -9,7 +9,7 @@ const wrapChildren = (
 
     // Recursively unwrap Fragments
     if (child.type === React.Fragment) {
-      return wrapChildren(child.props.children);
+      return wrapChildrenInItem(child.props.children);
     }
 
     // If the child is already a MenuItem, don't wrap it again
@@ -27,4 +27,4 @@ const wrapChildren = (
     ?.flat()
     .filter(Boolean);
 
-export default wrapChildren;
+export default wrapChildrenInItem;

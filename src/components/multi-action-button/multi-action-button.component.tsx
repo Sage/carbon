@@ -1,29 +1,20 @@
-import React, {
-  useRef,
-  forwardRef,
-  useImperativeHandle,
-  useContext,
-} from "react";
+import React, { useRef, forwardRef, useImperativeHandle } from "react";
 import { WidthProps } from "styled-system";
-import { flip, offset } from "@floating-ui/dom";
 
-import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
 import { SplitButtonProps } from "../split-button";
 import SplitButtonContext from "../split-button/__internal__/split-button.context";
-import {
-  StyledMultiActionButton,
-  StyledButtonChildrenContainer,
-} from "./multi-action-button.style";
-import Button from "../button";
-import Popover from "../../__internal__/popover";
+import { StyledMultiActionButton } from "./multi-action-button.style";
+import Button from "../button/__next__";
+import PopoverMenu from "../../__internal__/popover-menu/popover-menu.component";
+import MenuItem from "../../__internal__/popover-menu/menu-item.component";
 import {
   filterStyledSystemMarginProps,
   filterOutStyledSystemSpacingProps,
 } from "../../style/utils";
 import useChildButtons from "../../hooks/__internal__/useChildButtons";
 import useAdaptiveSidebarModalFocus from "../../hooks/__internal__/useAdaptiveSidebarModalFocus";
-import FlatTableContext from "../flat-table/__internal__/flat-table.context";
 import guid from "../../__internal__/utils/helpers/guid";
+import { ButtonHandle } from "../button/__next__/button.component";
 
 export interface MultiActionButtonProps
   extends WidthProps,
@@ -45,6 +36,7 @@ export const MultiActionButton = forwardRef<
 >(
   (
     {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       align = "left",
       position = "left",
       disabled,
@@ -61,15 +53,14 @@ export const MultiActionButton = forwardRef<
     },
     ref,
   ) => {
-    const buttonRef = useRef<HTMLButtonElement>(null);
-    const { isInFlatTable } = useContext(FlatTableContext);
+    const buttonRef = useRef<ButtonHandle>(null);
     const submenuId = useRef(guid());
 
     useImperativeHandle<MultiActionButtonHandle, MultiActionButtonHandle>(
       ref,
       () => ({
         focusMainButton() {
-          buttonRef.current?.focus({ preventScroll: true });
+          buttonRef.current?.focusButton();
         },
       }),
       [],
@@ -83,9 +74,7 @@ export const MultiActionButton = forwardRef<
       handleToggleButtonKeyDown,
       wrapperProps,
       contextValue,
-    } = useChildButtons(buttonRef);
-
-    const handleInsideClick = useClickAwayListener(hideButtons);
+    } = useChildButtons(buttonRef.current?.ref || { current: null });
 
     const handleClick = (
       ev: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
@@ -97,44 +86,9 @@ export const MultiActionButton = forwardRef<
       } else {
         showButtons();
       }
-
-      handleInsideClick();
     };
 
     useAdaptiveSidebarModalFocus(() => hideButtons());
-
-    const renderAdditionalButtons = () => (
-      <Popover
-        disableBackgroundUI={isInFlatTable && showAdditionalButtons}
-        disablePortal
-        placement={
-          position === "left"
-            ? "bottom-start"
-            : /* istanbul ignore next */ "bottom-end"
-        }
-        reference={buttonNode}
-        popoverStrategy="fixed"
-        middleware={[
-          offset(6),
-          flip({
-            fallbackStrategy: "initialPlacement",
-          }),
-        ]}
-      >
-        <StyledButtonChildrenContainer
-          id={submenuId.current}
-          {...wrapperProps}
-          align={align}
-          hidden={!showAdditionalButtons}
-        >
-          <SplitButtonContext.Provider value={contextValue}>
-            {React.Children.map(children, (child) => (
-              <li>{child}</li>
-            ))}
-          </SplitButtonContext.Provider>
-        </StyledButtonChildrenContainer>
-      </Popover>
-    );
 
     return (
       <StyledMultiActionButton
@@ -146,25 +100,43 @@ export const MultiActionButton = forwardRef<
         width={width}
         {...filterStyledSystemMarginProps(rest)}
       >
-        <Button
-          aria-expanded={showAdditionalButtons}
-          aria-controls={submenuId.current}
-          data-element="toggle-button"
-          key="toggle-button"
-          ref={buttonRef}
-          iconPosition="after"
-          iconType="dropdown"
-          disabled={disabled}
-          buttonType={buttonType}
-          size={size}
-          subtext={subtext}
-          onKeyDown={handleToggleButtonKeyDown}
-          onClick={handleClick}
-          {...filterOutStyledSystemSpacingProps(rest)}
+        <PopoverMenu
+          id={submenuId.current}
+          open={showAdditionalButtons}
+          placement={position === "left" ? "bottom-start" : "bottom-end"}
+          onClose={hideButtons}
+          onKeyDown={wrapperProps.onKeyDown}
+          onBlur={wrapperProps.onBlur}
+          listRef={wrapperProps.ref}
+          popoverControl={
+            <Button
+              aria-expanded={showAdditionalButtons}
+              aria-controls={submenuId.current}
+              data-element="toggle-button"
+              key="toggle-button"
+              ref={buttonRef}
+              iconPosition="after"
+              iconType="dropdown"
+              disabled={disabled}
+              variantType={buttonType}
+              size={size}
+              // subtext={subtext}
+              onKeyDown={handleToggleButtonKeyDown}
+              onClick={handleClick}
+              {...filterOutStyledSystemSpacingProps(rest)}
+            >
+              {text}
+            </Button>
+          }
         >
-          {text}
-        </Button>
-        {renderAdditionalButtons()}
+          {React.Children.map(children, (child) => (
+            <MenuItem>
+              <SplitButtonContext.Provider value={contextValue}>
+                {child}
+              </SplitButtonContext.Provider>
+            </MenuItem>
+          ))}
+        </PopoverMenu>
       </StyledMultiActionButton>
     );
   },
