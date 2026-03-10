@@ -1,3 +1,9 @@
+## [158.35.5](https://github.com/Sage/carbon/compare/v158.35.4...v158.35.5) (2026-03-06)
+
+### Bug Fixes
+
+* **button:** ensure next Button fully supports rendering as anchor element ([ef95593](https://github.com/Sage/carbon/commit/ef9559384951f13c8cc270bb016be2655ad29f5a)), closes [#7815](https://github.com/Sage/carbon/issues/7815)
+
 ## [158.35.4](https://github.com/Sage/carbon/compare/v158.35.3...v158.35.4) (2026-03-03)
 
 ### Bug Fixes
