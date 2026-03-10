@@ -46,6 +46,11 @@ export interface TextEditorProps extends MarginProps, TagProps {
    * @deprecated Please ensure that `TextEditor` is used as a part of a `Form` component, which will handle the save functionality.
    */
   onSave?: (value: EditorFormattedValues) => void;
+  /**
+   * Callback that is triggered when a parent form of the editor is submitted.
+   * The callback returns the current content of the editor in multiple formats, including HTML with inline styles.
+   */
+  onFormSubmission?: (value: EditorFormattedValuesWithInlineStyles) => void;
   /** The placeholder to display when the editor is empty */
   placeholder?: string;
   /** An array of link preview nodes to render in the editor */
@@ -193,6 +198,15 @@ export interface EditorFormattedValues {
     };
   };
 }
+
+export interface EditorFormattedValuesWithInlineStyles
+  extends EditorFormattedValues {
+  htmlStringWithInlineStyles?: string;
+}
+
+export type onFormSubmissionCallback = (
+  value: EditorFormattedValuesWithInlineStyles,
+) => void;
 
 export interface SaveButtonProps {
   /** The namespace of the editor that this button belongs to */

@@ -34,6 +34,7 @@ import {
 import {
   AutoLinkerPlugin,
   LinkMonitorPlugin,
+  FormSubmissionPlugin,
 } from "./__internal__/__plugins__";
 import TextEditorContext from "./text-editor.context";
 import StyledTextEditor, {
@@ -88,6 +89,7 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
       onFocus,
       onLinkAdded,
       onSave,
+      onFormSubmission,
       placeholder,
       previews = [],
       readOnly = false,
@@ -373,6 +375,9 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
                       <ClickableLinkPlugin newTab />
                       <AutoLinkerPlugin />
                       <StyledSpanEnterPlugin />
+                      <FormSubmissionPlugin
+                        onFormSubmission={onFormSubmission}
+                      />
                       <PluginProvider parentRef={parentRef}>
                         {customPlugins}
                       </PluginProvider>
