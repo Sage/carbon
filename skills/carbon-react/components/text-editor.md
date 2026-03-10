@@ -42,6 +42,7 @@ description: Carbon TextEditor component props and usage examples.
 | onBlur | ((ev: React.FocusEvent<HTMLElement>) => void) \| undefined | No |  |  |  | Callback that is triggered when the editor loses focus. |  |
 | onChange | ((value: string, formattedValues: EditorFormattedValues) => void) \| undefined | No |  |  |  | Callback that is triggered when the editor's text content is modified or styled. |  |
 | onFocus | ((ev: React.FocusEvent<HTMLElement>) => void) \| undefined | No |  |  |  | Callback that is triggered when the editor gains focus. |  |
+| onFormSubmission | ((value: EditorFormattedValuesWithInlineStyles) => void) \| undefined | No |  |  |  | Callback that is triggered when a parent form of the editor is submitted. The callback returns the current content of the editor in multiple formats, including HTML with inline styles. |  |
 | onLinkAdded | ((link: string, state: string) => void) \| undefined | No |  |  |  | Callback that is triggered when a link is added in the editor's content. |  |
 | placeholder | string \| undefined | No |  |  |  | The placeholder to display when the editor is empty |  |
 | previews | React.JSX.Element[] | No |  |  |  | An array of link preview nodes to render in the editor |  |
@@ -345,6 +346,99 @@ description: Carbon TextEditor component props and usage examples.
               JSON
             </Typography>
             {JSON.stringify(data?.json, null, 2) || "No content"}
+          </Box>
+        </Box>
+      )}
+    </Box>
+  );
+}
+```
+
+
+### onFormSubmission Handler (with Inline Styles)
+
+**Render**
+
+```tsx
+() => {
+  const [data, setData] = useState<EditorFormattedValuesWithInlineStyles>({
+    htmlString: "<p><br></p>",
+    json: undefined,
+    htmlStringWithInlineStyles: "",
+  });
+  const [showData, setShowData] = useState(false);
+
+  const handleFormSubmit: FormProps["onSubmit"] = async (ev) => {
+    ev.preventDefault();
+  };
+
+  return (
+    <Box mx={2} my={0}>
+      <Form
+        onSubmit={handleFormSubmit}
+        saveButton={
+          <Button type="submit" buttonType="primary">
+            Submit Form
+          </Button>
+        }
+      >
+        <TextEditor
+          namespace="storybook-onformsubmission"
+          labelText="Text Editor"
+          onFormSubmission={setData}
+        />
+      </Form>
+      <Button
+        buttonType="primary"
+        size="small"
+        my={2}
+        onClick={() => setShowData(!showData)}
+      >
+        Show Data Formats
+      </Button>
+      {showData && (
+        <Box display="flex" flexDirection="column" gap={4}>
+          <Box>
+            <Typography variant="h4" mb={1}>
+              HTML (with Classes)
+            </Typography>
+            <Box
+              p={2}
+              backgroundColor="--colorsUtilityYin025"
+              borderRadius="borderRadius050"
+              maxHeight="200px"
+              overflow="auto"
+            >
+              {data?.htmlString || "No content"}
+            </Box>
+          </Box>
+          <Box>
+            <Typography variant="h4" mb={1}>
+              HTML (with Inline Styles)
+            </Typography>
+            <Box
+              p={2}
+              backgroundColor="--colorsUtilityYin025"
+              borderRadius="borderRadius050"
+              maxHeight="200px"
+              overflow="auto"
+            >
+              {data?.htmlStringWithInlineStyles || "No content"}
+            </Box>
+          </Box>
+          <Box>
+            <Typography variant="h4" mb={1}>
+              JSON
+            </Typography>
+            <Box
+              p={2}
+              backgroundColor="--colorsUtilityYin025"
+              borderRadius="borderRadius050"
+              maxHeight="200px"
+              overflow="auto"
+            >
+              {JSON.stringify(data?.json, null, 2) || "No content"}
+            </Box>
           </Box>
         </Box>
       )}
@@ -774,6 +868,25 @@ If the `onSave` property is not provided, the `Save` button will not be displaye
 Type into the editor and the click the **Show Data Formats** button in the example below to see the JSON and HTML content of the editor.
 
 <Canvas of={TextEditorStories.OnSave} />
+
+### onFormSubmission Handler (with Inline Styles)
+
+The `onFormSubmission` callback is triggered when the parent form is submitted. This is particularly useful when your Text Editor is nested within a `Form` component. Simply pass the callback as a prop to the TextEditor component.
+
+The callback receives an object containing:
+
+1. **`formattedValues`**: An object containing the serialized editor content:
+   - `htmlString`: A HTML representation of the editor content with CSS classes, as a string.
+   - `json`: The JSON representation of the editor content.
+
+2. **`htmlStringWithInlineStyles`**: A string containing HTML with all formatting converted to inline styles instead of CSS classes. This format is especially useful for:
+   - Templates where external stylesheets are not supported
+   - Exporting content to external systems
+   - Portable content that needs to maintain styling without dependencies
+
+**Key Difference from `onSave`**: While `onSave` is a callback prop on the TextEditor for immediate save operations, `onFormSubmission` is triggered specifically when the containing form is submitted, making it ideal for form-based workflows.
+
+<Canvas of={TextEditorStories.OnFormSubmission} />
 
 ### Setting Initial Values
 
