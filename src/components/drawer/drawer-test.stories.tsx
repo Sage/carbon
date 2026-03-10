@@ -42,4 +42,7 @@ export const WithShowControls: Story = {
     ),
     showControls: true,
   },
+  parameters: {
+    chromatic: { disableSnapshot: false },
+  },
 };

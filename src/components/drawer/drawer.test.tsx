@@ -40,6 +40,16 @@ test("should log a deprecation warning for `defaultExpanded` prop", () => {
   });
 });
 
+test("sets height attribute when height prop is provided", () => {
+  render(
+    <Drawer data-role="drawer" height="75%">
+      Foobar
+    </Drawer>,
+  );
+
+  expect(screen.getByTestId("drawer")).toHaveAttribute("height", "75%");
+});
+
 test("sets correct data-* props on main dialog element", () => {
   render(
     <Drawer data-element="foo" data-role="bar">

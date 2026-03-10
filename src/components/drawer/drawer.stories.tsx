@@ -52,6 +52,9 @@ export const SidebarWidth: Story = {
     ...Default.args,
     expandedWidth: "400px",
   },
+  parameters: {
+    chromatic: { disableSnapshot: false },
+  },
 };
 
 export const WithTitle: Story = {

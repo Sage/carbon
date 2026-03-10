@@ -1,15 +1,8 @@
 import React from "react";
 import { test, expect } from "../../../playwright/helpers/base-test";
 import DrawerComponent from "./components.test-pw";
-import {
-  drawer,
-  drawerAsideContent,
-  drawerSidebar,
-} from "../../../playwright/components/drawer";
-import {
-  checkAccessibility,
-  assertCssValueIsApproximately,
-} from "../../../playwright/support/helper";
+import { drawerSidebar } from "../../../playwright/components/drawer";
+import { checkAccessibility } from "../../../playwright/support/helper";
 
 test("should have the expected focus styling", async ({ mount, page }) => {
   await mount(<DrawerComponent showControls />);
@@ -26,80 +19,6 @@ test("should have the expected focus styling", async ({ mount, page }) => {
     "outline",
     "rgba(0, 0, 0, 0) solid 3px",
   );
-});
-
-test.describe("check props for Drawer component", () => {
-  test("should render component with toggle control when showControls prop is true", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<DrawerComponent showControls />);
-
-    const toggleButton = page.getByRole("button", { name: "toggle sidebar" });
-    await expect(toggleButton).toBeVisible();
-  });
-  test("should render control button with correct style when expanded is true", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<DrawerComponent showControls expanded />);
-
-    const toggleButton = page.getByRole("button", { name: "toggle sidebar" });
-    await expect(toggleButton).toHaveCSS(
-      "transform",
-      "matrix(-1, 0, 0, -1, 0, 0)",
-    );
-  });
-
-  test("should render control button with correct style when expanded is false", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<DrawerComponent showControls expanded={false} />);
-
-    const toggleButton = page.getByRole("button", { name: "toggle sidebar" });
-    await expect(toggleButton).toHaveCSS(
-      "transform",
-      "matrix(1, 0, 0, 1, 0, 0)",
-    );
-  });
-
-  test("should render component with custom expandedWidth", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<DrawerComponent expandedWidth="600px" />);
-
-    await assertCssValueIsApproximately(drawerAsideContent(page), "width", 600);
-  });
-
-  test("should render component with custom backgroundColor", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<DrawerComponent backgroundColor="#FF0000" />);
-
-    const color = "rgb(255, 0, 0)";
-    const asideContent = drawerAsideContent(page);
-    await expect(asideContent).toHaveCSS("background-color", color);
-  });
-
-  test("should render component with custom height", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<DrawerComponent height="75%" />);
-
-    const drawerElement = drawer(page);
-    await expect(drawerElement).toHaveAttribute("height", "75%");
-  });
-
-  test("should render component with custom title", async ({ mount, page }) => {
-    await mount(<DrawerComponent title="playwright_title" />);
-
-    const title = page.getByText("playwright_title");
-    await expect(title).toBeVisible();
-  });
 });
 
 test("should render sidebar content with tabindex 0 when content is scrollable", async ({
