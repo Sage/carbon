@@ -141,6 +141,16 @@ such as forms.
 
 <Canvas of={ButtonStories.HTMLButtonType} />
 
+### Button as Link
+
+It is possible to use the `Button` component as a link by passing an `href` prop. 
+When doing so, the component will render as an anchor tag (`<a>`) rather than a button (`<button>`). 
+When using the `Button` component as a link, the `type` prop will be ignored, as it is not 
+relevant for anchor tags. Instead, the `href`, `target` and `rel` props will be used to 
+determine the behaviour of the link.
+
+<Canvas of={ButtonStories.ButtonAsALink} />
+
 ### Legacy support
 
 To help with migration, this component can also accept the following 
