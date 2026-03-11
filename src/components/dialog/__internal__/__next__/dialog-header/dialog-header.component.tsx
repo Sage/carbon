@@ -138,8 +138,8 @@ function withDialogHeader(
         );
         passSubtitle = false;
 
-        // Point aria-labelledby at the id we generated
-        ariaLabelledBy = statusTitleId;
+        // Point aria-labelledby at the id we generated (only when consumer didn't provide one)
+        ariaLabelledBy ??= statusTitleId;
         // Also set aria-label as a belt-and-suspenders fallback
         // (aria-labelledby takes precedence when both are present,
         // but aria-label alone satisfies axe if the id ref fails)
@@ -148,7 +148,7 @@ function withDialogHeader(
           ariaLabel = ariaLabel ?? title;
         }
         if (subtitle) {
-          ariaDescribedBy = statusSubtitleId;
+          ariaDescribedBy ??= statusSubtitleId;
         }
       }
 
