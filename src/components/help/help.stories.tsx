@@ -1,8 +1,6 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
-
 import Box from "../box";
 import Icon from "../icon";
 import Help from ".";
@@ -59,22 +57,26 @@ export const WithTooltipPosition: Story = () => {
   );
 };
 WithTooltipPosition.storyName = "With Tooltip Position";
+WithTooltipPosition.parameters = { chromatic: { disableSnapshot: false } };
 
 export const WithTooltipColorOverrides: Story = () => (
   <Box my={64} mx={300}>
-    <Help tooltipBgColor="lightblue" tooltipFontColor="black">
+    <Help tooltipBgColor="lightblue" tooltipFontColor="black" isFocused>
       The background and font color are overridden
     </Help>
   </Box>
 );
 WithTooltipColorOverrides.storyName = "With Tooltip Color Overrides";
+WithTooltipColorOverrides.parameters = {
+  chromatic: { disableSnapshot: false },
+};
 
-export const WithIcons: Story = () => {
+export const WithIconsAndFocused: Story = () => {
   return (
     <>
       {(["error", "add", "minus", "settings"] as const).map((icon) => (
         <Box m={65} key={icon}>
-          <Help type={`${icon}`}>
+          <Help type={`${icon}`} data-role="target">
             {`This is the Help component with the ${icon} icon`}
           </Help>
         </Box>
@@ -82,7 +84,11 @@ export const WithIcons: Story = () => {
     </>
   );
 };
-WithIcons.storyName = "With Icons";
+WithIconsAndFocused.storyName = "With Icons and Focused";
+WithIconsAndFocused.parameters = {
+  chromatic: { disableSnapshot: false },
+  pseudo: { focus: "[data-role='target']" },
+};
 
 export const WithHref: Story = () => {
   return (

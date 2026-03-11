@@ -108,7 +108,7 @@ description: Carbon Help component props and usage examples.
 ```tsx
 () => (
   <Box my={64} mx={300}>
-    <Help tooltipBgColor="lightblue" tooltipFontColor="black">
+    <Help tooltipBgColor="lightblue" tooltipFontColor="black" isFocused>
       The background and font color are overridden
     </Help>
   </Box>
@@ -116,7 +116,7 @@ description: Carbon Help component props and usage examples.
 ```
 
 
-### With Icons
+### With Icons and Focused
 
 **Render**
 
@@ -126,7 +126,7 @@ description: Carbon Help component props and usage examples.
     <>
       {(["error", "add", "minus", "settings"] as const).map((icon) => (
         <Box m={65} key={icon}>
-          <Help type={`${icon}`}>
+          <Help type={`${icon}`} data-role="target">
             {`This is the Help component with the ${icon} icon`}
           </Help>
         </Box>
