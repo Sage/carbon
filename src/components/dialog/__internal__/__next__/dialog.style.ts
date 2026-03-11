@@ -126,8 +126,10 @@ const DialogPositioner = styled.div.attrs(
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: ${({ theme, $size }) =>
-    $size === "fullscreen" ? theme.zIndex.fullScreenModal : theme.zIndex.modal};
+  z-index: ${({ $size }) =>
+    $size === "fullscreen"
+      ? `var(--carbon-zindex-full-screen-modal)`
+      : `var(--carbon-zindex-modal)`};
 
   ${({ $size }) =>
     $size === "fullscreen" &&
@@ -170,6 +172,10 @@ const StyledDialogContent = styled.div.attrs(applyBaseTheme)<
                 ${applyContentPadding(Boolean(disableContentPadding))(props)}
               }
               ${StyledFormFooter} {
+                border-top: 1px solid #a3adb5;
+                box-shadow:
+                  0 -2px 4px 0 rgba(0, 0, 0, 0.1),
+                  0 -10px 60px 0 rgba(0, 0, 0, 0.1);
                 background: var(--container-standard-bg-default, #fff);
               }
             }
@@ -204,6 +210,10 @@ const StyledDialogContent = styled.div.attrs(applyBaseTheme)<
               }
 
               ${StyledFormFooter} {
+                border-top: 1px solid #a3adb5;
+                box-shadow:
+                  0 -2px 4px 0 rgba(0, 0, 0, 0.1),
+                  0 -10px 60px 0 rgba(0, 0, 0, 0.1);
                 border-bottom-right-radius: var(
                   --global-radius-container-XL,
                   24px
@@ -251,6 +261,10 @@ const StyledDialogFooter = styled.div<StyledDialogFooterProps>`
       bottom: 0;
       background: var(--container-standard-bg-default, #fff);
       z-index: 1;
+      border-top: 1px solid #a3adb5;
+      box-shadow:
+        0 -2px 4px 0 rgba(0, 0, 0, 0.1),
+        0 -10px 60px 0 rgba(0, 0, 0, 0.1);
     `}
 
   ${({ $disableStickyOnSmallScreen }) =>
