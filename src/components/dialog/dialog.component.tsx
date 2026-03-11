@@ -7,18 +7,7 @@ import type {
 } from "./__internal__/__next__/dialog.component";
 import { Dialog as NextDialog } from "./__internal__/__next__/dialog.component";
 import Logger from "../../__internal__/utils/logger";
-
-// Legacy size values that get mapped to the new Size type
-type DialogSizes =
-  | "extra-small"
-  | "small"
-  | "medium-small"
-  | "medium"
-  | "medium-large"
-  | "large"
-  | "extra-large"
-  | "auto"
-  | "maximise";
+import type { DialogSizes } from "./dialog.config";
 
 export interface DialogProps extends Omit<NextDialogProps, "size"> {
   /** @deprecated Use `size="fullscreen"` instead. */
@@ -149,7 +138,6 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
         size={computedSize}
         gradientKeyLine={computedGradientKeyLine}
         disableContentPadding={disableContentPadding}
-        disableClose={disableClose}
         {...rest}
       />
     );

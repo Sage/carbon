@@ -8,7 +8,7 @@ import { allowInteractions } from "../../../.storybook/interaction-toggle/reduce
 import DefaultDecorator from "../../../.storybook/utils/default-decorator";
 
 export default {
-  title: "Dialog/Interactions",
+  title: "Deprecated/Dialog/Interactions",
   component: Dialog,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },

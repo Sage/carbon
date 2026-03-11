@@ -78,8 +78,6 @@ export interface DialogProps extends ModalProps, TagProps {
   disableAutoFocus?: boolean;
   /* Disables the focus trap when the dialog is open */
   disableFocusTrap?: boolean;
-  /** @deprecated Determines if the Dialog can be closed */
-  disableClose?: boolean;
   /** an optional array of refs to containers whose content should also be reachable by tabbing from the dialog */
   focusableContainers?: RefObject<HTMLElement>[];
   /** Optional selector to identify the focusable elements, if not provided a default selector is used */
@@ -206,7 +204,6 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
     const closeIcon = showCloseIcon && onCancel && (
       <Button
         aria-label={locale.dialog.ariaLabels.close()}
-        disabled={disableClose}
         onClick={(ev) => onCancel(ev as React.MouseEvent<HTMLButtonElement>)}
         {...tagComponent("close", {
           "data-element": "close",
@@ -322,7 +319,6 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
       <Modal
         className={className ? `${className} carbon-dialog` : "carbon-dialog"}
         disableEscKey={disableEscKey}
-        disableClose={disableClose}
         onCancel={onCancel}
         open={open}
         restoreFocusOnClose={restoreFocusOnClose}

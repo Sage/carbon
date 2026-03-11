@@ -895,6 +895,6 @@ test(`should have the expected border radius styling`, async ({
 
   await expect(page.getByRole("alertdialog")).toHaveCSS(
     "border-radius",
-    "16px",
+    "24px",
   );
 });
