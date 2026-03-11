@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/no-noninteractive-tabindex */
 import { flip, offset } from "@floating-ui/dom";
 import type { Day, Month } from "date-fns";
 import React, {
@@ -28,6 +30,7 @@ import FlatTableContext from "../../../flat-table/__internal__/flat-table.contex
 import Logger from "../../../../__internal__/utils/logger";
 
 import StyledDayPicker from "./day-picker.style";
+import Button from "../../../button/__next__";
 
 export interface PickerProps
   extends Omit<DayPickerProps, "mode" | "modifiers"> {
@@ -78,7 +81,6 @@ const popoverMiddleware = [
   }),
 ];
 
-const Nav = Navbar;
 let deprecateDisablePortalWarnTriggered = false;
 
 export const DatePicker = ({
@@ -127,6 +129,18 @@ export const DatePicker = ({
         .substring(0, isGivenLocale("de") ? 2 : 3),
     );
   }, [locale, localize]);
+  const months = useMemo(
+    () =>
+      Array.from({ length: 12 }).map((_, i) =>
+        localize?.month(i as Month, { width: "wide" }),
+      ),
+    [localize],
+  );
+  const years = useMemo(() => {
+    const currentYear = new Date().getFullYear();
+    return Array.from({ length: 20 }).map((_, i) => currentYear - 12 + i);
+  }, []);
+
   const ref = useRef<HTMLDivElement>(null);
 
   const handleDayClick = (
@@ -167,43 +181,6 @@ export const DatePicker = ({
     }
   };
 
-  const handleOnDayKeyDown = (
-    _day: Date,
-    _modifiers: Modifiers,
-    ev: React.KeyboardEvent<HTMLDivElement>,
-  ) => {
-    // timeout added to prevent this handler from interfering with the useFocusPortalContent hook, when the date-range
-    // is used inside of a popover-container and it is the last focusable element of the popover-container
-    setTimeout(() => {
-      // we need to manually handle this as the picker may be in a Portal
-      /* istanbul ignore else */
-      if (Events.isTabKey(ev) && !Events.isShiftKey(ev)) {
-        ev.preventDefault();
-        setOpen(false);
-        onPickerClose?.();
-        const input = inputElement.current?.querySelector("input");
-
-        /* istanbul ignore else */
-        if (input) {
-          const elements = Array.from(
-            document.querySelectorAll(defaultFocusableSelectors) ||
-              /* istanbul ignore next */ [],
-          ) as HTMLElement[];
-          const elementsInPicker = Array.from(
-            ref.current?.querySelectorAll("button, [tabindex]") ||
-              /* istanbul ignore next */ [],
-          ) as HTMLElement[];
-          const filteredElements = elements.filter(
-            (el) =>
-              Number(el.tabIndex) !== -1 && !elementsInPicker.includes(el),
-          );
-          const nextIndex = filteredElements.indexOf(input as HTMLElement) + 1;
-          filteredElements[nextIndex]?.focus();
-        }
-      }
-    }, 0);
-  };
-
   const { isInFlatTable, setHasOpenDatePicker } = useContext(FlatTableContext);
 
   useEffect(() => {
@@ -220,7 +197,12 @@ export const DatePicker = ({
     if (!open && selectedDays) {
       const fMonth = focusedMonth?.getMonth();
       const sMonth = selectedDays?.getMonth();
-      if (fMonth !== sMonth) setFocusedMonth(selectedDays);
+      const fYear = focusedMonth?.getFullYear();
+      const sYear = selectedDays?.getFullYear();
+
+      if (fMonth !== sMonth || fYear !== sYear) {
+        setFocusedMonth(selectedDays);
+      }
     }
   }, [focusedMonth, open, selectedDays]);
 
@@ -230,6 +212,22 @@ export const DatePicker = ({
 
   const handleTabGuardFocus = () => {
     ref.current?.querySelector("button")?.focus();
+  };
+
+  const handleMonthChange = (month: number) => {
+    setFocusedMonth((prev) => {
+      if (!prev) return prev;
+
+      return new Date(prev.getFullYear(), month);
+    });
+  };
+
+  const handleYearChange = (year: number) => {
+    setFocusedMonth((prev) => {
+      if (!prev) return prev;
+
+      return new Date(year, prev.getMonth());
+    });
   };
 
   return (
@@ -255,15 +253,10 @@ export const DatePicker = ({
         >
           <div
             id={pickerTabGuardId}
-            // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
             tabIndex={0}
             onFocus={handleTabGuardFocus}
           />
           <DayPicker
-            formatters={{
-              formatCaption: (month) =>
-                `${localize?.month(month.getMonth() as Month)} ${month.getFullYear()}`,
-            }}
             required={false}
             weekStartsOn={weekStartsOn}
             onMonthChange={setFocusedMonth}
@@ -280,7 +273,19 @@ export const DatePicker = ({
               handleDayClick(date, e);
             }}
             components={{
-              Nav,
+              MonthCaption: () => <></>,
+              Nav: () => {
+                return (
+                  <Navbar
+                    months={months}
+                    years={years}
+                    selectedMonth={focusedMonth?.getMonth()}
+                    selectedYear={focusedMonth?.getFullYear()}
+                    onMonthChange={handleMonthChange}
+                    onYearChange={handleYearChange}
+                  />
+                );
+              },
               Weekday: (props) => {
                 const fixedDays = {
                   Sunday: 0,
@@ -303,17 +308,58 @@ export const DatePicker = ({
             }}
             fixedWeeks
             defaultMonth={selectedDays || undefined}
-            onDayKeyDown={(date, modifiers, e) => {
-              handleOnDayKeyDown(
-                date,
-                modifiers,
-                e as React.KeyboardEvent<HTMLDivElement>,
-              );
-            }}
             {...pickerProps}
             showOutsideDays
             mode="single"
           />
+          <div
+            style={{
+              display: "flex",
+              position: "absolute",
+              width: "94%",
+              justifyContent: "flex-end",
+              bottom: "10px",
+            }}
+          >
+            <Button
+              variantType="subtle"
+              onClick={() => {
+                setOpen(false);
+                onPickerClose?.();
+              }}
+              onKeyDown={(e) => {
+                if (Events.isTabKey(e) && !Events.isShiftKey(e)) {
+                  e.preventDefault();
+                  setOpen(false);
+                  onPickerClose?.();
+                  const input = inputElement.current?.querySelector("input");
+
+                  /* istanbul ignore else */
+                  if (input) {
+                    const elements = Array.from(
+                      document.querySelectorAll(defaultFocusableSelectors) ||
+                        /* istanbul ignore next */ [],
+                    ) as HTMLElement[];
+                    const elementsInPicker = Array.from(
+                      ref.current?.querySelectorAll("button, [tabindex]") ||
+                        /* istanbul ignore next */ [],
+                    ) as HTMLElement[];
+                    const filteredElements = elements.filter(
+                      (el) =>
+                        Number(el.tabIndex) !== -1 &&
+                        !elementsInPicker.includes(el),
+                    );
+                    const nextIndex =
+                      filteredElements.indexOf(input as HTMLElement) + 1;
+                    filteredElements[nextIndex]?.focus();
+                  }
+                }
+              }}
+              data-element="close-button"
+            >
+              Close
+            </Button>
+          </div>
         </StyledDayPicker>
       </Popover>
     </>

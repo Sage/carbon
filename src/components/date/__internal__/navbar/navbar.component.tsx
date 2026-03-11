@@ -1,56 +1,55 @@
-import React from "react";
-import { NavProps } from "react-day-picker";
+import React, { useRef } from "react";
 
-import StyledButton from "./button.style";
 import StyledNavbar from "./navbar.style";
-import Icon from "../../../icon";
-import Events from "../../../../__internal__/utils/helpers/events";
-import useLocale from "../../../../hooks/__internal__/useLocale";
+import guid from "../../../../__internal__/utils/helpers/guid";
 
 export interface NavbarProps {
-  onPreviousClick?: () => void;
-  onNextClick?: () => void;
   className?: string;
+  months: string[];
+  years: number[];
+  selectedMonth?: number;
+  selectedYear?: number;
+  onMonthChange?: (month: number) => void;
+  onYearChange?: (year: number) => void;
 }
 
 export const Navbar = ({
-  onPreviousClick,
-  onNextClick,
   className,
-}: NavProps) => {
-  const locale = useLocale();
-  const { previousMonthButton, nextMonthButton } = locale.date.ariaLabels;
-
-  const handleKeyDown = (ev: React.KeyboardEvent<HTMLButtonElement>) => {
-    if (
-      Events.isLeftKey(ev) ||
-      Events.isRightKey(ev) ||
-      Events.isUpKey(ev) ||
-      Events.isDownKey(ev)
-    ) {
-      ev.stopPropagation();
-      ev.preventDefault();
-    }
-  };
-
+  months,
+  years,
+  selectedMonth,
+  selectedYear,
+  onMonthChange,
+  onYearChange,
+}: NavbarProps) => {
+  const monthId = useRef(guid());
+  const yearId = useRef(guid());
   return (
     <StyledNavbar className={className} data-role="date-navbar">
-      <StyledButton
-        aria-label={previousMonthButton()}
-        onClick={(e) => {
-          onPreviousClick?.(e);
-        }}
-        onKeyDown={handleKeyDown}
+      <select
+        name="month select"
+        id={monthId.current}
+        value={selectedMonth}
+        onChange={(e) => onMonthChange?.(Number(e.target.value))}
       >
-        <Icon type="chevron_left" />
-      </StyledButton>
-      <StyledButton
-        aria-label={nextMonthButton()}
-        onClick={(e) => onNextClick?.(e)}
-        onKeyDown={handleKeyDown}
+        {months.map((month, index) => (
+          <option key={month} value={index}>
+            {month}
+          </option>
+        ))}
+      </select>
+      <select
+        name="year select"
+        id={yearId.current}
+        value={selectedYear}
+        onChange={(e) => onYearChange?.(Number(e.target.value))}
       >
-        <Icon type="chevron_right" />
-      </StyledButton>
+        {years.map((year) => (
+          <option key={year} value={year}>
+            {year}
+          </option>
+        ))}
+      </select>
     </StyledNavbar>
   );
 };

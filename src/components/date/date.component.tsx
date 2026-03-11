@@ -330,6 +330,12 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
         onKeyDown(ev);
       }
 
+      if (!open && Events.isDownKey(ev)) {
+        ev.preventDefault();
+        setOpen(true);
+        onPickerOpen?.();
+      }
+
       if (open && Events.isTabKey(ev)) {
         if (Events.isShiftKey(ev)) {
           setOpen(false);
@@ -432,6 +438,17 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
         setSelectedDays(undefined);
       }
     }, [value, formats]);
+
+    useEffect(() => {
+      const focusTarget =
+        (document?.querySelector(
+          '[data-selected="true"] button',
+        ) as HTMLElement) ??
+        (document?.querySelector('[data-today="true"] button') as HTMLElement);
+      if (open && focusTarget && focusTarget !== document.activeElement) {
+        focusTarget.focus();
+      }
+    }, [open]);
 
     const computedValue = () => {
       if (checkISOFormatAndLength(value) && isInitialValue.current) {

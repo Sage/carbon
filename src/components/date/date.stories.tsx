@@ -35,17 +35,31 @@ export default meta;
 type Story = StoryObj<typeof DateInput>;
 
 export const Default: Story = () => {
-  const [state, setState] = useState("04/04/2019");
-  const setValue = (ev: DateChangeEvent) => {
-    setState(ev.target.value.formattedValue);
+  const [state1, setState1] = useState("");
+  const setValue1 = (ev: DateChangeEvent) => {
+    setState1(ev.target.value.formattedValue);
   };
+
+  const [state2, setState2] = useState("04/04/2019");
+  const setValue2 = (ev: DateChangeEvent) => {
+    setState2(ev.target.value.formattedValue);
+  };
+
   return (
-    <DateInput
-      label="Date"
-      name="date-input"
-      value={state}
-      onChange={setValue}
-    />
+    <div style={{ display: "flex", gap: "140px" }}>
+      <DateInput
+        label="Date - no selection"
+        name="date-input"
+        value={state1}
+        onChange={setValue1}
+      />
+      <DateInput
+        label="Date - with selection"
+        name="date-input"
+        value={state2}
+        onChange={setValue2}
+      />
+    </div>
   );
 };
 Default.storyName = "Default";

@@ -306,6 +306,7 @@ const StyledDayPicker = styled.div.attrs(applyBaseTheme)`
   z-index: 2000;
 
   .rdp-root {
+    height: 340px;
     top: calc(100% + 1px);
     left: 0;
     background-color: var(--colorsUtilityYang100);
