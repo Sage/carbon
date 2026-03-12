@@ -138,6 +138,7 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
         size={computedSize}
         gradientKeyLine={computedGradientKeyLine}
         disableContentPadding={disableContentPadding}
+        pagesStyling={pagesStyling}
         {...rest}
       />
     );

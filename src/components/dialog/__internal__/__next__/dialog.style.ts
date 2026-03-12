@@ -14,6 +14,7 @@ import {
   StyledForm,
   StyledFormFooter,
 } from "../../../form/form.style";
+import StyledFullScreenHeading from "../../../../__internal__/full-screen-heading/full-screen-heading.style";
 
 const dialogSizes = {
   small: DIALOG_SIZE_CONFIG.small.maxWidth,
@@ -49,6 +50,7 @@ type StyledDialogProps = SharedTransientProps &
     backgroundColor: string;
     dialogHeight?: string;
     $gradientKeyLine?: boolean;
+    pagesStyling?: boolean;
   };
 
 type StyledDialogTitleProps = SharedTransientProps &
@@ -314,6 +316,42 @@ const StyledDialogTitle = styled.div<StyledDialogTitleProps>`
     `}
 `;
 
+function computePagesStyling({
+  $size,
+  pagesStyling,
+}: Pick<StyledDialogProps, "$size" | "pagesStyling">) {
+  // Legacy Pages component styling for fullscreen, to be removed in near future.
+  // istanbul ignore next
+  if ($size === "fullscreen" && pagesStyling) {
+    return css`
+      ${StyledDialogContent} {
+        padding: 0;
+      }
+
+      > ${StyledButton} {
+        right: 33px;
+        top: 32px;
+      }
+
+      ${StyledFullScreenHeading} {
+        padding: 32px 32px 0;
+      }
+
+      [data-element="dialog-title-container"] {
+        width: auto;
+        padding-top: 4px;
+
+        [data-element="dialog-title"] {
+          margin: 0 0 0 3px;
+          box-sizing: content-box;
+          width: 100%;
+        }
+      }
+    `;
+  }
+  return "";
+}
+
 const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
   display: flex;
   flex-direction: column;
@@ -424,6 +462,9 @@ const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
         overflow-y: auto;
       }
     `}
+
+  /* Legacy Pages component styling for fullscreen */
+  ${({ $size, pagesStyling }) => computePagesStyling({ $size, pagesStyling })}
 `;
 
 const StyledSubtitle = styled(Typography)`
