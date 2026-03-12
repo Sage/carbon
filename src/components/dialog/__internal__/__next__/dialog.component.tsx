@@ -128,6 +128,13 @@ export interface DialogProps extends ModalProps, TagProps {
    */
   disableStickyOnSmallScreen?: boolean;
   disableContentPadding?: boolean;
+  /**
+   * @private
+   * @ignore
+   * @internal
+   * Applies legacy Pages component styling for fullscreen dialogs. INTERNAL USE ONLY — consumed by the migration wrapper.
+   */
+  pagesStyling?: boolean;
 }
 
 export type DialogHandle = {
@@ -174,6 +181,7 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
       disableStickyOnSmallScreen = false,
       footer,
       stickyFooter = false,
+      pagesStyling,
       ...rest
     },
     ref,
@@ -318,6 +326,7 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
     return (
       <Modal
         className={className ? `${className} carbon-dialog` : "carbon-dialog"}
+        disableClose={disableClose}
         disableEscKey={disableEscKey}
         onCancel={onCancel}
         open={open}
@@ -355,6 +364,7 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
               $gradientKeyLine={gradientKeyLine}
               $size={size}
               $disableStickyOnSmallScreen={disableStickyOnSmallScreen}
+              pagesStyling={pagesStyling}
               ref={containerRef}
               role={role}
               tabIndex={-1}
