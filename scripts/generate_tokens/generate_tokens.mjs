@@ -108,19 +108,33 @@ const filterDarkModeDuplicates = () => {
 // Generate CSS strings
 const lightCSS = generateFusionTokens(light);
 
+const zIndexTokens = `
+  --carbon-zindex-small-overlay: 10;
+  --carbon-zindex-overlay: 1000;
+  --carbon-zindex-nav: 2998;
+  --carbon-zindex-global-nav: 2999;
+  --carbon-zindex-modal: 3000;
+  --carbon-zindex-header: 4000;
+  --carbon-zindex-full-screen-modal: 5000;
+  --carbon-zindex-popover: 6000;
+  --carbon-zindex-notification: 7000;
+  --carbon-zindex-above-all: 9999;
+`;
+
 let staticTokensCSS;
 if (includeDarkMode) {
   const darkCSS = generateFusionTokens(filterDarkModeDuplicates());
   staticTokensCSS = `
 ${lightCSS}
-
-carbon-dark-mode, [data-carbon-theme="dark"] {
+${zIndexTokens}
+.carbon-dark-mode, [data-carbon-theme="dark"] {
   ${darkCSS}
 }
 `;
 } else {
   staticTokensCSS = `
 ${lightCSS}
+${zIndexTokens}
 `;
 }
 

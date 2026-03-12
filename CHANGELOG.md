@@ -1,3 +1,125 @@
+## [158.35.7](https://github.com/Sage/carbon/compare/v158.35.6...v158.35.7) (2026-03-12)
+
+### Bug Fixes
+
+* **link:** ensure styles are applies when rendered within Popover in Menu ([939c6d1](https://github.com/Sage/carbon/commit/939c6d157036f3a22f0e0881826aa113cfd70765)), closes [#7762](https://github.com/Sage/carbon/issues/7762)
+
+## [158.35.6](https://github.com/Sage/carbon/compare/v158.35.5...v158.35.6) (2026-03-10)
+
+### Bug Fixes
+
+* **texteditor:** clicking placeholder does not focus the editor ([eb5b888](https://github.com/Sage/carbon/commit/eb5b88886260c7a3314203e871da4fab7034e51e))
+
+## [158.35.5](https://github.com/Sage/carbon/compare/v158.35.4...v158.35.5) (2026-03-06)
+
+### Bug Fixes
+
+* **button:** ensure next Button fully supports rendering as anchor element ([ef95593](https://github.com/Sage/carbon/commit/ef9559384951f13c8cc270bb016be2655ad29f5a)), closes [#7815](https://github.com/Sage/carbon/issues/7815)
+
+## [158.35.4](https://github.com/Sage/carbon/compare/v158.35.3...v158.35.4) (2026-03-03)
+
+### Bug Fixes
+
+* **tabs:** add missing next TabsHandle export ([4deaf94](https://github.com/Sage/carbon/commit/4deaf949a7ebe575b0e5b978961d94790edb226f))
+
+## [158.35.3](https://github.com/Sage/carbon/compare/v158.35.2...v158.35.3) (2026-03-03)
+
+### Bug Fixes
+
+* **breadcrumbs:** don't render link for selected crumb ([3179d3d](https://github.com/Sage/carbon/commit/3179d3d6edea767f5b22a644f84dd745fda5c076))
+
+## [158.35.2](https://github.com/Sage/carbon/compare/v158.35.1...v158.35.2) (2026-03-03)
+
+### Bug Fixes
+
+* **splitbutton, multiactionbutton:** cannot interact when inside a table ([68d8449](https://github.com/Sage/carbon/commit/68d844924d5a1b52c50ebb50de5ba27336e6e356)), closes [#7747](https://github.com/Sage/carbon/issues/7747)
+
+## [158.35.1](https://github.com/Sage/carbon/compare/v158.35.0...v158.35.1) (2026-03-02)
+
+### Bug Fixes
+
+* **button:** add type attribute to component ([0becea3](https://github.com/Sage/carbon/commit/0becea3edeff255544e6b0e9b1d210e04e38e694))
+
+## [158.35.0](https://github.com/Sage/carbon/compare/v158.34.1...v158.35.0) (2026-03-02)
+
+### Features
+
+* **tokens:** upgrade token version to v18.0.0 ([669dd0c](https://github.com/Sage/carbon/commit/669dd0ce1b85e029a0651e90a479c9911c9cef1e))
+
+## [158.34.1](https://github.com/Sage/carbon/compare/v158.34.0...v158.34.1) (2026-02-27)
+
+### Bug Fixes
+
+* **mentions:** resolve accessibility issues ([7b1e008](https://github.com/Sage/carbon/commit/7b1e008294f127faecb0980e17845a46b40dd218))
+* **mentions:** resolve landmark issue ([790d1a2](https://github.com/Sage/carbon/commit/790d1a26054a0dfea7fb07ea565bbca58a33f8b1))
+
+## [158.34.0](https://github.com/Sage/carbon/compare/v158.33.0...v158.34.0) (2026-02-24)
+
+### Features
+
+* **breadcrumbs:** align with Fusion DS ([4f56235](https://github.com/Sage/carbon/commit/4f56235de8932012543d2ba8dda49a978f63e459))
+
+## [158.33.0](https://github.com/Sage/carbon/compare/v158.32.0...v158.33.0) (2026-02-24)
+
+### Features
+
+* **tabs:** add es-ES status translations ([14f0914](https://github.com/Sage/carbon/commit/14f0914376d8df383b7bd6351501e4d31f1b31e7))
+
+## [158.32.0](https://github.com/Sage/carbon/compare/v158.31.1...v158.32.0) (2026-02-19)
+
+### Features
+
+* **vertical-menu-item:** add support for margin props ([29299a5](https://github.com/Sage/carbon/commit/29299a524814d4e191b9f6daed39004ee7442e1f))
+
+## [158.31.1](https://github.com/Sage/carbon/compare/v158.31.0...v158.31.1) (2026-02-19)
+
+### Bug Fixes
+
+* **decimal:** preserve leading positive sign in formatted value ([03f4101](https://github.com/Sage/carbon/commit/03f41013e0daf43c4c640ce9b408111a00cf86a6)), closes [#7682](https://github.com/Sage/carbon/issues/7682)
+
+## [158.31.0](https://github.com/Sage/carbon/compare/v158.30.0...v158.31.0) (2026-02-17)
+
+### Features
+
+* **sort, flat-table-header:** add additional aria support and general accessibility improvements ([6815a80](https://github.com/Sage/carbon/commit/6815a801aeb37cdd0ebb03f2143821ae613a5c2b))
+
+## [158.30.0](https://github.com/Sage/carbon/compare/v158.29.0...v158.30.0) (2026-02-16)
+
+### Features
+
+* **tabs:** map legacy interface to next version of component ([38a5539](https://github.com/Sage/carbon/commit/38a553946066a3a8ed7f43856490edf9274c408c))
+
+## [158.29.0](https://github.com/Sage/carbon/compare/v158.28.0...v158.29.0) (2026-02-13)
+
+### Features
+
+* **icon:** 3 new icons added ([916ce11](https://github.com/Sage/carbon/commit/916ce11568fe040980053c6595182be4603da67f))
+
+## [158.28.0](https://github.com/Sage/carbon/compare/v158.27.4...v158.28.0) (2026-02-11)
+
+### Features
+
+* **tabs:** add de-De, fr-CA, fr-FR & pt-PT status translations ([562004e](https://github.com/Sage/carbon/commit/562004ece07134174bcdf218ac7b2d6c7dab4f89))
+* **tabs:** update en-GB status translation to include tab title ([e0c3e78](https://github.com/Sage/carbon/commit/e0c3e78af74d47e13ce8cb037f1b72fbe4071405))
+
+## [158.27.4](https://github.com/Sage/carbon/compare/v158.27.3...v158.27.4) (2026-02-10)
+
+### Bug Fixes
+
+* **text-editor:** style selection stuck to paragraph on empty line ([c855567](https://github.com/Sage/carbon/commit/c85556750ec8d0d2de90d172c86e88cbfd8335f4))
+
+## [158.27.3](https://github.com/Sage/carbon/compare/v158.27.2...v158.27.3) (2026-02-10)
+
+### Bug Fixes
+
+* **text-editor:** ensure label click focuses editor ([8896307](https://github.com/Sage/carbon/commit/88963077e79ce5749202a3dbf1c73c0570387a94))
+
+## [158.27.2](https://github.com/Sage/carbon/compare/v158.27.1...v158.27.2) (2026-02-09)
+
+### Bug Fixes
+
+* **text-editor:** move unit tests to playwright ([65f5c25](https://github.com/Sage/carbon/commit/65f5c25697d1e09a6caa555dbad95144de00a8ca))
+
 ## [158.27.1](https://github.com/Sage/carbon/compare/v158.27.0...v158.27.1) (2026-02-04)
 
 ### Bug Fixes

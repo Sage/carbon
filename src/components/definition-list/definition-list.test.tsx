@@ -4,6 +4,13 @@ import Dl from "./dl.component";
 import Dt from "./dt/dt.component";
 import Dd from "./dd/dd.component";
 import { testStyledSystemSpacing } from "../../__spec_helper__/__internal__/test-utils";
+import { CHARACTERS } from "../../../playwright/support/constants";
+
+const specialCharacters = [
+  CHARACTERS.STANDARD,
+  CHARACTERS.DIACRITICS,
+  CHARACTERS.SPECIALCHARACTERS,
+];
 
 testStyledSystemSpacing(
   (props) => (
@@ -152,4 +159,18 @@ test("when `asSingleColumn` is true, the expected styling is applied to the Dl e
   );
 
   expect(screen.getByTestId("dl")).toHaveStyle("line-height: 21px");
+});
+
+specialCharacters.forEach((text) => {
+  test("should render Dt and Dd with special characters", () => {
+    render(
+      <Dl>
+        <Dt data-role="dt-role">{text}</Dt>
+        <Dd data-role="dd-role">{text}</Dd>
+      </Dl>,
+    );
+
+    expect(screen.getByTestId("dt-role")).toHaveTextContent(text);
+    expect(screen.getByTestId("dd-role")).toHaveTextContent(text);
+  });
 });

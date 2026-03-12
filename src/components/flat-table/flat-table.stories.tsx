@@ -27,6 +27,7 @@ import {
   FlatTableRowHeaderProps,
   FlatTableProps,
 } from ".";
+import Typography from "../typography";
 
 type SortType = "ascending" | "descending";
 type SortValue = "client" | "total";
@@ -1450,25 +1451,30 @@ export const WithSortingHeaders: Story = {
     };
 
     return (
-      <FlatTable {...args} title="Table for sorting headers">
-        <FlatTableHead>
-          <FlatTableRow>
-            {headData.map(({ name, isActive }) => {
-              return (
-                <FlatTableHeader key={name}>
-                  <Sort
-                    onClick={() => handleClick(name)}
-                    {...(isActive && { sortType })}
-                  >
-                    {name}
-                  </Sort>
-                </FlatTableHeader>
-              );
-            })}
-          </FlatTableRow>
-        </FlatTableHead>
-        <FlatTableBody>{renderSortedData(sortValue)}</FlatTableBody>
-      </FlatTable>
+      <>
+        <Typography as="div" role="status" aria-live="polite" screenReaderOnly>
+          {`Sort by ${sortValue} (${sortType})`}
+        </Typography>
+        <FlatTable {...args} title="Table for sorting headers">
+          <FlatTableHead>
+            <FlatTableRow>
+              {headData.map(({ name, isActive }) => {
+                return (
+                  <FlatTableHeader key={name}>
+                    <Sort
+                      onClick={() => handleClick(name)}
+                      {...(isActive && { sortType })}
+                    >
+                      {name}
+                    </Sort>
+                  </FlatTableHeader>
+                );
+              })}
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>{renderSortedData(sortValue)}</FlatTableBody>
+        </FlatTable>
+      </>
     );
   },
   name: "With Sorting Headers",
@@ -1579,29 +1585,34 @@ export const WithSortingHeadersAndCustomAccessibleName: Story = {
     };
 
     return (
-      <FlatTable
-        {...args}
-        title="Table for sorting headers with custom accessible name"
-      >
-        <FlatTableHead>
-          <FlatTableRow>
-            {headData.map(({ name, isActive }) => {
-              return (
-                <FlatTableHeader key={name}>
-                  <Sort
-                    accessibleName={`Sort ${name}s in an ${sortType} order`}
-                    onClick={() => handleClick(name)}
-                    {...(isActive && { sortType })}
-                  >
-                    {name}
-                  </Sort>
-                </FlatTableHeader>
-              );
-            })}
-          </FlatTableRow>
-        </FlatTableHead>
-        <FlatTableBody>{renderSortedData(sortValue)}</FlatTableBody>
-      </FlatTable>
+      <>
+        <Typography as="div" role="status" aria-live="polite" screenReaderOnly>
+          {`Sort by ${sortValue} (${sortType})`}
+        </Typography>
+        <FlatTable
+          {...args}
+          title="Table for sorting headers with custom accessible name"
+        >
+          <FlatTableHead>
+            <FlatTableRow>
+              {headData.map(({ name, isActive }) => {
+                return (
+                  <FlatTableHeader key={name}>
+                    <Sort
+                      accessibleName={`Sort ${name}s in an ${sortType} order`}
+                      onClick={() => handleClick(name)}
+                      {...(isActive && { sortType })}
+                    >
+                      {name}
+                    </Sort>
+                  </FlatTableHeader>
+                );
+              })}
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>{renderSortedData(sortValue)}</FlatTableBody>
+        </FlatTable>
+      </>
     );
   },
   name: "With Sorting Headers and custom accessible name",
