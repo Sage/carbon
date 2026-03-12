@@ -318,7 +318,7 @@ exports[`builds the static tokens as expected 1`] = `
   --mode-color-action-grayscale-with-hover: #000000;
   --mode-color-action-grayscale-inverse-active: #FFFFFF;
   --mode-color-action-grayscale-inverse-active-alt: #ffffff26;
-  --mode-color-action-grayscale-inverse-default: #ffffffe6;
+  --mode-color-action-grayscale-inverse-default: #ffffffeb;
   --mode-color-action-grayscale-inverse-default-alt: #ffffffab;
   --mode-color-action-grayscale-inverse-hover-alt: #ffffff1a;
   --mode-color-action-grayscale-inverse-hover: #ffffff26;
