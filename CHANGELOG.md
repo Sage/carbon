@@ -1,3 +1,9 @@
+## [158.35.7](https://github.com/Sage/carbon/compare/v158.35.6...v158.35.7) (2026-03-12)
+
+### Bug Fixes
+
+* **link:** ensure styles are applies when rendered within Popover in Menu ([939c6d1](https://github.com/Sage/carbon/commit/939c6d157036f3a22f0e0881826aa113cfd70765)), closes [#7762](https://github.com/Sage/carbon/issues/7762)
+
 ## [158.35.6](https://github.com/Sage/carbon/compare/v158.35.5...v158.35.6) (2026-03-10)
 
 ### Bug Fixes
