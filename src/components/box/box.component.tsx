@@ -87,6 +87,8 @@ export interface BoxProps
   "data-component"?: string;
   /** @private @internal @ignore */
   tabIndex?: number;
+  /** Indicates whether AT will announce all, or only parts of, the changed region */
+  "aria-atomic"?: "true" | "false";
 }
 
 export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
@@ -116,6 +118,7 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
       hidden,
       "aria-hidden": ariaHidden,
       "aria-live": ariaLive,
+      "aria-atomic": ariaAtomic,
       ...rest
     }: BoxProps,
     ref,
@@ -162,6 +165,7 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
         aria-hidden={ariaHidden}
         hidden={hidden}
         aria-live={ariaLive}
+        aria-atomic={ariaAtomic}
         {...tagComponent(dataComponent, rest)}
         {...filterStyledSystemMarginProps(rest)}
         {...filterStyledSystemPaddingProps(rest)}
