@@ -12,10 +12,13 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof Textbox> = {
-  title: "Textbox",
+  title: "Deprecated/Textbox",
   component: Textbox,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
+    chromatic: {
+      disableSnapshot: true,
+    },
   },
   argTypes: {
     ...styledSystemProps,
@@ -208,7 +211,6 @@ export const WithLabelInline: Story = () => {
   );
 };
 WithLabelInline.storyName = "With Label Inline";
-WithLabelInline.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithCustomLabelWidthAndInputWidth: Story = () => {
   const [state, setState] = useState("Textbox");
