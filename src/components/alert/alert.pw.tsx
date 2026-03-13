@@ -16,12 +16,12 @@ import { getDataElementByValue } from "../../../playwright/components";
 const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const viewportHeights = [250, 500, 650];
 const viewportWidths = [
-  [SIZE.EXTRASMALL, 300],
-  [SIZE.SMALL, 380],
-  [SIZE.MEDIUMSMALL, 540],
-  [SIZE.MEDIUM, 750],
-  [SIZE.MEDIUMLARGE, 850],
-  [SIZE.LARGE, 960],
+  [SIZE.EXTRASMALL, 540],
+  [SIZE.SMALL, 540],
+  [SIZE.MEDIUMSMALL, 850],
+  [SIZE.MEDIUM, 850],
+  [SIZE.MEDIUMLARGE, 1080],
+  [SIZE.LARGE, 1080],
   [SIZE.EXTRALARGE, 1080],
 ];
 
@@ -184,7 +184,7 @@ test.describe("should render Alert component", () => {
     await mount(<AlertComponent />);
 
     const alertElement = alertDialog(page);
-    await expect(alertElement).toHaveCSS("border-radius", "16px");
+    await expect(alertElement).toHaveCSS("border-radius", "24px");
   });
 
   test("should pass accessibility tests", async ({ mount, page }) => {

@@ -193,7 +193,7 @@ export const Confirm = ({
     <Dialog
       open={open}
       onCancel={onCancel}
-      disableClose={disableCancel}
+      disableEscKey={disableCancel}
       subtitle={subtitle}
       title={getTitle()}
       role="alertdialog"
