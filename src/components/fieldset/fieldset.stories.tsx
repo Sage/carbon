@@ -76,6 +76,9 @@ export const InFormFieldSpacing: Story = () => (
   </CarbonProvider>
 );
 InFormFieldSpacing.storyName = "With fieldSpacing";
+InFormFieldSpacing.parameters = {
+  chromatic: { disableSnapshot: false },
+};
 
 export const Required: Story = () => (
   <CarbonProvider validationRedesignOptIn>
