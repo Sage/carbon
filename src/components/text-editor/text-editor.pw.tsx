@@ -1348,6 +1348,45 @@ test.describe("Functionality tests", () => {
       expect(await page.locator("em").count()).toBe(0);
     });
 
+    test("applies italic to selected text when the typography option is different than paragraph", async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <TextEditorDefaultComponent initialValue={unformattedValue} />,
+      );
+      const typographyDropdown = page.locator(
+        "button[data-role='pw-rte-typography-dropdown']",
+      );
+      await expect(typographyDropdown).toHaveText(/Paragraph/gi);
+
+      const textbox = page.locator("div[role='textbox']");
+      await textbox.click();
+      await page.keyboard.press("Enter");
+
+      await typographyDropdown.click();
+      const typographyOption = page.locator(
+        `li[data-role='pw-rte-typography-option-subtitle']`,
+      );
+      await typographyOption.click();
+      await expect(typographyDropdown).toHaveText(/Subtitle/gi);
+
+      await textbox.click();
+      await page.keyboard.type("Test");
+
+      const styledText = page.getByText("Test");
+
+      await styledText.click({ clickCount: 3 });
+
+      const italicButton = page.locator(
+        "button[data-role='pw-rte-italic-button']",
+      );
+
+      await italicButton.click();
+
+      await expect(styledText).toHaveCSS("font-style", "italic");
+    });
+
     test("applies and removes italic formatting to the editor directly", async ({
       mount,
       page,
@@ -1446,6 +1485,48 @@ test.describe("Functionality tests", () => {
       await expect(page.getByText("This text needs formatting")).not.toHaveCSS(
         "text-decoration",
         "none",
+      );
+    });
+
+    test("applies underline to selected text when the typography option is different than paragraph", async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <TextEditorDefaultComponent initialValue={unformattedValue} />,
+      );
+      const typographyDropdown = page.locator(
+        "button[data-role='pw-rte-typography-dropdown']",
+      );
+      await expect(typographyDropdown).toHaveText(/Paragraph/gi);
+
+      const textbox = page.locator("div[role='textbox']");
+      await textbox.click();
+      await page.keyboard.press("Enter");
+
+      await typographyDropdown.click();
+      const typographyOption = page.locator(
+        `li[data-role='pw-rte-typography-option-subtitle']`,
+      );
+      await typographyOption.click();
+      await expect(typographyDropdown).toHaveText(/Subtitle/gi);
+
+      await textbox.click();
+      await page.keyboard.type("Test");
+
+      const styledText = page.getByText("Test");
+
+      await styledText.click({ clickCount: 3 });
+
+      const underlineButton = page.locator(
+        "button[data-role='pw-rte-underline-button']",
+      );
+
+      await underlineButton.click();
+
+      await expect(styledText).toHaveCSS(
+        "text-decoration",
+        "underline rgba(0, 0, 0, 0.9)",
       );
     });
 
