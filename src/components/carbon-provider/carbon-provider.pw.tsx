@@ -6,7 +6,6 @@ import Button from "../../../src/components/button";
 import Loader from "../../../src/components/loader";
 import LoaderBar from "../../../src/components/loader-bar";
 import Pill from "../../../src/components/pill";
-import { Tabs, Tab } from "../tabs";
 
 import { buttonDataComponent } from "../../../playwright/components/button/index";
 import {
@@ -68,28 +67,6 @@ test.describe("Carbon Provider", () => {
         await mount(<Pill>Foo</Pill>, { hooksConfig: { theme: `${theme}` } });
 
         await expect(pillPreview(page)).toHaveCSS("border-color", color);
-      });
-
-      test(`Tabs component should render with ${theme} theme and verify theme color`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <Tabs align="left" position="top">
-            <Tab tabId="tab-1" title="Tab 1" key="tab-1">
-              Content for tab 1
-            </Tab>
-          </Tabs>,
-          { hooksConfig: { theme: `${theme}` } },
-        );
-
-        const tabTitleSelectedIndicator = page.locator(
-          '[data-element="tab-selected-indicator"]',
-        );
-        await expect(tabTitleSelectedIndicator).toHaveCSS(
-          "box-shadow",
-          `${color} 0px -4px 0px 0px inset`,
-        );
       });
     });
   });

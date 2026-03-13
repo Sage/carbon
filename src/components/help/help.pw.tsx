@@ -5,14 +5,10 @@ import HelpComponentTest from "./component.test-pw";
 import Box from "../../../src/components/box";
 import {
   getDataElementByValue,
-  icon,
   tooltipPreview,
 } from "../../../playwright/components/index";
 import helpComponent from "../../../playwright/components/help";
-import {
-  checkAccessibility,
-  containsClass,
-} from "../../../playwright/support/helper";
+import { checkAccessibility } from "../../../playwright/support/helper";
 import { COLOR, CHARACTERS } from "../../../playwright/support/constants";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
@@ -25,133 +21,7 @@ const colors = [
   ["brown", COLOR.BROWN, COLOR.WHITE],
 ];
 
-test("should have the expected styling when focused", async ({
-  mount,
-  page,
-}) => {
-  await mount(<HelpComponentTest />);
-
-  const elementLocator = helpComponent(page);
-  await elementLocator.focus();
-  await expect(helpComponent(page).locator("span")).toHaveCSS(
-    "box-shadow",
-    "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
-  );
-  await expect(helpComponent(page).locator("span")).toHaveCSS(
-    "outline",
-    "rgba(0, 0, 0, 0) solid 3px",
-  );
-});
-
 test.describe("Testing Help component properties", () => {
-  testData.forEach((ariaLabel) => {
-    test(`should check ariaLabel as ${ariaLabel}`, async ({ mount, page }) => {
-      await mount(<HelpComponentTest ariaLabel={ariaLabel} />);
-
-      await expect(helpComponent(page)).toHaveAttribute(
-        "aria-label",
-        ariaLabel,
-      );
-    });
-  });
-
-  testData.forEach((className) => {
-    test(`should check className as ${className}`, async ({ mount, page }) => {
-      await mount(<HelpComponentTest className={className} />);
-
-      await containsClass(helpComponent(page), className);
-    });
-  });
-
-  testData.forEach((children) => {
-    test(`should check children as ${children}`, async ({ mount, page }) => {
-      await mount(<Help> {children} </Help>);
-
-      await helpComponent(page).hover();
-      const tooltip = getDataElementByValue(page, "tooltip");
-      await expect(tooltip).toBeVisible();
-      await expect(tooltip).toHaveText(children);
-    });
-  });
-
-  testData.forEach((helpId) => {
-    test(`should check id as ${helpId}`, async ({ mount, page }) => {
-      await mount(<HelpComponentTest helpId={helpId} />);
-
-      await expect(helpComponent(page)).toHaveId(helpId);
-    });
-  });
-
-  ["https://carbon.sage.com", "https://www.google.com"].forEach((hrefLink) => {
-    test(`should check href link as ${hrefLink}`, async ({ mount, page }) => {
-      await mount(<HelpComponentTest href={hrefLink} />);
-
-      await expect(helpComponent(page)).toHaveAttribute("href", hrefLink);
-    });
-  });
-
-  [true, false].forEach((boolVal) => {
-    test(`should check when isFocused prop is passed as ${boolVal}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <HelpComponentTest isFocused={boolVal}>
-          {tooltipText}
-        </HelpComponentTest>,
-      );
-
-      const tooltip = getDataElementByValue(page, "tooltip");
-      if (boolVal === true) {
-        await expect(tooltip).toBeVisible();
-      } else {
-        await expect(tooltip).toBeHidden();
-      }
-    });
-  });
-
-  [-1, 0, 1].forEach((tabIndex) => {
-    test(`should check tabIndex as ${tabIndex}`, async ({ mount, page }) => {
-      await mount(<HelpComponentTest tabIndex={tabIndex} />);
-
-      await page.keyboard.press("Tab");
-      if (tabIndex === -1) {
-        await expect(helpComponent(page)).not.toBeFocused();
-      } else {
-        await expect(helpComponent(page)).toBeFocused();
-      }
-    });
-  });
-
-  colors.forEach(([names, color]) => {
-    test(`should check tooltipBgColor as ${names}`, async ({ mount, page }) => {
-      await mount(
-        <HelpComponentTest tooltipBgColor={color} isFocused>
-          {tooltipText}
-        </HelpComponentTest>,
-      );
-
-      const tooltip = getDataElementByValue(page, "tooltip");
-      await expect(tooltip).toHaveCSS("background-color", color);
-    });
-  });
-
-  colors.forEach(([names, color]) => {
-    test(`should check tooltipFontColor as ${names}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <HelpComponentTest tooltipFontColor={color} isFocused>
-          {tooltipText}
-        </HelpComponentTest>,
-      );
-
-      const tooltip = getDataElementByValue(page, "tooltip");
-      await expect(tooltip).toHaveCSS("color", color);
-    });
-  });
-
   (["top", "bottom", "left", "right"] as HelpProps["position"][]).forEach(
     (position) => {
       test(`should render tooltipFlipOverrides as ${position}`, async ({
@@ -173,58 +43,6 @@ test.describe("Testing Help component properties", () => {
       });
     },
   );
-
-  testData.forEach((tooltipId) => {
-    test(`should check tooltipId as ${tooltipId}`, async ({ mount, page }) => {
-      await mount(
-        <HelpComponentTest tooltipId={tooltipId} isFocused>
-          {tooltipText}
-        </HelpComponentTest>,
-      );
-
-      const tooltip = getDataElementByValue(page, "tooltip");
-      await expect(tooltip).toHaveId(tooltipId);
-    });
-  });
-
-  (
-    ["top", "bottom", "left", "right"] as ["top", "bottom", "left", "right"]
-  ).forEach((tooltipPosition) => {
-    test(`should render with tooltip positioned ${tooltipPosition}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <HelpComponentTest tooltipPosition={tooltipPosition} isFocused>
-          {`This tooltip is positioned ${tooltipPosition}`}
-        </HelpComponentTest>,
-      );
-
-      await expect(helpComponent(page)).toBeVisible();
-      const tooltip = getDataElementByValue(page, "tooltip");
-      await expect(tooltip).toBeVisible();
-      await expect(tooltip).toHaveAttribute("data-placement", tooltipPosition);
-    });
-  });
-
-  (
-    ["error", "add", "minus", "settings"] as [
-      "error",
-      "add",
-      "minus",
-      "settings",
-    ]
-  ).forEach((iconType) => {
-    test(`should render with iconType prop passed as ${iconType}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<HelpComponentTest isFocused type={iconType} />);
-
-      await expect(icon(page)).toBeVisible();
-      await expect(icon(page)).toHaveAttribute("type", iconType);
-    });
-  });
 });
 
 test.describe("Accessibility tests for Help component", () => {

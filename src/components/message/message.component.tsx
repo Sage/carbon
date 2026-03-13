@@ -13,7 +13,7 @@ import tagComponent, {
   TagProps,
 } from "../../__internal__/utils/helpers/tags/tags";
 import Icon, { IconType } from "../icon";
-import IconButton from "../icon-button";
+import Button from "../button/__next__";
 import AiIcon, { AiIconInverse } from "../../__internal__/ai-icon";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import useLocale from "../../hooks/__internal__/useLocale";
@@ -217,19 +217,20 @@ export const Message = React.forwardRef<HTMLDivElement, MessageProps>(
             </MessageContentWrapper>
           </MessageContent>
           {showCloseIcon && onDismiss && (
-            // TODO: replace with "subtle" Button
-            <IconButton
+            <Button
               my={size === "large" ? 2 : 1}
               mr={size === "large" ? 2 : 1}
-              p="4px"
               data-element="close"
               aria-label={
                 closeButtonAriaLabel || locale.message.closeButtonAriaLabel()
               }
-              onClick={onDismiss}
+              variantType="subtle"
+              onClick={(e) => {
+                onDismiss(e as React.MouseEvent<HTMLButtonElement>);
+              }}
             >
               <Icon type="cross" />
-            </IconButton>
+            </Button>
           )}
         </MessageWrapper>
       </MessageStyle>

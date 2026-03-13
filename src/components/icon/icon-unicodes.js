@@ -285,6 +285,9 @@ const misc = {
   chevron_first: "\\f090",
   chevron_last: "\\f091",
   drag_hover: "\\f092",
+  at_sign: "\\f093",
+  link_card: "\\f094",
+  time_zone: "\\f095",
 };
 
 const legacyNames = {

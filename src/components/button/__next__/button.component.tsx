@@ -23,7 +23,13 @@ export type ButtonHandle = {
 export interface ButtonProps
   extends Omit<
       LegacyButtonProps,
-      "size" | "type" | "iconTooltipMessage" | "iconTooltipPosition"
+      | "size"
+      | "type"
+      | "iconTooltipMessage"
+      | "iconTooltipPosition"
+      | "href"
+      | "target"
+      | "rel"
     >,
     SpaceProps,
     TagProps {
@@ -75,6 +81,18 @@ export interface ButtonProps
   variant?: Variant;
   /** The variant type of the button. */
   variantType?: VariantType;
+  /**
+   * Used to transform button into anchor
+   * */
+  href?: string;
+  /**
+   * HTML target attribute
+   * */
+  target?: string;
+  /**
+   * HTML rel attribute
+   * */
+  rel?: string;
   /**
    * @deprecated Please use `variantType` prop instead.
    * */
@@ -151,6 +169,7 @@ export const Button = forwardRef<ButtonHandle, ButtonProps>(
       iconPosition = "before",
       isWhite,
       href,
+      type = "button",
       ...rest
     }: ButtonProps,
     ref,
@@ -229,6 +248,19 @@ export const Button = forwardRef<ButtonHandle, ButtonProps>(
       );
     };
 
+    const propsForLink =
+      href && !disabled
+        ? {
+            href,
+            target: rest.target,
+            rel: rest.rel,
+            as: "a" as const,
+          }
+        : {
+            type,
+            as: "button" as const,
+          };
+
     return (
       <StyledButton
         $allowMotion={allowMotion}
@@ -241,14 +273,13 @@ export const Button = forwardRef<ButtonHandle, ButtonProps>(
         id={id}
         name={name}
         $noWrap={noWrap}
-        onClick={!href ? handleClick : undefined}
+        onClick={handleClick}
         ref={buttonRef}
         $size={size}
         $variant={computedVariant}
         $variantType={computedVariantType}
-        as={!disabled && href ? "a" : "button"}
-        href={href}
         $iconOnly={iconOnly}
+        {...propsForLink}
         {...tagComponent("button", rest)}
         {...rest}
       >

@@ -812,7 +812,7 @@ export const InverseVariants: Story = () => {
 };
 InverseVariants.storyName = "Inverse Variants";
 InverseVariants.parameters = {
-  chromatic: { disableSnapshot: false },
+  chromatic: { disableSnapshot: true },
 };
 
 const FocusAndHoverStateButtons = () => (

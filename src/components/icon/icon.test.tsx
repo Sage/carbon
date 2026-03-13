@@ -9,6 +9,7 @@ import iconConfig from "./icon-config";
 import browserTypeCheck from "../../__internal__/utils/helpers/browser-type-check";
 import { IconType } from "./icon-type";
 import { TooltipPositions } from "../tooltip/tooltip.config";
+import { TooltipContext } from "../../__internal__/tooltip-provider";
 
 jest.mock("../../__internal__/utils/helpers/browser-type-check");
 
@@ -103,6 +104,17 @@ test("does not render a tooltip, when the `disabled` prop is true", async () => 
 
 test("allows a tooltip to be shown via the `tooltipVisible` prop", () => {
   render(<Icon type="home" tooltipMessage="foo" tooltipVisible />);
+
+  const tooltip = screen.getByText("foo");
+  expect(tooltip).toBeVisible();
+});
+
+test("allows a tooltip to be shown via the TooltipContext", () => {
+  render(
+    <TooltipContext.Provider value={{ tooltipVisible: true }}>
+      <Icon type="home" tooltipMessage="foo" />
+    </TooltipContext.Provider>,
+  );
 
   const tooltip = screen.getByText("foo");
   expect(tooltip).toBeVisible();

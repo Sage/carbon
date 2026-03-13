@@ -31,6 +31,8 @@ const baseProjectConfig: Config = {
     "<rootDir>/node_modules",
     "<rootDir>/lib",
     "<rootDir>/esm",
+    "<rootDir>/.storybook",
+    "<rootDir>/scripts",
   ],
   transformIgnorePatterns: [
     `<rootDir>/node_modules/(?!(${esmOnlyPackages.join("|")}))`,

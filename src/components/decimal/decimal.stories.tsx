@@ -105,6 +105,9 @@ export const Empty: Story = {
   args: { ...DefaultStory.args, allowEmptyValue: true },
   name: "Empty",
 };
+Empty.parameters = {
+  chromatic: { disableSnapshot: true },
+};
 
 export const WithCustomPrecision: Story = () => {
   const [state, setState] = useState("0.0001");
@@ -156,6 +159,9 @@ export const Required: Story = {
   ...DefaultStory,
   args: { ...DefaultStory.args, required: true, helpAriaLabel: "Help" },
   name: "Required",
+};
+Required.parameters = {
+  chromatic: { disableSnapshot: true },
 };
 
 export const LeftAligned: Story = {

@@ -1,6 +1,6 @@
 import type { Page } from "@playwright/test";
 import { link } from "..";
-import { SKIP_LINK } from "./locators";
+import { SKIP_LINK, LINK } from "./locators";
 
 // component preview locators
 export const linkChildren = (page: Page) => {
@@ -12,3 +12,5 @@ export const skipLink = (page: Page) => {
 };
 
 export const relLink = (page: Page) => link(page).locator("a");
+
+export const linkComponent = (page: Page) => page.locator(LINK);

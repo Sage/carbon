@@ -534,8 +534,9 @@ describe("When passing legacy interface", () => {
     expect(screen.getByTestId("button-icon-only")).toBeInTheDocument();
   });
 
-  it("renders a link element when 'href' is used and does not call any `onClick` callback passed", () => {
+  it("renders a link element when 'href' is used and calls any `onClick` callback passed when the user clicks", async () => {
     const onClickMock = jest.fn();
+    const user = userEvent.setup();
     render(
       <Button
         href="https://www.example.com"
@@ -546,12 +547,13 @@ describe("When passing legacy interface", () => {
         Test Button
       </Button>,
     );
-    const button = screen.getByRole("link");
+    const buttonAsLink = screen.getByRole("link");
+    await user.click(buttonAsLink);
 
-    expect(button).toBeInTheDocument();
-    expect(button).toHaveAttribute("href", "https://www.example.com");
-    expect(button).toHaveAttribute("target", "_blank");
-    expect(button).toHaveAttribute("rel", "noreferrer");
-    expect(onClickMock).not.toHaveBeenCalled();
+    expect(buttonAsLink).toHaveAttribute("href", "https://www.example.com");
+    expect(buttonAsLink).toHaveAttribute("target", "_blank");
+    expect(buttonAsLink).toHaveAttribute("rel", "noreferrer");
+    expect(buttonAsLink).not.toHaveAttribute("type");
+    expect(onClickMock).toHaveBeenCalled();
   });
 });

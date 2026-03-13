@@ -57,6 +57,7 @@ export const ProgrammaticFocus: Story = () => {
         open={isOpen}
         ref={messageRef}
         onDismiss={() => setIsOpen(false)}
+        variant="error"
       >
         Some custom message
       </Message>
