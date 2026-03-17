@@ -4,247 +4,212 @@ import { space, margin } from "styled-system";
 
 import Icon from "../icon";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
-import ValidationIconStyle from "../../__internal__/validations/validation-icon.style";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 
-const StyledAccordionGroup = styled.div.attrs(applyBaseTheme)`
+const sizeMap = {
+  small: {
+    titleFont: "var(--global-font-static-section-heading-s)",
+    subtitleFont: "var(--global-font-static-comp-medium-s)",
+    headingPadding: "var(--global-space-comp-l)",
+  },
+  medium: {
+    titleFont: "var(--global-font-static-section-heading-m)",
+    subtitleFont: "var(--global-font-static-comp-medium-l)",
+    headingPadding: "var(--global-space-comp-xl)",
+  },
+};
+
+export const StyledAccordionGroup = styled.div.attrs(applyBaseTheme)`
   ${margin}
 `;
 
-export interface StyledAccordionContainerProps {
-  /** Toggles left and right borders, set to none when variant is subtle */
-  borders?: "default" | "full" | "none";
-  /** Sets accordion width */
-  width?: string;
-  /** Sets accordion variant */
-  variant?: "standard" | "subtle";
+interface StyledAccordionContainerProps {
+  $borders?: "default" | "full" | "none";
+  $width?: string;
+  $variant?: "standard" | "simple";
+  $isExpanded: boolean;
+  $allowMotion?: boolean;
 }
 
-const StyledAccordionContainer = styled.div.attrs(
+export const StyledAccordionContainer = styled.div.attrs(
   applyBaseTheme,
 )<StyledAccordionContainerProps>`
-  ${space}
   display: flex;
-  ${({ variant }) =>
-    variant &&
-    css`
-      align-items: stretch;
-    `};
+  align-items: stretch;
   justify-content: center;
   flex-direction: column;
   box-sizing: border-box;
-  width: ${({ width }) => width || "100%"};
-  color: var(--colorsUtilityYin090);
-  background-color: ${({ variant }) =>
-    variant !== "subtle"
-      ? "var(--colorsUtilityYang100)"
-      : "var(--colorsUtilityMajorTransparent)"};
-  border: 1px solid var(--colorsUtilityMajor100);
-  ${({ borders }) =>
-    borders === "default" &&
-    css`
-      border-left: none;
-      border-right: none;
-    `}
-  ${({ borders }) =>
-    borders === "none" &&
-    css`
-      border: none;
-    `}
+  width: ${({ $width }) => $width || "100%"};
 
-  ${({ variant }) =>
-    variant !== "subtle" &&
+  ${({ $variant, $borders, $isExpanded, $allowMotion }) => css`
+    ${$variant === "standard" &&
     css`
       & + & {
         margin-top: -1px;
-        border-top: 1px solid var(--colorsUtilityMajor100);
-        border-bottom: 1px solid var(--colorsUtilityMajor100);
       }
+
+      border: 1px solid var(--container-action-border-default);
+      ${$borders === "default" &&
+      css`
+        border-left: none;
+        border-right: none;
+      `};
+
+      ${$borders === "none" &&
+      css`
+        border: none;
+      `};
     `}
+
+    ${$variant === "simple" &&
+    css`
+      gap: ${$isExpanded ? "var(--global-space-comp-l)" : "0px"};
+
+      ${$allowMotion &&
+      css`
+        transition: gap 0.4s;
+      `}
+    `}
+  `}
+
+  && {
+    ${space}
+  }
 `;
 
 interface StyledAccordionTitleProps {
-  size?: "large" | "small";
-  variant?: "standard" | "subtle";
+  $size: "small" | "medium";
 }
 
-const StyledAccordionTitle = styled.h3<StyledAccordionTitleProps>`
-  font-size: ${({ size, variant }) =>
-    size === "small" || variant === "subtle"
-      ? "var(--fontSizes200)"
-      : "var(--fontSizes400)"};
-  font-weight: 500;
-  line-height: 1;
-  user-select: none;
+export const StyledAccordionTitle = styled.h3<StyledAccordionTitleProps>`
+  ${({ $size }) => css`
+    font: ${sizeMap[$size].titleFont};
+  `}
+
+  color: var(--container-action-txt-default);
   margin: 0;
 `;
 
-const StyledAccordionSubTitle = styled.span`
-  margin-top: 8px;
+export const StyledAccordionSubTitle = styled.span<StyledAccordionTitleProps>`
+  ${({ $size }) => css`
+    font: ${sizeMap[$size].subtitleFont};
+  `}
+
+  color: var(--container-action-txt-alt-default);
 `;
 
 interface StyledAccordionIconProps {
-  isExpanded?: boolean;
-  iconAlign?: "left" | "right";
+  $isExpanded?: boolean;
+  $allowMotion?: boolean;
 }
 
-const StyledAccordionIcon = styled(Icon)<StyledAccordionIconProps>`
-  transition: transform 0.3s;
-  transform: rotate(0deg);
-  margin-right: ${({ iconAlign }) =>
-    iconAlign === "left" ? "var(--spacing200)" : "var(--spacing000)"};
+export const StyledAccordionIcon = styled(Icon)<StyledAccordionIconProps>`
+  width: var(--global-size-2-xs);
+  height: var(--global-size-2-xs);
+  color: var(--container-action-icon-default);
 
-  ${({ isExpanded, iconAlign }) => {
-    return (
-      isExpanded &&
-      (iconAlign === "right"
-        ? "transform: rotate(180deg);"
-        : "transform: rotate(-180deg);")
-    );
-  }}
+  ${({ $isExpanded, $allowMotion }) => css`
+    transform: rotate(0deg);
 
-  color: var(--colorsActionMinor500);
+    ${$isExpanded &&
+    css`
+      transform: rotate(-180deg);
+    `}
+    ${$allowMotion &&
+    css`
+      transition: transform 0.4s;
+    `}
+  `};
 `;
 
-interface StyledAccordionHeadingsContainerProps {
-  hasValidationIcon?: boolean;
-}
-
-const StyledAccordionHeadingsContainer = styled.div<StyledAccordionHeadingsContainerProps>`
-  padding-right: var(--sizing300);
-  ${({ hasValidationIcon }) => css`
-    display: grid;
-    ${hasValidationIcon &&
-    css`
-      grid-template-columns: min-content auto;
-
-      ${StyledAccordionSubTitle} {
-        grid-column: span 3;
-      }
-    `}
-
-    ${!hasValidationIcon &&
-    css`
-      grid-template-rows: auto auto;
-    `}
-
-    ${ValidationIconStyle} {
-      height: 20px;
-      position: relative;
-      top: 2px;
-    }
-  `}
+export const StyledAccordionTitleWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--global-space-comp-xs);
+  flex: 1 0 0;
 `;
 
 interface StyledAccordionTitleContainerProps {
-  hasButtonProps?: boolean;
-  iconAlign?: "left" | "right";
-  size?: "large" | "small";
-  isExpanded?: boolean;
-  variant?: "standard" | "subtle";
+  $size: "small" | "medium";
+  $iconAlign?: "left" | "right";
 }
 
-const StyledAccordionTitleContainer = styled.div.attrs(
+export const StyledAccordionTitleContainer = styled.div.attrs(
   applyBaseTheme,
 )<StyledAccordionTitleContainerProps>`
-  ${({ iconAlign, size, isExpanded, variant }) => css`
-    padding: ${size === "small" ? "var(--spacing200)" : "var(--spacing300)"};
-    ${space}
+  ${({ $size, $iconAlign }) => css`
     display: flex;
+    flex: 1 0 0;
     align-items: center;
-    justify-content: space-between;
+    align-self: stretch;
+    background-color: transparent;
+    border: none;
+    text-align: left;
+    gap: var(--global-space-comp-l);
+    padding: ${sizeMap[$size].headingPadding};
 
-    ${iconAlign === "left" &&
+    ${$iconAlign === "right" &&
     css`
-      justify-content: flex-end;
       flex-direction: row-reverse;
     `}
 
-    cursor: pointer;
-    z-index: 1;
+    ${space}
 
     &:focus {
       ${addFocusStyling()}
+      z-index: 1;
     }
+  `}
+`;
 
-    ${variant === "subtle" &&
+export const StyledAccordionLine = styled.div`
+  position: absolute;
+  width: 2px;
+  background-color: var(--input-typical-border-alt);
+  border-radius: var(--global-radius-action-xs);
+  height: 100%;
+`;
+
+interface StyledAccordionContentContainerProps {
+  $isExpanded?: boolean;
+  $height?: string | number;
+  $allowMotion?: boolean;
+}
+
+export const StyledAccordionContentContainer = styled.div<StyledAccordionContentContainerProps>`
+  position: relative;
+  overflow: hidden;
+  height: 0;
+  opacity: 0;
+
+  ${({ $height, $isExpanded, $allowMotion }) => css`
+    ${$allowMotion &&
     css`
-      color: var(--colorsActionMajor500);
-      padding: var(--spacing025);
-      margin-bottom: ${isExpanded && "var(--spacing200)"};
-      width: fit-content;
-
-      ${StyledAccordionIcon} {
-        color: var(--colorsActionMajor500);
-        ${iconAlign === "left" && "margin-right: var(--spacing050)"};
-      }
-
-      :hover {
-        color: var(--colorsActionMajor600);
-        ${StyledAccordionIcon} {
-          color: var(--colorsActionMajor600);
-        }
-      }
+      transition:
+        height 0.4s,
+        opacity 0.2s;
     `}
 
-    ${variant !== "subtle" &&
+    ${$isExpanded &&
     css`
-      &:hover {
-        background-color: var(--colorsUtilityMajor050);
-      }
+      height: ${$height}px;
+      opacity: 1;
     `}
   `}
 `;
 
-export interface StyledAccordionContentContainerProps {
-  isExpanded?: boolean;
-  maxHeight?: string | number;
+interface StyledAccordionContentProps {
+  $variant?: "standard" | "simple" | "subtle";
 }
 
-const StyledAccordionContentContainer = styled.div<StyledAccordionContentContainerProps>`
-  flex-grow: 1;
-  box-sizing: border-box;
-  overflow: hidden;
-  transition: all 0.3s;
-  ${({ maxHeight, isExpanded }) => css`
-    max-height: ${isExpanded ? `${maxHeight}px` : "0px"};
-    height: ${isExpanded ? `${maxHeight}px` : "0px"};
+export const StyledAccordionContent = styled.div<StyledAccordionContentProps>`
+  ${({ $variant }) => css`
+    overflow: hidden;
+
+    ${$variant === "simple" &&
+    css`
+      margin-left: var(--global-space-comp-l);
+    `}
   `}
 `;
-
-export interface StyledAccordionContentProps {
-  disableContentPadding?: boolean;
-  variant?: "standard" | "subtle";
-}
-
-const StyledAccordionContent = styled.div<StyledAccordionContentProps>`
-  padding: var(--spacing300);
-  padding-top: var(--spacing100);
-  overflow: hidden;
-
-  ${({ variant }) =>
-    variant === "subtle" &&
-    css`
-      margin-left: var(--spacing150);
-      padding: var(--spacing100) var(--spacing200) var(--spacing300);
-      border-left: 2px solid var(--colorsUtilityMajor100);
-    `}
-
-  ${({ disableContentPadding }) =>
-    disableContentPadding &&
-    css`
-      padding: 0;
-    `}
-`;
-
-export {
-  StyledAccordionGroup,
-  StyledAccordionContainer,
-  StyledAccordionHeadingsContainer,
-  StyledAccordionSubTitle,
-  StyledAccordionTitleContainer,
-  StyledAccordionTitle,
-  StyledAccordionIcon,
-  StyledAccordionContent,
-  StyledAccordionContentContainer,
-};
