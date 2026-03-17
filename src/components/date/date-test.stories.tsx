@@ -360,6 +360,6 @@ export const AutoFocus = () => {
 };
 AutoFocus.storyName = "Auto Focus";
 AutoFocus.parameters = {
-  themeProvider: { chromatic: { fourColumnLayout: true, theme: "sage" } },
-  chromatic: { viewports: [1800], disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
+  chromatic: { disableSnapshot: false },
 };
