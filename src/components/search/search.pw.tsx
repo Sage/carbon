@@ -21,7 +21,6 @@ import Box from "../box";
 import {
   SearchComponent,
   SearchComponentDarkBackground,
-  SearchComponentLightBackground,
 } from "./components.test-pw";
 import { SearchProps } from "./search.component";
 
@@ -739,21 +738,45 @@ test.describe("Accessibility tests for Search", () => {
     });
   });
 
-  test("should check accessibility with variant prop set to default", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<SearchComponentLightBackground />);
+  // check accessibility when typing due to cursor colour changes
+  [true, false].forEach((showButton) => {
+    test(`should check accessibility with variant prop set to default and 'searchButton' is ${showButton}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<SearchComponent searchButton={showButton} />);
 
-    await checkAccessibility(page);
+      await checkAccessibility(page);
+
+      await page.keyboard.press("Tab");
+      await expect(page.getByRole("textbox")).toBeFocused();
+
+      await checkAccessibility(page);
+
+      await page.keyboard.type("hello world");
+
+      await checkAccessibility(page);
+    });
   });
 
-  test("should check accessibility with variant prop set to dark", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<SearchComponentDarkBackground />);
+  // check accessibility when typing due to cursor colour changes
+  [true, false].forEach((showButton) => {
+    test(`should check accessibility with variant prop set to dark and 'searchButton' is ${showButton}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<SearchComponentDarkBackground searchButton={showButton} />);
 
-    await checkAccessibility(page);
+      await checkAccessibility(page);
+
+      await page.keyboard.press("Tab");
+      await expect(page.getByRole("textbox")).toBeFocused();
+
+      await checkAccessibility(page);
+
+      await page.keyboard.type("hello world");
+
+      await checkAccessibility(page);
+    });
   });
 });

@@ -86,7 +86,6 @@ const StyledSearch = styled.div.attrs(applyBaseTheme)<StyledSearchProps>`
         `}
 
         ${darkVariant &&
-        searchHasValue &&
         !showSearchButton &&
         css`
           color: var(--colorsUtilityYang100);

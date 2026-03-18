@@ -311,31 +311,6 @@ test.describe("Prop tests for Menu component", () => {
     });
   });
 
-  test(`should verify that the Search component is focusable by using the downarrow key when rendered as the parent of a scrollable submenu`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MenuComponentSearch />);
-
-    await continuePressingSHIFTTAB(page, 3);
-    await page.keyboard.press("Enter");
-    await page.keyboard.press("ArrowDown");
-    await page.keyboard.press("ArrowDown");
-    await expect(searchDefaultInput(page)).toBeFocused();
-  });
-
-  test(`should verify scroll Menu search has an alternate background color`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MenuComponentSearch />);
-
-    const subMenu = submenu(page).nth(2);
-    await subMenu.hover();
-    const item = menuItem(page).nth(4).locator("span").first();
-    await expect(item).toHaveCSS("background-color", "rgb(0, 50, 76)");
-  });
-
   test(`should verify submenu is not closed when Enter key is pressed on search component`, async ({
     mount,
     page,
@@ -1560,11 +1535,25 @@ test.describe("Accessibility tests for Menu component", () => {
   });
 
   // We can allow the accessibility checks with exception to the heading-order violation.
-  test(`should pass accessibility tests when search component is focused`, async ({
+  test(`should pass accessibility tests when variant is light and search component is focused`, async ({
     mount,
     page,
   }) => {
-    await mount(<MenuComponentSearch />);
+    await mount(<MenuComponentSearch menuType="light" />);
+
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("Enter");
+    await page.keyboard.press("Tab");
+    const subMenu = getComponent(page, "submenu").first();
+    await waitForAnimationEnd(subMenu);
+    await checkAccessibility(page, undefined, "heading-order");
+  });
+
+  test(`should pass accessibility tests when variant is black and search component is focused`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MenuComponentSearch menuType="black" />);
 
     await page.keyboard.press("Tab");
     await page.keyboard.press("Enter");

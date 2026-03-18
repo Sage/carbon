@@ -638,8 +638,12 @@ export const SubmenuWithSearch: MenuStory = () => {
               <MenuSegmentTitle text="segment title" variant="alternate">
                 <MenuItem variant="alternate" p="2px 16px">
                   <Search
-                    placeholder="Dark variant"
-                    variant="dark"
+                    placeholder="Search"
+                    variant={
+                      menuType === "black" || menuType === "dark"
+                        ? "dark"
+                        : "default"
+                    }
                     value=""
                     onChange={() => {}}
                   />
