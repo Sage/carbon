@@ -1,3 +1,9 @@
+## [158.37.0](https://github.com/Sage/carbon/compare/v158.36.0...v158.37.0) (2026-03-18)
+
+### Features
+
+* **box:** add support for aria-atomic prop ([5eb5768](https://github.com/Sage/carbon/commit/5eb5768beb3b644eea5b87a2541b47dbfbca9269))
+
 ## [158.36.0](https://github.com/Sage/carbon/compare/v158.35.7...v158.36.0) (2026-03-17)
 
 ### Features
