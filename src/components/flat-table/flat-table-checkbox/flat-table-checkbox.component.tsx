@@ -23,6 +23,8 @@ export interface FlatTableCheckboxProps extends TagProps {
   ariaLabelledBy?: string;
   /** Sets an id string on the element */
   id?: string;
+  /** Prop to set disabled state on Checkbox */
+  disabled?: boolean;
 }
 
 export const FlatTableCheckbox = ({
@@ -33,6 +35,7 @@ export const FlatTableCheckbox = ({
   onClick,
   ariaLabelledBy,
   id,
+  disabled = false,
   ...rest
 }: FlatTableCheckboxProps) => {
   const ref = useRef<HTMLTableCellElement>(null);
@@ -86,6 +89,7 @@ export const FlatTableCheckbox = ({
           ariaLabelledBy={ariaLabelledBy}
           onClick={handleClick}
           onKeyDown={handleKeyDown}
+          disabled={disabled}
         />
       )}
     </StyledFlatTableCheckbox>
