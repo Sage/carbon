@@ -1,3 +1,9 @@
+## [158.38.0](https://github.com/Sage/carbon/compare/v158.37.0...v158.38.0) (2026-03-19)
+
+### Features
+
+* **radio-button:** align with Fusion DS ([78ad453](https://github.com/Sage/carbon/commit/78ad45378ac1f6c3ca4e34687c07de516c49f887))
+
 ## [158.37.0](https://github.com/Sage/carbon/compare/v158.36.0...v158.37.0) (2026-03-18)
 
 ### Features

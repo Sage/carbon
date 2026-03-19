@@ -15,7 +15,7 @@ description: Carbon RadioButton component props and usage examples.
 ## Props
 | Name | Type | Required | Literals | Deprecated | Deprecation reason | Description | Default |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| value | string | Yes |  |  |  | the value of the Radio Button, passed on form submit |  |
+| value | string | Yes |  |  |  | The value of the RadioButton. |  |
 | about | string \| undefined | No |  |  |  |  |  |
 | accept | string \| undefined | No |  |  |  |  |  |
 | accessKey | string \| undefined | No |  |  |  |  |  |
@@ -40,13 +40,10 @@ description: Carbon RadioButton component props and usage examples.
 | defaultChecked | boolean \| undefined | No |  |  |  |  |  |
 | defaultValue | string \| number \| readonly string[] \| undefined | No |  |  |  |  |  |
 | dir | string \| undefined | No |  |  |  |  |  |
-| disabled | boolean \| undefined | No |  |  |  | If true, the component will be disabled |  |
+| disabled | boolean \| undefined | No |  |  |  | If true, the component will be disabled. |  |
 | draggable | Booleanish \| undefined | No |  |  |  |  |  |
 | enterKeyHint | "go" \| "send" \| "search" \| "enter" \| "done" \| "next" \| "previous" \| undefined | No |  |  |  |  |  |
-| error | string \| boolean \| undefined | No |  |  |  | Indicate that error has occurred. |  |
 | exportparts | string \| undefined | No |  |  |  |  |  |
-| fieldHelp | React.ReactNode | No |  |  |  | Help content to be displayed under an input |  |
-| fieldHelpInline | boolean \| undefined | No |  |  |  | If true, the FieldHelp will be displayed inline To be used with labelInline prop set to true |  |
 | form | string \| undefined | No |  |  |  |  |  |
 | formAction | string \| undefined | No |  |  |  |  |  |
 | formEncType | string \| undefined | No |  |  |  |  |  |
@@ -54,45 +51,25 @@ description: Carbon RadioButton component props and usage examples.
 | formNoValidate | boolean \| undefined | No |  |  |  |  |  |
 | formTarget | string \| undefined | No |  |  |  |  |  |
 | height | string \| number \| undefined | No |  |  |  |  |  |
-| helpAriaLabel | string \| undefined | No |  |  |  | [Legacy] Aria label for rendered help component |  |
 | hidden | boolean \| undefined | No |  |  |  |  |  |
-| id | string \| undefined | No |  |  |  | Unique Identifier for the input. Will use a randomly generated GUID if none is provided |  |
-| info | string \| boolean \| undefined | No |  |  |  | [Legacy] Indicate additional information. |  |
+| id | string \| undefined | No |  |  |  | Unique identifier for the input. Will use a randomly generated GUID if none is provided. |  |
 | inlist | any | No |  |  |  |  |  |
+| inputHint | React.ReactNode | No |  |  |  | Additional hint text rendered below the label. |  |
 | inputMode | "email" \| "none" \| "search" \| "text" \| "tel" \| "url" \| "numeric" \| "decimal" \| undefined | No |  |  |  | Hints at the type of data that might be entered by the user while editing the element or its contents |  |
-| inputWidth | number \| undefined | No |  |  |  | Sets percentage-based input width |  |
 | is | string \| undefined | No |  |  |  | Specify that a standard HTML element should behave like a defined custom built-in element |  |
 | itemID | string \| undefined | No |  |  |  |  |  |
 | itemProp | string \| undefined | No |  |  |  |  |  |
 | itemRef | string \| undefined | No |  |  |  |  |  |
 | itemScope | boolean \| undefined | No |  |  |  |  |  |
 | itemType | string \| undefined | No |  |  |  |  |  |
-| label | React.ReactNode | No |  |  |  | Label content |  |
-| labelHelp | React.ReactNode | No |  |  |  | The content for the help tooltip, to appear next to the Label |  |
-| labelSpacing | 1 \| 2 \| undefined | No |  |  |  | Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) |  |
-| labelWidth | number \| undefined | No |  |  |  | Label width |  |
+| label | React.ReactNode | No |  |  |  | Content of the label. |  |
 | lang | string \| undefined | No |  |  |  |  |  |
 | list | string \| undefined | No |  |  |  |  |  |
-| loading | boolean \| undefined | No |  |  |  |  |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
 | max | string \| number \| undefined | No |  |  |  |  |  |
 | maxLength | number \| undefined | No |  |  |  |  |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
 | min | string \| number \| undefined | No |  |  |  |  |  |
 | minLength | number \| undefined | No |  |  |  |  |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
 | multiple | boolean \| undefined | No |  |  |  |  |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
 | name | string \| undefined | No |  |  |  | Input name |  |
 | nonce | string \| undefined | No |  |  |  |  |  |
 | onAbort | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
@@ -115,7 +92,7 @@ description: Carbon RadioButton component props and usage examples.
 | onCanPlayThroughCapture | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onChange | ((ev: React.ChangeEvent<HTMLInputElement>) => void) \| undefined | No |  |  |  | OnChange event handler |  |
 | onChangeCapture | FormEventHandler<T> \| undefined | No |  |  |  |  |  |
-| onClick | ((ev: React.MouseEvent<HTMLInputElement>) => void) \| undefined | No |  |  |  | Accepts a callback function which is triggered on click event |  |
+| onClick | ((ev: React.MouseEvent<HTMLInputElement>) => void) \| undefined | No |  |  |  | Callback fired when the RadioButton is clicked. |  |
 | onClickCapture | MouseEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onCompositionEnd | CompositionEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onCompositionEndCapture | CompositionEventHandler<T> \| undefined | No |  |  |  |  |  |
@@ -255,17 +232,17 @@ description: Carbon RadioButton component props and usage examples.
 | pattern | string \| undefined | No |  |  |  |  |  |
 | placeholder | string \| undefined | No |  |  |  |  |  |
 | prefix | string \| undefined | No |  |  |  |  |  |
+| progressiveDisclosure | React.ReactNode | No |  |  |  | Content to be rendered below the input when checked, is not supported when inputs are inline. |  |
 | property | string \| undefined | No |  |  |  |  |  |
 | radioGroup | string \| undefined | No |  |  |  |  |  |
 | readOnly | boolean \| undefined | No |  |  |  |  |  |
 | rel | string \| undefined | No |  |  |  |  |  |
+| required | boolean \| undefined | No |  |  |  |  |  |
 | resource | string \| undefined | No |  |  |  |  |  |
 | results | number \| undefined | No |  |  |  |  |  |
 | rev | string \| undefined | No |  |  |  |  |  |
-| reverse | boolean \| undefined | No |  |  |  | If true the label switches position with the input |  |
 | role | AriaRole \| undefined | No |  |  |  |  |  |
 | security | string \| undefined | No |  |  |  |  |  |
-| size | "small" \| "large" \| undefined | No |  |  |  | Size of the component |  |
 | slot | string \| undefined | No |  |  |  |  |  |
 | spellCheck | Booleanish \| undefined | No |  |  |  |  |  |
 | src | string \| undefined | No |  |  |  |  |  |
@@ -275,14 +252,10 @@ description: Carbon RadioButton component props and usage examples.
 | suppressHydrationWarning | boolean \| undefined | No |  |  |  |  |  |
 | tabIndex | number \| undefined | No |  |  |  |  |  |
 | title | string \| undefined | No |  |  |  |  |  |
-| tooltipPosition | "left" \| "right" \| "bottom" \| "top" \| undefined | No |  |  |  | [Legacy] Overrides the default tooltip position |  |
 | translate | "yes" \| "no" \| undefined | No |  |  |  |  |  |
 | typeof | string \| undefined | No |  |  |  |  |  |
 | unselectable | "off" \| "on" \| undefined | No |  |  |  |  |  |
-| validationIconId | string \| undefined | No |  |  |  | Id of the validation icon |  |
-| validationOnLabel | boolean \| undefined | No |  |  |  | When true, displays validation icon on label |  |
 | vocab | string \| undefined | No |  |  |  |  |  |
-| warning | string \| boolean \| undefined | No |  |  |  | Indicate that warning has occurred. |  |
 | width | string \| number \| undefined | No |  |  |  |  |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
@@ -337,355 +310,217 @@ description: Carbon RadioButton component props and usage examples.
 | aria-valuemin | number \| undefined | No |  |  |  | Defines the minimum allowed value for a range widget. |  |
 | aria-valuenow | number \| undefined | No |  |  |  | Defines the current value for a range widget. |  |
 | aria-valuetext | string \| undefined | No |  |  |  | Defines the human readable text alternative of aria-valuenow for a range widget. |  |
+| error | string \| boolean \| undefined | No |  | Yes | Error validation is no longer supported on this component. Please pass validation messages to the `RadioButtonGroup` component instead. | Indicate that an error has occurred. |  |
+| fieldHelp | React.ReactNode | No |  | Yes | The `fieldHelp` prop is deprecated and will be removed in a future release. Please use the `inputHint` prop instead. | Help content to be displayed under an input |  |
+| fieldHelpInline | boolean \| undefined | No |  | Yes | The `fieldHelpInline` prop is no longer supported on this component. | If true, the FieldHelp will be displayed inline To be used with labelInline prop set to true |  |
+| helpAriaLabel | string \| undefined | No |  | Yes | Help tooltips are no longer supported on this component. | Aria label for rendered help component |  |
+| info | string \| boolean \| undefined | No |  | Yes | Information validation is no longer supported on this component. | [Legacy] Indicate additional information. |  |
+| inputWidth | React.ReactNode | No |  | Yes | Custom input widths are no longer supported on this component. | Sets percentage-based input width |  |
+| labelHelp | React.ReactNode | No |  | Yes | The `labelHelp` prop is deprecated and will be removed in a future release. Please use the `inputHint` prop instead. | The content for the help tooltip, to appear next to the Label |  |
+| labelSpacing | 1 \| 2 \| undefined | No |  | Yes | Custom spacing for labels is no longer supported on this component. | Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) |  |
+| labelWidth | number \| undefined | No |  | Yes | Custom label widths are no longer supported on this component. | Label width |  |
 | onKeyPress | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUp` or `onKeyDown` instead |  |  |
 | onKeyPressCapture | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUpCapture` or `onKeyDownCapture` instead |  |  |
+| reverse | boolean \| undefined | No |  | Yes | Reversed layout is no longer supported on this component. | If true the label switches position with the input |  |
+| size | "small" \| "large" \| undefined | No |  | Yes | The `size` prop is deprecated and will be removed in a future release. Please set the size on the `RadioButtonGroup` component instead. | Size of the RadioButton. |  |
+| tooltipPosition | "left" \| "right" \| "bottom" \| "top" \| undefined | No |  | Yes | Tooltips are no longer supported on this component. | Overrides the default tooltip position |  |
+| validationIconId | string \| undefined | No |  | Yes | Validation icons with tooltips are no longer supported on this component. | Id of the validation icon |  |
+| validationOnLabel | boolean \| undefined | No |  | Yes | Validation icons with tooltips are no longer supported on this component. | When true, displays validation icon on label |  |
+| warning | string \| boolean \| undefined | No |  | Yes | Warning validation is no longer supported on this component. Please pass validation messages to the `RadioButtonGroup` component instead. | Indicate that warning has occurred. |  |
 | aria-dropeffect | "copy" \| "link" \| "none" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
 | aria-grabbed | Booleanish \| undefined | No |  | Yes | in ARIA 1.1 | Indicates an element's "grabbed" state in a drag-and-drop operation. |  |
 
 ## Examples
-### Default
+### WithLegend
+
+**Args**
+
+```tsx
+{
+    id: "with-legend",
+    legend: "RadioButtonGroup Legend",
+  }
+```
 
 **Render**
 
 ```tsx
-() => {
-  const [value, setValue] = useState("");
+ControlledRadioButtonGroup
+```
 
+
+### WithLegendHint
+
+**Args**
+
+```tsx
+{
+    ...WithLegend.args,
+    id: "with-legend-hint",
+    legendHint: "Legend Hint",
+  }
+```
+
+
+### With Input Hint
+
+**Render**
+
+```tsx
+({ ...args }) => {
+  const [value, setValue] = useState("");
   return (
     <RadioButtonGroup
-      name="legend-and-labels-group"
+      name="input-hint-group"
+      legend="Radio Button Group Legend"
       value={value}
       onChange={(ev) => setValue(ev.target.value)}
+      {...args}
     >
-      <RadioButton id="radio-1" value="radio1" label="Radio Option 1" />
-      <RadioButton id="radio-2" value="radio2" label="Radio Option 2" />
-      <RadioButton id="radio-3" value="radio3" label="Radio Option 3" />
+      <RadioButton
+        id="input-hint-radio-1"
+        value="radio1"
+        label="Radio Option 1"
+        inputHint="Input Hint"
+      />
+      <RadioButton
+        id="input-hint-radio-2"
+        value="radio2"
+        label="Radio Option 2"
+        inputHint="Input Hint"
+      />
+      <RadioButton
+        id="input-hint-radio-3"
+        value="radio3"
+        label="Radio Option 3"
+        inputHint="Input Hint"
+      />
     </RadioButtonGroup>
   );
 }
 ```
 
 
-### With Legend
+### InlineRadioButtons
 
-**Render**
+**Args**
 
 ```tsx
-() => {
-  const [value, setValue] = React.useState("");
-  return (
-    <RadioButtonGroup
-      name="legend-and-labels-group"
-      onChange={(ev) => setValue(ev.target.value)}
-      legend="Radio group legend"
-      value={value}
-    >
-      <RadioButton id="radio-1" value="radio1" label="Radio Option 1" />
-      <RadioButton id="radio-2" value="radio2" label="Radio Option 2" />
-      <RadioButton id="radio-3" value="radio3" label="Radio Option 3" />
-    </RadioButtonGroup>
-  );
-}
+{
+    ...WithLegend.args,
+    id: "inline",
+    legendHint: "Legend Hint",
+    inline: true,
+  }
 ```
 
 
-### With Legend Help
+### Sizes
 
 **Render**
 
 ```tsx
 () => {
-  const [value, setValue] = useState("");
+  const [valueSmall, setValueSmall] = useState("");
+  const [valueMedium, setValueMedium] = useState("");
+  const [valueLarge, setValueLarge] = useState("");
+
   return (
-    <CarbonProvider validationRedesignOptIn>
+    <Box display="flex" flexDirection="row" justifyContent="space-around">
       <RadioButtonGroup
-        name="input-hint-group"
-        legend="With legendHelp"
-        legendHelp="Legend Help"
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
+        name="size-group-small"
+        legend="Small Radio Buttons"
+        value={valueSmall}
+        onChange={(ev) => setValueSmall(ev.target.value)}
+        size="small"
       >
-        <RadioButton id="radio-1" value="radio1" label="Radio Option 1" />
-        <RadioButton id="radio-2" value="radio2" label="Radio Option 2" />
-        <RadioButton id="radio-3" value="radio3" label="Radio Option 3" />
+        <RadioButton id="small-radio-1" value="small1" label="Radio Option 1" />
+        <RadioButton id="small-radio-2" value="small2" label="Radio Option 2" />
+        <RadioButton id="small-radio-3" value="small3" label="Radio Option 3" />
       </RadioButtonGroup>
-    </CarbonProvider>
-  );
-}
-```
-
-
-### With Inline Legend
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("");
-  return (
-    <RadioButtonGroup
-      name="inline-legend-group"
-      legend="Radio group legend"
-      legendInline
-      legendWidth={10}
-      value={value}
-      onChange={(ev) => setValue(ev.target.value)}
-    >
-      <RadioButton id="radio-1" value="radio1" label="Radio Option 1" />
-      <RadioButton id="radio-2" value="radio2" label="Radio Option 2" />
-      <RadioButton id="radio-3" value="radio3" label="Radio Option 3" />
-    </RadioButtonGroup>
-  );
-}
-```
-
-
-### Enable Adaptive Behaviour
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("");
-  return (
-    <RadioButtonGroup
-      name="enable-adaptive-behaviour-group"
-      legend="Radio group legend"
-      ml="20%"
-      adaptiveLegendBreakpoint={960}
-      adaptiveSpacingBreakpoint={960}
-      value={value}
-      onChange={(ev) => setValue(ev.target.value)}
-    >
-      <RadioButton
-        id="enable-adaptive-behaviour-radio-1"
-        value="radio1"
-        label="Radio Option 1"
-      />
-      <RadioButton
-        id="enable-adaptive-behaviour-radio-2"
-        value="radio2"
-        label="Radio Option 2"
-      />
-      <RadioButton
-        id="enable-adaptive-behaviour-radio-3"
-        value="radio3"
-        label="Radio Option 3"
-      />
-    </RadioButtonGroup>
-  );
-}
-```
-
-
-### Label Spacing
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("");
-  return (
-    <RadioButtonGroup
-      name="different-label-spacing-group"
-      legend="Radio group legend"
-      labelSpacing={2}
-      value={value}
-      onChange={(ev) => setValue(ev.target.value)}
-    >
-      <RadioButton
-        id="different-label-spacing-radio-1"
-        value="radio1"
-        label="Radio Option 1"
-      />
-      <RadioButton
-        id="different-label-spacing-radio-2"
-        value="radio2"
-        label="Radio Option 2"
-      />
-      <RadioButton
-        id="different-label-spacing-radio-3"
-        value="radio3"
-        label="Radio Option 3"
-      />
-    </RadioButtonGroup>
-  );
-}
-```
-
-
-### Inline Radio Buttons
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("");
-  return (
-    <RadioButtonGroup
-      name="inline-group"
-      legend="Radio group legend"
-      inline
-      value={value}
-      onChange={(ev) => setValue(ev.target.value)}
-    >
-      <RadioButton id="inline-radio-1" value="radio1" label="Radio Option 1" />
-      <RadioButton id="inline-radio-2" value="radio2" label="Radio Option 2" />
-      <RadioButton id="inline-radio-3" value="radio3" label="Radio Option 3" />
-    </RadioButtonGroup>
-  );
-}
-```
-
-
-### Reverse Radio Buttons
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("");
-  return (
-    <RadioButtonGroup
-      name="reverse-group"
-      legend="Radio group legend"
-      value={value}
-      onChange={(ev) => setValue(ev.target.value)}
-    >
-      <RadioButton
-        id="reverse-radio-1"
-        value="radio1"
-        label="Radio Option 1"
-        reverse
-      />
-      <RadioButton
-        id="reverse-radio-2"
-        value="radio2"
-        label="Radio Option 2"
-        reverse
-      />
-      <RadioButton
-        id="reverse-radio-3"
-        value="radio3"
-        label="Radio Option 3"
-        reverse
-      />
-    </RadioButtonGroup>
-  );
-}
-```
-
-
-### Disable Radio Buttons
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("");
-  return (
-    <RadioButtonGroup
-      name="disable-group"
-      legend="Radio group legend"
-      value={value}
-      onChange={(ev) => setValue(ev.target.value)}
-    >
-      <RadioButton
-        id="disable-radio-1"
-        value="radio1"
-        label="Radio Option 1"
-        disabled
-      />
-      <RadioButton
-        id="disable-radio-2"
-        value="radio2"
-        label="Radio Option 2"
-        disabled
-      />
-      <RadioButton
-        id="disable-radio-3"
-        value="radio3"
-        label="Radio Option 3"
-        disabled
-      />
-    </RadioButtonGroup>
-  );
-}
-```
-
-
-### With Field Help
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("");
-  return (
-    <RadioButtonGroup
-      name="field-help-group"
-      legend="Radio group legend"
-      value={value}
-      onChange={(ev) => setValue(ev.target.value)}
-    >
-      <RadioButton
-        id="field-help-radio-1"
-        value="radio1"
-        label="Radio Option 1"
-        fieldHelp="Some help text for this input."
-      />
-      <RadioButton
-        id="field-help-radio-2"
-        value="radio2"
-        label="Radio Option 2"
-        fieldHelp="Some help text for this input."
-      />
-      <RadioButton
-        id="field-help-radio-3"
-        value="radio3"
-        label="Radio Option 3"
-        fieldHelp="Some help text for this input."
-      />
-    </RadioButtonGroup>
-  );
-}
-```
-
-
-### With Large Radio Buttons
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("");
-  return (
-    <RadioButtonGroup
-      name="large-group"
-      legend="Radio group legend"
-      value={value}
-      onChange={(ev) => setValue(ev.target.value)}
-    >
-      <RadioButton
-        id="large-radio-1"
-        value="radio1"
-        label="Radio Option 1"
+      <RadioButtonGroup
+        name="size-group-medium"
+        legend="Medium Radio Buttons"
+        value={valueMedium}
+        onChange={(ev) => setValueMedium(ev.target.value)}
+        size="medium"
+      >
+        <RadioButton
+          id="medium-radio-1"
+          value="medium1"
+          label="Radio Option 1"
+        />
+        <RadioButton
+          id="medium-radio-2"
+          value="medium2"
+          label="Radio Option 2"
+        />
+        <RadioButton
+          id="medium-radio-3"
+          value="medium3"
+          label="Radio Option 3"
+        />
+      </RadioButtonGroup>
+      <RadioButtonGroup
+        name="size-group-large"
+        legend="Large Radio Buttons"
+        value={valueLarge}
+        onChange={(ev) => setValueLarge(ev.target.value)}
         size="large"
-        fieldHelp="Some help text for this input."
+      >
+        <RadioButton id="large-radio-1" value="large1" label="Radio Option 1" />
+        <RadioButton id="large-radio-2" value="large2" label="Radio Option 2" />
+        <RadioButton id="large-radio-3" value="large3" label="Radio Option 3" />
+      </RadioButtonGroup>
+    </Box>
+  );
+}
+```
+
+
+### Progressive Disclosure
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState("radio1");
+  const [textboxValue, setTextboxValue] = useState("");
+
+  const progressiveDisclosure = (
+    <Box mr={1} width="300px">
+      <Textbox
+        label="Revealed Textbox"
+        value={textboxValue}
+        onChange={(ev) => setTextboxValue(ev.target.value)}
+      />
+    </Box>
+  );
+
+  return (
+    <RadioButtonGroup
+      legend="Progressive Disclosure"
+      name="progressive-disclosure-group"
+      value={value}
+      onChange={(ev) => setValue(ev.target.value)}
+    >
+      <RadioButton
+        id="progressive-radio-1"
+        value="radio1"
+        label="Radio Option 1"
+        progressiveDisclosure={progressiveDisclosure}
       />
       <RadioButton
-        id="large-radio-2"
+        id="progressive-radio-2"
         value="radio2"
         label="Radio Option 2"
-        size="large"
-        fieldHelp="Some help text for this input."
+        progressiveDisclosure={progressiveDisclosure}
       />
       <RadioButton
-        id="large-radio-3"
+        id="progressive-radio-3"
         value="radio3"
         label="Radio Option 3"
-        size="large"
-        fieldHelp="Some help text for this input."
+        progressiveDisclosure={progressiveDisclosure}
       />
     </RadioButtonGroup>
   );
@@ -693,7 +528,7 @@ description: Carbon RadioButton component props and usage examples.
 ```
 
 
-### With Custom Styled Labels
+### With Custom Labels
 
 **Render**
 
@@ -712,9 +547,8 @@ description: Carbon RadioButton component props and usage examples.
         value="radio1"
         label={
           <>
-            <Typography variant="b">Bold </Typography>
-            <Typography as="span">regular </Typography>
-            <Typography variant="em">emphasized</Typography>
+            <Icon type="placeholder" aria-hidden />
+            Radio Button 1
           </>
         }
       />
@@ -723,9 +557,8 @@ description: Carbon RadioButton component props and usage examples.
         value="radio2"
         label={
           <>
-            <Typography variant="b">Bold </Typography>
-            <Typography as="span">regular </Typography>
-            <Typography variant="em">emphasized</Typography>
+            <Icon type="placeholder" aria-hidden />
+            Radio Button 2
           </>
         }
       />
@@ -734,9 +567,8 @@ description: Carbon RadioButton component props and usage examples.
         value="radio3"
         label={
           <>
-            <Typography variant="b">Bold </Typography>
-            <Typography as="span">regular </Typography>
-            <Typography variant="em">emphasized</Typography>
+            <Icon type="placeholder" aria-hidden />
+            Radio Button 3
           </>
         }
       />
@@ -748,24 +580,26 @@ description: Carbon RadioButton component props and usage examples.
 
 ### Required
 
-**Render**
+**Args**
 
 ```tsx
-() => {
-  const [value, setValue] = useState("");
-  return (
-    <RadioButtonGroup
-      name="radio-group-required"
-      required
-      legend="Required"
-      value={value}
-      onChange={(ev) => setValue(ev.target.value)}
-    >
-      <RadioButton id="radio-1" value="radio1" label="Radio Option 1" />
-      <RadioButton id="radio-2" value="radio2" label="Radio Option 2" />
-      <RadioButton id="radio-3" value="radio3" label="Radio Option 3" />
-    </RadioButtonGroup>
-  );
-}
+{
+    ...WithLegend.args,
+    id: "required",
+    required: true,
+  }
+```
+
+
+### Disabled
+
+**Args**
+
+```tsx
+{
+    ...WithLegend.args,
+    id: "disabled",
+    disabled: true,
+  }
 ```
 
