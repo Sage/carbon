@@ -1,15 +1,32 @@
 import styled, { css } from "styled-components";
 
-const RadioButtonGroupStyle = styled.div<{
-  inline?: boolean;
-  legendInline?: boolean;
+const sizeMap = {
+  small: {
+    gap: "var(--global-space-comp-s)",
+  },
+  medium: {
+    gap: "var(--global-space-comp-m)",
+  },
+  large: {
+    gap: "var(--global-space-comp-l)",
+  },
+};
+
+const StyledRadioButtonGroupContent = styled.div<{
+  $size: "small" | "medium" | "large";
+  $inline?: boolean;
 }>`
-  ${({ inline, legendInline }) => css`
+  ${({ $size, $inline }) => css`
     display: flex;
     flex-direction: column;
-    ${inline && "flex-direction: row;"}
-    ${legendInline && "margin-top: 4px;"}
-  `};
+    gap: ${sizeMap[$size].gap};
+
+    ${$inline &&
+    css`
+      flex-direction: row;
+      gap: var(--global-space-comp-l);
+    `}
+  `}
 `;
 
-export default RadioButtonGroupStyle;
+export default StyledRadioButtonGroupContent;
