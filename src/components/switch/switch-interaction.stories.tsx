@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { StoryObj } from "@storybook/react";
-import { userEvent, within, expect } from "@storybook/test";
+import { userEvent, within, expect } from "storybook/test";
 
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import Box from "../box";

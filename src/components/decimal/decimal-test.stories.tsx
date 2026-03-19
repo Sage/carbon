@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { action } from "@storybook/addon-actions";
-import { StoryFn } from "@storybook/react";
+import { action } from "storybook/actions";
+import { StoryFn } from "@storybook/react-vite";
 
 import Decimal, { CustomEvent } from "./decimal.component";
 import {

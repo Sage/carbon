@@ -1,7 +1,7 @@
 import React from "react";
 
 import { StoryObj } from "@storybook/react";
-import { userEvent, within } from "@storybook/test";
+import { userEvent, within } from "storybook/test";
 
 import Password from "./password.component";
 

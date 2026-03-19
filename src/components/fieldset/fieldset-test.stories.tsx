@@ -1,5 +1,5 @@
 import React from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 import Fieldset from "./fieldset.component";
 import Textbox from "../textbox";

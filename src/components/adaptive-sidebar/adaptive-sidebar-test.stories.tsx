@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useState } from "react";
 
-import { StoryObj } from "@storybook/react/*";
+import { StoryObj } from "@storybook/react";
 import AdaptiveSidebar from ".";
 import Box from "../box";
 import Button from "../button";

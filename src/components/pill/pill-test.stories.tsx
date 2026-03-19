@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 import Pill, { PillProps } from "./pill.component";
 import Box from "../box";
 import { MultiSelect, Option } from "../select";

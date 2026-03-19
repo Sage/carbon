@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { StoryObj } from "@storybook/react";
-import { userEvent, within, expect } from "@storybook/test";
+import { userEvent, within, expect } from "storybook/test";
 
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
 import DefaultDecorator from "../../../.storybook/utils/default-decorator";

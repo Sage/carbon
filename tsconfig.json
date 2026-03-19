@@ -14,7 +14,7 @@
       "dom.iterable"
     ],
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "noEmit": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,

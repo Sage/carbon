@@ -1,6 +1,6 @@
 import React from "react";
 import { StoryFn, StoryObj } from "@storybook/react";
-import { userEvent, within, expect, waitFor } from "@storybook/test";
+import { userEvent, within, expect, waitFor } from "storybook/test";
 
 import TextEditor, { Mention, MentionsPlugin } from ".";
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
