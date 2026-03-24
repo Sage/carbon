@@ -7,6 +7,7 @@ We love contributions, so thanks for choosing to get involved with the Carbon pr
 - [Setting up dev environment](#setting-up-dev-environment)
 - [Codebase Overview](#codebase-overview)
 - [Testing](#testing)
+- [Keeping skills up to date](#keeping-skills-up-to-date)
 - [Semantic Versioning](#semantic-versioning)
 - [Git commit messages](#git-commit-messages)
 - [Contributor License Agreement (CLA)](#contributor-license-agreement-cla)
@@ -23,6 +24,18 @@ More details can be found in our [Codebase Overview](contributing/codebase-overv
 ## Testing
 
 More details about how we test can be found in our [Testing Guide](contributing/testing-guide.md).
+
+## Keeping skills up to date
+
+Updating skills is a required part of the contribution process. When making changes that affect a component's API, props, behaviour, usage patterns or documentation the corresponding skill file(s) in `skills/` **must** be updated to reflect those changes.
+
+Failure to keep skills in sync with the codebase will result in a **lint failure**, blocking your pull request from being merged.
+
+When updating a component, update its skills file alongside your code changes in the same pull request. In many cases, running the build command will automatically generate the required skill changes for you:
+
+```shell
+npm run build:skills
+```
 
 ## Bugs
 

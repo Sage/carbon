@@ -1,3 +1,33 @@
+## [158.38.1](https://github.com/Sage/carbon/compare/v158.38.0...v158.38.1) (2026-03-24)
+
+### Bug Fixes
+
+* **text-editor:** text formatting doesn't apply to typography options different than paragraph ([c1e78af](https://github.com/Sage/carbon/commit/c1e78af32cf5e14fca97424d2125c481c5e6eec2))
+
+## [158.38.0](https://github.com/Sage/carbon/compare/v158.37.0...v158.38.0) (2026-03-19)
+
+### Features
+
+* **radio-button:** align with Fusion DS ([78ad453](https://github.com/Sage/carbon/commit/78ad45378ac1f6c3ca4e34687c07de516c49f887))
+
+## [158.37.0](https://github.com/Sage/carbon/compare/v158.36.0...v158.37.0) (2026-03-18)
+
+### Features
+
+* **box:** add support for aria-atomic prop ([5eb5768](https://github.com/Sage/carbon/commit/5eb5768beb3b644eea5b87a2541b47dbfbca9269))
+
+## [158.36.0](https://github.com/Sage/carbon/compare/v158.35.7...v158.36.0) (2026-03-17)
+
+### Features
+
+* **icon:** 12 new icons added ([832cf87](https://github.com/Sage/carbon/commit/832cf872726b34accb677a6337468e75b4daad0e))
+
+## [158.35.7](https://github.com/Sage/carbon/compare/v158.35.6...v158.35.7) (2026-03-12)
+
+### Bug Fixes
+
+* **link:** ensure styles are applies when rendered within Popover in Menu ([939c6d1](https://github.com/Sage/carbon/commit/939c6d157036f3a22f0e0881826aa113cfd70765)), closes [#7762](https://github.com/Sage/carbon/issues/7762)
+
 ## [158.35.6](https://github.com/Sage/carbon/compare/v158.35.5...v158.35.6) (2026-03-10)
 
 ### Bug Fixes

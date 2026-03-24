@@ -1,5 +1,5 @@
 import React from "react";
-import StyledCheckableInputSvgWrapper from "../../__internal__/checkable-input/checkable-input-svg-wrapper.style";
+import StyledCheckableInputSvgWrapper from "../../../__internal__/checkable-input/checkable-input-svg-wrapper.style";
 
 const RadioButtonSvg = () => {
   return (
@@ -11,7 +11,7 @@ const RadioButtonSvg = () => {
             fill="#FFFFFF"
             cx="7.5"
             cy="7.5"
-            r="5"
+            r="4"
           />
         </g>
       </svg>

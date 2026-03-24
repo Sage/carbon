@@ -1,117 +1,87 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
-import FieldHelpStyle from "../../__internal__/field-help/field-help.style";
-import CheckboxStyle from "../checkbox/checkbox.style";
 import HiddenCheckableInputStyle from "../../__internal__/checkable-input/hidden-checkable-input.style";
-import { StyledCheckableInput } from "../../__internal__/checkable-input/checkable-input.style";
 import StyledCheckableInputSvgWrapper from "../../__internal__/checkable-input/checkable-input-svg-wrapper.style";
-import { StyledLabelContainer } from "../../__internal__/label/label.style";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
-import FormFieldStyle from "../../__internal__/form-field/form-field.style";
-import { RadioButtonProps } from "./radio-button.component";
+import addFocusStyling from "../../style/utils/add-focus-styling";
 
-const RadioButtonStyle = styled(CheckboxStyle).attrs(applyBaseTheme)<
-  Pick<
-    RadioButtonProps,
-    "disabled" | "fieldHelpInline" | "reverse" | "size"
-  > & { inline?: boolean }
->`
-  ${({ disabled, fieldHelpInline, reverse, size, inline }) => css`
-    margin-bottom: var(--spacing150);
+const svgSize = {
+  small: {
+    size: "var(--global-size-3-xs)",
+  },
+  medium: {
+    size: "var(--global-size-xs)",
+  },
+  large: {
+    size: "var(--global-size-s)",
+  },
+};
 
-    :last-of-type {
-      margin-bottom: 0;
-    }
+interface RadioButtonStyleProps {
+  $isDisabled?: boolean;
+  $size: "small" | "medium" | "large";
+  $error?: boolean;
+}
 
-    && ${FormFieldStyle} {
-      margin: 0;
-    }
-
-    ${StyledCheckableInputSvgWrapper} {
-      padding: 0;
-    }
-
+const RadioButtonStyle = styled.div.attrs(
+  applyBaseTheme,
+)<RadioButtonStyleProps>`
+  ${({ $isDisabled, $size, $error }) => css`
     ${StyledCheckableInputSvgWrapper}, svg {
-      border-radius: var(--borderRadiusCircle);
+      border-radius: 999px;
     }
 
-    ${StyledCheckableInput},
+    ${HiddenCheckableInputStyle} {
+      position: absolute;
+      box-sizing: border-box;
+      min-height: var(--global-size-xs);
+    }
+
     ${HiddenCheckableInputStyle},
     ${StyledCheckableInputSvgWrapper},
     svg {
-      height: 16px;
-      width: 16px;
+      height: ${svgSize[$size].size};
+      width: ${svgSize[$size].size};
     }
 
     svg {
-      padding: 1px;
-    }
+      box-sizing: border-box;
+      background-color: var(--input-typical-bg-default);
+      border: 1px solid var(--input-typical-border-default);
 
-    circle {
-      r: 5;
-    }
-
-    ${StyledLabelContainer} {
-      flex: 1 1 calc(100% - 44px);
+      ${!$isDisabled &&
+      $error &&
+      css`
+        border: 2px solid var(--input-validation-border-error);
+      `}
     }
 
     ${HiddenCheckableInputStyle}:checked + ${StyledCheckableInputSvgWrapper} circle {
-      fill: var(--colorsUtilityYin090);
+      fill: var(--input-typical-icon-active);
     }
 
-    ${disabled &&
+    ${HiddenCheckableInputStyle}:not([disabled]) {
+      &:focus
+        + ${StyledCheckableInputSvgWrapper},
+        &:hover
+        + ${StyledCheckableInputSvgWrapper} {
+        ${addFocusStyling()}
+      }
+    }
+
+    ${$isDisabled &&
     css`
+      svg {
+        border: 1px solid var(--input-typical-border-disabled);
+        background-color: var(--input-typical-bg-disabled);
+      }
+
       circle {
-        fill: var(--colorsUtilityDisabled400);
+        fill: var(--input-typical-bg-disabled);
       }
 
       ${HiddenCheckableInputStyle}:checked + ${StyledCheckableInputSvgWrapper} circle {
-        fill: var(--colorsUtilityDisabled600);
-      }
-    `}
-
-    ${(fieldHelpInline || reverse) &&
-    `
-      ${FieldHelpStyle} {
-        margin-left: 0;
-        margin-right: 6px;
-      }
-
-      ${StyledLabelContainer} {
-        flex: 0 1 auto;
-      }
-    `}
-
-    ${size === "large" &&
-    css`
-      ${StyledCheckableInput},
-      ${HiddenCheckableInputStyle},
-      ${StyledCheckableInputSvgWrapper},
-      svg {
-        height: 24px;
-        width: 24px;
-      }
-
-      circle {
-        r: 3.75;
-      }
-
-      ${reverse &&
-      css`
-        ${!fieldHelpInline &&
-        `
-          ${FieldHelpStyle} {
-            padding: 0;
-          }
-        `}
-      `}
-    `}
-
-    ${inline &&
-    `
-      margin: 0;
-      &:not(:first-of-type) {
-        margin-left: 32px;
+        fill: var(--input-typical-icon-disabled);
       }
     `}
   `}

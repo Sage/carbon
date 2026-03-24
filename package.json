@@ -1,13 +1,13 @@
 {
   "name": "carbon-react",
-  "version": "158.35.6",
+  "version": "158.38.1",
   "description": "A library of reusable React components for easily building user interfaces.",
   "files": [
     "lib",
     "esm"
   ],
   "engines": {
-    "npm": ">=11.10.1"
+    "npm": ">=11.11.1"
   },
   "scripts": {
     "setup": "npm ci && npm run prepare",
@@ -79,7 +79,7 @@
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-url": "^8.0.2",
     "@sage/design-tokens": "^4.17.0",
-    "@sage/design-tokens-fusion": "npm:@sage/design-tokens@^18.2.0",
+    "@sage/design-tokens-fusion": "npm:@sage/design-tokens@^18.2.1",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/exec": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
