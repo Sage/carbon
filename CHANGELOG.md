@@ -1,3 +1,9 @@
+## [158.38.1](https://github.com/Sage/carbon/compare/v158.38.0...v158.38.1) (2026-03-24)
+
+### Bug Fixes
+
+* **text-editor:** text formatting doesn't apply to typography options different than paragraph ([c1e78af](https://github.com/Sage/carbon/commit/c1e78af32cf5e14fca97424d2125c481c5e6eec2))
+
 ## [158.38.0](https://github.com/Sage/carbon/compare/v158.37.0...v158.38.0) (2026-03-19)
 
 ### Features
