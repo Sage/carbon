@@ -14,6 +14,16 @@ const meta: Meta<typeof FileInput> = {
   argTypes: {
     ...styledSystemProps,
   },
+  parameters: {
+    themeProvider: {
+      chromatic: {
+        theme: "sage",
+      },
+    },
+    chromatic: {
+      disableSnapshot: true,
+    },
+  },
 };
 
 export default meta;
@@ -35,6 +45,9 @@ export const Required: Story = () => {
   return <FileInput label="File input" required onChange={() => {}} />;
 };
 Required.storyName = "Required";
+Required.parameters = {
+  chromatic: { disableSnapshot: false },
+};
 
 export const IncreasedHeight: Story = () => {
   return (
@@ -60,6 +73,9 @@ export const ResponsiveWidth: Story = () => {
   );
 };
 ResponsiveWidth.storyName = "Responsive Width";
+ResponsiveWidth.parameters = {
+  chromatic: { disableSnapshot: false },
+};
 
 export const IncreasedBoth: Story = () => {
   return (
@@ -73,16 +89,25 @@ export const IncreasedBoth: Story = () => {
   );
 };
 IncreasedBoth.storyName = "Increased Width and Height";
+IncreasedBoth.parameters = {
+  chromatic: { disableSnapshot: false },
+};
 
 export const FullWidth: Story = () => {
   return <FileInput label="File input" maxWidth="100%" onChange={() => {}} />;
 };
 FullWidth.storyName = "Full Width";
+FullWidth.parameters = {
+  chromatic: { disableSnapshot: false },
+};
 
 export const Vertical: Story = () => {
   return <FileInput label="File input" isVertical onChange={() => {}} />;
 };
 Vertical.storyName = "Vertical";
+Vertical.parameters = {
+  chromatic: { disableSnapshot: false },
+};
 
 export const Accept: Story = () => {
   return (
