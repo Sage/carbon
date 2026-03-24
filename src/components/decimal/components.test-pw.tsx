@@ -82,65 +82,13 @@ export const WithCustomPrecision = () => {
 
 export const LabelInline = () => <DefaultStory labelInline />;
 
-export const WithCustomLabelWidthAndInputWidth = (
-  props: Partial<DecimalProps>,
-) => <DefaultStory labelWidth={10} inputWidth={90} labelInline {...props} />;
-
-export const WithCustomMaxWidth = () => <DefaultStory maxWidth="50%" />;
-
 export const WithFieldHelp = (props: Partial<DecimalProps>) => (
   <DefaultStory fieldHelp="Help" {...props} />
 );
 
-export const WithLabelHelp = (props: Partial<DecimalProps>) => (
-  <DefaultStory labelHelp="Help" helpAriaLabel="Help" {...props} />
-);
-
 export const Required = () => <DefaultStory required />;
 
-export const LeftAligned = () => <DefaultStory align="left" />;
-
 type Validation = "error" | "warning" | "info";
-
-export const Validations = (
-  args: Partial<DecimalProps> & { message?: string | boolean },
-) => {
-  const [state, setState] = useState({
-    error: "0.01",
-    warning: "0.01",
-    info: "0.01",
-  });
-
-  const handleChange = (validation: Validation) => (e: CustomEvent) => {
-    setState({ ...state, [validation]: e.target.value.rawValue });
-  };
-
-  return (
-    <>
-      {(["error", "warning", "info"] as const).map((validationType) => (
-        <div key={`${validationType}`}>
-          <Decimal
-            label="Decimal"
-            value={state[validationType]}
-            onChange={handleChange(validationType)}
-            {...{ [validationType]: args.message }}
-            mb={2}
-            {...args}
-          />
-          <Decimal
-            label="Decimal - readOnly"
-            value={state[validationType]}
-            onChange={handleChange(validationType)}
-            readOnly
-            {...{ [validationType]: args.message }}
-            mb={2}
-            {...args}
-          />
-        </div>
-      ))}
-    </>
-  );
-};
 
 export const ValidationsStringComponent = () => (
   <DefaultStory message="Message" />

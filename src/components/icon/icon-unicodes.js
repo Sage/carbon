@@ -288,6 +288,18 @@ const misc = {
   at_sign: "\\f093",
   link_card: "\\f094",
   time_zone: "\\f095",
+  arrow_top_right_circle: "\\f096",
+  clear: "\\f097",
+  diagonal_arrows_up: "\\f098",
+  double_tick: "\\f099",
+  flash: "\\f100",
+  get_quote: "\\f101",
+  heart: "\\f102",
+  ipad: "\\f103",
+  reset: "\\f104",
+  user_groups: "\\f105",
+  chart_bar_arrow_up: "\\f106",
+  login: "\\f107",
 };
 
 const legacyNames = {
