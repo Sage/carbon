@@ -1,3 +1,9 @@
+## [158.38.2](https://github.com/Sage/carbon/compare/v158.38.1...v158.38.2) (2026-03-24)
+
+### Bug Fixes
+
+* **text-editor:** update hyperlink dialog buttons to use translations ([873f687](https://github.com/Sage/carbon/commit/873f687be48d0b30fc71c28546dc8cc6e6959d1a))
+
 ## [158.38.1](https://github.com/Sage/carbon/compare/v158.38.0...v158.38.1) (2026-03-24)
 
 ### Bug Fixes
