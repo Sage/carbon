@@ -5,6 +5,7 @@ import { userEvent, within, expect, waitFor } from "@storybook/test";
 import TextEditor, { Mention, MentionsPlugin } from ".";
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
 import DefaultDecorator from "../../../.storybook/utils/default-decorator";
+import CarbonProvider from "../carbon-provider";
 
 type Story = StoryObj<typeof TextEditor>;
 
@@ -148,5 +149,118 @@ export const OpenMentionsPopoverProfileImage: Story = {
 OpenMentionsPopoverProfileImage.storyName =
   "Open Mentions Popover - Highlight Profile Image";
 OpenMentionsPopoverProfileImage.parameters = {
+  chromatic: { disableSnapshot: false },
+};
+
+const renderHyperlinkEditor = () => (
+  <TextEditor
+    namespace="storybook-hyperlink-interaction"
+    labelText="Text Editor"
+    inputHint="Click the link button to add a hyperlink"
+    toolbarControls={["link"]}
+  />
+);
+
+export const OpenHyperlinkDialog: Story = {
+  render: renderHyperlinkEditor,
+  play: async ({ canvasElement }) => {
+    if (!allowInteractions()) {
+      return;
+    }
+
+    const hyperlinkButton = canvasElement.ownerDocument.querySelector(
+      "button[data-role='storybook-hyperlink-interaction-hyperlink-button']",
+    );
+
+    if (hyperlinkButton) {
+      await userEvent.click(hyperlinkButton);
+    }
+
+    await waitFor(() => {
+      const hyperlinkDialog = canvasElement.ownerDocument.querySelector(
+        "div[data-role='storybook-hyperlink-interaction-hyperlink-dialog']",
+      );
+
+      expect(hyperlinkDialog).toBeVisible();
+    });
+  },
+  decorators: [
+    (StoryToRender) => (
+      <DefaultDecorator>
+        <StoryToRender />
+      </DefaultDecorator>
+    ),
+  ],
+};
+
+const renderHyperlinkEditorWithValidationRedesign = () => (
+  <CarbonProvider validationRedesignOptIn>
+    <TextEditor
+      namespace="storybook-hyperlink-interaction"
+      labelText="Text Editor"
+      inputHint="Click the link button to add a hyperlink"
+      toolbarControls={["link"]}
+    />
+  </CarbonProvider>
+);
+
+OpenHyperlinkDialog.storyName = "Open Hyperlink Dialog";
+OpenHyperlinkDialog.parameters = {
+  chromatic: { disableSnapshot: false },
+};
+
+export const OpenHyperlinkDialogWithErrors: Story = {
+  render: renderHyperlinkEditorWithValidationRedesign,
+  play: async ({ canvasElement }) => {
+    if (!allowInteractions()) {
+      return;
+    }
+
+    const hyperlinkButton = canvasElement.ownerDocument.querySelector(
+      "button[data-role='storybook-hyperlink-interaction-hyperlink-button']",
+    );
+
+    if (hyperlinkButton) {
+      await userEvent.click(hyperlinkButton);
+    }
+
+    await waitFor(() => {
+      const hyperlinkDialog = canvasElement.ownerDocument.querySelector(
+        "div[data-role='storybook-hyperlink-interaction-hyperlink-dialog']",
+      );
+
+      expect(hyperlinkDialog).toBeVisible();
+    });
+
+    const saveButton = canvasElement.ownerDocument.querySelector(
+      "button[data-role='storybook-hyperlink-interaction-hyperlink-save-button']",
+    );
+
+    if (saveButton) {
+      await userEvent.click(saveButton);
+    }
+
+    await waitFor(() => {
+      const validationMessages = canvasElement.ownerDocument.querySelectorAll(
+        "p[data-role='validation-message']",
+      );
+
+      expect(validationMessages).toHaveLength(2);
+      validationMessages.forEach((message) => {
+        expect(message).toBeVisible();
+      });
+    });
+  },
+  decorators: [
+    (StoryToRender) => (
+      <DefaultDecorator>
+        <StoryToRender />
+      </DefaultDecorator>
+    ),
+  ],
+};
+
+OpenHyperlinkDialogWithErrors.storyName = "Open Hyperlink Dialog With Errors";
+OpenHyperlinkDialogWithErrors.parameters = {
   chromatic: { disableSnapshot: false },
 };
