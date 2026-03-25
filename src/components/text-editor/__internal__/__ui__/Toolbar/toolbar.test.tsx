@@ -11,6 +11,7 @@ import userEvent from "@testing-library/user-event";
 import { ToolbarPlugin } from "..";
 import TextEditor from "../../../text-editor.component";
 import { createFromHTML } from "../../__utils__/helpers";
+import CarbonProvider from "../../../../carbon-provider";
 
 /*
  * `getBoundingClientRect` is not implemented on `Range` objects in jsdom.
@@ -960,5 +961,310 @@ describe("Customisation", () => {
     );
     const linkButton = screen.getByTestId("test-hyperlink-button");
     expect(linkButton).toHaveAttribute("tabindex", "0");
+  });
+});
+
+describe("Hyperlink dialog selected text population", () => {
+  it("populates the text field with selected text when the dialog is opened", async () => {
+    const user = userEvent.setup();
+    const mockOnChange = jest.fn();
+
+    render(
+      <TextEditor
+        labelText="Test Editor"
+        namespace="test"
+        onChange={mockOnChange}
+        initialValue={createFromHTML("<p>Hello world!</p>")}
+      />,
+    );
+
+    const editor = screen.getByRole("textbox");
+    await user.tripleClick(editor);
+
+    const hyperlinkButton = screen.getByTestId("test-hyperlink-button");
+    await user.click(hyperlinkButton);
+
+    const dialog = await screen.findByRole("dialog");
+    expect(dialog).toBeInTheDocument();
+
+    const dialogContent = within(dialog);
+    const textFields = dialogContent.getAllByRole("textbox");
+    expect(textFields[0]).toHaveValue("Hello world!");
+  });
+
+  it("does not populate the text field if no text is selected", async () => {
+    const user = userEvent.setup();
+    const mockOnChange = jest.fn();
+
+    render(
+      <TextEditor
+        labelText="Test Editor"
+        namespace="test"
+        onChange={mockOnChange}
+        initialValue={createFromHTML("<p>Hello world!</p>")}
+      />,
+    );
+
+    const editor = screen.getByRole("textbox");
+    await user.click(editor);
+
+    const hyperlinkButton = screen.getByTestId("test-hyperlink-button");
+    await user.click(hyperlinkButton);
+
+    const dialog = await screen.findByRole("dialog");
+    expect(dialog).toBeInTheDocument();
+
+    const dialogContent = within(dialog);
+    const textFields = dialogContent.getAllByRole("textbox");
+    expect(textFields[0]).toHaveValue("");
+  });
+});
+
+describe("Hyperlink dialog validation", () => {
+  beforeEach(() => {
+    jest.useFakeTimers();
+  });
+
+  afterEach(() => {
+    jest.useRealTimers();
+  });
+
+  it("displays an error when the text field is empty on submit", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    const mockOnChange = jest.fn();
+
+    render(
+      <CarbonProvider validationRedesignOptIn>
+        <TextEditor
+          labelText="Test Editor"
+          namespace="test"
+          onChange={mockOnChange}
+          initialValue={createFromHTML("<p>Hello world!</p>")}
+        />
+        ,
+      </CarbonProvider>,
+    );
+
+    const hyperlinkButton = screen.getByTestId("test-hyperlink-button");
+    await user.click(hyperlinkButton);
+
+    const dialog = await screen.findByRole("dialog");
+    expect(dialog).toBeInTheDocument();
+
+    const dialogContent = within(dialog);
+    const textFields = dialogContent.getAllByRole("textbox");
+    const linkTextField = textFields[0];
+    const linkUrlField = textFields[1];
+    await user.type(linkUrlField, "https://example.com");
+
+    const submitButton = dialogContent.getByRole("button", {
+      name: "Save",
+    });
+    await user.click(submitButton);
+
+    await waitFor(() => {
+      expect(linkTextField).toHaveAttribute("aria-invalid", "true");
+    });
+    await waitFor(() => {
+      expect(linkTextField).toHaveAccessibleDescription("Enter link text");
+    });
+  });
+
+  it("displays an error when the link field is empty on submit", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    const mockOnChange = jest.fn();
+
+    render(
+      <CarbonProvider validationRedesignOptIn>
+        <TextEditor
+          labelText="Test Editor"
+          namespace="test"
+          onChange={mockOnChange}
+          initialValue={createFromHTML("<p>Hello world!</p>")}
+        />
+        ,
+      </CarbonProvider>,
+    );
+
+    const hyperlinkButton = screen.getByTestId("test-hyperlink-button");
+    await user.click(hyperlinkButton);
+
+    const dialog = await screen.findByRole("dialog");
+    expect(dialog).toBeInTheDocument();
+
+    const dialogContent = within(dialog);
+    const textFields = dialogContent.getAllByRole("textbox");
+    const linkTextField = textFields[0];
+    const linkUrlField = textFields[1];
+    await user.type(linkTextField, "Click here");
+
+    const submitButton = dialogContent.getByRole("button", {
+      name: "Save",
+    });
+    await user.click(submitButton);
+
+    await waitFor(() => {
+      expect(linkUrlField).toHaveAttribute("aria-invalid", "true");
+    });
+
+    await waitFor(() => {
+      expect(linkUrlField).toHaveAccessibleDescription("Enter link address");
+    });
+  });
+
+  it("clears an error state when the user types into a field", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    const mockOnChange = jest.fn();
+
+    render(
+      <CarbonProvider validationRedesignOptIn>
+        <TextEditor
+          labelText="Test Editor"
+          namespace="test"
+          onChange={mockOnChange}
+          initialValue={createFromHTML("<p>Hello world!</p>")}
+        />
+      </CarbonProvider>,
+    );
+
+    const hyperlinkButton = screen.getByTestId("test-hyperlink-button");
+    await user.click(hyperlinkButton);
+
+    const dialog = await screen.findByRole("dialog");
+    expect(dialog).toBeInTheDocument();
+
+    const dialogContent = within(dialog);
+    const textFields = dialogContent.getAllByRole("textbox");
+    const linkTextField = textFields[0];
+    const linkUrlField = textFields[1];
+
+    const submitButton = dialogContent.getByRole("button", {
+      name: "Save",
+    });
+    await user.click(submitButton);
+
+    await waitFor(() => {
+      expect(linkTextField).toHaveAttribute("aria-invalid", "true");
+    });
+
+    await waitFor(() => {
+      expect(linkUrlField).toHaveAttribute("aria-invalid", "true");
+    });
+
+    await user.type(linkTextField, "Click here");
+
+    await waitFor(() => {
+      expect(linkTextField).not.toHaveAttribute("aria-invalid", "true");
+    });
+
+    await waitFor(() => {
+      expect(linkTextField).not.toHaveAccessibleDescription("Enter link text");
+    });
+
+    expect(linkUrlField).toHaveAttribute("aria-invalid", "true");
+    expect(linkUrlField).toHaveAccessibleDescription("Enter link address");
+  });
+
+  it("focuses the text field when both fields are empty on submit", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    const mockOnChange = jest.fn();
+
+    render(
+      <CarbonProvider validationRedesignOptIn>
+        <TextEditor
+          labelText="Test Editor"
+          namespace="test"
+          onChange={mockOnChange}
+          initialValue={createFromHTML("<p>Hello world!</p>")}
+        />
+      </CarbonProvider>,
+    );
+
+    const hyperlinkButton = screen.getByTestId("test-hyperlink-button");
+    await user.click(hyperlinkButton);
+
+    const dialog = await screen.findByRole("dialog");
+    const dialogContent = within(dialog);
+    const textFields = dialogContent.getAllByRole("textbox");
+    const linkTextField = textFields[0];
+
+    const submitButton = dialogContent.getByRole("button", {
+      name: "Save",
+    });
+    await user.click(submitButton);
+
+    await waitFor(() => {
+      expect(linkTextField).toHaveFocus();
+    });
+  });
+
+  it("focuses the text field when only the text field is empty on submit", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    const mockOnChange = jest.fn();
+
+    render(
+      <CarbonProvider validationRedesignOptIn>
+        <TextEditor
+          labelText="Test Editor"
+          namespace="test"
+          onChange={mockOnChange}
+          initialValue={createFromHTML("<p>Hello world!</p>")}
+        />
+      </CarbonProvider>,
+    );
+
+    const hyperlinkButton = screen.getByTestId("test-hyperlink-button");
+    await user.click(hyperlinkButton);
+
+    const dialog = await screen.findByRole("dialog");
+    const dialogContent = within(dialog);
+    const textFields = dialogContent.getAllByRole("textbox");
+    const linkTextField = textFields[0];
+    const linkUrlField = textFields[1];
+    await user.type(linkUrlField, "https://example.com");
+
+    const submitButton = dialogContent.getByRole("button", {
+      name: "Save",
+    });
+    await user.click(submitButton);
+
+    await waitFor(() => {
+      expect(linkTextField).toHaveFocus();
+    });
+  });
+
+  it("focuses the link field when only the link field is empty on submit", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    const mockOnChange = jest.fn();
+
+    render(
+      <CarbonProvider validationRedesignOptIn>
+        <TextEditor
+          labelText="Test Editor"
+          namespace="test"
+          onChange={mockOnChange}
+          initialValue={createFromHTML("<p>Hello world!</p>")}
+        />
+      </CarbonProvider>,
+    );
+
+    const hyperlinkButton = screen.getByTestId("test-hyperlink-button");
+    await user.click(hyperlinkButton);
+
+    const dialog = await screen.findByRole("dialog");
+    const dialogContent = within(dialog);
+    const textFields = dialogContent.getAllByRole("textbox");
+    const linkTextField = textFields[0];
+    const linkUrlField = textFields[1];
+    await user.type(linkTextField, "Click here");
+
+    const submitButton = dialogContent.getByRole("button", {
+      name: "Save",
+    });
+    await user.click(submitButton);
+
+    await waitFor(() => {
+      expect(linkUrlField).toHaveFocus();
+    });
   });
 });
