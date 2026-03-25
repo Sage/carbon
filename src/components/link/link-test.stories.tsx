@@ -57,7 +57,7 @@ export const Default: Story = {
   },
 };
 
-export const AllVariantsWithIcons: Story = {
+export const AllVariants: Story = {
   render: (args) => (
     <>
       <Box p={2} display="flex" flexDirection="row" gap={4}>
@@ -140,6 +140,48 @@ export const AllVariantsWithIcons: Story = {
           </Link>
         </Typography>
       </Box>
+      <Box p={2} display="flex" flexDirection="row" gap={4}>
+        <Typography>
+          <Link>Default link</Link>
+        </Typography>
+        <Typography>
+          <Link bold>Default bold</Link>
+        </Typography>
+        <Typography>
+          <Link disabled>Disabled</Link>
+        </Typography>
+        <Typography>
+          <Link linkSize="large">Large Default link</Link>
+        </Typography>
+      </Box>
+      <Box p={2} display="flex" flexDirection="row" gap={4}>
+        <Typography>
+          <Link underline="hover">Default no underline</Link>
+        </Typography>
+        <Typography>
+          <Link linkSize="large" underline="hover">
+            Large no underline
+          </Link>
+        </Typography>
+      </Box>
+      <Box
+        padding="25px"
+        width="250px"
+        backgroundColor="--colorsUtilityMajor025"
+      >
+        <Typography>We&apos;ll be sorry to see you go</Typography>
+        <Typography>
+          If your subscription isn&apos;t quite right, we can help you{" "}
+          <Link
+            href="http://carbon.sage.com"
+            target="_blank"
+            icon="settings"
+            {...args}
+          >
+            find one that suits your business needs (new tab)
+          </Link>
+        </Typography>
+      </Box>
     </>
   ),
   args: {
@@ -147,9 +189,10 @@ export const AllVariantsWithIcons: Story = {
     icon: "settings",
   },
 };
+AllVariants.parameters = { chromatic: { disableSnapshot: false } };
 
 export const AllVariantsOnHover: Story = {
-  ...AllVariantsWithIcons,
+  ...AllVariants,
   args: {
     href: "https://carbon.sage.com",
     icon: "settings",
@@ -161,6 +204,7 @@ export const AllVariantsOnHover: Story = {
     },
   },
 };
+AllVariantsOnHover.parameters = { chromatic: { disableSnapshot: false } };
 
 export const FlexContainer = () => {
   const link = (
@@ -246,31 +290,6 @@ LinkComponentWithAnImage.parameters = {
     focus: '[data-role="target"] a',
   },
 };
-
-export const LinkThatWraps: Story = {
-  render: (args) => (
-    <Box padding="25px" width="250px" backgroundColor="--colorsUtilityMajor025">
-      <Typography>We&apos;ll be sorry to see you go</Typography>
-      <Typography>
-        If your subscription isn&apos;t quite right, we can help you{" "}
-        <Link
-          href="http://carbon.sage.com"
-          target="_blank"
-          icon="settings"
-          {...args}
-        >
-          find one that suits your business needs (new tab)
-        </Link>
-      </Typography>
-    </Box>
-  ),
-  parameters: { chromatic: { disableSnapshot: false } },
-};
-
-export const Disabled = () => {
-  return <Link disabled>This is a disabled anchor link</Link>;
-};
-Disabled.storyName = "Disabled";
 
 export const WithTooltip: Story = () => {
   return (
