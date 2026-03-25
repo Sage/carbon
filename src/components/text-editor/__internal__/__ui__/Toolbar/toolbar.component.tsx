@@ -363,7 +363,7 @@ const Toolbar = ({
                   }
                 }
               >
-                Cancel
+                {locale.textEditor.cancelButton()}
               </Button>
             }
             saveButton={
@@ -373,7 +373,7 @@ const Toolbar = ({
                 disabled={!dialogSaveButtonEnabled}
                 data-role={`${namespace}-hyperlink-save-button`}
               >
-                Save
+                {locale.textEditor.saveButton()}
               </Button>
             }
             onSubmit={handleSubmit}

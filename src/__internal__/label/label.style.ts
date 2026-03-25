@@ -19,6 +19,11 @@ const StyledLabel = styled.label<StyledLabelProps>`
   `}
   display: block;
   font-weight: var(--fontWeights500);
+
+  &:hover {
+    cursor: pointer;
+  }
+
   ${({ isLarge }) =>
     isLarge &&
     css`
@@ -40,6 +45,9 @@ const StyledLabel = styled.label<StyledLabelProps>`
     disabled &&
     css`
       color: var(--colorsUtilityYin030);
+      &:hover {
+        cursor: not-allowed;
+      }
     `}
 `;
 

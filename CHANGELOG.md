@@ -1,3 +1,21 @@
+## [158.38.2](https://github.com/Sage/carbon/compare/v158.38.1...v158.38.2) (2026-03-24)
+
+### Bug Fixes
+
+* **text-editor:** update hyperlink dialog buttons to use translations ([873f687](https://github.com/Sage/carbon/commit/873f687be48d0b30fc71c28546dc8cc6e6959d1a))
+
+## [158.38.1](https://github.com/Sage/carbon/compare/v158.38.0...v158.38.1) (2026-03-24)
+
+### Bug Fixes
+
+* **text-editor:** text formatting doesn't apply to typography options different than paragraph ([c1e78af](https://github.com/Sage/carbon/commit/c1e78af32cf5e14fca97424d2125c481c5e6eec2))
+
+## [158.38.0](https://github.com/Sage/carbon/compare/v158.37.0...v158.38.0) (2026-03-19)
+
+### Features
+
+* **radio-button:** align with Fusion DS ([78ad453](https://github.com/Sage/carbon/commit/78ad45378ac1f6c3ca4e34687c07de516c49f887))
+
 ## [158.37.0](https://github.com/Sage/carbon/compare/v158.36.0...v158.37.0) (2026-03-18)
 
 ### Features
