@@ -1,3 +1,9 @@
+## [158.38.3](https://github.com/Sage/carbon/compare/v158.38.2...v158.38.3) (2026-03-25)
+
+### Bug Fixes
+
+* **search:** ensure cursor in dark variant has correct colour ([041fd7f](https://github.com/Sage/carbon/commit/041fd7f88f6e947e17ebd4fad96d8e5e4e6781b4)), closes [#7814](https://github.com/Sage/carbon/issues/7814)
+
 ## [158.38.2](https://github.com/Sage/carbon/compare/v158.38.1...v158.38.2) (2026-03-24)
 
 ### Bug Fixes
