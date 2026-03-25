@@ -322,14 +322,14 @@ test("should apply the `medium` `size` styling to inputs and toggles by default"
     padding: horizontalPadding,
   });
   expect(amToggle).toHaveStyle({
-    minHeight: `${heightConfig.medium}px`,
-    padding: `0 ${paddingConfig.medium}px`,
-    "font-size": `${fontSizeConfig.medium}px`,
+    minHeight: heightConfig.medium,
+    padding: `0 ${paddingConfig.medium}`,
+    "font-size": fontSizeConfig.medium,
   });
   expect(pmToggle).toHaveStyle({
-    minHeight: `${heightConfig.medium}px`,
-    padding: `0 ${paddingConfig.medium}px`,
-    "font-size": `${fontSizeConfig.medium}px`,
+    minHeight: heightConfig.medium,
+    padding: `0 ${paddingConfig.medium}`,
+    "font-size": fontSizeConfig.medium,
   });
 });
 
@@ -359,14 +359,14 @@ it.each(["small", "medium", "large"] as const)(
       padding: horizontalPadding,
     });
     expect(amToggle).toHaveStyle({
-      minHeight: `${heightConfig[size]}px`,
-      padding: `0 ${paddingConfig[size]}px`,
-      "font-size": `${fontSizeConfig[size]}px`,
+      minHeight: heightConfig[size],
+      padding: `0 ${paddingConfig[size]}`,
+      "font-size": fontSizeConfig[size],
     });
     expect(pmToggle).toHaveStyle({
-      minHeight: `${heightConfig[size]}px`,
-      padding: `0 ${paddingConfig[size]}px`,
-      "font-size": `${fontSizeConfig[size]}px`,
+      minHeight: heightConfig[size],
+      padding: `0 ${paddingConfig[size]}`,
+      "font-size": fontSizeConfig[size],
     });
   },
 );

@@ -73,11 +73,11 @@ const StyledButtonToggle = styled.button.attrs(
   background-color: transparent;
   cursor: pointer;
   text-align: center;
-  color: var(--colorsActionMinor500);
+  color: var(--button-typical-toggle-label-default);
   border: none;
 
   ${StyledIcon} {
-    color: var(--colorsActionMinor500);
+    color: var(--button-typical-toggle-label-default);
     height: var(--sizing250);
     width: var(--sizing250);
   }
@@ -103,19 +103,19 @@ const StyledButtonToggle = styled.button.attrs(
   }
 
   &:not(:disabled):hover {
-    background-color: var(--colorsActionMinor600);
-    color: var(--colorsActionMinorYang100);
+    background-color: var(--button-typical-toggle-bg-hover);
+    color: var(--button-typical-toggle-label-hover);
     ${StyledIcon} {
-      color: var(--colorsActionMinorYang100);
+      color: var(--button-typical-toggle-label-hover);
     }
   }
 
   &[aria-pressed="true"] {
-    background-color: var(--colorsActionMinor850);
-    color: var(--colorsActionMinorYang100);
+    background-color: var(--button-typical-toggle-bg-active);
+    color: var(--button-typical-toggle-label-active);
 
     ${StyledIcon} {
-      color: var(--colorsActionMinorYang100);
+      color: var(--button-typical-toggle-label-active);
     }
 
     ${({ allowDeselect }) =>
@@ -131,15 +131,20 @@ const StyledButtonToggle = styled.button.attrs(
       cursor: not-allowed;
 
       & {
-        color: var(--colorsActionMinorYin030);
+        color: var(--button-typical-toggle-label-disabled);
         ${StyledIcon} {
-          color: var(--colorsActionMinorYin030);
+          color: var(--button-typical-toggle-label-disabled);
         }
       }
 
       &[aria-pressed="true"] {
         cursor: not-allowed;
-        background-color: var(--colorsActionMinorYin030);
+        background-color: var(--button-typical-toggle-bg-active-disabled);
+        color: var(--button-typical-toggle-label-active-disabled);
+
+        ${StyledIcon} {
+          color: var(--button-typical-toggle-label-active-disabled);
+        }
       }
     `}
 `;

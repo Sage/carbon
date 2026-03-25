@@ -19,10 +19,10 @@ const StyledButtonToggleGroup = styled.div
   ${margin}
 
   display: flex;
-  box-shadow: inset 0px 0px 0px 1px var(--colorsActionMinor500);
+  box-shadow: inset 0px 0px 0px 1px var(--button-typical-toggle-border-default);
   border-radius: var(--borderRadius100);
-  padding: 4px;
-  gap: 4px;
+  padding: var(--spacing050);
+  gap: var(--spacing050);
   width: fit-content;
   height: fit-content;
   flex-wrap: ${({ labelInline }) => (labelInline ? "nowrap" : "wrap")};
@@ -31,7 +31,8 @@ const StyledButtonToggleGroup = styled.div
     disabled &&
     css`
       cursor: not-allowed;
-      box-shadow: inset 0px 0px 0px 1px var(--colorsActionDisabled600);
+      box-shadow: inset 0px 0px 0px 1px
+        var(--button-typical-toggle-border-disabled);
     `}
 
   ${({ fullWidth }) =>
