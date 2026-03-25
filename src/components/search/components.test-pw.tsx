@@ -16,23 +16,6 @@ export const SearchComponent = (
   );
 };
 
-export const SearchComponentLightBackground = (
-  props: Omit<SearchProps, "onChange" | "value">,
-) => {
-  const [value, setValue] = React.useState("");
-  return (
-    <Box width="700px" height="108px" bg="#FFFFFF">
-      <Search
-        placeholder="Search..."
-        onChange={(e) => setValue(e.target.value)}
-        value={value}
-        searchButton
-        {...props}
-      />
-    </Box>
-  );
-};
-
 export const SearchComponentDarkBackground = (
   props: Omit<SearchProps, "onChange" | "value">,
 ) => {
@@ -44,7 +27,6 @@ export const SearchComponentDarkBackground = (
         onChange={(e) => setValue(e.target.value)}
         value={value}
         variant="dark"
-        searchButton
         {...props}
       />
     </Box>
