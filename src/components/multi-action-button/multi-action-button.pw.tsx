@@ -886,7 +886,7 @@ test.describe("Accessibility tests", () => {
   }) => {
     await mount(<InOverflowHiddenContainer />);
 
-    await getDataElementByValue(page, "accordion-title-container").click();
+    await page.getByRole("button", { name: "Heading" }).click();
     await page.getByRole("button", { name: "Multi Action Button" }).click();
     await checkAccessibility(page);
   });

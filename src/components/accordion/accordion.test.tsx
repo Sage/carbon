@@ -340,13 +340,6 @@ describe("Accordion", () => {
   });
 
   // coverage
-  it("renders with validation icon and tooltip when `error` is set", () => {
-    render(<Accordion title="Title" error="Error message" />);
-
-    expect(screen.getByTestId("icon-error")).toBeVisible();
-  });
-
-  // coverage
   it("renders with expected styles with `iconAlign` is set to 'right'", () => {
     render(<Accordion title="Title" iconAlign="right" />);
 

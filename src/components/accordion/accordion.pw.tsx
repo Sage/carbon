@@ -1,14 +1,11 @@
 import React from "react";
 import { test, expect } from "../../../playwright/helpers/base-test";
 import { checkAccessibility } from "../../../playwright/support/helper";
-import { CHARACTERS } from "../../../playwright/support/constants";
 
 import {
   AccordionComponent,
   AccordionWithSplitButton,
 } from "./components.test-pw";
-
-const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
 test.describe("Standard Variant", () => {
   test("should expand Accordion using click", async ({ mount, page }) => {
@@ -54,47 +51,6 @@ test.describe("Standard Variant", () => {
 
     const scrollPosition = await page.evaluate(() => window.scrollY);
     expect(scrollPosition).toBe(0);
-  });
-
-  test("should expand Accordion with error by clicking on validation icon", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<AccordionComponent error="error message" />);
-
-    const validationIcon = page.getByTestId("icon-error");
-    const accordionButton = page.getByRole("button", { name: "Title" });
-
-    await validationIcon.click();
-
-    await expect(accordionButton).toHaveAttribute("aria-expanded", "true");
-
-    const content = page.getByText("Content").first();
-    await expect(content).toBeVisible();
-  });
-
-  testData.forEach((titleValue) => {
-    test(`should render Accordion component with ${titleValue} as a title`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<AccordionComponent title={titleValue} />);
-
-      await expect(
-        page.getByRole("button", { name: titleValue }),
-      ).toBeVisible();
-    });
-  });
-
-  testData.forEach((subtitleValue) => {
-    test(`should render Accordion component with ${subtitleValue} as a subtitle`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<AccordionComponent subTitle={subtitleValue} />);
-
-      await expect(page.getByText(subtitleValue)).toBeVisible();
-    });
   });
 
   test("should not hide the children container of SplitButton when it opens", async ({

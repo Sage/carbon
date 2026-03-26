@@ -19,21 +19,25 @@ const sizeMap = {
   },
 };
 
+interface StyledAccordionProps {
+  $borders?: "default" | "full" | "none";
+  $width?: string;
+  $variant?: "standard" | "simple";
+  $isExpanded?: boolean;
+  $allowMotion?: boolean;
+  // only used to set standard variant styles
+  $size?: "small" | "medium";
+  $iconAlign?: "left" | "right";
+  $height?: string | number;
+}
+
 export const StyledAccordionGroup = styled.div.attrs(applyBaseTheme)`
   ${margin}
 `;
 
-interface StyledAccordionContainerProps {
-  $borders?: "default" | "full" | "none";
-  $width?: string;
-  $variant?: "standard" | "simple";
-  $isExpanded: boolean;
-  $allowMotion?: boolean;
-}
-
 export const StyledAccordionContainer = styled.div.attrs(
   applyBaseTheme,
-)<StyledAccordionContainerProps>`
+)<StyledAccordionProps>`
   display: flex;
   align-items: stretch;
   justify-content: center;
@@ -77,33 +81,28 @@ export const StyledAccordionContainer = styled.div.attrs(
   }
 `;
 
-interface StyledAccordionTitleProps {
-  $size: "small" | "medium";
-}
-
-export const StyledAccordionTitle = styled.h3<StyledAccordionTitleProps>`
-  ${({ $size }) => css`
-    font: ${sizeMap[$size].titleFont};
-  `}
+export const StyledAccordionTitle = styled.h3<StyledAccordionProps>`
+  ${({ $size }) =>
+    $size &&
+    css`
+      font: ${sizeMap[$size].titleFont};
+    `}
 
   color: var(--container-action-txt-default);
   margin: 0;
 `;
 
-export const StyledAccordionSubTitle = styled.span<StyledAccordionTitleProps>`
-  ${({ $size }) => css`
-    font: ${sizeMap[$size].subtitleFont};
-  `}
+export const StyledAccordionSubTitle = styled.span<StyledAccordionProps>`
+  ${({ $size }) =>
+    $size &&
+    css`
+      font: ${sizeMap[$size].subtitleFont};
+    `}
 
   color: var(--container-action-txt-alt-default);
 `;
 
-interface StyledAccordionIconProps {
-  $isExpanded?: boolean;
-  $allowMotion?: boolean;
-}
-
-export const StyledAccordionIcon = styled(Icon)<StyledAccordionIconProps>`
+export const StyledAccordionIcon = styled(Icon)<StyledAccordionProps>`
   width: var(--global-size-2-xs);
   height: var(--global-size-2-xs);
   color: var(--container-action-icon-default);
@@ -130,37 +129,34 @@ export const StyledAccordionTitleWrapper = styled.div`
   flex: 1 0 0;
 `;
 
-interface StyledAccordionTitleContainerProps {
-  $size: "small" | "medium";
-  $iconAlign?: "left" | "right";
-}
-
 export const StyledAccordionTitleContainer = styled.div.attrs(
   applyBaseTheme,
-)<StyledAccordionTitleContainerProps>`
-  ${({ $size, $iconAlign }) => css`
-    display: flex;
-    flex: 1 0 0;
-    align-items: center;
-    align-self: stretch;
-    background-color: transparent;
-    border: none;
-    text-align: left;
-    gap: var(--global-space-comp-l);
-    padding: ${sizeMap[$size].headingPadding};
-
-    ${$iconAlign === "right" &&
+)<StyledAccordionProps>`
+  ${({ $size, $iconAlign }) =>
+    $size &&
     css`
-      flex-direction: row-reverse;
-    `}
+      display: flex;
+      flex: 1 0 0;
+      align-items: center;
+      align-self: stretch;
+      background-color: transparent;
+      border: none;
+      text-align: left;
+      gap: var(--global-space-comp-l);
+      padding: ${sizeMap[$size].headingPadding};
 
-    ${space}
+      ${$iconAlign === "right" &&
+      css`
+        flex-direction: row-reverse;
+      `}
+
+      ${space}
 
     &:focus {
-      ${addFocusStyling()}
-      z-index: 1;
-    }
-  `}
+        ${addFocusStyling()}
+        z-index: 1;
+      }
+    `}
 `;
 
 export const StyledAccordionLine = styled.div`
@@ -171,13 +167,7 @@ export const StyledAccordionLine = styled.div`
   height: 100%;
 `;
 
-interface StyledAccordionContentContainerProps {
-  $isExpanded?: boolean;
-  $height?: string | number;
-  $allowMotion?: boolean;
-}
-
-export const StyledAccordionContentContainer = styled.div<StyledAccordionContentContainerProps>`
+export const StyledAccordionContentContainer = styled.div<StyledAccordionProps>`
   position: relative;
   overflow: hidden;
   height: 0;
@@ -199,11 +189,7 @@ export const StyledAccordionContentContainer = styled.div<StyledAccordionContent
   `}
 `;
 
-interface StyledAccordionContentProps {
-  $variant?: "standard" | "simple" | "subtle";
-}
-
-export const StyledAccordionContent = styled.div<StyledAccordionContentProps>`
+export const StyledAccordionContent = styled.div<StyledAccordionProps>`
   ${({ $variant }) => css`
     overflow: hidden;
 

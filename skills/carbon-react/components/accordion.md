@@ -59,11 +59,11 @@ description: Carbon Accordion component props and usage examples.
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | disableContentPadding | boolean \| undefined | No |  | Yes | Padding is no longer applied to the Accordion content by default. Any desired spacing can be applied directly to the provided content. | Disable padding for the content. |  |
-| error | string \| undefined | No |  | Yes | Validation messages on accordions are deprecated and will be removed in a future release. | An error message to be displayed in the tooltip. |  |
+| error | string \| undefined | No |  | Yes | Validation messages on accordions are no longer supported. | An error message to be displayed in the tooltip. |  |
 | iconAlign | "left" \| "right" \| undefined | No |  | Yes | Icon alignment on accordions is deprecated and will be removed in a future release. Icons will now render on the left by default. | Sets icon alignment. |  |
 | iconType | "chevron_down" \| "chevron_down_thick" \| "dropdown" \| undefined | No |  | Yes | Custom icon types on accordions are deprecated and will be removed in a future release. | Sets icon type |  |
-| info | string \| undefined | No |  | Yes | Validation messages on accordions are deprecated and will be removed in a future release. | An info message to be displayed in the tooltip. |  |
-| warning | string \| undefined | No |  | Yes | Validation messages on accordions are deprecated and will be removed in a future release. | A warning message to be displayed in the tooltip. |  |
+| info | string \| undefined | No |  | Yes | Validation messages on accordions are no longer supported. | An info message to be displayed in the tooltip. |  |
+| warning | string \| undefined | No |  | Yes | Validation messages on accordions are no longer supported. | A warning message to be displayed in the tooltip. |  |
 
 ## Examples
 ### Default

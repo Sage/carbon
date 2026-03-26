@@ -17,7 +17,6 @@ import {
   StyledAccordionLine,
 } from "./accordion.style";
 
-import ValidationIcon from "../../__internal__/validations";
 import Button from "../button/__next__";
 import useMediaQuery from "../../hooks/useMediaQuery";
 
@@ -76,16 +75,17 @@ export interface AccordionProps extends SpaceProps, TagProps {
   iconAlign?: "left" | "right";
   /**
    * An error message to be displayed in the tooltip.
-   * @deprecated Validation messages on accordions are deprecated and will be removed in a future release.
+   * @deprecated Validation messages on accordions are no longer supported.
    */
   error?: string;
   /**
    * A warning message to be displayed in the tooltip.
-   * @deprecated Validation messages on accordions are deprecated and will be removed in a future release.
+   * @deprecated Validation messages on accordions are no longer supported.
    */
   warning?: string;
-  /** An info message to be displayed in the tooltip.
-   * @deprecated Validation messages on accordions are deprecated and will be removed in a future release.
+  /**
+   * An info message to be displayed in the tooltip.
+   * @deprecated Validation messages on accordions are no longer supported.
    */
   info?: string;
 }
@@ -228,7 +228,6 @@ export const Accordion = React.forwardRef<
     const accordionId = id || `Accordion_${guid.current}`;
     const headerId = `AccordionHeader_${guid.current}`;
     const contentId = `AccordionContent_${guid.current}`;
-    const showValidationIcon = !!(error || warning || info);
 
     // standard accordion only supports small and medium size
     const standardSize: "small" | "medium" = size === "large" ? "medium" : size;
@@ -238,7 +237,7 @@ export const Accordion = React.forwardRef<
 
     const getTitle = () => (isExpanded ? openTitle || title : title);
 
-    const renderTitle = () => {
+    const renderStandardTitle = () => {
       if (typeof title === "string") {
         return (
           <StyledAccordionTitle
@@ -265,23 +264,6 @@ export const Accordion = React.forwardRef<
         $isExpanded={isExpanded}
         $allowMotion={allowMotion}
       />
-    );
-
-    // temporary wrapper for deprecated validation
-    const renderTitleWithValidation = () => (
-      <div style={{ display: "flex" }}>
-        {renderTitle()}
-        {showValidationIcon && (
-          <ValidationIcon
-            error={error}
-            warning={warning}
-            info={info}
-            tooltipPosition="top"
-            tabIndex={0}
-            ml={1}
-          />
-        )}
-      </div>
     );
 
     return (
@@ -325,7 +307,7 @@ export const Accordion = React.forwardRef<
           >
             {renderIcon()}
             <StyledAccordionTitleWrapper>
-              {showValidationIcon ? renderTitleWithValidation() : renderTitle()}
+              {renderStandardTitle()}
               {subTitle && (
                 <StyledAccordionSubTitle
                   data-element="accordion-subtitle"
