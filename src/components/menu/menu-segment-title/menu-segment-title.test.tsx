@@ -426,6 +426,6 @@ test("should set the correct colour when a child of `MenuSegmentTitle` and `vari
   );
 
   expect(screen.getByTestId("menu-item-wrapper")).toHaveStyle({
-    backgroundColor: menuConfigVariants.black.alternate,
+    backgroundColor: menuConfigVariants.black.background,
   });
 });

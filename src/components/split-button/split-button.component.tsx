@@ -236,6 +236,7 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
         ]}
       >
         <StyledSplitButtonChildrenContainer
+          data-role="split-button-children-container"
           id={submenuId.current}
           {...wrapperProps}
           align={align}

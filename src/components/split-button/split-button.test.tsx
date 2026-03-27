@@ -6,6 +6,7 @@ import Button from "../button";
 import { SizeOptions } from "../button/button.component";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import I18nProvider from "../i18n-provider";
+import StyledButton from "../button/button.style";
 
 jest.mock("../../__internal__/utils/helpers/guid", () => () => "guid-12345");
 
@@ -400,10 +401,13 @@ test("should render additional button text with align set to 'left'", async () =
   );
 
   await user.click(screen.getByRole("button", { name: "Show more" }));
-  const childButton = await screen.findByRole("button", {
-    name: "Single Button",
+
+  const splitbuttonChildrenContainer = screen.getByTestId(
+    "split-button-children-container",
+  );
+  expect(splitbuttonChildrenContainer).toHaveStyleRule("text-align", "left", {
+    modifier: `${StyledButton}`,
   });
-  expect(childButton).toHaveStyle({ textAlign: "left" });
 });
 
 test("should render additional button text with align set to 'right'", async () => {
@@ -415,10 +419,12 @@ test("should render additional button text with align set to 'right'", async () 
   );
 
   await user.click(screen.getByRole("button", { name: "Show more" }));
-  const childButton = await screen.findByRole("button", {
-    name: "Single Button",
+  const splitbuttonChildrenContainer = screen.getByTestId(
+    "split-button-children-container",
+  );
+  expect(splitbuttonChildrenContainer).toHaveStyleRule("text-align", "right", {
+    modifier: `${StyledButton}`,
   });
-  expect(childButton).toHaveStyle({ textAlign: "right" });
 });
 
 test("should not render the child buttons when a click event detected on toggle button and 'disabled' prop set", async () => {

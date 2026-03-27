@@ -12,6 +12,28 @@ import { ToolbarPlugin } from "..";
 import TextEditor from "../../../text-editor.component";
 import { createFromHTML } from "../../__utils__/helpers";
 
+/*
+ * `getBoundingClientRect` is not implemented on `Range` objects in jsdom.
+ * Lexical calls this during DOM selection updates after user interactions.
+ */
+beforeEach(() => {
+  Range.prototype.getBoundingClientRect = jest.fn(() => ({
+    width: 0,
+    height: 0,
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+    x: 0,
+    y: 0,
+    toJSON: jest.fn(),
+  }));
+});
+
+afterEach(() => {
+  jest.restoreAllMocks();
+});
+
 /** This test renders the actual toolbar instead of using the mocked one to ensure
  * that the toolbar renders correctly with the default buttons.
  */

@@ -127,10 +127,14 @@ test('renders with expected background and border styles when variant is "active
 
   const tileElement = screen.getByTestId("tile");
 
-  expect(tileElement).toHaveStyle({
-    backgroundColor: "var(--colorsActionMajor025)",
-    border: "var(--borderWidth100) solid var(--colorsActionMajor500)",
-  });
+  expect(tileElement).toHaveStyleRule(
+    "background-color",
+    "var(--colorsActionMajor025)",
+  );
+  expect(tileElement).toHaveStyleRule(
+    "border",
+    "var(--borderWidth100) solid var(--colorsActionMajor500)",
+  );
 });
 
 test('renders with expected background and border styles when variant is "grey"', () => {
@@ -208,5 +212,5 @@ test('renders a transparent background when variant prop is "transparent"', () =
 
   const tileElement = screen.getByTestId("tile");
 
-  expect(tileElement).toHaveStyle("background-color: transparent");
+  expect(tileElement).toHaveStyle("background-color: rgba(0, 0, 0, 0)");
 });

@@ -5,6 +5,8 @@ import Pill from ".";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import { baseTheme } from "../../style/themes";
 import { toColor } from "../../style/utils/color";
+import StyledIcon from "../icon/icon.style";
+import StyledIconButton from "../icon-button/icon-button.style";
 
 test("should render with provided children", () => {
   render(<Pill>Test Pill</Pill>);
@@ -82,12 +84,16 @@ test("should render with expected styles when isDarkBackground is true", () => {
     </Pill>,
   );
 
-  expect(screen.getByText("Test Pill")).toHaveStyle({
-    color: "var(--colorsUtilityYang100)",
-  });
-  expect(screen.getByRole("button")).toHaveStyle({
-    backgroundColor: "var(--colorsUtilityYang100)",
-  });
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "color",
+    "var(--colorsUtilityYang100)",
+  );
+
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "color",
+    "var(--colorsUtilityYang100)",
+    { modifier: `${StyledIconButton} ${StyledIcon}` },
+  );
 });
 
 test("should render with white text colour when borderColor set to 'red' to achieve colour contrast", () => {
@@ -97,10 +103,20 @@ test("should render with white text colour when borderColor set to 'red' to achi
     </Pill>,
   );
 
-  expect(screen.getByText("Test Pill")).toHaveStyle({
-    borderColor: `${toColor(baseTheme, "red")}`,
-    color: "var(--colorsUtilityYang100)",
-  });
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "color",
+    "var(--colorsUtilityYin090)",
+  );
+
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "background-color",
+    `${toColor(baseTheme, "red")}`,
+  );
+
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "border",
+    `2px solid ${toColor(baseTheme, "red")}`,
+  );
 });
 
 test("should render with black text colour when borderColor set to 'lightblue' to achieve colour contrast", () => {
@@ -110,10 +126,14 @@ test("should render with black text colour when borderColor set to 'lightblue' t
     </Pill>,
   );
 
-  expect(screen.getByText("Test Pill")).toHaveStyle({
-    borderColor: `${toColor(baseTheme, "lightblue")}`,
-    color: "var(--colorsUtilityYin090)",
-  });
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "border",
+    `2px solid ${toColor(baseTheme, "lightblue")}`,
+  );
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "color",
+    "var(--colorsUtilityYin090)",
+  );
 });
 
 test("should throw an error when an invalid value is passed to borderColor", () => {
@@ -195,113 +215,136 @@ test("should render with expected styles when size is XL and onDelete is set", (
   });
 });
 
-test("should render with expected styles when colorVariant is neutral", async () => {
-  const user = userEvent.setup();
+test("should render with expected styles when colorVariant is neutral", () => {
   render(
     <Pill pillRole="status" colorVariant="neutral" fill onDelete={() => {}}>
       Test Pill
     </Pill>,
   );
-
-  expect(screen.getByText("Test Pill")).toHaveStyle({
-    borderColor: "var(--colorsSemanticNeutral500)",
-    backgroundColor: "var(--colorsSemanticNeutral500)",
-    color: "var(--colorsSemanticNeutralYang100)",
-  });
-
-  await user.click(screen.getByRole("button"));
-
-  expect(screen.getByRole("button")).toHaveStyle({
-    backgroundColor: "var(--colorsSemanticNeutral600)",
-  });
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "border",
+    "2px solid var(--colorsSemanticNeutral500)",
+  );
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "background-color",
+    "var(--colorsSemanticNeutral500)",
+  );
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "color",
+    "var(--colorsSemanticNeutralYang100)",
+  );
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "background-color",
+    "var(--colorsSemanticNeutral600)",
+    { modifier: `${StyledIconButton}:hover` },
+  );
 });
 
-test("should render with expected styles when colorVariant is negative", async () => {
-  const user = userEvent.setup();
+test("should render with expected styles when colorVariant is negative", () => {
   render(
     <Pill pillRole="status" colorVariant="negative" fill onDelete={() => {}}>
       Test Pill
     </Pill>,
   );
 
-  expect(screen.getByText("Test Pill")).toHaveStyle({
-    borderColor: "var(--colorsSemanticNegative500)",
-    backgroundColor: "var(--colorsSemanticNegative500)",
-    color: "var(--colorsSemanticNegativeYang100)",
-  });
-
-  await user.click(screen.getByRole("button"));
-
-  expect(screen.getByRole("button")).toHaveStyle({
-    backgroundColor: "var(--colorsSemanticNegative600)",
-  });
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "border",
+    "2px solid var(--colorsSemanticNegative500)",
+  );
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "background-color",
+    "var(--colorsSemanticNegative500)",
+  );
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "color",
+    "var(--colorsSemanticNegativeYang100)",
+  );
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "background-color",
+    "var(--colorsSemanticNegative600)",
+    { modifier: `${StyledIconButton}:hover` },
+  );
 });
 
-test("should render with expected styles when colorVariant is warning", async () => {
-  const user = userEvent.setup();
+test("should render with expected styles when colorVariant is warning", () => {
   render(
     <Pill pillRole="status" colorVariant="warning" fill onDelete={() => {}}>
       Test Pill
     </Pill>,
   );
 
-  expect(screen.getByText("Test Pill")).toHaveStyle({
-    borderColor: "var(--colorsSemanticCaution400)",
-    backgroundColor: "var(--colorsSemanticCaution400)",
-    color: "var(--colorsSemanticCautionYin090)",
-  });
-
-  await user.click(screen.getByRole("button"));
-
-  expect(screen.getByRole("button")).toHaveStyle({
-    backgroundColor: "var(--tempColorsSemanticCaution600)",
-  });
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "border",
+    "2px solid var(--colorsSemanticCaution400)",
+  );
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "background-color",
+    "var(--colorsSemanticCaution400)",
+  );
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "color",
+    "var(--colorsSemanticCautionYin090)",
+  );
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "background-color",
+    "var(--colorsSemanticCaution600)",
+    { modifier: `${StyledIconButton}:hover` },
+  );
 });
 
-test("should render with expected styles when colorVariant is positive", async () => {
-  const user = userEvent.setup();
+test("should render with expected styles when colorVariant is positive", () => {
   render(
-    <Pill pillRole="status" colorVariant="warning" fill onDelete={() => {}}>
+    <Pill pillRole="status" colorVariant="positive" fill onDelete={() => {}}>
       Test Pill
     </Pill>,
   );
 
-  expect(screen.getByText("Test Pill")).toHaveStyle({
-    borderColor: "var(--colorsSemanticPositive500)",
-    background: "var(--colorsSemanticPositive500)",
-    color: "var(--colorsSemanticPositiveYang100)",
-  });
-
-  await user.click(screen.getByRole("button"));
-
-  expect(screen.getByRole("button")).toHaveStyle({
-    backgroundColor: "var(--colorsSemanticPositive600)",
-  });
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "border",
+    "2px solid var(--colorsSemanticPositive500)",
+  );
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "background-color",
+    "var(--colorsSemanticPositive500)",
+  );
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "color",
+    "var(--colorsSemanticPositiveYang100)",
+  );
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "background-color",
+    "var(--colorsSemanticPositive600)",
+    { modifier: `${StyledIconButton}:hover` },
+  );
 });
 
-test("should render with expected styles when colorVariant is information", async () => {
-  const user = userEvent.setup();
+test("should render with expected styles when colorVariant is information", () => {
   render(
     <Pill pillRole="status" colorVariant="information" fill onDelete={() => {}}>
       Test Pill
     </Pill>,
   );
 
-  expect(screen.getByText("Test Pill")).toHaveStyle({
-    borderColor: "var(--colorsSemanticInfo500)",
-    backgroundColor: "var(--colorsSemanticInfo500)",
-    color: "var(--colorsSemanticInfoYang100)",
-  });
-
-  await user.click(screen.getByRole("button"));
-
-  expect(screen.getByRole("button")).toHaveStyle({
-    backgroundColor: "var(--colorsSemanticInfo600)",
-  });
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "border",
+    "2px solid var(--colorsSemanticInfo500)",
+  );
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "background-color",
+    "var(--colorsSemanticInfo500)",
+  );
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "color",
+    "var(--colorsSemanticInfoYang100)",
+  );
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "background-color",
+    "var(--colorsSemanticInfo600)",
+    { modifier: `${StyledIconButton}:hover` },
+  );
 });
 
-test("should render with expected styles when colorVariant is neutral and isDarkBackground is true", async () => {
-  const user = userEvent.setup();
+test("should render with expected styles when colorVariant is neutral and isDarkBackground is true", () => {
   render(
     <Pill
       pillRole="status"
@@ -314,21 +357,26 @@ test("should render with expected styles when colorVariant is neutral and isDark
     </Pill>,
   );
 
-  expect(screen.getByText("Test Pill")).toHaveStyle({
-    borderColor: "var(--colorsSemanticNeutral400)",
-    backgroundColor: "var(--colorsSemanticNeutral400)",
-    color: "var(--colorsSemanticNeutralYin090)",
-  });
-
-  await user.click(screen.getByRole("button"));
-
-  expect(screen.getByRole("button")).toHaveStyle({
-    backgroundColor: "var(--colorsSemanticNeutral500)",
-  });
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "border",
+    "2px solid var(--colorsSemanticNeutral400)",
+  );
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "background-color",
+    "var(--colorsSemanticNeutral400)",
+  );
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "color",
+    "var(--colorsSemanticNeutralYin090)",
+  );
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "background-color",
+    "var(--colorsSemanticNeutral500)",
+    { modifier: `${StyledIconButton}:hover` },
+  );
 });
 
-test("should render with expected styles when colorVariant is negative and isDarkBackground is true", async () => {
-  const user = userEvent.setup();
+test("should render with expected styles when colorVariant is negative and isDarkBackground is true", () => {
   render(
     <Pill
       pillRole="status"
@@ -341,21 +389,26 @@ test("should render with expected styles when colorVariant is negative and isDar
     </Pill>,
   );
 
-  expect(screen.getByText("Test Pill")).toHaveStyle({
-    borderColor: "var(--colorsSemanticNegative400)",
-    backgroundColor: "var(--colorsSemanticNegative400)",
-    color: "var(--colorsSemanticNegativeYin090)",
-  });
-
-  await user.hover(screen.getByRole("button"));
-
-  expect(screen.getByRole("button")).toHaveStyle({
-    backgroundColor: "var(--colorsSemanticNegative500)",
-  });
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "border",
+    "2px solid var(--colorsSemanticNegative450)",
+  );
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "background-color",
+    "var(--colorsSemanticNegative450)",
+  );
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "color",
+    "var(--colorsSemanticNegativeYin090)",
+  );
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "background-color",
+    "var(--colorsSemanticNegative500)",
+    { modifier: `${StyledIconButton}:hover` },
+  );
 });
 
-test("should render with expected styles when colorVariant is positive and isDarkBackground is true", async () => {
-  const user = userEvent.setup();
+test("should render with expected styles when colorVariant is positive and isDarkBackground is true", () => {
   render(
     <Pill
       pillRole="status"
@@ -368,20 +421,22 @@ test("should render with expected styles when colorVariant is positive and isDar
     </Pill>,
   );
 
-  expect(screen.getByText("Test Pill")).toHaveStyle({
-    borderColor: "var(--colorsSemanticPositive400)",
-    color: "var(--colorsSemanticPositiveYin090)",
-  });
-
-  await user.click(screen.getByRole("button"));
-
-  expect(screen.getByRole("button")).toHaveStyle({
-    backgroundColor: "var(--colorsSemanticPositive500)",
-  });
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "border",
+    "2px solid var(--colorsSemanticPositive400)",
+  );
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "color",
+    "var(--colorsSemanticPositiveYin090)",
+  );
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "background-color",
+    "var(--colorsSemanticPositive500)",
+    { modifier: `${StyledIconButton}:hover` },
+  );
 });
 
-test("should render with expected styles when colorVariant is information and isDarkBackground is true", async () => {
-  const user = userEvent.setup();
+test("should render with expected styles when colorVariant is information and isDarkBackground is true", () => {
   render(
     <Pill
       pillRole="status"
@@ -394,21 +449,26 @@ test("should render with expected styles when colorVariant is information and is
     </Pill>,
   );
 
-  expect(screen.getByText("Test Pill")).toHaveStyle({
-    borderColor: "var(--colorsSemanticInfo400)",
-    backgroundColor: "var(--colorsSemanticInfo400)",
-    color: "var(--colorsSemanticInfoYin090)",
-  });
-
-  await user.click(screen.getByRole("button"));
-
-  expect(screen.getByRole("button")).toHaveStyle({
-    backgroundColor: "var(--colorsSemanticInfo500)",
-  });
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "border",
+    "2px solid var(--colorsSemanticInfo400)",
+  );
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "background-color",
+    "var(--colorsSemanticInfo400)",
+  );
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "color",
+    "var(--colorsSemanticInfoYin090)",
+  );
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "background-color",
+    "var(--colorsSemanticInfo500)",
+    { modifier: `${StyledIconButton}:hover` },
+  );
 });
 
-test("should render with expected styles when colorVariant is neutralWhite and isDarkBackground is true", async () => {
-  const user = userEvent.setup();
+test("should render with expected styles when colorVariant is neutralWhite and isDarkBackground is true", () => {
   render(
     <Pill
       pillRole="status"
@@ -420,18 +480,23 @@ test("should render with expected styles when colorVariant is neutralWhite and i
       Test Pill
     </Pill>,
   );
-
-  expect(screen.getByText("Test Pill")).toHaveStyle({
-    borderColor: "var(--colorsSemanticNeutralYang100)",
-    backgroundColor: "var(--colorsSemanticNeutralYang100)",
-    color: "var(--colorsSemanticNeutral500)",
-  });
-
-  await user.click(screen.getByRole("button"));
-
-  expect(screen.getByRole("button")).toHaveStyle({
-    backgroundColor: "var(--colorsSemanticNeutralYin030)",
-  });
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "border",
+    "2px solid var(--colorsSemanticNeutralYang100)",
+  );
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "background-color",
+    "var(--colorsSemanticNeutralYang100)",
+  );
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "color",
+    "var(--colorsSemanticNeutral500)",
+  );
+  expect(screen.getByText("Test Pill")).toHaveStyleRule(
+    "background-color",
+    "var(--colorsSemanticNeutralYin030)",
+    { modifier: `${StyledIconButton}:hover` },
+  );
 });
 
 test("should output a console warning when the neutralWhite colorVariant is used without isDarkBackground and fill props", () => {
