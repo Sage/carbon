@@ -93,7 +93,7 @@ test("should render with expected styles when buttonIcon is set", () => {
   );
 
   expect(screen.getByTestId("button-toggle-icon")).toHaveStyle({
-    marginRight: "var(--spacing100)",
+    marginRight: "var(--global-space-comp-s)",
   });
 });
 
@@ -112,7 +112,7 @@ test("should render with expected styles when buttonIcon is set and buttonIconSi
   expect(screen.getByTestId("icon")).toHaveStyle({
     marginLeft: "0",
     marginRight: "0",
-    marginBottom: "var(--spacing100)",
+    marginBottom: "var(--global-space-comp-s)",
   });
   expect(screen.getByRole("button")).toHaveStyle({
     minHeight: "var(--sizing1100)",

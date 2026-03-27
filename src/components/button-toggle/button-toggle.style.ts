@@ -8,21 +8,21 @@ import addFocusStyling from "../../style/utils/add-focus-styling";
 export type ButtonToggleIconSizes = "small" | "large";
 
 export const heightConfig = {
-  small: 24,
-  medium: 32,
-  large: 40,
+  small: "var(--global-size-s)",
+  medium: "var(--global-size-m)",
+  large: "var(--global-size-l)",
 };
 
-export const fontSizeConfig = {
-  small: 14,
-  medium: 14,
-  large: 16,
+export const fontConfig = {
+  small: "var(--global-font-static-comp-medium-s)",
+  medium: "var(--global-font-static-comp-medium-m)",
+  large: "var(--global-font-static-comp-medium-l)",
 };
 
 export const paddingConfig = {
-  small: 8,
-  medium: 8,
-  large: 12,
+  small: `0 var(--global-space-comp-m)`,
+  medium: `0  var(--global-space-comp-l)`,
+  large: `0 var(--global-space-comp-l)`,
 };
 
 const heightLargeIconConfig = {
@@ -32,9 +32,10 @@ const heightLargeIconConfig = {
 };
 
 const paddingLargeIconConfig = {
-  small: "var(--spacing100)",
-  medium: "var(--spacing100) var(--spacing150) var(--spacing000)",
-  large: "var(--spacing100) var(--spacing300)",
+  small: "var(--global-space-comp-s)",
+  medium:
+    "var(--global-space-comp-s) var(--global-space-comp-m) var(--global-space-none)",
+  large: "var(--global-space-comp-s) var(--global-space-comp-xl)",
 };
 
 const StyledButtonToggleContentWrapper = styled.div`
@@ -69,7 +70,6 @@ const StyledButtonToggle = styled.button.attrs(
   box-sizing: border-box;
   max-width: 100%;
 
-  font-weight: 500;
   background-color: transparent;
   cursor: pointer;
   text-align: center;
@@ -83,9 +83,9 @@ const StyledButtonToggle = styled.button.attrs(
   }
 
   ${({ size }) => css`
-    min-height: ${heightConfig[size]}px;
-    padding: 0 ${paddingConfig[size]}px;
-    font-size: ${fontSizeConfig[size]}px;
+    min-height: ${heightConfig[size]};
+    padding: ${paddingConfig[size]};
+    font: ${fontConfig[size]};
   `}
 
   ${({ buttonIcon, buttonIconSize, size }) =>
@@ -156,7 +156,8 @@ export interface StyledButtonToggleIconProps {
 }
 
 const StyledButtonToggleIcon = styled.div<StyledButtonToggleIconProps>`
-  ${({ hasContent }) => hasContent && `margin-right: 8px;`}
+  ${({ hasContent }) =>
+    hasContent && `margin-right: var(--global-space-comp-s);`}
   ${({ buttonIconSize }) =>
     buttonIconSize === "large" &&
     css`
@@ -165,7 +166,7 @@ const StyledButtonToggleIcon = styled.div<StyledButtonToggleIconProps>`
       ${StyledIcon} {
         margin-left: 0;
         margin-right: 0;
-        margin-bottom: 8px;
+        margin-bottom: var(--global-space-comp-s);
         height: var(--sizing400);
         width: var(--sizing400);
       }
@@ -186,7 +187,7 @@ const StyledButtonToggleWrapper = styled.div`
   vertical-align: middle;
   &&&& {
     ${StyledButtonToggle} {
-      border-radius: var(--borderRadius050);
+      border-radius: var(--global-radius-action-2-xl);
     }
   }
 `;

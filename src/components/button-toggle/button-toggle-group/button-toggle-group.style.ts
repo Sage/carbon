@@ -20,9 +20,9 @@ const StyledButtonToggleGroup = styled.div
 
   display: flex;
   box-shadow: inset 0px 0px 0px 1px var(--button-typical-toggle-border-default);
-  border-radius: var(--borderRadius100);
-  padding: var(--spacing050);
-  gap: var(--spacing050);
+  border-radius: var(--global-radius-container-xl);
+  padding: var(--global-space-comp-xs);
+  gap: var(--global-space-comp-s);
   width: fit-content;
   height: fit-content;
   flex-wrap: ${({ labelInline }) => (labelInline ? "nowrap" : "wrap")};
