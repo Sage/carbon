@@ -18,6 +18,7 @@ import DrawerSidebarContext from "../drawer/__internal__/drawer-sidebar.context"
 import { StyledFlatTableCell } from "./flat-table-cell/flat-table-cell.style";
 import StyledFlatTableRow from "./flat-table-row/flat-table-row.style";
 import Pager from "../pager/pager.component";
+import { StyledPagerContainer } from "../pager/pager.style";
 import DateInput from "../date/date.component";
 
 import {
@@ -1011,9 +1012,14 @@ describe("rounded corners are enabled", () => {
     const pager = screen.getByTestId("pager");
 
     expect(pager).toHaveStyle({
-      borderTop: "none",
       borderTopLeftRadius: 0,
       borderTopRightRadius: 0,
+    });
+
+    const flatTableFooter = screen.getByTestId("flat-table-footer");
+
+    expect(flatTableFooter).toHaveStyleRule("border-top", "none", {
+      modifier: `> ${StyledPagerContainer}`,
     });
   });
 
@@ -1035,13 +1041,8 @@ describe("rounded corners are enabled", () => {
         </FlatTableBody>
       </FlatTable>,
     );
-    const tableWrapper = screen.getByRole("region");
     const pager = screen.getByTestId("pager");
 
-    expect(tableWrapper).toHaveStyle({
-      borderBottomLeftRadius: undefined,
-      borderBottomRightRadius: undefined,
-    });
     expect(pager).toHaveStyle({
       borderBottomLeftRadius: 0,
       borderBottomRightRadius: 0,

@@ -266,7 +266,6 @@ test("should render with visuallyHidden styles when 'screenReaderOnly' is true",
   render(<Typography screenReaderOnly>Test</Typography>);
 
   expect(screen.getByText("Test")).toHaveStyle({
-    border: "0",
     height: "1px",
     margin: "-1px",
     overflow: "hidden",

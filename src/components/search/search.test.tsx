@@ -438,7 +438,7 @@ test("should render the bottom border when variant is dark, the input is not foc
   const search = screen.getByTestId("search");
 
   expect(search).toHaveStyle({
-    "background-color": "transparent",
+    "background-color": "rgba(0, 0, 0, 0)",
   });
   expect(search).toHaveStyleRule(
     "border-bottom",

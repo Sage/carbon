@@ -63,16 +63,16 @@ test("renders correct option row that matches the filterText prop", () => {
 test("renders correct options when filterText prop has multiple matches", () => {
   render(<FilterableList filterText="bl" />);
 
-  expect(screen.getByRole("option", { name: /bl ack/i })).toBeVisible();
-  expect(screen.getByRole("option", { name: /bl ue/i })).toBeVisible();
+  expect(screen.getByRole("option", { name: /black/i })).toBeVisible();
+  expect(screen.getByRole("option", { name: /blue/i })).toBeVisible();
   expect(screen.getAllByRole("option")).toHaveLength(2);
 });
 
 test("renders correct option rows when filterText prop has multiple matches", () => {
   render(<FilterableTable filterText="bl" />);
 
-  expect(screen.getByRole("option", { name: /Bl ack Dark/i })).toBeVisible();
-  expect(screen.getByRole("option", { name: /Bl ue Light/i })).toBeVisible();
+  expect(screen.getByRole("option", { name: /Black Dark/i })).toBeVisible();
+  expect(screen.getByRole("option", { name: /Blue Light/i })).toBeVisible();
   expect(screen.getAllByRole("option")).toHaveLength(2);
 });
 

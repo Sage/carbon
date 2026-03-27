@@ -444,7 +444,7 @@ describe("When passing legacy interface", () => {
     );
     const button = screen.getByRole("button");
 
-    expect(button).toHaveStyle("background-color: transparent");
+    expect(button).toHaveStyle("background-color: rgba(0, 0, 0, 0)");
     expect(button).toHaveStyleRule(
       "color",
       "var(--button-destructive-secondary-label-default)",
@@ -459,7 +459,7 @@ describe("When passing legacy interface", () => {
     );
     const button = screen.getByRole("button");
 
-    expect(button).toHaveStyle("background-color: transparent");
+    expect(button).toHaveStyle("background-color: rgba(0, 0, 0, 0)");
     expect(button).toHaveStyleRule(
       "color",
       "var(--button-destructive-secondary-label-default)",

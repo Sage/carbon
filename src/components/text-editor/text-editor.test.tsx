@@ -18,6 +18,31 @@ import { COMPONENT_PREFIX } from "./__internal__/__utils__/constants";
 
 jest.mock("../../__internal__/utils/logger");
 
+/*
+ * `getBoundingClientRect` is not implemented on `Range` objects in jsdom.
+ * Lexical calls this during DOM selection updates after user interactions.
+ * Save the original value to restore it properly after each test.
+ */
+const originalGetBoundingClientRect = Range.prototype.getBoundingClientRect;
+
+beforeEach(() => {
+  Range.prototype.getBoundingClientRect = jest.fn(() => ({
+    width: 0,
+    height: 0,
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+    x: 0,
+    y: 0,
+    toJSON: jest.fn(),
+  }));
+});
+
+afterEach(() => {
+  Range.prototype.getBoundingClientRect = originalGetBoundingClientRect;
+});
+
 // Reusable JSON object for testing the default state
 const initialValue = {
   root: {

@@ -452,22 +452,34 @@ describe("VerticalMenuItem", () => {
         </VerticalMenu>,
       );
 
-      expect(screen.getByTestId("item")).toHaveStyle({
-        paddingLeft: "calc(40px + 0px)",
-        paddingRight: "calc(40px + 0px)",
-      });
+      expect(screen.getByTestId("item")).toHaveStyleRule(
+        "padding-left",
+        "calc(var(--spacing500) + (0 * var(--spacing400)))",
+      );
+      expect(screen.getByTestId("item")).toHaveStyleRule(
+        "padding-right",
+        "calc(var(--spacing500) + (0 * var(--spacing400)))",
+      );
 
       await user.click(screen.getByText("Item1"));
-      expect(screen.getByTestId("child-item")).toHaveStyle({
-        paddingLeft: "calc(40px + 32px)",
-        paddingRight: "calc(40px + 32px)",
-      });
+      expect(screen.getByTestId("child-item")).toHaveStyleRule(
+        "padding-left",
+        "calc(var(--spacing500) + (1 * var(--spacing400)))",
+      );
+      expect(screen.getByTestId("child-item")).toHaveStyleRule(
+        "padding-right",
+        "calc(var(--spacing500) + (1 * var(--spacing400)))",
+      );
 
       await user.click(screen.getByText("ChildItem1"));
-      expect(screen.getByTestId("grand-child-item")).toHaveStyle({
-        paddingLeft: "calc(40px + 64px)",
-        paddingRight: "calc(40px + 64px)",
-      });
+      expect(screen.getByTestId("grand-child-item")).toHaveStyleRule(
+        "padding-left",
+        "calc(var(--spacing500) + (2 * var(--spacing400)))",
+      );
+      expect(screen.getByTestId("grand-child-item")).toHaveStyleRule(
+        "padding-right",
+        "calc(var(--spacing500) + (2 * var(--spacing400)))",
+      );
     });
 
     it("should render adornment passed as a render function", async () => {

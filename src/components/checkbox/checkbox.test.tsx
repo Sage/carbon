@@ -270,39 +270,77 @@ test("should render with expected styles when size is large and fieldHelpInline 
 test("should render checkbox svg with expected styles when validation props are true", () => {
   render(
     <>
-      <Checkbox label="label-1" checked onChange={() => {}} error />
-      <Checkbox label="label-2" checked onChange={() => {}} warning />
-      <Checkbox label="label-3" checked onChange={() => {}} info />
+      <Checkbox
+        label="label-1"
+        data-role="checkbox-1"
+        checked
+        onChange={() => {}}
+        error
+      />
+      <Checkbox
+        label="label-2"
+        data-role="checkbox-2"
+        checked
+        onChange={() => {}}
+        warning
+      />
+      <Checkbox
+        label="label-3"
+        data-role="checkbox-3"
+        checked
+        onChange={() => {}}
+        info
+      />
     </>,
   );
 
-  const checkboxes = screen.getAllByTestId("checkable-svg");
-  expect(checkboxes[0]).toHaveStyle({
-    border: "2px solid var(--colorsSemanticNegative500)",
-  });
-  expect(checkboxes[1]).toHaveStyle({
-    border: "1px solid var(--colorsSemanticCaution500)",
-  });
-  expect(checkboxes[2]).toHaveStyle({
-    border: "1px solid var(--colorsSemanticInfo500)",
-  });
+  expect(screen.getByTestId("checkbox-1")).toHaveStyleRule(
+    "border",
+    "2px solid var(--colorsSemanticNegative500)",
+    { modifier: "svg" },
+  );
+  expect(screen.getByTestId("checkbox-2")).toHaveStyleRule(
+    "border",
+    "1px solid var(--colorsSemanticCaution500)",
+    { modifier: "svg" },
+  );
+  expect(screen.getByTestId("checkbox-3")).toHaveStyleRule(
+    "border",
+    "1px solid var(--colorsSemanticInfo500)",
+    { modifier: "svg" },
+  );
 });
 
 test("should render checkbox svg with expected styles when validationRedesignOptIn is true", () => {
   render(
     <CarbonProvider validationRedesignOptIn>
-      <Checkbox label="label-1" checked onChange={() => {}} warning />
-      <Checkbox label="label-2" checked onChange={() => {}} info />
+      <Checkbox
+        label="label-1"
+        data-role="checkbox-1"
+        checked
+        onChange={() => {}}
+        warning
+      />
+      <Checkbox
+        label="label-2"
+        data-role="checkbox-2"
+        checked
+        onChange={() => {}}
+        info
+      />
     </CarbonProvider>,
   );
 
-  const checkboxes = screen.getAllByTestId("checkable-svg");
-  expect(checkboxes[0]).toHaveStyle({
-    border: "1px solid var(--colorsUtilityMajor300)",
-  });
-  expect(checkboxes[1]).toHaveStyle({
-    border: "1px solid var(--colorsUtilityMinor300)",
-  });
+  expect(screen.getByTestId("checkbox-1")).toHaveStyleRule(
+    "border",
+    "1px solid var(--colorsUtilityMajor300)",
+    { modifier: "svg" },
+  );
+  expect(screen.getByTestId("checkbox-2")).toHaveStyleRule(
+    "border",
+    "1px solid var(--colorsUtilityMajor300)",
+    { modifier: "svg" },
+  );
 });
 
 test("should render with expected styles when adaptiveSpacingBreakpoint set and screen is smaller than the breakpoint", () => {
