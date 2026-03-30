@@ -269,8 +269,14 @@ describe("when `applyNewValidation` is provided", () => {
     const legend = screen.getByText("Legend");
     const hint = screen.getByText("input hint");
 
-    expect(legend).toHaveStyleRule("color", "var(--colorsUtilityYin030)");
-    expect(hint).toHaveStyleRule("color", "var(--colorsUtilityYin030)");
+    expect(legend).toHaveStyleRule(
+      "color",
+      "var(--input-labelset-label-disabled)",
+    );
+    expect(hint).toHaveStyleRule(
+      "color",
+      "var(--input-labelset-label-disabled)",
+    );
   });
 
   // coverage
