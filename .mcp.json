@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "carbon-mcp-server": {
+      "url": "http://localhost:9001/mcp",
+      "type": "http"
+    }
+  }
+}

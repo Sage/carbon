@@ -46,21 +46,16 @@ const config: StorybookConfig = {
     builder: "@storybook/builder-vite",
   },
 
-  addons: [
-    "@storybook/addon-a11y",
-    {
-      name: "@storybook/addon-docs",
-      options: {
-        mdxPluginOptions: {
-          mdxCompileOptions: {
-            remarkPlugins: [remarkGfm],
-          },
+  addons: ["@storybook/addon-a11y", {
+    name: "@storybook/addon-docs",
+    options: {
+      mdxPluginOptions: {
+        mdxCompileOptions: {
+          remarkPlugins: [remarkGfm],
         },
       },
     },
-    "storybook-addon-pseudo-states",
-    "@chromatic-com/storybook",
-  ],
+  }, "storybook-addon-pseudo-states", "@chromatic-com/storybook", "@storybook/addon-mcp"],
 
   staticDirs: ["../.assets", "../logo"],
 

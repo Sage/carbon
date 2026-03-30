@@ -86,6 +86,7 @@
     "@semantic-release/git": "^10.0.1",
     "@storybook/addon-a11y": "~10.3.0",
     "@storybook/addon-docs": "~10.3.0",
+    "@storybook/addon-mcp": "^0.4.2",
     "@storybook/builder-vite": "~10.3.0",
     "@storybook/icons": "1.4.0",
     "@storybook/react-vite": "~10.3.0",
