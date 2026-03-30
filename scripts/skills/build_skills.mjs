@@ -794,9 +794,9 @@ async function extractStoryData(projectInstance, rootDir) {
   }
 
   for (const filePath of mdxFiles) {
-    if (!filePath.includes(`${path.sep}src${path.sep}components${path.sep}`)) {
-      continue;
-    }
+    if (!filePath.includes("/src/components/")) {
+  continue;
+}
     const componentName = inferComponentNameFromPath(filePath, rootDir);
     if (!componentName) {
       continue;
