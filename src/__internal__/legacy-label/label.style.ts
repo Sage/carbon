@@ -39,7 +39,7 @@ const StyledLabel = styled.label<StyledLabelProps>`
   ${({ disabled }) =>
     disabled &&
     css`
-      color: var(--colorsUtilityYin030);
+      color: var(--input-labelset-label-disabled);
     `}
 `;
 

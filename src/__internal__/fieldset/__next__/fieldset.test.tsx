@@ -200,6 +200,7 @@ test("renders with expected styles when `isDisabled` is true", () => {
     "color",
     "var(--input-labelset-label-disabled)",
   );
+  expect(screen.getByText("Legend")).toHaveAttribute("aria-disabled", "true");
 });
 
 testStyledSystemMargin(
