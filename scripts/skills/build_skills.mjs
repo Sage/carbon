@@ -307,7 +307,8 @@ if (checkMode) {
 } else {
   for (const { path: filePath, content } of wouldWrite) {
     await fs.mkdir(path.dirname(filePath), { recursive: true });
-    await fs.writeFile(filePath, content, "utf8");
+    // Normalise line endings to LF to ensure consistent output across different environments (Windows vs Unix)
+    await fs.writeFile(filePath, content.replace(/\r\n/g, "\n"), "utf8");
   }
   // eslint-disable-next-line no-console -- Log summary of generated components and output location
   console.log(
@@ -377,9 +378,13 @@ function getModuleDir(modulePath) {
  * @param {import("ts-morph").Project} projectInstance
  * @param {string[]} filePaths
  * @param {string} typeName
+ * @param {string} preferredBasePath
  * @returns {PropsDefinition | null}
  */
-function findTypeDefinitionInFiles(projectInstance, filePaths, typeName) {
+function findTypeDefinitionInFiles(projectInstance, filePaths, typeName, preferredBasePath) {
+  /** @type {Array<{definition: PropsDefinition, filePath: string}>} */
+  const matches = [];
+
   for (const filePath of filePaths) {
     const sourceFile =
       projectInstance.getSourceFile(filePath) ||
@@ -389,14 +394,43 @@ function findTypeDefinitionInFiles(projectInstance, filePaths, typeName) {
     }
     const interfaceMatch = sourceFile.getInterface(typeName);
     if (interfaceMatch) {
-      return { name: interfaceMatch.getName(), node: interfaceMatch };
+      matches.push({ definition: { name: interfaceMatch.getName(), node: interfaceMatch }, filePath });
+      continue;
     }
     const aliasMatch = sourceFile.getTypeAlias(typeName);
     if (aliasMatch) {
-      return { name: aliasMatch.getName(), node: aliasMatch };
+      matches.push({ definition: { name: aliasMatch.getName(), node: aliasMatch }, filePath });
     }
   }
-  return null;
+
+  if (!matches.length) return null;
+  if (matches.length === 1) return matches[0].definition;
+
+  /* When multiple files define the same type name (e.g. TabProps in both tabs/ and tabs/__next__/),
+     prefer the definition whose file path shares the most in common with the component's own module
+     path. This prevents OS file system ordering from determining which definition wins. */
+  const normalizedBase = preferredBasePath.replace(/\\/g, "/");
+  matches.sort((a, b) => {
+    /* Normalise to forward slashes so comparison is consistent across Mac, Windows and Linux */
+    const aNorm = a.filePath.replace(/\\/g, "/");
+    const bNorm = b.filePath.replace(/\\/g, "/");
+    return longestCommonPrefix(normalizedBase, bNorm) - longestCommonPrefix(normalizedBase, aNorm);
+  });
+
+  return matches[0].definition;
+}
+
+/**
+ * Returns the length of the longest common prefix between two strings.
+ * Used to determine which file path is closest to the component's own module path.
+ * @param {string} a
+ * @param {string} b
+ * @returns {number}
+ */
+function longestCommonPrefix(a, b) {
+  let i = 0;
+  while (i < a.length && i < b.length && a[i] === b[i]) i++;
+  return i;
 }
 
 /**
@@ -417,6 +451,7 @@ function resolvePropsDefinition(
     projectInstance,
     moduleFiles,
     propsName,
+    modulePath
   );
   if (directMatch) {
     return directMatch;
@@ -468,6 +503,7 @@ function resolvePropsDefinition(
         projectInstance,
         targetFiles,
         targetName,
+        modulePath
       );
       if (resolvedDefinition) {
         return resolvedDefinition;
@@ -791,7 +827,8 @@ async function extractStoryData(projectInstance, rootDir) {
   }
 
   for (const filePath of mdxFiles) {
-    if (!filePath.includes(`${path.sep}src${path.sep}components${path.sep}`)) {
+    /* Use forward slash literal instead of path.sep as fast-glob always returns forward-slash paths regardless of OS */
+    if (!filePath.includes("/src/components/")) {
       continue;
     }
     const componentName = inferComponentNameFromPath(filePath, rootDir);
@@ -1097,7 +1134,8 @@ function resolveImportModule(sourceFile, identifierName) {
  */
 function extractMdxExamples(content) {
   const examples = [];
-  const codeBlockRegex = /```(?:tsx|jsx|ts|js)?\n([\s\S]*?)```/g;
+  // \r? accounts for CRLF line endings on Windows, where MDX files may be read with \r\n instead of \n
+  const codeBlockRegex = /```(?:tsx|jsx|ts|js)?\r?\n([\s\S]*?)```/g;
   let match;
   let index = 1;
 
