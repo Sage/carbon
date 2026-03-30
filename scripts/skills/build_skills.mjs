@@ -761,6 +761,9 @@ async function extractStoryData(projectInstance, rootDir) {
     absolute: true,
   });
 
+  // Normalises path separators to forward slashes for consistent cross-platform markdown output
+  const relativeSource = (/** @type {string} */ filePath) => path.relative(rootDir, filePath).replace(/\\/g, "/");
+
   /** @type {Map<string, StoryEntry[]>} */
   const storyMap = new Map();
 
@@ -784,7 +787,7 @@ async function extractStoryData(projectInstance, rootDir) {
     for (const story of stories) {
       existing.push({
         ...story,
-        source: path.relative(rootDir, filePath),
+        source: relativeSource(filePath),
       });
     }
     storyMap.set(componentName, existing);
@@ -809,7 +812,7 @@ async function extractStoryData(projectInstance, rootDir) {
         name: example.name,
         argsText: example.code,
         renderText: null,
-        source: path.relative(rootDir, filePath),
+        source: relativeSource(filePath),
         kind: "mdx",
       });
     }
