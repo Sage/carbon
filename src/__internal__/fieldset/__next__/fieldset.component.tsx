@@ -101,6 +101,7 @@ const Fieldset = ({
     >
       {legend && (
         <StyledLegend
+          aria-disabled={isDisabled || undefined}
           data-element="legend"
           $align={legendAlign}
           $isRequired={isRequired}
