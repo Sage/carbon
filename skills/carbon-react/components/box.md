@@ -104,6 +104,7 @@ description: Carbon Box component props and usage examples.
 | data-component | string \| undefined | No |  |  |  |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+| aria-atomic | "true" \| "false" \| undefined | No |  | Indicates whether AT will announce all, or only parts of, the changed region |  |
 | aria-hidden | "true" \| "false" \| undefined | No |  | Set the container to be hidden from screen readers |  |
 | aria-live | "off" \| "assertive" \| "polite" \| undefined | No |  | Make the container an aria-live region |  |
 

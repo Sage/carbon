@@ -25,7 +25,6 @@ const StyledSearch = styled.div.attrs(applyBaseTheme)<StyledSearchProps>`
     maxWidth,
     searchHasValue,
     showSearchButton,
-    theme,
     variant,
   }) => {
     const darkVariant = variant === "dark";
@@ -86,7 +85,6 @@ const StyledSearch = styled.div.attrs(applyBaseTheme)<StyledSearchProps>`
         `}
 
         ${darkVariant &&
-        searchHasValue &&
         !showSearchButton &&
         css`
           color: var(--colorsUtilityYang100);
@@ -162,7 +160,6 @@ const StyledSearch = styled.div.attrs(applyBaseTheme)<StyledSearchProps>`
 
       ${StyledFormField} {
         flex: 1;
-        z-index: ${theme.zIndex.smallOverlay};
       }
 
       ${StyledIcon} {

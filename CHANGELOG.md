@@ -1,3 +1,45 @@
+## [158.39.1](https://github.com/Sage/carbon/compare/v158.39.0...v158.39.1) (2026-03-31)
+
+### Bug Fixes
+
+* **search:** z-index on form field styling ([d4e8f92](https://github.com/Sage/carbon/commit/d4e8f92e7a42cf4cb262148856b4f5991dd1a144)), closes [#7797](https://github.com/Sage/carbon/issues/7797)
+
+## [158.39.0](https://github.com/Sage/carbon/compare/v158.38.3...v158.39.0) (2026-03-26)
+
+### Features
+
+* **text-editor:** add onFormSubmission callback ([a3b6850](https://github.com/Sage/carbon/commit/a3b685086292983f589392cba004875e76f059e4)), closes [#7737](https://github.com/Sage/carbon/issues/7737)
+
+## [158.38.3](https://github.com/Sage/carbon/compare/v158.38.2...v158.38.3) (2026-03-25)
+
+### Bug Fixes
+
+* **search:** ensure cursor in dark variant has correct colour ([041fd7f](https://github.com/Sage/carbon/commit/041fd7f88f6e947e17ebd4fad96d8e5e4e6781b4)), closes [#7814](https://github.com/Sage/carbon/issues/7814)
+
+## [158.38.2](https://github.com/Sage/carbon/compare/v158.38.1...v158.38.2) (2026-03-24)
+
+### Bug Fixes
+
+* **text-editor:** update hyperlink dialog buttons to use translations ([873f687](https://github.com/Sage/carbon/commit/873f687be48d0b30fc71c28546dc8cc6e6959d1a))
+
+## [158.38.1](https://github.com/Sage/carbon/compare/v158.38.0...v158.38.1) (2026-03-24)
+
+### Bug Fixes
+
+* **text-editor:** text formatting doesn't apply to typography options different than paragraph ([c1e78af](https://github.com/Sage/carbon/commit/c1e78af32cf5e14fca97424d2125c481c5e6eec2))
+
+## [158.38.0](https://github.com/Sage/carbon/compare/v158.37.0...v158.38.0) (2026-03-19)
+
+### Features
+
+* **radio-button:** align with Fusion DS ([78ad453](https://github.com/Sage/carbon/commit/78ad45378ac1f6c3ca4e34687c07de516c49f887))
+
+## [158.37.0](https://github.com/Sage/carbon/compare/v158.36.0...v158.37.0) (2026-03-18)
+
+### Features
+
+* **box:** add support for aria-atomic prop ([5eb5768](https://github.com/Sage/carbon/commit/5eb5768beb3b644eea5b87a2541b47dbfbca9269))
+
 ## [158.36.0](https://github.com/Sage/carbon/compare/v158.35.7...v158.36.0) (2026-03-17)
 
 ### Features

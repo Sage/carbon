@@ -226,35 +226,28 @@ export const MenuComponentScrollableWithSearch = () => {
   );
 };
 
-export const MenuComponentSearch = () => {
+export const MenuComponentSearch = ({ menuType }: Partial<MenuProps>) => {
   const [searchValue, setSearchValue] = useState("");
   return (
-    <Box mb={150}>
-      {menuTypes.map((menuType) => (
-        <div key={menuType}>
-          <Typography variant="h4" textTransform="capitalize" my={2}>
-            {menuType}
-          </Typography>
-          <Menu menuType={menuType}>
-            <MenuItem submenu="Menu One">
-              <MenuItem href="#">Item Submenu One</MenuItem>
-              <MenuDivider size="large" />
-              <MenuSegmentTitle text="segment title" />
-              <MenuItem variant="alternate">
-                <Search
-                  placeholder="Dark variant"
-                  variant="dark"
-                  value={searchValue}
-                  onChange={(e) => setSearchValue(e.target.value)}
-                />
-              </MenuItem>
-              <MenuItem href="#">Item Submenu Two</MenuItem>
-              <MenuItem href="#">Item Submenu Three</MenuItem>
-            </MenuItem>
-          </Menu>
-        </div>
-      ))}
-    </Box>
+    <Menu menuType={menuType}>
+      <MenuItem submenu="Menu One">
+        <MenuItem href="#">Item Submenu One</MenuItem>
+        <MenuDivider size="large" />
+        <MenuSegmentTitle text="segment title" />
+        <MenuItem variant="alternate">
+          <Search
+            placeholder="Search"
+            variant={
+              menuType === "black" || menuType === "dark" ? "dark" : "default"
+            }
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+          />
+        </MenuItem>
+        <MenuItem href="#">Item Submenu Two</MenuItem>
+        <MenuItem href="#">Item Submenu Three</MenuItem>
+      </MenuItem>
+    </Menu>
   );
 };
 
