@@ -31,6 +31,7 @@ sizes should limit the number of tabs used to no more than 5.
 - [Examples](#examples)
 - [Accessibility](#accessibility)
 - [Props](#props)
+- [Ref methods](#ref-methods)
 
 ## Quick Start
 
@@ -40,6 +41,7 @@ import {
   Tab,
   TabList,
   TabPanel,
+  type TabsHandle,
 } from "carbon-react/lib/components/tabs/__next__";
 ```
 
@@ -101,10 +103,6 @@ Use the `leftSlot` and `rightSlot` properties to control items before and after 
 <Canvas of={TabsStories.PreSelectedTab} name="pre-selected-tab" />
 
 ### Focusing a Tab Programmatically
-
-```javascript
-import { TabsHandle } from "carbon-react/lib/components/tabs/__next";
-```
 
 The `TabsHandle` type lets you control which tab is focused through code. By attaching a `ref` to your TabList, you can access an imperative method called
 `focusTab()`, which takes a tab’s `id` as an argument and sets focus to it when called. To do this, first import the handle as above, and then use React's
@@ -178,3 +176,11 @@ Users should be able to:
 ### Tab Panel
 
 <ArgTypes of={TabPanelStories} />
+
+## Ref methods
+
+`TabList`'s forwarded ref exposes the following imperative methods:
+
+| Method Name              | Description                                       |
+| ------------------------ | ------------------------------------------------- |
+| `focusTab(id: string)` | Programmatically focuses the specified tab by ID. |
