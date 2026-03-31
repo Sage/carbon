@@ -1,3 +1,9 @@
+## [158.39.0](https://github.com/Sage/carbon/compare/v158.38.3...v158.39.0) (2026-03-26)
+
+### Features
+
+* **text-editor:** add onFormSubmission callback ([a3b6850](https://github.com/Sage/carbon/commit/a3b685086292983f589392cba004875e76f059e4)), closes [#7737](https://github.com/Sage/carbon/issues/7737)
+
 ## [158.38.3](https://github.com/Sage/carbon/compare/v158.38.2...v158.38.3) (2026-03-25)
 
 ### Bug Fixes
