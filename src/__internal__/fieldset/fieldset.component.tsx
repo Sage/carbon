@@ -206,6 +206,7 @@ const Fieldset = ({
             align={legendAlignment}
             isRequired={isRequired}
             isDisabled={isDisabled}
+            aria-disabled={isDisabled || undefined}
             data-element="legend"
             data-role="legend"
             isLarge={size === "large"}
@@ -255,6 +256,7 @@ const Fieldset = ({
                 align={legendAlignment}
                 rightPadding={legendSpacing}
                 {...legendMargin}
+                aria-disabled={isDisabled || undefined}
                 data-element="legend"
                 data-role="legend"
                 isRequired={isRequired}
