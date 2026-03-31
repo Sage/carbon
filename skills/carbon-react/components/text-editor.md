@@ -796,14 +796,7 @@ Use the [Demo](../?path=/story/text-editor--demo) story with controls to explore
 ## Advanced Usage
 
 ### Focusing the Text Editor Programmatically
-```
 
-
-### MDX Example 2
-
-**Args**
-
-```tsx
 The `TextEditorHandle` type provides an imperative handle for programmatic control over the Text Editor.
 Using a `ref`, you can access its `focus()` method to set focus on the Text Editor as needed.
 
@@ -942,7 +935,7 @@ The `customPlugins` prop allows consumers of the `TextEditor` component to injec
 ```
 
 
-### MDX Example 3
+### MDX Example 2
 
 **Args**
 
