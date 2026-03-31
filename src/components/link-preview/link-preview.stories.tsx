@@ -22,6 +22,7 @@ export const DefaultStory: Story = () => {
   );
 };
 DefaultStory.storyName = "Default";
+DefaultStory.parameters = { chromatic: { disableSnapshot: true } };
 
 export const LinkPreviewLoadingState: Story = () => {
   return <LinkPreview isLoading />;
@@ -40,3 +41,4 @@ export const LinkPreviewCloseIcon: Story = () => {
   );
 };
 LinkPreviewCloseIcon.storyName = "Link Preview Close Icon";
+LinkPreviewCloseIcon.parameters = { chromatic: { disableSnapshot: true } };

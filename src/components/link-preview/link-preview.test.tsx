@@ -110,6 +110,19 @@ test("should call the `onClose` callback when the close icon is clicked", async 
   expect(onCloseMock).toHaveBeenCalledTimes(1);
 });
 
+["[Space]", "[Enter]"].forEach((key) => {
+  test(`should call the \`onClose\` callback when ${key} is pressed on the close icon`, async () => {
+    const onCloseMock = jest.fn();
+    render(<LinkPreview as="div" onClose={onCloseMock} />);
+
+    const user = userEvent.setup();
+    await user.tab();
+    await user.keyboard(key);
+
+    expect(onCloseMock).toHaveBeenCalledTimes(1);
+  });
+});
+
 test("renders with four loading preview's when the `isLoading` prop is true", () => {
   render(<LinkPreview isLoading />);
   const previews = screen.getAllByTestId("preview-placeholder");

@@ -1,14 +1,17 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import React, { act, createRef } from "react";
 
 import TextEditor, {
   EditorFormattedValues,
+  EditorFormattedValuesWithInlineStyles,
   TextEditorHandle,
   createEmpty,
   createFromHTML,
 } from ".";
+
+import Form from "../form";
 
 import Logger from "../../__internal__/utils/logger";
 import { COMPONENT_PREFIX } from "./__internal__/__utils__/constants";
@@ -793,5 +796,49 @@ describe("shortcut keys", () => {
     );
 
     expect(screen.getByTestId("mock-plugin")).toBeInTheDocument();
+  });
+
+  it("calls onFormSubmission callback when parent form is submitted", async () => {
+    const user = userEvent.setup();
+    const onFormSubmission = jest.fn();
+
+    render(
+      <Form data-role="form">
+        <TextEditor
+          labelText="Subject"
+          onFormSubmission={onFormSubmission}
+          initialValue={JSON.stringify(initialValue)}
+        />
+        <button type="submit">Submit Form</button>
+      </Form>,
+    );
+
+    expect(screen.getByText("Sample text")).toBeVisible();
+
+    const editor = screen.getByRole("textbox", { name: "Subject" });
+    await user.click(editor);
+    await user.keyboard(" - test content");
+
+    expect(screen.getByText("Sample text - test content")).toBeVisible();
+
+    const form = screen.getByTestId("form");
+    fireEvent.submit(form);
+
+    await waitFor(() => {
+      expect(onFormSubmission).toHaveBeenCalledTimes(1);
+    });
+
+    const callbackData = onFormSubmission.mock
+      .calls[0][0] as EditorFormattedValuesWithInlineStyles;
+    expect(callbackData).toHaveProperty("htmlString");
+    expect(callbackData).toHaveProperty("json");
+    expect(callbackData).toHaveProperty("htmlStringWithInlineStyles");
+
+    expect(callbackData.htmlString).toContain("Sample text - test content");
+
+    expect(callbackData.htmlStringWithInlineStyles).toBeDefined();
+    expect(callbackData.htmlStringWithInlineStyles).toContain(
+      "<p style=\"font-family: 'Sage UI', sans-serif;\"><span style=\"white-space: pre-wrap; font-family: 'Sage UI', sans-serif;\">Sample text - test content</span></p>",
+    );
   });
 });
