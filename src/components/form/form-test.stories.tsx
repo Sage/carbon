@@ -28,6 +28,8 @@ import Search, { SearchProps } from "../search";
 import { Time } from "../time";
 import TextEditor from "../text-editor";
 import CarbonProvider from "../carbon-provider";
+import Typography from "../typography";
+import Link from "../link";
 
 export default {
   title: "Form/Test",
@@ -259,278 +261,265 @@ AllInputs.parameters = {
   },
 };
 
-export const FormAlignmentCustomMarginsTextInputs = (args: FormProps) => {
+export const FormAlignmentCustomMarginInputs = (args: FormProps) => {
   return (
-    <Form {...args} fieldSpacing={4} px="25%">
-      <Fieldset legend="Fieldset" mb={1}>
-        <Textbox
-          label="Textbox in Fieldset"
+    <>
+      <Form {...args} fieldSpacing={4} px="25%">
+        <Fieldset legend="Fieldset" mb={1}>
+          <Textbox
+            label="Textbox in Fieldset"
+            labelInline
+            labelAlign="right"
+            labelWidth={30}
+            value=""
+            onChange={() => {}}
+          />
+          <Checkbox
+            label="Checkbox in Fieldset"
+            labelWidth={30}
+            labelSpacing={2}
+            reverse
+            checked
+            onChange={() => {}}
+          />
+        </Fieldset>
+        <Decimal
+          label="Decimal"
+          placeholder="placeholder"
+          name="decimal"
           labelInline
-          labelAlign="right"
-          labelWidth={30}
+          labelWidth={10}
+          inputWidth={30}
+          fieldHelp="This is some help text"
+          mb={1}
+          value="0"
+          onChange={() => {}}
+        />
+        <Textbox
+          label="Textbox"
+          placeholder="placeholder"
+          name="textbox"
+          labelInline
+          labelWidth={10}
+          inputWidth={30}
+          labelSpacing={2}
+          mb={1}
           value=""
           onChange={() => {}}
         />
-        <Checkbox
-          label="Checkbox in Fieldset"
-          labelWidth={30}
+        <Number
+          label="Number"
+          placeholder="placeholder"
+          name="number"
+          labelInline
+          labelWidth={10}
+          inputWidth={30}
           labelSpacing={2}
-          reverse
-          checked
+          mb={1}
+          value=""
           onChange={() => {}}
         />
-      </Fieldset>
-      <Decimal
-        label="Decimal"
-        placeholder="placeholder"
-        name="decimal"
-        labelInline
-        labelWidth={10}
-        inputWidth={30}
-        fieldHelp="This is some help text"
-        mb={1}
-        value="0"
-        onChange={() => {}}
-      />
-      <Textbox
-        label="Textbox"
-        placeholder="placeholder"
-        name="textbox"
-        labelInline
-        labelWidth={10}
-        inputWidth={30}
-        labelSpacing={2}
-        mb={1}
-        value=""
-        onChange={() => {}}
-      />
-      <Number
-        label="Number"
-        placeholder="placeholder"
-        name="number"
-        labelInline
-        labelWidth={10}
-        inputWidth={30}
-        labelSpacing={2}
-        mb={1}
-        value=""
-        onChange={() => {}}
-      />
-      <GroupedCharacter
-        placeholder="placeholder"
-        label="GroupedCharacter"
-        name="grouped-character"
-        labelInline
-        groups={[2, 2, 3]}
-        separator="-"
-        mb={1}
-        value=""
-        onChange={() => {}}
-      />
-      <Textarea
-        key="input-three"
-        label="Textarea"
-        placeholder="placeholder"
-        name="textbox"
-        labelInline
-        labelWidth={10}
-        inputWidth={30}
-        mb={1}
-        value=""
-        onChange={() => {}}
-      />
-      <DateInput
-        name="date"
-        label="Date"
-        labelInline
-        labelWidth={10}
-        value=""
-        onChange={() => {}}
-        mb={1}
-      />
-      <DateRange
-        name="date"
-        startLabel="Start Date"
-        endLabel="End Date"
-        startDateProps={{ labelInline: true }}
-        endDateProps={{ labelInline: true }}
-        value={["", ""]}
-        onChange={() => {}}
-        mb={1}
-      />
-      <Select
-        mb={1}
-        name="simple-select"
-        id="simple-select"
-        labelInline
-        label="Simple Select"
-        value=""
-        onChange={() => {}}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
-      </Select>
-      <FilterableSelect
-        mb={1}
-        name="filterable-select"
-        id="filterable-select"
-        labelInline
-        label="Filterable Select"
-        value=""
-        onChange={() => {}}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
-      </FilterableSelect>
-      <MultiSelect
-        mb={1}
-        name="multi-select"
-        id="multi-select"
-        labelInline
-        label="Multi Select"
-        value={[]}
-        onChange={() => {}}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
-      </MultiSelect>
-      <NumeralDate
-        label="Numeral date"
-        labelInline
-        mb={1}
-        value={{ dd: "", mm: "", yyyy: "" }}
-        onChange={() => {}}
-      />
-      <InlineInputs label="Inline inputs" mb={1}>
-        <Textbox value="" onChange={() => {}} />
-        <Textbox value="" onChange={() => {}} />
-        <Textbox value="" onChange={() => {}} />
-      </InlineInputs>
-      <Divider type="horizontal" mx={1} my={0} />
-    </Form>
+        <GroupedCharacter
+          placeholder="placeholder"
+          label="GroupedCharacter"
+          name="grouped-character"
+          labelInline
+          groups={[2, 2, 3]}
+          separator="-"
+          mb={1}
+          value=""
+          onChange={() => {}}
+        />
+        <Textarea
+          key="input-three"
+          label="Textarea"
+          placeholder="placeholder"
+          name="textbox"
+          labelInline
+          labelWidth={10}
+          inputWidth={30}
+          mb={1}
+          value=""
+          onChange={() => {}}
+        />
+        <DateInput
+          name="date"
+          label="Date"
+          labelInline
+          labelWidth={10}
+          value=""
+          onChange={() => {}}
+          mb={1}
+        />
+        <DateRange
+          name="date"
+          startLabel="Start Date"
+          endLabel="End Date"
+          startDateProps={{ labelInline: true }}
+          endDateProps={{ labelInline: true }}
+          value={["", ""]}
+          onChange={() => {}}
+          mb={1}
+        />
+        <Select
+          mb={1}
+          name="simple-select"
+          id="simple-select"
+          labelInline
+          label="Simple Select"
+          value=""
+          onChange={() => {}}
+        >
+          <Option text="Amber" value="1" />
+          <Option text="Black" value="2" />
+          <Option text="Blue" value="3" />
+          <Option text="Brown" value="4" />
+          <Option text="Green" value="5" />
+          <Option text="Orange" value="6" />
+          <Option text="Pink" value="7" />
+          <Option text="Purple" value="8" />
+          <Option text="Red" value="9" />
+          <Option text="White" value="10" />
+          <Option text="Yellow" value="11" />
+        </Select>
+        <FilterableSelect
+          mb={1}
+          name="filterable-select"
+          id="filterable-select"
+          labelInline
+          label="Filterable Select"
+          value=""
+          onChange={() => {}}
+        >
+          <Option text="Amber" value="1" />
+          <Option text="Black" value="2" />
+          <Option text="Blue" value="3" />
+          <Option text="Brown" value="4" />
+          <Option text="Green" value="5" />
+          <Option text="Orange" value="6" />
+          <Option text="Pink" value="7" />
+          <Option text="Purple" value="8" />
+          <Option text="Red" value="9" />
+          <Option text="White" value="10" />
+          <Option text="Yellow" value="11" />
+        </FilterableSelect>
+        <MultiSelect
+          mb={1}
+          name="multi-select"
+          id="multi-select"
+          labelInline
+          label="Multi Select"
+          value={[]}
+          onChange={() => {}}
+        >
+          <Option text="Amber" value="1" />
+          <Option text="Black" value="2" />
+          <Option text="Blue" value="3" />
+          <Option text="Brown" value="4" />
+          <Option text="Green" value="5" />
+          <Option text="Orange" value="6" />
+          <Option text="Pink" value="7" />
+          <Option text="Purple" value="8" />
+          <Option text="Red" value="9" />
+          <Option text="White" value="10" />
+          <Option text="Yellow" value="11" />
+        </MultiSelect>
+        <NumeralDate
+          label="Numeral date"
+          labelInline
+          mb={1}
+          value={{ dd: "", mm: "", yyyy: "" }}
+          onChange={() => {}}
+        />
+        <InlineInputs label="Inline inputs" mb={1}>
+          <Textbox value="" onChange={() => {}} />
+          <Textbox value="" onChange={() => {}} />
+          <Textbox value="" onChange={() => {}} />
+        </InlineInputs>
+        <Divider type="horizontal" mx={1} my={0} />
+      </Form>
+      <Form {...args} fieldSpacing={4} px="25%">
+        <RadioButtonGroup
+          name="legend"
+          legend="Radio group"
+          legendWidth={10}
+          legendSpacing={2}
+          mb={1}
+          value=""
+          onChange={() => {}}
+        >
+          <RadioButton
+            id="group-1-input-1"
+            value="group-1-input-1"
+            label="Radio Option 1"
+            labelWidth={10}
+          />
+          <RadioButton
+            id="group-1-input-2"
+            value="group-1-input-2"
+            label="Radio Option 2"
+            labelWidth={10}
+          />
+        </RadioButtonGroup>
+        <Checkbox
+          name="checkbox1"
+          label="Checkbox 1"
+          mb={1}
+          checked={false}
+          onChange={() => {}}
+        />
+        <CheckboxGroup legend="Checkbox Group" mb={1}>
+          {["One", "Two", "Three"].map((label) => (
+            <Checkbox
+              id={`checkbox-group-${label}`}
+              key={`checkbox-group-${label}`}
+              name={`checkbox-group-${label}`}
+              label={label}
+              checked={false}
+              onChange={() => {}}
+            />
+          ))}
+        </CheckboxGroup>
+        <Switch
+          name="switch"
+          label="Switch"
+          labelInline
+          labelWidth={10}
+          labelSpacing={2}
+          mb={1}
+          checked={false}
+          onChange={() => {}}
+        />
+        <SimpleColorPicker
+          name="picker-disabled-example"
+          legend="Simple Color Picker"
+          mb={1}
+          value=""
+          onChange={() => {}}
+        >
+          {[
+            { color: "transparent", label: "transparent" },
+            { color: "#0073C1", label: "blue" },
+            { color: "#582C83", label: "purple" },
+          ].map(({ color, label }) => (
+            <SimpleColor
+              value={color}
+              key={color}
+              aria-label={label}
+              id={color}
+              disabled
+            />
+          ))}
+        </SimpleColorPicker>
+        <Divider type="horizontal" mx={1} my={0} />
+      </Form>
+    </>
   );
 };
 
-FormAlignmentCustomMarginsTextInputs.storyName =
-  "form alignment custom margins text inputs";
-FormAlignmentCustomMarginsTextInputs.parameters = {
-  chromatic: {
-    disableSnapshot: false, // we want chromatic to capture this to catch any future regressions
-  },
-  themeProvider: { chromatic: { theme: "sage" } },
-};
-
-export const FormAlignmentCustomMarginNonTextInputs = (args: FormProps) => {
-  return (
-    <Form {...args} fieldSpacing={4} px="25%">
-      <RadioButtonGroup
-        name="legend"
-        legend="Radio group"
-        legendInline
-        legendWidth={10}
-        legendSpacing={2}
-        mb={1}
-        value=""
-        onChange={() => {}}
-      >
-        <RadioButton
-          id="group-1-input-1"
-          value="group-1-input-1"
-          label="Radio Option 1"
-          labelWidth={10}
-        />
-        <RadioButton
-          id="group-1-input-2"
-          value="group-1-input-2"
-          label="Radio Option 2"
-          labelWidth={10}
-        />
-      </RadioButtonGroup>
-      <Checkbox
-        name="checkbox1"
-        label="Checkbox 1"
-        mb={1}
-        checked={false}
-        onChange={() => {}}
-      />
-      <CheckboxGroup legend="Checkbox Group" mb={1}>
-        {["One", "Two", "Three"].map((label) => (
-          <Checkbox
-            id={`checkbox-group-${label}`}
-            key={`checkbox-group-${label}`}
-            name={`checkbox-group-${label}`}
-            label={label}
-            checked={false}
-            onChange={() => {}}
-          />
-        ))}
-      </CheckboxGroup>
-      <Switch
-        name="switch"
-        label="Switch"
-        labelInline
-        labelWidth={10}
-        labelSpacing={2}
-        mb={1}
-        checked={false}
-        onChange={() => {}}
-      />
-      <SimpleColorPicker
-        name="picker-disabled-example"
-        legend="Simple Color Picker"
-        mb={1}
-        value=""
-        onChange={() => {}}
-      >
-        {[
-          { color: "transparent", label: "transparent" },
-          { color: "#0073C1", label: "blue" },
-          { color: "#582C83", label: "purple" },
-        ].map(({ color, label }) => (
-          <SimpleColor
-            value={color}
-            key={color}
-            aria-label={label}
-            id={color}
-            disabled
-          />
-        ))}
-      </SimpleColorPicker>
-      <Divider type="horizontal" mx={1} my={0} />
-    </Form>
-  );
-};
-
-FormAlignmentCustomMarginNonTextInputs.storyName =
-  "form alignment custom margin non-text inputs";
-FormAlignmentCustomMarginNonTextInputs.parameters = {
+FormAlignmentCustomMarginInputs.storyName =
+  "form alignment custom margin inputs";
+FormAlignmentCustomMarginInputs.parameters = {
   chromatic: {
     disableSnapshot: false, // we want chromatic to capture this to catch any future regressions
   },
@@ -703,7 +692,7 @@ export const FullWidthWithLeftAndRight = (args: FormProps) => {
   );
 };
 
-FullWidthWithLeftAndRight.storyName = "left and right fullWith buttons";
+FullWidthWithLeftAndRight.storyName = "left and right fullWidth buttons";
 FullWidthWithLeftAndRight.parameters = {
   chromatic: {
     disableSnapshot: false,
@@ -778,3 +767,145 @@ export const DynamicValidations = (args: FormProps) => {
   );
 };
 DynamicValidations.storyName = "Dynamic validations";
+
+export const WithFooters = (args: FormProps) => {
+  const footerNode = (
+    <Box>
+      <Typography>
+        This is the footer text that will be added to provide information about
+        the form content.
+      </Typography>
+      <Link icon="placeholder" href="#">
+        This is a link
+      </Link>
+    </Box>
+  );
+
+  return (
+    <>
+      <Form {...args} footerChildren={footerNode}>
+        <Textbox onChange={() => {}} value="" label="Textbox" />
+      </Form>
+      <Form
+        {...args}
+        leftSideButtons={<Button>Cancel</Button>}
+        saveButton={
+          <Button buttonType="primary" type="submit">
+            Save
+          </Button>
+        }
+        stickyFooter
+      >
+        <Textbox onChange={() => {}} value="" label="Textbox" />
+      </Form>
+      <Form
+        {...args}
+        leftSideButtons={<Button>Cancel</Button>}
+        saveButton={
+          <Button buttonType="primary" type="submit">
+            Save
+          </Button>
+        }
+        stickyFooter
+        stickyFooterVariant="grey"
+      >
+        <Textbox onChange={() => {}} value="" label="Textbox" />
+      </Form>
+    </>
+  );
+};
+
+WithFooters.storyName = "With Footers";
+WithFooters.parameters = {
+  chromatic: {
+    disableSnapshot: false,
+  },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
+
+export const WithValidationSummary = (args: FormProps) => (
+  <>
+    <Form
+      {...args}
+      leftSideButtons={<Button>Cancel</Button>}
+      saveButton={
+        <Button buttonType="primary" type="submit">
+          Save
+        </Button>
+      }
+      errorCount={1}
+    >
+      <Textbox onChange={() => {}} value="" label="Textbox" />
+    </Form>
+    <Form
+      {...args}
+      leftSideButtons={<Button>Cancel</Button>}
+      saveButton={
+        <Button buttonType="primary" type="submit">
+          Save
+        </Button>
+      }
+      warningCount={1}
+    >
+      <Textbox onChange={() => {}} value="" label="Textbox" />
+    </Form>
+    <Form
+      {...args}
+      leftSideButtons={<Button>Cancel</Button>}
+      saveButton={
+        <Button buttonType="primary" type="submit">
+          Save
+        </Button>
+      }
+      errorCount={2}
+      warningCount={2}
+    >
+      <Textbox onChange={() => {}} value="" label="Textbox" />
+    </Form>
+  </>
+);
+WithValidationSummary.storyName = "With Validation Summary";
+WithValidationSummary.parameters = {
+  chromatic: {
+    disableSnapshot: false,
+  },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
+
+export const FieldSpacing = (args: FormProps) => {
+  const [state, setState] = useState("");
+
+  const setValue = (ev: React.ChangeEvent<HTMLInputElement>) => {
+    setState(ev.target.value);
+  };
+
+  return (
+    <Form
+      {...args}
+      leftSideButtons={<Button>Cancel</Button>}
+      saveButton={
+        <Button buttonType="primary" type="submit">
+          Save
+        </Button>
+      }
+      fieldSpacing={4}
+    >
+      <Textbox onChange={() => {}} value="" label="Textbox" />
+      <Textbox onChange={() => {}} value="" label="Textbox" mb={10} />
+      <Textbox onChange={() => {}} value="" label="Overridden Field Spacing" />
+      <Textarea
+        label="Textarea with Character Limit"
+        characterLimit={50}
+        value={state}
+        onChange={setValue}
+      />
+    </Form>
+  );
+};
+FieldSpacing.storyName = "Field Spacing";
+FieldSpacing.parameters = {
+  chromatic: {
+    disableSnapshot: false,
+  },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
