@@ -110,3 +110,27 @@ export const WithinDialog = {
     );
   },
 };
+
+export const HoverState = {
+  render: () => (
+    <Box height={200} mt={50} ml={50}>
+      <MultiActionButton
+        data-role="target"
+        text="Multi Action Button"
+        buttonType="primary"
+      >
+        <Button>Button 1</Button>
+        <Button>Button 2</Button>
+        <Button>Button 3</Button>
+      </MultiActionButton>
+    </Box>
+  ),
+  parameters: {
+    chromatic: {
+      disableSnapshot: false,
+    },
+    pseudo: {
+      hover: "[data-role='target'] button",
+    },
+  },
+};
