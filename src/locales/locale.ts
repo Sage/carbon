@@ -154,10 +154,13 @@ interface Locale {
       cancelButton: () => string;
       cancelButtonAria: () => string;
       dialogTitle: () => string;
+      formKey?: () => string;
       linkFieldLabel: () => string;
+      linkFieldErrorMessage?: () => string;
       saveButton: () => string;
       saveButtonAria: () => string;
       textFieldLabel: () => string;
+      textFieldErrorMessage?: () => string;
     };
     typography: {
       selectAria: () => string;

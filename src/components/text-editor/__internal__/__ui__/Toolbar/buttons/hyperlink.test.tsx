@@ -29,7 +29,7 @@ describe("Hyperlink button", () => {
     });
 
     const dialogContent = within(dialog);
-    const title = dialogContent.getByText("Add link");
+    const title = dialogContent.getByText("Insert link");
     expect(title).toBeInTheDocument();
 
     const input = dialogContent.getAllByRole("textbox");
