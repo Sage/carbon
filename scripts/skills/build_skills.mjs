@@ -112,7 +112,7 @@ const nextComponentFiles = fg.sync(
     absolute: true,
     ignore: ["**/__internal__/**"]
   }
-);
+).sort();
 
 for (const filePath of nextComponentFiles) {
   const sourceFile = project.addSourceFileAtPathIfExists(filePath);
@@ -197,7 +197,7 @@ for (const candidate of uniqueComponentCandidates) {
       "**/*.mdx",
       "**/__internal__/**",
     ],
-  });
+  }).sort();
 
   for (const filePath of moduleFiles) {
     project.addSourceFileAtPathIfExists(filePath);
@@ -805,11 +805,11 @@ async function extractStoryData(projectInstance, rootDir) {
   const storyFiles = fg.sync(
     ["src/**/*.stories.@(js|jsx|ts|tsx)", "docs/**/*.stories.@(js|jsx|ts|tsx)"],
     { cwd: rootDir, absolute: true },
-  );
+  ).sort();
   const mdxFiles = fg.sync(["src/**/*.mdx", "docs/**/*.mdx"], {
     cwd: rootDir,
     absolute: true,
-  });
+  }).sort();
 
   /** @type {Map<string, StoryEntry[]>} */
   const storyMap = new Map();
@@ -1210,7 +1210,7 @@ async function checkWouldWrite(wouldWrite, { componentsOutDir, referencesDir }) 
     if (!existsSync(dir)) {
       continue;
     }
-    const entries = await fs.readdir(dir, { withFileTypes: true });
+    const entries = (await fs.readdir(dir, { withFileTypes: true })).sort((a, b) => a.name.localeCompare(b.name, "en"));
     for (const entry of entries) {
       if (!entry.isFile()) {
         continue;
@@ -1476,7 +1476,8 @@ function renderComponentMarkdown(component, stories) {
   if (!stories.length) {
     lines.push("No Storybook examples found.");
   } else {
-    for (const story of stories) {
+    const sortedStories = [...stories].sort((a, b) => a.name.localeCompare(b.name, "en"));
+    for (const story of sortedStories) {
       lines.push(`### ${story.name}`);
       lines.push("");
       if (story.argsText) {
@@ -1565,7 +1566,9 @@ function dedupeComponentCandidates(candidates) {
     }
   }
 
-  return Array.from(byOutputName.values());
+  return Array.from(byOutputName.values()).sort((a, b) =>
+    (a.displayName ?? a.name).localeCompare(b.displayName ?? b.name, "en"),
+  );
 }
 
 /**
