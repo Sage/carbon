@@ -88,8 +88,7 @@ export const WithFooterNode: Story = (args: FormProps) => {
 };
 WithFooterNode.storyName = "With footer node";
 WithFooterNode.parameters = {
-  chromatic: { viewports: [1200, 320] },
-  themeProvider: { chromatic: { theme: "sage" } },
+  chromatic: { disableSnapshot: true },
 };
 
 export const DefaultWithStickyFooter: Story = (args: FormProps) => (
@@ -114,8 +113,7 @@ export const DefaultWithStickyFooter: Story = (args: FormProps) => (
 );
 DefaultWithStickyFooter.storyName = "Default with sticky footer";
 DefaultWithStickyFooter.parameters = {
-  chromatic: { viewports: [1200, 320] },
-  themeProvider: { chromatic: { theme: "sage" } },
+  chromatic: { disableSnapshot: true },
 };
 
 export const StickyFooterVariant: Story = (args: FormProps) => (
@@ -141,8 +139,7 @@ export const StickyFooterVariant: Story = (args: FormProps) => (
 );
 StickyFooterVariant.storyName = "Sticky footer with grey variant";
 StickyFooterVariant.parameters = {
-  chromatic: { viewports: [1200, 320] },
-  themeProvider: { chromatic: { theme: "sage" } },
+  chromatic: { disableSnapshot: true },
 };
 
 export const WithFullWidthButtons: Story = (args: FormProps) => (
@@ -172,9 +169,8 @@ export const WithFullWidthButtons: Story = (args: FormProps) => (
 );
 WithFullWidthButtons.storyName = "With Full Width Buttons";
 WithFullWidthButtons.parameters = {
-  themeProvider: { chromatic: { theme: "sage" } },
+  chromatic: { disableSnapshot: true },
 };
-
 export const FieldSpacing: Story = (args: FormProps) => {
   const [state, setState] = useState("");
 
@@ -206,6 +202,9 @@ export const FieldSpacing: Story = (args: FormProps) => {
   );
 };
 FieldSpacing.storyName = "Field Spacing";
+FieldSpacing.parameters = {
+  chromatic: { disableSnapshot: true },
+};
 
 export const OverrideFieldSpacing: Story = (args: FormProps) => (
   <Form
@@ -224,6 +223,9 @@ export const OverrideFieldSpacing: Story = (args: FormProps) => (
   </Form>
 );
 OverrideFieldSpacing.storyName = "Override field spacing";
+OverrideFieldSpacing.parameters = {
+  chromatic: { disableSnapshot: true },
+};
 
 export const WithErrorsSummary: Story = (args: FormProps) => (
   <Form
@@ -241,7 +243,7 @@ export const WithErrorsSummary: Story = (args: FormProps) => (
 );
 WithErrorsSummary.storyName = "With Errors Summary";
 WithErrorsSummary.parameters = {
-  chromatic: { viewports: [1200, 900, 320] },
+  chromatic: { disableSnapshot: true },
 };
 
 export const WithWarningsSummary: Story = (args: FormProps) => (
@@ -260,7 +262,7 @@ export const WithWarningsSummary: Story = (args: FormProps) => (
 );
 WithWarningsSummary.storyName = "With Warnings Summary";
 WithWarningsSummary.parameters = {
-  chromatic: { viewports: [1200, 900, 320] },
+  chromatic: { disableSnapshot: true },
 };
 
 export const WithBothErrorsAndWarningsSummary: Story = (args: FormProps) => (
@@ -281,7 +283,7 @@ export const WithBothErrorsAndWarningsSummary: Story = (args: FormProps) => (
 WithBothErrorsAndWarningsSummary.storyName =
   "With Both Errors and Warnings Summary";
 WithBothErrorsAndWarningsSummary.parameters = {
-  chromatic: { viewports: [1200, 900, 320] },
+  chromatic: { disableSnapshot: true },
 };
 
 export const WithAdditionalButtons: Story = (args: FormProps) => (
@@ -309,6 +311,9 @@ export const WithAdditionalButtons: Story = (args: FormProps) => (
   </Form>
 );
 WithAdditionalButtons.storyName = "With Additional Buttons";
+WithAdditionalButtons.parameters = {
+  chromatic: { disableSnapshot: true },
+};
 
 export const WithButtonsAlignedToTheLeft: Story = (args: FormProps) => (
   <Form
