@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
@@ -7,13 +7,34 @@ import {
   testStyledSystemMargin,
 } from "../../../__spec_helper__/__internal__/test-utils";
 import Icon from "../../icon";
-import { VerticalMenuItem, VerticalMenuFullScreen, VerticalMenu } from "..";
+import {
+  VerticalMenuItem,
+  VerticalMenuFullScreen,
+  VerticalMenu,
+  VerticalMenuItemHandle,
+} from "..";
+import Button from "../../button/__next__";
 
 jest.mock("../../icon", () => {
   return jest.fn(() => null);
 });
 
 const IconMock = Icon as jest.MockedFunction<typeof Icon>;
+
+const MockComponent = ({ ...props }) => {
+  const verticalMenuItemRef = useRef<VerticalMenuItemHandle>(null);
+  return (
+    <div>
+      <VerticalMenu>
+        <VerticalMenuItem ref={verticalMenuItemRef} title="Item1" {...props} />
+      </VerticalMenu>
+      ,
+      <Button onClick={() => verticalMenuItemRef.current?.focusItem()}>
+        Focus Item
+      </Button>
+    </div>
+  );
+};
 
 describe("VerticalMenuItem", () => {
   testStyledSystemPadding(
@@ -707,5 +728,31 @@ describe("VerticalMenuItem", () => {
       await user.keyboard(" ");
       expect(onClickMock).toHaveBeenCalledTimes(1);
     });
+  });
+
+  test("should focus the item when the focusItem on the ref handle is invoked and has an href", async () => {
+    const user = userEvent.setup();
+    render(<MockComponent href="#" />);
+
+    const button = screen.getByRole("button", {
+      name: "Focus Item",
+    });
+
+    await user.click(button);
+
+    expect(screen.getByRole("link", { name: "Item1" })).toHaveFocus();
+  });
+
+  test("should focus the item when the focusItem on the ref handle is invoked and has an onClick", async () => {
+    const user = userEvent.setup();
+    render(<MockComponent onClick={() => {}} />);
+
+    const button = screen.getByRole("button", {
+      name: "Focus Item",
+    });
+
+    await user.click(button);
+
+    expect(screen.getByRole("button", { name: "Item1" })).toHaveFocus();
   });
 });
