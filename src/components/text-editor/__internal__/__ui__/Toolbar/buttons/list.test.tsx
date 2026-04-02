@@ -56,6 +56,28 @@ const initialValue = {
   },
 };
 
+/*
+ * `getBoundingClientRect` is not implemented on `Range` objects in jsdom.
+ * Lexical calls this during DOM selection updates after user interactions.
+ */
+beforeEach(() => {
+  Range.prototype.getBoundingClientRect = jest.fn(() => ({
+    width: 0,
+    height: 0,
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+    x: 0,
+    y: 0,
+    toJSON: jest.fn(),
+  }));
+});
+
+afterEach(() => {
+  jest.restoreAllMocks();
+});
+
 it("should render the ordered list control correctly", async () => {
   const user = userEvent.setup();
   render(<TextEditor labelText="Test Editor" namespace="test" />);

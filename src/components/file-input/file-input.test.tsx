@@ -82,8 +82,9 @@ describe("rendering with no file uploaded", () => {
 
     const inputArea = screen.getByTestId("file-input-presentation");
 
-    expect(inputArea).toHaveStyle(
-      "border: var(--borderWidth200) dashed var(--colorsSemanticNegative500)",
+    expect(inputArea).toHaveStyleRule(
+      "border",
+      "var(--borderWidth200) dashed var(--colorsSemanticNegative500)",
     );
   });
 
@@ -92,8 +93,9 @@ describe("rendering with no file uploaded", () => {
 
     const inputArea = screen.getByTestId("file-input-presentation");
 
-    expect(inputArea).toHaveStyle(
-      "border: var(--borderWidth200) dashed var(--colorsSemanticNegative500)",
+    expect(inputArea).toHaveStyleRule(
+      "border",
+      "var(--borderWidth200) dashed var(--colorsSemanticNegative500)",
     );
     expect(screen.getByText("error text")).toBeVisible();
   });
@@ -202,8 +204,9 @@ describe("interactions", () => {
       dataTransfer: { files: [file], types: ["Files"] },
     });
 
-    expect(screen.getByTestId("file-input-presentation")).toHaveStyle(
-      "border: var(--borderWidth200) dashed var(--colorsUtilityMajor400)",
+    expect(screen.getByTestId("file-input-presentation")).toHaveStyleRule(
+      "border",
+      "var(--borderWidth200) dashed var(--colorsUtilityMajor400)",
     );
   });
 
@@ -217,8 +220,9 @@ describe("interactions", () => {
       dataTransfer: { files: [file], types: ["Files"] },
     });
 
-    expect(screen.getByTestId("file-input-presentation")).toHaveStyle(
-      "border: var(--borderWidth200) dashed var(--colorsSemanticNegative600)",
+    expect(screen.getByTestId("file-input-presentation")).toHaveStyleRule(
+      "border",
+      "var(--borderWidth200) dashed var(--colorsSemanticNegative600)",
     );
   });
 
@@ -229,8 +233,9 @@ describe("interactions", () => {
       dataTransfer: { files: [], types: [] },
     });
 
-    expect(screen.getByTestId("file-input-presentation")).toHaveStyle(
-      "border: var(--borderWidth100) dashed var(--colorsUtilityMajor300)",
+    expect(screen.getByTestId("file-input-presentation")).toHaveStyleRule(
+      "border",
+      "var(--borderWidth100) dashed var(--colorsUtilityMajor300)",
     );
   });
 
@@ -403,8 +408,9 @@ describe("with uploadStatus prop set", () => {
 
     const fileUploadStatus = screen.getByTestId("file-upload-status");
 
-    expect(fileUploadStatus).toHaveStyle(
-      "border: var(--borderWidth200) solid var(--colorsSemanticNegative500)",
+    expect(fileUploadStatus).toHaveStyleRule(
+      "border",
+      "var(--borderWidth200) solid var(--colorsSemanticNegative500)",
     );
   });
 });

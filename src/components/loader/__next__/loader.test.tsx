@@ -4,6 +4,7 @@ import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/te
 import Loader from ".";
 import useMediaQuery from "../../../hooks/useMediaQuery";
 import Button from "../../button/button.component";
+import StyledNextButton from "../../button/__next__/button.style";
 
 jest.mock("../../../hooks/useMediaQuery", () => ({
   __esModule: true,
@@ -312,8 +313,12 @@ test("uses text colour of a parent Button to style its text and inner ring arc",
   );
 
   const labelText = screen.getByText("Loading...");
-  expect(labelText).toHaveStyle("color: currentColor");
+  expect(labelText).toHaveStyleRule("color", "currentColor", {
+    modifier: `${StyledNextButton} &`,
+  });
 
-  const innerArc = screen.getByTestId("inner-arc");
-  expect(innerArc).toHaveStyle("stroke: currentColor");
+  const innerArc = screen.getByRole("presentation");
+  expect(innerArc).toHaveStyleRule("stroke", "currentColor", {
+    modifier: `${StyledNextButton} & circle[data-role='inner-arc']`,
+  });
 });
