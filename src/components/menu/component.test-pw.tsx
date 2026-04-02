@@ -14,7 +14,6 @@ import {
   ScrollableBlockProps,
 } from ".";
 import Search, { SearchEvent } from "../search";
-import GlobalHeader from "../global-header";
 import Box from "../box/box.component";
 import Typography from "../typography/typography.component";
 import useMediaQuery from "../../hooks/useMediaQuery";
@@ -529,41 +528,6 @@ export const MenuComponentItems = (
   );
 };
 
-export const MenuItems = (props: MenuWithChildren) => {
-  return (
-    <Box mb={150}>
-      {menuTypes.map((menuType) => (
-        <Box key={menuType}>
-          <Typography variant="h4" textTransform="capitalize" my={2}>
-            {menuType}
-          </Typography>
-          <Menu menuType={menuType}>
-            <MenuItem href="#">Menu Item One</MenuItem>
-            <MenuItem href="#">Menu Item Two</MenuItem>
-            <MenuItem submenu="No action or link">
-              <MenuItem href="#">Item Submenu One</MenuItem>
-              <MenuItem href="#">Item Submenu Two</MenuItem>
-              <MenuDivider />
-              <MenuItem icon="settings" href="#">
-                Item Submenu Three
-              </MenuItem>
-              <MenuItem href="#">Item Submenu Four</MenuItem>
-            </MenuItem>
-            <MenuItem submenu="With href" href="#">
-              <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
-              <MenuItem href="#">Item Submenu Two</MenuItem>
-            </MenuItem>
-            <MenuItem submenu="With clickToOpen prop" {...props}>
-              <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
-              <MenuItem href="#">Item Submenu Two</MenuItem>
-            </MenuItem>
-          </Menu>
-        </Box>
-      ))}
-    </Box>
-  );
-};
-
 export const MenuFullScreenWithSearchButton = ({
   searchValue,
 }: {
@@ -816,52 +780,6 @@ export const MenuDividerComponent = (props: MenuDividerProps) => {
   );
 };
 
-export const InGlobalHeaderStory = () => {
-  return (
-    <GlobalHeader>
-      <Menu menuType="dark">
-        <MenuItem submenu="I'm long" clickToOpen>
-          <MenuItem onClick={() => {}}>Foo 1</MenuItem>
-          <MenuItem onClick={() => {}}>Foo 2</MenuItem>
-          <MenuItem onClick={() => {}}>Foo 3</MenuItem>
-          <MenuItem onClick={() => {}}>Foo 4</MenuItem>
-          <MenuItem onClick={() => {}}>Foo 5</MenuItem>
-          <MenuItem onClick={() => {}}>Foo 6</MenuItem>
-          <MenuItem onClick={() => {}}>Foo 7</MenuItem>
-          <MenuItem onClick={() => {}}>Foo 8</MenuItem>
-          <MenuItem onClick={() => {}}>Foo 9</MenuItem>
-          <MenuItem onClick={() => {}}>Foo 10</MenuItem>
-          <MenuItem onClick={() => {}}>Foo 11</MenuItem>
-          <MenuItem onClick={() => {}}>Foo 12</MenuItem>
-          <MenuItem onClick={() => {}}>Foo 13</MenuItem>
-          <MenuItem onClick={() => {}}>Foo 14</MenuItem>
-          <MenuItem onClick={() => {}}>Foo 15</MenuItem>
-          <MenuItem onClick={() => {}}>Foo 16</MenuItem>
-          <MenuItem onClick={() => {}}>Foo 17</MenuItem>
-          <MenuItem onClick={() => {}}>Foo 18</MenuItem>
-          <MenuItem onClick={() => {}}>Foo 19</MenuItem>
-          <MenuItem onClick={() => {}}>Foo 20</MenuItem>
-        </MenuItem>
-      </Menu>
-    </GlobalHeader>
-  );
-};
-
-export const SubMenuWithVeryLongLabel = () => {
-  return (
-    <Box mb={150}>
-      <Menu menuType="white">
-        <MenuItem submenu="Menu Item One Has A Very Long Menu Title For No Reason Whatsoever">
-          <MenuItem href="#">Item Submenu One</MenuItem>
-          <MenuItem variant="alternate" href="#">
-            Item Submenu Two
-          </MenuItem>
-        </MenuItem>
-      </Menu>
-    </Box>
-  );
-};
-
 export const MenuItemWithPopoverContainerChild = () => {
   return (
     <Menu menuType="black">
@@ -911,19 +829,3 @@ export const SubmenuMaxWidth = () => (
     </MenuItem>
   </Menu>
 );
-
-export const MenuSegmentTitleWithNoMenuItemOutside = () => {
-  return (
-    <Menu>
-      <MenuItem submenu="Menu Item">
-        <MenuSegmentTitle text="segment title">
-          <MenuItem href="#">Item Submenu One</MenuItem>
-          <MenuItem href="#">Item Submenu Two</MenuItem>
-        </MenuSegmentTitle>
-        <MenuSegmentTitle variant="alternate" text="alternate title">
-          <MenuItem href="#">Item Submenu Three</MenuItem>
-        </MenuSegmentTitle>
-      </MenuItem>
-    </Menu>
-  );
-};
