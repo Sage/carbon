@@ -1,6 +1,8 @@
 import styled, { css } from "styled-components";
 
-import { padding, PaddingProps } from "styled-system";
+// import { padding, PaddingProps } from "styled-system";
+import { PaddingProps } from "../../dips-box/utils/spacing-types";
+import { spacingCss, resolveSpacingValue } from "../../dips-box/utils/spacing";
 
 import menuConfigVariants from "../menu.config";
 import Link from "../../link";
@@ -43,43 +45,98 @@ interface StyledMenuItemWrapperProps
 
 const BASE_SPACING = 16;
 
-const parsePadding = (props: Partial<PaddingProps>) => {
-  const { paddingRight } = props;
-  const paddingNumber = String(paddingRight)?.match(/\d+/)?.[0];
+const parsePadding = (props: Partial<PaddingProps> & { theme?: unknown }) => {
+  // Get the raw value from props (px takes precedence over pr over paddingRight)
+  let paddingRight =
+    props.px !== undefined
+      ? props.px
+      : props.pr !== undefined
+        ? props.pr
+        : props.paddingRight;
 
-  if (paddingRight === "var(--spacing000)" || paddingNumber === "0") {
+  // Check for 0 BEFORE resolving, since we have special handling for it
+  if (paddingRight === 0 || paddingRight === "0" || paddingRight === "0px") {
     return { padding: "var(--spacing200)", iconSpacing: "2px" };
   }
 
-  switch (paddingRight) {
-    case "var(--spacing100)":
-      return { padding: "var(--spacing300)", iconSpacing: paddingRight };
-    case "var(--spacing200)":
-      return { padding: "var(--spacing400)", iconSpacing: paddingRight };
-    case "var(--spacing300)":
-      return { padding: "var(--spacing500)", iconSpacing: paddingRight };
-    case "var(--spacing400)":
-      return { padding: "var(--spacing600)", iconSpacing: paddingRight };
-    case "var(--spacing500)":
-      return { padding: "var(--spacing700)", iconSpacing: paddingRight };
-    case "var(--spacing600)":
-      return { padding: "var(--spacing800)", iconSpacing: paddingRight };
-    case "var(--spacing700)":
-      return { padding: "var(--spacing900)", iconSpacing: paddingRight };
-    case "var(--spacing800)":
-      return {
-        padding: "var(--spacing1000)",
-        iconSpacing: paddingRight,
-      };
-    default:
-      if (paddingNumber) {
-        return {
-          padding: `${BASE_SPACING + Number(paddingNumber)}px`,
-          iconSpacing: `${paddingNumber}px`,
-        };
-      }
-      return { padding: "var(--spacing400)", iconSpacing: "var(--spacing200)" };
+  // Resolve the value using the same logic as spacingCss
+  paddingRight = resolveSpacingValue(paddingRight, props.theme);
+
+  // Convert to string for comparison
+  const paddingStr = String(paddingRight);
+
+  // Handle the special case of spacing000 after resolution
+  if (paddingRight === "var(--spacing000)") {
+    return { padding: "var(--spacing200)", iconSpacing: "2px" };
   }
+
+  // Handle CSS variables
+  if (paddingStr.startsWith("var(--")) {
+    switch (paddingRight) {
+      case "var(--spacing100)":
+        return {
+          padding: "var(--spacing300)",
+          iconSpacing: "var(--spacing100)",
+        };
+      case "var(--spacing200)":
+        return {
+          padding: "var(--spacing400)",
+          iconSpacing: "var(--spacing200)",
+        };
+      case "var(--spacing300)":
+        return {
+          padding: "var(--spacing500)",
+          iconSpacing: "var(--spacing300)",
+        };
+      case "var(--spacing400)":
+        return {
+          padding: "var(--spacing600)",
+          iconSpacing: "var(--spacing400)",
+        };
+      case "var(--spacing500)":
+        return {
+          padding: "var(--spacing700)",
+          iconSpacing: "var(--spacing500)",
+        };
+      case "var(--spacing600)":
+        return {
+          padding: "var(--spacing800)",
+          iconSpacing: "var(--spacing600)",
+        };
+      case "var(--spacing700)":
+        return {
+          padding: "var(--spacing900)",
+          iconSpacing: "var(--spacing700)",
+        };
+      case "var(--spacing800)":
+        return {
+          padding: "var(--spacing1000)",
+          iconSpacing: "var(--spacing800)",
+        };
+      default:
+        return {
+          padding: "var(--spacing400)",
+          iconSpacing: "var(--spacing200)",
+        };
+    }
+  }
+
+  // Handle raw pixel values (string like "5px" or numeric result like "8px")
+  const paddingNumber = paddingStr?.match(/\d+/)?.[0];
+
+  if (paddingNumber === "0") {
+    return { padding: "var(--spacing200)", iconSpacing: "2px" };
+  }
+
+  if (paddingNumber) {
+    return {
+      padding: `${BASE_SPACING + Number(paddingNumber)}px`,
+      iconSpacing: `${paddingNumber}px`,
+    };
+  }
+
+  // Default fallback
+  return { padding: "var(--spacing400)", iconSpacing: "var(--spacing200)" };
 };
 
 const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
@@ -430,7 +487,8 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
         &&& {
           > a,
           > button:not(${StyledIconButton}) {
-            padding-right: ${(props) => parsePadding(padding(props)).padding};
+            padding-right: ${(props) =>
+              parsePadding(props as Partial<PaddingProps>).padding};
           }
         }
 
@@ -440,7 +498,8 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
           margin-top: -1px;
           pointer-events: none;
           position: absolute;
-          right: ${(props) => parsePadding(padding(props)).iconSpacing};
+          right: ${(props) =>
+            parsePadding(props as Partial<PaddingProps>).iconSpacing};
           top: 50%;
           z-index: 2;
           content: "";
@@ -521,7 +580,7 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
   &&& {
     > a,
     > button {
-      ${padding}
+      ${(props) => spacingCss(props)}
     }
   }
 `;
