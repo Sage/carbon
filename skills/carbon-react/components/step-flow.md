@@ -370,7 +370,12 @@ description: Carbon StepFlow component props and usage examples.
 **Args**
 
 ```tsx
-import { StepFlow, StepFlowTitle, StepFlowHandle, Steps } from "carbon-react/lib/components/step-flow";
+import { 
+  StepFlow,
+  StepFlowTitle,
+  type StepFlowHandle,
+  type Steps
+} from "carbon-react/lib/components/step-flow";
 ```
 
 

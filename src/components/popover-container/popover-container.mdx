@@ -13,11 +13,12 @@ import * as PopoverContainerStories from "./popover-container.stories";
 - [Quick Start](#quick-start)
 - [Examples](#examples)
 - [Props](#props)
+- [Ref methods](#ref-methods)
 
 ## Quick Start
 
 ```javascript
-import PopoverContainer from "carbon-react/lib/components/popover-container";
+import PopoverContainer, { type PopoverContainerHandle } from "carbon-react/lib/components/popover-container";
 ```
 
 ## Examples
@@ -119,8 +120,7 @@ It is possible to disable the animations applied to the `PopoverContainer` by se
 
 ### Focusing the open button programmatically
 
-The component exposes a `focusButton` function that supports programmatically focusing on the open button, which can be called by passing a ref to the `PopoverContainer` component.
-This can be useful when closing or submitting a Form within `PopoverContainer`.
+`PopoverContainer`'s ref exposes a `focusButton` function that can be called to programmatically focus the open button. This can be useful when closing or submitting a Form within `PopoverContainer`.
 
 **Please note you should supply an `onClose` when controlling the `open` state in order for the `PopoverContainer` to close when clicking outside of the wrapper element**
 
@@ -131,3 +131,11 @@ This can be useful when closing or submitting a Form within `PopoverContainer`.
 ### Popover Container
 
 <ArgTypes of={PopoverContainerStories} />
+
+## Ref methods
+
+`PopoverContainer`'s forwarded ref exposes the following imperative methods:
+
+| Method Name      | Description                                  |
+| ---------------- | -------------------------------------------- |
+| `focusButton()` | Programmatically focuses the open button.    |
