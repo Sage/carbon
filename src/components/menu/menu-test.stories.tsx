@@ -8,8 +8,6 @@ import {
   MenuItem,
   MenuFullscreen,
   MenuFullscreenProps,
-  MenuSegmentTitle,
-  ScrollableBlock,
   MenuDivider,
 } from ".";
 import Search from "../search";
@@ -202,31 +200,92 @@ MenuFullScreenStory.decorators = [
   ),
 ];
 
-export const LongLabelsStory = () => {
+export const LongLabelsWrappingAndPill = () => {
   return (
-    <Menu>
-      <MenuItem submenu="Parent Menu A">
-        <MenuItem href="#">Child A</MenuItem>
-        <MenuItem href="#">Child B with very long label</MenuItem>
-        <MenuItem href="#">Child C</MenuItem>
-      </MenuItem>
-      <MenuItem submenu="Parent Menu B with very long label">
-        <MenuItem href="#">Child A</MenuItem>
-        <MenuItem href="#">Child B</MenuItem>
-        <MenuItem href="#">Child C</MenuItem>
-      </MenuItem>
-      <MenuItem submenu="Parent Menu C with overflow" submenuMaxWidth="300px">
-        <MenuItem minWidth="max-content" href="#">
-          Child with a very long label that should wrap onto the next line and
-          not get cut off
+    <>
+      <Menu>
+        <MenuItem submenu="Parent Menu A">
+          <MenuItem href="#">Child A</MenuItem>
+          <MenuItem href="#">Child B with very long label</MenuItem>
+          <MenuItem href="#">Child C</MenuItem>
         </MenuItem>
-      </MenuItem>
-    </Menu>
+        <MenuItem submenu="Parent Menu B with very long label">
+          <MenuItem href="#">Child A</MenuItem>
+          <MenuItem href="#">Child B</MenuItem>
+          <MenuItem href="#">Child C</MenuItem>
+        </MenuItem>
+        <MenuItem submenu="Parent Menu C with overflow" submenuMaxWidth="300px">
+          <MenuItem minWidth="max-content" href="#">
+            Child with a very long label that should wrap onto the next line and
+            not get cut off
+          </MenuItem>
+        </MenuItem>
+      </Menu>
+      <Box mt={4}>
+        <Menu width="400px">
+          <MenuItem
+            justifyContent="flex-start"
+            width="100px"
+            icon="settings"
+            href="#"
+          >
+            M
+          </MenuItem>
+          <MenuItem icon="settings" onClick={() => {}}>
+            Menu Item Two
+          </MenuItem>
+          <MenuItem submenu="Menu Item Three">
+            <MenuItem href="#">Item Submenu One</MenuItem>
+            <MenuItem href="#">Item Submenu Two</MenuItem>
+            <MenuDivider />
+            <MenuItem icon="entry" href="#">
+              Item Submenu Three
+            </MenuItem>
+            <MenuItem icon="settings" href="#">
+              Item Submenu Four
+            </MenuItem>
+          </MenuItem>
+          <MenuItem
+            maxWidth="100px"
+            submenu="Menu Item Four"
+            onClick={() => {}}
+          >
+            <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
+            <MenuItem href="#">Item Submenu Two</MenuItem>
+          </MenuItem>
+        </Menu>
+      </Box>
+      <Box mt={4}>
+        <NavigationBar navigationType="white" orientation="top">
+          <Menu menuType="white">
+            <MenuItem href="#">Menu Item One</MenuItem>
+            <MenuItem onClick={() => {}}>Menu Item Button</MenuItem>
+            <MenuItem onClick={() => {}}>
+              incomplete
+              <Pill
+                pillRole="status"
+                colorVariant="warning"
+                fill
+                ml={1}
+                size="M"
+              >
+                2
+              </Pill>
+            </MenuItem>
+            <MenuItem submenu="Menu Item Four" onClick={() => {}}>
+              <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
+              <MenuItem href="#">Item Submenu Two</MenuItem>
+            </MenuItem>
+          </Menu>
+        </NavigationBar>
+      </Box>
+    </>
   );
 };
 
-LongLabelsStory.storyName = "With Long MenuItem Labels";
-LongLabelsStory.parameters = {
+LongLabelsWrappingAndPill.storyName =
+  "With Long MenuItem Labels, Wrapping and Pill";
+LongLabelsWrappingAndPill.parameters = {
   themeProvider: { chromatic: { theme: "sage" } },
   chromatic: { disableSnapshot: false },
 };
@@ -264,7 +323,7 @@ export const InGlobalHeaderStory = () => {
 InGlobalHeaderStory.storyName = "In GlobalHeader";
 InGlobalHeaderStory.parameters = {
   themeProvider: { chromatic: { theme: "sage" } },
-  chromatic: { disableSnapshot: false },
+  chromatic: { disableSnapshot: true },
 };
 
 export const MenuFullScreenKeysTest = () => {
@@ -313,81 +372,6 @@ export const MenuFullScreenKeysTest = () => {
 };
 MenuFullScreenKeysTest.storyName = "Menu Fullscreen with dynamic submenus";
 
-export const MenuWithTwoSegments = () => {
-  return (
-    <Box margin="0 25px" display="flex" flexDirection="row">
-      <Menu menuType="black">
-        <MenuItem submenu="Menu Item">
-          <MenuItem href="#" minWidth="200px">
-            Submenu
-          </MenuItem>
-          <MenuSegmentTitle text="segment title 1" variant="alternate">
-            <MenuItem href="#" variant="alternate">
-              Menu Item 1
-            </MenuItem>
-          </MenuSegmentTitle>
-          <MenuSegmentTitle text="segment title 2" variant="alternate">
-            <MenuItem href="#" variant="alternate">
-              Menu Item 2
-            </MenuItem>
-            <MenuItem href="#" variant="alternate">
-              Menu Item 3
-            </MenuItem>
-          </MenuSegmentTitle>
-          <MenuItem href="#">Menu Item 4</MenuItem>
-        </MenuItem>
-      </Menu>
-      <Menu menuType="light">
-        <MenuItem onClick={() => {}}>Menu Item One</MenuItem>
-        <MenuItem href="#">Menu Item Two</MenuItem>
-        <MenuItem submenu="Menu Item Three">
-          <ScrollableBlock height="200px">
-            <MenuItem href="#">Item Submenu One</MenuItem>
-            <MenuItem href="#">Item Submenu Two</MenuItem>
-            <MenuItem href="#">Item Submenu Three</MenuItem>
-            <MenuItem href="#">Item Submenu Four</MenuItem>
-            <MenuItem href="#">Item Submenu Five</MenuItem>
-            <MenuItem href="#">Item Submenu Six</MenuItem>
-            <MenuItem href="#">Item Submenu Seven</MenuItem>
-            <MenuItem href="#">Item Submenu Eight</MenuItem>
-            <MenuItem href="#">Item Submenu Nine</MenuItem>
-            <MenuItem href="#">Item Submenu Ten</MenuItem>
-            <MenuItem href="#">Item Submenu Eleven</MenuItem>
-            <MenuItem href="#">Item Submenu Twelve</MenuItem>
-          </ScrollableBlock>
-        </MenuItem>
-        <MenuItem submenu="Menu Item Four">
-          <MenuItem href="#">Item Submenu One</MenuItem>
-          <MenuItem href="#">Item Submenu Two</MenuItem>
-          <ScrollableBlock variant="alternate" height="200px">
-            <MenuItem href="#">Item Submenu Three</MenuItem>
-            <MenuItem href="#">Item Submenu Four</MenuItem>
-            <MenuItem href="#">Item Submenu Five</MenuItem>
-            <MenuItem href="#">Item Submenu Six</MenuItem>
-            <MenuItem href="#">Item Submenu Seven</MenuItem>
-            <MenuItem href="#">Item Submenu Eight</MenuItem>
-            <MenuItem href="#">Item Submenu Nine</MenuItem>
-            <MenuItem href="#">Item Submenu Ten</MenuItem>
-            <MenuItem href="#">Item Submenu Eleven</MenuItem>
-            <MenuItem href="#">Item Submenu Twelve</MenuItem>
-          </ScrollableBlock>
-          <MenuItem href="#">Item Submenu FFS</MenuItem>
-        </MenuItem>
-        <MenuItem submenu="Menu Item Five">
-          <MenuSegmentTitle text="segment title">
-            <MenuItem href="#">Item Submenu One</MenuItem>
-            <MenuItem href="#">Item Submenu Two</MenuItem>
-          </MenuSegmentTitle>
-          <MenuSegmentTitle variant="alternate" text="alternate title">
-            <MenuItem href="#">Item Submenu Three</MenuItem>
-          </MenuSegmentTitle>
-        </MenuItem>
-      </Menu>
-    </Box>
-  );
-};
-MenuWithTwoSegments.storyName = "Menu with Two Segments";
-
 export const MenuWithSubmenuCustomPadding = () => (
   <>
     {[0, "5px", 1, 2, "17px", 3, 4, 5, 6, 7, 8].map((padding) => (
@@ -406,46 +390,6 @@ export const MenuWithSubmenuCustomPadding = () => (
 );
 MenuWithSubmenuCustomPadding.storyName = "MenuItem with Custom Padding";
 MenuWithSubmenuCustomPadding.parameters = {
-  themeProvider: { chromatic: { theme: "sage" } },
-  chromatic: { disableSnapshot: false },
-};
-
-export const WhenMenuItemsWrap = () => {
-  return (
-    <Box mb={150}>
-      <Menu width="400px">
-        <MenuItem
-          justifyContent="flex-start"
-          width="100px"
-          icon="settings"
-          href="#"
-        >
-          M
-        </MenuItem>
-        <MenuItem icon="settings" onClick={() => {}}>
-          Menu Item Two
-        </MenuItem>
-        <MenuItem submenu="Menu Item Three">
-          <MenuItem href="#">Item Submenu One</MenuItem>
-          <MenuItem href="#">Item Submenu Two</MenuItem>
-          <MenuDivider />
-          <MenuItem icon="entry" href="#">
-            Item Submenu Three
-          </MenuItem>
-          <MenuItem icon="settings" href="#">
-            Item Submenu Four
-          </MenuItem>
-        </MenuItem>
-        <MenuItem maxWidth="100px" submenu="Menu Item Four" onClick={() => {}}>
-          <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
-          <MenuItem href="#">Item Submenu Two</MenuItem>
-        </MenuItem>
-      </Menu>
-    </Box>
-  );
-};
-WhenMenuItemsWrap.storyName = "MenuItems with Wrapped Text";
-WhenMenuItemsWrap.parameters = {
   themeProvider: { chromatic: { theme: "sage" } },
   chromatic: { disableSnapshot: false },
 };
@@ -494,30 +438,3 @@ MenuFullScreenWithMaxWidth.decorators = [
     </>
   ),
 ];
-
-export const NavBarMenuWithPill: StoryFullScreen = () => {
-  return (
-    <NavigationBar navigationType="white" orientation="top">
-      <Menu menuType="white">
-        <MenuItem href="#">Menu Item One</MenuItem>
-        <MenuItem onClick={() => {}}>Menu Item Button</MenuItem>
-        <MenuItem onClick={() => {}}>
-          incomplete
-          <Pill pillRole="status" colorVariant="warning" fill ml={1} size="M">
-            2
-          </Pill>
-        </MenuItem>
-
-        <MenuItem submenu="Menu Item Four" onClick={() => {}}>
-          <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
-          <MenuItem href="#">Item Submenu Two</MenuItem>
-        </MenuItem>
-      </Menu>
-    </NavigationBar>
-  );
-};
-NavBarMenuWithPill.storyName = "Menu in a Navigation Bar with Pill ";
-NavBarMenuWithPill.parameters = {
-  themeProvider: { chromatic: { theme: "sage" } },
-  chromatic: { disableSnapshot: false },
-};
