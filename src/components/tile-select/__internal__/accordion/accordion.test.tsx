@@ -45,6 +45,6 @@ test("resize observer recalculates the content height", () => {
   );
 
   expect(contentContainer).toHaveStyle({
-    maxHeight: `400px`,
+    height: `400px`,
   });
 });
