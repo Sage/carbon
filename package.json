@@ -76,7 +76,7 @@
     "@rollup/plugin-commonjs": "^28.0.2",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.0",
-    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-terser": "^1.0.0",
     "@rollup/plugin-url": "^8.0.2",
     "@sage/design-tokens": "^4.17.0",
     "@sage/design-tokens-fusion": "npm:@sage/design-tokens@^18.2.1",
