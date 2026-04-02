@@ -57,7 +57,7 @@ test("renders correctly when disabled", () => {
   expect(screen.getByText("foo")).toBeVisible();
   expect(screen.getByText("foo")).toHaveStyleRule(
     `color`,
-    "var(--colorsUtilityYin030)",
+    "var(--input-labelset-label-disabled)",
   );
 });
 
