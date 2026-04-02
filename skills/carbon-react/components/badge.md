@@ -33,7 +33,7 @@ description: Carbon Badge component props and usage examples.
 | mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
 | mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
-| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | Size of the badge | "medium" |
+| size | "large" \| "small" \| "medium" \| undefined | No |  |  |  | Size of the badge | "medium" |
 | variant | "subtle" \| "typical" \| undefined | No |  |  |  | Badge variant | "typical" |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
@@ -42,6 +42,35 @@ description: Carbon Badge component props and usage examples.
 | aria-label | string \| undefined | No |  | Yes | Prop to specify an aria-label for the component |  |  |
 
 ## Examples
+### Custom Color
+
+**Render**
+
+```tsx
+({ ...args }) => {
+  const counter = 9;
+  return (
+    <Badge
+      id="badge-custom-color"
+      counter={counter}
+      onClick={() => {}}
+      aria-label={`Remove ${counter} filters.`}
+      color="--colorsSemanticNegative500"
+      {...args}
+    >
+      <Button
+        aria-describedby="badge-custom-color"
+        buttonType="secondary"
+        destructive
+      >
+        Filter
+      </Button>
+    </Badge>
+  );
+}
+```
+
+
 ### Default
 
 **Render**
@@ -54,69 +83,6 @@ description: Carbon Badge component props and usage examples.
       <Badge id="badge-default-2" counter={99} {...args} />
       <Badge id="badge-default-3" counter="99+" {...args} />
       <Badge id="badge-default-4" counter="999+" {...args} />
-    </>
-  );
-}
-```
-
-
-### With Children
-
-**Render**
-
-```tsx
-({ ...args }) => {
-  return (
-    <Badge id="badge-button" counter={99} {...args}>
-      <Button buttonType="secondary" aria-describedby="badge-button">
-        Filter
-      </Button>
-    </Badge>
-  );
-}
-```
-
-
-### Sizes
-
-**Render**
-
-```tsx
-({ ...args }) => {
-  return (
-    <>
-      <Badge id="badge-small" counter={99} size="small" {...args}>
-        <Icon type="alert" color="black" />
-      </Badge>
-      <Badge id="badge-medium" counter={99} size="medium" {...args} />
-      <Badge id="badge-large" counter={99} size="large" {...args} />
-    </>
-  );
-}
-```
-
-
-### Subtle Variant
-
-**Args**
-
-```tsx
-{
-  variant: "subtle",
-}
-```
-
-**Render**
-
-```tsx
-({ ...args }) => {
-  return (
-    <>
-      <Badge id="badge-subtle-small" counter={99} size="small" {...args}>
-        <Icon type="alert" color="black" />
-      </Badge>
-      <Badge id="badge-subtle-medium" counter={99} size="medium" {...args} />
-      <Badge id="badge-subtle-large" counter={99} size="large" {...args} />
     </>
   );
 }
@@ -174,6 +140,69 @@ description: Carbon Badge component props and usage examples.
 ```
 
 
+### Sizes
+
+**Render**
+
+```tsx
+({ ...args }) => {
+  return (
+    <>
+      <Badge id="badge-small" counter={99} size="small" {...args}>
+        <Icon type="alert" color="black" />
+      </Badge>
+      <Badge id="badge-medium" counter={99} size="medium" {...args} />
+      <Badge id="badge-large" counter={99} size="large" {...args} />
+    </>
+  );
+}
+```
+
+
+### Subtle Variant
+
+**Args**
+
+```tsx
+{
+  variant: "subtle",
+}
+```
+
+**Render**
+
+```tsx
+({ ...args }) => {
+  return (
+    <>
+      <Badge id="badge-subtle-small" counter={99} size="small" {...args}>
+        <Icon type="alert" color="black" />
+      </Badge>
+      <Badge id="badge-subtle-medium" counter={99} size="medium" {...args} />
+      <Badge id="badge-subtle-large" counter={99} size="large" {...args} />
+    </>
+  );
+}
+```
+
+
+### With Children
+
+**Render**
+
+```tsx
+({ ...args }) => {
+  return (
+    <Badge id="badge-button" counter={99} {...args}>
+      <Button buttonType="secondary" aria-describedby="badge-button">
+        Filter
+      </Button>
+    </Badge>
+  );
+}
+```
+
+
 ### With OnClick
 
 **Render**
@@ -190,35 +219,6 @@ description: Carbon Badge component props and usage examples.
       {...args}
     >
       <Button aria-describedby="badge-onclick" buttonType="secondary">
-        Filter
-      </Button>
-    </Badge>
-  );
-}
-```
-
-
-### Custom Color
-
-**Render**
-
-```tsx
-({ ...args }) => {
-  const counter = 9;
-  return (
-    <Badge
-      id="badge-custom-color"
-      counter={counter}
-      onClick={() => {}}
-      aria-label={`Remove ${counter} filters.`}
-      color="--colorsSemanticNegative500"
-      {...args}
-    >
-      <Button
-        aria-describedby="badge-custom-color"
-        buttonType="secondary"
-        destructive
-      >
         Filter
       </Button>
     </Badge>

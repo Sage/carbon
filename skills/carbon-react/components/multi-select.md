@@ -71,7 +71,7 @@ description: Carbon MultiSelect component props and usage examples.
 | inlist | any | No |  |  |  |  |  |
 | inputHint | string \| undefined | No |  |  |  | A hint string rendered before the input but after the label. Intended to describe the purpose or content of the input. |  |
 | inputIcon | IconType \| undefined | No |  |  |  | Type of the icon that will be rendered next to the input |  |
-| inputMode | "email" \| "none" \| "search" \| "text" \| "tel" \| "url" \| "numeric" \| "decimal" \| undefined | No |  |  |  | Hints at the type of data that might be entered by the user while editing the element or its contents |  |
+| inputMode | "none" \| "email" \| "search" \| "text" \| "tel" \| "url" \| "numeric" \| "decimal" \| undefined | No |  |  |  | Hints at the type of data that might be entered by the user while editing the element or its contents |  |
 | inputWidth | number \| undefined | No |  |  |  | The width of the input as a percentage |  |
 | is | string \| undefined | No |  |  |  | Specify that a standard HTML element should behave like a defined custom built-in element |  |
 | isLoading | boolean \| undefined | No |  |  |  | If true the loader animation is displayed in the option list |  |
@@ -292,7 +292,7 @@ description: Carbon MultiSelect component props and usage examples.
 | reverse | boolean \| undefined | No |  |  |  | Reverses label and input display |  |
 | role | AriaRole \| undefined | No |  |  |  |  |  |
 | security | string \| undefined | No |  |  |  |  |  |
-| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | Size of an input |  |
+| size | "large" \| "small" \| "medium" \| undefined | No |  |  |  | Size of an input |  |
 | slot | string \| undefined | No |  |  |  |  |  |
 | spellCheck | Booleanish \| undefined | No |  |  |  |  |  |
 | src | string \| undefined | No |  |  |  |  |  |
@@ -371,10 +371,53 @@ description: Carbon MultiSelect component props and usage examples.
 | aria-valuetext | string \| undefined | No |  |  |  | Defines the human readable text alternative of aria-valuenow for a range widget. |  |
 | onKeyPress | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUp` or `onKeyDown` instead |  |  |
 | onKeyPressCapture | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUpCapture` or `onKeyDownCapture` instead |  |  |
-| aria-dropeffect | "copy" \| "link" \| "none" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
+| aria-dropeffect | "none" \| "copy" \| "link" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
 | aria-grabbed | Booleanish \| undefined | No |  | Yes | in ARIA 1.1 | Indicates an element's "grabbed" state in a drag-and-drop operation. |  |
 
 ## Examples
+### Controlled
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState<string[]>([]);
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value as unknown as string[]);
+  }
+  function clearValue() {
+    setValue([]);
+  }
+  return (
+    <Box height={300}>
+      <Button onClick={clearValue} mb={2}>
+        clear
+      </Button>
+      <MultiSelect
+        id="controlled"
+        name="controlled"
+        value={value}
+        onChange={onChangeHandler}
+        label="color"
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </MultiSelect>
+    </Box>
+  );
+}
+```
+
+
 ### Default
 
 **Render**
@@ -392,6 +435,81 @@ description: Carbon MultiSelect component props and usage examples.
         name="simple"
         id="simple"
         label="color"
+        value={value}
+        onChange={onChangeHandler}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </MultiSelect>
+    </Box>
+  );
+}
+```
+
+
+### Disabled
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState<string[]>(["1", "3"]);
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value as unknown as string[]);
+  }
+  return (
+    <MultiSelect
+      aria-label="disabled"
+      name="disabled"
+      id="select-disabled"
+      value={value}
+      onChange={onChangeHandler}
+      disabled
+    >
+      <Option text="Amber" value="1" />
+      <Option text="Black" value="2" />
+      <Option text="Blue" value="3" />
+      <Option text="Brown" value="4" />
+      <Option text="Green" value="5" />
+      <Option text="Orange" value="6" />
+      <Option text="Pink" value="7" />
+      <Option text="Purple" value="8" />
+      <Option text="Red" value="9" />
+      <Option text="White" value="10" />
+      <Option text="Yellow" value="11" />
+    </MultiSelect>
+  );
+}
+```
+
+
+### List Height
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState<string[]>([]);
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value as unknown as string[]);
+  }
+
+  return (
+    <Box height={500}>
+      <MultiSelect
+        listMaxHeight={2000}
+        name="list height"
+        id="list-height"
+        label="List height"
         value={value}
         onChange={onChangeHandler}
       >
@@ -465,45 +583,6 @@ description: Carbon MultiSelect component props and usage examples.
 ```
 
 
-### List Height
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState<string[]>([]);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value as unknown as string[]);
-  }
-
-  return (
-    <Box height={500}>
-      <MultiSelect
-        listMaxHeight={2000}
-        name="list height"
-        id="list-height"
-        label="List height"
-        value={value}
-        onChange={onChangeHandler}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
-      </MultiSelect>
-    </Box>
-  );
-}
-```
-
-
 ### List Width
 
 **Render**
@@ -532,627 +611,6 @@ description: Carbon MultiSelect component props and usage examples.
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
-      </MultiSelect>
-    </Box>
-  );
-}
-```
-
-
-### Controlled
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState<string[]>([]);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value as unknown as string[]);
-  }
-  function clearValue() {
-    setValue([]);
-  }
-  return (
-    <Box height={300}>
-      <Button onClick={clearValue} mb={2}>
-        clear
-      </Button>
-      <MultiSelect
-        id="controlled"
-        name="controlled"
-        value={value}
-        onChange={onChangeHandler}
-        label="color"
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
-      </MultiSelect>
-    </Box>
-  );
-}
-```
-
-
-### Open on Focus
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState<string[]>([]);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value as unknown as string[]);
-  }
-  return (
-    <Box height={250}>
-      <MultiSelect
-        name="openOnFocus"
-        id="openOnFocus"
-        openOnFocus
-        label="color"
-        value={value}
-        onChange={onChangeHandler}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
-      </MultiSelect>
-    </Box>
-  );
-}
-```
-
-
-### Disabled
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState<string[]>(["1", "3"]);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value as unknown as string[]);
-  }
-  return (
-    <MultiSelect
-      aria-label="disabled"
-      name="disabled"
-      id="select-disabled"
-      value={value}
-      onChange={onChangeHandler}
-      disabled
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </MultiSelect>
-  );
-}
-```
-
-
-### Read Only
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState<string[]>(["1", "3"]);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value as unknown as string[]);
-  }
-  return (
-    <MultiSelect
-      aria-label="readonly"
-      name="readonly"
-      id="readonly"
-      value={value}
-      onChange={onChangeHandler}
-      readOnly
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </MultiSelect>
-  );
-}
-```
-
-
-### With Multiple Columns
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState<string[]>([]);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value as unknown as string[]);
-  }
-
-  return (
-    <Box height={250}>
-      <MultiSelect
-        name="withMultipleColumns"
-        id="withMultipleColumns"
-        multiColumn
-        tableHeader={
-          <tr>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Occupation</th>
-          </tr>
-        }
-        label="With multiple columns"
-        value={value}
-        onChange={onChangeHandler}
-      >
-        <OptionRow id="1" value="1" text="John Doe">
-          <td>John</td>
-          <td>Doe</td>
-          <td>Welder</td>
-        </OptionRow>
-        <OptionRow id="2" value="2" text="Joe Vick">
-          <td>Joe</td>
-          <td>Vick</td>
-          <td>Accountant</td>
-        </OptionRow>
-        <OptionRow id="3" value="3" text="Jane Poe">
-          <td>Jane</td>
-          <td>Poe</td>
-          <td>Accountant</td>
-        </OptionRow>
-        <OptionRow id="4" value="4" text="Jill Moe">
-          <td>Jill</td>
-          <td>Moe</td>
-          <td>Engineer</td>
-        </OptionRow>
-        <OptionRow id="5" value="5" text="Bill Zoe">
-          <td>Bill</td>
-          <td>Zoe</td>
-          <td>Astronaut</td>
-        </OptionRow>
-      </MultiSelect>
-    </Box>
-  );
-}
-```
-
-
-### Required
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState<string[]>([]);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value as unknown as string[]);
-  }
-
-  return (
-    <Box height={250}>
-      <MultiSelect
-        name="required-select"
-        id="required-select"
-        label="Foreground Color"
-        required
-        value={value}
-        onChange={onChangeHandler}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
-      </MultiSelect>
-    </Box>
-  );
-}
-```
-
-
-### With Object as Value
-
-**Render**
-
-```tsx
-() => {
-  const optionListValues = [
-    { id: "Amber", value: 1, text: "Amber" },
-    { id: "Black", value: 2, text: "Black" },
-    { id: "Blue", value: 3, text: "Blue" },
-    { id: "Brown", value: 4, text: "Brown" },
-    { id: "Green", value: 5, text: "Green" },
-    { id: "Orange", value: 6, text: "Orange" },
-    { id: "Pink", value: 7, text: "Pink" },
-    { id: "Purple", value: 8, text: "Purple" },
-    { id: "Red", value: 9, text: "Red" },
-    { id: "White", value: 10, text: "White" },
-    { id: "Yellow", value: 11, text: "Yellow" },
-  ];
-
-  const [value, setValue] = useState<Record<string, unknown>[]>([
-    optionListValues[4],
-  ]);
-
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    if (typeof event.target.value === "object") {
-      setValue(event.target.value);
-    }
-  }
-  function clearValue() {
-    setValue([]);
-  }
-  return (
-    <Box height={300}>
-      <Button onClick={clearValue} mb={2}>
-        clear
-      </Button>
-      <MultiSelect
-        id="with-object"
-        name="with-object"
-        value={value}
-        onChange={onChangeHandler}
-        label="color"
-      >
-        {optionListValues.map((option) => (
-          <Option key={option.id} text={option.text} value={option} />
-        ))}
-      </MultiSelect>
-    </Box>
-  );
-}
-```
-
-
-### With isLoading prop
-
-**Render**
-
-```tsx
-() => {
-  const preventLoading = useRef(false);
-  const [value, setValue] = useState<string[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const asyncList = [
-    <Option text="Amber" value="amber" key="Amber" />,
-    <Option text="Black" value="black" key="Black" />,
-    <Option text="Blue" value="blue" key="Blue" />,
-    <Option text="Brown" value="brown" key="Brown" />,
-    <Option text="Green" value="green" key="Green" />,
-  ];
-  const [optionList, setOptionList] = useState<React.ReactElement[]>([]);
-  function loadList() {
-    if (preventLoading.current) {
-      return;
-    }
-    preventLoading.current = true;
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      setOptionList(asyncList);
-    }, 2000);
-  }
-  function clearData() {
-    setOptionList([]);
-    setValue([]);
-    preventLoading.current = false;
-  }
-  return (
-    <Box height={300}>
-      <Button onClick={clearData} mb={2}>
-        reset
-      </Button>
-      <MultiSelect
-        name="isLoading"
-        id="isLoading"
-        label="color"
-        value={value}
-        onChange={(event) =>
-          setValue(event.target.value as unknown as string[])
-        }
-        onOpen={() => loadList()}
-        isLoading={isLoading}
-      >
-        {optionList}
-      </MultiSelect>
-    </Box>
-  );
-}
-```
-
-
-### With Custom Colored Pills
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState<string[]>(["1", "3"]);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value as unknown as string[]);
-  }
-
-  return (
-    <Box height={250}>
-      <MultiSelect
-        name="simple"
-        id="simple"
-        label="color"
-        value={value}
-        onChange={onChangeHandler}
-      >
-        <Option text="Amber" value="1" borderColor="#FFBF00" fill />
-        <Option text="Black" value="2" borderColor="blackOpacity65" fill />
-        <Option text="Blue" value="3" borderColor="productBlue" />
-        <Option text="Brown" value="4" borderColor="brown" fill />
-        <Option text="Green" value="5" borderColor="productGreen" />
-        <Option text="Orange" value="6" borderColor="orange" />
-        <Option text="Pink" value="7" borderColor="pink" />
-        <Option text="Purple" value="8" borderColor="purple" />
-        <Option text="Red" value="9" borderColor="red" fill />
-        <Option text="White" value="10" borderColor="white" />
-        <Option text="Yellow" value="11" borderColor="yellow" fill />
-      </MultiSelect>
-    </Box>
-  );
-}
-```
-
-
-### With infinite scroll
-
-**Render**
-
-```tsx
-() => {
-  const preventLoading = useRef(false);
-  const preventLazyLoading = useRef(false);
-  const lazyLoadingCounter = useRef(0);
-
-  const [value, setValue] = useState<string[]>([]);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value as unknown as string[]);
-  }
-  const [isLoading, setIsLoading] = useState(true);
-  const asyncList = [
-    <Option text="Amber" value="amber" key="Amber" />,
-    <Option text="Black" value="black" key="Black" />,
-    <Option text="Blue" value="blue" key="Blue" />,
-    <Option text="Brown" value="brown" key="Brown" />,
-    <Option text="Green" value="green" key="Green" />,
-  ];
-  const getLazyLoaded = () => {
-    const counter = lazyLoadingCounter.current;
-    return [
-      <Option
-        text={`Lazy Loaded A${counter}`}
-        value={`lazyA${counter}`}
-        key={`lazyA${counter}`}
-      />,
-      <Option
-        text={`Lazy Loaded B${counter}`}
-        value={`lazyB${counter}`}
-        key={`lazyB${counter}`}
-      />,
-      <Option
-        text={`Lazy Loaded C${counter}`}
-        value={`lazyC${counter}`}
-        key={`lazyC${counter}`}
-      />,
-    ];
-  };
-  const [optionList, setOptionList] = useState<React.ReactElement[]>([]);
-  function loadList() {
-    if (preventLoading.current) {
-      return;
-    }
-    preventLoading.current = true;
-    setIsLoading(true);
-    setTimeout(() => {
-      setOptionList(asyncList);
-      setIsLoading(false);
-    }, 2000);
-  }
-  function onLazyLoading() {
-    if (preventLazyLoading.current) {
-      return;
-    }
-    preventLazyLoading.current = true;
-    setIsLoading(true);
-    setTimeout(() => {
-      preventLazyLoading.current = false;
-      lazyLoadingCounter.current += 1;
-      setOptionList((prevList) => [...prevList, ...getLazyLoaded()]);
-      setIsLoading(false);
-    }, 2000);
-  }
-  function clearData() {
-    setOptionList([]);
-    setValue([]);
-    preventLoading.current = false;
-  }
-  return (
-    <Box height={300}>
-      <Button onClick={clearData} mb={2}>
-        reset
-      </Button>
-      <MultiSelect
-        name="infiniteScroll"
-        id="infiniteScroll"
-        label="color"
-        value={value}
-        onChange={onChangeHandler}
-        onOpen={() => loadList()}
-        isLoading={isLoading}
-        onListScrollBottom={onLazyLoading}
-      >
-        {optionList}
-      </MultiSelect>
-    </Box>
-  );
-}
-```
-
-
-### With Custom Max Width
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState<string[]>([]);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value as unknown as string[]);
-  }
-
-  return (
-    <Box height={250}>
-      <MultiSelect
-        name="simple"
-        id="simple"
-        maxWidth="50%"
-        label="color"
-        value={value}
-        onChange={onChangeHandler}
-      >
-        <Option text="Amber" value="1" borderColor="#FFBF00" fill />
-        <Option text="Black" value="2" borderColor="blackOpacity65" fill />
-        <Option text="Blue" value="3" borderColor="productBlue" />
-        <Option text="Brown" value="4" borderColor="brown" fill />
-        <Option text="Green" value="5" borderColor="productGreen" />
-        <Option text="Orange" value="6" borderColor="orange" />
-        <Option text="Pink" value="7" borderColor="pink" />
-        <Option text="Purple" value="8" borderColor="purple" />
-        <Option text="Red" value="9" borderColor="red" fill />
-        <Option text="White" value="10" borderColor="white" />
-        <Option text="Yellow" value="11" borderColor="yellow" fill />
-      </MultiSelect>
-    </Box>
-  );
-}
-```
-
-
-### Pills with Long Text
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState<string[]>(["1"]);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value as unknown as string[]);
-  }
-
-  return (
-    <Box height={250} maxWidth="200px">
-      <MultiSelect
-        name="long-pill-text-wrapped"
-        id="long-pill-text-wrapped"
-        label="long pill text wrapped"
-        wrapPillText
-        value={value}
-        onChange={onChangeHandler}
-      >
-        <Option text="Amber is the colour" value="1" />
-        <Option text="Black is the colour" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green" value="5" />
-      </MultiSelect>
-    </Box>
-  );
-}
-```
-
-
-### Virtualised
-
-**Render**
-
-```tsx
-() => {
-  const colors = [
-    "Amber",
-    "Black",
-    "Blue",
-    "Brown",
-    "Green",
-    "Orange",
-    "Pink",
-    "Purple",
-    "Red",
-    "White",
-    "Yellow",
-  ];
-  const options = Array(10000)
-    .fill(undefined)
-    .map((_, index) => (
-      <Option
-        key={`option-${index + 1}`}
-        value={`${index}`}
-        text={`${colors[index % colors.length]} - option ${index + 1}`}
-      />
-    ));
-  const [value, setValue] = useState<string[]>([]);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value as unknown as string[]);
-  }
-
-  return (
-    <Box height={220}>
-      <MultiSelect
-        name="virtualised"
-        id="virtualised"
-        label="choose an option"
-        labelInline
-        enableVirtualScroll
-        virtualScrollOverscan={20}
-        value={value}
-        onChange={onChangeHandler}
-      >
-        {options}
       </MultiSelect>
     </Box>
   );
@@ -1280,5 +738,547 @@ For testing interactions with `MultiSelect` as part of a broader user journey, w
 ### JSDOM tests (if required)
 
 If you need to test within JSDOM, we provide a utility function for setting up any required global mocks:
+```
+
+
+### Open on Focus
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState<string[]>([]);
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value as unknown as string[]);
+  }
+  return (
+    <Box height={250}>
+      <MultiSelect
+        name="openOnFocus"
+        id="openOnFocus"
+        openOnFocus
+        label="color"
+        value={value}
+        onChange={onChangeHandler}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </MultiSelect>
+    </Box>
+  );
+}
+```
+
+
+### Pills with Long Text
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState<string[]>(["1"]);
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value as unknown as string[]);
+  }
+
+  return (
+    <Box height={250} maxWidth="200px">
+      <MultiSelect
+        name="long-pill-text-wrapped"
+        id="long-pill-text-wrapped"
+        label="long pill text wrapped"
+        wrapPillText
+        value={value}
+        onChange={onChangeHandler}
+      >
+        <Option text="Amber is the colour" value="1" />
+        <Option text="Black is the colour" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+      </MultiSelect>
+    </Box>
+  );
+}
+```
+
+
+### Read Only
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState<string[]>(["1", "3"]);
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value as unknown as string[]);
+  }
+  return (
+    <MultiSelect
+      aria-label="readonly"
+      name="readonly"
+      id="readonly"
+      value={value}
+      onChange={onChangeHandler}
+      readOnly
+    >
+      <Option text="Amber" value="1" />
+      <Option text="Black" value="2" />
+      <Option text="Blue" value="3" />
+      <Option text="Brown" value="4" />
+      <Option text="Green" value="5" />
+      <Option text="Orange" value="6" />
+      <Option text="Pink" value="7" />
+      <Option text="Purple" value="8" />
+      <Option text="Red" value="9" />
+      <Option text="White" value="10" />
+      <Option text="Yellow" value="11" />
+    </MultiSelect>
+  );
+}
+```
+
+
+### Required
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState<string[]>([]);
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value as unknown as string[]);
+  }
+
+  return (
+    <Box height={250}>
+      <MultiSelect
+        name="required-select"
+        id="required-select"
+        label="Foreground Color"
+        required
+        value={value}
+        onChange={onChangeHandler}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </MultiSelect>
+    </Box>
+  );
+}
+```
+
+
+### Virtualised
+
+**Render**
+
+```tsx
+() => {
+  const colors = [
+    "Amber",
+    "Black",
+    "Blue",
+    "Brown",
+    "Green",
+    "Orange",
+    "Pink",
+    "Purple",
+    "Red",
+    "White",
+    "Yellow",
+  ];
+  const options = Array(10000)
+    .fill(undefined)
+    .map((_, index) => (
+      <Option
+        key={`option-${index + 1}`}
+        value={`${index}`}
+        text={`${colors[index % colors.length]} - option ${index + 1}`}
+      />
+    ));
+  const [value, setValue] = useState<string[]>([]);
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value as unknown as string[]);
+  }
+
+  return (
+    <Box height={220}>
+      <MultiSelect
+        name="virtualised"
+        id="virtualised"
+        label="choose an option"
+        labelInline
+        enableVirtualScroll
+        virtualScrollOverscan={20}
+        value={value}
+        onChange={onChangeHandler}
+      >
+        {options}
+      </MultiSelect>
+    </Box>
+  );
+}
+```
+
+
+### With Custom Colored Pills
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState<string[]>(["1", "3"]);
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value as unknown as string[]);
+  }
+
+  return (
+    <Box height={250}>
+      <MultiSelect
+        name="simple"
+        id="simple"
+        label="color"
+        value={value}
+        onChange={onChangeHandler}
+      >
+        <Option text="Amber" value="1" borderColor="#FFBF00" fill />
+        <Option text="Black" value="2" borderColor="blackOpacity65" fill />
+        <Option text="Blue" value="3" borderColor="productBlue" />
+        <Option text="Brown" value="4" borderColor="brown" fill />
+        <Option text="Green" value="5" borderColor="productGreen" />
+        <Option text="Orange" value="6" borderColor="orange" />
+        <Option text="Pink" value="7" borderColor="pink" />
+        <Option text="Purple" value="8" borderColor="purple" />
+        <Option text="Red" value="9" borderColor="red" fill />
+        <Option text="White" value="10" borderColor="white" />
+        <Option text="Yellow" value="11" borderColor="yellow" fill />
+      </MultiSelect>
+    </Box>
+  );
+}
+```
+
+
+### With Custom Max Width
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState<string[]>([]);
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value as unknown as string[]);
+  }
+
+  return (
+    <Box height={250}>
+      <MultiSelect
+        name="simple"
+        id="simple"
+        maxWidth="50%"
+        label="color"
+        value={value}
+        onChange={onChangeHandler}
+      >
+        <Option text="Amber" value="1" borderColor="#FFBF00" fill />
+        <Option text="Black" value="2" borderColor="blackOpacity65" fill />
+        <Option text="Blue" value="3" borderColor="productBlue" />
+        <Option text="Brown" value="4" borderColor="brown" fill />
+        <Option text="Green" value="5" borderColor="productGreen" />
+        <Option text="Orange" value="6" borderColor="orange" />
+        <Option text="Pink" value="7" borderColor="pink" />
+        <Option text="Purple" value="8" borderColor="purple" />
+        <Option text="Red" value="9" borderColor="red" fill />
+        <Option text="White" value="10" borderColor="white" />
+        <Option text="Yellow" value="11" borderColor="yellow" fill />
+      </MultiSelect>
+    </Box>
+  );
+}
+```
+
+
+### With infinite scroll
+
+**Render**
+
+```tsx
+() => {
+  const preventLoading = useRef(false);
+  const preventLazyLoading = useRef(false);
+  const lazyLoadingCounter = useRef(0);
+
+  const [value, setValue] = useState<string[]>([]);
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value as unknown as string[]);
+  }
+  const [isLoading, setIsLoading] = useState(true);
+  const asyncList = [
+    <Option text="Amber" value="amber" key="Amber" />,
+    <Option text="Black" value="black" key="Black" />,
+    <Option text="Blue" value="blue" key="Blue" />,
+    <Option text="Brown" value="brown" key="Brown" />,
+    <Option text="Green" value="green" key="Green" />,
+  ];
+  const getLazyLoaded = () => {
+    const counter = lazyLoadingCounter.current;
+    return [
+      <Option
+        text={`Lazy Loaded A${counter}`}
+        value={`lazyA${counter}`}
+        key={`lazyA${counter}`}
+      />,
+      <Option
+        text={`Lazy Loaded B${counter}`}
+        value={`lazyB${counter}`}
+        key={`lazyB${counter}`}
+      />,
+      <Option
+        text={`Lazy Loaded C${counter}`}
+        value={`lazyC${counter}`}
+        key={`lazyC${counter}`}
+      />,
+    ];
+  };
+  const [optionList, setOptionList] = useState<React.ReactElement[]>([]);
+  function loadList() {
+    if (preventLoading.current) {
+      return;
+    }
+    preventLoading.current = true;
+    setIsLoading(true);
+    setTimeout(() => {
+      setOptionList(asyncList);
+      setIsLoading(false);
+    }, 2000);
+  }
+  function onLazyLoading() {
+    if (preventLazyLoading.current) {
+      return;
+    }
+    preventLazyLoading.current = true;
+    setIsLoading(true);
+    setTimeout(() => {
+      preventLazyLoading.current = false;
+      lazyLoadingCounter.current += 1;
+      setOptionList((prevList) => [...prevList, ...getLazyLoaded()]);
+      setIsLoading(false);
+    }, 2000);
+  }
+  function clearData() {
+    setOptionList([]);
+    setValue([]);
+    preventLoading.current = false;
+  }
+  return (
+    <Box height={300}>
+      <Button onClick={clearData} mb={2}>
+        reset
+      </Button>
+      <MultiSelect
+        name="infiniteScroll"
+        id="infiniteScroll"
+        label="color"
+        value={value}
+        onChange={onChangeHandler}
+        onOpen={() => loadList()}
+        isLoading={isLoading}
+        onListScrollBottom={onLazyLoading}
+      >
+        {optionList}
+      </MultiSelect>
+    </Box>
+  );
+}
+```
+
+
+### With isLoading prop
+
+**Render**
+
+```tsx
+() => {
+  const preventLoading = useRef(false);
+  const [value, setValue] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const asyncList = [
+    <Option text="Amber" value="amber" key="Amber" />,
+    <Option text="Black" value="black" key="Black" />,
+    <Option text="Blue" value="blue" key="Blue" />,
+    <Option text="Brown" value="brown" key="Brown" />,
+    <Option text="Green" value="green" key="Green" />,
+  ];
+  const [optionList, setOptionList] = useState<React.ReactElement[]>([]);
+  function loadList() {
+    if (preventLoading.current) {
+      return;
+    }
+    preventLoading.current = true;
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+      setOptionList(asyncList);
+    }, 2000);
+  }
+  function clearData() {
+    setOptionList([]);
+    setValue([]);
+    preventLoading.current = false;
+  }
+  return (
+    <Box height={300}>
+      <Button onClick={clearData} mb={2}>
+        reset
+      </Button>
+      <MultiSelect
+        name="isLoading"
+        id="isLoading"
+        label="color"
+        value={value}
+        onChange={(event) =>
+          setValue(event.target.value as unknown as string[])
+        }
+        onOpen={() => loadList()}
+        isLoading={isLoading}
+      >
+        {optionList}
+      </MultiSelect>
+    </Box>
+  );
+}
+```
+
+
+### With Multiple Columns
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState<string[]>([]);
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value as unknown as string[]);
+  }
+
+  return (
+    <Box height={250}>
+      <MultiSelect
+        name="withMultipleColumns"
+        id="withMultipleColumns"
+        multiColumn
+        tableHeader={
+          <tr>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Occupation</th>
+          </tr>
+        }
+        label="With multiple columns"
+        value={value}
+        onChange={onChangeHandler}
+      >
+        <OptionRow id="1" value="1" text="John Doe">
+          <td>John</td>
+          <td>Doe</td>
+          <td>Welder</td>
+        </OptionRow>
+        <OptionRow id="2" value="2" text="Joe Vick">
+          <td>Joe</td>
+          <td>Vick</td>
+          <td>Accountant</td>
+        </OptionRow>
+        <OptionRow id="3" value="3" text="Jane Poe">
+          <td>Jane</td>
+          <td>Poe</td>
+          <td>Accountant</td>
+        </OptionRow>
+        <OptionRow id="4" value="4" text="Jill Moe">
+          <td>Jill</td>
+          <td>Moe</td>
+          <td>Engineer</td>
+        </OptionRow>
+        <OptionRow id="5" value="5" text="Bill Zoe">
+          <td>Bill</td>
+          <td>Zoe</td>
+          <td>Astronaut</td>
+        </OptionRow>
+      </MultiSelect>
+    </Box>
+  );
+}
+```
+
+
+### With Object as Value
+
+**Render**
+
+```tsx
+() => {
+  const optionListValues = [
+    { id: "Amber", value: 1, text: "Amber" },
+    { id: "Black", value: 2, text: "Black" },
+    { id: "Blue", value: 3, text: "Blue" },
+    { id: "Brown", value: 4, text: "Brown" },
+    { id: "Green", value: 5, text: "Green" },
+    { id: "Orange", value: 6, text: "Orange" },
+    { id: "Pink", value: 7, text: "Pink" },
+    { id: "Purple", value: 8, text: "Purple" },
+    { id: "Red", value: 9, text: "Red" },
+    { id: "White", value: 10, text: "White" },
+    { id: "Yellow", value: 11, text: "Yellow" },
+  ];
+
+  const [value, setValue] = useState<Record<string, unknown>[]>([
+    optionListValues[4],
+  ]);
+
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    if (typeof event.target.value === "object") {
+      setValue(event.target.value);
+    }
+  }
+  function clearValue() {
+    setValue([]);
+  }
+  return (
+    <Box height={300}>
+      <Button onClick={clearValue} mb={2}>
+        clear
+      </Button>
+      <MultiSelect
+        id="with-object"
+        name="with-object"
+        value={value}
+        onChange={onChangeHandler}
+        label="color"
+      >
+        {optionListValues.map((option) => (
+          <Option key={option.id} text={option.text} value={option} />
+        ))}
+      </MultiSelect>
+    </Box>
+  );
+}
 ```
 

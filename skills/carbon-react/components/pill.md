@@ -47,6 +47,309 @@ description: Carbon Pill component props and usage examples.
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 
 ## Examples
+### Custom Colors
+
+**Render**
+
+```tsx
+() => {
+  const noop = () => {};
+  return (
+    <>
+      <Box mb={1}>
+        <Pill borderColor="--colorsSemanticCaution500" mr={1}>
+          tag
+        </Pill>
+        <Pill borderColor="--colorsSemanticCaution500" fill mr={1}>
+          tag
+        </Pill>
+        <Pill borderColor="--colorsSemanticCaution500" onDelete={noop} mr={1}>
+          tag
+        </Pill>
+        <Pill borderColor="--colorsSemanticCaution500" onDelete={noop} fill>
+          tag
+        </Pill>
+      </Box>
+      <Box mb={1}>
+        <Pill borderColor="brilliantGreenShade20" mr={1}>
+          tag
+        </Pill>
+        <Pill borderColor="brilliantGreenShade20" fill mr={1}>
+          tag
+        </Pill>
+        <Pill borderColor="brilliantGreenShade20" onDelete={noop} mr={1}>
+          tag
+        </Pill>
+        <Pill borderColor="brilliantGreenShade20" onDelete={noop} fill>
+          tag
+        </Pill>
+      </Box>
+      <Box mb={1}>
+        <Pill borderColor="red" mr={1}>
+          tag
+        </Pill>
+        <Pill borderColor="red" fill mr={1}>
+          tag
+        </Pill>
+        <Pill borderColor="red" onDelete={noop} mr={1}>
+          tag
+        </Pill>
+        <Pill borderColor="red" onDelete={noop} fill>
+          tag
+        </Pill>
+      </Box>
+      <Box mb={1}>
+        <Pill borderColor="#123456" mr={1}>
+          tag
+        </Pill>
+        <Pill borderColor="#123456" fill mr={1}>
+          tag
+        </Pill>
+        <Pill borderColor="#123456" onDelete={noop} mr={1}>
+          tag
+        </Pill>
+        <Pill borderColor="#123456" onDelete={noop} fill>
+          tag
+        </Pill>
+      </Box>
+      <Box mb={1}>
+        <Pill borderColor="rgb(0, 123, 10)" mr={1}>
+          tag
+        </Pill>
+        <Pill borderColor="rgb(0, 123, 10)" fill mr={1}>
+          tag
+        </Pill>
+        <Pill borderColor="rgb(0, 123, 10)" onDelete={noop} mr={1}>
+          tag
+        </Pill>
+        <Pill borderColor="rgb(0, 123, 10)" onDelete={noop} fill>
+          tag
+        </Pill>
+      </Box>
+      <Box mb={1}>
+        <Pill borderColor="hsl(317, 40%, 64%)" mr={1}>
+          tag
+        </Pill>
+        <Pill borderColor="hsl(317, 40%, 64%)" fill mr={1}>
+          tag
+        </Pill>
+        <Pill borderColor="hsl(317, 40%, 64%)" onDelete={noop} mr={1}>
+          tag
+        </Pill>
+        <Pill borderColor="hsl(317, 40%, 64%)" onDelete={noop} fill>
+          tag
+        </Pill>
+      </Box>
+    </>
+  );
+}
+```
+
+
+### Dark Background
+
+**Render**
+
+```tsx
+() => {
+  const noop = () => {};
+  return (
+    <>
+      <Box backgroundColor="#262626" p={2}>
+        <Box mb={1}>
+          <Pill pillRole="status" mr={1} isDarkBackground>
+            neutral
+          </Pill>
+          <Pill pillRole="status" fill mr={1} isDarkBackground>
+            neutral
+          </Pill>
+          <Pill pillRole="status" onDelete={noop} mr={1} isDarkBackground>
+            neutral
+          </Pill>
+          <Pill pillRole="status" onDelete={noop} fill isDarkBackground>
+            neutral
+          </Pill>
+        </Box>
+
+        <Box mb={1}>
+          <Pill
+            pillRole="status"
+            colorVariant="positive"
+            mr={1}
+            isDarkBackground
+          >
+            positive
+          </Pill>
+          <Pill
+            pillRole="status"
+            colorVariant="positive"
+            fill
+            mr={1}
+            isDarkBackground
+          >
+            positive
+          </Pill>
+          <Pill
+            pillRole="status"
+            colorVariant="positive"
+            onDelete={noop}
+            mr={1}
+            isDarkBackground
+          >
+            positive
+          </Pill>
+          <Pill
+            pillRole="status"
+            colorVariant="positive"
+            onDelete={noop}
+            fill
+            isDarkBackground
+          >
+            positive
+          </Pill>
+        </Box>
+
+        <Box mb={1}>
+          <Pill
+            pillRole="status"
+            colorVariant="negative"
+            mr={1}
+            isDarkBackground
+          >
+            negative
+          </Pill>
+          <Pill
+            pillRole="status"
+            colorVariant="negative"
+            fill
+            mr={1}
+            isDarkBackground
+          >
+            negative
+          </Pill>
+          <Pill
+            pillRole="status"
+            colorVariant="negative"
+            onDelete={noop}
+            mr={1}
+            isDarkBackground
+          >
+            negative
+          </Pill>
+          <Pill
+            pillRole="status"
+            colorVariant="negative"
+            onDelete={noop}
+            fill
+            isDarkBackground
+          >
+            negative
+          </Pill>
+        </Box>
+
+        <Box mb={1}>
+          <Pill
+            pillRole="status"
+            colorVariant="warning"
+            mr={1}
+            isDarkBackground
+          >
+            warning
+          </Pill>
+          <Pill
+            pillRole="status"
+            colorVariant="warning"
+            fill
+            mr={1}
+            isDarkBackground
+          >
+            warning
+          </Pill>
+          <Pill
+            pillRole="status"
+            colorVariant="warning"
+            onDelete={noop}
+            mr={1}
+            isDarkBackground
+          >
+            warning
+          </Pill>
+          <Pill
+            pillRole="status"
+            colorVariant="warning"
+            onDelete={noop}
+            fill
+            isDarkBackground
+          >
+            warning
+          </Pill>
+        </Box>
+
+        <Box mb={1}>
+          <Pill
+            pillRole="status"
+            colorVariant="information"
+            mr={1}
+            isDarkBackground
+          >
+            information
+          </Pill>
+          <Pill
+            pillRole="status"
+            colorVariant="information"
+            fill
+            mr={1}
+            isDarkBackground
+          >
+            information
+          </Pill>
+          <Pill
+            pillRole="status"
+            colorVariant="information"
+            onDelete={noop}
+            mr={1}
+            isDarkBackground
+          >
+            information
+          </Pill>
+          <Pill
+            pillRole="status"
+            colorVariant="information"
+            onDelete={noop}
+            fill
+            isDarkBackground
+          >
+            information
+          </Pill>
+        </Box>
+
+        <Box mb={1}>
+          <Pill
+            pillRole="status"
+            colorVariant="neutralWhite"
+            fill
+            mr={1}
+            isDarkBackground
+          >
+            neutralWhite
+          </Pill>
+          <Pill
+            pillRole="status"
+            colorVariant="neutralWhite"
+            onDelete={noop}
+            fill
+            isDarkBackground
+          >
+            neutralWhite
+          </Pill>
+        </Box>
+      </Box>
+    </>
+  );
+}
+```
+
+
 ### Default
 
 **Render**
@@ -57,66 +360,6 @@ description: Carbon Pill component props and usage examples.
     <Box mb={1}>
       <Pill>default pill</Pill>
     </Box>
-  );
-}
-```
-
-
-### Wrapped
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Box mb={1}>
-      <Pill maxWidth="65px" wrapText>
-        Wrapped pill
-      </Pill>
-      <Pill ml={1} maxWidth="55px" wrapText>
-        Hyphe&shy;nated&shy;pill
-      </Pill>
-    </Box>
-  );
-}
-```
-
-
-### With Remove Button
-
-**Render**
-
-```tsx
-() => {
-  const [isPillVisible, setIsPillVisible] = useState(true);
-  const hidePill = () => setIsPillVisible(false);
-  const showPill = () => setIsPillVisible(true);
-  return (
-    <>
-      <Button onClick={showPill}>Reset example</Button>
-      <Box m={1}>{isPillVisible && <Pill onDelete={hidePill}>Pill</Pill>}</Box>
-    </>
-  );
-}
-```
-
-
-### With Custom Remove Button Aria-Label
-
-**Render**
-
-```tsx
-() => {
-  const noop = () => {};
-  return (
-    <>
-      <Pill onDelete={noop} ariaLabelOfRemoveButton="remove green">
-        Green
-      </Pill>
-      <Pill onDelete={noop} ariaLabelOfRemoveButton="remove blue">
-        Blue
-      </Pill>
-    </>
   );
 }
 ```
@@ -641,7 +884,7 @@ description: Carbon Pill component props and usage examples.
 ```
 
 
-### Custom Colors
+### With Custom Remove Button Aria-Label
 
 **Render**
 
@@ -650,295 +893,52 @@ description: Carbon Pill component props and usage examples.
   const noop = () => {};
   return (
     <>
-      <Box mb={1}>
-        <Pill borderColor="--colorsSemanticCaution500" mr={1}>
-          tag
-        </Pill>
-        <Pill borderColor="--colorsSemanticCaution500" fill mr={1}>
-          tag
-        </Pill>
-        <Pill borderColor="--colorsSemanticCaution500" onDelete={noop} mr={1}>
-          tag
-        </Pill>
-        <Pill borderColor="--colorsSemanticCaution500" onDelete={noop} fill>
-          tag
-        </Pill>
-      </Box>
-      <Box mb={1}>
-        <Pill borderColor="brilliantGreenShade20" mr={1}>
-          tag
-        </Pill>
-        <Pill borderColor="brilliantGreenShade20" fill mr={1}>
-          tag
-        </Pill>
-        <Pill borderColor="brilliantGreenShade20" onDelete={noop} mr={1}>
-          tag
-        </Pill>
-        <Pill borderColor="brilliantGreenShade20" onDelete={noop} fill>
-          tag
-        </Pill>
-      </Box>
-      <Box mb={1}>
-        <Pill borderColor="red" mr={1}>
-          tag
-        </Pill>
-        <Pill borderColor="red" fill mr={1}>
-          tag
-        </Pill>
-        <Pill borderColor="red" onDelete={noop} mr={1}>
-          tag
-        </Pill>
-        <Pill borderColor="red" onDelete={noop} fill>
-          tag
-        </Pill>
-      </Box>
-      <Box mb={1}>
-        <Pill borderColor="#123456" mr={1}>
-          tag
-        </Pill>
-        <Pill borderColor="#123456" fill mr={1}>
-          tag
-        </Pill>
-        <Pill borderColor="#123456" onDelete={noop} mr={1}>
-          tag
-        </Pill>
-        <Pill borderColor="#123456" onDelete={noop} fill>
-          tag
-        </Pill>
-      </Box>
-      <Box mb={1}>
-        <Pill borderColor="rgb(0, 123, 10)" mr={1}>
-          tag
-        </Pill>
-        <Pill borderColor="rgb(0, 123, 10)" fill mr={1}>
-          tag
-        </Pill>
-        <Pill borderColor="rgb(0, 123, 10)" onDelete={noop} mr={1}>
-          tag
-        </Pill>
-        <Pill borderColor="rgb(0, 123, 10)" onDelete={noop} fill>
-          tag
-        </Pill>
-      </Box>
-      <Box mb={1}>
-        <Pill borderColor="hsl(317, 40%, 64%)" mr={1}>
-          tag
-        </Pill>
-        <Pill borderColor="hsl(317, 40%, 64%)" fill mr={1}>
-          tag
-        </Pill>
-        <Pill borderColor="hsl(317, 40%, 64%)" onDelete={noop} mr={1}>
-          tag
-        </Pill>
-        <Pill borderColor="hsl(317, 40%, 64%)" onDelete={noop} fill>
-          tag
-        </Pill>
-      </Box>
+      <Pill onDelete={noop} ariaLabelOfRemoveButton="remove green">
+        Green
+      </Pill>
+      <Pill onDelete={noop} ariaLabelOfRemoveButton="remove blue">
+        Blue
+      </Pill>
     </>
   );
 }
 ```
 
 
-### Dark Background
+### With Remove Button
 
 **Render**
 
 ```tsx
 () => {
-  const noop = () => {};
+  const [isPillVisible, setIsPillVisible] = useState(true);
+  const hidePill = () => setIsPillVisible(false);
+  const showPill = () => setIsPillVisible(true);
   return (
     <>
-      <Box backgroundColor="#262626" p={2}>
-        <Box mb={1}>
-          <Pill pillRole="status" mr={1} isDarkBackground>
-            neutral
-          </Pill>
-          <Pill pillRole="status" fill mr={1} isDarkBackground>
-            neutral
-          </Pill>
-          <Pill pillRole="status" onDelete={noop} mr={1} isDarkBackground>
-            neutral
-          </Pill>
-          <Pill pillRole="status" onDelete={noop} fill isDarkBackground>
-            neutral
-          </Pill>
-        </Box>
-
-        <Box mb={1}>
-          <Pill
-            pillRole="status"
-            colorVariant="positive"
-            mr={1}
-            isDarkBackground
-          >
-            positive
-          </Pill>
-          <Pill
-            pillRole="status"
-            colorVariant="positive"
-            fill
-            mr={1}
-            isDarkBackground
-          >
-            positive
-          </Pill>
-          <Pill
-            pillRole="status"
-            colorVariant="positive"
-            onDelete={noop}
-            mr={1}
-            isDarkBackground
-          >
-            positive
-          </Pill>
-          <Pill
-            pillRole="status"
-            colorVariant="positive"
-            onDelete={noop}
-            fill
-            isDarkBackground
-          >
-            positive
-          </Pill>
-        </Box>
-
-        <Box mb={1}>
-          <Pill
-            pillRole="status"
-            colorVariant="negative"
-            mr={1}
-            isDarkBackground
-          >
-            negative
-          </Pill>
-          <Pill
-            pillRole="status"
-            colorVariant="negative"
-            fill
-            mr={1}
-            isDarkBackground
-          >
-            negative
-          </Pill>
-          <Pill
-            pillRole="status"
-            colorVariant="negative"
-            onDelete={noop}
-            mr={1}
-            isDarkBackground
-          >
-            negative
-          </Pill>
-          <Pill
-            pillRole="status"
-            colorVariant="negative"
-            onDelete={noop}
-            fill
-            isDarkBackground
-          >
-            negative
-          </Pill>
-        </Box>
-
-        <Box mb={1}>
-          <Pill
-            pillRole="status"
-            colorVariant="warning"
-            mr={1}
-            isDarkBackground
-          >
-            warning
-          </Pill>
-          <Pill
-            pillRole="status"
-            colorVariant="warning"
-            fill
-            mr={1}
-            isDarkBackground
-          >
-            warning
-          </Pill>
-          <Pill
-            pillRole="status"
-            colorVariant="warning"
-            onDelete={noop}
-            mr={1}
-            isDarkBackground
-          >
-            warning
-          </Pill>
-          <Pill
-            pillRole="status"
-            colorVariant="warning"
-            onDelete={noop}
-            fill
-            isDarkBackground
-          >
-            warning
-          </Pill>
-        </Box>
-
-        <Box mb={1}>
-          <Pill
-            pillRole="status"
-            colorVariant="information"
-            mr={1}
-            isDarkBackground
-          >
-            information
-          </Pill>
-          <Pill
-            pillRole="status"
-            colorVariant="information"
-            fill
-            mr={1}
-            isDarkBackground
-          >
-            information
-          </Pill>
-          <Pill
-            pillRole="status"
-            colorVariant="information"
-            onDelete={noop}
-            mr={1}
-            isDarkBackground
-          >
-            information
-          </Pill>
-          <Pill
-            pillRole="status"
-            colorVariant="information"
-            onDelete={noop}
-            fill
-            isDarkBackground
-          >
-            information
-          </Pill>
-        </Box>
-
-        <Box mb={1}>
-          <Pill
-            pillRole="status"
-            colorVariant="neutralWhite"
-            fill
-            mr={1}
-            isDarkBackground
-          >
-            neutralWhite
-          </Pill>
-          <Pill
-            pillRole="status"
-            colorVariant="neutralWhite"
-            onDelete={noop}
-            fill
-            isDarkBackground
-          >
-            neutralWhite
-          </Pill>
-        </Box>
-      </Box>
+      <Button onClick={showPill}>Reset example</Button>
+      <Box m={1}>{isPillVisible && <Pill onDelete={hidePill}>Pill</Pill>}</Box>
     </>
+  );
+}
+```
+
+
+### Wrapped
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Box mb={1}>
+      <Pill maxWidth="65px" wrapText>
+        Wrapped pill
+      </Pill>
+      <Pill ml={1} maxWidth="55px" wrapText>
+        Hyphe&shy;nated&shy;pill
+      </Pill>
+    </Box>
   );
 }
 ```

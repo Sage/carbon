@@ -55,7 +55,7 @@ description: Carbon RadioButton component props and usage examples.
 | id | string \| undefined | No |  |  |  | Unique identifier for the input. Will use a randomly generated GUID if none is provided. |  |
 | inlist | any | No |  |  |  |  |  |
 | inputHint | React.ReactNode | No |  |  |  | Additional hint text rendered below the label. |  |
-| inputMode | "email" \| "none" \| "search" \| "text" \| "tel" \| "url" \| "numeric" \| "decimal" \| undefined | No |  |  |  | Hints at the type of data that might be entered by the user while editing the element or its contents |  |
+| inputMode | "none" \| "email" \| "search" \| "text" \| "tel" \| "url" \| "numeric" \| "decimal" \| undefined | No |  |  |  | Hints at the type of data that might be entered by the user while editing the element or its contents |  |
 | is | string \| undefined | No |  |  |  | Specify that a standard HTML element should behave like a defined custom built-in element |  |
 | itemID | string \| undefined | No |  |  |  |  |  |
 | itemProp | string \| undefined | No |  |  |  |  |  |
@@ -322,82 +322,25 @@ description: Carbon RadioButton component props and usage examples.
 | onKeyPress | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUp` or `onKeyDown` instead |  |  |
 | onKeyPressCapture | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUpCapture` or `onKeyDownCapture` instead |  |  |
 | reverse | boolean \| undefined | No |  | Yes | Reversed layout is no longer supported on this component. | If true the label switches position with the input |  |
-| size | "small" \| "large" \| undefined | No |  | Yes | The `size` prop is deprecated and will be removed in a future release. Please set the size on the `RadioButtonGroup` component instead. | Size of the RadioButton. |  |
+| size | "large" \| "small" \| undefined | No |  | Yes | The `size` prop is deprecated and will be removed in a future release. Please set the size on the `RadioButtonGroup` component instead. | Size of the RadioButton. |  |
 | tooltipPosition | "left" \| "right" \| "bottom" \| "top" \| undefined | No |  | Yes | Tooltips are no longer supported on this component. | Overrides the default tooltip position |  |
 | validationIconId | string \| undefined | No |  | Yes | Validation icons with tooltips are no longer supported on this component. | Id of the validation icon |  |
 | validationOnLabel | boolean \| undefined | No |  | Yes | Validation icons with tooltips are no longer supported on this component. | When true, displays validation icon on label |  |
 | warning | string \| boolean \| undefined | No |  | Yes | Warning validation is no longer supported on this component. Please pass validation messages to the `RadioButtonGroup` component instead. | Indicate that warning has occurred. |  |
-| aria-dropeffect | "copy" \| "link" \| "none" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
+| aria-dropeffect | "none" \| "copy" \| "link" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
 | aria-grabbed | Booleanish \| undefined | No |  | Yes | in ARIA 1.1 | Indicates an element's "grabbed" state in a drag-and-drop operation. |  |
 
 ## Examples
-### WithLegend
-
-**Args**
-
-```tsx
-{
-    id: "with-legend",
-    legend: "RadioButtonGroup Legend",
-  }
-```
-
-**Render**
-
-```tsx
-ControlledRadioButtonGroup
-```
-
-
-### WithLegendHint
+### Disabled
 
 **Args**
 
 ```tsx
 {
     ...WithLegend.args,
-    id: "with-legend-hint",
-    legendHint: "Legend Hint",
+    id: "disabled",
+    disabled: true,
   }
-```
-
-
-### With Input Hint
-
-**Render**
-
-```tsx
-({ ...args }) => {
-  const [value, setValue] = useState("");
-  return (
-    <RadioButtonGroup
-      name="input-hint-group"
-      legend="Radio Button Group Legend"
-      value={value}
-      onChange={(ev) => setValue(ev.target.value)}
-      {...args}
-    >
-      <RadioButton
-        id="input-hint-radio-1"
-        value="radio1"
-        label="Radio Option 1"
-        inputHint="Input Hint"
-      />
-      <RadioButton
-        id="input-hint-radio-2"
-        value="radio2"
-        label="Radio Option 2"
-        inputHint="Input Hint"
-      />
-      <RadioButton
-        id="input-hint-radio-3"
-        value="radio3"
-        label="Radio Option 3"
-        inputHint="Input Hint"
-      />
-    </RadioButtonGroup>
-  );
-}
 ```
 
 
@@ -411,6 +354,69 @@ ControlledRadioButtonGroup
     id: "inline",
     legendHint: "Legend Hint",
     inline: true,
+  }
+```
+
+
+### Progressive Disclosure
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState("radio1");
+  const [textboxValue, setTextboxValue] = useState("");
+
+  const progressiveDisclosure = (
+    <Box mr={1} width="300px">
+      <Textbox
+        label="Revealed Textbox"
+        value={textboxValue}
+        onChange={(ev) => setTextboxValue(ev.target.value)}
+      />
+    </Box>
+  );
+
+  return (
+    <RadioButtonGroup
+      legend="Progressive Disclosure"
+      name="progressive-disclosure-group"
+      value={value}
+      onChange={(ev) => setValue(ev.target.value)}
+    >
+      <RadioButton
+        id="progressive-radio-1"
+        value="radio1"
+        label="Radio Option 1"
+        progressiveDisclosure={progressiveDisclosure}
+      />
+      <RadioButton
+        id="progressive-radio-2"
+        value="radio2"
+        label="Radio Option 2"
+        progressiveDisclosure={progressiveDisclosure}
+      />
+      <RadioButton
+        id="progressive-radio-3"
+        value="radio3"
+        label="Radio Option 3"
+        progressiveDisclosure={progressiveDisclosure}
+      />
+    </RadioButtonGroup>
+  );
+}
+```
+
+
+### Required
+
+**Args**
+
+```tsx
+{
+    ...WithLegend.args,
+    id: "required",
+    required: true,
   }
 ```
 
@@ -478,56 +484,6 @@ ControlledRadioButtonGroup
 ```
 
 
-### Progressive Disclosure
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("radio1");
-  const [textboxValue, setTextboxValue] = useState("");
-
-  const progressiveDisclosure = (
-    <Box mr={1} width="300px">
-      <Textbox
-        label="Revealed Textbox"
-        value={textboxValue}
-        onChange={(ev) => setTextboxValue(ev.target.value)}
-      />
-    </Box>
-  );
-
-  return (
-    <RadioButtonGroup
-      legend="Progressive Disclosure"
-      name="progressive-disclosure-group"
-      value={value}
-      onChange={(ev) => setValue(ev.target.value)}
-    >
-      <RadioButton
-        id="progressive-radio-1"
-        value="radio1"
-        label="Radio Option 1"
-        progressiveDisclosure={progressiveDisclosure}
-      />
-      <RadioButton
-        id="progressive-radio-2"
-        value="radio2"
-        label="Radio Option 2"
-        progressiveDisclosure={progressiveDisclosure}
-      />
-      <RadioButton
-        id="progressive-radio-3"
-        value="radio3"
-        label="Radio Option 3"
-        progressiveDisclosure={progressiveDisclosure}
-      />
-    </RadioButtonGroup>
-  );
-}
-```
-
-
 ### With Custom Labels
 
 **Render**
@@ -578,28 +534,72 @@ ControlledRadioButtonGroup
 ```
 
 
-### Required
+### With Input Hint
 
-**Args**
+**Render**
 
 ```tsx
-{
-    ...WithLegend.args,
-    id: "required",
-    required: true,
-  }
+({ ...args }) => {
+  const [value, setValue] = useState("");
+  return (
+    <RadioButtonGroup
+      name="input-hint-group"
+      legend="Radio Button Group Legend"
+      value={value}
+      onChange={(ev) => setValue(ev.target.value)}
+      {...args}
+    >
+      <RadioButton
+        id="input-hint-radio-1"
+        value="radio1"
+        label="Radio Option 1"
+        inputHint="Input Hint"
+      />
+      <RadioButton
+        id="input-hint-radio-2"
+        value="radio2"
+        label="Radio Option 2"
+        inputHint="Input Hint"
+      />
+      <RadioButton
+        id="input-hint-radio-3"
+        value="radio3"
+        label="Radio Option 3"
+        inputHint="Input Hint"
+      />
+    </RadioButtonGroup>
+  );
+}
 ```
 
 
-### Disabled
+### WithLegend
+
+**Args**
+
+```tsx
+{
+    id: "with-legend",
+    legend: "RadioButtonGroup Legend",
+  }
+```
+
+**Render**
+
+```tsx
+ControlledRadioButtonGroup
+```
+
+
+### WithLegendHint
 
 **Args**
 
 ```tsx
 {
     ...WithLegend.args,
-    id: "disabled",
-    disabled: true,
+    id: "with-legend-hint",
+    legendHint: "Legend Hint",
   }
 ```
 

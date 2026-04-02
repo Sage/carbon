@@ -51,13 +51,30 @@ description: Carbon Preview component props and usage examples.
 ```
 
 
-### With Lines
+### Disable Animation
 
 **Render**
 
 ```tsx
 () => {
-  return <Preview loading lines={6} />;
+  return <Preview loading disableAnimation />;
+}
+```
+
+
+### Shapes
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <>
+      <Preview mb={2} loading shape="rectangle" />
+      <Preview mb={2} loading shape="rectangle-round" />
+      <Preview loading shape="circle" />
+    </>
+  );
 }
 ```
 
@@ -86,17 +103,6 @@ description: Carbon Preview component props and usage examples.
 ```
 
 
-### With Width
-
-**Render**
-
-```tsx
-() => {
-  return <Preview loading width="256px" />;
-}
-```
-
-
 ### With Height
 
 **Render**
@@ -108,30 +114,24 @@ description: Carbon Preview component props and usage examples.
 ```
 
 
-### Shapes
+### With Lines
 
 **Render**
 
 ```tsx
 () => {
-  return (
-    <>
-      <Preview mb={2} loading shape="rectangle" />
-      <Preview mb={2} loading shape="rectangle-round" />
-      <Preview loading shape="circle" />
-    </>
-  );
+  return <Preview loading lines={6} />;
 }
 ```
 
 
-### Disable Animation
+### With Width
 
 **Render**
 
 ```tsx
 () => {
-  return <Preview loading disableAnimation />;
+  return <Preview loading width="256px" />;
 }
 ```
 

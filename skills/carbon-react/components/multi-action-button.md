@@ -48,7 +48,7 @@ description: Carbon MultiActionButton component props and usage examples.
 | hidden | boolean \| undefined | No |  |  |  |  |  |
 | id | string \| undefined | No |  |  |  |  |  |
 | inlist | any | No |  |  |  |  |  |
-| inputMode | "email" \| "none" \| "search" \| "text" \| "tel" \| "url" \| "numeric" \| "decimal" \| undefined | No |  |  |  | Hints at the type of data that might be entered by the user while editing the element or its contents |  |
+| inputMode | "none" \| "email" \| "search" \| "text" \| "tel" \| "url" \| "numeric" \| "decimal" \| undefined | No |  |  |  | Hints at the type of data that might be entered by the user while editing the element or its contents |  |
 | is | string \| undefined | No |  |  |  | Specify that a standard HTML element should behave like a defined custom built-in element |  |
 | isWhite | boolean \| undefined | No |  |  |  | Renders the white variant of the secondary split button |  |
 | itemID | string \| undefined | No |  |  |  |  |  |
@@ -240,7 +240,7 @@ description: Carbon MultiActionButton component props and usage examples.
 | rev | string \| undefined | No |  |  |  |  |  |
 | role | AriaRole \| undefined | No |  |  |  |  |  |
 | security | string \| undefined | No |  |  |  |  |  |
-| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | The size of the buttons. |  |
+| size | "large" \| "small" \| "medium" \| undefined | No |  |  |  | The size of the buttons. |  |
 | slot | string \| undefined | No |  |  |  |  |  |
 | spellCheck | Booleanish \| undefined | No |  |  |  |  |  |
 | style | CSSProperties \| undefined | No |  |  |  |  |  |
@@ -250,7 +250,7 @@ description: Carbon MultiActionButton component props and usage examples.
 | tabIndex | number \| undefined | No |  |  |  |  |  |
 | title | string \| undefined | No |  |  |  |  |  |
 | translate | "yes" \| "no" \| undefined | No |  |  |  |  |  |
-| type | "button" \| "reset" \| "submit" \| undefined | No |  |  |  |  |  |
+| type | "reset" \| "button" \| "submit" \| undefined | No |  |  |  |  |  |
 | typeof | string \| undefined | No |  |  |  |  |  |
 | unselectable | "off" \| "on" \| undefined | No |  |  |  |  |  |
 | value | string \| number \| readonly string[] \| undefined | No |  |  |  |  |  |
@@ -311,115 +311,29 @@ description: Carbon MultiActionButton component props and usage examples.
 | aria-valuetext | string \| undefined | No |  |  |  | Defines the human readable text alternative of aria-valuenow for a range widget. |  |
 | onKeyPress | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUp` or `onKeyDown` instead |  |  |
 | onKeyPressCapture | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUpCapture` or `onKeyDownCapture` instead |  |  |
-| aria-dropeffect | "copy" \| "link" \| "none" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
+| aria-dropeffect | "none" \| "copy" \| "link" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
 | aria-grabbed | Booleanish \| undefined | No |  | Yes | in ARIA 1.1 | Indicates an element's "grabbed" state in a drag-and-drop operation. |  |
 
 ## Examples
-### DefaultStory
-
-**Args**
-
-```tsx
-{ text: "Multi Action Button" }
-```
-
-**Render**
-
-```tsx
-(args: MultiActionButtonProps) => {
-    return (
-      <MultiActionButton {...args}>
-        <Button href="#">Button 1</Button>
-        <Button>Button 2</Button>
-        <Button>Button 3</Button>
-      </MultiActionButton>
-    );
-  }
-```
-
-
-### Focusing Main Button Programmatically
+### Alignment
 
 **Render**
 
 ```tsx
 () => {
-  const multiActionButtonHandle = useRef<MultiActionButtonHandle>(null);
-
-  return (
-    <Box display="flex" gap={2}>
-      <Button
-        onClick={() => multiActionButtonHandle.current?.focusMainButton()}
-      >
-        Focus Button
-      </Button>
-      <MultiActionButton
-        ref={multiActionButtonHandle}
-        text="Multi Action Button"
-      >
-        <Button>Button 1</Button>
-        <Button>Button 2</Button>
-        <Button>Button 3</Button>
-      </MultiActionButton>
-    </Box>
-  );
-}
-```
-
-
-### Disabled
-
-**Args**
-
-```tsx
-{ ...DefaultStory.args, text: "Multi Action Button", disabled: true }
-```
-
-
-### Sizes
-
-**Render**
-
-```tsx
-() => {
-  return (["small", "medium", "large"] as const).map(
-    (size: MultiActionButtonProps["size"]) => (
-      <Box key={size} mb={3}>
-        <MultiActionButton size={size} text={`Multi Action Button - ${size}`}>
-          <Button size={size} href="#">
-            Button 1
-          </Button>
-          <Button size={size}>Button 2</Button>
-          <Button size={size}>Button 3</Button>
+  return (["left", "right"] as const).map(
+    (align: MultiActionButtonProps["align"]) => (
+      <Box key={align} mb={3}>
+        <MultiActionButton
+          align={align}
+          text={`Multi Action Button - ${align}`}
+        >
+          <Button href="#">Button 1</Button>
+          <Button>Button 2</Button>
+          <Button>Button 3</Button>
         </MultiActionButton>
       </Box>
     ),
-  );
-}
-```
-
-
-### Custom Width
-
-**Args**
-
-```tsx
-{
-  text: "Multi Action Button",
-  width: 0.7,
-}
-```
-
-**Render**
-
-```tsx
-(args: MultiActionButtonProps) => {
-  return (
-    <MultiActionButton {...args}>
-      <Button href="#">Button 1</Button>
-      <Button>Button 2</Button>
-      <Button>Button 3</Button>
-    </MultiActionButton>
   );
 }
 ```
@@ -477,27 +391,105 @@ description: Carbon MultiActionButton component props and usage examples.
 ```
 
 
-### Alignment
+### Custom Width
+
+**Args**
+
+```tsx
+{
+  text: "Multi Action Button",
+  width: 0.7,
+}
+```
+
+**Render**
+
+```tsx
+(args: MultiActionButtonProps) => {
+  return (
+    <MultiActionButton {...args}>
+      <Button href="#">Button 1</Button>
+      <Button>Button 2</Button>
+      <Button>Button 3</Button>
+    </MultiActionButton>
+  );
+}
+```
+
+
+### DefaultStory
+
+**Args**
+
+```tsx
+{ text: "Multi Action Button" }
+```
+
+**Render**
+
+```tsx
+(args: MultiActionButtonProps) => {
+    return (
+      <MultiActionButton {...args}>
+        <Button href="#">Button 1</Button>
+        <Button>Button 2</Button>
+        <Button>Button 3</Button>
+      </MultiActionButton>
+    );
+  }
+```
+
+
+### Disabled
+
+**Args**
+
+```tsx
+{ ...DefaultStory.args, text: "Multi Action Button", disabled: true }
+```
+
+
+### Focusing Main Button Programmatically
 
 **Render**
 
 ```tsx
 () => {
-  return (["left", "right"] as const).map(
-    (align: MultiActionButtonProps["align"]) => (
-      <Box key={align} mb={3}>
-        <MultiActionButton
-          align={align}
-          text={`Multi Action Button - ${align}`}
-        >
-          <Button href="#">Button 1</Button>
-          <Button>Button 2</Button>
-          <Button>Button 3</Button>
-        </MultiActionButton>
-      </Box>
-    ),
+  const multiActionButtonHandle = useRef<MultiActionButtonHandle>(null);
+
+  return (
+    <Box display="flex" gap={2}>
+      <Button
+        onClick={() => multiActionButtonHandle.current?.focusMainButton()}
+      >
+        Focus Button
+      </Button>
+      <MultiActionButton
+        ref={multiActionButtonHandle}
+        text="Multi Action Button"
+      >
+        <Button>Button 1</Button>
+        <Button>Button 2</Button>
+        <Button>Button 3</Button>
+      </MultiActionButton>
+    </Box>
   );
 }
+```
+
+
+### MDX Example 1
+
+**Args**
+
+```tsx
+## Examples
+
+### Default
+
+<Canvas of={MultiActionButtonStories.DefaultStory} />
+
+### Focusing Main Button Programmatically
 ```
 
 
@@ -521,6 +513,29 @@ description: Carbon MultiActionButton component props and usage examples.
         <Button>Button 3</Button>
       </MultiActionButton>
     </Box>
+  );
+}
+```
+
+
+### Sizes
+
+**Render**
+
+```tsx
+() => {
+  return (["small", "medium", "large"] as const).map(
+    (size: MultiActionButtonProps["size"]) => (
+      <Box key={size} mb={3}>
+        <MultiActionButton size={size} text={`Multi Action Button - ${size}`}>
+          <Button size={size} href="#">
+            Button 1
+          </Button>
+          <Button size={size}>Button 2</Button>
+          <Button size={size}>Button 3</Button>
+        </MultiActionButton>
+      </Box>
+    ),
   );
 }
 ```
@@ -576,20 +591,5 @@ description: Carbon MultiActionButton component props and usage examples.
     </>
   );
 }
-```
-
-
-### MDX Example 1
-
-**Args**
-
-```tsx
-## Examples
-
-### Default
-
-<Canvas of={MultiActionButtonStories.DefaultStory} />
-
-### Focusing Main Button Programmatically
 ```
 

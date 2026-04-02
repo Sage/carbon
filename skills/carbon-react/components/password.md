@@ -68,7 +68,7 @@ description: Carbon Password component props and usage examples.
 | inlist | any | No |  |  |  |  |  |
 | inputHint | string \| undefined | No |  |  |  | A hint string rendered before the input but after the label. Intended to describe the purpose or content of the input. |  |
 | inputIcon | IconType \| undefined | No |  |  |  | Type of the icon that will be rendered next to the input |  |
-| inputMode | "email" \| "none" \| "search" \| "text" \| "tel" \| "url" \| "numeric" \| "decimal" \| undefined | No |  |  |  | Hints at the type of data that might be entered by the user while editing the element or its contents |  |
+| inputMode | "none" \| "email" \| "search" \| "text" \| "tel" \| "url" \| "numeric" \| "decimal" \| undefined | No |  |  |  | Hints at the type of data that might be entered by the user while editing the element or its contents |  |
 | inputWidth | number \| undefined | No |  |  |  | The width of the input as a percentage |  |
 | is | string \| undefined | No |  |  |  | Specify that a standard HTML element should behave like a defined custom built-in element |  |
 | itemID | string \| undefined | No |  |  |  |  |  |
@@ -279,7 +279,7 @@ description: Carbon Password component props and usage examples.
 | reverse | boolean \| undefined | No |  |  |  | Reverses label and input display |  |
 | role | AriaRole \| undefined | No |  |  |  |  |  |
 | security | string \| undefined | No |  |  |  |  |  |
-| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | Size of an input |  |
+| size | "large" \| "small" \| "medium" \| undefined | No |  |  |  | Size of an input |  |
 | slot | string \| undefined | No |  |  |  |  |  |
 | spellCheck | Booleanish \| undefined | No |  |  |  |  |  |
 | src | string \| undefined | No |  |  |  |  |  |
@@ -355,10 +355,33 @@ description: Carbon Password component props and usage examples.
 | aria-valuetext | string \| undefined | No |  |  |  | Defines the human readable text alternative of aria-valuenow for a range widget. |  |
 | onKeyPress | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUp` or `onKeyDown` instead |  |  |
 | onKeyPressCapture | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUpCapture` or `onKeyDownCapture` instead |  |  |
-| aria-dropeffect | "copy" \| "link" \| "none" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
+| aria-dropeffect | "none" \| "copy" \| "link" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
 | aria-grabbed | Booleanish \| undefined | No |  | Yes | in ARIA 1.1 | Indicates an element's "grabbed" state in a drag-and-drop operation. |  |
 
 ## Examples
+### Character Counter
+
+**Render**
+
+```tsx
+() => {
+  const [state, setState] = useState("Password");
+  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    setState(target.value);
+  };
+
+  return (
+    <Password
+      label="Password"
+      value={state}
+      characterLimit={10}
+      onChange={setValue}
+    />
+  );
+}
+```
+
+
 ### Default
 
 **Render**
@@ -371,6 +394,24 @@ description: Carbon Password component props and usage examples.
   };
 
   return <Password label="Password" value={state} onChange={setValue} />;
+}
+```
+
+
+### Disabled
+
+**Render**
+
+```tsx
+() => {
+  const [state, setState] = useState("Password");
+  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    setState(target.value);
+  };
+
+  return (
+    <Password disabled label="Password" value={state} onChange={setValue} />
+  );
 }
 ```
 
@@ -421,7 +462,7 @@ description: Carbon Password component props and usage examples.
 ```
 
 
-### Character Counter
+### Margins
 
 **Render**
 
@@ -432,14 +473,7 @@ description: Carbon Password component props and usage examples.
     setState(target.value);
   };
 
-  return (
-    <Password
-      label="Password"
-      value={state}
-      characterLimit={10}
-      onChange={setValue}
-    />
-  );
+  return <Password m={4} label="Password" value={state} onChange={setValue} />;
 }
 ```
 
@@ -462,6 +496,24 @@ description: Carbon Password component props and usage examples.
       value={state}
       onChange={setValue}
     />
+  );
+}
+```
+
+
+### Read Only
+
+**Render**
+
+```tsx
+() => {
+  const [state, setState] = useState("Password");
+  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    setState(target.value);
+  };
+
+  return (
+    <Password readOnly label="Password" value={state} onChange={setValue} />
   );
 }
 ```
@@ -518,23 +570,7 @@ description: Carbon Password component props and usage examples.
 ```
 
 
-### Margins
-
-**Render**
-
-```tsx
-() => {
-  const [state, setState] = useState("Password");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-
-  return <Password m={4} label="Password" value={state} onChange={setValue} />;
-}
-```
-
-
-### Disabled
+### With Custom maxWidth
 
 **Render**
 
@@ -546,13 +582,18 @@ description: Carbon Password component props and usage examples.
   };
 
   return (
-    <Password disabled label="Password" value={state} onChange={setValue} />
+    <Password
+      maxWidth="70%"
+      label="Password"
+      value={state}
+      onChange={setValue}
+    />
   );
 }
 ```
 
 
-### Read Only
+### With fieldHelp
 
 **Render**
 
@@ -564,25 +605,12 @@ description: Carbon Password component props and usage examples.
   };
 
   return (
-    <Password readOnly label="Password" value={state} onChange={setValue} />
-  );
-}
-```
-
-
-### With Label Inline
-
-**Render**
-
-```tsx
-() => {
-  const [state, setState] = useState("Password");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-
-  return (
-    <Password labelInline label="Password" value={state} onChange={setValue} />
+    <Password
+      fieldHelp="help"
+      label="Password"
+      value={state}
+      onChange={setValue}
+    />
   );
 }
 ```
@@ -634,7 +662,7 @@ description: Carbon Password component props and usage examples.
 ```
 
 
-### With Custom maxWidth
+### With Label Inline
 
 **Render**
 
@@ -646,35 +674,7 @@ description: Carbon Password component props and usage examples.
   };
 
   return (
-    <Password
-      maxWidth="70%"
-      label="Password"
-      value={state}
-      onChange={setValue}
-    />
-  );
-}
-```
-
-
-### With fieldHelp
-
-**Render**
-
-```tsx
-() => {
-  const [state, setState] = useState("Password");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-
-  return (
-    <Password
-      fieldHelp="help"
-      label="Password"
-      value={state}
-      onChange={setValue}
-    />
+    <Password labelInline label="Password" value={state} onChange={setValue} />
   );
 }
 ```

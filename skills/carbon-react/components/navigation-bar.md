@@ -54,39 +54,6 @@ description: Carbon NavigationBar component props and usage examples.
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 
 ## Examples
-### Default
-
-**Render**
-
-```tsx
-() => {
-  return <NavigationBar>Example content</NavigationBar>;
-}
-```
-
-
-### Dark Theme
-
-**Render**
-
-```tsx
-() => {
-  return <NavigationBar navigationType="dark">Example content</NavigationBar>;
-}
-```
-
-
-### White Theme
-
-**Render**
-
-```tsx
-() => {
-  return <NavigationBar navigationType="white">Example content</NavigationBar>;
-}
-```
-
-
 ### Black Theme
 
 **Render**
@@ -94,60 +61,6 @@ description: Carbon NavigationBar component props and usage examples.
 ```tsx
 () => {
   return <NavigationBar navigationType="black">Example content</NavigationBar>;
-}
-```
-
-
-### Example with Menu
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <NavigationBar>
-      <Menu>
-        <MenuItem href="#">Menu Item One</MenuItem>
-        <MenuItem href="#">Menu Item Two</MenuItem>
-      </Menu>
-    </NavigationBar>
-  );
-}
-```
-
-
-### Is Loading
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <NavigationBar isLoading>
-      <Menu>
-        <MenuItem href="#">Menu Item One</MenuItem>
-        <MenuItem href="#">Menu Item Two</MenuItem>
-      </Menu>
-    </NavigationBar>
-  );
-}
-```
-
-
-### With Custom Spacing
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <NavigationBar py={2} px={7}>
-      <Menu>
-        <MenuItem href="#">menu item one</MenuItem>
-        <MenuItem href="#">menu item two</MenuItem>
-      </Menu>
-    </NavigationBar>
-  );
 }
 ```
 
@@ -183,6 +96,128 @@ description: Carbon NavigationBar component props and usage examples.
           </MenuItem>
         </Menu>
       </Box>
+    </NavigationBar>
+  );
+}
+```
+
+
+### Dark Theme
+
+**Render**
+
+```tsx
+() => {
+  return <NavigationBar navigationType="dark">Example content</NavigationBar>;
+}
+```
+
+
+### Default
+
+**Render**
+
+```tsx
+() => {
+  return <NavigationBar>Example content</NavigationBar>;
+}
+```
+
+
+### Example with Menu
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <NavigationBar>
+      <Menu>
+        <MenuItem href="#">Menu Item One</MenuItem>
+        <MenuItem href="#">Menu Item Two</MenuItem>
+      </Menu>
+    </NavigationBar>
+  );
+}
+```
+
+
+### Fixed
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <>
+      <NavigationBar
+        position="fixed"
+        orientation="top"
+        offset="25px"
+        aria-label="header"
+      >
+        <Menu flex="1">
+          <MenuItem flex="1" onClick={() => {}}>
+            Menu Item One
+          </MenuItem>
+          <MenuItem flex="0 0 auto" href="#">
+            Menu Item Two
+          </MenuItem>
+          <MenuItem flex="0 0 auto" submenu="Menu Item Three">
+            <MenuItem href="#">Item Submenu One</MenuItem>
+            <MenuItem href="#">Item Submenu Two</MenuItem>
+            <MenuDivider />
+            <MenuItem icon="settings" href="#">
+              Item Submenu Three
+            </MenuItem>
+            <MenuItem href="#">Item Submenu Four</MenuItem>
+          </MenuItem>
+          <MenuItem flex="0 0 auto" submenu="Menu Item Four">
+            <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
+            <MenuItem href="#">Item Submenu Two</MenuItem>
+          </MenuItem>
+        </Menu>
+      </NavigationBar>
+      <Box height={1000} backgroundColor="green" />
+      <NavigationBar
+        position="fixed"
+        orientation="bottom"
+        offset="25px"
+        aria-label="footer"
+      >
+        <Menu flex="1">
+          <MenuItem flex="1" onClick={() => {}}>
+            Menu Item One
+          </MenuItem>
+          <MenuItem flex="0 0 auto" href="#">
+            Menu Item Two
+          </MenuItem>
+          <MenuItem flex="0 0 auto" href="#">
+            Menu Item Three
+          </MenuItem>
+          <MenuItem flex="0 0 auto" href="#">
+            Menu Item Four
+          </MenuItem>
+        </Menu>
+      </NavigationBar>
+    </>
+  );
+}
+```
+
+
+### Is Loading
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <NavigationBar isLoading>
+      <Menu>
+        <MenuItem href="#">Menu Item One</MenuItem>
+        <MenuItem href="#">Menu Item Two</MenuItem>
+      </Menu>
     </NavigationBar>
   );
 }
@@ -257,65 +292,30 @@ description: Carbon NavigationBar component props and usage examples.
 ```
 
 
-### Fixed
+### White Theme
+
+**Render**
+
+```tsx
+() => {
+  return <NavigationBar navigationType="white">Example content</NavigationBar>;
+}
+```
+
+
+### With Custom Spacing
 
 **Render**
 
 ```tsx
 () => {
   return (
-    <>
-      <NavigationBar
-        position="fixed"
-        orientation="top"
-        offset="25px"
-        aria-label="header"
-      >
-        <Menu flex="1">
-          <MenuItem flex="1" onClick={() => {}}>
-            Menu Item One
-          </MenuItem>
-          <MenuItem flex="0 0 auto" href="#">
-            Menu Item Two
-          </MenuItem>
-          <MenuItem flex="0 0 auto" submenu="Menu Item Three">
-            <MenuItem href="#">Item Submenu One</MenuItem>
-            <MenuItem href="#">Item Submenu Two</MenuItem>
-            <MenuDivider />
-            <MenuItem icon="settings" href="#">
-              Item Submenu Three
-            </MenuItem>
-            <MenuItem href="#">Item Submenu Four</MenuItem>
-          </MenuItem>
-          <MenuItem flex="0 0 auto" submenu="Menu Item Four">
-            <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
-            <MenuItem href="#">Item Submenu Two</MenuItem>
-          </MenuItem>
-        </Menu>
-      </NavigationBar>
-      <Box height={1000} backgroundColor="green" />
-      <NavigationBar
-        position="fixed"
-        orientation="bottom"
-        offset="25px"
-        aria-label="footer"
-      >
-        <Menu flex="1">
-          <MenuItem flex="1" onClick={() => {}}>
-            Menu Item One
-          </MenuItem>
-          <MenuItem flex="0 0 auto" href="#">
-            Menu Item Two
-          </MenuItem>
-          <MenuItem flex="0 0 auto" href="#">
-            Menu Item Three
-          </MenuItem>
-          <MenuItem flex="0 0 auto" href="#">
-            Menu Item Four
-          </MenuItem>
-        </Menu>
-      </NavigationBar>
-    </>
+    <NavigationBar py={2} px={7}>
+      <Menu>
+        <MenuItem href="#">menu item one</MenuItem>
+        <MenuItem href="#">menu item two</MenuItem>
+      </Menu>
+    </NavigationBar>
   );
 }
 ```

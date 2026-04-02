@@ -48,7 +48,7 @@ description: Carbon Sidebar component props and usage examples.
 | py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
 | restoreFocusOnClose | boolean \| undefined | No |  | Enables the automatic restoration of focus to the element that invoked the modal when the modal is closed. |  |
 | role | string \| undefined | No |  | The ARIA role to be applied to the component container |  |
-| size | "small" \| "medium" \| "large" \| "extra-small" \| "medium-small" \| "medium-large" \| "extra-large" \| undefined | No |  | Sets the size of the sidebar when open. |  |
+| size | "large" \| "small" \| "medium" \| "extra-small" \| "medium-small" \| "medium-large" \| "extra-large" \| undefined | No |  | Sets the size of the sidebar when open. |  |
 | subHeader | React.ReactNode | No |  | Node that will be used as sidebar subheader. |  |
 | subHeaderPadding | PaddingProps | No |  | Padding to be set on the Sidebar subheader |  |
 | topModalOverride | boolean \| undefined | No |  | Manually override the internal modal stacking order to set this as top |  |
@@ -60,6 +60,68 @@ description: Carbon Sidebar component props and usage examples.
 | aria-labelledby | string \| undefined | No |  | Prop to specify the aria-labelledby property of the component To be used when the header prop is a custom React Node, or the component is labelled by an internal element other than the header. |  |
 
 ## Examples
+### Custom Padding Around Content
+
+**Render**
+
+```tsx
+() => {
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
+      <Sidebar open={isOpen} onCancel={() => setIsOpen(false)} p={0}>
+        <Box mb={2}>
+          <Button buttonType="primary">Test</Button>
+          <Button buttonType="secondary" ml={2}>
+            Last
+          </Button>
+        </Box>
+        Main Content
+      </Sidebar>
+    </>
+  );
+}
+```
+
+
+### Custom Width
+
+**Render**
+
+```tsx
+() => {
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
+      <Sidebar
+        aria-label="sidebar"
+        open={isOpen}
+        onCancel={() => setIsOpen(false)}
+        width="25%"
+        header={<Typography variant="h3">Sidebar</Typography>}
+      >
+        <Box
+          mb={2}
+          display="flex"
+          flexDirection="row"
+          flexWrap="nowrap"
+          gap={1}
+        >
+          <Button buttonType="primary">Test</Button>
+          <Button buttonType="secondary" ml={2}>
+            Last
+          </Button>
+        </Box>
+        Main Content
+      </Sidebar>
+    </>
+  );
+}
+```
+
+
 ### Default
 
 **Render**
@@ -81,6 +143,281 @@ description: Carbon Sidebar component props and usage examples.
           setIsOpen(false);
           setTimeout(() => buttonRef.current?.focus(), 0);
         }}
+      >
+        <Box mb={2}>
+          <Button buttonType="primary">Test</Button>
+          <Button buttonType="secondary" ml={2}>
+            Last
+          </Button>
+        </Box>
+        Main Content
+      </Sidebar>
+    </>
+  );
+}
+```
+
+
+### Other Focusable Containers
+
+**Render**
+
+```tsx
+() => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isToast1Open, setIsToast1Open] = useState(false);
+  const [isToast2Open, setIsToast2Open] = useState(false);
+  const toast1Ref = useRef(null);
+  const toast2Ref = useRef(null);
+  return (
+    <>
+      <Button onClick={() => setIsSidebarOpen(true)}>Open sidebar</Button>
+      <Sidebar
+        open={isSidebarOpen}
+        onCancel={() => setIsSidebarOpen(false)}
+        header={<Typography variant="h3">Sidebar header</Typography>}
+        focusableContainers={[toast1Ref, toast2Ref]}
+      >
+        <Form
+          stickyFooter
+          height="500px"
+          leftSideButtons={
+            <Button onClick={() => setIsSidebarOpen(false)}>Cancel</Button>
+          }
+          saveButton={
+            <Button buttonType="primary" type="submit">
+              Save
+            </Button>
+          }
+        >
+          <Typography>
+            This is an example of a dialog with a Form as content
+          </Typography>
+          <Textbox label="First Name" value="" onChange={() => {}} />
+          <Textbox label="Middle Name" onChange={() => {}} value="" />
+          <Textbox label="Surname" onChange={() => {}} value="" />
+          <Button onClick={() => setIsToast1Open(true)}>
+            Show first toast
+          </Button>
+          <Button
+            ml={2}
+            buttonType="primary"
+            onClick={() => setIsToast2Open(true)}
+          >
+            Show second toast
+          </Button>
+        </Form>
+      </Sidebar>
+      <Toast
+        open={isToast1Open}
+        onDismiss={() => setIsToast1Open(false)}
+        ref={toast1Ref}
+        targetPortalId="stacked"
+      >
+        Toast message 1
+      </Toast>
+      <Toast
+        open={isToast2Open}
+        onDismiss={() => setIsToast2Open(false)}
+        ref={toast2Ref}
+        targetPortalId="stacked"
+      >
+        Toast message 2
+      </Toast>
+    </>
+  );
+}
+```
+
+
+### Top Modal Override
+
+**Render**
+
+```tsx
+() => {
+  const [isOpenAll, setIsOpenAll] = useState(defaultOpenState);
+  const [isOpenDialogFullScreen, setIsOpenDialogFullScreen] = useState(true);
+  const [isOpenSidebar, setIsOpenSidebar] = useState(true);
+  const [isOpenDialog, setIsOpenDialog] = useState(true);
+
+  return (
+    <>
+      <Button
+        onClick={() => {
+          setIsOpenAll(true);
+          setIsOpenDialogFullScreen(true);
+          setIsOpenSidebar(true);
+          setIsOpenDialog(true);
+        }}
+      >
+        Open dialogs
+      </Button>
+      <Confirm
+        open={isOpenDialogFullScreen && isOpenAll}
+        onCancel={() => setIsOpenDialogFullScreen(false)}
+        title="Confirm"
+        onConfirm={() => {}}
+      >
+        <Textbox label="Confirm textbox" value="" onChange={() => {}} />
+      </Confirm>
+      <Sidebar
+        open={isOpenSidebar && isOpenAll}
+        onCancel={() => setIsOpenSidebar(false)}
+        header="sidebar"
+        topModalOverride
+      >
+        <Textbox label="Sidebar textbox" value="" onChange={() => {}} />
+      </Sidebar>
+      <Dialog
+        open={isOpenDialog && isOpenAll}
+        onCancel={() => setIsOpenDialog(false)}
+        title="Dialog"
+      >
+        <Textbox label="Dialog textbox" value="" onChange={() => {}} />
+      </Dialog>
+    </>
+  );
+}
+```
+
+
+### With Dark Header
+
+**Render**
+
+```tsx
+() => {
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
+
+  const headerNode = (
+    <Box display="flex" alignItems="center" gap="8px">
+      <Icon type="chat" color="white" />
+      <Typography variant="h2" color="white">
+        Sidebar header
+      </Typography>
+    </Box>
+  );
+
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
+      <Sidebar
+        open={isOpen}
+        onCancel={() => setIsOpen(false)}
+        header={headerNode}
+        headerVariant="dark"
+      >
+        <Box mb={2}>
+          <Button buttonType="primary">Test</Button>
+          <Button buttonType="secondary" ml={2}>
+            Last
+          </Button>
+        </Box>
+        Main Content
+      </Sidebar>
+    </>
+  );
+}
+```
+
+
+### With Header
+
+**Render**
+
+```tsx
+() => {
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
+      <Sidebar
+        open={isOpen}
+        onCancel={() => setIsOpen(false)}
+        header={<Typography variant="h3">Sidebar header</Typography>}
+      >
+        <Box mb={2}>
+          <Button buttonType="primary">Test</Button>
+          <Button buttonType="secondary" ml={2}>
+            Last
+          </Button>
+        </Box>
+        Main Content
+      </Sidebar>
+    </>
+  );
+}
+```
+
+
+### With Header and Footer Padding
+
+**Render**
+
+```tsx
+() => {
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
+      <Sidebar
+        aria-label="sidebar"
+        position="left"
+        open={isOpen}
+        onCancel={() => setIsOpen(false)}
+        header={<Typography variant="h3">Sidebar Header</Typography>}
+        p={2}
+        headerPadding={{ p: 2 }}
+      >
+        <Form
+          rightSideButtons={<Button>Action button</Button>}
+          stickyFooter
+          buttonAlignment="right"
+          footerPadding={{ p: 2 }}
+        >
+          <Typography variant="p">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lectus
+            massa, suscipit vitae pellentesque quis, facilisis non ante.
+            Curabitur fringilla sapien non ante elementum venenatis. Curabitur
+            viverra, massa ac congue imperdiet, purus ligula dictum quam, id
+            tincidunt diam risus quis eros. Vivamus semper sem ac tempor
+            malesuada. Proin nec sollicitudin mi. Nunc egestas ipsum ac lorem
+            pretium blandit. Quisque ac ultricies lacus. Phasellus vel enim id
+            est ornare finibus eget vitae ipsum. Maecenas non accumsan dolor.
+            Morbi sed mauris mollis lorem finibus feugiat. Maecenas scelerisque
+            nec orci ac finibus. Nulla dictum, quam vel gravida lobortis, nisl
+            eros vulputate augue, eget malesuada lacus elit sed leo. In a ex id
+            metus vulputate sollicitudin at eget neque. Aliquam cursus quis odio
+            in consequat.
+          </Typography>
+        </Form>
+      </Sidebar>
+    </>
+  );
+}
+```
+
+
+### With Header And Subheader
+
+**Render**
+
+```tsx
+() => {
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
+      <Sidebar
+        open={isOpen}
+        onCancel={() => setIsOpen(false)}
+        header={<Typography variant="h3">Sidebar header</Typography>}
+        subHeader={
+          <Button iconType="chevron_left_thick" buttonType="tertiary">
+            Action
+          </Button>
+        }
       >
         <Box mb={2}>
           <Button buttonType="primary">Test</Button>
@@ -135,134 +472,6 @@ description: Carbon Sidebar component props and usage examples.
           setTimeout(() => messageRef.current?.focus(), 1);
         }}
         restoreFocusOnClose={false}
-      >
-        <Box mb={2}>
-          <Button buttonType="primary">Test</Button>
-          <Button buttonType="secondary" ml={2}>
-            Last
-          </Button>
-        </Box>
-        Main Content
-      </Sidebar>
-    </>
-  );
-}
-```
-
-
-### Custom Padding Around Content
-
-**Render**
-
-```tsx
-() => {
-  const [isOpen, setIsOpen] = useState(defaultOpenState);
-  return (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
-      <Sidebar open={isOpen} onCancel={() => setIsOpen(false)} p={0}>
-        <Box mb={2}>
-          <Button buttonType="primary">Test</Button>
-          <Button buttonType="secondary" ml={2}>
-            Last
-          </Button>
-        </Box>
-        Main Content
-      </Sidebar>
-    </>
-  );
-}
-```
-
-
-### With Header
-
-**Render**
-
-```tsx
-() => {
-  const [isOpen, setIsOpen] = useState(defaultOpenState);
-  return (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
-      <Sidebar
-        open={isOpen}
-        onCancel={() => setIsOpen(false)}
-        header={<Typography variant="h3">Sidebar header</Typography>}
-      >
-        <Box mb={2}>
-          <Button buttonType="primary">Test</Button>
-          <Button buttonType="secondary" ml={2}>
-            Last
-          </Button>
-        </Box>
-        Main Content
-      </Sidebar>
-    </>
-  );
-}
-```
-
-
-### With Header And Subheader
-
-**Render**
-
-```tsx
-() => {
-  const [isOpen, setIsOpen] = useState(defaultOpenState);
-  return (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
-      <Sidebar
-        open={isOpen}
-        onCancel={() => setIsOpen(false)}
-        header={<Typography variant="h3">Sidebar header</Typography>}
-        subHeader={
-          <Button iconType="chevron_left_thick" buttonType="tertiary">
-            Action
-          </Button>
-        }
-      >
-        <Box mb={2}>
-          <Button buttonType="primary">Test</Button>
-          <Button buttonType="secondary" ml={2}>
-            Last
-          </Button>
-        </Box>
-        Main Content
-      </Sidebar>
-    </>
-  );
-}
-```
-
-
-### With Dark Header
-
-**Render**
-
-```tsx
-() => {
-  const [isOpen, setIsOpen] = useState(defaultOpenState);
-
-  const headerNode = (
-    <Box display="flex" alignItems="center" gap="8px">
-      <Icon type="chat" color="white" />
-      <Typography variant="h2" color="white">
-        Sidebar header
-      </Typography>
-    </Box>
-  );
-
-  return (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
-      <Sidebar
-        open={isOpen}
-        onCancel={() => setIsOpen(false)}
-        header={headerNode}
-        headerVariant="dark"
       >
         <Box mb={2}>
           <Button buttonType="primary">Test</Button>
@@ -393,215 +602,6 @@ description: Carbon Sidebar component props and usage examples.
           </Typography>
         </Form>
       </Sidebar>
-    </>
-  );
-}
-```
-
-
-### Other Focusable Containers
-
-**Render**
-
-```tsx
-() => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isToast1Open, setIsToast1Open] = useState(false);
-  const [isToast2Open, setIsToast2Open] = useState(false);
-  const toast1Ref = useRef(null);
-  const toast2Ref = useRef(null);
-  return (
-    <>
-      <Button onClick={() => setIsSidebarOpen(true)}>Open sidebar</Button>
-      <Sidebar
-        open={isSidebarOpen}
-        onCancel={() => setIsSidebarOpen(false)}
-        header={<Typography variant="h3">Sidebar header</Typography>}
-        focusableContainers={[toast1Ref, toast2Ref]}
-      >
-        <Form
-          stickyFooter
-          height="500px"
-          leftSideButtons={
-            <Button onClick={() => setIsSidebarOpen(false)}>Cancel</Button>
-          }
-          saveButton={
-            <Button buttonType="primary" type="submit">
-              Save
-            </Button>
-          }
-        >
-          <Typography>
-            This is an example of a dialog with a Form as content
-          </Typography>
-          <Textbox label="First Name" value="" onChange={() => {}} />
-          <Textbox label="Middle Name" onChange={() => {}} value="" />
-          <Textbox label="Surname" onChange={() => {}} value="" />
-          <Button onClick={() => setIsToast1Open(true)}>
-            Show first toast
-          </Button>
-          <Button
-            ml={2}
-            buttonType="primary"
-            onClick={() => setIsToast2Open(true)}
-          >
-            Show second toast
-          </Button>
-        </Form>
-      </Sidebar>
-      <Toast
-        open={isToast1Open}
-        onDismiss={() => setIsToast1Open(false)}
-        ref={toast1Ref}
-        targetPortalId="stacked"
-      >
-        Toast message 1
-      </Toast>
-      <Toast
-        open={isToast2Open}
-        onDismiss={() => setIsToast2Open(false)}
-        ref={toast2Ref}
-        targetPortalId="stacked"
-      >
-        Toast message 2
-      </Toast>
-    </>
-  );
-}
-```
-
-
-### Custom Width
-
-**Render**
-
-```tsx
-() => {
-  const [isOpen, setIsOpen] = useState(defaultOpenState);
-  return (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
-      <Sidebar
-        aria-label="sidebar"
-        open={isOpen}
-        onCancel={() => setIsOpen(false)}
-        width="25%"
-        header={<Typography variant="h3">Sidebar</Typography>}
-      >
-        <Box
-          mb={2}
-          display="flex"
-          flexDirection="row"
-          flexWrap="nowrap"
-          gap={1}
-        >
-          <Button buttonType="primary">Test</Button>
-          <Button buttonType="secondary" ml={2}>
-            Last
-          </Button>
-        </Box>
-        Main Content
-      </Sidebar>
-    </>
-  );
-}
-```
-
-
-### With Header and Footer Padding
-
-**Render**
-
-```tsx
-() => {
-  const [isOpen, setIsOpen] = useState(defaultOpenState);
-  return (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
-      <Sidebar
-        aria-label="sidebar"
-        position="left"
-        open={isOpen}
-        onCancel={() => setIsOpen(false)}
-        header={<Typography variant="h3">Sidebar Header</Typography>}
-        p={2}
-        headerPadding={{ p: 2 }}
-      >
-        <Form
-          rightSideButtons={<Button>Action button</Button>}
-          stickyFooter
-          buttonAlignment="right"
-          footerPadding={{ p: 2 }}
-        >
-          <Typography variant="p">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lectus
-            massa, suscipit vitae pellentesque quis, facilisis non ante.
-            Curabitur fringilla sapien non ante elementum venenatis. Curabitur
-            viverra, massa ac congue imperdiet, purus ligula dictum quam, id
-            tincidunt diam risus quis eros. Vivamus semper sem ac tempor
-            malesuada. Proin nec sollicitudin mi. Nunc egestas ipsum ac lorem
-            pretium blandit. Quisque ac ultricies lacus. Phasellus vel enim id
-            est ornare finibus eget vitae ipsum. Maecenas non accumsan dolor.
-            Morbi sed mauris mollis lorem finibus feugiat. Maecenas scelerisque
-            nec orci ac finibus. Nulla dictum, quam vel gravida lobortis, nisl
-            eros vulputate augue, eget malesuada lacus elit sed leo. In a ex id
-            metus vulputate sollicitudin at eget neque. Aliquam cursus quis odio
-            in consequat.
-          </Typography>
-        </Form>
-      </Sidebar>
-    </>
-  );
-}
-```
-
-
-### Top Modal Override
-
-**Render**
-
-```tsx
-() => {
-  const [isOpenAll, setIsOpenAll] = useState(defaultOpenState);
-  const [isOpenDialogFullScreen, setIsOpenDialogFullScreen] = useState(true);
-  const [isOpenSidebar, setIsOpenSidebar] = useState(true);
-  const [isOpenDialog, setIsOpenDialog] = useState(true);
-
-  return (
-    <>
-      <Button
-        onClick={() => {
-          setIsOpenAll(true);
-          setIsOpenDialogFullScreen(true);
-          setIsOpenSidebar(true);
-          setIsOpenDialog(true);
-        }}
-      >
-        Open dialogs
-      </Button>
-      <Confirm
-        open={isOpenDialogFullScreen && isOpenAll}
-        onCancel={() => setIsOpenDialogFullScreen(false)}
-        title="Confirm"
-        onConfirm={() => {}}
-      >
-        <Textbox label="Confirm textbox" value="" onChange={() => {}} />
-      </Confirm>
-      <Sidebar
-        open={isOpenSidebar && isOpenAll}
-        onCancel={() => setIsOpenSidebar(false)}
-        header="sidebar"
-        topModalOverride
-      >
-        <Textbox label="Sidebar textbox" value="" onChange={() => {}} />
-      </Sidebar>
-      <Dialog
-        open={isOpenDialog && isOpenAll}
-        onCancel={() => setIsOpenDialog(false)}
-        title="Dialog"
-      >
-        <Textbox label="Dialog textbox" value="" onChange={() => {}} />
-      </Dialog>
     </>
   );
 }

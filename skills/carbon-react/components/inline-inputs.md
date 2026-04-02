@@ -111,38 +111,33 @@ description: Carbon InlineInputs component props and usage examples.
 ```
 
 
-### With Adaptive Label Breakpoint
+### Label Align
 
 **Render**
 
 ```tsx
 () => {
   return (
-    <Box p={4}>
-      <InlineInputs
-        label="My Inline Inputs"
-        labelId="inline-inputs-adaptive"
-        adaptiveLabelBreakpoint={768}
-        labelWidth={30}
-        gutter="none"
-      >
-        <Textbox
-          aria-labelledby="inline-inputs-adaptive"
-          value=""
-          onChange={() => {}}
-        />
-        <Textbox
-          aria-labelledby="inline-inputs-adaptive"
-          value=""
-          onChange={() => {}}
-        />
-      </InlineInputs>
-      <Textbox
-        label="My Textbox"
-        adaptiveLabelBreakpoint={768}
-        value=""
-        onChange={() => {}}
-      />
+    <Box>
+      {(["right", "left"] as const).map((alignment) => (
+        <InlineInputs
+          label="My Inline Inputs"
+          labelAlign={alignment}
+          labelId="inline-inputs-align"
+          labelWidth={30}
+        >
+          <Textbox
+            aria-labelledby="inline-inputs-align"
+            value=""
+            onChange={() => {}}
+          />
+          <Textbox
+            aria-labelledby="inline-inputs-align"
+            value=""
+            onChange={() => {}}
+          />
+        </InlineInputs>
+      ))}
     </Box>
   );
 }
@@ -177,33 +172,38 @@ description: Carbon InlineInputs component props and usage examples.
 ```
 
 
-### Label Align
+### With Adaptive Label Breakpoint
 
 **Render**
 
 ```tsx
 () => {
   return (
-    <Box>
-      {(["right", "left"] as const).map((alignment) => (
-        <InlineInputs
-          label="My Inline Inputs"
-          labelAlign={alignment}
-          labelId="inline-inputs-align"
-          labelWidth={30}
-        >
-          <Textbox
-            aria-labelledby="inline-inputs-align"
-            value=""
-            onChange={() => {}}
-          />
-          <Textbox
-            aria-labelledby="inline-inputs-align"
-            value=""
-            onChange={() => {}}
-          />
-        </InlineInputs>
-      ))}
+    <Box p={4}>
+      <InlineInputs
+        label="My Inline Inputs"
+        labelId="inline-inputs-adaptive"
+        adaptiveLabelBreakpoint={768}
+        labelWidth={30}
+        gutter="none"
+      >
+        <Textbox
+          aria-labelledby="inline-inputs-adaptive"
+          value=""
+          onChange={() => {}}
+        />
+        <Textbox
+          aria-labelledby="inline-inputs-adaptive"
+          value=""
+          onChange={() => {}}
+        />
+      </InlineInputs>
+      <Textbox
+        label="My Textbox"
+        adaptiveLabelBreakpoint={768}
+        value=""
+        onChange={() => {}}
+      />
     </Box>
   );
 }

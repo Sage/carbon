@@ -24,6 +24,150 @@ description: Carbon VerticalMenu component props and usage examples.
 | aria-labelledby | string \| undefined | No |  | An aria-labelledby attribute for the menu |  |
 
 ## Examples
+### Active
+
+**Render**
+
+```tsx
+() => (
+  <VerticalMenu aria-label="Active vertical menu">
+    <VerticalMenuItem
+      iconType="analysis"
+      active={(isOpen) => !isOpen}
+      title="Item 1"
+    >
+      <VerticalMenuItem active title="ChildItem 1" href="#" />
+      <VerticalMenuItem title="ChildItem 2" href="#" />
+    </VerticalMenuItem>
+  </VerticalMenu>
+)
+```
+
+
+### Adornment
+
+**Render**
+
+```tsx
+() => (
+  <VerticalMenu aria-label="Vertical menu with adornment">
+    <VerticalMenuItem
+      iconType="analysis"
+      adornment={(isOpen) =>
+        !isOpen && (
+          <Pill borderColor="#fff" fill size="S">
+            10
+          </Pill>
+        )
+      }
+      title="Item 1"
+    >
+      <VerticalMenuItem
+        adornment={
+          <Pill borderColor="#fff" fill size="S">
+            10
+          </Pill>
+        }
+        title="ChildItem 1"
+        href="#"
+      />
+      <VerticalMenuItem title="ChildItem 2" href="#" />
+    </VerticalMenuItem>
+  </VerticalMenu>
+)
+```
+
+
+### Custom Component
+
+**Render**
+
+```tsx
+() => (
+  <VerticalMenu aria-label="Custom vertical menu component">
+    <VerticalMenuItem
+      iconType="analysis"
+      title="Item 1"
+      component={Link}
+      to="/item-1"
+    />
+  </VerticalMenu>
+)
+```
+
+
+### Custom Item Height
+
+**Render**
+
+```tsx
+() => (
+  <VerticalMenu aria-label="Vertical menu with custom item height">
+    <VerticalMenuItem height="100px" iconType="analysis" title="Item 1" />
+  </VerticalMenu>
+)
+```
+
+
+### Custom Item Margin
+
+**Render**
+
+```tsx
+() => (
+  <VerticalMenu
+    height="100vh"
+    aria-label="Vertical menu with custom item margin"
+  >
+    <VerticalMenuItem iconType="analysis" title="Item 1" />
+    <VerticalMenuItem title="Item 2" />
+    <VerticalMenuItem title="Item 3" mt="auto" />
+  </VerticalMenu>
+)
+```
+
+
+### Custom Item Padding
+
+**Render**
+
+```tsx
+() => (
+  <VerticalMenu aria-label="Vertical menu with custom item padding">
+    <VerticalMenuItem iconType="analysis" title="Item 1" padding="0 0 0 80px" />
+  </VerticalMenu>
+)
+```
+
+
+### Custom Width and Height
+
+**Render**
+
+```tsx
+() => (
+  <VerticalMenu
+    width="500px"
+    height="100vh"
+    aria-label="Vertical menu with custom width and height"
+  >
+    <VerticalMenuItem
+      iconType="analysis"
+      adornment={
+        <Pill borderColor="#fff" fill size="S">
+          10
+        </Pill>
+      }
+      title="Item 1"
+      href="#"
+    />
+    <VerticalMenuItem iconType="cart" active title="Item 2" href="#" />
+    <VerticalMenuItem iconType="bank" title="Item 3" href="#" />
+  </VerticalMenu>
+)
+```
+
+
 ### Default
 
 **Render**
@@ -109,180 +253,6 @@ description: Carbon VerticalMenu component props and usage examples.
       </VerticalMenuItem>
     </VerticalMenu>
   </Box>
-)
-```
-
-
-### Item With OnClick Handler
-
-**Render**
-
-```tsx
-() => {
-  const handleClick = (e: VerticalMenuItemClickEvent) => {
-    e.preventDefault();
-    window.open("https://carbon.sage.com", "_blank", "noopener noreferrer");
-  };
-
-  return (
-    <VerticalMenu>
-      <VerticalMenuItem
-        iconType="analysis"
-        title="Anchor with onClick"
-        href="#"
-        onClick={handleClick}
-      />
-      <VerticalMenuItem
-        iconType="admin"
-        title="Button with onClick"
-        onClick={handleClick}
-      />
-    </VerticalMenu>
-  );
-}
-```
-
-
-### Custom Width and Height
-
-**Render**
-
-```tsx
-() => (
-  <VerticalMenu
-    width="500px"
-    height="100vh"
-    aria-label="Vertical menu with custom width and height"
-  >
-    <VerticalMenuItem
-      iconType="analysis"
-      adornment={
-        <Pill borderColor="#fff" fill size="S">
-          10
-        </Pill>
-      }
-      title="Item 1"
-      href="#"
-    />
-    <VerticalMenuItem iconType="cart" active title="Item 2" href="#" />
-    <VerticalMenuItem iconType="bank" title="Item 3" href="#" />
-  </VerticalMenu>
-)
-```
-
-
-### Adornment
-
-**Render**
-
-```tsx
-() => (
-  <VerticalMenu aria-label="Vertical menu with adornment">
-    <VerticalMenuItem
-      iconType="analysis"
-      adornment={(isOpen) =>
-        !isOpen && (
-          <Pill borderColor="#fff" fill size="S">
-            10
-          </Pill>
-        )
-      }
-      title="Item 1"
-    >
-      <VerticalMenuItem
-        adornment={
-          <Pill borderColor="#fff" fill size="S">
-            10
-          </Pill>
-        }
-        title="ChildItem 1"
-        href="#"
-      />
-      <VerticalMenuItem title="ChildItem 2" href="#" />
-    </VerticalMenuItem>
-  </VerticalMenu>
-)
-```
-
-
-### Active
-
-**Render**
-
-```tsx
-() => (
-  <VerticalMenu aria-label="Active vertical menu">
-    <VerticalMenuItem
-      iconType="analysis"
-      active={(isOpen) => !isOpen}
-      title="Item 1"
-    >
-      <VerticalMenuItem active title="ChildItem 1" href="#" />
-      <VerticalMenuItem title="ChildItem 2" href="#" />
-    </VerticalMenuItem>
-  </VerticalMenu>
-)
-```
-
-
-### Custom Item Padding
-
-**Render**
-
-```tsx
-() => (
-  <VerticalMenu aria-label="Vertical menu with custom item padding">
-    <VerticalMenuItem iconType="analysis" title="Item 1" padding="0 0 0 80px" />
-  </VerticalMenu>
-)
-```
-
-
-### Custom Item Margin
-
-**Render**
-
-```tsx
-() => (
-  <VerticalMenu
-    height="100vh"
-    aria-label="Vertical menu with custom item margin"
-  >
-    <VerticalMenuItem iconType="analysis" title="Item 1" />
-    <VerticalMenuItem title="Item 2" />
-    <VerticalMenuItem title="Item 3" mt="auto" />
-  </VerticalMenu>
-)
-```
-
-
-### Custom Item Height
-
-**Render**
-
-```tsx
-() => (
-  <VerticalMenu aria-label="Vertical menu with custom item height">
-    <VerticalMenuItem height="100px" iconType="analysis" title="Item 1" />
-  </VerticalMenu>
-)
-```
-
-
-### Custom Component
-
-**Render**
-
-```tsx
-() => (
-  <VerticalMenu aria-label="Custom vertical menu component">
-    <VerticalMenuItem
-      iconType="analysis"
-      title="Item 1"
-      component={Link}
-      to="/item-1"
-    />
-  </VerticalMenu>
 )
 ```
 
@@ -376,6 +346,36 @@ description: Carbon VerticalMenu component props and usage examples.
   return (
     <VerticalMenu aria-label="Full-screen vertical menu">
       {menuItems}
+    </VerticalMenu>
+  );
+}
+```
+
+
+### Item With OnClick Handler
+
+**Render**
+
+```tsx
+() => {
+  const handleClick = (e: VerticalMenuItemClickEvent) => {
+    e.preventDefault();
+    window.open("https://carbon.sage.com", "_blank", "noopener noreferrer");
+  };
+
+  return (
+    <VerticalMenu>
+      <VerticalMenuItem
+        iconType="analysis"
+        title="Anchor with onClick"
+        href="#"
+        onClick={handleClick}
+      />
+      <VerticalMenuItem
+        iconType="admin"
+        title="Button with onClick"
+        onClick={handleClick}
+      />
     </VerticalMenu>
   );
 }

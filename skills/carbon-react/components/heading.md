@@ -59,102 +59,7 @@ description: Carbon Heading component props and usage examples.
 ```
 
 
-### With Heading Type
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <>
-      <Heading headingType="h1" title="This is a h1 Title" />
-      <Heading headingType="h2" title="This is a h2 Title" />
-      <Heading headingType="h3" title="This is a h3 Title" />
-      <Heading headingType="h4" title="This is a h4 Title" />
-      <Heading headingType="h5" title="This is a h5 Title" />
-    </>
-  );
-}
-```
-
-
-### Without Divider
-
-**Render**
-
-```tsx
-() => {
-  return <Heading title="This is a Title" divider={false} />;
-}
-```
-
-
-### With Subheader
-
-**Render**
-
-```tsx
-() => {
-  return <Heading title="This is a Title" subheader="This is a subheader" />;
-}
-```
-
-
-### With Pill
-
-**Render**
-
-```tsx
-() => {
-  return <Heading title="This is a Title" pills={<Pill>Pill</Pill>} />;
-}
-```
-
-
-### With Multiple Pills
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Heading
-      title="This is a Title"
-      pills={[
-        <Pill mr={2} key="1">
-          Pill 1
-        </Pill>,
-        <Pill mr={2} key="2" size="L">
-          Pill 2
-        </Pill>,
-        <Pill mr={2} key="3" size="XL">
-          Pill 3
-        </Pill>,
-      ]}
-    />
-  );
-}
-```
-
-
-### With Pill and Subheader
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Heading
-      title="This is a Title"
-      pills={<Pill>Pill</Pill>}
-      subheader="This is a subheader"
-    />
-  );
-}
-```
-
-
-### With Subheader Seperator
+### With Back Link
 
 **Render**
 
@@ -164,41 +69,8 @@ description: Carbon Heading component props and usage examples.
     <Heading
       title="This is a Title"
       subheader="This is a subheader"
-      separator
+      backLink="https://carbon.sage.com"
     />
-  );
-}
-```
-
-
-### With Pill, Subheader and Seperator
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Heading
-      title="This is a Title"
-      subheader="This is a subheader"
-      pills={<Pill>Pill</Pill>}
-      separator
-    />
-  );
-}
-```
-
-
-### With Subheader Children
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Heading title="This is a Title" subheader="This is a subheader">
-      This is content beneath a heading
-    </Heading>
   );
 }
 ```
@@ -243,6 +115,25 @@ description: Carbon Heading component props and usage examples.
 ```
 
 
+### With Heading Type
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <>
+      <Heading headingType="h1" title="This is a h1 Title" />
+      <Heading headingType="h2" title="This is a h2 Title" />
+      <Heading headingType="h3" title="This is a h3 Title" />
+      <Heading headingType="h4" title="This is a h4 Title" />
+      <Heading headingType="h5" title="This is a h5 Title" />
+    </>
+  );
+}
+```
+
+
 ### With Help
 
 **Render**
@@ -255,26 +146,6 @@ description: Carbon Heading component props and usage examples.
         title="This is a Title"
         subheader="This is a subheader"
         help="This should be helpful"
-      />
-    </Box>
-  );
-}
-```
-
-
-### With Help Pill
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Box m={16}>
-      <Heading
-        title="This is a Title"
-        subheader="This is a subheader"
-        help="This should be helpful"
-        pills={<Pill>Pill</Pill>}
       />
     </Box>
   );
@@ -302,7 +173,81 @@ description: Carbon Heading component props and usage examples.
 ```
 
 
-### With Back Link
+### With Help Pill
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Box m={16}>
+      <Heading
+        title="This is a Title"
+        subheader="This is a subheader"
+        help="This should be helpful"
+        pills={<Pill>Pill</Pill>}
+      />
+    </Box>
+  );
+}
+```
+
+
+### With Multiple Pills
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Heading
+      title="This is a Title"
+      pills={[
+        <Pill mr={2} key="1">
+          Pill 1
+        </Pill>,
+        <Pill mr={2} key="2" size="L">
+          Pill 2
+        </Pill>,
+        <Pill mr={2} key="3" size="XL">
+          Pill 3
+        </Pill>,
+      ]}
+    />
+  );
+}
+```
+
+
+### With Pill
+
+**Render**
+
+```tsx
+() => {
+  return <Heading title="This is a Title" pills={<Pill>Pill</Pill>} />;
+}
+```
+
+
+### With Pill and Subheader
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Heading
+      title="This is a Title"
+      pills={<Pill>Pill</Pill>}
+      subheader="This is a subheader"
+    />
+  );
+}
+```
+
+
+### With Pill, Subheader and Seperator
 
 **Render**
 
@@ -312,9 +257,64 @@ description: Carbon Heading component props and usage examples.
     <Heading
       title="This is a Title"
       subheader="This is a subheader"
-      backLink="https://carbon.sage.com"
+      pills={<Pill>Pill</Pill>}
+      separator
     />
   );
+}
+```
+
+
+### With Subheader
+
+**Render**
+
+```tsx
+() => {
+  return <Heading title="This is a Title" subheader="This is a subheader" />;
+}
+```
+
+
+### With Subheader Children
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Heading title="This is a Title" subheader="This is a subheader">
+      This is content beneath a heading
+    </Heading>
+  );
+}
+```
+
+
+### With Subheader Seperator
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Heading
+      title="This is a Title"
+      subheader="This is a subheader"
+      separator
+    />
+  );
+}
+```
+
+
+### Without Divider
+
+**Render**
+
+```tsx
+() => {
+  return <Heading title="This is a Title" divider={false} />;
 }
 ```
 

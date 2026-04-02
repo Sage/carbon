@@ -44,6 +44,34 @@ description: Carbon Pager component props and usage examples.
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 
 ## Examples
+### CurrentPage
+
+**Args**
+
+```tsx
+{
+    onPagination: () => {},
+    totalRecords: 100,
+    showPageSizeSelection: true,
+    currentPage: 5,
+  }
+```
+
+
+### CurrentPageLastPage
+
+**Args**
+
+```tsx
+{
+    onPagination: () => {},
+    totalRecords: 100,
+    showPageSizeSelection: true,
+    currentPage: 10,
+  }
+```
+
+
 ### Default
 
 **Args**
@@ -73,33 +101,12 @@ description: Carbon Pager component props and usage examples.
 ```
 
 
-### Interactive Page Number
+### DisabledPageSize
 
 **Args**
 
 ```tsx
-{
-  totalRecords: "100",
-  interactivePageNumber: false,
-  showPageSizeSelection: false,
-  currentPage: "1",
-  pageSizeSelectionOptions: [
-    { id: "1", name: 1 },
-    { id: "10", name: 10 },
-    { id: "25", name: 25 },
-    { id: "50", name: 50 },
-    { id: "100", name: 100 },
-  ],
-  onPagination: () => {},
-}
-```
-
-**Render**
-
-```tsx
-(args: PagerProps) => {
-  return <Pager {...args} />;
-}
+{ ...Default.args, totalRecords: "100", onPagination: () => {} }
 ```
 
 
@@ -133,15 +140,6 @@ description: Carbon Pager component props and usage examples.
 ```
 
 
-### DisabledPageSize
-
-**Args**
-
-```tsx
-{ ...Default.args, totalRecords: "100", onPagination: () => {} }
-```
-
-
 ### HidingPagerElements
 
 **Args**
@@ -158,19 +156,32 @@ description: Carbon Pager component props and usage examples.
 ```
 
 
-### Smart Functionality
+### Interactive Page Number
+
+**Args**
+
+```tsx
+{
+  totalRecords: "100",
+  interactivePageNumber: false,
+  showPageSizeSelection: false,
+  currentPage: "1",
+  pageSizeSelectionOptions: [
+    { id: "1", name: 1 },
+    { id: "10", name: 10 },
+    { id: "25", name: 25 },
+    { id: "50", name: 50 },
+    { id: "100", name: 100 },
+  ],
+  onPagination: () => {},
+}
+```
 
 **Render**
 
 ```tsx
-() => {
-  return (
-    <>
-      <Pager totalRecords={10} onPagination={() => {}} />
-      <br />
-      <Pager totalRecords={20} onPagination={() => {}} />
-    </>
-  );
+(args: PagerProps) => {
+  return <Pager {...args} />;
 }
 ```
 
@@ -205,31 +216,49 @@ description: Carbon Pager component props and usage examples.
 ```
 
 
-### CurrentPageLastPage
+### Small Screen Breakpoint
 
-**Args**
+**Render**
 
 ```tsx
-{
-    onPagination: () => {},
-    totalRecords: 100,
-    showPageSizeSelection: true,
-    currentPage: 10,
-  }
+() => {
+  const shouldShowExtraLinks = useMediaQuery("(min-width: 375px)");
+
+  return (
+    <Pager
+      smallScreenBreakpoint="705px"
+      totalRecords={1000}
+      showPageSizeSelection
+      showFirstAndLastButtons={shouldShowExtraLinks}
+      pageSize={10}
+      currentPage={1}
+      onPagination={() => {}}
+      pageSizeSelectionOptions={[
+        { id: "10", name: 10 },
+        { id: "25", name: 25 },
+        { id: "50", name: 50 },
+        { id: "100", name: 100 },
+      ]}
+    />
+  );
+}
 ```
 
 
-### CurrentPage
+### Smart Functionality
 
-**Args**
+**Render**
 
 ```tsx
-{
-    onPagination: () => {},
-    totalRecords: 100,
-    showPageSizeSelection: true,
-    currentPage: 5,
-  }
+() => {
+  return (
+    <>
+      <Pager totalRecords={10} onPagination={() => {}} />
+      <br />
+      <Pager totalRecords={20} onPagination={() => {}} />
+    </>
+  );
+}
 ```
 
 
@@ -292,35 +321,6 @@ description: Carbon Pager component props and usage examples.
       onPagination={() => {}}
       {...responsiveProps()}
       smallScreenBreakpoint="375px"
-      pageSizeSelectionOptions={[
-        { id: "10", name: 10 },
-        { id: "25", name: 25 },
-        { id: "50", name: 50 },
-        { id: "100", name: 100 },
-      ]}
-    />
-  );
-}
-```
-
-
-### Small Screen Breakpoint
-
-**Render**
-
-```tsx
-() => {
-  const shouldShowExtraLinks = useMediaQuery("(min-width: 375px)");
-
-  return (
-    <Pager
-      smallScreenBreakpoint="705px"
-      totalRecords={1000}
-      showPageSizeSelection
-      showFirstAndLastButtons={shouldShowExtraLinks}
-      pageSize={10}
-      currentPage={1}
-      onPagination={() => {}}
       pageSizeSelectionOptions={[
         { id: "10", name: 10 },
         { id: "25", name: 25 },

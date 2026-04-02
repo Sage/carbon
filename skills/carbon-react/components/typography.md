@@ -64,7 +64,7 @@ description: Carbon Typography component props and usage examples.
 | textOverflow | string \| undefined | No |  | Override the text-overflow |  |
 | textTransform | string \| undefined | No |  | Override the variant text-transform |  |
 | truncate | boolean \| undefined | No |  | Apply truncation |  |
-| variant | "p" \| "small" \| "sub" \| "b" \| "big" \| "em" \| "h1" \| "h2" \| "h3" \| "h4" \| "h5" \| "ol" \| "span" \| "strong" \| "sup" \| "ul" \| "h1-large" \| "segment-header" \| "segment-header-small" \| "segment-subheader" \| "segment-subheader-alt" \| undefined | No |  | The visual style to apply to the component | "p" |
+| variant | "small" \| "p" \| "sub" \| "b" \| "big" \| "em" \| "h1" \| "h2" \| "h3" \| "h4" \| "h5" \| "ol" \| "span" \| "strong" \| "sup" \| "ul" \| "h1-large" \| "segment-header" \| "segment-header-small" \| "segment-subheader" \| "segment-subheader-alt" \| undefined | No |  | The visual style to apply to the component | "p" |
 | whiteSpace | string \| undefined | No |  | Override the white-space |  |
 | wordBreak | string \| undefined | No |  | Override the word-break |  |
 | wordWrap | string \| undefined | No |  | Override the word-wrap |  |
@@ -75,6 +75,125 @@ description: Carbon Typography component props and usage examples.
 | aria-live | "off" \| "assertive" \| "polite" \| undefined | No |  | Make the element an aria-live region |  |
 
 ## Examples
+### List Item Inheritance
+
+**Render**
+
+```tsx
+() => (
+  <>
+    <Typography>Default</Typography>
+    <List>
+      <ListItem>item 1</ListItem>
+      <ListItem>item 2</ListItem>
+      <ListItem>item 3</ListItem>
+    </List>
+
+    <Typography>Big</Typography>
+    <List variant="big">
+      <ListItem>item 1</ListItem>
+      <ListItem>item 2</ListItem>
+      <ListItem>item 3</ListItem>
+    </List>
+
+    <Typography>Small</Typography>
+    <List variant="small">
+      <ListItem>item 1</ListItem>
+      <ListItem>item 2</ListItem>
+      <ListItem>item 3</ListItem>
+    </List>
+  </>
+)
+```
+
+
+### Lists
+
+**Render**
+
+```tsx
+() => (
+  <>
+    <Typography>Unordered List</Typography>
+    <List>
+      <ListItem>
+        Milk <Typography variant="b">2L</Typography>{" "}
+        <Typography variant="em">Skimmed</Typography>
+      </ListItem>
+      <ListItem>
+        Bread <Typography variant="b">500g</Typography>
+      </ListItem>
+      <ListItem>
+        Sugar <Typography variant="b">1Kg</Typography>
+      </ListItem>
+    </List>
+
+    <Typography>Ordered List</Typography>
+    <List as="ol">
+      <ListItem>
+        Milk <Typography variant="b">2L</Typography>{" "}
+        <Typography variant="em">Skimmed</Typography>
+      </ListItem>
+      <ListItem>
+        Bread <Typography variant="b">500g</Typography>
+      </ListItem>
+      <ListItem>
+        Sugar <Typography variant="b">1Kg</Typography>
+      </ListItem>
+    </List>
+  </>
+)
+```
+
+
+### Screen Reader Only
+
+**Render**
+
+```tsx
+() => (
+  <>
+    <Typography>
+      This is regular text, that can be seen, but under it is visually hidden
+      text. Check the source to see it or use a screen reader.
+    </Typography>
+    <Typography screenReaderOnly>
+      This text is visually hidden and will only be read out by a screen reader.
+    </Typography>
+  </>
+)
+```
+
+
+### Truncate
+
+**Render**
+
+```tsx
+() => (
+  <>
+    <Box height={80} width={350} backgroundColor="yellow">
+      <Typography truncate>
+        The is an example of using the truncate prop with a block element.
+      </Typography>
+    </Box>
+    <Box height={80} width={350} backgroundColor="red">
+      <Typography truncate variant="b" display="block">
+        The is an example of using the truncate prop with an inline element.
+        Changing the display type to be a block element allows it to actually
+        truncate.
+      </Typography>
+    </Box>
+    <Box height={80} width={350} backgroundColor="lightblue">
+      <Typography truncate textOverflow="clip">
+        The is an example of using the truncate prop with custom text-overflow.
+      </Typography>
+    </Box>
+  </>
+)
+```
+
+
 ### Variants
 
 **Render**
@@ -148,125 +267,6 @@ description: Carbon Typography component props and usage examples.
     <Typography variant="p">
       H<Typography variant="sub">2</Typography>O is an example of subscript
     </Typography>
-  </>
-)
-```
-
-
-### Truncate
-
-**Render**
-
-```tsx
-() => (
-  <>
-    <Box height={80} width={350} backgroundColor="yellow">
-      <Typography truncate>
-        The is an example of using the truncate prop with a block element.
-      </Typography>
-    </Box>
-    <Box height={80} width={350} backgroundColor="red">
-      <Typography truncate variant="b" display="block">
-        The is an example of using the truncate prop with an inline element.
-        Changing the display type to be a block element allows it to actually
-        truncate.
-      </Typography>
-    </Box>
-    <Box height={80} width={350} backgroundColor="lightblue">
-      <Typography truncate textOverflow="clip">
-        The is an example of using the truncate prop with custom text-overflow.
-      </Typography>
-    </Box>
-  </>
-)
-```
-
-
-### Screen Reader Only
-
-**Render**
-
-```tsx
-() => (
-  <>
-    <Typography>
-      This is regular text, that can be seen, but under it is visually hidden
-      text. Check the source to see it or use a screen reader.
-    </Typography>
-    <Typography screenReaderOnly>
-      This text is visually hidden and will only be read out by a screen reader.
-    </Typography>
-  </>
-)
-```
-
-
-### Lists
-
-**Render**
-
-```tsx
-() => (
-  <>
-    <Typography>Unordered List</Typography>
-    <List>
-      <ListItem>
-        Milk <Typography variant="b">2L</Typography>{" "}
-        <Typography variant="em">Skimmed</Typography>
-      </ListItem>
-      <ListItem>
-        Bread <Typography variant="b">500g</Typography>
-      </ListItem>
-      <ListItem>
-        Sugar <Typography variant="b">1Kg</Typography>
-      </ListItem>
-    </List>
-
-    <Typography>Ordered List</Typography>
-    <List as="ol">
-      <ListItem>
-        Milk <Typography variant="b">2L</Typography>{" "}
-        <Typography variant="em">Skimmed</Typography>
-      </ListItem>
-      <ListItem>
-        Bread <Typography variant="b">500g</Typography>
-      </ListItem>
-      <ListItem>
-        Sugar <Typography variant="b">1Kg</Typography>
-      </ListItem>
-    </List>
-  </>
-)
-```
-
-
-### List Item Inheritance
-
-**Render**
-
-```tsx
-() => (
-  <>
-    <Typography>Default</Typography>
-    <List>
-      <ListItem>item 1</ListItem>
-      <ListItem>item 2</ListItem>
-      <ListItem>item 3</ListItem>
-    </List>
-
-    <Typography>Big</Typography>
-    <List variant="big">
-      <ListItem>item 1</ListItem>
-      <ListItem>item 2</ListItem>
-      <ListItem>item 3</ListItem>
-    </List>
-
-    <Typography>Small</Typography>
-    <List variant="small">
-      <ListItem>item 1</ListItem>
-      <ListItem>item 2</ListItem>
-      <ListItem>item 3</ListItem>
-    </List>
   </>
 )
 ```

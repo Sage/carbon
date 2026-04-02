@@ -51,103 +51,6 @@ description: Carbon PopoverContainer component props and usage examples.
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 
 ## Examples
-### Default
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Box height={100}>
-      <PopoverContainer
-        containerAriaLabel="popover-container"
-        openButtonAriaLabel="open"
-      >
-        Contents
-      </PopoverContainer>
-    </Box>
-  );
-}
-```
-
-
-### Title
-
-**Render**
-
-```tsx
-() => {
-  const [open, setOpen] = useState(defaultOpenState);
-  const onOpen = () => setOpen(true);
-  const onClose = () => setOpen(false);
-  return (
-    <div style={{ height: 100 }}>
-      <PopoverContainer
-        title="With a title"
-        open={open}
-        onClose={onClose}
-        onOpen={onOpen}
-      >
-        Contents
-      </PopoverContainer>
-    </div>
-  );
-}
-```
-
-
-### Right Position
-
-**Render**
-
-```tsx
-() => {
-  const [open, setOpen] = useState(defaultOpenState);
-  const onOpen = () => setOpen(true);
-  const onClose = () => setOpen(false);
-  return (
-    <div style={{ height: 150, float: "right", clear: "right" }}>
-      <PopoverContainer
-        title="Right Aligned"
-        position="left"
-        open={open}
-        onClose={onClose}
-        onOpen={onOpen}
-      >
-        Contents
-      </PopoverContainer>
-    </div>
-  );
-}
-```
-
-
-### Center Position
-
-**Render**
-
-```tsx
-() => {
-  const [open, setOpen] = useState(defaultOpenState);
-  const onOpen = () => setOpen(true);
-  const onClose = () => setOpen(false);
-  return (
-    <Box height={150} display="flex" justifyContent="center">
-      <PopoverContainer
-        title="Center Aligned"
-        position="center"
-        open={open}
-        onClose={onClose}
-        onOpen={onOpen}
-      >
-        Contents
-      </PopoverContainer>
-    </Box>
-  );
-}
-```
-
-
 ### Border Radius
 
 **Render**
@@ -174,7 +77,7 @@ description: Carbon PopoverContainer component props and usage examples.
 ```
 
 
-### Offset
+### Center Position
 
 **Render**
 
@@ -184,10 +87,10 @@ description: Carbon PopoverContainer component props and usage examples.
   const onOpen = () => setOpen(true);
   const onClose = () => setOpen(false);
   return (
-    <Box height={100}>
+    <Box height={150} display="flex" justifyContent="center">
       <PopoverContainer
-        title="Offset"
-        offset={0}
+        title="Center Aligned"
+        position="center"
         open={open}
         onClose={onClose}
         onOpen={onOpen}
@@ -195,120 +98,6 @@ description: Carbon PopoverContainer component props and usage examples.
         Contents
       </PopoverContainer>
     </Box>
-  );
-}
-```
-
-
-### Cover Button
-
-**Render**
-
-```tsx
-() => {
-  const [open, setOpen] = useState(defaultOpenState);
-  const onOpen = () => setOpen(true);
-  const onClose = () => setOpen(false);
-  return (
-    <div style={{ height: 100 }}>
-      <PopoverContainer
-        title="Cover Button"
-        shouldCoverButton
-        open={open}
-        onClose={onClose}
-        onOpen={onOpen}
-      >
-        Content
-      </PopoverContainer>
-    </div>
-  );
-}
-```
-
-
-### Render Props
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Box height={250}>
-      <PopoverContainer
-        title="Custom Open &amp; Close Button"
-        renderOpenComponent={({
-          isOpen,
-          "data-element": dataElement,
-          onClick,
-          ref,
-          "aria-label": ariaLabel,
-          id,
-          "aria-expanded": ariaExpanded,
-          "aria-haspopup": ariaHasPopup,
-        }) => (
-          <Button
-            iconType={!isOpen ? "filter_new" : "close"}
-            iconPosition="after"
-            data-element={dataElement}
-            aria-label={ariaLabel}
-            aria-haspopup={ariaHasPopup}
-            aria-expanded={ariaExpanded}
-            ref={ref}
-            id={id}
-            onClick={onClick}
-          >
-            Filter
-          </Button>
-        )}
-        renderCloseComponent={({
-          "data-element": dataElement,
-          onClick,
-          ref,
-          "aria-label": ariaLabel,
-        }) => (
-          <Button
-            data-element={dataElement}
-            aria-label={ariaLabel}
-            ref={ref}
-            onClick={onClick}
-          >
-            Close
-          </Button>
-        )}
-      >
-        Content
-      </PopoverContainer>
-    </Box>
-  );
-}
-```
-
-
-### Controlled
-
-**Render**
-
-```tsx
-() => {
-  const [open, setOpen] = useState(false);
-  const onOpen = () => setOpen(true);
-  const onClose = () => setOpen(false);
-  return (
-    <div style={{ height: 150 }}>
-      <Button onClick={onOpen}>Open Popover</Button>
-      <Button onClick={onClose} ml={2}>
-        Close Popover
-      </Button>
-      <br />
-      <PopoverContainer
-        title="Controlled"
-        open={open}
-        onOpen={onOpen}
-        onClose={onClose}
-      >
-        Contents
-      </PopoverContainer>
-    </div>
   );
 }
 ```
@@ -392,6 +181,102 @@ description: Carbon PopoverContainer component props and usage examples.
             />
           </DraggableItem>
         </DraggableContainer>
+      </PopoverContainer>
+    </Box>
+  );
+}
+```
+
+
+### Controlled
+
+**Render**
+
+```tsx
+() => {
+  const [open, setOpen] = useState(false);
+  const onOpen = () => setOpen(true);
+  const onClose = () => setOpen(false);
+  return (
+    <div style={{ height: 150 }}>
+      <Button onClick={onOpen}>Open Popover</Button>
+      <Button onClick={onClose} ml={2}>
+        Close Popover
+      </Button>
+      <br />
+      <PopoverContainer
+        title="Controlled"
+        open={open}
+        onOpen={onOpen}
+        onClose={onClose}
+      >
+        Contents
+      </PopoverContainer>
+    </div>
+  );
+}
+```
+
+
+### Cover Button
+
+**Render**
+
+```tsx
+() => {
+  const [open, setOpen] = useState(defaultOpenState);
+  const onOpen = () => setOpen(true);
+  const onClose = () => setOpen(false);
+  return (
+    <div style={{ height: 100 }}>
+      <PopoverContainer
+        title="Cover Button"
+        shouldCoverButton
+        open={open}
+        onClose={onClose}
+        onOpen={onOpen}
+      >
+        Content
+      </PopoverContainer>
+    </div>
+  );
+}
+```
+
+
+### Default
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Box height={100}>
+      <PopoverContainer
+        containerAriaLabel="popover-container"
+        openButtonAriaLabel="open"
+      >
+        Contents
+      </PopoverContainer>
+    </Box>
+  );
+}
+```
+
+
+### Disable Animation
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Box height={100}>
+      <PopoverContainer
+        title="Disabled Animation Popover Container"
+        disableAnimation
+      >
+        Contents
       </PopoverContainer>
     </Box>
   );
@@ -515,26 +400,6 @@ description: Carbon PopoverContainer component props and usage examples.
 ```
 
 
-### Disable Animation
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Box height={100}>
-      <PopoverContainer
-        title="Disabled Animation Popover Container"
-        disableAnimation
-      >
-        Contents
-      </PopoverContainer>
-    </Box>
-  );
-}
-```
-
-
 ### Focus Button Programmatically
 
 **Render**
@@ -590,6 +455,141 @@ description: Carbon PopoverContainer component props and usage examples.
         </Box>
       </Form>
     </PopoverContainer>
+  );
+}
+```
+
+
+### Offset
+
+**Render**
+
+```tsx
+() => {
+  const [open, setOpen] = useState(defaultOpenState);
+  const onOpen = () => setOpen(true);
+  const onClose = () => setOpen(false);
+  return (
+    <Box height={100}>
+      <PopoverContainer
+        title="Offset"
+        offset={0}
+        open={open}
+        onClose={onClose}
+        onOpen={onOpen}
+      >
+        Contents
+      </PopoverContainer>
+    </Box>
+  );
+}
+```
+
+
+### Render Props
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Box height={250}>
+      <PopoverContainer
+        title="Custom Open &amp; Close Button"
+        renderOpenComponent={({
+          isOpen,
+          "data-element": dataElement,
+          onClick,
+          ref,
+          "aria-label": ariaLabel,
+          id,
+          "aria-expanded": ariaExpanded,
+          "aria-haspopup": ariaHasPopup,
+        }) => (
+          <Button
+            iconType={!isOpen ? "filter_new" : "close"}
+            iconPosition="after"
+            data-element={dataElement}
+            aria-label={ariaLabel}
+            aria-haspopup={ariaHasPopup}
+            aria-expanded={ariaExpanded}
+            ref={ref}
+            id={id}
+            onClick={onClick}
+          >
+            Filter
+          </Button>
+        )}
+        renderCloseComponent={({
+          "data-element": dataElement,
+          onClick,
+          ref,
+          "aria-label": ariaLabel,
+        }) => (
+          <Button
+            data-element={dataElement}
+            aria-label={ariaLabel}
+            ref={ref}
+            onClick={onClick}
+          >
+            Close
+          </Button>
+        )}
+      >
+        Content
+      </PopoverContainer>
+    </Box>
+  );
+}
+```
+
+
+### Right Position
+
+**Render**
+
+```tsx
+() => {
+  const [open, setOpen] = useState(defaultOpenState);
+  const onOpen = () => setOpen(true);
+  const onClose = () => setOpen(false);
+  return (
+    <div style={{ height: 150, float: "right", clear: "right" }}>
+      <PopoverContainer
+        title="Right Aligned"
+        position="left"
+        open={open}
+        onClose={onClose}
+        onOpen={onOpen}
+      >
+        Contents
+      </PopoverContainer>
+    </div>
+  );
+}
+```
+
+
+### Title
+
+**Render**
+
+```tsx
+() => {
+  const [open, setOpen] = useState(defaultOpenState);
+  const onOpen = () => setOpen(true);
+  const onClose = () => setOpen(false);
+  return (
+    <div style={{ height: 100 }}>
+      <PopoverContainer
+        title="With a title"
+        open={open}
+        onClose={onClose}
+        onOpen={onOpen}
+      >
+        Contents
+      </PopoverContainer>
+    </div>
   );
 }
 ```

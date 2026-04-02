@@ -25,7 +25,7 @@ description: Carbon Crumb component props and usage examples.
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | bold | boolean \| undefined | No |  | Yes | The 'bold' prop in Crumb is deprecated and will soon be removed. | Sets the link style to bold |  |
 | hasFocus | boolean \| undefined | No |  | Yes | Intended for internal use only |  |  |
-| linkSize | "medium" \| "large" \| undefined | No |  | Yes | The 'linkSize' prop in Crumb is deprecated and will soon be removed. | Sets the correct link size |  |
+| linkSize | "large" \| "medium" \| undefined | No |  | Yes | The 'linkSize' prop in Crumb is deprecated and will soon be removed. | Sets the correct link size |  |
 | underline | "always" \| "hover" \| "never" \| undefined | No |  | Yes | The 'underline' prop in Crumb is deprecated and will soon be removed. | Specifies when the link underline should be displayed. |  |
 
 ## Examples

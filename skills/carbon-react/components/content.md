@@ -42,6 +42,19 @@ description: Carbon Content component props and usage examples.
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 
 ## Examples
+### CustomTitle
+
+**Args**
+
+```tsx
+{
+    title: <Typography color="primary">Title</Typography>,
+    variant: "primary",
+    children: "This is an example of some content",
+  }
+```
+
+
 ### DefaultStory
 
 
@@ -57,16 +70,12 @@ description: Carbon Content component props and usage examples.
 ```
 
 
-### CustomTitle
+### MDX Example 1
 
 **Args**
 
 ```tsx
-{
-    title: <Typography color="primary">Title</Typography>,
-    variant: "primary",
-    children: "This is an example of some content",
-  }
+import Content from "carbon-react/lib/components/content";
 ```
 
 
@@ -79,14 +88,5 @@ description: Carbon Content component props and usage examples.
     variant: "secondary",
     children: "This is an example of some content",
   }
-```
-
-
-### MDX Example 1
-
-**Args**
-
-```tsx
-import Content from "carbon-react/lib/components/content";
 ```
 

@@ -29,7 +29,7 @@ description: Carbon LoaderBar component props and usage examples.
 | mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
 | mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| size | "small" \| "medium" \| "large" \| undefined | No |  | Size of the LoaderBar. | "medium" |
+| size | "large" \| "small" \| "medium" \| undefined | No |  | Size of the LoaderBar. | "medium" |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 
@@ -45,17 +45,6 @@ description: Carbon LoaderBar component props and usage examples.
 ```
 
 
-### Small
-
-**Render**
-
-```tsx
-() => {
-  return <LoaderBar size="small" mt={2} />;
-}
-```
-
-
 ### Large
 
 **Render**
@@ -63,6 +52,17 @@ description: Carbon LoaderBar component props and usage examples.
 ```tsx
 () => {
   return <LoaderBar size="large" mt={2} />;
+}
+```
+
+
+### Small
+
+**Render**
+
+```tsx
+() => {
+  return <LoaderBar size="small" mt={2} />;
 }
 ```
 

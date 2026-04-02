@@ -43,17 +43,6 @@ description: Carbon LinkPreview component props and usage examples.
 ```
 
 
-### Link Preview Loading State
-
-**Render**
-
-```tsx
-() => {
-  return <LinkPreview isLoading />;
-}
-```
-
-
 ### Link Preview Close Icon
 
 **Render**
@@ -69,6 +58,17 @@ description: Carbon LinkPreview component props and usage examples.
       onClose={(url) => action("close icon clicked")(url)}
     />
   );
+}
+```
+
+
+### Link Preview Loading State
+
+**Render**
+
+```tsx
+() => {
+  return <LinkPreview isLoading />;
 }
 ```
 

@@ -111,15 +111,6 @@ description: Carbon DismissibleBox component props and usage examples.
 | aria-live | "off" \| "assertive" \| "polite" \| undefined | No |  | Make the container an aria-live region |  |
 
 ## Examples
-### LightVariant
-
-**Args**
-
-```tsx
-{ onClose: () => {} }
-```
-
-
 ### DarkVariant
 
 **Args**
@@ -129,12 +120,12 @@ description: Carbon DismissibleBox component props and usage examples.
 ```
 
 
-### WithNoLeftBorderHighlight
+### LightVariant
 
 **Args**
 
 ```tsx
-{ mb: 2, hasBorderLeftHighlight: false, onClose: () => {} }
+{ onClose: () => {} }
 ```
 
 
@@ -144,5 +135,14 @@ description: Carbon DismissibleBox component props and usage examples.
 
 ```tsx
 { width: "650px", onClose: () => {} }
+```
+
+
+### WithNoLeftBorderHighlight
+
+**Args**
+
+```tsx
+{ mb: 2, hasBorderLeftHighlight: false, onClose: () => {} }
 ```
 

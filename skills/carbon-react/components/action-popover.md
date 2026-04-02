@@ -45,90 +45,15 @@ description: Carbon ActionPopover component props and usage examples.
 | aria-labelledby | string \| undefined | No |  | Prop to specify an aria-labelledby for the component |  |
 
 ## Examples
-### Default
+### Action Popover Nested in Dialog
 
 **Render**
 
 ```tsx
 () => {
-  const submenu = (
-    <ActionPopoverMenu>
-      <ActionPopoverItem onClick={() => {}}>Sub Menu 1</ActionPopoverItem>
-      <ActionPopoverItem onClick={() => {}}>Sub Menu 2</ActionPopoverItem>
-      <ActionPopoverItem disabled onClick={() => {}}>
-        Sub Menu 3
-      </ActionPopoverItem>
-    </ActionPopoverMenu>
-  );
-  const submenuWithIcons = (
-    <ActionPopoverMenu>
-      <ActionPopoverItem icon="graph" onClick={() => {}}>
-        Sub Menu 1
-      </ActionPopoverItem>
-      <ActionPopoverItem icon="add" onClick={() => {}}>
-        Sub Menu 2
-      </ActionPopoverItem>
-      <ActionPopoverItem icon="print" disabled onClick={() => {}}>
-        Sub Menu 3
-      </ActionPopoverItem>
-    </ActionPopoverMenu>
-  );
+  const [isOpen, setIsOpen] = useState(true);
   return (
-    <Box mt={40} height={275}>
-      <ActionPopover onOpen={() => {}} onClose={() => {}}>
-        <ActionPopoverItem
-          disabled
-          icon="graph"
-          submenu={submenu}
-          onClick={() => {}}
-        >
-          Business
-        </ActionPopoverItem>
-        <ActionPopoverItem icon="email" onClick={() => {}}>
-          Email Invoice
-        </ActionPopoverItem>
-        <ActionPopoverItem icon="print" onClick={() => {}} submenu={submenu}>
-          Print Invoice
-        </ActionPopoverItem>
-        <ActionPopoverItem icon="pdf" submenu={submenu} onClick={() => {}}>
-          Download PDF
-        </ActionPopoverItem>
-        <ActionPopoverItem icon="csv" onClick={() => {}}>
-          Download CSV
-        </ActionPopoverItem>
-        <ActionPopoverDivider />
-        <ActionPopoverItem disabled icon="delete" onClick={() => {}}>
-          Delete
-        </ActionPopoverItem>
-      </ActionPopover>
-      <ActionPopover>
-        <ActionPopoverItem icon="csv" onClick={() => {}}>
-          Download CSV
-        </ActionPopoverItem>
-      </ActionPopover>
-      <ActionPopover>
-        <ActionPopoverItem
-          icon="csv"
-          submenu={submenuWithIcons}
-          onClick={() => {}}
-        >
-          Download CSV
-        </ActionPopoverItem>
-      </ActionPopover>
-    </Box>
-  );
-}
-```
-
-
-### Icons
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Box height={250}>
+    <Dialog open={isOpen} onCancel={() => setIsOpen(false)} title="Dialog">
       <ActionPopover>
         <ActionPopoverItem icon="email" onClick={() => {}}>
           Email Invoice
@@ -137,68 +62,26 @@ description: Carbon ActionPopover component props and usage examples.
         <ActionPopoverItem onClick={() => {}} icon="delete">
           Delete
         </ActionPopoverItem>
-      </ActionPopover>
-    </Box>
+      </ActionPopover>{" "}
+    </Dialog>
   );
 }
 ```
 
 
-### Disabled Items
+### Additional Options
 
 **Render**
 
 ```tsx
 () => {
   return (
-    <Box height={250}>
-      <ActionPopover>
-        <ActionPopoverItem icon="email" onClick={() => {}}>
-          Email Invoice
-        </ActionPopoverItem>
-        <ActionPopoverDivider />
-        <ActionPopoverItem onClick={() => {}} icon="delete">
-          Delete
-        </ActionPopoverItem>
-        <ActionPopoverDivider />
-        <ActionPopoverItem disabled onClick={() => {}} icon="add">
-          Add
-        </ActionPopoverItem>
-        <ActionPopoverItem disabled onClick={() => {}} icon="delete">
-          Delete
-        </ActionPopoverItem>
-        <ActionPopoverItem onClick={() => {}} icon="tick">
-          Tick
-        </ActionPopoverItem>
-        <ActionPopoverItem disabled onClick={() => {}} icon="delete">
-          Delete
-        </ActionPopoverItem>
-        <ActionPopoverItem onClick={() => {}} icon="none">
-          None
-        </ActionPopoverItem>
-      </ActionPopover>
-    </Box>
-  );
-}
-```
-
-
-### Menu Right Aligned
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Box height={250}>
+    <Box mt={40} height={275} maxWidth={800}>
       <ActionPopover rightAlignMenu>
-        <ActionPopoverItem icon="email" disabled onClick={() => {}}>
-          Email Invoice
-        </ActionPopoverItem>
+        <ActionPopoverItem onClick={() => {}}>Enroll Device</ActionPopoverItem>
+        <ActionPopoverItem onClick={() => {}}>Assign Owner</ActionPopoverItem>
         <ActionPopoverDivider />
-        <ActionPopoverItem onClick={() => {}} icon="delete">
-          Delete
-        </ActionPopoverItem>
+        <ActionPopoverItem onClick={() => {}}>Manage Devices</ActionPopoverItem>
       </ActionPopover>
     </Box>
   );
@@ -218,25 +101,6 @@ description: Carbon ActionPopover component props and usage examples.
         <ActionPopoverItem icon="email">Email Invoice</ActionPopoverItem>
         <ActionPopoverDivider />
         <ActionPopoverItem icon="delete">Delete</ActionPopoverItem>
-      </ActionPopover>
-    </Box>
-  );
-}
-```
-
-
-### No Icons
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Box height={250}>
-      <ActionPopover>
-        <ActionPopoverItem onClick={() => {}}>Email Invoice</ActionPopoverItem>
-        <ActionPopoverDivider />
-        <ActionPopoverItem onClick={() => {}}>Delete</ActionPopoverItem>
       </ActionPopover>
     </Box>
   );
@@ -326,7 +190,83 @@ description: Carbon ActionPopover component props and usage examples.
 ```
 
 
-### Submenu
+### Default
+
+**Render**
+
+```tsx
+() => {
+  const submenu = (
+    <ActionPopoverMenu>
+      <ActionPopoverItem onClick={() => {}}>Sub Menu 1</ActionPopoverItem>
+      <ActionPopoverItem onClick={() => {}}>Sub Menu 2</ActionPopoverItem>
+      <ActionPopoverItem disabled onClick={() => {}}>
+        Sub Menu 3
+      </ActionPopoverItem>
+    </ActionPopoverMenu>
+  );
+  const submenuWithIcons = (
+    <ActionPopoverMenu>
+      <ActionPopoverItem icon="graph" onClick={() => {}}>
+        Sub Menu 1
+      </ActionPopoverItem>
+      <ActionPopoverItem icon="add" onClick={() => {}}>
+        Sub Menu 2
+      </ActionPopoverItem>
+      <ActionPopoverItem icon="print" disabled onClick={() => {}}>
+        Sub Menu 3
+      </ActionPopoverItem>
+    </ActionPopoverMenu>
+  );
+  return (
+    <Box mt={40} height={275}>
+      <ActionPopover onOpen={() => {}} onClose={() => {}}>
+        <ActionPopoverItem
+          disabled
+          icon="graph"
+          submenu={submenu}
+          onClick={() => {}}
+        >
+          Business
+        </ActionPopoverItem>
+        <ActionPopoverItem icon="email" onClick={() => {}}>
+          Email Invoice
+        </ActionPopoverItem>
+        <ActionPopoverItem icon="print" onClick={() => {}} submenu={submenu}>
+          Print Invoice
+        </ActionPopoverItem>
+        <ActionPopoverItem icon="pdf" submenu={submenu} onClick={() => {}}>
+          Download PDF
+        </ActionPopoverItem>
+        <ActionPopoverItem icon="csv" onClick={() => {}}>
+          Download CSV
+        </ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem disabled icon="delete" onClick={() => {}}>
+          Delete
+        </ActionPopoverItem>
+      </ActionPopover>
+      <ActionPopover>
+        <ActionPopoverItem icon="csv" onClick={() => {}}>
+          Download CSV
+        </ActionPopoverItem>
+      </ActionPopover>
+      <ActionPopover>
+        <ActionPopoverItem
+          icon="csv"
+          submenu={submenuWithIcons}
+          onClick={() => {}}
+        >
+          Download CSV
+        </ActionPopoverItem>
+      </ActionPopover>
+    </Box>
+  );
+}
+```
+
+
+### Disabled Items
 
 **Render**
 
@@ -335,27 +275,28 @@ description: Carbon ActionPopover component props and usage examples.
   return (
     <Box height={250}>
       <ActionPopover>
-        <ActionPopoverItem
-          icon="print"
-          onClick={() => {}}
-          submenu={
-            <ActionPopoverMenu>
-              <ActionPopoverItem disabled onClick={() => {}}>
-                CSV
-              </ActionPopoverItem>
-              <ActionPopoverItem onClick={() => {}}>PDF</ActionPopoverItem>
-              <ActionPopoverItem onClick={() => {}}>PDF</ActionPopoverItem>
-            </ActionPopoverMenu>
-          }
-        >
-          Print
+        <ActionPopoverItem icon="email" onClick={() => {}}>
+          Email Invoice
+        </ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem onClick={() => {}} icon="delete">
+          Delete
         </ActionPopoverItem>
         <ActionPopoverDivider />
         <ActionPopoverItem disabled onClick={() => {}} icon="add">
           Add
         </ActionPopoverItem>
-        <ActionPopoverItem onClick={() => {}} icon="delete">
+        <ActionPopoverItem disabled onClick={() => {}} icon="delete">
           Delete
+        </ActionPopoverItem>
+        <ActionPopoverItem onClick={() => {}} icon="tick">
+          Tick
+        </ActionPopoverItem>
+        <ActionPopoverItem disabled onClick={() => {}} icon="delete">
+          Delete
+        </ActionPopoverItem>
+        <ActionPopoverItem onClick={() => {}} icon="none">
+          None
         </ActionPopoverItem>
       </ActionPopover>
     </Box>
@@ -397,29 +338,108 @@ description: Carbon ActionPopover component props and usage examples.
 ```
 
 
-### Sub Menu Positioned Right
+### Download Button
 
 **Render**
 
 ```tsx
 () => {
-  const submenu = (
-    <ActionPopoverMenu>
-      <ActionPopoverItem onClick={() => {}}>Sub Menu 1</ActionPopoverItem>
-      <ActionPopoverItem onClick={() => {}}>Sub Menu 2</ActionPopoverItem>
-      <ActionPopoverItem disabled onClick={() => {}}>
-        Sub Menu 3
-      </ActionPopoverItem>
-    </ActionPopoverMenu>
-  );
   return (
-    <Box height={250}>
-      <ActionPopover submenuPosition="right">
-        <ActionPopoverItem icon="email" submenu={submenu}>
+    <Box mt={40} height={275} maxWidth={800}>
+      <ActionPopover rightAlignMenu>
+        <ActionPopoverItem download icon="download" href="example-img.jpg">
+          Download
+        </ActionPopoverItem>
+        <ActionPopoverItem icon="settings" onClick={() => {}}>
+          Assign Owner
+        </ActionPopoverItem>
+        <ActionPopoverItem disabled icon="download" href="example-img.jpg">
+          Download
+        </ActionPopoverItem>
+      </ActionPopover>
+    </Box>
+  );
+}
+```
+
+
+### Focus Button Programmatically
+
+**Render**
+
+```tsx
+() => {
+  const ref = useRef<ActionPopoverHandle>(null);
+  const refMore = useRef<ActionPopoverHandle>(null);
+
+  const renderButton = (props: RenderButtonProps) => (
+    <ActionPopoverMenuButton
+      buttonType="tertiary"
+      iconType="ellipsis_vertical"
+      iconPosition="after"
+      size="small"
+      aria-label={undefined}
+      {...props}
+    >
+      More
+    </ActionPopoverMenuButton>
+  );
+
+  return (
+    <>
+      <Button
+        onClick={() => {
+          ref.current?.focusButton();
+        }}
+      >
+        Focus
+      </Button>
+      <ActionPopover ref={ref}>
+        <ActionPopoverItem icon="email" onClick={() => {}}>
           Email Invoice
         </ActionPopoverItem>
         <ActionPopoverDivider />
-        <ActionPopoverItem icon="delete" submenu={submenu}>
+        <ActionPopoverItem onClick={() => {}} icon="delete">
+          Delete
+        </ActionPopoverItem>
+      </ActionPopover>
+
+      <Button
+        onClick={() => {
+          refMore.current?.focusButton();
+        }}
+      >
+        Focus More
+      </Button>
+      <ActionPopover renderButton={renderButton} ref={refMore} mt={3}>
+        <ActionPopoverItem icon="email" onClick={() => {}}>
+          Email Invoice
+        </ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem onClick={() => {}} icon="delete">
+          Delete
+        </ActionPopoverItem>
+      </ActionPopover>
+    </>
+  );
+}
+```
+
+
+### Icons
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Box height={250}>
+      <ActionPopover>
+        <ActionPopoverItem icon="email" onClick={() => {}}>
+          Email Invoice
+        </ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem onClick={() => {}} icon="delete">
           Delete
         </ActionPopoverItem>
       </ActionPopover>
@@ -429,32 +449,154 @@ description: Carbon ActionPopover component props and usage examples.
 ```
 
 
-### Menu Opening Above
+### In Flat Table
+
+**Render**
+
+```tsx
+() => {
+  const [highlightedRow, setHighlightedRow] = useState("");
+  const handleHighlightRow = (id: string) => {
+    setHighlightedRow(id);
+  };
+  return (
+    <Box pt={120} height={250}>
+      <FlatTable>
+        <FlatTableHead>
+          <FlatTableRow>
+            <FlatTableHeader>Name</FlatTableHeader>
+            <FlatTableHeader>Location</FlatTableHeader>
+            <FlatTableHeader>Relationship Status</FlatTableHeader>
+            <FlatTableHeader>Dependents</FlatTableHeader>
+          </FlatTableRow>
+        </FlatTableHead>
+        <FlatTableBody>
+          <FlatTableRow
+            onClick={() => handleHighlightRow("one")}
+            highlighted={highlightedRow === "one"}
+          >
+            <FlatTableCell>John Doe</FlatTableCell>
+            <FlatTableCell>London</FlatTableCell>
+            <FlatTableCell>Single</FlatTableCell>
+            <FlatTableCell>
+              <ActionPopover
+                placement="top"
+                onOpen={() => handleHighlightRow("one")}
+              >
+                <ActionPopoverItem
+                  icon="print"
+                  onClick={() => {}}
+                  submenu={
+                    <ActionPopoverMenu>
+                      <ActionPopoverItem onClick={() => {}}>
+                        CSV
+                      </ActionPopoverItem>
+                      <ActionPopoverItem onClick={() => {}}>
+                        PDF
+                      </ActionPopoverItem>
+                    </ActionPopoverMenu>
+                  }
+                >
+                  Print
+                </ActionPopoverItem>
+                <ActionPopoverDivider />
+                <ActionPopoverItem onClick={() => {}} icon="delete">
+                  Delete
+                </ActionPopoverItem>
+              </ActionPopover>
+            </FlatTableCell>
+          </FlatTableRow>
+          <FlatTableRow
+            onClick={() => handleHighlightRow("two")}
+            highlighted={highlightedRow === "two"}
+          >
+            <FlatTableCell>Jane Doe</FlatTableCell>
+            <FlatTableCell>York</FlatTableCell>
+            <FlatTableCell>Married</FlatTableCell>
+            <FlatTableCell>
+              <ActionPopover
+                placement="top"
+                onOpen={() => handleHighlightRow("two")}
+              >
+                <ActionPopoverItem
+                  icon="print"
+                  onClick={() => {}}
+                  submenu={
+                    <ActionPopoverMenu>
+                      <ActionPopoverItem onClick={() => {}}>
+                        CSV
+                      </ActionPopoverItem>
+                      <ActionPopoverItem onClick={() => {}}>
+                        PDF
+                      </ActionPopoverItem>
+                    </ActionPopoverMenu>
+                  }
+                >
+                  Print
+                </ActionPopoverItem>
+                <ActionPopoverDivider />
+                <ActionPopoverItem onClick={() => {}} icon="delete">
+                  Delete
+                </ActionPopoverItem>
+              </ActionPopover>
+            </FlatTableCell>
+          </FlatTableRow>
+        </FlatTableBody>
+      </FlatTable>
+    </Box>
+  );
+}
+```
+
+
+### In Overflow Hidden Container
 
 **Render**
 
 ```tsx
 () => {
   return (
-    <Box pt={120} height={250}>
-      <ActionPopover placement="top">
-        <ActionPopoverItem
-          icon="print"
-          onClick={() => {}}
-          submenu={
-            <ActionPopoverMenu>
-              <ActionPopoverItem onClick={() => {}}>CSV</ActionPopoverItem>
-              <ActionPopoverItem onClick={() => {}}>PDF</ActionPopoverItem>
-            </ActionPopoverMenu>
-          }
-        >
-          Print
-        </ActionPopoverItem>
-        <ActionPopoverDivider />
-        <ActionPopoverItem onClick={() => {}} icon="delete">
-          Delete
-        </ActionPopoverItem>
-      </ActionPopover>
+    <Box mt={40} height={275} maxWidth={800}>
+      <Accordion title="Heading">
+        <Box>
+          <ActionPopover>
+            <ActionPopoverItem onClick={() => {}}>
+              Enroll Device
+            </ActionPopoverItem>
+            <ActionPopoverItem onClick={() => {}}>
+              Assign Owner
+            </ActionPopoverItem>
+            <ActionPopoverDivider />
+            <ActionPopoverItem onClick={() => {}}>
+              Manage Devices
+            </ActionPopoverItem>
+          </ActionPopover>
+          <ActionPopover>
+            <ActionPopoverItem onClick={() => {}}>
+              Enroll Device
+            </ActionPopoverItem>
+            <ActionPopoverItem onClick={() => {}}>
+              Assign Owner
+            </ActionPopoverItem>
+            <ActionPopoverDivider />
+            <ActionPopoverItem onClick={() => {}}>
+              Manage Devices
+            </ActionPopoverItem>
+          </ActionPopover>
+          <ActionPopover>
+            <ActionPopoverItem onClick={() => {}}>
+              Enroll Device
+            </ActionPopoverItem>
+            <ActionPopoverItem onClick={() => {}}>
+              Assign Owner
+            </ActionPopoverItem>
+            <ActionPopoverDivider />
+            <ActionPopoverItem onClick={() => {}}>
+              Manage Devices
+            </ActionPopoverItem>
+          </ActionPopover>
+        </Box>
+      </Accordion>
     </Box>
   );
 }
@@ -594,199 +736,74 @@ description: Carbon ActionPopover component props and usage examples.
 ```
 
 
-### Additional Options
+### Menu Opening Above
 
 **Render**
 
 ```tsx
 () => {
-  return (
-    <Box mt={40} height={275} maxWidth={800}>
-      <ActionPopover rightAlignMenu>
-        <ActionPopoverItem onClick={() => {}}>Enroll Device</ActionPopoverItem>
-        <ActionPopoverItem onClick={() => {}}>Assign Owner</ActionPopoverItem>
-        <ActionPopoverDivider />
-        <ActionPopoverItem onClick={() => {}}>Manage Devices</ActionPopoverItem>
-      </ActionPopover>
-    </Box>
-  );
-}
-```
-
-
-### Download Button
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Box mt={40} height={275} maxWidth={800}>
-      <ActionPopover rightAlignMenu>
-        <ActionPopoverItem download icon="download" href="example-img.jpg">
-          Download
-        </ActionPopoverItem>
-        <ActionPopoverItem icon="settings" onClick={() => {}}>
-          Assign Owner
-        </ActionPopoverItem>
-        <ActionPopoverItem disabled icon="download" href="example-img.jpg">
-          Download
-        </ActionPopoverItem>
-      </ActionPopover>
-    </Box>
-  );
-}
-```
-
-
-### In Overflow Hidden Container
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Box mt={40} height={275} maxWidth={800}>
-      <Accordion title="Heading">
-        <Box>
-          <ActionPopover>
-            <ActionPopoverItem onClick={() => {}}>
-              Enroll Device
-            </ActionPopoverItem>
-            <ActionPopoverItem onClick={() => {}}>
-              Assign Owner
-            </ActionPopoverItem>
-            <ActionPopoverDivider />
-            <ActionPopoverItem onClick={() => {}}>
-              Manage Devices
-            </ActionPopoverItem>
-          </ActionPopover>
-          <ActionPopover>
-            <ActionPopoverItem onClick={() => {}}>
-              Enroll Device
-            </ActionPopoverItem>
-            <ActionPopoverItem onClick={() => {}}>
-              Assign Owner
-            </ActionPopoverItem>
-            <ActionPopoverDivider />
-            <ActionPopoverItem onClick={() => {}}>
-              Manage Devices
-            </ActionPopoverItem>
-          </ActionPopover>
-          <ActionPopover>
-            <ActionPopoverItem onClick={() => {}}>
-              Enroll Device
-            </ActionPopoverItem>
-            <ActionPopoverItem onClick={() => {}}>
-              Assign Owner
-            </ActionPopoverItem>
-            <ActionPopoverDivider />
-            <ActionPopoverItem onClick={() => {}}>
-              Manage Devices
-            </ActionPopoverItem>
-          </ActionPopover>
-        </Box>
-      </Accordion>
-    </Box>
-  );
-}
-```
-
-
-### In Flat Table
-
-**Render**
-
-```tsx
-() => {
-  const [highlightedRow, setHighlightedRow] = useState("");
-  const handleHighlightRow = (id: string) => {
-    setHighlightedRow(id);
-  };
   return (
     <Box pt={120} height={250}>
-      <FlatTable>
-        <FlatTableHead>
-          <FlatTableRow>
-            <FlatTableHeader>Name</FlatTableHeader>
-            <FlatTableHeader>Location</FlatTableHeader>
-            <FlatTableHeader>Relationship Status</FlatTableHeader>
-            <FlatTableHeader>Dependents</FlatTableHeader>
-          </FlatTableRow>
-        </FlatTableHead>
-        <FlatTableBody>
-          <FlatTableRow
-            onClick={() => handleHighlightRow("one")}
-            highlighted={highlightedRow === "one"}
-          >
-            <FlatTableCell>John Doe</FlatTableCell>
-            <FlatTableCell>London</FlatTableCell>
-            <FlatTableCell>Single</FlatTableCell>
-            <FlatTableCell>
-              <ActionPopover
-                placement="top"
-                onOpen={() => handleHighlightRow("one")}
-              >
-                <ActionPopoverItem
-                  icon="print"
-                  onClick={() => {}}
-                  submenu={
-                    <ActionPopoverMenu>
-                      <ActionPopoverItem onClick={() => {}}>
-                        CSV
-                      </ActionPopoverItem>
-                      <ActionPopoverItem onClick={() => {}}>
-                        PDF
-                      </ActionPopoverItem>
-                    </ActionPopoverMenu>
-                  }
-                >
-                  Print
-                </ActionPopoverItem>
-                <ActionPopoverDivider />
-                <ActionPopoverItem onClick={() => {}} icon="delete">
-                  Delete
-                </ActionPopoverItem>
-              </ActionPopover>
-            </FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow
-            onClick={() => handleHighlightRow("two")}
-            highlighted={highlightedRow === "two"}
-          >
-            <FlatTableCell>Jane Doe</FlatTableCell>
-            <FlatTableCell>York</FlatTableCell>
-            <FlatTableCell>Married</FlatTableCell>
-            <FlatTableCell>
-              <ActionPopover
-                placement="top"
-                onOpen={() => handleHighlightRow("two")}
-              >
-                <ActionPopoverItem
-                  icon="print"
-                  onClick={() => {}}
-                  submenu={
-                    <ActionPopoverMenu>
-                      <ActionPopoverItem onClick={() => {}}>
-                        CSV
-                      </ActionPopoverItem>
-                      <ActionPopoverItem onClick={() => {}}>
-                        PDF
-                      </ActionPopoverItem>
-                    </ActionPopoverMenu>
-                  }
-                >
-                  Print
-                </ActionPopoverItem>
-                <ActionPopoverDivider />
-                <ActionPopoverItem onClick={() => {}} icon="delete">
-                  Delete
-                </ActionPopoverItem>
-              </ActionPopover>
-            </FlatTableCell>
-          </FlatTableRow>
-        </FlatTableBody>
-      </FlatTable>
+      <ActionPopover placement="top">
+        <ActionPopoverItem
+          icon="print"
+          onClick={() => {}}
+          submenu={
+            <ActionPopoverMenu>
+              <ActionPopoverItem onClick={() => {}}>CSV</ActionPopoverItem>
+              <ActionPopoverItem onClick={() => {}}>PDF</ActionPopoverItem>
+            </ActionPopoverMenu>
+          }
+        >
+          Print
+        </ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem onClick={() => {}} icon="delete">
+          Delete
+        </ActionPopoverItem>
+      </ActionPopover>
+    </Box>
+  );
+}
+```
+
+
+### Menu Right Aligned
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Box height={250}>
+      <ActionPopover rightAlignMenu>
+        <ActionPopoverItem icon="email" disabled onClick={() => {}}>
+          Email Invoice
+        </ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem onClick={() => {}} icon="delete">
+          Delete
+        </ActionPopoverItem>
+      </ActionPopover>
+    </Box>
+  );
+}
+```
+
+
+### No Icons
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Box height={250}>
+      <ActionPopover>
+        <ActionPopoverItem onClick={() => {}}>Email Invoice</ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem onClick={() => {}}>Delete</ActionPopoverItem>
+      </ActionPopover>
     </Box>
   );
 }
@@ -840,88 +857,71 @@ description: Carbon ActionPopover component props and usage examples.
 ```
 
 
-### Action Popover Nested in Dialog
+### Sub Menu Positioned Right
 
 **Render**
 
 ```tsx
 () => {
-  const [isOpen, setIsOpen] = useState(true);
+  const submenu = (
+    <ActionPopoverMenu>
+      <ActionPopoverItem onClick={() => {}}>Sub Menu 1</ActionPopoverItem>
+      <ActionPopoverItem onClick={() => {}}>Sub Menu 2</ActionPopoverItem>
+      <ActionPopoverItem disabled onClick={() => {}}>
+        Sub Menu 3
+      </ActionPopoverItem>
+    </ActionPopoverMenu>
+  );
   return (
-    <Dialog open={isOpen} onCancel={() => setIsOpen(false)} title="Dialog">
-      <ActionPopover>
-        <ActionPopoverItem icon="email" onClick={() => {}}>
+    <Box height={250}>
+      <ActionPopover submenuPosition="right">
+        <ActionPopoverItem icon="email" submenu={submenu}>
           Email Invoice
         </ActionPopoverItem>
         <ActionPopoverDivider />
-        <ActionPopoverItem onClick={() => {}} icon="delete">
+        <ActionPopoverItem icon="delete" submenu={submenu}>
           Delete
         </ActionPopoverItem>
-      </ActionPopover>{" "}
-    </Dialog>
+      </ActionPopover>
+    </Box>
   );
 }
 ```
 
 
-### Focus Button Programmatically
+### Submenu
 
 **Render**
 
 ```tsx
 () => {
-  const ref = useRef<ActionPopoverHandle>(null);
-  const refMore = useRef<ActionPopoverHandle>(null);
-
-  const renderButton = (props: RenderButtonProps) => (
-    <ActionPopoverMenuButton
-      buttonType="tertiary"
-      iconType="ellipsis_vertical"
-      iconPosition="after"
-      size="small"
-      aria-label={undefined}
-      {...props}
-    >
-      More
-    </ActionPopoverMenuButton>
-  );
-
   return (
-    <>
-      <Button
-        onClick={() => {
-          ref.current?.focusButton();
-        }}
-      >
-        Focus
-      </Button>
-      <ActionPopover ref={ref}>
-        <ActionPopoverItem icon="email" onClick={() => {}}>
-          Email Invoice
+    <Box height={250}>
+      <ActionPopover>
+        <ActionPopoverItem
+          icon="print"
+          onClick={() => {}}
+          submenu={
+            <ActionPopoverMenu>
+              <ActionPopoverItem disabled onClick={() => {}}>
+                CSV
+              </ActionPopoverItem>
+              <ActionPopoverItem onClick={() => {}}>PDF</ActionPopoverItem>
+              <ActionPopoverItem onClick={() => {}}>PDF</ActionPopoverItem>
+            </ActionPopoverMenu>
+          }
+        >
+          Print
         </ActionPopoverItem>
         <ActionPopoverDivider />
+        <ActionPopoverItem disabled onClick={() => {}} icon="add">
+          Add
+        </ActionPopoverItem>
         <ActionPopoverItem onClick={() => {}} icon="delete">
           Delete
         </ActionPopoverItem>
       </ActionPopover>
-
-      <Button
-        onClick={() => {
-          refMore.current?.focusButton();
-        }}
-      >
-        Focus More
-      </Button>
-      <ActionPopover renderButton={renderButton} ref={refMore} mt={3}>
-        <ActionPopoverItem icon="email" onClick={() => {}}>
-          Email Invoice
-        </ActionPopoverItem>
-        <ActionPopoverDivider />
-        <ActionPopoverItem onClick={() => {}} icon="delete">
-          Delete
-        </ActionPopoverItem>
-      </ActionPopover>
-    </>
+    </Box>
   );
 }
 ```

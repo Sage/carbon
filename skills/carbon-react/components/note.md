@@ -63,50 +63,19 @@ description: Carbon Note component props and usage examples.
 ```
 
 
-### With Rich Text
+### Plain text with links
 
 **Render**
 
 ```tsx
 () => {
-  const html = `<p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i> Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>
-  <ul><li>unordered</li></ul>
-  <ol><li>ordered</li></ol></br>
-  <p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i></p>
-  <p>Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>`;
-
+  const noteContent =
+    "Hello, World! www.bbc.co.uk http://www.google.com https://www.sage.com";
   return (
     <Box width="50%">
       <Note
-        noteContent={html}
         name="Lauren Smith"
-        createdDate="23 May 2020, 12:08 PM"
-      />
-    </Box>
-  );
-}
-```
-
-
-### With Title
-
-**Render**
-
-```tsx
-() => {
-  const html = `<p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i> Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>
-  <ul><li>unordered</li></ul>
-  <ol><li>ordered</li></ol></br>
-  <p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i></p>
-  <p>Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>`;
-  const titleNode = <Typography variant="h3">Here is a Title Node</Typography>;
-
-  return (
-    <Box width="50%">
-      <Note
-        title={titleNode}
-        noteContent={html}
-        name="Lauren Smith"
+        noteContent={noteContent}
         createdDate="23 May 2020, 12:08 PM"
       />
     </Box>
@@ -149,34 +118,44 @@ description: Carbon Note component props and usage examples.
 ```
 
 
-### With Status
+### With Margin
 
 **Render**
 
 ```tsx
 () => {
-  const html = `<p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i> Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>
-  <ul><li>unordered</li></ul>
-  <ol><li>ordered</li></ol></br>
-  <p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i></p>
-  <p>Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>`;
-
-  const inlineControl = (
-    <ActionPopover>
-      <ActionPopoverItem onClick={() => {}}>Edit</ActionPopoverItem>
-      <ActionPopoverDivider />
-      <ActionPopoverItem onClick={() => {}}>Delete</ActionPopoverItem>
-    </ActionPopover>
-  );
+  const noteContent = "Here is some plain text content";
   return (
     <Box width="50%">
       <Note
-        title="Here is a Title"
-        inlineControl={inlineControl}
         name="Lauren Smith"
+        noteContent={noteContent}
         createdDate="23 May 2020, 12:08 PM"
-        status={{ text: "Edited", timeStamp: "23 May 2020, 12:08 PM" }}
-        noteContent={html}
+        m={1}
+      />
+      <Note
+        name="Lauren Smith"
+        noteContent={noteContent}
+        createdDate="23 May 2020, 12:08 PM"
+        m={3}
+      />
+      <Note
+        name="Lauren Smith"
+        noteContent={noteContent}
+        createdDate="23 May 2020, 12:08 PM"
+        m={5}
+      />
+      <Note
+        name="Lauren Smith"
+        noteContent={noteContent}
+        createdDate="23 May 2020, 12:08 PM"
+        m="16px"
+      />
+      <Note
+        name="Lauren Smith"
+        noteContent={noteContent}
+        createdDate="23 May 2020, 12:08 PM"
+        m="32px"
       />
     </Box>
   );
@@ -296,44 +275,24 @@ description: Carbon Note component props and usage examples.
 ```
 
 
-### With Margin
+### With Rich Text
 
 **Render**
 
 ```tsx
 () => {
-  const noteContent = "Here is some plain text content";
+  const html = `<p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i> Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>
+  <ul><li>unordered</li></ul>
+  <ol><li>ordered</li></ol></br>
+  <p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i></p>
+  <p>Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>`;
+
   return (
     <Box width="50%">
       <Note
+        noteContent={html}
         name="Lauren Smith"
-        noteContent={noteContent}
         createdDate="23 May 2020, 12:08 PM"
-        m={1}
-      />
-      <Note
-        name="Lauren Smith"
-        noteContent={noteContent}
-        createdDate="23 May 2020, 12:08 PM"
-        m={3}
-      />
-      <Note
-        name="Lauren Smith"
-        noteContent={noteContent}
-        createdDate="23 May 2020, 12:08 PM"
-        m={5}
-      />
-      <Note
-        name="Lauren Smith"
-        noteContent={noteContent}
-        createdDate="23 May 2020, 12:08 PM"
-        m="16px"
-      />
-      <Note
-        name="Lauren Smith"
-        noteContent={noteContent}
-        createdDate="23 May 2020, 12:08 PM"
-        m="32px"
       />
     </Box>
   );
@@ -341,19 +300,60 @@ description: Carbon Note component props and usage examples.
 ```
 
 
-### Plain text with links
+### With Status
 
 **Render**
 
 ```tsx
 () => {
-  const noteContent =
-    "Hello, World! www.bbc.co.uk http://www.google.com https://www.sage.com";
+  const html = `<p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i> Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>
+  <ul><li>unordered</li></ul>
+  <ol><li>ordered</li></ol></br>
+  <p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i></p>
+  <p>Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>`;
+
+  const inlineControl = (
+    <ActionPopover>
+      <ActionPopoverItem onClick={() => {}}>Edit</ActionPopoverItem>
+      <ActionPopoverDivider />
+      <ActionPopoverItem onClick={() => {}}>Delete</ActionPopoverItem>
+    </ActionPopover>
+  );
   return (
     <Box width="50%">
       <Note
+        title="Here is a Title"
+        inlineControl={inlineControl}
         name="Lauren Smith"
-        noteContent={noteContent}
+        createdDate="23 May 2020, 12:08 PM"
+        status={{ text: "Edited", timeStamp: "23 May 2020, 12:08 PM" }}
+        noteContent={html}
+      />
+    </Box>
+  );
+}
+```
+
+
+### With Title
+
+**Render**
+
+```tsx
+() => {
+  const html = `<p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i> Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>
+  <ul><li>unordered</li></ul>
+  <ol><li>ordered</li></ol></br>
+  <p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i></p>
+  <p>Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>`;
+  const titleNode = <Typography variant="h3">Here is a Title Node</Typography>;
+
+  return (
+    <Box width="50%">
+      <Note
+        title={titleNode}
+        noteContent={html}
+        name="Lauren Smith"
         createdDate="23 May 2020, 12:08 PM"
       />
     </Box>

@@ -61,6 +61,59 @@ description: Carbon Help component props and usage examples.
 ```
 
 
+### With Href
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Box m={64}>
+      <Help href="https://carbon.sage.com">
+        This is the Help component with a href.
+      </Help>
+    </Box>
+  );
+}
+```
+
+
+### With Icons and Focused
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <>
+      {(["error", "add", "minus", "settings"] as const).map((icon) => (
+        <Box m={65} key={icon}>
+          <Help type={`${icon}`} data-role="target">
+            {`This is the Help component with the ${icon} icon`}
+          </Help>
+        </Box>
+      ))}
+    </>
+  );
+}
+```
+
+
+### With Tooltip Color Overrides
+
+**Render**
+
+```tsx
+() => (
+  <Box my={64} mx={300}>
+    <Help tooltipBgColor="lightblue" tooltipFontColor="black" isFocused>
+      The background and font color are overridden
+    </Help>
+  </Box>
+)
+```
+
+
 ### With Tooltip Custom Message
 
 **Render**
@@ -96,59 +149,6 @@ description: Carbon Help component props and usage examples.
         </Box>
       ))}
     </>
-  );
-}
-```
-
-
-### With Tooltip Color Overrides
-
-**Render**
-
-```tsx
-() => (
-  <Box my={64} mx={300}>
-    <Help tooltipBgColor="lightblue" tooltipFontColor="black" isFocused>
-      The background and font color are overridden
-    </Help>
-  </Box>
-)
-```
-
-
-### With Icons and Focused
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <>
-      {(["error", "add", "minus", "settings"] as const).map((icon) => (
-        <Box m={65} key={icon}>
-          <Help type={`${icon}`} data-role="target">
-            {`This is the Help component with the ${icon} icon`}
-          </Help>
-        </Box>
-      ))}
-    </>
-  );
-}
-```
-
-
-### With Href
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Box m={64}>
-      <Help href="https://carbon.sage.com">
-        This is the Help component with a href.
-      </Help>
-    </Box>
   );
 }
 ```

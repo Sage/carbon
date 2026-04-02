@@ -44,71 +44,6 @@ description: Carbon StepFlow component props and usage examples.
 | aria-labelledby | string \| undefined | No |  | Prop to specify the aria-labelledby of the component |  |
 
 ## Examples
-### Default
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <StepFlow
-      title="Step title"
-      titleVariant="h2"
-      currentStep={1}
-      totalSteps={6}
-    />
-  );
-}
-```
-
-
-### Title Node
-
-**Render**
-
-```tsx
-() => {
-  const titleNode = (
-    <Box display="flex" alignItems="center">
-      <Icon type="bin" />
-      <StepFlowTitle titleString="Step title" />
-    </Box>
-  );
-
-  return (
-    <StepFlow
-      title={titleNode}
-      titleVariant="h2"
-      currentStep={1}
-      totalSteps={6}
-    />
-  );
-}
-```
-
-
-### Title Node with Screen Reader Only Title
-
-**Render**
-
-```tsx
-() => {
-  const titleNode = (
-    <Box display="flex" alignItems="center">
-      <StepFlowTitle
-        titleVariant="h2"
-        titleString="Step title"
-        screenReaderOnlyTitle="Step Title with a pointer image"
-      />
-      <Image alt="" src={pointSvg} decorative size={50} />
-    </Box>
-  );
-
-  return <StepFlow title={titleNode} currentStep={1} totalSteps={6} />;
-}
-```
-
-
 ### Category
 
 **Render**
@@ -121,26 +56,6 @@ description: Carbon StepFlow component props and usage examples.
       title="Step title"
       currentStep={1}
       totalSteps={6}
-      titleVariant="h2"
-    />
-  );
-}
-```
-
-
-### Show Progress Indicator
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <StepFlow
-      category="Main goal"
-      title="Step title"
-      currentStep={1}
-      totalSteps={6}
-      showProgressIndicator
       titleVariant="h2"
     />
   );
@@ -168,7 +83,7 @@ description: Carbon StepFlow component props and usage examples.
 ```
 
 
-### Total Steps
+### Default
 
 **Render**
 
@@ -176,33 +91,10 @@ description: Carbon StepFlow component props and usage examples.
 () => {
   return (
     <StepFlow
-      category="Main goal"
       title="Step title"
-      currentStep={5}
-      totalSteps={8}
-      showProgressIndicator
       titleVariant="h2"
-    />
-  );
-}
-```
-
-
-### Show Close Icon
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <StepFlow
-      category="Main goal"
-      title="Step title"
       currentStep={1}
       totalSteps={6}
-      showCloseIcon
-      onDismiss={() => ""}
-      titleVariant="h2"
     />
   );
 }
@@ -419,5 +311,113 @@ return (
 
 ```tsx
 stepFlowHandle.current?.focus();
+```
+
+
+### Show Close Icon
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <StepFlow
+      category="Main goal"
+      title="Step title"
+      currentStep={1}
+      totalSteps={6}
+      showCloseIcon
+      onDismiss={() => ""}
+      titleVariant="h2"
+    />
+  );
+}
+```
+
+
+### Show Progress Indicator
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <StepFlow
+      category="Main goal"
+      title="Step title"
+      currentStep={1}
+      totalSteps={6}
+      showProgressIndicator
+      titleVariant="h2"
+    />
+  );
+}
+```
+
+
+### Title Node
+
+**Render**
+
+```tsx
+() => {
+  const titleNode = (
+    <Box display="flex" alignItems="center">
+      <Icon type="bin" />
+      <StepFlowTitle titleString="Step title" />
+    </Box>
+  );
+
+  return (
+    <StepFlow
+      title={titleNode}
+      titleVariant="h2"
+      currentStep={1}
+      totalSteps={6}
+    />
+  );
+}
+```
+
+
+### Title Node with Screen Reader Only Title
+
+**Render**
+
+```tsx
+() => {
+  const titleNode = (
+    <Box display="flex" alignItems="center">
+      <StepFlowTitle
+        titleVariant="h2"
+        titleString="Step title"
+        screenReaderOnlyTitle="Step Title with a pointer image"
+      />
+      <Image alt="" src={pointSvg} decorative size={50} />
+    </Box>
+  );
+
+  return <StepFlow title={titleNode} currentStep={1} totalSteps={6} />;
+}
+```
+
+
+### Total Steps
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <StepFlow
+      category="Main goal"
+      title="Step title"
+      currentStep={5}
+      totalSteps={8}
+      showProgressIndicator
+      titleVariant="h2"
+    />
+  );
+}
 ```
 

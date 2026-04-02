@@ -62,7 +62,7 @@ description: Carbon ButtonNext component props and usage examples.
 | rel | string \| undefined | No |  |  |  | HTML rel attribute |  |
 | size | Size \| undefined | No |  |  |  | The size of the button. |  |
 | target | string \| undefined | No |  |  |  | HTML target attribute |  |
-| type | "button" \| "reset" \| "submit" \| undefined | No |  |  |  | The HTML type that this button should use. |  |
+| type | "reset" \| "button" \| "submit" \| undefined | No |  |  |  | The HTML type that this button should use. |  |
 | variant | Variant \| undefined | No |  |  |  | The variant of the button. |  |
 | variantType | VariantType \| undefined | No |  |  |  | The variant type of the button. |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |

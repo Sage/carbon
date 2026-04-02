@@ -67,7 +67,7 @@ description: Carbon Textbox component props and usage examples.
 | inlist | any | No |  |  |  |  |  |
 | inputHint | string \| undefined | No |  |  |  | A hint string rendered before the input but after the label. Intended to describe the purpose or content of the input. |  |
 | inputIcon | IconType \| undefined | No |  |  |  | Type of the icon that will be rendered next to the input |  |
-| inputMode | "email" \| "none" \| "search" \| "text" \| "tel" \| "url" \| "numeric" \| "decimal" \| undefined | No |  |  |  | Hints at the type of data that might be entered by the user while editing the element or its contents |  |
+| inputMode | "none" \| "email" \| "search" \| "text" \| "tel" \| "url" \| "numeric" \| "decimal" \| undefined | No |  |  |  | Hints at the type of data that might be entered by the user while editing the element or its contents |  |
 | inputWidth | number \| undefined | No |  |  |  | The width of the input as a percentage |  |
 | is | string \| undefined | No |  |  |  | Specify that a standard HTML element should behave like a defined custom built-in element |  |
 | itemID | string \| undefined | No |  |  |  |  |  |
@@ -278,7 +278,7 @@ description: Carbon Textbox component props and usage examples.
 | reverse | boolean \| undefined | No |  |  |  | Reverses label and input display |  |
 | role | AriaRole \| undefined | No |  |  |  |  |  |
 | security | string \| undefined | No |  |  |  |  |  |
-| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | Size of an input |  |
+| size | "large" \| "small" \| "medium" \| undefined | No |  |  |  | Size of an input |  |
 | slot | string \| undefined | No |  |  |  |  |  |
 | spellCheck | Booleanish \| undefined | No |  |  |  |  |  |
 | src | string \| undefined | No |  |  |  |  |  |
@@ -355,32 +355,10 @@ description: Carbon Textbox component props and usage examples.
 | aria-valuetext | string \| undefined | No |  |  |  | Defines the human readable text alternative of aria-valuenow for a range widget. |  |
 | onKeyPress | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUp` or `onKeyDown` instead |  |  |
 | onKeyPressCapture | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUpCapture` or `onKeyDownCapture` instead |  |  |
-| aria-dropeffect | "copy" \| "link" \| "none" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
+| aria-dropeffect | "none" \| "copy" \| "link" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
 | aria-grabbed | Booleanish \| undefined | No |  | Yes | in ARIA 1.1 | Indicates an element's "grabbed" state in a drag-and-drop operation. |  |
 
 ## Examples
-### Default
-
-**Render**
-
-```tsx
-() => {
-  const [state, setState] = useState("");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-  return (
-    <Textbox
-      label="Textbox"
-      value={state}
-      onChange={setValue}
-      placeholder="Textbox"
-    />
-  );
-}
-```
-
-
 ### Character Counter
 
 **Render**
@@ -445,6 +423,102 @@ description: Carbon Textbox component props and usage examples.
 ```
 
 
+### Default
+
+**Render**
+
+```tsx
+() => {
+  const [state, setState] = useState("");
+  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    setState(target.value);
+  };
+  return (
+    <Textbox
+      label="Textbox"
+      value={state}
+      onChange={setValue}
+      placeholder="Textbox"
+    />
+  );
+}
+```
+
+
+### Disabled
+
+**Render**
+
+```tsx
+() => {
+  const [state, setState] = useState("Textbox");
+  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    setState(target.value);
+  };
+  return <Textbox label="Textbox" disabled value={state} onChange={setValue} />;
+}
+```
+
+
+### IsOptional
+
+**Render**
+
+```tsx
+() => {
+  const [state, setState] = useState("Textbox");
+  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    setState(target.value);
+  };
+  return <Textbox label="Textbox" value={state} onChange={setValue} />;
+}
+```
+
+
+### Label Align
+
+**Render**
+
+```tsx
+() => {
+  const [state, setState] = useState("Textbox");
+  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    setState(target.value);
+  };
+  return (
+    <Box>
+      {(["right", "left"] as const).map((alignment) => (
+        <Textbox
+          label="Textbox"
+          value={state}
+          onChange={setValue}
+          labelInline
+          inputWidth={50}
+          key={alignment}
+          labelAlign={alignment}
+        />
+      ))}
+    </Box>
+  );
+}
+```
+
+
+### Margins
+
+**Render**
+
+```tsx
+() => {
+  const [state, setState] = useState("Textbox");
+  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    setState(target.value);
+  };
+  return <Textbox label="Textbox" value={state} onChange={setValue} m={4} />;
+}
+```
+
+
 ### Prefix
 
 **Render**
@@ -463,6 +537,44 @@ description: Carbon Textbox component props and usage examples.
       prefix="prefix"
     />
   );
+}
+```
+
+
+### Read Only
+
+**Render**
+
+```tsx
+() => {
+  const [state, setState] = useState("Textbox");
+  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    setState(target.value);
+  };
+  return (
+    <Textbox
+      label="Textbox"
+      readOnly
+      value={state}
+      onChange={setValue}
+      placeholder="Textbox"
+    />
+  );
+}
+```
+
+
+### Required
+
+**Render**
+
+```tsx
+() => {
+  const [state, setState] = useState("Textbox");
+  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    setState(target.value);
+  };
+  return <Textbox label="Textbox" value={state} onChange={setValue} required />;
 }
 ```
 
@@ -516,82 +628,6 @@ description: Carbon Textbox component props and usage examples.
         placeholder="Textbox"
       />
     </Box>
-  );
-}
-```
-
-
-### Margins
-
-**Render**
-
-```tsx
-() => {
-  const [state, setState] = useState("Textbox");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-  return <Textbox label="Textbox" value={state} onChange={setValue} m={4} />;
-}
-```
-
-
-### Disabled
-
-**Render**
-
-```tsx
-() => {
-  const [state, setState] = useState("Textbox");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-  return <Textbox label="Textbox" disabled value={state} onChange={setValue} />;
-}
-```
-
-
-### Read Only
-
-**Render**
-
-```tsx
-() => {
-  const [state, setState] = useState("Textbox");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-  return (
-    <Textbox
-      label="Textbox"
-      readOnly
-      value={state}
-      onChange={setValue}
-      placeholder="Textbox"
-    />
-  );
-}
-```
-
-
-### With Label Inline
-
-**Render**
-
-```tsx
-() => {
-  const [state, setState] = useState("");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-  return (
-    <Textbox
-      label="Textbox"
-      labelInline
-      value={state}
-      onChange={setValue}
-      placeholder="Textbox"
-    />
   );
 }
 ```
@@ -709,60 +745,24 @@ description: Carbon Textbox component props and usage examples.
 ```
 
 
-### Required
+### With Label Inline
 
 **Render**
 
 ```tsx
 () => {
-  const [state, setState] = useState("Textbox");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-  return <Textbox label="Textbox" value={state} onChange={setValue} required />;
-}
-```
-
-
-### IsOptional
-
-**Render**
-
-```tsx
-() => {
-  const [state, setState] = useState("Textbox");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-  return <Textbox label="Textbox" value={state} onChange={setValue} />;
-}
-```
-
-
-### Label Align
-
-**Render**
-
-```tsx
-() => {
-  const [state, setState] = useState("Textbox");
+  const [state, setState] = useState("");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
   };
   return (
-    <Box>
-      {(["right", "left"] as const).map((alignment) => (
-        <Textbox
-          label="Textbox"
-          value={state}
-          onChange={setValue}
-          labelInline
-          inputWidth={50}
-          key={alignment}
-          labelAlign={alignment}
-        />
-      ))}
-    </Box>
+    <Textbox
+      label="Textbox"
+      labelInline
+      value={state}
+      onChange={setValue}
+      placeholder="Textbox"
+    />
   );
 }
 ```

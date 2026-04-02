@@ -49,30 +49,6 @@ description: Carbon Time component props and usage examples.
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 
 ## Examples
-### Default
-
-**Render**
-
-```tsx
-({ ...args }) => {
-  const [value, setValue] = useState<TimeValue>({
-    hours: "",
-    minutes: "",
-  });
-
-  const handleChange = (ev: TimeInputEvent) => {
-    setValue(ev.target.value);
-  };
-
-  return (
-    <Box p={2}>
-      <Time value={value} onChange={handleChange} label="Time" {...args} />
-    </Box>
-  );
-}
-```
-
-
 ### AM/PM Toggle
 
 **Render**
@@ -98,12 +74,12 @@ description: Carbon Time component props and usage examples.
 ```
 
 
-### Input Hint
+### Default
 
 **Render**
 
 ```tsx
-() => {
+({ ...args }) => {
   const [value, setValue] = useState<TimeValue>({
     hours: "",
     minutes: "",
@@ -115,36 +91,7 @@ description: Carbon Time component props and usage examples.
 
   return (
     <Box p={2}>
-      <Time
-        value={value}
-        onChange={handleChange}
-        label="Time"
-        inputHint="Hint text"
-      />
-    </Box>
-  );
-}
-```
-
-
-### Required
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState<TimeValue>({
-    hours: "",
-    minutes: "",
-  });
-
-  const handleChange = (ev: TimeInputEvent) => {
-    setValue(ev.target.value);
-  };
-
-  return (
-    <Box p={2}>
-      <Time required value={value} onChange={handleChange} label="Time" />
+      <Time value={value} onChange={handleChange} label="Time" {...args} />
     </Box>
   );
 }
@@ -182,6 +129,111 @@ description: Carbon Time component props and usage examples.
 ```
 
 
+### Focusing Inputs Programmatically
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState<TimeValue>({
+    hours: "",
+    minutes: "",
+  });
+
+  const ref = useRef<TimeHandle>(null);
+
+  const handleChange = (ev: TimeInputEvent) => {
+    setValue(ev.target.value);
+  };
+
+  return (
+    <Box p={2}>
+      <Button mr={1} onClick={() => ref.current?.focusHoursInput()}>
+        Focus hours input
+      </Button>
+      <Button onClick={() => ref.current?.focusMinutesInput()}>
+        Focus minutes input
+      </Button>
+      <Time
+        ref={ref}
+        value={value}
+        onChange={handleChange}
+        label="Time"
+        inputHint="Hint text"
+      />
+    </Box>
+  );
+}
+```
+
+
+### Input Hint
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState<TimeValue>({
+    hours: "",
+    minutes: "",
+  });
+
+  const handleChange = (ev: TimeInputEvent) => {
+    setValue(ev.target.value);
+  };
+
+  return (
+    <Box p={2}>
+      <Time
+        value={value}
+        onChange={handleChange}
+        label="Time"
+        inputHint="Hint text"
+      />
+    </Box>
+  );
+}
+```
+
+
+### Locale Override
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState<TimeValue>({
+    hours: "",
+    minutes: "",
+    period: "AM",
+  });
+
+  const handleChange = (ev: TimeInputEvent) => {
+    setValue(ev.target.value);
+  };
+
+  return (
+    <Box p={2}>
+      <I18nProvider
+        locale={{
+          time: {
+            amText: () => "A",
+            pmText: () => "P",
+            hoursLabelText: () => "Hours",
+            minutesLabelText: () => "Minutes",
+            hoursAriaLabelText: () => "Hours input",
+            minutesAriaLabelText: () => "Minutes input",
+          },
+        }}
+      >
+        <Time value={value} onChange={handleChange} label="Time" />
+      </I18nProvider>
+    </Box>
+  );
+}
+```
+
+
 ### Read Only
 
 **Render**
@@ -207,6 +259,30 @@ description: Carbon Time component props and usage examples.
         inputHint="Hint text"
         readOnly
       />
+    </Box>
+  );
+}
+```
+
+
+### Required
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState<TimeValue>({
+    hours: "",
+    minutes: "",
+  });
+
+  const handleChange = (ev: TimeInputEvent) => {
+    setValue(ev.target.value);
+  };
+
+  return (
+    <Box p={2}>
+      <Time required value={value} onChange={handleChange} label="Time" />
     </Box>
   );
 }
@@ -277,82 +353,6 @@ description: Carbon Time component props and usage examples.
         inputHint="Hint text"
         mb={1}
       />
-    </Box>
-  );
-}
-```
-
-
-### Focusing Inputs Programmatically
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState<TimeValue>({
-    hours: "",
-    minutes: "",
-  });
-
-  const ref = useRef<TimeHandle>(null);
-
-  const handleChange = (ev: TimeInputEvent) => {
-    setValue(ev.target.value);
-  };
-
-  return (
-    <Box p={2}>
-      <Button mr={1} onClick={() => ref.current?.focusHoursInput()}>
-        Focus hours input
-      </Button>
-      <Button onClick={() => ref.current?.focusMinutesInput()}>
-        Focus minutes input
-      </Button>
-      <Time
-        ref={ref}
-        value={value}
-        onChange={handleChange}
-        label="Time"
-        inputHint="Hint text"
-      />
-    </Box>
-  );
-}
-```
-
-
-### Locale Override
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState<TimeValue>({
-    hours: "",
-    minutes: "",
-    period: "AM",
-  });
-
-  const handleChange = (ev: TimeInputEvent) => {
-    setValue(ev.target.value);
-  };
-
-  return (
-    <Box p={2}>
-      <I18nProvider
-        locale={{
-          time: {
-            amText: () => "A",
-            pmText: () => "P",
-            hoursLabelText: () => "Hours",
-            minutesLabelText: () => "Minutes",
-            hoursAriaLabelText: () => "Hours input",
-            minutesAriaLabelText: () => "Minutes input",
-          },
-        }}
-      >
-        <Time value={value} onChange={handleChange} label="Time" />
-      </I18nProvider>
     </Box>
   );
 }

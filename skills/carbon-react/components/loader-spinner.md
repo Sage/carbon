@@ -33,13 +33,28 @@ description: Carbon LoaderSpinner component props and usage examples.
 | mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
 | showSpinnerLabel | boolean \| undefined | No |  | If set to `false` no visual label will be displayed, however a visually hidden label will still be available for assistive technologies | true |
-| size | "small" \| "medium" \| "large" \| "extra-small" \| "extra-large" \| undefined | No |  | The size prop allows a specific size to be set, ranging from `extra-small` to `extra-large` | "medium" |
+| size | "large" \| "small" \| "medium" \| "extra-small" \| "extra-large" \| undefined | No |  | The size prop allows a specific size to be set, ranging from `extra-small` to `extra-large` | "medium" |
 | spinnerLabel | string \| undefined | No |  | Use the spinnerLabel prop to override the default `"Loading..."` label with any custom string |  |
-| variant | "gradient-grey" \| "gradient-white" \| "action" \| "inverse" \| "neutral" \| undefined | No |  | The variant prop can be used to change the appearance of the component. Typically both the outer and inner spinner will change color, however there will still be sufficient contrast between them | "action" |
+| variant | "gradient-grey" \| "gradient-white" \| "inverse" \| "neutral" \| "action" \| undefined | No |  | The variant prop can be used to change the appearance of the component. Typically both the outer and inner spinner will change color, however there will still be sufficient contrast between them | "action" |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 
 ## Examples
+### Animation Time
+
+**Render**
+
+```tsx
+() => (
+  <Box display="flex">
+    <LoaderSpinner mx="3" animationTime={5} />
+    <LoaderSpinner mx="3" variant="gradient-grey" animationTime={5} />
+    <LoaderSpinner mx="3" isTracked animationTime={5} />
+  </Box>
+)
+```
+
+
 ### Default
 
 **Render**
@@ -48,92 +63,6 @@ description: Carbon LoaderSpinner component props and usage examples.
 () => (
   <Box display="flex">
     <LoaderSpinner />
-  </Box>
-)
-```
-
-
-### Override Spinner Label
-
-**Render**
-
-```tsx
-() => (
-  <Box display="flex">
-    <LoaderSpinner mx="3" spinnerLabel="Processing..." variant="action" />
-    <LoaderSpinner mx="3" spinnerLabel="Saving..." variant="neutral" />
-    <LoaderSpinner
-      mx="3"
-      spinnerLabel="Loading... This can take a few seconds... Or a few minutes..."
-      variant="action"
-    />
-  </Box>
-)
-```
-
-
-### Sizes
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Box display="flex" alignItems="baseline">
-      {sizes.map((size) => (
-        <LoaderSpinner mx="20px" key={size} size={size} />
-      ))}
-    </Box>
-  );
-}
-```
-
-
-### Show Spinner Label
-
-**Render**
-
-```tsx
-() => (
-  <Box display="flex">
-    <LoaderSpinner showSpinnerLabel={false} />
-  </Box>
-)
-```
-
-
-### Variants
-
-**Render**
-
-```tsx
-() => (
-  <Box display="flex">
-    <LoaderSpinner mx="3" showSpinnerLabel={false} variant="action" />
-    <LoaderSpinner mx="3" showSpinnerLabel={false} variant="neutral" />
-    <Box backgroundColor="black">
-      <LoaderSpinner mx="3" showSpinnerLabel={false} variant="inverse" />
-    </Box>
-    <Box backgroundColor="lightgrey">
-      <LoaderSpinner mx="3" showSpinnerLabel={false} variant="gradient-grey" />
-    </Box>
-    <Box backgroundColor="lightgrey">
-      <LoaderSpinner mx="3" showSpinnerLabel={false} variant="gradient-white" />
-    </Box>
-  </Box>
-)
-```
-
-
-### Label Color
-
-**Render**
-
-```tsx
-() => (
-  <Box display="flex" backgroundColor="black" height="80px" width="220px" p={2}>
-    <LoaderSpinner mx="3" variant="inverse" />
-    <LoaderSpinner mx="3" variant="gradient-white" />
   </Box>
 )
 ```
@@ -166,16 +95,87 @@ description: Carbon LoaderSpinner component props and usage examples.
 ```
 
 
-### Animation Time
+### Label Color
+
+**Render**
+
+```tsx
+() => (
+  <Box display="flex" backgroundColor="black" height="80px" width="220px" p={2}>
+    <LoaderSpinner mx="3" variant="inverse" />
+    <LoaderSpinner mx="3" variant="gradient-white" />
+  </Box>
+)
+```
+
+
+### Override Spinner Label
 
 **Render**
 
 ```tsx
 () => (
   <Box display="flex">
-    <LoaderSpinner mx="3" animationTime={5} />
-    <LoaderSpinner mx="3" variant="gradient-grey" animationTime={5} />
-    <LoaderSpinner mx="3" isTracked animationTime={5} />
+    <LoaderSpinner mx="3" spinnerLabel="Processing..." variant="action" />
+    <LoaderSpinner mx="3" spinnerLabel="Saving..." variant="neutral" />
+    <LoaderSpinner
+      mx="3"
+      spinnerLabel="Loading... This can take a few seconds... Or a few minutes..."
+      variant="action"
+    />
+  </Box>
+)
+```
+
+
+### Show Spinner Label
+
+**Render**
+
+```tsx
+() => (
+  <Box display="flex">
+    <LoaderSpinner showSpinnerLabel={false} />
+  </Box>
+)
+```
+
+
+### Sizes
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Box display="flex" alignItems="baseline">
+      {sizes.map((size) => (
+        <LoaderSpinner mx="20px" key={size} size={size} />
+      ))}
+    </Box>
+  );
+}
+```
+
+
+### Variants
+
+**Render**
+
+```tsx
+() => (
+  <Box display="flex">
+    <LoaderSpinner mx="3" showSpinnerLabel={false} variant="action" />
+    <LoaderSpinner mx="3" showSpinnerLabel={false} variant="neutral" />
+    <Box backgroundColor="black">
+      <LoaderSpinner mx="3" showSpinnerLabel={false} variant="inverse" />
+    </Box>
+    <Box backgroundColor="lightgrey">
+      <LoaderSpinner mx="3" showSpinnerLabel={false} variant="gradient-grey" />
+    </Box>
+    <Box backgroundColor="lightgrey">
+      <LoaderSpinner mx="3" showSpinnerLabel={false} variant="gradient-white" />
+    </Box>
   </Box>
 )
 ```

@@ -16,30 +16,6 @@ description: Carbon Image component props and usage examples.
 No props metadata found.
 
 ## Examples
-### Default
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Image m={3} height="700px" backgroundImage={`url("${flexibleSvg}")`}>
-      <Box
-        height="700px"
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-      >
-        <Typography variant="h4">
-          Here is an example of some overlayed text
-        </Typography>
-      </Box>
-    </Image>
-  );
-}
-```
-
-
 ### As An Img
 
 **Render**
@@ -52,31 +28,6 @@ No props metadata found.
       <Image m={3} ml={5} size="200px" alt="Example alt text" src={brushSvg} />
       <Image m={3} size="300px" alt="Example alt text" src={collaborateSvg} />
     </>
-  );
-}
-```
-
-
-### With Hidden Prop
-
-**Render**
-
-```tsx
-() => {
-  const [isVisible, setIsVisible] = useState(true);
-
-  return (
-    <Box width="20vw">
-      <Button fullWidth onClick={() => setIsVisible((previous) => !previous)}>
-        Toggle image visibility
-      </Button>
-      <Image
-        width="100%"
-        src={flexibleSvg}
-        alt="Curvy line arrow"
-        hidden={!isVisible}
-      />
-    </Box>
   );
 }
 ```
@@ -146,6 +97,30 @@ No props metadata found.
 ```
 
 
+### Default
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Image m={3} height="700px" backgroundImage={`url("${flexibleSvg}")`}>
+      <Box
+        height="700px"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <Typography variant="h4">
+          Here is an example of some overlayed text
+        </Typography>
+      </Box>
+    </Image>
+  );
+}
+```
+
+
 ### Image With Position
 
 **Render**
@@ -170,5 +145,30 @@ No props metadata found.
     </Box>
   </Image>
 )
+```
+
+
+### With Hidden Prop
+
+**Render**
+
+```tsx
+() => {
+  const [isVisible, setIsVisible] = useState(true);
+
+  return (
+    <Box width="20vw">
+      <Button fullWidth onClick={() => setIsVisible((previous) => !previous)}>
+        Toggle image visibility
+      </Button>
+      <Image
+        width="100%"
+        src={flexibleSvg}
+        alt="Curvy line arrow"
+        hidden={!isVisible}
+      />
+    </Box>
+  );
+}
 ```
 

@@ -34,7 +34,7 @@ description: Carbon Message component props and usage examples.
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
 | onDismiss | ((e: React.KeyboardEvent<HTMLButtonElement> \| React.MouseEvent<HTMLButtonElement>) => void) \| undefined | No |  |  |  | Callback triggered on dismiss |  |
 | open | boolean \| undefined | No |  |  |  | Flag to determine if the message is rendered |  |
-| size | "medium" \| "large" \| undefined | No |  |  |  | Set the component's size |  |
+| size | "large" \| "medium" \| undefined | No |  |  |  | Set the component's size |  |
 | title | React.ReactNode | No |  |  |  | Set message title |  |
 | variant | MessageVariant \| undefined | No |  |  |  | Set the component's variant |  |
 | width | string \| undefined | No |  |  |  | Set the component's width, accepts any valid css string |  |
@@ -50,19 +50,6 @@ description: Carbon Message component props and usage examples.
 
 ```tsx
 (args) => <Message {...args}>Some custom message</Message>
-```
-
-
-### WithCloseButton
-
-**Render**
-
-```tsx
-(args) => (
-    <Message onDismiss={() => {}} {...args}>
-      Some custom message
-    </Message>
-  )
 ```
 
 
@@ -98,29 +85,30 @@ description: Carbon Message component props and usage examples.
 ```
 
 
-### WithTitle
-
-**Args**
-
-```tsx
-{
-    title: "Title",
-  }
-```
+### Show Close Icon
 
 **Render**
 
 ```tsx
-(args) => <Message {...args}>Some custom message</Message>
+() => {
+  return (
+    <Message showCloseIcon={false}>
+      A longer custom message which now shows the close icon is not rendered and
+      padding is equal on both sides
+    </Message>
+  );
+}
 ```
 
 
-### Variant
+### SizeLarge
 
 **Args**
 
 ```tsx
 {
+    title: "Large",
+    size: "large",
     mb: 2,
   }
 ```
@@ -130,19 +118,10 @@ description: Carbon Message component props and usage examples.
 ```tsx
 (args) => (
     <>
-      <Message onDismiss={() => {}} variant="success" title="Success" {...args}>
+      <Message onDismiss={() => {}} {...args}>
         Some custom message
       </Message>
-      <Message onDismiss={() => {}} variant="error" title="Error" {...args}>
-        Some custom message
-      </Message>
-      <Message onDismiss={() => {}} variant="warning" title="Warning" {...args}>
-        Some custom message
-      </Message>
-      <Message onDismiss={() => {}} variant="info" title="Info" {...args}>
-        Some custom message
-      </Message>
-      <Message onDismiss={() => {}} variant="ai" title="AI" {...args}>
+      <Message onDismiss={() => {}} variant="info-subtle" {...args}>
         Some custom message
       </Message>
     </>
@@ -213,50 +192,6 @@ description: Carbon Message component props and usage examples.
 ```
 
 
-### SizeLarge
-
-**Args**
-
-```tsx
-{
-    title: "Large",
-    size: "large",
-    mb: 2,
-  }
-```
-
-**Render**
-
-```tsx
-(args) => (
-    <>
-      <Message onDismiss={() => {}} {...args}>
-        Some custom message
-      </Message>
-      <Message onDismiss={() => {}} variant="info-subtle" {...args}>
-        Some custom message
-      </Message>
-    </>
-  )
-```
-
-
-### Show Close Icon
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Message showCloseIcon={false}>
-      A longer custom message which now shows the close icon is not rendered and
-      padding is equal on both sides
-    </Message>
-  );
-}
-```
-
-
 ### Transparent
 
 **Render**
@@ -285,5 +220,70 @@ description: Carbon Message component props and usage examples.
     </>
   );
 }
+```
+
+
+### Variant
+
+**Args**
+
+```tsx
+{
+    mb: 2,
+  }
+```
+
+**Render**
+
+```tsx
+(args) => (
+    <>
+      <Message onDismiss={() => {}} variant="success" title="Success" {...args}>
+        Some custom message
+      </Message>
+      <Message onDismiss={() => {}} variant="error" title="Error" {...args}>
+        Some custom message
+      </Message>
+      <Message onDismiss={() => {}} variant="warning" title="Warning" {...args}>
+        Some custom message
+      </Message>
+      <Message onDismiss={() => {}} variant="info" title="Info" {...args}>
+        Some custom message
+      </Message>
+      <Message onDismiss={() => {}} variant="ai" title="AI" {...args}>
+        Some custom message
+      </Message>
+    </>
+  )
+```
+
+
+### WithCloseButton
+
+**Render**
+
+```tsx
+(args) => (
+    <Message onDismiss={() => {}} {...args}>
+      Some custom message
+    </Message>
+  )
+```
+
+
+### WithTitle
+
+**Args**
+
+```tsx
+{
+    title: "Title",
+  }
+```
+
+**Render**
+
+```tsx
+(args) => <Message {...args}>Some custom message</Message>
 ```
 

@@ -39,7 +39,7 @@ description: Carbon Card component props and usage examples.
 | onClick | ((event: React.MouseEvent<HTMLAnchorElement> \| React.MouseEvent<HTMLDivElement> \| React.KeyboardEvent<HTMLAnchorElement> \| React.KeyboardEvent<HTMLDivElement>) => void) \| undefined | No |  | Action to be executed when card is clicked or enter pressed. Renders a button when passed and no draggable or href props set |  |
 | rel | string \| undefined | No |  | String for rel property when card has an href prop set |  |
 | roundness | "large" \| "default" \| undefined | No |  | Sets the level of roundness of the corners, "default" is 8px and "large" is 16px | "default" |
-| spacing | "small" \| "medium" \| "large" \| undefined | No |  | Size of card for applying padding | "medium" |
+| spacing | "large" \| "small" \| "medium" \| undefined | No |  | Size of card for applying padding | "medium" |
 | target | string \| undefined | No |  | Target property in which link should open ie: _blank, _self, _parent, _top |  |
 | width | string \| undefined | No |  | Style value for width of card | "500px" |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
@@ -47,53 +47,6 @@ description: Carbon Card component props and usage examples.
 | aria-label | string \| undefined | No |  | Prop to specify an aria-label for the component |  |
 
 ## Examples
-### default
-
-**Render**
-
-```tsx
-(
-  args: Omit<CardProps, "onClick" | "children" | "footer">,
-) => {
-  return (
-    <Card
-      {...args}
-      footer={
-        <CardFooter>
-          <CardColumn>
-            <Link icon="link" href="https://carbon.sage.com/">
-              Footer link
-            </Link>
-          </CardColumn>
-        </CardFooter>
-      }
-    >
-      <CardRow>
-        <CardColumn align="left">
-          <Heading title="Heading" divider={false} />
-          <Typography fontSize="16px" m={0}>
-            Additional text
-          </Typography>
-        </CardColumn>
-        <CardColumn align="right">
-          <Icon type="image" />
-        </CardColumn>
-      </CardRow>
-      <CardRow>
-        <CardColumn>
-          <Typography fontSize="16px" m={0} fontWeight="bold">
-            Body text
-          </Typography>
-          <Heading title="More text" divider={false} />
-          <Typography>Even more text</Typography>
-        </CardColumn>
-      </CardRow>
-    </Card>
-  );
-}
-```
-
-
 ### CustomHeight
 
 **Render**
@@ -176,6 +129,53 @@ description: Carbon Card component props and usage examples.
 ```
 
 
+### default
+
+**Render**
+
+```tsx
+(
+  args: Omit<CardProps, "onClick" | "children" | "footer">,
+) => {
+  return (
+    <Card
+      {...args}
+      footer={
+        <CardFooter>
+          <CardColumn>
+            <Link icon="link" href="https://carbon.sage.com/">
+              Footer link
+            </Link>
+          </CardColumn>
+        </CardFooter>
+      }
+    >
+      <CardRow>
+        <CardColumn align="left">
+          <Heading title="Heading" divider={false} />
+          <Typography fontSize="16px" m={0}>
+            Additional text
+          </Typography>
+        </CardColumn>
+        <CardColumn align="right">
+          <Icon type="image" />
+        </CardColumn>
+      </CardRow>
+      <CardRow>
+        <CardColumn>
+          <Typography fontSize="16px" m={0} fontWeight="bold">
+            Body text
+          </Typography>
+          <Heading title="More text" divider={false} />
+          <Typography>Even more text</Typography>
+        </CardColumn>
+      </CardRow>
+    </Card>
+  );
+}
+```
+
+
 ### Default
 
 **Render**
@@ -219,388 +219,6 @@ description: Carbon Card component props and usage examples.
       </Card>
     );
   }
-```
-
-
-### Small Spacing
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Card
-      spacing="small"
-      footer={
-        <CardFooter>
-          <CardColumn>
-            <Link icon="link" href="https://carbon.sage.com/">
-              Footer link
-            </Link>
-          </CardColumn>
-        </CardFooter>
-      }
-    >
-      <CardRow>
-        <CardColumn align="left">
-          <Heading title="Heading" divider={false} />
-          <Typography fontSize="16px" m={0}>
-            Additional text
-          </Typography>
-        </CardColumn>
-        <CardColumn align="right">
-          <Icon type="image" />
-        </CardColumn>
-      </CardRow>
-      <CardRow>
-        <CardColumn>
-          <Typography fontSize="16px" m={0} fontWeight="500">
-            Body text
-          </Typography>
-          <Heading title="More text" headingType="h2" divider={false} />
-          <Typography>Even more text</Typography>
-        </CardColumn>
-      </CardRow>
-    </Card>
-  );
-}
-```
-
-
-### Large Spacing
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Card
-      spacing="large"
-      footer={
-        <CardFooter>
-          <CardColumn>
-            <Link icon="link" href="https://carbon.sage.com/">
-              Footer link
-            </Link>
-          </CardColumn>
-        </CardFooter>
-      }
-    >
-      <CardRow>
-        <CardColumn align="left">
-          <Heading title="Heading" divider={false} />
-          <Typography fontSize="16px" m={0}>
-            Additional text
-          </Typography>
-        </CardColumn>
-        <CardColumn align="right">
-          <Icon type="image" />
-        </CardColumn>
-      </CardRow>
-      <CardRow>
-        <CardColumn>
-          <Typography fontSize="16px" m={0} fontWeight="500">
-            Body text
-          </Typography>
-          <Heading title="More text" headingType="h2" divider={false} />
-          <Typography>Even more text</Typography>
-        </CardColumn>
-      </CardRow>
-    </Card>
-  );
-}
-```
-
-
-### With Width Provided
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Card
-      width="500px"
-      footer={
-        <CardFooter>
-          <CardColumn>
-            <Link icon="link" href="https://carbon.sage.com/">
-              Footer link
-            </Link>
-          </CardColumn>
-        </CardFooter>
-      }
-    >
-      <CardRow>
-        <CardColumn align="left">
-          <Heading title="Heading" divider={false} />
-          <Typography fontSize="16px" m={0}>
-            Additional text
-          </Typography>
-        </CardColumn>
-        <CardColumn align="right">
-          <Icon type="image" />
-        </CardColumn>
-      </CardRow>
-      <CardRow>
-        <CardColumn>
-          <Typography fontSize="16px" m={0} fontWeight="500">
-            Body text
-          </Typography>
-          <Heading title="More text" headingType="h2" divider={false} />
-          <Typography>Even more text</Typography>
-        </CardColumn>
-      </CardRow>
-    </Card>
-  );
-}
-```
-
-
-### With Custom Height
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Card
-      height="500px"
-      footer={
-        <CardFooter>
-          <CardColumn>
-            <Link icon="link" href="https://carbon.sage.com/">
-              Footer link
-            </Link>
-          </CardColumn>
-        </CardFooter>
-      }
-    >
-      <CardRow>
-        <CardColumn align="left">
-          <Heading title="Heading" divider={false} />
-          <Typography fontSize="16px" m={0}>
-            Additional text
-          </Typography>
-        </CardColumn>
-        <CardColumn align="right">
-          <Icon type="image" />
-        </CardColumn>
-      </CardRow>
-      <CardRow>
-        <CardColumn>
-          <Typography fontSize="16px" m={0} fontWeight="500">
-            Body text
-          </Typography>
-          <Heading title="More text" headingType="h2" divider={false} />
-          <Typography>Even more text</Typography>
-        </CardColumn>
-      </CardRow>
-    </Card>
-  );
-}
-```
-
-
-### With Extra Roundness
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Card
-      roundness="large"
-      footer={
-        <CardFooter>
-          <CardColumn>
-            <Link icon="link" href="https://carbon.sage.com/">
-              Footer link
-            </Link>
-          </CardColumn>
-        </CardFooter>
-      }
-    >
-      <CardRow>
-        <CardColumn align="left">
-          <Heading title="Heading" divider={false} />
-          <Typography fontSize="16px" m={0}>
-            Additional text
-          </Typography>
-        </CardColumn>
-        <CardColumn align="right">
-          <Icon type="image" />
-        </CardColumn>
-      </CardRow>
-      <CardRow>
-        <CardColumn>
-          <Typography fontSize="16px" m={0} fontWeight="500">
-            Body text
-          </Typography>
-          <Heading title="More text" headingType="h2" divider={false} />
-          <Typography>Even more text</Typography>
-        </CardColumn>
-      </CardRow>
-    </Card>
-  );
-}
-```
-
-
-### Interactive
-
-**Render**
-
-```tsx
-() => {
-  const [clickCounter, setClickCounter] = useState(0);
-  return (
-    <Box>
-      <Typography variant="b">
-        Card has been clicked {clickCounter} times
-      </Typography>
-      <Card
-        onClick={() => setClickCounter((prevCounter) => prevCounter + 1)}
-        aria-label="Card with button element"
-        footer={
-          <CardFooter>
-            <CardColumn>
-              <Link href="https://carbon.sage.com/">Footer link</Link>
-            </CardColumn>
-          </CardFooter>
-        }
-      >
-        <CardRow pt={3}>
-          <CardColumn>
-            <Typography fontSize="24px" m={0} fontWeight="bold">
-              This Card is a button as it has an onClick prop
-            </Typography>
-          </CardColumn>
-        </CardRow>
-      </Card>
-      <Card
-        href="#"
-        target="_blank"
-        rel="noreferrer"
-        aria-label="Card with anchor element"
-        footer={
-          <CardFooter>
-            <CardColumn>
-              <Link href="https://carbon.sage.com/">Footer link</Link>
-            </CardColumn>
-          </CardFooter>
-        }
-      >
-        <CardRow pt={3}>
-          <CardColumn>
-            <Typography fontSize="24px" m={0} fontWeight="bold">
-              This Card is a link as it has an href prop
-            </Typography>
-          </CardColumn>
-        </CardRow>
-      </Card>
-    </Box>
-  );
-}
-```
-
-
-### With Custom Box Shadow
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Card
-      boxShadow="boxShadow400"
-      hoverBoxShadow="boxShadow200"
-      footer={
-        <CardFooter>
-          <CardColumn>
-            <Link icon="link" href="https://carbon.sage.com/">
-              Footer link
-            </Link>
-          </CardColumn>
-        </CardFooter>
-      }
-    >
-      <CardRow>
-        <CardColumn align="left">
-          <Heading title="Heading" divider={false} />
-          <Typography fontSize="16px" m={0}>
-            Additional text
-          </Typography>
-        </CardColumn>
-        <CardColumn align="right">
-          <Icon type="image" />
-        </CardColumn>
-      </CardRow>
-      <CardRow>
-        <CardColumn>
-          <Typography fontSize="16px" m={0} fontWeight="500">
-            Body text
-          </Typography>
-          <Heading title="More text" headingType="h2" divider={false} />
-          <Typography>Even more text</Typography>
-        </CardColumn>
-      </CardRow>
-    </Card>
-  );
-}
-```
-
-
-### Different Card Row Padding
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Card
-      footer={
-        <CardFooter>
-          <CardColumn>
-            <Link icon="link" href="https://carbon.sage.com/">
-              Footer link
-            </Link>
-          </CardColumn>
-        </CardFooter>
-      }
-    >
-      <CardRow pt={2} pb={0}>
-        <CardColumn align="left">
-          <Heading title="Heading" divider={false} />
-          <Typography fontSize="16px" m={0}>
-            Additional text
-          </Typography>
-        </CardColumn>
-        <CardColumn align="right">
-          <Icon type="image" />
-        </CardColumn>
-      </CardRow>
-      <CardRow pt={0} pb={4}>
-        <CardColumn>
-          <Typography fontSize="16px" m={0} fontWeight="500">
-            Body text
-          </Typography>
-          <Heading title="More text" headingType="h2" divider={false} />
-          <Typography>Even more text</Typography>
-        </CardColumn>
-      </CardRow>
-      <CardRow pt={0} pb={4}>
-        <CardColumn>
-          <Typography fontSize="16px" m={0} fontWeight="500">
-            Body text
-          </Typography>
-          <Heading title="More text" headingType="h2" divider={false} />
-          <Typography>Even more text</Typography>
-        </CardColumn>
-      </CardRow>
-    </Card>
-  );
-}
 ```
 
 
@@ -757,6 +375,162 @@ description: Carbon Card component props and usage examples.
         </CardRow>
       </Card>
     </Box>
+  );
+}
+```
+
+
+### Different Card Row Padding
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Card
+      footer={
+        <CardFooter>
+          <CardColumn>
+            <Link icon="link" href="https://carbon.sage.com/">
+              Footer link
+            </Link>
+          </CardColumn>
+        </CardFooter>
+      }
+    >
+      <CardRow pt={2} pb={0}>
+        <CardColumn align="left">
+          <Heading title="Heading" divider={false} />
+          <Typography fontSize="16px" m={0}>
+            Additional text
+          </Typography>
+        </CardColumn>
+        <CardColumn align="right">
+          <Icon type="image" />
+        </CardColumn>
+      </CardRow>
+      <CardRow pt={0} pb={4}>
+        <CardColumn>
+          <Typography fontSize="16px" m={0} fontWeight="500">
+            Body text
+          </Typography>
+          <Heading title="More text" headingType="h2" divider={false} />
+          <Typography>Even more text</Typography>
+        </CardColumn>
+      </CardRow>
+      <CardRow pt={0} pb={4}>
+        <CardColumn>
+          <Typography fontSize="16px" m={0} fontWeight="500">
+            Body text
+          </Typography>
+          <Heading title="More text" headingType="h2" divider={false} />
+          <Typography>Even more text</Typography>
+        </CardColumn>
+      </CardRow>
+    </Card>
+  );
+}
+```
+
+
+### Interactive
+
+**Render**
+
+```tsx
+() => {
+  const [clickCounter, setClickCounter] = useState(0);
+  return (
+    <Box>
+      <Typography variant="b">
+        Card has been clicked {clickCounter} times
+      </Typography>
+      <Card
+        onClick={() => setClickCounter((prevCounter) => prevCounter + 1)}
+        aria-label="Card with button element"
+        footer={
+          <CardFooter>
+            <CardColumn>
+              <Link href="https://carbon.sage.com/">Footer link</Link>
+            </CardColumn>
+          </CardFooter>
+        }
+      >
+        <CardRow pt={3}>
+          <CardColumn>
+            <Typography fontSize="24px" m={0} fontWeight="bold">
+              This Card is a button as it has an onClick prop
+            </Typography>
+          </CardColumn>
+        </CardRow>
+      </Card>
+      <Card
+        href="#"
+        target="_blank"
+        rel="noreferrer"
+        aria-label="Card with anchor element"
+        footer={
+          <CardFooter>
+            <CardColumn>
+              <Link href="https://carbon.sage.com/">Footer link</Link>
+            </CardColumn>
+          </CardFooter>
+        }
+      >
+        <CardRow pt={3}>
+          <CardColumn>
+            <Typography fontSize="24px" m={0} fontWeight="bold">
+              This Card is a link as it has an href prop
+            </Typography>
+          </CardColumn>
+        </CardRow>
+      </Card>
+    </Box>
+  );
+}
+```
+
+
+### Large Spacing
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Card
+      spacing="large"
+      footer={
+        <CardFooter>
+          <CardColumn>
+            <Link icon="link" href="https://carbon.sage.com/">
+              Footer link
+            </Link>
+          </CardColumn>
+        </CardFooter>
+      }
+    >
+      <CardRow>
+        <CardColumn align="left">
+          <Heading title="Heading" divider={false} />
+          <Typography fontSize="16px" m={0}>
+            Additional text
+          </Typography>
+        </CardColumn>
+        <CardColumn align="right">
+          <Icon type="image" />
+        </CardColumn>
+      </CardRow>
+      <CardRow>
+        <CardColumn>
+          <Typography fontSize="16px" m={0} fontWeight="500">
+            Body text
+          </Typography>
+          <Heading title="More text" headingType="h2" divider={false} />
+          <Typography>Even more text</Typography>
+        </CardColumn>
+      </CardRow>
+    </Card>
   );
 }
 ```
@@ -936,6 +710,187 @@ description: Carbon Card component props and usage examples.
 ```
 
 
+### Small Spacing
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Card
+      spacing="small"
+      footer={
+        <CardFooter>
+          <CardColumn>
+            <Link icon="link" href="https://carbon.sage.com/">
+              Footer link
+            </Link>
+          </CardColumn>
+        </CardFooter>
+      }
+    >
+      <CardRow>
+        <CardColumn align="left">
+          <Heading title="Heading" divider={false} />
+          <Typography fontSize="16px" m={0}>
+            Additional text
+          </Typography>
+        </CardColumn>
+        <CardColumn align="right">
+          <Icon type="image" />
+        </CardColumn>
+      </CardRow>
+      <CardRow>
+        <CardColumn>
+          <Typography fontSize="16px" m={0} fontWeight="500">
+            Body text
+          </Typography>
+          <Heading title="More text" headingType="h2" divider={false} />
+          <Typography>Even more text</Typography>
+        </CardColumn>
+      </CardRow>
+    </Card>
+  );
+}
+```
+
+
+### With Custom Box Shadow
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Card
+      boxShadow="boxShadow400"
+      hoverBoxShadow="boxShadow200"
+      footer={
+        <CardFooter>
+          <CardColumn>
+            <Link icon="link" href="https://carbon.sage.com/">
+              Footer link
+            </Link>
+          </CardColumn>
+        </CardFooter>
+      }
+    >
+      <CardRow>
+        <CardColumn align="left">
+          <Heading title="Heading" divider={false} />
+          <Typography fontSize="16px" m={0}>
+            Additional text
+          </Typography>
+        </CardColumn>
+        <CardColumn align="right">
+          <Icon type="image" />
+        </CardColumn>
+      </CardRow>
+      <CardRow>
+        <CardColumn>
+          <Typography fontSize="16px" m={0} fontWeight="500">
+            Body text
+          </Typography>
+          <Heading title="More text" headingType="h2" divider={false} />
+          <Typography>Even more text</Typography>
+        </CardColumn>
+      </CardRow>
+    </Card>
+  );
+}
+```
+
+
+### With Custom Height
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Card
+      height="500px"
+      footer={
+        <CardFooter>
+          <CardColumn>
+            <Link icon="link" href="https://carbon.sage.com/">
+              Footer link
+            </Link>
+          </CardColumn>
+        </CardFooter>
+      }
+    >
+      <CardRow>
+        <CardColumn align="left">
+          <Heading title="Heading" divider={false} />
+          <Typography fontSize="16px" m={0}>
+            Additional text
+          </Typography>
+        </CardColumn>
+        <CardColumn align="right">
+          <Icon type="image" />
+        </CardColumn>
+      </CardRow>
+      <CardRow>
+        <CardColumn>
+          <Typography fontSize="16px" m={0} fontWeight="500">
+            Body text
+          </Typography>
+          <Heading title="More text" headingType="h2" divider={false} />
+          <Typography>Even more text</Typography>
+        </CardColumn>
+      </CardRow>
+    </Card>
+  );
+}
+```
+
+
+### With Extra Roundness
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Card
+      roundness="large"
+      footer={
+        <CardFooter>
+          <CardColumn>
+            <Link icon="link" href="https://carbon.sage.com/">
+              Footer link
+            </Link>
+          </CardColumn>
+        </CardFooter>
+      }
+    >
+      <CardRow>
+        <CardColumn align="left">
+          <Heading title="Heading" divider={false} />
+          <Typography fontSize="16px" m={0}>
+            Additional text
+          </Typography>
+        </CardColumn>
+        <CardColumn align="right">
+          <Icon type="image" />
+        </CardColumn>
+      </CardRow>
+      <CardRow>
+        <CardColumn>
+          <Typography fontSize="16px" m={0} fontWeight="500">
+            Body text
+          </Typography>
+          <Heading title="More text" headingType="h2" divider={false} />
+          <Typography>Even more text</Typography>
+        </CardColumn>
+      </CardRow>
+    </Card>
+  );
+}
+```
+
+
 ### With String as Child
 
 **Render**
@@ -943,6 +898,51 @@ description: Carbon Card component props and usage examples.
 ```tsx
 () => {
   return <Card>String passed as child</Card>;
+}
+```
+
+
+### With Width Provided
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Card
+      width="500px"
+      footer={
+        <CardFooter>
+          <CardColumn>
+            <Link icon="link" href="https://carbon.sage.com/">
+              Footer link
+            </Link>
+          </CardColumn>
+        </CardFooter>
+      }
+    >
+      <CardRow>
+        <CardColumn align="left">
+          <Heading title="Heading" divider={false} />
+          <Typography fontSize="16px" m={0}>
+            Additional text
+          </Typography>
+        </CardColumn>
+        <CardColumn align="right">
+          <Icon type="image" />
+        </CardColumn>
+      </CardRow>
+      <CardRow>
+        <CardColumn>
+          <Typography fontSize="16px" m={0} fontWeight="500">
+            Body text
+          </Typography>
+          <Heading title="More text" headingType="h2" divider={false} />
+          <Typography>Even more text</Typography>
+        </CardColumn>
+      </CardRow>
+    </Card>
+  );
 }
 ```
 

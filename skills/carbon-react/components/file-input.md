@@ -50,119 +50,6 @@ description: Carbon FileInput component props and usage examples.
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 
 ## Examples
-### Default
-
-**Render**
-
-```tsx
-() => {
-  return <FileInput label="File input" onChange={() => {}} />;
-}
-```
-
-
-### With Input Hint
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <FileInput label="File input" inputHint="Hint text" onChange={() => {}} />
-  );
-}
-```
-
-
-### Required
-
-**Render**
-
-```tsx
-() => {
-  return <FileInput label="File input" required onChange={() => {}} />;
-}
-```
-
-
-### Increased Height
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <FileInput
-      label="File input"
-      dragAndDropText="You can drag and drop your file here, if that's the way you prefer to interact with the component."
-      minHeight="200px"
-      onChange={() => {}}
-    />
-  );
-}
-```
-
-
-### Responsive Width
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <FileInput
-      label="File input"
-      dragAndDropText="You can drag and drop your file here, if that's the way you prefer to interact with the component."
-      maxWidth="min(800px, 100%)"
-      minWidth="250px"
-      onChange={() => {}}
-    />
-  );
-}
-```
-
-
-### Increased Width and Height
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <FileInput
-      label="File input"
-      dragAndDropText="You can drag and drop your file here, if that's the way you prefer to interact with the component."
-      maxWidth="500px"
-      minHeight="200px"
-      onChange={() => {}}
-    />
-  );
-}
-```
-
-
-### Full Width
-
-**Render**
-
-```tsx
-() => {
-  return <FileInput label="File input" maxWidth="100%" onChange={() => {}} />;
-}
-```
-
-
-### Vertical
-
-**Render**
-
-```tsx
-() => {
-  return <FileInput label="File input" isVertical onChange={() => {}} />;
-}
-```
-
-
 ### Accept
 
 **Render**
@@ -176,6 +63,17 @@ description: Carbon FileInput component props and usage examples.
       onChange={() => {}}
     />
   );
+}
+```
+
+
+### Default
+
+**Render**
+
+```tsx
+() => {
+  return <FileInput label="File input" onChange={() => {}} />;
 }
 ```
 
@@ -203,6 +101,172 @@ description: Carbon FileInput component props and usage examples.
       accept="image/*"
       error={error}
       onChange={onChange}
+    />
+  );
+}
+```
+
+
+### Full Width
+
+**Render**
+
+```tsx
+() => {
+  return <FileInput label="File input" maxWidth="100%" onChange={() => {}} />;
+}
+```
+
+
+### Increased Height
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <FileInput
+      label="File input"
+      dragAndDropText="You can drag and drop your file here, if that's the way you prefer to interact with the component."
+      minHeight="200px"
+      onChange={() => {}}
+    />
+  );
+}
+```
+
+
+### Increased Width and Height
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <FileInput
+      label="File input"
+      dragAndDropText="You can drag and drop your file here, if that's the way you prefer to interact with the component."
+      maxWidth="500px"
+      minHeight="200px"
+      onChange={() => {}}
+    />
+  );
+}
+```
+
+
+### Required
+
+**Render**
+
+```tsx
+() => {
+  return <FileInput label="File input" required onChange={() => {}} />;
+}
+```
+
+
+### Responsive Width
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <FileInput
+      label="File input"
+      dragAndDropText="You can drag and drop your file here, if that's the way you prefer to interact with the component."
+      maxWidth="min(800px, 100%)"
+      minWidth="250px"
+      onChange={() => {}}
+    />
+  );
+}
+```
+
+
+### Upload Status (Alternative)
+
+**Render**
+
+```tsx
+() => {
+  const [uploadStatus, setUploadStatus] = useState<
+    FileUploadStatusProps | undefined
+  >();
+
+  const removeFile = () => setUploadStatus(undefined);
+
+  const onChange = (files: FileList) => {
+    if (!files.length) {
+      removeFile();
+      return;
+    }
+    // as this is a single file input there will only ever be (at most) 1 file
+    const fileUploaded = files[0];
+
+    setUploadStatus({
+      status: "uploading",
+      filename: fileUploaded.name,
+      onAction: () => {
+        // in practice you might need to send a new request to the server here to ensure nothing of the file gets stored
+        removeFile();
+      },
+      progress: 0,
+    });
+
+    // mock progress, and possibility of error, at regular intervals. In practice you could poll an endpoint to monitor progress,
+    // or use a WebSocket connection for the server to give regular updates.
+    const interval = setInterval(() => {
+      const randomNumber = Math.floor(Math.random() * 20);
+      // mock possibility of server error
+      if (randomNumber === 0) {
+        setUploadStatus({
+          status: "error",
+          filename: fileUploaded.name,
+          onAction: () => {
+            // in practice you might need to send a new request to the server here to ensure nothing of the file gets stored
+            removeFile();
+          },
+          message:
+            "something went wrong with uploading the file - please try again",
+        });
+        clearInterval(interval);
+      } else {
+        setUploadStatus((currentStatus) => {
+          if (currentStatus?.status !== "uploading") {
+            return currentStatus;
+          }
+          const currentProgress = currentStatus.progress as number;
+          const newProgress = currentProgress + randomNumber;
+          if (newProgress >= 100) {
+            clearInterval(interval);
+            return {
+              status: "completed",
+              filename: fileUploaded.name,
+              onAction: () => {
+                // in practice you might need to send a new request to the server here to ensure nothing of the file gets stored
+                removeFile();
+              },
+              href: "https://carbon.sage.com/", // real href will be whatever URL the file is stored at
+              message: "File uploaded",
+            };
+          }
+          return {
+            ...currentStatus,
+            progress: newProgress,
+            message: `${newProgress} percent uploaded`,
+          };
+        });
+      }
+    }, 100);
+  };
+
+  return (
+    <FileInput
+      label="Upload status example"
+      onChange={onChange}
+      uploadStatus={uploadStatus}
     />
   );
 }
@@ -331,94 +395,6 @@ description: Carbon FileInput component props and usage examples.
 ```
 
 
-### Upload Status (Alternative)
-
-**Render**
-
-```tsx
-() => {
-  const [uploadStatus, setUploadStatus] = useState<
-    FileUploadStatusProps | undefined
-  >();
-
-  const removeFile = () => setUploadStatus(undefined);
-
-  const onChange = (files: FileList) => {
-    if (!files.length) {
-      removeFile();
-      return;
-    }
-    // as this is a single file input there will only ever be (at most) 1 file
-    const fileUploaded = files[0];
-
-    setUploadStatus({
-      status: "uploading",
-      filename: fileUploaded.name,
-      onAction: () => {
-        // in practice you might need to send a new request to the server here to ensure nothing of the file gets stored
-        removeFile();
-      },
-      progress: 0,
-    });
-
-    // mock progress, and possibility of error, at regular intervals. In practice you could poll an endpoint to monitor progress,
-    // or use a WebSocket connection for the server to give regular updates.
-    const interval = setInterval(() => {
-      const randomNumber = Math.floor(Math.random() * 20);
-      // mock possibility of server error
-      if (randomNumber === 0) {
-        setUploadStatus({
-          status: "error",
-          filename: fileUploaded.name,
-          onAction: () => {
-            // in practice you might need to send a new request to the server here to ensure nothing of the file gets stored
-            removeFile();
-          },
-          message:
-            "something went wrong with uploading the file - please try again",
-        });
-        clearInterval(interval);
-      } else {
-        setUploadStatus((currentStatus) => {
-          if (currentStatus?.status !== "uploading") {
-            return currentStatus;
-          }
-          const currentProgress = currentStatus.progress as number;
-          const newProgress = currentProgress + randomNumber;
-          if (newProgress >= 100) {
-            clearInterval(interval);
-            return {
-              status: "completed",
-              filename: fileUploaded.name,
-              onAction: () => {
-                // in practice you might need to send a new request to the server here to ensure nothing of the file gets stored
-                removeFile();
-              },
-              href: "https://carbon.sage.com/", // real href will be whatever URL the file is stored at
-              message: "File uploaded",
-            };
-          }
-          return {
-            ...currentStatus,
-            progress: newProgress,
-            message: `${newProgress} percent uploaded`,
-          };
-        });
-      }
-    }, 100);
-  };
-
-  return (
-    <FileInput
-      label="Upload status example"
-      onChange={onChange}
-      uploadStatus={uploadStatus}
-    />
-  );
-}
-```
-
-
 ### Upload Status (No Progress)
 
 **Render**
@@ -434,6 +410,30 @@ description: Carbon FileInput component props and usage examples.
       }}
       onChange={() => {}}
     />
+  );
+}
+```
+
+
+### Vertical
+
+**Render**
+
+```tsx
+() => {
+  return <FileInput label="File input" isVertical onChange={() => {}} />;
+}
+```
+
+
+### With Input Hint
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <FileInput label="File input" inputHint="Hint text" onChange={() => {}} />
   );
 }
 ```

@@ -109,71 +109,14 @@ description: Carbon Box component props and usage examples.
 | aria-live | "off" \| "assertive" \| "polite" \| undefined | No |  | Make the container an aria-live region |  |
 
 ## Examples
-### Spacing
+### Box Shadow
 
 **Render**
 
 ```tsx
 () => {
   return (
-    <Box m={3} p={3} bg="secondary">
-      <Box height="100px" bg="primary" />
-    </Box>
-  );
-}
-```
-
-
-### Position
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Box>
-      <Box
-        display="inline-block"
-        size="350px"
-        overflow="auto"
-        scrollVariant="light"
-        mr="20px"
-        bg="secondary"
-      >
-        <Box
-          width="400px"
-          height="80px"
-          m={2}
-          bg="primary"
-          position="sticky"
-          top="0"
-        >
-          <Typography color="white">This box has position sticky</Typography>
-          <Button buttonType="primary" destructive>
-            Button
-          </Button>
-        </Box>
-        <Box size="500px" />
-        <Box
-          width="400px"
-          height="80px"
-          m={2}
-          bg="primary"
-          position="sticky"
-          bottom="0"
-        >
-          <Typography color="white">This box has position sticky</Typography>
-          <Button buttonType="primary" destructive>
-            Button
-          </Button>
-        </Box>
-      </Box>
-      <Box size="500px" position="fixed" right="0" bg="primary">
-        <Box>
-          <Typography color="white">This box has position fixed</Typography>
-        </Box>
-      </Box>
-    </Box>
+    <Box m={3} p={3} height="100px" bg="secondary" boxShadow="boxShadow200" />
   );
 }
 ```
@@ -191,19 +134,6 @@ description: Carbon Box component props and usage examples.
         This is some sample text
       </Box>
     </Box>
-  );
-}
-```
-
-
-### Box Shadow
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Box m={3} p={3} height="100px" bg="secondary" boxShadow="boxShadow200" />
   );
 }
 ```
@@ -239,59 +169,6 @@ description: Carbon Box component props and usage examples.
         <Box width="100px" height="100px" bg="primary" />
         <Box width="100px" height="100px" bg="primary" />
         <Box width="100px" height="100px" bg="primary" />
-      </Box>
-    </Box>
-  );
-}
-```
-
-
-### Grid
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Box>
-      <Box display="grid" gap={1} gridTemplateColumns="auto auto auto">
-        <Box padding={50} bg="primary" gridColumn="1 / 3" gridRow="1" />
-        <Box padding={50} bg="primary" gridColumn="3" gridRow="1 / 3" />
-        <Box padding={50} bg="primary" gridColumn="1" gridRow="2" />
-        <Box padding={50} bg="primary" gridColumn="2" gridRow="2" />
-      </Box>
-      <Box
-        display="grid"
-        gap={1}
-        gridTemplateColumns="repeat(4, [col] auto)"
-        gridTemplateRows="repeat(3, [row] auto)"
-        mt={50}
-      >
-        <Box
-          padding={50}
-          bg="primary"
-          gridColumn="col / span 2"
-          gridRow="row"
-        />
-        <Box
-          padding={50}
-          bg="primary"
-          gridColumn="col 3 / span 2"
-          gridRow="row"
-        />
-        <Box padding={50} bg="primary" gridColumn="col" gridRow="row 2" />
-        <Box
-          padding={50}
-          bg="primary"
-          gridColumn="col 2 / span 3"
-          gridRow="row 2"
-        />
-        <Box
-          padding={50}
-          bg="primary"
-          gridColumn="col / span 4"
-          gridRow="row 3"
-        />
       </Box>
     </Box>
   );
@@ -365,6 +242,59 @@ description: Carbon Box component props and usage examples.
 ```
 
 
+### Grid
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Box>
+      <Box display="grid" gap={1} gridTemplateColumns="auto auto auto">
+        <Box padding={50} bg="primary" gridColumn="1 / 3" gridRow="1" />
+        <Box padding={50} bg="primary" gridColumn="3" gridRow="1 / 3" />
+        <Box padding={50} bg="primary" gridColumn="1" gridRow="2" />
+        <Box padding={50} bg="primary" gridColumn="2" gridRow="2" />
+      </Box>
+      <Box
+        display="grid"
+        gap={1}
+        gridTemplateColumns="repeat(4, [col] auto)"
+        gridTemplateRows="repeat(3, [row] auto)"
+        mt={50}
+      >
+        <Box
+          padding={50}
+          bg="primary"
+          gridColumn="col / span 2"
+          gridRow="row"
+        />
+        <Box
+          padding={50}
+          bg="primary"
+          gridColumn="col 3 / span 2"
+          gridRow="row"
+        />
+        <Box padding={50} bg="primary" gridColumn="col" gridRow="row 2" />
+        <Box
+          padding={50}
+          bg="primary"
+          gridColumn="col 2 / span 3"
+          gridRow="row 2"
+        />
+        <Box
+          padding={50}
+          bg="primary"
+          gridColumn="col / span 4"
+          gridRow="row 3"
+        />
+      </Box>
+    </Box>
+  );
+}
+```
+
+
 ### Layout
 
 **Render**
@@ -424,6 +354,95 @@ description: Carbon Box component props and usage examples.
           WithoutOverflowWrap
         </Box>
       </div>
+    </Box>
+  );
+}
+```
+
+
+### Position
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Box>
+      <Box
+        display="inline-block"
+        size="350px"
+        overflow="auto"
+        scrollVariant="light"
+        mr="20px"
+        bg="secondary"
+      >
+        <Box
+          width="400px"
+          height="80px"
+          m={2}
+          bg="primary"
+          position="sticky"
+          top="0"
+        >
+          <Typography color="white">This box has position sticky</Typography>
+          <Button buttonType="primary" destructive>
+            Button
+          </Button>
+        </Box>
+        <Box size="500px" />
+        <Box
+          width="400px"
+          height="80px"
+          m={2}
+          bg="primary"
+          position="sticky"
+          bottom="0"
+        >
+          <Typography color="white">This box has position sticky</Typography>
+          <Button buttonType="primary" destructive>
+            Button
+          </Button>
+        </Box>
+      </Box>
+      <Box size="500px" position="fixed" right="0" bg="primary">
+        <Box>
+          <Typography color="white">This box has position fixed</Typography>
+        </Box>
+      </Box>
+    </Box>
+  );
+}
+```
+
+
+### Rounded Corners
+
+**Render**
+
+```tsx
+() => {
+  const radiusTokens: BoxProps["borderRadius"][] = [
+    "borderRadius000",
+    "borderRadius010",
+    "borderRadius025",
+    "borderRadius050",
+    "borderRadius100",
+    "borderRadius200",
+    "borderRadius400",
+    "borderRadiusCircle",
+  ];
+
+  return (
+    <Box display="flex" justifyContent="space-between">
+      {radiusTokens.map((token) => (
+        <Box
+          key={`${token}-example`}
+          backgroundColor="primary"
+          height="100px"
+          width="100px"
+          borderRadius={token}
+        />
+      ))}
     </Box>
   );
 }
@@ -503,34 +522,15 @@ description: Carbon Box component props and usage examples.
 ```
 
 
-### Rounded Corners
+### Spacing
 
 **Render**
 
 ```tsx
 () => {
-  const radiusTokens: BoxProps["borderRadius"][] = [
-    "borderRadius000",
-    "borderRadius010",
-    "borderRadius025",
-    "borderRadius050",
-    "borderRadius100",
-    "borderRadius200",
-    "borderRadius400",
-    "borderRadiusCircle",
-  ];
-
   return (
-    <Box display="flex" justifyContent="space-between">
-      {radiusTokens.map((token) => (
-        <Box
-          key={`${token}-example`}
-          backgroundColor="primary"
-          height="100px"
-          width="100px"
-          borderRadius={token}
-        />
-      ))}
+    <Box m={3} p={3} bg="secondary">
+      <Box height="100px" bg="primary" />
     </Box>
   );
 }

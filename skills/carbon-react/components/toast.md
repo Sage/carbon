@@ -33,172 +33,7 @@ description: Carbon Toast component props and usage examples.
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 
 ## Examples
-### Default
-
-**Render**
-
-```tsx
-() => {
-  const [isOpen, setIsOpen] = useState(false);
-  const handleToggle = () => {
-    if (!isOpen) {
-      window.scrollTo(0, 0);
-    }
-    setIsOpen(!isOpen);
-  };
-
-  return (
-    <Box id="wrapper-default">
-      <StyledButton
-        id="button-default"
-        key="button"
-        onClick={handleToggle}
-        isOpen={isOpen}
-      >
-        Toggle - Preview is: {isOpen ? "ON" : "OFF"}
-      </StyledButton>
-      <Toast id="toast-default" variant="success" open={isOpen}>
-        My message
-      </Toast>
-    </Box>
-  );
-}
-```
-
-
-### Info
-
-**Render**
-
-```tsx
-() => {
-  const [isOpen, setIsOpen] = useState(false);
-  const handleToggle = () => {
-    if (!isOpen) {
-      window.scrollTo(0, 0);
-    }
-    setIsOpen(!isOpen);
-  };
-
-  return (
-    <Box id="wrapper-variant-info">
-      <StyledButton
-        id="button-variant-info"
-        key="button"
-        onClick={handleToggle}
-        isOpen={isOpen}
-      >
-        Toggle - Preview is: {isOpen ? "ON" : "OFF"}
-      </StyledButton>
-      <Toast variant="info" id="toast-variant-info" open={isOpen}>
-        My Info
-      </Toast>
-    </Box>
-  );
-}
-```
-
-
-### Neutral
-
-**Render**
-
-```tsx
-() => {
-  const [isOpen, setIsOpen] = useState(false);
-  const handleToggle = () => {
-    if (!isOpen) {
-      window.scrollTo(0, 0);
-    }
-    setIsOpen(!isOpen);
-  };
-
-  return (
-    <Box id="wrapper-variant-neutral">
-      <StyledButton
-        id="button-variant-neutral"
-        key="button"
-        onClick={handleToggle}
-        isOpen={isOpen}
-      >
-        Toggle - Preview is: {isOpen ? "ON" : "OFF"}
-      </StyledButton>
-      <Toast variant="neutral" id="toast-variant-neutral" open={isOpen}>
-        My Neutral Toast
-      </Toast>
-    </Box>
-  );
-}
-```
-
-
-### Error
-
-**Render**
-
-```tsx
-() => {
-  const [isOpen, setIsOpen] = useState(false);
-  const handleToggle = () => {
-    if (!isOpen) {
-      window.scrollTo(0, 0);
-    }
-    setIsOpen(!isOpen);
-  };
-
-  return (
-    <Box id="wrapper-variant-error">
-      <StyledButton
-        id="button-variant-error"
-        key="button"
-        onClick={handleToggle}
-        isOpen={isOpen}
-      >
-        Toggle - Preview is: {isOpen ? "ON" : "OFF"}
-      </StyledButton>
-      <Toast variant="error" id="toast-variant-error" open={isOpen}>
-        My Info
-      </Toast>
-    </Box>
-  );
-}
-```
-
-
-### Warning
-
-**Render**
-
-```tsx
-() => {
-  const [isOpen, setIsOpen] = useState(false);
-  const handleToggle = () => {
-    if (!isOpen) {
-      window.scrollTo(0, 0);
-    }
-    setIsOpen(!isOpen);
-  };
-
-  return (
-    <Box id="wrapper-variant-warning">
-      <StyledButton
-        id="button-variant-warning"
-        key="button"
-        onClick={handleToggle}
-        isOpen={isOpen}
-      >
-        Toggle - Preview is: {isOpen ? "ON" : "OFF"}
-      </StyledButton>
-      <Toast variant="warning" id="toast-variant-warning" open={isOpen}>
-        My Info
-      </Toast>
-    </Box>
-  );
-}
-```
-
-
-### Notice
+### Aligned Center
 
 **Render**
 
@@ -206,9 +41,6 @@ description: Carbon Toast component props and usage examples.
 () => {
   const [isOpen, setIsOpen] = useState(false);
   const onDismissClick = () => {
-    if (!isOpen) {
-      window.scrollTo(0, 0);
-    }
     setIsOpen(!isOpen);
   };
   const handleToggle = () => {
@@ -219,9 +51,9 @@ description: Carbon Toast component props and usage examples.
   };
 
   return (
-    <Box id="wrapper-alternative">
+    <Box id="wrapper-center-aligned">
       <StyledButton
-        id="button-alternative"
+        id="button-center-aligned"
         key="button"
         onClick={handleToggle}
         isOpen={isOpen}
@@ -229,45 +61,13 @@ description: Carbon Toast component props and usage examples.
         Toggle - Preview is: {isOpen ? "ON" : "OFF"}
       </StyledButton>
       <Toast
-        id="toast-alternative"
+        align="center"
+        variant="warning"
+        id="toast-center-aligned"
         open={isOpen}
         onDismiss={onDismissClick}
-        variant="notice"
       >
-        <Icon type="warning" color="--colorsSemanticNeutralYang100" /> My Info
-      </Toast>
-    </Box>
-  );
-}
-```
-
-
-### Notification
-
-**Render**
-
-```tsx
-() => {
-  const [isOpen, setIsOpen] = useState(false);
-  const handleToggle = () => {
-    if (!isOpen) {
-      window.scrollTo(0, 0);
-    }
-    setIsOpen(!isOpen);
-  };
-
-  return (
-    <Box id="wrapper-notification">
-      <StyledButton
-        id="button-notification"
-        key="button"
-        onClick={handleToggle}
-        isOpen={isOpen}
-      >
-        Toggle - Preview is: {isOpen ? "ON" : "OFF"}
-      </StyledButton>
-      <Toast id="toast-notification" variant="notification" open={isOpen}>
-        My message
+        My text
       </Toast>
     </Box>
   );
@@ -306,48 +106,6 @@ description: Carbon Toast component props and usage examples.
         align="left"
         variant="warning"
         id="toast-left-aligned"
-        open={isOpen}
-        onDismiss={onDismissClick}
-      >
-        My text
-      </Toast>
-    </Box>
-  );
-}
-```
-
-
-### Aligned Center
-
-**Render**
-
-```tsx
-() => {
-  const [isOpen, setIsOpen] = useState(false);
-  const onDismissClick = () => {
-    setIsOpen(!isOpen);
-  };
-  const handleToggle = () => {
-    if (!isOpen) {
-      window.scrollTo(0, 0);
-    }
-    setIsOpen(!isOpen);
-  };
-
-  return (
-    <Box id="wrapper-center-aligned">
-      <StyledButton
-        id="button-center-aligned"
-        key="button"
-        onClick={handleToggle}
-        isOpen={isOpen}
-      >
-        Toggle - Preview is: {isOpen ? "ON" : "OFF"}
-      </StyledButton>
-      <Toast
-        align="center"
-        variant="warning"
-        id="toast-center-aligned"
         open={isOpen}
         onDismiss={onDismissClick}
       >
@@ -401,7 +159,7 @@ description: Carbon Toast component props and usage examples.
 ```
 
 
-### Aligned Y Top
+### Aligned Y Bottom
 
 **Render**
 
@@ -419,9 +177,9 @@ description: Carbon Toast component props and usage examples.
   };
 
   return (
-    <Box id="wrapper-top-alignedY">
+    <Box id="wrapper-bottom-alignedY">
       <StyledButton
-        id="button-top-alignedY"
+        id="button-bottom-alignedY"
         key="button"
         onClick={handleToggle}
         isOpen={isOpen}
@@ -429,9 +187,9 @@ description: Carbon Toast component props and usage examples.
         Toggle - Preview is: {isOpen ? "ON" : "OFF"}
       </StyledButton>
       <Toast
-        alignY="top"
+        alignY="bottom"
         variant="warning"
-        id="toast-top-alignedY"
+        id="toast-bottom-alignedY"
         open={isOpen}
         onDismiss={onDismissClick}
       >
@@ -485,7 +243,7 @@ description: Carbon Toast component props and usage examples.
 ```
 
 
-### Aligned Y Bottom
+### Aligned Y Top
 
 **Render**
 
@@ -503,9 +261,9 @@ description: Carbon Toast component props and usage examples.
   };
 
   return (
-    <Box id="wrapper-bottom-alignedY">
+    <Box id="wrapper-top-alignedY">
       <StyledButton
-        id="button-bottom-alignedY"
+        id="button-top-alignedY"
         key="button"
         onClick={handleToggle}
         isOpen={isOpen}
@@ -513,9 +271,9 @@ description: Carbon Toast component props and usage examples.
         Toggle - Preview is: {isOpen ? "ON" : "OFF"}
       </StyledButton>
       <Toast
-        alignY="bottom"
+        alignY="top"
         variant="warning"
-        id="toast-bottom-alignedY"
+        id="toast-top-alignedY"
         open={isOpen}
         onDismiss={onDismissClick}
       >
@@ -565,6 +323,39 @@ description: Carbon Toast component props and usage examples.
         cupiditate doloremque earum, excepturi ipsum libero provident sint?
         Animi aperiam atque consectetur error, facilis minima perferendis
         perspiciatis quas quo, soluta voluptatibus?
+      </Toast>
+    </Box>
+  );
+}
+```
+
+
+### Default
+
+**Render**
+
+```tsx
+() => {
+  const [isOpen, setIsOpen] = useState(false);
+  const handleToggle = () => {
+    if (!isOpen) {
+      window.scrollTo(0, 0);
+    }
+    setIsOpen(!isOpen);
+  };
+
+  return (
+    <Box id="wrapper-default">
+      <StyledButton
+        id="button-default"
+        key="button"
+        onClick={handleToggle}
+        isOpen={isOpen}
+      >
+        Toggle - Preview is: {isOpen ? "ON" : "OFF"}
+      </StyledButton>
+      <Toast id="toast-default" variant="success" open={isOpen}>
+        My message
       </Toast>
     </Box>
   );
@@ -707,6 +498,266 @@ description: Carbon Toast component props and usage examples.
 ```
 
 
+### Error
+
+**Render**
+
+```tsx
+() => {
+  const [isOpen, setIsOpen] = useState(false);
+  const handleToggle = () => {
+    if (!isOpen) {
+      window.scrollTo(0, 0);
+    }
+    setIsOpen(!isOpen);
+  };
+
+  return (
+    <Box id="wrapper-variant-error">
+      <StyledButton
+        id="button-variant-error"
+        key="button"
+        onClick={handleToggle}
+        isOpen={isOpen}
+      >
+        Toggle - Preview is: {isOpen ? "ON" : "OFF"}
+      </StyledButton>
+      <Toast variant="error" id="toast-variant-error" open={isOpen}>
+        My Info
+      </Toast>
+    </Box>
+  );
+}
+```
+
+
+### Info
+
+**Render**
+
+```tsx
+() => {
+  const [isOpen, setIsOpen] = useState(false);
+  const handleToggle = () => {
+    if (!isOpen) {
+      window.scrollTo(0, 0);
+    }
+    setIsOpen(!isOpen);
+  };
+
+  return (
+    <Box id="wrapper-variant-info">
+      <StyledButton
+        id="button-variant-info"
+        key="button"
+        onClick={handleToggle}
+        isOpen={isOpen}
+      >
+        Toggle - Preview is: {isOpen ? "ON" : "OFF"}
+      </StyledButton>
+      <Toast variant="info" id="toast-variant-info" open={isOpen}>
+        My Info
+      </Toast>
+    </Box>
+  );
+}
+```
+
+
+### MDX Example 1
+
+**Args**
+
+```tsx
+## Examples
+
+### Controlled
+```
+
+
+### MDX Example 2
+
+**Args**
+
+```tsx
+It can be used as a uncontrolled component.
+
+### Uncontrolled
+```
+
+
+### Neutral
+
+**Render**
+
+```tsx
+() => {
+  const [isOpen, setIsOpen] = useState(false);
+  const handleToggle = () => {
+    if (!isOpen) {
+      window.scrollTo(0, 0);
+    }
+    setIsOpen(!isOpen);
+  };
+
+  return (
+    <Box id="wrapper-variant-neutral">
+      <StyledButton
+        id="button-variant-neutral"
+        key="button"
+        onClick={handleToggle}
+        isOpen={isOpen}
+      >
+        Toggle - Preview is: {isOpen ? "ON" : "OFF"}
+      </StyledButton>
+      <Toast variant="neutral" id="toast-variant-neutral" open={isOpen}>
+        My Neutral Toast
+      </Toast>
+    </Box>
+  );
+}
+```
+
+
+### Notice
+
+**Render**
+
+```tsx
+() => {
+  const [isOpen, setIsOpen] = useState(false);
+  const onDismissClick = () => {
+    if (!isOpen) {
+      window.scrollTo(0, 0);
+    }
+    setIsOpen(!isOpen);
+  };
+  const handleToggle = () => {
+    if (!isOpen) {
+      window.scrollTo(0, 0);
+    }
+    setIsOpen(!isOpen);
+  };
+
+  return (
+    <Box id="wrapper-alternative">
+      <StyledButton
+        id="button-alternative"
+        key="button"
+        onClick={handleToggle}
+        isOpen={isOpen}
+      >
+        Toggle - Preview is: {isOpen ? "ON" : "OFF"}
+      </StyledButton>
+      <Toast
+        id="toast-alternative"
+        open={isOpen}
+        onDismiss={onDismissClick}
+        variant="notice"
+      >
+        <Icon type="warning" color="--colorsSemanticNeutralYang100" /> My Info
+      </Toast>
+    </Box>
+  );
+}
+```
+
+
+### Notification
+
+**Render**
+
+```tsx
+() => {
+  const [isOpen, setIsOpen] = useState(false);
+  const handleToggle = () => {
+    if (!isOpen) {
+      window.scrollTo(0, 0);
+    }
+    setIsOpen(!isOpen);
+  };
+
+  return (
+    <Box id="wrapper-notification">
+      <StyledButton
+        id="button-notification"
+        key="button"
+        onClick={handleToggle}
+        isOpen={isOpen}
+      >
+        Toggle - Preview is: {isOpen ? "ON" : "OFF"}
+      </StyledButton>
+      <Toast id="toast-notification" variant="notification" open={isOpen}>
+        My message
+      </Toast>
+    </Box>
+  );
+}
+```
+
+
+### Stacked
+
+**Render**
+
+```tsx
+() => {
+  const [isOpenA, setIsOpenA] = useState(false);
+  const [isOpenB, setIsOpenB] = useState(false);
+  const onDismissClickA = () => {
+    setIsOpenA(!isOpenA);
+  };
+  const onDismissClickB = () => {
+    setIsOpenB(!isOpenB);
+  };
+
+  const handleToggle = () => {
+    if (!isOpenA) {
+      window.scrollTo(0, 0);
+    }
+    if (!isOpenA && !isOpenB) {
+      setIsOpenA(true);
+      setIsOpenB(true);
+    } else {
+      setIsOpenA(false);
+      setIsOpenB(false);
+    }
+  };
+
+  return (
+    <Box id="wrapper-stacked">
+      <StyledButton
+        id="button-stacked"
+        key="button"
+        onClick={handleToggle}
+        isOpen={isOpenA || isOpenB}
+      >
+        Toggle - Preview is: {isOpenA || isOpenB ? "ON" : "OFF"}
+      </StyledButton>
+      <Toast
+        id="toast-stacked-a"
+        variant="success"
+        open={isOpenA}
+        onDismiss={onDismissClickA}
+        targetPortalId="stacked"
+      >
+        My Toast A
+      </Toast>
+      <Toast
+        id="toast-stacked-b"
+        variant="warning"
+        open={isOpenB}
+        onDismiss={onDismissClickB}
+        targetPortalId="stacked"
+      >
+        My Toast B
+      </Toast>
+    </Box>
+  );
+}
+```
+
+
 ### Stacked Delayed
 
 **Render**
@@ -780,86 +831,35 @@ description: Carbon Toast component props and usage examples.
 ```
 
 
-### Stacked
+### Warning
 
 **Render**
 
 ```tsx
 () => {
-  const [isOpenA, setIsOpenA] = useState(false);
-  const [isOpenB, setIsOpenB] = useState(false);
-  const onDismissClickA = () => {
-    setIsOpenA(!isOpenA);
-  };
-  const onDismissClickB = () => {
-    setIsOpenB(!isOpenB);
-  };
-
+  const [isOpen, setIsOpen] = useState(false);
   const handleToggle = () => {
-    if (!isOpenA) {
+    if (!isOpen) {
       window.scrollTo(0, 0);
     }
-    if (!isOpenA && !isOpenB) {
-      setIsOpenA(true);
-      setIsOpenB(true);
-    } else {
-      setIsOpenA(false);
-      setIsOpenB(false);
-    }
+    setIsOpen(!isOpen);
   };
 
   return (
-    <Box id="wrapper-stacked">
+    <Box id="wrapper-variant-warning">
       <StyledButton
-        id="button-stacked"
+        id="button-variant-warning"
         key="button"
         onClick={handleToggle}
-        isOpen={isOpenA || isOpenB}
+        isOpen={isOpen}
       >
-        Toggle - Preview is: {isOpenA || isOpenB ? "ON" : "OFF"}
+        Toggle - Preview is: {isOpen ? "ON" : "OFF"}
       </StyledButton>
-      <Toast
-        id="toast-stacked-a"
-        variant="success"
-        open={isOpenA}
-        onDismiss={onDismissClickA}
-        targetPortalId="stacked"
-      >
-        My Toast A
-      </Toast>
-      <Toast
-        id="toast-stacked-b"
-        variant="warning"
-        open={isOpenB}
-        onDismiss={onDismissClickB}
-        targetPortalId="stacked"
-      >
-        My Toast B
+      <Toast variant="warning" id="toast-variant-warning" open={isOpen}>
+        My Info
       </Toast>
     </Box>
   );
 }
-```
-
-
-### MDX Example 1
-
-**Args**
-
-```tsx
-## Examples
-
-### Controlled
-```
-
-
-### MDX Example 2
-
-**Args**
-
-```tsx
-It can be used as a uncontrolled component.
-
-### Uncontrolled
 ```
 

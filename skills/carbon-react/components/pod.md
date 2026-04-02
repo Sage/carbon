@@ -42,7 +42,7 @@ description: Carbon Pod component props and usage examples.
 | onDelete | ((ev: React.MouseEvent<HTMLElement> \| React.KeyboardEvent<HTMLElement>) => void) \| undefined | No |  | Supplies a delete action to the pod |  |
 | onEdit | ((ev: React.MouseEvent<HTMLElement> \| React.KeyboardEvent<HTMLElement>) => void) \| undefined | No |  | Supplies an edit action to the pod |  |
 | onUndo | ((ev: React.MouseEvent<HTMLElement> \| React.KeyboardEvent<HTMLElement>) => void) \| undefined | No |  | Supplies an undo action to the pod in soft delete state. |  |
-| size | "small" \| "medium" \| "large" \| "extra-small" \| "extra-large" \| undefined | No |  | Determines the padding around the pod |  |
+| size | "large" \| "small" \| "medium" \| "extra-small" \| "extra-large" \| undefined | No |  | Determines the padding around the pod |  |
 | softDelete | boolean \| undefined | No |  | Sets soft boolean delete state |  |
 | subtitle | React.ReactNode | No |  | Optional subtitle for the pod |  |
 | title | React.ReactNode | No |  | Title for the pod |  |
@@ -52,6 +52,42 @@ description: Carbon Pod component props and usage examples.
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 
 ## Examples
+### Address Example
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Pod internalEditButton variant="tertiary">
+      <Box>
+        <Typography variant="h4" fontWeight="500">
+          Unit 1
+        </Typography>
+        <Typography m={0}>South Nelson Industrial Estate</Typography>
+        <Typography m={0}>Cramlington</Typography>
+        <Typography m={0}>NE23 1WF</Typography>
+        <Typography m={0}>United Kingdom</Typography>
+      </Box>
+      <Button buttonType="tertiary" size="small" mt={1} px={0}>
+        Select a different address
+      </Button>
+      <Box position="absolute" right="8px" top="8px">
+        <Button
+          buttonType="tertiary"
+          size="small"
+          iconType="edit"
+          iconPosition="after"
+        >
+          Edit
+        </Button>
+      </Box>
+    </Pod>
+  );
+}
+```
+
+
 ### Default
 
 **Render**
@@ -59,39 +95,6 @@ description: Carbon Pod component props and usage examples.
 ```tsx
 () => {
   return <Pod title="Title">Content</Pod>;
-}
-```
-
-
-### With Title and Subtitle Node
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Pod
-      title={<Typography variant="h1">Title</Typography>}
-      subtitle={<Typography variant="h2">Subtitle</Typography>}
-    >
-      Content
-    </Pod>
-  );
-}
-```
-
-
-### With Custom Height
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Pod title="Title" subtitle="Subtitle" footer="Footer" height={350}>
-      Content
-    </Pod>
-  );
 }
 ```
 
@@ -155,44 +158,35 @@ description: Carbon Pod component props and usage examples.
 ```
 
 
-### With Subtitle and Footer
+### Soft Delete State
 
 **Render**
 
 ```tsx
 () => {
   return (
-    <Pod title="Title" subtitle="Subtitle" footer="Footer">
-      Content
+    <Pod
+      title="Title"
+      subtitle="Subtitle"
+      footer="Footer"
+      onUndo={() => {}}
+      softDelete
+    >
+      Soft delete state
     </Pod>
   );
 }
 ```
 
 
-### Without Border
+### With Custom Height
 
 **Render**
 
 ```tsx
 () => {
   return (
-    <Pod title="Title" subtitle="Subtitle" footer="Footer" border={false}>
-      Content
-    </Pod>
-  );
-}
-```
-
-
-### With Edit Button
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Pod title="Title" subtitle="Subtitle" footer="Footer" onEdit={() => {}}>
+    <Pod title="Title" subtitle="Subtitle" footer="Footer" height={350}>
       Content
     </Pod>
   );
@@ -217,128 +211,6 @@ description: Carbon Pod component props and usage examples.
     >
       Content
     </Pod>
-  );
-}
-```
-
-
-### Soft Delete State
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Pod
-      title="Title"
-      subtitle="Subtitle"
-      footer="Footer"
-      onUndo={() => {}}
-      softDelete
-    >
-      Soft delete state
-    </Pod>
-  );
-}
-```
-
-
-### With Display Edit Button On Hover
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Pod
-      title="Title"
-      subtitle="Subtitle"
-      footer="Footer"
-      onEdit={() => {}}
-      displayEditButtonOnHover
-    >
-      Content
-    </Pod>
-  );
-}
-```
-
-
-### With Edit Content Full Width
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Pod
-      title="Title"
-      subtitle="Subtitle"
-      footer="Footer"
-      onEdit={() => {}}
-      onDelete={() => {}}
-      editContentFullWidth
-    >
-      Content
-    </Pod>
-  );
-}
-```
-
-
-### With Internal Edit Button
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Pod
-      title="Title"
-      subtitle="Subtitle"
-      footer="Footer"
-      internalEditButton
-      onEdit={() => {}}
-      onDelete={() => {}}
-    >
-      Content
-    </Pod>
-  );
-}
-```
-
-
-### With Different Variants
-
-**Render**
-
-```tsx
-() => {
-  const variants = [
-    "primary",
-    "secondary",
-    "tertiary",
-    "tile",
-    "transparent",
-  ] as const;
-
-  return (
-    <Box>
-      {variants.map((variant) => (
-        <Pod
-          key={variant}
-          title="Title"
-          subtitle="Subtitle"
-          footer="Footer"
-          onEdit={() => {}}
-          onDelete={() => {}}
-          variant={variant}
-          mb={3}
-        >
-          {variant}
-        </Pod>
-      ))}
-    </Box>
   );
 }
 ```
@@ -419,36 +291,164 @@ description: Carbon Pod component props and usage examples.
 ```
 
 
-### Address Example
+### With Different Variants
+
+**Render**
+
+```tsx
+() => {
+  const variants = [
+    "primary",
+    "secondary",
+    "tertiary",
+    "tile",
+    "transparent",
+  ] as const;
+
+  return (
+    <Box>
+      {variants.map((variant) => (
+        <Pod
+          key={variant}
+          title="Title"
+          subtitle="Subtitle"
+          footer="Footer"
+          onEdit={() => {}}
+          onDelete={() => {}}
+          variant={variant}
+          mb={3}
+        >
+          {variant}
+        </Pod>
+      ))}
+    </Box>
+  );
+}
+```
+
+
+### With Display Edit Button On Hover
 
 **Render**
 
 ```tsx
 () => {
   return (
-    <Pod internalEditButton variant="tertiary">
-      <Box>
-        <Typography variant="h4" fontWeight="500">
-          Unit 1
-        </Typography>
-        <Typography m={0}>South Nelson Industrial Estate</Typography>
-        <Typography m={0}>Cramlington</Typography>
-        <Typography m={0}>NE23 1WF</Typography>
-        <Typography m={0}>United Kingdom</Typography>
-      </Box>
-      <Button buttonType="tertiary" size="small" mt={1} px={0}>
-        Select a different address
-      </Button>
-      <Box position="absolute" right="8px" top="8px">
-        <Button
-          buttonType="tertiary"
-          size="small"
-          iconType="edit"
-          iconPosition="after"
-        >
-          Edit
-        </Button>
-      </Box>
+    <Pod
+      title="Title"
+      subtitle="Subtitle"
+      footer="Footer"
+      onEdit={() => {}}
+      displayEditButtonOnHover
+    >
+      Content
+    </Pod>
+  );
+}
+```
+
+
+### With Edit Button
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Pod title="Title" subtitle="Subtitle" footer="Footer" onEdit={() => {}}>
+      Content
+    </Pod>
+  );
+}
+```
+
+
+### With Edit Content Full Width
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Pod
+      title="Title"
+      subtitle="Subtitle"
+      footer="Footer"
+      onEdit={() => {}}
+      onDelete={() => {}}
+      editContentFullWidth
+    >
+      Content
+    </Pod>
+  );
+}
+```
+
+
+### With Internal Edit Button
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Pod
+      title="Title"
+      subtitle="Subtitle"
+      footer="Footer"
+      internalEditButton
+      onEdit={() => {}}
+      onDelete={() => {}}
+    >
+      Content
+    </Pod>
+  );
+}
+```
+
+
+### With Subtitle and Footer
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Pod title="Title" subtitle="Subtitle" footer="Footer">
+      Content
+    </Pod>
+  );
+}
+```
+
+
+### With Title and Subtitle Node
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Pod
+      title={<Typography variant="h1">Title</Typography>}
+      subtitle={<Typography variant="h2">Subtitle</Typography>}
+    >
+      Content
+    </Pod>
+  );
+}
+```
+
+
+### Without Border
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Pod title="Title" subtitle="Subtitle" footer="Footer" border={false}>
+      Content
     </Pod>
   );
 }

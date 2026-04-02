@@ -60,6 +60,38 @@ description: Carbon DateRange component props and usage examples.
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 
 ## Examples
+### Allow Empty Value
+
+**Render**
+
+```tsx
+() => {
+  const [state, setState] = useState(["", ""]);
+  const handleChange = (ev: DateRangeChangeEvent) => {
+    const newValue = [
+      ev.target.value[0].formattedValue,
+      ev.target.value[1].formattedValue,
+    ];
+    setState(newValue);
+  };
+  return (
+    <DateRange
+      startLabel="Start"
+      endLabel="End"
+      value={state}
+      startDateProps={{
+        allowEmptyValue: true,
+      }}
+      endDateProps={{
+        allowEmptyValue: true,
+      }}
+      onChange={handleChange}
+    />
+  );
+}
+```
+
+
 ### Default
 
 **Render**
@@ -113,45 +145,23 @@ description: Carbon DateRange component props and usage examples.
 ```
 
 
-### Allow Empty Value
+### Locale Format Override Example Implementation
 
-**Render**
+**Args**
 
 ```tsx
-() => {
-  const [state, setState] = useState(["", ""]);
-  const handleChange = (ev: DateRangeChangeEvent) => {
-    const newValue = [
-      ev.target.value[0].formattedValue,
-      ev.target.value[1].formattedValue,
-    ];
-    setState(newValue);
-  };
-  return (
-    <DateRange
-      startLabel="Start"
-      endLabel="End"
-      value={state}
-      startDateProps={{
-        allowEmptyValue: true,
-      }}
-      endDateProps={{
-        allowEmptyValue: true,
-      }}
-      onChange={handleChange}
-    />
-  );
+{
+  dateFormatOverride: "d-M-yyyy",
 }
 ```
 
-
-### With Disabled Dates
-
 **Render**
 
 ```tsx
-() => {
-  const [state, setState] = useState(["2019-03-17", "2019-04-17"]);
+({
+  ...args
+}) => {
+  const [state, setState] = useState(["2016-10-01", "2016-10-30"]);
   const handleChange = (ev: DateRangeChangeEvent) => {
     const newValue = [
       ev.target.value[0].formattedValue,
@@ -160,31 +170,29 @@ description: Carbon DateRange component props and usage examples.
     setState(newValue);
   };
 
-  const isWeekend = (day: Date) => [0, 6].includes(day.getDay());
-
   return (
-    <DateRange
-      startLabel="Start"
-      endLabel="End"
-      value={state}
-      startDateProps={{
-        pickerProps: {
-          disabled: [
-            isWeekend,
-            {
-              from: new Date(2019, 3, 1),
-              to: new Date(2019, 3, 15),
+    <div>
+      <I18nProvider
+        locale={{
+          locale: () => "de-DE",
+          date: {
+            dateFnsLocale: () => de,
+            ariaLabels: {
+              previousMonthButton: () => "Vorheriger Monat",
+              nextMonthButton: () => "Nächster Monat",
             },
-            { before: new Date(2019, 2, 15) },
-            { after: new Date(2019, 4, 15) },
-          ],
-        },
-      }}
-      endDateProps={{
-        minDate: "2019-04-15",
-      }}
-      onChange={handleChange}
-    />
+            dateFormatOverride: args.dateFormatOverride || "dd-MM-yyyy",
+          },
+        }}
+      >
+        <DateRange
+          startLabel="Start"
+          endLabel="End"
+          value={state}
+          onChange={handleChange}
+        />
+      </I18nProvider>
+    </div>
   );
 }
 ```
@@ -258,23 +266,13 @@ description: Carbon DateRange component props and usage examples.
 ```
 
 
-### Locale Format Override Example Implementation
-
-**Args**
-
-```tsx
-{
-  dateFormatOverride: "d-M-yyyy",
-}
-```
+### With Disabled Dates
 
 **Render**
 
 ```tsx
-({
-  ...args
-}) => {
-  const [state, setState] = useState(["2016-10-01", "2016-10-30"]);
+() => {
+  const [state, setState] = useState(["2019-03-17", "2019-04-17"]);
   const handleChange = (ev: DateRangeChangeEvent) => {
     const newValue = [
       ev.target.value[0].formattedValue,
@@ -283,29 +281,31 @@ description: Carbon DateRange component props and usage examples.
     setState(newValue);
   };
 
+  const isWeekend = (day: Date) => [0, 6].includes(day.getDay());
+
   return (
-    <div>
-      <I18nProvider
-        locale={{
-          locale: () => "de-DE",
-          date: {
-            dateFnsLocale: () => de,
-            ariaLabels: {
-              previousMonthButton: () => "Vorheriger Monat",
-              nextMonthButton: () => "Nächster Monat",
+    <DateRange
+      startLabel="Start"
+      endLabel="End"
+      value={state}
+      startDateProps={{
+        pickerProps: {
+          disabled: [
+            isWeekend,
+            {
+              from: new Date(2019, 3, 1),
+              to: new Date(2019, 3, 15),
             },
-            dateFormatOverride: args.dateFormatOverride || "dd-MM-yyyy",
-          },
-        }}
-      >
-        <DateRange
-          startLabel="Start"
-          endLabel="End"
-          value={state}
-          onChange={handleChange}
-        />
-      </I18nProvider>
-    </div>
+            { before: new Date(2019, 2, 15) },
+            { after: new Date(2019, 4, 15) },
+          ],
+        },
+      }}
+      endDateProps={{
+        minDate: "2019-04-15",
+      }}
+      onChange={handleChange}
+    />
   );
 }
 ```

@@ -64,7 +64,7 @@ description: Carbon List component props and usage examples.
 | textOverflow | string \| undefined | No |  | Override the text-overflow |  |
 | textTransform | string \| undefined | No |  | Override the variant text-transform |  |
 | truncate | boolean \| undefined | No |  | Apply truncation |  |
-| variant | "p" \| "small" \| "sub" \| "b" \| "big" \| "em" \| "h1" \| "h2" \| "h3" \| "h4" \| "h5" \| "ol" \| "span" \| "strong" \| "sup" \| "ul" \| "h1-large" \| "segment-header" \| "segment-header-small" \| "segment-subheader" \| "segment-subheader-alt" \| undefined | No |  | The visual style to apply to the component | "p" |
+| variant | "small" \| "p" \| "sub" \| "b" \| "big" \| "em" \| "h1" \| "h2" \| "h3" \| "h4" \| "h5" \| "ol" \| "span" \| "strong" \| "sup" \| "ul" \| "h1-large" \| "segment-header" \| "segment-header-small" \| "segment-subheader" \| "segment-subheader-alt" \| undefined | No |  | The visual style to apply to the component | "p" |
 | whiteSpace | string \| undefined | No |  | Override the white-space |  |
 | wordBreak | string \| undefined | No |  | Override the word-break |  |
 | wordWrap | string \| undefined | No |  | Override the word-wrap |  |

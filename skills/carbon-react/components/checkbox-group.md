@@ -79,40 +79,6 @@ description: Carbon CheckboxGroup component props and usage examples.
 ```
 
 
-### WithLegendHelp
-
-**Args**
-
-```tsx
-{
-    legend: "What fruits do you have?",
-    legendHelp: "Legend Help",
-  }
-```
-
-**Render**
-
-```tsx
-(args) => (
-    <CarbonProvider validationRedesignOptIn>
-      <ControlledCheckboxGroup {...args} />
-    </CarbonProvider>
-  )
-```
-
-
-### RequiredGroup
-
-**Args**
-
-```tsx
-{
-    ...Default.args,
-    required: true,
-  }
-```
-
-
 ### Inline
 
 **Args**
@@ -148,5 +114,39 @@ description: Carbon CheckboxGroup component props and usage examples.
     legendAlign: "left",
     legendSpacing: 2,
   }
+```
+
+
+### RequiredGroup
+
+**Args**
+
+```tsx
+{
+    ...Default.args,
+    required: true,
+  }
+```
+
+
+### WithLegendHelp
+
+**Args**
+
+```tsx
+{
+    legend: "What fruits do you have?",
+    legendHelp: "Legend Help",
+  }
+```
+
+**Render**
+
+```tsx
+(args) => (
+    <CarbonProvider validationRedesignOptIn>
+      <ControlledCheckboxGroup {...args} />
+    </CarbonProvider>
+  )
 ```
 
