@@ -11,6 +11,7 @@ const meta: Meta<typeof Link> = {
   component: Link,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
+    chromatic: { disableSnapshot: true },
   },
 };
 
@@ -32,7 +33,6 @@ export const WithUnderlineOnlyOnHover: Story = {
     children: "This is an anchor link with an underline applied on hover",
     underline: "hover",
   },
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithNoUnderline: Story = {
@@ -109,7 +109,6 @@ export const AsSkipLink: Story = () => {
   );
 };
 AsSkipLink.storyName = "As Skip Link";
-AsSkipLink.parameters = { chromatic: { disableSnapshot: true } };
 
 export const LinkSize: Story = {
   render: (args) => (
@@ -220,4 +219,3 @@ export const WithOnClick: Story = () => {
   );
 };
 WithOnClick.storyName = "With On Click";
-WithOnClick.parameters = { chromatic: { disableSnapshot: true } };
