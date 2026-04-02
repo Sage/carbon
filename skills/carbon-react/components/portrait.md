@@ -47,162 +47,12 @@ description: Carbon Portrait component props and usage examples.
 | tooltipIsVisible | boolean \| undefined | No |  | [Legacy] Whether to to show the Tooltip |  |
 | tooltipMessage | React.ReactNode | No |  | [Legacy] The message to be displayed within the tooltip |  |
 | tooltipPosition | "left" \| "right" \| "bottom" \| "top" \| undefined | No |  | [Legacy] Sets position of the tooltip |  |
-| tooltipSize | "medium" \| "large" \| undefined | No |  | [Legacy] Defines the size of the tooltip content |  |
+| tooltipSize | "large" \| "medium" \| undefined | No |  | [Legacy] Defines the size of the tooltip content |  |
 | tooltipType | string \| undefined | No |  | [Legacy] Defines the message type |  |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 
 ## Examples
-### Default
-
-**Render**
-
-```tsx
-() => {
-  return <Portrait />;
-}
-```
-
-
-### Initials
-
-**Render**
-
-```tsx
-() => {
-  return <Portrait initials="MK" />;
-}
-```
-
-
-### Src
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Portrait src="https://avataaars.io/?avatarStyle=Transparent&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light" />
-  );
-}
-```
-
-
-### Icon Type
-
-**Render**
-
-```tsx
-() => {
-  return <Portrait iconType="image" />;
-}
-```
-
-
-### With Tooltip
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Box margin={8}>
-      <Portrait
-        tooltipMessage="Rebecca Smith"
-        tooltipPosition="bottom"
-        tooltipBgColor="rebeccapurple"
-        src="https://avataaars.io/?avatarStyle=Transparent&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light"
-      />
-    </Box>
-  );
-}
-```
-
-
-### Sizes
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Box display="flex" flexDirection="column">
-      <Box display="flex" alignItems="center">
-        {(["XS", "S", "M", "ML", "L", "XL", "XXL"] as const).map((size) => (
-          <Portrait key={size} size={size} />
-        ))}
-      </Box>
-      <Box display="flex" alignItems="center" mt={2}>
-        {(["XS", "S", "M", "ML", "L", "XL", "XXL"] as const).map((size) => (
-          <Portrait key={size} size={size} initials="MK" />
-        ))}
-      </Box>
-      <Box display="flex" alignItems="center" mt={2}>
-        {(["XS", "S", "M", "ML", "L", "XL", "XXL"] as const).map((size) => (
-          <Portrait
-            key={size}
-            size={size}
-            src="https://avataaars.io/?avatarStyle=Transparent&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light"
-          />
-        ))}
-      </Box>
-    </Box>
-  );
-}
-```
-
-
-### Shapes
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <>
-      {(["circle", "square"] as const).map((shape) => (
-        <Portrait key={shape} shape={shape} />
-      ))}
-    </>
-  );
-}
-```
-
-
-### Dark Background
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <>
-      <Portrait darkBackground />
-      <Portrait initials="MK" darkBackground />
-    </>
-  );
-}
-```
-
-
-### With Margin
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Box display="flex" alignItems="baseline">
-      <Portrait m={3} />
-      <Portrait darkBackground m={2} />
-      <Portrait shape="circle" m="25px" />
-      <Portrait size="L" m="30px" />
-    </Box>
-  );
-}
-```
-
-
 ### Custom Color
 
 **Render**
@@ -347,6 +197,156 @@ description: Carbon Portrait component props and usage examples.
         />
       </Box>
     </>
+  );
+}
+```
+
+
+### Dark Background
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <>
+      <Portrait darkBackground />
+      <Portrait initials="MK" darkBackground />
+    </>
+  );
+}
+```
+
+
+### Default
+
+**Render**
+
+```tsx
+() => {
+  return <Portrait />;
+}
+```
+
+
+### Icon Type
+
+**Render**
+
+```tsx
+() => {
+  return <Portrait iconType="image" />;
+}
+```
+
+
+### Initials
+
+**Render**
+
+```tsx
+() => {
+  return <Portrait initials="MK" />;
+}
+```
+
+
+### Shapes
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <>
+      {(["circle", "square"] as const).map((shape) => (
+        <Portrait key={shape} shape={shape} />
+      ))}
+    </>
+  );
+}
+```
+
+
+### Sizes
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Box display="flex" flexDirection="column">
+      <Box display="flex" alignItems="center">
+        {(["XS", "S", "M", "ML", "L", "XL", "XXL"] as const).map((size) => (
+          <Portrait key={size} size={size} />
+        ))}
+      </Box>
+      <Box display="flex" alignItems="center" mt={2}>
+        {(["XS", "S", "M", "ML", "L", "XL", "XXL"] as const).map((size) => (
+          <Portrait key={size} size={size} initials="MK" />
+        ))}
+      </Box>
+      <Box display="flex" alignItems="center" mt={2}>
+        {(["XS", "S", "M", "ML", "L", "XL", "XXL"] as const).map((size) => (
+          <Portrait
+            key={size}
+            size={size}
+            src="https://avataaars.io/?avatarStyle=Transparent&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light"
+          />
+        ))}
+      </Box>
+    </Box>
+  );
+}
+```
+
+
+### Src
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Portrait src="https://avataaars.io/?avatarStyle=Transparent&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light" />
+  );
+}
+```
+
+
+### With Margin
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Box display="flex" alignItems="baseline">
+      <Portrait m={3} />
+      <Portrait darkBackground m={2} />
+      <Portrait shape="circle" m="25px" />
+      <Portrait size="L" m="30px" />
+    </Box>
+  );
+}
+```
+
+
+### With Tooltip
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Box margin={8}>
+      <Portrait
+        tooltipMessage="Rebecca Smith"
+        tooltipPosition="bottom"
+        tooltipBgColor="rebeccapurple"
+        src="https://avataaars.io/?avatarStyle=Transparent&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light"
+      />
+    </Box>
   );
 }
 ```

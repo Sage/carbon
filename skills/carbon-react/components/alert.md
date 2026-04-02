@@ -42,7 +42,7 @@ description: Carbon Alert component props and usage examples.
 | restoreFocusOnClose | boolean \| undefined | No |  |  |  | Enables the automatic restoration of focus to the element that invoked the modal when the modal is closed. |  |
 | role | string \| undefined | No |  |  |  | The ARIA role to be applied to the Dialog container |  |
 | showCloseIcon | boolean \| undefined | No |  |  |  | Determines if the close icon is shown |  |
-| size | "auto" \| "small" \| "medium" \| "large" \| "extra-small" \| "medium-small" \| "medium-large" \| "extra-large" \| "maximise" \| undefined | No |  |  |  | Size of dialog, default size is 750px | "extra-small" |
+| size | "auto" \| "large" \| "small" \| "medium" \| "extra-small" \| "medium-small" \| "medium-large" \| "extra-large" \| "maximise" \| undefined | No |  |  |  | Size of dialog, default size is 750px | "extra-small" |
 | subtitle | React.ReactNode | No |  |  |  | Subtitle displayed at top of dialog. Its consumers' responsibility to set a suitable accessible name/description for the Dialog if they pass a node to subtitle prop. |  |
 | title | React.ReactNode | No |  |  |  | Title displayed at top of dialog. Its consumers' responsibility to set a suitable accessible name/description for the Dialog if they pass a node to title prop. |  |
 | topModalOverride | boolean \| undefined | No |  |  |  | Manually override the internal modal stacking order to set this as top |  |

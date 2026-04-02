@@ -67,7 +67,7 @@ description: Carbon Textarea component props and usage examples.
 | inputBorderRadius | BorderRadiusType \| BorderRadiusType[] \| undefined | No |  |  |  | Specify a custom border radius for the input. Any valid border-radius design token, or an array of border-radius design tokens. |  |
 | inputHint | string \| undefined | No |  |  |  | A hint string rendered before the input but after the label. Intended to describe the purpose or content of the input. |  |
 | inputIcon | IconType \| undefined | No |  |  |  | <a href="https://brand.sage.com/d/NdbrveWvNheA/foundations#/icons/icons" target="_blank">List of supported icons</a> Icon to display inside of the Textarea |  |
-| inputMode | "email" \| "none" \| "search" \| "text" \| "tel" \| "url" \| "numeric" \| "decimal" \| undefined | No |  |  |  | Hints at the type of data that might be entered by the user while editing the element or its contents |  |
+| inputMode | "none" \| "email" \| "search" \| "text" \| "tel" \| "url" \| "numeric" \| "decimal" \| undefined | No |  |  |  | Hints at the type of data that might be entered by the user while editing the element or its contents |  |
 | inputWidth | number \| undefined | No |  |  |  | [Legacy] Width of an input in percentage. Works only when labelInline is true |  |
 | is | string \| undefined | No |  |  |  | Specify that a standard HTML element should behave like a defined custom built-in element |  |
 | itemID | string \| undefined | No |  |  |  |  |  |
@@ -351,326 +351,10 @@ description: Carbon Textarea component props and usage examples.
 | isOptional | boolean \| undefined | No |  | Yes | If the value of this component is not required, use the `required` prop and set it to false instead. | [Legacy] Flag to configure component as optional. |  |
 | onKeyPress | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUp` or `onKeyDown` instead |  |  |
 | onKeyPressCapture | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUpCapture` or `onKeyDownCapture` instead |  |  |
-| aria-dropeffect | "copy" \| "link" \| "none" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
+| aria-dropeffect | "none" \| "copy" \| "link" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
 | aria-grabbed | Booleanish \| undefined | No |  | Yes | in ARIA 1.1 | Indicates an element's "grabbed" state in a drag-and-drop operation. |  |
 
 ## Examples
-### Default
-
-**Render**
-
-```tsx
-() => {
-  const [state, setState] = useState("");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-  return <Textarea label="Textarea" value={state} onChange={setValue} />;
-}
-```
-
-
-### Disabled
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("");
-  return (
-    <Textarea
-      label="Textarea"
-      disabled
-      value={value}
-      onChange={({ target }) => setValue(target.value)}
-    />
-  );
-}
-```
-
-
-### Label Align
-
-**Render**
-
-```tsx
-() => {
-  const { state, setValue } = useMultiInput();
-
-  return (
-    <>
-      {(["right", "left"] as const).map((alignment) => (
-        <Textarea
-          label="Textarea"
-          labelInline
-          inputWidth={50}
-          key={alignment}
-          labelAlign={alignment}
-          mb={2}
-          name={`ta-${alignment}`}
-          value={state[`ta-${alignment}`] || ""}
-          onChange={setValue}
-        />
-      ))}
-    </>
-  );
-}
-```
-
-
-### Read Only
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("");
-  return (
-    <Textarea
-      label="Textarea"
-      readOnly
-      value={value}
-      onChange={({ target }) => setValue(target.value)}
-    />
-  );
-}
-```
-
-
-### ExpandableStory
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("");
-  return (
-    <Textarea
-      label="Textarea"
-      expandable
-      value={value}
-      onChange={({ target }) => setValue(target.value)}
-    />
-  );
-}
-```
-
-
-### Character Limit
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("");
-  return (
-    <Textarea
-      label="Textarea"
-      inputHint="Hint text (optional)."
-      expandable
-      value={value}
-      onChange={({ target }) => setValue(target.value)}
-      characterLimit={50}
-    />
-  );
-}
-```
-
-
-### Translations Character Limit
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("");
-  return (
-    <I18nProvider
-      locale={{
-        locale: () => "fr-FR",
-        characterCount: {
-          charactersLeft: (count, formattedCount) =>
-            count === 1
-              ? `${formattedCount} caractère restant`
-              : `${formattedCount} caractères restants`,
-          tooManyCharacters: (count, formattedCount) =>
-            count === 1
-              ? `${formattedCount} caractère de trop`
-              : `${formattedCount} caractères de trop`,
-          visuallyHiddenHint: (formattedCount) =>
-            `Vous pouvez saisir jusqu'à ${formattedCount} caractères`,
-        },
-      }}
-    >
-      <Textarea
-        label="Textarea"
-        inputHint="Texte de l'indice (facultatif)."
-        expandable
-        value={value}
-        onChange={({ target }) => setValue(target.value)}
-        characterLimit={50}
-      />
-    </I18nProvider>
-  );
-}
-```
-
-
-### Label Inline
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("");
-  return (
-    <Textarea
-      label="Textarea"
-      labelInline
-      value={value}
-      onChange={({ target }) => setValue(target.value)}
-    />
-  );
-}
-```
-
-
-### Custom Width
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("");
-  return (
-    <Textarea
-      label="Textarea"
-      labelInline
-      labelWidth={50}
-      inputWidth={50}
-      value={value}
-      onChange={({ target }) => setValue(target.value)}
-    />
-  );
-}
-```
-
-
-### Field Help
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("");
-  return (
-    <Textarea
-      label="Textarea"
-      fieldHelp="Help"
-      value={value}
-      onChange={({ target }) => setValue(target.value)}
-    />
-  );
-}
-```
-
-
-### Max Width
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("");
-  return (
-    <Textarea
-      label="Textarea"
-      maxWidth="70%"
-      value={value}
-      onChange={({ target }) => setValue(target.value)}
-    />
-  );
-}
-```
-
-
-### Input Hint
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("");
-  return (
-    <Textarea
-      label="Textarea"
-      inputHint="Hint text (optional)."
-      value={value}
-      onChange={({ target }) => setValue(target.value)}
-    />
-  );
-}
-```
-
-
-### Label Help
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("");
-  return (
-    <Textarea
-      label="Textarea"
-      labelHelp="Help"
-      helpAriaLabel="Help"
-      value={value}
-      onChange={({ target }) => setValue(target.value)}
-    />
-  );
-}
-```
-
-
-### Required
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("");
-  return (
-    <Textarea
-      label="Textarea"
-      required
-      value={value}
-      onChange={({ target }) => setValue(target.value)}
-    />
-  );
-}
-```
-
-
-### isOptional
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("");
-  return (
-    <Textarea
-      label="Textarea"
-      isOptional
-      value={value}
-      onChange={({ target }) => setValue(target.value)}
-    />
-  );
-}
-```
-
-
 ### Border Radius
 
 **Render**
@@ -762,6 +446,322 @@ description: Carbon Textarea component props and usage examples.
         m={2}
       />
     </Box>
+  );
+}
+```
+
+
+### Character Limit
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState("");
+  return (
+    <Textarea
+      label="Textarea"
+      inputHint="Hint text (optional)."
+      expandable
+      value={value}
+      onChange={({ target }) => setValue(target.value)}
+      characterLimit={50}
+    />
+  );
+}
+```
+
+
+### Custom Width
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState("");
+  return (
+    <Textarea
+      label="Textarea"
+      labelInline
+      labelWidth={50}
+      inputWidth={50}
+      value={value}
+      onChange={({ target }) => setValue(target.value)}
+    />
+  );
+}
+```
+
+
+### Default
+
+**Render**
+
+```tsx
+() => {
+  const [state, setState] = useState("");
+  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    setState(target.value);
+  };
+  return <Textarea label="Textarea" value={state} onChange={setValue} />;
+}
+```
+
+
+### Disabled
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState("");
+  return (
+    <Textarea
+      label="Textarea"
+      disabled
+      value={value}
+      onChange={({ target }) => setValue(target.value)}
+    />
+  );
+}
+```
+
+
+### ExpandableStory
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState("");
+  return (
+    <Textarea
+      label="Textarea"
+      expandable
+      value={value}
+      onChange={({ target }) => setValue(target.value)}
+    />
+  );
+}
+```
+
+
+### Field Help
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState("");
+  return (
+    <Textarea
+      label="Textarea"
+      fieldHelp="Help"
+      value={value}
+      onChange={({ target }) => setValue(target.value)}
+    />
+  );
+}
+```
+
+
+### Input Hint
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState("");
+  return (
+    <Textarea
+      label="Textarea"
+      inputHint="Hint text (optional)."
+      value={value}
+      onChange={({ target }) => setValue(target.value)}
+    />
+  );
+}
+```
+
+
+### isOptional
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState("");
+  return (
+    <Textarea
+      label="Textarea"
+      isOptional
+      value={value}
+      onChange={({ target }) => setValue(target.value)}
+    />
+  );
+}
+```
+
+
+### Label Align
+
+**Render**
+
+```tsx
+() => {
+  const { state, setValue } = useMultiInput();
+
+  return (
+    <>
+      {(["right", "left"] as const).map((alignment) => (
+        <Textarea
+          label="Textarea"
+          labelInline
+          inputWidth={50}
+          key={alignment}
+          labelAlign={alignment}
+          mb={2}
+          name={`ta-${alignment}`}
+          value={state[`ta-${alignment}`] || ""}
+          onChange={setValue}
+        />
+      ))}
+    </>
+  );
+}
+```
+
+
+### Label Help
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState("");
+  return (
+    <Textarea
+      label="Textarea"
+      labelHelp="Help"
+      helpAriaLabel="Help"
+      value={value}
+      onChange={({ target }) => setValue(target.value)}
+    />
+  );
+}
+```
+
+
+### Label Inline
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState("");
+  return (
+    <Textarea
+      label="Textarea"
+      labelInline
+      value={value}
+      onChange={({ target }) => setValue(target.value)}
+    />
+  );
+}
+```
+
+
+### Max Width
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState("");
+  return (
+    <Textarea
+      label="Textarea"
+      maxWidth="70%"
+      value={value}
+      onChange={({ target }) => setValue(target.value)}
+    />
+  );
+}
+```
+
+
+### Read Only
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState("");
+  return (
+    <Textarea
+      label="Textarea"
+      readOnly
+      value={value}
+      onChange={({ target }) => setValue(target.value)}
+    />
+  );
+}
+```
+
+
+### Required
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState("");
+  return (
+    <Textarea
+      label="Textarea"
+      required
+      value={value}
+      onChange={({ target }) => setValue(target.value)}
+    />
+  );
+}
+```
+
+
+### Translations Character Limit
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState("");
+  return (
+    <I18nProvider
+      locale={{
+        locale: () => "fr-FR",
+        characterCount: {
+          charactersLeft: (count, formattedCount) =>
+            count === 1
+              ? `${formattedCount} caractère restant`
+              : `${formattedCount} caractères restants`,
+          tooManyCharacters: (count, formattedCount) =>
+            count === 1
+              ? `${formattedCount} caractère de trop`
+              : `${formattedCount} caractères de trop`,
+          visuallyHiddenHint: (formattedCount) =>
+            `Vous pouvez saisir jusqu'à ${formattedCount} caractères`,
+        },
+      }}
+    >
+      <Textarea
+        label="Textarea"
+        inputHint="Texte de l'indice (facultatif)."
+        expandable
+        value={value}
+        onChange={({ target }) => setValue(target.value)}
+        characterLimit={50}
+      />
+    </I18nProvider>
   );
 }
 ```

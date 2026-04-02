@@ -85,6 +85,39 @@ description: Carbon VerticalDivider component props and usage examples.
 ```
 
 
+### In a Dialog
+
+**Render**
+
+```tsx
+() => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Click Me</Button>
+      <Dialog title="Title" open={isOpen} onCancel={() => setIsOpen(false)}>
+        <Box display="inline-flex">
+          <Square />
+          <VerticalDivider />
+          <Square />
+          <VerticalDivider />
+          <Square />
+          <VerticalDivider />
+          <Square />
+          <VerticalDivider />
+          <Square />
+          <VerticalDivider />
+          <Square />
+          <VerticalDivider />
+          <Square />
+        </Box>
+      </Dialog>
+    </>
+  );
+}
+```
+
+
 ### In a Flex Container
 
 **Render**
@@ -110,6 +143,28 @@ description: Carbon VerticalDivider component props and usage examples.
       <Icon type="chevron_down" />
       <VerticalDivider h={16} />
       <Icon type="edit" />
+    </Box>
+  );
+}
+```
+
+
+### In a Menu
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Box minHeight={120}>
+      <Menu menuType="dark">
+        <MenuItem href="#">Menu Item One</MenuItem>
+        <VerticalDivider height={24} p={1} tint={20} />
+        <MenuItem submenu="Menu Item Three">
+          <MenuItem href="#">Item Submenu One</MenuItem>
+          <MenuItem href="#">Item Submenu Two</MenuItem>
+        </MenuItem>
+      </Menu>
     </Box>
   );
 }
@@ -147,112 +202,37 @@ description: Carbon VerticalDivider component props and usage examples.
 ```
 
 
-### With Custom Spacing Height
+### In a Table
 
 **Render**
 
 ```tsx
 () => {
   return (
-    <Box display="inline-flex">
-      <Box>
-        <Square />
-        <VerticalDivider h="100px" pt={1} pb={1} />
-        <Square />
-      </Box>
-      <VerticalDivider pl={1} pr={1} h={185} />
-      <Box>
-        <Square />
-        <VerticalDivider h="100px" pt={2} pb={2} />
-        <Square />
-      </Box>
-      <VerticalDivider pl={2} pr={2} h={200} />
-      <Box>
-        <Square />
-        <VerticalDivider h="100px" pt={3} pb={3} />
-        <Square />
-      </Box>
-      <VerticalDivider pl={3} pr={3} h={215} />
-      <Box>
-        <Square />
-        <VerticalDivider h="100px" pt={4} pb={4} />
-        <Square />
-      </Box>
-      <VerticalDivider pl={4} pr={4} h={230} />
-      <Box>
-        <Square />
-        <VerticalDivider h="100px" pt={5} pb={5} />
-        <Square />
-      </Box>
-      <VerticalDivider pl={5} pr={5} h={245} />
-      <Box>
-        <Square />
-        <VerticalDivider h="100px" pt={6} pb={6} />
-        <Square />
-      </Box>
-      <VerticalDivider pl={6} pr={6} h={260} />
-      <Box>
-        <Square />
-        <VerticalDivider h="100px" pt={7} pb={7} />
-        <Square />
-      </Box>
-    </Box>
-  );
-}
-```
-
-
-### With Custom Tint
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Box display="inline-flex">
-      <Square />
-      <VerticalDivider tint={20} />
-      <Square />
-      <VerticalDivider tint={75} />
-      <Square />
-      <VerticalDivider tint={80} />
-      <Square />
-      <VerticalDivider tint={90} />
-      <Square />
-    </Box>
-  );
-}
-```
-
-
-### In a Dialog
-
-**Render**
-
-```tsx
-() => {
-  const [isOpen, setIsOpen] = useState(false);
-  return (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Click Me</Button>
-      <Dialog title="Title" open={isOpen} onCancel={() => setIsOpen(false)}>
-        <Box display="inline-flex">
-          <Square />
-          <VerticalDivider />
-          <Square />
-          <VerticalDivider />
-          <Square />
-          <VerticalDivider />
-          <Square />
-          <VerticalDivider />
-          <Square />
-          <VerticalDivider />
-          <Square />
-          <VerticalDivider />
-          <Square />
-        </Box>
-      </Dialog>
-    </>
+    <FlatTable>
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>Dish Name</FlatTableHeader>
+          <FlatTableHeader>Ingredients</FlatTableHeader>
+          <FlatTableHeader>Cooking Time</FlatTableHeader>
+          <FlatTableHeader>Prep Time</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        <FlatTableRow>
+          <FlatTableCell>Pancakes</FlatTableCell>
+          <FlatTableCell>
+            Eggs
+            <VerticalDivider displayInline />
+            Flour
+            <VerticalDivider displayInline />
+            Milk
+          </FlatTableCell>
+          <FlatTableCell>5 minutes</FlatTableCell>
+          <FlatTableCell>5 minutes</FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>
   );
 }
 ```
@@ -356,58 +336,78 @@ description: Carbon VerticalDivider component props and usage examples.
 ```
 
 
-### In a Table
+### With Custom Spacing Height
 
 **Render**
 
 ```tsx
 () => {
   return (
-    <FlatTable>
-      <FlatTableHead>
-        <FlatTableRow>
-          <FlatTableHeader>Dish Name</FlatTableHeader>
-          <FlatTableHeader>Ingredients</FlatTableHeader>
-          <FlatTableHeader>Cooking Time</FlatTableHeader>
-          <FlatTableHeader>Prep Time</FlatTableHeader>
-        </FlatTableRow>
-      </FlatTableHead>
-      <FlatTableBody>
-        <FlatTableRow>
-          <FlatTableCell>Pancakes</FlatTableCell>
-          <FlatTableCell>
-            Eggs
-            <VerticalDivider displayInline />
-            Flour
-            <VerticalDivider displayInline />
-            Milk
-          </FlatTableCell>
-          <FlatTableCell>5 minutes</FlatTableCell>
-          <FlatTableCell>5 minutes</FlatTableCell>
-        </FlatTableRow>
-      </FlatTableBody>
-    </FlatTable>
+    <Box display="inline-flex">
+      <Box>
+        <Square />
+        <VerticalDivider h="100px" pt={1} pb={1} />
+        <Square />
+      </Box>
+      <VerticalDivider pl={1} pr={1} h={185} />
+      <Box>
+        <Square />
+        <VerticalDivider h="100px" pt={2} pb={2} />
+        <Square />
+      </Box>
+      <VerticalDivider pl={2} pr={2} h={200} />
+      <Box>
+        <Square />
+        <VerticalDivider h="100px" pt={3} pb={3} />
+        <Square />
+      </Box>
+      <VerticalDivider pl={3} pr={3} h={215} />
+      <Box>
+        <Square />
+        <VerticalDivider h="100px" pt={4} pb={4} />
+        <Square />
+      </Box>
+      <VerticalDivider pl={4} pr={4} h={230} />
+      <Box>
+        <Square />
+        <VerticalDivider h="100px" pt={5} pb={5} />
+        <Square />
+      </Box>
+      <VerticalDivider pl={5} pr={5} h={245} />
+      <Box>
+        <Square />
+        <VerticalDivider h="100px" pt={6} pb={6} />
+        <Square />
+      </Box>
+      <VerticalDivider pl={6} pr={6} h={260} />
+      <Box>
+        <Square />
+        <VerticalDivider h="100px" pt={7} pb={7} />
+        <Square />
+      </Box>
+    </Box>
   );
 }
 ```
 
 
-### In a Menu
+### With Custom Tint
 
 **Render**
 
 ```tsx
 () => {
   return (
-    <Box minHeight={120}>
-      <Menu menuType="dark">
-        <MenuItem href="#">Menu Item One</MenuItem>
-        <VerticalDivider height={24} p={1} tint={20} />
-        <MenuItem submenu="Menu Item Three">
-          <MenuItem href="#">Item Submenu One</MenuItem>
-          <MenuItem href="#">Item Submenu Two</MenuItem>
-        </MenuItem>
-      </Menu>
+    <Box display="inline-flex">
+      <Square />
+      <VerticalDivider tint={20} />
+      <Square />
+      <VerticalDivider tint={75} />
+      <Square />
+      <VerticalDivider tint={80} />
+      <Square />
+      <VerticalDivider tint={90} />
+      <Square />
     </Box>
   );
 }

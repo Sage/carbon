@@ -16,7 +16,7 @@ description: Carbon Accordion component props and usage examples.
 | Name | Type | Required | Literals | Description | Default |
 | --- | --- | --- | --- | --- | --- |
 | title | React.ReactNode | Yes |  | Sets accordion title |  |
-| borders | "default" \| "none" \| "full" \| undefined | No |  | Toggles left and right borders, set to none when variant is subtle |  |
+| borders | "default" \| "full" \| "none" \| undefined | No |  | Toggles left and right borders, set to none when variant is subtle |  |
 | children | React.ReactNode | No |  | Content of the Accordion component |  |
 | defaultExpanded | boolean \| undefined | No |  | Set the default state of expansion of the Accordion if component is meant to be used as uncontrolled |  |
 | disableContentPadding | boolean \| undefined | No |  | Disable padding for the content |  |
@@ -57,72 +57,15 @@ description: Carbon Accordion component props and usage examples.
 | pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
 | px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
 | py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
-| size | "small" \| "large" \| undefined | No |  | Sets accordion size |  |
+| size | "large" \| "small" \| undefined | No |  | Sets accordion size |  |
 | subTitle | string \| undefined | No |  | Sets accordion sub title |  |
-| variant | "subtle" \| "standard" \| undefined | No |  | Sets accordion variant |  |
+| variant | "standard" \| "subtle" \| undefined | No |  | Sets accordion variant |  |
 | warning | string \| undefined | No |  | A warning message to be displayed in the tooltip |  |
 | width | string \| undefined | No |  | Sets accordion width |  |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 
 ## Examples
-### Default
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Accordion title="Heading">
-      <Box mt={2}>Content</Box>
-      <Box>Content</Box>
-      <Box>Content</Box>
-    </Accordion>
-  );
-}
-```
-
-
-### With Title
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Accordion title="Title">
-      <Box mt={2}>Content</Box>
-      <Box>Content</Box>
-      <Box>Content</Box>
-    </Accordion>
-  );
-}
-```
-
-
-### With Complex Title
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Accordion
-      title={
-        <Typography variant="h4" backgroundColor="blue" color="yellow">
-          Title
-        </Typography>
-      }
-    >
-      <Box mt={2}>Content</Box>
-      <Box>Content</Box>
-      <Box>Content</Box>
-    </Accordion>
-  );
-}
-```
-
-
 ### Content Padding Disabled
 
 **Render**
@@ -142,6 +85,148 @@ description: Carbon Accordion component props and usage examples.
       onChange={toggleAccordion}
     >
       <Box mt={2}>Content</Box>
+      <Box>Content</Box>
+      <Box>Content</Box>
+    </Accordion>
+  );
+}
+```
+
+
+### Custom Width
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Accordion width="500px" title="Heading">
+      <Box mt={2}>Content</Box>
+      <Box>Content</Box>
+      <Box>Content</Box>
+    </Accordion>
+  );
+}
+```
+
+
+### Default
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Accordion title="Heading">
+      <Box mt={2}>Content</Box>
+      <Box>Content</Box>
+      <Box>Content</Box>
+    </Accordion>
+  );
+}
+```
+
+
+### Full Border
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Accordion borders="full" title="Heading">
+      <Box mt={2}>Content</Box>
+      <Box>Content</Box>
+      <Box>Content</Box>
+    </Accordion>
+  );
+}
+```
+
+
+### Grouped
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <AccordionGroup>
+      <Accordion title="First Accordion">
+        <Box p={2}>
+          <Textbox
+            label="Textbox in an Accordion"
+            value=""
+            onChange={() => {}}
+          />
+        </Box>
+      </Accordion>
+      <Accordion title="Second Accordion">
+        <Box p={2}>
+          <Textbox
+            label="Textbox in an Accordion"
+            value=""
+            onChange={() => {}}
+          />
+        </Box>
+      </Accordion>
+      <Accordion title="Third Accordion">
+        <Box p={2}>
+          <Box>Content</Box>
+          <Box>Content</Box>
+          <Box>Content</Box>
+        </Box>
+      </Accordion>
+    </AccordionGroup>
+  );
+}
+```
+
+
+### Left-Aligned Icon
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Accordion iconAlign="left" title="Heading">
+      <Box mt={2}>Content</Box>
+      <Box>Content</Box>
+      <Box>Content</Box>
+    </Accordion>
+  );
+}
+```
+
+
+### MDX Example 1
+
+**Args**
+
+```tsx
+Accordions can be used as a controlled component where the expansion state is controlled externally; in that case, both the `onChange` and `expanded` props are required.
+```
+
+
+### MDX Example 2
+
+**Args**
+
+```tsx
+An Accordion can also be used as an uncontrolled component where the expansion state is controlled internally; to define the initial expansion state, set the `defaultExpanded` prop. The `onChange` prop can be used to hook a callback onto the component for state changes, should it be required.
+```
+
+
+### No Border
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Accordion title="Heading" borders="none">
+      <Box>Content</Box>
       <Box>Content</Box>
       <Box>Content</Box>
     </Accordion>
@@ -184,31 +269,14 @@ description: Carbon Accordion component props and usage examples.
 ```
 
 
-### Full Border
+### Subtle Variant
 
 **Render**
 
 ```tsx
 () => {
   return (
-    <Accordion borders="full" title="Heading">
-      <Box mt={2}>Content</Box>
-      <Box>Content</Box>
-      <Box>Content</Box>
-    </Accordion>
-  );
-}
-```
-
-
-### No Border
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Accordion title="Heading" borders="none">
+    <Accordion title="Heading" variant="subtle">
       <Box>Content</Box>
       <Box>Content</Box>
       <Box>Content</Box>
@@ -218,31 +286,20 @@ description: Carbon Accordion component props and usage examples.
 ```
 
 
-### Left-Aligned Icon
+### With Complex Title
 
 **Render**
 
 ```tsx
 () => {
   return (
-    <Accordion iconAlign="left" title="Heading">
-      <Box mt={2}>Content</Box>
-      <Box>Content</Box>
-      <Box>Content</Box>
-    </Accordion>
-  );
-}
-```
-
-
-### Custom Width
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Accordion width="500px" title="Heading">
+    <Accordion
+      title={
+        <Typography variant="h4" backgroundColor="blue" color="yellow">
+          Title
+        </Typography>
+      }
+    >
       <Box mt={2}>Content</Box>
       <Box>Content</Box>
       <Box>Content</Box>
@@ -322,40 +379,53 @@ description: Carbon Accordion component props and usage examples.
 ```
 
 
-### Grouped
+### With Dynamic Content
+
+**Render**
+
+```tsx
+() => {
+  const [contentCount, setContentCount] = useState(3);
+  const modifyContentCount = (modifier: number) => {
+    if (modifier === 1) {
+      setContentCount(contentCount + 1);
+    }
+    if (modifier === -1 && contentCount > 0) {
+      setContentCount(contentCount - 1);
+    }
+  };
+
+  return (
+    <>
+      <Button onClick={() => modifyContentCount(1)}>Add content</Button>
+      <Button onClick={() => modifyContentCount(-1)} ml={2}>
+        Remove content
+      </Button>
+      <Accordion mt={2} title="Title">
+        {Array.from(Array(contentCount).keys()).map((value) => (
+          <Box key={value} mt={2}>
+            Content
+          </Box>
+        ))}
+      </Accordion>
+    </>
+  );
+}
+```
+
+
+### With Title
 
 **Render**
 
 ```tsx
 () => {
   return (
-    <AccordionGroup>
-      <Accordion title="First Accordion">
-        <Box p={2}>
-          <Textbox
-            label="Textbox in an Accordion"
-            value=""
-            onChange={() => {}}
-          />
-        </Box>
-      </Accordion>
-      <Accordion title="Second Accordion">
-        <Box p={2}>
-          <Textbox
-            label="Textbox in an Accordion"
-            value=""
-            onChange={() => {}}
-          />
-        </Box>
-      </Accordion>
-      <Accordion title="Third Accordion">
-        <Box p={2}>
-          <Box>Content</Box>
-          <Box>Content</Box>
-          <Box>Content</Box>
-        </Box>
-      </Accordion>
-    </AccordionGroup>
+    <Accordion title="Title">
+      <Box mt={2}>Content</Box>
+      <Box>Content</Box>
+      <Box>Content</Box>
+    </Accordion>
   );
 }
 ```
@@ -413,75 +483,5 @@ description: Carbon Accordion component props and usage examples.
     </AccordionGroup>
   );
 }
-```
-
-
-### With Dynamic Content
-
-**Render**
-
-```tsx
-() => {
-  const [contentCount, setContentCount] = useState(3);
-  const modifyContentCount = (modifier: number) => {
-    if (modifier === 1) {
-      setContentCount(contentCount + 1);
-    }
-    if (modifier === -1 && contentCount > 0) {
-      setContentCount(contentCount - 1);
-    }
-  };
-
-  return (
-    <>
-      <Button onClick={() => modifyContentCount(1)}>Add content</Button>
-      <Button onClick={() => modifyContentCount(-1)} ml={2}>
-        Remove content
-      </Button>
-      <Accordion mt={2} title="Title">
-        {Array.from(Array(contentCount).keys()).map((value) => (
-          <Box key={value} mt={2}>
-            Content
-          </Box>
-        ))}
-      </Accordion>
-    </>
-  );
-}
-```
-
-
-### Subtle Variant
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Accordion title="Heading" variant="subtle">
-      <Box>Content</Box>
-      <Box>Content</Box>
-      <Box>Content</Box>
-    </Accordion>
-  );
-}
-```
-
-
-### MDX Example 1
-
-**Args**
-
-```tsx
-Accordions can be used as a controlled component where the expansion state is controlled externally; in that case, both the `onChange` and `expanded` props are required.
-```
-
-
-### MDX Example 2
-
-**Args**
-
-```tsx
-An Accordion can also be used as an uncontrolled component where the expansion state is controlled internally; to define the initial expansion state, set the `defaultExpanded` prop. The `onChange` prop can be used to hook a callback onto the component for state changes, should it be required.
 ```
 

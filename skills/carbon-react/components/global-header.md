@@ -48,71 +48,6 @@ description: Carbon GlobalHeader component props and usage examples.
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 
 ## Examples
-### menu with icon-only buttons
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <GlobalHeader logo={<img height={28} src={carbonLogo} alt="Carbon logo" />}>
-      <Divider h="100%" pt={1} pb={1} pr={0} pl={2} />
-      <Menu menuType="black" flex="1">
-        <MenuItem flex="1" submenu="Product Switcher">
-          <MenuItem href="#">Product A</MenuItem>
-        </MenuItem>
-        <MenuItem href="#" flex="0 0 auto" icon="person">
-          User name
-        </MenuItem>
-        <MenuItem flex="0 0 auto" submenu="Selected role">
-          <MenuItem href="#">Administrator</MenuItem>
-        </MenuItem>
-        <MenuItem ariaLabel="search" icon="search" href="#" />
-        <MenuItem ariaLabel="alert" icon="alert" href="#" />
-        <MenuItem ariaLabel="settings" icon="settings" href="#" />
-        <MenuItem ariaLabel="logout" icon="logout" href="#" />
-      </Menu>
-    </GlobalHeader>
-  );
-}
-```
-
-
-### Default
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <GlobalHeader aria-label="Default global header component">
-      Example content
-    </GlobalHeader>
-  );
-}
-```
-
-
-### With Logo
-
-**Render**
-
-```tsx
-() => {
-  const Logo = () => <img height={28} src={carbonLogo} alt="Carbon logo" />;
-
-  return (
-    <GlobalHeader
-      logo={<Logo />}
-      aria-label="Global header component with logo"
-    >
-      Example content
-    </GlobalHeader>
-  );
-}
-```
-
-
 ### Basic Menu
 
 **Render**
@@ -140,6 +75,113 @@ description: Carbon GlobalHeader component props and usage examples.
         <MenuItem flex="0 0 auto" submenu="Parent Menu 2">
           <MenuItem href="#">Child Item</MenuItem>
         </MenuItem>
+      </Menu>
+    </GlobalHeader>
+  );
+}
+```
+
+
+### Default
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <GlobalHeader aria-label="Default global header component">
+      Example content
+    </GlobalHeader>
+  );
+}
+```
+
+
+### Global + Local Nav Bar Layout
+
+**Render**
+
+```tsx
+() => {
+  const Logo = () => <img height={28} src={carbonLogo} alt="Carbon logo" />;
+
+  return (
+    <>
+      <GlobalHeader
+        logo={<Logo />}
+        aria-label="Global header component with local nav bar"
+      >
+        <Menu menuType="black" flex="1" aria-label="Menu bar">
+          <MenuItem flex="1" submenu="Product Switcher">
+            <MenuItem href="#">Product A</MenuItem>
+          </MenuItem>
+          <MenuItem flex="0 0 auto" submenu="Parent Menu 1">
+            <MenuItem href="#">Child Item 1</MenuItem>
+            <MenuItem href="#">Child Item 2</MenuItem>
+            <MenuItem href="#">Child Item 3</MenuItem>
+          </MenuItem>
+          <MenuItem flex="0 0 auto" submenu="Parent Menu 2">
+            <MenuItem href="#">Child Item</MenuItem>
+          </MenuItem>
+        </Menu>
+      </GlobalHeader>
+      <NavigationBar
+        position="fixed"
+        orientation="top"
+        offset="40px"
+        aria-label="Local nav bar"
+      >
+        <Menu flex="1">
+          <MenuItem href="#" flex="1">
+            Menu Item One
+          </MenuItem>
+          <MenuItem flex="0 0 auto" href="#">
+            Menu Item Two
+          </MenuItem>
+          <MenuItem flex="0 0 auto" submenu="Menu Item Three">
+            <MenuItem href="#">Item Submenu One</MenuItem>
+            <MenuItem href="#">Item Submenu Two</MenuItem>
+            <MenuDivider />
+            <MenuItem icon="settings" href="#">
+              Item Submenu Three
+            </MenuItem>
+            <MenuItem href="#">Item Submenu Four</MenuItem>
+          </MenuItem>
+          <MenuItem flex="0 0 auto" submenu="Menu Item Four">
+            <MenuItem href="#">Item Submenu One</MenuItem>
+            <MenuItem href="#">Item Submenu Two</MenuItem>
+          </MenuItem>
+        </Menu>
+      </NavigationBar>
+    </>
+  );
+}
+```
+
+
+### menu with icon-only buttons
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <GlobalHeader logo={<img height={28} src={carbonLogo} alt="Carbon logo" />}>
+      <Divider h="100%" pt={1} pb={1} pr={0} pl={2} />
+      <Menu menuType="black" flex="1">
+        <MenuItem flex="1" submenu="Product Switcher">
+          <MenuItem href="#">Product A</MenuItem>
+        </MenuItem>
+        <MenuItem href="#" flex="0 0 auto" icon="person">
+          User name
+        </MenuItem>
+        <MenuItem flex="0 0 auto" submenu="Selected role">
+          <MenuItem href="#">Administrator</MenuItem>
+        </MenuItem>
+        <MenuItem ariaLabel="search" icon="search" href="#" />
+        <MenuItem ariaLabel="alert" icon="alert" href="#" />
+        <MenuItem ariaLabel="settings" icon="settings" href="#" />
+        <MenuItem ariaLabel="logout" icon="logout" href="#" />
       </Menu>
     </GlobalHeader>
   );
@@ -220,7 +262,7 @@ description: Carbon GlobalHeader component props and usage examples.
 ```
 
 
-### Global + Local Nav Bar Layout
+### With Logo
 
 **Render**
 
@@ -229,54 +271,12 @@ description: Carbon GlobalHeader component props and usage examples.
   const Logo = () => <img height={28} src={carbonLogo} alt="Carbon logo" />;
 
   return (
-    <>
-      <GlobalHeader
-        logo={<Logo />}
-        aria-label="Global header component with local nav bar"
-      >
-        <Menu menuType="black" flex="1" aria-label="Menu bar">
-          <MenuItem flex="1" submenu="Product Switcher">
-            <MenuItem href="#">Product A</MenuItem>
-          </MenuItem>
-          <MenuItem flex="0 0 auto" submenu="Parent Menu 1">
-            <MenuItem href="#">Child Item 1</MenuItem>
-            <MenuItem href="#">Child Item 2</MenuItem>
-            <MenuItem href="#">Child Item 3</MenuItem>
-          </MenuItem>
-          <MenuItem flex="0 0 auto" submenu="Parent Menu 2">
-            <MenuItem href="#">Child Item</MenuItem>
-          </MenuItem>
-        </Menu>
-      </GlobalHeader>
-      <NavigationBar
-        position="fixed"
-        orientation="top"
-        offset="40px"
-        aria-label="Local nav bar"
-      >
-        <Menu flex="1">
-          <MenuItem href="#" flex="1">
-            Menu Item One
-          </MenuItem>
-          <MenuItem flex="0 0 auto" href="#">
-            Menu Item Two
-          </MenuItem>
-          <MenuItem flex="0 0 auto" submenu="Menu Item Three">
-            <MenuItem href="#">Item Submenu One</MenuItem>
-            <MenuItem href="#">Item Submenu Two</MenuItem>
-            <MenuDivider />
-            <MenuItem icon="settings" href="#">
-              Item Submenu Three
-            </MenuItem>
-            <MenuItem href="#">Item Submenu Four</MenuItem>
-          </MenuItem>
-          <MenuItem flex="0 0 auto" submenu="Menu Item Four">
-            <MenuItem href="#">Item Submenu One</MenuItem>
-            <MenuItem href="#">Item Submenu Two</MenuItem>
-          </MenuItem>
-        </Menu>
-      </NavigationBar>
-    </>
+    <GlobalHeader
+      logo={<Logo />}
+      aria-label="Global header component with logo"
+    >
+      Example content
+    </GlobalHeader>
   );
 }
 ```

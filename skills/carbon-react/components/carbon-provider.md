@@ -20,21 +20,6 @@ description: Carbon CarbonProvider component props and usage examples.
 | validationRedesignOptIn | boolean \| undefined | No |  | Feature flag for opting in to the latest validation designs for components that support it. NOTE - Will eventually be set to `true` by default in the future. | false |
 
 ## Examples
-### Using Latest Sage Theme
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <CarbonProvider theme={sageTheme}>
-      <Button buttonType="primary">Button</Button>
-    </CarbonProvider>
-  );
-}
-```
-
-
 ### MDX Example 1
 
 **Args**
@@ -75,5 +60,20 @@ import { sageTheme } from "carbon-react/lib/style/themes";
 <CarbonProvider validationRedesignOptIn>
   <MyApp />
 </CarbonProvider>
+```
+
+
+### Using Latest Sage Theme
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <CarbonProvider theme={sageTheme}>
+      <Button buttonType="primary">Button</Button>
+    </CarbonProvider>
+  );
+}
 ```
 

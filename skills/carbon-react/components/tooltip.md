@@ -27,14 +27,14 @@ description: Carbon Tooltip component props and usage examples.
 | isPartOfInput | boolean \| undefined | No |  |  |  |
 | isVisible | boolean \| undefined | No |  | Whether to to show the Tooltip |  |
 | position | TooltipPositions \| undefined | No |  | Sets position of the tooltip |  |
-| size | "medium" \| "large" \| undefined | No |  | Defines the size of the tooltip content |  |
+| size | "large" \| "medium" \| undefined | No |  | Defines the size of the tooltip content |  |
 | target | HTMLElement \| undefined | No |  |  |  |
 | type | string \| undefined | No |  | Defines the message type |  |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 
 ## Examples
-### Default
+### Color Overrides
 
 **Render**
 
@@ -50,7 +50,11 @@ description: Carbon Tooltip component props and usage examples.
   Component.displayName = "Example Button";
   return (
     <Box p={60}>
-      <Tooltip message="I am a tooltip!">
+      <Tooltip
+        message="I am a tooltip!"
+        bgColor="lightblue"
+        fontColor="--colorsUtilityYin090"
+      >
         <Component>target</Component>
       </Tooltip>
     </Box>
@@ -90,13 +94,12 @@ description: Carbon Tooltip component props and usage examples.
 ```
 
 
-### Positioning
+### Default
 
 **Render**
 
 ```tsx
 () => {
-  const [position, setPosition] = useState<TooltipPositions>("top");
   const Component = forwardRef<HTMLButtonElement, ButtonProps>(
     ({ children }: ButtonProps, ref) => (
       <Button buttonType="primary" ref={ref}>
@@ -106,19 +109,11 @@ description: Carbon Tooltip component props and usage examples.
   );
   Component.displayName = "Example Button";
   return (
-    <>
-      <Box display="flex">
-        <Button onClick={() => setPosition("top")}>Top Position</Button>
-        <Button onClick={() => setPosition("bottom")}>Bottom Position</Button>
-        <Button onClick={() => setPosition("left")}>Left Position</Button>
-        <Button onClick={() => setPosition("right")}>Right Position</Button>
-      </Box>
-      <Box py={60} pr={60} pl={160}>
-        <Tooltip message="I am a tooltip!" isVisible position={position}>
-          <Component>target</Component>
-        </Tooltip>
-      </Box>
-    </>
+    <Box p={60}>
+      <Tooltip message="I am a tooltip!">
+        <Component>target</Component>
+      </Tooltip>
+    </Box>
   );
 }
 ```
@@ -179,6 +174,40 @@ description: Carbon Tooltip component props and usage examples.
 ```
 
 
+### Positioning
+
+**Render**
+
+```tsx
+() => {
+  const [position, setPosition] = useState<TooltipPositions>("top");
+  const Component = forwardRef<HTMLButtonElement, ButtonProps>(
+    ({ children }: ButtonProps, ref) => (
+      <Button buttonType="primary" ref={ref}>
+        {children}
+      </Button>
+    ),
+  );
+  Component.displayName = "Example Button";
+  return (
+    <>
+      <Box display="flex">
+        <Button onClick={() => setPosition("top")}>Top Position</Button>
+        <Button onClick={() => setPosition("bottom")}>Bottom Position</Button>
+        <Button onClick={() => setPosition("left")}>Left Position</Button>
+        <Button onClick={() => setPosition("right")}>Right Position</Button>
+      </Box>
+      <Box py={60} pr={60} pl={160}>
+        <Tooltip message="I am a tooltip!" isVisible position={position}>
+          <Component>target</Component>
+        </Tooltip>
+      </Box>
+    </>
+  );
+}
+```
+
+
 ### Types
 
 **Render**
@@ -206,35 +235,6 @@ description: Carbon Tooltip component props and usage examples.
         </Tooltip>
       </Box>
     </>
-  );
-}
-```
-
-
-### Color Overrides
-
-**Render**
-
-```tsx
-() => {
-  const Component = forwardRef<HTMLButtonElement, ButtonProps>(
-    ({ children }: ButtonProps, ref) => (
-      <Button buttonType="primary" ref={ref}>
-        {children}
-      </Button>
-    ),
-  );
-  Component.displayName = "Example Button";
-  return (
-    <Box p={60}>
-      <Tooltip
-        message="I am a tooltip!"
-        bgColor="lightblue"
-        fontColor="--colorsUtilityYin090"
-      >
-        <Component>target</Component>
-      </Tooltip>
-    </Box>
   );
 }
 ```

@@ -42,7 +42,7 @@ description: Carbon RadioButtonGroup component props and usage examples.
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
 | onBlur | ((ev: React.FocusEvent<HTMLInputElement>) => void) \| undefined | No |  |  |  | Callback fired when a RadioButton child is blurred. |  |
 | required | boolean \| undefined | No |  |  |  | Flag to configure RadioButtonGroup as mandatory. |  |
-| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | Size of the RadioButtonGroup. | "medium" |
+| size | "large" \| "small" \| "medium" \| undefined | No |  |  |  | Size of the RadioButtonGroup. | "medium" |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | adaptiveLegendBreakpoint | number \| undefined | No |  | Yes | The adaptive legend behaviour is no longer supported on this component. | Breakpoint for adaptive legend (inline labels change to top aligned). Enables the adaptive behaviour when set |  |

@@ -112,7 +112,7 @@ const nextComponentFiles = fg.sync(
     absolute: true,
     ignore: ["**/__internal__/**"]
   }
-);
+).sort();
 
 for (const filePath of nextComponentFiles) {
   const sourceFile = project.addSourceFileAtPathIfExists(filePath);
@@ -197,7 +197,7 @@ for (const candidate of uniqueComponentCandidates) {
       "**/*.mdx",
       "**/__internal__/**",
     ],
-  });
+  }).sort();
 
   for (const filePath of moduleFiles) {
     project.addSourceFileAtPathIfExists(filePath);
@@ -271,7 +271,7 @@ for (const relativePath of docsReferenceFiles) {
 const indexLines = ["# Carbon Component Catalog", "", "## Components", ""];
 
 for (const component of componentData.sort((a, b) =>
-  a.name.localeCompare(b.name),
+  a.name.localeCompare(b.name, "en"),
 )) {
   const stories = storyDataByComponent.get(component.name) ?? [];
   const fileName = `${toKebabCase(component.name)}.md`;
@@ -287,6 +287,12 @@ for (const component of componentData.sort((a, b) =>
 
 const indexContent = indexLines.join("\n");
 wouldWrite.push({ path: path.join(skillsRoot, "index.md"), content: indexContent });
+
+// Normalise all content to LF before writing or comparing, so output is
+// identical regardless of the platform the build runs on.
+for (const entry of wouldWrite) {
+  entry.content = entry.content.replace(/\r\n/g, "\n");
+}
 
 if (checkMode) {
   const { hasDiff, diffSummary } = await checkWouldWrite(wouldWrite, {
@@ -309,6 +315,20 @@ if (checkMode) {
     await fs.mkdir(path.dirname(filePath), { recursive: true });
     await fs.writeFile(filePath, content, "utf8");
   }
+
+  // Normalise line endings on all existing skills markdown files (e.g. SKILL.md, index.md)
+  // so Windows systems don't see spurious git changes due to CRLF vs LF differences.
+  const existingSkillFiles = await fg(["**/*.md"], {
+    cwd: skillsRoot,
+    absolute: true,
+  });
+  for (const filePath of existingSkillFiles) {
+    const raw = await fs.readFile(filePath, "utf8");
+    if (raw.includes("\r\n")) {
+      await fs.writeFile(filePath, raw.replace(/\r\n/g, "\n"), "utf8");
+    }
+  }
+
   // eslint-disable-next-line no-console -- Log summary of generated components and output location
   console.log(
     `Generated ${componentData.length} component skill files in ${path.relative(
@@ -377,9 +397,13 @@ function getModuleDir(modulePath) {
  * @param {import("ts-morph").Project} projectInstance
  * @param {string[]} filePaths
  * @param {string} typeName
+ * @param {string} preferredBasePath
  * @returns {PropsDefinition | null}
  */
-function findTypeDefinitionInFiles(projectInstance, filePaths, typeName) {
+function findTypeDefinitionInFiles(projectInstance, filePaths, typeName, preferredBasePath) {
+  /** @type {Array<{definition: PropsDefinition, filePath: string}>} */
+  const matches = [];
+
   for (const filePath of filePaths) {
     const sourceFile =
       projectInstance.getSourceFile(filePath) ||
@@ -389,14 +413,43 @@ function findTypeDefinitionInFiles(projectInstance, filePaths, typeName) {
     }
     const interfaceMatch = sourceFile.getInterface(typeName);
     if (interfaceMatch) {
-      return { name: interfaceMatch.getName(), node: interfaceMatch };
+      matches.push({ definition: { name: interfaceMatch.getName(), node: interfaceMatch }, filePath });
+      continue;
     }
     const aliasMatch = sourceFile.getTypeAlias(typeName);
     if (aliasMatch) {
-      return { name: aliasMatch.getName(), node: aliasMatch };
+      matches.push({ definition: { name: aliasMatch.getName(), node: aliasMatch }, filePath });
     }
   }
-  return null;
+
+  if (!matches.length) return null;
+  if (matches.length === 1) return matches[0].definition;
+
+  /* When multiple files define the same type name (e.g. TabProps in both tabs/ and tabs/__next__/),
+     prefer the definition whose file path shares the most in common with the component's own module
+     path. This prevents OS file system ordering from determining which definition wins. */
+  const normalizedBase = preferredBasePath.replace(/\\/g, "/");
+  matches.sort((a, b) => {
+    /* Normalise to forward slashes so comparison is consistent across Mac, Windows and Linux */
+    const aNorm = a.filePath.replace(/\\/g, "/");
+    const bNorm = b.filePath.replace(/\\/g, "/");
+    return longestCommonPrefix(normalizedBase, bNorm) - longestCommonPrefix(normalizedBase, aNorm);
+  });
+
+  return matches[0].definition;
+}
+
+/**
+ * Returns the length of the longest common prefix between two strings.
+ * Used to determine which file path is closest to the component's own module path.
+ * @param {string} a
+ * @param {string} b
+ * @returns {number}
+ */
+function longestCommonPrefix(a, b) {
+  let i = 0;
+  while (i < a.length && i < b.length && a[i] === b[i]) i++;
+  return i;
 }
 
 /**
@@ -417,6 +470,7 @@ function resolvePropsDefinition(
     projectInstance,
     moduleFiles,
     propsName,
+    modulePath
   );
   if (directMatch) {
     return directMatch;
@@ -468,6 +522,7 @@ function resolvePropsDefinition(
         projectInstance,
         targetFiles,
         targetName,
+        modulePath
       );
       if (resolvedDefinition) {
         return resolvedDefinition;
@@ -755,11 +810,11 @@ async function extractStoryData(projectInstance, rootDir) {
   const storyFiles = fg.sync(
     ["src/**/*.stories.@(js|jsx|ts|tsx)", "docs/**/*.stories.@(js|jsx|ts|tsx)"],
     { cwd: rootDir, absolute: true },
-  );
+  ).sort();
   const mdxFiles = fg.sync(["src/**/*.mdx", "docs/**/*.mdx"], {
     cwd: rootDir,
     absolute: true,
-  });
+  }).sort();
 
   /** @type {Map<string, StoryEntry[]>} */
   const storyMap = new Map();
@@ -791,7 +846,8 @@ async function extractStoryData(projectInstance, rootDir) {
   }
 
   for (const filePath of mdxFiles) {
-    if (!filePath.includes(`${path.sep}src${path.sep}components${path.sep}`)) {
+    /* Use forward slash literal instead of path.sep as fast-glob always returns forward-slash paths regardless of OS */
+    if (!filePath.includes("/src/components/")) {
       continue;
     }
     const componentName = inferComponentNameFromPath(filePath, rootDir);
@@ -1097,7 +1153,8 @@ function resolveImportModule(sourceFile, identifierName) {
  */
 function extractMdxExamples(content) {
   const examples = [];
-  const codeBlockRegex = /```(?:tsx|jsx|ts|js)?\n([\s\S]*?)```/g;
+  // \r? accounts for CRLF line endings on Windows, where MDX files may be read with \r\n instead of \n
+  const codeBlockRegex = /```(?:tsx|jsx|ts|js)?\r?\n([\s\S]*?)```/g;
   let match;
   let index = 1;
 
@@ -1149,7 +1206,9 @@ async function checkWouldWrite(wouldWrite, { componentsOutDir, referencesDir }) 
       }
       throw err;
     }
-    if (existing !== content) {
+    // Normalise line endings when comparing so Windows CRLF checkouts
+    // don't cause false positives against our LF-normalised content.
+    if (existing.replace(/\r\n/g, "\n") !== content) {
       diffs.push(`  Modified: ${path.relative(repoRoot, filePath)}`);
     }
   }
@@ -1158,7 +1217,7 @@ async function checkWouldWrite(wouldWrite, { componentsOutDir, referencesDir }) 
     if (!existsSync(dir)) {
       continue;
     }
-    const entries = await fs.readdir(dir, { withFileTypes: true });
+    const entries = (await fs.readdir(dir, { withFileTypes: true })).sort((a, b) => a.name.localeCompare(b.name, "en"));
     for (const entry of entries) {
       if (!entry.isFile()) {
         continue;
@@ -1387,7 +1446,7 @@ function renderComponentMarkdown(component, stories) {
       const ga = groupOrder(aData, aAria);
       const gb = groupOrder(bData, bAria);
       if (ga !== gb) return ga - gb;
-      return a.name.localeCompare(b.name);
+      return a.name.localeCompare(b.name, "en");
     });
     const hasDeprecatedProps = sortedProps.some((prop) => prop.deprecated);
     if (hasDeprecatedProps) {
@@ -1424,7 +1483,8 @@ function renderComponentMarkdown(component, stories) {
   if (!stories.length) {
     lines.push("No Storybook examples found.");
   } else {
-    for (const story of stories) {
+    const sortedStories = [...stories].sort((a, b) => a.name.localeCompare(b.name, "en"));
+    for (const story of sortedStories) {
       lines.push(`### ${story.name}`);
       lines.push("");
       if (story.argsText) {
@@ -1513,7 +1573,9 @@ function dedupeComponentCandidates(candidates) {
     }
   }
 
-  return Array.from(byOutputName.values());
+  return Array.from(byOutputName.values()).sort((a, b) =>
+    (a.displayName ?? a.name).localeCompare(b.displayName ?? b.name, "en"),
+  );
 }
 
 /**

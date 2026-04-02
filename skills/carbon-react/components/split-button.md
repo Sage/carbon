@@ -50,7 +50,7 @@ description: Carbon SplitButton component props and usage examples.
 | iconType | IconType \| undefined | No |  |  |  | Defines an Icon type within the button |  |
 | id | string \| undefined | No |  |  |  |  |  |
 | inlist | any | No |  |  |  |  |  |
-| inputMode | "email" \| "none" \| "search" \| "text" \| "tel" \| "url" \| "numeric" \| "decimal" \| undefined | No |  |  |  | Hints at the type of data that might be entered by the user while editing the element or its contents |  |
+| inputMode | "none" \| "email" \| "search" \| "text" \| "tel" \| "url" \| "numeric" \| "decimal" \| undefined | No |  |  |  | Hints at the type of data that might be entered by the user while editing the element or its contents |  |
 | is | string \| undefined | No |  |  |  | Specify that a standard HTML element should behave like a defined custom built-in element |  |
 | isWhite | boolean \| undefined | No |  |  |  | Renders the white variant of the secondary split button |  |
 | itemID | string \| undefined | No |  |  |  |  |  |
@@ -242,7 +242,7 @@ description: Carbon SplitButton component props and usage examples.
 | rev | string \| undefined | No |  |  |  |  |  |
 | role | AriaRole \| undefined | No |  |  |  |  |  |
 | security | string \| undefined | No |  |  |  |  |  |
-| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | The size of the buttons. |  |
+| size | "large" \| "small" \| "medium" \| undefined | No |  |  |  | The size of the buttons. |  |
 | slot | string \| undefined | No |  |  |  |  |  |
 | spellCheck | Booleanish \| undefined | No |  |  |  |  |  |
 | style | CSSProperties \| undefined | No |  |  |  |  |  |
@@ -252,7 +252,7 @@ description: Carbon SplitButton component props and usage examples.
 | tabIndex | number \| undefined | No |  |  |  |  |  |
 | title | string \| undefined | No |  |  |  |  |  |
 | translate | "yes" \| "no" \| undefined | No |  |  |  |  |  |
-| type | "button" \| "reset" \| "submit" \| undefined | No |  |  |  |  |  |
+| type | "reset" \| "button" \| "submit" \| undefined | No |  |  |  |  |  |
 | typeof | string \| undefined | No |  |  |  |  |  |
 | unselectable | "off" \| "on" \| undefined | No |  |  |  |  |  |
 | value | string \| number \| readonly string[] \| undefined | No |  |  |  |  |  |
@@ -312,57 +312,11 @@ description: Carbon SplitButton component props and usage examples.
 | aria-valuetext | string \| undefined | No |  |  |  | Defines the human readable text alternative of aria-valuenow for a range widget. |  |
 | onKeyPress | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUp` or `onKeyDown` instead |  |  |
 | onKeyPressCapture | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUpCapture` or `onKeyDownCapture` instead |  |  |
-| aria-dropeffect | "copy" \| "link" \| "none" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
+| aria-dropeffect | "none" \| "copy" \| "link" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
 | aria-grabbed | Booleanish \| undefined | No |  | Yes | in ARIA 1.1 | Indicates an element's "grabbed" state in a drag-and-drop operation. |  |
 
 ## Examples
-### Default
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <SplitButton text="Split button">
-      <Button href="#">Button 1</Button>
-      <Button>Button 2</Button>
-      <Button>Button 3</Button>
-    </SplitButton>
-  );
-}
-```
-
-
-### Focusing Main and Toggle Buttons Programmatically
-
-**Render**
-
-```tsx
-() => {
-  const splitButtonHandle = useRef<SplitButtonHandle>(null);
-
-  return (
-    <Box display="flex" gap={6}>
-      <Box display="flex" gap={1}>
-        <Button onClick={() => splitButtonHandle.current?.focusMainButton()}>
-          Focus Main Button
-        </Button>
-        <Button onClick={() => splitButtonHandle.current?.focusToggleButton()}>
-          Focus Toggle Button
-        </Button>
-      </Box>
-      <SplitButton ref={splitButtonHandle} text="Split button">
-        <Button>Button 1</Button>
-        <Button>Button 2</Button>
-        <Button>Button 3</Button>
-      </SplitButton>
-    </Box>
-  );
-}
-```
-
-
-### Disabled
+### Align
 
 **Render**
 
@@ -370,25 +324,15 @@ description: Carbon SplitButton component props and usage examples.
 () => {
   return (
     <>
-      <Box mb={3}>
-        <SplitButton disabled text="Split button">
-          <Button>Button 1</Button>
-          <Button>Button 2</Button>
-          <Button>Button 3</Button>
-        </SplitButton>
-      </Box>
-      <Box p={2} width="298px" backgroundColor="#000">
-        <SplitButton
-          buttonType="secondary"
-          text="Split button - secondary - white"
-          isWhite
-          disabled
-        >
-          <Button>Button 1</Button>
-          <Button>Button 2</Button>
-          <Button>Button 3</Button>
-        </SplitButton>
-      </Box>
+      {(["left", "right"] as const).map((align) => (
+        <Box key={align} mb={3}>
+          <SplitButton align={align} text={`Split button - ${align}`}>
+            <Button>Button 1</Button>
+            <Button>Button 2</Button>
+            <Button>Button 3</Button>
+          </SplitButton>
+        </Box>
+      ))}
     </>
   );
 }
@@ -459,7 +403,24 @@ description: Carbon SplitButton component props and usage examples.
 ```
 
 
-### Sizes
+### Default
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <SplitButton text="Split button">
+      <Button href="#">Button 1</Button>
+      <Button>Button 2</Button>
+      <Button>Button 3</Button>
+    </SplitButton>
+  );
+}
+```
+
+
+### Disabled
 
 **Render**
 
@@ -467,41 +428,91 @@ description: Carbon SplitButton component props and usage examples.
 () => {
   return (
     <>
-      {(["small", "medium", "large"] as const).map((size) => (
-        <Box key={size} mb={3}>
-          <SplitButton size={size} text={`Split button - ${size}`}>
-            <Button size={size}>Button 1</Button>
-            <Button size={size}>Button 2</Button>
-            <Button size={size}>Button 3</Button>
-          </SplitButton>
-        </Box>
-      ))}
+      <Box mb={3}>
+        <SplitButton disabled text="Split button">
+          <Button>Button 1</Button>
+          <Button>Button 2</Button>
+          <Button>Button 3</Button>
+        </SplitButton>
+      </Box>
+      <Box p={2} width="298px" backgroundColor="#000">
+        <SplitButton
+          buttonType="secondary"
+          text="Split button - secondary - white"
+          isWhite
+          disabled
+        >
+          <Button>Button 1</Button>
+          <Button>Button 2</Button>
+          <Button>Button 3</Button>
+        </SplitButton>
+      </Box>
     </>
   );
 }
 ```
 
 
-### Align
+### Focusing Main and Toggle Buttons Programmatically
 
 **Render**
 
 ```tsx
 () => {
+  const splitButtonHandle = useRef<SplitButtonHandle>(null);
+
   return (
-    <>
-      {(["left", "right"] as const).map((align) => (
-        <Box key={align} mb={3}>
-          <SplitButton align={align} text={`Split button - ${align}`}>
-            <Button>Button 1</Button>
-            <Button>Button 2</Button>
-            <Button>Button 3</Button>
-          </SplitButton>
-        </Box>
-      ))}
-    </>
+    <Box display="flex" gap={6}>
+      <Box display="flex" gap={1}>
+        <Button onClick={() => splitButtonHandle.current?.focusMainButton()}>
+          Focus Main Button
+        </Button>
+        <Button onClick={() => splitButtonHandle.current?.focusToggleButton()}>
+          Focus Toggle Button
+        </Button>
+      </Box>
+      <SplitButton ref={splitButtonHandle} text="Split button">
+        <Button>Button 1</Button>
+        <Button>Button 2</Button>
+        <Button>Button 3</Button>
+      </SplitButton>
+    </Box>
   );
 }
+```
+
+
+### In Overflow Hidden Container
+
+**Render**
+
+```tsx
+() => (
+  <Accordion title="Heading">
+    <Box p={4}>
+      <SplitButton size="large" subtext="subtext" text="Split button">
+        <Button size="large">Button 1</Button>
+        <Button size="large">Button 2</Button>
+        <Button size="large">Button 3</Button>
+      </SplitButton>
+    </Box>
+  </Accordion>
+)
+```
+
+
+### MDX Example 1
+
+**Args**
+
+```tsx
+## Examples
+
+### Default
+
+<Canvas of={SplitButtonStories.Default} />
+
+### Focusing Main and Toggle Buttons Programmatically
 ```
 
 
@@ -530,6 +541,29 @@ description: Carbon SplitButton component props and usage examples.
 ```
 
 
+### Sizes
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <>
+      {(["small", "medium", "large"] as const).map((size) => (
+        <Box key={size} mb={3}>
+          <SplitButton size={size} text={`Split button - ${size}`}>
+            <Button size={size}>Button 1</Button>
+            <Button size={size}>Button 2</Button>
+            <Button size={size}>Button 3</Button>
+          </SplitButton>
+        </Box>
+      ))}
+    </>
+  );
+}
+```
+
+
 ### Subtext
 
 **Render**
@@ -544,52 +578,6 @@ description: Carbon SplitButton component props and usage examples.
     </SplitButton>
   );
 }
-```
-
-
-### With Icon
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <>
-      {(["before", "after"] as const).map((iconPosition) => (
-        <Box key={iconPosition} mb={3}>
-          <SplitButton
-            iconType="add"
-            iconPosition={iconPosition}
-            text={`Split button - ${iconPosition}`}
-          >
-            <Button>Button 1</Button>
-            <Button>Button 2</Button>
-            <Button>Button 3</Button>
-          </SplitButton>
-        </Box>
-      ))}
-    </>
-  );
-}
-```
-
-
-### In Overflow Hidden Container
-
-**Render**
-
-```tsx
-() => (
-  <Accordion title="Heading">
-    <Box p={4}>
-      <SplitButton size="large" subtext="subtext" text="Split button">
-        <Button size="large">Button 1</Button>
-        <Button size="large">Button 2</Button>
-        <Button size="large">Button 3</Button>
-      </SplitButton>
-    </Box>
-  </Accordion>
-)
 ```
 
 
@@ -630,17 +618,29 @@ description: Carbon SplitButton component props and usage examples.
 ```
 
 
-### MDX Example 1
+### With Icon
 
-**Args**
+**Render**
 
 ```tsx
-## Examples
-
-### Default
-
-<Canvas of={SplitButtonStories.Default} />
-
-### Focusing Main and Toggle Buttons Programmatically
+() => {
+  return (
+    <>
+      {(["before", "after"] as const).map((iconPosition) => (
+        <Box key={iconPosition} mb={3}>
+          <SplitButton
+            iconType="add"
+            iconPosition={iconPosition}
+            text={`Split button - ${iconPosition}`}
+          >
+            <Button>Button 1</Button>
+            <Button>Button 2</Button>
+            <Button>Button 3</Button>
+          </SplitButton>
+        </Box>
+      ))}
+    </>
+  );
+}
 ```
 

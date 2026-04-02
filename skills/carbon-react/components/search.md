@@ -57,6 +57,75 @@ description: Carbon Search component props and usage examples.
 | aria-label | string \| undefined | No |  | Prop to specify the aria-label of the search component |  |
 
 ## Examples
+### Custom Max Width
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState("Here is some text");
+  return (
+    <Box m={1}>
+      <Search
+        onChange={(e) => setValue(e.target.value)}
+        value={value}
+        searchButton
+        maxWidth="50%"
+      />
+    </Box>
+  );
+}
+```
+
+
+### Custom Width
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState("");
+  return (
+    <Search
+      placeholder="Search..."
+      onChange={(e) => setValue(e.target.value)}
+      value={value}
+      searchWidth="375px"
+    />
+  );
+}
+```
+
+
+### Dark Background variant
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState("Here is some text");
+  return (
+    <Box width="700px" height="108px" p={4} backgroundColor="#000000">
+      <Search
+        placeholder="Search..."
+        onChange={(e) => setValue(e.target.value)}
+        value={value}
+        variant="dark"
+        mb={2}
+      />
+      <Search
+        placeholder="Search..."
+        onChange={(e) => setValue(e.target.value)}
+        value={value}
+        searchButton
+        variant="dark"
+      />
+    </Box>
+  );
+}
+```
+
+
 ### Default
 
 **Render**
@@ -70,6 +139,30 @@ description: Carbon Search component props and usage examples.
       onChange={(e) => setValue(e.target.value)}
       value={value}
     />
+  );
+}
+```
+
+
+### Trigger on Clear
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState("");
+  return (
+    <>
+      <Search
+        id="test"
+        name="test"
+        placeholder="Search..."
+        triggerOnClear
+        onChange={(e) => setValue(e.target.value)}
+        value={value}
+        searchButton
+      />
+    </>
   );
 }
 ```
@@ -117,26 +210,6 @@ description: Carbon Search component props and usage examples.
 ```
 
 
-### With Search Button text override via prop
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("Here is some text");
-  return (
-    <Box m={1}>
-      <Search
-        onChange={(e) => setValue(e.target.value)}
-        value={value}
-        searchButton="Find"
-      />
-    </Box>
-  );
-}
-```
-
-
 ### With Search Button text override via locale
 
 **Render**
@@ -159,26 +232,7 @@ description: Carbon Search component props and usage examples.
 ```
 
 
-### Custom Width
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("");
-  return (
-    <Search
-      placeholder="Search..."
-      onChange={(e) => setValue(e.target.value)}
-      value={value}
-      searchWidth="375px"
-    />
-  );
-}
-```
-
-
-### Custom Max Width
+### With Search Button text override via prop
 
 **Render**
 
@@ -190,63 +244,9 @@ description: Carbon Search component props and usage examples.
       <Search
         onChange={(e) => setValue(e.target.value)}
         value={value}
-        searchButton
-        maxWidth="50%"
+        searchButton="Find"
       />
     </Box>
-  );
-}
-```
-
-
-### Dark Background variant
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("Here is some text");
-  return (
-    <Box width="700px" height="108px" p={4} backgroundColor="#000000">
-      <Search
-        placeholder="Search..."
-        onChange={(e) => setValue(e.target.value)}
-        value={value}
-        variant="dark"
-        mb={2}
-      />
-      <Search
-        placeholder="Search..."
-        onChange={(e) => setValue(e.target.value)}
-        value={value}
-        searchButton
-        variant="dark"
-      />
-    </Box>
-  );
-}
-```
-
-
-### Trigger on Clear
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("");
-  return (
-    <>
-      <Search
-        id="test"
-        name="test"
-        placeholder="Search..."
-        triggerOnClear
-        onChange={(e) => setValue(e.target.value)}
-        value={value}
-        searchButton
-      />
-    </>
   );
 }
 ```

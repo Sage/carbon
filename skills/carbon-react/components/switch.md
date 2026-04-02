@@ -59,7 +59,7 @@ description: Carbon Switch component props and usage examples.
 | id | string \| undefined | No |  |  |  | Unique Identifier for the input. Will use a randomly generated GUID if none is provided |  |
 | info | string \| boolean \| undefined | No |  |  |  | [Legacy] Indicate additional information. |  |
 | inlist | any | No |  |  |  |  |  |
-| inputMode | "email" \| "none" \| "search" \| "text" \| "tel" \| "url" \| "numeric" \| "decimal" \| undefined | No |  |  |  | Hints at the type of data that might be entered by the user while editing the element or its contents |  |
+| inputMode | "none" \| "email" \| "search" \| "text" \| "tel" \| "url" \| "numeric" \| "decimal" \| undefined | No |  |  |  | Hints at the type of data that might be entered by the user while editing the element or its contents |  |
 | inputWidth | number \| undefined | No |  |  |  | Sets percentage-based input width |  |
 | is | string \| undefined | No |  |  |  | Specify that a standard HTML element should behave like a defined custom built-in element |  |
 | isDarkBackground | boolean \| undefined | No |  |  |  | Whether this component resides on a dark background |  |
@@ -267,7 +267,7 @@ description: Carbon Switch component props and usage examples.
 | reverse | boolean \| undefined | No |  |  |  | If true the label switches position with the input |  |
 | role | AriaRole \| undefined | No |  |  |  |  |  |
 | security | string \| undefined | No |  |  |  |  |  |
-| size | "small" \| "large" \| undefined | No |  |  |  | Size of the component |  |
+| size | "large" \| "small" \| undefined | No |  |  |  | Size of the component |  |
 | slot | string \| undefined | No |  |  |  |  |  |
 | spellCheck | Booleanish \| undefined | No |  |  |  |  |  |
 | src | string \| undefined | No |  |  |  |  |  |
@@ -343,7 +343,7 @@ description: Carbon Switch component props and usage examples.
 | aria-valuetext | string \| undefined | No |  |  |  | Defines the human readable text alternative of aria-valuenow for a range widget. |  |
 | onKeyPress | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUp` or `onKeyDown` instead |  |  |
 | onKeyPressCapture | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUpCapture` or `onKeyDownCapture` instead |  |  |
-| aria-dropeffect | "copy" \| "link" \| "none" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
+| aria-dropeffect | "none" \| "copy" \| "link" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
 | aria-grabbed | Booleanish \| undefined | No |  | Yes | in ARIA 1.1 | Indicates an element's "grabbed" state in a drag-and-drop operation. |  |
 
 ## Examples
@@ -361,59 +361,6 @@ description: Carbon Switch component props and usage examples.
       checked={isChecked}
       onChange={(e) => setIsChecked(e.target.checked)}
     />
-  );
-}
-```
-
-
-### With Input Hint
-
-**Render**
-
-```tsx
-() => {
-  const [isChecked, setIsChecked] = useState(false);
-  return (
-    <CarbonProvider validationRedesignOptIn>
-      <Switch
-        label="Label"
-        name="switch-name"
-        labelHelp="Label Help"
-        checked={isChecked}
-        onChange={(e) => setIsChecked(e.target.checked)}
-      />
-    </CarbonProvider>
-  );
-}
-```
-
-
-### Sizes
-
-**Render**
-
-```tsx
-() => {
-  const { state, setValue } = useMultiInputBoolean();
-
-  return (
-    <>
-      <Switch
-        label="small"
-        name="switch-small"
-        size="small"
-        mb={2}
-        checked={state["switch-small"] || false}
-        onChange={setValue}
-      />
-      <Switch
-        label="large"
-        name="switch-large"
-        size="large"
-        checked={state["switch-large"] || false}
-        onChange={setValue}
-      />
-    </>
   );
 }
 ```
@@ -442,46 +389,6 @@ description: Carbon Switch component props and usage examples.
         mt={2}
       />
     </>
-  );
-}
-```
-
-
-### Required
-
-**Render**
-
-```tsx
-() => {
-  const [isChecked, setIsChecked] = useState(false);
-  return (
-    <Switch
-      label="Label"
-      name="required"
-      checked={isChecked}
-      onChange={(e) => setIsChecked(e.target.checked)}
-      required
-    />
-  );
-}
-```
-
-
-### Reversed
-
-**Render**
-
-```tsx
-() => {
-  const [isChecked, setIsChecked] = useState(false);
-  return (
-    <Switch
-      label="Reversed switch"
-      name="reversed"
-      reverse={false}
-      checked={isChecked}
-      onChange={(e) => setIsChecked(e.target.checked)}
-    />
   );
 }
 ```
@@ -542,7 +449,47 @@ description: Carbon Switch component props and usage examples.
 ```
 
 
-### With labelInline
+### Required
+
+**Render**
+
+```tsx
+() => {
+  const [isChecked, setIsChecked] = useState(false);
+  return (
+    <Switch
+      label="Label"
+      name="required"
+      checked={isChecked}
+      onChange={(e) => setIsChecked(e.target.checked)}
+      required
+    />
+  );
+}
+```
+
+
+### Reversed
+
+**Render**
+
+```tsx
+() => {
+  const [isChecked, setIsChecked] = useState(false);
+  return (
+    <Switch
+      label="Reversed switch"
+      name="reversed"
+      reverse={false}
+      checked={isChecked}
+      onChange={(e) => setIsChecked(e.target.checked)}
+    />
+  );
+}
+```
+
+
+### Sizes
 
 **Render**
 
@@ -553,74 +500,21 @@ description: Carbon Switch component props and usage examples.
   return (
     <>
       <Switch
-        label="With labelInline"
-        labelInline
+        label="small"
+        name="switch-small"
+        size="small"
         mb={2}
-        name="with-label-inline"
-        checked={state["with-label-inline"] || false}
+        checked={state["switch-small"] || false}
         onChange={setValue}
       />
       <Switch
-        label="With labelInline and reversed"
-        labelInline
-        reverse={false}
-        name="with-label-inline-rev"
-        checked={state["with-label-inline-rev"] || false}
+        label="large"
+        name="switch-large"
+        size="large"
+        checked={state["switch-large"] || false}
         onChange={setValue}
       />
     </>
-  );
-}
-```
-
-
-### With fieldHelp
-
-**Render**
-
-```tsx
-() => {
-  const [isChecked, setIsChecked] = useState(false);
-  const [isChecked2, setIsChecked2] = useState(false);
-  return (
-    <>
-      <Switch
-        label="With fieldHelp"
-        fieldHelp="This text provides help for the input."
-        checked={isChecked}
-        onChange={(e) => setIsChecked(e.target.checked)}
-      />
-      <Switch
-        label="With inline fieldHelp"
-        labelInline
-        fieldHelp="This text provides help for the input."
-        fieldHelpInline
-        mt={2}
-        checked={isChecked2}
-        onChange={(e) => setIsChecked2(e.target.checked)}
-      />
-    </>
-  );
-}
-```
-
-
-### With labelHelp
-
-**Render**
-
-```tsx
-() => {
-  const [isChecked, setIsChecked] = useState(false);
-  return (
-    <Switch
-      label="With labelHelp"
-      labelHelp="This text provides more information for the label."
-      helpAriaLabel="This text provides more information for the label."
-      name="with-label-help"
-      checked={isChecked}
-      onChange={(e) => setIsChecked(e.target.checked)}
-    />
   );
 }
 ```
@@ -657,6 +551,112 @@ description: Carbon Switch component props and usage examples.
         />
       </CarbonProvider>
     </Box>
+  );
+}
+```
+
+
+### With fieldHelp
+
+**Render**
+
+```tsx
+() => {
+  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked2, setIsChecked2] = useState(false);
+  return (
+    <>
+      <Switch
+        label="With fieldHelp"
+        fieldHelp="This text provides help for the input."
+        checked={isChecked}
+        onChange={(e) => setIsChecked(e.target.checked)}
+      />
+      <Switch
+        label="With inline fieldHelp"
+        labelInline
+        fieldHelp="This text provides help for the input."
+        fieldHelpInline
+        mt={2}
+        checked={isChecked2}
+        onChange={(e) => setIsChecked2(e.target.checked)}
+      />
+    </>
+  );
+}
+```
+
+
+### With Input Hint
+
+**Render**
+
+```tsx
+() => {
+  const [isChecked, setIsChecked] = useState(false);
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      <Switch
+        label="Label"
+        name="switch-name"
+        labelHelp="Label Help"
+        checked={isChecked}
+        onChange={(e) => setIsChecked(e.target.checked)}
+      />
+    </CarbonProvider>
+  );
+}
+```
+
+
+### With labelHelp
+
+**Render**
+
+```tsx
+() => {
+  const [isChecked, setIsChecked] = useState(false);
+  return (
+    <Switch
+      label="With labelHelp"
+      labelHelp="This text provides more information for the label."
+      helpAriaLabel="This text provides more information for the label."
+      name="with-label-help"
+      checked={isChecked}
+      onChange={(e) => setIsChecked(e.target.checked)}
+    />
+  );
+}
+```
+
+
+### With labelInline
+
+**Render**
+
+```tsx
+() => {
+  const { state, setValue } = useMultiInputBoolean();
+
+  return (
+    <>
+      <Switch
+        label="With labelInline"
+        labelInline
+        mb={2}
+        name="with-label-inline"
+        checked={state["with-label-inline"] || false}
+        onChange={setValue}
+      />
+      <Switch
+        label="With labelInline and reversed"
+        labelInline
+        reverse={false}
+        name="with-label-inline-rev"
+        checked={state["with-label-inline-rev"] || false}
+        onChange={setValue}
+      />
+    </>
   );
 }
 ```

@@ -67,15 +67,15 @@ description: Carbon Fieldset component props and usage examples.
 ```
 
 
-### With fieldSpacing
+### Required
 
 **Render**
 
 ```tsx
 () => (
   <CarbonProvider validationRedesignOptIn>
-    <Form fieldSpacing={1}>
-      <Fieldset legend="Fieldset">
+    <Form>
+      <Fieldset legend="Fieldset" required>
         <Textbox label="Address Line 1" value={""} onChange={() => {}} />
         <Textbox label="Address Line 2" value={""} onChange={() => {}} />
         <Textbox label="City" value={""} onChange={() => {}} />
@@ -98,15 +98,15 @@ description: Carbon Fieldset component props and usage examples.
 ```
 
 
-### Required
+### With fieldSpacing
 
 **Render**
 
 ```tsx
 () => (
   <CarbonProvider validationRedesignOptIn>
-    <Form>
-      <Fieldset legend="Fieldset" required>
+    <Form fieldSpacing={1}>
+      <Fieldset legend="Fieldset">
         <Textbox label="Address Line 1" value={""} onChange={() => {}} />
         <Textbox label="Address Line 2" value={""} onChange={() => {}} />
         <Textbox label="City" value={""} onChange={() => {}} />

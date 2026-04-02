@@ -73,21 +73,6 @@ description: Carbon IconButton component props and usage examples.
 ```
 
 
-### With Tooltip
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <IconButton aria-label="icon-button" onClick={() => {}}>
-      <Icon type="home" tooltipMessage="Hey I'm a tooltip!" />
-    </IconButton>
-  );
-}
-```
-
-
 ### Disabled
 
 **Render**
@@ -97,6 +82,21 @@ description: Carbon IconButton component props and usage examples.
   return (
     <IconButton disabled aria-label="icon-button" onClick={() => {}}>
       <Icon type="home" />
+    </IconButton>
+  );
+}
+```
+
+
+### With Tooltip
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <IconButton aria-label="icon-button" onClick={() => {}}>
+      <Icon type="home" tooltipMessage="Hey I'm a tooltip!" />
     </IconButton>
   );
 }

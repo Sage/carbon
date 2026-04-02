@@ -44,24 +44,6 @@ description: Carbon Profile component props and usage examples.
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 
 ## Examples
-### Default
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Profile
-      email="email@email.com"
-      initials="JD"
-      name="John Doe"
-      text="+33 657 22 34 71"
-    />
-  );
-}
-```
-
-
 ### Dark Background
 
 **Render**
@@ -89,7 +71,7 @@ description: Carbon Profile component props and usage examples.
 ```
 
 
-### Src
+### Default
 
 **Render**
 
@@ -101,70 +83,9 @@ description: Carbon Profile component props and usage examples.
       initials="JD"
       name="John Doe"
       text="+33 657 22 34 71"
-      src="https://avataaars.io/?avatarStyle=Transparent&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light"
     />
   );
 }
-```
-
-
-### Sizes
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <>
-      {(["XS", "S", "M", "ML", "L", "XL", "XXL"] as const).map((size) => (
-        <Profile
-          email="email@email.com"
-          initials="JD"
-          name="John Doe"
-          text="+33 657 22 34 71"
-          size={size}
-          key={size}
-        />
-      ))}
-    </>
-  );
-}
-```
-
-
-### With Margin
-
-**Render**
-
-```tsx
-() => (
-  <Box display="flex" alignItems="baseline">
-    <Profile
-      m={2}
-      size="XS"
-      email="email@email.com"
-      initials="JD"
-      name="John Doe"
-      text="+33 657 22 34 71"
-    />
-    <Profile
-      m={3}
-      size="S"
-      email="email@email.com"
-      initials="JD"
-      name="John Doe"
-      text="+33 657 22 34 71"
-    />
-    <Profile
-      m="50px"
-      size="XL"
-      email="email@email.com"
-      initials="JD"
-      name="John Doe"
-      text="+33 657 22 34 71"
-    />
-  </Box>
-)
 ```
 
 
@@ -199,6 +120,49 @@ description: Carbon Profile component props and usage examples.
         size={setCorrectScreenSize()}
       />
     </Box>
+  );
+}
+```
+
+
+### Sizes
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <>
+      {(["XS", "S", "M", "ML", "L", "XL", "XXL"] as const).map((size) => (
+        <Profile
+          email="email@email.com"
+          initials="JD"
+          name="John Doe"
+          text="+33 657 22 34 71"
+          size={size}
+          key={size}
+        />
+      ))}
+    </>
+  );
+}
+```
+
+
+### Src
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Profile
+      email="email@email.com"
+      initials="JD"
+      name="John Doe"
+      text="+33 657 22 34 71"
+      src="https://avataaars.io/?avatarStyle=Transparent&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light"
+    />
   );
 }
 ```
@@ -259,5 +223,41 @@ description: Carbon Profile component props and usage examples.
     </Box>
   );
 }
+```
+
+
+### With Margin
+
+**Render**
+
+```tsx
+() => (
+  <Box display="flex" alignItems="baseline">
+    <Profile
+      m={2}
+      size="XS"
+      email="email@email.com"
+      initials="JD"
+      name="John Doe"
+      text="+33 657 22 34 71"
+    />
+    <Profile
+      m={3}
+      size="S"
+      email="email@email.com"
+      initials="JD"
+      name="John Doe"
+      text="+33 657 22 34 71"
+    />
+    <Profile
+      m="50px"
+      size="XL"
+      email="email@email.com"
+      initials="JD"
+      name="John Doe"
+      text="+33 657 22 34 71"
+    />
+  </Box>
+)
 ```
 

@@ -17,9 +17,14 @@ description: Carbon Loader component props and usage examples.
 ## Props
 | Name | Type | Required | Literals | Description | Default |
 | --- | --- | --- | --- | --- | --- |
-| isActive | boolean \| undefined | No |  | Applies slate color. Available only when isInsideButton is true. | true |
-| isInsideButton | boolean \| undefined | No |  | Applies white color. | false |
-| loaderLabel | string \| undefined | No |  | Specify a custom accessible label for the Loader. This label is visible to users who have enabled the reduce motion setting in their operating system. It is also available to assistive technologies. |  |
+| animationTime | number \| undefined | No |  | Specify a custom animation time for the loader |  |
+| hasMotion | boolean \| undefined | No |  | If set to `false` all motion will be suspended | true |
+| inverse | boolean \| undefined | No |  | Toggle the inverse color scheme | false |
+| isError | boolean \| undefined | No |  | Enable the error state for the ring loader when it is tracked | false |
+| isSuccess | boolean \| undefined | No |  | Enable the success state for the ring loader when it is tracked | false |
+| isTracked | boolean \| undefined | No |  | If set to `true` the animation type will become tracked, this is used specifically for when wait times are predictable | false |
+| loaderLabel | string \| undefined | No |  | Specify a label for the loader |  |
+| loaderType | LOADER_TYPES \| undefined | No |  | The loader type can be specified in order to change the loader | "standalone" |
 | m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
 | margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
 | marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
@@ -34,80 +39,25 @@ description: Carbon Loader component props and usage examples.
 | mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
 | mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| size | "small" \| "medium" \| "large" \| undefined | No |  | Size of the loader. | "medium" |
-| variant | string \| undefined | No |  | Toggle between the default variant and gradient variant | "default" |
+| showLabel | boolean \| undefined | No |  | Specify if the label should be visible or not | true |
+| size | LOADER_SIZES \| undefined | No |  | The size prop allows a specific size to be set ranging from `extra-small` to `large` | "medium" |
+| variant | LOADER_VARIANTS \| undefined | No |  | Toggle between the different Loader variants | "default" |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 
 ## Examples
-### Default
+### Animation Time
 
 **Render**
 
 ```tsx
-() => {
-  return <Loader />;
-}
-```
-
-
-### With Gradient Variant
-
-**Render**
-
-```tsx
-() => <Loader variant="gradient" />
-```
-
-
-### Small
-
-**Render**
-
-```tsx
-() => {
-  return <Loader size="small" />;
-}
-```
-
-
-### Large
-
-**Render**
-
-```tsx
-() => {
-  return <Loader size="large" />;
-}
-```
-
-
-### Inside Button
-
-**Render**
-
-```tsx
-() => {
-  const [isLoading, setIsLoading] = useState(false);
-  const mimicLoading = () => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 5000);
-  };
-  const handleButtonClick = () => {
-    mimicLoading();
-  };
-  const buttonContent = isLoading ? <Loader isInsideButton /> : "Click me";
-
-  return (
-    <div aria-live="polite">
-      <Button m={2} buttonType="primary" onClick={handleButtonClick}>
-        {buttonContent}
-      </Button>
-    </div>
-  );
-}
+() => (
+    <Box>
+      <Loader loaderType="ring" animationTime={3} mb={4} />
+      <Loader loaderType="ring" animationTime={3} isTracked mb={4} />
+      <Loader animationTime={3} />
+    </Box>
+  )
 ```
 
 
@@ -154,245 +104,14 @@ description: Carbon Loader component props and usage examples.
 ```
 
 
-### Standalone
+### Default
 
 **Render**
 
 ```tsx
-() => (
-    <Box>
-      <Loader loaderType="standalone" />
-    </Box>
-  )
-```
-
-
-### Ring
-
-**Render**
-
-```tsx
-() => (
-    <Box>
-      <Loader loaderType="ring" />
-    </Box>
-  )
-```
-
-
-### Star
-
-**Render**
-
-```tsx
-() => (
-    <Box>
-      <Loader loaderType="star" />
-    </Box>
-  )
-```
-
-
-### Standalone Sizes
-
-**Render**
-
-```tsx
-() => (
-    <>
-      <Box>
-        <Loader loaderType="standalone" size="small" />
-      </Box>
-      <Box>
-        <Loader loaderType="standalone" size="medium" />
-      </Box>
-      <Box>
-        <Loader loaderType="standalone" size="large" />
-      </Box>
-    </>
-  )
-```
-
-
-### Ring Sizes
-
-**Render**
-
-```tsx
-() => (
-    <>
-      <Box>
-        <Loader loaderType="ring" size="extra-small" />
-      </Box>
-      <Box>
-        <Loader loaderType="ring" size="small" />
-      </Box>
-      <Box>
-        <Loader loaderType="ring" size="medium" />
-      </Box>
-      <Box>
-        <Loader loaderType="ring" size="large" />
-      </Box>
-    </>
-  )
-```
-
-
-### Standalone Typical Variant
-
-**Render**
-
-```tsx
-() => (
-    <Box>
-      <Loader loaderType="standalone" variant="typical" />
-    </Box>
-  )
-```
-
-
-### Standalone Typical Variant Inversed
-
-**Render**
-
-```tsx
-() => (
-    <Box backgroundColor="#1c1c1c" p="8px">
-      <Loader loaderType="standalone" variant="typical" inverse />
-    </Box>
-  )
-```
-
-
-### Standalone AI Variant
-
-**Render**
-
-```tsx
-() => (
-    <Box>
-      <Loader loaderType="standalone" variant="ai" />
-    </Box>
-  )
-```
-
-
-### Standalone AI Variant Inversed
-
-**Render**
-
-```tsx
-() => (
-    <Box backgroundColor="#1c1c1c" p="8px">
-      <Loader loaderType="standalone" variant="ai" inverse />
-    </Box>
-  )
-```
-
-
-### Ring Stacked Variant
-
-**Render**
-
-```tsx
-() => (
-    <Box>
-      <Loader loaderType="ring" variant="stacked" />
-    </Box>
-  )
-```
-
-
-### Ring Stacked Variant Inversed
-
-**Render**
-
-```tsx
-() => (
-    <Box backgroundColor="#1c1c1c" p="8px">
-      <Loader loaderType="ring" variant="stacked" inverse />
-    </Box>
-  )
-```
-
-
-### Ring Inline Variant
-
-**Render**
-
-```tsx
-() => (
-    <Box>
-      <Loader loaderType="ring" variant="inline" />
-    </Box>
-  )
-```
-
-
-### Ring Inline Variant Inversed
-
-**Render**
-
-```tsx
-() => (
-    <Box backgroundColor="#1c1c1c" p="8px">
-      <Loader loaderType="ring" variant="inline" inverse />
-    </Box>
-  )
-```
-
-
-### Is Tracked
-
-**Render**
-
-```tsx
-() => (
-    <Box>
-      <Loader loaderType="ring" isTracked />
-    </Box>
-  )
-```
-
-
-### Tracked Error State
-
-**Render**
-
-```tsx
-() => (
-    <Box>
-      <Loader loaderType="ring" isTracked isError />
-    </Box>
-  )
-```
-
-
-### Tracked Success State
-
-**Render**
-
-```tsx
-() => (
-    <Box>
-      <Loader loaderType="ring" isTracked isSuccess />
-    </Box>
-  )
-```
-
-
-### Animation Time
-
-**Render**
-
-```tsx
-() => (
-    <Box>
-      <Loader loaderType="ring" animationTime={3} mb={4} />
-      <Loader loaderType="ring" animationTime={3} isTracked mb={4} />
-      <Loader animationTime={3} />
-    </Box>
-  )
+() => {
+  return <Loader />;
+}
 ```
 
 
@@ -414,6 +133,35 @@ description: Carbon Loader component props and usage examples.
       <Loader animationTime={3} hasMotion={false} />
     </Box>
   )
+```
+
+
+### Inside Button
+
+**Render**
+
+```tsx
+() => {
+  const [isLoading, setIsLoading] = useState(false);
+  const mimicLoading = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 5000);
+  };
+  const handleButtonClick = () => {
+    mimicLoading();
+  };
+  const buttonContent = isLoading ? <Loader isInsideButton /> : "Click me";
+
+  return (
+    <div aria-live="polite">
+      <Button m={2} buttonType="primary" onClick={handleButtonClick}>
+        {buttonContent}
+      </Button>
+    </div>
+  );
+}
 ```
 
 
@@ -506,5 +254,263 @@ description: Carbon Loader component props and usage examples.
       </Box>
     </>
   )
+```
+
+
+### Is Tracked
+
+**Render**
+
+```tsx
+() => (
+    <Box>
+      <Loader loaderType="ring" isTracked />
+    </Box>
+  )
+```
+
+
+### Large
+
+**Render**
+
+```tsx
+() => {
+  return <Loader size="large" />;
+}
+```
+
+
+### Ring
+
+**Render**
+
+```tsx
+() => (
+    <Box>
+      <Loader loaderType="ring" />
+    </Box>
+  )
+```
+
+
+### Ring Inline Variant
+
+**Render**
+
+```tsx
+() => (
+    <Box>
+      <Loader loaderType="ring" variant="inline" />
+    </Box>
+  )
+```
+
+
+### Ring Inline Variant Inversed
+
+**Render**
+
+```tsx
+() => (
+    <Box backgroundColor="#1c1c1c" p="8px">
+      <Loader loaderType="ring" variant="inline" inverse />
+    </Box>
+  )
+```
+
+
+### Ring Sizes
+
+**Render**
+
+```tsx
+() => (
+    <>
+      <Box>
+        <Loader loaderType="ring" size="extra-small" />
+      </Box>
+      <Box>
+        <Loader loaderType="ring" size="small" />
+      </Box>
+      <Box>
+        <Loader loaderType="ring" size="medium" />
+      </Box>
+      <Box>
+        <Loader loaderType="ring" size="large" />
+      </Box>
+    </>
+  )
+```
+
+
+### Ring Stacked Variant
+
+**Render**
+
+```tsx
+() => (
+    <Box>
+      <Loader loaderType="ring" variant="stacked" />
+    </Box>
+  )
+```
+
+
+### Ring Stacked Variant Inversed
+
+**Render**
+
+```tsx
+() => (
+    <Box backgroundColor="#1c1c1c" p="8px">
+      <Loader loaderType="ring" variant="stacked" inverse />
+    </Box>
+  )
+```
+
+
+### Small
+
+**Render**
+
+```tsx
+() => {
+  return <Loader size="small" />;
+}
+```
+
+
+### Standalone
+
+**Render**
+
+```tsx
+() => (
+    <Box>
+      <Loader loaderType="standalone" />
+    </Box>
+  )
+```
+
+
+### Standalone AI Variant
+
+**Render**
+
+```tsx
+() => (
+    <Box>
+      <Loader loaderType="standalone" variant="ai" />
+    </Box>
+  )
+```
+
+
+### Standalone AI Variant Inversed
+
+**Render**
+
+```tsx
+() => (
+    <Box backgroundColor="#1c1c1c" p="8px">
+      <Loader loaderType="standalone" variant="ai" inverse />
+    </Box>
+  )
+```
+
+
+### Standalone Sizes
+
+**Render**
+
+```tsx
+() => (
+    <>
+      <Box>
+        <Loader loaderType="standalone" size="small" />
+      </Box>
+      <Box>
+        <Loader loaderType="standalone" size="medium" />
+      </Box>
+      <Box>
+        <Loader loaderType="standalone" size="large" />
+      </Box>
+    </>
+  )
+```
+
+
+### Standalone Typical Variant
+
+**Render**
+
+```tsx
+() => (
+    <Box>
+      <Loader loaderType="standalone" variant="typical" />
+    </Box>
+  )
+```
+
+
+### Standalone Typical Variant Inversed
+
+**Render**
+
+```tsx
+() => (
+    <Box backgroundColor="#1c1c1c" p="8px">
+      <Loader loaderType="standalone" variant="typical" inverse />
+    </Box>
+  )
+```
+
+
+### Star
+
+**Render**
+
+```tsx
+() => (
+    <Box>
+      <Loader loaderType="star" />
+    </Box>
+  )
+```
+
+
+### Tracked Error State
+
+**Render**
+
+```tsx
+() => (
+    <Box>
+      <Loader loaderType="ring" isTracked isError />
+    </Box>
+  )
+```
+
+
+### Tracked Success State
+
+**Render**
+
+```tsx
+() => (
+    <Box>
+      <Loader loaderType="ring" isTracked isSuccess />
+    </Box>
+  )
+```
+
+
+### With Gradient Variant
+
+**Render**
+
+```tsx
+() => <Loader variant="gradient" />
 ```
 

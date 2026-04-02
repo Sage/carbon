@@ -49,7 +49,7 @@ description: Carbon Confirm component props and usage examples.
 | onCancel | ((ev: React.KeyboardEvent<HTMLElement> \| KeyboardEvent \| React.MouseEvent<HTMLButtonElement>) => void) \| undefined | No |  |  |  | A custom close event handler |  |
 | restoreFocusOnClose | boolean \| undefined | No |  |  |  | Enables the automatic restoration of focus to the element that invoked the modal when the modal is closed. |  |
 | showCloseIcon | boolean \| undefined | No |  |  |  | Determines if the close icon is shown | false |
-| size | "auto" \| "small" \| "medium" \| "large" \| "extra-small" \| "medium-small" \| "medium-large" \| "extra-large" \| "maximise" \| undefined | No |  |  |  | Size of dialog, default size is 750px | "extra-small" |
+| size | "auto" \| "large" \| "small" \| "medium" \| "extra-small" \| "medium-small" \| "medium-large" \| "extra-large" \| "maximise" \| undefined | No |  |  |  | Size of dialog, default size is 750px | "extra-small" |
 | subtitle | React.ReactNode | No |  |  |  | Subtitle displayed at top of dialog. Its consumers' responsibility to set a suitable accessible name/description for the Dialog if they pass a node to subtitle prop. |  |
 | title | React.ReactNode | No |  |  |  | Title displayed at top of dialog. Its consumers' responsibility to set a suitable accessible name/description for the Dialog if they pass a node to title prop. |  |
 | topModalOverride | boolean \| undefined | No |  |  |  | Manually override the internal modal stacking order to set this as top |  |
@@ -62,6 +62,138 @@ description: Carbon Confirm component props and usage examples.
 | pagesStyling | boolean \| undefined | No |  | Yes | For legacy styling when used with Pages component. Do not use this unless using Pages within a full-screen Dialog |  |  |
 
 ## Examples
+### Buttons Icons
+
+**Render**
+
+```tsx
+() => {
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open Confirm</Button>
+      <Confirm
+        title="Are you sure?"
+        subtitle="Subtitle"
+        confirmButtonIconType="save"
+        confirmButtonIconPosition="after"
+        cancelButtonIconType="bin"
+        open={isOpen}
+        onConfirm={() => setIsOpen(false)}
+        onCancel={() => setIsOpen(false)}
+      >
+        Content
+      </Confirm>
+    </>
+  );
+}
+```
+
+
+### Cancel Button Destructive
+
+**Render**
+
+```tsx
+() => {
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open Confirm</Button>
+      <Confirm
+        title="Are you sure?"
+        subtitle="Subtitle"
+        cancelButtonDestructive
+        open={isOpen}
+        onConfirm={() => setIsOpen(false)}
+        onCancel={() => setIsOpen(false)}
+      >
+        Content
+      </Confirm>
+    </>
+  );
+}
+```
+
+
+### Cancel Button Type
+
+**Render**
+
+```tsx
+() => {
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open Confirm</Button>
+      <Confirm
+        title="Are you sure?"
+        subtitle="Subtitle"
+        cancelButtonType="tertiary"
+        open={isOpen}
+        onConfirm={() => setIsOpen(false)}
+        onCancel={() => setIsOpen(false)}
+      >
+        Content
+      </Confirm>
+    </>
+  );
+}
+```
+
+
+### Confirm Button Destructive
+
+**Render**
+
+```tsx
+() => {
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open Confirm</Button>
+      <Confirm
+        title="Are you sure?"
+        subtitle="Subtitle"
+        confirmButtonDestructive
+        open={isOpen}
+        onConfirm={() => setIsOpen(false)}
+        onCancel={() => setIsOpen(false)}
+      >
+        Content
+      </Confirm>
+    </>
+  );
+}
+```
+
+
+### Confirm Button Type
+
+**Render**
+
+```tsx
+() => {
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open Confirm</Button>
+      <Confirm
+        title="Are you sure?"
+        subtitle="Subtitle"
+        confirmButtonType="tertiary"
+        open={isOpen}
+        onConfirm={() => setIsOpen(false)}
+        onCancel={() => setIsOpen(false)}
+      >
+        Content
+      </Confirm>
+    </>
+  );
+}
+```
+
+
 ### Default
 
 **Render**
@@ -122,7 +254,7 @@ description: Carbon Confirm component props and usage examples.
 ```
 
 
-### Single Action
+### Disable Cancel
 
 **Render**
 
@@ -135,57 +267,8 @@ description: Carbon Confirm component props and usage examples.
       <Confirm
         title="Are you sure?"
         subtitle="Subtitle"
-        open={isOpen}
-        onConfirm={() => setIsOpen(false)}
-      >
-        Content
-      </Confirm>
-    </>
-  );
-}
-```
-
-
-### Cancel Button Destructive
-
-**Render**
-
-```tsx
-() => {
-  const [isOpen, setIsOpen] = useState(defaultOpenState);
-  return (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Open Confirm</Button>
-      <Confirm
-        title="Are you sure?"
-        subtitle="Subtitle"
-        cancelButtonDestructive
-        open={isOpen}
-        onConfirm={() => setIsOpen(false)}
-        onCancel={() => setIsOpen(false)}
-      >
-        Content
-      </Confirm>
-    </>
-  );
-}
-```
-
-
-### Confirm Button Destructive
-
-**Render**
-
-```tsx
-() => {
-  const [isOpen, setIsOpen] = useState(defaultOpenState);
-  return (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Open Confirm</Button>
-      <Confirm
-        title="Are you sure?"
-        subtitle="Subtitle"
-        confirmButtonDestructive
+        showCloseIcon
+        disableCancel
         open={isOpen}
         onConfirm={() => setIsOpen(false)}
         onCancel={() => setIsOpen(false)}
@@ -226,113 +309,6 @@ description: Carbon Confirm component props and usage examples.
 ```
 
 
-### Disable Cancel
-
-**Render**
-
-```tsx
-() => {
-  const [isOpen, setIsOpen] = useState(defaultOpenState);
-  return (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Open Confirm</Button>
-      <Confirm
-        title="Are you sure?"
-        subtitle="Subtitle"
-        showCloseIcon
-        disableCancel
-        open={isOpen}
-        onConfirm={() => setIsOpen(false)}
-        onCancel={() => setIsOpen(false)}
-      >
-        Content
-      </Confirm>
-    </>
-  );
-}
-```
-
-
-### Cancel Button Type
-
-**Render**
-
-```tsx
-() => {
-  const [isOpen, setIsOpen] = useState(defaultOpenState);
-  return (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Open Confirm</Button>
-      <Confirm
-        title="Are you sure?"
-        subtitle="Subtitle"
-        cancelButtonType="tertiary"
-        open={isOpen}
-        onConfirm={() => setIsOpen(false)}
-        onCancel={() => setIsOpen(false)}
-      >
-        Content
-      </Confirm>
-    </>
-  );
-}
-```
-
-
-### Confirm Button Type
-
-**Render**
-
-```tsx
-() => {
-  const [isOpen, setIsOpen] = useState(defaultOpenState);
-  return (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Open Confirm</Button>
-      <Confirm
-        title="Are you sure?"
-        subtitle="Subtitle"
-        confirmButtonType="tertiary"
-        open={isOpen}
-        onConfirm={() => setIsOpen(false)}
-        onCancel={() => setIsOpen(false)}
-      >
-        Content
-      </Confirm>
-    </>
-  );
-}
-```
-
-
-### Buttons Icons
-
-**Render**
-
-```tsx
-() => {
-  const [isOpen, setIsOpen] = useState(defaultOpenState);
-  return (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Open Confirm</Button>
-      <Confirm
-        title="Are you sure?"
-        subtitle="Subtitle"
-        confirmButtonIconType="save"
-        confirmButtonIconPosition="after"
-        cancelButtonIconType="bin"
-        open={isOpen}
-        onConfirm={() => setIsOpen(false)}
-        onCancel={() => setIsOpen(false)}
-      >
-        Content
-      </Confirm>
-    </>
-  );
-}
-```
-
-
 ### Is Loading Confirm
 
 **Render**
@@ -350,6 +326,30 @@ description: Carbon Confirm component props and usage examples.
         open={isOpen}
         onConfirm={() => setIsOpen(false)}
         onCancel={() => setIsOpen(false)}
+      >
+        Content
+      </Confirm>
+    </>
+  );
+}
+```
+
+
+### Single Action
+
+**Render**
+
+```tsx
+() => {
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open Confirm</Button>
+      <Confirm
+        title="Are you sure?"
+        subtitle="Subtitle"
+        open={isOpen}
+        onConfirm={() => setIsOpen(false)}
       >
         Content
       </Confirm>

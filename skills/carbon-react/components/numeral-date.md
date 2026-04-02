@@ -55,7 +55,7 @@ description: Carbon NumeralDate component props and usage examples.
 | onBlur | ((ev: NumeralDateEvent) => void) \| undefined | No |  | Blur event handler |  |
 | readOnly | boolean \| undefined | No |  | If true, the component will be read-only |  |
 | required | boolean \| undefined | No |  | Flag to configure component as mandatory |  |
-| size | "small" \| "medium" \| "large" \| undefined | No |  | Size of an input |  |
+| size | "large" \| "small" \| "medium" \| undefined | No |  | Size of an input |  |
 | tooltipPosition | "left" \| "right" \| "bottom" \| "top" \| undefined | No |  | [Legacy] Overrides the default tooltip position |  |
 | validationMessagePositionTop | boolean \| undefined | No |  | Render the ValidationMessage above the NumeralDate inputs when validationRedesignOptIn flag is set |  |
 | validationOnLabel | boolean \| undefined | No |  | [Legacy] When true, validation icons will be placed on labels instead of being placed on the inputs |  |
@@ -65,54 +65,6 @@ description: Carbon NumeralDate component props and usage examples.
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 
 ## Examples
-### Default
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState<NumeralDateProps["value"]>({
-    dd: "01",
-    mm: "02",
-    yyyy: "2020",
-  });
-  return (
-    <NumeralDate
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
-      label="Default"
-    />
-  );
-}
-```
-
-
-### With Input Hint
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState<NumeralDateProps["value"]>({
-    dd: "",
-    mm: "",
-    yyyy: "",
-  });
-
-  return (
-    <CarbonProvider validationRedesignOptIn>
-      <NumeralDate
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        label="With label help"
-        labelHelp="Label help"
-      />
-    </CarbonProvider>
-  );
-}
-```
-
-
 ### Allowed Date Formats
 
 **Render**
@@ -175,6 +127,79 @@ description: Carbon NumeralDate component props and usage examples.
         onChange={(e) => setValue6(e.target.value)}
       />
     </>
+  );
+}
+```
+
+
+### Default
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState<NumeralDateProps["value"]>({
+    dd: "01",
+    mm: "02",
+    yyyy: "2020",
+  });
+  return (
+    <NumeralDate
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+      label="Default"
+    />
+  );
+}
+```
+
+
+### Enabling Adaptive Behaviour
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState<NumeralDateProps["value"]>({
+    dd: "",
+    mm: "",
+    yyyy: "",
+  });
+  return (
+    <NumeralDate
+      adaptiveLabelBreakpoint={960}
+      label="Adaptive behaviour"
+      labelInline
+      labelAlign="right"
+      labelWidth={30}
+      onChange={(e) => setValue(e.target.value)}
+      value={value}
+    />
+  );
+}
+```
+
+
+### Inline Label
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState<NumeralDateProps["value"]>({
+    dd: "",
+    mm: "",
+    yyyy: "",
+  });
+  return (
+    <NumeralDate
+      label="Inline"
+      labelInline
+      labelAlign="right"
+      labelWidth={30}
+      onChange={(e) => setValue(e.target.value)}
+      value={value}
+    />
   );
 }
 ```
@@ -258,7 +283,44 @@ description: Carbon NumeralDate component props and usage examples.
 ```
 
 
-### Inline Label
+### Programmatic Focus
+
+**Render**
+
+```tsx
+() => {
+  const ndRef = React.useRef<NumeralDateHandle>(null);
+  const [dateValue, setDateValue] = useState<NumeralDateProps["value"]>({
+    dd: "",
+    mm: "",
+    yyyy: "",
+  });
+  const handleChange: NumeralDateProps["onChange"] = (event) => {
+    setDateValue(event.target.value);
+  };
+  const handleClick = () => {
+    ndRef.current?.focus();
+  };
+  return (
+    <>
+      <Button mb={2} onClick={handleClick}>
+        Click me to focus NumeralDate
+      </Button>
+      <NumeralDate
+        ref={ndRef}
+        onChange={handleChange}
+        label="Numeral date"
+        value={dateValue}
+        name="numeralDate_name"
+        id="numeralDate_id"
+      />
+    </>
+  );
+}
+```
+
+
+### Required
 
 **Render**
 
@@ -271,85 +333,12 @@ description: Carbon NumeralDate component props and usage examples.
   });
   return (
     <NumeralDate
-      label="Inline"
-      labelInline
-      labelAlign="right"
+      name="date-of-birth"
+      label="Date of Birth"
       labelWidth={30}
       onChange={(e) => setValue(e.target.value)}
       value={value}
-    />
-  );
-}
-```
-
-
-### Enabling Adaptive Behaviour
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState<NumeralDateProps["value"]>({
-    dd: "",
-    mm: "",
-    yyyy: "",
-  });
-  return (
-    <NumeralDate
-      adaptiveLabelBreakpoint={960}
-      label="Adaptive behaviour"
-      labelInline
-      labelAlign="right"
-      labelWidth={30}
-      onChange={(e) => setValue(e.target.value)}
-      value={value}
-    />
-  );
-}
-```
-
-
-### With Label Help
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState<NumeralDateProps["value"]>({
-    dd: "",
-    mm: "",
-    yyyy: "",
-  });
-  return (
-    <NumeralDate
-      helpAriaLabel="Label help"
-      label="With label help"
-      labelHelp="Label help"
-      onChange={(e) => setValue(e.target.value)}
-      value={value}
-    />
-  );
-}
-```
-
-
-### With Field Help
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState<NumeralDateProps["value"]>({
-    dd: "",
-    mm: "",
-    yyyy: "",
-  });
-  return (
-    <NumeralDate
-      label="With field help"
-      fieldHelp="Field help"
-      onChange={(e) => setValue(e.target.value)}
-      value={value}
+      required
     />
   );
 }
@@ -402,68 +391,6 @@ description: Carbon NumeralDate component props and usage examples.
 ```
 
 
-### Required
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState<NumeralDateProps["value"]>({
-    dd: "",
-    mm: "",
-    yyyy: "",
-  });
-  return (
-    <NumeralDate
-      name="date-of-birth"
-      label="Date of Birth"
-      labelWidth={30}
-      onChange={(e) => setValue(e.target.value)}
-      value={value}
-      required
-    />
-  );
-}
-```
-
-
-### Programmatic Focus
-
-**Render**
-
-```tsx
-() => {
-  const ndRef = React.useRef<NumeralDateHandle>(null);
-  const [dateValue, setDateValue] = useState<NumeralDateProps["value"]>({
-    dd: "",
-    mm: "",
-    yyyy: "",
-  });
-  const handleChange: NumeralDateProps["onChange"] = (event) => {
-    setDateValue(event.target.value);
-  };
-  const handleClick = () => {
-    ndRef.current?.focus();
-  };
-  return (
-    <>
-      <Button mb={2} onClick={handleClick}>
-        Click me to focus NumeralDate
-      </Button>
-      <NumeralDate
-        ref={ndRef}
-        onChange={handleChange}
-        label="Numeral date"
-        value={dateValue}
-        name="numeralDate_name"
-        id="numeralDate_id"
-      />
-    </>
-  );
-}
-```
-
-
 ### With Custom Field IDs
 
 **Render**
@@ -488,6 +415,79 @@ description: Carbon NumeralDate component props and usage examples.
         month: "month-field-custom-id",
         year: "year-field-custom-id",
       }}
+    />
+  );
+}
+```
+
+
+### With Field Help
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState<NumeralDateProps["value"]>({
+    dd: "",
+    mm: "",
+    yyyy: "",
+  });
+  return (
+    <NumeralDate
+      label="With field help"
+      fieldHelp="Field help"
+      onChange={(e) => setValue(e.target.value)}
+      value={value}
+    />
+  );
+}
+```
+
+
+### With Input Hint
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState<NumeralDateProps["value"]>({
+    dd: "",
+    mm: "",
+    yyyy: "",
+  });
+
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      <NumeralDate
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        label="With label help"
+        labelHelp="Label help"
+      />
+    </CarbonProvider>
+  );
+}
+```
+
+
+### With Label Help
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState<NumeralDateProps["value"]>({
+    dd: "",
+    mm: "",
+    yyyy: "",
+  });
+  return (
+    <NumeralDate
+      helpAriaLabel="Label help"
+      label="With label help"
+      labelHelp="Label help"
+      onChange={(e) => setValue(e.target.value)}
+      value={value}
     />
   );
 }

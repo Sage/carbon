@@ -18,7 +18,7 @@ description: Carbon Hr component props and usage examples.
 | Name | Type | Required | Literals | Description | Default |
 | --- | --- | --- | --- | --- | --- |
 | adaptiveMxBreakpoint | number \| undefined | No |  | Breakpoint for adaptive left and right margins (below the breakpoint they go to 0). Enables the adaptive behaviour when set |  |
-| height | "small" \| "medium" \| "large" \| undefined | No |  | Set the height of the component. Accepts one of "small", "medium", or "large" | "small" |
+| height | "large" \| "small" \| "medium" \| undefined | No |  | Set the height of the component. Accepts one of "small", "medium", or "large" | "small" |
 | m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
 | margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
 | marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
@@ -50,17 +50,6 @@ description: Carbon Hr component props and usage examples.
 ```
 
 
-### Different Spacing
-
-**Render**
-
-```tsx
-() => {
-  return <Hr mt={7} mb={7} />;
-}
-```
-
-
 ### Different Heights
 
 **Render**
@@ -81,24 +70,24 @@ description: Carbon Hr component props and usage examples.
 ```
 
 
-### Inverse Type
+### Different Spacing
 
 **Render**
 
 ```tsx
 () => {
-  const heights = ["small", "medium", "large"] as const;
-  return (
-    <>
-      <Box backgroundColor="var(--colorsActionMajor500)">
-        {heights.map((height) => (
-          <Box key={height} mb={3}>
-            <Hr type="inverse" height={height} />
-          </Box>
-        ))}
-      </Box>
-    </>
-  );
+  return <Hr mt={7} mb={7} />;
+}
+```
+
+
+### Enabling Adaptive Behaviour
+
+**Render**
+
+```tsx
+() => {
+  return <Hr mb={7} mt={7} ml="10%" mr="40%" adaptiveMxBreakpoint={960} />;
 }
 ```
 
@@ -181,13 +170,24 @@ description: Carbon Hr component props and usage examples.
 ```
 
 
-### Enabling Adaptive Behaviour
+### Inverse Type
 
 **Render**
 
 ```tsx
 () => {
-  return <Hr mb={7} mt={7} ml="10%" mr="40%" adaptiveMxBreakpoint={960} />;
+  const heights = ["small", "medium", "large"] as const;
+  return (
+    <>
+      <Box backgroundColor="var(--colorsActionMajor500)">
+        {heights.map((height) => (
+          <Box key={height} mb={3}>
+            <Hr type="inverse" height={height} />
+          </Box>
+        ))}
+      </Box>
+    </>
+  );
 }
 ```
 

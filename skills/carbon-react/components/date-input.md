@@ -64,7 +64,7 @@ description: Carbon DateInput component props and usage examples.
 | info | string \| boolean \| undefined | No |  |  |  | [Legacy] Indicate additional information. |  |
 | inlist | any | No |  |  |  |  |  |
 | inputHint | string \| undefined | No |  |  |  | A hint string rendered before the input but after the label. Intended to describe the purpose or content of the input. |  |
-| inputMode | "email" \| "none" \| "search" \| "text" \| "tel" \| "url" \| "numeric" \| "decimal" \| undefined | No |  |  |  | Hints at the type of data that might be entered by the user while editing the element or its contents |  |
+| inputMode | "none" \| "email" \| "search" \| "text" \| "tel" \| "url" \| "numeric" \| "decimal" \| undefined | No |  |  |  | Hints at the type of data that might be entered by the user while editing the element or its contents |  |
 | inputName | InputName \| undefined | No |  |  |  |  |  |
 | inputWidth | number \| undefined | No |  |  |  | The width of the input as a percentage |  |
 | is | string \| undefined | No |  |  |  | Specify that a standard HTML element should behave like a defined custom built-in element |  |
@@ -277,7 +277,7 @@ description: Carbon DateInput component props and usage examples.
 | reverse | boolean \| undefined | No |  |  |  | Reverses label and input display |  |
 | role | AriaRole \| undefined | No |  |  |  |  |  |
 | security | string \| undefined | No |  |  |  |  |  |
-| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | Size of an input |  |
+| size | "large" \| "small" \| "medium" \| undefined | No |  |  |  | Size of an input |  |
 | slot | string \| undefined | No |  |  |  |  |  |
 | spellCheck | Booleanish \| undefined | No |  |  |  |  |  |
 | src | string \| undefined | No |  |  |  |  |  |
@@ -353,7 +353,7 @@ description: Carbon DateInput component props and usage examples.
 | aria-valuetext | string \| undefined | No |  |  |  | Defines the human readable text alternative of aria-valuenow for a range widget. |  |
 | onKeyPress | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUp` or `onKeyDown` instead |  |  |
 | onKeyPressCapture | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUpCapture` or `onKeyDownCapture` instead |  |  |
-| aria-dropeffect | "copy" \| "link" \| "none" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
+| aria-dropeffect | "none" \| "copy" \| "link" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
 | aria-grabbed | Booleanish \| undefined | No |  | Yes | in ARIA 1.1 | Indicates an element's "grabbed" state in a drag-and-drop operation. |  |
 
 ## Examples
@@ -379,57 +379,6 @@ description: Carbon DateInput component props and usage examples.
 ```
 
 
-### Input Hint
-
-**Render**
-
-```tsx
-() => {
-  const [state, setState] = useState("04/04/2019");
-  const setValue = (ev: DateChangeEvent) => {
-    setState(ev.target.value.formattedValue);
-  };
-  return (
-    <DateInput
-      label="Date"
-      inputHint="Hint text"
-      name="date-input"
-      value={state}
-      onChange={setValue}
-    />
-  );
-}
-```
-
-
-### Sizes
-
-**Render**
-
-```tsx
-() => {
-  const [state, setState] = useState("01/10/2016");
-  const setValue = (ev: DateChangeEvent) => {
-    setState(ev.target.value.formattedValue);
-  };
-  return (
-    <>
-      {(["small", "medium", "large"] as const).map((size) => (
-        <DateInput
-          key={`Date - ${size}`}
-          label={`Date - ${size}`}
-          value={state}
-          onChange={setValue}
-          size={size}
-          mb={2}
-        />
-      ))}
-    </>
-  );
-}
-```
-
-
 ### Disabled
 
 **Render**
@@ -441,52 +390,6 @@ description: Carbon DateInput component props and usage examples.
     setState(ev.target.value.formattedValue);
   };
   return <DateInput label="Date" value={state} onChange={setValue} disabled />;
-}
-```
-
-
-### Read Only
-
-**Render**
-
-```tsx
-() => {
-  const [state, setState] = useState("01/10/2016");
-  const setValue = (ev: DateChangeEvent) => {
-    setState(ev.target.value.formattedValue);
-  };
-  return <DateInput label="Date" value={state} onChange={setValue} readOnly />;
-}
-```
-
-
-### Empty
-
-**Render**
-
-```tsx
-() => {
-  const [state, setState] = useState("");
-  const setValue = (ev: DateChangeEvent) => {
-    setState(ev.target.value.formattedValue);
-  };
-  return (
-    <>
-      <Box mb={2}>
-        <Button onClick={() => setState("")}>Set empty date</Button>
-        <Button onClick={() => setState("01/04/2019")} ml={2}>
-          Set 2019-04-01
-        </Button>
-      </Box>
-      <DateInput
-        label="Date"
-        name="dateinput"
-        value={state}
-        onChange={setValue}
-        allowEmptyValue
-      />
-    </>
-  );
 }
 ```
 
@@ -555,183 +458,55 @@ description: Carbon DateInput component props and usage examples.
 ```
 
 
-### With Label Inline
+### Empty
 
 **Render**
 
 ```tsx
 () => {
-  const [state, setState] = useState("01/10/2016");
+  const [state, setState] = useState("");
+  const setValue = (ev: DateChangeEvent) => {
+    setState(ev.target.value.formattedValue);
+  };
+  return (
+    <>
+      <Box mb={2}>
+        <Button onClick={() => setState("")}>Set empty date</Button>
+        <Button onClick={() => setState("01/04/2019")} ml={2}>
+          Set 2019-04-01
+        </Button>
+      </Box>
+      <DateInput
+        label="Date"
+        name="dateinput"
+        value={state}
+        onChange={setValue}
+        allowEmptyValue
+      />
+    </>
+  );
+}
+```
+
+
+### Input Hint
+
+**Render**
+
+```tsx
+() => {
+  const [state, setState] = useState("04/04/2019");
   const setValue = (ev: DateChangeEvent) => {
     setState(ev.target.value.formattedValue);
   };
   return (
     <DateInput
       label="Date"
+      inputHint="Hint text"
+      name="date-input"
       value={state}
       onChange={setValue}
-      labelInline
-      name="dateinput"
     />
-  );
-}
-```
-
-
-### With Custom Width
-
-**Render**
-
-```tsx
-() => {
-  const [state, setState] = useState("01/10/2016");
-  const setValue = (ev: DateChangeEvent) => {
-    setState(ev.target.value.formattedValue);
-  };
-  return (
-    <DateInput
-      label="Date"
-      value={state}
-      onChange={setValue}
-      maxWidth="300px"
-    />
-  );
-}
-```
-
-
-### With Field Help
-
-**Render**
-
-```tsx
-() => {
-  const [state, setState] = useState("01/10/2016");
-  const setValue = (ev: DateChangeEvent) => {
-    setState(ev.target.value.formattedValue);
-  };
-  return (
-    <DateInput
-      label="Date"
-      value={state}
-      onChange={setValue}
-      fieldHelp="Help"
-      name="dateinput"
-    />
-  );
-}
-```
-
-
-### With Label Help
-
-**Render**
-
-```tsx
-() => {
-  const [state, setState] = useState("01/10/2016");
-  const setValue = (ev: DateChangeEvent) => {
-    setState(ev.target.value.formattedValue);
-  };
-  return (
-    <DateInput
-      label="Date"
-      value={state}
-      onChange={setValue}
-      labelHelp="Help"
-      name="dateinput"
-      helpAriaLabel="Help"
-    />
-  );
-}
-```
-
-
-### With Disabled Portal
-
-**Render**
-
-```tsx
-() => {
-  const [state, setState] = useState("01/10/2016");
-  const setValue = (ev: DateChangeEvent) => {
-    setState(ev.target.value.formattedValue);
-  };
-  return (
-    <DateInput label="Date" value={state} onChange={setValue} disablePortal />
-  );
-}
-```
-
-
-### Required
-
-**Render**
-
-```tsx
-() => {
-  const [state, setState] = useState("01/10/2016");
-  const setValue = (ev: DateChangeEvent) => {
-    setState(ev.target.value.formattedValue);
-  };
-  return <DateInput label="Date" value={state} onChange={setValue} required />;
-}
-```
-
-
-### Locale Override
-
-**Render**
-
-```tsx
-() => {
-  const [state, setState] = useState("2022-04-05");
-  const handleChange = (ev: DateChangeEvent) => {
-    setState(ev.target.value.formattedValue);
-  };
-  const [state2, setState2] = useState("2022-04-05");
-  const handleChange2 = (ev: DateChangeEvent) => {
-    setState2(ev.target.value.formattedValue);
-  };
-  return (
-    <Box display="flex" justifyContent="space-around">
-      <I18nProvider
-        locale={{
-          locale: () => "de-DE",
-          date: {
-            dateFnsLocale: () => de,
-            ariaLabels: {
-              previousMonthButton: () => "Vorheriger Monat",
-              nextMonthButton: () => "Nächster Monat",
-            },
-          },
-        }}
-      >
-        <DateInput
-          label="Date `DE` locale"
-          value={state}
-          onChange={handleChange}
-        />
-      </I18nProvider>
-      <I18nProvider
-        locale={{
-          locale: () => "zh-CN",
-          date: {
-            dateFnsLocale: () => zhCN,
-            ariaLabels: {
-              previousMonthButton: () => "上个月",
-              nextMonthButton: () => "下个月",
-            },
-          },
-        }}
-      >
-        <DateInput
-          label="Date `zh-CN` locale"
-          value={state2}
-          onChange={handleChange2}
-        />
-      </I18nProvider>
-    </Box>
   );
 }
 ```
@@ -794,6 +569,231 @@ description: Carbon DateInput component props and usage examples.
         />
       </I18nProvider>
     </Box>
+  );
+}
+```
+
+
+### Locale Override
+
+**Render**
+
+```tsx
+() => {
+  const [state, setState] = useState("2022-04-05");
+  const handleChange = (ev: DateChangeEvent) => {
+    setState(ev.target.value.formattedValue);
+  };
+  const [state2, setState2] = useState("2022-04-05");
+  const handleChange2 = (ev: DateChangeEvent) => {
+    setState2(ev.target.value.formattedValue);
+  };
+  return (
+    <Box display="flex" justifyContent="space-around">
+      <I18nProvider
+        locale={{
+          locale: () => "de-DE",
+          date: {
+            dateFnsLocale: () => de,
+            ariaLabels: {
+              previousMonthButton: () => "Vorheriger Monat",
+              nextMonthButton: () => "Nächster Monat",
+            },
+          },
+        }}
+      >
+        <DateInput
+          label="Date `DE` locale"
+          value={state}
+          onChange={handleChange}
+        />
+      </I18nProvider>
+      <I18nProvider
+        locale={{
+          locale: () => "zh-CN",
+          date: {
+            dateFnsLocale: () => zhCN,
+            ariaLabels: {
+              previousMonthButton: () => "上个月",
+              nextMonthButton: () => "下个月",
+            },
+          },
+        }}
+      >
+        <DateInput
+          label="Date `zh-CN` locale"
+          value={state2}
+          onChange={handleChange2}
+        />
+      </I18nProvider>
+    </Box>
+  );
+}
+```
+
+
+### Read Only
+
+**Render**
+
+```tsx
+() => {
+  const [state, setState] = useState("01/10/2016");
+  const setValue = (ev: DateChangeEvent) => {
+    setState(ev.target.value.formattedValue);
+  };
+  return <DateInput label="Date" value={state} onChange={setValue} readOnly />;
+}
+```
+
+
+### Required
+
+**Render**
+
+```tsx
+() => {
+  const [state, setState] = useState("01/10/2016");
+  const setValue = (ev: DateChangeEvent) => {
+    setState(ev.target.value.formattedValue);
+  };
+  return <DateInput label="Date" value={state} onChange={setValue} required />;
+}
+```
+
+
+### Sizes
+
+**Render**
+
+```tsx
+() => {
+  const [state, setState] = useState("01/10/2016");
+  const setValue = (ev: DateChangeEvent) => {
+    setState(ev.target.value.formattedValue);
+  };
+  return (
+    <>
+      {(["small", "medium", "large"] as const).map((size) => (
+        <DateInput
+          key={`Date - ${size}`}
+          label={`Date - ${size}`}
+          value={state}
+          onChange={setValue}
+          size={size}
+          mb={2}
+        />
+      ))}
+    </>
+  );
+}
+```
+
+
+### With Custom Width
+
+**Render**
+
+```tsx
+() => {
+  const [state, setState] = useState("01/10/2016");
+  const setValue = (ev: DateChangeEvent) => {
+    setState(ev.target.value.formattedValue);
+  };
+  return (
+    <DateInput
+      label="Date"
+      value={state}
+      onChange={setValue}
+      maxWidth="300px"
+    />
+  );
+}
+```
+
+
+### With Disabled Portal
+
+**Render**
+
+```tsx
+() => {
+  const [state, setState] = useState("01/10/2016");
+  const setValue = (ev: DateChangeEvent) => {
+    setState(ev.target.value.formattedValue);
+  };
+  return (
+    <DateInput label="Date" value={state} onChange={setValue} disablePortal />
+  );
+}
+```
+
+
+### With Field Help
+
+**Render**
+
+```tsx
+() => {
+  const [state, setState] = useState("01/10/2016");
+  const setValue = (ev: DateChangeEvent) => {
+    setState(ev.target.value.formattedValue);
+  };
+  return (
+    <DateInput
+      label="Date"
+      value={state}
+      onChange={setValue}
+      fieldHelp="Help"
+      name="dateinput"
+    />
+  );
+}
+```
+
+
+### With Label Help
+
+**Render**
+
+```tsx
+() => {
+  const [state, setState] = useState("01/10/2016");
+  const setValue = (ev: DateChangeEvent) => {
+    setState(ev.target.value.formattedValue);
+  };
+  return (
+    <DateInput
+      label="Date"
+      value={state}
+      onChange={setValue}
+      labelHelp="Help"
+      name="dateinput"
+      helpAriaLabel="Help"
+    />
+  );
+}
+```
+
+
+### With Label Inline
+
+**Render**
+
+```tsx
+() => {
+  const [state, setState] = useState("01/10/2016");
+  const setValue = (ev: DateChangeEvent) => {
+    setState(ev.target.value.formattedValue);
+  };
+  return (
+    <DateInput
+      label="Date"
+      value={state}
+      onChange={setValue}
+      labelInline
+      name="dateinput"
+    />
   );
 }
 ```

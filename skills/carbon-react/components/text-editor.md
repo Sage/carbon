@@ -49,7 +49,7 @@ description: Carbon TextEditor component props and usage examples.
 | readOnly | boolean \| undefined | No |  |  |  | Whether the editor is read-only |  |
 | required | boolean \| undefined | No |  |  |  | Whether the content of the editor is required to have a value |  |
 | rows | number \| undefined | No |  |  |  | Number greater than 2 multiplied to override the default min-height of the editor |  |
-| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | The size of the toolbar |  |
+| size | "large" \| "small" \| "medium" \| undefined | No |  |  |  | The size of the toolbar |  |
 | toolbarControls | ToolbarControl[] \| undefined | No |  |  |  |  |  |
 | validationMessagePositionTop | boolean \| undefined | No |  |  |  | Render the ValidationMessage above the TextEditor |  |
 | warning | string \| undefined | No |  |  |  | The message to be shown when the editor is in an warning state |  |
@@ -142,123 +142,6 @@ description: Carbon TextEditor component props and usage examples.
 ```
 
 
-### Focusing the Text Editor Programmatically
-
-**Render**
-
-```tsx
-() => {
-  const editorRef = useRef<TextEditorHandle>(null);
-
-  return (
-    <Box mx={2} my={0}>
-      <Button mb="30px" onClick={() => editorRef.current?.focus()}>
-        Focus the editor
-      </Button>
-
-      <TextEditor
-        ref={editorRef}
-        namespace="storybook-default"
-        labelText="Text Editor"
-      />
-    </Box>
-  );
-}
-```
-
-
-### ToolbarControls
-
-**Args**
-
-```tsx
-{
-    labelText: "Text Editor Label",
-    rows: 4,
-    size: "medium",
-    namespace: "storybook-demo",
-    toolbarControls: ["typography", "italic", "unordered-list", "link"],
-  }
-```
-
-**Render**
-
-```tsx
-(args: TextEditorProps) => (
-    <Box mx={2} my={0}>
-      <TextEditor {...args} />
-    </Box>
-  )
-```
-
-
-### With Header and Footer
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Box mx={2} my={0}>
-      <TextEditor
-        namespace="storybook-header-and-footer"
-        labelText="Text Editor"
-        header={<Button buttonType="gradient-white">Button</Button>}
-        footer={
-          <Typography color="--colorsUtilityYin055">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text{" "}
-            <Link href="https://carbon.sage.com/?path=/story/welcome--welcome-page">
-              ever since the 1500s
-            </Link>
-          </Typography>
-        }
-      />
-    </Box>
-  );
-}
-```
-
-
-### onChange Handler
-
-**Render**
-
-```tsx
-() => {
-  const [valueString, setValueString] = React.useState<string | undefined>(
-    undefined,
-  );
-  const [valueHTML, setValueHTML] = React.useState<string | undefined>(
-    undefined,
-  );
-
-  const handleChange = useCallback(
-    (value: string, formattedValues: EditorFormattedValues) => {
-      setValueString(value);
-      setValueHTML(formattedValues.htmlString);
-    },
-    [],
-  );
-
-  return (
-    <Box mx={2} my={0}>
-      <TextEditor
-        namespace="storybook-onchange"
-        labelText="Text Editor"
-        onChange={handleChange}
-      />
-      <div>Unformatted content: {valueString || "No content"}</div>
-      <div>
-        HTML formatted content:{" "}
-        {valueHTML === "<p><br></p>" ? "No content" : valueHTML}
-      </div>
-    </Box>
-  );
-}
-```
-
-
 ### Externally overwriting the editor's content
 
 **Render**
@@ -300,190 +183,24 @@ description: Carbon TextEditor component props and usage examples.
 ```
 
 
-### onSave Handler
+### Focusing the Text Editor Programmatically
 
 **Render**
 
 ```tsx
 () => {
-  const [data, setData] = useState<EditorFormattedValues>({
-    htmlString: "<p><br></p>",
-    json: undefined,
-  });
-  const [showData, setShowData] = useState(false);
+  const editorRef = useRef<TextEditorHandle>(null);
+
   return (
     <Box mx={2} my={0}>
-      <>
-        <TextEditor
-          namespace="storybook-onsave"
-          labelText="Text Editor"
-          onSave={({ htmlString, json }) => setData({ htmlString, json })}
-        />
-      </>
-      <Button
-        buttonType="primary"
-        size="small"
-        my={2}
-        onClick={() => setShowData(!showData)}
-      >
-        Show Data Formats
+      <Button mb="30px" onClick={() => editorRef.current?.focus()}>
+        Focus the editor
       </Button>
-      {showData && (
-        <Box
-          display="flex"
-          flexDirection="row"
-          gap={4}
-          justifyContent="space-around"
-        >
-          <Box maxWidth="30%">
-            <Typography variant="h4" mb={1}>
-              HTML
-            </Typography>
-            {data?.htmlString || "No content"}
-          </Box>
-          <Box maxWidth="30%">
-            <Typography variant="h4" mb={1}>
-              JSON
-            </Typography>
-            {JSON.stringify(data?.json, null, 2) || "No content"}
-          </Box>
-        </Box>
-      )}
-    </Box>
-  );
-}
-```
 
-
-### onFormSubmission Handler (with Inline Styles)
-
-**Render**
-
-```tsx
-() => {
-  const [data, setData] = useState<EditorFormattedValuesWithInlineStyles>({
-    htmlString: "<p><br></p>",
-    json: undefined,
-    htmlStringWithInlineStyles: "",
-  });
-  const [showData, setShowData] = useState(false);
-
-  const handleFormSubmit: FormProps["onSubmit"] = async (ev) => {
-    ev.preventDefault();
-  };
-
-  return (
-    <Box mx={2} my={0}>
-      <Form
-        onSubmit={handleFormSubmit}
-        saveButton={
-          <Button type="submit" buttonType="primary">
-            Submit Form
-          </Button>
-        }
-      >
-        <TextEditor
-          namespace="storybook-onformsubmission"
-          labelText="Text Editor"
-          onFormSubmission={setData}
-        />
-      </Form>
-      <Button
-        buttonType="primary"
-        size="small"
-        my={2}
-        onClick={() => setShowData(!showData)}
-      >
-        Show Data Formats
-      </Button>
-      {showData && (
-        <Box display="flex" flexDirection="column" gap={4}>
-          <Box>
-            <Typography variant="h4" mb={1}>
-              HTML (with Classes)
-            </Typography>
-            <Box
-              p={2}
-              backgroundColor="--colorsUtilityYin025"
-              borderRadius="borderRadius050"
-              maxHeight="200px"
-              overflow="auto"
-            >
-              {data?.htmlString || "No content"}
-            </Box>
-          </Box>
-          <Box>
-            <Typography variant="h4" mb={1}>
-              HTML (with Inline Styles)
-            </Typography>
-            <Box
-              p={2}
-              backgroundColor="--colorsUtilityYin025"
-              borderRadius="borderRadius050"
-              maxHeight="200px"
-              overflow="auto"
-            >
-              {data?.htmlStringWithInlineStyles || "No content"}
-            </Box>
-          </Box>
-          <Box>
-            <Typography variant="h4" mb={1}>
-              JSON
-            </Typography>
-            <Box
-              p={2}
-              backgroundColor="--colorsUtilityYin025"
-              borderRadius="borderRadius050"
-              maxHeight="200px"
-              overflow="auto"
-            >
-              {JSON.stringify(data?.json, null, 2) || "No content"}
-            </Box>
-          </Box>
-        </Box>
-      )}
-    </Box>
-  );
-}
-```
-
-
-### Setting Initial Values
-
-**Render**
-
-```tsx
-() => {
-  const initialValue = `<p><span style="white-space: pre-wrap;">This is a HTML example.</span></p><ol><li value="1"><span style="white-space: pre-wrap;">Look, it has lists!</span></li></ol>`;
-  const value = createFromHTML(initialValue); // Use JSON.stringify(initialValue) when using JSON objects
-
-  return (
-    <Box mx={2} my={0}>
       <TextEditor
-        namespace="storybook-withhtmlvalue"
+        ref={editorRef}
+        namespace="storybook-default"
         labelText="Text Editor"
-        initialValue={value}
-      />
-    </Box>
-  );
-}
-```
-
-
-### Link Support
-
-**Render**
-
-```tsx
-() => {
-  const defaultHTML = `<a href="https://carbon.sage.com/?path=/story/welcome--welcome-page" rel="noreferrer" ><span data-lexical-text="true">Carbon</span></a>`;
-  const value = createFromHTML(defaultHTML);
-  return (
-    <Box mx={2} my={0}>
-      <TextEditor
-        namespace="storybook-links"
-        labelText="Text Editor"
-        initialValue={value}
       />
     </Box>
   );
@@ -568,214 +285,21 @@ description: Carbon TextEditor component props and usage examples.
 ```
 
 
-### Translations
+### Link Support
 
 **Render**
 
 ```tsx
 () => {
-  return (
-    <I18nProvider
-      locale={{
-        ...enGB,
-        textEditor: {
-          boldAria: () => "Make text bold",
-          cancelButton: () => "No",
-          cancelButtonAria: () => "Cancel the current content",
-          characterCounter: (count: string | number) =>
-            `You've got ${count} characters left`,
-          characterLimit: (count: number) =>
-            `Please delete the last ${count} characters`,
-          contentEditorAria: () => "Rich text content editor",
-          italicAria: () => "Make text italic",
-          orderedListAria: () => "Ordered list",
-          saveButton: () => "Yes",
-          saveButtonAria: () => "Save the current content",
-          toolbarAriaLabel: () => "Formatting",
-          unorderedListAria: () => "Unordered list",
-          underlineAria: () => "Underline text",
-          hyperlink: {
-            buttonAria: () => "Hyperlink",
-            cancelButton: () => "Cancel",
-            cancelButtonAria: () => "Cancel",
-            dialogTitle: () => "Add link",
-            linkFieldLabel: () => "Link",
-            saveButton: () => "Save",
-            saveButtonAria: () => "Save",
-            textFieldLabel: () => "Text",
-          },
-          typography: {
-            selectAria: () => "Heading type",
-            paragraph: () => "Paragraph",
-            title: () => "Title",
-            subtitle: () => "Subtitle",
-            sectionHeader: () => "Section header",
-            sectionSubheader: () => "Section subheader",
-          },
-          mentions: {
-            listAriaLabel: () => "List of mentionable people",
-          },
-        },
-      }}
-    >
-      <Box mx={2} my={0}>
-        <TextEditor
-          namespace="storybook-customtranslations"
-          characterLimit={10}
-          labelText="Translated Text Editor"
-          onCancel={() => {}}
-          onSave={() => {}}
-        />
-      </Box>
-    </I18nProvider>
-  );
-}
-```
-
-
-### Read-Only Mode
-
-**Render**
-
-```tsx
-() => {
-  const initialValue = `<p><span style="white-space: pre-wrap;">This is an HTML example.</span><br><a href="https://carbon.sage.com/?path=/story/welcome--welcome-page" rel="noreferrer" ><span data-lexical-text="true">Carbon</span></a></p>`;
-  const value = createFromHTML(initialValue);
+  const defaultHTML = `<a href="https://carbon.sage.com/?path=/story/welcome--welcome-page" rel="noreferrer" ><span data-lexical-text="true">Carbon</span></a>`;
+  const value = createFromHTML(defaultHTML);
   return (
     <Box mx={2} my={0}>
       <TextEditor
-        namespace="storybook-readonly"
+        namespace="storybook-links"
         labelText="Text Editor"
-        readOnly
         initialValue={value}
       />
-    </Box>
-  );
-}
-```
-
-
-### Multiple Editors
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Box mx={2} my={0}>
-      <TextEditor labelText="Text Editor One" namespace="rte-one" />
-      <TextEditor labelText="Text Editor Two" namespace="rte-two" />
-    </Box>
-  );
-}
-```
-
-
-### With Custom Plugin
-
-**Render**
-
-```tsx
-() => {
-  const CustomWordCountPlugin = () => {
-    const [editor] = useLexicalComposerContext();
-    const [wordCount, setWordCount] = useState(0);
-    useEffect(() => {
-      return editor.registerUpdateListener(({ editorState }) => {
-        editorState.read(() => {
-          const text = $getRoot().getTextContent();
-          const count = text.trim().split(/\s+/).filter(Boolean).length;
-          setWordCount(count);
-        });
-      });
-    }, [editor]);
-    return <Typography m={1}>Word Count: {wordCount}</Typography>;
-  };
-
-  return (
-    <Box mx={2} my={0}>
-      <TextEditor
-        placeholder="Example of a custom word count plugin that updates in real time, showing the number of words at the bottom left of the editor as you type."
-        namespace="storybook-default"
-        labelText="Text Editor"
-        customPlugins={<CustomWordCountPlugin />}
-      />
-    </Box>
-  );
-}
-```
-
-
-### Mentions
-
-**Args**
-
-```tsx
-{
-  characterLimit: 1000,
-  error: "",
-  inputHint: "Type '@' to mention someone",
-  labelText: "Text Editor with Mentions support",
-  namespace: "storybook-mentions",
-  readOnly: false,
-  size: "medium",
-  warning: "",
-}
-```
-
-**Render**
-
-```tsx
-({ ...args }) => {
-  const mentionsData: Mention[] = [
-    {
-      id: "1",
-      name: "Amanda Ball",
-    },
-    {
-      id: "2",
-      name: "Anaya Underwood",
-      initials: "AU",
-    },
-    {
-      id: "3",
-      name: "Alastair Cox",
-      initials: "AC",
-    },
-    {
-      id: "4",
-      name: "Anwar al-Awlaki",
-      src: "https://loremfaces.net/24/id/2.jpg",
-    },
-    {
-      id: "5",
-      name: "Angela Alabaster",
-      src: "https://loremfaces.net/24/id/1.jpg",
-    },
-    {
-      id: "6",
-      name: "Alfred Jones",
-      iconType: "accessibility_web",
-    },
-  ];
-
-  return (
-    <Box mx={2} my={0}>
-      <main>
-        <TextEditor
-          namespace="storybook-mentions"
-          labelText="Text Editor"
-          inputHint="Press '@' to mention someone"
-          onChange={action("onChange")}
-          customPlugins={[
-            <MentionsPlugin
-              namespace="storybook-mentions"
-              searchOptions={mentionsData}
-            />,
-          ]}
-          {...args}
-        />
-      </main>
     </Box>
   );
 }
@@ -954,5 +478,481 @@ The `customPlugins` prop allows consumers of the `TextEditor` component to injec
 The Text Editor supports mentions, and offers a built-in `Mentions` component to facilitate this. The `Mentions` component provides an interface for displaying a list of mentionable items and handling user interactions.
 
 To use the `Mentions` component, you need to provide it with a list of items that can be mentioned. Each item should be a `Mention` instance and have an `id` and a `name`.
+```
+
+
+### Mentions
+
+**Args**
+
+```tsx
+{
+  characterLimit: 1000,
+  error: "",
+  inputHint: "Type '@' to mention someone",
+  labelText: "Text Editor with Mentions support",
+  namespace: "storybook-mentions",
+  readOnly: false,
+  size: "medium",
+  warning: "",
+}
+```
+
+**Render**
+
+```tsx
+({ ...args }) => {
+  const mentionsData: Mention[] = [
+    {
+      id: "1",
+      name: "Amanda Ball",
+    },
+    {
+      id: "2",
+      name: "Anaya Underwood",
+      initials: "AU",
+    },
+    {
+      id: "3",
+      name: "Alastair Cox",
+      initials: "AC",
+    },
+    {
+      id: "4",
+      name: "Anwar al-Awlaki",
+      src: "https://loremfaces.net/24/id/2.jpg",
+    },
+    {
+      id: "5",
+      name: "Angela Alabaster",
+      src: "https://loremfaces.net/24/id/1.jpg",
+    },
+    {
+      id: "6",
+      name: "Alfred Jones",
+      iconType: "accessibility_web",
+    },
+  ];
+
+  return (
+    <Box mx={2} my={0}>
+      <main>
+        <TextEditor
+          namespace="storybook-mentions"
+          labelText="Text Editor"
+          inputHint="Press '@' to mention someone"
+          onChange={action("onChange")}
+          customPlugins={[
+            <MentionsPlugin
+              namespace="storybook-mentions"
+              searchOptions={mentionsData}
+            />,
+          ]}
+          {...args}
+        />
+      </main>
+    </Box>
+  );
+}
+```
+
+
+### Multiple Editors
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Box mx={2} my={0}>
+      <TextEditor labelText="Text Editor One" namespace="rte-one" />
+      <TextEditor labelText="Text Editor Two" namespace="rte-two" />
+    </Box>
+  );
+}
+```
+
+
+### onChange Handler
+
+**Render**
+
+```tsx
+() => {
+  const [valueString, setValueString] = React.useState<string | undefined>(
+    undefined,
+  );
+  const [valueHTML, setValueHTML] = React.useState<string | undefined>(
+    undefined,
+  );
+
+  const handleChange = useCallback(
+    (value: string, formattedValues: EditorFormattedValues) => {
+      setValueString(value);
+      setValueHTML(formattedValues.htmlString);
+    },
+    [],
+  );
+
+  return (
+    <Box mx={2} my={0}>
+      <TextEditor
+        namespace="storybook-onchange"
+        labelText="Text Editor"
+        onChange={handleChange}
+      />
+      <div>Unformatted content: {valueString || "No content"}</div>
+      <div>
+        HTML formatted content:{" "}
+        {valueHTML === "<p><br></p>" ? "No content" : valueHTML}
+      </div>
+    </Box>
+  );
+}
+```
+
+
+### onFormSubmission Handler (with Inline Styles)
+
+**Render**
+
+```tsx
+() => {
+  const [data, setData] = useState<EditorFormattedValuesWithInlineStyles>({
+    htmlString: "<p><br></p>",
+    json: undefined,
+    htmlStringWithInlineStyles: "",
+  });
+  const [showData, setShowData] = useState(false);
+
+  const handleFormSubmit: FormProps["onSubmit"] = async (ev) => {
+    ev.preventDefault();
+  };
+
+  return (
+    <Box mx={2} my={0}>
+      <Form
+        onSubmit={handleFormSubmit}
+        saveButton={
+          <Button type="submit" buttonType="primary">
+            Submit Form
+          </Button>
+        }
+      >
+        <TextEditor
+          namespace="storybook-onformsubmission"
+          labelText="Text Editor"
+          onFormSubmission={setData}
+        />
+      </Form>
+      <Button
+        buttonType="primary"
+        size="small"
+        my={2}
+        onClick={() => setShowData(!showData)}
+      >
+        Show Data Formats
+      </Button>
+      {showData && (
+        <Box display="flex" flexDirection="column" gap={4}>
+          <Box>
+            <Typography variant="h4" mb={1}>
+              HTML (with Classes)
+            </Typography>
+            <Box
+              p={2}
+              backgroundColor="--colorsUtilityYin025"
+              borderRadius="borderRadius050"
+              maxHeight="200px"
+              overflow="auto"
+            >
+              {data?.htmlString || "No content"}
+            </Box>
+          </Box>
+          <Box>
+            <Typography variant="h4" mb={1}>
+              HTML (with Inline Styles)
+            </Typography>
+            <Box
+              p={2}
+              backgroundColor="--colorsUtilityYin025"
+              borderRadius="borderRadius050"
+              maxHeight="200px"
+              overflow="auto"
+            >
+              {data?.htmlStringWithInlineStyles || "No content"}
+            </Box>
+          </Box>
+          <Box>
+            <Typography variant="h4" mb={1}>
+              JSON
+            </Typography>
+            <Box
+              p={2}
+              backgroundColor="--colorsUtilityYin025"
+              borderRadius="borderRadius050"
+              maxHeight="200px"
+              overflow="auto"
+            >
+              {JSON.stringify(data?.json, null, 2) || "No content"}
+            </Box>
+          </Box>
+        </Box>
+      )}
+    </Box>
+  );
+}
+```
+
+
+### onSave Handler
+
+**Render**
+
+```tsx
+() => {
+  const [data, setData] = useState<EditorFormattedValues>({
+    htmlString: "<p><br></p>",
+    json: undefined,
+  });
+  const [showData, setShowData] = useState(false);
+  return (
+    <Box mx={2} my={0}>
+      <>
+        <TextEditor
+          namespace="storybook-onsave"
+          labelText="Text Editor"
+          onSave={({ htmlString, json }) => setData({ htmlString, json })}
+        />
+      </>
+      <Button
+        buttonType="primary"
+        size="small"
+        my={2}
+        onClick={() => setShowData(!showData)}
+      >
+        Show Data Formats
+      </Button>
+      {showData && (
+        <Box
+          display="flex"
+          flexDirection="row"
+          gap={4}
+          justifyContent="space-around"
+        >
+          <Box maxWidth="30%">
+            <Typography variant="h4" mb={1}>
+              HTML
+            </Typography>
+            {data?.htmlString || "No content"}
+          </Box>
+          <Box maxWidth="30%">
+            <Typography variant="h4" mb={1}>
+              JSON
+            </Typography>
+            {JSON.stringify(data?.json, null, 2) || "No content"}
+          </Box>
+        </Box>
+      )}
+    </Box>
+  );
+}
+```
+
+
+### Read-Only Mode
+
+**Render**
+
+```tsx
+() => {
+  const initialValue = `<p><span style="white-space: pre-wrap;">This is an HTML example.</span><br><a href="https://carbon.sage.com/?path=/story/welcome--welcome-page" rel="noreferrer" ><span data-lexical-text="true">Carbon</span></a></p>`;
+  const value = createFromHTML(initialValue);
+  return (
+    <Box mx={2} my={0}>
+      <TextEditor
+        namespace="storybook-readonly"
+        labelText="Text Editor"
+        readOnly
+        initialValue={value}
+      />
+    </Box>
+  );
+}
+```
+
+
+### Setting Initial Values
+
+**Render**
+
+```tsx
+() => {
+  const initialValue = `<p><span style="white-space: pre-wrap;">This is a HTML example.</span></p><ol><li value="1"><span style="white-space: pre-wrap;">Look, it has lists!</span></li></ol>`;
+  const value = createFromHTML(initialValue); // Use JSON.stringify(initialValue) when using JSON objects
+
+  return (
+    <Box mx={2} my={0}>
+      <TextEditor
+        namespace="storybook-withhtmlvalue"
+        labelText="Text Editor"
+        initialValue={value}
+      />
+    </Box>
+  );
+}
+```
+
+
+### ToolbarControls
+
+**Args**
+
+```tsx
+{
+    labelText: "Text Editor Label",
+    rows: 4,
+    size: "medium",
+    namespace: "storybook-demo",
+    toolbarControls: ["typography", "italic", "unordered-list", "link"],
+  }
+```
+
+**Render**
+
+```tsx
+(args: TextEditorProps) => (
+    <Box mx={2} my={0}>
+      <TextEditor {...args} />
+    </Box>
+  )
+```
+
+
+### Translations
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <I18nProvider
+      locale={{
+        ...enGB,
+        textEditor: {
+          boldAria: () => "Make text bold",
+          cancelButton: () => "No",
+          cancelButtonAria: () => "Cancel the current content",
+          characterCounter: (count: string | number) =>
+            `You've got ${count} characters left`,
+          characterLimit: (count: number) =>
+            `Please delete the last ${count} characters`,
+          contentEditorAria: () => "Rich text content editor",
+          italicAria: () => "Make text italic",
+          orderedListAria: () => "Ordered list",
+          saveButton: () => "Yes",
+          saveButtonAria: () => "Save the current content",
+          toolbarAriaLabel: () => "Formatting",
+          unorderedListAria: () => "Unordered list",
+          underlineAria: () => "Underline text",
+          hyperlink: {
+            buttonAria: () => "Hyperlink",
+            cancelButton: () => "Cancel",
+            cancelButtonAria: () => "Cancel",
+            dialogTitle: () => "Add link",
+            linkFieldLabel: () => "Link",
+            saveButton: () => "Save",
+            saveButtonAria: () => "Save",
+            textFieldLabel: () => "Text",
+          },
+          typography: {
+            selectAria: () => "Heading type",
+            paragraph: () => "Paragraph",
+            title: () => "Title",
+            subtitle: () => "Subtitle",
+            sectionHeader: () => "Section header",
+            sectionSubheader: () => "Section subheader",
+          },
+          mentions: {
+            listAriaLabel: () => "List of mentionable people",
+          },
+        },
+      }}
+    >
+      <Box mx={2} my={0}>
+        <TextEditor
+          namespace="storybook-customtranslations"
+          characterLimit={10}
+          labelText="Translated Text Editor"
+          onCancel={() => {}}
+          onSave={() => {}}
+        />
+      </Box>
+    </I18nProvider>
+  );
+}
+```
+
+
+### With Custom Plugin
+
+**Render**
+
+```tsx
+() => {
+  const CustomWordCountPlugin = () => {
+    const [editor] = useLexicalComposerContext();
+    const [wordCount, setWordCount] = useState(0);
+    useEffect(() => {
+      return editor.registerUpdateListener(({ editorState }) => {
+        editorState.read(() => {
+          const text = $getRoot().getTextContent();
+          const count = text.trim().split(/\s+/).filter(Boolean).length;
+          setWordCount(count);
+        });
+      });
+    }, [editor]);
+    return <Typography m={1}>Word Count: {wordCount}</Typography>;
+  };
+
+  return (
+    <Box mx={2} my={0}>
+      <TextEditor
+        placeholder="Example of a custom word count plugin that updates in real time, showing the number of words at the bottom left of the editor as you type."
+        namespace="storybook-default"
+        labelText="Text Editor"
+        customPlugins={<CustomWordCountPlugin />}
+      />
+    </Box>
+  );
+}
+```
+
+
+### With Header and Footer
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Box mx={2} my={0}>
+      <TextEditor
+        namespace="storybook-header-and-footer"
+        labelText="Text Editor"
+        header={<Button buttonType="gradient-white">Button</Button>}
+        footer={
+          <Typography color="--colorsUtilityYin055">
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text{" "}
+            <Link href="https://carbon.sage.com/?path=/story/welcome--welcome-page">
+              ever since the 1500s
+            </Link>
+          </Typography>
+        }
+      />
+    </Box>
+  );
+}
 ```
 

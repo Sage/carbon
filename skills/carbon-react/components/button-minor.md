@@ -78,6 +78,89 @@ description: Carbon ButtonMinor component props and usage examples.
 | target | string \| undefined | No |  | Yes | HTML target attribute |  |  |
 
 ## Examples
+### Icon Only
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <>
+      <ButtonMinor
+        mt={2}
+        ml={2}
+        mb={2}
+        buttonType="primary"
+        size="small"
+        iconType="bin"
+        aria-label="Delete"
+      />
+      <ButtonMinor
+        mt={2}
+        ml={2}
+        mb={2}
+        destructive
+        iconType="bin"
+        aria-label="Delete"
+      />
+      <ButtonMinor
+        mt={2}
+        ml={2}
+        mb={2}
+        disabled
+        size="large"
+        iconType="bin"
+        aria-label="Delete"
+      />
+    </>
+  );
+}
+```
+
+
+### Icon Only With Tooltip
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <>
+      <ButtonMinor
+        mt={2}
+        ml={2}
+        mb={2}
+        buttonType="primary"
+        size="small"
+        iconType="bin"
+        iconTooltipMessage="This is a tooltip"
+        aria-label="Delete"
+      />
+      <ButtonMinor
+        mt={2}
+        ml={2}
+        mb={2}
+        destructive
+        iconType="bin"
+        iconTooltipMessage="This is a tooltip"
+        aria-label="Delete"
+      />
+      <ButtonMinor
+        mt={2}
+        ml={2}
+        mb={2}
+        disabled
+        size="large"
+        iconType="bin"
+        iconTooltipMessage="This is a tooltip"
+        aria-label="Delete"
+      />
+    </>
+  );
+}
+```
+
+
 ### Primary
 
 **Render**
@@ -189,6 +272,21 @@ description: Carbon ButtonMinor component props and usage examples.
 ```
 
 
+### Primary/Full Width
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <ButtonMinor mt={2} mb={2} buttonType="primary" fullWidth>
+      Full Width
+    </ButtonMinor>
+  );
+}
+```
+
+
 ### Primary/Icon
 
 **Render**
@@ -223,21 +321,6 @@ description: Carbon ButtonMinor component props and usage examples.
         Medium
       </ButtonMinor>
     </>
-  );
-}
-```
-
-
-### Primary/Full Width
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <ButtonMinor mt={2} mb={2} buttonType="primary" fullWidth>
-      Full Width
-    </ButtonMinor>
   );
 }
 ```
@@ -327,6 +410,21 @@ description: Carbon ButtonMinor component props and usage examples.
 ```
 
 
+### Secondary/Full Width
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <ButtonMinor mt={2} mb={2} buttonType="secondary" fullWidth>
+      Full Width
+    </ButtonMinor>
+  );
+}
+```
+
+
 ### Secondary/Icon
 
 **Render**
@@ -359,21 +457,6 @@ description: Carbon ButtonMinor component props and usage examples.
         Medium
       </ButtonMinor>
     </>
-  );
-}
-```
-
-
-### Secondary/Full Width
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <ButtonMinor mt={2} mb={2} buttonType="secondary" fullWidth>
-      Full Width
-    </ButtonMinor>
   );
 }
 ```
@@ -491,6 +574,21 @@ description: Carbon ButtonMinor component props and usage examples.
 ```
 
 
+### Tertiary/Full Width
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <ButtonMinor mt={2} mb={2} buttonType="tertiary" fullWidth>
+      Full Width
+    </ButtonMinor>
+  );
+}
+```
+
+
 ### Tertiary/Icon
 
 **Render**
@@ -530,21 +628,6 @@ description: Carbon ButtonMinor component props and usage examples.
 ```
 
 
-### Tertiary/Full Width
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <ButtonMinor mt={2} mb={2} buttonType="tertiary" fullWidth>
-      Full Width
-    </ButtonMinor>
-  );
-}
-```
-
-
 ### Tertiary/No Wrap
 
 **Render**
@@ -555,89 +638,6 @@ description: Carbon ButtonMinor component props and usage examples.
     <ButtonMinor mt={2} ml={2} mb={2} buttonType="tertiary" noWrap>
       Long button text
     </ButtonMinor>
-  );
-}
-```
-
-
-### Icon Only
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <>
-      <ButtonMinor
-        mt={2}
-        ml={2}
-        mb={2}
-        buttonType="primary"
-        size="small"
-        iconType="bin"
-        aria-label="Delete"
-      />
-      <ButtonMinor
-        mt={2}
-        ml={2}
-        mb={2}
-        destructive
-        iconType="bin"
-        aria-label="Delete"
-      />
-      <ButtonMinor
-        mt={2}
-        ml={2}
-        mb={2}
-        disabled
-        size="large"
-        iconType="bin"
-        aria-label="Delete"
-      />
-    </>
-  );
-}
-```
-
-
-### Icon Only With Tooltip
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <>
-      <ButtonMinor
-        mt={2}
-        ml={2}
-        mb={2}
-        buttonType="primary"
-        size="small"
-        iconType="bin"
-        iconTooltipMessage="This is a tooltip"
-        aria-label="Delete"
-      />
-      <ButtonMinor
-        mt={2}
-        ml={2}
-        mb={2}
-        destructive
-        iconType="bin"
-        iconTooltipMessage="This is a tooltip"
-        aria-label="Delete"
-      />
-      <ButtonMinor
-        mt={2}
-        ml={2}
-        mb={2}
-        disabled
-        size="large"
-        iconType="bin"
-        iconTooltipMessage="This is a tooltip"
-        aria-label="Delete"
-      />
-    </>
   );
 }
 ```

@@ -26,7 +26,7 @@ description: Carbon Link component props and usage examples.
 | iconAlign | "left" \| "right" \| undefined | No |  |  |  | Which side of the link to the render the link. |  |
 | inverse | boolean \| undefined | No |  |  |  | Sets the colour styling when component is rendered on a dark background |  |
 | isSkipLink | boolean \| undefined | No |  |  |  | Allows to create skip link |  |
-| linkSize | "medium" \| "large" \| undefined | No |  |  |  | Sets the correct link size |  |
+| linkSize | "large" \| "medium" \| undefined | No |  |  |  | Sets the correct link size |  |
 | onClick | ((ev: React.MouseEvent<HTMLAnchorElement> \| React.MouseEvent<HTMLButtonElement>) => void) \| undefined | No |  |  |  | Function called when the mouse is clicked. |  |
 | onKeyDown | ((ev: React.KeyboardEvent<HTMLAnchorElement> \| React.KeyboardEvent<HTMLButtonElement>) => void) \| undefined | No |  |  |  | Function called when a key is pressed. |  |
 | onMouseDown | ((ev: React.MouseEvent<HTMLAnchorElement> \| React.MouseEvent<HTMLButtonElement>) => void) \| undefined | No |  |  |  | Function called when a mouse down event triggers. |  |
@@ -92,85 +92,10 @@ description: Carbon Link component props and usage examples.
 | isDarkBackground | boolean \| undefined | No |  | Yes | The 'isDarkBackground' prop in Link is deprecated and will soon be removed. Please use 'inverse' prop instead. |  |  |
 | tooltipMessage | string \| undefined | No |  | Yes | The tooltipMessage prop in Link is deprecated and will soon be removed. | [Legacy] A message to display as a tooltip to the link. |  |
 | tooltipPosition | "left" \| "right" \| "bottom" \| "top" \| undefined | No |  | Yes | The tooltipPosition prop in Link is deprecated and will soon be removed. | [Legacy] Positions the tooltip with the link. |  |
-| aria-dropeffect | "copy" \| "link" \| "none" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
+| aria-dropeffect | "none" \| "copy" \| "link" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
 | aria-grabbed | Booleanish \| undefined | No |  | Yes | in ARIA 1.1 | Indicates an element's "grabbed" state in a drag-and-drop operation. |  |
 
 ## Examples
-### Default
-
-**Args**
-
-```tsx
-{
-    children: "This is an anchor link",
-    href: "https://carbon.sage.com",
-  }
-```
-
-**Render**
-
-```tsx
-(args) => <Link {...args}>{args.children}</Link>
-```
-
-
-### WithUnderlineOnlyOnHover
-
-**Args**
-
-```tsx
-{
-    ...Default.args,
-    children: "This is an anchor link with an underline applied on hover",
-    underline: "hover",
-  }
-```
-
-
-### WithNoUnderline
-
-**Args**
-
-```tsx
-{
-    ...Default.args,
-    children: "This is an anchor link with no underline",
-    underline: "never",
-  }
-```
-
-
-### WithIcon
-
-**Args**
-
-```tsx
-{
-    href: "https://carbon.sage.com",
-    icon: "settings",
-  }
-```
-
-**Render**
-
-```tsx
-(args) => (
-    <>
-      <Typography>
-        <Link iconAlign="left" {...args}>
-          Link with left icon
-        </Link>
-      </Typography>
-      <Typography>
-        <Link iconAlign="right" {...args}>
-          Link with right icon
-        </Link>
-      </Typography>
-    </>
-  )
-```
-
-
 ### As Skip Link
 
 **Render**
@@ -215,36 +140,6 @@ description: Carbon Link component props and usage examples.
 ```
 
 
-### LinkSize
-
-**Args**
-
-```tsx
-{
-    href: "https://carbon.sage.com",
-  }
-```
-
-**Render**
-
-```tsx
-(args) => (
-    <>
-      <Typography>
-        <Link linkSize="medium" {...args}>
-          This is a medium link
-        </Link>
-      </Typography>
-      <Typography>
-        <Link linkSize="large" {...args}>
-          This is a large link
-        </Link>
-      </Typography>
-    </>
-  )
-```
-
-
 ### Bold
 
 **Args**
@@ -258,12 +153,13 @@ description: Carbon Link component props and usage examples.
 ```
 
 
-### Variants
+### Default
 
 **Args**
 
 ```tsx
 {
+    children: "This is an anchor link",
     href: "https://carbon.sage.com",
   }
 ```
@@ -271,25 +167,7 @@ description: Carbon Link component props and usage examples.
 **Render**
 
 ```tsx
-(args) => (
-    <>
-      <Typography>
-        <Link variant="typical" {...args}>
-          This is a typical link
-        </Link>
-      </Typography>
-      <Typography>
-        <Link variant="negative" {...args}>
-          This is a negative link
-        </Link>
-      </Typography>
-      <Typography>
-        <Link variant="subtle" {...args}>
-          This is a subtle link
-        </Link>
-      </Typography>
-    </>
-  )
+(args) => <Link {...args}>{args.children}</Link>
 ```
 
 
@@ -329,6 +207,71 @@ description: Carbon Link component props and usage examples.
 ```
 
 
+### LinkSize
+
+**Args**
+
+```tsx
+{
+    href: "https://carbon.sage.com",
+  }
+```
+
+**Render**
+
+```tsx
+(args) => (
+    <>
+      <Typography>
+        <Link linkSize="medium" {...args}>
+          This is a medium link
+        </Link>
+      </Typography>
+      <Typography>
+        <Link linkSize="large" {...args}>
+          This is a large link
+        </Link>
+      </Typography>
+    </>
+  )
+```
+
+
+### Variants
+
+**Args**
+
+```tsx
+{
+    href: "https://carbon.sage.com",
+  }
+```
+
+**Render**
+
+```tsx
+(args) => (
+    <>
+      <Typography>
+        <Link variant="typical" {...args}>
+          This is a typical link
+        </Link>
+      </Typography>
+      <Typography>
+        <Link variant="negative" {...args}>
+          This is a negative link
+        </Link>
+      </Typography>
+      <Typography>
+        <Link variant="subtle" {...args}>
+          This is a subtle link
+        </Link>
+      </Typography>
+    </>
+  )
+```
+
+
 ### With On Click
 
 **Render**
@@ -341,5 +284,62 @@ description: Carbon Link component props and usage examples.
     </Link>
   );
 }
+```
+
+
+### WithIcon
+
+**Args**
+
+```tsx
+{
+    href: "https://carbon.sage.com",
+    icon: "settings",
+  }
+```
+
+**Render**
+
+```tsx
+(args) => (
+    <>
+      <Typography>
+        <Link iconAlign="left" {...args}>
+          Link with left icon
+        </Link>
+      </Typography>
+      <Typography>
+        <Link iconAlign="right" {...args}>
+          Link with right icon
+        </Link>
+      </Typography>
+    </>
+  )
+```
+
+
+### WithNoUnderline
+
+**Args**
+
+```tsx
+{
+    ...Default.args,
+    children: "This is an anchor link with no underline",
+    underline: "never",
+  }
+```
+
+
+### WithUnderlineOnlyOnHover
+
+**Args**
+
+```tsx
+{
+    ...Default.args,
+    children: "This is an anchor link with an underline applied on hover",
+    underline: "hover",
+  }
 ```
 

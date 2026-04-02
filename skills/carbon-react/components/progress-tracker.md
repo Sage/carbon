@@ -38,71 +38,11 @@ description: Carbon ProgressTracker component props and usage examples.
 | mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
 | progress | number \| undefined | No |  | Current progress (percentage). | 0 |
-| size | "small" \| "medium" \| "large" \| undefined | No |  | Size of the progress bar. | "medium" |
+| size | "large" \| "small" \| "medium" \| undefined | No |  | Size of the progress bar. | "medium" |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 
 ## Examples
-### Default
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Box display="flex" justifyContent="space-around">
-      <ProgressTracker progress={50} />
-    </Box>
-  );
-}
-```
-
-
-### Size - Small
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Box display="flex" justifyContent="space-around">
-      <ProgressTracker size="small" progress={50} />
-    </Box>
-  );
-}
-```
-
-
-### Size - Large
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Box display="flex" justifyContent="space-around">
-      <ProgressTracker size="large" progress={50} />
-    </Box>
-  );
-}
-```
-
-
-### Custom Bar Length
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Box display="flex" justifyContent="space-around">
-      <ProgressTracker progress={50} length="150px" />
-    </Box>
-  );
-}
-```
-
-
 ### Color Variants
 
 **Render**
@@ -120,6 +60,21 @@ description: Carbon ProgressTracker component props and usage examples.
         error
         currentProgressLabel="error"
       />
+    </Box>
+  );
+}
+```
+
+
+### Custom Bar Length
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Box display="flex" justifyContent="space-around">
+      <ProgressTracker progress={50} length="150px" />
     </Box>
   );
 }
@@ -153,6 +108,21 @@ description: Carbon ProgressTracker component props and usage examples.
         error
         currentProgressLabel="error"
       />
+    </Box>
+  );
+}
+```
+
+
+### Default
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Box display="flex" justifyContent="space-around">
+      <ProgressTracker progress={50} />
     </Box>
   );
 }
@@ -235,6 +205,36 @@ description: Carbon ProgressTracker component props and usage examples.
         currentProgressLabel="error"
         labelWidth="40px"
       />
+    </Box>
+  );
+}
+```
+
+
+### Size - Large
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Box display="flex" justifyContent="space-around">
+      <ProgressTracker size="large" progress={50} />
+    </Box>
+  );
+}
+```
+
+
+### Size - Small
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Box display="flex" justifyContent="space-around">
+      <ProgressTracker size="small" progress={50} />
     </Box>
   );
 }

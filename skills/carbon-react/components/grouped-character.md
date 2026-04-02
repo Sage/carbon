@@ -71,7 +71,7 @@ description: Carbon GroupedCharacter component props and usage examples.
 | inlist | any | No |  |  |  |  |  |
 | inputHint | string \| undefined | No |  |  |  | A hint string rendered before the input but after the label. Intended to describe the purpose or content of the input. |  |
 | inputIcon | IconType \| undefined | No |  |  |  | Type of the icon that will be rendered next to the input |  |
-| inputMode | "email" \| "none" \| "search" \| "text" \| "tel" \| "url" \| "numeric" \| "decimal" \| undefined | No |  |  |  | Hints at the type of data that might be entered by the user while editing the element or its contents |  |
+| inputMode | "none" \| "email" \| "search" \| "text" \| "tel" \| "url" \| "numeric" \| "decimal" \| undefined | No |  |  |  | Hints at the type of data that might be entered by the user while editing the element or its contents |  |
 | inputWidth | number \| undefined | No |  |  |  | The width of the input as a percentage |  |
 | is | string \| undefined | No |  |  |  | Specify that a standard HTML element should behave like a defined custom built-in element |  |
 | itemID | string \| undefined | No |  |  |  |  |  |
@@ -282,7 +282,7 @@ description: Carbon GroupedCharacter component props and usage examples.
 | reverse | boolean \| undefined | No |  |  |  | Reverses label and input display |  |
 | role | AriaRole \| undefined | No |  |  |  |  |  |
 | security | string \| undefined | No |  |  |  |  |  |
-| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | Size of an input |  |
+| size | "large" \| "small" \| "medium" \| undefined | No |  |  |  | Size of an input |  |
 | slot | string \| undefined | No |  |  |  |  |  |
 | spellCheck | Booleanish \| undefined | No |  |  |  |  |  |
 | src | string \| undefined | No |  |  |  |  |  |
@@ -358,7 +358,7 @@ description: Carbon GroupedCharacter component props and usage examples.
 | aria-valuetext | string \| undefined | No |  |  |  | Defines the human readable text alternative of aria-valuenow for a range widget. |  |
 | onKeyPress | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUp` or `onKeyDown` instead |  |  |
 | onKeyPressCapture | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUpCapture` or `onKeyDownCapture` instead |  |  |
-| aria-dropeffect | "copy" \| "link" \| "none" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
+| aria-dropeffect | "none" \| "copy" \| "link" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
 | aria-grabbed | Booleanish \| undefined | No |  | Yes | in ARIA 1.1 | Indicates an element's "grabbed" state in a drag-and-drop operation. |  |
 
 ## Examples
@@ -383,39 +383,6 @@ description: Carbon GroupedCharacter component props and usage examples.
       separator="-"
     />
   );
-}
-```
-
-
-### Sizes
-
-**Render**
-
-```tsx
-() => {
-  const [state, setState] = useState({
-    small: "1231231",
-    medium: "1231231",
-    large: "1231231",
-  });
-
-  const handleChange =
-    (size: "small" | "medium" | "large") => (e: CustomEvent) => {
-      setState({ ...state, [size]: e.target.value.rawValue });
-    };
-
-  return (["small", "medium", "large"] as const).map((size) => (
-    <GroupedCharacter
-      key={`GroupedCharacter - ${size}`}
-      label={`GroupedCharacter - ${size}`}
-      value={state[size]}
-      onChange={handleChange(size)}
-      groups={[2, 2, 3]}
-      separator="-"
-      size={size}
-      mb={2}
-    />
-  ));
 }
 ```
 
@@ -446,56 +413,6 @@ description: Carbon GroupedCharacter component props and usage examples.
       groups={[2, 2, 3]}
       separator="-"
       disabled
-    />
-  );
-}
-```
-
-
-### Label Inline
-
-**Render**
-
-```tsx
-() => {
-  const [state, setState] = useState("1231231");
-
-  const setValue = ({ target }: CustomEvent) => {
-    setState(target.value.rawValue);
-  };
-
-  return (
-    <GroupedCharacter
-      label="GroupedCharacter"
-      value={state}
-      onChange={setValue}
-      groups={[2, 2, 3]}
-      separator="-"
-      labelInline
-    />
-  );
-}
-```
-
-
-### With Custom Max Width
-
-**Render**
-
-```tsx
-() => {
-  const [state, setState] = useState("1231231");
-  const setValue = ({ target }: CustomEvent) => {
-    setState(target.value.rawValue);
-  };
-  return (
-    <GroupedCharacter
-      label="GroupedCharacter"
-      value={state}
-      onChange={setValue}
-      groups={[2, 2, 3]}
-      separator="-"
-      maxWidth="50%"
     />
   );
 }
@@ -554,6 +471,38 @@ description: Carbon GroupedCharacter component props and usage examples.
 ```
 
 
+### Label Align
+
+**Render**
+
+```tsx
+() => {
+  const [state, setState] = useState({
+    right: "1231231",
+    left: "1231231",
+  });
+
+  const handleChange = (alignment: string) => (e: CustomEvent) => {
+    setState({ ...state, [alignment]: e.target.value.rawValue });
+  };
+
+  return (["right", "left"] as const).map((alignment) => (
+    <GroupedCharacter
+      label="GroupedCharacter"
+      value={state[alignment]}
+      onChange={handleChange(alignment)}
+      groups={[2, 2, 3]}
+      separator="-"
+      labelInline
+      inputWidth={50}
+      key={alignment}
+      labelAlign={alignment}
+    />
+  ));
+}
+```
+
+
 ### Label Help
 
 **Render**
@@ -575,6 +524,32 @@ description: Carbon GroupedCharacter component props and usage examples.
       separator="-"
       labelHelp="Help"
       helpAriaLabel="Help"
+    />
+  );
+}
+```
+
+
+### Label Inline
+
+**Render**
+
+```tsx
+() => {
+  const [state, setState] = useState("1231231");
+
+  const setValue = ({ target }: CustomEvent) => {
+    setState(target.value.rawValue);
+  };
+
+  return (
+    <GroupedCharacter
+      label="GroupedCharacter"
+      value={state}
+      onChange={setValue}
+      groups={[2, 2, 3]}
+      separator="-"
+      labelInline
     />
   );
 }
@@ -607,32 +582,69 @@ description: Carbon GroupedCharacter component props and usage examples.
 ```
 
 
-### Label Align
+### Sizes
 
 **Render**
 
 ```tsx
 () => {
   const [state, setState] = useState({
-    right: "1231231",
-    left: "1231231",
+    small: "1231231",
+    medium: "1231231",
+    large: "1231231",
   });
 
-  const handleChange = (alignment: string) => (e: CustomEvent) => {
-    setState({ ...state, [alignment]: e.target.value.rawValue });
-  };
+  const handleChange =
+    (size: "small" | "medium" | "large") => (e: CustomEvent) => {
+      setState({ ...state, [size]: e.target.value.rawValue });
+    };
 
-  return (["right", "left"] as const).map((alignment) => (
+  return (["small", "medium", "large"] as const).map((size) => (
     <GroupedCharacter
-      label="GroupedCharacter"
-      value={state[alignment]}
-      onChange={handleChange(alignment)}
+      key={`GroupedCharacter - ${size}`}
+      label={`GroupedCharacter - ${size}`}
+      value={state[size]}
+      onChange={handleChange(size)}
       groups={[2, 2, 3]}
       separator="-"
-      labelInline
-      inputWidth={50}
-      key={alignment}
-      labelAlign={alignment}
+      size={size}
+      mb={2}
+    />
+  ));
+}
+```
+
+
+### Various Groups
+
+**Render**
+
+```tsx
+() => {
+  const [state, setState] = useState({
+    "2-2-3": "1231231",
+    "1-2-4": "1231231",
+    "3-2-2": "1231231",
+    "3-1-3": "1231231",
+  });
+
+  const handleChange = (group: string) => (e: CustomEvent) => {
+    setState({ ...state, [group]: e.target.value.rawValue });
+  };
+
+  return [
+    [2, 2, 3],
+    [1, 2, 4],
+    [3, 2, 2],
+    [3, 1, 3],
+  ].map((group) => (
+    <GroupedCharacter
+      label="GroupedCharacter"
+      value={state[group.join("-") as keyof typeof state]}
+      onChange={handleChange(group.join("-"))}
+      groups={group}
+      separator="-"
+      key={group.join("-")}
     />
   ));
 }
@@ -673,38 +685,26 @@ description: Carbon GroupedCharacter component props and usage examples.
 ```
 
 
-### Various Groups
+### With Custom Max Width
 
 **Render**
 
 ```tsx
 () => {
-  const [state, setState] = useState({
-    "2-2-3": "1231231",
-    "1-2-4": "1231231",
-    "3-2-2": "1231231",
-    "3-1-3": "1231231",
-  });
-
-  const handleChange = (group: string) => (e: CustomEvent) => {
-    setState({ ...state, [group]: e.target.value.rawValue });
+  const [state, setState] = useState("1231231");
+  const setValue = ({ target }: CustomEvent) => {
+    setState(target.value.rawValue);
   };
-
-  return [
-    [2, 2, 3],
-    [1, 2, 4],
-    [3, 2, 2],
-    [3, 1, 3],
-  ].map((group) => (
+  return (
     <GroupedCharacter
       label="GroupedCharacter"
-      value={state[group.join("-") as keyof typeof state]}
-      onChange={handleChange(group.join("-"))}
-      groups={group}
+      value={state}
+      onChange={setValue}
+      groups={[2, 2, 3]}
       separator="-"
-      key={group.join("-")}
+      maxWidth="50%"
     />
-  ));
+  );
 }
 ```
 

@@ -16,6 +16,67 @@ description: Carbon Select component props and usage examples.
 No props metadata found.
 
 ## Examples
+### Custom Option Children
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState("");
+
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value);
+  }
+
+  const options = [
+    { value: "1", text: "Orange", iconType: "favourite", iconColor: "orange" },
+    { value: "2", text: "Black", iconType: "bin", iconColor: "black" },
+    { value: "3", text: "Blue", iconType: "individual", iconColor: "blue" },
+    { value: "4", text: "Green", iconType: "tick_circle", iconColor: "green" },
+  ];
+
+  const renderLeftChildren = () => {
+    const option = options.find((opt) => opt.value === value);
+    return (
+      option && (
+        <Icon type={option.iconType as IconType} color={option.iconColor} />
+      )
+    );
+  };
+
+  return (
+    <Box height={250}>
+      <Select
+        name="customOptionChildren"
+        id="customOptionChildren"
+        label="Pick your favourite color"
+        value={value}
+        onChange={onChangeHandler}
+        leftChildren={
+          value && (
+            <Box display="flex" alignItems="center" ml={1}>
+              {renderLeftChildren()}
+            </Box>
+          )
+        }
+      >
+        {options.map((option) => (
+          <Option key={option.value} text={option.text} value={option.value}>
+            <Icon
+              type={option.iconType as IconType}
+              color={option.iconColor}
+              mr={1}
+            />
+            {option.text}
+          </Option>
+        ))}
+      </Select>
+    </Box>
+  );
+}
+```
+
+
 ### Default
 
 **Render**
@@ -50,21 +111,127 @@ No props metadata found.
 ```
 
 
-### Required
+### Disabled
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState("3");
+  return (
+    <Select
+      aria-label="disabled"
+      name="disabled"
+      id="disabled"
+      disabled
+      value={value}
+      onChange={(ev) => setValue(ev.target.value)}
+    >
+      <Option text="Amber" value="1" />
+      <Option text="Black" value="2" />
+      <Option text="Blue" value="3" />
+      <Option text="Brown" value="4" />
+      <Option text="Green" value="5" />
+      <Option text="Orange" value="6" />
+      <Option text="Pink" value="7" />
+      <Option text="Purple" value="8" />
+      <Option text="Red" value="9" />
+      <Option text="White" value="10" />
+      <Option text="Yellow" value="11" />
+    </Select>
+  );
+}
+```
+
+
+### Dynamically Adding Options
+
+**Render**
+
+```tsx
+() => {
+  const [optionsList, setOptionsList] = useState(options);
+  const [currentOption, setCurrentOption] = useState<string | null>(null);
+  useEffect(() => {
+    if (currentOption) {
+      setOptionsList([...allOptions, ...options]);
+    }
+  }, [currentOption]);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCurrentOption(e.target.value);
+  };
+  return (
+    <Box height={200}>
+      <Select
+        label="Choose your option"
+        data-role="selector"
+        onChange={handleChange}
+        value={currentOption || ""}
+      >
+        {optionsList.map((opt) => (
+          <Option
+            data-role={`option-${opt}`}
+            text={opt}
+            value={opt}
+            key={opt}
+          />
+        ))}
+      </Select>
+    </Box>
+  );
+}
+```
+
+
+### Enabling Adaptive Behaviour
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState("4");
+  return (
+    <Box height={220}>
+      <Select
+        name="adaptive"
+        id="adaptive"
+        label="color"
+        adaptiveLabelBreakpoint={960}
+        value={value}
+        onChange={(ev) => setValue(ev.target.value)}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </Select>
+    </Box>
+  );
+}
+```
+
+
+### List Height
 
 **Render**
 
 ```tsx
 () => {
   const [value, setValue] = useState("");
-
   return (
-    <Box height={250}>
+    <Box height={500}>
       <Select
-        name="required-select"
-        id="required-select"
-        label="Foreground Color"
-        required
+        listMaxHeight={2000}
+        name="list height"
+        id="list-height"
+        label="List height"
         value={value}
         onChange={(ev) => setValue(ev.target.value)}
       >
@@ -134,41 +301,6 @@ No props metadata found.
 ```
 
 
-### List Height
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("");
-  return (
-    <Box height={500}>
-      <Select
-        listMaxHeight={2000}
-        name="list height"
-        id="list-height"
-        label="List height"
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
-      </Select>
-    </Box>
-  );
-}
-```
-
-
 ### List Width
 
 **Render**
@@ -193,6 +325,236 @@ No props metadata found.
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
+      </Select>
+    </Box>
+  );
+}
+```
+
+
+### Open on Focus
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState("");
+  return (
+    <Box height={250}>
+      <Select
+        name="openOnFocus"
+        id="openOnFocus"
+        openOnFocus
+        label="color"
+        value={value}
+        onChange={(ev) => setValue(ev.target.value)}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </Select>
+    </Box>
+  );
+}
+```
+
+
+### Option Groups
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState("");
+  return (
+    <Box height={250}>
+      <Select
+        name="optGroups"
+        id="optGroups"
+        label="color"
+        value={value}
+        onChange={(ev) => setValue(ev.target.value)}
+      >
+        <OptionGroupHeader label="Group one" icon="individual" />
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <OptionGroupHeader label="Group two" icon="shop" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <OptionGroupHeader label="Group three" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </Select>
+    </Box>
+  );
+}
+```
+
+
+### Option Groups with composed children
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState("");
+  return (
+    <Box height={250}>
+      <Select
+        name="optGroups"
+        id="optGroups"
+        label="color"
+        value={value}
+        onChange={(ev) => setValue(ev.target.value)}
+      >
+        <OptionGroupHeader>
+          <Icon type="individual" /> <h4>Group One Composed</h4>
+        </OptionGroupHeader>
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <OptionGroupHeader>
+          <Icon type="shop" /> <h4>Group Two Composed</h4>
+        </OptionGroupHeader>
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <OptionGroupHeader>
+          <h4>Group Three Composed</h4>
+        </OptionGroupHeader>
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </Select>
+    </Box>
+  );
+}
+```
+
+
+### Readonly
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState("4");
+  return (
+    <Select
+      aria-label="readonly"
+      name="readonly"
+      id="readonly"
+      readOnly
+      value={value}
+      onChange={(ev) => setValue(ev.target.value)}
+    >
+      <Option text="Amber" value="1" />
+      <Option text="Black" value="2" />
+      <Option text="Blue" value="3" />
+      <Option text="Brown" value="4" />
+      <Option text="Green" value="5" />
+      <Option text="Orange" value="6" />
+      <Option text="Pink" value="7" />
+      <Option text="Purple" value="8" />
+      <Option text="Red" value="9" />
+      <Option text="White" value="10" />
+      <Option text="Yellow" value="11" />
+    </Select>
+  );
+}
+```
+
+
+### Required
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState("");
+
+  return (
+    <Box height={250}>
+      <Select
+        name="required-select"
+        id="required-select"
+        label="Foreground Color"
+        required
+        value={value}
+        onChange={(ev) => setValue(ev.target.value)}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </Select>
+    </Box>
+  );
+}
+```
+
+
+### Selection Confirmed
+
+**Render**
+
+```tsx
+() => {
+  const [selectionConfirmed, setSelectionConfirmed] = useState(false);
+  const [value, setValue] = useState("");
+  return (
+    <Box height={280}>
+      <Typography variant="strong">
+        Selection Confirmed:{" "}
+        {selectionConfirmed ? (
+          <Icon type="tick" bg="primary" color="white" />
+        ) : (
+          <Icon type="cross" bg="red" color="white" />
+        )}
+      </Typography>
+      <Select
+        value={value}
+        onChange={(ev: CustomSelectChangeEvent) => {
+          setSelectionConfirmed(!!ev.selectionConfirmed);
+          setValue(ev.target.value);
+        }}
+        name="selection confirmed"
+        id="selection confirmed"
+        label="color"
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
       </Select>
     </Box>
   );
@@ -255,53 +617,106 @@ No props metadata found.
 ```
 
 
-### With Object as Value
+### Transparent
 
 **Render**
 
 ```tsx
 () => {
-  const optionListValues = [
-    { id: "Amber", value: 1, text: "Amber" },
-    { id: "Black", value: 2, text: "Black" },
-    { id: "Blue", value: 3, text: "Blue" },
-    { id: "Brown", value: 4, text: "Brown" },
-    { id: "Green", value: 5, text: "Green" },
-    { id: "Orange", value: 6, text: "Orange" },
-    { id: "Pink", value: 7, text: "Pink" },
-    { id: "Purple", value: 8, text: "Purple" },
-    { id: "Red", value: 9, text: "Red" },
-    { id: "White", value: 10, text: "White" },
-    { id: "Yellow", value: 11, text: "Yellow" },
-  ];
-
-  const [value, setValue] = useState<Record<string, unknown>>(
-    optionListValues[4],
-  );
-
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    if (typeof event.target.value === "object") {
-      setValue(event.target.value);
-    }
-  }
-  function clearValue() {
-    setValue({});
-  }
+  const [value, setValue] = useState("");
   return (
-    <Box height={300}>
-      <Button onClick={clearValue} mb={2}>
-        clear
-      </Button>
+    <Box height={250} width={200}>
       <Select
-        id="with-object"
-        name="with-object"
+        name="transparent"
+        id="transparent"
+        placeholder="Please select a colour"
+        transparent
+        label="Choose a colour"
         value={value}
-        onChange={onChangeHandler}
-        label="color"
+        onChange={(ev) => setValue(ev.target.value)}
       >
-        {optionListValues.map((option) => (
-          <Option key={option.id} text={option.text} value={option} />
-        ))}
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </Select>
+    </Box>
+  );
+}
+```
+
+
+### Transparent disabled
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState("4");
+  return (
+    <Box height={250} width={150}>
+      <Select
+        name="transparent"
+        id="transparent"
+        transparent
+        label="Choose a colour"
+        disabled
+        value={value}
+        onChange={(ev) => setValue(ev.target.value)}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </Select>
+    </Box>
+  );
+}
+```
+
+
+### Virtualised
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState("");
+  return (
+    <Box height={220}>
+      <Select
+        name="virtualised"
+        id="virtualised"
+        label="choose an option"
+        labelInline
+        enableVirtualScroll
+        virtualScrollOverscan={20}
+        value={value}
+        onChange={(ev) => setValue(ev.target.value)}
+      >
+        {Array(10000)
+          .fill(undefined)
+          .map((_, index) => (
+            <Option
+              key={`option-${index + 1}`}
+              value={`${index}`}
+              text={`Option ${index + 1}`}
+            />
+          ))}
       </Select>
     </Box>
   );
@@ -337,63 +752,6 @@ No props metadata found.
         <Option text="Red" value="9" />
         <Option text="White" value="10" />
         <Option text="Yellow" value="11" />
-      </Select>
-    </Box>
-  );
-}
-```
-
-
-### With isLoading prop
-
-**Render**
-
-```tsx
-() => {
-  const preventLoading = useRef(false);
-  const [value, setValue] = useState("black");
-  const [isLoading, setIsLoading] = useState(true);
-  const asyncList = [
-    <Option text="Amber" value="amber" key="Amber" />,
-    <Option text="Black" value="black" key="Black" />,
-    <Option text="Blue" value="blue" key="Blue" />,
-    <Option text="Brown" value="brown" key="Brown" />,
-    <Option text="Green" value="green" key="Green" />,
-  ];
-  const [optionList, setOptionList] = useState([
-    <Option text="Black" value="black" key="Black" />,
-  ]);
-  function loadList() {
-    if (preventLoading.current) {
-      return;
-    }
-    preventLoading.current = true;
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      setOptionList(asyncList);
-    }, 2000);
-  }
-  function clearData() {
-    setOptionList([<Option text="Black" value="black" key="Black" />]);
-    setValue("black");
-    preventLoading.current = false;
-  }
-  return (
-    <Box height={300}>
-      <Button onClick={clearData} mb={2}>
-        reset
-      </Button>
-      <Select
-        name="isLoading"
-        id="isLoading"
-        label="color"
-        value={value}
-        onChange={(event) => setValue(event.target.value)}
-        onOpen={() => loadList()}
-        isLoading={isLoading}
-      >
-        {optionList}
       </Select>
     </Box>
   );
@@ -492,233 +850,56 @@ No props metadata found.
 ```
 
 
-### Open on Focus
+### With isLoading prop
 
 **Render**
 
 ```tsx
 () => {
-  const [value, setValue] = useState("");
+  const preventLoading = useRef(false);
+  const [value, setValue] = useState("black");
+  const [isLoading, setIsLoading] = useState(true);
+  const asyncList = [
+    <Option text="Amber" value="amber" key="Amber" />,
+    <Option text="Black" value="black" key="Black" />,
+    <Option text="Blue" value="blue" key="Blue" />,
+    <Option text="Brown" value="brown" key="Brown" />,
+    <Option text="Green" value="green" key="Green" />,
+  ];
+  const [optionList, setOptionList] = useState([
+    <Option text="Black" value="black" key="Black" />,
+  ]);
+  function loadList() {
+    if (preventLoading.current) {
+      return;
+    }
+    preventLoading.current = true;
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+      setOptionList(asyncList);
+    }, 2000);
+  }
+  function clearData() {
+    setOptionList([<Option text="Black" value="black" key="Black" />]);
+    setValue("black");
+    preventLoading.current = false;
+  }
   return (
-    <Box height={250}>
+    <Box height={300}>
+      <Button onClick={clearData} mb={2}>
+        reset
+      </Button>
       <Select
-        name="openOnFocus"
-        id="openOnFocus"
-        openOnFocus
+        name="isLoading"
+        id="isLoading"
         label="color"
         value={value}
-        onChange={(ev) => setValue(ev.target.value)}
+        onChange={(event) => setValue(event.target.value)}
+        onOpen={() => loadList()}
+        isLoading={isLoading}
       >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
-      </Select>
-    </Box>
-  );
-}
-```
-
-
-### Disabled
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("3");
-  return (
-    <Select
-      aria-label="disabled"
-      name="disabled"
-      id="disabled"
-      disabled
-      value={value}
-      onChange={(ev) => setValue(ev.target.value)}
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </Select>
-  );
-}
-```
-
-
-### Readonly
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("4");
-  return (
-    <Select
-      aria-label="readonly"
-      name="readonly"
-      id="readonly"
-      readOnly
-      value={value}
-      onChange={(ev) => setValue(ev.target.value)}
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </Select>
-  );
-}
-```
-
-
-### Transparent
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("");
-  return (
-    <Box height={250} width={200}>
-      <Select
-        name="transparent"
-        id="transparent"
-        placeholder="Please select a colour"
-        transparent
-        label="Choose a colour"
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
-      </Select>
-    </Box>
-  );
-}
-```
-
-
-### Transparent disabled
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("4");
-  return (
-    <Box height={250} width={150}>
-      <Select
-        name="transparent"
-        id="transparent"
-        transparent
-        label="Choose a colour"
-        disabled
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
-      </Select>
-    </Box>
-  );
-}
-```
-
-
-### Custom Option Children
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("");
-
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value);
-  }
-
-  const options = [
-    { value: "1", text: "Orange", iconType: "favourite", iconColor: "orange" },
-    { value: "2", text: "Black", iconType: "bin", iconColor: "black" },
-    { value: "3", text: "Blue", iconType: "individual", iconColor: "blue" },
-    { value: "4", text: "Green", iconType: "tick_circle", iconColor: "green" },
-  ];
-
-  const renderLeftChildren = () => {
-    const option = options.find((opt) => opt.value === value);
-    return (
-      option && (
-        <Icon type={option.iconType as IconType} color={option.iconColor} />
-      )
-    );
-  };
-
-  return (
-    <Box height={250}>
-      <Select
-        name="customOptionChildren"
-        id="customOptionChildren"
-        label="Pick your favourite color"
-        value={value}
-        onChange={onChangeHandler}
-        leftChildren={
-          value && (
-            <Box display="flex" alignItems="center" ml={1}>
-              {renderLeftChildren()}
-            </Box>
-          )
-        }
-      >
-        {options.map((option) => (
-          <Option key={option.value} text={option.text} value={option.value}>
-            <Icon
-              type={option.iconType as IconType}
-              color={option.iconColor}
-              mr={1}
-            />
-            {option.text}
-          </Option>
-        ))}
+        {optionList}
       </Select>
     </Box>
   );
@@ -782,156 +963,6 @@ No props metadata found.
 ```
 
 
-### Option Groups
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("");
-  return (
-    <Box height={250}>
-      <Select
-        name="optGroups"
-        id="optGroups"
-        label="color"
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
-      >
-        <OptionGroupHeader label="Group one" icon="individual" />
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <OptionGroupHeader label="Group two" icon="shop" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <OptionGroupHeader label="Group three" />
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
-      </Select>
-    </Box>
-  );
-}
-```
-
-
-### Option Groups with composed children
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("");
-  return (
-    <Box height={250}>
-      <Select
-        name="optGroups"
-        id="optGroups"
-        label="color"
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
-      >
-        <OptionGroupHeader>
-          <Icon type="individual" /> <h4>Group One Composed</h4>
-        </OptionGroupHeader>
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <OptionGroupHeader>
-          <Icon type="shop" /> <h4>Group Two Composed</h4>
-        </OptionGroupHeader>
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <OptionGroupHeader>
-          <h4>Group Three Composed</h4>
-        </OptionGroupHeader>
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
-      </Select>
-    </Box>
-  );
-}
-```
-
-
-### Enabling Adaptive Behaviour
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("4");
-  return (
-    <Box height={220}>
-      <Select
-        name="adaptive"
-        id="adaptive"
-        label="color"
-        adaptiveLabelBreakpoint={960}
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
-      </Select>
-    </Box>
-  );
-}
-```
-
-
-### Virtualised
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("");
-  return (
-    <Box height={220}>
-      <Select
-        name="virtualised"
-        id="virtualised"
-        label="choose an option"
-        labelInline
-        enableVirtualScroll
-        virtualScrollOverscan={20}
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
-      >
-        {Array(10000)
-          .fill(undefined)
-          .map((_, index) => (
-            <Option
-              key={`option-${index + 1}`}
-              value={`${index}`}
-              text={`Option ${index + 1}`}
-            />
-          ))}
-      </Select>
-    </Box>
-  );
-}
-```
-
-
 ### With Multiple Columns and Virtualisation
 
 **Render**
@@ -978,83 +1009,52 @@ No props metadata found.
 ```
 
 
-### Selection Confirmed
+### With Object as Value
 
 **Render**
 
 ```tsx
 () => {
-  const [selectionConfirmed, setSelectionConfirmed] = useState(false);
-  const [value, setValue] = useState("");
+  const optionListValues = [
+    { id: "Amber", value: 1, text: "Amber" },
+    { id: "Black", value: 2, text: "Black" },
+    { id: "Blue", value: 3, text: "Blue" },
+    { id: "Brown", value: 4, text: "Brown" },
+    { id: "Green", value: 5, text: "Green" },
+    { id: "Orange", value: 6, text: "Orange" },
+    { id: "Pink", value: 7, text: "Pink" },
+    { id: "Purple", value: 8, text: "Purple" },
+    { id: "Red", value: 9, text: "Red" },
+    { id: "White", value: 10, text: "White" },
+    { id: "Yellow", value: 11, text: "Yellow" },
+  ];
+
+  const [value, setValue] = useState<Record<string, unknown>>(
+    optionListValues[4],
+  );
+
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    if (typeof event.target.value === "object") {
+      setValue(event.target.value);
+    }
+  }
+  function clearValue() {
+    setValue({});
+  }
   return (
-    <Box height={280}>
-      <Typography variant="strong">
-        Selection Confirmed:{" "}
-        {selectionConfirmed ? (
-          <Icon type="tick" bg="primary" color="white" />
-        ) : (
-          <Icon type="cross" bg="red" color="white" />
-        )}
-      </Typography>
+    <Box height={300}>
+      <Button onClick={clearValue} mb={2}>
+        clear
+      </Button>
       <Select
+        id="with-object"
+        name="with-object"
         value={value}
-        onChange={(ev: CustomSelectChangeEvent) => {
-          setSelectionConfirmed(!!ev.selectionConfirmed);
-          setValue(ev.target.value);
-        }}
-        name="selection confirmed"
-        id="selection confirmed"
+        onChange={onChangeHandler}
         label="color"
       >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
-      </Select>
-    </Box>
-  );
-}
-```
-
-
-### Dynamically Adding Options
-
-**Render**
-
-```tsx
-() => {
-  const [optionsList, setOptionsList] = useState(options);
-  const [currentOption, setCurrentOption] = useState<string | null>(null);
-  useEffect(() => {
-    if (currentOption) {
-      setOptionsList([...allOptions, ...options]);
-    }
-  }, [currentOption]);
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCurrentOption(e.target.value);
-  };
-  return (
-    <Box height={200}>
-      <Select
-        label="Choose your option"
-        data-role="selector"
-        onChange={handleChange}
-        value={currentOption || ""}
-      >
-        {optionsList.map((opt) => (
-          <Option
-            data-role={`option-${opt}`}
-            text={opt}
-            value={opt}
-            key={opt}
-          />
+        {optionListValues.map((option) => (
+          <Option key={option.id} text={option.text} value={option} />
         ))}
       </Select>
     </Box>

@@ -50,32 +50,6 @@ description: Carbon Detail component props and usage examples.
 ```
 
 
-### Detail with footnote
-
-**Render**
-
-```tsx
-() => (
-  <Detail footnote="This is a footnote.">
-    This is where the children will live.
-  </Detail>
-)
-```
-
-
-### Detail with icon
-
-**Render**
-
-```tsx
-() => (
-  <Detail icon="bin" footnote="This is a footnote.">
-    This is where the children will live.
-  </Detail>
-)
-```
-
-
 ### Detail inside Card
 
 **Render**
@@ -124,6 +98,32 @@ description: Carbon Detail component props and usage examples.
       </Detail>
     </TileContent>
   </Tile>
+)
+```
+
+
+### Detail with footnote
+
+**Render**
+
+```tsx
+() => (
+  <Detail footnote="This is a footnote.">
+    This is where the children will live.
+  </Detail>
+)
+```
+
+
+### Detail with icon
+
+**Render**
+
+```tsx
+() => (
+  <Detail icon="bin" footnote="This is a footnote.">
+    This is where the children will live.
+  </Detail>
 )
 ```
 
