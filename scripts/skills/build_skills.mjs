@@ -288,6 +288,12 @@ for (const component of componentData.sort((a, b) =>
 const indexContent = indexLines.join("\n");
 wouldWrite.push({ path: path.join(skillsRoot, "index.md"), content: indexContent });
 
+// Normalise all content to LF before writing or comparing, so output is
+// identical regardless of the platform the build runs on.
+for (const entry of wouldWrite) {
+  entry.content = entry.content.replace(/\r\n/g, "\n");
+}
+
 if (checkMode) {
   const { hasDiff, diffSummary } = await checkWouldWrite(wouldWrite, {
     componentsOutDir,
@@ -307,8 +313,7 @@ if (checkMode) {
 } else {
   for (const { path: filePath, content } of wouldWrite) {
     await fs.mkdir(path.dirname(filePath), { recursive: true });
-    // Normalise line endings to LF to ensure consistent output across different environments (Windows vs Unix)
-    await fs.writeFile(filePath, content.replace(/\r\n/g, "\n"), "utf8");
+    await fs.writeFile(filePath, content, "utf8");
   }
 
   // Normalise line endings on all existing skills markdown files (e.g. SKILL.md, index.md)
@@ -1201,7 +1206,9 @@ async function checkWouldWrite(wouldWrite, { componentsOutDir, referencesDir }) 
       }
       throw err;
     }
-    if (existing !== content) {
+    // Normalise line endings when comparing so Windows CRLF checkouts
+    // don't cause false positives against our LF-normalised content.
+    if (existing.replace(/\r\n/g, "\n") !== content) {
       diffs.push(`  Modified: ${path.relative(repoRoot, filePath)}`);
     }
   }
