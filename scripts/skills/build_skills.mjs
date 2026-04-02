@@ -271,7 +271,7 @@ for (const relativePath of docsReferenceFiles) {
 const indexLines = ["# Carbon Component Catalog", "", "## Components", ""];
 
 for (const component of componentData.sort((a, b) =>
-  a.name.localeCompare(b.name),
+  a.name.localeCompare(b.name, "en"),
 )) {
   const stories = storyDataByComponent.get(component.name) ?? [];
   const fileName = `${toKebabCase(component.name)}.md`;
@@ -310,6 +310,20 @@ if (checkMode) {
     // Normalise line endings to LF to ensure consistent output across different environments (Windows vs Unix)
     await fs.writeFile(filePath, content.replace(/\r\n/g, "\n"), "utf8");
   }
+
+  // Normalise line endings on all existing skills markdown files (e.g. SKILL.md, index.md)
+  // so Windows systems don't see spurious git changes due to CRLF vs LF differences.
+  const existingSkillFiles = await fg(["**/*.md"], {
+    cwd: skillsRoot,
+    absolute: true,
+  });
+  for (const filePath of existingSkillFiles) {
+    const raw = await fs.readFile(filePath, "utf8");
+    if (raw.includes("\r\n")) {
+      await fs.writeFile(filePath, raw.replace(/\r\n/g, "\n"), "utf8");
+    }
+  }
+
   // eslint-disable-next-line no-console -- Log summary of generated components and output location
   console.log(
     `Generated ${componentData.length} component skill files in ${path.relative(
@@ -1425,7 +1439,7 @@ function renderComponentMarkdown(component, stories) {
       const ga = groupOrder(aData, aAria);
       const gb = groupOrder(bData, bAria);
       if (ga !== gb) return ga - gb;
-      return a.name.localeCompare(b.name);
+      return a.name.localeCompare(b.name, "en");
     });
     const hasDeprecatedProps = sortedProps.some((prop) => prop.deprecated);
     if (hasDeprecatedProps) {
