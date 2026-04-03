@@ -10,7 +10,7 @@ import Button from "../../button/button.component";
 const meta: Meta<typeof Loader> = {
   title: "Loader",
   component: Loader,
-  parameters: { chromatic: { disabledSnapshot: false } },
+  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export default meta;

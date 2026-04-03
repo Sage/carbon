@@ -81,15 +81,18 @@ test("when inside button, the expected white background colour is applied", () =
   const loaderSquares = screen.getAllByTestId("loader-square");
 
   expect(loaderSquares[0]).toHaveStyleRule(
-    "backgroundColor: var(--colorsUtilityYang100)",
+    "background-color",
+    "var(--colorsUtilityYang100)",
   );
 
   expect(loaderSquares[1]).toHaveStyleRule(
-    "backgroundColor: var(--colorsUtilityYang100)",
+    "background-color",
+    "var(--colorsUtilityYang100)",
   );
 
   expect(loaderSquares[2]).toHaveStyleRule(
-    "backgroundColor: var(--colorsUtilityYang100)",
+    "background-color",
+    "var(--colorsUtilityYang100)",
   );
 });
 
