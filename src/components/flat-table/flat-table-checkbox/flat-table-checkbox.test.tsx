@@ -165,7 +165,7 @@ test("should not render the checkbox when the selectable prop is false", () => {
   expect(screen.queryByRole("checkbox")).not.toBeInTheDocument();
 });
 
-test("should render the component with the expeced `data-attributes`", () => {
+test("should render the component with the expected `data-attributes`", () => {
   render(
     <table>
       <tbody>
@@ -187,4 +187,36 @@ test("should render the component with the expeced `data-attributes`", () => {
     "overridden-data-element",
   );
   expect(checkboxCell).toHaveAttribute("data-role", "ft-checkbox");
+});
+
+test("should render a disabled checkbox when disabled prop is true", () => {
+  render(
+    <table>
+      <tbody>
+        <tr>
+          <ControlledCheckbox onChange={() => {}} disabled />
+        </tr>
+      </tbody>
+    </table>,
+  );
+
+  expect(screen.getByRole("checkbox")).toBeDisabled();
+});
+
+test("should not call onChange when the checkbox is disabled", async () => {
+  const onChange = jest.fn();
+  const user = userEvent.setup();
+  render(
+    <table>
+      <tbody>
+        <tr>
+          <ControlledCheckbox onChange={onChange} disabled />
+        </tr>
+      </tbody>
+    </table>,
+  );
+
+  await user.click(screen.getByRole("checkbox"));
+
+  expect(onChange).not.toHaveBeenCalled();
 });
