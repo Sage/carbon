@@ -629,18 +629,3 @@ description: Carbon SplitButton component props and usage examples.
 }
 ```
 
-
-### MDX Example 1
-
-**Args**
-
-```tsx
-## Examples
-
-### Default
-
-<Canvas of={SplitButtonStories.Default} />
-
-### Focusing Main and Toggle Buttons Programmatically
-```
-

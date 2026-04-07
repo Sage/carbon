@@ -24,11 +24,12 @@ import * as SplitButtonStories from "./split-button.stories";
 - [Examples](#examples)
 - [Props](#props)
 - [Translation keys](#translation-keys)
+- [Ref methods](#ref-methods)
 
 ## Quick Start
 
 ```javascript
-import SplitButton from "carbon-react/lib/components/split-button";
+import SplitButton, { type SplitButtonHandle } from "carbon-react/lib/components/split-button";
 ```
 
 ## Examples
@@ -38,10 +39,6 @@ import SplitButton from "carbon-react/lib/components/split-button";
 <Canvas of={SplitButtonStories.Default} />
 
 ### Focusing Main and Toggle Buttons Programmatically
-
-```javascript
-import { SplitButtonHandle } from "carbon-react/lib/components/split-button";
-```
 
 The `SplitButtonHandle` type provides an imperative handle for programmatic control over `SplitButton`. 
 Using a `ref`, you can access its `focusMainButton()` and `focusToggleButton()` methods to set focus on the respective buttons as needed.
@@ -138,3 +135,12 @@ The following keys are available to override the translations for this component
     }
   ]}
 />
+
+## Ref methods
+
+`SplitButton`'s forwarded ref exposes the following imperative methods:
+
+| Method Name             | Description                                  |
+| ----------------------- | -------------------------------------------- |
+| `focusMainButton()`   | Programmatically focuses the main button.    |
+| `focusToggleButton()` | Programmatically focuses the toggle button.  |

@@ -17,6 +17,7 @@ A vertical menu that is responsive to the screen size. It can be used as a menu 
 - [Usage](#usage)
 - [Examples](#examples)
 - [Props](#props)
+- [Ref methods](#ref-methods)
 
 
 ## Quick Start
@@ -28,6 +29,7 @@ import {
   ResponsiveVerticalMenu,
   ResponsiveVerticalMenuDivider,
   ResponsiveVerticalMenuItem,
+  type ResponsiveVerticalMenuHandle,
 } from "carbon-react/lib/components/vertical-menu";
 ```
 
@@ -153,10 +155,6 @@ For the best experience, these examples should be in Canvas mode.
 
 ### Focusing Launch Button Programmatically
 
-```javascript
-import { ResponsiveVerticalMenuHandle } from "carbon-react/lib/components/responsive-vertical-menu";
-```
-
 The `ResponsiveVerticalMenuHandle` type provides an imperative handle for programmatic control over `ResponsiveVerticalMenu`. 
 Using a `ref`, you can access its `focusLaunchButton()` method to set focus on the launch button as needed.
 
@@ -232,3 +230,11 @@ to the [i18nProvider](../?path=/docs/documentation-i18n--docs).
     },
   ]}
 />
+
+## Ref methods
+
+`ResponsiveVerticalMenu`'s forwarded ref exposes the following imperative methods:
+
+| Method Name              | Description                                    |
+| ------------------------ | ---------------------------------------------- |
+| `focusLaunchButton()` | Programmatically focuses the launch button.    |

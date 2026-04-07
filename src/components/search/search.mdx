@@ -24,11 +24,12 @@ This search component should be used if you require the user to conduct a search
 - [Examples](#examples)
 - [Props](#props)
 - [Translation keys](#translation-keys)
+- [Ref methods](#ref-methods)
 
 ## Quick Start
 
 ```javascript
-import Search from "carbon-react/lib/components/search";
+import Search, { type SearchHandle } from "carbon-react/lib/components/search";
 ```
 
 ## Examples
@@ -111,3 +112,11 @@ to the [i18nProvider](../?path=/docs/documentation-i18n--docs).
     },
   ]}
 />
+
+## Ref methods
+
+`Search`'s forwarded ref exposes the following imperative methods:
+
+| Method Name | Description                                  |
+| ----------- | -------------------------------------------- |
+| `focus()`   | Programmatically focuses the search input.   |

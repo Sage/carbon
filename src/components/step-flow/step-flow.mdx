@@ -29,11 +29,17 @@ Use a step flow to help a user complete tasks in a specific order, based on thei
 - [Examples](#examples)
 - [Props](#props)
 - [Translation keys](#translation-keys)
+- [Ref methods](#ref-methods)
 
 ## Quick Start
 
 ```js
-import { StepFlow, StepFlowTitle, StepFlowHandle, Steps } from "carbon-react/lib/components/step-flow";
+import { 
+  StepFlow,
+  StepFlowTitle,
+  type StepFlowHandle,
+  type Steps
+} from "carbon-react/lib/components/step-flow";
 ```
 
 ## Examples
@@ -180,4 +186,12 @@ The following keys are available to override the translations for this component
     },
   ]}
 />
+
+## Ref methods
+
+`StepFlow`'s forwarded ref exposes the following imperative methods:
+
+| Method Name | Description                                              |
+| ----------- | -------------------------------------------------------- |
+| `focus()`   | Programmatically focuses the root container of StepFlow. |
 

@@ -578,18 +578,3 @@ description: Carbon MultiActionButton component props and usage examples.
 }
 ```
 
-
-### MDX Example 1
-
-**Args**
-
-```tsx
-## Examples
-
-### Default
-
-<Canvas of={MultiActionButtonStories.DefaultStory} />
-
-### Focusing Main Button Programmatically
-```
-

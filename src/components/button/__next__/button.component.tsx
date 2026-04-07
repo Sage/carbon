@@ -17,6 +17,7 @@ import isIconOnly from "./__internal__/utils/is-icon-only";
 import Icon from "../../icon";
 
 export type ButtonHandle = {
+  /** Programmatically focus the button. */
   focusButton: () => void;
 } | null;
 
