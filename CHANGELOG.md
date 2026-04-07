@@ -1,3 +1,9 @@
+## [158.41.0](https://github.com/Sage/carbon/compare/v158.40.0...v158.41.0) (2026-04-07)
+
+### Features
+
+* **flat-table-checkbox:** add disabled prop ([987f8fb](https://github.com/Sage/carbon/commit/987f8fb744287d10a92b5a2aeb0547aa880ef83b)), closes [#7844](https://github.com/Sage/carbon/issues/7844)
+
 ## [158.40.0](https://github.com/Sage/carbon/compare/v158.39.1...v158.40.0) (2026-04-02)
 
 ### Features
