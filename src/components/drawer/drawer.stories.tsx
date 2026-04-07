@@ -99,6 +99,9 @@ export const SidebarAriaLabel: Story = {
     ...Default.args,
     sidebarAriaLabel: "This is a Drawer",
   },
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
 };
 
 export const WithBackgroundColor: Story = {
@@ -133,3 +136,24 @@ export const Controlled = () => {
   );
 };
 Controlled.storyName = "Controlled";
+Controlled.parameters = {
+  chromatic: { disableSnapshot: true },
+};
+
+export const FocusedToggle: Story = {
+  render: (args) => (
+    <Drawer {...args} data-role="target">
+      <Box p={3}>Main body</Box>
+    </Drawer>
+  ),
+  args: {
+    sidebar: <Box p={3}>Drawer content</Box>,
+    showControls: true,
+  },
+  parameters: {
+    chromatic: { disableSnapshot: false },
+    pseudo: {
+      focus: '[data-role="target"] [data-element="drawer-toggle"]',
+    },
+  },
+};

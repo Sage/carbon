@@ -38,7 +38,11 @@ const StyledSearchButton = styled.div.attrs(applyBaseTheme)`
     padding-bottom: 3px;
 
     :focus {
-      z-index: ${({ theme }) => theme.zIndex.smallOverlay};
+      // Removing the z-index would cause the focus outline to render beneath the input field.
+      // Reducing it to 1, keeps the focus outline visible while preventing it from overlapping
+      // sticky elements. It can be removed entirely once the Search component no longer depends
+      // on the deprecated Button component.
+      z-index: 1;
     }
   }
 `;

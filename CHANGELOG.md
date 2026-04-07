@@ -1,3 +1,15 @@
+## [158.40.0](https://github.com/Sage/carbon/compare/v158.39.1...v158.40.0) (2026-04-02)
+
+### Features
+
+* **button:** export ButtonHandle type for component's forward ref ([5d8b813](https://github.com/Sage/carbon/commit/5d8b813678962a06ae43b97a5e2a11b8f327916c))
+
+## [158.39.1](https://github.com/Sage/carbon/compare/v158.39.0...v158.39.1) (2026-03-31)
+
+### Bug Fixes
+
+* **search:** z-index on form field styling ([d4e8f92](https://github.com/Sage/carbon/commit/d4e8f92e7a42cf4cb262148856b4f5991dd1a144)), closes [#7797](https://github.com/Sage/carbon/issues/7797)
+
 ## [158.39.0](https://github.com/Sage/carbon/compare/v158.38.3...v158.39.0) (2026-03-26)
 
 ### Features

@@ -185,3 +185,25 @@ description: Carbon Drawer component props and usage examples.
 }
 ```
 
+
+### FocusedToggle
+
+**Args**
+
+```tsx
+{
+    sidebar: <Box p={3}>Drawer content</Box>,
+    showControls: true,
+  }
+```
+
+**Render**
+
+```tsx
+(args) => (
+    <Drawer {...args} data-role="target">
+      <Box p={3}>Main body</Box>
+    </Drawer>
+  )
+```
+

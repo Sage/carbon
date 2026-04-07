@@ -26,6 +26,7 @@ Provides an interactive Text Editor that allows users to format text with variou
 - [Validation States](#validation-states)
 - [Props](#props)
 - [Translation Keys](#translation-keys)
+- [Ref methods](#ref-methods)
 
 ## Quick Start
 
@@ -33,6 +34,7 @@ Provides an interactive Text Editor that allows users to format text with variou
 import TextEditor, {
   createEmpty,
   createFromHTML,
+  type TextEditorHandle,
 } from "carbon-react/lib/components/text-editor";
 ```
 
@@ -45,10 +47,6 @@ Use the [Demo](../?path=/story/text-editor--demo) story with controls to explore
 ## Advanced Usage
 
 ### Focusing the Text Editor Programmatically
-
-```javascript
-import { TextEditorHandle } from "carbon-react/lib/components/text-editor";
-```
 
 The `TextEditorHandle` type provides an imperative handle for programmatic control over the Text Editor.
 Using a `ref`, you can access its `focus()` method to set focus on the Text Editor as needed.
@@ -397,3 +395,11 @@ The following keys are available to override the translations for this component
     },
   ]}
 />
+
+## Ref methods
+
+`TextEditor`'s forwarded ref exposes the following imperative methods:
+
+| Method Name | Description                                  |
+| ----------- | -------------------------------------------- |
+| `focus()`   | Programmatically focuses the text editor.    |
