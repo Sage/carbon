@@ -11,7 +11,7 @@ import { StyledForm, StyledFormContent } from "../form/form.style";
 
 type StyledSidebarProps = Pick<
   SidebarProps,
-  "onCancel" | "position" | "size" | "width"
+  "onCancel" | "position" | "size" | "width" | "widthAnimation"
 >;
 
 const StyledSidebar = styled.div.attrs(applyBaseTheme)<StyledSidebarProps>`
@@ -20,7 +20,7 @@ const StyledSidebar = styled.div.attrs(applyBaseTheme)<StyledSidebarProps>`
     outline: none;
   }
 
-  ${({ onCancel, position, size, theme, width }) => css`
+  ${({ onCancel, position, size, theme, width, widthAnimation }) => css`
     background: var(--colorsUtilityYang100);
     border-radius: 1px;
     bottom: 0;
@@ -37,6 +37,11 @@ const StyledSidebar = styled.div.attrs(applyBaseTheme)<StyledSidebarProps>`
       width: ${SIDEBAR_SIZES_CSS[size]};
     `}
     ${width && computeSizing({ width })}
+
+    ${widthAnimation &&
+    css`
+      transition: width 0.3s ease;
+    `}
 
     ${position &&
     css`

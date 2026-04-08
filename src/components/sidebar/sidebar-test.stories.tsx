@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { action } from "@storybook/addon-actions";
 import { Meta, StoryObj } from "@storybook/react";
 import isChromatic from "../../../.storybook/isChromatic";
@@ -292,4 +292,44 @@ export const WithLongHeader = () => {
       sed dolorem minima?
     </Sidebar>
   );
+};
+
+const DynamicWidthAfterMountComponent = (args: Partial<SidebarProps>) => {
+  const [width, setWidth] = useState("320px");
+
+  useEffect(() => {
+    const timeoutId = window.setTimeout(() => {
+      setWidth("480px");
+    }, 2000);
+
+    return () => window.clearTimeout(timeoutId);
+  }, []);
+
+  return (
+    <Sidebar
+      {...args}
+      aria-label="sidebar"
+      header={<Typography variant="h2">Dynamic width after mount</Typography>}
+      open
+      onCancel={() => {}}
+      width={width}
+    >
+      <Typography variant="p">
+        This story updates the sidebar width a little bit after the initial
+        mount.
+      </Typography>
+    </Sidebar>
+  );
+};
+
+export const DynamicWidthAfterMount: StoryObj<typeof Sidebar> = {
+  render: (args) => <DynamicWidthAfterMountComponent {...args} />,
+  parameters: { chromatic: { disableSnapshot: true } },
+};
+
+export const DynamicWidthAfterMountWithAnimation: StoryObj<typeof Sidebar> = {
+  ...DynamicWidthAfterMount,
+  args: {
+    widthAnimation: true,
+  },
 };
