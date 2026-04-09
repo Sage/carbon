@@ -1,3 +1,15 @@
+## [158.41.0](https://github.com/Sage/carbon/compare/v158.40.0...v158.41.0) (2026-04-07)
+
+### Features
+
+* **flat-table-checkbox:** add disabled prop ([987f8fb](https://github.com/Sage/carbon/commit/987f8fb744287d10a92b5a2aeb0547aa880ef83b)), closes [#7844](https://github.com/Sage/carbon/issues/7844)
+
+## [158.40.0](https://github.com/Sage/carbon/compare/v158.39.1...v158.40.0) (2026-04-02)
+
+### Features
+
+* **button:** export ButtonHandle type for component's forward ref ([5d8b813](https://github.com/Sage/carbon/commit/5d8b813678962a06ae43b97a5e2a11b8f327916c))
+
 ## [158.39.1](https://github.com/Sage/carbon/compare/v158.39.0...v158.39.1) (2026-03-31)
 
 ### Bug Fixes

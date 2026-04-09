@@ -19,6 +19,7 @@ description: Carbon FlatTableCheckbox component props and usage examples.
 | onChange | (ev: React.ChangeEvent<HTMLInputElement>) => void | Yes |  | Callback to be called onChange in Checkbox |  |
 | ariaLabelledBy | string \| undefined | No |  | The id of the element that labels the input |  |
 | as | "td" \| "th" \| undefined | No |  | Prop to polymorphically render either a 'th' or 'td' element | "td" |
+| disabled | boolean \| undefined | No |  | Prop to set disabled state on Checkbox | false |
 | id | string \| undefined | No |  | Sets an id string on the element |  |
 | onClick | ((ev: React.MouseEvent<HTMLElement>) => void) \| undefined | No |  | Callback function to be called when click event received |  |
 | selectable | boolean \| undefined | No |  | Whether to render the checkbox or not, defaults to true | true |

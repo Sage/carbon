@@ -1047,20 +1047,3 @@ description: Carbon Menu component props and usage examples.
 }
 ```
 
-
-### MDX Example 1
-
-**Args**
-
-```tsx
-## Examples
-
-### Default
-
-<Canvas of={MenuStories.DefaultStory} />
-
-> **Note**: To ensure a `MenuItem` is interactive, it should either have an `href`, `onClick` or `submenu` prop, or contain another focusable Carbon component like Button. Without one of these, the item will not be keyboard-focusable or interactive, affecting accessibility for keyboard and screen reader users.
-
-### Focusing MenuItem's Programmatically
-```
-
