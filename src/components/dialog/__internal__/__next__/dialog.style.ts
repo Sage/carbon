@@ -6,6 +6,7 @@ import Typography from "../../../typography";
 import type { DialogProps } from "./dialog.component";
 import {
   DIALOG_SIZE_CONFIG,
+  DIALOG_MIN_WIDTH,
   Size,
   ContentPaddingInterface,
 } from "./dialog.config";
@@ -393,12 +394,22 @@ const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
           css`
             min-width: var(--container-size-dialog-maxW-S, 540px);
             max-width: var(--container-size-dialog-maxW-M, 850px);
+
+            @media screen and (max-width: ${DIALOG_SIZE_CONFIG.small
+                .maxWidth}) {
+              min-width: ${DIALOG_MIN_WIDTH};
+            }
           `}
 
           ${$size === "large" &&
           css`
             min-width: var(--container-size-dialog-maxW-M, 850px);
             max-width: var(--container-size-dialog-maxW-L, 1080px);
+
+            @media screen and (max-width: ${DIALOG_SIZE_CONFIG.medium
+                .maxWidth}) {
+              min-width: ${DIALOG_MIN_WIDTH};
+            }
           `}
 
           ${$gradientKeyLine &&
