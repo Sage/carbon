@@ -4,7 +4,7 @@ import { userEvent, within, expect } from "@storybook/test";
 
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import Box from "../box";
-import Switch from ".";
+import Switch from "./switch.component";
 
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
 import DefaultDecorator from "../../../.storybook/utils/default-decorator";
@@ -12,7 +12,7 @@ import DefaultDecorator from "../../../.storybook/utils/default-decorator";
 type Story = StoryObj<typeof Switch>;
 
 export default {
-  title: "Switch/Interactions",
+  title: "Deprecated/Switch/Interactions",
   component: Switch,
   argTypes: {},
   parameters: {

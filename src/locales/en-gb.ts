@@ -252,6 +252,7 @@ const enGB: Locale = {
   switch: {
     on: () => "ON",
     off: () => "OFF",
+    processingLabel: () => "Processing...",
   },
   tileSelect: {
     deselect: () => "Deselect",

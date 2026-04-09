@@ -76,88 +76,7 @@ test("has default a translation for off", () => {
 
   const sliderPanelText = screen.getAllByText("OFF");
 
-  expect(sliderPanelText[1]).toBeVisible();
-});
-
-// required for styling coverage
-test("when `reverse` is false, the correct Label component styles are applied", () => {
-  render(
-    <Switch
-      reverse={false}
-      label="label"
-      checked={false}
-      onChange={() => {}}
-    />,
-  );
-
-  const labelContainer = screen.getByTestId("label-container");
-
-  expect(labelContainer).toHaveStyle("margin-bottom: 8px");
-});
-
-test("when `reverse` is true, the correct Label component styles are applied", () => {
-  render(
-    <Switch
-      reverse={false}
-      label="label"
-      checked={false}
-      onChange={() => {}}
-    />,
-  );
-
-  const labelContainer = screen.getByTestId("label-container");
-
-  expect(labelContainer).toHaveStyle("margin-top: 8px");
-});
-
-test("when `reverse` is false and `fieldHelpInline` is true, the correct FieldHelp component styles are applied", () => {
-  render(
-    <Switch
-      reverse={false}
-      fieldHelp="This text provides help"
-      fieldHelpInline
-      label="label"
-      checked={false}
-      onChange={() => {}}
-    />,
-  );
-
-  const fieldHelp = screen.getByText("This text provides help");
-
-  expect(fieldHelp).toHaveStyle("margin-top: 8px");
-});
-
-test("when `labelInline` is true, fieldHelpInline is false and `reverse` is false, the correct FieldHelp component styles are applied", () => {
-  render(
-    <Switch
-      label="label"
-      fieldHelp="This text provides help"
-      fieldHelpInline={false}
-      labelInline
-      reverse={false}
-      checked={false}
-      onChange={() => {}}
-    />,
-  );
-  const fieldHelp = screen.getByText("This text provides help");
-
-  expect(fieldHelp).toHaveStyle("margin-left: 60px");
-});
-
-test("when `fieldHelpInline` is true, the correct FieldHelp component styles are applied", () => {
-  render(
-    <Switch
-      fieldHelpInline
-      fieldHelp="This text provides help"
-      label="label"
-      checked={false}
-      onChange={() => {}}
-    />,
-  );
-
-  const fieldHelp = screen.getByText("This text provides help");
-
-  expect(fieldHelp).toHaveStyle("margin: 0px");
+  expect(sliderPanelText[0]).toBeVisible();
 });
 
 test("when `labelInline` is true, the correct Label component styles are applied", () => {
@@ -165,112 +84,7 @@ test("when `labelInline` is true, the correct Label component styles are applied
     <Switch label="label" labelInline checked={false} onChange={() => {}} />,
   );
 
-  const labelContainer = screen.getByTestId("label-container");
-
-  expect(labelContainer).toHaveStyle("margin-bottom: 0px");
-});
-
-test("when `fieldHelpInline` is true and `labelInline` is true, the correct CheckableInput component styles are applied", () => {
-  render(
-    <Switch
-      label="label"
-      fieldHelp="This text provides help"
-      fieldHelpInline
-      labelInline
-      checked={false}
-      onChange={() => {}}
-    />,
-  );
-
-  const checkableInput = screen.getByTestId("checkable-input");
-
-  expect(checkableInput).toHaveStyle("margin-left: 10px");
-});
-
-test("when `fieldHelpInline` true and `labelInline` true, the correct Label component styles are applied", () => {
-  render(
-    <Switch
-      label="label"
-      fieldHelp="This text provides help"
-      fieldHelpInline
-      labelInline
-      checked={false}
-      onChange={() => {}}
-    />,
-  );
-
-  const labelContainer = screen.getByTestId("label-container");
-
-  expect(labelContainer).toHaveStyle("margin-right: 10px");
-});
-
-test("when `fieldHelpInline` true and `labelInline` true, the correct FieldHelp component styles are applied", () => {
-  render(
-    <Switch
-      label="label"
-      fieldHelp="This text provides help"
-      fieldHelpInline
-      labelInline
-      checked={false}
-      onChange={() => {}}
-    />,
-  );
-
-  const fieldHelp = screen.getByText("This text provides help");
-
-  expect(fieldHelp).toHaveStyle("margin-left: 0px");
-});
-
-test("when `size` is large, the correct CheckableInput component styles are applied", () => {
-  render(<Switch size="large" checked={false} onChange={() => {}} />);
-
-  expect(screen.getByRole("switch")).toHaveStyle("height: 44px");
-});
-
-test("when `size` is large, the correct SwitchSlider component styles are applied", () => {
-  render(<Switch size="large" checked={false} onChange={() => {}} />);
-
-  const switchSlider = screen.getByTestId("slider");
-
-  expect(switchSlider).toHaveStyle("height: 44px");
-});
-
-test("when `size` is large and `labelInline` is true, the correct Label component styles are applied", () => {
-  render(
-    <Switch
-      size="large"
-      labelInline
-      label="label"
-      checked={false}
-      onChange={() => {}}
-    />,
-  );
-
-  const labelContainer = screen.getByTestId("label-container");
-
-  expect(labelContainer).toHaveStyle({
-    paddingBottom: "10px",
-    paddingTop: "10px",
-    marginTop: "1px",
-  });
-});
-
-test("when `size` is large and `reverse` is false, the correct FieldHelp component styles are applied", () => {
-  render(
-    <Switch
-      size="large"
-      labelInline
-      label="label"
-      reverse={false}
-      fieldHelp="this is field help"
-      checked={false}
-      onChange={() => {}}
-    />,
-  );
-
-  const fieldHelp = screen.getByText("this is field help");
-
-  expect(fieldHelp).toHaveStyle("margin-left: 78px");
+  expect(screen.getByText("label")).toHaveStyle("margin-bottom: 0px");
 });
 
 test("the `error` prop should not throw an error if `loading` is true", () => {
@@ -315,133 +129,6 @@ test("the `info` prop should not throw an error if `loading` is true", () => {
   }).not.toThrow();
 });
 
-test.each(["error", "warning"])(
-  "should render the validation message under the input when %s passed as string and validationMessagePositionTop is false",
-  (validationType) => {
-    render(
-      <CarbonProvider validationRedesignOptIn>
-        <Switch
-          label="label"
-          validationMessagePositionTop={false}
-          {...{ [validationType]: "This is a validation message" }}
-          checked={false}
-          onChange={() => {}}
-        />
-      </CarbonProvider>,
-    );
-
-    const validationMessage = screen.getByTestId("validation-message-bottom");
-
-    expect(validationMessage).toBeVisible();
-  },
-);
-
-test("`helpAriaLabel` prop should set the aria-label on the Help component", () => {
-  render(
-    <Switch
-      label="foo"
-      labelHelp="fooHelp"
-      helpAriaLabel="text"
-      checked={false}
-      onChange={() => {}}
-    />,
-  );
-
-  const help = screen.getByRole("button");
-
-  expect(help).toHaveAttribute("aria-label", "text");
-});
-
-// Required for coverage
-test("the correct border colour is applied when `error` validation is true", () => {
-  render(<Switch error checked={false} onChange={() => {}} />);
-
-  const switchSlider = screen.getByTestId("slider");
-
-  expect(switchSlider).toHaveStyleRule(
-    "border-color: var(--colorsSemanticNegative500)",
-  );
-});
-
-// Required for coverage
-test("the correct border colour is applied when `warning` validation is true", () => {
-  render(<Switch warning checked={false} onChange={() => {}} />);
-
-  const switchSlider = screen.getByTestId("slider");
-
-  expect(switchSlider).toHaveStyleRule(
-    "border-color: var(--colorsSemanticCaution500)",
-  );
-});
-
-// Required for coverage
-test("the correct background colour is applied to the `ErrorBorder` element when `error` validation is a string", () => {
-  render(
-    <CarbonProvider validationRedesignOptIn>
-      <Switch error="this is an error" checked={false} onChange={() => {}} />
-    </CarbonProvider>,
-  );
-
-  const switchSlider = screen.getByTestId("error-border");
-
-  expect(switchSlider).toHaveStyleRule(
-    "background-color: var(--colorsSemanticNegative500)",
-  );
-});
-
-// Required for coverage
-test("the correct background colour is applied to the `ErrorBorder` element when `warning` validation is a string", () => {
-  render(
-    <CarbonProvider validationRedesignOptIn>
-      <Switch warning="this is a warning" checked={false} onChange={() => {}} />
-    </CarbonProvider>,
-  );
-
-  const switchSlider = screen.getByTestId("error-border");
-
-  expect(switchSlider).toHaveStyleRule(
-    "background-color: var(--colorsSemanticCaution500)",
-  );
-});
-
-// Required for coverage
-test("renders `labelHelp` as hint text when `validationRedesignOptIn` flag is true", () => {
-  render(
-    <CarbonProvider validationRedesignOptIn>
-      <Switch
-        label="foo"
-        labelHelp="hint text"
-        warning="this is a warning"
-        checked={false}
-        onChange={() => {}}
-      />
-    </CarbonProvider>,
-  );
-
-  expect(screen.getByText("hint text")).toBeVisible();
-});
-
-test("should render with correct accessible name and description when `validationRedesignOptIn` flag is true", () => {
-  render(
-    <CarbonProvider validationRedesignOptIn>
-      <Switch
-        label="foo"
-        labelHelp="hint text"
-        error="this is an error"
-        checked={false}
-        onChange={() => {}}
-      />
-    </CarbonProvider>,
-  );
-
-  const switchElement = screen.getByRole("switch");
-
-  expect(switchElement).toHaveAccessibleName("foo");
-  expect(switchElement).toHaveAccessibleDescription(
-    "hint text this is an error",
-  );
-});
-
 test("the expected translations are correctly applied for on", () => {
   render(
     <I18nProvider
@@ -450,6 +137,7 @@ test("the expected translations are correctly applied for on", () => {
         switch: {
           on: () => "sur",
           off: () => "de",
+          processingLabel: () => "Traitement...",
         },
       }}
     >
@@ -470,6 +158,7 @@ test("the expected translations are correctly applied for off", () => {
         switch: {
           on: () => "sur",
           off: () => "de",
+          processingLabel: () => "Traitement...",
         },
       }}
     >
@@ -669,46 +358,6 @@ test("renders correctly with inline label, dark background, error and field help
 });
 
 // coverage
-test("renders with the correct error colour when `isDarkBackground` is false", () => {
-  render(
-    <CarbonProvider validationRedesignOptIn>
-      <Switch
-        labelInline
-        fieldHelp="Field help"
-        error="error"
-        isDarkBackground={false}
-        checked={false}
-        onChange={() => {}}
-      />
-    </CarbonProvider>,
-  );
-
-  expect(screen.getByTestId("validation-message-top")).toHaveStyleRule(
-    "color: var(--colorsSemanticNegative500)",
-  );
-});
-
-// coverage
-test("renders with the correct error colour when `isDarkBackground` is true", () => {
-  render(
-    <CarbonProvider validationRedesignOptIn>
-      <Switch
-        labelInline
-        fieldHelp="Field help"
-        error="error"
-        isDarkBackground
-        checked={false}
-        onChange={() => {}}
-      />
-    </CarbonProvider>,
-  );
-
-  expect(screen.getByTestId("validation-message-top")).toHaveStyleRule(
-    "color: var(--colorsSemanticNegative450)",
-  );
-});
-
-// coverage
 test("renders correctly with inline label and hint text in new validation", () => {
   render(
     <CarbonProvider validationRedesignOptIn>
@@ -745,53 +394,16 @@ test("renders correctly with inline label and hint text in new validation when r
   expect(switchElement).toHaveStyleRule("width: 50%");
 });
 
-test("when `labelInline` is true and `reverse` is false no margin left is applied to the input-wrapper", () => {
+test("when `labelInline` is true, the provided `labelWidth` is applied to the label", () => {
   render(
-    <CarbonProvider validationRedesignOptIn>
-      <Switch
-        label="label"
-        labelInline
-        reverse={false}
-        checked={false}
-        onChange={() => {}}
-      />
-    </CarbonProvider>,
+    <Switch
+      label="label"
+      labelInline
+      labelWidth={50}
+      onChange={jest.fn}
+      checked
+    />,
   );
 
-  const inputWrapper = screen.getByTestId("input-wrapper");
-  expect(inputWrapper).toHaveStyle("margin-left: var(--spacing000)");
-});
-
-test("when `labelInline` is true and `reverse` is true no margin right is applied to the input-wrapper", () => {
-  render(
-    <CarbonProvider validationRedesignOptIn>
-      <Switch
-        label="label"
-        labelInline
-        reverse
-        checked={false}
-        onChange={() => {}}
-      />
-    </CarbonProvider>,
-  );
-
-  const inputWrapper = screen.getByTestId("input-wrapper");
-  expect(inputWrapper).toHaveStyleRule("margin-right: var(--spacing000)");
-});
-
-test("when `labelInline` is true, the provided `labelWidth` is applied to the label-wrapper", () => {
-  render(
-    <CarbonProvider validationRedesignOptIn>
-      <Switch
-        label="label"
-        labelInline
-        labelWidth={50}
-        onChange={jest.fn}
-        checked
-      />
-    </CarbonProvider>,
-  );
-
-  const labelWrapper = screen.getByTestId("label-wrapper");
-  expect(labelWrapper).toHaveStyle("width: 50%");
+  expect(screen.getByText("label")).toHaveStyle("width: 50%");
 });

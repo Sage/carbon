@@ -1,19 +1,19 @@
 import React from "react";
-import { test, expect } from "../../../playwright/helpers/base-test";
-import { SwitchProps } from "./__internal__/__next__";
+import { test, expect } from "../../../../../playwright/helpers/base-test";
+import { SwitchProps } from ".";
 import { SwitchComponent, WithMargin } from "./components.test-pw";
 import {
   switchDataComponent,
   switchInput,
   switchLabel,
-} from "../../../playwright/components/switch/index";
+} from "../../../../../playwright/components/switch/index";
 import {
   assertCssValueIsApproximately,
   checkAccessibility,
-} from "../../../playwright/support/helper";
-import { CHARACTERS, SIZE } from "../../../playwright/support/constants";
+} from "../../../../../playwright/support/helper";
+import { CHARACTERS, SIZE } from "../../../../../playwright/support/constants";
 
-test.describe("Prop tests for Switch component", () => {
+test.describe("Prop tests for next Switch component", () => {
   [
     CHARACTERS.STANDARD,
     CHARACTERS.DIACRITICS,
@@ -50,27 +50,21 @@ test.describe("Prop tests for Switch component", () => {
     await expect(switchInput(page)).not.toBeChecked();
   });
 
-  test("should check with disabled state set to true", async ({
-    mount,
-    page,
-  }) => {
+  test("should render with disabled set to true", async ({ mount, page }) => {
     await mount(<SwitchComponent disabled />);
 
     await expect(switchInput(page)).toBeDisabled();
     await expect(switchLabel(page)).toBeDisabled();
   });
 
-  test("should check with disabled state set to false", async ({
-    mount,
-    page,
-  }) => {
+  test("should render with disabled set to false", async ({ mount, page }) => {
     await mount(<SwitchComponent disabled={false} />);
 
     await expect(switchInput(page)).toBeEnabled();
     await expect(switchLabel(page)).toBeEnabled();
   });
 
-  test("should render properly with loading prop set as true", async ({
+  test("should render properly with loading prop set to true", async ({
     mount,
     page,
   }) => {
@@ -80,7 +74,7 @@ test.describe("Prop tests for Switch component", () => {
     await expect(page.locator('[data-role="switch-loader"]')).toBeVisible();
   });
 
-  test("should render properly with loading prop set as false", async ({
+  test("should render properly with loading prop set to false", async ({
     mount,
     page,
   }) => {
@@ -114,67 +108,6 @@ test.describe("Prop tests for Switch component", () => {
     await expect(switchInput(page)).toHaveId(CHARACTERS.STANDARD);
   });
 
-  [true, false].forEach((boolVal) => {
-    test(`should render with labelInline prop set to ${boolVal}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<SwitchComponent labelInline={boolVal} />);
-
-      await expect(switchDataComponent(page)).toHaveCSS(
-        "flex-direction",
-        boolVal ? "row" : "column",
-      );
-    });
-  });
-
-  (
-    [
-      [10, 100],
-      [30, 300],
-      [80, 800],
-    ] as [SwitchProps["labelWidth"], number][]
-  ).forEach(([labelWidth, expectedWidth]) => {
-    test(`should render with labelWidth prop set to ${labelWidth} and with correct label width ratio`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <div style={{ width: "1000px" }}>
-          <SwitchComponent labelInline labelWidth={labelWidth} />
-        </div>,
-      );
-
-      await assertCssValueIsApproximately(
-        switchLabel(page),
-        "width",
-        expectedWidth,
-      );
-    });
-  });
-
-  (
-    [
-      [1, 8],
-      [2, 16],
-    ] as [SwitchProps["labelSpacing"], number][]
-  ).forEach(([spacing, expectedMargin]) => {
-    test(`should render with labelSpacing prop set to ${spacing}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <SwitchComponent labelInline label="label" labelSpacing={spacing} />,
-      );
-
-      await assertCssValueIsApproximately(
-        switchLabel(page),
-        "margin-right",
-        expectedMargin,
-      );
-    });
-  });
-
   test("should render with name", async ({ mount, page }) => {
     await mount(<SwitchComponent name={CHARACTERS.STANDARD} />);
 
@@ -182,6 +115,12 @@ test.describe("Prop tests for Switch component", () => {
       "name",
       CHARACTERS.STANDARD,
     );
+  });
+
+  test("should render with value", async ({ mount, page }) => {
+    await mount(<SwitchComponent value="switchvalue" />);
+
+    await expect(switchInput(page)).toHaveValue("switchvalue");
   });
 
   (
@@ -198,10 +137,59 @@ test.describe("Prop tests for Switch component", () => {
     });
   });
 
-  test("should render with value prop", async ({ mount, page }) => {
-    await mount(<SwitchComponent value="switchvalue" />);
+  [true, false].forEach((boolVal) => {
+    test(`should render with labelInline set to ${boolVal}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<SwitchComponent labelInline={boolVal} />);
 
-    await expect(switchInput(page)).toHaveValue("switchvalue");
+      await expect(switchDataComponent(page)).toHaveCSS(
+        "flex-direction",
+        boolVal ? "row" : "column",
+      );
+    });
+  });
+
+  (
+    [
+      [1, 8],
+      [2, 16],
+    ] as [SwitchProps["labelSpacing"], number][]
+  ).forEach(([spacing, expectedMargin]) => {
+    test(`should render with labelSpacing set to ${spacing} when labelInline`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <SwitchComponent labelInline label="Label" labelSpacing={spacing} />,
+      );
+
+      await assertCssValueIsApproximately(
+        switchLabel(page),
+        "margin-right",
+        expectedMargin,
+      );
+    });
+  });
+
+  ([10, 30, 80] as SwitchProps["labelWidth"][]).forEach((labelWidth) => {
+    test(`should render with labelWidth set to ${labelWidth}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <div style={{ width: "1000px" }}>
+          <SwitchComponent labelInline labelWidth={labelWidth} />
+        </div>,
+      );
+
+      await assertCssValueIsApproximately(
+        switchLabel(page),
+        "width",
+        (labelWidth as number) * 10,
+      );
+    });
   });
 
   (
@@ -218,7 +206,10 @@ test.describe("Prop tests for Switch component", () => {
       await page.setViewportSize({ width: 400, height: 300 });
 
       await mount(
-        <SwitchComponent labelInline adaptiveLabelBreakpoint={breakpoint} />,
+        <SwitchComponent
+          labelInline
+          adaptiveLabelBreakpoint={breakpoint as number}
+        />,
       );
 
       await expect(switchDataComponent(page)).toHaveCSS(
@@ -233,10 +224,7 @@ test.describe("Prop tests for Switch component", () => {
     CHARACTERS.DIACRITICS,
     CHARACTERS.SPECIALCHARACTERS,
   ].forEach((hint) => {
-    test(`should render with inputHint set to ${hint}`, async ({
-      mount,
-      page,
-    }) => {
+    test(`should render with inputHint "${hint}"`, async ({ mount, page }) => {
       await mount(<SwitchComponent inputHint={hint} />);
 
       await expect(page.locator('[data-element="input-hint"]')).toHaveText(
@@ -287,7 +275,7 @@ test.describe("Prop tests for Switch component", () => {
     await expect(switchLabel(page)).toHaveCSS("margin-bottom", "0px");
   });
 
-  test("renders with the expected border radius on the track", async ({
+  test("renders with the expected border radius on track", async ({
     mount,
     page,
   }) => {
@@ -415,7 +403,7 @@ test.describe("Accessibility tests", () => {
   });
 
   [true, false].forEach((boolVal) => {
-    test(`check accessibility with checked prop set to ${boolVal}`, async ({
+    test(`check accessibility with checked set to ${boolVal}`, async ({
       mount,
       page,
     }) => {
@@ -425,7 +413,7 @@ test.describe("Accessibility tests", () => {
     });
   });
 
-  test("check accessibility with disabled prop set to true", async ({
+  test("check accessibility with disabled set to true", async ({
     mount,
     page,
   }) => {
@@ -435,7 +423,7 @@ test.describe("Accessibility tests", () => {
     await checkAccessibility(page, undefined, "color-contrast");
   });
 
-  test("check accessibility with disabled prop set to false", async ({
+  test("check accessibility with disabled set to false", async ({
     mount,
     page,
   }) => {
@@ -451,7 +439,7 @@ test.describe("Accessibility tests", () => {
   });
 
   [true, false].forEach((boolVal) => {
-    test(`check accessibility when labelInline prop is set to ${boolVal}`, async ({
+    test(`check accessibility when labelInline is set to ${boolVal}`, async ({
       mount,
       page,
     }) => {
@@ -564,7 +552,7 @@ test.describe("Accessibility tests", () => {
     await checkAccessibility(page);
   });
 
-  test("check accessibility for withMargin example", async ({
+  test("check accessibility for WithMargin example", async ({
     mount,
     page,
   }) => {

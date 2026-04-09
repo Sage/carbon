@@ -1,21 +1,10 @@
-import React, { useContext, useRef } from "react";
+import React from "react";
 import { MarginProps } from "styled-system";
 
-import Box from "../box";
-import CheckableInput, {
-  CommonCheckableInputProps,
-} from "../../__internal__/checkable-input";
+import { CommonCheckableInputProps } from "../../__internal__/checkable-input";
 import { TagProps } from "../../__internal__/utils/helpers/tags";
-import Label from "../../__internal__/label";
-import { TooltipProvider } from "../../__internal__/tooltip-provider";
-import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
-import ValidationMessage from "../../__internal__/validation-message/validation-message.component";
-import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
-import StyledSwitch, { ErrorBorder } from "./switch.style";
-import SwitchSlider from "./__internal__/switch-slider.component";
-import guid from "../../__internal__/utils/helpers/guid";
-import HintText from "../../__internal__/hint-text";
-import { filterStyledSystemMarginProps } from "../../style/utils";
+import Logger from "../../__internal__/utils/logger";
+import { Switch as NextSwitch } from "./__internal__/__next__/switch.component";
 
 export interface SwitchProps
   extends Omit<CommonCheckableInputProps, "defaultChecked">,
@@ -35,7 +24,7 @@ export interface SwitchProps
   tooltipPosition?: "top" | "bottom" | "left" | "right";
   /** [Legacy] Aria label for rendered help component */
   helpAriaLabel?: string;
-  /** Whether this component resides on a dark background */
+  /** @deprecated Whether this component resides on a dark background */
   isDarkBackground?: boolean;
   /** Render the ValidationMessage above the Switch input when validationRedesignOptIn flag is set */
   validationMessagePositionTop?: boolean;
@@ -46,6 +35,15 @@ export interface SwitchProps
   /** Checked state of the input */
   checked: boolean;
 }
+
+let switchLegacyWarned = false;
+let deprecateIsDarkBackgroundWarned = false;
+let deprecateReverseWarned = false;
+let deprecateLabelHelpWarned = false;
+let deprecateFieldHelpWarned = false;
+let deprecateErrorWarned = false;
+let deprecateWarningWarned = false;
+let deprecateInfoWarned = false;
 
 const SwitchComponent = React.forwardRef(
   (
@@ -60,298 +58,110 @@ const SwitchComponent = React.forwardRef(
       checked,
       disabled,
       loading,
-      reverse = true,
-      required,
-      validationOnLabel = false,
       labelInline = false,
       labelSpacing,
-      labelHelp,
       labelWidth,
-      fieldHelpInline,
       size = "small",
       name,
       adaptiveLabelBreakpoint,
-      tooltipPosition,
+      "data-element": dataElement,
+      "data-role": dataRole,
+      // Deprecated props — destructured to prevent them from being spread
+      reverse,
+      validationOnLabel: _validationOnLabel,
+      labelHelp,
+      fieldHelpInline: _fieldHelpInline,
+      tooltipPosition: _tooltipPosition,
+      helpAriaLabel: _helpAriaLabel,
+      isDarkBackground,
+      validationMessagePositionTop: _validationMessagePositionTop,
       error,
       warning,
       info,
-      "data-element": dataElement,
-      "data-role": dataRole,
-      helpAriaLabel,
-      isDarkBackground = false,
-      validationMessagePositionTop = true,
+      fieldHelp,
       ...rest
     }: SwitchProps,
     ref: React.ForwardedRef<HTMLInputElement>,
   ) => {
-    const { validationRedesignOptIn } = useContext(NewValidationContext);
-
-    const labelId = useRef(`${guid()}-label`);
-    const inputHintId = useRef(`${guid()}-hint`);
-    const validationMessageId = useRef(`${guid()}-message`);
-
-    const largeScreen = useIsAboveBreakpoint(adaptiveLabelBreakpoint);
-    let shouldLabelBeInline: boolean | undefined = labelInline;
-    // Coverage has been ignored here as this functionality is covered in a Playwright test.
-    /* istanbul ignore next */
-    if (adaptiveLabelBreakpoint) {
-      shouldLabelBeInline = largeScreen;
-    }
-
-    const shouldValidationBeOnLabel =
-      labelInline && !reverse ? true : validationOnLabel;
-
-    const marginProps = filterStyledSystemMarginProps(rest);
-
-    const switchStyleProps = {
-      "data-component": "switch",
-      "data-role": dataRole,
-      "data-element": dataElement,
-      checked,
-      isDarkBackground,
-      fieldHelpInline,
-      labelInline: shouldLabelBeInline,
-      labelSpacing,
-      reverse: !reverse, // switched to preserve backward compatibility
-      size,
-      ...marginProps,
-    };
-
-    const switchSliderProps = {
-      checked,
-      disabled,
-      loading,
-      isDarkBackground,
-      size,
-      error,
-      warning,
-      info,
-      useValidationIcon:
-        !validationRedesignOptIn && !shouldValidationBeOnLabel && !disabled,
-    };
-
-    const inputProps = {
-      autoFocus,
-      error,
-      warning,
-      info,
-      disabled,
-      loading,
-      checked,
-      label,
-      labelHelp,
-      labelWidth,
-      fieldHelpInline,
-      labelInline: shouldLabelBeInline,
-      labelSpacing,
-      onBlur,
-      isDarkBackground,
-      onFocus,
-      onChange,
-      id,
-      name,
-      value,
-      type: "checkbox",
-      role: "switch",
-      reverse: !reverse, // switched to preserve backward compatibility
-      validationOnLabel: shouldValidationBeOnLabel && !disabled,
-      ref,
-      required,
-      ...rest,
-      "data-component": undefined,
-    };
-
-    // Created separate const declarations to help when removing the old validation.
-    // Not all props utilised by the old validation work or will be needed with the new validation.
-    const switchStylePropsForNewValidation = {
-      "data-component": "switch",
-      "data-role": dataRole,
-      "data-element": dataElement,
-      checked,
-      labelInline: shouldLabelBeInline,
-      isDarkBackground,
-      size,
-      reverse: !reverse,
-      validationRedesignOptIn,
-      ...marginProps,
-    };
-
-    const switchSliderPropsForNewValidation = {
-      checked,
-      disabled,
-      loading,
-      isDarkBackground,
-      size,
-      error,
-      warning,
-    };
-
-    const inputPropsForNewValidation = {
-      autoFocus,
-      // set aria-invalid but prevent validationIconId from being added to aria-describedby
-      error: !!error,
-      warning,
-      disabled,
-      loading,
-      checked,
-      onBlur,
-      isDarkBackground,
-      onFocus,
-      onChange,
-      id,
-      name,
-      value,
-      type: "checkbox",
-      role: "switch",
-      ref,
-      required,
-      ...rest,
-    };
-
-    const applyValidation = error || warning;
-
-    const ariaDescribedBy = [
-      labelHelp && inputHintId.current,
-      applyValidation && validationMessageId.current,
-    ]
-      .filter(Boolean)
-      .join(" ");
-
-    if (!validationRedesignOptIn) {
-      return (
-        <>
-          <TooltipProvider
-            helpAriaLabel={helpAriaLabel}
-            tooltipPosition={tooltipPosition}
-          >
-            <StyledSwitch {...switchStyleProps}>
-              <CheckableInput {...inputProps}>
-                <SwitchSlider {...switchSliderProps} />
-              </CheckableInput>
-            </StyledSwitch>
-          </TooltipProvider>
-        </>
+    if (!switchLegacyWarned) {
+      Logger.warn(
+        "Warning: This version of the `Switch` component is intended to help migration to the `next` version and will be removed in a future release.",
       );
+      switchLegacyWarned = true;
     }
 
-    const defaultMargin = labelInline ? 1 : 0;
-    const defaultInputWrapperMargin = labelInline ? 3 : 0;
-    const errorMargin =
-      error || warning ? defaultInputWrapperMargin : defaultMargin;
-    const direction = labelInline ? "row" : "column";
-    const reverseDirection = labelInline ? "row-reverse" : "column";
-    const labelWrapperAlignSelf =
-      labelInline && !error && !warning && !info ? "center" : "";
+    if (isDarkBackground !== undefined && !deprecateIsDarkBackgroundWarned) {
+      Logger.deprecate(
+        "The `isDarkBackground` prop in `Switch` is deprecated and will soon be removed.",
+      );
+      deprecateIsDarkBackgroundWarned = true;
+    }
+
+    if (reverse !== undefined && !deprecateReverseWarned) {
+      Logger.deprecate(
+        "The `reverse` prop in `Switch` is deprecated and will soon be removed.",
+      );
+      deprecateReverseWarned = true;
+    }
+
+    if (labelHelp && !deprecateLabelHelpWarned) {
+      Logger.deprecate(
+        "The `labelHelp` prop in `Switch` is deprecated and will soon be removed.",
+      );
+      deprecateLabelHelpWarned = true;
+    }
+
+    if (fieldHelp && !deprecateFieldHelpWarned) {
+      Logger.deprecate(
+        "The `fieldHelp` prop in `Switch` is deprecated and will soon be removed.",
+      );
+      deprecateFieldHelpWarned = true;
+    }
+
+    if (error && !deprecateErrorWarned) {
+      Logger.deprecate(
+        "The `error` prop in `Switch` is deprecated and will soon be removed.",
+      );
+      deprecateErrorWarned = true;
+    }
+
+    if (warning && !deprecateWarningWarned) {
+      Logger.deprecate(
+        "The `warning` prop in `Switch` is deprecated and will soon be removed.",
+      );
+      deprecateWarningWarned = true;
+    }
+
+    if (info && !deprecateInfoWarned) {
+      Logger.deprecate(
+        "The `info` prop in `Switch` is deprecated and will soon be removed.",
+      );
+      deprecateInfoWarned = true;
+    }
+
     return (
-      <>
-        <StyledSwitch {...switchStylePropsForNewValidation}>
-          <Box
-            data-role="field-reverse-wrapper"
-            display="flex"
-            alignItems={error || warning ? "flex-start" : undefined}
-            flexDirection={!reverse ? reverseDirection : direction}
-            width={labelInline ? "100%" : "auto"}
-          >
-            <Box
-              data-role="label-wrapper"
-              alignSelf={labelWrapperAlignSelf}
-              {...(labelWidth && { width: `${labelWidth}%` })}
-            >
-              <Label
-                isDarkBackground={isDarkBackground}
-                labelId={labelId.current}
-                disabled={disabled}
-                isRequired={required}
-              >
-                {label}
-              </Label>
-
-              {labelHelp && (
-                <Box data-role="hint-text-wrapper" mb={labelInline ? 0 : 1}>
-                  <HintText
-                    data-role="hint-text"
-                    fontWeight="400"
-                    id={inputHintId.current}
-                    isDarkBackground={isDarkBackground}
-                    marginTop="8px"
-                  >
-                    {labelHelp}
-                  </HintText>
-                </Box>
-              )}
-            </Box>
-
-            <Box
-              ml={reverse ? errorMargin : 0}
-              mr={!reverse ? errorMargin : 0}
-              position="relative"
-              id="input-wrapper"
-              data-role="input-wrapper"
-            >
-              {validationMessagePositionTop && (
-                <>
-                  <ValidationMessage
-                    error={error}
-                    warning={warning}
-                    validationId={validationMessageId.current}
-                    isDarkBackground={isDarkBackground}
-                    validationMessagePositionTop={validationMessagePositionTop}
-                    data-role="validation-message-top"
-                  />
-                  {applyValidation && (
-                    <ErrorBorder
-                      data-role="error-border"
-                      warning={!!(!error && warning)}
-                      reverse={!reverse}
-                      isDarkBackground={isDarkBackground}
-                    />
-                  )}
-                </>
-              )}
-              <CheckableInput
-                ariaLabelledBy={`${label && labelId.current}`}
-                ariaDescribedBy={ariaDescribedBy}
-                {...inputPropsForNewValidation}
-                fieldHelp={labelInline ? undefined : rest.fieldHelp}
-              >
-                <SwitchSlider {...switchSliderPropsForNewValidation} />
-              </CheckableInput>
-              {!validationMessagePositionTop && (
-                <>
-                  <ValidationMessage
-                    error={error}
-                    warning={warning}
-                    validationId={validationMessageId.current}
-                    isDarkBackground={isDarkBackground}
-                    validationMessagePositionTop={validationMessagePositionTop}
-                    data-role="validation-message-bottom"
-                  />
-                  {applyValidation && (
-                    <ErrorBorder
-                      data-role="error-border"
-                      warning={!!(!error && warning)}
-                      reverse={!reverse}
-                      isDarkBackground={isDarkBackground}
-                    />
-                  )}
-                </>
-              )}
-            </Box>
-          </Box>
-        </StyledSwitch>
-
-        {labelInline && rest.fieldHelp && (
-          <Box
-            color={
-              isDarkBackground
-                ? "var(--colorsUtilityYang100)"
-                : "var(--colorsUtilityYin090)"
-            }
-          >
-            {rest.fieldHelp}
-          </Box>
-        )}
-      </>
+      <NextSwitch
+        ref={ref}
+        autoFocus={autoFocus}
+        id={id}
+        label={label}
+        onChange={onChange}
+        onBlur={onBlur}
+        onFocus={onFocus}
+        value={value}
+        checked={checked}
+        disabled={disabled}
+        loading={loading}
+        labelInline={labelInline}
+        labelSpacing={labelSpacing}
+        labelWidth={labelWidth}
+        size={size}
+        name={name}
+        adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
+        data-element={dataElement}
+        data-role={dataRole}
+        {...rest}
+      />
     );
   },
 );

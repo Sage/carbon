@@ -8,7 +8,7 @@ import Box from "../box/box.component";
 import { useMultiInputBoolean } from "../../hooks/use-multi-input/use-multi-input";
 
 const meta: Meta<typeof Switch> = {
-  title: "Switch/Test",
+  title: "Deprecated/Switch/Test",
   component: Switch,
   parameters: {
     info: { disable: true },
@@ -323,6 +323,8 @@ export const WithLongTextStrings = () => {
         switch: {
           on: () => "Absolutely",
           off: () => "Regrettably",
+          processingLabel: () =>
+            "Processing... This might take a moment, please wait patiently while we work on it.",
         },
       }}
     >

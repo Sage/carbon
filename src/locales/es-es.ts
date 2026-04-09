@@ -244,6 +244,7 @@ const esES: Partial<Locale> = {
   switch: {
     on: () => "SÍ",
     off: () => "NO",
+    processingLabel: () => "Procesando",
   },
   tileSelect: {
     deselect: () => "Deseleccionar",

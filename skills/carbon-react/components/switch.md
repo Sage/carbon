@@ -62,7 +62,6 @@ description: Carbon Switch component props and usage examples.
 | inputMode | "email" \| "none" \| "search" \| "text" \| "tel" \| "url" \| "numeric" \| "decimal" \| undefined | No |  |  |  | Hints at the type of data that might be entered by the user while editing the element or its contents |  |
 | inputWidth | number \| undefined | No |  |  |  | Sets percentage-based input width |  |
 | is | string \| undefined | No |  |  |  | Specify that a standard HTML element should behave like a defined custom built-in element |  |
-| isDarkBackground | boolean \| undefined | No |  |  |  | Whether this component resides on a dark background |  |
 | itemID | string \| undefined | No |  |  |  |  |  |
 | itemProp | string \| undefined | No |  |  |  |  |  |
 | itemRef | string \| undefined | No |  |  |  |  |  |
@@ -341,6 +340,7 @@ description: Carbon Switch component props and usage examples.
 | aria-valuemin | number \| undefined | No |  |  |  | Defines the minimum allowed value for a range widget. |  |
 | aria-valuenow | number \| undefined | No |  |  |  | Defines the current value for a range widget. |  |
 | aria-valuetext | string \| undefined | No |  |  |  | Defines the human readable text alternative of aria-valuenow for a range widget. |  |
+| isDarkBackground | boolean \| undefined | No |  | Yes | Whether this component resides on a dark background |  |  |
 | onKeyPress | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUp` or `onKeyDown` instead |  |  |
 | onKeyPressCapture | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUpCapture` or `onKeyDownCapture` instead |  |  |
 | aria-dropeffect | "copy" \| "link" \| "none" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
@@ -659,5 +659,212 @@ description: Carbon Switch component props and usage examples.
     </Box>
   );
 }
+```
+
+
+### Default
+
+**Render**
+
+```tsx
+() => {
+  const [checked, setChecked] = useState(false);
+  return (
+    <Switch
+      label="Toggle notifications"
+      inputHint="Hint text"
+      checked={checked}
+      onChange={(e) => setChecked(e.target.checked)}
+    />
+  );
+}
+```
+
+
+### Checked
+
+**Render**
+
+```tsx
+() => {
+  const [checked, setChecked] = useState(true);
+  return (
+    <Switch
+      label="Toggle notifications"
+      inputHint="Hint text"
+      checked={checked}
+      onChange={(e) => setChecked(e.target.checked)}
+    />
+  );
+}
+```
+
+
+### Disabled
+
+**Render**
+
+```tsx
+() => (
+  <Switch
+    label="Toggle notifications"
+    inputHint="Hint text"
+    checked={false}
+    disabled
+    onChange={() => {}}
+  />
+)
+```
+
+
+### Disabled (checked)
+
+**Render**
+
+```tsx
+() => (
+  <Switch
+    label="Toggle notifications"
+    checked
+    disabled
+    inputHint="Hint text"
+    onChange={() => {}}
+  />
+)
+```
+
+
+### Required
+
+**Render**
+
+```tsx
+() => {
+  const [checked, setChecked] = useState(false);
+  return (
+    <Switch
+      label="Toggle notifications"
+      checked={checked}
+      onChange={(e) => setChecked(e.target.checked)}
+      required
+    />
+  );
+}
+```
+
+
+### Large size
+
+**Render**
+
+```tsx
+() => {
+  const [checked, setChecked] = useState(false);
+  return (
+    <Switch
+      label="Toggle notifications"
+      size="large"
+      checked={checked}
+      onChange={(e) => setChecked(e.target.checked)}
+    />
+  );
+}
+```
+
+
+### Label inline
+
+**Render**
+
+```tsx
+() => {
+  const [checked, setChecked] = useState(false);
+  return (
+    <Switch
+      label="Toggle notifications"
+      labelInline
+      checked={checked}
+      onChange={(e) => setChecked(e.target.checked)}
+    />
+  );
+}
+```
+
+
+### Loading
+
+**Render**
+
+```tsx
+() => (
+  <>
+    <Switch
+      label="Toggle notifications"
+      checked={false}
+      loading
+      onChange={() => {}}
+    />
+
+    <Switch
+      label="Toggle notifications"
+      checked
+      loading
+      onChange={() => {}}
+      ml="8px"
+    />
+
+    <Switch
+      size="large"
+      label="Toggle notifications"
+      checked={false}
+      loading
+      onChange={() => {}}
+      ml="8px"
+    />
+
+    <Switch
+      size="large"
+      label="Toggle notifications"
+      checked
+      loading
+      onChange={() => {}}
+      ml="8px"
+    />
+  </>
+)
+```
+
+
+### Loading with custom processingLabel
+
+**Render**
+
+```tsx
+() => (
+  <Switch
+    label="Toggle notifications"
+    checked={false}
+    loading
+    processingLabel="Saving changes..."
+    onChange={() => {}}
+  />
+)
+```
+
+
+### Loading with processingLabel below switch
+
+**Render**
+
+```tsx
+() => (
+  <Switch
+    label="Toggle notifications"
+    checked={false}
+    loading
+    processingLabelBelowSwitch
+    onChange={() => {}}
+  />
+)
 ```
 

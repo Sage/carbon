@@ -4,7 +4,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import Box from "../box";
-import Switch from ".";
+import Switch from "./switch.component";
 import { useMultiInputBoolean } from "../../hooks/use-multi-input/use-multi-input";
 
 const styledSystemProps = generateStyledSystemProps({
@@ -12,7 +12,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof Switch> = {
-  title: "Switch",
+  title: "Deprecated/Switch",
   component: Switch,
   argTypes: {
     ...styledSystemProps,

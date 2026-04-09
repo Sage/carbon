@@ -219,6 +219,7 @@ interface Locale {
   switch: {
     on: () => string;
     off: () => string;
+    processingLabel: () => string;
   };
   tileSelect: {
     deselect: () => string;

@@ -1,0 +1,135 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+import TranslationKeysTable from "../../../../../.storybook/utils/translation-keys-table";
+
+import * as SwitchStories from "./switch.stories.tsx";
+
+<Meta of={SwitchStories} />
+
+# Switch
+
+<a
+  target="_blank"
+  href="https://designsystem.sage.com"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
+>
+  Product Design System component
+</a>
+
+A Switch lets a user toggle a single setting on or off. It gives an immediate response — the state change takes effect as soon as the user interacts with it.
+
+**This documentation is for the newer implementation of Switch. If you are still using the older implementation, please use the <a href="../?path=/docs/deprecated-switch--docs">Switch documentation</a>.**
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Accessibility](#accessibility)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import Switch from "carbon-react/lib/components/switch/__next__";
+```
+
+## Examples
+
+### Default
+
+The switch renders unchecked by default. The current state is shown by **On** and **Off** labels displayed outside the track. The component is controlled — you must manage `checked` state yourself and provide an `onChange` handler.
+
+<Canvas of={SwitchStories.Default} />
+
+### Checked
+
+<Canvas of={SwitchStories.Checked} />
+
+### Disabled
+
+Set `disabled` to prevent user interaction. Both checked and unchecked disabled states are shown below.
+
+<Canvas of={SwitchStories.Disabled} />
+<Canvas of={SwitchStories.DisabledChecked} />
+
+### Size
+
+Two sizes are available: `small` (default) and `large`.
+
+<Canvas of={SwitchStories.LargeSize} />
+
+### Label inline
+
+Set `labelInline` to place the text label beside the switch instead of above it. Use `labelSpacing` (1 or 2) to control the gap, and `labelWidth` to set the label width as a percentage when inline. The `adaptiveLabelBreakpoint` prop switches between inline and stacked layout based on a pixel breakpoint.
+
+<Canvas of={SwitchStories.LabelInline} />
+
+### Loading
+
+Set `loading` to show a loading spinner in place of the On/Off labels. The switch input is automatically disabled while loading. A `"Processing..."` label is shown to the right of the spinner by default.
+
+<Canvas of={SwitchStories.Loading} />
+
+#### Custom processing label
+
+Use the `processingLabel` prop to override the default `"Processing..."` text with your own copy.
+
+<Canvas of={SwitchStories.LoadingCustomLabel} />
+
+#### Processing label below switch
+
+On small screens you may want the processing label to appear below the switch rather than beside it. Set `processingLabelBelowSwitch` to move it there.
+
+<Canvas of={SwitchStories.LoadingLabelBelow} />
+
+## Accessibility
+
+Users should be able to:
+
+- Toggle the switch using a keyboard or pointer device;
+- Identify the current state (on or off) without relying on colour alone — the **On** / **Off** labels provide a text alternative;
+- Reach and operate the switch using assistive technology.
+
+### Keyboard interactions
+
+- <kbd>Tab</kbd> — moves focus to the switch.
+- <kbd>Space</kbd> — toggles the switch on or off.
+
+### ARIA
+
+The underlying input renders as `<input type="checkbox" role="switch" aria-checked>`. Providing a visible `label` prop is strongly recommended; it links a `<label>` element to the input via `htmlFor` / `id`, giving the control an accessible name. When no `label` is provided, supply an `aria-label` or `aria-labelledby` via the spread props.
+
+## Props
+
+<ArgTypes of={SwitchStories} />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the
+[i18nProvider](../?path=/docs/documentation-i18n--docs).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "switch.on",
+      description:
+        "The text to display to indicate action would move component to on state",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "switch.off",
+      description:
+        "The text to display to indicate action would move component to off state",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "switch.processingLabel",
+      description:
+        "The text to display to indicate action is processing",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>
