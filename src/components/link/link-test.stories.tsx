@@ -140,8 +140,84 @@ export const AllVariantsWithIcons: Story = {
           </Link>
         </Typography>
       </Box>
+      <Box
+        p={2}
+        display="flex"
+        flexDirection="row"
+        gap={4}
+        backgroundColor="#000"
+      >
+        <Typography>
+          <Link variant="typical" linkSize="large" inverse {...args}>
+            This is a large typical link
+          </Link>
+        </Typography>
+        <Typography>
+          <Link variant="negative" linkSize="large" inverse {...args}>
+            This is a large negative link
+          </Link>
+        </Typography>
+        <Typography>
+          <Link variant="subtle" linkSize="large" inverse {...args}>
+            This is a large subtle link
+          </Link>
+        </Typography>
+      </Box>
+      <Box p={2} display="flex" flexDirection="row" gap={4}>
+        <Typography>
+          <Link {...args}>Default link</Link>
+        </Typography>
+        <Typography>
+          <Link {...args} bold>
+            Default bold
+          </Link>
+        </Typography>
+        <Typography>
+          <Link {...args} disabled>
+            Disabled
+          </Link>
+        </Typography>
+        <Typography>
+          <Link {...args} linkSize="large">
+            Large Default link
+          </Link>
+        </Typography>
+      </Box>
+      <Box p={2} display="flex" flexDirection="row" gap={4}>
+        <Typography>
+          <Link {...args} underline="hover">
+            Default no underline
+          </Link>
+        </Typography>
+        <Typography>
+          <Link {...args} linkSize="large" underline="hover">
+            Large no underline
+          </Link>
+        </Typography>
+      </Box>
+      <Box
+        padding="25px"
+        width="250px"
+        backgroundColor="--colorsUtilityMajor025"
+      >
+        <Typography>We&apos;ll be sorry to see you go</Typography>
+        <Typography>
+          If your subscription isn&apos;t quite right, we can help you{" "}
+          <Link
+            href="http://carbon.sage.com"
+            target="_blank"
+            icon="settings"
+            {...args}
+          >
+            find one that suits your business needs (new tab)
+          </Link>
+        </Typography>
+      </Box>
     </>
   ),
+  parameters: {
+    chromatic: { disableSnapshot: false },
+  },
   args: {
     href: "https://carbon.sage.com",
     icon: "settings",
@@ -156,6 +232,7 @@ export const AllVariantsOnHover: Story = {
     "data-role": "hover",
   },
   parameters: {
+    chromatic: { disableSnapshot: false },
     pseudo: {
       hover: '[data-role="hover"] a',
     },
@@ -246,41 +323,3 @@ LinkComponentWithAnImage.parameters = {
     focus: '[data-role="target"] a',
   },
 };
-
-export const LinkThatWraps: Story = {
-  render: (args) => (
-    <Box padding="25px" width="250px" backgroundColor="--colorsUtilityMajor025">
-      <Typography>We&apos;ll be sorry to see you go</Typography>
-      <Typography>
-        If your subscription isn&apos;t quite right, we can help you{" "}
-        <Link
-          href="http://carbon.sage.com"
-          target="_blank"
-          icon="settings"
-          {...args}
-        >
-          find one that suits your business needs (new tab)
-        </Link>
-      </Typography>
-    </Box>
-  ),
-  parameters: { chromatic: { disableSnapshot: false } },
-};
-
-export const Disabled = () => {
-  return <Link disabled>This is a disabled anchor link</Link>;
-};
-Disabled.storyName = "Disabled";
-
-export const WithTooltip: Story = () => {
-  return (
-    <Link
-      icon="settings"
-      tooltipMessage="This is a tooltip message"
-      href="#foo"
-    >
-      This is a link
-    </Link>
-  );
-};
-WithTooltip.storyName = "With Tooltip";

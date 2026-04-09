@@ -1,6 +1,6 @@
 import React from "react";
 import { StoryObj } from "@storybook/react";
-import { within, expect, userEvent } from "@storybook/test";
+import { within, expect, userEvent, waitFor } from "@storybook/test";
 
 import Link from ".";
 import Box from "../box";
@@ -20,7 +20,7 @@ export default {
   },
 };
 
-export const Focus: Story = {
+export const FocusAndTooltipHover: Story = {
   render: ({ ...args }) => (
     <Box width="max-content" display="flex" flexDirection="column" gap="32px">
       <Link
@@ -31,6 +31,16 @@ export const Focus: Story = {
       >
         Typical link
       </Link>
+      <br></br>
+      <Link
+        href="https://carbon.sage.com"
+        icon="settings"
+        tooltipMessage="This is a tooltip message"
+        data-role="tooltip-link"
+        {...args}
+      >
+        Link with tooltip
+      </Link>
     </Box>
   ),
   play: async ({ canvasElement }) => {
@@ -39,10 +49,21 @@ export const Focus: Story = {
     }
 
     const canvas = within(canvasElement);
-    const link = canvas.getByRole("link");
+    const link = canvas.getAllByRole("link")[0];
 
     await userEvent.tab();
     await expect(link).toHaveFocus();
+
+    const icon = canvas.getByTestId("icon");
+    await userEvent.hover(icon, { delay: 200 });
+
+    await waitFor(() => {
+      const tooltip = canvas.queryByRole("tooltip");
+      if (tooltip) {
+        expect(tooltip).toBeVisible();
+        expect(tooltip).toHaveTextContent("This is a tooltip message");
+      }
+    });
   },
   decorators: [
     (StoryToRender) => (
