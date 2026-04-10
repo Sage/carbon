@@ -15,9 +15,9 @@ description: Carbon Message component props and usage examples.
 ## Props
 | Name | Type | Required | Literals | Deprecated | Deprecation reason | Description | Default |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| children | React.ReactNode | No |  |  |  | Set the component's content |  |
-| closeButtonAriaLabel | string \| undefined | No |  |  |  | Set custom aria-label for component's close button |  |
-| id | string \| undefined | No |  |  |  | Set custom id to component root |  |
+| children | React.ReactNode | No |  |  |  | Content to be rendered within the Message. |  |
+| closeButtonAriaLabel | string \| undefined | No |  |  |  | Set custom aria-label for component's close button. |  |
+| id | string \| undefined | No |  |  |  | Set custom id to component root. |  |
 | m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
 | margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
 | marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
@@ -32,16 +32,16 @@ description: Carbon Message component props and usage examples.
 | mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
 | mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
-| onDismiss | ((e: React.KeyboardEvent<HTMLButtonElement> \| React.MouseEvent<HTMLButtonElement>) => void) \| undefined | No |  |  |  | Callback triggered on dismiss |  |
-| open | boolean \| undefined | No |  |  |  | Flag to determine if the message is rendered |  |
-| size | "medium" \| "large" \| undefined | No |  |  |  | Set the component's size |  |
-| title | React.ReactNode | No |  |  |  | Set message title |  |
-| variant | MessageVariant \| undefined | No |  |  |  | Set the component's variant |  |
-| width | string \| undefined | No |  |  |  | Set the component's width, accepts any valid css string |  |
+| onDismiss | ((e: React.KeyboardEvent<HTMLButtonElement> \| React.MouseEvent<HTMLButtonElement>) => void) \| undefined | No |  |  |  | Callback triggered on dismiss, will render the close button. |  |
+| open | boolean \| undefined | No |  |  |  | Flag to determine if the message is rendered. |  |
+| size | "medium" \| "large" \| undefined | No |  |  |  | Set the component's size. |  |
+| title | React.ReactNode | No |  |  |  | Set message title. |  |
+| variant | MessageVariant \| undefined | No |  |  |  | Set the component's variant. |  |
+| width | string \| undefined | No |  |  |  | Set the component's width, accepts any valid css string. Please note the component has a max-width of 720px. |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
-| showCloseIcon | boolean \| undefined | No |  | Yes | Flag to determine if the close button is rendered |  |  |
-| transparent | boolean \| undefined | No |  | Yes | Set transparent styling |  |  |
+| showCloseIcon | boolean \| undefined | No |  | Yes | Please use the `onDismiss` prop to determine whether the close button is rendered instead. | Flag to determine if the close button is rendered. |  |
+| transparent | boolean \| undefined | No |  | Yes | The transparent prop is deprecated and will be removed in a future release, please use the subtle variants instead. | Set transparent styling. |  |
 
 ## Examples
 ### Default
@@ -72,27 +72,45 @@ description: Carbon Message component props and usage examples.
 
 ```tsx
 () => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpenError, setIsOpenError] = useState(false);
+  const [isOpenSuccess, setIsOpenSuccess] = useState(false);
   const messageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (isOpen) {
+    if (isOpenError) {
       messageRef.current?.focus();
     }
-  }, [isOpen]);
+  }, [isOpenError]);
 
   return (
-    <>
-      {!isOpen && <Button onClick={() => setIsOpen(true)}>Open Message</Button>}
+    <Box display="flex" flexDirection="column" gap={2}>
+      {!isOpenError && (
+        <Button onClick={() => setIsOpenError(true)}>Open Error Message</Button>
+      )}
       <Message
-        open={isOpen}
+        open={isOpenError}
         ref={messageRef}
-        onDismiss={() => setIsOpen(false)}
+        onDismiss={() => setIsOpenError(false)}
         variant="error"
       >
         Some custom message
       </Message>
-    </>
+
+      {!isOpenSuccess && (
+        <Button onClick={() => setIsOpenSuccess(true)}>
+          Open Success Message
+        </Button>
+      )}
+      <div aria-live="polite">
+        <Message
+          open={isOpenSuccess}
+          onDismiss={() => setIsOpenSuccess(false)}
+          variant="success"
+        >
+          Some custom message
+        </Message>
+      </div>
+    </Box>
   );
 }
 ```
@@ -106,12 +124,6 @@ description: Carbon Message component props and usage examples.
 {
     title: "Title",
   }
-```
-
-**Render**
-
-```tsx
-(args) => <Message {...args}>Some custom message</Message>
 ```
 
 
@@ -175,14 +187,6 @@ description: Carbon Message component props and usage examples.
       </Message>
       <Message
         onDismiss={() => {}}
-        variant="error-subtle"
-        title="Error"
-        {...args}
-      >
-        Some custom message
-      </Message>
-      <Message
-        onDismiss={() => {}}
         variant="warning-subtle"
         title="Warning"
         {...args}
@@ -238,52 +242,5 @@ description: Carbon Message component props and usage examples.
       </Message>
     </>
   )
-```
-
-
-### Show Close Icon
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Message showCloseIcon={false}>
-      A longer custom message which now shows the close icon is not rendered and
-      padding is equal on both sides
-    </Message>
-  );
-}
-```
-
-
-### Transparent
-
-**Render**
-
-```tsx
-() => {
-  const [isOpen, setIsOpen] = useState(true);
-  const buttonRef = useRef<HTMLButtonElement>(null);
-  return (
-    <>
-      {!isOpen && (
-        <Button ref={buttonRef} onClick={() => setIsOpen(true)}>
-          Open Message
-        </Button>
-      )}
-      <Message
-        open={isOpen}
-        onDismiss={() => {
-          setIsOpen(false);
-          setTimeout(() => buttonRef.current?.focus(), 0);
-        }}
-        transparent
-      >
-        Some custom message
-      </Message>
-    </>
-  );
-}
 ```
 
