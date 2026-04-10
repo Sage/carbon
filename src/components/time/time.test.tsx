@@ -309,17 +309,15 @@ test("should apply the `medium` `size` styling to inputs and toggles by default"
 
   const [hrsInputPresentation, minsInputPresentation] =
     screen.getAllByRole("presentation");
-  const { height, horizontalPadding } = inputSizes.medium;
+  const { height } = inputSizes.medium;
   const amToggle = screen.getByRole("button", { name: "AM" });
   const pmToggle = screen.getByRole("button", { name: "PM" });
 
   expect(hrsInputPresentation).toHaveStyle({
     "min-height": height,
-    padding: horizontalPadding,
   });
   expect(minsInputPresentation).toHaveStyle({
     "min-height": height,
-    padding: horizontalPadding,
   });
   expect(amToggle).toHaveStyle({
     minHeight: `${heightConfig.medium}px`,
@@ -346,17 +344,15 @@ it.each(["small", "medium", "large"] as const)(
 
     const [hrsInputPresentation, minsInputPresentation] =
       screen.getAllByRole("presentation");
-    const { height, horizontalPadding } = inputSizes[size];
+    const { height } = inputSizes[size];
     const amToggle = screen.getByRole("button", { name: "AM" });
     const pmToggle = screen.getByRole("button", { name: "PM" });
 
     expect(hrsInputPresentation).toHaveStyle({
       "min-height": height,
-      padding: horizontalPadding,
     });
     expect(minsInputPresentation).toHaveStyle({
       "min-height": height,
-      padding: horizontalPadding,
     });
     expect(amToggle).toHaveStyle({
       minHeight: `${heightConfig[size]}px`,

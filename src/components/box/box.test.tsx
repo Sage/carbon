@@ -121,7 +121,7 @@ it("applies the correct styling from the cssProps", () => {
     width: "100px",
     height: "100px",
     opacity: "25%",
-    color: "yellow",
+    color: "rgb(255, 255, 0)",
   });
 });
 

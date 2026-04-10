@@ -374,7 +374,7 @@ test("renders block with no borders when `border` is false", () => {
   render(<Pod title="Title" border={false} />);
 
   const block = screen.getByTestId("pod-block");
-  expect(block).toHaveStyle({ border: "none" });
+  expect(block).toHaveStyleRule("border", "none");
 });
 
 // coverage
@@ -382,7 +382,7 @@ test("renders edit button with no borders when `border` is false", () => {
   render(<Pod title="Title" onEdit={() => {}} border={false} />);
 
   const button = screen.getByRole("button", { name: "Edit" });
-  expect(button).toHaveStyle({ border: "none" });
+  expect(button).toHaveStyleRule("border", "none");
 });
 
 // coverage
@@ -390,7 +390,7 @@ test("renders delete button with no borders when `border` is false", () => {
   render(<Pod title="Title" onDelete={() => {}} border={false} />);
 
   const button = screen.getByRole("button", { name: "Delete" });
-  expect(button).toHaveStyle({ border: "none" });
+  expect(button).toHaveStyleRule("border", "none");
 });
 
 // coverage
@@ -398,7 +398,7 @@ test("renders undo button with no borders when `border` is false", () => {
   render(<Pod title="Title" softDelete onUndo={() => {}} border={false} />);
 
   const button = screen.getByRole("button", { name: "Undo" });
-  expect(button).toHaveStyle({ border: "none" });
+  expect(button).toHaveStyleRule("border", "none");
 });
 
 // coverage
@@ -421,13 +421,13 @@ test("renders with expected styles when `internalEditButton` is true", () => {
   });
 
   const editButton = screen.getByRole("button", { name: "Edit" });
-  expect(editButton).toHaveStyle({ border: "none" });
+  expect(editButton).toHaveStyleRule("border", "none");
   expect(editButton).toHaveStyleRule(
     "background: var(--colorsActionMajorTransparent)",
   );
 
   const deleteButton = screen.queryByRole("button", { name: "Delete" });
-  expect(deleteButton).toHaveStyle({ border: "none" });
+  expect(deleteButton).toHaveStyleRule("border", "none");
   expect(deleteButton).toHaveStyleRule(
     "background: var(--colorsActionMajorTransparent)",
   );
@@ -438,7 +438,7 @@ test("renders undo button with expected styles when `internalEditButton` is true
   render(<Pod title="Title" softDelete onUndo={() => {}} internalEditButton />);
 
   const undoButton = screen.getByRole("button", { name: "Undo" });
-  expect(undoButton).toHaveStyle({ border: "none" });
+  expect(undoButton).toHaveStyleRule("border", "none");
   expect(undoButton).toHaveStyleRule(
     "background: var(--colorsActionMajorTransparent)",
   );

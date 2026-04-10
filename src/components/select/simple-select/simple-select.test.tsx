@@ -87,8 +87,9 @@ test("applies transparent background and no border to input, when transparent pr
 
   expect(screen.getByRole("combobox")).toHaveStyle(`
     background-color: transparent;
-    border: none;
   `);
+
+  expect(screen.getByRole("combobox")).toHaveStyleRule("border", "none");
 });
 
 test("displays the selected option text, when value prop matches an option", () => {

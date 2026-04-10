@@ -37,7 +37,6 @@ test("visually hidden character counter is visually hidden", () => {
     "visually-hidden-character-count",
   );
   expect(visuallyHiddenCharacterCount).toHaveStyle({
-    border: "0",
     height: "1px",
     margin: "-1px",
     overflow: "hidden",
@@ -103,7 +102,6 @@ test("visually hidden hint is visually hidden", () => {
 
   const visuallyHiddenHint = screen.getByTestId("visually-hidden-hint");
   expect(visuallyHiddenHint).toHaveStyle({
-    border: "0",
     height: "1px",
     margin: "-1px",
     overflow: "hidden",

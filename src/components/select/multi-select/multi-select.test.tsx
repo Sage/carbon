@@ -131,9 +131,10 @@ describe("when value prop is provided", () => {
 
     const amberPill = screen.getByTitle("amber");
     expect(amberPill).toHaveStyle(`
-      border: 2px solid red;
-      background-color: red;
+      background-color: rgb(255, 0, 0);
     `);
+
+    expect(amberPill).toHaveStyleRule("border", "2px solid red");
   });
 
   it("does not display a pill, when value array contains an unmatched option", () => {
