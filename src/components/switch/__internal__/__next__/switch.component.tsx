@@ -18,6 +18,7 @@ import {
   StyledNextSwitchProcessingText,
   StyledNextSwitchInput,
   StyledNextSwitchLoaderWrapper,
+  StyledNextSwitchLabelWrapper,
 } from "./switch.style";
 import HintText from "../../../../__internal__/hint-text";
 
@@ -59,7 +60,7 @@ export interface SwitchProps extends MarginProps, TagProps {
   /** Breakpoint (px) at which labelInline activates. Enables adaptive inline-label behaviour. */
   adaptiveLabelBreakpoint?: number;
   /** Hint text displayed below the switch */
-  inputHint?: string;
+  inputHint?: React.ReactNode;
   /** Whether the input is required */
   required?: boolean;
 }
@@ -121,30 +122,38 @@ const NextSwitchComponent = React.forwardRef(
         $labelInline={shouldLabelBeInline}
         {...marginProps}
       >
-        {label && (
-          <StyledNextSwitchLabel
-            htmlFor={inputId}
-            $disabled={disabled}
-            $inputHint={!!inputHint}
+        {(label || inputHint) && (
+          <StyledNextSwitchLabelWrapper
+            data-role="switch-label-wrapper"
             $labelInline={shouldLabelBeInline}
-            $labelSpacing={shouldLabelBeInline ? labelSpacing : undefined}
             $labelWidth={shouldLabelBeInline ? labelWidth : undefined}
-            $required={required}
-            id={labelId.current}
           >
-            {label}
-          </StyledNextSwitchLabel>
-        )}
+            {label && (
+              <StyledNextSwitchLabel
+                htmlFor={inputId}
+                $disabled={disabled}
+                $inputHint={!!inputHint}
+                $labelInline={shouldLabelBeInline}
+                $labelSpacing={shouldLabelBeInline ? labelSpacing : undefined}
+                $required={required}
+                $size={size}
+                id={labelId.current}
+              >
+                {label}
+              </StyledNextSwitchLabel>
+            )}
 
-        {inputHint && (
-          <HintText
-            data-element="input-hint"
-            id={inputHintId.current}
-            isComponentInline={labelInline}
-            marginTop="2px"
-          >
-            {inputHint}
-          </HintText>
+            {inputHint && (
+              <HintText
+                data-element="input-hint"
+                id={inputHintId.current}
+                isLarge={size === "large"}
+                marginTop="2px"
+              >
+                {inputHint}
+              </HintText>
+            )}
+          </StyledNextSwitchLabelWrapper>
         )}
 
         <StyledNextSwitchRow $size={size}>
@@ -201,12 +210,16 @@ const NextSwitchComponent = React.forwardRef(
               $below={processingLabelBelowSwitch}
               data-role="switch-processing-row"
             >
-              <StyledNextSwitchProcessingText>
+              <StyledNextSwitchProcessingText $size={size}>
                 {effectiveProcessingLabel}
               </StyledNextSwitchProcessingText>
             </StyledNextSwitchProcessingRow>
           ) : (
-            <StyledNextSwitchStateText aria-hidden $disabled={disabled}>
+            <StyledNextSwitchStateText
+              aria-hidden
+              $disabled={disabled}
+              $size={size}
+            >
               {checked ? onText : offText}
             </StyledNextSwitchStateText>
           )}

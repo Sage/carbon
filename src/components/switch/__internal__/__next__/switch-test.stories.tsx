@@ -128,6 +128,22 @@ export const AllVariants: Story = () => (
       onChange={() => {}}
     />
 
+    {/* Label inline — with inputHint */}
+    <Switch
+      label="Label inline, with hint (unchecked)"
+      inputHint="Hint text below the label"
+      labelInline
+      checked={false}
+      onChange={() => {}}
+    />
+    <Switch
+      label="Label inline, with hint (checked)"
+      inputHint="Hint text below the label"
+      labelInline
+      checked
+      onChange={() => {}}
+    />
+
     {/* Loading — small */}
     <Switch
       label="Loading, small (unchecked)"

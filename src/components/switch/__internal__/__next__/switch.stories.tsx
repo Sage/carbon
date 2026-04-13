@@ -79,6 +79,7 @@ export const LargeSize: Story = () => {
   return (
     <Switch
       label="Toggle notifications"
+      inputHint="Hint text"
       size="large"
       checked={checked}
       onChange={(e) => setChecked(e.target.checked)}
@@ -99,6 +100,20 @@ export const LabelInline: Story = () => {
   );
 };
 LabelInline.storyName = "Label inline";
+
+export const LabelInlineWithHint: Story = () => {
+  const [checked, setChecked] = useState(false);
+  return (
+    <Switch
+      label="Label"
+      inputHint="Hint text"
+      labelInline
+      checked={checked}
+      onChange={(e) => setChecked(e.target.checked)}
+    />
+  );
+};
+LabelInlineWithHint.storyName = "Label inline with hint";
 
 export const Loading: Story = () => (
   <>

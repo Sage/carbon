@@ -24,10 +24,18 @@ export interface SwitchProps
   tooltipPosition?: "top" | "bottom" | "left" | "right";
   /** [Legacy] Aria label for rendered help component */
   helpAriaLabel?: string;
-  /** @deprecated Whether this component resides on a dark background */
+  /**
+   * Whether this component resides on a dark background
+   * @deprecated This prop is no longer supported.
+   */
   isDarkBackground?: boolean;
   /** Render the ValidationMessage above the Switch input when validationRedesignOptIn flag is set */
   validationMessagePositionTop?: boolean;
+  /**
+   * Spacing between the label and switch when labelInline is true (multiplier of base spacing unit)
+   * @deprecated This prop is no longer supported.
+   */
+  labelSpacing?: 1 | 2;
   /** Label width, as a percentage, when labelInline is true */
   labelWidth?: number;
   /** OnChange event handler */
@@ -44,6 +52,7 @@ let deprecateFieldHelpWarned = false;
 let deprecateErrorWarned = false;
 let deprecateWarningWarned = false;
 let deprecateInfoWarned = false;
+let deprecateLabelSpacingWarned = false;
 
 const SwitchComponent = React.forwardRef(
   (
@@ -139,6 +148,13 @@ const SwitchComponent = React.forwardRef(
       deprecateInfoWarned = true;
     }
 
+    if (labelSpacing !== undefined && !deprecateLabelSpacingWarned) {
+      Logger.deprecate(
+        "The `labelSpacing` prop in `Switch` is deprecated and will soon be removed.",
+      );
+      deprecateLabelSpacingWarned = true;
+    }
+
     return (
       <NextSwitch
         ref={ref}
@@ -155,6 +171,7 @@ const SwitchComponent = React.forwardRef(
         labelInline={labelInline}
         labelSpacing={labelSpacing}
         labelWidth={labelWidth}
+        inputHint={labelHelp || fieldHelp}
         size={size}
         name={name}
         adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}

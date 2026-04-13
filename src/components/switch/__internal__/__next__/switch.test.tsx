@@ -122,7 +122,7 @@ describe("Switch", () => {
       renderSwitch({ label: "Toggle me", disabled: true });
       expect(screen.getByText("Toggle me")).toHaveStyleRule(
         "color",
-        "var(--input-labelset-label-disabled,rgba(0,0,0,0.42))",
+        "var(--input-labelset-label-disabled)",
       );
     });
 
@@ -131,7 +131,7 @@ describe("Switch", () => {
       const track = screen.getByTestId("switch-track");
       expect(track).toHaveStyleRule(
         "background-color",
-        "var(--input-switch-bg-disabled,rgba(0,0,0,0.3))",
+        "var(--input-switch-bg-disabled)",
       );
     });
 
@@ -256,7 +256,7 @@ describe("Switch", () => {
       const thumb = screen.getByTestId("switch-thumb");
       expect(thumb).toHaveStyleRule(
         "background-color",
-        "var(--input-switch-fg-activateDisabled,#fff)",
+        "var(--input-switch-fg-activate-disabled)",
       );
     });
 
@@ -278,7 +278,7 @@ describe("Switch", () => {
       renderSwitch({ label: "Toggle me", labelInline: true });
       expect(screen.getByText("Toggle me")).toHaveStyleRule(
         "margin-right",
-        "var(--global-space-comp-s,8px)",
+        "var(--global-space-comp-s)",
       );
     });
 
@@ -287,6 +287,33 @@ describe("Switch", () => {
       expect(screen.getByText("Toggle me")).toHaveStyleRule(
         "margin-right",
         "16px",
+      );
+    });
+
+    it("applies width to the label wrapper when labelInline is true and labelWidth is provided", () => {
+      renderSwitch({ label: "Toggle me", labelInline: true, labelWidth: 40 });
+      expect(screen.getByTestId("switch-label-wrapper")).toHaveStyleRule(
+        "width",
+        "40%",
+      );
+    });
+  });
+
+  describe("size prop styles on label", () => {
+    it("applies large font to the label when size is 'large'", () => {
+      renderSwitch({ label: "Toggle me", size: "large" });
+      expect(screen.getByText("Toggle me")).toHaveStyleRule(
+        "font",
+        "var(--global-font-static-comp-medium-l)",
+      );
+    });
+
+    it("applies large font to the required asterisk when size is 'large' and required is set", () => {
+      renderSwitch({ label: "Toggle me", size: "large", required: true });
+      expect(screen.getByText("Toggle me")).toHaveStyleRule(
+        "font",
+        "var(--global-font-static-comp-medium-l)",
+        { modifier: "::after" },
       );
     });
   });

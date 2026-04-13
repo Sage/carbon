@@ -15,13 +15,31 @@ const StyledNextSwitch = styled.div.attrs(
   flex-direction: ${({ $labelInline }) => ($labelInline ? "row" : "column")};
 `;
 
+interface StyledNextSwitchLabelWrapperProps {
+  $labelInline?: boolean;
+  $labelWidth?: number;
+}
+
+const StyledNextSwitchLabelWrapper = styled.div<StyledNextSwitchLabelWrapperProps>`
+  ${({ $labelInline, $labelWidth }) => css`
+    display: flex;
+    flex-direction: column;
+    margin-right: var(--global-space-comp-s);
+    ${$labelInline &&
+    $labelWidth &&
+    css`
+      width: ${$labelWidth}%;
+    `}
+  `}
+`;
+
 interface StyledNextSwitchLabelProps {
   $disabled?: boolean;
   $inputHint?: boolean;
   $labelInline?: boolean;
   $labelSpacing?: 1 | 2;
-  $labelWidth?: number;
   $required?: boolean;
+  $size?: "small" | "large";
 }
 
 const StyledNextSwitchLabel = styled.label<StyledNextSwitchLabelProps>`
@@ -30,43 +48,42 @@ const StyledNextSwitchLabel = styled.label<StyledNextSwitchLabelProps>`
     $inputHint,
     $labelInline,
     $labelSpacing,
-    $labelWidth,
     $required,
+    $size,
   }) => css`
     display: flex;
     color: ${$disabled
-      ? "var(--input-labelset-label-disabled, rgba(0, 0, 0, 0.42))"
-      : "var(--input-labelset-label-default, rgba(0, 0, 0, 0.95))"};
-    font-family: var(--core-fontFamilies-component, "Sage UI");
-    font-size: var(--core-fontSize-static-large-step0, 14px);
-    font-style: normal;
-    font-weight: 500;
-    line-height: 150%;
+      ? "var(--input-labelset-label-disabled)"
+      : "var(--input-labelset-label-default)"};
+    font: ${$size === "large"
+      ? "var(--global-font-static-comp-medium-l)"
+      : "var(--global-font-static-comp-medium-m)"};
     cursor: pointer;
     ${$required &&
     css`
       ::after {
         content: "*";
         color: var(--input-labelset-label-required);
-        font-weight: var(--fontWeights500);
+        font: ${$size === "large"
+          ? "var(--global-font-static-comp-medium-l)"
+          : "var(--global-font-static-comp-medium-m)"};
         margin-left: var(--global-space-comp-xs);
       }
     `}
     /* required to give space above the Switch input when focus styling is applied. */
     ${!$inputHint &&
     css`
-      margin-bottom: 3px;
+      margin-bottom: var(--global-space-comp-s);
     `}
     ${$labelInline &&
     css`
       margin-bottom: 0;
+    `}
+    ${($labelInline || $inputHint) &&
+    css`
       margin-right: ${$labelSpacing
         ? `${$labelSpacing * 8}px`
-        : "var(--global-space-comp-s, 8px)"};
-      ${$labelWidth &&
-      css`
-        width: ${$labelWidth}%;
-      `}
+        : "var(--global-space-comp-s)"};
     `}
   `}
 `;
@@ -79,11 +96,11 @@ const StyledNextSwitchRow = styled.div<StyledNextSwitchRowProps>`
   ${({ $size }) => css`
     display: flex;
     align-items: center;
-    gap: 8px var(--global-space-comp-S, 8px);
+    gap: 8px var(--global-space-comp-s);
     /* This is required to give space above the Switch input when focus styling is applied. */
     ${$size === "large" &&
     css`
-      margin-top: 6px;
+      margin-top: var(--global-space-comp-xs);
     `}
   `}
 `;
@@ -102,14 +119,13 @@ const StyledNextSwitchTrack = styled.div<StyledNextSwitchTrackProps>`
     align-items: center;
     flex-shrink: 0;
     width: ${$size === "large"
-      ? "var(--global-size-3XL, 72px)"
-      : "var(--global-size-M, 40px)"};
+      ? "var(--global-size-3-xl)"
+      : "var(--global-size-m)"};
     height: ${$size === "large"
-      ? "var(--global-size-M, 40px)"
-      : "var(--global-size-XS, 24px)"};
+      ? "var(--global-size-m)"
+      : "var(--global-size-xs)"};
     border-radius: var(--global-radius-container-circle, 999px);
-    border: var(--global-borderwidth-S, 2px) solid
-      var(--input-switch-border-default, #75838f);
+    border: var(--global-borderwidth-s) solid var(--input-switch-border-default);
     box-sizing: border-box;
     transition:
       background-color 0.2s ease,
@@ -122,22 +138,22 @@ const StyledNextSwitchTrack = styled.div<StyledNextSwitchTrackProps>`
     /* unchecked */
     background-color: transparent;
     border-color: ${$disabled
-      ? "var(--input-switch-border-disabled, rgba(0, 0, 0, 0.30))"
-      : "var(--input-switch-fg-default, #75838F)"};
+      ? "var(--input-switch-border-disabled)"
+      : "var(--input-switch-fg-default)"};
 
     ${$checked &&
     !$disabled &&
     css`
       border-radius: var(--global-radius-container-circle, 999px);
-      border: var(--global-borderwidth-S, 2px) solid
-        var(--input-switch-border-active, rgba(0, 0, 0, 0));
-      background: var(--input-switch-bg-active, #000);
+      border: var(--global-borderwidth-s) solid
+        var(--input-switch-border-active);
+      background: var(--input-switch-bg-active);
     `}
 
     ${$disabled &&
     $checked &&
     css`
-      background-color: var(--input-switch-bg-disabled, rgba(0, 0, 0, 0.3));
+      background-color: var(--input-switch-bg-disabled);
       border-color: transparent;
     `}
 
@@ -165,12 +181,12 @@ const StyledNextSwitchThumb = styled.span<StyledNextSwitchThumbProps>`
   ${({ $checked, $disabled, $size }) => css`
     position: absolute;
     left: ${$size === "large" ? "4px" : "3px"};
-    width: ${$size === "large" ? "28px" : "var(--global-size-3XS, 16px)"};
-    height: ${$size === "large" ? "28px" : "var(--global-size-3XS, 16px)"};
+    width: ${$size === "large" ? "28px" : "var(--global-size-3-xs)"};
+    height: ${$size === "large" ? "28px" : "var(--global-size-3-xs)"};
     border-radius: 50%;
     background-color: ${$disabled
-      ? "var(--input-switch-bg-disabled, rgba(0, 0, 0, 0.30))"
-      : "var(--input-switch-fg-default, #75838F)"};
+      ? "var(--input-switch-bg-disabled)"
+      : "var(--input-switch-fg-default)"};
     transition:
       transform 0.2s ease,
       background-color 0.2s ease;
@@ -186,31 +202,30 @@ const StyledNextSwitchThumb = styled.span<StyledNextSwitchThumbProps>`
     ${$checked &&
     !$disabled &&
     css`
-      background-color: var(--input-switch-fg-active, #fff);
+      background-color: var(--input-switch-fg-active);
     `}
 
     ${$checked &&
     $disabled &&
     css`
-      background-color: var(--input-switch-fg-activateDisabled, #fff);
+      background-color: var(--input-switch-fg-activate-disabled);
     `}
   `}
 `;
 
 interface StyledNextSwitchStateTextProps {
   $disabled?: boolean;
+  $size?: "small" | "large";
 }
 
 const StyledNextSwitchStateText = styled.span<StyledNextSwitchStateTextProps>`
-  ${({ $disabled }) => css`
+  ${({ $disabled, $size }) => css`
     color: ${$disabled
-      ? "var(--input-switch-label-disabled, rgba(0, 0, 0, 0.30))"
-      : "var(--input-switch-label-default, rgba(0, 0, 0, 0.55))"};
-    font-family: var(--core-fontFamilies-component, "Sage UI");
-    font-size: var(--core-fontSize-static-large-step0, 14px);
-    font-style: normal;
-    font-weight: 500;
-    line-height: 150%;
+      ? "var(--input-switch-label-disabled)"
+      : "var(--input-switch-label-default)"};
+    font: ${$size === "large"
+      ? "var(--global-font-static-comp-medium-l)"
+      : "var(--global-font-static-comp-medium-m)"};
   `}
 `;
 
@@ -224,18 +239,22 @@ const StyledNextSwitchProcessingRow = styled.div<StyledNextSwitchProcessingRowPr
     align-items: ${$below ? "flex-start" : "center"};
     flex-direction: ${$below ? "column" : "row"};
     gap: ${$below
-      ? "var(--global-space-comp-S)"
-      : "var(--global-space-comp-M)"};
+      ? "var(--global-space-comp-s)"
+      : "var(--global-space-comp-m)"};
   `}
 `;
 
-const StyledNextSwitchProcessingText = styled.span`
-  color: var(--input-switch-label-default, rgba(0, 0, 0, 0.55));
-  font-family: var(--core-fontFamilies-component, "Sage UI");
-  font-size: var(--core-fontSize-static-large-step0, 14px);
-  font-style: normal;
-  font-weight: 500;
-  line-height: 150%;
+interface StyledNextSwitchProcessingTextProps {
+  $size?: "small" | "large";
+}
+
+const StyledNextSwitchProcessingText = styled.span<StyledNextSwitchProcessingTextProps>`
+  ${({ $size }) => css`
+    color: var(--input-switch-label-default);
+    font: ${$size === "large"
+      ? "var(--global-font-static-comp-medium-l)"
+      : "var(--global-font-static-comp-medium-m)"};
+  `}
 `;
 
 interface StyledNextSwitchLoaderWrapperProps {
@@ -264,7 +283,7 @@ const StyledNextSwitchLoaderWrapper = styled.span<StyledNextSwitchLoaderWrapperP
 
 const StyledNextSwitchInput = styled.input`
   position: absolute;
-  inset: calc(0px - var(--global-borderwidth-S, 2px));
+  inset: calc(0px - var(--global-borderwidth-s));
   margin: 0;
   padding: 0;
   opacity: 0;
@@ -275,6 +294,7 @@ const StyledNextSwitchInput = styled.input`
 export {
   StyledNextSwitch,
   StyledNextSwitchLabel,
+  StyledNextSwitchLabelWrapper,
   StyledNextSwitchRow,
   StyledNextSwitchTrack,
   StyledNextSwitchThumb,

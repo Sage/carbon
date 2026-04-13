@@ -5,6 +5,7 @@ import Switch from "./switch.component";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import I18nProvider from "../../components/i18n-provider";
 import CarbonProvider from "../../components/carbon-provider";
+import Logger from "../../__internal__/utils/logger";
 
 jest.mock("../../__internal__/utils/helpers/guid");
 
@@ -405,5 +406,16 @@ test("when `labelInline` is true, the provided `labelWidth` is applied to the la
     />,
   );
 
-  expect(screen.getByText("label")).toHaveStyle("width: 50%");
+  expect(screen.getByTestId("switch-label-wrapper")).toHaveStyle("width: 50%");
+});
+
+test("a deprecation warning is displayed when the `labelSpacing` prop is passed", () => {
+  const loggerSpy = jest.spyOn(Logger, "deprecate");
+  render(<Switch labelSpacing={2} checked={false} onChange={() => {}} />);
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "The `labelSpacing` prop in `Switch` is deprecated and will soon be removed.",
+  );
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
+  loggerSpy.mockRestore();
 });

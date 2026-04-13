@@ -70,7 +70,6 @@ description: Carbon Switch component props and usage examples.
 | label | React.ReactNode | No |  |  |  | Label content |  |
 | labelHelp | React.ReactNode | No |  |  |  | The content for the help tooltip, to appear next to the Label |  |
 | labelInline | boolean \| undefined | No |  |  |  | When true label is inline |  |
-| labelSpacing | 1 \| 2 \| undefined | No |  |  |  | Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) |  |
 | labelWidth | number \| undefined | No |  |  |  | Label width, as a percentage, when labelInline is true |  |
 | lang | string \| undefined | No |  |  |  |  |  |
 | list | string \| undefined | No |  |  |  |  |  |
@@ -340,7 +339,8 @@ description: Carbon Switch component props and usage examples.
 | aria-valuemin | number \| undefined | No |  |  |  | Defines the minimum allowed value for a range widget. |  |
 | aria-valuenow | number \| undefined | No |  |  |  | Defines the current value for a range widget. |  |
 | aria-valuetext | string \| undefined | No |  |  |  | Defines the human readable text alternative of aria-valuenow for a range widget. |  |
-| isDarkBackground | boolean \| undefined | No |  | Yes | Whether this component resides on a dark background |  |  |
+| isDarkBackground | boolean \| undefined | No |  | Yes | This prop is no longer supported. | Whether this component resides on a dark background |  |
+| labelSpacing | 1 \| 2 \| undefined | No |  | Yes | This prop is no longer supported. | Spacing between the label and switch when labelInline is true (multiplier of base spacing unit) |  |
 | onKeyPress | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUp` or `onKeyDown` instead |  |  |
 | onKeyPressCapture | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUpCapture` or `onKeyDownCapture` instead |  |  |
 | aria-dropeffect | "copy" \| "link" \| "none" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
@@ -763,6 +763,7 @@ description: Carbon Switch component props and usage examples.
   return (
     <Switch
       label="Toggle notifications"
+      inputHint="Hint text"
       size="large"
       checked={checked}
       onChange={(e) => setChecked(e.target.checked)}
@@ -782,6 +783,26 @@ description: Carbon Switch component props and usage examples.
   return (
     <Switch
       label="Toggle notifications"
+      labelInline
+      checked={checked}
+      onChange={(e) => setChecked(e.target.checked)}
+    />
+  );
+}
+```
+
+
+### Label inline with hint
+
+**Render**
+
+```tsx
+() => {
+  const [checked, setChecked] = useState(false);
+  return (
+    <Switch
+      label="Label"
+      inputHint="Hint text"
       labelInline
       checked={checked}
       onChange={(e) => setChecked(e.target.checked)}

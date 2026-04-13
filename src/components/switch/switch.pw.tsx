@@ -130,9 +130,9 @@ test.describe("Prop tests for Switch component", () => {
 
   (
     [
-      [10, 100],
-      [30, 300],
-      [80, 800],
+      [10, 93],
+      [30, 293],
+      [80, 793],
     ] as [SwitchProps["labelWidth"], number][]
   ).forEach(([labelWidth, expectedWidth]) => {
     test(`should render with labelWidth prop set to ${labelWidth} and with correct label width ratio`, async ({
@@ -266,7 +266,7 @@ test.describe("Prop tests for Switch component", () => {
   }) => {
     await mount(<SwitchComponent />);
 
-    await expect(switchLabel(page)).toHaveCSS("margin-bottom", "3px");
+    await expect(switchLabel(page)).toHaveCSS("margin-bottom", "8px");
   });
 
   test("label should not have margin-bottom when inputHint is provided", async ({
@@ -293,7 +293,7 @@ test.describe("Prop tests for Switch component", () => {
   }) => {
     await mount(<SwitchComponent />);
 
-    await expect(switchDataComponent(page).locator("div").nth(1)).toHaveCSS(
+    await expect(switchDataComponent(page).locator("div").nth(2)).toHaveCSS(
       "border-radius",
       "999px",
     );
