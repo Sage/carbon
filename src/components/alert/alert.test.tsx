@@ -63,7 +63,7 @@ test("has the expected border radius styling", () => {
 
   expect(dialog).toHaveStyleRule(
     "border-radius",
-    "var(--global-radius-container-XL,24px)",
+    "var(--global-radius-container-xl)",
   );
 });
 
