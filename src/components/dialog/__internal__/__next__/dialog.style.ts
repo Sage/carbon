@@ -68,37 +68,18 @@ type StyledDialogPositionerProps = SharedTransientProps & {
 };
 
 const applyDefaultPadding = () => css`
-  padding: 0 var(--spacing200);
+  padding: 0 var(--global-space-layout-2-xs);
 
   @media screen and (min-width: 600px) {
-    padding: 0 var(--spacing300);
+    padding: 0 var(--global-space-layout-xs);
   }
   @media screen and (min-width: 960px) {
-    padding: 0 var(--spacing400);
+    padding: 0 var(--global-space-layout-s);
   }
   @media screen and (min-width: 1260px) {
-    padding: 0 var(--spacing500);
+    padding: 0 var(--global-space-layout-m);
   }
 `;
-
-const hasPaddingProps = (props: PaddingProps) => {
-  return (
-    props.padding !== undefined ||
-    props.p !== undefined ||
-    props.paddingTop !== undefined ||
-    props.pt !== undefined ||
-    props.paddingRight !== undefined ||
-    props.pr !== undefined ||
-    props.paddingBottom !== undefined ||
-    props.pb !== undefined ||
-    props.paddingLeft !== undefined ||
-    props.pl !== undefined ||
-    props.paddingX !== undefined ||
-    props.px !== undefined ||
-    props.paddingY !== undefined ||
-    props.py !== undefined
-  );
-};
 
 // istanbul ignore next
 const applyContentPadding =
@@ -110,14 +91,10 @@ const applyContentPadding =
       `;
     }
 
-    if (hasPaddingProps(props)) {
-      return css`
-        ${paddingFn}
-      `;
-    }
-
     return css`
       ${applyDefaultPadding()}
+
+      ${paddingFn(props)}
     `;
   };
 
@@ -162,7 +139,7 @@ const StyledDialogContent = styled.div.attrs(applyBaseTheme)<
     $size === "fullscreen"
       ? css`
           flex: 1;
-          ${applyContentPadding(Boolean(disableContentPadding))(props)}
+          ${applyContentPadding(disableContentPadding)(props)}
 
           &:has(${StyledForm}.sticky) {
             display: flex;
@@ -172,33 +149,33 @@ const StyledDialogContent = styled.div.attrs(applyBaseTheme)<
 
             ${StyledForm}.sticky {
               ${StyledFormContent} {
-                ${applyContentPadding(Boolean(disableContentPadding))(props)}
+                ${applyContentPadding(disableContentPadding)(props)}
               }
               ${StyledFormFooter} {
                 border-top: 1px solid #a3adb5;
                 box-shadow:
                   0 -2px 4px 0 rgba(0, 0, 0, 0.1),
                   0 -10px 60px 0 rgba(0, 0, 0, 0.1);
-                background: var(--container-standard-bg-default, #fff);
+                background: var(--container-standard-bg-default);
               }
             }
           }
 
           ${!hasHeader &&
           css`
-            padding-top: var(--spacing300);
+            padding-top: var(--global-space-layout-xs);
           `}
 
           ${!hasFooter &&
           css`
-            padding-bottom: var(--spacing300);
+            padding-bottom: var(--global-space-layout-xs);
           `}
         `
       : css`
           flex-grow: 1;
           padding: ${disableContentPadding
             ? "0px"
-            : "var(--spacing300) var(--spacing400)"};
+            : "var(--global-space-layout-xs) var(--global-space-layout-s)"};
           ${paddingFn}
 
           &:has(${StyledForm}.sticky) {
@@ -208,7 +185,8 @@ const StyledDialogContent = styled.div.attrs(applyBaseTheme)<
 
             ${StyledForm}.sticky {
               ${StyledFormContent} {
-                padding: var(--spacing300) var(--spacing400);
+                padding: var(--global-space-layout-xs)
+                  var(--global-space-layout-s);
                 ${paddingFn}
               }
 
@@ -217,14 +195,8 @@ const StyledDialogContent = styled.div.attrs(applyBaseTheme)<
                 box-shadow:
                   0 -2px 4px 0 rgba(0, 0, 0, 0.1),
                   0 -10px 60px 0 rgba(0, 0, 0, 0.1);
-                border-bottom-right-radius: var(
-                  --global-radius-container-XL,
-                  24px
-                );
-                border-bottom-left-radius: var(
-                  --global-radius-container-XL,
-                  24px
-                );
+                border-bottom-right-radius: var(--global-radius-container-xl);
+                border-bottom-left-radius: var(--global-radius-container-xl);
               }
             }
           }
@@ -248,21 +220,21 @@ const StyledDialogContent = styled.div.attrs(applyBaseTheme)<
 const StyledDialogFooter = styled.div<StyledDialogFooterProps>`
   box-sizing: border-box;
   width: 100%;
-  height: var(--global-size-3XL, 72px);
-  padding-top: var(--global-space-comp-L, 16px);
-  padding-bottom: var(--global-space-comp-L, 16px);
-  padding-left: var(--global-space-comp-XL, 24px);
-  padding-right: var(--global-space-comp-XL, 24px);
-  border-bottom-right-radius: var(--global-radius-container-XL, 24px);
-  border-bottom-left-radius: var(--global-radius-container-XL, 24px);
-  background: var(--container-standard-bg-default, #fff);
+  height: var(--global-size-3-xl);
+  padding-top: var(--global-space-comp-l);
+  padding-bottom: var(--global-space-comp-l);
+  padding-left: var(--global-space-comp-xl);
+  padding-right: var(--global-space-comp-xl);
+  border-bottom-right-radius: var(--global-radius-container-xl);
+  border-bottom-left-radius: var(--global-radius-container-xl);
+  background: var(--container-standard-bg-default);
 
   ${({ $sticky }) =>
     $sticky &&
     css`
       position: sticky;
       bottom: 0;
-      background: var(--container-standard-bg-default, #fff);
+      background: var(--container-standard-bg-default);
       z-index: 1;
       border-top: 1px solid #a3adb5;
       box-shadow:
@@ -281,12 +253,12 @@ const StyledDialogFooter = styled.div<StyledDialogFooterProps>`
 `;
 
 const StyledDialogTitle = styled.div<StyledDialogTitleProps>`
-  background: var(--container-standard-bg-default, #fff);
-  padding: var(--global-space-comp-XL, 24px);
-  gap: var(--global-space-comp-L, 16px);
+  background: var(--container-standard-bg-default);
+  padding: var(--global-space-comp-xl);
+  gap: var(--global-space-comp-l);
   border-bottom: 1px solid #a3adb5;
-  border-top-right-radius: var(--global-radius-container-XL, 24px);
-  border-top-left-radius: var(--global-radius-container-XL, 24px);
+  border-top-right-radius: var(--global-radius-container-xl);
+  border-top-left-radius: var(--global-radius-container-xl);
 
   ${({ showCloseIcon }) => showCloseIcon && "padding-right: 85px"};
 
@@ -357,7 +329,7 @@ const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
   display: flex;
   flex-direction: column;
   position: relative;
-  border-radius: var(--global-radius-container-XL, 24px);
+  border-radius: var(--global-radius-container-xl);
 
   &:focus {
     outline: none;
@@ -369,8 +341,8 @@ const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
           box-shadow:
             0 3px 4px 0 rgba(0, 0, 0, 0.1),
             10px 10px 60px 0 rgba(0, 0, 0, 0.1);
-          background: var(--container-standard-bg-alt, #f4f5f6);
-          border-radius: var(--global-radius-container-XL, 24px);
+          background: var(--container-standard-bg-alt);
+          border-radius: var(--global-radius-container-xl);
           overflow: hidden;
           height: 100%;
           width: 100%;
@@ -379,7 +351,7 @@ const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
           box-shadow:
             0 3px 4px 0 rgba(0, 0, 0, 0.1),
             10px 10px 60px 0 rgba(0, 0, 0, 0.1);
-          border-radius: var(--global-radius-container-XL, 24px);
+          border-radius: var(--global-radius-container-xl);
           background: ${backgroundColor};
           max-height: 90vh;
           width: 100%;
@@ -387,13 +359,13 @@ const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
           ${$size === "small" &&
           css`
             min-width: 288px;
-            max-width: var(--container-size-dialog-maxW-S, 540px);
+            max-width: 540px;
           `}
 
           ${$size === "medium" &&
           css`
-            min-width: var(--container-size-dialog-maxW-S, 540px);
-            max-width: var(--container-size-dialog-maxW-M, 850px);
+            min-width: 540px;
+            max-width: 850px;
 
             @media screen and (max-width: ${DIALOG_SIZE_CONFIG.small
                 .maxWidth}) {
@@ -403,8 +375,8 @@ const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
 
           ${$size === "large" &&
           css`
-            min-width: var(--container-size-dialog-maxW-M, 850px);
-            max-width: var(--container-size-dialog-maxW-L, 1080px);
+            min-width: 850px;
+            max-width: 1080px;
 
             @media screen and (max-width: ${DIALOG_SIZE_CONFIG.medium
                 .maxWidth}) {
@@ -428,13 +400,13 @@ const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
                 #00d6de 40%,
                 #9d60ff 90%
               );
-              border-radius: var(--global-radius-container-XL, 24px)
-                var(--global-radius-container-XL, 24px) 0 0;
+              border-radius: var(--global-radius-container-xl)
+                var(--global-radius-container-xl) 0 0;
             }
           `}
 
           @media screen and (max-width: ${dialogSizes[$size]}) {
-            max-width: calc(100% - var(--global-space-comp-2XL, 32px));
+            max-width: calc(100% - var(--global-space-comp-2-xl));
           }
 
           ${dialogHeight &&
@@ -479,15 +451,11 @@ const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
 `;
 
 const StyledSubtitle = styled(Typography)`
-  font-family: var(--core-fontFamilies-subheading, "Sage UI");
+  font: var(--global-font-static-subheading-m);
   flex-basis: 100%;
   width: 100%;
   margin-top: 5px;
-  color: var(--container-standard-txt-alt, rgba(0, 0, 0, 0.65));
-  font-size: var(--core-fontSize-static-large-step1, 16px);
-  font-style: normal;
-  font-weight: 500;
-  line-height: 125%;
+  color: var(--container-standard-txt-alt);
 `;
 
 export {

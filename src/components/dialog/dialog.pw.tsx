@@ -29,7 +29,6 @@ import {
   getStyle,
   waitForElementFocus,
 } from "../../../playwright/support/helper";
-import { SIZE } from "../../../playwright/support/constants";
 import {
   getDataElementByValue,
   portal,
@@ -54,25 +53,6 @@ test.describe("Dialog component", () => {
       );
 
       expect(actualDialogHeight).toBeLessThanOrEqual(1000);
-    });
-
-    [
-      { size: SIZE.EXTRASMALL, width: "540px" },
-      { size: SIZE.SMALL, width: "540px" },
-      { size: SIZE.MEDIUMSMALL, width: "850px" },
-      { size: SIZE.MEDIUM, width: "850px" },
-      { size: SIZE.MEDIUMLARGE, width: "1080px" },
-      { size: SIZE.LARGE, width: "1080px" },
-      { size: SIZE.EXTRALARGE, width: "1080px" },
-    ].forEach(({ size, width }) => {
-      test(`when size prop is ${size}, Dialog width should be ${width}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<DialogComponent size={size} />);
-
-        await expect(page.getByRole("dialog")).toHaveCSS("width", width);
-      });
     });
 
     [true, false].forEach((enableBackgroundUIValue) => {

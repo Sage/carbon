@@ -316,9 +316,10 @@ describe("Modal Dialog", () => {
 
   test("renders with grey background when greyBackground prop is passed", () => {
     render(<Dialog open title="My dialog" greyBackground />);
-    expect(screen.getByRole("dialog")).toHaveStyle({
-      backgroundColor: "var(--container-standard-bg-alt, #f4f5f6)",
-    });
+    expect(screen.getByRole("dialog")).toHaveStyleRule(
+      "background",
+      "var(--container-standard-bg-alt)",
+    );
   });
 
   test("prevents content from overflowing", () => {
@@ -461,7 +462,7 @@ describe("Fullscreen Dialog", () => {
 
     expect(content).toHaveStyleRule(
       "background",
-      "var(--container-standard-bg-alt,#f4f5f6)",
+      "var(--container-standard-bg-alt)",
     );
   });
 
@@ -478,7 +479,7 @@ describe("Fullscreen Dialog", () => {
 
     expect(content).toHaveStyleRule(
       "background",
-      "var(--container-standard-bg-alt,#f4f5f6)",
+      "var(--container-standard-bg-alt)",
     );
   });
 

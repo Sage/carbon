@@ -59,224 +59,6 @@ description: Carbon Dialog component props and usage examples.
 | pagesStyling | boolean \| undefined | No |  | Yes |  |  |  |
 
 ## Examples
-### DefaultStory
-
-**Args**
-
-```tsx
-{
-    open: isChromatic(),
-    title: "Title",
-    subtitle: "Subtitle",
-  }
-```
-
-**Render**
-
-```tsx
-function DefaultStory({ onCancel, ...args }: Partial<DialogProps>) {
-    const buttonRef = useRef<HTMLButtonElement>(null);
-    const [open, setOpen] = useState(args.open || false);
-    return (
-      <>
-        <Button ref={buttonRef} onClick={() => setOpen(true)}>
-          Open Dialog
-        </Button>
-        <Dialog
-          {...args}
-          open={open}
-          onCancel={(ev) => {
-            onCancel?.(ev);
-            setOpen(false);
-            setTimeout(() => buttonRef.current?.focus(), 0);
-          }}
-        >
-          <Form
-            stickyFooter
-            leftSideButtons={
-              <Button onClick={() => setOpen(false)}>Cancel</Button>
-            }
-            saveButton={
-              <Button buttonType="primary" type="submit">
-                Save
-              </Button>
-            }
-          >
-            <Typography>
-              This is an example of a dialog with a Form as content
-            </Typography>
-            <Textbox label="First Name" value="" onChange={() => {}} />
-            <Textbox label="Middle Name" value="" onChange={() => {}} />
-            <Textbox label="Surname" value="" onChange={() => {}} />
-            <Textbox label="Birth Place" value="" onChange={() => {}} />
-            <Textbox label="Favourite Colour" value="" onChange={() => {}} />
-            <Textbox label="Address" value="" onChange={() => {}} />
-            <Textbox label="First Name" value="" onChange={() => {}} />
-            <Textbox label="Middle Name" value="" onChange={() => {}} />
-            <Textbox label="Surname" value="" onChange={() => {}} />
-            <Textbox label="Birth Place" value="" onChange={() => {}} />
-            <Textbox label="Favourite Colour" value="" onChange={() => {}} />
-            <Textbox label="Address" value="" onChange={() => {}} />
-          </Form>
-        </Dialog>
-      </>
-    );
-  }
-```
-
-
-### With Restore Focus On Close
-
-**Render**
-
-```tsx
-() => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [showMessage, setShowMessage] = useState(false);
-  const messageRef = useRef<HTMLDivElement>(null);
-
-  return (
-    <>
-      <Button
-        onClick={() => {
-          setIsOpen(true);
-          setShowMessage(false);
-        }}
-        mb={showMessage ? 5 : 0}
-      >
-        Open Dialog
-      </Button>
-      {showMessage && (
-        <Message
-          ref={messageRef}
-          variant="error"
-          onDismiss={() => setShowMessage(false)}
-        >
-          Some custom message
-        </Message>
-      )}
-      <Dialog
-        open={isOpen}
-        onCancel={() => {
-          setIsOpen(false);
-          setShowMessage(true);
-          setTimeout(() => messageRef.current?.focus(), 1);
-        }}
-        title="Title"
-        subtitle="Subtitle"
-        restoreFocusOnClose={false}
-      >
-        <Form
-          stickyFooter
-          leftSideButtons={
-            <Button onClick={() => setIsOpen(false)}>Cancel</Button>
-          }
-          saveButton={
-            <Button buttonType="primary" type="submit">
-              Save
-            </Button>
-          }
-        >
-          <Typography>
-            This is an example of a dialog with a Form as content
-          </Typography>
-          <Textbox label="First Name" value="" onChange={() => {}} />
-          <Textbox label="Middle Name" value="" onChange={() => {}} />
-          <Textbox label="Surname" value="" onChange={() => {}} />
-          <Textbox label="Birth Place" value="" onChange={() => {}} />
-          <Textbox label="Favourite Colour" value="" onChange={() => {}} />
-          <Textbox label="Address" value="" onChange={() => {}} />
-          <Textbox label="First Name" value="" onChange={() => {}} />
-          <Textbox label="Middle Name" value="" onChange={() => {}} />
-          <Textbox label="Surname" value="" onChange={() => {}} />
-          <Textbox label="Birth Place" value="" onChange={() => {}} />
-          <Textbox label="Favourite Colour" value="" onChange={() => {}} />
-          <Textbox label="Address" value="" onChange={() => {}} />
-        </Form>
-      </Dialog>
-    </>
-  );
-}
-```
-
-
-### MaxSize
-
-**Args**
-
-```tsx
-{
-    ...DefaultStory.args,
-    size: "maximise",
-  }
-```
-
-
-### With Help
-
-**Render**
-
-```tsx
-() => {
-  const [isOpen, setIsOpen] = useState(defaultOpenState);
-  return (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Open Dialog</Button>
-      <Dialog
-        open={isOpen}
-        onCancel={() => setIsOpen(false)}
-        title="Add an address"
-        help="Some help text"
-      >
-        <Form
-          stickyFooter
-          leftSideButtons={
-            <Button onClick={() => setIsOpen(false)}>Cancel</Button>
-          }
-          saveButton={
-            <Button buttonType="primary" type="submit">
-              Save
-            </Button>
-          }
-        >
-          <Box p="24px" bg="slateTint90" ml="88px">
-            <Textbox
-              labelInline
-              label="Property Name"
-              value=""
-              onChange={() => {}}
-            />
-            <Fieldset>
-              <Textbox
-                labelInline
-                label="Address Line 1"
-                value=""
-                onChange={() => {}}
-              />
-              <Textbox
-                labelInline
-                label="Address Line 2"
-                value=""
-                onChange={() => {}}
-              />
-              <Textbox labelInline label="Town" value="" onChange={() => {}} />
-              <Textbox labelInline label="City" value="" onChange={() => {}} />
-              <Textbox
-                labelInline
-                label="Postcode"
-                value=""
-                onChange={() => {}}
-              />
-            </Fieldset>
-          </Box>
-        </Form>
-      </Dialog>
-    </>
-  );
-}
-```
-
-
 ### Loading Content
 
 **Render**
@@ -427,18 +209,6 @@ function DefaultStory({ onCancel, ...args }: Partial<DialogProps>) {
 ```
 
 
-### OverridingContentPadding
-
-**Args**
-
-```tsx
-{
-    ...DefaultStory.args,
-    contentPadding: { p: 0 },
-  }
-```
-
-
 ### Other Focusable Containers
 
 **Render**
@@ -512,270 +282,6 @@ function DefaultStory({ onCancel, ...args }: Partial<DialogProps>) {
 ```
 
 
-### Responsive
-
-**Render**
-
-```tsx
-() => {
-  const [isOpen, setIsOpen] = useState(defaultOpenState);
-  const largeScreen = useMediaQuery("(min-width: 1260px)");
-  const mediumScreen = useMediaQuery("(min-width: 960px)");
-  const smallScreen = useMediaQuery("(min-width: 600px)");
-  const setCorrectScreenSize = () => {
-    if (largeScreen) return "large";
-    if (mediumScreen) return "medium";
-    if (smallScreen) return "small";
-    return "auto";
-  };
-
-  return (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Open Dialog</Button>
-      <Dialog
-        size={setCorrectScreenSize()}
-        open={isOpen}
-        onCancel={() => setIsOpen(false)}
-        title="Title"
-        subtitle="Subtitle"
-      >
-        <Form
-          stickyFooter
-          leftSideButtons={
-            <Button onClick={() => setIsOpen(false)}>Cancel</Button>
-          }
-          saveButton={
-            <Button buttonType="primary" type="submit">
-              Save
-            </Button>
-          }
-        >
-          <Typography>
-            This is an example of a dialog with a Form as content
-          </Typography>
-          <Textbox label="First Name" value="" onChange={() => {}} />
-          <Textbox label="Middle Name" value="" onChange={() => {}} />
-          <Textbox label="Surname" value="" onChange={() => {}} />
-          <Textbox label="Birth Place" value="" onChange={() => {}} />
-          <Textbox label="Favourite Colour" value="" onChange={() => {}} />
-          <Textbox label="Address" value="" onChange={() => {}} />
-        </Form>
-      </Dialog>
-    </>
-  );
-}
-```
-
-
-### Using Handle
-
-**Render**
-
-```tsx
-() => {
-  const dialogHandle = useRef<DialogHandle>(null);
-
-  const [isOpen, setIsOpen] = useState(defaultOpenState);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [state, setState] = useState("");
-
-  function handleSubmit(ev: React.FormEvent<HTMLFormElement>) {
-    ev.preventDefault();
-    setIsSubmitted(true);
-    dialogHandle.current?.focus();
-  }
-
-  function setValue(ev: React.ChangeEvent<HTMLInputElement>) {
-    setState(ev.target.value);
-  }
-
-  return (
-    <CarbonProvider validationRedesignOptIn>
-      <Button onClick={() => setIsOpen(true)}>Open Dialog</Button>
-      <Dialog
-        open={isOpen}
-        onCancel={() => setIsOpen(false)}
-        title={isSubmitted ? "Thank you for your feedback." : "Give feedback"}
-        showCloseIcon
-        ref={dialogHandle}
-      >
-        {isSubmitted ? (
-          <Typography>
-            Your feedback helps us continually improve our software.
-          </Typography>
-        ) : (
-          <Form
-            stickyFooter
-            saveButton={<Button type="submit">Submit</Button>}
-            onSubmit={handleSubmit}
-          >
-            <Textarea
-              label="What would you like to tell us?"
-              characterLimit={1000}
-              value={state}
-              onChange={setValue}
-            />
-          </Form>
-        )}
-      </Dialog>
-    </CarbonProvider>
-  );
-}
-```
-
-
-### Top Modal Override
-
-**Render**
-
-```tsx
-() => {
-  const [isOpenAll, setIsOpenAll] = useState(defaultOpenState);
-  const [isOpenDialog1, setIsOpenDialog1] = useState(true);
-  const [isOpenDialog2, setIsOpenDialog2] = useState(true);
-  const [isOpenDialog3, setIsOpenDialog3] = useState(true);
-
-  return (
-    <>
-      <Button
-        onClick={() => {
-          setIsOpenAll(true);
-          setIsOpenDialog1(true);
-          setIsOpenDialog2(true);
-          setIsOpenDialog3(true);
-        }}
-      >
-        Open dialogs
-      </Button>
-      <Dialog
-        open={isOpenDialog1 && isOpenAll}
-        onCancel={() => setIsOpenDialog1(false)}
-        title="I rendered first"
-        subtitle="Yet I am not the bottom modal"
-        topModalOverride
-      >
-        <Textbox label="First Name" value="" onChange={() => {}} />
-        <Textbox label="Middle Name" value="" onChange={() => {}} />
-      </Dialog>
-      <Dialog
-        open={isOpenDialog2 && isOpenAll}
-        onCancel={() => setIsOpenDialog2(false)}
-        title="I rendered second"
-        subtitle="Yet I am the top modal"
-        topModalOverride
-      >
-        <Textbox label="First Name" value="" onChange={() => {}} />
-        <Textbox label="Middle Name" value="" onChange={() => {}} />
-      </Dialog>
-      <Dialog
-        open={isOpenDialog3 && isOpenAll}
-        onCancel={() => setIsOpenDialog3(false)}
-        title="I rendered last"
-        subtitle="Yet I am the bottom modal"
-      >
-        <Textbox label="First Name" value="" onChange={() => {}} />
-        <Textbox label="Middle Name" value="" onChange={() => {}} />
-      </Dialog>
-    </>
-  );
-}
-```
-
-
-### GreyBackground
-
-**Args**
-
-```tsx
-{
-    ...DefaultStory.args,
-    greyBackground: true,
-  }
-```
-
-
-### HighlightVariant
-
-**Args**
-
-```tsx
-{
-    ...DefaultStory.args,
-    highlightVariant: "ai",
-  }
-```
-
-
-### Fullscreen: Default
-
-**Render**
-
-```tsx
-() => {
-  const [isOpen, setIsOpen] = useState(false);
-  const buttonRef = useRef<HTMLButtonElement>(null);
-
-  return (
-    <>
-      <Button ref={buttonRef} onClick={() => setIsOpen(true)}>
-        Open Dialog
-      </Button>
-      <Dialog
-        fullscreen
-        open={isOpen}
-        onCancel={() => {
-          setIsOpen(false);
-          setTimeout(() => buttonRef.current?.focus(), 0);
-        }}
-        title="Title"
-        subtitle="Subtitle"
-      >
-        <Form
-          // stickyFooter
-          leftSideButtons={
-            <Button onClick={() => setIsOpen(false)}>Cancel</Button>
-          }
-          saveButton={
-            <Button buttonType="primary" type="submit">
-              Save
-            </Button>
-          }
-        >
-          <Box>
-            This is an example of a full screen Dialog with a Form as content
-          </Box>
-          <Textbox label="First Name" value="" onChange={() => {}} />
-          <Textbox label="Middle Name" value="" onChange={() => {}} />
-          <Textbox label="Surname" value="" onChange={() => {}} />
-          <Textbox label="Birth Place" value="" onChange={() => {}} />
-          <Textbox label="Favourite Colour" value="" onChange={() => {}} />
-          <Textbox label="Address" value="" onChange={() => {}} />
-          <Textbox label="First Name" value="" onChange={() => {}} />
-          <Textbox label="Middle Name" value="" onChange={() => {}} />
-          <Textbox label="Surname" value="" onChange={() => {}} />
-          <Textbox label="Birth Place" value="" onChange={() => {}} />
-          <Textbox label="Favourite Colour" value="" onChange={() => {}} />
-          <Textbox label="Address" value="" onChange={() => {}} />
-          <Textbox label="First Name" value="" onChange={() => {}} />
-          <Textbox label="Middle Name" value="" onChange={() => {}} />
-          <Textbox label="Surname" value="" onChange={() => {}} />
-          <Textbox label="Birth Place" value="" onChange={() => {}} />
-          <Textbox label="Favourite Colour" value="" onChange={() => {}} />
-          <Textbox label="Address" value="" onChange={() => {}} />
-          <Textbox label="First Name" value="" onChange={() => {}} />
-          <Textbox label="Middle Name" value="" onChange={() => {}} />
-          <Textbox label="Surname" value="" onChange={() => {}} />
-          <Textbox label="Birth Place" value="" onChange={() => {}} />
-          <Textbox label="Favourite Colour" value="" onChange={() => {}} />
-          <Textbox label="Address" value="" onChange={() => {}} />
-        </Form>
-      </Dialog>
-    </>
-  );
-}
-```
-
-
 ### WithScrollableContent
 
 **Args**
@@ -801,7 +307,9 @@ function WithScrollableContentExample(args) {
         <Button onClick={() => setIsOpen(true)}>Open Dialog</Button>
         <Dialog open={isOpen} onCancel={() => setIsOpen(false)} {...rest}>
           {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
-          <div tabIndex={0}>{children}</div>
+          <div tabIndex={0}>
+            <Box margin={2}>{children}</Box>
+          </div>
         </Dialog>
       </>
     );
@@ -809,7 +317,7 @@ function WithScrollableContentExample(args) {
 ```
 
 
-### NextDefaultStory
+### DefaultStory
 
 **Args**
 
@@ -825,7 +333,7 @@ function WithScrollableContentExample(args) {
 **Render**
 
 ```tsx
-function DefaultStory({ onCancel, ...args }: DialogProps) {
+function DefaultRender({ onCancel, ...args }: DialogProps) {
     const buttonRef = useRef<ButtonHandle>(null);
     const [open, setOpen] = useState(args.open || false);
     return (
@@ -851,7 +359,7 @@ function DefaultStory({ onCancel, ...args }: DialogProps) {
 ```
 
 
-### NextDefaultStoryWithForm
+### DefaultWithForm
 
 **Args**
 
@@ -867,7 +375,7 @@ function DefaultStory({ onCancel, ...args }: DialogProps) {
 **Render**
 
 ```tsx
-function DefaultStory({ onCancel, ...args }: DialogProps) {
+function DefaultWithFormRender({ onCancel, ...args }: DialogProps) {
     const buttonRef = useRef<ButtonHandle>(null);
     const [open, setOpen] = useState(args.open || false);
     return (
@@ -999,7 +507,7 @@ function DefaultStory({ onCancel, ...args }: DialogProps) {
 
 ```tsx
 {
-    ...NextDefaultStory.args,
+    ...DefaultStory.args,
     size: "small",
   }
 ```
@@ -1011,7 +519,7 @@ function DefaultStory({ onCancel, ...args }: DialogProps) {
 
 ```tsx
 {
-    ...NextDefaultStory.args,
+    ...DefaultStory.args,
     gradientKeyLine: true,
   }
 ```
@@ -1023,7 +531,7 @@ function DefaultStory({ onCancel, ...args }: DialogProps) {
 
 ```tsx
 {
-    ...NextDefaultStory.args,
+    ...DefaultStory.args,
     size: "medium",
   }
 ```
@@ -1035,7 +543,7 @@ function DefaultStory({ onCancel, ...args }: DialogProps) {
 
 ```tsx
 {
-    ...NextDefaultStory.args,
+    ...DefaultStory.args,
     size: "large",
   }
 ```
@@ -1090,7 +598,7 @@ function DefaultStory({ onCancel, ...args }: DialogProps) {
 **Render**
 
 ```tsx
-function ResponsiveBehaviorStory({
+function ResponsiveBehaviorRender({
     onCancel,
     ...args
   }: Partial<DialogProps>) {
@@ -1157,7 +665,7 @@ function ResponsiveBehaviorStory({
 **Render**
 
 ```tsx
-function SmallScreenBehaviorStory({
+function SmallScreenBehaviorRender({
     onCancel,
     ...args
   }: Partial<DialogProps>) {
@@ -1222,7 +730,7 @@ function SmallScreenBehaviorStory({
 **Render**
 
 ```tsx
-function StickyFooterStory({
+function StickyFooterRender({
     onCancel,
     ...args
   }: Partial<DialogProps>) {
@@ -1283,7 +791,7 @@ function StickyFooterStory({
 **Render**
 
 ```tsx
-function StickyFooterWithFormStory({
+function StickyFooterWithFormRender({
     onCancel,
     ...args
   }: Partial<DialogProps>) {
@@ -1344,7 +852,7 @@ function StickyFooterWithFormStory({
 
 ```tsx
 {
-    ...NextDefaultStory.args,
+    ...DefaultStory.args,
     height: "500",
   }
 ```
@@ -1366,7 +874,7 @@ function StickyFooterWithFormStory({
 **Render**
 
 ```tsx
-function WithHeaderChildrenStory({
+function WithHeaderChildrenRender({
     onCancel,
     ...args
   }: Partial<DialogProps>) {
@@ -1407,7 +915,7 @@ function WithHeaderChildrenStory({
 
 ```tsx
 {
-    ...NextDefaultStory.args,
+    ...DefaultStory.args,
     contentPadding: { p: 0 },
   }
 ```
@@ -1419,207 +927,8 @@ function WithHeaderChildrenStory({
 
 ```tsx
 {
-    ...NextDefaultStory.args,
+    ...DefaultStory.args,
     contentPadding: { py: 5, px: 8 },
-  }
-```
-
-
-### HeadingWithSubtleIcon
-
-**Render**
-
-```tsx
-function SubtleIconStory() {
-      const buttonRef = useRef<ButtonHandle>(null);
-      const [open, setOpen] = useState(defaultOpenState);
-      return (
-        <>
-          <Button ref={buttonRef} onClick={() => setOpen(true)}>
-            Open Dialog
-          </Button>
-          <DialogWithHeadingVariant
-            open={open}
-            onCancel={() => {
-              setOpen(false);
-              setTimeout(() => buttonRef.current?.focusButton(), 0);
-            }}
-            title="Dialog title with subtle icon"
-            subtitle="Subheading"
-            statusIcon="subtle"
-            footer={<Buttons />}
-          >
-            {dialogContent}
-          </DialogWithHeadingVariant>
-        </>
-      );
-    }
-```
-
-
-### HeadingWithPositiveIcon
-
-**Render**
-
-```tsx
-function PositiveIconStory() {
-    const buttonRef = useRef<ButtonHandle>(null);
-    const [open, setOpen] = useState(defaultOpenState);
-    return (
-      <>
-        <Button ref={buttonRef} onClick={() => setOpen(true)}>
-          Open Dialog
-        </Button>
-        <DialogWithHeadingVariant
-          open={open}
-          onCancel={() => {
-            setOpen(false);
-            setTimeout(() => buttonRef.current?.focusButton(), 0);
-          }}
-          title="Dialog title with positive icon"
-          subtitle="Subheading"
-          statusIcon="positive"
-          footer={<Buttons />}
-        >
-          {dialogContent}
-        </DialogWithHeadingVariant>
-      </>
-    );
-  }
-```
-
-
-### HeadingWithNegativeIcon
-
-**Render**
-
-```tsx
-function NegativeIconStory() {
-    const buttonRef = useRef<ButtonHandle>(null);
-    const [open, setOpen] = useState(defaultOpenState);
-    return (
-      <>
-        <Button ref={buttonRef} onClick={() => setOpen(true)}>
-          Open Dialog
-        </Button>
-        <DialogWithHeadingVariant
-          open={open}
-          onCancel={() => {
-            setOpen(false);
-            setTimeout(() => buttonRef.current?.focusButton(), 0);
-          }}
-          title="Dialog title with negative icon"
-          subtitle="Subheading"
-          statusIcon="negative"
-          footer={<Buttons />}
-        >
-          {dialogContent}
-        </DialogWithHeadingVariant>
-      </>
-    );
-  }
-```
-
-
-### HeadingWithCautionIcon
-
-**Render**
-
-```tsx
-function CautionIconStory() {
-      const buttonRef = useRef<ButtonHandle>(null);
-      const [open, setOpen] = useState(defaultOpenState);
-      return (
-        <>
-          <Button ref={buttonRef} onClick={() => setOpen(true)}>
-            Open Dialog
-          </Button>
-          <DialogWithHeadingVariant
-            open={open}
-            onCancel={() => {
-              setOpen(false);
-              setTimeout(() => buttonRef.current?.focusButton(), 0);
-            }}
-            title="Dialog title with caution icon"
-            subtitle="Subheading"
-            statusIcon="caution"
-            footer={<Buttons />}
-          >
-            {dialogContent}
-          </DialogWithHeadingVariant>
-        </>
-      );
-    }
-```
-
-
-### HeadingWithInfoIcon
-
-**Render**
-
-```tsx
-function InfoIconStory() {
-    const buttonRef = useRef<ButtonHandle>(null);
-    const [open, setOpen] = useState(defaultOpenState);
-    return (
-      <>
-        <Button ref={buttonRef} onClick={() => setOpen(true)}>
-          Open Dialog
-        </Button>
-        <DialogWithHeadingVariant
-          open={open}
-          onCancel={() => {
-            setOpen(false);
-            setTimeout(() => buttonRef.current?.focusButton(), 0);
-          }}
-          title="Dialog title with info icon"
-          subtitle="Subheading"
-          statusIcon="info"
-          footer={<Buttons />}
-        >
-          {dialogContent}
-        </DialogWithHeadingVariant>
-      </>
-    );
-  }
-```
-
-
-### HeadingWithCustomRenderer
-
-**Render**
-
-```tsx
-function CustomRendererStory() {
-    const buttonRef = useRef<ButtonHandle>(null);
-    const [open, setOpen] = useState(defaultOpenState);
-    return (
-      <>
-        <Button ref={buttonRef} onClick={() => setOpen(true)}>
-          Open Dialog
-        </Button>
-        <DialogWithHeadingVariant
-          open={open}
-          onCancel={() => {
-            setOpen(false);
-            setTimeout(() => buttonRef.current?.focusButton(), 0);
-          }}
-          title="Custom Title"
-          subtitle="Custom Subtitle"
-          renderHeading={(title, subtitle) => (
-            <Box>
-              <Typography variant="h1">{title}</Typography>
-              <Typography variant="p" color="blackOpacity65">
-                {subtitle}
-              </Typography>
-            </Box>
-          )}
-          footer={<Buttons />}
-        >
-          {dialogContent}
-        </DialogWithHeadingVariant>
-      </>
-    );
   }
 ```
 
@@ -1637,52 +946,102 @@ function CustomRendererStory() {
 
 ### Default
 
-The call-to-action element should always be focused when the `Dialog` is closed. However, in some instances it may not receive focus
-due to specific browser design choices. The below example shows how to programmatically focus the call-to-action element when the `Dialog` is closed
-to ensure behaviour is consistent across all browsers.
+A `Dialog` requires an `open` prop and an `onCancel` handler. Use the `footer` prop to render action buttons at the bottom of the dialog. The call-to-action element should always be focused when the `Dialog` is closed — the example below shows how to programmatically restore focus to the trigger element for consistent behaviour across all browsers.
 
 <Canvas of={DialogStories.DefaultStory} />
 
+### With a Form
+
+When including a `Form` inside a `Dialog`, the `Form` can manage its own sticky footer independently.
+
+<Canvas of={DialogStories.DefaultWithForm} />
+
+### Sizes
+
+The `size` prop controls the maximum width of the dialog. The default is `"medium"`.
+
+#### Small (540px)
+
+<Canvas of={DialogStories.SmallSize} />
+
+#### Medium (850px) — Default
+
+<Canvas of={DialogStories.MediumSize} />
+
+#### Large (1080px)
+
+<Canvas of={DialogStories.LargeSize} />
+
+#### Full Screen
+
+<Canvas of={DialogStories.FullScreenSize} />
+
+### Responsive behavior
+
+The dialog shrinks to fit the viewport when the viewport is narrower than the dialog's maximum width. The minimum width is 288px.
+
+<Canvas of={DialogStories.ResponsiveBehavior} />
+
+### Small screen behavior
+
+When `disableStickyOnSmallScreen` is set, the header and footer are no longer sticky on small screen devices (below 600px). On these devices the dialog also becomes full width and the dimmer is removed, improving accessibility on mobile.
+
+<Canvas of={DialogStories.SmallScreenBehavior} />
+
+### Sticky footer
+
+Use the `stickyFooter` prop together with `footer` to keep the footer visible when dialog content scrolls.
+
+<Canvas of={DialogStories.StickyFooter} />
+
+### Sticky footer with Form
+
+<Canvas of={DialogStories.StickyFooterWithForm} />
+
+### With a custom height
+
+Use the `height` prop to set a fixed height on the dialog.
+
+<Canvas of={DialogStories.WithHeight} />
+
+### With header children
+
+Use the `headerChildren` prop to render additional content — such as action buttons — in the dialog header.
+
+<Canvas of={DialogStories.WithHeaderChildren} />
+
+### Gradient keyline
+
+Setting `gradientKeyLine` adds a decorative gradient keyline below the dialog header.
+
+<Canvas of={DialogStories.GradientKeyLine} />
+
+### Overriding content padding
+
+Use the `contentPadding` prop to override the default padding applied to the dialog content area.
+
+<Canvas of={DialogStories.WithContentPadding} />
+
 ### Preventing focus from being restored when Dialog closes
 
-When the `restoreFocusOnClose` prop is `false`, focus will not be restored to the element that was focused before the `Dialog` was opened.
-Focus can instead be programmatically applied to another element if appropriate.
+When `restoreFocusOnClose` is `false`, focus will not be returned to the element that was focused before the `Dialog` was opened. You can instead programmatically apply focus to another element — for example, a message that has just appeared.
 
-<Canvas of={DialogStories.RestoreFocusOnCloseStory} />
-
-### With Maximum Size
-
-When the `size` prop is `"maximise"` the height and width of the `Dialog`'s modal extends to the majority of the viewport.
-
-<Canvas of={DialogStories.MaxSize} />
-
-### With help
-
-<Canvas of={DialogStories.WithHelp} />
-
-### Overriding the first focused element
-
-By default, when a dialog is opened it will automatically focus the first element within its children that can be focussed.
-However, there are a couple of ways of overriding this default behaviour. The `focusFirstElement` prop accepts a reference
-to the element you wish to focus on open (an example of this can be seen by clicking the first button below). If the element
-you want to focus supports `autoFocus` then the you can override the default behaviour by using the `disableAutoFocus` prop
-and setting the `autoFocus` on the element you wish to be focused instead (click the second button to see an example).
-
-<Canvas of={DialogStories.FocusingADifferentFirstElement} />
+<Canvas of={DialogStories.RestoreFocusOnClose} />
 
 ### Loading content
 
-For situations where content cannot be rendered immediately, such as content dependent on data from an external API, conditional rendering and the `Loader` component can be used to create a loading pattern:
+For content that cannot be rendered immediately — such as data from an external API — use conditional rendering with the `Loader` component:
 
 <Canvas of={DialogStories.LoadingContent} />
 
-Note in the previous example, the first `Textbox` in the loaded content has autofocus, which is recommended so assistive technology users are informed of the updated content.
+The first interactive element in the loaded content has `autoFocus` set, which is recommended so that assistive technology users are informed of the updated content.
 
-### Focusing Dialog programmatically
+### Overriding the first focused element
 
-When dialog content changes dynamically, you can programmatically move focus back to the `Dialog` container. Most screen readers will then announce the updated title, indicating to users that the dialog has changed:
+By default, when a dialog opens it focuses the first focusable element in its children. There are two ways to override this:
 
-<Canvas of={DialogStories.UsingHandle} />
+- Pass a ref to `focusFirstElement` to focus a specific element on open.
+- Use `disableAutoFocus` and set `autoFocus` directly on the element you want focused.
 
 To achieve this, forward a custom ref handle to the `Dialog` component using the `DialogHandle` type:
 ```

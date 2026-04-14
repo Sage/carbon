@@ -354,8 +354,8 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
               {...ariaProps}
               backgroundColor={
                 greyBackground
-                  ? "var(--container-standard-bg-alt, #f4f5f6)"
-                  : "var(--container-standard-bg-default, #fff)"
+                  ? "var(--container-standard-bg-alt)"
+                  : "var(--container-standard-bg-default)"
               }
               data-component={dataComponent}
               data-element={dataElement}

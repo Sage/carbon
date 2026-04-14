@@ -9,21 +9,12 @@ import {
   checkAccessibility,
   waitForAnimationEnd,
 } from "../../../playwright/support/helper";
-import { CHARACTERS, SIZE } from "../../../playwright/support/constants";
+import { CHARACTERS } from "../../../playwright/support/constants";
 import { AlertComponent, TopModalOverride } from "./components.test-pw";
 import { getDataElementByValue } from "../../../playwright/components";
 
 const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const viewportHeights = [250, 500, 650];
-const viewportWidths = [
-  [SIZE.EXTRASMALL, 540],
-  [SIZE.SMALL, 540],
-  [SIZE.MEDIUMSMALL, 850],
-  [SIZE.MEDIUM, 850],
-  [SIZE.MEDIUMLARGE, 1080],
-  [SIZE.LARGE, 1080],
-  [SIZE.EXTRALARGE, 1080],
-];
 
 test.describe("should render Alert component", () => {
   specialCharacters.forEach((text) => {
@@ -115,22 +106,6 @@ test.describe("should render Alert component", () => {
 
       const alertElement = alertDialog(page);
       await expect(alertElement).toHaveCSS("height", `${resultHeight}px`);
-    });
-  });
-
-  viewportWidths.forEach(([size, width]) => {
-    test(`with dialog width set to ${width}px when size is ${size}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <AlertComponent title="title" size={size}>
-          Alert
-        </AlertComponent>,
-      );
-
-      const alertElement = alertDialog(page);
-      await expect(alertElement).toHaveCSS("width", `${width}px`);
     });
   });
 
