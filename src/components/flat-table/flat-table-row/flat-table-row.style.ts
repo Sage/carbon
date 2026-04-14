@@ -128,6 +128,9 @@ interface StyledFlatTableRowProps
   rowHeight?: number;
 }
 
+const nav = getNavigator();
+const isSafariBrowser = nav ? isSafari(nav) : /* istanbul ignore next */ false;
+
 const StyledFlatTableRow = styled.tr.attrs(
   applyBaseTheme,
 )<StyledFlatTableRowProps>`
@@ -156,7 +159,6 @@ const StyledFlatTableRow = styled.tr.attrs(
     draggable,
     rowHeight,
   }) => {
-    const nav = getNavigator();
     const backgroundColor = bgColor ? toColor(theme, bgColor) : undefined;
     const customBorderColor = horizontalBorderColor
       ? toColor(theme, horizontalBorderColor)
@@ -283,8 +285,7 @@ const StyledFlatTableRow = styled.tr.attrs(
 
           /* Styling for safari. Position relative does not work on tr elements on Safari  */
           // FIXME: this can cause hydration mismatches during SSR.
-          ${nav &&
-          isSafari(nav) &&
+          ${isSafariBrowser &&
           css`
             position: -webkit-sticky;
             :after {
