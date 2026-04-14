@@ -93,8 +93,6 @@ export const FlatTableRow = React.forwardRef<
     const [rhsRowHeaderIndex, setRhsRowHeaderIndex] = useState(-1);
     const [firstCellId, setFirstCellId] = useState<string | null>(null);
     const [cellsArray, setCellsArray] = useState<Element[]>([]);
-    const [tabIndex, setTabIndex] = useState(-1);
-
     let interactiveRowProps = {};
 
     useLayoutEffect(() => {
@@ -178,8 +176,27 @@ export const FlatTableRow = React.forwardRef<
       `Do not render a right hand side \`${FlatTableRowHeader.displayName}\` before left hand side \`${FlatTableRowHeader.displayName}\``,
     );
 
-    const { colorTheme, size, getTabStopElementId } =
+    const { colorTheme, size, tabStopElementId, notifyTabStopChange } =
       useStrictFlatTableContext();
+    const tabIndex = tabStopElementId === internalId.current ? 0 : -1;
+
+    // Notify FlatTable when this row's focusability or selection state changes
+    useEffect(() => {
+      if (onClick || expandable) {
+        notifyTabStopChange();
+      }
+      return () => {
+        notifyTabStopChange();
+      };
+    }, [
+      onClick,
+      expandable,
+      selected,
+      highlighted,
+      firstCellId,
+      notifyTabStopChange,
+    ]);
+
     const { isInSidebar } = useContext(DrawerSidebarContext);
     const { stickyOffsets } = useContext(FlatTableHeadContext);
 
@@ -243,10 +260,6 @@ export const FlatTableRow = React.forwardRef<
     useEffect(() => {
       setIsExpanded(expanded);
     }, [expanded]);
-
-    useEffect(() => {
-      setTabIndex(getTabStopElementId() === internalId.current ? 0 : -1);
-    }, [getTabStopElementId]);
 
     const { isSubRow, firstRowId, addRow, removeRow } =
       useContext(SubRowContext);
