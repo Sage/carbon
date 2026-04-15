@@ -46,6 +46,8 @@ export const Loader = ({
     "screen and (prefers-reduced-motion: no-preference)",
   );
 
+  // handle server side rendering and the case where window becomes available after first render
+  /* istanbul ignore if */
   if (allowMotion === undefined) {
     return <StyledLoaderPlaceholder />;
   }
