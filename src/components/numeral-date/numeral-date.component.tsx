@@ -12,12 +12,13 @@ import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 import { ValidationProps } from "../../__internal__/validations";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import Events from "../../__internal__/utils/helpers/events";
-import { StyledNumeralDate, StyledFieldset } from "./numeral-date.style";
+import StyledNumeralDate from "./numeral-date.style";
 import Textbox from "../textbox";
 import guid from "../../__internal__/utils/helpers/guid";
 import useLocale from "../../hooks/__internal__/useLocale";
 import Locale from "../../locales/locale";
 import FieldsetValidationContext from "../../__internal__/fieldset-validation-context";
+import Fieldset from "../../__internal__/fieldset";
 
 export const ALLOWED_DATE_FORMATS = [
   ["dd", "mm", "yyyy"],
@@ -452,7 +453,7 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
 
     return (
       <FieldsetValidationContext.Provider value={{ disableErrorBorder: true }}>
-        <StyledFieldset
+        <Fieldset
           applyNewValidation
           id={uniqueId}
           legend={label}
@@ -468,7 +469,7 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
           {...tagComponent("numeral-date", rest)}
         >
           {renderInputs()}
-        </StyledFieldset>
+        </Fieldset>
       </FieldsetValidationContext.Provider>
     );
   },
