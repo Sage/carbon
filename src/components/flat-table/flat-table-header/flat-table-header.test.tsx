@@ -84,7 +84,9 @@ test("should render with the expected border width when `verticalBorder` prop is
   );
   const cell = screen.getByRole("columnheader");
 
-  expect(cell).toHaveStyle("border-right-width: 1px");
+  expect(cell).toHaveStyleRule("border-right-width", "1px", {
+    modifier: "&&&",
+  });
 });
 
 test("should render with the expected border width when `verticalBorder` prop is passed 'medium'", () => {
@@ -99,7 +101,9 @@ test("should render with the expected border width when `verticalBorder` prop is
   );
   const cell = screen.getByRole("columnheader");
 
-  expect(cell).toHaveStyle("border-right-width: 2px");
+  expect(cell).toHaveStyleRule("border-right-width", "2px", {
+    modifier: "&&&",
+  });
 });
 
 test("should render with the expected border width when `verticalBorder` prop is passed 'large'", () => {
@@ -114,7 +118,9 @@ test("should render with the expected border width when `verticalBorder` prop is
   );
   const cell = screen.getByRole("columnheader");
 
-  expect(cell).toHaveStyle("border-right-width: 4px");
+  expect(cell).toHaveStyleRule("border-right-width", "4px", {
+    modifier: "&&&",
+  });
 });
 
 test("should render with the expected border color when `verticalBorderColor` prop is passed '#000000'", () => {
@@ -129,7 +135,9 @@ test("should render with the expected border color when `verticalBorderColor` pr
   );
   const cell = screen.getByRole("columnheader");
 
-  expect(cell).toHaveStyle("border-right-color: #000000");
+  expect(cell).toHaveStyleRule("border-right-color", "#000000", {
+    modifier: "&&&",
+  });
 });
 
 test("should render with the expected border color when `verticalBorderColor` prop is passed 'rgb(1,1,1)'", () => {
@@ -144,7 +152,9 @@ test("should render with the expected border color when `verticalBorderColor` pr
   );
   const cell = screen.getByRole("columnheader");
 
-  expect(cell).toHaveStyle("border-right-color: rgb(1,1,1)");
+  expect(cell).toHaveStyleRule("border-right-color", "rgb(1,1,1)", {
+    modifier: "&&&",
+  });
 });
 
 test("should render the element with the `rowspan` attribute when prop is set", () => {

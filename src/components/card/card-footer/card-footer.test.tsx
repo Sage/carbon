@@ -33,7 +33,7 @@ test("when variant prop is `transparent`, render with transparent background", (
 
   const cardFooterElement = screen.getByTestId("card-footer");
   expect(cardFooterElement).toHaveStyle({
-    "background-color": "transparent",
+    "background-color": "rgba(0, 0, 0, 0)",
   });
 });
 

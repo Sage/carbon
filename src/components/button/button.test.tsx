@@ -132,7 +132,7 @@ test("sets the correct icon colour when 'gradient-white' is passed to the 'butto
 
   const icon = screen.getByTestId("icon");
 
-  expect(icon).toHaveStyle("color: --colorsActionMinorYin090");
+  expect(icon).toHaveStyleRule("color", "var(--colorsActionMinorYin090)");
 });
 
 /* Styling test for coverage */
@@ -144,7 +144,7 @@ test("sets the correct icon colour when 'gradient-grey' is passed to the 'button
   );
 
   const icon = screen.getByTestId("icon");
-  expect(icon).toHaveStyle("color: --colorsActionMinorYin090");
+  expect(icon).toHaveStyleRule("color", "var(--colorsActionMinorYin090)");
 });
 
 /* Styling test for coverage */

@@ -428,10 +428,12 @@ test("should render with correct styling when `variant` prop is set to 'notice' 
   });
 
   expect(toast).toHaveStyle({
-    border: "none",
     marginRight: "0",
     maxWidth: "100%",
   });
+
+  expect(toast).toHaveStyleRule("border", "none");
+
   expect(toast).toHaveStyleRule(
     "background-color",
     "var(--colorsUtilityMajor400)",
