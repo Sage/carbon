@@ -1,3 +1,9 @@
+## [158.41.1](https://github.com/Sage/carbon/compare/v158.41.0...v158.41.1) (2026-04-15)
+
+### Bug Fixes
+
+* **skills:** ensure consistent cross-platform output for skills script ([c137925](https://github.com/Sage/carbon/commit/c137925c780253955889b55c121d853ddd54ea8a))
+
 ## [158.41.0](https://github.com/Sage/carbon/compare/v158.40.0...v158.41.0) (2026-04-07)
 
 ### Features
