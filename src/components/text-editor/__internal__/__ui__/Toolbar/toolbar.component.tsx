@@ -178,6 +178,7 @@ const Toolbar = ({
   /* istanbul ignore next */
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+    event.stopPropagation();
 
     const isEditable = editor.isEditable();
     /* istanbul ignore else */
