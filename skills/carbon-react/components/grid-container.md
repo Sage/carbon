@@ -316,15 +316,9 @@ description: Carbon GridContainer component props and usage examples.
 | aria-valuemin | number \| undefined | No |  |  |  | Defines the minimum allowed value for a range widget. |  |
 | aria-valuenow | number \| undefined | No |  |  |  | Defines the current value for a range widget. |  |
 | aria-valuetext | string \| undefined | No |  |  |  | Defines the human readable text alternative of aria-valuenow for a range widget. |  |
-| gridColumnGap | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Yes | use column-gap
-
-[MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/column-gap) | The column-gap CSS property sets the size of the gap (gutter) between an element's columns. |  |
-| gridGap | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Yes | use gap
-
-[MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/gap) | The gap CSS property sets the gaps (gutters) between rows and columns. It is a shorthand for row-gap and column-gap. |  |
-| gridRowGap | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Yes | use row-gap
-
-[MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/row-gap) | The row-gap CSS property sets the size of the gap (gutter) between an element's rows. |  |
+| gridColumnGap | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Yes | use column-gap [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/column-gap) | The column-gap CSS property sets the size of the gap (gutter) between an element's columns. |  |
+| gridGap | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Yes | use gap [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/gap) | The gap CSS property sets the gaps (gutters) between rows and columns. It is a shorthand for row-gap and column-gap. |  |
+| gridRowGap | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Yes | use row-gap [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/row-gap) | The row-gap CSS property sets the size of the gap (gutter) between an element's rows. |  |
 | onKeyPress | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUp` or `onKeyDown` instead |  |  |
 | onKeyPressCapture | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUpCapture` or `onKeyDownCapture` instead |  |  |
 | aria-dropeffect | "copy" \| "link" \| "none" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
