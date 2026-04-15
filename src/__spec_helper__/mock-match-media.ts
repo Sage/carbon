@@ -1,6 +1,7 @@
 let mocked = false;
 let _matches = false;
 const removeEventListener = jest.fn();
+let _changeListeners: Set<() => void> = new Set();
 
 export const setupMatchMediaMock = () => {
   if (typeof window === "undefined") {
@@ -10,10 +11,14 @@ export const setupMatchMediaMock = () => {
   Object.defineProperty(global.window, "matchMedia", {
     writable: true,
     value: (query: string) => ({
-      matches: _matches,
+      get matches() {
+        return _matches;
+      },
       media: query,
       onchange: null,
-      addEventListener: noop,
+      addEventListener: (_event: string, handler: () => void) => {
+        _changeListeners.add(handler);
+      },
       removeEventListener,
       dispatchEvent: noop,
     }),
@@ -28,5 +33,12 @@ export const mockMatchMedia = (matches: boolean) => {
     );
   }
   _matches = matches;
+  _changeListeners = new Set();
   return { removeEventListener };
+};
+
+/** Simulate a media query change — updates `matches` and fires captured listeners */
+export const simulateMediaQueryChange = (matches: boolean) => {
+  _matches = matches;
+  _changeListeners.forEach((l) => l());
 };
