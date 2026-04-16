@@ -17,9 +17,9 @@ export const StyledBackdrop = styled.div.attrs(applyBaseTheme)`
 `;
 
 type StyledPopoverContentProps = {
-  isOpen?: boolean;
+  hide?: boolean;
 };
 
 export const StyledPopoverContent = styled.div<StyledPopoverContentProps>`
-  ${({ isOpen }) => !isOpen && "display: none;"}
+  ${({ hide }) => hide && "display: none;"}
 `;

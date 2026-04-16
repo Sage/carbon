@@ -3,6 +3,7 @@ import React, {
   forwardRef,
   useImperativeHandle,
   useContext,
+  useMemo,
 } from "react";
 import { WidthProps } from "styled-system";
 import { flip, offset } from "@floating-ui/dom";
@@ -103,8 +104,19 @@ export const MultiActionButton = forwardRef<
 
     useAdaptiveSidebarModalFocus(() => hideButtons());
 
+    const floatingMiddleware = useMemo(
+      () => [
+        offset(6),
+        flip({
+          fallbackStrategy: "initialPlacement",
+        }),
+      ],
+      [],
+    );
+
     const renderAdditionalButtons = () => (
       <Popover
+        isOpen={showAdditionalButtons}
         disableBackgroundUI={isInFlatTable && showAdditionalButtons}
         disablePortal
         placement={
@@ -114,12 +126,7 @@ export const MultiActionButton = forwardRef<
         }
         reference={buttonNode}
         popoverStrategy="fixed"
-        middleware={[
-          offset(6),
-          flip({
-            fallbackStrategy: "initialPlacement",
-          }),
-        ]}
+        middleware={floatingMiddleware}
       >
         <StyledButtonChildrenContainer
           id={submenuId.current}
