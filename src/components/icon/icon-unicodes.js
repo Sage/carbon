@@ -300,6 +300,8 @@ const misc = {
   user_groups: "\\f105",
   chart_bar_arrow_up: "\\f106",
   login: "\\f107",
+  chevron_first_pagination: "\\f108",
+  chevron_last_pagination: "\\f109",
 };
 
 const legacyNames = {
