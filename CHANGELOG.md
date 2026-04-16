@@ -1,3 +1,9 @@
+## [158.41.2](https://github.com/Sage/carbon/compare/v158.41.1...v158.41.2) (2026-04-16)
+
+### Bug Fixes
+
+* **split-button, multi-action-button:** ensure autoUpdate does not run when popover is closed ([c08e28a](https://github.com/Sage/carbon/commit/c08e28ac7eebe0bfbb561ea779bedf57a1b2ba28)), closes [#7802](https://github.com/Sage/carbon/issues/7802)
+
 ## [158.41.1](https://github.com/Sage/carbon/compare/v158.41.0...v158.41.1) (2026-04-15)
 
 ### Bug Fixes

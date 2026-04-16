@@ -12,7 +12,7 @@ jobs:
     timeout-minutes: 30
     runs-on: ubuntu-latest
     container:
-      image: mcr.microsoft.com/playwright:v1.49.1-noble
+      image: mcr.microsoft.com/playwright:v1.55.1-noble
     strategy:
       fail-fast: false
       matrix:
@@ -40,9 +40,6 @@ jobs:
         run: |
           npm ci
           npx playwright --version
-
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
 
       - name: Run Playwright tests
         run: npm run test:ct -- --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}

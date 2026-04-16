@@ -31,9 +31,9 @@ test("popup content is visible by default", () => {
   expect(screen.getByText("I float!")).toBeVisible();
 });
 
-test("popup content is visible when isOpen prop is true", () => {
+test("popup content is visible when hide prop is false", () => {
   render(
-    <Popover isOpen reference={{ current: null }}>
+    <Popover hide={false} reference={{ current: null }}>
       <div>I float!</div>
     </Popover>,
   );
@@ -41,9 +41,9 @@ test("popup content is visible when isOpen prop is true", () => {
   expect(screen.getByText("I float!")).toBeVisible();
 });
 
-test("popup content is hidden when isOpen prop is false", () => {
+test("popup content is hidden when hide prop is true", () => {
   render(
-    <Popover isOpen={false} reference={{ current: null }}>
+    <Popover hide reference={{ current: null }}>
       <div>I float!</div>
     </Popover>,
   );
