@@ -1,7 +1,7 @@
 import React from "react";
 
 import { StoryObj } from "@storybook/react";
-import { userEvent, within } from "@storybook/test";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
 
 import Password from "./password.component";
 
@@ -81,3 +81,39 @@ export const ShowPassword: Story = {
   ],
 };
 ShowPassword.storyName = "Show Password";
+
+export const HoverLabelHelp: Story = {
+  render: () => (
+    <Password
+      label="Password"
+      labelHelp="Hint text"
+      value="Password"
+      onChange={() => {}}
+      mb={2}
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    if (!allowInteractions()) {
+      return;
+    }
+    const helpTrigger = canvasElement.querySelector(
+      '[data-element="question"]',
+    );
+    if (helpTrigger) {
+      await userEvent.hover(helpTrigger, { delay: 200 });
+      await waitFor(async () => {
+        await expect(
+          await within(document.body).findByRole("tooltip"),
+        ).toBeVisible();
+      });
+    }
+  },
+  decorators: [
+    (StoryToRender) => (
+      <DefaultDecorator>
+        <StoryToRender />
+      </DefaultDecorator>
+    ),
+  ],
+};
+HoverLabelHelp.storyName = "Hover Label Help";

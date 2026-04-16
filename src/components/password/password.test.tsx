@@ -127,6 +127,39 @@ test("should render with provided data- attributes", () => {
   expect(screen.getByTestId("bar")).toHaveAttribute("data-element", "baz");
 });
 
+test("should render with special characters in the label", () => {
+  const label = "Pàßwørd!";
+  render(<Password label={label} value="" onChange={() => {}} />);
+
+  expect(screen.getByLabelText(label)).toBeVisible();
+});
+
+test("should render with special characters in fieldHelp", () => {
+  const fieldHelp = "Ådd spéçïål 文字";
+  render(
+    <Password
+      label="password"
+      fieldHelp={fieldHelp}
+      value=""
+      onChange={() => {}}
+    />,
+  );
+
+  expect(screen.getByText(fieldHelp)).toBeVisible();
+});
+
+test("should focus the input when autoFocus prop is true", () => {
+  render(<Password label="password" autoFocus value="" onChange={() => {}} />);
+
+  expect(screen.getByLabelText("password")).toHaveFocus();
+});
+
+test("should pass required attribute to the input", () => {
+  render(<Password label="password" required value="" onChange={() => {}} />);
+
+  expect(screen.getByLabelText("password")).toBeRequired();
+});
+
 describe("Show/Hide password Button", () => {
   test("should render the `Show password` button icon with type 'view' initially", () => {
     render(<Password value="" onChange={() => {}} />);
