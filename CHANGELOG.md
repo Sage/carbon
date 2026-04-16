@@ -1,3 +1,13 @@
+## [158.42.0](https://github.com/Sage/carbon/compare/v158.41.2...v158.42.0) (2026-04-16)
+
+### Features
+
+* **accordion:** align to Fusion DS ([bbae09c](https://github.com/Sage/carbon/commit/bbae09c2be6fea2b044d42a1644f237526362022))
+
+### Bug Fixes
+
+* **accordion:** add missing interface export ([253ec1e](https://github.com/Sage/carbon/commit/253ec1ea9816598f00e376a59101a7e3d47d59ea))
+
 ## [158.41.2](https://github.com/Sage/carbon/compare/v158.41.1...v158.41.2) (2026-04-16)
 
 ### Bug Fixes
