@@ -267,10 +267,10 @@ test('renders with correct styles when `stickyFooterVariant` is "light"', () => 
     />,
   );
 
-  expect(screen.getByTestId("form-footer")).toHaveStyle({
-    "background-color": "var(--colorsUtilityYang100)",
-    "border-top": "1px solid var(--colorsUtilityMajor050)",
-  });
+  expect(screen.getByTestId("form-footer")).toHaveStyleRule(
+    "background-color",
+    "var(--colorsUtilityYang100)",
+  );
 });
 
 // for coverage - the `stickyFooterVariant prop` will be captured by Chromatic`
@@ -289,7 +289,12 @@ test('renders with correct styles when `stickyFooterVariant` is "grey"', () => {
     />,
   );
 
-  expect(screen.getByTestId("form-footer")).toHaveStyle({
-    "background-color": "var(--colorsUtilityMajor025)",
-  });
+  expect(screen.getByTestId("form-footer")).toHaveStyleRule(
+    "background-color",
+    "var(--colorsUtilityMajor025)",
+  );
+  expect(screen.getByTestId("form-footer")).toHaveStyleRule(
+    "border-top",
+    "1px solid var(--colorsUtilityMajor050)",
+  );
 });

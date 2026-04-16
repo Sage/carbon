@@ -4,6 +4,7 @@ import React, {
   forwardRef,
   useImperativeHandle,
   useEffect,
+  useMemo,
 } from "react";
 import { ThemeContext } from "styled-components";
 import { MarginProps } from "styled-system";
@@ -217,8 +218,19 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
       </>
     );
 
+    const floatingMiddleware = useMemo(
+      () => [
+        offset(6),
+        flip({
+          fallbackStrategy: "initialPlacement",
+        }),
+      ],
+      [],
+    );
+
     const renderAdditionalButtons = () => (
       <Popover
+        isOpen={showAdditionalButtons}
         disableBackgroundUI={isInFlatTable && showAdditionalButtons}
         disablePortal
         placement={
@@ -228,14 +240,10 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
         }
         popoverStrategy="fixed"
         reference={buttonNode}
-        middleware={[
-          offset(6),
-          flip({
-            fallbackStrategy: "initialPlacement",
-          }),
-        ]}
+        middleware={floatingMiddleware}
       >
         <StyledSplitButtonChildrenContainer
+          data-role="split-button-children-container"
           id={submenuId.current}
           {...wrapperProps}
           align={align}

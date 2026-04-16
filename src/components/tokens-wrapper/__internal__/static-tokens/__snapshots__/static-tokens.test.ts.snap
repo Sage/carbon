@@ -580,7 +580,7 @@ exports[`builds the static tokens as expected 1`] = `
   --button-typical-tertiary-inverse-label-default: var(--mode-color-action-grayscale-inverse-default);
   --button-typical-tertiary-inverse-label-hover: var(--mode-color-action-grayscale-inverse-with-hover);
   --button-typical-subtle-bg-active: var(--mode-color-action-grayscale-active-alt);
-  --button-typical-subtle-bg-hover: var(--mode-color-action-grayscale-hover-alt);
+  --button-typical-subtle-bg-hover: var(--mode-color-generic-bg-delicate);
   --button-typical-subtle-label-active: var(--mode-color-action-grayscale-with-active-alt);
   --button-typical-subtle-label-disabled: var(--mode-color-action-inactive-txt);
   --button-typical-subtle-label-default: var(--mode-color-action-grayscale-default);
@@ -594,7 +594,7 @@ exports[`builds the static tokens as expected 1`] = `
   --button-typical-toggle-bg-active-disabled: var(--mode-color-action-inactive-default);
   --button-typical-toggle-label-active-disabled: var(--mode-color-action-inactive-txt-alt);
   --button-typical-toggle-bg-active: var(--mode-color-action-grayscale-active);
-  --button-typical-toggle-bg-hover: var(--mode-color-action-grayscale-hover-alt);
+  --button-typical-toggle-bg-hover: var(--mode-color-generic-bg-delicate);
   --button-typical-toggle-border-default: var(--mode-color-action-grayscale-default);
   --button-typical-toggle-border-disabled: var(--mode-color-action-inactive-default);
   --button-typical-toggle-label-active: var(--mode-color-action-grayscale-with-active);
@@ -617,7 +617,7 @@ exports[`builds the static tokens as expected 1`] = `
   --container-action-bg-footer-default: var(--mode-color-generic-bg-nought);
   --container-action-bg-default: var(--mode-color-generic-bg-nought);
   --container-action-bg-disabled: var(--mode-color-action-inactive-default-alt);
-  --container-action-bg-hover: var(--mode-color-action-grayscale-hover-alt);
+  --container-action-bg-hover: var(--mode-color-generic-bg-delicate);
   --container-action-border-active: var(--mode-color-action-grayscale-active);
   --container-action-border-alt: var(--mode-color-generic-fg-moderate);
   --container-action-borderalt-hover: var(--mode-color-action-grayscale-default);
@@ -649,15 +649,16 @@ exports[`builds the static tokens as expected 1`] = `
   --container-standard-border-alt: var(--mode-color-generic-fg-firm);
   --container-standard-border-default: var(--mode-color-generic-fg-soft);
   --container-standard-dimmer: var(--mode-color-action-inactive-mask);
-  --container-standard-icon: var(--mode-color-generic-fg-firm);
   --container-standard-txt-alt: var(--mode-color-generic-txt-moderate);
   --container-standard-txt-default: var(--mode-color-generic-txt-severe);
+  --container-standard-icon: var(--mode-color-generic-txt-severe);
   --container-standard-inverse-bg-alt: var(--mode-color-generic-bg-inverse-delicate);
   --container-standard-inverse-border-alt: var(--mode-color-generic-fg-inverse-firm);
   --container-standard-inverse-bg-default: var(--mode-color-generic-bg-inverse-nought);
   --container-standard-inverse-border-default: var(--mode-color-generic-fg-inverse-soft);
   --container-standard-inverse-txt-alt: var(--mode-color-generic-txt-inverse-moderate);
   --container-standard-inverse-txt-default: var(--mode-color-generic-txt-inverse-severe);
+  --container-standard-inverse-icon: var(--mode-color-generic-txt-inverse-severe);
   --container-standard-priority-bg-ai: var(--mode-color-status-ai-inverse-default-vertical);
   --container-standard-priority-bg-caution: var(--mode-color-status-warning-default);
   --container-standard-priority-bg-negative: var(--mode-color-status-negative-default);
@@ -690,6 +691,8 @@ exports[`builds the static tokens as expected 1`] = `
   --focus-inverse-borderalt: var(--mode-color-action-focus-inverse-default);
   --focus-inverse-border: var(--mode-color-action-focus-inverse-with-default);
   --focus-inverse-label: var(--mode-color-action-focus-inverse-txt);
+  --focus-shadow-default: 0 0 0 2px var(--focus-borderalt), 0 0 0 4px var(--focus-border);
+  --focus-shadow-inset: inset 0 0 0 2px var(--focus-border), inset 0 0 0 4px var(--focus-borderalt);
   --dataviz-chart-bar-fuchsia-bg-alt: var(--mode-color-colorcode-pink-faint);
   --dataviz-chart-bar-fuchsia-bg-default: var(--mode-color-colorcode-pink-intense);
   --dataviz-chart-bar-fuchsia-border: var(--mode-color-colorcode-pink-intense);

@@ -2,17 +2,35 @@ import React from "react";
 import { render, screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import {
+  testStyledSystemSpacing,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/__internal__/test-utils";
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
-import Textbox from "../textbox";
 import { Accordion } from ".";
 import AccordionGroup from "./accordion-group/accordion-group.component";
 import Logger from "../../__internal__/utils/logger";
+import useMediaQuery from "../../hooks/useMediaQuery";
 
+jest.mock("../../hooks/useMediaQuery");
 jest.mock("../../hooks/__internal__/useResizeObserver");
 jest.mock("../../__internal__/utils/logger");
 
+const mockUseMediaQuery = useMediaQuery as jest.MockedFunction<
+  typeof useMediaQuery
+>;
+
+beforeEach(() => {
+  mockUseMediaQuery.mockReturnValue(false);
+});
+
 describe("Accordion", () => {
+  testStyledSystemSpacing(
+    (props) => <Accordion title="Title" data-role="accordion" {...props} />,
+    () => screen.getByTestId("accordion"),
+    { modifier: "&&" },
+  );
+
   it("renders with expected `data-` attributes on the root element", () => {
     render(
       <Accordion
@@ -29,14 +47,26 @@ describe("Accordion", () => {
     expect(rootElement).toHaveAttribute("data-element", "accordion-element");
   });
 
-  it("should render `title` as a React element", () => {
-    render(<Accordion title={<div id="customTitle">Title content</div>} />);
+  it("should render provided `title` as a string", () => {
+    render(<Accordion title="Title" />);
 
-    expect(screen.getByText("Title content")).toBeVisible();
-    expect(screen.getByText("Title content")).toHaveAttribute(
-      "id",
-      "customTitle",
-    );
+    expect(screen.getByRole("button", { name: "Title" })).toBeVisible();
+  });
+
+  it("should render `title` as a React element", () => {
+    render(<Accordion title={<div>Title content</div>} />);
+
+    const accordionButton = screen.getByRole("button", {
+      name: "Title content",
+    });
+
+    expect(accordionButton).toBeVisible();
+  });
+
+  it("should render provided `subTitle`", () => {
+    render(<Accordion title="Title" subTitle="subtitle" />);
+
+    expect(screen.getByText("subtitle")).toBeVisible();
   });
 
   it("mounts expanded when `expanded` prop is passed as `true`", () => {
@@ -62,7 +92,21 @@ describe("Accordion", () => {
   it("fires the provided `onChange` prop when the header area is clicked", async () => {
     const user = userEvent.setup();
     const onChange = jest.fn();
-    render(<Accordion onChange={onChange} expanded={false} title="Title" />);
+    render(<Accordion onChange={onChange} title="Title" />);
+
+    const header = screen.getByRole("button");
+    await user.click(header);
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onChange).toHaveBeenCalledWith(
+      expect.objectContaining({ target: header }),
+      true,
+    );
+  });
+
+  it("fires the provided `onChange` prop when the header area is clicked and component is controlled", async () => {
+    const user = userEvent.setup();
+    const onChange = jest.fn();
+    render(<Accordion onChange={onChange} title="Title" expanded={false} />);
 
     const header = screen.getByRole("button");
     await user.click(header);
@@ -77,11 +121,58 @@ describe("Accordion", () => {
     ["Enter", "{Enter}"],
     ["Space", " "],
   ])(
-    "fires the provided `onChange` prop when the %s key is pressed with the header area focused",
+    "fires the provided `onChange` prop when the %s key is pressed on the header area",
     async (keyName, key) => {
       const user = userEvent.setup();
       const onChange = jest.fn();
-      render(<Accordion onChange={onChange} expanded={false} title="Title" />);
+      render(<Accordion onChange={onChange} title="Title" />);
+
+      const header = screen.getByRole("button");
+      header.focus();
+      await user.keyboard(key);
+      expect(onChange).toHaveBeenCalledTimes(1);
+      expect(onChange).toHaveBeenCalledWith(
+        expect.objectContaining({ target: header }),
+        true,
+      );
+    },
+  );
+
+  it("does not toggle the expansion state when keys other than Enter or Space are pressed on the header area", async () => {
+    const user = userEvent.setup();
+    render(<Accordion title="Title">child content</Accordion>);
+
+    const header = screen.getByRole("button");
+    expect(screen.getByText("child content")).not.toBeVisible();
+
+    header.focus();
+    await user.keyboard("a");
+    expect(screen.getByText("child content")).not.toBeVisible();
+  });
+
+  it("fires the provided `onChange` prop when `variant` is 'simple` and button is clicked", async () => {
+    const user = userEvent.setup();
+    const onChange = jest.fn();
+    render(<Accordion onChange={onChange} title="Title" variant="simple" />);
+
+    const header = screen.getByRole("button");
+    await user.click(header);
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onChange).toHaveBeenCalledWith(
+      expect.objectContaining({ target: header }),
+      true,
+    );
+  });
+
+  it.each([
+    ["Enter", "{Enter}"],
+    ["Space", " "],
+  ])(
+    "fires the provided `onChange` prop when `variant` is 'simple` and the %s key is pressed",
+    async (keyName, key) => {
+      const user = userEvent.setup();
+      const onChange = jest.fn();
+      render(<Accordion onChange={onChange} title="Title" variant="simple" />);
 
       const header = screen.getByRole("button");
       header.focus();
@@ -110,58 +201,19 @@ describe("Accordion", () => {
     expect(screen.getByText("child content")).not.toBeVisible();
   });
 
-  it("toggles the expansion state when the header area is clicked and the `expanded` prop is not passed", async () => {
-    const user = userEvent.setup();
-    render(<Accordion title="Title">child content</Accordion>);
-    expect(screen.getByText("child content")).not.toBeVisible();
-
-    const header = screen.getByRole("button");
-    await user.click(header);
-    expect(screen.getByText("child content")).toBeVisible();
-
-    await user.click(header);
-    expect(screen.getByText("child content")).not.toBeVisible();
-  });
-
-  it.each([
-    ["Enter", "{Enter}"],
-    ["Space", " "],
-  ])(
-    "toggles the expansion state when the %s key is pressed with the header area focused and the `expanded` prop is not passed",
-    async (keyName, key) => {
-      const user = userEvent.setup();
-      render(<Accordion title="Title">child content</Accordion>);
-      expect(screen.getByText("child content")).not.toBeVisible();
-
-      const header = screen.getByRole("button");
-      header.focus();
-      await user.keyboard(key);
-      expect(screen.getByText("child content")).toBeVisible();
-
-      header.focus();
-      await user.keyboard(key);
-      expect(screen.getByText("child content")).not.toBeVisible();
-    },
-  );
-
-  it("does not toggle the expansion state when keys other than enter or space are pressed when the header area is focused", async () => {
-    const user = userEvent.setup();
-    render(<Accordion title="Title">child content</Accordion>);
-    expect(screen.getByText("child content")).not.toBeVisible();
-
-    const header = screen.getByRole("button");
-    header.focus();
-    await user.keyboard("a");
-    expect(screen.getByText("child content")).not.toBeVisible();
-  });
-
   it("sets hidden='until-found' on the content container when collapsed", () => {
+    jest.useFakeTimers();
     render(<Accordion title="Title">child content</Accordion>);
+
+    act(() => {
+      jest.runAllTimers();
+    });
 
     expect(screen.getByTestId("accordion-content-container")).toHaveAttribute(
       "hidden",
       "until-found",
     );
+    jest.useRealTimers();
   });
 
   it("removes hidden='until-found' from the content container when expanded", async () => {
@@ -199,7 +251,7 @@ describe("Accordion", () => {
     await user.click(screen.getByRole("button"));
 
     expect(screen.getByTestId("accordion-content-container")).toHaveStyle({
-      "max-height": "200px",
+      height: "200px",
     });
 
     jest
@@ -214,56 +266,66 @@ describe("Accordion", () => {
     });
 
     expect(screen.getByTestId("accordion-content-container")).toHaveStyle({
-      "max-height": "400px",
+      height: "400px",
     });
   });
 
-  it("adds a subtitle when `subTitle` prop is set and `size` is large (default)", () => {
-    render(<Accordion title="Title" subTitle="a subtitle" />);
-
-    expect(screen.getByText("a subtitle")).toBeVisible();
-  });
-
-  it("does not add a subtitle when `subTitle` prop is set and `size` is small", () => {
-    render(<Accordion title="Title" subTitle="a subtitle" size="small" />);
-
-    expect(screen.queryByText("a subtitle")).not.toBeInTheDocument();
-  });
-
-  it("should display the `title` when closed and the `openTitle` props are provided", () => {
+  it("should display the `title` when closed and the `openTitle` prop is provided", () => {
     render(<Accordion title="Title" openTitle="Less info" />);
 
     expect(screen.getByRole("button")).toHaveTextContent("Title");
   });
 
-  it("should display the `openTitle` when open and the `openTitle` props are provided", () => {
+  it("should display the `openTitle` when open and the `openTitle` prop is provided", () => {
     render(<Accordion title="Title" expanded openTitle="Less info" />);
 
     expect(screen.getByRole("button")).toHaveTextContent("Less info");
   });
 
-  it("should display the `openTitle` when open and the `openTitle` and `title` props are provided", () => {
+  it("should not render `subtitle` when `variant` is 'simple'", () => {
+    render(<Accordion variant="simple" title="Title" subTitle="Subtitle" />);
+
+    expect(screen.queryByText("Subtitle")).not.toBeInTheDocument();
+  });
+
+  it("should render 'standard' variant as 'medium' when `size` is set to 'large'", () => {
+    render(<Accordion title="Title" size="large" />);
+
+    expect(screen.getByText("Title")).toHaveStyleRule(
+      "font",
+      "var(--global-font-static-section-heading-m)",
+    );
+  });
+
+  it("should render 'subtle' variant as 'simple'", () => {
+    render(<Accordion title="Title" variant="subtle" />);
+
+    expect(screen.getByTestId("accordion-simple-button")).toBeVisible();
+  });
+
+  it("should render with animation styles when prefer reduce motion is not set", () => {
+    mockUseMediaQuery.mockReturnValue(true);
     render(
-      <Accordion title={<h4>Title in H4</h4>} expanded openTitle="Less info" />,
+      <Accordion
+        title="Title"
+        data-role="accordion-container"
+        variant="simple"
+      />,
     );
 
-    expect(screen.getByRole("button")).toHaveTextContent("Less info");
+    const container = screen.getByTestId("accordion-container");
+    const contentContainer = screen.getByTestId("accordion-content-container");
+    const icon = screen.getByTestId("accordion-icon");
+
+    expect(container).toHaveStyle({ transition: "gap 0.4s" });
+    expect(contentContainer).toHaveStyle({
+      transition: "height 0.4s, opacity 0.2s",
+    });
+    expect(icon).toHaveStyle({ transition: "transform 0.4s" });
   });
 
-  it("should display the `title` when open and `title` prop is provided as a React node", () => {
-    render(<Accordion title={<h4>Title in H4</h4>} expanded />);
-
-    expect(screen.getByRole("button")).toHaveTextContent("Title in H4");
-  });
-
-  it("should display the `title` when open if the `openTitle` prop is not provided", () => {
-    render(<Accordion title="Title" expanded />);
-
-    expect(screen.getByRole("button")).toHaveTextContent("Title");
-  });
-
-  // coverage only - border styles tested in Playwright
-  it('has no border when `borders` prop is "none"', () => {
+  // coverage
+  it("has no border when `borders` prop is 'none'", () => {
     render(
       <Accordion
         title="Title"
@@ -278,87 +340,19 @@ describe("Accordion", () => {
     );
   });
 
-  // coverage - iconAlign is tested in Playwright
-  it('renders icon rotated when accordion is expanded and `iconAlign` prop is set to "left"', () => {
-    render(<Accordion title="Title" expanded iconAlign="left" />);
-
-    expect(screen.getByTestId("icon")).toHaveStyle({
-      transform: "rotate(-180deg)",
-    });
-  });
-
-  // coverage - validation icons are tested in Chromatic
-  it("renders the validation icon when a message is provided", () => {
-    render(<Accordion title="Title" error="error" />);
-
-    expect(screen.getByTestId("icon-error")).toBeVisible();
-  });
-
   // coverage
-  it("applies expected styles when expanded when the variant is `subtle`", () => {
-    render(<Accordion variant="subtle" expanded title="Title" />);
+  it("renders with expected styles with `iconAlign` is set to 'right'", () => {
+    render(<Accordion title="Title" iconAlign="right" />);
 
-    expect(screen.getByRole("button")).toHaveStyleRule(
-      "margin-bottom",
-      "var(--spacing200)",
-    );
-    expect(screen.getByTestId("accordion-content")).toHaveStyleRule(
-      "margin-left",
-      "var(--spacing150)",
-    );
-    expect(screen.getByTestId("accordion-content")).toHaveStyleRule(
-      "padding",
-      "var(--spacing100) var(--spacing200) var(--spacing300)",
-    );
-    expect(screen.getByTestId("accordion-content")).toHaveStyleRule(
-      "border-left",
-      "2px solid var(--colorsUtilityMajor100)",
-    );
-  });
-
-  it("should not render `subtitle` when `variant` is 'subtle'", () => {
-    render(<Accordion variant="subtle" title="Title" subTitle="Subtitle" />);
-
-    expect(screen.queryByText("Subtitle")).not.toBeInTheDocument();
-  });
-
-  // coverage - disableContentPadding is tested in Chromatic
-  it("renders content without paddings if `disableCustomPadding` is applied", () => {
-    render(<Accordion title="Title" disableContentPadding />);
-
-    expect(screen.getByTestId("accordion-content")).toHaveStyle({
-      padding: "0px",
+    expect(screen.getByRole("button", { name: "Title" })).toHaveStyle({
+      flexDirection: "row-reverse",
     });
   });
 });
 
 describe("AccordionGroup", () => {
   testStyledSystemMargin(
-    (props) => (
-      <AccordionGroup data-role="accordion-group" {...props}>
-        <Accordion title="Title_1" defaultExpanded>
-          <Textbox
-            label="Textbox in an Accordion"
-            value=""
-            onChange={() => {}}
-          />
-        </Accordion>
-        <Accordion title="Title_2" defaultExpanded>
-          <Textbox
-            label="Textbox in an Accordion"
-            value=""
-            onChange={() => {}}
-          />
-        </Accordion>
-        <Accordion title="Title_3" defaultExpanded>
-          <Textbox
-            label="Textbox in an Accordion"
-            value=""
-            onChange={() => {}}
-          />
-        </Accordion>
-      </AccordionGroup>
-    ),
+    (props) => <AccordionGroup data-role="accordion-group" {...props} />,
     () => screen.getByTestId("accordion-group"),
   );
 
@@ -517,7 +511,7 @@ describe("AccordionGroup", () => {
     const { rerender } = render(<AccordionGroup />);
 
     expect(loggerSpy).toHaveBeenCalledWith(
-      "`AccordionGroup` is deprecated and will soon be removed.",
+      "`AccordionGroup` is deprecated and will be removed in a future release. Wrapping a group of Accordions in AccordionGroup is no longer required.",
     );
     expect(loggerSpy).toHaveBeenCalledTimes(1);
 
@@ -529,7 +523,7 @@ describe("AccordionGroup", () => {
     );
 
     expect(loggerSpy).toHaveBeenCalledWith(
-      "`AccordionGroup` is deprecated and will soon be removed.",
+      "`AccordionGroup` is deprecated and will be removed in a future release. Wrapping a group of Accordions in AccordionGroup is no longer required.",
     );
     expect(loggerSpy).toHaveBeenCalledTimes(1);
 

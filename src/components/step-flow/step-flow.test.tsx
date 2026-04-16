@@ -274,7 +274,6 @@ it.each(generateLimitedVariations())(
         `foo. bar. Step ${currentStep} of ${totalSteps}.`,
       ),
     ).toHaveStyle({
-      border: "0",
       height: "1px",
       margin: "-1px",
       overflow: "hidden",
@@ -308,7 +307,6 @@ it.each(generateCurrentStepOverTotalStepsVariations())(
     expect(
       within(title).getByText(`foo. bar. Step ${totalSteps} of ${totalSteps}.`),
     ).toHaveStyle({
-      border: "0",
       height: "1px",
       margin: "-1px",
       overflow: "hidden",

@@ -46,7 +46,6 @@ test("when the `StepFlowTitle` is passed via the `title` prop in `StepFlow`, the
 
   const title = screen.getByRole("heading", { level: 1 });
   expect(within(title).getByText(`category. title. Step 2 of 4.`)).toHaveStyle({
-    border: "0",
     height: "1px",
     margin: "-1px",
     overflow: "hidden",
@@ -78,7 +77,6 @@ test("when the 'screenReaderOnlyTitle' prop is passed, it overrides the value pa
       `this title overrides the other title. Step 1 of 8.`,
     ),
   ).toHaveStyle({
-    border: "0",
     height: "1px",
     margin: "-1px",
     overflow: "hidden",

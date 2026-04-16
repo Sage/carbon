@@ -271,7 +271,8 @@ describe("When MenuItem has no submenu", () => {
 
     expect(screen.getByTestId("icon")).toHaveStyle({
       display: "inline-block",
-      marginRight: "0",
+      height: "18px",
+      top: "-2px",
     });
   });
 
@@ -1601,9 +1602,12 @@ describe("when MenuItem has a submenu", () => {
       </Menu>,
     );
 
-    expect(screen.getByRole("button", { name: "Item One" })).toHaveStyle({
-      backgroundColor: menuConfigVariants.light.selected,
-    });
+    const submenuWrapper = screen.getByTestId("submenu-parent-item");
+
+    expect(submenuWrapper).toHaveStyleRule(
+      "background-color",
+      menuConfigVariants.light.submenuSelected,
+    );
   });
 
   it("should apply the expected padding when the item also has `maxWidth` set", () => {
@@ -1617,8 +1621,10 @@ describe("when MenuItem has a submenu", () => {
       </Menu>,
     );
 
-    expect(screen.getByRole("button", { name: "Item One" })).toHaveStyle({
-      padding: "11px 16px 12px",
+    const submenuWrapper = screen.getByTestId("submenu-parent-item");
+
+    expect(submenuWrapper).toHaveStyleRule("padding", "11px 16px 12px", {
+      modifier: "> a",
     });
   });
 });

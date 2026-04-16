@@ -7,6 +7,7 @@ import Logger from "../../../__internal__/utils/logger";
 import Menu from "../menu.component";
 import MenuItem from "../menu-item";
 import menuConfigVariants from "../menu.config";
+import StyledMenuItemWrapper from "../menu-item/menu-item.style";
 import Search from "../../search";
 
 test("logs error if not used within Menu", () => {
@@ -38,9 +39,11 @@ test("should have the correct styling when `menuType` is 'light' passed by MenuC
     </Menu>,
   );
 
-  expect(screen.getByTestId("scrollable-block")).toHaveStyle({
-    backgroundColor: menuConfigVariants.light.submenuItemBackground,
-  });
+  expect(screen.getByTestId("scrollable-block")).toHaveStyleRule(
+    "background-color",
+    menuConfigVariants.light.submenuItemBackground,
+    { modifier: `&& ${StyledMenuItemWrapper}` },
+  );
 });
 
 test("should have the correct styling when `menuType` is 'dark' passed by MenuContext", () => {
@@ -52,9 +55,11 @@ test("should have the correct styling when `menuType` is 'dark' passed by MenuCo
     </Menu>,
   );
 
-  expect(screen.getByTestId("scrollable-block")).toHaveStyle({
-    backgroundColor: menuConfigVariants.dark.submenuItemBackground,
-  });
+  expect(screen.getByTestId("scrollable-block")).toHaveStyleRule(
+    "background-color",
+    menuConfigVariants.dark.submenuItemBackground,
+    { modifier: `&& ${StyledMenuItemWrapper}` },
+  );
 });
 
 test("should have the correct styling when `menuType` is 'white' passed by MenuContext", () => {
@@ -66,9 +71,11 @@ test("should have the correct styling when `menuType` is 'white' passed by MenuC
     </Menu>,
   );
 
-  expect(screen.getByTestId("scrollable-block")).toHaveStyle({
-    backgroundColor: menuConfigVariants.white.submenuItemBackground,
-  });
+  expect(screen.getByTestId("scrollable-block")).toHaveStyleRule(
+    "background-color",
+    menuConfigVariants.white.submenuItemBackground,
+    { modifier: `&& ${StyledMenuItemWrapper}` },
+  );
 });
 
 test("should have the correct styling when `menuType` is 'black' passed by MenuContext", () => {
@@ -79,10 +86,11 @@ test("should have the correct styling when `menuType` is 'black' passed by MenuC
       </ScrollableBlock>
     </Menu>,
   );
-
-  expect(screen.getByTestId("scrollable-block")).toHaveStyle({
-    backgroundColor: menuConfigVariants.black.submenuItemBackground,
-  });
+  expect(screen.getByTestId("scrollable-block")).toHaveStyleRule(
+    "background-color",
+    menuConfigVariants.black.submenuItemBackground,
+    { modifier: `&& ${StyledMenuItemWrapper}` },
+  );
 });
 
 test("should apply the expected styling on the last menu item when they have `href` set", () => {
@@ -205,13 +213,11 @@ test("should render the parent menu-item with the correct styling when `variant`
       </ScrollableBlock>
     </Menu>,
   );
-  const parentMenuItem = screen.getByTestId(
-    "scrollable-block-parent-menu-item",
+  expect(screen.getByTestId("scrollable-block")).toHaveStyleRule(
+    "background-color",
+    menuConfigVariants.light.submenuItemBackground,
+    { modifier: `&& ${StyledMenuItemWrapper}` },
   );
-
-  expect(parentMenuItem).toHaveStyle({
-    backgroundColor: menuConfigVariants.light.submenuItemBackground,
-  });
 });
 
 test("should render the parent menu-item with the correct styling when `variant` is 'default'", () => {
@@ -227,13 +233,11 @@ test("should render the parent menu-item with the correct styling when `variant`
       </ScrollableBlock>
     </Menu>,
   );
-  const parentMenuItem = screen.getByTestId(
-    "scrollable-block-parent-menu-item",
+  expect(screen.getByTestId("scrollable-block")).toHaveStyleRule(
+    "background-color",
+    menuConfigVariants.light.submenuItemBackground,
+    { modifier: `&& ${StyledMenuItemWrapper}` },
   );
-
-  expect(parentMenuItem).toHaveStyle({
-    backgroundColor: menuConfigVariants.light.submenuItemBackground,
-  });
 });
 
 test("should render the parent menu-item with the correct styling when `variant` is 'alternate'", () => {
@@ -249,13 +253,11 @@ test("should render the parent menu-item with the correct styling when `variant`
       </ScrollableBlock>
     </Menu>,
   );
-  const parentMenuItem = screen.getByTestId(
-    "scrollable-block-parent-menu-item",
+  expect(screen.getByTestId("scrollable-block")).toHaveStyleRule(
+    "background-color",
+    menuConfigVariants.light.alternate,
+    { modifier: `&& ${StyledMenuItemWrapper}` },
   );
-
-  expect(parentMenuItem).toHaveStyle({
-    backgroundColor: menuConfigVariants.light.alternate,
-  });
 });
 
 test("should apply the `data-` tag props as attributes on the expected element", () => {

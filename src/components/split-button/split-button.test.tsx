@@ -1,11 +1,13 @@
 import React from "react";
 import { render, screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import * as floatingUi from "@floating-ui/dom";
 import SplitButton, { SplitButtonHandle } from "./split-button.component";
 import Button from "../button";
 import { SizeOptions } from "../button/button.component";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import I18nProvider from "../i18n-provider";
+import StyledButton from "../button/button.style";
 
 jest.mock("../../__internal__/utils/helpers/guid", () => () => "guid-12345");
 
@@ -108,6 +110,35 @@ test("renders child buttons when toggle button is clicked", async () => {
   expect(
     await screen.findByRole("button", { name: "Extra Button 3" }),
   ).toBeVisible();
+});
+
+test("only starts and cleans up floating autoUpdate when additional buttons are visible", async () => {
+  jest.clearAllMocks();
+
+  const user = userEvent.setup();
+  const cleanupSpy = jest.fn();
+  const autoUpdateSpy = jest
+    .spyOn(floatingUi, "autoUpdate")
+    .mockImplementation(() => cleanupSpy);
+
+  render(
+    <SplitButton text="Main">
+      <Button>Single Button</Button>
+    </SplitButton>,
+  );
+
+  expect(autoUpdateSpy).not.toHaveBeenCalled();
+
+  const toggle = screen.getByRole("button", { name: "Show more" });
+  await user.click(toggle);
+
+  expect(autoUpdateSpy).toHaveBeenCalledTimes(1);
+
+  await user.click(toggle);
+
+  expect(cleanupSpy).toHaveBeenCalledTimes(1);
+
+  jest.resetAllMocks();
 });
 
 test("should focus the main button when the focusMainButton on the ref handle is invoked", async () => {
@@ -400,10 +431,13 @@ test("should render additional button text with align set to 'left'", async () =
   );
 
   await user.click(screen.getByRole("button", { name: "Show more" }));
-  const childButton = await screen.findByRole("button", {
-    name: "Single Button",
+
+  const splitbuttonChildrenContainer = screen.getByTestId(
+    "split-button-children-container",
+  );
+  expect(splitbuttonChildrenContainer).toHaveStyleRule("text-align", "left", {
+    modifier: `${StyledButton}`,
   });
-  expect(childButton).toHaveStyle({ textAlign: "left" });
 });
 
 test("should render additional button text with align set to 'right'", async () => {
@@ -415,10 +449,12 @@ test("should render additional button text with align set to 'right'", async () 
   );
 
   await user.click(screen.getByRole("button", { name: "Show more" }));
-  const childButton = await screen.findByRole("button", {
-    name: "Single Button",
+  const splitbuttonChildrenContainer = screen.getByTestId(
+    "split-button-children-container",
+  );
+  expect(splitbuttonChildrenContainer).toHaveStyleRule("text-align", "right", {
+    modifier: `${StyledButton}`,
   });
-  expect(childButton).toHaveStyle({ textAlign: "right" });
 });
 
 test("should not render the child buttons when a click event detected on toggle button and 'disabled' prop set", async () => {

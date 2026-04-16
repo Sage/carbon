@@ -122,11 +122,11 @@ describe("Tooltip", () => {
           renderTooltip({ isVisible: true, bgColor: "pink" });
 
           expect(screen.getByRole("tooltip")).toHaveStyle({
-            backgroundColor: "pink",
+            backgroundColor: "rgb(255, 192, 203)",
           });
 
           expect(screen.getByTestId("tooltip-pointer")).toHaveStyle({
-            backgroundColor: "pink",
+            backgroundColor: "rgb(255, 192, 203)",
           });
         });
 
@@ -134,11 +134,11 @@ describe("Tooltip", () => {
           renderTooltip({ isVisible: true, type: "error", bgColor: "pink" });
 
           expect(screen.getByRole("tooltip")).toHaveStyle({
-            backgroundColor: "pink",
+            backgroundColor: "rgb(255, 192, 203)",
           });
 
           expect(screen.getByTestId("tooltip-pointer")).toHaveStyle({
-            backgroundColor: "pink",
+            backgroundColor: "rgb(255, 192, 203)",
           });
         });
 
@@ -146,7 +146,7 @@ describe("Tooltip", () => {
           renderTooltip({ isVisible: true, fontColor: "pink" });
 
           expect(screen.getByRole("tooltip")).toHaveStyle({
-            color: "pink",
+            color: "rgb(255, 192, 203)",
           });
         });
       });

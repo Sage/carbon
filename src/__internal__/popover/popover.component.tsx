@@ -35,9 +35,13 @@ export interface PopoverProps {
    */
   reference: RefObject<HTMLElement>;
   /**
-   * Determines if the popover is currently open/visible or not. Defaults to true.
+   * Whether the Popover is open, determines if autoUpdate runs in useFloating.
    */
   isOpen?: boolean;
+  /**
+   * Applies display: none to the content wrapper.
+   */
+  hide?: boolean;
   /**
    * Whether to update the position of the floating element on every animation frame if required. This is optimized for performance but can still be costly. Use with caution!
    * [https://floating-ui.com/docs/autoUpdate#animationframe](https://floating-ui.com/docs/autoUpdate#animationframe)
@@ -66,6 +70,7 @@ const PopoverRoot = ({
   middleware = defaultMiddleware,
   disableBackgroundUI,
   isOpen = true,
+  hide,
   animationFrame,
   popoverStrategy = "absolute",
   childRefOverride,
@@ -95,7 +100,7 @@ const PopoverRoot = ({
   });
 
   return (
-    <StyledPopoverContent isOpen={isOpen}>
+    <StyledPopoverContent hide={hide}>
       {disableBackgroundUI ? (
         <StyledBackdrop data-role="popup-backdrop">{content}</StyledBackdrop>
       ) : (

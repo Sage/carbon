@@ -191,7 +191,11 @@ test("should render the expected border colour when `verticalBorderColor` is pas
     </FlatTable>,
   );
 
-  expect(screen.getByRole("cell")).toHaveStyle("border-right-color: #FFBC1A");
+  expect(screen.getByRole("cell")).toHaveStyleRule(
+    "border-right-color",
+    "#FFBC1A",
+    { modifier: "&&&&" },
+  );
 });
 
 test("should render the expected border colour when `verticalBorderColor` is passed a valid hex value", () => {
@@ -229,8 +233,10 @@ test("should render the expected border colour when `verticalBorderColor` is pas
     </FlatTable>,
   );
 
-  expect(screen.getByRole("cell")).toHaveStyle(
-    "border-right-color: rgb(1,1,1)",
+  expect(screen.getByRole("cell")).toHaveStyleRule(
+    "border-right-color",
+    "rgb(1,1,1)",
+    { modifier: "&&&&" },
   );
 });
 

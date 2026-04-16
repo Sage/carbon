@@ -24,10 +24,11 @@ test.each<[TileFooterProps["variant"], string, string]>([
 
     const tileFooterElement = screen.getByTestId("tile-footer");
 
-    expect(tileFooterElement).toHaveStyle({
-      background,
-      borderTop: `1px solid ${borderTopColor}`,
-    });
+    expect(tileFooterElement).toHaveStyleRule("background", background);
+    expect(tileFooterElement).toHaveStyleRule(
+      "border-top",
+      `1px solid ${borderTopColor}`,
+    );
   },
 );
 

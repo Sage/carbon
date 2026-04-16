@@ -665,10 +665,6 @@ describe("when rendered with new validations", () => {
     );
 
     const labelContainer = screen.getByTestId("label-container");
-    expect(labelContainer).toHaveStyle({ width: undefined });
-    expect(labelContainer).toHaveStyle({ justifyContent: undefined });
-    expect(labelContainer).toHaveStyle({ paddingLeft: undefined });
-    expect(labelContainer).toHaveStyle({ paddingRight: undefined });
     expect(labelContainer).not.toHaveStyle({ paddingTop: "6px" });
     expect(labelContainer).not.toHaveStyle({ alignItems: "flex-start" });
   });
@@ -767,21 +763,24 @@ test("fires a console warning if more than four border-radius values are passed"
 
 test("should render component without borders when hideBorders prop is true", () => {
   render(<MockComponent hideBorders />);
-  expect(screen.getByRole("presentation")).toHaveStyle({
-    border: "1px solid transparent",
-  });
+  expect(screen.getByRole("presentation")).toHaveStyleRule(
+    "border",
+    "1px solid transparent",
+  );
 });
 
 test("should render component without borders when hideBorders prop is true and disabled is set", () => {
   render(<MockComponent hideBorders disabled />);
-  expect(screen.getByRole("presentation")).toHaveStyle({
-    border: "1px solid transparent",
-  });
+  expect(screen.getByRole("presentation")).toHaveStyleRule(
+    "border",
+    "1px solid transparent",
+  );
 });
 
 test("should render component without borders when hideBorders prop is true and readonly is set", () => {
   render(<MockComponent hideBorders readOnly />);
-  expect(screen.getByRole("presentation")).toHaveStyle({
-    border: "1px solid transparent",
-  });
+  expect(screen.getByRole("presentation")).toHaveStyleRule(
+    "border",
+    "1px solid transparent",
+  );
 });

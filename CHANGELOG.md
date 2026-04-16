@@ -1,3 +1,25 @@
+## [158.42.0](https://github.com/Sage/carbon/compare/v158.41.2...v158.42.0) (2026-04-16)
+
+### Features
+
+* **accordion:** align to Fusion DS ([bbae09c](https://github.com/Sage/carbon/commit/bbae09c2be6fea2b044d42a1644f237526362022))
+
+### Bug Fixes
+
+* **accordion:** add missing interface export ([253ec1e](https://github.com/Sage/carbon/commit/253ec1ea9816598f00e376a59101a7e3d47d59ea))
+
+## [158.41.2](https://github.com/Sage/carbon/compare/v158.41.1...v158.41.2) (2026-04-16)
+
+### Bug Fixes
+
+* **split-button, multi-action-button:** ensure autoUpdate does not run when popover is closed ([c08e28a](https://github.com/Sage/carbon/commit/c08e28ac7eebe0bfbb561ea779bedf57a1b2ba28)), closes [#7802](https://github.com/Sage/carbon/issues/7802)
+
+## [158.41.1](https://github.com/Sage/carbon/compare/v158.41.0...v158.41.1) (2026-04-15)
+
+### Bug Fixes
+
+* **skills:** ensure consistent cross-platform output for skills script ([c137925](https://github.com/Sage/carbon/commit/c137925c780253955889b55c121d853ddd54ea8a))
+
 ## [158.41.0](https://github.com/Sage/carbon/compare/v158.40.0...v158.41.0) (2026-04-07)
 
 ### Features
