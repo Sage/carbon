@@ -3,7 +3,7 @@
 ## Components
 
 - [Accordion](components/accordion.md)
-- [AccordionGroup](components/accordion-group.md)
+- [AccordionGroup](components/accordion-group.md) (deprecated)
 - [ActionPopover](components/action-popover.md)
 - [ActionPopoverDivider](components/action-popover-divider.md)
 - [ActionPopoverItem](components/action-popover-item.md)
