@@ -19,7 +19,7 @@ const sizeMap = {
   },
 };
 
-interface StyledAccordionProps {
+export interface StyledAccordionProps {
   $borders?: "default" | "full" | "none";
   $width?: string;
   $variant?: "standard" | "simple";
