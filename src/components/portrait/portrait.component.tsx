@@ -95,7 +95,7 @@ export const Portrait = ({
   const tagProps = tagComponent("portrait", rest);
 
   const renderComponent = () => {
-    let portrait = <StyledIcon type={iconType} size={size} />;
+    let portrait = <StyledIcon type={iconType} portraitSize={size} />;
 
     if (initials) {
       portrait = (

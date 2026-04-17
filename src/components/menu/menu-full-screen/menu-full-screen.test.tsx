@@ -182,7 +182,10 @@ test("should apply the expected color to the close icon when `menuType` is 'ligh
   const closeButton = screen.getByRole("button", { name: "Close" });
   const closeButtonIcon = within(closeButton).getByTestId("icon");
 
-  expect(closeButtonIcon).toHaveStyleRule("color", "var(--colorsYin090)");
+  expect(closeButtonIcon).toHaveStyleRule(
+    "color",
+    "var(--container-standard-icon)",
+  );
 });
 
 test("should apply the expected color to the close icon when `menuType` is 'dark'", () => {
@@ -214,7 +217,10 @@ test("should apply the expected color to the close icon when `menuType` is 'whit
   const closeButton = screen.getByRole("button", { name: "Close" });
   const closeButtonIcon = within(closeButton).getByTestId("icon");
 
-  expect(closeButtonIcon).toHaveStyleRule("color", "var(--colorsYin090)");
+  expect(closeButtonIcon).toHaveStyleRule(
+    "color",
+    "var(--container-standard-icon)",
+  );
 });
 
 test("should apply the expected color to the close icon when `menuType` is 'black'", () => {

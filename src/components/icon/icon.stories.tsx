@@ -28,74 +28,25 @@ export const Default: Story = () => {
 };
 Default.storyName = "Default";
 
-export const Disabled: Story = () => {
-  return <Icon type="add" disabled />;
-};
-Disabled.storyName = "Disabled";
-
-export const WithTooltip: Story = () => {
-  return (
-    <Box m={60} display="inline">
-      <Icon
-        mr={8}
-        type="add"
-        tooltipMessage="Hey I'm a default tooltip!"
-        ariaLabel="Icon with tooltip"
-        role="img"
-      />
-      <Icon
-        mr={8}
-        type="add"
-        tooltipMessage={
-          <>
-            Hey I&apos;m a <em>custom</em> tooltip!
-          </>
-        }
-        ariaLabel="Icon with tooltip"
-        role="img"
-      />
-      <Icon
-        mr={8}
-        type="add"
-        tooltipMessage="Hey I'm a tooltip with a different position!"
-        tooltipPosition="bottom"
-        ariaLabel="Icon with tooltip"
-        role="img"
-      />
-      <Icon
-        mr={8}
-        type="add"
-        tooltipMessage="Hey I'm a tooltip with a different color!"
-        tooltipBgColor="lightblue"
-        tooltipFontColor="black"
-        ariaLabel="Icon with tooltip"
-        role="img"
-      />
-      <Icon
-        type="add"
-        tooltipMessage="Hey I'm a tooltip with flip behaviour overrides!"
-        tooltipFlipOverrides={["right", "left"]}
-        ariaLabel="Icon with tooltip"
-        role="img"
-      />
-    </Box>
-  );
-};
-WithTooltip.storyName = "With Tooltip";
-WithTooltip.parameters = { chromatic: { disableSnapshot: true } };
-
-export const VariousFontSizes: Story = () => {
+export const Sizes: Story = () => {
   return (
     <>
-      {(["small", "medium", "large", "extra-large"] as const).map(
-        (fontSize) => (
-          <Icon type="add" fontSize={fontSize} key={fontSize} />
-        ),
-      )}
+      {(["small", "medium", "large"] as const).map((size) => (
+        <Icon type="add" size={size} key={size} />
+      ))}
     </>
   );
 };
-VariousFontSizes.storyName = "Various Font Sizes";
+Sizes.storyName = "Sizes";
+
+export const Inverse: Story = () => {
+  return (
+    <Box p={2} backgroundColor="#000000">
+      <Icon type="add" inverse />
+    </Box>
+  );
+};
+Inverse.storyName = "Inverse";
 
 export const VariousBgShapes: Story = () => {
   return (
@@ -177,11 +128,11 @@ CustomColors.parameters = {
 
 export const ListOfIcons: Story = () => {
   return (
-    <Box m={2}>
+    <Box m={2} display="grid" gridTemplateColumns="repeat(3, 1fr)">
       {ICONS.sort().map((type) => {
         return (
           <Box m={2} key={`icon-${type}`}>
-            <Icon m={2} type={type} fontSize="large" />
+            <Icon m={2} type={type} size="large" />
             {type}
           </Box>
         );
