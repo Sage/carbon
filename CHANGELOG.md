@@ -1,3 +1,9 @@
+## [158.43.0](https://github.com/Sage/carbon/compare/v158.42.0...v158.43.0) (2026-04-17)
+
+### Features
+
+* **sidebar:** add widthAnimation prop ([2c5571d](https://github.com/Sage/carbon/commit/2c5571daa9aed82c01c0f3a7b802615e116d8ea1))
+
 ## [158.42.0](https://github.com/Sage/carbon/compare/v158.41.2...v158.42.0) (2026-04-16)
 
 ### Features
