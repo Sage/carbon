@@ -121,3 +121,16 @@ jobs:
             --statements ${{ fromJSON(env.globalThresholds).statements }} \
             && (echo "✅ Global coverage meets global thresholds" && exit 0) \
             || (echo "❌ Global coverage does not meet global thresholds!" && exit 1)
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ">=24.11.0 24"
+      - name: Update npm to 11.11.1
+        run: npm install -g npm@11.11.1
+      - run: npm ci
+      - run: npm run build
