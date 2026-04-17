@@ -73,7 +73,7 @@ export const StyledTabListWrapper = styled.div<{ $headerWidth?: string }>`
 
 export const Spacer = styled.div`
   align-self: flex-end;
-  background: #8b8b8bff;
+  background: var(--tab-border-active-alt);
   flex-grow: 1;
   height: 2px;
 `;
@@ -85,13 +85,13 @@ export const StyledScrollButton = styled.button<{
 }>`
   height: ${({ $size }) => ($size === "medium" ? "40px" : "48px")};
   width: ${({ $size }) => ($size === "medium" ? "40px" : "48px")};
-  border-radius: 0px;
-  border-top-right-radius: 8px;
-  border-top-left-radius: 8px;
-  border-color: #8b8b8bff;
+  border-radius: var(--global-radius-none);
+  border-top-right-radius: var(--global-radius-action-m);
+  border-top-left-radius: var(--global-radius-action-m);
+  border-color: var(--tab-border-active-alt);
   background: white;
   border: none;
-  border-bottom: 2px solid #8b8b8bff;
+  border-bottom: 2px solid var(--tab-border-active-alt);
   top: 6px;
   position: relative;
 `;
@@ -103,10 +103,10 @@ export const StyledScrollButtonPlaceholder = styled.div<{
 }>`
   height: ${({ $size }) => ($size === "medium" ? "40px" : "48px")};
   width: ${({ $size }) => ($size === "medium" ? "40px" : "48px")};
-  border-radius: 0;
-  border-color: #8b8b8bff;
+  border-radius: var(--global-radius-none);
+  border-color: var(--tab-border-active-alt);
   border: none;
-  border-bottom: 2px solid #8b8b8bff;
+  border-bottom: 2px solid var(--tab-border-active-alt);
   top: 4px;
   position: relative;
 `;
@@ -125,18 +125,11 @@ interface StyledTabProps
 export const StyledTab = styled.button<StyledTabProps>`
   background-color: transparent;
   border: none;
-  border-bottom: 2px solid #8b8b8bff;
-
-  border-bottom-left-radius: 0px;
-  border-bottom-right-radius: 0px;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-
+  border-bottom: 2px solid var(--tab-border-default);
+  border-radius: var(--global-radius-action-m) var(--global-radius-action-m) 0 0;
   white-space: nowrap;
   height: fit-content;
-
-  color: var(--colorsYin090);
-
+  color: var(--tab-label-default);
   font-weight: var(--fontWeights500);
   line-height: var(--lineHeights500);
   position: relative;
@@ -184,7 +177,7 @@ export const StyledTab = styled.button<StyledTabProps>`
   }
 
   :hover {
-    background-color: #00000010;
+    background-color: var(--tab-bg-hover);
     cursor: pointer;
   }
 
@@ -213,9 +206,10 @@ export const StyledTab = styled.button<StyledTabProps>`
     activeTab &&
     $orientation === "horizontal" &&
     css`
-      background-color: white;
-      border: 2px solid #8b8b8bff;
+      background-color: var(--tab-bg-active);
+      border: 2px solid var(--tab-border-active-alt);
       border-bottom: none;
+      color: var(--tab-label-active);
 
       ${!$hasCustomLayout &&
       css`
@@ -226,7 +220,7 @@ export const StyledTab = styled.button<StyledTabProps>`
       `}
 
       :hover {
-        background-color: white;
+        background-color: var(--tab-bg-active);
       }
 
       ::after {
@@ -237,12 +231,12 @@ export const StyledTab = styled.button<StyledTabProps>`
         width: 60%;
         height: 4px;
         background-color: ${() => {
-          if (error) return "#db004e";
-          if (warning) return "#d64309";
+          if (error) return "var(--tab-validation-border-error)";
+          if (warning) return "var(--tab-validation-border-warning)";
           if (info) return "#0060a7ff";
           return "black";
         }};
-        border-radius: 2px;
+        border-radius: var(--global-radius-container-2-xs);
         min-width: 24px;
       }
     `};
@@ -260,12 +254,9 @@ export const StyledTab = styled.button<StyledTabProps>`
     $orientation === "vertical" &&
     css`
       border: none;
-      border-right: 2px solid #8b8b8bff;
-
-      border-bottom-left-radius: 8px;
-      border-bottom-right-radius: 0px;
-      border-top-left-radius: 8px;
-      border-top-right-radius: 0px;
+      border-right: 2px solid var(--tab-border-default);
+      border-radius: var(--global-radius-action-m) 0 0
+        var(--global-radius-action-m);
       max-width: ${$headerWidth ?? `${VERTICAL_TAB_WIDTH}px`};
       width: ${$headerWidth ?? `${VERTICAL_TAB_WIDTH}px`};
 
@@ -277,8 +268,8 @@ export const StyledTab = styled.button<StyledTabProps>`
 
       ${activeTab &&
       css`
-        background-color: white;
-        border: 2px solid #8b8b8bff;
+        background-color: var(--tab-bg-active);
+        border: 2px solid var(--tab-border-active-alt);
         border-right: none;
 
         ${!$hasCustomLayout &&
@@ -292,7 +283,7 @@ export const StyledTab = styled.button<StyledTabProps>`
         `}
 
         :hover {
-          background-color: white;
+          background-color: var(--tab-bg-active);
         }
 
         .tab-title-content-wrapper {
@@ -326,15 +317,15 @@ export const StyledTab = styled.button<StyledTabProps>`
             height: 60%;
             background-color: ${() => {
               /* istanbul ignore if */
-              if (error) return "#db004e";
+              if (error) return "var(--tab-validation-border-error)";
               /* istanbul ignore if */
-              if (warning) return "#d64309";
+              if (warning) return "var(--tab-validation-border-warning)";
               /* istanbul ignore if */
               if (info) return "#0060a7ff";
 
               return "black";
             }};
-            border-radius: 2px;
+            border-radius: var(--global-radius-container-2-xs);
             min-height: 24px;
           }
         }
@@ -346,12 +337,14 @@ export const StyledTab = styled.button<StyledTabProps>`
     z-index: 1;
 
     ${({ $orientation }) => css`
-      border-top-left-radius: 8px;
-      border-top-right-radius: ${$orientation === "horizontal" ? "8px" : "0"};
+      border-top-left-radius: var(--global-radius-action-m);
+      border-top-right-radius: ${$orientation === "horizontal"
+        ? "var(--global-radius-action-m)"
+        : "var(--global-radius-none)"};
       border-bottom-left-radius: ${$orientation === "horizontal"
-        ? "0px"
-        : "8px"};
-      border-bottom-right-radius: 0px;
+        ? "var(--global-radius-none)"
+        : "var(--global-radius-action-m)"};
+      border-bottom-right-radius: var(--global-radius-none);
     `}
   }
 `;
