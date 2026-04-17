@@ -75,7 +75,7 @@ description: Carbon ActionPopover component props and usage examples.
   );
   return (
     <Box mt={40} height={275}>
-      <ActionPopover onOpen={() => {}} onClose={() => {}}>
+      <ActionPopover mb={1} onOpen={() => {}} onClose={() => {}}>
         <ActionPopoverItem
           disabled
           icon="graph"
@@ -101,7 +101,7 @@ description: Carbon ActionPopover component props and usage examples.
           Delete
         </ActionPopoverItem>
       </ActionPopover>
-      <ActionPopover>
+      <ActionPopover mb={1}>
         <ActionPopoverItem icon="csv" onClick={() => {}}>
           Download CSV
         </ActionPopoverItem>

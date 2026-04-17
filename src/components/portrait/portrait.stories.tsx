@@ -49,21 +49,6 @@ export const IconType: Story = () => {
 };
 IconType.storyName = "Icon Type";
 
-export const WithTooltip: Story = () => {
-  return (
-    <Box margin={8}>
-      <Portrait
-        tooltipMessage="Rebecca Smith"
-        tooltipPosition="bottom"
-        tooltipBgColor="rebeccapurple"
-        src="https://avataaars.io/?avatarStyle=Transparent&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light"
-      />
-    </Box>
-  );
-};
-WithTooltip.storyName = "With Tooltip";
-WithTooltip.parameters = { chromatic: { disableSnapshot: true } };
-
 export const Sizes: Story = () => {
   return (
     <Box display="flex" flexDirection="column">

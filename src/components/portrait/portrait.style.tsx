@@ -60,16 +60,20 @@ export const StyledCustomImg = styled.img`
 `;
 
 // && is used here to increase the specificity
-export const StyledIcon = styled(Icon)<
-  Pick<StyledPortraitProps, "size" | "variant">
->`
+export const StyledIcon = styled(Icon)<{
+  $portraitSize: PortraitSizes;
+  variant?: PortraitVariant;
+}>`
   && {
     color: ${({ variant }) => getPortraitColors(variant).color};
-    height: ${({ size }) => getPortraitDimensions(size).height};
-    min-width: ${({ size }) => getPortraitDimensions(size).width};
+    height: ${({ $portraitSize }) =>
+      getPortraitDimensions($portraitSize).height};
+    min-width: ${({ $portraitSize }) =>
+      getPortraitDimensions($portraitSize).width};
 
     ::before {
-      font-size: ${({ size }) => getPortraitIconFontSize(size)};
+      font-size: ${({ $portraitSize }) =>
+        getPortraitIconFontSize($portraitSize)};
     }
   }
 `;
