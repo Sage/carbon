@@ -1,6 +1,6 @@
 import React from "react";
 import { test, expect } from "../../../playwright/helpers/base-test";
-import { SwitchProps } from "./__internal__/__next__";
+import { SwitchProps } from ".";
 import { SwitchComponent, WithMargin } from "./components.test-pw";
 import {
   switchDataComponent,
@@ -50,27 +50,21 @@ test.describe("Prop tests for Switch component", () => {
     await expect(switchInput(page)).not.toBeChecked();
   });
 
-  test("should check with disabled state set to true", async ({
-    mount,
-    page,
-  }) => {
+  test("should render with disabled set to true", async ({ mount, page }) => {
     await mount(<SwitchComponent disabled />);
 
     await expect(switchInput(page)).toBeDisabled();
     await expect(switchLabel(page)).toBeDisabled();
   });
 
-  test("should check with disabled state set to false", async ({
-    mount,
-    page,
-  }) => {
+  test("should render with disabled set to false", async ({ mount, page }) => {
     await mount(<SwitchComponent disabled={false} />);
 
     await expect(switchInput(page)).toBeEnabled();
     await expect(switchLabel(page)).toBeEnabled();
   });
 
-  test("should render properly with loading prop set as true", async ({
+  test("should render properly with loading prop set to true", async ({
     mount,
     page,
   }) => {
@@ -80,7 +74,7 @@ test.describe("Prop tests for Switch component", () => {
     await expect(page.locator('[data-role="switch-loader"]')).toBeVisible();
   });
 
-  test("should render properly with loading prop set as false", async ({
+  test("should render properly with loading prop set to false", async ({
     mount,
     page,
   }) => {
@@ -114,8 +108,37 @@ test.describe("Prop tests for Switch component", () => {
     await expect(switchInput(page)).toHaveId(CHARACTERS.STANDARD);
   });
 
+  test("should render with name", async ({ mount, page }) => {
+    await mount(<SwitchComponent name={CHARACTERS.STANDARD} />);
+
+    await expect(switchInput(page)).toHaveAttribute(
+      "name",
+      CHARACTERS.STANDARD,
+    );
+  });
+
+  test("should render with value", async ({ mount, page }) => {
+    await mount(<SwitchComponent value="switchvalue" />);
+
+    await expect(switchInput(page)).toHaveValue("switchvalue");
+  });
+
+  (
+    [
+      [SIZE.SMALL, 40, 24],
+      [SIZE.LARGE, 72, 40],
+    ] as [SwitchProps["size"], number, number][]
+  ).forEach(([size, width, height]) => {
+    test(`should render with size set to ${size}`, async ({ mount, page }) => {
+      await mount(<SwitchComponent size={size} />);
+
+      await assertCssValueIsApproximately(switchInput(page), "height", height);
+      await assertCssValueIsApproximately(switchInput(page), "width", width);
+    });
+  });
+
   [true, false].forEach((boolVal) => {
-    test(`should render with labelInline prop set to ${boolVal}`, async ({
+    test(`should render with labelInline set to ${boolVal}`, async ({
       mount,
       page,
     }) => {
@@ -124,6 +147,28 @@ test.describe("Prop tests for Switch component", () => {
       await expect(switchDataComponent(page)).toHaveCSS(
         "flex-direction",
         boolVal ? "row" : "column",
+      );
+    });
+  });
+
+  (
+    [
+      [1, 8],
+      [2, 16],
+    ] as [SwitchProps["labelSpacing"], number][]
+  ).forEach(([spacing, expectedMargin]) => {
+    test(`should render with labelSpacing set to ${spacing} when labelInline`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <SwitchComponent labelInline label="Label" labelSpacing={spacing} />,
+      );
+
+      await assertCssValueIsApproximately(
+        switchLabel(page),
+        "margin-right",
+        expectedMargin,
       );
     });
   });
@@ -153,90 +198,12 @@ test.describe("Prop tests for Switch component", () => {
     });
   });
 
-  (
-    [
-      [1, 8],
-      [2, 16],
-    ] as [SwitchProps["labelSpacing"], number][]
-  ).forEach(([spacing, expectedMargin]) => {
-    test(`should render with labelSpacing prop set to ${spacing}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <SwitchComponent labelInline label="label" labelSpacing={spacing} />,
-      );
-
-      await assertCssValueIsApproximately(
-        switchLabel(page),
-        "margin-right",
-        expectedMargin,
-      );
-    });
-  });
-
-  test("should render with name", async ({ mount, page }) => {
-    await mount(<SwitchComponent name={CHARACTERS.STANDARD} />);
-
-    await expect(switchInput(page)).toHaveAttribute(
-      "name",
-      CHARACTERS.STANDARD,
-    );
-  });
-
-  (
-    [
-      [SIZE.SMALL, 40, 24],
-      [SIZE.LARGE, 72, 40],
-    ] as [SwitchProps["size"], number, number][]
-  ).forEach(([size, width, height]) => {
-    test(`should render with size set to ${size}`, async ({ mount, page }) => {
-      await mount(<SwitchComponent size={size} />);
-
-      await assertCssValueIsApproximately(switchInput(page), "height", height);
-      await assertCssValueIsApproximately(switchInput(page), "width", width);
-    });
-  });
-
-  test("should render with value prop", async ({ mount, page }) => {
-    await mount(<SwitchComponent value="switchvalue" />);
-
-    await expect(switchInput(page)).toHaveValue("switchvalue");
-  });
-
-  (
-    [
-      [399, "row"],
-      [400, "row"],
-      [401, "column"],
-    ] as [number, string][]
-  ).forEach(([breakpoint, expectedDirection]) => {
-    test(`should render properly with adaptiveLabelBreakpoint set to ${breakpoint}`, async ({
-      mount,
-      page,
-    }) => {
-      await page.setViewportSize({ width: 400, height: 300 });
-
-      await mount(
-        <SwitchComponent labelInline adaptiveLabelBreakpoint={breakpoint} />,
-      );
-
-      await expect(switchDataComponent(page)).toHaveCSS(
-        "flex-direction",
-        expectedDirection,
-      );
-    });
-  });
-
   [
     CHARACTERS.STANDARD,
     CHARACTERS.DIACRITICS,
     CHARACTERS.SPECIALCHARACTERS,
   ].forEach((hint) => {
-    test(`should render with inputHint set to ${hint}`, async ({
-      mount,
-      page,
-    }) => {
+    test(`should render with inputHint "${hint}"`, async ({ mount, page }) => {
       await mount(<SwitchComponent inputHint={hint} />);
 
       await expect(page.locator('[data-element="input-hint"]')).toHaveText(
@@ -287,7 +254,7 @@ test.describe("Prop tests for Switch component", () => {
     await expect(switchLabel(page)).toHaveCSS("margin-bottom", "0px");
   });
 
-  test("renders with the expected border radius on the track", async ({
+  test("renders with the expected border radius on track", async ({
     mount,
     page,
   }) => {
@@ -415,7 +382,7 @@ test.describe("Accessibility tests", () => {
   });
 
   [true, false].forEach((boolVal) => {
-    test(`check accessibility with checked prop set to ${boolVal}`, async ({
+    test(`check accessibility with checked set to ${boolVal}`, async ({
       mount,
       page,
     }) => {
@@ -425,7 +392,7 @@ test.describe("Accessibility tests", () => {
     });
   });
 
-  test("check accessibility with disabled prop set to true", async ({
+  test("check accessibility with disabled set to true", async ({
     mount,
     page,
   }) => {
@@ -435,7 +402,7 @@ test.describe("Accessibility tests", () => {
     await checkAccessibility(page, undefined, "color-contrast");
   });
 
-  test("check accessibility with disabled prop set to false", async ({
+  test("check accessibility with disabled set to false", async ({
     mount,
     page,
   }) => {
@@ -451,7 +418,7 @@ test.describe("Accessibility tests", () => {
   });
 
   [true, false].forEach((boolVal) => {
-    test(`check accessibility when labelInline prop is set to ${boolVal}`, async ({
+    test(`check accessibility when labelInline is set to ${boolVal}`, async ({
       mount,
       page,
     }) => {
@@ -508,21 +475,6 @@ test.describe("Accessibility tests", () => {
     await checkAccessibility(page);
   });
 
-  [399, 400, 401].forEach((breakpoint) => {
-    test(`check accessibility when label is inline with adaptiveLabelBreakpoint set to ${breakpoint}`, async ({
-      mount,
-      page,
-    }) => {
-      await page.setViewportSize({ width: 400, height: 300 });
-
-      await mount(
-        <SwitchComponent labelInline adaptiveLabelBreakpoint={breakpoint} />,
-      );
-
-      await checkAccessibility(page);
-    });
-  });
-
   [
     CHARACTERS.STANDARD,
     CHARACTERS.DIACRITICS,
@@ -564,7 +516,7 @@ test.describe("Accessibility tests", () => {
     await checkAccessibility(page);
   });
 
-  test("check accessibility for withMargin example", async ({
+  test("check accessibility for WithMargin example", async ({
     mount,
     page,
   }) => {

@@ -1,26 +1,24 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
-import addFocusStyling from "../../../../style/utils/add-focus-styling";
-import applyBaseTheme from "../../../../style/themes/apply-base-theme";
+import addFocusStyling from "../../style/utils/add-focus-styling";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 
-interface StyledNextSwitchProps {
+interface StyledSwitchProps {
   $labelInline?: boolean;
 }
 
-const StyledNextSwitch = styled.div.attrs(
-  applyBaseTheme,
-)<StyledNextSwitchProps>`
+const StyledSwitch = styled.div.attrs(applyBaseTheme)<StyledSwitchProps>`
   ${margin}
   display: ${({ $labelInline }) => ($labelInline ? "flex" : "inline-flex")};
   flex-direction: ${({ $labelInline }) => ($labelInline ? "row" : "column")};
 `;
 
-interface StyledNextSwitchLabelWrapperProps {
+interface StyledSwitchLabelWrapperProps {
   $labelInline?: boolean;
   $labelWidth?: number;
 }
 
-const StyledNextSwitchLabelWrapper = styled.div<StyledNextSwitchLabelWrapperProps>`
+const StyledSwitchLabelWrapper = styled.div<StyledSwitchLabelWrapperProps>`
   ${({ $labelInline, $labelWidth }) => css`
     display: flex;
     flex-direction: column;
@@ -33,7 +31,7 @@ const StyledNextSwitchLabelWrapper = styled.div<StyledNextSwitchLabelWrapperProp
   `}
 `;
 
-interface StyledNextSwitchLabelProps {
+interface StyledSwitchLabelProps {
   $disabled?: boolean;
   $inputHint?: boolean;
   $labelInline?: boolean;
@@ -42,7 +40,7 @@ interface StyledNextSwitchLabelProps {
   $size?: "small" | "large";
 }
 
-const StyledNextSwitchLabel = styled.label<StyledNextSwitchLabelProps>`
+const StyledSwitchLabel = styled.label<StyledSwitchLabelProps>`
   ${({
     $disabled,
     $inputHint,
@@ -88,15 +86,17 @@ const StyledNextSwitchLabel = styled.label<StyledNextSwitchLabelProps>`
   `}
 `;
 
-interface StyledNextSwitchRowProps {
+interface StyledSwitchRowProps {
   $size?: "small" | "large";
+  $processingLabelBelowSwitch?: boolean;
 }
 
-const StyledNextSwitchRow = styled.div<StyledNextSwitchRowProps>`
-  ${({ $size }) => css`
+const StyledSwitchRow = styled.div<StyledSwitchRowProps>`
+  ${({ $size, $processingLabelBelowSwitch }) => css`
     display: flex;
-    align-items: center;
-    gap: 8px var(--global-space-comp-s);
+    flex-direction: ${$processingLabelBelowSwitch ? "column" : "row"};
+    align-items: ${$processingLabelBelowSwitch ? "flex-start" : "center"};
+    gap: var(--global-space-comp-s);
     /* This is required to give space above the Switch input when focus styling is applied. */
     ${$size === "large" &&
     css`
@@ -105,15 +105,16 @@ const StyledNextSwitchRow = styled.div<StyledNextSwitchRowProps>`
   `}
 `;
 
-interface StyledNextSwitchTrackProps {
+interface StyledSwitchTrackProps {
   $checked: boolean;
   $disabled?: boolean;
   $size?: "small" | "large";
   $loading?: boolean;
+  $disableTransitions?: boolean;
 }
 
-const StyledNextSwitchTrack = styled.div<StyledNextSwitchTrackProps>`
-  ${({ $checked, $disabled, $size, $loading }) => css`
+const StyledSwitchTrack = styled.div<StyledSwitchTrackProps>`
+  ${({ $checked, $disabled, $size, $loading, $disableTransitions }) => css`
     position: relative;
     display: inline-flex;
     align-items: center;
@@ -127,12 +128,9 @@ const StyledNextSwitchTrack = styled.div<StyledNextSwitchTrackProps>`
     border-radius: var(--global-radius-container-circle, 999px);
     border: var(--global-borderwidth-s) solid var(--input-switch-border-default);
     box-sizing: border-box;
-    transition:
-      background-color 0.2s ease,
-      border-color 0.2s ease;
-    @media (prefers-reduced-motion: reduce) {
-      transition: none;
-    }
+    transition: ${$disableTransitions
+      ? "none"
+      : "background-color 0.2s ease, border-color 0.2s ease"};
     cursor: ${$disabled ? "not-allowed" : "pointer"};
 
     /* unchecked */
@@ -171,14 +169,15 @@ const StyledNextSwitchTrack = styled.div<StyledNextSwitchTrackProps>`
   `}
 `;
 
-interface StyledNextSwitchThumbProps {
+interface StyledSwitchThumbProps {
   $checked: boolean;
   $disabled?: boolean;
   $size?: "small" | "large";
+  $disableTransitions?: boolean;
 }
 
-const StyledNextSwitchThumb = styled.span<StyledNextSwitchThumbProps>`
-  ${({ $checked, $disabled, $size }) => css`
+const StyledSwitchThumb = styled.span<StyledSwitchThumbProps>`
+  ${({ $checked, $disabled, $size, $disableTransitions }) => css`
     position: absolute;
     left: ${$size === "large" ? "4px" : "3px"};
     width: ${$size === "large" ? "28px" : "var(--global-size-3-xs)"};
@@ -187,12 +186,9 @@ const StyledNextSwitchThumb = styled.span<StyledNextSwitchThumbProps>`
     background-color: ${$disabled
       ? "var(--input-switch-bg-disabled)"
       : "var(--input-switch-fg-default)"};
-    transition:
-      transform 0.2s ease,
-      background-color 0.2s ease;
-    @media (prefers-reduced-motion: reduce) {
-      transition: none;
-    }
+    transition: ${$disableTransitions
+      ? "none"
+      : "transform 0.2s ease, background-color 0.2s ease"};
     transform: ${$checked
       ? $size === "large"
         ? "translateX(32px)"
@@ -213,12 +209,12 @@ const StyledNextSwitchThumb = styled.span<StyledNextSwitchThumbProps>`
   `}
 `;
 
-interface StyledNextSwitchStateTextProps {
+interface StyledSwitchStateTextProps {
   $disabled?: boolean;
   $size?: "small" | "large";
 }
 
-const StyledNextSwitchStateText = styled.span<StyledNextSwitchStateTextProps>`
+const StyledSwitchStateText = styled.span<StyledSwitchStateTextProps>`
   ${({ $disabled, $size }) => css`
     color: ${$disabled
       ? "var(--input-switch-label-disabled)"
@@ -229,11 +225,11 @@ const StyledNextSwitchStateText = styled.span<StyledNextSwitchStateTextProps>`
   `}
 `;
 
-interface StyledNextSwitchProcessingRowProps {
+interface StyledSwitchProcessingRowProps {
   $below?: boolean;
 }
 
-const StyledNextSwitchProcessingRow = styled.div<StyledNextSwitchProcessingRowProps>`
+const StyledSwitchProcessingRow = styled.div<StyledSwitchProcessingRowProps>`
   ${({ $below }) => css`
     display: flex;
     align-items: ${$below ? "flex-start" : "center"};
@@ -244,11 +240,11 @@ const StyledNextSwitchProcessingRow = styled.div<StyledNextSwitchProcessingRowPr
   `}
 `;
 
-interface StyledNextSwitchProcessingTextProps {
+interface StyledSwitchProcessingTextProps {
   $size?: "small" | "large";
 }
 
-const StyledNextSwitchProcessingText = styled.span<StyledNextSwitchProcessingTextProps>`
+const StyledSwitchProcessingText = styled.span<StyledSwitchProcessingTextProps>`
   ${({ $size }) => css`
     color: var(--input-switch-label-default);
     font: ${$size === "large"
@@ -257,22 +253,20 @@ const StyledNextSwitchProcessingText = styled.span<StyledNextSwitchProcessingTex
   `}
 `;
 
-interface StyledNextSwitchLoaderWrapperProps {
+interface StyledSwitchLoaderWrapperProps {
   $checked: boolean;
   $size?: "small" | "large";
+  $disableTransitions?: boolean;
 }
 
-const StyledNextSwitchLoaderWrapper = styled.span<StyledNextSwitchLoaderWrapperProps>`
-  ${({ $checked, $size }) => css`
+const StyledSwitchLoaderWrapper = styled.span<StyledSwitchLoaderWrapperProps>`
+  ${({ $checked, $size, $disableTransitions }) => css`
     position: absolute;
     left: 2px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.2s ease;
-    @media (prefers-reduced-motion: reduce) {
-      transition: none;
-    }
+    transition: ${$disableTransitions ? "none" : "transform 0.2s ease"};
     transform: ${$checked
       ? $size === "large"
         ? "translateX(32px)"
@@ -281,7 +275,7 @@ const StyledNextSwitchLoaderWrapper = styled.span<StyledNextSwitchLoaderWrapperP
   `}
 `;
 
-const StyledNextSwitchInput = styled.input`
+const StyledSwitchInput = styled.input`
   position: absolute;
   inset: calc(0px - var(--global-borderwidth-s));
   margin: 0;
@@ -292,15 +286,15 @@ const StyledNextSwitchInput = styled.input`
 `;
 
 export {
-  StyledNextSwitch,
-  StyledNextSwitchLabel,
-  StyledNextSwitchLabelWrapper,
-  StyledNextSwitchRow,
-  StyledNextSwitchTrack,
-  StyledNextSwitchThumb,
-  StyledNextSwitchStateText,
-  StyledNextSwitchProcessingRow,
-  StyledNextSwitchProcessingText,
-  StyledNextSwitchInput,
-  StyledNextSwitchLoaderWrapper,
+  StyledSwitch,
+  StyledSwitchLabel,
+  StyledSwitchLabelWrapper,
+  StyledSwitchRow,
+  StyledSwitchTrack,
+  StyledSwitchThumb,
+  StyledSwitchStateText,
+  StyledSwitchProcessingRow,
+  StyledSwitchProcessingText,
+  StyledSwitchInput,
+  StyledSwitchLoaderWrapper,
 };

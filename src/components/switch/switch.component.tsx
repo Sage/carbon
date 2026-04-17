@@ -1,184 +1,301 @@
-import React from "react";
+import React, { useRef } from "react";
 import { MarginProps } from "styled-system";
 
-import { CommonCheckableInputProps } from "../../__internal__/checkable-input";
-import { TagProps } from "../../__internal__/utils/helpers/tags";
-import Logger from "../../__internal__/utils/logger";
-import { Switch as NextSwitch } from "./__internal__/__next__/switch.component";
+import { TagProps } from "../../__internal__/utils/helpers/tags/tags";
+import guid from "../../__internal__/utils/helpers/guid";
+import { filterStyledSystemMarginProps } from "../../style/utils";
+import useLocale from "../../hooks/__internal__/useLocale";
+import useMediaQuery from "../../hooks/useMediaQuery";
+import { Loader } from "../loader/__next__/loader.component";
+import {
+  StyledSwitch,
+  StyledSwitchLabel,
+  StyledSwitchRow,
+  StyledSwitchTrack,
+  StyledSwitchThumb,
+  StyledSwitchStateText,
+  StyledSwitchProcessingRow,
+  StyledSwitchProcessingText,
+  StyledSwitchInput,
+  StyledSwitchLoaderWrapper,
+  StyledSwitchLabelWrapper,
+} from "./switch.style";
+import HintText from "../../__internal__/hint-text";
 
-export interface SwitchProps
-  extends Omit<CommonCheckableInputProps, "defaultChecked">,
-    MarginProps,
-    TagProps {
-  /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
-  adaptiveLabelBreakpoint?: number;
-  /** When true label is inline */
-  labelInline?: boolean;
-  /** Triggers loading animation */
-  loading?: boolean;
-  /** [Legacy] When true, validation icon will be placed on label instead of being placed on the input */
-  validationOnLabel?: boolean;
-  /** The value of the switch, passed on form submit */
+export interface SwitchProps extends MarginProps, TagProps {
+  /** Checked state of the switch */
+  checked: boolean;
+  /** OnChange event handler */
+  onChange: (ev: React.ChangeEvent<HTMLInputElement>) => void;
+  /** OnBlur event handler */
+  onBlur?: (ev: React.FocusEvent<HTMLInputElement>) => void;
+  /** OnFocus event handler */
+  onFocus?: (ev: React.FocusEvent<HTMLInputElement>) => void;
+  /** If true, the input will auto-focus on mount */
+  autoFocus?: boolean;
+  /** The id attribute of the hidden input */
+  id?: string;
+  /** The name attribute of the hidden input */
+  name?: string;
+  /** The value attribute of the hidden input, passed on form submit */
   value?: string;
-  /** [Legacy] Overrides the default tooltip position */
-  tooltipPosition?: "top" | "bottom" | "left" | "right";
-  /** [Legacy] Aria label for rendered help component */
-  helpAriaLabel?: string;
+  /** Accessible text label rendered above the switch */
+  label?: React.ReactNode;
+  /** Disables the switch */
+  disabled?: boolean;
+  /** Triggers the loading state — hides On/Off text and shows a spinner */
+  loading?: boolean;
+  /** Text shown beside the spinner during loading. Defaults to "Processing..." */
+  processingLabel?: string;
+  /** When true, the processing label is rendered below the switch rather than to its right */
+  processingLabelBelowSwitch?: boolean;
+  /** Size of the switch track */
+  size?: "small" | "large";
+  /** When true, the label is displayed inline (beside the switch) rather than above it */
+  labelInline?: boolean;
+  /** Spacing between the label and switch when labelInline is true (multiplier of base spacing unit) */
+  labelSpacing?: 1 | 2;
+  /** Label width as a percentage when labelInline is true */
+  labelWidth?: number;
+  /** Hint text displayed below the switch */
+  inputHint?: React.ReactNode;
+  /** Whether the input is required */
+  required?: boolean;
   /**
-   * Whether this component resides on a dark background
+   * @deprecated Use `inputHint` instead.
+   */
+  labelHelp?: React.ReactNode;
+  /**
+   * @deprecated Use `inputHint` instead.
+   */
+  fieldHelp?: React.ReactNode;
+  /**
    * @deprecated This prop is no longer supported.
    */
   isDarkBackground?: boolean;
-  /** Render the ValidationMessage above the Switch input when validationRedesignOptIn flag is set */
-  validationMessagePositionTop?: boolean;
   /**
-   * Spacing between the label and switch when labelInline is true (multiplier of base spacing unit)
    * @deprecated This prop is no longer supported.
    */
-  labelSpacing?: 1 | 2;
-  /** Label width, as a percentage, when labelInline is true */
-  labelWidth?: number;
-  /** OnChange event handler */
-  onChange: (ev: React.ChangeEvent<HTMLInputElement>) => void;
-  /** Checked state of the input */
-  checked: boolean;
+  reverse?: boolean;
+  /**
+   * @deprecated This prop is no longer supported.
+   */
+  error?: boolean | string;
+  /**
+   * @deprecated This prop is no longer supported.
+   */
+  warning?: boolean | string;
+  /**
+   * @deprecated This prop is no longer supported.
+   */
+  info?: boolean | string;
+  /**
+   * @deprecated This prop is no longer supported.
+   */
+  validationOnLabel?: boolean;
+  /**
+   * @deprecated This prop is no longer supported.
+   */
+  fieldHelpInline?: boolean;
+  /**
+   * @deprecated This prop is no longer supported.
+   */
+  tooltipPosition?: "top" | "bottom" | "left" | "right";
+  /**
+   * @deprecated This prop is no longer supported.
+   */
+  helpAriaLabel?: string;
+  /**
+   * @deprecated This prop is no longer supported.
+   */
+  validationMessagePositionTop?: boolean;
 }
 
-let switchLegacyWarned = false;
-let deprecateIsDarkBackgroundWarned = false;
-let deprecateReverseWarned = false;
-let deprecateLabelHelpWarned = false;
-let deprecateFieldHelpWarned = false;
-let deprecateErrorWarned = false;
-let deprecateWarningWarned = false;
-let deprecateInfoWarned = false;
-let deprecateLabelSpacingWarned = false;
-
-const SwitchComponent = React.forwardRef(
+export const SwitchComponent = React.forwardRef<HTMLInputElement, SwitchProps>(
   (
     {
-      autoFocus,
-      id,
-      label,
+      checked,
       onChange,
       onBlur,
       onFocus,
+      autoFocus,
+      id,
+      name,
       value,
-      checked,
+      label,
       disabled,
       loading,
+      processingLabel,
+      processingLabelBelowSwitch = false,
+      size = "small",
       labelInline = false,
       labelSpacing,
       labelWidth,
-      size = "small",
-      name,
-      adaptiveLabelBreakpoint,
       "data-element": dataElement,
       "data-role": dataRole,
+      inputHint,
+      required,
       // Deprecated props — destructured to prevent them from being spread
-      reverse,
-      validationOnLabel: _validationOnLabel,
       labelHelp,
+      fieldHelp,
+      isDarkBackground,
+      reverse: _reverse,
+      error: _error,
+      warning: _warning,
+      info: _info,
+      validationOnLabel: _validationOnLabel,
       fieldHelpInline: _fieldHelpInline,
       tooltipPosition: _tooltipPosition,
       helpAriaLabel: _helpAriaLabel,
-      isDarkBackground,
       validationMessagePositionTop: _validationMessagePositionTop,
-      error,
-      warning,
-      info,
-      fieldHelp,
       ...rest
     }: SwitchProps,
     ref: React.ForwardedRef<HTMLInputElement>,
   ) => {
-    if (!switchLegacyWarned) {
-      Logger.warn(
-        "Warning: This version of the `Switch` component is intended to help migration to the `next` version and will be removed in a future release.",
-      );
-      switchLegacyWarned = true;
-    }
+    const prefersReducedMotion = useMediaQuery(
+      "(prefers-reduced-motion: reduce)",
+    );
 
-    if (isDarkBackground !== undefined && !deprecateIsDarkBackgroundWarned) {
-      Logger.deprecate(
-        "The `isDarkBackground` prop in `Switch` is deprecated and will soon be removed.",
-      );
-      deprecateIsDarkBackgroundWarned = true;
-    }
+    const locale = useLocale();
+    const onText = locale.switch.on();
+    const offText = locale.switch.off();
+    const effectiveProcessingLabel =
+      processingLabel ?? locale.switch.processingLabel();
 
-    if (reverse !== undefined && !deprecateReverseWarned) {
-      Logger.deprecate(
-        "The `reverse` prop in `Switch` is deprecated and will soon be removed.",
-      );
-      deprecateReverseWarned = true;
-    }
+    const internalId = useRef(guid());
+    const inputId = id || internalId.current;
 
-    if (labelHelp && !deprecateLabelHelpWarned) {
-      Logger.deprecate(
-        "The `labelHelp` prop in `Switch` is deprecated and will soon be removed.",
-      );
-      deprecateLabelHelpWarned = true;
-    }
+    const labelId = useRef(`${guid()}-label`);
+    const inputHintId = useRef(`${guid()}-hint`);
 
-    if (fieldHelp && !deprecateFieldHelpWarned) {
-      Logger.deprecate(
-        "The `fieldHelp` prop in `Switch` is deprecated and will soon be removed.",
-      );
-      deprecateFieldHelpWarned = true;
-    }
+    const effectiveInputHint = inputHint ?? labelHelp;
 
-    if (error && !deprecateErrorWarned) {
-      Logger.deprecate(
-        "The `error` prop in `Switch` is deprecated and will soon be removed.",
-      );
-      deprecateErrorWarned = true;
-    }
-
-    if (warning && !deprecateWarningWarned) {
-      Logger.deprecate(
-        "The `warning` prop in `Switch` is deprecated and will soon be removed.",
-      );
-      deprecateWarningWarned = true;
-    }
-
-    if (info && !deprecateInfoWarned) {
-      Logger.deprecate(
-        "The `info` prop in `Switch` is deprecated and will soon be removed.",
-      );
-      deprecateInfoWarned = true;
-    }
-
-    if (labelSpacing !== undefined && !deprecateLabelSpacingWarned) {
-      Logger.deprecate(
-        "The `labelSpacing` prop in `Switch` is deprecated and will soon be removed.",
-      );
-      deprecateLabelSpacingWarned = true;
-    }
+    const marginProps = filterStyledSystemMarginProps(rest);
 
     return (
-      <NextSwitch
-        ref={ref}
-        autoFocus={autoFocus}
-        id={id}
-        label={label}
-        onChange={onChange}
-        onBlur={onBlur}
-        onFocus={onFocus}
-        value={value}
-        checked={checked}
-        disabled={disabled}
-        loading={loading}
-        labelInline={labelInline}
-        labelSpacing={labelSpacing}
-        labelWidth={labelWidth}
-        inputHint={labelHelp || fieldHelp}
-        size={size}
-        name={name}
-        adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
+      <StyledSwitch
+        data-component="switch"
         data-element={dataElement}
         data-role={dataRole}
-        {...rest}
-      />
+        $labelInline={labelInline}
+        {...marginProps}
+      >
+        {(label || effectiveInputHint) && (
+          <StyledSwitchLabelWrapper
+            data-role="switch-label-wrapper"
+            $labelInline={labelInline}
+            $labelWidth={labelInline ? labelWidth : undefined}
+          >
+            {label && (
+              <StyledSwitchLabel
+                htmlFor={inputId}
+                $disabled={disabled}
+                $inputHint={!!effectiveInputHint}
+                $labelInline={labelInline}
+                $labelSpacing={labelInline ? labelSpacing : undefined}
+                $required={required}
+                $size={size}
+                id={labelId.current}
+              >
+                {label}
+              </StyledSwitchLabel>
+            )}
+
+            {effectiveInputHint && (
+              <HintText
+                data-element="input-hint"
+                id={inputHintId.current}
+                isLarge={size === "large"}
+                marginTop="2px"
+              >
+                {effectiveInputHint}
+              </HintText>
+            )}
+          </StyledSwitchLabelWrapper>
+        )}
+
+        <StyledSwitchRow
+          $size={size}
+          $processingLabelBelowSwitch={loading && processingLabelBelowSwitch}
+        >
+          <StyledSwitchTrack
+            data-role="switch-track"
+            $checked={checked}
+            $disabled={disabled}
+            $size={size}
+            $loading={loading}
+            $disableTransitions={!!prefersReducedMotion}
+          >
+            <StyledSwitchInput
+              ref={ref}
+              type="checkbox"
+              role="switch"
+              id={inputId}
+              name={name}
+              value={value}
+              checked={checked}
+              disabled={disabled || loading}
+              autoFocus={autoFocus}
+              aria-checked={checked}
+              onChange={onChange}
+              onBlur={onBlur}
+              onFocus={onFocus}
+              aria-describedby={
+                effectiveInputHint ? inputHintId.current : undefined
+              }
+              required={required}
+            />
+            {loading ? (
+              <StyledSwitchLoaderWrapper
+                data-role="switch-loader-wrapper"
+                $checked={checked}
+                $size={size}
+                $disableTransitions={!!prefersReducedMotion}
+              >
+                <Loader
+                  data-role="switch-loader"
+                  loaderType="ring"
+                  size={size === "large" ? "small" : "extra-small"}
+                  showLabel={false}
+                  inverse={checked}
+                />
+              </StyledSwitchLoaderWrapper>
+            ) : (
+              <StyledSwitchThumb
+                data-role="switch-thumb"
+                $checked={checked}
+                $disabled={disabled}
+                $size={size}
+                $disableTransitions={!!prefersReducedMotion}
+              />
+            )}
+          </StyledSwitchTrack>
+
+          {loading ? (
+            <StyledSwitchProcessingRow
+              $below={processingLabelBelowSwitch}
+              data-role="switch-processing-row"
+            >
+              <StyledSwitchProcessingText $size={size}>
+                {effectiveProcessingLabel}
+              </StyledSwitchProcessingText>
+            </StyledSwitchProcessingRow>
+          ) : (
+            <StyledSwitchStateText
+              aria-hidden
+              $disabled={disabled}
+              $size={size}
+            >
+              {checked ? onText : offText}
+            </StyledSwitchStateText>
+          )}
+        </StyledSwitchRow>
+        {fieldHelp && (
+          <HintText data-element="field-help" isLarge={size === "large"}>
+            {fieldHelp}
+          </HintText>
+        )}
+      </StyledSwitch>
     );
   },
 );

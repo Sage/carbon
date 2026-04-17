@@ -1,6 +1,6 @@
 import React from "react";
-import Switch, { SwitchProps } from "./__internal__/__next__";
 import Box from "../box";
+import Switch, { SwitchProps } from "./switch.component";
 
 export const SwitchComponent = (props: Partial<SwitchProps>) => {
   const [isChecked, setIsChecked] = React.useState(false);

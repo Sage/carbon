@@ -7,7 +7,7 @@ import { FormButtonAlignment } from "./form.config";
 import StyledInlineInputs from "../inline-inputs/inline-inputs.style";
 import StyledSelect from "../select/select.style";
 import { StyledSelectMultiSelect } from "../select/multi-select/multi-select.style";
-import { StyledNextSwitch } from "../switch/__internal__/__next__/switch.style";
+import { StyledSwitch } from "../switch/switch.style";
 
 interface StyledFormContentProps {
   stickyFooter?: boolean;
@@ -40,7 +40,7 @@ export const StyledFormContent = styled.div<StyledFormContentProps>`
       ${StyledInlineInputs} ${StyledFormField},
       ${StyledInlineInputs} ${StyledSelect},
       ${StyledInlineInputs} ${StyledSelectMultiSelect},
-      ${StyledNextSwitch} ${StyledFormField} {
+      ${StyledSwitch} ${StyledFormField} {
         margin-bottom: var(--spacing000);
       }
     `}
