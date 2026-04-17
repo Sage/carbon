@@ -3,6 +3,7 @@ import invariant from "invariant";
 import { MarginProps } from "styled-system";
 import guid from "../utils/helpers/guid";
 import Icon from "../../components/icon";
+import Tooltip from "../../components/tooltip";
 import ValidationIconStyle from "./validation-icon.style";
 import {
   InputContext,
@@ -10,6 +11,7 @@ import {
   InputContextProps,
 } from "../input-behaviour";
 import { filterStyledSystemMarginProps } from "../../style/utils";
+import { TooltipContext } from "../tooltip-provider";
 
 export interface ValidationProps {
   /** Indicate that error has occurred. */
@@ -92,7 +94,11 @@ export const ValidationIcon = ({
     useContext<InputContextProps>(InputContext);
   const { hasFocus: groupHasFocus, hasMouseOver: groupHasMouseOver } =
     useContext<InputContextProps>(InputGroupContext);
+  const { tooltipPosition: tooltipPositionFromContext } =
+    useContext(TooltipContext);
   const [triggeredByIcon, setTriggeredByIcon] = useState(false);
+
+  const resolvedTooltipPosition = tooltipPositionFromContext ?? tooltipPosition;
 
   const validationType = getValidationType({ error, warning, info });
 
@@ -120,32 +126,37 @@ export const ValidationIcon = ({
       data-role="validation-icon-wrapper"
       {...filterStyledSystemMarginProps(rest)}
     >
-      <Icon
-        aria-describedby={validationTooltipId.current}
-        key={`${validationType}-icon`}
-        type={validationType}
-        tabIndex={tabIndex}
-        tooltipId={validationTooltipId.current}
-        tooltipMessage={validationMessage}
-        tooltipPosition={tooltipPosition}
-        tooltipVisible={
+      <Tooltip
+        message={validationMessage}
+        isVisible={
           hasFocus ||
           hasMouseOver ||
           groupHasFocus ||
           groupHasMouseOver ||
           triggeredByIcon
         }
-        tooltipFlipOverrides={
+        position={resolvedTooltipPosition}
+        id={validationTooltipId.current}
+        flipOverrides={
           isPartOfInput && !tooltipFlipOverrides
             ? ["top", "bottom"]
             : tooltipFlipOverrides
         }
         isPartOfInput={isPartOfInput}
         inputSize={size}
-        id={iconId}
-        focusable={tabIndex !== -1}
-        data-role={`icon-${validationType}`}
-      />
+      >
+        <Icon
+          aria-describedby={validationTooltipId.current}
+          key={`${validationType}-icon`}
+          type={validationType}
+          tabIndex={tabIndex}
+          isPartOfInput={isPartOfInput}
+          inputSize={size}
+          id={iconId}
+          focusable={tabIndex !== -1}
+          data-role={`icon-${validationType}`}
+        />
+      </Tooltip>
     </ValidationIconStyle>
   );
 };

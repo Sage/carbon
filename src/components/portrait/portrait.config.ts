@@ -15,7 +15,7 @@ type PortraitSizeParams = Record<
   { dimensions: number; iconDimensions: number }
 >;
 export const PORTRAIT_SIZE_PARAMS: PortraitSizeParams = {
-  XS: { dimensions: 24, iconDimensions: 16 },
+  XS: { dimensions: 32, iconDimensions: 16 },
   S: { dimensions: 32, iconDimensions: 20 },
   M: { dimensions: 40, iconDimensions: 24 },
   ML: { dimensions: 56, iconDimensions: 32 },

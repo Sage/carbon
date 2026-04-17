@@ -10,11 +10,10 @@ import StyledButton, {
 import tagComponent, {
   TagProps,
 } from "../../__internal__/utils/helpers/tags/tags";
-import { TooltipProvider } from "../../__internal__/tooltip-provider";
-import { TooltipPositions } from "../tooltip/tooltip.config";
 import ButtonBarContext from "../button-bar/__internal__/button-bar.context";
 import SplitButtonContext from "../split-button/__internal__/split-button.context";
 import BatchSelectionContext from "../batch-selection/__internal__/batch-selection.context";
+import { TooltipPositions } from "../tooltip/tooltip.config";
 
 /**
  * @deprecated Use "primary", "secondary", "tertiary" or "gradient" instead.
@@ -65,12 +64,16 @@ export interface ButtonProps extends SpaceProps, TagProps {
   href?: string;
   /** Defines an Icon position related to the children: "before" | "after" */
   iconPosition?: ButtonIconPosition;
-  /** [Legacy] Provides a tooltip message when the icon is hovered. */
-  iconTooltipMessage?: string;
-  /** [Legacy] Provides positioning when the tooltip is displayed. */
-  iconTooltipPosition?: TooltipPositions;
   /** Defines an Icon type within the button */
   iconType?: IconType;
+  /**
+   * @deprecated [Legacy] Provides a tooltip message when the icon is hovered.
+   * */
+  iconTooltipMessage?: string;
+  /**
+   * @deprecated [Legacy] Provides positioning when the tooltip is displayed.
+   * */
+  iconTooltipPosition?: TooltipPositions;
   /** id attribute */
   id?: string;
   /**
@@ -138,12 +141,9 @@ interface RenderChildrenProps
     | "children"
     | "disabled"
     | "buttonType"
-    | "iconTooltipMessage"
-    | "iconTooltipPosition"
     | "destructive"
   > {
   buttonType: ButtonTypes;
-  tooltipTarget?: HTMLElement;
 }
 
 function renderChildren({
@@ -154,9 +154,6 @@ function renderChildren({
   children,
   disabled,
   buttonType,
-  iconTooltipMessage,
-  iconTooltipPosition,
-  tooltipTarget,
 }: RenderChildrenProps) {
   const iconColor = () => {
     if (buttonType === "primary") {
@@ -199,20 +196,7 @@ function renderChildren({
           )}
         </span>
       )}
-      {iconType && !isValidChildren && (
-        <TooltipProvider
-          disabled={disabled}
-          focusable={false}
-          target={tooltipTarget}
-        >
-          <Icon
-            type={iconType}
-            {...iconProps}
-            tooltipMessage={iconTooltipMessage}
-            tooltipPosition={iconTooltipPosition}
-          />
-        </TooltipProvider>
-      )}
+      {iconType && !isValidChildren && <Icon type={iconType} {...iconProps} />}
       {iconType && iconPosition === "after" && children && (
         <Icon type={iconType} {...iconProps} />
       )}
@@ -240,8 +224,6 @@ const Button = React.forwardRef<
       fullWidth: fullWidthProp = false,
       href,
       iconPosition: iconPositionProp = "before",
-      iconTooltipMessage,
-      iconTooltipPosition,
       iconType,
       m = 0,
       noWrap,
@@ -375,10 +357,7 @@ const Button = React.forwardRef<
           children,
           disabled: isDisabled,
           buttonType,
-          iconTooltipMessage,
-          iconTooltipPosition,
           destructive,
-          tooltipTarget: internalRef as HTMLElement | undefined,
         })}
       </StyledButton>
     );
