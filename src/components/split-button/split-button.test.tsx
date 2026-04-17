@@ -1,6 +1,7 @@
 import React from "react";
 import { render, screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import * as floatingUi from "@floating-ui/dom";
 import SplitButton, { SplitButtonHandle } from "./split-button.component";
 import Button from "../button";
 import { SizeOptions } from "../button/button.component";
@@ -109,6 +110,35 @@ test("renders child buttons when toggle button is clicked", async () => {
   expect(
     await screen.findByRole("button", { name: "Extra Button 3" }),
   ).toBeVisible();
+});
+
+test("only starts and cleans up floating autoUpdate when additional buttons are visible", async () => {
+  jest.clearAllMocks();
+
+  const user = userEvent.setup();
+  const cleanupSpy = jest.fn();
+  const autoUpdateSpy = jest
+    .spyOn(floatingUi, "autoUpdate")
+    .mockImplementation(() => cleanupSpy);
+
+  render(
+    <SplitButton text="Main">
+      <Button>Single Button</Button>
+    </SplitButton>,
+  );
+
+  expect(autoUpdateSpy).not.toHaveBeenCalled();
+
+  const toggle = screen.getByRole("button", { name: "Show more" });
+  await user.click(toggle);
+
+  expect(autoUpdateSpy).toHaveBeenCalledTimes(1);
+
+  await user.click(toggle);
+
+  expect(cleanupSpy).toHaveBeenCalledTimes(1);
+
+  jest.resetAllMocks();
 });
 
 test("should focus the main button when the focusMainButton on the ref handle is invoked", async () => {

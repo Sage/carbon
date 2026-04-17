@@ -102,7 +102,7 @@ test("should return the index of the first item when user presses Home key", () 
   expect(result).toEqual(0);
 });
 
-test("should return indexx for the last item when user presses End key", () => {
+test("should return index for the last item when user presses End key", () => {
   render(<MockMenu />);
   const focusableItems = screen.getAllByRole("listitem");
   const result = menuKeyboardNavigation(
