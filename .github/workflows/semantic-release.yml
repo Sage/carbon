@@ -16,11 +16,11 @@ jobs:
     outputs:
       version: ${{ steps.versionNumber.outputs.version }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
           persist-credentials: false
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: ">=24.11.0 24"
       - name: Update npm to 11.11.1
@@ -50,11 +50,11 @@ jobs:
     needs: release
     if: ${{ needs.release.outputs.version != null }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
           persist-credentials: false
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: ">=24.11.0 24"
       - name: Update npm to 11.11.1

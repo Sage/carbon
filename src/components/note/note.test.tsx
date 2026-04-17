@@ -174,6 +174,19 @@ test("should throw when width is 0", () => {
   spy.mockRestore();
 });
 
+test.each([30, 75])("should render with width prop set to %i", (width) => {
+  render(
+    <Note
+      createdDate="23 May 2020, 12:08 PM"
+      noteContent=""
+      data-role="note"
+      width={width}
+    />,
+  );
+
+  expect(screen.getByTestId("note")).toHaveAttribute("width", `${width}`);
+});
+
 testStyledSystemMargin(
   (props) => (
     <Note
