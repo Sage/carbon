@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import NavigationBar, { NavigationBarProps } from ".";
-import { Menu, MenuItem } from "../menu";
+import { Menu, MenuDivider, MenuItem } from "../menu";
 import Pill from "../pill";
 import Box from "../box";
 import useMediaQuery from "../../hooks/useMediaQuery";
@@ -8,6 +8,7 @@ import useMediaQuery from "../../hooks/useMediaQuery";
 export default {
   title: "Navigation Bar/Test",
   includeStories: [
+    "Variants",
     "DefaultStory",
     "NavigationBarWithSubmenuAndChangingHeight",
     "WithMediaQuery",
@@ -23,21 +24,87 @@ export default {
   },
 };
 
-export const DefaultStory = ({ children, ...args }: NavigationBarProps) => {
-  return <NavigationBar {...args}>{children}</NavigationBar>;
+export const Variants = ({ children, ...args }: NavigationBarProps) => {
+  return (
+    <>
+      <NavigationBar {...args}>{children} Default</NavigationBar>
+      <br></br>
+      <NavigationBar ariaLabel="Dark Theme" navigationType="dark">
+        Dark theme
+      </NavigationBar>
+      <br></br>
+      <NavigationBar ariaLabel="White Theme" navigationType="white">
+        White theme
+      </NavigationBar>
+      <br></br>
+      <NavigationBar ariaLabel="Light Theme" navigationType="light">
+        Light theme
+      </NavigationBar>
+      <br></br>
+      <NavigationBar ariaLabel="Black Theme" navigationType="black">
+        Black theme
+      </NavigationBar>
+      <br></br>
+      Loading state
+      <NavigationBar ariaLabel="Loading" isLoading>
+        <Menu>
+          <MenuItem href="#">Menu Item One</MenuItem>
+          <MenuItem href="#">Menu Item Two</MenuItem>
+        </Menu>
+      </NavigationBar>
+      <br></br>
+      With Menu
+      <NavigationBar ariaLabel="Menu">
+        <Menu>
+          <MenuItem href="#">Menu Item One</MenuItem>
+          <MenuItem href="#">Menu Item Two</MenuItem>
+        </Menu>
+      </NavigationBar>
+      <br></br>
+      With Menu Custom Spacing
+      <NavigationBar ariaLabel="Menu Custom Spacing" py={2} px={7}>
+        <Menu>
+          <MenuItem href="#">menu item one</MenuItem>
+          <MenuItem href="#">menu item two</MenuItem>
+        </Menu>
+      </NavigationBar>
+      <br></br>
+      Content Max Width Box
+      <NavigationBar ariaLabel="Menu Max Width">
+        <Box display="flex" flex="1" maxWidth="1000px" margin="0 auto">
+          <Menu flex="1">
+            <MenuItem flex="1" onClick={() => {}}>
+              Menu Item One
+            </MenuItem>
+            <MenuItem flex="0 0 auto" href="#">
+              Menu Item Two
+            </MenuItem>
+            <MenuItem flex="0 0 auto" submenu="Menu Item Three">
+              <MenuItem href="#">Item Submenu One</MenuItem>
+              <MenuItem href="#">Item Submenu Two</MenuItem>
+              <MenuDivider />
+              <MenuItem icon="settings" href="#">
+                Item Submenu Three
+              </MenuItem>
+              <MenuItem href="#">Item Submenu Four</MenuItem>
+            </MenuItem>
+            <MenuItem flex="0 0 auto" submenu="Menu Item Four">
+              <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
+              <MenuItem href="#">Item Submenu Two</MenuItem>
+            </MenuItem>
+          </Menu>
+        </Box>
+      </NavigationBar>
+      <br></br>
+    </>
+  );
 };
 
-DefaultStory.storyName = "default";
-DefaultStory.args = {
-  navigationType: "light",
-  isLoading: false,
-  children: "Example content",
-  ariaLabel: "",
-  position: "",
-  orientation: "",
-  offset: "0",
+Variants.storyName = "Variants";
+Variants.parameters = {
+  themeProvider: { chromatic: { theme: "sage" } },
+  chromatic: { disableSnapshot: false },
 };
-
 export const NavigationBarWithSubmenuAndChangingHeight = () => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const toggleHeight = () => {

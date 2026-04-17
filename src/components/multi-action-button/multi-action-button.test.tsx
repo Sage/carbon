@@ -268,6 +268,51 @@ test("should render with expected styles when 'width' prop is set", () => {
   });
 });
 
+test("should open additional buttons when Enter key is pressed on the main button", async () => {
+  const user = userEvent.setup();
+  render(
+    <MultiActionButton text="Main Button">
+      <Button>First</Button>
+    </MultiActionButton>,
+  );
+
+  const mainButton = screen.getByRole("button", { name: "Main Button" });
+  mainButton.focus();
+  await user.keyboard("{Enter}");
+
+  expect(screen.getByRole("button", { name: "First" })).toBeVisible();
+});
+
+test("should open additional buttons when Space key is pressed on the main button", async () => {
+  const user = userEvent.setup();
+  render(
+    <MultiActionButton text="Main Button">
+      <Button>First</Button>
+    </MultiActionButton>,
+  );
+
+  const mainButton = screen.getByRole("button", { name: "Main Button" });
+  mainButton.focus();
+  await user.keyboard(" ");
+
+  expect(screen.getByRole("button", { name: "First" })).toBeVisible();
+});
+
+test("should open additional buttons when ArrowDown key is pressed on the main button", async () => {
+  const user = userEvent.setup();
+  render(
+    <MultiActionButton text="Main Button">
+      <Button>First</Button>
+    </MultiActionButton>,
+  );
+
+  const mainButton = screen.getByRole("button", { name: "Main Button" });
+  mainButton.focus();
+  await user.keyboard("{ArrowDown}");
+
+  expect(screen.getByRole("button", { name: "First" })).toBeVisible();
+});
+
 testStyledSystemMargin(
   (props) => (
     <MultiActionButton data-role="multi-action-button" text="Test" {...props}>

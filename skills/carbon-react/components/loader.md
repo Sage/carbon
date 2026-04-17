@@ -45,107 +45,6 @@ description: Carbon Loader component props and usage examples.
 **Render**
 
 ```tsx
-() => {
-  return <Loader />;
-}
-```
-
-
-### With Gradient Variant
-
-**Render**
-
-```tsx
-() => <Loader variant="gradient" />
-```
-
-
-### Small
-
-**Render**
-
-```tsx
-() => {
-  return <Loader size="small" />;
-}
-```
-
-
-### Large
-
-**Render**
-
-```tsx
-() => {
-  return <Loader size="large" />;
-}
-```
-
-
-### Inside Button
-
-**Render**
-
-```tsx
-() => {
-  const [isLoading, setIsLoading] = useState(false);
-  const mimicLoading = () => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 5000);
-  };
-  const handleButtonClick = () => {
-    mimicLoading();
-  };
-  const buttonContent = isLoading ? <Loader isInsideButton /> : "Click me";
-
-  return (
-    <div aria-live="polite">
-      <Button m={2} buttonType="primary" onClick={handleButtonClick}>
-        {buttonContent}
-      </Button>
-    </div>
-  );
-}
-```
-
-
-### Conditional Rendering
-
-**Render**
-
-```tsx
-() => {
-  const [isLoading, setIsLoading] = useState(false);
-  const mimicLoading = () => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 5000);
-  };
-  const handleButtonClick = () => {
-    mimicLoading();
-  };
-
-  return (
-    <div aria-live="polite">
-      <Button m={2} buttonType="primary" onClick={handleButtonClick}>
-        Render Loader
-      </Button>
-
-      {isLoading ? <Loader /> : "Content to Load"}
-    </div>
-  );
-}
-```
-
-
-### Default
-
-**Render**
-
-```tsx
 (args: LoaderProps) => (
     <Box>
       <Loader {...args} />
@@ -506,5 +405,106 @@ description: Carbon Loader component props and usage examples.
       </Box>
     </>
   )
+```
+
+
+### Default
+
+**Render**
+
+```tsx
+() => {
+  return <Loader />;
+}
+```
+
+
+### With Gradient Variant
+
+**Render**
+
+```tsx
+() => <Loader variant="gradient" />
+```
+
+
+### Small
+
+**Render**
+
+```tsx
+() => {
+  return <Loader size="small" />;
+}
+```
+
+
+### Large
+
+**Render**
+
+```tsx
+() => {
+  return <Loader size="large" />;
+}
+```
+
+
+### Inside Button
+
+**Render**
+
+```tsx
+() => {
+  const [isLoading, setIsLoading] = useState(false);
+  const mimicLoading = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 5000);
+  };
+  const handleButtonClick = () => {
+    mimicLoading();
+  };
+  const buttonContent = isLoading ? <Loader isInsideButton /> : "Click me";
+
+  return (
+    <div aria-live="polite">
+      <Button m={2} buttonType="primary" onClick={handleButtonClick}>
+        {buttonContent}
+      </Button>
+    </div>
+  );
+}
+```
+
+
+### Conditional Rendering
+
+**Render**
+
+```tsx
+() => {
+  const [isLoading, setIsLoading] = useState(false);
+  const mimicLoading = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 5000);
+  };
+  const handleButtonClick = () => {
+    mimicLoading();
+  };
+
+  return (
+    <div aria-live="polite">
+      <Button m={2} buttonType="primary" onClick={handleButtonClick}>
+        Render Loader
+      </Button>
+
+      {isLoading ? <Loader /> : "Content to Load"}
+    </div>
+  );
+}
 ```
 

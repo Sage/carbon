@@ -340,8 +340,8 @@ test("should render the first and last cells with the expected border styling wh
   const firstCell = screen.getByRole("cell", { name: "cell1" });
   const lastCell = screen.getByRole("cell", { name: "cell2" });
 
-  expect(firstCell).toHaveStyle("border-left: none");
-  expect(lastCell).toHaveStyle("border-right: none");
+  expect(firstCell).toHaveStyle("border-left-style: none");
+  expect(lastCell).toHaveStyle("border-right-style: none");
 });
 
 describe("when FlatTableRowHeader children are passed", () => {
@@ -1662,9 +1662,9 @@ test("should render the expected background color styles when `bgColor` prop is 
   const cell2 = screen.getByTestId("cell2");
   const cell3 = screen.getByRole("columnheader", { name: "cell3" });
 
-  expect(cell1).toHaveStyle("background-color: red");
-  expect(cell2).toHaveStyle("background-color: red");
-  expect(cell3).toHaveStyle("background-color: red");
+  expect(cell1).toHaveStyle("background-color: rgb(255, 0, 0)");
+  expect(cell2).toHaveStyle("background-color: rgb(255, 0, 0)");
+  expect(cell3).toHaveStyle("background-color: rgb(255, 0, 0)");
 });
 
 // for coverage
@@ -1684,9 +1684,9 @@ test("should render the expected border bottom color styles when `horizontalBord
   const cell2 = screen.getByTestId("cell2");
   const cell3 = screen.getByRole("columnheader", { name: "cell3" });
 
-  expect(cell1).toHaveStyle("border-bottom-color: red");
-  expect(cell2).toHaveStyle("border-bottom-color: red");
-  expect(cell3).toHaveStyle("border-bottom-color: red");
+  expect(cell1).toHaveStyle("border-bottom-color: rgb(255, 0, 0)");
+  expect(cell2).toHaveStyle("border-bottom-color: rgb(255, 0, 0)");
+  expect(cell3).toHaveStyle("border-bottom-color: rgb(255, 0, 0)");
 });
 
 // for coverage
