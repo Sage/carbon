@@ -13,6 +13,7 @@ const meta: Meta<typeof Message> = {
   title: "Message",
   component: Message,
   parameters: {
+    chromatic: { disableSnapshot: true },
     themeProvider: { chromatic: { theme: "sage" } },
   },
   argTypes: {
@@ -96,6 +97,9 @@ export const Variant: Story = {
   args: {
     mb: 2,
   },
+  parameters: {
+    chromatic: { disableSnapshot: false },
+  },
 };
 
 export const SubtleVariant: Story = {
@@ -149,6 +153,9 @@ export const SubtleVariant: Story = {
   args: {
     mb: 2,
   },
+  parameters: {
+    chromatic: { disableSnapshot: false },
+  },
 };
 
 export const SizeLarge: Story = {
@@ -178,9 +185,6 @@ export const ShowCloseIcon: Story = () => {
   );
 };
 ShowCloseIcon.storyName = "Show Close Icon";
-ShowCloseIcon.parameters = {
-  chromatic: { disableSnapshot: true },
-};
 
 export const Transparent: Story = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -206,6 +210,3 @@ export const Transparent: Story = () => {
   );
 };
 Transparent.storyName = "Transparent";
-Transparent.parameters = {
-  chromatic: { disableSnapshot: true },
-};
