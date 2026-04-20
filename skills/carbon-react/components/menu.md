@@ -609,7 +609,7 @@ description: Carbon Menu component props and usage examples.
 ```
 
 
-### ScrollableSubmenuWithParent
+### Scrollable Submenu with Parent
 
 **Render**
 
