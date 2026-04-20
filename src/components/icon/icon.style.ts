@@ -48,7 +48,10 @@ export interface StyledIconProps {
    *
    * The full list of types can be seen [here](https://github.com/Sage/carbon/blob/master/src/components/icon/icon-config.js).
    */
-  type: IconType /** Renders the Icon using the inverse colour token, suitable for use on dark backgrounds. */;
+  type: IconType;
+  /**
+   * Renders the Icon using the inverse colour token, suitable for use on dark backgrounds.
+   */
   inverse?: boolean;
 }
 
@@ -103,7 +106,7 @@ const styleOverrides = css`
   .search & {
     color: var(--colorsUtilityYin065);
 
-    :hover {
+    &:hover {
       color: var(--colorsUtilityYin100);
     }
   }

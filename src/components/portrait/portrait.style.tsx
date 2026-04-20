@@ -51,15 +51,15 @@ export const StyledCustomImg = styled.img`
 `;
 
 // && is used here to increase the specificity
-export const StyledIcon = styled(Icon)<{ portraitSize: PortraitSizes }>`
+export const StyledIcon = styled(Icon)<{ $portraitSize: PortraitSizes }>`
   && {
     color: inherit;
     height: inherit;
     min-width: inherit;
 
     ::before {
-      font-size: ${({ portraitSize }) =>
-        PORTRAIT_SIZE_PARAMS[portraitSize].iconDimensions}px;
+      font-size: ${({ $portraitSize }) =>
+        PORTRAIT_SIZE_PARAMS[$portraitSize].iconDimensions}px;
     }
   }
 `;
