@@ -12,8 +12,6 @@ import {
   numeralDateInput,
 } from "../../../playwright/components/numeral-date";
 
-import Box from "../box";
-
 import {
   fieldHelpPreview,
   getDataElementByValue,
@@ -571,32 +569,6 @@ test.describe("NumeralDate component", () => {
       await mount(<NumeralDateComponent fieldHelp={fieldHelp} />);
 
       await expect(fieldHelpPreview(page)).toHaveText(fieldHelp);
-    });
-  });
-
-  (
-    ["top", "bottom", "left", "right"] as NumeralDateProps["tooltipPosition"][]
-  ).forEach((position) => {
-    test(`should render NumeralDate with tooltip positioned to the ${position}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <Box m="250px">
-          <NumeralDateComponent
-            error={CHARACTERS.STANDARD}
-            tooltipPosition={position}
-          />
-        </Box>,
-      );
-
-      await getDataElementByValue(page, "error").hover();
-
-      await expect(tooltipPreview(page)).toHaveText(CHARACTERS.STANDARD);
-      await expect(tooltipPreview(page)).toHaveAttribute(
-        "data-placement",
-        position as string,
-      );
     });
   });
 

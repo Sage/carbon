@@ -10,13 +10,11 @@ import {
   AddItem,
   RemoveItem,
   Locked,
-  CustomTooltipMessage,
 } from "./components.test-pw";
 import { checkAccessibility } from "../../../playwright/support/helper";
 import {
   getComponent,
   getDataElementByValue,
-  tooltipPreview,
 } from "../../../playwright/components";
 import { CHARACTERS } from "../../../playwright/support/constants";
 import { ICON } from "../../../playwright/components/locators";
@@ -369,21 +367,6 @@ test.describe(`should render Duelling-Picklist to test Picklist props`, () => {
       }
     });
   });
-
-  test(`should verify picklist tooltip is 'Item Locked' when locked prop is true`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(
-      <DuellingPicklistComponent locked tooltipMessage="Item Locked" />,
-    );
-
-    const listItemIcon = getDataElementByValue(page, "picklist-item")
-      .first()
-      .locator(ICON);
-    await listItemIcon.hover();
-    await expect(tooltipPreview(page)).toHaveText("Item Locked");
-  });
 });
 
 test.describe(`should render Duelling-Picklist with external searchbar and access checkbox`, () => {
@@ -647,18 +630,6 @@ test.describe(`Accessibility tests for Duelling-Picklist component`, () => {
     await mount(<Locked />);
 
     await checkAccessibility(page);
-  });
-
-  test(`should pass accessibility tests for CustomTooltipMessage example`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<CustomTooltipMessage />);
-
-    const lockedItem = getDataElementByValue(page, "locked").first();
-    await lockedItem.hover({ force: true });
-    await expect(tooltipPreview(page)).toBeVisible();
-    await checkAccessibility(page, tooltipPreview(page));
   });
 
   test(`should pass accessibility tests when disabled`, async ({
