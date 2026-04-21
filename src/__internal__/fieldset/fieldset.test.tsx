@@ -277,6 +277,8 @@ describe("when `applyNewValidation` is provided", () => {
       "color",
       "var(--input-labelset-label-disabled)",
     );
+    expect(legend).toHaveAttribute("aria-disabled", "true");
+    expect(hint).toHaveAttribute("aria-disabled", "true");
   });
 
   // coverage

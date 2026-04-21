@@ -59,6 +59,7 @@ test("renders correctly when disabled", () => {
     `color`,
     "var(--input-labelset-label-disabled)",
   );
+  expect(screen.getByText("foo")).toHaveAttribute("aria-disabled", "true");
 });
 
 test("renders correctly with the appropriate font weight", () => {
