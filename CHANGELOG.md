@@ -1,3 +1,9 @@
+## [158.45.0](https://github.com/Sage/carbon/compare/v158.44.0...v158.45.0) (2026-04-21)
+
+### Features
+
+* **typography:** update component with fusion DS ([85a881e](https://github.com/Sage/carbon/commit/85a881eef5a3598d38cf9328ffd8b98fb5468fc6))
+
 ## [158.44.0](https://github.com/Sage/carbon/compare/v158.43.0...v158.44.0) (2026-04-21)
 
 ### Features
