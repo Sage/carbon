@@ -1,3 +1,9 @@
+## [158.46.0](https://github.com/Sage/carbon/compare/v158.45.0...v158.46.0) (2026-04-21)
+
+### Features
+
+* **text-editor:** align hyperlink dialog with fusion DS ([5aa1fd0](https://github.com/Sage/carbon/commit/5aa1fd03d94920cc1136d43fa287f92033599d76)), closes [#7826](https://github.com/Sage/carbon/issues/7826)
+
 ## [158.45.0](https://github.com/Sage/carbon/compare/v158.44.0...v158.45.0) (2026-04-21)
 
 ### Features
