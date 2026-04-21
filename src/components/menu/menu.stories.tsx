@@ -42,6 +42,7 @@ const meta: Meta<typeof Menu> = {
   },
   parameters: {
     chromatic: {
+      disableSnapshot: true,
       modes: {
         desktop: allModes.chromatic,
       },
@@ -104,6 +105,7 @@ export const DefaultStory: MenuStory = () => {
   );
 };
 DefaultStory.storyName = "Default";
+DefaultStory.parameters = { chromatic: { disableSnapshot: false } };
 
 export const ProgrammaticFocus: MenuStory = () => {
   const menuItemHandle = useRef<MenuItemHandle>(null);
@@ -142,7 +144,6 @@ export const ProgrammaticFocus: MenuStory = () => {
   );
 };
 ProgrammaticFocus.storyName = "Programmatic Focus";
-ProgrammaticFocus.parameters = { chromatic: { disableSnapshot: true } };
 
 export const SelectedStory: MenuStory = () => {
   return (
@@ -168,6 +169,7 @@ export const SelectedStory: MenuStory = () => {
   );
 };
 SelectedStory.storyName = "Selected";
+SelectedStory.parameters = { chromatic: { disableSnapshot: false } };
 
 export const DividerStory: MenuStory = () => {
   return (
@@ -193,7 +195,6 @@ export const DividerStory: MenuStory = () => {
   );
 };
 DividerStory.storyName = "Divider";
-DividerStory.parameters = { chromatic: { disableSnapshot: true } };
 
 export const LargeDividerStory: MenuStory = () => {
   return (
@@ -219,7 +220,6 @@ export const LargeDividerStory: MenuStory = () => {
   );
 };
 LargeDividerStory.storyName = "Large Divider";
-LargeDividerStory.parameters = { chromatic: { disableSnapshot: true } };
 
 export const SegmentTitleStory: MenuStory = () => {
   return (
@@ -246,7 +246,6 @@ export const SegmentTitleStory: MenuStory = () => {
   );
 };
 SegmentTitleStory.storyName = "Segment Title";
-SegmentTitleStory.parameters = { chromatic: { disableSnapshot: true } };
 
 export const AlternateColourStory: MenuStory = () => {
   return (
@@ -278,7 +277,6 @@ export const AlternateColourStory: MenuStory = () => {
   );
 };
 AlternateColourStory.storyName = "Alternate Colour";
-AlternateColourStory.parameters = { chromatic: { disableSnapshot: true } };
 
 export const SubmenuNodes: MenuStory = () => (
   <Box mb={150}>
@@ -350,6 +348,7 @@ export const SubmenuNodes: MenuStory = () => (
   </Box>
 );
 SubmenuNodes.storyName = "Submenu Nodes";
+SubmenuNodes.parameters = { chromatic: { disableSnapshot: false } };
 
 export const SubmenuOptionsStory: MenuStory = () => {
   return (
@@ -386,7 +385,6 @@ export const SubmenuOptionsStory: MenuStory = () => {
   );
 };
 SubmenuOptionsStory.storyName = "Submenu Options";
-SubmenuOptionsStory.parameters = { chromatic: { disableSnapshot: true } };
 
 export const SubmenuDirectionLeftStory: MenuStory = () => {
   return (
@@ -408,7 +406,6 @@ export const SubmenuDirectionLeftStory: MenuStory = () => {
   );
 };
 SubmenuDirectionLeftStory.storyName = "Submenu Direction Left";
-SubmenuDirectionLeftStory.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithIconStory: MenuStory = () => {
   return (
@@ -441,7 +438,6 @@ export const WithIconStory: MenuStory = () => {
   );
 };
 WithIconStory.storyName = "With Icon";
-WithIconStory.parameters = { chromatic: { disableSnapshot: true } };
 
 export const NoDropdownArrowOnSubmenuStory: MenuStory = () => {
   return (
@@ -458,9 +454,6 @@ export const NoDropdownArrowOnSubmenuStory: MenuStory = () => {
   );
 };
 NoDropdownArrowOnSubmenuStory.storyName = "No Dropdown Arrow on Submenu";
-NoDropdownArrowOnSubmenuStory.parameters = {
-  chromatic: { disableSnapshot: true },
-};
 
 export const SplitSubmenuIntoSeparateComponentStory: MenuStory = () => {
   const MySubMenu = (
@@ -481,9 +474,6 @@ export const SplitSubmenuIntoSeparateComponentStory: MenuStory = () => {
 };
 SplitSubmenuIntoSeparateComponentStory.storyName =
   "Split Submenu into Separate Component";
-SplitSubmenuIntoSeparateComponentStory.parameters = {
-  chromatic: { disableSnapshot: true },
-};
 
 export const SubmenuIconAndTextAlignment: MenuStory = () => {
   return (
@@ -509,9 +499,6 @@ export const SubmenuIconAndTextAlignment: MenuStory = () => {
   );
 };
 SubmenuIconAndTextAlignment.storyName = "Submenu Icon and Text Alignment";
-SubmenuIconAndTextAlignment.parameters = {
-  chromatic: { disableSnapshot: true },
-};
 
 export const ScrollableSubmenuStory: MenuStory = () => {
   return (
@@ -563,7 +550,6 @@ export const ScrollableSubmenuStory: MenuStory = () => {
   );
 };
 ScrollableSubmenuStory.storyName = "Scrollable Submenu";
-ScrollableSubmenuStory.parameters = { chromatic: { disableSnapshot: true } };
 
 export const ScrollableSubmenuWithParent: MenuStory = () => {
   const items = [
@@ -618,10 +604,7 @@ export const ScrollableSubmenuWithParent: MenuStory = () => {
     </Box>
   );
 };
-
-ScrollableSubmenuWithParent.parameters = {
-  chromatic: { disableSnapshot: true },
-};
+ScrollableSubmenuWithParent.storyName = "Scrollable Submenu with Parent";
 
 export const SubmenuWithSearch: MenuStory = () => {
   return (
@@ -663,7 +646,6 @@ export const SubmenuWithSearch: MenuStory = () => {
   );
 };
 SubmenuWithSearch.storyName = "Submenu with Search";
-SubmenuWithSearch.parameters = { chromatic: { disableSnapshot: true } };
 
 export const TruncatedTitlesStory: MenuStory = () => {
   return (
@@ -685,6 +667,7 @@ export const TruncatedTitlesStory: MenuStory = () => {
   );
 };
 TruncatedTitlesStory.storyName = "Truncated Titles";
+TruncatedTitlesStory.parameters = { chromatic: { disableSnapshot: false } };
 
 export const ResponsiveCompositionStory: MenuStory = () => {
   const isBelowBreakpoint1 = useMediaQuery("(max-width: 1200px)");
@@ -766,9 +749,6 @@ export const ResponsiveCompositionStory: MenuStory = () => {
   );
 };
 ResponsiveCompositionStory.storyName = "Responsive Composition";
-ResponsiveCompositionStory.parameters = {
-  chromatic: { disableSnapshot: true },
-};
 
 export const FullscreenViewStory: MenuStory = () => {
   const [menuOpen, setMenuOpen] = useState({
@@ -865,7 +845,6 @@ export const FullscreenViewStory: MenuStory = () => {
   );
 };
 FullscreenViewStory.storyName = "Fullscreen View";
-FullscreenViewStory.parameters = { chromatic: { disableSnapshot: true } };
 
 export const ControllingTheSubmenuWidth: MenuStory = {
   render: () => (
@@ -890,7 +869,6 @@ export const ControllingTheSubmenuWidth: MenuStory = {
       </div>
     ),
   ],
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const MenuFullscreenWithSegmentStyling = () => {
@@ -980,6 +958,3 @@ export const MenuFullscreenWithSegmentStyling = () => {
 
 MenuFullscreenWithSegmentStyling.storyName =
   "Full-screen Menu with segment styling";
-MenuFullscreenWithSegmentStyling.parameters = {
-  chromatic: { disableSnapshot: true },
-};

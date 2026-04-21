@@ -7,8 +7,8 @@ jobs:
     name: Lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
           node-version: ">=24.11.0 24"
       - name: Update npm to 11.11.1
@@ -31,8 +31,8 @@ jobs:
         shard: [1, 2, 3, 4]
 
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node }}
           cache: npm
@@ -53,7 +53,7 @@ jobs:
 
       - name: Upload coverage report for shard
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: coverage-node-${{ matrix.node }}-shard-${{ matrix.shard }}
           path: coverage/${{ matrix.shard }}.json
@@ -66,7 +66,7 @@ jobs:
     outputs:
       globalThresholds: ${{ steps.extract-thresholds.outputs.globalThresholds }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - id: extract-thresholds
         run: |
           echo "globalThresholds=$(jq -r -c '.global' coverage-thresholds.json)" >> $GITHUB_OUTPUT
@@ -85,8 +85,8 @@ jobs:
         node: ["22", "24"]
 
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node }}
           cache: npm
@@ -98,7 +98,7 @@ jobs:
         run: npm ci
 
       - name: Download shard coverage reports
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           pattern: coverage-node-${{ matrix.node }}-shard-*
           path: coverage
@@ -121,3 +121,16 @@ jobs:
             --statements ${{ fromJSON(env.globalThresholds).statements }} \
             && (echo "✅ Global coverage meets global thresholds" && exit 0) \
             || (echo "❌ Global coverage does not meet global thresholds!" && exit 1)
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ">=24.11.0 24"
+      - name: Update npm to 11.11.1
+        run: npm install -g npm@11.11.1
+      - run: npm ci
+      - run: npm run build
