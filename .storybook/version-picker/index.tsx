@@ -22,21 +22,18 @@ const getDisplayedItems = (
   onHide: () => void,
 ): VersionLink[] => {
   const formattedVersions = Object.entries(versions)
-    .reduce<(VersionLink & { title: string })[]>(
-      (acc, [key, value]) => {
-        if (!key.match(/-beta\.\d+$/)) {
-          acc.push({
-            id: key,
-            title: key,
-            onClick: onHide,
-            active: false,
-            href: value,
-          });
-        }
-        return acc;
-      },
-      [],
-    )
+    .reduce<(VersionLink & { title: string })[]>((acc, [key, value]) => {
+      if (!key.match(/-beta\.\d+$/)) {
+        acc.push({
+          id: key,
+          title: key,
+          onClick: onHide,
+          active: false,
+          href: value,
+        });
+      }
+      return acc;
+    }, [])
     .sort((a, b) => compareBuild(b.id, a.id));
 
   formattedVersions[0].title = `${formattedVersions[0].title} (latest)`;
@@ -85,21 +82,23 @@ const VersionPicker = () => {
         tooltip={({ onHide }) => {
           const items = getDisplayedItems(versions, onHide);
           return (
-            <ActionList>
-              {items.map((item) => (
-                <ActionList.Item key={item.id}>
-                  <ActionList.Button
-                    ariaLabel={false}
-                    onClick={() => {
-                      window.location.href = item.href;
-                      item.onClick();
-                    }}
-                  >
-                    {item.title}
-                  </ActionList.Button>
-                </ActionList.Item>
-              ))}
-            </ActionList>
+            <div style={{ maxHeight: 400, overflowY: "auto" }}>
+              <ActionList>
+                {items.map((item) => (
+                  <ActionList.Item key={item.id}>
+                    <ActionList.Button
+                      ariaLabel={false}
+                      onClick={() => {
+                        window.location.href = item.href;
+                        item.onClick();
+                      }}
+                    >
+                      {item.title}
+                    </ActionList.Button>
+                  </ActionList.Item>
+                ))}
+              </ActionList>
+            </div>
           );
         }}
       >

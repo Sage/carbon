@@ -1,5 +1,5 @@
 import React from "react";
-import { StoryObj } from "@storybook/react";
+import { StoryObj } from "@storybook/react-vite";
 import LinkPreview from ".";
 import DefaultDecorator from "../../../.storybook/utils/default-decorator";
 import { action } from "storybook/actions";

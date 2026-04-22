@@ -1,6 +1,7 @@
 // This file has been automatically migrated to valid ESM format by Storybook.
 import { fileURLToPath } from "node:url";
 import type { StorybookConfig } from "@storybook/react-vite";
+import type { UserConfig } from "vite";
 
 import react from "@vitejs/plugin-react";
 import { viteStaticCopy } from "vite-plugin-static-copy";
@@ -66,7 +67,7 @@ const config: StorybookConfig = {
 
   staticDirs: ["../.assets", "../logo"],
 
-  viteFinal: async (config: Record<string, any>) => {
+  viteFinal: async (config: UserConfig) => {
     const { mergeConfig } = await import("vite");
 
     return mergeConfig(config, {
@@ -128,7 +129,7 @@ const config: StorybookConfig = {
     // Exclude legacy Switch component from react-docgen as it's intended to be removed
     // in a future release and causes confusion for Storybook generating docs.
     reactDocgenTypescriptOptions: {
-      exclude: ["**/switch/switch.component.tsx"],
+      exclude: ["**/switch/switch.component.tsx", "**/.storybook/**"],
       shouldExtractLiteralValuesFromEnum: true,
       shouldRemoveUndefinedFromOptional: true,
       propFilter: (prop) => {

@@ -1,16 +1,24 @@
 import isChromatic from "./isChromatic";
 import React from "react";
+import { Decorator, StoryFn } from "@storybook/react";
 import styled from "styled-components";
 import CarbonProvider from "../src/components/carbon-provider";
 import { noTheme, sageTheme } from "../src/style/themes";
 import { config } from "react-transition-group";
 
-const themes = [noTheme, sageTheme].reduce((themesObject, theme) => {
-  themesObject[theme.name] = theme;
-  return themesObject;
-}, {});
+type Theme = typeof noTheme | typeof sageTheme;
 
-const render = (Story, themeName) => (
+const themes = [noTheme, sageTheme].reduce<Record<string, Theme>>(
+  (themesObject, theme) => {
+    if (theme.name) {
+      themesObject[theme.name] = theme;
+    }
+    return themesObject;
+  },
+  {},
+);
+
+const render = (Story: StoryFn, themeName: string) => (
   <CarbonProvider theme={themes[themeName]}>
     <Story themeName={themeName} />
   </CarbonProvider>
@@ -21,7 +29,7 @@ const FourColumnLayout = styled.div`
   grid-template-columns: 1fr 1fr 1fr 1fr;
 `;
 
-const withThemeProvider = (Story, context) => {
+const withThemeProvider: Decorator = (Story, context) => {
   const parameters = context.parameters.themeProvider?.chromatic ||
     context.parameters.chromatic || {
       theme: null,

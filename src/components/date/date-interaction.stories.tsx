@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { StoryObj } from "@storybook/react";
+import { StoryObj } from "@storybook/react-vite";
 import { userEvent, within } from "storybook/test";
 
 import DateInput from "./date.component";

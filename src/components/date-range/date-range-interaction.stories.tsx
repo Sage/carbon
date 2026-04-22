@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StoryObj, StoryFn } from "@storybook/react";
+import { StoryObj, StoryFn } from "@storybook/react-vite";
 import { userEvent, within, expect } from "storybook/test";
 
 import DateRange from "./date-range.component";

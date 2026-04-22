@@ -1,5 +1,5 @@
 import React from "react";
-import { StoryObj } from "@storybook/react";
+import { StoryObj } from "@storybook/react-vite";
 import { within, expect, userEvent, waitFor } from "storybook/test";
 
 import Link from ".";
