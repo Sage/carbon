@@ -20,7 +20,7 @@ description: Carbon Tooltip component props and usage examples.
 | children | React.ReactElement<any, string \| React.JSXElementConstructor<any>> | Yes |  | Children elements |  |
 | message | React.ReactNode | Yes |  | The message to be displayed within the tooltip |  |
 | bgColor | string \| undefined | No |  | Override background color of the Tooltip, provide any color from palette or any valid css color value. |  |
-| flipOverrides | TooltipPositions[] \| undefined | No |  | Overrides the default flip behaviour of the Tooltip, 123 must be an array containing some or all of ["top", "bottom", "left", "right"] (see <a href="https://popper.js.org/docs/v2/modifiers/flip/#fallbackplacements" target="_blank">Popper.js documentation</a>) |  |
+| flipOverrides | TooltipPositions[] \| undefined | No |  | Overrides the default flip behaviour of the Tooltip, must be an array containing some or all of ["top", "bottom", "left", "right"] (see <a href="https://popper.js.org/docs/v2/modifiers/flip/#fallbackplacements" target="_blank">Popper.js documentation</a>) |  |
 | fontColor | string \| undefined | No |  | Override font color of the Tooltip, provide any color from palette or any valid css color value. |  |
 | id | string \| undefined | No |  | The id attribute to use for the tooltip |  |
 | inputSize | InputSizes \| undefined | No |  |  |  |

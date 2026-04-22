@@ -1,5 +1,5 @@
 import React from "react";
-import { StoryObj, StoryFn, composeStory } from "@storybook/react";
+import { StoryObj, StoryFn, composeStory } from "@storybook/react-vite";
 import { userEvent, within, expect, waitFor } from "storybook/test";
 
 import AnchorNavigation from "./anchor-navigation.component";

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 import I18nProvider from "../i18n-provider/i18n-provider.component";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";

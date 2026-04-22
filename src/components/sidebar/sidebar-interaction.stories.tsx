@@ -1,4 +1,4 @@
-import { StoryObj } from "@storybook/react";
+import { StoryObj } from "@storybook/react-vite";
 import { userEvent, within, expect } from "storybook/test";
 import React, { useState, useRef } from "react";
 

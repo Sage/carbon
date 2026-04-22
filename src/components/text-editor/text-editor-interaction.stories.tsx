@@ -1,5 +1,5 @@
 import React from "react";
-import { StoryFn, StoryObj } from "@storybook/react";
+import { StoryFn, StoryObj } from "@storybook/react-vite";
 import { userEvent, within, expect, waitFor } from "storybook/test";
 
 import TextEditor, { createFromHTML, Mention, MentionsPlugin } from ".";

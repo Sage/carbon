@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { action } from "storybook/addon-actions";
+import { action } from "storybook/actions";
 import { Form, Button } from "../..";
 
 import TextEditor, {

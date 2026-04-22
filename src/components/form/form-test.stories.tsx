@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StoryObj } from "@storybook/react";
+import { StoryObj } from "@storybook/react-vite";
 import { action } from "storybook/actions";
 
 import Form, { FormProps } from ".";

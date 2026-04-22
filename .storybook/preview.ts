@@ -83,8 +83,8 @@ const globalTypes = {
       showName: true,
     },
   },
-  ...(globalThemeProvider as any),
-};
+  ...(globalThemeProvider as object),
+} as Preview["globalTypes"];
 
 const decorators = [
   withGlobalStyles,

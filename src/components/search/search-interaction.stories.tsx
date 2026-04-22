@@ -1,5 +1,5 @@
 import React from "react";
-import { StoryObj, StoryFn } from "@storybook/react";
+import { StoryObj, StoryFn } from "@storybook/react-vite";
 import { userEvent } from "storybook/test";
 
 import Box from "../box";

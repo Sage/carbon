@@ -1,5 +1,5 @@
 import React from "react";
-import { StoryFn, StoryObj } from "@storybook/react";
+import { StoryFn, StoryObj } from "@storybook/react-vite";
 import { userEvent, within } from "storybook/test";
 import BatchSelection from ".";
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";

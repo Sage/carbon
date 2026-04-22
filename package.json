@@ -2,7 +2,6 @@
   "name": "carbon-react",
   "version": "158.46.2",
   "description": "A library of reusable React components for easily building user interfaces.",
-  "type": "module",
   "files": [
     "lib",
     "esm"

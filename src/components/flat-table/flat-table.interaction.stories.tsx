@@ -1,5 +1,5 @@
 import React from "react";
-import { StoryObj, composeStory } from "@storybook/react";
+import { StoryObj, composeStory } from "@storybook/react-vite";
 import { userEvent, within, expect } from "storybook/test";
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
 import DefaultDecorator from "../../../.storybook/utils/default-decorator";
