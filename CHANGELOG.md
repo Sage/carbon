@@ -1,3 +1,9 @@
+## [158.46.2](https://github.com/Sage/carbon/compare/v158.46.1...v158.46.2) (2026-04-22)
+
+### Bug Fixes
+
+* **text-editor:** prevent propagation of submit events ([4294dc7](https://github.com/Sage/carbon/commit/4294dc74540c134fd34c66c672c2b348b0c3920b)), closes [#7827](https://github.com/Sage/carbon/issues/7827)
+
 ## [158.46.1](https://github.com/Sage/carbon/compare/v158.46.0...v158.46.1) (2026-04-22)
 
 ### Bug Fixes
