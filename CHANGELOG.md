@@ -1,3 +1,33 @@
+## [158.46.2](https://github.com/Sage/carbon/compare/v158.46.1...v158.46.2) (2026-04-22)
+
+### Bug Fixes
+
+* **text-editor:** prevent propagation of submit events ([4294dc7](https://github.com/Sage/carbon/commit/4294dc74540c134fd34c66c672c2b348b0c3920b)), closes [#7827](https://github.com/Sage/carbon/issues/7827)
+
+## [158.46.1](https://github.com/Sage/carbon/compare/v158.46.0...v158.46.1) (2026-04-22)
+
+### Bug Fixes
+
+* **text-editor:** span from initialValue not being styled ([cb3d141](https://github.com/Sage/carbon/commit/cb3d141894788992e76130e2629f8993c41b82e2))
+
+## [158.46.0](https://github.com/Sage/carbon/compare/v158.45.0...v158.46.0) (2026-04-21)
+
+### Features
+
+* **text-editor:** align hyperlink dialog with fusion DS ([5aa1fd0](https://github.com/Sage/carbon/commit/5aa1fd03d94920cc1136d43fa287f92033599d76)), closes [#7826](https://github.com/Sage/carbon/issues/7826)
+
+## [158.45.0](https://github.com/Sage/carbon/compare/v158.44.0...v158.45.0) (2026-04-21)
+
+### Features
+
+* **typography:** update component with fusion DS ([85a881e](https://github.com/Sage/carbon/commit/85a881eef5a3598d38cf9328ffd8b98fb5468fc6))
+
+## [158.44.0](https://github.com/Sage/carbon/compare/v158.43.0...v158.44.0) (2026-04-21)
+
+### Features
+
+* **icon:** 2 new icons added ([e1de115](https://github.com/Sage/carbon/commit/e1de115f8a733a343e6c077b2c1e4cccc97133a8))
+
 ## [158.43.0](https://github.com/Sage/carbon/compare/v158.42.0...v158.43.0) (2026-04-17)
 
 ### Features

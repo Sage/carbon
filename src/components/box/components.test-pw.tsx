@@ -47,7 +47,7 @@ export const Position = () => {
           position="sticky"
           top="0"
         >
-          <Typography color="white">This box has position sticky</Typography>
+          <Typography inverse>This box has position sticky</Typography>
           <Button buttonType="primary" destructive>
             Button
           </Button>
@@ -61,7 +61,7 @@ export const Position = () => {
           position="sticky"
           bottom="0"
         >
-          <Typography color="white">This box has position sticky</Typography>
+          <Typography inverse>This box has position sticky</Typography>
           <Button buttonType="primary" destructive>
             Button
           </Button>
@@ -69,7 +69,7 @@ export const Position = () => {
       </Box>
       <Box size="500px" position="fixed" right="0" bg="primary">
         <Box>
-          <Typography color="white">This box has position fixed</Typography>
+          <Typography inverse>This box has position fixed</Typography>
         </Box>
       </Box>
     </Box>

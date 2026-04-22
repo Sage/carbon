@@ -17,6 +17,31 @@ const getListStyleType = (as?: React.ElementType) => {
   return "decimal";
 };
 
+/**
+ * @deprecated The List component is part of the legacy Typography system and will be removed in a future release.
+ * Use the Typography component with `variant="ul"` or `variant="ol"` instead, or use proper semantic HTML list elements (ul, ol, li) with Typography components inside.
+ *
+ * Example migration:
+ * ```tsx
+ * // Before
+ * <List>
+ *   <ListItem>Item 1</ListItem>
+ *   <ListItem>Item 2</ListItem>
+ * </List>
+ *
+ * // After (using Typography list variants)
+ * <Typography variant="ul">
+ *   <Typography as="li">Item 1</Typography>
+ *   <Typography as="li">Item 2</Typography>
+ * </Typography>
+ *
+ * // After (using native HTML with Typography)
+ * <ul>
+ *   <li><Typography>Item 1</Typography></li>
+ *   <li><Typography>Item 2</Typography></li>
+ * </ul>
+ * ```
+ */
 const List = ({ children, as = "ul", variant = "p", ...props }: ListProps) => (
   <Typography
     variant={variant}
@@ -28,6 +53,11 @@ const List = ({ children, as = "ul", variant = "p", ...props }: ListProps) => (
   </Typography>
 );
 
+/**
+ * @deprecated The ListItem component is part of the legacy Typography system and will be removed in a future release.
+ * Use Typography with `as="li"` instead, or use semantic HTML li elements with Typography components inside.
+ * You can use the `as` prop on Typography to inherit list styling while using Typography's text styling capabilities.
+ */
 const ListItem = ({ children, ...props }: ListItemProps) => {
   const { variant: parentListVariant } =
     useContext<ListContextProps>(ListContext);
