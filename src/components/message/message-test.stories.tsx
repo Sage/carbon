@@ -49,7 +49,7 @@ export const WithNoTitle: Story = {
   },
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
-    chromatic: { disableSnapshot: false },
+    chromatic: { disableSnapshot: true },
   },
 };
 
@@ -73,7 +73,7 @@ export const WithNoCloseIcon: Story = {
   },
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
-    chromatic: { disableSnapshot: false },
+    chromatic: { disableSnapshot: true },
   },
 };
 
@@ -91,7 +91,7 @@ export const WithLongTextWrapping: Story = {
   },
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
-    chromatic: { disableSnapshot: false },
+    chromatic: { disableSnapshot: true },
   },
 };
 
@@ -116,5 +116,15 @@ export const WithCustomContent: Story = {
   args: {
     title: "Custom Content",
     width: "400px",
+  },
+  parameters: {
+    themeProvider: { chromatic: { theme: "sage" } },
+    chromatic: { disableSnapshot: false },
+  },
+  play: async ({ canvasElement }) => {
+    const closeButton = canvasElement.querySelector<HTMLButtonElement>(
+      'button[data-element="close"]',
+    );
+    closeButton?.focus();
   },
 };

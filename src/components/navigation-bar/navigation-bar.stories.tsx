@@ -18,6 +18,10 @@ const meta: Meta<typeof NavigationBar> = {
   argTypes: {
     ...styledSystemProps,
   },
+  parameters: {
+    themeProvider: { chromatic: { theme: "sage" } },
+    chromatic: { disableSnapshot: true },
+  },
 };
 
 export default meta;
@@ -178,7 +182,10 @@ export const Sticky: Story = () => {
   );
 };
 Sticky.storyName = "Sticky";
-Sticky.parameters = { docs: { inlineStories: false, iframeHeight: 250 } };
+Sticky.parameters = {
+  docs: { inlineStories: false, iframeHeight: 250 },
+  chromatic: { disableSnapshot: false },
+};
 
 export const Fixed: Story = () => {
   return (
@@ -239,5 +246,5 @@ export const Fixed: Story = () => {
 Fixed.storyName = "Fixed";
 Fixed.parameters = {
   docs: { inlineStories: false, iframeHeight: 200 },
-  themeProvider: { chromatic: { theme: "sage" } },
+  chromatic: { disableSnapshot: false },
 };

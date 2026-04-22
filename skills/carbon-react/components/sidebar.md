@@ -53,6 +53,7 @@ description: Carbon Sidebar component props and usage examples.
 | subHeaderPadding | PaddingProps | No |  | Padding to be set on the Sidebar subheader |  |
 | topModalOverride | boolean \| undefined | No |  | Manually override the internal modal stacking order to set this as top |  |
 | width | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | The width utility parses a component's `width` prop and converts it into a CSS width declaration. - Numbers from 0-1 are converted to percentage widths. - Numbers greater than 1 are converted to pixel values. - String values are passed as raw CSS values. - And arrays are converted to responsive width styles. |  |
+| widthAnimation | boolean \| undefined | No |  | Enables width animation when the sidebar width changes. |  |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | aria-describedby | string \| undefined | No |  | Prop to specify the aria-describedby property of the component |  |

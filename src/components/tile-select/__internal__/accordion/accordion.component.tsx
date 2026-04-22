@@ -3,6 +3,7 @@ import { SpaceProps } from "styled-system";
 
 import { StyledContentContainer, StyledContent } from "./accordion.style";
 import useResizeObserver from "../../../../hooks/__internal__/useResizeObserver";
+import useMediaQuery from "../../../../hooks/useMediaQuery";
 
 export interface AccordionProps extends SpaceProps {
   children: React.ReactNode;
@@ -19,6 +20,10 @@ const Accordion = ({
   const [contentHeight, setContentHeight] = useState(0);
   const contentRef = useRef<HTMLDivElement | null>(null);
 
+  const allowMotion = useMediaQuery(
+    "screen and (prefers-reduced-motion: no-preference)",
+  );
+
   useResizeObserver(contentRef, () => {
     // istanbul ignore else
     if (contentRef.current) {
@@ -28,8 +33,9 @@ const Accordion = ({
 
   return (
     <StyledContentContainer
-      isExpanded={expanded}
-      maxHeight={contentHeight}
+      $isExpanded={expanded}
+      $height={contentHeight}
+      $allowMotion={allowMotion}
       data-role="tile-select-accordion-content-container"
     >
       <StyledContent

@@ -3,7 +3,7 @@
 ## Components
 
 - [Accordion](components/accordion.md)
-- [AccordionGroup](components/accordion-group.md)
+- [AccordionGroup](components/accordion-group.md) (deprecated)
 - [ActionPopover](components/action-popover.md)
 - [ActionPopoverDivider](components/action-popover-divider.md)
 - [ActionPopoverItem](components/action-popover-item.md)
@@ -79,8 +79,8 @@
 - [InlineInputs](components/inline-inputs.md) (deprecated)
 - [Link](components/link.md)
 - [LinkPreview](components/link-preview.md)
-- [List](components/list.md)
-- [ListItem](components/list-item.md)
+- [List](components/list.md) (deprecated)
+- [ListItem](components/list-item.md) (deprecated)
 - [Loader](components/loader.md) (deprecated)
 - [LoaderBar](components/loader-bar.md)
 - [LoaderNext](components/loader-next.md)

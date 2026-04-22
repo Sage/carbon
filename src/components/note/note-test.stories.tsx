@@ -2,8 +2,14 @@ import React from "react";
 
 import Note, { NoteProps } from "./note.component";
 
-import { ActionPopover, ActionPopoverMenuButton } from "../action-popover";
+import {
+  ActionPopover,
+  ActionPopoverDivider,
+  ActionPopoverItem,
+  ActionPopoverMenuButton,
+} from "../action-popover";
 import Box from "../box";
+import LinkPreview from "../link-preview";
 import Typography from "../typography";
 
 export default {
@@ -150,3 +156,94 @@ TitleNodes.story = {
 };
 
 TitleNodes.parameters = { chromatic: { disableSnapshot: false } };
+
+export const AllVariants = () => {
+  const html = `<p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i> Aenean commodo ligula eget dolor.</p>`;
+  const noteContent = "Here is some plain text content";
+  const inlineControl = (
+    <ActionPopover>
+      <ActionPopoverItem onClick={() => {}}>Edit</ActionPopoverItem>
+      <ActionPopoverDivider />
+      <ActionPopoverItem onClick={() => {}}>Delete</ActionPopoverItem>
+    </ActionPopover>
+  );
+  const previews = [
+    <LinkPreview
+      key="link1"
+      title="This is an example of a title"
+      url="https://www.bbc.co.uk"
+      description="Example description for link preview."
+    />,
+    <LinkPreview
+      key="link2"
+      title="This is an example of a title"
+      url="https://www.sage.com"
+      description="Example description for link preview."
+    />,
+  ];
+
+  return (
+    <Box display="flex" flexDirection="column" gap="16px" width="50%">
+      <Note
+        title="With Status"
+        inlineControl={inlineControl}
+        name="Lauren Smith"
+        createdDate="23 May 2020, 12:08 PM"
+        status={{ text: "Edited", timeStamp: "23 May 2020, 12:08 PM" }}
+        noteContent={html}
+      />
+      <Note
+        title="With Previews"
+        name="Lauren Smith"
+        createdDate="23 May 2020, 12:08 PM"
+        status={{ text: "Edited", timeStamp: "23 May 2020, 12:08 PM" }}
+        noteContent={noteContent}
+        previews={previews}
+      />
+      <Note
+        name="Lauren Smith"
+        noteContent="With Margin — m={1}"
+        createdDate="23 May 2020, 12:08 PM"
+        m={1}
+      />
+      <Note
+        name="Lauren Smith"
+        noteContent="With Margin — m={3}"
+        createdDate="23 May 2020, 12:08 PM"
+        m={3}
+      />
+      <Note
+        name="Lauren Smith"
+        noteContent="Hello, World! www.bbc.co.uk http://www.google.com https://www.sage.com"
+        createdDate="23 May 2020, 12:08 PM"
+      />
+      <div data-role="target-hover">
+        <Note
+          name="Lauren Smith"
+          noteContent='Here is a link to <a href="https://carbon.sage.com">Carbon Design System</a>'
+          createdDate="23 May 2020, 12:08 PM"
+        />
+      </div>
+      <div data-role="target-focus">
+        <Note
+          name="Lauren Smith"
+          noteContent='Here is a link to <a href="https://carbon.sage.com">Carbon Design System</a>'
+          createdDate="23 May 2020, 12:08 PM"
+        />
+      </div>
+    </Box>
+  );
+};
+
+AllVariants.story = {
+  name: "All Variants",
+};
+
+AllVariants.parameters = {
+  themeProvider: { chromatic: { theme: "sage" } },
+  chromatic: { disableSnapshot: false },
+  pseudo: {
+    hover: '[data-role="target-hover"] a',
+    focus: '[data-role="target-focus"] a',
+  },
+};

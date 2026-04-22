@@ -91,8 +91,9 @@ export interface SelectListProps {
   listPlacement?: ListPlacement;
   /** Use the opposite list placement if the set placement does not fit */
   flipEnabled?: boolean;
-  /** @private @ignore
-   * Hides the list (with CSS display: none) if not set
+  /**
+   * @private @ignore
+   * Flag to determine if the list is open.
    */
   isOpen?: boolean;
   /** array of selected values, if rendered as part of a MultiSelect */
@@ -692,6 +693,7 @@ const SelectList = React.forwardRef(
           reference={anchorRef}
           middleware={popoverMiddleware}
           isOpen={isOpen}
+          hide={!isOpen}
           disableBackgroundUI
           animationFrame
         >
