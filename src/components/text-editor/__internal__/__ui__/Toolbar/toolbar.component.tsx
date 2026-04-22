@@ -199,6 +199,7 @@ const Toolbar = ({
   /* istanbul ignore next */
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+    event.stopPropagation();
 
     // Validate that both fields are not empty
     const hasTextError = !linkText.trim();
