@@ -2,8 +2,6 @@ import { margin } from "styled-system";
 import styled, { css } from "styled-components";
 
 import StyledInputIconToggle from "../../__internal__/input-icon-toggle/input-icon-toggle.style";
-import StyledInputPresentation from "../../__internal__/input/input-presentation.style";
-import StyledInput from "../../__internal__/input/input.style";
 import StyledIcon from "../icon/icon.style";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 import StyledFormField from "../../__internal__/form-field/form-field.style";
@@ -40,6 +38,7 @@ const StyledSearch = styled.div.attrs(applyBaseTheme)<StyledSearchProps>`
       padding-bottom: var(--spacing025);
       background-color: transparent;
       display: inline-flex;
+      align-items: center;
       font-size: var(--fontSize100);
 
       ${!showSearchButton &&
@@ -63,100 +62,6 @@ const StyledSearch = styled.div.attrs(applyBaseTheme)<StyledSearchProps>`
           }
         `}
       `}
-
-      ${StyledInput} {
-        ::-moz-placeholder {
-          color: var(--colorsUtilityYin055);
-          opacity: 1;
-        }
-        ::placeholder {
-          color: var(--colorsUtilityYin055);
-        }
-
-        ${darkVariant &&
-        css`
-          ::-moz-placeholder {
-            color: var(--colorsUtilityYang080);
-            opacity: 1;
-          }
-          ::placeholder {
-            color: var(--colorsUtilityYang080);
-          }
-        `}
-
-        ${darkVariant &&
-        !showSearchButton &&
-        css`
-          color: var(--colorsUtilityYang100);
-        `}
-      }
-
-      ${StyledInputPresentation} {
-        [data-element="search"] {
-          height: auto;
-
-          ${!darkVariant &&
-          css`
-            color: var(--colorsUtilityYin065);
-
-            :hover {
-              color: var(--colorsUtilityYin100);
-            }
-          `}
-
-          ${darkVariant &&
-          css`
-            color: var(--colorsUtilityYang080);
-
-            :hover {
-              color: var(--colorsUtilityYang100);
-            }
-          `}
-        }
-
-        ${darkVariant &&
-        !showSearchButton &&
-        css`
-          background-color: transparent;
-          border-color: var(--colorsUtilityYang080);
-        `}
-
-        ${!darkVariant &&
-        css`
-          background-color: ${searchHasValue || isFocused || showSearchButton
-            ? "var(--colorsUtilityYang100)"
-            : "transparent"};
-        `}
-
-        ${showSearchButton &&
-        css`
-          border-top-right-radius: var(--borderRadius000);
-          border-bottom-right-radius: var(--borderRadius000);
-        `}
-
-        flex: 1;
-        font-size: var(--fontSize100);
-        font-weight: 500;
-        padding-bottom: var(--spacing025);
-        padding-top: 1px;
-        cursor: pointer;
-
-        ${!isFocused &&
-        !searchHasValue &&
-        !showSearchButton &&
-        css`
-          border: 1px solid transparent;
-        `}
-
-        ${!isFocused &&
-        searchHasValue &&
-        !showSearchButton &&
-        css`
-          background-color: ${darkVariant
-            ? "transparent"
-            : "var(--colorsUtilityYang100)"};
-        `}
-      }
 
       ${StyledFormField} {
         flex: 1;

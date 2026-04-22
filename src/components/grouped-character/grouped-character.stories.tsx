@@ -171,27 +171,6 @@ export const InputHint: Story = () => {
 };
 InputHint.storyName = "Input Hint";
 
-export const LabelHelp: Story = () => {
-  const [state, setState] = useState("1231231");
-
-  const setValue = ({ target }: CustomEvent) => {
-    setState(target.value.rawValue);
-  };
-
-  return (
-    <GroupedCharacter
-      label="GroupedCharacter"
-      value={state}
-      onChange={setValue}
-      groups={[2, 2, 3]}
-      separator="-"
-      labelHelp="Help"
-      helpAriaLabel="Help"
-    />
-  );
-};
-LabelHelp.storyName = "Label Help";
-
 export const Required: Story = () => {
   const [state, setState] = useState("1231231");
 
@@ -211,32 +190,6 @@ export const Required: Story = () => {
   );
 };
 Required.storyName = "Required";
-
-export const LabelAlign: Story = () => {
-  const [state, setState] = useState({
-    right: "1231231",
-    left: "1231231",
-  });
-
-  const handleChange = (alignment: string) => (e: CustomEvent) => {
-    setState({ ...state, [alignment]: e.target.value.rawValue });
-  };
-
-  return (["right", "left"] as const).map((alignment) => (
-    <GroupedCharacter
-      label="GroupedCharacter"
-      value={state[alignment]}
-      onChange={handleChange(alignment)}
-      groups={[2, 2, 3]}
-      separator="-"
-      labelInline
-      inputWidth={50}
-      key={alignment}
-      labelAlign={alignment}
-    />
-  ));
-};
-LabelAlign.storyName = "Label Align";
 
 export const VariousSeparators: Story = () => {
   const [state, setState] = useState({

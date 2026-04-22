@@ -1,13 +1,8 @@
 import React from "react";
 import { test, expect } from "../../../playwright/helpers/base-test";
 import Textbox from "../textbox";
-import Decimal from "../decimal";
 import InlineInputs, { InlineInputsProps } from "./inline-inputs.component";
-import {
-  Default,
-  WithAdaptiveLabelBreakpoint,
-  Required,
-} from "./components.test-pw";
+import { Default, Required } from "./components.test-pw";
 import { Default as InlineInputComponent } from "./inline-inputs-test.stories";
 import {
   inlineInputContainer,
@@ -118,27 +113,6 @@ test.describe("InlineInputs", () => {
       await expect(inlineLabel(page)).toHaveAttribute("for", htmlFor);
     });
   });
-
-  (
-    [
-      ["left", "flex-start"],
-      ["right", "flex-end"],
-    ] as [InlineInputsProps["labelAlign"], string][]
-  ).forEach(([labelAlign, cssValue]) => {
-    test(`should render with labelAlign prop set to ${labelAlign}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <InlineInputComponent labelAlign={labelAlign} labelWidth={30} />,
-      );
-
-      await expect(inlinelabelWidth(page)).toHaveCSS(
-        "justify-content",
-        cssValue,
-      );
-    });
-  });
 });
 
 test.describe("Accessibility tests for InlineInputs component", () => {
@@ -151,15 +125,6 @@ test.describe("Accessibility tests for InlineInputs component", () => {
     await checkAccessibility(page);
   });
 
-  test("should pass accessibility tests for InlineInputs WithAdaptiveLabelBreakpoint example", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<WithAdaptiveLabelBreakpoint />);
-
-    await checkAccessibility(page);
-  });
-
   test("should pass accessibility tests for InlineInputs Required example", async ({
     mount,
     page,
@@ -167,74 +132,5 @@ test.describe("Accessibility tests for InlineInputs component", () => {
     await mount(<Required />);
 
     await checkAccessibility(page);
-  });
-});
-
-test.describe("rounded corners", () => {
-  gutters.forEach((gutter) => {
-    test(`should have the expected border radius styling when gutter is ${gutter} and has three input children`, async ({
-      mount,
-      page,
-    }) => {
-      const firstInputResult = gutter === "none" ? "4px 0px 0px 4px" : "4px";
-      const middleInputResult = gutter === "none" ? "0px" : "4px";
-      const lastInputResult = gutter === "none" ? "0px 4px 4px 0px" : "4px";
-
-      await mount(<InlineInputComponent gutter={gutter} />);
-
-      await expect(
-        inlineInputContainer(page).locator('[role="presentation"]').first(),
-      ).toHaveCSS("border-radius", firstInputResult);
-
-      await expect(
-        inlineInputContainer(page).locator('[role="presentation"]').nth(1),
-      ).toHaveCSS("border-radius", middleInputResult);
-
-      await expect(
-        inlineInputContainer(page).locator('[role="presentation"]').last(),
-      ).toHaveCSS("border-radius", lastInputResult);
-    });
-  });
-
-  gutters.forEach((gutter) => {
-    test(`should have the expected border radius styling when gutter is ${gutter} and has two input children`, async ({
-      mount,
-      page,
-    }) => {
-      const firstInputResult = gutter === "none" ? "4px 0px 0px 4px" : "4px";
-      const lastInputResult = gutter === "none" ? "0px 4px 4px 0px" : "4px";
-
-      await mount(
-        <InlineInputs label="Inline Input" gutter={gutter}>
-          <Textbox warning inputIcon="warning" value={""} onChange={() => {}} />
-          <Decimal onChange={() => {}} value="0.00" />
-        </InlineInputs>,
-      );
-
-      await expect(
-        inlineInputContainer(page).locator('[role="presentation"]').first(),
-      ).toHaveCSS("border-radius", firstInputResult);
-
-      await expect(
-        inlineInputContainer(page).locator('[role="presentation"]').last(),
-      ).toHaveCSS("border-radius", lastInputResult);
-    });
-  });
-
-  gutters.forEach((gutter) => {
-    test(`should have the expected border radius styling when gutter is ${gutter} and has one input child`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <InlineInputs label="Inline Input" gutter={gutter}>
-          <Textbox warning inputIcon="warning" value={""} onChange={() => {}} />
-        </InlineInputs>,
-      );
-
-      await expect(
-        inlineInputContainer(page).locator('[role="presentation"]').first(),
-      ).toHaveCSS("border-radius", "4px");
-    });
   });
 });

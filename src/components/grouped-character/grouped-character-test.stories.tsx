@@ -7,7 +7,6 @@ import {
   CommonTextboxArgs,
 } from "../textbox/utils";
 import GroupedCharacter, { CustomEvent } from "./grouped-character.component";
-import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
 export default {
   title: "Deprecated/Grouped Character/Test",
@@ -62,6 +61,7 @@ export const Validation = () => {
     <>
       <GroupedCharacter
         label="GroupedCharacter"
+        inputHint="Hint text (optional)."
         value={state}
         onChange={setValue}
         groups={[2, 2, 3]}
@@ -79,135 +79,30 @@ export const Validation = () => {
         mb={2}
       />
       <GroupedCharacter
+        validationMessagePositionTop={false}
         label="GroupedCharacter"
-        value={state}
-        onChange={setValue}
-        groups={[2, 2, 3]}
-        separator="-"
-        info="Info Message"
-        mb={2}
-      />
-
-      <GroupedCharacter
-        label="GroupedCharacter"
+        inputHint="Hint text (optional)."
         value={state}
         onChange={setValue}
         groups={[2, 2, 3]}
         separator="-"
         error="Error Message"
-        validationOnLabel
         mb={2}
       />
       <GroupedCharacter
+        validationMessagePositionTop={false}
         label="GroupedCharacter"
         value={state}
         onChange={setValue}
         groups={[2, 2, 3]}
         separator="-"
         warning="Warning Message"
-        validationOnLabel
-        mb={2}
-      />
-      <GroupedCharacter
-        label="GroupedCharacter"
-        value={state}
-        onChange={setValue}
-        groups={[2, 2, 3]}
-        separator="-"
-        info="Info Message"
-        validationOnLabel
-        mb={2}
-      />
-
-      <GroupedCharacter
-        label="GroupedCharacter"
-        value={state}
-        onChange={setValue}
-        groups={[2, 2, 3]}
-        separator="-"
-        error
-        mb={2}
-      />
-      <GroupedCharacter
-        label="GroupedCharacter"
-        value={state}
-        onChange={setValue}
-        groups={[2, 2, 3]}
-        separator="-"
-        warning
-        mb={2}
-      />
-      <GroupedCharacter
-        label="GroupedCharacter"
-        value={state}
-        onChange={setValue}
-        groups={[2, 2, 3]}
-        separator="-"
-        info
-        mb={2}
       />
     </>
   );
 };
 Validation.storyName = "Validation";
 Validation.parameters = {
-  chromatic: { disableSnapshot: false },
-  themeProvider: { chromatic: { theme: "sage" } },
-};
-
-export const NewValidation = () => {
-  const [state, setState] = useState("1231231");
-
-  const setValue = ({ target }: CustomEvent) => {
-    setState(target.value.rawValue);
-  };
-
-  return (
-    <CarbonProvider validationRedesignOptIn>
-      <GroupedCharacter
-        label="GroupedCharacter"
-        inputHint="Hint text (optional)."
-        value={state}
-        onChange={setValue}
-        groups={[2, 2, 3]}
-        separator="-"
-        error="Error Message"
-        mb={2}
-      />
-      <GroupedCharacter
-        label="GroupedCharacter"
-        value={state}
-        onChange={setValue}
-        groups={[2, 2, 3]}
-        separator="-"
-        warning="Warning Message"
-        mb={2}
-      />
-      <GroupedCharacter
-        validationMessagePositionTop={false}
-        label="GroupedCharacter"
-        inputHint="Hint text (optional)."
-        value={state}
-        onChange={setValue}
-        groups={[2, 2, 3]}
-        separator="-"
-        error="Error Message"
-        mb={2}
-      />
-      <GroupedCharacter
-        validationMessagePositionTop={false}
-        label="GroupedCharacter"
-        value={state}
-        onChange={setValue}
-        groups={[2, 2, 3]}
-        separator="-"
-        warning="Warning Message"
-      />
-    </CarbonProvider>
-  );
-};
-NewValidation.storyName = "New Validation";
-NewValidation.parameters = {
   chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
 };

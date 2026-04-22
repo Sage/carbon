@@ -80,9 +80,7 @@ test("when the `searchButton` prop is `true`, a button with search icon is shown
     "search",
   );
   expect(
-    within(screen.getByTestId("input-presentation-container")).queryByTestId(
-      "icon",
-    ),
+    within(screen.getByTestId("input-text-container")).queryByTestId("icon"),
   ).not.toBeInTheDocument();
 });
 
@@ -123,9 +121,7 @@ test("when the `searchButton` prop is a string value, a button with search icon 
     "search",
   );
   expect(
-    within(screen.getByTestId("input-presentation-container")).queryByTestId(
-      "icon",
-    ),
+    within(screen.getByTestId("input-text-container")).queryByTestId("icon"),
   ).not.toBeInTheDocument();
 });
 
@@ -142,9 +138,7 @@ test("when the `searchButton` prop is not passed, no button with is shown, and a
     screen.queryByRole("button", { name: "search button" }),
   ).not.toBeInTheDocument();
   expect(
-    within(screen.getByTestId("input-presentation-container")).getByTestId(
-      "icon",
-    ),
+    within(screen.getByTestId("input-text-container")).getByTestId("icon"),
   ).toHaveAttribute("type", "search");
 });
 

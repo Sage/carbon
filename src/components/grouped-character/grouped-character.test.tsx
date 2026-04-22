@@ -59,7 +59,6 @@ testStyledSystemMargin(
     );
   },
   () => screen.getByTestId("grouped-character"),
-  { modifier: "&&&" },
 );
 
 test("should render with the provided data- attributes", () => {

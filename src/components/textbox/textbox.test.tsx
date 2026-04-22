@@ -1,14 +1,12 @@
 import React from "react";
-import { act, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import * as floatingUi from "@floating-ui/react-dom";
 import Textbox, { TextboxProps } from ".";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
-import { EnterKeyHintTypes } from "../../__internal__/input";
+import { EnterKeyHintTypes } from "../../__internal__/legacy-input";
 import createGuid from "../../__internal__/utils/helpers/guid";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import Logger from "../../__internal__/utils/logger";
-import StyledInput from "../../__internal__/input/input.style";
 
 jest.mock("../../__internal__/utils/logger");
 
@@ -20,8 +18,6 @@ jest.mock("../../__internal__/utils/helpers/guid");
 );
 
 let loggerSpy: jest.SpyInstance<void, [message: string]> | jest.Mock;
-
-const validationTypes = ["error", "warning", "info"];
 
 beforeEach(() => {
   loggerSpy = jest.spyOn(Logger, "deprecate");
@@ -45,7 +41,6 @@ testStyledSystemMargin(
     />
   ),
   () => screen.getByTestId("textbox-wrapper"),
-  { modifier: "&&&" },
 );
 
 describe(`when the characterLimit prop is passed`, () => {
@@ -132,31 +127,6 @@ test("sets ref to empty after unmount", () => {
 
   expect(ref.current).toBe(null);
 });
-
-test.each([
-  {
-    inputIcon: "search",
-  },
-  {
-    error: "error",
-  },
-  {
-    warning: "warning",
-  },
-  {
-    info: "info",
-  },
-] as const)(
-  "styles the input appropriately when an icon is present inside",
-  (props: Partial<TextboxProps>) => {
-    render(<Textbox value="test string" onChange={() => {}} {...props} />);
-    expect(screen.getByRole("presentation")).toHaveStyleRule(
-      "padding-right",
-      "0",
-      { modifier: `& ${StyledInput}` },
-    );
-  },
-);
 
 test("supports a separate onClick handler passing for the icon", async () => {
   const onClick = jest.fn();
@@ -297,72 +267,44 @@ test.each(["disabled", "readOnly"])(
   },
 );
 
-test.each(validationTypes)(
-  "when %s prop passed as string render proper validation icon by the input",
-  (type) => {
-    render(
-      <Textbox
-        label="Label"
-        value="foo"
-        onChange={() => {}}
-        {...{ [type]: "Message" }}
-      />,
-    );
-    const inputPresentationContainer = screen.getByRole("presentation");
-    const validationIcon = screen.getByTestId(`icon-${type}`);
-    expect(inputPresentationContainer).toContainElement(validationIcon);
-  },
-);
+test("should call onChangeDeferred when the input value changes and prop is provided", async () => {
+  jest.useFakeTimers();
+  const onChangeDeferred = jest.fn();
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  render(
+    <Textbox
+      value="foobar"
+      onChange={() => {}}
+      onChangeDeferred={onChangeDeferred}
+    />,
+  );
 
-test.each(validationTypes)(
-  `when %s prop passed as string and validationOnLabel
-  as true render proper validation icon on the label`,
-  (type) => {
-    render(
-      <Textbox
-        label="Label"
-        value="foo"
-        onChange={() => {}}
-        {...{ [type]: "Message" }}
-        validationOnLabel
-      />,
-    );
-    const labelContainer = screen.getByTestId("label-container");
-    const validationIcon = screen.getByTestId(`icon-${type}`);
-    expect(labelContainer).toContainElement(validationIcon);
-  },
-);
+  await user.type(screen.getByRole("textbox"), "new value");
+  jest.advanceTimersByTime(750);
 
-test.each([
-  ["top", true],
-  ["bottom", true],
-  ["left", true],
-  ["top", false],
-  ["bottom", false],
-  ["left", false],
-] as const)(
-  "when tooltipPosition prop provided with a validation string, should pass the expected value %s rather than the default ('right')",
-  (tooltipPosition, onLabel) => {
-    const useFloatingSpy = jest.spyOn(floatingUi, "useFloating");
+  expect(onChangeDeferred).toHaveBeenCalled();
 
-    render(
-      <Textbox
-        label="Label"
-        value="foo"
-        onChange={() => {}}
-        error="Message"
-        validationOnLabel={onLabel}
-        tooltipPosition={tooltipPosition}
-      />,
-    );
+  jest.useRealTimers();
+});
 
-    expect(useFloatingSpy).toHaveBeenCalledWith(
-      expect.objectContaining({ placement: tooltipPosition }),
-    );
+test("calls the onClick callback when input icon is clicked and no iconOnClick prop is passed", async () => {
+  const onClick = jest.fn();
+  const user = userEvent.setup();
 
-    useFloatingSpy.mockRestore();
-  },
-);
+  render(
+    <Textbox
+      value="foobar"
+      onChange={() => {}}
+      inputIcon="search"
+      onClick={onClick}
+    >
+      normal children
+    </Textbox>,
+  );
+  await user.click(screen.getByTestId("input-icon-toggle"));
+
+  expect(onClick).toHaveBeenCalled();
+});
 
 describe("when the prefix prop is set", () => {
   it("renders a StyledPrefix with this prop value", () => {
@@ -372,21 +314,6 @@ describe("when the prefix prop is set", () => {
       "data-element",
       "textbox-prefix",
     );
-  });
-
-  it("renders with 'flex-direction' as 'row' when the align prop is 'right'", () => {
-    const prefixValue = "bar";
-    render(
-      <Textbox
-        value="foo"
-        onChange={() => {}}
-        prefix={prefixValue}
-        align="right"
-      />,
-    );
-    expect(screen.getByRole("presentation")).toHaveStyle({
-      flexDirection: "row",
-    });
   });
 });
 
@@ -418,21 +345,6 @@ test("renders the positionChildren prop before the input", () => {
   );
 });
 
-test("passes the helpAriaLabel prop down to the help component", () => {
-  const text = "foo";
-  render(
-    <Textbox
-      value=""
-      onChange={() => {}}
-      label="label"
-      labelHelp="some help"
-      helpAriaLabel={text}
-    />,
-  );
-
-  expect(screen.getByRole("button")).toHaveAttribute("aria-label", text);
-});
-
 test("sets the accessible label to the provided aria-labelledby", () => {
   const Component = () => (
     <>
@@ -450,6 +362,7 @@ test("appends the provided `aria-describedby` to the accessible description", ()
     <>
       <p id="test">description</p>
       <Textbox
+        label="foo"
         inputHint="hint text"
         aria-describedby="test"
         value="foo"
@@ -463,58 +376,6 @@ test("appends the provided `aria-describedby` to the accessible description", ()
     "hint text description",
   );
 });
-
-test.each(validationTypes)(
-  'when id is present, %s prop is set as a string and the input is focused, the id of the validation tooltip is added to "aria-describedby" in the input',
-  async (validationType) => {
-    render(
-      <Textbox
-        label="bar"
-        id="foo"
-        {...{ [validationType]: "test" }}
-        value="foo"
-        onChange={() => {}}
-      />,
-    );
-    const input = screen.getByRole("textbox");
-    act(() => {
-      input.focus();
-    });
-
-    expect(await screen.findByRole("tooltip")).toHaveAttribute(
-      "id",
-      "foo-validation-1",
-    );
-    expect(input).toHaveAttribute("aria-describedby", "foo-validation-1");
-  },
-);
-
-test.each(validationTypes)(
-  "when id is not present, %s prop is set as a string and the input is focused, the id of the validation tooltip is added to 'aria-describedby' in the input",
-  async (validationType) => {
-    render(
-      <Textbox
-        label="bar"
-        value="foo"
-        onChange={() => {}}
-        {...{ [validationType]: "test" }}
-      />,
-    );
-    const input = screen.getByRole("textbox");
-    act(() => {
-      input.focus();
-    });
-
-    expect(await screen.findByRole("tooltip")).toHaveAttribute(
-      "id",
-      `${mockedGuid}-validation-1`,
-    );
-    expect(input).toHaveAttribute(
-      "aria-describedby",
-      `${mockedGuid}-validation-1`,
-    );
-  },
-);
 
 test("when id and fieldHelp are both present, the id of the field help is added to 'aria-describedby' in the input", () => {
   render(
@@ -549,72 +410,11 @@ test("when fieldHelp is present and id is not present, the id of the field help 
   );
 });
 
-test.each(validationTypes)(
-  'when id is present, %s prop is set as a string, fieldHelp is present and the input is focused, the ids of both the validation tooltip are added to "aria-describedby" in the input',
-  async (validationType) => {
-    render(
-      <Textbox
-        label="bar"
-        value="foo"
-        onChange={() => {}}
-        id="foo"
-        fieldHelp="baz"
-        {...{ [validationType]: "test" }}
-      />,
-    );
-    const input = screen.getByRole("textbox");
-    act(() => {
-      input.focus();
-    });
-
-    expect(await screen.findByRole("tooltip")).toHaveAttribute(
-      "id",
-      "foo-validation-1",
-    );
-    expect(screen.getByText("baz")).toHaveAttribute("id", "foo-field-help");
-    expect(input).toHaveAttribute(
-      "aria-describedby",
-      "foo-field-help foo-validation-1",
-    );
-  },
-);
-
-test.each(validationTypes)(
-  'when id is not present, %s prop is set as a string, fieldHelp is present and the input is focused, the ids of both the validation tooltip are added to "aria-describedby" in the input',
-  async (validationType) => {
-    render(
-      <Textbox
-        label="bar"
-        value="foo"
-        onChange={() => {}}
-        fieldHelp="baz"
-        {...{ [validationType]: "test" }}
-      />,
-    );
-    const input = screen.getByRole("textbox");
-    act(() => {
-      input.focus();
-    });
-
-    expect(await screen.findByRole("tooltip")).toHaveAttribute(
-      "id",
-      `${mockedGuid}-validation-1`,
-    );
-    expect(screen.getByText("baz")).toHaveAttribute(
-      "id",
-      `${mockedGuid}-field-help`,
-    );
-    expect(input).toHaveAttribute(
-      "aria-describedby",
-      `${mockedGuid}-field-help ${mockedGuid}-validation-1`,
-    );
-  },
-);
-
 test("describes the input with the inputHint and error message when validationMessagePositionTop is true", () => {
   render(
     <CarbonProvider validationRedesignOptIn>
       <Textbox
+        label="foo"
         inputHint="input hint"
         value="foo"
         onChange={() => {}}
@@ -624,38 +424,36 @@ test("describes the input with the inputHint and error message when validationMe
   );
 
   expect(screen.getByRole("textbox")).toHaveAccessibleDescription(
-    "validation message input hint",
+    "input hint validation message",
   );
 });
 
 test("describes the input with the inputHint and warning when validationMessagePositionTop is true", () => {
   render(
-    <CarbonProvider validationRedesignOptIn>
-      <Textbox
-        inputHint="input hint"
-        value="foo"
-        onChange={() => {}}
-        warning="validation message"
-      />
-    </CarbonProvider>,
+    <Textbox
+      label="foo"
+      inputHint="input hint"
+      value="foo"
+      onChange={() => {}}
+      warning="validation message"
+    />,
   );
 
   expect(screen.getByRole("textbox")).toHaveAccessibleDescription(
-    "validation message input hint",
+    "input hint validation message",
   );
 });
 
 test("describes the input with the inputHint and error message when validationMessagePositionTop is false", () => {
   render(
-    <CarbonProvider validationRedesignOptIn>
-      <Textbox
-        inputHint="input hint"
-        value="foo"
-        onChange={() => {}}
-        error="validation message"
-        validationMessagePositionTop={false}
-      />
-    </CarbonProvider>,
+    <Textbox
+      label="foo"
+      inputHint="input hint"
+      value="foo"
+      onChange={() => {}}
+      error="validation message"
+      validationMessagePositionTop={false}
+    />,
   );
 
   expect(screen.getByRole("textbox")).toHaveAccessibleDescription(
@@ -667,6 +465,7 @@ test("describes the input with the inputHint and warning when validationMessageP
   render(
     <CarbonProvider validationRedesignOptIn>
       <Textbox
+        label="foo"
         value="foo"
         onChange={() => {}}
         inputHint="input hint"
@@ -681,55 +480,38 @@ test("describes the input with the inputHint and warning when validationMessageP
   );
 });
 
-test("renders validation tooltip with provided 'tooltipId' prop", async () => {
-  render(
-    <Textbox
-      label="bar"
-      error="baz"
-      value="foo"
-      onChange={() => {}}
-      tooltipId="foo"
-    />,
-  );
-
-  const input = screen.getByRole("textbox");
-  act(() => {
-    input.focus();
-  });
-
-  expect(await screen.findByRole("tooltip")).toHaveAttribute("id", "foo");
-  expect(input).toHaveAccessibleDescription("baz");
-});
-
 describe("when inputHint prop is present", () => {
   it("renders the hint", () => {
-    render(<Textbox value="test string" onChange={() => {}} inputHint="foo" />);
-    expect(screen.getByText("foo")).toBeInTheDocument();
+    render(
+      <Textbox
+        label="foo"
+        value="test string"
+        onChange={() => {}}
+        inputHint="bar"
+      />,
+    );
+    expect(screen.getByText("bar")).toBeVisible();
+  });
+
+  it("does not render the hint if no label is provided", () => {
+    render(<Textbox value="test string" onChange={() => {}} inputHint="bar" />);
+    expect(screen.queryByText("bar")).not.toBeInTheDocument();
   });
 
   it("assigns the input hint a guid as id and references it in the aria-describedby of the input", () => {
-    render(<Textbox value="test string" onChange={() => {}} inputHint="bar" />);
+    render(
+      <Textbox
+        label="foo"
+        value="test string"
+        onChange={() => {}}
+        inputHint="bar"
+      />,
+    );
     expect(screen.getByText("bar")).toHaveAttribute("id", mockedGuid);
     expect(screen.getByRole("textbox")).toHaveAttribute(
       "aria-describedby",
       mockedGuid,
     );
-  });
-
-  it("uses the inputHint prop instead of labelHelp when both are passed", () => {
-    render(
-      <CarbonProvider validationRedesignOptIn>
-        <Textbox
-          labelHelp="labelHelp"
-          inputHint="inputHint"
-          error="foo"
-          value="foo"
-          onChange={() => {}}
-        />
-      </CarbonProvider>,
-    );
-    expect(screen.getByText("inputHint")).toBeInTheDocument();
-    expect(screen.queryByText("labelHelp")).not.toBeInTheDocument();
   });
 });
 
@@ -759,47 +541,11 @@ describe("when rendered with new validations", () => {
       `${mockId}-validation-1`,
     );
   });
-
-  it("ignores the labelInline and related styling props", () => {
-    renderWithNewValidations({
-      labelInline: true,
-      label: "example label",
-      labelAlign: "left",
-      labelWidth: 100,
-      labelSpacing: 1,
-      reverse: true,
-      value: "foo",
-      onChange: jest.fn(),
-    });
-    const labelContainer = screen.getByTestId("label-container");
-    expect(labelContainer).toHaveStyle({ width: undefined });
-    expect(labelContainer).toHaveStyle({ justifyContent: undefined });
-    expect(labelContainer).toHaveStyle({ paddingLeft: undefined });
-    expect(labelContainer).toHaveStyle({ paddingRight: undefined });
-  });
-
-  it("renders the hint text with the correct styling when the labelHelp prop is passed", () => {
-    renderWithNewValidations({
-      labelHelp: "help",
-      value: "foo",
-      onChange: jest.fn(),
-    });
-    const hintText = screen.getByText("help");
-    expect(hintText).toBeInTheDocument();
-    expect(hintText).toHaveStyleRule("color", "var(--colorsUtilityYin055)");
-    expect(hintText).toHaveStyleRule("font-size", "14px");
-    expect(hintText).toHaveStyleRule("margin-top", "var(--spacing000)");
-    expect(hintText).toHaveStyleRule("margin-bottom", "var(--spacing100)");
-  });
 });
 
 describe("when validation message changes", () => {
   const renderWithNewValidations = (props: TextboxProps) =>
-    render(
-      <CarbonProvider validationRedesignOptIn>
-        <Textbox {...props} />
-      </CarbonProvider>,
-    );
+    render(<Textbox {...props} />);
 
   const newValidationTypes = ["error", "warning"] as const;
 
@@ -824,14 +570,12 @@ describe("when validation message changes", () => {
       );
 
       rerender(
-        <CarbonProvider validationRedesignOptIn>
-          <Textbox
-            id={mockId}
-            {...{ [validationType]: "different message" }}
-            value="foo"
-            onChange={jest.fn()}
-          />
-        </CarbonProvider>,
+        <Textbox
+          id={mockId}
+          {...{ [validationType]: "different message" }}
+          value="foo"
+          onChange={jest.fn()}
+        />,
       );
 
       expect(screen.getByText("different message")).toHaveAttribute(
@@ -894,14 +638,12 @@ describe("when validation message changes", () => {
     );
 
     rerender(
-      <CarbonProvider validationRedesignOptIn>
-        <Textbox
-          id={mockId}
-          warning="warning message"
-          value="foo"
-          onChange={jest.fn()}
-        />
-      </CarbonProvider>,
+      <Textbox
+        id={mockId}
+        warning="warning message"
+        value="foo"
+        onChange={jest.fn()}
+      />,
     );
 
     expect(screen.getByText("warning message")).toHaveAttribute(
@@ -909,29 +651,4 @@ describe("when validation message changes", () => {
       `${mockId}-validation-2`,
     );
   });
-});
-
-test("renders with the expected border radius styling", () => {
-  render(<Textbox value="foo" onChange={() => {}} />);
-  expect(screen.getByRole("textbox")).toHaveStyleRule(
-    "border-radius",
-    "var(--borderRadius050)",
-  );
-});
-
-test("should not set `maxWidth` on the presentation layer when `labelAlign` is 'right'", () => {
-  render(
-    <Textbox
-      value=""
-      onChange={() => {}}
-      label="foo"
-      labelAlign="right"
-      maxWidth="200px"
-    />,
-  );
-
-  expect(screen.getByTestId("input-presentation-container")).toHaveStyle(
-    "max-width: 100%",
-  );
-  expect(screen.getByTestId("field-line")).toHaveStyle("max-width: 200px");
 });

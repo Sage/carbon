@@ -70,7 +70,7 @@ const StyledMenuModal = styled.div.attrs(applyBaseTheme)<{
   ${({ menuType }) => css`
     background-color: ${menuConfigVariants[menuType].background};
 
-    && {
+    &&& {
       ${StyledSearch} {
         ${StyledIcon} {
           display: inline-flex;

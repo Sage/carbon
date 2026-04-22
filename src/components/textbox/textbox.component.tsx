@@ -1,51 +1,37 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 
 import { MarginProps } from "styled-system";
 
-import Box from "../box";
 import { IconType } from "../icon";
-import FormField from "../../__internal__/form-field";
-import HintText from "../../__internal__/hint-text";
-import {
-  Input,
-  InputPresentation,
-  CommonInputProps,
-} from "../../__internal__/input";
-import { InputBehaviour } from "../../__internal__/input-behaviour";
-import InputIconToggle from "../../__internal__/input-icon-toggle";
-import { TooltipProvider } from "../../__internal__/tooltip-provider";
-import ValidationMessage from "../../__internal__/validation-message";
+import { CommonInputProps } from "../../__internal__/legacy-input";
 import { ValidationProps } from "../../__internal__/validations";
-import { filterStyledSystemMarginProps } from "../../style/utils";
-import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
-import NumeralDateContext from "../numeral-date/__internal__/numeral-date.context";
+import { TagProps } from "../../__internal__/utils/helpers/tags";
+import TextInput from "./__internal__/__next__/text-input.component";
+import InputIconToggle from "../../__internal__/input-icon-toggle";
 import useCharacterCount from "../../hooks/useCharacterCount";
 import useUniqueId from "../../hooks/__internal__/useUniqueId";
-import guid from "../../__internal__/utils/helpers/guid";
-import useInputAccessibility from "../../hooks/__internal__/useInputAccessibility/useInputAccessibility";
-import ErrorBorder from "./textbox.style";
-import StyledPrefix from "./__internal__/prefix.style";
-import { TagProps } from "../../__internal__/utils/helpers/tags";
+import combineRefs from "../../__internal__/utils/helpers/combine-refs";
 
-export const ALIGN_DEFAULT = "left";
 export const SIZE_DEFAULT = "medium";
 export const LABEL_WIDTH_DEFAULT = 30;
 export const LABEL_VALIDATION_DEFAULT = false;
 
 export interface CommonTextboxProps
-  extends ValidationProps,
+  extends Pick<ValidationProps, "error" | "warning">,
     MarginProps,
     Omit<CommonInputProps, "size" | "inputBorderRadius">,
     TagProps {
   /** Prop to specify the aria-labelledby property of the component */
   "aria-labelledby"?: string;
-  /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
+  /** @deprecated `adaptiveLabelBreakpoint` has been deprecated, the functionality will no longer work. */
   adaptiveLabelBreakpoint?: number;
   /** Integer to determine a timeout for the deferred callback */
   deferTimeout?: number;
   /** A hint string rendered before the input but after the label. Intended to describe the purpose or content of the input. */
   inputHint?: string;
-  /** [Legacy] Help content to be displayed under an input. */
+  /**
+   * @deprecated `fieldHelp` has been deprecated, `inputHint` should be used instead.
+   *  [Legacy] Help content to be displayed under an input. */
   fieldHelp?: React.ReactNode;
   /**
    * An optional alternative for props.value, this is useful if the
@@ -59,7 +45,7 @@ export interface CommonTextboxProps
    */
   id?: string;
   /** Type of the icon that will be rendered next to the input */
-  inputIcon?: IconType;
+  inputIcon?: IconType | React.ReactNode;
   /** Optional handler for click event on Textbox icon */
   iconOnClick?: (
     ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
@@ -79,24 +65,25 @@ export interface CommonTextboxProps
   leftChildren?: React.ReactNode;
   /** Label content */
   label?: string;
-  /** Label alignment */
+  /** @deprecated `labelAlign` has been deprecated, the functionality will no longer work. */
   labelAlign?: "left" | "right";
   /**
+   * @deprecated `labelHelp` has been deprecated, `inputHint` should be used instead.
    * [Legacy] Text applied to label help tooltip. When opted into new design validations
-   * it will render as a hint above the input, unless an `inputHint`
+   * string values will render as a hint above the input, unless an `inputHint`
    * prop is also passed.
    */
   labelHelp?: React.ReactNode;
-  /** [Legacy] When true label is inline. */
+  /** When true label is inline. */
   labelInline?: boolean;
-  /** [Legacy] Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8). */
+  /** @deprecated `labelSpacing` has been deprecated, the functionality will no longer work.*/
   labelSpacing?: 1 | 2;
-  /** [Legacy] Label width as a percentage when label is inline. */
+  /** @deprecated `labelWidth` has been deprecated, the functionality will no longer work. */
   labelWidth?: number;
   /** Specify a callback triggered on change */
   onChange: (ev: React.ChangeEvent<HTMLInputElement>) => void;
   /** Deferred callback to be called after the onChange event */
-  onChangeDeferred?: () => void;
+  onChangeDeferred?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
   /** Specify a callback triggered on click */
   onClick?: (
     ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
@@ -109,22 +96,24 @@ export interface CommonTextboxProps
   onMouseDown?: (ev: React.MouseEvent<HTMLElement>) => void;
   /** Emphasized part of the displayed text */
   prefix?: string;
-  /** Reverses label and input display */
+  /** @deprecated `reverse` has been deprecated, the functionality will no longer work. */
   reverse?: boolean;
   /** Size of an input */
   size?: "small" | "medium" | "large";
-  /** [Legacy] When true, validation icon will be placed on label instead of being placed on the input. */
+  /** @deprecated `validationOnLabel` has been deprecated, the functionality will no longer work. */
   validationOnLabel?: boolean;
-  /** [Legacy] Overrides the default tooltip position. */
+  /** @deprecated `tooltipPosition` has been deprecated, the functionality will no longer work. */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
-  /** [Legacy] Aria label for rendered help component. */
+  /** @deprecated `helpAriaLabel` has been deprecated, the functionality will no longer work. */
   helpAriaLabel?: string;
-  /** The id attribute for the validation tooltip */
+  /** @deprecated `tooltipId` has been deprecated, the functionality will no longer work. */
   tooltipId?: string;
   /** @private @internal @ignore */
   "data-component"?: string;
   /** Render the ValidationMessage above the Textbox input when validationRedesignOptIn flag is set */
   validationMessagePositionTop?: boolean;
+  /** @deprecated `info` has been deprecated, the functionality will no longer work. */
+  info?: string | boolean;
 }
 
 export interface TextboxProps extends Omit<CommonTextboxProps, "defaultValue"> {
@@ -136,73 +125,153 @@ export interface TextboxProps extends Omit<CommonTextboxProps, "defaultValue"> {
   characterLimit?: number;
 }
 
+const NON_FUNCTIONING_PROPS = new Set([
+  "adaptiveLabelBreakpoint",
+  "info",
+  "helpAriaLabel",
+  "labelAlign",
+  "labelWidth",
+  "labelSpacing",
+  "labelId",
+  "reverse",
+  "tooltipPosition",
+  "tooltipId",
+  "validationOnLabel",
+]);
+
+/*
+ * Filters out props that are not supported by the TextInput component to avoid React warnings about unknown props.
+ * These props are still accepted by the Textbox component for backwards compatibility, but are not passed down to the TextInput component.
+ */
+const filterNonFunctioningProps = (
+  props: Record<string, unknown>,
+): Record<string, unknown> => {
+  return Object.fromEntries(
+    Object.entries(props).filter(([key]) => !NON_FUNCTIONING_PROPS.has(key)),
+  );
+};
+
+/*
+ * This component is an adapter that maps the legacy Textbox props to the new TextInput component.
+ */
 export const Textbox = React.forwardRef(
   (
     {
+      "aria-describedby": ariaDescribedBy,
       "aria-labelledby": ariaLabelledBy,
-      "aria-describedby": ariaDescribedByProp,
-      align = ALIGN_DEFAULT,
-      autoFocus,
+      characterLimit,
       children,
-      disabled,
-      inputIcon,
-      leftChildren,
-      label,
-      labelAlign,
-      labelHelp,
-      labelInline,
-      labelSpacing,
-      id,
-      formattedValue,
-      inputHint,
-      fieldHelp,
-      error,
-      warning,
-      info,
-      name,
-      reverse,
-      size = SIZE_DEFAULT,
-      value,
-      readOnly,
-      placeholder,
-      onBlur,
-      onClick,
-      onFocus,
-      onChange,
-      onMouseDown,
-      onChangeDeferred,
-      deferTimeout,
-      iconOnClick,
-      iconOnMouseDown,
-      iconTabIndex,
-      validationOnLabel = LABEL_VALIDATION_DEFAULT,
-      labelWidth = LABEL_WIDTH_DEFAULT,
-      inputWidth,
-      maxWidth,
-      prefix,
-      adaptiveLabelBreakpoint,
-      required,
-      positionedChildren,
-      tooltipPosition,
       "data-component": dataComponent,
       "data-element": dataElement,
       "data-role": dataRole,
-      characterLimit,
-      helpAriaLabel,
-      tooltipId,
+      deferTimeout,
+      disabled,
+      error,
+      formattedValue,
+      fieldHelp,
+      iconOnClick,
+      iconOnMouseDown,
+      iconTabIndex,
+      id,
+      inputHint,
+      inputIcon,
+      inputWidth,
+      label,
+      labelHelp,
+      labelInline,
+      leftChildren,
+      maxWidth,
+      name,
+      onBlur,
+      onFocus,
+      onChange,
+      onChangeDeferred,
+      onClick,
+      onMouseDown,
+      placeholder,
+      positionedChildren,
+      prefix,
+      readOnly,
+      required,
+      size = SIZE_DEFAULT,
+      warning,
       validationMessagePositionTop = true,
-      ...props
+      value,
+      ...rest
     }: TextboxProps,
     ref: React.ForwardedRef<HTMLInputElement>,
   ) => {
-    const characterCountValue = typeof value === "string" ? value : "";
-
     const [uniqueId, uniqueName] = useUniqueId(id, name);
+    const deferredTimeout = useRef<NodeJS.Timeout | null>(null);
+    const localRef = useRef<HTMLInputElement>(null);
+    const combinedRef = combineRefs(ref, localRef);
+
+    const iconClickHandler = useCallback(
+      (
+        ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
+      ) => {
+        if (disabled || readOnly) return;
+
+        const callbackToCall = iconOnClick ?? onClick;
+        callbackToCall?.(ev);
+      },
+      [iconOnClick, onClick, disabled, readOnly],
+    );
+
+    const iconMouseDownHandler = useCallback(
+      (ev: React.MouseEvent<HTMLElement>) => {
+        if (disabled || readOnly) return;
+
+        const callbackToCall = iconOnMouseDown ?? onMouseDown;
+        callbackToCall?.(ev);
+      },
+      [iconOnMouseDown, onMouseDown, disabled, readOnly],
+    );
+
+    const iconToRender =
+      typeof inputIcon === "string" ? (
+        <InputIconToggle
+          inputIcon={inputIcon as IconType}
+          disabled={disabled}
+          error={error}
+          iconTabIndex={iconTabIndex}
+          onClick={iconClickHandler}
+          onMouseDown={iconMouseDownHandler}
+          readOnly={readOnly}
+          size={size}
+          warning={warning}
+          blockFocusStyling
+        />
+      ) : null;
+
+    const handleDeferred = useCallback(
+      (ev: React.ChangeEvent<HTMLInputElement>) => {
+        /* istanbul ignore else */
+        if (onChangeDeferred) {
+          if (deferredTimeout.current) {
+            clearTimeout(deferredTimeout.current);
+          }
+          deferredTimeout.current = setTimeout(() => {
+            onChangeDeferred(ev);
+          }, deferTimeout || 750);
+        }
+      },
+      [onChangeDeferred, deferTimeout],
+    );
+
+    const handleChange = useCallback(
+      (ev: React.ChangeEvent<HTMLInputElement>) => {
+        onChange(ev);
+        handleDeferred(ev);
+      },
+      [onChange, handleDeferred],
+    );
+
+    const characterCountValue = typeof value === "string" ? value : "";
 
     const [characterCountAriaLive, setCharacterCountAriaLive] = useState<
       "off" | "polite"
     >("off");
-
     // This block of code has been covered in a Playwright test.
     // istanbul ignore next
     const handleFocus = (ev: React.FocusEvent<HTMLInputElement>) => {
@@ -222,197 +291,71 @@ export const Textbox = React.forwardRef(
       characterLimit,
       characterCountAriaLive,
     );
-    const { validationRedesignOptIn } = useContext(NewValidationContext);
-    const { disableErrorBorder } = useContext(NumeralDateContext);
-    const computeLabelPropValues = <T,>(prop: T): undefined | T =>
-      validationRedesignOptIn ? undefined : prop;
-
-    const { labelId, validationId, fieldHelpId, ariaDescribedBy } =
-      useInputAccessibility({
-        id: uniqueId,
-        validationRedesignOptIn,
-        error,
-        warning,
-        info,
-        label,
-        fieldHelp,
-      });
-
-    const hintId = useRef(guid());
-    const inputHintId = inputHint ? hintId.current : undefined;
-
-    const describedByArray =
-      validationRedesignOptIn && validationMessagePositionTop
-        ? [ariaDescribedBy, inputHintId]
-        : [inputHintId, ariaDescribedBy];
-    const combinedAriaDescribedBy = [
-      ...describedByArray,
+    const combinedAriaDescribedByString = [
+      ariaDescribedBy,
       visuallyHiddenHintId,
-      ariaDescribedByProp,
+      fieldHelp ? `${uniqueId}-field-help` : undefined,
     ]
       .filter(Boolean)
       .join(" ");
 
-    const hasIconInside = !!(inputIcon || (validationId && !validationOnLabel));
-
-    const input = (
-      <InputPresentation
-        align={align}
-        disabled={disabled}
-        readOnly={readOnly}
-        size={size}
-        error={error}
-        warning={warning}
-        info={info}
-        prefix={prefix}
-        inputWidth={inputWidth || 100 - labelWidth}
-        maxWidth={labelInline || labelAlign !== "right" ? maxWidth : undefined}
-        positionedChildren={positionedChildren}
-        hasIcon={hasIconInside}
-      >
-        {leftChildren}
-        {prefix && (
-          <StyledPrefix data-element="textbox-prefix" size={size}>
-            {prefix}
-          </StyledPrefix>
-        )}
-        <Input
-          {...(required && { required })}
-          align={align}
-          aria-invalid={!!error}
-          aria-labelledby={ariaLabelledBy}
-          aria-describedby={combinedAriaDescribedBy}
-          autoFocus={autoFocus}
-          deferTimeout={deferTimeout}
-          disabled={disabled}
-          id={uniqueId}
-          ref={ref}
-          name={uniqueName}
-          onBlur={handleBlur}
-          onChange={onChange}
-          onChangeDeferred={onChangeDeferred}
-          onClick={disabled || readOnly ? undefined : onClick}
-          onFocus={handleFocus}
-          onMouseDown={disabled || readOnly ? undefined : onMouseDown}
-          placeholder={disabled || readOnly ? "" : placeholder}
-          readOnly={readOnly}
-          value={typeof formattedValue === "string" ? formattedValue : value}
-          validationIconId={
-            validationRedesignOptIn ? undefined : tooltipId || validationId
-          }
-          {...props}
-        />
-        {children}
-        <InputIconToggle
-          align={align}
-          disabled={disabled}
-          error={error}
-          iconTabIndex={iconTabIndex}
-          info={info}
-          inputIcon={inputIcon}
-          onClick={disabled || readOnly ? undefined : iconOnClick || onClick}
-          onMouseDown={
-            disabled || readOnly ? undefined : iconOnMouseDown || onMouseDown
-          }
-          readOnly={readOnly}
-          size={size}
-          useValidationIcon={!(validationRedesignOptIn || validationOnLabel)}
-          warning={warning}
-          validationIconId={
-            validationRedesignOptIn ? undefined : tooltipId || validationId
-          }
-        />
-      </InputPresentation>
-    );
+    const labelHelpString =
+      typeof labelHelp === "string" ? labelHelp : undefined;
 
     return (
-      <TooltipProvider
-        helpAriaLabel={helpAriaLabel}
-        tooltipPosition={tooltipPosition}
-      >
-        <InputBehaviour>
-          <FormField
-            maxWidth={
-              !labelInline && labelAlign === "right" ? maxWidth : undefined
-            }
-            disabled={disabled}
-            fieldHelpId={fieldHelpId}
-            fieldHelp={computeLabelPropValues(fieldHelp)}
-            error={error}
-            warning={warning}
-            info={info}
-            label={label}
-            labelId={labelId}
-            labelAlign={labelAlign}
-            labelHelp={computeLabelPropValues(labelHelp)}
-            labelInline={computeLabelPropValues(labelInline)}
-            labelSpacing={labelSpacing}
-            labelWidth={computeLabelPropValues(labelWidth)}
-            id={uniqueId}
-            reverse={computeLabelPropValues(reverse)}
-            useValidationIcon={computeLabelPropValues(validationOnLabel)}
-            adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
-            isRequired={required}
-            data-component={dataComponent}
-            data-role={dataRole}
-            data-element={dataElement}
-            validationIconId={
-              validationRedesignOptIn ? undefined : validationId
-            }
-            validationRedesignOptIn={validationRedesignOptIn}
-            {...filterStyledSystemMarginProps(props)}
+      <>
+        <TextInput
+          {...filterNonFunctioningProps(rest)}
+          id={uniqueId}
+          label={label || ""}
+          labelInline={labelInline}
+          disabled={disabled}
+          readOnly={readOnly}
+          size={size}
+          prefix={prefix}
+          inputHint={inputHint || labelHelpString}
+          inputIcon={iconToRender}
+          placeholder={placeholder}
+          value={
+            typeof formattedValue === "string" ? formattedValue : (value ?? "")
+          }
+          inputWidth={inputWidth}
+          error={error}
+          warning={warning}
+          aria-describedby={combinedAriaDescribedByString}
+          aria-labelledby={ariaLabelledBy}
+          required={required}
+          name={uniqueName}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          onFocus={handleFocus}
+          onClick={onClick}
+          onMouseDown={onMouseDown}
+          ref={combinedRef}
+          maxWidth={maxWidth}
+          data-component={dataComponent}
+          data-element={dataElement}
+          data-role={dataRole}
+          validationMessagePositionTop={validationMessagePositionTop}
+          leftChildren={leftChildren || positionedChildren}
+        >
+          {children}
+        </TextInput>
+        {characterCount}
+        {fieldHelp && (
+          <span
+            data-element="help"
+            style={{
+              display: "block",
+              marginTop: "8px",
+              whiteSpace: "pre-wrap",
+            }}
+            id={`${uniqueId}-field-help`}
           >
-            {(inputHint || (labelHelp && validationRedesignOptIn)) && (
-              <HintText
-                align={labelAlign}
-                data-element="input-hint"
-                id={inputHintId}
-                isComponentInline={labelInline}
-              >
-                {inputHint || labelHelp}
-              </HintText>
-            )}
-            {validationRedesignOptIn ? (
-              <Box position="relative">
-                {validationMessagePositionTop && (
-                  <>
-                    <ValidationMessage
-                      error={error}
-                      validationId={validationId}
-                      warning={warning}
-                      validationMessagePositionTop={
-                        validationMessagePositionTop
-                      }
-                    />
-                    {!disableErrorBorder && (error || warning) && (
-                      <ErrorBorder warning={!!(!error && warning)} />
-                    )}
-                  </>
-                )}
-                {input}
-                {!validationMessagePositionTop && (
-                  <>
-                    <ValidationMessage
-                      error={error}
-                      validationId={validationId}
-                      warning={warning}
-                      validationMessagePositionTop={
-                        validationMessagePositionTop
-                      }
-                    />
-                    {!disableErrorBorder && (error || warning) && (
-                      <ErrorBorder warning={!!(!error && warning)} />
-                    )}
-                  </>
-                )}
-              </Box>
-            ) : (
-              input
-            )}
-            {characterCount}
-          </FormField>
-        </InputBehaviour>
-      </TooltipProvider>
+            {fieldHelp}
+          </span>
+        )}
+      </>
     );
   },
 );

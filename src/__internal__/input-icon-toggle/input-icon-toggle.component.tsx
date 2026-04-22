@@ -1,15 +1,11 @@
-import React from "react";
+import React, { useCallback } from "react";
 import Icon, { IconType } from "../../components/icon";
-import InputIconToggleStyle, {
-  InputIconToggleStyleProps,
-} from "./input-icon-toggle.style";
+import InputIconToggleStyle from "./input-icon-toggle.style";
 import ValidationIcon, {
   ValidationProps,
 } from "../validations/validation-icon.component";
 
-export interface InputIconToggleProps
-  extends InputIconToggleStyleProps,
-    ValidationProps {
+export interface InputIconToggleProps extends ValidationProps {
   align?: "left" | "right";
   disabled?: boolean;
   iconTabIndex?: number;
@@ -21,6 +17,17 @@ export interface InputIconToggleProps
   useValidationIcon?: boolean;
   /** Id of the validation icon */
   validationIconId?: string;
+  onClick?: (
+    event:
+      | React.MouseEvent<HTMLSpanElement>
+      | React.KeyboardEvent<HTMLSpanElement>,
+  ) => void;
+  size?: "small" | "medium" | "large";
+  /**
+   * @private @ignore @internal
+   * Whether to apply focus styling to input icon
+   * */
+  blockFocusStyling?: boolean;
 }
 
 const shouldDisplayValidationIcon = ({
@@ -49,14 +56,26 @@ const InputIconToggle = ({
   align,
   iconTabIndex,
   validationIconId,
+  blockFocusStyling,
 }: InputIconToggleProps) => {
+  const handleKeyDown = useCallback(
+    (ev: React.KeyboardEvent<HTMLSpanElement>) => {
+      /* istanbul ignore else */
+      if (ev.key === " " || ev.key === "Enter") {
+        ev.preventDefault();
+        return onClick?.(ev);
+      }
+    },
+    [onClick],
+  );
+
   if (
     useValidationIcon &&
     !disabled &&
     shouldDisplayValidationIcon({ error, warning, info })
   ) {
     return (
-      <InputIconToggleStyle size={size}>
+      <InputIconToggleStyle $size={size}>
         <ValidationIcon
           error={error}
           warning={warning}
@@ -77,17 +96,19 @@ const InputIconToggle = ({
   if (type) {
     return (
       <InputIconToggleStyle
-        size={size}
+        $size={size}
         onClick={onClick}
         onFocus={onFocus}
         onBlur={onBlur}
         onMouseDown={onMouseDown}
+        onKeyDown={onClick && handleKeyDown}
         data-element="input-icon-toggle"
-        disabled={disabled}
-        readOnly={readOnly}
+        $disabled={disabled}
+        $readOnly={readOnly}
         data-role="input-icon-toggle"
         aria-hidden="true"
-        tabIndex={-1}
+        tabIndex={blockFocusStyling ? undefined : -1}
+        $blockFocusStyling={blockFocusStyling}
       >
         <Icon disabled={disabled || readOnly} type={type} />
       </InputIconToggleStyle>
