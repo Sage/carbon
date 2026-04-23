@@ -81,7 +81,7 @@ test("should have the expected styling when focused", async ({
   await inputElement.focus();
   await expect(inputElement.locator("..")).toHaveCSS(
     "box-shadow",
-    "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+    "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
   );
   await expect(inputElement.locator("..")).toHaveCSS(
     "outline",
@@ -941,7 +941,7 @@ test.describe("MultiSelect component", () => {
     await closeIcon.focus();
     await expect(closeIcon).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+      "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
     );
     await expect(closeIcon).toHaveCSS("background-color", "rgb(0, 103, 56)");
   });
