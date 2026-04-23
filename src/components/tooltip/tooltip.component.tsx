@@ -70,7 +70,7 @@ export interface TooltipProps extends TagProps {
   /**
    * Overrides the default flip behaviour of the Tooltip,
    * must be an array containing some or all of ["top", "bottom", "left", "right"]
-   * (see https://popper.js.org/docs/v2/modifiers/flip/#fallbackplacements)
+   * (see <a href="https://popper.js.org/docs/v2/modifiers/flip/#fallbackplacements" target="_blank">Popper.js documentation</a>)
    */
   flipOverrides?: TooltipPositions[];
   /** @ignore @private */

@@ -1,4 +1,5 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
+import { action } from "storybook/actions";
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
@@ -27,7 +28,6 @@ import TextEditor, {
 } from ".";
 
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
-import { action } from "@storybook/addon-actions";
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,

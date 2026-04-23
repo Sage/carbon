@@ -1,6 +1,6 @@
 import React from "react";
-import { StoryObj, StoryFn } from "@storybook/react";
-import { userEvent, within, expect } from "@storybook/test";
+import { StoryObj, StoryFn } from "@storybook/react-vite";
+import { userEvent, within, expect } from "storybook/test";
 
 import SplitButton from ".";
 import Button from "../button";

@@ -1,7 +1,7 @@
 import React from "react";
 
-import { StoryObj } from "@storybook/react";
-import { userEvent, within } from "@storybook/test";
+import { StoryObj } from "@storybook/react-vite";
+import { userEvent, within } from "storybook/test";
 
 import { FilterableSelect, FilterableSelectProps, Option } from "..";
 import Box from "../../box";

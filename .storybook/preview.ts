@@ -1,5 +1,5 @@
-import { Preview } from "@storybook/react";
-import { configure } from "@storybook/test";
+import { Preview } from "@storybook/react-vite";
+import { configure } from "storybook/test";
 
 import "../src/style/fonts.css";
 
@@ -40,7 +40,7 @@ const parameters = {
     },
   },
   chromatic: { disableSnapshot: false },
-  viewport: { viewports: customViewports },
+  viewport: { options: customViewports },
   viewMode: import.meta.env.STORYBOOK_VIEW_MODE,
 };
 
@@ -83,8 +83,8 @@ const globalTypes = {
       showName: true,
     },
   },
-  ...globalThemeProvider,
-};
+  ...(globalThemeProvider as object),
+} as Preview["globalTypes"];
 
 const decorators = [
   withGlobalStyles,

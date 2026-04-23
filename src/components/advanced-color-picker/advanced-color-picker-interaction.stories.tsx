@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { StoryObj } from "@storybook/react";
-import { userEvent, within, expect, waitFor } from "@storybook/test";
+import { StoryObj } from "@storybook/react-vite";
+import { userEvent, within, expect, waitFor } from "storybook/test";
 import AdvancedColorPicker from "./advanced-color-picker.component";
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
 import DefaultDecorator from "../../../.storybook/utils/default-decorator";

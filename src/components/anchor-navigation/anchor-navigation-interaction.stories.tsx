@@ -1,6 +1,6 @@
 import React from "react";
-import { StoryObj, StoryFn, composeStory } from "@storybook/react";
-import { userEvent, within, expect, waitFor } from "@storybook/test";
+import { StoryObj, StoryFn, composeStory } from "@storybook/react-vite";
+import { userEvent, within, expect, waitFor } from "storybook/test";
 
 import AnchorNavigation from "./anchor-navigation.component";
 import meta, { DefaultStory } from "./anchor-navigation.stories";

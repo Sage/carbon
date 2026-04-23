@@ -1,6 +1,6 @@
-import { StoryObj } from "@storybook/react";
-import { userEvent, within, expect } from "@storybook/test";
-import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
+import { StoryObj } from "@storybook/react-vite";
+import { userEvent, within, expect } from "storybook/test";
+import { INITIAL_VIEWPORTS } from "storybook/viewport";
 import React from "react";
 
 import {
@@ -17,11 +17,18 @@ type Story = StoryObj<typeof ResponsiveVerticalMenu>;
 
 export default {
   title: "Vertical Menu/Responsive/Interactions",
+
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
     viewport: {
       viewports: INITIAL_VIEWPORTS,
-      defaultViewport: "desktop",
+    },
+  },
+
+  globals: {
+    viewport: {
+      value: "desktop",
+      isRotated: false,
     },
   },
 };

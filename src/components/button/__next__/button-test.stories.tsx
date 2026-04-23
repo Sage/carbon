@@ -1,9 +1,9 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import React, { useState } from "react";
 import Button, { ButtonProps } from ".";
 import Box from "../../box";
 import Textbox from "../../textbox";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 import Typography from "../../typography";
 import Icon from "../../icon";
 import DefaultDecorator from "../../../../.storybook/utils/default-decorator";

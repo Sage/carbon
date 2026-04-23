@@ -1,5 +1,5 @@
 import React from "react";
-import { Decorator } from "@storybook/react";
+import { Decorator } from "@storybook/react-vite";
 import I18nProvider from "../src/components/i18n-provider";
 import { enGB, deDE, enCA, enUS, esES, frCA, frFR, ptPT } from "../src/locales";
 
