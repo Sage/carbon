@@ -187,7 +187,7 @@
     "ts-morph": "^27.0.2",
     "typescript": "^5.8.3",
     "url-loader": "^4.1.1",
-    "uuid": "^8.3.2",
+    "uuid": "^14.0.0",
     "vite": "^6.3.4",
     "vite-plugin-static-copy": "^3.1.2"
   },
@@ -219,7 +219,8 @@
   },
   "overrides": {
     "playwright-core": "$@playwright/experimental-ct-react",
-    "jsdom": "$jsdom"
+    "jsdom": "$jsdom",
+    "uuid": "^14.0.0"
   },
   "lint-staged": {
     "./**/*.{js,jsx,ts,tsx}": [
