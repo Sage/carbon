@@ -13,6 +13,7 @@ import {
 const meta: Meta<typeof FlatTable> = {
   title: "Flat Table/Color theming",
   component: FlatTable,
+  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export default meta;
@@ -191,4 +192,3 @@ export const MinimalDesign = () => {
   );
 };
 MinimalDesign.storyName = "Minimal Design";
-MinimalDesign.parameters = { chromatic: { disableSnapshot: false } };

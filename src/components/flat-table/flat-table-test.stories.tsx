@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { action } from "@storybook/addon-actions";
 import {
   FlatTable,
@@ -14,14 +14,15 @@ import {
   FlatTableHeaderProps,
   FlatTableRowHeaderProps,
   FlatTableCellProps,
+  FlatTableBodyDraggable,
   Sort,
 } from ".";
 import Button from "../../../src/components/button";
 import Box from "../../../src/components/box";
 import Link from "../../../src/components/link";
+import Icon from "../../../src/components/icon";
 import guid from "../../__internal__/utils/helpers/guid";
 import { FLAT_TABLE_THEMES } from "./flat-table.config";
-import { WithSortingHeaders } from "./flat-table.stories";
 import Heading from "../../../src/components/heading";
 import Pager from "../../../src/components/pager";
 import Drawer from "../../../src/components/drawer";
@@ -45,7 +46,7 @@ export default {
   parameters: {
     info: { disable: true },
     chromatic: {
-      disableSnapshot: true,
+      disableSnapshot: false,
     },
   },
   argTypes: {
@@ -331,7 +332,7 @@ export const FlatTableStory = ({
   );
 };
 
-FlatTableStory.storyName = "default";
+FlatTableStory.storyName = "Default";
 FlatTableStory.args = {
   ariaDescribedby: "",
   hasStickyHead: false,
@@ -348,14 +349,9 @@ FlatTableStory.args = {
   verticalBorder: undefined,
   verticalBorderColor: "",
 };
+FlatTableStory.parameters = { chromatic: { disableSnapshot: true } };
 
-export const SortableStory = {
-  ...WithSortingHeaders,
-  args: { ...WithSortingHeaders.args, colorTheme: "dark" },
-  name: "Sortable",
-};
-
-export const ExpandableWithLink = () => {
+export const ExpandableWithLinkAndActionPopover = () => {
   const SubRows = [
     <FlatTableRow key="subrow-1">
       <FlatTableRowHeader>Child one</FlatTableRowHeader>
@@ -370,6 +366,19 @@ export const ExpandableWithLink = () => {
       <FlatTableCell>1</FlatTableCell>
     </FlatTableRow>,
   ];
+
+  const renderMenuButton = (props: ActionPopoverMenuButtonProps) => (
+    <ActionPopoverMenuButton
+      buttonType="tertiary"
+      iconType="ellipsis_vertical"
+      iconPosition="after"
+      size="small"
+      {...props}
+    >
+      Action
+    </ActionPopoverMenuButton>
+  );
+
   return (
     <FlatTable>
       <FlatTableHead>
@@ -411,98 +420,21 @@ export const ExpandableWithLink = () => {
           <FlatTableRowHeader>Jane Smith</FlatTableRowHeader>
           <FlatTableCell>Newcastle</FlatTableCell>
           <FlatTableCell>Married</FlatTableCell>
-          <FlatTableCell>5</FlatTableCell>
+          <FlatTableCell>
+            <ActionPopover renderButton={renderMenuButton} mx="-8px">
+              <ActionPopoverItem onClick={() => {}}>action</ActionPopoverItem>
+            </ActionPopover>
+          </FlatTableCell>
         </FlatTableRow>
       </FlatTableBody>
     </FlatTable>
   );
 };
-
-export const ExpandableWithActionPopover = () => {
-  const SubRows = [
-    <FlatTableRow key="subrow-1">
-      <FlatTableRowHeader>Child one</FlatTableRowHeader>
-      <FlatTableCell>York</FlatTableCell>
-      <FlatTableCell>Married</FlatTableCell>
-      <FlatTableCell>2</FlatTableCell>
-    </FlatTableRow>,
-    <FlatTableRow key="subrow-2">
-      <FlatTableRowHeader>Child two</FlatTableRowHeader>
-      <FlatTableCell>Edinburgh</FlatTableCell>
-      <FlatTableCell>Single</FlatTableCell>
-      <FlatTableCell>1</FlatTableCell>
-    </FlatTableRow>,
-  ];
-
-  const renderMenuButton = (props: ActionPopoverMenuButtonProps) => (
-    <ActionPopoverMenuButton
-      buttonType="tertiary"
-      iconType="ellipsis_vertical"
-      iconPosition="after"
-      size="small"
-      {...props}
-    >
-      Action
-    </ActionPopoverMenuButton>
-  );
-
-  return (
-    <FlatTable>
-      <FlatTableHead>
-        <FlatTableRow>
-          <FlatTableRowHeader>Name</FlatTableRowHeader>
-          <FlatTableHeader>Location</FlatTableHeader>
-          <FlatTableHeader>Relationship Status</FlatTableHeader>
-          <FlatTableHeader>Actions</FlatTableHeader>
-        </FlatTableRow>
-      </FlatTableHead>
-      <FlatTableBody>
-        <FlatTableRow expandable subRows={SubRows}>
-          <FlatTableRowHeader>John Doe</FlatTableRowHeader>
-          <FlatTableCell>London</FlatTableCell>
-          <FlatTableCell>Single</FlatTableCell>
-          <FlatTableRowHeader stickyAlignment="right" px={1}>
-            <ActionPopover renderButton={renderMenuButton}>
-              <ActionPopoverItem onClick={() => {}}>action</ActionPopoverItem>
-            </ActionPopover>
-          </FlatTableRowHeader>
-        </FlatTableRow>
-        <FlatTableRow expandable subRows={SubRows}>
-          <FlatTableRowHeader>Jane Doe</FlatTableRowHeader>
-          <FlatTableCell>York</FlatTableCell>
-          <FlatTableCell>Married</FlatTableCell>
-          <FlatTableRowHeader stickyAlignment="right" px={1}>
-            <ActionPopover renderButton={renderMenuButton}>
-              <ActionPopoverItem onClick={() => {}}>action</ActionPopoverItem>
-            </ActionPopover>
-          </FlatTableRowHeader>
-        </FlatTableRow>
-        <FlatTableRow expandable subRows={SubRows}>
-          <FlatTableRowHeader>John Smith</FlatTableRowHeader>
-          <FlatTableCell>Edinburgh</FlatTableCell>
-          <FlatTableCell>Single</FlatTableCell>
-          <FlatTableRowHeader stickyAlignment="right" px={1}>
-            <ActionPopover renderButton={renderMenuButton}>
-              <ActionPopoverItem onClick={() => {}}>action</ActionPopoverItem>
-            </ActionPopover>
-          </FlatTableRowHeader>
-        </FlatTableRow>
-        <FlatTableRow expandable subRows={SubRows}>
-          <FlatTableRowHeader>Jane Smith</FlatTableRowHeader>
-          <FlatTableCell>Newcastle</FlatTableCell>
-          <FlatTableCell>Married</FlatTableCell>
-          <FlatTableRowHeader stickyAlignment="right" px={1}>
-            <ActionPopover renderButton={renderMenuButton}>
-              <ActionPopoverItem onClick={() => {}}>action</ActionPopoverItem>
-            </ActionPopover>
-          </FlatTableRowHeader>
-        </FlatTableRow>
-      </FlatTableBody>
-    </FlatTable>
-  );
+ExpandableWithLinkAndActionPopover.parameters = {
+  chromatic: { disableSnapshot: true },
 };
 
-export const SubRowsAsAComponentStory = () => {
+export const SubRowsAsAComponent = () => {
   const SubRowsComponent = () => (
     <>
       <FlatTableRow>
@@ -558,41 +490,7 @@ export const SubRowsAsAComponentStory = () => {
     </FlatTable>
   );
 };
-
-export const FlatTableSizeFocus = () => {
-  return (
-    <Box p={1}>
-      <FlatTable>
-        <FlatTableBody>
-          <FlatTableRow onClick={() => {}}>
-            <FlatTableCell>
-              <Box>
-                <Box py="3">Option 1</Box>
-              </Box>
-            </FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow onClick={() => {}}>
-            <FlatTableCell>
-              <Box my="3">
-                <Box>Option 2</Box>
-              </Box>
-            </FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow onClick={() => {}}>
-            <FlatTableCell>
-              <Box my={3}>
-                <Box height="69px">Option 3</Box>
-              </Box>
-            </FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow onClick={() => {}}>
-            <FlatTableCell>Option 4</FlatTableCell>
-          </FlatTableRow>
-        </FlatTableBody>
-      </FlatTable>
-    </Box>
-  );
-};
+SubRowsAsAComponent.parameters = { chromatic: { disableSnapshot: true } };
 
 export const FlatTableInsideDrawer = () => {
   return (
@@ -700,6 +598,8 @@ export const FlatTableInsideDrawer = () => {
     </Drawer>
   );
 };
+FlatTableInsideDrawer.storyName = "Inside Drawer";
+
 export const FlatRowHeaderWithNoPaddingAndButtons = () => {
   const SubRows = [
     <FlatTableRow key="sub-row-1">
@@ -914,6 +814,11 @@ export const FlatRowHeaderWithNoPaddingAndButtons = () => {
     </FlatTable>
   );
 };
+FlatRowHeaderWithNoPaddingAndButtons.storyName =
+  "Row Header With No Padding and Buttons";
+FlatRowHeaderWithNoPaddingAndButtons.parameters = {
+  chromatic: { disableSnapshot: true },
+};
 
 const themes: Array<FlatTableProps["colorTheme"]> = [
   "dark",
@@ -922,77 +827,123 @@ const themes: Array<FlatTableProps["colorTheme"]> = [
   "transparent-white",
 ];
 
-export const FlatTableThemesWithAlternateHeaderBackground = () => (
-  <>
-    {themes.map((ftTheme, index) => (
-      <React.Fragment key={`${ftTheme}-with-alt-background-${index + 1}`}>
+export const FlatTableThemes = () => (
+  <main>
+    <Box mb={2}>
+      <h2> With alternate header background</h2>
+      <Box mb={4}>
+        {themes.map((ftTheme, index) => (
+          <React.Fragment key={`${ftTheme}-with-alt-background-${index + 1}`}>
+            <FlatTable
+              aria-label={`${ftTheme}-with-alt-background`}
+              mt={1}
+              colorTheme={ftTheme}
+            >
+              <FlatTableHead>
+                <FlatTableRow>
+                  <FlatTableHeader alternativeBgColor>Name</FlatTableHeader>
+                  <FlatTableHeader>Location</FlatTableHeader>
+                </FlatTableRow>
+              </FlatTableHead>
+              <FlatTableBody>
+                <FlatTableRow>
+                  <FlatTableCell>John Doe</FlatTableCell>
+                  <FlatTableCell>London</FlatTableCell>
+                </FlatTableRow>
+              </FlatTableBody>
+            </FlatTable>
+          </React.Fragment>
+        ))}
+      </Box>
+    </Box>
+    <Box mb={2}>
+      <h2> With sticky head</h2>
+      <Box mb={4}>
+        {themes.map((ftTheme, index) => (
+          <React.Fragment key={`${ftTheme}-with-sticky-head-${index + 1}`}>
+            <FlatTable
+              aria-label={`${ftTheme}-with-sticky-head`}
+              height="100px"
+              mt={1}
+              colorTheme={ftTheme}
+              hasStickyHead
+            >
+              <FlatTableHead>
+                <FlatTableRow>
+                  <FlatTableHeader>Name</FlatTableHeader>
+                  <FlatTableHeader>Location</FlatTableHeader>
+                </FlatTableRow>
+              </FlatTableHead>
+              <FlatTableBody>
+                <FlatTableRow>
+                  <FlatTableCell>John Doe</FlatTableCell>
+                  <FlatTableCell>London</FlatTableCell>
+                </FlatTableRow>
+                <FlatTableRow>
+                  <FlatTableCell>John Doe</FlatTableCell>
+                  <FlatTableCell>London</FlatTableCell>
+                </FlatTableRow>
+                <FlatTableRow>
+                  <FlatTableCell>John Doe</FlatTableCell>
+                  <FlatTableCell>London</FlatTableCell>
+                </FlatTableRow>
+              </FlatTableBody>
+            </FlatTable>
+          </React.Fragment>
+        ))}
+      </Box>
+    </Box>
+    <Box mb={2}>
+      <h2> Minimal design</h2>
+      <Box mb={2}>
         <FlatTable
-          aria-label={`${ftTheme}-with-alt-background`}
-          mt={1}
-          colorTheme={ftTheme}
+          colorTheme="transparent-white"
+          hasOuterVerticalBorders={false}
+          bottomBorderRadius="borderRadius000"
         >
           <FlatTableHead>
-            <FlatTableRow>
-              <FlatTableHeader alternativeBgColor>Name</FlatTableHeader>
-              <FlatTableHeader>Location</FlatTableHeader>
+            <FlatTableRow horizontalBorderSize="medium">
+              <FlatTableHeader px="0">Header a</FlatTableHeader>
+              <FlatTableHeader px="0">Header b</FlatTableHeader>
+              <FlatTableHeader px="0">Header c</FlatTableHeader>
+              <FlatTableHeader px="0">Header d</FlatTableHeader>
             </FlatTableRow>
           </FlatTableHead>
           <FlatTableBody>
-            <FlatTableRow>
-              <FlatTableCell>John Doe</FlatTableCell>
-              <FlatTableCell>London</FlatTableCell>
+            <FlatTableRow horizontalBorderColor="--colorsUtilityMajor050">
+              <FlatTableCell px="0">Cell a</FlatTableCell>
+              <FlatTableCell px="0">Cell b</FlatTableCell>
+              <FlatTableCell px="0">Cell c</FlatTableCell>
+              <FlatTableCell px="0">Cell d</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow horizontalBorderColor="--colorsUtilityMajor050">
+              <FlatTableCell px="0">Cell a</FlatTableCell>
+              <FlatTableCell px="0">Cell b</FlatTableCell>
+              <FlatTableCell px="0">Cell c</FlatTableCell>
+              <FlatTableCell px="0">Cell d</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow horizontalBorderColor="--colorsUtilityMajor050">
+              <FlatTableCell px="0">Cell a</FlatTableCell>
+              <FlatTableCell px="0">Cell b</FlatTableCell>
+              <FlatTableCell px="0">Cell c</FlatTableCell>
+              <FlatTableCell px="0">Cell d</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow horizontalBorderColor="--colorsUtilityMajor050">
+              <FlatTableCell px="0">Cell a</FlatTableCell>
+              <FlatTableCell px="0">Cell b</FlatTableCell>
+              <FlatTableCell px="0">Cell c</FlatTableCell>
+              <FlatTableCell px="0">Cell d</FlatTableCell>
             </FlatTableRow>
           </FlatTableBody>
         </FlatTable>
-      </React.Fragment>
-    ))}
-  </>
+      </Box>
+    </Box>
+  </main>
 );
-FlatTableThemesWithAlternateHeaderBackground.parameters = {
-  chromatic: { disableSnapshot: false },
+FlatTableThemes.parameters = {
   themeProvider: { chromatic: { theme: "sage" } },
 };
-
-export const FlatTableThemesWithStickyHead = () => (
-  <>
-    {themes.map((ftTheme, index) => (
-      <React.Fragment key={`${ftTheme}-with-sticky-head-${index + 1}`}>
-        <FlatTable
-          aria-label={`${ftTheme}-with-sticky-head`}
-          height="100px"
-          mt={1}
-          colorTheme={ftTheme}
-          hasStickyHead
-        >
-          <FlatTableHead>
-            <FlatTableRow>
-              <FlatTableHeader>Name</FlatTableHeader>
-              <FlatTableHeader>Location</FlatTableHeader>
-            </FlatTableRow>
-          </FlatTableHead>
-          <FlatTableBody>
-            <FlatTableRow>
-              <FlatTableCell>John Doe</FlatTableCell>
-              <FlatTableCell>London</FlatTableCell>
-            </FlatTableRow>
-            <FlatTableRow>
-              <FlatTableCell>John Doe</FlatTableCell>
-              <FlatTableCell>London</FlatTableCell>
-            </FlatTableRow>
-            <FlatTableRow>
-              <FlatTableCell>John Doe</FlatTableCell>
-              <FlatTableCell>London</FlatTableCell>
-            </FlatTableRow>
-          </FlatTableBody>
-        </FlatTable>
-      </React.Fragment>
-    ))}
-  </>
-);
-FlatTableThemesWithStickyHead.parameters = {
-  chromatic: { disableSnapshot: false },
-  themeProvider: { chromatic: { theme: "sage" } },
-};
+FlatTableThemes.storyName = "Themes";
 
 export const FlatTableWithStickyHeadAndFooter = () => {
   const [state, setState] = useState(["2016-10-01", "2016-10-30"]);
@@ -1013,221 +964,619 @@ export const FlatTableWithStickyHeadAndFooter = () => {
     );
   };
 
+  const [recordsRange, setRecordsRange] = useState({ start: 0, end: 10 });
+  const [currentPage, setCurrentPage] = useState(1);
+  const rows = [
+    <FlatTableRow key="0">
+      <FlatTableCell>John Doe</FlatTableCell>
+      <FlatTableCell>London</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>0</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="1">
+      <FlatTableCell>Jane Doe</FlatTableCell>
+      <FlatTableCell>York</FlatTableCell>
+      <FlatTableCell>Married</FlatTableCell>
+      <FlatTableCell>2</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="2">
+      <FlatTableCell>John Smith</FlatTableCell>
+      <FlatTableCell>Edinburgh</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>1</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="3">
+      <FlatTableCell>Jane Smith</FlatTableCell>
+      <FlatTableCell>Newcastle</FlatTableCell>
+      <FlatTableCell>Married</FlatTableCell>
+      <FlatTableCell>5</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="4">
+      <FlatTableCell>Liz Anya</FlatTableCell>
+      <FlatTableCell>Stoke</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>2</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="5">
+      <FlatTableCell>Karl Ickbred</FlatTableCell>
+      <FlatTableCell>Newcastle</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>0</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="6">
+      <FlatTableCell>John Doe</FlatTableCell>
+      <FlatTableCell>London</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>0</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="7">
+      <FlatTableCell>Jane Doe</FlatTableCell>
+      <FlatTableCell>York</FlatTableCell>
+      <FlatTableCell>Married</FlatTableCell>
+      <FlatTableCell>2</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="8">
+      <FlatTableCell>John Smith</FlatTableCell>
+      <FlatTableCell>Edinburgh</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>1</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="9">
+      <FlatTableCell>Jane Smith</FlatTableCell>
+      <FlatTableCell>Newcastle</FlatTableCell>
+      <FlatTableCell>Married</FlatTableCell>
+      <FlatTableCell>5</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="10">
+      <FlatTableCell>Liz Anya</FlatTableCell>
+      <FlatTableCell>Stoke</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>2</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="11">
+      <FlatTableCell>Karl Ickbred</FlatTableCell>
+      <FlatTableCell>Newcastle</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>0</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="12">
+      <FlatTableCell>John Doe</FlatTableCell>
+      <FlatTableCell>London</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>0</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="13">
+      <FlatTableCell>Jane Doe</FlatTableCell>
+      <FlatTableCell>York</FlatTableCell>
+      <FlatTableCell>Married</FlatTableCell>
+      <FlatTableCell>2</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="14">
+      <FlatTableCell>John Smith</FlatTableCell>
+      <FlatTableCell>Edinburgh</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>1</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="15">
+      <FlatTableCell>Jane Smith</FlatTableCell>
+      <FlatTableCell>Newcastle</FlatTableCell>
+      <FlatTableCell>Married</FlatTableCell>
+      <FlatTableCell>5</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="16">
+      <FlatTableCell>Liz Anya</FlatTableCell>
+      <FlatTableCell>Stoke</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>2</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="17">
+      <FlatTableCell>Karl Ickbred</FlatTableCell>
+      <FlatTableCell>Newcastle</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>0</FlatTableCell>
+    </FlatTableRow>,
+  ];
+
+  const rowsLargerDiv = [
+    <FlatTableRow key="0">
+      <FlatTableCell>John Doe</FlatTableCell>
+      <FlatTableCell>London</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>0</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="1">
+      <FlatTableCell>Jane Doe</FlatTableCell>
+      <FlatTableCell>York</FlatTableCell>
+      <FlatTableCell>Married</FlatTableCell>
+      <FlatTableCell>2</FlatTableCell>
+    </FlatTableRow>,
+  ];
+
+  const renderRows = () => {
+    const { start, end } = recordsRange;
+    if (start < 0) return rows;
+    if (end > rows.length) return rows.slice(start, rows.length);
+    return rows.slice(start, end);
+  };
+
+  const renderRowsLargerDiv = () => {
+    const { start, end } = recordsRange;
+    if (start < 0) return rowsLargerDiv;
+    if (end > rowsLargerDiv.length)
+      return rowsLargerDiv.slice(start, rowsLargerDiv.length);
+    return rowsLargerDiv.slice(start, end);
+  };
+
+  const handlePagination = (newPage: number, newPageSize: number) => {
+    const start = (newPage - 1) * newPageSize;
+    const end = start + newPageSize;
+    setRecordsRange({ start, end });
+    setCurrentPage(newPage);
+  };
+
   return (
     <Box>
-      <FlatTable
-        hasStickyHead
-        hasStickyFooter
-        colorTheme="transparent-base"
-        height="400px"
-        footer={
-          <Pager
-            currentPage="1"
-            onFirst={() => {}}
-            onLast={() => {}}
-            onNext={() => {}}
-            onPagination={() => {}}
-            onPrevious={() => {}}
-            pageSizeSelectionOptions={[
-              {
-                id: "1",
-                name: 1,
-              },
-              {
-                id: "10",
-                name: 10,
-              },
-              {
-                id: "25",
-                name: 25,
-              },
-              {
-                id: "50",
-                name: 50,
-              },
-              {
-                id: "100",
-                name: 100,
-              },
-            ]}
-            totalRecords="100"
-          />
-        }
-      >
-        <FlatTableHead>
-          <FlatTableRow>
-            <FlatTableHeader pl={5}>Name</FlatTableHeader>
-            <FlatTableHeader>Location</FlatTableHeader>
-            <FlatTableHeader>Date Range</FlatTableHeader>
-            <FlatTableHeader>Multi Actions Button</FlatTableHeader>
-            <FlatTableHeader>Action</FlatTableHeader>
-            <FlatTableHeader>Date</FlatTableHeader>
-            <FlatTableHeader>Split Button</FlatTableHeader>
-          </FlatTableRow>
-        </FlatTableHead>
-        <FlatTableBody>
-          {new Array(25)
-            .fill("")
-            .map((_, index) => index)
-            .map((key) => {
-              return (
-                <FlatTableRow
-                  key={key}
-                  expandable
-                  subRows={[
-                    <FlatTableRow key="sub-row-1">
-                      <FlatTableCell>Child one</FlatTableCell>
-                      <FlatTableCell>York</FlatTableCell>
-                      <FlatTableCell>Single</FlatTableCell>
-                      <FlatTableCell>2</FlatTableCell>
-                      <FlatTableCell>
-                        <ActionPopover>
-                          <ActionPopoverItem icon="email" onClick={() => {}}>
-                            Email Invoice
-                          </ActionPopoverItem>
-                          <ActionPopoverDivider />
-                          <ActionPopoverItem icon="delete" onClick={() => {}}>
-                            Delete
-                          </ActionPopoverItem>
-                        </ActionPopover>
-                      </FlatTableCell>
-                      <FlatTableCell>date</FlatTableCell>
-                      <FlatTableCell>split button</FlatTableCell>
-                    </FlatTableRow>,
-                    <FlatTableRow key="sub-row-2">
-                      <FlatTableCell>Child two</FlatTableCell>
-                      <FlatTableCell>Edinburgh</FlatTableCell>
-                      <FlatTableCell>Single</FlatTableCell>
-                      <FlatTableCell>1</FlatTableCell>
-                      <FlatTableCell>
-                        <ActionPopover>
-                          <ActionPopoverItem icon="email" onClick={() => {}}>
-                            Email Invoice
-                          </ActionPopoverItem>
-                          <ActionPopoverDivider />
-                          <ActionPopoverItem icon="delete" onClick={() => {}}>
-                            Delete
-                          </ActionPopoverItem>
-                        </ActionPopover>
-                      </FlatTableCell>
-                      <FlatTableCell>date</FlatTableCell>
-                      <FlatTableCell>split button</FlatTableCell>
-                    </FlatTableRow>,
-                  ]}
-                >
-                  <FlatTableCell>John Doe</FlatTableCell>
-                  <FlatTableCell>
-                    <PopoverContainer
-                      title="Cover Button"
-                      shouldCoverButton
-                      open={open[key]}
-                      onClose={() => {
-                        togglePopover(key);
-                      }}
-                      onOpen={() => {
-                        togglePopover(key);
-                      }}
+      <Box mb={2}>
+        <h2> Sticky head</h2>
+        <Box height="150px">
+          <FlatTable hasStickyHead title="Table for Sticky Header">
+            <FlatTableHead>
+              <FlatTableRow>
+                <FlatTableHeader>Name</FlatTableHeader>
+                <FlatTableHeader>Location</FlatTableHeader>
+                <FlatTableHeader>Relationship Status</FlatTableHeader>
+                <FlatTableHeader>Dependents</FlatTableHeader>
+              </FlatTableRow>
+            </FlatTableHead>
+            <FlatTableBody>
+              <FlatTableRow>
+                <FlatTableCell>John Doe</FlatTableCell>
+                <FlatTableCell>London</FlatTableCell>
+                <FlatTableCell>Single</FlatTableCell>
+                <FlatTableCell>0</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow>
+                <FlatTableCell>Jane Doe</FlatTableCell>
+                <FlatTableCell>York</FlatTableCell>
+                <FlatTableCell>Married</FlatTableCell>
+                <FlatTableCell>2</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow>
+                <FlatTableCell>John Smith</FlatTableCell>
+                <FlatTableCell>Edinburgh</FlatTableCell>
+                <FlatTableCell>Single</FlatTableCell>
+                <FlatTableCell>1</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow>
+                <FlatTableCell>Jane Smith</FlatTableCell>
+                <FlatTableCell>Newcastle</FlatTableCell>
+                <FlatTableCell>Married</FlatTableCell>
+                <FlatTableCell>5</FlatTableCell>
+              </FlatTableRow>
+            </FlatTableBody>
+          </FlatTable>
+        </Box>
+      </Box>
+      <Box mb={2}>
+        <h2> Sticky footer</h2>
+        <Box height={220} marginBottom={16}>
+          <FlatTable
+            title="Table for Sticky Footer"
+            hasStickyHead
+            hasStickyFooter
+            footer={
+              <Pager
+                totalRecords={rows.length}
+                showPageSizeSelection
+                pageSize={10}
+                currentPage={currentPage}
+                onPagination={(next, size) => handlePagination(next, size)}
+                pageSizeSelectionOptions={[
+                  { id: "10", name: 10 },
+                  { id: "15", name: 15 },
+                ]}
+              />
+            }
+          >
+            <FlatTableHead>
+              <FlatTableRow>
+                <FlatTableHeader>Name</FlatTableHeader>
+                <FlatTableHeader>Location</FlatTableHeader>
+                <FlatTableHeader>Relationship Status</FlatTableHeader>
+                <FlatTableHeader>Dependents</FlatTableHeader>
+              </FlatTableRow>
+            </FlatTableHead>
+            <FlatTableBody>{renderRows()}</FlatTableBody>
+          </FlatTable>
+        </Box>
+      </Box>
+      <Box mb={2}>
+        <h2> Sticky footer inside larger div</h2>
+        <Box height="220px" marginBottom="16px">
+          <FlatTable
+            title="Table for Sticky Footer inside large Div"
+            hasStickyHead
+            hasStickyFooter
+            footer={
+              <Pager
+                totalRecords={rows.length}
+                showPageSizeSelection
+                pageSize={10}
+                currentPage={currentPage}
+                onPagination={(next, size) => handlePagination(next, size)}
+                pageSizeSelectionOptions={[
+                  { id: "10", name: 10 },
+                  { id: "15", name: 15 },
+                ]}
+              />
+            }
+          >
+            <FlatTableHead>
+              <FlatTableRow>
+                <FlatTableHeader>Name</FlatTableHeader>
+                <FlatTableHeader>Location</FlatTableHeader>
+                <FlatTableHeader>Relationship Status</FlatTableHeader>
+                <FlatTableHeader>Dependents</FlatTableHeader>
+              </FlatTableRow>
+            </FlatTableHead>
+            <FlatTableBody>{renderRowsLargerDiv()}</FlatTableBody>
+          </FlatTable>
+        </Box>
+      </Box>
+      <Box mb={2}>
+        <h2> Sticky head and footer</h2>
+        <Box>
+          <FlatTable
+            hasStickyHead
+            hasStickyFooter
+            colorTheme="transparent-base"
+            height="400px"
+            footer={
+              <Pager
+                currentPage="1"
+                onFirst={() => {}}
+                onLast={() => {}}
+                onNext={() => {}}
+                onPagination={() => {}}
+                onPrevious={() => {}}
+                pageSizeSelectionOptions={[
+                  {
+                    id: "1",
+                    name: 1,
+                  },
+                  {
+                    id: "10",
+                    name: 10,
+                  },
+                  {
+                    id: "25",
+                    name: 25,
+                  },
+                  {
+                    id: "50",
+                    name: 50,
+                  },
+                  {
+                    id: "100",
+                    name: 100,
+                  },
+                ]}
+                totalRecords="100"
+              />
+            }
+          >
+            <FlatTableHead>
+              <FlatTableRow>
+                <FlatTableHeader pl={5}>Name</FlatTableHeader>
+                <FlatTableHeader>Location</FlatTableHeader>
+                <FlatTableHeader>Date Range</FlatTableHeader>
+                <FlatTableHeader>Multi Actions Button</FlatTableHeader>
+                <FlatTableHeader>Action</FlatTableHeader>
+                <FlatTableHeader>Date</FlatTableHeader>
+                <FlatTableHeader>Split Button</FlatTableHeader>
+              </FlatTableRow>
+            </FlatTableHead>
+            <FlatTableBody>
+              {new Array(25)
+                .fill("")
+                .map((_, index) => index)
+                .map((key) => {
+                  return (
+                    <FlatTableRow
+                      key={key}
+                      expandable
+                      subRows={[
+                        <FlatTableRow key="sub-row-1">
+                          <FlatTableCell>Child one</FlatTableCell>
+                          <FlatTableCell>York</FlatTableCell>
+                          <FlatTableCell>Single</FlatTableCell>
+                          <FlatTableCell>2</FlatTableCell>
+                          <FlatTableCell>
+                            <ActionPopover>
+                              <ActionPopoverItem
+                                icon="email"
+                                onClick={() => {}}
+                              >
+                                Email Invoice
+                              </ActionPopoverItem>
+                              <ActionPopoverDivider />
+                              <ActionPopoverItem
+                                icon="delete"
+                                onClick={() => {}}
+                              >
+                                Delete
+                              </ActionPopoverItem>
+                            </ActionPopover>
+                          </FlatTableCell>
+                          <FlatTableCell>date</FlatTableCell>
+                          <FlatTableCell>split button</FlatTableCell>
+                        </FlatTableRow>,
+                        <FlatTableRow key="sub-row-2">
+                          <FlatTableCell>Child two</FlatTableCell>
+                          <FlatTableCell>Edinburgh</FlatTableCell>
+                          <FlatTableCell>Single</FlatTableCell>
+                          <FlatTableCell>1</FlatTableCell>
+                          <FlatTableCell>
+                            <ActionPopover>
+                              <ActionPopoverItem
+                                icon="email"
+                                onClick={() => {}}
+                              >
+                                Email Invoice
+                              </ActionPopoverItem>
+                              <ActionPopoverDivider />
+                              <ActionPopoverItem
+                                icon="delete"
+                                onClick={() => {}}
+                              >
+                                Delete
+                              </ActionPopoverItem>
+                            </ActionPopover>
+                          </FlatTableCell>
+                          <FlatTableCell>date</FlatTableCell>
+                          <FlatTableCell>split button</FlatTableCell>
+                        </FlatTableRow>,
+                      ]}
                     >
-                      Content
-                    </PopoverContainer>
-                  </FlatTableCell>
-                  <FlatTableCell>
-                    <DateRange
-                      startLabel="Start"
-                      endLabel="End"
-                      value={state}
-                      onChange={handleChange}
-                    />
-                  </FlatTableCell>
-                  <FlatTableCell>
-                    <MultiActionButton text="Multi Action Button">
-                      <Button>Button 1</Button>
-                      <Button>Button 2</Button>
-                      <Button>Button 3</Button>
-                    </MultiActionButton>
-                  </FlatTableCell>
-                  <FlatTableCell>
-                    <ActionPopover>
-                      <ActionPopoverItem icon="email" onClick={() => {}}>
-                        Email Invoice
-                      </ActionPopoverItem>
-                      <ActionPopoverDivider />
-                      <ActionPopoverItem icon="delete" onClick={() => {}}>
-                        Delete
-                      </ActionPopoverItem>
-                    </ActionPopover>
-                  </FlatTableCell>
-                  <FlatTableCell>
-                    <DateInput
-                      error=""
-                      fieldHelp=""
-                      helpAriaLabel=""
-                      inputWidth={70}
-                      label=""
-                      labelHelp=""
-                      labelWidth={30}
-                      maxDate=""
-                      minDate=""
-                      mt={0}
-                      name="dateinput"
-                      onBlur={() => {}}
-                      onChange={() => {}}
-                      onClick={() => {}}
-                      onKeyDown={() => {}}
-                      prefix=""
-                      size="medium"
-                      value="2019-04-04"
-                      warning=""
-                      disablePortal
-                    />
-                  </FlatTableCell>
-                  <FlatTableCell>
-                    <SplitButton text="Split button">
-                      <Button href="#">Button 1</Button>
-                      <Button>Button 2</Button>
-                      <Button>Button 3</Button>
-                    </SplitButton>
-                  </FlatTableCell>
-                </FlatTableRow>
-              );
-            })}
-        </FlatTableBody>
-      </FlatTable>
+                      <FlatTableCell>John Doe</FlatTableCell>
+                      <FlatTableCell>
+                        <PopoverContainer
+                          title="Cover Button"
+                          shouldCoverButton
+                          open={open[key]}
+                          onClose={() => {
+                            togglePopover(key);
+                          }}
+                          onOpen={() => {
+                            togglePopover(key);
+                          }}
+                        >
+                          Content
+                        </PopoverContainer>
+                      </FlatTableCell>
+                      <FlatTableCell>
+                        <DateRange
+                          startLabel="Start"
+                          endLabel="End"
+                          value={state}
+                          onChange={handleChange}
+                        />
+                      </FlatTableCell>
+                      <FlatTableCell>
+                        <MultiActionButton text="Multi Action Button">
+                          <Button>Button 1</Button>
+                          <Button>Button 2</Button>
+                          <Button>Button 3</Button>
+                        </MultiActionButton>
+                      </FlatTableCell>
+                      <FlatTableCell>
+                        <ActionPopover>
+                          <ActionPopoverItem icon="email" onClick={() => {}}>
+                            Email Invoice
+                          </ActionPopoverItem>
+                          <ActionPopoverDivider />
+                          <ActionPopoverItem icon="delete" onClick={() => {}}>
+                            Delete
+                          </ActionPopoverItem>
+                        </ActionPopover>
+                      </FlatTableCell>
+                      <FlatTableCell>
+                        <DateInput
+                          error=""
+                          fieldHelp=""
+                          helpAriaLabel=""
+                          inputWidth={70}
+                          label=""
+                          labelHelp=""
+                          labelWidth={30}
+                          maxDate=""
+                          minDate=""
+                          mt={0}
+                          name="dateinput"
+                          onBlur={() => {}}
+                          onChange={() => {}}
+                          onClick={() => {}}
+                          onKeyDown={() => {}}
+                          prefix=""
+                          size="medium"
+                          value="2019-04-04"
+                          warning=""
+                          disablePortal
+                        />
+                      </FlatTableCell>
+                      <FlatTableCell>
+                        <SplitButton text="Split button">
+                          <Button href="#">Button 1</Button>
+                          <Button>Button 2</Button>
+                          <Button>Button 3</Button>
+                        </SplitButton>
+                      </FlatTableCell>
+                    </FlatTableRow>
+                  );
+                })}
+            </FlatTableBody>
+          </FlatTable>
+        </Box>
+      </Box>
     </Box>
   );
 };
+FlatTableWithStickyHeadAndFooter.storyName = "With Sticky Head And Footer";
 
-FlatTableWithStickyHeadAndFooter.parameters = {
-  chromatic: { disableSnapshot: true },
-};
-
-export const WithLongRowHeader = () => {
-  return (
-    <Box p={2} width="300px" backgroundColor="red">
-      <FlatTable title="With Long Row Header">
-        <FlatTableHead>
-          <FlatTableRow>
-            <FlatTableHeader>
-              Really long table header that should wrap
-            </FlatTableHeader>
-            <FlatTableRowHeader>Name</FlatTableRowHeader>
-          </FlatTableRow>
-        </FlatTableHead>
-        <FlatTableBody>
-          <FlatTableRow>
-            <FlatTableCell>000001</FlatTableCell>
-            <FlatTableRowHeader>John Doe</FlatTableRowHeader>
-          </FlatTableRow>
-          <FlatTableRow>
-            <FlatTableCell>000002</FlatTableCell>
-            <FlatTableRowHeader>Jane Doe</FlatTableRowHeader>
-          </FlatTableRow>
-        </FlatTableBody>
-      </FlatTable>
+export const FlatTableRowSpanColSpan = () => (
+  <main>
+    <Box mb={2}>
+      <h2> rowSpan</h2>
+      <Box>
+        <FlatTable title="Table for Row Span">
+          <FlatTableHead>
+            <FlatTableRow>
+              <FlatTableHeader>Parent Name</FlatTableHeader>
+              <FlatTableHeader>Child Name</FlatTableHeader>
+              <FlatTableHeader>Child Age</FlatTableHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>
+            <FlatTableRow>
+              <FlatTableCell rowspan="3">Jane Smith</FlatTableCell>
+              <FlatTableCell>Tim Smith</FlatTableCell>
+              <FlatTableCell>8</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell>Chris Smith</FlatTableCell>
+              <FlatTableCell>8</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell>Alice Smith</FlatTableCell>
+              <FlatTableCell>12</FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBody>
+        </FlatTable>
+      </Box>
     </Box>
-  );
+    <Box mb={2}>
+      <h2> colSpan</h2>
+      <Box mb={4}>
+        <FlatTable title="Table for Col Span">
+          <FlatTableHead>
+            <FlatTableRow>
+              <FlatTableHeader>Name</FlatTableHeader>
+              <FlatTableHeader>Location</FlatTableHeader>
+              <FlatTableHeader>Relationship Status</FlatTableHeader>
+              <FlatTableHeader>Dependents</FlatTableHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>
+            <FlatTableRow>
+              <FlatTableCell colspan="4" align="center">
+                No results
+              </FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBody>
+        </FlatTable>
+      </Box>
+    </Box>
+    <Box mb={2}>
+      <h2> Header with rowSpan and colSpan</h2>
+      <Box mb={4}>
+        <FlatTable title="Table for Header with Row and Column spans">
+          <FlatTableHead>
+            <FlatTableRow>
+              <FlatTableHeader rowspan={2}>Name</FlatTableHeader>
+              <FlatTableRowHeader rowspan={2}>Code</FlatTableRowHeader>
+              <FlatTableHeader colspan={2}>Jun 21</FlatTableHeader>
+              <FlatTableHeader colspan={2}>YTD</FlatTableHeader>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableHeader>Debit</FlatTableHeader>
+              <FlatTableHeader>Credit</FlatTableHeader>
+              <FlatTableHeader>Debit</FlatTableHeader>
+              <FlatTableHeader>Credit</FlatTableHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>
+            <FlatTableRow>
+              <FlatTableCell>John Doe</FlatTableCell>
+              <FlatTableRowHeader>000001</FlatTableRowHeader>
+              <FlatTableCell>London</FlatTableCell>
+              <FlatTableCell>Single</FlatTableCell>
+              <FlatTableCell>0</FlatTableCell>
+              <FlatTableCell>0</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell>John Doe</FlatTableCell>
+              <FlatTableRowHeader>000001</FlatTableRowHeader>
+              <FlatTableCell>London</FlatTableCell>
+              <FlatTableCell>Single</FlatTableCell>
+              <FlatTableCell>0</FlatTableCell>
+              <FlatTableCell>0</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell>John Doe</FlatTableCell>
+              <FlatTableRowHeader>000001</FlatTableRowHeader>
+              <FlatTableCell>London</FlatTableCell>
+              <FlatTableCell>Single</FlatTableCell>
+              <FlatTableCell>0</FlatTableCell>
+              <FlatTableCell>0</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell>John Doe</FlatTableCell>
+              <FlatTableRowHeader>000001</FlatTableRowHeader>
+              <FlatTableCell>London</FlatTableCell>
+              <FlatTableCell>Single</FlatTableCell>
+              <FlatTableCell>0</FlatTableCell>
+              <FlatTableCell>0</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell>John Doe</FlatTableCell>
+              <FlatTableRowHeader>000001</FlatTableRowHeader>
+              <FlatTableCell>London</FlatTableCell>
+              <FlatTableCell>Single</FlatTableCell>
+              <FlatTableCell>0</FlatTableCell>
+              <FlatTableCell>0</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell>John Doe</FlatTableCell>
+              <FlatTableRowHeader>000001</FlatTableRowHeader>
+              <FlatTableCell>London</FlatTableCell>
+              <FlatTableCell>Single</FlatTableCell>
+              <FlatTableCell>0</FlatTableCell>
+              <FlatTableCell>0</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell>John Doe</FlatTableCell>
+              <FlatTableRowHeader>000001</FlatTableRowHeader>
+              <FlatTableCell>London</FlatTableCell>
+              <FlatTableCell>Single</FlatTableCell>
+              <FlatTableCell>0</FlatTableCell>
+              <FlatTableCell>0</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell>John Doe</FlatTableCell>
+              <FlatTableRowHeader>000001</FlatTableRowHeader>
+              <FlatTableCell>London</FlatTableCell>
+              <FlatTableCell>Single</FlatTableCell>
+              <FlatTableCell>0</FlatTableCell>
+              <FlatTableCell>0</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell>John Doe</FlatTableCell>
+              <FlatTableRowHeader>000001</FlatTableRowHeader>
+              <FlatTableCell>London</FlatTableCell>
+              <FlatTableCell>Single</FlatTableCell>
+              <FlatTableCell>0</FlatTableCell>
+              <FlatTableCell>0</FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBody>
+        </FlatTable>
+      </Box>
+    </Box>
+  </main>
+);
+FlatTableRowSpanColSpan.parameters = {
+  themeProvider: { chromatic: { theme: "sage" } },
 };
-WithLongRowHeader.storyName = "With Long Row Header";
+FlatTableRowSpanColSpan.storyName = "With rowSpan and colSpan";
 
 type SortType = "ascending" | "descending";
 type TableRowData = Record<string, string | number>;
@@ -1377,137 +1726,567 @@ export const ExtendedColumnSorting = (args: FlatTableProps) => {
   );
 };
 
-const data = Array.from({ length: 300 }, (_, index) => ({
-  id: index + 1,
-  name: `Item ${index + 1}`,
-  value: Math.floor(Math.random() * 1000),
-  status: index % 2 === 0 ? "Active" : "Inactive",
-}));
-
-const MemoizedRow = React.memo(
-  ({
-    rowId,
-    row,
-    isChecked,
-    onSelect,
-  }: {
-    rowId: string;
-    row: (typeof data)[number];
-    isChecked: boolean;
-    onSelect: (id: string) => void;
-  }) => {
-    return (
-      <FlatTableRow>
-        <FlatTableCheckbox
-          checked={isChecked}
-          onChange={() => onSelect(rowId)}
-          ariaLabelledBy={`row-${row.id}-id row-${row.id}-name row-${row.id}-value row-${row.id}-status`}
-        />
-        <FlatTableCell id={`row-${row.id}-id`}>{row.id}</FlatTableCell>
-        <FlatTableCell id={`row-${row.id}-name`}>{row.name}</FlatTableCell>
-        <FlatTableCell id={`row-${row.id}-value`}>{row.value}</FlatTableCell>
-        <FlatTableCell id={`row-${row.id}-status`}>{row.status}</FlatTableCell>
-      </FlatTableRow>
-    );
-  },
-);
-
-export const WithSelectableRows = () => {
-  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
-
-  const isChecked = (id: string) => selectedIds.has(id);
-
-  const handleSelectAll = useCallback(() => {
-    setSelectedIds((prev) => {
-      if (prev.size === data.length) {
-        return new Set();
-      } else {
-        return new Set(data.map((row) => row.id.toString()));
-      }
-    });
-  }, []);
-
-  const handleRowSelect = useCallback((id: string) => {
-    setSelectedIds((prev) => {
-      const newSet = new Set(prev);
-      if (newSet.has(id)) {
-        newSet.delete(id);
-      } else {
-        newSet.add(id);
-      }
-      return newSet;
-    });
-  }, []);
-
-  return (
-    <FlatTable colorTheme="light" width="100%">
-      <FlatTableHead>
-        <FlatTableRow>
-          <FlatTableCheckbox
-            as="th"
-            checked={selectedIds.size === data.length}
-            onChange={handleSelectAll}
-            ariaLabelledBy="header-id header-name header-value header-status"
-          />
-          <FlatTableHeader id="header-id">ID</FlatTableHeader>
-          <FlatTableHeader id="header-name">Name</FlatTableHeader>
-          <FlatTableHeader id="header-value">Value</FlatTableHeader>
-          <FlatTableHeader id="header-status">Status</FlatTableHeader>
-        </FlatTableRow>
-      </FlatTableHead>
-      <FlatTableBody>
-        {data.map((row) => (
-          <MemoizedRow
-            key={row.id}
-            rowId={row.id.toString()}
-            row={row}
-            onSelect={handleRowSelect}
-            isChecked={isChecked(row.id.toString())}
-          />
-        ))}
-      </FlatTableBody>
-    </FlatTable>
-  );
-};
-
-export const FlatTableWithStickyHeadAndButtons = () => {
-  return (
-    <FlatTable height="250px" mt={1} hasStickyHead>
-      <FlatTableHead>
-        <FlatTableRow>
-          <FlatTableHeader>Name</FlatTableHeader>
-          <FlatTableHeader>Split Button</FlatTableHeader>
-          <FlatTableHeader>Multi Action Button</FlatTableHeader>
-        </FlatTableRow>
-      </FlatTableHead>
-      <FlatTableBody>
-        {new Array(7)
-          .fill("")
-          .map((_, index) => index)
-          .map((key) => {
-            return (
+export const FlatTableWrappingAndTruncation = () => (
+  <main>
+    <Box mb={2}>
+      <h2> With long table header and cell content</h2>
+      <Box p={4} width="300px" backgroundColor="red">
+        <FlatTable title="Table with Long Table Header and Cell">
+          <FlatTableHead>
+            <FlatTableRow>
+              <FlatTableHeader>
+                Really long table header that should wrap
+              </FlatTableHeader>
+              <FlatTableRowHeader>Name</FlatTableRowHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>
+            <FlatTableRow>
+              <FlatTableCell>000001</FlatTableCell>
+              <FlatTableRowHeader>John Wrap</FlatTableRowHeader>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell>000002</FlatTableCell>
+              <FlatTableRowHeader>Jane Wrap</FlatTableRowHeader>
+            </FlatTableRow>
+          </FlatTableBody>
+        </FlatTable>
+      </Box>
+    </Box>
+    <Box mb={2}>
+      <h2> Truncated header</h2>
+      <Box mb={4}>
+        <FlatTable title="Table for Truncated Header Content">
+          <FlatTableHead>
+            <FlatTableRow>
+              <FlatTableRowHeader width={100}>Name</FlatTableRowHeader>
+              <FlatTableRowHeader
+                width={120}
+                pr={0}
+                truncate
+                title="Alternate Title"
+              >
+                Location of the main dwelling of the resident
+              </FlatTableRowHeader>
+              <FlatTableRowHeader>Notes</FlatTableRowHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>
+            {[1, 2, 3, 4].map((key) => (
               <FlatTableRow key={key}>
-                <FlatTableCell>John</FlatTableCell>
+                <FlatTableCell>John Doe</FlatTableCell>
+                <FlatTableCell>London</FlatTableCell>
                 <FlatTableCell>
-                  <SplitButton text="Split Button">
-                    <Button>Button 1</Button>
-                    <Button>Button 2</Button>
-                  </SplitButton>
-                </FlatTableCell>
-                <FlatTableCell>
-                  <MultiActionButton text="Multi Action Button">
-                    <Button>Button 1</Button>
-                    <Button>Button 2</Button>
-                  </MultiActionButton>
+                  <Textbox
+                    size="small"
+                    aria-label="textbox"
+                    value=""
+                    onChange={() => {}}
+                  />
                 </FlatTableCell>
               </FlatTableRow>
-            );
-          })}
-      </FlatTableBody>
-    </FlatTable>
-  );
+            ))}
+          </FlatTableBody>
+        </FlatTable>
+      </Box>
+    </Box>
+    <Box mb={2}>
+      <h2> Truncated cell</h2>
+      <Box mb={4}>
+        <FlatTable title="Table for Truncated Cell Content">
+          <FlatTableHead>
+            <FlatTableRow>
+              <FlatTableHeader>Name</FlatTableHeader>
+              <FlatTableHeader>Location</FlatTableHeader>
+              <FlatTableHeader>Notes</FlatTableHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>
+            {[1, 2, 3, 4].map((key) => (
+              <FlatTableRow key={key}>
+                <FlatTableCell width={60} pr={0} truncate>
+                  John Doe
+                </FlatTableCell>
+                <FlatTableCell
+                  width={50}
+                  pr={0}
+                  truncate
+                  title="Alternate Title"
+                >
+                  London
+                </FlatTableCell>
+                <FlatTableCell>
+                  <Textbox
+                    size="small"
+                    aria-label="textbox"
+                    value=""
+                    onChange={() => {}}
+                  />
+                </FlatTableCell>
+              </FlatTableRow>
+            ))}
+          </FlatTableBody>
+        </FlatTable>
+      </Box>
+    </Box>
+  </main>
+);
+FlatTableWrappingAndTruncation.parameters = {
+  themeProvider: { chromatic: { theme: "sage" } },
 };
+FlatTableWrappingAndTruncation.storyName = "Wrapping and Truncation";
 
-FlatTableWithStickyHeadAndButtons.parameters = {
-  chromatic: { disableSnapshot: true },
+export const FlatTableCustomStyling = () => (
+  <main>
+    <Box mb={2}>
+      <h2> Custom cell padding</h2>
+      <Box mb={4}>
+        <FlatTable title="Table for Custom Cell Paddings">
+          <FlatTableHead>
+            <FlatTableRow>
+              <FlatTableHeader px={1} py={2}>
+                Name
+              </FlatTableHeader>
+              <FlatTableHeader px={2} py={2}>
+                Location
+              </FlatTableHeader>
+              <FlatTableHeader px={3} py={2}>
+                Relationship Status
+              </FlatTableHeader>
+              <FlatTableHeader px={4} py={2}>
+                Dependents
+              </FlatTableHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>
+            {[1, 2, 3, 4].map((key) => (
+              <FlatTableRow key={key}>
+                <FlatTableCell px={key}>John Doe</FlatTableCell>
+                <FlatTableCell pl={key}>London</FlatTableCell>
+                <FlatTableCell p={key}>Single</FlatTableCell>
+                <FlatTableCell pl={key}>5</FlatTableCell>
+              </FlatTableRow>
+            ))}
+          </FlatTableBody>
+        </FlatTable>
+      </Box>
+    </Box>
+    <Box mb={2}>
+      <h2> Custom column width</h2>
+      <Box mb={4}>
+        <FlatTable title="Table for Custom Column Width">
+          <FlatTableHead>
+            <FlatTableRow>
+              <FlatTableHeader width={80}>Name</FlatTableHeader>
+              <FlatTableHeader>Location</FlatTableHeader>
+              <FlatTableHeader width={200}>Notes</FlatTableHeader>
+              <FlatTableHeader width={40} px={1}>
+                <Icon color="white" type="settings" />
+              </FlatTableHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>
+            {[1, 2, 3, 4].map((key) => (
+              <FlatTableRow key={key}>
+                <FlatTableCell>John Doe</FlatTableCell>
+                <FlatTableCell>London</FlatTableCell>
+                <FlatTableCell>
+                  <Textbox
+                    placeholder="Notes for John Doe"
+                    size="small"
+                    value=""
+                    onChange={() => {}}
+                  />
+                </FlatTableCell>
+                <FlatTableCell px={1}>
+                  <ActionPopover>
+                    <ActionPopoverItem onClick={() => {}} icon="graph">
+                      Business
+                    </ActionPopoverItem>
+                    <ActionPopoverItem onClick={() => {}} icon="email">
+                      Email Invoice
+                    </ActionPopoverItem>
+                  </ActionPopover>
+                </FlatTableCell>
+              </FlatTableRow>
+            ))}
+          </FlatTableBody>
+        </FlatTable>
+      </Box>
+    </Box>
+    <Box mb={2}>
+      <h2> Custom row background color</h2>
+      <Box mb={4}>
+        <FlatTable title="Table for Custom Row Background Color">
+          <FlatTableHead>
+            <FlatTableRow>
+              <FlatTableRowHeader>No.</FlatTableRowHeader>
+              <FlatTableHeader />
+              <FlatTableHeader>Name</FlatTableHeader>
+              <FlatTableHeader>Location</FlatTableHeader>
+              <FlatTableHeader>Relationship Status</FlatTableHeader>
+              <FlatTableHeader>Dependents</FlatTableHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>
+            <FlatTableRow bgColor="#B1D345">
+              <FlatTableRowHeader>1</FlatTableRowHeader>
+              <FlatTableCheckbox
+                ariaLabelledBy="ft-row-1-cell-1 ft-row-1-cell-2 ft-row-1-cell-3"
+                checked={false}
+                onChange={() => {}}
+              />
+              <FlatTableCell id="ft-row-1-cell-1">John Doe</FlatTableCell>
+              <FlatTableCell id="ft-row-1-cell-2">London</FlatTableCell>
+              <FlatTableCell id="ft-row-1-cell-3">Single</FlatTableCell>
+              <FlatTableCell>0</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableRowHeader>2</FlatTableRowHeader>
+              <FlatTableCheckbox
+                ariaLabelledBy="ft-row-2-cell-1 ft-row-2-cell-2 ft-row-2-cell-3"
+                checked={false}
+                onChange={() => {}}
+              />
+              <FlatTableCell id="ft-row-2-cell-1">Jane Doe</FlatTableCell>
+              <FlatTableCell id="ft-row-2-cell-2">York</FlatTableCell>
+              <FlatTableCell id="ft-row-2-cell-3">Married</FlatTableCell>
+              <FlatTableCell>2</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow bgColor="#B1D345">
+              <FlatTableRowHeader>3</FlatTableRowHeader>
+              <FlatTableCheckbox
+                ariaLabelledBy="ft-row-3-cell-1 ft-row-3-cell-2 ft-row-3-cell-3"
+                checked={false}
+                onChange={() => {}}
+              />
+              <FlatTableCell id="ft-row-3-cell-1">John Smith</FlatTableCell>
+              <FlatTableCell id="ft-row-3-cell-2">Edinburgh</FlatTableCell>
+              <FlatTableCell id="ft-row-3-cell-3">Single</FlatTableCell>
+              <FlatTableCell>1</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableRowHeader>4</FlatTableRowHeader>
+              <FlatTableCheckbox
+                ariaLabelledBy="ft-row-4-cell-1 ft-row-4-cell-2 ft-row-4-cell-3"
+                checked={false}
+                onChange={() => {}}
+              />
+              <FlatTableCell id="ft-row-4-cell-1">Jane Smith</FlatTableCell>
+              <FlatTableCell id="ft-row-4-cell-2">Newcastle</FlatTableCell>
+              <FlatTableCell id="ft-row-4-cell-3">Married</FlatTableCell>
+              <FlatTableCell>5</FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBody>
+        </FlatTable>
+      </Box>
+    </Box>
+    <Box mb={2}>
+      <h2> Custom horizontal border size</h2>
+      <Box mb={4}>
+        <FlatTable title="Table for Custom Horizontal Border Size">
+          <FlatTableHead>
+            <FlatTableRow horizontalBorderSize="large">
+              <FlatTableHeader>Name</FlatTableHeader>
+              <FlatTableHeader>Location</FlatTableHeader>
+              <FlatTableHeader>Relationship Status</FlatTableHeader>
+              <FlatTableHeader>Dependents</FlatTableHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>
+            <FlatTableRow horizontalBorderSize="medium">
+              <FlatTableCell>John Doe</FlatTableCell>
+              <FlatTableCell>London</FlatTableCell>
+              <FlatTableCell>Single</FlatTableCell>
+              <FlatTableCell>0</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow horizontalBorderSize="large">
+              <FlatTableCell>John Smith</FlatTableCell>
+              <FlatTableCell>Edinburgh</FlatTableCell>
+              <FlatTableCell>Single</FlatTableCell>
+              <FlatTableCell>1</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell>Jane Smith</FlatTableCell>
+              <FlatTableCell>Newcastle</FlatTableCell>
+              <FlatTableCell>Married</FlatTableCell>
+              <FlatTableCell>5</FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBody>
+        </FlatTable>
+      </Box>
+    </Box>
+    <Box mb={2}>
+      <h2> Custom horizontal border color</h2>
+      <Box mb={4}>
+        <FlatTable title="Table for Custom Horizontal Border Color">
+          <FlatTableHead>
+            <FlatTableRow>
+              <FlatTableHeader>Name</FlatTableHeader>
+              <FlatTableHeader>Location</FlatTableHeader>
+              <FlatTableHeader>Relationship Status</FlatTableHeader>
+              <FlatTableHeader>Dependents</FlatTableHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>
+            <FlatTableRow horizontalBorderColor="goldTint10">
+              <FlatTableCell>John Doe</FlatTableCell>
+              <FlatTableCell>London</FlatTableCell>
+              <FlatTableCell>Single</FlatTableCell>
+              <FlatTableCell>0</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow horizontalBorderColor="blue">
+              <FlatTableCell>Jane Doe</FlatTableCell>
+              <FlatTableCell>York</FlatTableCell>
+              <FlatTableCell>Married</FlatTableCell>
+              <FlatTableCell>2</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow horizontalBorderColor="--colorsUtilityYin090">
+              <FlatTableCell>John Smith</FlatTableCell>
+              <FlatTableCell>Edinburgh</FlatTableCell>
+              <FlatTableCell>Single</FlatTableCell>
+              <FlatTableCell>1</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell>Jane Smith</FlatTableCell>
+              <FlatTableCell>Newcastle</FlatTableCell>
+              <FlatTableCell>Married</FlatTableCell>
+              <FlatTableCell>5</FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBody>
+        </FlatTable>
+      </Box>
+    </Box>
+    <Box mb={2}>
+      <h2> Custom bottom border radius</h2>
+      <Box mb={4}>
+        <FlatTable
+          bottomBorderRadius="borderRadius000"
+          title="Table for Custom Bottom Border Radius"
+        >
+          <FlatTableHead>
+            <FlatTableRow>
+              <FlatTableHeader>Name</FlatTableHeader>
+              <FlatTableHeader>Location</FlatTableHeader>
+              <FlatTableHeader>Relationship Status</FlatTableHeader>
+              <FlatTableHeader>Dependents</FlatTableHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>
+            <FlatTableRow>
+              <FlatTableCell>John Doe</FlatTableCell>
+              <FlatTableCell>London</FlatTableCell>
+              <FlatTableCell>Single</FlatTableCell>
+              <FlatTableCell>0</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell>Jane Doe</FlatTableCell>
+              <FlatTableCell>York</FlatTableCell>
+              <FlatTableCell>Married</FlatTableCell>
+              <FlatTableCell>2</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell>John Smith</FlatTableCell>
+              <FlatTableCell>Edinburgh</FlatTableCell>
+              <FlatTableCell>Single</FlatTableCell>
+              <FlatTableCell>1</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell>Jane Smith</FlatTableCell>
+              <FlatTableCell>Newcastle</FlatTableCell>
+              <FlatTableCell>Married</FlatTableCell>
+              <FlatTableCell>5</FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBody>
+        </FlatTable>
+      </Box>
+    </Box>
+    <Box mb={2}>
+      <h2> Custom vertical borders</h2>
+      <Box mb={4}>
+        <FlatTable title="Table for Custom Vertical Borders">
+          <FlatTableHead>
+            <FlatTableRow>
+              <FlatTableHeader
+                verticalBorder="small"
+                verticalBorderColor="#335CDC"
+              >
+                Name
+              </FlatTableHeader>
+              <FlatTableHeader
+                verticalBorder="medium"
+                verticalBorderColor="goldTint10"
+              >
+                Location
+              </FlatTableHeader>
+              <FlatTableHeader verticalBorder="large">
+                Relationship Status
+              </FlatTableHeader>
+              <FlatTableHeader>Dependents</FlatTableHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>
+            <FlatTableRow>
+              <FlatTableCell
+                verticalBorder="small"
+                verticalBorderColor="--colorsUtilityYin090"
+              >
+                John Doe
+              </FlatTableCell>
+              <FlatTableCell
+                verticalBorder="medium"
+                verticalBorderColor="goldTint10"
+              >
+                London
+              </FlatTableCell>
+              <FlatTableCell verticalBorder="large">Single</FlatTableCell>
+              <FlatTableCell>0</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell
+                verticalBorder="small"
+                verticalBorderColor="--colorsUtilityYin090"
+              >
+                Jane Doe
+              </FlatTableCell>
+              <FlatTableCell
+                verticalBorder="medium"
+                verticalBorderColor="goldTint10"
+              >
+                York
+              </FlatTableCell>
+              <FlatTableCell verticalBorder="large">Married</FlatTableCell>
+              <FlatTableCell>2</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell
+                verticalBorder="small"
+                verticalBorderColor="--colorsUtilityYin090"
+              >
+                John Smith
+              </FlatTableCell>
+              <FlatTableCell
+                verticalBorder="medium"
+                verticalBorderColor="goldTint10"
+              >
+                Edinburgh
+              </FlatTableCell>
+              <FlatTableCell verticalBorder="large">Single</FlatTableCell>
+              <FlatTableCell>1</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell
+                verticalBorder="small"
+                verticalBorderColor="--colorsUtilityYin090"
+              >
+                Jane Smith
+              </FlatTableCell>
+              <FlatTableCell
+                verticalBorder="medium"
+                verticalBorderColor="goldTint10"
+              >
+                Newcastle
+              </FlatTableCell>
+              <FlatTableCell verticalBorder="large">Married</FlatTableCell>
+              <FlatTableCell>5</FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBody>
+        </FlatTable>
+      </Box>
+    </Box>
+  </main>
+);
+FlatTableCustomStyling.parameters = {
+  themeProvider: { chromatic: { theme: "sage" } },
 };
+FlatTableCustomStyling.storyName = "Custom Styling";
+
+const rows = [
+  {
+    id: "0",
+    name: "UK",
+  },
+  {
+    id: "1",
+    name: "Germany",
+  },
+  {
+    id: "2",
+    name: "China",
+  },
+  {
+    id: "3",
+    name: "US",
+  },
+];
+
+export const FlatTableZebraAndDraggable = () => (
+  <main>
+    <Box mb={2}>
+      <h2> Zebra rows</h2>
+      <Box mb={4}>
+        <FlatTable isZebra title="Table for Zebra">
+          <FlatTableHead>
+            <FlatTableRow>
+              <FlatTableHeader>Name</FlatTableHeader>
+              <FlatTableHeader>Location</FlatTableHeader>
+              <FlatTableHeader>Relationship Status</FlatTableHeader>
+              <FlatTableHeader>Dependents</FlatTableHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>
+            <FlatTableRow>
+              <FlatTableCell>John Doe</FlatTableCell>
+              <FlatTableCell>London</FlatTableCell>
+              <FlatTableCell>Single</FlatTableCell>
+              <FlatTableCell>0</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell>Jane Doe</FlatTableCell>
+              <FlatTableCell>York</FlatTableCell>
+              <FlatTableCell>Married</FlatTableCell>
+              <FlatTableCell>2</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell>John Smith</FlatTableCell>
+              <FlatTableCell>Edinburgh</FlatTableCell>
+              <FlatTableCell>Single</FlatTableCell>
+              <FlatTableCell>1</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell>Jane Smith</FlatTableCell>
+              <FlatTableCell>Newcastle</FlatTableCell>
+              <FlatTableCell>Married</FlatTableCell>
+              <FlatTableCell>5</FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBody>
+        </FlatTable>
+      </Box>
+    </Box>
+    <Box mb={2}>
+      <h2> Draggable rows</h2>
+      <Box mb={4}>
+        <FlatTable title="Table for draggable rows">
+          <FlatTableHead>
+            <FlatTableRow>
+              <FlatTableHeader />
+              <FlatTableHeader>Country</FlatTableHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBodyDraggable>
+            {rows.map((row) => (
+              <FlatTableRow key={row.id} id={row.id}>
+                <FlatTableCell>{row.name}</FlatTableCell>
+              </FlatTableRow>
+            ))}
+          </FlatTableBodyDraggable>
+        </FlatTable>
+      </Box>
+    </Box>
+  </main>
+);
+
+FlatTableZebraAndDraggable.parameters = {
+  themeProvider: { chromatic: { theme: "sage" } },
+};
+FlatTableZebraAndDraggable.storyName = "Zebra and Draggable";

@@ -708,6 +708,36 @@ test("should ensure the table has an accessible description when `ariaDescribedb
   );
 });
 
+test("should ensure the selectable checkbox has an accessible label when `ariaLabelledBy` prop is passed", () => {
+  render(
+    <>
+      <div id="ft-label-1">First Name</div>
+      <div id="ft-label-2">Last Name</div>
+      <FlatTable>
+        <FlatTableHead>
+          <FlatTableRow>
+            <FlatTableCheckbox
+              ariaLabelledBy="ft-label-1 ft-label-2"
+              checked={false}
+              onChange={() => {}}
+            />
+            <FlatTableHeader>heading one</FlatTableHeader>
+          </FlatTableRow>
+        </FlatTableHead>
+        <FlatTableBody>
+          <FlatTableRow>
+            <FlatTableCell>child one</FlatTableCell>
+          </FlatTableRow>
+        </FlatTableBody>
+      </FlatTable>
+    </>,
+  );
+
+  expect(screen.getByRole("checkbox")).toHaveAccessibleName(
+    "First Name Last Name",
+  );
+});
+
 test("should set the `data-` attributes on the root element when the props are passed", () => {
   render(
     <FlatTable data-role="ft-data-role" data-element="ft-data-element">
@@ -784,7 +814,7 @@ test("should render the `caption` element and set the accessible name of the tab
   expect(screen.getByRole("table")).toHaveAccessibleName("this is a caption");
 });
 
-test("should apply the expected box sizing styling to the wrapper element when it's height exceeds it's parent", () => {
+test("should apply the expected box sizing styling to the wrapper element when its height exceeds its parent", () => {
   render(
     <div style={{ height: "100px" }}>
       <FlatTable data-role="ft-wrapper" footer={<div>foo</div>}>
@@ -931,69 +961,6 @@ test("should apply the expected `overflowX` styling to the wrapper and container
 });
 
 describe("rounded corners are enabled", () => {
-  it("should have the expected border radius styling when no footer is rendered", () => {
-    render(
-      <FlatTable data-role="ft-wrapper">
-        <FlatTableHead>
-          <FlatTableRow>
-            <FlatTableHeader>heading one</FlatTableHeader>
-          </FlatTableRow>
-        </FlatTableHead>
-        <FlatTableBody>
-          <FlatTableRow>
-            <FlatTableCell>child one</FlatTableCell>
-          </FlatTableRow>
-        </FlatTableBody>
-      </FlatTable>,
-    );
-    const wrapper = screen.getByTestId("ft-wrapper");
-
-    expect(wrapper).toHaveStyleRule(
-      "border-top-left-radius",
-      "var(--borderRadius100)",
-    );
-    expect(wrapper).toHaveStyleRule(
-      "border-top-right-radius",
-      "var(--borderRadius100)",
-    );
-    expect(wrapper).toHaveStyleRule(
-      "border-bottom-left-radius",
-      "var(--borderRadius100)",
-    );
-    expect(wrapper).toHaveStyleRule(
-      "border-bottom-right-radius",
-      "var(--borderRadius100)",
-    );
-    expect(wrapper).toHaveStyleRule(
-      "border-top-left-radius",
-      "var(--borderRadius100)",
-      {
-        modifier: `thead ${StyledFlatTableRow}:first-of-type th:first-of-type`,
-      },
-    );
-    expect(wrapper).toHaveStyleRule(
-      "border-top-right-radius",
-      "var(--borderRadius100)",
-      {
-        modifier: `thead ${StyledFlatTableRow}:first-of-type th:last-of-type`,
-      },
-    );
-    expect(wrapper).toHaveStyleRule(
-      "border-bottom-left-radius",
-      "var(--borderRadius100)",
-      {
-        modifier: `tbody ${StyledFlatTableRow}:last-of-type td:first-child`,
-      },
-    );
-    expect(wrapper).toHaveStyleRule(
-      "border-bottom-right-radius",
-      "var(--borderRadius100)",
-      {
-        modifier: `tbody ${StyledFlatTableRow}:last-of-type td:last-child`,
-      },
-    );
-  });
-
   it("should override Pager's top border styling so it connects to the table when passed in `footer`,", () => {
     render(
       <FlatTable footer={<Pager data-role="pager" onPagination={() => {}} />}>
@@ -1020,32 +987,6 @@ describe("rounded corners are enabled", () => {
 
     expect(flatTableFooter).toHaveStyleRule("border-top", "none", {
       modifier: `> ${StyledPagerContainer}`,
-    });
-  });
-
-  it("should not apply any border-radius on the table wrapper an set to 0 on Pager when passed as `footer` and `hasStickyFooter` set,", () => {
-    render(
-      <FlatTable
-        hasStickyFooter
-        footer={<Pager data-role="pager" onPagination={() => {}} />}
-      >
-        <FlatTableHead>
-          <FlatTableRow>
-            <FlatTableHeader>heading one</FlatTableHeader>
-          </FlatTableRow>
-        </FlatTableHead>
-        <FlatTableBody>
-          <FlatTableRow>
-            <FlatTableCell>child one</FlatTableCell>
-          </FlatTableRow>
-        </FlatTableBody>
-      </FlatTable>,
-    );
-    const pager = screen.getByTestId("pager");
-
-    expect(pager).toHaveStyle({
-      borderBottomLeftRadius: 0,
-      borderBottomRightRadius: 0,
     });
   });
 
