@@ -6,6 +6,9 @@ import {
   NodeKey,
   SerializedTextNode,
   TextNode,
+  IS_BOLD,
+  IS_ITALIC,
+  IS_UNDERLINE,
 } from "lexical";
 import { TypographyKey } from "../__ui__/Toolbar/buttons/typography.component";
 
@@ -148,11 +151,31 @@ export class StyledSpanNode extends TextNode {
   }
 
   exportDOM(): DOMExportOutput {
-    const element = document.createElement("span");
-    element.style.fontWeight = this.__fontWeight;
-    element.style.fontSize = this.__fontSize;
-    element.style.lineHeight = this.__lineHeight;
-    element.textContent = this.getTextContent();
+    const span = document.createElement("span");
+    span.style.fontWeight = this.__fontWeight;
+    span.style.fontSize = this.__fontSize;
+    span.style.lineHeight = this.__lineHeight;
+    span.textContent = this.getTextContent();
+
+    let element: HTMLElement = span;
+    const format = this.getFormat();
+
+    if (format & IS_BOLD) {
+      const strong = document.createElement("strong");
+      strong.appendChild(element);
+      element = strong;
+    }
+    if (format & IS_ITALIC) {
+      const em = document.createElement("em");
+      em.appendChild(element);
+      element = em;
+    }
+    if (format & IS_UNDERLINE) {
+      const u = document.createElement("u");
+      u.appendChild(element);
+      element = u;
+    }
+
     return { element };
   }
 
@@ -190,12 +213,13 @@ export class StyledSpanNode extends TextNode {
   }
 
   static importJSON(serializedNode: SerializedSpanNode): StyledSpanNode {
-    return new StyledSpanNode(
+    const node = new StyledSpanNode(
       serializedNode.text,
       serializedNode.fontWeight,
       serializedNode.fontSize,
       serializedNode.lineHeight,
     );
+    return node.updateFromJSON(serializedNode);
   }
 
   createDOM(_config: EditorConfig): HTMLElement {
