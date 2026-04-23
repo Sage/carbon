@@ -48,6 +48,7 @@ const meta: Meta<typeof FlatTable> = {
   component: FlatTable,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
+    chromatic: { disableSnapshot: true },
   },
 };
 
@@ -93,7 +94,7 @@ export const DefaultStory: Story = {
               alignItems="center"
               display="flex"
             >
-              Dependents <Icon type="people" color="white" />
+              Dependants <Icon type="people" color="white" />
             </Box>
           </FlatTableHeader>
         </FlatTableRow>
@@ -137,7 +138,7 @@ export const WithRowHeader: Story = () => {
           <FlatTableRowHeader>Name</FlatTableRowHeader>
           <FlatTableHeader>Location</FlatTableHeader>
           <FlatTableHeader>Relationship Status</FlatTableHeader>
-          <FlatTableHeader>Dependents</FlatTableHeader>
+          <FlatTableHeader>Dependants</FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>
@@ -174,7 +175,6 @@ export const WithRowHeader: Story = () => {
   );
 };
 WithRowHeader.storyName = "With Row Header";
-WithRowHeader.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithMultipleRowHeaders: Story = () => {
   return (
@@ -301,6 +301,7 @@ export const WithMultipleRowHeaders: Story = () => {
   );
 };
 WithMultipleRowHeaders.storyName = "With Multiple Row Headers";
+WithMultipleRowHeaders.parameters = { chromatic: { disableSnapshot: false } };
 
 export const HorizontalScrolling: Story = () => {
   return (
@@ -315,7 +316,7 @@ export const HorizontalScrolling: Story = () => {
           <FlatTableHeader>Name</FlatTableHeader>
           <FlatTableHeader>Location</FlatTableHeader>
           <FlatTableHeader>Relationship Status</FlatTableHeader>
-          <FlatTableHeader>Dependents</FlatTableHeader>
+          <FlatTableHeader>Dependants</FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>
@@ -348,7 +349,6 @@ export const HorizontalScrolling: Story = () => {
   );
 };
 HorizontalScrolling.storyName = "With Horizontal Scrolling";
-HorizontalScrolling.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithCustomCellPaddings: Story = () => {
   return (
@@ -365,7 +365,7 @@ export const WithCustomCellPaddings: Story = () => {
             Relationship Status
           </FlatTableHeader>
           <FlatTableHeader px={4} py={2}>
-            Dependents
+            Dependants
           </FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
@@ -430,7 +430,7 @@ WithCustomColumnWidth.storyName = "With Custom Column Width";
 
 export const WithCustomRowBackgroundColor: Story = () => {
   return (
-    <FlatTable title="Table for Custom Row Backgroun Colour">
+    <FlatTable title="Table for Custom Row Background Colour">
       <FlatTableHead>
         <FlatTableRow>
           <FlatTableRowHeader>No.</FlatTableRowHeader>
@@ -438,7 +438,7 @@ export const WithCustomRowBackgroundColor: Story = () => {
           <FlatTableHeader>Name</FlatTableHeader>
           <FlatTableHeader>Location</FlatTableHeader>
           <FlatTableHeader>Relationship Status</FlatTableHeader>
-          <FlatTableHeader>Dependents</FlatTableHeader>
+          <FlatTableHeader>Dependants</FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>
@@ -504,7 +504,7 @@ export const WithCustomHorizontalBorderSize: Story = () => {
           <FlatTableHeader>Name</FlatTableHeader>
           <FlatTableHeader>Location</FlatTableHeader>
           <FlatTableHeader>Relationship Status</FlatTableHeader>
-          <FlatTableHeader>Dependents</FlatTableHeader>
+          <FlatTableHeader>Dependants</FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>
@@ -540,7 +540,7 @@ export const WithCustomHorizontalBorderColor: Story = () => {
           <FlatTableHeader>Name</FlatTableHeader>
           <FlatTableHeader>Location</FlatTableHeader>
           <FlatTableHeader>Relationship Status</FlatTableHeader>
-          <FlatTableHeader>Dependents</FlatTableHeader>
+          <FlatTableHeader>Dependants</FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>
@@ -586,7 +586,7 @@ export const WithCustomBottomBorderRadius: Story = () => {
           <FlatTableHeader>Name</FlatTableHeader>
           <FlatTableHeader>Location</FlatTableHeader>
           <FlatTableHeader>Relationship Status</FlatTableHeader>
-          <FlatTableHeader>Dependents</FlatTableHeader>
+          <FlatTableHeader>Dependants</FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>
@@ -637,7 +637,7 @@ export const WithCustomVerticalBorders: Story = () => {
           <FlatTableHeader verticalBorder="large">
             Relationship Status
           </FlatTableHeader>
-          <FlatTableHeader>Dependents</FlatTableHeader>
+          <FlatTableHeader>Dependants</FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>
@@ -719,7 +719,7 @@ export const WithAlternativeHeaderBackground: Story = () => {
           <FlatTableHeader rowspan="2">Name</FlatTableHeader>
           <FlatTableHeader colspan="2">Location</FlatTableHeader>
           <FlatTableHeader rowspan="2">Relationship Status</FlatTableHeader>
-          <FlatTableHeader rowspan="2">Dependents</FlatTableHeader>
+          <FlatTableHeader rowspan="2">Dependants</FlatTableHeader>
         </FlatTableRow>
         <FlatTableRow>
           <FlatTableHeader alternativeBgColor>City</FlatTableHeader>
@@ -806,13 +806,7 @@ export const WithStickyHead: Story = () => {
             <FlatTableHeader>Name</FlatTableHeader>
             <FlatTableHeader>Location</FlatTableHeader>
             <FlatTableHeader>Relationship Status</FlatTableHeader>
-            <FlatTableHeader>Dependents</FlatTableHeader>
-          </FlatTableRow>
-          <FlatTableRow>
-            <FlatTableHeader>Name</FlatTableHeader>
-            <FlatTableHeader>Location</FlatTableHeader>
-            <FlatTableHeader>Relationship Status</FlatTableHeader>
-            <FlatTableHeader>Dependents</FlatTableHeader>
+            <FlatTableHeader>Dependants</FlatTableHeader>
           </FlatTableRow>
         </FlatTableHead>
         <FlatTableBody>
@@ -846,7 +840,6 @@ export const WithStickyHead: Story = () => {
   );
 };
 WithStickyHead.storyName = "With Sticky Head";
-WithStickyHead.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithStickyHeadRowSpanAndColspan: Story = () => {
   return (
@@ -1114,7 +1107,7 @@ export const WithStickyFooter: Story = () => {
             <FlatTableHeader>Name</FlatTableHeader>
             <FlatTableHeader>Location</FlatTableHeader>
             <FlatTableHeader>Relationship Status</FlatTableHeader>
-            <FlatTableHeader>Dependents</FlatTableHeader>
+            <FlatTableHeader>Dependants</FlatTableHeader>
           </FlatTableRow>
         </FlatTableHead>
         <FlatTableBody>{renderRows()}</FlatTableBody>
@@ -1123,7 +1116,6 @@ export const WithStickyFooter: Story = () => {
   );
 };
 WithStickyFooter.storyName = "With Sticky Footer";
-WithStickyFooter.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithStickyFooterInsideOfLargerDiv: Story = () => {
   const [recordsRange, setRecordsRange] = useState({ start: 0, end: 10 });
@@ -1182,7 +1174,7 @@ export const WithStickyFooterInsideOfLargerDiv: Story = () => {
             <FlatTableHeader>Name</FlatTableHeader>
             <FlatTableHeader>Location</FlatTableHeader>
             <FlatTableHeader>Relationship Status</FlatTableHeader>
-            <FlatTableHeader>Dependents</FlatTableHeader>
+            <FlatTableHeader>Dependants</FlatTableHeader>
           </FlatTableRow>
         </FlatTableHead>
         <FlatTableBody>{renderRows()}</FlatTableBody>
@@ -1249,7 +1241,7 @@ export const WithHasMaxHeight: Story = () => {
             <FlatTableHeader>Name</FlatTableHeader>
             <FlatTableHeader>Location</FlatTableHeader>
             <FlatTableHeader>Relationship Status</FlatTableHeader>
-            <FlatTableHeader>Dependents</FlatTableHeader>
+            <FlatTableHeader>Dependants</FlatTableHeader>
           </FlatTableRow>
         </FlatTableHead>
         <FlatTableBody>{renderRows()}</FlatTableBody>
@@ -1258,7 +1250,6 @@ export const WithHasMaxHeight: Story = () => {
   );
 };
 WithHasMaxHeight.storyName = "With hasMaxHeight";
-WithHasMaxHeight.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithoutVerticalBorders: Story = {
   ...DefaultStory,
@@ -1277,7 +1268,7 @@ export const WithClickableRows: Story = () => {
           <FlatTableHeader>Name</FlatTableHeader>
           <FlatTableHeader>Location</FlatTableHeader>
           <FlatTableHeader>Relationship Status</FlatTableHeader>
-          <FlatTableHeader>Dependents</FlatTableHeader>
+          <FlatTableHeader>Dependants</FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>
@@ -1310,7 +1301,6 @@ export const WithClickableRows: Story = () => {
   );
 };
 WithClickableRows.storyName = "With Clickable Rows";
-WithClickableRows.parameters = { chromatic: { disableSnapshot: true } };
 
 export const Zebra: Story = () => {
   return (
@@ -1320,7 +1310,7 @@ export const Zebra: Story = () => {
           <FlatTableHeader>Name</FlatTableHeader>
           <FlatTableHeader>Location</FlatTableHeader>
           <FlatTableHeader>Relationship Status</FlatTableHeader>
-          <FlatTableHeader>Dependents</FlatTableHeader>
+          <FlatTableHeader>Dependants</FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>
@@ -1630,7 +1620,7 @@ export const WithColspan: Story = () => {
           <FlatTableHeader>Name</FlatTableHeader>
           <FlatTableHeader>Location</FlatTableHeader>
           <FlatTableHeader>Relationship Status</FlatTableHeader>
-          <FlatTableHeader>Dependents</FlatTableHeader>
+          <FlatTableHeader>Dependants</FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>
@@ -1735,7 +1725,7 @@ export const WithSelectableRows: Story = () => {
             <FlatTableHeader id="ft-header-3">
               Relationship Status
             </FlatTableHeader>
-            <FlatTableHeader id="ft-header-4">Dependents</FlatTableHeader>
+            <FlatTableHeader id="ft-header-4">Dependants</FlatTableHeader>
           </FlatTableRow>
         </FlatTableHead>
         <FlatTableBody>
@@ -1793,7 +1783,6 @@ export const WithSelectableRows: Story = () => {
   );
 };
 WithSelectableRows.storyName = "Selectable Rows";
-WithSelectableRows.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithDisabledCheckboxes: Story = () => {
   const initialRowState = {
@@ -1861,7 +1850,7 @@ export const WithDisabledCheckboxes: Story = () => {
             <FlatTableHeader>Name</FlatTableHeader>
             <FlatTableHeader>Location</FlatTableHeader>
             <FlatTableHeader>Relationship Status</FlatTableHeader>
-            <FlatTableHeader>Dependents</FlatTableHeader>
+            <FlatTableHeader>Dependants</FlatTableHeader>
           </FlatTableRow>
         </FlatTableHead>
         <FlatTableBody>
@@ -1943,7 +1932,7 @@ export const WithHighlightableRows: Story = () => {
           <FlatTableHeader>Name</FlatTableHeader>
           <FlatTableHeader>Location</FlatTableHeader>
           <FlatTableHeader>Relationship Status</FlatTableHeader>
-          <FlatTableHeader>Dependents</FlatTableHeader>
+          <FlatTableHeader>Dependants</FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>
@@ -1988,7 +1977,6 @@ export const WithHighlightableRows: Story = () => {
   );
 };
 WithHighlightableRows.storyName = "Highlightable Rows";
-WithHighlightableRows.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithSelectableAndHighlightableRows: Story = () => {
   const [selectAll, setSelectAll] = useState(false);
@@ -2059,7 +2047,7 @@ export const WithSelectableAndHighlightableRows: Story = () => {
             <FlatTableHeader id="ft-header-3">
               Relationship Status
             </FlatTableHeader>
-            <FlatTableHeader id="ft-header-4">Dependents</FlatTableHeader>
+            <FlatTableHeader id="ft-header-4">Dependants</FlatTableHeader>
           </FlatTableRow>
         </FlatTableHead>
         <FlatTableBody>
@@ -2134,9 +2122,6 @@ export const WithSelectableAndHighlightableRows: Story = () => {
 };
 WithSelectableAndHighlightableRows.storyName =
   "Selectable and Highlightable Rows";
-WithSelectableAndHighlightableRows.parameters = {
-  chromatic: { disableSnapshot: true },
-};
 
 export const Paginated: Story = () => {
   const [recordsRange, setRecordsRange] = useState({ start: 0, end: 10 });
@@ -2291,7 +2276,7 @@ export const Paginated: Story = () => {
           <FlatTableHeader>Name</FlatTableHeader>
           <FlatTableHeader>Location</FlatTableHeader>
           <FlatTableHeader>Relationship Status</FlatTableHeader>
-          <FlatTableHeader>Dependents</FlatTableHeader>
+          <FlatTableHeader>Dependants</FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>{renderRows()}</FlatTableBody>
@@ -2689,7 +2674,7 @@ export const PaginatedWithStickyHeader: Story = () => {
             <FlatTableHeader>Name</FlatTableHeader>
             <FlatTableHeader>Location</FlatTableHeader>
             <FlatTableHeader>Relationship Status</FlatTableHeader>
-            <FlatTableHeader>Dependents</FlatTableHeader>
+            <FlatTableHeader>Dependants</FlatTableHeader>
           </FlatTableRow>
         </FlatTableHead>
         <FlatTableBody>{renderRows()}</FlatTableBody>
@@ -2768,7 +2753,7 @@ export const WhenAChildOfSidebar: Story = () => {
               <FlatTableHeader id="ft-header-3">
                 Relationship Status
               </FlatTableHeader>
-              <FlatTableHeader id="ft-header-4">Dependents</FlatTableHeader>
+              <FlatTableHeader id="ft-header-4">Dependants</FlatTableHeader>
             </FlatTableRow>
           </FlatTableHead>
           <FlatTableBody>
@@ -2843,7 +2828,6 @@ export const WhenAChildOfSidebar: Story = () => {
   );
 };
 WhenAChildOfSidebar.storyName = "When a Child of Sidebar";
-WhenAChildOfSidebar.parameters = { chromatic: { disableSnapshot: true } };
 
 export const Sizes: Story = () => {
   const sizes = ["compact", "small", "medium", "large", "extraLarge"] as const;
@@ -2861,7 +2845,7 @@ export const Sizes: Story = () => {
                 <FlatTableHeader>Name</FlatTableHeader>
                 <FlatTableHeader>Location</FlatTableHeader>
                 <FlatTableHeader>Relationship Status</FlatTableHeader>
-                <FlatTableHeader>Dependents</FlatTableHeader>
+                <FlatTableHeader>Dependants</FlatTableHeader>
               </FlatTableRow>
             </FlatTableHead>
             <FlatTableBody>
@@ -2897,6 +2881,7 @@ export const Sizes: Story = () => {
   );
 };
 Sizes.storyName = "Sizes";
+Sizes.parameters = { chromatic: { disableSnapshot: false } };
 
 export const WithDraggableRows: Story = () => {
   const rows = [
@@ -2957,7 +2942,7 @@ export const WrappingRowHeaders: Story = () => {
           <FlatTableHeader>Name</FlatTableHeader>
           <FlatTableRowHeaderWrapper>Location</FlatTableRowHeaderWrapper>
           <FlatTableHeader>Relationship Status</FlatTableHeader>
-          <FlatTableHeader>Dependents</FlatTableHeader>
+          <FlatTableHeader>Dependants</FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>
@@ -3014,4 +2999,3 @@ export const WrappingRowHeaders: Story = () => {
   );
 };
 WrappingRowHeaders.storyName = "Wrapping Row Headers";
-WrappingRowHeaders.parameters = { chromatic: { disableSnapshot: true } };
