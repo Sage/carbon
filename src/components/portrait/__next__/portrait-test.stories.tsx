@@ -1,11 +1,11 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
-import { ICONS } from "../icon/icon-config";
+import { ICONS } from "../../icon/icon-config";
 import { PORTRAIT_SHAPES, PORTRAIT_SIZES } from "./portrait.config";
 import Portrait, { PortraitProps } from "./portrait.component";
 
 export default {
-  title: "Deprecated/Portrait/Test",
+  title: "Portrait/Test",
   includeStories: ["Default", "CustomColors"],
   parameters: {
     info: { disable: true },

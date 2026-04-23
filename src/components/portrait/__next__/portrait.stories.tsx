@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
-import Typography from "../typography";
-import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
+import Typography from "../../typography";
+import generateStyledSystemProps from "../../../../.storybook/utils/styled-system-props";
 
-import Box from "../box";
-import { Select, Option } from "../select";
+import Box from "../../box";
+import { Select, Option } from "../../select";
 import Portrait from ".";
 
 const styledSystemProps = generateStyledSystemProps({
@@ -13,7 +13,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof Portrait> = {
-  title: "Deprecated/Portrait",
+  title: "Portrait",
   component: Portrait,
   argTypes: {
     ...styledSystemProps,
