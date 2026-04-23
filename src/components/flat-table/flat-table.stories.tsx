@@ -48,6 +48,7 @@ const meta: Meta<typeof FlatTable> = {
   component: FlatTable,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
+    chromatic: { disableSnapshot: true },
   },
 };
 
@@ -174,7 +175,6 @@ export const WithRowHeader: Story = () => {
   );
 };
 WithRowHeader.storyName = "With Row Header";
-WithRowHeader.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithMultipleRowHeaders: Story = () => {
   return (
@@ -301,6 +301,7 @@ export const WithMultipleRowHeaders: Story = () => {
   );
 };
 WithMultipleRowHeaders.storyName = "With Multiple Row Headers";
+WithMultipleRowHeaders.parameters = { chromatic: { disableSnapshot: false } };
 
 export const HorizontalScrolling: Story = () => {
   return (
@@ -348,7 +349,6 @@ export const HorizontalScrolling: Story = () => {
   );
 };
 HorizontalScrolling.storyName = "With Horizontal Scrolling";
-HorizontalScrolling.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithCustomCellPaddings: Story = () => {
   return (
@@ -430,7 +430,7 @@ WithCustomColumnWidth.storyName = "With Custom Column Width";
 
 export const WithCustomRowBackgroundColor: Story = () => {
   return (
-    <FlatTable title="Table for Custom Row Backgroun Colour">
+    <FlatTable title="Table for Custom Row Background Colour">
       <FlatTableHead>
         <FlatTableRow>
           <FlatTableRowHeader>No.</FlatTableRowHeader>
@@ -808,12 +808,6 @@ export const WithStickyHead: Story = () => {
             <FlatTableHeader>Relationship Status</FlatTableHeader>
             <FlatTableHeader>Dependents</FlatTableHeader>
           </FlatTableRow>
-          <FlatTableRow>
-            <FlatTableHeader>Name</FlatTableHeader>
-            <FlatTableHeader>Location</FlatTableHeader>
-            <FlatTableHeader>Relationship Status</FlatTableHeader>
-            <FlatTableHeader>Dependents</FlatTableHeader>
-          </FlatTableRow>
         </FlatTableHead>
         <FlatTableBody>
           <FlatTableRow>
@@ -846,7 +840,6 @@ export const WithStickyHead: Story = () => {
   );
 };
 WithStickyHead.storyName = "With Sticky Head";
-WithStickyHead.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithStickyHeadRowSpanAndColspan: Story = () => {
   return (
@@ -1123,7 +1116,6 @@ export const WithStickyFooter: Story = () => {
   );
 };
 WithStickyFooter.storyName = "With Sticky Footer";
-WithStickyFooter.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithStickyFooterInsideOfLargerDiv: Story = () => {
   const [recordsRange, setRecordsRange] = useState({ start: 0, end: 10 });
@@ -1258,7 +1250,6 @@ export const WithHasMaxHeight: Story = () => {
   );
 };
 WithHasMaxHeight.storyName = "With hasMaxHeight";
-WithHasMaxHeight.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithoutVerticalBorders: Story = {
   ...DefaultStory,
@@ -1310,7 +1301,6 @@ export const WithClickableRows: Story = () => {
   );
 };
 WithClickableRows.storyName = "With Clickable Rows";
-WithClickableRows.parameters = { chromatic: { disableSnapshot: true } };
 
 export const Zebra: Story = () => {
   return (
@@ -1797,7 +1787,6 @@ export const WithSelectableRows: Story = () => {
   );
 };
 WithSelectableRows.storyName = "Selectable Rows";
-WithSelectableRows.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithDisabledCheckboxes: Story = () => {
   const initialRowState = {
@@ -1992,7 +1981,6 @@ export const WithHighlightableRows: Story = () => {
   );
 };
 WithHighlightableRows.storyName = "Highlightable Rows";
-WithHighlightableRows.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithSelectableAndHighlightableRows: Story = () => {
   const [selectAll, setSelectAll] = useState(false);
@@ -2138,9 +2126,6 @@ export const WithSelectableAndHighlightableRows: Story = () => {
 };
 WithSelectableAndHighlightableRows.storyName =
   "Selectable and Highlightable Rows";
-WithSelectableAndHighlightableRows.parameters = {
-  chromatic: { disableSnapshot: true },
-};
 
 export const Paginated: Story = () => {
   const [recordsRange, setRecordsRange] = useState({ start: 0, end: 10 });
@@ -2847,7 +2832,6 @@ export const WhenAChildOfSidebar: Story = () => {
   );
 };
 WhenAChildOfSidebar.storyName = "When a Child of Sidebar";
-WhenAChildOfSidebar.parameters = { chromatic: { disableSnapshot: true } };
 
 export const Sizes: Story = () => {
   const sizes = ["compact", "small", "medium", "large", "extraLarge"] as const;
@@ -2901,6 +2885,7 @@ export const Sizes: Story = () => {
   );
 };
 Sizes.storyName = "Sizes";
+Sizes.parameters = { chromatic: { disableSnapshot: false } };
 
 export const WithDraggableRows: Story = () => {
   const rows = [
@@ -3018,4 +3003,3 @@ export const WrappingRowHeaders: Story = () => {
   );
 };
 WrappingRowHeaders.storyName = "Wrapping Row Headers";
-WrappingRowHeaders.parameters = { chromatic: { disableSnapshot: true } };

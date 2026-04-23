@@ -60,6 +60,10 @@ type SubRowsShapeChildrenOnlySelectableStoryKey =
 const meta: Meta<typeof FlatTable> = {
   title: "Flat Table/Expandable",
   component: FlatTable,
+  parameters: {
+    themeProvider: { chromatic: { theme: "sage" } },
+    chromatic: { disableSnapshot: true },
+  },
 };
 
 export default meta;
@@ -120,6 +124,7 @@ export const DefaultStory: Story = (args: FlatTableCellProps) => {
   );
 };
 DefaultStory.storyName = "Default";
+DefaultStory.parameters = { chromatic: { disableSnapshot: false } };
 
 export const KeyboardAccessibleSubRows: Story = () => {
   const SubRows = [
@@ -176,7 +181,6 @@ export const KeyboardAccessibleSubRows: Story = () => {
   );
 };
 KeyboardAccessibleSubRows.storyName = "Keyboard Accessible SubRows";
-KeyboardAccessibleSubRows.parameters = { chromatic: { disableSnapshot: true } };
 
 export const ExpandableByFirstColumnOnly: Story = () => {
   const SubRows = [
@@ -233,9 +237,6 @@ export const ExpandableByFirstColumnOnly: Story = () => {
   );
 };
 ExpandableByFirstColumnOnly.storyName = "Expandable by First Column Only";
-ExpandableByFirstColumnOnly.parameters = {
-  chromatic: { disableSnapshot: true },
-};
 
 export const InitiallyExpanded: Story = () => {
   const SubRows = [
@@ -292,6 +293,7 @@ export const InitiallyExpanded: Story = () => {
   );
 };
 InitiallyExpanded.storyName = "Initially Expanded";
+InitiallyExpanded.parameters = { chromatic: { disableSnapshot: false } };
 
 export const RowHeaders: Story = () => {
   const SubRows = [
@@ -350,6 +352,7 @@ export const RowHeaders: Story = () => {
   );
 };
 RowHeaders.storyName = "Row Headers";
+RowHeaders.parameters = { chromatic: { disableSnapshot: false } };
 
 export const RowHeadersWithCustomPaddings: Story = () => {
   const SubRows = [
@@ -410,6 +413,9 @@ export const RowHeadersWithCustomPaddings: Story = () => {
   );
 };
 RowHeadersWithCustomPaddings.storyName = "Row Headers with Custom Paddings";
+RowHeadersWithCustomPaddings.parameters = {
+  chromatic: { disableSnapshot: false },
+};
 
 export const Paginated: Story = () => {
   const SubRows = [
@@ -615,6 +621,7 @@ export const Paginated: Story = () => {
   );
 };
 Paginated.storyName = "Paginated";
+Paginated.parameters = { chromatic: { disableSnapshot: false } };
 
 export const BothParentAndChildrenSelectable: Story = () => {
   const [selectAll, setSelectAll] = useState(false);
@@ -1018,7 +1025,6 @@ export const ParentOnlySelectable: Story = () => {
   );
 };
 ParentOnlySelectable.storyName = "Parent Only Selectable";
-ParentOnlySelectable.parameters = { chromatic: { disableSnapshot: true } };
 
 export const ChildrenOnlySelectable: Story = () => {
   const [selectAll, setSelectAll] = useState(false);
@@ -1319,6 +1325,7 @@ export const TruncatedCellContent: Story = () => {
   );
 };
 TruncatedCellContent.storyName = "Truncated Cell Content";
+TruncatedCellContent.parameters = { chromatic: { disableSnapshot: false } };
 
 export const Controlled: Story = () => {
   const [expanded, setExpanded] = useState(true);
@@ -1381,7 +1388,6 @@ export const Controlled: Story = () => {
   );
 };
 Controlled.storyName = "Controlled";
-Controlled.parameters = { chromatic: { disableSnapshot: true } };
 
 export const Sizes: Story = () => {
   const [selectAll, setSelectAll] = useState(false);
@@ -1590,3 +1596,4 @@ export const Sizes: Story = () => {
   );
 };
 Sizes.storyName = "Sizes";
+Sizes.parameters = { chromatic: { disableSnapshot: false } };
