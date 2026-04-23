@@ -2,8 +2,6 @@ import styled, { css } from "styled-components";
 
 import { margin } from "styled-system";
 
-import Logger from "../../__internal__/utils/logger";
-
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 import { ThemeObject } from "../../style/themes/theme.types";
 import addFocusStyling from "../../style/utils/add-focus-styling";
@@ -59,34 +57,6 @@ export interface StyledIconInternalProps {
   isInteractive?: boolean;
   hasTooltip?: boolean;
   theme?: ThemeObject;
-}
-
-function adjustIconBgSize(fontSize?: FontSize, bgSize?: BgSize) {
-  const sizeValues: Record<BgSize | FontSize, number> = {
-    small: 1,
-    medium: 2,
-    large: 3,
-    "extra-large": 4,
-  };
-
-  if (fontSize && bgSize) {
-    const fontSizeValue = sizeValues[fontSize];
-    const bgSizeValue = sizeValues[bgSize];
-
-    if (bgSizeValue < fontSizeValue) {
-      Logger.warn(
-        `[WARNING - Icon] The "${bgSize}" \`bgSize\` is smaller than "${fontSize}" \`fontSize\`, the \`bgSize\` has been auto adjusted to a larger size.`,
-      );
-      return iconConfig.backgroundSize[fontSize];
-    }
-
-    return iconConfig.backgroundSize[bgSize];
-  }
-
-  /* The below is ignored as removing it may cause regressions as some components import StyledIcon directly from this file
-  however it cannot be tested in the Icon tests as these props always have a value. */
-  /* istanbul ignore next */
-  return bgSize ? iconConfig.backgroundSize[bgSize] : undefined;
 }
 
 const styleOverrides = css`
@@ -148,7 +118,9 @@ const StyledIcon = styled.span.attrs(applyBaseTheme)<
 
     const win = getWindow();
     const nav = getNavigator();
-    const adjustedBgSize = adjustIconBgSize(fontSize, bgSize);
+    const backgroundSize = bgSize
+      ? iconConfig.backgroundSize[bgSize]
+      : undefined;
 
     if (disabled) {
       finalColor = "var(--colorsYin030)";
@@ -170,8 +142,8 @@ const StyledIcon = styled.span.attrs(applyBaseTheme)<
       align-items: center;
       display: inline-flex;
       justify-content: center;
-      height: ${adjustedBgSize};
-      width: ${adjustedBgSize};
+      height: ${backgroundSize};
+      width: ${backgroundSize};
       ${bgShape ? `border-radius: ${iconConfig.backgroundShape[bgShape]}` : ""};
 
       ${isInteractive &&

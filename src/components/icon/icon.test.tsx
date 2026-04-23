@@ -5,8 +5,7 @@ import userEvent from "@testing-library/user-event";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import Logger from "../../__internal__/utils/logger";
 import Icon from "./icon.component";
-import StyledIcon from "./icon.style";
-import { BackgroundShape } from "./icon.style";
+import StyledIcon, { BackgroundShape } from "./icon.style";
 import iconConfig from "./icon-config";
 import browserTypeCheck from "../../__internal__/utils/helpers/browser-type-check";
 import { IconType } from "./icon-type";
@@ -82,18 +81,10 @@ test("renders with a specific role, via the `role` prop", () => {
   expect(icon).toBeVisible();
 });
 
-test("logs a deprecation warning when the `tooltipMessage` prop is used", () => {
-  const loggerSpy = jest
-    .spyOn(Logger, "deprecate")
-    .mockImplementation(() => {});
-
+test("does not render the `tooltipMessage` prop value", () => {
   render(<Icon type="home" tooltipMessage="foo" />);
 
-  expect(loggerSpy).toHaveBeenCalledWith(
-    "Tooltip support has been removed from `Icon`. Use a dedicated `Tooltip` component wrapping the `Icon` instead.",
-  );
   expect(screen.queryByText("foo")).not.toBeInTheDocument();
-  loggerSpy.mockRestore();
 });
 
 test("does not render a tooltip, when the `disabled` prop is true", async () => {
@@ -143,21 +134,6 @@ test("does not throw when the `tooltipFlipOverrides` prop is provided", () => {
       />,
     ),
   ).not.toThrow();
-});
-
-test("logs a warning when the `fontSize` props value is larger than the `bgSize` props value", () => {
-  const loggerSpy = jest.spyOn(Logger, "warn").mockImplementation(() => {});
-
-  const bgSizeValue = "small";
-  const fontSizeValue = "large";
-
-  render(<Icon type="home" bgSize={bgSizeValue} fontSize={fontSizeValue} />);
-
-  expect(loggerSpy).toHaveBeenCalledWith(
-    `[WARNING - Icon] The "${bgSizeValue}" \`bgSize\` is smaller than "${fontSizeValue}" \`fontSize\`, the \`bgSize\` has been auto adjusted to a larger size.`,
-  );
-  expect(loggerSpy).toHaveBeenCalledTimes(1);
-  loggerSpy.mockRestore();
 });
 
 test('maps the `fontSize` value "extra-large" to "large" and logs a warning', () => {

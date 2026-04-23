@@ -53,7 +53,7 @@ description: Carbon Icon component props and usage examples.
 | tooltipFlipOverrides | TooltipPositions[] \| undefined | No |  | Yes |  |  |  |
 | tooltipFontColor | string \| undefined | No |  | Yes |  |  |  |
 | tooltipId | string \| undefined | No |  | Yes |  |  |  |
-| tooltipMessage | React.ReactNode | No |  | Yes | Tooltip support has been removed from `Icon`. Use a dedicated `Tooltip` component wrapping the `Icon` instead. This prop no longer has any effect. |  |  |
+| tooltipMessage | React.ReactNode | No |  | Yes | Tooltip support has been removed from `Icon` and the use of tooltips is discouraged. This prop no longer has any effect. |  |  |
 | tooltipPosition | TooltipPositions \| undefined | No |  | Yes |  |  |  |
 | tooltipVisible | boolean \| undefined | No |  | Yes |  |  |  |
 

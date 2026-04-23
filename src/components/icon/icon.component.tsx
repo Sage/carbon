@@ -28,19 +28,8 @@ export type LegacyIconTypes =
  */
 export type IconSize = "small" | "medium" | "large";
 
-let deprecateFontSizeTriggered = false;
-let deprecateBgTriggered = false;
-let deprecateBgShapeTriggered = false;
-let deprecateBgSizeTriggered = false;
-let deprecateColorTriggered = false;
-let deprecateDisabledTriggered = false;
-let deprecateTooltipPropsTriggered = false;
-
 export interface IconProps
-  extends Omit<
-      StyledIconProps,
-      "type" | "bg" | "bgShape" | "bgSize" | "color" | "disabled" | "fontSize"
-    >,
+  extends Pick<StyledIconProps, "className" | "inverse">,
     MarginProps,
     TagProps {
   /** Set whether icon should be recognised by assistive technologies */
@@ -52,8 +41,8 @@ export interface IconProps
   /** The ARIA role to be applied to the Icon */
   role?: string;
   /**
-   * @deprecated Tooltip support has been removed from `Icon`. Use a dedicated `Tooltip`
-   * component wrapping the `Icon` instead. This prop no longer has any effect.
+   * @deprecated Tooltip support has been removed from `Icon` and the use of tooltips
+   * is discouraged. This prop no longer has any effect.
    */
   tooltipMessage?: React.ReactNode;
   /** @deprecated */
@@ -143,7 +132,7 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>(
       inverse,
       size,
       tabIndex,
-      tooltipMessage,
+      tooltipMessage: _tooltipMessage,
       tooltipPosition: _tooltipPosition,
       tooltipVisible: _tooltipVisible,
       tooltipBgColor: _tooltipBgColor,
@@ -156,55 +145,6 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>(
     }: IconProps,
     ref,
   ): JSX.Element => {
-    if (fontSize && !deprecateFontSizeTriggered) {
-      Logger.deprecate(
-        "The `fontSize` prop in `Icon` is deprecated. Use the `size` prop instead.",
-      );
-      deprecateFontSizeTriggered = true;
-    }
-
-    if (bg && !deprecateBgTriggered) {
-      Logger.deprecate(
-        "The `bg` prop in `Icon` is deprecated and will soon be removed. Use CSS or a wrapper element to apply a background.",
-      );
-      deprecateBgTriggered = true;
-    }
-
-    if (bgShape && !deprecateBgShapeTriggered) {
-      Logger.deprecate(
-        "The `bgShape` prop in `Icon` is deprecated and will soon be removed.",
-      );
-      deprecateBgShapeTriggered = true;
-    }
-
-    if (bgSize && !deprecateBgSizeTriggered) {
-      Logger.deprecate(
-        "The `bgSize` prop in `Icon` is deprecated and will soon be removed.",
-      );
-      deprecateBgSizeTriggered = true;
-    }
-
-    if (color && !deprecateColorTriggered) {
-      Logger.deprecate(
-        "The `color` prop in `Icon` is deprecated and will soon be removed.",
-      );
-      deprecateColorTriggered = true;
-    }
-
-    if (disabled && !deprecateDisabledTriggered) {
-      Logger.deprecate(
-        "The `disabled` prop in `Icon` is deprecated and will soon be removed.",
-      );
-      deprecateDisabledTriggered = true;
-    }
-
-    if (tooltipMessage && !deprecateTooltipPropsTriggered) {
-      Logger.deprecate(
-        "Tooltip support has been removed from `Icon`. Use a dedicated `Tooltip` component wrapping the `Icon` instead.",
-      );
-      deprecateTooltipPropsTriggered = true;
-    }
-
     /** Return Icon type with overrides */
     const iconType = useMemo(() => {
       // switch tweaks icon names for actual icons in the set
