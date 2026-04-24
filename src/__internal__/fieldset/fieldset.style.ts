@@ -60,9 +60,9 @@ export const StyledLegend = styled.legend<StyledLegendProps>`
   ${({ isDisabled }) =>
     isDisabled &&
     css`
-      color: var(--colorsUtilityYin030);
+      color: var(--input-labelset-label-disabled);
       ::after {
-        color: var(--colorsUtilityYin030);
+        color: var(--input-labelset-label-disabled);
       }
     `}
 

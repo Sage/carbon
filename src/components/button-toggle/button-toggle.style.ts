@@ -131,9 +131,9 @@ const StyledButtonToggle = styled.button.attrs(
       cursor: not-allowed;
 
       & {
-        color: var(--colorsActionMinorYin030);
+        color: var(--button-typical-toggle-label-disabled);
         ${StyledIcon} {
-          color: var(--colorsActionMinorYin030);
+          color: var(--button-typical-toggle-label-disabled);
         }
       }
 

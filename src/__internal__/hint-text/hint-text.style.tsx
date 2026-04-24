@@ -7,7 +7,7 @@ const getColor = (isDarkBackground?: boolean, isDisabled?: boolean) => {
     return "var(--colorsUtilityYang080)";
   }
   if (isDisabled) {
-    return "var(--colorsUtilityYin030)";
+    return "var(--input-labelset-label-disabled)";
   }
   return "var(--colorsUtilityYin055)";
 };
