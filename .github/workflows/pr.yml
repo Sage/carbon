@@ -3,33 +3,37 @@ name: PR checks
 on:
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
-    paths:
-      - ".storybook/**"
-      - ".assets/**"
-      - "logo/**"
-      - "docs/*.mdx"
-      - "docs/*.stories.tsx"
-      - "src/**/*.mdx"
-      - "src/**/*.stories.js"
-      - "src/**/*.stories.jsx"
-      - "src/**/*.stories.ts"
-      - "src/**/*.stories.tsx"
-      - "src/**"
-      - "src/style/assets/**"
-      - "package.json"
-      - "package-lock.json"
-      - "babel.config.js"
-      - "tsconfig.json"
-      - "tsconfig-build.json"
 
 jobs:
   trigger-chromatic:
-    # if not a fork or a draft
-    if: ${{ github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.draft == false }}
     runs-on: ubuntu-latest
     steps:
+      - uses: dorny/paths-filter@v3
+        id: changes
+        with:
+          filters: |
+            visual:
+              - ".storybook/**"
+              - ".assets/**"
+              - "logo/**"
+              - "docs/*.mdx"
+              - "docs/*.stories.tsx"
+              - "src/**/*.mdx"
+              - "src/**/*.stories.js"
+              - "src/**/*.stories.jsx"
+              - "src/**/*.stories.ts"
+              - "src/**/*.stories.tsx"
+              - "src/**"
+              - "src/style/assets/**"
+              - "package.json"
+              - "package-lock.json"
+              - "babel.config.js"
+              - "tsconfig.json"
+              - "tsconfig-build.json"
+
       - uses: octokit/request-action@v2.x
         id: dispatch_chromatic
+        if: ${{ github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.draft == false && steps.changes.outputs.visual == 'true' }}
         with:
           route: POST /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches
           owner: ${{ github.event.repository.owner.login }}
@@ -39,3 +43,11 @@ jobs:
           inputs: '{"number": "${{ github.event.pull_request.number }}"}'
         env:
           GITHUB_TOKEN: ${{ secrets.CHROMATIC_WORKFLOW_TOKEN }}
+
+      - name: Chromatic dispatch summary
+        run: |
+          if [ "${{ github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.draft == false && steps.changes.outputs.visual == 'true' }}" = "true" ]; then
+            echo "Dispatched Chromatic workflow for this PR."
+          else
+            echo "Skipped Chromatic dispatch (draft/fork or no visual-impacting changes)."
+          fi
