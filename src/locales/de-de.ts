@@ -238,6 +238,7 @@ const deDE: Partial<Locale> = {
   switch: {
     on: () => "EIN",
     off: () => "AUS",
+    processingLabel: () => "Verarbeitung",
   },
   tileSelect: {
     deselect: () => "Auswahl aufheben",

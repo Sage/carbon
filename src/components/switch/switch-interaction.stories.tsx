@@ -4,7 +4,7 @@ import { userEvent, within, expect } from "@storybook/test";
 
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import Box from "../box";
-import Switch from ".";
+import Switch from "./switch.component";
 
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
 import DefaultDecorator from "../../../.storybook/utils/default-decorator";
