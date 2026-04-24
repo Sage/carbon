@@ -3,6 +3,24 @@ name: PR checks
 on:
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
+    paths:
+      - ".storybook/**"
+      - ".assets/**"
+      - "logo/**"
+      - "docs/*.mdx"
+      - "docs/*.stories.tsx"
+      - "src/**/*.mdx"
+      - "src/**/*.stories.js"
+      - "src/**/*.stories.jsx"
+      - "src/**/*.stories.ts"
+      - "src/**/*.stories.tsx"
+      - "src/**"
+      - "src/style/assets/**"
+      - "package.json"
+      - "package-lock.json"
+      - "babel.config.js"
+      - "tsconfig.json"
+      - "tsconfig-build.json"
 
 jobs:
   trigger-chromatic:
