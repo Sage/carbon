@@ -1,15 +1,16 @@
-import React, { useContext, useMemo } from "react";
+import React, { useMemo } from "react";
 import { MarginProps } from "styled-system";
-import invariant from "invariant";
-import Tooltip from "../tooltip";
+import Logger from "../../__internal__/utils/logger";
 import { filterStyledSystemMarginProps } from "../../style/utils";
-import { TooltipContext } from "../../__internal__/tooltip-provider";
 import { TagProps } from "../../__internal__/utils/helpers/tags/tags";
-import StyledIcon, { StyledIconProps } from "./icon.style";
-import { ICON_TOOLTIP_POSITIONS } from "./icon-config";
+import StyledIcon, {
+  BackgroundShape,
+  BgSize,
+  FontSize,
+  StyledIconProps,
+} from "./icon.style";
 import { IconType } from "./icon-type";
 import { TooltipPositions } from "../tooltip/tooltip.config";
-import { useTabs } from "../tabs/__next__/tabs.context";
 
 export type LegacyIconTypes =
   | "help"
@@ -18,8 +19,17 @@ export type LegacyIconTypes =
   | "success"
   | "messages";
 
+/**
+ * The size of the Icon.
+ *
+ * - `small` — 16px (default)
+ * - `medium` — 24px
+ * - `large` — 32px
+ */
+export type IconSize = "small" | "medium" | "large";
+
 export interface IconProps
-  extends Omit<StyledIconProps, "type">,
+  extends Pick<StyledIconProps, "className" | "inverse">,
     MarginProps,
     TagProps {
   /** Set whether icon should be recognised by assistive technologies */
@@ -30,22 +40,38 @@ export interface IconProps
   id?: string;
   /** The ARIA role to be applied to the Icon */
   role?: string;
-  /** [Legacy] The message to be displayed within the tooltip */
+  /**
+   * @deprecated Tooltip support has been removed from `Icon` and the use of tooltips
+   * is discouraged. This prop no longer has any effect.
+   */
   tooltipMessage?: React.ReactNode;
-  /** [Legacy] The position to display the tooltip */
+  /** @deprecated */
   tooltipPosition?: TooltipPositions;
-  /** [Legacy] Control whether the tooltip is visible */
+  /** @deprecated */
   tooltipVisible?: boolean;
-  /** [Legacy] Override background color of the Tooltip, provide any color from palette or any valid css color value. */
+  /** @deprecated */
   tooltipBgColor?: string;
-  /** [Legacy] Override font color of the Tooltip, provide any color from palette or any valid css color value. */
+  /** @deprecated */
   tooltipFontColor?: string;
-  /** [Legacy] Overrides the default flip behaviour of the Tooltip */
+  /** @deprecated */
   tooltipFlipOverrides?: TooltipPositions[];
-  /** [Legacy] Id passed to the tooltip container, used for accessibility purposes */
+  /** @deprecated */
   tooltipId?: string;
   /**
-   * Icon type
+   * Icon type.
+   *
+   * Icons use a `snake_case` naming convention and are organised into the following categories:
+   *
+   * - **Navigation** — `arrow_*`, `chevron_*`, `caret_*`, `caret_large_*`
+   * - **Actions** — `add`, `bin`, `close`, `copy`, `create`, `delete`, `drag`, `download`,
+   *   `edit`, `export`, `filter`, `link`, `search`, `settings`, `upload`, and more.
+   * - **Status** — `alert`, `blocked`, `double_tick`, `error`, `error_square`, `info`,
+   *   `tick`, `warning`, and more.
+   * - **Communication** — `call`, `chat`, `email`, `fax`, `message`, and more.
+   * - **Finance** — `bank`, `cash`, `coins`, `credit_card`, `euro`, `receipt`, and more.
+   * - **Social / App** — `app_facebook`, `app_instagram`, `app_tiktok`, `app_twitter`, `app_youtube`.
+   * - **Documents & Files** — `attach`, `document_*`, `file_*`, and more.
+   * - **Charts** — `chart_bar`, `chart_bar_arrow_up`, `chart_line`, `chart_pie`.
    *
    * The full list of types can be seen [here](https://carbon.sage.com/?path=/docs/icon--list-of-icons#list-of-icons).
    */
@@ -58,6 +84,31 @@ export interface IconProps
   inputSize?: "small" | "medium" | "large";
   /** @ignore @private */
   tabIndex?: number;
+  /**
+   * Size of the Icon.
+   *
+   * - `small` — 16px (default)
+   * - `medium` — 24px
+   * - `large` — 32px
+   */
+  size?: IconSize;
+  /** Renders the Icon in a light colour, suitable for use on dark backgrounds. */
+  inverse?: boolean;
+  /**
+   * @deprecated Use the `size` prop instead. The `extra-large` value is no longer
+   * supported and will be mapped to `large`.
+   */
+  fontSize?: FontSize;
+  /** @deprecated Use CSS or a wrapper element to apply a background colour. */
+  bg?: string;
+  /** @deprecated Use CSS or a wrapper element to apply a background shape. */
+  bgShape?: BackgroundShape;
+  /** @deprecated Use CSS or a wrapper element to control background size. */
+  bgSize?: BgSize;
+  /** @deprecated Use CSS or a wrapper element to control icon colour. */
+  color?: string;
+  /** @deprecated */
+  disabled?: boolean;
 }
 
 const Icon = React.forwardRef<HTMLSpanElement, IconProps>(
@@ -73,49 +124,27 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>(
       "data-element": dataElement,
       "data-role": dataRole,
       disabled,
-      focusable = true,
-      fontSize = "small",
+      focusable: _focusable,
+      fontSize,
       id,
-      inputSize,
-      isPartOfInput,
+      inputSize: _inputSize,
+      isPartOfInput: _isPartOfInput,
+      inverse,
+      size,
       tabIndex,
-      tooltipMessage,
-      tooltipPosition,
-      tooltipVisible,
-      tooltipBgColor,
-      tooltipFontColor,
-      tooltipFlipOverrides,
-      tooltipId,
+      tooltipMessage: _tooltipMessage,
+      tooltipPosition: _tooltipPosition,
+      tooltipVisible: _tooltipVisible,
+      tooltipBgColor: _tooltipBgColor,
+      tooltipFontColor: _tooltipFontColor,
+      tooltipFlipOverrides: _tooltipFlipOverrides,
+      tooltipId: _tooltipId,
       type,
       role,
       ...rest
     }: IconProps,
     ref,
   ): JSX.Element => {
-    const flipBehaviourCheck =
-      Array.isArray(tooltipFlipOverrides) &&
-      tooltipFlipOverrides.every((override) =>
-        ICON_TOOLTIP_POSITIONS.includes(override),
-      );
-
-    if (tooltipFlipOverrides) {
-      invariant(
-        flipBehaviourCheck,
-        `The tooltipFlipOverrides prop supplied to \`Icon\` must be an array containing some or all of ["top", "bottom", "left", "right"].`,
-      );
-    }
-
-    const isInteractive = !!tooltipMessage && !disabled;
-    const {
-      tooltipPosition: tooltipPositionFromContext,
-      focusable: focusableFromContext,
-      tooltipVisible: tooltipVisibleFromContext,
-      disabled: disabledFromContext,
-      target,
-    } = useContext(TooltipContext);
-
-    const { isInTab } = useTabs();
-
     /** Return Icon type with overrides */
     const iconType = useMemo(() => {
       // switch tweaks icon names for actual icons in the set
@@ -136,69 +165,41 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>(
       }
     }, [type]);
 
-    const isFocusable =
-      focusableFromContext !== undefined ? focusableFromContext : focusable;
-    const hasTooltip =
-      !disabled && !disabledFromContext && !!tooltipMessage && isFocusable;
-
-    const computedTabIndex = useMemo(() => {
-      if (isInTab) {
-        return undefined;
+    const resolvedSize = useMemo((): "small" | "medium" | "large" => {
+      if (fontSize) {
+        if (fontSize === "extra-large") {
+          Logger.warn(
+            `[Icon] The \`fontSize\` value "extra-large" is no longer supported and has been mapped to "large".`,
+          );
+          return "large";
+        }
+        return fontSize;
       }
-
-      return hasTooltip && tabIndex === undefined ? 0 : tabIndex;
-    }, [isInTab, hasTooltip, tabIndex]);
+      return size ?? "small";
+    }, [fontSize, size]);
 
     const styledIconProps = {
       "aria-hidden": ariaHidden,
       "aria-label": ariaLabel,
       bg,
-      bgSize: bgSize || fontSize,
+      bgSize: bgSize || resolvedSize,
       bgShape,
       className: className || undefined,
       color,
       "data-component": "icon",
       "data-element": dataElement ?? iconType,
       "data-role": dataRole ?? "icon",
-      disabled: disabledFromContext || disabled,
-      fontSize,
-      hasTooltip,
+      disabled,
+      fontSize: resolvedSize,
       id,
-      isInteractive,
+      inverse,
       ref,
       role,
-      tabIndex: computedTabIndex,
+      tabIndex,
       type: iconType,
       ...filterStyledSystemMarginProps(rest),
     };
 
-    const shouldShowTooltip = () => {
-      return tooltipVisibleFromContext !== undefined
-        ? tooltipVisibleFromContext
-        : tooltipVisible;
-    };
-
-    if (tooltipMessage) {
-      const visible = disabled ? false : shouldShowTooltip();
-
-      return (
-        <Tooltip
-          message={tooltipMessage}
-          position={tooltipPositionFromContext || tooltipPosition}
-          type={type}
-          id={tooltipId}
-          isVisible={visible}
-          isPartOfInput={isPartOfInput}
-          inputSize={inputSize}
-          bgColor={tooltipBgColor}
-          fontColor={tooltipFontColor}
-          flipOverrides={tooltipFlipOverrides}
-          target={target}
-        >
-          <StyledIcon {...styledIconProps} />
-        </Tooltip>
-      );
-    }
     return <StyledIcon {...styledIconProps} />;
   },
 );

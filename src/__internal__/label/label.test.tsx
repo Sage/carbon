@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Label from ".";
 import { InputContext, InputGroupContext } from "../input-behaviour";
+import * as ValidationIconModule from "../validations/validation-icon.component";
 
 test("renders with children", () => {
   render(<Label>foo</Label>);
@@ -139,31 +140,31 @@ test("does not render with `htmlFor` when not rendered as a `<label>` element", 
 
 test.each(["error", "warning", "info"])(
   "renders %s tooltip with position set to 'top' when label is inline",
-  async (validationProp) => {
-    const user = userEvent.setup();
+  (validationProp) => {
+    const validationIconSpy = jest.spyOn(ValidationIconModule, "default");
     render(
       <Label inline {...{ [validationProp]: "Message" }}>
         foo
       </Label>,
     );
-    await user.hover(screen.getByTestId(`icon-${validationProp}`));
-    expect(await screen.findByRole("tooltip")).toHaveAttribute(
-      "data-placement",
-      "top",
+    expect(validationIconSpy).toHaveBeenCalledWith(
+      expect.objectContaining({ tooltipPosition: "top" }),
+      expect.anything(),
     );
+    validationIconSpy.mockRestore();
   },
 );
 
 test.each(["error", "warning", "info"])(
   "renders %s tooltip with position set to 'right' when label is not inline",
-  async (validationProp) => {
-    const user = userEvent.setup();
+  (validationProp) => {
+    const validationIconSpy = jest.spyOn(ValidationIconModule, "default");
     render(<Label {...{ [validationProp]: "Message" }}>foo</Label>);
-    await user.hover(screen.getByTestId(`icon-${validationProp}`));
-    expect(await screen.findByRole("tooltip")).toHaveAttribute(
-      "data-placement",
-      "right",
+    expect(validationIconSpy).toHaveBeenCalledWith(
+      expect.objectContaining({ tooltipPosition: "right" }),
+      expect.anything(),
     );
+    validationIconSpy.mockRestore();
   },
 );
 

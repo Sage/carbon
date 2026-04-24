@@ -2,8 +2,6 @@ import styled, { css } from "styled-components";
 
 import { margin } from "styled-system";
 
-import Logger from "../../__internal__/utils/logger";
-
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 import { ThemeObject } from "../../style/themes/theme.types";
 import addFocusStyling from "../../style/utils/add-focus-styling";
@@ -49,6 +47,10 @@ export interface StyledIconProps {
    * The full list of types can be seen [here](https://github.com/Sage/carbon/blob/master/src/components/icon/icon-config.js).
    */
   type: IconType;
+  /**
+   * Renders the Icon using the inverse colour token, suitable for use on dark backgrounds.
+   */
+  inverse?: boolean;
 }
 
 export interface StyledIconInternalProps {
@@ -57,33 +59,41 @@ export interface StyledIconInternalProps {
   theme?: ThemeObject;
 }
 
-function adjustIconBgSize(fontSize?: FontSize, bgSize?: BgSize) {
-  const sizeValues: Record<BgSize | FontSize, number> = {
-    small: 1,
-    medium: 2,
-    large: 3,
-    "extra-large": 4,
-  };
-
-  if (fontSize && bgSize) {
-    const fontSizeValue = sizeValues[fontSize];
-    const bgSizeValue = sizeValues[bgSize];
-
-    if (bgSizeValue < fontSizeValue) {
-      Logger.warn(
-        `[WARNING - Icon] The "${bgSize}" \`bgSize\` is smaller than "${fontSize}" \`fontSize\`, the \`bgSize\` has been auto adjusted to a larger size.`,
-      );
-      return iconConfig.backgroundSize[fontSize];
-    }
-
-    return iconConfig.backgroundSize[bgSize];
+const styleOverrides = css`
+  ${StyledNextButton} & {
+    color: currentColor;
   }
 
-  /* The below is ignored as removing it may cause regressions as some components import StyledIcon directly from this file
-  however it cannot be tested in the Icon tests as these props always have a value. */
-  /* istanbul ignore next */
-  return bgSize ? iconConfig.backgroundSize[bgSize] : undefined;
-}
+  .mentions-list-item && {
+    color: currentColor;
+  }
+
+  .mentions-list-item:hover &&,
+  .mentions-list-item.selected && {
+    color: currentColor;
+  }
+
+  .search & {
+    color: var(--colorsUtilityYin065);
+
+    &:hover {
+      color: var(--colorsUtilityYin100);
+    }
+  }
+
+  .search.dark-background:not(.with-button) & {
+    color: var(--colorsUtilityYang080);
+
+    :hover {
+      color: var(--colorsUtilityYang100);
+    }
+  }
+
+  .multi-select &,
+  .filterable-select & {
+    cursor: pointer;
+  }
+`;
 
 const StyledIcon = styled.span.attrs(applyBaseTheme)<
   StyledIconProps & StyledIconInternalProps
@@ -99,13 +109,18 @@ const StyledIcon = styled.span.attrs(applyBaseTheme)<
     fontSize,
     disabled,
     hasTooltip,
+    inverse,
   }) => {
-    let finalColor = "var(--colorsYin090)";
+    let finalColor = inverse
+      ? "var(--container-standard-inverse-icon)"
+      : "var(--container-standard-icon)";
     let bgColor = "transparent";
 
     const win = getWindow();
     const nav = getNavigator();
-    const adjustedBgSize = adjustIconBgSize(fontSize, bgSize);
+    const backgroundSize = bgSize
+      ? iconConfig.backgroundSize[bgSize]
+      : undefined;
 
     if (disabled) {
       finalColor = "var(--colorsYin030)";
@@ -127,8 +142,8 @@ const StyledIcon = styled.span.attrs(applyBaseTheme)<
       align-items: center;
       display: inline-flex;
       justify-content: center;
-      height: ${adjustedBgSize};
-      width: ${adjustedBgSize};
+      height: ${backgroundSize};
+      width: ${backgroundSize};
       ${bgShape ? `border-radius: ${iconConfig.backgroundShape[bgShape]}` : ""};
 
       ${isInteractive &&
@@ -172,7 +187,9 @@ const StyledIcon = styled.span.attrs(applyBaseTheme)<
         display: block;
       }
 
+      // We can remove this fully once we stop supporting tooltips
       ${hasTooltip &&
+      // istanbul ignore next
       `
         :focus {
           ${addFocusStyling()}
@@ -180,21 +197,10 @@ const StyledIcon = styled.span.attrs(applyBaseTheme)<
       `}
 
       ${margin}
+
+      ${styleOverrides}
     `;
   }}
-
-  ${StyledNextButton} & {
-    color: currentColor;
-  }
-
-  .mentions-list-item && {
-    color: currentColor;
-  }
-
-  .mentions-list-item:hover &&,
-  .mentions-list-item.selected && {
-    color: currentColor;
-  }
 `;
 
 export default StyledIcon;

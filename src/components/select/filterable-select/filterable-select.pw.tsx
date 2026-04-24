@@ -188,39 +188,6 @@ test.describe("FilterableSelect component", () => {
     ).toHaveAttribute("data-role", testPropValue);
   });
 
-  (
-    [
-      ["top", "200px", "0px", "0px", "0px"],
-      ["bottom", "0px", "0px", "0px", "0px"],
-      ["left", "200px", "0px", "200px", "0px"],
-      ["right", "200px", "0px", "0px", "200px"],
-    ] as const
-  ).forEach(([tooltipPositionValue, top, bottom, left, right]) => {
-    test(`should render the help tooltip in the ${tooltipPositionValue} position`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <FilterableSelectComponent
-          labelHelp="Help"
-          tooltipPosition={tooltipPositionValue}
-          mt={top}
-          mb={bottom}
-          ml={left}
-          mr={right}
-        />,
-      );
-
-      await helpIcon(page).hover();
-      const tooltipElement = tooltipPreview(page);
-      await expect(tooltipElement).toBeVisible();
-      await expect(tooltipElement).toHaveAttribute(
-        "data-placement",
-        tooltipPositionValue,
-      );
-    });
-  });
-
   test("should check disabled prop", async ({ mount, page }) => {
     await mount(<FilterableSelectComponent disabled />);
 
