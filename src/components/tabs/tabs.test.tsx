@@ -112,7 +112,10 @@ test("renders the tabs in horizontal orientation when `position` prop is not set
   );
 
   const tab = screen.getByRole("tab", { name: "Tab 2" });
-  expect(tab).not.toHaveStyle("border-right: 2px solid #8b8b8bff");
+  expect(tab).not.toHaveStyleRule(
+    "border-right",
+    "2px solid var(--tab-border-default)",
+  );
 });
 
 test("renders the tabs in horizontal orientation when `position` prop is set to 'top'", () => {
@@ -128,7 +131,10 @@ test("renders the tabs in horizontal orientation when `position` prop is set to 
   );
 
   const tab = screen.getByRole("tab", { name: "Tab 2" });
-  expect(tab).not.toHaveStyle("border-right: 2px solid #8b8b8bff");
+  expect(tab).not.toHaveStyleRule(
+    "border-right",
+    "2px solid var(--tab-border-default)",
+  );
 });
 
 test("renders the tabs in vertical orientation when `position` prop is set to 'left'", () => {
@@ -144,7 +150,10 @@ test("renders the tabs in vertical orientation when `position` prop is set to 'l
   );
 
   const tab = screen.getByRole("tab", { name: "Tab 2" });
-  expect(tab).toHaveStyle("border-right: 2px solid #8b8b8bff");
+  expect(tab).toHaveStyleRule(
+    "border-right",
+    "2px solid var(--tab-border-default)",
+  );
 });
 
 test("applies width correctly when `headerWidth` prop is not set and `position` prop is set to 'left'", () => {
