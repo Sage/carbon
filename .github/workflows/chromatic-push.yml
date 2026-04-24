@@ -9,6 +9,24 @@ on:
       - "[0-9]+.x.x"
       - "[0-9]+.[0-9]+.x"
       - "major/**"
+    paths:
+      - ".storybook/**"
+      - ".assets/**"
+      - "logo/**"
+      - "docs/*.mdx"
+      - "docs/*.stories.tsx"
+      - "src/**/*.mdx"
+      - "src/**/*.stories.js"
+      - "src/**/*.stories.jsx"
+      - "src/**/*.stories.ts"
+      - "src/**/*.stories.tsx"
+      - "src/**"
+      - "src/style/assets/**"
+      - "package.json"
+      - "package-lock.json"
+      - "babel.config.js"
+      - "tsconfig.json"
+      - "tsconfig-build.json"
 
 jobs:
   chromatic:
