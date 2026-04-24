@@ -54,6 +54,21 @@ const initialValue = {
 };
 
 describe("CharacterCounterPlugin", () => {
+  it("renders the character counter with the correct initial count", async () => {
+    render(
+      <TextEditor
+        labelText="Test Editor"
+        namespace="test"
+        characterLimit={100}
+      />,
+    );
+
+    const hiddenCounter = screen.getByTestId(
+      "test-hidden-live-character-counter",
+    );
+    expect(hiddenCounter).toHaveTextContent("100 characters remaining");
+  });
+
   /*
    * `getBoundingClientRect` is not implemented on `Range` objects in jsdom.
    * Lexical calls this during DOM selection updates after user interactions.
