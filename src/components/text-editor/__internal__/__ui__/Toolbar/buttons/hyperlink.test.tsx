@@ -7,6 +7,7 @@ import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { HyperlinkButton } from ".";
 
 import TextEditor from "../../../../text-editor.component";
+import Form from "../../../../../form";
 
 describe("Hyperlink button", () => {
   it("should render the hyperlink button correctly", () => {
@@ -116,5 +117,39 @@ describe("Hyperlink button", () => {
 
     const hyperlinkButton = screen.getByRole("button", { name: "Hyperlink" });
     expect(hyperlinkButton).toHaveAttribute("tabindex", "-1");
+  });
+
+  it("should not propagate submit events to a parent form", async () => {
+    const mockOnSubmit = jest.fn();
+
+    render(
+      <Form onSubmit={mockOnSubmit}>
+        <TextEditor labelText="Test Editor" namespace="test" />
+      </Form>,
+    );
+    const linkButton = screen.getByTestId(`test-hyperlink-button`);
+    expect(linkButton).toBeInTheDocument();
+
+    await userEvent.click(linkButton);
+    const dialog = screen.getByRole("dialog");
+
+    await waitFor(() => {
+      expect(dialog).toBeInTheDocument();
+    });
+
+    const dialogContent = within(dialog);
+
+    const input = dialogContent.getAllByRole("textbox");
+    expect(input).toHaveLength(2);
+
+    await userEvent.click(input[0]);
+    await userEvent.keyboard("a");
+    await userEvent.click(input[1]);
+    await userEvent.keyboard("a");
+
+    const addButton = dialogContent.getByRole("button", { name: "Save" });
+    await userEvent.click(addButton);
+
+    expect(mockOnSubmit).not.toHaveBeenCalled();
   });
 });

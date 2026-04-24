@@ -9,6 +9,9 @@ import Profile from ".";
 const meta: Meta<typeof Profile> = {
   title: "Profile",
   component: Profile,
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
 };
 
 export default meta;

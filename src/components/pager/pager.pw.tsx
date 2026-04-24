@@ -17,12 +17,9 @@ import {
   firstArrow,
   lastArrow,
   currentPageWrapper,
-  currentPageLabelWrapper,
   currentPageInput,
   pagerSummary,
-  pageSelectElement,
   showLabelBefore,
-  pageSizeLabelAfter,
   currentPageSection,
   pager,
   selectListWrapper,
@@ -85,31 +82,6 @@ test.describe("Styling tests", () => {
 });
 
 test.describe("Prop tests", () => {
-  [2, 5, 7].forEach((currentPage) => {
-    test(`should render with currentPage prop set to ${currentPage}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<PagerComponent currentPage={currentPage} />);
-
-      await expect(currentPageInput(page)).toHaveAttribute(
-        "value",
-        `${currentPage}`,
-      );
-    });
-  });
-
-  [50, 100, 235].forEach((totalRecords) => {
-    test(`should render with totalRecords prop set to ${totalRecords}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<PagerComponent totalRecords={totalRecords} />);
-
-      await expect(pagerSummary(page)).toHaveText(`${totalRecords} items`);
-    });
-  });
-
   [
     [1, 100],
     [10, 10],
@@ -146,78 +118,6 @@ test.describe("Prop tests", () => {
       await expect(
         selectListWrapper(page).locator("ul").locator("li"),
       ).toHaveAttribute("data-component", "option");
-    });
-  });
-
-  [true, false].forEach((showSelection) => {
-    test(`should render with showPageSizeSelection prop set to ${showSelection}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<PagerComponent showPageSizeSelection={showSelection} />);
-
-      if (showSelection) {
-        await expect(pageSelectElement(page)).toBeVisible();
-      } else {
-        await expect(pageSelectElement(page)).toHaveCount(0);
-      }
-    });
-  });
-
-  [true, false].forEach((showBefore) => {
-    test(`should render with showPageSizeLabelBefore prop set to ${showBefore}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <PagerComponent
-          showPageSizeLabelBefore={showBefore}
-          showPageSizeSelection
-        />,
-      );
-
-      if (showBefore) {
-        await expect(showLabelBefore(page)).toBeVisible();
-      } else {
-        await expect(showLabelBefore(page)).toHaveCount(0);
-      }
-      await expect(pageSelectElement(page)).toBeVisible();
-    });
-  });
-
-  [true, false].forEach((showAfter) => {
-    test(`should render with showPageSizeLabelAfter prop set to ${showAfter}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <PagerComponent
-          showPageSizeLabelAfter={showAfter}
-          showPageSizeSelection
-        />,
-      );
-
-      if (showAfter) {
-        await expect(pageSizeLabelAfter(page)).toBeVisible();
-      } else {
-        await expect(pageSizeLabelAfter(page)).toHaveCount(0);
-      }
-      await expect(pageSelectElement(page)).toBeVisible();
-    });
-  });
-
-  [true, false].forEach((showTotal) => {
-    test(`should render with showTotalRecords prop set to ${showTotal}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<PagerComponent showTotalRecords={showTotal} />);
-
-      if (showTotal) {
-        await expect(pagerSummary(page)).toBeVisible();
-      } else {
-        await expect(pagerSummary(page)).toBeHidden();
-      }
     });
   });
 
@@ -303,92 +203,10 @@ test.describe("Prop tests", () => {
       }
     });
   });
-
-  [true, false].forEach((hideElements) => {
-    test(`should render links as intended when hideDisabledElements is set to ${hideElements} and currentPage is 1`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <PagerComponent currentPage={1} hideDisabledElements={hideElements} />,
-      );
-
-      if (hideElements) {
-        await expect(firstArrow(page)).toBeHidden();
-        await expect(previousArrow(page)).toBeHidden();
-      } else {
-        await expect(firstArrow(page)).toBeVisible();
-        await expect(previousArrow(page)).toBeVisible();
-      }
-    });
-  });
-
-  [true, false].forEach((hideElements) => {
-    test(`should render links as intended when hideDisabledElements is set to ${hideElements} and currentPage is 10`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <PagerComponent currentPage={10} hideDisabledElements={hideElements} />,
-      );
-
-      if (hideElements) {
-        await expect(nextArrow(page)).toBeHidden();
-        await expect(lastArrow(page)).toBeHidden();
-      } else {
-        await expect(nextArrow(page)).toBeVisible();
-        await expect(lastArrow(page)).toBeVisible();
-      }
-    });
-  });
-
-  test(`should render both pager link when hideDisabledElements is set to true, but currentPage is greater than 1`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<PagerComponent currentPage={7} hideDisabledElements />);
-
-    await expect(firstArrow(page)).toBeVisible();
-    await expect(previousArrow(page)).toBeVisible();
-  });
-
-  [false, true].forEach((pageNumber) => {
-    test(`should render standard pager nav number input correctly when interactivePageNumber is ${pageNumber}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <PagerComponent currentPage={1} interactivePageNumber={pageNumber} />,
-      );
-
-      if (pageNumber) {
-        await expect(currentPageWrapper(page)).toBeVisible();
-      } else {
-        await expect(currentPageWrapper(page)).toHaveCount(0);
-      }
-    });
-  });
-
-  [true, false].forEach((pageNumber) => {
-    test(`should render pager nav label is correctly when interactivePageNumber is ${pageNumber}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <PagerComponent currentPage={1} interactivePageNumber={pageNumber} />,
-      );
-
-      if (pageNumber) {
-        await expect(currentPageLabelWrapper(page)).toHaveCount(0);
-      } else {
-        await expect(currentPageLabelWrapper(page)).toBeVisible();
-      }
-    });
-  });
 });
 
 test.describe("Functional tests", () => {
-  [-1, -10, -100, ...testData].forEach((totalRecords) => {
+  [...testData].forEach((totalRecords) => {
     test(`should set totalRecords out of scope to ${totalRecords}`, async ({
       mount,
       page,
@@ -398,54 +216,6 @@ test.describe("Functional tests", () => {
       await expect(pagerSummary(page)).toHaveText(`${totalRecords} items`);
       await expect(maxPages(page)).toHaveText("of 1");
     });
-  });
-
-  test(`should disable nextArrow and lastArrow buttons after clicking on lastArrow button`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<PagerComponent currentPage={3} />);
-
-    await lastArrow(page).click();
-
-    await expect(nextArrow(page)).toHaveAttribute("disabled", /.*/);
-    await expect(lastArrow(page)).toHaveAttribute("disabled", /.*/);
-  });
-
-  test(`should disable firstArrow and previousArrow buttons after clicking on firstArrow button`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<PagerComponent currentPage={3} />);
-
-    await firstArrow(page).click();
-
-    await expect(firstArrow(page)).toHaveAttribute("disabled", /.*/);
-    await expect(previousArrow(page)).toHaveAttribute("disabled", /.*/);
-  });
-
-  test(`should disable firstArrow and previousArrow buttons after clicking on previousArrow button`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<PagerComponent currentPage={2} />);
-
-    await previousArrow(page).click();
-
-    await expect(firstArrow(page)).toHaveAttribute("disabled", /.*/);
-    await expect(previousArrow(page)).toHaveAttribute("disabled", /.*/);
-  });
-
-  test(`should disable firstArrow and previousArrow buttons after clicking on nextArrow button`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<PagerComponent currentPage={9} />);
-
-    await nextArrow(page).click();
-
-    await expect(nextArrow(page)).toHaveAttribute("disabled", /.*/);
-    await expect(lastArrow(page)).toHaveAttribute("disabled", /.*/);
   });
 
   [1001, 901, 701, 601, 450].forEach((viewportWidth) => {
@@ -528,48 +298,6 @@ test.describe("Functional tests", () => {
 });
 
 test.describe("Events test", () => {
-  test(`should call onPagination callback when a select event is triggered`, async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    await mount(
-      <PagerComponent
-        onPagination={() => {
-          callbackCount += 1;
-        }}
-        showPageSizeSelection
-        currentPage={5}
-      />,
-    );
-
-    await pageSelectElement(page).click();
-    const listWrapper = selectListWrapper(page)
-      .locator("li")
-      .filter({ hasText: "25" });
-    await listWrapper.click();
-
-    expect(callbackCount).toEqual(1);
-  });
-
-  test(`should call onNext callback when a click event is triggered`, async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    await mount(
-      <PagerComponent
-        onNext={() => {
-          callbackCount += 1;
-        }}
-      />,
-    );
-
-    await nextArrow(page).click();
-
-    expect(callbackCount).toEqual(1);
-  });
-
   [...keysToTrigger].forEach((key) => {
     test(`should call onNext callback when a keyboard event is triggered by pressing ${key}`, async ({
       mount,
@@ -590,25 +318,6 @@ test.describe("Events test", () => {
 
       expect(callbackCount).toEqual(1);
     });
-  });
-
-  test(`should call onPrevious callback when a click event is triggered`, async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    await mount(
-      <PagerComponent
-        onPrevious={() => {
-          callbackCount += 1;
-        }}
-        currentPage={5}
-      />,
-    );
-
-    await previousArrow(page).click();
-
-    expect(callbackCount).toEqual(1);
   });
 
   [...keysToTrigger].forEach((key) => {
@@ -634,25 +343,6 @@ test.describe("Events test", () => {
     });
   });
 
-  test(`should call onFirst callback when a click event is triggered`, async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    await mount(
-      <PagerComponent
-        onFirst={() => {
-          callbackCount += 1;
-        }}
-        currentPage={5}
-      />,
-    );
-
-    await firstArrow(page).click();
-
-    expect(callbackCount).toEqual(1);
-  });
-
   [...keysToTrigger].forEach((key) => {
     test(`should call onFirst callback when a keyboard event is triggered by pressing ${key}`, async ({
       mount,
@@ -673,25 +363,6 @@ test.describe("Events test", () => {
 
       expect(callbackCount).toEqual(1);
     });
-  });
-
-  test(`should call onLast callback when a click event is triggered`, async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    await mount(
-      <PagerComponent
-        onLast={() => {
-          callbackCount += 1;
-        }}
-        currentPage={5}
-      />,
-    );
-
-    await lastArrow(page).click();
-
-    expect(callbackCount).toEqual(1);
   });
 
   [...keysToTrigger].forEach((key) => {

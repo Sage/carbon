@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "158.46.0",
+  "version": "158.46.2",
   "description": "A library of reusable React components for easily building user interfaces.",
   "files": [
     "lib",
@@ -109,7 +109,6 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.5.2",
-    "@types/crypto-js": "^4.2.1",
     "@types/glob": "^8.1.0",
     "@types/invariant": "^2.2.37",
     "@types/jest": "^29.5.0",
@@ -188,7 +187,7 @@
     "ts-morph": "^27.0.2",
     "typescript": "^5.8.3",
     "url-loader": "^4.1.1",
-    "uuid": "^8.3.2",
+    "uuid": "^14.0.0",
     "vite": "^6.3.4",
     "vite-plugin-static-copy": "^3.1.2"
   },
@@ -205,7 +204,6 @@
     "@tanstack/react-virtual": "^3.13.12",
     "@types/styled-system": "^5.1.22",
     "chalk": "^4.1.2",
-    "crypto-js": "^4.2.0",
     "date-fns": "^4.1.0",
     "invariant": "^2.2.4",
     "lexical": "0.38.2",
@@ -221,7 +219,8 @@
   },
   "overrides": {
     "playwright-core": "$@playwright/experimental-ct-react",
-    "jsdom": "$jsdom"
+    "jsdom": "$jsdom",
+    "uuid": "^14.0.0"
   },
   "lint-staged": {
     "./**/*.{js,jsx,ts,tsx}": [
