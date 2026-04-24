@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Button from "../button";
+import Button from "../button/__next__";
 import Message, { MessageProps } from "./message.component";
 
 const MessageComponent = (props: MessageProps) => {
