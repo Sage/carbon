@@ -109,7 +109,6 @@
     "@types/node": "^24.10.1",
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.1",
-    "@types/react-is": "^17.0.4",
     "@types/react-transition-group": "^4.4.9",
     "@types/semver": "^7.7.0",
     "@types/styled-components": "5.1.34",
@@ -189,7 +188,6 @@
     "lexical": "0.38.2",
     "lodash": "^4.17.21",
     "react-day-picker": "~9.3.2",
-    "react-is": "^17.0.2",
     "react-transition-group": "^4.4.5",
     "styled-system": "^5.1.5"
   },
