@@ -91,6 +91,17 @@ The `VerticalMenuTrigger` component is intended to be used to trigger opening th
 
 <Canvas of={VerticalMenuStories.FullScreen} />
 
+### Programmatic Focus
+
+```javascript
+import { VerticalMenuItemHandle } from "carbon-react/lib/components/vertical-menu";
+```
+
+The `VerticalMenuItemHandle` type provides an imperative handle to programmatically focus `VerticalMenuItem`. 
+Using a `ref`, you can access its `focus()` method to set focus on the items as needed.
+
+<Canvas of={VerticalMenuStories.ProgrammaticFocus} />
+
 ## Props
 
 ### VerticalMenu
