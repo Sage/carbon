@@ -1,3 +1,9 @@
+## [158.46.4](https://github.com/Sage/carbon/compare/v158.46.3...v158.46.4) (2026-04-24)
+
+### Bug Fixes
+
+* **loader:** add missing ai variants to ring type ([1a2fb0b](https://github.com/Sage/carbon/commit/1a2fb0b7ff4d59726c28685a5c3feab8892fd4cb)), closes [#7868](https://github.com/Sage/carbon/issues/7868)
+
 ## [158.46.3](https://github.com/Sage/carbon/compare/v158.46.2...v158.46.3) (2026-04-24)
 
 ### Bug Fixes
