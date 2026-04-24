@@ -733,9 +733,8 @@ test("should ensure the selectable checkbox has an accessible label when `ariaLa
     </>,
   );
 
-  expect(screen.getByRole("checkbox")).toHaveAttribute(
-    "aria-labelledby",
-    "ft-label-1 ft-label-2",
+  expect(screen.getByRole("checkbox")).toHaveAccessibleDescription(
+    "First Name Last Name",
   );
 });
 
