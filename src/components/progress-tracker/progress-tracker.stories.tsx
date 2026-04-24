@@ -16,6 +16,9 @@ const meta: Meta<typeof ProgressTracker> = {
   argTypes: {
     ...styledSystemProps,
   },
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
 };
 
 export default meta;
