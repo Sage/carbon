@@ -23,7 +23,14 @@ const meta: Meta<typeof Loader> = {
     },
     variant: {
       control: { type: "select" },
-      options: ["typical", "ai", "stacked", "inline"],
+      options: [
+        "typical",
+        "ai",
+        "stacked",
+        "inline",
+        "ai-stacked",
+        "ai-inline",
+      ],
     },
     loaderLabel: {
       control: { type: "text" },
@@ -130,6 +137,22 @@ export const Variants: Story = {
       <Box backgroundColor="#1c1c1c" p="8px">
         <Loader loaderType="ring" variant="inline" inverse />
       </Box>
+      <h2>Ring AI Stacked</h2>
+      <Box>
+        <Loader loaderType="ring" variant="ai-stacked" />
+      </Box>
+      <h2>Ring AI Inline</h2>
+      <Box>
+        <Loader loaderType="ring" variant="ai-inline" />
+      </Box>
+      <h2>Ring AI Stacked Inversed</h2>
+      <Box backgroundColor="#1c1c1c" p="8px">
+        <Loader loaderType="ring" variant="ai-stacked" inverse />
+      </Box>
+      <h2>Ring AI Inline Inversed</h2>
+      <Box backgroundColor="#1c1c1c" p="8px">
+        <Loader loaderType="ring" variant="ai-inline" inverse />
+      </Box>
     </>
   ),
 };
@@ -158,6 +181,16 @@ TrackedStates.storyName = "Tracked States";
 export const InsideButtons: Story = {
   render: () => (
     <>
+      <Box height="50px">
+        <Button m={2} buttonType="gradient-grey" onClick={() => {}}>
+          <Loader
+            loaderType="ring"
+            variant="ai-inline"
+            size="extra-small"
+            showLabel
+          />
+        </Button>
+      </Box>
       <Box height="50px">
         <Button m={2} buttonType="primary" onClick={() => {}}>
           <Loader
