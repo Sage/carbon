@@ -1,3 +1,9 @@
+## [158.46.3](https://github.com/Sage/carbon/compare/v158.46.2...v158.46.3) (2026-04-24)
+
+### Bug Fixes
+
+* **character-counter:** fixed character counter inconsistencies ([6cc5267](https://github.com/Sage/carbon/commit/6cc526774af8aaf536a3cab472887a67055c4b3b)), closes [#7825](https://github.com/Sage/carbon/issues/7825)
+
 ## [158.46.2](https://github.com/Sage/carbon/compare/v158.46.1...v158.46.2) (2026-04-22)
 
 ### Bug Fixes
