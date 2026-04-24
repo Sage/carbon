@@ -204,44 +204,44 @@ export const FilterableSelect = React.forwardRef<
 
     const updateValues = useCallback(
       (newFilterText: string, isDeleteEvent: boolean) => {
-        setSelectedValue(() => {
-          const trimmed = newFilterText.trimStart();
-          const match = findElementWithMatchingText(
-            trimmed,
-            children,
-          ) as React.ReactElement;
-          const isFilterCleared = isDeleteEvent && !newFilterText.length;
+        const trimmed = newFilterText.trimStart();
+        const match = findElementWithMatchingText(
+          trimmed,
+          children,
+        ) as React.ReactElement;
+        const isFilterCleared = isDeleteEvent && !newFilterText.length;
 
-          if (!match || isFilterCleared || match.props.disabled) {
-            setTextValue(newFilterText);
-            triggerChange("", false);
+        if (!match || isFilterCleared || match.props.disabled) {
+          setTextValue(newFilterText);
+          triggerChange("", false);
 
-            return "";
-          }
+          setSelectedValue("");
+          return;
+        }
 
-          if (trimmed.length) {
-            triggerChange(match.props.value, false);
-          }
+        if (trimmed.length) {
+          triggerChange(match.props.value, false);
+        }
 
-          if (isDeleteEvent) {
-            setTextValue(newFilterText);
+        if (isDeleteEvent) {
+          setTextValue(newFilterText);
 
-            return match.props.value;
-          }
+          setSelectedValue(match.props.value);
+          return;
+        }
 
-          if (
-            trimmed.length &&
-            match.props.text?.toLowerCase().startsWith(trimmed.toLowerCase())
-          ) {
-            setTextValue(match.props.text);
-          } else {
-            setTextValue(newFilterText);
-          }
+        if (
+          trimmed.length &&
+          match.props.text?.toLowerCase().startsWith(trimmed.toLowerCase())
+        ) {
+          setTextValue(match.props.text);
+        } else {
+          setTextValue(newFilterText);
+        }
 
-          setHighlightedValue(match.props.value);
+        setHighlightedValue(match.props.value);
 
-          return match.props.value;
-        });
+        setSelectedValue(match.props.value);
       },
       [children, triggerChange],
     );
