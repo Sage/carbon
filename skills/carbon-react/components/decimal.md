@@ -267,7 +267,7 @@ description: Carbon Decimal component props and usage examples.
 | part | string \| undefined | No |  |  |  |  |  |
 | pattern | string \| undefined | No |  |  |  |  |  |
 | placeholder | string \| undefined | No |  |  |  | Placeholder string to be displayed in input |  |
-| precision | 0 \| 9 \| 1 \| 2 \| 3 \| 4 \| 5 \| 6 \| 7 \| 8 \| 10 \| 11 \| 12 \| 13 \| 14 \| 15 \| undefined | No |  |  |  | The decimal precision of the value in the input |  |
+| precision | 0 \| 1 \| 2 \| 3 \| 4 \| 5 \| 6 \| 7 \| 8 \| 9 \| 10 \| 11 \| 12 \| 13 \| 14 \| 15 \| undefined | No |  |  |  | The decimal precision of the value in the input |  |
 | prefix | string \| undefined | No |  |  |  | Emphasized part of the displayed text |  |
 | property | string \| undefined | No |  |  |  |  |  |
 | radioGroup | string \| undefined | No |  |  |  |  |  |

@@ -15,50 +15,48 @@ description: Carbon Alert component props and usage examples.
 - Deprecation reason: Alert has been deprecated. See the Carbon documentation for migration details.
 
 ## Props
-| Name | Type | Required | Literals | Deprecated | Deprecation reason | Description | Default |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| open | boolean | Yes |  |  |  | Sets the open state of the modal |  |
-| ariaRole | string \| undefined | No |  |  |  | The ARIA role to be applied to the modal |  |
-| bespokeFocusTrap | ((ev: KeyboardEvent, firstElement?: HTMLElement, lastElement?: HTMLElement) => void) \| undefined | No |  |  |  | Function to replace focus trap |  |
-| children | React.ReactNode | No |  |  |  | Child elements |  |
-| className | string \| undefined | No |  |  |  |  |  |
-| closeButtonDataProps | Pick<TagProps, "data-element" \| "data-role"> \| undefined | No |  |  |  | Data tag prop bag for close Button |  |
-| contentPadding | ContentPaddingInterface \| undefined | No |  |  |  | Padding to be set on the Dialog content |  |
-| contentRef | React.ForwardedRef<HTMLDivElement> \| undefined | No |  |  |  | Reference to the scrollable content element |  |
-| disableAutoFocus | boolean \| undefined | No |  |  |  |  |  |
-| disableEscKey | boolean \| undefined | No |  |  |  | Determines if the Esc Key closes the modal |  |
-| disableFocusTrap | boolean \| undefined | No |  |  |  |  |  |
-| disableStickyOnSmallScreen | boolean \| undefined | No |  |  |  | When true, header and sticky footer become unstickied for accessibility on small screen devices. On small screen devices, the dialog becomes full width and has no dimmer. |  |
-| enableBackgroundUI | boolean \| undefined | No |  |  |  | Determines if the background is disabled when the modal is open |  |
-| focusableContainers | React.RefObject<HTMLElement>[] \| undefined | No |  |  |  | an optional array of refs to containers whose content should also be reachable by tabbing from the dialog |  |
-| focusableSelectors | string \| undefined | No |  |  |  | Optional selector to identify the focusable elements, if not provided a default selector is used |  |
-| focusFirstElement | HTMLElement \| React.RefObject<HTMLElement> \| null \| undefined | No |  |  |  | Optional reference to an element meant to be focused on open |  |
-| footer | React.ReactNode | No |  |  |  | Footer content to be rendered at the bottom of the dialog |  |
-| gradientKeyLine | boolean \| undefined | No |  |  |  | Adds a gradient keyline to the dialog header |  |
-| greyBackground | boolean \| undefined | No |  |  |  | Change the background color of the content to grey |  |
-| headerChildren | React.ReactNode | No |  |  |  | Container for components to be displayed in the header |  |
-| height | string \| undefined | No |  |  |  | Allows developers to specify a specific height for the dialog. |  |
-| help | string \| undefined | No |  |  |  | Adds Help tooltip to Header |  |
-| onCancel | ((ev: React.KeyboardEvent<HTMLElement> \| KeyboardEvent \| React.MouseEvent<HTMLButtonElement>) => void) \| undefined | No |  |  |  | A custom close event handler |  |
-| restoreFocusOnClose | boolean \| undefined | No |  |  |  | Enables the automatic restoration of focus to the element that invoked the modal when the modal is closed. |  |
-| role | string \| undefined | No |  |  |  | The ARIA role to be applied to the Dialog container |  |
-| showCloseIcon | boolean \| undefined | No |  |  |  | Determines if the close icon is shown |  |
-| size | "auto" \| "extra-small" \| "medium-small" \| "medium-large" \| "extra-large" \| "maximise" \| Size \| undefined | No |  |  |  | Size — accepts both legacy values (extra-small, medium-small, etc.) and new values (small, medium, large, fullscreen). | "extra-small" |
-| stickyFooter | boolean \| undefined | No |  |  |  | Makes the footer stick to the bottom of the dialog when content scrolls |  |
-| subtitle | React.ReactNode | No |  |  |  | Subtitle displayed at top of dialog. Its consumers' responsibility to set a suitable accessible name/description for the Dialog if they pass a node to subtitle prop. |  |
-| title | React.ReactNode | No |  |  |  | Title displayed at top of dialog. Its consumers' responsibility to set a suitable accessible name/description for the Dialog if they pass a node to title prop. |  |
-| topModalOverride | boolean \| undefined | No |  |  |  | Manually override the internal modal stacking order to set this as top |  |
-| data-component | string \| undefined | No |  |  |  |  |  |
-| data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
-| data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
-| aria-describedby | string \| undefined | No |  |  |  | Prop to specify the aria-describedby property of the Dialog component |  |
-| aria-label | string \| undefined | No |  |  |  | Prop to specify the aria-label of the Dialog component. To be used only when the title prop is not defined, and the component is not labelled by any internal element. |  |
-| aria-labelledby | string \| undefined | No |  |  |  | Prop to specify the aria-labelledby property of the Dialog component To be used when the title prop is a custom React Node, or the component is labelled by an internal element other than the title. |  |
-| disableClose | boolean \| undefined | No |  | Yes |  |  |  |
-| disableContentPadding | boolean \| undefined | No |  | Yes | Use `contentPadding` instead. |  |  |
-| fullscreen | boolean \| undefined | No |  | Yes | Use `size="fullscreen"` instead. |  |  |
-| highlightVariant | string \| undefined | No |  | Yes | Use `gradientKeyLine` instead. |  |  |
-| pagesStyling | boolean \| undefined | No |  | Yes |  |  |  |
+| Name | Type | Required | Literals | Description | Default |
+| --- | --- | --- | --- | --- | --- |
+| open | boolean | Yes |  | Sets the open state of the modal |  |
+| ariaRole | string \| undefined | No |  | The ARIA role to be applied to the modal |  |
+| bespokeFocusTrap | ((ev: KeyboardEvent, firstElement?: HTMLElement, lastElement?: HTMLElement) => void) \| undefined | No |  | Function to replace focus trap |  |
+| children | React.ReactNode | No |  | Child elements |  |
+| className | string \| undefined | No |  |  |  |
+| closeButtonDataProps | Pick<TagProps, "data-element" \| "data-role"> \| undefined | No |  | Data tag prop bag for close Button |  |
+| contentPadding | ContentPaddingInterface \| undefined | No |  | Padding to be set on the Dialog content |  |
+| contentRef | React.ForwardedRef<HTMLDivElement> \| undefined | No |  | Reference to the scrollable content element |  |
+| disableAutoFocus | boolean \| undefined | No |  |  |  |
+| disableClose | boolean \| undefined | No |  | Determines if the Dialog can be closed |  |
+| disableContentPadding | boolean \| undefined | No |  |  |  |
+| disableEscKey | boolean \| undefined | No |  | Determines if the Esc Key closes the modal |  |
+| disableFocusTrap | boolean \| undefined | No |  |  |  |
+| disableStickyOnSmallScreen | boolean \| undefined | No |  | When true, header and sticky footer become unstickied for accessibility on small screen devices. On small screen devices, the dialog becomes full width and has no dimmer. |  |
+| enableBackgroundUI | boolean \| undefined | No |  | Determines if the background is disabled when the modal is open |  |
+| focusableContainers | React.RefObject<HTMLElement>[] \| undefined | No |  | an optional array of refs to containers whose content should also be reachable by tabbing from the dialog |  |
+| focusableSelectors | string \| undefined | No |  | Optional selector to identify the focusable elements, if not provided a default selector is used |  |
+| focusFirstElement | HTMLElement \| React.RefObject<HTMLElement> \| null \| undefined | No |  | Optional reference to an element meant to be focused on open |  |
+| footer | React.ReactNode | No |  | Footer content to be rendered at the bottom of the dialog |  |
+| gradientKeyLine | boolean \| undefined | No |  | Adds a gradient keyline to the dialog header |  |
+| greyBackground | boolean \| undefined | No |  | Change the background color of the content to grey |  |
+| headerChildren | React.ReactNode | No |  | Container for components to be displayed in the header |  |
+| height | string \| undefined | No |  | Allows developers to specify a specific height for the dialog. |  |
+| help | string \| undefined | No |  | Adds Help tooltip to Header |  |
+| onCancel | ((ev: React.KeyboardEvent<HTMLElement> \| KeyboardEvent \| React.MouseEvent<HTMLButtonElement>) => void) \| undefined | No |  | A custom close event handler |  |
+| pagesStyling | boolean \| undefined | No |  |  |  |
+| restoreFocusOnClose | boolean \| undefined | No |  | Enables the automatic restoration of focus to the element that invoked the modal when the modal is closed. |  |
+| role | string \| undefined | No |  | The ARIA role to be applied to the Dialog container |  |
+| showCloseIcon | boolean \| undefined | No |  | Determines if the close icon is shown |  |
+| size | Size \| undefined | No |  | Size of dialog following design system naming conventions. - small: 288px min-width, 540px max-width - medium: 540px min-width, 850px max-width (default) - large: 850px min-width, 1080px max-width - fullscreen: full viewport | "extra-small" |
+| stickyFooter | boolean \| undefined | No |  | Makes the footer stick to the bottom of the dialog when content scrolls |  |
+| subtitle | React.ReactNode | No |  | Subtitle displayed at top of dialog. Its consumers' responsibility to set a suitable accessible name/description for the Dialog if they pass a node to subtitle prop. |  |
+| title | React.ReactNode | No |  | Title displayed at top of dialog. Its consumers' responsibility to set a suitable accessible name/description for the Dialog if they pass a node to title prop. |  |
+| topModalOverride | boolean \| undefined | No |  | Manually override the internal modal stacking order to set this as top |  |
+| data-component | string \| undefined | No |  |  |  |
+| data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+| data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+| aria-describedby | string \| undefined | No |  | Prop to specify the aria-describedby property of the Dialog component |  |
+| aria-label | string \| undefined | No |  | Prop to specify the aria-label of the Dialog component. To be used only when the title prop is not defined, and the component is not labelled by any internal element. |  |
+| aria-labelledby | string \| undefined | No |  | Prop to specify the aria-labelledby property of the Dialog component To be used when the title prop is a custom React Node, or the component is labelled by an internal element other than the title. |  |
 
 ## Examples
 ### Default
