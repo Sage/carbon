@@ -359,13 +359,13 @@ const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
           ${$size === "small" &&
           css`
             min-width: 288px;
-            max-width: 540px;
+            max-width: var(--container-size-dialog-maxwidth-s);
           `}
 
           ${$size === "medium" &&
           css`
             min-width: 540px;
-            max-width: 850px;
+            max-width: var(--container-size-dialog-maxwidth-m);
 
             @media screen and (max-width: ${DIALOG_SIZE_CONFIG.small
                 .maxWidth}) {
@@ -376,7 +376,7 @@ const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
           ${$size === "large" &&
           css`
             min-width: 850px;
-            max-width: 1080px;
+            max-width: var(--container-size-dialog-maxwidth-l);
 
             @media screen and (max-width: ${DIALOG_SIZE_CONFIG.medium
                 .maxWidth}) {
