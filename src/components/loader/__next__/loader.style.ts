@@ -193,6 +193,7 @@ export const StyledRingCircleSvg = styled.svg<RingSvgProps>`
     isTracked,
     isError,
     isSuccess,
+    isGradientVariant,
     animationTime,
   }) => {
     const dimension = `${ringDimensions[size]}px`;
@@ -214,7 +215,9 @@ export const StyledRingCircleSvg = styled.svg<RingSvgProps>`
       circle[data-role="inner-arc"] {
         fill: transparent;
         stroke-width: ${strokeWidth}px;
-        stroke: ${getStrokeColor({ inverse, isSuccess, isError })};
+        stroke: ${isGradientVariant
+          ? "none"
+          : getStrokeColor({ inverse, isSuccess, isError })};
         stroke-linecap: round;
         stroke-dasharray: 100px;
         stroke-dashoffset: 95px;
@@ -229,13 +232,49 @@ export const StyledRingCircleSvg = styled.svg<RingSvgProps>`
         animation-timing-function: cubic-bezier(0, 0, 1, 1);
         animation-iteration-count: ${hasMotion ? "infinite" : "none"};
       }
+
+      ${isGradientVariant &&
+      css`
+        circle[data-role="gradient-mask-arc"] {
+          fill: none;
+          stroke: white;
+          stroke-width: ${strokeWidth}px;
+          stroke-linecap: round;
+          stroke-dasharray: 100px;
+          stroke-dashoffset: 95px;
+          transform-origin: 12px 12px 0px;
+          cx: 12px;
+          cy: 12px;
+          r: 10px;
+          transform: rotate(-90deg);
+
+          animation-name: ${untrackedAnimation};
+          ${hasMotion && `animation-duration: ${animationTime}s;`}
+          animation-timing-function: cubic-bezier(0, 0, 1, 1);
+          animation-iteration-count: ${hasMotion ? "infinite" : "none"};
+        }
+      `}
+
+      ${!isGradientVariant &&
+      css`
+        ${StyledNextButton} & circle[data-role="inner-arc"],
+        ${StyledButton} & circle[data-role="inner-arc"] {
+          stroke: currentColor;
+        }
+      `}
     `;
   }}
+`;
 
-  ${StyledNextButton} & circle[data-role="inner-arc"],
-  ${StyledButton} & circle[data-role="inner-arc"] {
-    stroke: currentColor;
-  }
+export const StyledGradientFill = styled.div`
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    1514.52% 80.26% at 56.89% 94.74%,
+    var(--mode-color-ai-alt-stop-1) 0%,
+    var(--mode-color-ai-alt-stop-2) 51.22%,
+    var(--mode-color-ai-stop-3) 100%
+  );
 `;
 
 const STAR_CONTAINER_SIZE = "40px";
@@ -261,17 +300,18 @@ const LabelMargins: Record<string, Record<string, string>> = {
 };
 
 type LabelProps = {
-  size?: string;
+  $size?: string;
   loaderVariant?: string;
   inverse?: boolean;
   loaderType: string;
 };
 
 const getLabelStyles = ({
-  size = "medium",
+  $size = "medium",
   loaderType,
   loaderVariant,
 }: LabelProps) => {
+  const size = $size;
   if (loaderType === "star") {
     return css`
       font-size: 16px;

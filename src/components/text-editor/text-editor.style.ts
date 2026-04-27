@@ -27,7 +27,7 @@ export const StyledWrapper = styled.div`
   position: relative;
 
   .textBold {
-    font-weight: bold;
+    font-weight: bold !important;
   }
 
   .textItalic {

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
+import { Form, Button } from "../..";
 
 import TextEditor, {
   createFromHTML,
@@ -435,5 +436,27 @@ export const LinkToEditor: Story = () => {
 };
 LinkToEditor.storyName = "Link To Editor";
 LinkToEditor.parameters = {
+  chromatic: { disableSnapshot: true },
+};
+
+export const FormWithTextEditor: Story = () => {
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    alert(
+      "Form submitted - should not be visible if TextEditor is working correctly",
+    );
+  };
+
+  return (
+    <Form onSubmit={handleSubmit}>
+      <TextEditor id="temp-editor" labelText="Text editor" />
+      <Button buttonType="primary" type="submit">
+        Submit
+      </Button>
+    </Form>
+  );
+};
+FormWithTextEditor.storyName = "Form With Text Editor";
+FormWithTextEditor.parameters = {
   chromatic: { disableSnapshot: true },
 };

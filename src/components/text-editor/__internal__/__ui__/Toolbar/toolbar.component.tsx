@@ -35,6 +35,8 @@ import Textbox from "../../../../textbox";
 import { $createLinkNode } from "@lexical/link";
 import Dialog from "../../../../dialog";
 import Form from "../../../../form";
+import Box from "../../../../box";
+import Typography from "../../../../typography";
 
 const Toolbar = ({
   contentEditorRef,
@@ -71,6 +73,10 @@ const Toolbar = ({
     useState(-1);
   const [linkText, setLinkText] = useState("");
   const [linkUrl, setLinkUrl] = useState("");
+  const [linkTextError, setLinkTextError] = useState(false);
+  const [linkUrlError, setLinkUrlError] = useState(false);
+  const linkTextRef = useRef<HTMLInputElement>(null);
+  const linkUrlRef = useRef<HTMLInputElement>(null);
 
   // Get the locale to enable translations
   const locale = useLocale();
@@ -110,6 +116,19 @@ const Toolbar = ({
       }),
     );
   }, [updateToolbar, editor]);
+
+  // Populate the text field with selected text when dialog opens
+  useEffect(() => {
+    if (hyperlinkDialogOpen) {
+      editor.read(() => {
+        const selection = $getSelection();
+        if ($isRangeSelection(selection)) {
+          const selectedText = selection.getTextContent();
+          setLinkText(selectedText);
+        }
+      });
+    }
+  }, [hyperlinkDialogOpen, editor]);
 
   // Register a keydown listener to enable keyboard navigation
   const handleToolbarKeyDown = (event: React.KeyboardEvent) => {
@@ -171,6 +190,8 @@ const Toolbar = ({
   const resetDialog = () => {
     setLinkText("");
     setLinkUrl("");
+    setLinkTextError(false);
+    setLinkUrlError(false);
     setHyperlinkDialogOpen(false);
   };
 
@@ -178,6 +199,24 @@ const Toolbar = ({
   /* istanbul ignore next */
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+    event.stopPropagation();
+
+    // Validate that both fields are not empty
+    const hasTextError = !linkText.trim();
+    const hasUrlError = !linkUrl.trim();
+
+    setLinkTextError(hasTextError);
+    setLinkUrlError(hasUrlError);
+
+    // Return early if there are validation errors
+    if (hasTextError || hasUrlError) {
+      if (hasTextError) {
+        linkTextRef.current?.focus();
+      } else {
+        linkUrlRef.current?.focus();
+      }
+      return;
+    }
 
     const isEditable = editor.isEditable();
     /* istanbul ignore else */
@@ -215,9 +254,6 @@ const Toolbar = ({
   };
 
   if (!isEditable) return null;
-
-  /* istanbul ignore next */
-  const dialogSaveButtonEnabled = linkText.length && linkUrl.length;
 
   return (
     <StyledToolbarWrapper
@@ -351,7 +387,9 @@ const Toolbar = ({
           title={locale.textEditor.hyperlink.dialogTitle()}
           data-role={`${namespace}-hyperlink-dialog`}
           aria-label={locale.textEditor.hyperlink.dialogTitle()}
-          size="small"
+          /* Note: The size set below "medium-small" has been set to visually match the design. 
+            This may need to be adjusted in the future when the Dialog component is aligned with the fusion DS. */
+          size="medium-small"
         >
           <Form
             leftSideButtons={
@@ -370,7 +408,6 @@ const Toolbar = ({
               <Button
                 buttonType="primary"
                 type="submit"
-                disabled={!dialogSaveButtonEnabled}
                 data-role={`${namespace}-hyperlink-save-button`}
               >
                 {locale.textEditor.saveButton()}
@@ -378,26 +415,64 @@ const Toolbar = ({
             }
             onSubmit={handleSubmit}
           >
-            <Textbox
-              label={locale.textEditor.hyperlink.textFieldLabel()}
-              name="text"
-              required
-              data-role={`${namespace}-hyperlink-text-field`}
-              value={linkText}
-              onChange={
-                /* istanbul ignore next */ (e) => setLinkText(e.target.value)
-              }
-            />
-            <Textbox
-              label={locale.textEditor.hyperlink.linkFieldLabel()}
-              name="link"
-              required
-              data-role={`${namespace}-hyperlink-link-field`}
-              value={linkUrl}
-              onChange={
-                /* istanbul ignore next */ (e) => setLinkUrl(e.target.value)
-              }
-            />
+            {/* Layout container */}
+            <Box display="flex" flexDirection="column" gap="16px">
+              {/* TO-DO: Replace hard-coded overrides from Typography with supported variants when supported */}
+              <Typography fontSize="14px" fontWeight="500" lineHeight="21px">
+                <Typography as="span" color="#FF0000">
+                  *
+                </Typography>{" "}
+                {locale.textEditor.hyperlink.formKey?.()}
+              </Typography>
+
+              {/* Block layout container */}
+              <Box display="flex" gap="24px" flexWrap="wrap">
+                {/* Link text block */}
+                <Box flex="1 1 200px" minWidth="200px" maxWidth="560px">
+                  <Textbox
+                    label={locale.textEditor.hyperlink.textFieldLabel()}
+                    name="text"
+                    required
+                    validationMessagePositionTop={false}
+                    {...(linkTextError && {
+                      error:
+                        locale.textEditor.hyperlink.textFieldErrorMessage?.(),
+                    })}
+                    data-role={`${namespace}-hyperlink-text-field`}
+                    value={linkText}
+                    ref={linkTextRef}
+                    onChange={
+                      /* istanbul ignore next */ (e) => {
+                        setLinkText(e.target.value);
+                        setLinkTextError(false);
+                      }
+                    }
+                  />
+                </Box>
+                {/* Link address block */}
+                <Box flex="1 1 200px" minWidth="200px" maxWidth="560px">
+                  <Textbox
+                    label={locale.textEditor.hyperlink.linkFieldLabel()}
+                    name="link"
+                    required
+                    validationMessagePositionTop={false}
+                    {...(linkUrlError && {
+                      error:
+                        locale.textEditor.hyperlink.linkFieldErrorMessage?.(),
+                    })}
+                    data-role={`${namespace}-hyperlink-link-field`}
+                    value={linkUrl}
+                    ref={linkUrlRef}
+                    onChange={
+                      /* istanbul ignore next */ (e) => {
+                        setLinkUrl(e.target.value);
+                        setLinkUrlError(false);
+                      }
+                    }
+                  />
+                </Box>
+              </Box>
+            </Box>
           </Form>
         </Dialog>
       </StyledToolbar>
