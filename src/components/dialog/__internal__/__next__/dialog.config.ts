@@ -29,15 +29,15 @@ export const DIALOG_MIN_WIDTH = "288px";
  */
 export const DIALOG_SIZE_CONFIG = {
   small: {
-    maxWidth: "var(--container-size-dialog-maxwidth-s)",
+    maxWidth: "540px",
     minWidth: DIALOG_MIN_WIDTH,
   },
   medium: {
-    maxWidth: "var(--container-size-dialog-maxwidth-m)",
+    maxWidth: "850px",
     minWidth: DIALOG_MIN_WIDTH,
   },
   large: {
-    maxWidth: "var(--container-size-dialog-maxwidth-l)",
+    maxWidth: "1080px",
     minWidth: DIALOG_MIN_WIDTH,
   },
   fullscreen: {
