@@ -1,3 +1,9 @@
+import {
+  containerSizeDialogMaxwidthS,
+  containerSizeDialogMaxwidthM,
+  containerSizeDialogMaxwidthL,
+} from "@sage/design-tokens-fusion/js/es6/components/container";
+
 /** New size type following design system naming conventions */
 export type Size = "small" | "medium" | "large" | "fullscreen";
 
@@ -29,15 +35,15 @@ export const DIALOG_MIN_WIDTH = "288px";
  */
 export const DIALOG_SIZE_CONFIG = {
   small: {
-    maxWidth: "540px",
+    maxWidth: containerSizeDialogMaxwidthS,
     minWidth: DIALOG_MIN_WIDTH,
   },
   medium: {
-    maxWidth: "850px",
+    maxWidth: containerSizeDialogMaxwidthM,
     minWidth: DIALOG_MIN_WIDTH,
   },
   large: {
-    maxWidth: "1080px",
+    maxWidth: containerSizeDialogMaxwidthL,
     minWidth: DIALOG_MIN_WIDTH,
   },
   fullscreen: {

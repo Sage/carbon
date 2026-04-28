@@ -12,6 +12,7 @@ import CarbonProvider from "../../../carbon-provider";
 import Dialog from ".";
 import { DialogHandle, DialogProps } from "./dialog.component";
 import Form from "../../../form";
+import { DIALOG_SIZE_CONFIG } from "./dialog.config";
 
 beforeEach(() => {
   jest.useFakeTimers();
@@ -671,6 +672,26 @@ describe("Fullscreen Dialog with footer", () => {
     const footer = screen.getByTestId("dialog-footer");
 
     expect(footer).toHaveStyleRule("position", "sticky");
+  });
+});
+
+// Tests to ensure we're getting the correct token values from the dialog config file,
+// which are used to set the max-width of the dialog at different sizes.
+describe("Dialog size config tests", () => {
+  it("should have maxWidth of 540px for small size", () => {
+    expect(DIALOG_SIZE_CONFIG.small.maxWidth).toBe("540px");
+  });
+
+  it("should have maxWidth of 850px for medium size", () => {
+    expect(DIALOG_SIZE_CONFIG.medium.maxWidth).toBe("850px");
+  });
+
+  it("should have maxWidth of 1080px for large size", () => {
+    expect(DIALOG_SIZE_CONFIG.large.maxWidth).toBe("1080px");
+  });
+
+  it("should have maxWidth of 100% for fullscreen size", () => {
+    expect(DIALOG_SIZE_CONFIG.fullscreen.maxWidth).toBe("100%");
   });
 });
 
