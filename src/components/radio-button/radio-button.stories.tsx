@@ -23,6 +23,7 @@ const meta: Meta<typeof RadioButtonGroup> = {
   },
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
+    chromatic: { disableSnapshot: true },
     controls: {
       exclude: ["children", "onBlur", "onChange", "value", "name"],
     },
@@ -219,9 +220,6 @@ export const ProgressiveDisclosure: Story = () => {
   );
 };
 ProgressiveDisclosure.storyName = "Progressive Disclosure";
-ProgressiveDisclosure.parameters = {
-  chromatic: { disableSnapshot: true },
-};
 
 export const WithCustomLabels: Story = () => {
   const [value, setValue] = useState("");
@@ -266,6 +264,9 @@ export const WithCustomLabels: Story = () => {
   );
 };
 WithCustomLabels.storyName = "With Custom Labels";
+WithCustomLabels.parameters = {
+  chromatic: { disableSnapshot: false },
+};
 
 export const Required: Story = {
   ...WithLegend,
@@ -282,5 +283,8 @@ export const Disabled: Story = {
     ...WithLegend.args,
     id: "disabled",
     disabled: true,
+  },
+  parameters: {
+    chromatic: { disableSnapshot: false },
   },
 };
