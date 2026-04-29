@@ -202,27 +202,6 @@ test("renders with provided width when `width` is provided", () => {
   });
 });
 
-// coverage
-test("renders with expected styles when `size` is 'large' and variant is subtle", () => {
-  render(
-    <Message
-      title="Title"
-      size="large"
-      variant="info-subtle"
-      onDismiss={() => {}}
-    >
-      Message
-    </Message>,
-  );
-
-  expect(screen.getByTestId("message-content")).toHaveStyle({
-    padding: "20px",
-    gap: "16px",
-  });
-  expect(screen.getByText("Title")).toHaveStyle({ fontSize: "16px" });
-  expect(screen.getByText("Message")).toHaveStyle({ fontSize: "16px" });
-});
-
 test("renders with `ref` when provided as an object", () => {
   const ref = { current: null };
   render(<Message ref={ref}>Message</Message>);

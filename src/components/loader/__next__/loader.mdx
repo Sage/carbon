@@ -6,7 +6,7 @@ import * as LoaderStories from "./loader.stories";
 <Meta of={LoaderStories} />
 
 # Loader
-Use the `Loader` component to clearly indicate that a task or data is still loading, helping users understand they should wait rather than refresh the page or abandon the process. The `Loader` component offers three loading types: `standalone` (with `typical` and `ai` variants), `ring` (with `inline` or `stacked` variants) and `star` for clear visual feedback.
+Use the `Loader` component to clearly indicate that a task or data is still loading, helping users understand they should wait rather than refresh the page or abandon the process. The `Loader` component offers three loading types: `standalone` (with `typical` and `ai` variants), `ring` (with `inline`, `stacked`, `ai-stacked` and `ai-inline` variants) and `star` for clear visual feedback.
 
 ## Contents
 
@@ -57,7 +57,7 @@ The `standalone` loader type comes with two variants: `typical` (default) and `a
 
 #### Ring variants
 
-The `ring` loader type comes with two variants: `stacked` (default) and `inline`.
+The `ring` loader type comes with four variants: `stacked` (default), `inline`, `ai-stacked` and `ai-inline`.
 
 #### Stacked
 
@@ -66,6 +66,14 @@ The `ring` loader type comes with two variants: `stacked` (default) and `inline`
 #### Inline
 
 <Canvas of={LoaderStories.RingInlineVariant} />
+
+#### A.I. Stacked
+
+<Canvas of={LoaderStories.RingAiStackedVariant} />
+
+#### A.I. Inline
+
+<Canvas of={LoaderStories.RingAiInlineVariant} />
 
 ### Loader Sizes
 
@@ -86,7 +94,7 @@ You can use the `inverse` prop to render the Loader's standalone and ring types 
 
 <Canvas of={LoaderStories.StandaloneTypicalVariantInversed} />
 
-#### Standalone AI inversed
+#### Standalone A.I inversed
 
 <Canvas of={LoaderStories.StandaloneAiVariantInversed} />
 
@@ -97,6 +105,10 @@ You can use the `inverse` prop to render the Loader's standalone and ring types 
 #### Ring inline inversed
 
 <Canvas of={LoaderStories.RingInlineVariantInversed} />
+
+#### Ring A.I inline inversed
+
+<Canvas of={LoaderStories.RingAiInlineVariantInversed} />
 
 ### Is Tracked
 

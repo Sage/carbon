@@ -162,6 +162,33 @@ export const RingInlineVariantInversed: Story = {
 };
 RingInlineVariantInversed.storyName = "Ring Inline Variant Inversed";
 
+export const RingAiStackedVariant: Story = {
+  render: () => (
+    <Box>
+      <Loader loaderType="ring" variant="ai-stacked" />
+    </Box>
+  ),
+};
+RingAiStackedVariant.storyName = "Ring AI Stacked Variant";
+
+export const RingAiInlineVariant: Story = {
+  render: () => (
+    <Box>
+      <Loader loaderType="ring" variant="ai-inline" />
+    </Box>
+  ),
+};
+RingAiInlineVariant.storyName = "Ring AI Inline Variant";
+
+export const RingAiInlineVariantInversed: Story = {
+  render: () => (
+    <Box backgroundColor="#1c1c1c" p="8px">
+      <Loader loaderType="ring" variant="ai-inline" inverse />
+    </Box>
+  ),
+};
+RingAiInlineVariantInversed.storyName = "Ring AI Inline Variant Inversed";
+
 export const RingIsTracked: Story = {
   render: () => (
     <Box>
@@ -220,6 +247,16 @@ DisabledMotion.storyName = "Disabled Motion";
 export const InsideButtons: Story = {
   render: () => (
     <>
+      <Box height="50px">
+        <Button m={2} buttonType="gradient-grey" onClick={() => {}}>
+          <Loader
+            loaderType="ring"
+            variant="ai-inline"
+            size="extra-small"
+            showLabel
+          />
+        </Button>
+      </Box>
       <Box height="50px">
         <Button m={2} buttonType="primary" onClick={() => {}}>
           <Loader

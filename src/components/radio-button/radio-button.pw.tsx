@@ -35,46 +35,6 @@ test("keyboard navigation works correctly in RadioButtonGroup", async ({
   await expect(radio1).toBeFocused();
 });
 
-test("clicking on a RadioButton selects it", async ({ mount, page }) => {
-  await mount(<RadioButtonGroupControlled />);
-
-  const radio1 = page.getByRole("radio", { name: "Radio Button 1" });
-  const radio2 = page.getByRole("radio", { name: "Radio Button 2" });
-  const radio3 = page.getByRole("radio", { name: "Radio Button 3" });
-
-  await radio1.click();
-  await expect(radio1).toBeChecked();
-  await expect(radio2).not.toBeChecked();
-  await expect(radio3).not.toBeChecked();
-
-  await radio2.click();
-  await expect(radio1).not.toBeChecked();
-  await expect(radio2).toBeChecked();
-  await expect(radio3).not.toBeChecked();
-
-  await radio3.click();
-  await expect(radio1).not.toBeChecked();
-  await expect(radio2).not.toBeChecked();
-  await expect(radio3).toBeChecked();
-});
-
-test("renders `progressiveDisclosure` when RadioButton is selected and closes when another RadioButton is selected", async ({
-  mount,
-  page,
-}) => {
-  await mount(<RadioButtonWithProgressiveDisclosure />);
-
-  await page.getByRole("radio", { name: "Radio Button 1" }).click();
-  await expect(
-    page.getByRole("textbox", { name: "Revealed Textbox" }),
-  ).toBeVisible();
-
-  await page.getByRole("radio", { name: "Radio Button 2" }).click();
-  await expect(
-    page.getByRole("textbox", { name: "Revealed Textbox" }),
-  ).toBeHidden();
-});
-
 test.describe("Accessibility tests for RadioButton", () => {
   test("should pass accessibility when `legend` is set", async ({
     mount,

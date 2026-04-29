@@ -2,7 +2,7 @@ import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
 import Message from ".";
-import Button from "../button";
+import Button from "../button/__next__";
 import Link from "../link";
 import Typography from "../typography";
 import Box from "../box";
@@ -11,7 +11,7 @@ const meta: Meta<typeof Message> = {
   title: "Message/Test",
   component: Message,
   parameters: {
-    chromatic: { disableSnapshot: true },
+    themeProvider: { chromatic: { theme: "sage" } },
   },
   argTypes: {
     title: {
@@ -47,13 +47,9 @@ export const WithNoTitle: Story = {
   args: {
     mb: 2,
   },
-  parameters: {
-    themeProvider: { chromatic: { theme: "sage" } },
-    chromatic: { disableSnapshot: true },
-  },
 };
 
-export const WithNoCloseIcon: Story = {
+export const WithLongTextWrapping: Story = {
   render: (args) => (
     <>
       <Message {...args}>
@@ -64,34 +60,21 @@ export const WithNoCloseIcon: Story = {
         Some long custom message that should wrap onto multiple lines when it
         exceeds the width of the container.
       </Message>
+      <Message onDismiss={() => {}} {...args}>
+        This is a long custom message that should wrap onto multiple lines when
+        it exceeds the width of the container.
+      </Message>
+      <Message onDismiss={() => {}} variant="info-subtle" {...args}>
+        This is a long custom message that should wrap onto multiple lines when
+        it exceeds the width of the container.
+      </Message>
     </>
-  ),
-  args: {
-    mb: 2,
-    title: "Title",
-    width: "300px",
-  },
-  parameters: {
-    themeProvider: { chromatic: { theme: "sage" } },
-    chromatic: { disableSnapshot: true },
-  },
-};
-
-export const WithLongTextWrapping: Story = {
-  render: (args) => (
-    <Message onDismiss={() => {}} {...args}>
-      This is a long custom message that should wrap onto multiple lines when it
-      exceeds the width of the container.
-    </Message>
   ),
   args: {
     title:
       "This is a long title that should also wrap onto multiple lines when it exceeds the width of the container.",
     width: "300px",
-  },
-  parameters: {
-    themeProvider: { chromatic: { theme: "sage" } },
-    chromatic: { disableSnapshot: true },
+    mb: 2,
   },
 };
 
@@ -107,7 +90,7 @@ export const WithCustomContent: Story = {
         <Typography m={0}>
           Some custom message. <Link href="#">Link</Link>
         </Typography>
-        <Button size="small" onClick={() => {}}>
+        <Button mx={2} size="small" onClick={() => {}}>
           Button
         </Button>
       </Box>
@@ -118,13 +101,22 @@ export const WithCustomContent: Story = {
     width: "400px",
   },
   parameters: {
-    themeProvider: { chromatic: { theme: "sage" } },
-    chromatic: { disableSnapshot: false },
+    pseudo: { focus: "[data-role='close']" },
   },
-  play: async ({ canvasElement }) => {
-    const closeButton = canvasElement.querySelector<HTMLButtonElement>(
-      'button[data-element="close"]',
-    );
-    closeButton?.focus();
+};
+
+export const DisableCloseIcon: Story = {
+  render: (args) => <Message {...args}>Some custom message</Message>,
+  args: {
+    showCloseIcon: false,
   },
+  parameters: { chromatic: { disableSnapshot: true } },
+};
+
+export const Transparent: Story = {
+  render: (args) => <Message {...args}>Some custom message</Message>,
+  args: {
+    transparent: true,
+  },
+  parameters: { chromatic: { disableSnapshot: true } },
 };

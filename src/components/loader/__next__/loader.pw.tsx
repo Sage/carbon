@@ -16,16 +16,18 @@ test.describe("Accessibility tests for Loader component", () => {
     });
   });
 
-  (["stacked", "inline"] as const).forEach((variant) => {
-    test(`should pass accessibility tests for Ring Loader with variant ${variant}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<Loader loaderType="ring" variant={variant} />);
+  (["stacked", "inline", "ai-stacked", "ai-inline"] as const).forEach(
+    (variant) => {
+      test(`should pass accessibility tests for Ring Loader with variant ${variant}`, async ({
+        mount,
+        page,
+      }) => {
+        await mount(<Loader loaderType="ring" variant={variant} />);
 
-      await checkAccessibility(page);
-    });
-  });
+        await checkAccessibility(page);
+      });
+    },
+  );
 
   test(`should pass accessibility tests for Star Loader`, async ({
     mount,

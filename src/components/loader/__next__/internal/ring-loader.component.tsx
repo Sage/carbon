@@ -5,6 +5,7 @@ import {
   StyledRingCircleSvg,
   StyledLoaderLabel,
   StyledRingLoaderWrapper,
+  StyledGradientFill,
 } from "../loader.style";
 
 import useLocale from "../../../../hooks/__internal__/useLocale";
@@ -33,14 +34,15 @@ const RingLoader = ({
 }: LoaderProps) => {
   const locale = useLocale();
 
+  const isAiRingVariant = variant === "ai-stacked" || variant === "ai-inline";
   const ringVariant =
-    variant && ["stacked", "inline"].includes(variant) ? variant : "stacked";
+    variant === "inline" || variant === "ai-inline" ? "inline" : "stacked";
   const ringSize =
     size && ["extra-small", "small", "large"].includes(size) ? size : "medium";
 
   return (
     <StyledRingLoaderWrapper
-      loaderVariant={variant}
+      loaderVariant={ringVariant}
       data-role="ring-loader-container"
     >
       <StyledRingCircleSvg
@@ -54,11 +56,31 @@ const RingLoader = ({
         viewBox="0 0 24 24"
         isSuccess={isSuccess}
         isError={isError}
+        isGradientVariant={isAiRingVariant}
       >
+        {isAiRingVariant && (
+          <defs>
+            <mask id="ai-ring-mask">
+              <rect width="24" height="24" fill="black" />
+              <circle data-role="gradient-mask-arc" />
+            </mask>
+          </defs>
+        )}
         <circle data-role="outer-arc" />
-        <circle data-role="inner-arc" />
+        {isAiRingVariant ? (
+          <foreignObject
+            x="0"
+            y="0"
+            width="24"
+            height="24"
+            mask="url(#ai-ring-mask)"
+          >
+            <StyledGradientFill data-role="gradient-fill" />
+          </foreignObject>
+        ) : (
+          <circle data-role="inner-arc" />
+        )}
       </StyledRingCircleSvg>
-
       {showLabel && (
         <StyledLoaderLabel
           inverse={inverse}
