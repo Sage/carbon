@@ -2,6 +2,7 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import Logger from "../../__internal__/utils/logger";
 
 import Portrait from ".";
 
@@ -9,6 +10,90 @@ testStyledSystemMargin(
   (props) => <Portrait data-role="portrait-wrapper" {...props} />,
   () => screen.getByTestId("portrait-wrapper"),
 );
+
+describe("logs warning when deprecated props are being used", () => {
+  test("logs a warning when the `darkBackground` prop is used", () => {
+    const loggerSpy = jest.spyOn(Logger, "deprecate");
+    render(<Portrait data-role="foo" data-element="bar" darkBackground />);
+    expect(loggerSpy).toHaveBeenCalledWith(
+      "`darkBackground` prop is deprecated and will be removed in a future release.",
+    );
+  });
+
+  test("logs a warning when the `tooltipMessage` prop is used", () => {
+    const loggerSpy = jest.spyOn(Logger, "deprecate");
+    render(
+      <Portrait data-role="foo" data-element="bar" tooltipMessage="tooltip" />,
+    );
+    expect(loggerSpy).toHaveBeenCalledWith(
+      "`tooltipMessage` prop is deprecated and will be removed in a future release.",
+    );
+  });
+
+  test("logs a warning when the `tooltipId` prop is used", () => {
+    const loggerSpy = jest.spyOn(Logger, "deprecate");
+    render(<Portrait data-role="foo" data-element="bar" tooltipId="tooltip" />);
+    expect(loggerSpy).toHaveBeenCalledWith(
+      "`tooltipId` prop is deprecated and will be removed in a future release.",
+    );
+  });
+
+  test("logs a warning when the `tooltipIsVisible` prop is used", () => {
+    const loggerSpy = jest.spyOn(Logger, "deprecate");
+    render(
+      <Portrait data-role="foo" data-element="bar" tooltipIsVisible={true} />,
+    );
+    expect(loggerSpy).toHaveBeenCalledWith(
+      "`tooltipIsVisible` prop is deprecated and will be removed in a future release.",
+    );
+  });
+
+  test("logs a warning when the `tooltipPosition` prop is used", () => {
+    const loggerSpy = jest.spyOn(Logger, "deprecate");
+    render(
+      <Portrait data-role="foo" data-element="bar" tooltipPosition="top" />,
+    );
+    expect(loggerSpy).toHaveBeenCalledWith(
+      "`tooltipPosition` prop is deprecated and will be removed in a future release.",
+    );
+  });
+
+  test("logs a warning when the `tooltipType` prop is used", () => {
+    const loggerSpy = jest.spyOn(Logger, "deprecate");
+    render(<Portrait data-role="foo" data-element="bar" tooltipType="info" />);
+    expect(loggerSpy).toHaveBeenCalledWith(
+      "`tooltipType` prop is deprecated and will be removed in a future release.",
+    );
+  });
+
+  test("logs a warning when the `tooltipSize` prop is used", () => {
+    const loggerSpy = jest.spyOn(Logger, "deprecate");
+    render(<Portrait data-role="foo" data-element="bar" tooltipSize="large" />);
+    expect(loggerSpy).toHaveBeenCalledWith(
+      "`tooltipSize` prop is deprecated and will be removed in a future release.",
+    );
+  });
+
+  test("logs a warning when the `tooltipBgColor` prop is used", () => {
+    const loggerSpy = jest.spyOn(Logger, "deprecate");
+    render(
+      <Portrait data-role="foo" data-element="bar" tooltipBgColor="red" />,
+    );
+    expect(loggerSpy).toHaveBeenCalledWith(
+      "`tooltipBgColor` prop is deprecated and will be removed in a future release.",
+    );
+  });
+
+  test("logs a warning when the `tooltipFontColor` prop is used", () => {
+    const loggerSpy = jest.spyOn(Logger, "deprecate");
+    render(
+      <Portrait data-role="foo" data-element="bar" tooltipFontColor="red" />,
+    );
+    expect(loggerSpy).toHaveBeenCalledWith(
+      "`tooltipFontColor` prop is deprecated and will be removed in a future release.",
+    );
+  });
+});
 
 test("renders with provided data- attributes", () => {
   render(<Portrait data-role="foo" data-element="bar" />);

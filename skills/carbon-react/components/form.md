@@ -57,7 +57,7 @@ description: Carbon Form component props and usage examples.
 | rightSideButtons | React.ReactNode | No |  | Additional buttons rendered on the right side of the save button |  |
 | saveButton | React.ReactNode | No |  | Save button to be rendered |  |
 | stickyFooter | boolean \| undefined | No |  | Enables the sticky footer. |  |
-| stickyFooterVariant | "light" \| "grey" \| undefined | No |  | Background variant for the sticky footer. | "light" |
+| stickyFooterVariant | "grey" \| "light" \| undefined | No |  | Background variant for the sticky footer. | "light" |
 | warningCount | number \| undefined | No |  | The total number of warnings present in the form |  |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |

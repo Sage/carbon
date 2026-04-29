@@ -50,7 +50,7 @@ description: Carbon Tile component props and usage examples.
 | px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
 | py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
 | roundness | "small" \| "large" \| "default" \| undefined | No |  | Sets the level of roundness of the corners, "default" is 8px, "large" is 16px and "small" is 4px | "default" |
-| variant | "transparent" \| "grey" \| "tile" \| "active" \| undefined | No |  | Sets the theme of the tile | "tile" |
+| variant | "grey" \| "transparent" \| "tile" \| "active" \| undefined | No |  | Sets the theme of the tile | "tile" |
 | width | string \| number \| undefined | No |  | Set a percentage-based width for the whole Tile component, relative to its parent. If unset or zero, this will default to 100%. | "100%" |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |

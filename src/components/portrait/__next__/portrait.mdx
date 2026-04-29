@@ -2,21 +2,9 @@ import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
 
 import * as PortraitStories from "./portrait.stories";
 
-import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component";
-
 <Meta of={PortraitStories} />
 
 # Portrait
-
-<DeprecationWarning>
-  This version of the Portrait component is no longer supported and will be
-  removed in a future release. Please consider moving to the{" "}
-  <a style={{ color: "white" }} href="../?path=/docs/portrait--docs">
-    {" "}
-    newer implementation
-  </a>{" "}
-  as soon as possible.
-</DeprecationWarning>
 
 <a
   target="_blank"
@@ -68,12 +56,6 @@ To use an image instead of the default icon or initials, pass any valid image UR
 
 <Canvas of={PortraitStories.IconType} />
 
-### With tooltip
-
-A tooltip can be displayed when hovering over the `Portrait` by providing the `tooltipMessage`, `tooltipPosition` and `tooltipColor` props.
-
-<Canvas of={PortraitStories.WithTooltip} />
-
 ### Sizes
 
 The `Portrait` component can be rendered in a variety of sizes by passing the desired size as the `size` prop.
@@ -86,12 +68,6 @@ The `Portrait` component can be rendered in a variety of shapes by passing the d
 
 <Canvas of={PortraitStories.Shapes} />
 
-### Dark background
-
-The `Portrait` component can be rendered with a dark background by passing the `darkBackground` prop.
-
-<Canvas of={PortraitStories.DarkBackground} />
-
 ### With margin
 
 Margins can be applied to the `Portrait` component using styled-system. To see a full list of available margin props, please visit the props
@@ -101,21 +77,11 @@ table at the bottom of this page.
 
 <Canvas of={PortraitStories.WithMargin} />
 
-### Custom colors
+### Variants
 
-The `Portrait` component provides a set of props that allow for custom foreground and background colors
-to be applied. These props are `backgroundColor` and `foregroundColor`, and both accept a HEX color code or
-[design system token](https://zeroheight.com/2ccf2b601/p/217e24-design-tokens/b/870b8a).
+Use the `variant` prop to change the visual style of the `Portrait`.
 
-Using these props will override the default colors of the `Portrait` component. They will also bypass the
-`darkBackground` prop; setting it alongside `backgroundColor` or `foregroundColor` will have no effect.
-
-When a `backgroundColor` is provided, the `foregroundColor` will be automatically set to a contrasting color.
-This is calculated internally to ensure accessibility standards are met. If a custom `foregroundColor` is provided,
-this value will be used instead of the calculated one; please ensure that the color contrast is sufficient and that
-the component remains accessible.
-
-<Canvas of={PortraitStories.CustomColors} />
+<Canvas of={PortraitStories.Variants} />
 
 ## Props
 
