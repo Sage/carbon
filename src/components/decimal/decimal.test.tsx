@@ -34,7 +34,6 @@ testStyledSystemMargin(
     />
   ),
   () => screen.getByTestId("decimal"),
-  { modifier: "&&&" },
 );
 
 it.each([

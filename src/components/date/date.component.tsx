@@ -115,6 +115,12 @@ export interface DateInputProps
   datePickerAriaLabelledBy?: string;
 }
 
+const datePickerWidth = {
+  large: "140px",
+  medium: "135px",
+  small: "120px",
+};
+
 export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
   (
     {
@@ -355,8 +361,6 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     };
 
     const handleMouseDown = () => {
-      handleClickInside();
-
       if (setInputRefMap) {
         isBlurBlocked.current = true;
       }
@@ -370,8 +374,6 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       isBlurBlocked.current = true;
       alreadyFocused.current = true;
 
-      handleClickInside();
-
       if (open) {
         setOpen(false);
         onPickerClose?.();
@@ -383,7 +385,6 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
 
     const handlePickerMouseDown = () => {
       isBlurBlocked.current = true;
-      handleClickInside();
     };
 
     const assignInput = useCallback(
@@ -482,6 +483,8 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
           "data-element": dataElement,
           "data-role": dataRole,
         })}
+        onMouseDown={handleClickInside}
+        className="date"
       >
         <Textbox
           {...filterOutStyledSystemSpacingProps(rest)}
@@ -507,7 +510,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
           readOnly={readOnly}
           inputWidth={inputWidth}
           labelWidth={labelWidth}
-          maxWidth={maxWidth}
+          maxWidth={maxWidth ?? datePickerWidth[size]}
           m={0}
           validationMessagePositionTop={showValidationMessageOnTop}
         />

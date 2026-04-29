@@ -270,7 +270,7 @@ export const OpenHyperlinkDialogWithErrors: Story = {
 
     await waitFor(() => {
       const validationMessages = canvasElement.ownerDocument.querySelectorAll(
-        "p[data-role='validation-message']",
+        "span[data-role='validation-message']",
       );
 
       expect(validationMessages).toHaveLength(2);

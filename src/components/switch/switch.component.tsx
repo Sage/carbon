@@ -6,7 +6,7 @@ import CheckableInput, {
   CommonCheckableInputProps,
 } from "../../__internal__/checkable-input";
 import { TagProps } from "../../__internal__/utils/helpers/tags";
-import Label from "../../__internal__/label";
+import Label from "../../__internal__/legacy-label";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
 import ValidationMessage from "../../__internal__/validation-message/validation-message.component";
@@ -14,14 +14,16 @@ import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint"
 import StyledSwitch, { ErrorBorder } from "./switch.style";
 import SwitchSlider from "./__internal__/switch-slider.component";
 import guid from "../../__internal__/utils/helpers/guid";
-import HintText from "../../__internal__/hint-text";
+import HintText from "../../__internal__/legacy-hint-text";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 
 export interface SwitchProps
   extends Omit<CommonCheckableInputProps, "defaultChecked">,
     MarginProps,
     TagProps {
-  /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
+  /**
+   * Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set
+   **/
   adaptiveLabelBreakpoint?: number;
   /** When true label is inline */
   labelInline?: boolean;

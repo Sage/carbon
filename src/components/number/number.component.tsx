@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
 import Textbox, { TextboxProps } from "../textbox";
 import {
-  ALIGN_DEFAULT,
   LABEL_VALIDATION_DEFAULT,
   LABEL_WIDTH_DEFAULT,
   SIZE_DEFAULT,
@@ -32,7 +31,7 @@ export const Number = React.forwardRef(
       onChange,
       onKeyDown,
       value,
-      align = ALIGN_DEFAULT,
+      align = "left",
       labelWidth = LABEL_WIDTH_DEFAULT,
       size = SIZE_DEFAULT,
       validationOnLabel = LABEL_VALIDATION_DEFAULT,

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useImperativeHandle } from "react";
+import React, { useState, useRef, useImperativeHandle, useMemo } from "react";
 import invariant from "invariant";
 import { MarginProps } from "styled-system";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
@@ -225,6 +225,25 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
         : locale.search.searchButtonText();
     const searchHasValue = !!value?.length;
 
+    const { className: restClassName, ...filteredRest } = rest as Record<
+      string,
+      unknown
+    >;
+
+    const classNames = useMemo(
+      () =>
+        [
+          "search",
+          searchHasValue ? "has-value" : undefined,
+          variant === "dark" ? "dark-background" : undefined,
+          searchButton ? "with-button" : undefined,
+          restClassName,
+        ]
+          .filter(Boolean)
+          .join(" "),
+      [searchHasValue, variant, searchButton, restClassName],
+    );
+
     return (
       <StyledSearch
         ref={searchRef}
@@ -234,11 +253,12 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
         searchHasValue={searchHasValue}
         showSearchButton={!!searchButton}
         variant={variant}
-        {...filterStyledSystemMarginProps(rest)}
         id={id}
         name={name}
-        {...rest}
-        {...tagComponent("search", rest)}
+        {...filteredRest}
+        {...filterStyledSystemMarginProps(filteredRest)}
+        {...tagComponent("search", filteredRest)}
+        className={classNames}
       >
         <Textbox
           placeholder={placeholder}
@@ -266,6 +286,7 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
           }
           tooltipPosition={tooltipPosition}
           my={0} // prevents any form spacing being applied
+          maxWidth="100%"
         />
         {searchButton && (
           <StyledSearchButton>

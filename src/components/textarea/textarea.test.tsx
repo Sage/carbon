@@ -8,10 +8,10 @@ import {
   testStyledSystemMargin,
 } from "../../__spec_helper__/__internal__/test-utils";
 import Textarea, { TextareaProps } from ".";
-import { EnterKeyHintTypes } from "../../__internal__/input";
+import { EnterKeyHintTypes } from "../../__internal__/legacy-input";
 import guid from "../../__internal__/utils/helpers/guid";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
-import StyledInput from "../../__internal__/input/input.style";
+import StyledInput from "../../__internal__/legacy-input/input.style";
 
 jest.mock("../../__internal__/utils/logger");
 

@@ -5,7 +5,6 @@ import OptionRow from "../option-row/option-row.component";
 import Button from "../../button/button.component";
 
 import Box from "../../box";
-import CarbonProvider from "../../carbon-provider/carbon-provider.component";
 import Typography from "../../typography";
 import Dialog from "../../dialog";
 
@@ -62,11 +61,6 @@ export default {
         type: "text",
       },
     },
-    labelHelp: {
-      control: {
-        type: "text",
-      },
-    },
   },
 };
 
@@ -115,11 +109,6 @@ export const Validation = () => {
   const [values2, setValues2] = useState<string[]>([]);
   const [values3, setValues3] = useState<string[]>([]);
   const [values4, setValues4] = useState<string[]>([]);
-  const [values5, setValues5] = useState<string[]>([]);
-  const [values6, setValues6] = useState<string[]>([]);
-  const [values7, setValues7] = useState<string[]>([]);
-  const [values8, setValues8] = useState<string[]>([]);
-  const [values9, setValues9] = useState<string[]>([]);
 
   return (
     <>
@@ -128,6 +117,7 @@ export const Validation = () => {
         id="multi"
         label="MultiSelect"
         error="Error Message"
+        mb={2}
         value={values}
         onChange={(event) =>
           setValues(event.target.value as unknown as string[])
@@ -142,6 +132,7 @@ export const Validation = () => {
         id="multi"
         label="MultiSelect"
         warning="Warning Message"
+        mb={2}
         value={values2}
         onChange={(event) =>
           setValues2(event.target.value as unknown as string[])
@@ -152,10 +143,12 @@ export const Validation = () => {
         <Option value="3" text="Three" />
       </MultiSelect>
       <MultiSelect
+        validationMessagePositionTop={false}
         name="multi"
         id="multi"
         label="MultiSelect"
-        info="Info Message"
+        error="Error Message"
+        mb={2}
         value={values3}
         onChange={(event) =>
           setValues3(event.target.value as unknown as string[])
@@ -165,89 +158,16 @@ export const Validation = () => {
         <Option value="2" text="Two" />
         <Option value="3" text="Three" />
       </MultiSelect>
-
       <MultiSelect
-        name="multi"
-        id="multi"
-        label="MultiSelect"
-        error="Error Message"
-        validationOnLabel
-        value={values4}
-        onChange={(event) =>
-          setValues4(event.target.value as unknown as string[])
-        }
-      >
-        <Option value="1" text="One" />
-        <Option value="2" text="Two" />
-        <Option value="3" text="Three" />
-      </MultiSelect>
-      <MultiSelect
+        validationMessagePositionTop={false}
         name="multi"
         id="multi"
         label="MultiSelect"
         warning="Warning Message"
-        validationOnLabel
-        value={values5}
+        mb={2}
+        value={values4}
         onChange={(event) =>
-          setValues5(event.target.value as unknown as string[])
-        }
-      >
-        <Option value="1" text="One" />
-        <Option value="2" text="Two" />
-        <Option value="3" text="Three" />
-      </MultiSelect>
-      <MultiSelect
-        name="multi"
-        id="multi"
-        label="MultiSelect"
-        info="Info Message"
-        validationOnLabel
-        value={values6}
-        onChange={(event) =>
-          setValues6(event.target.value as unknown as string[])
-        }
-      >
-        <Option value="1" text="One" />
-        <Option value="2" text="Two" />
-        <Option value="3" text="Three" />
-      </MultiSelect>
-
-      <MultiSelect
-        name="multi"
-        id="multi"
-        label="MultiSelect"
-        error
-        value={values7}
-        onChange={(event) =>
-          setValues7(event.target.value as unknown as string[])
-        }
-      >
-        <Option value="1" text="One" />
-        <Option value="2" text="Two" />
-        <Option value="3" text="Three" />
-      </MultiSelect>
-      <MultiSelect
-        name="multi"
-        id="multi"
-        label="MultiSelect"
-        warning
-        value={values8}
-        onChange={(event) =>
-          setValues8(event.target.value as unknown as string[])
-        }
-      >
-        <Option value="1" text="One" />
-        <Option value="2" text="Two" />
-        <Option value="3" text="Three" />
-      </MultiSelect>
-      <MultiSelect
-        name="multi"
-        id="multi"
-        label="MultiSelect"
-        info
-        value={values9}
-        onChange={(event) =>
-          setValues9(event.target.value as unknown as string[])
+          setValues4(event.target.value as unknown as string[])
         }
       >
         <Option value="1" text="One" />
@@ -259,85 +179,6 @@ export const Validation = () => {
 };
 Validation.storyName = "Validation";
 Validation.parameters = {
-  chromatic: { disableSnapshot: true },
-  themeProvider: { chromatic: { theme: "sage" } },
-};
-
-export const NewValidation = () => {
-  const [values, setValues] = useState<string[]>([]);
-  const [values2, setValues2] = useState<string[]>([]);
-  const [values3, setValues3] = useState<string[]>([]);
-  const [values4, setValues4] = useState<string[]>([]);
-
-  return (
-    <CarbonProvider validationRedesignOptIn>
-      <MultiSelect
-        name="multi"
-        id="multi"
-        label="MultiSelect"
-        error="Error Message"
-        mb={2}
-        value={values}
-        onChange={(event) =>
-          setValues(event.target.value as unknown as string[])
-        }
-      >
-        <Option value="1" text="One" />
-        <Option value="2" text="Two" />
-        <Option value="3" text="Three" />
-      </MultiSelect>
-      <MultiSelect
-        name="multi"
-        id="multi"
-        label="MultiSelect"
-        warning="Warning Message"
-        mb={2}
-        value={values2}
-        onChange={(event) =>
-          setValues2(event.target.value as unknown as string[])
-        }
-      >
-        <Option value="1" text="One" />
-        <Option value="2" text="Two" />
-        <Option value="3" text="Three" />
-      </MultiSelect>
-      <MultiSelect
-        validationMessagePositionTop={false}
-        name="multi"
-        id="multi"
-        label="MultiSelect"
-        error="Error Message"
-        mb={2}
-        value={values3}
-        onChange={(event) =>
-          setValues3(event.target.value as unknown as string[])
-        }
-      >
-        <Option value="1" text="One" />
-        <Option value="2" text="Two" />
-        <Option value="3" text="Three" />
-      </MultiSelect>
-      <MultiSelect
-        validationMessagePositionTop={false}
-        name="multi"
-        id="multi"
-        label="MultiSelect"
-        warning="Warning Message"
-        mb={2}
-        value={values4}
-        onChange={(event) =>
-          setValues4(event.target.value as unknown as string[])
-        }
-      >
-        <Option value="1" text="One" />
-        <Option value="2" text="Two" />
-        <Option value="3" text="Three" />
-      </MultiSelect>
-    </CarbonProvider>
-  );
-};
-NewValidation.storyName = "New Validation";
-NewValidation.parameters = {
   chromatic: { disableSnapshot: true },
   themeProvider: { chromatic: { theme: "sage" } },
 };
@@ -818,7 +659,7 @@ export const MultiSelectErrorOnChangeNewValidation = () => {
   const handleError = showError ? "Error" : "";
 
   return (
-    <CarbonProvider validationRedesignOptIn>
+    <>
       Open dropdown and try to select more than 2 pills
       <Box width="300px" ml={10} mt={10}>
         <MultiSelect
@@ -843,7 +684,7 @@ export const MultiSelectErrorOnChangeNewValidation = () => {
           <Option text="Yellow" value="11" />
         </MultiSelect>
       </Box>
-    </CarbonProvider>
+    </>
   );
 };
 

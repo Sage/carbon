@@ -87,33 +87,15 @@ function DefaultStory({ onCancel, ...args }: Partial<DialogProps>) {
             setTimeout(() => buttonRef.current?.focus(), 0);
           }}
         >
-          <Form
-            stickyFooter
-            leftSideButtons={
-              <Button onClick={() => setOpen(false)}>Cancel</Button>
-            }
-            saveButton={
-              <Button buttonType="primary" type="submit">
-                Save
-              </Button>
-            }
-          >
-            <Typography>
-              This is an example of a dialog with a Form as content
-            </Typography>
-            <Textbox label="First Name" value="" onChange={() => {}} />
-            <Textbox label="Middle Name" value="" onChange={() => {}} />
-            <Textbox label="Surname" value="" onChange={() => {}} />
-            <Textbox label="Birth Place" value="" onChange={() => {}} />
-            <Textbox label="Favourite Colour" value="" onChange={() => {}} />
-            <Textbox label="Address" value="" onChange={() => {}} />
-            <Textbox label="First Name" value="" onChange={() => {}} />
-            <Textbox label="Middle Name" value="" onChange={() => {}} />
-            <Textbox label="Surname" value="" onChange={() => {}} />
-            <Textbox label="Birth Place" value="" onChange={() => {}} />
-            <Textbox label="Favourite Colour" value="" onChange={() => {}} />
-            <Textbox label="Address" value="" onChange={() => {}} />
-          </Form>
+          <Select onChange={() => {}} autoFocus label="Autofocus me" value="">
+            <Option value="1" text="one" />
+          </Select>
+          <Checkbox
+            label="Do not autofocus me"
+            autoFocus
+            onChange={() => {}}
+            checked={false}
+          />
         </Dialog>
       </>
     );

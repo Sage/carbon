@@ -7,7 +7,7 @@ import StyledHiddenCheckableInput from "../../__internal__/checkable-input/hidde
 import StyledCheckableInputSvgWrapper from "../../__internal__/checkable-input/checkable-input-svg-wrapper.style";
 import StyledLabel, {
   StyledLabelContainer,
-} from "../../__internal__/label/label.style";
+} from "../../__internal__/legacy-label/label.style";
 import StyledValidationIcon from "../../__internal__/validations/validation-icon.style";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 import { ValidationProps } from "../../__internal__/validations";
