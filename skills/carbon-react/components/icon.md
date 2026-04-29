@@ -38,7 +38,7 @@ description: Carbon Icon component props and usage examples.
 | mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
 | role | string \| undefined | No |  |  |  | The ARIA role to be applied to the Icon |  |
-| size | IconSize \| undefined | No |  |  |  | Size of the Icon. - `small` — 16px (default) - `medium` — 24px - `large` — 32px |  |
+| size | IconSize \| undefined | No |  |  |  | Size of the Icon. - `small` — 24px (default) - `medium` — 32px - `large` — 40px |  |
 | tabIndex | number \| undefined | No |  |  |  |  |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |

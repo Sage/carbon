@@ -21,10 +21,6 @@ export type LegacyIconTypes =
 
 /**
  * The size of the Icon.
- *
- * - `small` — 16px (default)
- * - `medium` — 24px
- * - `large` — 32px
  */
 export type IconSize = "small" | "medium" | "large";
 
@@ -87,9 +83,9 @@ export interface IconProps
   /**
    * Size of the Icon.
    *
-   * - `small` — 16px (default)
-   * - `medium` — 24px
-   * - `large` — 32px
+   * - `small` — 24px (default)
+   * - `medium` — 32px
+   * - `large` — 40px
    */
   size?: IconSize;
   /** Renders the Icon in a light colour, suitable for use on dark backgrounds. */

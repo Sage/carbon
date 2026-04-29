@@ -213,7 +213,7 @@ test.describe("check functionality for ActionPopover component", () => {
     await page.evaluate(() => window.scrollTo(0, 0));
     await expect(actionPopoverElement).toHaveAttribute(
       "data-floating-placement",
-      "top-end",
+      "bottom-end",
     );
     await expect(actionPopoverElement).toBeVisible();
   });

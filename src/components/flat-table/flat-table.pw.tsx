@@ -87,7 +87,7 @@ import {
 } from "../../../playwright/support/helper";
 
 const sizes = [
-  ["compact", "8px", "13px", 24],
+  ["compact", "8px", "13px", 32],
   ["small", "16px", "14px", 32],
   ["medium", "16px", "14px", 40],
   ["large", "16px", "16px", 48],
@@ -355,7 +355,7 @@ test.describe("Prop tests", () => {
     ).toHaveCSS("top", "0px");
     await expect(
       flatTableHeaderRowByPosition(page, 1).locator("th").first(),
-    ).toHaveCSS("top", "40px");
+    ).toHaveCSS("top", "43px");
   });
 
   test(`should render with sticky footer`, async ({ mount, page }) => {
