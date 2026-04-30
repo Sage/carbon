@@ -1,3 +1,9 @@
+## [158.47.0](https://github.com/Sage/carbon/compare/v158.46.4...v158.47.0) (2026-04-30)
+
+### Features
+
+* update focus styling to be inline with DS ([3c5bfd6](https://github.com/Sage/carbon/commit/3c5bfd6b08d93555d4e435e40541b6181e041480))
+
 ## [158.46.4](https://github.com/Sage/carbon/compare/v158.46.3...v158.46.4) (2026-04-24)
 
 ### Bug Fixes
