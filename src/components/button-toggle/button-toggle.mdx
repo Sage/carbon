@@ -1,7 +1,6 @@
 import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
 
 import * as ButtonToggleStories from "./button-toggle.stories";
-import * as ButtonToggleGroupStories from "./button-toggle-group/button-toggle-group.stories";
 
 <Meta of={ButtonToggleStories} />
 
@@ -9,7 +8,7 @@ import * as ButtonToggleGroupStories from "./button-toggle-group/button-toggle-g
 
 <a
   target="_blank"
-  href="https://zeroheight.com/2ccf2b601/p/996a28-button-toggle/b/7384f9"
+  href="https://designsystem.sage.com/35ee2cc26/v/0/p/9592e3-toggle-button"
   style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
   rel="noreferrer"
 >
@@ -37,94 +36,78 @@ import {
 
 ### Default
 
+To use this component, pass the `ButtonToggle` buttons as children of `ButtonToggleGroup`. 
+Control the state of the selected values by making use of the `value` and `onChange` props provided. 
+
+If using this component without a visible label, please ensure to provide and accessible label using `aria-label`.
+
 <Canvas of={ButtonToggleStories.Default} />
 
-### With inputHint
+### With Label and Hint Text
 
-<Canvas of={ButtonToggleStories.InputHint} />
+The `label` prop can be used to set a visible label for the component.
+To provide an additional hint text string, use the `hintText` prop.
 
-### With aria-label
+<Canvas of={ButtonToggleStories.WithLabelAndHint} />
 
-If you do not want a visible label to appear above the group, you should pass the `aria-label` prop to `ButtonToggleGroup` to give it an
-accessible name to be announced by screen readers. Failure to do this will result in accessibility violations.
+### With Icons
 
-<Canvas of={ButtonToggleStories.AriaLabel} />
+To render an `Icon` within a `ButtonToggle`, just pass it as a child of the component.
 
-### With fullWidth
+See our [Icon documentation](../?path=/docs/icon--docs) for more information. 
 
-When the `fullWidth` prop is `true`, the buttons will expand in size to evenly take up the full width of the container.
+<Canvas of={ButtonToggleStories.WithIcon} />
 
-<Canvas of={ButtonToggleStories.FullWidth} />
+### Loading
 
-### Allowing deselection
+To render a `Loader` within a `ButtonToggle`, just pass it as a child of the component. 
+When doing this, please ensure to prevent any interaction with the button if selected while in a loading state.
 
-By default, in a `ButtonToggleGroup` there is no way to deselect the currently-selected toggle button except by selecting another one.
-The `allowDeselect` prop changes this behaviour, making it possible for there to be no selection.
+See our [Loader documentation](../?path=/docs/loader--docs) for more information. 
 
-If you use this, you should include text in the `inputHint` prop which makes clear that deselection is allowed, as in the example below.
+<Canvas of={ButtonToggleStories.Loading} />
 
-<Canvas of={ButtonToggleStories.AllowDeselection} />
+### Sizes
 
-### Small icon
+The component can be rendered in three different sizes: `"small"`, `"medium"` (default) and `"large"`. 
+This can be changed by passing the `size` prop to `ButtonToggleGroup`.
 
-<Canvas of={ButtonToggleStories.DefaultSmallIcon} />
+**Note:** Do not pass icons when using the `"small"` size, please limit the content of the buttons to only text. 
 
-### Large icon
+<Canvas of={ButtonToggleStories.Sizes} />
 
-<Canvas of={ButtonToggleStories.DefaultLargeIcon} />
+### Icon Only
 
-### Icon only
+`ButtonToggle` can be rendered as an icon-only button, when only `Icon` children are passed.
+This should only be done using sizes `"medium"` or `"large"`. 
 
-While we do not advocate the use of icon-only buttons for accessibility reasons, the `aria-label` or `aria-labelledby` props can be passed to
-an icon-only `ButtonToggle` so that assistive technology users are aware of the action that will be taken when the button is pressed.
+Please ensure to provide accessible names using `aria-label` to any buttons with no visible label.
 
 <Canvas of={ButtonToggleStories.IconOnly} />
 
-### Small
 
-<Canvas of={ButtonToggleStories.Small} />
+### Allow Deselect
 
-### Small with small icon
+By default, the active `ButtonToggle` can only be deselected when another button in the group is selected. 
 
-<Canvas of={ButtonToggleStories.SmallSmallIcon} />
+The `allowDeselect` prop allows users to deselect the currently active button without having to select another.
 
-### Small with large icon
+<Canvas of={ButtonToggleStories.AllowDeselect} />
 
-<Canvas of={ButtonToggleStories.SmallLargeIcon} />
+### Full Width
 
-### Large
+By default, the button wrapper will hug its content. 
+You can set the `fullWidth` prop to allow the buttons to expand the full width of their container. 
 
-<Canvas of={ButtonToggleStories.Large} />
+<Canvas of={ButtonToggleStories.FullWidth} />
 
-### Large with small icon
+### Disabled
 
-<Canvas of={ButtonToggleStories.LargeSmallIcon} />
+The component can be disabled by passing the `disabled` prop to `ButtonToggleGroup`.
+Individual `ButtonToggle` buttons can also be disabled by passing the `disabled` prop.
 
-### Large with large icon
-
-<Canvas of={ButtonToggleStories.LargeLargeIcon} />
-
-### Disabled Button
-
-<Canvas of={ButtonToggleStories.DisabledButton} />
-
-### Disabled Group
-
-<Canvas of={ButtonToggleStories.DisabledGroup} />
-
-### Wrapped Group
-
-When buttons can no longer fit in a single row, they will wrap onto the next line.
-The `fullWidth` prop can provide a more consistent layout across different screen sizes, so we recommend using it if buttons are likely to wrap in smaller screens.
-
-<Canvas of={ButtonToggleStories.WrappedButtons} />
+<Canvas of={ButtonToggleStories.Disabled} />
 
 ## Props
 
-### Button Toggle
-
 <ArgTypes of={ButtonToggleStories} />
-
-### Button Toggle Group
-
-<ArgTypes of={ButtonToggleGroupStories} />

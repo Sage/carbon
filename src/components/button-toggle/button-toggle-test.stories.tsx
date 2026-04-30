@@ -1,166 +1,165 @@
 import React, { useState } from "react";
-import { action } from "@storybook/addon-actions";
-import { ButtonToggle, ButtonToggleGroup, ButtonToggleProps } from ".";
+import { Meta, StoryObj } from "@storybook/react";
+import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
+import { ButtonToggle, ButtonToggleGroup, ButtonToggleGroupProps } from ".";
+import Icon from "../icon";
 import Box from "../box";
 
-export default {
+const styledSystemProps = generateStyledSystemProps({
+  margin: true,
+});
+
+const meta: Meta<typeof ButtonToggleGroup> = {
   title: "Button Toggle/Test",
-  parameters: {
-    info: { disable: true },
-    chromatic: {
-      disableSnapshot: true,
-    },
-  },
+  component: ButtonToggleGroup,
+  subcomponents: { ButtonToggle },
   argTypes: {
-    fullWidth: {
-      control: {
-        type: "boolean",
-      },
-    },
-    value: {
-      control: {
-        type: "text",
-      },
-    },
-    allowDeselect: {
-      control: {
-        type: "boolean",
-      },
-    },
-    disabled: {
-      control: {
-        type: "boolean",
-      },
-    },
-    size: {
-      options: ["small", "medium", "large"],
-      control: {
-        type: "select",
-      },
-    },
-    buttonIcon: {
-      options: ["", "add", "edit", "delete"],
-      control: {
-        type: "select",
-      },
-    },
-    buttonIconSize: {
-      options: ["small", "large"],
-      control: {
-        type: "select",
-      },
+    ...styledSystemProps,
+  },
+  parameters: {
+    themeProvider: { chromatic: { theme: "sage" } },
+    controls: {
+      exclude: ["children", "onChange", "value"],
     },
   },
 };
 
-export const DefaultStory = ({
-  children,
-  size,
-  buttonIcon,
-  buttonIconSize,
-  ...args
-}: Partial<ButtonToggleProps>) => {
-  const [value, setValue] = useState<string>("");
-  function onChangeHandler(
-    event: React.MouseEvent<HTMLButtonElement>,
-    selectedButtonValue?: string,
-  ) {
-    setValue(selectedButtonValue ?? "");
-    action("value set")(selectedButtonValue);
-  }
+export default meta;
+type Story = StoryObj<typeof ButtonToggleGroup>;
+
+export const HoverAndFocus: Story = ({ ...args }: ButtonToggleGroupProps) => {
+  const [value, setValue] = useState("active");
+
+  const handleOnChange = (
+    ev: React.MouseEvent<HTMLButtonElement>,
+    selectedValue?: string,
+  ) => {
+    setValue(selectedValue as string);
+  };
 
   return (
     <ButtonToggleGroup
-      id="button-toggle-group"
-      label="Button Toggle Group test"
-      inputHint="Hint Text"
-      onChange={onChangeHandler}
-      value={value}
       {...args}
+      id="hover"
+      value={value}
+      onChange={handleOnChange}
+      mb={2}
     >
-      <ButtonToggle
-        value="foo"
-        size={size}
-        buttonIcon={buttonIcon}
-        buttonIconSize={buttonIconSize}
-      >
-        {children}
+      <ButtonToggle data-role="hover" value="default">
+        <Icon aria-hidden type="placeholder" />
+        Button Default
       </ButtonToggle>
-      <ButtonToggle
-        value="bar"
-        size={size}
-        buttonIcon={buttonIcon}
-        buttonIconSize={buttonIconSize}
-      >
-        Bar
+      <ButtonToggle data-role="hover" value="active">
+        <Icon aria-hidden type="placeholder" />
+        Button Active
       </ButtonToggle>
-      <ButtonToggle
-        value="baz"
-        size={size}
-        buttonIcon={buttonIcon}
-        buttonIconSize={buttonIconSize}
-      >
-        Baz
+      <ButtonToggle data-role="hover" value="disabled" disabled>
+        <Icon aria-hidden type="placeholder" />
+        Button Disabled
+      </ButtonToggle>
+      <ButtonToggle data-role="focus" value="default">
+        <Icon aria-hidden type="placeholder" />
+        Button Default
       </ButtonToggle>
     </ButtonToggleGroup>
   );
 };
-
-DefaultStory.story = {
-  args: {
-    children: "Foo",
-    size: "medium",
-    buttonIcon: "",
-    buttonIconSize: "",
+HoverAndFocus.storyName = "Hover And Focus";
+HoverAndFocus.parameters = {
+  pseudo: {
+    hover: '[data-role="hover"]',
+    focus: '[data-role="focus"]',
   },
 };
 
-export const LargeIconWithLongText = () => {
-  const [value, setValue] = useState<string>("");
-  function onChangeHandler(
-    event: React.MouseEvent<HTMLButtonElement>,
-    selectedButtonValue?: string,
-  ) {
-    setValue(selectedButtonValue ?? "");
-    action("value set")(selectedButtonValue);
-  }
+export const WrappedButtons: Story = ({ ...args }: ButtonToggleGroupProps) => {
+  const [value1, setValue1] = useState("button-2");
+  const [value2, setValue2] = useState("button-2");
+
+  const handleOnChange1 = (
+    ev: React.MouseEvent<HTMLButtonElement>,
+    selectedValue?: string,
+  ) => {
+    setValue1(selectedValue as string);
+  };
+
+  const handleOnChange2 = (
+    ev: React.MouseEvent<HTMLButtonElement>,
+    selectedValue?: string,
+  ) => {
+    setValue2(selectedValue as string);
+  };
 
   return (
-    <Box width="135px">
+    <Box width="400px">
+      Default
       <ButtonToggleGroup
-        id="button-toggle-group"
-        fullWidth
-        value={value}
-        onChange={onChangeHandler}
+        {...args}
+        id="wrapped"
+        value={value1}
+        onChange={handleOnChange1}
+        mb={2}
       >
-        <ButtonToggle
-          value="foo"
-          size="large"
-          buttonIcon="add"
-          buttonIconSize="large"
-        >
-          First button with long text
+        <ButtonToggle value="button-1">
+          <Icon aria-hidden type="placeholder" />
+          Button 1
         </ButtonToggle>
-        <ButtonToggle
-          value="bar"
-          size="large"
-          buttonIcon="add"
-          buttonIconSize="large"
-        >
-          Bar
+        <ButtonToggle value="button-2">
+          <Icon aria-hidden type="placeholder" />
+          Button 2
         </ButtonToggle>
-        <ButtonToggle
-          value="baz"
-          size="large"
-          buttonIcon="add"
-          buttonIconSize="large"
-        >
-          Baz
+        <ButtonToggle value="button-3">
+          <Icon aria-hidden type="placeholder" />
+          Button 3
+        </ButtonToggle>
+        <ButtonToggle value="button-4">
+          <Icon aria-hidden type="placeholder" />
+          Button 4
+        </ButtonToggle>
+        <ButtonToggle value="button-5">
+          <Icon aria-hidden type="placeholder" />
+          Button 5
+        </ButtonToggle>
+        <ButtonToggle value="button-6">
+          <Icon aria-hidden type="placeholder" />
+          Button 6
+        </ButtonToggle>
+      </ButtonToggleGroup>
+      With FullWidth
+      <ButtonToggleGroup
+        {...args}
+        id="fullwidth-wrapped"
+        value={value2}
+        onChange={handleOnChange2}
+        fullWidth
+        mb={2}
+      >
+        <ButtonToggle value="button-1">
+          <Icon aria-hidden type="placeholder" />
+          Button 1
+        </ButtonToggle>
+        <ButtonToggle value="button-2">
+          <Icon aria-hidden type="placeholder" />
+          Button 2
+        </ButtonToggle>
+        <ButtonToggle value="button-3">
+          <Icon aria-hidden type="placeholder" />
+          Button 3
+        </ButtonToggle>
+        <ButtonToggle value="button-4">
+          <Icon aria-hidden type="placeholder" />
+          Button 4
+        </ButtonToggle>
+        <ButtonToggle value="button-5">
+          <Icon aria-hidden type="placeholder" />
+          Button 5
+        </ButtonToggle>
+        <ButtonToggle value="button-6">
+          <Icon aria-hidden type="placeholder" />
+          Button 6
         </ButtonToggle>
       </ButtonToggleGroup>
     </Box>
   );
 };
-LargeIconWithLongText.parameters = {
-  chromatic: { disableSnapshot: false },
-};
+WrappedButtons.storyName = "Wrapped Buttons";

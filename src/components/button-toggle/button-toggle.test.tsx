@@ -60,20 +60,6 @@ test("should call `onBlur` when the button is blurred", async () => {
   expect(onBlur).toHaveBeenCalledTimes(1);
 });
 
-test("logs deprecation warning if pressed prop is used", () => {
-  jest.spyOn(Logger, "error").mockImplementation(() => {});
-
-  const loggerDeprecateSpy = jest
-    .spyOn(Logger, "deprecate")
-    .mockImplementation(() => {});
-
-  render(<ButtonToggle pressed>Button</ButtonToggle>);
-
-  expect(loggerDeprecateSpy).toHaveBeenCalledWith(
-    expect.stringContaining("The `pressed` prop is deprecated."),
-  );
-});
-
 test("should render disabled button with expected styles", () => {
   render(
     <ButtonToggleGroup id="test" value="" onChange={() => {}}>
@@ -83,41 +69,6 @@ test("should render disabled button with expected styles", () => {
 
   expect(screen.getByRole("button")).toBeDisabled();
   expect(screen.getByRole("button")).toHaveStyle({ cursor: "not-allowed" });
-});
-
-test("should render with expected styles when buttonIcon is set", () => {
-  render(
-    <ButtonToggleGroup id="test" value="" onChange={() => {}}>
-      <ButtonToggle buttonIcon="add">Button</ButtonToggle>
-    </ButtonToggleGroup>,
-  );
-
-  expect(screen.getByTestId("button-toggle-icon")).toHaveStyle({
-    marginRight: "8px",
-  });
-});
-
-test("should render with expected styles when buttonIcon is set and buttonIconSize is large'", () => {
-  render(
-    <ButtonToggleGroup id="test" value="" onChange={() => {}}>
-      <ButtonToggle buttonIcon="add" buttonIconSize="large">
-        Button
-      </ButtonToggle>
-    </ButtonToggleGroup>,
-  );
-
-  expect(screen.getByTestId("button-toggle-icon")).toHaveStyle({
-    marginRight: "0",
-  });
-  expect(screen.getByTestId("icon")).toHaveStyle({
-    marginLeft: "0",
-    marginRight: "0",
-    marginBottom: "8px",
-  });
-  expect(screen.getByRole("button")).toHaveStyle({
-    minHeight: "88px",
-    flexDirection: "column",
-  });
 });
 
 test("should throw an error when neither children or a `buttonIcon` is provided", () => {
@@ -159,22 +110,17 @@ test("should render with aria-labelledby attribute", () => {
   expect(screen.getByRole("button")).toHaveAccessibleName("Test Label");
 });
 
-test("should render with aria-pressed true when pressed prop is true", () => {
-  jest.spyOn(Logger, "deprecate").mockImplementation(() => {});
-  jest.spyOn(Logger, "error").mockImplementation(() => {});
-
+test("should render with aria-pressed true when the button is selected", () => {
   render(
     <ButtonToggleGroup id="test" value="test-value" onChange={() => {}}>
-      <ButtonToggle value="test-value" pressed>
-        Button
-      </ButtonToggle>
+      <ButtonToggle value="test-value">Button</ButtonToggle>
     </ButtonToggleGroup>,
   );
 
   expect(screen.getByRole("button")).toHaveAttribute("aria-pressed", "true");
 });
 
-test("should render with aria-pressed false when pressed prop is false", () => {
+test("should render with aria-pressed false when the button is not selected", () => {
   render(
     <ButtonToggleGroup id="test" value="" onChange={() => {}}>
       <ButtonToggle pressed={false}>Button</ButtonToggle>
@@ -184,7 +130,7 @@ test("should render with aria-pressed false when pressed prop is false", () => {
   expect(screen.getByRole("button")).toHaveAttribute("aria-pressed", "false");
 });
 
-test("should render with data-element attribute", () => {
+test("should render with provided data- tags", () => {
   render(
     <ButtonToggleGroup id="test" value="" onChange={() => {}}>
       <ButtonToggle data-element="test-element" data-role="test-role">
@@ -197,16 +143,6 @@ test("should render with data-element attribute", () => {
     "data-element",
     "test-element",
   );
-});
-
-test("should render with data-role attribute", () => {
-  render(
-    <ButtonToggleGroup id="test" value="" onChange={() => {}}>
-      <ButtonToggle data-role="test-role">Button</ButtonToggle>
-    </ButtonToggleGroup>,
-  );
-
-  expect(screen.getByTestId("test-role")).toBeInTheDocument();
 });
 
 test("should render with value attribute", () => {
@@ -229,98 +165,45 @@ test("should render button with text content", () => {
   expect(screen.getByRole("button")).toHaveTextContent("Test Button Text");
 });
 
-test("should call onChange when ButtonToggleGroup button is clicked", async () => {
-  const onChange = jest.fn();
-  const user = userEvent.setup();
-
+test("should render with provided `buttonIcon`", () => {
   render(
-    <ButtonToggleGroup id="test" value="" onChange={onChange}>
-      <ButtonToggle value="button1">Button 1</ButtonToggle>
+    <ButtonToggleGroup id="test" value="" onChange={() => {}}>
+      <ButtonToggle buttonIcon="placeholder" />
     </ButtonToggleGroup>,
   );
 
-  await user.click(screen.getByRole("button"));
-  expect(onChange).toHaveBeenCalledTimes(1);
+  expect(screen.getByTestId("icon")).toBeVisible();
+  expect(screen.getByTestId("icon")).toHaveAttribute("type", "placeholder");
 });
 
-test("should not call onChange when ButtonToggleGroup is disabled", async () => {
-  const onChange = jest.fn();
-  const user = userEvent.setup();
-
+// coverage
+test("should render button with expected styles when selected button is disabled", () => {
   render(
-    <ButtonToggleGroup id="test" value="" onChange={onChange} disabled>
-      <ButtonToggle value="button1">Button 1</ButtonToggle>
+    <ButtonToggleGroup id="test" value="test-value" onChange={() => {}}>
+      <ButtonToggle value="test-value" disabled>
+        Button
+      </ButtonToggle>
     </ButtonToggleGroup>,
   );
 
-  await user.click(screen.getByRole("button"));
-  expect(onChange).not.toHaveBeenCalled();
-});
-
-test("should render ButtonToggleGroup with data-element attribute", () => {
-  render(
-    <ButtonToggleGroup
-      id="test"
-      value=""
-      onChange={() => {}}
-      data-element="test-group-element"
-      data-role="test-group-role"
-    >
-      <ButtonToggle>Button</ButtonToggle>
-    </ButtonToggleGroup>,
-  );
-
-  expect(screen.getByTestId("test-group-role")).toHaveAttribute(
-    "data-element",
-    "test-group-element",
+  expect(screen.getByRole("button")).toHaveStyleRule(
+    "color",
+    "var(--button-typical-toggle-label-active-disabled)",
   );
 });
 
-test("should render ButtonToggleGroup with data-role attribute", () => {
+// coverage
+test("should render with expected styles when `size` prop is set", () => {
   render(
-    <ButtonToggleGroup
-      id="test"
-      value=""
-      onChange={() => {}}
-      data-role="test-group-role"
-    >
-      <ButtonToggle>Button</ButtonToggle>
+    <ButtonToggleGroup id="test" value="" onChange={() => {}}>
+      <ButtonToggle value="test-value" size="large">
+        Button
+      </ButtonToggle>
     </ButtonToggleGroup>,
   );
 
-  expect(screen.getByTestId("test-group-role")).toBeInTheDocument();
-});
-
-test("should render ButtonToggleGroup with fieldHelp", () => {
-  render(
-    <ButtonToggleGroup
-      id="test"
-      value=""
-      onChange={() => {}}
-      fieldHelp="Test help"
-    >
-      <ButtonToggle>Button</ButtonToggle>
-    </ButtonToggleGroup>,
+  expect(screen.getByRole("button")).toHaveStyleRule(
+    "height",
+    "var(--global-size-m)",
   );
-
-  expect(screen.getByText("Test help")).toBeInTheDocument();
-});
-
-test("should call onChange with undefined when allowDeselect is true and pressed button is clicked", async () => {
-  const onChange = jest.fn();
-  const user = userEvent.setup();
-
-  render(
-    <ButtonToggleGroup
-      id="test"
-      value="button1"
-      onChange={onChange}
-      allowDeselect
-    >
-      <ButtonToggle value="button1">Button 1</ButtonToggle>
-    </ButtonToggleGroup>,
-  );
-
-  await user.click(screen.getByRole("button"));
-  expect(onChange).toHaveBeenCalledWith(expect.anything(), undefined);
 });
