@@ -1,46 +1,61 @@
-import React, { useMemo, useState, useRef, useContext } from "react";
-import invariant from "invariant";
+import React, { useState, useRef } from "react";
 
 import { MarginProps } from "styled-system";
-import FormField from "../../../__internal__/form-field";
 import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags";
-import guid from "../../../__internal__/utils/helpers/guid";
-import StyledButtonToggleGroup from "./button-toggle-group.style";
-import { ButtonToggle } from "..";
+import {
+  StyledButtonToggleGroup,
+  StyledButtonToggleWrapper,
+} from "./button-toggle-group.style";
 import { filterStyledSystemMarginProps } from "../../../style/utils";
-import { TooltipProvider } from "../../../__internal__/tooltip-provider";
-import { InputGroupBehaviour } from "../../../__internal__/input-behaviour";
 import Events from "../../../__internal__/utils/helpers/events";
-import NewValidationContext from "../../carbon-provider/__internal__/new-validation.context";
 import { ButtonToggleGroupProvider } from "./__internal__/button-toggle-group.context";
+import Label from "../../../__internal__/label";
 import HintText from "../../../__internal__/hint-text";
 
 export interface ButtonToggleGroupProps extends MarginProps, TagProps {
-  /** Unique id for the root element of the component */
+  /** Unique id for the root element of the component. */
   id: string;
   /** Toggle buttons to be rendered. Only accepts children of type ButtonToggle */
   children?: React.ReactNode;
-  /** aria-label for the group wrapper. Required for accessibility when no text label is provided */
+  /** Sets an aria-label for the group, must be provided if there is no visible label. */
   "aria-label"?: string;
-  /** Text for the visible label of the button group. */
+  /** Visible label for the group. */
   label?: string;
-  /** [Legacy] Text for the label's help tooltip. */
+  /**
+   * [Legacy] Text for the label's help tooltip.
+   * @deprecated Help tooltips are no longer supported, please use the `inputHint` prop instead.
+   */
   labelHelp?: React.ReactNode;
-  /** [Legacy] Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */
+  /**
+   * [Legacy] Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8),
+   * @deprecated Custom label spacing is no longer supported for this component.
+   */
   labelSpacing?: 1 | 2;
   /** A hint string rendered before the input but after the label. Intended to describe the purpose or content of the input. */
   inputHint?: React.ReactNode;
   /** The percentage width of the ButtonToggleGroup. */
   inputWidth?: number | string;
-  /** [Legacy] The text for the field help. */
+  /**
+   * [Legacy] The text for the field help.
+   * @deprecated `fieldHelp` is deprecated, please use `inputHint` instead.
+   */
   fieldHelp?: string;
-  /** [Legacy] Sets the field help to inline. */
+  /**
+   * [Legacy] Sets the field help to inline.
+   * @deprecated `fieldHelpInline` is no longer supported.
+   */
   fieldHelpInline?: boolean;
-  /** [Legacy] Sets the label to be inline. */
+  /**
+   * [Legacy] Sets the label to be inline.
+   * @deprecated Inline labels are no longer supported.
+   */
   labelInline?: boolean;
-  /** [Legacy] The percentage width of the label. */
+  /**
+   * [Legacy] The percentage width of the label.
+   * @deprecated `labelWidth` is no longer supported.
+   */
   labelWidth?: number;
   /** If true all ButtonToggle children will flex to the full width of the ButtonToggleGroup parent */
   fullWidth?: boolean;
@@ -48,17 +63,20 @@ export interface ButtonToggleGroupProps extends MarginProps, TagProps {
   onChange: (ev: React.MouseEvent<HTMLButtonElement>, value?: string) => void;
   /** Determines which child button is selected */
   value: string;
-  /** [Legacy] Aria label for rendered help component */
+  /**
+   * [Legacy] Aria label for rendered help component.
+   * @deprecated Help tooltips are no longer supported.
+   */
   helpAriaLabel?: string;
-  /** Allow buttons within the group to be deselected when already selected, leaving no selected button */
+  /** Allow selected buttons within the group to be deselected. */
   allowDeselect?: boolean;
-  /** Disable all user interaction. */
+  /** Disable the group. */
   disabled?: boolean;
+  /** Size of the ButtonToggleGroup */
+  size?: "small" | "medium" | "large";
   /** @private @internal @ignore */
   "data-component"?: string;
 }
-
-const BUTTON_TOGGLE_SELECTOR = '[data-element="button-toggle-button"]';
 
 const ButtonToggleGroup = ({
   children,
@@ -70,7 +88,7 @@ const ButtonToggleGroup = ({
   labelSpacing,
   inputHint,
   inputWidth,
-  fullWidth,
+  fullWidth = false,
   labelInline,
   labelWidth,
   onChange,
@@ -79,33 +97,21 @@ const ButtonToggleGroup = ({
   id,
   allowDeselect = false,
   disabled = false,
+  size = "medium",
+  "data-component": dataComponent,
   ...props
 }: ButtonToggleGroupProps) => {
-  const hasCorrectItemStructure = useMemo(() => {
-    const incorrectChild = React.Children.toArray(children).find(
-      (child: React.ReactNode) =>
-        !React.isValidElement(child) ||
-        (child.type as React.FunctionComponent).displayName !== "ButtonToggle",
-    );
-    return !incorrectChild;
-  }, [children]);
-
-  invariant(
-    hasCorrectItemStructure,
-    `\`ButtonToggleGroup\` only accepts children of type \`${ButtonToggle.displayName}\``,
-  );
-
-  const labelId = useRef(guid());
-  const hintTextId = useRef(guid());
-
   const wrapperRef = useRef<HTMLDivElement>(null);
 
-  const { validationRedesignOptIn } = useContext(NewValidationContext);
-  const computeLabelPropValues = <T,>(prop: T): undefined | T =>
-    validationRedesignOptIn ? undefined : prop;
+  const actualHint = inputHint || labelHelp || fieldHelp;
+  const labelId = label ? `${id}-label` : undefined;
+  const hintTextId = actualHint ? `${id}-hint` : undefined;
 
   const getInnerButtons = () =>
-    wrapperRef.current?.querySelectorAll(BUTTON_TOGGLE_SELECTOR);
+    wrapperRef.current?.querySelectorAll<HTMLButtonElement>(
+      "[data-button-toggle-internal]",
+    );
+
   // needs to be state not ref, so that a rerender is triggered
   const [firstButton, setFirstButton] = useState<HTMLButtonElement>();
 
@@ -115,22 +121,25 @@ const ButtonToggleGroup = ({
     if (!innerButtons || !document.activeElement) {
       return;
     }
+
     const focusedIndex = Array.from(innerButtons).indexOf(
-      document.activeElement,
+      document.activeElement as HTMLButtonElement,
     );
-    let nextElement;
+
+    let nextElement: HTMLButtonElement | undefined;
+
     if (Events.isLeftKey(ev)) {
+      ev.preventDefault();
       const nextIndex =
         focusedIndex === 0 ? innerButtons.length - 1 : focusedIndex - 1;
       nextElement = innerButtons[nextIndex];
     } else if (Events.isRightKey(ev)) {
+      ev.preventDefault();
       const nextIndex = (focusedIndex + 1) % innerButtons.length;
       nextElement = innerButtons[nextIndex];
     }
-    // istanbul ignore else
-    if (nextElement instanceof HTMLButtonElement) {
-      nextElement.focus();
-    }
+
+    nextElement?.focus();
   };
 
   const childButtonCallbackRef = (button: HTMLButtonElement | null) => {
@@ -153,67 +162,65 @@ const ButtonToggleGroup = ({
   };
 
   return (
-    <TooltipProvider helpAriaLabel={helpAriaLabel}>
-      <InputGroupBehaviour>
-        <FormField
-          label={label}
-          labelHelp={computeLabelPropValues(labelHelp)}
-          labelSpacing={computeLabelPropValues(labelSpacing)}
-          fieldHelp={computeLabelPropValues(fieldHelp)}
-          fieldHelpInline={computeLabelPropValues(fieldHelpInline)}
-          labelInline={computeLabelPropValues(labelInline)}
-          labelWidth={computeLabelPropValues(labelWidth)}
-          labelId={labelId.current}
-          id={id}
-          labelAs="span"
-          disabled={disabled}
-          {...filterStyledSystemMarginProps(props)}
-          {...tagComponent(
-            props["data-component"] ?? "button-toggle-group",
-            props,
-          )}
-        >
-          <ButtonToggleGroupProvider
-            value={{
-              onButtonClick: () => {},
-              handleKeyDown,
-              pressedButtonValue: value,
-              onChange,
-              allowDeselect,
-              isInGroup: true,
-              isDisabled: disabled,
-              firstButton,
-              childButtonCallbackRef,
-              hintTextId: inputHint ? hintTextId.current : undefined,
-            }}
-          >
-            {inputHint && (
-              <HintText
-                id={hintTextId.current}
-                isDisabled={disabled}
-                marginBottom="var(--spacing150)"
-              >
-                {inputHint}
-              </HintText>
-            )}
-            <StyledButtonToggleGroup
-              ref={wrapperRef}
-              {...(label
-                ? { "aria-labelledby": labelId.current }
-                : { "aria-label": ariaLabel })}
-              labelInline={labelInline}
-              inputWidth={inputWidth}
-              fullWidth={fullWidth}
-              role="group"
-              id={id}
+    <StyledButtonToggleGroup
+      id={id}
+      role="group"
+      {...(label && { "aria-labelledby": labelId })}
+      aria-label={ariaLabel}
+      $size={size}
+      $fullWidth={fullWidth}
+      $width={inputWidth}
+      {...filterStyledSystemMarginProps(props)}
+      {...tagComponent(dataComponent || "button-toggle-group", { ...props })}
+    >
+      {(label || actualHint) && (
+        <div>
+          {label && (
+            <Label
+              labelId={labelId}
+              isLarge={size === "large"}
               disabled={disabled}
             >
-              {children}
-            </StyledButtonToggleGroup>
-          </ButtonToggleGroupProvider>
-        </FormField>
-      </InputGroupBehaviour>
-    </TooltipProvider>
+              {label}
+            </Label>
+          )}
+          {actualHint && (
+            <HintText
+              id={hintTextId}
+              isDisabled={disabled}
+              isLarge={size === "large"}
+              marginBottom="0"
+            >
+              {actualHint}
+            </HintText>
+          )}
+        </div>
+      )}
+      <StyledButtonToggleWrapper
+        data-role="button-toggle-group-wrapper"
+        ref={wrapperRef}
+        $size={size}
+        $isDisabled={disabled}
+        $fullWidth={fullWidth}
+      >
+        <ButtonToggleGroupProvider
+          value={{
+            handleKeyDown,
+            pressedButtonValue: value,
+            onChange,
+            allowDeselect,
+            isDisabled: disabled,
+            firstButton,
+            childButtonCallbackRef,
+            hintTextId: inputHint ? hintTextId : undefined,
+            size,
+            fullWidth,
+          }}
+        >
+          {children}
+        </ButtonToggleGroupProvider>
+      </StyledButtonToggleWrapper>
+    </StyledButtonToggleGroup>
   );
 };
 

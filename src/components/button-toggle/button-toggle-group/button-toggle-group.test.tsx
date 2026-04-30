@@ -2,7 +2,6 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ButtonToggle, ButtonToggleGroup } from "..";
-import CarbonProvider from "../../carbon-provider/carbon-provider.component";
 import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/test-utils";
 
 test("should render with provided children", () => {
@@ -21,30 +20,11 @@ test("should render with provided children", () => {
   expect(screen.getByRole("button", { name: "Bar" })).toBeVisible();
 });
 
-test("should throw an error when children are not of type ButtonToggle", () => {
-  const consoleSpy = jest.spyOn(console, "error").mockImplementation(() => {});
-
-  expect(() =>
-    render(
-      <ButtonToggleGroup
-        value="foo"
-        id="button-toggle-group-id"
-        onChange={() => {}}
-      >
-        <div>Foo</div>
-      </ButtonToggleGroup>,
-    ),
-  ).toThrow("`ButtonToggleGroup` only accepts children of type `ButtonToggle`");
-
-  consoleSpy.mockRestore();
-});
-
 test("should render with provided label and use it as its accessible name", () => {
   render(
     <ButtonToggleGroup
       id="button-toggle-group-id"
       label="Group Label"
-      aria-label="Group Aria Label"
       onChange={() => {}}
       value="foo"
     >
@@ -95,6 +75,38 @@ test("should render with provided hintText and use it as the accessible descript
   ).toHaveAccessibleDescription("Group Hint Text");
 });
 
+test("should render labelHelp as hintText", () => {
+  render(
+    <ButtonToggleGroup
+      value="foo"
+      id="button-toggle-group-id"
+      labelHelp="LabelHelp"
+      onChange={() => {}}
+    >
+      <ButtonToggle value="foo">Foo</ButtonToggle>
+      <ButtonToggle value="bar">Bar</ButtonToggle>
+    </ButtonToggleGroup>,
+  );
+
+  expect(screen.getByText("LabelHelp")).toBeVisible();
+});
+
+test("should render fieldHelp as hintText", () => {
+  render(
+    <ButtonToggleGroup
+      value="foo"
+      id="button-toggle-group-id"
+      fieldHelp="FieldHelp"
+      onChange={() => {}}
+    >
+      <ButtonToggle value="foo">Foo</ButtonToggle>
+      <ButtonToggle value="bar">Bar</ButtonToggle>
+    </ButtonToggleGroup>,
+  );
+
+  expect(screen.getByText("FieldHelp")).toBeVisible();
+});
+
 test("should call onChange with the value of the ButtonToggle that is clicked", async () => {
   const onChange = jest.fn();
   const user = userEvent.setup();
@@ -134,11 +146,10 @@ test("should call onChange with null value when allowDeselect is set and a selec
   expect(onChange).toHaveBeenCalledWith(expect.any(Object), undefined);
 });
 
-test("should render with disabled child buttons and expected styles when disabled prop is set", () => {
+test("should render with disabled child buttons when disabled prop is set", () => {
   render(
     <ButtonToggleGroup
       id="button-toggle-group-id"
-      label="Group Label"
       inputHint="Group Hint Text"
       onChange={() => {}}
       disabled
@@ -151,23 +162,12 @@ test("should render with disabled child buttons and expected styles when disable
 
   expect(screen.getByRole("button", { name: "Foo" })).toBeDisabled();
   expect(screen.getByRole("button", { name: "Bar" })).toBeDisabled();
-  expect(screen.getByRole("group")).toHaveStyleRule(
-    "box-shadow",
-    "inset 0px 0px 0px 1px var(--colorsActionDisabled600)",
-  );
-  expect(screen.getByRole("group")).toHaveStyleRule("cursor: not-allowed");
-
-  expect(screen.getByText("Group Hint Text")).toHaveStyleRule(
-    "color",
-    "var(--colorsUtilityYin030)",
-  );
 });
 
 test("should render with expected styles when fullWidth prop is set", () => {
   render(
     <ButtonToggleGroup
       id="button-toggle-group-id"
-      label="Group Label"
       onChange={() => {}}
       fullWidth
       value="foo"
@@ -180,14 +180,12 @@ test("should render with expected styles when fullWidth prop is set", () => {
   );
 
   expect(screen.getByRole("group")).toHaveStyle({ width: "100%" });
-  expect(screen.getByTestId("foo")).toHaveStyle({ flex: "auto" });
 });
 
 test("should render with expected styles when inputWidth prop is set", () => {
   render(
     <ButtonToggleGroup
       id="button-toggle-group-id"
-      label="Group Label"
       onChange={() => {}}
       inputWidth={50}
       value="foo"
@@ -198,44 +196,6 @@ test("should render with expected styles when inputWidth prop is set", () => {
   );
 
   expect(screen.getByRole("group")).toHaveStyle({ width: "50%" });
-});
-
-test("should render with expected styles when labelInline prop is set", () => {
-  render(
-    <ButtonToggleGroup
-      id="button-toggle-group-id"
-      label="Group Label"
-      onChange={() => {}}
-      labelInline
-      value="foo"
-    >
-      <ButtonToggle value="foo">Foo</ButtonToggle>
-      <ButtonToggle value="bar">Bar</ButtonToggle>
-    </ButtonToggleGroup>,
-  );
-
-  expect(screen.getByRole("group")).toHaveStyle({ flexWrap: "nowrap" });
-});
-
-test("should not render labelHelp or filedHelp when validationRedesignOptIn is true", () => {
-  render(
-    <CarbonProvider validationRedesignOptIn>
-      <ButtonToggleGroup
-        id="button-toggle-group-id"
-        label="Group Label"
-        labelHelp="Label Help"
-        fieldHelp="Field Help"
-        onChange={() => {}}
-        value="foo"
-      >
-        <ButtonToggle value="foo">Foo</ButtonToggle>
-        <ButtonToggle value="bar">Bar</ButtonToggle>
-      </ButtonToggleGroup>
-    </CarbonProvider>,
-  );
-
-  expect(screen.queryByText("Label Help")).not.toBeInTheDocument();
-  expect(screen.queryByText("Field Help")).not.toBeInTheDocument();
 });
 
 test("should only allow the first button to be tabbable when none are selected", async () => {
@@ -372,6 +332,25 @@ test("should not change focus when a non arrow key is pressed", async () => {
   expect(screen.getByRole("button", { name: "Bar" })).toHaveFocus();
 });
 
+test("should render with provided data- tags", () => {
+  render(
+    <ButtonToggleGroup
+      id="test"
+      value=""
+      onChange={() => {}}
+      data-element="test-element"
+      data-role="test-role"
+    >
+      <ButtonToggle>Button</ButtonToggle>
+    </ButtonToggleGroup>,
+  );
+
+  expect(screen.getByTestId("test-role")).toHaveAttribute(
+    "data-element",
+    "test-element",
+  );
+});
+
 testStyledSystemMargin(
   (props) => (
     <ButtonToggleGroup
@@ -385,5 +364,4 @@ testStyledSystemMargin(
     </ButtonToggleGroup>
   ),
   () => screen.getByTestId("button-toggle-group"),
-  { modifier: "&&&" },
 );

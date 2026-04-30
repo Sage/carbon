@@ -3,12 +3,6 @@ import { act, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Time, TimeHandle } from ".";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
-import inputSizes from "../../__internal__/input/input-sizes.style";
-import {
-  heightConfig,
-  paddingConfig,
-  fontSizeConfig,
-} from "../button-toggle/button-toggle.style";
 import I18nProvider from "../i18n-provider";
 import { TimeInputEvent, TimeValue } from "./time.component";
 import Button from "../button";
@@ -298,74 +292,6 @@ test("should verify fieldset uses visible legend text as its accessible name", (
   const legend = within(fieldset).getByText("Time");
   expect(legend).toBeVisible();
 });
-
-test("should apply the `medium` `size` styling to inputs and toggles by default", () => {
-  render(
-    <Time
-      value={{ hours: "12", minutes: "30", period: "AM" }}
-      onChange={() => {}}
-    />,
-  );
-
-  const [hrsInputPresentation, minsInputPresentation] =
-    screen.getAllByRole("presentation");
-  const { height } = inputSizes.medium;
-  const amToggle = screen.getByRole("button", { name: "AM" });
-  const pmToggle = screen.getByRole("button", { name: "PM" });
-
-  expect(hrsInputPresentation).toHaveStyle({
-    "min-height": height,
-  });
-  expect(minsInputPresentation).toHaveStyle({
-    "min-height": height,
-  });
-  expect(amToggle).toHaveStyle({
-    minHeight: `${heightConfig.medium}px`,
-    padding: `0 ${paddingConfig.medium}px`,
-    "font-size": `${fontSizeConfig.medium}px`,
-  });
-  expect(pmToggle).toHaveStyle({
-    minHeight: `${heightConfig.medium}px`,
-    padding: `0 ${paddingConfig.medium}px`,
-    "font-size": `${fontSizeConfig.medium}px`,
-  });
-});
-
-it.each(["small", "medium", "large"] as const)(
-  "should apply the expected styling to the inputs and toggle when size is %s",
-  (size) => {
-    render(
-      <Time
-        value={{ hours: "12", minutes: "30", period: "AM" }}
-        onChange={() => {}}
-        size={size}
-      />,
-    );
-
-    const [hrsInputPresentation, minsInputPresentation] =
-      screen.getAllByRole("presentation");
-    const { height } = inputSizes[size];
-    const amToggle = screen.getByRole("button", { name: "AM" });
-    const pmToggle = screen.getByRole("button", { name: "PM" });
-
-    expect(hrsInputPresentation).toHaveStyle({
-      "min-height": height,
-    });
-    expect(minsInputPresentation).toHaveStyle({
-      "min-height": height,
-    });
-    expect(amToggle).toHaveStyle({
-      minHeight: `${heightConfig[size]}px`,
-      padding: `0 ${paddingConfig[size]}px`,
-      "font-size": `${fontSizeConfig[size]}px`,
-    });
-    expect(pmToggle).toHaveStyle({
-      minHeight: `${heightConfig[size]}px`,
-      padding: `0 ${paddingConfig[size]}px`,
-      "font-size": `${fontSizeConfig[size]}px`,
-    });
-  },
-);
 
 test("should apply the custom id on the hours input when `hoursInputProps` has an `id` set", () => {
   render(

@@ -54,12 +54,12 @@ const Toggle = ({
       onChange={handleChange}
       value={toggleValue}
       disabled={disabled}
+      size={size}
     >
       <ButtonToggle
         {...amToggleProps}
         data-component="am-button-toggle"
         value="AM"
-        size={size}
       >
         {amText}
       </ButtonToggle>
@@ -67,7 +67,6 @@ const Toggle = ({
         {...pmToggleProps}
         data-component="pm-button-toggle"
         value="PM"
-        size={size}
       >
         {pmText}
       </ButtonToggle>
