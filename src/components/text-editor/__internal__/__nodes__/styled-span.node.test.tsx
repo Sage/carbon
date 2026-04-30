@@ -312,6 +312,32 @@ describe("StyledSpanNode", () => {
       });
     });
 
+    test("should nest multiple format tags when combined", () => {
+      editor?.update(() => {
+        const node = new StyledSpanNode(
+          "Combined Export Test",
+          "700",
+          "24px",
+          "30px",
+        );
+        node.toggleFormat("bold");
+        node.toggleFormat("italic");
+        node.toggleFormat("underline");
+        const { element } = node.exportDOM();
+        const htmlElement = element as HTMLElement;
+
+        expect(htmlElement.tagName).toBe("U");
+        // eslint-disable-next-line testing-library/no-node-access
+        expect(htmlElement.querySelector("em")).toBeTruthy();
+        // eslint-disable-next-line testing-library/no-node-access
+        expect(htmlElement.querySelector("strong")).toBeTruthy();
+        // eslint-disable-next-line testing-library/no-node-access
+        expect(htmlElement.querySelector("strong span")).toHaveTextContent(
+          "Combined Export Test",
+        );
+      });
+    });
+
     test("should have import DOM mapping for span elements", () => {
       editor?.update(() => {
         const importMap = StyledSpanNode.importDOM();
