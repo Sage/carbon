@@ -92,6 +92,10 @@ const styleOverrides = css`
   .filterable-select & {
     cursor: pointer;
   }
+
+  .button-toggle && {
+    color: currentColor;
+  }
 `;
 
 const StyledIcon = styled.span.attrs(applyBaseTheme)<
