@@ -5,11 +5,11 @@ import { BackgroundShape, BgSize, FontSize } from "./icon.style";
 
 const dlsConfig = {
   backgroundSize: {
-    "extra-small": "var(--global-size-xs)",
-    small: "var(--global-size-s)",
-    medium: "var(--global-size-m)",
-    large: "var(--global-size-l)",
-    "extra-large": "var(--global-size-l)",
+    "extra-small": "var(--global-size-2-xs)",
+    small: "var(--global-size-xs)",
+    medium: "var(--global-size-s)",
+    large: "var(--global-size-m)",
+    "extra-large": "var(--global-size-m)",
   },
   backgroundShape: {
     square: "0%",
