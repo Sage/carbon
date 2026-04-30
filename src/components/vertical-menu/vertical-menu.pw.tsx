@@ -521,7 +521,7 @@ test.describe("with beforeEach for VerticalMenuFullScreen", () => {
 
     await expect(menuItem2).toHaveCSS(
       "box-shadow",
-      "rgba(0, 0, 0, 0.9) 0px 0px 0px 3px inset, rgb(255, 188, 25) 0px 0px 0px 6px inset",
+      "rgb(255, 181, 0) 0px 0px 0px 2px inset, rgb(0, 0, 0) 0px 0px 0px 4px inset",
     );
     await expect(menuItem2).toHaveCSS("outline", "rgba(0, 0, 0, 0) solid 3px");
   });
