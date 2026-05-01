@@ -12,6 +12,7 @@ export default {
     chromatic: {
       disableSnapshot: true,
     },
+    themeProvider: { chromatic: { theme: "sage" } },
   },
   argTypes: {
     isActive: {
@@ -106,6 +107,3 @@ export const InsideButtons = () => {
   );
 };
 InsideButtons.storyName = "Inside Buttons";
-InsideButtons.parameters = {
-  themeProvider: { chromatic: { theme: "sage" } },
-};

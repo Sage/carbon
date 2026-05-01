@@ -379,6 +379,7 @@ description: Carbon Loader component props and usage examples.
             variant="inline"
             size="extra-small"
             showLabel
+            inverse
           />
         </Button>
       </Box>
@@ -409,6 +410,7 @@ description: Carbon Loader component props and usage examples.
             variant="inline"
             size="extra-small"
             showLabel
+            inverse
           />
         </Button>
       </Box>
