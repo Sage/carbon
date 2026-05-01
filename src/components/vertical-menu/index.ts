@@ -4,6 +4,7 @@ export type { VerticalMenuProps } from "./vertical-menu.component";
 export { default as VerticalMenuItem } from "./vertical-menu-item/vertical-menu-item.component";
 export type {
   VerticalMenuItemClickEvent,
+  VerticalMenuItemHandle,
   VerticalMenuItemProps,
 } from "./vertical-menu-item/vertical-menu-item.component";
 

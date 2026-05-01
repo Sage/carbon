@@ -1,4 +1,11 @@
-import React, { ReactNode, useState, useContext } from "react";
+import React, {
+  ReactNode,
+  useState,
+  useContext,
+  useRef,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
 import { PaddingProps, MarginProps } from "styled-system";
 import tagComponent, {
   TagProps,
@@ -66,23 +73,43 @@ type InferredComponentProps<T extends React.ElementType> = Omit<
   keyof VerticalMenuItemProps<T>
 >;
 
-export const VerticalMenuItem = <T,>({
-  defaultOpen = false,
-  title,
-  iconType,
-  adornment,
-  children,
-  customIcon,
-  component,
-  active,
-  height = "56px",
-  href,
-  onClick,
-  ariaCurrent,
-  ...rest
-}: T extends React.ElementType
-  ? InferredComponentProps<T> & VerticalMenuItemProps<T>
-  : VerticalMenuItemProps) => {
+export type VerticalMenuItemHandle = {
+  /** Programmatically focus the menu item */
+  focusItem: () => void;
+} | null;
+
+const VerticalMenuItemComponent = <T,>(
+  {
+    defaultOpen = false,
+    title,
+    iconType,
+    adornment,
+    children,
+    customIcon,
+    component,
+    active,
+    height = "56px",
+    href,
+    onClick,
+    ariaCurrent,
+    ...rest
+  }: T extends React.ElementType
+    ? InferredComponentProps<T> & VerticalMenuItemProps<T>
+    : VerticalMenuItemProps,
+  ref: React.ForwardedRef<VerticalMenuItemHandle>,
+) => {
+  const itemRef = useRef<HTMLElement>(null);
+
+  useImperativeHandle<VerticalMenuItemHandle, VerticalMenuItemHandle>(
+    ref,
+    () => ({
+      focusItem() {
+        itemRef.current?.focus();
+      },
+    }),
+    [],
+  );
+
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
   const handleOnClick = (e: VerticalMenuItemClickEvent) => {
@@ -131,6 +158,7 @@ export const VerticalMenuItem = <T,>({
   return (
     <StyledListItem {...filterStyledSystemMarginProps(rest)}>
       <StyledVerticalMenuItem
+        ref={!href && !!component ? undefined : itemRef}
         height={height}
         px={paddingX}
         py={2}
@@ -165,5 +193,18 @@ export const VerticalMenuItem = <T,>({
     </StyledListItem>
   );
 };
+
+export const VerticalMenuItem = forwardRef(
+  VerticalMenuItemComponent as React.ForwardRefRenderFunction<
+    VerticalMenuItemHandle,
+    VerticalMenuItemProps
+  >,
+) as <T>(
+  props: (T extends React.ElementType
+    ? InferredComponentProps<T> & VerticalMenuItemProps<T>
+    : VerticalMenuItemProps &
+        Omit<React.HTMLAttributes<HTMLElement>, keyof VerticalMenuItemProps>) &
+    React.RefAttributes<VerticalMenuItemHandle>,
+) => React.ReactElement | null;
 
 export default VerticalMenuItem;

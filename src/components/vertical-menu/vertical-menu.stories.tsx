@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
 import allModes from "../../../.storybook/modes";
@@ -13,7 +13,9 @@ import {
   VerticalMenuFullScreen,
   VerticalMenuTrigger,
   VerticalMenuItemClickEvent,
+  VerticalMenuItemHandle,
 } from ".";
+import Button from "../button/__next__";
 
 const defaultOpenState = isChromatic();
 
@@ -363,3 +365,37 @@ export const FullScreen: Story = () => {
   );
 };
 FullScreen.storyName = "Full Screen";
+
+export const ProgrammaticFocus = () => {
+  const itemRef1 = useRef<VerticalMenuItemHandle>(null);
+  const itemRef2 = useRef<VerticalMenuItemHandle>(null);
+
+  const focusVerticalMenuItem1 = () => {
+    itemRef1.current?.focusItem();
+  };
+
+  const focusVerticalMenuItem2 = () => {
+    itemRef2.current?.focusItem();
+  };
+  return (
+    <Box>
+      <Button m={2} onClick={() => focusVerticalMenuItem1()}>
+        Focus Item 1
+      </Button>
+      <Button m={2} onClick={() => focusVerticalMenuItem2()}>
+        Focus Item 2
+      </Button>
+
+      <VerticalMenu aria-label="Vertical Menu">
+        <VerticalMenuItem ref={itemRef1} href="#" title="Item 1 with href" />
+        <VerticalMenuItem
+          ref={itemRef2}
+          onClick={() => {}}
+          title="Item 2 with onClick"
+        />
+      </VerticalMenu>
+    </Box>
+  );
+};
+
+ProgrammaticFocus.storyName = "Programmatic Focus";
