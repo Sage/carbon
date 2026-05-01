@@ -16,7 +16,7 @@ const meta: Meta<typeof Tabs> = {
   },
   decorators: [
     (StoryToRender) => (
-      <Box backgroundColor="#f7f7f7" p={3}>
+      <Box backgroundColor="var(--container-standard-bg-alt)" p={3}>
         <StoryToRender />
       </Box>
     ),
