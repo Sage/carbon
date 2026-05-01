@@ -389,32 +389,34 @@ export const WithLegendAlignment = ({ ...args }: CheckboxGroupProps) => {
 
   return (
     <CarbonProvider validationRedesignOptIn>
-      <CheckboxGroup {...args} legendAlign="left" mb={2}>
-        <Checkbox
-          label="Checkbox option 1"
-          checked={state1}
-          onChange={(ev) => setState1(ev.target.checked)}
-        />
-        <Checkbox
-          label="Checkbox option 2"
-          fieldHelp="fieldHelp Text"
-          checked={state2}
-          onChange={(ev) => setState2(ev.target.checked)}
-        />
-      </CheckboxGroup>
-      <CheckboxGroup {...args} legendAlign="right">
-        <Checkbox
-          label="Checkbox option 1"
-          checked={state3}
-          onChange={(ev) => setState3(ev.target.checked)}
-        />
-        <Checkbox
-          label="Checkbox option 2"
-          fieldHelp="fieldHelp Text"
-          checked={state4}
-          onChange={(ev) => setState4(ev.target.checked)}
-        />
-      </CheckboxGroup>
+      <Box width="fit-content">
+        <CheckboxGroup {...args} legendAlign="left" mb={2}>
+          <Checkbox
+            label="Checkbox option 1"
+            checked={state1}
+            onChange={(ev) => setState1(ev.target.checked)}
+          />
+          <Checkbox
+            label="Checkbox option 2"
+            fieldHelp="fieldHelp Text"
+            checked={state2}
+            onChange={(ev) => setState2(ev.target.checked)}
+          />
+        </CheckboxGroup>
+        <CheckboxGroup {...args} legendAlign="right">
+          <Checkbox
+            label="Checkbox option 1"
+            checked={state3}
+            onChange={(ev) => setState3(ev.target.checked)}
+          />
+          <Checkbox
+            label="Checkbox option 2"
+            fieldHelp="fieldHelp Text"
+            checked={state4}
+            onChange={(ev) => setState4(ev.target.checked)}
+          />
+        </CheckboxGroup>
+      </Box>
     </CarbonProvider>
   );
 };
