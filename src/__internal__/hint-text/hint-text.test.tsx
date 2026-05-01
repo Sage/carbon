@@ -57,8 +57,9 @@ test("renders correctly when disabled", () => {
   expect(screen.getByText("foo")).toBeVisible();
   expect(screen.getByText("foo")).toHaveStyleRule(
     `color`,
-    "var(--colorsUtilityYin030)",
+    "var(--input-labelset-label-disabled)",
   );
+  expect(screen.getByText("foo")).toHaveAttribute("aria-disabled", "true");
 });
 
 test("renders correctly with the appropriate font weight", () => {

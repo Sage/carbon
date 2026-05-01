@@ -119,6 +119,7 @@ test("does not render validation icon when `disabled` prop is true", () => {
   );
 
   expect(screen.queryByTestId("icon-error")).not.toBeInTheDocument();
+  expect(screen.getByText("foo")).toHaveAttribute("aria-disabled", "true");
 });
 
 test("renders with provided `htmlFor`", () => {
