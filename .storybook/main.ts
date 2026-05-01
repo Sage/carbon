@@ -122,6 +122,11 @@ const config: StorybookConfig = {
   typescript: {
     check: false,
     reactDocgen: "react-docgen-typescript",
+    // Exclude legacy Switch component from react-docgen as it's intended to be removed
+    // in a future release and causes confusion for Storybook generating docs.
+    reactDocgenTypescriptOptions: {
+      exclude: ["**/switch/switch.component.tsx"],
+    },
   },
 
   docs: {},

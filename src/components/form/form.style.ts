@@ -7,7 +7,7 @@ import { FormButtonAlignment } from "./form.config";
 import StyledInlineInputs from "../inline-inputs/inline-inputs.style";
 import StyledSelect from "../select/select.style";
 import { StyledSelectMultiSelect } from "../select/multi-select/multi-select.style";
-import StyledSwitch from "../switch/switch.style";
+import { StyledSwitch } from "../switch/switch.style";
 
 interface StyledFormContentProps {
   stickyFooter?: boolean;
