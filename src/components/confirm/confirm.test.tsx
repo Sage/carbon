@@ -74,6 +74,30 @@ test("should render disabled confirm button when disableConfirm is set", () => {
   expect(screen.getByRole("button", { name: "Yes" })).toBeDisabled();
 });
 
+test("calls onCancel when Escape key is pressed", async () => {
+  const onCancel = jest.fn();
+  const user = userEvent.setup();
+
+  render(<Confirm open onConfirm={() => {}} onCancel={onCancel} />);
+
+  await user.keyboard("{Escape}");
+
+  expect(onCancel).toHaveBeenCalledTimes(1);
+});
+
+test("does not call onCancel when Escape key is pressed and disableCancel is set", async () => {
+  const onCancel = jest.fn();
+  const user = userEvent.setup();
+
+  render(
+    <Confirm open onConfirm={() => {}} onCancel={onCancel} disableCancel />,
+  );
+
+  await user.keyboard("{Escape}");
+
+  expect(onCancel).not.toHaveBeenCalled();
+});
+
 test("should render disabled cancel button and close icon when disableCancel is set", () => {
   render(
     <Confirm
@@ -86,36 +110,8 @@ test("should render disabled cancel button and close icon when disableCancel is 
   );
 
   expect(screen.getByRole("button", { name: "No" })).toBeDisabled();
-  expect(screen.getByRole("button", { name: "Close" })).toBeDisabled();
-});
-
-test("calls onCancel when Escape key is pressed", async () => {
-  const onCancel = jest.fn();
-  const user = userEvent.setup();
-
-  render(<Confirm open onConfirm={() => {}} onCancel={onCancel} />);
-
-  await user.keyboard("{Escape}");
-
-  expect(onCancel).toHaveBeenCalledTimes(1);
-});
-
-test("does not call onCancel when disableCancel is set and Escape key is pressed", async () => {
-  const onCancel = jest.fn();
-  const user = userEvent.setup();
-  render(
-    <Confirm
-      open
-      onConfirm={() => {}}
-      onCancel={onCancel}
-      showCloseIcon
-      disableCancel
-    />,
-  );
-
-  await user.keyboard("{Escape}");
-
-  expect(onCancel).not.toHaveBeenCalled();
+  // Close icon should still be enabled to allow users to close the dialog as disableClose is deprecated but disableCancel is not.
+  expect(screen.getByRole("button", { name: "Close" })).toBeEnabled();
 });
 
 test("should render disabled confirm button with Loader if isLoadingConfirm is set", () => {

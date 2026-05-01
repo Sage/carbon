@@ -1,0 +1,56 @@
+import {
+  containerSizeDialogMaxwidthS,
+  containerSizeDialogMaxwidthM,
+  containerSizeDialogMaxwidthL,
+} from "@sage/design-tokens-fusion/js/es6/components/container";
+
+/** New size type following design system naming conventions */
+export type Size = "small" | "medium" | "large" | "fullscreen";
+
+/** @deprecated Use Size instead */
+export type DialogSizes =
+  | "extra-small"
+  | "small"
+  | "medium-small"
+  | "medium"
+  | "medium-large"
+  | "large"
+  | "extra-large"
+  | "auto";
+
+type PaddingValues = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+
+export interface ContentPaddingInterface {
+  p?: PaddingValues;
+  py?: PaddingValues;
+  px?: PaddingValues;
+}
+
+/** Minimum width for all dialog sizes */
+export const DIALOG_MIN_WIDTH = "288px";
+
+/**
+ * Size values matching Carbon's defined max-width values.
+ * All dialogs have a min-width of 288px.
+ */
+export const DIALOG_SIZE_CONFIG = {
+  small: {
+    maxWidth: containerSizeDialogMaxwidthS,
+    minWidth: DIALOG_MIN_WIDTH,
+  },
+  medium: {
+    maxWidth: containerSizeDialogMaxwidthM,
+    minWidth: DIALOG_MIN_WIDTH,
+  },
+  large: {
+    maxWidth: containerSizeDialogMaxwidthL,
+    minWidth: DIALOG_MIN_WIDTH,
+  },
+  fullscreen: {
+    maxWidth: "100%",
+    minWidth: "100%",
+  },
+} as const;
+
+/** Default size is medium unless specified */
+export const DEFAULT_SIZE: Size = "medium";
