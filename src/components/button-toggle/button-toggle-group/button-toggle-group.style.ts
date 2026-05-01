@@ -1,56 +1,76 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 import applyBaseTheme from "../../../style/themes/apply-base-theme";
-import {
-  StyledButtonToggle,
-  StyledButtonToggleWrapper,
-} from "../button-toggle.style";
 
-import { ButtonToggleGroupProps } from ".";
+const sizeMap = {
+  small: {
+    gap: "var(--global-space-comp-xs)",
+    borderRadius: "var(--global-radius-action-l)",
+  },
+  medium: {
+    gap: "var(--global-space-comp-s)",
+    borderRadius: "var(--global-radius-action-xl)",
+  },
+  large: {
+    gap: "var(--global-space-comp-m)",
+    borderRadius: "var(--global-radius-action-2-xl)",
+  },
+};
 
-type StyledButtonToggleGroupProps = Pick<
-  ButtonToggleGroupProps,
-  "inputWidth" | "fullWidth" | "disabled" | "labelInline"
->;
+interface StyledButtonToggle {
+  $size: "small" | "medium" | "large";
+  $fullWidth?: boolean;
+  $width?: number | string;
+}
 
-const StyledButtonToggleGroup = styled.div
-  .attrs(applyBaseTheme)
-  .attrs({ type: "button" })<StyledButtonToggleGroupProps>`
-  ${margin}
+export const StyledButtonToggleGroup = styled.div.attrs(
+  applyBaseTheme,
+)<StyledButtonToggle>`
+  ${({ $size, $fullWidth, $width }) => css`
+    display: flex;
+    flex-direction: column;
+    gap: ${sizeMap[$size].gap};
 
-  display: flex;
-  box-shadow: inset 0px 0px 0px 1px var(--colorsActionMinor500);
-  border-radius: var(--borderRadius100);
-  padding: 4px;
-  gap: 4px;
-  width: fit-content;
-  height: fit-content;
-  flex-wrap: ${({ labelInline }) => (labelInline ? "nowrap" : "wrap")};
-
-  ${({ disabled }) =>
-    disabled &&
-    css`
-      cursor: not-allowed;
-      box-shadow: inset 0px 0px 0px 1px var(--colorsActionDisabled600);
-    `}
-
-  ${({ fullWidth }) =>
-    fullWidth &&
+    ${$fullWidth &&
     css`
       width: 100%;
-      ${StyledButtonToggle} {
-        width: 100%;
-      }
-      ${StyledButtonToggleWrapper} {
-        flex: auto;
-      }
     `}
 
-  ${({ inputWidth }) =>
-    inputWidth &&
+    ${$width &&
     css`
-      width: ${`${inputWidth}%`};
+      width: ${$width}%;
     `}
+  `}
+
+  ${margin}
 `;
 
-export default StyledButtonToggleGroup;
+interface StyledButtonToggleWrapper {
+  $size: "small" | "medium" | "large";
+  $isDisabled?: boolean;
+  $fullWidth?: boolean;
+}
+
+export const StyledButtonToggleWrapper = styled.div<StyledButtonToggleWrapper>`
+  ${({ $size, $isDisabled, $fullWidth }) => css`
+    display: flex;
+    flex-wrap: wrap;
+    padding: var(--global-space-comp-xs);
+    align-items: center;
+    gap: var(--global-space-comp-s);
+
+    ${!$fullWidth &&
+    css`
+      width: fit-content;
+    `}
+
+    border-radius: ${sizeMap[$size].borderRadius};
+    border: var(--global-borderwidth-xs) solid
+      var(--button-typical-toggle-border-default);
+
+    ${$isDisabled &&
+    css`
+      border-color: var(--button-typical-toggle-border-disabled);
+    `}
+  `}
+`;

@@ -123,18 +123,11 @@ test.describe("Time component", () => {
   }) => {
     await mount(<TimeComponent disabled toggleValue="AM" />);
 
-    const hoursInput = getDataComponentByValue(page, "hours").locator("input");
-    const minutesInput = getDataComponentByValue(page, "minutes").locator(
-      "input",
-    );
-    const amToggleButton = getDataComponentByValue(
-      page,
-      "am-button-toggle",
-    ).locator("button");
-    const pmToggleButton = getDataComponentByValue(
-      page,
-      "pm-button-toggle",
-    ).locator("button");
+    const hoursInput = page.getByRole("textbox", { name: "hours" });
+    const minutesInput = page.getByRole("textbox", { name: "minutes" });
+
+    const amToggleButton = page.getByRole("button", { name: "AM" });
+    const pmToggleButton = page.getByRole("button", { name: "PM" });
 
     await expect(hoursInput).toBeDisabled();
     await expect(minutesInput).toBeDisabled();
@@ -148,18 +141,11 @@ test.describe("Time component", () => {
   }) => {
     await mount(<TimeComponent readOnly toggleValue="AM" />);
 
-    const hoursInput = getDataComponentByValue(page, "hours").locator("input");
-    const minutesInput = getDataComponentByValue(page, "minutes").locator(
-      "input",
-    );
-    const amToggleButton = getDataComponentByValue(
-      page,
-      "am-button-toggle",
-    ).locator("button");
-    const pmToggleButton = getDataComponentByValue(
-      page,
-      "pm-button-toggle",
-    ).locator("button");
+    const hoursInput = page.getByRole("textbox", { name: "hours" });
+    const minutesInput = page.getByRole("textbox", { name: "minutes" });
+
+    const amToggleButton = page.getByRole("button", { name: "AM" });
+    const pmToggleButton = page.getByRole("button", { name: "PM" });
 
     await expect(hoursInput).not.toBeEditable();
     await expect(minutesInput).not.toBeEditable();

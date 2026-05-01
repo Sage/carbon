@@ -187,6 +187,10 @@ const StyledIcon = styled.span.attrs(applyBaseTheme)<
     color: currentColor;
   }
 
+  .button-toggle && {
+    color: currentColor;
+  }
+
   .mentions-list-item && {
     color: currentColor;
   }

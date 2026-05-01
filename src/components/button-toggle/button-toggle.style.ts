@@ -1,194 +1,98 @@
 import styled, { css } from "styled-components";
 
-import { IconType } from "../icon";
-import StyledIcon from "../icon/icon.style";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 
-export type ButtonToggleIconSizes = "small" | "large";
-
-export const heightConfig = {
-  small: 24,
-  medium: 32,
-  large: 40,
+const sizeMap = {
+  small: {
+    size: "var(--global-size-xs)", // height & width
+    padding: "var(--global-space-comp-2-xs) var(--global-space-comp-s)",
+  },
+  medium: {
+    size: "var(--global-size-s)",
+    padding: "var(--global-space-comp-xs) var(--global-space-comp-m)",
+  },
+  large: {
+    size: "var(--global-size-m)",
+    padding: "var(--global-space-comp-s) var(--global-space-comp-l)",
+  },
 };
 
-export const fontSizeConfig = {
-  small: 14,
-  medium: 14,
-  large: 16,
-};
-
-export const paddingConfig = {
-  small: 8,
-  medium: 8,
-  large: 12,
-};
-
-const heightLargeIconConfig = {
-  small: 72,
-  medium: 88,
-  large: 120,
-};
-
-const paddingLargeIconConfig = {
-  small: "var(--spacing100)",
-  medium: "var(--spacing100) var(--spacing150) var(--spacing000)",
-  large: "var(--spacing100) var(--spacing300)",
-};
-
-const StyledButtonToggleContentWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  flex-flow: wrap;
-`;
-
-export interface StyledButtonToggleProps {
-  /** The icon to be rendered inside of the button */
-  buttonIcon?: IconType;
-  /** Sets the size of the buttonIcon (eg. large) */
-  buttonIconSize?: ButtonToggleIconSizes;
-  /** Disable all user interaction. */
+interface StyledButtonToggleProps {
   disabled?: boolean;
-  /** ButtonToggle size */
-  size: "small" | "medium" | "large";
-  /** Allow button to be deselected when already selected */
-  allowDeselect?: boolean;
+  $size: "small" | "medium" | "large";
+  $active?: boolean;
+  $iconOnly?: boolean;
+  $fullWidth?: boolean;
 }
 
 const StyledButtonToggle = styled.button.attrs(
   applyBaseTheme,
 )<StyledButtonToggleProps>`
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  box-sizing: border-box;
-  max-width: 100%;
+  ${({ $active, $size, disabled, $iconOnly, $fullWidth }) => css`
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    white-space: nowrap;
 
-  font-weight: 500;
-  background-color: transparent;
-  cursor: pointer;
-  text-align: center;
-  color: var(--colorsActionMinor500);
-  border: none;
+    cursor: pointer;
+    gap: var(--global-space-comp-s);
+    height: ${sizeMap[$size].size};
 
-  ${StyledIcon} {
-    color: var(--colorsActionMinor500);
-    height: var(--sizing250);
-    width: var(--sizing250);
-  }
-
-  ${({ size }) => css`
-    min-height: ${heightConfig[size]}px;
-    padding: 0 ${paddingConfig[size]}px;
-    font-size: ${fontSizeConfig[size]}px;
-  `}
-
-  ${({ buttonIcon, buttonIconSize, size }) =>
-    buttonIcon &&
-    buttonIconSize === "large" &&
+    ${!$iconOnly &&
     css`
-      min-height: ${heightLargeIconConfig[size]}px;
-      padding: ${paddingLargeIconConfig[size]};
-      flex-direction: column;
+      padding: ${sizeMap[$size].padding};
     `}
 
-  &:focus {
-    ${addFocusStyling()}
-    z-index: 100;
-  }
+    ${$iconOnly &&
+    css`
+      width: ${sizeMap[$size].size};
+    `}
 
-  &:not(:disabled):hover {
-    background-color: var(--colorsActionMinor600);
-    color: var(--colorsActionMinorYang100);
-    ${StyledIcon} {
-      color: var(--colorsActionMinorYang100);
-    }
-  }
+    ${$fullWidth &&
+    css`
+      flex: 1 1 auto;
+    `}
 
-  &[aria-pressed="true"] {
-    background-color: var(--colorsActionMinor850);
-    color: var(--colorsActionMinorYang100);
+    border-radius: var(--global-radius-action-circle);
+    border: none;
+    background-color: transparent;
 
-    ${StyledIcon} {
-      color: var(--colorsActionMinorYang100);
-    }
+    color: var(--button-typical-toggle-label-default);
+    font: var(--global-font-static-comp-medium-m);
+    text-align: center;
 
-    ${({ allowDeselect }) =>
-      !allowDeselect &&
-      css`
-        cursor: auto;
-      `}
-  }
+    ${$active &&
+    css`
+      background: var(--button-typical-toggle-bg-active);
+      color: var(--button-typical-toggle-label-active);
+    `}
 
-  ${({ disabled }) =>
-    disabled &&
+    ${disabled &&
     css`
       cursor: not-allowed;
+      color: var(--button-typical-toggle-label-disabled);
 
-      & {
-        color: var(--colorsActionMinorYin030);
-        ${StyledIcon} {
-          color: var(--colorsActionMinorYin030);
-        }
-      }
-
-      &[aria-pressed="true"] {
-        cursor: not-allowed;
-        background-color: var(--colorsActionMinorYin030);
-      }
+      ${$active &&
+      css`
+        background: var(--button-typical-toggle-bg-active-disabled);
+        color: var(--button-typical-toggle-label-active-disabled);
+      `}
     `}
-`;
 
-export interface StyledButtonToggleIconProps {
-  /** Sets the size of the buttonIcon (eg. large) */
-  buttonIconSize?: ButtonToggleIconSizes;
-  hasContent?: boolean;
-}
-
-const StyledButtonToggleIcon = styled.div<StyledButtonToggleIconProps>`
-  ${({ hasContent }) => hasContent && `margin-right: 8px;`}
-  ${({ buttonIconSize }) =>
-    buttonIconSize === "large" &&
+    ${!disabled &&
     css`
-      margin-right: 0;
-
-      ${StyledIcon} {
-        margin-left: 0;
-        margin-right: 0;
-        margin-bottom: 8px;
-        height: var(--sizing400);
-        width: var(--sizing400);
+      &:focus {
+        ${addFocusStyling()}
       }
 
-      ${StyledIcon}::before {
-        font-size: var(--sizing400);
-        line-height: var(--sizing400);
-      }
-
-      .carbon-icon__svg--credit-card-slash {
-        margin-left: 6px;
+      &:hover {
+        background: var(--button-typical-toggle-bg-hover);
+        color: var(--button-typical-toggle-label-hover);
       }
     `}
+  `}
 `;
 
-const StyledButtonToggleWrapper = styled.div`
-  display: inline-block;
-  vertical-align: middle;
-  &&&& {
-    ${StyledButtonToggle} {
-      border-radius: var(--borderRadius050);
-    }
-  }
-`;
-
-export {
-  StyledButtonToggle,
-  StyledButtonToggleWrapper,
-  StyledButtonToggleIcon,
-  StyledButtonToggleContentWrapper,
-};
+export default StyledButtonToggle;

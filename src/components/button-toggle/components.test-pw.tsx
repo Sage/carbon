@@ -5,54 +5,13 @@ import {
   ButtonToggleGroupProps,
   ButtonToggleProps,
 } from ".";
-import Box from "../box";
-
-export const ButtonToggleComponent = ({
-  children = "This is an example of an alert",
-  ...props
-}: ButtonToggleProps) => {
-  return (
-    <Box>
-      <ButtonToggle onBlur={() => {}} onFocus={() => {}} {...props}>
-        {children}
-      </ButtonToggle>
-      <ButtonToggle onBlur={() => {}} onFocus={() => {}} {...props}>
-        Second
-      </ButtonToggle>
-      <ButtonToggle onBlur={() => {}} onFocus={() => {}} {...props}>
-        Third
-      </ButtonToggle>
-    </Box>
-  );
-};
+import Icon from "../icon";
 
 export const ButtonToggleGroupComponent = (
   props: Partial<ButtonToggleGroupProps>,
 ) => (
-  <Box margin={4} display="flex" flexWrap="nowrap">
-    <ButtonToggleGroup
-      id="button-toggle-group-id"
-      label="Grouped example"
-      labelHelp="help message"
-      helpAriaLabel="Help"
-      fieldHelp="field help message"
-      onChange={() => {}}
-      value=""
-      {...props}
-    >
-      <ButtonToggle value="foo">Foo</ButtonToggle>
-      <ButtonToggle value="bar">Bar</ButtonToggle>
-      <ButtonToggle value="baz">Baz</ButtonToggle>
-    </ButtonToggleGroup>
-  </Box>
-);
-
-export const ButtonToggleGroupNotInBox = (
-  props: Partial<ButtonToggleGroupProps>,
-) => (
   <ButtonToggleGroup
     id="button-toggle-group-id"
-    label="Grouped example"
     onChange={() => {}}
     value=""
     {...props}
@@ -63,25 +22,18 @@ export const ButtonToggleGroupNotInBox = (
   </ButtonToggleGroup>
 );
 
-export const WithOutsideButtons = ({ value = "" }: { value: string }) => {
+export const ButtonToggleIconOnly = ({ ...props }: ButtonToggleProps) => {
   return (
-    <>
-      <button type="button" id="button-before">
-        button before
-      </button>
-      <ButtonToggleGroup
-        id="button-toggle-group"
-        label="Button Toggle Group test"
-        onChange={() => {}}
-        value={value}
-      >
-        <ButtonToggle value="foo">Foo</ButtonToggle>
-        <ButtonToggle value="bar">Bar</ButtonToggle>
-        <ButtonToggle value="baz">Baz</ButtonToggle>
-      </ButtonToggleGroup>
-      <button type="button" id="button-after">
-        button after
-      </button>
-    </>
+    <ButtonToggleGroup id="button-toggle-group-id" onChange={() => {}} value="">
+      <ButtonToggle value="foo" {...props}>
+        <Icon ariaLabel="Placeholder 1" type="placeholder" />
+      </ButtonToggle>
+      <ButtonToggle value="bar" {...props}>
+        <Icon ariaLabel="Placeholder 2" type="placeholder" />
+      </ButtonToggle>
+      <ButtonToggle value="baz" {...props}>
+        <Icon ariaLabel="Placeholder 3" type="placeholder" />
+      </ButtonToggle>
+    </ButtonToggleGroup>
   );
 };
