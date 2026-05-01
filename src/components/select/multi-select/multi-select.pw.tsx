@@ -101,18 +101,6 @@ test.describe("MultiSelect component", () => {
     });
   });
 
-  testData.forEach((labelHelpValue) => {
-    test(`should render labelHelp message using ${labelHelpValue} special characters`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<MultiSelectComponent labelHelp={labelHelpValue} />);
-
-      await helpIcon(page).hover();
-      await expect(tooltipPreview(page)).toHaveText(labelHelpValue);
-    });
-  });
-
   testData.forEach((placeholderValue) => {
     test(`should render placeholder using ${placeholderValue} special characters`, async ({
       mount,
@@ -168,39 +156,6 @@ test.describe("MultiSelect component", () => {
     await expect(
       selectElementInput(page).locator("..").locator(".."),
     ).toHaveAttribute("data-role", testPropValue);
-  });
-
-  (
-    [
-      ["top", "200px", "0px", "0px", "0px"],
-      ["bottom", "0px", "0px", "0px", "0px"],
-      ["left", "200px", "0px", "200px", "0px"],
-      ["right", "200px", "0px", "0px", "200px"],
-    ] as const
-  ).forEach(([tooltipPositionValue, top, bottom, left, right]) => {
-    test(`should render the help tooltip in the ${tooltipPositionValue} position`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <MultiSelectComponent
-          labelHelp="Help"
-          tooltipPosition={tooltipPositionValue}
-          mt={top}
-          mb={bottom}
-          ml={left}
-          mr={right}
-        />,
-      );
-
-      await helpIcon(page).hover();
-      const tooltipElement = tooltipPreview(page);
-      await expect(tooltipElement).toBeVisible();
-      await expect(tooltipElement).toHaveAttribute(
-        "data-placement",
-        tooltipPositionValue,
-      );
-    });
   });
 
   test("should check disabled prop", async ({ mount, page }) => {

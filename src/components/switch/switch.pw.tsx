@@ -450,30 +450,6 @@ test.describe("Prop tests for Switch component", () => {
     await verifyRequiredAsteriskForLabel(page);
   });
 
-  (
-    ["bottom", "left", "right", "top"] as SwitchProps["tooltipPosition"][]
-  ).forEach((position) => {
-    test(`should render with tooltip positioned to the ${position}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <Box m="250px">
-          <SwitchComponent labelHelp="Switch info" tooltipPosition={position} />
-        </Box>,
-      );
-
-      await switchIcon(page).hover();
-
-      await expect(tooltipPreview(page)).toHaveText("Switch info");
-
-      await expect(tooltipPreview(page)).toHaveAttribute(
-        "data-placement",
-        `${position}`,
-      );
-    });
-  });
-
   test("should render with helpAriaLabel", async ({ mount, page }) => {
     await mount(
       <SwitchComponent

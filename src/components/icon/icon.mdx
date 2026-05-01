@@ -17,14 +17,13 @@ import * as IconStories from "./icon.stories";
 
 Carbon comes with more than 100 standard icons to choose from. See [list of icons](#list-of-icons) for full reference.
 
-A tooltip option is available within this component.
-
 Many other components allow you to specify one of the standard Carbon icons to associate with them, for example, the Link component.
 
 ## Contents
 
 - [Quick Start](#quick-start)
 - [Examples](#examples)
+- [Icon naming conventions](#icon-naming-conventions)
 - [List of icons](#list-of-icons)
 - [Props](#props)
 
@@ -40,41 +39,32 @@ import Icon from "carbon-react/lib/components/icon";
 
 <Canvas of={IconStories.Default} />
 
-### Disabled
+### Sizes
 
-<Canvas of={IconStories.Disabled} />
+Use the `size` prop to control the Icon's rendered dimensions.
 
-### With tooltip
+<Canvas of={IconStories.Sizes} />
 
-The Icon supports rendering tooltips internally, just pass a node to `tooltipMessage` to enable this feature. Other props,
-such as `tooltipPosition`, `tooltipVisible` , `tooltipBgColor`, `tooltipFontColor` and `tooltipFlipOverrides` are also surfaced.
+### Inverse
 
-<Canvas of={IconStories.WithTooltip} />
+Use the `inverse` prop when rendering an Icon on a dark background.
 
-### Various fontSizes
+<Canvas of={IconStories.Inverse} />
 
-<Canvas of={IconStories.VariousFontSizes} />
+## Icon naming conventions
 
-### Various bgShapes
+Icons use a `snake_case` naming convention and are organised into the following categories:
 
-<Canvas of={IconStories.VariousBgShapes} />
-
-### Various bgSizes
-
-<Canvas of={IconStories.VariousBgSizes} />
-
-### bgSize and fontSize
-
-If using the `bgSize` prop in combination with `fontSize`, the `fontSize` prop value will take precedence and the background size may be adjusted to accommodate a larger icon.
-
-<Canvas of={IconStories.BgSizesAndFontSizes} />
-
-### Custom colors
-
-It's possible to change the color of the Icon by using the `color` prop or background color by `bg` prop.
-See [Colors](../?path=/docs/documentation-colors--docs) for more information.
-
-<Canvas of={IconStories.CustomColors} />
+| Category | Examples |
+|---|---|
+| **Navigation** | `arrow_*`, `chevron_*`, `caret_*`, `caret_large_*` |
+| **Actions** | `add`, `bin`, `close`, `copy`, `create`, `delete`, `drag`, `download`, `edit`, `export`, `filter`, `search`, `settings`, `upload` |
+| **Status** | `alert`, `blocked`, `double_tick`, `error`, `error_square`, `info`, `tick`, `warning` |
+| **Communication** | `call`, `chat`, `email`, `fax`, `message` |
+| **Finance** | `bank`, `cash`, `coins`, `credit_card`, `euro`, `receipt` |
+| **Social / App** | `app_facebook`, `app_instagram`, `app_tiktok`, `app_twitter`, `app_youtube` |
+| **Documents & Files** | `attach`, `document_*`, `file_*` |
+| **Charts** | `chart_bar`, `chart_bar_arrow_up`, `chart_line`, `chart_pie` |
 
 ## List of icons
 

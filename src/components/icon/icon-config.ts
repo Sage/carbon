@@ -5,11 +5,11 @@ import { BackgroundShape, BgSize, FontSize } from "./icon.style";
 
 const dlsConfig = {
   backgroundSize: {
-    "extra-small": "16px",
-    small: "24px",
-    medium: "32px",
-    large: "40px",
-    "extra-large": "56px",
+    "extra-small": "var(--global-size-2-xs)",
+    small: "var(--global-size-xs)",
+    medium: "var(--global-size-s)",
+    large: "var(--global-size-m)",
+    "extra-large": "var(--global-size-m)",
   },
   backgroundShape: {
     square: "0%",
@@ -17,10 +17,10 @@ const dlsConfig = {
     circle: "50%",
   },
   iconSize: {
-    small: "var(--sizing250)",
-    medium: "var(--sizing300)",
-    large: "var(--sizing400)",
-    "extra-large": "var(--sizing600)",
+    small: "var(--global-size-2-xs)",
+    medium: "var(--global-size-xs)",
+    large: "var(--global-size-s)",
+    "extra-large": "var(--global-size-s)",
   },
 };
 

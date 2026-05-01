@@ -3,6 +3,7 @@ import { SpaceProps } from "styled-system";
 import invariant from "invariant";
 
 import Icon, { IconType, IconProps } from "../icon";
+import Tooltip from "../tooltip";
 import StyledButton, {
   StyledButtonSubtext,
   StyledButtonMainText,
@@ -205,12 +206,17 @@ function renderChildren({
           focusable={false}
           target={tooltipTarget}
         >
-          <Icon
-            type={iconType}
-            {...iconProps}
-            tooltipMessage={iconTooltipMessage}
-            tooltipPosition={iconTooltipPosition}
-          />
+          {iconTooltipMessage ? (
+            <Tooltip
+              message={iconTooltipMessage}
+              position={iconTooltipPosition}
+              target={tooltipTarget}
+            >
+              <Icon type={iconType} {...iconProps} />
+            </Tooltip>
+          ) : (
+            <Icon type={iconType} {...iconProps} />
+          )}
         </TooltipProvider>
       )}
       {iconType && iconPosition === "after" && children && (

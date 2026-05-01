@@ -3,8 +3,9 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import Logger from "../../__internal__/utils/logger";
 import Icon from "./icon.component";
-import { BackgroundShape } from "./icon.style";
+import StyledIcon, { BackgroundShape } from "./icon.style";
 import iconConfig from "./icon-config";
 import browserTypeCheck from "../../__internal__/utils/helpers/browser-type-check";
 import { IconType } from "./icon-type";
@@ -80,15 +81,10 @@ test("renders with a specific role, via the `role` prop", () => {
   expect(icon).toBeVisible();
 });
 
-test("renders a tooltip, populated with a custom value that is passed to the 'tooltipMessage' prop", async () => {
+test("does not render the `tooltipMessage` prop value", () => {
   render(<Icon type="home" tooltipMessage="foo" />);
 
-  const user = userEvent.setup();
-  const icon = screen.getByTestId("icon");
-  await user.hover(icon);
-  const tooltip = await screen.findByText("foo");
-
-  expect(tooltip).toBeVisible();
+  expect(screen.queryByText("foo")).not.toBeInTheDocument();
 });
 
 test("does not render a tooltip, when the `disabled` prop is true", async () => {
@@ -102,35 +98,31 @@ test("does not render a tooltip, when the `disabled` prop is true", async () => 
   expect(tooltip).not.toBeInTheDocument();
 });
 
-test("allows a tooltip to be shown via the `tooltipVisible` prop", () => {
+test("does not render a tooltip when the `tooltipVisible` prop is used", () => {
   render(<Icon type="home" tooltipMessage="foo" tooltipVisible />);
 
-  const tooltip = screen.getByText("foo");
-  expect(tooltip).toBeVisible();
+  expect(screen.queryByText("foo")).not.toBeInTheDocument();
 });
 
-test("allows a tooltip to be shown via the TooltipContext", () => {
+test("does not render a tooltip via the TooltipContext", () => {
   render(
     <TooltipContext.Provider value={{ tooltipVisible: true }}>
       <Icon type="home" tooltipMessage="foo" />
     </TooltipContext.Provider>,
   );
 
-  const tooltip = screen.getByText("foo");
-  expect(tooltip).toBeVisible();
+  expect(screen.queryByText("foo")).not.toBeInTheDocument();
 });
 
-test("allows a custom 'id' attribute to be set on the tooltip via the `tooltipId` prop", () => {
+test("renders without error when the `tooltipId` prop is used", () => {
   render(
     <Icon type="home" tooltipMessage="foo" tooltipVisible tooltipId="foo" />,
   );
 
-  const tooltip = screen.getByText("foo");
-  expect(tooltip).toBeVisible();
+  expect(screen.queryByText("foo")).not.toBeInTheDocument();
 });
 
-test("does not render, as an invariant is fired due to the `tooltipFlipOverrides` prop not being an array", () => {
-  const consoleSpy = jest.spyOn(console, "error").mockImplementation(() => {});
+test("does not throw when the `tooltipFlipOverrides` prop is provided", () => {
   expect(() =>
     render(
       <Icon
@@ -141,25 +133,17 @@ test("does not render, as an invariant is fired due to the `tooltipFlipOverrides
         }
       />,
     ),
-  ).toThrow(
-    `The tooltipFlipOverrides prop supplied to \`Icon\` must be an array containing some or all of ["top", "bottom", "left", "right"].`,
-  );
-
-  consoleSpy.mockRestore();
+  ).not.toThrow();
 });
 
-test("logs a warning when the `fontSize` props value is larger than the `bgSize` props value", () => {
-  const loggerSpy = jest.spyOn(console, "warn").mockImplementation(() => {});
+test('maps the `fontSize` value "extra-large" to "large" and logs a warning', () => {
+  const loggerSpy = jest.spyOn(Logger, "warn").mockImplementation(() => {});
 
-  const bgSizeValue = "small";
-  const fontSizeValue = "large";
-
-  render(<Icon type="home" bgSize={bgSizeValue} fontSize={fontSizeValue} />);
+  render(<Icon type="home" fontSize="extra-large" />);
 
   expect(loggerSpy).toHaveBeenCalledWith(
-    `[WARNING - Icon] The "${bgSizeValue}" \`bgSize\` is smaller than "${fontSizeValue}" \`fontSize\`, the \`bgSize\` has been auto adjusted to a larger size.`,
+    `[Icon] The \`fontSize\` value "extra-large" is no longer supported and has been mapped to "large".`,
   );
-  expect(loggerSpy).toHaveBeenCalledTimes(1);
   loggerSpy.mockRestore();
 });
 
@@ -197,6 +181,37 @@ test("renders with the correct margin-top when rendered in chrome or firefox and
 
   const icon = screen.getByTestId("icon");
   expect(icon).toHaveStyleRule("margin-top", "-8px", { modifier: "&::before" });
+});
+
+/* styling test for coverage */
+test("renders with the inverse icon colour token when the `inverse` prop is true", () => {
+  render(<Icon type="home" inverse />);
+
+  expect(screen.getByTestId("icon")).toHaveStyleRule(
+    "color",
+    "var(--container-standard-inverse-icon)",
+  );
+});
+
+/* styling test for coverage */
+test("renders with the standard icon colour token when the `inverse` prop is not set", () => {
+  render(<Icon type="home" />);
+
+  expect(screen.getByTestId("icon")).toHaveStyleRule(
+    "color",
+    "var(--container-standard-icon)",
+  );
+});
+
+/* styling test for coverage */
+test("renders with the hover brightness filter when the `isInteractive` prop is true", () => {
+  render(<StyledIcon type="home" isInteractive data-role="icon" />);
+
+  expect(screen.getByTestId("icon")).toHaveStyleRule(
+    "filter",
+    "brightness(0.9)",
+    { modifier: "&:not(:focus):hover" },
+  );
 });
 
 testStyledSystemMargin(

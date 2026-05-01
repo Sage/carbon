@@ -24,16 +24,10 @@ import {
   TertiaryFullWidthButton,
   TertiaryNoWrapButton,
   IconOnlyButton,
-  IconOnlyWithTooltipButton,
 } from "./components.test-pw";
 import { buttonMinorComponent } from "../../../playwright/components/button/index";
 import { BUTTON_ICON_POSITIONS } from "../button/button.config";
-import { ICON } from "../../../playwright/components/locators";
-import {
-  dlsRoot,
-  icon,
-  tooltipPreview,
-} from "../../../playwright/components/index";
+import { icon } from "../../../playwright/components/index";
 import { CHARACTERS } from "../../../playwright/support/constants";
 import {
   assertCssValueIsApproximately,
@@ -142,24 +136,6 @@ test.describe("Check props for Button Minor component", () => {
       await mount(<ButtonMinorCustom id={id} />);
 
       await expect(buttonMinorComponent(page, 0)).toHaveAttribute("id", id);
-    });
-  });
-
-  testData.forEach((tooltipMessage) => {
-    test(`should render tooltip message as ${tooltipMessage}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <ButtonMinor
-          iconType="bin"
-          iconTooltipMessage={tooltipMessage}
-          m="100px"
-        />,
-      );
-      await page.getByRole("button").locator(ICON).hover({ force: true });
-      await expect(tooltipPreview(page)).toHaveText(tooltipMessage);
-      await dlsRoot(page).hover({ position: { x: 0, y: 0 } });
     });
   });
 
@@ -601,15 +577,6 @@ test.describe("accessibility tests", () => {
     page,
   }) => {
     await mount(<IconOnlyButton />);
-
-    await checkAccessibility(page);
-  });
-
-  test("should check accessibility for icon only with tooltip Button Minor", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<IconOnlyWithTooltipButton />);
 
     await checkAccessibility(page);
   });

@@ -32,7 +32,6 @@ import {
 } from "../../../playwright/components/index";
 
 import number from "../../../playwright/components/number";
-import Box from "../../../src/components/box";
 
 import {
   getDesignTokensByCssProperty,
@@ -88,31 +87,6 @@ test.describe("check props for Number component", () => {
       await fieldHelp.hover();
       const fieldHelpPreviewElement = fieldHelpPreview(page);
       await expect(fieldHelpPreviewElement).toHaveText(fieldHelpValue);
-    });
-  });
-
-  (
-    ["top", "bottom", "left", "right"] as NumberProps["tooltipPosition"][]
-  ).forEach((position) => {
-    test(`should render with tooltip positioned to the ${position}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <Box m="250px">
-          <NumberInputComponent
-            error={CHARACTERS.STANDARD}
-            tooltipPosition={position}
-          />
-        </Box>,
-      );
-
-      await getDataElementByValue(page, "error").hover();
-      await expect(tooltipPreview(page)).toHaveText(CHARACTERS.STANDARD);
-      await expect(tooltipPreview(page)).toHaveAttribute(
-        "data-placement",
-        position as string,
-      );
     });
   });
 

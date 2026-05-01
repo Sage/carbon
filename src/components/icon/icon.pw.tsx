@@ -1,11 +1,7 @@
 import React from "react";
 import { IconProps } from "../icon";
-import { test, expect } from "../../../playwright/helpers/base-test";
-import { IconComponent, IconTooltipComponent } from "./component.test-pw";
-import {
-  getDataElementByValue,
-  tooltipPreview,
-} from "../../../playwright/components/index";
+import { test } from "../../../playwright/helpers/base-test";
+import IconComponent from "./component.test-pw";
 import { SIZE, COLOR, CHARACTERS } from "../../../playwright/support/constants";
 
 import { checkAccessibility } from "../../../playwright/support/helper";
@@ -18,100 +14,6 @@ const colorData = [
   [COLOR.BLACK, COLOR.WHITE],
   [COLOR.BROWN, COLOR.WHITE],
 ];
-
-test.describe("should check Icon component properties", () => {
-  (["top", "bottom", "left", "right"] as const).forEach((tooltipPosition) => {
-    test(`should check tooltip position as ${tooltipPosition}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<IconTooltipComponent tooltipPosition={tooltipPosition} />);
-
-      const tooltip = getDataElementByValue(page, "tooltip");
-      await expect(tooltip).toHaveAttribute("data-placement", tooltipPosition);
-    });
-  });
-
-  colorData.forEach(([tooltipBgColor]) => {
-    test(`should check tooltip background color as ${tooltipBgColor}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<IconTooltipComponent tooltipBgColor={tooltipBgColor} />);
-
-      const tooltip = getDataElementByValue(page, "tooltip");
-      await expect(tooltip).toHaveCSS("background-color", tooltipBgColor);
-    });
-  });
-
-  colorData.forEach(([tooltipFontColor]) => {
-    test(`should check tooltip font color as ${tooltipFontColor}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<IconTooltipComponent tooltipFontColor={tooltipFontColor} />);
-
-      const tooltip = getDataElementByValue(page, "tooltip");
-      await expect(tooltip).toHaveCSS("color", tooltipFontColor);
-    });
-  });
-
-  (
-    [
-      [["left"], "left", "bottom", 0, 0],
-      [["top"], "top", "bottom", 0, 0],
-      [["left"], "left", "top", 0, 120],
-      [["bottom"], "bottom", "top", 0, 120],
-      [["bottom"], "bottom", "left", 0, 120],
-      [["bottom"], "bottom", "right", 0, 120],
-      [["top"], "top", "left", 0, 0],
-      [["top"], "top", "right", 0, 0],
-      [["right"], "right", "bottom", 700, 0],
-      [["right"], "right", "top", 700, 120],
-    ] as [
-      IconProps["tooltipFlipOverrides"],
-      string,
-      IconProps["tooltipPosition"],
-      number,
-      number,
-    ][]
-  ).forEach(
-    ([
-      flipPosition,
-      expectedPosition,
-      tooltipPosition,
-      horizontalPos,
-      verticalPos,
-    ]) => {
-      test(`should check tooltip position is ${expectedPosition} rather than ${tooltipPosition} when flip position is ${flipPosition} after scrolling`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <div style={{ padding: "60px 60px 60px 60px" }}>
-            <IconTooltipComponent
-              tooltipFlipOverrides={flipPosition}
-              tooltipPosition={tooltipPosition}
-            />
-          </div>,
-        );
-
-        await page.setViewportSize({ width: 700, height: 120 });
-
-        await page.evaluate(
-          ([horizontal, vertical]) => window.scrollTo(horizontal, vertical),
-          [horizontalPos, verticalPos],
-        );
-
-        const tooltip = getDataElementByValue(page, "tooltip");
-        await expect(tooltip).toHaveAttribute(
-          "data-placement",
-          expectedPosition,
-        );
-      });
-    },
-  );
-});
 
 test.describe("should check accessibility for Icon component", () => {
   [true, false].forEach((boolVal) => {
@@ -147,102 +49,6 @@ test.describe("should check accessibility for Icon component", () => {
       await mount(<IconComponent id={id} />);
 
       await checkAccessibility(page);
-    });
-  });
-
-  testData.forEach((tooltipMessage) => {
-    test(`should pass accessibility tests when tooltipMessage is set as ${tooltipMessage}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<IconTooltipComponent tooltipMessage={tooltipMessage} />);
-
-      await checkAccessibility(page, tooltipPreview(page));
-    });
-  });
-
-  (
-    ["top", "bottom", "left", "right"] as IconProps["tooltipPosition"][]
-  ).forEach((tooltipPosition) => {
-    test(`should pass accessibility tests when tooltip position is set as ${tooltipPosition}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<IconTooltipComponent tooltipPosition={tooltipPosition} />);
-
-      const iconLocator = page.getByTestId("icon");
-      await iconLocator.hover();
-      await checkAccessibility(page, tooltipPreview(page));
-    });
-  });
-
-  test("should pass accessibility tests when tooltipVisible prop is set as true", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<IconTooltipComponent tooltipVisible />);
-
-    await checkAccessibility(page, tooltipPreview(page));
-  });
-
-  test("should pass accessibility tests when tooltipVisible prop is set as false", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<IconTooltipComponent tooltipVisible={false} />);
-
-    await checkAccessibility(page);
-  });
-
-  colorData.forEach(([tooltipBgColor, contrastColor]) => {
-    test(`should pass accessibility tests when tooltip background color is set as ${tooltipBgColor}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <IconTooltipComponent
-          tooltipFontColor={contrastColor}
-          tooltipBgColor={tooltipBgColor}
-        />,
-      );
-
-      const iconLocator = page.getByTestId("icon");
-      await iconLocator.hover();
-
-      const tooltip = getDataElementByValue(page, "tooltip");
-      await checkAccessibility(page, tooltip);
-    });
-  });
-
-  colorData.forEach(([tooltipFontColor, contrastColor]) => {
-    test(`should pass accessibility tests when tooltip font color is set as ${tooltipFontColor}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <IconTooltipComponent
-          tooltipBgColor={contrastColor}
-          tooltipFontColor={tooltipFontColor}
-        />,
-      );
-      const iconLocator = page.getByTestId("icon");
-      await iconLocator.hover();
-
-      const tooltip = getDataElementByValue(page, "tooltip");
-      await checkAccessibility(page, tooltip);
-    });
-  });
-
-  testData.forEach((tooltipId) => {
-    test(`should pass accessibility tests when tooltipId is set as ${tooltipId}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<IconTooltipComponent tooltipId={tooltipId} />);
-
-      const iconLocator = page.getByTestId("icon");
-      await iconLocator.hover();
-      await checkAccessibility(page, tooltipPreview(page));
     });
   });
 
@@ -324,43 +130,6 @@ test.describe("should check accessibility for Icon component", () => {
       await mount(<IconComponent bgSize={size} />);
 
       await checkAccessibility(page);
-    });
-  });
-
-  (
-    [
-      [["left"], "left", "bottom"],
-      [["top"], "top", "bottom"],
-      [["left"], "left", "top"],
-      [["bottom"], "bottom", "top"],
-      [["bottom"], "bottom", "left"],
-      [["bottom"], "bottom", "right"],
-      [["top"], "top", "left"],
-      [["top"], "top", "right"],
-      [["right"], "right", "bottom"],
-      [["right"], "right", "top"],
-    ] as [
-      IconProps["tooltipFlipOverrides"],
-      string,
-      IconProps["tooltipPosition"],
-    ][]
-  ).forEach(([flipPosition, expectedPosition, tooltipPosition]) => {
-    test(`should pass accessibility tests when tooltip position is ${expectedPosition} rather than ${tooltipPosition} when flip position is ${flipPosition} after scrolling`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <div style={{ padding: "60px 60px 60px 60px" }}>
-          <IconTooltipComponent
-            tooltipFlipOverrides={flipPosition}
-            tooltipPosition={tooltipPosition}
-          />
-        </div>,
-      );
-
-      const iconLocator = page.getByTestId("icon");
-      await iconLocator.hover();
-      await checkAccessibility(page, tooltipPreview(page));
     });
   });
 });
