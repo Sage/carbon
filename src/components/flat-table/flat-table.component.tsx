@@ -1,5 +1,6 @@
 import React, {
   useLayoutEffect,
+  useEffect,
   useRef,
   useState,
   useContext,
@@ -235,31 +236,36 @@ export const FlatTable = ({
     [hasOpenDatePicker, hasStickyFooter, hasStickyHead],
   );
 
-  const getTabStopElementId = useCallback(() => {
+  const [tabStopElementId, setTabStopElementId] = useState("");
+  const [tabStopTrigger, setTabStopTrigger] = useState(0);
+
+  const notifyTabStopChange = useCallback(() => {
+    setTabStopTrigger((v) => v + 1);
+  }, []);
+
+  useEffect(() => {
     const focusableElements = Array.from(
       tableRef.current?.querySelectorAll(FOCUSABLE_ROW_AND_CELL_QUERY) ||
         /* istanbul ignore next */ [],
     );
-
-    // if no other row is selected/ highlighted, we need to make the first row/ cell a tab stop
     const focusableElement =
       focusableElements.find(
         (el) =>
           el.getAttribute("data-selected") === "true" ||
           el.getAttribute("data-highlighted") === "true",
       ) || focusableElements[0];
-    const currentlySelectedId = focusableElement?.getAttribute("id") || "";
-
-    return currentlySelectedId;
-  }, []);
+    const id = focusableElement?.getAttribute("id") || "";
+    setTabStopElementId((prev) => (prev !== id ? id : prev));
+  }, [tabStopTrigger]);
 
   const strictFlatTableValue = useMemo(
     () => ({
       colorTheme,
       size,
-      getTabStopElementId,
+      tabStopElementId,
+      notifyTabStopChange,
     }),
-    [colorTheme, size, getTabStopElementId],
+    [colorTheme, size, tabStopElementId, notifyTabStopChange],
   );
 
   const flatTableValue = useMemo(

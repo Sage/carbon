@@ -600,7 +600,7 @@ describe("when the row is `expandable`", () => {
     const cell = screen.getByRole("cell", { name: "cell1" });
 
     expect(row).not.toHaveAttribute("tabindex");
-    expect(cell).toHaveAttribute("tabindex", "-1");
+    expect(cell).toHaveAttribute("tabindex", "0");
   });
 
   it("should add and apply the expected styling to the chevron icon", () => {
@@ -1570,7 +1570,11 @@ describe("when the row is `expandable`", () => {
     render(
       <table>
         <StrictFlatTableProvider
-          value={{ size: "compact", getTabStopElementId: () => "" }}
+          value={{
+            size: "compact",
+            tabStopElementId: "",
+            notifyTabStopChange: () => {},
+          }}
         >
           <FlatTableBody>
             <FlatTableRow

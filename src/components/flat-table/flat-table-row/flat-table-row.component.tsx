@@ -6,6 +6,7 @@ import React, {
   useState,
   useLayoutEffect,
   useCallback,
+  useReducer,
 } from "react";
 import invariant from "invariant";
 
@@ -19,9 +20,12 @@ import { useStrictFlatTableContext } from "../__internal__/strict-flat-table.con
 import guid from "../../../__internal__/utils/helpers/guid";
 import FlatTableRowContext from "./__internal__/flat-table-row.context";
 import SubRowProvider, { SubRowContext } from "./__internal__/sub-row-provider";
-import { buildPositionMap } from "../__internal__";
 import FlatTableHeadContext from "../flat-table-head/__internal__/flat-table-head.context";
 import { useSortableRow } from "../__internal__/sortable";
+import {
+  rowLayoutReducer,
+  initialRowLayoutState,
+} from "./__internal__/row-layout-reducer";
 
 export interface FlatTableRowProps extends TagProps {
   /** Overrides default cell color, provide design token, any color from palette or any valid css color value. */
@@ -82,88 +86,28 @@ export const FlatTableRow = React.forwardRef<
     const [isExpanded, setIsExpanded] = useState(expanded);
     const rowRef = useRef<HTMLTableRowElement | null>(null);
     const firstColumnExpandable = expandableArea === "firstColumn";
-    const [leftPositions, setLeftPositions] = useState<Record<string, number>>(
-      {},
-    );
-    const [rightPositions, setRightPositions] = useState<
-      Record<string, number>
-    >({});
-    const [firstCellIndex, setFirstCellIndex] = useState(0);
-    const [lhsRowHeaderIndex, setLhsRowHeaderIndex] = useState(-1);
-    const [rhsRowHeaderIndex, setRhsRowHeaderIndex] = useState(-1);
-    const [firstCellId, setFirstCellId] = useState<string | null>(null);
-    const [cellsArray, setCellsArray] = useState<Element[]>([]);
-    const [tabIndex, setTabIndex] = useState(-1);
-
     let interactiveRowProps = {};
 
+    const [layoutState, dispatchLayout] = useReducer(
+      rowLayoutReducer,
+      initialRowLayoutState,
+    );
+    const {
+      leftPositions,
+      rightPositions,
+      firstCellIndex,
+      lhsRowHeaderIndex,
+      rhsRowHeaderIndex,
+      firstCellId,
+      cellsArray,
+    } = layoutState;
+
     useLayoutEffect(() => {
-      const checkForPositionUpdates = (
-        updated: Record<string, number>,
-        current: Record<string, number>,
-      ) => {
-        const updatedKeys = Object.keys(updated);
-        const currentKeys = Object.keys(current);
-        if (updatedKeys.length !== currentKeys.length) {
-          return true;
-        }
-
-        return updatedKeys.some((key) => updated[key] !== current[key]);
-      };
-
       const cells = rowRef.current?.querySelectorAll("th, td") as
         | NodeListOf<HTMLTableCellElement>
         | undefined;
-
-      const cellArray = Array.from(cells || /*istanbul ignore next */ []);
-      setCellsArray(cellArray);
-
-      const firstIndex = cellArray.findIndex(
-        (cell) => cell.getAttribute("data-component") !== "flat-table-checkbox",
-      );
-      const lhsIndex = cellArray.findIndex(
-        (cell) => cell.getAttribute("data-sticky-align") === "left",
-      );
-      const rhsIndex = cellArray.findIndex(
-        (cell) => cell.getAttribute("data-sticky-align") === "right",
-      );
-
-      setLhsRowHeaderIndex(lhsIndex);
-      setRhsRowHeaderIndex(rhsIndex);
-
-      if (firstIndex !== -1) {
-        setFirstCellIndex(firstIndex);
-        setFirstCellId(cellArray[firstIndex].getAttribute("id"));
-      } else {
-        setFirstCellIndex(0);
-      }
-      if (lhsIndex !== -1) {
-        const updatedLeftPositions = buildPositionMap(
-          cellArray.slice(0, lhsRowHeaderIndex + 1),
-          "offsetWidth",
-        );
-
-        if (checkForPositionUpdates(updatedLeftPositions, leftPositions)) {
-          setLeftPositions(updatedLeftPositions);
-        }
-      }
-      if (rhsIndex !== -1) {
-        const updatedRightPositions = buildPositionMap(
-          cellArray.slice(rhsRowHeaderIndex, cellArray.length).reverse(),
-          "offsetWidth",
-        );
-
-        if (checkForPositionUpdates(updatedRightPositions, rightPositions)) {
-          setRightPositions(updatedRightPositions);
-        }
-      }
-    }, [
-      children,
-      leftPositions,
-      lhsRowHeaderIndex,
-      rhsRowHeaderIndex,
-      rightPositions,
-    ]);
+      dispatchLayout(Array.from(cells || /* istanbul ignore next */ []));
+    }, [children]);
 
     const noStickyColumnsOverlap = useMemo(() => {
       const hasLhsColumn = lhsRowHeaderIndex !== -1;
@@ -178,8 +122,27 @@ export const FlatTableRow = React.forwardRef<
       `Do not render a right hand side \`${FlatTableRowHeader.displayName}\` before left hand side \`${FlatTableRowHeader.displayName}\``,
     );
 
-    const { colorTheme, size, getTabStopElementId } =
+    const { colorTheme, size, tabStopElementId, notifyTabStopChange } =
       useStrictFlatTableContext();
+    const tabIndex = tabStopElementId === internalId.current ? 0 : -1;
+
+    // Notify FlatTable when this row's focusability or selection state changes
+    useEffect(() => {
+      if (onClick || expandable) {
+        notifyTabStopChange();
+      }
+      return () => {
+        notifyTabStopChange();
+      };
+    }, [
+      onClick,
+      expandable,
+      selected,
+      highlighted,
+      firstCellId,
+      notifyTabStopChange,
+    ]);
+
     const { isInSidebar } = useContext(DrawerSidebarContext);
     const { stickyOffsets } = useContext(FlatTableHeadContext);
 
@@ -243,10 +206,6 @@ export const FlatTableRow = React.forwardRef<
     useEffect(() => {
       setIsExpanded(expanded);
     }, [expanded]);
-
-    useEffect(() => {
-      setTabIndex(getTabStopElementId() === internalId.current ? 0 : -1);
-    }, [getTabStopElementId]);
 
     const { isSubRow, firstRowId, addRow, removeRow } =
       useContext(SubRowContext);
