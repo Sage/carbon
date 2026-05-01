@@ -1,3 +1,9 @@
+## [158.49.0](https://github.com/Sage/carbon/compare/v158.48.0...v158.49.0) (2026-05-01)
+
+### Features
+
+* **switch:** align with ds audit ([561e59c](https://github.com/Sage/carbon/commit/561e59cb6a1371b66a9fed6dd78e791ee0701e04))
+
 ## [158.48.0](https://github.com/Sage/carbon/compare/v158.47.0...v158.48.0) (2026-05-01)
 
 ### Features
