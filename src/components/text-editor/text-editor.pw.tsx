@@ -202,7 +202,7 @@ test.describe("Prop tests", () => {
 
       await expect(editorWrapper).not.toHaveCSS(
         "box-shadow",
-        "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+        "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
       );
       await expect(editor).not.toBeFocused();
 
@@ -214,7 +214,7 @@ test.describe("Prop tests", () => {
 
       await expect(editorWrapper).toHaveCSS(
         "box-shadow",
-        "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+        "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
       );
       await expect(editor).toBeFocused();
     });
@@ -246,7 +246,7 @@ test.describe("Prop tests", () => {
 
       await expect(editorWrapper).not.toHaveCSS(
         "box-shadow",
-        "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+        "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
       );
       await expect(editor).not.toBeFocused();
 
@@ -262,7 +262,7 @@ test.describe("Prop tests", () => {
 
       await expect(editorWrapper).toHaveCSS(
         "box-shadow",
-        "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+        "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
       );
       await expect(editor).toBeFocused();
     });
@@ -294,7 +294,7 @@ test.describe("Prop tests", () => {
 
       await expect(editorWrapper).not.toHaveCSS(
         "box-shadow",
-        "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+        "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
       );
       await expect(editor).not.toBeFocused();
 
@@ -310,7 +310,7 @@ test.describe("Prop tests", () => {
 
       await expect(editorWrapper).toHaveCSS(
         "box-shadow",
-        "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+        "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
       );
       await expect(editor).toBeFocused();
     });
@@ -334,7 +334,7 @@ test.describe("Prop tests", () => {
 
       await expect(editorWrapper).not.toHaveCSS(
         "box-shadow",
-        "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+        "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
       );
       await expect(editor).not.toBeFocused();
 
@@ -346,7 +346,7 @@ test.describe("Prop tests", () => {
 
       await expect(editorWrapper).toHaveCSS(
         "box-shadow",
-        "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+        "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
       );
       await expect(editor).toBeFocused();
 
@@ -378,7 +378,7 @@ test.describe("Prop tests", () => {
 
       await expect(editorWrapper).not.toHaveCSS(
         "box-shadow",
-        "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+        "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
       );
       await expect(editor).not.toBeFocused();
 
@@ -394,7 +394,7 @@ test.describe("Prop tests", () => {
 
       await expect(editorWrapper).toHaveCSS(
         "box-shadow",
-        "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+        "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
       );
 
       await expect(editor).toBeFocused();
@@ -426,7 +426,7 @@ test.describe("Prop tests", () => {
 
       await expect(editorWrapper).not.toHaveCSS(
         "box-shadow",
-        "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+        "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
       );
       await expect(editor).not.toBeFocused();
 
@@ -442,7 +442,7 @@ test.describe("Prop tests", () => {
 
       await expect(editorWrapper).toHaveCSS(
         "box-shadow",
-        "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+        "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
       );
       await expect(editor).toBeFocused();
 

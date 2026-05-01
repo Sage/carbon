@@ -863,7 +863,7 @@ test.describe("Prop tests", () => {
       .locator("div:nth-child(2)");
     await expect(checkboxParent).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+      "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
     );
 
     await expect(
@@ -895,7 +895,7 @@ test.describe("Prop tests", () => {
         .locator("div:nth-child(2)"),
     ).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+      "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
     );
 
     await expect(
@@ -939,7 +939,7 @@ test.describe("Prop tests", () => {
         .locator("div:nth-child(2)"),
     ).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+      "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
     );
     for await (const i of indexes(4)) {
       await expect(
@@ -988,7 +988,7 @@ test.describe("Prop tests", () => {
         .locator("div:nth-child(2)"),
     ).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+      "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
     );
     for await (const i of indexes(4)) {
       await expect(
@@ -1057,7 +1057,7 @@ test.describe("Prop tests", () => {
       .locator("div:nth-child(2)");
     await expect(bodyRowParent).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+      "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
     );
     await expect(
       flatTableBodyRows(page).first().locator("td").first(),
@@ -1733,7 +1733,7 @@ test.describe("Prop tests", () => {
       .locator("div:nth-child(2)");
     await expect(bodyRowByPosition0Parent).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+      "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
     );
 
     const bodyRowByPosition1Input = flatTableBodyRowByPosition(page, 1).locator(
@@ -1749,7 +1749,7 @@ test.describe("Prop tests", () => {
       .locator("div:nth-child(2)");
     await expect(bodyRowByPosition1Parent).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+      "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
     );
   });
 
@@ -1776,7 +1776,7 @@ test.describe("Prop tests", () => {
       .locator("div:nth-child(2)");
     await expect(bodyRowByPosition0Parent).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+      "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
     );
     await expect(
       flatTableBodyRowByPosition(page, 1).locator("input"),
@@ -1809,7 +1809,7 @@ test.describe("Prop tests", () => {
         .locator("div:nth-child(2)"),
     ).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+      "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
     );
   });
 
@@ -2336,7 +2336,7 @@ test.describe("Prop tests", () => {
 
     await expect(flatTableWrapper(page)).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+      "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
     );
     await expect(flatTableWrapper(page)).toHaveCSS(
       "outline",
