@@ -20,16 +20,16 @@ const ringStrokeWidths: Record<string, number> = {
 };
 
 const barHeights: Record<string, string> = {
-  small: "4px",
-  medium: "8px",
-  large: "16px",
+  small: "var(--global-size-5-xs)",
+  medium: "var(--global-size-4-xs)",
+  large: "var(--global-size-3-xs)",
 };
 
 const ringInlineLabelMargins: Record<string, string> = {
-  "extra-small": "8px",
-  small: "8px",
-  medium: "12px",
-  large: "16px",
+  "extra-small": "var(--global-space-comp-s)",
+  small: "var(--global-space-comp-s)",
+  medium: "var(--global-space-comp-m)",
+  large: "var(--global-space-comp-l)",
 };
 
 const innerBarAnimationOne = keyframes`
@@ -87,8 +87,8 @@ const untrackedAnimation = keyframes`
 
 const getBarStyles = (variant?: string, inverse?: boolean) => {
   const outerBarBackground = inverse
-    ? "rgba(255, 255, 255, 0.08)"
-    : "rgba(0, 0, 0, 0.08)";
+    ? "var(--progress-loader-inverse-bg-default)"
+    : "var(--progress-loader-bg-default)";
 
   if (variant === "ai") {
     return {
@@ -101,7 +101,9 @@ const getBarStyles = (variant?: string, inverse?: boolean) => {
 
   return {
     outerBarBackground,
-    innerBarBackground: inverse ? "#FFFFFF" : "#000000",
+    innerBarBackground: inverse
+      ? "var(--progress-loader-inverse-fg-default)"
+      : "var(--progress-loader-fg-default)",
   };
 };
 
@@ -113,7 +115,7 @@ const centredFlexText = css`
 
 export const StyledLoaderPlaceholder = styled.div`
   display: inline-block;
-  min-width: var(--sizing800);
+  min-width: var(--global-size-2-xl);
 `;
 
 export const StyledLoader = styled.div.attrs(applyBaseTheme)`
@@ -128,7 +130,7 @@ export const OuterBar = styled.div<{
   inverse: boolean;
 }>`
   ${({ size, variant, inverse }) => css`
-    border-radius: var(--borderRadius400);
+    border-radius: var(--global-size-s);
     height: ${barHeights[size]};
     width: 100%;
     background: ${getBarStyles(variant, inverse).outerBarBackground};
@@ -149,7 +151,7 @@ export const InnerBar = styled.div<{
     background: ${getBarStyles(variant, inverse).innerBarBackground};
     width: 15px;
     height: ${barHeights[size]};
-    border-radius: var(--borderRadius400);
+    border-radius: var(--global-size-s);
     animation-name: ${innerBarAnimationOne}, ${innerBarAnimationTwo};
     ${hasMotion && `animation-duration: ${animationTime}s, ${animationTime}s;`}
     animation-iteration-count: ${hasMotion
@@ -179,10 +181,10 @@ const getStrokeColor = ({
   isSuccess?: boolean;
   isError?: boolean;
 }) => {
-  if (isError) return "#DB004E;";
-  if (isSuccess) return "#00811F;";
-  if (inverse) return "#FFF;";
-  return "#000000";
+  if (isError) return "var(--progress-loader-fg-error);";
+  if (isSuccess) return "var(--progress-loader-fg-complete);";
+  if (inverse) return "var(--progress-loader-inverse-fg-default)";
+  return "var(--progress-loader-fg-default)";
 };
 
 export const StyledRingCircleSvg = styled.svg<RingSvgProps>`
@@ -206,7 +208,9 @@ export const StyledRingCircleSvg = styled.svg<RingSvgProps>`
       circle[data-role="outer-arc"] {
         fill: transparent;
         stroke-width: ${strokeWidth}px;
-        stroke: ${inverse ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.08)"};
+        stroke: ${inverse
+          ? "var(--progress-loader-inverse-bg-default)"
+          : "var(--progress-loader-bg-default)"};
         cx: 12px;
         cy: 12px;
         r: 10px;
@@ -277,7 +281,7 @@ export const StyledGradientFill = styled.div`
   );
 `;
 
-const STAR_CONTAINER_SIZE = "40px";
+const STAR_CONTAINER_SIZE = "var(--global-size-m)";
 
 export const StyledStars = styled.div`
   position: relative;
@@ -287,15 +291,15 @@ export const StyledStars = styled.div`
 
 const LabelMargins: Record<string, Record<string, string>> = {
   standalone: {
-    small: "4px",
-    medium: "8px",
-    large: "12px",
+    small: "var(--global-space-comp-xs)",
+    medium: "var(--global-space-comp-s)",
+    large: "var(--global-space-comp-m)",
   },
   ring: {
-    "extra-small": "4px",
-    small: "8px",
-    medium: "8px",
-    large: "12px",
+    "extra-small": "var(--global-space-comp-xs)",
+    small: "var(--global-space-comp-s)",
+    medium: "var(--global-space-comp-s)",
+    large: "var(--global-space-comp-m)",
   },
 };
 
@@ -355,7 +359,9 @@ export const StyledLoaderLabel = styled(Typography)<LabelProps>`
   ${centredFlexText}
   line-height: 150%;
   color: ${({ inverse }) =>
-    inverse ? "rgba(255, 255, 255, 0.55)" : "rgba(0, 0, 0, 0.65)"};
+    inverse
+      ? "var(--progress-inverse-label-alt)"
+      : "var(--progress-label-alt)"};
 
   ${StyledNextButton} &, ${StyledButton} & {
     color: currentColor;
@@ -384,7 +390,9 @@ type StyledLabelProps = {
 
 export const StyledLabel = styled.span<StyledLabelProps>`
   ${({ inverse }) => css`
-    color: ${inverse ? "rgba(255, 255, 255, 0.90)" : "rgba(0, 0, 0, 0.90)"};
+    color: ${inverse
+      ? "var(--progress-inverse-label-alt)"
+      : "var(--progress-label-alt)"};
 
     ${StyledNextButton} &, ${StyledButton} & {
       color: currentColor;
