@@ -16,7 +16,6 @@ test("logs error when not used within StepSequence", () => {
       "Carbon StepSequence: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
     ),
   );
-
   loggerSpy.mockRestore();
 });
 
@@ -95,6 +94,38 @@ test("renders with hidden label when status is 'current'", () => {
   const step = screen.getByRole("listitem");
 
   expect(step).toHaveTextContent("Current");
+});
+
+test("renders hiddenCompleteLabel when status is 'complete'", () => {
+  render(
+    <StepSequence>
+      <StepSequenceItem
+        indicator="1"
+        status="complete"
+        hiddenCompleteLabel="Completed"
+      >
+        Step
+      </StepSequenceItem>
+    </StepSequence>,
+  );
+
+  expect(screen.getByRole("listitem")).toHaveTextContent("Completed");
+});
+
+test("renders hiddenCurrentLabel when status is 'current'", () => {
+  render(
+    <StepSequence>
+      <StepSequenceItem
+        indicator="1"
+        status="current"
+        hiddenCurrentLabel="Current"
+      >
+        Step
+      </StepSequenceItem>
+    </StepSequence>,
+  );
+
+  expect(screen.getByRole("listitem")).toHaveTextContent("Current");
 });
 
 test("renders with a tick Icon when status is 'complete'", () => {
