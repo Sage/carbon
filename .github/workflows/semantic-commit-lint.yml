@@ -16,8 +16,8 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: ">=24.11.0 24"
-      - name: Update npm to 11.11.1
-        run: npm install -g npm@11.11.1
+      - name: Update npm to 11.13.0
+        run: npm install -g npm@11.13.0
       - id: install_dependencies
         run: npm ci
       - id: lint_commits
