@@ -30,9 +30,21 @@ testStyledSystemMargin(
 );
 
 test.each([
-  { size: "small", barHeight: "4px", labelFontSize: "14px" },
-  { size: "medium", barHeight: "8px", labelFontSize: "14px" },
-  { size: "large", barHeight: "16px", labelFontSize: "16px" },
+  {
+    size: "small",
+    barHeight: "var(--global-size-5-xs)",
+    labelFontSize: "14px",
+  },
+  {
+    size: "medium",
+    barHeight: "var(--global-size-4-xs)",
+    labelFontSize: "14px",
+  },
+  {
+    size: "large",
+    barHeight: "var(--global-size-3-xs)",
+    labelFontSize: "16px",
+  },
 ] as const)(
   "applies correct height for the standalone loader when size is '%s'",
   (params) => {
@@ -79,7 +91,7 @@ test("when the user disallows animations, alternative loading text is rendered w
   expect(screen.getByText("Loading...")).toBeVisible();
   expect(screen.getByText("Loading...")).toHaveStyleRule(
     "color",
-    "rgba(0,0,0,0.90)",
+    "var(--progress-label-alt)",
   );
 });
 
@@ -90,7 +102,7 @@ test("when the user disallows animations, alternative loading text is rendered w
   expect(screen.getByText("Loading...")).toBeVisible();
   expect(screen.getByText("Loading...")).toHaveStyleRule(
     "color",
-    "rgba(255,255,255,0.90)",
+    "var(--progress-inverse-label-alt)",
   );
 });
 
@@ -134,7 +146,7 @@ test("renders correctly when `loaderType` is `standalone` and `inverse` prop is 
   expect(screen.getByTestId("outer-bar")).toBeVisible();
   expect(screen.getByTestId("inner-bar")).toHaveStyleRule(
     "background",
-    "#FFFFFF",
+    "var(--progress-loader-inverse-fg-default)",
   );
 });
 
@@ -247,7 +259,7 @@ test("does not apply ai ring gradient when variant is `ai`", () => {
 
   expect(screen.getByRole("presentation")).toHaveStyleRule(
     "stroke",
-    "#000000",
+    "var(--progress-loader-fg-default)",
     {
       modifier: "circle[data-role='inner-arc']",
     },
@@ -256,12 +268,16 @@ test("does not apply ai ring gradient when variant is `ai`", () => {
 
 test("renders correctly when `loaderType` is `ring` and `inverse` prop is set", () => {
   render(<Loader loaderLabel="Loading" loaderType="ring" inverse />);
-  expect(screen.getByRole("presentation")).toHaveStyleRule("stroke", "#FFF", {
-    modifier: "circle[data-role='inner-arc']",
-  });
   expect(screen.getByRole("presentation")).toHaveStyleRule(
     "stroke",
-    "rgba(255,255,255,0.08)",
+    "var(--progress-loader-inverse-fg-default)",
+    {
+      modifier: "circle[data-role='inner-arc']",
+    },
+  );
+  expect(screen.getByRole("presentation")).toHaveStyleRule(
+    "stroke",
+    "var(--progress-loader-inverse-bg-default)",
     { modifier: "circle[data-role='outer-arc']" },
   );
 });
@@ -289,7 +305,7 @@ test("renders correctly when `loaderType` is `ring` and `isSuccess` is true", ()
 
   expect(screen.getByRole("presentation")).toHaveStyleRule(
     "stroke",
-    "#00811F",
+    "var(--progress-loader-fg-complete)",
     { modifier: "circle[data-role='inner-arc']" },
   );
 });
@@ -299,7 +315,7 @@ test("renders correctly when `loaderType` is `ring` and `isError` is true", () =
 
   expect(screen.getByRole("presentation")).toHaveStyleRule(
     "stroke",
-    "#DB004E",
+    "var(--progress-loader-fg-error)",
     { modifier: "circle[data-role='inner-arc']" },
   );
 });
@@ -335,13 +351,17 @@ test("renders correctly with the expected background color when `loaderType` is 
     </Button>,
   );
 
-  expect(screen.getByRole("presentation")).toHaveStyleRule("stroke", "#FFF", {
-    modifier: "circle[data-role='inner-arc']",
-  });
+  expect(screen.getByRole("presentation")).toHaveStyleRule(
+    "stroke",
+    "var(--progress-loader-inverse-fg-default)",
+    {
+      modifier: "circle[data-role='inner-arc']",
+    },
+  );
 
   expect(screen.getByRole("presentation")).toHaveStyleRule(
     "stroke",
-    "rgba(255,255,255,0.08)",
+    "var(--progress-loader-inverse-bg-default)",
     { modifier: "circle[data-role='outer-arc']" },
   );
 });

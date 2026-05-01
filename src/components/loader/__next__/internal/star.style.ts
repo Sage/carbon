@@ -55,9 +55,9 @@ const time = "3s";
 
 export const StyledStarSVG = styled.svg`
   animation: ${animateStar} ${time} ease-in-out forwards infinite;
-  height: var(--sizing200);
+  height: var(--global-size-3-xs);
   opacity: 0;
-  width: var(--sizing200);
+  width: var(--global-size-3-xs);
 `;
 
 export const GradientStopTop = styled.stop`
@@ -70,10 +70,10 @@ export const GradientStopBottom = styled.stop`
 
 export const StyledLoaderStarContainer = styled.div`
   bottom: 0;
-  height: var(--sizing200);
+  height: var(--global-size-3-xs);
   left: 0;
   position: absolute;
-  width: var(--sizing200);
+  width: var(--global-size-3-xs);
 
   &.star-1 {
     .ai-star-path {
