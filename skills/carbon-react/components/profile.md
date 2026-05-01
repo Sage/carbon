@@ -37,7 +37,7 @@ description: Carbon Profile component props and usage examples.
 | mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
 | name | string \| undefined | No |  | Define the name to display. |  |
-| size | "S" \| "M" \| "L" \| "XL" \| "XS" \| "ML" \| "XXL" \| undefined | No |  | Allow to setup size for the component |  |
+| size | "XS" \| "S" \| "M" \| "ML" \| "L" \| "XL" \| "XXL" \| undefined | No |  | Allow to setup size for the component |  |
 | src | string \| undefined | No |  | Custom source URL |  |
 | text | string \| undefined | No |  | Define read-only text to display. |  |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |

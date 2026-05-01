@@ -30,7 +30,7 @@ description: Carbon TileFooter component props and usage examples.
 | pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
 | px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
 | py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
-| variant | "default" \| "black" \| "transparent" \| "grey" \| undefined | No |  | set which background color variant should be used |  |
+| variant | "default" \| "black" \| "grey" \| "transparent" \| undefined | No |  | set which background color variant should be used |  |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 

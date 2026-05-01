@@ -13,7 +13,7 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof Portrait> = {
-  title: "Portrait",
+  title: "Deprecated/Portrait",
   component: Portrait,
   argTypes: {
     ...styledSystemProps,

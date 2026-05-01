@@ -18,7 +18,7 @@ description: Carbon AdaptiveSidebar component props and usage examples.
 | open | boolean | Yes |  | Whether the sidebar is open or closed |  |
 | adaptiveBreakpoint | number \| undefined | No |  | The breakpoint (in pixels) at which the sidebar will convert to a dialog-based sidebar | 768 |
 | animationTimeout | number \| undefined | No |  | The time in milliseconds for the sidebar to animate |  |
-| backgroundColor | "white" \| "black" \| "app" \| undefined | No |  | The background color of the sidebar | "white" |
+| backgroundColor | "black" \| "white" \| "app" \| undefined | No |  | The background color of the sidebar | "white" |
 | borderColor | string \| undefined | No |  | The color to use for the left-hand border of the sidebar. Should be a design token e.g. `--colorsUtilityYang100` | "none" |
 | children | React.ReactNode | No |  | The content of the sidebar |  |
 | height | string \| undefined | No |  | The height of the sidebar, relative to the wrapping component | "100%" |
