@@ -1,3 +1,9 @@
+## [158.48.0](https://github.com/Sage/carbon/compare/v158.47.0...v158.48.0) (2026-05-01)
+
+### Features
+
+* **text-editor:** add de-De, es-ES, fr-Ca, fr-FR & pt-PT WYSIWYG translations ([9170c8f](https://github.com/Sage/carbon/commit/9170c8f51a9a5ab267e253036cf732422dcbf49e))
+
 ## [158.47.0](https://github.com/Sage/carbon/compare/v158.46.4...v158.47.0) (2026-04-30)
 
 ### Features
