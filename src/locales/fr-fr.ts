@@ -191,10 +191,13 @@ const frFR: Partial<Locale> = {
       cancelButton: () => "Cancel",
       cancelButtonAria: () => "Cancel",
       dialogTitle: () => "Add link",
-      linkFieldLabel: () => "Link",
+      formKey: () => "L’astérisque (*) indique un champ obligatoire",
+      linkFieldLabel: () => "Adresse du lien",
+      linkFieldErrorMessage: () => "Saisissez l’adresse du lien",
       saveButton: () => "Save",
       saveButtonAria: () => "Save",
-      textFieldLabel: () => "Text",
+      textFieldLabel: () => "Texte du lien",
+      textFieldErrorMessage: () => "Saisissez le texte du lien",
     },
     typography: {
       selectAria: () => "Heading type",
@@ -246,6 +249,7 @@ const frFR: Partial<Locale> = {
   switch: {
     on: () => "Oui",
     off: () => "Non",
+    processingLabel: () => "Traitement en cours",
   },
   tileSelect: {
     deselect: () => "Désélectionner",

@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { action } from "@storybook/addon-actions";
 import Pill from "../pill/pill.component";
+import Box from "../box";
 import Search from ".";
-import { SearchEvent } from "./search.component";
+import { SearchEvent, SearchHandle } from "./search.component";
 
 export default {
   title: "Search/Test",
@@ -162,4 +163,75 @@ Validation.storyName = "Validation";
 Validation.parameters = {
   chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
+};
+
+export const HoverStyling = () => (
+  <>
+    <Box mb={4}>
+      <Search
+        placeholder="Search..."
+        onChange={() => {}}
+        value=""
+        aria-label="Search default"
+        data-role="search-default"
+      />
+    </Box>
+    <Box width="700px" p={4} backgroundColor="#003349">
+      <Search
+        placeholder="Search..."
+        onChange={() => {}}
+        value=""
+        variant="dark"
+        aria-label="Search dark"
+        data-role="search-dark"
+      />
+    </Box>
+  </>
+);
+HoverStyling.storyName = "Hover Styling";
+HoverStyling.parameters = {
+  chromatic: { disableSnapshot: false },
+  pseudo: {
+    hover: ["[data-role='search-default']", "[data-role='search-dark']"],
+  },
+};
+
+const AutoFocusSearch = (props: React.ComponentProps<typeof Search>) => {
+  const ref = useRef<SearchHandle>(null);
+
+  useEffect(() => {
+    ref.current?.focus();
+  }, []);
+
+  return <Search ref={ref} {...props} />;
+};
+
+export const FocusStyling = () => (
+  <>
+    <Box mb={4}>
+      <AutoFocusSearch
+        placeholder="Search..."
+        onChange={() => {}}
+        value=""
+        aria-label="Search input"
+      />
+    </Box>
+    <Box>
+      <Search
+        placeholder="Search..."
+        onChange={() => {}}
+        value=""
+        searchButton
+        aria-label="Search button"
+        data-role="search-button-focus"
+      />
+    </Box>
+  </>
+);
+FocusStyling.storyName = "Focus Styling";
+FocusStyling.parameters = {
+  chromatic: { disableSnapshot: false },
+  pseudo: {
+    focus: "[data-role='search-button-focus'] .search-button",
+  },
 };

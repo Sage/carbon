@@ -2,6 +2,7 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import { CHARACTERS } from "../../../playwright/support/constants";
 
 import Portrait from ".";
 
@@ -128,6 +129,50 @@ test("allows a custom tooltip id to be set via the `tooltipId` prop", () => {
 
   const tooltip = screen.getByText("foo");
   expect(tooltip).toHaveAttribute("id", "foo");
+});
+
+[CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS].forEach(
+  (tooltipMessage) => {
+    test(`renders a tooltip with special characters in the message: "${tooltipMessage}"`, async () => {
+      render(<Portrait data-role="portrait" tooltipMessage={tooltipMessage} />);
+
+      const user = userEvent.setup();
+      const portrait = screen.getByTestId("portrait");
+      await user.hover(portrait);
+      const tooltip = await screen.findByText(tooltipMessage);
+
+      expect(tooltip).toBeVisible();
+    });
+  },
+);
+
+[CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS].forEach((tooltipId) => {
+  test(`sets a custom tooltip id with special characters: "${tooltipId}"`, () => {
+    render(
+      <Portrait
+        data-role="portrait"
+        tooltipMessage="foo"
+        tooltipIsVisible
+        tooltipId={tooltipId}
+      />,
+    );
+
+    const tooltip = screen.getByText("foo");
+    expect(tooltip).toHaveAttribute("id", tooltipId);
+  });
+});
+
+[
+  ["SPMMMMM", "SPM"],
+  ["JMMMMM", "JMM"],
+  ["ARRRR", "ARR"],
+  ["MJJJ", "MJJ"],
+].forEach(([input, expected]) => {
+  test(`truncates initials to a maximum of three characters when passed "${input}"`, () => {
+    render(<Portrait initials={input} />);
+
+    expect(screen.getByText(expected)).toBeVisible();
+  });
 });
 
 test("allows a custom onClick function to be passed via the `onClick` prop", async () => {

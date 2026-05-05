@@ -2,7 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
 import Message from ".";
-import Button from "../button";
+import Button from "../button/__next__";
+import Box from "../box";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 const styledSystemProps = generateStyledSystemProps({
@@ -42,33 +43,51 @@ export const WithCloseButton: Story = {
 };
 
 export const ProgrammaticFocus: Story = () => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpenError, setIsOpenError] = useState(false);
+  const [isOpenSuccess, setIsOpenSuccess] = useState(false);
   const messageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (isOpen) {
+    if (isOpenError) {
       messageRef.current?.focus();
     }
-  }, [isOpen]);
+  }, [isOpenError]);
 
   return (
-    <>
-      {!isOpen && <Button onClick={() => setIsOpen(true)}>Open Message</Button>}
+    <Box display="flex" flexDirection="column" gap={2}>
+      {!isOpenError && (
+        <Button onClick={() => setIsOpenError(true)}>Open Error Message</Button>
+      )}
       <Message
-        open={isOpen}
+        open={isOpenError}
         ref={messageRef}
-        onDismiss={() => setIsOpen(false)}
+        onDismiss={() => setIsOpenError(false)}
         variant="error"
       >
         Some custom message
       </Message>
-    </>
+
+      {!isOpenSuccess && (
+        <Button onClick={() => setIsOpenSuccess(true)}>
+          Open Success Message
+        </Button>
+      )}
+      <div aria-live="polite">
+        <Message
+          open={isOpenSuccess}
+          onDismiss={() => setIsOpenSuccess(false)}
+          variant="success"
+        >
+          Some custom message
+        </Message>
+      </div>
+    </Box>
   );
 };
 ProgrammaticFocus.storyName = "Programmatic Focus";
 
 export const WithTitle: Story = {
-  render: (args) => <Message {...args}>Some custom message</Message>,
+  ...Default,
   args: {
     title: "Title",
   },
@@ -109,14 +128,6 @@ export const SubtleVariant: Story = {
         onDismiss={() => {}}
         variant="success-subtle"
         title="Success"
-        {...args}
-      >
-        Some custom message
-      </Message>
-      <Message
-        onDismiss={() => {}}
-        variant="error-subtle"
-        title="Error"
         {...args}
       >
         Some custom message
@@ -174,39 +185,5 @@ export const SizeLarge: Story = {
     size: "large",
     mb: 2,
   },
+  parameters: { chromatic: { disableSnapshot: false } },
 };
-
-export const ShowCloseIcon: Story = () => {
-  return (
-    <Message showCloseIcon={false}>
-      A longer custom message which now shows the close icon is not rendered and
-      padding is equal on both sides
-    </Message>
-  );
-};
-ShowCloseIcon.storyName = "Show Close Icon";
-
-export const Transparent: Story = () => {
-  const [isOpen, setIsOpen] = useState(true);
-  const buttonRef = useRef<HTMLButtonElement>(null);
-  return (
-    <>
-      {!isOpen && (
-        <Button ref={buttonRef} onClick={() => setIsOpen(true)}>
-          Open Message
-        </Button>
-      )}
-      <Message
-        open={isOpen}
-        onDismiss={() => {
-          setIsOpen(false);
-          setTimeout(() => buttonRef.current?.focus(), 0);
-        }}
-        transparent
-      >
-        Some custom message
-      </Message>
-    </>
-  );
-};
-Transparent.storyName = "Transparent";
