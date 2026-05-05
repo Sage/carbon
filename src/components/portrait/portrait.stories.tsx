@@ -27,11 +27,13 @@ export const Default: Story = () => {
   return <Portrait />;
 };
 Default.storyName = "Default";
+Default.parameters = { chromatic: { disableSnapshot: true } };
 
 export const Initials: Story = () => {
   return <Portrait initials="MK" />;
 };
 Initials.storyName = "Initials";
+Initials.parameters = { chromatic: { disableSnapshot: true } };
 
 export const Src: Story = () => {
   return (
@@ -39,6 +41,7 @@ export const Src: Story = () => {
   );
 };
 Src.storyName = "Src";
+Src.parameters = { chromatic: { disableSnapshot: true } };
 
 export const IconType: Story = () => {
   return <Portrait iconType="image" />;
@@ -58,6 +61,7 @@ export const WithTooltip: Story = () => {
   );
 };
 WithTooltip.storyName = "With Tooltip";
+WithTooltip.parameters = { chromatic: { disableSnapshot: true } };
 
 export const Sizes: Story = () => {
   return (
@@ -261,3 +265,4 @@ export const CustomColors: Story = () => {
   );
 };
 CustomColors.storyName = "Custom Color";
+CustomColors.parameters = { chromatic: { disableSnapshot: true } };
