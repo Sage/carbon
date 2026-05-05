@@ -1,3 +1,33 @@
+## [158.49.0](https://github.com/Sage/carbon/compare/v158.48.0...v158.49.0) (2026-05-01)
+
+### Features
+
+* **switch:** align with ds audit ([561e59c](https://github.com/Sage/carbon/commit/561e59cb6a1371b66a9fed6dd78e791ee0701e04))
+
+## [158.48.0](https://github.com/Sage/carbon/compare/v158.47.0...v158.48.0) (2026-05-01)
+
+### Features
+
+* **text-editor:** add de-De, es-ES, fr-Ca, fr-FR & pt-PT WYSIWYG translations ([9170c8f](https://github.com/Sage/carbon/commit/9170c8f51a9a5ab267e253036cf732422dcbf49e))
+
+## [158.47.0](https://github.com/Sage/carbon/compare/v158.46.4...v158.47.0) (2026-04-30)
+
+### Features
+
+* update focus styling to be inline with DS ([3c5bfd6](https://github.com/Sage/carbon/commit/3c5bfd6b08d93555d4e435e40541b6181e041480))
+
+## [158.46.4](https://github.com/Sage/carbon/compare/v158.46.3...v158.46.4) (2026-04-24)
+
+### Bug Fixes
+
+* **loader:** add missing ai variants to ring type ([1a2fb0b](https://github.com/Sage/carbon/commit/1a2fb0b7ff4d59726c28685a5c3feab8892fd4cb)), closes [#7868](https://github.com/Sage/carbon/issues/7868)
+
+## [158.46.3](https://github.com/Sage/carbon/compare/v158.46.2...v158.46.3) (2026-04-24)
+
+### Bug Fixes
+
+* **character-counter:** fixed character counter inconsistencies ([6cc5267](https://github.com/Sage/carbon/commit/6cc526774af8aaf536a3cab472887a67055c4b3b)), closes [#7825](https://github.com/Sage/carbon/issues/7825)
+
 ## [158.46.2](https://github.com/Sage/carbon/compare/v158.46.1...v158.46.2) (2026-04-22)
 
 ### Bug Fixes

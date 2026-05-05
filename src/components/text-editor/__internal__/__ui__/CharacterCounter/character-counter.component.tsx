@@ -45,7 +45,7 @@ const CharacterCounterPlugin = ({
     },
     [locale],
   );
-  const [debouncedValue, setDebouncedValue] = useState<number>(0);
+  const [debouncedValue, setDebouncedValue] = useState<number>(maxChars);
 
   // Calculate the number of characters remaining
   const rawCharactersRemaining = useMemo(() => {
@@ -70,13 +70,15 @@ const CharacterCounterPlugin = ({
       <StyledCharacterCounter
         data-role={`${namespace}-character-limit`}
         marginTop={marginTop ?? "var(--spacing050)"}
+        aria-hidden="true"
       >
         {locale.textEditor.characterCounter(
           getFormatNumber(rawCharactersRemaining),
         )}
       </StyledCharacterCounter>
       <VisuallyHiddenCharacterCounter
-        id={`${namespace}-live-character-counter`}
+        data-role={`${namespace}-hidden-live-character-counter`}
+        id={`${namespace}-hidden-live-character-counter`}
         aria-live={isFocused ? "polite" : "off"}
       >
         {locale.textEditor.characterCounter(getFormatNumber(debouncedValue))}

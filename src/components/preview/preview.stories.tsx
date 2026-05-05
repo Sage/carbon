@@ -13,6 +13,9 @@ const styledSystemProps = generateStyledSystemProps({
 const meta: Meta<typeof Preview> = {
   title: "Preview",
   component: Preview,
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
   argTypes: {
     ...styledSystemProps,
   },

@@ -1,6 +1,6 @@
 const LOADER_TYPES = ["standalone", "ring", "star"];
 const STANDALONE_VARIANTS = ["typical", "ai"];
-const RING_VARIANTS = ["stacked", "inline"];
+const RING_VARIANTS = ["stacked", "inline", "ai-stacked", "ai-inline"];
 const STANDALONE_SIZES = ["small", "medium", "large"];
 const RING_SIZES = ["extra-small", "small", "medium", "large"];
 

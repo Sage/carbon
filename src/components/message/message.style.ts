@@ -2,33 +2,19 @@ import styled, { css } from "styled-components";
 import { margin, MarginProps } from "styled-system";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 import { InternalMessageVariant } from "./message.component";
-
-// TODO: replace with design tokens
-const variantPrimaryColor = {
-  error: "#CD384B",
-  info: "#0060A7",
-  success: "#00811F ",
-  warning: "#D64309",
-  neutral: "var(--colorsSemanticNeutral500)",
-  ai: "var(--colorsUtilityYin100)",
-  callout: "var(--colorsUtilityYin100)",
-};
-
-const variantSubtleColor = {
-  error: "#FDECEB",
-  info: "#EAEEF6",
-  success: "#E9F2E8 ",
-  warning: "#FFEDE5",
-  ai: "#EFEFEF",
-  callout: "#E6FAE2",
-};
+import {
+  variantPrimaryColor,
+  variantPrimaryColorBorder,
+  variantSubtleColor,
+  variantSubtleIconColor,
+  sizeMap,
+} from "./message.config";
 
 type MessageStyleProps = {
   variant: InternalMessageVariant;
   isSubtle?: boolean;
   transparent?: boolean;
   width?: string;
-  size?: "medium" | "large";
 };
 
 export const MessageStyle = styled.div.attrs(applyBaseTheme)<
@@ -36,10 +22,15 @@ export const MessageStyle = styled.div.attrs(applyBaseTheme)<
 >`
   position: relative;
   display: flex;
-  border-radius: var(--borderRadius100);
+  box-sizing: border-box;
+  border-radius: var(--global-radius-container-m);
   overflow: hidden;
-  border: 1px solid ${({ variant }) => variantPrimaryColor[variant]};
-  background-color: var(--colorsUtilityYang100);
+  border: var(--global-borderwidth-xs) solid
+    ${({ variant }) =>
+      variantPrimaryColorBorder[
+        variant as Exclude<InternalMessageVariant, "callout">
+      ]};
+  background-color: var(--message-contextual-bg);
   max-width: 720px;
 
   :focus {
@@ -68,88 +59,86 @@ export const MessageStyle = styled.div.attrs(applyBaseTheme)<
 
 export const MessageWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
   align-items: flex-start;
-  width: 100%;
+  flex: 1 0 0;
 `;
 
-export const MessageContent = styled.div<
-  Pick<MessageStyleProps, "size" | "isSubtle">
->`
+export const MessageContent = styled.div<{
+  size: "medium" | "large";
+  isSubtle?: boolean;
+}>`
   display: flex;
-  box-sizing: border-box;
-  width: 100%;
-  height: 100%;
-  padding: 12px;
+  flex: 1 0 0;
 
   ${({ size, isSubtle }) => css`
-    ${size === "large" &&
-    css`
-      padding: 20px;
-    `}
+    padding: ${sizeMap[size].padding};
 
     ${isSubtle &&
     css`
-      gap: ${size === "large" ? "16px" : "8px"};
+      gap: ${sizeMap[size].subtleGap};
     `}
   `}
 `;
 
-export const MessageContentWrapper = styled.div<
-  Pick<MessageStyleProps, "size">
->`
+export const MessageContentWrapper = styled.div<{ size: "medium" | "large" }>`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 100%;
-  gap: 2px;
-  font-size: 14px;
 
-  ${({ size }) =>
-    size === "large" &&
-    css`
-      gap: 4px;
-      font-size: 16px;
-    `}
+  color: var(--message-contextual-txt);
+
+  ${({ size }) => css`
+    gap: ${sizeMap[size].contentGap};
+    font: ${sizeMap[size].contentFont};
+  `}
+`;
+
+export const MessageTitle = styled.p<{ size: "medium" | "large" }>`
+  ${({ size }) => css`
+    margin: 0;
+    font: ${sizeMap[size].titleFont};
+  `}
+`;
+
+export const CloseButtonWrapper = styled.div<{ size: "medium" | "large" }>`
+  ${({ size }) => css`
+    padding: ${sizeMap[size].closeButtonPadding};
+  `}
 `;
 
 export const TypeIconStyle = styled.div<MessageStyleProps>`
   ${({ transparent, isSubtle, variant }) => css`
     display: flex;
-    background-color: ${variantPrimaryColor[variant]};
+
+    span {
+      width: var(--global-size-2-xs);
+      height: var(--global-size-2-xs);
+    }
 
     ${!isSubtle &&
     css`
+      background-color: ${variantPrimaryColor[
+        variant as Exclude<InternalMessageVariant, "callout">
+      ]};
       justify-content: center;
       align-items: center;
-      width: 32px;
-    `}
+      width: var(--global-size-s);
 
-    span {
-      width: 20px;
-      height: 20px;
-      &:before {
-        color: var(--colorsUtilityYang100);
-      }
-    }
-
-    ${isSubtle &&
-    css`
-      padding-top: 6px;
-      background-color: transparent;
       span {
         &:before {
-          color: ${variantPrimaryColor[variant]};
+          color: var(--message-contextual-icon);
         }
       }
     `}
 
-    ${transparent &&
+    ${(isSubtle || transparent) &&
     css`
       background-color: transparent;
       span {
         &:before {
-          color: ${variantPrimaryColor[variant]};
+          color: ${variantSubtleIconColor[
+            variant as Exclude<InternalMessageVariant, "neutral">
+          ]};
         }
       }
     `}

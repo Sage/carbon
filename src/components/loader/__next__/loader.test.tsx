@@ -206,6 +206,54 @@ test("renders correctly when `loaderType` is `ring` and variant is `inline`", ()
   );
 });
 
+test("renders correctly when `loaderType` is `ring` and variant is `ai-stacked`", () => {
+  render(
+    <Loader loaderLabel="Loading" loaderType="ring" variant="ai-stacked" />,
+  );
+
+  expect(screen.getByTestId("ring-loader-container")).toHaveStyleRule(
+    "flex-direction",
+    "column",
+  );
+
+  expect(screen.getByTestId("gradient-fill")).toHaveStyleRule(
+    "background",
+    "radial-gradient( 1514.52% 80.26% at 56.89% 94.74%, var(--mode-color-ai-alt-stop-1) 0%, var(--mode-color-ai-alt-stop-2) 51.22%, var(--mode-color-ai-stop-3) 100% )",
+  );
+
+  expect(screen.queryByTestId("inner-arc")).not.toBeInTheDocument();
+});
+
+test("renders correctly when `loaderType` is `ring` and variant is `ai-inline`", () => {
+  render(
+    <Loader loaderLabel="Loading" loaderType="ring" variant="ai-inline" />,
+  );
+
+  expect(screen.getByTestId("ring-loader-container")).toHaveStyleRule(
+    "flex-direction",
+    "row",
+  );
+
+  expect(screen.getByTestId("gradient-fill")).toHaveStyleRule(
+    "background",
+    "radial-gradient( 1514.52% 80.26% at 56.89% 94.74%, var(--mode-color-ai-alt-stop-1) 0%, var(--mode-color-ai-alt-stop-2) 51.22%, var(--mode-color-ai-stop-3) 100% )",
+  );
+
+  expect(screen.queryByTestId("inner-arc")).not.toBeInTheDocument();
+});
+
+test("does not apply ai ring gradient when variant is `ai`", () => {
+  render(<Loader loaderLabel="Loading" loaderType="ring" variant="ai" />);
+
+  expect(screen.getByRole("presentation")).toHaveStyleRule(
+    "stroke",
+    "#000000",
+    {
+      modifier: "circle[data-role='inner-arc']",
+    },
+  );
+});
+
 test("renders correctly when `loaderType` is `ring` and `inverse` prop is set", () => {
   render(<Loader loaderLabel="Loading" loaderType="ring" inverse />);
   expect(screen.getByRole("presentation")).toHaveStyleRule("stroke", "#FFF", {
@@ -262,6 +310,15 @@ test("renders correctly when `loaderType` is `ring` and `hasMotion` prop is not 
     "animation-iteration-count",
     "none",
     { modifier: "circle[data-role='inner-arc']" },
+  );
+});
+
+test("renders correctly when `loaderType` is `ring` and variant is `ai-stacked` and `hasMotion` prop is not set", () => {
+  render(<Loader loaderType="ring" variant="ai-stacked" hasMotion={false} />);
+  expect(screen.getByRole("presentation")).toHaveStyleRule(
+    "animation-iteration-count",
+    "none",
+    { modifier: "circle[data-role='gradient-mask-arc']" },
   );
 });
 

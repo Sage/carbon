@@ -1,7 +1,22 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import Preview from ".";
+import useMediaQuery from "../../hooks/useMediaQuery";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+
+jest.mock("../../hooks/useMediaQuery", () => ({
+  __esModule: true,
+  default: jest.fn(),
+}));
+
+const mockUseMediaQuery = useMediaQuery as jest.MockedFunction<
+  typeof useMediaQuery
+>;
+
+beforeEach(() => {
+  jest.clearAllMocks();
+  mockUseMediaQuery.mockReturnValue(true);
+});
 
 test("renders placeholder by default", () => {
   render(<Preview />);
@@ -106,6 +121,18 @@ test("renders with the correct height, width and border-radius when `shape` is s
 // coverage
 test("renders with no animation when `disableAnimation` is true", () => {
   render(<Preview disableAnimation />);
+
+  const placeholder = screen.getByTestId("preview-placeholder");
+
+  expect(placeholder).toHaveStyle({
+    animation: "none",
+  });
+});
+
+test("renders with no animation when user prefers reduced motion", () => {
+  mockUseMediaQuery.mockReturnValue(false);
+
+  render(<Preview />);
 
   const placeholder = screen.getByTestId("preview-placeholder");
 

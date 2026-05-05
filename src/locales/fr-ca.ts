@@ -191,10 +191,13 @@ const frCA: Partial<Locale> = {
       cancelButton: () => "Cancel",
       cancelButtonAria: () => "Cancel",
       dialogTitle: () => "Add link",
-      linkFieldLabel: () => "Link",
+      formKey: () => "Indique un champ obligatoire",
+      linkFieldLabel: () => "Adresse du lien",
+      linkFieldErrorMessage: () => "Saisissez l’adresse du lien",
       saveButton: () => "Save",
       saveButtonAria: () => "Save",
-      textFieldLabel: () => "Text",
+      textFieldLabel: () => "Texte du lien",
+      textFieldErrorMessage: () => "Saisissez le texte du lien",
     },
     typography: {
       selectAria: () => "Heading type",
@@ -246,6 +249,7 @@ const frCA: Partial<Locale> = {
   switch: {
     on: () => "OUI",
     off: () => "NON",
+    processingLabel: () => "Traitement en cours",
   },
   tileSelect: {
     deselect: () => "Désélectionner",

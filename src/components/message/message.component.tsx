@@ -7,6 +7,8 @@ import {
   MessageContentWrapper,
   MessageContent,
   MessageWrapper,
+  MessageTitle,
+  CloseButtonWrapper,
   TypeIconStyle,
 } from "./message.style";
 import tagComponent, {
@@ -47,31 +49,42 @@ let deprecateNeutralVariantTriggered = false;
 let deprecateShowCloseIconTriggered = false;
 
 export interface MessageProps extends MarginProps, TagProps {
-  /** Set the component's content */
+  /** Content to be rendered within the Message. */
   children?: React.ReactNode;
-  /** Set custom aria-label for component's close button */
+  /** Set custom aria-label for component's close button. */
   closeButtonAriaLabel?: string;
-  /** Set custom id to component root */
+  /** Set custom id to component root. */
   id?: string;
-  /** Callback triggered on dismiss */
+  /**
+   * Callback triggered on dismiss, will render the close button.
+   */
   onDismiss?: (
     e:
       | React.KeyboardEvent<HTMLButtonElement>
       | React.MouseEvent<HTMLButtonElement>,
   ) => void;
-  /** Flag to determine if the message is rendered */
+  /** Flag to determine if the message is rendered. */
   open?: boolean;
-  /** @deprecated Flag to determine if the close button is rendered*/
+  /**
+   * Flag to determine if the close button is rendered.
+   * @deprecated Please use the `onDismiss` prop to determine whether the close button is rendered instead.
+   */
   showCloseIcon?: boolean;
-  /** Set message title */
+  /** Set message title. */
   title?: React.ReactNode;
-  /** @deprecated Set transparent styling */
+  /**
+   * Set transparent styling.
+   * @deprecated The transparent prop is deprecated and will be removed in a future release, please use the subtle variants instead.
+   */
   transparent?: boolean;
-  /** Set the component's variant */
+  /** Set the component's variant. */
   variant?: MessageVariant;
-  /** Set the component's width, accepts any valid css string */
+  /**
+   * Set the component's width, accepts any valid css string.
+   * Please note the component has a max-width of 720px.
+   */
   width?: string;
-  /** Set the component's size */
+  /** Set the component's size. */
   size?: "medium" | "large";
 }
 
@@ -173,15 +186,7 @@ export const Message = React.forwardRef<HTMLDivElement, MessageProps>(
       if (!title) return null;
 
       if (typeof title === "string") {
-        return (
-          <Typography
-            m={0}
-            fontWeight="500"
-            fontSize={size === "large" ? "16px" : "14px"}
-          >
-            {title}
-          </Typography>
-        );
+        return <MessageTitle size={size}>{title}</MessageTitle>;
       }
 
       return title;
@@ -217,20 +222,22 @@ export const Message = React.forwardRef<HTMLDivElement, MessageProps>(
             </MessageContentWrapper>
           </MessageContent>
           {showCloseIcon && onDismiss && (
-            <Button
-              my={size === "large" ? 2 : 1}
-              mr={size === "large" ? 2 : 1}
-              data-element="close"
-              aria-label={
-                closeButtonAriaLabel || locale.message.closeButtonAriaLabel()
-              }
-              variantType="subtle"
-              onClick={(e) => {
-                onDismiss(e as React.MouseEvent<HTMLButtonElement>);
-              }}
-            >
-              <Icon type="cross" />
-            </Button>
+            <CloseButtonWrapper size={size}>
+              <Button
+                data-role="close"
+                data-element="close"
+                aria-label={
+                  closeButtonAriaLabel || locale.message.closeButtonAriaLabel()
+                }
+                variantType="subtle"
+                size="small"
+                onClick={(e) => {
+                  onDismiss(e as React.MouseEvent<HTMLButtonElement>);
+                }}
+              >
+                <Icon type="cross" />
+              </Button>
+            </CloseButtonWrapper>
           )}
         </MessageWrapper>
       </MessageStyle>
