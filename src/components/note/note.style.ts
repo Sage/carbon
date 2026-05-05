@@ -141,10 +141,13 @@ const StyledNote = styled.div.attrs(applyBaseTheme)<{ width: number }>`
   }
 
   .textBold {
-    font-weight: bold;
+    font-weight: bold !important;
   }
   .textItalic {
     font-style: italic;
+  }
+  .textUnderline {
+    text-decoration: underline;
   }
 
   ${margin}
