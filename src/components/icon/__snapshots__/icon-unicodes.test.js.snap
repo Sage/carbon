@@ -70,6 +70,7 @@ exports[`the unicodes have not changed 1`] = `
   "caret_left": "\\e9a6",
   "caret_right": "\\e9a7",
   "caret_up": "\\e9a8",
+  "caret_up_down": "\\f110",
   "cart": "\\e90a",
   "cash": "\\f020",
   "chart_bar": "\\e911",

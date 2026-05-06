@@ -107,6 +107,7 @@ export const ICONS: IconType[] = [
   "caret_left",
   "caret_right",
   "caret_up",
+  "caret_up_down",
   "caret_large_down",
   "caret_large_left",
   "caret_large_right",
