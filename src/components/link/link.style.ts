@@ -19,29 +19,29 @@ type Variants =
 
 export interface StyledLinkProps {
   /** @deprecated The disabled state of the link. This prop is deprecated and will soon be removed. */
-  disabled?: boolean;
+  $disabled?: boolean;
   /** Specifies when the link underline should be displayed. */
-  underline?: "always" | "hover" | "never";
+  $underline?: "always" | "hover" | "never";
   /** Which side of the link to the render the link. */
-  iconAlign?: "left" | "right";
+  $iconAlign?: "left" | "right";
   /** Allows to create skip link */
-  isSkipLink?: boolean;
+  $isSkipLink?: boolean;
   /** Allows link styling to be updated for light or dark backgrounds */
-  variant?: Variants;
-  hasFocus?: boolean;
+  $variant?: Variants;
+  $hasFocus?: boolean;
   /** Sets the correct link size */
-  linkSize?: "medium" | "large";
+  $linkSize?: "medium" | "large";
   /** Sets the colour styling when component is rendered on a dark background */
-  inverse?: boolean;
+  $inverse?: boolean;
   /** @deprecated The 'isDarkBackground' prop in Link is deprecated and will soon be removed. Please use 'inverse' prop instead. */
-  isDarkBackground?: boolean;
+  $isDarkBackground?: boolean;
   /** Sets the link style to bold */
-  bold?: boolean;
+  $bold?: boolean;
 }
 
 interface PrivateStyledLinkProps {
-  hasContent: boolean;
-  isMenuItem?: boolean;
+  $hasContent: boolean;
+  $isMenuItem?: boolean;
 }
 
 interface LinkColors {
@@ -107,15 +107,15 @@ const colorMap: ColorMap = {
   },
 };
 
-const getFontStyle = (linkSize?: "medium" | "large", bold?: boolean) => {
+const getFontStyle = ($linkSize?: "medium" | "large", $bold?: boolean) => {
   let font: string;
 
-  if (linkSize === "large") {
-    font = bold
+  if ($linkSize === "large") {
+    font = $bold
       ? "--global-font-static-comp-lined-medium-l"
       : "--global-font-static-comp-regular-l";
   } else {
-    font = bold
+    font = $bold
       ? "--global-font-static-comp-lined-medium-m"
       : "--global-font-static-comp-regular-m";
   }
@@ -129,25 +129,25 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
   StyledLinkProps & PrivateStyledLinkProps
 >`
   ${({
-    isSkipLink,
+    $isSkipLink,
     theme,
-    iconAlign,
-    hasContent,
-    disabled,
-    underline,
-    variant,
-    inverse,
-    isMenuItem,
-    hasFocus,
-    linkSize,
-    bold,
+    $iconAlign,
+    $hasContent,
+    $disabled,
+    $underline,
+    $variant,
+    $inverse,
+    $isMenuItem,
+    $hasFocus,
+    $linkSize,
+    $bold,
   }) => {
-    const colorMapKey = inverse ? "dark" : "light";
+    const colorMapKey = $inverse ? "dark" : "light";
     const { color, hoverColor, focusColor, focusBgColor, focusBoxShadowColor } =
-      colorMap[colorMapKey](variant);
+      colorMap[colorMapKey]($variant);
 
     return css`
-      ${isSkipLink &&
+      ${$isSkipLink &&
       css`
         a {
           position: absolute;
@@ -180,17 +180,17 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
         }
       `}
 
-      ${!isSkipLink &&
-      !isMenuItem &&
+      ${!$isSkipLink &&
+      !$isMenuItem &&
       css`
         > a,
         > button {
-          ${getFontStyle(linkSize, bold)}
-          text-decoration: ${hasContent && underline === "always"
+          ${getFontStyle($linkSize, $bold)}
+          text-decoration: ${$hasContent && $underline === "always"
             ? "underline"
             : "none"};
 
-          ${!disabled &&
+          ${!$disabled &&
           css`
             color: ${color};
             ${StyledIcon} {
@@ -203,17 +203,17 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
                 line-height: 18px;
               }
 
-              ${iconAlign === "left" &&
+              ${$iconAlign === "left" &&
               css`
-                margin-right: ${hasContent ? "var(--global-space-comp-s)" : 0};
+                margin-right: ${$hasContent ? "var(--global-space-comp-s)" : 0};
               `}
 
-              ${iconAlign === "right" &&
+              ${$iconAlign === "right" &&
               /* istanbul ignore next: tested in chromatic, couldn't test in jest */
               css`
                 margin-right: 0;
                 margin-left: ${
-                  /* istanbul ignore next */ hasContent
+                  /* istanbul ignore next */ $hasContent
                     ? "var(--global-space-comp-s)"
                     : 0
                 };
@@ -222,8 +222,8 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
 
             &:hover {
               color: ${hoverColor};
-              text-decoration: ${hasContent &&
-              (underline === "hover" || underline === "always")
+              text-decoration: ${$hasContent &&
+              ($underline === "hover" || $underline === "always")
                 ? "underline"
                 : "none"};
 
@@ -253,7 +253,7 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
             }
           `}
 
-          ${disabled &&
+          ${$disabled &&
           css`
             color: var(--colorsActionMajorYin030);
             &:hover,
@@ -265,7 +265,7 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
         }
       `}
 
-      ${!disabled &&
+      ${!$disabled &&
       css`
         > a:any-link:hover,
         > button:hover {
@@ -275,10 +275,10 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
 
       > a,
       > button {
-        ${isMenuItem && "display: inline-block;"}
+        ${$isMenuItem && "display: inline-block;"}
 
         > ${StyledIcon} {
-          display: ${hasContent ? "inline-block" : "inline"};
+          display: ${$hasContent ? "inline-block" : "inline"};
           position: relative;
           vertical-align: middle;
         }
@@ -288,10 +288,10 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
         }
       }
 
-      ${!isSkipLink &&
-      !disabled &&
-      !isMenuItem &&
-      hasFocus &&
+      ${!$isSkipLink &&
+      !$isMenuItem &&
+      !$disabled &&
+      $hasFocus &&
       css`
         max-width: fit-content;
         &:not(:has(img, svg, picture)) {
