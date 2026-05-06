@@ -1,3 +1,9 @@
+## [158.49.1](https://github.com/Sage/carbon/compare/v158.49.0...v158.49.1) (2026-05-05)
+
+### Bug Fixes
+
+* **text-editor:** span from initialValue not being styled ([cd6d041](https://github.com/Sage/carbon/commit/cd6d0417ef1db5fb6027237151637023133a78f3))
+
 ## [158.49.0](https://github.com/Sage/carbon/compare/v158.48.0...v158.49.0) (2026-05-01)
 
 ### Features
