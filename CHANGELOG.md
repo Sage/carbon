@@ -1,3 +1,9 @@
+## [158.49.2](https://github.com/Sage/carbon/compare/v158.49.1...v158.49.2) (2026-05-06)
+
+### Bug Fixes
+
+* **text-editor:** correct WYSIWYG asterisk colour ([d2908ce](https://github.com/Sage/carbon/commit/d2908ce264d89efadce7461d5d261d0ee4cdb450))
+
 ## [158.49.1](https://github.com/Sage/carbon/compare/v158.49.0...v158.49.1) (2026-05-05)
 
 ### Bug Fixes
