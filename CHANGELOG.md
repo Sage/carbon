@@ -1,3 +1,103 @@
+## [158.49.2](https://github.com/Sage/carbon/compare/v158.49.1...v158.49.2) (2026-05-06)
+
+### Bug Fixes
+
+* **text-editor:** correct WYSIWYG asterisk colour ([d2908ce](https://github.com/Sage/carbon/commit/d2908ce264d89efadce7461d5d261d0ee4cdb450))
+
+## [158.49.1](https://github.com/Sage/carbon/compare/v158.49.0...v158.49.1) (2026-05-05)
+
+### Bug Fixes
+
+* **text-editor:** span from initialValue not being styled ([cd6d041](https://github.com/Sage/carbon/commit/cd6d0417ef1db5fb6027237151637023133a78f3))
+
+## [158.49.0](https://github.com/Sage/carbon/compare/v158.48.0...v158.49.0) (2026-05-01)
+
+### Features
+
+* **switch:** align with ds audit ([561e59c](https://github.com/Sage/carbon/commit/561e59cb6a1371b66a9fed6dd78e791ee0701e04))
+
+## [158.48.0](https://github.com/Sage/carbon/compare/v158.47.0...v158.48.0) (2026-05-01)
+
+### Features
+
+* **text-editor:** add de-De, es-ES, fr-Ca, fr-FR & pt-PT WYSIWYG translations ([9170c8f](https://github.com/Sage/carbon/commit/9170c8f51a9a5ab267e253036cf732422dcbf49e))
+
+## [158.47.0](https://github.com/Sage/carbon/compare/v158.46.4...v158.47.0) (2026-04-30)
+
+### Features
+
+* update focus styling to be inline with DS ([3c5bfd6](https://github.com/Sage/carbon/commit/3c5bfd6b08d93555d4e435e40541b6181e041480))
+
+## [158.46.4](https://github.com/Sage/carbon/compare/v158.46.3...v158.46.4) (2026-04-24)
+
+### Bug Fixes
+
+* **loader:** add missing ai variants to ring type ([1a2fb0b](https://github.com/Sage/carbon/commit/1a2fb0b7ff4d59726c28685a5c3feab8892fd4cb)), closes [#7868](https://github.com/Sage/carbon/issues/7868)
+
+## [158.46.3](https://github.com/Sage/carbon/compare/v158.46.2...v158.46.3) (2026-04-24)
+
+### Bug Fixes
+
+* **character-counter:** fixed character counter inconsistencies ([6cc5267](https://github.com/Sage/carbon/commit/6cc526774af8aaf536a3cab472887a67055c4b3b)), closes [#7825](https://github.com/Sage/carbon/issues/7825)
+
+## [158.46.2](https://github.com/Sage/carbon/compare/v158.46.1...v158.46.2) (2026-04-22)
+
+### Bug Fixes
+
+* **text-editor:** prevent propagation of submit events ([4294dc7](https://github.com/Sage/carbon/commit/4294dc74540c134fd34c66c672c2b348b0c3920b)), closes [#7827](https://github.com/Sage/carbon/issues/7827)
+
+## [158.46.1](https://github.com/Sage/carbon/compare/v158.46.0...v158.46.1) (2026-04-22)
+
+### Bug Fixes
+
+* **text-editor:** span from initialValue not being styled ([cb3d141](https://github.com/Sage/carbon/commit/cb3d141894788992e76130e2629f8993c41b82e2))
+
+## [158.46.0](https://github.com/Sage/carbon/compare/v158.45.0...v158.46.0) (2026-04-21)
+
+### Features
+
+* **text-editor:** align hyperlink dialog with fusion DS ([5aa1fd0](https://github.com/Sage/carbon/commit/5aa1fd03d94920cc1136d43fa287f92033599d76)), closes [#7826](https://github.com/Sage/carbon/issues/7826)
+
+## [158.45.0](https://github.com/Sage/carbon/compare/v158.44.0...v158.45.0) (2026-04-21)
+
+### Features
+
+* **typography:** update component with fusion DS ([85a881e](https://github.com/Sage/carbon/commit/85a881eef5a3598d38cf9328ffd8b98fb5468fc6))
+
+## [158.44.0](https://github.com/Sage/carbon/compare/v158.43.0...v158.44.0) (2026-04-21)
+
+### Features
+
+* **icon:** 2 new icons added ([e1de115](https://github.com/Sage/carbon/commit/e1de115f8a733a343e6c077b2c1e4cccc97133a8))
+
+## [158.43.0](https://github.com/Sage/carbon/compare/v158.42.0...v158.43.0) (2026-04-17)
+
+### Features
+
+* **sidebar:** add widthAnimation prop ([2c5571d](https://github.com/Sage/carbon/commit/2c5571daa9aed82c01c0f3a7b802615e116d8ea1))
+
+## [158.42.0](https://github.com/Sage/carbon/compare/v158.41.2...v158.42.0) (2026-04-16)
+
+### Features
+
+* **accordion:** align to Fusion DS ([bbae09c](https://github.com/Sage/carbon/commit/bbae09c2be6fea2b044d42a1644f237526362022))
+
+### Bug Fixes
+
+* **accordion:** add missing interface export ([253ec1e](https://github.com/Sage/carbon/commit/253ec1ea9816598f00e376a59101a7e3d47d59ea))
+
+## [158.41.2](https://github.com/Sage/carbon/compare/v158.41.1...v158.41.2) (2026-04-16)
+
+### Bug Fixes
+
+* **split-button, multi-action-button:** ensure autoUpdate does not run when popover is closed ([c08e28a](https://github.com/Sage/carbon/commit/c08e28ac7eebe0bfbb561ea779bedf57a1b2ba28)), closes [#7802](https://github.com/Sage/carbon/issues/7802)
+
+## [158.41.1](https://github.com/Sage/carbon/compare/v158.41.0...v158.41.1) (2026-04-15)
+
+### Bug Fixes
+
+* **skills:** ensure consistent cross-platform output for skills script ([c137925](https://github.com/Sage/carbon/commit/c137925c780253955889b55c121d853ddd54ea8a))
+
 ## [158.41.0](https://github.com/Sage/carbon/compare/v158.40.0...v158.41.0) (2026-04-07)
 
 ### Features

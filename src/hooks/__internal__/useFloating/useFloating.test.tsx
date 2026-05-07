@@ -77,6 +77,69 @@ test("autoUpdate is invoked with proper arguments across different states", () =
   });
 });
 
+test("does not invoke autoUpdate when closed", () => {
+  jest.clearAllMocks();
+  const autoUpdateSpy = jest.spyOn(floatingUi, "autoUpdate");
+
+  render(<MockComponent isOpen={false} />);
+
+  expect(autoUpdateSpy).not.toHaveBeenCalled();
+
+  jest.restoreAllMocks();
+});
+
+test("calls autoUpdate cleanup when closing", () => {
+  jest.clearAllMocks();
+  const cleanupSpy = jest.fn();
+  const autoUpdateSpy = jest
+    .spyOn(floatingUi, "autoUpdate")
+    .mockImplementation(() => cleanupSpy);
+
+  const { rerender } = render(<MockComponent isOpen />);
+
+  expect(autoUpdateSpy).toHaveBeenCalledTimes(1);
+  expect(cleanupSpy).not.toHaveBeenCalled();
+
+  rerender(<MockComponent isOpen={false} />);
+
+  expect(cleanupSpy).toHaveBeenCalledTimes(1);
+
+  jest.restoreAllMocks();
+});
+
+test("does not invoke autoUpdate across rerenders while closed even with new middleware references", () => {
+  jest.clearAllMocks();
+  const autoUpdateSpy = jest.spyOn(floatingUi, "autoUpdate");
+
+  const { rerender } = render(
+    <MockComponent
+      isOpen={false}
+      middleware={[floatingUi.offset(6)]}
+      placement="bottom"
+    />,
+  );
+
+  rerender(
+    <MockComponent
+      isOpen={false}
+      middleware={[floatingUi.offset(8)]}
+      placement="top"
+    />,
+  );
+
+  rerender(
+    <MockComponent
+      isOpen={false}
+      middleware={[floatingUi.flip()]}
+      strategy="fixed"
+    />,
+  );
+
+  expect(autoUpdateSpy).not.toHaveBeenCalled();
+
+  jest.restoreAllMocks();
+});
+
 test("saves floating element original styles and restores them after closing", async () => {
   const { rerender } = render(<MockComponent isOpen />);
 

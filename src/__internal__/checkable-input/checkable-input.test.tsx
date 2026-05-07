@@ -95,3 +95,14 @@ test("renders label with expected width when `labelWidth` prop is passed", () =>
 
   expect(screen.getByTestId("label-container")).toHaveStyle({ width: "30%" });
 });
+
+// coverage
+test("applies dark background colour to field help when `isDarkBackground` is true", () => {
+  render(
+    <CheckableInput type="checkbox" fieldHelp="fieldHelp" isDarkBackground />,
+  );
+
+  expect(screen.getByText("fieldHelp")).toHaveStyle({
+    color: "var(--colorsUtilityYang080)",
+  });
+});

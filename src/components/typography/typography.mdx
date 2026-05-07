@@ -6,9 +6,21 @@ import * as TypographyStories from "./typography.stories.tsx";
 
 # Typography
 
+<a
+  target="_blank"
+  href="https://zeroheight.com/35ee2cc26/v/latest/p/29b3b7-typography"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
+>
+  Product Design System component
+</a>
+
+Manages text styles and content hierarchies.
+
 ## Contents
 
 - [Quick Start](#quick-start)
+- [Examples](#examples)
 - [Props](#props)
 
 ## Quick Start
@@ -20,59 +32,56 @@ import Typography, {
 } from "carbon-react/lib/components/typography";
 ```
 
-## Variants
+## Designer Notes
 
-Use the `variant` prop to control the visual style, this will also change the element that is rendered. If you wish to
-use a different element you can use the `as` prop.
+- The Typography component provides a consistent and flexible system for managing text styles across your design. 
+- It includes multiple heading and body text options to accommodate various content hierarchies.
+- With theme support for large screens and small screens, this helps ensure readability and brand alignment across different contexts. 
 
-It's possible to change the text colour and background, using the color props. See [Colors](../?path=/docs/documentation-colors--docs) for more information.
+## Examples
 
-It's possible to change the text position, using the spacing props. See the prop tables below for more information.
+### Variants
+
+Use the `variant` prop to render an element and creates a visual style associated with said element. The `as` prop can also be 
+used to override the underlying HTML element.
 
 <Canvas of={TypographyStories.VariantsStory} />
 
-## Lists
 
-Use `List` and `ListItem` to create ordered and unordered lists. These components are syntactic sugar around the `Typography` component and accept the same props.
-By default, `List` will render an unordered list, but you can pass `ol` to the `variant` prop to render an ordered list; all other typography variants will render
-the `ListItem` component as an unordered list (examples of which are shown in [ListItem Inheritance](#listitem-inheritance)).
+## Fluid
 
-<Canvas of={TypographyStories.Lists} />
+When set to `true`, the component uses fluid typography with CSS clamp() values for responsive sizing. 
+This allows the text to scale smoothly between breakpoints without requiring media queries.
 
-## ListItem Inheritance
+<Canvas of={TypographyStories.FluidStory} />
 
-When using `List` and `ListItem`, set the `variant` on the `List` component to apply the same variant to all `ListItem` components within it.
+## Inverse
 
-<Canvas of={TypographyStories.ListItemInheritance} />
+When set to `true`, inverts the font colour for use on darker backgrounds. 
+This ensures sufficient contrast and readability when the `Typography` component is placed over dark container backgrounds.
 
-## Example of truncate
+<Canvas of={TypographyStories.InverseStory} />
 
-The `truncate` prop is a boolean prop that automatically applies  `overflow: hidden` and `white-space: nowrap`, which are the styles required to truncate a piece of text.
+## Size
 
-By default, this prop will truncate the text with an ellipsis, but you can also pass the `textOverflow` prop to override this behaviour.
+The `size` prop controls the font size applied to text. 
+Available on the following variants: `"p"`, `"ul"`, `"ol"`, `"strong"`, `"b"`, `"sup"`, and `"sub"`. Choose between `"M"` for standard size and `"L"` for larger text.
 
-This prop will only work with block level elements, so ensure `display="block"` or similar is set to enable this functionality.
+<Canvas of={TypographyStories.SizeStory} />
 
-<Canvas of={TypographyStories.TruncateStory} />
+## Tint
 
-## Recommended body text colors
+The `tint` prop applies a colour tint to text. 
+Available on the following variants: `"p"`, `"ul"`, `"ol"`, `"strong"`, `"b"`, `"sup"`, and `"sub"`. Use `"default"` for standard text colour or `"alt"` for alternative text colour.
 
-| Color                 | White Background | App Background | Notes              |
-| --------------------- | ---------------- | -------------- | ------------------ |
-| blackOpacity90        | ✅               | ✅             | Default text color |
-| blackOpacity74        | ✅               | ✅             |                    |
-| blackOpacity65        | ✅               | ✅             |                    |
-| blackOpacity60        | ✅               | ✅             |                    |
-| blackOpacity55        | ✅               | ❌             |                    |
-| blackOpacity30        | ✅               | ✅             | Disabled text only |
-| brilliantGreenShade38 | ✅               | ✅             | Positive text      |
-| errorRed              | ✅               | ✅             | Negative text      |
+<Canvas of={TypographyStories.TintStory} />
 
-## Screen reader only text
+## Weight
 
-The `screenReaderOnly` prop is a boolean prop that will make the Typography component visually hidden and only available for screen readers.
+The `weight` prop controls the font weight applied to text. 
+Available on the following variants: `"p"`, `"ul"`, `"ol"`,`"sup"`, and `"sub"`. Choose between `"regular"` for normal weight or `"medium"` for heavier emphasis.
 
-<Canvas of={TypographyStories.ScreenReaderOnlyStory} />
+<Canvas of={TypographyStories.WeightStory} />
 
 ## Props
 

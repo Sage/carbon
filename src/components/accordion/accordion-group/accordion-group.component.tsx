@@ -19,6 +19,10 @@ type AccordionGroupChild =
   | null
   | undefined
   | Array<AccordionGroupChild>;
+
+/**
+ * @deprecated This component is deprecated and will be removed in a future release. Wrapping a group of Accordions in AccordionGroup is no longer required.
+ */
 export interface AccordionGroupProps extends MarginProps, TagProps {
   /** An Accordion or list of Accordion components to be rendered inside the AccordionGroup */
   children?: AccordionGroupChild;
@@ -30,7 +34,7 @@ export const AccordionGroup = ({ children, ...rest }: AccordionGroupProps) => {
   if (!deprecatedWarnTriggered) {
     deprecatedWarnTriggered = true;
     Logger.deprecate(
-      "`AccordionGroup` is deprecated and will soon be removed.",
+      "`AccordionGroup` is deprecated and will be removed in a future release. Wrapping a group of Accordions in AccordionGroup is no longer required.",
     );
   }
 

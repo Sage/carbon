@@ -1,6 +1,5 @@
 import React from "react";
 import { test, expect } from "../../../playwright/helpers/base-test";
-import { accordionDefaultTitle } from "../../../playwright/components/accordion";
 import {
   actionPopover,
   actionPopoverButton,
@@ -147,7 +146,9 @@ test.describe("check functionality for ActionPopover component", () => {
         <ActionPopoverCustom />
       </Accordion>,
     );
-    const accordionDefaultTitleElement = accordionDefaultTitle(page);
+    const accordionDefaultTitleElement = page.getByRole("button", {
+      name: "Heading",
+    });
     await accordionDefaultTitleElement.press("Enter");
     const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
@@ -196,7 +197,9 @@ test.describe("check functionality for ActionPopover component", () => {
         <ActionPopoverCustom />
       </Accordion>,
     );
-    const accordionDefaultTitleElement = accordionDefaultTitle(page);
+    const accordionDefaultTitleElement = page.getByRole("button", {
+      name: "Heading",
+    });
     await accordionDefaultTitleElement.press("Enter");
     const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();

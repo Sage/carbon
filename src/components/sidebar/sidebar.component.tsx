@@ -13,6 +13,7 @@ import { filterStyledSystemPaddingProps } from "../../style/utils";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 import useModalAria from "../../hooks/__internal__/useModalAria/useModalAria";
 import SidebarContext from "./__internal__/sidebar.context";
+import useMediaQuery from "../../hooks/useMediaQuery";
 
 export interface SidebarProps
   extends PaddingProps,
@@ -82,6 +83,8 @@ export interface SidebarProps
     | "medium-large"
     | "large"
     | "extra-large";
+  /** Enables width animation when the sidebar width changes. */
+  widthAnimation?: boolean;
   /** an optional array of refs to containers whose content should also be reachable by tabbing from the sidebar */
   focusableContainers?: RefObject<HTMLElement>[];
   /** Optional selector to identify the focusable elements, if not provided a default selector is used */
@@ -126,6 +129,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
       focusableContainers,
       focusableSelectors,
       width,
+      widthAnimation = false,
       headerPadding = {},
       subHeaderPadding = {},
       topModalOverride,
@@ -137,6 +141,11 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
     ref,
   ) => {
     const locale = useLocale();
+
+    const allowMotion = useMediaQuery(
+      "screen and (prefers-reduced-motion: no-preference)",
+    );
+
     const { current: headerId } = useRef<string>(createGuid());
     const { current: subHeaderId } = useRef<string>(createGuid());
 
@@ -187,6 +196,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
         onCancel={onCancel}
         role={role}
         width={width}
+        widthAnimation={widthAnimation && allowMotion}
         className={className}
       >
         {header && (

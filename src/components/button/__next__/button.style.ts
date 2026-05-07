@@ -100,7 +100,8 @@ const getCSSForGradientStyle = ({
 
     ${!disabled &&
     css`
-      &:active {
+      &:active,
+      &.active {
         background: ${background?.active};
         color: ${label?.active};
         border-color: ${border?.active};
@@ -145,7 +146,8 @@ const getCSSForInverseStyle = ({
           cursor: not-allowed;
         `
       : css`
-          &:active {
+          &:active,
+          &.active {
             background-color: ${background.active};
             color: ${label.active};
             border-color: ${border.active};
@@ -199,7 +201,8 @@ const getCSSForStyle = ({
           cursor: not-allowed;
         `
       : css`
-          &:active {
+          &:active,
+          &.active {
             background-color: ${background?.active};
             color: ${label?.active};
             border-color: ${border?.active};

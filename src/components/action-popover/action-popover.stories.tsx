@@ -546,7 +546,7 @@ export const InOverflowHiddenContainer: Story = () => {
   return (
     <Box mt={40} height={275} maxWidth={800}>
       <Accordion title="Heading">
-        <Box>
+        <Box m={2}>
           <ActionPopover>
             <ActionPopoverItem onClick={() => {}}>
               Enroll Device

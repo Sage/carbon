@@ -204,6 +204,7 @@ const FullScreenWithScrollableBlock = () => {
       <MenuFullscreen isOpen onClose={() => {}}>
         <MenuItem>
           <Search
+            data-role="search-button"
             placeholder="Search..."
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
@@ -519,7 +520,7 @@ MenuFullScreenWithScrollableBlock.storyName =
   "MenuFullScreen With Scrollable Block";
 MenuFullScreenWithScrollableBlock.parameters = {
   pseudo: {
-    hover: "[data-role='target'] a",
+    hover: ["[data-role='target'] a", "[data-role='search-button'] button"],
     focus: "[data-role='target'] button",
     rootSelector: "body",
   },

@@ -196,8 +196,9 @@ for (const candidate of uniqueComponentCandidates) {
       "**/*.pw.*",
       "**/*.mdx",
       "**/__internal__/**",
+      "**/__next__/**",
     ],
-  });
+  }).sort();
 
   for (const filePath of moduleFiles) {
     project.addSourceFileAtPathIfExists(filePath);
@@ -246,6 +247,11 @@ const storyDataByComponent = await extractStoryData(project, repoRoot);
 /** @type {Array<{path: string, content: string}>} */
 const wouldWrite = [];
 
+/** @type {Map<string, "lf" | "crlf">} */
+const lineEndingPreferences = !checkMode
+  ? await collectLineEndingPreferences([componentsOutDir, referencesDir, skillsRoot])
+  : new Map();
+
 if (!checkMode) {
   await fs.rm(componentsOutDir, { recursive: true, force: true });
   await fs.rm(referencesDir, { recursive: true, force: true });
@@ -265,7 +271,7 @@ for (const relativePath of docsReferenceFiles) {
   const fileName = path.basename(sourcePath);
   const targetPath = path.join(referencesDir, fileName).replace(/\.mdx?$/, ".md");
   const content = await fs.readFile(sourcePath, "utf8");
-  wouldWrite.push({ path: targetPath, content });
+  wouldWrite.push({ path: targetPath, content: content.replace(/\r\n/g, "\n") });
 }
 
 const indexLines = ["# Carbon Component Catalog", "", "## Components", ""];
@@ -307,7 +313,12 @@ if (checkMode) {
 } else {
   for (const { path: filePath, content } of wouldWrite) {
     await fs.mkdir(path.dirname(filePath), { recursive: true });
-    await fs.writeFile(filePath, content, "utf8");
+    const contentToWrite = await applyExistingLineEndingPreference(
+      filePath,
+      content,
+      lineEndingPreferences,
+    );
+    await fs.writeFile(filePath, contentToWrite, "utf8");
   }
   // eslint-disable-next-line no-console -- Log summary of generated components and output location
   console.log(
@@ -316,6 +327,71 @@ if (checkMode) {
       componentsOutDir,
     )}`,
   );
+}
+
+/**
+ * Normalize a file path for consistent key lookups across platforms.
+ * @param {string} filePath
+ * @returns {string}
+ */
+function normalizePathKey(filePath) {
+  return filePath.replace(/\\/g, "/").toLowerCase();
+}
+
+/**
+ * Collect line ending preferences from existing files in directories.
+ * @param {string[]} directories
+ * @returns {Promise<Map<string, "lf" | "crlf">>}
+ */
+async function collectLineEndingPreferences(directories) {
+  /** @type {Map<string, "lf" | "crlf">} */
+  const preferences = new Map();
+
+  for (const dir of directories) {
+    if (!existsSync(dir)) {
+      continue;
+    }
+
+    const files = await fs.readdir(dir, { recursive: true, withFileTypes: true });
+
+    for (const file of files) {
+      if (!file.isFile()) {
+        continue;
+      }
+
+      const fullPath = path.join(file.parentPath, file.name);
+
+      try {
+        const content = await fs.readFile(fullPath, "utf8");
+        const hasLines = content.includes("\r\n");
+        const key = normalizePathKey(fullPath);
+        preferences.set(key, hasLines ? "crlf" : "lf");
+      } catch {
+        // Ignore files we can't read
+      }
+    }
+  }
+
+  return preferences;
+}
+
+/**
+ * Apply existing line ending preference to content.
+ * @param {string} filePath
+ * @param {string} content
+ * @param {Map<string, "lf" | "crlf">} preferences
+ * @returns {Promise<string>}
+ */
+async function applyExistingLineEndingPreference(filePath, content, preferences) {
+  const key = normalizePathKey(filePath);
+  const preference = preferences.get(key);
+
+  // Default to LF for new files or if no preference found
+  if (preference === "crlf") {
+    return content.replace(/\n/g, "\r\n");
+  }
+
+  return content;
 }
 
 /**
@@ -462,7 +538,7 @@ function resolvePropsDefinition(
           "**/*.pw.*",
           "**/*.mdx",
         ],
-      });
+      }).sort();
 
       const resolvedDefinition = findTypeDefinitionInFiles(
         projectInstance,
@@ -755,11 +831,11 @@ async function extractStoryData(projectInstance, rootDir) {
   const storyFiles = fg.sync(
     ["src/**/*.stories.@(js|jsx|ts|tsx)", "docs/**/*.stories.@(js|jsx|ts|tsx)"],
     { cwd: rootDir, absolute: true },
-  );
+  ).sort();
   const mdxFiles = fg.sync(["src/**/*.mdx", "docs/**/*.mdx"], {
     cwd: rootDir,
     absolute: true,
-  });
+  }).sort();
 
   /** @type {Map<string, StoryEntry[]>} */
   const storyMap = new Map();
@@ -791,7 +867,7 @@ async function extractStoryData(projectInstance, rootDir) {
   }
 
   for (const filePath of mdxFiles) {
-    if (!filePath.includes(`${path.sep}src${path.sep}components${path.sep}`)) {
+    if (!filePath.replace(/\\/g, "/").includes("/src/components/")) {
       continue;
     }
     const componentName = inferComponentNameFromPath(filePath, rootDir);
@@ -799,7 +875,7 @@ async function extractStoryData(projectInstance, rootDir) {
       continue;
     }
     const content = await fs.readFile(filePath, "utf8");
-    const examples = extractMdxExamples(content);
+    const examples = extractMdxExamples(content.replace(/\r\n/g, "\n"));
     if (!examples.length) {
       continue;
     }
@@ -1149,7 +1225,7 @@ async function checkWouldWrite(wouldWrite, { componentsOutDir, referencesDir }) 
       }
       throw err;
     }
-    if (existing !== content) {
+    if (existing.replace(/\r\n/g, "\n") !== content.replace(/\r\n/g, "\n")) {
       diffs.push(`  Modified: ${path.relative(repoRoot, filePath)}`);
     }
   }
@@ -1404,10 +1480,10 @@ function renderComponentMarkdown(component, stories) {
     for (const prop of sortedProps) {
       const literals = prop.literals?.join(" | ") ?? "";
       const description = prop.description?.replace(/\s+/g, " ") ?? "";
-      const defaultValue = prop.defaultValue ?? "";
+      const defaultValue = (prop.defaultValue ?? "").replace(/\r/g, "");
       if (hasDeprecatedProps) {
         const deprecated = prop.deprecated ? "Yes" : "";
-        const deprecationReason = prop.deprecationReason ?? "";
+        const deprecationReason = (prop.deprecationReason ?? "").replace(/\s+/g, " ").trim();
         lines.push(
           `| ${prop.name} | ${escapePipes(prop.type)} | ${prop.required ? "Yes" : "No"} | ${escapePipes(literals)} | ${deprecated} | ${escapePipes(deprecationReason)} | ${escapePipes(description)} | ${escapePipes(defaultValue)} |`,
         );
@@ -1428,10 +1504,10 @@ function renderComponentMarkdown(component, stories) {
       lines.push(`### ${story.name}`);
       lines.push("");
       if (story.argsText) {
-        lines.push("**Args**", "", "```tsx", story.argsText, "```", "");
+        lines.push("**Args**", "", "```tsx", story.argsText.replace(/\r\n/g, "\n"), "```", "");
       }
       if (story.renderText) {
-        lines.push("**Render**", "", "```tsx", story.renderText, "```", "");
+        lines.push("**Render**", "", "```tsx", story.renderText.replace(/\r\n/g, "\n"), "```", "");
       }
       lines.push("");
     }

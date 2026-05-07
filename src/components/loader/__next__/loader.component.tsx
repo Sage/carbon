@@ -13,7 +13,13 @@ import StandaloneLoader from "./internal/standalone-loader.component";
 import RingLoader from "./internal/ring-loader.component";
 import StarsLoader from "./internal/stars-loader.component";
 
-type LOADER_VARIANTS = "typical" | "ai" | "stacked" | "inline";
+type LOADER_VARIANTS =
+  | "typical"
+  | "ai"
+  | "stacked"
+  | "inline"
+  | "ai-stacked"
+  | "ai-inline";
 
 type LOADER_SIZES = "extra-small" | "small" | "medium" | "large";
 

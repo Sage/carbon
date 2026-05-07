@@ -11,6 +11,8 @@ description: Carbon AccordionGroup component props and usage examples.
 ## Source
 - Export: `./components/accordion`
 - Props interface: `AccordionGroupProps`
+- Deprecated: Yes
+- Deprecation reason: This component is deprecated and will be removed in a future release. Wrapping a group of Accordions in AccordionGroup is no longer required.
 
 ## Props
 | Name | Type | Required | Literals | Description | Default |

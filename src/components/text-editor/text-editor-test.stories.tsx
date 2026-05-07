@@ -7,6 +7,7 @@ import TextEditor, {
   Mention,
   MentionsPlugin,
   TextEditorProps,
+  EditorFormattedValues,
 } from ".";
 import Box from "../box";
 import Typography from "../typography";
@@ -17,6 +18,7 @@ import createGuid from "../../__internal__/utils/helpers/guid";
 import CarbonProvider from "../carbon-provider";
 import Textbox from "../textbox";
 import Link from "../link";
+import { Form, Note, Button } from "../..";
 
 const meta: Meta<typeof TextEditor> = {
   title: "Text Editor/Test",
@@ -435,5 +437,58 @@ export const LinkToEditor: Story = () => {
 };
 LinkToEditor.storyName = "Link To Editor";
 LinkToEditor.parameters = {
+  chromatic: { disableSnapshot: true },
+};
+
+export const DisplayHTMLContent: Story = () => {
+  const [bodyHTML, setBodyHTML] = useState("");
+  const [isVisible, setIsVisible] = useState(false);
+
+  const onChange = (_value: string, formattedValues: EditorFormattedValues) => {
+    setBodyHTML(formattedValues.htmlString || "");
+  };
+
+  return (
+    <Box
+      margin="var(--spacing200)"
+      display="flex"
+      flexDirection="column"
+      gap="var(--spacing200)"
+      minWidth="320px"
+      maxWidth="1024px"
+    >
+      <TextEditor onChange={onChange} labelText="TextEditor" />
+      <>{bodyHTML}</>
+      <Button onClick={() => setIsVisible(!isVisible)}>Refresh</Button>
+      {isVisible && (
+        <Note noteContent={bodyHTML} createdDate="23 May 2020, 12:08 PM" />
+      )}
+    </Box>
+  );
+};
+DisplayHTMLContent.storyName = "Display HTML Content";
+DisplayHTMLContent.parameters = {
+  chromatic: { disableSnapshot: true },
+};
+
+export const FormWithTextEditor: Story = () => {
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    alert(
+      "Form submitted - should not be visible if TextEditor is working correctly",
+    );
+  };
+
+  return (
+    <Form onSubmit={handleSubmit}>
+      <TextEditor id="temp-editor" labelText="Text editor" />
+      <Button buttonType="primary" type="submit">
+        Submit
+      </Button>
+    </Form>
+  );
+};
+FormWithTextEditor.storyName = "Form With Text Editor";
+FormWithTextEditor.parameters = {
   chromatic: { disableSnapshot: true },
 };

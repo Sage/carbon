@@ -15,14 +15,30 @@ import {
 import CarbonProvider from "../carbon-provider";
 
 import Sidebar, { SidebarProps } from ".";
+import useMediaQuery from "../../hooks/useMediaQuery";
+
+jest.mock("../../hooks/useMediaQuery", () => ({
+  __esModule: true,
+  default: jest.fn(),
+}));
+
+const mockUseMediaQuery = useMediaQuery as jest.MockedFunction<
+  typeof useMediaQuery
+>;
 
 beforeEach(() => {
   jest.useFakeTimers();
+  jest.clearAllMocks();
+  mockUseMediaQuery.mockReturnValue(true);
 });
 
 afterEach(() => {
   jest.runOnlyPendingTimers();
   jest.useRealTimers();
+});
+
+afterAll(() => {
+  jest.restoreAllMocks();
 });
 
 test("sidebar element has aria-modal attribute set to true", () => {
@@ -337,6 +353,26 @@ test("ensures correct background color is applied", () => {
   expect(sidebarContent).toHaveStyleRule(
     "background",
     "var(--colorsUtilityYang100)",
+  );
+});
+
+test("applies a width transition when `widthAnimation` is true and motion is allowed", () => {
+  render(<Sidebar open widthAnimation />);
+
+  expect(screen.getByRole("dialog")).toHaveStyleRule(
+    "transition",
+    "width 0.3s ease",
+  );
+});
+
+test("does not apply a width transition when `widthAnimation` is true but reduced motion is preferred", () => {
+  mockUseMediaQuery.mockReturnValueOnce(false);
+
+  render(<Sidebar open widthAnimation />);
+
+  expect(screen.getByRole("dialog")).not.toHaveStyleRule(
+    "transition",
+    "width 0.3s ease",
   );
 });
 

@@ -32,15 +32,15 @@ export const StyledSpinnerWrapper = styled.div<
 `;
 
 export const StyledLabel = styled(Typography)<
-  Required<Pick<LoaderSpinnerProps, "size">>
+  Required<{ $size: NonNullable<LoaderSpinnerProps["size"]> }>
 >`
-  ${({ size }) => css`
+  ${({ $size }) => css`
     display: flex;
     justify-content: center;
     text-align: center;
-    ${size === "extra-small"
+    ${$size === "extra-small"
       ? "margin-left: var(--spacing100)"
-      : `margin-top: ${LOADER_SPINNER_SIZE_PARAMS[size].labelMarginTop}px`};
+      : `margin-top: ${LOADER_SPINNER_SIZE_PARAMS[$size].labelMarginTop}px`};
   `}
 `;
 

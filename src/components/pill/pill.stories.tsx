@@ -14,6 +14,12 @@ const styledSystemProps = generateStyledSystemProps({
 const meta: Meta<typeof Pill> = {
   title: "Pill",
   component: Pill,
+  parameters: {
+    info: { disable: true },
+    chromatic: {
+      disableSnapshot: true,
+    },
+  },
   argTypes: {
     ...styledSystemProps,
   },
@@ -73,9 +79,6 @@ export const WithCustomRemoveButtonAriaLabel: Story = () => {
 };
 WithCustomRemoveButtonAriaLabel.storyName =
   "With Custom Remove Button Aria-Label";
-WithCustomRemoveButtonAriaLabel.parameters = {
-  chromatic: { disableSnapshot: true },
-};
 
 export const Status: Story = () => {
   const noop = () => {};
@@ -676,7 +679,6 @@ export const CustomColors: Story = () => {
   );
 };
 CustomColors.storyName = "Custom Colors";
-CustomColors.parameters = { chromatic: { disableSnapshot: true } };
 
 export const DarkBackground: Story = () => {
   const noop = () => {};

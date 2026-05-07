@@ -55,7 +55,7 @@ const StandaloneLoader = ({
           variant="span"
           loaderVariant={variant}
           loaderType="standalone"
-          size={size}
+          $size={size}
         >
           {loaderLabel || locale?.loader.loading()}
         </StyledLoaderLabel>

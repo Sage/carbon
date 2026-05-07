@@ -6,6 +6,7 @@ import {
 
 const StyledContentContainer = styled(StyledAccordionContentContainer)`
   background-color: var(--colorsActionMinor050);
+  opacity: 1;
 `;
 
 const StyledContent = styled(StyledAccordionContent)`
