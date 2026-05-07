@@ -1,13 +1,13 @@
-import React, { useState, useRef, useImperativeHandle } from "react";
+import React, { useEffect, useRef, useImperativeHandle } from "react";
 import invariant from "invariant";
 import { MarginProps } from "styled-system";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 import { filterStyledSystemMarginProps } from "../../style/utils";
-import StyledSearch from "./search.style";
-import StyledSearchButton from "./search-button.style";
-import Icon from "../icon";
-import Textbox, { CommonTextboxProps } from "../textbox";
-import Button from "../button";
+import StyledSearch, {
+  StyledSearchInput,
+  StyledSearchButton,
+} from "./search.style";
+import { CommonTextboxProps } from "../textbox";
 import { ValidationProps } from "../../__internal__/validations";
 import useLocale from "../../hooks/__internal__/useLocale";
 import Events from "../../__internal__/utils/helpers/events";
@@ -25,64 +25,82 @@ export interface SearchProps
     MarginProps,
     TagProps,
     Pick<CommonTextboxProps, "label" | "inputHint"> {
-  /** Prop to specify the aria-label of the search component */
+  /** Prop to accessible name of the Search input. To be used when there is no visible label */
   "aria-label"?: string;
-  /** Prop to specify the aria-label of the search button */
+  /** Prop to specify the accessible name of the Search button */
   searchButtonAriaLabel?: string;
-  /** Prop for `id` */
+  /** Prop to apply the id attribute to the Search input */
   id?: string;
-  /** Prop for `name` */
+  /** Prop to apply the name attribute to the Search input */
   name?: string;
-  /** Prop for `onBlur` events */
+  /** Prop for `onBlur` events on the Search input */
   onBlur?: (ev: React.FocusEvent<HTMLInputElement>) => void;
-  /** Prop for `onChange` events */
+  /** Prop for `onChange` events on the Search input */
   onChange: (ev: SearchEvent) => void;
-  /** Prop for `onClick` events.
-   *  `onClick` events are triggered when the `searchButton` is clicked
+  /** Prop for `onClick` events on the Search component.
+   *  `onClick` events are triggered when the `searchButton` is clicked or when the search input is cleared using the cross icon.
    */
   onClick?: (ev: SearchEvent) => void;
-
-  /**
-   * Sets whether the onClick action should be triggered when the Search cross icon is clicked.
-   */
+  /** Sets whether clearing the search input should trigger `onChange` with an empty value. */
   triggerOnClear?: boolean;
-  /** Prop for `onFocus` events */
+  /** Prop for `onFocus` events on the Search input */
   onFocus?: (ev: React.FocusEvent<HTMLInputElement>) => void;
-  /** Prop for `onKeyDown` events */
+  /** Prop for `onKeyDown` events on the Search input */
   onKeyDown?: (ev: React.KeyboardEvent<HTMLInputElement>) => void;
-  /** Prop for a placeholder */
+  /** Prop to specify the placeholder text of the Search input */
   placeholder?: string;
   /**
+   * @deprecated This prop no longer has any effect. This prop will eventually be removed.
    * Pass a boolean to render a search Button with default text.
    * Pass a string to override the text in the search Button
    * */
   searchButton?: boolean | string;
-  /** Data tag prop bag for searchButton */
+  /** Data tag prop bag for the Search button */
   searchButtonDataProps?: TagProps;
   /**
-   * Prop for specifying an input width length.
+   * Prop to specify the width of the entire Search component, includes the Search input and the Search button.
    * Leaving the `searchWidth` prop with no value will default the width to '100%'
    */
   searchWidth?: string;
   /**
-   * Prop for specifying the max-width of the input.
+   * Prop for specifying the max-width of the entire Search component, includes the Search input and button.
    * Leaving the `maxWidth` prop with no value will default the width to '100%'
    */
   maxWidth?: string;
-  /** Current value */
+  /** Prop to specify the current value of the Search input */
   value: string;
-  /** Prop to specify the styling of the search component */
+  /**
+   * @deprecated This prop no longer has any effect. This prop will eventually be removed.
+   * Prop to specify the styling of the search component. Use the `inverse` prop for dark backgrounds.
+   */
   variant?: "default" | "dark";
-  /** Input tabindex */
+  /**
+   * @deprecated This prop no longer has any effect. This prop will eventually be removed.
+   * Input tabindex
+   */
   tabIndex?: number;
-  /** [Legacy] Overrides the default tooltip position */
+  /**
+   * @deprecated This prop no longer has any effect. This prop will eventually be removed.
+   * Overrides the default tooltip position */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
+  /**
+   * @deprecated This prop is no longer supported on Search and will eventually be removed.
+   */
+  info?: ValidationProps["info"];
+  /** When set to `true`, inverts the Search input and button styling for use on darker backgrounds. */
+  inverse?: boolean;
+  /** Controls the size of the Search input and button. */
+  size?: "S" | "M" | "L";
 }
 
 export type SearchHandle = {
-  /** Programmatically focus on root container of Dialog. */
+  /** Programmatically focus on the Search input. */
   focus: () => void;
 } | null;
+
+// need to extend sizes form textbox and pass these down to textbox and the button
+
+// investigate where tabIndex is used
 
 export const Search = React.forwardRef<SearchHandle, SearchProps>(
   (
@@ -99,18 +117,17 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
       inputHint,
       searchWidth,
       maxWidth,
-      searchButton,
       searchButtonDataProps,
       searchButtonAriaLabel,
       placeholder,
       variant = "default",
       "aria-label": ariaLabel,
-      tabIndex,
       error,
       warning,
       info,
-      tooltipPosition,
       triggerOnClear,
+      inverse,
+      size = "M",
       ...rest
     },
     ref,
@@ -131,71 +148,7 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
 
     invariant(typeof value === "string", "This component has no initial value");
 
-    const [isFocused, setIsFocused] = useState(false);
-
     const isSearchValueEmpty = value.length === 0;
-
-    let buttonProps = {};
-
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      onChange(event);
-    };
-
-    const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
-      setIsFocused(true);
-      if (onFocus) {
-        onFocus(event);
-      }
-    };
-
-    if (searchButton && onClick) {
-      buttonProps = {
-        onClick: () => {
-          onClick({
-            target: {
-              name,
-              id,
-              value,
-            },
-          });
-        },
-      };
-    }
-
-    const handleIconClick = () => {
-      onChange?.({
-        target: {
-          ...(name && { name }),
-          ...(id && { id }),
-          value: "",
-        },
-      });
-
-      if (triggerOnClear) {
-        onClick?.({
-          target: {
-            ...(name && { name }),
-            ...(id && { id }),
-            value: "",
-          },
-        });
-      }
-
-      inputRef.current?.focus();
-    };
-
-    const handleMouseDown = (event: React.MouseEvent<HTMLElement>) => {
-      event.preventDefault();
-    };
-
-    const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
-      setIsFocused(false);
-
-      /* istanbul ignore else */
-      if (onBlur) {
-        onBlur(event);
-      }
-    };
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
       if (event.key.length === 1) {
@@ -219,74 +172,91 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
       }
     };
 
-    const searchButtonText =
-      typeof searchButton === "string"
-        ? searchButton
-        : locale.search.searchButtonText();
-    const searchHasValue = !!value?.length;
+    // ensures the onClick callback is triggered with an empty value when the search input is cleared using the cross icon, but only if the `triggerOnClear` prop is set to true
+    useEffect(() => {
+      const inputElement = inputRef.current;
+
+      if (!inputElement || !triggerOnClear) {
+        return;
+      }
+
+      const handleSearch = (event: Event) => {
+        const target = event.target as HTMLInputElement;
+
+        if (target.value !== "") {
+          return;
+        }
+
+        onClick?.({
+          target: {
+            ...(name && { name }),
+            ...(id && { id }),
+            value: "",
+          },
+        });
+      };
+
+      inputElement.addEventListener("search", handleSearch);
+
+      return () => {
+        inputElement.removeEventListener("search", handleSearch);
+      };
+    }, [id, name, onClick, triggerOnClear]);
+
+    const searchButtonText = locale.search.searchButtonText();
+
+    const sizeMap = {
+      S: "small",
+      M: "medium",
+      L: "large",
+    } as const;
+
+    const searchButtonSize = sizeMap[size];
 
     return (
       <StyledSearch
         ref={searchRef}
-        isFocused={isFocused}
-        searchWidth={searchWidth}
-        maxWidth={maxWidth}
-        searchHasValue={searchHasValue}
-        showSearchButton={!!searchButton}
-        variant={variant}
-        {...filterStyledSystemMarginProps(rest)}
         id={id}
         name={name}
-        {...rest}
+        searchWidth={searchWidth}
+        maxWidth={maxWidth}
         {...tagComponent("search", rest)}
+        {...filterStyledSystemMarginProps(rest)}
+        {...rest}
       >
-        <Textbox
+        <StyledSearchInput
           placeholder={placeholder}
           value={value}
-          inputIcon={!isSearchValueEmpty ? "cross" : undefined}
-          iconTabIndex={!isSearchValueEmpty ? 0 : -1}
-          iconOnClick={handleIconClick}
-          iconOnMouseDown={handleMouseDown}
           aria-label={
             ariaLabel || (label ? undefined : locale.search.searchButtonText())
           }
           label={label}
           inputHint={inputHint}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-          onChange={handleChange}
+          onFocus={onFocus}
+          onBlur={onBlur}
+          onChange={onChange}
           onKeyDown={handleKeyDown}
           ref={inputRef}
-          tabIndex={tabIndex}
           error={error}
           warning={warning}
-          info={info}
-          leftChildren={
-            !searchButton ? <Icon type="search" ml={1} /> : undefined
-          }
-          tooltipPosition={tooltipPosition}
           my={0} // prevents any form spacing being applied
         />
-        {searchButton && (
-          <StyledSearchButton>
-            <Button
-              aria-label={searchButtonAriaLabel || searchButtonText}
-              size="medium"
-              px={2}
-              buttonType="primary"
-              iconPosition="before"
-              iconType="search"
-              className="search-button"
-              {...tagComponent(`${searchButtonText}-button`, {
-                "data-element": `${searchButtonText}-button`,
-                ...searchButtonDataProps,
-              })}
-              {...buttonProps}
-            >
-              {searchButtonText}
-            </Button>
-          </StyledSearchButton>
-        )}
+        <StyledSearchButton
+          aria-label={searchButtonAriaLabel || searchButtonText}
+          size={searchButtonSize}
+          px={2}
+          variantType="subtle"
+          inverse={inverse || variant === "dark"}
+          iconType="search"
+          className="search-button"
+          {...tagComponent(`${searchButtonText}-button`, {
+            "data-element": `${searchButtonText}-button`,
+            ...searchButtonDataProps,
+          })}
+          {...(onClick && {
+            onClick: () => onClick({ target: { name, id, value } }),
+          })}
+        ></StyledSearchButton>
       </StyledSearch>
     );
   },

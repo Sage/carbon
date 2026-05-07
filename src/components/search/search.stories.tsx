@@ -5,7 +5,6 @@ import generateStyledSystemProps from "../../../.storybook/utils/styled-system-p
 
 import Box from "../box";
 import Search from ".";
-import I18nProvider from "../i18n-provider/i18n-provider.component";
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
@@ -17,6 +16,9 @@ const meta: Meta<typeof Search> = {
   argTypes: {
     ...styledSystemProps,
   },
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
 };
 
 export default meta;
@@ -24,96 +26,70 @@ type Story = StoryObj<typeof Search>;
 
 export const Default: Story = () => {
   const [value, setValue] = useState("");
-  return (
-    <Search
-      placeholder="Search..."
-      onChange={(e) => setValue(e.target.value)}
-      value={value}
-    />
-  );
+  return <Search onChange={(e) => setValue(e.target.value)} value={value} />;
 };
 Default.storyName = "Default";
-Default.parameters = {
-  chromatic: { disableSnapshot: true },
-};
 
 export const WithLabelAndInputHint: Story = () => {
   const [value, setValue] = useState("Here is some text");
   return (
-    <Box m={1}>
-      <Search
-        label="Search"
-        inputHint="Hint text (optional)."
-        onChange={(e) => setValue(e.target.value)}
-        value={value}
-      />
-    </Box>
+    <Search
+      label="Search"
+      inputHint="Hint text (optional)."
+      onChange={(e) => setValue(e.target.value)}
+      value={value}
+    />
   );
 };
 WithLabelAndInputHint.storyName = "With Label and Input Hint";
 
-export const WithSearchButton: Story = () => {
-  const [value, setValue] = useState("Here is some text");
+export const Sizes: Story = () => {
+  const [valueS, setValueS] = useState("");
+  const [valueM, setValueM] = useState("");
+  const [valueL, setValueL] = useState("");
   return (
-    <Box m={1}>
+    <Box display="flex" flexDirection="column" gap={3}>
       <Search
-        onChange={(e) => setValue(e.target.value)}
-        value={value}
+        size="S"
+        placeholder="Small (S)..."
+        onChange={(e) => setValueS(e.target.value)}
+        value={valueS}
         searchButton
-        searchButtonAriaLabel="search button aria label"
       />
-    </Box>
-  );
-};
-WithSearchButton.storyName = "With Search Button";
-
-export const WithSearchButtonPropTextOverride: Story = () => {
-  const [value, setValue] = useState("Here is some text");
-  return (
-    <Box m={1}>
       <Search
-        onChange={(e) => setValue(e.target.value)}
-        value={value}
-        searchButton="Find"
+        size="M"
+        placeholder="Medium (M)..."
+        onChange={(e) => setValueM(e.target.value)}
+        value={valueM}
+        searchButton
+      />
+      <Search
+        size="L"
+        placeholder="Large (L)..."
+        onChange={(e) => setValueL(e.target.value)}
+        value={valueL}
+        searchButton
       />
     </Box>
   );
 };
-WithSearchButtonPropTextOverride.storyName =
-  "With Search Button text override via prop";
-WithSearchButtonPropTextOverride.parameters = {
-  chromatic: { disableSnapshot: true },
-};
-
-export const WithSearchButtonLocaleOverride: Story = () => {
-  const [value, setValue] = useState("Here is some text");
-  return (
-    <Box m={1}>
-      <I18nProvider locale={{ search: { searchButtonText: () => "Find" } }}>
-        <Search
-          onChange={(e) => setValue(e.target.value)}
-          value={value}
-          searchButton
-        />
-      </I18nProvider>
-    </Box>
-  );
-};
-WithSearchButtonLocaleOverride.storyName =
-  "With Search Button text override via locale";
-WithSearchButtonLocaleOverride.parameters = {
-  chromatic: { disableSnapshot: true },
-};
+Sizes.storyName = "Sizes";
 
 export const CustomWidth: Story = () => {
   const [value, setValue] = useState("");
   return (
-    <Search
-      placeholder="Search..."
-      onChange={(e) => setValue(e.target.value)}
-      value={value}
-      searchWidth="375px"
-    />
+    <Box display="flex" flexDirection="column" gap={3}>
+      <Search
+        onChange={(e) => setValue(e.target.value)}
+        value={value}
+        searchWidth="275px"
+      />
+      <Search
+        onChange={(e) => setValue(e.target.value)}
+        value={value}
+        maxWidth="375px"
+      />
+    </Box>
   );
 };
 CustomWidth.storyName = "Custom Width";
@@ -121,27 +97,34 @@ CustomWidth.storyName = "Custom Width";
 export const WithCustomMaxWidth: Story = () => {
   const [value, setValue] = useState("Here is some text");
   return (
-    <Box m={1}>
-      <Search
-        onChange={(e) => setValue(e.target.value)}
-        value={value}
-        searchButton
-        maxWidth="50%"
-      />
-    </Box>
+    <Search
+      onChange={(e) => setValue(e.target.value)}
+      value={value}
+      searchButton
+      maxWidth="50%"
+    />
   );
 };
 WithCustomMaxWidth.storyName = "Custom Max Width";
 
-export const WithAltStyling: Story = () => {
+export const Inverse: Story = () => {
   const [value, setValue] = useState("Here is some text");
   return (
-    <Box width="700px" height="108px" p={4} backgroundColor="#000000">
+    <Box
+      width="700px"
+      height="100px"
+      display="flex"
+      flexDirection="column"
+      gap={3}
+      p={3}
+      m={3}
+      backgroundColor="#000000"
+    >
       <Search
         placeholder="Search..."
         onChange={(e) => setValue(e.target.value)}
         value={value}
-        variant="dark"
+        inverse
         mb={2}
       />
       <Search
@@ -149,30 +132,9 @@ export const WithAltStyling: Story = () => {
         onChange={(e) => setValue(e.target.value)}
         value={value}
         searchButton
-        variant="dark"
+        inverse
       />
     </Box>
   );
 };
-WithAltStyling.storyName = "Dark Background variant";
-
-export const TriggerOnClear: Story = () => {
-  const [value, setValue] = useState("");
-  return (
-    <>
-      <Search
-        id="test"
-        name="test"
-        placeholder="Search..."
-        triggerOnClear
-        onChange={(e) => setValue(e.target.value)}
-        value={value}
-        searchButton
-      />
-    </>
-  );
-};
-TriggerOnClear.storyName = "Trigger on Clear";
-TriggerOnClear.parameters = {
-  chromatic: { disableSnapshot: true },
-};
+Inverse.storyName = "Inverse";
