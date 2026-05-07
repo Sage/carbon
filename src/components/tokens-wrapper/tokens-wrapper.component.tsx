@@ -8,8 +8,8 @@ export interface TokenWrapperProps {
   height?: string;
 }
 
-const StyledTokensWrapper = styled.div<TokenWrapperProps>`
-  height: ${({ height }) => height};
+const StyledTokensWrapper = styled.div<{ $height?: string }>`
+  height: ${({ $height }) => $height};
 `;
 
 const TokensGlobalStyle = createGlobalStyle`
@@ -26,7 +26,7 @@ export const TokensWrapper = ({
   <StyledTokensWrapper
     data-component="tokens-wrapper"
     data-role="tokens-wrapper"
-    height={height}
+    $height={height}
   >
     <TokensGlobalStyle />
     {children}

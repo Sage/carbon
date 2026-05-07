@@ -1,3 +1,33 @@
+## [158.49.2](https://github.com/Sage/carbon/compare/v158.49.1...v158.49.2) (2026-05-06)
+
+### Bug Fixes
+
+* **text-editor:** correct WYSIWYG asterisk colour ([d2908ce](https://github.com/Sage/carbon/commit/d2908ce264d89efadce7461d5d261d0ee4cdb450))
+
+## [158.49.1](https://github.com/Sage/carbon/compare/v158.49.0...v158.49.1) (2026-05-05)
+
+### Bug Fixes
+
+* **text-editor:** span from initialValue not being styled ([cd6d041](https://github.com/Sage/carbon/commit/cd6d0417ef1db5fb6027237151637023133a78f3))
+
+## [158.49.0](https://github.com/Sage/carbon/compare/v158.48.0...v158.49.0) (2026-05-01)
+
+### Features
+
+* **switch:** align with ds audit ([561e59c](https://github.com/Sage/carbon/commit/561e59cb6a1371b66a9fed6dd78e791ee0701e04))
+
+## [158.48.0](https://github.com/Sage/carbon/compare/v158.47.0...v158.48.0) (2026-05-01)
+
+### Features
+
+* **text-editor:** add de-De, es-ES, fr-Ca, fr-FR & pt-PT WYSIWYG translations ([9170c8f](https://github.com/Sage/carbon/commit/9170c8f51a9a5ab267e253036cf732422dcbf49e))
+
+## [158.47.0](https://github.com/Sage/carbon/compare/v158.46.4...v158.47.0) (2026-04-30)
+
+### Features
+
+* update focus styling to be inline with DS ([3c5bfd6](https://github.com/Sage/carbon/commit/3c5bfd6b08d93555d4e435e40541b6181e041480))
+
 ## [158.46.4](https://github.com/Sage/carbon/compare/v158.46.3...v158.46.4) (2026-04-24)
 
 ### Bug Fixes

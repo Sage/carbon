@@ -24,6 +24,7 @@ import {
   continuePressingSHIFTTAB,
   checkAccessibility,
   waitForAnimationEnd,
+  waitForElementFocus,
 } from "../../../playwright/support/helper";
 import { CHARACTERS } from "../../../playwright/support/constants";
 import {
@@ -89,11 +90,16 @@ test.describe("Prop tests for Menu component", () => {
     }) => {
       await mount(<MenuComponentSearch />);
 
-      await page.keyboard.press("Tab");
+      const menuTrigger = submenu(page).first().locator("button");
+      await menuTrigger.focus();
+      await expect(menuTrigger).toBeFocused();
       await page.keyboard.press("Enter");
+      await expect(submenuBlock(page).first()).toBeVisible();
       await continuePressingTAB(page, tabs);
       await page.keyboard.press(key);
-      await expect(searchDefaultInput(page)).toBeFocused();
+      const searchInput = searchDefaultInput(page);
+      await waitForElementFocus(page, searchInput);
+      await expect(searchInput).toBeFocused();
     });
   });
 
@@ -339,7 +345,7 @@ test.describe("Prop tests for Menu component", () => {
     await expect(button).toBeFocused();
     await expect(button).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+      "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
     );
     await page.keyboard.press("Tab");
     const item2 = menuItem(page).last().locator("a");
