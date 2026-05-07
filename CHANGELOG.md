@@ -1,3 +1,9 @@
+## [158.50.0](https://github.com/Sage/carbon/compare/v158.49.2...v158.50.0) (2026-05-07)
+
+### Features
+
+* **tabs:** updated to use correct new tokens ([b8f2def](https://github.com/Sage/carbon/commit/b8f2defebf1600bfd22dfc346349c52b5201ac5a))
+
 ## [158.49.2](https://github.com/Sage/carbon/compare/v158.49.1...v158.49.2) (2026-05-06)
 
 ### Bug Fixes
