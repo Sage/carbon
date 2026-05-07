@@ -156,7 +156,7 @@ test("renders correctly when `loaderType` is `standalone` and variant is `ai`", 
   expect(screen.getByTestId("outer-bar")).toBeVisible();
   expect(screen.getByTestId("inner-bar")).toHaveStyleRule(
     "background",
-    "linear-gradient(90deg,var(--mode-color-ai-stop-1,#13A038) 0%,var(--mode-color-ai-stop-2,#149197) 40%,var(--mode-color-ai-stop-3,#A87CFB) 90%)",
+    "linear-gradient(90deg,var(--mode-color-ai-stop-1) 0%,var(--mode-color-ai-stop-2) 40%,var(--mode-color-ai-stop-3) 90%)",
   );
 });
 
@@ -173,7 +173,7 @@ test("renders correctly when `loaderType` is `standalone` and variant is `ai` an
   expect(screen.getByTestId("outer-bar")).toBeVisible();
   expect(screen.getByTestId("inner-bar")).toHaveStyleRule(
     "background",
-    "linear-gradient(90deg,var(--mode-color-ai-alt-stop-1,#00D639) 0%,var(--mode-color-ai-alt-stop-2,#00D6DE) 40%,var(--mode-color-ai-alt-stop-3,#9D60FF) 90%)",
+    "linear-gradient(90deg,var(--mode-color-ai-alt-stop-1) 0%,var(--mode-color-ai-alt-stop-2) 40%,var(--mode-color-ai-alt-stop-3) 90%)",
   );
 });
 
