@@ -16,7 +16,6 @@ test("logs error when not used within StepSequence", () => {
       "Carbon StepSequence: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
     ),
   );
-
   loggerSpy.mockRestore();
 });
 
