@@ -9,7 +9,7 @@ import { Tab } from "./tab.component";
 const meta: Meta<typeof Tab> = {
   title: "LegacyTab",
   component: Tab,
-  tags: ["dev"],
+  tags: ["!dev"],
   parameters: {
     chromatic: { disableSnapshot: true },
   },

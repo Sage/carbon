@@ -9,7 +9,7 @@ import { Tab } from "../tabs.component";
 const meta: Meta<typeof Tab> = {
   title: "Tab",
   component: Tab,
-  tags: ["dev"],
+  tags: ["!dev"],
   parameters: {
     chromatic: { disableSnapshot: true },
   },

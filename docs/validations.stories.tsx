@@ -10,7 +10,7 @@ import Form, { RequiredFieldsIndicator } from "../src/components/form";
 
 const meta: Meta = {
   title: "Documentation/Validations",
-  tags: ["hideInSidebar"],
+  tags: ["!dev"],
   parameters: {
     chromatic: { disableSnapshot: true },
   },

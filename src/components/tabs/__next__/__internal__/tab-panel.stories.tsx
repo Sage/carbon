@@ -9,7 +9,7 @@ import { TabPanel } from "../tabs.component";
 const meta: Meta<typeof TabPanel> = {
   title: "TabPanel",
   component: TabPanel,
-  tags: ["dev"],
+  tags: ["!dev"],
   parameters: {
     chromatic: { disableSnapshot: true },
   },

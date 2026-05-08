@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { action } from "storybook/addon-actions";
+import { action } from "storybook/actions";
 import Pill from "../pill/pill.component";
 import Box from "../box";
 import Search from ".";

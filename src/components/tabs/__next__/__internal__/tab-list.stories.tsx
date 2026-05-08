@@ -9,7 +9,7 @@ import { TabList } from "../tabs.component";
 const meta: Meta<typeof TabList> = {
   title: "TabList",
   component: TabList,
-  tags: ["dev"],
+  tags: ["!dev"],
   parameters: {
     chromatic: { disableSnapshot: true },
   },
