@@ -269,9 +269,8 @@ export const FormAlignmentCustomMarginInputs = (args: FormProps) => {
           <Textbox
             label="Textbox in Fieldset"
             labelInline
-            labelAlign="right"
-            labelWidth={30}
             value=""
+            maxWidth="82%"
             onChange={() => {}}
           />
           <Checkbox
@@ -283,42 +282,35 @@ export const FormAlignmentCustomMarginInputs = (args: FormProps) => {
             onChange={() => {}}
           />
         </Fieldset>
-        <Decimal
-          label="Decimal"
-          placeholder="placeholder"
-          name="decimal"
-          labelInline
-          labelWidth={10}
-          inputWidth={30}
-          fieldHelp="This is some help text"
-          mb={1}
-          value="0"
-          onChange={() => {}}
-        />
-        <Textbox
-          label="Textbox"
-          placeholder="placeholder"
-          name="textbox"
-          labelInline
-          labelWidth={10}
-          inputWidth={30}
-          labelSpacing={2}
-          mb={1}
-          value=""
-          onChange={() => {}}
-        />
-        <Number
-          label="Number"
-          placeholder="placeholder"
-          name="number"
-          labelInline
-          labelWidth={10}
-          inputWidth={30}
-          labelSpacing={2}
-          mb={1}
-          value=""
-          onChange={() => {}}
-        />
+        <Box width="40%">
+          <Decimal
+            label="Decimal"
+            placeholder="placeholder"
+            name="decimal"
+            labelInline
+            mb={1}
+            value="0"
+            onChange={() => {}}
+          />
+          <Textbox
+            label="Textbox"
+            placeholder="placeholder"
+            name="textbox"
+            labelInline
+            mb={1}
+            value=""
+            onChange={() => {}}
+          />
+          <Number
+            label="Number"
+            placeholder="placeholder"
+            name="number"
+            labelInline
+            mb={1}
+            value=""
+            onChange={() => {}}
+          />
+        </Box>
         <GroupedCharacter
           placeholder="placeholder"
           label="GroupedCharacter"
@@ -329,6 +321,7 @@ export const FormAlignmentCustomMarginInputs = (args: FormProps) => {
           mb={1}
           value=""
           onChange={() => {}}
+          inputWidth={74}
         />
         <Textarea
           key="input-three"
@@ -346,7 +339,6 @@ export const FormAlignmentCustomMarginInputs = (args: FormProps) => {
           name="date"
           label="Date"
           labelInline
-          labelWidth={10}
           value=""
           onChange={() => {}}
           mb={1}
@@ -369,6 +361,7 @@ export const FormAlignmentCustomMarginInputs = (args: FormProps) => {
           label="Simple Select"
           value=""
           onChange={() => {}}
+          inputWidth={74}
         >
           <Option text="Amber" value="1" />
           <Option text="Black" value="2" />
@@ -390,6 +383,7 @@ export const FormAlignmentCustomMarginInputs = (args: FormProps) => {
           label="Filterable Select"
           value=""
           onChange={() => {}}
+          inputWidth={74}
         >
           <Option text="Amber" value="1" />
           <Option text="Black" value="2" />
@@ -411,6 +405,7 @@ export const FormAlignmentCustomMarginInputs = (args: FormProps) => {
           label="Multi Select"
           value={[]}
           onChange={() => {}}
+          inputWidth={74}
         >
           <Option text="Amber" value="1" />
           <Option text="Black" value="2" />
@@ -758,6 +753,7 @@ export const DynamicValidations = (args: FormProps) => {
             value={textboxOneValue}
             onChange={(e) => setTextboxOneValue(e.target.value)}
             error={textboxOneError}
+            mb={1}
           />
 
           <Button type="submit">Submit</Button>

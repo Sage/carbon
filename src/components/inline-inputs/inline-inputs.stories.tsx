@@ -95,38 +95,6 @@ export const Default: Story = () => {
 };
 Default.storyName = "Default";
 
-export const WithAdaptiveLabelBreakpoint: Story = () => {
-  return (
-    <Box p={4}>
-      <InlineInputs
-        label="My Inline Inputs"
-        labelId="inline-inputs-adaptive"
-        adaptiveLabelBreakpoint={768}
-        labelWidth={30}
-        gutter="none"
-      >
-        <Textbox
-          aria-labelledby="inline-inputs-adaptive"
-          value=""
-          onChange={() => {}}
-        />
-        <Textbox
-          aria-labelledby="inline-inputs-adaptive"
-          value=""
-          onChange={() => {}}
-        />
-      </InlineInputs>
-      <Textbox
-        label="My Textbox"
-        adaptiveLabelBreakpoint={768}
-        value=""
-        onChange={() => {}}
-      />
-    </Box>
-  );
-};
-WithAdaptiveLabelBreakpoint.storyName = "With Adaptive Label Breakpoint";
-
 export const Required: Story = () => {
   return (
     <InlineInputs

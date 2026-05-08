@@ -1,17 +1,13 @@
 import React, { useRef } from "react";
-import { render, screen, within, act } from "@testing-library/react";
+import { render, screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import {
-  testStyledSystemMargin,
-  mockMatchMedia,
-} from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 
 import NumeralDate, {
   NumeralDateEvent,
   NumeralDateProps,
   NumeralDateValue,
 } from "./numeral-date.component";
-import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import Button from "../button";
 
 jest.mock("../../__internal__/utils/logger");
@@ -90,496 +86,13 @@ test("should not throw an error if no `dateFormat` is passed", () => {
   consoleSpy.mockReset();
 });
 
-describe("when the `error` prop is passed a string value and `validationRedesignOptIn` is not set", () => {
-  it("should render with `aria-invalid` set to 'true'", () => {
-    render(
-      <CarbonProvider>
-        <NumeralDate
-          value={{ dd: "02", mm: "01", yyyy: "2020" }}
-          onChange={() => {}}
-          error="error"
-        />
-      </CarbonProvider>,
-    );
-
-    const dayInput = screen.getByRole("textbox", { name: "Day" });
-    const monthInput = screen.getByRole("textbox", { name: "Month" });
-    const yearInput = screen.getByRole("textbox", { name: "Year" });
-
-    expect(dayInput).toBeInvalid();
-    expect(monthInput).toBeInvalid();
-    expect(yearInput).toBeInvalid();
-  });
-
-  it("should display the tooltip when the user hovers on the 'Day' input", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    render(
-      <CarbonProvider>
-        <NumeralDate
-          value={{ dd: "02", mm: "01", yyyy: "2020" }}
-          onChange={() => {}}
-          error="error"
-        />
-      </CarbonProvider>,
-    );
-
-    const dayInput = screen.getByRole("textbox", { name: "Day" });
-    await user.hover(dayInput);
-
-    expect(await screen.findByRole("tooltip", { name: "error" })).toBeVisible();
-  });
-
-  it("should display the tooltip when the user hovers on the 'Month' input", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    render(
-      <CarbonProvider>
-        <NumeralDate
-          value={{ dd: "02", mm: "01", yyyy: "2020" }}
-          onChange={() => {}}
-          error="error"
-        />
-      </CarbonProvider>,
-    );
-
-    const monthInput = screen.getByRole("textbox", { name: "Month" });
-    await user.hover(monthInput);
-
-    expect(await screen.findByRole("tooltip", { name: "error" })).toBeVisible();
-  });
-
-  it("should display the tooltip when the user hovers on the 'Year' input", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    render(
-      <CarbonProvider>
-        <NumeralDate
-          value={{ dd: "02", mm: "01", yyyy: "2020" }}
-          onChange={() => {}}
-          error="error"
-        />
-      </CarbonProvider>,
-    );
-
-    const yearInput = screen.getByRole("textbox", { name: "Year" });
-    await user.hover(yearInput);
-
-    expect(await screen.findByRole("tooltip", { name: "error" })).toBeVisible();
-  });
-
-  // coverage
-  it("should render error icon beside the legend if 'validationOnLabel' is set to true", () => {
-    render(
-      <CarbonProvider>
-        <NumeralDate
-          value={{ dd: "02", mm: "01", yyyy: "2020" }}
-          onChange={() => {}}
-          error="error"
-          label="label"
-          validationOnLabel
-        />
-      </CarbonProvider>,
-    );
-
-    const icon = within(screen.getByTestId("legend")).getByTestId("icon-error");
-
-    expect(icon).toBeVisible();
-  });
-});
-
-describe("when the `error` prop is passed a boolean value and `validationRedesignOptIn` is not set", () => {
-  it("should render with `aria-invalid` set to 'true'", () => {
-    render(
-      <CarbonProvider>
-        <NumeralDate
-          value={{ dd: "02", mm: "01", yyyy: "2020" }}
-          onChange={() => {}}
-          error
-        />
-      </CarbonProvider>,
-    );
-
-    const dayInput = screen.getByRole("textbox", { name: "Day" });
-    const monthInput = screen.getByRole("textbox", { name: "Month" });
-    const yearInput = screen.getByRole("textbox", { name: "Year" });
-
-    expect(dayInput).toBeInvalid();
-    expect(monthInput).toBeInvalid();
-    expect(yearInput).toBeInvalid();
-  });
-
-  it("should not display the tooltip when the user hovers on the 'Day' input", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    render(
-      <CarbonProvider>
-        <NumeralDate
-          value={{ dd: "02", mm: "01", yyyy: "2020" }}
-          onChange={() => {}}
-          error
-        />
-      </CarbonProvider>,
-    );
-
-    const dayInput = screen.getByRole("textbox", { name: "Day" });
-    await user.hover(dayInput);
-
-    expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
-  });
-
-  it("should not display the tooltip when the user hovers on the 'Month' input", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    render(
-      <CarbonProvider>
-        <NumeralDate
-          value={{ dd: "02", mm: "01", yyyy: "2020" }}
-          onChange={() => {}}
-          error
-        />
-      </CarbonProvider>,
-    );
-
-    const monthInput = screen.getByRole("textbox", { name: "Month" });
-    await user.hover(monthInput);
-
-    expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
-  });
-
-  it("should not display the tooltip when the user hovers on the 'Year' input", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    render(
-      <CarbonProvider>
-        <NumeralDate
-          value={{ dd: "02", mm: "01", yyyy: "2020" }}
-          onChange={() => {}}
-          error
-        />
-      </CarbonProvider>,
-    );
-
-    const yearInput = screen.getByRole("textbox", { name: "Year" });
-    await user.hover(yearInput);
-
-    expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
-  });
-});
-
-describe("when the `warning` prop is passed a string value and `validationRedesignOptIn` is not set", () => {
-  it("should render with `aria-invalid` set to 'false'", () => {
-    render(
-      <CarbonProvider>
-        <NumeralDate
-          value={{ dd: "02", mm: "01", yyyy: "2020" }}
-          onChange={() => {}}
-          warning="warning"
-        />
-      </CarbonProvider>,
-    );
-
-    const dayInput = screen.getByRole("textbox", { name: "Day" });
-    const monthInput = screen.getByRole("textbox", { name: "Month" });
-    const yearInput = screen.getByRole("textbox", { name: "Year" });
-
-    expect(dayInput).not.toBeInvalid();
-    expect(monthInput).not.toBeInvalid();
-    expect(yearInput).not.toBeInvalid();
-  });
-
-  it("should display the tooltip when the user hovers on the 'Day' input", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    render(
-      <CarbonProvider>
-        <NumeralDate
-          value={{ dd: "02", mm: "01", yyyy: "2020" }}
-          onChange={() => {}}
-          warning="warning"
-        />
-      </CarbonProvider>,
-    );
-
-    const dayInput = screen.getByRole("textbox", { name: "Day" });
-    await user.hover(dayInput);
-
-    expect(
-      await screen.findByRole("tooltip", { name: "warning" }),
-    ).toBeVisible();
-  });
-
-  it("should display the tooltip when the user hovers on the 'Month' input", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    render(
-      <CarbonProvider>
-        <NumeralDate
-          value={{ dd: "02", mm: "01", yyyy: "2020" }}
-          onChange={() => {}}
-          warning="warning"
-        />
-      </CarbonProvider>,
-    );
-
-    const monthInput = screen.getByRole("textbox", { name: "Month" });
-    await user.hover(monthInput);
-
-    expect(
-      await screen.findByRole("tooltip", { name: "warning" }),
-    ).toBeVisible();
-  });
-
-  it("should display the tooltip when the user hovers on the 'Year' input", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    render(
-      <CarbonProvider>
-        <NumeralDate
-          value={{ dd: "02", mm: "01", yyyy: "2020" }}
-          onChange={() => {}}
-          warning="warning"
-        />
-      </CarbonProvider>,
-    );
-
-    const yearInput = screen.getByRole("textbox", { name: "Year" });
-    await user.hover(yearInput);
-
-    expect(
-      await screen.findByRole("tooltip", { name: "warning" }),
-    ).toBeVisible();
-  });
-});
-
-describe("when the `warning` prop is passed a boolean value and `validationRedesignOptIn` is not set", () => {
-  it("should render with `aria-invalid` set to 'false'", () => {
-    render(
-      <CarbonProvider>
-        <NumeralDate
-          value={{ dd: "02", mm: "01", yyyy: "2020" }}
-          onChange={() => {}}
-          warning
-        />
-      </CarbonProvider>,
-    );
-
-    const dayInput = screen.getByRole("textbox", { name: "Day" });
-    const monthInput = screen.getByRole("textbox", { name: "Month" });
-    const yearInput = screen.getByRole("textbox", { name: "Year" });
-
-    expect(dayInput).not.toBeInvalid();
-    expect(monthInput).not.toBeInvalid();
-    expect(yearInput).not.toBeInvalid();
-  });
-
-  it("should not display the tooltip when the user hovers on the 'Day' input", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    render(
-      <CarbonProvider>
-        <NumeralDate
-          value={{ dd: "02", mm: "01", yyyy: "2020" }}
-          onChange={() => {}}
-          warning
-        />
-      </CarbonProvider>,
-    );
-
-    const dayInput = screen.getByRole("textbox", { name: "Day" });
-    await user.hover(dayInput);
-
-    expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
-  });
-
-  it("should not display the tooltip when the user hovers on the 'Month' input", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    render(
-      <CarbonProvider>
-        <NumeralDate
-          value={{ dd: "02", mm: "01", yyyy: "2020" }}
-          onChange={() => {}}
-          warning
-        />
-      </CarbonProvider>,
-    );
-
-    const monthInput = screen.getByRole("textbox", { name: "Month" });
-    await user.hover(monthInput);
-
-    expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
-  });
-
-  it("should not display the tooltip when the user hovers on the 'Year' input", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    render(
-      <CarbonProvider>
-        <NumeralDate
-          value={{ dd: "02", mm: "01", yyyy: "2020" }}
-          onChange={() => {}}
-          warning
-        />
-      </CarbonProvider>,
-    );
-
-    const yearInput = screen.getByRole("textbox", { name: "Year" });
-    await user.hover(yearInput);
-
-    expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
-  });
-});
-
-describe("when the `info` prop is passed a string value and `validationRedesignOptIn` is not set", () => {
-  it("should render with `aria-invalid` set to 'false'", () => {
-    render(
-      <CarbonProvider>
-        <NumeralDate
-          value={{ dd: "02", mm: "01", yyyy: "2020" }}
-          onChange={() => {}}
-          info="info"
-        />
-      </CarbonProvider>,
-    );
-
-    const dayInput = screen.getByRole("textbox", { name: "Day" });
-    const monthInput = screen.getByRole("textbox", { name: "Month" });
-    const yearInput = screen.getByRole("textbox", { name: "Year" });
-
-    expect(dayInput).not.toBeInvalid();
-    expect(monthInput).not.toBeInvalid();
-    expect(yearInput).not.toBeInvalid();
-  });
-
-  it("should display the tooltip when the user hovers on the 'Day' input", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    render(
-      <CarbonProvider>
-        <NumeralDate
-          value={{ dd: "02", mm: "01", yyyy: "2020" }}
-          onChange={() => {}}
-          info="info"
-        />
-      </CarbonProvider>,
-    );
-
-    const dayInput = screen.getByRole("textbox", { name: "Day" });
-    await user.hover(dayInput);
-
-    expect(await screen.findByRole("tooltip", { name: "info" })).toBeVisible();
-  });
-
-  it("should display the tooltip when the user hovers on the 'Month' input", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    render(
-      <CarbonProvider>
-        <NumeralDate
-          value={{ dd: "02", mm: "01", yyyy: "2020" }}
-          onChange={() => {}}
-          info="info"
-        />
-      </CarbonProvider>,
-    );
-
-    const monthInput = screen.getByRole("textbox", { name: "Month" });
-    await user.hover(monthInput);
-
-    expect(await screen.findByRole("tooltip", { name: "info" })).toBeVisible();
-  });
-
-  it("should display the tooltip when the user hovers on the 'Year' input", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    render(
-      <CarbonProvider>
-        <NumeralDate
-          value={{ dd: "02", mm: "01", yyyy: "2020" }}
-          onChange={() => {}}
-          info="info"
-        />
-      </CarbonProvider>,
-    );
-
-    const yearInput = screen.getByRole("textbox", { name: "Year" });
-    await user.hover(yearInput);
-
-    expect(await screen.findByRole("tooltip", { name: "info" })).toBeVisible();
-  });
-});
-
-describe("when the `info` prop is passed a boolean value and `validationRedesignOptIn` is not set", () => {
-  it("should render with `aria-invalid` set to 'false'", () => {
-    render(
-      <CarbonProvider>
-        <NumeralDate
-          value={{ dd: "02", mm: "01", yyyy: "2020" }}
-          onChange={() => {}}
-          info
-        />
-      </CarbonProvider>,
-    );
-
-    const dayInput = screen.getByRole("textbox", { name: "Day" });
-    const monthInput = screen.getByRole("textbox", { name: "Month" });
-    const yearInput = screen.getByRole("textbox", { name: "Year" });
-
-    expect(dayInput).not.toBeInvalid();
-    expect(monthInput).not.toBeInvalid();
-    expect(yearInput).not.toBeInvalid();
-  });
-
-  it("should not display the tooltip when the user hovers on the 'Day' input", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    render(
-      <CarbonProvider>
-        <NumeralDate
-          value={{ dd: "02", mm: "01", yyyy: "2020" }}
-          onChange={() => {}}
-          info
-        />
-      </CarbonProvider>,
-    );
-
-    const dayInput = screen.getByRole("textbox", { name: "Day" });
-    await user.hover(dayInput);
-
-    expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
-  });
-
-  it("should not display the tooltip when the user hovers on the 'Month' input", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    render(
-      <CarbonProvider>
-        <NumeralDate
-          value={{ dd: "02", mm: "01", yyyy: "2020" }}
-          onChange={() => {}}
-          info
-        />
-      </CarbonProvider>,
-    );
-
-    const monthInput = screen.getByRole("textbox", { name: "Month" });
-    await user.hover(monthInput);
-
-    expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
-  });
-
-  it("should not display the tooltip when the user hovers on the 'Year' input", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    render(
-      <CarbonProvider>
-        <NumeralDate
-          value={{ dd: "02", mm: "01", yyyy: "2020" }}
-          onChange={() => {}}
-          info
-        />
-      </CarbonProvider>,
-    );
-
-    const yearInput = screen.getByRole("textbox", { name: "Year" });
-    await user.hover(yearInput);
-
-    expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
-  });
-});
-
-test("should render the validation message when the `error` prop is passed a string value and `validationRedesignOptIn` is set", () => {
+test("should render the validation message when the `error` prop is passed a string value", () => {
   render(
-    <CarbonProvider validationRedesignOptIn>
-      <NumeralDate
-        value={{ dd: "02", mm: "01", yyyy: "2020" }}
-        onChange={() => {}}
-        error="error"
-      />
-    </CarbonProvider>,
+    <NumeralDate
+      value={{ dd: "02", mm: "01", yyyy: "2020" }}
+      onChange={() => {}}
+      error="error"
+    />,
   );
 
   const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -592,15 +105,13 @@ test("should render the validation message when the `error` prop is passed a str
   expect(screen.getByText("error")).toBeVisible();
 });
 
-test("should not render the validation message when the `error` prop is passed a boolean value and `validationRedesignOptIn` is set", () => {
+test("should not render the validation message when the `error` prop is passed a boolean value", () => {
   render(
-    <CarbonProvider validationRedesignOptIn>
-      <NumeralDate
-        value={{ dd: "02", mm: "01", yyyy: "2020" }}
-        onChange={() => {}}
-        error
-      />
-    </CarbonProvider>,
+    <NumeralDate
+      value={{ dd: "02", mm: "01", yyyy: "2020" }}
+      onChange={() => {}}
+      error
+    />,
   );
 
   const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -613,15 +124,13 @@ test("should not render the validation message when the `error` prop is passed a
   expect(screen.queryByText("error")).not.toBeInTheDocument();
 });
 
-test("should render the validation message when `warning` prop is passed a string value and `validationRedesignOptIn` is set", () => {
+test("should render the validation message when `warning` prop is passed a string value", () => {
   render(
-    <CarbonProvider validationRedesignOptIn>
-      <NumeralDate
-        value={{ dd: "02", mm: "01", yyyy: "2020" }}
-        onChange={() => {}}
-        warning="warning"
-      />
-    </CarbonProvider>,
+    <NumeralDate
+      value={{ dd: "02", mm: "01", yyyy: "2020" }}
+      onChange={() => {}}
+      warning="warning"
+    />,
   );
 
   const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -634,15 +143,13 @@ test("should render the validation message when `warning` prop is passed a strin
   expect(screen.getByText("warning")).toBeVisible();
 });
 
-test("should not render the validation message when `warning` prop is passed a boolean value and `validationRedesignOptIn` is set", () => {
+test("should not render the validation message when `warning` prop is passed a boolean value", () => {
   render(
-    <CarbonProvider validationRedesignOptIn>
-      <NumeralDate
-        value={{ dd: "02", mm: "01", yyyy: "2020" }}
-        onChange={() => {}}
-        warning
-      />
-    </CarbonProvider>,
+    <NumeralDate
+      value={{ dd: "02", mm: "01", yyyy: "2020" }}
+      onChange={() => {}}
+      warning
+    />,
   );
 
   const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -655,16 +162,14 @@ test("should not render the validation message when `warning` prop is passed a b
   expect(screen.queryByText("warning")).not.toBeInTheDocument();
 });
 
-test("should render the `labelHelp` text as additional content and not render the help icon or tooltip when `validationRedesignOptIn` is set", () => {
+test("should render the `labelHelp` text as additional content", () => {
   render(
-    <CarbonProvider validationRedesignOptIn>
-      <NumeralDate
-        label="label"
-        value={{ dd: "02", mm: "01", yyyy: "2020" }}
-        onChange={() => {}}
-        labelHelp="labelHelp"
-      />
-    </CarbonProvider>,
+    <NumeralDate
+      label="label"
+      value={{ dd: "02", mm: "01", yyyy: "2020" }}
+      onChange={() => {}}
+      labelHelp="labelHelp"
+    />,
   );
 
   const labelHelpText = screen.getByText("labelHelp");
@@ -676,120 +181,11 @@ test("should render the `labelHelp` text as additional content and not render th
   expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
 });
 
-test("should have the default styling when the `labelsInline` prop is set and `validationRedesignOptIn` is set", () => {
-  render(
-    <CarbonProvider validationRedesignOptIn>
-      <NumeralDate
-        label="label"
-        value={{ dd: "02", mm: "01", yyyy: "2020" }}
-        onChange={() => {}}
-        labelHelp="labelHelp"
-        labelInline
-      />
-    </CarbonProvider>,
-  );
-
-  const fields = screen.getAllByTestId("field-line");
-
-  expect(fields[0]).toHaveStyle("display: block");
-});
-
-test("should render the help icon and tooltip when `labelHelp` prop is set and `validationRedesignOptIn` is not set", async () => {
-  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-  render(
-    <CarbonProvider>
-      <NumeralDate
-        label="label"
-        value={{ dd: "02", mm: "01", yyyy: "2020" }}
-        onChange={() => {}}
-        labelHelp="labelHelp"
-      />
-    </CarbonProvider>,
-  );
-
-  const labelHelp = screen.getByRole("button", { name: "help" });
-  await user.hover(labelHelp);
-
-  expect(
-    await screen.findByRole("tooltip", { name: "labelHelp" }),
-  ).toBeVisible();
-});
-
-test("should render provided `fieldHelp` text when the `validationRedesignOptIn` is not set", () => {
-  render(
-    <CarbonProvider>
-      <NumeralDate
-        value={{ dd: "02", mm: "01", yyyy: "2020" }}
-        onChange={() => {}}
-        fieldHelp="fieldHelp"
-      />
-    </CarbonProvider>,
-  );
-
-  const fieldHelpText = screen.getByText("fieldHelp");
-  const fieldset = screen.getByRole("group");
-
-  expect(fieldHelpText).toBeVisible();
-  expect(fieldset).toHaveAccessibleDescription("fieldHelp");
-});
-
-// coverage
-test("should not render with `labelInline` when `adaptiveLabelBreakpoint` set and screen is smaller than the breakpoint", () => {
-  mockMatchMedia(false);
-  render(
-    <CarbonProvider>
-      <NumeralDate
-        label="label"
-        labelInline
-        adaptiveLabelBreakpoint={1000}
-        value={{
-          dd: "",
-          mm: "",
-          yyyy: "",
-        }}
-        onChange={jest.fn}
-      />
-    </CarbonProvider>,
-  );
-
-  expect(screen.getByRole("group")).not.toHaveStyle({
-    display: "flex",
-    alignItems: "center",
-  });
-});
-
-// coverage
-test("should render with `labelInline` when `adaptiveLabelBreakpoint` set and screen is bigger than the breakpoint", () => {
-  mockMatchMedia(true);
-  render(
-    <CarbonProvider>
-      <NumeralDate
-        label="label"
-        labelInline
-        adaptiveLabelBreakpoint={1000}
-        value={{
-          dd: "",
-          mm: "",
-          yyyy: "",
-        }}
-        onChange={jest.fn}
-      />
-    </CarbonProvider>,
-  );
-
-  expect(screen.getByTestId("legend")).toHaveStyle({
-    float: "left",
-    height: "65px",
-  });
-});
-
-describe("when the `enableInternalError` prop is not set and `validationRedesignOptIn` is true", () => {
+describe("when the `enableInternalError` prop is not set", () => {
   it("should not render the validation message when the `Day` field is blurred and has a value greater than 31", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
-      <CarbonProvider validationRedesignOptIn>
-        <NumeralDate value={{ dd: "", mm: "", yyyy: "" }} onChange={() => {}} />
-      </CarbonProvider>,
+      <NumeralDate value={{ dd: "", mm: "", yyyy: "" }} onChange={() => {}} />,
     );
 
     const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -810,9 +206,7 @@ describe("when the `enableInternalError` prop is not set and `validationRedesign
   it("should not render the validation message when the `Day` field is blurred and has a value less than 1", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
-      <CarbonProvider validationRedesignOptIn>
-        <NumeralDate value={{ dd: "", mm: "", yyyy: "" }} onChange={() => {}} />
-      </CarbonProvider>,
+      <NumeralDate value={{ dd: "", mm: "", yyyy: "" }} onChange={() => {}} />,
     );
 
     const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -832,9 +226,7 @@ describe("when the `enableInternalError` prop is not set and `validationRedesign
   it("should not render the validation message when the `Month` field is blurred and has a value greater than 12", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
-      <CarbonProvider validationRedesignOptIn>
-        <NumeralDate value={{ dd: "", mm: "", yyyy: "" }} onChange={() => {}} />
-      </CarbonProvider>,
+      <NumeralDate value={{ dd: "", mm: "", yyyy: "" }} onChange={() => {}} />,
     );
 
     const monthInput = screen.getByRole("textbox", { name: "Month" });
@@ -854,9 +246,7 @@ describe("when the `enableInternalError` prop is not set and `validationRedesign
   it("should not render the validation message when the `Month` field is blurred and has a value less than 1", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
-      <CarbonProvider validationRedesignOptIn>
-        <NumeralDate value={{ dd: "", mm: "", yyyy: "" }} onChange={() => {}} />
-      </CarbonProvider>,
+      <NumeralDate value={{ dd: "", mm: "", yyyy: "" }} onChange={() => {}} />,
     );
 
     const monthInput = screen.getByRole("textbox", { name: "Month" });
@@ -874,17 +264,15 @@ describe("when the `enableInternalError` prop is not set and `validationRedesign
   });
 });
 
-describe("when the `enableInternalError` prop and `validationRedesignOptIn` are set", () => {
+describe("when the `enableInternalError` prop is set", () => {
   it("should not render the validation message when the `Day` field is blurred and has a valid value", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
-      <CarbonProvider validationRedesignOptIn>
-        <NumeralDate
-          value={{ dd: "", mm: "", yyyy: "" }}
-          onChange={() => {}}
-          enableInternalError
-        />
-      </CarbonProvider>,
+      <NumeralDate
+        value={{ dd: "", mm: "", yyyy: "" }}
+        onChange={() => {}}
+        enableInternalError
+      />,
     );
 
     const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -898,11 +286,7 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
 
   it("should render the validation message when the user types a value in the `Day` field greater than 31 and tabs", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    render(
-      <CarbonProvider validationRedesignOptIn>
-        <ControlledComponent enableInternalError />
-      </CarbonProvider>,
-    );
+    render(<ControlledComponent enableInternalError />);
 
     const dayInput = screen.getByRole("textbox", { name: "Day" });
     const monthInput = screen.getByRole("textbox", { name: "Month" });
@@ -922,11 +306,7 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
 
   it("should render the validation message when the user types a value in the `Day` field less than 1 and tabs", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    render(
-      <CarbonProvider validationRedesignOptIn>
-        <ControlledComponent enableInternalError />
-      </CarbonProvider>,
-    );
+    render(<ControlledComponent enableInternalError />);
 
     const dayInput = screen.getByRole("textbox", { name: "Day" });
     const monthInput = screen.getByRole("textbox", { name: "Month" });
@@ -945,12 +325,10 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
   it("should render the validation message when the user types `02` in the `Month` field and tabs when the `Day` field has a value greater than 28", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
-      <CarbonProvider validationRedesignOptIn>
-        <ControlledComponent
-          initialValue={{ dd: "29", mm: "", yyyy: "2021" }}
-          enableInternalError
-        />
-      </CarbonProvider>,
+      <ControlledComponent
+        initialValue={{ dd: "29", mm: "", yyyy: "2021" }}
+        enableInternalError
+      />,
     );
 
     const monthInput = screen.getByRole("textbox", { name: "Month" });
@@ -970,13 +348,11 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
   it("should not render the validation message when the user types '02' in the `Month` field and tabs when the `Day` field has a valid value", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
-      <CarbonProvider validationRedesignOptIn>
-        <NumeralDate
-          value={{ dd: "29", mm: "", yyyy: "2020" }}
-          onChange={() => {}}
-          enableInternalError
-        />
-      </CarbonProvider>,
+      <NumeralDate
+        value={{ dd: "29", mm: "", yyyy: "2020" }}
+        onChange={() => {}}
+        enableInternalError
+      />,
     );
 
     const monthInput = screen.getByRole("textbox", { name: "Month" });
@@ -991,13 +367,11 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
   it("should use the current year and not render the validation message when the user types '02' in the `Month` field and tabs when the `Day` field has a valid value", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
-      <CarbonProvider validationRedesignOptIn>
-        <NumeralDate
-          value={{ dd: "28", mm: "", yyyy: "" }}
-          onChange={() => {}}
-          enableInternalError
-        />
-      </CarbonProvider>,
+      <NumeralDate
+        value={{ dd: "28", mm: "", yyyy: "" }}
+        onChange={() => {}}
+        enableInternalError
+      />,
     );
 
     const monthInput = screen.getByRole("textbox", { name: "Month" });
@@ -1012,12 +386,10 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
   it("should render the validation message when the `Month` is blurred and has a value greater than 12", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
-      <CarbonProvider validationRedesignOptIn>
-        <ControlledComponent
-          initialValue={{ dd: "31", mm: "", yyyy: "2020" }}
-          enableInternalError
-        />
-      </CarbonProvider>,
+      <ControlledComponent
+        initialValue={{ dd: "31", mm: "", yyyy: "2020" }}
+        enableInternalError
+      />,
     );
 
     const monthInput = screen.getByRole("textbox", { name: "Month" });
@@ -1037,12 +409,10 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
   it("should render the validation message when the `Month` is blurred and has a value less than 1", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
-      <CarbonProvider validationRedesignOptIn>
-        <ControlledComponent
-          initialValue={{ dd: "31", mm: "", yyyy: "2020" }}
-          enableInternalError
-        />
-      </CarbonProvider>,
+      <ControlledComponent
+        initialValue={{ dd: "31", mm: "", yyyy: "2020" }}
+        enableInternalError
+      />,
     );
 
     const monthInput = screen.getByRole("textbox", { name: "Month" });
@@ -1062,12 +432,10 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
   it("should render the validation message when the `Year` is blurred and has a value less than 1800", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
-      <CarbonProvider validationRedesignOptIn>
-        <ControlledComponent
-          initialValue={{ dd: "31", mm: "", yyyy: "" }}
-          enableInternalError
-        />
-      </CarbonProvider>,
+      <ControlledComponent
+        initialValue={{ dd: "31", mm: "", yyyy: "" }}
+        enableInternalError
+      />,
     );
 
     const yearInput = screen.getByRole("textbox", { name: "Year" });
@@ -1087,12 +455,10 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
   it("should render the validation message when the `Year` is blurred and has a value greater than 2200", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
-      <CarbonProvider validationRedesignOptIn>
-        <ControlledComponent
-          initialValue={{ dd: "31", mm: "", yyyy: "" }}
-          enableInternalError
-        />
-      </CarbonProvider>,
+      <ControlledComponent
+        initialValue={{ dd: "31", mm: "", yyyy: "" }}
+        enableInternalError
+      />,
     );
 
     const yearInput = screen.getByRole("textbox", { name: "Year" });
@@ -1112,12 +478,10 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
   it("should render the appropriate validation message when the `Day` and `Month` fields are blurred and have values greater than the valid limits", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
-      <CarbonProvider validationRedesignOptIn>
-        <ControlledComponent
-          initialValue={{ dd: "", mm: "", yyyy: "" }}
-          enableInternalError
-        />
-      </CarbonProvider>,
+      <ControlledComponent
+        initialValue={{ dd: "", mm: "", yyyy: "" }}
+        enableInternalError
+      />,
     );
 
     const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -1136,11 +500,7 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
 
   it("should render the appropriate validation message when the `Day` and `Year` fields are blurred and have values greater than the valid limits", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    render(
-      <CarbonProvider validationRedesignOptIn>
-        <ControlledComponent enableInternalError />
-      </CarbonProvider>,
-    );
+    render(<ControlledComponent enableInternalError />);
 
     const dayInput = screen.getByRole("textbox", { name: "Day" });
     const yearInput = screen.getByRole("textbox", { name: "Year" });
@@ -1158,11 +518,7 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
 
   it("should render the appropriate validation message when the `Month` and `Year` fields are blurred and have values greater than the valid limits", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    render(
-      <CarbonProvider validationRedesignOptIn>
-        <ControlledComponent enableInternalError />
-      </CarbonProvider>,
-    );
+    render(<ControlledComponent enableInternalError />);
 
     const monthInput = screen.getByRole("textbox", { name: "Month" });
     const yearInput = screen.getByRole("textbox", { name: "Year" });
@@ -1180,11 +536,7 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
 
   it("should render the appropriate validation message when the `Day`, `Month`, and `Year` fields are blurred and have values greater than the valid limits", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    render(
-      <CarbonProvider validationRedesignOptIn>
-        <ControlledComponent enableInternalError />
-      </CarbonProvider>,
-    );
+    render(<ControlledComponent enableInternalError />);
 
     const dayInput = screen.getByRole("textbox", { name: "Day" });
     const monthInput = screen.getByRole("textbox", { name: "Month" });
@@ -1208,9 +560,7 @@ describe("when the `enableInternalWarning` prop is not set and `validationRedesi
   it("should not render the validation message when the `Day` field is blurred and has a value greater than 31", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
-      <CarbonProvider validationRedesignOptIn>
-        <NumeralDate value={{ dd: "", mm: "", yyyy: "" }} onChange={() => {}} />
-      </CarbonProvider>,
+      <NumeralDate value={{ dd: "", mm: "", yyyy: "" }} onChange={() => {}} />,
     );
 
     const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -1231,9 +581,7 @@ describe("when the `enableInternalWarning` prop is not set and `validationRedesi
   it("should not render the validation message when the `Day` field is blurred and has a value less than 1", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
-      <CarbonProvider validationRedesignOptIn>
-        <NumeralDate value={{ dd: "", mm: "", yyyy: "" }} onChange={() => {}} />
-      </CarbonProvider>,
+      <NumeralDate value={{ dd: "", mm: "", yyyy: "" }} onChange={() => {}} />,
     );
 
     const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -1253,9 +601,7 @@ describe("when the `enableInternalWarning` prop is not set and `validationRedesi
   it("should not render the validation message when the `Month` field is blurred and has a value greater than 12", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
-      <CarbonProvider validationRedesignOptIn>
-        <NumeralDate value={{ dd: "", mm: "", yyyy: "" }} onChange={() => {}} />
-      </CarbonProvider>,
+      <NumeralDate value={{ dd: "", mm: "", yyyy: "" }} onChange={() => {}} />,
     );
 
     const monthInput = screen.getByRole("textbox", { name: "Month" });
@@ -1275,9 +621,7 @@ describe("when the `enableInternalWarning` prop is not set and `validationRedesi
   it("should not render the validation message when the `Month` field is blurred and has a value less than 1", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
-      <CarbonProvider validationRedesignOptIn>
-        <NumeralDate value={{ dd: "", mm: "", yyyy: "" }} onChange={() => {}} />
-      </CarbonProvider>,
+      <NumeralDate value={{ dd: "", mm: "", yyyy: "" }} onChange={() => {}} />,
     );
 
     const monthInput = screen.getByRole("textbox", { name: "Month" });
@@ -1299,13 +643,11 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
   it("should not render the validation message when the `Day` field is blurred and has a valid value", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
-      <CarbonProvider validationRedesignOptIn>
-        <NumeralDate
-          value={{ dd: "", mm: "", yyyy: "" }}
-          onChange={() => {}}
-          enableInternalWarning
-        />
-      </CarbonProvider>,
+      <NumeralDate
+        value={{ dd: "", mm: "", yyyy: "" }}
+        onChange={() => {}}
+        enableInternalWarning
+      />,
     );
 
     const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -1319,11 +661,7 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
 
   it("should render the validation message when the user types a value in the `Day` field greater than 31 and tabs", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    render(
-      <CarbonProvider validationRedesignOptIn>
-        <ControlledComponent enableInternalWarning />
-      </CarbonProvider>,
-    );
+    render(<ControlledComponent enableInternalWarning />);
 
     const dayInput = screen.getByRole("textbox", { name: "Day" });
     const monthInput = screen.getByRole("textbox", { name: "Month" });
@@ -1341,11 +679,7 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
 
   it("should render the validation message when the user types a value in the `Day` field less than 1 and tabs", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    render(
-      <CarbonProvider validationRedesignOptIn>
-        <ControlledComponent enableInternalWarning />
-      </CarbonProvider>,
-    );
+    render(<ControlledComponent enableInternalWarning />);
 
     const dayInput = screen.getByRole("textbox", { name: "Day" });
     const monthInput = screen.getByRole("textbox", { name: "Month" });
@@ -1364,12 +698,10 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
   it("should render the validation message when the user types `02` in the `Month` field and tabs when the `Day` field has a value greater than 28", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
-      <CarbonProvider validationRedesignOptIn>
-        <ControlledComponent
-          initialValue={{ dd: "29", mm: "", yyyy: "2021" }}
-          enableInternalWarning
-        />
-      </CarbonProvider>,
+      <ControlledComponent
+        initialValue={{ dd: "29", mm: "", yyyy: "2021" }}
+        enableInternalWarning
+      />,
     );
 
     const monthInput = screen.getByRole("textbox", { name: "Month" });
@@ -1389,13 +721,11 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
   it("should not render the validation message when the user types '02' in the `Month` field and tabs when the `Day` field has a valid value", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
-      <CarbonProvider validationRedesignOptIn>
-        <NumeralDate
-          value={{ dd: "29", mm: "", yyyy: "2020" }}
-          onChange={() => {}}
-          enableInternalWarning
-        />
-      </CarbonProvider>,
+      <NumeralDate
+        value={{ dd: "29", mm: "", yyyy: "2020" }}
+        onChange={() => {}}
+        enableInternalWarning
+      />,
     );
 
     const monthInput = screen.getByRole("textbox", { name: "Month" });
@@ -1410,12 +740,10 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
   it("should render the validation message when the `Month` is blurred and has a value greater than 12", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
-      <CarbonProvider validationRedesignOptIn>
-        <ControlledComponent
-          initialValue={{ dd: "31", mm: "", yyyy: "2020" }}
-          enableInternalWarning
-        />
-      </CarbonProvider>,
+      <ControlledComponent
+        initialValue={{ dd: "31", mm: "", yyyy: "2020" }}
+        enableInternalWarning
+      />,
     );
 
     const monthInput = screen.getByRole("textbox", { name: "Month" });
@@ -1435,12 +763,10 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
   it("should render the validation message when the `Month` is blurred and has a value less than 1", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
-      <CarbonProvider validationRedesignOptIn>
-        <ControlledComponent
-          initialValue={{ dd: "31", mm: "", yyyy: "2020" }}
-          enableInternalWarning
-        />
-      </CarbonProvider>,
+      <ControlledComponent
+        initialValue={{ dd: "31", mm: "", yyyy: "2020" }}
+        enableInternalWarning
+      />,
     );
 
     const monthInput = screen.getByRole("textbox", { name: "Month" });
@@ -1460,12 +786,10 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
   it("should render the validation message when the `Year` is blurred and has a value less than 1800", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
-      <CarbonProvider validationRedesignOptIn>
-        <ControlledComponent
-          initialValue={{ dd: "31", mm: "", yyyy: "" }}
-          enableInternalWarning
-        />
-      </CarbonProvider>,
+      <ControlledComponent
+        initialValue={{ dd: "31", mm: "", yyyy: "" }}
+        enableInternalWarning
+      />,
     );
 
     const yearInput = screen.getByRole("textbox", { name: "Year" });
@@ -1485,12 +809,10 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
   it("should render the validation message when the `Year` is blurred and has a value greater than 2200", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
-      <CarbonProvider validationRedesignOptIn>
-        <ControlledComponent
-          initialValue={{ dd: "31", mm: "", yyyy: "" }}
-          enableInternalWarning
-        />
-      </CarbonProvider>,
+      <ControlledComponent
+        initialValue={{ dd: "31", mm: "", yyyy: "" }}
+        enableInternalWarning
+      />,
     );
 
     const yearInput = screen.getByRole("textbox", { name: "Year" });
@@ -1509,11 +831,7 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
 
   it("should render the appropriate validation message when the `Day` and `Month` fields are blurred and have values greater than the valid limits", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    render(
-      <CarbonProvider validationRedesignOptIn>
-        <ControlledComponent enableInternalWarning />
-      </CarbonProvider>,
-    );
+    render(<ControlledComponent enableInternalWarning />);
 
     const dayInput = screen.getByRole("textbox", { name: "Day" });
     const monthInput = screen.getByRole("textbox", { name: "Month" });
@@ -1531,11 +849,7 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
 
   it("should render the appropriate validation message when the `Day` and `Year` fields are blurred and have values greater than the valid limits", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    render(
-      <CarbonProvider validationRedesignOptIn>
-        <ControlledComponent enableInternalWarning />
-      </CarbonProvider>,
-    );
+    render(<ControlledComponent enableInternalWarning />);
 
     const dayInput = screen.getByRole("textbox", { name: "Day" });
     const yearInput = screen.getByRole("textbox", { name: "Year" });
@@ -1553,11 +867,7 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
 
   it("should render the appropriate validation message when the `Month` and `Year` fields are blurred and have values greater than the valid limits", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    render(
-      <CarbonProvider validationRedesignOptIn>
-        <ControlledComponent enableInternalWarning />
-      </CarbonProvider>,
-    );
+    render(<ControlledComponent enableInternalWarning />);
 
     const monthInput = screen.getByRole("textbox", { name: "Month" });
     const yearInput = screen.getByRole("textbox", { name: "Year" });
@@ -1575,11 +885,7 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
 
   it("should render the appropriate validation message when the `Day`, `Month`, and `Year` fields are blurred and have values greater than the valid limits", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    render(
-      <CarbonProvider validationRedesignOptIn>
-        <ControlledComponent enableInternalWarning />
-      </CarbonProvider>,
-    );
+    render(<ControlledComponent enableInternalWarning />);
 
     const dayInput = screen.getByRole("textbox", { name: "Day" });
     const monthInput = screen.getByRole("textbox", { name: "Month" });
@@ -2016,21 +1322,6 @@ test("should set the passed `data-` props as attributes on the root element", ()
   expect(rootElement).toHaveAttribute("data-element", "numeral-date-element");
 });
 
-test("should pass the `helpAriaLabel` prop as `aria-label` attribute on the help component", () => {
-  render(
-    <NumeralDate
-      label="label"
-      value={{ dd: "02", mm: "01", yyyy: "2020" }}
-      onChange={() => {}}
-      labelHelp="labelHelp"
-      helpAriaLabel="help aria"
-    />,
-  );
-  const helpElement = screen.getByRole("button", { name: "help aria" });
-
-  expect(helpElement).toBeVisible();
-});
-
 test("should set the inputs to `disabled` when the prop is passed", () => {
   render(
     <NumeralDate
@@ -2065,37 +1356,16 @@ test("should set the inputs to `readOnly` when the prop is passed", () => {
   expect(yearInput).toHaveAttribute("readonly");
 });
 
-test.each(["error", "warning", "info"])(
-  "should render with expected accessible description when '%s' and 'fieldHelp' props are passed and 'validationRedesignOptIn' is false",
+test.each(["error", "warning"])(
+  "should render with expected accessible description when '%s' and 'labelHelp' props are passed and 'validationRedesignOptIn' is true",
   (validation) => {
     render(
       <NumeralDate
         value={{ dd: "", mm: "", yyyy: "" }}
         onChange={() => {}}
-        label="label"
-        fieldHelp="fieldHelp"
-        validationOnLabel
+        labelHelp="labelHelp"
         {...{ [validation]: "Message" }}
       />,
-    );
-
-    const fieldset = screen.getByRole("group", { name: "label" });
-    expect(fieldset).toHaveAccessibleDescription("fieldHelp Message");
-  },
-);
-
-test.each(["error", "warning"])(
-  "should render with expected accessible description when '%s' and 'labelHelp' props are passed and 'validationRedesignOptIn' is true",
-  (validation) => {
-    render(
-      <CarbonProvider validationRedesignOptIn>
-        <NumeralDate
-          value={{ dd: "", mm: "", yyyy: "" }}
-          onChange={() => {}}
-          labelHelp="labelHelp"
-          {...{ [validation]: "Message" }}
-        />
-      </CarbonProvider>,
     );
 
     const fieldset = screen.getByRole("group");
@@ -2107,15 +1377,13 @@ test.each(["error", "warning"])(
   "should render with expected accessible description when '%s' and 'labelHelp' props are passed, 'validationRedesignOptIn' is true and validationMessagePositionTop is false",
   (validation) => {
     render(
-      <CarbonProvider validationRedesignOptIn>
-        <NumeralDate
-          value={{ dd: "", mm: "", yyyy: "" }}
-          onChange={() => {}}
-          labelHelp="labelHelp"
-          validationMessagePositionTop={false}
-          {...{ [validation]: "Message" }}
-        />
-      </CarbonProvider>,
+      <NumeralDate
+        value={{ dd: "", mm: "", yyyy: "" }}
+        onChange={() => {}}
+        labelHelp="labelHelp"
+        validationMessagePositionTop={false}
+        {...{ [validation]: "Message" }}
+      />,
     );
 
     const fieldset = screen.getByRole("group");
@@ -2215,11 +1483,7 @@ test("when internal validation is enabled and the input blurs, it should use the
 
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
-  render(
-    <CarbonProvider validationRedesignOptIn>
-      <ControlledComponent enableInternalWarning />
-    </CarbonProvider>,
-  );
+  render(<ControlledComponent enableInternalWarning />);
 
   const monthInput = screen.getByRole("textbox", { name: "Month" });
   await user.click(monthInput);

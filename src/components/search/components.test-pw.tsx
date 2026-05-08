@@ -19,7 +19,7 @@ export const SearchComponent = (
 export const SearchComponentDarkBackground = (
   props: Omit<SearchProps, "onChange" | "value">,
 ) => {
-  const [value, setValue] = React.useState("");
+  const [value, setValue] = React.useState("foo");
   return (
     <Box width="700px" height="108px" bg="#003349">
       <Search

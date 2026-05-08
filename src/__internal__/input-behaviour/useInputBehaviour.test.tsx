@@ -1,6 +1,6 @@
 import React from "react";
 import { act, renderHook, render, screen } from "@testing-library/react";
-import { Input } from "../input";
+import { Input } from "../legacy-input";
 
 import useInputBehaviour from "./useInputBehaviour";
 

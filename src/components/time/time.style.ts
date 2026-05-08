@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Label from "../../__internal__/label";
+import Label from "../../__internal__/legacy-label";
 
 const StyledLabel = styled(Label)`
   label {
