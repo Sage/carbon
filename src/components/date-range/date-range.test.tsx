@@ -1015,56 +1015,6 @@ test("should set the ref on the 'end' input to null after the component is unmou
   expect(ref.current).toBeNull();
 });
 
-test("should only display the start input tooltip when the user hovers over it and both inputs have error strings passed with `validationRedesignOptIn` not set", async () => {
-  const user = userEvent.setup();
-  render(
-    <CarbonProvider>
-      <DateRange
-        startLabel="start"
-        onChange={() => {}}
-        endLabel="end"
-        value={["10/10/2016", "11/11/2016"]}
-        startError="start error"
-        endError="end error"
-      />
-    </CarbonProvider>,
-  );
-
-  const start = screen.getByRole("textbox", { name: "start" });
-  await user.hover(start);
-  const startTooltip = await screen.findByRole("tooltip", {
-    name: "start error",
-  });
-  const endTooltip = screen.queryByRole("tooltip", { name: "end error" });
-
-  expect(startTooltip).toBeVisible();
-  expect(endTooltip).not.toBeInTheDocument();
-});
-
-test("should only display the end input tooltip when the user hovers over it and both inputs have error strings passed with `validationRedesignOptIn` not set", async () => {
-  const user = userEvent.setup();
-  render(
-    <CarbonProvider>
-      <DateRange
-        startLabel="start"
-        onChange={() => {}}
-        endLabel="end"
-        value={["10/10/2016", "11/11/2016"]}
-        startError="start error"
-        endError="end error"
-      />
-    </CarbonProvider>,
-  );
-
-  const end = screen.getByRole("textbox", { name: "end" });
-  await user.hover(end);
-  const tooltips = screen.getAllByRole("tooltip");
-
-  expect(tooltips).toHaveLength(1);
-  expect(tooltips[0]).toBeVisible();
-  expect(tooltips[0]).toHaveTextContent("end error");
-});
-
 test("should display the error message for both inputs when strings are passed to the error props and `validationRedesignOptIn` is set", () => {
   render(
     <CarbonProvider validationRedesignOptIn>

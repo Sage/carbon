@@ -22,7 +22,6 @@ description: Carbon FilterableSelect component props and usage examples.
 | accept | string \| undefined | No |  |  |  |  |  |
 | accessibilityLabelId | string \| undefined | No |  |  |  | Id of the element containing the currently displayed value to be read by voice readers |  |
 | accessKey | string \| undefined | No |  |  |  |  |  |
-| adaptiveLabelBreakpoint | number \| undefined | No |  |  |  | Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set |  |
 | align | "left" \| "right" \| undefined | No |  |  |  |  |  |
 | alt | string \| undefined | No |  |  |  |  |  |
 | ariaLabel | string \| undefined | No |  |  |  | Prop to specify the aria-label attribute of the component input |  |
@@ -52,7 +51,6 @@ description: Carbon FilterableSelect component props and usage examples.
 | enterKeyHint | "go" \| "send" \| "search" \| "enter" \| "done" \| "next" \| "previous" \| undefined | No |  |  |  |  |  |
 | error | string \| boolean \| undefined | No |  |  |  | Indicate that error has occurred. |  |
 | exportparts | string \| undefined | No |  |  |  |  |  |
-| fieldHelp | React.ReactNode | No |  |  |  | [Legacy] Help content to be displayed under an input. |  |
 | flipEnabled | boolean \| undefined | No |  |  |  | Use the opposite list placement if the set placement does not fit |  |
 | form | string \| undefined | No |  |  |  |  |  |
 | formAction | string \| undefined | No |  |  |  |  |  |
@@ -62,7 +60,6 @@ description: Carbon FilterableSelect component props and usage examples.
 | formNoValidate | boolean \| undefined | No |  |  |  |  |  |
 | formTarget | string \| undefined | No |  |  |  |  |  |
 | height | string \| number \| undefined | No |  |  |  |  |  |
-| helpAriaLabel | string \| undefined | No |  |  |  | [Legacy] Aria label for rendered help component. |  |
 | hidden | boolean \| undefined | No |  |  |  |  |  |
 | iconOnClick | ((ev: React.MouseEvent<HTMLElement> \| React.KeyboardEvent<HTMLElement>) => void) \| undefined | No |  |  |  | Optional handler for click event on Textbox icon |  |
 | iconOnMouseDown | ((ev: React.MouseEvent<HTMLElement>) => void) \| undefined | No |  |  |  | Optional handler for mouse down event on Textbox icon |  |
@@ -71,7 +68,7 @@ description: Carbon FilterableSelect component props and usage examples.
 | info | string \| boolean \| undefined | No |  |  |  | [Legacy] Indicate additional information. |  |
 | inlist | any | No |  |  |  |  |  |
 | inputHint | string \| undefined | No |  |  |  | A hint string rendered before the input but after the label. Intended to describe the purpose or content of the input. |  |
-| inputIcon | IconType \| undefined | No |  |  |  | Type of the icon that will be rendered next to the input |  |
+| inputIcon | string \| number \| boolean \| React.ReactElement<any, string \| React.JSXElementConstructor<any>> \| Iterable<React.ReactNode> \| React.ReactPortal \| null \| undefined | No |  |  |  | Type of the icon that will be rendered next to the input |  |
 | inputMode | "email" \| "none" \| "search" \| "text" \| "tel" \| "url" \| "numeric" \| "decimal" \| undefined | No |  |  |  | Hints at the type of data that might be entered by the user while editing the element or its contents |  |
 | inputWidth | number \| undefined | No |  |  |  | The width of the input as a percentage |  |
 | is | string \| undefined | No |  |  |  | Specify that a standard HTML element should behave like a defined custom built-in element |  |
@@ -82,11 +79,9 @@ description: Carbon FilterableSelect component props and usage examples.
 | itemScope | boolean \| undefined | No |  |  |  |  |  |
 | itemType | string \| undefined | No |  |  |  |  |  |
 | label | string \| undefined | No |  |  |  | Label content |  |
-| labelAlign | "left" \| "right" \| undefined | No |  |  |  | Label alignment |  |
 | labelHelp | React.ReactNode | No |  |  |  | [Legacy] A message that the Help component will display |  |
 | labelId | string \| undefined | No |  |  |  | Label id passed from Select component |  |
 | labelInline | boolean \| undefined | No |  |  |  | [Legacy] When true label is inline |  |
-| labelSpacing | 1 \| 2 \| undefined | No |  |  |  | [Legacy] Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8). |  |
 | labelWidth | number \| undefined | No |  |  |  | [Legacy] Label width |  |
 | lang | string \| undefined | No |  |  |  |  |  |
 | leftChildren | React.ReactNode | No |  |  |  | Additional child elements to display before the input |  |
@@ -138,7 +133,7 @@ description: Carbon FilterableSelect component props and usage examples.
 | onCanPlayThrough | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onCanPlayThroughCapture | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onChangeCapture | FormEventHandler<T> \| undefined | No |  |  |  |  |  |
-| onChangeDeferred | (() => void) \| undefined | No |  |  |  | Deferred callback to be called after the onChange event |  |
+| onChangeDeferred | ((ev: React.ChangeEvent<HTMLInputElement>) => void) \| undefined | No |  |  |  | Deferred callback to be called after the onChange event |  |
 | onClick | ((ev: React.MouseEvent<HTMLInputElement>) => void) \| undefined | No |  |  |  | Specify a callback triggered on click |  |
 | onClickCapture | MouseEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onCompositionEnd | CompositionEventHandler<T> \| undefined | No |  |  |  |  |  |
@@ -292,7 +287,6 @@ description: Carbon FilterableSelect component props and usage examples.
 | resource | string \| undefined | No |  |  |  |  |  |
 | results | number \| undefined | No |  |  |  |  |  |
 | rev | string \| undefined | No |  |  |  |  |  |
-| reverse | boolean \| undefined | No |  |  |  | Reverses label and input display |  |
 | role | AriaRole \| undefined | No |  |  |  |  |  |
 | security | string \| undefined | No |  |  |  |  |  |
 | size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | Size of an input |  |
@@ -306,14 +300,12 @@ description: Carbon FilterableSelect component props and usage examples.
 | tabIndex | number \| undefined | No |  |  |  |  |  |
 | tableHeader | React.ReactNode | No |  |  |  | SelectList table header, should consist of multiple th elements. Works only in multiColumn mode |  |
 | title | string \| undefined | No |  |  |  |  |  |
-| tooltipId | string \| undefined | No |  |  |  | The id attribute for the validation tooltip |  |
 | tooltipPosition | "left" \| "right" \| "bottom" \| "top" \| undefined | No |  |  |  | [Legacy] Overrides the default tooltip position |  |
 | translate | "yes" \| "no" \| undefined | No |  |  |  |  |  |
 | typeof | string \| undefined | No |  |  |  |  |  |
 | unselectable | "off" \| "on" \| undefined | No |  |  |  |  |  |
 | validationIconId | string \| undefined | No |  |  |  | Id of the validation icon |  |
 | validationMessagePositionTop | boolean \| undefined | No |  |  |  | Render the ValidationMessage above the Textbox input when validationRedesignOptIn flag is set |  |
-| validationOnLabel | boolean \| undefined | No |  |  |  | [Legacy] When true, validation icon will be placed on label instead of being placed on the input. |  |
 | virtualScrollOverscan | number \| undefined | No |  |  |  | The number of options to render into the DOM at once, either side of the currently-visible ones. Higher values make for smoother scrolling but may impact performance. Only used if the `enableVirtualScroll` prop is set. |  |
 | vocab | string \| undefined | No |  |  |  |  |  |
 | warning | string \| boolean \| undefined | No |  |  |  | Indicate that warning has occurred. |  |
@@ -371,8 +363,16 @@ description: Carbon FilterableSelect component props and usage examples.
 | aria-valuemin | number \| undefined | No |  |  |  | Defines the minimum allowed value for a range widget. |  |
 | aria-valuenow | number \| undefined | No |  |  |  | Defines the current value for a range widget. |  |
 | aria-valuetext | string \| undefined | No |  |  |  | Defines the human readable text alternative of aria-valuenow for a range widget. |  |
+| adaptiveLabelBreakpoint | number \| undefined | No |  | Yes | `adaptiveLabelBreakpoint` has been deprecated. It is recommended to use `useMediaQuery` hook to implement adaptive behaviour. Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set |  |  |
+| fieldHelp | React.ReactNode | No |  | Yes | `fieldHelp` has been deprecated, `inputHint` should be used instead. [Legacy] Help content to be displayed under an input. |  |  |
+| helpAriaLabel | string \| undefined | No |  | Yes | `helpAriaLabel` has been deprecated, the functionality will no longer work. |  |  |
+| labelAlign | "left" \| "right" \| undefined | No |  | Yes | `labelAlign` has been deprecated, the functionality will no longer work. |  |  |
+| labelSpacing | 1 \| 2 \| undefined | No |  | Yes | `labelSpacing` has been deprecated, the functionality will no longer work. |  |  |
 | onKeyPress | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUp` or `onKeyDown` instead |  |  |
 | onKeyPressCapture | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUpCapture` or `onKeyDownCapture` instead |  |  |
+| reverse | boolean \| undefined | No |  | Yes | `reverse` has been deprecated, the functionality will no longer work. |  |  |
+| tooltipId | string \| undefined | No |  | Yes | `tooltipId` has been deprecated, the functionality will no longer work. |  |  |
+| validationOnLabel | boolean \| undefined | No |  | Yes | `validationOnLabel` has been deprecated, the functionality will no longer work. |  |  |
 | aria-dropeffect | "copy" \| "link" \| "none" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
 | aria-grabbed | Booleanish \| undefined | No |  | Yes | in ARIA 1.1 | Indicates an element's "grabbed" state in a drag-and-drop operation. |  |
 

@@ -157,7 +157,6 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
       label,
     });
     const focusTimer = useRef<null | ReturnType<typeof setTimeout>>(null);
-
     const setOpen = useCallback(() => {
       setOpenState((isAlreadyOpen) => {
         if (!isAlreadyOpen && onOpen) {
@@ -457,6 +456,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
       setOpenState((isAlreadyOpen) => {
         if (isAlreadyOpen) {
           setFilterText("");
+
           return false;
         }
 
@@ -487,7 +487,14 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
     function handleTextboxMouseDown(event: React.MouseEvent<HTMLElement>) {
       isMouseDownReported.current = true;
 
-      if ((event.target as HTMLInputElement).dataset.element === "input") {
+      const targetElement = event.target as HTMLElement;
+
+      // prevent text selection on rapid clicks of non-input elements (e.g. the dropdown icon)
+      if (targetElement.dataset?.element !== "input") {
+        event.preventDefault();
+      }
+
+      if (targetElement.dataset.element === "input") {
         isMouseDownOnInput.current = true;
       }
     }
@@ -520,14 +527,8 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
               isInputFocused.current = true;
             }
 
-            if (isMouseDownReported.current && !isMouseDownOnInput.current) {
-              isOpenedByFocus.current = false;
-              return false;
-            }
+            isOpenedByFocus.current = isMouseDownOnInput.current;
 
-            if (isMouseDownOnInput.current) {
-              isOpenedByFocus.current = true;
-            }
             return true;
           });
         });
@@ -679,6 +680,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
         data-role={dataRole}
         data-element={dataElement}
         isOpen={isOpen}
+        className="multi-select"
         {...marginProps}
       >
         <div ref={containerRef}>
@@ -696,10 +698,10 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
             aria-controls={selectListId.current}
             ariaLabel={ariaLabel}
             ariaLabelledby={ariaLabelledby}
-            hasTextCursor
             isOpen={isOpen}
             labelId={labelId}
             value={getTextboxProps().formattedValue}
+            selectType="multi"
             {...getTextboxProps()}
           />
         </div>

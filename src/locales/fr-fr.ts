@@ -249,6 +249,7 @@ const frFR: Partial<Locale> = {
   switch: {
     on: () => "Oui",
     off: () => "Non",
+    processingLabel: () => "Traitement en cours",
   },
   tileSelect: {
     deselect: () => "Désélectionner",

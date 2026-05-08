@@ -1,15 +1,9 @@
 import React from "react";
 import { test } from "../../../playwright/helpers/base-test";
-import {
-  getDataElementByValue,
-  tooltipPreview,
-} from "../../../playwright/components";
 import { CHARACTERS } from "../../../playwright/support/constants";
 import { checkAccessibility } from "../../../playwright/support/helper";
 import { DateRangeCustom, DateRangeNewValidation } from "./components.test-pw";
-import { DateRangeProps } from "./date-range.component";
 
-const testText = "test_playwright";
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS] as const;
 
 test.describe("Accessibility tests for Date Range", () => {
@@ -145,29 +139,6 @@ test.describe("Accessibility tests for Date Range", () => {
       );
 
       await checkAccessibility(page);
-    });
-  });
-
-  (
-    ["top", "bottom", "left", "right"] as DateRangeProps["tooltipPosition"][]
-  ).forEach((position) => {
-    test(`should check accessibility with tooltipPosition set to ${position}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <DateRangeCustom
-          m={9}
-          tooltipPosition={position}
-          startError={testText}
-        />,
-      );
-      const errorIconElement = getDataElementByValue(page, "error");
-      await errorIconElement.hover();
-
-      await checkAccessibility(page, tooltipPreview(page));
-
-      await page.hover("body"); // hover on body to close the tooltip
     });
   });
 

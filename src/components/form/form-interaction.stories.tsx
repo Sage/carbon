@@ -41,6 +41,7 @@ export const FocusManagement: Story = {
         name="textbox-1"
         value=""
         onChange={() => {}}
+        mb={1}
       />
       <Textbox
         label="Textbox 2"
@@ -48,6 +49,7 @@ export const FocusManagement: Story = {
         value=""
         error="This field is required"
         onChange={() => {}}
+        mb={1}
       />
       <RadioButtonGroup
         name="legend"
@@ -93,6 +95,7 @@ export const FocusManagement: Story = {
         name="textbox-4"
         value=""
         onChange={() => {}}
+        mb={1}
       />
       <Switch
         name="switch"

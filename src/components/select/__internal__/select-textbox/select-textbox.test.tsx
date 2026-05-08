@@ -42,6 +42,41 @@ test("renders as a disabled combobox if disabled prop is true", () => {
   expect(input).toBeDisabled();
 });
 
+test("does not focus the input when the disabled prop is true and user clicks on the SelectText component", async () => {
+  const user = userEvent.setup();
+  render(
+    <ControlledSelectTextbox
+      selectType="simple"
+      label="Select Colour"
+      disabled
+    />,
+  );
+
+  await user.click(screen.getByTestId("select-text"));
+
+  expect(
+    screen.getByRole("combobox", { name: /Select Colour/i }),
+  ).not.toHaveFocus();
+});
+
+test("focuses the input when the readOnly prop is true and user clicks on the SelectText component, but does not call onClick", async () => {
+  const user = userEvent.setup();
+  const onClick = jest.fn();
+  render(
+    <ControlledSelectTextbox
+      selectType="simple"
+      label="Select Colour"
+      readOnly
+      onClick={onClick}
+    />,
+  );
+
+  await user.click(screen.getByTestId("select-text"));
+
+  expect(screen.getByRole("textbox", { name: /Select Colour/i })).toHaveFocus();
+  expect(onClick).not.toHaveBeenCalled();
+});
+
 test("combobox has correct accessible name when ariaLabel prop is provided", () => {
   render(<ControlledSelectTextbox ariaLabel="Label" />);
 
@@ -111,21 +146,6 @@ test("calls onBlur callback when combobox is blurred", () => {
   expect(onBlur).toHaveBeenCalledTimes(1);
 });
 
-test("combobox has placeholder text when it has no value and hasTextCursor prop is true", () => {
-  render(<ControlledSelectTextbox hasTextCursor />);
-
-  expect(screen.getByRole("combobox")).toHaveAttribute(
-    "placeholder",
-    "Please Select...",
-  );
-});
-
-test("combobox has custom placeholder text when it has no value, hasTextCursor prop is true and a custom placeholder is provided", () => {
-  render(<ControlledSelectTextbox hasTextCursor placeholder="foobar" />);
-
-  expect(screen.getByRole("combobox")).toHaveAttribute("placeholder", "foobar");
-});
-
 test("does not call onFocus callback when textbox is read only", () => {
   const onFocus = jest.fn();
   render(
@@ -139,43 +159,37 @@ test("does not call onFocus callback when textbox is read only", () => {
   expect(onFocus).not.toHaveBeenCalled();
 });
 
-describe("when hasTextCursor prop is false", () => {
-  it("renders formattedValue in an overlay instead of the combobox", () => {
+describe("when selectType is 'simple'", () => {
+  it("applies correct styles when transparent", () => {
     render(
       <ControlledSelectTextbox
-        label="Textbox"
+        transparent
         formattedValue="foo"
-        hasTextCursor={false}
+        selectType="simple"
       />,
     );
 
-    expect(
-      screen.getByRole("combobox", { name: "Textbox" }),
-    ).not.toHaveTextContent("foo");
-    expect(screen.getByText("foo")).toBeVisible();
+    expect(screen.getByTestId("select-text")).toHaveStyle({
+      textAlign: "right",
+      fontWeight: "500",
+    });
   });
 
-  it("displays the placeholder text in an overlay when the combobox has no value", () => {
-    render(
-      <ControlledSelectTextbox placeholder="foobaz" hasTextCursor={false} />,
-    );
+  it("calls onClick callback when overlay is clicked", async () => {
+    const onClick = jest.fn();
+    const user = userEvent.setup();
+    render(<ControlledSelectTextbox label="Textbox" onClick={onClick} />);
 
-    expect(screen.getByRole("combobox")).not.toHaveTextContent("foobaz");
-    expect(screen.getByText("foobaz")).toBeVisible();
-  });
+    await user.click(screen.getByText("Please Select..."));
 
-  it("renders combobox without autocomplete", () => {
-    render(<ControlledSelectTextbox label="Textbox" />);
-
-    const combobox = screen.getByRole("combobox", { name: "Textbox" });
-    expect(combobox).toHaveAttribute("autocomplete", "off");
+    expect(onClick).toHaveBeenCalledTimes(1);
   });
 
   it("hides the combobox overlay from assistive technologies", () => {
     render(
       <ControlledSelectTextbox
         formattedValue="You can't see me"
-        hasTextCursor={false}
+        selectType="simple"
       />,
     );
 
@@ -185,78 +199,83 @@ describe("when hasTextCursor prop is false", () => {
     );
   });
 
-  test("calls onClick callback when overlay is clicked", async () => {
-    const onClick = jest.fn();
-    const user = userEvent.setup();
+  it("displays the placeholder text in an overlay when the combobox has no value", () => {
+    render(
+      <ControlledSelectTextbox placeholder="foobaz" selectType="simple" />,
+    );
+
+    expect(screen.getByRole("combobox")).not.toHaveTextContent("foobaz");
+    expect(screen.getByText("foobaz")).toBeVisible();
+  });
+
+  it("renders formattedValue in an overlay instead of the combobox", () => {
     render(
       <ControlledSelectTextbox
         label="Textbox"
-        onClick={onClick}
-        hasTextCursor={false}
-      />,
-    );
-
-    await user.click(screen.getByText("Please Select..."));
-
-    expect(onClick).toHaveBeenCalledTimes(1);
-  });
-
-  it("truncates the displayed text of the selected option with ellipsis", () => {
-    render(
-      <ControlledSelectTextbox formattedValue="foo" hasTextCursor={false} />,
-    );
-
-    expect(screen.getByText("foo")).toHaveStyle({
-      whiteSpace: "nowrap",
-      overflow: "hidden",
-      textOverflow: "ellipsis",
-    });
-  });
-
-  it("applies correct styles when disabled", () => {
-    render(
-      <ControlledSelectTextbox
-        disabled
         formattedValue="foo"
-        hasTextCursor={false}
+        selectType="simple"
       />,
     );
 
-    expect(screen.getByTestId("select-text")).toHaveStyle({
-      cursor: "not-allowed",
-      color: "var(--colorsUtilityYin030)",
-      textShadow: "none",
-    });
-  });
-
-  it("applies correct styles when read-only", () => {
-    render(
-      <ControlledSelectTextbox
-        readOnly
-        formattedValue="foo"
-        hasTextCursor={false}
-      />,
-    );
-
-    expect(screen.getByTestId("select-text")).toHaveStyle({
-      cursor: "default",
-      color: "var(--colorsUtilityYin065)",
-      textShadow: "none",
-    });
-  });
-
-  it("applies correct styles when transparent", () => {
-    render(
-      <ControlledSelectTextbox
-        transparent
-        formattedValue="foo"
-        hasTextCursor={false}
-      />,
-    );
-
-    expect(screen.getByTestId("select-text")).toHaveStyle({
-      textAlign: "right",
-      fontWeight: "500",
-    });
+    expect(
+      screen.getByRole("combobox", { name: "Textbox" }),
+    ).not.toHaveTextContent("foo");
+    expect(screen.getByText("foo")).toBeVisible();
   });
 });
+
+describe.each(["filterable", "multi"] as const)(
+  "when input is rendered as part of %s select",
+  (selectType) => {
+    it("does not render the `select-text` overlay", () => {
+      render(
+        <ControlledSelectTextbox
+          formattedValue="foo"
+          selectType={selectType}
+        />,
+      );
+
+      expect(screen.queryByTestId("select-text")).not.toBeInTheDocument();
+    });
+
+    it("combobox has placeholder text when it has no value", () => {
+      render(<ControlledSelectTextbox selectType={selectType} />);
+
+      expect(screen.getByRole("combobox")).toHaveAttribute(
+        "placeholder",
+        "Please Select...",
+      );
+    });
+
+    it("combobox has custom placeholder text when it has no value and a custom placeholder is provided", () => {
+      render(
+        <ControlledSelectTextbox
+          selectType={selectType}
+          placeholder="foobar"
+        />,
+      );
+
+      expect(screen.getByRole("combobox")).toHaveAttribute(
+        "placeholder",
+        "foobar",
+      );
+    });
+
+    it("renders combobox without autocomplete", () => {
+      render(<ControlledSelectTextbox label="Textbox" />);
+
+      const combobox = screen.getByRole("combobox", { name: "Textbox" });
+      expect(combobox).toHaveAttribute("autocomplete", "off");
+    });
+
+    it("calls onClick callback when input is clicked", async () => {
+      const onClick = jest.fn();
+      const user = userEvent.setup();
+      render(<ControlledSelectTextbox label="Textbox" onClick={onClick} />);
+
+      await user.click(screen.getByText("Please Select..."));
+
+      expect(onClick).toHaveBeenCalledTimes(1);
+    });
+  },
+);

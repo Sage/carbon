@@ -256,6 +256,7 @@ const ptPT: Partial<Locale> = {
   switch: {
     on: () => "ON",
     off: () => "OFF",
+    processingLabel: () => "A processar",
   },
   tileSelect: {
     deselect: () => "Desmarcar",

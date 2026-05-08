@@ -89,31 +89,6 @@ export const WithLabelInline: Story = () => {
 WithLabelInline.storyName = "With Label Inline";
 WithLabelInline.parameters = { chromatic: { disableSnapshot: true } };
 
-export const WithLabelAlign: Story = () => {
-  const alignments: NumberProps["align"][] = ["right", "left"];
-  const [state, setState] = useState("123456");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-
-  return (
-    <>
-      {alignments.map((alignment) => (
-        <Number
-          label="Number"
-          labelInline
-          value={state}
-          onChange={setValue}
-          inputWidth={50}
-          key={alignment}
-          labelAlign={alignment}
-        />
-      ))}
-    </>
-  );
-};
-WithLabelAlign.storyName = "With Label Align";
-
 export const WithCustomMaxWidth: Story = () => {
   const [state, setState] = useState("123456");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
@@ -151,23 +126,6 @@ export const WithInputHint: Story = () => {
   );
 };
 WithInputHint.storyName = "With Input Hint";
-
-export const WithLabelHelp: Story = () => {
-  const [state, setState] = useState("123456");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-  return (
-    <Number
-      label="Number"
-      value={state}
-      onChange={setValue}
-      labelHelp="Help"
-      helpAriaLabel="Help"
-    />
-  );
-};
-WithLabelHelp.storyName = "With Label Help";
 
 export const Required: Story = () => {
   const [state, setState] = useState("123456");
