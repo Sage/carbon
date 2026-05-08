@@ -1,3 +1,9 @@
+## [159.0.1](https://github.com/Sage/carbon/compare/v159.0.0...v159.0.1) (2026-05-08)
+
+### Bug Fixes
+
+* **checkbox-group:** remove fit-content from group styles ([15b3da5](https://github.com/Sage/carbon/commit/15b3da56f2cae4499f0f905b157785129eea2ba7)), closes [#7915](https://github.com/Sage/carbon/issues/7915)
+
 ## [159.0.0](https://github.com/Sage/carbon/compare/v158.50.0...v159.0.0) (2026-05-08)
 
 ### ⚠ BREAKING CHANGES
