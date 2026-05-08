@@ -190,46 +190,6 @@ export const WithLabelInline: Story = () => {
 WithLabelInline.storyName = "With Label Inline";
 WithLabelInline.parameters = { chromatic: { disable: true } };
 
-export const WithLabelAlign: Story = () => {
-  const [leftAlignState, setLeftAlignState] = useState("Password");
-  const setVLeftAlignValue = ({
-    target,
-  }: React.ChangeEvent<HTMLInputElement>) => {
-    setLeftAlignState(target.value);
-  };
-
-  const [rightAlignState, setRightAlignState] = useState("Password");
-  const setRightAlignValue = ({
-    target,
-  }: React.ChangeEvent<HTMLInputElement>) => {
-    setRightAlignState(target.value);
-  };
-
-  return (
-    <>
-      <Password
-        label="Password"
-        labelInline
-        value={leftAlignState}
-        onChange={setVLeftAlignValue}
-        inputWidth={50}
-        key="left"
-        labelAlign="left"
-      />
-      <Password
-        label="Password"
-        labelInline
-        value={rightAlignState}
-        onChange={setRightAlignValue}
-        inputWidth={50}
-        key="right"
-        labelAlign="right"
-      />
-    </>
-  );
-};
-WithLabelAlign.storyName = "With Label Align";
-
 export const WithCustomMaxWidth: Story = () => {
   const [state, setState] = useState("Password");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
@@ -263,23 +223,6 @@ export const WithFieldHelp: Story = () => {
   );
 };
 WithFieldHelp.storyName = "With fieldHelp";
-
-export const WithLabelHelp: Story = () => {
-  const [state, setState] = useState("Password");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-
-  return (
-    <Password
-      labelHelp="help"
-      label="Password"
-      value={state}
-      onChange={setValue}
-    />
-  );
-};
-WithLabelHelp.storyName = "With labelHelp";
 
 export const WithRequired: Story = () => {
   const [state, setState] = useState("Password");

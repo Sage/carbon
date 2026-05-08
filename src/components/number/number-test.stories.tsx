@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
 
 import Number from "./number.component";
-import CarbonProvider from "../carbon-provider";
 import {
   CommonTextboxArgs,
   commonTextboxArgTypes,
@@ -70,6 +69,7 @@ export const Validation = () => {
         label="Number"
         value={state}
         error="Error Message"
+        inputHint="Hint text"
         mb={2}
         onChange={(e) => setState(e.target.value)}
       />
@@ -81,56 +81,19 @@ export const Validation = () => {
         onChange={(e) => setState(e.target.value)}
       />
       <Number
-        label="Number"
-        value={state}
-        info="Info Message"
-        mb={2}
-        onChange={(e) => setState(e.target.value)}
-      />
-
-      <Number
+        validationMessagePositionTop={false}
         label="Number"
         value={state}
         error="Error Message"
-        validationOnLabel
+        inputHint="Hint text"
         mb={2}
         onChange={(e) => setState(e.target.value)}
       />
       <Number
+        validationMessagePositionTop={false}
         label="Number"
         value={state}
         warning="Warning Message"
-        validationOnLabel
-        mb={2}
-        onChange={(e) => setState(e.target.value)}
-      />
-      <Number
-        label="Number"
-        value={state}
-        info="Info Message"
-        validationOnLabel
-        mb={2}
-        onChange={(e) => setState(e.target.value)}
-      />
-
-      <Number
-        label="Number"
-        value={state}
-        error
-        mb={2}
-        onChange={(e) => setState(e.target.value)}
-      />
-      <Number
-        label="Number"
-        value={state}
-        warning
-        mb={2}
-        onChange={(e) => setState(e.target.value)}
-      />
-      <Number
-        label="Number"
-        value={state}
-        info
         mb={2}
         onChange={(e) => setState(e.target.value)}
       />
@@ -139,50 +102,6 @@ export const Validation = () => {
 };
 Validation.storyName = "Validation";
 Validation.parameters = {
-  themeProvider: { chromatic: { theme: "sage" } },
-};
-
-export const NewValidation = () => {
-  const [state, setState] = useState("123456");
-  return (
-    <CarbonProvider validationRedesignOptIn>
-      <Number
-        label="Number"
-        value={state}
-        error="Error Message"
-        inputHint="Hint text"
-        mb={2}
-        onChange={(e) => setState(e.target.value)}
-      />
-      <Number
-        label="Number"
-        value={state}
-        warning="Warning Message"
-        mb={2}
-        onChange={(e) => setState(e.target.value)}
-      />
-      <Number
-        validationMessagePositionTop={false}
-        label="Number"
-        value={state}
-        error="Error Message"
-        inputHint="Hint text"
-        mb={2}
-        onChange={(e) => setState(e.target.value)}
-      />
-      <Number
-        validationMessagePositionTop={false}
-        label="Number"
-        value={state}
-        warning="Warning Message"
-        mb={2}
-        onChange={(e) => setState(e.target.value)}
-      />
-    </CarbonProvider>
-  );
-};
-NewValidation.storyName = "New Validation";
-NewValidation.parameters = {
   themeProvider: { chromatic: { theme: "sage" } },
 };
 

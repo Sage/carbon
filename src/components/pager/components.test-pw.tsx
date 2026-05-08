@@ -1,5 +1,4 @@
 import React from "react";
-import Form from "../form";
 import Pager, { PagerProps } from ".";
 import useMediaQuery from "../../hooks/useMediaQuery";
 
@@ -100,14 +99,6 @@ export const PagerComponentResponsive = () => {
       {...responsiveProps()}
       pageSizeSelectionOptions={records}
     />
-  );
-};
-
-export const PagerInForm = () => {
-  return (
-    <Form>
-      <PagerComponent />
-    </Form>
   );
 };
 

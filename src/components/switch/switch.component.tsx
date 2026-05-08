@@ -20,7 +20,7 @@ import {
   StyledSwitchLoaderWrapper,
   StyledSwitchLabelWrapper,
 } from "./switch.style";
-import HintText from "../../__internal__/hint-text";
+import HintText from "../../__internal__/legacy-hint-text";
 
 export interface SwitchProps extends MarginProps, TagProps {
   /** Checked state of the switch */
