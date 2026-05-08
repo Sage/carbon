@@ -23,6 +23,7 @@ export default {
   title: "Action Popover/Test",
   includeStories: [
     "Default",
+    "HrefItemsBasic",
     "LongMenuExample",
     "WithAriaAttributes",
     "WithoutDefaultAriaLabel",
@@ -36,6 +37,20 @@ export default {
     },
   },
 };
+
+export const HrefItemsBasic = () => (
+  <ActionPopover>
+    <ActionPopoverItem href="http://www.sage.com">
+      Item with href
+    </ActionPopoverItem>
+    <ActionPopoverItem
+      href="data:text/plain;charset=utf-8,Hello%20world"
+      download
+    >
+      Item with href and download
+    </ActionPopoverItem>
+  </ActionPopover>
+);
 
 export const Default = () => {
   const submenu = (
