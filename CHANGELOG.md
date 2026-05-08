@@ -1,3 +1,25 @@
+## [159.0.0](https://github.com/Sage/carbon/compare/v158.50.0...v159.0.0) (2026-05-08)
+
+### ⚠ BREAKING CHANGES
+
+* **textbox:** the legacy interface has been maintained wherever possible, the
+following props no longer have any functionality:
+adaptiveLabelBreakpoint, info, helpAriaLabel, labelAlign,
+labelWidth, labelSpacing, labelId, reverse, tooltipPosition,
+tooltipId, info and validationOnLabel
+(legacy validation has been removed).
+This has been released as a new major version as there is likely
+to be some layout changes when upgrading, these should be solved
+using a parent container to constrain/ position etc.
+
+### Features
+
+* **textbox:** align component with fusion DS ([8360cb3](https://github.com/Sage/carbon/commit/8360cb383d1e0cab9df0a70a016349fea1667b88))
+
+### Bug Fixes
+
+* **numeral-date:** remove fit-content width to allow additional text to overflow the inputs ([54bd887](https://github.com/Sage/carbon/commit/54bd88727b1b7b39eecf11f1edcc902c4599e0fc)), closes [#7875](https://github.com/Sage/carbon/issues/7875)
+
 ## [158.50.0](https://github.com/Sage/carbon/compare/v158.49.2...v158.50.0) (2026-05-07)
 
 ### Features
