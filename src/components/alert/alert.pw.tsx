@@ -9,21 +9,12 @@ import {
   checkAccessibility,
   waitForAnimationEnd,
 } from "../../../playwright/support/helper";
-import { CHARACTERS, SIZE } from "../../../playwright/support/constants";
+import { CHARACTERS } from "../../../playwright/support/constants";
 import { AlertComponent, TopModalOverride } from "./components.test-pw";
 import { getDataElementByValue } from "../../../playwright/components";
 
 const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const viewportHeights = [250, 500, 650];
-const viewportWidths = [
-  [SIZE.EXTRASMALL, 300],
-  [SIZE.SMALL, 380],
-  [SIZE.MEDIUMSMALL, 540],
-  [SIZE.MEDIUM, 750],
-  [SIZE.MEDIUMLARGE, 850],
-  [SIZE.LARGE, 960],
-  [SIZE.EXTRALARGE, 1080],
-];
 
 test.describe("should render Alert component", () => {
   specialCharacters.forEach((text) => {
@@ -118,22 +109,6 @@ test.describe("should render Alert component", () => {
     });
   });
 
-  viewportWidths.forEach(([size, width]) => {
-    test(`with dialog width set to ${width}px when size is ${size}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <AlertComponent title="title" size={size}>
-          Alert
-        </AlertComponent>,
-      );
-
-      const alertElement = alertDialog(page);
-      await expect(alertElement).toHaveCSS("width", `${width}px`);
-    });
-  });
-
   // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
   test.skip("setting the topModalOverride prop should ensure the Alert is rendered on top of any others", async ({
     mount,
@@ -184,7 +159,7 @@ test.describe("should render Alert component", () => {
     await mount(<AlertComponent />);
 
     const alertElement = alertDialog(page);
-    await expect(alertElement).toHaveCSS("border-radius", "16px");
+    await expect(alertElement).toHaveCSS("border-radius", "24px");
   });
 
   test("should pass accessibility tests", async ({ mount, page }) => {

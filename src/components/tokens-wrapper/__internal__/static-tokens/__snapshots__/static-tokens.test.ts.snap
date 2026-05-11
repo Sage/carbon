@@ -683,6 +683,9 @@ exports[`builds the static tokens as expected 1`] = `
   --container-size-fluid-items-2-xl: 320px;
   --container-size-fluid-items-3-xl: 560px;
   --container-size-fluid-items-4-xl: 760px;
+  --container-size-dialog-maxwidth-s: 540px;
+  --container-size-dialog-maxwidth-m: 850px;
+  --container-size-dialog-maxwidth-l: 1080px;
   --focus-bg: var(--mode-color-action-focus-with-default-alt);
   --focus-borderalt: var(--mode-color-action-focus-default);
   --focus-border: var(--mode-color-action-focus-with-default);
