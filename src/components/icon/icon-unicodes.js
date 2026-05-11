@@ -302,6 +302,9 @@ const misc = {
   login: "\\f107",
   chevron_first_pagination: "\\f108",
   chevron_last_pagination: "\\f109",
+  caret_up_down: "\\f110",
+  connect_circle: "\\f111",
+  plus_circle: "\\f112",
 };
 
 const legacyNames = {
