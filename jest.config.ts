@@ -18,6 +18,8 @@ const baseProjectConfig: Config = {
   moduleDirectories: ["src", "node_modules"],
   moduleNameMapper: {
     "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js",
+    "^@sage/design-tokens-fusion/js/es6/(.*)$":
+      "@sage/design-tokens-fusion/js/common/$1",
   },
   coveragePathIgnorePatterns: [
     "<rootDir>/node_modules",
