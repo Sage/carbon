@@ -1,3 +1,43 @@
+## [159.0.1](https://github.com/Sage/carbon/compare/v159.0.0...v159.0.1) (2026-05-08)
+
+### Bug Fixes
+
+* **checkbox-group:** remove fit-content from group styles ([15b3da5](https://github.com/Sage/carbon/commit/15b3da56f2cae4499f0f905b157785129eea2ba7)), closes [#7915](https://github.com/Sage/carbon/issues/7915)
+
+## [159.0.0](https://github.com/Sage/carbon/compare/v158.50.0...v159.0.0) (2026-05-08)
+
+### ⚠ BREAKING CHANGES
+
+* **textbox:** the legacy interface has been maintained wherever possible, the
+following props no longer have any functionality:
+adaptiveLabelBreakpoint, info, helpAriaLabel, labelAlign,
+labelWidth, labelSpacing, labelId, reverse, tooltipPosition,
+tooltipId, info and validationOnLabel
+(legacy validation has been removed).
+This has been released as a new major version as there is likely
+to be some layout changes when upgrading, these should be solved
+using a parent container to constrain/ position etc.
+
+### Features
+
+* **textbox:** align component with fusion DS ([8360cb3](https://github.com/Sage/carbon/commit/8360cb383d1e0cab9df0a70a016349fea1667b88))
+
+### Bug Fixes
+
+* **numeral-date:** remove fit-content width to allow additional text to overflow the inputs ([54bd887](https://github.com/Sage/carbon/commit/54bd88727b1b7b39eecf11f1edcc902c4599e0fc)), closes [#7875](https://github.com/Sage/carbon/issues/7875)
+
+## [158.50.0](https://github.com/Sage/carbon/compare/v158.49.2...v158.50.0) (2026-05-07)
+
+### Features
+
+* **tabs:** updated to use correct new tokens ([b8f2def](https://github.com/Sage/carbon/commit/b8f2defebf1600bfd22dfc346349c52b5201ac5a))
+
+## [158.49.2](https://github.com/Sage/carbon/compare/v158.49.1...v158.49.2) (2026-05-06)
+
+### Bug Fixes
+
+* **text-editor:** correct WYSIWYG asterisk colour ([d2908ce](https://github.com/Sage/carbon/commit/d2908ce264d89efadce7461d5d261d0ee4cdb450))
+
 ## [158.49.1](https://github.com/Sage/carbon/compare/v158.49.0...v158.49.1) (2026-05-05)
 
 ### Bug Fixes

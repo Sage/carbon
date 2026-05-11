@@ -71,29 +71,6 @@ export const Prefix: Story = {
   name: "Prefix",
 };
 
-export const LabelAlign: Story = () => {
-  const [state, setState] = useState({
-    right: "0.01",
-    left: "0.01",
-  });
-  const handleChange =
-    (alignment: DecimalProps["labelAlign"]) => (e: CustomEvent) => {
-      setState({ ...state, [alignment || "left"]: e.target.value.rawValue });
-    };
-  return (["right", "left"] as const).map((alignment) => (
-    <Decimal
-      label="Decimal"
-      labelInline
-      inputWidth={50}
-      key={alignment}
-      labelAlign={alignment}
-      value={state[alignment]}
-      onChange={handleChange(alignment)}
-    />
-  ));
-};
-LabelAlign.storyName = "Label Align";
-
 export const ReadOnly: Story = {
   ...DefaultStory,
   args: { ...DefaultStory.args, readOnly: true },
@@ -137,12 +114,6 @@ export const WithFieldHelp: Story = {
   ...DefaultStory,
   args: { ...DefaultStory.args, fieldHelp: "Help" },
   name: "With Field Help",
-};
-
-export const WithLabelHelp: Story = {
-  ...DefaultStory,
-  args: { ...DefaultStory.args, labelHelp: "Help", helpAriaLabel: "Help" },
-  name: "With Label Help",
 };
 
 export const WithInputHint: Story = {

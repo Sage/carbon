@@ -1,5 +1,4 @@
 import React, {
-  useContext,
   useState,
   useRef,
   useMemo,
@@ -13,19 +12,13 @@ import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 import { ValidationProps } from "../../__internal__/validations";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import Events from "../../__internal__/utils/helpers/events";
-import {
-  StyledNumeralDate,
-  StyledDateField,
-  StyledFieldset,
-} from "./numeral-date.style";
+import StyledNumeralDate from "./numeral-date.style";
 import Textbox from "../textbox";
 import guid from "../../__internal__/utils/helpers/guid";
 import useLocale from "../../hooks/__internal__/useLocale";
-import { TooltipProvider } from "../../__internal__/tooltip-provider";
-import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
-import NumeralDateContext from "./__internal__/numeral-date.context";
 import Locale from "../../locales/locale";
-import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
+import FieldsetValidationContext from "../../__internal__/fieldset-validation-context";
+import Fieldset from "../../__internal__/fieldset";
 
 export const ALLOWED_DATE_FORMATS = [
   ["dd", "mm", "yyyy"],
@@ -60,7 +53,11 @@ export interface NumeralDateProps
   extends ValidationProps,
     MarginProps,
     TagProps {
-  /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
+  /**
+   * @deprecated `adaptiveLabelBreakpoint` has been deprecated.
+   * It is recommended to use `useMediaQuery` hook to implement adaptive behaviour.
+   * Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set
+   **/
   adaptiveLabelBreakpoint?: number;
   /** If true, the component will be disabled */
   disabled?: boolean;
@@ -94,8 +91,7 @@ export interface NumeralDateProps
   /** Field labels alignment */
   fieldLabelsAlign?: "left" | "right";
   /**
-   * Text applied to label help tooltip, will be rendered as
-   * hint text when `validationRedesignOptIn` is true.
+   * [Legacy] Text applied to label help tooltip, will be rendered as hint text when `validationRedesignOptIn` is true.
    */
   labelHelp?: React.ReactNode;
   /** [Legacy] When true, label is placed in line with an input */
@@ -218,6 +214,19 @@ const getDateLabel = (datePart: string, locale: Locale) => {
   }
 };
 
+const WIDTHS = {
+  default: {
+    small: "44px",
+    medium: "50px",
+    large: "64px",
+  },
+  year: {
+    small: "66px",
+    medium: "80px",
+    large: "84px",
+  },
+};
+
 export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
   (
     {
@@ -231,7 +240,6 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
       onBlur,
       onChange,
       value,
-      validationOnLabel = false,
       label,
       labelInline,
       labelWidth,
@@ -258,7 +266,6 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
     ref,
   ) => {
     const locale = useLocale();
-    const { validationRedesignOptIn } = useContext(NewValidationContext);
 
     const { current: uniqueId } = useRef(id || guid());
     const defaultInputIds = useRef({ dd: guid(), mm: guid(), yyyy: guid() });
@@ -370,12 +377,6 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
       ? internalMessage + warning
       : warning;
 
-    const largeScreen = useIsAboveBreakpoint(adaptiveLabelBreakpoint);
-    let inline: boolean | undefined = labelInline;
-    if (adaptiveLabelBreakpoint) {
-      inline = largeScreen;
-    }
-
     const handleRef = (
       element: HTMLInputElement | null,
       index: number,
@@ -399,12 +400,6 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
             const isEnd = index === dateFormat.length - 1;
             let inputRef: React.ForwardedRef<HTMLInputElement> | undefined;
 
-            const validation = internalError || internalWarning || info;
-            const validationInField =
-              !validationRedesignOptIn &&
-              typeof validation === "string" &&
-              validation !== "";
-
             switch (datePart.slice(0, 2)) {
               case "dd":
                 inputRef = dayRef;
@@ -420,98 +415,62 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
                 break;
             }
 
+            const maxWidth =
+              datePart === "yyyy" ? WIDTHS.year[size] : WIDTHS.default[size];
+
             return (
-              <NumeralDateContext.Provider
-                value={{ disableErrorBorder: true }}
-                key={datePart}
-              >
-                <StyledDateField
-                  key={datePart}
+              <div className="numeral-date-wrapper" key={datePart}>
+                <Textbox
+                  id={actualInputIds[datePart]}
+                  label={getDateLabel(datePart, locale)}
+                  labelAlign={fieldLabelsAlign}
+                  disabled={disabled}
+                  readOnly={readOnly}
+                  error={!!internalError}
+                  warning={!!internalWarning}
+                  info={!!info}
                   size={size}
-                  isYearInput={datePart.length === 4}
-                  hasValidationIconInField={
-                    !validationOnLabel && isEnd && validationInField
-                  }
-                >
-                  <Textbox
-                    id={actualInputIds[datePart]}
-                    label={getDateLabel(datePart, locale)}
-                    labelAlign={fieldLabelsAlign}
-                    disabled={disabled}
-                    readOnly={readOnly}
-                    error={!!internalError}
-                    warning={!!internalWarning}
-                    info={!!info}
-                    size={size}
-                    value={value[datePart]}
-                    onChange={(e) => handleChange(e, datePart)}
-                    onBlur={handleBlur}
-                    ref={(element) => handleRef(element, index, inputRef)}
-                    {...(isEnd &&
-                      !validationOnLabel &&
-                      !validationRedesignOptIn && {
-                        error: internalError,
-                        warning: internalWarning,
-                        info,
-                      })}
-                    tooltipPosition={tooltipPosition}
-                    tooltipId={`${uniqueId}-validation`}
-                    my={0} // prevents any form spacing being applied
-                  />
-                </StyledDateField>
-              </NumeralDateContext.Provider>
+                  value={value[datePart]}
+                  onChange={(e) => handleChange(e, datePart)}
+                  onBlur={handleBlur}
+                  ref={(element) => handleRef(element, index, inputRef)}
+                  {...(isEnd && {
+                    error: internalError,
+                    warning: internalWarning,
+                    info,
+                  })}
+                  tooltipPosition={tooltipPosition}
+                  tooltipId={`${uniqueId}-validation`}
+                  my={0} // prevents any form spacing being applied
+                  maxWidth={maxWidth}
+                />
+              </div>
             );
           })}
         </StyledNumeralDate>
       );
     };
 
-    if (!validationRedesignOptIn) {
-      return (
-        <TooltipProvider helpAriaLabel={helpAriaLabel}>
-          <StyledFieldset
-            id={uniqueId}
-            legend={label}
-            isRequired={required}
-            isDisabled={disabled}
-            name={name}
-            error={validationOnLabel && internalError}
-            warning={validationOnLabel && internalWarning}
-            info={validationOnLabel && info}
-            inline={inline}
-            size={size}
-            labelHelp={labelHelp}
-            legendAlign={labelAlign}
-            legendWidth={labelWidth}
-            legendSpacing={labelSpacing}
-            fieldHelp={fieldHelp}
-            {...filterStyledSystemMarginProps(rest)}
-            {...tagComponent("numeral-date", rest)}
-          >
-            {renderInputs()}
-          </StyledFieldset>
-        </TooltipProvider>
-      );
-    }
-
     return (
-      <StyledFieldset
-        applyNewValidation
-        id={uniqueId}
-        legend={label}
-        inputHint={labelHelp}
-        legendAlign={labelAlign}
-        error={internalError}
-        warning={internalWarning}
-        isRequired={required}
-        isDisabled={disabled}
-        validationMessagePositionTop={validationMessagePositionTop}
-        name={name}
-        {...filterStyledSystemMarginProps(rest)}
-        {...tagComponent("numeral-date", rest)}
-      >
-        {renderInputs()}
-      </StyledFieldset>
+      <FieldsetValidationContext.Provider value={{ disableErrorBorder: true }}>
+        <Fieldset
+          applyNewValidation
+          id={uniqueId}
+          legend={label}
+          inputHint={labelHelp}
+          legendAlign={labelAlign}
+          error={internalError}
+          warning={internalWarning}
+          isRequired={required}
+          isDisabled={disabled}
+          validationMessagePositionTop={validationMessagePositionTop}
+          name={name}
+          {...filterStyledSystemMarginProps(rest)}
+          {...tagComponent("numeral-date", rest)}
+        >
+          {renderInputs()}
+        </Fieldset>
+      </FieldsetValidationContext.Provider>
     );
   },
 );

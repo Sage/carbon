@@ -19,6 +19,8 @@ const getStories = () =>
       ignore: [
         `${projectRoot}/src/**/*-@(interaction|test).stories.@(js|jsx|ts|tsx)`,
         `${projectRoot}/src/__internals__/__stories__/*.*`,
+        // Ignore stories in __internal__ directories, except for those in __stories__ directories
+        `${projectRoot}/src/components/**/__internal__/**/*.{mdx,stories.@(js|jsx|ts|tsx)}`,
       ],
     }),
   });

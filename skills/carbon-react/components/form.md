@@ -445,13 +445,11 @@ description: Carbon Form component props and usage examples.
           id="group-1-input-1"
           value="group-1-input-1"
           label="Radio Option 1"
-          labelWidth={10}
         />
         <RadioButton
           id="group-1-input-2"
           value="group-1-input-2"
           label="Radio Option 2"
-          labelWidth={10}
         />
       </RadioButtonGroup>
       <RadioButtonGroup
@@ -465,13 +463,11 @@ description: Carbon Form component props and usage examples.
           id="group-2-input-1"
           value="group-2-input-1"
           label="Radio Option 1"
-          labelWidth={10}
         />
         <RadioButton
           id="group-2-input-2"
           value="group-2-input-2"
           label="Radio Option 2"
-          labelWidth={10}
         />
       </RadioButtonGroup>
       <Checkbox
@@ -761,170 +757,6 @@ description: Carbon Form component props and usage examples.
 ```
 
 
-### Form Alignment Example
-
-**Render**
-
-```tsx
-(args: FormProps) => {
-  const [date, setDate] = useState("04/04/2019");
-  return (
-    <Form
-      {...args}
-      leftSideButtons={<Button>Cancel</Button>}
-      saveButton={
-        <Button buttonType="primary" type="submit">
-          Save
-        </Button>
-      }
-      fieldSpacing={4}
-    >
-      <Textbox
-        key="input-one"
-        label="Field 1"
-        placeholder="placeholder"
-        name="textbox"
-        labelInline
-        labelWidth={10}
-        inputWidth={30}
-        fieldHelp="This is some help text"
-        value=""
-        onChange={() => {}}
-      />
-      <Textbox
-        key="input-two"
-        label="Field 2"
-        placeholder="placeholder"
-        name="textbox"
-        labelInline
-        labelWidth={10}
-        inputWidth={30}
-        labelSpacing={2}
-        value=""
-        onChange={() => {}}
-      />
-      <RadioButtonGroup
-        name="legend"
-        legend="Legend"
-        legendInline
-        legendWidth={10}
-        legendSpacing={2}
-        legendAlign="right"
-        value="group-1-input-1"
-        onChange={() => "RADIO CHANGE"}
-      >
-        <RadioButton
-          id="group-1-input-1"
-          value="group-1-input-1"
-          label="Radio Option 1"
-          labelWidth={10}
-        />
-        <RadioButton
-          id="group-1-input-2"
-          value="group-1-input-2"
-          label="Radio Option 2"
-          labelWidth={10}
-        />
-      </RadioButtonGroup>
-      <DateInput
-        name="date"
-        label="Date picker"
-        labelInline
-        labelWidth={10}
-        value={date}
-        onChange={(ev: DateChangeEvent) =>
-          setDate(ev.target.value.formattedValue)
-        }
-      />
-      <RadioButtonGroup
-        name="nolegend"
-        legend="Legend above"
-        ml="10%"
-        value={"group-2-input-2"}
-        onChange={() => "RADIO CHANGE"}
-      >
-        <RadioButton
-          id="group-2-input-1"
-          value="group-2-input-1"
-          label="Radio Option 1"
-          labelWidth={10}
-        />
-        <RadioButton
-          id="group-2-input-2"
-          value="group-2-input-2"
-          label="Radio Option 2"
-          labelWidth={10}
-        />
-      </RadioButtonGroup>
-      <Textarea
-        key="input-three"
-        label="Field 3"
-        placeholder="placeholder"
-        name="textbox"
-        labelInline
-        labelWidth={10}
-        inputWidth={30}
-        value=""
-        onChange={() => {}}
-      />
-      <Checkbox
-        name="checkbox1"
-        label="Checkbox 1"
-        ml="10%"
-        checked={false}
-        onChange={() => {}}
-      />
-      <Checkbox
-        name="checkbox2"
-        label="Checkbox 2"
-        ml="10%"
-        checked={false}
-        onChange={() => {}}
-      />
-      <Box ml="10%" mr="60%">
-        <Divider type="horizontal" mb={7} />
-      </Box>
-      <Button buttonType="tertiary" ml="calc(10% - 24px)">
-        Tertiary
-      </Button>
-      <Textbox
-        key="input-four"
-        label="Field 4"
-        placeholder="placeholder"
-        name="textbox"
-        labelInline
-        labelWidth={10}
-        inputWidth={30}
-        value=""
-        onChange={() => {}}
-      />
-      <Switch
-        name="switch"
-        label="Switch"
-        labelInline
-        labelWidth={10}
-        labelSpacing={2}
-        mb={4}
-        checked
-        onChange={() => "SWITCH CHANGE"}
-      />
-      <Textbox
-        key="input-five"
-        label="Field 5"
-        placeholder="placeholder"
-        name="textbox"
-        labelInline
-        labelWidth={10}
-        inputWidth={30}
-        value=""
-        onChange={() => {}}
-      />
-    </Form>
-  );
-}
-```
-
-
 ### With Labels Inline
 
 **Render**
@@ -951,8 +783,18 @@ description: Carbon Form component props and usage examples.
       labelWidth={30}
       labelId="inline-inputs"
     >
-      <Textbox aria-labelledby="inline-inputs" value="" onChange={() => {}} />
-      <Textbox aria-labelledby="inline-inputs" value="" onChange={() => {}} />
+      <Textbox
+        aria-labelledby="inline-inputs"
+        value=""
+        onChange={() => {}}
+        mb={0}
+      />
+      <Textbox
+        aria-labelledby="inline-inputs"
+        value=""
+        onChange={() => {}}
+        mb={0}
+      />
       <Select aria-labelledby="inline-inputs" value="" onChange={() => {}}>
         <Option value="1" text="option 1" key="1" />
         <Option value="2" text="option 2" key="2" />
@@ -985,6 +827,11 @@ description: Carbon Form component props and usage examples.
         <Option value="3" text="option 3" key="3" />
       </Select>
     </InlineInputs>
+    <Textbox
+      aria-labelledby="inline-inputs-second"
+      value=""
+      onChange={() => {}}
+    />
   </Form>
 )
 ```

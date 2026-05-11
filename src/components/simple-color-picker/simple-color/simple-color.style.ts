@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-import { Input } from "../../../__internal__/input";
+import { Input } from "../../../__internal__/legacy-input";
 import checkerBoardSvg from "./checker-board.svg";
 import Icon from "../../icon";
 import getRgbValues from "../../../style/utils/get-rgb-values";

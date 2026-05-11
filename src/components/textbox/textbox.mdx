@@ -1,5 +1,6 @@
 import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
+import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component"
 
 import * as TextboxStories from "./textbox.stories";
 
@@ -17,6 +18,12 @@ import * as TextboxStories from "./textbox.stories";
 </a>
 
 Captures a single line of text.
+
+<DeprecationWarning>
+This version of `Textbox` is deprecated and has been replaced by a new version named `TextInput` located in the `__next__` directory.
+
+Please see the <a style={{color: "white"}} href="../?path=/docs/text-input--docs">new documentation page</a> for more information.
+</DeprecationWarning>
 
 ## Contents
 
@@ -101,26 +108,15 @@ You can use the `required` prop to indicate if the field is mandatory.
 
 <Canvas of={TextboxStories.Required} />
 
-### With labelInline (legacy)
+### With labelInline
 
-Use the `labelInline` prop to display the label on the same horizontal row as the input. You can adjust its appearance using the `labelWidth` and
-`labelAlign` props to control the width and text alignment of the label and the `inputWidth` prop to control the width of the input.
-
-**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *false*.
+Use the `labelInline` prop to display the label on the same horizontal row as the input.
 
 <Canvas of={TextboxStories.WithLabelInline} />
-
-<Canvas of={TextboxStories.LabelAlign} />
 
 ### With custom labelWidth and inputWidth
 
 <Canvas of={TextboxStories.WithCustomLabelWidthAndInputWidth} />
-
-### With labelHelp (legacy)
-
-**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *false*.
-
-<Canvas of={TextboxStories.WithLabelHelp} />
 
 ### With fieldHelp (legacy)
 

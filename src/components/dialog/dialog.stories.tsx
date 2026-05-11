@@ -92,17 +92,27 @@ export const DefaultStory: Story = {
             <Typography>
               This is an example of a dialog with a Form as content
             </Typography>
-            <Textbox label="First Name" value="" onChange={() => {}} />
-            <Textbox label="Middle Name" value="" onChange={() => {}} />
-            <Textbox label="Surname" value="" onChange={() => {}} />
-            <Textbox label="Birth Place" value="" onChange={() => {}} />
-            <Textbox label="Favourite Colour" value="" onChange={() => {}} />
-            <Textbox label="Address" value="" onChange={() => {}} />
-            <Textbox label="First Name" value="" onChange={() => {}} />
-            <Textbox label="Middle Name" value="" onChange={() => {}} />
-            <Textbox label="Surname" value="" onChange={() => {}} />
-            <Textbox label="Birth Place" value="" onChange={() => {}} />
-            <Textbox label="Favourite Colour" value="" onChange={() => {}} />
+            <Textbox mb={1} label="First Name" value="" onChange={() => {}} />
+            <Textbox mb={1} label="Middle Name" value="" onChange={() => {}} />
+            <Textbox mb={1} label="Surname" value="" onChange={() => {}} />
+            <Textbox mb={1} label="Birth Place" value="" onChange={() => {}} />
+            <Textbox
+              mb={1}
+              label="Favourite Colour"
+              value=""
+              onChange={() => {}}
+            />
+            <Textbox mb={1} label="Address" value="" onChange={() => {}} />
+            <Textbox mb={1} label="First Name" value="" onChange={() => {}} />
+            <Textbox mb={1} label="Middle Name" value="" onChange={() => {}} />
+            <Textbox mb={1} label="Surname" value="" onChange={() => {}} />
+            <Textbox mb={1} label="Birth Place" value="" onChange={() => {}} />
+            <Textbox
+              mb={1}
+              label="Favourite Colour"
+              value=""
+              onChange={() => {}}
+            />
             <Textbox label="Address" value="" onChange={() => {}} />
           </Form>
         </Dialog>
@@ -220,7 +230,7 @@ export const WithHelp: Story = () => {
             </Button>
           }
         >
-          <Box p="24px" bg="slateTint90" ml="88px">
+          <Box p={2} bg="slateTint90" ml={7}>
             <Textbox
               labelInline
               label="Property Name"
