@@ -36,19 +36,19 @@ const animateStar = keyframes`
 `;
 
 const animateStopTop = keyframes`
-  0% { stop-color: #13a038; }
-  10% { stop-color: #13a038; }
-  50% { stop-color: #0092db; }
-  90% { stop-color: #8f49fe; }
-  100% { stop-color: #8f49fe; }
+  0% { stop-color: var(--mode-color-ai-alt-stop-1); }
+  10% { stop-color: var(--mode-color-ai-alt-stop-1); }
+  50% { stop-color: var(--mode-color-ai-alt-stop-2); }
+  90% { stop-color: var(--mode-color-ai-alt-stop-3); }
+  100% { stop-color: var(--mode-color-ai-alt-stop-3); }
 `;
 
 const animateStopBottom = keyframes`
-  0% { stop-color: #13a038; }
-  10% { stop-color: #13a038; }
-  50% { stop-color: #13a038; }
-  90% { stop-color: #0092db; }
-  100% { stop-color: #0092db; }
+  0% { stop-color: var(--mode-color-ai-alt-stop-1); }
+  10% { stop-color: var(--mode-color-ai-alt-stop-1); }
+  50% { stop-color: var(--mode-color-ai-alt-stop-1); }
+  90% { stop-color: var(--mode-color-ai-alt-stop-2); }
+  100% { stop-color: var(--mode-color-ai-alt-stop-2); }
 `;
 
 const time = "3s";
