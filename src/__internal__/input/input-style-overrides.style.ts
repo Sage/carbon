@@ -17,7 +17,6 @@ export const dateStyleOverrides = css`
  */
 const searchBaseStyles = css`
   .search & {
-    height: 40px;
     box-sizing: border-box;
 
     .input-text-container {
@@ -30,13 +29,6 @@ const searchBaseStyles = css`
   }
 `;
 
-const searchNoBorderStyles = css`
-  .search:not(.with-button):not(.has-value) &:not(:focus-within) {
-    border-color: transparent;
-    background: transparent;
-  }
-`;
-
 const searchWithButtonStyles = css`
   .search.with-button & {
     border-top-right-radius: 0;
@@ -44,63 +36,9 @@ const searchWithButtonStyles = css`
   }
 `;
 
-const searchDarkPlaceholderStyles = css`
-  .search.dark-background & {
-    input {
-      ::-moz-placeholder {
-        color: var(--colorsUtilityYang080);
-        opacity: 1;
-      }
-      ::placeholder {
-        color: var(--colorsUtilityYang080);
-      }
-    }
-  }
-`;
-
-const searchDarkHasValueStyles = css`
-  .search.dark-background:not(.with-button) & {
-    input {
-      color: var(--input-typical-inverse-txt-default);
-    }
-  }
-  .search.dark-background.has-value:not(.with-button) & {
-    .input-text-container,
-    input {
-      color: var(--colorsUtilityYang080);
-    }
-
-    .input-text-container:hover {
-      input {
-        color: var(--colorsUtilityYang100);
-      }
-    }
-  }
-`;
-
-const searchDarkWithButtonNoValueStyles = css`
-  .search.dark-background.with-button:not(.has-value) & {
-    input {
-      color: var(--colorsUtilityYang100);
-    }
-  }
-`;
-
-const searchDarkNoButtonStyles = css`
-  .search.dark-background:not(.with-button) & {
-    background-color: transparent;
-    border-color: var(--colorsUtilityYang080);
-  }
-`;
-
 export const searchStyleOverrides = css`
   ${searchBaseStyles}
-  ${searchNoBorderStyles}
   ${searchWithButtonStyles}
-  ${searchDarkPlaceholderStyles}
-  ${searchDarkHasValueStyles}
-  ${searchDarkWithButtonNoValueStyles}
-  ${searchDarkNoButtonStyles}
 `;
 
 /**

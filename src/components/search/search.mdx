@@ -16,7 +16,8 @@ import TranslationKeysTable from "../../../.storybook/utils/translation-keys-tab
   Product Design System component
 </a>
 
-This search component should be used if you require the user to conduct a search.
+Use the Search component when users need to query or filter content. Built on the native `<input type="search">`, 
+it provides a familiar input pattern with a built-in search button.
 
 ## Contents
 
@@ -48,48 +49,24 @@ before any other announcements, this well help screen reader users understand th
 
 <Canvas of={SearchStories.WithLabelAndInputHint} />
 
-### With Search Button
+### Sizes
 
-You can pass the `searchButton` prop to render a search button.
-This will render a button with the text "Search" and an aria-label of "search button".
-To override the the default aria-label, you can pass a string value to the `searchButtonAriaLabel` prop.
+The `Search` component supports three size options: `"small"`, `"medium"`, and `"large"`. 
+The size prop controls the height and spacing of both the input and button.
 
-<Canvas of={SearchStories.WithSearchButton} />
+<Canvas of={SearchStories.Sizes} />
 
-You can override the text of the search button by passing a string value to the `searchButton` prop:
+### Custom Width & Max Width
 
-
-<Canvas of={SearchStories.WithSearchButtonPropTextOverride} />
-
-Or, by using the locale provider to override the button's text via the `searchButtonText` translation key.
-Please note that the `searchButton` prop will take precedence over the locale value.
-
-<Canvas of={SearchStories.WithSearchButtonLocaleOverride} />
-
-### Custom width
-
-You can set a custom width for the search input by passing any valid CSS string value to the `searchWidth` prop.
+You can set a custom width for the `Search` component by passing any valid CSS string value to the `searchWidth` prop, or set a custom max-width using the `maxWidth` prop.
 
 <Canvas of={SearchStories.CustomWidth} />
 
-### Custom MaxWidth
+### Inverse
 
-You can set a custom max-width for the search input by passing any valid CSS string value to the `maxWidth` prop.
+The `Search` component can be styled to render on dark backgrounds by passing the `inverse` prop.
 
-<Canvas of={SearchStories.WithCustomMaxWidth} />
-
-### Dark Background Styling
-
-The search component can be styled to render on dark backgrounds by passing the `variant` prop with the value "dark".
-
-<Canvas of={SearchStories.WithAltStyling} />
-
-### Trigger actions on clear
-
-It is possible to trigger actions such as filtering the search results when the cross icon is clicked.
-When the `triggerOnClear` prop is set to `true`, the `onClick` callback will be called when the cross icon is clicked.
-
-<Canvas of={SearchStories.TriggerOnClear} />
+<Canvas of={SearchStories.Inverse} />
 
 ## Props
 
@@ -106,7 +83,7 @@ to the [i18nProvider](../?path=/docs/documentation-i18n--docs).
   translationData={[
     {
       name: "search.searchButtonText",
-      description: "The text for search button",
+      description: "The text for the `Search` button (now only used as the default accessible name for the Search button if no `ariaLabel` prop is provided).",
       type: "func",
       returnType: "string",
     },
