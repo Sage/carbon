@@ -1,3 +1,9 @@
+## [159.2.1](https://github.com/Sage/carbon/compare/v159.2.0...v159.2.1) (2026-05-12)
+
+### Bug Fixes
+
+* **action-popover-item:** ensure enter keydown triggers href redirect ([0c87d7f](https://github.com/Sage/carbon/commit/0c87d7ff0520c4c06be16894375d2c7f311eb50a)), closes [#7945](https://github.com/Sage/carbon/issues/7945)
+
 ## [159.2.0](https://github.com/Sage/carbon/compare/v159.1.0...v159.2.0) (2026-05-11)
 
 ### Features
