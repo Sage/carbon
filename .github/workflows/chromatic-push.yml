@@ -23,9 +23,7 @@ jobs:
       - name: Update npm to 11.11.1
         run: npm install -g npm@11.11.1
       - run: npm ci
-      - uses: chromaui/action@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          onlyChanged: true
-          exitOnceUploaded: true # We don't want it to fail CI, we'll be using the GitHub Check
+      - name: Run chromatic
+        run: npx chromatic --project-token ${{ secrets.CHROMATIC_PROJECT_TOKEN }} --only-changed --exit-once-uploaded
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
