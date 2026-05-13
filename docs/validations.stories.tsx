@@ -135,7 +135,7 @@ export const ValidationRedesign: StoryObj = () => {
     <CarbonProvider validationRedesignOptIn>
       <Form>
         <RequiredFieldsIndicator mb={2}>
-          Fill in all fields marked with
+          Indicates required information
         </RequiredFieldsIndicator>
         <Textarea
           label="Textarea"
@@ -163,7 +163,7 @@ export const ValidationRedesignWithGroupedInputs: StoryObj = () => {
     <CarbonProvider validationRedesignOptIn>
       <Form>
         <RequiredFieldsIndicator mb={2}>
-          Fill in all fields marked with
+          Indicates required information
         </RequiredFieldsIndicator>
         <RadioButtonGroup
           legend="Radio Button Group"
@@ -214,7 +214,7 @@ export const ValidationRedesignMessageBottom: StoryObj = () => {
     <CarbonProvider validationRedesignOptIn>
       <Form>
         <RequiredFieldsIndicator mb={2}>
-          Fill in all fields marked with
+          Indicates required information
         </RequiredFieldsIndicator>
 
         <Textbox
