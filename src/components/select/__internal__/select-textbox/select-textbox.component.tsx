@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useRef } from "react";
 
-import { SelectTextboxContext } from "./select-textbox.context";
 import {
   StyledSelectText,
   StyledSelectTextChildrenWrapper,
@@ -9,11 +8,16 @@ import {
 import Textbox, { CommonTextboxProps } from "../../../textbox";
 import useLocale from "../../../../hooks/__internal__/useLocale";
 import { ValidationProps } from "../../../../__internal__/validations";
+import combineRefs from "../../../../__internal__/utils/helpers/combine-refs";
 
 export interface FormInputPropTypes
   extends ValidationProps,
     Omit<CommonTextboxProps, "onClick" | "onChange" | "data-component"> {
-  /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
+  /**
+   * @deprecated `adaptiveLabelBreakpoint` has been deprecated.
+   * It is recommended to use `useMediaQuery` hook to implement adaptive behaviour.
+   * Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set
+   **/
   adaptiveLabelBreakpoint?: number;
   /** Prop to specify the aria-label attribute of the component input */
   ariaLabel?: string;
@@ -74,8 +78,6 @@ export interface SelectTextboxProps extends FormInputPropTypes {
   "aria-controls"?: string;
   /** Value to be displayed in the Textbox */
   formattedValue?: string;
-  /** If true, the input will be displayed */
-  hasTextCursor?: boolean;
   /** If true, the list is displayed */
   isOpen?: boolean;
   /** Value of the Select Input */
@@ -89,6 +91,13 @@ export interface SelectTextboxProps extends FormInputPropTypes {
   activeDescendantId?: string;
   /** Specify a callback triggered on change */
   onChange: (ev: React.ChangeEvent<HTMLInputElement>) => void;
+  /**
+   * Sets the type of select, which determines the behaviour of the textbox.
+   * If "simple", the textbox does not allow typing and functions as a standard select.
+   * If "filterable", the textbox allows typing and filters the options based on the input value.
+   * If "multi", the textbox allows typing and is used for multi-selects, displaying selected options as comma-separated values.
+   */
+  selectType?: "simple" | "filterable" | "multi";
 }
 
 const SelectTextbox = React.forwardRef(
@@ -111,7 +120,7 @@ const SelectTextbox = React.forwardRef(
       formattedValue = "",
       selectedValue,
       required,
-      hasTextCursor,
+      selectType,
       transparent = false,
       activeDescendantId,
       onKeyDown,
@@ -121,12 +130,29 @@ const SelectTextbox = React.forwardRef(
     ref: React.ForwardedRef<HTMLInputElement>,
   ) => {
     const l = useLocale();
+    const localRef = useRef<HTMLInputElement>(null);
     const placeholder = customPlaceholder || l.select.placeholder();
     const showPlaceholder = !disabled && !readOnly && !formattedValue;
+    const shouldRenderInput =
+      selectType === "filterable" || selectType === "multi";
+    const combinedRefs = combineRefs(ref, localRef);
 
     function handleTextboxClick(
       event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
     ) {
+      if (disabled) {
+        return;
+      }
+
+      /* istanbul ignore else */
+      if (localRef.current && document.activeElement !== localRef.current) {
+        localRef.current.focus();
+      }
+
+      if (readOnly) {
+        return;
+      }
+
       onClick?.(event as React.MouseEvent<HTMLInputElement>);
     }
 
@@ -145,13 +171,16 @@ const SelectTextbox = React.forwardRef(
       onBlur,
       labelId,
       type: "text",
-      ref,
+      ref: combinedRefs,
       onKeyDown,
       ...restProps,
     };
 
-    const { "aria-describedby": ariaDescribedBy, ...filteredRestProps } =
-      restProps;
+    const {
+      "aria-describedby": ariaDescribedBy,
+      leftChildren,
+      ...filteredRestProps
+    } = restProps;
 
     const inputAriaAttributes = {
       "aria-expanded": readOnly ? undefined : isOpen,
@@ -160,7 +189,10 @@ const SelectTextbox = React.forwardRef(
         : ariaLabelledby,
       "aria-activedescendant": activeDescendantId,
       "aria-controls": ariaControls,
-      "aria-autocomplete": hasTextCursor ? ("both" as const) : undefined,
+      "aria-autocomplete":
+        selectType === "filterable" || selectType === "multi"
+          ? ("both" as const)
+          : undefined,
       role: readOnly ? undefined : "combobox",
     };
 
@@ -168,48 +200,61 @@ const SelectTextbox = React.forwardRef(
       typeof selectedValue === "string" ||
       (Array.isArray(selectedValue) && typeof selectedValue[0] === "string");
 
+    const classNames = [shouldRenderInput ? "select-allows-typing" : undefined]
+      .filter(Boolean)
+      .join(" ");
+
     return (
-      <SelectTextboxContext.Provider value={{ isInputInSelect: true }}>
-        <Textbox
-          aria-describedby={ariaDescribedBy}
-          aria-label={ariaLabel}
-          data-element="select-input"
-          data-role="select-textbox"
-          inputIcon="dropdown"
-          autoComplete="off"
-          size={size}
-          formattedValue={formattedValue}
-          placeholder={hasTextCursor ? placeholder : undefined}
-          {...inputAriaAttributes}
-          {...textboxProps}
-          // prevent uncontrolled warning being fired
-          onChange={onChange}
-          // ensure value is properly controlled
-          value={
-            hasStringValue ? (selectedValue as string | string[]) : undefined
-          }
-          my={0} // prevents any form spacing being applied
-        >
-          {!hasTextCursor && (
+      <Textbox
+        aria-describedby={ariaDescribedBy}
+        aria-label={ariaLabel}
+        data-element={`${selectType ?? ""}-select-input`}
+        data-role="select-textbox"
+        inputIcon="dropdown"
+        autoComplete="off"
+        size={size}
+        formattedValue={formattedValue}
+        placeholder={shouldRenderInput ? placeholder : undefined}
+        {...inputAriaAttributes}
+        {...textboxProps}
+        className={classNames}
+        data-is-transparent={transparent}
+        data-is-open={isOpen}
+        // prevent uncontrolled warning being fired
+        onChange={onChange}
+        // ensure value is properly controlled
+        value={
+          hasStringValue ? (selectedValue as string | string[]) : undefined
+        }
+        // prevents any form spacing being applied
+        my={0}
+        leftChildren={
+          !shouldRenderInput ? (
             <StyledSelectText
               aria-hidden
               data-element="select-text"
               data-role="select-text"
-              disabled={disabled}
-              hasPlaceholder={showPlaceholder}
-              onClick={disabled || readOnly ? undefined : handleTextboxClick}
-              readOnly={readOnly}
-              transparent={transparent}
-              size={size}
+              $disabled={disabled}
+              $hasPlaceholder={showPlaceholder}
+              onClick={handleTextboxClick}
+              $readOnly={readOnly}
+              $size={size}
+              $transparent={transparent}
+              className={`select-text ${disabled ? "disabled" : ""} ${readOnly ? "read-only" : ""}`}
               {...filteredRestProps}
             >
-              <StyledSelectTextChildrenWrapper>
+              <StyledSelectTextChildrenWrapper
+                $isDisabled={disabled}
+                $readOnly={readOnly}
+              >
                 {showPlaceholder ? placeholder : formattedValue}
               </StyledSelectTextChildrenWrapper>
             </StyledSelectText>
-          )}
-        </Textbox>
-      </SelectTextboxContext.Provider>
+          ) : (
+            leftChildren
+          )
+        }
+      />
     );
   },
 );

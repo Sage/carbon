@@ -98,36 +98,32 @@ export const InsideFormInlineLabels: Story = () => {
       }
       stickyFooter={false}
     >
-      <Textbox
-        label="Textbox"
-        labelAlign="right"
-        labelInline
-        labelWidth={10}
-        inputWidth={50}
-        value=""
-        onChange={() => {}}
-      />
-      <Textbox
-        label="Textbox"
-        labelAlign="right"
-        labelInline
-        labelWidth={10}
-        inputWidth={50}
-        value=""
-        onChange={() => {}}
-      />
-      <Box ml="10%" mr="40%">
-        <Hr mb={7} mt={7} />
+      <Box width="59%">
+        <Textbox
+          label="Textbox"
+          labelInline
+          inputWidth={90}
+          value=""
+          onChange={() => {}}
+        />
+        <Textbox
+          label="Textbox"
+          labelInline
+          inputWidth={90}
+          value=""
+          onChange={() => {}}
+        />
+        <Box ml="11%" mr="4px">
+          <Hr mb={7} mt={7} />
+        </Box>
+        <Textbox
+          label="Textbox"
+          labelInline
+          inputWidth={90}
+          value=""
+          onChange={() => {}}
+        />
       </Box>
-      <Textbox
-        label="Textbox"
-        labelAlign="right"
-        labelInline
-        labelWidth={10}
-        inputWidth={50}
-        value=""
-        onChange={() => {}}
-      />
     </Form>
   );
 };

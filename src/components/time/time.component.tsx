@@ -8,7 +8,7 @@ import React, {
 import { MarginProps } from "styled-system";
 import { ValidationProps } from "../../__internal__/validations";
 import { TagProps } from "../../__internal__/utils/helpers/tags";
-import { Sizes } from "../../__internal__/input/input-presentation.component";
+import { Sizes } from "../../__internal__/legacy-input/input-presentation.component";
 import guid from "../../__internal__/utils/helpers/guid";
 import useLocale from "../../hooks/__internal__/useLocale";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
@@ -20,6 +20,7 @@ import Number from "../number";
 import Typography from "../typography";
 import StyledLabel from "./time.style";
 import { TimeToggle, ToggleDataProps } from "./__internal__/time-toggle";
+import FieldsetValidationContext from "../../__internal__/fieldset-validation-context";
 
 export type ToggleValue = "AM" | "PM";
 
@@ -97,6 +98,12 @@ export type TimeHandle = {
   /** Programmatically focus the minutes input. */
   focusMinutesInput: () => void;
 } | null;
+
+const SIZES = {
+  small: "48px",
+  medium: "56px",
+  large: "64px",
+};
 
 const Time = React.forwardRef<TimeHandle, TimeProps>(
   (
@@ -313,88 +320,94 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
         {...filterStyledSystemMarginProps(rest)}
         {...tagComponent("time", rest)}
       >
-        <Box display="flex">
-          <div>
-            <StyledLabel
-              aria-label={hrsAriaLabel}
-              htmlFor={internalHrsId.current}
-              disabled={disabled}
-              align={fieldLabelsAlign}
-            >
-              {hrsLabel}
-            </StyledLabel>
-            <Number
-              {...hoursInputProps}
-              label={undefined}
-              data-component="hours"
-              ref={hoursRef}
-              value={hourValue}
-              onChange={(ev) => handleChange(ev, "hrs")}
-              onBlur={handleBlur}
-              id={internalHrsId.current}
-              size={size}
-              error={!!hoursError}
-              warning={!!hoursWarning}
-              disabled={disabled}
-              readOnly={readOnly}
-              my={0} // prevents any form spacing being applied
-            />
-          </div>
-          <Box
-            display="flex"
-            flexDirection="column"
-            justifyContent="center"
-            mx={1}
-            aria-hidden="true"
-          >
-            <span>&nbsp;</span>
-            <Typography isDisabled={disabled} variant="span" mb="-4px">
-              :
-            </Typography>
-          </Box>
-          <div>
-            <StyledLabel
-              aria-label={minsAriaLabel}
-              htmlFor={internalMinsId.current}
-              disabled={disabled}
-              align={fieldLabelsAlign}
-            >
-              {minsLabel}
-            </StyledLabel>
-            <Number
-              {...minutesInputProps}
-              label={undefined}
-              data-component="minutes"
-              ref={minsRef}
-              value={minuteValue}
-              onChange={(ev) => handleChange(ev, "mins")}
-              onBlur={handleBlur}
-              id={internalMinsId.current}
-              size={size}
-              error={!!minutesError}
-              warning={!!minutesWarning}
-              disabled={disabled}
-              readOnly={readOnly}
-              my={0} // prevents any form spacing being applied
-            />
-          </div>
-          {showToggle && (
+        <FieldsetValidationContext.Provider
+          value={{ disableErrorBorder: true }}
+        >
+          <Box display="flex" className="time">
+            <div>
+              <StyledLabel
+                aria-label={hrsAriaLabel}
+                htmlFor={internalHrsId.current}
+                disabled={disabled}
+                align={fieldLabelsAlign}
+              >
+                {hrsLabel}
+              </StyledLabel>
+              <Number
+                {...hoursInputProps}
+                label={undefined}
+                data-component="hours"
+                ref={hoursRef}
+                value={hourValue}
+                onChange={(ev) => handleChange(ev, "hrs")}
+                onBlur={handleBlur}
+                id={internalHrsId.current}
+                size={size}
+                error={!!hoursError}
+                warning={!!hoursWarning}
+                disabled={disabled}
+                readOnly={readOnly}
+                maxWidth={SIZES[size]}
+                my={0} // prevents any form spacing being applied
+              />
+            </div>
             <Box
               display="flex"
               flexDirection="column"
-              justifyContent="flex-end"
-              width="max-content"
+              justifyContent="center"
+              mx={1}
+              aria-hidden="true"
             >
-              <TimeToggle
-                toggleProps={toggleProps}
-                size={size}
-                onChange={handlePeriodChange}
-                toggleValue={toggleValue}
-                disabled={disabled || readOnly}
-              />
+              <span>&nbsp;</span>
+              <Typography isDisabled={disabled} variant="span" mb="-4px">
+                :
+              </Typography>
             </Box>
-          )}
-        </Box>
+            <div>
+              <StyledLabel
+                aria-label={minsAriaLabel}
+                htmlFor={internalMinsId.current}
+                disabled={disabled}
+                align={fieldLabelsAlign}
+              >
+                {minsLabel}
+              </StyledLabel>
+              <Number
+                {...minutesInputProps}
+                label={undefined}
+                data-component="minutes"
+                ref={minsRef}
+                value={minuteValue}
+                onChange={(ev) => handleChange(ev, "mins")}
+                onBlur={handleBlur}
+                id={internalMinsId.current}
+                size={size}
+                error={!!minutesError}
+                warning={!!minutesWarning}
+                disabled={disabled}
+                readOnly={readOnly}
+                maxWidth={SIZES[size]}
+                my={0} // prevents any form spacing being applied
+              />
+            </div>
+            {showToggle && (
+              <Box
+                display="flex"
+                flexDirection="column"
+                justifyContent="flex-end"
+                width="max-content"
+              >
+                <TimeToggle
+                  toggleProps={toggleProps}
+                  size={size}
+                  onChange={handlePeriodChange}
+                  toggleValue={toggleValue}
+                  disabled={disabled || readOnly}
+                />
+              </Box>
+            )}
+          </Box>
+        </FieldsetValidationContext.Provider>
       </Fieldset>
     );
   },

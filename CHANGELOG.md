@@ -1,3 +1,55 @@
+## [159.2.2](https://github.com/Sage/carbon/compare/v159.2.1...v159.2.2) (2026-05-13)
+
+### Bug Fixes
+
+* **tokens:** update token script to ensure any needed JS tokens are included in build ([bfd99a3](https://github.com/Sage/carbon/commit/bfd99a3559ffed324f90d7ec6ca2c480a5199256))
+
+## [159.2.1](https://github.com/Sage/carbon/compare/v159.2.0...v159.2.1) (2026-05-12)
+
+### Bug Fixes
+
+* **action-popover-item:** ensure enter keydown triggers href redirect ([0c87d7f](https://github.com/Sage/carbon/commit/0c87d7ff0520c4c06be16894375d2c7f311eb50a)), closes [#7945](https://github.com/Sage/carbon/issues/7945)
+
+## [159.2.0](https://github.com/Sage/carbon/compare/v159.1.0...v159.2.0) (2026-05-11)
+
+### Features
+
+* **dialog:** align component with fusion DS ([9e729f0](https://github.com/Sage/carbon/commit/9e729f067b1bafba6534084193084ef56ed78da7))
+
+## [159.1.0](https://github.com/Sage/carbon/compare/v159.0.1...v159.1.0) (2026-05-11)
+
+### Features
+
+* **icon:** added 3 new icons and fixed another ([746685f](https://github.com/Sage/carbon/commit/746685fd594a3a002d62ac3644eebbd2f8c69b4a))
+
+## [159.0.1](https://github.com/Sage/carbon/compare/v159.0.0...v159.0.1) (2026-05-08)
+
+### Bug Fixes
+
+* **checkbox-group:** remove fit-content from group styles ([15b3da5](https://github.com/Sage/carbon/commit/15b3da56f2cae4499f0f905b157785129eea2ba7)), closes [#7915](https://github.com/Sage/carbon/issues/7915)
+
+## [159.0.0](https://github.com/Sage/carbon/compare/v158.50.0...v159.0.0) (2026-05-08)
+
+### ⚠ BREAKING CHANGES
+
+* **textbox:** the legacy interface has been maintained wherever possible, the
+following props no longer have any functionality:
+adaptiveLabelBreakpoint, info, helpAriaLabel, labelAlign,
+labelWidth, labelSpacing, labelId, reverse, tooltipPosition,
+tooltipId, info and validationOnLabel
+(legacy validation has been removed).
+This has been released as a new major version as there is likely
+to be some layout changes when upgrading, these should be solved
+using a parent container to constrain/ position etc.
+
+### Features
+
+* **textbox:** align component with fusion DS ([8360cb3](https://github.com/Sage/carbon/commit/8360cb383d1e0cab9df0a70a016349fea1667b88))
+
+### Bug Fixes
+
+* **numeral-date:** remove fit-content width to allow additional text to overflow the inputs ([54bd887](https://github.com/Sage/carbon/commit/54bd88727b1b7b39eecf11f1edcc902c4599e0fc)), closes [#7875](https://github.com/Sage/carbon/issues/7875)
+
 ## [158.50.0](https://github.com/Sage/carbon/compare/v158.49.2...v158.50.0) (2026-05-07)
 
 ### Features
