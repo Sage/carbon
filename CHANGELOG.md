@@ -1,3 +1,9 @@
+## [159.2.2](https://github.com/Sage/carbon/compare/v159.2.1...v159.2.2) (2026-05-13)
+
+### Bug Fixes
+
+* **tokens:** update token script to ensure any needed JS tokens are included in build ([bfd99a3](https://github.com/Sage/carbon/commit/bfd99a3559ffed324f90d7ec6ca2c480a5199256))
+
 ## [159.2.1](https://github.com/Sage/carbon/compare/v159.2.0...v159.2.1) (2026-05-12)
 
 ### Bug Fixes

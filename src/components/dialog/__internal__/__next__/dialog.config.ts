@@ -2,7 +2,7 @@ import {
   containerSizeDialogMaxwidthS,
   containerSizeDialogMaxwidthM,
   containerSizeDialogMaxwidthL,
-} from "@sage/design-tokens-fusion/js/es6/components/container";
+} from "./__internal__/tokens";
 
 /** New size type following design system naming conventions */
 export type Size = "small" | "medium" | "large" | "fullscreen";
