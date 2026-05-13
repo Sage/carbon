@@ -13,44 +13,45 @@ description: Carbon Portrait component props and usage examples.
 - Props interface: `PortraitProps`
 
 ## Props
-| Name | Type | Required | Literals | Description | Default |
-| --- | --- | --- | --- | --- | --- |
-| alt | string \| undefined | No |  | The `alt` HTML string. |  |
-| backgroundColor | string \| undefined | No |  | The hex code of the background colour |  |
-| className | string \| undefined | No |  |  |  |
-| darkBackground | boolean \| undefined | No |  | Use a dark background. | false |
-| foregroundColor | string \| undefined | No |  | The hex code of the foreground colour. This will only take effect if use in conjunction with `backgroundColor` | undefined |
-| iconType | IconType \| undefined | No |  | Icon to be rendered as a fallback. | "individual" |
-| initials | string \| undefined | No |  | The initials to render in the Portrait. |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| name | string \| undefined | No |  |  |  |
-| onClick | ((ev: React.MouseEvent<HTMLElement>) => void) \| undefined | No |  | Prop for `onClick` events. |  |
-| shape | PortraitShapes \| undefined | No |  | The shape of the Portrait. | "circle" |
-| size | PortraitSizes \| undefined | No |  | The size of the Portrait. | "M" |
-| src | string \| undefined | No |  | A custom image URL. |  |
-| tooltipBgColor | string \| undefined | No |  | [Legacy] Override background color of the Tooltip, provide any color from palette or any valid css color value. |  |
-| tooltipFontColor | string \| undefined | No |  | [Legacy] Override font color of the Tooltip, provide any color from palette or any valid css color value. |  |
-| tooltipId | string \| undefined | No |  | [Legacy] The id attribute to use for the tooltip |  |
-| tooltipIsVisible | boolean \| undefined | No |  | [Legacy] Whether to to show the Tooltip |  |
-| tooltipMessage | React.ReactNode | No |  | [Legacy] The message to be displayed within the tooltip |  |
-| tooltipPosition | "left" \| "right" \| "bottom" \| "top" \| undefined | No |  | [Legacy] Sets position of the tooltip |  |
-| tooltipSize | "medium" \| "large" \| undefined | No |  | [Legacy] Defines the size of the tooltip content |  |
-| tooltipType | string \| undefined | No |  | [Legacy] Defines the message type |  |
-| data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
-| data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+| Name | Type | Required | Literals | Deprecated | Deprecation reason | Description | Default |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| alt | string \| undefined | No |  |  |  | The `alt` HTML string. |  |
+| className | string \| undefined | No |  |  |  |  |  |
+| iconType | IconType \| undefined | No |  |  |  | Icon to be rendered as a fallback. | "individual" |
+| initials | string \| undefined | No |  |  |  | The initials to render in the Portrait. |  |
+| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
+| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
+| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
+| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
+| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
+| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
+| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
+| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
+| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
+| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
+| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
+| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
+| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
+| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
+| name | string \| undefined | No |  |  |  |  |  |
+| onClick | ((ev: React.MouseEvent<HTMLElement>) => void) \| undefined | No |  |  |  | Prop for `onClick` events. |  |
+| shape | PortraitShapes \| undefined | No |  |  |  | The shape of the Portrait. | "circle" |
+| size | PortraitSizes \| undefined | No |  |  |  | The size of the Portrait. | "M" |
+| src | string \| undefined | No |  |  |  | A custom image URL. |  |
+| variant | PortraitVariant \| undefined | No |  |  |  | Color variant |  |
+| data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+| data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+| backgroundColor | string \| undefined | No |  | Yes | This prop is deprecated and will be removed in a future release. | The hex code of the background colour |  |
+| darkBackground | boolean \| undefined | No |  | Yes | This prop is deprecated and will be removed in a future release. | Use a dark background. | false |
+| foregroundColor | string \| undefined | No |  | Yes | This prop is deprecated and will be removed in a future release. | The hex code of the foreground colour. This will only take effect if use in conjunction with `backgroundColor` | undefined |
+| tooltipBgColor | string \| undefined | No |  | Yes | This prop is deprecated and will be removed in a future release. | [Legacy] Override background color of the Tooltip, provide any color from palette or any valid css color value. |  |
+| tooltipFontColor | string \| undefined | No |  | Yes | This prop is deprecated and will be removed in a future release. | [Legacy] Override font color of the Tooltip, provide any color from palette or any valid css color value. |  |
+| tooltipId | string \| undefined | No |  | Yes | This prop is deprecated and will be removed in a future release. | [Legacy] The id attribute to use for the tooltip |  |
+| tooltipIsVisible | boolean \| undefined | No |  | Yes | This prop is deprecated and will be removed in a future release. | [Legacy] Whether to to show the Tooltip |  |
+| tooltipMessage | React.ReactNode | No |  | Yes | This prop is deprecated and will be removed in a future release. | [Legacy] The message to be displayed within the tooltip |  |
+| tooltipPosition | "left" \| "right" \| "bottom" \| "top" \| undefined | No |  | Yes | This prop is deprecated and will be removed in a future release. | [Legacy] Sets position of the tooltip |  |
+| tooltipSize | "medium" \| "large" \| undefined | No |  | Yes | This prop is deprecated and will be removed in a future release. | [Legacy] Defines the size of the tooltip content |  |
+| tooltipType | string \| undefined | No |  | Yes | This prop is deprecated and will be removed in a future release. | [Legacy] Defines the message type |  |
 
 ## Examples
 ### Default
@@ -345,6 +346,72 @@ description: Carbon Portrait component props and usage examples.
           backgroundColor="var(--colorsUtilityYin090)"
           foregroundColor="var(--colorsLogo)"
         />
+      </Box>
+    </>
+  );
+}
+```
+
+
+### Variants
+
+**Render**
+
+```tsx
+() => {
+  const availableVariants: { value: PortraitVariant; label: string }[] = [
+    { value: "black", label: "Black (default)" },
+    { value: "blue", label: "Blue" },
+    { value: "teal", label: "Teal" },
+    { value: "green", label: "Green" },
+    { value: "lime", label: "Lime" },
+    { value: "orange", label: "Orange" },
+    { value: "red", label: "Red" },
+    { value: "pink", label: "Pink" },
+    { value: "purple", label: "Purple" },
+    { value: "slate", label: "Slate" },
+    { value: "grey", label: "Grey" },
+  ];
+  const [variant, setVariant] = useState<PortraitVariant>(
+    availableVariants[0].value,
+  );
+
+  return (
+    <>
+      <Box display="flex" flexDirection="column" gap={2} mb={1}>
+        <Select
+          name="foreground-color"
+          id="foreground-color"
+          label="Foreground Color"
+          labelInline
+          onChange={(e) => setVariant(e.target.value as PortraitVariant)}
+          value={variant}
+        >
+          {availableVariants.map(({ label, value }) => (
+            <Option text={label} value={value} />
+          ))}
+        </Select>
+      </Box>
+      <Box display="flex" mb={1} gap={1}>
+        <Portrait size="XS" variant={variant} />
+        <Portrait initials="MK" size="XS" variant={variant} />
+      </Box>
+      <Box display="flex" mb={1} gap={1}>
+        <Portrait
+          variant={variant}
+          backgroundColor="var(--colorsUtilityYin090)"
+          foregroundColor="var(--colorsLogo)"
+        />
+        <Portrait
+          initials="MK"
+          variant={variant}
+          backgroundColor="var(--colorsUtilityYin090)"
+          foregroundColor="var(--colorsLogo)"
+        />
+      </Box>
+      <Box display="flex" mb={1} gap={1}>
+        <Portrait size="L" variant={variant} />
+        <Portrait initials="MK" size="L" variant={variant} />
       </Box>
     </>
   );
