@@ -18,6 +18,12 @@ After installing `carbon-react`, add the Carbon agent skills to your project:
 npx skills add Sage/carbon
 ```
 
+The above script will pull the latest skills, if you need to version them you can do the following (please note skills were added in `v158.35.6`):
+
+```shell
+npx skills add https://github.com/Sage/carbon/tree/v158.50.0/skills/carbon-react
+```
+
 These skills give agents full context about the Carbon library, including component props, usage examples, deprecation notices, migration guides, and documentation references.
 
 ## Browser Support
