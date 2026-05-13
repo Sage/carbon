@@ -25,42 +25,13 @@ type Story = StoryObj<typeof Fieldset>;
 export const Default: Story = ({ ...args }) => {
   return (
     <Fieldset {...args}>
-      <Textbox
-        label="First Name"
-        labelInline
-        labelAlign="right"
-        labelWidth={30}
-        value={""}
-        onChange={() => {}}
-      />
-      <Textbox
-        label="Last Name"
-        labelInline
-        labelAlign="right"
-        labelWidth={30}
-        value={""}
-        onChange={() => {}}
-      />
-      <Textbox
-        label="Address"
-        labelInline
-        labelAlign="right"
-        labelWidth={30}
-        value={""}
-        onChange={() => {}}
-      />
-      <Textbox
-        label="City"
-        labelInline
-        labelAlign="right"
-        labelWidth={30}
-        value={""}
-        onChange={() => {}}
-      />
+      <Textbox label="First Name" labelInline value={""} onChange={() => {}} />
+      <Textbox label="Last Name" labelInline value={""} onChange={() => {}} />
+      <Textbox label="Address" labelInline value={""} onChange={() => {}} />
+      <Textbox label="City" labelInline value={""} onChange={() => {}} />
       <Checkbox
         label="Checkbox"
-        labelWidth={30}
-        labelSpacing={2}
+        labelWidth={17.25}
         reverse
         checked={false}
         onChange={() => {}}
@@ -68,7 +39,6 @@ export const Default: Story = ({ ...args }) => {
       <Select
         label="Country"
         labelInline
-        labelAlign="right"
         labelWidth={30}
         value={""}
         onChange={() => {}}
@@ -78,14 +48,7 @@ export const Default: Story = ({ ...args }) => {
         <Option text="France" value="fr" />
         <Option text="Germany" value="ge" />
       </Select>
-      <Textbox
-        value={""}
-        onChange={() => {}}
-        label="Telephone"
-        labelInline
-        labelAlign="right"
-        labelWidth={30}
-      />
+      <Textbox value={""} onChange={() => {}} label="Telephone" labelInline />
     </Fieldset>
   );
 };
@@ -140,89 +103,7 @@ export const InFormFieldSpacing: Story = () => (
 );
 InFormFieldSpacing.storyName = "In Form with fieldSpacing (legacy)";
 
-export const Validation: Story = () => (
-  <Form>
-    <Fieldset>
-      <Textbox
-        label="Error String"
-        labelInline
-        error="Error Message"
-        value={""}
-        onChange={() => {}}
-      />
-      <Textbox
-        label="Warning String"
-        labelInline
-        warning="Warning Message"
-        value={""}
-        onChange={() => {}}
-      />
-      <Textbox
-        label="Info String"
-        labelInline
-        info="Info Message"
-        value={""}
-        onChange={() => {}}
-      />
-    </Fieldset>
-    <Fieldset>
-      <Textbox
-        label="Error on Label"
-        labelInline
-        error="Error Message"
-        validationOnLabel
-        value={""}
-        onChange={() => {}}
-      />
-      <Textbox
-        label="Warning on Label"
-        labelInline
-        warning="Warning Message"
-        validationOnLabel
-        value={""}
-        onChange={() => {}}
-      />
-      <Textbox
-        label="Info on Label"
-        labelInline
-        info="Info Message"
-        validationOnLabel
-        value={""}
-        onChange={() => {}}
-      />
-    </Fieldset>
-    <Fieldset>
-      <Textbox
-        label="Error Boolean"
-        labelInline
-        error
-        value={""}
-        onChange={() => {}}
-      />
-      <Textbox
-        label="Warning Boolean"
-        labelInline
-        warning
-        value={""}
-        onChange={() => {}}
-      />
-      <Textbox
-        label="Info Boolean"
-        labelInline
-        info
-        value={""}
-        onChange={() => {}}
-      />
-    </Fieldset>
-  </Form>
-);
-Validation.storyName = "Validation";
-Validation.parameters = {
-  chromatic: { disableSnapshot: false },
-  themeProvider: { chromatic: { theme: "sage" } },
-};
-
-export const NewValidation: Story = ({ ...args }) => (
+export const Validation: Story = ({ ...args }) => (
   <CarbonProvider validationRedesignOptIn>
     <Form>
       <Textbox label="Separate Field" value={""} onChange={() => {}} />
@@ -269,8 +150,8 @@ export const NewValidation: Story = ({ ...args }) => (
     </Form>
   </CarbonProvider>
 );
-NewValidation.storyName = "New Validation";
-NewValidation.parameters = {
+Validation.storyName = "New Validation";
+Validation.parameters = {
   chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
 };

@@ -1,8 +1,8 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 
-import StyledInput from "../../__internal__/input/input.style";
-import { StyledLabelContainer } from "../../__internal__/label/label.style";
+import StyledInput from "../../__internal__/legacy-input/input.style";
+import { StyledLabelContainer } from "../../__internal__/legacy-label/label.style";
 import InputIconToggleStyle from "../../__internal__/input-icon-toggle/input-icon-toggle.style";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 import { TextareaProps } from "./textarea.component";

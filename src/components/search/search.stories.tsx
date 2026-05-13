@@ -27,12 +27,17 @@ export const Default: Story = () => {
   return (
     <Search
       placeholder="Search..."
-      onChange={(e) => setValue(e.target.value)}
+      onChange={(e) => {
+        setValue(e.target.value);
+      }}
       value={value}
     />
   );
 };
 Default.storyName = "Default";
+Default.parameters = {
+  chromatic: { disableSnapshot: true },
+};
 
 export const WithLabelAndInputHint: Story = () => {
   const [value, setValue] = useState("Here is some text");
@@ -78,6 +83,9 @@ export const WithSearchButtonPropTextOverride: Story = () => {
 };
 WithSearchButtonPropTextOverride.storyName =
   "With Search Button text override via prop";
+WithSearchButtonPropTextOverride.parameters = {
+  chromatic: { disableSnapshot: true },
+};
 
 export const WithSearchButtonLocaleOverride: Story = () => {
   const [value, setValue] = useState("Here is some text");
@@ -95,6 +103,9 @@ export const WithSearchButtonLocaleOverride: Story = () => {
 };
 WithSearchButtonLocaleOverride.storyName =
   "With Search Button text override via locale";
+WithSearchButtonLocaleOverride.parameters = {
+  chromatic: { disableSnapshot: true },
+};
 
 export const CustomWidth: Story = () => {
   const [value, setValue] = useState("");

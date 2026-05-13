@@ -41,52 +41,102 @@ import Dialog, { type DialogHandle } from "carbon-react/lib/components/dialog";
 
 ### Default
 
-The call-to-action element should always be focused when the `Dialog` is closed. However, in some instances it may not receive focus
-due to specific browser design choices. The below example shows how to programmatically focus the call-to-action element when the `Dialog` is closed
-to ensure behaviour is consistent across all browsers.
+A `Dialog` requires an `open` prop and an `onCancel` handler. Use the `footer` prop to render action buttons at the bottom of the dialog. The call-to-action element should always be focused when the `Dialog` is closed — the example below shows how to programmatically restore focus to the trigger element for consistent behaviour across all browsers.
 
 <Canvas of={DialogStories.DefaultStory} />
 
+### With a Form
+
+When including a `Form` inside a `Dialog`, the `Form` can manage its own sticky footer independently.
+
+<Canvas of={DialogStories.DefaultWithForm} />
+
+### Sizes
+
+The `size` prop controls the maximum width of the dialog. The default is `"medium"`.
+
+#### Small (540px)
+
+<Canvas of={DialogStories.SmallSize} />
+
+#### Medium (850px) — Default
+
+<Canvas of={DialogStories.MediumSize} />
+
+#### Large (1080px)
+
+<Canvas of={DialogStories.LargeSize} />
+
+#### Full Screen
+
+<Canvas of={DialogStories.FullScreenSize} />
+
+### Responsive behavior
+
+The dialog shrinks to fit the viewport when the viewport is narrower than the dialog's maximum width. The minimum width is 288px.
+
+<Canvas of={DialogStories.ResponsiveBehavior} />
+
+### Small screen behavior
+
+When `disableStickyOnSmallScreen` is set, the header and footer are no longer sticky on small screen devices (below 600px). On these devices the dialog also becomes full width and the dimmer is removed, improving accessibility on mobile.
+
+<Canvas of={DialogStories.SmallScreenBehavior} />
+
+### Sticky footer
+
+Use the `stickyFooter` prop together with `footer` to keep the footer visible when dialog content scrolls.
+
+<Canvas of={DialogStories.StickyFooter} />
+
+### Sticky footer with Form
+
+<Canvas of={DialogStories.StickyFooterWithForm} />
+
+### With a custom height
+
+Use the `height` prop to set a fixed height on the dialog.
+
+<Canvas of={DialogStories.WithHeight} />
+
+### With header children
+
+Use the `headerChildren` prop to render additional content — such as action buttons — in the dialog header.
+
+<Canvas of={DialogStories.WithHeaderChildren} />
+
+### Gradient keyline
+
+Setting `gradientKeyLine` adds a decorative gradient keyline below the dialog header.
+
+<Canvas of={DialogStories.GradientKeyLine} />
+
+### Overriding content padding
+
+Use the `contentPadding` prop to override the default padding applied to the dialog content area.
+
+<Canvas of={DialogStories.WithContentPadding} />
+
 ### Preventing focus from being restored when Dialog closes
 
-When the `restoreFocusOnClose` prop is `false`, focus will not be restored to the element that was focused before the `Dialog` was opened.
-Focus can instead be programmatically applied to another element if appropriate.
+When `restoreFocusOnClose` is `false`, focus will not be returned to the element that was focused before the `Dialog` was opened. You can instead programmatically apply focus to another element — for example, a message that has just appeared.
 
-<Canvas of={DialogStories.RestoreFocusOnCloseStory} />
-
-### With Maximum Size
-
-When the `size` prop is `"maximise"` the height and width of the `Dialog`'s modal extends to the majority of the viewport.
-
-<Canvas of={DialogStories.MaxSize} />
-
-### With help
-
-<Canvas of={DialogStories.WithHelp} />
-
-### Overriding the first focused element
-
-By default, when a dialog is opened it will automatically focus the first element within its children that can be focussed.
-However, there are a couple of ways of overriding this default behaviour. The `focusFirstElement` prop accepts a reference
-to the element you wish to focus on open (an example of this can be seen by clicking the first button below). If the element
-you want to focus supports `autoFocus` then the you can override the default behaviour by using the `disableAutoFocus` prop
-and setting the `autoFocus` on the element you wish to be focused instead (click the second button to see an example).
-
-<Canvas of={DialogStories.FocusingADifferentFirstElement} />
+<Canvas of={DialogStories.RestoreFocusOnClose} />
 
 ### Loading content
 
-For situations where content cannot be rendered immediately, such as content dependent on data from an external API, conditional rendering and the `Loader` component can be used to create a loading pattern:
+For content that cannot be rendered immediately — such as data from an external API — use conditional rendering with the `Loader` component:
 
 <Canvas of={DialogStories.LoadingContent} />
 
-Note in the previous example, the first `Textbox` in the loaded content has autofocus, which is recommended so assistive technology users are informed of the updated content.
+The first interactive element in the loaded content has `autoFocus` set, which is recommended so that assistive technology users are informed of the updated content.
 
-### Focusing Dialog programmatically
+### Overriding the first focused element
 
-When dialog content changes dynamically, you can programmatically move focus back to the `Dialog` container. Most screen readers will then announce the updated title, indicating to users that the dialog has changed:
+By default, when a dialog opens it focuses the first focusable element in its children. There are two ways to override this:
 
-<Canvas of={DialogStories.UsingHandle} />
+- Pass a ref to `focusFirstElement` to focus a specific element on open.
+- Use `disableAutoFocus` and set `autoFocus` directly on the element you want focused.
 
 To achieve this, forward a custom ref handle to the `Dialog` component using the `DialogHandle` type:
 
@@ -106,66 +156,23 @@ The handle exposes the `focus()` method of the Dialog's root DOM node:
 dialogHandle.current?.focus();
 ```
 
-### Overriding the content padding
-
-Using the `contentPadding` prop will enable the padding of the `Dialog` content to be overridden, the example below has
-set the padding to 0. Please see the [table below](#props) for more information about the values accepted by this prop.
-
-<Canvas of={DialogStories.OverridingContentPadding} />
-
 ### Allowing other elements to be focused
 
-Using the `focusableContainers` prop allows elements that are not DOM children of the Dialog to be reachable with the keyboard while the Dialog is open.
-This may occasionally be useful with things like Toasts where they persist on the page until dismissed by clicking a close icon.
+Use `focusableContainers` to allow elements outside the dialog's DOM subtree — such as Toast notifications — to be reachable with the keyboard while the dialog is open.
 
 <Canvas of={DialogStories.OtherFocusableContainers} />
 
-### Responsive Example
-
-<Canvas of={DialogStories.Responsive} />
-
-### Top modal override
-
-When multiple modals are open on a page Carbon manages the order internally so that the last one mounted in the DOM
-is treated as the top one and the focus trap is set on it. However, this can potentially
-create unexpected issues if the loading of the dialogs isn't synchronous. In order to guarantee that a given
-modal is treated as top set the `topModalOverride` prop. Please note that in the scenario where this prop is
-set on multiple modals, the last one mounted with it will be treated as top.
-
-<Canvas of={DialogStories.TopModalOverride} />
-
-### With grey background
-
-Please note that setting the background color to grey may cause color contrast accessibility issues.
-
-<Canvas of={DialogStories.GreyBackground} />
-
-### Highlight variants
-
-Setting the `highlightVariant` prop will add a highlight above the Dialog. Please note that this prop does not work when the `fullscreen` prop is set to `true`.
-
-<Canvas of={DialogStories.HighlightVariant} />
-
 ## Accessibility
 
-If your content is scrollable, you will need to ensure that the scrollable region has keyboard access. To do this we recommend
-adding `tabIndex="0"` to the scrollable content container so that keyboard users can access it. An example of this can be seen below:
+If your dialog contains scrollable content, add `tabIndex="0"` to the scrollable container so keyboard users can access it:
 
 <Canvas of={DialogStories.WithScrollableContent} />
-
-## Fullscreen
-
-## Examples
-
-### Default
-
-<Canvas of={DialogStories.FullScreenDefault} />
 
 ## Props
 
 ### Dialog
 
-<ArgTypes of={DialogStories} />
+<ArgTypes of={DialogStories.DefaultStory} />
 
 ## Translation keys
 

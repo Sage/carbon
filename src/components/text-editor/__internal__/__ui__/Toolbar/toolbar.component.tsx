@@ -419,9 +419,9 @@ const Toolbar = ({
             <Box display="flex" flexDirection="column" gap="16px">
               {/* TO-DO: Replace hard-coded overrides from Typography with supported variants when supported */}
               <Typography fontSize="14px" fontWeight="500" lineHeight="21px">
-                <Typography as="span" color="#FF0000">
+                <span style={{ color: "var(--input-labelset-label-required)" }}>
                   *
-                </Typography>{" "}
+                </span>{" "}
                 {locale.textEditor.hyperlink.formKey?.()}
               </Typography>
 

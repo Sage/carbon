@@ -15,7 +15,7 @@ import { InputGroupBehaviour } from "../../../__internal__/input-behaviour";
 import Events from "../../../__internal__/utils/helpers/events";
 import NewValidationContext from "../../carbon-provider/__internal__/new-validation.context";
 import { ButtonToggleGroupProvider } from "./__internal__/button-toggle-group.context";
-import HintText from "../../../__internal__/hint-text";
+import HintText from "../../../__internal__/legacy-hint-text";
 
 export interface ButtonToggleGroupProps extends MarginProps, TagProps {
   /** Unique id for the root element of the component */

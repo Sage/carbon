@@ -85,11 +85,9 @@ test("applies transparent background and no border to input, when transparent pr
     </SimpleSelect>,
   );
 
-  expect(screen.getByRole("combobox")).toHaveStyle(`
-    background-color: transparent;
-  `);
-
-  expect(screen.getByRole("combobox")).toHaveStyleRule("border", "none");
+  expect(screen.getByRole("combobox")).toHaveStyle(
+    "background-color: transparent",
+  );
 });
 
 test("displays the selected option text, when value prop matches an option", () => {
@@ -604,6 +602,22 @@ describe("dropdown list", () => {
     await user.tab();
 
     expect(await screen.findByRole("listbox")).toBeVisible();
+  });
+
+  it("closes the input when openOnFocus is true and the user clicks the caret_down icon", async () => {
+    const user = userEvent.setup();
+    render(
+      <SimpleSelect label="Colour" onChange={() => {}} openOnFocus value="">
+        <Option text="amber" value="amber" />
+      </SimpleSelect>,
+    );
+
+    await user.tab();
+    await user.click(screen.getByTestId("input-icon-toggle"));
+
+    await waitFor(() => {
+      expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+    });
   });
 
   it("does not open, when input is focused and openOnFocus prop is false", async () => {

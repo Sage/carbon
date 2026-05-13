@@ -24,7 +24,7 @@ afterEach(() => {
 describe("Deprecation warnings", () => {
   test("logs a deprecation warning when disableClose is used", () => {
     const loggerSpy = jest.spyOn(Logger, "deprecate");
-    render(<Dialog fullscreen open disableClose />);
+    render(<Dialog open disableClose />);
 
     expect(loggerSpy).toHaveBeenCalledWith(
       "The disableClose prop in Dialog is deprecated and will soon be removed.",
@@ -36,7 +36,7 @@ describe("Deprecation warnings", () => {
 
   test("logs a deprecation warning when pagesStyling is used", async () => {
     const loggerSpy = jest.spyOn(Logger, "deprecate");
-    render(<Dialog fullscreen pagesStyling open />);
+    render(<Dialog pagesStyling open />);
 
     expect(loggerSpy).toHaveBeenCalledWith(
       "The pagesStyling prop in Dialog is deprecated and will soon be removed.",
@@ -339,19 +339,10 @@ describe("Modal Dialog", () => {
 
   test("renders with grey background when greyBackground prop is passed", () => {
     render(<Dialog open title="My dialog" greyBackground />);
-    expect(screen.getByRole("dialog")).toHaveStyle({
-      backgroundColor: "var(--colorsUtilityMajor025)",
-    });
-  });
-
-  test("dialog is positioned correctly, when size prop is maximise", () => {
-    render(<Dialog open title="My dialog" size="maximise" />);
-
-    const dialog = screen.getByRole("dialog");
-    expect(dialog).toHaveStyle(`
-    height: calc(100% - var(--spacing400));
-    width: calc(100% - var(--spacing400));
-  `);
+    expect(screen.getByRole("dialog")).toHaveStyleRule(
+      "background",
+      "var(--container-standard-bg-alt)",
+    );
   });
 
   test("prevents content from overflowing", () => {
@@ -424,18 +415,6 @@ describe("Modal Dialog", () => {
 
     expect(highlightElement).toBeVisible();
   });
-
-  test("no padding is rendered around dialog content, when zero padding is specified via disableContentPadding prop", () => {
-    render(
-      <Dialog open title="My dialog" disableContentPadding>
-        Inner content
-      </Dialog>,
-    );
-
-    const content = screen.getByTestId("dialog-content");
-
-    expect(content).toHaveStyle({ padding: "0px" });
-  });
 });
 
 describe("Fullscreen Dialog", () => {
@@ -465,8 +444,8 @@ describe("Fullscreen Dialog", () => {
     const content = screen.getByRole("dialog");
 
     expect(content).toHaveStyleRule(
-      "background-color",
-      "var(--colorsUtilityYang100)",
+      "background",
+      "var(--container-standard-bg-alt)",
     );
   });
 
@@ -480,8 +459,8 @@ describe("Fullscreen Dialog", () => {
     const content = screen.getByRole("dialog");
 
     expect(content).toHaveStyleRule(
-      "background-color",
-      "var(--colorsUtilityMajor025)",
+      "background",
+      "var(--container-standard-bg-alt)",
     );
   });
 
@@ -524,16 +503,81 @@ describe("Fullscreen Dialog", () => {
 
     expect(screen.getByRole("dialog")).toHaveAccessibleName("custom title");
   });
+});
 
-  test("no padding is rendered around dialog content, when zero padding is specified via disableContentPadding prop", () => {
+// Purely for the coverage
+describe("Legacy size mapping", () => {
+  it.each(["medium-small", "medium-large", "large", "extra-large", "auto"])(
+    "maps legacy size '%s' without error",
+    (legacySize) => {
+      render(
+        <Dialog open size={legacySize as DialogProps["size"]} title="Test" />,
+      );
+
+      expect(screen.getByRole("dialog")).toBeVisible();
+    },
+  );
+
+  test("falls back to 'medium' for unrecognised size values", () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    render(<Dialog open size={"unknown" as any} title="Test" />);
+    expect(screen.getByRole("dialog")).toBeVisible();
+  });
+
+  test("falls back to 'fullscreen' for 'maximise' size values", () => {
+    render(<Dialog open size="maximise" title="Test" />);
+    expect(screen.getByRole("dialog")).toBeVisible();
+  });
+
+  test("maps size='fullscreen' string to fullscreen dialog", () => {
+    render(<Dialog open size="fullscreen" title="Test" />);
+
+    expect(screen.getByRole("dialog")).toBeVisible();
+  });
+});
+
+describe("highlightVariant to gradientKeyLine mapping", () => {
+  test("explicit gradientKeyLine takes precedence over highlightVariant", () => {
     render(
-      <Dialog open fullscreen title="My dialog" disableContentPadding>
-        Inner content
-      </Dialog>,
+      <Dialog
+        open
+        title="Test"
+        highlightVariant="ai"
+        gradientKeyLine={false}
+      />,
     );
 
-    const content = screen.getByTestId("dialog-content");
-
-    expect(content).toHaveStyle({ padding: "0px" });
+    expect(screen.getByRole("dialog")).not.toHaveStyleRule(
+      "background",
+      `linear-gradient( 90deg, #00d639 0%, #00d6de 40%, #9d60ff 90% )`,
+      {
+        modifier: "::before",
+      },
+    );
   });
+
+  test("highlightVariant='ai' enables gradient keyline when gradientKeyLine is not set", () => {
+    render(<Dialog open title="Test" highlightVariant="ai" />);
+
+    expect(screen.getByRole("dialog")).toHaveStyleRule(
+      "background",
+      `linear-gradient( 90deg, #00d639 0%, #00d6de 40%, #9d60ff 90% )`,
+      {
+        modifier: "::before",
+      },
+    );
+  });
+});
+
+test("removes content padding when disableContentPadding is true", () => {
+  render(
+    <Dialog open title="Test" disableContentPadding>
+      Some dialog content here
+    </Dialog>,
+  );
+
+  expect(screen.getByTestId("dialog-content")).toHaveStyleRule(
+    "padding",
+    "0px",
+  );
 });

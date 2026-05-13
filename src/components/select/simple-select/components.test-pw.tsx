@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Typography from "../../../components/typography";
 import Content from "../../../components/content";
 import {
@@ -224,33 +224,6 @@ export const SimpleSelectGroupComponent = (
   );
 };
 
-export const SimpleSelectWithLongWrappingTextComponent = () => {
-  const [value, setValue] = useState("");
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value);
-  }
-
-  return (
-    <Box width={400}>
-      <SimpleSelect
-        name="simple"
-        id="simple"
-        label="label"
-        labelInline
-        value={value}
-        onChange={onChangeHandler}
-      >
-        <Option
-          text="Like a lot of intelligent animals, most crows are quite social.
-        For instance, American crows spend most of the year living in pairs or small family groups.
-        During the winter months, they will congregate with hundreds or even thousands of their peers to sleep together at night."
-          value="1"
-        />
-      </SimpleSelect>
-    </Box>
-  );
-};
-
 export const WithVirtualScrolling = () => {
   const [value, setValue] = useState("");
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
@@ -391,34 +364,6 @@ export const SelectionConfirmed = () => {
         </span>
       ) : null}
     </>
-  );
-};
-
-const options = ["A", "B", "C"];
-const allOptions = ["All"];
-
-export const SelectWithDynamicallyAddedOption = () => {
-  const [optionsList, setOptionsList] = useState(options);
-  const [currentOption, setCurrentOption] = useState<string | null>(null);
-  useEffect(() => {
-    if (currentOption) {
-      setOptionsList([...allOptions, ...options]);
-    }
-  }, [currentOption]);
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCurrentOption(e.target.value);
-  };
-  return (
-    <Select
-      label="Choose your option"
-      data-role="selector"
-      onChange={handleChange}
-      value={currentOption || ""}
-    >
-      {optionsList.map((opt) => (
-        <Option data-role={`option-${opt}`} text={opt} value={opt} key={opt} />
-      ))}
-    </Select>
   );
 };
 

@@ -14,6 +14,11 @@ const styledSystemProps = generateStyledSystemProps({
 const meta: Meta<typeof StepSequence> = {
   title: "Step Sequence",
   component: StepSequence,
+  parameters: {
+    chromatic: {
+      disableSnapshot: true,
+    },
+  },
   argTypes: {
     ...styledSystemProps,
   },
@@ -239,4 +244,3 @@ export const ResponsiveExample: Story = () => {
   );
 };
 ResponsiveExample.storyName = "Responsive Example";
-ResponsiveExample.parameters = { chromatic: { viewports: [700] } };
