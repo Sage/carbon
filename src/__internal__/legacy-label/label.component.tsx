@@ -177,6 +177,7 @@ export const Label = ({
       onClick={onClick}
     >
       <StyledLabel
+        className="label"
         data-element="label"
         disabled={disabled}
         id={labelId}

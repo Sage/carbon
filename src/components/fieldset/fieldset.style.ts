@@ -1,70 +1,119 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
-
-import FormFieldStyle from "../../__internal__/form-field/form-field.style";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
-import CheckboxStyle from "../checkbox/checkbox.style";
 
-export interface StyledFieldsetProps {
-  newValidation?: boolean;
-}
+const sizeMap = {
+  small: {
+    labelGap: "var(--global-space-comp-xs)",
+    validationGap: "var(--global-space-comp-xs)",
+    childrenGap: "var(--global-space-comp-m)",
+    legendFont: "var(--global-font-static-comp-medium-s)",
+    regularLabelFont: "var(--global-font-static-comp-regular-s)",
+    boldLabelFont: "var(--global-font-static-comp-medium-s)",
+  },
+  medium: {
+    labelGap: "var(--global-space-comp-s)",
+    validationGap: "var(--global-space-comp-s)",
+    childrenGap: "var(--global-space-comp-l)",
+    legendFont: "var(--global-font-static-comp-medium-m)",
+    regularLabelFont: "var(--global-font-static-comp-regular-m)",
+    boldLabelFont: "var(--global-font-static-comp-medium-m)",
+  },
+  large: {
+    labelGap: "var(--global-space-comp-m)",
+    validationGap: "var(--global-space-comp-s)",
+    childrenGap: "var(--global-space-comp-xl)",
+    legendFont: "var(--global-font-static-comp-medium-l)",
+    regularLabelFont: "var(--global-font-static-comp-regular-l)",
+    boldLabelFont: "var(--global-font-static-comp-medium-l)",
+  },
+};
 
-const FieldsetStyle = styled.fieldset.attrs(
+export type StyledFieldsetProps = {
+  $size: "small" | "medium" | "large";
+};
+
+export const StyledFieldset = styled.fieldset.attrs(
   applyBaseTheme,
 )<StyledFieldsetProps>`
-  margin: 0;
-  margin-bottom: var(--fieldSpacing);
-  ${margin}
-  border: none;
-  padding: 0;
+  ${({ $size }) => css`
+    display: flex;
+    flex-direction: column;
+    gap: ${sizeMap[$size].labelGap};
+    border: none;
+    padding: 0;
+    min-width: 0;
+    min-inline-size: 0;
+    margin: 0;
+    margin-bottom: var(--fieldSpacing);
+    ${margin}
 
-  ${({ newValidation }) =>
-    !newValidation &&
-    css`
-      & * {
-        --fieldSpacing: 0;
-      }
-
-      &&&& ${FormFieldStyle} {
-        margin-top: 0;
-        margin-bottom: -1px;
-      }
-
-      & ${CheckboxStyle} {
-        padding-top: 8px;
-        padding-bottom: 8px;
-      }
-    `}
+    & * {
+      --fieldSpacing: 0;
+    }
+  `};
 `;
 
-export interface StyledLegendProps {
-  /** Flag to configure fields as mandatory. */
-  isRequired?: boolean;
-}
+export type StyledLegendProps = {
+  $isRequired?: boolean;
+  $size: "small" | "medium" | "large";
+};
 
-const StyledLegend = styled.legend<StyledLegendProps>`
-  display: flex;
-  align-items: center;
-  margin-bottom: var(--spacing250);
-  font-size: var(--fontSizes400);
-  font-weight: var(--fontWeights500);
-  color: var(--colorsUtilityYin090);
-  line-height: 24px;
+export const StyledLegend = styled.legend<StyledLegendProps>`
+  ${({ $isRequired, $size }) => css`
+    display: flex;
+    align-items: center;
+    padding: 0;
+    font: ${sizeMap[$size].legendFont};
 
-  ${({ isRequired }) =>
-    isRequired &&
+    ${$isRequired &&
     css`
       ::after {
         content: "*";
-        line-height: 24px;
-        color: var(--colorsSemanticNegative500);
-        font-weight: var(--fontWeights500);
-        margin-left: var(--spacing100);
-        position: relative;
-        top: 1px;
-        left: -4px;
+        color: var(--input-labelset-label-required);
+        font: ${sizeMap[$size].legendFont};
+        margin-left: var(--global-space-comp-xs);
       }
     `}
+  `};
 `;
 
-export { FieldsetStyle, StyledLegend };
+export const StyledFieldsetContentWrapper = styled.div<StyledFieldsetProps>`
+  ${({ $size }) => css`
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    gap: ${sizeMap[$size].validationGap};
+  `};
+`;
+
+export type StyledFieldsetContentProps = {
+  $orientation?: "horizontal" | "vertical";
+  $size: "small" | "medium" | "large";
+  $labelWeight?: "regular" | "bold";
+};
+
+export const StyledFieldsetContent = styled.div<StyledFieldsetContentProps>`
+  ${({ $orientation, $size, $labelWeight }) => css`
+    display: flex;
+    flex-direction: column;
+    gap: ${sizeMap[$size].childrenGap};
+
+    ${$orientation === "horizontal" &&
+    css`
+      flex-direction: row;
+      flex-wrap: wrap;
+    `}
+
+    .label {
+      font: ${sizeMap[$size].regularLabelFont};
+    }
+
+    ${$labelWeight === "bold" &&
+    css`
+      .label {
+        font: ${sizeMap[$size].boldLabelFont};
+      }
+    `}
+  `};
+`;
