@@ -6,17 +6,19 @@ import Sidebar, { SidebarProps } from ".";
 import Box from "../box";
 import Toast from "../toast";
 import Textbox from "../textbox";
-import Dialog from "../dialog";
 
 export const Default = ({
   open = true,
   restoreFocusOnClose,
+  onCancel: onCancelProp,
 }: {
   open?: boolean;
   restoreFocusOnClose?: boolean;
+  onCancel?: () => void;
 }) => {
   const [isOpen, setIsOpen] = useState(open);
-  const onCancel = () => {
+  const handleCancel = () => {
+    onCancelProp?.();
     setIsOpen(false);
   };
   return (
@@ -25,7 +27,7 @@ export const Default = ({
       <Sidebar
         aria-label="sidebar"
         open={isOpen}
-        onCancel={onCancel}
+        onCancel={handleCancel}
         restoreFocusOnClose={restoreFocusOnClose}
       >
         <Box mb={2}>
@@ -71,28 +73,6 @@ export const DefaultNested = () => {
   );
 };
 
-export const SidebarComponent = (props: Partial<SidebarProps>) => {
-  return (
-    <>
-      <Sidebar
-        aria-label="sidebar"
-        open
-        position="right"
-        size="medium"
-        {...props}
-      >
-        <Box mb={2}>
-          <Button buttonType="primary">Test</Button>
-          <Button buttonType="secondary" ml={2}>
-            Last
-          </Button>
-        </Box>
-        <Box mb="3000px">Main content</Box>
-      </Sidebar>
-    </>
-  );
-};
-
 export const SidebarComponentWithOnCancel = (props: Partial<SidebarProps>) => {
   const [isOpen, setIsOpen] = useState(true);
   const handleOnCancel = () => {
@@ -106,89 +86,6 @@ export const SidebarComponentWithOnCancel = (props: Partial<SidebarProps>) => {
         position="right"
         size="medium"
         onCancel={handleOnCancel}
-        {...props}
-      >
-        <Box mb={2}>
-          <Button buttonType="primary">Test</Button>
-          <Button buttonType="secondary" ml={2}>
-            Last
-          </Button>
-        </Box>
-        <Box mb="3000px">Main content</Box>
-      </Sidebar>
-    </>
-  );
-};
-
-export const SidebarComponentWithHeading = (props: Partial<SidebarProps>) => {
-  return (
-    <>
-      <Sidebar
-        aria-label="sidebar"
-        open
-        position="right"
-        size="medium"
-        header={<Typography variant="h3">Sidebar Header</Typography>}
-        {...props}
-      >
-        <Box mb={2}>
-          <Button buttonType="primary">Test</Button>
-          <Button buttonType="secondary" ml={2}>
-            Last
-          </Button>
-        </Box>
-        <Box mb="3000px">Main content</Box>
-      </Sidebar>
-    </>
-  );
-};
-
-export const SidebarComponentWithDarkHeading = (
-  props: Partial<SidebarProps>,
-) => {
-  return (
-    <>
-      <Sidebar
-        aria-label="sidebar"
-        open
-        position="right"
-        size="medium"
-        header={
-          <Typography variant="h3" color="white">
-            Sidebar Header
-          </Typography>
-        }
-        headerVariant="dark"
-        {...props}
-      >
-        <Box mb={2}>
-          <Button buttonType="primary">Test</Button>
-          <Button buttonType="secondary" ml={2}>
-            Last
-          </Button>
-        </Box>
-        <Box mb="3000px">Main content</Box>
-      </Sidebar>
-    </>
-  );
-};
-
-export const SidebarComponentWithSubHeading = (
-  props: Partial<SidebarProps>,
-) => {
-  return (
-    <>
-      <Sidebar
-        aria-label="sidebar"
-        open
-        position="right"
-        size="medium"
-        header={<Typography variant="h3">Sidebar Header</Typography>}
-        subHeader={
-          <Button iconType="chevron_left_thick" buttonType="tertiary">
-            Action
-          </Button>
-        }
         {...props}
       >
         <Box mb={2}>
@@ -320,26 +217,6 @@ export const SidebarComponentFocusable = (props: Partial<SidebarProps>) => {
       >
         Toast Message
       </Toast>
-    </>
-  );
-};
-
-export const TopModalOverride = () => {
-  const [isOpen1, setIsOpen1] = useState(true);
-  const [isOpen2, setIsOpen2] = useState(true);
-  return (
-    <>
-      <Sidebar
-        open={isOpen1}
-        onCancel={() => setIsOpen1(false)}
-        header="Sidebar"
-        topModalOverride
-      >
-        foo
-      </Sidebar>
-      <Dialog open={isOpen2} onCancel={() => setIsOpen2(false)} title="Dialog">
-        foo
-      </Dialog>
     </>
   );
 };

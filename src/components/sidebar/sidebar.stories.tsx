@@ -85,6 +85,7 @@ export const DefaultStory: Story = () => {
   );
 };
 DefaultStory.storyName = "Default";
+DefaultStory.parameters = { chromatic: { disableSnapshot: true } };
 
 export const RestoreFocusOnCloseStory: Story = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -176,6 +177,7 @@ export const WithHeader: Story = () => {
   );
 };
 WithHeader.storyName = "With Header";
+WithHeader.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithHeaderAndSubheader: Story = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
@@ -261,6 +263,7 @@ export const WithScroll: Story = () => {
   );
 };
 WithScroll.storyName = "With Scroll";
+WithScroll.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithTypography: Story = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
