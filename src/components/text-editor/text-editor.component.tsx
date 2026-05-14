@@ -21,6 +21,7 @@ import React, {
   useState,
   forwardRef,
   useEffect,
+  useContext,
 } from "react";
 
 import Label from "../../__internal__/legacy-label";
@@ -67,6 +68,7 @@ import {
   ToolbarPlugin,
 } from "./__internal__/__ui__";
 import StyledSpanEnterPlugin from "./__internal__/__plugins__/StyledSpanEnter/styled-span-enter.plugin";
+import FieldsetContext from "../fieldset/__internal__/fieldset.context";
 
 let deprecateValueTriggered = false;
 let deprecateOnCancelWarnTriggered = false;
@@ -133,6 +135,14 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
     const contentEditorRef = useRef<HTMLDivElement>(null);
     const [parentRef, setParentRef] = useState<HTMLDivElement | null>(null);
     const [isFocused, setIsFocused] = useState<boolean>(false);
+
+    const {
+      size: fieldsetSize,
+      hasError: fieldsetError,
+      required: fieldsetRequired,
+    } = useContext(FieldsetContext);
+    const actualSize = fieldsetSize || size;
+    const hasError = !!error || fieldsetError;
 
     useImperativeHandle<TextEditorHandle, TextEditorHandle>(
       ref,
@@ -238,7 +248,7 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
     const warningMessage = warning || characterLimitWarning;
 
     const getMarginsForSize = () => {
-      switch (size) {
+      switch (actualSize) {
         case "large":
           return "var(--spacing150)";
         case "small":
@@ -270,6 +280,7 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
             onClick={() => contentEditorRef.current?.focus()}
             isRequired={required}
             labelId={`${namespace}-label`}
+            isLarge={actualSize === "large"}
           >
             {labelText}
           </Label>
@@ -277,6 +288,7 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
           {inputHint && !readOnly && (
             <HintText
               id={`${namespace}-input-hint`}
+              isLarge={actualSize === "large"}
               marginBottom={getMarginsForSize()}
             >
               {inputHint}
@@ -320,20 +332,20 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
                       contentEditorRef.current?.innerHTML ||
                       initialValue.current
                     }
-                    size={size}
+                    size={actualSize}
                   />
                 ) : (
                   <>
                     <ToolbarPlugin
                       contentEditorRef={contentEditorRef}
                       hasHeader={Boolean(header)}
-                      size={size}
+                      size={actualSize}
                       {...toolbarProps}
                     />
 
                     <StyledTextEditor
                       data-role={`${namespace}-editor`}
-                      error={!!error}
+                      error={hasError}
                     >
                       <RichTextPlugin
                         contentEditable={
@@ -346,13 +358,13 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
                             previews={previews}
                             rows={rows}
                             readOnly={readOnly}
-                            required={required}
-                            error={!!error}
+                            required={required || fieldsetRequired}
+                            error={hasError}
                             warning={!!warning || !!characterLimitWarning}
                             validationMessagePositionTop={
                               validationMessagePositionTop
                             }
-                            size={size}
+                            size={actualSize}
                           />
                         }
                         placeholder={
@@ -387,7 +399,7 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
                 {footer && (
                   <StyledFooterWrapper
                     data-role={`${namespace}-footer-wrapper`}
-                    size={size}
+                    size={actualSize}
                   >
                     {footer}
                   </StyledFooterWrapper>

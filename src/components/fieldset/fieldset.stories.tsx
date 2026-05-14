@@ -2,10 +2,7 @@ import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
 import Fieldset from ".";
-import { Select, Option } from "../select";
 import Textbox from "../textbox";
-import Form from "../form";
-import CarbonProvider from "../carbon-provider";
 
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
@@ -18,86 +15,97 @@ const meta: Meta<typeof Fieldset> = {
   component: Fieldset,
   argTypes: {
     ...styledSystemProps,
+    legendHint: { control: "text" },
   },
   parameters: {
+    chromatic: { disableSnapshot: true },
     themeProvider: { chromatic: { theme: "sage" } },
+    controls: {
+      exclude: ["children"],
+    },
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof Fieldset>;
 
-export const Default: Story = () => (
-  <CarbonProvider validationRedesignOptIn>
-    <Form>
-      <Fieldset legend="Fieldset">
-        <Textbox label="Address Line 1" value={""} onChange={() => {}} />
-        <Textbox label="Address Line 2" value={""} onChange={() => {}} />
-        <Textbox label="City" value={""} onChange={() => {}} />
-        <Select label="Country" value={""} onChange={() => {}}>
-          <Option text="United Kingdom" value="uk" />
-          <Option text="Spain" value="sp" />
-          <Option text="France" value="fr" />
-          <Option text="Germany" value="ge" />
-        </Select>
-        <Textbox
-          label="Postcode"
-          maxWidth="100px"
-          value={""}
-          onChange={() => {}}
-        />
-      </Fieldset>
-    </Form>
-  </CarbonProvider>
-);
-Default.storyName = "Default";
+export const Default: Story = {
+  render: (args) => (
+    <Fieldset {...args}>
+      <Textbox label="Input 1" value="Input Text" onChange={() => {}} />
+      <Textbox label="Input 2" value="Input Text" onChange={() => {}} />
+      <Textbox label="Input 3" value="Input Text" onChange={() => {}} />
+    </Fieldset>
+  ),
+  args: {
+    legend: "Fieldset Legend",
+  },
+};
 
-export const InFormFieldSpacing: Story = () => (
-  <CarbonProvider validationRedesignOptIn>
-    <Form fieldSpacing={1}>
-      <Fieldset legend="Fieldset">
-        <Textbox label="Address Line 1" value={""} onChange={() => {}} />
-        <Textbox label="Address Line 2" value={""} onChange={() => {}} />
-        <Textbox label="City" value={""} onChange={() => {}} />
-        <Select label="Country" value={""} onChange={() => {}}>
-          <Option text="United Kingdom" value="uk" />
-          <Option text="Spain" value="sp" />
-          <Option text="France" value="fr" />
-          <Option text="Germany" value="ge" />
-        </Select>
-        <Textbox
-          label="Postcode"
-          maxWidth="100px"
-          value={""}
-          onChange={() => {}}
-        />
-      </Fieldset>
-    </Form>
-  </CarbonProvider>
-);
-InFormFieldSpacing.storyName = "With fieldSpacing";
+export const WithLegendHint: Story = {
+  ...Default,
+  args: {
+    ...Default.args,
+    legendHint: "Fieldset LegendHint",
+  },
+};
 
-export const Required: Story = () => (
-  <CarbonProvider validationRedesignOptIn>
-    <Form>
-      <Fieldset legend="Fieldset" required>
-        <Textbox label="Address Line 1" value={""} onChange={() => {}} />
-        <Textbox label="Address Line 2" value={""} onChange={() => {}} />
-        <Textbox label="City" value={""} onChange={() => {}} />
-        <Select label="Country" value={""} onChange={() => {}}>
-          <Option text="United Kingdom" value="uk" />
-          <Option text="Spain" value="sp" />
-          <Option text="France" value="fr" />
-          <Option text="Germany" value="ge" />
-        </Select>
-        <Textbox
-          label="Postcode"
-          maxWidth="100px"
-          value={""}
-          onChange={() => {}}
-        />
+export const HorizontalOrientation: Story = {
+  ...Default,
+  args: {
+    ...Default.args,
+    orientation: "horizontal",
+  },
+};
+
+export const Sizes: Story = {
+  render: (args) => (
+    <>
+      <Fieldset legend="Small Fieldset" size="small" {...args}>
+        <Textbox label="Input 1" value="Input Text" onChange={() => {}} />
+        <Textbox label="Input 2" value="Input Text" onChange={() => {}} />
+        <Textbox label="Input 3" value="Input Text" onChange={() => {}} />
       </Fieldset>
-    </Form>
-  </CarbonProvider>
-);
-Required.storyName = "Required";
+      <Fieldset legend="Medium Fieldset" size="medium" {...args}>
+        <Textbox label="Input 1" value="Input Text" onChange={() => {}} />
+        <Textbox label="Input 2" value="Input Text" onChange={() => {}} />
+        <Textbox label="Input 3" value="Input Text" onChange={() => {}} />
+      </Fieldset>
+      <Fieldset legend="Large Fieldset" size="large" {...args}>
+        <Textbox label="Input 1" value="Input Text" onChange={() => {}} />
+        <Textbox label="Input 2" value="Input Text" onChange={() => {}} />
+        <Textbox label="Input 3" value="Input Text" onChange={() => {}} />
+      </Fieldset>
+    </>
+  ),
+  args: {
+    mb: 4,
+  },
+};
+
+export const HorizontalSizes: Story = {
+  ...Sizes,
+  args: {
+    ...Sizes.args,
+    orientation: "horizontal",
+  },
+};
+
+export const LabelFontWeight: Story = {
+  ...Default,
+  args: {
+    ...Default.args,
+    labelWeight: "bold",
+  },
+  parameters: {
+    chromatic: { disableSnapshot: false },
+  },
+};
+
+export const Required: Story = {
+  ...Default,
+  args: {
+    ...Default.args,
+    required: true,
+  },
+};
