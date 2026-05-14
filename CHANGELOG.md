@@ -1,3 +1,15 @@
+## [159.2.4](https://github.com/Sage/carbon/compare/v159.2.3...v159.2.4) (2026-05-13)
+
+### Bug Fixes
+
+* **use-media-query:** optimise hook to avoid uneccessary rerenders ([f33bec4](https://github.com/Sage/carbon/commit/f33bec42947d6ad2e5c6dd02a3c973571087fd0f)), closes [#7884](https://github.com/Sage/carbon/issues/7884)
+
+## [159.2.3](https://github.com/Sage/carbon/compare/v159.2.2...v159.2.3) (2026-05-13)
+
+### Bug Fixes
+
+* **verticalmenu:** padding fix on trigger ([76ef6e7](https://github.com/Sage/carbon/commit/76ef6e786dbf200f2975848d202a0bbb678b8446))
+
 ## [159.2.2](https://github.com/Sage/carbon/compare/v159.2.1...v159.2.2) (2026-05-13)
 
 ### Bug Fixes

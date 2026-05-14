@@ -15,6 +15,19 @@ describe("VerticalMenuTrigger", () => {
     () => screen.getByRole("button"),
   );
 
+  it("should apply the default px and py padding", () => {
+    render(
+      <VerticalMenuTrigger onClick={() => {}}>Open menu</VerticalMenuTrigger>,
+    );
+
+    const trigger = screen.getByRole("button");
+
+    expect(trigger).toHaveStyleRule("padding-top", "var(--spacing100)");
+    expect(trigger).toHaveStyleRule("padding-bottom", "var(--spacing100)");
+    expect(trigger).toHaveStyleRule("padding-left", "var(--spacing200)");
+    expect(trigger).toHaveStyleRule("padding-right", "var(--spacing200)");
+  });
+
   it("should render proper height when height prop is passed", () => {
     render(
       <VerticalMenuTrigger height="100px" onClick={() => {}}>
