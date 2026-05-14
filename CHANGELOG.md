@@ -1,3 +1,9 @@
+## [159.2.5](https://github.com/Sage/carbon/compare/v159.2.4...v159.2.5) (2026-05-14)
+
+### Bug Fixes
+
+* **text-editor:** ensure that links can be added after initial render ([8a37110](https://github.com/Sage/carbon/commit/8a37110b6d3bc409f012a0d99595b19f4f0b4dac))
+
 ## [159.2.4](https://github.com/Sage/carbon/compare/v159.2.3...v159.2.4) (2026-05-13)
 
 ### Bug Fixes
