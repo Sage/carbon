@@ -128,11 +128,11 @@ CustomColors.parameters = {
 
 export const ListOfIcons: Story = () => {
   return (
-    <Box m={2} display="grid" gridTemplateColumns="repeat(3, 1fr)">
+    <Box m={2} display="grid" gridTemplateColumns="repeat(4, 1fr)">
       {ICONS.sort().map((type) => {
         return (
-          <Box m={2} key={`icon-${type}`}>
-            <Icon m={2} type={type} size="large" />
+          <Box m={1} key={`icon-${type}`}>
+            <Icon m={1} type={type} />
             {type}
           </Box>
         );
