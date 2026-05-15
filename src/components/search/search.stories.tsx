@@ -72,7 +72,7 @@ export const Sizes: Story = () => {
 };
 Sizes.storyName = "Sizes";
 
-export const CustomWidth: Story = () => {
+export const CustomWidths: Story = () => {
   const [value, setValue] = useState("");
   return (
     <Box display="flex" flexDirection="column" gap={3}>
@@ -86,24 +86,12 @@ export const CustomWidth: Story = () => {
         label="maxWidth"
         onChange={(e) => setValue(e.target.value)}
         value={value}
-        maxWidth="375px"
+        maxWidth="50%"
       />
     </Box>
   );
 };
-CustomWidth.storyName = "Custom Width";
-
-export const WithCustomMaxWidth: Story = () => {
-  const [value, setValue] = useState("Here is some text");
-  return (
-    <Search
-      onChange={(e) => setValue(e.target.value)}
-      value={value}
-      maxWidth="50%"
-    />
-  );
-};
-WithCustomMaxWidth.storyName = "Custom Max Width";
+CustomWidths.storyName = "Custom Widths";
 
 export const Inverse: Story = () => {
   const [value, setValue] = useState("Here is some text");

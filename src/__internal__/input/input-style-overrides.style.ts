@@ -29,16 +29,8 @@ const searchBaseStyles = css`
   }
 `;
 
-const searchWithButtonStyles = css`
-  .search.with-button & {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-`;
-
 export const searchStyleOverrides = css`
   ${searchBaseStyles}
-  ${searchWithButtonStyles}
 `;
 
 /**

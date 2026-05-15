@@ -52,7 +52,9 @@ const InputContainer = styled.div<InputContainerProps>`
         border: var(--global-borderwidth-xs) solid
           var(--input-typical-border-read-only);
 
-        &:focus-within:has(:focus:not(button)) {
+        &:focus-within:has(:focus:not(button)):not(
+            :has(input[type="search"]:focus)
+          ) {
           ${addFocusStyling()}
           z-index: 2;
         }
@@ -76,7 +78,9 @@ const InputContainer = styled.div<InputContainerProps>`
     css`
       cursor: text;
 
-      &:focus-within:has(:focus:not(button)) {
+      &:focus-within:has(:focus:not(button)):not(
+          :has(input[type="search"]:focus)
+        ) {
         ${addFocusStyling()}
         z-index: 2;
       }
@@ -112,6 +116,13 @@ const InputContainer = styled.div<InputContainerProps>`
         background: transparent;
         text-overflow: ellipsis;
         text-align: ${$align};
+
+        &[type="search"]:focus {
+          border-radius: var(--global-radius-action-m) 0 0
+            var(--global-radius-action-m);
+          ${addFocusStyling()}
+          z-index: 2;
+        }
 
         ${$isReadOnly &&
         css`

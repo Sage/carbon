@@ -26,18 +26,13 @@ const StyledSearch = styled.div.attrs(applyBaseTheme)<StyledSearchProps>`
     inverse,
   }) => {
     return css`
-      input[type="search"]:focus + [data-role="search-divider"] {
-        visibility: hidden;
-      }
-
       input[type="search"]::-webkit-search-cancel-button {
         -webkit-appearance: none;
         appearance: none;
         width: var(--global-size-2XS, 20px);
         height: var(--global-size-2XS, 20px);
-        background-color: ${inverse ? "white" : "black"};
+        background-color: var(--button-typical-subtle-label-default);
         -webkit-mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M14.9497 5.05022C15.3403 5.44074 15.3403 6.07391 14.9497 6.46443L11.4142 9.99997L14.9497 13.5355C15.3403 13.926 15.3403 14.5592 14.9497 14.9497C14.5592 15.3402 13.9261 15.3402 13.5355 14.9497L10 11.4142L6.46446 14.9497C6.07394 15.3402 5.44077 15.3402 5.05025 14.9497C4.65972 14.5592 4.65972 13.926 5.05025 13.5355L8.58578 9.99997L5.05025 6.46443C4.65972 6.07391 4.65972 5.44074 5.05025 5.05022C5.44077 4.65969 6.07394 4.65969 6.46446 5.05022L10 8.58575L13.5355 5.05022C13.9261 4.65969 14.5592 4.65969 14.9497 5.05022Z'/%3E%3C/svg%3E");
-        mask-image:  /* same as above */;
         -webkit-mask-size: contain;
         mask-size: contain;
         -webkit-mask-repeat: no-repeat;
@@ -48,55 +43,59 @@ const StyledSearch = styled.div.attrs(applyBaseTheme)<StyledSearchProps>`
       }
 
       button {
-        align-self: end;
+
+      &:hover {
+      background-color: var(--button-typical-subtle-bg-hover);
+      }
+      
         border-radius: var(--global-radius-none, 0) var(--global-radius-action-M, 8px) var(--global-radius-action-M, 8px) var(--global-radius-none, 0);
-        border-style: solid;
-        border-color: var(--input-typical-border-default);
-        border-width: var(--global-borderwidth-xs) var(--global-borderwidth-xs) var(--global-borderwidth-xs) 0;
+      }
+
+      button span[type="search"] {
+        color: var(--button-typical-subtle-label-default);
 
         &:hover {
-          border-style: solid;
-          border-color: var(--input-typical-border-default);
-          border-width: var(--global-borderwidth-xs) var(--global-borderwidth-xs) var(--global-borderwidth-xs) 0;
-          border-radius: var(--global-radius-none, 0) var(--global-radius-action-M, 8px) var(--global-radius-action-M, 8px) var(--global-radius-none, 0);
+          color: var(--button-typical-subtle-label-hover);
         }
       }
 
-      [data-role="input-container"] {
-        border-right: none;
-      }
+      ${inverse && css `
 
-      ${inverse &&
-      css`
         label {
-          color: white;
+        color: var(--input-labelset-inverse-label-default);
         }
 
-        [data-role="hint-text"] {
-          color: white;
+        [data-role="hint-text"]{
+        color: var(--input-labelset-inverse-label-alt);
         }
 
-        .input-text-container {
-          background-color: black;
-          border-radius: var(--global-radius-action-m);
-          border-top-right-radius: 0;
-          border-bottom-right-radius: 0;
+       [data-role="input-container"] {
+       background-color: var(--input-typical-inverse-bg-default);
+       }
 
-          input {
-            color: white;
+        [data-role="input-container"] .input-text-container input[type="search"] {
+          color: var(--input-typical-inverse-txt-default);
+        }
+
+        input[type="search"]::-webkit-search-cancel-button {
+         background-color: var(--button-typical-subtle-inverse-label-default);
+        }
+
+        button { 
+
+        &: hover {
+        background-color: var(--button-typical-subtle-inverse-bg-hover);
+        }
+        
+        span[type="search"] {
+          color: var(--button-typical-subtle-inverse-label-default);
+
+          &: hover {
+          color: var(--button-typical-subtle-inverse-label-hover);
           }
-        }
+      }}
 
-        button {
-          ${StyledIcon} {
-            color: white;
-
-            &:hover {
-              color: white;
-            }
-          }
-        }
-      `}
+        `}
 
       ${margin}
       width: ${searchWidth ? `${searchWidth}` : "100%"};

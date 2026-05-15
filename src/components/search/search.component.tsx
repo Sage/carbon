@@ -169,14 +169,7 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
     >;
 
     const classNames = useMemo(
-      () =>
-        [
-          "search",
-          "with-button",
-          restClassName,
-        ]
-          .filter(Boolean)
-          .join(" "),
+      () => ["search", "with-button", restClassName].filter(Boolean).join(" "),
       [searchHasValue, variant, searchButton, restClassName],
     );
 
@@ -205,13 +198,32 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
           size={size}
           label={label || ""}
           inputIcon={
-            <Divider
-              data-role="search-divider"
-              aria-hidden
-              height={`calc(100% - var(--global-space-comp-${size?.charAt(0) || "m"}))`}
-              p={0}
-              type="vertical"
-            />
+            <>
+              <Divider
+                data-role="search-divider"
+                aria-hidden
+                height={`calc(100% - var(--global-space-comp-${size?.charAt(0) || "m"}))`}
+                p={0}
+                type="vertical"
+              />
+              <Button
+                inverse={inverse}
+                aria-label={searchButtonAriaLabel || searchButtonText}
+                size={size}
+                px={2}
+                variantType="subtle"
+                variant="default"
+                iconType="search"
+                className="search-button"
+                {...tagComponent(`${searchButtonText}-button`, {
+                  "data-element": `${searchButtonText}-button`,
+                  ...searchButtonDataProps,
+                })}
+                {...(onClick && {
+                  onClick: () => onClick({ target: { name, id, value } }),
+                })}
+              />
+            </>
           }
           inputHint={inputHint}
           onFocus={onFocus}
@@ -224,23 +236,6 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
           warning={warning}
           my={0} // prevents any form spacing being applied
           maxWidth="100%"
-        />
-        <Button
-          inverse={inverse}
-          aria-label={searchButtonAriaLabel || searchButtonText}
-          size={size}
-          px={2}
-          variantType="subtle"
-          variant="default"
-          iconType="search"
-          className="search-button"
-          {...tagComponent(`${searchButtonText}-button`, {
-            "data-element": `${searchButtonText}-button`,
-            ...searchButtonDataProps,
-          })}
-          {...(onClick && {
-            onClick: () => onClick({ target: { name, id, value } }),
-          })}
         />
       </StyledSearch>
     );

@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import { action } from "@storybook/addon-actions";
-import Pill from "../pill/pill.component";
 import Box from "../box";
 import Search from ".";
 import { SearchEvent, SearchHandle } from "./search.component";
@@ -63,96 +62,14 @@ Default.storyName = "Default";
 
 Default.args = {
   placeholder: "Search...",
-  searchButton: true,
   searchWidth: "",
   threshold: 3,
   variant: undefined,
 };
 
-export const FilterOnClear = () => {
-  const [value, setValue] = useState("");
-  const textArray = ["test value 1", "test value 2", "test value 3"];
-  const [filteredText, setFilteredText] = useState(textArray);
-
-  const updateFilteredElements = (searchValue: string) => {
-    if (searchValue === "") {
-      setFilteredText(textArray);
-    } else {
-      setFilteredText(textArray.filter((text) => text.includes(searchValue)));
-    }
-  };
-  return (
-    <>
-      <Search
-        id="test"
-        name="test"
-        placeholder="Search..."
-        triggerOnClear
-        onClick={(e) => updateFilteredElements(e.target.value)}
-        onChange={(e) => setValue(e.target.value)}
-        value={value}
-        searchButton
-      />
-
-      <div>
-        {filteredText.map((text) => (
-          <Pill key={text}>{text}</Pill>
-        ))}
-      </div>
-    </>
-  );
-};
-FilterOnClear.storyName = "Filter on clear";
-
-export const Validation = () => {
-  const [state, setState] = useState("");
-  const [state2, setState2] = useState("");
-  const [state4, setState4] = useState("");
-  const [state5, setState5] = useState("");
-
-  return (
-    <>
-      <Search
-        onChange={(ev) => setState(ev.target.value)}
-        value={state}
-        searchButton
-        error="Error Message"
-        mb={2}
-      />
-      <Search
-        onChange={(ev) => setState2(ev.target.value)}
-        value={state2}
-        searchButton
-        warning="Warning Message"
-        mb={2}
-      />
-
-      <Search
-        onChange={(ev) => setState4(ev.target.value)}
-        value={state4}
-        searchButton
-        error
-        mb={2}
-      />
-      <Search
-        onChange={(ev) => setState5(ev.target.value)}
-        value={state5}
-        searchButton
-        warning
-        mb={2}
-      />
-    </>
-  );
-};
-Validation.storyName = "Validation";
-Validation.parameters = {
-  chromatic: { disableSnapshot: false },
-  themeProvider: { chromatic: { theme: "sage" } },
-};
-
 export const HoverStyling = () => (
   <>
-    <Box mb={4}>
+    <Box mb={4} width="700px" p={4}>
       <Search
         placeholder="Search..."
         onChange={() => {}}
@@ -161,14 +78,14 @@ export const HoverStyling = () => (
         data-role="search-default"
       />
     </Box>
-    <Box width="700px" p={4} backgroundColor="#003349">
+    <Box width="700px" p={4} backgroundColor="#000000">
       <Search
         placeholder="Search..."
         onChange={() => {}}
         value=""
-        variant="dark"
-        aria-label="Search dark"
-        data-role="search-dark"
+        inverse
+        aria-label="Search inverse"
+        data-role="search-inverse"
       />
     </Box>
   </>
@@ -177,7 +94,10 @@ HoverStyling.storyName = "Hover Styling";
 HoverStyling.parameters = {
   chromatic: { disableSnapshot: false },
   pseudo: {
-    hover: ["[data-role='search-default']", "[data-role='search-dark']"],
+    hover: [
+      "[data-role='search-default'] .search-button",
+      "[data-role='search-inverse'] .search-button",
+    ],
   },
 };
 
@@ -193,7 +113,7 @@ const AutoFocusSearch = (props: React.ComponentProps<typeof Search>) => {
 
 export const FocusStyling = () => (
   <>
-    <Box mb={4}>
+    <Box mb={4} width="700px" p={4}>
       <AutoFocusSearch
         placeholder="Search..."
         onChange={() => {}}
@@ -201,12 +121,11 @@ export const FocusStyling = () => (
         aria-label="Search input"
       />
     </Box>
-    <Box>
+    <Box width="700px" p={4}>
       <Search
         placeholder="Search..."
         onChange={() => {}}
         value=""
-        searchButton
         aria-label="Search button"
         data-role="search-button-focus"
       />
@@ -219,4 +138,104 @@ FocusStyling.parameters = {
   pseudo: {
     focus: "[data-role='search-button-focus'] .search-button",
   },
+};
+
+export const RegressionMatrix = () => (
+  <>
+    <Box mb={3} width="700px" p={4}>
+      <Search
+        onChange={() => {}}
+        value=""
+        placeholder="Default configuration"
+        aria-label="Default configuration"
+      />
+    </Box>
+
+    <Box mb={3} width="700px" p={4} backgroundColor="#000000">
+      <Search
+        onChange={() => {}}
+        value=""
+        inverse
+        placeholder="Inverse configuration"
+        aria-label="Inverse configuration"
+      />
+    </Box>
+
+    <Box mb={3} width="700px" p={4}>
+      <Search
+        onChange={() => {}}
+        value=""
+        label="Search"
+        inputHint="Input hint"
+        placeholder="Default with label and input hint"
+        aria-label="Default with label and input hint"
+      />
+    </Box>
+
+    <Box mb={3} width="700px" p={4} backgroundColor="#000000">
+      <Search
+        onChange={() => {}}
+        value=""
+        inverse
+        label="Search"
+        inputHint="Input hint"
+        placeholder="Inverse with label and input hint"
+        aria-label="Inverse with label and input hint"
+      />
+    </Box>
+
+    <Box mb={3} width="700px" p={4}>
+      <Search
+        onChange={() => {}}
+        value=""
+        label="Search"
+        inputHint="Input hint"
+        error="Error message"
+        placeholder="Default with label, input hint and error"
+        aria-label="Default with label, input hint and error"
+      />
+    </Box>
+
+    <Box mb={3} width="700px" p={4} backgroundColor="#000000">
+      <Search
+        onChange={() => {}}
+        value=""
+        inverse
+        label="Search"
+        inputHint="Input hint"
+        error="Error message"
+        placeholder="Inverse with label, input hint and error"
+        aria-label="Inverse with label, input hint and error"
+      />
+    </Box>
+
+    <Box mb={3} width="700px" p={4}>
+      <Search
+        onChange={() => {}}
+        value=""
+        label="Search"
+        inputHint="Input hint"
+        warning="Warning message"
+        placeholder="Default with label, input hint and warning"
+        aria-label="Default with label, input hint and warning"
+      />
+    </Box>
+
+    <Box width="700px" p={4} backgroundColor="#000000">
+      <Search
+        onChange={() => {}}
+        value=""
+        inverse
+        label="Search"
+        inputHint="Input hint"
+        warning="Warning message"
+        placeholder="Inverse with label, input hint and warning"
+        aria-label="Inverse with label, input hint and warning"
+      />
+    </Box>
+  </>
+);
+RegressionMatrix.storyName = "Regression Matrix";
+RegressionMatrix.parameters = {
+  chromatic: { disableSnapshot: false },
 };
