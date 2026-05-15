@@ -382,6 +382,45 @@ description: Carbon VerticalMenu component props and usage examples.
 ```
 
 
+### Programmatic Focus
+
+**Render**
+
+```tsx
+() => {
+  const itemRef1 = useRef<VerticalMenuItemHandle>(null);
+  const itemRef2 = useRef<VerticalMenuItemHandle>(null);
+
+  const focusVerticalMenuItem1 = () => {
+    itemRef1.current?.focusItem();
+  };
+
+  const focusVerticalMenuItem2 = () => {
+    itemRef2.current?.focusItem();
+  };
+  return (
+    <Box>
+      <Button m={2} onClick={() => focusVerticalMenuItem1()}>
+        Focus Item 1
+      </Button>
+      <Button m={2} onClick={() => focusVerticalMenuItem2()}>
+        Focus Item 2
+      </Button>
+
+      <VerticalMenu aria-label="Vertical Menu">
+        <VerticalMenuItem ref={itemRef1} href="#" title="Item 1 with href" />
+        <VerticalMenuItem
+          ref={itemRef2}
+          onClick={() => {}}
+          title="Item 2 with onClick"
+        />
+      </VerticalMenu>
+    </Box>
+  );
+}
+```
+
+
 ### MDX Example 1
 
 **Args**
@@ -394,5 +433,63 @@ description: Carbon VerticalMenu component props and usage examples.
 <Canvas of={VerticalMenuStories.Default} />
 
 ### Item With OnClick Handler
+```
+
+
+### MDX Example 2
+
+**Args**
+
+```tsx
+You can use the `onClick` prop to specify a function that will be called when the `VerticalMenuItem` component is clicked. The value of the `onClick` prop should be a valid function.
+
+<Canvas of={VerticalMenuStories.ItemWithOnClickHandler} />
+
+### With custom width and height
+
+<Canvas of={VerticalMenuStories.CustomWidthAndHeight} />
+
+### Adornment
+
+The `adornment` prop of `VerticalMenuItem` component can be used to pass a component that will be rendered on the right hand side of the title.
+This prop also accepts a render function which accepts `isOpen` as a parameter. This can be used to conditionally render an icon based on the open state of the menu.
+
+<Canvas of={VerticalMenuStories.Adornment} />
+
+### Active
+
+Same as `adornment`, the `active` prop of `VerticalMenuItem` component can be used to pass a boolean value to indicate if the menu item is active or not.
+This prop also accepts a render function which accepts `isOpen` as a parameter.
+
+<Canvas of={VerticalMenuStories.Active} />
+
+### Custom item padding
+
+<Canvas of={VerticalMenuStories.CustomItemPadding} />
+
+### Custom item margin
+
+<Canvas of={VerticalMenuStories.CustomItemMargin} />
+
+### Custom item height
+
+<Canvas of={VerticalMenuStories.CustomItemHeight} />
+
+### With custom component
+
+The `component` prop of `VerticalMenuItem` component can be used to pass a custom component.
+It can be used to render the item as a `Link` component from a router library like `react-router`.
+
+<Canvas of={VerticalMenuStories.CustomComponent} />
+
+### Full Screen
+
+This story is best viewed in the `canvas` view and by adjusting the size of the window. The fullscreen menu behaviour will
+trigger when the screen size is smaller than `1200px`. Also take note that in full screen mode the `VerticalMenuItems` are always open.
+The `VerticalMenuTrigger` component is intended to be used to trigger opening the `VerticalMenuFullScreen`.
+
+<Canvas of={VerticalMenuStories.FullScreen} />
+
+### Programmatic Focus
 ```
 

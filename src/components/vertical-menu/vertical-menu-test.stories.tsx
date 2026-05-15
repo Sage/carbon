@@ -1,14 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   VerticalMenu,
   VerticalMenuItem,
   VerticalMenuProps,
   VerticalMenuTrigger,
   VerticalMenuFullScreen,
+  VerticalMenuItemHandle,
 } from ".";
 import Box from "../box";
 import Pill from "../pill";
 import Confirm from "../confirm";
+import GlobalHeader from "../global-header";
+import Button from "../button/__next__";
+import type { ButtonHandle } from "../button/__next__/button.component";
+import { Menu, MenuItem } from "../menu";
 
 export default {
   title: "Vertical Menu/Test",
@@ -284,3 +289,89 @@ export const FullScreenWithModal = () => {
   );
 };
 FullScreenWithModal.storyName = "Full Screen With Modal";
+
+export const VerticalMenuInGlobalHeader = () => {
+  const itemRef = useRef<VerticalMenuItemHandle>(null);
+  const buttonRef = useRef<ButtonHandle>(null);
+  const [isVerticalNavVisible, setIsVerticalNavVisible] = useState(false);
+
+  const handleButtonOnKeyDown = (ev: React.KeyboardEvent | KeyboardEvent) => {
+    if (isVerticalNavVisible && !ev.shiftKey && ev.key === "Tab") {
+      ev.preventDefault();
+      itemRef.current?.focusItem();
+    }
+  };
+
+  const handleFirstItemKeyDown = (
+    ev: React.KeyboardEvent<HTMLButtonElement | HTMLAnchorElement>,
+  ) => {
+    if (ev.shiftKey && ev.key === "Tab") {
+      ev.preventDefault();
+      buttonRef.current?.focusButton();
+    }
+  };
+
+  const handleLastItemKeyDown = (
+    ev: React.KeyboardEvent<HTMLButtonElement | HTMLAnchorElement>,
+  ) => {
+    if (!ev.shiftKey && ev.key === "Tab") {
+      ev.preventDefault();
+
+      const array = Array.from(
+        document.querySelectorAll("[data-component='menu-item'] button") || [],
+      ) as HTMLElement[];
+      const item = array[0];
+      item?.focus();
+    }
+  };
+
+  const VerticalNav = () => {
+    return (
+      <VerticalMenu aria-label="Default vertical menu">
+        <VerticalMenuItem
+          ref={itemRef}
+          iconType="analysis"
+          title="Item 1"
+          onKeyDown={handleFirstItemKeyDown}
+        >
+          <VerticalMenuItem title="ChildItem 1" href="#" />
+          <VerticalMenuItem href="#" title="ChildItem 2" />
+        </VerticalMenuItem>
+        <VerticalMenuItem iconType="admin" href="#" title="Item 2" />
+        <VerticalMenuItem
+          onClick={() => {}}
+          title="Item 3"
+          onKeyDown={handleLastItemKeyDown}
+        />
+      </VerticalMenu>
+    );
+  };
+
+  return (
+    <Box m={2}>
+      <GlobalHeader>
+        <Button
+          ref={buttonRef}
+          onClick={() => {
+            setIsVerticalNavVisible(!isVerticalNavVisible);
+          }}
+          onKeyDown={(ev) => handleButtonOnKeyDown(ev)}
+          aria-controls="menu"
+          aria-expanded={isVerticalNavVisible}
+        >
+          Open
+        </Button>
+        <Menu>
+          <MenuItem icon="settings" onClick={() => {}}>
+            Menu Item Two
+          </MenuItem>
+          <MenuItem icon="settings" onClick={() => {}}>
+            Menu Item Three
+          </MenuItem>
+        </Menu>
+      </GlobalHeader>
+
+      {isVerticalNavVisible ? <VerticalNav /> : null}
+    </Box>
+  );
+};
