@@ -1,27 +1,18 @@
-import React, { useContext, useRef } from "react";
+import React, { useRef } from "react";
 import invariant from "invariant";
-import {
-  StyledButtonToggle,
-  StyledButtonToggleWrapper,
-  StyledButtonToggleProps,
-} from "./button-toggle.style";
+import StyledButtonToggle from "./button-toggle.style";
 import guid from "../../__internal__/utils/helpers/guid";
 import { useButtonToggleGroupContext } from "./button-toggle-group/__internal__/button-toggle-group.context";
-import ButtonToggleIcon from "./button-toggle-icon.component";
-import { TagProps } from "../../__internal__/utils/helpers/tags";
-import { InputGroupContext } from "../../__internal__/input-behaviour";
-import Logger from "../../__internal__/utils/logger";
+import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
+import Icon, { IconType } from "../icon";
+import isIconOnly from "../button/__next__/__internal__/utils/is-icon-only";
 
-let deprecatePressedWarnTriggered = false;
-
-export interface ButtonToggleProps
-  extends Partial<StyledButtonToggleProps>,
-    TagProps {
+export interface ButtonToggleProps extends TagProps {
   /** Prop to specify the aria-label of the component */
   "aria-label"?: string;
   /** Prop to specify the aria-labelledby property of the component */
   "aria-labelledby"?: string;
-  /** Text to display for the button. */
+  /** Content to display within the button. */
   children?: React.ReactNode;
   /** Callback triggered by blur event on the button. */
   onBlur?: (ev: React.FocusEvent<HTMLButtonElement>) => void;
@@ -30,12 +21,28 @@ export interface ButtonToggleProps
   /** Callback triggered by click event on the button. */
   onClick?: (ev: React.MouseEvent<HTMLButtonElement>) => void;
   /**
-   * Set the pressed state of the toggle button
-   * @deprecated
+   * Set the pressed state of the toggle button.
+   * @deprecated Please control the state of selected buttons through ButtonToggleGroup.
    * */
   pressed?: boolean;
-  /** An optional string by which to identify the button in either an onClick handler, or an onChange handler on the parent ButtonToggleGroup. */
+  /** An optional string by which to identify the button in d an onChange handler on the parent ButtonToggleGroup. */
   value?: string;
+  /** Icon rendered within the button. Will not be rendered if size is small. */
+  buttonIcon?: IconType;
+  /**
+   * Sets the size of the buttonIcon
+   * @deprecated `buttonIconSize` is no longer supported.
+   */
+  buttonIconSize?: "small" | "large";
+  /** Disable the ButtonToggle. */
+  disabled?: boolean;
+  /**
+   * ButtonToggle size.
+   * @deprecated Please set the size of the component through the ButtonToggleGroup `size` prop.
+   */
+  size?: "small" | "medium" | "large";
+  /** Allow a selected button to be deselected. */
+  allowDeselect?: boolean;
   /** @private @internal @ignore */
   "data-component"?: string;
 }
@@ -44,49 +51,32 @@ export const ButtonToggle = ({
   "aria-label": ariaLabel,
   "aria-labelledby": ariaLabelledBy,
   buttonIcon,
-  buttonIconSize = "small",
+  buttonIconSize,
   children,
-  "data-component": dataComponent,
-  "data-element": dataElement,
-  "data-role": dataRole,
   disabled,
   onBlur,
   onFocus,
   onClick,
   pressed,
-  size = "medium",
+  size,
   value,
+  "data-component": dataComponent,
+  ...rest
 }: ButtonToggleProps) => {
-  invariant(
-    !!(children || buttonIcon),
-    "Either prop `buttonIcon` must be defined, or this node must have children",
-  );
-
-  if (pressed && !deprecatePressedWarnTriggered) {
-    Logger.deprecate("The `pressed` prop is deprecated.");
-    deprecatePressedWarnTriggered = true;
-  }
-
   const buttonRef = useRef<HTMLButtonElement | null>(null);
+  const inputGuid = useRef(guid());
 
   const {
-    onMouseEnter,
-    onMouseLeave,
-    onBlur: inputGroupOnBlur,
-    onFocus: inputGroupOnFocus,
-  } = useContext(InputGroupContext);
-
-  const {
-    onButtonClick,
     handleKeyDown,
     pressedButtonValue,
     onChange,
     allowDeselect,
-    isInGroup,
     isDisabled,
     firstButton,
     childButtonCallbackRef,
     hintTextId,
+    size: contextSize,
+    fullWidth,
   } = useButtonToggleGroupContext();
 
   const callbackRef = (element: HTMLButtonElement | null) => {
@@ -94,85 +84,60 @@ export const ButtonToggle = ({
     childButtonCallbackRef?.(element);
   };
 
-  const inputGuid = useRef(guid());
-
   function handleClick(ev: React.MouseEvent<HTMLButtonElement>) {
-    if (onClick) {
-      onClick(ev);
-    }
+    onClick?.(ev);
 
     const newValue =
-      allowDeselect && pressedButtonValue && pressedButtonValue === value
-        ? undefined
-        : value;
+      allowDeselect && pressedButtonValue === value ? undefined : value;
     onChange?.(ev, newValue);
-
-    if (value) {
-      onButtonClick(value);
-    }
   }
 
-  function handleFocus(ev: React.FocusEvent<HTMLButtonElement>) {
-    onFocus?.(ev);
-    inputGroupOnFocus?.();
-  }
-
-  function handleBlur(ev: React.FocusEvent<HTMLButtonElement>) {
-    onBlur?.(ev);
-    inputGroupOnBlur?.();
-  }
-
-  const isPressed = isInGroup
-    ? pressedButtonValue && pressedButtonValue === value
-    : pressed;
+  const isPressed = pressedButtonValue === value || pressed;
   const isFirstButton = buttonRef.current === firstButton;
+  const tabbable = isPressed || (!pressedButtonValue && isFirstButton);
 
-  // if we're in a ButtonToggleGroup, only one button should be tabbable - the pressed button if there is one, or
-  // the first one if not
-  const tabbable =
-    !isInGroup || isPressed || (!pressedButtonValue && isFirstButton);
+  const actualSize = size || contextSize;
+  const iconOnly = (buttonIcon && !children) || isIconOnly(children);
+
+  invariant(
+    !!(children || buttonIcon),
+    "Either prop `buttonIcon` must be defined, or this node must have children",
+  );
+
+  invariant(
+    !(iconOnly && actualSize === "small"),
+    "Cannot render an icon-only button in small size.",
+  );
 
   return (
-    <StyledButtonToggleWrapper
-      data-component={dataComponent || "button-toggle"}
-      data-element={dataElement}
-      data-role={dataRole}
+    <StyledButtonToggle
+      className="button-toggle"
+      data-button-toggle-internal
+      aria-label={ariaLabel}
+      aria-labelledby={ariaLabelledBy}
+      aria-describedby={hintTextId}
+      aria-pressed={!!isPressed}
+      disabled={disabled || isDisabled}
+      id={inputGuid.current}
+      $size={actualSize}
+      $active={!!isPressed}
+      $iconOnly={iconOnly}
+      $fullWidth={fullWidth}
+      value={value}
+      onFocus={onFocus}
+      onBlur={onBlur}
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
+      {...(tabbable ? { tabIndex: 0 } : { tabIndex: -1 })}
+      ref={callbackRef}
+      {...rest}
+      {...tagComponent(dataComponent || "button-toggle", { ...rest })}
     >
-      <StyledButtonToggle
-        aria-label={ariaLabel}
-        aria-labelledby={ariaLabelledBy}
-        aria-describedby={hintTextId}
-        aria-pressed={!!isPressed}
-        buttonIcon={buttonIcon}
-        buttonIconSize={buttonIconSize}
-        data-element="button-toggle-button"
-        disabled={disabled || isDisabled}
-        id={inputGuid.current}
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
-        size={size}
-        value={value}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-        onClick={handleClick}
-        onKeyDown={handleKeyDown}
-        // In Safari non-text input elements do not gain focus on click. To get around this, we have to apply a tab-index of 0 here.
-        // This is to allow the ButtonToggle component to be focused when it is the first tabbable element.
-        {...(tabbable ? { tabIndex: 0 } : { tabIndex: -1 })}
-        allowDeselect={allowDeselect}
-        ref={callbackRef}
-      >
-        {buttonIcon && (
-          <ButtonToggleIcon
-            buttonIcon={buttonIcon}
-            buttonIconSize={buttonIconSize}
-            disabled={disabled}
-            hasContent={!!children}
-          />
-        )}
-        {children}
-      </StyledButtonToggle>
-    </StyledButtonToggleWrapper>
+      {buttonIcon && actualSize !== "small" && (
+        <Icon aria-hidden type={buttonIcon} />
+      )}
+      {children}
+    </StyledButtonToggle>
   );
 };
 

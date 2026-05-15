@@ -1,565 +1,329 @@
 import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { ButtonToggle, ButtonToggleGroup } from ".";
-import Box from "../box";
+import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
+import { ButtonToggle, ButtonToggleGroup, ButtonToggleGroupProps } from ".";
+import Icon from "../icon";
+import { Loader } from "../loader/__next__/loader.component";
 
-const meta: Meta<typeof ButtonToggle> = {
+const styledSystemProps = generateStyledSystemProps({
+  margin: true,
+});
+
+const meta: Meta<typeof ButtonToggleGroup> = {
   title: "Button Toggle",
-  component: ButtonToggle,
-  parameters: { themeProvider: { chromatic: { theme: "sage" } } },
+  component: ButtonToggleGroup,
+  subcomponents: { ButtonToggle },
+  argTypes: {
+    ...styledSystemProps,
+  },
+  parameters: {
+    themeProvider: { chromatic: { theme: "sage" } },
+    controls: {
+      exclude: ["children", "onChange", "value"],
+    },
+  },
 };
 
 export default meta;
-type Story = StoryObj<typeof ButtonToggle>;
+type Story = StoryObj<typeof ButtonToggleGroup>;
 
-export const Default: Story = () => {
+const ControlledButtonToggleGroup = ({
+  id = "default",
+  children,
+  value,
+  ...args
+}: Omit<ButtonToggleGroupProps, "onChange">) => {
+  const [selectedButton, setSelectedButton] = useState(value);
+
+  const handleOnChange = (
+    ev: React.MouseEvent<HTMLButtonElement>,
+    selectedValue?: string,
+  ) => {
+    setSelectedButton(selectedValue as string);
+  };
+
+  return (
+    <ButtonToggleGroup
+      {...args}
+      id={id}
+      value={selectedButton}
+      onChange={handleOnChange}
+    >
+      <ButtonToggle value={`${id}-1`}>Button 1</ButtonToggle>
+      <ButtonToggle value={`${id}-2`}>Button 2</ButtonToggle>
+      <ButtonToggle value={`${id}-3`}>Button 3</ButtonToggle>
+    </ButtonToggleGroup>
+  );
+};
+
+export const Default: Story = {
+  render: ControlledButtonToggleGroup,
+  args: {
+    "aria-label": "Button Toggle Group",
+    value: "default-2",
+  },
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
+};
+
+export const WithLabelAndHint: Story = {
+  ...Default,
+  args: {
+    id: "with-label",
+    label: "Label",
+    inputHint: "Hint Text",
+    value: "with-label-2",
+  },
+};
+
+export const WithIcon: Story = ({ ...args }: ButtonToggleGroupProps) => {
+  const [value, setValue] = useState("icon-left");
+
+  const handleOnChange = (
+    ev: React.MouseEvent<HTMLButtonElement>,
+    selectedValue?: string,
+  ) => {
+    setValue(selectedValue as string);
+  };
+
+  return (
+    <ButtonToggleGroup
+      {...args}
+      id="icon"
+      value={value}
+      onChange={handleOnChange}
+      mb={2}
+    >
+      <ButtonToggle value="icon-left">
+        <Icon aria-hidden type="placeholder" />
+        Button with Left Icon
+      </ButtonToggle>
+      <ButtonToggle value="icon-right">
+        Button with Right Icon
+        <Icon aria-hidden type="placeholder" />
+      </ButtonToggle>
+    </ButtonToggleGroup>
+  );
+};
+WithIcon.storyName = "With Icon";
+
+export const Loading: Story = ({ ...args }: ButtonToggleGroupProps) => {
   const [value, setValue] = useState("");
-  function onChangeHandler(
-    event: React.MouseEvent<HTMLButtonElement>,
+
+  const handleOnChange = (
+    ev: React.MouseEvent<HTMLButtonElement>,
     selectedValue?: string,
-  ) {
+  ) => {
+    if (selectedValue === "loading-2") return;
     setValue(selectedValue as string);
-  }
+  };
 
   return (
-    <Box margin={4} width="250px" display="flex" flexWrap="nowrap">
-      <ButtonToggleGroup
-        id="button-toggle-group-id"
-        label="Default example"
-        value={value}
-        onChange={onChangeHandler}
-      >
-        <ButtonToggle value="foo">Foo</ButtonToggle>
-        <ButtonToggle value="bar">Bar</ButtonToggle>
-        <ButtonToggle value="baz">Baz</ButtonToggle>
-      </ButtonToggleGroup>
-    </Box>
+    <ButtonToggleGroup
+      {...args}
+      id="loading"
+      value={value}
+      onChange={handleOnChange}
+      mb={2}
+    >
+      <ButtonToggle value="loading-1">Button 1</ButtonToggle>
+      <ButtonToggle value="loading-2" aria-busy="true">
+        <Loader
+          variant="inline"
+          loaderType="ring"
+          size="extra-small"
+          showLabel={false}
+        />
+      </ButtonToggle>
+      <ButtonToggle value="loading-3">Button 3</ButtonToggle>
+    </ButtonToggleGroup>
   );
 };
-Default.storyName = "Default";
-Default.parameters = {
-  chromatic: { disableSnapshot: true },
-};
+Loading.storyName = "Loading";
 
-export const InputHint: Story = () => {
-  const [value, setValue] = useState("");
-  function onChangeHandler(
-    event: React.MouseEvent<HTMLButtonElement>,
+export const Sizes: Story = ({ ...args }: ButtonToggleGroupProps) => {
+  const [valueSmall, setValueSmall] = useState("small-2");
+  const [valueMedium, setValueMedium] = useState("medium-2");
+  const [valueLarge, setValueLarge] = useState("large-2");
+
+  const handleOnChangeSmall = (
+    ev: React.MouseEvent<HTMLButtonElement>,
     selectedValue?: string,
-  ) {
-    setValue(selectedValue as string);
-  }
+  ) => {
+    setValueSmall(selectedValue as string);
+  };
+
+  const handleOnChangeMedium = (
+    ev: React.MouseEvent<HTMLButtonElement>,
+    selectedValue?: string,
+  ) => {
+    setValueMedium(selectedValue as string);
+  };
+
+  const handleOnChangeLarge = (
+    ev: React.MouseEvent<HTMLButtonElement>,
+    selectedValue?: string,
+  ) => {
+    setValueLarge(selectedValue as string);
+  };
 
   return (
-    <Box margin={4} width="250px" display="flex" flexWrap="nowrap">
+    <>
       <ButtonToggleGroup
-        id="button-toggle-group-id"
-        label="inputHint example"
-        inputHint="Hint text"
-        value={value}
-        onChange={onChangeHandler}
+        {...args}
+        id="small"
+        label="Small"
+        value={valueSmall}
+        onChange={handleOnChangeSmall}
+        size="small"
+        mb={2}
       >
-        <ButtonToggle value="foo">Foo</ButtonToggle>
-        <ButtonToggle value="bar">Bar</ButtonToggle>
-        <ButtonToggle value="baz">Baz</ButtonToggle>
+        <ButtonToggle value="small-1">Button 1</ButtonToggle>
+        <ButtonToggle value="small-2">Button 2</ButtonToggle>
+        <ButtonToggle value="small-3">Button 3</ButtonToggle>
       </ButtonToggleGroup>
-    </Box>
-  );
-};
-InputHint.storyName = "Input Hint";
 
-export const AriaLabel: Story = () => {
-  const [value, setValue] = useState("bar");
-  function onChangeHandler(
-    event: React.MouseEvent<HTMLButtonElement>,
-    selectedValue?: string,
-  ) {
-    setValue(selectedValue as string);
-  }
-
-  return (
-    <Box margin={4} width="250px" display="flex" flexWrap="nowrap">
       <ButtonToggleGroup
-        id="button-toggle-group-ariaLabel-id"
-        aria-label="an accessible name"
-        onChange={onChangeHandler}
-        value={value}
-        allowDeselect
+        {...args}
+        id="medium"
+        label="Medium"
+        value={valueMedium}
+        onChange={handleOnChangeMedium}
+        size="medium"
+        mb={2}
       >
-        <ButtonToggle value="foo">Foo</ButtonToggle>
-        <ButtonToggle value="bar">Bar</ButtonToggle>
-        <ButtonToggle value="baz">Baz</ButtonToggle>
-      </ButtonToggleGroup>
-    </Box>
-  );
-};
-AriaLabel.storyName = "Aria Label";
-
-export const FullWidth: Story = () => {
-  const [value, setValue] = useState("");
-  function onChangeHandler(
-    event: React.MouseEvent<HTMLButtonElement>,
-    selectedValue?: string,
-  ) {
-    setValue(selectedValue as string);
-  }
-
-  return (
-    <Box margin={4}>
-      <ButtonToggleGroup
-        id="button-toggle-group-fullWidth-id"
-        fullWidth
-        label="fullWidth example"
-        value={value}
-        onChange={onChangeHandler}
-      >
-        <ButtonToggle value="foo">Foo</ButtonToggle>
-        <ButtonToggle value="bar">Bar</ButtonToggle>
-        <ButtonToggle value="baz">Baz</ButtonToggle>
-      </ButtonToggleGroup>
-    </Box>
-  );
-};
-FullWidth.storyName = "Full Width";
-
-export const AllowDeselection: Story = () => {
-  const [value, setValue] = useState("bar");
-  function onChangeHandler(
-    event: React.MouseEvent<HTMLButtonElement>,
-    selectedValue?: string,
-  ) {
-    setValue(selectedValue as string);
-  }
-
-  return (
-    <Box margin={4} width="250px" display="flex" flexWrap="nowrap">
-      <ButtonToggleGroup
-        id="button-toggle-group-allowDeselect-id"
-        label="Deselection example"
-        onChange={onChangeHandler}
-        value={value}
-        allowDeselect
-        inputHint="Select an option, you can clear a selected option by selecting it again"
-      >
-        <ButtonToggle value="foo">Foo</ButtonToggle>
-        <ButtonToggle value="bar">Bar</ButtonToggle>
-        <ButtonToggle value="baz">Baz</ButtonToggle>
-      </ButtonToggleGroup>
-    </Box>
-  );
-};
-AllowDeselection.storyName = "Allow Deselection";
-
-export const DefaultSmallIcon: Story = () => {
-  const [value, setValue] = useState("");
-  function onChangeHandler(
-    event: React.MouseEvent<HTMLButtonElement>,
-    selectedValue?: string,
-  ) {
-    setValue(selectedValue as string);
-  }
-
-  return (
-    <Box margin={4} width="300px" display="flex" flexWrap="nowrap">
-      <ButtonToggleGroup
-        id="button-toggle-group-id"
-        label="Small icon example"
-        value={value}
-        onChange={onChangeHandler}
-      >
-        <ButtonToggle value="foo" buttonIcon="add">
-          Add
+        <ButtonToggle value="medium-1">
+          <Icon aria-hidden type="placeholder" />
+          Button 1
         </ButtonToggle>
-        <ButtonToggle value="bar" buttonIcon="share">
-          Share
+        <ButtonToggle value="medium-2">
+          <Icon aria-hidden type="placeholder" />
+          Button 2
         </ButtonToggle>
-        <ButtonToggle value="baz" buttonIcon="tick">
-          Tick
-        </ButtonToggle>
-      </ButtonToggleGroup>
-    </Box>
-  );
-};
-DefaultSmallIcon.storyName = "Small Icon";
-
-export const DefaultLargeIcon: Story = () => {
-  const [value, setValue] = useState("");
-  function onChangeHandler(
-    event: React.MouseEvent<HTMLButtonElement>,
-    selectedValue?: string,
-  ) {
-    setValue(selectedValue as string);
-  }
-
-  return (
-    <Box margin={4} width="400px" display="flex" flexWrap="nowrap">
-      <ButtonToggleGroup
-        id="button-toggle-group-id"
-        label="Large icon example"
-        value={value}
-        onChange={onChangeHandler}
-      >
-        <ButtonToggle value="foo" buttonIcon="add" buttonIconSize="large">
-          Add
-        </ButtonToggle>
-        <ButtonToggle value="bar" buttonIcon="share" buttonIconSize="large">
-          Share
-        </ButtonToggle>
-        <ButtonToggle value="baz" buttonIcon="tick" buttonIconSize="large">
-          Tick
+        <ButtonToggle value="medium-3">
+          <Icon aria-hidden type="placeholder" />
+          Button 3
         </ButtonToggle>
       </ButtonToggleGroup>
-    </Box>
+
+      <ButtonToggleGroup
+        {...args}
+        id="large"
+        label="Large"
+        value={valueLarge}
+        onChange={handleOnChangeLarge}
+        size="large"
+      >
+        <ButtonToggle value="large-1">
+          <Icon aria-hidden type="placeholder" />
+          Button 1
+        </ButtonToggle>
+        <ButtonToggle value="large-2">
+          <Icon aria-hidden type="placeholder" />
+          Button 2
+        </ButtonToggle>
+        <ButtonToggle value="large-3">
+          <Icon aria-hidden type="placeholder" />
+          Button 3
+        </ButtonToggle>
+      </ButtonToggleGroup>
+    </>
   );
 };
-DefaultLargeIcon.storyName = "Large Icon";
+Sizes.storyName = "Sizes";
 
-export const IconOnly: Story = () => {
-  const [value, setValue] = useState("");
-  function onChangeHandler(
-    event: React.MouseEvent<HTMLButtonElement>,
+export const IconOnly: Story = ({ ...args }: ButtonToggleGroupProps) => {
+  const [valueMedium, setValueMedium] = useState("medium-2");
+  const [valueLarge, setValueLarge] = useState("large-2");
+
+  const handleOnChangeMedium = (
+    ev: React.MouseEvent<HTMLButtonElement>,
     selectedValue?: string,
-  ) {
-    setValue(selectedValue as string);
-  }
+  ) => {
+    setValueMedium(selectedValue as string);
+  };
+
+  const handleOnChangeLarge = (
+    ev: React.MouseEvent<HTMLButtonElement>,
+    selectedValue?: string,
+  ) => {
+    setValueLarge(selectedValue as string);
+  };
 
   return (
-    <Box margin={4} width="250px" display="flex" flexWrap="nowrap">
+    <>
       <ButtonToggleGroup
-        id="button-toggle-group-id"
-        label="Icon only example"
-        value={value}
-        onChange={onChangeHandler}
+        {...args}
+        id="medium"
+        label="Medium"
+        value={valueMedium}
+        onChange={handleOnChangeMedium}
+        size="medium"
+        mb={2}
       >
-        <ButtonToggle value="foo" buttonIcon="add" aria-label="add" />
-        <ButtonToggle value="bar" buttonIcon="share" aria-label="share" />
-        <ButtonToggle value="baz" buttonIcon="tick" aria-label="tick" />
+        <ButtonToggle value="medium-1">
+          <Icon ariaLabel="Placeholder 1" type="placeholder" />
+        </ButtonToggle>
+        <ButtonToggle value="medium-2">
+          <Icon ariaLabel="Placeholder 2" type="placeholder" />
+        </ButtonToggle>
+        <ButtonToggle value="medium-3">
+          <Icon ariaLabel="Placeholder 3" type="placeholder" />
+        </ButtonToggle>
       </ButtonToggleGroup>
-    </Box>
+
+      <ButtonToggleGroup
+        {...args}
+        id="large"
+        label="Large"
+        value={valueLarge}
+        onChange={handleOnChangeLarge}
+        size="large"
+      >
+        <ButtonToggle value="large-1">
+          <Icon ariaLabel="Placeholder 1" type="placeholder" />
+        </ButtonToggle>
+        <ButtonToggle value="large-2">
+          <Icon ariaLabel="Placeholder 2" type="placeholder" />
+        </ButtonToggle>
+        <ButtonToggle value="large-3">
+          <Icon ariaLabel="Placeholder 3" type="placeholder" />
+        </ButtonToggle>
+      </ButtonToggleGroup>
+    </>
   );
 };
 IconOnly.storyName = "Icon Only";
 
-export const Small: Story = () => {
-  const [value, setValue] = useState("");
-  function onChangeHandler(
-    event: React.MouseEvent<HTMLButtonElement>,
-    selectedValue?: string,
-  ) {
-    setValue(selectedValue as string);
-  }
-
-  return (
-    <Box margin={4} width="250px" display="flex" flexWrap="nowrap">
-      <ButtonToggleGroup
-        id="button-toggle-group-id"
-        label="Small example"
-        value={value}
-        onChange={onChangeHandler}
-      >
-        <ButtonToggle size="small" value="foo">
-          Add
-        </ButtonToggle>
-        <ButtonToggle size="small" value="bar">
-          Share
-        </ButtonToggle>
-        <ButtonToggle size="small" value="baz">
-          Tick
-        </ButtonToggle>
-      </ButtonToggleGroup>
-    </Box>
-  );
+export const AllowDeselect: Story = {
+  ...Default,
+  args: {
+    id: "allow-deselect",
+    value: "allow-deselect-2",
+    allowDeselect: true,
+  },
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
 };
-Small.storyName = "Small";
 
-export const SmallSmallIcon: Story = () => {
-  const [value, setValue] = useState("");
-  function onChangeHandler(
-    event: React.MouseEvent<HTMLButtonElement>,
-    selectedValue?: string,
-  ) {
-    setValue(selectedValue as string);
-  }
-
-  return (
-    <Box margin={4} width="300px" display="flex" flexWrap="nowrap">
-      <ButtonToggleGroup
-        id="button-toggle-group-id"
-        label="Small with small icon example"
-        value={value}
-        onChange={onChangeHandler}
-      >
-        <ButtonToggle size="small" value="foo" buttonIcon="add">
-          Add
-        </ButtonToggle>
-        <ButtonToggle size="small" value="bar" buttonIcon="share">
-          Share
-        </ButtonToggle>
-        <ButtonToggle size="small" value="baz" buttonIcon="tick">
-          Tick
-        </ButtonToggle>
-      </ButtonToggleGroup>
-    </Box>
-  );
+export const FullWidth: Story = {
+  ...Default,
+  args: {
+    id: "full-width",
+    value: "full-width-2",
+    fullWidth: true,
+  },
 };
-SmallSmallIcon.storyName = "Small with Small Icon";
 
-export const SmallLargeIcon: Story = () => {
-  const [value, setValue] = useState("");
-  function onChangeHandler(
-    event: React.MouseEvent<HTMLButtonElement>,
-    selectedValue?: string,
-  ) {
-    setValue(selectedValue as string);
-  }
-
-  return (
-    <Box margin={4} width="300px" display="flex" flexWrap="nowrap">
-      <ButtonToggleGroup
-        id="button-toggle-group-id"
-        label="Small with large icon example"
-        value={value}
-        onChange={onChangeHandler}
-      >
-        <ButtonToggle
-          size="small"
-          value="foo"
-          buttonIcon="add"
-          buttonIconSize="large"
-        >
-          Add
-        </ButtonToggle>
-        <ButtonToggle
-          size="small"
-          value="bar"
-          buttonIcon="share"
-          buttonIconSize="large"
-        >
-          Share
-        </ButtonToggle>
-        <ButtonToggle
-          size="small"
-          value="baz"
-          buttonIcon="tick"
-          buttonIconSize="large"
-        >
-          Tick
-        </ButtonToggle>
-      </ButtonToggleGroup>
-    </Box>
-  );
-};
-SmallLargeIcon.storyName = "Small with Large Icon";
-
-export const Large: Story = () => {
-  const [value, setValue] = useState("");
-  function onChangeHandler(
-    event: React.MouseEvent<HTMLButtonElement>,
-    selectedValue?: string,
-  ) {
-    setValue(selectedValue as string);
-  }
-
-  return (
-    <Box margin={4} width="250px" display="flex" flexWrap="nowrap">
-      <ButtonToggleGroup
-        id="button-toggle-group-id"
-        label="Large example"
-        value={value}
-        onChange={onChangeHandler}
-      >
-        <ButtonToggle size="large" value="foo">
-          Add
-        </ButtonToggle>
-        <ButtonToggle size="large" value="bar">
-          Share
-        </ButtonToggle>
-        <ButtonToggle size="large" value="baz">
-          Tick
-        </ButtonToggle>
-      </ButtonToggleGroup>
-    </Box>
-  );
-};
-Large.storyName = "Large";
-
-export const LargeSmallIcon: Story = () => {
-  const [value, setValue] = useState("");
-  function onChangeHandler(
-    event: React.MouseEvent<HTMLButtonElement>,
-    selectedValue?: string,
-  ) {
-    setValue(selectedValue as string);
-  }
-
-  return (
-    <Box margin={4} width="300px" display="flex" flexWrap="nowrap">
-      <ButtonToggleGroup
-        id="button-toggle-group-id"
-        label="Large with small icon example"
-        value={value}
-        onChange={onChangeHandler}
-      >
-        <ButtonToggle size="large" value="foo" buttonIcon="add">
-          Add
-        </ButtonToggle>
-        <ButtonToggle size="large" value="bar" buttonIcon="share">
-          Share
-        </ButtonToggle>
-        <ButtonToggle size="large" value="baz" buttonIcon="tick">
-          Tick
-        </ButtonToggle>
-      </ButtonToggleGroup>
-    </Box>
-  );
-};
-LargeSmallIcon.storyName = "Large with Small Icon";
-
-export const LargeLargeIcon: Story = () => {
-  const [value, setValue] = useState("");
-  function onChangeHandler(
-    event: React.MouseEvent<HTMLButtonElement>,
-    selectedValue?: string,
-  ) {
-    setValue(selectedValue as string);
-  }
-
-  return (
-    <Box margin={4} width="450px" display="flex" flexWrap="nowrap">
-      <ButtonToggleGroup
-        id="button-toggle-group-id"
-        label="Large with large icon example"
-        value={value}
-        onChange={onChangeHandler}
-      >
-        <ButtonToggle
-          size="large"
-          value="foo"
-          buttonIcon="add"
-          buttonIconSize="large"
-        >
-          Add
-        </ButtonToggle>
-        <ButtonToggle
-          size="large"
-          value="bar"
-          buttonIcon="share"
-          buttonIconSize="large"
-        >
-          Share
-        </ButtonToggle>
-        <ButtonToggle
-          size="large"
-          value="baz"
-          buttonIcon="tick"
-          buttonIconSize="large"
-        >
-          Tick
-        </ButtonToggle>
-      </ButtonToggleGroup>
-    </Box>
-  );
-};
-LargeLargeIcon.storyName = "Large Large Icon";
-
-export const DisabledButton: Story = () => {
-  const [value, setValue] = useState("");
-  function onChangeHandler(
-    event: React.MouseEvent<HTMLButtonElement>,
-    selectedValue?: string,
-  ) {
-    setValue(selectedValue as string);
-  }
-
-  return (
-    <Box margin={4} width="250px" display="flex" flexWrap="nowrap">
-      <ButtonToggleGroup
-        id="button-toggle-group-id"
-        label="Disabled Button"
-        value={value}
-        onChange={onChangeHandler}
-      >
-        <ButtonToggle value="foo" disabled>
-          Foo
-        </ButtonToggle>
-        <ButtonToggle value="bar">Bar</ButtonToggle>
-        <ButtonToggle value="baz">Baz</ButtonToggle>
-      </ButtonToggleGroup>
-    </Box>
-  );
-};
-DisabledButton.storyName = "Disabled Button";
-
-export const DisabledGroup: Story = () => {
-  const [value, setValue] = useState("");
-  function onChangeHandler(
-    event: React.MouseEvent<HTMLButtonElement>,
-    selectedValue?: string,
-  ) {
-    setValue(selectedValue as string);
-  }
-
-  return (
-    <Box margin={4} width="250px" display="flex" flexWrap="nowrap">
-      <ButtonToggleGroup
-        id="button-toggle-group-disabled-id"
-        label="Disabled Group"
-        inputHint="Hint text"
-        disabled
-        value={value}
-        onChange={onChangeHandler}
-      >
-        <ButtonToggle value="foo">Foo</ButtonToggle>
-        <ButtonToggle value="bar">Bar</ButtonToggle>
-        <ButtonToggle value="baz">Baz</ButtonToggle>
-      </ButtonToggleGroup>
-    </Box>
-  );
-};
-DisabledGroup.storyName = "Disabled Group";
-
-export const WrappedButtons: Story = () => {
-  const [value, setValue] = useState("bar");
-  function onChangeHandler(
-    event: React.MouseEvent<HTMLButtonElement>,
-    selectedValue?: string,
-  ) {
-    setValue(selectedValue as string);
-  }
-
-  return (
-    <Box width={"375px"} display="flex" flexWrap="nowrap">
-      <ButtonToggleGroup
-        m={4}
-        id="button-toggle-group-wrapped-id"
-        label="Wrapped Group"
-        fullWidth
-        value={value}
-        onChange={onChangeHandler}
-      >
-        <ButtonToggle value="add" buttonIcon="add">
-          Add
-        </ButtonToggle>
-        <ButtonToggle value="share" buttonIcon="share">
-          Share
-        </ButtonToggle>
-        <ButtonToggle value="tick" buttonIcon="tick">
-          Tick
-        </ButtonToggle>
-        <ButtonToggle value="email" buttonIcon="email">
-          Email
-        </ButtonToggle>
-        <ButtonToggle value="alert" buttonIcon="alert">
-          Alert
-        </ButtonToggle>
-        <ButtonToggle value="calendar" buttonIcon="calendar">
-          Calendar
-        </ButtonToggle>
-      </ButtonToggleGroup>
-    </Box>
-  );
-};
-WrappedButtons.storyName = "Wrapped Buttons";
-WrappedButtons.parameters = {
-  chromatic: { disableSnapshot: false },
+export const Disabled: Story = {
+  ...Default,
+  args: {
+    id: "disabled",
+    label: "Disabled",
+    inputHint: "Hint Text",
+    value: "disabled-2",
+    disabled: true,
+  },
 };
