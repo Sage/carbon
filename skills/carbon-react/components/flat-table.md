@@ -463,7 +463,7 @@ description: Carbon FlatTable component props and usage examples.
 ```tsx
 () => {
   return (
-    <FlatTable title="Table for Custom Row Backgroun Colour">
+    <FlatTable title="Table for Custom Row Background Colour">
       <FlatTableHead>
         <FlatTableRow>
           <FlatTableRowHeader>No.</FlatTableRowHeader>
@@ -875,12 +875,6 @@ description: Carbon FlatTable component props and usage examples.
     <Box height="150px">
       <FlatTable hasStickyHead title="Table for Sticky Header">
         <FlatTableHead>
-          <FlatTableRow>
-            <FlatTableHeader>Name</FlatTableHeader>
-            <FlatTableHeader>Location</FlatTableHeader>
-            <FlatTableHeader>Relationship Status</FlatTableHeader>
-            <FlatTableHeader>Dependents</FlatTableHeader>
-          </FlatTableRow>
           <FlatTableRow>
             <FlatTableHeader>Name</FlatTableHeader>
             <FlatTableHeader>Location</FlatTableHeader>
