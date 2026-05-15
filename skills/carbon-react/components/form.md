@@ -380,6 +380,19 @@ description: Carbon Form component props and usage examples.
 ```
 
 
+### Required Fields Indicator
+
+**Render**
+
+```tsx
+() => (
+  <RequiredFieldsIndicator m={2}>
+    Indicates required information
+  </RequiredFieldsIndicator>
+)
+```
+
+
 ### WithBothOptionalOrRequired
 
 **Render**
@@ -388,7 +401,7 @@ description: Carbon Form component props and usage examples.
 (args: FormProps) => (
   <Box m={1}>
     <RequiredFieldsIndicator mb={2}>
-      <Typography variant="b">Fill in all fields marked with</Typography>
+      <Typography variant="b">Indicates required information</Typography>
     </RequiredFieldsIndicator>
     <Form
       {...args}
