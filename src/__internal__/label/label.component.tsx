@@ -29,6 +29,7 @@ export const Label = ({
 }: LabelProps) => {
   return (
     <StyledLabel
+      className="label"
       id={id}
       htmlFor={htmlFor}
       $size={size}

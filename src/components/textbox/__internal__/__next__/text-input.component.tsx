@@ -24,6 +24,7 @@ import Label from "../../../../__internal__/label";
 import useRegisterValidationToTabs from "../../../../hooks/__internal__/useRegisterValidationToTabs/useRegisterValidationToTabs";
 import combineRefs from "../../../../__internal__/utils/helpers/combine-refs";
 import FieldsetValidationContext from "../../../../__internal__/fieldset-validation-context";
+import FieldsetContext from "../../../fieldset/__internal__/fieldset.context";
 
 export interface TextInputProps
   extends Omit<ValidationProps, "info">,
@@ -171,6 +172,13 @@ export const TextInput = React.forwardRef(
     const hintId = useRef(guid());
     const inputHintId = inputHint ? hintId.current : undefined;
 
+    const {
+      size: fieldsetSize,
+      hasError: fieldsetError,
+      required: fieldsetRequired,
+    } = useContext(FieldsetContext);
+    const actualSize = fieldsetSize || size;
+
     const resolvedInputWidth =
       inputWidth ?? (labelInline ? INLINE_INPUT_WIDTH : INPUT_WIDTH);
     const ariaDescribedByString = [
@@ -187,7 +195,7 @@ export const TextInput = React.forwardRef(
     const validationMessage = hasValidationFailure && !disableErrorBorder && (
       <ValidationMessage
         id={validationId}
-        size={size}
+        size={actualSize}
         error={error}
         warning={warning}
       />
@@ -218,7 +226,7 @@ export const TextInput = React.forwardRef(
         data-element={dataElement}
         data-role={dataRole}
         data-component={dataComponent}
-        $size={size}
+        $size={actualSize}
         $labelInline={labelInline}
         $hasValidationFailure={labelInline && hasValidationFailure}
         {...filterStyledSystemMarginProps(rest)}
@@ -227,7 +235,7 @@ export const TextInput = React.forwardRef(
           <LabelWrapper
             data-role="label-wrapper"
             $labelInline={labelInline}
-            $size={size}
+            $size={actualSize}
             $labelWrapperWidth={
               labelInline && typeof resolvedInputWidth === "number"
                 ? 100 - resolvedInputWidth
@@ -237,14 +245,14 @@ export const TextInput = React.forwardRef(
             <Label
               id={labelId}
               htmlFor={uniqueId}
-              size={size}
+              size={actualSize}
               isRequired={required}
               {...stateProps}
             >
               {label}
             </Label>
             {inputHint && (
-              <HintText id={inputHintId} size={size} {...stateProps}>
+              <HintText id={inputHintId} size={actualSize} {...stateProps}>
                 {inputHint}
               </HintText>
             )}
@@ -252,7 +260,7 @@ export const TextInput = React.forwardRef(
         )}
         <InputWrapper
           data-role="input-wrapper"
-          $size={size}
+          $size={actualSize}
           $maxWidth={maxWidth}
           $inputWidth={inputWidth}
           onClick={() => {
@@ -270,20 +278,20 @@ export const TextInput = React.forwardRef(
           <Input
             id={uniqueId}
             name={uniqueName}
-            aria-invalid={!!error}
+            aria-invalid={!!error || !!fieldsetError}
             aria-describedby={ariaDescribedByString}
             aria-labelledby={ariaLabelledBy}
             value={value}
             placeholder={!(disabled || readOnly) ? placeholder : undefined}
-            required={required}
+            required={required || fieldsetRequired}
             ref={combinedRef}
             autoFocus={autoFocus}
             onMouseDown={handleMouseDown}
             onClick={handleClick}
             onChange={onChange}
-            error={!!error}
+            error={!!error || fieldsetError}
             inputIcon={inputIcon}
-            size={size}
+            size={actualSize}
             prefix={prefix}
             leftChildren={leftChildren}
             type={type}

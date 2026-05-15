@@ -1,16 +1,22 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
-import Fieldset from "./fieldset.component";
+import Fieldset from ".";
 import Textbox from "../textbox";
-import { Select, Option } from "../select";
-import Form from "../form";
+import Decimal from "../decimal";
+import Password from "../password";
+import DateInput from "../date";
+import Textarea from "../textarea";
+import TextEditor from "../text-editor";
+import { Select, MultiSelect, FilterableSelect, Option } from "../select";
 import { Checkbox } from "../checkbox";
-import CarbonProvider from "../carbon-provider";
 
 const meta: Meta<typeof Fieldset> = {
   title: "Fieldset/Test",
   component: Fieldset,
+  argTypes: {
+    legendHint: { control: "text" },
+  },
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
     controls: {
@@ -22,136 +28,94 @@ const meta: Meta<typeof Fieldset> = {
 export default meta;
 type Story = StoryObj<typeof Fieldset>;
 
-export const Default: Story = ({ ...args }) => {
-  return (
+export const AllInputsSmall: Story = {
+  render: (args) => (
     <Fieldset {...args}>
-      <Textbox label="First Name" labelInline value={""} onChange={() => {}} />
-      <Textbox label="Last Name" labelInline value={""} onChange={() => {}} />
-      <Textbox label="Address" labelInline value={""} onChange={() => {}} />
-      <Textbox label="City" labelInline value={""} onChange={() => {}} />
-      <Checkbox
-        label="Checkbox"
-        labelWidth={17.25}
-        reverse
-        checked={false}
-        onChange={() => {}}
-      />
-      <Select
-        label="Country"
-        labelInline
-        labelWidth={30}
-        value={""}
-        onChange={() => {}}
-      >
-        <Option text="United Kingdom" value="uk" />
-        <Option text="Spain" value="sp" />
-        <Option text="France" value="fr" />
-        <Option text="Germany" value="ge" />
+      <Textbox label="Textbox" value="Input Text" onChange={() => {}} />
+      <Decimal label="Decimal" value="0.00" onChange={() => {}} />
+      <Password label="Password" value="Password" onChange={() => {}} />
+      <DateInput label="DateInput" value="10/10/2010" onChange={() => {}} />
+      <Checkbox label="Checkbox" checked onChange={() => {}} />
+      <Textarea label="Textarea" value="textarea" onChange={() => {}} />
+      <TextEditor labelText="TextEditor" onChange={() => {}} />
+      <Select label="Simple Select" value="1" onChange={() => {}}>
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
       </Select>
-      <Textbox value={""} onChange={() => {}} label="Telephone" labelInline />
+      <MultiSelect label="Multi Select" value={["1"]} onChange={() => {}}>
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </MultiSelect>
+      <FilterableSelect label="Filterable Select" value="1" onChange={() => {}}>
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </FilterableSelect>
     </Fieldset>
-  );
-};
-Default.storyName = "Default";
-Default.args = {
-  legend: "Personal Information",
+  ),
+  args: {
+    legend: "Fieldset Legend",
+    legendHint: "LegendHint",
+    error: "Error message (Fix is required)",
+    required: true,
+    size: "small",
+  },
 };
 
-export const InFormFieldSpacing: Story = () => (
-  <Form fieldSpacing={1}>
-    <Textbox
-      label="Separate Field"
-      labelInline
-      value={""}
-      onChange={() => {}}
-    />
-    <Fieldset>
-      <Textbox
-        label="Fieldset 1 Field 1"
-        labelInline
-        value={""}
-        onChange={() => {}}
-      />
-      <Textbox
-        label="Fieldset 1 Field 2"
-        labelInline
-        value={""}
-        onChange={() => {}}
-      />
-    </Fieldset>
-    <Fieldset>
-      <Textbox
-        label="Fieldset 2 Field 1"
-        labelInline
-        value={""}
-        onChange={() => {}}
-      />
-      <Textbox
-        label="Fieldset 2 Field 2"
-        labelInline
-        value={""}
-        onChange={() => {}}
-      />
-    </Fieldset>
-    <Textbox
-      label="Separate Field"
-      labelInline
-      value={""}
-      onChange={() => {}}
-    />
-  </Form>
-);
-InFormFieldSpacing.storyName = "In Form with fieldSpacing (legacy)";
+export const AllInputsMedium: Story = {
+  ...AllInputsSmall,
+  args: {
+    ...AllInputsSmall.args,
+    size: "medium",
+  },
+};
 
-export const Validation: Story = ({ ...args }) => (
-  <CarbonProvider validationRedesignOptIn>
-    <Form>
-      <Textbox label="Separate Field" value={""} onChange={() => {}} />
-      <Fieldset legend="Fieldset" {...args}>
+export const AllInputsLarge: Story = {
+  ...AllInputsSmall,
+  args: {
+    ...AllInputsSmall.args,
+    size: "large",
+  },
+};
+
+export const ChildVariations: Story = {
+  render: (args) => (
+    <>
+      <Fieldset legend="Fieldset 1" mb={4} {...args}>
         <Textbox
-          label="Address Line 1"
-          error="Message"
-          value={""}
+          label="Textbox required"
+          value="Input Text"
+          required
           onChange={() => {}}
         />
         <Textbox
-          label="Address Line 2"
-          error="Message"
-          value={""}
+          label="Textbox with error"
+          value="Input Text"
+          error="Error message"
           onChange={() => {}}
         />
-        <Checkbox label="Checkbox" checked={false} onChange={() => {}} />
         <Textbox
-          label="City"
-          warning="Message"
-          value={""}
+          label="Textbox with warning"
+          value="Input Text"
+          warning="Warning message"
           onChange={() => {}}
         />
-        <Select
-          label="Country"
-          warning="Message"
-          value={""}
-          onChange={() => {}}
-        >
-          <Option text="United Kingdom" value="uk" />
-          <Option text="Spain" value="sp" />
-          <Option text="France" value="fr" />
-          <Option text="Germany" value="ge" />
-        </Select>
         <Textbox
-          label="Postcode"
-          maxWidth="100px"
-          warning="Message"
-          value={""}
+          label="Textbox inline"
+          value="Input Text"
+          labelInline
           onChange={() => {}}
         />
       </Fieldset>
-      <Textbox label="Separate Field" value={""} onChange={() => {}} />
-    </Form>
-  </CarbonProvider>
-);
-Validation.storyName = "New Validation";
-Validation.parameters = {
-  chromatic: { disableSnapshot: false },
-  themeProvider: { chromatic: { theme: "sage" } },
+    </>
+  ),
+  args: {
+    legend: "Fieldset Legend",
+    legendHint: "LegendHint",
+  },
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
 };
