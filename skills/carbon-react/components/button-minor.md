@@ -22,8 +22,6 @@ description: Carbon ButtonMinor component props and usage examples.
 | disabled | boolean \| undefined | No |  |  |  | Apply disabled state to the button |  |
 | fullWidth | boolean \| undefined | No |  |  |  | Apply fullWidth style to the button |  |
 | iconPosition | ButtonIconPosition \| undefined | No |  |  |  | Defines an Icon position related to the children: "before" \| "after" |  |
-| iconTooltipMessage | string \| undefined | No |  |  |  | [Legacy] Provides a tooltip message when the icon is hovered. |  |
-| iconTooltipPosition | TooltipPositions \| undefined | No |  |  |  | [Legacy] Provides positioning when the tooltip is displayed. |  |
 | iconType | IconType \| undefined | No |  |  |  | Defines an Icon type within the button |  |
 | id | string \| undefined | No |  |  |  | id attribute |  |
 | isInPassword | boolean \| undefined | No |  |  |  |  |  |
@@ -72,6 +70,8 @@ description: Carbon ButtonMinor component props and usage examples.
 | buttonType | ButtonTypes \| undefined | No |  | Yes | Color variants for new business themes: "primary" \| "secondary" \| "tertiary" \| "darkBackground" |  |  |
 | destructive | boolean \| undefined | No |  | Yes | Apply destructive style to the button |  |  |
 | href | string \| undefined | No |  | Yes | Used to transform button into anchor |  |  |
+| iconTooltipMessage | string \| undefined | No |  | Yes | [Legacy] Provides a tooltip message when the icon is hovered. |  |  |
+| iconTooltipPosition | TooltipPositions \| undefined | No |  | Yes | [Legacy] Provides positioning when the tooltip is displayed. |  |  |
 | isWhite | boolean \| undefined | No |  | Yes | Whether to use the white-on-dark colour variant |  |  |
 | rel | string \| undefined | No |  | Yes | HTML rel attribute |  |  |
 | subtext | string \| undefined | No |  | Yes | Second text child, renders under main text, only when size is "large" |  |  |
@@ -592,49 +592,6 @@ description: Carbon ButtonMinor component props and usage examples.
         disabled
         size="large"
         iconType="bin"
-        aria-label="Delete"
-      />
-    </>
-  );
-}
-```
-
-
-### Icon Only With Tooltip
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <>
-      <ButtonMinor
-        mt={2}
-        ml={2}
-        mb={2}
-        buttonType="primary"
-        size="small"
-        iconType="bin"
-        iconTooltipMessage="This is a tooltip"
-        aria-label="Delete"
-      />
-      <ButtonMinor
-        mt={2}
-        ml={2}
-        mb={2}
-        destructive
-        iconType="bin"
-        iconTooltipMessage="This is a tooltip"
-        aria-label="Delete"
-      />
-      <ButtonMinor
-        mt={2}
-        ml={2}
-        mb={2}
-        disabled
-        size="large"
-        iconType="bin"
-        iconTooltipMessage="This is a tooltip"
         aria-label="Delete"
       />
     </>
