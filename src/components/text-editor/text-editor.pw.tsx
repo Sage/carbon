@@ -11,6 +11,7 @@ import TextEditorDefaultComponent, {
   TextEditorWithFooterOnSave,
   TextEditorWithFooterOnCancel,
   TextEditorWithMentions,
+  TextEditorWithOrderedListInitialValue,
 } from "./components.test-pw";
 import { EditorFormattedValues } from "./__internal__/__utils__/interfaces.types";
 
@@ -1811,6 +1812,163 @@ test.describe("Functionality tests", () => {
 
       await expect(titleInput).toBeEmpty();
       await expect(urlInput).toBeEmpty();
+    });
+
+    test("inserts a link into an empty editor that has never been focused", async ({
+      mount,
+      page,
+    }) => {
+      await mount(<TextEditorDefaultComponent />);
+
+      const linkButton = page.locator(
+        "button[data-role='pw-rte-hyperlink-button']",
+      );
+      await linkButton.click();
+
+      const titleInput = page.locator(
+        "div[data-role='pw-rte-hyperlink-text-field'] input",
+      );
+      await titleInput.fill("Carbon");
+      const urlInput = page.locator(
+        "div[data-role='pw-rte-hyperlink-link-field'] input",
+      );
+      await urlInput.fill("https://carbon.sage.com");
+      const saveButton = page.locator(
+        "button[data-role='pw-rte-hyperlink-save-button']",
+      );
+      await saveButton.click();
+
+      await expect(page.getByRole("link", { name: "Carbon" })).toBeVisible();
+    });
+
+    test("inserts a link after paragraph content when the editor has never been focused", async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <TextEditorDefaultComponent
+          initialValue={JSON.stringify({
+            root: {
+              children: [
+                {
+                  children: [
+                    {
+                      detail: 0,
+                      format: 0,
+                      mode: "normal",
+                      style: "",
+                      text: "Some existing text.",
+                      type: "text",
+                      version: 1,
+                    },
+                  ],
+                  direction: null,
+                  format: "",
+                  indent: 0,
+                  type: "paragraph",
+                  version: 1,
+                  textFormat: 0,
+                  textStyle: "",
+                },
+              ],
+              direction: null,
+              format: "",
+              indent: 0,
+              type: "root",
+              version: 1,
+            },
+          })}
+        />,
+      );
+
+      const linkButton = page.locator(
+        "button[data-role='pw-rte-hyperlink-button']",
+      );
+      await linkButton.click();
+
+      const titleInput = page.locator(
+        "div[data-role='pw-rte-hyperlink-text-field'] input",
+      );
+      await titleInput.fill("Carbon");
+      const urlInput = page.locator(
+        "div[data-role='pw-rte-hyperlink-link-field'] input",
+      );
+      await urlInput.fill("https://carbon.sage.com");
+      const saveButton = page.locator(
+        "button[data-role='pw-rte-hyperlink-save-button']",
+      );
+      await saveButton.click();
+
+      await expect(page.getByRole("link", { name: "Carbon" })).toBeVisible();
+    });
+
+    test("inserts a link after an ordered list when the editor has never been focused", async ({
+      mount,
+      page,
+    }) => {
+      await mount(<TextEditorWithOrderedListInitialValue />);
+
+      const linkButton = page.locator(
+        "button[data-role='pw-rte-hyperlink-button']",
+      );
+      await linkButton.click();
+
+      const titleInput = page.locator(
+        "div[data-role='pw-rte-hyperlink-text-field'] input",
+      );
+      await titleInput.fill("Carbon");
+      const urlInput = page.locator(
+        "div[data-role='pw-rte-hyperlink-link-field'] input",
+      );
+      await urlInput.fill("https://carbon.sage.com");
+      const saveButton = page.locator(
+        "button[data-role='pw-rte-hyperlink-save-button']",
+      );
+      await saveButton.click();
+
+      await expect(page.getByRole("link", { name: "Carbon" })).toBeVisible();
+    });
+
+    test("inserts a link when the editor root element is null (getRootElement returns null)", async ({
+      mount,
+      page,
+    }) => {
+      await mount(<TextEditorDefaultComponent />);
+
+      // Patch the Lexical editor's getRootElement to return null so that the
+      // `if (rootElement)` branch in handleOpenHyperlinkDialog is not entered,
+      // leaving editorWasFocusedRef.current as false and falling back to
+      // appending the link at the end of the document.
+      await page.evaluate(() => {
+        const editorRoot = document.querySelector("[contenteditable]");
+        if (editorRoot) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const lexicalEditor = (editorRoot as any).__lexicalEditor;
+          if (lexicalEditor) {
+            lexicalEditor.getRootElement = () => null;
+          }
+        }
+      });
+
+      const linkButton = page.locator(
+        "button[data-role='pw-rte-hyperlink-button']",
+      );
+      await linkButton.click();
+
+      const titleInput = page.locator(
+        "div[data-role='pw-rte-hyperlink-text-field'] input",
+      );
+      await titleInput.fill("Test Link");
+      const urlInput = page.locator(
+        "div[data-role='pw-rte-hyperlink-link-field'] input",
+      );
+      await urlInput.fill("https://example.com");
+      const saveButton = page.locator(
+        "button[data-role='pw-rte-hyperlink-save-button']",
+      );
+      await saveButton.click();
+
+      await expect(page.getByRole("link", { name: "Test Link" })).toBeVisible();
     });
   });
 });

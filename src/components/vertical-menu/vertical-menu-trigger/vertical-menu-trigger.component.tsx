@@ -18,7 +18,8 @@ export interface VerticalMenuTriggerProps extends PaddingProps, TagProps {
 
 export const VerticalMenuTrigger = ({
   height = "40px",
-  p = 2,
+  px = 2,
+  py = 1,
   onClick,
   children,
   ...rest
@@ -30,7 +31,8 @@ export const VerticalMenuTrigger = ({
       onClick={onClick as (ev: React.MouseEvent<HTMLButtonElement>) => void}
       as="button"
       height={height}
-      p={p}
+      px={px}
+      py={py}
       tabIndex={0}
       {...paddingProps}
       {...tagComponent("vertical-menu-trigger", rest)}

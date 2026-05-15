@@ -10,7 +10,7 @@ export default {
   parameters: {
     info: { disable: true },
     chromatic: {
-      disableSnapshot: true,
+      disableSnapshot: false,
     },
     themeProvider: { chromatic: { theme: "sage" } },
     controls: {
@@ -80,6 +80,7 @@ Default.storyName = "Default";
 Default.args = {
   dateFormat: ["dd", "mm", "yyyy"],
 };
+Default.parameters = { chromatic: { disableSnapshot: true } };
 
 export const Validations = (args: NumeralDateProps) => {
   const dateDefault = {
@@ -132,38 +133,7 @@ export const Validations = (args: NumeralDateProps) => {
     </>
   );
 };
-
 Validations.storyName = "New validations";
-Validations.parameters = {
-  chromatic: { disableSnapshot: false },
-  themeProvider: { chromatic: { theme: "sage" } },
-};
-
-export const InForm = () => {
-  const [dateValue, setDateValue] = useState<NumeralDateProps["value"]>({
-    dd: "",
-    mm: "",
-    yyyy: "",
-  });
-  const handleChange: NumeralDateProps["onChange"] = (event) => {
-    setDateValue(event.target.value);
-    action("change")(event.target.value);
-  };
-
-  return (
-    <form>
-      <NumeralDate
-        dateFormat={["dd", "mm", "yyyy"]}
-        label="Label"
-        value={dateValue}
-        onChange={handleChange}
-      />
-      <br />
-      <button type="submit">Submit</button>
-    </form>
-  );
-};
-InForm.storyName = "In form";
 
 export const InlineLabelsSizes = ({ ...args }) => {
   const [dateValue, setDateValue] = useState<NumeralDateProps["value"]>({
@@ -186,40 +156,45 @@ export const InlineLabelsSizes = ({ ...args }) => {
 
   return (
     <Box ml={2}>
-      <NumeralDate
-        mb={2}
-        label="inline small"
-        size="small"
-        {...args}
-        value={dateValue}
-        onChange={(event) => setDateValue(event.target.value)}
-      />
-      <NumeralDate
-        mb={2}
-        label="inline medium"
-        size="medium"
-        {...args}
-        value={dateValue2}
-        onChange={(event) => setDateValue2(event.target.value)}
-      />
-      <NumeralDate
-        mb={2}
-        label="inline large"
-        size="large"
-        {...args}
-        value={dateValue3}
-        onChange={(event) => setDateValue3(event.target.value)}
-      />
+      <form>
+        <NumeralDate
+          mb={2}
+          label="inline small"
+          size="small"
+          {...args}
+          value={dateValue}
+          onChange={(event) => setDateValue(event.target.value)}
+          required
+          labelHelp="labelHelp"
+        />
+        <NumeralDate
+          mb={2}
+          label="inline medium"
+          size="medium"
+          {...args}
+          value={dateValue2}
+          onChange={(event) => setDateValue2(event.target.value)}
+          required
+          labelHelp="labelHelp"
+        />
+        <NumeralDate
+          mb={2}
+          label="inline large"
+          size="large"
+          {...args}
+          value={dateValue3}
+          onChange={(event) => setDateValue3(event.target.value)}
+          required
+          labelHelp="labelHelp"
+        />
+        <br />
+        <button type="submit">Submit</button>
+      </form>
     </Box>
   );
 };
-
 InlineLabelsSizes.storyName = "Inline labels sizes";
 InlineLabelsSizes.args = {
   dateFormat: ["dd", "mm", "yyyy"],
   labelInline: true,
-};
-InlineLabelsSizes.parameters = {
-  chromatic: { disableSnapshot: false },
-  themeProvider: { chromatic: { theme: "sage" } },
 };
