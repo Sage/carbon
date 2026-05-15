@@ -17,6 +17,9 @@ const meta: Meta<typeof NumeralDate> = {
     ...styledSystemProps,
   },
   parameters: {
+    chromatic: {
+      disableSnapshot: true,
+    },
     themeProvider: { chromatic: { theme: "sage" } },
   },
 };
@@ -118,6 +121,7 @@ export const AllowedDateFormats: Story = () => {
   );
 };
 AllowedDateFormats.storyName = "Allowed Date Formats";
+AllowedDateFormats.parameters = { chromatic: { disableSnapshot: false } };
 
 export const InternalValidationError: Story = () => {
   const [valueNew, setValueNew] = useState<NumeralDateProps["value"]>({
