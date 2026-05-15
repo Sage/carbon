@@ -24,4 +24,5 @@ playwright/test-report
 playwright/.cache
 
 src/components/tokens-wrapper/__internal__/static-tokens/index.js
+src/components/*/__internal__/**/tokens/index.ts
 .hintrc

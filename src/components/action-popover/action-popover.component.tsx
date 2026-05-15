@@ -213,6 +213,18 @@ export const ActionPopover = forwardRef<
 
     const onButtonKeyDown = useCallback(
       (e: React.KeyboardEvent<HTMLElement>) => {
+        // Only handle keydown events originating from the trigger button itself.
+        // This prevents menu item keydowns (e.g., Enter on an href link) from bubbling
+        // up and being intercepted by this handler, which would prevent native navigation.
+        const target = e.target as HTMLElement | null;
+        const fromTrigger = Boolean(
+          target?.closest("[data-element='action-popover-button']"),
+        );
+
+        if (!fromTrigger) {
+          return;
+        }
+
         if (
           Events.isSpaceKey(e) ||
           Events.isDownKey(e) ||

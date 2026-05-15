@@ -106,7 +106,6 @@ export const ActionPopoverItem = ({
     selectedSubmenuRef,
     setSelectedSubmenuRef,
   } = useActionPopoverContext();
-  const isHref = !!href;
   const [containerPosition, setContainerPosition] = useState<
     ContainerPosition | undefined
   >(undefined);
@@ -249,12 +248,13 @@ export const ActionPopoverItem = ({
           }
           e.preventDefault();
         } else if (Events.isEnterKey(e)) {
-          if (isHref && download) {
-            ref.current?.click();
+          // In this popover keyboard flow, Enter on non-link items does not always reach the
+          // same activation path as mouse clicks, so we trigger the shared click handler
+          // explicitly. For link items, keep native anchor Enter behavior.
+          if (!href) {
+            e.preventDefault();
+            onClick(e as React.KeyboardEvent<HTMLButtonElement>);
           }
-          e.preventDefault();
-          // this type assertion should be safe as the onclick handler is designed to catch events propagating from the inner buttons
-          onClick(e as React.KeyboardEvent<HTMLButtonElement>);
         }
       } else if (Events.isEnterKey(e)) {
         e.stopPropagation();
@@ -265,9 +265,8 @@ export const ActionPopoverItem = ({
       submenu,
       currentSubmenuPosition,
       setSelectedSubmenuRef,
-      isHref,
-      download,
       onClick,
+      href,
     ],
   );
 
@@ -319,7 +318,7 @@ export const ActionPopoverItem = ({
         tabIndex={0}
         isDisabled={disabled}
         {...(disabled && { "aria-disabled": true })}
-        {...(isHref && { as: "a" as unknown as undefined, download, href })}
+        {...(!!href && { as: "a" as unknown as undefined, download, href })}
         {...(submenu && itemSubmenuProps)}
       >
         {submenu && checkRef(ref) && (

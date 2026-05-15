@@ -1,3 +1,45 @@
+## [159.2.5](https://github.com/Sage/carbon/compare/v159.2.4...v159.2.5) (2026-05-14)
+
+### Bug Fixes
+
+* **text-editor:** ensure that links can be added after initial render ([8a37110](https://github.com/Sage/carbon/commit/8a37110b6d3bc409f012a0d99595b19f4f0b4dac))
+
+## [159.2.4](https://github.com/Sage/carbon/compare/v159.2.3...v159.2.4) (2026-05-13)
+
+### Bug Fixes
+
+* **use-media-query:** optimise hook to avoid uneccessary rerenders ([f33bec4](https://github.com/Sage/carbon/commit/f33bec42947d6ad2e5c6dd02a3c973571087fd0f)), closes [#7884](https://github.com/Sage/carbon/issues/7884)
+
+## [159.2.3](https://github.com/Sage/carbon/compare/v159.2.2...v159.2.3) (2026-05-13)
+
+### Bug Fixes
+
+* **verticalmenu:** padding fix on trigger ([76ef6e7](https://github.com/Sage/carbon/commit/76ef6e786dbf200f2975848d202a0bbb678b8446))
+
+## [159.2.2](https://github.com/Sage/carbon/compare/v159.2.1...v159.2.2) (2026-05-13)
+
+### Bug Fixes
+
+* **tokens:** update token script to ensure any needed JS tokens are included in build ([bfd99a3](https://github.com/Sage/carbon/commit/bfd99a3559ffed324f90d7ec6ca2c480a5199256))
+
+## [159.2.1](https://github.com/Sage/carbon/compare/v159.2.0...v159.2.1) (2026-05-12)
+
+### Bug Fixes
+
+* **action-popover-item:** ensure enter keydown triggers href redirect ([0c87d7f](https://github.com/Sage/carbon/commit/0c87d7ff0520c4c06be16894375d2c7f311eb50a)), closes [#7945](https://github.com/Sage/carbon/issues/7945)
+
+## [159.2.0](https://github.com/Sage/carbon/compare/v159.1.0...v159.2.0) (2026-05-11)
+
+### Features
+
+* **dialog:** align component with fusion DS ([9e729f0](https://github.com/Sage/carbon/commit/9e729f067b1bafba6534084193084ef56ed78da7))
+
+## [159.1.0](https://github.com/Sage/carbon/compare/v159.0.1...v159.1.0) (2026-05-11)
+
+### Features
+
+* **icon:** added 3 new icons and fixed another ([746685f](https://github.com/Sage/carbon/commit/746685fd594a3a002d62ac3644eebbd2f8c69b4a))
+
 ## [159.0.1](https://github.com/Sage/carbon/compare/v159.0.0...v159.0.1) (2026-05-08)
 
 ### Bug Fixes

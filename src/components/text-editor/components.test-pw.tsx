@@ -1,6 +1,7 @@
 import React from "react";
 import TextEditor from "./text-editor.component";
 import MentionsPlugin from "./__internal__";
+import { createFromHTML } from "./__internal__/__utils__/helpers";
 
 const TextEditorDefaultComponent = ({ ...props }) => {
   return (
@@ -144,5 +145,15 @@ export const TextEditorWithMentions = ({ ...args }) => (
         ]}
       />
     }
+  />
+);
+
+export const TextEditorWithOrderedListInitialValue = () => (
+  <TextEditor
+    labelText="Playwright Example"
+    namespace="pw-rte"
+    initialValue={createFromHTML(
+      `<p>Some text.</p><ol><li value="1">A list item</li></ol>`,
+    )}
   />
 );
