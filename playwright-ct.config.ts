@@ -23,8 +23,15 @@ export default defineConfig({
   maxFailures: process.env.CI ? 10 : undefined,
 
   reporter: process.env.CI
-    ? "blob"
-    : [["html", { outputFolder: resolve(playwrightDir, "./test-report") }]],
+    ? [
+        ["blob"],
+        [resolve(playwrightDir, "./support/accessibility-reporter.ts")],
+      ]
+    : [
+        ["list"],
+        ["html", { outputFolder: resolve(playwrightDir, "./test-report") }],
+        [resolve(playwrightDir, "./support/accessibility-reporter.ts")],
+      ],
 
   use: {
     trace: "retain-on-failure",
