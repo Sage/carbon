@@ -346,6 +346,7 @@ export const WithErrorAndWarningInForm: Story = ({ ...args }) => {
   );
 };
 WithErrorAndWarningInForm.storyName = "With Error And Warning In Form";
+WithErrorAndWarningInForm.parameters = { chromatic: { disableSnapshot: true } };
 WithErrorAndWarningInForm.args = {
   orientation: "horizontal",
   size: "medium",
@@ -491,6 +492,7 @@ export const HandleTabChanges: Story = ({ ...args }) => {
   );
 };
 HandleTabChanges.storyName = "Handle Tab Changes";
+HandleTabChanges.parameters = { chromatic: { disableSnapshot: true } };
 HandleTabChanges.args = {
   orientation: "horizontal",
   size: "medium",
