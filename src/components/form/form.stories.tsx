@@ -15,8 +15,6 @@ import DateInput, { DateChangeEvent } from "../date";
 import { Select, MultiSelect, Option } from "../select";
 import { RadioButton, RadioButtonGroup } from "../radio-button";
 import { Checkbox } from "../checkbox";
-import Divider from "../divider";
-import Switch from "../switch";
 import InlineInputs from "../inline-inputs";
 import Typography from "../typography";
 import Link from "../link";
@@ -30,6 +28,7 @@ const defaultOpenState = isChromatic();
 const meta: Meta<typeof Form> = {
   title: "Form",
   component: Form,
+  subcomponents: { RequiredFieldsIndicator },
   args: {
     onSubmit: (ev: React.FormEvent) => {
       ev.preventDefault();
@@ -342,10 +341,17 @@ export const WithButtonsAlignedToTheLeft: Story = (args: FormProps) => (
 );
 WithButtonsAlignedToTheLeft.storyName = "With Buttons Aligned to the Left";
 
+export const RequiredFieldsIndicatorStory: Story = () => (
+  <RequiredFieldsIndicator m={2}>
+    Indicates required information
+  </RequiredFieldsIndicator>
+);
+RequiredFieldsIndicatorStory.storyName = "Required Fields Indicator";
+
 export const WithBothOptionalOrRequired: Story = (args: FormProps) => (
   <Box m={1}>
     <RequiredFieldsIndicator mb={2}>
-      <Typography variant="b">Fill in all fields marked with</Typography>
+      <Typography variant="b">Indicates required information</Typography>
     </RequiredFieldsIndicator>
     <Form
       {...args}
@@ -402,13 +408,11 @@ export const WithBothOptionalOrRequired: Story = (args: FormProps) => (
           id="group-1-input-1"
           value="group-1-input-1"
           label="Radio Option 1"
-          labelWidth={10}
         />
         <RadioButton
           id="group-1-input-2"
           value="group-1-input-2"
           label="Radio Option 2"
-          labelWidth={10}
         />
       </RadioButtonGroup>
       <RadioButtonGroup
@@ -422,13 +426,11 @@ export const WithBothOptionalOrRequired: Story = (args: FormProps) => (
           id="group-2-input-1"
           value="group-2-input-1"
           label="Radio Option 1"
-          labelWidth={10}
         />
         <RadioButton
           id="group-2-input-2"
           value="group-2-input-2"
           label="Radio Option 2"
-          labelWidth={10}
         />
       </RadioButtonGroup>
       <Checkbox
@@ -705,164 +707,6 @@ InDialogFullScreenWithStickyFooter.parameters = {
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
-export const FormAlignmentExample: Story = (args: FormProps) => {
-  const [date, setDate] = useState("04/04/2019");
-  return (
-    <Form
-      {...args}
-      leftSideButtons={<Button>Cancel</Button>}
-      saveButton={
-        <Button buttonType="primary" type="submit">
-          Save
-        </Button>
-      }
-      fieldSpacing={4}
-    >
-      <Textbox
-        key="input-one"
-        label="Field 1"
-        placeholder="placeholder"
-        name="textbox"
-        labelInline
-        labelWidth={10}
-        inputWidth={30}
-        fieldHelp="This is some help text"
-        value=""
-        onChange={() => {}}
-      />
-      <Textbox
-        key="input-two"
-        label="Field 2"
-        placeholder="placeholder"
-        name="textbox"
-        labelInline
-        labelWidth={10}
-        inputWidth={30}
-        labelSpacing={2}
-        value=""
-        onChange={() => {}}
-      />
-      <RadioButtonGroup
-        name="legend"
-        legend="Legend"
-        legendInline
-        legendWidth={10}
-        legendSpacing={2}
-        legendAlign="right"
-        value="group-1-input-1"
-        onChange={() => "RADIO CHANGE"}
-      >
-        <RadioButton
-          id="group-1-input-1"
-          value="group-1-input-1"
-          label="Radio Option 1"
-          labelWidth={10}
-        />
-        <RadioButton
-          id="group-1-input-2"
-          value="group-1-input-2"
-          label="Radio Option 2"
-          labelWidth={10}
-        />
-      </RadioButtonGroup>
-      <DateInput
-        name="date"
-        label="Date picker"
-        labelInline
-        labelWidth={10}
-        value={date}
-        onChange={(ev: DateChangeEvent) =>
-          setDate(ev.target.value.formattedValue)
-        }
-      />
-      <RadioButtonGroup
-        name="nolegend"
-        legend="Legend above"
-        ml="10%"
-        value={"group-2-input-2"}
-        onChange={() => "RADIO CHANGE"}
-      >
-        <RadioButton
-          id="group-2-input-1"
-          value="group-2-input-1"
-          label="Radio Option 1"
-          labelWidth={10}
-        />
-        <RadioButton
-          id="group-2-input-2"
-          value="group-2-input-2"
-          label="Radio Option 2"
-          labelWidth={10}
-        />
-      </RadioButtonGroup>
-      <Textarea
-        key="input-three"
-        label="Field 3"
-        placeholder="placeholder"
-        name="textbox"
-        labelInline
-        labelWidth={10}
-        inputWidth={30}
-        value=""
-        onChange={() => {}}
-      />
-      <Checkbox
-        name="checkbox1"
-        label="Checkbox 1"
-        ml="10%"
-        checked={false}
-        onChange={() => {}}
-      />
-      <Checkbox
-        name="checkbox2"
-        label="Checkbox 2"
-        ml="10%"
-        checked={false}
-        onChange={() => {}}
-      />
-      <Box ml="10%" mr="60%">
-        <Divider type="horizontal" mb={7} />
-      </Box>
-      <Button buttonType="tertiary" ml="calc(10% - 24px)">
-        Tertiary
-      </Button>
-      <Textbox
-        key="input-four"
-        label="Field 4"
-        placeholder="placeholder"
-        name="textbox"
-        labelInline
-        labelWidth={10}
-        inputWidth={30}
-        value=""
-        onChange={() => {}}
-      />
-      <Switch
-        name="switch"
-        label="Switch"
-        labelInline
-        labelWidth={10}
-        labelSpacing={2}
-        mb={4}
-        checked
-        onChange={() => "SWITCH CHANGE"}
-      />
-      <Textbox
-        key="input-five"
-        label="Field 5"
-        placeholder="placeholder"
-        name="textbox"
-        labelInline
-        labelWidth={10}
-        inputWidth={30}
-        value=""
-        onChange={() => {}}
-      />
-    </Form>
-  );
-};
-FormAlignmentExample.storyName = "Form Alignment Example";
-
 export const WithLabelsInline: Story = () => (
   <Form
     saveButton={
@@ -884,8 +728,18 @@ export const WithLabelsInline: Story = () => (
       labelWidth={30}
       labelId="inline-inputs"
     >
-      <Textbox aria-labelledby="inline-inputs" value="" onChange={() => {}} />
-      <Textbox aria-labelledby="inline-inputs" value="" onChange={() => {}} />
+      <Textbox
+        aria-labelledby="inline-inputs"
+        value=""
+        onChange={() => {}}
+        mb={0}
+      />
+      <Textbox
+        aria-labelledby="inline-inputs"
+        value=""
+        onChange={() => {}}
+        mb={0}
+      />
       <Select aria-labelledby="inline-inputs" value="" onChange={() => {}}>
         <Option value="1" text="option 1" key="1" />
         <Option value="2" text="option 2" key="2" />
@@ -918,6 +772,11 @@ export const WithLabelsInline: Story = () => (
         <Option value="3" text="option 3" key="3" />
       </Select>
     </InlineInputs>
+    <Textbox
+      aria-labelledby="inline-inputs-second"
+      value=""
+      onChange={() => {}}
+    />
   </Form>
 );
 WithLabelsInline.storyName = "With Labels Inline";

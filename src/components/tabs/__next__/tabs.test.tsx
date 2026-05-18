@@ -445,10 +445,6 @@ test("shows the validation icons regardless of whether tab panels are active", a
       <TabPanel id="tab-panel-3" tabId="tab-3">
         <Textbox onChange={() => {}} value="" warning />
       </TabPanel>
-
-      <TabPanel id="tab-panel-4" tabId="tab-4">
-        <Textbox onChange={() => {}} value="" info />
-      </TabPanel>
     </Tabs>,
   );
 
@@ -458,9 +454,6 @@ test("shows the validation icons regardless of whether tab panels are active", a
   const tab3 = screen.getByRole("tab", {
     name: "Tab Three The Tab Three tab contains warnings",
   });
-  const tab4 = screen.getByRole("tab", {
-    name: "Tab Four The Tab Four tab contains information",
-  });
 
   const errorIcon = within(tab2).getByTestId("icon-error");
   expect(errorIcon).toBeInTheDocument();
@@ -469,10 +462,6 @@ test("shows the validation icons regardless of whether tab panels are active", a
   const warningIcon = within(tab3).getByTestId("icon-warning");
   expect(warningIcon).toBeInTheDocument();
   expect(warningIcon).toHaveStyle("color: rgb(214, 67, 9)");
-
-  const infoIcon = within(tab4).getByTestId("icon-info");
-  expect(infoIcon).toBeInTheDocument();
-  expect(infoIcon).toHaveStyle("color: rgb(0, 96, 167)");
 });
 
 test("renders correctly when a default tab is specified", () => {

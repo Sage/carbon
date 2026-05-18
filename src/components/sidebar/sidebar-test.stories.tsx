@@ -181,6 +181,7 @@ export const WithForm: StoryObj<typeof Sidebar> = {
     </Sidebar>
   ),
 };
+WithForm.parameters = { chromatic: { disableSnapshot: true } };
 
 const WithStepFlowExample = () => {
   const [isOpen, setIsOpen] = useState(isChromatic());

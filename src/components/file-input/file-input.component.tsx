@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { MarginProps } from "styled-system";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { ValidationProps } from "../../__internal__/validations";
-import { InputProps } from "../../__internal__/input";
+import { InputProps } from "../../__internal__/legacy-input";
 import { InputBehaviour } from "../../__internal__/input-behaviour";
 import FormField from "../../__internal__/form-field";
 import { TagProps } from "../../__internal__/utils/helpers/tags";
@@ -13,7 +13,7 @@ import {
   StyledHiddenFileInput,
   StyledFileInputPresentation,
 } from "./file-input.style";
-import ErrorBorder from "../textbox/textbox.style";
+import ErrorBorder from "../../__internal__/legacy-error-border/error-border.style";
 import ButtonMinor from "../button-minor";
 import Typography from "../typography";
 import FileUploadStatus, {
@@ -21,7 +21,7 @@ import FileUploadStatus, {
 } from "./__internal__/file-upload-status";
 import Box from "../box";
 import useLocale from "../../hooks/__internal__/useLocale";
-import HintText from "../../__internal__/hint-text";
+import HintText from "../../__internal__/legacy-hint-text";
 
 export interface FileInputProps
   extends Pick<ValidationProps, "error">,

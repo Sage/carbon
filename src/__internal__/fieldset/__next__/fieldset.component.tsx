@@ -13,9 +13,9 @@ import {
   StyledLegend,
   StyledFieldsetContentWrapper,
 } from "./fieldset.style";
-import ErrorBorder from "../../../components/textbox/textbox.style";
+import ErrorBorder from "../../legacy-error-border/error-border.style";
 import ValidationMessage from "../../validation-message";
-import HintText from "../../hint-text";
+import HintText from "../../legacy-hint-text";
 import guid from "../../utils/helpers/guid";
 import { filterStyledSystemMarginProps } from "../../../style/utils";
 

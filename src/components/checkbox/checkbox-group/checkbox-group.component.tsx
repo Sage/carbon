@@ -85,7 +85,6 @@ export const CheckboxGroup = ({
           warning={warning}
           isRequired={required}
           validationMessagePositionTop={validationMessagePositionTop}
-          width="fit-content"
           {...tagComponent("checkboxgroup", rest)}
           {...filterStyledSystemMarginProps(rest)}
         >

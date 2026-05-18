@@ -1,4 +1,5 @@
 import { type ModalList } from "./__internal__/modal/modal-manager";
+import { type QueryEntry } from "./hooks/useMediaQuery/useMediaQuery";
 
 declare global {
   module "*.png";
@@ -16,6 +17,7 @@ declare global {
       originalValues: string[];
       restoreValues?: (() => void) | null;
     };
+    __CARBON_INTERNALS_MEDIA_QUERY_CACHE?: Map<string, QueryEntry>;
   }
 }
 

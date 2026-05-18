@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import { margin } from "styled-system";
 import StyledDateInput from "../date/date.style";
-import { StyledLabelContainer } from "../../__internal__/label/label.style";
-import { StyledInputPresentationContainer } from "../../__internal__/input/input-presentation.style";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 
 export interface StyledDateRangeProps {
@@ -27,14 +25,6 @@ const StyledDateRange = styled.div.attrs(applyBaseTheme)<StyledDateRangeProps>`
 
   & ${StyledDateInput}:first-of-type {
     margin-right: var(--spacing300);
-  }
-
-  ${StyledLabelContainer} {
-    width: auto;
-  }
-
-  ${StyledInputPresentationContainer} {
-    flex: auto;
   }
 `;
 

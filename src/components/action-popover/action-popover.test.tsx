@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { render, screen, act, within } from "@testing-library/react";
+import { render, screen, act, within, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as floatingUi from "@floating-ui/dom";
 
@@ -654,6 +654,47 @@ test.each(["ArrowDown", "Space", "Enter", "ArrowUp"] as const)(
     expect(onOpen).toHaveBeenCalledTimes(1);
   },
 );
+
+test("pressing a non-handled key when focused on the menu button does not open the menu", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <ActionPopover>
+      <ActionPopoverItem>example item 1</ActionPopoverItem>
+      <ActionPopoverItem>example item 2</ActionPopoverItem>
+    </ActionPopover>,
+  );
+
+  screen.getByRole("button").focus();
+  await user.keyboard("a");
+
+  expect(screen.queryByRole("list")).not.toBeInTheDocument();
+});
+
+test("pressing Enter on an href menu item does not get default-prevented by the trigger keydown handler", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <ActionPopover>
+      <ActionPopoverItem href="/target-page">Go to target</ActionPopoverItem>
+    </ActionPopover>,
+  );
+
+  await user.click(screen.getByRole("button"));
+
+  const link = screen.getByRole("link", { name: "Go to target" });
+  link.focus();
+
+  const event = new KeyboardEvent("keydown", {
+    key: "Enter",
+    bubbles: true,
+    cancelable: true,
+  });
+
+  fireEvent(link, event);
+
+  expect(event.defaultPrevented).toBe(false);
+});
 
 test.each(["ArrowDown", "Space", "Enter"] as const)(
   "pressing %s key when focused on the menu button selects the first focusable item",

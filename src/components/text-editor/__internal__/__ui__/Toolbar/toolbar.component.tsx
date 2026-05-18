@@ -34,9 +34,8 @@ import { TEXT_EDITOR_ACTION_TYPES } from "../../__utils__/constants";
 import Textbox from "../../../../textbox";
 import { $createLinkNode } from "@lexical/link";
 import Dialog from "../../../../dialog";
-import Form from "../../../../form";
+import Form, { RequiredFieldsIndicator } from "../../../../form";
 import Box from "../../../../box";
-import Typography from "../../../../typography";
 
 const Toolbar = ({
   contentEditorRef,
@@ -77,6 +76,23 @@ const Toolbar = ({
   const [linkUrlError, setLinkUrlError] = useState(false);
   const linkTextRef = useRef<HTMLInputElement>(null);
   const linkUrlRef = useRef<HTMLInputElement>(null);
+  // Track whether the editor had DOM focus when the hyperlink dialog was opened.
+  // This distinguishes a real user-placed cursor from the stale selection that
+  // Lexical restores from the initialValue JSON (which is never cleared when the
+  // editor has never been focused).
+  const editorWasFocusedRef = useRef(false);
+
+  const handleOpenHyperlinkDialog = useCallback(() => {
+    const rootElement = editor.getRootElement();
+    // Test has been covered in a Playwright test as it relies on DOM focus which is difficult to test in a JSDOM environment.
+    // istanbul ignore else -
+    if (rootElement) {
+      editorWasFocusedRef.current = rootElement.contains(
+        document.activeElement,
+      );
+    }
+    setHyperlinkDialogOpen(true);
+  }, [editor]);
 
   // Get the locale to enable translations
   const locale = useLocale();
@@ -224,27 +240,28 @@ const Toolbar = ({
       // Create a link node with the provided text and URL
       editor.update(() => {
         const root = $getRoot();
-        const numberOfChildren = root.getChildrenSize();
-        const selection = $getSelection();
         const linkNode = $createLinkNode(linkUrl);
         linkNode.append($createTextNode(linkText));
 
-        if (numberOfChildren === 0) {
-          // If there are no children, create a paragraph and append the link
-          const paragraphNode = $createParagraphNode();
-          paragraphNode.append(linkNode);
-          root.append(paragraphNode);
-          paragraphNode.selectEnd(); // move cursor after the inserted link
+        // Only use the Lexical selection if the editor was genuinely focused when
+        // the dialog opened. Without this check, Lexical's stale JSON-initialised
+        // selection (which is never cleared when the editor has never been focused)
+        // would be used, causing the link to be inserted into the wrong place or
+        // silently dropped.
+        const selection = editorWasFocusedRef.current ? $getSelection() : null;
+
+        if ($isRangeSelection(selection)) {
+          selection.insertNodes([linkNode]);
         } else {
-          // If there are children, insert link at the current cursor position
-          if ($isRangeSelection(selection)) {
-            selection.insertNodes([linkNode]);
+          // No user-placed cursor - append the link to the end of the document
+          const last = root.getLastChild();
+          if ($isParagraphNode(last)) {
+            last.append(linkNode);
           } else {
-            // Fallback: append to the last paragraph if selection is not available
-            const last = root.getLastChild();
-            if ($isParagraphNode(last)) {
-              last.append(linkNode);
-            }
+            // Last node is not a paragraph (e.g. a list) - create one to hold the link
+            const paragraphNode = $createParagraphNode();
+            paragraphNode.append(linkNode);
+            root.append(paragraphNode);
           }
         }
       });
@@ -370,7 +387,7 @@ const Toolbar = ({
                   !showTextFormattingSection &&
                   !showListFormattingSection
                 }
-                setDialogOpen={setHyperlinkDialogOpen}
+                setDialogOpen={handleOpenHyperlinkDialog}
                 size={size}
               />
             </ButtonGroup>
@@ -417,13 +434,9 @@ const Toolbar = ({
           >
             {/* Layout container */}
             <Box display="flex" flexDirection="column" gap="16px">
-              {/* TO-DO: Replace hard-coded overrides from Typography with supported variants when supported */}
-              <Typography fontSize="14px" fontWeight="500" lineHeight="21px">
-                <Typography as="span" color="#FF0000">
-                  *
-                </Typography>{" "}
+              <RequiredFieldsIndicator>
                 {locale.textEditor.hyperlink.formKey?.()}
-              </Typography>
+              </RequiredFieldsIndicator>
 
               {/* Block layout container */}
               <Box display="flex" gap="24px" flexWrap="wrap">

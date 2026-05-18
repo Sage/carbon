@@ -11,7 +11,6 @@ import { fr as frLocale } from "date-fns/locale/fr";
 import { frCA as frCALocale } from "date-fns/locale/fr-CA";
 import { enUS as enUSLocale } from "date-fns/locale/en-US";
 
-import CarbonProvider from "../carbon-provider";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 
 import DateInput, { DateChangeEvent } from "./date.component";
@@ -81,60 +80,6 @@ afterEach(() => {
 
 afterAll(() => {
   jest.useRealTimers();
-});
-
-test("should render the presentation element with expected width when no `size` prop is passed", () => {
-  render(<DateInput label="label" onChange={() => {}} value="" />);
-  const presentation = screen.getAllByRole("presentation")[1];
-
-  expect(presentation).toHaveStyle({ width: "135px" });
-});
-
-test("should render the presentation element with expected width when `size` is 'small'", () => {
-  render(<DateInput label="label" size="small" onChange={() => {}} value="" />);
-  const presentation = screen.getAllByRole("presentation")[1];
-
-  expect(presentation).toHaveStyle({ width: "120px" });
-});
-
-test("should render the presentation element with expected width when `size` is 'medium'", () => {
-  render(
-    <DateInput label="label" size="medium" onChange={() => {}} value="" />,
-  );
-  const presentation = screen.getAllByRole("presentation")[1];
-
-  expect(presentation).toHaveStyle({ width: "135px" });
-});
-
-test("should render the presentation element with expected width when `size` is 'large'", () => {
-  render(<DateInput label="label" size="large" onChange={() => {}} value="" />);
-  const presentation = screen.getAllByRole("presentation")[1];
-
-  expect(presentation).toHaveStyle({ width: "140px" });
-});
-
-test("should set 100% width on the presentation element when `inputWidth` is passed", () => {
-  render(
-    <DateInput
-      label="label"
-      inputWidth={50}
-      onChange={() => {}}
-      value=""
-      labelInline
-    />,
-  );
-  const presentation = screen.getAllByRole("presentation")[1];
-
-  expect(presentation).toHaveStyle("width: 100%");
-});
-
-test("should set 100% width on the presentation element when `maxWidth` is passed", () => {
-  render(
-    <DateInput label="label" maxWidth="200px" onChange={() => {}} value="" />,
-  );
-  const presentation = screen.getAllByRole("presentation")[1];
-
-  expect(presentation).toHaveStyle("width: 100%");
 });
 
 test("should accept ref as an object and pass it to the input", () => {
@@ -259,6 +204,9 @@ test("picker does not close when input icon is double clicked", async () => {
 
   const calendarIcon = screen.getByTestId("input-icon-toggle");
   await user.click(calendarIcon);
+
+  expect(screen.getByRole("grid")).toBeVisible();
+
   await user.dblClick(screen.getByRole("textbox"));
 
   expect(screen.getByRole("grid")).toBeVisible();
@@ -640,22 +588,6 @@ test("should close the picker, update the value and refocus the input element wh
     expect(input).toHaveFocus();
   });
   expect(input).toHaveValue("11/04/2019");
-});
-
-test("should render the help icon when the `labelHelp` prop is passed and display tooltip when user hovers mouse over icon", async () => {
-  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-  render(
-    <DateInput
-      label="label"
-      onChange={() => {}}
-      value=""
-      labelHelp="help text"
-    />,
-  );
-  const helpIcon = screen.getByRole("button", { name: "help" });
-  await user.hover(helpIcon);
-
-  expect(screen.getByRole("tooltip")).toHaveTextContent("help text");
 });
 
 test("should render the input with the expected required attribute when the `required` prop is true", () => {
@@ -1663,212 +1595,50 @@ test("should call `onChange` with expected parameters but not update the input v
   });
 });
 
-describe("when the `validationRedesignOptIn` prop is falsy", () => {
-  test("should render tooltip and validation icon when `error` is passed a string value and the user hovers the mouse over the input", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    render(
-      <CarbonProvider>
-        <DateInput
-          label="label"
-          onChange={() => {}}
-          value=""
-          error="error message"
-        />
-      </CarbonProvider>,
-    );
-    const input = screen.getByRole("textbox");
-    const icon = screen.getByTestId("icon-error");
-    await user.hover(input);
+test("should render the validation message when an `error` is passed a string value and the user hovers the mouse over the input", () => {
+  render(
+    <DateInput
+      label="label"
+      onChange={() => {}}
+      value=""
+      error="error message"
+    />,
+  );
+  const input = screen.getByRole("textbox");
 
-    expect(input).toHaveAttribute("aria-invalid", "true");
-    expect(icon).toBeInTheDocument();
-    expect(screen.getByRole("tooltip")).toHaveTextContent("error message");
-  });
-
-  test("should render tooltip and validation icon when `validationOnLabel` is set and `error` is passed a string value and the user hovers the mouse over the input", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    render(
-      <CarbonProvider>
-        <DateInput
-          label="label"
-          onChange={() => {}}
-          value=""
-          error="error message"
-          validationOnLabel
-        />
-      </CarbonProvider>,
-    );
-    const input = screen.getByRole("textbox");
-    await user.hover(input);
-
-    expect(screen.getByRole("tooltip")).toHaveTextContent("error message");
-  });
-
-  test("should render tooltip and validation icon when `validationOnLabel` is set and `error` is passed a string value and the user hovers the mouse over the label", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    render(
-      <CarbonProvider>
-        <DateInput
-          label="label"
-          onChange={() => {}}
-          value=""
-          error="error message"
-          validationOnLabel
-        />
-      </CarbonProvider>,
-    );
-    const label = screen.getByText("label");
-    await user.hover(label);
-
-    expect(screen.getByRole("tooltip")).toHaveTextContent("error message");
-  });
-
-  test("should not render tooltip or validation icon when `error` is passed a boolean value", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    render(
-      <CarbonProvider>
-        <DateInput label="label" onChange={() => {}} value="" error />
-      </CarbonProvider>,
-    );
-    const input = screen.getByRole("textbox");
-    await user.hover(input);
-
-    expect(input).toHaveAttribute("aria-invalid", "true");
-    expect(screen.queryByTestId("icon-error")).not.toBeInTheDocument();
-    expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
-  });
-
-  test("should render tooltip and validation icon when an `warning` is passed a string value and the user hovers the mouse over the input", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    render(
-      <CarbonProvider>
-        <DateInput
-          label="label"
-          onChange={() => {}}
-          value=""
-          warning="warning message"
-        />
-      </CarbonProvider>,
-    );
-    const input = screen.getByRole("textbox");
-    const icon = screen.getByTestId("icon-warning");
-    await user.hover(input);
-
-    expect(input).toHaveAttribute("aria-invalid", "false");
-    expect(icon).toBeInTheDocument();
-    expect(screen.getByRole("tooltip")).toHaveTextContent("warning message");
-  });
-
-  test("should not render tooltip or validation icon when `warning` is passed a boolean value", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    render(
-      <CarbonProvider>
-        <DateInput label="label" onChange={() => {}} value="" warning />
-      </CarbonProvider>,
-    );
-    const input = screen.getByRole("textbox");
-    await user.hover(input);
-
-    expect(input).toHaveAttribute("aria-invalid", "false");
-    expect(screen.queryByTestId("icon-warning")).not.toBeInTheDocument();
-    expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
-  });
-
-  test("should render tooltip and validation icon when an `info` is passed a string value and the user hovers the mouse over the input", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    render(
-      <CarbonProvider>
-        <DateInput
-          label="label"
-          onChange={() => {}}
-          value=""
-          info="info message"
-        />
-      </CarbonProvider>,
-    );
-    const input = screen.getByRole("textbox");
-    const icon = screen.getByTestId("icon-info");
-    await user.hover(input);
-
-    expect(input).toHaveAttribute("aria-invalid", "false");
-    expect(icon).toBeInTheDocument();
-    expect(screen.getByRole("tooltip")).toHaveTextContent("info message");
-  });
-
-  test("should not render tooltip or validation icon when `info` is passed a boolean value", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    render(
-      <CarbonProvider>
-        <DateInput label="label" onChange={() => {}} value="" info />
-      </CarbonProvider>,
-    );
-    const input = screen.getByRole("textbox");
-    await user.hover(input);
-
-    expect(input).toHaveAttribute("aria-invalid", "false");
-    expect(screen.queryByTestId("icon-info")).not.toBeInTheDocument();
-    expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
-  });
+  expect(input).toHaveAttribute("aria-invalid", "true");
+  expect(screen.getByText("error message")).toBeInTheDocument();
 });
 
-describe("when the `validationRedesignOptIn` prop is true", () => {
-  test("should render the validation message when an `error` is passed a string value and the user hovers the mouse over the input", () => {
-    render(
-      <CarbonProvider validationRedesignOptIn>
-        <DateInput
-          label="label"
-          onChange={() => {}}
-          value=""
-          error="error message"
-        />
-      </CarbonProvider>,
-    );
-    const input = screen.getByRole("textbox");
+test("should not render the validation message when `error` is passed a boolean value", () => {
+  render(<DateInput label="label" onChange={() => {}} value="" error />);
+  const input = screen.getByRole("textbox");
 
-    expect(input).toHaveAttribute("aria-invalid", "true");
-    expect(screen.getByText("error message")).toBeInTheDocument();
-  });
+  expect(input).toHaveAttribute("aria-invalid", "true");
+  expect(screen.queryByText("error message")).not.toBeInTheDocument();
+});
 
-  test("should not render the validation message when `error` is passed a boolean value", () => {
-    render(
-      <CarbonProvider validationRedesignOptIn>
-        <DateInput label="label" onChange={() => {}} value="" error />
-      </CarbonProvider>,
-    );
-    const input = screen.getByRole("textbox");
+test("should render the validation message when an `warning` is passed a string value and the user hovers the mouse over the input", () => {
+  render(
+    <DateInput
+      label="label"
+      onChange={() => {}}
+      value=""
+      warning="warning message"
+    />,
+  );
+  const input = screen.getByRole("textbox");
 
-    expect(input).toHaveAttribute("aria-invalid", "true");
-    expect(screen.queryByText("error message")).not.toBeInTheDocument();
-  });
+  expect(input).toHaveAttribute("aria-invalid", "false");
+  expect(screen.getByText("warning message")).toBeInTheDocument();
+});
 
-  test("should render the validation message when an `warning` is passed a string value and the user hovers the mouse over the input", () => {
-    render(
-      <CarbonProvider validationRedesignOptIn>
-        <DateInput
-          label="label"
-          onChange={() => {}}
-          value=""
-          warning="warning message"
-        />
-      </CarbonProvider>,
-    );
-    const input = screen.getByRole("textbox");
+test("should not render the validation message when `warning` is passed a boolean value", () => {
+  render(<DateInput label="label" onChange={() => {}} value="" warning />);
+  const input = screen.getByRole("textbox");
 
-    expect(input).toHaveAttribute("aria-invalid", "false");
-    expect(screen.getByText("warning message")).toBeInTheDocument();
-  });
-
-  test("should not render the validation message when `warning` is passed a boolean value", () => {
-    render(
-      <CarbonProvider validationRedesignOptIn>
-        <DateInput label="label" onChange={() => {}} value="" warning />
-      </CarbonProvider>,
-    );
-    const input = screen.getByRole("textbox");
-
-    expect(input).toHaveAttribute("aria-invalid", "false");
-    expect(screen.queryByText("warning message")).not.toBeInTheDocument();
-  });
+  expect(input).toHaveAttribute("aria-invalid", "false");
+  expect(screen.queryByText("warning message")).not.toBeInTheDocument();
 });
 
 test("should call `onPickerOpen` callback when the user opens the DatePicker and `onPickerClose` callback when the user closes the DatePicker", async () => {
@@ -1972,8 +1742,9 @@ test("should fire the onPickerClose callback when the input has focus and shift-
   expect(onPickerClose).toHaveBeenCalled();
 });
 
-[true, false].forEach((disablePortal) => {
-  test(`should tab correctly when \`disablePortal\` is ${disablePortal}`, async () => {
+test.each([true, false])(
+  `should tab correctly when \`disablePortal\` is %s`,
+  async (disablePortal) => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     const onChange = jest.fn();
 
@@ -1984,17 +1755,14 @@ test("should fire the onPickerClose callback when the input has focus and shift-
         disablePortal={disablePortal}
       />,
     );
-    const input = screen.getByRole("textbox");
-
     const calendarIcon = screen.getByTestId("input-icon-toggle");
     await user.click(calendarIcon);
-    await user.click(input);
-
     await user.tab();
+    const calendar = await screen.findByRole("grid");
 
-    expect(screen.getByRole("grid")).toBeInTheDocument();
+    expect(calendar).toBeVisible();
     expect(
       screen.getByRole("button", { name: "Previous month" }),
     ).toHaveFocus();
-  });
-});
+  },
+);
