@@ -48,7 +48,7 @@ test("should apply small font size when `size` prop is 'small'", () => {
   );
 });
 
-test("should apply disabled colour when `disabled` prop is true", () => {
+test("should apply disabled colour and set aria-disabled when `disabled` prop is true", () => {
   render(
     <HintText size="medium" disabled>
       hint text
@@ -60,6 +60,7 @@ test("should apply disabled colour when `disabled` prop is true", () => {
     "color",
     "var(--input-labelset-label-disabled)",
   );
+  expect(element).toHaveAttribute("aria-disabled", "true");
 });
 
 test("should apply alt colour when `disabled` prop is false", () => {

@@ -31,7 +31,8 @@ const StyledButtonToggleGroup = styled.div
     disabled &&
     css`
       cursor: not-allowed;
-      box-shadow: inset 0px 0px 0px 1px var(--colorsActionDisabled600);
+      box-shadow: inset 0px 0px 0px 1px
+        var(--button-typical-toggle-border-disabled);
     `}
 
   ${({ fullWidth }) =>

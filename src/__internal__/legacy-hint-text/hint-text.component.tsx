@@ -48,6 +48,7 @@ export const HintText = ({
   return (
     <StyledHintText
       align={align}
+      aria-disabled={isDisabled || undefined}
       data-element="input-hint"
       data-role="hint-text"
       fontWeight={fontWeight}

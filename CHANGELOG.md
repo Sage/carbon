@@ -1,3 +1,9 @@
+## [159.3.0](https://github.com/Sage/carbon/compare/v159.2.5...v159.3.0) (2026-05-15)
+
+### Features
+
+* **required-fields-indicator:** align component with fusion DS ([a1f49c7](https://github.com/Sage/carbon/commit/a1f49c779a8a01eb9c9552120853236e21fee84f))
+
 ## [159.2.5](https://github.com/Sage/carbon/compare/v159.2.4...v159.2.5) (2026-05-14)
 
 ### Bug Fixes
