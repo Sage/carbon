@@ -20,5 +20,8 @@
     "typescriptreact"
   ],
   "typescript.tsdk": "node_modules/typescript/lib",
-  "typescript.preferences.importModuleSpecifier": "relative"
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "github.copilot.chat.codeGeneration.instructions": [
+    { "file": ".vscode/copilot.md" }
+  ]
 }
