@@ -140,6 +140,40 @@ test("when the 'title' prop is passed as a string, the correct element and text 
   expect(screen.getByText("baz")).toBeVisible();
 });
 
+test.each(["Cr\u00E8me Br\u00FBl\u00E9e", "!@#$%^&*()_+-=[]{};':\",./<>?"])(
+  "renders category text when category contains '%s'",
+  (categoryText) => {
+    render(
+      <StepFlow
+        title="baz"
+        currentStep={5}
+        totalSteps={6}
+        category={categoryText}
+        ref={() => {}}
+      />,
+    );
+
+    expect(screen.getByText(categoryText)).toBeVisible();
+  },
+);
+
+test.each(["Cr\u00E8me Br\u00FBl\u00E9e", "!@#$%^&*()_+-=[]{};':\",./<>?"])(
+  "renders title text when title contains '%s'",
+  (titleText) => {
+    render(
+      <StepFlow
+        title={titleText}
+        currentStep={5}
+        totalSteps={6}
+        category="bar"
+        ref={() => {}}
+      />,
+    );
+
+    expect(screen.getByText(titleText)).toBeVisible();
+  },
+);
+
 test("when the 'title' prop is passed via the `StepFlowTitle` sub component, the correct element and text renders", () => {
   const stepFlowNode = (
     <>
@@ -330,6 +364,26 @@ test("when the 'showCloseIcon' prop is true, the correct element renders", () =>
   );
 
   expect(screen.getByLabelText("Close")).toBeVisible();
+});
+
+test("calls onDismiss callback when close icon is clicked", async () => {
+  const user = userEvent.setup();
+  const onDismiss = jest.fn();
+
+  render(
+    <StepFlow
+      title="baz"
+      totalSteps={6}
+      currentStep={1}
+      showCloseIcon
+      onDismiss={onDismiss}
+      ref={() => {}}
+    />,
+  );
+
+  await user.click(screen.getByLabelText("Close"));
+
+  expect(onDismiss).toHaveBeenCalledTimes(1);
 });
 
 describe.each(generateLimitedVariations())(

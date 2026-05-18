@@ -1,11 +1,16 @@
 import React from "react";
+import Box from "../box";
+import Icon from "../icon";
+import Image from "../image";
 import Typography from "../typography";
-import { StepFlow, StepFlowProps } from ".";
+import pointSvg from "../../../.assets/point.svg";
+import { StepFlow, StepFlowProps, StepFlowTitle } from ".";
 
 export default {
   title: "Step Flow/Test",
   parameters: {
     info: { disable: true },
+    themeProvider: { chromatic: { theme: "sage" } },
     chromatic: {
       disableSnapshot: true,
     },
@@ -115,3 +120,128 @@ export const DefaultWithAriaDescribedBy = () => (
 );
 
 DefaultWithAriaDescribedBy.storyName = "Default with aria-describedby";
+
+export const AllChromaticScenarios = () => {
+  const titleNodeWithIcon = (
+    <Box display="flex" alignItems="center" gap="8px">
+      <Icon type="bin" />
+      <StepFlowTitle titleString="Step title" />
+    </Box>
+  );
+
+  const titleNodeWithSROnlyTitle = (
+    <Box display="flex" alignItems="center" gap="8px">
+      <StepFlowTitle
+        titleVariant="h2"
+        titleString="Step title"
+        screenReaderOnlyTitle="Step Title with a pointer image"
+      />
+      <Image alt="" src={pointSvg} decorative size={50} />
+    </Box>
+  );
+
+  return (
+    <Box
+      display="grid"
+      gridTemplateColumns="repeat(2, minmax(0, 1fr))"
+      gap="32px"
+      p={4}
+    >
+      <Box>
+        <Typography mb={2} fontWeight="700">
+          Default
+        </Typography>
+        <StepFlow
+          title="Step title"
+          titleVariant="h2"
+          currentStep={1}
+          totalSteps={6}
+        />
+      </Box>
+
+      <Box>
+        <Typography mb={2} fontWeight="700">
+          Title Node
+        </Typography>
+        <StepFlow
+          title={titleNodeWithIcon}
+          titleVariant="h2"
+          currentStep={1}
+          totalSteps={6}
+        />
+      </Box>
+
+      <Box>
+        <Typography mb={2} fontWeight="700">
+          Title Node – Screen Reader Only Title
+        </Typography>
+        <StepFlow
+          title={titleNodeWithSROnlyTitle}
+          currentStep={1}
+          totalSteps={6}
+        />
+      </Box>
+
+      <Box>
+        <Typography mb={2} fontWeight="700">
+          Category
+        </Typography>
+        <StepFlow
+          category="Main goal"
+          title="Step title"
+          currentStep={1}
+          totalSteps={6}
+          titleVariant="h2"
+        />
+      </Box>
+
+      <Box>
+        <Typography mb={2} fontWeight="700">
+          Show Progress Indicator
+        </Typography>
+        <StepFlow
+          category="Main goal"
+          title="Step title"
+          currentStep={1}
+          totalSteps={6}
+          showProgressIndicator
+          titleVariant="h2"
+        />
+      </Box>
+
+      <Box>
+        <Typography mb={2} fontWeight="700">
+          Show Total Steps
+        </Typography>
+        <StepFlow
+          category="Main goal"
+          title="Step title"
+          currentStep={5}
+          totalSteps={6}
+          showProgressIndicator
+          titleVariant="h2"
+        />
+      </Box>
+
+      <Box>
+        <Typography mb={2} fontWeight="700">
+          Show Close Icon
+        </Typography>
+        <StepFlow
+          category="Main goal"
+          title="Step title"
+          currentStep={1}
+          totalSteps={6}
+          showCloseIcon
+          onDismiss={() => undefined}
+          titleVariant="h2"
+        />
+      </Box>
+    </Box>
+  );
+};
+
+AllChromaticScenarios.storyName = "All Chromatic Scenarios";
+AllChromaticScenarios.parameters = {
+  chromatic: { disableSnapshot: false },
+};
