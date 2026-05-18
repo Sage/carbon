@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
-import { action } from "@storybook/addon-actions";
-import { StoryObj } from "@storybook/react";
+import { action } from "storybook/actions";
+import { StoryObj } from "@storybook/react-vite";
 
 import Button, { ButtonProps } from ".";
 import Box from "../box";

@@ -1,6 +1,6 @@
 import React from "react";
 import dayjs from "dayjs";
-import advancedFormat from "dayjs/plugin/advancedFormat";
+import advancedFormat from "dayjs/plugin/advancedFormat.js";
 import { test, expect } from "../../../playwright/helpers/base-test";
 import {
   DateInputCustom,

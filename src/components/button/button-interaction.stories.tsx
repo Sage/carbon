@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { action } from "@storybook/addon-actions";
-import { StoryObj } from "@storybook/react";
-import { userEvent, within, expect } from "@storybook/test";
+import { action } from "storybook/actions";
+import { StoryObj } from "@storybook/react-vite";
+import { userEvent, within, expect } from "storybook/test";
 
 import Button, { ButtonProps } from ".";
 import Box from "../box";

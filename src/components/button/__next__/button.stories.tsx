@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import React, { useRef, useState } from "react";
 import Button, { ButtonHandle, ButtonProps } from "./button.component";
 import Box from "../../box";

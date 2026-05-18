@@ -1,5 +1,5 @@
 import React from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 import Textbox from "../src/components/textbox";
 import Textarea from "../src/components/textarea";
@@ -10,7 +10,7 @@ import Form, { RequiredFieldsIndicator } from "../src/components/form";
 
 const meta: Meta = {
   title: "Documentation/Validations",
-  tags: ["hideInSidebar"],
+  tags: ["!dev"],
   parameters: {
     chromatic: { disableSnapshot: true },
   },
