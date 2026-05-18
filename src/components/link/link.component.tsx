@@ -18,8 +18,7 @@ import BatchSelectionContext from "../batch-selection/__internal__/batch-selecti
 import Logger from "../../__internal__/utils/logger";
 
 export interface LinkProps
-  extends StyledLinkProps,
-    React.AriaAttributes,
+  extends React.AriaAttributes,
     Pick<React.AnchorHTMLAttributes<HTMLAnchorElement>, "download">,
     TagProps {
   /** An href for an anchor tag. */
@@ -67,6 +66,25 @@ export interface LinkProps
   /** [Legacy] Positions the tooltip with the link.
    * @deprecated The tooltipPosition prop in Link is deprecated and will soon be removed. */
   tooltipPosition?: "bottom" | "left" | "right" | "top";
+  /** @deprecated The disabled state of the link. This prop is deprecated and will soon be removed. */
+  disabled?: boolean;
+  /** Specifies when the link underline should be displayed. */
+  underline?: "always" | "hover" | "never";
+  /** Which side of the link to the render the link. */
+  iconAlign?: "left" | "right";
+  /** Allows to create skip link */
+  isSkipLink?: boolean;
+  /** Allows link styling to be updated for light or dark backgrounds */
+  variant?: Variants;
+  hasFocus?: boolean;
+  /** Sets the correct link size */
+  linkSize?: "medium" | "large";
+  /** Sets the colour styling when component is rendered on a dark background */
+  inverse?: boolean;
+  /** @deprecated The 'isDarkBackground' prop in Link is deprecated and will soon be removed. Please use 'inverse' prop instead. */
+  isDarkBackground?: boolean;
+  /** Sets the link style to bold */
+  bold?: boolean;
 }
 
 let deprecatedDisabledWarning = false;
@@ -78,7 +96,7 @@ const deprecatedVariantValueWarning: Partial<Record<Variants, boolean>> = {
   neutral: false,
 };
 
-type Variants = Exclude<StyledLinkProps["variant"], undefined>;
+type Variants = Exclude<StyledLinkProps["$variant"], undefined>;
 
 const variantAlias: Partial<Record<Variants, Variants>> = {
   default: "typical",
@@ -276,20 +294,20 @@ export const Link = React.forwardRef<
 
     return (
       <StyledLink
-        isSkipLink={isSkipLink}
-        disabled={isDisabled}
-        underline={underline}
-        iconAlign={iconAlign}
+        $isSkipLink={isSkipLink}
+        $disabled={isDisabled}
+        $underline={underline}
+        $iconAlign={iconAlign}
         className={className}
-        hasContent={Boolean(children)}
-        variant={effectiveVariant}
-        inverse={effectiveInverse}
-        isMenuItem={inMenu}
+        $hasContent={Boolean(children)}
+        $variant={effectiveVariant}
+        $inverse={effectiveInverse}
+        $isMenuItem={inMenu}
         {...tagComponent("link", rest)}
         {...(isSkipLink && { "data-element": "skip-link" })}
-        hasFocus={hasFocus}
-        linkSize={linkSize}
-        bold={bold}
+        $hasFocus={hasFocus}
+        $linkSize={linkSize}
+        $bold={bold}
       >
         {createLinkBasedOnType()}
       </StyledLink>
