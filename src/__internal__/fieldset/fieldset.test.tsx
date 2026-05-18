@@ -254,7 +254,7 @@ describe("when `applyNewValidation` is provided", () => {
     expect(inputs).toBeRequired();
   });
 
-  it("renders with expected styles when `isDisabled` is true", () => {
+  it("renders with expected styles and set aria-disabled when `isDisabled` is true", () => {
     render(
       <Fieldset
         applyNewValidation
@@ -269,8 +269,16 @@ describe("when `applyNewValidation` is provided", () => {
     const legend = screen.getByText("Legend");
     const hint = screen.getByText("input hint");
 
-    expect(legend).toHaveStyleRule("color", "var(--colorsUtilityYin030)");
-    expect(hint).toHaveStyleRule("color", "var(--colorsUtilityYin030)");
+    expect(legend).toHaveStyleRule(
+      "color",
+      "var(--input-labelset-label-disabled)",
+    );
+    expect(hint).toHaveStyleRule(
+      "color",
+      "var(--input-labelset-label-disabled)",
+    );
+    expect(legend).toHaveAttribute("aria-disabled", "true");
+    expect(hint).toHaveAttribute("aria-disabled", "true");
   });
 
   // coverage
