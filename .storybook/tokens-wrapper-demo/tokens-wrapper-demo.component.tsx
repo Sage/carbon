@@ -2,7 +2,6 @@
 import React from "react";
 
 import TokensWrapper from "../../src/components/tokens-wrapper";
-import useModeSwitcher from "../../src/components/tokens-wrapper/__internal__/hooks";
 
 interface TokensWrapperDemoProps {
   children?: React.ReactNode;
@@ -13,18 +12,9 @@ const TokensWrapperDemo = ({
   children,
   modeOverride,
 }: TokensWrapperDemoProps) => {
-  const modePreference = useModeSwitcher(modeOverride);
-
   return (
-    <TokensWrapper>
-      <div
-        // this div is added to demo dark mode in storybook
-        data-component="tokens-wrapper-demo"
-        className={`carbon-${modePreference}-mode`}
-        data-carbon-theme={modePreference === "dark" ? "dark" : "light"}
-      >
-        {children}
-      </div>
+    <TokensWrapper modeSupportOptIn modeOverride={modeOverride}>
+      {children}
     </TokensWrapper>
   );
 };
