@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { action } from "storybook/actions";
 import { StoryFn } from "@storybook/react-vite";
 
-import Decimal, { CustomEvent } from "./decimal.component";
+import Decimal, { CustomEvent, DecimalProps } from "./decimal.component";
+import Box from "../box";
+import { Select, Option } from "../select";
 import {
   CommonTextboxArgs,
   commonTextboxArgTypes,
@@ -188,3 +190,102 @@ export const DecimalCustomOnChangeStory = (args: CommonTextboxArgs) => {
 };
 DecimalCustomOnChangeStory.storyName = "Custom onChange";
 DecimalCustomOnChangeStory.args = commonArgs;
+
+export const PopoverContainerWithSizes = () => {
+  const sizes = ["small", "medium", "large"] as const;
+  const [values, setValues] = useState<Record<string, string>>({
+    small: "0.01",
+    medium: "0.01",
+    large: "0.01",
+  });
+  const [selectValues, setSelectValues] = useState<Record<string, string>>({
+    small: "1",
+    medium: "1",
+    large: "1",
+  });
+
+  return (
+    <>
+      {sizes.map((size) => (
+        <Decimal
+          key={size}
+          label={`Decimal - ${size}`}
+          size={size}
+          value={values[size]}
+          onChange={(e: CustomEvent) =>
+            setValues((prev) => ({
+              ...prev,
+              [size]: e.target.value.rawValue,
+            }))
+          }
+          popoverContainerContent={
+            <Box m="24px">
+              <Select
+                name={`select-${size}`}
+                id={`select-${size}`}
+                label="Select a colour"
+                value={selectValues[size]}
+                onChange={(ev) =>
+                  setSelectValues((prev) => ({
+                    ...prev,
+                    [size]: ev.target.value,
+                  }))
+                }
+              >
+                <Option text="Amber" value="1" />
+                <Option text="Black" value="2" />
+                <Option text="Blue" value="3" />
+                <Option text="Green" value="4" />
+                <Option text="Red" value="5" />
+              </Select>
+            </Box>
+          }
+          mb={2}
+        />
+      ))}
+    </>
+  );
+};
+PopoverContainerWithSizes.storyName = "Popover Container With Sizes";
+
+export const PopoverContainerSizeControlled: StoryFn<
+  Pick<DecimalProps, "size">
+> = ({ size }: Pick<DecimalProps, "size">) => {
+  const [value, setValue] = useState("0.01");
+  const [selectValue, setSelectValue] = useState("1");
+
+  return (
+    <Decimal
+      label="Decimal"
+      size={size}
+      value={value}
+      onChange={(e: CustomEvent) => setValue(e.target.value.rawValue)}
+      popoverContainerContent={
+        <Box m="24px">
+          <Select
+            name="simple"
+            id="simple"
+            label="Select a colour"
+            value={selectValue}
+            onChange={(ev) => setSelectValue(ev.target.value)}
+          >
+            <Option text="Amber" value="1" />
+            <Option text="Black" value="2" />
+            <Option text="Blue" value="3" />
+            <Option text="Green" value="4" />
+            <Option text="Red" value="5" />
+          </Select>
+        </Box>
+      }
+      maxWidth="40%"
+    />
+  );
+};
+PopoverContainerSizeControlled.storyName = "Popover Container Size Controlled";
+PopoverContainerSizeControlled.args = { size: "medium" };
+PopoverContainerSizeControlled.argTypes = {
+  size: {
+    options: ["small", "medium", "large"],
+    control: { type: "select" },
+  },
+};

@@ -37,6 +37,12 @@ interface Locale {
     };
     dateFormatOverride?: string;
   };
+  decimal: {
+    ariaLabels: {
+      popoverTrigger: () => string;
+      popoverContent: () => string;
+    };
+  };
   dialog: {
     ariaLabels: {
       close: () => string;

@@ -157,8 +157,8 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             {...rest}
           />
           {inputIcon}
+          {children}
         </div>
-        {children}
       </InputContainer>
     );
   },
