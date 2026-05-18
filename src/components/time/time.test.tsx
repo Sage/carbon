@@ -1086,6 +1086,19 @@ test("should have the expected `data-` attributes set on the root element", () =
   expect(fieldset).toHaveAttribute("data-role", "bar");
 });
 
+test("should apply the name attribute on the root element", () => {
+  render(
+    <Time
+      value={{ hours: "", minutes: "" }}
+      onChange={() => {}}
+      name="test-name"
+    />,
+  );
+
+  const fieldset = screen.getByRole("group");
+  expect(fieldset).toHaveAttribute("name", "test-name");
+});
+
 test("should apply the custom `data-` attributes on the input wrappers when they are passed via `hoursInputProps` and `minutesInputProps`", () => {
   render(
     <Time
