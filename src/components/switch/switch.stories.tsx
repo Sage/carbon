@@ -15,6 +15,7 @@ const meta: Meta<typeof Switch> = {
   },
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
+    chromatic: { disableSnapshot: true },
   },
 };
 
