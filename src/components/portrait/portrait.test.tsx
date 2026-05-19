@@ -88,7 +88,9 @@ test("renders with a square shape, if the `shape` prop is value is `square`", ()
 
   const portrait = screen.getByTestId("portrait");
   expect(portrait).toHaveAttribute("shape", "square");
-  expect(portrait).toHaveStyle("border-radius: 0px");
+  expect(portrait).toHaveStyle(
+    "border-radius: var(--global-radius-container-m)",
+  );
 });
 
 test("renders with a circle shape, if the `shape` prop is value is `circle`", () => {
@@ -96,7 +98,9 @@ test("renders with a circle shape, if the `shape` prop is value is `circle`", ()
 
   const portrait = screen.getByTestId("portrait");
   expect(portrait).toHaveAttribute("shape", "circle");
-  expect(portrait).toHaveStyle("border-radius: var(--borderRadiusCircle)");
+  expect(portrait).toHaveStyle(
+    "border-radius: var(--global-radius-container-circle)",
+  );
 });
 
 test("renders a tooltip, populated with a custom value that is passed to the 'tooltipMessage' prop", async () => {
@@ -290,6 +294,31 @@ describe("custom background colours", () => {
     const container = screen.getByTestId("portrait");
     expect(container).toHaveStyle("background-color: #000000");
     expect(container).toHaveStyleRule("color", "#A0FFAF");
+  });
+
+  it("overrides the colours set by the `darkBackground`, `backgroundColor`, and `foregroundColor` props if the `variant` is set", () => {
+    render(
+      <Portrait
+        data-role="portrait"
+        darkBackground
+        backgroundColor="#000000"
+        foregroundColor="#A0FFAF"
+        variant="lime"
+      />,
+    );
+
+    const icon = screen.getByTestId("icon");
+    expect(icon).toBeVisible();
+    expect(icon).toHaveAttribute("type", "individual");
+
+    const container = screen.getByTestId("portrait");
+    expect(container).toHaveStyle(
+      "background-color: var(--profile-swatches-lime-bg-default)",
+    );
+    expect(container).toHaveStyleRule(
+      "color",
+      "var(--profile-swatches-lime-label-default)",
+    );
   });
 
   it("supports design tokens being used for the `backgroundColor` and `foregroundColor` props", () => {
