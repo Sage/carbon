@@ -1,30 +1,15 @@
 import { margin } from "styled-system";
 import styled, { css } from "styled-components";
 
-import StyledInputIconToggle from "../../__internal__/input-icon-toggle/input-icon-toggle.style";
-import StyledIcon from "../icon/icon.style";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
-import StyledFormField from "../../__internal__/form-field/form-field.style";
+import TextInput from "../textbox/__internal__/__next__";
 
 interface StyledSearchProps {
-  name?: string;
-  isFocused?: boolean;
-  searchHasValue?: boolean;
-  searchWidth?: string;
-  maxWidth?: string;
-  showSearchButton?: boolean;
-  inverse?: boolean;
+  $inverse?: boolean;
 }
 
-const StyledSearch = styled.div.attrs(applyBaseTheme)<StyledSearchProps>`
-  ${({
-    isFocused,
-    searchWidth,
-    maxWidth,
-    searchHasValue,
-    showSearchButton,
-    inverse,
-  }) => {
+const StyledSearch = styled(TextInput).attrs(applyBaseTheme)<StyledSearchProps>`
+  ${({ $inverse }) => {
     return css`
       input[type="search"]::-webkit-search-cancel-button {
         -webkit-appearance: none;
@@ -43,12 +28,13 @@ const StyledSearch = styled.div.attrs(applyBaseTheme)<StyledSearchProps>`
       }
 
       button {
+        border-radius: var(--global-radius-none, 0)
+          var(--global-radius-action-M, 8px) var(--global-radius-action-M, 8px)
+          var(--global-radius-none, 0);
 
-      &:hover {
-      background-color: var(--button-typical-subtle-bg-hover);
-      }
-      
-        border-radius: var(--global-radius-none, 0) var(--global-radius-action-M, 8px) var(--global-radius-action-M, 8px) var(--global-radius-none, 0);
+        &:hover {
+          background-color: var(--button-typical-subtle-bg-hover);
+        }
       }
 
       button span[type="search"] {
@@ -59,49 +45,46 @@ const StyledSearch = styled.div.attrs(applyBaseTheme)<StyledSearchProps>`
         }
       }
 
-      ${inverse && css `
-
+      ${$inverse &&
+      css`
         label {
-        color: var(--input-labelset-inverse-label-default);
+          color: var(--input-labelset-inverse-label-default);
         }
 
-        [data-role="hint-text"]{
-        color: var(--input-labelset-inverse-label-alt);
+        [data-role="hint-text"] {
+          color: var(--input-labelset-inverse-label-alt);
         }
 
-       [data-role="input-container"] {
-       background-color: var(--input-typical-inverse-bg-default);
-       }
+        [data-role="input-container"] {
+          background-color: var(--input-typical-inverse-bg-default);
+        }
 
-        [data-role="input-container"] .input-text-container input[type="search"] {
+        [data-role="input-container"]
+          .input-text-container
+          input[type="search"] {
           color: var(--input-typical-inverse-txt-default);
         }
 
         input[type="search"]::-webkit-search-cancel-button {
-         background-color: var(--button-typical-subtle-inverse-label-default);
+          background-color: var(--button-typical-subtle-inverse-label-default);
         }
 
-        button { 
-
-        &: hover {
-        background-color: var(--button-typical-subtle-inverse-bg-hover);
-        }
-        
-        span[type="search"] {
-          color: var(--button-typical-subtle-inverse-label-default);
-
-          &: hover {
-          color: var(--button-typical-subtle-inverse-label-hover);
+        button {
+          span[type="search"] {
+            color: var(--button-typical-subtle-inverse-label-default);
           }
-      }}
 
-        `}
+          &:hover {
+            background-color: var(--button-typical-subtle-inverse-bg-hover);
+
+            span[type="search"] {
+              color: var(--button-typical-subtle-inverse-label-hover);
+            }
+          }
+        }
+      `}
 
       ${margin}
-      width: ${searchWidth ? `${searchWidth}` : "100%"};
-      max-width: ${maxWidth ? `${maxWidth}` : "100%"};
-      display: inline-flex;
-      align-items: center;
     `;
   }}
 `;

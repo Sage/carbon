@@ -1,34 +1,28 @@
 import React from "react";
-import Search, { SearchProps } from ".";
+import Search from ".";
 import Box from "../box";
 
-export const SearchComponent = (
-  props: Partial<SearchProps> & { value?: string },
-) => {
-  const [internalValue, setInternalValue] = React.useState(props.value ?? "");
+export const SearchComponentWithLabelHintAndError = () => {
   return (
     <Search
-      placeholder="Search..."
-      onChange={(e) => setInternalValue(e.target.value)}
-      value={internalValue}
-      {...props}
+      label="Search"
+      value="Default with label, hint and error"
+      onChange={() => {}}
+      inputHint="Hint text"
+      error="Error message"
     />
   );
 };
 
-export const SearchComponentDarkBackground = (
-  props: Omit<SearchProps, "onChange" | "value">,
-) => {
-  const [value, setValue] = React.useState("foo");
-  return (
-    <Box width="700px" height="108px" bg="#003349">
-      <Search
-        placeholder="Search..."
-        onChange={(e) => setValue(e.target.value)}
-        value={value}
-        variant="dark"
-        {...props}
-      />
-    </Box>
-  );
-};
+export const SearchComponentInverseWithLabelHintAndError = () => (
+  <Box width="700px" height="108px" backgroundColor="#000000">
+    <Search
+      label="Search"
+      inputHint="Hint text"
+      value="Inverse with label, hint and error"
+      onChange={() => {}}
+      inverse
+      error="Error message"
+    />
+  </Box>
+);

@@ -1,70 +1,17 @@
-import React, { useEffect, useRef, useState } from "react";
-import { action } from "@storybook/addon-actions";
+import React, { useEffect, useRef } from "react";
 import Box from "../box";
 import Search from ".";
-import { SearchEvent, SearchHandle } from "./search.component";
+import { SearchHandle } from "./search.component";
 
 export default {
   title: "Search/Test",
   parameters: {
     info: { disable: true },
     chromatic: {
-      disableSnapshot: true,
+      disableSnapshot: false,
     },
     themeProvider: { chromatic: { theme: "sage" } },
   },
-  argTypes: {
-    variant: {
-      options: ["default", "dark"],
-      control: {
-        type: "select",
-      },
-    },
-  },
-};
-
-export const Default = ({ placeholder, ...args }: { placeholder?: string }) => {
-  const [value, setValue] = useState("");
-  const handleChange = (event: SearchEvent) => {
-    setValue(event.target.value);
-    action("change")(event.target.value);
-  };
-  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
-    action("blur")(event.target.value);
-  };
-  const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
-    action("focus")(event.target.value);
-  };
-  const handleClick = (event: SearchEvent) => {
-    action("click")(event.target.value);
-  };
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    action("keydown")(event.target);
-  };
-
-  return (
-    <Search
-      onChange={handleChange}
-      onBlur={handleBlur}
-      onClick={handleClick}
-      onFocus={handleFocus}
-      onKeyDown={handleKeyDown}
-      value={value}
-      placeholder={placeholder}
-      name="search_name"
-      id="search_id"
-      {...args}
-    />
-  );
-};
-
-Default.storyName = "Default";
-
-Default.args = {
-  placeholder: "Search...",
-  searchWidth: "",
-  threshold: 3,
-  variant: undefined,
 };
 
 export const HoverStyling = () => (
@@ -92,7 +39,6 @@ export const HoverStyling = () => (
 );
 HoverStyling.storyName = "Hover Styling";
 HoverStyling.parameters = {
-  chromatic: { disableSnapshot: false },
   pseudo: {
     hover: [
       "[data-role='search-default'] .search-button",
@@ -134,108 +80,101 @@ export const FocusStyling = () => (
 );
 FocusStyling.storyName = "Focus Styling";
 FocusStyling.parameters = {
-  chromatic: { disableSnapshot: false },
   pseudo: {
     focus: "[data-role='search-button-focus'] .search-button",
   },
 };
 
 export const RegressionMatrix = () => (
-  <>
-    <Box mb={3} width="700px" p={4}>
+  <Box
+    width="820px"
+    display="grid"
+    gridTemplateColumns="repeat(2, minmax(0, 1fr))"
+    gap={3}
+  >
+    <Box p={4}>
       <Search
         onChange={() => {}}
-        value=""
-        placeholder="Default configuration"
+        value="Default configuration"
         aria-label="Default configuration"
       />
     </Box>
 
-    <Box mb={3} width="700px" p={4} backgroundColor="#000000">
+    <Box p={4} backgroundColor="#000000">
       <Search
         onChange={() => {}}
-        value=""
+        value="Inverse configuration"
         inverse
-        placeholder="Inverse configuration"
         aria-label="Inverse configuration"
       />
     </Box>
 
-    <Box mb={3} width="700px" p={4}>
+    <Box p={4}>
       <Search
         onChange={() => {}}
-        value=""
+        value="Default with label and input hint"
         label="Search"
         inputHint="Input hint"
-        placeholder="Default with label and input hint"
         aria-label="Default with label and input hint"
       />
     </Box>
 
-    <Box mb={3} width="700px" p={4} backgroundColor="#000000">
+    <Box p={4} backgroundColor="#000000">
       <Search
         onChange={() => {}}
-        value=""
+        value="Inverse with label and input hint"
         inverse
         label="Search"
         inputHint="Input hint"
-        placeholder="Inverse with label and input hint"
         aria-label="Inverse with label and input hint"
       />
     </Box>
 
-    <Box mb={3} width="700px" p={4}>
+    <Box p={4}>
       <Search
         onChange={() => {}}
-        value=""
+        value="Default with label, input hint and error"
         label="Search"
         inputHint="Input hint"
         error="Error message"
-        placeholder="Default with label, input hint and error"
         aria-label="Default with label, input hint and error"
       />
     </Box>
 
-    <Box mb={3} width="700px" p={4} backgroundColor="#000000">
+    <Box p={4} backgroundColor="#000000">
       <Search
         onChange={() => {}}
-        value=""
+        value="Inverse with label, input hint and error"
         inverse
         label="Search"
         inputHint="Input hint"
         error="Error message"
-        placeholder="Inverse with label, input hint and error"
         aria-label="Inverse with label, input hint and error"
       />
     </Box>
 
-    <Box mb={3} width="700px" p={4}>
+    <Box p={4}>
       <Search
         onChange={() => {}}
-        value=""
+        value="Default with label, input hint and warning"
         label="Search"
         inputHint="Input hint"
         warning="Warning message"
-        placeholder="Default with label, input hint and warning"
         aria-label="Default with label, input hint and warning"
       />
     </Box>
 
-    <Box width="700px" p={4} backgroundColor="#000000">
+    <Box p={4} backgroundColor="#000000">
       <Search
         onChange={() => {}}
-        value=""
+        value="Inverse with label, input hint and warning"
         inverse
         label="Search"
         inputHint="Input hint"
         warning="Warning message"
-        placeholder="Inverse with label, input hint and warning"
         aria-label="Inverse with label, input hint and warning"
       />
     </Box>
-  </>
+  </Box>
 );
 RegressionMatrix.storyName = "Regression Matrix";
-RegressionMatrix.parameters = {
-  chromatic: { disableSnapshot: false },
-};

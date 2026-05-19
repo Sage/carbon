@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 import Box from "../box";
-import Search from ".";
+import Search, { SearchProps } from ".";
+import {
+  defaultSearchArgTypes,
+  defaultSearchArgs,
+  defaultSearchControlsInclude,
+} from "./utils";
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
@@ -24,9 +29,47 @@ const meta: Meta<typeof Search> = {
 export default meta;
 type Story = StoryObj<typeof Search>;
 
-export const Default: Story = () => {
-  const [value, setValue] = useState("");
-  return <Search onChange={(e) => setValue(e.target.value)} value={value} />;
+const DefaultStory = (args: SearchProps) => {
+  const { value: initialValue = "", onChange, ...rest } = args;
+
+  const [value, setValue] = useState(initialValue);
+
+  useEffect(() => {
+    setValue(initialValue);
+  }, [initialValue]);
+
+  const search = (
+    <Search
+      {...rest}
+      value={value}
+      onChange={(e) => {
+        setValue(e.target.value);
+        onChange?.(e);
+      }}
+    />
+  );
+
+  if (rest.inverse) {
+    return (
+      <Box p={3} backgroundColor="#000000">
+        {search}
+      </Box>
+    );
+  }
+
+  return search;
+};
+
+export const Default: Story = {
+  parameters: {
+    controls: {
+      expanded: true,
+      include: defaultSearchControlsInclude,
+    },
+  },
+  argTypes: defaultSearchArgTypes,
+  args: defaultSearchArgs,
+  render: (args) => <DefaultStory {...args} />,
 };
 Default.storyName = "Default";
 
@@ -80,13 +123,13 @@ export const CustomWidths: Story = () => {
         label="searchWidth"
         onChange={(e) => setValue(e.target.value)}
         value={value}
-        searchWidth="275px"
+        inputWidth={25}
       />
       <Search
         label="maxWidth"
         onChange={(e) => setValue(e.target.value)}
         value={value}
-        maxWidth="50%"
+        maxWidth="75%"
       />
     </Box>
   );

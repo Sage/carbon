@@ -1,12 +1,9 @@
 import React, { useRef } from "react";
-import { act, render, screen, waitFor, within } from "@testing-library/react";
+import { act, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { enGB } from "../../locales";
 import Search, { SearchEvent, SearchHandle } from "./search.component";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
-
-import I18nProvider from "../i18n-provider";
 
 jest.mock("../../__internal__/utils/logger");
 
@@ -63,31 +60,9 @@ test("aria-label prop takes precedence over label prop for the search input acce
   expect(screen.getByRole("textbox")).toHaveAccessibleName("foobar");
 });
 
-test("when the `searchButton` prop is `true`, a button with search icon is shown, and no icon appears in the textbox", () => {
-  render(
-    <Search
-      searchButton
-      value=""
-      searchButtonAriaLabel="search button"
-      onChange={jest.fn}
-    />,
-  );
-
-  const searchButton = screen.getByRole("button", { name: "search button" });
-  expect(searchButton).toBeVisible();
-  expect(within(searchButton).getByTestId("icon")).toHaveAttribute(
-    "type",
-    "search",
-  );
-  expect(
-    within(screen.getByTestId("input-text-container")).queryByTestId("icon"),
-  ).not.toBeInTheDocument();
-});
-
 test("when the `searchButton` prop is `true`, the appropriate `data-` tags can be set via `searchButtonDataProps`", () => {
   render(
     <Search
-      searchButton
       value=""
       searchButtonDataProps={{
         "data-role": "foo",
@@ -103,71 +78,9 @@ test("when the `searchButton` prop is `true`, the appropriate `data-` tags can b
   expect(searchButton).toHaveAttribute("data-element", "bar");
 });
 
-test("when the `searchButton` prop is a string value, a button with search icon is shown, and no icon appears in the textbox", () => {
-  render(
-    <Search
-      searchButton="custom search button"
-      value=""
-      onChange={jest.fn}
-      searchButtonAriaLabel="search button"
-    />,
-  );
-
-  const searchButton = screen.getByRole("button", { name: "search button" });
-  expect(searchButton).toBeVisible();
-  expect(searchButton).toHaveTextContent("custom search button");
-  expect(within(searchButton).getByTestId("icon")).toHaveAttribute(
-    "type",
-    "search",
-  );
-  expect(
-    within(screen.getByTestId("input-text-container")).queryByTestId("icon"),
-  ).not.toBeInTheDocument();
-});
-
-test("when the `searchButton` prop is not passed, no button with is shown, and an icon is rendered in the textbox", () => {
-  render(
-    <Search
-      value=""
-      onChange={jest.fn}
-      searchButtonAriaLabel="search button"
-    />,
-  );
-
-  expect(
-    screen.queryByRole("button", { name: "search button" }),
-  ).not.toBeInTheDocument();
-  expect(
-    within(screen.getByTestId("input-text-container")).getByTestId("icon"),
-  ).toHaveAttribute("type", "search");
-});
-
-test("the search button text can be overridden via the locale context", () => {
-  render(
-    <I18nProvider
-      locale={{ search: { searchButtonText: () => "text override" } }}
-    >
-      <Search searchButton value="" onChange={jest.fn} />
-    </I18nProvider>,
-  );
-
-  expect(screen.getByRole("button")).toHaveTextContent("text override");
-});
-
-test("the search button uses the value from the locale context as a default accessible name", () => {
-  render(
-    <I18nProvider locale={enGB}>
-      <Search value="" searchButton onChange={jest.fn} />
-    </I18nProvider>,
-  );
-
-  expect(screen.getByRole("button")).toHaveAccessibleName("Search");
-});
-
 test("the `searchButtonAriaLabel` prop passes a custom accessible name to the search button", () => {
   render(
     <Search
-      searchButton
       searchButtonAriaLabel="foobar button"
       onChange={jest.fn}
       value=""
@@ -240,7 +153,6 @@ test("when the cross icon is clicked, and the `triggerOnClear` props is passed, 
     <Search
       value="foo"
       onChange={jest.fn}
-      searchButton
       triggerOnClear
       onClick={onClick}
       name="bar"
@@ -265,7 +177,6 @@ test("when the cross icon is clicked, and the `triggerOnClear` props is not pass
     <Search
       value="foo"
       onChange={jest.fn}
-      searchButton
       onClick={onClick}
       name="bar"
       id="baz"
@@ -306,7 +217,6 @@ test("when the component is controlled, the `onClick` callback prop is called wi
       name="Search"
       onClick={onClick}
       onChange={jest.fn}
-      searchButton
       searchButtonAriaLabel="search button"
     />,
   );
@@ -416,52 +326,6 @@ test("the input can be programmatically focused using a ref", async () => {
   await user.click(screen.getByRole("button", { name: "Focus input" }));
 
   expect(screen.getByRole("textbox")).toHaveFocus();
-});
-
-// for coverage - dark variant styles are tested in Playwright
-test("should render the bottom border when variant is dark, the input is not focused and has a value", () => {
-  render(
-    <Search
-      data-role="search"
-      variant="dark"
-      value="search"
-      onChange={jest.fn}
-    />,
-  );
-
-  const search = screen.getByTestId("search");
-
-  expect(search).toHaveStyle({
-    "background-color": "rgba(0, 0, 0, 0)",
-  });
-  expect(search).toHaveStyleRule(
-    "border-bottom",
-    "var(--spacing025) solid var(--colorsUtilityYang080)",
-  );
-});
-
-// for coverage - `searchWidth` prop is tested in Playwright
-test("applies the correct width specified by the user", () => {
-  render(
-    <Search
-      data-role="search"
-      searchWidth="400px"
-      value=""
-      onChange={jest.fn}
-    />,
-  );
-
-  const search = screen.getByTestId("search");
-
-  expect(search).toHaveStyle({
-    display: "inline-flex",
-    width: "400px",
-  });
-  expect(search).toHaveStyleRule(
-    "border-bottom",
-    "var(--spacing025) solid var(--colorsUtilityMajor300)",
-  );
-  expect(search).toHaveStyleRule("font-size", "var(--fontSize100)");
 });
 
 // for coverage - `maxWidth` prop is tested in Playwright
