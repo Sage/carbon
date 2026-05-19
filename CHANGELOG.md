@@ -1,3 +1,9 @@
+## [159.3.1](https://github.com/Sage/carbon/compare/v159.3.0...v159.3.1) (2026-05-19)
+
+### Bug Fixes
+
+* **link:** use transient props ([db9b5ba](https://github.com/Sage/carbon/commit/db9b5bac140977cc2d783977c0cb31a3476cc300))
+
 ## [159.3.0](https://github.com/Sage/carbon/compare/v159.2.5...v159.3.0) (2026-05-15)
 
 ### Features
