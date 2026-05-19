@@ -177,6 +177,7 @@ export const Label = ({
       onClick={onClick}
     >
       <StyledLabel
+        aria-disabled={disabled || undefined}
         data-element="label"
         disabled={disabled}
         id={labelId}

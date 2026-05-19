@@ -355,6 +355,7 @@ export const Textbox = React.forwardRef(
               float: "right",
             }}
             id={`${uniqueId}-field-help`}
+            aria-disabled={disabled || undefined}
           >
             {fieldHelp}
           </span>

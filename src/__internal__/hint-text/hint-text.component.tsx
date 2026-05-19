@@ -20,6 +20,7 @@ export const HintText = ({ children, id, size, disabled }: HintTextProps) => {
       id={id}
       $size={size}
       $disabled={disabled}
+      aria-disabled={disabled || undefined}
     >
       {children}
     </StyledHintText>
