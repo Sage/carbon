@@ -62,7 +62,6 @@ const mapHighlightVariantToGradientKeyLine = (
   return highlightVariant === "ai";
 };
 
-let dialogLegacyWarned = false;
 let deprecatedFullscreenTrigger = false;
 let deprecatedHighlightVariantTrigger = false;
 let deprecatedDisableCloseTrigger = false;
@@ -83,13 +82,6 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
     },
     ref,
   ) => {
-    if (!dialogLegacyWarned) {
-      Logger.warn(
-        "Warning: This version of the `Dialog` component is a migration wrapper...",
-      );
-      dialogLegacyWarned = true;
-    }
-
     if (!deprecatedFullscreenTrigger && fullscreen !== undefined) {
       deprecatedFullscreenTrigger = true;
       Logger.deprecate(
