@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { hintTextStyleOverrides } from "./hint-text-style-overrides.style";
 
 const getFontToken = (size: "small" | "medium" | "large") => {
   switch (size) {
@@ -23,6 +24,8 @@ const StyledHintText = styled.span<StyledHintTextProps>`
       : "var(--input-labelset-label-alt)"};
 
   font: ${({ $size }) => getFontToken($size)};
+
+  ${hintTextStyleOverrides}
 `;
 
 export default StyledHintText;

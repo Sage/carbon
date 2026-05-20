@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { labelStyleOverrides } from "./label-style-overrides.style";
 
 const getFontToken = (size: "small" | "medium" | "large") => {
   switch (size) {
@@ -60,6 +61,8 @@ const StyledLabel = styled.label<StyledLabelProps>`
   .time & {
     font: var(--global-font-static-comp-regular-m);
   }
+
+  ${labelStyleOverrides}
 `;
 
 export default StyledLabel;

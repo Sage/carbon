@@ -2,7 +2,6 @@ import styled, { css } from "styled-components";
 import applyBaseTheme from "../../../style/themes/apply-base-theme";
 import StyledIconButton from "../../icon-button/icon-button.style";
 import StyledBox from "../../box/box.style";
-import StyledSearch from "../../search/search.style";
 import StyledIcon from "../../icon/icon.style";
 import StyledButton from "../../button/button.style";
 import menuConfigVariants from "../menu.config";
@@ -71,7 +70,7 @@ const StyledMenuModal = styled.div.attrs(applyBaseTheme)<{
     background-color: ${menuConfigVariants[menuType].background};
 
     &&& {
-      ${StyledSearch} {
+      .search {
         ${StyledIcon} {
           display: inline-flex;
           bottom: auto;

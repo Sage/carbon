@@ -1,14 +1,13 @@
-import React, { useEffect, useRef, useImperativeHandle } from "react";
+import React, { useEffect, useRef, useImperativeHandle, useMemo } from "react";
 import invariant from "invariant";
 import { MarginProps } from "styled-system";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
-import StyledSearch from "./search.style";
 import { CommonTextboxProps } from "../textbox";
 import Button from "../button/__next__";
 import { ValidationProps } from "../../__internal__/validations";
 import useLocale from "../../hooks/__internal__/useLocale";
-import Events from "../../__internal__/utils/helpers/events";
 import Divider from "../divider";
+import TextInput from "../textbox/__internal__/__next__";
 
 export interface SearchEvent {
   target: {
@@ -90,7 +89,6 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
     {
       onChange,
       onClick,
-      onKeyDown,
       triggerOnClear,
       value,
       id,
@@ -120,32 +118,9 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
 
     invariant(typeof value === "string", "This component has no initial value");
 
-    const isSearchValueEmpty = value.length === 0;
-
-    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-      if (event.key.length === 1) {
-        event.stopPropagation();
-      }
-
-      if (Events.isEscKey(event) && !isSearchValueEmpty) {
-        event.stopPropagation();
-
-        onChange?.({
-          target: {
-            ...(name && { name }),
-            ...(id && { id }),
-            value: "",
-          },
-        });
-      }
-
-      if (onKeyDown) {
-        onKeyDown(event);
-      }
-    };
-
     const searchButtonText = locale.search.searchButtonText();
 
+    // calls onClick when search input is cleared using the native clear button in certain browsers (e.g. Chromium & Safari)
     useEffect(() => {
       if (!triggerOnClear || !onClick) return;
 
@@ -178,26 +153,29 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
       unknown
     >;
 
-    const classNames = ["search", restClassName].filter(Boolean).join(" ");
+    const classNames = useMemo(
+      () =>
+        ["search", inverse ? "inverse" : undefined, restClassName]
+          .filter(Boolean)
+          .join(" "),
+      [inverse, restClassName],
+    );
 
     return (
-      <StyledSearch
+      <TextInput
         {...restProps}
         {...tagComponent("search", restProps)}
-        $inverse={inverse}
         className={classNames}
         id={id}
         name={name}
         type="search"
         label={label || ""}
         onChange={onChange}
-        onKeyDown={handleKeyDown}
         value={value}
         size={size}
         aria-label={
           ariaLabel || (label ? undefined : locale.search.searchButtonText())
         }
-        my={0}
         ref={inputRef}
         inputIcon={
           <>
@@ -216,7 +194,6 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
               size={size}
               variant="default"
               variantType="subtle"
-              px={2}
               {...tagComponent(`${searchButtonText}-button`, {
                 "data-element": `${searchButtonText}-button`,
                 ...searchButtonDataProps,

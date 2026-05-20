@@ -778,7 +778,7 @@ export const FullscreenViewStory: MenuStory = () => {
         >
           <MenuItem href="#">Menu Item One</MenuItem>
           <MenuItem onClick={() => {}} submenu="Menu Item Two">
-            <MenuItem href="#">Submenu Item One</MenuItem>
+            <Search value="sshs" onChange={() => {}} />
             <MenuItem href="#">Submenu Item Two</MenuItem>
           </MenuItem>
           <MenuItem href="#">Menu Item Three</MenuItem>
