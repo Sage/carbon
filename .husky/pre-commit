@@ -1,4 +1,14 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-npx lint-staged
+# Regenerate the public API snapshot before lint-staged.
+# Breaking-change validation is handled in commit-msg where the final commit
+# message is available. Pre-commit only refreshes and stages the snapshot.
+if git diff --cached --name-only | grep -q '^src/components/'; then
+  node ./scripts/types/check_types.mjs --update-only 2>/dev/null || {
+    printf "✖ Running versioning check...\n"
+    printf "versioning-check: failed to update types.json\n" >&2
+    exit 1
+  }
+  git add types/carbon-react/types.json
+fi

@@ -8,6 +8,7 @@ We love contributions, so thanks for choosing to get involved with the Carbon pr
 - [Codebase Overview](#codebase-overview)
 - [Testing](#testing)
 - [Keeping skills up to date](#keeping-skills-up-to-date)
+- [Public API versioning check](#public-api-versioning-check)
 - [Semantic Versioning](#semantic-versioning)
 - [Git commit messages](#git-commit-messages)
 - [Contributor License Agreement (CLA)](#contributor-license-agreement-cla)
@@ -36,6 +37,61 @@ When updating a component, update its skills file alongside your code changes in
 ```shell
 npm run build:skills
 ```
+
+## Public API versioning check
+
+Carbon tracks breaking public API changes automatically via two checks that run in the `commit-msg` hook:
+
+1. **Prop type changes** — a snapshot of every public component's prop types is stored in `types/carbon-react/types.json`. The snapshot is regenerated silently on each commit (pre-commit hook) whenever `src/components/` files are staged.
+2. **Export path changes** — any non-internal `index.ts` file (i.e. a path that does not include `__internal__`) is scanned for removed or renamed exports.
+
+If breaking changes are detected and the commit message does not acknowledge them, the commit is **blocked**.
+
+**Acknowledging a breaking change** — use the `BREAKING CHANGE:` footer:
+
+```shell
+git commit -m "feat: ...
+
+BREAKING CHANGE: removed ButtonProps.size"
+```
+
+**Manual check across all components:**
+
+```shell
+npm run versioning-check
+```
+
+This regenerates the type snapshot, compares it against the committed baseline, and prints any breaking changes with a non-zero exit if any are found.
+
+**Scoped check for a single component:**
+
+```shell
+npm run versioning-check -- Button
+```
+
+Accepts the component name in PascalCase (`Button`) or kebab-case (`flat-table-row`).
+
+**What counts as breaking:**
+
+- Prop removed, made required, or type narrowed
+- Named export removed or renamed from a public `index.ts`
+- Default export removed from a public `index.ts`
+
+**What is safe (never blocked):**
+
+- New optional prop added
+- Type widened
+- New export added to an `index.ts`
+
+**Emergency escape clause (use sparingly):**
+
+In exceptional cases (for example, urgent production fixes), you can bypass hooks with `--no-verify` to get a commit through:
+
+```shell
+git commit --no-verify -m "<type>(<scope>): <description>"
+```
+
+This should be treated as a last resort. If you bypass checks, follow up immediately with a corrective commit/PR that restores hook compliance and documents the reason in the PR description.
 
 ## Bugs
 
