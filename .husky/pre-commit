@@ -2,3 +2,14 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 npx lint-staged
+
+# Update public type baseline when component source files are staged.
+# Silently regenerates types/carbon-react/types.json and stages it.
+# Breaking change gating happens in the commit-msg hook.
+if git diff --cached --name-only | grep -q '^src/components/'; then
+  node ./scripts/types/check_types.mjs --update-only || {
+    echo "versioning-check: failed to update types.json — commit blocked to prevent a missed breaking-change check."
+    exit 1
+  }
+  git add types/carbon-react/types.json
+fi

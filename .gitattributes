@@ -1,0 +1,4 @@
+# Mark the public API type snapshot as generated so GitHub collapses it in PR
+# diffs. The file must stay committed — the versioning-check hook reads
+# git show HEAD:types/carbon-react/types.json to compare baselines.
+types/carbon-react/types.json linguist-generated=true

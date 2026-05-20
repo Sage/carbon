@@ -39,6 +39,7 @@
     "build:generate-package-json-files": "node ./scripts/generate_package_json_files/index.js",
     "build:move-svg": "node ./scripts/copy_svg/index.js",
     "build:skills": "node ./scripts/skills/build_skills.mjs",
+    "versioning-check": "node ./scripts/types/check_types.mjs",
     "generate-tokens": "rimraf ./src/components/tokens-wrapper/static-tokens && node ./scripts/generate_tokens/generate_tokens.mjs",
     "generate-tokens:dev": "rimraf ./src/components/tokens-wrapper/static-tokens && node ./scripts/generate_tokens/generate_tokens.mjs --include-dark"
   },
