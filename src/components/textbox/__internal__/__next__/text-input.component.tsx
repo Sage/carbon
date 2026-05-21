@@ -269,6 +269,7 @@ export const TextInput = React.forwardRef(
           {validationMessagePositionTop && validationMessage}
           <Input
             id={uniqueId}
+            labelId={labelId}
             name={uniqueName}
             aria-invalid={!!error}
             aria-describedby={ariaDescribedByString}

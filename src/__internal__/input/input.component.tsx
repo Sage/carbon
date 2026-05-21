@@ -10,6 +10,8 @@ export interface InputProps
   disabled?: boolean;
   /** HTML id attribute of the input */
   id?: string;
+  /** The id for the associated label */
+  labelId?: string;
   /** Name of the input */
   name?: string;
   /** Specify a callback triggered on blur */
@@ -79,6 +81,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       children,
       disabled,
       id,
+      labelId,
       inputIcon,
       inputWidth,
       leftChildren,
@@ -112,9 +115,15 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       [onFocus, type],
     );
 
-    const ariaLabelledByString = prefixId
-      ? `${prefixId} ${ariaLabelledBy || ""}`.trim()
-      : ariaLabelledBy;
+    // No prefix — let the label association handle labelling via htmlFor/id
+    let ariaLabelledByString = ariaLabelledBy;
+    if (prefixId && ariaLabelledBy) {
+      // Prefix + custom labelledby: announce the caller-supplied label then the prefix value
+      ariaLabelledByString = `${ariaLabelledBy} ${prefixId}`;
+    } else if (prefixId) {
+      // Prefix only: announce the field label then the prefix value
+      ariaLabelledByString = `${labelId} ${prefixId}`;
+    }
 
     return (
       <InputContainer
