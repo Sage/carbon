@@ -14,7 +14,7 @@ Trust these instructions. Only fall back to repo-wide search if something here i
 ALWAYS use these versions; CI pins them and mismatches break installs/tests:
 
 - **Node**: pinned in [.nvmrc](../.nvmrc) as `lts/krypton` (Node **24.x**, `>=24.11.0`). CI also runs Jest on Node **22**.
-- **npm**: `>=11.11.1` (CI runs `npm install -g npm@11.11.1` before every job — do the same if the local npm is older).
+- **npm**: `>=11.15.0` (CI runs `npm install -g npm@11.15.0` before every job — do the same if the local npm is older).
 - **OS**: Linux/macOS. Windows requires WSL.
 - **`.npmrc`** sets `ignore-scripts=true`. After `npm ci` you MUST run `npm run prepare` (husky install) — this is what `npm run setup` does.
 
@@ -22,7 +22,7 @@ ALWAYS use these versions; CI pins them and mismatches break installs/tests:
 
 ```sh
 nvm use                 # picks up .nvmrc -> Node 24
-npm install -g npm@11.11.1
+npm install -g npm@11.15.0
 npm run setup           # = npm ci && npm run prepare  (husky)
 ```
 
