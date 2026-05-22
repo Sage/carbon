@@ -60,6 +60,12 @@ import { JSDoc, Project, SyntaxKind } from "ts-morph";
  * @property {string | null} componentModule
  */
 
+/**
+ * @typedef {Object} ExtractedStoryData
+ * @property {Map<string, StoryEntry[]>} storyMap
+ * @property {Map<string, string>} componentDescriptionsByComponent
+ */
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, "../..");
 const packageName = "carbon-react";
@@ -242,7 +248,8 @@ for (const candidate of uniqueComponentCandidates) {
   });
 }
 
-const storyDataByComponent = await extractStoryData(project, repoRoot);
+const { storyMap: storyDataByComponent, componentDescriptionsByComponent } =
+  await extractStoryData(project, repoRoot);
 
 /** @type {Array<{path: string, content: string}>} */
 const wouldWrite = [];
@@ -280,9 +287,15 @@ for (const component of componentData.sort((a, b) =>
   a.name.localeCompare(b.name),
 )) {
   const stories = storyDataByComponent.get(component.name) ?? [];
+  const descriptionOverride =
+    componentDescriptionsByComponent.get(component.importName) ??
+    componentDescriptionsByComponent.get(component.name) ??
+    null;
   const fileName = `${toKebabCase(component.name)}.md`;
   const filePath = path.join(componentsOutDir, fileName);
-  const markdown = renderComponentMarkdown(component, stories);
+  const markdown = renderComponentMarkdown(component, stories, {
+    descriptionOverride,
+  });
 
   wouldWrite.push({ path: filePath, content: markdown });
   const deprecatedLabel = component.deprecated ? " (deprecated)" : "";
@@ -825,7 +838,7 @@ function extractFromParameters(parameters, defaults) {
  * Extract story data from CSF and MDX files for usage examples.
  * @param {import("ts-morph").Project} projectInstance
  * @param {string} rootDir
- * @returns {Promise<Map<string, StoryEntry[]>>}
+ * @returns {Promise<ExtractedStoryData>}
  */
 async function extractStoryData(projectInstance, rootDir) {
   const storyFiles = fg.sync(
@@ -839,6 +852,8 @@ async function extractStoryData(projectInstance, rootDir) {
 
   /** @type {Map<string, StoryEntry[]>} */
   const storyMap = new Map();
+  /** @type {Map<string, string>} */
+  const componentDescriptionsByComponent = new Map();
 
   for (const filePath of storyFiles) {
     const sourceFile =
@@ -875,7 +890,12 @@ async function extractStoryData(projectInstance, rootDir) {
       continue;
     }
     const content = await fs.readFile(filePath, "utf8");
-    const examples = extractMdxExamples(content.replace(/\r\n/g, "\n"));
+    const normalizedContent = content.replace(/\r\n/g, "\n");
+    const copilotDescription = extractMdxCopilotSkillDescription(normalizedContent);
+    if (copilotDescription && !componentDescriptionsByComponent.has(componentName)) {
+      componentDescriptionsByComponent.set(componentName, copilotDescription);
+    }
+    const examples = extractMdxExamples(normalizedContent);
     if (!examples.length) {
       continue;
     }
@@ -892,7 +912,33 @@ async function extractStoryData(projectInstance, rootDir) {
     storyMap.set(componentName, existing);
   }
 
-  return storyMap;
+  return { storyMap, componentDescriptionsByComponent };
+}
+
+/**
+ * Extract optional Copilot skill description metadata from an MDX file.
+ * Expected shape:
+ * export const copilotSkill = { description: "..." }
+ * @param {string} content
+ * @returns {string | null}
+ */
+function extractMdxCopilotSkillDescription(content) {
+  const exportRegex =
+    /export\s+const\s+copilotSkill\s*=\s*\{[\s\S]*?\bdescription\s*:\s*(?:"([^"]*)"|'([^']*)'|`([^`]*)`)/m;
+  const match = content.match(exportRegex);
+  if (!match) {
+    return null;
+  }
+
+  const raw = match[1] ?? match[2] ?? match[3] ?? "";
+  const normalized = raw.replace(/\s+/g, " ").trim();
+
+  // Keep metadata deterministic and compact for frontmatter.
+  if (!normalized || normalized.length > 220) {
+    return null;
+  }
+
+  return normalized;
 }
 
 /**
@@ -1412,13 +1458,17 @@ function getDeprecationFromJsDocs(jsDocs) {
  * Render a component markdown file with props and examples.
  * @param {ComponentData} component
  * @param {StoryEntry[]} stories
+ * @param {{ descriptionOverride?: string | null }} [options]
  * @returns {string}
  */
-function renderComponentMarkdown(component, stories) {
+function renderComponentMarkdown(component, stories, options = {}) {
+  const description =
+    options.descriptionOverride ??
+    `Carbon ${component.name} component props and usage examples.`;
   const frontmatter = [
     "---",
     `name: carbon-component-${toKebabCase(component.name)}`,
-    `description: Carbon ${component.name} component props and usage examples.`,
+    `description: ${description}`,
     "---",
     "",
   ].join("\n");

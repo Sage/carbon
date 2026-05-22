@@ -1,6 +1,6 @@
 ---
 name: carbon-component-badge
-description: Carbon Badge component props and usage examples.
+description: A badge is a small numerical indicator positioned next to interactive elements. It shows when something needs action or review. For example, for notifications within navigation or to show that filters have been applied.
 ---
 
 # Badge
