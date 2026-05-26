@@ -370,6 +370,7 @@ exports[`builds the static tokens as expected 1`] = `
   --mode-color-action-main-inverse-with-hover: #000000;
   --mode-color-status-ai-default: #FFFFFF;
   --mode-color-status-ai-default-alt: #000000;
+  --mode-color-status-ai-with-default-alt: #00000080;
   --mode-color-status-ai-default-horizontal: linear-gradient(90deg, #13a038  0%, #149197 40%, #a87cfb 90%);
   --mode-color-status-ai-default-vertical: linear-gradient(180deg, #13a038  0%, #149197 40%, #a87cfb 90%);
   --mode-color-status-ai-inverse-default-horizontal: linear-gradient(90deg, #00d639  0%, #00d6de 40%, #9d60ff 90%);
@@ -380,6 +381,7 @@ exports[`builds the static tokens as expected 1`] = `
   --mode-color-status-skeleton-stop-2: #d1d6da;
   --mode-color-status-warning-default: #d64309;
   --mode-color-status-warning-default-alt: #fff7eb;
+  --mode-color-status-warning-with-default-alt: #d6430980;
   --mode-color-status-warning-hover: #b33400;
   --mode-color-status-warning-hover-alt: #ffeaca;
   --mode-color-status-warning-txt: #b33400;
@@ -452,6 +454,7 @@ exports[`builds the static tokens as expected 1`] = `
   --mode-color-status-inactive-inverse-with-default: #ffffff8c;
   --mode-color-status-info-default: #0071c3;
   --mode-color-status-info-default-alt: #f5f8ff;
+  --mode-color-status-info-with-default-alt: #0071c380;
   --mode-color-status-info-hover: #0063ad;
   --mode-color-status-info-hover-alt: #e4eeff;
   --mode-color-status-info-inverse-default: #007fd9;
@@ -476,6 +479,7 @@ exports[`builds the static tokens as expected 1`] = `
   --mode-color-status-neutral-inverse-hover-alt: #181818;
   --mode-color-status-positive-default: #00811F;
   --mode-color-status-positive-default-alt: #EEFCEF;
+  --mode-color-status-positive-with-default-alt: #00811f80;
   --mode-color-status-positive-hover: #007219;
   --mode-color-status-positive-hover-alt: #D1F6D6;
   --mode-color-status-positive-inverse-default: #019127;
@@ -594,6 +598,7 @@ exports[`builds the static tokens as expected 1`] = `
   --button-typical-toggle-bg-active-disabled: var(--mode-color-action-inactive-default);
   --button-typical-toggle-label-active-disabled: var(--mode-color-action-inactive-txt-alt);
   --button-typical-toggle-bg-active: var(--mode-color-action-grayscale-active);
+  --button-typical-toggle-bg-default: var(--mode-color-action-grayscale-with-default);
   --button-typical-toggle-bg-hover: var(--mode-color-generic-bg-delicate);
   --button-typical-toggle-border-default: var(--mode-color-action-grayscale-default);
   --button-typical-toggle-border-disabled: var(--mode-color-action-inactive-default);
@@ -949,12 +954,13 @@ exports[`builds the static tokens as expected 1`] = `
   --link-subtle-inverse-label-hover: var(--mode-color-action-grayscale-inverse-active);
   --message-none: var(--mode-color-none);
   --message-contextual-bg: var(--mode-color-generic-bg-nought);
-  --message-contextual-icon: var(--mode-color-generic-bg-nought);
+  --message-contextual-icon: #ffffff;
   --message-contextual-icon-alt: var(--mode-color-status-neutral-default);
   --message-contextual-txt: var(--mode-color-status-txt-with-hover-alt);
   --message-contextual-ai-bg-default: var(--mode-color-status-ai-default-alt);
   --message-contextual-ai-bg-alt: var(--mode-color-status-neutral-default-alt);
   --message-contextual-ai-border-default: var(--mode-color-status-ai-default-alt);
+  --message-contextual-ai-border-alt: var(--mode-color-status-ai-with-default-alt);
   --message-contextual-callout-bg-alt: var(--mode-color-status-callout-default-alt);
   --message-contextual-callout-icon: var(--mode-color-status-txt-with-default-alt);
   --message-contextual-error-bg-default: var(--mode-color-status-negative-default);
@@ -964,14 +970,17 @@ exports[`builds the static tokens as expected 1`] = `
   --message-contextual-info-bg-default: var(--mode-color-status-info-default);
   --message-contextual-info-bg-alt: var(--mode-color-status-info-default-alt);
   --message-contextual-info-border-default: var(--mode-color-status-info-default);
+  --message-contextual-info-border-alt: var(--mode-color-status-info-with-default-alt);
   --message-contextual-info-icon: var(--mode-color-status-info-default);
   --message-contextual-success-bg-default: var(--mode-color-status-positive-default);
   --message-contextual-success-bg-alt: var(--mode-color-status-positive-default-alt);
   --message-contextual-success-border-default: var(--mode-color-status-positive-default);
+  --message-contextual-success-border-alt: var(--mode-color-status-positive-with-default-alt);
   --message-contextual-success-icon: var(--mode-color-status-positive-default);
   --message-contextual-warning-bg-default: var(--mode-color-status-warning-default);
   --message-contextual-warning-bg-alt: var(--mode-color-status-warning-default-alt);
   --message-contextual-warning-border-default: var(--mode-color-status-warning-default);
+  --message-contextual-warning-border-alt: var(--mode-color-status-warning-with-default-alt);
   --message-contextual-warning-icon: var(--mode-color-status-warning-default);
   --message-global-label-default: var(--mode-color-status-txt-with-default-alt);
   --message-global-label-hover: var(--mode-color-action-grayscale-with-hover);
@@ -1475,6 +1484,7 @@ exports[`builds the static tokens as expected 1`] = `
   --mode-color-action-main-inverse-with-hover: #FFFFFF;
   --mode-color-status-ai-default: #000000;
   --mode-color-status-ai-default-alt: #FFFFFF;
+  --mode-color-status-ai-with-default-alt: #ffffff80;
   --mode-color-status-ai-default-horizontal: linear-gradient(90deg, #00d639  0%, #00d6de 40%, #9d60ff 90%);
   --mode-color-status-ai-default-vertical: linear-gradient(180deg, #00d639  0%, #00d6de 40%, #9d60ff 90%);
   --mode-color-status-callout-default-alt: #001001;
@@ -1483,6 +1493,7 @@ exports[`builds the static tokens as expected 1`] = `
   --mode-color-status-skeleton-stop-2: #475a6a;
   --mode-color-status-warning-default: #e24300;
   --mode-color-status-warning-default-alt: #1d0300;
+  --mode-color-status-warning-with-default-alt: #e2430080;
   --mode-color-status-warning-hover: #e5631c;
   --mode-color-status-warning-hover-alt: #360900;
   --mode-color-status-warning-txt: #e5631c;
@@ -1554,6 +1565,7 @@ exports[`builds the static tokens as expected 1`] = `
   --mode-color-status-inactive-inverse-with-default: #0000008c;
   --mode-color-status-info-default: #007fd9;
   --mode-color-status-info-default-alt: #000b1c;
+  --mode-color-status-info-with-default-alt: #007fd980;
   --mode-color-status-info-hover: #008ef4;
   --mode-color-status-info-hover-alt: #001932;
   --mode-color-status-info-inverse-default: #0071c3;
@@ -1578,6 +1590,7 @@ exports[`builds the static tokens as expected 1`] = `
   --mode-color-status-neutral-inverse-hover-alt: #eeeeee;
   --mode-color-status-positive-default: #019127;
   --mode-color-status-positive-default-alt: #001001;
+  --mode-color-status-positive-with-default-alt: #01912780;
   --mode-color-status-positive-hover: #1BA12B;
   --mode-color-status-positive-hover-alt: #001f03;
   --mode-color-status-positive-inverse-default: #00811F;
