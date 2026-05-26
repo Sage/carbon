@@ -244,6 +244,7 @@ description: Carbon Button component props and usage examples.
       display="flex"
       flexDirection="row"
       gap={1}
+      alignItems="flex-start"
     >
       <Button variant="default" variantType="primary" size="medium" inverse>
         Primary Medium
@@ -295,7 +296,7 @@ description: Carbon Button component props and usage examples.
 ```tsx
 () => {
   return (
-    <Box width="80px" display={"flex"} gap={2}>
+    <Box width="80px" display={"flex"} alignItems="flex-start" gap={2}>
       <Button noWrap>No Wrapping</Button>
       <Button noWrap={false}>With Wrapping</Button>
     </Box>
