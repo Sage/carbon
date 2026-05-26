@@ -21,6 +21,8 @@ const meta: Meta<typeof Time> = {
   title: "Time",
   component: Time,
   parameters: {
+    chromatic: { disableSnapshot: true },
+    themeProvider: { chromatic: { theme: "sage" } },
     controls: {
       exclude: ["value", "onChange", "onBlur"],
     },
@@ -50,10 +52,6 @@ export const Default: Story = ({ ...args }) => {
   );
 };
 Default.storyName = "Default";
-Default.parameters = {
-  chromatic: { disableSnapshot: false },
-  themeProvider: { chromatic: { theme: "sage" } },
-};
 
 export const AmPmToggle: Story = ({ ...args }) => {
   const [value, setValue] = useState<TimeValue>({
@@ -74,7 +72,6 @@ export const AmPmToggle: Story = ({ ...args }) => {
 };
 AmPmToggle.storyName = "AM/PM Toggle";
 AmPmToggle.parameters = {
-  chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
@@ -100,10 +97,6 @@ export const InputHint: Story = () => {
   );
 };
 InputHint.storyName = "Input Hint";
-InputHint.parameters = {
-  chromatic: { disableSnapshot: false },
-  themeProvider: { chromatic: { theme: "sage" } },
-};
 
 export const Required: Story = () => {
   const [value, setValue] = useState<TimeValue>({
@@ -122,10 +115,6 @@ export const Required: Story = () => {
   );
 };
 Required.storyName = "Required";
-Required.parameters = {
-  chromatic: { disableSnapshot: false },
-  themeProvider: { chromatic: { theme: "sage" } },
-};
 
 export const Disabled: Story = () => {
   const [value, setValue] = useState<TimeValue>({
@@ -151,10 +140,6 @@ export const Disabled: Story = () => {
   );
 };
 Disabled.storyName = "Disabled";
-Disabled.parameters = {
-  chromatic: { disableSnapshot: false },
-  themeProvider: { chromatic: { theme: "sage" } },
-};
 
 export const ReadOnly: Story = () => {
   const [value, setValue] = useState<TimeValue>({
@@ -180,10 +165,6 @@ export const ReadOnly: Story = () => {
   );
 };
 ReadOnly.storyName = "Read Only";
-ReadOnly.parameters = {
-  chromatic: { disableSnapshot: false },
-  themeProvider: { chromatic: { theme: "sage" } },
-};
 
 export const Sizes: Story = () => {
   const [value, setValue] = useState<{
@@ -248,10 +229,6 @@ export const Sizes: Story = () => {
   );
 };
 Sizes.storyName = "Sizes";
-Sizes.parameters = {
-  chromatic: { disableSnapshot: false },
-  themeProvider: { chromatic: { theme: "sage" } },
-};
 
 export const FocusingInputs: Story = () => {
   const [value, setValue] = useState<TimeValue>({
@@ -284,9 +261,6 @@ export const FocusingInputs: Story = () => {
   );
 };
 FocusingInputs.storyName = "Focusing Inputs Programmatically";
-FocusingInputs.parameters = {
-  chromatic: { disableSnapshot: true },
-};
 
 export const LocaleOverride: Story = () => {
   const [value, setValue] = useState<TimeValue>({
@@ -319,7 +293,3 @@ export const LocaleOverride: Story = () => {
   );
 };
 LocaleOverride.storyName = "Locale Override";
-LocaleOverride.parameters = {
-  chromatic: { disableSnapshot: false },
-  themeProvider: { chromatic: { theme: "sage" } },
-};

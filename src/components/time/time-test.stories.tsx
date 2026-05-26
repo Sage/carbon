@@ -4,6 +4,7 @@ import { action } from "@storybook/addon-actions";
 
 import { TimeInputEvent, TimeValue } from "./time.component";
 import { Time } from ".";
+import I18nProvider from "../i18n-provider";
 
 import Box from "../box";
 import InlineInputs from "../inline-inputs";
@@ -14,6 +15,8 @@ const meta: Meta<typeof Time> = {
   component: Time,
   title: "Time/Test",
   parameters: {
+    chromatic: { disableSnapshot: true },
+    themeProvider: { chromatic: { theme: "sage" } },
     controls: {
       exclude: ["value", "onChange", "onBlur"],
     },
@@ -313,6 +316,253 @@ export const WithValueModifiers: Story = () => {
   );
 };
 WithValueModifiers.storyName = "With Value Modifiers";
-WithValueModifiers.parameters = {
-  chromatic: { disableSnapshot: true },
+
+export const ChromaticSnapshots: Story = () => {
+  const valueInvalidHours: TimeValue = {
+    hours: "13",
+    minutes: "30",
+    period: "AM",
+  };
+  const valueInvalidMinutes: TimeValue = {
+    hours: "12",
+    minutes: "61",
+    period: "AM",
+  };
+  const valueInvalidBoth: TimeValue = {
+    hours: "13",
+    minutes: "61",
+    period: "AM",
+  };
+
+  return (
+    <Box p={2}>
+      <Time
+        value={{ hours: "12", minutes: "30" }}
+        onChange={() => {}}
+        label="Time"
+        mb={2}
+      />
+      <Time
+        value={{ hours: "12", minutes: "30", period: "AM" }}
+        onChange={() => {}}
+        label="Time"
+        mb={2}
+      />
+      <Time
+        value={{ hours: "12", minutes: "30" }}
+        onChange={() => {}}
+        label="Time"
+        inputHint="Hint text"
+        mb={2}
+      />
+      <Time
+        required
+        value={{ hours: "12", minutes: "30" }}
+        onChange={() => {}}
+        label="Time"
+        mb={2}
+      />
+      <Time
+        disabled
+        value={{ hours: "12", minutes: "30", period: "AM" }}
+        onChange={() => {}}
+        label="Time"
+        inputHint="Hint text"
+        mb={2}
+      />
+      <Time
+        readOnly
+        value={{ hours: "12", minutes: "30", period: "AM" }}
+        onChange={() => {}}
+        label="Time"
+        inputHint="Hint text"
+        mb={2}
+      />
+      <Time
+        size="small"
+        value={{ hours: "12", minutes: "30", period: "AM" }}
+        onChange={() => {}}
+        label="Time - small"
+        inputHint="Hint text"
+        mb={1}
+      />
+      <Time
+        size="medium"
+        value={{ hours: "12", minutes: "30", period: "AM" }}
+        onChange={() => {}}
+        label="Time - medium"
+        inputHint="Hint text"
+        mb={1}
+      />
+      <Time
+        size="large"
+        value={{ hours: "12", minutes: "30", period: "AM" }}
+        onChange={() => {}}
+        label="Time - large"
+        inputHint="Hint text"
+        mb={2}
+      />
+      <I18nProvider
+        locale={{
+          time: {
+            amText: () => "A",
+            pmText: () => "P",
+            hoursLabelText: () => "Hours",
+            minutesLabelText: () => "Minutes",
+            hoursAriaLabelText: () => "Hours input",
+            minutesAriaLabelText: () => "Minutes input",
+          },
+        }}
+      >
+        <Time
+          value={{ hours: "12", minutes: "30", period: "AM" }}
+          onChange={() => {}}
+          label="Time"
+          mb={2}
+        />
+      </I18nProvider>
+      <Time
+        value={valueInvalidHours}
+        onChange={() => {}}
+        label="Time - with error on hours"
+        hoursInputProps={{ error: "Hours value must be in AM/PM format." }}
+        mb={1}
+      />
+      <Time
+        value={valueInvalidMinutes}
+        onChange={() => {}}
+        label="Time - with error on minutes"
+        minutesInputProps={{ error: "Minutes value must be in  AM/PM format." }}
+        mb={1}
+      />
+      <Time
+        value={valueInvalidBoth}
+        onChange={() => {}}
+        label="Time - with error on both"
+        hoursInputProps={{ error: "Hours value must be in AM/PM format." }}
+        minutesInputProps={{ error: "Minutes value must be in  AM/PM format." }}
+        mb={2}
+      />
+      <Time
+        value={valueInvalidHours}
+        onChange={() => {}}
+        label="Time - with warning on hours"
+        hoursInputProps={{ warning: "Hours value must be in AM/PM format." }}
+        mb={1}
+      />
+      <Time
+        value={valueInvalidMinutes}
+        onChange={() => {}}
+        label="Time - with warning on minutes"
+        minutesInputProps={{
+          warning: "Minutes value must be in  AM/PM format.",
+        }}
+        mb={1}
+      />
+      <Time
+        value={valueInvalidBoth}
+        onChange={() => {}}
+        label="Time - with warning on both"
+        hoursInputProps={{ warning: "Hours value must be in AM/PM format." }}
+        minutesInputProps={{
+          warning: "Minutes value must be in  AM/PM format.",
+        }}
+        mb={1}
+      />
+      <Time
+        validationMessagePositionTop={false}
+        value={valueInvalidHours}
+        onChange={() => {}}
+        label="Time - with error on hours"
+        hoursInputProps={{ error: "Hours value must be in AM/PM format." }}
+        mb={1}
+      />
+      <Time
+        validationMessagePositionTop={false}
+        value={valueInvalidMinutes}
+        onChange={() => {}}
+        label="Time - with error on minutes"
+        minutesInputProps={{ error: "Minutes value must be in  AM/PM format." }}
+        mb={1}
+      />
+      <Time
+        validationMessagePositionTop={false}
+        value={valueInvalidBoth}
+        onChange={() => {}}
+        label="Time - with error on both"
+        hoursInputProps={{ error: "Hours value must be in AM/PM format." }}
+        minutesInputProps={{ error: "Minutes value must be in  AM/PM format." }}
+        mb={2}
+      />
+      <Time
+        validationMessagePositionTop={false}
+        value={valueInvalidHours}
+        onChange={() => {}}
+        label="Time - with warning on hours"
+        hoursInputProps={{ warning: "Hours value must be in AM/PM format." }}
+        mb={1}
+      />
+      <Time
+        validationMessagePositionTop={false}
+        value={valueInvalidMinutes}
+        onChange={() => {}}
+        label="Time - with warning on minutes"
+        minutesInputProps={{
+          warning: "Minutes value must be in  AM/PM format.",
+        }}
+        mb={1}
+      />
+      <Time
+        validationMessagePositionTop={false}
+        value={valueInvalidBoth}
+        onChange={() => {}}
+        label="Time - with warning on both"
+        hoursInputProps={{ warning: "Hours value must be in AM/PM format." }}
+        minutesInputProps={{
+          warning: "Minutes value must be in  AM/PM format.",
+        }}
+        mb={2}
+      />
+      <Time
+        value={{ hours: "12", minutes: "30", period: "AM" }}
+        onChange={() => {}}
+        label="labelAlign left"
+        mb={2}
+      />
+      <Time
+        value={{ hours: "12", minutes: "30", period: "AM" }}
+        onChange={() => {}}
+        label="labelAlign right"
+        labelAlign="right"
+        mb={2}
+      />
+      <Time
+        value={{ hours: "12", minutes: "30", period: "AM" }}
+        onChange={() => {}}
+        label="labelAlign right and fieldLabelsAlign right"
+        labelAlign="right"
+        fieldLabelsAlign="right"
+        mb={2}
+      />
+      <Time
+        value={{ hours: "12", minutes: "30", period: "AM" }}
+        onChange={() => {}}
+        label="labelAlign left"
+        inputHint="hint"
+        labelAlign="left"
+        mb={2}
+      />
+      <Time
+        value={{ hours: "12", minutes: "30", period: "AM" }}
+        onChange={() => {}}
+        label="labelAlign left"
+        inputHint="hint"
+        labelAlign="right"
+      />
+    </Box>
+  );
+};
+ChromaticSnapshots.storyName = "Chromatic Snapshots";
+ChromaticSnapshots.parameters = {
+  chromatic: { disableSnapshot: false },
 };

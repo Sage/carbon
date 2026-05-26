@@ -1,21 +1,21 @@
 import styled, { css } from "styled-components";
-import { LinkProps } from "../../link";
+import { StyledLinkProps } from "../../link/link.style";
 
-interface StyledCrumbProps extends LinkProps {
+interface StyledCrumbProps extends StyledLinkProps {
   $isCurrent?: boolean;
 }
 
-const getTextColor = (inverse?: boolean) => {
-  return inverse
+const getTextColor = ($inverse?: boolean) => {
+  return $inverse
     ? "var(--container-standard-inverse-txt-alt)"
     : "var(--container-standard-txt-alt)";
 };
 
 export const StyledCrumbCurrent = styled.span<StyledCrumbProps>`
-  ${({ inverse }) => css`
+  ${({ $inverse }) => css`
     font: var(--global-font-static-comp-regular-m);
     cursor: text;
-    color: ${getTextColor(inverse)};
+    color: ${getTextColor($inverse)};
   `}
 `;
 

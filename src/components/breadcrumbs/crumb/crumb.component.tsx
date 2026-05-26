@@ -43,7 +43,7 @@ export const Crumb = React.forwardRef<HTMLAnchorElement, CrumbProps>(
           <StyledCrumbCurrent
             ref={ref}
             aria-current="page"
-            inverse={inverse}
+            $inverse={inverse}
             {...rest}
             {...tagComponent("crumb", rest)}
           >
