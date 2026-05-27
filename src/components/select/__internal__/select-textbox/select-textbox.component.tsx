@@ -232,6 +232,7 @@ const SelectTextbox = React.forwardRef(
           !shouldRenderInput ? (
             <StyledSelectText
               aria-hidden
+              aria-disabled={disabled || undefined}
               data-element="select-text"
               data-role="select-text"
               $disabled={disabled}

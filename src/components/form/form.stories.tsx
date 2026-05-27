@@ -28,6 +28,7 @@ const defaultOpenState = isChromatic();
 const meta: Meta<typeof Form> = {
   title: "Form",
   component: Form,
+  subcomponents: { RequiredFieldsIndicator },
   args: {
     onSubmit: (ev: React.FormEvent) => {
       ev.preventDefault();
@@ -340,10 +341,17 @@ export const WithButtonsAlignedToTheLeft: Story = (args: FormProps) => (
 );
 WithButtonsAlignedToTheLeft.storyName = "With Buttons Aligned to the Left";
 
+export const RequiredFieldsIndicatorStory: Story = () => (
+  <RequiredFieldsIndicator m={2}>
+    Indicates required information
+  </RequiredFieldsIndicator>
+);
+RequiredFieldsIndicatorStory.storyName = "Required Fields Indicator";
+
 export const WithBothOptionalOrRequired: Story = (args: FormProps) => (
   <Box m={1}>
     <RequiredFieldsIndicator mb={2}>
-      <Typography variant="b">Fill in all fields marked with</Typography>
+      <Typography variant="b">Indicates required information</Typography>
     </RequiredFieldsIndicator>
     <Form
       {...args}

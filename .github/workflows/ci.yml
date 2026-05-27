@@ -11,8 +11,9 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: ">=24.11.0 24"
-      - name: Update npm to 11.11.1
-        run: npm install -g npm@11.11.1
+          check-latest: true
+      - name: Update npm to 11.15.0
+        run: npm install -g npm@11.15.0
 
       - run: npm ci
       - run: npx prettier --check './src/**/*.{js,jsx,ts,tsx}'
@@ -35,10 +36,11 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node }}
+          check-latest: true
           cache: npm
 
-      - name: Update npm to 11.11.1
-        run: npm install -g npm@11.11.1
+      - name: Update npm to 11.15.0
+        run: npm install -g npm@11.15.0
 
       - name: Install dependencies
         run: npm ci
@@ -89,10 +91,11 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node }}
+          check-latest: true
           cache: npm
 
-      - name: Update npm to 11.11.1
-        run: npm install -g npm@11.11.1
+      - name: Update npm to 11.15.0
+        run: npm install -g npm@11.15.0
 
       - name: Install dependencies
         run: npm ci
@@ -130,7 +133,8 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: ">=24.11.0 24"
-      - name: Update npm to 11.11.1
-        run: npm install -g npm@11.11.1
+          check-latest: true
+      - name: Update npm to 11.15.0
+        run: npm install -g npm@11.15.0
       - run: npm ci
       - run: npm run build

@@ -34,9 +34,8 @@ import { TEXT_EDITOR_ACTION_TYPES } from "../../__utils__/constants";
 import Textbox from "../../../../textbox";
 import { $createLinkNode } from "@lexical/link";
 import Dialog from "../../../../dialog";
-import Form from "../../../../form";
+import Form, { RequiredFieldsIndicator } from "../../../../form";
 import Box from "../../../../box";
-import Typography from "../../../../typography";
 
 const Toolbar = ({
   contentEditorRef,
@@ -435,13 +434,9 @@ const Toolbar = ({
           >
             {/* Layout container */}
             <Box display="flex" flexDirection="column" gap="16px">
-              {/* TO-DO: Replace hard-coded overrides from Typography with supported variants when supported */}
-              <Typography fontSize="14px" fontWeight="500" lineHeight="21px">
-                <span style={{ color: "var(--input-labelset-label-required)" }}>
-                  *
-                </span>{" "}
+              <RequiredFieldsIndicator>
                 {locale.textEditor.hyperlink.formKey?.()}
-              </Typography>
+              </RequiredFieldsIndicator>
 
               {/* Block layout container */}
               <Box display="flex" gap="24px" flexWrap="wrap">

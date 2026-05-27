@@ -42,6 +42,21 @@ test("renders as a disabled combobox if disabled prop is true", () => {
   expect(input).toBeDisabled();
 });
 
+test("sets aria-disabled on the select text when disabled", () => {
+  render(
+    <ControlledSelectTextbox
+      selectType="simple"
+      label="Select Colour"
+      disabled
+    />,
+  );
+
+  expect(screen.getByTestId("select-text")).toHaveAttribute(
+    "aria-disabled",
+    "true",
+  );
+});
+
 test("does not focus the input when the disabled prop is true and user clicks on the SelectText component", async () => {
   const user = userEvent.setup();
   render(

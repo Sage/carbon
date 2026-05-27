@@ -1,3 +1,21 @@
+## [159.4.0](https://github.com/Sage/carbon/compare/v159.3.1...v159.4.0) (2026-05-27)
+
+### Features
+
+* **portrait:** align component with Fusion DS ([bc669a8](https://github.com/Sage/carbon/commit/bc669a847ae504572e78cbb7dc8299be4ff634a2))
+
+## [159.3.1](https://github.com/Sage/carbon/compare/v159.3.0...v159.3.1) (2026-05-19)
+
+### Bug Fixes
+
+* **link:** use transient props ([db9b5ba](https://github.com/Sage/carbon/commit/db9b5bac140977cc2d783977c0cb31a3476cc300))
+
+## [159.3.0](https://github.com/Sage/carbon/compare/v159.2.5...v159.3.0) (2026-05-15)
+
+### Features
+
+* **required-fields-indicator:** align component with fusion DS ([a1f49c7](https://github.com/Sage/carbon/commit/a1f49c779a8a01eb9c9552120853236e21fee84f))
+
 ## [159.2.5](https://github.com/Sage/carbon/compare/v159.2.4...v159.2.5) (2026-05-14)
 
 ### Bug Fixes

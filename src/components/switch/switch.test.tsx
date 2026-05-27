@@ -71,6 +71,32 @@ describe("Switch", () => {
       );
     });
 
+    it("passes data-element to the outer wrapper", () => {
+      renderSwitch({
+        "data-role": "switch-wrapper",
+        "data-element": "my-element",
+      });
+      expect(screen.getByTestId("switch-wrapper")).toHaveAttribute(
+        "data-element",
+        "my-element",
+      );
+    });
+
+    it("passes the name attribute to the input", () => {
+      renderSwitch({ name: "my-switch-name" });
+      expect(screen.getByRole("switch")).toHaveAttribute(
+        "name",
+        "my-switch-name",
+      );
+    });
+
+    it("passes the value attribute to the input", () => {
+      renderSwitch({ value: "switch-val" });
+      // toHaveValue() does not support checkbox inputs, so we must use toHaveAttribute
+      // eslint-disable-next-line jest-dom/prefer-to-have-value
+      expect(screen.getByRole("switch")).toHaveAttribute("value", "switch-val");
+    });
+
     it("exports the component as a named export", () => {
       expect(NamedSwitch).toBeDefined();
     });
@@ -125,6 +151,21 @@ describe("Switch", () => {
       renderSwitch({ onChange });
       fireEvent.click(screen.getByRole("switch"));
       expect(onChange).toHaveBeenCalledTimes(1);
+    });
+
+    it("calls onBlur when the input loses focus", () => {
+      const onBlur = jest.fn();
+      renderSwitch({ onBlur });
+      fireEvent.focus(screen.getByRole("switch"));
+      fireEvent.blur(screen.getByRole("switch"));
+      expect(onBlur).toHaveBeenCalledTimes(1);
+    });
+
+    it("calls onFocus when the input gains focus", () => {
+      const onFocus = jest.fn();
+      renderSwitch({ onFocus });
+      fireEvent.focus(screen.getByRole("switch"));
+      expect(onFocus).toHaveBeenCalledTimes(1);
     });
   });
 

@@ -120,7 +120,7 @@ test("should apply medium font to required indicator by default", () => {
   );
 });
 
-test("should apply disabled colour when `disabled` prop is true", () => {
+test("should apply disabled colour and set aria-disabled when `disabled` prop is true", () => {
   render(
     <Label size="medium" disabled>
       Disabled
@@ -132,6 +132,7 @@ test("should apply disabled colour when `disabled` prop is true", () => {
     "color",
     "var(--input-labelset-label-disabled)",
   );
+  expect(label).toHaveAttribute("aria-disabled", "true");
 });
 
 test("should apply default colour when `disabled` prop is false", () => {

@@ -37,6 +37,7 @@ export const Label = ({
       $readOnly={readOnly}
       data-component="label"
       data-element="label"
+      aria-disabled={disabled || undefined}
     >
       {children}
     </StyledLabel>
