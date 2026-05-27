@@ -5,13 +5,22 @@ import styled from "styled-components";
 import { margin, MarginProps } from "styled-system";
 
 import Icon from "../icon";
-import profileConfigSizes from "../profile/profile.config";
+
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 
-import { PortraitSizes, PortraitShapes } from "./portrait.component";
-import { PORTRAIT_SIZE_PARAMS } from "./portrait.config";
+import {
+  PortraitSizes,
+  PortraitShapes,
+  PortraitVariant,
+} from "./portrait.component";
 
-import getColoursForPortrait from "./__internal__/get-colors";
+import getColoursForPortrait, {
+  getPortraitColors,
+  getPortraitFontSize,
+  getPortraitDimensions,
+  getPortraitBorderRadius,
+  getPortraitIconFontSize,
+} from "./__internal__/get-properties";
 
 type StyledPortraitProps = {
   backgroundColor?: string;
@@ -21,13 +30,13 @@ type StyledPortraitProps = {
   shape?: PortraitShapes;
   hasValidImg?: boolean;
   onClick?: (ev: React.MouseEvent<HTMLElement>) => void;
+  variant?: PortraitVariant;
 };
 
 export const StyledPortraitInitials = styled.div<
-  Pick<StyledPortraitProps, "size">
+  Pick<StyledPortraitProps, "size" | "variant">
 >`
-  font-weight: 500;
-  font-size: ${({ size }) => profileConfigSizes[size].initialSize};
+  font: ${({ size }) => getPortraitFontSize(size)};
   display: flex;
   white-space: nowrap;
   align-items: center;
@@ -51,14 +60,16 @@ export const StyledCustomImg = styled.img`
 `;
 
 // && is used here to increase the specificity
-export const StyledIcon = styled(Icon)<Pick<StyledPortraitProps, "size">>`
+export const StyledIcon = styled(Icon)<
+  Pick<StyledPortraitProps, "size" | "variant">
+>`
   && {
-    color: inherit;
-    height: inherit;
-    min-width: inherit;
+    color: ${({ variant }) => getPortraitColors(variant).color};
+    height: ${({ size }) => getPortraitDimensions(size).height};
+    min-width: ${({ size }) => getPortraitDimensions(size).width};
 
     ::before {
-      font-size: ${({ size }) => PORTRAIT_SIZE_PARAMS[size].iconDimensions}px;
+      font-size: ${({ size }) => getPortraitIconFontSize(size)};
     }
   }
 `;
@@ -66,7 +77,13 @@ export const StyledIcon = styled(Icon)<Pick<StyledPortraitProps, "size">>`
 export const StyledPortraitContainer = styled.div.attrs(applyBaseTheme)<
   StyledPortraitProps & MarginProps
 >`
-  ${({ darkBackground, backgroundColor, size, foregroundColor }) =>
+  ${({ variant }) => `
+    background-color: ${getPortraitColors(variant).backgroundColor};
+    color: ${getPortraitColors(variant).color};
+  `}
+
+  ${({ darkBackground, backgroundColor, size, foregroundColor, variant }) =>
+    !variant &&
     getColoursForPortrait(
       backgroundColor,
       darkBackground,
@@ -75,13 +92,12 @@ export const StyledPortraitContainer = styled.div.attrs(applyBaseTheme)<
       foregroundColor,
     )};
   ${({ hasValidImg, size }) =>
-    hasValidImg && `max-width: ${PORTRAIT_SIZE_PARAMS[size].dimensions}px;`}
-  min-width: ${({ size }) => PORTRAIT_SIZE_PARAMS[size].dimensions}px;
-  height: ${({ size }) => PORTRAIT_SIZE_PARAMS[size].dimensions}px;
+    hasValidImg && `max-width: ${getPortraitDimensions(size).width};`}
+  min-width: ${({ size }) => getPortraitDimensions(size).width};
+  height: ${({ size }) => getPortraitDimensions(size).height};
   overflow: hidden;
-  border-radius: ${({ shape }) =>
-    shape === "square" ? "0px" : "var(--borderRadiusCircle)"};
-  border: 1px solid var(--colorsUtilityReadOnly600);
+  border-radius: ${({ shape, size }) => getPortraitBorderRadius(shape, size)};
+  border: var(--global-borderwidth-xs) solid var(--profile-border-default);
   display: inline-block;
 
   ${({ onClick }) => onClick && "cursor: pointer"}

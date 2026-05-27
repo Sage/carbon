@@ -19,6 +19,19 @@ export type PortraitShapes = "circle" | "square";
 
 export type PortraitSizes = "XS" | "S" | "M" | "ML" | "L" | "XL" | "XXL";
 
+export type PortraitVariant =
+  | "black"
+  | "blue"
+  | "teal"
+  | "green"
+  | "lime"
+  | "orange"
+  | "red"
+  | "pink"
+  | "purple"
+  | "slate"
+  | "gray";
+
 export interface PortraitProps extends MarginProps, TagProps {
   /** @private @ignore */
   className?: string;
@@ -36,30 +49,54 @@ export interface PortraitProps extends MarginProps, TagProps {
   iconType?: IconType;
   /** The initials to render in the Portrait. */
   initials?: string;
-  /** Use a dark background. */
+  /** Use a dark background.
+   * @deprecated This prop is deprecated and will be removed in a future release.
+   */
   darkBackground?: boolean;
   /** Prop for `onClick` events. */
   onClick?: (ev: React.MouseEvent<HTMLElement>) => void;
-  /** [Legacy] The message to be displayed within the tooltip */
+  /** [Legacy] The message to be displayed within the tooltip
+   * @deprecated This prop is deprecated and will be removed in a future release.
+   */
   tooltipMessage?: React.ReactNode;
-  /** [Legacy] The id attribute to use for the tooltip */
+  /** [Legacy] The id attribute to use for the tooltip
+   * @deprecated This prop is deprecated and will be removed in a future release.
+   */
   tooltipId?: string;
-  /** [Legacy] Whether to to show the Tooltip */
+  /** [Legacy] Whether to to show the Tooltip
+   * @deprecated This prop is deprecated and will be removed in a future release.
+   */
   tooltipIsVisible?: boolean;
-  /** [Legacy] Sets position of the tooltip */
+  /** [Legacy] Sets position of the tooltip
+   * @deprecated This prop is deprecated and will be removed in a future release.
+   */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
-  /** [Legacy] Defines the message type */
+  /** [Legacy] Defines the message type
+   * @deprecated This prop is deprecated and will be removed in a future release.
+   */
   tooltipType?: string;
-  /** [Legacy] Defines the size of the tooltip content */
+  /** [Legacy] Defines the size of the tooltip content
+   * @deprecated This prop is deprecated and will be removed in a future release.
+   */
   tooltipSize?: "medium" | "large";
-  /** [Legacy] Override background color of the Tooltip, provide any color from palette or any valid css color value. */
+  /** [Legacy] Override background color of the Tooltip, provide any color from palette or any valid css color value.
+   * @deprecated This prop is deprecated and will be removed in a future release.
+   */
   tooltipBgColor?: string;
-  /** [Legacy] Override font color of the Tooltip, provide any color from palette or any valid css color value. */
+  /** [Legacy] Override font color of the Tooltip, provide any color from palette or any valid css color value.
+   * @deprecated This prop is deprecated and will be removed in a future release.
+   */
   tooltipFontColor?: string;
-  /** The hex code of the background colour */
+  /** The hex code of the background colour
+   * @deprecated This prop is deprecated and will be removed in a future release.
+   */
   backgroundColor?: string;
-  /** The hex code of the foreground colour. This will only take effect if use in conjunction with `backgroundColor` */
+  /** The hex code of the foreground colour. This will only take effect if use in conjunction with `backgroundColor`
+   * @deprecated This prop is deprecated and will be removed in a future release.
+   */
   foregroundColor?: string;
+  /** Color variant*/
+  variant?: PortraitVariant;
 }
 
 export const Portrait = ({
@@ -83,6 +120,7 @@ export const Portrait = ({
   tooltipSize,
   tooltipBgColor,
   tooltipFontColor,
+  variant,
   ...rest
 }: PortraitProps) => {
   const [externalError, setExternalError] = useState(false);
@@ -95,11 +133,15 @@ export const Portrait = ({
   const tagProps = tagComponent("portrait", rest);
 
   const renderComponent = () => {
-    let portrait = <StyledIcon type={iconType} size={size} />;
+    let portrait = <StyledIcon type={iconType} size={size} variant={variant} />;
 
     if (initials) {
       portrait = (
-        <StyledPortraitInitials size={size} data-element="initials">
+        <StyledPortraitInitials
+          size={size}
+          data-element="initials"
+          variant={variant}
+        >
           {initials.slice(0, 3).toUpperCase()}
         </StyledPortraitInitials>
       );
@@ -139,6 +181,7 @@ export const Portrait = ({
             shape={shape}
             backgroundColor={backgroundColor}
             foregroundColor={foregroundColor}
+            variant={variant}
           >
             {portrait}
           </StyledPortraitContainer>
@@ -158,6 +201,7 @@ export const Portrait = ({
         shape={shape}
         backgroundColor={backgroundColor}
         foregroundColor={foregroundColor}
+        variant={variant}
       >
         {portrait}
       </StyledPortraitContainer>
