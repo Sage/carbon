@@ -82,8 +82,8 @@ description: Carbon Button component props and usage examples.
 **Render**
 
 ```tsx
-() => {
-  return <Button>Button</Button>;
+(args: ButtonProps) => {
+  return <Button {...args}>Button</Button>;
 }
 ```
 
