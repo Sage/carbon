@@ -13,9 +13,9 @@ import {
   StyledLegend,
   StyledFieldsetContentWrapper,
 } from "./fieldset.style";
-import ErrorBorder from "../../legacy-error-border/error-border.style";
-import ValidationMessage from "../../validation-message";
-import HintText from "../../legacy-hint-text";
+import ErrorBorder from "../../error-border/error-border.style";
+import ValidationMessage from "../../validation-message/__next__";
+import HintText from "../../hint-text";
 import guid from "../../utils/helpers/guid";
 import { filterStyledSystemMarginProps } from "../../../style/utils";
 
@@ -30,8 +30,6 @@ export interface FieldsetProps extends MarginProps {
   legend?: string;
   /** Content for an additional hint text below the legend */
   legendHint?: React.ReactNode;
-  /** Text alignment of the legend */
-  legendAlign?: "left" | "right";
   /** Error message to be displayed when validation fails */
   error?: string;
   /** Warning message to be displayed when validation warning occurs */
@@ -51,7 +49,6 @@ const Fieldset = ({
   name,
   id,
   legend,
-  legendAlign,
   legendHint,
   error,
   warning,
@@ -78,10 +75,10 @@ const Fieldset = ({
           <ValidationMessage
             error={error}
             warning={warning}
-            validationId={validationId}
-            isLarge={size === "large"}
+            id={validationId}
+            size={size}
           />
-          <ErrorBorder warning={!!(!error && warning)} />
+          <ErrorBorder $warning={!!(!error && warning)} />
         </>
       );
     }
@@ -94,8 +91,6 @@ const Fieldset = ({
       id={uniqueId}
       name={name}
       aria-describedby={ariaDescribedBy}
-      $validationMessagePositionTop={validationMessagePositionTop}
-      $size={size}
       {...filterStyledSystemMarginProps(rest)}
       {...rest}
     >
@@ -103,28 +98,22 @@ const Fieldset = ({
         <StyledLegend
           aria-disabled={isDisabled || undefined}
           data-element="legend"
-          $align={legendAlign}
           $isRequired={isRequired}
           $isDisabled={isDisabled}
-          $isLarge={size === "large"}
+          $size={size}
         >
           {legend}
         </StyledLegend>
       )}
-
       {legendHint && (
-        <HintText
-          id={legendHintId}
-          isDisabled={isDisabled}
-          align={legendAlign}
-          isLarge={size === "large"}
-          marginBottom="0"
-        >
+        <HintText id={legendHintId} size={size} disabled={isDisabled}>
           {legendHint}
         </HintText>
       )}
-
-      <StyledFieldsetContentWrapper $size={size}>
+      <StyledFieldsetContentWrapper
+        $size={size}
+        $hasLegend={!!legend || !!legendHint}
+      >
         {validationMessagePositionTop && validationMessage()}
         {children}
         {!validationMessagePositionTop && validationMessage()}
