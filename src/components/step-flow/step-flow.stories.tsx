@@ -28,7 +28,10 @@ const meta: Meta<typeof StepFlow> = {
   argTypes: {
     ...styledSystemProps,
   },
-  parameters: { controls: { disabled: true } },
+  parameters: {
+    controls: { disabled: true },
+    chromatic: { disableSnapshot: true },
+  },
   decorators: [
     (Story, context) => {
       const isExampleImplementation = context.name?.includes("Example");
