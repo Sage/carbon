@@ -40,6 +40,9 @@ const meta: Meta<typeof Divider> = {
   argTypes: {
     ...styledSystemProps,
   },
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
 };
 
 export default meta;
@@ -198,7 +201,6 @@ export const InANonFlexContainer: Story = () => {
   );
 };
 InANonFlexContainer.storyName = "In a Non Flex Container";
-InANonFlexContainer.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithCustomSpacingHeight: Story = () => {
   return (
@@ -275,7 +277,6 @@ export const InADialog: Story = () => {
   );
 };
 InADialog.storyName = "In a Dialog";
-InADialog.parameters = { chromatic: { disableSnapshot: true } };
 
 export const InATile: Story = () => {
   return (
@@ -471,4 +472,3 @@ export const EnablingAdaptiveBehaviour: Story = () => {
   );
 };
 EnablingAdaptiveBehaviour.storyName = "Enabling Adaptive Behaviour";
-EnablingAdaptiveBehaviour.parameters = { chromatic: { disableSnapshot: true } };
