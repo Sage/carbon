@@ -16,6 +16,8 @@ import ModalContext from "../../__internal__/modal/modal.context";
 export interface FormProps extends SpaceProps, TagProps {
   /** Alignment of buttons */
   buttonAlignment?: FormButtonAlignment;
+  /** The id attribute of the underlying form element */
+  id?: string;
   /** Child elements */
   children?: React.ReactNode;
   /** The total number of errors present in the form */
@@ -65,6 +67,7 @@ export const Form = ({
   height,
   fullWidthButtons = false,
   footerPadding = {},
+  id,
   ...rest
 }: FormProps) => {
   const formRef = useRef<HTMLFormElement>(null);
@@ -83,6 +86,7 @@ export const Form = ({
   return (
     <StyledForm
       ref={formRef}
+      id={id}
       className={stickyFooter ? "sticky" : ""}
       stickyFooter={stickyFooter}
       onSubmit={onSubmit}

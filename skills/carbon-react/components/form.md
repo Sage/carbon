@@ -23,6 +23,7 @@ description: Carbon Form component props and usage examples.
 | footerPadding | PaddingProps | No |  | Padding to be set on the form footer | {} |
 | fullWidthButtons | boolean \| undefined | No |  | Applies styling for full width buttons. Please note that you will still need to pass the `fullWidth` prop to the button you compose | false |
 | height | string \| undefined | No |  | Height of the form (any valid CSS value) |  |
+| id | string \| undefined | No |  | The id attribute of the underlying form element |  |
 | leftSideButtons | React.ReactNode | No |  | Additional buttons rendered on the left side of the save button |  |
 | m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
 | margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |

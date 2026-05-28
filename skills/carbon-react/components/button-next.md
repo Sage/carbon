@@ -18,6 +18,7 @@ description: Carbon ButtonNext component props and usage examples.
 | children | React.ReactNode | No |  |  |  | The content that the button displays. |  |
 | className | string \| undefined | No |  |  |  |  |  |
 | disabled | boolean \| undefined | No |  |  |  | Flag to indicate that the button is disabled. |  |
+| form | string \| undefined | No |  |  |  | Associates the button with a form element; value should be the id of the form. |  |
 | fullWidth | boolean \| undefined | No |  |  |  | Flag to indicate that the button can be full-width. |  |
 | href | string \| undefined | No |  |  |  | Used to transform button into anchor |  |
 | iconPosition | ButtonIconPosition \| undefined | No |  |  |  | Defines an Icon position related to the children: "before" \| "after" |  |
