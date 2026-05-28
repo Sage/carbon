@@ -23,7 +23,10 @@ export interface RadioButtonGroupProps extends MarginProps, TagProps {
   legend?: string;
   /** Content for the hint text below the legend. */
   legendHint?: string;
-  /** Alignment of the legend. */
+  /**
+   * Alignment of the legend.
+   * @deprecated Right legend alignment is no longer supported.
+   */
   legendAlign?: "left" | "right";
   /** Specifies the name prop to be applied to each RadioButton in the group. */
   name: string;
@@ -135,7 +138,6 @@ export const RadioButtonGroup = ({
       id={uniqueId}
       legend={legend}
       legendHint={legendHint || legendHelp}
-      legendAlign={legendAlign}
       isDisabled={disabled}
       isRequired={required}
       error={error}
