@@ -4,7 +4,7 @@ import { Meta } from "@storybook/blocks";
 
 # Colors
 
-Some components such as [Typography](../?path=/docs/typography--docs) have a `color`, `bg`/`backgroundColor` and `opacity` props, this functionality is provided by [styled-system/color](https://styled-system.com/api/#color).
+Some components such as [Typography](../?path=/docs/typography--docs) have a `color`, `bg`/`backgroundColor` and `opacity` props, this functionality is provided by [styled-system/color](https://github.com/styled-system/styled-system/blob/master/docs/api.md#color).
 
 You can use a CSS string, the name of a palette colour or design tokens.
 
