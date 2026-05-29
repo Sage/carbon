@@ -93,6 +93,12 @@ Use the `stickyFooter` prop together with `footer` to keep the footer visible wh
 
 <Canvas of={DialogStories.StickyFooterWithForm} />
 
+### Form linked to footer buttons
+
+When using the Dialog's `footer` prop, the action buttons live outside the `<form>` element in the DOM. Use the `id` prop on `Form` and the `form` prop on `Button` to associate them.
+
+<Canvas of={DialogStories.FormLinkedToFooterButtons} />
+
 ### With a custom height
 
 Use the `height` prop to set a fixed height on the dialog.

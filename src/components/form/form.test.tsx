@@ -117,6 +117,11 @@ test("includes correct data-element tags on elements", () => {
   );
 });
 
+test("passes the id prop to the underlying form element", () => {
+  render(<Form aria-label="form-example" id="my-form" />);
+  expect(screen.getByRole("form")).toHaveAttribute("id", "my-form");
+});
+
 test("default browser validation is disabled on the form by default", () => {
   render(<Form aria-label="form-example" />);
   expect(screen.getByRole("form")).toHaveAttribute("novalidate");

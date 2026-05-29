@@ -48,6 +48,8 @@ export interface ButtonProps
   disabled?: boolean;
   /** Flag to indicate that the button can be full-width. */
   fullWidth?: boolean;
+  /** Associates the button with a form element; value should be the id of the form. */
+  form?: string;
   /** The ID of the button. */
   id?: string;
   /** Set the button to use a dark-mode appearance. */
@@ -156,6 +158,7 @@ export const Button = forwardRef<ButtonHandle, ButtonProps>(
       children,
       disabled = false,
       fullWidth = false,
+      form,
       id,
       inverse,
       name,
@@ -270,6 +273,7 @@ export const Button = forwardRef<ButtonHandle, ButtonProps>(
         aria-labelledby={ariaLabelledBy}
         disabled={disabled}
         $fullWidth={fullWidth}
+        form={form}
         $inverse={inverse || buttonType === "darkBackground" || isWhite}
         id={id}
         name={name}

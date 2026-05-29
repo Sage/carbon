@@ -56,7 +56,9 @@ To use an image instead of the default icon or initials, pass any valid image UR
 
 <Canvas of={PortraitStories.IconType} />
 
-### With tooltip
+### (Deprecated) With tooltip
+
+The props related to the tooltip have been deprecated and they will be remvoed in a future release.
 
 A tooltip can be displayed when hovering over the `Portrait` by providing the `tooltipMessage`, `tooltipPosition` and `tooltipColor` props.
 
@@ -74,7 +76,9 @@ The `Portrait` component can be rendered in a variety of shapes by passing the d
 
 <Canvas of={PortraitStories.Shapes} />
 
-### Dark background
+### (Deprecated) Dark background
+
+The `darkBackground` props has been deprecated and it will be removed in a future version. Please use `variant` prop instead.
 
 The `Portrait` component can be rendered with a dark background by passing the `darkBackground` prop.
 
@@ -89,7 +93,9 @@ table at the bottom of this page.
 
 <Canvas of={PortraitStories.WithMargin} />
 
-### Custom colors
+### (Deprecated) Custom colors
+
+The `backgroundColor` and `foregroundColor` props have been deprecated and they will be removed in a future version. Please use the `variant` prop instead.
 
 The `Portrait` component provides a set of props that allow for custom foreground and background colors
 to be applied. These props are `backgroundColor` and `foregroundColor`, and both accept a HEX color code or
@@ -104,6 +110,12 @@ this value will be used instead of the calculated one; please ensure that the co
 the component remains accessible.
 
 <Canvas of={PortraitStories.CustomColors} />
+
+### Variants
+
+Use the variant prop to change the visual style of the Portrait. If multiple styling props are provided at the same time (for example, darkBackground and variant), variant takes precedence over the other styling props.
+
+<Canvas of={PortraitStories.Variants} />
 
 ## Props
 

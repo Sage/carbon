@@ -273,6 +273,11 @@ test("renders correctly when 'fullWidth' is specified", () => {
   expect(button).toHaveStyle("width: 100%");
 });
 
+test("passes the form prop to the underlying button element", () => {
+  render(<Button form="my-form">Test Button</Button>);
+  expect(screen.getByRole("button")).toHaveAttribute("form", "my-form");
+});
+
 test("calling exposed focusButton method focuses chosen button", async () => {
   const user = userEvent.setup();
   const MockComponent = () => {
