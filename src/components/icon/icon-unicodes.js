@@ -305,6 +305,8 @@ const misc = {
   caret_up_down: "\\f110",
   connect_circle: "\\f111",
   plus_circle: "\\f112",
+  code: "\\f113",
+  source_code: "\\f114",
 };
 
 const legacyNames = {
