@@ -4,7 +4,7 @@ import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
 import CheckableInput, {
   CommonCheckableInputProps,
-} from "../../__internal__/checkable-input/__next__/checkable-input.component";
+} from "../../__internal__/checkable-input/checkable-input.component";
 import RadioButtonStyle from "./radio-button.style";
 import { useRadioButtonGroupContext } from "./___internal___/radio-button-group.context";
 

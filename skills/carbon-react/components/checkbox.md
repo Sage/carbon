@@ -354,7 +354,7 @@ description: Carbon Checkbox component props and usage examples.
 
 ```tsx
 {
-    inputHint: "Hint Text"
+    inputHint: "Hint Text",
   }
 ```
 
@@ -504,21 +504,13 @@ description: Carbon Checkbox component props and usage examples.
 ```tsx
 (args) => (
     <>
-      <ControlledCheckbox
-        label="Indeterminate Small"
-        size="small"
-        {...args}
-      />
+      <ControlledCheckbox label="Indeterminate Small" size="small" {...args} />
       <ControlledCheckbox
         label="Indeterminate Medium"
         size="medium"
         {...args}
       />
-      <ControlledCheckbox
-        label="Indeterminate Large"
-        size="large"
-        {...args}
-      />
+      <ControlledCheckbox label="Indeterminate Large" size="large" {...args} />
     </>
   )
 ```
@@ -565,9 +557,30 @@ ControlledCheckbox
 
   return (
     <Box display="flex" flexDirection="row" justifyContent="space-around">
-      <Checkbox label="Small Checkbox" size="small" checked={checkedSmall} onChange={() => {setCheckedSmall(!checkedSmall)}} />
-      <Checkbox label="Medium Checkbox" size="medium" checked={checkedMedium} onChange={() => {setCheckedMedium(!checkedMedium)}} />
-      <Checkbox label="Large Checkbox" size="large" checked={checkedLarge} onChange={() => {setCheckedLarge(!checkedLarge)}} />
+      <Checkbox
+        label="Small Checkbox"
+        size="small"
+        checked={checkedSmall}
+        onChange={() => {
+          setCheckedSmall(!checkedSmall);
+        }}
+      />
+      <Checkbox
+        label="Medium Checkbox"
+        size="medium"
+        checked={checkedMedium}
+        onChange={() => {
+          setCheckedMedium(!checkedMedium);
+        }}
+      />
+      <Checkbox
+        label="Large Checkbox"
+        size="large"
+        checked={checkedLarge}
+        onChange={() => {
+          setCheckedLarge(!checkedLarge);
+        }}
+      />
     </Box>
   );
 }
@@ -594,9 +607,9 @@ ControlledCheckbox
 ```tsx
 () => {
   const [items, setItems] = useState([
-    { id: 'checkbox-1', label: 'Checkbox 1', checked: true },
-    { id: 'checkbox-2', label: 'Checkbox 2', checked: false },
-    { id: 'checkbox-3', label: 'Checkbox 3', checked: false },
+    { id: "checkbox-1", label: "Checkbox 1", checked: true },
+    { id: "checkbox-2", label: "Checkbox 2", checked: false },
+    { id: "checkbox-3", label: "Checkbox 3", checked: false },
   ]);
 
   const checkedCount = items.filter((item) => item.checked).length;
@@ -611,9 +624,7 @@ ControlledCheckbox
 
   const handleChange = (id: string, checked: boolean) => {
     setItems(
-      items.map((item) =>
-        item.id === id ? { ...item, checked } : item
-      )
+      items.map((item) => (item.id === id ? { ...item, checked } : item)),
     );
   };
 

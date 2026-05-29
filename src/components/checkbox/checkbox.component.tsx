@@ -5,7 +5,7 @@ import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 import { StyledCheckbox, StyledCheckboxContentWrapper } from "./checkbox.style";
 import CheckableInput, {
   CommonCheckableInputProps,
-} from "../../__internal__/checkable-input/__next__/checkable-input.component";
+} from "../../__internal__/checkable-input/checkable-input.component";
 import CheckboxSvg from "./__internal__/checkbox-svg.component";
 import CheckboxGroupContext from "./__internal__/checkbox-group.context";
 

@@ -58,7 +58,7 @@ description: Carbon CheckboxGroup component props and usage examples.
 
 ```tsx
 {
-    legendHint: "Hint Text"
+    legendHint: "Hint Text",
   }
 ```
 
@@ -249,22 +249,30 @@ ControlledCheckboxGroup
 
 ```tsx
 () => {
-  const [valuesBySize, setValuesBySize] = useState<Record<"small" | "medium" | "large", string[]>>({
+  const [valuesBySize, setValuesBySize] = useState<
+    Record<"small" | "medium" | "large", string[]>
+  >({
     small: [],
     medium: [],
     large: [],
   });
 
   const handleChange =
-    (size: "small" | "medium" | "large") => (event: React.ChangeEvent<HTMLInputElement>) => {
+    (size: "small" | "medium" | "large") =>
+    (event: React.ChangeEvent<HTMLInputElement>) => {
       const { value, checked } = event.target;
       setValuesBySize((prev) => ({
         ...prev,
-        [size]: checked ? [...prev[size], value] : prev[size].filter((val) => val !== value),
+        [size]: checked
+          ? [...prev[size], value]
+          : prev[size].filter((val) => val !== value),
       }));
     };
 
-  const sizeConfigs: Array<{ size: "small" | "medium" | "large"; legend: string }> = [
+  const sizeConfigs: Array<{
+    size: "small" | "medium" | "large";
+    legend: string;
+  }> = [
     { size: "small", legend: "Small Checkbox Group" },
     { size: "medium", legend: "Medium Checkbox Group" },
     { size: "large", legend: "Large Checkbox Group" },
@@ -273,7 +281,13 @@ ControlledCheckboxGroup
   const options = ["1", "2", "3"];
 
   return (
-    <Box display="flex" flexDirection="row" justifyContent="space-around" flexWrap="wrap" gap="var(--spacing-400)">
+    <Box
+      display="flex"
+      flexDirection="row"
+      justifyContent="space-around"
+      flexWrap="wrap"
+      gap="var(--spacing-400)"
+    >
       {sizeConfigs.map(({ size, legend }) => (
         <CheckboxGroup key={size} legend={legend} size={size}>
           {options.map((option) => {

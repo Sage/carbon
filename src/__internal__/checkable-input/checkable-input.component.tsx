@@ -1,183 +1,172 @@
-import React, { useRef, useContext } from "react";
+/**
+ * Checkable Input Component
+ *
+ * @description Base component for Checkbox and RadioButton components.
+ * Do not add props that are specific to either Checkbox or RadioButton.
+ * Do not add props to the common interface that are not intended to be in the public interface of both components.
+ * Styles of any children should be handled in their respective component files.
+ */
 
+import React, { useRef, useState, useLayoutEffect, useContext } from "react";
 import {
   StyledCheckableInput,
   StyledCheckableInputWrapper,
+  StyledAccordionLine,
+  StyledAccordion,
+  StyledLineContainer,
+  StyledAccordionContent,
 } from "./checkable-input.style";
-import { InputBehaviour } from "../input-behaviour";
-import FormField, { FormFieldProps } from "../form-field";
 import HiddenCheckableInput, {
   CommonHiddenCheckableInputProps,
 } from "./hidden-checkable-input.component";
 import guid from "../utils/helpers/guid";
-import useInputAccessibility from "../../hooks/__internal__/useInputAccessibility";
-import { ValidationProps } from "../validations";
+import Label from "../label";
+import HintText from "../hint-text";
+import useMediaQuery from "../../hooks/useMediaQuery";
+import useRegisterValidationToTabs from "../../hooks/__internal__/useRegisterValidationToTabs/useRegisterValidationToTabs";
 import FieldsetContext from "../../components/fieldset/__internal__/fieldset.context";
 
 export interface CommonCheckableInputProps
-  extends ValidationProps,
-    CommonHiddenCheckableInputProps {
-  /** If true, the component will be disabled */
-  disabled?: boolean;
-  /** @private @ignore */
-  loading?: boolean;
-  /** Help content to be displayed under an input */
-  fieldHelp?: React.ReactNode;
-  /**
-   * If true, the FieldHelp will be displayed inline
-   * To be used with labelInline prop set to true
-   */
-  fieldHelpInline?: boolean;
-  /** Unique Identifier for the input. Will use a randomly generated GUID if none is provided */
+  extends CommonHiddenCheckableInputProps {
+  /** Unique identifier for the input. Will use a randomly generated GUID if none is provided. */
   id?: string;
-  /** Sets percentage-based input width */
-  inputWidth?: number;
-  /** Label content */
+  /** Content of the label. */
   label?: React.ReactNode;
-  /** The content for the help tooltip, to appear next to the Label */
-  labelHelp?: React.ReactNode;
-  /** Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */
-  labelSpacing?: 1 | 2;
-  /** Label width */
-  labelWidth?: number;
-  /** Flag to configure component as mandatory */
-  required?: boolean;
-  /** If true the label switches position with the input */
-  reverse?: boolean;
-  /** Size of the component */
-  size?: "small" | "large";
-  /** Prop to specify the aria-labelledby attribute of the input */
-  ariaLabelledBy?: string;
-  /** When true, displays validation icon on label */
-  validationOnLabel?: boolean;
+  /** Additional hint text rendered below the label. */
+  inputHint?: React.ReactNode;
+  /** If true, the component will be disabled. */
+  disabled?: boolean;
+  /** Content to be rendered below the input when checked, is not supported when inputs are inline. */
+  progressiveDisclosure?: React.ReactNode;
+  /**
+   * Id of the validation icon
+   * @deprecated Validation icons with tooltips are no longer supported on this component.
+   */
+  validationIconId?: string;
 }
 
 export interface CheckableInputProps extends CommonCheckableInputProps {
-  /** Used to set the visible aspect of the input (i.e. the checkbox sprite, input slider etc) */
+  /** Element to be rendered as the visible input. */
   children?: React.ReactNode;
-  /** HTML type attribute of the input */
+  /** HTML type attribute of the input. */
   type: string;
-  /** Value passed to the input */
-  value?: string;
-  /** When true label is inline */
-  labelInline?: boolean;
-  /** Whether this component resides on a dark background */
-  isDarkBackground?: boolean;
+  /** Size of the component. */
+  size?: "small" | "medium" | "large";
+  /** Set error state - passed to Tabs context */
+  error?: boolean;
+  /** Set warning state - passed to Tabs context */
+  warning?: boolean;
+  /** Flag to display required asterisk. */
+  showRequiredAsterisk?: boolean;
 }
 
 const CheckableInput = React.forwardRef(
   (
     {
-      ariaLabelledBy,
-      autoFocus,
-      checked,
       children,
       disabled,
-      loading,
-      error,
-      fieldHelp,
-      fieldHelpInline,
-      info,
+      required,
       id: inputId,
+      name,
       type,
       value,
-      inputWidth,
       label,
-      labelHelp,
-      labelInline = true,
-      labelSpacing = 1,
-      labelWidth,
-      name,
-      onBlur,
-      onChange,
-      onFocus,
-      required,
-      reverse = false,
-      validationOnLabel,
+      inputHint,
+      checked,
+      progressiveDisclosure,
+      size = "medium",
+      error,
       warning,
-      isDarkBackground = false,
+      showRequiredAsterisk,
+      "aria-describedby": ariaDescribedBy,
       ...props
     }: CheckableInputProps,
     ref: React.ForwardedRef<HTMLInputElement>,
   ) => {
     const { current: id } = useRef(inputId || guid());
+    const inputHintId = inputHint ? `${id}-hint` : undefined;
 
     const { required: fieldsetRequired } = useContext(FieldsetContext);
 
-    const { labelId, fieldHelpId, validationId, ariaDescribedBy } =
-      useInputAccessibility({
-        id,
-        error,
-        warning,
-        info,
-        label,
-        fieldHelp,
-      });
+    const combinedAriaDescribedBy = [inputHintId, ariaDescribedBy]
+      .filter(Boolean)
+      .join(" ");
 
-    const formFieldProps: FormFieldProps = {
-      disabled,
-      loading,
-      error,
-      fieldHelp,
-      fieldHelpInline,
-      fieldHelpId,
-      id,
-      info,
-      label,
-      labelHelp,
-      labelHelpIcon: "info" as const,
-      labelId,
-      labelInline,
-      labelSpacing,
-      reverse,
-      warning,
-      validationIconId: validationId,
-      // We don't want an asterisk on each radio control, only the legend
-      // However, we still want the input element to receive the required prop
-      isRequired: required,
-      useValidationIcon: validationOnLabel,
-    };
+    const accordionContainer = useRef<HTMLDivElement>(null);
+    const [contentHeight, setContentHeight] = useState("0");
+    const allowMotion = useMediaQuery(
+      "screen and (prefers-reduced-motion: no-preference)",
+    );
 
-    const inputProps = {
-      ariaDescribedBy,
-      "aria-labelledby": ariaLabelledBy,
-      "aria-invalid": !!error,
-      autoFocus,
-      checked,
-      disabled,
-      id,
-      type,
-      value,
-      name,
-      onBlur,
-      onChange,
-      onFocus,
-      // set required if checkbox is rendered within Fieldset, but avoid rendering asterisk
-      required: required || fieldsetRequired,
-      ref,
-      validationIconId: validationId,
-      ...props,
-    };
+    useLayoutEffect(() => {
+      if (accordionContainer.current) {
+        const { scrollHeight } = accordionContainer.current;
+        /* istanbul ignore next */
+        const newHeight = checked && scrollHeight ? String(scrollHeight) : "0";
+        setContentHeight(newHeight);
+      }
+    }, [checked]);
+
+    useRegisterValidationToTabs(!!error, !!warning, id);
 
     return (
-      <StyledCheckableInputWrapper
-        disabled={disabled}
-        fieldHelpInline={fieldHelpInline}
-        inputWidth={inputWidth}
-        labelWidth={labelWidth}
-        labelInline={labelInline}
-        reverse={reverse}
-        isDarkBackground={isDarkBackground}
-      >
-        <InputBehaviour>
-          <FormField {...formFieldProps} my={0}>
-            <StyledCheckableInput data-role="checkable-input">
-              <HiddenCheckableInput {...inputProps} />
-              {children}
-            </StyledCheckableInput>
-          </FormField>
-        </InputBehaviour>
-      </StyledCheckableInputWrapper>
+      <>
+        <StyledCheckableInput>
+          <StyledCheckableInputWrapper>
+            <HiddenCheckableInput
+              id={id}
+              type={type}
+              name={name}
+              value={value}
+              disabled={disabled}
+              checked={checked}
+              ref={ref}
+              aria-describedby={combinedAriaDescribedBy}
+              aria-invalid={error}
+              required={fieldsetRequired || required}
+              {...props}
+            />
+            {children}
+          </StyledCheckableInputWrapper>
+          {label && (
+            <Label
+              className="checkable-label"
+              htmlFor={id}
+              disabled={disabled}
+              isRequired={required && showRequiredAsterisk}
+              size={size}
+            >
+              {label}
+            </Label>
+          )}
+          {inputHint && (
+            <HintText
+              className="checkable-hint-text"
+              id={inputHintId}
+              disabled={disabled}
+              size={size}
+            >
+              {inputHint}
+            </HintText>
+          )}
+        </StyledCheckableInput>
+        {progressiveDisclosure && (
+          <StyledAccordion
+            data-role="progressive-disclosure-accordion"
+            ref={accordionContainer}
+            $expanded={checked}
+            $contentHeight={contentHeight}
+            $allowAnimation={allowMotion}
+          >
+            <StyledLineContainer $size={size}>
+              <StyledAccordionLine $size={size} />
+            </StyledLineContainer>
+            <StyledAccordionContent>
+              {progressiveDisclosure}
+            </StyledAccordionContent>
+          </StyledAccordion>
+        )}
+      </>
     );
   },
 );
