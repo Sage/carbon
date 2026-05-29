@@ -20,15 +20,13 @@ description: Carbon RadioButton component props and usage examples.
 | accept | string \| undefined | No |  |  |  |  |  |
 | accessKey | string \| undefined | No |  |  |  |  |  |
 | alt | string \| undefined | No |  |  |  |  |  |
-| ariaDescribedBy | string \| undefined | No |  |  |  | The id of the element that describe the input. |  |
-| ariaLabelledBy | string \| undefined | No |  |  |  | Prop to specify the aria-labelledby attribute of the input |  |
 | autoCapitalize | (string & {}) \| "none" \| "off" \| "on" \| "sentences" \| "words" \| "characters" \| undefined | No |  |  |  |  |  |
 | autoComplete | HTMLInputAutoCompleteAttribute \| undefined | No |  |  |  |  |  |
 | autoCorrect | string \| undefined | No |  |  |  |  |  |
-| autoFocus | boolean \| undefined | No |  |  |  | If true the Component will be focused when page load |  |
+| autoFocus | boolean \| undefined | No |  |  |  | If true, the component will be automatically focused when rendered. |  |
 | autoSave | string \| undefined | No |  |  |  |  |  |
 | capture | boolean \| "user" \| "environment" \| undefined | No |  |  |  |  |  |
-| checked | boolean \| undefined | No |  |  |  | Checked state of the input |  |
+| checked | boolean \| undefined | No |  |  |  | Checked state of the input. |  |
 | children | ReactNode | No |  |  |  |  |  |
 | className | string \| undefined | No |  |  |  |  |  |
 | color | string \| undefined | No |  |  |  |  |  |
@@ -70,7 +68,7 @@ description: Carbon RadioButton component props and usage examples.
 | min | string \| number \| undefined | No |  |  |  |  |  |
 | minLength | number \| undefined | No |  |  |  |  |  |
 | multiple | boolean \| undefined | No |  |  |  |  |  |
-| name | string \| undefined | No |  |  |  | Input name |  |
+| name | string \| undefined | No |  |  |  | Input name attribute. |  |
 | nonce | string \| undefined | No |  |  |  |  |  |
 | onAbort | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onAbortCapture | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
@@ -84,13 +82,13 @@ description: Carbon RadioButton component props and usage examples.
 | onAuxClickCapture | MouseEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onBeforeInput | InputEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onBeforeInputCapture | FormEventHandler<T> \| undefined | No |  |  |  |  |  |
-| onBlur | ((ev: React.FocusEvent<HTMLInputElement>) => void) \| undefined | No |  |  |  | Blur event handler |  |
+| onBlur | FocusEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onBlurCapture | FocusEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onCanPlay | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onCanPlayCapture | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onCanPlayThrough | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onCanPlayThroughCapture | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
-| onChange | ((ev: React.ChangeEvent<HTMLInputElement>) => void) \| undefined | No |  |  |  | OnChange event handler |  |
+| onChange | ChangeEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onChangeCapture | FormEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onClick | ((ev: React.MouseEvent<HTMLInputElement>) => void) \| undefined | No |  |  |  | Callback fired when the RadioButton is clicked. |  |
 | onClickCapture | MouseEventHandler<T> \| undefined | No |  |  |  |  |  |
@@ -134,7 +132,7 @@ description: Carbon RadioButton component props and usage examples.
 | onEndedCapture | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onError | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onErrorCapture | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
-| onFocus | ((ev: React.FocusEvent<HTMLInputElement>) => void) \| undefined | No |  |  |  | OnFocus event handler |  |
+| onFocus | FocusEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onFocusCapture | FocusEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onGotPointerCapture | PointerEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onGotPointerCaptureCapture | PointerEventHandler<T> \| undefined | No |  |  |  |  |  |
@@ -158,8 +156,8 @@ description: Carbon RadioButton component props and usage examples.
 | onLostPointerCaptureCapture | PointerEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onMouseDown | MouseEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onMouseDownCapture | MouseEventHandler<T> \| undefined | No |  |  |  |  |  |
-| onMouseEnter | ((ev: React.MouseEvent<HTMLInputElement>) => void) \| undefined | No |  |  |  | OnMouseEnter event handler |  |
-| onMouseLeave | ((ev: React.MouseEvent<HTMLInputElement>) => void) \| undefined | No |  |  |  | OnMouseLeave event handler |  |
+| onMouseEnter | MouseEventHandler<T> \| undefined | No |  |  |  |  |  |
+| onMouseLeave | MouseEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onMouseMove | MouseEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onMouseMoveCapture | MouseEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onMouseOut | MouseEventHandler<T> \| undefined | No |  |  |  |  |  |
@@ -310,6 +308,8 @@ description: Carbon RadioButton component props and usage examples.
 | aria-valuemin | number \| undefined | No |  |  |  | Defines the minimum allowed value for a range widget. |  |
 | aria-valuenow | number \| undefined | No |  |  |  | Defines the current value for a range widget. |  |
 | aria-valuetext | string \| undefined | No |  |  |  | Defines the human readable text alternative of aria-valuenow for a range widget. |  |
+| ariaDescribedBy | string \| undefined | No |  | Yes | This prop is deprecated, please use the `aria-describedby` attribute instead. | The id of the element that describe the input. |  |
+| ariaLabelledBy | string \| undefined | No |  | Yes | This prop is deprecated, please use the `aria-describedby` attribute instead. | Prop to specify the aria-labelledby attribute of the input. |  |
 | error | string \| boolean \| undefined | No |  | Yes | Error validation is no longer supported on this component. Please pass validation messages to the `RadioButtonGroup` component instead. | Indicate that an error has occurred. |  |
 | fieldHelp | React.ReactNode | No |  | Yes | The `fieldHelp` prop is deprecated and will be removed in a future release. Please use the `inputHint` prop instead. | Help content to be displayed under an input |  |
 | fieldHelpInline | boolean \| undefined | No |  | Yes | The `fieldHelpInline` prop is no longer supported on this component. | If true, the FieldHelp will be displayed inline To be used with labelInline prop set to true |  |

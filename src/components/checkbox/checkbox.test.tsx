@@ -2,11 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Checkbox } from ".";
-import CarbonProvider from "../carbon-provider";
-import {
-  mockMatchMedia,
-  testStyledSystemMargin,
-} from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 
 test("should call onChange when checkbox is clicked", async () => {
   const user = userEvent.setup();
@@ -75,6 +71,20 @@ test("should render with provided label", () => {
   expect(screen.getByText("label")).toBeVisible();
 });
 
+test("should render with provided `inputHint`", () => {
+  render(
+    <Checkbox
+      label="label"
+      inputHint="hint text"
+      checked
+      onChange={() => {}}
+    />,
+  );
+
+  expect(screen.getByText("hint text")).toBeVisible();
+  expect(screen.getByRole("checkbox")).toHaveAccessibleDescription("hint text");
+});
+
 test("should render with provided aria-labelledby", () => {
   render(<Checkbox aria-labelledby="labelId" checked onChange={() => {}} />);
 
@@ -84,53 +94,15 @@ test("should render with provided aria-labelledby", () => {
   );
 });
 
-test("should render tooltip with provided labelHelp and helpAriaLabel", async () => {
-  const user = userEvent.setup();
+test("should render with provided aria-describedby", () => {
   render(
-    <Checkbox
-      label="label"
-      labelHelp="labelHelp"
-      helpAriaLabel="helpAriaLabel"
-      checked
-      onChange={() => {}}
-    />,
+    <Checkbox aria-describedby="descriptionId" checked onChange={() => {}} />,
   );
 
-  const helpTooltip = screen.getByRole("button");
-  expect(helpTooltip).toHaveAccessibleName("helpAriaLabel");
-
-  await user.hover(helpTooltip);
-  expect(helpTooltip).toHaveAccessibleDescription("labelHelp");
-});
-
-test("should render input with validation tooltip as its accessible description when the input is focused", async () => {
-  const user = userEvent.setup();
-  render(<Checkbox label="label" checked onChange={() => {}} error="error" />);
-
-  const checkbox = screen.getByRole("checkbox");
-  expect(checkbox).not.toHaveAttribute("aria-describedby");
-
-  await user.click(checkbox);
-  expect(checkbox).toHaveAccessibleDescription("error");
-});
-
-test("should append the validation tooltip to the input's accessible description when fieldHelp is set and the input is focused", async () => {
-  const user = userEvent.setup();
-  render(
-    <Checkbox
-      label="label"
-      checked
-      onChange={() => {}}
-      fieldHelp="fieldHelp"
-      error="error"
-    />,
+  expect(screen.getByRole("checkbox")).toHaveAttribute(
+    "aria-describedby",
+    "descriptionId",
   );
-
-  const checkbox = screen.getByRole("checkbox");
-  expect(checkbox).toHaveAccessibleDescription("fieldHelp");
-
-  await user.click(checkbox);
-  expect(checkbox).toHaveAccessibleDescription("fieldHelp error");
 });
 
 test("should render a required checkbox when the required prop is true", () => {
@@ -151,228 +123,95 @@ test("should render a checked checkbox when checked prop is true", () => {
   expect(screen.getByRole("checkbox")).toBeChecked();
 });
 
-test("should render fieldHelp with expected styles when inputWidth is set", () => {
+test("should render an indeterminate checkbox when `indeterminate` prop is true", () => {
   render(
     <Checkbox
       label="label"
-      fieldHelp="fieldHelp"
-      checked
       onChange={() => {}}
-      inputWidth={50}
+      checked={false}
+      indeterminate
     />,
   );
 
-  expect(screen.getByText("fieldHelp")).toHaveStyle({
-    marginLeft: "50% !important",
-  });
+  expect(screen.getByRole("checkbox")).not.toBeChecked();
+  expect(screen.getByTestId("indeterminate-svg")).toBeVisible();
 });
 
-test("should render fieldHelp with expected styles when inputWidth is set and reverse is true", () => {
+test("should render with provided aria-controls", () => {
+  render(<Checkbox aria-controls="checkbox-1" checked onChange={() => {}} />);
+
+  expect(screen.getByRole("checkbox")).toHaveAttribute(
+    "aria-controls",
+    "checkbox-1",
+  );
+});
+
+test("should render with provided `error`", () => {
   render(
     <Checkbox
       label="label"
-      fieldHelp="fieldHelp"
+      error="error message"
       checked
       onChange={() => {}}
-      inputWidth={50}
-      reverse
     />,
   );
 
-  expect(screen.getByText("fieldHelp")).toHaveStyle({
-    marginRight: "50% !important",
-  });
+  expect(screen.getByText("error message")).toBeVisible();
+  expect(screen.getByRole("checkbox")).toHaveAccessibleDescription(
+    "error message",
+  );
 });
 
-test("should render fieldHelp with expected styles when labelSpacing is 2", () => {
+test("should render with provided `warning`", () => {
   render(
     <Checkbox
       label="label"
-      fieldHelp="fieldHelp"
+      warning="warning message"
       checked
       onChange={() => {}}
-      labelSpacing={2}
     />,
   );
 
-  expect(screen.getByText("fieldHelp")).toHaveStyle({
-    paddingLeft: "var(--spacing200)",
-  });
+  expect(screen.getByText("warning message")).toBeVisible();
+  expect(screen.getByRole("checkbox")).toHaveAccessibleDescription(
+    "warning message",
+  );
 });
 
-test("should render with expected styles when fieldHelpInline is true", () => {
+test("should render `labelHelp` as `inputHint`", () => {
   render(
     <Checkbox
       label="label"
-      fieldHelp="fieldHelp"
+      labelHelp="hint text"
       checked
       onChange={() => {}}
-      fieldHelpInline
     />,
   );
 
-  expect(screen.getByText("label")).toHaveStyle({ flex: "0 1 auto" });
-  expect(screen.getByText("fieldHelp")).toHaveStyle({ marginLeft: "0" });
+  expect(screen.getByText("hint text")).toBeVisible();
+  expect(screen.getByRole("checkbox")).toHaveAccessibleDescription("hint text");
 });
 
-test("should render with expected styles when fieldHelpInline is true and reverse is true", () => {
+// coverage
+test("should render with provided `validationMessagePositionTop` set to false", () => {
   render(
     <Checkbox
       label="label"
-      fieldHelp="fieldHelp"
+      error="error message"
+      validationMessagePositionTop={false}
       checked
       onChange={() => {}}
-      fieldHelpInline
-      reverse
     />,
   );
 
-  expect(screen.getByText("fieldHelp")).toHaveStyle({ paddingLeft: "6px" });
+  expect(screen.getByText("error message")).toBeVisible();
 });
 
-test("should render with expected styles when size is large", () => {
-  render(
-    <Checkbox
-      label="label"
-      fieldHelp="fieldHelp"
-      checked
-      onChange={() => {}}
-      size="large"
-    />,
-  );
+// coverage - cannot test style overrides on jest
+test("should render with expected styles when `size` is large", () => {
+  render(<Checkbox label="label" size="large" checked onChange={() => {}} />);
 
-  expect(screen.getByText("fieldHelp")).toHaveStyle({ marginLeft: "24px" });
-  expect(screen.getByTestId("checkable-svg")).toHaveStyle({
-    height: "24px",
-    width: "24px",
-    minWidth: "24px",
-  });
-});
-
-test("should render with expected styles when size is large and fieldHelpInline is true", () => {
-  render(
-    <Checkbox
-      label="label"
-      fieldHelp="fieldHelp"
-      checked
-      onChange={() => {}}
-      size="large"
-      fieldHelpInline
-    />,
-  );
-
-  expect(screen.getByTestId("label-container")).toHaveStyle({
-    alignSelf: "center",
-  });
-  expect(screen.getByText("fieldHelp")).toHaveStyle({ alignSelf: "center" });
-});
-
-test("should render checkbox svg with expected styles when validation props are true", () => {
-  render(
-    <>
-      <Checkbox
-        label="label-1"
-        data-role="checkbox-1"
-        checked
-        onChange={() => {}}
-        error
-      />
-      <Checkbox
-        label="label-2"
-        data-role="checkbox-2"
-        checked
-        onChange={() => {}}
-        warning
-      />
-      <Checkbox
-        label="label-3"
-        data-role="checkbox-3"
-        checked
-        onChange={() => {}}
-        info
-      />
-    </>,
-  );
-
-  expect(screen.getByTestId("checkbox-1")).toHaveStyleRule(
-    "border",
-    "2px solid var(--colorsSemanticNegative500)",
-    { modifier: "svg" },
-  );
-  expect(screen.getByTestId("checkbox-2")).toHaveStyleRule(
-    "border",
-    "1px solid var(--colorsSemanticCaution500)",
-    { modifier: "svg" },
-  );
-  expect(screen.getByTestId("checkbox-3")).toHaveStyleRule(
-    "border",
-    "1px solid var(--colorsSemanticInfo500)",
-    { modifier: "svg" },
-  );
-});
-
-test("should render checkbox svg with expected styles when validationRedesignOptIn is true", () => {
-  render(
-    <CarbonProvider validationRedesignOptIn>
-      <Checkbox
-        label="label-1"
-        data-role="checkbox-1"
-        checked
-        onChange={() => {}}
-        warning
-      />
-      <Checkbox
-        label="label-2"
-        data-role="checkbox-2"
-        checked
-        onChange={() => {}}
-        info
-      />
-    </CarbonProvider>,
-  );
-
-  expect(screen.getByTestId("checkbox-1")).toHaveStyleRule(
-    "border",
-    "1px solid var(--colorsUtilityMajor300)",
-    { modifier: "svg" },
-  );
-  expect(screen.getByTestId("checkbox-2")).toHaveStyleRule(
-    "border",
-    "1px solid var(--colorsUtilityMajor300)",
-    { modifier: "svg" },
-  );
-});
-
-test("should render with expected styles when adaptiveSpacingBreakpoint set and screen is smaller than the breakpoint", () => {
-  mockMatchMedia(false);
-  render(
-    <Checkbox
-      data-role="checkbox-1"
-      label="label"
-      checked
-      onChange={() => {}}
-      adaptiveSpacingBreakpoint={1000}
-      ml="10%"
-    />,
-  );
-
-  expect(screen.getByTestId("checkbox-1")).toHaveStyle({ marginLeft: "0" });
-});
-
-test("should render with expected styles when adaptiveSpacingBreakpoint set and screen is larger than the breakpoint", () => {
-  mockMatchMedia(true);
-  render(
-    <Checkbox
-      data-role="checkbox-1"
-      label="label"
-      checked
-      onChange={() => {}}
-      adaptiveSpacingBreakpoint={1000}
-      ml="10%"
-    />,
-  );
-
-  expect(screen.getByTestId("checkbox-1")).toHaveStyle({ marginLeft: "10%" });
+  expect(screen.getByTestId("checkable-wrapper")).toBeVisible();
 });
 
 testStyledSystemMargin(

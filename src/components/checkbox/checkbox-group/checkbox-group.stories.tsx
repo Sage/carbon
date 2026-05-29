@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import generateStyledSystemProps from "../../../../.storybook/utils/styled-system-props";
-import CarbonProvider from "../../carbon-provider";
 
 import { CheckboxGroup, Checkbox, CheckboxGroupProps } from "..";
+import Box from "../../box";
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
@@ -17,6 +17,7 @@ const meta = {
   },
   parameters: {
     chromatic: { disableSnapshot: true },
+    themeProvider: { chromatic: { theme: "sage" } },
   },
 } satisfies Meta<typeof CheckboxGroup>;
 
@@ -24,7 +25,7 @@ export default meta;
 type Story = StoryObj<typeof CheckboxGroup>;
 
 const ControlledCheckboxGroup = (args: CheckboxGroupProps) => {
-  const [selectedValues, setSelectedValues] = React.useState<string[]>([]);
+  const [selectedValues, setSelectedValues] = useState<string[]>([]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = event.target;
@@ -36,13 +37,12 @@ const ControlledCheckboxGroup = (args: CheckboxGroupProps) => {
   };
   return (
     <CheckboxGroup {...args}>
-      {["Apple", "Banana", "Cherry", "Date"].map((label) => (
+      {["1", "2", "3"].map((option) => (
         <Checkbox
-          key={label}
-          name="fruits"
-          label={label}
-          value={label}
-          checked={selectedValues.includes(label)}
+          key={option}
+          label={`Checkbox ${option}`}
+          value={`checkbox-${option}`}
+          checked={selectedValues.includes(`checkbox-${option}`)}
           onChange={handleChange}
         />
       ))}
@@ -51,52 +51,106 @@ const ControlledCheckboxGroup = (args: CheckboxGroupProps) => {
 };
 
 export const Default: Story = {
-  render: (args) => <ControlledCheckboxGroup {...args} />,
-  args: {
-    legend: "What fruits do you have?",
-  },
+  render: ControlledCheckboxGroup,
 };
 
-export const WithLegendHelp: Story = {
-  render: (args) => (
-    <CarbonProvider validationRedesignOptIn>
-      <ControlledCheckboxGroup {...args} />
-    </CarbonProvider>
-  ),
-  args: {
-    legend: "What fruits do you have?",
-    legendHelp: "Legend Help",
-  },
-};
-
-export const RequiredGroup: Story = {
+export const WithLegend: Story = {
   ...Default,
   args: {
-    ...Default.args,
-    required: true,
+    legend: "Legend",
+  },
+};
+
+export const WithLegendHint: Story = {
+  ...WithLegend,
+  args: {
+    ...WithLegend.args,
+    legendHint: "Legend Hint",
   },
 };
 
 export const Inline: Story = {
-  render: (args) => (
-    <CarbonProvider validationRedesignOptIn>
-      <ControlledCheckboxGroup {...args} />
-    </CarbonProvider>
-  ),
+  ...WithLegend,
   args: {
+    ...WithLegend.args,
     inline: true,
-    required: true,
-    legend: "What fruits do you have?",
   },
 };
 
-export const LegacyInlineLegend: Story = {
-  ...Default,
+export const Sizes: Story = () => {
+  const [valuesBySize, setValuesBySize] = useState<
+    Record<"small" | "medium" | "large", string[]>
+  >({
+    small: [],
+    medium: [],
+    large: [],
+  });
+
+  const handleChange =
+    (size: "small" | "medium" | "large") =>
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const { value, checked } = event.target;
+      setValuesBySize((prev) => ({
+        ...prev,
+        [size]: checked
+          ? [...prev[size], value]
+          : prev[size].filter((val) => val !== value),
+      }));
+    };
+
+  const sizeConfigs: Array<{
+    size: "small" | "medium" | "large";
+    legend: string;
+  }> = [
+    { size: "small", legend: "Small Checkbox Group" },
+    { size: "medium", legend: "Medium Checkbox Group" },
+    { size: "large", legend: "Large Checkbox Group" },
+  ];
+
+  const options = ["1", "2", "3"];
+
+  return (
+    <Box
+      display="flex"
+      flexDirection="row"
+      justifyContent="space-around"
+      flexWrap="wrap"
+      gap="var(--spacing-400)"
+    >
+      {sizeConfigs.map(({ size, legend }) => (
+        <CheckboxGroup key={size} legend={legend} size={size}>
+          {options.map((option) => {
+            const value = `${size}-${option}`;
+            return (
+              <Checkbox
+                key={value}
+                value={value}
+                label={`Checkbox ${option}`}
+                checked={valuesBySize[size].includes(value)}
+                onChange={handleChange(size)}
+              />
+            );
+          })}
+        </CheckboxGroup>
+      ))}
+    </Box>
+  );
+};
+Sizes.storyName = "Sizes";
+
+export const Required: Story = {
+  ...WithLegend,
   args: {
-    ...Default.args,
-    legendInline: true,
-    legendWidth: 20,
-    legendAlign: "left",
-    legendSpacing: 2,
+    ...WithLegend.args,
+    required: true,
+  },
+};
+
+export const Disabled: Story = {
+  ...WithLegendHint,
+  args: {
+    ...WithLegendHint.args,
+    required: true,
+    disabled: true,
   },
 };

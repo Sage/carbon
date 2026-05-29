@@ -1,64 +1,39 @@
 import styled, { css } from "styled-components";
-import StyledFormField from "../../../__internal__/form-field/form-field.style";
-import StyledIcon from "../../icon/icon.style";
-import CheckboxStyle from "../checkbox.style";
-import { StyledLabelContainer } from "../../../__internal__/legacy-label/label.style";
-import StyledValidationIcon from "../../../__internal__/validations/validation-icon.style";
 
-const StyledCheckboxGroup = styled.div<{
-  legendInline?: boolean;
-  inline?: boolean;
+const sizeMap = {
+  small: {
+    gap: "var(--global-space-comp-s)",
+    labelFont: "var(--global-font-static-comp-regular-s)",
+  },
+  medium: {
+    gap: "var(--global-space-comp-m)",
+    labelFont: "var(--global-font-static-comp-regular-m)",
+  },
+  large: {
+    gap: "var(--global-space-comp-l)",
+    labelFont: "var(--global-font-static-comp-regular-l)",
+  },
+};
+
+const StyledCheckboxGroupContent = styled.div<{
+  $size: "small" | "medium" | "large";
+  $inline?: boolean;
 }>`
-  display: flex;
-  flex-direction: column;
-  ${StyledIcon}::before {
-    font-size: 16px;
-  }
+  ${({ $size, $inline }) => css`
+    display: flex;
+    flex-direction: column;
+    gap: ${sizeMap[$size].gap};
 
-  && ${StyledFormField} {
-    margin: 0;
-  }
-
-  & ${CheckboxStyle} {
-    margin-bottom: var(--spacing150);
-
-    :last-of-type {
-      margin-bottom: 0;
+    .checkable-label {
+      font: ${sizeMap[$size].labelFont};
     }
-  }
 
-  & > ${StyledFormField} {
-    & > ${StyledLabelContainer} {
-      margin-bottom: 4px;
-      vertical-align: middle;
-
-      ${StyledValidationIcon} {
-        display: inline-block;
-      }
-    }
-  }
-
-  ${({ legendInline }) =>
-    legendInline &&
-    css`
-      ${CheckboxStyle}:first-child {
-        padding-top: 4px;
-      }
-    `}
-
-  ${({ inline }) =>
-    inline &&
+    ${$inline &&
     css`
       flex-direction: row;
-
-      ${CheckboxStyle} {
-        margin: 0;
-
-        :not(:first-of-type) {
-          margin-left: 32px;
-        }
-      }
+      gap: var(--global-space-comp-l);
     `}
+  `}
 `;
 
-export default StyledCheckboxGroup;
+export default StyledCheckboxGroupContent;

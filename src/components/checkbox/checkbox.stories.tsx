@@ -1,6 +1,9 @@
 import React, { useState } from "react";
-import { Meta, StoryFn } from "@storybook/react-vite";
-import { Checkbox } from ".";
+import { Meta, StoryObj } from "@storybook/react-vite";
+import { Checkbox, CheckboxProps, CheckboxGroup } from ".";
+import Box from "../box";
+import Textbox from "../textbox";
+import Icon from "../icon";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 const styledSystemProps = generateStyledSystemProps({
@@ -15,149 +18,178 @@ const meta = {
   },
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
+    controls: {
+      exclude: ["onChange", "value"],
+    },
   },
 } satisfies Meta<typeof Checkbox>;
 
 export default meta;
-type Story = StoryFn<typeof Checkbox>;
+type Story = StoryObj<typeof Checkbox>;
 
-export const Default: Story = () => {
+const ControlledCheckbox = ({
+  ...args
+}: Omit<CheckboxProps, "checked" | "onChange">) => {
   const [isChecked, setIsChecked] = useState(false);
 
   return (
     <Checkbox
-      label="Example checkbox"
-      name="checkbox-default"
       checked={isChecked}
       onChange={(e) => setIsChecked(e.target.checked)}
+      {...args}
     />
   );
 };
-Default.storyName = "Default";
+
+export const WithLabel: Story = {
+  render: ControlledCheckbox,
+  args: {
+    label: "Checkbox",
+  },
+};
+
+export const WithInputHint: Story = {
+  ...WithLabel,
+  args: {
+    ...WithLabel.args,
+    inputHint: "Input Hint",
+  },
+};
 
 export const Sizes: Story = () => {
-  const [isChecked, setIsChecked] = useState(false);
-  const [isChecked2, setIsChecked2] = useState(false);
+  const [checkedSmall, setCheckedSmall] = useState(false);
+  const [checkedMedium, setCheckedMedium] = useState(false);
+  const [checkedLarge, setCheckedLarge] = useState(false);
 
   return (
-    <>
+    <Box display="flex" flexDirection="row" justifyContent="space-around">
       <Checkbox
-        mb={2}
-        label="Small"
-        key="checkbox-small"
-        name="checkbox-small"
+        label="Small Checkbox"
         size="small"
-        onChange={(e) => setIsChecked(e.target.checked)}
-        checked={isChecked}
+        checked={checkedSmall}
+        onChange={() => {
+          setCheckedSmall(!checkedSmall);
+        }}
       />
       <Checkbox
-        label="Large"
-        key="checkbox-large"
-        name="checkbox-large"
-        size="large"
-        onChange={(e) => setIsChecked2(e.target.checked)}
-        checked={isChecked2}
+        label="Medium Checkbox"
+        size="medium"
+        checked={checkedMedium}
+        onChange={() => {
+          setCheckedMedium(!checkedMedium);
+        }}
       />
-    </>
+      <Checkbox
+        label="Large Checkbox"
+        size="large"
+        checked={checkedLarge}
+        onChange={() => {
+          setCheckedLarge(!checkedLarge);
+        }}
+      />
+    </Box>
   );
 };
 Sizes.storyName = "Sizes";
 
-export const Disabled: Story = () => {
-  return (
-    <Checkbox
-      disabled
-      label="Disabled checkbox"
-      name="checkbox-disabled"
-      onChange={() => {}}
-      checked={false}
-    />
-  );
-};
-Disabled.storyName = "Disabled";
-
-export const Reversed: Story = () => {
-  const [isChecked, setIsChecked] = useState(false);
+const DisclosedContent = () => {
+  const [textboxValue, setTextboxValue] = useState("");
 
   return (
-    <Checkbox
-      label="Reversed checkbox"
-      name="checkbox-reverse"
-      reverse
-      onChange={(e) => setIsChecked(e.target.checked)}
-      checked={isChecked}
-    />
-  );
-};
-Reversed.storyName = "Reversed";
-
-export const Required: Story = () => {
-  const [isChecked, setIsChecked] = useState(false);
-
-  return (
-    <Checkbox
-      label="Checkbox"
-      name="checkbox-required"
-      required
-      checked={isChecked}
-      onChange={(e) => setIsChecked(e.target.checked)}
-    />
+    <Box width="300px">
+      <Textbox
+        label="Revealed Textbox"
+        value={textboxValue}
+        onChange={(ev) => setTextboxValue(ev.target.value)}
+      />
+    </Box>
   );
 };
 
-export const WithFieldHelp: Story = () => {
-  const [isChecked, setIsChecked] = useState(false);
-  const [isChecked2, setIsChecked2] = useState(false);
+export const ProgressiveDisclosure: Story = {
+  ...WithLabel,
+  args: {
+    ...WithLabel.args,
+    checked: true,
+    progressiveDisclosure: <DisclosedContent />,
+  },
+};
+
+export const IndeterminateState: Story = () => {
+  const [items, setItems] = useState([
+    { id: "checkbox-1", label: "Checkbox 1", checked: true },
+    { id: "checkbox-2", label: "Checkbox 2", checked: false },
+    { id: "checkbox-3", label: "Checkbox 3", checked: false },
+  ]);
+
+  const checkedCount = items.filter((item) => item.checked).length;
+  const allChecked = checkedCount === items.length;
+  const someChecked = checkedCount > 0 && checkedCount < items.length;
+  const controlledIds = items.map((item) => item.id).join(" ");
+
+  const handleSelectAll = () => {
+    const newChecked = !allChecked;
+    setItems(items.map((item) => ({ ...item, checked: newChecked })));
+  };
+
+  const handleChange = (id: string, checked: boolean) => {
+    setItems(
+      items.map((item) => (item.id === id ? { ...item, checked } : item)),
+    );
+  };
+
   return (
     <>
       <Checkbox
-        fieldHelp="This text provides help for the input."
-        label="With fieldHelp"
-        key="checkbox-fieldhelp"
-        name="checkbox-fieldhelp"
-        onChange={(e) => setIsChecked(e.target.checked)}
-        checked={isChecked}
+        label="Select All"
+        indeterminate={someChecked}
+        checked={allChecked}
+        onChange={handleSelectAll}
+        aria-controls={controlledIds}
       />
-      <Checkbox
-        fieldHelp="This text provides help for the input."
-        fieldHelpInline
-        label="With inline fieldHelp"
-        key="checkbox-fieldhelp-inline"
-        name="checkbox-fieldhelp-inline"
-        onChange={(e) => setIsChecked2(e.target.checked)}
-        checked={isChecked2}
-      />
+      <CheckboxGroup m={2}>
+        {items.map((item) => (
+          <Checkbox
+            key={item.id}
+            id={item.id}
+            label={item.label}
+            checked={item.checked}
+            onChange={(ev) => handleChange(item.id, ev.target.checked)}
+          />
+        ))}
+      </CheckboxGroup>
     </>
   );
 };
-WithFieldHelp.storyName = "With fieldHelp";
+IndeterminateState.storyName = "Indeterminate State";
 
-export const CustomLabelWidth: Story = () => {
-  const [isChecked, setIsChecked] = useState(false);
+const CustomLabel = () => (
+  <>
+    <Icon type="placeholder" aria-hidden />
+    Checkbox
+  </>
+);
 
-  return (
-    <Checkbox
-      label="With custom labelWidth"
-      labelWidth={100}
-      name="checkbox-custom-label"
-      onChange={(e) => setIsChecked(e.target.checked)}
-      checked={isChecked}
-    />
-  );
+export const WithCustomLabel: Story = {
+  render: ControlledCheckbox,
+  args: {
+    label: <CustomLabel />,
+  },
 };
 
-export const LegacyLabelHelp: Story = () => {
-  const [isChecked, setIsChecked] = useState(false);
-
-  return (
-    <Checkbox
-      helpAriaLabel="This text provides more information for the label."
-      label="With labelHelp"
-      labelHelp="This text provides more information for the label."
-      name="checkbox-labelHelp"
-      onChange={(e) => setIsChecked(e.target.checked)}
-      checked={isChecked}
-    />
-  );
+export const Required: Story = {
+  ...WithLabel,
+  args: {
+    ...WithLabel.args,
+    required: true,
+  },
 };
-LegacyLabelHelp.storyName = "With labelHelp";
+
+export const Disabled: Story = {
+  ...WithInputHint,
+  args: {
+    ...WithInputHint.args,
+    required: true,
+    disabled: true,
+  },
+};

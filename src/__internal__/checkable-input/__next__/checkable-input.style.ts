@@ -1,36 +1,12 @@
 import styled, { css } from "styled-components";
-import StyledLabel, {
-  StyledLabelContainer,
-} from "../../legacy-label/label.style";
-import StyledHintText from "../../legacy-hint-text/hint-text.style";
 
-const labelFont = {
-  small: "var(--global-font-static-comp-regular-s)",
-  medium: "var(--global-font-static-comp-regular-m)",
-  large: "var(--global-font-static-comp-regular-l)",
-};
-
-export const StyledCheckableInput = styled.div<{
-  $size: "small" | "medium" | "large";
-}>`
+export const StyledCheckableInput = styled.div`
   display: grid;
+  align-items: center;
   grid-template-columns: auto 1fr;
   grid-column-gap: var(--global-space-comp-s);
 
-  ${StyledLabelContainer} {
-    padding: 0;
-    margin: 0;
-  }
-
-  ${StyledLabel} {
-    ${({ $size }) =>
-      $size &&
-      css`
-        font: ${labelFont[$size]};
-      `}
-  }
-
-  ${StyledHintText} {
+  .checkable-hint-text {
     grid-area: 2 / 2;
   }
 `;

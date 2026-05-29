@@ -49,11 +49,6 @@ export interface RadioButtonProps extends CommonCheckableInputProps, TagProps {
    */
   reverse?: boolean;
   /**
-   * Id of the validation icon
-   * @deprecated Validation icons with tooltips are no longer supported on this component.
-   */
-  validationIconId?: string;
-  /**
    * Help content to be displayed under an input
    * @deprecated The `fieldHelp` prop is deprecated and will be removed in a future release. Please use the `inputHint` prop instead.
    */
@@ -113,7 +108,6 @@ export const RadioButton = React.forwardRef<HTMLInputElement, RadioButtonProps>(
       info,
       warning,
       reverse,
-      validationIconId,
       fieldHelp,
       inputWidth,
       labelHelp,

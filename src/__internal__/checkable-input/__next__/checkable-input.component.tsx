@@ -7,7 +7,7 @@
  * Styles of any children should be handled in their respective component files.
  */
 
-import React, { useRef, useEffect, useContext, useLayoutEffect } from "react";
+import React, { useRef, useState, useLayoutEffect } from "react";
 import {
   StyledCheckableInput,
   StyledCheckableInputWrapper,
@@ -20,20 +20,13 @@ import HiddenCheckableInput, {
   CommonHiddenCheckableInputProps,
 } from "../hidden-checkable-input.component";
 import guid from "../../utils/helpers/guid";
-import Label from "../../legacy-label/label.component";
-import HintText from "../../legacy-hint-text";
+import Label from "../../label";
+import HintText from "../../hint-text";
 import useMediaQuery from "../../../hooks/useMediaQuery";
+import useRegisterValidationToTabs from "../../../hooks/__internal__/useRegisterValidationToTabs/useRegisterValidationToTabs";
 
-import { TabsContext } from "../../../components/tabs/__next__/tabs.context";
-import { TabContext } from "../../../components/tabs/__next__/tab.context";
-import type {
-  TabContextProps,
-  TabsContextProps,
-} from "../../../components/tabs/__next__/tabs.types";
-
-// TODO: Remove omitted prop from CommonHiddenCheckableInputProps when legacy props are removed
 export interface CommonCheckableInputProps
-  extends Omit<CommonHiddenCheckableInputProps, "validationIconId"> {
+  extends CommonHiddenCheckableInputProps {
   /** Unique identifier for the input. Will use a randomly generated GUID if none is provided. */
   id?: string;
   /** Content of the label. */
@@ -44,6 +37,11 @@ export interface CommonCheckableInputProps
   disabled?: boolean;
   /** Content to be rendered below the input when checked, is not supported when inputs are inline. */
   progressiveDisclosure?: React.ReactNode;
+  /**
+   * Id of the validation icon
+   * @deprecated Validation icons with tooltips are no longer supported on this component.
+   */
+  validationIconId?: string;
 }
 
 export interface CheckableInputProps extends CommonCheckableInputProps {
@@ -51,14 +49,14 @@ export interface CheckableInputProps extends CommonCheckableInputProps {
   children?: React.ReactNode;
   /** HTML type attribute of the input. */
   type: string;
-  /** Value passed to the input. */
-  value?: string;
   /** Size of the component. */
   size?: "small" | "medium" | "large";
   /** Set error state - passed to Tabs context */
   error?: boolean;
   /** Set warning state - passed to Tabs context */
   warning?: boolean;
+  /** Flag to display required asterisk. */
+  showRequiredAsterisk?: boolean;
 }
 
 const CheckableInput = React.forwardRef(
@@ -66,6 +64,7 @@ const CheckableInput = React.forwardRef(
     {
       children,
       disabled,
+      required,
       id: inputId,
       name,
       type,
@@ -77,6 +76,8 @@ const CheckableInput = React.forwardRef(
       size = "medium",
       error,
       warning,
+      showRequiredAsterisk,
+      "aria-describedby": ariaDescribedBy,
       ...props
     }: CheckableInputProps,
     ref: React.ForwardedRef<HTMLInputElement>,
@@ -84,44 +85,30 @@ const CheckableInput = React.forwardRef(
     const { current: id } = useRef(inputId || guid());
     const inputHintId = inputHint ? `${id}-hint` : undefined;
 
+    const combinedAriaDescribedBy = [inputHintId, ariaDescribedBy]
+      .filter(Boolean)
+      .join(" ");
+
     const accordionContainer = useRef<HTMLDivElement>(null);
+    const [contentHeight, setContentHeight] = useState("0");
     const allowMotion = useMediaQuery(
       "screen and (prefers-reduced-motion: no-preference)",
     );
 
-    const { scrollHeight } = accordionContainer.current || {};
-    /* istanbul ignore next */
-    const contentHeight = checked && scrollHeight ? String(scrollHeight) : "0";
-
-    const { setErrors, setWarnings } =
-      useContext<TabsContextProps>(TabsContext);
-    const { tabId } = useContext<TabContextProps>(TabContext);
-    const isMounted = useRef(false);
-
     useLayoutEffect(() => {
-      isMounted.current = true;
+      if (accordionContainer.current) {
+        const { scrollHeight } = accordionContainer.current;
+        /* istanbul ignore next */
+        const newHeight = checked && scrollHeight ? String(scrollHeight) : "0";
+        setContentHeight(newHeight);
+      }
+    }, [checked]);
 
-      return () => {
-        isMounted.current = false;
-      };
-    }, []);
-
-    /* istanbul ignore next */
-    useEffect(() => {
-      if (setErrors) setErrors(id, tabId || "", !!error);
-      if (setWarnings) setWarnings(id, tabId || "", !!warning);
-
-      return () => {
-        if (!isMounted.current) {
-          if (setErrors) setErrors(id, tabId || "", false);
-          if (setWarnings) setWarnings(id, tabId || "", false);
-        }
-      };
-    }, [id, setErrors, setWarnings, error, warning, tabId]);
+    useRegisterValidationToTabs(!!error, !!warning, id);
 
     return (
       <>
-        <StyledCheckableInput $size={size}>
+        <StyledCheckableInput>
           <StyledCheckableInputWrapper>
             <HiddenCheckableInput
               id={id}
@@ -131,22 +118,30 @@ const CheckableInput = React.forwardRef(
               disabled={disabled}
               checked={checked}
               ref={ref}
-              ariaDescribedBy={inputHintId}
+              aria-describedby={combinedAriaDescribedBy}
+              aria-invalid={error}
+              required={required}
               {...props}
             />
             {children}
           </StyledCheckableInputWrapper>
           {label && (
-            <Label htmlFor={id} disabled={disabled} isLarge={size === "large"}>
+            <Label
+              className="checkable-label"
+              htmlFor={id}
+              disabled={disabled}
+              isRequired={required && showRequiredAsterisk}
+              size={size}
+            >
               {label}
             </Label>
           )}
           {inputHint && (
             <HintText
+              className="checkable-hint-text"
               id={inputHintId}
-              marginBottom="0"
-              isDisabled={disabled}
-              isLarge={size === "large"}
+              disabled={disabled}
+              size={size}
             >
               {inputHint}
             </HintText>

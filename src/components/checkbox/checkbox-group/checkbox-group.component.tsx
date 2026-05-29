@@ -1,21 +1,15 @@
-import React, { useContext, useRef } from "react";
+import React, { useRef } from "react";
 import { MarginProps } from "styled-system";
-import StyledCheckboxGroup from "./checkbox-group.style";
 import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags/tags";
-import Fieldset from "../../../__internal__/fieldset";
+import Fieldset from "../../../__internal__/fieldset/__next__/fieldset.component";
 import { filterStyledSystemMarginProps } from "../../../style/utils";
-import { TooltipProvider } from "../../../__internal__/tooltip-provider";
-import { ValidationProps } from "../../../__internal__/validations";
-import NewValidationContext from "../../carbon-provider/__internal__/new-validation.context";
-import CheckboxGroupContext from "./__internal__/checkbox-group.context";
+import CheckboxGroupContext from "../__internal__/checkbox-group.context";
+import StyledCheckboxGroupContent from "./checkbox-group.style";
 import guid from "../../../__internal__/utils/helpers/guid";
 
-export interface CheckboxGroupProps
-  extends ValidationProps,
-    MarginProps,
-    TagProps {
+export interface CheckboxGroupProps extends MarginProps, TagProps {
   /**
    * Unique identifier for the component.
    * Will use a randomly generated GUID if none is provided.
@@ -23,43 +17,86 @@ export interface CheckboxGroupProps
   id?: string;
   /** The content for the CheckboxGroup Legend */
   legend?: string;
+  /** Content for the hint text below the legend. */
+  legendHint?: string;
+  /** Size of the CheckboxGroup. */
+  size?: "small" | "medium" | "large";
+  /** Error message to be displayed when validation fails. */
+  error?: string;
   /**
-   * The content for the CheckboxGroup hint text,
+   * Warning message to be displayed when validation warning occurs.
+   * @deprecated The `warning` state is deprecated and will be removed in a future release.
+   */
+  warning?: string;
+  /**
+   * [Legacy] Indicate additional information.
+   * @deprecated Information validation is no longer supported on this component.
+   */
+  info?: string | boolean;
+  /**
+   * The content for the RadioButtonGroup hint text,
    * will only be rendered when `validationRedesignOptIn` is true.
+   * @deprecated The `legendHelp` prop is deprecated and will be removed in a future release. Please use the `legendHint` prop instead.
    */
   legendHelp?: string;
-  /** [Legacy] When true, legend is placed inline with the checkboxes */
+  /**
+   * [Legacy] When true, legend is placed in line with the Checkboxes.
+   * @deprecated Inline legends are no longer supported on this component.
+   */
   legendInline?: boolean;
-  /** [Legacy] Percentage width of legend (only when legend is inline)  */
+  /**
+   * [Legacy] Percentage width of legend (only when legend is inline)
+   * @deprecated Inline legends are no longer supported on this component.
+   */
   legendWidth?: number;
-  /** [Legacy] Text alignment of legend when inline */
+  /**
+   * [Legacy] Alignment of the legend.
+   * @deprecated Right legend alignment is no longer supported.
+   */
   legendAlign?: "left" | "right";
-  /** [Legacy] Spacing between legend and field for inline legend, number multiplied by base spacing unit (8) */
+  /**
+   * [Legacy] Spacing between legend and field for inline legend, number multiplied by base spacing unit (8)
+   * @deprecated Custom spacing for legends is no longer supported on this component.
+   */
   legendSpacing?: 1 | 2;
   /** The Checkboxes to be rendered in the group */
   children: React.ReactNode;
-  /** Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */
+  /**
+   * Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8)
+   * @deprecated Custom spacing for labels is no longer supported on this component.
+   */
   labelSpacing?: 1 | 2;
-  /** Flag to configure component as mandatory */
+  /** Flag to disable the CheckboxGroup. */
+  disabled?: boolean;
+  /** Flag to configure CheckboxGroup as mandatory*/
   required?: boolean;
-  /** [Legacy] Overrides the default tooltip */
+  /**
+   * Overrides the default tooltip position
+   * @deprecated Tooltips are no longer supported on this component.
+   */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
-  /** When true, Checkboxes are inline */
+  /** When true, Checkbox children are inline. */
   inline?: boolean;
-  /** Render the ValidationMessage above the Checkbox inputs when validationRedesignOptIn flag is set */
+  /**
+   * Render the ValidationMessage above the CheckboxGroup
+   * @deprecated The `validationMessagePositionTop` prop is deprecated and will be removed in a future release.
+   */
   validationMessagePositionTop?: boolean;
 }
 
 export const CheckboxGroup = ({
   children,
   legend,
+  legendHint,
+  size = "medium",
   error,
   warning,
   info,
+  disabled,
   required,
   legendInline,
   legendWidth,
-  legendAlign = "left",
+  legendAlign,
   legendSpacing,
   legendHelp,
   tooltipPosition,
@@ -68,77 +105,42 @@ export const CheckboxGroup = ({
   validationMessagePositionTop = true,
   ...rest
 }: CheckboxGroupProps) => {
-  const { validationRedesignOptIn } = useContext(NewValidationContext);
   const internalId = useRef(guid());
   const uniqueId = id || internalId.current;
 
   return (
-    <>
-      {validationRedesignOptIn ? (
-        <Fieldset
-          applyNewValidation
-          id={uniqueId}
-          legend={legend}
-          inputHint={legendHelp}
-          legendAlign={legendAlign}
-          error={error}
-          warning={warning}
-          isRequired={required}
-          validationMessagePositionTop={validationMessagePositionTop}
-          {...tagComponent("checkboxgroup", rest)}
-          {...filterStyledSystemMarginProps(rest)}
+    <Fieldset
+      id={uniqueId}
+      legend={legend}
+      legendHint={legendHint || legendHelp}
+      isDisabled={disabled}
+      isRequired={required}
+      error={error}
+      warning={warning}
+      validationMessagePositionTop={validationMessagePositionTop}
+      size={size}
+      {...tagComponent("checkbox-group", rest)}
+      {...filterStyledSystemMarginProps(rest)}
+    >
+      <CheckboxGroupContext.Provider
+        value={{
+          error: !!error,
+          warning: !!warning,
+          inline,
+          size,
+          disabled,
+          required,
+        }}
+      >
+        <StyledCheckboxGroupContent
+          data-role="checkbox-group-content"
+          $inline={inline}
+          $size={size}
         >
-          <StyledCheckboxGroup
-            data-component="checkbox-group"
-            data-role="checkbox-group"
-            inline={inline}
-          >
-            <CheckboxGroupContext.Provider
-              value={{
-                error: !!error,
-                warning: !!warning,
-              }}
-            >
-              {children}
-            </CheckboxGroupContext.Provider>
-          </StyledCheckboxGroup>
-        </Fieldset>
-      ) : (
-        <TooltipProvider tooltipPosition={tooltipPosition}>
-          <Fieldset
-            id={uniqueId}
-            legend={legend}
-            inline={legendInline}
-            legendWidth={legendWidth}
-            legendAlign={legendAlign}
-            legendSpacing={legendSpacing}
-            error={error}
-            warning={warning}
-            info={info}
-            isRequired={required}
-            {...tagComponent("checkboxgroup", rest)}
-            blockGroupBehaviour={!(error || warning || info)}
-            {...filterStyledSystemMarginProps(rest)}
-          >
-            <StyledCheckboxGroup
-              data-component="checkbox-group"
-              data-role="checkbox-group"
-              legendInline={legendInline}
-            >
-              <CheckboxGroupContext.Provider
-                value={{
-                  error: !!error,
-                  warning: !!warning,
-                  info: !!info,
-                }}
-              >
-                {children}
-              </CheckboxGroupContext.Provider>
-            </StyledCheckboxGroup>
-          </Fieldset>
-        </TooltipProvider>
-      )}
-    </>
+          {children}
+        </StyledCheckboxGroupContent>
+      </CheckboxGroupContext.Provider>
+    </Fieldset>
   );
 };
 
