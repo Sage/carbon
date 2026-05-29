@@ -1,4 +1,5 @@
 // @ts-check
+/* eslint-disable no-console -- hook output */
 /**
  * Called by the commit-msg hook to gate breaking public API changes.
  *
@@ -7,11 +8,22 @@
  *   2. Export paths — compares staged vs HEAD for non-internal index.ts files
  *
  * If any breaking changes are found and the commit message does not contain
- * "BREAKING CHANGE" (or use the ! shorthand), the commit is rejected.
+ * "BREAKING CHANGE", the commit is rejected.
  *
  * Usage (via husky commit-msg hook):
  *   node ./scripts/types/check_breaking_changes.mjs <commit-msg-file>
  */
+
+/**
+ * @typedef {{
+ *   component: string;
+ *   moduleSpecifier: string;
+ *   propsType: string | null;
+ *   propsTypeLocal: string | null;
+ *   props: Array<{ name: string; required: boolean; type: string }>;
+ * }} ComponentTypeSnapshot
+ */
+
 import { execSync } from "node:child_process";
 import fs from "node:fs/promises";
 import { Project } from "ts-morph";
@@ -23,10 +35,6 @@ if (!commitMsgFile) {
 }
 
 const commitMsg = await fs.readFile(commitMsgFile, "utf8");
-
-// Accept "BREAKING CHANGE" footer or "!" shorthand (e.g. feat!: or fix(foo)!:)
-const isBreakingCommit =
-  commitMsg.includes("BREAKING CHANGE") || /^[\w]+(\(.+\))?!:/m.test(commitMsg);
 
 /**
  * @typedef {{
@@ -46,7 +54,7 @@ const breaking = [];
 
 // ─── 1. Prop type snapshot changes ───────────────────────────────────────────
 
-/** @type {Record<string, import("./public_types_core.mjs").ComponentTypeSnapshot> | null} */
+/** @type {Record<string, ComponentTypeSnapshot> | null} */
 let stagedComponents = null;
 try {
   const raw = execSync("git show :types/carbon-react/types.json", {
@@ -70,7 +78,7 @@ try {
 }
 
 if (stagedComponents) {
-  /** @type {Record<string, import("./public_types_core.mjs").ComponentTypeSnapshot> | null} */
+  /** @type {Record<string, ComponentTypeSnapshot> | null} */
   let headComponents = null;
   try {
     const raw = execSync("git show HEAD:types/carbon-react/types.json", {
@@ -146,35 +154,27 @@ for (const filePath of stagedIndexFiles) {
 
 // ─── Gate on commit message ───────────────────────────────────────────────────
 
-if (breaking.length === 0 || isBreakingCommit) {
+if (breaking.length === 0 || commitMsg.includes("BREAKING CHANGE")) {
   process.exit(0);
 }
 
-// eslint-disable-next-line no-console -- hook output
 console.error(
   `Breaking public API changes detected (${breaking.length}).
-Use a breaking commit (feat!: / fix!: or add a BREAKING CHANGE footer) or revert the change:\n`,
+Add a BREAKING CHANGE footer to your commit message or revert the change:\n`,
 );
 for (const entry of breaking) {
   if (entry.kind === "type") {
-    // eslint-disable-next-line no-console -- hook output
-    console.error(`  Type change`);
-    // eslint-disable-next-line no-console -- hook output
-    console.error(`    Component : ${entry.component}`);
-    // eslint-disable-next-line no-console -- hook output
-    console.error(`    Module    : ${entry.module}`);
-    // eslint-disable-next-line no-console -- hook output
-    console.error(`    Change    : ${entry.change}`);
+    console.groupCollapsed("Type change");
+    console.error("Component :", entry.component);
+    console.error("Module    :", entry.module);
+    console.error("Change    :", entry.change);
+    console.groupEnd();
   } else {
-    // eslint-disable-next-line no-console -- hook output
-    console.error(`  Export change`);
-    // eslint-disable-next-line no-console -- hook output
-    console.error(`    File      : ${entry.file}`);
-    // eslint-disable-next-line no-console -- hook output
-    console.error(`    Change    : ${entry.change}`);
+    console.groupCollapsed("Export change");
+    console.error("File      :", entry.file);
+    console.error("Change    :", entry.change);
+    console.groupEnd();
   }
-  // eslint-disable-next-line no-console -- hook output
-  console.error("");
 }
 process.exit(1);
 

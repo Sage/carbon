@@ -63,7 +63,7 @@ BREAKING CHANGE: removed ButtonProps.size"
 npm run versioning-check
 ```
 
-This regenerates the type snapshot, compares it against the committed baseline, and prints all safe and breaking changes with a non-zero exit on breaking ones.
+This regenerates the type snapshot, compares it against the committed baseline, and prints any breaking changes with a non-zero exit if any are found.
 
 **Scoped check for a single component:**
 

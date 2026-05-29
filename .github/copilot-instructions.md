@@ -48,6 +48,7 @@ Run these locally before pushing — CI runs the exact same commands and a PR wi
 | Lint | `npm run lint` | ESLint flat config in [eslint.config.mjs](../eslint.config.mjs). CI caps total warnings at `--max-warnings=636` and uses `--report-unused-disable-directives`; don't add new warnings (it'll push the total over the cap) and don't raise the cap to compensate — fix the warning instead. |
 | Type check | `npm run type-check` | `tsc --noEmit` against [tsconfig.json](../tsconfig.json). Does NOT auto-generate tokens — run `npm run generate-tokens:dev` first if invoked on a fresh checkout (see §4). |
 | Skills sync | `npm run build:skills -- --check` | Fails if files in [skills/](../skills) are stale relative to component changes. Regenerate with `npm run build:skills` and commit the diff. |
+| Public API snapshot | `npm run versioning-check` | Generates `types/carbon-react/types.json` and compares it against the HEAD baseline; reports breaking prop-type changes. Run after changing component props/types and commit the updated `types.json`. Scoped run: `npm run versioning-check -- Button`. |
 | Unit tests | `npm test` | Sharded 4 ways in CI; matrix runs on Node 22 and Node 24. Locally use Node 24 (`.nvmrc`). Two Jest projects: `Client` (jsdom) for `*.spec.*`/`*.test.*`, `Server` (node) for `*.server.spec.*`. |
 | Coverage | (CI merges shards) | 100% coverage policy is expected for new code. Thresholds in [coverage-thresholds.json](../coverage-thresholds.json). Run a single test file with `npm test -- path/to/file.spec.tsx`. |
 | Build | `npm run build` | Order is fixed: `clean-lib → generate-tokens → type-check → rollup → generate package.jsons → copy svg → build:types`. |
@@ -57,8 +58,8 @@ Common failure patterns observed:
 
 - "Cannot find module .../static-tokens/..." → forgot `generate-tokens:dev` (see §4).
 - `nwsapi` `SyntaxError` from jsdom in a Jest test → caused by CSS `:has()` selectors in styled-components (especially in dialog/sidebar/popover styles). Avoid `:has()` in styles touched by jsdom tests, or assert via roles instead of querying the offending DOM.
-- Husky pre-commit running `lint-staged` will run prettier + eslint on staged files; if it fails, fix and re-stage rather than bypassing with `--no-verify`.
-- Commit messages MUST follow Conventional Commits (`feat:`, `fix:`, `docs:`, `chore:`, etc.) — enforced by `commitlint` in [.husky/commit-msg](../.husky/commit-msg). Breaking changes via `!` or `BREAKING CHANGE:` footer drive `semantic-release` versioning.
+- Husky pre-commit running `lint-staged` will run prettier + eslint on staged files; if it fails, fix and re-stage rather than bypassing with `--no-verify`. It also silently regenerates `types/carbon-react/types.json` and stages it whenever any `src/components/` file is staged; if that step fails, the commit is blocked.
+- Commit messages MUST follow Conventional Commits (`feat:`, `fix:`, `docs:`, `chore:`, etc.) — enforced by `commitlint` in [.husky/commit-msg](../.husky/commit-msg). Breaking changes via `BREAKING CHANGE:` footer drive `semantic-release` versioning. The `commit-msg` hook also runs `check_breaking_changes.mjs`, which rejects the commit if breaking prop-type or export changes are detected and the message does not include a `BREAKING CHANGE:` footer.
 
 ## 6. Project layout & key conventions
 
@@ -82,6 +83,8 @@ playwright/
   global-teardown.js
 skills/                           # agent skills — MUST be regenerated when a component's public API changes (see §5 "Skills sync")
 scripts/                          # repo automation (token gen, svg copy, package.json gen, skills build, commit helper)
+  types/                          #   public API type snapshotting: check_types.mjs (generates baseline), check_breaking_changes.mjs (commit-msg hook gate), public_types_core.mjs (shared logic)
+types/carbon-react/types.json     # generated public API type baseline — auto-updated by pre-commit hook; do not hand-edit
 .storybook/                       # Storybook 8 config (Vite)
 .github/workflows/                # ci.yml, playwright.yml, chromatic.yml, semantic-release.yml, codeql-analysis.yml, semantic-commit-lint.yml, ...
 contributing/                     # codebase-overview.md, dev-environment-setup.md, testing-guide.md (READ FIRST for deeper context)
@@ -107,7 +110,7 @@ Key conventions (follow them — CI/lint will enforce most):
 ## 7. Making a change — recommended sequence
 
 1. `nvm use && npm run setup` (first time / after pulling new deps).
-2. Edit code under [src/](../src). If you change a component's public API, props, behaviour, or docs, regenerate skills with `npm run build:skills` and commit the result.
+2. Edit code under [src/](../src). If you change a component's public API, props, behaviour, or docs, regenerate skills with `npm run build:skills` and commit the result. If you change component props or types, the pre-commit hook will auto-regenerate `types/carbon-react/types.json`; run `npm run versioning-check` beforehand to preview any breaking changes.
 3. Add/adjust tests:
    - Jest unit test in `<name>.spec.tsx` (jsdom). Aim for 100% coverage of new branches.
    - If browser behaviour matters (focus, real events, layout), add to `<name>.pw.tsx`.
@@ -119,6 +122,7 @@ Key conventions (follow them — CI/lint will enforce most):
    npm test -- <path-to-changed-spec>          # fast inner loop
    npm test                                    # full unit suite before pushing
    npm run build:skills -- --check
+   npm run versioning-check                   # if you changed component props/types
    npm run build                               # only if you changed build inputs / public exports
    npm run test:ct -- <path-to-changed.pw.tsx> # if you touched a Playwright test
    ```
@@ -131,7 +135,8 @@ Key conventions (follow them — CI/lint will enforce most):
 - Don't bump the lint warning ceiling (`--max-warnings=636`) just to pass — fix the warning instead.
 - Don't add CSS `:has()` selectors to styled-components used by components covered by jsdom tests (see §5).
 - Don't introduce new snapshot tests by default; prefer assertions.
-- Don't delete or restructure `lib/`, `esm/`, `coverage/`, `bundle-stats/`, `playwright/test-results`, `playwright/test-report`, `playwright/.cache`, or `src/components/tokens-wrapper/static-tokens/` — they are generated.
+- Don't delete or restructure `lib/`, `esm/`, `coverage/`, `bundle-stats/`, `playwright/test-results`, `playwright/test-report`, `playwright/.cache`, `src/components/tokens-wrapper/static-tokens/`, or `types/carbon-react/` — they are generated.
+- Don't hand-edit `types/carbon-react/types.json` — it is auto-regenerated by the pre-commit hook and by `npm run versioning-check`.
 - Don't commit changes to generated files unless `npm run build:skills` produced them and the source change requires them.
 
 ## 9. Where to look when stuck
@@ -146,7 +151,7 @@ Key conventions (follow them — CI/lint will enforce most):
 
 When reviewing a PR, in addition to the conventions in §6, explicitly check the following and raise blocking findings where appropriate:
 
-1. **Undeclared breaking changes.** Treat as a blocking finding any of the following when the PR has *no* commit using `!` or a `BREAKING CHANGE:` footer:
+1. **Undeclared breaking changes.** Treat as a blocking finding any of the following when the PR has *no* commit with a `BREAKING CHANGE:` footer:
    - Removal or rename of an export from any component `index.ts` or from `src/index.ts`.
    - Removal or rename of a `Props` interface or any of its required properties.
    - Narrowing of a prop's type (e.g. `string` → union of literals), removal of enum/union members, or change of a default value that alters rendered output.
@@ -157,7 +162,7 @@ When reviewing a PR, in addition to the conventions in §6, explicitly check the
 
 2. **Skills out of sync.** If a component's public API, props, behaviour or docs change, the PR must include a corresponding update under [skills/](../skills). Flag if missing (CI also fails this via `npm run build:skills -- --check`).
 
-3. **Commit type vs. content.** Commits typed `chore:`, `docs:`, `style:`, `refactor:`, `test:`, `build:`, or `ci:` produce *no* `semantic-release` version bump. Flag any user-visible behaviour change, public API change, or runtime dependency change in such PRs — they likely need `feat:` or `fix:` (and `!` / `BREAKING CHANGE:` if the change is breaking).
+3. **Commit type vs. content.** Commits typed `chore:`, `docs:`, `style:`, `refactor:`, `test:`, `build:`, or `ci:` produce *no* `semantic-release` version bump. Flag any user-visible behaviour change, public API change, or runtime dependency change in such PRs — they likely need `feat:` or `fix:` (and a `BREAKING CHANGE:` footer if the change is breaking).
 
 4. **Don't restate Prettier / ESLint / TypeScript findings.** CI already runs `prettier --check`, `npm run lint` (with `--max-warnings=636` and `--report-unused-disable-directives`) and `npm run type-check`. Skip stylistic nits already covered there; focus on the rules above and the conventions in §6.
 
@@ -197,6 +202,7 @@ When reviewing a PR, in addition to the conventions in §6, explicitly check the
    - `package-lock.json` — review `package.json` instead.
    - `lib/**`, `esm/**`, `storybook-static/**`, `coverage/**`, `bundle-stats/**`, `playwright/test-results/**`, `playwright/test-report/**`, `playwright/coverage/**`, `playwright/.cache/**` — build outputs.
    - `src/components/tokens-wrapper/static-tokens/**` — generated by `npm run generate-tokens` / `generate-tokens:dev`.
+   - `types/carbon-react/**` — generated by `npm run versioning-check` / pre-commit hook. Review the underlying component prop change instead.
    - `CHANGELOG.md`, `CHANGELOG-OLD.md` — produced by `semantic-release`.
 
    Note: this is a soft rule for the reviewer. The hard guarantee comes from configuring path filters in the repo's Copilot code-review settings.
