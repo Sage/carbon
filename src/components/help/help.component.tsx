@@ -3,6 +3,7 @@ import { MarginProps } from "styled-system";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
 import Icon, { IconType } from "../icon";
+import Tooltip from "../tooltip";
 import StyledHelp from "./help.style";
 import Events from "../../__internal__/utils/helpers/events";
 import { TooltipContext } from "../../__internal__/tooltip-provider";
@@ -121,18 +122,21 @@ export const Help = ({
       {...rest}
       {...tagComponent("help", rest)}
     >
-      <Icon
-        aria-hidden
-        type={type}
-        tooltipMessage={children}
-        tooltipPosition={tooltipPosition}
-        tooltipVisible={isFocused || isTooltipVisible}
-        tooltipBgColor={tooltipBgColor}
-        tooltipFontColor={tooltipFontColor}
-        tooltipFlipOverrides={tooltipFlipOverrides}
-        focusable={false}
-        tooltipId={tooltipId || defaultTooltipId.current}
-      />
+      {children ? (
+        <Tooltip
+          message={children}
+          isVisible={isFocused || isTooltipVisible}
+          position={tooltipPosition}
+          id={tooltipId || defaultTooltipId.current}
+          bgColor={tooltipBgColor}
+          fontColor={tooltipFontColor}
+          flipOverrides={tooltipFlipOverrides}
+        >
+          <Icon aria-hidden type={type} focusable={false} />
+        </Tooltip>
+      ) : (
+        <Icon aria-hidden type={type} focusable={false} />
+      )}
     </StyledHelp>
   );
 };

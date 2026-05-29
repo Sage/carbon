@@ -2,8 +2,6 @@ import styled, { css } from "styled-components";
 
 import { margin } from "styled-system";
 
-import Logger from "../../__internal__/utils/logger";
-
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 import { ThemeObject } from "../../style/themes/theme.types";
 import addFocusStyling from "../../style/utils/add-focus-styling";
@@ -49,40 +47,15 @@ export interface StyledIconProps {
    * The full list of types can be seen [here](https://github.com/Sage/carbon/blob/master/src/components/icon/icon-config.js).
    */
   type: IconType;
+  /**
+   * Renders the Icon using the inverse colour token, suitable for use on dark backgrounds.
+   */
+  inverse?: boolean;
 }
 
 export interface StyledIconInternalProps {
   isInteractive?: boolean;
-  hasTooltip?: boolean;
   theme?: ThemeObject;
-}
-
-function adjustIconBgSize(fontSize?: FontSize, bgSize?: BgSize) {
-  const sizeValues: Record<BgSize | FontSize, number> = {
-    small: 1,
-    medium: 2,
-    large: 3,
-    "extra-large": 4,
-  };
-
-  if (fontSize && bgSize) {
-    const fontSizeValue = sizeValues[fontSize];
-    const bgSizeValue = sizeValues[bgSize];
-
-    if (bgSizeValue < fontSizeValue) {
-      Logger.warn(
-        `[WARNING - Icon] The "${bgSize}" \`bgSize\` is smaller than "${fontSize}" \`fontSize\`, the \`bgSize\` has been auto adjusted to a larger size.`,
-      );
-      return iconConfig.backgroundSize[fontSize];
-    }
-
-    return iconConfig.backgroundSize[bgSize];
-  }
-
-  /* The below is ignored as removing it may cause regressions as some components import StyledIcon directly from this file
-  however it cannot be tested in the Icon tests as these props always have a value. */
-  /* istanbul ignore next */
-  return bgSize ? iconConfig.backgroundSize[bgSize] : undefined;
 }
 
 const styleOverrides = css`
@@ -102,7 +75,7 @@ const styleOverrides = css`
   .search & {
     color: var(--colorsUtilityYin065);
 
-    :hover {
+    &:hover {
       color: var(--colorsUtilityYin100);
     }
   }
@@ -134,14 +107,19 @@ const StyledIcon = styled.span.attrs(applyBaseTheme)<
     type,
     fontSize,
     disabled,
-    hasTooltip,
+    tabIndex,
+    inverse,
   }) => {
-    let finalColor = "var(--colorsYin090)";
+    let finalColor = inverse
+      ? "var(--container-standard-inverse-icon)"
+      : "var(--container-standard-icon)";
     let bgColor = "transparent";
 
     const win = getWindow();
     const nav = getNavigator();
-    const adjustedBgSize = adjustIconBgSize(fontSize, bgSize);
+    const backgroundSize = bgSize
+      ? iconConfig.backgroundSize[bgSize]
+      : undefined;
 
     if (disabled) {
       finalColor = "var(--colorsYin030)";
@@ -163,8 +141,8 @@ const StyledIcon = styled.span.attrs(applyBaseTheme)<
       align-items: center;
       display: inline-flex;
       justify-content: center;
-      height: ${adjustedBgSize};
-      width: ${adjustedBgSize};
+      height: ${backgroundSize};
+      width: ${backgroundSize};
       ${bgShape ? `border-radius: ${iconConfig.backgroundShape[bgShape]}` : ""};
 
       ${isInteractive &&
@@ -208,7 +186,8 @@ const StyledIcon = styled.span.attrs(applyBaseTheme)<
         display: block;
       }
 
-      ${hasTooltip &&
+      ${tabIndex !== undefined &&
+      // istanbul ignore next
       `
         :focus {
           ${addFocusStyling()}

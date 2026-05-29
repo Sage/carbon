@@ -1,8 +1,7 @@
 import React from "react";
 import { CommonCheckableInputProps } from "../../__internal__/checkable-input/checkable-input.component";
-import { test, expect } from "../../../playwright/helpers/base-test";
-import Box from "../box";
-import { CheckboxProps, CheckboxGroupProps } from ".";
+import { test } from "../../../playwright/helpers/base-test";
+import { CheckboxGroupProps } from ".";
 import {
   CheckboxComponent,
   CheckboxGroupComponent,
@@ -10,10 +9,7 @@ import {
   Reversed,
   WithCustomLabelWidth,
 } from "./components.test-pw";
-import {
-  checkboxIcon,
-  checkboxGroupIcon,
-} from "../../../playwright/components/checkbox";
+import { checkboxIcon } from "../../../playwright/components/checkbox";
 import { tooltipPreview } from "../../../playwright/components/index";
 import { checkAccessibility } from "../../../playwright/support/helper";
 import { CHARACTERS } from "../../../playwright/support/constants";
@@ -130,28 +126,6 @@ test.describe("should check accessibility for Checkbox component", () => {
     await checkAccessibility(page);
   });
 
-  (
-    ["bottom", "left", "right", "top"] as CheckboxProps["tooltipPosition"][]
-  ).forEach((position) => {
-    test(`should render CheckboxComponent component with tooltip positioned to the ${position}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <Box m="250px">
-          <CheckboxComponent
-            labelHelp="Tooltip info"
-            tooltipPosition={position}
-          />
-        </Box>,
-      );
-
-      const checkboxIconElement = checkboxIcon(page);
-      await checkboxIconElement.hover();
-      await checkAccessibility(page, tooltipPreview(page));
-    });
-  });
-
   test("should pass accessibility tests with error message", async ({
     mount,
     page,
@@ -183,68 +157,6 @@ test.describe("should check accessibility for Checkbox component", () => {
     const checkboxIconElement = checkboxIcon(page);
     await checkboxIconElement.hover();
     await checkAccessibility(page, tooltipPreview(page));
-  });
-});
-
-test.describe("should check Checkbox tooltip positioning prop", () => {
-  (
-    ["bottom", "left", "right", "top"] as CheckboxProps["tooltipPosition"][]
-  ).forEach((position) => {
-    test(`should render CheckboxComponent component with tooltip positioned to the ${position}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <Box m="250px">
-          <CheckboxComponent
-            labelHelp="Tooltip info"
-            tooltipPosition={position}
-          />
-        </Box>,
-      );
-
-      const checkboxIconElement = checkboxIcon(page);
-      await checkboxIconElement.hover();
-      const tooltipElement = tooltipPreview(page);
-      await expect(tooltipElement).toHaveText("Tooltip info");
-      await expect(tooltipElement).toHaveAttribute(
-        "data-placement",
-        `${position}`,
-      );
-    });
-  });
-});
-
-test.describe("should check CheckboxGroup tooltip positioning prop", () => {
-  (
-    [
-      "top",
-      "bottom",
-      "left",
-      "right",
-    ] as CheckboxGroupProps["tooltipPosition"][]
-  ).forEach((position) => {
-    test(`should render CheckboxGroupComponent component with tooltip positioned to the ${position}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <CheckboxGroupComponent
-          legend="Checkbox Legend"
-          error="Something is wrong"
-          tooltipPosition={position}
-        />,
-      );
-
-      const checkboxIconElement = checkboxGroupIcon(page);
-      await checkboxIconElement.hover();
-      const tooltipElement = tooltipPreview(page);
-      await expect(tooltipElement).toHaveText("Something is wrong");
-      await expect(tooltipElement).toHaveAttribute(
-        "data-placement",
-        `${position}`,
-      );
-    });
   });
 });
 
@@ -324,31 +236,5 @@ test.describe("should check accessibility for Checkbox Group component", () => {
     );
 
     await checkAccessibility(page);
-  });
-
-  (
-    [
-      "top",
-      "bottom",
-      "left",
-      "right",
-    ] as CheckboxGroupProps["tooltipPosition"][]
-  ).forEach((position) => {
-    test(`should pass accessibility tests with tooltip positioned to the ${position}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <CheckboxGroupComponent
-          legend="Checkbox Legend"
-          error="Something is wrong"
-          tooltipPosition={position}
-        />,
-      );
-
-      const checkboxIconElement = checkboxGroupIcon(page);
-      await checkboxIconElement.hover();
-      await checkAccessibility(page, tooltipPreview(page));
-    });
   });
 });

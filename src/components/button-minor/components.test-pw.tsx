@@ -412,39 +412,3 @@ export const IconOnlyButton = () => {
     </>
   );
 };
-
-export const IconOnlyWithTooltipButton = () => {
-  return (
-    <>
-      <ButtonMinor
-        mt={2}
-        ml={2}
-        mb={2}
-        buttonType="primary"
-        size="small"
-        iconType="bin"
-        iconTooltipMessage="This is a tooltip"
-        aria-label="Delete"
-      />
-      <ButtonMinor
-        mt={2}
-        ml={2}
-        mb={2}
-        destructive
-        iconType="bin"
-        iconTooltipMessage="This is a tooltip"
-        aria-label="Delete"
-      />
-      <ButtonMinor
-        mt={2}
-        ml={2}
-        mb={2}
-        disabled
-        size="large"
-        iconType="bin"
-        iconTooltipMessage="This is a tooltip"
-        aria-label="Delete"
-      />
-    </>
-  );
-};
