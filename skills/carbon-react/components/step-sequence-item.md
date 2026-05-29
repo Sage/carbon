@@ -15,17 +15,20 @@ description: Carbon StepSequenceItem component props and usage examples.
 ## Props
 | Name | Type | Required | Literals | Description | Default |
 | --- | --- | --- | --- | --- | --- |
-| children | React.ReactNode | Yes |  | Content to be displayed |  |
-| indicator | string | Yes |  | Value to be displayed before text for incomplete steps |  |
-| ariaLabel | string \| undefined | No |  | Aria label |  |
-| hiddenCompleteLabel | string \| undefined | No |  | Hidden label to be displayed if item is complete |  |
-| hiddenCurrentLabel | string \| undefined | No |  | Hidden label to be displayed if item is current |  |
-| hideIndicator | boolean \| undefined | No |  | Flag to hide the indicator for incomplete steps | false |
-| status | "complete" \| "current" \| "incomplete" \| undefined | No |  | Status for the step | "incomplete" |
-| data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
-| data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+| stepNumber | number | Yes |  | The position of this step in the sequence |  |
+| title | string | Yes |  | The title of the step |  |
+| description | string \| undefined | No |  | A description of the step |  |
 
 ## Examples
+### DefaultStory
+
+**Args**
+
+```tsx
+{}
+```
+
+
 ### Default
 
 **Args**
