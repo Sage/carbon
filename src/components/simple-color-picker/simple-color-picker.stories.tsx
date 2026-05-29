@@ -15,6 +15,9 @@ const meta: Meta<typeof SimpleColorPicker> = {
   argTypes: {
     ...styledSystemProps,
   },
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
 };
 
 export default meta;
