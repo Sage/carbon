@@ -90,7 +90,7 @@ const Fieldset = ({
       data-component="fieldset"
       id={uniqueId}
       name={name}
-      aria-describedby={ariaDescribedBy}
+      aria-describedby={ariaDescribedBy || undefined}
       {...filterStyledSystemMarginProps(rest)}
       {...rest}
     >

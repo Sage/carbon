@@ -1,9 +1,8 @@
 import React from "react";
-import StyledCheckableInputSvgWrapper from "../../../__internal__/checkable-input/checkable-input-svg-wrapper.style";
 
 const RadioButtonSvg = () => {
   return (
-    <StyledCheckableInputSvgWrapper>
+    <div data-role="checkable-input-svg-wrapper">
       <svg data-role="radio-svg" focusable="false" viewBox="0 0 15 15">
         <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
           <circle
@@ -15,7 +14,7 @@ const RadioButtonSvg = () => {
           />
         </g>
       </svg>
-    </StyledCheckableInputSvgWrapper>
+    </div>
   );
 };
 

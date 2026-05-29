@@ -8,7 +8,7 @@ import * as CheckboxGroupStories from "./checkbox-group.stories";
 
 <a
   target="_blank"
-  href="https://zeroheight.com/2ccf2b601/p/5937c7-checkbox/b/317d8f"
+  href="https://zeroheight.com/35ee2cc26/v/latest/p/37a233-checkbox"
   style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
   rel="noreferrer"
 >
@@ -34,33 +34,50 @@ import { Checkbox, CheckboxGroup } from "carbon-react/lib/components/checkbox";
 
 ### Default
 
+To use this component, pass the `Checkbox` inputs as children of `CheckboxGroup`.
+
 <Canvas of={CheckboxGroupStories.Default} />
 
-### With legend Help
+### With Legend
 
-To add an input hint to the legend, use the `legendHelp` prop.
+A legend can be set on the group by passing the `legend` prop to `CheckboxGroup`.
 
-**Note:** The `legendHelp` prop will only render when the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *true*.
+<Canvas of={CheckboxGroupStories.WithLegend} />
 
-<Canvas of={CheckboxGroupStories.WithLegendHelp} />
+### With Legend Hint
 
-### Required
+To add a hint below the legend, pass the `legendHint` prop to `CheckboxGroup`.
 
-<Canvas of={CheckboxGroupStories.RequiredGroup} />
+<Canvas of={CheckboxGroupStories.WithLegendHint} />
 
 ### Inline
 
-Use the `inline` prop to display the grouped checkboxes side by side horizontally. Requires enabling the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) to work.
+`Checkbox` children can be displayed inline by passing the `inline` prop to `CheckboxGroup`.
 
 <Canvas of={CheckboxGroupStories.Inline} />
 
-### Inline legend (legacy)
+### Sizes
 
-Use the `legendInline` prop to display the group legend on the same horizontal row as the grouped checkboxes. You can adjust its appearance using the `legendWidth` and `legendAlign` props to control the width and text alignment of the legend. The `legendSpacing` prop can be used to control the spacing between the legend and the grouped checkboxes.
+The size of the component can be changed by passing the `size` prop to `CheckboxGroup`. Available options are `small`, `medium`, and `large`.
+Note that any size set on individual `Checkbox` children will be overridden.
 
-**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *false*.
+<Canvas of={CheckboxGroupStories.Sizes} />
 
-<Canvas of={CheckboxGroupStories.LegacyInlineLegend} />
+### Required
+
+`CheckboxGroup` can be marked as required by passing the `required` prop.
+
+<Canvas of={CheckboxGroupStories.Required} />
+
+
+### Disabled
+
+`CheckboxGroup` can be disabled using the `disabled` prop.
+
+**Please Note**: Even though Carbon does support disabled checkboxes, their use is not generally recommended by Design System.
+
+
+<Canvas of={CheckboxGroupStories.Disabled} />
 
 ## Validation States
 
