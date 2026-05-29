@@ -1,15 +1,30 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-npx lint-staged
-
-# Update public type baseline when component source files are staged.
-# Silently regenerates types/carbon-react/types.json and stages it.
-# Breaking change gating happens in the commit-msg hook.
+# Regenerate the public API snapshot and fail fast on breaking changes
+# before running lint-staged. Passes the commit message (if already
+# known, e.g. via git commit -m "...") so a BREAKING CHANGE footer
+# still allows the commit through; the commit-msg hook re-validates.
 if git diff --cached --name-only | grep -q '^src/components/'; then
-  node ./scripts/types/check_types.mjs --update-only || {
-    echo "versioning-check: failed to update types.json — commit blocked to prevent a missed breaking-change check."
+  node ./scripts/types/check_types.mjs --update-only 2>/dev/null || {
+    printf "✖ Running versioning check...\n"
+    printf "versioning-check: failed to update types.json\n" >&2
     exit 1
   }
   git add types/carbon-react/types.json
+  commit_msg=".git/COMMIT_EDITMSG"
+  [ -f "$commit_msg" ] || commit_msg="/dev/null"
+  vc_tmpfile=$(mktemp)
+  if node ./scripts/types/check_breaking_changes.mjs "$commit_msg" \
+    >"$vc_tmpfile" 2>&1; then
+    printf "✔ Running versioning check...\n"
+    rm -f "$vc_tmpfile"
+  else
+    printf "✖ Running versioning check...\n"
+    cat "$vc_tmpfile"
+    rm -f "$vc_tmpfile"
+    exit 1
+  fi
 fi
+
+npx lint-staged
