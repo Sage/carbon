@@ -83,6 +83,7 @@ let committedComponents = null;
 try {
   const raw = execSync("git show HEAD:types/carbon-react/types.json", {
     encoding: "utf8",
+    maxBuffer: 20 * 1024 * 1024,
     stdio: ["pipe", "pipe", "pipe"],
   });
   committedComponents = JSON.parse(raw).components ?? {};

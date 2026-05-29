@@ -24,7 +24,7 @@
  * }} ComponentTypeSnapshot
  */
 
-import { execSync } from "node:child_process";
+import { execFileSync, execSync } from "node:child_process";
 import fs from "node:fs/promises";
 import { Project } from "ts-morph";
 import { compareSnapshots } from "./public_types_core.mjs";
@@ -108,19 +108,25 @@ if (stagedComponents) {
 
 // ─── 2. Export path changes in non-internal index.ts files ───────────────────
 
-const stagedIndexFiles = execSync("git diff --cached --name-only", {
+const stagedIndexFiles = execSync("git diff --cached --name-status", {
   encoding: "utf8",
   stdio: ["pipe", "pipe", "pipe"],
 })
   .split("\n")
-  .map((f) => f.trim())
+  .map((line) => {
+    // Name-status format: "<status>\t<path>"
+    // For renames: "R###\t<old-path>\t<new-path>" — we want the old path since
+    // that location is being removed (the new path is new, not breaking).
+    const [, path] = line.trim().split(/\t/);
+    return path ?? "";
+  })
   .filter((f) => f.endsWith("index.ts") && f.startsWith("src/"))
   .filter((f) => !f.split("/").some((part) => part === "__internal__"));
 
 for (const filePath of stagedIndexFiles) {
   let headContent;
   try {
-    headContent = execSync(`git show HEAD:${filePath}`, {
+    headContent = execFileSync("git", ["show", `HEAD:${filePath}`], {
       encoding: "utf8",
       stdio: ["pipe", "pipe", "pipe"],
     });
@@ -128,17 +134,25 @@ for (const filePath of stagedIndexFiles) {
     continue; // New file — only additions, nothing breaking
   }
 
+  const headExports = extractFileExports(headContent, filePath);
+
   let stagedContent;
   try {
-    stagedContent = execSync(`git show :${filePath}`, {
+    stagedContent = execFileSync("git", ["show", `:${filePath}`], {
       encoding: "utf8",
       stdio: ["pipe", "pipe", "pipe"],
     });
   } catch {
+    // File deleted — every export it contained is gone
+    for (const name of headExports.named) {
+      breaking.push({ kind: "export", file: filePath, change: `Named export '${name}' removed or renamed.` });
+    }
+    if (headExports.hasDefault) {
+      breaking.push({ kind: "export", file: filePath, change: "Default export removed." });
+    }
     continue;
   }
 
-  const headExports = extractFileExports(headContent, filePath);
   const stagedExports = extractFileExports(stagedContent, filePath);
 
   for (const name of headExports.named) {
