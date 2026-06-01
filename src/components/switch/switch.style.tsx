@@ -278,6 +278,8 @@ const StyledSwitchLoaderWrapper = styled.span<StyledSwitchLoaderWrapperProps>`
 const StyledSwitchInput = styled.input`
   position: absolute;
   inset: calc(0px - var(--global-borderwidth-s));
+  width: calc(100% + 2 * var(--global-borderwidth-s));
+  height: calc(100% + 2 * var(--global-borderwidth-s));
   margin: 0;
   padding: 0;
   opacity: 0;
