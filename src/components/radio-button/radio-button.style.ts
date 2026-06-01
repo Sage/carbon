@@ -70,10 +70,7 @@ const RadioButtonStyle = styled.div.attrs(
     }
 
     ${HiddenCheckableInputStyle}:not([disabled]) {
-      &:focus
-        + ${StyledCheckableInputSvgWrapper},
-        &:hover
-        + ${StyledCheckableInputSvgWrapper} {
+      &:focus + ${StyledCheckableInputSvgWrapper} {
         ${addFocusStyling()}
       }
     }
