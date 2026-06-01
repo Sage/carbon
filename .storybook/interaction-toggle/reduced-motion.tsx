@@ -12,15 +12,16 @@ export const allowInteractions = () => {
 };
 
 export const InteractionToggle = () => {
-  const [disableInteractions, setDisableInteractions] = useState(
-    window?.localStorage.getItem(STORAGE_KEY) === "true",
-  );
+  const [disableInteractions, setDisableInteractions] = useState(false);
 
   useEffect(() => {
+    const storedValue = window?.localStorage.getItem(STORAGE_KEY);
+    setDisableInteractions(storedValue === "true");
+
     const reducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
-    if (window?.localStorage.getItem(STORAGE_KEY) === null && reducedMotion) {
+    if (storedValue === null && reducedMotion) {
       window?.localStorage?.setItem(STORAGE_KEY, "true");
       setDisableInteractions(true);
     }

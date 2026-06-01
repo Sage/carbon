@@ -199,6 +199,19 @@ const StyledIcon = styled.span.attrs(applyBaseTheme)<
       ${styleOverrides}
     `;
   }}
+
+  ${StyledNextButton} &, .popover-menu-item & {
+    color: currentColor;
+  }
+
+  .mentions-list-item && {
+    color: currentColor;
+  }
+
+  .mentions-list-item:hover &&,
+  .mentions-list-item.selected && {
+    color: currentColor;
+  }
 `;
 
 export default StyledIcon;
