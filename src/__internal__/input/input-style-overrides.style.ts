@@ -1,4 +1,5 @@
 import { css } from "styled-components";
+import addFocusStyling from "../../style/utils/add-focus-styling";
 
 /**
  * Overrides for input when part of Date component
@@ -270,6 +271,33 @@ export const numeralDateStyles = css`
   .numeral-date-wrapper & {
     .input-text-container input {
       text-align: center;
+    }
+  }
+`;
+
+/* Overrides for input when part of Password component */
+export const passwordStyleOverrides = css`
+  [data-component="password"] & {
+    &:focus-within {
+      box-shadow: none !important;
+      -webkit-box-shadow: none !important;
+      outline: none !important;
+    }
+
+    [data-role="input"]:focus {
+      ${addFocusStyling()}
+      border-radius: var(--global-radius-action-m) var(--global-radius-none) var(--global-radius-none) var(--global-radius-action-m);
+      z-index: 1;
+    }
+
+    [data-role="input"]:focus ~ [data-role="password-divider"] {
+      visibility: hidden;
+    }
+
+    & [data-component="button"] {
+      border-radius: var(--global-radius-none) var(--global-radius-action-m)
+        var(--global-radius-action-m) var(--global-radius-none);
+      border-left: none;
     }
   }
 `;
