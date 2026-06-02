@@ -307,6 +307,10 @@ const misc = {
   plus_circle: "\\f112",
   code: "\\f113",
   source_code: "\\f114",
+  marker_off: "\\f115",
+  clock_add: "\\f116",
+  system_iOS: "\\f117",
+  system_Android: "\\f118",
 };
 
 const legacyNames = {
