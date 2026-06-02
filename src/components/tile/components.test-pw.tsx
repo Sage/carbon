@@ -11,10 +11,10 @@ import {
   TileHeaderProps,
   TileProps,
 } from ".";
-import { Dl, Dt, Dd, DlProps } from "../definition-list";
 import Accordion from "../accordion/accordion.component";
 import Box from "../box/box.component";
 import Button from "../button/button.component";
+import { Dl, Dt, Dd } from "../definition-list";
 import Typography from "../typography/typography.component";
 
 export const TileComponent = (props: TileProps) => {
@@ -95,31 +95,6 @@ export const TileHeaderComponent = (props: Partial<TileHeaderProps>) => {
           </Dd>
         </Dl>
       </Accordion>
-    </Tile>
-  );
-};
-
-export const DlTileComponent = (props: Partial<DlProps>) => {
-  return (
-    <Tile>
-      <Dl data-element="dl" {...props}>
-        <Dt>Coffee Subscription</Dt>
-        <Dd data-element="dd">£7.00 a month</Dd>
-        <Dt>Grind Size</Dt>
-        <Dd>Espresso</Dd>
-        <Dt>Quantity</Dt>
-        <Dd>3kg</Dd>
-      </Dl>
-    </Tile>
-  );
-};
-
-export const TileComponentWithFalsyChildren = () => {
-  return (
-    <Tile>
-      <TileContent data-element="tile-content">Foo</TileContent>
-      <TileContent data-element="tile-content">{null}</TileContent>
-      {false && <TileContent data-element="tile-content">Bar</TileContent>}
     </Tile>
   );
 };
