@@ -210,6 +210,7 @@ export const Checkbox = React.forwardRef(
       <CheckableInput
         type="checkbox"
         id={id}
+        name={name}
         value={value}
         label={label}
         inputHint={inputHint || labelHelp}

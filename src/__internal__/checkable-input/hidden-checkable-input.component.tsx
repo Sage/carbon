@@ -14,7 +14,7 @@ export interface CommonHiddenCheckableInputProps
   ariaDescribedBy?: string;
   /**
    * Prop to specify the aria-labelledby attribute of the input.
-   * @deprecated This prop is deprecated, please use the `aria-describedby` attribute instead.
+   * @deprecated This prop is deprecated, please use the `aria-labelledby` attribute instead.
    */
   ariaLabelledBy?: string;
   /** If true, the component will be automatically focused when rendered. */
@@ -38,6 +38,10 @@ export interface HiddenCheckableInputProps
 const HiddenCheckableInput = React.forwardRef(
   (
     {
+      ariaDescribedBy: _ariaDescribedBy,
+      ariaLabelledBy: _ariaLabelledBy,
+      "aria-describedby": ariaDescribedBy,
+      "aria-labelledby": ariaLabelledBy,
       name,
       checked,
       type,
@@ -50,6 +54,8 @@ const HiddenCheckableInput = React.forwardRef(
   ) => {
     return (
       <HiddenCheckableInputStyle
+        aria-describedby={ariaDescribedBy || _ariaDescribedBy || undefined}
+        aria-labelledby={ariaLabelledBy || _ariaDescribedBy || undefined}
         autoFocus={autoFocus}
         data-has-autofocus={autoFocus ? true : undefined}
         checked={checked}

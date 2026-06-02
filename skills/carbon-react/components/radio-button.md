@@ -309,7 +309,7 @@ description: Carbon RadioButton component props and usage examples.
 | aria-valuenow | number \| undefined | No |  |  |  | Defines the current value for a range widget. |  |
 | aria-valuetext | string \| undefined | No |  |  |  | Defines the human readable text alternative of aria-valuenow for a range widget. |  |
 | ariaDescribedBy | string \| undefined | No |  | Yes | This prop is deprecated, please use the `aria-describedby` attribute instead. | The id of the element that describe the input. |  |
-| ariaLabelledBy | string \| undefined | No |  | Yes | This prop is deprecated, please use the `aria-describedby` attribute instead. | Prop to specify the aria-labelledby attribute of the input. |  |
+| ariaLabelledBy | string \| undefined | No |  | Yes | This prop is deprecated, please use the `aria-labelledby` attribute instead. | Prop to specify the aria-labelledby attribute of the input. |  |
 | error | string \| boolean \| undefined | No |  | Yes | Error validation is no longer supported on this component. Please pass validation messages to the `RadioButtonGroup` component instead. | Indicate that an error has occurred. |  |
 | fieldHelp | React.ReactNode | No |  | Yes | The `fieldHelp` prop is deprecated and will be removed in a future release. Please use the `inputHint` prop instead. | Help content to be displayed under an input |  |
 | fieldHelpInline | boolean \| undefined | No |  | Yes | The `fieldHelpInline` prop is no longer supported on this component. | If true, the FieldHelp will be displayed inline To be used with labelInline prop set to true |  |

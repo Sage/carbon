@@ -327,7 +327,7 @@ description: Carbon Checkbox component props and usage examples.
 | aria-valuetext | string \| undefined | No |  |  |  | Defines the human readable text alternative of aria-valuenow for a range widget. |  |
 | adaptiveSpacingBreakpoint | number \| undefined | No |  | Yes | Adaptive spacing is no longer supported on this component. | Breakpoint for adaptive spacing (left margin changes to 0). Enables the adaptive behaviour when set. |  |
 | ariaDescribedBy | string \| undefined | No |  | Yes | This prop is deprecated, please use the `aria-describedby` attribute instead. | The id of the element that describe the input. |  |
-| ariaLabelledBy | string \| undefined | No |  | Yes | This prop is deprecated, please use the `aria-describedby` attribute instead. | Prop to specify the aria-labelledby attribute of the input. |  |
+| ariaLabelledBy | string \| undefined | No |  | Yes | This prop is deprecated, please use the `aria-labelledby` attribute instead. | Prop to specify the aria-labelledby attribute of the input. |  |
 | fieldHelp | React.ReactNode | No |  | Yes | The `fieldHelp` prop is no longer supported, please use the `inputHint` prop instead. | Help content to be displayed under an input |  |
 | fieldHelpInline | boolean \| undefined | No |  | Yes | The `fieldHelpInline` prop is no longer supported on this component. | If true, the FieldHelp will be displayed inline To be used with labelInline prop set to true |  |
 | helpAriaLabel | string \| undefined | No |  | Yes | Help tooltips are no longer supported on this component. | [Legacy] Aria label for rendered help component |  |

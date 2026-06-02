@@ -110,13 +110,7 @@ export const Sizes: Story = () => {
   const options = ["1", "2", "3"];
 
   return (
-    <Box
-      display="flex"
-      flexDirection="row"
-      justifyContent="space-around"
-      flexWrap="wrap"
-      gap="var(--spacing-400)"
-    >
+    <Box display="flex" flexDirection="row" justifyContent="space-around">
       {sizeConfigs.map(({ size, legend }) => (
         <CheckboxGroup key={size} legend={legend} size={size}>
           {options.map((option) => {
