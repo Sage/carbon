@@ -1,3 +1,15 @@
+## [159.7.0](https://github.com/Sage/carbon/compare/v159.6.0...v159.7.0) (2026-05-29)
+
+### Features
+
+* **icon:** align component with fusion DS ([2ec585a](https://github.com/Sage/carbon/commit/2ec585a01999b4f4925b7ab2dbe556ab804c6940))
+
+## [159.6.0](https://github.com/Sage/carbon/compare/v159.5.0...v159.6.0) (2026-05-29)
+
+### Features
+
+* **icon:** added 2 new icons ([88d39d6](https://github.com/Sage/carbon/commit/88d39d64959262332e2a5fa546d699d0fa097068))
+
 ## [159.5.0](https://github.com/Sage/carbon/compare/v159.4.0...v159.5.0) (2026-05-28)
 
 ### Features

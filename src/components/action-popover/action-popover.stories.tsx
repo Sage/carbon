@@ -67,7 +67,7 @@ export const Default: Story = () => {
   );
   return (
     <Box mt={40} height={275}>
-      <ActionPopover onOpen={() => {}} onClose={() => {}}>
+      <ActionPopover mb={1} onOpen={() => {}} onClose={() => {}}>
         <ActionPopoverItem
           disabled
           icon="graph"
@@ -93,7 +93,7 @@ export const Default: Story = () => {
           Delete
         </ActionPopoverItem>
       </ActionPopover>
-      <ActionPopover>
+      <ActionPopover mb={1}>
         <ActionPopoverItem icon="csv" onClick={() => {}}>
           Download CSV
         </ActionPopoverItem>

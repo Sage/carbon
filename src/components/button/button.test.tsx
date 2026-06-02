@@ -343,17 +343,6 @@ test("sets the 'rel' attribute correctly when a custom value is passed to the 'r
   expect(button).toHaveAttribute("rel", "noopener noreferrer");
 });
 
-test("renders a tooltip, populated with a custom value that is passed to the 'iconTooltipMessage' prop", async () => {
-  render(<Button iconType="bin" iconTooltipMessage="foo" />);
-
-  const user = userEvent.setup();
-  const button = screen.getByRole("button", { name: "bin" });
-  await user.hover(button);
-  const tooltip = await screen.findByText("foo");
-
-  expect(tooltip).toBeInTheDocument();
-});
-
 test("sets the 'id' attribute correctly when a custom value is passed to the 'id' prop", () => {
   render(<Button id="foo">bar</Button>);
 
