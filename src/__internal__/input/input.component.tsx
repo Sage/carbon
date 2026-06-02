@@ -46,6 +46,10 @@ export interface InputProps
    * @private @internal @ignore
    */
   "data-is-transparent"?: boolean;
+  /**
+   * @private @internal @ignore
+   */
+  "data-is-open"?: boolean;
 }
 
 const selectTextOnFocus = (
@@ -78,6 +82,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       autoFocus,
       error,
       "data-is-transparent": dataIsTransparent,
+      "data-is-open": dataIsOpen,
       children,
       disabled,
       id,
@@ -123,6 +128,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         $isDisabled={disabled}
         $isReadOnly={readOnly}
         data-is-transparent={dataIsTransparent}
+        data-is-open={dataIsOpen}
       >
         <div
           data-role="input-text-container"

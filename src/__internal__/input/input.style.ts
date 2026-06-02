@@ -165,6 +165,20 @@ const InputContainer = styled.div<InputContainerProps>`
   ${pagerStyleOverrides}
 
   ${numeralDateStyles}
+  
+  &[data-is-open="true"] {
+    z-index: var(
+      --adaptiveSidebarModalBackdrop,
+      var(--carbon-zindex-above-all)
+    );
+
+    &:focus-within:has(:focus:not(button)) {
+      z-index: var(
+        --adaptiveSidebarModalBackdrop,
+        var(--carbon-zindex-above-all)
+      );
+    }
+  }
 `;
 
 export default InputContainer;
