@@ -311,7 +311,7 @@ export const selectStyleOverrides = (
 export const numeralDateStyles = css`
   .numeral-date-wrapper & {
     .input-text-container input {
-      text-align: center;
+      text-align: left;
     }
   }
 `;

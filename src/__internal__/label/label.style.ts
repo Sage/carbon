@@ -63,6 +63,12 @@ const StyledLabel = styled.label<StyledLabelProps>`
   }
 
   ${labelStyleOverrides}
+  .fieldset-required-input & {
+    ::after {
+      content: "";
+      margin-left: 0;
+    }
+  }
 `;
 
 export default StyledLabel;

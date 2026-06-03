@@ -165,7 +165,7 @@ const InputContainer = styled.div<InputContainerProps>`
     selectStyleOverrides($size, $isDisabled, $isReadOnly)}
 
   ${numeralDateStyles}
-  
+ 
   &[data-is-open="true"] {
     z-index: var(
       --adaptiveSidebarModalBackdrop,

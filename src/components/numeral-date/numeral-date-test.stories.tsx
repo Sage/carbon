@@ -22,6 +22,9 @@ export default {
         "dayRef",
         "monthRef",
         "yearRef",
+        "warning",
+        "enableInternalWarning",
+        "labelAlign",
       ],
     },
   },
@@ -32,16 +35,6 @@ export default {
       },
     },
     error: {
-      control: {
-        type: "text",
-      },
-    },
-    warning: {
-      control: {
-        type: "text",
-      },
-    },
-    info: {
       control: {
         type: "text",
       },
@@ -65,7 +58,6 @@ export const Default = (args: NumeralDateProps) => {
   return (
     <Box>
       <NumeralDate
-        label="Numeral date"
         onBlur={handleBlur}
         name="numeralDate_name"
         id="numeralDate_id"
@@ -79,6 +71,9 @@ export const Default = (args: NumeralDateProps) => {
 Default.storyName = "Default";
 Default.args = {
   dateFormat: ["dd", "mm", "yyyy"],
+  label: "",
+  legend: "Numeral date",
+  labelHelp: "",
 };
 Default.parameters = { chromatic: { disableSnapshot: true } };
 
@@ -90,45 +85,27 @@ export const Validations = (args: NumeralDateProps) => {
   };
   const [value, setValue] = useState<NumeralDateProps["value"]>(dateDefault);
   const [value2, setValue2] = useState<NumeralDateProps["value"]>(dateDefault);
-  const [value3, setValue3] = useState<NumeralDateProps["value"]>(dateDefault);
-  const [value4, setValue4] = useState<NumeralDateProps["value"]>(dateDefault);
 
   return (
     <>
       <NumeralDate
-        label="Numeral date"
+        legend="Numeral date"
         error="Error Message"
-        labelHelp="Hint text"
+        legendHint="Hint text"
         mb={2}
         {...args}
         value={value}
         onChange={(ev) => setValue(ev.target.value)}
       />
       <NumeralDate
-        label="Numeral date"
-        warning="Warning Message"
+        validationMessagePositionTop={false}
+        legend="Numeral date"
+        error="Error Message"
+        legendHint="Hint text"
         mb={2}
         {...args}
         value={value2}
         onChange={(ev) => setValue2(ev.target.value)}
-      />
-      <NumeralDate
-        validationMessagePositionTop={false}
-        label="Numeral date"
-        error="Error Message"
-        labelHelp="Hint text"
-        mb={2}
-        {...args}
-        value={value3}
-        onChange={(ev) => setValue3(ev.target.value)}
-      />
-      <NumeralDate
-        validationMessagePositionTop={false}
-        label="Numeral date"
-        warning="Warning Message"
-        {...args}
-        value={value4}
-        onChange={(ev) => setValue4(ev.target.value)}
       />
     </>
   );
@@ -159,7 +136,7 @@ export const InlineLabelsSizes = ({ ...args }) => {
       <form>
         <NumeralDate
           mb={2}
-          label="inline small"
+          legend="inline small"
           size="small"
           {...args}
           value={dateValue}
@@ -169,7 +146,7 @@ export const InlineLabelsSizes = ({ ...args }) => {
         />
         <NumeralDate
           mb={2}
-          label="inline medium"
+          legend="inline medium"
           size="medium"
           {...args}
           value={dateValue2}
@@ -179,7 +156,7 @@ export const InlineLabelsSizes = ({ ...args }) => {
         />
         <NumeralDate
           mb={2}
-          label="inline large"
+          legend="inline large"
           size="large"
           {...args}
           value={dateValue3}

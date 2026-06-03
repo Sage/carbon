@@ -684,3 +684,10 @@ test("applies autoFocus to the input", () => {
   render(<Textbox value="foo" onChange={() => {}} label="Textbox" autoFocus />);
   expect(screen.getByRole("textbox")).toHaveFocus();
 });
+
+// Added for coverage after NumeralDate converted to use TextInput
+test("handles no defined value correctly", () => {
+  render(<Textbox value={undefined} onChange={() => {}} />);
+
+  expect(screen.getByRole("textbox")).toHaveValue("");
+});

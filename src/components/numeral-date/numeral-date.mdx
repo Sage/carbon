@@ -21,8 +21,6 @@ For dates close to today, we advise the use of a standard datepicker. If you req
 
 ## Quick Start
 
-Import `NumeralDate` into the project.
-
 ```javascript
 import NumeralDate, { NumeralDateProps, type NumeralDateHandle } from "carbon-react/lib/components/numeral-date";
 ```
@@ -33,10 +31,17 @@ import NumeralDate, { NumeralDateProps, type NumeralDateHandle } from "carbon-re
 
 <Canvas of={NumeralDateStories.Default} />
 
+### Read-Only
+
+<Canvas of={NumeralDateStories.ReadOnly} />
+
+### Disabled
+
+<Canvas of={NumeralDateStories.Disabled} />
+
 ### With Input Hint
 
-**Note:** The `labelHelp` prop will only render as hint text when the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *true*,
-otherwise it will render as a Help tooltip (see the [With labelHelp (legacy)](#with-labelhelp-legacy) example).
+Keep input hint text to a single short sentence, ensuring that any example dates you use are valid for the component.
 
 <Canvas of={NumeralDateStories.WithInputHint} />
 
@@ -45,22 +50,19 @@ otherwise it will render as a Help tooltip (see the [With labelHelp (legacy)](#w
 <Canvas of={NumeralDateStories.AllowedDateFormats} />
 
 ### Validating date values
-`NumeralDate` has both error and warning states, which can be set via the `error` and `warning` props respectively. However, `NumeralDate` also has a built-in feature to validate date values automatically, so you don't have to recreate this logic yourself.
-This can be enabled via the `enableInternalError` and `enableInternalWarning` props. The rendered messages are displayed alongside the messages defined with the regular `error` and `warning` props.
+
+`NumeralDate` has an error state, which can be set via the `error` prop. However, `NumeralDate` also has a built-in feature to validate date values automatically, so you don't have to recreate this logic yourself.
+This can be enabled via the `enableInternalError` prop. The rendered messages are displayed alongside the messages defined with the regular `error` prop.
 
 This in-built validation feature uses translation keys for the invalid date messages, so you can modify them to suit your localisation needs. The keys are `numeralDate.validation.day`, `numeralDate.validation.month`, and `numeralDate.validation.year`.
+
+**Note**: This component does not support isolated input validation. An error in any single field will cause the entire component - including valid fields - to display an error state.
 
 #### As an error
 
 When using the internal validations as an error, please ensure to also prevent form submission as this is not handled by the component.
 
 <Canvas of={NumeralDateStories.InternalValidationError} />
-
-#### As warning
-
-When using the internal validations as a warning, the form can still be submitted as this is a non-blocking state.
-
-<Canvas of={NumeralDateStories.InternalValidationWarning} />
 
 ### Size
 
@@ -122,24 +124,21 @@ The following keys are available to override the translations for this component
       type: "func",
       returnType: "string",
     },
-        {
+    {
       name: "numeralDate.labels.day",
-      description:
-        "The text displayed within the day label",
+      description: "The text displayed within the day label",
       type: "func",
       returnType: "string",
     },
     {
       name: "numeralDate.labels.month",
-      description:
-        "The text displayed within the month label",
+      description: "The text displayed within the month label",
       type: "func",
       returnType: "string",
     },
     {
       name: "numeralDate.labels.year",
-      description:
-        "The text displayed within the year label",
+      description: "The text displayed within the year label",
       type: "func",
       returnType: "string",
     },
@@ -150,6 +149,6 @@ The following keys are available to override the translations for this component
 
 `NumeralDate`'s forwarded ref exposes the following imperative methods:
 
-| Method Name | Description                                    |
-| ----------- | ---------------------------------------------- |
-| `focus()`   | Programmatically focuses the first input.      |
+| Method Name | Description                               |
+| ----------- | ----------------------------------------- |
+| `focus()`   | Programmatically focuses the first input. |

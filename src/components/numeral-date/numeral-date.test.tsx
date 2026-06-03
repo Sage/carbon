@@ -168,7 +168,7 @@ test("should render the `labelHelp` text as additional content", () => {
       label="label"
       value={{ dd: "02", mm: "01", yyyy: "2020" }}
       onChange={() => {}}
-      labelHelp="labelHelp"
+      legendHint="labelHelp"
     />,
   );
 
@@ -1363,13 +1363,13 @@ test.each(["error", "warning"])(
       <NumeralDate
         value={{ dd: "", mm: "", yyyy: "" }}
         onChange={() => {}}
-        labelHelp="labelHelp"
+        legendHint="labelHelp"
         {...{ [validation]: "Message" }}
       />,
     );
 
     const fieldset = screen.getByRole("group");
-    expect(fieldset).toHaveAccessibleDescription("Message labelHelp");
+    expect(fieldset).toHaveAccessibleDescription("labelHelp Message");
   },
 );
 
@@ -1380,7 +1380,7 @@ test.each(["error", "warning"])(
       <NumeralDate
         value={{ dd: "", mm: "", yyyy: "" }}
         onChange={() => {}}
-        labelHelp="labelHelp"
+        legendHint="labelHelp"
         validationMessagePositionTop={false}
         {...{ [validation]: "Message" }}
       />,
@@ -1493,4 +1493,13 @@ test("when internal validation is enabled and the input blurs, it should use the
   await user.tab();
 
   expect(screen.queryByRole("validation-message")).not.toBeInTheDocument();
+});
+
+// coverage
+test("the deprecated label prop maps to legend", async () => {
+  render(<ControlledComponent label="Legend" />);
+
+  const fieldset = screen.getByRole("group", { name: "Legend" });
+
+  expect(fieldset).toBeVisible();
 });
