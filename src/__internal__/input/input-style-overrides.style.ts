@@ -316,6 +316,26 @@ export const numeralDateStyles = css`
   }
 `;
 
+/* Overrides for input when part of Pager component */
+const pageSelectionStyles = css`
+  .pager-navigation & {
+    margin: 4px 8px;
+    height: 26px;
+    min-height: unset;
+
+    .input-text-container {
+      padding: 0px;
+      line-height: 26px;
+      min-height: 24px;
+
+      input {
+        text-align: center;
+        padding: 0;
+      }
+    }
+  }
+`;
+
 /* Overrides for input when part of Password component */
 export const passwordStyleOverrides = css`
   [data-component="password"] & {
@@ -341,4 +361,29 @@ export const passwordStyleOverrides = css`
       border-left: none;
     }
   }
+`;
+
+const pageSizeSelectionStyles = css`
+  &&& {
+    .pager-size-options & {
+      min-height: unset;
+
+      .input-text-container {
+        width: 64px;
+        height: 26px;
+        min-height: 26px;
+        min-width: 10px;
+        margin: 0px;
+
+        .select-text:not(.disabled):not(.read-only) {
+          width: calc(100% - 28px);
+        }
+      }
+    }
+  }
+`;
+
+export const pagerStyleOverrides = css`
+  ${pageSelectionStyles}
+  ${pageSizeSelectionStyles}
 `;

@@ -7,6 +7,7 @@ import {
   selectStyleOverrides,
   numeralDateStyles,
   passwordStyleOverrides,
+  pagerStyleOverrides,
 } from "./input-style-overrides.style";
 
 interface InputContainerProps {
@@ -166,6 +167,8 @@ const InputContainer = styled.div<InputContainerProps>`
 
   ${numeralDateStyles}
   
+  ${pagerStyleOverrides}
+ 
   &[data-is-open="true"] {
     z-index: var(
       --adaptiveSidebarModalBackdrop,

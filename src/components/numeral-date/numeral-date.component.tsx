@@ -13,14 +13,13 @@ import { ValidationProps } from "../../__internal__/validations";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import Events from "../../__internal__/utils/helpers/events";
 import StyledNumeralDate from "./numeral-date.style";
-import Textbox from "../textbox";
+import TextInput from "../textbox/__internal__/__next__";
 import guid from "../../__internal__/utils/helpers/guid";
 import useLocale from "../../hooks/__internal__/useLocale";
 import Locale from "../../locales/locale";
-import FieldsetValidationContext from "../../__internal__/fieldset-validation-context";
-import Fieldset from "../../__internal__/fieldset";
+import Fieldset from "../../__internal__/fieldset/__next__/fieldset.component";
 
-export const ALLOWED_DATE_FORMATS = [
+const ALLOWED_DATE_FORMATS = [
   ["dd", "mm", "yyyy"],
   ["mm", "dd", "yyyy"],
   ["yyyy", "mm", "dd"],
@@ -50,7 +49,7 @@ export interface DateInputIds {
 }
 
 export interface NumeralDateProps
-  extends ValidationProps,
+  extends Omit<ValidationProps, "info" | "warning">,
     MarginProps,
     TagProps {
   /**
@@ -78,27 +77,53 @@ export interface NumeralDateProps
   enableInternalError?: boolean;
   /** When true, enables the internal warnings to be displayed */
   enableInternalWarning?: boolean;
-  /** [Legacy] Help content to be displayed under an input */
+  /**
+   * [Legacy] Help content to be displayed under an input
+   * @deprecated The `fieldHelp` prop is deprecated and will be removed in a future release. Please use the `legendHint` prop instead.
+   * */
   fieldHelp?: React.ReactNode;
+  /** Content for the hint text below the legend. */
+  legendHint?: string;
   /** `id` for events */
   id?: string;
   /** `name` for events */
   name?: string;
-  /** Label */
+  /**
+   * [Legacy] The content for the component's label
+   * @deprecated The `label` prop is deprecated and will be removed in a future release. Please use the `legend` prop instead.
+   * */
   label?: string;
-  /** Label alignment */
+  /** The content for the component's legend */
+  legend?: string;
+  /**
+   * [Legacy] Text alignment of label
+   * @deprecated Custom label alignment is no longer supported on this component.
+   * */
   labelAlign?: "left" | "right";
-  /** Field labels alignment */
+  /**
+   * Field labels alignment
+   * @deprecated Custom field help alignment is no longer supported on this component.
+   * */
   fieldLabelsAlign?: "left" | "right";
   /**
    * [Legacy] Text applied to label help tooltip, will be rendered as hint text when `validationRedesignOptIn` is true.
+   * @deprecated The `labelHelp` prop is deprecated and will be removed in a future release.
    */
   labelHelp?: React.ReactNode;
-  /** [Legacy] When true, label is placed in line with an input */
+  /**
+   * [Legacy] When true, label is placed in line with an input
+   * @deprecated Inline labels are no longer supported on this component.
+   * */
   labelInline?: boolean;
-  /** [Legacy] Label width */
+  /**
+   * [Legacy] Label width
+   * @deprecated Custom label widths are no longer supported on this component.
+   * */
   labelWidth?: number;
-  /** [Legacy] Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */
+  /**
+   * [Legacy] Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8)
+   * @deprecated Custom label spacing is no longer supported on this component
+   * */
   labelSpacing?: 1 | 2;
   /** Blur event handler */
   onBlur?: (ev: NumeralDateEvent) => void;
@@ -108,11 +133,20 @@ export interface NumeralDateProps
   required?: boolean;
   /** Size of an input */
   size?: "small" | "medium" | "large";
-  /** [Legacy] When true, validation icons will be placed on labels instead of being placed on the inputs */
+  /**
+   * [Legacy] When true, validation icons will be placed on labels instead of being placed on the inputs
+   * @deprecated Custom validation icon placement is no longer supported on this component.
+   * */
   validationOnLabel?: boolean;
-  /** [Legacy] Overrides the default tooltip position */
+  /**
+   * [Legacy] Overrides the default tooltip position
+   * @deprecated Tooltips ar no longer supported on this component.
+   * */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
-  /** [Legacy] Aria label for rendered help component */
+  /**
+   * [Legacy] Aria label for rendered help component
+   * @deprecated Custom help component ARIA labelling is no longer supported on this component,
+   * */
   helpAriaLabel?: string;
   /**
    * A React ref to pass to the input corresponding to the day
@@ -130,6 +164,16 @@ export interface NumeralDateProps
   validationMessagePositionTop?: boolean;
   /** Allow consumers to set IDs for each of the field inputs */
   inputIds?: DateInputIds;
+  /**
+   * [Legacy] Indicate additional information.
+   * @deprecated Information validation is no longer supported on this component.
+   */
+  info?: string | boolean;
+  /**
+   * [Legacy] Indicate warning information.
+   * @deprecated Warning validation is deprecated and will be removed in a future release.
+   */
+  warning?: string | boolean;
 }
 
 export type ValidDateFormat = (typeof ALLOWED_DATE_FORMATS)[number];
@@ -214,16 +258,19 @@ const getDateLabel = (datePart: string, locale: Locale) => {
   }
 };
 
+/**
+ * The Figma designs still use hard-coded pixel values for the input widths so we do the same here
+ */
 const WIDTHS = {
   default: {
-    small: "44px",
-    medium: "50px",
-    large: "64px",
+    small: "50px",
+    medium: "58px",
+    large: "66px",
   },
   year: {
     small: "66px",
-    medium: "80px",
-    large: "84px",
+    medium: "74px",
+    large: "82px",
   },
 };
 
@@ -231,36 +278,38 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
   (
     {
       dateFormat = ["dd", "mm", "yyyy"],
-      disabled,
       error = "",
-      warning = "",
-      info,
+      size = "medium",
+      disabled,
       id,
       name,
       onBlur,
       onChange,
       value,
-      label,
-      labelInline,
-      labelWidth,
-      labelAlign,
-      fieldLabelsAlign,
-      labelHelp,
-      labelSpacing,
-      fieldHelp,
-      adaptiveLabelBreakpoint,
+      legend,
+      legendHint,
       required,
       readOnly,
-      size = "medium",
       enableInternalError,
       enableInternalWarning,
-      tooltipPosition,
-      helpAriaLabel,
       dayRef,
       monthRef,
       yearRef,
       validationMessagePositionTop = true,
       inputIds,
+      /* Deprecated props */
+      label,
+      labelAlign,
+      fieldLabelsAlign,
+      warning = "",
+      labelInline,
+      labelWidth,
+      labelHelp,
+      labelSpacing,
+      fieldHelp,
+      adaptiveLabelBreakpoint,
+      tooltipPosition,
+      helpAriaLabel,
       ...rest
     },
     ref,
@@ -279,6 +328,8 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
     const refs = useRef<(HTMLInputElement | null)[]>(
       dateFormat.map(() => null),
     );
+
+    const mappedLabel = legend ?? label;
 
     useImperativeHandle(ref, () => ({
       focus: () => {
@@ -395,9 +446,8 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
 
     const renderInputs = () => {
       return (
-        <StyledNumeralDate onKeyDown={onKeyDown}>
+        <StyledNumeralDate onKeyDown={onKeyDown} $size={size}>
           {dateFormat.map((datePart, index) => {
-            const isEnd = index === dateFormat.length - 1;
             let inputRef: React.ForwardedRef<HTMLInputElement> | undefined;
 
             switch (datePart.slice(0, 2)) {
@@ -419,30 +469,24 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
               datePart === "yyyy" ? WIDTHS.year[size] : WIDTHS.default[size];
 
             return (
-              <div className="numeral-date-wrapper" key={datePart}>
-                <Textbox
+              <div
+                className={`numeral-date-wrapper${required ? " fieldset-required-input" : ""}`}
+                key={datePart}
+              >
+                <TextInput
                   id={actualInputIds[datePart]}
                   label={getDateLabel(datePart, locale)}
-                  labelAlign={fieldLabelsAlign}
                   disabled={disabled}
                   readOnly={readOnly}
                   error={!!internalError}
                   warning={!!internalWarning}
-                  info={!!info}
                   size={size}
-                  value={value[datePart]}
+                  value={value[datePart] ?? ""}
                   onChange={(e) => handleChange(e, datePart)}
                   onBlur={handleBlur}
                   ref={(element) => handleRef(element, index, inputRef)}
-                  {...(isEnd && {
-                    error: internalError,
-                    warning: internalWarning,
-                    info,
-                  })}
-                  tooltipPosition={tooltipPosition}
-                  tooltipId={`${uniqueId}-validation`}
-                  my={0} // prevents any form spacing being applied
                   maxWidth={maxWidth}
+                  required={required}
                 />
               </div>
             );
@@ -452,25 +496,25 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
     };
 
     return (
-      <FieldsetValidationContext.Provider value={{ disableErrorBorder: true }}>
-        <Fieldset
-          applyNewValidation
-          id={uniqueId}
-          legend={label}
-          inputHint={labelHelp}
-          legendAlign={labelAlign}
-          error={internalError}
-          warning={internalWarning}
-          isRequired={required}
-          isDisabled={disabled}
-          validationMessagePositionTop={validationMessagePositionTop}
-          name={name}
-          {...filterStyledSystemMarginProps(rest)}
-          {...tagComponent("numeral-date", rest)}
-        >
-          {renderInputs()}
-        </Fieldset>
-      </FieldsetValidationContext.Provider>
+      <Fieldset
+        id={uniqueId}
+        legend={mappedLabel}
+        legendHint={legendHint ?? fieldHelp ?? labelHelp}
+        legendAlign={labelAlign}
+        isDisabled={disabled}
+        isRequired={required}
+        error={typeof internalError === "string" ? internalError : undefined}
+        warning={
+          typeof internalWarning === "string" ? internalWarning : undefined
+        }
+        validationMessagePositionTop={validationMessagePositionTop}
+        name={name}
+        size={size}
+        {...tagComponent("numeral-date", rest)}
+        {...filterStyledSystemMarginProps(rest)}
+      >
+        {renderInputs()}
+      </Fieldset>
     );
   },
 );
