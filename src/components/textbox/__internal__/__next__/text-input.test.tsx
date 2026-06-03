@@ -160,6 +160,20 @@ test("should announce the error message after the input hint", () => {
   );
 });
 
+test("should include the prefix in the accessible description when `prefix` prop is provided", () => {
+  render(
+    <TextInput
+      prefix="£"
+      id="test-input"
+      label="label"
+      value="foo"
+      onChange={() => {}}
+    />,
+  );
+
+  expect(screen.getByRole("textbox")).toHaveAccessibleDescription("£");
+});
+
 test("should render with a warning border via the `warning` prop", () => {
   render(
     <TextInput

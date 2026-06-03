@@ -36,6 +36,8 @@ export interface InputProps
   size?: "small" | "medium" | "large";
   /** Emphasised text to be displayed before the input */
   prefix?: string;
+  /** ID for the prefix span element */
+  prefixId?: string;
   /** Additional children to be rendered before the input */
   leftChildren?: React.ReactNode;
   /** Text alignment within the input */
@@ -85,6 +87,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       name,
       onFocus,
       prefix,
+      prefixId,
       readOnly,
       size,
       type = "text",
@@ -94,7 +97,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ) => {
     const localRef = useRef<HTMLInputElement>(null);
     const combinedRef = combineRefs(ref, localRef);
-    const prefixId = prefix ? `${id}-prefix` : undefined;
 
     useEffect(() => {
       if (autoFocus) {
@@ -111,10 +113,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       },
       [onFocus, type],
     );
-
-    const ariaLabelledByString = prefixId
-      ? `${prefixId} ${ariaLabelledBy || ""}`.trim()
-      : ariaLabelledBy;
 
     return (
       <InputContainer
@@ -144,7 +142,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             disabled={disabled}
             readOnly={readOnly}
             aria-describedby={ariaDescribedBy}
-            aria-labelledby={ariaLabelledByString}
+            aria-labelledby={ariaLabelledBy}
             type={type}
             onFocus={handleFocus}
             id={id}
