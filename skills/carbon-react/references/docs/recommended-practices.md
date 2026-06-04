@@ -1,14 +1,4 @@
-import { Meta } from "@storybook/addon-docs/blocks";
-
-<Meta title="Documentation/Recommended Practices" />
-
 # Recommended practices
-
-## Contents
-
-- [Avoid CSS Customisation](#avoid-css-customisation)
-- [Import Compound Components from the Same Carbon Instance](#import-compound-components-from-the-same-carbon-instance)
-- [Be Cautious with Wrapping Components](#be-cautious-with-wrapping-components)
 
 ## Avoid CSS Customisation
 

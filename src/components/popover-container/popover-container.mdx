@@ -9,13 +9,17 @@ import * as PopoverContainerStories from "./popover-container.stories";
 # Popover Container
 
 <a
-	target="_blank"
-	href="https://designsystem.sage.com/fusion/latest/pages/components/popover-container/"
-	style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
-	rel="noreferrer"
+  target="_blank"
+  href="https://designsystem.sage.com/fusion/latest/pages/components/popover-container/"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
 >
-	Product Design System component
+  Product Design System component
 </a>
+
+A floating panel that appears when a trigger element is clicked. Use it for contextual controls — filters, quick actions or small forms — that should appear inline without navigating away from the page.
+
+**Category:** UI presentation
 
 ## Contents
 
@@ -33,6 +37,8 @@ import PopoverContainer, { type PopoverContainerHandle } from "carbon-react/lib/
 ## Examples
 
 ### Default
+
+A `PopoverContainer` opened by clicking the trigger button. Content is rendered as `children`. Controlled `open` state is optional.
 
 <Canvas of={PopoverContainerStories.Default} />
 
@@ -68,7 +74,7 @@ Use the `borderRadius` prop to customise the corner rounding of the `PopoverCont
 
 ### Offset
 
-Use the `offset` prop to control the distance between the `PopoverContainer` and its trigger element. 
+Use the `offset` prop to control the distance between the `PopoverContainer` and its trigger element.
 
 <Canvas of={PopoverContainerStories.Offset} />
 
@@ -85,14 +91,6 @@ Use the `shouldCoverButton` prop to hide the open button when the `PopoverContai
 Use the `renderOpenComponent` and `renderCloseComponent` to render your own open or close buttons.
 
 These props use a render prop pattern - https://reactjs.org/docs/render-props.html
-
-#### Props passed through renderOpenComponent:
-
-<ArgTypes of={RenderOpenStories} />
-
-#### Props passed through renderCloseComponent:
-
-<ArgTypes of={RenderCloseStories} />
 
 <Canvas of={PopoverContainerStories.RenderProps} />
 
@@ -141,10 +139,18 @@ It is possible to disable the animations applied to the `PopoverContainer` by se
 
 <ArgTypes of={PopoverContainerStories} />
 
+### Props passed through renderOpenComponent
+
+<ArgTypes of={RenderOpenStories} />
+
+### Props passed through renderCloseComponent
+
+<ArgTypes of={RenderCloseStories} />
+
 ## Ref methods
 
 `PopoverContainer`'s forwarded ref exposes the following imperative methods:
 
-| Method Name      | Description                                  |
-| ---------------- | -------------------------------------------- |
-| `focusButton()` | Programmatically focuses the open button.    |
+| Method Name     | Description                               |
+| --------------- | ----------------------------------------- |
+| `focusButton()` | Programmatically focuses the open button. |

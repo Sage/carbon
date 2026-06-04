@@ -9,7 +9,9 @@ import * as MultiSelectStories from "./multi-select.stories";
 
 # MultiSelect
 
-Select multiple options from the drop-down menu. MultiSelect is a component that allows to choose multiple options from the drop-down list.
+Component that allows to choose multiple options from the drop-down list.
+
+**Category:** Inputs
 
 ## Contents
 
@@ -33,6 +35,8 @@ If you type printable characters in the Textbox, you can filter through the exis
 ## Examples
 
 ### Default
+
+A basic `MultiSelect` with `Option` children. Selected options appear as pills inside the input. Type to filter the list.
 
 <Canvas of={MultiSelectStories.Default} />
 
@@ -58,17 +62,25 @@ will have the same width as the input.
 
 ### Open on focus
 
+Set `openOnFocus` to open the option list automatically when the input receives focus, without requiring any typed input.
+
 <Canvas of={MultiSelectStories.OpenOnFocus} />
 
 ### Disabled
+
+Set `disabled` to prevent user interaction. The input and dropdown are visually dimmed and non-interactive, and existing pills cannot be removed.
 
 <Canvas of={MultiSelectStories.Disabled} />
 
 ### Read Only
 
+Set `readOnly` to display the current selection as pills without allowing changes. The filter input is disabled but the value remains visible and accessible.
+
 <Canvas of={MultiSelectStories.Readonly} />
 
 ### With multiple columns:
+
+Pass a `tableHeader` and multi-column `Option` children (using `OptionRow`) to display the dropdown as a table with column headers.
 
 <Canvas of={MultiSelectStories.WithMultipleColumns} />
 
@@ -153,7 +165,7 @@ describe("Select tests", () => {
   test("should render", () => {
     // your test code here
   });
-})
+});
 ```
 
 ## Props

@@ -19,6 +19,8 @@ import * as NumeralDateStories from "./numeral-date.stories";
 For dates far from today, use this Numeral Date component. It is advised to use Three inputs consisting of day, month, and year.
 For dates close to today, we advise the use of a standard datepicker. If you require this, please see the "Date Input" component.
 
+**Category:** Inputs
+
 ## Contents
 
 - [Quick Start](#quick-start)
@@ -38,6 +40,8 @@ import NumeralDate, { NumeralDateProps, type NumeralDateHandle } from "carbon-re
 
 ### Default
 
+Three separate inputs for day, month and year. Set the `dateFormat` prop to control which fields are shown and their order.
+
 <Canvas of={NumeralDateStories.Default} />
 
 ### With Legend Hint
@@ -48,8 +52,8 @@ Keep legend hint text to a single short sentence, ensuring that any example date
 
 ### Date Formats
 
-By default, the `NumeralDate` component uses the `dd/mm/yyyy` format. You can change this by using the `dateFormat` prop. 
-The available formats are: 
+By default, the `NumeralDate` component uses the `dd/mm/yyyy` format. You can change this by using the `dateFormat` prop.
+The available formats are:
 
 <Canvas of={NumeralDateStories.DateFormats} />
 
@@ -60,7 +64,7 @@ The available formats are:
 However, `NumeralDate` also has a built-in feature to validate date values automatically to ensure they are within valid ranges, so that you don't have to recreate this logic yourself.
 This can be enabled via the `enableInternalError` prop. The rendered messages are displayed alongside the messages defined with the regular `error` prop.
 
-This in-built validation feature uses translation keys for the invalid date messages, so you can modify them to suit your localisation needs. 
+This in-built validation feature uses translation keys for the invalid date messages, so you can modify them to suit your localisation needs.
 The keys are `numeralDate.validation.day`, `numeralDate.validation.month`, and `numeralDate.validation.year`.
 
 **Note**: This component does not support isolated input validation. An error in any single field will cause the entire component - including valid fields - to display an error state.
@@ -75,6 +79,8 @@ You can use the `size` prop to set the size of the field.
 
 ### Required
 
+Mark the date field group as mandatory using the `required` prop.
+
 <Canvas of={NumeralDateStories.Required} />
 
 ### Read-Only
@@ -87,7 +93,7 @@ You can use the `size` prop to set the size of the field.
 
 ### Programmatic Focus
 
-The `NumeralDateHandle` type provides an imperative handle for programmatic control over `NumeralDate`. 
+The `NumeralDateHandle` type provides an imperative handle for programmatic control over `NumeralDate`.
 Using a `ref`, you can access its `focus()` method to set focus on the first input as needed.
 
 <Canvas of={NumeralDateStories.ProgrammaticFocus} />

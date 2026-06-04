@@ -11,6 +11,8 @@ import * as ResponsiveVerticalMenuItemStories from "./responsive-vertical-menu-i
 
 A vertical menu that is responsive to the screen size. It can be used as a menu in one of two modes: a dual-column layout (default) or a single-column layout (responsive mode).
 
+**Category:** Navigation
+
 ## Contents
 
 - [Quick Start](#quick-start)
@@ -151,6 +153,8 @@ For the best experience, these examples should be in Canvas mode.
 
 ### Default
 
+Renders the responsive vertical menu in dual-column layout. The menu sits in the left column; the content area fills the right. On small screens, the menu collapses and is revealed via a launch button.
+
 <Canvas of={ResponsiveVerticalMenuStories.Default} />
 
 ### Focusing Launch Button Programmatically
@@ -161,6 +165,8 @@ Using a `ref`, you can access its `focusLaunchButton()` method to set focus on t
 <Canvas of={ResponsiveVerticalMenuStories.ProgrammaticFocus} />
 
 ### With Divider
+
+Add a `ResponsiveVerticalMenuDivider` between menu items to create visual groupings and separate distinct navigation sections.
 
 <Canvas of={ResponsiveVerticalMenuStories.WithDivider} />
 

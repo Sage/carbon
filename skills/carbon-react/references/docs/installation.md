@@ -1,15 +1,4 @@
-import { Meta } from "@storybook/addon-docs/blocks";
-
-<Meta title="Getting Started/Installation" />
-
 # Installation
-
-## Contents
-
-- [Try Carbon](#try-carbon)
-- [Starting a new Carbon project](#starting-a-new-carbon-project)
-  - [Peer dependencies](#peer-dependencies)
-  - [Fonts and icons](#fonts-and-icons)
 
 ## Try Carbon
 

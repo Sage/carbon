@@ -16,7 +16,9 @@ import * as SimpleColorPickerStories from "./simple-color-picker.stories.tsx";
   Product Design System component
 </a>
 
-- Choose from a small palette of pre-set colours, with indication of a currently selected colour.
+A color picker lets a user select a single color from a defined set. It indicates the currently selected color.
+
+**Category:** Inputs
 
 ## Contents
 
@@ -34,9 +36,13 @@ import SimpleColorPicker from "carbon-react/lib/components/simple-color-picker";
 
 ### Default
 
+A grid of `SimpleColor` swatches wrapped in a `SimpleColorPicker`. Clicking a swatch selects it and calls `onChange` with the chosen colour value.
+
 <Canvas of={SimpleColorPickerStories.Default} />
 
 ### Disabled
+
+Use the `disabled` prop to render all swatches as non-interactive.
 
 <Canvas of={SimpleColorPickerStories.Disabled} />
 

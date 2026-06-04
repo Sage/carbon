@@ -18,6 +18,8 @@ import * as SwitchStories from "./switch.stories.tsx";
 
 A Switch lets a user toggle a single setting on or off. It gives an immediate response — the state change takes effect as soon as the user interacts with it.
 
+**Category:** Inputs
+
 ## Contents
 
 - [Quick Start](#quick-start)
@@ -40,6 +42,8 @@ The switch renders unchecked by default. The current state is shown by **On** an
 <Canvas of={SwitchStories.Default} />
 
 ### Checked
+
+Set `checked` to `true` to render the switch in its on state. This is a controlled prop — combine with `onChange` to manage state.
 
 <Canvas of={SwitchStories.Checked} />
 
@@ -130,8 +134,7 @@ The following keys are available to override the translations for this component
     },
     {
       name: "switch.processingLabel",
-      description:
-        "The text to display to indicate action is processing",
+      description: "The text to display to indicate action is processing",
       type: "func",
       returnType: "string",
     },

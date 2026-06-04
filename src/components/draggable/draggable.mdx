@@ -10,6 +10,8 @@ import * as DraggableStories from "./draggable.stories.tsx";
 Pick, move and replace an order. Draggable is a great component if you need to have interactive components
 with possibility to change their order with drag and drop mechanics
 
+**Category:** Actions
+
 ## Contents
 
 - [Quick Start](#quick-start)
@@ -39,17 +41,25 @@ import {
 
 ### Simple text as a content
 
+Basic `DraggableContainer` with text-only `DraggableItem` children. Drag items to reorder them.
+
 <Canvas of={DraggableStories.DefaultStory} />
 
 ### With flex direction
+
+Use the `flexDirection` prop on `DraggableContainer` to arrange items horizontally (`"row"`) instead of the default vertical stack.
 
 <Canvas of={DraggableStories.FlexDirectionStory} />
 
 ### Other components as children
 
+Each `DraggableItem` can wrap any React content — here `Checkbox` components — making entire rows draggable.
+
 <Canvas of={DraggableStories.ComponentsAsChildrenStory} />
 
 ### With getOrder callback
+
+Use the `getOrder` prop on `DraggableContainer` to receive the new ordered array of item IDs whenever a drag completes.
 
 <Canvas of={DraggableStories.GetOrderCallbackStory} />
 

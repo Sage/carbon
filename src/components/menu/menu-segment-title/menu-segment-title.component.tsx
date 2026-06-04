@@ -13,7 +13,7 @@ import MenuSegmentContext from "./menu-segment-title.context";
 const AS_VALUES = ["h2", "h3", "h4", "h5", "h6"] as const;
 
 type AllowedAsValues = (typeof AS_VALUES)[number];
-export interface MenuTitleProps extends TagProps {
+export interface MenuSegmentTitleProps extends TagProps {
   children?: React.ReactNode;
   text: string;
   /** Set the colour variant for a menuType */
@@ -24,7 +24,10 @@ export interface MenuTitleProps extends TagProps {
   segmentWrapperProps?: TagProps;
 }
 
-const MenuSegmentTitle = React.forwardRef<HTMLDivElement, MenuTitleProps>(
+const MenuSegmentTitle = React.forwardRef<
+  HTMLDivElement,
+  MenuSegmentTitleProps
+>(
   (
     {
       children,
@@ -33,7 +36,7 @@ const MenuSegmentTitle = React.forwardRef<HTMLDivElement, MenuTitleProps>(
       as = "h2",
       segmentWrapperProps,
       ...rest
-    }: MenuTitleProps,
+    }: MenuSegmentTitleProps,
     ref,
   ) => {
     const { menuType, inFullscreenView } = useStrictMenuContext();

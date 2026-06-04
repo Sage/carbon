@@ -18,11 +18,13 @@ import * as PillStories from "./pill.stories";
 
 Compact visual indicators that help things in common stand out.
 
+**Category:** Feedback
+
 ## Contents
 
 - [Quick Start](#quick-start)
 - [Playground](#playground)
-- [Basic Examples](#basic-examples)
+- [Examples](#examples)
 - [Props](#props)
 - [Translation keys](#translation-keys)
 
@@ -54,9 +56,9 @@ Use this interactive example to explore Pill props with Storybook controls.
   ]}
 />
 
-## Basic Examples
+## Examples
 
-#### Wrapped
+### Wrapped
 
 By default the text within a Pill will not wrap, however you can override this behavior by setting the `wrapText`
 and `maxWidth` props. It is also possible to hyphenate the words but you may need to define where to place
@@ -65,13 +67,13 @@ language-specific and support for every `lang` attribute is not universal.
 
 <Canvas of={PillStories.Wrapped} />
 
-#### With Remove Button
+### With Remove Button
 
 When a callback in the `onDelete` prop is provided, a remove button will be rendered and clicking on it will trigger that callback. Use the `ariaLabelOfRemoveButton` prop to customise the remove button's `aria-label` if needed.
 
 <Canvas of={PillStories.WithRemoveButton} />
 
-#### Inverse on Dark Background
+### Inverse on Dark Background
 
 Use the `inverse` prop on dark surfaces so the pill remains readable and aligns with design guidance.
 

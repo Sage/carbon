@@ -1,14 +1,4 @@
-import { Meta } from "@storybook/addon-docs/blocks";
-
-<Meta title="Documentation/Usage with routing" />
-
 # Using Carbon components with routing libraries
-
-## Contents
-
-- [Usage with React Router v5](#usage-with-react-router-v5)
-- [Usage with React Router v6](#usage-with-react-router-v6)
-- [Supported components](#supported-components)
 
 ## Introduction
 

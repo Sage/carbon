@@ -2,15 +2,26 @@ import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 import * as PodStories from "./pod.stories.tsx";
-import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component"
+import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component";
 
 <Meta of={PodStories} />
 
 # Pod
 
 <DeprecationWarning>
-Pod has been deprecated, if this pattern is still needed please see <a style={{color: "white"}} href="../?path=/docs/documentation-deprecation-migration--docs#recommended-alternatives">our deprecation migration docs</a> for a recommended alternative.
+  Pod has been deprecated, if this pattern is still needed please see{" "}
+  <a
+    style={{ color: "white" }}
+    href="../?path=/docs/documentation-deprecation-migration--docs#recommended-alternatives"
+  >
+    our deprecation migration docs
+  </a>{" "}
+  for a recommended alternative.
 </DeprecationWarning>
+
+A deprecated card-like container that groups related content under an optional title, subtitle, and footer. Supports edit and delete actions, soft-delete state, configurable padding, borders, and primary/secondary/tertiary visual variants.
+
+**Category:** UI presentation
 
 ## Contents
 
@@ -45,6 +56,8 @@ import Pod from "carbon-react/lib/components/pod";
 
 ### Default
 
+A basic `Pod` with a title and body content. Padding and border are applied by default.
+
 <Canvas of={PodStories.Default} />
 
 ### with title and subtitle passed as nodes
@@ -54,6 +67,8 @@ A node can be passed as both the `title` and `subtitle` props, we recommend usin
 <Canvas of={PodStories.WithTitleAndSubtitleNode} />
 
 ### Custom height
+
+Use the `height` prop to fix the pod to a specific height.
 
 <Canvas of={PodStories.WithCustomHeight} />
 
@@ -66,49 +81,73 @@ and then set `height` prop to `100%` on each `Pod` so that it fills the entire h
 
 ### With subtitle and footer
 
+Add descriptive `subtitle` text below the title and pass footer content via the `footer` prop.
+
 <Canvas of={PodStories.WithSubtitleAndFooter} />
 
 ### Without border
+
+Set `border={false}` to render the pod without an outer border.
 
 <Canvas of={PodStories.WithoutBorder} />
 
 ### With edit button
 
+Pass an `onEdit` callback to render an edit button in the pod footer. Clicking it triggers the callback.
+
 <Canvas of={PodStories.WithEditButton} />
 
 ### With delete button
+
+Pass an `onDelete` callback to render a delete button. Can be combined with `onEdit`.
 
 <Canvas of={PodStories.WithDeleteButton} />
 
 ### Soft delete state
 
+Set `softDelete={true}` to visually indicate the pod is in a "soft deleted" (pending deletion) state.
+
 <Canvas of={PodStories.SoftDeleteState} />
 
 ### With edit button and displayEditButtonOnHover
+
+Set `displayEditButtonOnHover={true}` to reveal the edit button only when hovering over the pod.
 
 <Canvas of={PodStories.WithDisplayEditButtonOnHover} />
 
 ### With edit button and editContentFullWidth
 
+Set `editContentFullWidth={true}` to render the edit content spanning the full pod width.
+
 <Canvas of={PodStories.WithEditContentFullWidth} />
 
 ### With internal edit button
+
+Set `internalEditButton={true}` to render the edit button inside the pod content area rather than in the footer.
 
 <Canvas of={PodStories.WithInternalEditButton} />
 
 ### With different variants
 
+Use the `variant` prop to switch between `"primary"` (default), `"secondary"`, and `"tertiary"` background styles.
+
 <Canvas of={PodStories.WithDifferentVariants} />
 
 ### With different sizes
+
+Use the `size` prop to control the internal padding. Available values are `"extra-small"`, `"small"`, `"medium"` (default), `"large"`, and `"extra-large"`.
 
 <Canvas of={PodStories.WithDifferentSizes} />
 
 ### With different title alignments
 
+Use the `alignTitle` prop to set the horizontal alignment of the title. Accepted values are `"left"` (default), `"center"`, and `"right"`.
+
 <Canvas of={PodStories.WithDifferentTitleAlignments} />
 
 ### Address pod
+
+An example of a `Pod` used to display a formatted postal address, demonstrating typical real-world content composition.
 
 <Canvas of={PodStories.AddressExample} />
 
