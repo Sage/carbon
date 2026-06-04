@@ -100,26 +100,6 @@ description: Carbon Portrait component props and usage examples.
 ```
 
 
-### With Tooltip
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <Box margin={8}>
-      <Portrait
-        tooltipMessage="Rebecca Smith"
-        tooltipPosition="bottom"
-        tooltipBgColor="rebeccapurple"
-        src="https://avataaars.io/?avatarStyle=Transparent&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light"
-      />
-    </Box>
-  );
-}
-```
-
-
 ### Sizes
 
 **Render**

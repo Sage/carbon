@@ -603,40 +603,6 @@ export const ButtonIconOnly: Story = () => {
 };
 ButtonIconOnly.storyName = "Icon Only Button";
 
-export const ButtonIconTooltipMessage: Story = () => {
-  return (
-    <Box>
-      <Button
-        mt={2}
-        ml={2}
-        buttonType="primary"
-        size="small"
-        iconType="bin"
-        iconTooltipMessage="This is a tooltip"
-        aria-label="Delete"
-      />
-      <Button
-        destructive
-        ml={2}
-        mt={2}
-        iconType="bin"
-        iconTooltipMessage="This is a tooltip"
-        aria-label="Delete"
-      />
-      <Button
-        mt={2}
-        ml={2}
-        disabled
-        size="large"
-        iconType="bin"
-        iconTooltipMessage="This is a tooltip"
-        aria-label="Delete"
-      />
-    </Box>
-  );
-};
-ButtonIconTooltipMessage.storyName = "Icon Only Button with Tooltip";
-
 export const GradientWhite: Story = () => {
   return (
     <Box>

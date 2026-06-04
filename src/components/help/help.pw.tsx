@@ -1,5 +1,5 @@
 import React from "react";
-import { test, expect } from "../../../playwright/helpers/base-test";
+import { test } from "../../../playwright/helpers/base-test";
 import Help, { HelpProps } from "../../../src/components/help/help.component";
 import HelpComponentTest from "./component.test-pw";
 import Box from "../../../src/components/box";
@@ -20,30 +20,6 @@ const colors = [
   ["black", COLOR.BLACK, COLOR.WHITE],
   ["brown", COLOR.BROWN, COLOR.WHITE],
 ];
-
-test.describe("Testing Help component properties", () => {
-  (["top", "bottom", "left", "right"] as HelpProps["position"][]).forEach(
-    (position) => {
-      test(`should render tooltipFlipOverrides as ${position}`, async ({
-        mount,
-        page,
-      }) => {
-        await page.setViewportSize({ width: 700, height: 120 });
-        await mount(
-          <Box ml="250px">
-            <Help tooltipFlipOverrides={[position]} isFocused>
-              {`This tooltip is positioned ${position}`}
-            </Help>
-          </Box>,
-        );
-
-        await page.evaluate(() => window.scrollTo(50, 50));
-        const tooltip = getDataElementByValue(page, "tooltip");
-        await expect(tooltip).toHaveAttribute("data-placement", position);
-      });
-    },
-  );
-});
 
 test.describe("Accessibility tests for Help component", () => {
   testData.forEach((ariaLabel) => {
