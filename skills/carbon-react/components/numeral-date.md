@@ -6,67 +6,71 @@ description: Carbon NumeralDate component props and usage examples.
 # NumeralDate
 
 ## Import
+
 `import NumeralDate from "carbon-react/lib/components/numeral-date";`
 
 ## Source
+
 - Export: `./components/numeral-date`
 - Props interface: `NumeralDateProps`
 
 ## Props
-| Name | Type | Required | Literals | Deprecated | Deprecation reason | Description | Default |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| onChange | (ev: NumeralDateEvent) => void | Yes |  |  |  | Change event handler |  |
-| value | NumeralDateValue | Yes |  |  |  | Value |  |
-| dateFormat | readonly ["dd", "mm", "yyyy"] \| readonly ["mm", "dd", "yyyy"] \| readonly ["yyyy", "mm", "dd"] \| readonly ["dd", "mm"] \| readonly ["mm", "dd"] \| readonly ["mm", "yyyy"] \| undefined | No |  |  |  |  |  |
-| dayRef | React.ForwardedRef<HTMLInputElement> \| undefined | No |  |  |  | A React ref to pass to the input corresponding to the day |  |
-| disabled | boolean \| undefined | No |  |  |  | If true, the component will be disabled |  |
-| enableInternalError | boolean \| undefined | No |  |  |  | When true, enables the internal errors to be displayed |  |
-| enableInternalWarning | boolean \| undefined | No |  |  |  | When true, enables the internal warnings to be displayed |  |
-| error | string \| boolean \| undefined | No |  |  |  | Indicate that error has occurred. |  |
-| id | string \| undefined | No |  |  |  | `id` for events |  |
-| inputIds | DateInputIds \| undefined | No |  |  |  | Allow consumers to set IDs for each of the field inputs |  |
-| legend | string \| undefined | No |  |  |  | The content for the component's legend |  |
-| legendHint | string \| undefined | No |  |  |  | Content for the hint text below the legend. |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
-| monthRef | React.ForwardedRef<HTMLInputElement> \| undefined | No |  |  |  | A React ref to pass to the input corresponding to the month |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
-| name | string \| undefined | No |  |  |  | `name` for events |  |
-| onBlur | ((ev: NumeralDateEvent) => void) \| undefined | No |  |  |  | Blur event handler |  |
-| readOnly | boolean \| undefined | No |  |  |  | If true, the component will be read-only |  |
-| required | boolean \| undefined | No |  |  |  | Flag to configure component as mandatory |  |
-| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | Size of an input |  |
-| validationMessagePositionTop | boolean \| undefined | No |  |  |  | Render the ValidationMessage above the NumeralDate inputs when validationRedesignOptIn flag is set |  |
-| yearRef | React.ForwardedRef<HTMLInputElement> \| undefined | No |  |  |  | A React ref to pass to the input corresponding to the year |  |
-| data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
-| data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
-| adaptiveLabelBreakpoint | number \| undefined | No |  | Yes | `adaptiveLabelBreakpoint` has been deprecated. It is recommended to use `useMediaQuery` hook to implement adaptive behaviour. Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set |  |  |
-| fieldHelp | React.ReactNode | No |  | Yes | The `fieldHelp` prop is deprecated and will be removed in a future release. Please use the `legendHint` prop instead. | [Legacy] Help content to be displayed under an input |  |
-| fieldLabelsAlign | "left" \| "right" \| undefined | No |  | Yes | Custom field help alignment is no longer supported on this component. | Field labels alignment |  |
-| helpAriaLabel | string \| undefined | No |  | Yes | Custom help component ARIA labelling is no longer supported on this component, | [Legacy] Aria label for rendered help component |  |
-| info | string \| boolean \| undefined | No |  | Yes | Information validation is no longer supported on this component. | [Legacy] Indicate additional information. |  |
-| label | string \| undefined | No |  | Yes | The `label` prop is deprecated and will be removed in a future release. Please use the `legend` prop instead. | [Legacy] The content for the component's label |  |
-| labelAlign | "left" \| "right" \| undefined | No |  | Yes | Custom label alignment is no longer supported on this component. | [Legacy] Text alignment of label |  |
-| labelHelp | React.ReactNode | No |  | Yes | The `labelHelp` prop is deprecated and will be removed in a future release. | [Legacy] Text applied to label help tooltip, will be rendered as hint text when `validationRedesignOptIn` is true. |  |
-| labelInline | boolean \| undefined | No |  | Yes | Inline labels are no longer supported on this component. | [Legacy] When true, label is placed in line with an input |  |
-| labelSpacing | 1 \| 2 \| undefined | No |  | Yes | Custom label spacing is no longer supported on this component | [Legacy] Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) |  |
-| labelWidth | number \| undefined | No |  | Yes | Custom label widths are no longer supported on this component. | [Legacy] Label width |  |
-| tooltipPosition | "left" \| "right" \| "bottom" \| "top" \| undefined | No |  | Yes | Tooltips ar no longer supported on this component. | [Legacy] Overrides the default tooltip position |  |
-| validationOnLabel | boolean \| undefined | No |  | Yes | Custom validation icon placement is no longer supported on this component. | [Legacy] When true, validation icons will be placed on labels instead of being placed on the inputs |  |
-| warning | string \| boolean \| undefined | No |  | Yes | Warning validation is deprecated and will be removed in a future release. | [Legacy] Indicate warning information. |  |
+
+| Name                         | Type                                                                                                                                                                                      | Required | Literals | Deprecated | Deprecation reason                                                                                                                                                                                                                         | Description                                                                                                           | Default |
+| ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | -------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------- | ------- |
+| onChange                     | (ev: NumeralDateEvent) => void                                                                                                                                                            | Yes      |          |            |                                                                                                                                                                                                                                            | Change event handler                                                                                                  |         |
+| value                        | NumeralDateValue                                                                                                                                                                          | Yes      |          |            |                                                                                                                                                                                                                                            | Value                                                                                                                 |         |
+| dateFormat                   | readonly ["dd", "mm", "yyyy"] \| readonly ["mm", "dd", "yyyy"] \| readonly ["yyyy", "mm", "dd"] \| readonly ["dd", "mm"] \| readonly ["mm", "dd"] \| readonly ["mm", "yyyy"] \| undefined | No       |          |            |                                                                                                                                                                                                                                            |                                                                                                                       |         |
+| dayRef                       | React.ForwardedRef<HTMLInputElement> \| undefined                                                                                                                                         | No       |          |            |                                                                                                                                                                                                                                            | A React ref to pass to the input corresponding to the day                                                             |         |
+| disabled                     | boolean \| undefined                                                                                                                                                                      | No       |          |            |                                                                                                                                                                                                                                            | If true, the component will be disabled                                                                               |         |
+| enableInternalError          | boolean \| undefined                                                                                                                                                                      | No       |          |            |                                                                                                                                                                                                                                            | When true, enables the internal errors to be displayed                                                                |         |
+| enableInternalWarning        | boolean \| undefined                                                                                                                                                                      | No       |          |            |                                                                                                                                                                                                                                            | When true, enables the internal warnings to be displayed                                                              |         |
+| error                        | string \| boolean \| undefined                                                                                                                                                            | No       |          |            |                                                                                                                                                                                                                                            | Indicate that error has occurred.                                                                                     |         |
+| id                           | string \| undefined                                                                                                                                                                       | No       |          |            |                                                                                                                                                                                                                                            | `id` for events                                                                                                       |         |
+| inputIds                     | DateInputIds \| undefined                                                                                                                                                                 | No       |          |            |                                                                                                                                                                                                                                            | Allow consumers to set IDs for each of the field inputs                                                               |         |
+| legend                       | string \| undefined                                                                                                                                                                       | No       |          |            |                                                                                                                                                                                                                                            | The content for the component's legend                                                                                |         |
+| legendHint                   | string \| undefined                                                                                                                                                                       | No       |          |            |                                                                                                                                                                                                                                            | Content for the hint text below the legend.                                                                           |         |
+| m                            | ResponsiveValue<TVal, ThemeType> \| undefined                                                                                                                                             | No       |          |            |                                                                                                                                                                                                                                            | Margin on top, left, bottom and right                                                                                 |         |
+| margin                       | ResponsiveValue<TVal, ThemeType> \| undefined                                                                                                                                             | No       |          |            |                                                                                                                                                                                                                                            | Margin on top, left, bottom and right                                                                                 |         |
+| marginBottom                 | ResponsiveValue<TVal, ThemeType> \| undefined                                                                                                                                             | No       |          |            |                                                                                                                                                                                                                                            | Margin on bottom                                                                                                      |         |
+| marginLeft                   | ResponsiveValue<TVal, ThemeType> \| undefined                                                                                                                                             | No       |          |            |                                                                                                                                                                                                                                            | Margin on left                                                                                                        |         |
+| marginRight                  | ResponsiveValue<TVal, ThemeType> \| undefined                                                                                                                                             | No       |          |            |                                                                                                                                                                                                                                            | Margin on right                                                                                                       |         |
+| marginTop                    | ResponsiveValue<TVal, ThemeType> \| undefined                                                                                                                                             | No       |          |            |                                                                                                                                                                                                                                            | Margin on top                                                                                                         |         |
+| marginX                      | ResponsiveValue<TVal, ThemeType> \| undefined                                                                                                                                             | No       |          |            |                                                                                                                                                                                                                                            | Margin on left and right                                                                                              |         |
+| marginY                      | ResponsiveValue<TVal, ThemeType> \| undefined                                                                                                                                             | No       |          |            |                                                                                                                                                                                                                                            | Margin on top and bottom                                                                                              |         |
+| mb                           | ResponsiveValue<TVal, ThemeType> \| undefined                                                                                                                                             | No       |          |            |                                                                                                                                                                                                                                            | Margin on bottom                                                                                                      |         |
+| ml                           | ResponsiveValue<TVal, ThemeType> \| undefined                                                                                                                                             | No       |          |            |                                                                                                                                                                                                                                            | Margin on left                                                                                                        |         |
+| monthRef                     | React.ForwardedRef<HTMLInputElement> \| undefined                                                                                                                                         | No       |          |            |                                                                                                                                                                                                                                            | A React ref to pass to the input corresponding to the month                                                           |         |
+| mr                           | ResponsiveValue<TVal, ThemeType> \| undefined                                                                                                                                             | No       |          |            |                                                                                                                                                                                                                                            | Margin on right                                                                                                       |         |
+| mt                           | ResponsiveValue<TVal, ThemeType> \| undefined                                                                                                                                             | No       |          |            |                                                                                                                                                                                                                                            | Margin on top                                                                                                         |         |
+| mx                           | ResponsiveValue<TVal, ThemeType> \| undefined                                                                                                                                             | No       |          |            |                                                                                                                                                                                                                                            | Margin on left and right                                                                                              |         |
+| my                           | ResponsiveValue<TVal, ThemeType> \| undefined                                                                                                                                             | No       |          |            |                                                                                                                                                                                                                                            | Margin on top and bottom                                                                                              |         |
+| name                         | string \| undefined                                                                                                                                                                       | No       |          |            |                                                                                                                                                                                                                                            | `name` for events                                                                                                     |         |
+| onBlur                       | ((ev: NumeralDateEvent) => void) \| undefined                                                                                                                                             | No       |          |            |                                                                                                                                                                                                                                            | Blur event handler                                                                                                    |         |
+| readOnly                     | boolean \| undefined                                                                                                                                                                      | No       |          |            |                                                                                                                                                                                                                                            | If true, the component will be read-only                                                                              |         |
+| required                     | boolean \| undefined                                                                                                                                                                      | No       |          |            |                                                                                                                                                                                                                                            | Flag to configure component as mandatory                                                                              |         |
+| size                         | "small" \| "medium" \| "large" \| undefined                                                                                                                                               | No       |          |            |                                                                                                                                                                                                                                            | Size of an input                                                                                                      |         |
+| validationMessagePositionTop | boolean \| undefined                                                                                                                                                                      | No       |          |            |                                                                                                                                                                                                                                            | Render the ValidationMessage above the NumeralDate inputs when validationRedesignOptIn flag is set                    |         |
+| yearRef                      | React.ForwardedRef<HTMLInputElement> \| undefined                                                                                                                                         | No       |          |            |                                                                                                                                                                                                                                            | A React ref to pass to the input corresponding to the year                                                            |         |
+| data-element                 | string \| undefined                                                                                                                                                                       | No       |          |            |                                                                                                                                                                                                                                            | Identifier used for testing purposes, applied to the root element of the component.                                   |         |
+| data-role                    | string \| undefined                                                                                                                                                                       | No       |          |            |                                                                                                                                                                                                                                            | Identifier used for testing purposes, applied to the root element of the component.                                   |         |
+| adaptiveLabelBreakpoint      | number \| undefined                                                                                                                                                                       | No       |          | Yes        | `adaptiveLabelBreakpoint` has been deprecated. It is recommended to use `useMediaQuery` hook to implement adaptive behaviour. Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set |                                                                                                                       |         |
+| fieldHelp                    | React.ReactNode                                                                                                                                                                           | No       |          | Yes        | The `fieldHelp` prop is deprecated and will be removed in a future release. Please use the `legendHint` prop instead.                                                                                                                      | [Legacy] Help content to be displayed under an input                                                                  |         |
+| fieldLabelsAlign             | "left" \| "right" \| undefined                                                                                                                                                            | No       |          | Yes        | Custom field help alignment is no longer supported on this component.                                                                                                                                                                      | Field labels alignment                                                                                                |         |
+| helpAriaLabel                | string \| undefined                                                                                                                                                                       | No       |          | Yes        | Custom help component ARIA labelling is no longer supported on this component,                                                                                                                                                             | [Legacy] Aria label for rendered help component                                                                       |         |
+| info                         | string \| boolean \| undefined                                                                                                                                                            | No       |          | Yes        | Information validation is no longer supported on this component.                                                                                                                                                                           | [Legacy] Indicate additional information.                                                                             |         |
+| label                        | string \| undefined                                                                                                                                                                       | No       |          | Yes        | The `label` prop is deprecated and will be removed in a future release. Please use the `legend` prop instead.                                                                                                                              | [Legacy] The content for the component's label                                                                        |         |
+| labelAlign                   | "left" \| "right" \| undefined                                                                                                                                                            | No       |          | Yes        | Custom label alignment is no longer supported on this component.                                                                                                                                                                           | [Legacy] Text alignment of label                                                                                      |         |
+| labelHelp                    | React.ReactNode                                                                                                                                                                           | No       |          | Yes        | The `labelHelp` prop is deprecated and will be removed in a future release.                                                                                                                                                                | [Legacy] Text applied to label help tooltip, will be rendered as hint text when `validationRedesignOptIn` is true.    |         |
+| labelInline                  | boolean \| undefined                                                                                                                                                                      | No       |          | Yes        | Inline labels are no longer supported on this component.                                                                                                                                                                                   | [Legacy] When true, label is placed in line with an input                                                             |         |
+| labelSpacing                 | 1 \| 2 \| undefined                                                                                                                                                                       | No       |          | Yes        | Custom label spacing is no longer supported on this component                                                                                                                                                                              | [Legacy] Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) |         |
+| labelWidth                   | number \| undefined                                                                                                                                                                       | No       |          | Yes        | Custom label widths are no longer supported on this component.                                                                                                                                                                             | [Legacy] Label width                                                                                                  |         |
+| tooltipPosition              | "left" \| "right" \| "bottom" \| "top" \| undefined                                                                                                                                       | No       |          | Yes        | Tooltips ar no longer supported on this component.                                                                                                                                                                                         | [Legacy] Overrides the default tooltip position                                                                       |         |
+| validationOnLabel            | boolean \| undefined                                                                                                                                                                      | No       |          | Yes        | Custom validation icon placement is no longer supported on this component.                                                                                                                                                                 | [Legacy] When true, validation icons will be placed on labels instead of being placed on the inputs                   |         |
+| warning                      | string \| boolean \| undefined                                                                                                                                                            | No       |          | Yes        | Warning validation is deprecated and will be removed in a future release.                                                                                                                                                                  | [Legacy] Indicate warning information.                                                                                |         |
 
 ## Examples
+
 ### Default
 
 **Render**
@@ -85,9 +89,8 @@ description: Carbon NumeralDate component props and usage examples.
       legend="Date of Birth"
     />
   );
-}
+};
 ```
-
 
 ### Read-only
 
@@ -108,9 +111,8 @@ description: Carbon NumeralDate component props and usage examples.
       readOnly
     />
   );
-}
+};
 ```
-
 
 ### Disabled
 
@@ -131,9 +133,8 @@ description: Carbon NumeralDate component props and usage examples.
       disabled
     />
   );
-}
+};
 ```
-
 
 ### With Input Hint
 
@@ -155,9 +156,8 @@ description: Carbon NumeralDate component props and usage examples.
       legendHint="For example, 25 10 1998"
     />
   );
-}
+};
 ```
-
 
 ### Allowed Date Formats
 
@@ -222,9 +222,8 @@ description: Carbon NumeralDate component props and usage examples.
       />
     </>
   );
-}
+};
 ```
-
 
 ### Internal Validation Error
 
@@ -254,9 +253,8 @@ description: Carbon NumeralDate component props and usage examples.
       />
     </Box>
   );
-}
+};
 ```
-
 
 ### Size
 
@@ -300,9 +298,8 @@ description: Carbon NumeralDate component props and usage examples.
       />
     </>
   );
-}
+};
 ```
-
 
 ### Required
 
@@ -324,9 +321,8 @@ description: Carbon NumeralDate component props and usage examples.
       required
     />
   );
-}
+};
 ```
-
 
 ### Programmatic Focus
 
@@ -361,9 +357,8 @@ description: Carbon NumeralDate component props and usage examples.
       />
     </>
   );
-}
+};
 ```
-
 
 ### With Custom Field IDs
 
@@ -391,6 +386,5 @@ description: Carbon NumeralDate component props and usage examples.
       }}
     />
   );
-}
+};
 ```
-
