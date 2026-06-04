@@ -2,163 +2,103 @@
 
 ## Components
 
-- [Accordion](components/accordion.md)
-- [AccordionGroup](components/accordion-group.md) (deprecated)
-- [ActionPopover](components/action-popover.md)
-- [ActionPopoverDivider](components/action-popover-divider.md)
-- [ActionPopoverItem](components/action-popover-item.md)
-- [ActionPopoverMenu](components/action-popover-menu.md)
-- [ActionPopoverMenuButton](components/action-popover-menu-button.md)
-- [AdaptiveSidebar](components/adaptive-sidebar.md)
-- [AdvancedColorPicker](components/advanced-color-picker.md)
-- [Alert](components/alert.md) (deprecated)
-- [AnchorNavigation](components/anchor-navigation.md)
-- [AnchorNavigationItem](components/anchor-navigation-item.md)
-- [AnchorSectionDivider](components/anchor-section-divider.md)
-- [Badge](components/badge.md)
-- [BatchSelection](components/batch-selection.md)
-- [Box](components/box.md)
-- [Breadcrumbs](components/breadcrumbs.md)
-- [Button](components/button.md) (deprecated)
-- [ButtonBar](components/button-bar.md) (deprecated)
-- [ButtonHandleNext](components/button-handle-next.md)
-- [ButtonMinor](components/button-minor.md) (deprecated)
-- [ButtonNext](components/button-next.md)
-- [ButtonToggle](components/button-toggle.md)
-- [ButtonToggleGroup](components/button-toggle-group.md)
-- [CarbonProvider](components/carbon-provider.md)
-- [Card](components/card.md)
-- [CardColumn](components/card-column.md)
-- [CardFooter](components/card-footer.md)
-- [CardRow](components/card-row.md)
-- [Checkbox](components/checkbox.md)
-- [CheckboxGroup](components/checkbox-group.md)
-- [Confirm](components/confirm.md) (deprecated)
-- [Content](components/content.md) (deprecated)
-- [Crumb](components/crumb.md)
-- [DateInput](components/date-input.md)
-- [DateRange](components/date-range.md)
-- [Dd](components/dd.md)
-- [Decimal](components/decimal.md)
-- [Detail](components/detail.md) (deprecated)
-- [Dialog](components/dialog.md)
-- [DismissibleBox](components/dismissible-box.md) (deprecated)
-- [Dl](components/dl.md)
-- [DraggableContainer](components/draggable-container.md)
-- [DraggableItem](components/draggable-item.md)
-- [Drawer](components/drawer.md)
-- [Dt](components/dt.md)
-- [DuellingPicklist](components/duelling-picklist.md) (deprecated)
-- [Fieldset](components/fieldset.md)
-- [FileInput](components/file-input.md)
-- [FilterableSelect](components/filterable-select.md)
-- [FlatTable](components/flat-table.md)
-- [FlatTableBody](components/flat-table-body.md)
-- [FlatTableBodyDraggable](components/flat-table-body-draggable.md)
-- [FlatTableCell](components/flat-table-cell.md)
-- [FlatTableCheckbox](components/flat-table-checkbox.md)
-- [FlatTableHead](components/flat-table-head.md)
-- [FlatTableHeader](components/flat-table-header.md)
-- [FlatTableRow](components/flat-table-row.md)
-- [FlatTableRowHeader](components/flat-table-row-header.md)
-- [FlexTileCell](components/flex-tile-cell.md)
-- [FlexTileContainer](components/flex-tile-container.md)
-- [FlexTileDivider](components/flex-tile-divider.md)
-- [Form](components/form.md)
-- [GlobalHeader](components/global-header.md)
-- [GridContainer](components/grid-container.md) (deprecated)
-- [GridItem](components/grid-item.md) (deprecated)
-- [GroupedCharacter](components/grouped-character.md) (deprecated)
-- [Heading](components/heading.md) (deprecated)
-- [Help](components/help.md)
-- [Hr](components/hr.md) (deprecated)
-- [I18nProvider](components/i18n-provider.md)
-- [Icon](components/icon.md)
-- [IconButton](components/icon-button.md) (deprecated)
-- [Image](components/image.md)
-- [InlineInputs](components/inline-inputs.md) (deprecated)
-- [Link](components/link.md)
-- [LinkPreview](components/link-preview.md)
-- [List](components/list.md) (deprecated)
-- [ListItem](components/list-item.md) (deprecated)
-- [Loader](components/loader.md) (deprecated)
-- [LoaderBar](components/loader-bar.md)
-- [LoaderNext](components/loader-next.md)
-- [LoaderSpinner](components/loader-spinner.md)
-- [LoaderStar](components/loader-star.md)
-- [Menu](components/menu.md)
-- [MenuDivider](components/menu-divider.md)
-- [MenuFullscreen](components/menu-fullscreen.md)
-- [MenuItem](components/menu-item.md)
-- [MenuSegmentTitle](components/menu-segment-title.md)
-- [Message](components/message.md)
-- [Modal](components/modal.md) (deprecated)
-- [MultiActionButton](components/multi-action-button.md)
-- [MultiSelect](components/multi-select.md)
-- [NavigationBar](components/navigation-bar.md)
-- [NextLoader](components/next-loader.md)
-- [Note](components/note.md)
-- [Number](components/number.md) (deprecated)
-- [NumeralDate](components/numeral-date.md)
-- [Option](components/option.md)
-- [OptionGroupHeader](components/option-group-header.md)
-- [OptionRow](components/option-row.md)
-- [Page](components/page.md) (deprecated)
-- [Pager](components/pager.md)
-- [Pages](components/pages.md) (deprecated)
-- [Password](components/password.md)
-- [Picklist](components/picklist.md) (deprecated)
-- [PicklistDivider](components/picklist-divider.md) (deprecated)
-- [PicklistGroup](components/picklist-group.md) (deprecated)
-- [PicklistItem](components/picklist-item.md) (deprecated)
-- [PicklistPlaceholder](components/picklist-placeholder.md) (deprecated)
-- [Pill](components/pill.md)
-- [Pod](components/pod.md) (deprecated)
-- [PopoverContainer](components/popover-container.md)
-- [Portal](components/portal.md)
-- [Portrait](components/portrait.md)
-- [Preview](components/preview.md)
-- [Profile](components/profile.md)
-- [ProgressTracker](components/progress-tracker.md)
-- [RadioButton](components/radio-button.md)
-- [RadioButtonGroup](components/radio-button-group.md)
-- [RequiredFieldsIndicator](components/required-fields-indicator.md)
-- [ScrollableBlock](components/scrollable-block.md)
-- [Search](components/search.md)
-- [Select](components/select.md)
-- [SettingsRow](components/settings-row.md) (deprecated)
-- [Sidebar](components/sidebar.md)
-- [SimpleColor](components/simple-color.md)
-- [SimpleColorPicker](components/simple-color-picker.md)
-- [Sort](components/sort.md)
-- [SplitButton](components/split-button.md)
-- [StepFlow](components/step-flow.md)
-- [StepFlowTitle](components/step-flow-title.md)
-- [StepSequence](components/step-sequence.md)
-- [StepSequenceItem](components/step-sequence-item.md)
-- [Switch](components/switch.md)
-- [Tab](components/tab.md)
-- [TabListNext](components/tab-list-next.md)
-- [TabNext](components/tab-next.md)
-- [TabPanelNext](components/tab-panel-next.md)
-- [Tabs](components/tabs.md)
-- [TabsHandleNext](components/tabs-handle-next.md)
-- [TabsNext](components/tabs-next.md)
-- [Textarea](components/textarea.md)
-- [Textbox](components/textbox.md)
-- [TextEditor](components/text-editor.md)
-- [Tile](components/tile.md)
-- [TileContent](components/tile-content.md)
-- [TileFooter](components/tile-footer.md)
-- [TileHeader](components/tile-header.md)
-- [TileSelect](components/tile-select.md)
-- [TileSelectGroup](components/tile-select-group.md)
-- [Time](components/time.md)
-- [Toast](components/toast.md) (deprecated)
-- [Tooltip](components/tooltip.md) (deprecated)
-- [Typography](components/typography.md)
-- [VerticalDivider](components/vertical-divider.md) (deprecated)
-- [VerticalMenu](components/vertical-menu.md)
-- [VerticalMenuFullScreen](components/vertical-menu-full-screen.md)
-- [VerticalMenuItem](components/vertical-menu-item.md)
-- [VerticalMenuTrigger](components/vertical-menu-trigger.md)
+- [Accordion](components/accordion/)
+- [ActionPopover](components/action-popover/) — ActionPopovers present a handy list of actions the user can perform on a whole table, a specific row within a table, or a tile. Click the ellipsis icon to show actions the user can take on a specific table row, for example, emailing the invoice.
+- [Adaptive Sidebar](components/adaptive-sidebar/) — The `AdaptiveSidebar` component is a non-floating, non-modal sidebar that can be used to display content on the side of the screen. It can be opened and closed by the user, and can be used to display additional information or actions.
+- [Advanced Color Picker](components/advanced-color-picker/) — Selects a single colour from a defined set.
+- [Alert](components/alert/) — Alert has been deprecated, if this pattern is still needed please see our deprecation migration docs for an alternative pattern. (deprecated)
+- [Anchor Navigation](components/anchor-navigation/) — Easily navigate through long scrollable content.
+- [Badge](components/badge/)
+- [Batch Selection](components/batch-selection/) — Batch Selection Component could be used to select multiple items, and apply a common action to all the items selected.
+- [Box](components/box/) — Basic component that gives access to a number of styling options. Should be used to achieve more precise layouts when required. Gives access to Spacing, Color, Layout and FlexBox attributes.
+- [Breadcrumbs](components/breadcrumbs/) — Breadcrumbs are a secondary navigation aid that helps users easily understand their location.
+- [Button](components/button/) — A Button triggers a single action or event. Use it to submit a form (Save), to advance to the next step in a process (Next), or to create a new item (New). **This documentation is for the newer implementation of Button. If you are still using the older implementation, please use the Button documentation.**
+- [Button](components/button-legacy/) — A Button triggers a single action or event. Use it to submit a form (Save), to advance to the next step in a process (Next), or to create a new item (New). (deprecated)
+- [Button Bar](components/button-bar/) — Button Bar has been deprecated, if this pattern is still needed please see our deprecation migration docs for a recommended alternative. (deprecated)
+- [Button Minor](components/button-minor/) — Button Minor has been deprecated, if this pattern is still needed please see our deprecation migration docs for a recommended alternative. (deprecated)
+- [Button Toggle](components/button-toggle/) — Press one of the buttons to make selection. This component should be used when user has to make a choice between a small number of options.
+- [Carbon Provider](components/carbon-provider/) — A React context provider that supplies global settings such as theme styling and Carbon feature flags to your components.
+- [Card](components/card/) — A container for interactive content and controls related to a single subject.
+- [Checkbox](components/checkbox/) — Checkbox provides a way to check an individual option are selected, or check multiple options from a list.
+- [CheckboxGroup](components/checkbox-group/) — CheckboxGroup provides a way to check one or more items from a list of options.
+- [Confirm](components/confirm/) — Confirm has been deprecated, if this pattern is still needed please see our deprecation migration docs for an alternative pattern. (deprecated)
+- [Content](components/content/) — Content has been deprecated, if this pattern is still needed please see our deprecation migration docs for an alternative pattern. (deprecated)
+- [Date](components/date/) — - If the date is likely to be close to today (e.g. an invoice due date), then a datepicker may be useful. If the date is likely to be far in the past (e.g. a date of birth), then it may be better to use separate inputs for day, month, and year or use a NumeralDate component. - Field focus automatically opens the datepicker, but a user can key in dates too, which many users find more convenient, especially in financial applications. - Carbon handles a range of formats, like dd/mm/yyyy, dd/mm/yy, dd/mm, or dd. Configuration can be regional, and copes with space, slash, full stop, comma and colon as separators, as well as no separator at all.
+- [Date Range](components/date-range/) — Captures a start and end date. Used to filter a Table of data according to a start and end date, or to set two dates which are related to each other, for example, a hotel booking.
+- [Decimal](components/decimal/) — Captures a number with a decimal point, or a currency value.
+- [Definition List](components/definition-list/)
+- [Detail](components/detail/) — Detail has been deprecated, if this pattern is still needed please see our deprecation migration docs for an alternative pattern. (deprecated)
+- [Dialog](components/dialog/) — A dialog box overlaid on top of any page.
+- [DismissibleBox](components/dismissible-box/) — DismissibleBox has been deprecated, if this pattern is still needed please see our deprecation migration docs for an alternative pattern. (deprecated)
+- [Divider](components/divider/) — Provides a vertical or horizontal dividing line to make the adjacent components feel distinctly separate from one another.
+- [Draggable](components/draggable/) — Pick, move and replace an order. Draggable is a great component if you need to have interactive components with possibility to change their order with drag and drop mechanics
+- [Drawer](components/drawer/)
+- [Duelling Picklist](components/duelling-picklist/) — Duelling Picklist has been deprecated, if this pattern is still needed please see our deprecation migration docs for a recommended alternative. (deprecated)
+- [Fieldset](components/fieldset/) — This component can be used within a Form component to group related fields together.  It will render a `` element with a `` element to provide a title for the group of fields.
+- [File Input](components/file-input/) — Allows a single file to be uploaded.
+- [Filterable Select](components/filterable-select/) — Select one of available options from the drop-down menu using filter. Filterable Select is a Carbon styled implementation of WAI-ARIA Combobox with Inline Autocomplete.
+- [Flat Table](components/flat-table/) — Logically structure content in a grid for the user to enter, view, or work with.
+- [Flat Table expandable options](components/flat-table-expandable/)
+- [FlatTable color theming](components/flat-table-themes/)
+- [Form](components/form/) — Represents a document section containing interactive controls for submitting information.
+- [Global Header](components/global-header/) — `GlobalHeader` is a wrapper component designed for creating site-wide navigation layouts.
+- [Grid](components/grid/) — Grid has been deprecated, if this pattern is still needed please see our deprecation migration docs for a recommended alternative. (deprecated)
+- [GroupedCharacter](components/grouped-character/) — GroupedCharacter has been deprecated, if this pattern is still needed please see our deprecation migration docs for an alternative pattern. (deprecated)
+- [Heading](components/heading/) — Heading has been deprecated, if this pattern is still needed please see our deprecation migration docs for an alternative pattern. (deprecated)
+- [Help](components/help/) — Typically triggered by the user hovering on an icon, displaying a single, short sentence. Useful for explaining the difference between commands represented with icons, for example, batch table actions. Bear in mind that tooltips may not work well (or at all) on mobile devices, so alternatives may be needed.
+- [Hr](components/hr/) — Hr has been deprecated, if this pattern is still needed please see our deprecation migration docs for a recommended alternative.  Provides a horizontal dividing line to make the above and below components feel distinctly separate from one another. (deprecated)
+- [Icon](components/icon/) — Carbon comes with more than 100 standard icons to choose from. See list of icons for full reference. Many other components allow you to specify one of the standard Carbon icons to associate with them, for example, the Link component.
+- [Icon Button](components/icon-button/) — Icon Button has been deprecated, if this pattern is still needed please see our deprecation migration docs for a recommended alternative. (deprecated)
+- [Image](components/image/) — Basic component that allows either the rendering of an `img` element or a `div` with a `background-image`. This component also gives access to a number of styling options such as `margin`, and `layout`.
+- [Inline Inputs](components/inline-inputs/) — Inline Inputs has been deprecated, if this pattern is still needed please see our deprecation migration docs for a recommended alternative. (deprecated)
+- [Link](components/link/) — Navigates the user to another location.
+- [LinkPreview](components/link-preview/)
+- [Loader](components/loader/) — Use the `Loader` component to clearly indicate that a task or data is still loading, helping users understand they should wait rather than refresh the page or abandon the process. The `Loader` component offers three loading types: `standalone` (with `typical` and `ai` variants), `ring` (with `inline`, `stacked`, `ai-stacked` and `ai-inline` variants) and `star` for clear visual feedback.
+- [Loader](components/loader-legacy/) — Loader has been deprecated, if this pattern is still needed please see our deprecation migration docs for a recommended alternative. (deprecated)
+- [Loader Spinner](components/loader-spinner/) — Use the loader spinner to help users understand why they are waiting. Can be used to demonstrate a known or unknown wait time. (deprecated)
+- [Loader Star](components/loader-star/) — Loader Star has been deprecated, if this pattern is still needed please see our deprecation migration docs for a recommended alternative. (deprecated)
+- [LoaderBar](components/loader-bar/) — Use the LoaderBar component to let users know a task or loading data is still in progress. Showing a LoaderBar helps the user to understand that they should wait, rather than reload the page or abandon a process. In general, place a LoaderBar in the centre and middle of the page or container it relates to. (deprecated)
+- [Menu](components/menu/) — Provides navigation for an app, which can be used via mouse or keyboard.
+- [Message](components/message/) — Presents a static message which stays on screen.
+- [Multi Action Button](components/multi-action-button/)
+- [MultiSelect](components/multi-select/) — Select multiple options from the drop-down menu. MultiSelect is a component that allows to choose multiple options from the drop-down list.
+- [Navigation Bar](components/navigation-bar/) — This component is used as a wrapper for the Menu component when used as a navigation layout.
+- [Note](components/note/) — The `Note` was created using the `lexical` framework which allows rich text content to be rendered. For further documentation on this component, please read our documentation regarding Lexical
+- [Number](components/number/) — Number has been deprecated, if this pattern is still needed please see our deprecation migration docs for an alternative pattern. (deprecated)
+- [Numeral Date](components/numeral-date/) — For dates far from today, use this Numeral Date component. It is advised to use Three inputs consisting of day, month, and year. For dates close to today, we advise the use of a standard datepicker. If you require this, please see the "Date Input" component.
+- [Pager](components/pager/) — Pagination Component.
+- [Pages](components/pages/) — Pages has been deprecated, if this pattern is still needed please see our deprecation migration docs for a recommended alternative. (deprecated)
+- [Password](components/password/) — Provide a way for the user to securely enter a password.
+- [Pill](components/pill/) — Compact visual indicators that help things in common stand out.
+- [Pod](components/pod/) — Pod has been deprecated, if this pattern is still needed please see our deprecation migration docs for a recommended alternative. (deprecated)
+- [Popover Container](components/popover-container/)
+- [Portal](components/portal/) — The Portal component allows you to render children into a different part of the DOM, whilst also allowing the use of styling using the Design System's `design-tokens` package.
+- [Portrait](components/portrait/) — - Useful to represent a person, user, or organisation. - Use initials rather than an avatar if you prefer.
+- [Preview](components/preview/) — Applies a preview loading state animation.
+- [Profile](components/profile/) — - Display information alongside a Portrait component. - Useful to represent a person, user, or organisation. - Use initials rather than an avatar if you prefer.
+- [ProgressTracker](components/progress-tracker/) — Use the `ProgressTracker` component to let users know a task or loading data is still in progress. Showing a `ProgressTracker` helps the user to understand that they should wait, rather than reload the page or abandon a process. In general, place a `ProgressTracker` in the centre and middle of the page or container it relates to.
+- [Radio Button](components/radio-button/)
+- [ResponsiveVerticalMenu](components/responsive-vertical-menu/) — A vertical menu that is responsive to the screen size. It can be used as a menu in one of two modes: a dual-column layout (default) or a single-column layout (responsive mode).
+- [Search](components/search/) — This search component should be used if you require the user to conduct a search.
+- [Settings Row](components/settings-row/) — Settings Row has been deprecated, if this pattern is still needed please see our deprecation migration docs for an alternative pattern. (deprecated)
+- [Sidebar](components/sidebar/)
+- [Simple Color Picker](components/simple-color-picker/) — - Choose from a small palette of pre-set colours, with indication of a currently selected colour.
+- [Simple Select](components/simple-select/) — Select one of available options from the drop-down menu. Simple Select is a Carbon styled equivalent of HTML Select Element.
+- [Split Button](components/split-button/)
+- [Step Flow](components/step-flow/) — Provide a way to represent an end-to-end journey that a user can complete in one go. This component has a specific start and end point, as well as showing the current step in the journey. Use a step flow to help a user complete tasks in a specific order, based on their needs.
+- [StepSequence](components/step-sequence/) — Indicate the progress of a step flow. Progress indicators always directly mirror the number of pages, not general categories. Try to keep label text for each step as short as possible. For users on small screens or instances where horizontal space is limited, use the vertical version of this component.
+- [Switch](components/switch/) — A Switch lets a user toggle a single setting on or off. It gives an immediate response — the state change takes effect as soon as the user interacts with it.
+- [Tabs](components/tabs/) — Tabs organise content, and let a user easily navigate and switch between content. Use tabs to structure content that does not need to be visible all at the same time. Responsive sizes should limit the number of tabs used to no more than 5. **This documentation is for the newer implementation of Tabs. If you are still using the older implementation, please use the Tabs documentation.**
+- [Tabs](components/tabs-legacy/) — Switch between content panes or filtered views of tables. (deprecated)
+- [Text Editor](components/text-editor/) — Provides an interactive Text Editor that allows users to format text with various styles and save the content as JSON or HTML. For further documentation on this component, please read our documentation regarding Lexical
+- [Textarea](components/textarea/) — - Useful for collecting a significant amount of text (e.g. notes about clients, or a short email message). - If content in a textarea is read-only, remove the field border so it appears as static text. - Use placeholder text to give the user context or examples of what to write.
+- [Textbox](components/textbox/) — Captures a single line of text.
+- [Tile](components/tile/) — Tiles are containers for static content such as text, and don't contain controls.
+- [TileSelect](components/tile-select/) — Tile Select is an input visualized as a single or grouped set of tiles. It behaves like a `radio` or a `checkbox` depending on the mode it operates in.
+- [Time](components/time/)
+- [Toast](components/toast/) — Toast has been deprecated, if this pattern is still needed please see our deprecation migration docs for a recommended alternative. (deprecated)
+- [Tokens Wrapper](components/tokens-wrapper/) — The `TokensWrapper` component provides a way to apply design tokens to your application. Doing so will ensure the tokens required by Carbon's components are available and in scope as CSS custom properties.
+- [Tooltip](components/tooltip/) — Tooltip has been deprecated, if this pattern is still needed please see our deprecation migration docs for a recommended alternative. (deprecated)
+- [Typography](components/typography/) — Manages text styles and content hierarchies.
+- [VerticalDivider](components/vertical-divider/) — VerticalDivider has been deprecated, if this pattern is still needed please see our deprecation migration docs for a recommended alternative.  Provides a vertical dividing line to make the adjacent components feel distinctly separate from one another. (deprecated)
+- [VerticalMenu](components/vertical-menu/) — Provides a vertical navigation for an app, which can be used via mouse or keyboard.

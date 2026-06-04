@@ -190,9 +190,9 @@ Setting the `hasOuterVerticalBorders` prop to `false` removes the table's outerm
 
 <Canvas of={FlatTableStories.WithSortingHeaders} />
 
-### With sorting headers and custom accessible name 
+### With sorting headers and custom accessible name
 
-A custom accessible name can be provided to the `<Sort>` component with the `accessibleName` prop. It is recommended 
+A custom accessible name can be provided to the `<Sort>` component with the `accessibleName` prop. It is recommended
 that text content of the `<Sort>` component as well as the current `sortType` are included
 in this accessible name.
 
@@ -259,15 +259,15 @@ of the button control.
 
 <Canvas of={FlatTableStories.WhenAChildOfSidebar} />
 
-## Table Cell Sizes
+### Table Cell Sizes
 
 <Canvas of={FlatTableStories.Sizes} />
 
-## Draggable rows
+### Draggable rows
 
 <Canvas of={FlatTableStories.WithDraggableRows} />
 
-## Wrapping FlatTableRowHeaders
+### Wrapping FlatTableRowHeaders
 
 The `FlatTableRow` relies on specific child composition to identify sticky columns. If you need to wrap the `FlatTableRowHeader` you will need to set the `displayName` of the wrapper to `FlatTableRowHeader.displayName`.
 
@@ -324,11 +324,12 @@ The following keys are available to override the translations for this component
   translationData={[
     {
       name: "sort.accessibleName",
-      description: "The accessible name that is announced on interaction with the component."+
-      " It is recommended that the current sort type as well as the current content of the component"+
-      " are included in this string. Both can be accessed via the `sortContent` and `sortType` parameters.",
+      description:
+        "The accessible name that is announced on interaction with the component." +
+        " It is recommended that the current sort type as well as the current content of the component" +
+        " are included in this string. Both can be accessed via the `sortContent` and `sortType` parameters.",
       type: "func",
       returnType: "string",
-    }
+    },
   ]}
 />
