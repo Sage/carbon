@@ -10,9 +10,10 @@ import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.co
 # Tabs
 
 <DeprecationWarning>
-  This version of the Tabs and Tab components are deprecated and will be removed in a future release. 
-  The legacy interface has been adapted to use the new implementation, but some 
-  features could not be maintained and have been removed. Please migrate to the{" "}
+  This version of the Tabs and Tab components are deprecated and will be removed
+  in a future release. The legacy interface has been adapted to use the new
+  implementation, but some features could not be maintained and have been
+  removed. Please migrate to the{" "}
   <a style={{ color: "white" }} href="../?path=/docs/tabs--docs">
     {" "}
     newer implementation
@@ -30,6 +31,8 @@ import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.co
 </a>
 
 Switch between content panes or filtered views of tables.
+
+**Category:** Navigation
 
 ## Contents
 
@@ -80,6 +83,8 @@ Pass the same ID that you've assigned to the `tabId` prop on the `Tab` you want 
 
 ### Positioned left
 
+Set `position="left"` on `Tabs` to render the tab bar along the left side of the content area, with tabs stacked vertically.
+
 <Canvas of={TabsStories.PositionedLeft} />
 
 ### With specified tab visible
@@ -94,9 +99,13 @@ The `size` prop can be used to set the `TabTitle` to either "default" or "large"
 
 #### Positioned top
 
+Large tabs positioned above the content (default orientation).
+
 <Canvas of={TabsStories.WithLargeTabsPositionedTop} />
 
 #### Positioned left
+
+Large tabs positioned along the left side.
 
 <Canvas of={TabsStories.WithLargeTabsPositionedLeft} />
 
@@ -108,6 +117,8 @@ can be used to render the `title` "before" (default) or "after" the additional e
 <Canvas of={TabsStories.WithAdditionalTitleSiblings} />
 
 #### Large tabs with siblings
+
+Large-sized tabs with additional sibling elements rendered alongside the tab title.
 
 <Canvas of={TabsStories.WithAdditionalTitleSiblingsSizeLarge} />
 
@@ -214,7 +225,7 @@ const App = () => {
 };
 ```
 
-## Validation States
+### Validation States
 
 If some input-based Carbon component within a `Tab` is in an error or warning state, the `Tab` will also render with the same state - showing a visual,
 coloured outline and icon to signify it contains an invalid input field the user needs to address.

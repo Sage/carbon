@@ -124,15 +124,14 @@ export interface MenuWithIcon extends MenuItemBaseProps {
   children?: React.ReactNode;
 }
 
+export type MenuItemProps = MenuWithChildren | MenuWithIcon;
+
 export type MenuItemHandle = {
   /** Programmatically focus the MenuItem. */
   focus: () => void;
 } | null;
 
-export const MenuItem = forwardRef<
-  MenuItemHandle,
-  MenuWithChildren | MenuWithIcon
->(
+export const MenuItem = forwardRef<MenuItemHandle, MenuItemProps>(
   (
     {
       submenu,

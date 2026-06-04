@@ -16,7 +16,9 @@ import * as PagerStories from "./pager.stories.tsx";
   Product Design System component
 </a>
 
-Pagination Component.
+A Pager lets users navigate through paginated data and optionally choose how many records are shown per page.
+
+**Category:** Navigation
 
 ## Contents
 
@@ -40,7 +42,7 @@ The `onPagination` callback is fired whenever navigation occurs and provides the
 
 The total number of pages is calculated from the total number of records and the selected page size.
 
-<Canvas of={PagerStories.Default}/>
+<Canvas of={PagerStories.Default} />
 
 ### With Page Size Selection
 
@@ -50,38 +52,41 @@ To allow users change this instead, set `showPageSizeSelection` to `true` to ren
 
 To set your own custom set of page size options, pass them in an array to `pageSizeSelectionOptions`.
 
-<Canvas of={PagerStories.WithPageSizeSelection}/>
+<Canvas of={PagerStories.WithPageSizeSelection} />
 
 ### Non-Interactive Page
 
 To disable direct editing of the current page number, you can set `interactivePageNumber` to `false`.
 
-<Canvas of={PagerStories.NonInteractivePage}/>
+<Canvas of={PagerStories.NonInteractivePage} />
 
 ### Hide First and Last Buttons
 
 To remove the First and Last page navigation buttons, set the `showFirstAndLastButtons` to `false`.
 
-<Canvas of={PagerStories.HideFirstAndLastButtons}/>
+<Canvas of={PagerStories.HideFirstAndLastButtons} />
 
 ### Alternate Variant
 
-The `"alternate"` variant can be set to render the component with a transparent border and background. 
+The `"alternate"` variant can be set to render the component with a transparent border and background.
 
-<Canvas of={PagerStories.AlternateVariant}/>
+<Canvas of={PagerStories.AlternateVariant} />
 
 ### Sizes
 
 Use the `size` prop to change the size of the component, available options are `"small"`, `"medium"` (default), and `"large"`.
 
 #### Small
-<Canvas of={PagerStories.SmallSize}/>
+
+<Canvas of={PagerStories.SmallSize} />
 
 #### Medium
-<Canvas of={PagerStories.MediumSize}/>
+
+<Canvas of={PagerStories.MediumSize} />
 
 #### Large
-<Canvas of={PagerStories.LargeSize}/>
+
+<Canvas of={PagerStories.LargeSize} />
 
 ## Props
 
@@ -98,36 +103,31 @@ The following keys are available to override the translations for this component
   translationData={[
     {
       name: "pager.firstAriaLabel",
-      description:
-        "Accessible label for the 'Go To First' button.",
+      description: "Accessible label for the 'Go To First' button.",
       type: "func",
       returnType: "string",
     },
     {
       name: "pager.lastAriaLabel",
-      description:
-        "Accessible label for the 'Go To Last' button.",
+      description: "Accessible label for the 'Go To Last' button.",
       type: "func",
       returnType: "string",
     },
     {
       name: "pager.nextAriaLabel",
-      description:
-        "Accessible label for the 'Go To Next' button.",
+      description: "Accessible label for the 'Go To Next' button.",
       type: "func",
       returnType: "string",
     },
     {
       name: "pager.previousAriaLabel",
-      description:
-        "Accessible label for the 'Go To Previous' button.",
+      description: "Accessible label for the 'Go To Previous' button.",
       type: "func",
       returnType: "string",
     },
     {
       name: "pager.pageX",
-      description:
-        "Accessible label for the current page input.",
+      description: "Accessible label for the current page input.",
       type: "func",
       returnType: "string",
     },
@@ -140,15 +140,13 @@ The following keys are available to override the translations for this component
     },
     {
       name: "pager.itemsPerPage",
-      description:
-        "Label for page size select dropdown.",
+      description: "Label for page size select dropdown.",
       type: "func",
       returnType: "string",
     },
     {
       name: "pager.ariaLabel",
-      description:
-        "Accessible label for the component.",
+      description: "Accessible label for the component.",
       type: "func",
       returnType: "string",
     },

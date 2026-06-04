@@ -1,6 +1,6 @@
 import React from "react";
 import Image from ".";
-import { StyledImageProps } from "./image.style";
+import { ImageProps } from "./image.style";
 import pointSvg from "../../../.assets/point.svg";
 
 export default {
@@ -62,7 +62,7 @@ export default {
   },
 };
 
-export const Default = (args: StyledImageProps) => {
+export const Default = (args: ImageProps) => {
   return <Image src={pointSvg} alt="alt" {...args} />;
 };
 
