@@ -9,14 +9,15 @@ import TranslationKeysTable from "../../../.storybook/utils/translation-keys-tab
 
 <a
   target="_blank"
-  href="https://zeroheight.com/2ccf2b601/p/64709e-search"
+  href="https://designsystem.sage.com/fusion/pages/components/search/"
   style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
   rel="noreferrer"
 >
   Product Design System component
 </a>
 
-This search component should be used if you require the user to conduct a search.
+Use the Search component when users need to query or filter content. Built on the native `<input type="search">`,
+it provides a familiar input pattern with a built-in search button.
 
 ## Contents
 
@@ -41,55 +42,37 @@ import Search, { type SearchHandle } from "carbon-react/lib/components/search";
 
 ### With Label and Hint Text
 
-You can pass a visible label and hint text to the `Search` component via the `label` & `inputHint` props. 
+You can pass a visible label and hint text to the `Search` component via the `label` & `inputHint` props.
 
 When the `inputHint` prop is passed, please use a full stop `.` at the end. This forces a pause
 before any other announcements, this well help screen reader users understand the hint fully.
 
 <Canvas of={SearchStories.WithLabelAndInputHint} />
 
-### With Search Button
+### Sizes
 
-You can pass the `searchButton` prop to render a search button.
-This will render a button with the text "Search" and an aria-label of "search button".
-To override the the default aria-label, you can pass a string value to the `searchButtonAriaLabel` prop.
+The `Search` component supports three size options: `"small"`, `"medium"`, and `"large"`.
+The size prop controls the height and spacing of both the input and button.
 
-<Canvas of={SearchStories.WithSearchButton} />
+<Canvas of={SearchStories.Sizes} />
 
-You can override the text of the search button by passing a string value to the `searchButton` prop:
+### Custom Width & Max Width
 
+You can set a custom width for the `Search` input by using `inputWidth` prop, or set a custom max-width using the `maxWidth` prop.
 
-<Canvas of={SearchStories.WithSearchButtonPropTextOverride} />
+<Canvas of={SearchStories.CustomWidths} />
 
-Or, by using the locale provider to override the button's text via the `searchButtonText` translation key.
-Please note that the `searchButton` prop will take precedence over the locale value.
+### Inverse
 
-<Canvas of={SearchStories.WithSearchButtonLocaleOverride} />
+The `Search` component can be styled to render on dark backgrounds by passing the `inverse` prop.
 
-### Custom width
+<Canvas of={SearchStories.Inverse} />
 
-You can set a custom width for the search input by passing any valid CSS string value to the `searchWidth` prop.
+### Label Inline
 
-<Canvas of={SearchStories.CustomWidth} />
+You can render the label inline with the input by passing the `labelInline` prop.
 
-### Custom MaxWidth
-
-You can set a custom max-width for the search input by passing any valid CSS string value to the `maxWidth` prop.
-
-<Canvas of={SearchStories.WithCustomMaxWidth} />
-
-### Dark Background Styling
-
-The search component can be styled to render on dark backgrounds by passing the `variant` prop with the value "dark".
-
-<Canvas of={SearchStories.WithAltStyling} />
-
-### Trigger actions on clear
-
-It is possible to trigger actions such as filtering the search results when the cross icon is clicked.
-When the `triggerOnClear` prop is set to `true`, the `onClick` callback will be called when the cross icon is clicked.
-
-<Canvas of={SearchStories.TriggerOnClear} />
+<Canvas of={SearchStories.LabelInline} />
 
 ## Props
 
@@ -106,7 +89,7 @@ to the [i18nProvider](../?path=/docs/documentation-i18n--docs).
   translationData={[
     {
       name: "search.searchButtonText",
-      description: "The text for search button",
+      description: "The text for the `Search` button (now only used as the default accessible name for the Search button if no `ariaLabel` prop is provided).",
       type: "func",
       returnType: "string",
     },
@@ -117,6 +100,7 @@ to the [i18nProvider](../?path=/docs/documentation-i18n--docs).
 
 `Search`'s forwarded ref exposes the following imperative methods:
 
-| Method Name | Description                                  |
-| ----------- | -------------------------------------------- |
-| `focus()`   | Programmatically focuses the search input.   |
+| Method Name     | Description                                 |
+| --------------- | ------------------------------------------- |
+| `focus()`       | Programmatically focuses the search input.  |
+| `focusButton()` | Programmatically focuses the search button. |
