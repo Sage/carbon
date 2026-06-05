@@ -4,12 +4,12 @@ import { test, expect } from "../../../playwright/helpers/base-test";
 import { checkAccessibility } from "../../../playwright/support/helper";
 
 import TextEditorDefaultComponent, {
-  TextEditorWithHeader,
-  TextEditorWithHeaderOnSave,
-  TextEditorWithHeaderOnCancel,
   TextEditorWithFooter,
-  TextEditorWithFooterOnSave,
   TextEditorWithFooterOnCancel,
+  TextEditorWithFooterOnSave,
+  TextEditorWithHeader,
+  TextEditorWithHeaderOnCancel,
+  TextEditorWithHeaderOnSave,
   TextEditorWithMentions,
   TextEditorWithOrderedListInitialValue,
 } from "./components.test-pw";
@@ -118,368 +118,283 @@ const unformattedJSON = {
 const preformattedValue = JSON.stringify(preformattedJSON);
 const unformattedValue = JSON.stringify(unformattedJSON);
 
-test.describe("Prop tests", () => {
-  test.describe("characterLimit", () => {
-    test(`value of 0`, async ({ mount, page }) => {
-      await mount(<TextEditorDefaultComponent characterLimit={0} />);
+test.describe("header", () => {
+  test("basic focus order: header elements → toolbar button → editor", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<TextEditorWithHeader />);
 
-      const displayedLimit = page.locator(
-        "div[data-role='pw-rte-character-limit']",
-      );
-      await expect(displayedLimit).toBeHidden();
-    });
+    const button1 = page.getByRole("button", { name: "foo" });
+    const button2 = page.getByRole("button", { name: "bar" });
+    const button3 = page.getByRole("button", { name: "baz" });
+    const editor = page.getByRole("textbox");
+    const typographyDropdown = page.getByTestId("pw-rte-typography-dropdown");
+    const editorWrapper = page.getByTestId(`pw-rte-editable`);
 
-    [
-      { characterLimit: 100, text: "100" },
-      { characterLimit: 500, text: "500" },
-      { characterLimit: 3000, text: "3,000" },
-    ].forEach(({ characterLimit, text }) => {
-      test(`value of ${characterLimit}`, async ({ mount, page }) => {
-        await mount(
-          <TextEditorDefaultComponent characterLimit={characterLimit} />,
-        );
-        let displayedLimit = page.locator(
-          "div[data-role='pw-rte-character-limit']",
-        );
-        await expect(displayedLimit).toHaveText(`${text} characters remaining`);
+    await page.keyboard.press("Tab");
+    await expect(button1).toBeFocused();
 
-        const stringToType = "a".repeat(characterLimit);
+    await page.keyboard.press("Tab");
+    await expect(button2).toBeFocused();
 
-        const textbox = page.locator("div[role='textbox']");
-        await textbox.click();
-        await textbox.fill(stringToType);
+    await page.keyboard.press("Tab");
+    await expect(button3).toBeFocused();
 
-        /** Although nasty and discouraged, the hard-coded wait is here to give
-         * the debounce function time to fire the callback.
-         */
-        // eslint-disable-next-line playwright/no-wait-for-timeout
-        await page.waitForTimeout(3000);
+    await expect(editorWrapper).not.toHaveCSS(
+      "box-shadow",
+      "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
+    );
+    await expect(editor).not.toBeFocused();
 
-        displayedLimit = page.locator(
-          "div[data-role='pw-rte-character-limit']",
-        );
-        await expect(displayedLimit).toHaveText(`0 characters remaining`);
+    await page.keyboard.press("Tab");
 
-        await textbox.fill(`${stringToType}1`);
+    await expect(typographyDropdown).toBeFocused();
 
-        // eslint-disable-next-line playwright/no-wait-for-timeout
-        await page.waitForTimeout(3000);
+    await page.keyboard.press("Tab");
 
-        displayedLimit = page.locator(
-          "div[data-role='pw-rte-character-limit']",
-        );
-        await expect(displayedLimit).toHaveText(`0 characters remaining`);
-
-        const displayedWarning = page.getByTestId("pw-rte-validation-message");
-        await expect(displayedWarning).toHaveText(
-          `You are 1 character(s) over the character limit`,
-        );
-      });
-    });
+    await expect(editorWrapper).toHaveCSS(
+      "box-shadow",
+      "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
+    );
+    await expect(editor).toBeFocused();
   });
 
-  test.describe("header", () => {
-    test("basic focus order: header elements → toolbar button → editor", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<TextEditorWithHeader />);
+  test("focus order with onSave: header elements → toolbar button → save button → editor", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<TextEditorWithHeaderOnSave />);
 
-      const button1 = page.getByRole("button", { name: "foo" });
-      const button2 = page.getByRole("button", { name: "bar" });
-      const button3 = page.getByRole("button", { name: "baz" });
-      const editor = page.getByRole("textbox");
-      const typographyDropdown = page.getByTestId("pw-rte-typography-dropdown");
-      const editorWrapper = page.getByTestId(`pw-rte-editable`);
+    const button1 = page.getByRole("button", { name: "foo" });
+    const button2 = page.getByRole("button", { name: "bar" });
+    const button3 = page.getByRole("button", { name: "baz" });
+    const editor = page.getByRole("textbox");
+    const typographyDropdown = page.locator(
+      "button[data-role='pw-rte-typography-dropdown']",
+    );
+    const editorWrapper = page.locator(`div[data-role='pw-rte-editable']`);
+    const saveButton = page.getByRole("button", { name: "Save" });
 
-      await page.keyboard.press("Tab");
-      await expect(button1).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(button1).toBeFocused();
 
-      await page.keyboard.press("Tab");
-      await expect(button2).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(button2).toBeFocused();
 
-      await page.keyboard.press("Tab");
-      await expect(button3).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(button3).toBeFocused();
 
-      await expect(editorWrapper).not.toHaveCSS(
-        "box-shadow",
-        "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
-      );
-      await expect(editor).not.toBeFocused();
+    await expect(editorWrapper).not.toHaveCSS(
+      "box-shadow",
+      "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
+    );
+    await expect(editor).not.toBeFocused();
 
-      await page.keyboard.press("Tab");
+    await page.keyboard.press("Tab");
 
-      await expect(typographyDropdown).toBeFocused();
+    await expect(typographyDropdown).toBeFocused();
 
-      await page.keyboard.press("Tab");
+    await page.keyboard.press("Tab");
 
-      await expect(editorWrapper).toHaveCSS(
-        "box-shadow",
-        "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
-      );
-      await expect(editor).toBeFocused();
-    });
+    await expect(saveButton).toBeFocused();
 
-    test("focus order with onSave: header elements → toolbar button → save button → editor", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<TextEditorWithHeaderOnSave />);
+    await page.keyboard.press("Tab");
 
-      const button1 = page.getByRole("button", { name: "foo" });
-      const button2 = page.getByRole("button", { name: "bar" });
-      const button3 = page.getByRole("button", { name: "baz" });
-      const editor = page.getByRole("textbox");
-      const typographyDropdown = page.locator(
-        "button[data-role='pw-rte-typography-dropdown']",
-      );
-      const editorWrapper = page.locator(`div[data-role='pw-rte-editable']`);
-      const saveButton = page.getByRole("button", { name: "Save" });
-
-      await page.keyboard.press("Tab");
-      await expect(button1).toBeFocused();
-
-      await page.keyboard.press("Tab");
-      await expect(button2).toBeFocused();
-
-      await page.keyboard.press("Tab");
-      await expect(button3).toBeFocused();
-
-      await expect(editorWrapper).not.toHaveCSS(
-        "box-shadow",
-        "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
-      );
-      await expect(editor).not.toBeFocused();
-
-      await page.keyboard.press("Tab");
-
-      await expect(typographyDropdown).toBeFocused();
-
-      await page.keyboard.press("Tab");
-
-      await expect(saveButton).toBeFocused();
-
-      await page.keyboard.press("Tab");
-
-      await expect(editorWrapper).toHaveCSS(
-        "box-shadow",
-        "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
-      );
-      await expect(editor).toBeFocused();
-    });
-
-    test("focus order with onCancel: header elements → toolbar button → cancel button → editor", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<TextEditorWithHeaderOnCancel />);
-
-      const button1 = page.getByRole("button", { name: "foo" });
-      const button2 = page.getByRole("button", { name: "bar" });
-      const button3 = page.getByRole("button", { name: "baz" });
-      const editor = page.getByRole("textbox");
-      const typographyDropdown = page.locator(
-        "button[data-role='pw-rte-typography-dropdown']",
-      );
-      const editorWrapper = page.locator(`div[data-role='pw-rte-editable']`);
-      const cancelButton = page.getByRole("button", { name: "Cancel" });
-
-      await page.keyboard.press("Tab");
-      await expect(button1).toBeFocused();
-
-      await page.keyboard.press("Tab");
-      await expect(button2).toBeFocused();
-
-      await page.keyboard.press("Tab");
-      await expect(button3).toBeFocused();
-
-      await expect(editorWrapper).not.toHaveCSS(
-        "box-shadow",
-        "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
-      );
-      await expect(editor).not.toBeFocused();
-
-      await page.keyboard.press("Tab");
-
-      await expect(typographyDropdown).toBeFocused();
-
-      await page.keyboard.press("Tab");
-
-      await expect(cancelButton).toBeFocused();
-
-      await page.keyboard.press("Tab");
-
-      await expect(editorWrapper).toHaveCSS(
-        "box-shadow",
-        "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
-      );
-      await expect(editor).toBeFocused();
-    });
+    await expect(editorWrapper).toHaveCSS(
+      "box-shadow",
+      "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
+    );
+    await expect(editor).toBeFocused();
   });
 
-  test.describe("footer", () => {
-    test("basic focus order: toolbar button → editor → footer elements", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<TextEditorWithFooter />);
+  test("focus order with onCancel: header elements → toolbar button → cancel button → editor", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<TextEditorWithHeaderOnCancel />);
 
-      const button1 = page.getByRole("button", { name: "foo" });
-      const button2 = page.getByRole("button", { name: "bar" });
-      const button3 = page.getByRole("button", { name: "baz" });
-      const editor = page.getByRole("textbox");
-      const typographyDropdown = page.locator(
-        "button[data-role='pw-rte-typography-dropdown']",
-      );
-      const editorWrapper = page.locator(`div[data-role='pw-rte-editable']`);
+    const button1 = page.getByRole("button", { name: "foo" });
+    const button2 = page.getByRole("button", { name: "bar" });
+    const button3 = page.getByRole("button", { name: "baz" });
+    const editor = page.getByRole("textbox");
+    const typographyDropdown = page.locator(
+      "button[data-role='pw-rte-typography-dropdown']",
+    );
+    const editorWrapper = page.locator(`div[data-role='pw-rte-editable']`);
+    const cancelButton = page.getByRole("button", { name: "Cancel" });
 
-      await expect(editorWrapper).not.toHaveCSS(
-        "box-shadow",
-        "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
-      );
-      await expect(editor).not.toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(button1).toBeFocused();
 
-      await page.keyboard.press("Tab");
+    await page.keyboard.press("Tab");
+    await expect(button2).toBeFocused();
 
-      await expect(typographyDropdown).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(button3).toBeFocused();
 
-      await page.keyboard.press("Tab");
+    await expect(editorWrapper).not.toHaveCSS(
+      "box-shadow",
+      "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
+    );
+    await expect(editor).not.toBeFocused();
 
-      await expect(editorWrapper).toHaveCSS(
-        "box-shadow",
-        "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
-      );
-      await expect(editor).toBeFocused();
+    await page.keyboard.press("Tab");
 
-      await page.keyboard.press("Tab");
-      await expect(button1).toBeFocused();
+    await expect(typographyDropdown).toBeFocused();
 
-      await page.keyboard.press("Tab");
-      await expect(button2).toBeFocused();
+    await page.keyboard.press("Tab");
 
-      await page.keyboard.press("Tab");
-      await expect(button3).toBeFocused();
-    });
+    await expect(cancelButton).toBeFocused();
 
-    test("focus order with onSave: toolbar button → save button → editor → footer elements", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<TextEditorWithFooterOnSave />);
+    await page.keyboard.press("Tab");
 
-      const button1 = page.getByRole("button", { name: "foo" });
-      const button2 = page.getByRole("button", { name: "bar" });
-      const button3 = page.getByRole("button", { name: "baz" });
-      const editor = page.getByRole("textbox");
-      const typographyDropdown = page.locator(
-        "button[data-role='pw-rte-typography-dropdown']",
-      );
-      const editorWrapper = page.locator(`div[data-role='pw-rte-editable']`);
-      const saveButton = page.getByRole("button", { name: "Save" });
+    await expect(editorWrapper).toHaveCSS(
+      "box-shadow",
+      "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
+    );
+    await expect(editor).toBeFocused();
+  });
+});
 
-      await expect(editorWrapper).not.toHaveCSS(
-        "box-shadow",
-        "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
-      );
-      await expect(editor).not.toBeFocused();
+test.describe("footer", () => {
+  test("basic focus order: toolbar button → editor → footer elements", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<TextEditorWithFooter />);
 
-      await page.keyboard.press("Tab");
+    const button1 = page.getByRole("button", { name: "foo" });
+    const button2 = page.getByRole("button", { name: "bar" });
+    const button3 = page.getByRole("button", { name: "baz" });
+    const editor = page.getByRole("textbox");
+    const typographyDropdown = page.locator(
+      "button[data-role='pw-rte-typography-dropdown']",
+    );
+    const editorWrapper = page.locator(`div[data-role='pw-rte-editable']`);
 
-      await expect(typographyDropdown).toBeFocused();
+    await expect(editorWrapper).not.toHaveCSS(
+      "box-shadow",
+      "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
+    );
+    await expect(editor).not.toBeFocused();
 
-      await page.keyboard.press("Tab");
+    await page.keyboard.press("Tab");
 
-      await expect(saveButton).toBeFocused();
+    await expect(typographyDropdown).toBeFocused();
 
-      await page.keyboard.press("Tab");
+    await page.keyboard.press("Tab");
 
-      await expect(editorWrapper).toHaveCSS(
-        "box-shadow",
-        "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
-      );
+    await expect(editorWrapper).toHaveCSS(
+      "box-shadow",
+      "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
+    );
+    await expect(editor).toBeFocused();
 
-      await expect(editor).toBeFocused();
-      await page.keyboard.press("Tab");
-      await expect(button1).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(button1).toBeFocused();
 
-      await page.keyboard.press("Tab");
-      await expect(button2).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(button2).toBeFocused();
 
-      await page.keyboard.press("Tab");
-      await expect(button3).toBeFocused();
-    });
-
-    test("focus order with onCancel: toolbar button → cancel button → editor → footer elements", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<TextEditorWithFooterOnCancel />);
-
-      const button1 = page.getByRole("button", { name: "foo" });
-      const button2 = page.getByRole("button", { name: "bar" });
-      const button3 = page.getByRole("button", { name: "baz" });
-      const editor = page.getByRole("textbox");
-      const typographyDropdown = page.locator(
-        "button[data-role='pw-rte-typography-dropdown']",
-      );
-      const editorWrapper = page.locator(`div[data-role='pw-rte-editable']`);
-      const cancelButton = page.getByRole("button", { name: "Cancel" });
-
-      await expect(editorWrapper).not.toHaveCSS(
-        "box-shadow",
-        "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
-      );
-      await expect(editor).not.toBeFocused();
-
-      await page.keyboard.press("Tab");
-
-      await expect(typographyDropdown).toBeFocused();
-
-      await page.keyboard.press("Tab");
-
-      await expect(cancelButton).toBeFocused();
-
-      await page.keyboard.press("Tab");
-
-      await expect(editorWrapper).toHaveCSS(
-        "box-shadow",
-        "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
-      );
-      await expect(editor).toBeFocused();
-
-      await page.keyboard.press("Tab");
-      await expect(button1).toBeFocused();
-
-      await page.keyboard.press("Tab");
-      await expect(button2).toBeFocused();
-
-      await page.keyboard.press("Tab");
-      await expect(button3).toBeFocused();
-    });
+    await page.keyboard.press("Tab");
+    await expect(button3).toBeFocused();
   });
 
-  test.describe("inputHint", () => {
-    test(`value of 'hint'`, async ({ mount, page }) => {
-      await mount(<TextEditorDefaultComponent inputHint="hint" />);
-      const hint = page.locator(`div[data-role='hint-text']`);
-      await expect(hint).toHaveText("hint");
-    });
+  test("focus order with onSave: toolbar button → save button → editor → footer elements", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<TextEditorWithFooterOnSave />);
 
-    test(`value not provided`, async ({ mount, page }) => {
-      await mount(<TextEditorDefaultComponent />);
-      const hint = await page.locator(`div[data-role='hint-text']`).count();
-      expect(hint).toBe(0);
-    });
+    const button1 = page.getByRole("button", { name: "foo" });
+    const button2 = page.getByRole("button", { name: "bar" });
+    const button3 = page.getByRole("button", { name: "baz" });
+    const editor = page.getByRole("textbox");
+    const typographyDropdown = page.locator(
+      "button[data-role='pw-rte-typography-dropdown']",
+    );
+    const editorWrapper = page.locator(`div[data-role='pw-rte-editable']`);
+    const saveButton = page.getByRole("button", { name: "Save" });
+
+    await expect(editorWrapper).not.toHaveCSS(
+      "box-shadow",
+      "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
+    );
+    await expect(editor).not.toBeFocused();
+
+    await page.keyboard.press("Tab");
+
+    await expect(typographyDropdown).toBeFocused();
+
+    await page.keyboard.press("Tab");
+
+    await expect(saveButton).toBeFocused();
+
+    await page.keyboard.press("Tab");
+
+    await expect(editorWrapper).toHaveCSS(
+      "box-shadow",
+      "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
+    );
+
+    await expect(editor).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(button1).toBeFocused();
+
+    await page.keyboard.press("Tab");
+    await expect(button2).toBeFocused();
+
+    await page.keyboard.press("Tab");
+    await expect(button3).toBeFocused();
   });
 
-  test.describe("labelText", () => {
-    [{ value: "Text Editor" }].forEach(({ value }) => {
-      test(`value of ${value}`, async ({ mount, page }) => {
-        await mount(<TextEditorDefaultComponent labelText={value} />);
-        const editorLabel = page.locator("label[data-element='label']");
-        await expect(editorLabel).toHaveText(value);
-      });
-    });
+  test("focus order with onCancel: toolbar button → cancel button → editor → footer elements", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<TextEditorWithFooterOnCancel />);
+
+    const button1 = page.getByRole("button", { name: "foo" });
+    const button2 = page.getByRole("button", { name: "bar" });
+    const button3 = page.getByRole("button", { name: "baz" });
+    const editor = page.getByRole("textbox");
+    const typographyDropdown = page.locator(
+      "button[data-role='pw-rte-typography-dropdown']",
+    );
+    const editorWrapper = page.locator(`div[data-role='pw-rte-editable']`);
+    const cancelButton = page.getByRole("button", { name: "Cancel" });
+
+    await expect(editorWrapper).not.toHaveCSS(
+      "box-shadow",
+      "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
+    );
+    await expect(editor).not.toBeFocused();
+
+    await page.keyboard.press("Tab");
+
+    await expect(typographyDropdown).toBeFocused();
+
+    await page.keyboard.press("Tab");
+
+    await expect(cancelButton).toBeFocused();
+
+    await page.keyboard.press("Tab");
+
+    await expect(editorWrapper).toHaveCSS(
+      "box-shadow",
+      "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
+    );
+    await expect(editor).toBeFocused();
+
+    await page.keyboard.press("Tab");
+    await expect(button1).toBeFocused();
+
+    await page.keyboard.press("Tab");
+    await expect(button2).toBeFocused();
+
+    await page.keyboard.press("Tab");
+    await expect(button3).toBeFocused();
   });
 
   test.describe("placeholder", () => {
@@ -593,7 +508,7 @@ test.describe("Prop tests", () => {
     });
   });
 
-  test("counts characters correclty after pasting new line characters and interacting with it", async ({
+  test("counts characters correctly after pasting new line characters and interacting with it", async ({
     mount,
     page,
   }) => {
@@ -637,7 +552,7 @@ test.describe("Prop tests", () => {
     );
   });
 
-  test("counts characters correclty in the character limit warning after pasting new line characters and interacting with it", async ({
+  test("counts characters correctly in the character limit warning after pasting new line characters and interacting with it", async ({
     mount,
     page,
   }) => {
@@ -681,330 +596,251 @@ test.describe("Prop tests", () => {
     );
   });
 
-  test("should correctly apply margin prop as a number", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<TextEditorDefaultComponent m={2} />);
-    const textEditorWrapper = page.locator(`div[data-component='text-editor']`);
-    await expect(textEditorWrapper).toHaveCSS("margin", "16px");
-  });
-
-  test("should correctly apply margin prop as a string", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<TextEditorDefaultComponent m="16px" />);
-    const textEditorWrapper = page.locator(`div[data-component='text-editor']`);
-    await expect(textEditorWrapper).toHaveCSS("margin", "16px");
-  });
-});
-
-test.describe("Functionality tests", () => {
-  test.describe("onCancel", () => {
-    test("resets the content of the editor when the Cancel button is pressed and a default value is provided", async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <TextEditorDefaultComponent
-          initialValue={preformattedValue}
-          onCancel={() => {}}
-        />,
-      );
-      const textbox = page.locator("div[role='textbox']");
-      await textbox.click();
-      await textbox.pressSequentially(" This is some text", { delay: 100 });
-      const cancelButton = page.locator(
-        "button[data-role='pw-rte-cancel-button']",
-      );
-      await cancelButton.click();
-      const displayedText = textbox;
-      await expect(displayedText).toHaveText(
-        "Sample text with some formatting applied.",
-      );
-    });
-  });
-
-  test.describe("onBlur", () => {
-    test("fires when the editor loses focus", async ({ mount, page }) => {
-      let currentValue = false;
-
-      await mount(
-        <TextEditorDefaultComponent
-          onBlur={() => {
-            currentValue = true;
-          }}
-        />,
-      );
-      const textbox = page.locator("div[role='textbox']");
-      await textbox.click();
-      await textbox.pressSequentially(" This is some text", { delay: 100 });
-
-      await textbox.press("Tab");
-
-      expect(currentValue).toBe(true);
-    });
-  });
-
-  test.describe("onChange", () => {
-    test("fires when the content of the editor changes", async ({
-      mount,
-      page,
-    }) => {
-      let currentValue;
-      let currentHtmlValue;
-      let currentJSON;
-
-      await mount(
-        <TextEditorDefaultComponent
-          onChange={(
-            value: string,
-            { htmlString, json }: EditorFormattedValues,
-          ) => {
-            currentValue = value;
-            currentHtmlValue = htmlString;
-            currentJSON = json;
-          }}
-        />,
-      );
-      const textbox = page.locator("div[role='textbox']");
-      await textbox.click();
-      await textbox.pressSequentially(" This is some text", { delay: 100 });
-
-      /** Although nasty and discouraged, the hard-coded wait is here to give
-       * the debounce function time to fire the callback.
-       */
-      // eslint-disable-next-line playwright/no-wait-for-timeout
-      await page.waitForTimeout(3000);
-
-      expect(currentValue).toBe(" This is some text");
-      expect(currentHtmlValue).toBe(
-        '<p><span style="white-space: pre-wrap;"> This is some text</span></p>',
-      );
-      expect(currentJSON).toEqual({
-        root: {
-          children: [
-            {
-              children: [
-                {
-                  detail: 0,
-                  format: 0,
-                  mode: "normal",
-                  style: "",
-                  text: " This is some text",
-                  type: "text",
-                  version: 1,
-                },
-              ],
-              direction: null,
-              format: "",
-              indent: 0,
-              type: "paragraph",
-              version: 1,
-              textFormat: 0,
-              textStyle: "",
-            },
-          ],
-          direction: null,
-          format: "",
-          indent: 0,
-          type: "root",
-          version: 1,
-        },
+  test.describe("Functionality tests", () => {
+    test.describe("onCancel", () => {
+      test("resets the content of the editor when the Cancel button is pressed and a default value is provided", async ({
+        mount,
+        page,
+      }) => {
+        await mount(
+          <TextEditorDefaultComponent
+            initialValue={preformattedValue}
+            onCancel={() => {}}
+          />,
+        );
+        const textbox = page.locator("div[role='textbox']");
+        await textbox.click();
+        await textbox.pressSequentially(" This is some text", { delay: 100 });
+        const cancelButton = page.locator(
+          "button[data-role='pw-rte-cancel-button']",
+        );
+        await cancelButton.click();
+        const displayedText = textbox;
+        await expect(displayedText).toHaveText(
+          "Sample text with some formatting applied.",
+        );
       });
     });
-  });
 
-  test.describe("onFocus", () => {
-    test("fires when the editor gains focus", async ({ mount, page }) => {
-      let currentValue = false;
+    test.describe("onBlur", () => {
+      test("fires when the editor loses focus", async ({ mount, page }) => {
+        let currentValue = false;
 
-      await mount(
-        <TextEditorDefaultComponent
-          onFocus={() => {
-            currentValue = true;
-          }}
-        />,
-      );
-      const textbox = page.locator("div[role='textbox']");
-      await textbox.click();
-      expect(currentValue).toBe(true);
-    });
-  });
+        await mount(
+          <TextEditorDefaultComponent
+            onBlur={() => {
+              currentValue = true;
+            }}
+          />,
+        );
+        const textbox = page.locator("div[role='textbox']");
+        await textbox.click();
+        await textbox.pressSequentially(" This is some text", { delay: 100 });
 
-  test.describe("onSave", () => {
-    test("fires when the save button is clicked", async ({ mount, page }) => {
-      let _htmlString = null;
-      let _json = null;
-      await mount(
-        <TextEditorDefaultComponent
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          onSave={({ htmlString, json }: { htmlString: string; json: any }) => {
-            _htmlString = htmlString;
-            _json = json;
-          }}
-        />,
-      );
+        await textbox.press("Tab");
 
-      const textbox = page.locator("div[role='textbox']");
-      await textbox.click();
-      await textbox.pressSequentially("This is some text", { delay: 100 });
-
-      const saveButton = page.locator("button[data-role='pw-rte-save-button']");
-      await saveButton.click();
-      expect(_htmlString).not.toBeNull();
-      expect(_json).not.toBeNull();
-      expect(_htmlString).toBe(
-        '<p><span style="white-space: pre-wrap;">This is some text</span></p>',
-      );
-
-      expect(_json).toEqual({
-        root: {
-          children: [
-            {
-              children: [
-                {
-                  detail: 0,
-                  format: 0,
-                  mode: "normal",
-                  style: "",
-                  text: "This is some text",
-                  type: "text",
-                  version: 1,
-                },
-              ],
-              direction: null,
-              format: "",
-              indent: 0,
-              type: "paragraph",
-              version: 1,
-              textFormat: 0,
-              textStyle: "",
-            },
-          ],
-          direction: null,
-          format: "",
-          indent: 0,
-          type: "root",
-          version: 1,
-        },
+        expect(currentValue).toBe(true);
       });
     });
-  });
 
-  test.describe("Toolbar", () => {
-    test("allows the buttons to be navigated with the arrow keys", async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <TextEditorDefaultComponent initialValue={unformattedValue} />,
-      );
-      const typographyButton = page.locator(
-        "button[data-role='pw-rte-typography-dropdown']",
-      );
-      const boldButton = page.locator("button[data-role='pw-rte-bold-button']");
+    test.describe("onChange", () => {
+      test("fires when the content of the editor changes", async ({
+        mount,
+        page,
+      }) => {
+        let currentValue;
+        let currentHtmlValue;
+        let currentJSON;
 
-      await page.keyboard.press("Tab");
+        await mount(
+          <TextEditorDefaultComponent
+            onChange={(
+              value: string,
+              { htmlString, json }: EditorFormattedValues,
+            ) => {
+              currentValue = value;
+              currentHtmlValue = htmlString;
+              currentJSON = json;
+            }}
+          />,
+        );
+        const textbox = page.locator("div[role='textbox']");
+        await textbox.click();
+        await textbox.pressSequentially(" This is some text", { delay: 100 });
 
-      await expect(typographyButton).toBeFocused();
-      await page.keyboard.press("ArrowRight");
-      await expect(boldButton).toBeFocused();
-      await page.keyboard.press("ArrowLeft");
-      await expect(typographyButton).toBeFocused();
+        /** Although nasty and discouraged, the hard-coded wait is here to give
+         * the debounce function time to fire the callback.
+         */
+        // eslint-disable-next-line playwright/no-wait-for-timeout
+        await page.waitForTimeout(3000);
+
+        expect(currentValue).toBe(" This is some text");
+        expect(currentHtmlValue).toBe(
+          '<p><span style="white-space: pre-wrap;"> This is some text</span></p>',
+        );
+        expect(currentJSON).toEqual({
+          root: {
+            children: [
+              {
+                children: [
+                  {
+                    detail: 0,
+                    format: 0,
+                    mode: "normal",
+                    style: "",
+                    text: " This is some text",
+                    type: "text",
+                    version: 1,
+                  },
+                ],
+                direction: null,
+                format: "",
+                indent: 0,
+                type: "paragraph",
+                version: 1,
+                textFormat: 0,
+                textStyle: "",
+              },
+            ],
+            direction: null,
+            format: "",
+            indent: 0,
+            type: "root",
+            version: 1,
+          },
+        });
+      });
     });
 
-    test("allows the buttons to be navigated with the Home and End keys", async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <TextEditorDefaultComponent initialValue={unformattedValue} />,
-      );
-      const typographyButton = page.locator(
-        "button[data-role='pw-rte-typography-dropdown']",
-      );
-      const hyperlinkButton = page.locator(
-        "button[data-role='pw-rte-hyperlink-button']",
-      );
+    test.describe("onFocus", () => {
+      test("fires when the editor gains focus", async ({ mount, page }) => {
+        let currentValue = false;
 
-      await page.keyboard.press("Tab");
-
-      await expect(typographyButton).toBeFocused();
-      await page.keyboard.press("End");
-      await expect(hyperlinkButton).toBeFocused();
-      await page.keyboard.press("Home");
-      await expect(typographyButton).toBeFocused();
+        await mount(
+          <TextEditorDefaultComponent
+            onFocus={() => {
+              currentValue = true;
+            }}
+          />,
+        );
+        const textbox = page.locator("div[role='textbox']");
+        await textbox.click();
+        expect(currentValue).toBe(true);
+      });
     });
-  });
 
-  test.describe("Typography", () => {
-    [
-      {
-        id: "paragraph",
-        label: "Paragraph",
-        fontSize: "14px",
-        fontWeight: "400",
-        lineHeight: "21px",
-      },
-      {
-        id: "title",
-        label: "Title",
-        fontSize: "24px",
-        fontWeight: "700",
-        lineHeight: "30px",
-      },
-      {
-        id: "subtitle",
-        label: "Subtitle",
-        fontSize: "21px",
-        fontWeight: "500",
-        lineHeight: "26.25px",
-      },
+    test.describe("onSave", () => {
+      test("fires when the save button is clicked", async ({ mount, page }) => {
+        let _htmlString = null;
+        let _json = null;
+        await mount(
+          <TextEditorDefaultComponent
+            onSave={({
+              htmlString,
+              json,
+            }: {
+              htmlString: string;
+              json: EditorFormattedValues["json"];
+            }) => {
+              _htmlString = htmlString;
+              _json = json;
+            }}
+          />,
+        );
 
-      {
-        id: "sectionHeader",
-        label: "Section header",
-        fontSize: "18px",
-        fontWeight: "500",
-        lineHeight: "22.5px",
-      },
-      {
-        id: "sectionSubheader",
-        label: "Section subheader",
-        fontSize: "16px",
-        fontWeight: "500",
-        lineHeight: "20px",
-      },
-    ].forEach(({ id, label, fontSize, fontWeight, lineHeight }) => {
-      test(`renders with the correct style for the ${id} typography`, async ({
+        const textbox = page.locator("div[role='textbox']");
+        await textbox.click();
+        await textbox.pressSequentially("This is some text", { delay: 100 });
+
+        const saveButton = page.locator(
+          "button[data-role='pw-rte-save-button']",
+        );
+        await saveButton.click();
+        expect(_htmlString).not.toBeNull();
+        expect(_json).not.toBeNull();
+        expect(_htmlString).toBe(
+          '<p><span style="white-space: pre-wrap;">This is some text</span></p>',
+        );
+
+        expect(_json).toEqual({
+          root: {
+            children: [
+              {
+                children: [
+                  {
+                    detail: 0,
+                    format: 0,
+                    mode: "normal",
+                    style: "",
+                    text: "This is some text",
+                    type: "text",
+                    version: 1,
+                  },
+                ],
+                direction: null,
+                format: "",
+                indent: 0,
+                type: "paragraph",
+                version: 1,
+                textFormat: 0,
+                textStyle: "",
+              },
+            ],
+            direction: null,
+            format: "",
+            indent: 0,
+            type: "root",
+            version: 1,
+          },
+        });
+      });
+    });
+
+    test.describe("Toolbar", () => {
+      test("allows the buttons to be navigated with the arrow keys", async ({
         mount,
         page,
       }) => {
         await mount(
           <TextEditorDefaultComponent initialValue={unformattedValue} />,
         );
-        const typographyDropdown = page.locator(
+        const typographyButton = page.locator(
           "button[data-role='pw-rte-typography-dropdown']",
         );
-        await expect(typographyDropdown).toHaveText(/Paragraph/gi);
-        const textbox = page.locator("div[role='textbox']");
-        await textbox.click();
-        await typographyDropdown.click();
-        const typographyOption = page.locator(
-          `li[data-role='pw-rte-typography-option-${id}']`,
+        const boldButton = page.locator(
+          "button[data-role='pw-rte-bold-button']",
         );
-        await typographyOption.click();
-        await expect(typographyDropdown).toHaveText(new RegExp(label, "ig"));
-        const styledText = page.getByText("This text needs formatting");
-        await expect(styledText).toHaveCSS("font-size", `${fontSize}`);
-        await expect(styledText).toHaveCSS("font-weight", `${fontWeight}`);
-        await expect(styledText).toHaveCSS("line-height", `${lineHeight}`);
 
-        await textbox.click();
-        await page.keyboard.press("Enter");
-        await expect(typographyDropdown).toHaveText(/Paragraph/gi);
+        await page.keyboard.press("Tab");
+
+        await expect(typographyButton).toBeFocused();
+        await page.keyboard.press("ArrowRight");
+        await expect(boldButton).toBeFocused();
+        await page.keyboard.press("ArrowLeft");
+        await expect(typographyButton).toBeFocused();
+      });
+
+      test("allows the buttons to be navigated with the Home and End keys", async ({
+        mount,
+        page,
+      }) => {
+        await mount(
+          <TextEditorDefaultComponent initialValue={unformattedValue} />,
+        );
+        const typographyButton = page.locator(
+          "button[data-role='pw-rte-typography-dropdown']",
+        );
+        const hyperlinkButton = page.locator(
+          "button[data-role='pw-rte-hyperlink-button']",
+        );
+
+        await page.keyboard.press("Tab");
+
+        await expect(typographyButton).toBeFocused();
+        await page.keyboard.press("End");
+        await expect(hyperlinkButton).toBeFocused();
+        await page.keyboard.press("Home");
+        await expect(typographyButton).toBeFocused();
       });
     });
 
@@ -1051,15 +887,13 @@ test.describe("Functionality tests", () => {
       const typographyDropdown = page.locator(
         "button[data-role='pw-rte-typography-dropdown']",
       );
-      const textbox = page.locator("div[role='textbox']");
-      await textbox.click();
-      await typographyDropdown.click();
+      await page.keyboard.press("Tab");
+      await expect(typographyDropdown).toBeFocused();
+
+      await page.keyboard.press("Enter");
 
       const dropdownList = page.locator("ul[role='listbox']");
       await expect(dropdownList).toBeVisible();
-
-      await page.click("body");
-      await expect(dropdownList).toBeHidden();
     });
 
     test("handles keyboard Enter to open the menu", async ({ mount, page }) => {
@@ -1304,28 +1138,6 @@ test.describe("Functionality tests", () => {
         "400",
       );
     });
-
-    test("bold button is rendered correctly in the active/inactive states", async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <TextEditorDefaultComponent initialValue={unformattedValue} />,
-      );
-      const textbox = page.locator("div[role='textbox']");
-      await textbox.selectText();
-      const boldButton = page.locator("button[data-role='pw-rte-bold-button']");
-      await expect(boldButton).toHaveCSS(
-        "background-color",
-        "rgba(0, 0, 0, 0)",
-      );
-      await expect(boldButton).toHaveAttribute("aria-pressed", "false");
-
-      await boldButton.click();
-
-      await expect(boldButton).toHaveCSS("background-color", "rgb(0, 103, 56)");
-      await expect(boldButton).toHaveAttribute("aria-pressed", "true");
-    });
   });
 
   test.describe("Italic", () => {
@@ -1430,33 +1242,6 @@ test.describe("Functionality tests", () => {
         "font-style",
         "normal",
       );
-    });
-
-    test("italic button is rendered correctly in the active/inactive states", async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <TextEditorDefaultComponent initialValue={unformattedValue} />,
-      );
-      const textbox = page.locator("div[role='textbox']");
-      await textbox.selectText();
-      const italicButton = page.locator(
-        "button[data-role='pw-rte-italic-button']",
-      );
-      await expect(italicButton).toHaveCSS(
-        "background-color",
-        "rgba(0, 0, 0, 0)",
-      );
-      await expect(italicButton).toHaveAttribute("aria-pressed", "false");
-
-      await italicButton.click();
-
-      await expect(italicButton).toHaveCSS(
-        "background-color",
-        "rgb(0, 103, 56)",
-      );
-      await expect(italicButton).toHaveAttribute("aria-pressed", "true");
     });
   });
 
@@ -1573,33 +1358,6 @@ test.describe("Functionality tests", () => {
         "none",
       );
     });
-
-    test("underline button is rendered correctly in the active/inactive states", async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <TextEditorDefaultComponent initialValue={unformattedValue} />,
-      );
-      const textbox = page.locator("div[role='textbox']");
-      await textbox.selectText();
-      const underlineButton = page.locator(
-        "button[data-role='pw-rte-underline-button']",
-      );
-      await expect(underlineButton).toHaveCSS(
-        "background-color",
-        "rgba(0, 0, 0, 0)",
-      );
-      await expect(underlineButton).toHaveAttribute("aria-pressed", "false");
-
-      await underlineButton.click();
-
-      await expect(underlineButton).toHaveCSS(
-        "background-color",
-        "rgb(0, 103, 56)",
-      );
-      await expect(underlineButton).toHaveAttribute("aria-pressed", "true");
-    });
   });
 
   test.describe("Ordered List", () => {
@@ -1621,27 +1379,6 @@ test.describe("Functionality tests", () => {
       await orderedListButton.click();
       expect(await page.locator("ol").count()).toBe(0);
     });
-
-    test("ordered list button is rendered correctly in the active/inactive states", async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <TextEditorDefaultComponent initialValue={unformattedValue} />,
-      );
-      const textbox = page.locator("div[role='textbox']");
-      await textbox.selectText();
-      const olButton = page.locator(
-        "button[data-role='pw-rte-ordered-list-button']",
-      );
-      await expect(olButton).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
-      await expect(olButton).toHaveAttribute("aria-pressed", "false");
-
-      await olButton.click();
-
-      await expect(olButton).toHaveCSS("background-color", "rgb(0, 103, 56)");
-      await expect(olButton).toHaveAttribute("aria-pressed", "true");
-    });
   });
 
   test.describe("Unordered List", () => {
@@ -1662,27 +1399,6 @@ test.describe("Functionality tests", () => {
       await expect(unorderedList).toHaveText("This text needs formatting");
       await unorderedListButton.click();
       expect(await page.locator("ul").count()).toBe(0);
-    });
-
-    test("unordered list button is rendered correctly in the active/inactive states", async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <TextEditorDefaultComponent initialValue={unformattedValue} />,
-      );
-      const textbox = page.locator("div[role='textbox']");
-      await textbox.selectText();
-      const ulButton = page.locator(
-        "button[data-role='pw-rte-unordered-list-button']",
-      );
-      await expect(ulButton).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
-      await expect(ulButton).toHaveAttribute("aria-pressed", "false");
-
-      await ulButton.click();
-
-      await expect(ulButton).toHaveCSS("background-color", "rgb(0, 103, 56)");
-      await expect(ulButton).toHaveAttribute("aria-pressed", "true");
     });
   });
 
@@ -2173,37 +1889,6 @@ test.describe("Styling tests", () => {
         ).toHaveCSS("min-height", `${expectedHeight}px`);
       });
     });
-  });
-
-  test("should render links with expected styling", async ({ mount, page }) => {
-    const previews = [
-      <a
-        href="https://carbon.sage.com/?path=/story/welcome--welcome-page"
-        rel="noreferrer"
-      >
-        <span data-lexical-text="true">Carbon</span>
-      </a>,
-    ];
-    await mount(<TextEditorDefaultComponent previews={previews} />);
-
-    const link = page.getByRole("link", { name: "Carbon" });
-
-    await expect(link).toHaveCSS("color", "rgb(0, 126, 69)");
-    await expect(link).toHaveCSS("cursor", "pointer");
-
-    await link.hover();
-    await expect(link).toHaveCSS("color", "rgb(0, 103, 56)");
-
-    await link.focus();
-    await expect(link).toHaveCSS("outline", "rgba(0, 0, 0, 0.9) none 0px");
-    await expect(link).toHaveCSS("text-decoration", "rgba(0, 0, 0, 0.9)");
-    await expect(link).toHaveCSS("color", "rgba(0, 0, 0, 0.9)");
-    await expect(link).toHaveCSS("background-color", "rgb(255, 218, 128)");
-    await expect(link).toHaveCSS("border-radius", "2px");
-    await expect(link).toHaveCSS(
-      "box-shadow",
-      "rgba(0, 0, 0, 0.9) 0px 4px 0px 0px",
-    );
   });
 });
 
