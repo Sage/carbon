@@ -153,6 +153,34 @@ describe("Switch", () => {
       expect(onChange).toHaveBeenCalledTimes(1);
     });
 
+    it("calls onChange when the track is clicked", () => {
+      const onChange = jest.fn();
+      renderSwitch({ onChange });
+      fireEvent.click(screen.getByTestId("switch-track"));
+      expect(onChange).toHaveBeenCalledTimes(1);
+    });
+
+    it("calls onChange only once when the input is clicked directly", () => {
+      const onChange = jest.fn();
+      renderSwitch({ onChange });
+      fireEvent.click(screen.getByRole("switch"));
+      expect(onChange).toHaveBeenCalledTimes(1);
+    });
+
+    it("does not call onChange when the track is clicked while disabled", () => {
+      const onChange = jest.fn();
+      renderSwitch({ onChange, disabled: true });
+      fireEvent.click(screen.getByTestId("switch-track"));
+      expect(onChange).not.toHaveBeenCalled();
+    });
+
+    it("does not call onChange when the track is clicked while loading", () => {
+      const onChange = jest.fn();
+      renderSwitch({ onChange, loading: true });
+      fireEvent.click(screen.getByTestId("switch-track"));
+      expect(onChange).not.toHaveBeenCalled();
+    });
+
     it("calls onBlur when the input loses focus", () => {
       const onBlur = jest.fn();
       renderSwitch({ onBlur });
