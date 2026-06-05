@@ -1,11 +1,7 @@
 import React from "react";
 
 import Star from "./star.component";
-import {
-  StyledStars,
-  StyledLoaderLabel,
-  StyledStarLoaderWrapper,
-} from "../loader.style";
+import { StyledLoaderLabel, StyledStarLoaderWrapper } from "../loader.style";
 import useLocale from "../../../../hooks/__internal__/useLocale";
 import { LoaderProps } from "../loader.component";
 
@@ -14,12 +10,7 @@ const StarsLoader = ({ loaderLabel, showLabel }: LoaderProps) => {
 
   return (
     <StyledStarLoaderWrapper>
-      <StyledStars>
-        <Star starContainerClassName="star-1" gradientId="gradient1" />
-        <Star starContainerClassName="star-2" gradientId="gradient2" />
-        <Star starContainerClassName="star-3" gradientId="gradient3" />
-      </StyledStars>
-
+      <Star />
       {showLabel && (
         <StyledLoaderLabel
           data-role="loader-label"

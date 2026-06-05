@@ -1,134 +1,192 @@
 import styled, { keyframes } from "styled-components";
 
-const animateStar = keyframes`
+const star1Scale = keyframes`
   0% {
-    transform: translate3d(0px, 0px, 0px) scale(0.3);
-    opacity: 0;
+    transform: scale(0);
+    animation-timing-function: cubic-bezier(0.17, 1, 1, 1);
   }
-  10% {
-    transform: translate3d(0px, 0px, 0px) scale(0.3);
-    opacity: 0;
+  10.5% {
+    transform: scale(1.1);
+    animation-timing-function: cubic-bezier(1, 0, 0, 1);
   }
-  20% {
-    transform: translate3d(0px, 0px, 0px) scale(0.6);
-    opacity: 1;
+  21% {
+    transform: scale(0);
+    animation-timing-function: cubic-bezier(0.17, 0, 0.83, 0);
   }
-  35% {
-    transform: translate3d(0px, 0px, 0px) scale(0.6);
-    opacity: 1;
+  63.1% {
+    transform: scale(0);
+    animation-timing-function: cubic-bezier(0.17, 1, 0.83, 1);
   }
-  55% {
-    transform: translate3d(16px, -12px, 0px) scale(1.4);
-    opacity: 1;
+  84.1% {
+    transform: scale(1.1);
+    animation-timing-function: cubic-bezier(1, 0, 0, 1);
   }
-  60% {
-    transform: translate3d(16px, -12px, 0px) scale(1.4);
-    opacity: 1;
-  }
-  90% {
-    transform: translate3d(0px, -24px, 0px) scale(0.8);
-    opacity: 1;
+  94.6% {
+    transform: scale(0);
+    animation-timing-function: cubic-bezier(0, 0, 0.83, 0);
   }
   100% {
-    transform: translate3d(0px, -24px, 0px) scale(0.6);
-    opacity: 0;
+    transform: scale(0);
   }
 `;
 
-const animateStopTop = keyframes`
-  0% { stop-color: #13a038; }
-  10% { stop-color: #13a038; }
-  50% { stop-color: #0092db; }
-  90% { stop-color: #8f49fe; }
-  100% { stop-color: #8f49fe; }
+const star2Scale = keyframes`
+  0% { transform: scale(0); }
+  10.5% {
+    transform: scale(0);
+    animation-timing-function: cubic-bezier(0.17, 1, 1, 1);
+  }
+  21% {
+    transform: scale(1.1);
+    animation-timing-function: cubic-bezier(1, 0, 0, 1);
+  }
+  31.5% {
+    transform: scale(0);
+    animation-timing-function: cubic-bezier(0.17, 0, 0.83, 0);
+  }
+  70.1% {
+    transform: scale(0);
+    animation-timing-function: cubic-bezier(0.17, 1, 0.83, 1);
+  }
+  84.1% {
+    transform: scale(1.1);
+    animation-timing-function: cubic-bezier(1, 0, 0, 1);
+  }
+  99.9% {
+    transform: scale(0);
+    animation-timing-function: cubic-bezier(0, 0, 0.83, 0);
+  }
+  100% { transform: scale(0); }
 `;
 
-const animateStopBottom = keyframes`
-  0% { stop-color: #13a038; }
-  10% { stop-color: #13a038; }
-  50% { stop-color: #13a038; }
-  90% { stop-color: #0092db; }
-  100% { stop-color: #0092db; }
+const star3Scale = keyframes`
+  0% { transform: scale(0); }
+  21% {
+    transform: scale(0);
+    animation-timing-function: cubic-bezier(0.17, 1, 1, 1);
+  }
+  31.5% {
+    transform: scale(1.1);
+    animation-timing-function: cubic-bezier(1, 0, 0, 1);
+  }
+  42% {
+    transform: scale(0);
+    animation-timing-function: cubic-bezier(0.17, 0, 0.83, 0);
+  }
+  73.6% {
+    transform: scale(0);
+    animation-timing-function: cubic-bezier(0.17, 1, 0.83, 1);
+  }
+  84.1% {
+    transform: scale(1.1);
+    animation-timing-function: cubic-bezier(1, 0, 0, 1);
+  }
+  99.9% {
+    transform: scale(0);
+    animation-timing-function: cubic-bezier(0, 0, 0.83, 0);
+  }
+  100% { transform: scale(0); }
 `;
 
-const time = "3s";
+const star4Scale = keyframes`
+  0% { transform: scale(0); }
+  31.4% {
+    transform: scale(0);
+    animation-timing-function: cubic-bezier(0.17, 1, 1, 1);
+  }
+  41.9% {
+    transform: scale(1.1);
+    animation-timing-function: cubic-bezier(1, 0, 0, 1);
+  }
+  52.4% {
+    transform: scale(0);
+    animation-timing-function: cubic-bezier(0, 0, 0.83, 0);
+  }
+  100% { transform: scale(0); }
+`;
+
+const star5Scale = keyframes`
+  0% { transform: scale(0); }
+  42% {
+    transform: scale(0);
+    animation-timing-function: cubic-bezier(0.17, 1, 1, 1);
+  }
+  52.6% {
+    transform: scale(1.1);
+    animation-timing-function: cubic-bezier(1, 0, 0, 1);
+  }
+  63.1% {
+    transform: scale(0);
+    animation-timing-function: cubic-bezier(0, 0, 0.83, 0);
+  }
+  100% { transform: scale(0); }
+`;
+
+const star6Scale = keyframes`
+  0% { transform: scale(0); }
+  52.6% {
+    transform: scale(0);
+    animation-timing-function: cubic-bezier(0.17, 1, 1, 1);
+  }
+  63.1% {
+    transform: scale(1.1);
+    animation-timing-function: cubic-bezier(1, 0, 0, 1);
+  }
+  73.6% {
+    transform: scale(0);
+    animation-timing-function: cubic-bezier(0, 0, 0.83, 0);
+  }
+  100% { transform: scale(0); }
+`;
+
+const duration = "4.55s";
+
+const starScaleStyles = `
+  transform-box: fill-box;
+  transform-origin: center center;
+`;
+
+export const StyledLoaderStarRoot = styled.div`
+  position: relative;
+  display: inline-block;
+  width: 35px;
+  height: 35px;
+`;
 
 export const StyledStarSVG = styled.svg`
-  animation: ${animateStar} ${time} ease-in-out forwards infinite;
-  height: var(--sizing200);
-  opacity: 0;
-  width: var(--sizing200);
-`;
-
-export const GradientStopTop = styled.stop`
-  animation: ${animateStopTop} ${time} ease-in-out forwards infinite;
-`;
-
-export const GradientStopBottom = styled.stop`
-  animation: ${animateStopBottom} ${time} ease-in-out forwards infinite;
-`;
-
-export const StyledLoaderStarContainer = styled.div`
-  bottom: 0;
-  height: var(--sizing200);
-  left: 0;
   position: absolute;
-  width: var(--sizing200);
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+`;
 
-  &.star-1 {
-    .ai-star-path {
-      fill: url(#gradient1);
-    }
+export const StyledStar1Scale = styled.path`
+  ${starScaleStyles}
+  animation: ${star1Scale} ${duration} linear infinite;
+`;
 
-    ${StyledStarSVG} {
-      animation-delay: -2s;
-    }
+export const StyledStar2Scale = styled.path`
+  ${starScaleStyles}
+  animation: ${star2Scale} ${duration} linear infinite;
+`;
 
-    #gradient1 {
-      ${GradientStopTop} {
-        animation-delay: -2s;
-      }
-      ${GradientStopBottom} {
-        animation-delay: -2s;
-      }
-    }
-  }
+export const StyledStar3Scale = styled.path`
+  ${starScaleStyles}
+  animation: ${star3Scale} ${duration} linear infinite;
+`;
 
-  &.star-2 {
-    .ai-star-path {
-      fill: url(#gradient2);
-    }
+export const StyledStar4Scale = styled.path`
+  ${starScaleStyles}
+  animation: ${star4Scale} ${duration} linear infinite;
+`;
 
-    ${StyledStarSVG} {
-      animation-delay: -1s;
-    }
+export const StyledStar5Scale = styled.path`
+  ${starScaleStyles}
+  animation: ${star5Scale} ${duration} linear infinite;
+`;
 
-    #gradient2 {
-      ${GradientStopTop} {
-        animation-delay: -1s;
-      }
-      ${GradientStopBottom} {
-        animation-delay: -1s;
-      }
-    }
-  }
-
-  &.star-3 {
-    .ai-star-path {
-      fill: url(#gradient3);
-    }
-
-    ${StyledStarSVG} {
-      animation-delay: 0s;
-    }
-
-    #gradient3 {
-      ${GradientStopTop} {
-        animation-delay: 0s;
-      }
-      ${GradientStopBottom} {
-        animation-delay: 0s;
-      }
-    }
-  }
+export const StyledStar6Scale = styled.path`
+  ${starScaleStyles}
+  animation: ${star6Scale} ${duration} linear infinite;
 `;
