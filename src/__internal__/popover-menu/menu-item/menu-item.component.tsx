@@ -19,7 +19,7 @@ const StyledMenuItem = styled.div<StyledMenuItemProps>`
   position: relative;
   box-sizing: border-box;
 
-  :not(:has(button)):not(:has(a)) {
+  &:not(:has(button)):not(:has(a)) {
     ${({ $disabled }) =>
       $disabled
         ? `
@@ -59,7 +59,7 @@ const StyledMenuItem = styled.div<StyledMenuItemProps>`
     `
       padding: var(--global-space-comp-xs) 0;
 
-      :not(:has(.menu-item-subtext)) {
+      &:not(:has(.menu-item-subtext)) {
         min-height: var(--global-size-s);
       }
       
@@ -72,7 +72,7 @@ const StyledMenuItem = styled.div<StyledMenuItemProps>`
     `
       padding: var(--global-space-comp-s) 0;
 
-      :not(:has(.menu-item-subtext)) {
+      &:not(:has(.menu-item-subtext)) {
         min-height: var(--global-size-m);
       }
 
@@ -85,7 +85,7 @@ const StyledMenuItem = styled.div<StyledMenuItemProps>`
     `
       padding: var(--global-space-comp-m) 0;
 
-      :not(:has(.menu-item-subtext)) {
+      &:not(:has(.menu-item-subtext)) {
         min-height: var(--global-size-l);
       }
 

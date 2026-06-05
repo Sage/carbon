@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, MutableRefObject } from "react";
 
 export const itemQuerySelector =
   "div[data-component='popover-menu-item']:not([aria-disabled='true'])";
@@ -8,7 +8,7 @@ export const setFocus = (el?: Element) => {
 };
 
 export const useHandleDropdownMenuKeyDown = (
-  ref: React.MutableRefObject<HTMLDivElement | null>,
+  ref: MutableRefObject<HTMLDivElement | null>,
   onClose: () => void,
   focusControl: () => void,
 ) =>

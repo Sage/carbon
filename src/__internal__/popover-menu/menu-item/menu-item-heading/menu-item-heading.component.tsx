@@ -37,6 +37,7 @@ const MenuItemHeading = ({
       data-component="popover-menu-item-heading"
       $size={size}
       role="group"
+      aria-labelledby={headingId.current}
     >
       <span data-element="text" id={headingId.current}>
         {text}

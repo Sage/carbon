@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef } from "react";
 import styled, { css } from "styled-components";
 import Popover from "../popover";
-import { flip, offset, size } from "@floating-ui/react";
+import { flip, offset, size } from "@floating-ui/dom";
 import wrapChildrenInMenuItems from "./utils";
 import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
 import { ButtonHandle } from "../../components/button/__next__";
@@ -112,6 +112,7 @@ export interface PopoverMenuProps<
     | "right-end";
   /** Middleware for the popover menu */
   middleware?: typeof menuPopoverMiddleware;
+  /** Ref for the submenu control element */
   submenuControlRef?: React.RefObject<HTMLElement>;
   /** Ref forwarded to the inner List (div) element */
   listRef?: React.RefObject<HTMLDivElement>;
@@ -162,7 +163,6 @@ const PopoverMenu = <TRef extends FocusableHandle = NonNullable<ButtonHandle>>({
   popoverControl,
   size = "medium",
   placement = "bottom-end",
-  middleware,
   listRef,
   onOpen,
   onClose,
@@ -255,7 +255,7 @@ const PopoverMenu = <TRef extends FocusableHandle = NonNullable<ButtonHandle>>({
             popoverStrategy="fixed"
           >
             <MenuWrapper
-              onKeyDown={open && handleDropdownMenuKeyDown}
+              onKeyDown={handleDropdownMenuKeyDown}
               data-role="menu-wrapper"
               onMouseDown={(e) => e.preventDefault()}
             >
