@@ -47,11 +47,11 @@ const InputContainer = styled.div<InputContainerProps>`
         * {
           cursor: default;
         }
-
-        background: var(--input-typical-bg-read-only);
-        border: var(--global-borderwidth-xs) solid
-          var(--input-typical-border-read-only);
-
+        :not(:has(.input_sans_frontier)) {
+          background: var(--input-typical-bg-read-only);
+          border: var(--global-borderwidth-xs) solid
+            var(--input-typical-border-read-only);
+        }
         &:focus-within:has(:focus:not(button)) {
           ${addFocusStyling()}
           z-index: 2;
@@ -165,6 +165,12 @@ const InputContainer = styled.div<InputContainerProps>`
   ${pagerStyleOverrides}
 
   ${numeralDateStyles}
+
+  &:has(.input_sans_frontier) {
+    border: none;
+    border-radius: var(--global-radius-none);
+    background-color: transparent;
+  }
 `;
 
 export default InputContainer;

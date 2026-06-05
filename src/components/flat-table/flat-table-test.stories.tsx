@@ -1,4 +1,10 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, {
+  useCallback,
+  useMemo,
+  useState,
+  RefObject,
+  useRef,
+} from "react";
 import { action } from "@storybook/addon-actions";
 import {
   FlatTable,
@@ -39,6 +45,7 @@ import MultiActionButton from "../../components/multi-action-button";
 import DateRange, { DateRangeChangeEvent } from "../date-range";
 import PopoverContainer from "../popover-container";
 import Typography from "../typography";
+import { Icon } from "../..";
 
 export default {
   title: "Flat Table/Test",
@@ -1510,4 +1517,326 @@ export const FlatTableWithStickyHeadAndButtons = () => {
 
 FlatTableWithStickyHeadAndButtons.parameters = {
   chromatic: { disableSnapshot: true },
+};
+
+type UseCellArrowNavOptions = {
+  /** Selector to find navigable cells within the table. Defaults to [data-role="editable-cell"] */
+  cellSelector?: string;
+};
+
+// Helpers outside the hook — no closed-over state needed
+function isAtStart(el: HTMLElement): boolean {
+  if (el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement) {
+    return (el.selectionStart ?? 0) === 0;
+  }
+  const sel = window.getSelection();
+  if (!sel || sel.rangeCount === 0) return true;
+  const range = sel.getRangeAt(0);
+  return range.collapsed && range.startOffset === 0;
+}
+
+function isAtEnd(el: HTMLElement): boolean {
+  if (el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement) {
+    return (el.selectionStart ?? el.value.length) === el.value.length;
+  }
+  const sel = window.getSelection();
+  if (!sel || sel.rangeCount === 0) return true;
+  const range = sel.getRangeAt(0);
+  return range.collapsed && range.startOffset === (el.textContent?.length ?? 0);
+}
+
+function useArrowKeyNavigation(
+  tableRef: RefObject<HTMLElement>,
+  options: UseCellArrowNavOptions = {},
+): { onKeyDown: (ev: React.KeyboardEvent<HTMLElement>) => void } {
+  const { cellSelector = '[data-role="editable-cell"]' } = options;
+
+  const getEditableCells = useCallback(() => {
+    return Array.from(
+      tableRef.current?.querySelectorAll<HTMLElement>(cellSelector) ?? [],
+    );
+  }, [tableRef, cellSelector]);
+
+  const onKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLElement>) => {
+      const { key, shiftKey } = e;
+      const isArrowUp = key === "ArrowUp";
+      const isArrowDown = key === "ArrowDown";
+      const isArrowLeft = key === "ArrowLeft";
+      const isArrowRight = key === "ArrowRight";
+      const isHome = key === "Home";
+      const isEnd = key === "End";
+      const isTab = key === "Tab";
+
+      if (
+        !isArrowUp &&
+        !isArrowDown &&
+        !isArrowLeft &&
+        !isArrowRight &&
+        !isHome &&
+        !isEnd &&
+        !isTab
+      )
+        return;
+
+      const cells = getEditableCells();
+      const currentIndex = cells.indexOf(document.activeElement as HTMLElement);
+      if (currentIndex === -1) return;
+
+      // ── Up / Down ──────────────────────────────────────────────
+      if (isArrowUp || isArrowDown) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const currentRow = e.currentTarget.closest("tr");
+        if (!currentRow) return;
+
+        const rowInputs = Array.from(
+          currentRow.querySelectorAll<HTMLElement>(cellSelector),
+        );
+        const inputIdxInRow = rowInputs.indexOf(e.currentTarget as HTMLElement);
+        if (inputIdxInRow === -1) return;
+
+        const rows = Array.from(
+          tableRef.current?.querySelectorAll<HTMLTableRowElement>("tbody tr") ??
+            [],
+        );
+        const rowIdx = rows.indexOf(currentRow);
+        const targetRow = rows[isArrowDown ? rowIdx + 1 : rowIdx - 1];
+        if (!targetRow) return;
+
+        const targetRowInputs = Array.from(
+          targetRow.querySelectorAll<HTMLElement>(cellSelector),
+        );
+        const targetInput =
+          targetRowInputs[inputIdxInRow] ?? targetRowInputs[0];
+        targetInput?.focus();
+      }
+
+      // ── Left — only at text boundary (or always when readOnly) ─────────
+      const isReadOnly = (e.currentTarget as HTMLInputElement).readOnly;
+      if (isArrowLeft && (isReadOnly || isAtStart(e.currentTarget))) {
+        e.preventDefault();
+        e.stopPropagation();
+        cells[currentIndex - 1]?.focus();
+      }
+
+      // ── Right — only at text boundary (or always when readOnly) ────────
+      if (isArrowRight && (isReadOnly || isAtEnd(e.currentTarget))) {
+        e.preventDefault();
+        e.stopPropagation();
+        cells[currentIndex + 1]?.focus();
+      }
+
+      // ── Home — first cell in current row ──────────────────────
+      if (isHome) {
+        e.preventDefault();
+        e.stopPropagation();
+        cells[0]?.focus();
+      }
+
+      // ── End — last cell in current row ────────────────────────
+      if (isEnd) {
+        e.preventDefault();
+        e.stopPropagation();
+        cells[cells.length - 1]?.focus();
+      }
+
+      // ── Tab — flat list navigation ────────────────────────────
+      if (isTab) {
+        e.preventDefault();
+        e.stopPropagation();
+        cells[currentIndex + (shiftKey ? -1 : 1)]?.focus();
+      }
+    },
+    [getEditableCells, tableRef, cellSelector],
+  );
+
+  return { onKeyDown };
+}
+
+const TextboxCell = ({
+  cellId,
+  currentValue,
+  onKeyDown,
+  onModeChange,
+}: {
+  cellId: string;
+  currentValue: string;
+  onKeyDown: (ev: React.KeyboardEvent<HTMLElement>) => void;
+  onModeChange: (cellId: string, isEditing: boolean) => void;
+}) => {
+  const [value, setValue] = useState(currentValue);
+  const [isReadOnly, setIsReadOnly] = useState(true);
+
+  const setMode = (editing: boolean) => {
+    setIsReadOnly(!editing);
+    onModeChange(cellId, editing);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Escape") {
+      setMode(false);
+      return;
+    }
+    if (isReadOnly && e.key === "Enter") {
+      e.preventDefault();
+      setMode(true);
+      return;
+    }
+    // While editing, only Tab navigates between cells; arrows move within the input
+    if (!isReadOnly && e.key !== "Tab") {
+      return;
+    }
+    onKeyDown(e);
+  };
+
+  return (
+    <Textbox
+      label=""
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+      readOnly={isReadOnly}
+      data-role="editable-cell"
+      onKeyDown={handleKeyDown}
+      onClick={(e) => e.stopPropagation()}
+      className="input_sans_frontier"
+    />
+  );
+};
+
+export const DataGridTest = () => {
+  const tableRef = useRef<HTMLDivElement>(null);
+  const { onKeyDown } = useArrowKeyNavigation(tableRef, {
+    cellSelector: '[data-role="editable-cell"] input',
+  });
+  const [editingCell, setEditingCell] = useState<string | null>(null);
+
+  const handleModeChange = (cellId: string, isEditing: boolean) => {
+    setEditingCell(isEditing ? cellId : null);
+  };
+
+  const cells = [
+    { id: "john-name", value: "John Doe" },
+    { id: "john-location", value: "London" },
+    { id: "jane-name", value: "Jane Doe" },
+    { id: "jane-location", value: "York" },
+    { id: "chris-name", value: "Chris Smith" },
+    { id: "chris-location", value: "New York" },
+    { id: "alex-name", value: "Alex Johnson" },
+    { id: "alex-location", value: "San Francisco" },
+  ];
+
+  return (
+    <Box p={3}>
+      <Box mb={3} p={3} backgroundColor="var(--colorsUtilityYang100)">
+        <Typography variant="b" mb={1} display="block">
+          Keyboard navigation
+        </Typography>
+        <ul style={{ margin: 0, paddingLeft: "1.25rem" }}>
+          <li>
+            <Typography as="span">
+              <Typography as="span" variant="b">
+                Arrow keys
+              </Typography>{" "}
+              — move between cells
+            </Typography>
+          </li>
+          <li>
+            <Typography as="span">
+              <Typography as="span" variant="b">
+                Enter
+              </Typography>{" "}
+              — start editing the focused cell
+            </Typography>
+          </li>
+          <li>
+            <Typography as="span">
+              <Typography as="span" variant="b">
+                Escape
+              </Typography>{" "}
+              — stop editing and return to navigation mode
+            </Typography>
+          </li>
+          <li>
+            <Typography as="span">
+              <Typography as="span" variant="b">
+                Tab / Shift+Tab
+              </Typography>{" "}
+              — move to next / previous cell
+            </Typography>
+          </li>
+          <li>
+            <Typography as="span">
+              <Typography as="span" variant="b">
+                Home / End
+              </Typography>{" "}
+              — jump to first / last cell in row
+            </Typography>
+          </li>
+        </ul>
+      </Box>
+      <Box mb={2} aria-live="polite" aria-atomic="true">
+        <Typography>
+          {editingCell
+            ? `Editing: ${editingCell} — press Escape to stop editing`
+            : "Navigation mode — press Enter to edit the focused cell"}
+        </Typography>
+      </Box>
+      <div ref={tableRef}>
+        <FlatTable title="Table for Default Story">
+          <FlatTableHead>
+            <FlatTableRow>
+              <FlatTableHeader>
+                <Box
+                  justifyContent="space-between"
+                  alignItems="center"
+                  display="flex"
+                >
+                  Name <Icon type="individual" color="white" />
+                </Box>
+              </FlatTableHeader>
+              <FlatTableHeader>
+                <Box
+                  justifyContent="space-between"
+                  alignItems="center"
+                  display="flex"
+                >
+                  Location <Icon type="location" color="white" />
+                </Box>
+              </FlatTableHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>
+            {Array.from({ length: cells.length / 2 }, (_, rowIdx) => {
+              const [nameCell, locationCell] = cells.slice(
+                rowIdx * 2,
+                rowIdx * 2 + 2,
+              );
+              return (
+                <FlatTableRow key={nameCell.id}>
+                  <FlatTableCell p={0}>
+                    <TextboxCell
+                      cellId={nameCell.id}
+                      onKeyDown={onKeyDown}
+                      currentValue={nameCell.value}
+                      onModeChange={handleModeChange}
+                    />
+                  </FlatTableCell>
+                  <FlatTableCell p={0}>
+                    <TextboxCell
+                      cellId={locationCell.id}
+                      onKeyDown={onKeyDown}
+                      currentValue={locationCell.value}
+                      onModeChange={handleModeChange}
+                    />
+                  </FlatTableCell>
+                </FlatTableRow>
+              );
+            })}
+          </FlatTableBody>
+        </FlatTable>
+      </div>
+    </Box>
+  );
 };
