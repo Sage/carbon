@@ -1,3 +1,9 @@
+## [159.7.1](https://github.com/Sage/carbon/compare/v159.7.0...v159.7.1) (2026-06-05)
+
+### Bug Fixes
+
+* **advanced-color-picker:** adjust component max-width to fit dialog ([7f894f9](https://github.com/Sage/carbon/commit/7f894f9cbc95f20383a0f1c2a2ff9122d07c4c1d))
+
 ## [159.7.0](https://github.com/Sage/carbon/compare/v159.6.0...v159.7.0) (2026-05-29)
 
 ### Features
