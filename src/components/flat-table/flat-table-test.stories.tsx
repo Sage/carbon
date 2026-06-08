@@ -4,6 +4,7 @@ import React, {
   useState,
   RefObject,
   useRef,
+  useEffect,
 } from "react";
 import { action } from "@storybook/addon-actions";
 import {
@@ -46,6 +47,8 @@ import DateRange, { DateRangeChangeEvent } from "../date-range";
 import PopoverContainer from "../popover-container";
 import Typography from "../typography";
 import { Icon } from "../..";
+import styled from "styled-components";
+import addFocusStyling from "../../style/utils/add-focus-styling";
 
 export default {
   title: "Flat Table/Test",
@@ -1614,15 +1617,17 @@ function useArrowKeyNavigation(
       }
 
       // ── Left — only at text boundary (or always when readOnly) ─────────
-      const isReadOnly = (e.currentTarget as HTMLInputElement).readOnly;
-      if (isArrowLeft && (isReadOnly || isAtStart(e.currentTarget))) {
+      const isInputLike =
+        e.currentTarget instanceof HTMLInputElement ||
+        e.currentTarget instanceof HTMLTextAreaElement;
+      if (isArrowLeft && (!isInputLike || isAtStart(e.currentTarget))) {
         e.preventDefault();
         e.stopPropagation();
         cells[currentIndex - 1]?.focus();
       }
 
       // ── Right — only at text boundary (or always when readOnly) ────────
-      if (isArrowRight && (isReadOnly || isAtEnd(e.currentTarget))) {
+      if (isArrowRight && (!isInputLike || isAtEnd(e.currentTarget))) {
         e.preventDefault();
         e.stopPropagation();
         cells[currentIndex + 1]?.focus();
@@ -1655,19 +1660,38 @@ function useArrowKeyNavigation(
   return { onKeyDown };
 }
 
+const StyledReadOnlyCell = styled.div`
+  width: 100%;
+  padding: var(--global-space-none) var(--global-space-comp-m);
+  min-height: 40px; // need actual size of table etc
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  &:focus {
+    ${addFocusStyling()}
+  }
+`;
+
 const TextboxCell = ({
   cellId,
   currentValue,
   onKeyDown,
   onModeChange,
+  maxWidth,
 }: {
   cellId: string;
   currentValue: string;
   onKeyDown: (ev: React.KeyboardEvent<HTMLElement>) => void;
   onModeChange: (cellId: string, isEditing: boolean) => void;
+  maxWidth?: string;
 }) => {
   const [value, setValue] = useState(currentValue);
   const [isReadOnly, setIsReadOnly] = useState(true);
+  const readOnlyCellRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const didMountRef = useRef(false);
 
   const setMode = (editing: boolean) => {
     setIsReadOnly(!editing);
@@ -1684,6 +1708,11 @@ const TextboxCell = ({
       setMode(true);
       return;
     }
+    if (!isReadOnly && e.key === "Enter") {
+      e.preventDefault();
+      setMode(false);
+      return;
+    }
     // While editing, only Tab navigates between cells; arrows move within the input
     if (!isReadOnly && e.key !== "Tab") {
       return;
@@ -1691,24 +1720,53 @@ const TextboxCell = ({
     onKeyDown(e);
   };
 
+  useEffect(() => {
+    if (!didMountRef.current) {
+      didMountRef.current = true;
+      return;
+    }
+    if (isReadOnly) {
+      readOnlyCellRef.current?.focus();
+    } else {
+      inputRef.current?.focus();
+    }
+  }, [isReadOnly, cellId]);
+
   return (
-    <Textbox
-      label=""
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
-      readOnly={isReadOnly}
-      data-role="editable-cell"
-      onKeyDown={handleKeyDown}
-      onClick={(e) => e.stopPropagation()}
-      className="input_sans_frontier"
-    />
+    <div style={{ maxWidth: maxWidth || "100%" }}>
+      {isReadOnly ? (
+        <StyledReadOnlyCell
+          data-nav-cell
+          tabIndex={0}
+          onKeyDown={handleKeyDown}
+          ref={readOnlyCellRef}
+          // onClick={() => setMode(true)}
+        >
+          {value}
+        </StyledReadOnlyCell>
+      ) : (
+        <Textbox
+          label=""
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          readOnly={isReadOnly}
+          data-nav-cell
+          onKeyDown={handleKeyDown}
+          onClick={(e) => e.stopPropagation()}
+          className="input_sans_frontier"
+          maxWidth="100%"
+          ref={inputRef}
+          // onBlur={() => setMode(false)}
+        />
+      )}
+    </div>
   );
 };
 
 export const DataGridTest = () => {
   const tableRef = useRef<HTMLDivElement>(null);
   const { onKeyDown } = useArrowKeyNavigation(tableRef, {
-    cellSelector: '[data-role="editable-cell"] input',
+    cellSelector: "[data-nav-cell]",
   });
   const [editingCell, setEditingCell] = useState<string | null>(null);
 
@@ -1718,12 +1776,16 @@ export const DataGridTest = () => {
 
   const cells = [
     { id: "john-name", value: "John Doe" },
+    { id: "john-age", value: "30" },
     { id: "john-location", value: "London" },
     { id: "jane-name", value: "Jane Doe" },
+    { id: "jane-age", value: "25" },
     { id: "jane-location", value: "York" },
-    { id: "chris-name", value: "Chris Smith" },
-    { id: "chris-location", value: "New York" },
+    { id: "chris-name", value: "Chris Truss" },
+    { id: "chris-age", value: "40" },
+    { id: "chris-location", value: "Leeds" },
     { id: "alex-name", value: "Alex Johnson" },
+    { id: "alex-age", value: "35" },
     { id: "alex-location", value: "San Francisco" },
   ];
 
@@ -1747,7 +1809,7 @@ export const DataGridTest = () => {
               <Typography as="span" variant="b">
                 Enter
               </Typography>{" "}
-              — start editing the focused cell
+              — toggles editing mode on the focused cell
             </Typography>
           </li>
           <li>
@@ -1784,38 +1846,29 @@ export const DataGridTest = () => {
         </Typography>
       </Box>
       <div ref={tableRef}>
-        <FlatTable title="Table for Default Story">
+        <FlatTable title="Table for Default Story" width="624px">
           <FlatTableHead>
             <FlatTableRow>
-              <FlatTableHeader>
-                <Box
-                  justifyContent="space-between"
-                  alignItems="center"
-                  display="flex"
-                >
-                  Name <Icon type="individual" color="white" />
-                </Box>
+              <FlatTableHeader width={200}>
+                Name <Icon type="individual" color="white" />
               </FlatTableHeader>
-              <FlatTableHeader>
-                <Box
-                  justifyContent="space-between"
-                  alignItems="center"
-                  display="flex"
-                >
-                  Location <Icon type="location" color="white" />
-                </Box>
+              <FlatTableHeader width={200}>
+                Age <Icon type="clock" color="white" />
+              </FlatTableHeader>
+              <FlatTableHeader width={200}>
+                Location <Icon type="location" color="white" />
               </FlatTableHeader>
             </FlatTableRow>
           </FlatTableHead>
           <FlatTableBody>
-            {Array.from({ length: cells.length / 2 }, (_, rowIdx) => {
-              const [nameCell, locationCell] = cells.slice(
-                rowIdx * 2,
-                rowIdx * 2 + 2,
+            {Array.from({ length: cells.length / 3 }, (_, rowIdx) => {
+              const [nameCell, ageCell, locationCell] = cells.slice(
+                rowIdx * 3,
+                rowIdx * 3 + 3,
               );
               return (
                 <FlatTableRow key={nameCell.id}>
-                  <FlatTableCell p={0}>
+                  <FlatTableCell p="3px">
                     <TextboxCell
                       cellId={nameCell.id}
                       onKeyDown={onKeyDown}
@@ -1823,7 +1876,15 @@ export const DataGridTest = () => {
                       onModeChange={handleModeChange}
                     />
                   </FlatTableCell>
-                  <FlatTableCell p={0}>
+                  <FlatTableCell p="3px">
+                    <TextboxCell
+                      cellId={ageCell.id}
+                      onKeyDown={onKeyDown}
+                      currentValue={ageCell.value}
+                      onModeChange={handleModeChange}
+                    />
+                  </FlatTableCell>
+                  <FlatTableCell p="3px">
                     <TextboxCell
                       cellId={locationCell.id}
                       onKeyDown={onKeyDown}
