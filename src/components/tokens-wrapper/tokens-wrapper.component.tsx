@@ -3,22 +3,30 @@ import styled, { createGlobalStyle } from "styled-components";
 
 import STATIC_TOKENS_CSS from "./__internal__/static-tokens";
 import useModeSwitcher from "./__internal__/hooks/useModeSwitcher";
+import {
+  buildOverrideTokens,
+  type BrandColors,
+} from "./__internal__/utils/build-override-tokens";
 
 export interface TokenWrapperProps {
   children: React.ReactNode;
   height?: string;
   modeSupportOptIn?: boolean;
   modeOverride?: "light" | "dark" | "auto";
+  overrides?: BrandColors;
 }
 
 const StyledTokensWrapper = styled.div<{ $height?: string }>`
   height: ${({ $height }) => $height};
 `;
 
-const TokensGlobalStyle = createGlobalStyle`
+const TokensGlobalStyle = createGlobalStyle<{
+  $overrides?: TokenWrapperProps["overrides"];
+}>`
   [data-component="tokens-wrapper"],
   [class*="carbon-portal"] {
     ${STATIC_TOKENS_CSS}
+    ${({ $overrides }) => ($overrides ? buildOverrideTokens($overrides) : "")}
   }
 `;
 
@@ -27,6 +35,7 @@ export const TokensWrapper = ({
   height = "auto",
   modeSupportOptIn = false,
   modeOverride,
+  overrides,
 }: TokenWrapperProps) => {
   const modePreference = useModeSwitcher(modeOverride);
   const modeProps = modeSupportOptIn
@@ -43,7 +52,7 @@ export const TokensWrapper = ({
       $height={height}
       {...modeProps}
     >
-      <TokensGlobalStyle />
+      <TokensGlobalStyle $overrides={overrides} />
       {children}
     </StyledTokensWrapper>
   );
