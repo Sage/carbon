@@ -170,11 +170,13 @@ export const TextInput = React.forwardRef(
     });
     const hintId = useRef(guid());
     const inputHintId = inputHint ? hintId.current : undefined;
+    const inputPrefixId = prefix ? `${uniqueId}-prefix` : undefined;
 
     const resolvedInputWidth =
       inputWidth ?? (labelInline ? INLINE_INPUT_WIDTH : INPUT_WIDTH);
     const ariaDescribedByString = [
       inputHintId,
+      inputPrefixId,
       ariaDescribedBy,
       ariaDescribedByProp,
     ]
@@ -285,6 +287,7 @@ export const TextInput = React.forwardRef(
             inputIcon={inputIcon}
             size={size}
             prefix={prefix}
+            prefixId={inputPrefixId}
             leftChildren={leftChildren}
             type={type}
             {...stateProps}
