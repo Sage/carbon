@@ -1,3 +1,9 @@
+## [159.8.1](https://github.com/Sage/carbon/compare/v159.8.0...v159.8.1) (2026-06-08)
+
+### Bug Fixes
+
+* **textbox:** ensure label is announced when prefix is passed ([6675dd5](https://github.com/Sage/carbon/commit/6675dd5587b4c2f70d42dbcf10f4f85abcfbfc82)), closes [#7843](https://github.com/Sage/carbon/issues/7843) [#7976](https://github.com/Sage/carbon/issues/7976)
+
 ## [159.8.0](https://github.com/Sage/carbon/compare/v159.7.1...v159.8.0) (2026-06-05)
 
 ### Features
