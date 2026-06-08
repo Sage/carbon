@@ -1,3 +1,9 @@
+## [159.9.0](https://github.com/Sage/carbon/compare/v159.8.1...v159.9.0) (2026-06-08)
+
+### Features
+
+* **fieldset:** align with Fusion DS ([7e491c6](https://github.com/Sage/carbon/commit/7e491c68c30ba325d2689e1c03fc9ccc3abf5c17))
+
 ## [159.8.1](https://github.com/Sage/carbon/compare/v159.8.0...v159.8.1) (2026-06-08)
 
 ### Bug Fixes
