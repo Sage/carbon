@@ -35,6 +35,7 @@ import DateRangeContext, {
 import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
 import guid from "../../__internal__/utils/helpers/guid";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
+import FieldsetContext from "../fieldset/__internal__/fieldset.context";
 
 interface CustomDateEvent {
   type: string;
@@ -195,6 +196,9 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     const pickerTabGuardId = useRef(guid());
     const showValidationMessageOnTop =
       validationMessagePositionTopContext ?? validationMessagePositionTop;
+
+    const { size: fieldsetSize } = useContext(FieldsetContext);
+    const actualSize = fieldsetSize || size;
 
     const computeInvalidRawValue = (inputValue: string) =>
       allowEmptyValue && !inputValue.length ? inputValue : null;
@@ -473,7 +477,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       <StyledDateInput
         ref={wrapperRef}
         role="presentation"
-        size={size}
+        size={actualSize}
         labelInline={labelInline}
         {...marginProps}
         applyDateRangeStyling={!!inputRefMap}
@@ -505,12 +509,12 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
           tooltipPosition={tooltipPosition}
           helpAriaLabel={helpAriaLabel}
           autoFocus={autoFocus}
-          size={size}
+          size={actualSize}
           disabled={disabled}
           readOnly={readOnly}
           inputWidth={inputWidth}
           labelWidth={labelWidth}
-          maxWidth={maxWidth ?? datePickerWidth[size]}
+          maxWidth={maxWidth ?? datePickerWidth[actualSize]}
           m={0}
           validationMessagePositionTop={showValidationMessageOnTop}
         />

@@ -55,6 +55,10 @@ const StyledTextInput = styled.div.attrs(applyBaseTheme)<StyledTextInputProps>`
     }
   }};
 
+  .fieldset-content & {
+    gap: var(--global-space-comp-xs);
+  }
+
   .time & {
     gap: unset;
   }

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useContext } from "react";
 
 import {
   StyledCheckableInput,
@@ -12,6 +12,7 @@ import HiddenCheckableInput, {
 import guid from "../utils/helpers/guid";
 import useInputAccessibility from "../../hooks/__internal__/useInputAccessibility";
 import { ValidationProps } from "../validations";
+import FieldsetContext from "../../components/fieldset/__internal__/fieldset.context";
 
 export interface CommonCheckableInputProps
   extends ValidationProps,
@@ -101,6 +102,8 @@ const CheckableInput = React.forwardRef(
   ) => {
     const { current: id } = useRef(inputId || guid());
 
+    const { required: fieldsetRequired } = useContext(FieldsetContext);
+
     const { labelId, fieldHelpId, validationId, ariaDescribedBy } =
       useInputAccessibility({
         id,
@@ -149,7 +152,8 @@ const CheckableInput = React.forwardRef(
       onBlur,
       onChange,
       onFocus,
-      required,
+      // set required if checkbox is rendered within Fieldset, but avoid rendering asterisk
+      required: required || fieldsetRequired,
       ref,
       validationIconId: validationId,
       ...props,

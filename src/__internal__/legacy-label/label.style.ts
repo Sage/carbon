@@ -61,6 +61,10 @@ export const StyledLabelContainer = styled.div<StyledLabelContainerProps>`
   align-items: center;
   margin-bottom: 8px;
 
+  .fieldset-content & {
+    margin-bottom: var(--global-space-comp-xs);
+  }
+
   ${({ align }) => css`
     justify-content: ${align !== "right" ? "flex-start" : "flex-end"};
   `}
