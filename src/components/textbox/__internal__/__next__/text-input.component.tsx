@@ -275,7 +275,6 @@ export const TextInput = React.forwardRef(
               localRef.current?.focus();
             }
           }}
-          data-is-open={dataIsOpen}
         >
           {validationMessagePositionTop && validationMessage}
           <Input
@@ -299,6 +298,7 @@ export const TextInput = React.forwardRef(
             prefixId={inputPrefixId}
             leftChildren={leftChildren}
             type={type}
+            data-is-open={dataIsOpen}
             {...stateProps}
             {...filterOutStyledSystemSpacingProps(rest)}
           >

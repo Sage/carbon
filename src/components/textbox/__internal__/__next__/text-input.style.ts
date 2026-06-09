@@ -119,10 +119,6 @@ const InputWrapper = styled.div<InputWrapperProps>`
     ${$maxWidth && `max-width: ${$maxWidth};`}
     width: ${$inputWidth ? `${$inputWidth}%` : "100%"};
   `}
-
-  &[data-is-open="true"] {
-    z-index: var(--adaptiveSidebarModalBackdrop, 9999);
-  }
 `;
 
 export { StyledTextInput, LabelWrapper, InputWrapper };
