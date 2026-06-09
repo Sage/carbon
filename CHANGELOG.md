@@ -1,3 +1,9 @@
+## [159.9.1](https://github.com/Sage/carbon/compare/v159.9.0...v159.9.1) (2026-06-09)
+
+### Bug Fixes
+
+* **select:** ensure popover renders above validation message ([16209bd](https://github.com/Sage/carbon/commit/16209bd8fb2840f4a7a4227cdda6e739d8051b0a))
+
 ## [159.9.0](https://github.com/Sage/carbon/compare/v159.8.1...v159.9.0) (2026-06-08)
 
 ### Features
