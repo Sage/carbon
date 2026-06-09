@@ -12,6 +12,7 @@ import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import CheckboxGroupContext from "./checkbox-group/__internal__/checkbox-group.context";
 import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
 import { filterStyledSystemMarginProps } from "../../style/utils";
+import FieldsetContext from "../fieldset/__internal__/fieldset.context";
 
 export interface CheckboxProps
   extends CommonCheckableInputProps,
@@ -87,6 +88,13 @@ export const Checkbox = React.forwardRef(
       info: contextInfo,
     } = checkboxGroupContext;
 
+    const { size: fieldsetSize, hasError: fieldsetError } =
+      useContext(FieldsetContext);
+    let actualSize = fieldsetSize || size;
+    if (actualSize === "medium") {
+      actualSize = "small";
+    }
+
     const inputProps = {
       ariaLabelledBy,
       onClick,
@@ -116,7 +124,7 @@ export const Checkbox = React.forwardRef(
     };
 
     const validationProps = {
-      error: contextError || error,
+      error: contextError || error || fieldsetError,
       warning: contextWarning || warning,
       ...(validationRedesignOptIn
         ? { validationOnLabel: false }
@@ -134,7 +142,7 @@ export const Checkbox = React.forwardRef(
         {...validationProps}
         fieldHelpInline={fieldHelpInline}
         reverse={reverse}
-        size={size}
+        size={actualSize}
         applyNewValidation={validationRedesignOptIn}
         {...marginProps}
         {...tagComponent("checkbox", {

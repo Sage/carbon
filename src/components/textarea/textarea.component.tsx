@@ -32,6 +32,7 @@ import Logger from "../../__internal__/utils/logger";
 import { BorderRadiusType } from "../box/box.component";
 import HintText from "../../__internal__/legacy-hint-text";
 import { filterStyledSystemMarginProps } from "../../style/utils";
+import FieldsetContext from "../fieldset/__internal__/fieldset.context";
 
 export interface TextareaProps
   extends ValidationProps,
@@ -200,6 +201,10 @@ export const Textarea = React.forwardRef(
     }
     const { validationRedesignOptIn } = useContext(NewValidationContext);
 
+    // should also consume size from context when this size added to textarea
+    const { hasError: fieldsetError, required: fieldsetRequired } =
+      useContext(FieldsetContext);
+
     const labelInlineWithNewValidation = validationRedesignOptIn
       ? false
       : labelInline;
@@ -363,14 +368,14 @@ export const Textarea = React.forwardRef(
           typeof inputWidth === "number" ? inputWidth : 100 - labelWidth
         }
         maxWidth={maxWidth}
-        error={error}
+        error={error || fieldsetError}
         warning={warning}
         info={info}
         borderRadius={borderRadius}
         hideBorders={hideBorders}
       >
         <Input
-          aria-invalid={!!error}
+          aria-invalid={!!error || fieldsetError}
           aria-labelledby={ariaLabelledBy}
           aria-describedby={combinedAriaDescribedBy}
           autoFocus={autoFocus}
@@ -388,7 +393,7 @@ export const Textarea = React.forwardRef(
           as="textarea"
           validationIconId={validationRedesignOptIn ? undefined : validationId}
           inputBorderRadius={borderRadius}
-          required={required}
+          required={required || fieldsetRequired}
           {...rest}
         />
         {children}

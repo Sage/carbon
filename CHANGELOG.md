@@ -1,3 +1,33 @@
+## [159.9.1](https://github.com/Sage/carbon/compare/v159.9.0...v159.9.1) (2026-06-09)
+
+### Bug Fixes
+
+* **select:** ensure popover renders above validation message ([16209bd](https://github.com/Sage/carbon/commit/16209bd8fb2840f4a7a4227cdda6e739d8051b0a))
+
+## [159.9.0](https://github.com/Sage/carbon/compare/v159.8.1...v159.9.0) (2026-06-08)
+
+### Features
+
+* **fieldset:** align with Fusion DS ([7e491c6](https://github.com/Sage/carbon/commit/7e491c68c30ba325d2689e1c03fc9ccc3abf5c17))
+
+## [159.8.1](https://github.com/Sage/carbon/compare/v159.8.0...v159.8.1) (2026-06-08)
+
+### Bug Fixes
+
+* **textbox:** ensure label is announced when prefix is passed ([6675dd5](https://github.com/Sage/carbon/commit/6675dd5587b4c2f70d42dbcf10f4f85abcfbfc82)), closes [#7843](https://github.com/Sage/carbon/issues/7843) [#7976](https://github.com/Sage/carbon/issues/7976)
+
+## [159.8.0](https://github.com/Sage/carbon/compare/v159.7.1...v159.8.0) (2026-06-05)
+
+### Features
+
+* **icon:** added 4 new icons ([81eb46d](https://github.com/Sage/carbon/commit/81eb46dcbed395c296e55a10ce6174f7983f9ee9))
+
+## [159.7.1](https://github.com/Sage/carbon/compare/v159.7.0...v159.7.1) (2026-06-05)
+
+### Bug Fixes
+
+* **advanced-color-picker:** adjust component max-width to fit dialog ([7f894f9](https://github.com/Sage/carbon/commit/7f894f9cbc95f20383a0f1c2a2ff9122d07c4c1d))
+
 ## [159.7.0](https://github.com/Sage/carbon/compare/v159.6.0...v159.7.0) (2026-05-29)
 
 ### Features
