@@ -59,10 +59,10 @@ export const Small = () => {
               setValue(e.target.value);
             }}
             onKeyDown={(e) => {
-              if (e.key === "Tab" && open) {
-                setOpen(false);
-                return;
-              }
+              // if (e.key === "Tab" && open) {
+              //   setOpen(false);
+              //   return;
+              // }
 
               if (e.key === "Enter" && !open) {
                 setOpen(true);
@@ -73,6 +73,14 @@ export const Small = () => {
           />
         )}
         listboxAriaLabel="List aria label small"
+        footerButton={{
+          children: (
+            <>
+              Add object <Icon type="add" />
+            </>
+          ),
+          onClick: () => alert("Footer button clicked"),
+        }}
       >
         <MenuItem
           onClick={() => {

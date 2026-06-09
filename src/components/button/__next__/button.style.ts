@@ -342,6 +342,25 @@ export const StyledButton = styled.button<
     position: relative;
     z-index: 1;
   }
+
+  &.popover-menu-footer-button {
+    background-color: var(--popover-bg-default);
+    color: var(--text-default);
+    border-radius: 0;
+    width: 100%;
+    min-height: calc(100% + 6px);
+
+    :hover {
+      background-color: var(--input-dropdown-bg-hover);
+      color: var(--text-default);
+    }
+
+    &:focus {
+      ${addFocusStyling(true)}
+      position: relative;
+      z-index: 1;
+    }
+  }
 `;
 
 export default StyledButton;

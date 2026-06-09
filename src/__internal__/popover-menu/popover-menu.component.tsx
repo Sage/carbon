@@ -4,7 +4,7 @@ import Popover from "../popover";
 import { flip, offset, size } from "@floating-ui/dom";
 import wrapChildrenInMenuItems from "./utils";
 import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
-import { ButtonHandle } from "../../components/button/__next__";
+import Button, { ButtonHandle } from "../../components/button/__next__";
 import { useHandleDropdownMenuKeyDown } from "./hooks";
 import guid from "../utils/helpers/guid";
 import { PopoverMenuContext } from "./contexts";
@@ -130,6 +130,12 @@ export interface PopoverMenuProps<
   listboxAriaLabel?: string;
   /** Aria labelledby for the listbox */
   listboxAriaLabelledBy?: string;
+
+  footerButton?: {
+    onClick?: React.MouseEventHandler<HTMLElement>;
+    children: React.ReactNode;
+    href?: string;
+  };
 }
 
 const menuPopoverMiddleware = (width?: string) => [
@@ -169,6 +175,7 @@ const PopoverMenu = <TRef extends FocusableHandle = NonNullable<ButtonHandle>>({
   width,
   listboxAriaLabel,
   listboxAriaLabelledBy,
+  footerButton,
   ...rest
 }: PopoverMenuProps<TRef>) => {
   const controlWrapperRef = useRef<HTMLDivElement | null>(null);
@@ -271,6 +278,25 @@ const PopoverMenu = <TRef extends FocusableHandle = NonNullable<ButtonHandle>>({
                   {wrappedChildren}
                 </List>
               </ScrollWrapper>
+              {footerButton && (
+                <div
+                  style={{
+                    borderTop:
+                      "1px solid var(--container-standard-border-default)",
+                    paddingTop: "var(--global-space-comp-s)",
+                  }}
+                >
+                  <Button
+                    {...footerButton}
+                    onKeyDown={(ev) => {
+                      if (ev.key === "Tab" && !ev.shiftKey) {
+                        onClose();
+                      }
+                    }}
+                    className="popover-menu-footer-button"
+                  />
+                </div>
+              )}
             </MenuWrapper>
           </Popover>
         )}
