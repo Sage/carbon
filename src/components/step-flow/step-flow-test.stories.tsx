@@ -15,7 +15,7 @@ import {
   Steps,
   StepFlowProps,
 } from ".";
-import { StoryFn } from "@storybook/react";
+import { StoryFn } from "@storybook/react-vite";
 
 export default {
   title: "Step Flow/Test",

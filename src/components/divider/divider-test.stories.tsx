@@ -1,5 +1,5 @@
 import React from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import styled from "styled-components";
 import Box from "../box";
 import Divider from "./divider.component";

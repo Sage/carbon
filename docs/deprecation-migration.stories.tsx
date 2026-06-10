@@ -15,7 +15,7 @@ import Pill from "../src/components/pill";
 
 const meta: Meta = {
   title: "Documentation/Deprecation Migration",
-  tags: ["hideInSidebar"],
+  tags: ["!dev"],
   parameters: {
     chromatic: { disableSnapshot: true },
   },

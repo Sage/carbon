@@ -1,5 +1,5 @@
 import React from "react";
-import { ArgTypes } from "@storybook/react";
+import { ArgTypes } from "@storybook/react-vite";
 import Typography, { TypographyProps } from ".";
 import { VARIANT_TYPES } from "./typography.component";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";

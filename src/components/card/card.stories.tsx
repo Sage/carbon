@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { Card, CardRow, CardFooter, CardColumn, CardProps } from ".";
 
 import Typography from "../typography";

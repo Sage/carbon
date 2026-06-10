@@ -121,7 +121,7 @@ This would typically look like the following:
 ```none
 /* in button.mdx... */
 
-import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs/blocks";
 
 import Button from ".";
 import * as ButtonStories from "./button.stories.tsx";

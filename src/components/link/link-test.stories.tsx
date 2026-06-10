@@ -1,7 +1,7 @@
 import React from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 import Link, { LinkProps } from "./link.component";
 import Box from "../box";
 import GlobalHeader from "../global-header";
