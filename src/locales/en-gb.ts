@@ -144,17 +144,14 @@ const enGB: Locale = {
     },
   },
   pager: {
-    show: () => "Show",
-    records: (count, showNumber = true) => {
-      const noun = isSingular(count) ? "item" : "items";
-      return showNumber ? `${count} ${noun}` : noun;
-    },
-    first: () => "First",
-    last: () => "Last",
-    next: () => "Next",
-    previous: () => "Previous",
-    pageX: () => "Page",
-    ofY: (count) => `of ${count}`,
+    firstAriaLabel: () => "Go to first page",
+    lastAriaLabel: () => "Go to last page",
+    nextAriaLabel: () => "Go to next page",
+    previousAriaLabel: () => "Go to previous page",
+    pageX: (currentPage?: number | string) => `Page ${currentPage}`,
+    ofTotalPages: (totalPages: number | string) => `of ${totalPages} pages`,
+    itemsPerPage: () => "Items per page",
+    ariaLabel: () => "Pagination",
   },
   password: {
     buttonLabelHide: () => "Hide",
