@@ -1,3 +1,9 @@
+## [159.10.0](https://github.com/Sage/carbon/compare/v159.9.1...v159.10.0) (2026-06-10)
+
+### Features
+
+* **storybook:** upgrade to v10.4.2 ([9e9a057](https://github.com/Sage/carbon/commit/9e9a057d27a7ebdbff3cd03f8731641e4881050f))
+
 ## [159.9.1](https://github.com/Sage/carbon/compare/v159.9.0...v159.9.1) (2026-06-09)
 
 ### Bug Fixes
