@@ -1,9 +1,12 @@
 import React, { useContext } from "react";
 import styled, { css } from "styled-components";
-import { PopoverMenuContext } from "../../contexts";
+import {
+  PopoverMenuContext,
+  type PopoverMenuContextProps,
+} from "../../contexts";
 
 interface StyledMenuItemLabelProps {
-  $size: string;
+  $size: PopoverMenuContextProps["size"];
 }
 
 const StyledMenuItemLabel = styled.span<StyledMenuItemLabelProps>`
@@ -12,20 +15,7 @@ const StyledMenuItemLabel = styled.span<StyledMenuItemLabelProps>`
 
   ${({ $size }) => css`
     span.menu-item-label-prefix {
-      ${$size === "small" &&
-      `
-        font: var(--global-font-static-comp-medium-s);
-      `}
-
-      ${$size === "medium" &&
-      `
-        font: var(--global-font-static-comp-medium-m);
-      `}
-      
-      ${$size === "large" &&
-      `
-        font: var(--global-font-static-comp-medium-l);
-      `}
+      font: var(--global-font-static-comp-medium-${$size.charAt(0)});
     }
   `}
 `;

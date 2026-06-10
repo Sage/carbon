@@ -1,13 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import styled from "styled-components";
 import Icon from "../../../../components/icon";
-import { PopoverMenuContext } from "../../contexts";
 
-interface StyledMenuItemLeadingProps {
-  $size: string;
-}
-
-const StyledMenuItemLeading = styled.span<StyledMenuItemLeadingProps>`
+const StyledMenuItemLeading = styled.span`
   display: flex;
   grid-row: 1;
 
@@ -30,13 +25,8 @@ const MenuItemLeading = ({
   children: React.ReactNode;
   selectedIcon?: boolean;
 }) => {
-  const { size } = useContext(PopoverMenuContext);
   return (
-    <StyledMenuItemLeading
-      className="menu-item-leading"
-      data-element="leading"
-      $size={size}
-    >
+    <StyledMenuItemLeading className="menu-item-leading" data-element="leading">
       <StyledSelectedIconWrapper
         data-role="selected-icon-wrapper"
         $hasIcon={selectedIcon}

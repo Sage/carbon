@@ -1,5 +1,5 @@
 import React from "react";
-import { MenuItem } from "../menu-item";
+import { MenuItem, MenuItemDivider, MenuItemHeading } from "../menu-item";
 
 const wrapChildrenInItem = (
   children: React.ReactNode,
@@ -17,11 +17,9 @@ const wrapChildrenInItem = (
 
     // If the child is already a MenuItem, MenuItemDivider, or MenuItemHeading, don't wrap it again
     if (
-      (child.type as React.ComponentType).displayName === "PopoverMenuItem" ||
-      (child.type as React.ComponentType).displayName ===
-        "PopoverMenuItemDivider" ||
-      (child.type as React.ComponentType).displayName ===
-        "PopoverMenuItemHeading"
+      child.type === MenuItem ||
+      child.type === MenuItemDivider ||
+      child.type === MenuItemHeading
     ) {
       return child;
     }

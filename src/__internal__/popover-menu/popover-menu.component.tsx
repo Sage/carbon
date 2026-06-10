@@ -7,7 +7,7 @@ import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener"
 import { ButtonHandle } from "../../components/button/__next__";
 import { useHandleDropdownMenuKeyDown } from "./hooks";
 import guid from "../utils/helpers/guid";
-import { PopoverMenuContext } from "./contexts";
+import { PopoverMenuContext, type PopoverMenuContextProps } from "./contexts";
 import { TagProps } from "../utils/helpers/tags";
 
 const PopoverControlWrapper = styled.div`
@@ -15,7 +15,7 @@ const PopoverControlWrapper = styled.div`
 `;
 
 interface ListProps {
-  $size?: "small" | "medium" | "large";
+  $size: PopoverMenuContextProps["size"];
 }
 
 export const List = styled.div<ListProps>`
@@ -27,20 +27,7 @@ export const List = styled.div<ListProps>`
   flex-direction: column;
 
   ${({ $size }) => css`
-    ${$size === "small" &&
-    css`
-      max-height: calc(5 * var(--global-size-s));
-    `}
-
-    ${$size === "medium" &&
-    css`
-      max-height: calc(5 * var(--global-size-m));
-    `}
-
-    ${$size === "large" &&
-    css`
-      max-height: calc(5 * var(--global-size-l));
-    `}
+    max-height: calc(5 * var(--global-size-${$size.charAt(0)}));
   `}
 `;
 
@@ -63,7 +50,6 @@ const ScrollWrapper = styled.div`
 `;
 
 interface PopooverControlProps {
-  // onBlur: (ev: React.FocusEvent<HTMLElement>) => void;
   "aria-haspopup": "listbox" | "menu";
   "aria-controls"?: string;
   "aria-expanded"?: boolean;
@@ -95,7 +81,7 @@ export interface PopoverMenuProps<
     ref: React.RefObject<TRef>,
     props: PopooverControlProps,
   ) => React.ReactNode;
-  size?: "small" | "medium" | "large";
+  size?: PopoverMenuContextProps["size"];
   /** Placement of the popover menu */
   placement?:
     | "top"
@@ -132,8 +118,10 @@ export interface PopoverMenuProps<
   listboxAriaLabelledBy?: string;
 }
 
+const OFFSET = 8;
+
 const menuPopoverMiddleware = (width?: string) => [
-  offset(8),
+  offset(OFFSET),
   flip({
     fallbackStrategy: "initialPlacement",
   }),

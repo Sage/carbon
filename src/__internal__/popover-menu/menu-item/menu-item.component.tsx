@@ -1,6 +1,6 @@
 import React, { useContext, useRef } from "react";
 import styled, { css } from "styled-components";
-import { PopoverMenuContext, PopoverMenuContextProps } from "../contexts";
+import { PopoverMenuContext, type PopoverMenuContextProps } from "../contexts";
 
 export interface MenuItemProps {
   children: React.ReactNode;
@@ -10,7 +10,7 @@ export interface MenuItemProps {
 }
 
 interface StyledMenuItemProps {
-  $size?: "small" | "medium" | "large";
+  $size?: PopoverMenuContextProps["size"];
   $disabled?: boolean;
 }
 

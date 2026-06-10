@@ -1,9 +1,12 @@
 import React, { useContext } from "react";
 import styled, { css } from "styled-components";
-import { PopoverMenuContext } from "../../contexts";
+import {
+  PopoverMenuContext,
+  type PopoverMenuContextProps,
+} from "../../contexts";
 
 interface StyledMenuItemSubtextProps {
-  $size: string;
+  $size: PopoverMenuContextProps["size"];
 }
 
 const StyledMenuItemSubtext = styled.span<StyledMenuItemSubtextProps>`
