@@ -224,6 +224,22 @@ export const TextInput = React.forwardRef(
       [onClick, disabled, readOnly],
     );
 
+    const handleWrapperClick = useCallback(
+      (ev: React.MouseEvent<HTMLElement>) => {
+        if (
+          disabled ||
+          readOnly ||
+          document.activeElement === localRef.current ||
+          !ev.currentTarget.contains(ev.target as Node)
+        ) {
+          return;
+        }
+
+        localRef.current?.focus();
+      },
+      [disabled, readOnly],
+    );
+
     return (
       <StyledTextInput
         data-element={dataElement}
@@ -266,15 +282,8 @@ export const TextInput = React.forwardRef(
           $size={actualSize}
           $maxWidth={maxWidth}
           $inputWidth={inputWidth}
-          onClick={() => {
-            if (
-              !disabled &&
-              !readOnly &&
-              document.activeElement !== localRef.current
-            ) {
-              localRef.current?.focus();
-            }
-          }}
+          onClick={handleWrapperClick}
+          data-is-open={dataIsOpen}
         >
           {validationMessagePositionTop && validationMessage}
           <Input

@@ -3,7 +3,12 @@ import { test } from "../../../playwright/helpers/base-test";
 import { checkAccessibility } from "../../../playwright/support/helper";
 
 import Decimal from "../../../src/components/decimal";
-import { WithFieldHelp, Required, Validations } from "./components.test-pw";
+import {
+  WithFieldHelp,
+  Required,
+  Validations,
+  DecimalWithPopoverContainer,
+} from "./components.test-pw";
 
 test.describe("Accessibility tests for Decimal component", () => {
   test("should pass accessibility tests for Decimal with field help", async ({
@@ -40,6 +45,15 @@ test.describe("Accessibility tests for Decimal component", () => {
     await mount(
       <Decimal label="Decimal" onChange={() => {}} value="0.01" readOnly />,
     );
+
+    await checkAccessibility(page);
+  });
+
+  test("should pass accessibility tests for Decimal with PopoverContainer", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DecimalWithPopoverContainer />);
 
     await checkAccessibility(page);
   });

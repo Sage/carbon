@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { act, render, screen } from "@testing-library/react";
+import { act, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import Decimal from "./decimal.component";
@@ -356,6 +356,49 @@ test("logs an error when precision changes", () => {
   );
 });
 
+describe("prefix and suffix props", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it("renders the prefix when only prefix is supplied", () => {
+    render(<Decimal value="1.00" onChange={jest.fn} prefix="£" />);
+    expect(screen.getByText("£")).toHaveAttribute(
+      "data-element",
+      "textbox-prefix",
+    );
+  });
+
+  it("renders the suffix when only suffix is supplied", () => {
+    render(<Decimal value="1.00" onChange={jest.fn} suffix="kg" />);
+    expect(screen.getByText("kg")).toHaveAttribute(
+      "data-element",
+      "textbox-suffix",
+    );
+  });
+
+  it("renders only the prefix when both prefix and suffix are supplied", () => {
+    render(<Decimal value="1.00" onChange={jest.fn} prefix="£" suffix="kg" />);
+    expect(screen.getByText("£")).toHaveAttribute(
+      "data-element",
+      "textbox-prefix",
+    );
+    expect(screen.queryByText("kg")).not.toBeInTheDocument();
+  });
+
+  it("does not log a warning when only prefix is supplied", () => {
+    const loggerSpy = jest.spyOn(Logger, "warn");
+    render(<Decimal value="1.00" onChange={jest.fn} prefix="£" />);
+    expect(loggerSpy).not.toHaveBeenCalled();
+  });
+
+  it("does not log a warning when only suffix is supplied", () => {
+    const loggerSpy = jest.spyOn(Logger, "warn");
+    render(<Decimal value="1.00" onChange={jest.fn} suffix="kg" />);
+    expect(loggerSpy).not.toHaveBeenCalled();
+  });
+});
+
 describe("check events for Decimal component", () => {
   (
     [
@@ -394,4 +437,151 @@ describe("check events for Decimal component", () => {
     expect(decimalInput).toHaveValue("123.00");
     expect(callbackCount).toBe(1);
   });
+});
+
+describe("popoverContainerContent and popoverPosition props", () => {
+  beforeEach(() => {
+    jest.useFakeTimers();
+  });
+
+  afterEach(() => {
+    jest.runOnlyPendingTimers();
+    jest.useRealTimers();
+  });
+
+  it("does not render a popover trigger button when popoverContainerContent is not supplied", () => {
+    render(<Decimal value="1.00" onChange={jest.fn} />);
+    expect(
+      screen.queryByRole("button", { name: "Decimal popover trigger" }),
+    ).not.toBeInTheDocument();
+  });
+
+  it("renders a popover trigger button when popoverContainerContent is supplied", () => {
+    render(
+      <Decimal
+        value="1.00"
+        onChange={jest.fn}
+        popoverContainerContent={<p>Popover content</p>}
+      />,
+    );
+    expect(
+      screen.getByRole("button", { name: "Decimal popover trigger" }),
+    ).toBeVisible();
+  });
+
+  it("trigger button has aria-haspopup set to dialog", () => {
+    render(
+      <Decimal
+        value="1.00"
+        onChange={jest.fn}
+        popoverContainerContent={<p>Popover content</p>}
+      />,
+    );
+    expect(
+      screen.getByRole("button", { name: "Decimal popover trigger" }),
+    ).toHaveAttribute("aria-haspopup", "dialog");
+  });
+
+  it("trigger button has aria-expanded set to false when the popover is closed", () => {
+    render(
+      <Decimal
+        value="1.00"
+        onChange={jest.fn}
+        popoverContainerContent={<p>Popover content</p>}
+      />,
+    );
+    expect(
+      screen.getByRole("button", { name: "Decimal popover trigger" }),
+    ).toHaveAttribute("aria-expanded", "false");
+  });
+
+  it("trigger button has data-element set to popover-container-open-component", () => {
+    render(
+      <Decimal
+        value="1.00"
+        onChange={jest.fn}
+        popoverContainerContent={<p>Popover content</p>}
+      />,
+    );
+    expect(
+      screen.getByRole("button", { name: "Decimal popover trigger" }),
+    ).toHaveAttribute("data-element", "popover-container-open-component");
+  });
+
+  it("opens the popover when the trigger button is clicked", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    render(
+      <Decimal
+        value="1.00"
+        onChange={jest.fn}
+        popoverContainerContent={<p>Popover content</p>}
+      />,
+    );
+
+    await user.click(
+      screen.getByRole("button", { name: "Decimal popover trigger" }),
+    );
+
+    expect(await screen.findByRole("dialog")).toBeVisible();
+    expect(screen.getByText("Popover content")).toBeVisible();
+  });
+
+  it("trigger button has aria-expanded set to true when the popover is open", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    render(
+      <Decimal
+        value="1.00"
+        onChange={jest.fn}
+        popoverContainerContent={<p>Popover content</p>}
+      />,
+    );
+
+    await user.click(
+      screen.getByRole("button", { name: "Decimal popover trigger" }),
+    );
+
+    expect(
+      screen.getByRole("button", { name: "Decimal popover trigger" }),
+    ).toHaveAttribute("aria-expanded", "true");
+  });
+
+  it("closes the popover when the trigger button is clicked again", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    render(
+      <Decimal
+        value="1.00"
+        onChange={jest.fn}
+        popoverContainerContent={<p>Popover content</p>}
+      />,
+    );
+
+    const trigger = screen.getByRole("button", {
+      name: "Decimal popover trigger",
+    });
+    await user.click(trigger);
+    await screen.findByRole("dialog");
+
+    await user.click(trigger);
+
+    await waitFor(() => {
+      expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    });
+  });
+
+  it.each(["left", "right", "center"] as const)(
+    "renders correctly with popoverPosition set to %s",
+    (position) => {
+      render(
+        <Decimal
+          value="1.00"
+          onChange={jest.fn}
+          popoverContainerContent={<p>Popover content</p>}
+          popoverPosition={position}
+        />,
+      );
+      expect(
+        screen.getByRole("button", { name: "Decimal popover trigger" }),
+      ).toBeVisible();
+    },
+  );
 });

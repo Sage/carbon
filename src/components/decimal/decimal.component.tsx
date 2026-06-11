@@ -2,10 +2,16 @@ import React, { useState, useEffect, useCallback, useContext } from "react";
 import invariant from "invariant";
 
 import Textbox, { CommonTextboxProps } from "../textbox";
+import PopoverContainer, {
+  PopoverContainerProps,
+  RenderOpenProps,
+} from "../popover-container";
 import LocaleContext from "../../__internal__/i18n-context";
+import DecimalPopoverButton from "./__internal__/decimal-popover-button.component";
 import usePrevious from "../../hooks/__internal__/usePrevious";
 import Logger from "../../__internal__/utils/logger";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
+import StyledSuffix from "./decimal.style";
 
 export interface CustomEvent {
   target: {
@@ -28,12 +34,22 @@ export interface DecimalProps
   id?: string;
   /** The width of the input as a percentage */
   inputWidth?: number;
-  /** Handler for change event */
-  onChange: (ev: CustomEvent) => void;
-  /** Handler for blur event */
-  onBlur?: (ev: CustomEvent) => void;
+  /** The locale string - default en */
+  locale?: string;
   /** The input name */
   name?: string;
+  /** Handler for blur event */
+  onBlur?: (ev: CustomEvent) => void;
+  /** Handler for change event */
+  onChange: (ev: CustomEvent) => void;
+  /** Sets the accessible name (aria-label) on the PopoverContainer dialog */
+  popoverContainerAriaLabel?: string;
+  /** Content to render inside a PopoverContainer, displayed via a button at the right of the input */
+  popoverContainerContent?: React.ReactNode;
+  /** Sets the position of the PopoverContainer dialog relative to its trigger button */
+  popoverPosition?: PopoverContainerProps["position"];
+  /** Sets the aria-label on the popover trigger button */
+  popoverTriggerAriaLabel?: string;
   /** The decimal precision of the value in the input */
   precision?:
     | 0
@@ -54,25 +70,34 @@ export interface DecimalProps
     | 15;
   /** If true, the component will be read-only */
   readOnly?: boolean;
+  /** A suffix to display alongside the input. Please note that if a prefix is also provided, only the prefix will be rendered. */
+  suffix?: string;
   /** The value of the input */
   value: string;
-  /** The locale string - default en */
-  locale?: string;
 }
 
 export const Decimal = React.forwardRef(
   (
     {
       align = "right",
-      precision = 2,
-      inputWidth,
-      readOnly,
-      onChange,
-      onBlur,
-      id,
-      name,
       allowEmptyValue = false,
+      fieldHelp,
+      id,
+      inputWidth,
+      labelHelp,
       locale,
+      name,
+      onBlur,
+      onChange,
+      popoverContainerAriaLabel,
+      popoverContainerContent,
+      popoverPosition,
+      popoverTriggerAriaLabel,
+      precision = 2,
+      prefix,
+      readOnly,
+      size,
+      suffix,
       value,
       ...rest
     }: DecimalProps,
@@ -301,9 +326,52 @@ export const Decimal = React.forwardRef(
           data-component="decimal"
           id={id}
           ref={ref}
+          prefix={prefix}
+          fieldHelp={fieldHelp}
+          labelHelp={labelHelp}
+          size={size}
           {...rest}
           {...tagComponent("decimal", rest)}
-        />
+        >
+          {!prefix && suffix && (
+            <StyledSuffix data-element="textbox-suffix">{suffix}</StyledSuffix>
+          )}
+          {popoverContainerContent && (
+            <PopoverContainer
+              position={popoverPosition}
+              containerAriaLabel={
+                popoverContainerAriaLabel ||
+                l.decimal.ariaLabels.popoverContent()
+              }
+              renderOpenComponent={({
+                ref,
+                onClick,
+                "data-element": dataElement,
+                "aria-label": ariaLabel,
+                "aria-expanded": ariaExpanded,
+                "aria-haspopup": ariaHasPopup,
+                id: btnId,
+              }: RenderOpenProps) => (
+                <DecimalPopoverButton
+                  ref={ref}
+                  onClick={onClick}
+                  data-element={dataElement}
+                  aria-label={
+                    popoverTriggerAriaLabel ||
+                    ariaLabel ||
+                    l.decimal.ariaLabels.popoverTrigger()
+                  }
+                  aria-haspopup={ariaHasPopup}
+                  aria-expanded={ariaExpanded}
+                  id={btnId}
+                  size={size}
+                />
+              )}
+            >
+              {popoverContainerContent}
+            </PopoverContainer>
+          )}
+        </Textbox>
         <input
           name={name}
           value={toStandardDecimal(stateValue)}

@@ -48,6 +48,12 @@ const esES: Partial<Locale> = {
       nextMonthButton: () => "Mes siguiente",
     },
   },
+  decimal: {
+    ariaLabels: {
+      popoverTrigger: () => "Activador del elemento emergente decimal",
+      popoverContent: () => "Contenido del elemento emergente decimal",
+    },
+  },
   dialog: {
     ariaLabels: {
       close: () => "Cerrar",
