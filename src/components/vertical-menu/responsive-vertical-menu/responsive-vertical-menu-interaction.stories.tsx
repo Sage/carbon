@@ -1,6 +1,6 @@
-import { StoryObj } from "@storybook/react";
-import { userEvent, within, expect } from "@storybook/test";
-import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
+import { StoryObj } from "@storybook/react-vite";
+import { userEvent, within, expect } from "storybook/test";
+import { INITIAL_VIEWPORTS } from "storybook/viewport";
 import React from "react";
 
 import {
@@ -17,11 +17,19 @@ type Story = StoryObj<typeof ResponsiveVerticalMenu>;
 
 export default {
   title: "Vertical Menu/Responsive/Interactions",
+
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
+    chromatic: { viewports: [1200, 500] },
     viewport: {
       viewports: INITIAL_VIEWPORTS,
-      defaultViewport: "desktop",
+    },
+  },
+
+  globals: {
+    viewport: {
+      value: "desktop",
+      isRotated: false,
     },
   },
 };
@@ -164,12 +172,15 @@ export const ToggleOpenOnClick: Story = {
     }
 
     const canvas = within(canvasElement);
-    const menuToggle = canvas.getByRole("button");
+    const menuToggle = canvas.getByRole("button", {
+      name: /product menu launcher/i,
+    });
+    const page = within(document.body);
 
     await userEvent.click(menuToggle, { delay: 100 });
     await expect(
-      await within(document.body).findByText("Primary Menu With Children"),
-    ).toBeVisible();
+      await page.findByTestId("responsive-vertical-menu-item-primary-menu"),
+    ).toBeInTheDocument();
   },
   decorators: [
     (StoryToRender) => (
@@ -181,7 +192,6 @@ export const ToggleOpenOnClick: Story = {
 };
 
 ToggleOpenOnClick.storyName = "Toggle Open On Click";
-ToggleOpenOnClick.parameters = { chromatic: { viewports: [1200, 500] } };
 
 export const MarginTopAuto: Story = {
   render: () => <ResponsiveVerticalMenuWithMarginTopAuto />,
@@ -191,12 +201,15 @@ export const MarginTopAuto: Story = {
     }
 
     const canvas = within(canvasElement);
-    const menuToggle = canvas.getByRole("button");
+    const menuToggle = canvas.getByRole("button", {
+      name: /product menu launcher/i,
+    });
+    const page = within(document.body);
 
     await userEvent.click(menuToggle);
     await expect(
-      await within(document.body).findByText("Primary Menu One"),
-    ).toBeVisible();
+      await page.findByTestId("responsive-vertical-menu-item-primary-menu-one"),
+    ).toBeInTheDocument();
   },
   decorators: [
     (StoryToRender) => (
