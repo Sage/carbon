@@ -196,9 +196,11 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
         ) => (string | Record<string, unknown>)[],
         selectionConfirmed?: boolean,
       ) => {
+        // filters out any empty string values so it is not returned to the onChange
         const newValue = updateFunction(
           value as (string | Record<string, unknown>)[],
-        );
+        ).filter((v) => v !== "");
+
         // only call onChange if an option has been selected or deselected
         if (newValue.length !== value?.length) {
           onChange(createCustomEvent(newValue, selectionConfirmed));
