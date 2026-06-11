@@ -1,0 +1,67 @@
+```tsx
+export const Scroll: Story = () => {
+  return (
+    <div>
+      <Box
+        display="inline-block"
+        size="150px"
+        overflow="auto"
+        scrollVariant="light"
+        mr="20px"
+      >
+        <Box
+          width="100px"
+          height="100px"
+          bg="primary"
+          display="inline-block"
+          m="5px"
+        />
+        <Box
+          width="100px"
+          height="100px"
+          bg="primary"
+          display="inline-block"
+          m="5px"
+        />
+        <Box
+          width="100px"
+          height="100px"
+          bg="primary"
+          display="inline-block"
+          m="5px"
+        />
+      </Box>
+      <Box backgroundColor="rgb(0, 26, 37)" display="inline-block">
+        <Box
+          display="inline-block"
+          size="150px"
+          overflow="auto"
+          scrollVariant="dark"
+        >
+          <Box
+            width="100px"
+            height="100px"
+            bg="primary"
+            display="inline-block"
+            m="5px"
+          />
+          <Box
+            width="100px"
+            height="100px"
+            bg="primary"
+            display="inline-block"
+            m="5px"
+          />
+          <Box
+            width="100px"
+            height="100px"
+            bg="primary"
+            display="inline-block"
+            m="5px"
+          />
+        </Box>
+      </Box>
+    </div>
+  );
+};
+```

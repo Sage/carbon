@@ -40,11 +40,11 @@ import TextEditor, {
 
 To use the Text Editor, import the `TextEditor` component. Use `createFromHTML` to convert HTML content for the editor, or `createEmpty` for an empty initial state.
 
-## Interactive Demo
+## Examples
+
+### Interactive Demo
 
 Use the [Demo](../?path=/story/text-editor--demo) story with controls to explore basic props, callbacks, and validation states.
-
-## Advanced Usage
 
 ### Focusing the Text Editor Programmatically
 
@@ -120,6 +120,7 @@ The `onFormSubmission` callback is triggered when the parent form is submitted. 
 The callback receives an object containing:
 
 1. **`formattedValues`**: An object containing the serialised editor content:
+
    - `htmlString`: A HTML representation of the editor content with CSS classes, as a string.
    - `json`: The JSON representation of the editor content.
 
@@ -400,6 +401,6 @@ The following keys are available to override the translations for this component
 
 `TextEditor`'s forwarded ref exposes the following imperative methods:
 
-| Method Name | Description                                  |
-| ----------- | -------------------------------------------- |
-| `focus()`   | Programmatically focuses the text editor.    |
+| Method Name | Description                               |
+| ----------- | ----------------------------------------- |
+| `focus()`   | Programmatically focuses the text editor. |
