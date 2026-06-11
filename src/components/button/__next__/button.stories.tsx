@@ -150,6 +150,7 @@ export const Inverse: Story = () => {
       display="flex"
       flexDirection="row"
       gap={1}
+      alignItems="flex-start"
     >
       <Button variant="default" variantType="primary" size="medium" inverse>
         Primary Medium
@@ -189,7 +190,7 @@ Loading.storyName = "Loading";
 
 export const WrappingText: Story = () => {
   return (
-    <Box width="80px" display={"flex"} gap={2}>
+    <Box width="80px" display={"flex"} alignItems="flex-start" gap={2}>
       <Button noWrap>No Wrapping</Button>
       <Button noWrap={false}>With Wrapping</Button>
     </Box>
