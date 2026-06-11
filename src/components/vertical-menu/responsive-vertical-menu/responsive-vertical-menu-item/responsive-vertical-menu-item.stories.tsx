@@ -1,4 +1,4 @@
-import { ArgTypes, Meta, StoryObj } from "@storybook/react";
+import { ArgTypes, Meta, StoryObj } from "@storybook/react-vite";
 
 import {
   ResponsiveVerticalMenuItem,
@@ -14,7 +14,7 @@ const styledSystemProps = generateStyledSystemProps({
 const meta: Meta<typeof ResponsiveVerticalMenuItem> = {
   title: "ResponsiveVerticalMenuItem",
   component: ResponsiveVerticalMenuItem,
-  tags: ["hideInSidebar"],
+  tags: ["!dev"],
   parameters: {
     chromatic: { disableSnapshot: true },
   },

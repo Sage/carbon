@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 
 import { Checkbox, CheckboxGroup, CheckboxProps, CheckboxGroupProps } from ".";
 import Box from "../box";

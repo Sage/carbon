@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ArgTypes, Meta, StoryObj } from "@storybook/react";
+import { ArgTypes, Meta, StoryObj } from "@storybook/react-vite";
 
 import Decimal, { DecimalProps, CustomEvent } from ".";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
@@ -24,7 +24,6 @@ type Story = StoryObj<typeof Decimal>;
  * I've put a message on the Storybook Discord but it's been ignored so will need to chase or ask on git */
 export const DefaultStory: Story = {
   render: (args: DecimalProps) => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [state, setState] = useState("0.01");
     const setValue = ({ target }: CustomEvent) => {
       setState(target.value.rawValue);

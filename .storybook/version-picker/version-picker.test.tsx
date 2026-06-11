@@ -21,40 +21,55 @@ jest.mock("./fetch-data", () => {
 });
 
 // Mock Storybook components to avoid testing implementation details
-jest.mock("@storybook/components", () => ({
-  IconButton: ({
+jest.mock("storybook/internal/components", () => {
+  const ActionListComponent = ({
     children,
-    active,
-    ...props
-  }: React.ButtonHTMLAttributes<HTMLButtonElement> & { active?: boolean }) => (
-    <button type="button" {...props}>
-      {children}
-    </button>
-  ),
-  WithTooltip: ({
-    children,
-    tooltip,
   }: {
     children: React.ReactNode;
-    tooltip: (args: { onHide: () => void }) => React.ReactNode;
+  }) => <ul>{children}</ul>;
+  
+  const Item = ({ children }: { children: React.ReactNode }) => <li>{children}</li>;
+  
+  const ButtonComponent = ({
+    children,
+    onClick,
+    ...props
+  }: React.ButtonHTMLAttributes<HTMLButtonElement> & {
+    children: React.ReactNode;
   }) => (
-    <div>
+    <button type="button" onClick={onClick} {...props}>
       {children}
-      <div>{tooltip({ onHide: jest.fn() })}</div>
-    </div>
-  ),
-  TooltipLinkList: ({
-    links,
-  }: {
-    links: { id: string; title: string; active?: boolean }[];
-  }) => (
-    <ul>
-      {links.map((link) => (
-        <li key={link.id}>{link.title}</li>
-      ))}
-    </ul>
-  ),
-}));
+    </button>
+  );
+  
+  ActionListComponent.Item = Item;
+  ActionListComponent.Button = ButtonComponent;
+  
+  return {
+    IconButton: ({
+      children,
+      active,
+      ...props
+    }: React.ButtonHTMLAttributes<HTMLButtonElement> & { active?: boolean }) => (
+      <button type="button" {...props}>
+        {children}
+      </button>
+    ),
+    WithTooltip: ({
+      children,
+      tooltip,
+    }: {
+      children: React.ReactNode;
+      tooltip: (args: { onHide: () => void }) => React.ReactNode;
+    }) => (
+      <div>
+        {children}
+        <div>{tooltip({ onHide: jest.fn() })}</div>
+      </div>
+    ),
+    ActionList: ActionListComponent,
+  };
+});
 
 describe("When VersionPicker is instantiated", () => {
   beforeEach(() => {

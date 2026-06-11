@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 import BatchSelection from "../batch-selection";
 import IconButton from "../icon-button";
@@ -1366,11 +1366,9 @@ export const WithSortingHeaders: Story = {
       { client: "Blake Sutton", total: 3840 },
       { client: "Tyler Webb", total: 280 },
     ];
-    /* eslint-disable react-hooks/rules-of-hooks */
     const [headData, setHeadData] = useState(headDataItems);
     const [sortType, setSortType] = useState<SortType>("ascending");
     const [sortValue, setSortValue] = useState<SortValue>("client");
-    /* eslint-enable react-hooks/rules-of-hooks */
 
     const sortByNumber = (
       dataToSort: BodyDataItems,
@@ -1500,11 +1498,9 @@ export const WithSortingHeadersAndCustomAccessibleName: Story = {
       { client: "Blake Sutton", total: 3840 },
       { client: "Tyler Webb", total: 280 },
     ];
-    /* eslint-disable react-hooks/rules-of-hooks */
     const [headData, setHeadData] = useState(headDataItems);
     const [sortType, setSortType] = useState<SortType>("ascending");
     const [sortValue, setSortValue] = useState<SortValue>("client");
-    /* eslint-enable react-hooks/rules-of-hooks */
 
     const sortByNumber = (
       dataToSort: BodyDataItems,

@@ -1,5 +1,5 @@
 import React from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 import Pager, { PagerProps } from ".";
 import useMediaQuery from "../../hooks/useMediaQuery";
