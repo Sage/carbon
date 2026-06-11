@@ -126,7 +126,7 @@ description: Carbon Icon component props and usage examples.
 () => {
   return (
     <>
-      {(["small", "medium", "large", "extra-large"] as const).map((bgSize) => (
+      {(["small", "medium", "large"] as const).map((bgSize) => (
         <Icon type="add" bg="#00b000" bgSize={bgSize} mr={1} key={bgSize} />
       ))}
     </>
@@ -143,22 +143,18 @@ description: Carbon Icon component props and usage examples.
 () => {
   return (
     <>
-      {(["small", "medium", "large", "extra-large"] as const).map(
-        (fontSize) => {
-          return (["small", "medium", "large", "extra-large"] as const).map(
-            (bgSize) => (
-              <Icon
-                type="add"
-                bg="#00b000"
-                fontSize={fontSize}
-                bgSize={bgSize}
-                mr={1}
-                key={`${fontSize}_${bgSize}`}
-              />
-            ),
-          );
-        },
-      )}
+      {(["small", "medium", "large"] as const).map((fontSize) => {
+        return (["small", "medium", "large"] as const).map((bgSize) => (
+          <Icon
+            type="add"
+            bg="#00b000"
+            fontSize={fontSize}
+            bgSize={bgSize}
+            mr={1}
+            key={`${fontSize}_${bgSize}`}
+          />
+        ));
+      })}
     </>
   );
 }
