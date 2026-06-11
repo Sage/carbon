@@ -1,3 +1,9 @@
+## [159.11.0](https://github.com/Sage/carbon/compare/v159.10.0...v159.11.0) (2026-06-11)
+
+### Features
+
+* **decimal:** align component with fusion DS ([4e6c9fb](https://github.com/Sage/carbon/commit/4e6c9fbe4b49cf8aad03502d20904138d57b14d2))
+
 ## [159.10.0](https://github.com/Sage/carbon/compare/v159.9.1...v159.10.0) (2026-06-10)
 
 ### Features
