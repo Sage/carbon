@@ -1,3 +1,9 @@
+## [159.11.1](https://github.com/Sage/carbon/compare/v159.11.0...v159.11.1) (2026-06-11)
+
+### Bug Fixes
+
+* **button:** use min-height instead of height ([19d3ae7](https://github.com/Sage/carbon/commit/19d3ae7e09c1cc9c8698907820df709c30a9fc62))
+
 ## [159.11.0](https://github.com/Sage/carbon/compare/v159.10.0...v159.11.0) (2026-06-11)
 
 ### Features
