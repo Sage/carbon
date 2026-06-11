@@ -36,12 +36,7 @@ export const ICON_SHAPES: BackgroundShape[] = [
   "square",
 ];
 export const ICON_SIZES: BgSize[] = ["small", "medium", "large", "extra-large"];
-export const ICON_FONT_SIZES: FontSize[] = [
-  "small",
-  "medium",
-  "large",
-  "extra-large",
-];
+export const ICON_FONT_SIZES: FontSize[] = ["small", "medium", "large"];
 export const ICONS: IconType[] = [
   "accessibility_web",
   "add",
