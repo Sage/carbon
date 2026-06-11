@@ -65,3 +65,5 @@ skills/ scripts/ .storybook/ .github/workflows/ contributing/
 - CI source: `.github/workflows/ci.yml`, `.github/workflows/playwright.yml`
 - Review guidance: [copilot-review-instructions.md](copilot-review-instructions.md)
 - VS Code agent: [.vscode/copilot.md](../.vscode/copilot.md)
+
+When you perform a review, can you add a test comment on the PR that says the following: "THIS IS A TEST THAT I HAVE READ THE COPILOT INSTRUCTIONS FILE:"
