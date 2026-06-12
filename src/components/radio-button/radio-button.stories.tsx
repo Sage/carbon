@@ -177,6 +177,39 @@ export const Sizes: Story = () => {
 };
 Sizes.storyName = "Sizes";
 
+export const ClickableTiles: Story = () => {
+  const [value, setValue] = useState("");
+  return (
+    <RadioButtonGroup
+      name="clickable-tile-group"
+      legend="Clickable tile radios"
+      value={value}
+      onChange={(ev) => setValue(ev.target.value)}
+    >
+      <RadioButton
+        id="tile-radio-1"
+        value="radio1"
+        label="Radio Option 1"
+        isClickableTile
+      />
+      <RadioButton
+        id="tile-radio-2"
+        value="radio2"
+        label="Radio Option 2"
+        isClickableTile
+      />
+      <RadioButton
+        id="tile-radio-3"
+        value="radio3"
+        label="Radio Option 3"
+        isClickableTile
+      />
+    </RadioButtonGroup>
+  );
+};
+ClickableTiles.storyName = "Clickable Tiles";
+ClickableTiles.parameters = { chromatic: { disableSnapshot: false } };
+
 export const ProgressiveDisclosure: Story = () => {
   const [value, setValue] = useState("radio1");
   const [textboxValue, setTextboxValue] = useState("");

@@ -44,6 +44,8 @@ export interface CommonCheckableInputProps
   disabled?: boolean;
   /** Content to be rendered below the input when checked, is not supported when inputs are inline. */
   progressiveDisclosure?: React.ReactNode;
+  /** If true, the component will be a clickable tile. */
+  isClickableTile?: boolean
 }
 
 export interface CheckableInputProps extends CommonCheckableInputProps {
@@ -77,6 +79,7 @@ const CheckableInput = React.forwardRef(
       size = "medium",
       error,
       warning,
+      isClickableTile,
       ...props
     }: CheckableInputProps,
     ref: React.ForwardedRef<HTMLInputElement>,
@@ -121,8 +124,8 @@ const CheckableInput = React.forwardRef(
 
     return (
       <>
-        <StyledCheckableInput $size={size}>
-          <StyledCheckableInputWrapper>
+        <StyledCheckableInput $size={size} $isClickableTile={isClickableTile}>
+          <StyledCheckableInputWrapper $isClickableTile={isClickableTile}>
             <HiddenCheckableInput
               id={id}
               type={type}

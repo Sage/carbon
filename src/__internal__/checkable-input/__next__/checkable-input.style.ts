@@ -3,6 +3,7 @@ import StyledLabel, {
   StyledLabelContainer,
 } from "../../legacy-label/label.style";
 import StyledHintText from "../../legacy-hint-text/hint-text.style";
+import HiddenCheckableInputStyle from "../hidden-checkable-input.style";
 
 const labelFont = {
   small: "var(--global-font-static-comp-regular-s)",
@@ -12,6 +13,7 @@ const labelFont = {
 
 export const StyledCheckableInput = styled.div<{
   $size: "small" | "medium" | "large";
+  $isClickableTile?: boolean;
 }>`
   display: grid;
   grid-template-columns: auto 1fr;
@@ -29,6 +31,25 @@ export const StyledCheckableInput = styled.div<{
         font: ${labelFont[$size]};
       `}
   }
+
+  ${({ $isClickableTile }) =>
+    $isClickableTile &&
+    css`
+      position: relative;
+
+      ${StyledLabel} {
+        border: var(--global-borderwidth-xs) solid var(--input-typical-border-default);
+        cursor: pointer;
+        padding: 1em 1em 1em 3em;
+      }
+
+      ${HiddenCheckableInputStyle},
+      ${StyledCheckableInputWrapper} {
+        position: absolute;
+        left: 1em;
+        top: 1em;
+      }
+    `}
 
   ${StyledHintText} {
     grid-area: 2 / 2;
