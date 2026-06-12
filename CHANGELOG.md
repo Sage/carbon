@@ -1,3 +1,9 @@
+## [159.12.0](https://github.com/Sage/carbon/compare/v159.11.1...v159.12.0) (2026-06-12)
+
+### Features
+
+* **button-toggle:** align to Fusion DS ([d629a47](https://github.com/Sage/carbon/commit/d629a47b45682724105b2d9bd234edcc94ad2f92))
+
 ## [159.11.1](https://github.com/Sage/carbon/compare/v159.11.0...v159.11.1) (2026-06-11)
 
 ### Bug Fixes
