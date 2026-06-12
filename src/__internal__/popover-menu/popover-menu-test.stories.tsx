@@ -72,23 +72,24 @@ export const Small = () => {
             {...props}
           />
         )}
-        listboxAriaLabel="List aria label small"
       >
-        <MenuItem
-          onClick={() => {
-            setOpen(false);
-            setValue("One");
-          }}
-          selected={value === "One"}
-        >
-          <MenuItemLeading selectedIcon={value === "One"}>
-            <Icon type="home" />
-          </MenuItemLeading>
-          <MenuItemLabel prefix="Item: ">one</MenuItemLabel>
-          <MenuItemSubtext>Subtext</MenuItemSubtext>
-        </MenuItem>
+        <MenuItemHeading text="Heading 1">
+          <MenuItem
+            onClick={() => {
+              setOpen(false);
+              setValue("One");
+            }}
+            selected={value === "One"}
+          >
+            <MenuItemLeading selectedIcon={value === "One"}>
+              <Icon type="home" />
+            </MenuItemLeading>
+            <MenuItemLabel prefix="Item: ">one</MenuItemLabel>
+            <MenuItemSubtext>Subtext</MenuItemSubtext>
+          </MenuItem>
+        </MenuItemHeading>
         <MenuItemDivider />
-        <MenuItemHeading text="Heading">
+        <MenuItemHeading text="Heading 2">
           <MenuItem
             onClick={() => {
               setOpen(false);
@@ -159,24 +160,25 @@ export const SmallWithDisabledItems = () => {
             {...props}
           />
         )}
-        listboxAriaLabel="List aria label small"
       >
-        <MenuItem
-          onClick={() => {
-            setOpen(false);
-            setValue("One");
-          }}
-          selected={value === "One"}
-          disabled
-        >
-          <MenuItemLeading selectedIcon={value === "One"}>
-            <Icon type="home" />
-          </MenuItemLeading>
-          <MenuItemLabel prefix="Item: ">one</MenuItemLabel>
-          <MenuItemSubtext>Subtext</MenuItemSubtext>
-        </MenuItem>
+        <MenuItemHeading text="Heading 1">
+          <MenuItem
+            onClick={() => {
+              setOpen(false);
+              setValue("One");
+            }}
+            selected={value === "One"}
+            disabled
+          >
+            <MenuItemLeading selectedIcon={value === "One"}>
+              <Icon type="home" />
+            </MenuItemLeading>
+            <MenuItemLabel prefix="Item: ">one</MenuItemLabel>
+            <MenuItemSubtext>Subtext</MenuItemSubtext>
+          </MenuItem>
+        </MenuItemHeading>
         <MenuItemDivider />
-        <MenuItemHeading text="Heading">
+        <MenuItemHeading text="Heading 2">
           <MenuItem
             onClick={() => {
               setOpen(false);
@@ -288,23 +290,24 @@ export const SmallWithCustomWidth = () => {
             {...props}
           />
         )}
-        listboxAriaLabel="List aria label small"
       >
-        <MenuItem
-          onClick={() => {
-            setOpen(false);
-            setValue("One");
-          }}
-          selected={value === "One"}
-        >
-          <MenuItemLeading selectedIcon={value === "One"}>
-            <Icon type="home" />
-          </MenuItemLeading>
-          <MenuItemLabel prefix="Item: ">one</MenuItemLabel>
-          <MenuItemSubtext>Subtext</MenuItemSubtext>
-        </MenuItem>
+        <MenuItemHeading text="Heading 1">
+          <MenuItem
+            onClick={() => {
+              setOpen(false);
+              setValue("One");
+            }}
+            selected={value === "One"}
+          >
+            <MenuItemLeading selectedIcon={value === "One"}>
+              <Icon type="home" />
+            </MenuItemLeading>
+            <MenuItemLabel prefix="Item: ">one</MenuItemLabel>
+            <MenuItemSubtext>Subtext</MenuItemSubtext>
+          </MenuItem>
+        </MenuItemHeading>
         <MenuItemDivider />
-        <MenuItemHeading text="Heading">
+        <MenuItemHeading text="Heading 2">
           <MenuItem
             onClick={() => {
               setOpen(false);
@@ -375,23 +378,24 @@ export const Medium = () => {
             {...props}
           />
         )}
-        listboxAriaLabel="List aria label medium"
       >
-        <MenuItem
-          onClick={() => {
-            setOpen(false);
-            setValue("One");
-          }}
-          selected={value === "One"}
-        >
-          <MenuItemLeading selectedIcon={value === "One"}>
-            <Icon type="home" />
-          </MenuItemLeading>
-          <MenuItemLabel prefix="Item: ">one</MenuItemLabel>
-          <MenuItemSubtext>Subtext</MenuItemSubtext>
-        </MenuItem>
+        <MenuItemHeading text="Heading 1">
+          <MenuItem
+            onClick={() => {
+              setOpen(false);
+              setValue("One");
+            }}
+            selected={value === "One"}
+          >
+            <MenuItemLeading selectedIcon={value === "One"}>
+              <Icon type="home" />
+            </MenuItemLeading>
+            <MenuItemLabel prefix="Item: ">one</MenuItemLabel>
+            <MenuItemSubtext>Subtext</MenuItemSubtext>
+          </MenuItem>
+        </MenuItemHeading>
         <MenuItemDivider />
-        <MenuItemHeading text="Heading">
+        <MenuItemHeading text="Heading 2">
           <MenuItem
             onClick={() => {
               setOpen(false);
@@ -462,24 +466,25 @@ export const MediumWithDisabledItems = () => {
             {...props}
           />
         )}
-        listboxAriaLabel="List aria label medium"
       >
-        <MenuItem
-          onClick={() => {
-            setOpen(false);
-            setValue("One");
-          }}
-          selected={value === "One"}
-          disabled
-        >
-          <MenuItemLeading selectedIcon={value === "One"}>
-            <Icon type="home" />
-          </MenuItemLeading>
-          <MenuItemLabel prefix="Item: ">one</MenuItemLabel>
-          <MenuItemSubtext>Subtext</MenuItemSubtext>
-        </MenuItem>
+        <MenuItemHeading text="Heading 1">
+          <MenuItem
+            onClick={() => {
+              setOpen(false);
+              setValue("One");
+            }}
+            selected={value === "One"}
+            disabled
+          >
+            <MenuItemLeading selectedIcon={value === "One"}>
+              <Icon type="home" />
+            </MenuItemLeading>
+            <MenuItemLabel prefix="Item: ">one</MenuItemLabel>
+            <MenuItemSubtext>Subtext</MenuItemSubtext>
+          </MenuItem>
+        </MenuItemHeading>
         <MenuItemDivider />
-        <MenuItemHeading text="Heading">
+        <MenuItemHeading text="Heading 2">
           <MenuItem
             onClick={() => {
               setOpen(false);
@@ -591,21 +596,22 @@ export const MediumWithCustomWidth = () => {
             {...props}
           />
         )}
-        listboxAriaLabel="List aria label medium"
       >
-        <MenuItem
-          onClick={() => {
-            setOpen(false);
-            setValue("One");
-          }}
-          selected={value === "One"}
-        >
-          <MenuItemLeading selectedIcon={value === "One"}>
-            <Icon type="home" />
-          </MenuItemLeading>
-          <MenuItemLabel prefix="Item: ">one</MenuItemLabel>
-          <MenuItemSubtext>Subtext</MenuItemSubtext>
-        </MenuItem>
+        <MenuItemHeading text="Heading 1">
+          <MenuItem
+            onClick={() => {
+              setOpen(false);
+              setValue("One");
+            }}
+            selected={value === "One"}
+          >
+            <MenuItemLeading selectedIcon={value === "One"}>
+              <Icon type="home" />
+            </MenuItemLeading>
+            <MenuItemLabel prefix="Item: ">one</MenuItemLabel>
+            <MenuItemSubtext>Subtext</MenuItemSubtext>
+          </MenuItem>
+        </MenuItemHeading>
         <MenuItemDivider />
         <MenuItemHeading text="Heading">
           <MenuItem
@@ -678,21 +684,22 @@ export const Large = () => {
             {...props}
           />
         )}
-        listboxAriaLabel="List aria label large"
       >
-        <MenuItem
-          onClick={() => {
-            setOpen(false);
-            setValue("One");
-          }}
-          selected={value === "One"}
-        >
-          <MenuItemLeading selectedIcon={value === "One"}>
-            <Icon type="home" />
-          </MenuItemLeading>
-          <MenuItemLabel prefix="Item: ">one</MenuItemLabel>
-          <MenuItemSubtext>Subtext</MenuItemSubtext>
-        </MenuItem>
+        <MenuItemHeading text="Heading 1">
+          <MenuItem
+            onClick={() => {
+              setOpen(false);
+              setValue("One");
+            }}
+            selected={value === "One"}
+          >
+            <MenuItemLeading selectedIcon={value === "One"}>
+              <Icon type="home" />
+            </MenuItemLeading>
+            <MenuItemLabel prefix="Item: ">one</MenuItemLabel>
+            <MenuItemSubtext>Subtext</MenuItemSubtext>
+          </MenuItem>
+        </MenuItemHeading>
         <MenuItemDivider />
         <MenuItemHeading text="Heading">
           <MenuItem
@@ -765,24 +772,25 @@ export const LargeWithDisabledItems = () => {
             {...props}
           />
         )}
-        listboxAriaLabel="List aria label large"
       >
-        <MenuItem
-          onClick={() => {
-            setOpen(false);
-            setValue("One");
-          }}
-          selected={value === "One"}
-          disabled
-        >
-          <MenuItemLeading selectedIcon={value === "One"}>
-            <Icon type="home" />
-          </MenuItemLeading>
-          <MenuItemLabel prefix="Item: ">one</MenuItemLabel>
-          <MenuItemSubtext>Subtext</MenuItemSubtext>
-        </MenuItem>
+        <MenuItemHeading text="Heading 1">
+          <MenuItem
+            onClick={() => {
+              setOpen(false);
+              setValue("One");
+            }}
+            selected={value === "One"}
+            disabled
+          >
+            <MenuItemLeading selectedIcon={value === "One"}>
+              <Icon type="home" />
+            </MenuItemLeading>
+            <MenuItemLabel prefix="Item: ">one</MenuItemLabel>
+            <MenuItemSubtext>Subtext</MenuItemSubtext>
+          </MenuItem>
+        </MenuItemHeading>
         <MenuItemDivider />
-        <MenuItemHeading text="Heading">
+        <MenuItemHeading text="Heading 2">
           <MenuItem
             onClick={() => {
               setOpen(false);
@@ -894,23 +902,24 @@ export const LargeWithCustomWidth = () => {
             {...props}
           />
         )}
-        listboxAriaLabel="List aria label large"
       >
-        <MenuItem
-          onClick={() => {
-            setOpen(false);
-            setValue("One");
-          }}
-          selected={value === "One"}
-        >
-          <MenuItemLeading selectedIcon={value === "One"}>
-            <Icon type="home" />
-          </MenuItemLeading>
-          <MenuItemLabel prefix="Item: ">one</MenuItemLabel>
-          <MenuItemSubtext>Subtext</MenuItemSubtext>
-        </MenuItem>
+        <MenuItemHeading text="Heading 1">
+          <MenuItem
+            onClick={() => {
+              setOpen(false);
+              setValue("One");
+            }}
+            selected={value === "One"}
+          >
+            <MenuItemLeading selectedIcon={value === "One"}>
+              <Icon type="home" />
+            </MenuItemLeading>
+            <MenuItemLabel prefix="Item: ">one</MenuItemLabel>
+            <MenuItemSubtext>Subtext</MenuItemSubtext>
+          </MenuItem>
+        </MenuItemHeading>
         <MenuItemDivider />
-        <MenuItemHeading text="Heading">
+        <MenuItemHeading text="Heading 2">
           <MenuItem
             onClick={() => {
               setOpen(false);
@@ -961,17 +970,18 @@ export const HoverItem = () => {
             {...props}
           />
         )}
-        listboxAriaLabel="List aria label large"
       >
-        <MenuItem onClick={() => {}}>
-          <MenuItemLeading>
-            <Icon type="home" />
-          </MenuItemLeading>
-          <MenuItemLabel prefix="Item: ">one</MenuItemLabel>
-          <MenuItemSubtext>Subtext</MenuItemSubtext>
-        </MenuItem>
+        <MenuItemHeading text="Heading 1">
+          <MenuItem onClick={() => {}}>
+            <MenuItemLeading>
+              <Icon type="home" />
+            </MenuItemLeading>
+            <MenuItemLabel prefix="Item: ">one</MenuItemLabel>
+            <MenuItemSubtext>Subtext</MenuItemSubtext>
+          </MenuItem>
+        </MenuItemHeading>
         <MenuItemDivider />
-        <MenuItemHeading text="Heading">
+        <MenuItemHeading text="Heading 2">
           <MenuItem data-role="hover-target" onClick={() => {}}>
             <MenuItemLeading selectedIcon>
               <Icon type="home" />

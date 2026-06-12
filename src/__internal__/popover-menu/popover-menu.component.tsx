@@ -112,8 +112,6 @@ export interface PopoverMenuProps<
   onClose: (e?: Event, value?: string) => void;
   /** Set the custom width of the menu */
   width?: string;
-  /** Aria label for the listbox */
-  listboxAriaLabel?: string;
   /** Aria labelledby for the listbox */
   listboxAriaLabelledBy?: string;
 }
@@ -155,7 +153,6 @@ const PopoverMenu = <TRef extends FocusableHandle = NonNullable<ButtonHandle>>({
   onOpen,
   onClose,
   width,
-  listboxAriaLabel,
   listboxAriaLabelledBy,
   ...rest
 }: PopoverMenuProps<TRef>) => {
@@ -253,7 +250,6 @@ const PopoverMenu = <TRef extends FocusableHandle = NonNullable<ButtonHandle>>({
                   ref={listRef}
                   role="listbox"
                   id={listId.current}
-                  aria-label={listboxAriaLabel}
                   aria-labelledby={listboxAriaLabelledBy}
                 >
                   {wrappedChildren}
