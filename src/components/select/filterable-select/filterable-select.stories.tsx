@@ -27,6 +27,12 @@ const meta: Meta<typeof FilterableSelect> = {
   argTypes: {
     ...styledSystemProps,
   },
+  parameters: {
+    chromatic: {
+      disableSnapshot: true,
+      theme: "sage",
+    },
+  },
 };
 
 export default meta;
@@ -105,7 +111,6 @@ export const ListPlacement: Story = () => {
   );
 };
 ListPlacement.storyName = "List Placement";
-ListPlacement.parameters = { chromatic: { disableSnapshot: true } };
 
 export const ListHeight: Story = () => {
   const [value, setValue] = useState("");
@@ -164,7 +169,6 @@ export const ListWidth: Story = () => {
   );
 };
 ListWidth.storyName = "List Width";
-ListWidth.parameters = { chromatic: { disableSnapshot: true } };
 
 export const OpenOnFocus: Story = () => {
   const [value, setValue] = useState("");
@@ -197,7 +201,6 @@ export const OpenOnFocus: Story = () => {
   );
 };
 OpenOnFocus.storyName = "Open on Focus";
-OpenOnFocus.parameters = { chromatic: { disableSnapshot: true } };
 
 export const Disabled: Story = () => {
   const [value, setValue] = useState("3");
@@ -311,7 +314,6 @@ export const WithMultipleColumns: Story = () => {
   );
 };
 WithMultipleColumns.storyName = "With Multiple Columns";
-WithMultipleColumns.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithMultipleColumnsAndNested: Story = () => {
   const [value, setValue] = useState("2");
@@ -383,9 +385,6 @@ export const WithMultipleColumnsAndNested: Story = () => {
   );
 };
 WithMultipleColumnsAndNested.storyName = "With Multiple Columns and Nested";
-WithMultipleColumnsAndNested.parameters = {
-  chromatic: { disableSnapshot: true },
-};
 
 export const WithActionButton: Story = () => {
   const [value, setValue] = useState("");
@@ -438,7 +437,6 @@ export const WithActionButton: Story = () => {
   );
 };
 WithActionButton.storyName = "With Action Button";
-WithActionButton.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithIsLoadingProp: Story = () => {
   const preventLoading = useRef(false);
@@ -488,7 +486,6 @@ export const WithIsLoadingProp: Story = () => {
   );
 };
 WithIsLoadingProp.storyName = "With isLoading prop";
-WithIsLoadingProp.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithInfiniteScroll: Story = () => {
   const preventLoading = useRef(false);
@@ -574,7 +571,6 @@ export const WithInfiniteScroll: Story = () => {
   );
 };
 WithInfiniteScroll.storyName = "With Infinite Scroll";
-WithInfiniteScroll.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithCustomMaxWidth: Story = () => {
   const [value, setValue] = useState("");
@@ -688,7 +684,6 @@ export const WithObjectAsValue: Story = () => {
   );
 };
 WithObjectAsValue.storyName = "With Object as Value";
-WithObjectAsValue.parameters = { chromatic: { disableSnapshot: true } };
 
 export const Virtualised: Story = () => {
   const [value, setValue] = useState("");
@@ -775,7 +770,6 @@ export const SelectionConfirmedStory: Story = () => {
   );
 };
 SelectionConfirmedStory.storyName = "Selection Confirmed";
-SelectionConfirmedStory.parameters = { chromatic: { disableSnapshot: true } };
 
 export const CustomFilterAndOptionStyle: Story = () => {
   const [filterText, setFilterText] = useState("");
@@ -849,6 +843,3 @@ export const CustomFilterAndOptionStyle: Story = () => {
   );
 };
 CustomFilterAndOptionStyle.storyName = "Custom Filter and Option Style";
-CustomFilterAndOptionStyle.parameters = {
-  chromatic: { disableSnapshot: true },
-};

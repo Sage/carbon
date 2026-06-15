@@ -19,6 +19,11 @@ export default {
   title: "Select/Test",
   parameters: {
     info: { disable: true },
+    themeProvider: {
+      chromatic: {
+        theme: "sage",
+      },
+    },
     chromatic: {
       disableSnapshot: true,
     },
@@ -69,38 +74,110 @@ export default {
   },
 };
 
-export const Default = (args: SimpleSelectProps) => {
+export const ChromaticSnapshot = () => {
   const [value, setValue] = useState("");
-
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value);
-  }
-
+  const [value2, setValue2] = useState("");
+  const [value3, setValue3] = useState("");
   return (
-    <SimpleSelect
-      label="simple select"
-      {...args}
-      value={value}
-      onChange={onChangeHandler}
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option
-        text="Like a lot of intelligent animals, most crows are quite social. For instance, American crows spend most of the year living in pairs or small family groups. During the winter months, they will congregate with hundreds or even thousands of their peers to sleep together at night"
-        value="8"
-      />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </SimpleSelect>
+    <Box>
+      <Select
+        required
+        name="size-small"
+        id="size-small"
+        label="Small"
+        size="small"
+        mb={2}
+        value={value}
+        onChange={(ev) => setValue(ev.target.value)}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </Select>
+      <Select
+        name="size-medium"
+        id="size-medium"
+        label="Medium"
+        size="medium"
+        mb={2}
+        value={value2}
+        onChange={(ev) => setValue2(ev.target.value)}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </Select>
+      <Select
+        name="size-large"
+        id="size-large"
+        label="Large"
+        size="large"
+        mb={2}
+        value={value3}
+        onChange={(ev) => setValue3(ev.target.value)}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </Select>
+      <Select
+        label="Disabled"
+        aria-label="disabled"
+        name="disabled"
+        id="disabled"
+        disabled
+        mb={2}
+        value={"1"}
+        onChange={(ev) => setValue(ev.target.value)}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+      </Select>
+      <Select
+        label="Read Only"
+        aria-label="read only"
+        name="readonly"
+        id="readonly"
+        mb={2}
+        readOnly
+        value={"1"}
+        onChange={(ev) => setValue(ev.target.value)}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+      </Select>
+      <Select
+        label="Transparent"
+        aria-label="transparent"
+        name="transparent"
+        id="transparent"
+        mb={2}
+        transparent
+        value={"1"}
+        onChange={(ev) => setValue(ev.target.value)}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+      </Select>
+      <Select
+        label="Transparent Disabled"
+        aria-label="transparent disabled"
+        name="transparent"
+        id="transparent"
+        mb={2}
+        transparent
+        disabled
+        value={"1"}
+        onChange={(ev) => setValue(ev.target.value)}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+      </Select>
+    </Box>
   );
 };
-Default.storyName = "Default";
+ChromaticSnapshot.storyName = "Chromatic Snapshot";
+ChromaticSnapshot.parameters = { chromatic: { disableSnapshot: false } };
 
 export const Validation = () => {
   const { state, setValue } = useMultiInput();
@@ -240,9 +317,7 @@ export const DelayedReposition = () => {
 
 DelayedReposition.storyName = "Delayed Reposition";
 
-export const SimpleSelectWithLazyLoadingComponent = (
-  props: Partial<SimpleSelectProps>,
-) => {
+export const LazyLoadingComponent = (props: Partial<SimpleSelectProps>) => {
   const preventLoading = useRef(false);
   const [value, setValue] = useState("black");
   const [isLoading, setIsLoading] = useState(true);
@@ -290,7 +365,7 @@ export const SimpleSelectWithLazyLoadingComponent = (
   );
 };
 
-export const SimpleSelectWithInfiniteScrollComponent = (
+export const WithInfiniteScrollComponent = (
   props: Partial<SimpleSelectProps>,
 ) => {
   const preventLoading = useRef(false);
@@ -380,9 +455,7 @@ export const SimpleSelectWithInfiniteScrollComponent = (
   );
 };
 
-export const SimpleSelectObjectAsValueComponent = (
-  props: Partial<SimpleSelectProps>,
-) => {
+export const ObjectAsValueComponent = (props: Partial<SimpleSelectProps>) => {
   const optionListValues = [
     { id: "Amber", value: 1, text: "Amber" },
     { id: "Black", value: 2, text: "Black" },
@@ -419,9 +492,7 @@ export const SimpleSelectObjectAsValueComponent = (
   );
 };
 
-export const SimpleSelectMultipleColumnsComponent = (
-  props: Partial<SimpleSelectProps>,
-) => {
+export const MultipleColumnsComponent = (props: Partial<SimpleSelectProps>) => {
   const [value, setValue] = useState("2");
 
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
@@ -480,7 +551,7 @@ export const SimpleSelectMultipleColumnsComponent = (
   );
 };
 
-export const SimpleSelectCustomOptionChildrenComponent = (
+export const CustomOptionChildrenComponent = (
   props: Partial<SimpleSelectProps>,
 ) => {
   const [value, setValue] = useState("4");
@@ -518,9 +589,7 @@ export const SimpleSelectCustomOptionChildrenComponent = (
   );
 };
 
-export const SimpleSelectGroupComponent = (
-  props: Partial<SimpleSelectProps>,
-) => {
+export const GroupComponent = (props: Partial<SimpleSelectProps>) => {
   const [value, setValue] = useState("");
 
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
@@ -560,7 +629,7 @@ export const SimpleSelectGroupComponent = (
   );
 };
 
-export const SimpleSelectEventsComponent = ({
+export const EventsComponent = ({
   onChange,
   ...props
 }: Partial<SimpleSelectProps>) => {
@@ -596,7 +665,7 @@ export const SimpleSelectEventsComponent = ({
   );
 };
 
-export const SimpleSelectWithLongWrappingTextComponent = () => {
+export const WithLongWrappingTextComponent = () => {
   const [value, setValue] = useState("");
 
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
@@ -624,7 +693,7 @@ export const SimpleSelectWithLongWrappingTextComponent = () => {
   );
 };
 
-export const SimpleSelectWithManyOptionsAndVirtualScrolling = () => {
+export const WithManyOptionsAndVirtualScrolling = () => {
   const [value, setValue] = useState("");
 
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
@@ -655,10 +724,7 @@ export const SimpleSelectWithManyOptionsAndVirtualScrolling = () => {
   );
 };
 
-export const SimpleSelectNestedInDialog = ({
-  openOnFocus = false,
-  autofocus = false,
-}) => {
+export const NestedInDialog = ({ openOnFocus = false, autofocus = false }) => {
   const [isOpen, setIsOpen] = useState(true);
   const [value, setValue] = useState("");
 
@@ -685,7 +751,7 @@ export const SimpleSelectNestedInDialog = ({
   );
 };
 
-export const SelectWithOptionGroupHeader = () => {
+export const WithOptionGroupHeader = () => {
   const [value, setValue] = useState("");
 
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
@@ -724,14 +790,14 @@ export const SelectWithOptionGroupHeader = () => {
   );
 };
 
-SelectWithOptionGroupHeader.storyName = "Select with OptionGroupHeader";
-SelectWithOptionGroupHeader.args = {
+WithOptionGroupHeader.storyName = "With OptionGroupHeader";
+WithOptionGroupHeader.args = {
   mt: 0,
   listPlacement: undefined,
   flipEnabled: true,
 };
 
-export const SimpleSelectWithDisabledOption = () => {
+export const WithDisabledOption = () => {
   const [value, setValue] = useState("");
 
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
@@ -755,7 +821,7 @@ export const SimpleSelectWithDisabledOption = () => {
   );
 };
 
-export const SimpleSelectWithTruncatedText = () => {
+export const WithTruncatedText = () => {
   const longValueText =
     "Like a lot of intelligent animals, most crows are quite social." +
     "For instance, American crows spend most of the year living in pairs or small family groups." +
@@ -829,7 +895,7 @@ export const ComplexCustomChildren = () => {
   );
 };
 
-export const SimpleSelectWithAriaDescribedby = () => {
+export const WithAriaDescribedby = () => {
   const [value, setValue] = useState("");
 
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
@@ -866,5 +932,4 @@ export const SimpleSelectWithAriaDescribedby = () => {
   );
 };
 
-SimpleSelectWithAriaDescribedby.storyName =
-  "SimpleSelect with aria-describedby";
+WithAriaDescribedby.storyName = "With aria-describedby";

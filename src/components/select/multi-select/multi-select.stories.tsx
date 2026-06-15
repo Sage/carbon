@@ -18,7 +18,12 @@ const meta: Meta<typeof MultiSelect> = {
     ...styledSystemProps,
   },
   parameters: {
-    themeProvider: { chromatic: { theme: "sage" } },
+    themeProvider: {
+      chromatic: {
+        theme: "sage",
+      },
+    },
+    chromatic: { disableSnapshot: true },
   },
 };
 
@@ -102,7 +107,6 @@ export const ListPlacement: Story = () => {
   );
 };
 ListPlacement.storyName = "List Placement";
-ListPlacement.parameters = { chromatic: { disableSnapshot: true } };
 
 export const ListHeight: Story = () => {
   const [value, setValue] = useState<string[]>([]);
@@ -165,7 +169,6 @@ export const ListWidth: Story = () => {
   );
 };
 ListWidth.storyName = "List Width";
-ListWidth.parameters = { chromatic: { disableSnapshot: true } };
 
 export const Controlled: Story = () => {
   const [value, setValue] = useState<string[]>([]);
@@ -203,7 +206,6 @@ export const Controlled: Story = () => {
   );
 };
 Controlled.storyName = "Controlled";
-Controlled.parameters = { chromatic: { disableSnapshot: true } };
 
 export const OpenOnFocus: Story = () => {
   const [value, setValue] = useState<string[]>([]);
@@ -236,7 +238,6 @@ export const OpenOnFocus: Story = () => {
   );
 };
 OpenOnFocus.storyName = "Open on Focus";
-OpenOnFocus.parameters = { chromatic: { disableSnapshot: true } };
 
 export const Disabled: Story = () => {
   const [value, setValue] = useState<string[]>(["1", "3"]);
@@ -351,7 +352,6 @@ export const WithMultipleColumns: Story = () => {
   );
 };
 WithMultipleColumns.storyName = "With Multiple Columns";
-WithMultipleColumns.parameters = { chromatic: { disableSnapshot: true } };
 
 export const Required: Story = () => {
   const [value, setValue] = useState<string[]>([]);
@@ -433,7 +433,6 @@ export const WithObjectAsValue: Story = () => {
   );
 };
 WithObjectAsValue.storyName = "With Object as Value";
-WithObjectAsValue.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithIsLoadingProp: Story = () => {
   const preventLoading = useRef(false);
@@ -485,7 +484,6 @@ export const WithIsLoadingProp: Story = () => {
   );
 };
 WithIsLoadingProp.storyName = "With isLoading prop";
-WithIsLoadingProp.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithCustomColoredPills: Story = () => {
   const [value, setValue] = useState<string[]>(["1", "3"]);
@@ -607,7 +605,6 @@ export const WithInfiniteScroll: Story = () => {
   );
 };
 WithInfiniteScroll.storyName = "With infinite scroll";
-WithInfiniteScroll.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithCustomMaxWidth: Story = () => {
   const [value, setValue] = useState<string[]>([]);

@@ -64,45 +64,51 @@ export default {
   },
 };
 
-export const Default = (props: Partial<MultiSelectProps>) => {
-  const MAX_SELECTIONS_ALLOWED = 2;
-  const [selectedPills, setSelectedPills] = useState([] as string[]);
-  const handleActivityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.value.length <= MAX_SELECTIONS_ALLOWED) {
-      setSelectedPills(event.target.value as unknown as string[]);
-      partialAction("onChange")();
-    }
-  };
+export const ChromaticSnapshot = () => {
+  const [value] = useState<string[]>(["1", "2"]);
   return (
-    <MultiSelect
-      name="testing"
-      value={selectedPills}
-      onChange={handleActivityChange}
-      onOpen={partialAction("onOpen")}
-      onClick={partialAction("onClick")}
-      onFilterChange={partialAction("onFilterChange")}
-      onFocus={partialAction("onFocus")}
-      onBlur={partialAction("onBlur")}
-      onKeyDown={partialAction("onKeyDown")}
-      openOnFocus
-      label="Test"
-      placeholder=" "
-      {...props}
-    >
-      <Option value="1" text="One" />
-      <Option value="2" text="Two" />
-      <Option value="3" text="Three" />
-      <Option value="4" text="Four" />
-      <Option value="5" text="Five" />
-      <Option value="6" text="Six" />
-      <Option value="7" text="Seven" />
-      <Option value="8" text="Eight" />
-      <Option value="9" text="Nine" />
-      <Option value="10" text="Ten" />
-    </MultiSelect>
+    <>
+      <MultiSelect
+        label="Read Only"
+        aria-label="readonly"
+        name="readonly"
+        id="readonly"
+        value={value}
+        onChange={() => {}}
+        readOnly
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+      </MultiSelect>
+      <MultiSelect
+        mt={2}
+        label="Disabled"
+        aria-label="disabled"
+        name="disabled"
+        id="disabled"
+        value={value}
+        onChange={() => {}}
+        disabled
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+      </MultiSelect>
+      <MultiSelect
+        mt={2}
+        maxWidth="200px"
+        value={["1"]}
+        onChange={() => {}}
+        name="very-long-pill"
+        id="very-long-pill"
+        label="With Very Long Pill Text"
+      >
+        <Option text="Veryveryveryveryveryveryverylongword" value="1" />
+      </MultiSelect>
+    </>
   );
 };
-Default.storyName = "Default";
+ChromaticSnapshot.storyName = "Chromatic Snapshot";
+ChromaticSnapshot.parameters = { chromatic: { disableSnapshot: false } };
 
 export const Validation = () => {
   const [values, setValues] = useState<string[]>([]);
@@ -178,14 +184,8 @@ export const Validation = () => {
   );
 };
 Validation.storyName = "Validation";
-Validation.parameters = {
-  chromatic: { disableSnapshot: true },
-  themeProvider: { chromatic: { theme: "sage" } },
-};
 
-export const MultiSelectLongPillComponent = (
-  props: Partial<MultiSelectProps>,
-) => {
+export const LongPillComponent = (props: Partial<MultiSelectProps>) => {
   const [value, setValue] = useState<string[]>([]);
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
     setValue(event.target.value as unknown as string[]);
@@ -216,9 +216,7 @@ export const MultiSelectLongPillComponent = (
   );
 };
 
-export const MultiSelectWithLazyLoadingComponent = (
-  props: Partial<MultiSelectProps>,
-) => {
+export const WithLazyLoadingComponent = (props: Partial<MultiSelectProps>) => {
   const preventLoading = useRef(false);
   const [value, setValue] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -262,9 +260,7 @@ export const MultiSelectWithLazyLoadingComponent = (
   );
 };
 
-export const MultiSelectLazyLoadTwiceComponent = (
-  props: Partial<MultiSelectProps>,
-) => {
+export const LazyLoadTwiceComponent = (props: Partial<MultiSelectProps>) => {
   const preventLoading = useRef(false);
   const [value, setValue] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -316,7 +312,7 @@ export const MultiSelectLazyLoadTwiceComponent = (
   );
 };
 
-export const MultiSelectWithInfiniteScrollComponent = (
+export const WithInfiniteScrollComponent = (
   props: Partial<MultiSelectProps>,
 ) => {
   const preventLoading = useRef(false);
@@ -395,9 +391,7 @@ export const MultiSelectWithInfiniteScrollComponent = (
   );
 };
 
-export const MultiSelectObjectAsValueComponent = (
-  props: Partial<MultiSelectProps>,
-) => {
+export const ObjectAsValueComponent = (props: Partial<MultiSelectProps>) => {
   const optionListValues = [
     { id: "Amber", value: 1, text: "Amber" },
     { id: "Black", value: 2, text: "Black" },
@@ -436,9 +430,7 @@ export const MultiSelectObjectAsValueComponent = (
   );
 };
 
-export const MultiSelectMultiColumnsComponent = (
-  props: Partial<MultiSelectProps>,
-) => {
+export const MultiColumnsComponent = (props: Partial<MultiSelectProps>) => {
   const [values, setValues] = useState<string[]>(["2"]);
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
     setValues(event.target.value as unknown as string[]);
@@ -493,9 +485,7 @@ export const MultiSelectMultiColumnsComponent = (
   );
 };
 
-export const MultiSelectMaxOptionsComponent = (
-  props: Partial<MultiSelectProps>,
-) => {
+export const MaxOptionsComponent = (props: Partial<MultiSelectProps>) => {
   const maxSelectionsAllowed = 2;
   const [selectedPills, setSelectedPills] = useState<string[]>([]);
 
@@ -528,7 +518,7 @@ export const MultiSelectMaxOptionsComponent = (
   );
 };
 
-export const MultiSelectOnFilterChangeEventComponent = ({
+export const OnFilterChangeEventComponent = ({
   onChange,
   ...props
 }: Partial<MultiSelectProps>) => {
@@ -558,9 +548,7 @@ export const MultiSelectOnFilterChangeEventComponent = ({
   );
 };
 
-export const MultiSelectCustomColorComponent = (
-  props: Partial<MultiSelectProps>,
-) => {
+export const CustomColorComponent = (props: Partial<MultiSelectProps>) => {
   const [values, setValues] = useState<string[]>(["1", "3"]);
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
     setValues(event.target.value as unknown as string[]);
@@ -588,7 +576,7 @@ export const MultiSelectCustomColorComponent = (
   );
 };
 
-export const MultiSelectWithManyOptionsAndVirtualScrolling = () => {
+export const WithManyOptionsAndVirtualScrolling = () => {
   const [values, setValues] = useState<string[]>(["1", "2"]);
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
     setValues(event.target.value as unknown as string[]);
@@ -618,10 +606,7 @@ export const MultiSelectWithManyOptionsAndVirtualScrolling = () => {
   );
 };
 
-export const MultiSelectNestedInDialog = ({
-  openOnFocus = false,
-  autofocus = false,
-}) => {
+export const NestedInDialog = ({ openOnFocus = false, autofocus = false }) => {
   const [values, setValues] = useState<string[]>(["1", "2"]);
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
     setValues(event.target.value as unknown as string[]);
@@ -646,7 +631,7 @@ export const MultiSelectNestedInDialog = ({
   );
 };
 
-export const MultiSelectErrorOnChangeNewValidation = () => {
+export const ErrorOnChangeNewValidation = () => {
   const [selectedPills, setSelectedPills] = useState<string[]>([]);
   const [showError, setShowError] = useState(false);
 
@@ -691,7 +676,7 @@ export const MultiSelectErrorOnChangeNewValidation = () => {
   );
 };
 
-export const MultiSelectWithDisabledOption = () => {
+export const WithDisabledOption = () => {
   const [value, setValue] = useState<string[]>([]);
 
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
@@ -740,7 +725,6 @@ export const SingleOption = () => {
     </MultiSelect>
   );
 };
-
 SingleOption.storyName = "Single Option";
 
 const optionListValues = [
