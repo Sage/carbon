@@ -48,6 +48,12 @@ const frFR: Partial<Locale> = {
       nextMonthButton: () => "Mois suivant",
     },
   },
+  decimal: {
+    ariaLabels: {
+      popoverTrigger: () => "Déclencheur de contextuel décimal",
+      popoverContent: () => "Contenu du contextuel décimal",
+    },
+  },
   dialog: {
     ariaLabels: {
       close: () => "Fermer",

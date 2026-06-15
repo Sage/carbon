@@ -84,6 +84,24 @@ test("should call `onFocus` callback prop when input gains focus", async () => {
   expect(handleFocus).toHaveBeenCalled();
 });
 
+// Required for coverage of the else-branch of `if (type === "text")` in handleFocus function.
+test("should not call `selectTextOnFocus` when input type is not 'text'", () => {
+  const handleFocus = jest.fn();
+  render(
+    <Input
+      type="password"
+      value="secret"
+      onChange={() => {}}
+      onFocus={handleFocus}
+      data-role="input"
+    />,
+  );
+
+  const input = screen.getByTestId("input");
+  fireEvent.focus(input);
+  expect(handleFocus).toHaveBeenCalled();
+});
+
 test("should render with `required` prop", () => {
   render(<Input required value="" onChange={() => {}} />);
 

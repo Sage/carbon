@@ -259,6 +259,10 @@ description: Carbon Decimal component props and usage examples.
 | part | string \| undefined | No |  |  |  |  |  |
 | pattern | string \| undefined | No |  |  |  |  |  |
 | placeholder | string \| undefined | No |  |  |  | Placeholder string to be displayed in input |  |
+| popoverContainerAriaLabel | string \| undefined | No |  |  |  | Sets the accessible name (aria-label) on the PopoverContainer dialog |  |
+| popoverContainerContent | React.ReactNode | No |  |  |  | Content to render inside a PopoverContainer, displayed via a button at the right of the input |  |
+| popoverPosition | ("left" \| "right" \| "center") \| undefined | No |  |  |  | Sets the position of the PopoverContainer dialog relative to its trigger button |  |
+| popoverTriggerAriaLabel | string \| undefined | No |  |  |  | Sets the aria-label on the popover trigger button |  |
 | precision | 0 \| 1 \| 2 \| 3 \| 4 \| 5 \| 6 \| 7 \| 8 \| 9 \| 10 \| 11 \| 12 \| 13 \| 14 \| 15 \| undefined | No |  |  |  | The decimal precision of the value in the input |  |
 | prefix | string \| undefined | No |  |  |  | Emphasized part of the displayed text |  |
 | property | string \| undefined | No |  |  |  |  |  |
@@ -277,6 +281,7 @@ description: Carbon Decimal component props and usage examples.
 | src | string \| undefined | No |  |  |  |  |  |
 | step | string \| number \| undefined | No |  |  |  |  |  |
 | style | CSSProperties \| undefined | No |  |  |  |  |  |
+| suffix | string \| undefined | No |  |  |  | A suffix to display alongside the input. Please note that if a prefix is also provided, only the prefix will be rendered. |  |
 | suppressContentEditableWarning | boolean \| undefined | No |  |  |  |  |  |
 | suppressHydrationWarning | boolean \| undefined | No |  |  |  |  |  |
 | tabIndex | number \| undefined | No |  |  |  |  |  |

@@ -264,6 +264,7 @@ export const InsideButtons: Story = {
             variant="inline"
             size="extra-small"
             showLabel
+            inverse
           />
         </Button>
       </Box>
@@ -294,6 +295,7 @@ export const InsideButtons: Story = {
             variant="inline"
             size="extra-small"
             showLabel
+            inverse
           />
         </Button>
       </Box>

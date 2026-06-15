@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import Decimal, { DecimalProps, CustomEvent } from ".";
 import Box from "../box/box.component";
+import { Select } from "../..";
 
 const DefaultStory = (
   args: Partial<DecimalProps> & { message?: string | boolean },
@@ -57,5 +58,34 @@ export const Validations = () => {
         )),
       )}
     </>
+  );
+};
+
+export const DecimalWithPopoverContainer = () => {
+  const [state, setState] = useState("0.01");
+  const setValue = ({ target }: CustomEvent) => {
+    setState(target.value.rawValue);
+  };
+  return (
+    <Decimal
+      label="Decimal"
+      value={state}
+      onChange={setValue}
+      popoverContainerContent={
+        <Box m="24px">
+          <Select
+            name="simple"
+            id="simple"
+            label="Select a colour"
+            value="1"
+            onChange={() => {}}
+          >
+            <option value="1">Amber</option>
+            <option value="2">Black</option>
+            <option value="3">Blue</option>
+          </Select>
+        </Box>
+      }
+    />
   );
 };

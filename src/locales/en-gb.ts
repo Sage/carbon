@@ -49,6 +49,12 @@ const enGB: Locale = {
     },
     dateFormatOverride: undefined,
   },
+  decimal: {
+    ariaLabels: {
+      popoverTrigger: () => "Decimal popover trigger",
+      popoverContent: () => "Decimal popover content",
+    },
+  },
   dialog: {
     ariaLabels: {
       close: () => "Close",

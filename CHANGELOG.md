@@ -1,3 +1,21 @@
+## [159.12.0](https://github.com/Sage/carbon/compare/v159.11.1...v159.12.0) (2026-06-12)
+
+### Features
+
+* **button-toggle:** align to Fusion DS ([d629a47](https://github.com/Sage/carbon/commit/d629a47b45682724105b2d9bd234edcc94ad2f92))
+
+## [159.11.1](https://github.com/Sage/carbon/compare/v159.11.0...v159.11.1) (2026-06-11)
+
+### Bug Fixes
+
+* **button:** use min-height instead of height ([19d3ae7](https://github.com/Sage/carbon/commit/19d3ae7e09c1cc9c8698907820df709c30a9fc62))
+
+## [159.11.0](https://github.com/Sage/carbon/compare/v159.10.0...v159.11.0) (2026-06-11)
+
+### Features
+
+* **decimal:** align component with fusion DS ([4e6c9fb](https://github.com/Sage/carbon/commit/4e6c9fbe4b49cf8aad03502d20904138d57b14d2))
+
 ## [159.10.0](https://github.com/Sage/carbon/compare/v159.9.1...v159.10.0) (2026-06-10)
 
 ### Features
