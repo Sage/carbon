@@ -69,7 +69,6 @@ const PopoverMenuWithState = ({
             onClick={() => setOpen((p) => !p)}
           />
         )}
-        listboxAriaLabel={`${size} list`}
       >
         {items.map((item, i) => (
           <MenuItem

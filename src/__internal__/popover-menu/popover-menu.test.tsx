@@ -39,7 +39,7 @@ const renderPopoverMenu = ({
     >
       {children ?? (
         <>
-          <MenuItem>
+          <MenuItem id="item-1" aria-posinset={1} aria-setsize={3}>
             <MenuItemLeading>
               <Icon type="home" />
             </MenuItemLeading>
@@ -48,11 +48,11 @@ const renderPopoverMenu = ({
           </MenuItem>
           <MenuItemDivider />
           <MenuItemHeading text="Heading">
-            <MenuItem>
+            <MenuItem id="item-2" aria-posinset={2} aria-setsize={3}>
               <MenuItemLabel>Item 2</MenuItemLabel>
             </MenuItem>
           </MenuItemHeading>
-          <MenuItem>
+          <MenuItem id="item-3" aria-posinset={3} aria-setsize={3}>
             <MenuItemLabel>Item 3</MenuItemLabel>
           </MenuItem>
         </>
@@ -371,9 +371,12 @@ test("ArrowDown focuses the first item when list is open and nothing is highligh
 
   focusTrigger();
   await user.keyboard("{ArrowDown}");
-
   const [first] = screen.getAllByRole("option");
+
   expect(first).toHaveFocus();
+  expect(
+    screen.getByRole("combobox", { name: "combobox-label" }),
+  ).toHaveAttribute("aria-activedescendant", "item-1");
 });
 
 test("ArrowDown advances the highlight to the next item", async () => {
@@ -383,10 +386,13 @@ test("ArrowDown advances the highlight to the next item", async () => {
   focusTrigger();
   await user.keyboard("{ArrowDown}");
   await user.keyboard("{ArrowDown}");
-
   const [first, second] = screen.getAllByRole("option");
+
   expect(first).not.toHaveFocus();
   expect(second).toHaveFocus();
+  expect(
+    screen.getByRole("combobox", { name: "combobox-label" }),
+  ).toHaveAttribute("aria-activedescendant", "item-2");
 });
 
 test("ArrowDown wraps from the last item back to the first", async () => {
@@ -419,10 +425,13 @@ test("ArrowUp retreats the highlight to the previous item", async () => {
   await user.keyboard("{ArrowDown}");
   await user.keyboard("{ArrowDown}");
   await user.keyboard("{ArrowUp}");
-
   const [first, second] = screen.getAllByRole("option");
+
   expect(first).toHaveFocus();
   expect(second).not.toHaveFocus();
+  expect(
+    screen.getByRole("combobox", { name: "combobox-label" }),
+  ).toHaveAttribute("aria-activedescendant", "item-1");
 });
 
 test("ArrowUp wraps from the first item to the last", async () => {
@@ -432,10 +441,13 @@ test("ArrowUp wraps from the first item to the last", async () => {
   focusTrigger();
   await user.keyboard("{ArrowDown}");
   await user.keyboard("{ArrowUp}");
-
   const options = screen.getAllByRole("option");
   const last = options[options.length - 1];
+
   expect(last).toHaveFocus();
+  expect(
+    screen.getByRole("combobox", { name: "combobox-label" }),
+  ).toHaveAttribute("aria-activedescendant", "item-3");
 });
 
 test("Home moves the highlight to the first item", async () => {
@@ -446,10 +458,13 @@ test("Home moves the highlight to the first item", async () => {
   await user.keyboard("{ArrowDown}");
   await user.keyboard("{ArrowDown}");
   await user.keyboard("{Home}");
-
   const [first, second] = screen.getAllByRole("option");
+
   expect(first).toHaveFocus();
   expect(second).not.toHaveFocus();
+  expect(
+    screen.getByRole("combobox", { name: "combobox-label" }),
+  ).toHaveAttribute("aria-activedescendant", "item-1");
 });
 
 test("Home moves the highlight to the first item that is not disabled", async () => {
@@ -458,10 +473,12 @@ test("Home moves the highlight to the first item that is not disabled", async ()
     open: true,
     children: (
       <>
-        <MenuItem disabled>Item 1</MenuItem>
-        <MenuItem>Item 2</MenuItem>
-        <MenuItem>Item 3</MenuItem>
-        <MenuItem>Item 4</MenuItem>
+        <MenuItem id="item-1" disabled>
+          Item 1
+        </MenuItem>
+        <MenuItem id="item-2">Item 2</MenuItem>
+        <MenuItem id="item-3">Item 3</MenuItem>
+        <MenuItem id="item-4">Item 4</MenuItem>
       </>
     ),
   });
@@ -470,10 +487,13 @@ test("Home moves the highlight to the first item that is not disabled", async ()
   await user.keyboard("{ArrowDown}");
   await user.keyboard("{ArrowDown}");
   await user.keyboard("{Home}");
-
   const [first, second] = screen.getAllByRole("option");
+
   expect(first).not.toHaveFocus();
   expect(second).toHaveFocus();
+  expect(
+    screen.getByRole("combobox", { name: "combobox-label" }),
+  ).toHaveAttribute("aria-activedescendant", "item-2");
 });
 
 test("End moves the highlight to the last item", async () => {
@@ -483,10 +503,13 @@ test("End moves the highlight to the last item", async () => {
   focusTrigger();
   await user.keyboard("{ArrowDown}");
   await user.keyboard("{End}");
-
   const options = screen.getAllByRole("option");
   const last = options[options.length - 1];
+
   expect(last).toHaveFocus();
+  expect(
+    screen.getByRole("combobox", { name: "combobox-label" }),
+  ).toHaveAttribute("aria-activedescendant", "item-3");
 });
 
 test("End moves the highlight to the last item that is not disabled", async () => {
@@ -495,10 +518,12 @@ test("End moves the highlight to the last item that is not disabled", async () =
     open: true,
     children: (
       <>
-        <MenuItem>Item 1</MenuItem>
-        <MenuItem>Item 2</MenuItem>
-        <MenuItem>Item 3</MenuItem>
-        <MenuItem disabled>Item 4</MenuItem>
+        <MenuItem id="item-1">Item 1</MenuItem>
+        <MenuItem id="item-2">Item 2</MenuItem>
+        <MenuItem id="item-3">Item 3</MenuItem>
+        <MenuItem id="item-4" disabled>
+          Item 4
+        </MenuItem>
       </>
     ),
   });
@@ -509,6 +534,9 @@ test("End moves the highlight to the last item that is not disabled", async () =
 
   const options = screen.getAllByRole("option");
   expect(options[2]).toHaveFocus();
+  expect(
+    screen.getByRole("combobox", { name: "combobox-label" }),
+  ).toHaveAttribute("aria-activedescendant", "item-3");
 });
 
 test("Enter clicks the currently highlighted item", async () => {

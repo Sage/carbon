@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import styled, { css } from "styled-components";
 import Popover from "../popover";
 import { flip, offset, size } from "@floating-ui/dom";
@@ -44,16 +44,12 @@ const MenuWrapper = styled.div`
   overflow: hidden;
 `;
 
-const ScrollWrapper = styled.div`
-  max-height: 100%;
-  width: 100%;
-`;
-
 interface PopooverControlProps {
   "aria-haspopup": "listbox" | "menu";
   "aria-controls"?: string;
   "aria-expanded"?: boolean;
   role?: string;
+  "aria-activedescendant"?: string;
 }
 
 type FocusableHandle =
@@ -100,8 +96,6 @@ export interface PopoverMenuProps<
   middleware?: typeof menuPopoverMiddleware;
   /** Ref for the submenu control element */
   submenuControlRef?: React.RefObject<HTMLElement>;
-  /** Ref forwarded to the inner List (div) element */
-  listRef?: React.RefObject<HTMLDivElement>;
   /** id applied to the outer wrapper element (e.g. for aria-controls) */
   id?: string;
   /** Blur handler for the outer wrapper element */
@@ -149,7 +143,6 @@ const PopoverMenu = <TRef extends FocusableHandle = NonNullable<ButtonHandle>>({
   popoverControl,
   size = "medium",
   placement = "bottom-end",
-  listRef,
   onOpen,
   onClose,
   width,
@@ -158,12 +151,14 @@ const PopoverMenu = <TRef extends FocusableHandle = NonNullable<ButtonHandle>>({
 }: PopoverMenuProps<TRef>) => {
   const controlWrapperRef = useRef<HTMLDivElement | null>(null);
   const scrollRef = useRef<HTMLDivElement | null>(null);
+  const listRef = useRef<HTMLDivElement | null>(null);
   const listId = useRef(`popover-menu-scroll-wrapper-${guid()}`);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const wrappedChildren = wrapChildrenInMenuItems(children);
   const controlRef = useRef<TRef>(null);
   const handleClickInside = useClickAwayListener(onClose);
   const computedMiddleware = menuPopoverMiddleware(width);
+  const [ariaActivedescendant, setAriaActivedescendant] = useState<string>("");
 
   const handleMainWrapperKeyDown = useCallback(
     (ev: KeyboardEvent) => {
@@ -189,9 +184,10 @@ const PopoverMenu = <TRef extends FocusableHandle = NonNullable<ButtonHandle>>({
   }, [handleClickInside, handleMainWrapperKeyDown]);
 
   const handleDropdownMenuKeyDown = useHandleDropdownMenuKeyDown(
-    scrollRef,
+    listRef,
     onClose,
     () => focusControl(controlRef.current),
+    setAriaActivedescendant,
   );
 
   const handleControlKeyDown: React.KeyboardEventHandler<HTMLElement> =
@@ -211,6 +207,12 @@ const PopoverMenu = <TRef extends FocusableHandle = NonNullable<ButtonHandle>>({
       [open, handleDropdownMenuKeyDown],
     );
 
+  useEffect(() => {
+    if (!open) {
+      setAriaActivedescendant("");
+    }
+  }, [open]);
+
   return (
     <div ref={wrapperRef} data-component="popover-menu" {...rest}>
       {popoverControl && (
@@ -221,10 +223,11 @@ const PopoverMenu = <TRef extends FocusableHandle = NonNullable<ButtonHandle>>({
         >
           {popoverControl(controlRef, {
             "aria-haspopup": "listbox",
-            // this will cause axe to flag as incomplete, that means it needs manually checking
-            "aria-controls": open ? listId.current : undefined,
+            "aria-controls": listId.current,
             "aria-expanded": open,
             role: "combobox",
+            "aria-activedescendant":
+              open && ariaActivedescendant ? ariaActivedescendant : undefined,
           })}
         </PopoverControlWrapper>
       )}
@@ -243,18 +246,17 @@ const PopoverMenu = <TRef extends FocusableHandle = NonNullable<ButtonHandle>>({
               onKeyDown={handleDropdownMenuKeyDown}
               data-role="menu-wrapper"
               onMouseDown={(e) => e.preventDefault()}
+              ref={scrollRef}
             >
-              <ScrollWrapper ref={scrollRef} data-component="scroll-wrapper">
-                <List
-                  $size={size}
-                  ref={listRef}
-                  role="listbox"
-                  id={listId.current}
-                  aria-labelledby={listboxAriaLabelledBy}
-                >
-                  {wrappedChildren}
-                </List>
-              </ScrollWrapper>
+              <List
+                $size={size}
+                ref={listRef}
+                role="listbox"
+                id={listId.current}
+                aria-labelledby={listboxAriaLabelledBy}
+              >
+                {wrappedChildren}
+              </List>
             </MenuWrapper>
           </Popover>
         )}

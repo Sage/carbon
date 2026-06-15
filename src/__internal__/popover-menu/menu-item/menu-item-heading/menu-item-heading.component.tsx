@@ -6,19 +6,14 @@ import guid from "../../../utils/helpers/guid";
 const StyledMenuHeading = styled.div<{ $size: string }>`
   span[data-element="text"] {
     ${({ $size }) => {
-      const paddingSize = $size === "small" ? "m" : "xl";
       const fontSize = $size.charAt(0);
       return `
-        padding: var(--global-space-comp-m) var(--global-space-comp-${paddingSize}) 0;
+        padding: var(--global-space-comp-m) var(--global-space-comp-m) var(--global-space-comp-xl);
         font: var(--global-font-static-comp-medium-${fontSize});
+        margin-left: calc(var(--global-space-comp-m) - 2px);
       `;
     }}
     color: var(--input-dropdown-label-alt);
-  }
-
-  div[data-element="sublist"] {
-    margin: 0;
-    padding: 0;
   }
 `;
 
@@ -42,7 +37,7 @@ const MenuItemHeading = ({
       <span data-element="text" id={headingId.current}>
         {text}
       </span>
-      <div data-element="sublist">{children}</div>
+      {children}
     </StyledMenuHeading>
   );
 };

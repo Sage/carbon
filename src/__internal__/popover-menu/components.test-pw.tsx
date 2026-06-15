@@ -48,7 +48,6 @@ export const PopoverMenuComponent = ({
             onClick={() => setOpen((p) => !p)}
           />
         )}
-        listboxAriaLabel="Options list"
       >
         <MenuItem
           onClick={() => {
@@ -135,7 +134,6 @@ export const PopoverMenuWithPreselection = ({
             onClick={() => setOpen((p) => !p)}
           />
         )}
-        listboxAriaLabel="Options list"
       >
         <MenuItem
           onClick={() => {

@@ -11,6 +11,7 @@ export const useHandleDropdownMenuKeyDown = (
   ref: MutableRefObject<HTMLDivElement | null>,
   onClose: () => void,
   focusControl: () => void,
+  setAriaActivedescendant: React.Dispatch<React.SetStateAction<string>>,
 ) =>
   useCallback(
     (ev: React.KeyboardEvent<HTMLElement>) => {
@@ -31,12 +32,21 @@ export const useHandleDropdownMenuKeyDown = (
         ev.preventDefault();
 
         if (!highlightedItem) {
-          setFocus(selectedItem ?? firstItem);
+          const itemToFocus = selectedItem ?? firstItem;
+          setAriaActivedescendant(
+            itemToFocus?.id ?? /* istanbul ignore next */ "",
+          );
+          setFocus(itemToFocus);
+
           return;
         }
 
         if (lastItem === highlightedItem) {
+          setAriaActivedescendant(
+            firstItem?.id ?? /* istanbul ignore next */ "",
+          );
           setFocus(firstItem);
+
           return;
         }
 
@@ -45,7 +55,12 @@ export const useHandleDropdownMenuKeyDown = (
           "data-has-focus",
           "false",
         );
-        setFocus(items[(currentIndex + 1) % items.length]);
+        const itemToFocus = items[(currentIndex + 1) % items.length];
+        setAriaActivedescendant(
+          itemToFocus?.id ?? /* istanbul ignore next */ "",
+        );
+        setFocus(itemToFocus);
+
         return;
       }
 
@@ -53,22 +68,38 @@ export const useHandleDropdownMenuKeyDown = (
         ev.preventDefault();
 
         if (!highlightedItem) {
-          setFocus(selectedItem ?? lastItem);
+          const itemToFocus = selectedItem ?? lastItem;
+          setAriaActivedescendant(
+            itemToFocus?.id ?? /* istanbul ignore next */ "",
+          );
+          setFocus(itemToFocus);
+
           return;
         }
 
         if (firstItem === highlightedItem) {
+          setAriaActivedescendant(
+            lastItem?.id ?? /* istanbul ignore next */ "",
+          );
           setFocus(lastItem);
+
           return;
         }
 
         const currentIndex = items.indexOf(highlightedItem as Element);
-        setFocus(items[(currentIndex - 1 + items.length) % items.length]);
+        const itemToFocus =
+          items[(currentIndex - 1 + items.length) % items.length];
+        setAriaActivedescendant(
+          itemToFocus?.id ?? /* istanbul ignore next */ "",
+        );
+        setFocus(itemToFocus);
+
         return;
       }
 
       if (ev.key === "Home") {
         ev.preventDefault();
+        setAriaActivedescendant(firstItem?.id ?? /* istanbul ignore next */ "");
         setFocus(firstItem);
 
         return;
@@ -76,6 +107,7 @@ export const useHandleDropdownMenuKeyDown = (
 
       if (ev.key === "End") {
         ev.preventDefault();
+        setAriaActivedescendant(lastItem?.id ?? /* istanbul ignore next */ "");
         setFocus(lastItem);
 
         return;
@@ -99,5 +131,5 @@ export const useHandleDropdownMenuKeyDown = (
         onClose();
       }
     },
-    [ref, onClose, focusControl],
+    [ref, onClose, focusControl, setAriaActivedescendant],
   );

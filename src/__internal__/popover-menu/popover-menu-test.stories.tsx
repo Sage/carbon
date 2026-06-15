@@ -73,8 +73,10 @@ export const Small = () => {
           />
         )}
       >
-        <MenuItemHeading text="Heading 1">
+        <MenuItemHeading text="Heading">
           <MenuItem
+            aria-setsize={5}
+            aria-posinset={1}
             onClick={() => {
               setOpen(false);
               setValue("One");
@@ -87,10 +89,9 @@ export const Small = () => {
             <MenuItemLabel prefix="Item: ">one</MenuItemLabel>
             <MenuItemSubtext>Subtext</MenuItemSubtext>
           </MenuItem>
-        </MenuItemHeading>
-        <MenuItemDivider />
-        <MenuItemHeading text="Heading 2">
           <MenuItem
+            aria-setsize={5}
+            aria-posinset={2}
             onClick={() => {
               setOpen(false);
               setValue("Two");
@@ -103,6 +104,8 @@ export const Small = () => {
             <MenuItemLabel prefix="Item: ">two</MenuItemLabel>
           </MenuItem>
           <MenuItem
+            aria-setsize={5}
+            aria-posinset={3}
             onClick={() => {
               setOpen(false);
               setValue("Three");
@@ -113,6 +116,34 @@ export const Small = () => {
               <Icon type="home" />
             </MenuItemLeading>
             <MenuItemLabel prefix="Item: ">three</MenuItemLabel>
+          </MenuItem>
+          <MenuItem
+            aria-setsize={5}
+            aria-posinset={4}
+            onClick={() => {
+              setOpen(false);
+              setValue("Four");
+            }}
+            selected={value === "Four"}
+          >
+            <MenuItemLeading selectedIcon={value === "Four"}>
+              <Icon type="home" />
+            </MenuItemLeading>
+            <MenuItemLabel prefix="Item: ">four</MenuItemLabel>
+          </MenuItem>
+          <MenuItem
+            aria-setsize={5}
+            aria-posinset={5}
+            onClick={() => {
+              setOpen(false);
+              setValue("Five");
+            }}
+            selected={value === "Five"}
+          >
+            <MenuItemLeading selectedIcon={value === "Five"}>
+              <Icon type="home" />
+            </MenuItemLeading>
+            <MenuItemLabel prefix="Item: ">five</MenuItemLabel>
           </MenuItem>
         </MenuItemHeading>
       </PopoverMenu>
@@ -161,8 +192,10 @@ export const SmallWithDisabledItems = () => {
           />
         )}
       >
-        <MenuItemHeading text="Heading 1">
+        <MenuItemHeading text="Heading">
           <MenuItem
+            aria-posinset={1}
+            aria-setsize={5}
             onClick={() => {
               setOpen(false);
               setValue("One");
@@ -176,10 +209,9 @@ export const SmallWithDisabledItems = () => {
             <MenuItemLabel prefix="Item: ">one</MenuItemLabel>
             <MenuItemSubtext>Subtext</MenuItemSubtext>
           </MenuItem>
-        </MenuItemHeading>
-        <MenuItemDivider />
-        <MenuItemHeading text="Heading 2">
           <MenuItem
+            aria-posinset={2}
+            aria-setsize={5}
             onClick={() => {
               setOpen(false);
               setValue("Two");
@@ -192,6 +224,8 @@ export const SmallWithDisabledItems = () => {
             <MenuItemLabel prefix="Item: ">two</MenuItemLabel>
           </MenuItem>
           <MenuItem
+            aria-posinset={3}
+            aria-setsize={5}
             onClick={() => {
               setOpen(false);
               setValue("Three");
@@ -203,47 +237,36 @@ export const SmallWithDisabledItems = () => {
             </MenuItemLeading>
             <MenuItemLabel prefix="Item: ">three</MenuItemLabel>
           </MenuItem>
+          <MenuItem
+            aria-posinset={4}
+            aria-setsize={5}
+            onClick={() => {
+              setOpen(false);
+              setValue("Four");
+            }}
+            selected={value === "Four"}
+          >
+            <MenuItemLeading selectedIcon={value === "Four"}>
+              <Icon type="home" />
+            </MenuItemLeading>
+            <MenuItemLabel prefix="Item: ">four</MenuItemLabel>
+          </MenuItem>
+          <MenuItem
+            aria-posinset={5}
+            aria-setsize={5}
+            onClick={() => {
+              setOpen(false);
+              setValue("Five");
+            }}
+            selected={value === "Five"}
+          >
+            <MenuItemLeading selectedIcon={value === "Five"}>
+              <Icon type="home" />
+            </MenuItemLeading>
+            <MenuItemLabel prefix="Item: ">five</MenuItemLabel>
+          </MenuItem>
         </MenuItemHeading>
         <MenuItemDivider />
-        <MenuItem
-          onClick={() => {
-            setOpen(false);
-            setValue("Four");
-          }}
-          selected={value === "Four"}
-          disabled
-        >
-          <MenuItemLeading selectedIcon={value === "Four"}>
-            <Icon type="home" />
-          </MenuItemLeading>
-          <MenuItemLabel prefix="Item: ">four</MenuItemLabel>
-          <MenuItemSubtext>Subtext</MenuItemSubtext>
-        </MenuItem>
-        <MenuItem
-          onClick={() => {
-            setOpen(false);
-            setValue("Five");
-          }}
-          selected={value === "Five"}
-        >
-          <MenuItemLeading selectedIcon={value === "Five"}>
-            <Icon type="home" />
-          </MenuItemLeading>
-          <MenuItemLabel prefix="Item: ">five</MenuItemLabel>
-          <MenuItemSubtext>Subtext</MenuItemSubtext>
-        </MenuItem>
-        <MenuItem
-          onClick={() => {
-            setOpen(false);
-            setValue("Six");
-          }}
-          selected={value === "Six"}
-        >
-          <MenuItemLeading selectedIcon={value === "Six"}>
-            <Icon type="home" />
-          </MenuItemLeading>
-          <MenuItemLabel prefix="Item: ">six</MenuItemLabel>
-        </MenuItem>
       </PopoverMenu>
     </div>
   );
@@ -291,8 +314,10 @@ export const SmallWithCustomWidth = () => {
           />
         )}
       >
-        <MenuItemHeading text="Heading 1">
+        <MenuItemHeading text="Heading">
           <MenuItem
+            aria-posinset={1}
+            aria-setsize={5}
             onClick={() => {
               setOpen(false);
               setValue("One");
@@ -305,10 +330,9 @@ export const SmallWithCustomWidth = () => {
             <MenuItemLabel prefix="Item: ">one</MenuItemLabel>
             <MenuItemSubtext>Subtext</MenuItemSubtext>
           </MenuItem>
-        </MenuItemHeading>
-        <MenuItemDivider />
-        <MenuItemHeading text="Heading 2">
           <MenuItem
+            aria-posinset={2}
+            aria-setsize={5}
             onClick={() => {
               setOpen(false);
               setValue("Two");
@@ -321,6 +345,8 @@ export const SmallWithCustomWidth = () => {
             <MenuItemLabel prefix="Item: ">two</MenuItemLabel>
           </MenuItem>
           <MenuItem
+            aria-posinset={3}
+            aria-setsize={5}
             onClick={() => {
               setOpen(false);
               setValue("Three");
@@ -331,6 +357,34 @@ export const SmallWithCustomWidth = () => {
               <Icon type="home" />
             </MenuItemLeading>
             <MenuItemLabel prefix="Item: ">three</MenuItemLabel>
+          </MenuItem>
+          <MenuItem
+            aria-posinset={4}
+            aria-setsize={5}
+            onClick={() => {
+              setOpen(false);
+              setValue("Four");
+            }}
+            selected={value === "Four"}
+          >
+            <MenuItemLeading selectedIcon={value === "Four"}>
+              <Icon type="home" />
+            </MenuItemLeading>
+            <MenuItemLabel prefix="Item: ">four</MenuItemLabel>
+          </MenuItem>
+          <MenuItem
+            aria-posinset={5}
+            aria-setsize={5}
+            onClick={() => {
+              setOpen(false);
+              setValue("Five");
+            }}
+            selected={value === "Five"}
+          >
+            <MenuItemLeading selectedIcon={value === "Five"}>
+              <Icon type="home" />
+            </MenuItemLeading>
+            <MenuItemLabel prefix="Item: ">five</MenuItemLabel>
           </MenuItem>
         </MenuItemHeading>
       </PopoverMenu>
@@ -379,8 +433,10 @@ export const Medium = () => {
           />
         )}
       >
-        <MenuItemHeading text="Heading 1">
+        <MenuItemHeading text="Heading">
           <MenuItem
+            aria-posinset={1}
+            aria-setsize={5}
             onClick={() => {
               setOpen(false);
               setValue("One");
@@ -393,10 +449,9 @@ export const Medium = () => {
             <MenuItemLabel prefix="Item: ">one</MenuItemLabel>
             <MenuItemSubtext>Subtext</MenuItemSubtext>
           </MenuItem>
-        </MenuItemHeading>
-        <MenuItemDivider />
-        <MenuItemHeading text="Heading 2">
           <MenuItem
+            aria-posinset={2}
+            aria-setsize={5}
             onClick={() => {
               setOpen(false);
               setValue("Two");
@@ -409,6 +464,8 @@ export const Medium = () => {
             <MenuItemLabel prefix="Item: ">two</MenuItemLabel>
           </MenuItem>
           <MenuItem
+            aria-posinset={3}
+            aria-setsize={5}
             onClick={() => {
               setOpen(false);
               setValue("Three");
@@ -419,6 +476,34 @@ export const Medium = () => {
               <Icon type="home" />
             </MenuItemLeading>
             <MenuItemLabel prefix="Item: ">three</MenuItemLabel>
+          </MenuItem>
+          <MenuItem
+            aria-posinset={4}
+            aria-setsize={5}
+            onClick={() => {
+              setOpen(false);
+              setValue("Four");
+            }}
+            selected={value === "Four"}
+          >
+            <MenuItemLeading selectedIcon={value === "Four"}>
+              <Icon type="home" />
+            </MenuItemLeading>
+            <MenuItemLabel prefix="Item: ">four</MenuItemLabel>
+          </MenuItem>
+          <MenuItem
+            aria-posinset={5}
+            aria-setsize={5}
+            onClick={() => {
+              setOpen(false);
+              setValue("Five");
+            }}
+            selected={value === "Five"}
+          >
+            <MenuItemLeading selectedIcon={value === "Five"}>
+              <Icon type="home" />
+            </MenuItemLeading>
+            <MenuItemLabel prefix="Item: ">five</MenuItemLabel>
           </MenuItem>
         </MenuItemHeading>
       </PopoverMenu>
@@ -467,8 +552,10 @@ export const MediumWithDisabledItems = () => {
           />
         )}
       >
-        <MenuItemHeading text="Heading 1">
+        <MenuItemHeading text="Heading">
           <MenuItem
+            aria-posinset={1}
+            aria-setsize={5}
             onClick={() => {
               setOpen(false);
               setValue("One");
@@ -482,10 +569,9 @@ export const MediumWithDisabledItems = () => {
             <MenuItemLabel prefix="Item: ">one</MenuItemLabel>
             <MenuItemSubtext>Subtext</MenuItemSubtext>
           </MenuItem>
-        </MenuItemHeading>
-        <MenuItemDivider />
-        <MenuItemHeading text="Heading 2">
           <MenuItem
+            aria-posinset={2}
+            aria-setsize={5}
             onClick={() => {
               setOpen(false);
               setValue("Two");
@@ -498,6 +584,8 @@ export const MediumWithDisabledItems = () => {
             <MenuItemLabel prefix="Item: ">two</MenuItemLabel>
           </MenuItem>
           <MenuItem
+            aria-posinset={3}
+            aria-setsize={5}
             onClick={() => {
               setOpen(false);
               setValue("Three");
@@ -509,47 +597,35 @@ export const MediumWithDisabledItems = () => {
             </MenuItemLeading>
             <MenuItemLabel prefix="Item: ">three</MenuItemLabel>
           </MenuItem>
+          <MenuItem
+            aria-posinset={4}
+            aria-setsize={5}
+            onClick={() => {
+              setOpen(false);
+              setValue("Four");
+            }}
+            selected={value === "Four"}
+          >
+            <MenuItemLeading selectedIcon={value === "Four"}>
+              <Icon type="home" />
+            </MenuItemLeading>
+            <MenuItemLabel prefix="Item: ">four</MenuItemLabel>
+          </MenuItem>
+          <MenuItem
+            aria-posinset={5}
+            aria-setsize={5}
+            onClick={() => {
+              setOpen(false);
+              setValue("Five");
+            }}
+            selected={value === "Five"}
+          >
+            <MenuItemLeading selectedIcon={value === "Five"}>
+              <Icon type="home" />
+            </MenuItemLeading>
+            <MenuItemLabel prefix="Item: ">five</MenuItemLabel>
+          </MenuItem>
         </MenuItemHeading>
-        <MenuItemDivider />
-        <MenuItem
-          onClick={() => {
-            setOpen(false);
-            setValue("Four");
-          }}
-          selected={value === "Four"}
-          disabled
-        >
-          <MenuItemLeading selectedIcon={value === "Four"}>
-            <Icon type="home" />
-          </MenuItemLeading>
-          <MenuItemLabel prefix="Item: ">four</MenuItemLabel>
-          <MenuItemSubtext>Subtext</MenuItemSubtext>
-        </MenuItem>
-        <MenuItem
-          onClick={() => {
-            setOpen(false);
-            setValue("Five");
-          }}
-          selected={value === "Five"}
-        >
-          <MenuItemLeading selectedIcon={value === "Five"}>
-            <Icon type="home" />
-          </MenuItemLeading>
-          <MenuItemLabel prefix="Item: ">five</MenuItemLabel>
-          <MenuItemSubtext>Subtext</MenuItemSubtext>
-        </MenuItem>
-        <MenuItem
-          onClick={() => {
-            setOpen(false);
-            setValue("Six");
-          }}
-          selected={value === "Six"}
-        >
-          <MenuItemLeading selectedIcon={value === "Six"}>
-            <Icon type="home" />
-          </MenuItemLeading>
-          <MenuItemLabel prefix="Item: ">six</MenuItemLabel>
-        </MenuItem>
       </PopoverMenu>
     </div>
   );
@@ -597,8 +673,10 @@ export const MediumWithCustomWidth = () => {
           />
         )}
       >
-        <MenuItemHeading text="Heading 1">
+        <MenuItemHeading text="Heading">
           <MenuItem
+            aria-posinset={1}
+            aria-setsize={5}
             onClick={() => {
               setOpen(false);
               setValue("One");
@@ -615,6 +693,8 @@ export const MediumWithCustomWidth = () => {
         <MenuItemDivider />
         <MenuItemHeading text="Heading">
           <MenuItem
+            aria-posinset={2}
+            aria-setsize={5}
             onClick={() => {
               setOpen(false);
               setValue("Two");
@@ -627,6 +707,8 @@ export const MediumWithCustomWidth = () => {
             <MenuItemLabel prefix="Item: ">two</MenuItemLabel>
           </MenuItem>
           <MenuItem
+            aria-posinset={3}
+            aria-setsize={5}
             onClick={() => {
               setOpen(false);
               setValue("Three");
@@ -637,6 +719,34 @@ export const MediumWithCustomWidth = () => {
               <Icon type="home" />
             </MenuItemLeading>
             <MenuItemLabel prefix="Item: ">three</MenuItemLabel>
+          </MenuItem>
+          <MenuItem
+            aria-posinset={4}
+            aria-setsize={5}
+            onClick={() => {
+              setOpen(false);
+              setValue("Four");
+            }}
+            selected={value === "Four"}
+          >
+            <MenuItemLeading selectedIcon={value === "Four"}>
+              <Icon type="home" />
+            </MenuItemLeading>
+            <MenuItemLabel prefix="Item: ">four</MenuItemLabel>
+          </MenuItem>
+          <MenuItem
+            aria-posinset={5}
+            aria-setsize={5}
+            onClick={() => {
+              setOpen(false);
+              setValue("Five");
+            }}
+            selected={value === "Five"}
+          >
+            <MenuItemLeading selectedIcon={value === "Five"}>
+              <Icon type="home" />
+            </MenuItemLeading>
+            <MenuItemLabel prefix="Item: ">five</MenuItemLabel>
           </MenuItem>
         </MenuItemHeading>
       </PopoverMenu>
@@ -685,8 +795,10 @@ export const Large = () => {
           />
         )}
       >
-        <MenuItemHeading text="Heading 1">
+        <MenuItemHeading text="Heading">
           <MenuItem
+            aria-posinset={1}
+            aria-setsize={5}
             onClick={() => {
               setOpen(false);
               setValue("One");
@@ -703,6 +815,8 @@ export const Large = () => {
         <MenuItemDivider />
         <MenuItemHeading text="Heading">
           <MenuItem
+            aria-posinset={2}
+            aria-setsize={5}
             onClick={() => {
               setOpen(false);
               setValue("Two");
@@ -715,6 +829,8 @@ export const Large = () => {
             <MenuItemLabel prefix="Item: ">two</MenuItemLabel>
           </MenuItem>
           <MenuItem
+            aria-posinset={3}
+            aria-setsize={5}
             onClick={() => {
               setOpen(false);
               setValue("Three");
@@ -725,6 +841,34 @@ export const Large = () => {
               <Icon type="home" />
             </MenuItemLeading>
             <MenuItemLabel prefix="Item: ">three</MenuItemLabel>
+          </MenuItem>
+          <MenuItem
+            aria-posinset={4}
+            aria-setsize={5}
+            onClick={() => {
+              setOpen(false);
+              setValue("Four");
+            }}
+            selected={value === "Four"}
+          >
+            <MenuItemLeading selectedIcon={value === "Four"}>
+              <Icon type="home" />
+            </MenuItemLeading>
+            <MenuItemLabel prefix="Item: ">four</MenuItemLabel>
+          </MenuItem>
+          <MenuItem
+            aria-posinset={5}
+            aria-setsize={5}
+            onClick={() => {
+              setOpen(false);
+              setValue("Five");
+            }}
+            selected={value === "Five"}
+          >
+            <MenuItemLeading selectedIcon={value === "Five"}>
+              <Icon type="home" />
+            </MenuItemLeading>
+            <MenuItemLabel prefix="Item: ">five</MenuItemLabel>
           </MenuItem>
         </MenuItemHeading>
       </PopoverMenu>
@@ -773,8 +917,10 @@ export const LargeWithDisabledItems = () => {
           />
         )}
       >
-        <MenuItemHeading text="Heading 1">
+        <MenuItemHeading text="Heading">
           <MenuItem
+            aria-posinset={1}
+            aria-setsize={5}
             onClick={() => {
               setOpen(false);
               setValue("One");
@@ -788,10 +934,9 @@ export const LargeWithDisabledItems = () => {
             <MenuItemLabel prefix="Item: ">one</MenuItemLabel>
             <MenuItemSubtext>Subtext</MenuItemSubtext>
           </MenuItem>
-        </MenuItemHeading>
-        <MenuItemDivider />
-        <MenuItemHeading text="Heading 2">
           <MenuItem
+            aria-posinset={2}
+            aria-setsize={5}
             onClick={() => {
               setOpen(false);
               setValue("Two");
@@ -804,6 +949,8 @@ export const LargeWithDisabledItems = () => {
             <MenuItemLabel prefix="Item: ">two</MenuItemLabel>
           </MenuItem>
           <MenuItem
+            aria-posinset={3}
+            aria-setsize={5}
             onClick={() => {
               setOpen(false);
               setValue("Three");
@@ -815,47 +962,35 @@ export const LargeWithDisabledItems = () => {
             </MenuItemLeading>
             <MenuItemLabel prefix="Item: ">three</MenuItemLabel>
           </MenuItem>
+          <MenuItem
+            aria-posinset={4}
+            aria-setsize={5}
+            onClick={() => {
+              setOpen(false);
+              setValue("Four");
+            }}
+            selected={value === "Four"}
+          >
+            <MenuItemLeading selectedIcon={value === "Four"}>
+              <Icon type="home" />
+            </MenuItemLeading>
+            <MenuItemLabel prefix="Item: ">four</MenuItemLabel>
+          </MenuItem>
+          <MenuItem
+            aria-posinset={5}
+            aria-setsize={5}
+            onClick={() => {
+              setOpen(false);
+              setValue("Five");
+            }}
+            selected={value === "Five"}
+          >
+            <MenuItemLeading selectedIcon={value === "Five"}>
+              <Icon type="home" />
+            </MenuItemLeading>
+            <MenuItemLabel prefix="Item: ">five</MenuItemLabel>
+          </MenuItem>
         </MenuItemHeading>
-        <MenuItemDivider />
-        <MenuItem
-          onClick={() => {
-            setOpen(false);
-            setValue("Four");
-          }}
-          selected={value === "Four"}
-          disabled
-        >
-          <MenuItemLeading selectedIcon={value === "Four"}>
-            <Icon type="home" />
-          </MenuItemLeading>
-          <MenuItemLabel prefix="Item: ">four</MenuItemLabel>
-          <MenuItemSubtext>Subtext</MenuItemSubtext>
-        </MenuItem>
-        <MenuItem
-          onClick={() => {
-            setOpen(false);
-            setValue("Five");
-          }}
-          selected={value === "Five"}
-        >
-          <MenuItemLeading selectedIcon={value === "Five"}>
-            <Icon type="home" />
-          </MenuItemLeading>
-          <MenuItemLabel prefix="Item: ">five</MenuItemLabel>
-          <MenuItemSubtext>Subtext</MenuItemSubtext>
-        </MenuItem>
-        <MenuItem
-          onClick={() => {
-            setOpen(false);
-            setValue("Six");
-          }}
-          selected={value === "Six"}
-        >
-          <MenuItemLeading selectedIcon={value === "Six"}>
-            <Icon type="home" />
-          </MenuItemLeading>
-          <MenuItemLabel prefix="Item: ">six</MenuItemLabel>
-        </MenuItem>
       </PopoverMenu>
     </div>
   );
@@ -903,8 +1038,10 @@ export const LargeWithCustomWidth = () => {
           />
         )}
       >
-        <MenuItemHeading text="Heading 1">
+        <MenuItemHeading text="Heading">
           <MenuItem
+            aria-posinset={1}
+            aria-setsize={5}
             onClick={() => {
               setOpen(false);
               setValue("One");
@@ -917,10 +1054,9 @@ export const LargeWithCustomWidth = () => {
             <MenuItemLabel prefix="Item: ">one</MenuItemLabel>
             <MenuItemSubtext>Subtext</MenuItemSubtext>
           </MenuItem>
-        </MenuItemHeading>
-        <MenuItemDivider />
-        <MenuItemHeading text="Heading 2">
           <MenuItem
+            aria-posinset={2}
+            aria-setsize={5}
             onClick={() => {
               setOpen(false);
               setValue("Two");
@@ -933,6 +1069,8 @@ export const LargeWithCustomWidth = () => {
             <MenuItemLabel prefix="Item: ">two</MenuItemLabel>
           </MenuItem>
           <MenuItem
+            aria-posinset={3}
+            aria-setsize={5}
             onClick={() => {
               setOpen(false);
               setValue("Three");
@@ -943,6 +1081,34 @@ export const LargeWithCustomWidth = () => {
               <Icon type="home" />
             </MenuItemLeading>
             <MenuItemLabel prefix="Item: ">three</MenuItemLabel>
+          </MenuItem>
+          <MenuItem
+            aria-posinset={4}
+            aria-setsize={5}
+            onClick={() => {
+              setOpen(false);
+              setValue("Four");
+            }}
+            selected={value === "Four"}
+          >
+            <MenuItemLeading selectedIcon={value === "Four"}>
+              <Icon type="home" />
+            </MenuItemLeading>
+            <MenuItemLabel prefix="Item: ">four</MenuItemLabel>
+          </MenuItem>
+          <MenuItem
+            aria-posinset={5}
+            aria-setsize={5}
+            onClick={() => {
+              setOpen(false);
+              setValue("Five");
+            }}
+            selected={value === "Five"}
+          >
+            <MenuItemLeading selectedIcon={value === "Five"}>
+              <Icon type="home" />
+            </MenuItemLeading>
+            <MenuItemLabel prefix="Item: ">five</MenuItemLabel>
           </MenuItem>
         </MenuItemHeading>
       </PopoverMenu>
@@ -971,25 +1137,27 @@ export const HoverItem = () => {
           />
         )}
       >
-        <MenuItemHeading text="Heading 1">
-          <MenuItem onClick={() => {}}>
+        <MenuItemHeading text="Heading">
+          <MenuItem aria-posinset={1} aria-setsize={3} onClick={() => {}}>
             <MenuItemLeading>
               <Icon type="home" />
             </MenuItemLeading>
             <MenuItemLabel prefix="Item: ">one</MenuItemLabel>
             <MenuItemSubtext>Subtext</MenuItemSubtext>
           </MenuItem>
-        </MenuItemHeading>
-        <MenuItemDivider />
-        <MenuItemHeading text="Heading 2">
-          <MenuItem data-role="hover-target" onClick={() => {}}>
+          <MenuItem
+            aria-posinset={2}
+            aria-setsize={3}
+            data-role="hover-target"
+            onClick={() => {}}
+          >
             <MenuItemLeading selectedIcon>
               <Icon type="home" />
             </MenuItemLeading>
             <MenuItemLabel prefix="Item: ">two</MenuItemLabel>
             <MenuItemSubtext>Subtext</MenuItemSubtext>
           </MenuItem>
-          <MenuItem onClick={() => {}}>
+          <MenuItem aria-posinset={3} aria-setsize={3} onClick={() => {}}>
             <MenuItemLeading>
               <Icon type="home" />
             </MenuItemLeading>
@@ -997,21 +1165,26 @@ export const HoverItem = () => {
           </MenuItem>
         </MenuItemHeading>
         <MenuItemDivider />
-        <MenuItem onClick={() => {}} disabled>
+        <MenuItem
+          aria-posinset={4}
+          aria-setsize={5}
+          onClick={() => {}}
+          disabled
+        >
           <MenuItemLeading>
             <Icon type="home" />
           </MenuItemLeading>
           <MenuItemLabel prefix="Item: ">four</MenuItemLabel>
           <MenuItemSubtext>Subtext</MenuItemSubtext>
         </MenuItem>
-        <MenuItem onClick={() => {}}>
+        <MenuItem aria-posinset={5} aria-setsize={5} onClick={() => {}}>
           <MenuItemLeading>
             <Icon type="home" />
           </MenuItemLeading>
           <MenuItemLabel prefix="Item: ">five</MenuItemLabel>
           <MenuItemSubtext>Subtext</MenuItemSubtext>
         </MenuItem>
-        <MenuItem onClick={() => {}}>
+        <MenuItem aria-posinset={6} aria-setsize={6} onClick={() => {}}>
           <MenuItemLeading>
             <Icon type="home" />
           </MenuItemLeading>

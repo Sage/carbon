@@ -1,12 +1,14 @@
 import React, { useContext, useRef } from "react";
 import styled, { css } from "styled-components";
 import { PopoverMenuContext, type PopoverMenuContextProps } from "../contexts";
+import guid from "../../utils/helpers/guid";
 
 export interface MenuItemProps {
   children: React.ReactNode;
   onClick?: (event: React.MouseEvent<HTMLElement>) => void;
   selected?: boolean;
   disabled?: boolean;
+  id?: string;
 }
 
 interface StyledMenuItemProps {
@@ -101,10 +103,12 @@ const MenuItem = ({
   onClick,
   selected,
   disabled,
+  id,
   ...rest
 }: MenuItemProps) => {
   const ref = useRef<HTMLDivElement | null>(null);
   const { size } = useContext<PopoverMenuContextProps>(PopoverMenuContext);
+  const itemId = useRef(id ?? `popover-menu-item-${guid()}`).current;
 
   return (
     <StyledMenuItem
@@ -119,6 +123,7 @@ const MenuItem = ({
       aria-selected={selected && !disabled}
       aria-disabled={disabled}
       $disabled={disabled}
+      id={itemId}
       {...rest}
     >
       {children}
