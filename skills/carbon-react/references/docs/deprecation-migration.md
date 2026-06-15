@@ -1,8 +1,3 @@
-import { Meta, Canvas } from "@storybook/addon-docs/blocks";
-import * as DeprecationMigrationStories from "./deprecation-migration.stories";
-
-<Meta title="Documentation/Deprecation Migration" />
-
 # Carbon Components Deprecation Migration Guide
 
 Several Carbon components have been recently deprecated. This guide provides migration paths to facilitate the transition to alternative patterns and components. Some deprecated components can be rebuilt using other existing Carbon components. Consult the specific migration documentation below for implementation details.
@@ -11,19 +6,19 @@ Several Carbon components have been recently deprecated. This guide provides mig
 
 The following section provides migration guidance for deprecated components that can't be either fully replicated or almost fully replicated using a composition of Carbon components:
 
-- For `ButtonBar`, a combination of [`Button`](?path=/docs/button--docs) components wrapped in a layout component such as [`Box`](?path=/docs/box--docs).
-- For `ButtonMinor` or `MinorButton` use any relevant [`Button`](?path=/docs/button--docs) with the desired `buttonType`.
-- For `DuellingPicklist`, a combination of [`Select`](?path=/docs/select--docs), [`Checkbox`](?path=/docs/checkbox--docs) and [`Profile`](?path=/docs/profile--docs) components, as well as layout components such as [`Box`](?path=/docs/box--docs) can be used to achieve an alternative pattern. See the [Design System pattern here](https://zeroheight.com/35ee2cc26/v/latest/p/7505ab-profile-selector) for more information.
-- For `Grid`, [`Box`](?path=/docs/box--docs) is recommended as the preferred alternative, `Box` has all of the necessary grid layout capabilities through its style properties.
-- For `IconButton`, eventually [`Button`](?path=/docs/button--docs) with an [`Icon`](?path=/docs/icon--docs) passed as a child will be the preferred alternative.
+- For `ButtonBar`, a combination of [`Button`](../../components/button/index.md) components wrapped in a layout component such as [`Box`](../../components/box/index.md).
+- For `ButtonMinor` or `MinorButton` use any relevant [`Button`](../../components/button/index.md) with the desired `buttonType`.
+- For `DuellingPicklist`, a combination of `Select`, [`Checkbox`](../../components/checkbox/index.md) and [`Profile`](../../components/profile/index.md) components, as well as layout components such as [`Box`](../../components/box/index.md) can be used to achieve an alternative pattern. See the [Design System pattern here](https://zeroheight.com/35ee2cc26/v/latest/p/7505ab-profile-selector) for more information.
+- For `Grid`, [`Box`](../../components/box/index.md) is recommended as the preferred alternative, `Box` has all of the necessary grid layout capabilities through its style properties.
+- For `IconButton`, eventually [`Button`](../../components/button/index.md) with an [`Icon`](../../components/icon/index.md) passed as a child will be the preferred alternative.
 - For `InlineInput`, using inputs which are placed next to each other horizontally is recommended as the preferred alternative - **however** ensure labels are clearly associated with the relevant input for accessibility.
-- For `Pages`, [`StepFlow`](?path=/docs/step-flow--docs) is recommended as the preferred alternative.
-- For `Pod`, [`Tile`](?path=/docs/tile--docs) is recommended as the preferred alternative. Any additional button's for save/edit functionality can be added via [`Button`](?path=/docs/button--docs) with an [`Icon`](?path=/docs/icon--docs) passed as a child.
-- For `Toast`, [`Message`](?path=/docs/message--docs) is recommended as the preferred alternative.
+- For `Pages`, [`StepFlow`](../../components/step-flow/index.md) is recommended as the preferred alternative.
+- For `Pod`, [`Tile`](../../components/tile/index.md) is recommended as the preferred alternative. Any additional button's for save/edit functionality can be added via [`Button`](../../components/button/index.md) with an [`Icon`](../../components/icon/index.md) passed as a child.
+- For `Toast`, [`Message`](../../components/message/index.md) is recommended as the preferred alternative.
 - For `Tooltip`, using visible input hints are recommended as the preferred alternative. Relying on a tooltip can lead to discoverability issues, it's better to provide context directly which is instantly available.
-- For `Hr`, [`Divider`](?path=/docs/divider--docs) is recommended as the preferred alternative.
-- For `VerticalDivider`, [`Divider`](?path=/docs/divider--docs) is recommended as the preferred alternative.
-- For `LoaderBar`, `LoaderStar` and `LoaderSpinner`: the new [`Loader`](?path=/docs/loader--docs) is recommended as the preferred alternative.
+- For `Hr`, [`Divider`](../../components/divider/index.md) is recommended as the preferred alternative.
+- For `VerticalDivider`, [`Divider`](../../components/divider/index.md) is recommended as the preferred alternative.
+- For `LoaderBar`, `LoaderStar` and `LoaderSpinner`: the new [`Loader`](../../components/loader/index.md) is recommended as the preferred alternative.
 
 ## Alternative Patterns
 
@@ -49,7 +44,7 @@ The `Alert` component can be replaced by a `Dialog` with a role of `alertdialog`
 import Dialog from "carbon-react/lib/components/dialog";
 ```
 
-<Canvas of={DeprecationMigrationStories.Alert} />
+See: `examples/Alert.md`
 
 ## Confirm
 
@@ -65,7 +60,7 @@ import Button from "carbon-react/lib/components/button";
 import Box from "carbon-react/lib/components/box";
 ```
 
-<Canvas of={DeprecationMigrationStories.Confirm} />
+See: `examples/Confirm.md`
 
 ## Content
 
@@ -75,14 +70,13 @@ The `Content` component can be replaced with the `Typography` component, `Typogr
 import Typography from "carbon-react/lib/components/typography";
 ```
 
-<Canvas of={DeprecationMigrationStories.Content} />
+See: `examples/Content.md`
 
 ## Detail
 
-
 The `Detail` component can be replaced with the `Typography` component, `Typography` provides consistent styling and typography hierarchy.
 
-<Canvas of={DeprecationMigrationStories.Detail} />
+See: `examples/Detail.md`
 
 ## Dismissible Box
 
@@ -99,7 +93,7 @@ import VerticalDivider from "carbon-react/lib/components/vertical-divider";
 import Typography from "carbon-react/lib/components/typography";
 ```
 
-<Canvas of={DeprecationMigrationStories.DismissibleBox} />
+See: `examples/DismissibleBox.md`
 
 ## Grouped Character
 
@@ -114,7 +108,7 @@ import Textbox from "carbon-react/lib/components/textbox";
 import CarbonProvider from "carbon-react/lib/components/carbon-provider";
 ```
 
-<Canvas of={DeprecationMigrationStories.GroupedCharacter} />
+See: `examples/GroupedCharacter.md`
 
 ## Heading
 
@@ -129,7 +123,7 @@ import Hr from "carbon-react/lib/components/hr";
 
 ### Basic Heading
 
-<Canvas of={DeprecationMigrationStories.Heading} />
+See: `examples/Heading.md`
 
 ### Heading with Pills
 
@@ -140,7 +134,7 @@ import Box from "carbon-react/lib/components/box";
 import Pill from "carbon-react/lib/components/pill";
 ```
 
-<Canvas of={DeprecationMigrationStories.HeadingWithPills} />
+See: `examples/HeadingWithPills.md`
 
 ## Number
 
@@ -154,7 +148,7 @@ import Textbox from "carbon-react/lib/components/textbox";
 import CarbonProvider from "carbon-react/lib/components/carbon-provider";
 ```
 
-<Canvas of={DeprecationMigrationStories.Number} />
+See: `examples/Number.md`
 
 ## Settings Row
 
@@ -169,22 +163,22 @@ import Typography from "carbon-react/lib/components/typography";
 
 ### Basic Settings Row
 
-<Canvas of={DeprecationMigrationStories.SettingsRow} />
+See: `examples/SettingsRow.md`
 
 ### Settings Row with Multiple Heading Levels
 
 The `variant` prop on the `Typography` component can be used to render heading levels from `"h1"` - `"h5"`, this allows for a consistent visual hierarchy whilst maintaining semantic structure.
 
-<Canvas of={DeprecationMigrationStories.SettingsRowHeadingLevels} />
+See: `examples/SettingsRowHeadingLevels.md`
 
 ## Hr
 
 The `Hr` component can be replaced by a `Divider` with type `horizontal`. The `Divider` component will provide consistent styling while maintaining the same functionality.
 
-<Canvas of={DeprecationMigrationStories.Hr} />
+See: `examples/Hr.md`
 
 ## Vertical Divider
 
 The `VerticalDivider` component can be replaced by a `Divider`. The `Divider` component will provide consistent styling while maintaining the same functionality.
 
-<Canvas of={DeprecationMigrationStories.VerticalDivider} />
+See: `examples/VerticalDivider.md`

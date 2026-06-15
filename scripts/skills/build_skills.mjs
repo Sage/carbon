@@ -65,6 +65,7 @@ const checkMode = process.argv.includes("--check");
 const skillsRoot = path.join(repoRoot, "skills", "carbon-react");
 const componentsOutDir = path.join(skillsRoot, "components");
 const referencesDir = path.join(skillsRoot, "references", "docs");
+const referencesExamplesDir = path.join(referencesDir, "examples");
 
 /** @type {Array<string | {source: string, target: string}>} */
 const docsReferenceFiles = [
@@ -1163,6 +1164,312 @@ function transformLinks(content) {
   return result;
 }
 
+// ─── Reference Doc Link Transformation ──────────────────────────────────────
+
+/**
+ * Map of Storybook documentation slugs to self-relative paths for use within references/docs/.
+ * @type {Map<string, string>}
+ */
+const referenceDocSelfSlugMap = new Map([
+  ["documentation-validations", "./validations.md"],
+  ["documentation-i18n", "./i18n.md"],
+  ["documentation-usage", "./usage.md"],
+  ["documentation-installation", "./installation.md"],
+  ["documentation-recommended-practices", "./recommended-practices.md"],
+  ["documentation-usage-with-routing", "./usage-with-routing.md"],
+  ["documentation-deprecation-migration", "./deprecation-migration.md"],
+  ["documentation-hooks-usemediaquery", "./useMediaQuery.md"],
+]);
+
+/**
+ * Transform Storybook links for reference doc context (references/docs/).
+ * Component slugs → ../../components/{slug}/index.md
+ * Reference doc slugs → ./filename.md
+ * @param {string} content
+ * @returns {string}
+ */
+function transformLinksForRefDoc(content) {
+  let result = content.replace(
+    /\[([^\]]+)\]\(\.{0,2}\/?\??path=\/(?:docs|story)\/([^#)]+?)(?:--(?:docs|[^#)]*))?(?:#[^)]*)?\)/g,
+    (match, text, slug) => {
+      if (availableSlugs.has(slug)) {
+        return `[${text}](../../components/${slug}/index.md)`;
+      }
+      if (referenceDocSelfSlugMap.has(slug)) {
+        return `[${text}](${referenceDocSelfSlugMap.get(slug)})`;
+      }
+      return text;
+    },
+  );
+
+  result = result.replace(
+    /<a[^>]*href="[^"]*\?path=\/(?:docs|story)\/([^#"]+?)(?:--(?:docs|[^#"]*))?(?:#[^"]*)?"[^>]*>([\s\S]*?)<\/a>/g,
+    (match, slug, text) => {
+      const cleanText = text.replace(/<[^>]+>/g, "").trim();
+      if (availableSlugs.has(slug)) {
+        return `[${cleanText}](../../components/${slug}/index.md)`;
+      }
+      if (referenceDocSelfSlugMap.has(slug)) {
+        return `[${cleanText}](${referenceDocSelfSlugMap.get(slug)})`;
+      }
+      return cleanText;
+    },
+  );
+
+  return result;
+}
+
+/**
+ * Extract PropInfo from a stories file's meta argTypes object (fallback when no component prop).
+ * @param {string} storiesFilePath
+ * @returns {PropInfo[]}
+ */
+function resolveArgTypesFromMeta(storiesFilePath) {
+  const sourceFile =
+    project.getSourceFile(storiesFilePath) ||
+    project.addSourceFileAtPathIfExists(storiesFilePath);
+  if (!sourceFile) return [];
+
+  let metaObject = null;
+  const defaultExport = sourceFile.getDefaultExportSymbol();
+  if (defaultExport) {
+    for (const decl of defaultExport.getDeclarations()) {
+      if (decl.isKind(SyntaxKind.ExportAssignment)) {
+        metaObject = resolveObjectLiteral(decl.getExpression(), sourceFile);
+        if (metaObject) break;
+      }
+    }
+  }
+  if (!metaObject) {
+    const exportAssignment = sourceFile
+      .getExportAssignments()
+      .find((a) => !a.isExportEquals());
+    if (exportAssignment) {
+      metaObject = resolveObjectLiteral(
+        exportAssignment.getExpression(),
+        sourceFile,
+      );
+    }
+  }
+  if (!metaObject) return [];
+
+  const argTypesProp = metaObject.getProperty("argTypes");
+  if (!argTypesProp || !argTypesProp.isKind(SyntaxKind.PropertyAssignment))
+    return [];
+
+  const argTypesObj = argTypesProp.getInitializer();
+  if (!argTypesObj || !argTypesObj.isKind(SyntaxKind.ObjectLiteralExpression))
+    return [];
+
+  /** @type {PropInfo[]} */
+  const props = [];
+
+  for (const prop of argTypesObj.getProperties()) {
+    if (!prop.isKind(SyntaxKind.PropertyAssignment)) continue;
+    const propName = prop.getName();
+    const propConfig = prop.getInitializer();
+    if (!propConfig || !propConfig.isKind(SyntaxKind.ObjectLiteralExpression))
+      continue;
+
+    let typeName = "any";
+    let required = false;
+    /** @type {string | null} */
+    let description = null;
+    /** @type {string | null} */
+    let defaultValue = null;
+
+    const typeProp = propConfig.getProperty("type");
+    if (typeProp && typeProp.isKind(SyntaxKind.PropertyAssignment)) {
+      const typeInit = typeProp.getInitializer();
+      if (typeInit && typeInit.isKind(SyntaxKind.ObjectLiteralExpression)) {
+        const typeNameProp = typeInit.getProperty("name");
+        if (
+          typeNameProp &&
+          typeNameProp.isKind(SyntaxKind.PropertyAssignment)
+        ) {
+          const n = typeNameProp.getInitializer();
+          if (n) typeName = n.getText().replace(/^['"`]|['"`]$/g, "");
+        }
+        const typeRequiredProp = typeInit.getProperty("required");
+        if (
+          typeRequiredProp &&
+          typeRequiredProp.isKind(SyntaxKind.PropertyAssignment)
+        ) {
+          const r = typeRequiredProp.getInitializer();
+          if (r) required = r.getText() === "true";
+        }
+      } else if (typeInit) {
+        typeName = typeInit.getText().replace(/^['"`]|['"`]$/g, "");
+      }
+    }
+
+    const descProp = propConfig.getProperty("description");
+    if (descProp && descProp.isKind(SyntaxKind.PropertyAssignment)) {
+      const d = descProp.getInitializer();
+      if (d) description = d.getText().replace(/^['"`]|['"`]$/g, "");
+    }
+
+    const tableProp = propConfig.getProperty("table");
+    if (tableProp && tableProp.isKind(SyntaxKind.PropertyAssignment)) {
+      const tableInit = tableProp.getInitializer();
+      if (tableInit && tableInit.isKind(SyntaxKind.ObjectLiteralExpression)) {
+        const dvProp = tableInit.getProperty("defaultValue");
+        if (dvProp && dvProp.isKind(SyntaxKind.PropertyAssignment)) {
+          const dvInit = dvProp.getInitializer();
+          if (dvInit && dvInit.isKind(SyntaxKind.ObjectLiteralExpression)) {
+            const summaryProp = dvInit.getProperty("summary");
+            if (
+              summaryProp &&
+              summaryProp.isKind(SyntaxKind.PropertyAssignment)
+            ) {
+              const s = summaryProp.getInitializer();
+              if (s) defaultValue = s.getText().replace(/^['"`]|['"`]$/g, "");
+            }
+          }
+        }
+      }
+    }
+
+    props.push({
+      name: propName,
+      type: typeName,
+      required,
+      literals: null,
+      description,
+      defaultValue,
+      deprecated: false,
+      deprecationReason: null,
+    });
+  }
+
+  return props;
+}
+
+/**
+ * Process a reference MDX file: strip Storybook boilerplate, expand Canvas/ArgTypes, transform links.
+ * Canvas example files are added to wouldWrite as a side effect.
+ * @param {string} rawContent
+ * @param {string} sourcePath
+ * @returns {string}
+ */
+function parseAndRenderReferenceMdx(rawContent, sourcePath) {
+  const mdxDir = path.dirname(sourcePath);
+  const content = rawContent.replace(/\r\n/g, "\n");
+
+  // Extract storiesImports before stripping import lines
+  const storiesImports = new Map();
+  const namespaceImportRegex =
+    /^import\s+\*\s+as\s+(\w+)\s+from\s+["']([^"']+)["']/;
+  const defaultImportRegex = /^import\s+(\w+)\s+from\s+["']([^"']+)["']/;
+  for (const line of content.split("\n")) {
+    const nsMatch = line.match(namespaceImportRegex);
+    if (nsMatch) {
+      storiesImports.set(nsMatch[1], nsMatch[2]);
+      continue;
+    }
+    const defMatch = line.match(defaultImportRegex);
+    if (defMatch && defMatch[2].includes(".stories")) {
+      storiesImports.set(defMatch[1], defMatch[2]);
+    }
+  }
+
+  // Resolve stories files to absolute paths
+  /** @type {Map<string, string>} alias -> absolute path */
+  const resolvedStories = new Map();
+  for (const [alias, relativePath] of storiesImports.entries()) {
+    const resolved = resolveStoriesPath(mdxDir, relativePath);
+    if (resolved) {
+      resolvedStories.set(alias, resolved);
+      project.addSourceFileAtPathIfExists(resolved);
+    }
+  }
+
+  let result = content;
+
+  // Strip top-level import lines (those outside fenced code blocks)
+  // Process line by line to avoid stripping import statements inside code examples
+  {
+    const lines = result.split("\n");
+    let inCodeBlock = false;
+    result = lines
+      .filter((line) => {
+        if (line.startsWith("```")) inCodeBlock = !inCodeBlock;
+        if (inCodeBlock) return true;
+        return !/^import\s/.test(line);
+      })
+      .join("\n");
+  }
+
+  // Strip <Meta .../> tags
+  result = result.replace(/<Meta\s[^>]*\/>\s*\n?/g, "");
+
+  // Strip ## Contents section (heading + all content until next ## heading)
+  const contentsMatch = result.match(/^## Contents\s*$/m);
+  if (contentsMatch) {
+    const afterContents = result.slice(
+      contentsMatch.index + contentsMatch[0].length,
+    );
+    const nextH2 = afterContents.match(/^## /m);
+    result =
+      result.slice(0, contentsMatch.index) +
+      (nextH2 ? afterContents.slice(nextH2.index) : "");
+  }
+
+  // Replace <Canvas of={Alias.ExportName}/> with example file references
+  result = result.replace(
+    /<Canvas\s+of=\{(\w+)\.(\w+)\}\s*\/>/g,
+    (match, alias, exportName) => {
+      const storiesPath = resolvedStories.get(alias);
+      if (!storiesPath) {
+        // eslint-disable-next-line no-console -- build warning
+        console.warn(`[ref] Cannot resolve stories alias: ${alias}`);
+        return "";
+      }
+      const source = getStoryExportSource(storiesPath, exportName);
+      if (!source) {
+        // eslint-disable-next-line no-console -- build warning
+        console.warn(
+          `[ref] Cannot find export "${exportName}" in ${path.basename(storiesPath)}`,
+        );
+        return "";
+      }
+      const fileName = `${exportName}.md`;
+      const fileContent = "```tsx\n" + source + "\n```";
+      wouldWrite.push({
+        path: path.join(referencesExamplesDir, fileName),
+        content: fileContent,
+      });
+      return `\nSee: \`examples/${fileName}\``;
+    },
+  );
+
+  // Replace <ArgTypes of={alias}/> with rendered props table
+  result = result.replace(
+    /<ArgTypes[\s\S]*?of=\{(\w+)\}[\s\S]*?\/>/g,
+    (match, alias) => {
+      const storiesPath = resolvedStories.get(alias);
+      if (!storiesPath) {
+        // eslint-disable-next-line no-console -- build warning
+        console.warn(`[ref] Cannot resolve ArgTypes alias: ${alias}`);
+        return "";
+      }
+      let props = resolvePropsForStories(storiesPath);
+      if (!props.length) {
+        props = resolveArgTypesFromMeta(storiesPath);
+      }
+      return renderPropsTable(props);
+    },
+  );
+
+  // Transform Storybook links to skill-relative paths
+  result = transformLinksForRefDoc(result);
+
+  // Collapse 3+ consecutive blank lines to 2
+  result = result.replace(/\n{3,}/g, "\n\n");
+
+  return result.trim() + "\n";
+}
+
 // ─── Rendering ──────────────────────────────────────────────────────────────
 
 /**
@@ -1596,10 +1903,11 @@ for (const entry of docsReferenceFiles) {
       ? path.basename(sourcePath).replace(/\.mdx?$/, ".md")
       : entry.target;
   const targetPath = path.join(referencesDir, refFileName);
-  const refContent = await fs.readFile(sourcePath, "utf8");
+  const rawContent = await fs.readFile(sourcePath, "utf8");
+  const processedContent = parseAndRenderReferenceMdx(rawContent, sourcePath);
   wouldWrite.push({
     path: targetPath,
-    content: refContent.replace(/\r\n/g, "\n"),
+    content: processedContent,
   });
 }
 
@@ -1631,8 +1939,8 @@ if (checkMode) {
     }
   }
 
-  // Check for stale files in components/ and references/docs/
-  for (const dir of [componentsOutDir, referencesDir]) {
+  // Check for stale files in components/, references/docs/, and references/docs/examples/
+  for (const dir of [componentsOutDir, referencesDir, referencesExamplesDir]) {
     if (!existsSync(dir)) continue;
     const staleFiles = fg.sync(["**/*"], {
       cwd: dir,

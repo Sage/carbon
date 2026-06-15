@@ -1,19 +1,4 @@
-import { Meta, Canvas } from "@storybook/addon-docs/blocks";
-
-import * as ValidationsStories from "./validations.stories";
-
-<Meta title="Documentation/Validations" />
-
 # Getting started with Validations
-
-## Contents
-
-- [Validating Carbon Inputs](#validating-carbon-inputs)
-  - [Validation Redesign](#validation-redesign)
-  - [Legacy Validation](#legacy-validation)
-- [Form Validation](#form-validation)
-  - [React Hook Form](#using-react-hook-form-with-carbon)
-  - [Formik](#using-formik-with-carbon)
 
 ## Validating Carbon Inputs
 
@@ -23,7 +8,7 @@ These states can indicate whether the input is valid or not, and can also preven
 ### Validation Redesign
 
 Carbon is in the process of implementing a new validation pattern to our input components. To opt into this new pattern, you can set the 
-`validationRedesignOptIn` flag to true on the [CarbonProvider](../?path=/docs/carbon-provider--docs).
+`validationRedesignOptIn` flag to true on the [CarbonProvider](../../components/carbon-provider/index.md).
 
 The new validation pattern is designed to be more consistent and user-friendly, providing a clearer indication of the input's state and we encourage its use over the legacy pattern using tooltips.
 
@@ -43,18 +28,18 @@ The new validation pattern also introduces the concept of input hints, which are
 A new `inputHint` prop has been added to our inputs to support this, however, in some components the `labelHelp` prop has been repurposed and will render as an input hint instead of the Help 
 tooltip when the `validationRedesignOptIn` flag is set to true. 
 
-<Canvas of={ValidationsStories.ValidationRedesign} />
+See: `examples/ValidationRedesign.md`
 
 #### Grouped Inputs
 The new validation pattern also supports grouped inputs, such as `RadioButtonGroup` and `CheckboxGroup`.
 These components can be validated using the same `error` and `warning` props, and the validation will be applied to the group as a whole.
 
-<Canvas of={ValidationsStories.ValidationRedesignWithGroupedInputs} />
+See: `examples/ValidationRedesignWithGroupedInputs.md`
 
 #### Validation Message Position
 By default, the validation message will be displayed above the input, however you can set `validationMessagePositionTop` to `false` to display the validation message below the input.
 
-<Canvas of={ValidationsStories.ValidationRedesignMessageBottom} />
+See: `examples/ValidationRedesignMessageBottom.md`
 
 **Note:** The new validation redesign pattern **does not** currently support inline labels/legends (with the exception of `Switch`), this means that any related props will not have any effect or may have unexpected behaviour. 
 Component props that are not supported if the opt-in flag is set to true are labelled as [Legacy] in their corresponding prop tables. 
@@ -74,35 +59,35 @@ Each input component that supports validations accepts the following props - `er
 
 Passing a `string` to these props will display a border along with a validation icon and tooltip; this `string` value will be displayed as the tooltip message.
 
-<Canvas of={ValidationsStories.StringValidation} />
+See: `examples/StringValidation.md`
 
 Passing a `boolean` to these props will display a border without the additional validation icon and tooltip information.
 
-<Canvas of={ValidationsStories.BooleanValidation} />
+See: `examples/BooleanValidation.md`
 
 #### Icon Placement
 
 Most input components that support validations accept the `validationOnLabel` or `validationOnLegend` props, which will display the validation icon next to the label or legend of the input component 
 instead of within the input itself.
 
-<Canvas of={ValidationsStories.ValidationOnLabel} />
+See: `examples/ValidationOnLabel.md`
 
 #### Tooltip Position
 The position of the tooltip can be controlled using the `tooltipPosition` prop, which accepts the following values - `top`, `bottom`, `left` and `right`.
 By default, the tooltip will be displayed to the right and will adjust its position based on the available space.
 
-<Canvas of={ValidationsStories.TooltipPosition} />
+See: `examples/TooltipPosition.md`
 
 #### Grouped Inputs
 
 Group components such as `RadioButtonGroup` and `CheckboxGroup` also accept the validation props, and they will be applied to the group as a whole and the validation icon will be displayed 
 next to the group legend.
 
-<Canvas of={ValidationsStories.GroupedLegendValidation} />
+See: `examples/GroupedLegendValidation.md`
 
 `RadioButton` and `Checkbox` also accept the validation props, and they will be applied to the individual input components within the group.
 
-<Canvas of={ValidationsStories.GroupedInputValidation} />
+See: `examples/GroupedInputValidation.md`
 
 ## Form Validation
 

@@ -1,20 +1,5 @@
-import { Meta } from "@storybook/addon-docs/blocks";
-
-<Meta title="Getting Started/Usage" />
-
 # Usage
 
-## Contents
-
-- [Quick start](#quick-start)
-- [Importing components](#importing-components)
-- [Globals](#globals)
-  - [Global styles](#global-styles)
-  - [Theming](#theming)
-  - [Localisation](#localisation)
-  - [Validation](#validation)
-  - [PropTypes Support Removed](#proptypes-support-removed)
-  
 ## Quick start
 
 A basic project `index.(jsx|tsx)` file would resemble this example:
@@ -49,7 +34,6 @@ root.render(<App />);
 You can also find this in this live sandbox:
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/fork/github/Parsium/carbon-starter)
-
 
 ## Importing components
 
@@ -92,17 +76,17 @@ The themes available in Carbon include:
 - **sage** - the latest theme which uses Design Tokens in form of CSS custom properties. _Note this theme requires installation of `@sage/design-tokens` library, otherwise styles fallback to the old 'none' theme for compatibility._
 - **none** - legacy themes that use old theme properties consumed by [ThemeProvider from the styled-components library](https://styled-components.com/docs/advanced#theming).
 
-To supply the theme styles to your components, you can pass them via the [Carbon Provider](../?path=/docs/carbon-provider--docs).
+To supply the theme styles to your components, you can pass them via the [Carbon Provider](../../components/carbon-provider/index.md).
 
 ### Localisation
 
-We also provide a `i18nProvider` global for handling different locales. For more information on how to use this in your app, [see our i18n docs](../?path=/docs/documentation-i18n--docs).
+We also provide a `i18nProvider` global for handling different locales. For more information on how to use this in your app, [see our i18n docs](./i18n.md).
 
 ### Validation
 
-Carbon provides built-in validation states for input components. For more information check our [Validations](../?path=/docs/documentation-validations--docs) documentation page.
+Carbon provides built-in validation states for input components. For more information check our [Validations](./validations.md) documentation page.
 
-To opt into the new validation pattern, set the `validationRedesignOptIn` flag to true in the [CarbonProvider](../?path=/docs/carbon-provider--docs).
+To opt into the new validation pattern, set the `validationRedesignOptIn` flag to true in the [CarbonProvider](../../components/carbon-provider/index.md).
 
 ### PropTypes Support Removed
 
