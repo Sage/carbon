@@ -25,7 +25,7 @@ then wrap your application code with the provider:
 
 Carbon is in the process of implementing a new validation design to our components. To opt into the new validation pattern set the `validationRedeisgnOptIn` flag to true in the CarbonProvider.
 
-For more information check our Validations documentation page.
+For more information check our [Validations](../../references/docs/validations.md) documentation page.
 
 ```tsx
 <CarbonProvider validationRedesignOptIn>

@@ -16,7 +16,7 @@ If you type printable characters in the Textbox, you can filter through the exis
 
 ## Validation States
 
-This component supports input validation, see our Validations documentation page for more information.
+This component supports input validation, see our [Validations](../../references/docs/validations.md) documentation page for more information.
 
 ## Testing
 

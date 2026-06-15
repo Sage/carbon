@@ -196,7 +196,7 @@ If some input-based Carbon component within a `Tab` is in an error or warning st
 coloured outline and icon to signify it contains an invalid input field the user needs to address.
 You can also use the `errorMessage` and/or `warningMessage` props on the `Tab` component to set a descriptive message for assistive technology users when the `Tab` is in an error or warning state.
 
-See our Validations documentation page for more information about input validation.
+See our [Validations](../../references/docs/validations.md) documentation page for more information about input validation.
 
 See: `examples/WithValidationState.md`
 

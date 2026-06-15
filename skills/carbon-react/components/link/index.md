@@ -89,7 +89,7 @@ A custom `onClick` function can be passed to the Link component to render it as 
 **Please note**: using the `onClick` prop with no `href` is bad for accessibility, as the output looks like a link but behaves like an HTML button.
 If the `onClick` performs an on-page action, so you want a genuine button, please consider using the [Button component](../button/index.md) instead so that the styles match the semantics.
 If the `onClick` function performs navigation, an `href` prop is necessary either instead or in addition, so that an HTML `<a>` tag is used instead.
-See for example our React Router docs, where we use `Link` with `onClick` to
+See for example our [React Router docs](../../references/docs/usage-with-routing.md), where we use `Link` with `onClick` to
 perform client-side routing, but still provide the `href` to render an HTML link rather than a button.
 
 See: `examples/WithOnClick.md`

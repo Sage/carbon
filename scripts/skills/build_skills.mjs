@@ -1103,6 +1103,29 @@ function resolvePropsForStories(storiesFilePath) {
 // ─── Link Transformation ────────────────────────────────────────────────────
 
 /**
+ * Map of Storybook documentation slugs to their reference file paths (relative to a component's index.md).
+ * @type {Map<string, string>}
+ */
+const referenceSlugMap = new Map([
+  ["documentation-validations", "../../references/docs/validations.md"],
+  ["documentation-i18n", "../../references/docs/i18n.md"],
+  ["documentation-usage", "../../references/docs/usage.md"],
+  ["documentation-installation", "../../references/docs/installation.md"],
+  [
+    "documentation-recommended-practices",
+    "../../references/docs/recommended-practices.md",
+  ],
+  [
+    "documentation-usage-with-routing",
+    "../../references/docs/usage-with-routing.md",
+  ],
+  [
+    "documentation-deprecation-migration",
+    "../../references/docs/deprecation-migration.md",
+  ],
+]);
+
+/**
  * Transform Storybook links to skill-relative links or plain text.
  * @param {string} content
  * @returns {string}
@@ -1115,6 +1138,9 @@ function transformLinks(content) {
       if (availableSlugs.has(slug)) {
         return `[${text}](../${slug}/index.md)`;
       }
+      if (referenceSlugMap.has(slug)) {
+        return `[${text}](${referenceSlugMap.get(slug)})`;
+      }
       return text;
     },
   );
@@ -1126,6 +1152,9 @@ function transformLinks(content) {
       const cleanText = text.replace(/<[^>]+>/g, "").trim();
       if (availableSlugs.has(slug)) {
         return `[${cleanText}](../${slug}/index.md)`;
+      }
+      if (referenceSlugMap.has(slug)) {
+        return `[${cleanText}](${referenceSlugMap.get(slug)})`;
       }
       return cleanText;
     },

@@ -1,11 +1,5 @@
 # Carbon Component Catalog
 
-### Action
-
-| Component | Description | Deprecated |
-| --- | --- | --- |
-| [Button](components/button-legacy/) | A Button triggers a single action or event. Use it to submit a form (Save), to advance to the next step in a process (Next), or to create a new item (New). | Yes |
-
 ### Actions
 
 | Component | Description | Deprecated |
@@ -13,6 +7,7 @@
 | [ActionPopover](components/action-popover/) | ActionPopovers present a handy list of actions the user can perform on a whole table, a specific row within a table, or a tile. Click the ellipsis icon to show actions the user can take on a specific table row, for example, emailing the invoice. | No |
 | [Batch Selection](components/batch-selection/) | Batch Selection Component could be used to select multiple items, and apply a common action to all the items selected. It renders a toolbar with a selected-item count and a row of action buttons (IconButtons, Buttons or Links). | No |
 | [Button](components/button/) | A Button triggers a single action or event. Use it to submit a form (Save), to advance to the next step in a process (Next), or to create a new item (New). **This documentation is for the newer implementation of Button. If you are still using the older implementation, please use the Button documentation.** | No |
+| [Button](components/button-legacy/) | A Button triggers a single action or event. Use it to submit a form (Save), to advance to the next step in a process (Next), or to create a new item (New). | Yes |
 | [Button Bar](components/button-bar/) | A deprecated component that groups `Button` and `ButtonMinor` elements side-by-side in a row with shared border styling. Use individual `Button` components or a `Box` with flex layout in new implementations. | Yes |
 | [Button Minor](components/button-minor/) | A deprecated smaller-scale variant of the `Button` component sharing the same `primary`, `secondary`, and `tertiary` types. Use `Button` with the appropriate `size` prop in new implementations. | Yes |
 | [Draggable](components/draggable/) | Pick, move and replace an order. Draggable is a great component if you need to have interactive components with possibility to change their order with drag and drop mechanics | No |

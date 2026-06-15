@@ -5,7 +5,7 @@
 A Button triggers a single action or event.
 Use it to submit a form (Save), to advance to the next step in a process (Next), or to create a new item (New).
 
-**Category:** Action
+**Category:** Actions
 
 ## Quickstart
 

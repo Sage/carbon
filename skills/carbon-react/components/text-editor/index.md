@@ -18,7 +18,7 @@ To use the Text Editor, import the `TextEditor` component. Use `createFromHTML` 
 
 ## Validation States
 
-This component supports input validation, see our Validations documentation page for more information.
+This component supports input validation, see our [Validations](../../references/docs/validations.md) documentation page for more information.
 
 ## Examples
 

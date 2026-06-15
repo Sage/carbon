@@ -14,7 +14,7 @@ import DateRange from "carbon-react/lib/components/date-range";
 
 ## Validation States
 
-This component supports input validation, see our Validations documentation page for more information.
+This component supports input validation, see our [Validations](../../references/docs/validations.md) documentation page for more information.
 
 **Note:** Validation states are applied to individual date inputs to indicate the state of the start and end date separately, this can be achieved by
 passing the `startError`, `endError`, `startWarning` and `endWarning` props.
