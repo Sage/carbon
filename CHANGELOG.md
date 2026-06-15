@@ -1,3 +1,9 @@
+## [159.12.1](https://github.com/Sage/carbon/compare/v159.12.0...v159.12.1) (2026-06-15)
+
+### Bug Fixes
+
+* **multi-select:** filter out empty string values ([8972b40](https://github.com/Sage/carbon/commit/8972b40aabee9ea1a1f8ff7abd57360e7d38292b)), closes [#7997](https://github.com/Sage/carbon/issues/7997)
+
 ## [159.12.0](https://github.com/Sage/carbon/compare/v159.11.1...v159.12.0) (2026-06-12)
 
 ### Features
