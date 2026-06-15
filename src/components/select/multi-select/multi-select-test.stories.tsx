@@ -420,16 +420,19 @@ export const MultiSelectObjectAsValueComponent = (
     setValue(event.target.value as unknown as Record<string, unknown>[]);
   }
   return (
-    <MultiSelect
-      label="color"
-      value={value}
-      onChange={onChangeHandler}
-      {...props}
-    >
-      {optionListValues.map((option) => (
-        <Option key={option.id} text={option.text} value={option} />
-      ))}
-    </MultiSelect>
+    <>
+      <MultiSelect
+        label="color"
+        value={value}
+        onChange={onChangeHandler}
+        {...props}
+      >
+        {optionListValues.map((option) => (
+          <Option key={option.id} text={option.text} value={option} />
+        ))}
+      </MultiSelect>
+      <Box mt={2}>{"Value: " + JSON.stringify(value)}</Box>
+    </>
   );
 };
 
