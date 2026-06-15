@@ -30,13 +30,25 @@ testStyledSystemMargin(
 );
 
 test.each([
-  { size: "small", barHeight: "4px", labelFontSize: "14px" },
-  { size: "medium", barHeight: "8px", labelFontSize: "14px" },
-  { size: "large", barHeight: "16px", labelFontSize: "16px" },
+  {
+    size: "small",
+    barHeight: "var(--global-size-5-xs)",
+    labelFont: "var(--global-font-static-comp-medium-s)",
+  },
+  {
+    size: "medium",
+    barHeight: "var(--global-size-4-xs)",
+    labelFont: "var(--global-font-static-comp-medium-m)",
+  },
+  {
+    size: "large",
+    barHeight: "var(--global-size-3-xs)",
+    labelFont: "var(--global-font-static-comp-medium-l)",
+  },
 ] as const)(
   "applies correct height for the standalone loader when size is '%s'",
   (params) => {
-    const { size, barHeight, labelFontSize } = params;
+    const { size, barHeight, labelFont } = params;
 
     render(<Loader loaderType="standalone" size={size} />);
     expect(screen.getByTestId("outer-bar")).toHaveStyleRule(
@@ -44,21 +56,37 @@ test.each([
       barHeight,
     );
     expect(screen.getByTestId("loader-label")).toHaveStyleRule(
-      "font-size",
-      labelFontSize,
+      "font",
+      labelFont,
     );
   },
 );
 
 test.each([
-  { size: "extra-small", ringHeight: "20px", labelFontSize: "13px" },
-  { size: "small", ringHeight: "32px", labelFontSize: "14px" },
-  { size: "medium", ringHeight: "64px", labelFontSize: "14px" },
-  { size: "large", ringHeight: "80px", labelFontSize: "16px" },
+  {
+    size: "extra-small",
+    ringHeight: "20px",
+    labelFont: "var(--global-font-static-comp-medium-xs)",
+  },
+  {
+    size: "small",
+    ringHeight: "32px",
+    labelFont: "var(--global-font-static-comp-medium-s)",
+  },
+  {
+    size: "medium",
+    ringHeight: "64px",
+    labelFont: "var(--global-font-static-comp-medium-m)",
+  },
+  {
+    size: "large",
+    ringHeight: "80px",
+    labelFont: "var(--global-font-static-comp-medium-l)",
+  },
 ] as const)(
   "applies correct height for the ring loader when size is '%s'",
   (params) => {
-    const { size, ringHeight, labelFontSize } = params;
+    const { size, ringHeight, labelFont } = params;
 
     render(<Loader loaderType="ring" size={size} />);
     expect(screen.getByRole("presentation")).toHaveStyleRule(
@@ -66,8 +94,8 @@ test.each([
       ringHeight,
     );
     expect(screen.getByTestId("loader-label")).toHaveStyleRule(
-      "font-size",
-      labelFontSize,
+      "font",
+      labelFont,
     );
   },
 );
@@ -79,7 +107,7 @@ test("when the user disallows animations, alternative loading text is rendered w
   expect(screen.getByText("Loading...")).toBeVisible();
   expect(screen.getByText("Loading...")).toHaveStyleRule(
     "color",
-    "rgba(0,0,0,0.90)",
+    "var(--progress-label-alt)",
   );
 });
 
@@ -90,7 +118,7 @@ test("when the user disallows animations, alternative loading text is rendered w
   expect(screen.getByText("Loading...")).toBeVisible();
   expect(screen.getByText("Loading...")).toHaveStyleRule(
     "color",
-    "rgba(255,255,255,0.90)",
+    "var(--progress-inverse-label-alt)",
   );
 });
 
@@ -134,7 +162,7 @@ test("renders correctly when `loaderType` is `standalone` and `inverse` prop is 
   expect(screen.getByTestId("outer-bar")).toBeVisible();
   expect(screen.getByTestId("inner-bar")).toHaveStyleRule(
     "background",
-    "#FFFFFF",
+    "var(--progress-loader-inverse-fg-default)",
   );
 });
 
@@ -144,7 +172,7 @@ test("renders correctly when `loaderType` is `standalone` and variant is `ai`", 
   expect(screen.getByTestId("outer-bar")).toBeVisible();
   expect(screen.getByTestId("inner-bar")).toHaveStyleRule(
     "background",
-    "linear-gradient(90deg,var(--mode-color-ai-stop-1,#13A038) 0%,var(--mode-color-ai-stop-2,#149197) 40%,var(--mode-color-ai-stop-3,#A87CFB) 90%)",
+    "linear-gradient(90deg,var(--mode-color-ai-alt-stop-1) 0%,var(--mode-color-ai-alt-stop-2) 40%,var(--mode-color-ai-alt-stop-3) 90%)",
   );
 });
 
@@ -161,7 +189,7 @@ test("renders correctly when `loaderType` is `standalone` and variant is `ai` an
   expect(screen.getByTestId("outer-bar")).toBeVisible();
   expect(screen.getByTestId("inner-bar")).toHaveStyleRule(
     "background",
-    "linear-gradient(90deg,var(--mode-color-ai-alt-stop-1,#00D639) 0%,var(--mode-color-ai-alt-stop-2,#00D6DE) 40%,var(--mode-color-ai-alt-stop-3,#9D60FF) 90%)",
+    "linear-gradient(90deg,var(--mode-color-ai-alt-stop-1) 0%,var(--mode-color-ai-alt-stop-2) 40%,var(--mode-color-ai-alt-stop-3) 90%)",
   );
 });
 
@@ -247,7 +275,7 @@ test("does not apply ai ring gradient when variant is `ai`", () => {
 
   expect(screen.getByRole("presentation")).toHaveStyleRule(
     "stroke",
-    "#000000",
+    "var(--progress-loader-fg-default)",
     {
       modifier: "circle[data-role='inner-arc']",
     },
@@ -256,12 +284,16 @@ test("does not apply ai ring gradient when variant is `ai`", () => {
 
 test("renders correctly when `loaderType` is `ring` and `inverse` prop is set", () => {
   render(<Loader loaderLabel="Loading" loaderType="ring" inverse />);
-  expect(screen.getByRole("presentation")).toHaveStyleRule("stroke", "#FFF", {
-    modifier: "circle[data-role='inner-arc']",
-  });
   expect(screen.getByRole("presentation")).toHaveStyleRule(
     "stroke",
-    "rgba(255,255,255,0.08)",
+    "var(--progress-loader-inverse-fg-default)",
+    {
+      modifier: "circle[data-role='inner-arc']",
+    },
+  );
+  expect(screen.getByRole("presentation")).toHaveStyleRule(
+    "stroke",
+    "var(--progress-loader-inverse-bg-default)",
     { modifier: "circle[data-role='outer-arc']" },
   );
 });
@@ -289,7 +321,7 @@ test("renders correctly when `loaderType` is `ring` and `isSuccess` is true", ()
 
   expect(screen.getByRole("presentation")).toHaveStyleRule(
     "stroke",
-    "#00811F",
+    "var(--progress-loader-fg-complete)",
     { modifier: "circle[data-role='inner-arc']" },
   );
 });
@@ -299,7 +331,7 @@ test("renders correctly when `loaderType` is `ring` and `isError` is true", () =
 
   expect(screen.getByRole("presentation")).toHaveStyleRule(
     "stroke",
-    "#DB004E",
+    "var(--progress-loader-fg-error)",
     { modifier: "circle[data-role='inner-arc']" },
   );
 });
@@ -335,13 +367,17 @@ test("renders correctly with the expected background color when `loaderType` is 
     </Button>,
   );
 
-  expect(screen.getByRole("presentation")).toHaveStyleRule("stroke", "#FFF", {
-    modifier: "circle[data-role='inner-arc']",
-  });
+  expect(screen.getByRole("presentation")).toHaveStyleRule(
+    "stroke",
+    "var(--progress-loader-inverse-fg-default)",
+    {
+      modifier: "circle[data-role='inner-arc']",
+    },
+  );
 
   expect(screen.getByRole("presentation")).toHaveStyleRule(
     "stroke",
-    "rgba(255,255,255,0.08)",
+    "var(--progress-loader-inverse-bg-default)",
     { modifier: "circle[data-role='outer-arc']" },
   );
 });
