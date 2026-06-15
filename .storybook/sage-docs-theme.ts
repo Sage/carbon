@@ -21,10 +21,9 @@ export default create({
   textInverseColor: "rgba(255,255,255,1)",
 
   // Toolbar default and active colors
-  barSelectedColor: "#00DC00",
+  barSelectedColor: "#007e45",
 
   brandTitle: "Carbon by Sage",
   brandUrl: "https://carbon.sage.com",
   brandImage: "carbon-by-sage-logo.png",
 });
-  
