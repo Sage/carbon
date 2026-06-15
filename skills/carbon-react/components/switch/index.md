@@ -2,7 +2,9 @@
 
 A Switch lets a user toggle a single setting on or off. It gives an immediate response — the state change takes effect as soon as the user interacts with it.
 
-## Import
+**Category:** Inputs
+
+## Quick Start
 
 ```javascript
 import Switch from "carbon-react/lib/components/switch";
@@ -35,13 +37,17 @@ See: `examples/Default.md`
 
 ### Checked
 
+Set `checked` to `true` to render the switch in its on state. This is a controlled prop — combine with `onChange` to manage state.
+
 See: `examples/Checked.md`
 
 ### Disabled
 
 Set `disabled` to prevent user interaction. Both checked and unchecked disabled states are shown below.
 
-See: `examples/DisabledAndDisabledChecked.md`
+See: `examples/Disabled.md`
+
+See: `examples/DisabledChecked.md`
 
 ### Size
 
@@ -53,13 +59,31 @@ See: `examples/LargeSize.md`
 
 Set `labelInline` to place the text label beside the switch instead of above it. Use `labelSpacing` (1 or 2) to control the gap, and `labelWidth` to set the label width as a percentage when inline.
 
-See: `examples/LabelInlineAndLabelInlineWithHint.md`
+See: `examples/LabelInline.md`
+
+#### Label inline with hint text
+
+When `labelInline` is set alongside `inputHint`, the hint text is displayed directly below the label, keeping it visually grouped with the label while the switch sits beside them.
+
+See: `examples/LabelInlineWithHint.md`
 
 ### Loading
 
 Set `loading` to show a loading spinner in place of the On/Off labels. The switch input is automatically disabled while loading. A `"Processing..."` label is shown to the right of the spinner by default.
 
-See: `examples/LoadingAndLoadingCustomLabelAndLoadingLabelBelow.md`
+See: `examples/Loading.md`
+
+#### Custom processing label
+
+Use the `processingLabel` prop to override the default `"Processing..."` text with your own copy.
+
+See: `examples/LoadingCustomLabel.md`
+
+#### Processing label below switch
+
+On small screens you may want the processing label to appear below the switch rather than beside it. Set `processingLabelBelowSwitch` to move it there.
+
+See: `examples/LoadingLabelBelow.md`
 
 ## Props
 
@@ -78,20 +102,6 @@ See: `examples/LoadingAndLoadingCustomLabelAndLoadingLabelBelow.md`
 | labelSpacing | 1 \| 2 \| undefined | No |  |  |  | Spacing between the label and switch when labelInline is true (multiplier of base spacing unit) |  |
 | labelWidth | number \| undefined | No |  |  |  | Label width as a percentage when labelInline is true |  |
 | loading | boolean \| undefined | No |  |  |  | Triggers the loading state — hides On/Off text and shows a spinner |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
 | name | string \| undefined | No |  |  |  | The name attribute of the hidden input |  |
 | onBlur | ((ev: React.FocusEvent<HTMLInputElement>) => void) \| undefined | No |  |  |  | OnBlur event handler |  |
 | onFocus | ((ev: React.FocusEvent<HTMLInputElement>) => void) \| undefined | No |  |  |  | OnFocus event handler |  |

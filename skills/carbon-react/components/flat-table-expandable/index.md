@@ -1,5 +1,9 @@
 # Flat Table expandable options
 
+Extends `FlatTable` with collapsible parent rows. Each expandable `FlatTableRow` can contain any number of sub-rows that are revealed or hidden when the user clicks the row or its expand icon. Rows can be uncontrolled (open/close handled internally) or controlled via the `expanded` and `onClick` props.
+
+**Category:** UI presentation
+
 ## Examples
 
 ### Default
@@ -76,9 +80,13 @@ See: `examples/TruncatedCellContent.md`
 
 ### Controlled
 
+Use the `expanded` prop together with an `onClick` handler to take full control of the open/closed state from outside the component.
+
 See: `examples/Controlled.md`
 
 ### Table Sizes
+
+The `size` prop on `FlatTable` applies to expandable tables in the same way as standard tables. Available values are `"compact"`, `"small"`, `"medium"` (default), and `"large"`.
 
 See: `examples/Sizes.md`
 

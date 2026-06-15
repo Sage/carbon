@@ -1,6 +1,6 @@
 import React from "react";
 import invariant from "invariant";
-import { StyledImage, StyledImageProps } from "./image.style";
+import { StyledImage, ImageProps } from "./image.style";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 
 export const Image = ({
@@ -14,7 +14,7 @@ export const Image = ({
   bottom,
   left,
   ...rest
-}: StyledImageProps) => {
+}: ImageProps) => {
   invariant(
     !src || !children,
     "The 'Image' component renders as an 'img' element when the 'src' prop is used and therefore does not accept children.",
@@ -47,4 +47,4 @@ Image.displayName = "Image";
 
 export default Image;
 
-export type { StyledImageProps as ImageProps } from "./image.style";
+export type { ImageProps as ImageProps } from "./image.style";

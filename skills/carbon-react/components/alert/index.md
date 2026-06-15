@@ -2,11 +2,11 @@
 
 > **Deprecated** — See [`deprecation-migration.md`](../../references/docs/deprecation-migration.md)
 
-<DeprecationWarning>
-Alert has been deprecated, if this pattern is still needed please see our deprecation migration docs for an alternative pattern.
-</DeprecationWarning>
+A deprecated small modal dialog that displays a message with a title, subtitle and a close button. Use `Confirm` or `Dialog` for new implementations.
 
-## Import
+**Category:** Modal
+
+## Quick Start
 
 ```javascript
 import Alert from "carbon-react/lib/components/alert";
@@ -22,6 +22,8 @@ import Alert from "carbon-react/lib/components/alert";
 ## Examples
 
 ### Default
+
+Opens a small modal alert dialog with a title, subtitle, body text and a close button. The `open` state is toggled by the trigger button.
 
 See: `examples/Default.md`
 

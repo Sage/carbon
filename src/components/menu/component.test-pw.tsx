@@ -3,7 +3,7 @@ import {
   Menu,
   MenuDivider,
   MenuSegmentTitle,
-  MenuTitleProps,
+  MenuSegmentTitleProps,
   ScrollableBlock,
   MenuItem,
   MenuWithChildren,
@@ -664,7 +664,7 @@ export const MenuComponentButtonIcon = () => {
 };
 
 export const MenuSegmentTitleComponentWithAdditionalMenuItem = (
-  props: Partial<MenuTitleProps>,
+  props: Partial<MenuSegmentTitleProps>,
 ) => {
   return (
     <Box mb={150}>

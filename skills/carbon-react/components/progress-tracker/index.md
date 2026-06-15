@@ -4,7 +4,9 @@ Use the `ProgressTracker` component to let users know a task or loading data is 
 Showing a `ProgressTracker` helps the user to understand that they should wait, rather than reload the page or abandon a process.
 In general, place a `ProgressTracker` in the centre and middle of the page or container it relates to.
 
-## Import
+**Category:** Feedback
+
+## Quick Start
 
 ```javascript
 import ProgressTracker from "carbon-react/lib/components/progress-tracker";
@@ -56,7 +58,12 @@ See: `examples/CustomLabelValues.md`
 
 By default, the position of the label is above the bar. To override this you can set the `labelsPosition` prop to `"bottom"` or `"left"`.
 
-See: `examples/LabelsPositionBottomAndLabelPositionLeft.md`
+See: `examples/LabelsPositionBottom.md`
+
+When positioning the labels to the `"left"`, you can use the `labelWidth` prop to ensure consistent label lengths.
+This can also facilitate comparison between multiple `ProgressTracker` components.
+
+See: `examples/LabelPositionLeft.md`
 
 ## Props
 
@@ -71,21 +78,7 @@ See: `examples/LabelsPositionBottomAndLabelPositionLeft.md`
 | labelsPosition | "left" \| "bottom" \| "top" \| undefined | No |  | The position the value label are rendered in. | "top" |
 | labelWidth | string \| undefined | No |  | Label width when position is "left" |  |
 | length | string \| undefined | No |  | Length of the component, any valid css string. | "256px" |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
 | maxProgressLabel | string \| undefined | No |  | Value to display as the maximum progress limit. |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
 | progress | number \| undefined | No |  | Current progress (percentage). | 0 |
 | size | "small" \| "medium" \| "large" \| undefined | No |  | Size of the progress bar. | "medium" |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |

@@ -15,6 +15,8 @@ import * as TileStories from "./tile.stories";
 
 Tiles are containers for static content such as text, and don't contain controls.
 
+**Category:** UI presentation
+
 ## Contents
 
 - [Quick Start](#quick-start)
@@ -47,6 +49,8 @@ By default, the Tile component will have a horizontal layout.
 
 ### Roundness variants for corners
 
+Control the border-radius of the tile using the `roundness` prop. `large` produces a more pronounced curve; `small` (default) keeps corners subtly rounded.
+
 <Canvas of={TileStories.LargeRoundness} />
 
 <Canvas of={TileStories.SmallRoundness} />
@@ -59,13 +63,19 @@ The Tile component can be also have a vertical layout.
 
 ### With TileFooter
 
+Place a `TileFooter` as the last child to add a visually separated footer area, ideal for actions or summary information.
+
 <Canvas of={TileStories.WithTileFooter} />
 
 ### With TileHeader
 
+Place a `TileHeader` as the first child to add a visually separated header area, suitable for titles or toolbar-style content.
+
 <Canvas of={TileStories.WithTileHeader} />
 
 ### With Button in TileHeader
+
+Add an action button directly inside `TileHeader` to give users quick access to tile-level actions without cluttering the content area.
 
 <Canvas of={TileStories.WithButtonInTileHeader} />
 
@@ -87,9 +97,13 @@ Any child wrapped by a Tile component can be passed an optional `height` prop if
 
 ### Active Tile
 
+Set `isActive` to visually highlight the tile, indicating it is the currently selected or focused item in a set.
+
 <Canvas of={TileStories.Active} />
 
 ### Grey variant
+
+Set `variant="grey"` for a muted background. Use when the tile should be de-emphasised relative to surrounding content.
 
 <Canvas of={TileStories.Grey} />
 
@@ -106,6 +120,8 @@ The Tile component can also have inline styling applied to the content.
 <Canvas of={TileStories.WithInline} />
 
 ### With different padding and margin
+
+Use the spacing props (`p`, `m`, and their directional variants) on `Tile` and its children to control internal padding and external spacing.
 
 <Canvas of={TileStories.WithDifferentPaddingAndMargin} />
 
@@ -132,13 +148,19 @@ In this example `dtTextAlign` has been provided the string 'left' and `ddTextAli
 
 ### With Definition List and ActionPopover and Icon support
 
+Combines a `DefinitionList` inside a tile with an `ActionPopover` and `Icon` in the header, showing how richer interactive layouts can be composed.
+
 <Canvas of={TileStories.WithDefinitionListAndActionPopoverAndIconSupport} />
 
 ### With Accordion and Definition List
 
+Nests an `Accordion` inside the tile alongside a `DefinitionList`, allowing content to be progressively disclosed within the tile.
+
 <Canvas of={TileStories.WithAccordion} />
 
 ### With Accordion and TileFooter
+
+Combines an expandable `Accordion` with a `TileFooter`, enabling collapsible detail sections within a structured tile layout.
 
 <Canvas of={TileStories.WithAccordionAndTileFooter} />
 
@@ -153,6 +175,8 @@ If you add a `FlexTileDivider` in each cell, a divider will appear between the l
 <Canvas of={TileStories.ResponsiveDefaultStory} />
 
 ### Responsive Tile with custom gaps
+
+Use the `columnGap` and `rowGap` props on `FlexTileContainer` to control the spacing between cells independently.
 
 <Canvas of={TileStories.CustomGaps} />
 
@@ -201,29 +225,43 @@ Setting the `highlightVariant` prop will add a highlight to the Tile on the left
 
 #### Gradient
 
+Applies a gradient highlight on the left border.
+
 <Canvas of={TileStories.HighlightVariantGradientStory} />
 
 #### Success
+
+Applies a green success-state highlight on the left border.
 
 <Canvas of={TileStories.HighlightVariantSuccessStory} />
 
 #### Neutral
 
+Applies a grey neutral-state highlight on the left border.
+
 <Canvas of={TileStories.HighlightVariantNeutralStory} />
 
 #### Error
+
+Applies a red error-state highlight on the left border.
 
 <Canvas of={TileStories.HighlightVariantErrorStory} />
 
 #### Warning
 
+Applies an amber warning-state highlight on the left border.
+
 <Canvas of={TileStories.HighlightVariantWarningStory} />
 
 #### Info
 
+Applies a blue informational highlight on the left border.
+
 <Canvas of={TileStories.HighlightVariantInfoStory} />
 
 #### Important
+
+Applies an orange important-state highlight on the left border.
 
 <Canvas of={TileStories.HighlightVariantImportantStory} />
 

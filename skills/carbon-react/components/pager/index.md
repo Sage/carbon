@@ -1,14 +1,36 @@
 # Pager
 
-Pagination Component.
+A pagination control bar that lets users navigate through a dataset split across multiple pages. Shows first/prev/next/last buttons, a current-page input, total records and a page-size selector.
 
-## Import
+**Category:** UI presentation
+
+## Quick Start
 
 ```javascript
 import Pager from "carbon-react/lib/components/pager";
 ```
 
 ## Examples
+
+### Default
+
+Full pagination bar with page navigation buttons, a current-page input, total records label and page-size selector.
+
+See: `examples/Default.md`
+
+### with interactivePageNumber
+
+When the `interactivePageNumber` prop is `false` the number input which contains the current
+page number is replaced with a non-interactive label which will include the current page, and total page count all in one string.
+
+See: `examples/InteractivePageNumber.md`
+
+### with hideDisabledElements
+
+The example below demonstrates the functionality of the `hideDisabledElements` prop, when `true` all elements that typically would be disabled
+are instead hidden. This prop can be used in conjunction with all other `Pager` props and functionality.
+
+See: `examples/HideDisabledElements.md`
 
 ### With disabled Page Size Selection
 
@@ -51,6 +73,8 @@ See: `examples/CurrentPageLastPage.md`
 
 ### With currentPage pre-set to page 5
 
+Demonstrates pre-setting `currentPage` to a non-first page, with the correct navigation buttons enabled/disabled accordingly.
+
 See: `examples/CurrentPage.md`
 
 ### Custom responsive example
@@ -63,7 +87,7 @@ See: `examples/UsingCustomResponsiveSettings.md`
 
 ### Small screen breakpoint
 
-The `smallScreenBreakpoint` prop allows you to set the screen size at which the `Pager` will switch to small screen layout. 
+The `smallScreenBreakpoint` prop allows you to set the screen size at which the `Pager` will switch to small screen layout.
 This will cause the navigation links to wrap onto a new line if `showPageSizeSelection` or `showTotalRecords` is set to `true`, as well as reduce the spacing around the elements.
 
 **Note:** This prop does not guarantee that the elements within `Pager` do not overflow, it is up to consumers to ensure they set the appropriate props and breakpoints.

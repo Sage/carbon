@@ -47,9 +47,10 @@ import { JSDoc, Project, SyntaxKind } from "ts-morph";
  * @typedef {Object} ParsedMdx
  * @property {string} componentTitle
  * @property {string} description
- * @property {string} importCode
+ * @property {string | null} category
+ * @property {{ heading: string, content: string } | null} quickStart
  * @property {Map<string, string>} storiesImports - alias -> relative path
- * @property {Array<{heading: string, description: string, canvasRefs: CanvasRef[]}>} examples
+ * @property {Array<{heading: string, items: Array<{description: string, canvasRef: CanvasRef | null}>}>} examples
  * @property {ArgTypeRef[]} argTypeRefs
  * @property {string | null} designerNotes
  * @property {string | null} relatedComponents
@@ -188,8 +189,11 @@ function parseMdxFile(content) {
   // Extract description: text between PDS link closing tag (or H1) and ## Contents
   const description = extractDescription(content);
 
-  // Extract import code from Quick Start section
-  const importCode = extractImportCode(content);
+  // Extract category
+  const category = extractCategory(content);
+
+  // Extract Quick Start section (heading + full content)
+  const quickStart = extractQuickStart(content);
 
   // Extract examples (Canvas refs grouped by heading)
   const examples = extractExamples(content);
@@ -212,7 +216,8 @@ function parseMdxFile(content) {
   return {
     componentTitle,
     description,
-    importCode,
+    category,
+    quickStart,
     storiesImports,
     examples,
     argTypeRefs,
@@ -225,66 +230,98 @@ function parseMdxFile(content) {
 
 /**
  * Extract description text from MDX content.
+ * Skips any leading <DeprecationWarning> block and PDS/zeroheight link.
  * @param {string} content
  * @returns {string}
  */
 function extractDescription(content) {
-  // Find the end of the PDS link block or end of H1
-  let startIdx;
+  // Start after the H1 title
+  const h1Match = content.match(/^#\s+.+$/m);
+  if (!h1Match) return "";
+  let startIdx = h1Match.index + h1Match[0].length + 1;
 
-  // Check for PDS link (closing </a> or single-line <a...>...</a>)
-  const pdsEndMatch = content.match(/Product Design System[^<]*<\/a>\s*\n?/);
-  if (pdsEndMatch) {
-    startIdx = pdsEndMatch.index + pdsEndMatch[0].length;
-  } else {
-    // No PDS link, start after H1
-    const h1Match = content.match(/^#\s+.+$/m);
-    if (h1Match) {
-      startIdx = h1Match.index + h1Match[0].length + 1;
-    } else {
-      return "";
+  // Skip <DeprecationWarning>...</DeprecationWarning> block if it immediately follows H1
+  const deprecWarningStart = content.indexOf("<DeprecationWarning", startIdx);
+  if (
+    deprecWarningStart !== -1 &&
+    content.slice(startIdx, deprecWarningStart).trim() === ""
+  ) {
+    const deprecWarningEnd = content.indexOf(
+      "</DeprecationWarning>",
+      deprecWarningStart,
+    );
+    if (deprecWarningEnd !== -1) {
+      startIdx = deprecWarningEnd + "</DeprecationWarning>".length;
     }
   }
 
-  // Find ## Contents or first ## heading after start
-  const contentsMatch = content.indexOf("## Contents", startIdx);
-  const nextH2Match = content.indexOf("\n## ", startIdx);
-  const endIdx =
-    contentsMatch !== -1
-      ? contentsMatch
-      : nextH2Match !== -1
-        ? nextH2Match
-        : content.length;
+  // Skip PDS/zeroheight <a> link if it immediately follows (after H1 or DeprecationWarning)
+  const pdsTextIdx = content.indexOf("Product Design System", startIdx);
+  if (pdsTextIdx !== -1) {
+    const pdsAStart = content.lastIndexOf("<a", pdsTextIdx);
+    if (
+      pdsAStart !== -1 &&
+      pdsAStart >= startIdx &&
+      content.slice(startIdx, pdsAStart).trim() === ""
+    ) {
+      const pdsAEnd = content.indexOf("</a>", pdsAStart);
+      if (pdsAEnd !== -1) {
+        startIdx = pdsAEnd + "</a>".length;
+      }
+    }
+  }
 
-  const descText = content.slice(startIdx, endIdx).trim();
-  // Remove any remaining HTML tags (like stray <a> refs to deprecated docs)
-  return descText;
+  // Find where description ends: **Category:** or first ## heading
+  const categoryIdx = content.indexOf("**Category:**", startIdx);
+  const contentsIdx = content.indexOf("## Contents", startIdx);
+  const nextH2Idx = content.indexOf("\n## ", startIdx);
+
+  const candidates = [
+    categoryIdx !== -1 ? categoryIdx : Infinity,
+    contentsIdx !== -1 ? contentsIdx : Infinity,
+    nextH2Idx !== -1 ? nextH2Idx : Infinity,
+    content.length,
+  ];
+  const endIdx = Math.min(...candidates);
+
+  return content.slice(startIdx, endIdx).trim();
 }
 
 /**
- * Extract the import code block from Quick Start section.
+ * Extract category from MDX content.
+ * Returns null if no category is defined.
  * @param {string} content
- * @returns {string}
+ * @returns {string | null}
  */
-function extractImportCode(content) {
-  const quickStartMatch = content.match(/##\s+Quick\s*Start/i);
-  if (!quickStartMatch) return "";
+function extractCategory(content) {
+  const categoryMatch = content.match(/\*\*Category:\*\*\s*(.+?)(?:\n|$)/);
+  if (!categoryMatch) return null;
+  return categoryMatch[1].trim();
+}
 
+/**
+ * Extract the full Quick Start section (preserving heading and all content).
+ * @param {string} content
+ * @returns {{ heading: string, content: string } | null}
+ */
+function extractQuickStart(content) {
+  const quickStartMatch = content.match(/^(##\s+Quick\s*Start)\s*$/im);
+  if (!quickStartMatch) return null;
+
+  const heading = quickStartMatch[1].trim();
   const afterQS = content.slice(
     quickStartMatch.index + quickStartMatch[0].length,
   );
-  const codeBlockMatch = afterQS.match(
-    /```(?:javascript|tsx|ts|jsx)?\n([\s\S]*?)```/,
-  );
-  if (!codeBlockMatch) return "";
+  const nextH2 = afterQS.match(/^##\s+/m);
+  const sectionContent = nextH2 ? afterQS.slice(0, nextH2.index) : afterQS;
 
-  return codeBlockMatch[1].trim();
+  return { heading, content: sectionContent.trim() };
 }
 
 /**
  * Extract examples grouped by heading with their Canvas references.
  * @param {string} content
- * @returns {Array<{heading: string, description: string, canvasRefs: CanvasRef[]}>}
+ * @returns {Array<{heading: string, items: Array<{description: string, canvasRef: CanvasRef}>}>}
  */
 function extractExamples(content) {
   const examplesMatch = content.match(/^##\s+Examples\s*$/m);
@@ -299,7 +336,7 @@ function extractExamples(content) {
     ? afterExamples.slice(0, nextH2.index)
     : afterExamples;
 
-  /** @type {Array<{heading: string, description: string, canvasRefs: CanvasRef[]}>} */
+  /** @type {Array<{heading: string, items: Array<{description: string, canvasRef: CanvasRef}>}>} */
   const examples = [];
 
   // Split by ### headings
@@ -325,30 +362,44 @@ function extractExamples(content) {
         : examplesSection.length;
     const block = examplesSection.slice(start, end);
 
-    // Extract Canvas references
+    // Split block by <Canvas .../> elements, capturing the description before each
     const canvasRegex = /<Canvas\s+of=\{(\w+)\.(\w+)\}\s*\/>/g;
-    /** @type {CanvasRef[]} */
-    const canvasRefs = [];
+    /** @type {Array<{description: string, canvasRef: CanvasRef | null}>} */
+    const items = [];
+    let lastIndex = 0;
     /** @type {RegExpExecArray | null} */
     let canvasMatch;
     while ((canvasMatch = canvasRegex.exec(block)) !== null) {
-      canvasRefs.push({
-        alias: canvasMatch[1],
-        exportName: canvasMatch[2],
-        heading: headings[i].title,
+      const description = block.slice(lastIndex, canvasMatch.index).trim();
+      items.push({
+        description,
+        canvasRef: {
+          alias: canvasMatch[1],
+          exportName: canvasMatch[2],
+          heading: headings[i].title,
+        },
       });
+      lastIndex = canvasMatch.index + canvasMatch[0].length;
     }
 
-    // Extract description (text before first <Canvas)
-    const firstCanvas = block.indexOf("<Canvas");
-    const descBlock = firstCanvas !== -1 ? block.slice(0, firstCanvas) : block;
-    const description = descBlock.replace(/<Canvas[^>]*\/>/g, "").trim();
+    // If no Canvas found, still capture the block as a prose-only item
+    if (items.length === 0) {
+      const prose = block.trim();
+      if (prose) {
+        items.push({ description: prose, canvasRef: null });
+      }
+    } else {
+      // Capture any trailing text after the last Canvas as a prose-only item
+      const trailing = block.slice(lastIndex).trim();
+      if (trailing) {
+        items.push({ description: trailing, canvasRef: null });
+      }
+    }
 
-    if (canvasRefs.length > 0) {
+    if (items.length > 0) {
       examples.push({
         heading: headings[i].title,
-        description,
-        canvasRefs,
+        items,
       });
     }
   }
@@ -372,7 +423,7 @@ function extractArgTypeRefs(content) {
   /** @type {ArgTypeRef[]} */
   const refs = [];
   const headingRegex = /^###\s+(.+)$/gm;
-  const argTypeOnlyRegex = /<ArgTypes\s+of=\{(\w+)\}\s*\/>/g;
+  const argTypeOnlyRegex = /<ArgTypes[\s\S]*?of=\{(\w+)\}[\s\S]*?\/>/g;
 
   const headingsInSection = [];
   let hMatch;
@@ -421,6 +472,7 @@ const KNOWN_SECTIONS = new Set([
   "designer notes",
   "related components",
   "ref methods",
+  "list of icons",
 ]);
 
 /**
@@ -624,49 +676,62 @@ function resolvePropsDefinition(modulePath, moduleFiles, propsName) {
  */
 function extractPropsFromDefinition(propsDefinition, defaultsMap) {
   const type = propsDefinition.node.getType();
-  return type.getProperties().map((symbol) => {
-    const declaration = symbol
-      .getDeclarations()
-      .find(
-        (decl) =>
-          decl.isKind(SyntaxKind.PropertySignature) ||
-          decl.isKind(SyntaxKind.PropertyDeclaration),
+  return type
+    .getProperties()
+    .filter((symbol) => {
+      // Exclude props whose declaration originates from node_modules (React HTML attrs, etc.)
+      const declarations = symbol.getDeclarations();
+      if (declarations.length === 0) return false;
+      return declarations.some((decl) => {
+        const filePath = decl.getSourceFile().getFilePath();
+        return !filePath.includes("node_modules");
+      });
+    })
+    .map((symbol) => {
+      const declaration = symbol
+        .getDeclarations()
+        .find(
+          (decl) =>
+            decl.isKind(SyntaxKind.PropertySignature) ||
+            decl.isKind(SyntaxKind.PropertyDeclaration),
+        );
+      const propType = declaration
+        ? declaration.getType()
+        : symbol.getTypeAtLocation(propsDefinition.node);
+      const literals = getLiteralUnionValues(propType);
+      const jsDocs = declaration?.getJsDocs?.() ?? [];
+      const description = jsDocs
+        .map((doc) => doc.getDescription().trim())
+        .filter(Boolean)
+        .join(" ");
+      const deprecationInfo = getDeprecationFromJsDocs(jsDocs);
+      const required = declaration?.isKind(SyntaxKind.PropertySignature)
+        ? !declaration.hasQuestionToken()
+        : true;
+
+      const resolvedText = propType.getText(
+        declaration ?? propsDefinition.node,
       );
-    const propType = declaration
-      ? declaration.getType()
-      : symbol.getTypeAtLocation(propsDefinition.node);
-    const literals = getLiteralUnionValues(propType);
-    const jsDocs = declaration?.getJsDocs?.() ?? [];
-    const description = jsDocs
-      .map((doc) => doc.getDescription().trim())
-      .filter(Boolean)
-      .join(" ");
-    const deprecationInfo = getDeprecationFromJsDocs(jsDocs);
-    const required = declaration?.isKind(SyntaxKind.PropertySignature)
-      ? !declaration.hasQuestionToken()
-      : true;
+      const typeNode = declaration?.getTypeNode?.();
+      const typeText = (
+        resolvedText.includes("import(") && typeNode
+          ? typeNode.getText()
+          : resolvedText
+      )
+        .replace(/\s+/g, " ")
+        .trim();
 
-    const resolvedText = propType.getText(declaration ?? propsDefinition.node);
-    const typeNode = declaration?.getTypeNode?.();
-    const typeText = (
-      resolvedText.includes("import(") && typeNode
-        ? typeNode.getText()
-        : resolvedText
-    )
-      .replace(/\s+/g, " ")
-      .trim();
-
-    return {
-      name: symbol.getName(),
-      type: typeText,
-      required,
-      literals,
-      description: description || null,
-      defaultValue: defaultsMap.get(symbol.getName()) ?? null,
-      deprecated: deprecationInfo.deprecated,
-      deprecationReason: deprecationInfo.reason,
-    };
-  });
+      return {
+        name: symbol.getName(),
+        type: typeText,
+        required,
+        literals,
+        description: description || null,
+        defaultValue: defaultsMap.get(symbol.getName()) ?? null,
+        deprecated: deprecationInfo.deprecated,
+        deprecationReason: deprecationInfo.reason,
+      };
+    });
 }
 
 /**
@@ -941,8 +1006,7 @@ function resolveObjectLiteral(expression, sourceFile) {
     const variable = sourceFile.getVariableDeclaration(name);
     if (variable) {
       const initializer = variable.getInitializer();
-      if (initializer?.isKind(SyntaxKind.ObjectLiteralExpression))
-        return initializer;
+      if (initializer) return resolveObjectLiteral(initializer, sourceFile);
     }
   }
   if (
@@ -1127,7 +1191,7 @@ function renderPropsTable(props) {
  * Render the full component index.md content (no skill frontmatter).
  * @param {ParsedMdx} parsed
  * @param {Map<string, PropInfo[]>} propsMap - heading -> props
- * @param {Array<{heading: string, fileName: string}>} exampleFiles
+ * @param {Array<{heading: string, fileName: string | null, description: string}>} exampleFiles
  * @param {boolean} isDeprecated
  * @returns {string}
  */
@@ -1145,8 +1209,12 @@ function renderSkillMd(parsed, propsMap, exampleFiles, isDeprecated) {
     lines.push(transformLinks(parsed.description), "");
   }
 
-  if (parsed.importCode) {
-    lines.push("## Import", "", "```javascript", parsed.importCode, "```", "");
+  if (parsed.category) {
+    lines.push(`**Category:** ${parsed.category}`, "");
+  }
+
+  if (parsed.quickStart) {
+    lines.push(parsed.quickStart.heading, "", parsed.quickStart.content, "");
   }
 
   if (parsed.designerNotes) {
@@ -1176,22 +1244,19 @@ function renderSkillMd(parsed, propsMap, exampleFiles, isDeprecated) {
     const byHeading = new Map();
     for (const ef of exampleFiles) {
       const existing = byHeading.get(ef.heading) ?? [];
-      existing.push(ef.fileName);
+      existing.push({ fileName: ef.fileName, description: ef.description });
       byHeading.set(ef.heading, existing);
     }
 
-    const descByHeading = new Map(
-      parsed.examples.map((e) => [e.heading, e.description]),
-    );
-
-    for (const [heading, files] of byHeading.entries()) {
+    for (const [heading, items] of byHeading.entries()) {
       lines.push(`### ${heading}`, "");
-      const desc = descByHeading.get(heading);
-      if (desc) {
-        lines.push(transformLinks(desc), "");
-      }
-      for (const fileName of files) {
-        lines.push(`See: \`examples/${fileName}\``, "");
+      for (const { fileName, description } of items) {
+        if (description) {
+          lines.push(transformLinks(description), "");
+        }
+        if (fileName) {
+          lines.push(`See: \`examples/${fileName}\``, "");
+        }
       }
     }
   }
@@ -1310,21 +1375,50 @@ function renderSkillRootContent() {
 }
 
 /**
- * Render the catalog index.md listing all components with descriptions.
- * @param {Array<{title: string, slug: string, description: string, isDeprecated: boolean}>} entries
+ * Render the catalog index.md listing all components with descriptions, organized by category.
+ * @param {Array<{title: string, slug: string, description: string, category: string, isDeprecated: boolean}>} entries
  * @returns {string}
  */
 function renderIndexContent(entries) {
-  const sorted = [...entries].sort((a, b) => a.title.localeCompare(b.title));
-  const lines = ["# Carbon Component Catalog", "", "## Components", ""];
-  for (const entry of sorted) {
-    const deprecatedLabel = entry.isDeprecated ? " (deprecated)" : "";
-    const descPart = entry.description ? ` — ${entry.description}` : "";
-    lines.push(
-      `- [${entry.title}](components/${entry.slug}/)${descPart}${deprecatedLabel}`,
-    );
+  // Group entries by category
+  const byCategory = new Map();
+  for (const entry of entries) {
+    const cat = entry.category || "Other";
+    if (!byCategory.has(cat)) {
+      byCategory.set(cat, []);
+    }
+    byCategory.get(cat).push(entry);
   }
-  return lines.join("\n") + "\n";
+
+  // Sort categories, with "Other" at the end
+  const categories = Array.from(byCategory.keys()).sort((a, b) => {
+    if (a === "Other") return 1;
+    if (b === "Other") return -1;
+    return a.localeCompare(b);
+  });
+
+  const lines = ["# Carbon Component Catalog", ""];
+
+  for (const category of categories) {
+    const entries = byCategory.get(category) || [];
+    // Sort entries by title within each category
+    entries.sort((a, b) => a.title.localeCompare(b.title));
+
+    lines.push(`### ${category}`, "");
+    lines.push("| Component | Description | Deprecated |");
+    lines.push("| --- | --- | --- |");
+
+    for (const entry of entries) {
+      const deprecatedLabel = entry.isDeprecated ? "Yes" : "No";
+      const link = `[${entry.title}](components/${entry.slug}/)`;
+      lines.push(
+        `| ${link} | ${entry.description || ""} | ${deprecatedLabel} |`,
+      );
+    }
+    lines.push("");
+  }
+
+  return lines.join("\n");
 }
 
 // ─── Main Build ─────────────────────────────────────────────────────────────
@@ -1359,6 +1453,7 @@ for (const entry of mdxEntries) {
     title: parsed.componentTitle,
     slug,
     description: descOneLine,
+    category: parsed.category,
     isDeprecated: entry.isDeprecated,
   });
 
@@ -1374,12 +1469,23 @@ for (const entry of mdxEntries) {
   }
 
   // Extract examples
-  /** @type {Array<{heading: string, fileName: string}>} */
+  /** @type {Array<{heading: string, fileName: string | null, description: string}>} */
   const exampleFiles = [];
 
   for (const example of parsed.examples) {
-    const sources = [];
-    for (const canvasRef of example.canvasRefs) {
+    for (const item of example.items) {
+      const { canvasRef, description } = item;
+
+      if (!canvasRef) {
+        // Prose-only item: no example file, just description
+        exampleFiles.push({
+          heading: example.heading,
+          fileName: null,
+          description,
+        });
+        continue;
+      }
+
       const storiesPath = resolvedStories.get(canvasRef.alias);
       if (!storiesPath) {
         console.warn(
@@ -1394,23 +1500,17 @@ for (const entry of mdxEntries) {
         );
         continue;
       }
-      sources.push(source);
+      const fileName = `${canvasRef.exportName}.md`;
+      const fileContent = "```tsx\n" + source + "\n```";
+      const outputPath = path.join(
+        componentsOutDir,
+        slug,
+        "examples",
+        fileName,
+      );
+      wouldWrite.push({ path: outputPath, content: fileContent });
+      exampleFiles.push({ heading: example.heading, fileName, description });
     }
-
-    if (sources.length === 0) continue;
-
-    // Name the file after the story export(s), not the heading
-    const exportNames = example.canvasRefs
-      .filter((ref) => resolvedStories.has(ref.alias))
-      .map((ref) => ref.exportName);
-    const fileName =
-      exportNames.length === 1
-        ? `${exportNames[0]}.md`
-        : `${exportNames.map((n) => toPascalCase(n)).join("And")}.md`;
-    const fileContent = "```tsx\n" + sources.join("\n\n") + "\n```";
-    const outputPath = path.join(componentsOutDir, slug, "examples", fileName);
-    wouldWrite.push({ path: outputPath, content: fileContent });
-    exampleFiles.push({ heading: example.heading, fileName });
   }
 
   // Extract props

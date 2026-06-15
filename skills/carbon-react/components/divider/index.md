@@ -2,7 +2,11 @@
 
 Provides a vertical or horizontal dividing line to make the adjacent components feel distinctly separate from one another.
 
-## Import
+**Category:** UI presentation
+
+## Quick Start
+
+To use component, import the `Divider` and align it with the other components.
 
 ```javascript
 import Divider from "carbon-react/lib/components/divider";
@@ -15,6 +19,18 @@ import Divider from "carbon-react/lib/components/divider";
 The `Divider` component defaults to the `vertical` type, which spans the full height (`100%`) and includes `24px` of padding. When set to `horizontal`, it spans the full width (`100%`) and applies `24px` margins to the top and bottom.
 
 See: `examples/Default.md`
+
+### Variants
+
+Use the `variant` prop to switch between `typical` (default) and `prominent` divider styles.
+
+See: `examples/Variants.md`
+
+### Inverse
+
+Use the `inverse` prop when rendering `Divider` on darker backgrounds to preserve visual contrast.
+
+See: `examples/Inverse.md`
 
 ### In a flex container
 
@@ -46,31 +62,43 @@ See: `examples/DifferentSpacing.md`
 
 ### In a Dialog
 
+Divider used inside a `Dialog` to visually separate sections of modal content.
+
 See: `examples/InADialog.md`
 
 ### In a Tile
+
+Divider used inside a `Tile` to separate content rows.
 
 See: `examples/InATile.md`
 
 ### In a grid container
 
-This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation.
+Horizontal divider used between grid rows. Best viewed in full-screen Canvas mode with viewport emulation.
 
 See: `examples/InGridContainer.md`
 
 ### In a table
 
+Vertical divider used between table columns to add visual separation.
+
 See: `examples/InATable.md`
 
 ### In a Menu
+
+Divider used inside a `Menu` to group related navigation items.
 
 See: `examples/InAMenu.md`
 
 ### Inside a form
 
+Horizontal divider used to visually separate sections within a form.
+
 See: `examples/InsideForm.md`
 
 ### Inside a form with inline labels
+
+Horizontal divider used inside a form where labels are displayed inline (same row as the input).
 
 See: `examples/InsideFormInlineLabels.md`
 
@@ -91,35 +119,7 @@ See: `examples/EnablingAdaptiveBehaviour.md`
 | h | string \| number \| undefined | No |  | Shorthand for the height attribute. Only available for the `vertical` type. |  |
 | height | string \| number \| undefined | No |  | Height attribute of the component. Only available for the `vertical` type. |  |
 | inverse | boolean \| undefined | No |  | Set the style of the Divider to inverse | false |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| p | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
-| padding | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
-| paddingBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on bottom |  |
-| paddingLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left |  |
-| paddingRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on right |  |
-| paddingTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
-| paddingX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
-| paddingY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
-| pb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on bottom |  |
-| pl | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left |  |
-| pr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on right |  |
-| pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
-| px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
-| py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
-| type | "horizontal" \| "vertical" \| undefined | No |  | Sets Divider type | "vertical" |
+| type | "vertical" \| "horizontal" \| undefined | No |  | Sets Divider type | "vertical" |
 | variant | "typical" \| "prominent" \| undefined | No |  | Sets Divider variant | "typical" |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |

@@ -1,6 +1,12 @@
 # Radio Button
 
-## Import
+Provides a set of mutually exclusive options. Use `RadioButtonGroup` to wrap individual `RadioButton` components; only one button in the group can be selected at a time.
+
+**Category:** Inputs
+
+## Quick Start
+
+To use these components, import both `RadioButtonGroup` and `RadioButton`, and pass `RadioButton` as children of `RadioButtonGroup`.
 
 ```javascript
 import {
@@ -93,20 +99,6 @@ See: `examples/Disabled.md`
 | legend | string \| undefined | No |  |  |  | The content for the RadioButtonGroup legend. |  |
 | legendAlign | "left" \| "right" \| undefined | No |  |  |  | Alignment of the legend. |  |
 | legendHint | string \| undefined | No |  |  |  | Content for the hint text below the legend. |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
 | onBlur | ((ev: React.FocusEvent<HTMLInputElement>) => void) \| undefined | No |  |  |  | Callback fired when a RadioButton child is blurred. |  |
 | required | boolean \| undefined | No |  |  |  | Flag to configure RadioButtonGroup as mandatory. |  |
 | size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | Size of the RadioButtonGroup. | "medium" |

@@ -2,7 +2,11 @@
 
 Tile Select is an input visualized as a single or grouped set of tiles. It behaves like a `radio` or a `checkbox` depending on the mode it operates in.
 
-## Import
+**Category:** Inputs
+
+## Quick Start
+
+To use this component, import the `TileSelect` and `TileSelectGroup` if you want to have `TileSelects` grouped.
 
 ```javascript
 import {
@@ -20,7 +24,20 @@ By default, when grouped with the `TileSelectGroup`, this component operates in 
 In this mode all input props like `onChange`, `onBlur`, `name` and currently selected `value` are meant to be passed on the `TileSelectGroup`.
 These props are then internally distributed on each of the `TileSelects` making the whole composed group act like a single form field.
 
-See: `examples/DefaultAndWithCustomActionButtonAndWithActionButtonAdornment.md`
+See: `examples/Default.md`
+
+#### Custom action button
+
+It is possible to overide the default action button via the `customActionButton` prop. It is a render prop which allows
+access to the `onClick` functionality.
+
+See: `examples/WithCustomActionButton.md`
+
+#### Action button adornment
+
+It is possible to render an additional adornment next to the action button through the `actionButtonAdornment` prop.
+
+See: `examples/WithActionButtonAdornment.md`
 
 ### Multi select
 
@@ -94,20 +111,6 @@ See: `examples/WithCustomSpacing.md`
 | disabled | boolean \| undefined | No |  | disables the TileSelect input |  |
 | footer | React.ReactNode | No |  | footer of the TileSelect |  |
 | id | string \| undefined | No |  | input id |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
 | name | string \| undefined | No |  | input name |  |
 | onBlur | ((ev: React.FocusEvent<HTMLInputElement>) => void) \| undefined | No |  | Callback triggered when the user blurs this tile |  |
 | onChange | ((ev: React.ChangeEvent<HTMLInputElement> \| TileSelectDeselectEvent) => void) \| undefined | No |  | Callback triggered when user selects or deselects this tile |  |
@@ -116,7 +119,7 @@ See: `examples/WithCustomSpacing.md`
 | subtitle | React.ReactNode | No |  | subtitle of the TileSelect |  |
 | title | React.ReactNode | No |  | title of the TileSelect |  |
 | titleAdornment | React.ReactNode | No |  | adornment to be rendered next to the title |  |
-| type | "checkbox" \| "radio" \| undefined | No |  | Type of the TileSelect input |  |
+| type | "radio" \| "checkbox" \| undefined | No |  | Type of the TileSelect input |  |
 | value | string \| undefined | No |  | the value that is represented by this TileSelect |  |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
@@ -129,21 +132,7 @@ See: `examples/WithCustomSpacing.md`
 | name | string | Yes |  | The name to apply to the input - only for single select mode. |  |
 | description | string \| undefined | No |  | Description to be rendered below the legend |  |
 | legend | string \| undefined | No |  | The content for the TileSelectGroup Legend |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
 | multiSelect | boolean \| undefined | No |  | When passed as true TileSelectGroup serves only visual purpose It wraps TileSelects in fieldset element and renders the legend and description props content onChange, onBlur, value, checked and name props are meant to be passed individually on each of the TileSelects | false |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
 | onBlur | ((ev: React.FocusEvent<HTMLInputElement>) => void) \| undefined | No |  | A callback triggered when one of tiles is blurred - only for single select mode. |  |
 | onChange | ((ev: React.ChangeEvent<HTMLInputElement> \| TileSelectDeselectEvent) => void) \| undefined | No |  | A callback triggered when one of tiles is selected - only for single select mode. |  |
 | value | string \| null \| undefined | No |  | The currently selected value - only for single select mode. |  |

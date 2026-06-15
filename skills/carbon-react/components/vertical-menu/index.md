@@ -2,7 +2,9 @@
 
 Provides a vertical navigation for an app, which can be used via mouse or keyboard.
 
-## Import
+**Category:** Navigation
+
+## Quick Start
 
 ```javascript
 import {
@@ -17,6 +19,8 @@ import {
 
 ### Default
 
+Renders a vertical menu with navigation items. Use `VerticalMenuItem` for each entry. Set `href` or `onClick` to make items navigable or actionable.
+
 See: `examples/Default.md`
 
 ### Item With OnClick Handler
@@ -30,6 +34,8 @@ You can use the `onClick` prop to specify a function that will be called when th
 See: `examples/ItemWithOnClickHandler.md`
 
 ### With custom width and height
+
+Set `width` and `height` on `VerticalMenu` to override the default full-height sidebar dimensions, constraining the menu to a fixed size.
 
 See: `examples/CustomWidthAndHeight.md`
 
@@ -49,13 +55,19 @@ See: `examples/Active.md`
 
 ### Custom item padding
 
+Use the `py` prop on `VerticalMenuItem` to adjust the vertical padding of each item, controlling the row height and spacing density.
+
 See: `examples/CustomItemPadding.md`
 
 ### Custom item margin
 
+Use the `mx` prop on `VerticalMenuItem` to add horizontal margin inside the menu, giving items a card-like inset appearance.
+
 See: `examples/CustomItemMargin.md`
 
 ### Custom item height
+
+Set `height` on `VerticalMenuItem` to enforce a fixed minimum row height, useful for ensuring consistent touch targets.
 
 See: `examples/CustomItemHeight.md`
 
@@ -103,35 +115,7 @@ See: `examples/FullScreen.md`
 | height | string \| undefined | No |  | Height of the menu item | "56px" |
 | href | string \| undefined | No |  | Href, when passed the menu item will be rendered as an anchor tag |  |
 | iconType | IconType \| undefined | No |  | The Carbon icon to be displayed. Defers to `customIcon` if both are defined. |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
 | onClick | ((event: VerticalMenuItemClickEvent) => void) \| undefined | No |  | A custom click handler to run when the menu item is clicked |  |
-| p | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
-| padding | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
-| paddingBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on bottom |  |
-| paddingLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left |  |
-| paddingRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on right |  |
-| paddingTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
-| paddingX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
-| paddingY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
-| pb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on bottom |  |
-| pl | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left |  |
-| pr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on right |  |
-| pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
-| px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
-| py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 
@@ -154,19 +138,5 @@ See: `examples/FullScreen.md`
 | children | string | Yes |  | Title of the menu trigger |  |
 | onClick | (ev: React.MouseEvent<HTMLButtonElement>) => void | Yes |  | Callback passed to the menu trigger |  |
 | height | string \| undefined | No |  | Height of the menu trigger | "40px" |
-| p | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
-| padding | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
-| paddingBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on bottom |  |
-| paddingLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left |  |
-| paddingRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on right |  |
-| paddingTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
-| paddingX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
-| paddingY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
-| pb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on bottom |  |
-| pl | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left |  |
-| pr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on right |  |
-| pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
-| px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right | 2 |
-| py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom | 1 |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |

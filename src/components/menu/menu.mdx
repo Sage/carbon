@@ -23,6 +23,8 @@ import * as MenuStories from "./menu.stories";
 
 Provides navigation for an app, which can be used via mouse or keyboard.
 
+**Category:** Navigation
+
 ## Contents
 
 - [Quick Start](#quick-start)
@@ -49,6 +51,8 @@ import {
 
 ### Default
 
+A horizontal `Menu` bar with `MenuItem` children. Items can navigate via `href`, trigger an `onClick`, or open a submenu.
+
 <Canvas of={MenuStories.DefaultStory} />
 
 > **Note**: To ensure a `MenuItem` is interactive, it should either have an `href`, `onClick` or `submenu` prop, or contain another focusable Carbon component like Button. Without one of these, the item will not be keyboard-focusable or interactive, affecting accessibility for keyboard and screen reader users.
@@ -64,21 +68,31 @@ Using a `ref`, you can access its `focus()` method to set focus on the `MenuItem
 
 ### Selected
 
+Use the `selected` prop on a `MenuItem` to highlight the currently active page item.
+
 <Canvas of={MenuStories.SelectedStory} />
 
 ### Divider
+
+Use `MenuDivider` between `MenuItem` components to add a visual separator.
 
 <Canvas of={MenuStories.DividerStory} />
 
 ### Large divider
 
+Use `size="large"` on `MenuDivider` for a thicker visual separator between sections.
+
 <Canvas of={MenuStories.LargeDividerStory} />
 
 ### Segment title
 
+Use `MenuSegmentTitle` to add a non-interactive section heading above a group of `MenuItem`s in a submenu.
+
 <Canvas of={MenuStories.SegmentTitleStory} />
 
 ### With alternate colour variant
+
+Set `variant="alternate"` on `MenuItem` to apply an alternate background colour, useful for grouping visually distinct items.
 
 <Canvas of={MenuStories.AlternateColourStory} />
 
@@ -94,13 +108,19 @@ The `submenu` prop on `MenuItem` accepts a node, which allows the creation of co
 
 ### Submenu options
 
+A `MenuItem` with the `submenu` prop opens a dropdown list of child `MenuItem`s on hover/click. The submenu opens below by default.
+
 <Canvas of={MenuStories.SubmenuOptionsStory} />
 
 ### Submenu direction left
 
+Set `submenuDirection="left"` on a parent `MenuItem` to open its submenu to the left side, useful for right-edge items.
+
 <Canvas of={MenuStories.SubmenuDirectionLeftStory} />
 
 ### With icon
+
+Pass the `icon` prop to `MenuItem` to prepend a Carbon icon to the item label.
 
 <Canvas of={MenuStories.WithIconStory} />
 
@@ -144,6 +164,8 @@ scrollable list so the `parent` prop should be used to ensure screen readers mak
 <Canvas of={MenuStories.ScrollableSubmenuWithParent} />
 
 ### Submenu with search
+
+Embeds a `Search` component inside a submenu using `ScrollableBlock` to filter and select items from a long list.
 
 <Canvas of={MenuStories.SubmenuWithSearch} />
 

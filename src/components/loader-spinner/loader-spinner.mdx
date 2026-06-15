@@ -2,15 +2,21 @@ import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 import * as LoaderSpinnerStories from "./loader-spinner.stories.tsx";
-import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component"
+import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component";
 
-<Meta
-  title="Loader Spinner" of={LoaderSpinnerStories} />
+<Meta title="Loader Spinner" of={LoaderSpinnerStories} />
 
 # Loader Spinner
 
 <DeprecationWarning>
-  Loader Spinner has been deprecated, if this pattern is still needed please see <a style={{color: "white"}} href="../?path=/docs/documentation-deprecation-migration--docs#recommended-alternatives">our deprecation migration docs</a> for a recommended alternative.
+  Loader Spinner has been deprecated, if this pattern is still needed please see{" "}
+  <a
+    style={{ color: "white" }}
+    href="../?path=/docs/documentation-deprecation-migration--docs#recommended-alternatives"
+  >
+    our deprecation migration docs
+  </a>{" "}
+  for a recommended alternative.
 </DeprecationWarning>
 
 <a
@@ -25,6 +31,8 @@ import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.co
 Use the loader spinner to help users understand why they are waiting.
 
 Can be used to demonstrate a known or unknown wait time.
+
+**Category:** Feedback
 
 ## Contents
 
@@ -50,10 +58,10 @@ loading label will be displayed.
 
 <Canvas of={LoaderSpinnerStories.Default} />
 
-### Override Spinner label 
+### Override Spinner label
 
 Please find an example of the `spinnerLabel` prop used below, any string can be passed to the prop to override
-the default `"Loading..."` label. 
+the default `"Loading..."` label.
 
 <Canvas of={LoaderSpinnerStories.OverrideSpinnerLabel} />
 
@@ -82,7 +90,7 @@ The `gradient-grey` and `gradient-white` have a slower default animation time th
 
 ### Label color
 
-Please find an example of a spinner below when the label color has been inverted. This will ensure proper contrast is 
+Please find an example of a spinner below when the label color has been inverted. This will ensure proper contrast is
 achieved on the label, when used on a dark background. This is only applied with the `inverse` and `gradient-white` variants.
 
 <Canvas of={LoaderSpinnerStories.LabelColor} />
@@ -121,9 +129,10 @@ The following keys are available to override the translations for this component
   translationData={[
     {
       name: "loaderSpinner.loading",
-      description: "The spinner label which is shown next to the spinner, or applied to the visually hidden label if rendered.",
+      description:
+        "The spinner label which is shown next to the spinner, or applied to the visually hidden label if rendered.",
       type: "func",
       returnType: "string",
-    }
+    },
   ]}
 />

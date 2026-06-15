@@ -7,6 +7,10 @@ import * as FlatTableExpandableStories from "./flat-table-expandable.stories";
 
 # Flat Table expandable options
 
+Extends `FlatTable` with collapsible parent rows. Each expandable `FlatTableRow` can contain any number of sub-rows that are revealed or hidden when the user clicks the row or its expand icon. Rows can be uncontrolled (open/close handled internally) or controlled via the `expanded` and `onClick` props.
+
+**Category:** UI presentation
+
 ## Examples
 
 ### Default
@@ -83,9 +87,13 @@ truncated styling applied, this is because of the caret icon that is rendered wi
 
 ### Controlled
 
+Use the `expanded` prop together with an `onClick` handler to take full control of the open/closed state from outside the component.
+
 <Canvas of={FlatTableExpandableStories.Controlled} />
 
 ### Table Sizes
+
+The `size` prop on `FlatTable` applies to expandable tables in the same way as standard tables. Available values are `"compact"`, `"small"`, `"medium"` (default), and `"large"`.
 
 <Canvas of={FlatTableExpandableStories.Sizes} />
 

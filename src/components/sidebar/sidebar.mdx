@@ -16,6 +16,10 @@ import * as SidebarStories from "./sidebar.stories.tsx";
   Product Design System component
 </a>
 
+A modal side panel that slides in from the right (or left) of the screen. Unlike `Drawer`, `Sidebar` traps focus and dims the background until it is dismissed. Use it for secondary tasks that need a large display area without leaving the current page.
+
+**Category:** Modal
+
 ## Contents
 
 - [Quick Start](#quick-start)
@@ -57,27 +61,37 @@ Focus can instead be programmatically applied to another element if appropriate.
 
 ### Custom padding around content
 
+Override the default content padding using the `contentPadding` prop.
+
 <Canvas of={SidebarStories.CustomPaddingAroundContent} />
 
 ### With header
+
+Use the `header` prop to render a title bar at the top of the sidebar.
 
 <Canvas of={SidebarStories.WithHeader} />
 
 ### With dark header
 
+Set `headerVariant="dark"` for a dark-background header, suitable for use on light-background pages.
+
 <Canvas of={SidebarStories.WithDarkHeader} />
 
 ### With header and subheader
+
+Add a subheader line below the main title using the `subheader` prop.
 
 <Canvas of={SidebarStories.WithHeaderAndSubheader} />
 
 ### With scroll
 
-If sidebar content does not fit the sidebar, scroll will appear. Default scroll theme is "light".
+When content overflows the sidebar height a scrollbar appears. The `scrollVariant` prop (`"light"` or `"dark"`) controls the scrollbar style.
 
 <Canvas of={SidebarStories.WithScroll} />
 
 ### With Typography
+
+Demonstrates rendering `Typography` components inside the sidebar for headings and body text.
 
 <Canvas of={SidebarStories.WithTypography} />
 
@@ -91,12 +105,13 @@ This may occasionally be useful with things like Toasts where they persist on th
 
 ### Custom width
 
-It is possible to set a custom width for the `Sidebar` via the `width` [prop](#props).
-Setting this prop will override the preset width value defined via the `size` prop.
+Set a custom sidebar width using the `width` prop. Overrides the preset width from the `size` prop.
 
 <Canvas of={SidebarStories.CustomWidth} />
 
 ### With header and footer padding overridden
+
+Override default header and footer padding using the `headerPadding` and `footerPadding` props.
 
 <Canvas of={SidebarStories.WithHeaderAndFooterPadding} />
 

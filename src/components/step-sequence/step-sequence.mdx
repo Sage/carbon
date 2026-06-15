@@ -23,6 +23,8 @@ Try to keep label text for each step as short as possible.
 
 For users on small screens or instances where horizontal space is limited, use the vertical version of this component.
 
+**Category:** UI presentation
+
 ## Contents
 
 - [Quick Start](#quick-start)
@@ -42,17 +44,25 @@ import {
 
 ### Default
 
+Horizontal step sequence showing numbered steps. Each `StepSequenceItem` has a `status` prop: `complete`, `current`, or `incomplete`. Completed steps show a tick mark.
+
 <Canvas of={StepSequenceStories.DefaultStory} />
 
 ### Vertical
+
+Set `orientation="vertical"` to stack the steps vertically. Recommended for narrow screens or when more than five steps need to be shown.
 
 <Canvas of={StepSequenceStories.Vertical} />
 
 ### With hidden indicators
 
+Set `hideIndicators` on `StepSequenceItem` to hide the numbered circles, showing only the label text. Useful when visual brevity is required.
+
 <Canvas of={StepSequenceStories.WithHiddenIndicators} />
 
 ### Responsive Example
+
+Demonstrates switching between horizontal and vertical orientation based on viewport width, using a responsive layout to adapt the step sequence to smaller screens.
 
 <Canvas of={StepSequenceStories.ResponsiveExample} />
 

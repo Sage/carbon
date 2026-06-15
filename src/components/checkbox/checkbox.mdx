@@ -15,7 +15,9 @@ import * as CheckboxStories from "./checkbox.stories";
   Product Design System component
 </a>
 
-Checkbox provides a way to check an individual option are selected, or check multiple options from a list.
+Checkbox provides a way to check an individual option, or check multiple options from a list.
+
+**Category:** Inputs
 
 ## Contents
 
@@ -45,13 +47,21 @@ import { Checkbox } from "carbon-react/lib/components/checkbox";
 
 ## Examples
 
+### Default
+
+A basic `Checkbox` with a label. Toggle the checked state via `checked` and `onChange` props.
+
 <Canvas of={CheckboxStories.Default} />
 
 ### Sizes
 
+Two size variants: `small` and `large` (default is `large`). Set via the `size` prop.
+
 <Canvas of={CheckboxStories.Sizes} />
 
 ### Disabled
+
+Use the `disabled` prop to render a non-interactive checkbox.
 
 <Canvas of={CheckboxStories.Disabled} />
 
@@ -63,19 +73,25 @@ Place input box to the right of the label.
 
 ### Required
 
+Mark the field as mandatory using the `required` prop, which adds a visual asterisk to the label.
+
 <Canvas of={CheckboxStories.Required} />
 
 ### With fieldHelp
+
+Add a hint below the checkbox using the `fieldHelp` prop.
 
 <Canvas of={CheckboxStories.WithFieldHelp} />
 
 ### Custom label width
 
+Use the `labelWidth` prop to set the percentage of the field width allocated to the label. The remaining space is used by the checkbox input.
+
 <Canvas of={CheckboxStories.CustomLabelWidth} />
 
 ### With labelHelp (legacy)
 
-**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *false*.
+**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is _false_.
 
 <Canvas of={CheckboxStories.LegacyLabelHelp} />
 

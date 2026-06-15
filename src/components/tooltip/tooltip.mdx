@@ -1,15 +1,26 @@
 import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
 
 import * as TooltipStories from "./tooltip.stories";
-import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component"
+import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component";
 
 <Meta of={TooltipStories} />
 
 # Tooltip
 
 <DeprecationWarning>
-Tooltip has been deprecated, if this pattern is still needed please see <a style={{color: "white"}} href="../?path=/docs/documentation-deprecation-migration--docs#recommended-alternatives">our deprecation migration docs</a> for a recommended alternative.
+  Tooltip has been deprecated, if this pattern is still needed please see{" "}
+  <a
+    style={{ color: "white" }}
+    href="../?path=/docs/documentation-deprecation-migration--docs#recommended-alternatives"
+  >
+    our deprecation migration docs
+  </a>{" "}
+  for a recommended alternative.
 </DeprecationWarning>
+
+A deprecated contextual overlay that displays a short text message when its child element is focused or hovered. Supports four positions, automatic flip behaviour, error styling, and full colour overrides.
+
+**Category:** UI presentation
 
 ## Contents
 
@@ -61,6 +72,8 @@ when there is no space to render to the right any more.
 <Canvas of={TooltipStories.FlipBehaviourOverrides} />
 
 ### Large tooltip
+
+Set `isLarge` to render the tooltip with increased padding and a wider container, suitable for longer descriptive text.
 
 <Canvas of={TooltipStories.LargeTooltip} />
 

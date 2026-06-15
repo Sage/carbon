@@ -16,6 +16,8 @@ rel="noreferrer"
 
 Captures a single line of text.
 
+**Category:** Inputs
+
 ## Contents
 
 - [Quick Start](#quick-start)
@@ -40,13 +42,19 @@ import TextInput from "carbon-react/lib/components/textbox/__next__";
 
 ### Default
 
+A single-line text input. Provide a `label` and use `value` plus `onChange` for controlled behaviour. Supports common form-field props: `labelInline`, `labelWidth`, `inputWidth`, and validation.
+
 <Canvas of={TextInputStories.Default} />
 
 ### Required
 
+Set `required` to mark the field as mandatory. An asterisk appears in the label and the browser prevents form submission when the field is empty.
+
 <Canvas of={TextInputStories.Required} />
 
 ### Placeholder
+
+Set `placeholder` to display hint text inside the input when it has no value. Placeholder text disappears as soon as the user starts typing.
 
 <Canvas of={TextInputStories.Placeholder} />
 
@@ -59,17 +67,25 @@ before any other announcements, this will help screen reader users understand th
 
 ### Disabled
 
+Set `disabled` to prevent user interaction. The field is visually dimmed and excluded from the tab order.
+
 <Canvas of={TextInputStories.Disabled} />
 
 ### Read-Only
+
+Set `readOnly` to display the value as non-editable text within the field boundary. Unlike `disabled`, the value remains selectable and copyable.
 
 <Canvas of={TextInputStories.ReadOnly} />
 
 ### Label Inline
 
+Set `labelInline` to place the label to the left of the input rather than above it. Use `labelWidth` and `inputWidth` to adjust the column proportions.
+
 <Canvas of={TextInputStories.LabelInline} />
 
 ### Sizes
+
+Three sizes are available: `small`, `medium` (default), and `large`. Match the size to other form fields in the same layout.
 
 <Canvas of={TextInputStories.Sizes} />
 

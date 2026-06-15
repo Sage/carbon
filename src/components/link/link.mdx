@@ -18,6 +18,8 @@ import * as LinkStories from "./link.stories";
 
 Navigates the user to another location.
 
+**Category:** Navigation
+
 ## Contents
 
 - [Quick Start](#quick-start)
@@ -108,8 +110,8 @@ You can use the `inverse` prop to render the `Link` with the inverse color schem
 A custom `onClick` function can be passed to the Link component to render it as a button instead of an anchor.
 
 **Please note**: using the `onClick` prop with no `href` is bad for accessibility, as the output looks like a link but behaves like an HTML button.
-If the `onClick` performs an on-page action, so you want a genuine button, please consider using the [Button component](../?path=/docs/button--docs) instead so that the styles match the semantics. 
-If the `onClick` function performs navigation, an `href` prop is necessary either instead or in addition, so that an HTML `<a>` tag is used instead. 
+If the `onClick` performs an on-page action, so you want a genuine button, please consider using the [Button component](../?path=/docs/button--docs) instead so that the styles match the semantics.
+If the `onClick` function performs navigation, an `href` prop is necessary either instead or in addition, so that an HTML `<a>` tag is used instead.
 See for example our [React Router docs](../?path=/docs/documentation-usage-with-routing--docs), where we use `Link` with `onClick` to
 perform client-side routing, but still provide the `href` to render an HTML link rather than a button.
 

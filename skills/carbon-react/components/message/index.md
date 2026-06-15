@@ -2,7 +2,9 @@
 
 Presents a static message which stays on screen.
 
-## Import
+**Category:** Feedback
+
+## Quick Start
 
 ```javascript
 import Message from "carbon-react/lib/components/message";
@@ -47,7 +49,11 @@ See: `examples/WithTitle.md`
 The `Message` component supports several variants to convey different types of messages. You can set the variant using the `variant` prop.
 The type of message will be announced by screen readers along with the content, the announcement for each variant can be customized using the provided translation keys.
 
-See: `examples/VariantAndSubtleVariant.md`
+See: `examples/Variant.md`
+
+#### Subtle Variants
+
+See: `examples/SubtleVariant.md`
 
 ### Large size
 
@@ -64,20 +70,6 @@ See: `examples/SizeLarge.md`
 | children | React.ReactNode | No |  |  |  | Content to be rendered within the Message. |  |
 | closeButtonAriaLabel | string \| undefined | No |  |  |  | Set custom aria-label for component's close button. |  |
 | id | string \| undefined | No |  |  |  | Set custom id to component root. |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
 | onDismiss | ((e: React.KeyboardEvent<HTMLButtonElement> \| React.MouseEvent<HTMLButtonElement>) => void) \| undefined | No |  |  |  | Callback triggered on dismiss, will render the close button. |  |
 | open | boolean \| undefined | No |  |  |  | Flag to determine if the message is rendered. |  |
 | size | "medium" \| "large" \| undefined | No |  |  |  | Set the component's size. |  |

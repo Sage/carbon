@@ -2,15 +2,24 @@
 
 Represents a document section containing interactive controls for submitting information.
 
-## Import
+**Category:** Inputs
+
+## Quick Start
+
+To use Form, import the `Form` and pass the content, usually various inputs, as children.
+You can provide a save button using the `saveButton` prop.
 
 ```javascript
-import Form, { RequiredFieldsIndicator } from "carbon-react/lib/components/form";
+import Form, {
+  RequiredFieldsIndicator,
+} from "carbon-react/lib/components/form";
 ```
 
 ## Examples
 
 ### With footer node
+
+Pass a custom React node via the `saveButton` prop to render action buttons in the form footer.
 
 See: `examples/WithFooterNode.md`
 
@@ -22,9 +31,13 @@ See: `examples/DefaultWithStickyFooter.md`
 
 ### With sticky footer variant
 
+Use the `stickyFooter` variant that controls how the footer sticks when scrolling inside a constrained container.
+
 See: `examples/StickyFooterVariant.md`
 
 ### Full Width Buttons
+
+Use the `buttonAlignment` or pass `fullWidth` buttons to make footer action buttons stretch the full form width.
 
 See: `examples/WithFullWidthButtons.md`
 
@@ -45,38 +58,65 @@ See: `examples/OverrideFieldSpacing.md`
 
 When either `errorCount` or `warningCount` or both are provided, summary with the number of errors and/or warnings is rendered wrapping the save button.
 
-See: `examples/WithErrorsSummaryAndWithWarningsSummaryAndWithBothErrorsAndWarningsSummary.md`
+See: `examples/WithErrorsSummary.md`
+
+See: `examples/WithWarningsSummary.md`
+
+See: `examples/WithBothErrorsAndWarningsSummary.md`
 
 ### Required Fields Indicator
 
-The `RequiredFieldsIndicator` component visually indicates that form fields are required using an asterisk prefix. It can be used 
+The `RequiredFieldsIndicator` component visually indicates that form fields are required using an asterisk prefix. It can be used
 within a `Form` to provide users with a clear indication of which fields are mandatory, or used independently.
 
 See: `examples/RequiredFieldsIndicatorStory.md`
+
+### Example with optional and required fields
+
+You can set the `required` or `isOptional` on any `Form` input to make them mandatory or optional. You can also
+include an indicator within the `Form` by importing the `RequiredFieldsIndicator` component.
+
+See: `examples/WithBothOptionalOrRequired.md`
 
 ### Buttons variations
 
 Additional buttons can be passed using `leftSideButtons` and `rightSideButtons` props.
 
-See: `examples/WithAdditionalButtonsAndWithButtonsAlignedToTheLeft.md`
+See: `examples/WithAdditionalButtons.md`
+
+When `buttonAlignment` prop is set as `left`, buttons are aligned to the left side.
+
+See: `examples/WithButtonsAlignedToTheLeft.md`
 
 ### In Dialog
 
 It is possible to render `Form` as a content of `Dialog` component.
 
-See: `examples/InDialogAndInDialogWithStickyFooter.md`
+See: `examples/InDialog.md`
+
+#### With sticky footer
+
+See: `examples/InDialogWithStickyFooter.md`
 
 ### In full-screen `Dialog`
 
 It is possible to render `Form` as a content of full-screen `Dialog` component.
 
-See: `examples/InDialogFullScreenAndInDialogFullScreenWithStickyFooter.md`
+See: `examples/InDialogFullScreen.md`
+
+#### With sticky footer
+
+See: `examples/InDialogFullScreenWithStickyFooter.md`
 
 ### With labels inline
+
+Use the `labelInline` prop on individual inputs (or `Fieldset`) to display labels on the same row as the inputs.
 
 See: `examples/WithLabelsInline.md`
 
 ### With custom footer padding
+
+Override the default footer padding using the `footerPadding` prop.
 
 See: `examples/WithCustomFooterPadding.md`
 
@@ -96,36 +136,8 @@ See: `examples/WithCustomFooterPadding.md`
 | height | string \| undefined | No |  | Height of the form (any valid CSS value) |  |
 | id | string \| undefined | No |  | The id attribute of the underlying form element |  |
 | leftSideButtons | React.ReactNode | No |  | Additional buttons rendered on the left side of the save button |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
 | noValidate | boolean \| undefined | No |  | Disable HTML5 validation | true |
 | onSubmit | React.FormEventHandler<HTMLFormElement> \| undefined | No |  | Callback passed to the form element |  |
-| p | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
-| padding | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
-| paddingBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on bottom |  |
-| paddingLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left |  |
-| paddingRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on right |  |
-| paddingTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
-| paddingX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
-| paddingY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
-| pb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on bottom |  |
-| pl | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left |  |
-| pr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on right |  |
-| pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
-| px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
-| py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
 | rightSideButtons | React.ReactNode | No |  | Additional buttons rendered on the right side of the save button |  |
 | saveButton | React.ReactNode | No |  | Save button to be rendered |  |
 | stickyFooter | boolean \| undefined | No |  | Enables the sticky footer. |  |

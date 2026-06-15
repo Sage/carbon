@@ -26,28 +26,29 @@ const meta: Meta<typeof Accordion> = {
 export default meta;
 type Story = StoryObj<typeof Accordion>;
 
-export const Default: Story = {
-  render: (args) => (
-    <Accordion {...args}>
+export const Default: Story = ({ ...args }) => {
+  return (
+    <Accordion title="Title" {...args}>
       <Box my={2}>Content</Box>
       <Box my={2}>Content</Box>
       <Box my={2}>Content</Box>
     </Accordion>
-  ),
-  args: {
-    title: "Title",
-  },
+  );
 };
+Default.storyName = "Default";
 
-export const Subtitle: Story = {
-  ...Default,
-  args: {
-    ...Default.args,
-    subTitle: "Subtitle",
-  },
+export const Subtitle: Story = () => {
+  return (
+    <Accordion title="Title" subTitle="Subtitle">
+      <Box my={2}>Content</Box>
+      <Box my={2}>Content</Box>
+      <Box my={2}>Content</Box>
+    </Accordion>
+  );
 };
+Subtitle.storyName = "Subtitle";
 
-export const WithCustomTitle: Story = ({ ...args }) => {
+export const WithCustomTitle: Story = () => {
   const title = (
     <Box display="flex" alignItems="center" gap="16px">
       <Image size="60px" src={collaborateSvg} decorative />
@@ -68,7 +69,7 @@ export const WithCustomTitle: Story = ({ ...args }) => {
   );
 
   return (
-    <Accordion title={title} {...args}>
+    <Accordion title={title}>
       <Box my={2}>Content</Box>
       <Box my={2}>Content</Box>
       <Box my={2}>Content</Box>

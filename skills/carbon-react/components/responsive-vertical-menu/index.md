@@ -2,7 +2,11 @@
 
 A vertical menu that is responsive to the screen size. It can be used as a menu in one of two modes: a dual-column layout (default) or a single-column layout (responsive mode).
 
-## Import
+**Category:** Navigation
+
+## Quick Start
+
+To use `ResponsiveVerticalMenu`, you need to import the `ResponsiveVerticalMenu` and `ResponsiveVerticalMenuItem` components. 
 
 ```javascript
 import {
@@ -129,6 +133,8 @@ If you need to split options out to improve readability, use the `ResponsiveVert
 
 ### Default
 
+Renders the responsive vertical menu in dual-column layout. The menu sits in the left column; the content area fills the right. On small screens, the menu collapses and is revealed via a launch button.
+
 See: `examples/Default.md`
 
 ### Focusing Launch Button Programmatically
@@ -139,6 +145,8 @@ Using a `ref`, you can access its `focusLaunchButton()` method to set focus on t
 See: `examples/ProgrammaticFocus.md`
 
 ### With Divider
+
+Add a `ResponsiveVerticalMenuDivider` between menu items to create visual groupings and separate distinct navigation sections.
 
 See: `examples/WithDivider.md`
 
@@ -207,35 +215,7 @@ No props metadata found.
 | href | string \| undefined | No |  | External URL or anchor link for standard HTML navigation. Providing this will render the menu item as an anchor link. |  |
 | icon | IconType \| undefined | No |  | The Carbon icon to be displayed. Defers to `customIcon` if both are defined. |  |
 | id | string \| undefined | No |  | The unique identifier for the menu item. |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
 | onClick | ((event: ResponsiveVerticalMenuItemClickEvent) => void) \| undefined | No |  | A custom click handler to run when an anchor link is clicked |  |
-| p | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
-| padding | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
-| paddingBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on bottom |  |
-| paddingLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left |  |
-| paddingRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on right |  |
-| paddingTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
-| paddingX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
-| paddingY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
-| pb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on bottom |  |
-| pl | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left |  |
-| pr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on right |  |
-| pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
-| px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
-| py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
 | rel | string \| undefined | No |  | The rel attribute to be used for the underlying <a> tag |  |
 | target | string \| undefined | No |  | The target to use for the menu item. |  |
 

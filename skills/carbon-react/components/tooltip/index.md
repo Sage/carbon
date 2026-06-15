@@ -2,11 +2,11 @@
 
 > **Deprecated** — See [`deprecation-migration.md`](../../references/docs/deprecation-migration.md)
 
-<DeprecationWarning>
-Tooltip has been deprecated, if this pattern is still needed please see our deprecation migration docs for a recommended alternative.
-</DeprecationWarning>
+A deprecated contextual overlay that displays a short text message when its child element is focused or hovered. Supports four positions, automatic flip behaviour, error styling, and full colour overrides.
 
-## Import
+**Category:** UI presentation
+
+## Quick Start
 
 ```javascript
 import Tooltip from "carbon-react/lib/components/tooltip";
@@ -51,6 +51,8 @@ See: `examples/FlipBehaviourOverrides.md`
 
 ### Large tooltip
 
+Set `isLarge` to render the tooltip with increased padding and a wider container, suitable for longer descriptive text.
+
 See: `examples/LargeTooltip.md`
 
 ### Types
@@ -76,7 +78,7 @@ See: `examples/ColorOverrides.md`
 | children | React.ReactElement<any, string \| React.JSXElementConstructor<any>> | Yes |  | Children elements |  |
 | message | React.ReactNode | Yes |  | The message to be displayed within the tooltip |  |
 | bgColor | string \| undefined | No |  | Override background color of the Tooltip, provide any color from palette or any valid css color value. |  |
-| flipOverrides | TooltipPositions[] \| undefined | No |  | Overrides the default flip behaviour of the Tooltip, must be an array containing some or all of ["top", "bottom", "left", "right"] (see https://popper.js.org/docs/v2/modifiers/flip/#fallbackplacements) |  |
+| flipOverrides | TooltipPositions[] \| undefined | No |  | Overrides the default flip behaviour of the Tooltip, must be an array containing some or all of ["top", "bottom", "left", "right"] (see <a href="https://popper.js.org/docs/v2/modifiers/flip/#fallbackplacements" target="_blank">Popper.js documentation</a>) |  |
 | fontColor | string \| undefined | No |  | Override font color of the Tooltip, provide any color from palette or any valid css color value. |  |
 | id | string \| undefined | No |  | The id attribute to use for the tooltip |  |
 | inputSize | InputSizes \| undefined | No |  |  |  |

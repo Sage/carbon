@@ -1,15 +1,26 @@
 import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
 
 import * as InlineInputsStories from "./inline-inputs.stories";
-import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component"
+import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component";
 
 <Meta of={InlineInputsStories} />
 
 # Inline Inputs
 
 <DeprecationWarning>
-Inline Inputs has been deprecated, if this pattern is still needed please see <a style={{color: "white"}} href="../?path=/docs/documentation-deprecation-migration--docs#recommended-alternatives">our deprecation migration docs</a> for a recommended alternative.
+  Inline Inputs has been deprecated, if this pattern is still needed please see{" "}
+  <a
+    style={{ color: "white" }}
+    href="../?path=/docs/documentation-deprecation-migration--docs#recommended-alternatives"
+  >
+    our deprecation migration docs
+  </a>{" "}
+  for a recommended alternative.
 </DeprecationWarning>
+
+A deprecated layout component that renders multiple inputs side-by-side on the same row, sharing a single label. Use `Fieldset` with `orientation="horizontal"` in new implementations.
+
+**Category:** Inputs
 
 ## Contents
 
@@ -27,13 +38,19 @@ import InlineInputs from "carbon-react/lib/components/inline-inputs";
 
 ### Default
 
+Multiple Carbon inputs rendered inline (side by side) under a single shared label.
+
 <Canvas of={InlineInputsStories.Default} />
 
-## required
+### required
+
+Use the `required` prop to mark the shared label with a mandatory asterisk.
 
 <Canvas of={InlineInputsStories.Required} />
 
-## labelAlign
+### labelAlign
+
+Use the `labelAlign` prop (`"left"` or `"right"`) to control the text alignment of the shared label.
 
 <Canvas of={InlineInputsStories.LabelAlign} />
 

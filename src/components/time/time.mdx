@@ -8,6 +8,10 @@ import * as TimeStories from "./time.stories";
 
 # Time
 
+A pair of numeric inputs for entering hours and minutes. Optionally includes an AM/PM toggle for 12-hour clock formats.
+
+**Category:** Inputs
+
 ## Contents
 
 - [Quick Start](#quick-start)
@@ -49,17 +53,25 @@ Passing a string to the `inputHint` prop will render some additional hint text a
 
 ### Required
 
+Add `required` to mark the time input as mandatory. Both the hours and minutes fields will be marked as required and an asterisk will appear in the label.
+
 <Canvas of={TimeStories.Required} />
 
 ### Disabled
+
+Set `disabled` to prevent user interaction with the time inputs. Both hour and minute fields are visually dimmed and non-focusable.
 
 <Canvas of={TimeStories.Disabled} />
 
 ### Read only
 
+Set `readOnly` to display the time value as non-editable text. Unlike `disabled`, the value can still be selected and copied.
+
 <Canvas of={TimeStories.ReadOnly} />
 
 ### Sizes
+
+Three sizes are available: `small`, `medium` (default), and `large`. Match the size to other form fields used alongside this component.
 
 <Canvas of={TimeStories.Sizes} />
 

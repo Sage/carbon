@@ -2,7 +2,9 @@
 
 Compact visual indicators that help things in common stand out.
 
-## Import
+**Category:** Feedback
+
+## Quick Start
 
 ```javascript
 import Pill from "carbon-react/lib/components/pill";
@@ -11,6 +13,8 @@ import Pill from "carbon-react/lib/components/pill";
 ## Examples
 
 ### Default
+
+A basic `Pill` with a label. Renders as a small badge. Set `pillRole` to `"tag"` or `"status"` to apply the correct semantic styling.
 
 See: `examples/Default.md`
 
@@ -76,21 +80,7 @@ See: `examples/DarkBackground.md`
 | colorVariant | "warning" \| "negative" \| "neutral" \| "positive" \| "information" \| "neutralWhite" \| undefined | No |  | Change the color of a status pill. | "neutral" |
 | fill | boolean \| undefined | No |  | Fills the pill background with colour. When fill is false only the border is coloured. | false |
 | isDarkBackground | boolean \| undefined | No |  | Sets the colour styling when a status pill is rendered on a dark background. | false |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
 | maxWidth | string \| undefined | No |  | Sets the max-width of the pill. |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
 | onClick | ((ev: React.MouseEvent<HTMLSpanElement>) => void) \| undefined | No |  | Callback function for when the pill is clicked. |  |
 | onDelete | ((ev?: React.KeyboardEvent<HTMLButtonElement> \| React.MouseEvent<HTMLButtonElement>) => void) \| undefined | No |  | Callback function for when the remove icon is clicked. |  |
 | pillRole | "tag" \| "status" \| undefined | No |  | Sets the type of pill in use. | "tag" |

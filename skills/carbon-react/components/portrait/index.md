@@ -1,9 +1,10 @@
 # Portrait
 
-- Useful to represent a person, user, or organisation.
-- Use initials rather than an avatar if you prefer.
+A portrait visually represents a person, user, or organization. Use initials rather than an avatar if you prefer.
 
-## Import
+**Category:** UI presentation
+
+## Quick Start
 
 ```javascript
 import Portrait from "carbon-react/lib/components/portrait";
@@ -95,20 +96,6 @@ See: `examples/Variants.md`
 | className | string \| undefined | No |  |  |  |  |  |
 | iconType | IconType \| undefined | No |  |  |  | Icon to be rendered as a fallback. | "individual" |
 | initials | string \| undefined | No |  |  |  | The initials to render in the Portrait. |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
 | name | string \| undefined | No |  |  |  |  |  |
 | onClick | ((ev: React.MouseEvent<HTMLElement>) => void) \| undefined | No |  |  |  | Prop for `onClick` events. |  |
 | shape | PortraitShapes \| undefined | No |  |  |  | The shape of the Portrait. | "circle" |

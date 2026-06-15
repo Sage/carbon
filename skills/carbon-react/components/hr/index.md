@@ -2,13 +2,13 @@
 
 > **Deprecated** — See [`deprecation-migration.md`](../../references/docs/deprecation-migration.md)
 
-<DeprecationWarning>
-Hr has been deprecated, if this pattern is still needed please see our deprecation migration docs for a recommended alternative.
-</DeprecationWarning>
-
 Provides a horizontal dividing line to make the above and below components feel distinctly separate from one another.
 
-## Import
+**Category:** UI presentation
+
+## Quick Start
+
+To use Hr, import the `Hr` and set the margins to align it with other components.
 
 ```javascript
 import Hr from "carbon-react/lib/components/hr";
@@ -42,9 +42,13 @@ See: `examples/InverseType.md`
 
 ### Inside a form
 
+Horizontal rule used to visually separate sections within a `Form`.
+
 See: `examples/InsideForm.md`
 
 ### Inside a form with inline labels
+
+Horizontal rule used inside a `Form` where labels are displayed inline.
 
 See: `examples/InsideFormInlineLabels.md`
 
@@ -62,20 +66,6 @@ See: `examples/EnablingAdaptiveBehaviour.md`
 | --- | --- | --- | --- | --- | --- |
 | adaptiveMxBreakpoint | number \| undefined | No |  | Breakpoint for adaptive left and right margins (below the breakpoint they go to 0). Enables the adaptive behaviour when set |  |
 | height | "small" \| "medium" \| "large" \| undefined | No |  | Set the height of the component. Accepts one of "small", "medium", or "large" | "small" |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
 | type | "typical" \| "inverse" \| undefined | No |  | Set the color variant of the horizontal rule. Use "typical" for standard styling or "inverse" for use in darker backgrounds | "typical" |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |

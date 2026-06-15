@@ -2,22 +2,28 @@ import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 import * as ToastStories from "./toast.stories";
-import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component"
+import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component";
 
 <Meta of={ToastStories} />
 
 # Toast
 
 <DeprecationWarning>
-Toast has been deprecated, if this pattern is still needed please see <a style={{color: "white"}} href="../?path=/docs/documentation-deprecation-migration--docs#recommended-alternatives">our deprecation migration docs</a> for a recommended alternative.
+  Toast has been deprecated, if this pattern is still needed please see{" "}
+  <a
+    style={{ color: "white" }}
+    href="../?path=/docs/documentation-deprecation-migration--docs#recommended-alternatives"
+  >
+    our deprecation migration docs
+  </a>{" "}
+  for a recommended alternative.
 </DeprecationWarning>
 
-## Contents
+A deprecated notification component that renders a temporary message overlay anchored to the viewport. Supports multiple variants (`success`, `info`, `neutral`, `error`, `warning`, `notice`, `notification`), configurable horizontal and vertical alignment, auto-dismiss with a timeout, stacking via `targetPortalId`, and an optional dismiss button.
 
-- [Quick Start](#quick-start)
-- [Examples](#examples)
-- [Props](#props)
-- [Translation keys](#translation-keys)
+**Category:** Feedback
+
+## Contents
 
 ## Quick Start
 
@@ -62,47 +68,67 @@ Please note, by clicking a `toggle preview` button it will open example toast at
 
 ### Default
 
-Toast variant is `success` by default
+Toast `variant` is `success` by default, rendering a green success notification.
 
 <Canvas of={ToastStories.Default} />
 
 ### Horizontal Align - Left
 
+Set `align="left"` to anchor the toast to the left edge of the viewport.
+
 <Canvas of={ToastStories.AlignedLeft} />
 
 ### Horizontal Align - Center
+
+Set `align="center"` to centre the toast horizontally in the viewport.
 
 <Canvas of={ToastStories.AlignedCenter} />
 
 ### Horizontal Align - Right
 
+Set `align="right"` to anchor the toast to the right edge of the viewport.
+
 <Canvas of={ToastStories.AlignedRight} />
 
 ### Vertical Align - Top
+
+Set `alignY="top"` to display the toast near the top of the viewport.
 
 <Canvas of={ToastStories.AlignedYTop} />
 
 ### Vertical Align - Center
 
+Set `alignY="center"` to vertically centre the toast in the viewport.
+
 <Canvas of={ToastStories.AlignedYCenter} />
 
 ### Vertical Align - Bottom
+
+Set `alignY="bottom"` to display the toast near the bottom of the viewport (default).
 
 <Canvas of={ToastStories.AlignedYBottom} />
 
 ### Info
 
+Set `variant="info"` to display an informational toast with a blue colour scheme and information icon.
+
 <Canvas of={ToastStories.Info} />
 
 ### Neutral
+
+Set `variant="neutral"` for a grey, non-semantic toast suitable for general-purpose messages that don't carry a specific sentiment.
 
 <Canvas of={ToastStories.Neutral} />
 
 ### Error
 
+Set `variant="error"` to show a red error toast. Use to notify users of a failure that requires their attention.
+
 <Canvas of={ToastStories.Error} />
 
 ### Warning
+
+Set `variant="warning"` for an amber warning toast. Use to alert users to a condition they should be aware of.
 
 <Canvas of={ToastStories.Warning} />
 
@@ -116,35 +142,43 @@ To render it at the top of the screen use the `alignY` prop set to `"top"`.
 
 ### Notification
 
+Set `variant="notification"` for a dark-themed notification toast, suitable for system-level messages or push-style alerts.
+
 <Canvas of={ToastStories.Notification} />
 
 ### Custom max width
+
+Set `maxWidth` to constrain the toast width using any valid CSS value, preventing it from stretching too wide on large screens.
 
 <Canvas of={ToastStories.CustomMaxWidth} />
 
 ### Dismissible
 
+Set `onDismiss` to render a close button on the toast, letting users dismiss it manually before any auto-close timeout.
+
 <Canvas of={ToastStories.Dismissible} />
 
 ### Dismissible with timeout
+
+Set `timeout` (in milliseconds) to auto-dismiss the toast after the specified duration. A progress bar indicates the remaining time.
 
 <Canvas of={ToastStories.DismissibleWithTimeout} />
 
 ### Dismissible without autoFocus
 
-**Note:** Please ensure you add an 'aria-live' region to announce the toast when `autoFocus` is disabled, as screen readers will no longer announce the toast when it appears.
+Set `autoFocus={false}` to prevent the toast from stealing keyboard focus when it appears. Ensure you add an `aria-live` region elsewhere to announce the toast for screen reader users.
 
 <Canvas of={ToastStories.DismissibleWithoutAutoFocus} />
 
 ### Grouped Delayed (stacking)
 
-One second delay
+Toasts that share a `targetPortalId` stack together. This example adds a one-second delay before the second toast appears.
 
 <Canvas of={ToastStories.StackedDelayed} />
 
 ### Grouped (stacking)
 
-Please use `targetPortalId` prop to group multiple toasts so that they stack.
+Use `targetPortalId` to group multiple toasts into the same portal so they stack vertically rather than overlapping.
 
 <Canvas of={ToastStories.Stacked} />
 
@@ -202,6 +236,6 @@ The following keys are available to override the translations for this component
       description: "The visually hidden message for a notification toast",
       type: "func",
       returnType: "string",
-    }
+    },
   ]}
 />

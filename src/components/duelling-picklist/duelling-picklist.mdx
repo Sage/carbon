@@ -4,15 +4,27 @@ import * as PickListStories from "./picklist/picklist.stories";
 import * as PicklistItemStories from "./picklist-item/picklist-item.stories";
 import * as PicklistPlaceholderStories from "./picklist-placeholder/picklist-placeholder.stories";
 import * as DuellingPicklistStories from "./duelling-picklist.stories";
-import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component"
+import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component";
 
 <Meta of={DuellingPicklistStories} />
 
 # Duelling Picklist
 
 <DeprecationWarning>
-Duelling Picklist has been deprecated, if this pattern is still needed please see <a style={{color: "white"}} href="../?path=/docs/documentation-deprecation-migration--docs#recommended-alternatives">our deprecation migration docs</a> for a recommended alternative.
+  Duelling Picklist has been deprecated, if this pattern is still needed please
+  see{" "}
+  <a
+    style={{ color: "white" }}
+    href="../?path=/docs/documentation-deprecation-migration--docs#recommended-alternatives"
+  >
+    our deprecation migration docs
+  </a>{" "}
+  for a recommended alternative.
 </DeprecationWarning>
+
+A deprecated two-panel selection component. Items are moved between a "source" and a "destination" list using add/remove controls. Supports search, grouped items and drag-and-drop-free keyboard navigation.
+
+**Category:** Inputs
 
 ## Contents
 
@@ -76,29 +88,37 @@ Picklist items can be organised into selectable groups. Whole groups can be move
 
 ### In Dialog
 
-Same as above but as a children of `Dialog` component.
+Same `DuellingPicklist` composition rendered as children of a `Dialog` component.
 
 <Canvas of={DuellingPicklistStories.InDialog} />
 
-## PicklistItem Examples
+### PicklistItem Examples
 
-### Add item
+#### Add item
+
+A `PicklistItem` with `type="add"` renders a ⊕ icon; clicking it (or pressing Space/Enter) calls `onChange` with the item data to move it to the destination list.
 
 <Canvas of={DuellingPicklistStories.AddItem} />
 
-### Remove item
+#### Remove item
+
+A `PicklistItem` with `type="remove"` renders a ⊖ icon; clicking it calls `onChange` to move the item back to the source list.
 
 <Canvas of={DuellingPicklistStories.RemoveItem} />
 
-### Locked
+#### Locked
+
+A `PicklistItem` with the `locked` prop cannot be moved; the add/remove icon is replaced by a lock icon.
 
 <Canvas of={DuellingPicklistStories.Locked} />
 
-### Custom tooltip message
+#### Custom tooltip message
+
+Override the default tooltip text on the add/remove icon using the `tooltipMessage` prop.
 
 <Canvas of={DuellingPicklistStories.CustomTooltipMessage} />
 
-## Props:
+## Props
 
 ### Picklist
 

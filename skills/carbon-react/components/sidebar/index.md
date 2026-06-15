@@ -1,10 +1,18 @@
 # Sidebar
 
-## Import
+A modal side panel that slides in from the right (or left) of the screen. Unlike `Drawer`, `Sidebar` traps focus and dims the background until it is dismissed. Use it for secondary tasks that need a large display area without leaving the current page.
+
+**Category:** Modal
+
+## Quick Start
 
 ```javascript
 import Sidebar from "carbon-react/lib/components/sidebar";
 ```
+
+- Sidebar is positioned on the right hand screen of the window by default. To position the sidebar on the left hand side pass `position='left'` to the component.
+
+- The background behind the sidebar is disabled by default. To allow the user to interact with all the UI pass `enableBackgroundUI={ true }` to the component
 
 ## Related Components
 
@@ -29,27 +37,37 @@ See: `examples/RestoreFocusOnCloseStory.md`
 
 ### Custom padding around content
 
+Override the default content padding using the `contentPadding` prop.
+
 See: `examples/CustomPaddingAroundContent.md`
 
 ### With header
+
+Use the `header` prop to render a title bar at the top of the sidebar.
 
 See: `examples/WithHeader.md`
 
 ### With dark header
 
+Set `headerVariant="dark"` for a dark-background header, suitable for use on light-background pages.
+
 See: `examples/WithDarkHeader.md`
 
 ### With header and subheader
+
+Add a subheader line below the main title using the `subheader` prop.
 
 See: `examples/WithHeaderAndSubheader.md`
 
 ### With scroll
 
-If sidebar content does not fit the sidebar, scroll will appear. Default scroll theme is "light".
+When content overflows the sidebar height a scrollbar appears. The `scrollVariant` prop (`"light"` or `"dark"`) controls the scrollbar style.
 
 See: `examples/WithScroll.md`
 
 ### With Typography
+
+Demonstrates rendering `Typography` components inside the sidebar for headings and body text.
 
 See: `examples/WithTypography.md`
 
@@ -63,12 +81,13 @@ See: `examples/OtherFocusableContainers.md`
 
 ### Custom width
 
-It is possible to set a custom width for the `Sidebar` via the `width` [prop](#props).
-Setting this prop will override the preset width value defined via the `size` prop.
+Set a custom sidebar width using the `width` prop. Overrides the preset width from the `size` prop.
 
 See: `examples/CustomWidth.md`
 
 ### With header and footer padding overridden
+
+Override default header and footer padding using the `headerPadding` and `footerPadding` props.
 
 See: `examples/WithHeaderAndFooterPadding.md`
 
@@ -104,28 +123,13 @@ See: `examples/TopModalOverride.md`
 | headerVariant | "dark" \| "light" \| undefined | No |  | Header background variant for the sidebar. |  |
 | hidden | boolean \| undefined | No |  |  |  |
 | onCancel | ((ev: React.KeyboardEvent<HTMLElement> \| KeyboardEvent \| React.MouseEvent<HTMLElement>) => void) \| undefined | No |  | A custom close event handler |  |
-| p | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
-| padding | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
-| paddingBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on bottom |  |
-| paddingLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left |  |
-| paddingRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on right |  |
-| paddingTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
-| paddingX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
-| paddingY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
-| pb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on bottom |  |
-| pl | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left |  |
 | position | "left" \| "right" \| undefined | No |  | Sets the position of sidebar, either left or right. |  |
-| pr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on right |  |
-| pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
-| px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
-| py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
 | restoreFocusOnClose | boolean \| undefined | No |  | Enables the automatic restoration of focus to the element that invoked the modal when the modal is closed. |  |
 | role | string \| undefined | No |  | The ARIA role to be applied to the component container |  |
 | size | "small" \| "medium" \| "large" \| "extra-small" \| "medium-small" \| "medium-large" \| "extra-large" \| undefined | No |  | Sets the size of the sidebar when open. |  |
 | subHeader | React.ReactNode | No |  | Node that will be used as sidebar subheader. |  |
 | subHeaderPadding | PaddingProps | No |  | Padding to be set on the Sidebar subheader |  |
 | topModalOverride | boolean \| undefined | No |  | Manually override the internal modal stacking order to set this as top |  |
-| width | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | The width utility parses a component's `width` prop and converts it into a CSS width declaration. - Numbers from 0-1 are converted to percentage widths. - Numbers greater than 1 are converted to pixel values. - String values are passed as raw CSS values. - And arrays are converted to responsive width styles. |  |
 | widthAnimation | boolean \| undefined | No |  | Enables width animation when the sidebar width changes. |  |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |

@@ -1,6 +1,10 @@
 # Popover Container
 
-## Import
+A floating panel that appears when a trigger element is clicked. Use it for contextual controls — filters, quick actions or small forms — that should appear inline without navigating away from the page.
+
+**Category:** UI presentation
+
+## Quick Start
 
 ```javascript
 import PopoverContainer, { type PopoverContainerHandle } from "carbon-react/lib/components/popover-container";
@@ -9,6 +13,8 @@ import PopoverContainer, { type PopoverContainerHandle } from "carbon-react/lib/
 ## Examples
 
 ### Default
+
+A `PopoverContainer` opened by clicking the trigger button. Content is rendered as `children`. Controlled `open` state is optional.
 
 See: `examples/Default.md`
 
@@ -122,21 +128,7 @@ See: `examples/FocusButton.md`
 | onOpen | ((ev: React.KeyboardEvent<HTMLElement> \| React.MouseEvent<HTMLElement>) => void) \| undefined | No |  | Callback fires when open component is clicked |  |
 | open | boolean \| undefined | No |  | if `true` the popover-container is open |  |
 | openButtonAriaLabel | string \| undefined | No |  | Open button aria label |  |
-| p | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
-| padding | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
-| paddingBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on bottom |  |
-| paddingLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left |  |
-| paddingRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on right |  |
-| paddingTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
-| paddingX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
-| paddingY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
-| pb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on bottom |  |
-| pl | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left |  |
 | position | Position \| undefined | No |  | Sets rendering position of dialog |  |
-| pr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on right |  |
-| pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
-| px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
-| py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
 | renderCloseComponent | ((args: RenderCloseProps) => JSX.Element) \| undefined | No |  | A function that will render the close component `({data-element, tabIndex, onClick, ref, aria-label}) => ()` |  |
 | renderOpenComponent | ((args: RenderOpenProps) => JSX.Element) \| undefined | No |  | A function that will render the open component `({tabIndex, isOpen, data-element, onClick, ref, aria-label}) => ()` |  |
 | shouldCoverButton | boolean \| undefined | No |  | if `true` the popover-container will cover open button |  |

@@ -1,10 +1,18 @@
 # Time
 
-## Import
+A pair of numeric inputs for entering hours and minutes. Optionally includes an AM/PM toggle for 12-hour clock formats.
+
+**Category:** Inputs
+
+## Quick Start
 
 ```javascript
 import { Time, type TimeHandle } from "carbon-react/lib/components/time";
 ```
+
+### Validation
+
+This component supports input validation, see our [Validations](../?path=/docs/documentation-validations--docs) documentation page for more information.
 
 ## Examples
 
@@ -29,17 +37,25 @@ See: `examples/InputHint.md`
 
 ### Required
 
+Add `required` to mark the time input as mandatory. Both the hours and minutes fields will be marked as required and an asterisk will appear in the label.
+
 See: `examples/Required.md`
 
 ### Disabled
+
+Set `disabled` to prevent user interaction with the time inputs. Both hour and minute fields are visually dimmed and non-focusable.
 
 See: `examples/Disabled.md`
 
 ### Read only
 
+Set `readOnly` to display the time value as non-editable text. Unlike `disabled`, the value can still be selected and copied.
+
 See: `examples/ReadOnly.md`
 
 ### Sizes
+
+Three sizes are available: `small`, `medium` (default), and `large`. Match the size to other form fields used alongside this component.
 
 See: `examples/Sizes.md`
 
@@ -72,21 +88,7 @@ See: `examples/LocaleOverride.md`
 | inputHint | string \| undefined | No |  | Additional hint text rendered above the input elements |  |
 | label | string \| undefined | No |  | Label text for the component |  |
 | labelAlign | "left" \| "right" \| undefined | No |  | Label alignment |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
 | minutesInputProps | TimeInputProps \| undefined | No |  | Set custom `data-` and `id` attributes on the input element. Set the `label` and `aria-label` values for the associated Label element. Set the `error` and `warning` states for the input |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
 | name | string \| undefined | No |  | Set a name value on the component |  |
 | onBlur | ((ev?: React.FocusEvent<HTMLInputElement>, value?: TimeValue) => void) \| undefined | No |  | Callback called when focus is lost on input elements |  |
 | readOnly | boolean \| undefined | No |  | If true, the component will be read-only |  |

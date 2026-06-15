@@ -12,6 +12,8 @@ import * as FilterableSelectStories from "./filterable-select.stories";
 Select one of available options from the drop-down menu using filter.
 Filterable Select is a Carbon styled implementation of WAI-ARIA Combobox with Inline Autocomplete.
 
+**Category:** Inputs
+
 ## Contents
 
 - [Quick Start](#quick-start)
@@ -35,6 +37,8 @@ If you type printable characters in the Textbox, you can filter through the exis
 
 ### Default
 
+A basic `FilterableSelect` with `Option` children. Type in the input to filter the list; only options whose text matches the typed characters will be shown.
+
 <Canvas of={FilterableSelectStories.Default} />
 
 ### List placement
@@ -55,25 +59,35 @@ You can use `listMaxHeight` prop to override default max height value of select 
 You can use `listWidth` prop to override the width of the select list. By default the list
 will have the same width as the input.
 
-<Canvas of={FilterableSelectStories.ListWidth}/>
+<Canvas of={FilterableSelectStories.ListWidth} />
 
 ### Open on focus
+
+Set `openOnFocus` to open the option list automatically when the input receives focus, without requiring any typed input.
 
 <Canvas of={FilterableSelectStories.OpenOnFocus} />
 
 ### Disabled
 
+Set `disabled` to prevent user interaction. The input and dropdown are visually dimmed and non-interactive.
+
 <Canvas of={FilterableSelectStories.Disabled} />
 
 ### Read Only
+
+Set `readOnly` to display the current value without allowing changes. The filter input is disabled but the value remains visible and accessible.
 
 <Canvas of={FilterableSelectStories.Readonly} />
 
 ### With multiple columns
 
+Pass a `tableHeader` and multi-column `Option` children (using `OptionRow`) to display the dropdown as a table with column headers.
+
 <Canvas of={FilterableSelectStories.WithMultipleColumns} />
 
 ### With multiple columns and nested tags/components
+
+Demonstrates that multi-column options can contain arbitrary nested elements — such as `Badge` components or other rich content — within each cell.
 
 <Canvas of={FilterableSelectStories.WithMultipleColumnsAndNested} />
 
@@ -168,7 +182,7 @@ describe("Select tests", () => {
   test("should render", () => {
     // your test code here
   });
-})
+});
 ```
 
 ## Props
@@ -183,7 +197,7 @@ Due to the `Textbox` component being used internally by the `FilterableSelect` c
 
 **Any other supplied props will be provided to the underlying HTML input element**
 
-### Props of the Option Component
+### Option Component
 
 <ArgTypes of={OptionStories} />
 

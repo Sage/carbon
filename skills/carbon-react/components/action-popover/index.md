@@ -3,7 +3,12 @@
 ActionPopovers present a handy list of actions the user can perform on a whole table, a specific row within a table, or a tile.
 Click the ellipsis icon to show actions the user can take on a specific table row, for example, emailing the invoice.
 
-## Import
+**Category:** Actions
+
+## Quick Start
+
+To use action popover, import `ActionPopover` alongside `ActionPopoverItem` and the other components that you would like to use in relation,
+to the action popover.
 
 ```javascript
 import {
@@ -32,23 +37,25 @@ See: `examples/Default.md`
 
 ### With icons
 
-Each item is clickable and represents an action to be taken on a given row.
+Use the `icon` prop on `ActionPopoverItem` to display an icon next to each menu label. Items are separated with an `ActionPopoverDivider`.
 
 See: `examples/Icons.md`
 
 ### With disabled item
 
-ActionPopoverItem&apos;s can be disabled. These items are not clickable and can not be navigated to with the keyboard.
+ActionPopoverItem's can be disabled. These items are not clickable and can not be navigated to with the keyboard.
 
 See: `examples/DisabledItems.md`
 
 ### With menu right aligned
 
-It is possible to align the Menu to the right of the MenuButton by passing the &quot;rightAlignMenu&quot; to ActionPopover
+It is possible to align the Menu to the right of the MenuButton by passing the `rightAlignMenu` to ActionPopover
 
 See: `examples/MenuRightAligned.md`
 
 ### With item content aligned to right
+
+Use the `horizontalAlignment="right"` prop on `ActionPopover` to align both the icon and label text to the right side of each menu item.
 
 See: `examples/ContentAlignedRight.md`
 
@@ -138,26 +145,31 @@ See: `examples/KeyboardNavigationRightAlignedSubmenu.md`
 
 ### With additional options
 
-When a row has many actions you may choose to include the primary actions with a dedicated action to for less frequently
-used actions, in this example "manage devices".
+When a row has many actions, group the primary actions at the top and use a dedicated item (separated by an `ActionPopoverDivider`) for less frequently used options — in this example, "Manage Devices".
 
 See: `examples/AdditionalOptions.md`
 
 ### with download button
 
+Use the `download` and `href` props on `ActionPopoverItem` to trigger a browser file download when the item is clicked. A disabled download item is also included to show that disabled state prevents the download.
+
 See: `examples/DownloadButton.md`
 
 ### in overflow hidden container
+
+`ActionPopover` menus renders even when placed inside a container with `overflow: hidden` (here an `Accordion`). The popover escapes the overflow boundary so the menu is never clipped.
 
 See: `examples/InOverflowHiddenContainer.md`
 
 ### In FlatTable with highlightable rows
 
-It is possible to utilise the selected and onClick props on the FlatTableRow to highlight single rows of data.
+`ActionPopover` placed in the last cell of each `FlatTableRow`, using `placement="top"` so the menu opens upward. The `onOpen` callback is wired to the row's `highlighted` prop so opening the popover also highlights its parent row.
 
 See: `examples/InFlatTable.md`
 
 ### Action opening a Modal
+
+Triggers a `Confirm` dialog from an `ActionPopoverItem`. Uses `renderButton` with visible text ("Open Actions"), which requires setting `aria-label={undefined}` on the button to avoid duplicate screen-reader labels.
 
 See: `examples/OpeningAModal.md`
 
@@ -177,20 +189,6 @@ See: `examples/FocusButtonProgrammatically.md`
 | children | React.ReactNode | No |  | Children for popover component |  |
 | horizontalAlignment | Alignment \| undefined | No |  | Horizontal alignment of menu items content |  |
 | id | string \| undefined | No |  | Unique ID |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
 | onClose | (() => void) \| undefined | No |  | Callback to be called on menu close |  |
 | onOpen | (() => void) \| undefined | No |  | Callback to be called on menu open |  |
 | placement | "bottom" \| "top" \| undefined | No |  | Set whether the menu should open above or below the button |  |
@@ -210,11 +208,9 @@ See: `examples/FocusButtonProgrammatically.md`
 | children | React.ReactNode | No |  | Children for the menu |  |
 | focusIndex | number \| undefined | No |  |  |  |
 | isOpen | boolean \| undefined | No |  | Flag to indicate whether a menu should open |  |
-| key | Key \| null \| undefined | No |  |  |  |
 | menuID | string \| undefined | No |  | A unique ID for the menu |  |
 | parentID | string \| undefined | No |  | Unique ID for the menu's parent |  |
 | placement | "bottom" \| "top" \| undefined | No |  | Set whether the menu should open above or below the button |  |
-| ref | LegacyRef<T> \| undefined | No |  | Allows getting a ref to the component instance. Once the component unmounts, React will set `ref.current` to `null` (or call the ref with `null` if you passed a callback ref). |  |
 | role | string \| undefined | No |  |  |  |
 | setFocusIndex | ((args: number) => void) \| undefined | No |  |  |  |
 | setOpen | ((args: boolean) => void) \| undefined | No |  | Callback to set the isOpen flag |  |

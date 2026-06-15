@@ -5,7 +5,9 @@
 A Button triggers a single action or event.
 Use it to submit a form (Save), to advance to the next step in a process (Next), or to create a new item (New).
 
-## Import
+**Category:** Action
+
+## Quickstart
 
 ```javascript
 import Button from "carbon-react/lib/components/button";
@@ -17,32 +19,148 @@ import Button from "carbon-react/lib/components/button";
 
 For the single most prominent call to action on the page (e.g. Save, Submit, Continue).
 
-See: `examples/PrimaryButtonAndPrimaryButtonDestructiveAndPrimaryButtonDisabledAndPrimaryButtonIconAndPrimaryButtonFullWitdthAndPrimaryButtonNoWrap.md`
+See: `examples/PrimaryButton.md`
+
+Primary buttons can be destructive.
+
+See: `examples/PrimaryButtonDestructive.md`
+
+Primary buttons can be disabled.
+
+See: `examples/PrimaryButtonDisabled.md`
+
+Primary buttons can have an icon positioned before or after the text.
+
+See: `examples/PrimaryButtonIcon.md`
+
+Primary buttons can be `fullWidth`.
+
+See: `examples/PrimaryButtonFullWitdth.md`
+
+Primary buttons can be set into `noWrap` mode to prevent text wrapping.
+
+See: `examples/PrimaryButtonNoWrap.md`
 
 ### Secondary Buttons
 
 Less prominent, there can be multiple secondary buttons on a page.
 Secondary buttons are transparent, rather than white.
 
-See: `examples/SecondaryButtonAndSecondaryButtonDestructiveAndSecondaryButtonDisabledAndSecondaryButtonIconAndSecondaryButtonFullWidthAndSecondaryButtonNoWrapAndSecondaryButtonWhite.md`
+See: `examples/SecondaryButton.md`
+
+Secondary buttons can be destructive.
+
+See: `examples/SecondaryButtonDestructive.md`
+
+Secondary buttons can be disabled.
+
+See: `examples/SecondaryButtonDisabled.md`
+
+Secondary buttons can have an icon positioned before or after the text.
+
+See: `examples/SecondaryButtonIcon.md`
+
+Secondary buttons can be `fullWidth`.
+
+See: `examples/SecondaryButtonFullWidth.md`
+
+Secondary buttons can be set into `noWrap` mode to prevent text wrapping.
+
+See: `examples/SecondaryButtonNoWrap.md`
+
+Secondary buttons offer a white variant via the `isWhite` prop. Disabled and destructive states take precedence when applied.
+
+See: `examples/SecondaryButtonWhite.md`
 
 ### Tertiary Buttons
 
 Tertiary or ‘ghost’ buttons are used for reversing actions, like ‘Cancel’ or ‘Back’.
 
-See: `examples/TertiaryButtonAndTertiaryButtonDestructiveAndTertiaryButtonDisabledAndTertiaryButtonIconAndTertiaryButtonFullWidthAndTertiaryButtonNoWrap.md`
+See: `examples/TertiaryButton.md`
+
+Tertiary buttons can be destructive.
+
+See: `examples/TertiaryButtonDestructive.md`
+
+Tertiary buttons can be disabled.
+
+See: `examples/TertiaryButtonDisabled.md`
+
+Tertiary buttons can have an icon positioned before or after the text.
+
+See: `examples/TertiaryButtonIcon.md`
+
+Tertiary buttons can be `fullWidth`.
+
+See: `examples/TertiaryButtonFullWidth.md`
+
+Tertiary buttons can be set to `noWrap` mode to prevent text wrapping.
+
+See: `examples/TertiaryButtonNoWrap.md`
 
 ### Dark Background Buttons
 
 Dark Background buttons are used for adding new content that replaces empty states.
 
-See: `examples/DarkBackgroundButtonAndDarkBackgroundButtonDisabledAndDarkBackgroundButtonIconAndDarkBackgroundButtonFullWidthAndDarkBackgroundButtonNoWrap.md`
+See: `examples/DarkBackgroundButton.md`
+
+Dark Background buttons can be disabled.
+
+See: `examples/DarkBackgroundButtonDisabled.md`
+
+Dark Background buttons can have an icon positioned before or after the text.
+
+See: `examples/DarkBackgroundButtonIcon.md`
+
+Dark Background buttons can be `fullWidth`.
+
+See: `examples/DarkBackgroundButtonFullWidth.md`
+
+Dark Background buttons can be set to `noWrap` mode to prevent text wrapping.
+
+See: `examples/DarkBackgroundButtonNoWrap.md`
 
 ### Gradient Buttons
 
 The `Button` component supports a `gradient-white` `buttonType`.
 
-See: `examples/GradientWhiteAndGradientWhiteDisabledAndGradientWhiteIconAndGradientWhiteFullWidthAndGradientWhiteNoWrapAndGradientGreyAndGradientGreyDisabledAndGradientGreyIconAndGradientGreyFullWidthAndGradientGreyNoWrap.md`
+See: `examples/GradientWhite.md`
+
+`gradient-white` buttons can also be `disabled`.
+
+See: `examples/GradientWhiteDisabled.md`
+
+`gradient-white` buttons can have an icon positioned before or after the text.
+
+See: `examples/GradientWhiteIcon.md`
+
+`gradient-white` buttons can be `fullWidth`.
+
+See: `examples/GradientWhiteFullWidth.md`
+
+`gradient-white` buttons can be set to `noWrap` mode to prevent text wrapping.
+
+See: `examples/GradientWhiteNoWrap.md`
+
+The `Button` component supports a `gradient-grey` `buttonType`.
+
+See: `examples/GradientGrey.md`
+
+`gradient-grey` buttons can also be `disabled`.
+
+See: `examples/GradientGreyDisabled.md`
+
+`gradient-grey` buttons can have an icon positioned before or after the text.
+
+See: `examples/GradientGreyIcon.md`
+
+`gradient-grey` buttons can be `fullWidth`.
+
+See: `examples/GradientGreyFullWidth.md`
+
+`gradient-grey` buttons can be set to `noWrap` mode to prevent text wrapping.
+
+See: `examples/GradientGreyNoWrap.md`
 
 ### Button as a link
 
@@ -69,20 +187,6 @@ See: `examples/ButtonIconOnly.md`
 | iconPosition | ButtonIconPosition \| undefined | No |  |  |  | Defines an Icon position related to the children: "before" \| "after" |  |
 | iconType | IconType \| undefined | No |  |  |  | Defines an Icon type within the button |  |
 | id | string \| undefined | No |  |  |  | id attribute |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
 | name | string \| undefined | No |  |  |  | Name attribute |  |
 | noWrap | boolean \| undefined | No |  |  |  | If provided, the text inside a button will not wrap |  |
 | onBlur | ((ev: React.FocusEvent<HTMLButtonElement \| HTMLAnchorElement>) => void) \| undefined | No |  |  |  | Specify a callback triggered on blur |  |
@@ -90,20 +194,6 @@ See: `examples/ButtonIconOnly.md`
 | onClick | ((ev: React.MouseEvent<HTMLAnchorElement> \| React.MouseEvent<HTMLButtonElement>) => void) \| undefined | No |  |  |  | onClick handler |  |
 | onFocus | ((ev: React.FocusEvent<HTMLButtonElement \| HTMLAnchorElement>) => void) \| undefined | No |  |  |  | Specify a callback triggered on focus |  |
 | onKeyDown | ((ev: React.KeyboardEvent<HTMLButtonElement \| HTMLAnchorElement>) => void) \| undefined | No |  |  |  | Specify a callback triggered on keyDown |  |
-| p | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top, left, bottom and right |  |
-| padding | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top, left, bottom and right |  |
-| paddingBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on bottom |  |
-| paddingLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left |  |
-| paddingRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on right |  |
-| paddingTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top |  |
-| paddingX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left and right |  |
-| paddingY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top and bottom |  |
-| pb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on bottom |  |
-| pl | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left |  |
-| pr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on right |  |
-| pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top |  |
-| px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on left and right |  |
-| py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top and bottom |  |
 | size | SizeOptions \| undefined | No |  |  |  | Assigns a size to the button: "small" \| "medium" \| "large" |  |
 | type | string \| undefined | No |  |  |  | HTML button type property |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |

@@ -2,11 +2,13 @@
 
 > **Deprecated** — See [`deprecation-migration.md`](../../references/docs/deprecation-migration.md)
 
-<DeprecationWarning>
-Loader Star has been deprecated, if this pattern is still needed please see our deprecation migration docs for a recommended alternative.
-</DeprecationWarning>
+A deprecated animated star-shaped loading indicator. Use `Loader` in new implementations.
 
-## Import
+**Category:** Feedback
+
+## Quick Start
+
+Import `LoaderStar` into the project.
 
 ```javascript
 import LoaderStar from "carbon-react/lib/components/loader-star";

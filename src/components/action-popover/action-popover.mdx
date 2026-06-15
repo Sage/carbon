@@ -22,6 +22,8 @@ import * as ActionPopoverStories from "./action-popover.stories";
 ActionPopovers present a handy list of actions the user can perform on a whole table, a specific row within a table, or a tile.
 Click the ellipsis icon to show actions the user can take on a specific table row, for example, emailing the invoice.
 
+**Category:** Actions
+
 ## Contents
 
 - [Quick Start](#quick-start)
@@ -63,23 +65,25 @@ Story showing most of the functionality of the action popover and what can be ac
 
 ### With icons
 
-Each item is clickable and represents an action to be taken on a given row.
+Use the `icon` prop on `ActionPopoverItem` to display an icon next to each menu label. Items are separated with an `ActionPopoverDivider`.
 
 <Canvas of={ActionPopoverStories.Icons} />
 
 ### With disabled item
 
-ActionPopoverItem&apos;s can be disabled. These items are not clickable and can not be navigated to with the keyboard.
+ActionPopoverItem's can be disabled. These items are not clickable and can not be navigated to with the keyboard.
 
 <Canvas of={ActionPopoverStories.DisabledItems} />
 
 ### With menu right aligned
 
-It is possible to align the Menu to the right of the MenuButton by passing the &quot;rightAlignMenu&quot; to ActionPopover
+It is possible to align the Menu to the right of the MenuButton by passing the `rightAlignMenu` to ActionPopover
 
 <Canvas of={ActionPopoverStories.MenuRightAligned} />
 
 ### With item content aligned to right
+
+Use the `horizontalAlignment="right"` prop on `ActionPopover` to align both the icon and label text to the right side of each menu item.
 
 <Canvas of={ActionPopoverStories.ContentAlignedRight} />
 
@@ -169,26 +173,31 @@ is on a item will open a sub-menu if it has one and pressing the "left" key will
 
 ### With additional options
 
-When a row has many actions you may choose to include the primary actions with a dedicated action to for less frequently
-used actions, in this example "manage devices".
+When a row has many actions, group the primary actions at the top and use a dedicated item (separated by an `ActionPopoverDivider`) for less frequently used options — in this example, "Manage Devices".
 
 <Canvas of={ActionPopoverStories.AdditionalOptions} />
 
 ### with download button
 
+Use the `download` and `href` props on `ActionPopoverItem` to trigger a browser file download when the item is clicked. A disabled download item is also included to show that disabled state prevents the download.
+
 <Canvas of={ActionPopoverStories.DownloadButton} />
 
 ### in overflow hidden container
+
+`ActionPopover` menus renders even when placed inside a container with `overflow: hidden` (here an `Accordion`). The popover escapes the overflow boundary so the menu is never clipped.
 
 <Canvas of={ActionPopoverStories.InOverflowHiddenContainer} />
 
 ### In FlatTable with highlightable rows
 
-It is possible to utilise the selected and onClick props on the FlatTableRow to highlight single rows of data.
+`ActionPopover` placed in the last cell of each `FlatTableRow`, using `placement="top"` so the menu opens upward. The `onOpen` callback is wired to the row's `highlighted` prop so opening the popover also highlights its parent row.
 
 <Canvas of={ActionPopoverStories.InFlatTable} />
 
 ### Action opening a Modal
+
+Triggers a `Confirm` dialog from an `ActionPopoverItem`. Uses `renderButton` with visible text ("Open Actions"), which requires setting `aria-label={undefined}` on the button to avoid duplicate screen-reader labels.
 
 <Canvas of={ActionPopoverStories.OpeningAModal} />
 

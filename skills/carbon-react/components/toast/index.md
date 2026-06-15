@@ -2,14 +2,45 @@
 
 > **Deprecated** — See [`deprecation-migration.md`](../../references/docs/deprecation-migration.md)
 
-<DeprecationWarning>
-Toast has been deprecated, if this pattern is still needed please see our deprecation migration docs for a recommended alternative.
-</DeprecationWarning>
+A deprecated notification component that renders a temporary message overlay anchored to the viewport. Supports multiple variants (`success`, `info`, `neutral`, `error`, `warning`, `notice`, `notification`), configurable horizontal and vertical alignment, auto-dismiss with a timeout, stacking via `targetPortalId`, and an optional dismiss button.
 
-## Import
+**Category:** Feedback
+
+## Quick Start
+
+To use toast, import the `Toast` and pass the content as children.
 
 ```javascript
 import Toast from "carbon-react/lib/components/toast";
+```
+
+## Examples
+
+### Controlled
+
+```javascript
+const MyComponent = () => (
+  <Toast
+    variant="info"
+    id="toast-quick-start"
+    open={isOpen}
+    onDismiss={onDismissClick}
+  >
+    {children}
+  </Toast>
+);
+```
+
+It can be used as a uncontrolled component.
+
+### Uncontrolled
+
+```javascript
+const MyComponent = () => (
+  <Toast variant="info" id="toast-quick-start">
+    {children}
+  </Toast>
+);
 ```
 
 ## Props

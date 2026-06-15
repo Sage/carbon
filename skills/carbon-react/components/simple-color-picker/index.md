@@ -1,8 +1,10 @@
 # Simple Color Picker
 
-- Choose from a small palette of pre-set colours, with indication of a currently selected colour.
+A color picker lets a user select a single color from a defined set. It indicates the currently selected color.
 
-## Import
+**Category:** Inputs
+
+## Quick Start
 
 ```javascript
 import SimpleColorPicker from "carbon-react/lib/components/simple-color-picker";
@@ -12,9 +14,13 @@ import SimpleColorPicker from "carbon-react/lib/components/simple-color-picker";
 
 ### Default
 
+A grid of `SimpleColor` swatches wrapped in a `SimpleColorPicker`. Clicking a swatch selects it and calls `onChange` with the chosen colour value.
+
 See: `examples/Default.md`
 
 ### Disabled
+
+Use the `disabled` prop to render all swatches as non-interactive.
 
 See: `examples/Disabled.md`
 
@@ -22,7 +28,11 @@ See: `examples/Disabled.md`
 
 You can use the `required` prop to indicate if the field is mandatory.
 
-See: `examples/RequiredAndWithMargin.md`
+See: `examples/Required.md`
+
+#### With margin
+
+See: `examples/WithMargin.md`
 
 ## Props
 
@@ -38,21 +48,7 @@ See: `examples/RequiredAndWithMargin.md`
 | childWidth | string \| number \| undefined | No |  | prop that represents childWidth |  |
 | error | string \| boolean \| undefined | No |  | Indicate that error has occurred. |  |
 | info | string \| boolean \| undefined | No |  | [Legacy] Indicate additional information. |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
 | maxWidth | string \| number \| undefined | No |  | prop that sets max-width in css |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
 | onBlur | ((ev: React.FocusEvent<HTMLInputElement>) => void) \| undefined | No |  | Prop for `onBlur` events |  |
 | onKeyDown | ((ev: React.KeyboardEvent<HTMLInputElement>) => void) \| undefined | No |  | Prop for `onKeyDown` events |  |
 | required | boolean \| undefined | No |  | Flag to configure component as mandatory |  |

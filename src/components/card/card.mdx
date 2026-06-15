@@ -20,6 +20,8 @@ import * as CardRowStories from "./card-row/card-row.stories";
 
 A container for interactive content and controls related to a single subject.
 
+**Category:** UI presentation
+
 ## Contents
 
 - [Quick Start](#quick-start)
@@ -41,21 +43,31 @@ import {
 
 ### Default - medium spacing
 
+Standard `Card` with `spacing="medium"` (default), containing `CardRow` and `CardFooter` sub-components to organise content.
+
 <Canvas of={CardStories.DefaultStory} />
 
 ### Small spacing
+
+Set `spacing="small"` for a more compact card with reduced internal padding.
 
 <Canvas of={CardStories.SmallSpacing} />
 
 ### Large spacing
 
+Set `spacing="large"` for a more spacious card with increased internal padding.
+
 <Canvas of={CardStories.LargeSpacing} />
 
 ### With large roundness on corners
 
+Set `roundness="large"` to apply larger border-radius corners to the card.
+
 <Canvas of={CardStories.WithExtraRoundness} />
 
 ### With width provided
+
+Use the `width` prop to constrain the card to a specific pixel or percentage width.
 
 <Canvas of={CardStories.WithWidthProvided} />
 
@@ -70,25 +82,37 @@ Setting the `draggable` prop will negate both `onClick` and `href` prop values a
 
 ### With custom box shadow
 
+Override the default shadow using the `customCardShadow` prop with a `boxShadow` design-token value.
+
 <Canvas of={CardStories.WithCustomBoxShadow} />
 
 ### Different `<CardRow />` padding
+
+Pass padding props (`p`, `px`, `py`, etc.) directly to `CardRow` to override its default spacing.
 
 <Canvas of={CardStories.DifferentCardRowPadding} />
 
 ### Different `<CardFooter />` padding
 
+Pass padding props to `CardFooter` to override the default footer spacing.
+
 <Canvas of={CardStories.DifferentCardFooterPadding} />
 
 ### More `<CardFooter />` examples
+
+Shows various `CardFooter` content layouts including icon buttons, text and link combinations.
 
 <Canvas of={CardStories.MoreExamplesOfCardFooter} />
 
 ### With string as child
 
+A plain text string can be passed as the direct child of `Card` without using `CardRow` or `CardFooter`.
+
 <Canvas of={CardStories.WithStringAsChild} />
 
 ### With custom height
+
+Use the `height` prop to constrain the card to a specific height; content that exceeds it will scroll.
 
 <Canvas of={CardStories.WithCustomHeight} />
 

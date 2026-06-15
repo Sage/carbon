@@ -17,6 +17,8 @@ import * as CheckboxGroupStories from "./checkbox-group.stories";
 
 CheckboxGroup provides a way to check one or more items from a list of options.
 
+**Category:** Inputs
+
 ## Contents
 
 - [Quick Start](#quick-start)
@@ -34,6 +36,8 @@ import { Checkbox, CheckboxGroup } from "carbon-react/lib/components/checkbox";
 
 ### Default
 
+A `CheckboxGroup` with a visible legend grouping multiple `Checkbox` inputs. Manage selection state by passing `checked` and `onChange` to each checkbox.
+
 <Canvas of={CheckboxGroupStories.Default} />
 
 ### With legend Help
@@ -45,6 +49,8 @@ To add an input hint to the legend, use the `legendHelp` prop.
 <Canvas of={CheckboxGroupStories.WithLegendHelp} />
 
 ### Required
+
+Add the `required` prop to `CheckboxGroup` to mark the entire group as mandatory.
 
 <Canvas of={CheckboxGroupStories.RequiredGroup} />
 

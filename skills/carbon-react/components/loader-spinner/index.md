@@ -6,7 +6,11 @@ Use the loader spinner to help users understand why they are waiting.
 
 Can be used to demonstrate a known or unknown wait time.
 
-## Import
+**Category:** Feedback
+
+## Quick Start
+
+Import `LoaderSpinner` into the project.
 
 ```javascript
 import { LoaderSpinner } from "carbon-react/lib/components/loader-spinner";
@@ -53,7 +57,7 @@ See: `examples/Variants.md`
 
 ### Label color
 
-Please find an example of a spinner below when the label color has been inverted. This will ensure proper contrast is 
+Please find an example of a spinner below when the label color has been inverted. This will ensure proper contrast is
 achieved on the label, when used on a dark background. This is only applied with the `inverse` and `gradient-white` variants.
 
 See: `examples/LabelColor.md`
@@ -86,20 +90,6 @@ See: `examples/AnimationTime.md`
 | animationTime | number \| undefined | No |  | The total animation time (in seconds). Default animation is time `1` second. For any gradient variants the default animation time is `2` seconds |  |
 | hasMotion | boolean \| undefined | No |  | If set to `false` all motion will be suspended | true |
 | isTracked | boolean \| undefined | No |  | If set to `true` the animation type will become tracked, this is used specifically for when wait times are predictable | false |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
 | showSpinnerLabel | boolean \| undefined | No |  | If set to `false` no visual label will be displayed, however a visually hidden label will still be available for assistive technologies | true |
 | size | "small" \| "medium" \| "large" \| "extra-small" \| "extra-large" \| undefined | No |  | The size prop allows a specific size to be set, ranging from `extra-small` to `extra-large` | "medium" |
 | spinnerLabel | string \| undefined | No |  | Use the spinnerLabel prop to override the default `"Loading..."` label with any custom string |  |

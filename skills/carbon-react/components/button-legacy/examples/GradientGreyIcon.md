@@ -1,0 +1,39 @@
+```tsx
+export const GradientGreyIcon: Story = () => {
+  return (
+    <Box>
+      <Button mt={2} buttonType="gradient-grey" iconType="print" ml={2}>
+        Medium
+      </Button>
+      <Button
+        mt={2}
+        buttonType="gradient-grey"
+        iconType="delete"
+        iconPosition="after"
+        ml={2}
+      >
+        Medium
+      </Button>
+      <Button
+        mt={2}
+        buttonType="gradient-grey"
+        disabled
+        iconType="print"
+        ml={2}
+      >
+        Medium
+      </Button>
+      <Button
+        mt={2}
+        buttonType="gradient-grey"
+        disabled
+        iconType="print"
+        iconPosition="after"
+        ml={2}
+      >
+        Medium
+      </Button>
+    </Box>
+  );
+};
+```

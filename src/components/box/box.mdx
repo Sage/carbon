@@ -6,7 +6,9 @@ import * as BoxStories from "./box.stories";
 
 # Box
 
-Basic component that gives access to a number of styling options. Should be used to achieve more precise layouts when required. Gives access to Spacing, Color, Layout and FlexBox attributes.
+Basic component that gives access to a number of styling options. Should be used to achieve more precise layouts when required. Gives access to Spacing, Color, Layout and FlexBox attributes. Acts as a styled `div` (or any element via `as`) that accepts CSS-in-JS styled-system props.
+
+**Category:** UI presentation
 
 ## Contents
 
@@ -16,8 +18,6 @@ Basic component that gives access to a number of styling options. Should be used
 
 ## Quick Start
 
-Import the box component to start using
-
 ```javascript
 import Box from "carbon-react/lib/components/box";
 ```
@@ -26,39 +26,50 @@ import Box from "carbon-react/lib/components/box";
 
 ### Spacing
 
+Apply margin (`m`, `mt`, `mr`, `mb`, `ml`, `mx`, `my`) and padding (`p`, `pt`, `pr`, `pb`, `pl`, `px`, `py`) using numbered scale tokens.
+
 <Canvas of={BoxStories.Spacing} />
 
 ### Position
 
-Please view [this example as a standalone canvas](../?path=/story/box--position) in order to see the `position: fixed` Box.
+Use the `position` prop to set CSS positioning (`"static"`, `"relative"`, `"absolute"`, `"fixed"`, `"sticky"`).
 
 <Canvas of={BoxStories.Position} />
 
 ### Color
 
+Set `bg` for background color and `color` for text color using design tokens or CSS color values.
+
 <Canvas of={BoxStories.Color} />
 
 ### Box Shadow
+
+Use the `boxShadow` prop with a design-token value (e.g. `"boxShadow200"`) to apply a shadow.
 
 <Canvas of={BoxStories.BoxShadow} />
 
 ### Flex
 
+Set `display="flex"` (or `"inline-flex"`) and use flexbox props such as `flexDirection`, `alignItems`, `justifyContent`, `flexWrap`, `flex`, `alignSelf`, `order`.
+
 <Canvas of={BoxStories.Flex} />
 
 ### Grid
+
+Set `display="grid"` and use grid props such as `gridTemplateColumns`, `gridTemplateRows`, `gridColumn`, `gridRow`, `gridArea`, `gridAutoFlow`.
 
 <Canvas of={BoxStories.grid} />
 
 ### Gap
 
 The `Box` component also supports the `gap`, `column-gap` and `row-gap` properties when its `display` property is set to either
-`flex`, `inline-flex`, `grid` or `inline-grid`. See the [prop table](#props) below for more information on the types it accepts. Below is an example of
-how these props can be used.
+`flex`, `inline-flex`, `grid` or `inline-grid`.
 
 <Canvas of={BoxStories.Gap} />
 
 ### Layout
+
+Control size with `width`, `height`, `minWidth`, `maxWidth`, `minHeight`, `maxHeight`, `size`, and visibility with `display`, `overflow`, `verticalAlign`.
 
 <Canvas of={BoxStories.Layout} />
 
@@ -77,8 +88,7 @@ If no `scrollVariant` prop is set then the scroll bar will resort to the browser
 
 ### Rounded corners
 
-Use the `borderRadius` to set the radius on the corners of the `Box`,
-see [prop table](#props) below for more information on the types it accepts
+Use the `borderRadius` to set the radius on the corners of the `Box`.
 
 <Canvas of={BoxStories.RoundedCorners} />
 

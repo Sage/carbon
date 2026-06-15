@@ -25,7 +25,9 @@ import TranslationKeysTable from "../../../.storybook/utils/translation-keys-tab
   Product Design System component
 </a>
 
-Logically structure content in a grid for the user to enter, view, or work with.
+A table structures content in a grid and controls the display of data using filters.
+
+**Category:** UI presentation
 
 ## Contents
 
@@ -70,6 +72,8 @@ const FlatTableCellWrapper = ({ customProp, ...rest }) => {
 ## Examples
 
 ### Default
+
+A basic `FlatTable` with `FlatTableHead` and `FlatTableBody`, demonstrating the standard column/row structure.
 
 <Canvas of={FlatTableStories.DefaultStory} />
 
@@ -117,21 +121,31 @@ Setting a custom background color will also override hover, highlight and row se
 
 ### With custom horizontal border size
 
+Use the `horizontalBorderSize` prop on `FlatTableRow` or the individual cell components to override the default border thickness.
+
 <Canvas of={FlatTableStories.WithCustomHorizontalBorderSize} />
 
 ### With custom horizontal border color
+
+Use the `horizontalBorderColor` prop on `FlatTableRow` or individual cells to override the default border colour.
 
 <Canvas of={FlatTableStories.WithCustomHorizontalBorderColor} />
 
 ### With custom bottom border radius
 
+Use the `borderRadius` prop on `FlatTable` to apply a custom border radius to the bottom corners of the table.
+
 <Canvas of={FlatTableStories.WithCustomBottomBorderRadius} />
 
 ### With custom vertical borders
 
+Use the `verticalBorder` and `verticalBorderColor` props on `FlatTableCell` or `FlatTableHeader` to add or style vertical borders between columns.
+
 <Canvas of={FlatTableStories.WithCustomVerticalBorders} />
 
 ### With alternative header background
+
+Set `colorTheme` on `FlatTable` to `"transparent-base"`, `"transparent-white"`, `"dark"`, or `"light"` to change the header background colour.
 
 <Canvas of={FlatTableStories.WithAlternativeHeaderBackground} />
 
@@ -180,13 +194,19 @@ Setting the `hasOuterVerticalBorders` prop to `false` removes the table's outerm
 
 ### With clickable rows
 
+Pass an `onClick` handler to `FlatTableRow` to make each row interactive. The cursor changes to a pointer and keyboard navigation is supported.
+
 <Canvas of={FlatTableStories.WithClickableRows} />
 
 ### With zebra stripes
 
+Set `isZebra` on `FlatTable` to apply alternating background colours to odd and even rows, improving readability for wide tables.
+
 <Canvas of={FlatTableStories.Zebra} />
 
 ### With sorting headers
+
+Wrap a `FlatTableHeader` label in a `Sort` component and use the `sortType` and `onClick` props to implement ascending/descending column sorting.
 
 <Canvas of={FlatTableStories.WithSortingHeaders} />
 
@@ -200,9 +220,13 @@ in this accessible name.
 
 ### With a cell spanning the whole row
 
+Use the `colspan` prop on `FlatTableCell` to make a cell span multiple columns.
+
 <Canvas of={FlatTableStories.WithColspan} />
 
 ### With a cell spanning the whole column
+
+Use the `rowspan` prop on `FlatTableCell` to make a cell span multiple rows.
 
 <Canvas of={FlatTableStories.WithRowspan} />
 
@@ -257,13 +281,19 @@ of the button control.
 
 ### When a child of Sidebar
 
+When `FlatTable` is rendered inside a `Sidebar`, it adapts its layout to fit the narrower container.
+
 <Canvas of={FlatTableStories.WhenAChildOfSidebar} />
 
 ### Table Cell Sizes
 
+The `size` prop on `FlatTable` controls the padding of all cells. Available values are `"compact"`, `"small"`, `"medium"` (default), and `"large"`.
+
 <Canvas of={FlatTableStories.Sizes} />
 
 ### Draggable rows
+
+Replace `FlatTableBody` with `FlatTableBodyDraggable` and wrap each `FlatTableRow` in a `FlatTableBodyDraggable` to enable drag-and-drop row reordering.
 
 <Canvas of={FlatTableStories.WithDraggableRows} />
 

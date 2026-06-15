@@ -2,7 +2,9 @@
 
 Applies a preview loading state animation.
 
-## Import
+**Category:** Feedback
+
+## Quick Start
 
 ```javascript
 import Preview from "carbon-react/lib/components/preview";
@@ -11,6 +13,8 @@ import Preview from "carbon-react/lib/components/preview";
 ## Examples
 
 ### Default
+
+A single animated placeholder bar displayed while content is loading. Rendered when `loading` is `true` (or undefined).
 
 See: `examples/Default.md`
 
@@ -64,20 +68,6 @@ See: `examples/DisableAnimation.md`
 | height | string \| undefined | No |  | Sets the height of the Preview. |  |
 | lines | number \| undefined | No |  | The number of placeholder shapes to render. | 1 |
 | loading | boolean \| undefined | No |  | Sets loading state. |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
 | shape | Shapes \| undefined | No |  | Sets the preview's shape. | "text" |
 | width | string \| undefined | No |  | Sets the width of the Preview. |  |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |

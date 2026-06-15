@@ -16,9 +16,9 @@ import * as DateStories from "./date.stories";
   Product Design System component
 </a>
 
-- If the date is likely to be close to today (e.g. an invoice due date), then a datepicker may be useful. If the date is likely to be far in the past (e.g. a date of birth), then it may be better to use separate inputs for day, month, and year or use a NumeralDate component.
-- Field focus automatically opens the datepicker, but a user can key in dates too, which many users find more convenient, especially in financial applications.
-- Carbon handles a range of formats, like dd/mm/yyyy, dd/mm/yy, dd/mm, or dd. Configuration can be regional, and copes with space, slash, full stop, comma and colon as separators, as well as no separator at all.
+A date picker captures a single date selected or entered by a user.
+
+**Category:** Inputs
 
 ## Contents
 
@@ -27,6 +27,12 @@ import * as DateStories from "./date.stories";
 - [Validation states](#validation-states)
 - [Props](#props)
 - [Translation keys](#translation-keys)
+
+## Designer Notes
+
+- If the date is likely to be close to today (e.g. an invoice due date), then a datepicker may be useful. If the date is likely to be far in the past (e.g. a date of birth), then it may be better to use separate inputs for day, month, and year or use a NumeralDate component.
+- Field focus automatically opens the datepicker, but a user can key in dates too, which many users find more convenient, especially in financial applications.
+- Carbon handles a range of formats, like dd/mm/yyyy, dd/mm/yy, dd/mm, or dd. Configuration can be regional, and copes with space, slash, full stop, comma and colon as separators, as well as no separator at all.
 
 ## Quick Start
 
@@ -47,21 +53,31 @@ be used to set the input value like in the example below, although the component
 
 ### Input Hint
 
+Use the `inputHint` prop to display a short hint below the label to guide the user on the expected date format or value.
+
 <Canvas of={DateStories.InputHint} />
 
 ### Sizes
+
+The `size` prop controls the height of the input. Available values are `small`, `medium` (default), and `large`.
 
 <Canvas of={DateStories.Sizes} />
 
 ### Disabled
 
+Set `disabled` to prevent user interaction with the field. The input and calendar icon will be visually dimmed and non-interactive.
+
 <Canvas of={DateStories.Disabled} />
 
 ### ReadOnly
 
+Set `readOnly` to display the current value without allowing edits. Unlike `disabled`, the field remains accessible to screen readers.
+
 <Canvas of={DateStories.ReadOnly} />
 
 ### Empty
+
+Shows the date input in its initial empty state, before the user has selected or entered a date.
 
 <Canvas of={DateStories.Empty} />
 
@@ -83,6 +99,8 @@ You can use the `maxWidth` prop to set a custom width for the date input, with a
 
 ### With disabled portal
 
+By default the calendar picker renders in a React portal appended to the document body. Pass `disablePortal` to render it inline within the DOM tree instead — useful when the picker needs to remain within a scrollable or overflow-constrained container.
+
 <Canvas of={DateStories.WithDisabledPortal} />
 
 ### Required
@@ -94,7 +112,7 @@ You can use the `required` prop to indicate if the field is mandatory.
 ### Locale override
 
 The examples below illustrate how to override the locale passed into the Date component. The first example has been set up for
-the German (`de`) locale whilst the second is for a Chinese (`zh-CN`) locale. 
+the German (`de`) locale whilst the second is for a Chinese (`zh-CN`) locale.
 
 Required locales can be imported from date-fns like so: `import { de, zhCN } from 'date-fns/locale';`
 
@@ -102,8 +120,8 @@ Required locales can be imported from date-fns like so: `import { de, zhCN } fro
 
 ### Locale format override
 
-You can also override the default date format for a specific locale by passing a `dateFormatOverride` prop to the `DateInput` component or alternatively, 
-you can use the `date.dateFormatOverride` translation key. 
+You can also override the default date format for a specific locale by passing a `dateFormatOverride` prop to the `DateInput` component or alternatively,
+you can use the `date.dateFormatOverride` translation key.
 The example below demonstrates how you can override the default date format for the German locale (`dd.MM.yyyy`), please note that the prop will take precedence over the translation key.
 
 <Canvas of={DateStories.LocaleFormatOverrideExampleImplementation} />
@@ -113,13 +131,15 @@ The example below demonstrates how you can override the default date format for 
 Use the `labelInline` prop to display the label on the same horizontal row as the input. You can adjust its appearance using the `labelWidth` and
 `labelAlign` props to control the width and text alignment of the label and the `inputWidth` prop to control the width of the input.
 
-**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *false*.
+**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is _false_.
 
 <Canvas of={DateStories.WithLabelInline} />
 
 ### With fieldHelp (legacy)
 
-**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *false*.
+Use the `fieldHelp` prop to display additional help text below the input.
+
+**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is _false_.
 
 <Canvas of={DateStories.WithFieldHelp} />
 
@@ -129,7 +149,7 @@ This component supports input validation, see our [Validations](../?path=/docs/d
 
 ## Props
 
-### DateInput
+### Date
 
 <ArgTypes
   of={DateStories}
@@ -180,8 +200,7 @@ The following keys are available to override the translations for this component
     },
     {
       name: "date.dateFormatOverride",
-      description:
-        "Override the default date format for a specific locale.",
+      description: "Override the default date format for a specific locale.",
       type: "func",
       returnType: "string",
     },

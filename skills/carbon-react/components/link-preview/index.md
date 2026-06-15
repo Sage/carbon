@@ -1,6 +1,10 @@
 # LinkPreview
 
-## Import
+Displays a rich preview card for a URL, showing a title, description, and optional thumbnail image. Renders as a focusable anchor when a URL is provided, or as a non-interactive `div` in loading or edit mode. Supports a close icon for removal in edit contexts.
+
+**Category:** Navigation
+
+## Quick Start
 
 ```javascript
 import LinkPreview from "carbon-react/lib/components/link-preview";

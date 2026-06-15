@@ -2,7 +2,11 @@
 
 Use the `Loader` component to clearly indicate that a task or data is still loading, helping users understand they should wait rather than refresh the page or abandon the process. The `Loader` component offers three loading types: `standalone` (with `typical` and `ai` variants), `ring` (with `inline`, `stacked`, `ai-stacked` and `ai-inline` variants) and `star` for clear visual feedback.
 
-## Import
+**Category:** Feedback
+
+## Quick Start
+
+Import `Loader` into the project.
 
 ```javascript
 import Loader from "carbon-react/lib/components/loader/__next__";
@@ -16,7 +20,21 @@ The `Loader` component offers three loading types: `standalone` (default), `ring
 
 #### Standalone
 
-See: `examples/StandaloneAndRingAndStar.md`
+The default loader type. Renders an animated spinner suited to general loading contexts.
+
+See: `examples/Standalone.md`
+
+#### Ring
+
+A circular ring loader, available in stacked, inline, and AI variants.
+
+See: `examples/Ring.md`
+
+#### Star
+
+A star-shaped loader for distinct visual differentiation. Has a single fixed size.
+
+See: `examples/Star.md`
 
 ### Loader Variants
 
@@ -26,7 +44,43 @@ The `standalone` loader type comes with two variants: `typical` (default) and `a
 
 #### Typical
 
-See: `examples/StandaloneTypicalVariantAndStandaloneAiVariantAndRingStackedVariantAndRingInlineVariantAndRingAiStackedVariantAndRingAiInlineVariant.md`
+The standard standalone spinner using the default brand colour palette.
+
+See: `examples/StandaloneTypicalVariant.md`
+
+#### A.I.
+
+The standalone loader with AI-specific gradient styling, intended for AI-driven features.
+
+See: `examples/StandaloneAiVariant.md`
+
+#### Ring variants
+
+The `ring` loader type comes with four variants: `stacked` (default), `inline`, `ai-stacked` and `ai-inline`.
+
+#### Stacked
+
+The ring loader with label text displayed below the ring.
+
+See: `examples/RingStackedVariant.md`
+
+#### Inline
+
+The ring loader with label text displayed beside the ring, suited to compact or inline contexts.
+
+See: `examples/RingInlineVariant.md`
+
+#### A.I. Stacked
+
+The stacked ring loader with AI gradient styling.
+
+See: `examples/RingAiStackedVariant.md`
+
+#### A.I. Inline
+
+The inline ring loader with AI gradient styling.
+
+See: `examples/RingAiInlineVariant.md`
 
 ### Loader Sizes
 
@@ -34,7 +88,15 @@ The `Loader` component offers size flexibility based on the selected loader type
 
 #### Standalone loader sizes
 
-See: `examples/StandaloneSizesAndRingSizes.md`
+The standalone type supports `small`, `medium` (default), and `large` sizes via the `size` prop.
+
+See: `examples/StandaloneSizes.md`
+
+#### Ring loader sizes
+
+The ring type supports `extra-small`, `small`, `medium` (default), and `large` sizes via the `size` prop.
+
+See: `examples/RingSizes.md`
 
 ### Inverse
 
@@ -42,13 +104,51 @@ You can use the `inverse` prop to render the Loader's standalone and ring types 
 
 #### Standalone typical inversed
 
-See: `examples/StandaloneTypicalVariantInversedAndStandaloneAiVariantInversedAndRingStackedVariantInversedAndRingInlineVariantInversedAndRingAiInlineVariantInversed.md`
+The default standalone loader rendered in inverse colours for use on dark backgrounds.
+
+See: `examples/StandaloneTypicalVariantInversed.md`
+
+#### Standalone A.I inversed
+
+The AI standalone loader rendered in inverse colours.
+
+See: `examples/StandaloneAiVariantInversed.md`
+
+#### Ring stacked inversed
+
+The stacked ring loader rendered in inverse colours.
+
+See: `examples/RingStackedVariantInversed.md`
+
+#### Ring inline inversed
+
+The inline ring loader rendered in inverse colours.
+
+See: `examples/RingInlineVariantInversed.md`
+
+#### Ring A.I inline inversed
+
+The AI inline ring loader rendered in inverse colours.
+
+See: `examples/RingAiInlineVariantInversed.md`
 
 ### Is Tracked
 
 When the `isTracked` prop is set to `true`, the ring will become tracked, for specific use cases where wait/loading times are predictable.
 
-See: `examples/RingIsTrackedAndSuccessStateAndErrorState.md`
+See: `examples/RingIsTracked.md`
+
+#### Success State
+
+When the loader is tracked the prop `isSuccess` can be passed to display the success state
+
+See: `examples/SuccessState.md`
+
+#### Error State
+
+When the loader is tracked the prop `isError` can be passed to display the error state
+
+See: `examples/ErrorState.md`
 
 ### Animation time
 
@@ -58,9 +158,13 @@ See: `examples/AnimationTime.md`
 
 ### Disable Motion
 
+Use the `hasMotion={false}` prop to render the loader in a static (non-animated) state.
+
 See: `examples/DisabledMotion.md`
 
 ### Inside Buttons
+
+A `Loader` can be composed inside a `Button` to show in-progress state while an action is completing.
 
 See: `examples/InsideButtons.md`
 
@@ -78,20 +182,6 @@ See: `examples/InsideButtons.md`
 | isTracked | boolean \| undefined | No |  | If set to `true` the animation type will become tracked, this is used specifically for when wait times are predictable | false |
 | loaderLabel | string \| undefined | No |  | Specify a label for the loader |  |
 | loaderType | LOADER_TYPES \| undefined | No |  | The loader type can be specified in order to change the loader | "standalone" |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
 | showLabel | boolean \| undefined | No |  | Specify if the label should be visible or not | true |
 | size | LOADER_SIZES \| undefined | No |  | The size prop allows a specific size to be set ranging from `extra-small` to `large` |  |
 | variant | LOADER_VARIANTS \| undefined | No |  | Toggle between the different Loader variants |  |

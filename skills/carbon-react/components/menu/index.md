@@ -2,7 +2,9 @@
 
 Provides navigation for an app, which can be used via mouse or keyboard.
 
-## Import
+**Category:** Navigation
+
+## Quick Start
 
 ```javascript
 import {
@@ -20,7 +22,11 @@ import {
 
 ### Default
 
+A horizontal `Menu` bar with `MenuItem` children. Items can navigate via `href`, trigger an `onClick`, or open a submenu.
+
 See: `examples/DefaultStory.md`
+
+> **Note**: To ensure a `MenuItem` is interactive, it should either have an `href`, `onClick` or `submenu` prop, or contain another focusable Carbon component like Button. Without one of these, the item will not be keyboard-focusable or interactive, affecting accessibility for keyboard and screen reader users.
 
 ### Focusing MenuItem's Programmatically
 
@@ -33,21 +39,31 @@ See: `examples/ProgrammaticFocus.md`
 
 ### Selected
 
+Use the `selected` prop on a `MenuItem` to highlight the currently active page item.
+
 See: `examples/SelectedStory.md`
 
 ### Divider
+
+Use `MenuDivider` between `MenuItem` components to add a visual separator.
 
 See: `examples/DividerStory.md`
 
 ### Large divider
 
+Use `size="large"` on `MenuDivider` for a thicker visual separator between sections.
+
 See: `examples/LargeDividerStory.md`
 
 ### Segment title
 
+Use `MenuSegmentTitle` to add a non-interactive section heading above a group of `MenuItem`s in a submenu.
+
 See: `examples/SegmentTitleStory.md`
 
 ### With alternate colour variant
+
+Set `variant="alternate"` on `MenuItem` to apply an alternate background colour, useful for grouping visually distinct items.
 
 See: `examples/AlternateColourStory.md`
 
@@ -58,15 +74,23 @@ The `submenu` prop on `MenuItem` accepts a node, which allows the creation of co
 
 See: `examples/SubmenuNodes.md`
 
+> **Note**: Also, if a complex composition is used, proceed with caution when using the `maxWidth` prop, the onus is now on the consumer to ensure the content of the `submenu` is properly communicated to users.
+
 ### Submenu options
+
+A `MenuItem` with the `submenu` prop opens a dropdown list of child `MenuItem`s on hover/click. The submenu opens below by default.
 
 See: `examples/SubmenuOptionsStory.md`
 
 ### Submenu direction left
 
+Set `submenuDirection="left"` on a parent `MenuItem` to open its submenu to the left side, useful for right-edge items.
+
 See: `examples/SubmenuDirectionLeftStory.md`
 
 ### With icon
+
+Pass the `icon` prop to `MenuItem` to prepend a Carbon icon to the item label.
 
 See: `examples/WithIconStory.md`
 
@@ -110,6 +134,8 @@ scrollable list so the `parent` prop should be used to ensure screen readers mak
 See: `examples/ScrollableSubmenuWithParent.md`
 
 ### Submenu with search
+
+Embeds a `Search` component inside a submenu using `ScrollableBlock` to filter and select items from a long list.
 
 See: `examples/SubmenuWithSearch.md`
 
@@ -164,32 +190,38 @@ See: `examples/MenuFullscreenWithSegmentStyling.md`
 | Name | Type | Required | Literals | Description | Default |
 | --- | --- | --- | --- | --- | --- |
 | children | React.ReactNode | Yes |  | Children elements |  |
-| alignContent | ResponsiveValue<CSS.Property.AlignContent, ThemeType> \| undefined | No |  | The CSS align-content property sets how the browser distributes space between and around content items along the cross-axis of a flexbox container, and the main-axis of a grid container. [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/align-content) |  |
-| alignItems | ResponsiveValue<CSS.Property.AlignItems, ThemeType> \| undefined | No |  | The CSS align-items property sets the align-self value on all direct children as a group. The align-self property sets the alignment of an item within its containing block. In Flexbox it controls the alignment of items on the Cross Axis, in Grid Layout it controls the alignment of items on the Block Axis within their grid area. [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/align-items) |  |
-| alignSelf | ResponsiveValue<CSS.Property.AlignSelf, ThemeType> \| undefined | No |  | The align-self CSS property aligns flex items of the current flex line overriding the align-items value. If any of the item's cross-axis margin is set to auto, then align-self is ignored. In Grid layout align-self aligns the item inside the grid area. [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/align-self) |  |
-| flex | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | The flex CSS property specifies how a flex item will grow or shrink so as to fit the space available in its flex container. This is a shorthand property that sets flex-grow, flex-shrink, and flex-basis. [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/flex) |  |
-| flexBasis | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  |
-| flexDirection | ResponsiveValue<CSS.Property.FlexDirection, ThemeType> \| undefined | No |  | The flex-direction CSS property specifies how flex items are placed in the flex container defining the main axis and the direction (normal or reversed). [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-direction) |  |
-| flexGrow | ResponsiveValue<CSS.Property.FlexGrow, ThemeType> \| undefined | No |  | The flex-grow CSS property sets the flex grow factor of a flex item main size. It specifies how much of the remaining space in the flex container should be assigned to the item (the flex grow factor). [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-grow) |  |
-| flexShrink | ResponsiveValue<CSS.Property.FlexShrink, ThemeType> \| undefined | No |  | The flex-shrink CSS property sets the flex shrink factor of a flex item. If the size of all flex items is larger than the flex container, items shrink to fit according to flex-shrink. [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-shrink) |  |
-| flexWrap | ResponsiveValue<CSS.Property.FlexWrap, ThemeType> \| undefined | No |  | The flex-wrap CSS property sets whether flex items are forced onto one line or can wrap onto multiple lines. If wrapping is allowed, it sets the direction that lines are stacked. [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-wrap) |  |
-| justifyContent | ResponsiveValue<CSS.Property.JustifyContent, ThemeType> \| undefined | No |  | The CSS justify-content property defines how the browser distributes space between and around content items along the main-axis of a flex container, and the inline axis of a grid container. [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content) |  |
-| justifyItems | ResponsiveValue<CSS.Property.JustifyItems, ThemeType> \| undefined | No |  | The CSS justify-items property defines the default justify-self for all items of the box, giving them all a default way of justifying each box along the appropriate axis. [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-items) |  |
-| justifySelf | ResponsiveValue<CSS.Property.JustifySelf, ThemeType> \| undefined | No |  | The CSS justify-self property set the way a box is justified inside its alignment container along the appropriate axis. [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/justify-self) |  |
-| maxWidth | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | The max-width CSS property sets the maximum width of an element. It prevents the used value of the width property from becoming larger than the value specified by max-width. [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/max-width) |  |
 | menuType | MenuType \| undefined | No |  | Defines the color scheme of the component | "light" |
-| minWidth | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | The min-width CSS property sets the minimum width of an element. It prevents the used value of the width property from becoming smaller than the value specified for min-width. [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/min-width) |  |
-| order | ResponsiveValue<CSS.Property.Order, ThemeType> \| undefined | No |  | The order CSS property sets the order to lay out an item in a flex or grid container. Items in a container are sorted by ascending order value and then by their source code order. [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/order) |  |
-| overflow | ResponsiveValue<CSS.Property.Overflow, ThemeType> \| undefined | No |  | The overflow CSS property sets what to do when an element's content is too big to fit in its block formatting context. It is a shorthand for overflow-x and overflow-y. [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/overflow) |  |
-| overflowX | ResponsiveValue<CSS.Property.OverflowX, ThemeType> \| undefined | No |  | The overflow-x CSS property sets what shows when content overflows a block-level element's left and right edges. This may be nothing, a scroll bar, or the overflow content. [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-x) |  |
-| verticalAlign | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | The vertical-align CSS property specifies sets vertical alignment of an inline or table-cell box. [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/vertical-align) |  |
-| width | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | The width utility parses a component's `width` prop and converts it into a CSS width declaration. - Numbers from 0-1 are converted to percentage widths. - Numbers greater than 1 are converted to pixel values. - String values are passed as raw CSS values. - And arrays are converted to responsive width styles. |  |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 
 ### MenuItem
 
-No props metadata found.
+| Name | Type | Required | Literals | Description | Default |
+| --- | --- | --- | --- | --- | --- |
+| ariaCurrent | boolean \| "location" \| "page" \| "time" \| "true" \| "false" \| "step" \| "date" \| undefined | No |  | Marks the element as the current item within a navigation context. |  |
+| ariaLabel | string \| undefined | No |  | If no text is provided an ariaLabel should be given to facilitate accessibility. |  |
+| as | "div" \| undefined | No |  |  |  |
+| children | React.ReactNode | No |  |  |  |
+| clickToOpen | boolean \| undefined | No |  | When set the submenu opens by click instead of hover |  |
+| href | string \| undefined | No |  | The href to use for the menu item. |  |
+| icon | IconType \| undefined | No |  | Either prop `icon` must be defined or this node must have children. |  |
+| maxWidth | MaxWidthProps["maxWidth"] | No |  | Sets the maxWidth of the MenuItem, setting this on a non-submenu item will truncate any text/content that may overflow |  |
+| onClick | ((event: React.MouseEvent<HTMLAnchorElement> \| React.MouseEvent<HTMLButtonElement>) => void) \| undefined | No |  | onClick handler |  |
+| onKeyDown | ((event: React.KeyboardEvent<HTMLAnchorElement> \| React.KeyboardEvent<HTMLButtonElement>) => void) \| undefined | No |  | onKeyDown handler |  |
+| onSubmenuClose | (() => void) \| undefined | No |  | Callback triggered when submenu closes. Only valid with submenu prop |  |
+| onSubmenuOpen | (() => void) \| undefined | No |  | Callback triggered when submenu opens. Only valid with submenu prop |  |
+| overrideColor | boolean \| undefined | No |  |  |  |
+| rel | string \| undefined | No |  | The rel attribute to be used for the underlying <a> tag |  |
+| selected | boolean \| undefined | No |  | Is the menu item the currently selected item. |  |
+| showDropdownArrow | boolean \| undefined | No |  | Flag to display the dropdown arrow when an item has a submenu |  |
+| submenu | React.ReactNode | No |  | A title for the menu item that has a submenu. |  |
+| submenuDirection | string \| undefined | No |  | Defines which direction the submenu will hang eg. left/right |  |
+| submenuMaxWidth | string \| undefined | No |  | Sets the maximum width for the item's submenu when it is opened. This prop is only applicable if the item has a submenu. Overrides the maximum width of any items within the submenu. Accepts any valid CSS width value (e.g. "200px", "50%"). |  |
+| submenuMinWidth | string \| undefined | No |  | Sets a minimum width for the item's submenu when it is opened. Accepts any valid CSS width value (e.g. "200px", "50%"). This prop is only applicable if the item has a submenu. |  |
+| target | string \| undefined | No |  | The target to use for the menu item. |  |
+| variant | VariantType \| undefined | No |  | set the colour variant for a menuType |  |
+| data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+| data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 
 ### ScrollableBlock
 
@@ -213,7 +245,15 @@ No props metadata found.
 
 ### MenuSegmentTitle
 
-No props metadata found.
+| Name | Type | Required | Literals | Description | Default |
+| --- | --- | --- | --- | --- | --- |
+| text | string | Yes |  |  |  |
+| as | "h2" \| "h3" \| "h4" \| "h5" \| "h6" \| undefined | No |  | Set the heading level for the segment title |  |
+| children | React.ReactNode | No |  |  |  |
+| segmentWrapperProps | TagProps \| undefined | No |  | Data tag prop bag for segmented children |  |
+| variant | VariantType \| undefined | No |  | Set the colour variant for a menuType |  |
+| data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+| data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 
 ### MenuFullscreen
 

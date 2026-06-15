@@ -1,8 +1,10 @@
 # Button Toggle
 
-Press one of the buttons to make selection. This component should be used when user has to make a choice between a small number of options.
+Press one of the buttons to make selection. This component should be used when user has to make a choice between a small number of options. Use `ButtonToggleGroup` to manage selection state across a set of `ButtonToggle` items.
 
-## Import
+**Category:** Inputs
+
+## Quick Start
 
 ```javascript
 import {
@@ -14,6 +16,8 @@ import {
 ## Examples
 
 ### Default
+
+A `ButtonToggleGroup` with three `ButtonToggle` items and a visible legend label. Selecting a toggle deselects any previous selection.
 
 See: `examples/Default.md`
 
@@ -45,9 +49,13 @@ See: `examples/AllowDeselection.md`
 
 ### Small icon
 
+Renders each toggle with a `size="small"` icon using the `buttonIcon` and `buttonIconSize="small"` props.
+
 See: `examples/DefaultSmallIcon.md`
 
 ### Large icon
+
+Renders each toggle with a `size="large"` icon using the `buttonIcon` and `buttonIconSize="large"` props.
 
 See: `examples/DefaultLargeIcon.md`
 
@@ -60,33 +68,49 @@ See: `examples/IconOnly.md`
 
 ### Small
 
+All toggles rendered at the `small` size via the `size` prop on `ButtonToggleGroup`.
+
 See: `examples/Small.md`
 
 ### Small with small icon
+
+`size="small"` toggles each with a `buttonIconSize="small"` icon.
 
 See: `examples/SmallSmallIcon.md`
 
 ### Small with large icon
 
+`size="small"` toggles each with a `buttonIconSize="large"` icon.
+
 See: `examples/SmallLargeIcon.md`
 
 ### Large
+
+All toggles rendered at the `large` size via the `size` prop on `ButtonToggleGroup`.
 
 See: `examples/Large.md`
 
 ### Large with small icon
 
+`size="large"` toggles each with a `buttonIconSize="small"` icon.
+
 See: `examples/LargeSmallIcon.md`
 
 ### Large with large icon
+
+`size="large"` toggles each with a `buttonIconSize="large"` icon.
 
 See: `examples/LargeLargeIcon.md`
 
 ### Disabled Button
 
+A single `ButtonToggle` with the `disabled` prop, making it unclickable.
+
 See: `examples/DisabledButton.md`
 
 ### Disabled Group
+
+The `disabled` prop on `ButtonToggleGroup` disables all child toggles at once.
 
 See: `examples/DisabledGroup.md`
 
@@ -141,20 +165,6 @@ See: `examples/WrappedButtons.md`
 | labelInline | boolean \| undefined | No |  | [Legacy] Sets the label to be inline. |  |
 | labelSpacing | 1 \| 2 \| undefined | No |  | [Legacy] Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) |  |
 | labelWidth | number \| undefined | No |  | [Legacy] The percentage width of the label. |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
 | data-component | string \| undefined | No |  |  |  |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |

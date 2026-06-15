@@ -3,15 +3,26 @@ import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 import * as DismissibleBoxStories from "./dismissible-box.stories";
-import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component"
+import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component";
 
 <Meta of={DismissibleBoxStories} />
 
 # DismissibleBox
 
 <DeprecationWarning>
-DismissibleBox has been deprecated, if this pattern is still needed please see <a style={{color: "white"}} href="../?path=/docs/documentation-deprecation-migration--docs#dismissible-box">our deprecation migration docs</a> for an alternative pattern.
+  DismissibleBox has been deprecated, if this pattern is still needed please see{" "}
+  <a
+    style={{ color: "white" }}
+    href="../?path=/docs/documentation-deprecation-migration--docs#dismissible-box"
+  >
+    our deprecation migration docs
+  </a>{" "}
+  for an alternative pattern.
 </DeprecationWarning>
+
+A deprecated container with a close button that hides its content when dismissed. Use `Message` or a custom dismissible pattern in new implementations.
+
+**Category:** UI presentation
 
 ## Contents
 
@@ -30,9 +41,13 @@ import DismissibleBox from "carbon-react/lib/components/dismissible-box";
 
 ### Default - Light variant
 
+A dismissible container with light background, a thick left border highlight and a close button (×) in the top-right corner.
+
 <Canvas of={DismissibleBoxStories.LightVariant} />
 
 ### Dark variant
+
+Set `variant="dark"` for a dark-background dismissible container, suitable for use on light page backgrounds.
 
 <Canvas of={DismissibleBoxStories.DarkVariant} />
 
@@ -64,10 +79,9 @@ The following keys are available to override the translations for this component
   translationData={[
     {
       name: "dismissibleBox.ariaLabels.close",
-      description:
-        "The text for close button's aria-label attribute.",
+      description: "The text for close button's aria-label attribute.",
       type: "func",
       returnType: "string",
-    }
+    },
   ]}
 />

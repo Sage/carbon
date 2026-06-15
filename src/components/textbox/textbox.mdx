@@ -16,7 +16,9 @@ import * as TextboxStories from "./textbox.stories";
   Product Design System component
 </a>
 
-Captures a single line of text.
+A text input captures text entered or edited by a user.
+
+**Category:** Inputs
 
 ## Contents
 
@@ -43,6 +45,8 @@ import Textbox from "carbon-react/lib/components/textbox";
 ## Examples
 
 ### Default
+
+A single-line text input. Provide a `label` and use `value` plus `onChange` for controlled behaviour. Supports common form-field props: `labelInline`, `labelWidth`, `inputWidth`, `fieldHelp`, and validation.
 
 <Canvas of={TextboxStories.Default} />
 
@@ -73,25 +77,37 @@ Include the formatted number count wherever makes sense for the language you're 
 
 ### Prefix
 
+Set `prefix` to display a short string inside the input before the user-typed text. Useful for currency symbols, country codes, or other fixed lead-ins.
+
 <Canvas of={TextboxStories.Prefix} />
 
 ### Sizes
+
+Three sizes are available: `small`, `medium` (default), and `large`. All form fields inside a layout should use the same size.
 
 <Canvas of={TextboxStories.Sizes} />
 
 ### Margins
 
+Use the `m`, `mt`, `mb`, `ml`, `mr` props to add spacing around the component using the design token spacing scale.
+
 <Canvas of={TextboxStories.Margins} />
 
 ### Disabled
+
+Set `disabled` to prevent user interaction. The field is visually dimmed and not focusable.
 
 <Canvas of={TextboxStories.Disabled} />
 
 ### ReadOnly
 
+Set `readOnly` to display the current value as non-editable text within the field boundary. Unlike `disabled`, the value remains selectable and copyable.
+
 <Canvas of={TextboxStories.ReadOnly} />
 
 ### With custom maxWidth
+
+Set `maxWidth` to constrain the component's width using any valid CSS value (e.g. `"300px"` or `"50%"`).
 
 <Canvas of={TextboxStories.WithCustomMaxWidth} />
 
@@ -109,11 +125,13 @@ Use the `labelInline` prop to display the label on the same horizontal row as th
 
 ### With custom labelWidth and inputWidth
 
+When `labelInline` is set, use `labelWidth` (0–100) and `inputWidth` (0–100) to control the proportion of space each occupies within the component.
+
 <Canvas of={TextboxStories.WithCustomLabelWidthAndInputWidth} />
 
 ### With fieldHelp (legacy)
 
-**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *false*.
+**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is _false_.
 
 <Canvas of={TextboxStories.WithFieldHelp} />
 

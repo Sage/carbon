@@ -2,7 +2,9 @@
 
 This search component should be used if you require the user to conduct a search.
 
-## Import
+**Category:** Inputs
+
+## Quick Start
 
 ```javascript
 import Search, { type SearchHandle } from "carbon-react/lib/components/search";
@@ -11,6 +13,8 @@ import Search, { type SearchHandle } from "carbon-react/lib/components/search";
 ## Examples
 
 ### Default
+
+A basic search input with a magnifier icon and a clear (×) button. Use `onChange` to react to user input and `value` to control the field.
 
 See: `examples/Default.md`
 
@@ -29,7 +33,16 @@ You can pass the `searchButton` prop to render a search button.
 This will render a button with the text "Search" and an aria-label of "search button".
 To override the the default aria-label, you can pass a string value to the `searchButtonAriaLabel` prop.
 
-See: `examples/WithSearchButtonAndWithSearchButtonPropTextOverrideAndWithSearchButtonLocaleOverride.md`
+See: `examples/WithSearchButton.md`
+
+You can override the text of the search button by passing a string value to the `searchButton` prop:
+
+See: `examples/WithSearchButtonPropTextOverride.md`
+
+Or, by using the locale provider to override the button's text via the `searchButtonText` translation key.
+Please note that the `searchButton` prop will take precedence over the locale value.
+
+See: `examples/WithSearchButtonLocaleOverride.md`
 
 ### Custom width
 
@@ -69,21 +82,7 @@ See: `examples/TriggerOnClear.md`
 | info | string \| boolean \| undefined | No |  | [Legacy] Indicate additional information. |  |
 | inputHint | string \| undefined | No |  | A hint string rendered before the input but after the label. Intended to describe the purpose or content of the input. |  |
 | label | string \| undefined | No |  | Label content |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
 | maxWidth | string \| undefined | No |  | Prop for specifying the max-width of the input. Leaving the `maxWidth` prop with no value will default the width to '100%' |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
 | name | string \| undefined | No |  | Prop for `name` |  |
 | onBlur | ((ev: React.FocusEvent<HTMLInputElement>) => void) \| undefined | No |  | Prop for `onBlur` events |  |
 | onClick | ((ev: SearchEvent) => void) \| undefined | No |  | Prop for `onClick` events. `onClick` events are triggered when the `searchButton` is clicked |  |

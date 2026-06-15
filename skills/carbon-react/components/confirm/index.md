@@ -2,11 +2,11 @@
 
 > **Deprecated** — See [`deprecation-migration.md`](../../references/docs/deprecation-migration.md)
 
-<DeprecationWarning>
-Confirm has been deprecated, if this pattern is still needed please see our deprecation migration docs for an alternative pattern.
-</DeprecationWarning>
+A deprecated modal dialog that asks the user to confirm or cancel an action. Renders a title, optional subtitle, body content, and configurable Confirm/Cancel buttons. Use `Dialog` for new implementations.
 
-## Import
+**Category:** Modal
+
+## Quick Start
 
 ```javascript
 import Confirm from "carbon-react/lib/components/confirm";
@@ -23,25 +23,37 @@ import Confirm from "carbon-react/lib/components/confirm";
 
 ### Default
 
+Basic confirm dialog with title, subtitle, body text and default Confirm/Cancel buttons.
+
 See: `examples/Default.md`
 
 ### Single action
+
+Hide the cancel button by omitting `onCancel` to show only the Confirm action.
 
 See: `examples/SingleAction.md`
 
 ### Destructive cancel button
 
+Style the cancel button as destructive (red) using the `cancelButtonDestructive` prop.
+
 See: `examples/CancelButtonDestructive.md`
 
 ### Destructive confirm button
+
+Style the confirm button as destructive (red) using the `confirmButtonDestructive` prop. Use this for irreversible actions.
 
 See: `examples/ConfirmButtonDestructive.md`
 
 ### Disable confirm button
 
+Use `disableConfirm` to prevent the user from confirming until a prerequisite condition is met.
+
 See: `examples/DisableConfirm.md`
 
 ### Disable cancel button
+
+Use `disableCancel` to prevent the user from dismissing the dialog.
 
 See: `examples/DisableCancel.md`
 
@@ -59,13 +71,19 @@ See: `examples/ConfirmButtonType.md`
 
 ### Change buttons icons
 
+Add icons to the confirm and cancel buttons using `confirmButtonIconType` and `cancelButtonIconType`.
+
 See: `examples/ButtonsIcons.md`
 
 ### Confirm button loading
 
+Set `isLoadingConfirm` to show a spinner in the confirm button while an async operation is in progress.
+
 See: `examples/IsLoadingConfirm.md`
 
 ### Confirm with Custom Data Tags
+
+Demonstrates applying custom `data-*` attributes to the dialog and its buttons for test automation selectors.
 
 See: `examples/DefaultWithCustomDataTags.md`
 

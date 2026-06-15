@@ -6,7 +6,9 @@ This component has a specific start and end point, as well as showing the curren
 
 Use a step flow to help a user complete tasks in a specific order, based on their needs.
 
-## Import
+**Category:** UI presentation
+
+## Quick Start
 
 ```javascript
 import {
@@ -20,6 +22,8 @@ import {
 ## Examples
 
 ### Default
+
+Renders a step flow with a title and step counter. Use `currentStep` and `totalSteps` to drive the indicator, and `onDismiss` to handle the close button.
 
 See: `examples/DefaultStory.md`
 
@@ -37,7 +41,17 @@ which may not be available visually.
 
 See: `examples/TitleNodeStoryWithScreenReaderOnlyTitle.md`
 
+Please see below an example of what this look like in the DOM.
+
+```jsx
+<span data-element="visually-hidden-title-text">
+  Step Title with a pointer image. Step 1 of 3.
+</span>
+```
+
 ### with category
+
+Set `category` to display an overarching category name above the step title, providing additional context about which section of the journey the user is in.
 
 See: `examples/CategoryStory.md`
 
@@ -87,7 +101,31 @@ Please see below an example of what this look like in the DOM.
 
 See: `examples/ExampleImplementation.md`
 
+To achieve this, a custom ref handle can be forwarded to the `StepFlow` component:
+
+```tsx
+const stepFlowHandle = useRef<StepFlowHandle>(null);
+return (
+  <StepFlow
+    title="Refund details"
+    totalSteps={3}
+    currentStep={1}
+    ref={stepFlowHandle}
+  />
+);
+```
+
+which exposes the `focus()` method of `StepFlow`'s root DOM node:
+
+```ts
+stepFlowHandle.current?.focus();
+```
+
+This will ensure that screen reader users are not only made aware of any changes to information, but can then also navigate down the page from the `StepFlow` component as they see fit.
+
 ### Example implementation with title node
+
+Same as the standard example implementation but uses a composed `title` node with `StepFlowTitle` instead of a plain string title.
 
 See: `examples/ExampleImplementationWithTitleNode.md`
 
@@ -101,20 +139,6 @@ See: `examples/ExampleImplementationWithTitleNode.md`
 | title | React.ReactNode | Yes |  | The title of the current step, this can be a string or a valid React node which contains the `<StepFlowTitle />` component as a descendant. |  |
 | totalSteps | Steps | Yes | 1 \| 2 \| 3 \| 4 \| 5 \| 6 \| 7 \| 8 | The total steps in the user journey. |  |
 | category | string \| undefined | No |  | A category for the user journey. |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
 | onDismiss | ((e: React.KeyboardEvent<HTMLButtonElement> \| React.MouseEvent<HTMLButtonElement>) => void) \| undefined | No |  | function runs when user click dismiss button |  |
 | showCloseIcon | boolean \| undefined | No |  | Determines if the close icon button is shown |  |
 | showProgressIndicator | boolean \| undefined | No |  | Determines if the progress indicator is shown. |  |

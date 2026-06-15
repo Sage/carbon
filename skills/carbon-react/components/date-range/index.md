@@ -4,7 +4,9 @@ Captures a start and end date.
 
 Used to filter a Table of data according to a start and end date, or to set two dates which are related to each other, for example, a hotel booking.
 
-## Import
+**Category:** Inputs
+
+## Quick Start
 
 ```javascript
 import DateRange from "carbon-react/lib/components/date-range";
@@ -37,7 +39,7 @@ See: `examples/Required.md`
 
 ### With disabled dates
 
-You can disable dates by using `startDateProps` and `endDateProps`, which allow you to pass properties directly to the start or end date. 
+You can disable dates by using `startDateProps` and `endDateProps`, which allow you to pass properties directly to the start or end date.
 For example, you can set a `minDate` or `maxDate`, or use `pickerProps` with a `disabled` option that accepts a matcher or an array of [matchers](https://daypicker.dev/api/type-aliases/Matcher#example).
 
 See: `examples/WithDisabledDates.md`
@@ -58,7 +60,7 @@ See: `examples/LocaleFormatOverrideExampleImplementation.md`
 
 ### Labels Inline (legacy)
 
-**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../carbon-provider/index.md) is *false*.
+**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../carbon-provider/index.md) is _false_.
 
 See: `examples/LabelsInline.md`
 
@@ -83,20 +85,6 @@ See: `examples/LabelsInline.md`
 | endWarning | string \| boolean \| undefined | No |  | Indicate that warning has occurred on end date. Pass string to display icon, tooltip and orange border. Pass true boolean to only display orange border. |  |
 | id | string \| undefined | No |  | An optional string prop to provide an id to the component |  |
 | labelsInline | boolean \| undefined | No |  | [Legacy] Display labels inline |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
 | name | string \| undefined | No |  | An optional string prop to provide a name to the component |  |
 | onBlur | ((ev: DateRangeChangeEvent) => void) \| undefined | No |  | Specify a callback triggered on blur |  |
 | required | boolean \| undefined | No |  | Flag to configure component as mandatory. |  |

@@ -17,6 +17,8 @@ import * as NavigationBarStories from "./navigation-bar.stories";
 
 This component is used as a wrapper for the Menu component when used as a navigation layout.
 
+**Category:** Navigation
+
 ## Contents
 
 - [Quick Start](#quick-start)
@@ -33,21 +35,31 @@ import NavigationBar from "carbon-react/lib/components/navigation-bar";
 
 ### Default - Light Theme
 
+A `NavigationBar` with the default `"light"` theme, wrapping a `Menu` with navigation items.
+
 <Canvas of={NavigationBarStories.Default} />
 
 ### Dark Theme
+
+Set `navigationType="dark"` for a dark-background navigation bar.
 
 <Canvas of={NavigationBarStories.DarkTheme} />
 
 ### White Theme
 
+Set `navigationType="white"` for a white-background navigation bar.
+
 <Canvas of={NavigationBarStories.WhiteTheme} />
 
 ### Black Theme
 
+Set `navigationType="black"` for a black-background navigation bar.
+
 <Canvas of={NavigationBarStories.BlackTheme} />
 
 ### Example with menu
+
+A typical composition: `NavigationBar` wrapping a `Menu` with `MenuItem` children including submenu items.
 
 <Canvas of={NavigationBarStories.ExampleWithMenu} />
 
@@ -65,6 +77,8 @@ valid CSS string.
 <Canvas of={NavigationBarStories.WithCustomSpacing} />
 
 ### Set content max width using Box
+
+Wrap the `Menu` in a `Box` with `maxWidth` to constrain the navigation content width while the bar spans the full viewport.
 
 <Canvas of={NavigationBarStories.ContentMaxWidthBox} />
 

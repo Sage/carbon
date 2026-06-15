@@ -3,7 +3,11 @@
 Basic component that allows either the rendering of an `img` element or a `div` with a `background-image`. This component
 also gives access to a number of styling options such as `margin`, and `layout`.
 
-## Import
+**Category:** UI presentation
+
+## Quick Start
+
+Import the `Image` component to start using
 
 ```javascript
 import Image from "carbon-react/lib/components/image";
@@ -59,4 +63,17 @@ See: `examples/CustomResponsiveBehaviour.md`
 
 ### Image
 
-No props metadata found.
+| Name | Type | Required | Literals | Description | Default |
+| --- | --- | --- | --- | --- | --- |
+| alt | string \| undefined | No |  | HTML alt property to display when an img fails to load |  |
+| bottom | string \| undefined | No |  | Any valid CSS string for bottom |  |
+| children | React.ReactNode | No |  | Children elements, will only render if component is a div element |  |
+| decorative | boolean \| undefined | No |  | Prop to specify if the image is decorative | false |
+| hidden | boolean \| undefined | No |  | HTML hidden property to indicate whether to remain hidden visually and from screen readers |  |
+| left | string \| undefined | No |  | Any valid CSS string for left |  |
+| position | PositionProps \| undefined | No |  | Any valid CSS string for position |  |
+| right | string \| undefined | No |  | Any valid CSS string for right |  |
+| src | string \| undefined | No |  | Any valid file path, passing this will render the component as an img element |  |
+| top | string \| undefined | No |  | Any valid CSS string for top |  |
+| data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+| data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |

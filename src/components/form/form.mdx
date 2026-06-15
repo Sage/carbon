@@ -9,6 +9,8 @@ import * as FormStories from "./form.stories";
 
 Represents a document section containing interactive controls for submitting information.
 
+**Category:** Inputs
+
 ## Contents
 
 - [Quick Start](#quick-start)
@@ -22,12 +24,16 @@ To use Form, import the `Form` and pass the content, usually various inputs, as 
 You can provide a save button using the `saveButton` prop.
 
 ```javascript
-import Form, { RequiredFieldsIndicator } from "carbon-react/lib/components/form";
+import Form, {
+  RequiredFieldsIndicator,
+} from "carbon-react/lib/components/form";
 ```
 
 ## Examples
 
 ### With footer node
+
+Pass a custom React node via the `saveButton` prop to render action buttons in the form footer.
 
 <Canvas of={FormStories.WithFooterNode} />
 
@@ -39,9 +45,13 @@ When `stickyFooter` prop is set as true, footer becomes stickied to the bottom o
 
 ### With sticky footer variant
 
+Use the `stickyFooter` variant that controls how the footer sticks when scrolling inside a constrained container.
+
 <Canvas of={FormStories.StickyFooterVariant} />
 
 ### Full Width Buttons
+
+Use the `buttonAlignment` or pass `fullWidth` buttons to make footer action buttons stretch the full form width.
 
 <Canvas of={FormStories.WithFullWidthButtons} />
 
@@ -70,7 +80,7 @@ When either `errorCount` or `warningCount` or both are provided, summary with th
 
 ### Required Fields Indicator
 
-The `RequiredFieldsIndicator` component visually indicates that form fields are required using an asterisk prefix. It can be used 
+The `RequiredFieldsIndicator` component visually indicates that form fields are required using an asterisk prefix. It can be used
 within a `Form` to provide users with a clear indication of which fields are mandatory, or used independently.
 
 <Canvas of={FormStories.RequiredFieldsIndicatorStory} />
@@ -80,7 +90,7 @@ within a `Form` to provide users with a clear indication of which fields are man
 You can set the `required` or `isOptional` on any `Form` input to make them mandatory or optional. You can also
 include an indicator within the `Form` by importing the `RequiredFieldsIndicator` component.
 
-<Canvas name="with optional or required label" of={FormStories.WithBothOptionalOrRequired} />
+<Canvas of={FormStories.WithBothOptionalOrRequired} />
 
 ### Buttons variations
 
@@ -114,9 +124,13 @@ It is possible to render `Form` as a content of full-screen `Dialog` component.
 
 ### With labels inline
 
+Use the `labelInline` prop on individual inputs (or `Fieldset`) to display labels on the same row as the inputs.
+
 <Canvas of={FormStories.WithLabelsInline} />
 
 ### With custom footer padding
+
+Override the default footer padding using the `footerPadding` prop.
 
 <Canvas of={FormStories.WithCustomFooterPadding} />
 

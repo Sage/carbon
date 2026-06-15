@@ -4,7 +4,11 @@ Typically triggered by the user hovering on an icon, displaying a single, short 
 Useful for explaining the difference between commands represented with icons, for example, batch table actions.
 Bear in mind that tooltips may not work well (or at all) on mobile devices, so alternatives may be needed.
 
-## Import
+**Category:** UI presentation
+
+## Quick Start
+
+Import `Help` into the project.
 
 ```javascript
 import Help from "carbon-react/lib/components/help";
@@ -13,6 +17,8 @@ import Help from "carbon-react/lib/components/help";
 ## Examples
 
 ### Default
+
+A `Help` component renders a `?` icon that shows a tooltip message on hover/focus. Pass the help text as `children`.
 
 See: `examples/Default.md`
 
@@ -58,20 +64,6 @@ See: `examples/WithHref.md`
 | helpId | string \| undefined | No |  | The unique id of the component (used with aria-describedby for accessibility) |  |
 | href | string \| undefined | No |  | A path for the anchor |  |
 | isFocused | boolean \| undefined | No |  | A boolean received from IconWrapper |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
 | tabIndex | number \| undefined | No |  | Overrides the default tabindex of the component | 0 |
 | tooltipBgColor | string \| undefined | No |  | Override background color of the Tooltip, provide any color from palette or any valid css color value. |  |
 | tooltipFlipOverrides | TooltipPositions[] \| undefined | No |  | Overrides the default flip behaviour of the Tooltip, must be an array containing some or all of ["top", "bottom", "left", "right"] (see https://popper.js.org/docs/v2/modifiers/flip/#fallbackplacements) |  |

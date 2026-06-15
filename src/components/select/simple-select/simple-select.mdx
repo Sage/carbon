@@ -20,6 +20,8 @@ import * as SimpleSelectStories from "./simple-select.stories";
 
 Select one of available options from the drop-down menu. Simple Select is a Carbon styled equivalent of HTML Select Element.
 
+**Category:** Inputs
+
 ## Contents
 
 - [Quick Start](#quick-start)
@@ -40,6 +42,8 @@ Always insert `Option` Components inside the `Select`, analogous to the original
 ## Examples
 
 ### Default
+
+A basic `Select` with `Option` children. The selected option's `text` value is displayed in the input field.
 
 <Canvas of={SimpleSelectStories.Default} />
 
@@ -104,21 +108,31 @@ This prop will be called every time a user scrolls to the bottom of the list.
 
 ### Open on focus
 
+Set `openOnFocus` to open the option list automatically when the input receives focus.
+
 <Canvas of={SimpleSelectStories.OpenOnFocus} />
 
 ### Disabled
+
+Set `disabled` to prevent user interaction. The input and dropdown are visually dimmed and non-interactive.
 
 <Canvas of={SimpleSelectStories.Disabled} />
 
 ### Read Only
 
+Set `readOnly` to display the current value without allowing changes. The dropdown cannot be opened.
+
 <Canvas of={SimpleSelectStories.Readonly} />
 
 ### Transparent
 
+Set `transparent` to render the select without a visible border or background, useful when embedding it inside other styled containers.
+
 <Canvas of={SimpleSelectStories.Transparent} />
 
 ### Transparent Disabled
+
+Combines the `transparent` and `disabled` props to render a borderless, non-interactive select.
 
 <Canvas of={SimpleSelectStories.TransparentDisabled} />
 
@@ -131,9 +145,13 @@ The `text` value will be used as the displayed value in the input field when sel
 
 ### With multiple columns
 
+Pass a `tableHeader` and multi-column `Option` children (using `OptionRow`) to display the dropdown as a table with column headers.
+
 <Canvas of={SimpleSelectStories.WithMultipleColumns} />
 
 ### Option groups
+
+Use `OptionGroupHeader` to group related options under a labelled section heading within the dropdown list.
 
 <Canvas of={SimpleSelectStories.OptionGroups} />
 
@@ -160,6 +178,8 @@ be customised if desired using the `virtualScrollOverscan` prop. Higher values w
 <Canvas of={SimpleSelectStories.Virtualised} />
 
 ### With multiple columns and virtualisation
+
+Combines multi-column layout with `enableVirtualScroll` for performant rendering of large tabular option lists.
 
 <Canvas of={SimpleSelectStories.WithMultipleColumnsAndVirtualisation} />
 
@@ -219,7 +239,7 @@ describe("Select tests", () => {
   test("should render", () => {
     // your test code here
   });
-})
+});
 ```
 
 ## Props

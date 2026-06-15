@@ -3,7 +3,11 @@
 For dates far from today, use this Numeral Date component. It is advised to use Three inputs consisting of day, month, and year.
 For dates close to today, we advise the use of a standard datepicker. If you require this, please see the "Date Input" component.
 
-## Import
+**Category:** Inputs
+
+## Quick Start
+
+Import `NumeralDate` into the project.
 
 ```javascript
 import NumeralDate, { NumeralDateProps, type NumeralDateHandle } from "carbon-react/lib/components/numeral-date";
@@ -17,6 +21,8 @@ This component supports input validation, see our Validations documentation page
 
 ### Default
 
+Three separate inputs for day, month and year. Set the `dateFormat` prop to control which fields are shown and their order.
+
 See: `examples/Default.md`
 
 ### With Input Hint
@@ -27,6 +33,8 @@ otherwise it will render as a Help tooltip (see the [With labelHelp (legacy)](#w
 See: `examples/WithInputHint.md`
 
 ### Allowed date formats
+
+Examples of all supported `dateFormat` values (e.g. `["dd","mm","yyyy"]`, `["mm","yyyy"]`, etc.) showing how fields are ordered and which are shown.
 
 See: `examples/AllowedDateFormats.md`
 
@@ -41,7 +49,13 @@ This in-built validation feature uses translation keys for the invalid date mess
 
 When using the internal validations as an error, please ensure to also prevent form submission as this is not handled by the component.
 
-See: `examples/InternalValidationErrorAndInternalValidationWarning.md`
+See: `examples/InternalValidationError.md`
+
+#### As warning
+
+When using the internal validations as a warning, the form can still be submitted as this is a non-blocking state.
+
+See: `examples/InternalValidationWarning.md`
 
 ### Size
 
@@ -50,6 +64,8 @@ You can use the `size` prop to set the size of the field.
 See: `examples/Size.md`
 
 ### Required
+
+Mark the date field group as mandatory using the `required` prop.
 
 See: `examples/Required.md`
 
@@ -61,7 +77,7 @@ See: `examples/ProgrammaticFocus.md`
 
 ### With inputIds
 
-It is possible to set IDs for each of the field inputs using the prop `inputIds`:
+Use the `inputIds` prop to set custom `id` attributes on the individual day, month and year inputs.
 
 See: `examples/WithCustomFieldIds.md`
 
@@ -91,21 +107,7 @@ See: `examples/WithCustomFieldIds.md`
 | labelInline | boolean \| undefined | No |  |  |  | [Legacy] When true, label is placed in line with an input |  |
 | labelSpacing | 1 \| 2 \| undefined | No |  |  |  | [Legacy] Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) |  |
 | labelWidth | number \| undefined | No |  |  |  | [Legacy] Label width |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
 | monthRef | React.ForwardedRef<HTMLInputElement> \| undefined | No |  |  |  | A React ref to pass to the input corresponding to the month |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
 | name | string \| undefined | No |  |  |  | `name` for events |  |
 | onBlur | ((ev: NumeralDateEvent) => void) \| undefined | No |  |  |  | Blur event handler |  |
 | readOnly | boolean \| undefined | No |  |  |  | If true, the component will be read-only |  |

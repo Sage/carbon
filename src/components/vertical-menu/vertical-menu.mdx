@@ -12,6 +12,8 @@ import * as VerticalMenuStories from "./vertical-menu.stories";
 
 Provides a vertical navigation for an app, which can be used via mouse or keyboard.
 
+**Category:** Navigation
+
 ## Contents
 
 - [Quick Start](#quick-start)
@@ -34,6 +36,8 @@ import {
 
 ### Default
 
+Renders a vertical menu with navigation items. Use `VerticalMenuItem` for each entry. Set `href` or `onClick` to make items navigable or actionable.
+
 <Canvas of={VerticalMenuStories.Default} />
 
 ### Item With OnClick Handler
@@ -47,6 +51,8 @@ You can use the `onClick` prop to specify a function that will be called when th
 <Canvas of={VerticalMenuStories.ItemWithOnClickHandler} />
 
 ### With custom width and height
+
+Set `width` and `height` on `VerticalMenu` to override the default full-height sidebar dimensions, constraining the menu to a fixed size.
 
 <Canvas of={VerticalMenuStories.CustomWidthAndHeight} />
 
@@ -66,13 +72,19 @@ This prop also accepts a render function which accepts `isOpen` as a parameter.
 
 ### Custom item padding
 
+Use the `py` prop on `VerticalMenuItem` to adjust the vertical padding of each item, controlling the row height and spacing density.
+
 <Canvas of={VerticalMenuStories.CustomItemPadding} />
 
 ### Custom item margin
 
+Use the `mx` prop on `VerticalMenuItem` to add horizontal margin inside the menu, giving items a card-like inset appearance.
+
 <Canvas of={VerticalMenuStories.CustomItemMargin} />
 
 ### Custom item height
+
+Set `height` on `VerticalMenuItem` to enforce a fixed minimum row height, useful for ensuring consistent touch targets.
 
 <Canvas of={VerticalMenuStories.CustomItemHeight} />
 

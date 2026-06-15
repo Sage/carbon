@@ -2,7 +2,9 @@
 
 Provides an interactive Text Editor that allows users to format text with various styles and save the content as JSON or HTML. For further documentation on this component, please read our documentation regarding Lexical
 
-## Import
+**Category:** Inputs
+
+## Quick Start
 
 ```javascript
 import TextEditor, {
@@ -11,6 +13,8 @@ import TextEditor, {
   type TextEditorHandle,
 } from "carbon-react/lib/components/text-editor";
 ```
+
+To use the Text Editor, import the `TextEditor` component. Use `createFromHTML` to convert HTML content for the editor, or `createEmpty` for an empty initial state.
 
 ## Validation States
 
@@ -115,7 +119,16 @@ See: `examples/SettingInitialValues.md`
 
 The editor supports adding links by typing URLs directly or selecting text and pasting a URL to wrap it as a link. Links open in new tabs when clicked.
 
-See: `examples/LinksAndWithLinkAddedCallback.md`
+See: `examples/Links.md`
+
+There may be times when you want to perform an action when a link is added to the editor. You can use the `onLinkAdded` callback to obtain a
+string representation of the link that was added, updated or removed. The function will be called whenever a link is added to the editor.
+In the example below, the most recently-added link will be displayed in the `Link` section below the editor; adding a new link will replace
+the previous one.
+
+Note that this usage is for demonstration purposes only; you should maintain the list of URLs added to the editor in your application state.
+
+See: `examples/WithLinkAddedCallback.md`
 
 ### With Link Previews
 
@@ -273,20 +286,6 @@ See: `examples/Mentions.md`
 | id | string \| undefined | No |  |  |  | The id attribute, set on the content editable div within the Text Editor |  |
 | initialValue | string \| undefined | No |  |  |  | The initial value of the editor, as a HTML string, or JSON |  |
 | inputHint | string \| undefined | No |  |  |  | A hint string rendered before the editor but after the label. Intended to describe the purpose or content of the input. |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
 | namespace | string \| undefined | No |  |  |  | The identifier for the Text Editor. This allows for the using of multiple Text Editors on a screen |  |
 | onBlur | ((ev: React.FocusEvent<HTMLElement>) => void) \| undefined | No |  |  |  | Callback that is triggered when the editor loses focus. |  |
 | onChange | ((value: string, formattedValues: EditorFormattedValues) => void) \| undefined | No |  |  |  | Callback that is triggered when the editor's text content is modified or styled. |  |

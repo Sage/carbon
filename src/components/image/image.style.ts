@@ -18,7 +18,7 @@ export type PositionProps =
   | "relative"
   | "static"
   | "sticky";
-export interface StyledImageProps
+export interface ImageProps
   extends BackgroundProps,
     LayoutProps,
     MarginProps,
@@ -61,7 +61,7 @@ const StyledImage = styled.div
       right,
       bottom,
       left,
-    }: StyledImageProps) => ({
+    }: ImageProps) => ({
       backgroundPosition,
       backgroundRepeat,
       backgroundSize,
@@ -75,7 +75,7 @@ const StyledImage = styled.div
       bottom,
       left,
     }),
-  )<StyledImageProps>`
+  )<ImageProps>`
   ${margin}
   ${layout}
   ${padding}

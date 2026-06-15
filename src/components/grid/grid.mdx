@@ -13,6 +13,10 @@ import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.co
 Grid has been deprecated, if this pattern is still needed please see <a style={{color: "white"}} href="../?path=/docs/documentation-deprecation-migration--docs#recommended-alternatives">our deprecation migration docs</a> for a recommended alternative.
 </DeprecationWarning>
 
+A deprecated 12-column CSS Grid layout system composed of `GridContainer` and `GridItem` components. Supports responsive breakpoints, item reordering and alignment. Use `Box` with `display="grid"` in new implementations.
+
+**Category:** UI presentation
+
 ## Contents
 
 - [Quick Start](#quick-start)
@@ -74,37 +78,37 @@ Gutters for the `GridItem` are set automatically in the CSS, following the value
 
 ### Default
 
-This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation.
+A basic 12-column `GridContainer` with several `GridItem` children. Each `GridItem` spans columns using `columnStart`/`columnEnd`. Best viewed in full-screen Canvas mode.
 
 <Canvas of={GridStories.Default} />
 
 ### Justify
 
-This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation.
+Use `justifyContent` on `GridContainer` to control horizontal alignment of `GridItem` children. Best viewed in full-screen Canvas mode.
 
 <Canvas of={GridStories.Justify} />
 
 ### Align
 
-This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation.
+Use `alignItems` on `GridContainer` to control vertical alignment of `GridItem` children within their row. Best viewed in full-screen Canvas mode.
 
 <Canvas of={GridStories.Align} />
 
 ### Custom
 
-This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation.
+Custom column spans and offsets using numeric `columnStart`/`columnEnd` values on individual `GridItem` components. Best viewed in full-screen Canvas mode.
 
 <Canvas of={GridStories.CustomSpacing} />
 
 ### Responsive Settings
 
-This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation. Note how the order and position of each `GridItem`, responds according to an array of `responsiveSettings` allowing reordering and repositioning as required.
+Each `GridItem` receives a `responsiveSettings` array of breakpoint objects, allowing dynamic column spans and reordering at different viewport widths. Best viewed in full-screen Canvas mode.
 
 <Canvas of={GridStories.ResponsiveSettings} />
 
 ### With a subgrid
 
-This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation.
+A `GridItem` acts as a nested `GridContainer` to create a sub-grid. Best viewed in full-screen Canvas mode.
 
 <Canvas of={GridStories.SubGrid} />
 

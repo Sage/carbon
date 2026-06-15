@@ -6,7 +6,10 @@ import * as LoaderStories from "./loader.stories";
 <Meta of={LoaderStories} />
 
 # Loader
+
 Use the `Loader` component to clearly indicate that a task or data is still loading, helping users understand they should wait rather than refresh the page or abandon the process. The `Loader` component offers three loading types: `standalone` (with `typical` and `ai` variants), `ring` (with `inline`, `stacked`, `ai-stacked` and `ai-inline` variants) and `star` for clear visual feedback.
+
+**Category:** Feedback
 
 ## Contents
 
@@ -31,13 +34,19 @@ The `Loader` component offers three loading types: `standalone` (default), `ring
 
 #### Standalone
 
+The default loader type. Renders an animated spinner suited to general loading contexts.
+
 <Canvas of={LoaderStories.Standalone} />
 
 #### Ring
 
+A circular ring loader, available in stacked, inline, and AI variants.
+
 <Canvas of={LoaderStories.Ring} />
 
 #### Star
+
+A star-shaped loader for distinct visual differentiation. Has a single fixed size.
 
 <Canvas of={LoaderStories.Star} />
 
@@ -49,9 +58,13 @@ The `standalone` loader type comes with two variants: `typical` (default) and `a
 
 #### Typical
 
+The standard standalone spinner using the default brand colour palette.
+
 <Canvas of={LoaderStories.StandaloneTypicalVariant} />
 
 #### A.I.
+
+The standalone loader with AI-specific gradient styling, intended for AI-driven features.
 
 <Canvas of={LoaderStories.StandaloneAiVariant} />
 
@@ -61,17 +74,25 @@ The `ring` loader type comes with four variants: `stacked` (default), `inline`, 
 
 #### Stacked
 
+The ring loader with label text displayed below the ring.
+
 <Canvas of={LoaderStories.RingStackedVariant} />
 
 #### Inline
+
+The ring loader with label text displayed beside the ring, suited to compact or inline contexts.
 
 <Canvas of={LoaderStories.RingInlineVariant} />
 
 #### A.I. Stacked
 
+The stacked ring loader with AI gradient styling.
+
 <Canvas of={LoaderStories.RingAiStackedVariant} />
 
 #### A.I. Inline
+
+The inline ring loader with AI gradient styling.
 
 <Canvas of={LoaderStories.RingAiInlineVariant} />
 
@@ -80,9 +101,14 @@ The `ring` loader type comes with four variants: `stacked` (default), `inline`, 
 The `Loader` component offers size flexibility based on the selected loader type: the Standalone loader supports three sizes—Small, Medium, and Large—while the Ring loader provides four options—Extra Small, Small, Medium, and Large. The Star loader type has a single default size, ensuring a consistent appearance across use cases.
 
 #### Standalone loader sizes
+
+The standalone type supports `small`, `medium` (default), and `large` sizes via the `size` prop.
+
 <Canvas of={LoaderStories.StandaloneSizes} />
 
 #### Ring loader sizes
+
+The ring type supports `extra-small`, `small`, `medium` (default), and `large` sizes via the `size` prop.
 
 <Canvas of={LoaderStories.RingSizes} />
 
@@ -92,21 +118,31 @@ You can use the `inverse` prop to render the Loader's standalone and ring types 
 
 #### Standalone typical inversed
 
+The default standalone loader rendered in inverse colours for use on dark backgrounds.
+
 <Canvas of={LoaderStories.StandaloneTypicalVariantInversed} />
 
 #### Standalone A.I inversed
+
+The AI standalone loader rendered in inverse colours.
 
 <Canvas of={LoaderStories.StandaloneAiVariantInversed} />
 
 #### Ring stacked inversed
 
+The stacked ring loader rendered in inverse colours.
+
 <Canvas of={LoaderStories.RingStackedVariantInversed} />
 
 #### Ring inline inversed
 
+The inline ring loader rendered in inverse colours.
+
 <Canvas of={LoaderStories.RingInlineVariantInversed} />
 
 #### Ring A.I inline inversed
+
+The AI inline ring loader rendered in inverse colours.
 
 <Canvas of={LoaderStories.RingAiInlineVariantInversed} />
 
@@ -136,9 +172,13 @@ The `animationTime` prop can also be set to any number, which will extend the an
 
 ### Disable Motion
 
+Use the `hasMotion={false}` prop to render the loader in a static (non-animated) state.
+
 <Canvas of={LoaderStories.DisabledMotion} />
 
 ### Inside Buttons
+
+A `Loader` can be composed inside a `Button` to show in-progress state while an action is completing.
 
 <Canvas of={LoaderStories.InsideButtons} />
 

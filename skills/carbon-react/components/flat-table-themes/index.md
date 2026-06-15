@@ -1,5 +1,9 @@
 # FlatTable color theming
 
+The `colorTheme` prop on `FlatTable` controls the background colour of the header row and the overall table appearance. Four built-in themes are available: `"dark"`, `"light"`, `"transparent-base"`, and `"transparent-white"`. Additional props such as `isZebra`, `hasStickyHead`, and custom borders can be combined with any theme.
+
+**Category:** UI presentation
+
 ## Examples
 
 ### With white header row

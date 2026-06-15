@@ -9,6 +9,8 @@ import * as DecimalStories from "./decimal.stories";
 
 Captures a number with a decimal point, or a currency value.
 
+**Category:** Inputs
+
 ## Contents
 
 - [Quick Start](#quick-start)
@@ -27,37 +29,55 @@ import Decimal from "carbon-react/lib/components/decimal";
 
 ### Default
 
+Basic decimal input with a label. Default precision is 2 decimal places.
+
 <Canvas of={DecimalStories.DefaultStory} />
 
 ### With Input Hint
+
+Use the `inputHint` prop to display a hint text below the label.
 
 <Canvas of={DecimalStories.WithInputHint} />
 
 ### Sizes
 
+Three size variants: `small`, `medium` (default), and `large`, set via the `size` prop.
+
 <Canvas of={DecimalStories.Sizes} />
 
 ### Disabled
+
+Use `disabled` to render a non-interactive read-only decimal input.
 
 <Canvas of={DecimalStories.Disabled} />
 
 ### Prefix
 
+Use the `prefix` prop to prepend a short string (e.g. a currency symbol) displayed inside the input box.
+
 <Canvas of={DecimalStories.Prefix} />
 
 ### ReadOnly
+
+Use `readOnly` to display the current value without allowing the user to edit it.
 
 <Canvas of={DecimalStories.ReadOnly} />
 
 ### Empty
 
+Shows the input with no initial value, demonstrating placeholder behaviour.
+
 <Canvas of={DecimalStories.Empty} />
 
 ### With Custom Precision
 
+Override the number of decimal places with the `precision` prop (e.g. 4 for financial data).
+
 <Canvas of={DecimalStories.WithCustomPrecision} />
 
 ### With custom maxWidth
+
+Use the `maxWidth` prop to constrain the input to a specific maximum width.
 
 <Canvas of={DecimalStories.WithCustomMaxWidth} />
 

@@ -1,6 +1,10 @@
 # Drawer
 
-## Import
+A collapsible side panel that sits alongside the main page content. The `sidebar` prop holds the panel content; the main children are always visible. Unlike `Dialog` or `Sidebar`, the drawer is non-modal and does not trap focus.
+
+**Category:** UI presentation
+
+## Quick Start
 
 ```javascript
 import Drawer from "carbon-react/lib/components/drawer";

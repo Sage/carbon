@@ -8,7 +8,9 @@ import * as BatchSelectionStories from "./batch-selection.stories";
 
 # Batch Selection
 
-Batch Selection Component could be used to select multiple items, and apply a common action to all the items selected.
+Batch Selection Component could be used to select multiple items, and apply a common action to all the items selected. It renders a toolbar with a selected-item count and a row of action buttons (IconButtons, Buttons or Links).
+
+**Category:** Actions
 
 ## Contents
 
@@ -33,17 +35,25 @@ import Link from "carbon-react/lib/components/link";
 
 ### Default usage
 
+Basic `BatchSelection` with a "Select All" `Button` and three `IconButton` actions. `selectedCount` is `0`, so the counter shows zero selected items.
+
 <Canvas of={BatchSelectionStories.Default} />
 
 ### On dark background
+
+Use `colorTheme="dark"` for a dark-coloured toolbar, suitable for use on dark page backgrounds.
 
 <Canvas of={BatchSelectionStories.Dark} />
 
 ### On light background
 
+Use `colorTheme="light"` for a light-coloured toolbar, suitable for use on light grey backgrounds.
+
 <Canvas of={BatchSelectionStories.Light} />
 
 ### On white background
+
+Use `colorTheme="white"` for a white toolbar, suitable for use on white page backgrounds.
 
 <Canvas of={BatchSelectionStories.White} />
 

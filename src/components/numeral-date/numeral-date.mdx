@@ -10,6 +10,8 @@ import * as NumeralDateStories from "./numeral-date.stories";
 For dates far from today, use this Numeral Date component. It is advised to use Three inputs consisting of day, month, and year.
 For dates close to today, we advise the use of a standard datepicker. If you require this, please see the "Date Input" component.
 
+**Category:** Inputs
+
 ## Contents
 
 - [Quick Start](#quick-start)
@@ -31,6 +33,8 @@ import NumeralDate, { NumeralDateProps, type NumeralDateHandle } from "carbon-re
 
 ### Default
 
+Three separate inputs for day, month and year. Set the `dateFormat` prop to control which fields are shown and their order.
+
 <Canvas of={NumeralDateStories.Default} />
 
 ### With Input Hint
@@ -41,6 +45,8 @@ otherwise it will render as a Help tooltip (see the [With labelHelp (legacy)](#w
 <Canvas of={NumeralDateStories.WithInputHint} />
 
 ### Allowed date formats
+
+Examples of all supported `dateFormat` values (e.g. `["dd","mm","yyyy"]`, `["mm","yyyy"]`, etc.) showing how fields are ordered and which are shown.
 
 <Canvas of={NumeralDateStories.AllowedDateFormats} />
 
@@ -70,6 +76,8 @@ You can use the `size` prop to set the size of the field.
 
 ### Required
 
+Mark the date field group as mandatory using the `required` prop.
+
 <Canvas of={NumeralDateStories.Required} />
 
 ### Programmatic Focus
@@ -80,7 +88,7 @@ It is possible to focus the `NumeralDate` component programmatically by passing 
 
 ### With inputIds
 
-It is possible to set IDs for each of the field inputs using the prop `inputIds`:
+Use the `inputIds` prop to set custom `id` attributes on the individual day, month and year inputs.
 
 <Canvas of={NumeralDateStories.WithCustomFieldIds} />
 

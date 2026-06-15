@@ -2,7 +2,9 @@
 
 The Portal component allows you to render children into a different part of the DOM, whilst also allowing the use of styling using the Design System's `design-tokens` package.
 
-## Import
+**Category:** Modal
+
+## Quick Start
 
 ```javascript
 import Portal from "carbon-react/lib/components/portal";

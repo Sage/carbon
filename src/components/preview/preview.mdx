@@ -8,6 +8,8 @@ import * as PreviewStories from "./preview.stories";
 
 Applies a preview loading state animation.
 
+**Category:** Feedback
+
 ## Contents
 
 - [Quick Start](#quick-start)
@@ -23,6 +25,8 @@ import Preview from "carbon-react/lib/components/preview";
 ## Examples
 
 ### Default
+
+A single animated placeholder bar displayed while content is loading. Rendered when `loading` is `true` (or undefined).
 
 <Canvas of={PreviewStories.Default} />
 
@@ -50,7 +54,7 @@ You can use the `height` prop to specify the height of the Preview.
 
 <Canvas of={PreviewStories.WithHeight} />
 
-### Shapes 
+### Shapes
 
 By default, the shape of the Preview is "text", however you can use the `shape` prop to change this.
 You may also use the `lines` prop to render multiple Previews with the specified shape and the `width` and `height` props to change the default dimensions.

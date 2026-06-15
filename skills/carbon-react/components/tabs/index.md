@@ -5,7 +5,9 @@ sizes should limit the number of tabs used to no more than 5.
 
 **This documentation is for the newer implementation of Tabs. If you are still using the older implementation, please use the Tabs documentation.**
 
-## Import
+**Category:** Navigation
+
+## Quick Start
 
 ```javascript
 import {
@@ -38,6 +40,55 @@ Users should be able to:
 - To display the selected `Tab` content, press <kbd>Enter</kbd> or <kbd>Space</kbd>.
 
 ## Examples
+
+### Default
+
+Renders a horizontal tab bar. The first tab is selected by default. Use the `Tabs`, `TabList`, `Tab`, and `TabPanel` components together to define the full structure.
+
+See: `examples/DefaultStory.md`
+
+### Size
+
+Tabs are available in two sizes: `medium` (default) and `large`.
+
+See: `examples/LargeSize.md`
+
+### Orientation
+
+Use either `horizontal` (default) or `vertical` orientation.
+
+See: `examples/VerticalOrientation.md`
+
+### Responsive Overflow
+
+On a responsive device, when the screen is too small to show all tabs, tab overflow lets users navigate to hidden tabs.
+
+See: `examples/TabOverflow.md`
+
+### Slots
+
+Use the `leftSlot` and `rightSlot` properties to control items before and after the `label` prop.
+
+See: `examples/TitleSlots.md`
+
+### Validation States
+
+`Tab` elements can indicate when there is an error or warning present within it's child panel by setting the `error` or `warning` props respectively.
+
+See: `examples/WithErrorAndWarning.md`
+
+#### Validation via Form
+
+`Tab` components will display errors and warnings from any child `Form` elements.
+
+See: `examples/WithErrorAndWarningInForm.md`
+
+### Pre-Selected Tabs
+
+`Tab` elements can be pre-selected through the `selectedTabId` prop. This can be used for e.g. setting the default tab based on routing or URL paths. See
+[Handle Tab Changes](#handle-tab-changes) for information on how to obtain the tab ID programmatically.
+
+See: `examples/PreSelectedTab.md`
 
 ### Focusing a Tab Programmatically
 
@@ -73,6 +124,14 @@ the target tab:
 
 See: `examples/ProgrammaticFocus.md`
 
+### Handle Tab Changes
+
+By passing a function to the `onTabChange` property of `TabList`, you can react to user-driven tab changes. The function takes one argument which represents
+ID of the tab that has become active, which you can then use to e.g. update the URL. This can then be combined with [Pre-Selected Tabs](#pre-selected-tabs)
+to automatically select a tab on page load.
+
+See: `examples/HandleTabChanges.md`
+
 ## Props
 
 ### Tabs
@@ -81,7 +140,7 @@ See: `examples/ProgrammaticFocus.md`
 | --- | --- | --- | --- | --- | --- |
 | children | React.ReactNode | No |  | The tab list to be rendered within this set of tabs |  |
 | labelledBy | string \| undefined | No |  | The label associated with this set of tabs, for assistive technologies | "" |
-| orientation | "horizontal" \| "vertical" \| undefined | No |  | The orientation of the tabs | "horizontal" |
+| orientation | "vertical" \| "horizontal" \| undefined | No |  | The orientation of the tabs | "horizontal" |
 | selectedTabId | string \| undefined | No |  | The pre-selected tab to show e.g when restoring from URL |  |
 | size | "medium" \| "large" \| undefined | No |  | The size of the tabs to use | "medium" |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
@@ -130,6 +189,6 @@ See: `examples/ProgrammaticFocus.md`
 
 `TabList`'s forwarded ref exposes the following imperative methods:
 
-| Method Name              | Description                                       |
-| ------------------------ | ------------------------------------------------- |
+| Method Name            | Description                                       |
+| ---------------------- | ------------------------------------------------- |
 | `focusTab(id: string)` | Programmatically focuses the specified tab by ID. |

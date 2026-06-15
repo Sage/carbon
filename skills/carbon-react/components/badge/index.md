@@ -1,6 +1,12 @@
 # Badge
 
-## Import
+A badge is a small numerical indicator positioned next to interactive elements. It shows when something needs action or review, typically used for notifications within navigation, and to show that filters have been applied.
+
+**Category:** Feedback
+
+## Quick Start
+
+To use Badge component, import `Badge` and use as a standalone component or wrap it around another component to position it relatively.
 
 ```javascript
 import Badge from "carbon-react/lib/components/badge";
@@ -67,20 +73,6 @@ See: `examples/CustomColor.md`
 | counter | string \| number \| undefined | No |  |  |  | The number rendered in the badge component | 0 |
 | id | string \| undefined | No |  |  |  | Unique identifier for the component. |  |
 | inverse | boolean \| undefined | No |  |  |  | Set the style of the Badge to inverse | false |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
 | size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | Size of the badge | "medium" |
 | variant | "subtle" \| "typical" \| undefined | No |  |  |  | Badge variant | "typical" |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |

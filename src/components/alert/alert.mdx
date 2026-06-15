@@ -10,6 +10,10 @@ import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.co
 Alert has been deprecated, if this pattern is still needed please see <a style={{color: "white"}} href="../?path=/docs/documentation-deprecation-migration--docs#alert">our deprecation migration docs</a> for an alternative pattern.
 </DeprecationWarning>
 
+A deprecated small modal dialog that displays a message with a title, subtitle and a close button. Use `Confirm` or `Dialog` for new implementations.
+
+**Category:** Modal
+
 ## Contents
 
 - [Quick Start](#quick-start)
@@ -33,6 +37,8 @@ import Alert from "carbon-react/lib/components/alert";
 ## Examples
 
 ### Default
+
+Opens a small modal alert dialog with a title, subtitle, body text and a close button. The `open` state is toggled by the trigger button.
 
 <Canvas of={AlertStories.Default} />
 

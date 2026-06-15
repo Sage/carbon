@@ -1,7 +1,6 @@
 ```tsx
 export const DefaultStory: Story = {
   render: (args: DecimalProps) => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [state, setState] = useState("0.01");
     const setValue = ({ target }: CustomEvent) => {
       setState(target.value.rawValue);

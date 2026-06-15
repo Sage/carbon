@@ -24,6 +24,8 @@ sizes should limit the number of tabs used to no more than 5.
 
 **This documentation is for the newer implementation of Tabs. If you are still using the older implementation, please use the <a href="../?path=/docs/deprecated-tabs--docs">Tabs documentation</a>.**
 
+**Category:** Navigation
+
 ## Contents
 
 - [Quick Start](#quick-start)
@@ -54,53 +56,52 @@ import {
 
 ### Default
 
-<Canvas of={TabsStories.DefaultStory} name="default" />
+Renders a horizontal tab bar. The first tab is selected by default. Use the `Tabs`, `TabList`, `Tab`, and `TabPanel` components together to define the full structure.
+
+<Canvas of={TabsStories.DefaultStory} />
 
 ### Size
 
 Tabs are available in two sizes: `medium` (default) and `large`.
 
-<Canvas of={TabsStories.LargeSize} name="large-size" />
+<Canvas of={TabsStories.LargeSize} />
 
 ### Orientation
 
 Use either `horizontal` (default) or `vertical` orientation.
 
-<Canvas of={TabsStories.VerticalOrientation} name="vertical-orientation" />
+<Canvas of={TabsStories.VerticalOrientation} />
 
 ### Responsive Overflow
 
 On a responsive device, when the screen is too small to show all tabs, tab overflow lets users navigate to hidden tabs.
 
-<Canvas of={TabsStories.TabOverflow} name="tab-overflow" />
+<Canvas of={TabsStories.TabOverflow} />
 
 ### Slots
 
 Use the `leftSlot` and `rightSlot` properties to control items before and after the `label` prop.
 
-<Canvas of={TabsStories.TitleSlots} name="title-slots" />
+<Canvas of={TabsStories.TitleSlots} />
 
 ### Validation States
 
 `Tab` elements can indicate when there is an error or warning present within it's child panel by setting the `error` or `warning` props respectively.
 
-<Canvas of={TabsStories.WithErrorAndWarning} name="validation-states" />
+<Canvas of={TabsStories.WithErrorAndWarning} />
 
 #### Validation via Form
 
 `Tab` components will display errors and warnings from any child `Form` elements.
 
-<Canvas
-  of={TabsStories.WithErrorAndWarningInForm}
-  name="validation-states-form"
-/>
+<Canvas of={TabsStories.WithErrorAndWarningInForm} />
 
 ### Pre-Selected Tabs
 
 `Tab` elements can be pre-selected through the `selectedTabId` prop. This can be used for e.g. setting the default tab based on routing or URL paths. See
 [Handle Tab Changes](#handle-tab-changes) for information on how to obtain the tab ID programmatically.
 
-<Canvas of={TabsStories.PreSelectedTab} name="pre-selected-tab" />
+<Canvas of={TabsStories.PreSelectedTab} />
 
 ### Focusing a Tab Programmatically
 
@@ -142,7 +143,7 @@ By passing a function to the `onTabChange` property of `TabList`, you can react 
 ID of the tab that has become active, which you can then use to e.g. update the URL. This can then be combined with [Pre-Selected Tabs](#pre-selected-tabs)
 to automatically select a tab on page load.
 
-<Canvas of={TabsStories.HandleTabChanges} name="handle-tab-changes" />
+<Canvas of={TabsStories.HandleTabChanges} />
 
 ## Accessibility
 
@@ -181,6 +182,6 @@ Users should be able to:
 
 `TabList`'s forwarded ref exposes the following imperative methods:
 
-| Method Name              | Description                                       |
-| ------------------------ | ------------------------------------------------- |
+| Method Name            | Description                                       |
+| ---------------------- | ------------------------------------------------- |
 | `focusTab(id: string)` | Programmatically focuses the specified tab by ID. |

@@ -1,15 +1,26 @@
 import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
 
 import * as ButtonBarStories from "./button-bar.stories";
-import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component"
+import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component";
 
 <Meta of={ButtonBarStories} />
 
 # Button Bar
 
 <DeprecationWarning>
-Button Bar has been deprecated, if this pattern is still needed please see <a style={{color: "white"}} href="../?path=/docs/documentation-deprecation-migration--docs#recommended-alternatives">our deprecation migration docs</a> for a recommended alternative.
+  Button Bar has been deprecated, if this pattern is still needed please see{" "}
+  <a
+    style={{ color: "white" }}
+    href="../?path=/docs/documentation-deprecation-migration--docs#recommended-alternatives"
+  >
+    our deprecation migration docs
+  </a>{" "}
+  for a recommended alternative.
 </DeprecationWarning>
+
+A deprecated component that groups `Button` and `ButtonMinor` elements side-by-side in a row with shared border styling. Use individual `Button` components or a `Box` with flex layout in new implementations.
+
+**Category:** Actions
 
 ## Contents
 
@@ -33,35 +44,45 @@ Button bars of different sizes.
 
 <Canvas of={ButtonBarStories.buttonBarMinorSizes} />
 
-Button bars with different icon positions.
-
 ### Button Bar - Icon Position
+
+Button bars with different icon positions.
 
 <Canvas of={ButtonBarStories.buttonBarIcons} />
 
 ### Button Bar Minor - Icon Position
 
+Button bars using `ButtonMinor` with different icon positions.
+
 <Canvas of={ButtonBarStories.buttonBarMinorIcons} />
 
 ### Button Bar - Icon Only
+
+Button bars displaying icon-only buttons, with no visible label text.
 
 <Canvas of={ButtonBarStories.buttonBarIconsOnly} />
 
 ### Button Bar Minor - Icon Only
 
+`ButtonMinor` components displayed as icon-only buttons within a button bar.
+
 <Canvas of={ButtonBarStories.buttonBarMinorIconsOnly} />
+
+### Button Bar - Icon Buttons
 
 `IconButton` components on a button bar.
 
 <Canvas of={ButtonBarStories.buttonBarIconButtons} />
 
-Button bars can be `fullWidth`.
-
 ### Button Bar - Full Width
+
+Button bars can be `fullWidth`, stretching to fill the available horizontal space.
 
 <Canvas of={ButtonBarStories.buttonBarFullWidth} />
 
 ### Button Bar Minor - Full Width
+
+`ButtonMinor` components in a full-width button bar.
 
 <Canvas of={ButtonBarStories.buttonBarMinorFullWidth} />
 

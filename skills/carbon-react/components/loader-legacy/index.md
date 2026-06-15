@@ -2,11 +2,13 @@
 
 > **Deprecated** — See [`deprecation-migration.md`](../../references/docs/deprecation-migration.md)
 
-<DeprecationWarning>
-Loader has been deprecated, if this pattern is still needed please see our deprecation migration docs for a recommended alternative.
-</DeprecationWarning>
+A deprecated animated loading spinner. Use the newer `Loader` from `carbon-react/lib/components/loader/__next__` in new implementations.
 
-## Import
+**Category:** Feedback
+
+## Quick Start
+
+Import `Loader` into the project.
 
 ```javascript
 import Loader from "carbon-react/lib/components/loader";
@@ -64,20 +66,6 @@ See: `examples/ConditionalRendering.md`
 | isActive | boolean \| undefined | No |  | Applies slate color. Available only when isInsideButton is true. | true |
 | isInsideButton | boolean \| undefined | No |  | Applies white color. | false |
 | loaderLabel | string \| undefined | No |  | Specify a custom accessible label for the Loader. This label is visible to users who have enabled the reduce motion setting in their operating system. It is also available to assistive technologies. |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
 | size | "small" \| "medium" \| "large" \| undefined | No |  | Size of the loader. | "medium" |
 | variant | string \| undefined | No |  | Toggle between the default variant and gradient variant | "default" |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |

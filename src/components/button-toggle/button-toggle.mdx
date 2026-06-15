@@ -16,7 +16,9 @@ import * as ButtonToggleGroupStories from "./button-toggle-group/button-toggle-g
   Product Design System component
 </a>
 
-Press one of the buttons to make selection. This component should be used when user has to make a choice between a small number of options.
+Press one of the buttons to make selection. This component should be used when user has to make a choice between a small number of options. Use `ButtonToggleGroup` to manage selection state across a set of `ButtonToggle` items.
+
+**Category:** Inputs
 
 ## Contents
 
@@ -36,6 +38,8 @@ import {
 ## Examples
 
 ### Default
+
+A `ButtonToggleGroup` with three `ButtonToggle` items and a visible legend label. Selecting a toggle deselects any previous selection.
 
 <Canvas of={ButtonToggleStories.Default} />
 
@@ -67,9 +71,13 @@ If you use this, you should include text in the `inputHint` prop which makes cle
 
 ### Small icon
 
+Renders each toggle with a `size="small"` icon using the `buttonIcon` and `buttonIconSize="small"` props.
+
 <Canvas of={ButtonToggleStories.DefaultSmallIcon} />
 
 ### Large icon
+
+Renders each toggle with a `size="large"` icon using the `buttonIcon` and `buttonIconSize="large"` props.
 
 <Canvas of={ButtonToggleStories.DefaultLargeIcon} />
 
@@ -82,33 +90,49 @@ an icon-only `ButtonToggle` so that assistive technology users are aware of the 
 
 ### Small
 
+All toggles rendered at the `small` size via the `size` prop on `ButtonToggleGroup`.
+
 <Canvas of={ButtonToggleStories.Small} />
 
 ### Small with small icon
+
+`size="small"` toggles each with a `buttonIconSize="small"` icon.
 
 <Canvas of={ButtonToggleStories.SmallSmallIcon} />
 
 ### Small with large icon
 
+`size="small"` toggles each with a `buttonIconSize="large"` icon.
+
 <Canvas of={ButtonToggleStories.SmallLargeIcon} />
 
 ### Large
+
+All toggles rendered at the `large` size via the `size` prop on `ButtonToggleGroup`.
 
 <Canvas of={ButtonToggleStories.Large} />
 
 ### Large with small icon
 
+`size="large"` toggles each with a `buttonIconSize="small"` icon.
+
 <Canvas of={ButtonToggleStories.LargeSmallIcon} />
 
 ### Large with large icon
+
+`size="large"` toggles each with a `buttonIconSize="large"` icon.
 
 <Canvas of={ButtonToggleStories.LargeLargeIcon} />
 
 ### Disabled Button
 
+A single `ButtonToggle` with the `disabled` prop, making it unclickable.
+
 <Canvas of={ButtonToggleStories.DisabledButton} />
 
 ### Disabled Group
+
+The `disabled` prop on `ButtonToggleGroup` disables all child toggles at once.
 
 <Canvas of={ButtonToggleStories.DisabledGroup} />
 

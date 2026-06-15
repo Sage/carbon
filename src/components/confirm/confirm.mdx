@@ -13,6 +13,10 @@ import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.co
 Confirm has been deprecated, if this pattern is still needed please see <a style={{color: "white"}} href="../?path=/docs/documentation-deprecation-migration--docs#confirm">our deprecation migration docs</a> for an alternative pattern.
 </DeprecationWarning>
 
+A deprecated modal dialog that asks the user to confirm or cancel an action. Renders a title, optional subtitle, body content, and configurable Confirm/Cancel buttons. Use `Dialog` for new implementations.
+
+**Category:** Modal
+
 ## Contents
 
 - [Quick Start](#quick-start)
@@ -38,25 +42,37 @@ import Confirm from "carbon-react/lib/components/confirm";
 
 ### Default
 
+Basic confirm dialog with title, subtitle, body text and default Confirm/Cancel buttons.
+
 <Canvas of={ConfirmStories.Default} />
 
 ### Single action
+
+Hide the cancel button by omitting `onCancel` to show only the Confirm action.
 
 <Canvas of={ConfirmStories.SingleAction} />
 
 ### Destructive cancel button
 
+Style the cancel button as destructive (red) using the `cancelButtonDestructive` prop.
+
 <Canvas of={ConfirmStories.CancelButtonDestructive} />
 
 ### Destructive confirm button
+
+Style the confirm button as destructive (red) using the `confirmButtonDestructive` prop. Use this for irreversible actions.
 
 <Canvas of={ConfirmStories.ConfirmButtonDestructive} />
 
 ### Disable confirm button
 
+Use `disableConfirm` to prevent the user from confirming until a prerequisite condition is met.
+
 <Canvas of={ConfirmStories.DisableConfirm} />
 
 ### Disable cancel button
+
+Use `disableCancel` to prevent the user from dismissing the dialog.
 
 <Canvas of={ConfirmStories.DisableCancel} />
 
@@ -74,13 +90,19 @@ Allows to set variant which is supported in `<Button />` and it will be applied 
 
 ### Change buttons icons
 
+Add icons to the confirm and cancel buttons using `confirmButtonIconType` and `cancelButtonIconType`.
+
 <Canvas of={ConfirmStories.ButtonsIcons} />
 
 ### Confirm button loading
 
+Set `isLoadingConfirm` to show a spinner in the confirm button while an async operation is in progress.
+
 <Canvas of={ConfirmStories.IsLoadingConfirm} />
 
 ### Confirm with Custom Data Tags
+
+Demonstrates applying custom `data-*` attributes to the dialog and its buttons for test automation selectors.
 
 <Canvas of={ConfirmStories.DefaultWithCustomDataTags} />
 

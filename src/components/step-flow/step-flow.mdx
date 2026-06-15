@@ -23,6 +23,8 @@ This component has a specific start and end point, as well as showing the curren
 
 Use a step flow to help a user complete tasks in a specific order, based on their needs.
 
+**Category:** UI presentation
+
 ## Contents
 
 - [Quick Start](#quick-start)
@@ -50,6 +52,8 @@ An example of how this can be achieved is provided in the **Example implementati
 
 ### Default
 
+Renders a step flow with a title and step counter. Use `currentStep` and `totalSteps` to drive the indicator, and `onDismiss` to handle the close button.
+
 <Canvas of={StepFlowStories.DefaultStory} />
 
 ### Step Flow Title node
@@ -75,6 +79,8 @@ Please see below an example of what this look like in the DOM.
 ```
 
 ### with category
+
+Set `category` to display an overarching category name above the step title, providing additional context about which section of the journey the user is in.
 
 <Canvas of={StepFlowStories.CategoryStory} />
 
@@ -147,6 +153,8 @@ stepFlowHandle.current?.focus();
 This will ensure that screen reader users are not only made aware of any changes to information, but can then also navigate down the page from the `StepFlow` component as they see fit.
 
 ### Example implementation with title node
+
+Same as the standard example implementation but uses a composed `title` node with `StepFlowTitle` instead of a plain string title.
 
 <Canvas of={StepFlowStories.ExampleImplementationWithTitleNode} />
 

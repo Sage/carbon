@@ -2,11 +2,11 @@
 
 > **Deprecated** — See [`deprecation-migration.md`](../../references/docs/deprecation-migration.md)
 
-<DeprecationWarning>
-Heading has been deprecated, if this pattern is still needed please see our deprecation migration docs for an alternative pattern.
-</DeprecationWarning>
+A deprecated page or section heading component that combines a title, optional subheader, pills, help icon, back link and a horizontal divider. Use `Typography` in new implementations.
 
-## Import
+**Category:** UI presentation
+
+## Quick Start
 
 ```javascript
 import Heading from "carbon-react/lib/components/heading";
@@ -15,6 +15,8 @@ import Heading from "carbon-react/lib/components/heading";
 ## Examples
 
 ### Default
+
+A heading with a title and a horizontal divider below it.
 
 See: `examples/Default.md`
 
@@ -26,33 +28,49 @@ See: `examples/WithHeadingType.md`
 
 ### Heading without Divider
 
+Use `divider={false}` to remove the horizontal line below the heading.
+
 See: `examples/WithoutDivider.md`
 
 ### Heading with Subheader
+
+Use the `subheader` prop to display secondary text below the title.
 
 See: `examples/WithSubheader.md`
 
 ### Heading with Pill
 
+Pass a `Pill` component via the `pills` prop to display a status badge next to the title.
+
 See: `examples/WithPill.md`
 
 ### Heading with multiple Pills
+
+Pass an array of `Pill` components via the `pills` prop to display multiple status badges.
 
 See: `examples/WithMultiplePills.md`
 
 ### Heading with Pill and Subheader
 
+Combines a `Pill` badge next to the title and a `subheader` below it.
+
 See: `examples/WithPillAndSubheader.md`
 
 ### Heading with Subheader and Separator
+
+A subheader displayed alongside a vertical separator using the `separator` prop.
 
 See: `examples/WithSubheaderSeperator.md`
 
 ### Heading with Pill, Subheader and Separator
 
+All three: pill badge, subheader text and a vertical separator combined.
+
 See: `examples/WithPillSubheaderSeperator.md`
 
 ### Heading with Subheader and Children
+
+Arbitrary React nodes can be passed as `children` to render additional content below the heading row.
 
 See: `examples/WithSubheaderChildren.md`
 
@@ -64,17 +82,25 @@ See: `examples/WithChildrenComponent.md`
 
 ### Heading with Help
 
+Pass `help` text to display a help icon (?). Hovering the icon shows a tooltip with the help message.
+
 See: `examples/WithHelp.md`
 
 ### Heading with Help and Pill
+
+Combines a help icon tooltip with a `Pill` badge next to the title.
 
 See: `examples/WithHelpPill.md`
 
 ### Heading with Help and Help Link
 
+Combines a `help` tooltip with a `helpLink` that links to more documentation.
+
 See: `examples/WithHelpLink.md`
 
 ### Heading with Back Link
+
+Use the `backLink` prop to render a navigational back arrow link above the heading.
 
 See: `examples/WithBackLink.md`
 
@@ -91,20 +117,6 @@ See: `examples/WithBackLink.md`
 | help | string \| undefined | No |  | Defines the help text for the heading. |  |
 | helpAriaLabel | string \| undefined | No |  | Aria label for rendered help component |  |
 | helpLink | string \| undefined | No |  | Defines the help link for the heading. |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
 | pills | React.ReactNode | No |  | Pills that will be added after the title. |  |
 | separator | boolean \| undefined | No |  | Adds a separator between the title and the subheader. | false |
 | subheader | React.ReactNode | No |  | Defines the subheader for the heading. |  |

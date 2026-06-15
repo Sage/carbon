@@ -8,7 +8,9 @@ Try to keep label text for each step as short as possible.
 
 For users on small screens or instances where horizontal space is limited, use the vertical version of this component.
 
-## Import
+**Category:** UI presentation
+
+## Quick Start
 
 ```javascript
 import {
@@ -21,17 +23,25 @@ import {
 
 ### Default
 
+Horizontal step sequence showing numbered steps. Each `StepSequenceItem` has a `status` prop: `complete`, `current`, or `incomplete`. Completed steps show a tick mark.
+
 See: `examples/DefaultStory.md`
 
 ### Vertical
+
+Set `orientation="vertical"` to stack the steps vertically. Recommended for narrow screens or when more than five steps need to be shown.
 
 See: `examples/Vertical.md`
 
 ### With hidden indicators
 
+Set `hideIndicators` on `StepSequenceItem` to hide the numbered circles, showing only the label text. Useful when visual brevity is required.
+
 See: `examples/WithHiddenIndicators.md`
 
 ### Responsive Example
+
+Demonstrates switching between horizontal and vertical orientation based on viewport width, using a responsive layout to adapt the step sequence to smaller screens.
 
 See: `examples/ResponsiveExample.md`
 
@@ -42,35 +52,7 @@ See: `examples/ResponsiveExample.md`
 | Name | Type | Required | Literals | Description | Default |
 | --- | --- | --- | --- | --- | --- |
 | children | React.ReactNode | Yes |  | Step sequence items to be rendered |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| orientation | "horizontal" \| "vertical" \| undefined | No |  | The direction that step sequence items should be rendered | "horizontal" |
-| p | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
-| padding | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
-| paddingBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on bottom |  |
-| paddingLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left |  |
-| paddingRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on right |  |
-| paddingTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
-| paddingX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
-| paddingY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
-| pb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on bottom |  |
-| pl | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left |  |
-| pr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on right |  |
-| pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
-| px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
-| py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
+| orientation | "vertical" \| "horizontal" \| undefined | No |  | The direction that step sequence items should be rendered | "horizontal" |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 

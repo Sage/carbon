@@ -2,15 +2,26 @@ import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
 
 import * as PageStories from "./page/page.stories";
 import * as PagesStories from "./pages.stories";
-import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component"
+import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.component";
 
 <Meta of={PagesStories} />
 
 # Pages
 
 <DeprecationWarning>
-Pages has been deprecated, if this pattern is still needed please see <a style={{color: "white"}} href="../?path=/docs/documentation-deprecation-migration--docs#recommended-alternatives">our deprecation migration docs</a> for a recommended alternative.
+  Pages has been deprecated, if this pattern is still needed please see{" "}
+  <a
+    style={{ color: "white" }}
+    href="../?path=/docs/documentation-deprecation-migration--docs#recommended-alternatives"
+  >
+    our deprecation migration docs
+  </a>{" "}
+  for a recommended alternative.
 </DeprecationWarning>
+
+A deprecated multi-page wizard container that renders child `Page` components with animated slide transitions between them. Use `Dialog` with step-based navigation in new implementations.
+
+**Category:** Navigation
 
 ## Contents
 
@@ -28,17 +39,25 @@ import Pages, { Page } from "carbon-react/lib/components/pages";
 
 ### Default
 
+A `Pages` container wrapping multiple `Page` children. Navigation between pages uses internal back/forward controls.
+
 <Canvas of={PagesStories.Default} />
 
 ### Pages with Initial Page Index
 
+Use the `initialpageIndex` prop to start on a specific page rather than the first.
+
 <Canvas of={PagesStories.WithInitialPageIndex} />
 
-## Inside Dialog
+### Inside Dialog
+
+`Pages` rendered inside a full-screen `Dialog`, creating a multi-step modal wizard.
 
 <Canvas of={PagesStories.InsideDialogFullScreen} />
 
 ### Overriding content padding
+
+Use the `contentPadding` prop on `Page` to override the default padding applied to the page content area.
 
 <Canvas of={PagesStories.OverridingContentPadding} />
 

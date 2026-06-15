@@ -12,6 +12,10 @@ import DeprecationWarning from "../../../.storybook/utils/deprecation-warning.co
 Number has been deprecated, if this pattern is still needed please see <a style={{color: "white"}} href="../?path=/docs/documentation-deprecation-migration--docs#number">our deprecation migration docs</a> for an alternative pattern.
 </DeprecationWarning>
 
+A deprecated numeric text input that restricts entry to integer values. Use `Textbox` with custom validation in new implementations.
+
+**Category:** Inputs
+
 ## Contents
 
 - [Quick Start](#quick-start)
@@ -29,6 +33,8 @@ import Number from "carbon-react/lib/components/number";
 
 ### Default
 
+Basic numeric input. Only integer values are accepted; non-numeric characters are rejected.
+
 <Canvas of={NumberStories.Default} />
 
 ### With Input Hint
@@ -40,17 +46,25 @@ before any other announcements, this well help screen reader users understand th
 
 ### Sizes
 
+Three size variants: `small`, `medium` (default), and `large`, set via the `size` prop.
+
 <Canvas of={NumberStories.Sizes} />
 
 ### Disabled
+
+Use the `disabled` prop to prevent user interaction.
 
 <Canvas of={NumberStories.Disabled} />
 
 ### ReadOnly
 
+Use `readOnly` to display the current integer value without allowing edits.
+
 <Canvas of={NumberStories.ReadOnly} />
 
 ### With custom maxWidth
+
+Use the `maxWidth` prop to constrain the input to a specific maximum width.
 
 <Canvas of={NumberStories.WithCustomMaxWidth} />
 

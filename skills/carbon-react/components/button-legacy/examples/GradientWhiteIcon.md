@@ -1,0 +1,39 @@
+```tsx
+export const GradientWhiteIcon: Story = () => {
+  return (
+    <Box>
+      <Button mt={2} buttonType="gradient-white" iconType="print" ml={2}>
+        Medium
+      </Button>
+      <Button
+        mt={2}
+        buttonType="gradient-white"
+        iconType="delete"
+        iconPosition="after"
+        ml={2}
+      >
+        Medium
+      </Button>
+      <Button
+        mt={2}
+        buttonType="gradient-white"
+        disabled
+        iconType="print"
+        ml={2}
+      >
+        Medium
+      </Button>
+      <Button
+        mt={2}
+        buttonType="gradient-white"
+        disabled
+        iconType="print"
+        iconPosition="after"
+        ml={2}
+      >
+        Medium
+      </Button>
+    </Box>
+  );
+};
+```

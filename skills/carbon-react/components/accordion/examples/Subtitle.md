@@ -1,9 +1,11 @@
 ```tsx
-export const Subtitle: Story = {
-  ...Default,
-  args: {
-    ...Default.args,
-    subTitle: "Subtitle",
-  },
+export const Subtitle: Story = () => {
+  return (
+    <Accordion title="Title" subTitle="Subtitle">
+      <Box my={2}>Content</Box>
+      <Box my={2}>Content</Box>
+      <Box my={2}>Content</Box>
+    </Accordion>
+  );
 };
 ```

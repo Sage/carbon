@@ -1,10 +1,10 @@
 # Profile
 
-- Display information alongside a [Portrait](../portrait/index.md) component.
-- Useful to represent a person, user, or organisation.
-- Use initials rather than an avatar if you prefer.
+A profile represents a person, user, or organization. It displays a portrait and some details.
 
-## Import
+**Category:** Feedback
+
+## Quick Start
 
 ```javascript
 import Profile from "carbon-react/lib/components/profile";
@@ -34,6 +34,8 @@ See: `examples/Src.md`
 
 ### Sizes
 
+Available size variants for the profile avatar and text, set via the `size` prop.
+
 See: `examples/Sizes.md`
 
 ### With margin
@@ -43,6 +45,8 @@ Margins can be applied to the `Profile` component using styled-system.
 See: `examples/WithMargin.md`
 
 ### Responsive Example
+
+Demonstrates changing `Profile` props (e.g. size) at different viewport breakpoints. Best viewed in full-screen Canvas mode.
 
 See: `examples/Responsive.md`
 
@@ -75,20 +79,6 @@ See: `examples/WithCustomPortraitForegroundColor.md`
 | email | string \| undefined | No |  | Define the email to use. |  |
 | foregroundColor | string \| undefined | No |  | The hex code of the foreground colour to be passed to the avatar. Must be used in conjunction with `backgroundColor` |  |
 | initials | string \| undefined | No |  | Define initials to display image. |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
 | name | string \| undefined | No |  | Define the name to display. |  |
 | size | "S" \| "M" \| "L" \| "XL" \| "XS" \| "ML" \| "XXL" \| undefined | No |  | Allow to setup size for the component |  |
 | src | string \| undefined | No |  | Custom source URL |  |

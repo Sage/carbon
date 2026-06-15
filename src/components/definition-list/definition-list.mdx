@@ -8,6 +8,10 @@ import * as DefinitionListStories from "./definition-list.stories";
 
 # Definition List
 
+Renders a semantic HTML `<dl>` definition list using `Dl`, `Dt` (term) and `Dd` (description) sub-components. Use it to display key–value pairs such as record details, contact information or form summaries.
+
+**Category:** UI presentation
+
 ## Contents
 
 - [Quick Start](#quick-start)
@@ -24,9 +28,13 @@ import { Dl, Dt, Dd } from "carbon-react/lib/components/definition-list";
 
 ### Default
 
+A two-column key–value list using `Dl`, `Dt` (term) and `Dd` (description). The `Dt` column is right-aligned and `Dd` is left-aligned by default.
+
 <Canvas of={DefinitionListStories.DefaultStory} />
 
 ### Action popover and icon support
+
+A `Dd` cell can contain rich content such as an `ActionPopover` or an `Icon`, not just plain text.
 
 <Canvas of={DefinitionListStories.ActionPopoverAndIconSupport} />
 
@@ -49,6 +57,8 @@ such as `Typography` and `Hr`.
 <Canvas of={DefinitionListStories.MultipleSingleColumnsWithSegments} />
 
 ### Responsive Example
+
+At narrow viewports the two-column layout collapses to a single-column stack. Best viewed in a Canvas with viewport emulation.
 
 <Canvas of={DefinitionListStories.Responsive} />
 

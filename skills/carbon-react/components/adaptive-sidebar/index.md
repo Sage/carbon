@@ -3,7 +3,15 @@
 The `AdaptiveSidebar` component is a non-floating, non-modal sidebar that can be used to display content on the side of the screen. It can be opened and
 closed by the user, and can be used to display additional information or actions.
 
-## Import
+**Category:** Modal
+
+## Quick Start
+
+To use the adaptive sidebar, import `AdaptiveSidebar` into your project. All content within the `AdaptiveSidebar` component is determined by the user; by
+default, the component will be empty, allowing for complete control of layout, etc.
+
+As the `AdaptiveSidebar` can be rendered as a modal, it is **strongly** recommended that the component is given an accessible name.
+This can be generated via the `aria-label` or `aria-labelledby` attributes.
 
 ```javascript
 import AdaptiveSidebar from "carbon-react/lib/components/adaptive-sidebar";
@@ -17,7 +25,13 @@ The `AdaptiveSidebar` component should be used as a sibling component; place it 
 it is recommended that both are placed in an inline container, such as a `Box` component with the `display: flex | inline-flex` and `flexDirection: row`
 props. Content must be passed to the `AdaptiveSidebar` component as children.
 
-See: `examples/BasicAndDefault.md`
+See: `examples/Basic.md`
+
+The example below demonstrates the recommended usage of the `AdaptiveSidebar` component. The sidebar is placed directly after the main content, and both are
+wrapped in a `Box` component with the `display: flex` and `flexDirection: row` props. The sidebar is opened and closed by clicking the button in the main
+content. Within the sidebar, there is a button that closes the sidebar, alongside some example content.
+
+See: `examples/Default.md`
 
 ### Complex
 
@@ -94,34 +108,6 @@ See: `examples/Hidden.md`
 | children | React.ReactNode | No |  | The content of the sidebar |  |
 | height | string \| undefined | No |  | The height of the sidebar, relative to the wrapping component | "100%" |
 | hidden | boolean \| undefined | No |  | Whether the sidebar is hidden from view. In this state, the adaptive sidebar will continue to receive updates, etc. but will not be visible to users | false |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| p | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
-| padding | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
-| paddingBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on bottom |  |
-| paddingLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left |  |
-| paddingRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on right |  |
-| paddingTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
-| paddingX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
-| paddingY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
-| pb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on bottom |  |
-| pl | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left |  |
-| pr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on right |  |
-| pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
-| px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
-| py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
 | renderAsModal | boolean \| undefined | No |  | Whether to render the sidebar as a modal component instead of as an inline sidebar | false |
 | restoreFocusOnClose | boolean \| undefined | No |  | Enables the automatic restoration of focus to the element that invoked the modal when the modal is closed. | false |
 | width | string \| undefined | No |  | The width of the sidebar | "320px" |

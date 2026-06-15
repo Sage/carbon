@@ -2,29 +2,35 @@
 
 > **Deprecated** — See [`deprecation-migration.md`](../../references/docs/deprecation-migration.md)
 
-<DeprecationWarning>
-Inline Inputs has been deprecated, if this pattern is still needed please see our deprecation migration docs for a recommended alternative.
-</DeprecationWarning>
+A deprecated layout component that renders multiple inputs side-by-side on the same row, sharing a single label. Use `Fieldset` with `orientation="horizontal"` in new implementations.
 
-## Import
+**Category:** Inputs
+
+## Quick Start
 
 ```javascript
 import InlineInputs from "carbon-react/lib/components/inline-inputs";
 ```
 
-## required
-
-<Canvas of={InlineInputsStories.Required} />
-
-## labelAlign
-
-<Canvas of={InlineInputsStories.LabelAlign} />
-
 ## Examples
 
 ### Default
 
+Multiple Carbon inputs rendered inline (side by side) under a single shared label.
+
 See: `examples/Default.md`
+
+### required
+
+Use the `required` prop to mark the shared label with a mandatory asterisk.
+
+See: `examples/Required.md`
+
+### labelAlign
+
+Use the `labelAlign` prop (`"left"` or `"right"`) to control the text alignment of the shared label.
+
+See: `examples/LabelAlign.md`
 
 ## Props
 
@@ -42,20 +48,6 @@ See: `examples/Default.md`
 | labelId | string \| undefined | No |  |  |  | Custom label id, could be used in combination with aria-labelledby prop of each input, to make them accessible for screen readers. |  |
 | labelInline | boolean \| undefined | No |  |  |  |  | true |
 | labelWidth | number \| undefined | No |  |  |  | Width of a label in percentage |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
 | required | boolean \| undefined | No |  |  |  | Flag to configure component as mandatory. |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |

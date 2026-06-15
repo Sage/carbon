@@ -1,8 +1,12 @@
 # Flat Table
 
-Logically structure content in a grid for the user to enter, view, or work with.
+A table structures content in a grid and controls the display of data using filters.
 
-## Import
+**Category:** UI presentation
+
+## Quick Start
+
+Import all the necessary components from the flat table folder
 
 ```javascript
 import {
@@ -19,9 +23,25 @@ import {
 } from "carbon-react/lib/components/flat-table";
 ```
 
+**It is necessary that `FlatTableCell` and `FlatTableHeader` components are a direct children of `FlatTableRow` component.**
+
+This is because `FlatTableRow` iterates through and clones the children applying different props depending on the index of the given child.
+If you need to wrap `FlatTableCell` or `FlatTableHeader` remember to spread all the props directly to these components as shown below:
+
+```javascript
+const FlatTableCellWrapper = ({ customProp, ...rest }) => {
+  // ...
+  // some additional logic
+  // ...
+  return <FlatTableCell {...rest} />;
+};
+```
+
 ## Examples
 
 ### Default
+
+A basic `FlatTable` with `FlatTableHead` and `FlatTableBody`, demonstrating the standard column/row structure.
 
 See: `examples/DefaultStory.md`
 
@@ -69,21 +89,31 @@ See: `examples/WithCustomRowBackgroundColor.md`
 
 ### With custom horizontal border size
 
+Use the `horizontalBorderSize` prop on `FlatTableRow` or the individual cell components to override the default border thickness.
+
 See: `examples/WithCustomHorizontalBorderSize.md`
 
 ### With custom horizontal border color
+
+Use the `horizontalBorderColor` prop on `FlatTableRow` or individual cells to override the default border colour.
 
 See: `examples/WithCustomHorizontalBorderColor.md`
 
 ### With custom bottom border radius
 
+Use the `borderRadius` prop on `FlatTable` to apply a custom border radius to the bottom corners of the table.
+
 See: `examples/WithCustomBottomBorderRadius.md`
 
 ### With custom vertical borders
 
+Use the `verticalBorder` and `verticalBorderColor` props on `FlatTableCell` or `FlatTableHeader` to add or style vertical borders between columns.
+
 See: `examples/WithCustomVerticalBorders.md`
 
 ### With alternative header background
+
+Set `colorTheme` on `FlatTable` to `"transparent-base"`, `"transparent-white"`, `"dark"`, or `"light"` to change the header background colour.
 
 See: `examples/WithAlternativeHeaderBackground.md`
 
@@ -110,7 +140,13 @@ See: `examples/WithStickyHeadRowSpanAndColspan.md`
 
 ### With stickyFooter prop set to true
 
-See: `examples/WithStickyFooterAndWithStickyFooterInsideOfLargerDiv.md`
+See: `examples/WithStickyFooter.md`
+
+In this example of FlatTable with `stickyFooter`, FlatTable has been placed inside of a `div` with a height
+of `220px`. There is not enough data to fill the flatTable but the style remains consistent and the footer
+remains sticky.
+
+See: `examples/WithStickyFooterInsideOfLargerDiv.md`
 
 ### With hasMaxHeight
 
@@ -126,13 +162,19 @@ See: `examples/WithoutVerticalBorders.md`
 
 ### With clickable rows
 
+Pass an `onClick` handler to `FlatTableRow` to make each row interactive. The cursor changes to a pointer and keyboard navigation is supported.
+
 See: `examples/WithClickableRows.md`
 
 ### With zebra stripes
 
+Set `isZebra` on `FlatTable` to apply alternating background colours to odd and even rows, improving readability for wide tables.
+
 See: `examples/Zebra.md`
 
 ### With sorting headers
+
+Wrap a `FlatTableHeader` label in a `Sort` component and use the `sortType` and `onClick` props to implement ascending/descending column sorting.
 
 See: `examples/WithSortingHeaders.md`
 
@@ -146,9 +188,13 @@ See: `examples/WithSortingHeadersAndCustomAccessibleName.md`
 
 ### With a cell spanning the whole row
 
+Use the `colspan` prop on `FlatTableCell` to make a cell span multiple columns.
+
 See: `examples/WithColspan.md`
 
 ### With a cell spanning the whole column
+
+Use the `rowspan` prop on `FlatTableCell` to make a cell span multiple rows.
 
 See: `examples/WithRowspan.md`
 
@@ -203,13 +249,19 @@ See: `examples/PaginatedWithStickyHeader.md`
 
 ### When a child of Sidebar
 
+When `FlatTable` is rendered inside a `Sidebar`, it adapts its layout to fit the narrower container.
+
 See: `examples/WhenAChildOfSidebar.md`
 
 ### Table Cell Sizes
 
+The `size` prop on `FlatTable` controls the padding of all cells. Available values are `"compact"`, `"small"`, `"medium"` (default), and `"large"`.
+
 See: `examples/Sizes.md`
 
 ### Draggable rows
+
+Replace `FlatTableBody` with `FlatTableBodyDraggable` and wrap each `FlatTableRow` in a `FlatTableBodyDraggable` to enable drag-and-drop row reordering.
 
 See: `examples/WithDraggableRows.md`
 
@@ -237,21 +289,7 @@ See: `examples/WrappingRowHeaders.md`
 | hasStickyHead | boolean \| undefined | No |  | If true, the header does not scroll with the content |  |
 | height | string \| number \| undefined | No |  | Set the height of the table. String can be any valid CSS string, numbers will be converted to pixels. |  |
 | isZebra | boolean \| undefined | No |  | Toggles the zebra striping for the table rows |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
 | minHeight | string \| number \| undefined | No |  | Set the min-height of the table. String can be any valid CSS string, numbers will be converted to pixels. |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
 | overflowX | string \| undefined | No |  | Set the overflow X of the table wrapper. Any valid CSS string |  |
 | size | "small" \| "medium" \| "large" \| "compact" \| "extraLarge" \| undefined | No |  | Used to define the tables size Renders as: 'compact', 'small', 'medium', 'large' and 'extraLarge' | "medium" |
 | title | string \| undefined | No |  | The title to describe the table when one or more tables are used on a single page |  |
@@ -313,20 +351,6 @@ See: `examples/WrappingRowHeaders.md`
 | children | React.ReactNode | No |  | Header content |  |
 | colspan | string \| number \| undefined | No |  | Number of columns that a header cell should span |  |
 | id | string \| undefined | No |  | Sets an id string on the element |  |
-| p | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
-| padding | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
-| paddingBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on bottom |  |
-| paddingLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left |  |
-| paddingRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on right |  |
-| paddingTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
-| paddingX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
-| paddingY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
-| pb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on bottom |  |
-| pl | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left |  |
-| pr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on right |  |
-| pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
-| px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
-| py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
 | rowspan | string \| number \| undefined | No |  | Number of rows that a header cell should span |  |
 | verticalBorder | TableBorderSize \| undefined | No |  | Sets a custom vertical right border |  |
 | verticalBorderColor | string \| undefined | No |  | Sets the color of the right border |  |
@@ -354,20 +378,6 @@ See: `examples/WrappingRowHeaders.md`
 | children | React.ReactNode | No |  | Cell content |  |
 | colspan | string \| number \| undefined | No |  | Number of columns that a cell should span |  |
 | id | string \| undefined | No |  | Sets an id string on the element |  |
-| p | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
-| padding | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
-| paddingBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on bottom |  |
-| paddingLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left |  |
-| paddingRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on right |  |
-| paddingTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
-| paddingX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
-| paddingY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
-| pb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on bottom |  |
-| pl | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left |  |
-| pr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on right |  |
-| pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
-| px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
-| py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
 | rowspan | string \| number \| undefined | No |  | Number of rows that a cell should span |  |
 | title | string \| undefined | No |  | Title text to display if cell content truncates |  |
 | truncate | boolean \| undefined | No |  | Truncate cell content and add ellipsis to any text that overflows | false |
@@ -385,20 +395,6 @@ See: `examples/WrappingRowHeaders.md`
 | children | React.ReactNode | No |  | RowHeader content |  |
 | colspan | string \| number \| undefined | No |  | Number of columns that a header cell should span |  |
 | id | string \| undefined | No |  | Sets an id string on the element |  |
-| p | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
-| padding | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
-| paddingBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on bottom |  |
-| paddingLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left |  |
-| paddingRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on right |  |
-| paddingTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
-| paddingX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
-| paddingY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
-| pb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on bottom |  |
-| pl | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left |  |
-| pr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on right |  |
-| pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
-| px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
-| py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
 | rowspan | string \| number \| undefined | No |  | Number of rows that a header cell should span |  |
 | stickyAlignment | "left" \| "right" \| undefined | No |  | Defines whether the column should be sticky on the left or right hand side of the Table | "left" |
 | title | string \| undefined | No |  | Title text to display if cell content truncates |  |

@@ -20,6 +20,8 @@ Use it to submit a form (Save), to advance to the next step in a process (Next),
 
 **This documentation is for the newer implementation of Button. If you are still using the older implementation, please use the <a href="../?path=/docs/deprecated-button--docs">Button documentation</a>.**
 
+**Category:** Actions
+
 ## Contents
 
 - [Quick Start](#quick-start)
@@ -71,9 +73,9 @@ as follows:
 
 | Variant       | Primary | Secondary | Tertiary | Subtle |
 | ------------- | ------- | --------- | -------- | ------ |
-| `default`     | ✅      | ✅        | ✅       | ✅      |
-| `destructive` | ✅      | ✅        | ❌       | ❌      |
-| `gradient`    | ❌      | ✅        | ❌       | ❌      |
+| `default`     | ✅      | ✅        | ✅       | ✅     |
+| `destructive` | ✅      | ✅        | ❌       | ❌     |
+| `gradient`    | ❌      | ✅        | ❌       | ❌     |
 
 By default, the `primary` variant type will be used if no `variantType` property
 is passed
@@ -120,7 +122,7 @@ be ignored.
 
 ### Loading
 
-Loading state can be applied to buttons by passing the [Loader component](?path=/docs/loader--docs) 
+Loading state can be applied to buttons by passing the [Loader component](?path=/docs/loader--docs)
 via the composable `children` prop.
 
 <Canvas of={ButtonStories.Loading} />
@@ -144,10 +146,10 @@ such as forms.
 
 ### Button as Link
 
-It is possible to use the `Button` component as a link by passing an `href` prop. 
-When doing so, the component will render as an anchor tag (`<a>`) rather than a button (`<button>`). 
-When using the `Button` component as a link, the `type` prop will be ignored, as it is not 
-relevant for anchor tags. Instead, the `href`, `target` and `rel` props will be used to 
+It is possible to use the `Button` component as a link by passing an `href` prop.
+When doing so, the component will render as an anchor tag (`<a>`) rather than a button (`<button>`).
+When using the `Button` component as a link, the `type` prop will be ignored, as it is not
+relevant for anchor tags. Instead, the `href`, `target` and `rel` props will be used to
 determine the behaviour of the link.
 
 <Canvas of={ButtonStories.ButtonAsALink} />
@@ -158,10 +160,11 @@ To programmatically set focus on a `Button`, you can use the imperative `focusBu
 
 <Canvas of={ButtonStories.ProgrammaticFocus} />
 
-### Legacy support
+## Legacy support
 
-To help with migration, this component can also accept the following 
+To help with migration, this component can also accept the following
 [legacy Button](?path=/docs/deprecated-button--docs) props:
+
 - the `buttonType` prop, which maps to the `variant` and `variantType` props as follows:
   - `primary` -> `variant="default"` and `variantType="primary"`
   - `secondary` -> `variant="default"` and `variantType="secondary"`
@@ -181,6 +184,6 @@ To help with migration, this component can also accept the following
 
 `Button`'s forwarded ref exposes the following imperative methods:
 
-| Method Name   | Description                         |
-| ------------- | ----------------------------------- |
+| Method Name   | Description                          |
+| ------------- | ------------------------------------ |
 | `focusButton` | Programmatically focuses the button. |
