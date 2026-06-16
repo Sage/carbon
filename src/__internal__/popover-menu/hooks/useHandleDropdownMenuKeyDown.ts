@@ -1,7 +1,7 @@
 import { useCallback, MutableRefObject } from "react";
 
 export const itemQuerySelector =
-  "div[data-component='popover-menu-item']:not([aria-disabled='true'])";
+  "[data-component='popover-menu-item']:not([aria-disabled='true'])";
 
 export const setFocus = (el?: Element) => {
   (el as HTMLElement)?.focus();

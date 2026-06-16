@@ -16,7 +16,7 @@ interface StyledMenuItemProps {
   $disabled?: boolean;
 }
 
-const StyledMenuItem = styled.div<StyledMenuItemProps>`
+const StyledMenuItem = styled.li<StyledMenuItemProps>`
   width: 100%;
   position: relative;
   box-sizing: border-box;

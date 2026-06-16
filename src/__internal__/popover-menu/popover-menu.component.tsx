@@ -18,7 +18,7 @@ interface ListProps {
   $size: PopoverMenuContextProps["size"];
 }
 
-export const List = styled.div<ListProps>`
+export const List = styled.ul<ListProps>`
   margin: 0;
   padding: 0;
   background-color: var(--popover-bg-default);
@@ -190,14 +190,24 @@ const PopoverMenu = <TRef extends FocusableHandle = NonNullable<ButtonHandle>>({
     setAriaActivedescendant,
   );
 
+  const pendingKeyRef = useRef<string | null>(null);
+
   const handleControlKeyDown: React.KeyboardEventHandler<HTMLElement> =
     useCallback(
       (ev) => {
         if (
-          open &&
           controlWrapperRef.current?.contains(document.activeElement) &&
           (ev.key === "ArrowDown" || ev.key === "ArrowUp")
         ) {
+          if (!open) {
+            // Queue navigation after the menu opens
+            ev.preventDefault();
+            pendingKeyRef.current = ev.key;
+            onOpen();
+
+            return;
+          }
+
           ev.preventDefault();
           handleDropdownMenuKeyDown(ev);
 
@@ -208,8 +218,15 @@ const PopoverMenu = <TRef extends FocusableHandle = NonNullable<ButtonHandle>>({
     );
 
   useEffect(() => {
-    if (!open) {
-      setAriaActivedescendant("");
+    if (open && pendingKeyRef.current) {
+      const fakeEvent = {
+        key: pendingKeyRef.current,
+        preventDefault: () => {},
+        stopPropagation: () => {},
+      } as unknown as React.KeyboardEvent<HTMLElement>;
+
+      handleDropdownMenuKeyDown(fakeEvent);
+      pendingKeyRef.current = null;
     }
   }, [open]);
 

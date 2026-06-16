@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { PopoverMenuContext } from "../../contexts";
 import guid from "../../../utils/helpers/guid";
 
-const StyledMenuHeading = styled.div<{ $size: string }>`
+const StyledMenuHeading = styled.li<{ $size: string }>`
   span[data-element="text"] {
     ${({ $size }) => {
       const fontSize = $size.charAt(0);
@@ -31,13 +31,11 @@ const MenuItemHeading = ({
     <StyledMenuHeading
       data-component="popover-menu-item-heading"
       $size={size}
-      role="group"
-      aria-labelledby={headingId.current}
     >
-      <span data-element="text" id={headingId.current}>
+      <div data-element="text" id={headingId.current}>
         {text}
-      </span>
-      {children}
+      </div>
+      <ul role="list">{children}</ul>
     </StyledMenuHeading>
   );
 };
