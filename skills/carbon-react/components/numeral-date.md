@@ -136,6 +136,52 @@ description: Carbon NumeralDate component props and usage examples.
 };
 ```
 
+### Read-only
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState<NumeralDateProps["value"]>({
+    dd: "01",
+    mm: "02",
+    yyyy: "2020",
+  });
+  return (
+    <NumeralDate
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+      legend="Date of Birth"
+      readOnly
+    />
+  );
+}
+```
+
+
+### Disabled
+
+**Render**
+
+```tsx
+() => {
+  const [value, setValue] = useState<NumeralDateProps["value"]>({
+    dd: "01",
+    mm: "02",
+    yyyy: "2020",
+  });
+  return (
+    <NumeralDate
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+      legend="Date of Birth"
+      disabled
+    />
+  );
+}
+```
+
+
 ### With Input Hint
 
 **Render**
