@@ -305,7 +305,7 @@ test('renders with correct styles when `stickyFooterVariant` is "grey"', () => {
 });
 
 // for coverage - the `disableStickyOnSmallScreen` prop is captured by Chromatic.
-test("disables sticky footer unconditionally when `disableStickyOnSmallScreen` and `stickyFooter` are set", () => {
+test("disables sticky footer on small screens when `disableStickyOnSmallScreen` and `stickyFooter` are set", () => {
   render(
     <Form
       stickyFooter

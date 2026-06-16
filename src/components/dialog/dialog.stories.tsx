@@ -640,9 +640,9 @@ export const SmallScreenBehavior: Story = {
         <Typography mt={2}>
           On small screen devices (below 600px), the dialog becomes full width,
           the dimmer is removed, and the header/footer are no longer sticky.
-          This improves accessibility on mobile devices. We also have a
-          `disableStickyOnSmallScreen` prop that means Form can also be used
-          within a Dialog without a sticky footer on small screen devices.
+          This improves accessibility on mobile devices. Form also has a
+          `disableStickyOnSmallScreen` prop, which allows it to be used within a
+          Dialog without a sticky footer on small screen devices.
         </Typography>
         <Dialog
           {...args}
