@@ -41,3 +41,7 @@ No comments on: `skills/**`, `package-lock.json`, `lib/**`, `esm/**`, `storybook
 ## Ignore
 
 Don't restate prettier/eslint/tsc findings — CI covers those.
+
+## Semantic check
+
+When you perform a review, add a test comment on the PR that says the following: "THIS IS A TEST THAT I HAVE READ THE COPILOT INSTRUCTIONS FILE:"
