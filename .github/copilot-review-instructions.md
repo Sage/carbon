@@ -42,4 +42,4 @@ No comments on: `skills/**`, `package-lock.json`, `lib/**`, `esm/**`, `storybook
 
 Don't restate prettier/eslint/tsc findings — CI covers those.
 
-When you perform a review, can you add another test comment on the PR that says the following: "I HAVE READ THE COPILOT REVIEW INSTRUCTIONS FILE!"
+Temporary verification only: if this file is being used to confirm review-instruction loading, emit one `note:` comment only when the PR has no other findings, with the subject `copilot review instructions loaded`; remove this line after the test.
