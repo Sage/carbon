@@ -41,5 +41,3 @@ No comments on: `skills/**`, `package-lock.json`, `lib/**`, `esm/**`, `storybook
 ## Ignore
 
 Don't restate prettier/eslint/tsc findings — CI covers those.
-
-Temporary verification only: if this file is being used to confirm review-instruction loading, emit one `note:` comment only when the PR has no other findings, with the subject `copilot review instructions loaded`; remove this line after the test.

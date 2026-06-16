@@ -50,6 +50,13 @@ playwright/components/<name>/{index.ts,locators.ts}
 skills/ scripts/ .storybook/ .github/workflows/ contributing/
 ```
 
+## Review comment format
+
+When performing reviews: use [Conventional Comments](https://conventionalcomments.org/) format: `<label> [decorations]: <subject>`
+
+Labels: `praise:` `nitpick:` `suggestion:` `issue:` `question:` `thought:` `chore:` `note:`
+Decorations: `(blocking)` `(non-blocking)` `(if-minor)`
+
 ## Do NOT
 
 - `npm install`/`yarn`/edit lockfile
