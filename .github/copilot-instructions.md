@@ -19,6 +19,12 @@ Applies to all surfaces (coding, review, chat).
 
 - Test selectors: `data-role` (queries), `data-component` (roots), `data-element` (sub). No `data-testid` except Storybook interaction stories
 - Each component `index.ts` exports component + Props. `__internal__/` never re-exported
+- `__next__/` subdirectory: next-gen redesign of a component, alongside the current one
+  - Same file structure (`index.ts`, `.component.tsx`, `.style.ts`, `.test.tsx`, `.pw.tsx`, `.stories.tsx`)
+  - Public-ready: export from `src/index.ts` with `Next` prefix (e.g. `NextLoader`)
+  - Inside `__internal__/`: follows same no-re-export rule
+  - Wrapper pattern: original component imports `__next__`, maps legacy props, fires deprecation warnings, then delegates
+- Deprecations: prefer `/** @deprecated ... */` JSDoc annotations on props over `Logger.deprecate` runtime calls
 - Never import `color` from `styled-system` → use `src/style/utils/color`
 - No `console.*` in source
 - Stories: `*.stories.tsx`, docs: `*.mdx`
@@ -30,21 +36,22 @@ Run `npm run generate-tokens:dev` before direct `jest`/`eslint`/`tsc`/`playwrigh
 
 ## CI validation
 
-| Step | Command |
-|---|---|
-| Format | `npx prettier --check './src/**/*.{js,jsx,ts,tsx}'` |
-| Lint | `npm run lint` (max-warnings=636, --report-unused-disable-directives) |
-| Types | `npm run type-check` |
-| Test | `npm test` (jsdom: `*.test.*`, node: `*.server.test.*`, 100% coverage new code) |
-| PW CT | `npm run test:ct` (`*.pw.tsx`) |
-| Build | `npm run build` (clean→tokens→types→rollup→pkg-jsons→svg→d.ts) |
-| Skills | `npm run build:skills -- --check` |
+| Step   | Command                                                                         |
+| ------ | ------------------------------------------------------------------------------- |
+| Format | `npx prettier --check './src/**/*.{js,jsx,ts,tsx}'`                             |
+| Lint   | `npm run lint` (max-warnings=636, --report-unused-disable-directives)           |
+| Types  | `npm run type-check`                                                            |
+| Test   | `npm test` (jsdom: `*.test.*`, node: `*.server.test.*`, 100% coverage new code) |
+| PW CT  | `npm run test:ct` (`*.pw.tsx`)                                                  |
+| Build  | `npm run build` (clean→tokens→types→rollup→pkg-jsons→svg→d.ts)                  |
+| Skills | `npm run build:skills -- --check`                                               |
 
 ## Layout
 
 ```
 src/components/<kebab>/
   <name>.component.tsx .style.ts .test.tsx .pw.tsx .stories.tsx .mdx index.ts __internal__/
+  __next__/
 src/__internal__/ __spec_helper__/ hooks/ locales/ style/
 playwright/components/<name>/{index.ts,locators.ts}
 skills/ scripts/ .storybook/ .github/workflows/ contributing/
