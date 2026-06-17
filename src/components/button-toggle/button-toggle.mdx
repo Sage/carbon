@@ -15,7 +15,7 @@ import * as ButtonToggleStories from "./button-toggle.stories";
   Product Design System component
 </a>
 
-Press one of the buttons to make selection. This component can be used when user has to make a choice between a small number of options.
+ Press one of the buttons to make a selection. This component can be used when the user has to make a choice between a small number of options.
 
 ## Contents
 
@@ -39,14 +39,14 @@ import {
 Pass `ButtonToggle` buttons as children of `ButtonToggleGroup` to render them in a group.
 Control the state of the selected values by making use of the `value` and `onChange` props available in `ButtonToggleGroup`.
 
-If using this component without a visible label, please ensure to provide and accessible label to the group using the `aria-label` prop.
+If using this component without a visible label, please ensure to provide an accessible label to the group using the `aria-label` prop.
 
 <Canvas of={ButtonToggleStories.Default} />
 
 ### With Label and Hint Text
 
 The `label` prop can be used to set a visible label for the group.
-To provide an additional hint text string, use the `hintText` prop.
+To provide an additional hint text string, use the `inputHint` prop.
 
 <Canvas of={ButtonToggleStories.WithLabelAndHint} />
 

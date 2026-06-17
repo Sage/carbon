@@ -117,7 +117,7 @@ export const ButtonToggle = ({
   );
 
   invariant(
-    !(iconOnly && contextSize === "small"),
+    !(iconOnly && displaySize === "extraSmall"),
     "Cannot render an icon-only button in small size group.",
   );
 
@@ -145,7 +145,7 @@ export const ButtonToggle = ({
       {...rest}
       {...tagComponent(dataComponent || "button-toggle", rest)}
     >
-      {buttonIcon && contextSize !== "small" && (
+      {buttonIcon && displaySize !== "extraSmall" && (
         <Icon aria-hidden type={buttonIcon} />
       )}
       {children}
