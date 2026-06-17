@@ -62,20 +62,7 @@ description: Carbon CheckboxGroup component props and usage examples.
 **Render**
 
 ```tsx
-(args) => (
-    <CheckboxGroup {...args}>
-      {["Apple", "Banana", "Cherry", "Date"].map((label) => (
-        <Checkbox
-          key={label}
-          name="fruits"
-          label={label}
-          value={label}
-          checked={false}
-          onChange={() => {}}
-        />
-      ))}
-    </CheckboxGroup>
-  )
+(args) => <ControlledCheckboxGroup {...args} />
 ```
 
 

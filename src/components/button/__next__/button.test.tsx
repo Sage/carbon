@@ -24,7 +24,7 @@ test("renders correctly", () => {
     "border-radius",
     "var(--global-radius-action-xl)",
   );
-  expect(button).toHaveStyleRule("height", "var(--global-size-m)");
+  expect(button).toHaveStyleRule("min-height", "var(--global-size-m)");
   expect(button).toHaveStyleRule("padding", "6px var(--global-space-comp-l)");
 });
 
@@ -41,7 +41,7 @@ test("renders correctly when inverse", () => {
     "border-radius",
     "var(--global-radius-action-xl)",
   );
-  expect(button).toHaveStyleRule("height", "var(--global-size-m)");
+  expect(button).toHaveStyleRule("min-height", "var(--global-size-m)");
   expect(button).toHaveStyleRule("padding", "6px var(--global-space-comp-l)");
 });
 
@@ -62,7 +62,7 @@ test("renders correctly when inverse and tertiary", () => {
     "border-radius",
     "var(--global-radius-action-xl)",
   );
-  expect(button).toHaveStyleRule("height", "var(--global-size-m)");
+  expect(button).toHaveStyleRule("min-height", "var(--global-size-m)");
   expect(button).toHaveStyleRule("padding", "6px var(--global-space-comp-l)");
 });
 
@@ -83,7 +83,7 @@ test("renders correctly when inverse and disabled", () => {
     "border-radius",
     "var(--global-radius-action-xl)",
   );
-  expect(button).toHaveStyleRule("height", "var(--global-size-m)");
+  expect(button).toHaveStyleRule("min-height", "var(--global-size-m)");
   expect(button).toHaveStyleRule("padding", "6px var(--global-space-comp-l)");
   expect(button).toHaveStyle("cursor: not-allowed");
 });
@@ -106,7 +106,7 @@ test("renders correctly when inverse, disabled and tertiary", () => {
     "border-radius",
     "var(--global-radius-action-xl)",
   );
-  expect(button).toHaveStyleRule("height", "var(--global-size-m)");
+  expect(button).toHaveStyleRule("min-height", "var(--global-size-m)");
   expect(button).toHaveStyleRule("padding", "6px var(--global-space-comp-l)");
 });
 

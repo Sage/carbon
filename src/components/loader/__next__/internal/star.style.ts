@@ -36,28 +36,28 @@ const animateStar = keyframes`
 `;
 
 const animateStopTop = keyframes`
-  0% { stop-color: #13a038; }
-  10% { stop-color: #13a038; }
-  50% { stop-color: #0092db; }
-  90% { stop-color: #8f49fe; }
-  100% { stop-color: #8f49fe; }
+  0% { stop-color: var(--mode-color-ai-alt-stop-1); }
+  10% { stop-color: var(--mode-color-ai-alt-stop-1); }
+  50% { stop-color: var(--mode-color-ai-alt-stop-2); }
+  90% { stop-color: var(--mode-color-ai-alt-stop-3); }
+  100% { stop-color: var(--mode-color-ai-alt-stop-3); }
 `;
 
 const animateStopBottom = keyframes`
-  0% { stop-color: #13a038; }
-  10% { stop-color: #13a038; }
-  50% { stop-color: #13a038; }
-  90% { stop-color: #0092db; }
-  100% { stop-color: #0092db; }
+  0% { stop-color: var(--mode-color-ai-alt-stop-1); }
+  10% { stop-color: var(--mode-color-ai-alt-stop-1); }
+  50% { stop-color: var(--mode-color-ai-alt-stop-1); }
+  90% { stop-color: var(--mode-color-ai-alt-stop-2); }
+  100% { stop-color: var(--mode-color-ai-alt-stop-2); }
 `;
 
 const time = "3s";
 
 export const StyledStarSVG = styled.svg`
   animation: ${animateStar} ${time} ease-in-out forwards infinite;
-  height: var(--sizing200);
+  height: var(--global-size-3-xs);
   opacity: 0;
-  width: var(--sizing200);
+  width: var(--global-size-3-xs);
 `;
 
 export const GradientStopTop = styled.stop`
@@ -70,10 +70,10 @@ export const GradientStopBottom = styled.stop`
 
 export const StyledLoaderStarContainer = styled.div`
   bottom: 0;
-  height: var(--sizing200);
+  height: var(--global-size-3-xs);
   left: 0;
   position: absolute;
-  width: var(--sizing200);
+  width: var(--global-size-3-xs);
 
   &.star-1 {
     .ai-star-path {

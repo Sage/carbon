@@ -37,7 +37,7 @@ const getCSSForGradientStyle = ({
     background: white;
     color: var(--button-ai-label-default);
     font: ${font};
-    height: ${height};
+    min-height: ${height};
     width: ${iconOnly ? height : "max-content"};
     padding: ${paddingVertical} ${iconOnly ? "" : paddingHorizontal};
     overflow: hidden;
@@ -134,7 +134,7 @@ const getCSSForInverseStyle = ({
       : borderRadius};
     color: ${label.default};
     font: ${font};
-    height: ${height};
+    min-height: ${height};
     width: ${iconOnly ? height : "max-content"};
     padding: ${paddingVertical} ${iconOnly ? "" : paddingHorizontal};
 
@@ -189,7 +189,7 @@ const getCSSForStyle = ({
       : borderRadius};
     color: ${label?.default};
     font: ${font};
-    height: ${height};
+    min-height: ${height};
     width: ${iconOnly ? height : "max-content"};
     padding: ${paddingVertical} ${iconOnly ? "" : paddingHorizontal};
 

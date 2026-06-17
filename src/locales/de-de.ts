@@ -42,6 +42,12 @@ const deDE: Partial<Locale> = {
       nextMonthButton: () => "Nächster Monat",
     },
   },
+  decimal: {
+    ariaLabels: {
+      popoverTrigger: () => "Dezimal-Popover-Auslöser",
+      popoverContent: () => "Dezimal-Popover-Inhalt",
+    },
+  },
   dialog: {
     ariaLabels: {
       close: () => "Schließen",
