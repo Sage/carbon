@@ -162,6 +162,7 @@ const BaseMenu = forwardRef<
         if (
           active &&
           !responsiveMode &&
+          largeScreen &&
           !container?.contains(event.relatedTarget as HTMLElement)
         ) {
           setActive(false);
@@ -182,7 +183,7 @@ const BaseMenu = forwardRef<
         container?.removeEventListener("focusout", handleFocusOut);
         document.removeEventListener("keydown", handleClose);
       };
-    }, [active, containerRef, responsiveMode, setActive]);
+    }, [active, containerRef, largeScreen, responsiveMode, setActive]);
 
     useEffect(() => {
       setReducedMotion?.(reduceMotion);
