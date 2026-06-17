@@ -86,25 +86,20 @@ export const ButtonToggle = ({
     onChange?.(ev, newValue);
   }
 
-  const isInGroup = !!onChange;
+  const isInGroup = Boolean(onChange);
   const isPressed = isInGroup ? pressedButtonValue === value : pressed;
   const isFirstButton = buttonRef.current === firstButton;
   const tabbable = isPressed || (!pressedButtonValue && isFirstButton);
-  const tabIndex = tabbable ? 0 : -1;
 
   // map group size to button size when button is rendered within a group.
-  const mapGroupSizeToButtonSize = (
-    groupSize: "small" | "medium" | "large",
-  ) => {
-    switch (groupSize) {
-      case "small":
-        return "extraSmall";
-      case "medium":
-        return "small";
-      case "large":
-        return "medium";
-    }
-  };
+  const GROUP_SIZE_TO_BUTTON_SIZE = {
+    small: "extraSmall",
+    medium: "small",
+    large: "medium",
+  } as const;
+
+  const mapGroupSizeToButtonSize = (groupSize: "small" | "medium" | "large") =>
+    GROUP_SIZE_TO_BUTTON_SIZE[groupSize];
 
   const displaySize = contextSize
     ? mapGroupSizeToButtonSize(contextSize)
@@ -140,7 +135,7 @@ export const ButtonToggle = ({
       onBlur={onBlur}
       onClick={handleClick}
       onKeyDown={handleKeyDown}
-      {...(isInGroup && { tabIndex: tabIndex })}
+      {...(isInGroup && { tabIndex: tabbable ? 0 : -1 })}
       ref={callbackRef}
       {...rest}
       {...tagComponent(dataComponent || "button-toggle", rest)}
