@@ -192,6 +192,28 @@ describe("interactions", () => {
     expect(onChange.mock.calls[0][0][0]).toBe(file);
   });
 
+  it("with multiple - uploading multiple files via the hidden input calls onChange prop with all files as argument", async () => {
+    const user = userEvent.setup();
+    const file1 = new File(["file one"], "one.txt", {
+      type: "text/plain",
+    });
+    const file2 = new File(["file two"], "two.txt", {
+      type: "text/plain",
+    });
+    const onChange = jest.fn();
+
+    render(<FileInput label="file input" multiple onChange={onChange} />);
+
+    const hiddenInput = screen.getByLabelText("file input");
+
+    await user.upload(hiddenInput, [file1, file2]);
+
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onChange.mock.calls[0][0]).toHaveLength(2);
+    expect(onChange.mock.calls[0][0][0]).toBe(file1);
+    expect(onChange.mock.calls[0][0][1]).toBe(file2);
+  });
+
   // note: these style changes on dragging are better tested with Playwright (and will be too). The tests are here as
   // well in order to achieve coverage - because that's still better than just putting istanbul ignore everywhere.
   it("dragging a file onto the page causes the border style of the input area to change", () => {
@@ -297,6 +319,25 @@ describe("interactions", () => {
 
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(onChange.mock.calls[0][0][0]).toBe(file);
+  });
+
+  it("with multiple - dragging multiple files over the input area calls onChange prop with the dragged files as argument", () => {
+    const file1 = new File(["file one"], "one.txt", { type: "text/plain" });
+    const file2 = new File(["file two"], "two.txt", { type: "text/plain" });
+    const onChange = jest.fn();
+
+    render(<FileInput label="file input" multiple onChange={onChange} />);
+
+    const inputArea = screen.getByTestId("file-input-presentation");
+
+    fireEvent.drop(inputArea, {
+      dataTransfer: { files: [file1, file2] },
+    });
+
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onChange.mock.calls[0][0]).toHaveLength(2);
+    expect(onChange.mock.calls[0][0][0]).toBe(file1);
+    expect(onChange.mock.calls[0][0][1]).toBe(file2);
   });
 });
 
@@ -412,5 +453,33 @@ describe("with uploadStatus prop set", () => {
       "border",
       "var(--borderWidth200) solid var(--colorsSemanticNegative500)",
     );
+  });
+
+  it("when multiple upload statuses are provided, multiple file entries are rendered", () => {
+    render(
+      <FileInput
+        label="file input"
+        multiple
+        uploadStatus={[
+          {
+            status: "completed",
+            filename: "file-one.txt",
+            href: "#",
+            onAction: () => {},
+          },
+          {
+            status: "completed",
+            filename: "file-two.txt",
+            href: "#",
+            onAction: () => {},
+          },
+        ]}
+        onChange={() => {}}
+      />,
+    );
+
+    const statusItems = screen.getAllByTestId("file-upload-status");
+
+    expect(statusItems).toHaveLength(2);
   });
 });
