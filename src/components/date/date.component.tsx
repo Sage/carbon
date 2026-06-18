@@ -26,7 +26,7 @@ import {
   filterStyledSystemMarginProps,
 } from "../../style/utils";
 import getFormatData from "./__internal__/date-formats";
-import StyledDateInput from "./date.style";
+import StyledDateInput, { datePickerWidth } from "./date.style";
 import Textbox, { TextboxProps } from "../textbox";
 import DatePicker, { PickerProps } from "./__internal__/date-picker";
 import DateRangeContext, {
@@ -115,12 +115,6 @@ export interface DateInputProps
   /** Prop to specify the aria-labelledby attribute of the date picker */
   datePickerAriaLabelledBy?: string;
 }
-
-const datePickerWidth = {
-  large: "140px",
-  medium: "135px",
-  small: "120px",
-};
 
 export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
   (
