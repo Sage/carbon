@@ -1,3 +1,9 @@
+## [159.12.3](https://github.com/Sage/carbon/compare/v159.12.2...v159.12.3) (2026-06-18)
+
+### Bug Fixes
+
+* **date-range:** fix inline label input width ([77d0068](https://github.com/Sage/carbon/commit/77d0068376cdac0702fc243a4d4606213a64a5c7))
+
 ## [159.12.2](https://github.com/Sage/carbon/compare/v159.12.1...v159.12.2) (2026-06-17)
 
 ### Bug Fixes
