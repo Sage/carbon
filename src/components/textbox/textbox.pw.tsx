@@ -121,7 +121,7 @@ test.describe("Prop checks for Textbox component", () => {
     await textboxInput(page).fill("12345678901");
 
     await expect(characterLimit(page)).toHaveText("6 characters too many");
-    await expect(characterLimit(page)).toHaveCSS("color", "rgb(203, 55, 74)");
+    await expect(characterLimit(page)).toHaveCSS("color", "rgb(219, 0, 78)");
   });
 
   test("should render warning when the number of characters typed exceeds the characterLimit by exactly 1", async ({
@@ -133,7 +133,7 @@ test.describe("Prop checks for Textbox component", () => {
     await textboxInput(page).fill("12345678901");
 
     await expect(characterLimit(page)).toHaveText("1 character too many");
-    await expect(characterLimit(page)).toHaveCSS("color", "rgb(203, 55, 74)");
+    await expect(characterLimit(page)).toHaveCSS("color", "rgb(219, 0, 78)");
   });
 
   test("should render with autoFocus prop", async ({ mount, page }) => {

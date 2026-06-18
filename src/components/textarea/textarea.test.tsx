@@ -100,12 +100,12 @@ test.each([
   },
 );
 
-test("should have default min-height of 64px if no minHeight is specified", () => {
+test("should have default min-height of 80px if no minHeight is specified", () => {
   render(<MockComponent />);
 
   const textarea = screen.getByRole("textbox");
 
-  expect(textarea).toHaveStyle({ "min-height": "64px" });
+  expect(textarea).toHaveStyle({ "min-height": "80px" });
 });
 
 test("should apply the correct min-height if minHeight is specified", () => {
@@ -505,8 +505,28 @@ test("when labelInline prop is set, the input label should accommodate for input
   render(<MockComponent label="foo" labelInline />);
 
   expect(screen.getByTestId("label-container")).toHaveStyle({
-    paddingTop: "6px",
+    paddingTop: "var(--global-space-comp-s)",
     alignItems: "flex-start",
+  });
+});
+
+test("when labelInline prop is set, and size is large, correct paddingRight is applied", () => {
+  render(<MockComponent label="foo" labelInline size="large" />);
+
+  expect(screen.getByTestId("label-container")).toHaveStyle({
+    paddingRight: "var(--global-space-comp-xl)",
+  });
+});
+
+test("when labelInline prop is set and resize prop is set, the input width should adjust accordingly", () => {
+  render(
+    <CarbonProvider validationRedesignOptIn>
+      <MockComponent label="foo" labelInline resize="both" />
+    </CarbonProvider>,
+  );
+
+  expect(screen.getByRole("textbox")).toHaveStyle({
+    width: "70vw",
   });
 });
 
@@ -651,24 +671,6 @@ describe("when rendered with new validations", () => {
     },
   );
 
-  it("ignores the labelInline and related styling props", () => {
-    render(
-      <CarbonProvider validationRedesignOptIn>
-        <MockComponent
-          labelInline
-          label="example label"
-          labelAlign="left"
-          labelWidth={100}
-          labelSpacing={1}
-        />
-      </CarbonProvider>,
-    );
-
-    const labelContainer = screen.getByTestId("label-container");
-    expect(labelContainer).not.toHaveStyle({ paddingTop: "6px" });
-    expect(labelContainer).not.toHaveStyle({ alignItems: "flex-start" });
-  });
-
   it("renders the hint text with the correct styling when the labelHelp prop is passed", () => {
     render(
       <CarbonProvider validationRedesignOptIn>
@@ -783,4 +785,31 @@ test("should render component without borders when hideBorders prop is true and 
     "border",
     "1px solid transparent",
   );
+});
+
+test("should render component with the `width` equal to `100%` when `resize` is set", () => {
+  render(
+    <CarbonProvider validationRedesignOptIn>
+      <MockComponent
+        resize="both"
+        maxWidth="480"
+        size="large"
+        inputHint="hint"
+        characterLimit={200}
+      />
+    </CarbonProvider>,
+  );
+  expect(screen.getByRole("presentation")).toHaveStyleRule("width", "100%");
+});
+
+test("should render component with the `width` equal to `70vw` when `resize` and `labelInline` are set", () => {
+  render(
+    <CarbonProvider validationRedesignOptIn>
+      <MockComponent labelInline resize="both" data-role="test-textarea" />
+    </CarbonProvider>,
+  );
+
+  expect(screen.getByTestId("test-textarea")).toHaveStyleRule("width", "70vw", {
+    modifier: `${StyledInput}`,
+  });
 });

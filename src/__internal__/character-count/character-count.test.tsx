@@ -126,7 +126,19 @@ test("renders with expected styles when `isLarge` is true", () => {
   render(<CharacterCount isLarge value={5} limit={10} isOverLimit={false} />);
 
   expect(screen.getByTestId("character-count")).toHaveStyleRule(
-    "font-size",
-    "var(--fontSizes200)",
+    "font",
+    "var(--global-font-static-comp-regular-l)",
+  );
+});
+
+// coverage
+test("renders with expected styles when `size` is large", () => {
+  render(
+    <CharacterCount size="large" value={5} limit={10} isOverLimit={false} />,
+  );
+
+  expect(screen.getByTestId("character-count")).toHaveStyleRule(
+    "margin",
+    "var(--global-space-comp-s) 0px",
   );
 });

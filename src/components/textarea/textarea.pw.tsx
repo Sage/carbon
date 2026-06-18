@@ -208,7 +208,7 @@ test.describe("Props tests for Textarea component", () => {
   (
     [
       [11, 11, "rgba(0, 0, 0, 0.55)"],
-      [11, 10, "rgb(203, 55, 74)"],
+      [11, 10, "rgb(219, 0, 78)"],
     ] as const
   ).forEach(([charactersUsed, limit, color]) => {
     test(`should input ${charactersUsed} characters and warn if over character limit of ${limit} in Textarea`, async ({
@@ -641,8 +641,8 @@ test.describe("Props tests for Textarea component", () => {
 
   (
     [
-      [true, 92],
-      [false, 64],
+      [true, 84],
+      [false, 80],
     ] as const
   ).forEach(([expandableValue, height]) => {
     test(`should verify is displayed with expandable set to ${expandableValue}`, async ({
@@ -680,21 +680,22 @@ test(`should verify expandable Textarea shrinks back to original height when lin
   await textareaChildrenElement.press("Enter");
   await textareaChildrenElement.press("t");
 
-  await expect(textareaChildrenElement).toHaveCSS("height", "92px");
+  await expect(textareaChildrenElement).toHaveCSS("height", "84px");
 
   await textareaChildrenElement.press("Backspace");
   await textareaChildrenElement.press("Backspace");
 
-  await expect(textareaChildrenElement).toHaveCSS("height", "75px");
+  await expect(textareaChildrenElement).toHaveCSS("height", "80px");
 
   await textareaChildrenElement.press("Backspace");
   await textareaChildrenElement.press("Backspace");
 
-  await expect(textareaChildrenElement).toHaveCSS("height", "64px");
+  await expect(textareaChildrenElement).toHaveCSS("height", "80px");
 });
 
 test.describe("Event tests for Textarea component", () => {
   const inputValue = "1";
+
   test("should call onChange callback when a type event is triggered", async ({
     mount,
     page,
@@ -997,7 +998,7 @@ test("should have the expected default border radius styling", async ({
 
   const inputElementParent = getElement(page, "input").locator("..");
 
-  await expect(inputElementParent).toHaveCSS("border-radius", "4px");
+  await expect(inputElementParent).toHaveCSS("border-radius", "8px");
 });
 
 test("should have the expected custom border radius styling", async ({
