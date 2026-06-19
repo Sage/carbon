@@ -5,7 +5,6 @@ import React, {
   useMemo,
   useCallback,
 } from "react";
-import { isFragment } from "react-is";
 import invariant from "invariant";
 import throttle from "lodash/throttle";
 
@@ -40,7 +39,8 @@ const AnchorNavigation = ({
   "data-role": dataRole,
 }: AnchorNavigationProps): JSX.Element => {
   invariant(
-    isFragment(stickyNavigation),
+    React.isValidElement(stickyNavigation) &&
+      stickyNavigation.type === React.Fragment,
     "`stickyNavigation` prop in `AnchorNavigation` should be a React Fragment.",
   );
 

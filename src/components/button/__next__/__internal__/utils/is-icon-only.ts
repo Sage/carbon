@@ -1,5 +1,9 @@
-import { ReactNode, Children, isValidElement, FunctionComponent } from "react";
-import { isFragment } from "react-is";
+import React, {
+  ReactNode,
+  Children,
+  isValidElement,
+  FunctionComponent,
+} from "react";
 
 const isIconOnly = (children: ReactNode): boolean => {
   if (!children) return false;
@@ -23,7 +27,7 @@ const isIconOnly = (children: ReactNode): boolean => {
     }
 
     // Check if it's a Fragment with nested children
-    if (isFragment(child)) {
+    if (React.isValidElement(child) && child.type === React.Fragment) {
       return isIconOnly(child.props.children);
     }
 
