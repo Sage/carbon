@@ -1284,7 +1284,7 @@ exports[`builds the static tokens as expected 1`] = `
   --carbon-zindex-notification: 7000;
   --carbon-zindex-above-all: 9999;
 
-.carbon-dark-mode, [data-carbon-theme="dark"] {
+&.carbon-dark-mode, &[data-carbon-theme="dark"] {
     --mode-color-ai-stop-1: #00d639;
   --mode-color-ai-stop-2: #00d6de;
   --mode-color-ai-stop-3: #9d60ff;

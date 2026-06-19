@@ -1,26 +1,15 @@
+interface Colors {
+  primary: string;
+  primaryHover?: string;
+  primaryActive?: string;
+  onPrimary?: string;
+  onPrimaryHover?: string;
+  onPrimaryActive?: string;
+}
+
 export interface BrandColors {
-  light: {
-    primary: string; // → mode.color.action.main.default
-    //   (also derives defaultAlt @ 80% opacity, defaultAlt3 @ 3% opacity)
-    primaryHover?: string; // → mode.color.action.main.hover
-    //   (also derives hoverAlt with button.hover modifier applied)
-    primaryActive?: string; // → mode.color.action.main.active
-    //   (also derives activeAlt with button.active modifier applied)
-    onPrimary?: string; // → mode.color.action.main.withDefault
-    onPrimaryHover?: string; // → mode.color.action.main.withHover  (defaults to onPrimary)
-    onPrimaryActive?: string; // → mode.color.action.main.withActive (defaults to onPrimary)
-  };
-  dark?: {
-    primary: string; // → mode.color.action.main.default
-    //   (also derives.defaultAlt,.defaultAlt3)
-    primaryHover?: string; // → mode.color.action.main.hover
-    //   (also derives.hoverAlt)
-    primaryActive?: string; // → mode.color.action.main.active
-    //   (also derives.activeAlt)
-    onPrimary?: string; // → mode.color.action.main.withDefault
-    onPrimaryHover?: string; // → mode.color.action.main.withHover
-    onPrimaryActive?: string; // → mode.color.action.main.withActive
-  };
+  light: Colors & { inverse?: Colors };
+  dark?: Colors & { inverse?: Colors };
 }
 
 // Utility to convert a hex colour to an rgba/hex with opacity
@@ -32,6 +21,63 @@ function withOpacity(hex: string, opacity: number): string {
   return `${hex}${alpha}`;
 }
 
+const DEFAULT_ALT_OPACITY = 0.8;
+const DEFAULT_ALT3_OPACITY = 0.03;
+const HOVER_ALT_OPACITY = 0.15;
+const ACTIVE_ALT_OPACITY = 0.3;
+
+function buildActionRules(colors: Colors, prefix: string): string[] {
+  const rules: string[] = [];
+  const tokenPrefix = `--mode-color-action-main-${prefix}`;
+
+  const {
+    primary,
+    primaryHover,
+    primaryActive,
+    onPrimary,
+    onPrimaryHover,
+    onPrimaryActive,
+  } = colors;
+
+  rules.push(`${tokenPrefix}default: ${primary};`);
+  rules.push(
+    `${tokenPrefix}default-alt: ${withOpacity(primary, DEFAULT_ALT_OPACITY)};`,
+  );
+  rules.push(
+    `${tokenPrefix}default-alt3: ${withOpacity(primary, DEFAULT_ALT3_OPACITY)};`,
+  );
+
+  if (primaryHover) {
+    rules.push(`${tokenPrefix}hover: ${primaryHover};`);
+    rules.push(
+      `${tokenPrefix}hover-alt: ${withOpacity(primaryHover, HOVER_ALT_OPACITY)};`,
+    );
+    rules.push(`${tokenPrefix}default-alt2: ${primaryHover};`);
+  }
+
+  if (primaryActive) {
+    rules.push(`${tokenPrefix}active: ${primaryActive};`);
+    rules.push(
+      `${tokenPrefix}active-alt: ${withOpacity(primaryActive, ACTIVE_ALT_OPACITY)};`,
+    );
+    rules.push(`${tokenPrefix}hover-alt2: ${primaryActive};`);
+  }
+
+  if (onPrimary) {
+    rules.push(`${tokenPrefix}with-default: ${onPrimary};`);
+    rules.push(`${tokenPrefix}with-hover: ${onPrimaryHover ?? onPrimary};`);
+    rules.push(`${tokenPrefix}with-active: ${onPrimaryActive ?? onPrimary};`);
+  } else {
+    if (onPrimaryHover) {
+      rules.push(`${tokenPrefix}with-hover: ${onPrimaryHover};`);
+    }
+    if (onPrimaryActive) {
+      rules.push(`${tokenPrefix}with-active: ${onPrimaryActive};`);
+    }
+  }
+  return rules;
+}
+
 export const buildOverrideTokens = (overrides: BrandColors): string => {
   const lightRules: string[] = [];
   const darkRules: string[] = [];
@@ -39,110 +85,17 @@ export const buildOverrideTokens = (overrides: BrandColors): string => {
   const { light, dark } = overrides;
 
   if (light) {
-    const {
-      primary,
-      primaryHover,
-      primaryActive,
-      onPrimary,
-      onPrimaryHover,
-      onPrimaryActive,
-    } = light;
-    lightRules.push(`--mode-color-action-main-default: ${primary};`);
-    lightRules.push(
-      `--mode-color-action-main-default-alt: ${withOpacity(primary, 0.8)};`,
-    );
-    lightRules.push(
-      `--mode-color-action-main-default-alt3: ${withOpacity(primary, 0.03)};`,
-    );
-
-    if (primaryHover) {
-      lightRules.push(`--mode-color-action-main-hover: ${primaryHover};`);
-      lightRules.push(
-        `--mode-color-action-main-hover-alt: ${withOpacity(primaryHover, 0.15)};`,
-      ); // button.hover modifier
-      lightRules.push(
-        `--mode-color-action-main-default-alt2: ${primaryHover};`,
-      ); // link colour aliases hover
-    }
-
-    if (primaryActive) {
-      lightRules.push(`--mode-color-action-main-active: ${primaryActive};`);
-      lightRules.push(
-        `--mode-color-action-main-active-alt: ${withOpacity(primaryActive, 0.3)};`,
-      ); // button.active modifier
-      lightRules.push(`--mode-color-action-main-hover-alt2: ${primaryActive};`); // link hover aliases active
-    }
-
-    if (onPrimary) {
-      lightRules.push(`--mode-color-action-main-with-default: ${onPrimary};`);
-      lightRules.push(
-        `--mode-color-action-main-with-hover: ${onPrimaryHover ?? onPrimary};`,
-      );
-      lightRules.push(
-        `--mode-color-action-main-with-active: ${onPrimaryActive ?? onPrimary};`,
-      );
-    } else {
-      if (onPrimaryHover)
-        lightRules.push(
-          `--mode-color-action-main-with-hover: ${onPrimaryHover};`,
-        );
-      if (onPrimaryActive)
-        lightRules.push(
-          `--mode-color-action-main-with-active: ${onPrimaryActive};`,
-        );
+    const { inverse } = light;
+    lightRules.push(...buildActionRules(light, ""));
+    if (inverse) {
+      lightRules.push(...buildActionRules(inverse, "inverse-"));
     }
   }
-
   if (dark) {
-    const {
-      primary,
-      primaryHover,
-      primaryActive,
-      onPrimary,
-      onPrimaryHover,
-      onPrimaryActive,
-    } = dark;
-    darkRules.push(`--mode-color-action-main-default: ${primary};`);
-    darkRules.push(
-      `--mode-color-action-main-default-alt: ${withOpacity(primary, 0.8)};`,
-    );
-    darkRules.push(
-      `--mode-color-action-main-default-alt3: ${withOpacity(primary, 0.03)};`,
-    );
-
-    if (primaryHover) {
-      darkRules.push(`--mode-color-action-main-hover: ${primaryHover};`);
-      darkRules.push(
-        `--mode-color-action-main-hover-alt: ${withOpacity(primaryHover, 0.15)};`,
-      );
-      darkRules.push(`--mode-color-action-main-default-alt2: ${primaryHover};`);
-    }
-
-    if (primaryActive) {
-      darkRules.push(`--mode-color-action-main-active: ${primaryActive};`);
-      darkRules.push(
-        `--mode-color-action-main-active-alt: ${withOpacity(primaryActive, 0.3)};`,
-      );
-      darkRules.push(`--mode-color-action-main-hover-alt2: ${primaryActive};`);
-    }
-
-    if (onPrimary) {
-      darkRules.push(`--mode-color-action-main-with-default: ${onPrimary};`);
-      darkRules.push(
-        `--mode-color-action-main-with-hover: ${onPrimaryHover ?? onPrimary};`,
-      );
-      darkRules.push(
-        `--mode-color-action-main-with-active: ${onPrimaryActive ?? onPrimary};`,
-      );
-    } else {
-      if (onPrimaryHover)
-        darkRules.push(
-          `--mode-color-action-main-with-hover: ${onPrimaryHover};`,
-        );
-      if (onPrimaryActive)
-        darkRules.push(
-          `--mode-color-action-main-with-active: ${onPrimaryActive};`,
-        );
+    const { inverse } = dark;
+    darkRules.push(...buildActionRules(dark, ""));
+    if (inverse) {
+      darkRules.push(...buildActionRules(inverse, "inverse-"));
     }
   }
 

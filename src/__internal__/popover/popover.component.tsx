@@ -3,7 +3,7 @@ import React, {
   useContext,
   useRef,
   RefObject,
-  useLayoutEffect,
+  useEffect,
 } from "react";
 import { createPortal } from "react-dom";
 import { flip, Placement, Middleware } from "@floating-ui/dom";
@@ -106,7 +106,7 @@ const PopoverRoot = ({
   });
 
   return (
-    <StyledPopoverContent data-foo="foo" hide={hide}>
+    <StyledPopoverContent hide={hide}>
       {disableBackgroundUI ? (
         <StyledBackdrop data-role="popup-backdrop">{content}</StyledBackdrop>
       ) : (
@@ -123,7 +123,7 @@ const Popover = ({ disablePortal, ...props }: PopoverProps) => {
     props.reference.current?.closest<HTMLElement>("[role='dialog']");
   const [mode, setMode] = React.useState<string | undefined>();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const wrapper = props.reference.current?.closest("[data-carbon-theme]");
     if (!wrapper) return;
 

@@ -11,16 +11,28 @@ interface TokensWrapperDemoProps {
 
 const overrides = {
   light: {
-    primary: "#db004e", // brand default
-    primaryHover: "#c50046", // ~10% darker
-    primaryActive: "#af003e", // ~20% darker
-    onPrimary: "#ffffff", // white text works on this dark red
+    primary: "#db004e",
+    primaryHover: "#c50046",
+    primaryActive: "#af003e",
+    onPrimary: "#ffffff",
+    inverse: {
+      primary: "#ff69b4",
+      primaryHover: "#ff82c4",
+      primaryActive: "#ff9bd4",
+      onPrimary: "#000000",
+    },
   },
   dark: {
-    primary: "#ff69b4", // bright pink works on dark bg
-    primaryHover: "#ff82c4", // ~10% lighter (dark mode goes lighter on hover)
-    primaryActive: "#ff9bd4", // ~20% lighter
-    onPrimary: "#000000", // black text needed — #ff69b4 is too light for white
+    primary: "#ff69b4",
+    primaryHover: "#ff82c4",
+    primaryActive: "#ff9bd4",
+    onPrimary: "#000000",
+    inverse: {
+      primary: "#db004e",
+      primaryHover: "#c50046",
+      primaryActive: "#af003e",
+      onPrimary: "#ffffff",
+    },
   },
 };
 
