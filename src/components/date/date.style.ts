@@ -12,17 +12,30 @@ interface StyledDateInputProps
   size: Required<DateInputProps>["size"];
 }
 
+export const datePickerWidth = {
+  large: "140px",
+  medium: "135px",
+  small: "120px",
+};
+
 const StyledDateInput = styled.div.attrs(applyBaseTheme)<StyledDateInputProps>`
   margin-bottom: var(--fieldSpacing);
   ${margin}
 
-  ${({ applyDateRangeStyling, labelInline }) =>
+  ${({ applyDateRangeStyling, labelInline, maxWidth, size }) =>
     applyDateRangeStyling &&
-    !labelInline &&
     css`
-      ${StyledValidationMessage}, ${StyledLabel} {
-        overflow-wrap: anywhere;
+      [data-role="input-wrapper"] {
+        width: ${maxWidth ?? datePickerWidth[size]};
+        flex: 0 0 auto;
       }
+
+      ${!labelInline &&
+      css`
+        ${StyledValidationMessage}, ${StyledLabel} {
+          overflow-wrap: anywhere;
+        }
+      `}
     `}
 `;
 
