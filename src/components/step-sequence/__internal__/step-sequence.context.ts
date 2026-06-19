@@ -1,7 +1,9 @@
 import createStrictContext from "../../../__internal__/utils/createStrictContext";
 
-interface StepSequenceContextType {
+export interface StepSequenceContextType {
+  currentStep: number;
   orientation: "horizontal" | "vertical";
+  size: "small" | "medium";
 }
 
 const [StepSequenceProvider, useStepSequenceContext] =
@@ -10,7 +12,9 @@ const [StepSequenceProvider, useStepSequenceContext] =
     errorMessage:
       "Carbon StepSequence: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
     defaultValue: {
-      orientation: "horizontal",
+      currentStep: 1,
+      orientation: "vertical",
+      size: "medium",
     },
   });
 

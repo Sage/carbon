@@ -5,36 +5,55 @@ import { StepSequence, StepSequenceItem } from ".";
 
 test("renders with provided children", () => {
   render(
-    <StepSequence>
-      <StepSequenceItem indicator="1">Step 1</StepSequenceItem>
-      <StepSequenceItem indicator="2">Step 2</StepSequenceItem>
+    <StepSequence currentStep={2}>
+      <StepSequenceItem
+        stepNumber={1}
+        title="Planning"
+        description={"Lorem ipsum dolor sit amet, consectetur adipiscing elit."}
+      />
+      <StepSequenceItem
+        stepNumber={2}
+        title="Design"
+        description={"This is step 2"}
+      />
     </StepSequence>,
   );
 
   const steps = within(screen.getByRole("list")).getAllByRole("listitem");
 
-  expect(steps[0]).toHaveTextContent("Step 1");
-  expect(steps[1]).toHaveTextContent("Step 2");
+  expect(steps[0]).toHaveTextContent("Planning");
+  expect(steps[1]).toHaveTextContent("Design");
 });
 
-test("renders with `orientation` prop set to 'vertical'", () => {
+test("renders with `orientation` prop set to 'horizontal'", () => {
   render(
-    <StepSequence orientation="vertical">
-      <StepSequenceItem indicator="1">Step 1</StepSequenceItem>
-      <StepSequenceItem indicator="2">Step 2</StepSequenceItem>
+    <StepSequence currentStep={1} orientation="horizontal">
+      <StepSequenceItem
+        stepNumber={1}
+        title="Planning"
+        description={"Lorem ipsum dolor sit amet, consectetur adipiscing elit."}
+      />
+      <StepSequenceItem
+        stepNumber={2}
+        title="Design"
+        description={"This is step 2"}
+      />
     </StepSequence>,
   );
 
   expect(screen.getByRole("list")).toHaveStyle({
-    flexDirection: "column",
-    height: "100%",
+    flexDirection: "row",
   });
 });
 
 test("renders with provided data- attributes", () => {
   render(
-    <StepSequence data-element="bar" data-role="baz">
-      <StepSequenceItem indicator="1">Step 1</StepSequenceItem>
+    <StepSequence currentStep={1} data-element="bar" data-role="baz">
+      <StepSequenceItem
+        stepNumber={1}
+        title="Planning"
+        description={"Lorem ipsum dolor sit amet, consectetur adipiscing elit."}
+      />
     </StepSequence>,
   );
 
@@ -44,7 +63,7 @@ test("renders with provided data- attributes", () => {
 
 testStyledSystemSpacing(
   (props) => (
-    <StepSequence {...props}>
+    <StepSequence currentStep={1} {...props}>
       <div>test</div>
     </StepSequence>
   ),

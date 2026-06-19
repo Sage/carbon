@@ -1,111 +1,254 @@
 import styled, { css } from "styled-components";
+import { space } from "styled-system";
 import { StepSequenceProps } from "../step-sequence.component";
-import { StepSequenceItemProps } from "./step-sequence-item.component";
-import StyledIcon from "../../icon/icon.style";
 
-export const StyledStepSequenceItem = styled.li<
-  Pick<StepSequenceItemProps, "status"> & Pick<StepSequenceProps, "orientation">
+const SIZE_MAP = {
+  medium: {
+    markerWidth: "32px",
+    markerHeight: "32px",
+    titleFontSize: "18px",
+    titleFontWeight: "500",
+    titleFontStyle: "medium",
+    titleFontColour: "--progress-label-default",
+    descriptionFontSize: "16px",
+    descriptionFontWeight: "400",
+    descriptionFontStyle: "regular",
+    descriptionFontColour: "--progress-label-alt",
+  },
+
+  small: {
+    markerWidth: "24px",
+    markerHeight: "24px",
+    titleFontSize: "16px",
+    titleFontWeight: "500",
+    titleFontStyle: "medium",
+    titleFontColour: "--progress-label-default",
+    descriptionFontSize: "14px",
+    descriptionFontWeight: "400",
+    descriptionFontStyle: "regular",
+    descriptionFontColour: "--progress-label-alt",
+  },
+};
+
+export const StyledStepSequenceItemMarkerContainer = styled.div<
+  Pick<StepSequenceProps, "orientation">
 >`
-  display: flex;
-  align-items: center;
-  flex-grow: 1;
-  text-align: right;
-  list-style-type: none;
-  color: var(--colorsUtilityYin055);
-
-  ${({ orientation, status }) => {
-    const side: string = orientation === "vertical" ? "left" : "top";
-
-    return css`
-      &::before {
-        content: "";
-        flex-grow: 1;
-        display: block;
-        margin: 0 16px;
-        border-${side}: var(--sizing025) dashed var(--colorsUtilityYin055);
-      }
-
-      & span {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      ${StyledIcon} {
-        margin-right: 8px;
-        color: var(--colorsBaseTheme, var(--colorsSemanticPositive500));
-      }
-
-      &:first-child {
-        flex-grow: 0;
-
-        &::before {
-          display: none;
-        }
-      }
-
-      ${
-        status === "current" &&
-        css`
-          color: var(--colorsUtilityYin090);
-
-          &::before {
-            border-${side}-color: var(--colorsUtilityYin090);
-            border-${side}-style: solid;
-          }
-        `
-      }
-
-      ${
-        status === "complete" &&
-        css`
-          color: var(--colorsBaseTheme, var(--colorsSemanticPositive500));
-
-          &::before {
-            border-${side}-color: var(
-              --colorsBaseTheme,
-              var(--colorsSemanticPositive500)
-            );
-            border-${side}-style: solid;
-          }
-        `
-      }
-
-      ${
-        orientation === "vertical" &&
-        css`
+  ${({ orientation }) =>
+    orientation === "vertical"
+      ? css`
+          display: flex;
           flex-direction: column;
-          align-items: flex-start;
-
-          &::before {
-            flex-grow: 0;
-            border-left-width: var(--sizing025);
-            height: 100%;
-            min-height: var(--sizing300);
-            margin: 12px 8px;
-          }
+          align-items: center;
         `
-      }
-    `;
+      : css`
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          position: relative;
+        `}
+`;
+
+export const StyledStepSequenceItemLine = styled.div<
+  Pick<StepSequenceProps, "orientation"> & {
+    status: "complete" | "current" | "incomplete";
+  }
+>`
+  ${({ orientation }) =>
+    orientation === "vertical"
+      ? css`
+          width: 2px;
+          flex-grow: 1;
+          min-height: 40px;
+          background-color: #cbd5e1;
+          margin: 8px 0;
+        `
+      : css`
+          position: absolute;
+          height: 2px;
+          background-color: #cbd5e1;
+          left: 70%;
+          width: 60%;
+          top: 50%;
+          transform: translateY(-50%);
+          z-index: 1;
+        `}
+
+  ${({ status }) =>
+    status === "complete" &&
+    css`
+      background-color: #16a34a !important;
+    `}
+`;
+
+export const StyledStepSequenceItemContent = styled.span<
+  Pick<StepSequenceProps, "orientation">
+>`
+  ${({ orientation }) =>
+    orientation === "vertical"
+      ? css`
+          display: flex;
+          flex-direction: column;
+          padding-bottom: 24px;
+        `
+      : css`
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          margin-top: 12px;
+          z-index: 2;
+          position: absolute;
+          top: 32px;
+          width: max-content;
+          max-width: 120px;
+          white-space: normal;
+        `}
+`;
+
+export const StyledStepSequenceItemStepNumber = styled.span<{
+  status: "complete" | "current" | "incomplete";
+  size?: "small" | "medium";
+}>`
+  position: relative;
+  z-index: 2;
+  border-radius: 50%;
+  ${({ size }) => css`
+    height: ${SIZE_MAP[size ?? "medium"].markerHeight};
+    width: ${SIZE_MAP[size ?? "medium"].markerWidth};
+  `}
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+
+  ${({ status }) => {
+    switch (status) {
+      case "complete":
+        return css`
+          background-color: #388544;
+          border: none;
+          color: transparent;
+
+          &:before {
+            content: "\f003";
+            font-family: CarbonIcons;
+            font-weight: normal;
+            font-style: normal;
+            font-size: var(--global-size-2-xs);
+            line-height: var(--global-size-2-xs);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            color: white;
+            align-items: center;
+            justify-content: center;
+          }
+        `;
+
+      case "current":
+        return css`
+          background-color: #0c111d;
+          color: #ffffff;
+          border: none;
+
+          ::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 50%;
+
+            box-shadow:
+              0 0 0 3px #f4f4f4,
+              0 0 0 5px #0c111d;
+
+            z-index: -1;
+          }
+        `;
+
+      default:
+        return css`
+          background-color: white;
+          color: #0c111d;
+          border: 2px solid #94a3b8;
+          margin-top: -2px;
+        `;
+    }
   }}
 `;
 
-export const StyledStepSequenceItemContent = styled.span`
-  display: flex;
+export const StyledStepSequenceItemStepTitle = styled.span<{
+  size?: "small" | "medium";
+}>`
+  ${({ size }) => css`
+    font-size: ${SIZE_MAP[size ?? "medium"].titleFontSize};
+    font-weight: ${SIZE_MAP[size ?? "medium"].titleFontWeight};
+    font-style: ${SIZE_MAP[size ?? "medium"].titleFontStyle};
+    color: var(${SIZE_MAP[size ?? "medium"].titleFontColour});
+  `}
 `;
 
-export const StyledStepSequenceItemHiddenLabel = styled.span`
-  position: absolute !important;
-  height: 1px;
-  width: 1px;
-  overflow: hidden;
-  clip: rect(1px, 1px, 1px, 1px);
+export const StyledStepSequenceItemStepDescription = styled.span<{
+  size?: "small" | "medium";
+}>`
+  ${({ size }) => css`
+    font-size: ${SIZE_MAP[size ?? "medium"].descriptionFontSize};
+    font-weight: ${SIZE_MAP[size ?? "medium"].descriptionFontWeight};
+    font-style: ${SIZE_MAP[size ?? "medium"].descriptionFontStyle};
+    color: var(${SIZE_MAP[size ?? "medium"].descriptionFontColour});
+  `}
+  margin-top: 2px;
 `;
 
-export const StyledStepSequenceItemIndicator = styled.span`
-  display: block;
-  min-width: 16px;
-  height: 16px;
-  margin-right: 8px;
-  text-align: center;
+export const StyledStepSequenceItemStepVH = styled.span`
+  &:not(:focus):not(:active) {
+    border: 0;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+`;
+
+export const StyledStepSequenceItem = styled.li<
+  Pick<StepSequenceProps, "orientation">
+>`
+  ${({ orientation }) =>
+    orientation === "vertical"
+      ? css`
+          display: grid;
+          grid-template-columns: 32px 1fr;
+          column-gap: 16px;
+        `
+      : css`
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          position: relative;
+          flex: 1 1 0px;
+          width: 0;
+        `}
+
+  & ${StyledStepSequenceItemLine} {
+    background-color: #94a3b8;
+  }
+
+  &:last-child ${StyledStepSequenceItemLine} {
+    display: none !important;
+  }
+
+  ${space}
 `;
