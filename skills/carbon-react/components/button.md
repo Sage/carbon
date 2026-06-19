@@ -355,7 +355,7 @@ description: Carbon Button component props and usage examples.
 
 ```tsx
 () => {
-  const buttonRef = useRef<ButtonHandle>(null);
+  const buttonRef = useRef<HTMLButtonElement | HTMLAnchorElement>(null);
 
   return (
     <Box display="flex" gap={2}>
@@ -364,7 +364,7 @@ description: Carbon Button component props and usage examples.
       </Button>
       <Button
         variantType="secondary"
-        onClick={() => buttonRef.current?.focusButton()}
+        onClick={() => buttonRef.current?.focus()}
       >
         Focus other button
       </Button>

@@ -1,9 +1,4 @@
-import React, {
-  forwardRef,
-  ReactNode,
-  useRef,
-  useImperativeHandle,
-} from "react";
+import React, { forwardRef, ReactNode } from "react";
 import { SpaceProps } from "styled-system";
 
 import { ButtonProps as LegacyButtonProps } from "../button.component";
@@ -16,10 +11,7 @@ import { Size, Variant, VariantType } from "./button.config";
 import isIconOnly from "./__internal__/utils/is-icon-only";
 import Icon from "../../icon";
 
-export type ButtonHandle = {
-  /** Programmatically focus the button. */
-  focusButton: () => void;
-} | null;
+type ButtonRef = HTMLButtonElement | HTMLAnchorElement;
 
 export interface ButtonProps
   extends Omit<
@@ -149,7 +141,7 @@ const mapButtonTypeToVariantType = ({
   }
 };
 
-export const Button = forwardRef<ButtonHandle, ButtonProps>(
+export const Button = forwardRef<ButtonRef, ButtonProps>(
   (
     {
       "aria-describedby": ariaDescribedBy,
@@ -178,20 +170,9 @@ export const Button = forwardRef<ButtonHandle, ButtonProps>(
     }: ButtonProps,
     ref,
   ) => {
-    const buttonRef = useRef<HTMLButtonElement>(null);
     const hasChildren = children !== undefined && children !== false;
 
     const iconOnly = (!!iconType && !hasChildren) || isIconOnly(children);
-
-    useImperativeHandle<ButtonHandle, ButtonHandle>(
-      ref,
-      () => ({
-        focusButton: () => {
-          buttonRef.current?.focus();
-        },
-      }),
-      [],
-    );
 
     const allowMotion = useMediaQuery(
       "screen and (prefers-reduced-motion: no-preference)",
@@ -210,9 +191,17 @@ export const Button = forwardRef<ButtonHandle, ButtonProps>(
         | React.MouseEvent<HTMLAnchorElement>
         | React.MouseEvent<HTMLButtonElement>,
     ) => {
-      buttonRef.current?.focus({ preventScroll: true });
+      event.currentTarget.focus({ preventScroll: true });
 
       onClick?.(event);
+    };
+
+    const setForwardedRef = (node: ButtonRef | null) => {
+      if (typeof ref === "function") {
+        ref(node);
+      } else if (ref) {
+        ref.current = node;
+      }
     };
 
     const renderChildren = () => {
@@ -279,7 +268,7 @@ export const Button = forwardRef<ButtonHandle, ButtonProps>(
         name={name}
         $noWrap={noWrap}
         onClick={handleClick}
-        ref={buttonRef}
+        ref={setForwardedRef}
         $size={size}
         $variant={computedVariant}
         $variantType={computedVariantType}
