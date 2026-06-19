@@ -312,9 +312,7 @@ test("forwards the underlying button element to a callback ref", () => {
 
   render(<Button ref={callbackRef}>Test Button</Button>);
 
-  expect(callbackRef).toHaveBeenCalledWith(
-    expect.any(HTMLButtonElement),
-  );
+  expect(callbackRef).toHaveBeenCalledWith(expect.any(HTMLButtonElement));
 });
 
 test("forwards the underlying anchor element to a callback ref when href is set", () => {
@@ -326,9 +324,7 @@ test("forwards the underlying anchor element to a callback ref when href is set"
     </Button>,
   );
 
-  expect(callbackRef).toHaveBeenCalledWith(
-    expect.any(HTMLAnchorElement),
-  );
+  expect(callbackRef).toHaveBeenCalledWith(expect.any(HTMLAnchorElement));
 });
 
 test("renders correctly with noWrap set", () => {
