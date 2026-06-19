@@ -307,6 +307,30 @@ test("forwards ref to the underlying element and supports programmatic focus", a
   expect(targetButton).toHaveFocus();
 });
 
+test("forwards the underlying button element to a callback ref", () => {
+  const callbackRef = jest.fn();
+
+  render(<Button ref={callbackRef}>Test Button</Button>);
+
+  expect(callbackRef).toHaveBeenCalledWith(
+    expect.any(HTMLButtonElement),
+  );
+});
+
+test("forwards the underlying anchor element to a callback ref when href is set", () => {
+  const callbackRef = jest.fn();
+
+  render(
+    <Button href="https://www.example.com" ref={callbackRef}>
+      Test Link
+    </Button>,
+  );
+
+  expect(callbackRef).toHaveBeenCalledWith(
+    expect.any(HTMLAnchorElement),
+  );
+});
+
 test("renders correctly with noWrap set", () => {
   render(<Button noWrap>Test Button</Button>);
   const button = screen.getByRole("button");
