@@ -210,7 +210,8 @@
     "playwright-core": "$@playwright/experimental-ct-react",
     "jsdom": "$jsdom",
     "storybook": "$storybook",
-    "uuid": "^14.0.0"
+    "uuid": "^14.0.0",
+    "js-yaml": "^4.2.0"
   },
   "lint-staged": {
     "./**/*.{js,jsx,ts,tsx}": [
