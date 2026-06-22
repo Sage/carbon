@@ -46,9 +46,9 @@ const meta: Meta<typeof StepSequence> = {
 export default meta;
 type Story = StoryObj<typeof StepSequence>;
 
-export const DefaultStory: Story = ({ ...props }) => {
+export const DefaultStory: Story = (props: StepSequenceProps) => {
   return (
-    <StepSequence currentStep={props.currentStep}>
+    <StepSequence {...props}>
       <StepSequenceItem
         stepNumber={1}
         title="Planning"
@@ -70,10 +70,13 @@ export const DefaultStory: Story = ({ ...props }) => {
   );
 };
 DefaultStory.storyName = "Default";
+DefaultStory.args = {
+  currentStep: 1,
+};
 
-export const Horizontal: Story = ({ ...props }) => {
+export const Horizontal: Story = (props: StepSequenceProps) => {
   return (
-    <StepSequence currentStep={props.currentStep} orientation={"horizontal"}>
+    <StepSequence {...props} orientation={"horizontal"}>
       <StepSequenceItem
         stepNumber={1}
         title="Planning"

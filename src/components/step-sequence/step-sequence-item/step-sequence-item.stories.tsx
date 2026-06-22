@@ -3,13 +3,13 @@ import StepSequenceItem from "./step-sequence-item.component";
 
 /**
  * This file is used primarily as a means to generate the props table.
- * It contains the tag: ["hideInSidebar"] so that it is not included in the sidebar.
+ * It contains the tag: ["!dev"] so that it is not included in the sidebar.
  */
 
 const meta: Meta<typeof StepSequenceItem> = {
   title: "Step Sequence/Step Sequence Item",
   component: StepSequenceItem,
-  tags: ["hideInSidebar"],
+  tags: ["!dev"],
   parameters: {
     chromatic: { disableSnapshot: true },
   },

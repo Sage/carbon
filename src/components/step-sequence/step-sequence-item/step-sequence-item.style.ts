@@ -9,11 +9,9 @@ const SIZE_MAP = {
     markerHeight: "32px",
     titleFontSize: "18px",
     titleFontWeight: "500",
-    titleFontStyle: "medium",
     titleFontColour: "--progress-label-default",
     descriptionFontSize: "16px",
     descriptionFontWeight: "400",
-    descriptionFontStyle: "regular",
     descriptionFontColour: "--progress-label-alt",
   },
   small: {
@@ -22,11 +20,9 @@ const SIZE_MAP = {
     markerHeight: "24px",
     titleFontSize: "16px",
     titleFontWeight: "500",
-    titleFontStyle: "medium",
     titleFontColour: "--progress-label-default",
     descriptionFontSize: "14px",
     descriptionFontWeight: "400",
-    descriptionFontStyle: "regular",
     descriptionFontColour: "--progress-label-alt",
   },
 };
@@ -158,7 +154,7 @@ export const StyledStepSequenceItemStepNumber = styled.span<{
           color: #ffffff;
           border: none;
 
-          ::before {
+          &::before {
             content: "";
             position: absolute;
             top: 0;
@@ -192,7 +188,6 @@ export const StyledStepSequenceItemStepTitle = styled.span<{
   ${({ size }) => css`
     font-size: ${SIZE_MAP[size].titleFontSize};
     font-weight: ${SIZE_MAP[size].titleFontWeight};
-    font-style: ${SIZE_MAP[size].titleFontStyle};
     color: var(${SIZE_MAP[size].titleFontColour});
   `}
 `;
@@ -203,7 +198,6 @@ export const StyledStepSequenceItemStepDescription = styled.span<{
   ${({ size }) => css`
     font-size: ${SIZE_MAP[size].descriptionFontSize};
     font-weight: ${SIZE_MAP[size].descriptionFontWeight};
-    font-style: ${SIZE_MAP[size].descriptionFontStyle};
     color: var(${SIZE_MAP[size].descriptionFontColour});
   `}
   margin-top: 2px;

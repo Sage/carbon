@@ -15,7 +15,9 @@ import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags";
 
-export interface StepSequenceItemProps extends TagProps {
+export interface StepSequenceItemProps
+  extends React.LiHTMLAttributes<HTMLLIElement>,
+    TagProps {
   /** A description of the step */
   description?: string;
   /** The position of this step in the sequence */

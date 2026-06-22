@@ -8,6 +8,7 @@ const StyledStepSequence = styled.ol.attrs(applyBaseTheme)<
 >`
   display: flex;
   padding: 24px;
+  margin: 0;
   list-style: none;
 
   ${({ orientation }) =>

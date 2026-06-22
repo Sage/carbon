@@ -26,7 +26,6 @@ export const StepSequence = ({
     <StepSequenceProvider value={{ currentStep, orientation, size }}>
       <StyledStepSequence
         orientation={orientation}
-        p={0}
         {...props}
         {...tagComponent("step-sequence", props)}
       >

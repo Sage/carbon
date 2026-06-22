@@ -25,7 +25,7 @@ test("logs error when not used within StepSequence", () => {
   loggerSpy.mockRestore();
 });
 
-test("renders with provided children and indicator", () => {
+test("renders with provided title and step number", () => {
   render(
     <StepSequence currentStep={1}>
       <StepSequenceItem
@@ -121,14 +121,36 @@ test(`renders with the correct styling for the "medium" size`, () => {
   expect(title).toHaveStyle({
     "font-size": "18px",
     "font-weight": "500",
-    "font-style": "",
     color: "var(--progress-label-default)",
   });
 
   expect(description).toHaveStyle({
     "font-size": "16px",
     "font-weight": "400",
-    "font-style": "",
     color: "var(--progress-label-alt)",
   });
+});
+
+test("renders with aria-current correctly", () => {
+  render(
+    <StepSequence currentStep={2}>
+      <StepSequenceItem
+        stepNumber={1}
+        title="Planning"
+        description={"Start."}
+      />
+      <StepSequenceItem
+        stepNumber={2}
+        title="Planning"
+        description={"Middle."}
+      />
+      <StepSequenceItem stepNumber={3} title="Planning" description={"End."} />
+    </StepSequence>,
+  );
+
+  const steps = screen.getAllByRole("listitem");
+  expect(steps).toHaveLength(3);
+  expect(steps[0]).not.toHaveAttribute("aria-current");
+  expect(steps[1]).toHaveAttribute("aria-current", "step");
+  expect(steps[2]).not.toHaveAttribute("aria-current");
 });

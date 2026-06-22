@@ -53,12 +53,20 @@ description: Carbon StepSequence component props and usage examples.
 ## Examples
 ### Default
 
+**Args**
+
+```tsx
+{
+  currentStep: 1,
+}
+```
+
 **Render**
 
 ```tsx
-({ ...props }) => {
+(props: StepSequenceProps) => {
   return (
-    <StepSequence currentStep={props.currentStep}>
+    <StepSequence {...props}>
       <StepSequenceItem
         stepNumber={1}
         title="Planning"
@@ -87,9 +95,9 @@ description: Carbon StepSequence component props and usage examples.
 **Render**
 
 ```tsx
-({ ...props }) => {
+(props: StepSequenceProps) => {
   return (
-    <StepSequence currentStep={props.currentStep} orientation={"horizontal"}>
+    <StepSequence {...props} orientation={"horizontal"}>
       <StepSequenceItem
         stepNumber={1}
         title="Planning"
