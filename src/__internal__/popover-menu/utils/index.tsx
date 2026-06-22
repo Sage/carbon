@@ -1,7 +1,7 @@
 import React from "react";
 import { MenuItem, MenuItemDivider, MenuItemHeading } from "../menu-item";
 
-const wrapChildrenInItem = (
+export const wrapChildrenInItem = (
   children: React.ReactNode,
 ): React.ReactNode[] | undefined => {
   return React.Children.map(children, (child) => {
@@ -30,4 +30,8 @@ const wrapChildrenInItem = (
     .filter(Boolean);
 };
 
-export default wrapChildrenInItem;
+export const itemQuerySelector = (isSubmenu?: boolean) =>
+  `li[data-component='popover-${isSubmenu ? "submenu" : "menu"}-item']:not([aria-disabled='true'])`;
+
+export const buttonMenuItemQuerySelector = (isSubmenu?: boolean) =>
+  `${itemQuerySelector(isSubmenu)} button:not([disabled]), ${itemQuerySelector(isSubmenu)} a:not([disabled])`;

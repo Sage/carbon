@@ -10,9 +10,9 @@ import {
 } from ".";
 import Icon from "../../components/icon";
 import TextInput from "../../components/textbox/__internal__/__next__";
+import Button from "../../components/button/__next__";
 
 type Size = "small" | "medium" | "large";
-
 interface PopoverMenuComponentProps {
   size?: Size;
   width?: string;
@@ -103,6 +103,67 @@ export const PopoverMenuComponent = ({
             <MenuItemLabel prefix="Item: ">four</MenuItemLabel>
           </MenuItem>
         </MenuItemHeading>
+      </PopoverMenu>
+    </div>
+  );
+};
+
+export const PopoverButtonMenuComponent = ({
+  size = "medium",
+  width,
+  withDisabledItems = false,
+  openByDefault = false,
+}: PopoverMenuComponentProps) => {
+  const [open, setOpen] = useState(openByDefault);
+  const [openSubmenu, setOpenSubmenu] = useState(openByDefault);
+
+  return (
+    <div style={{ margin: "200px", paddingBottom: "400px" }}>
+      <PopoverMenu<HTMLButtonElement>
+        size={size}
+        width={width}
+        open={open}
+        onOpen={() => setOpen(true)}
+        onClose={() => setOpen(false)}
+        isButtonMenu
+        popoverControl={(ref, { role, ...props }) => (
+          <Button
+            ref={ref}
+            {...props}
+            onClick={() => setOpen((p) => !p)}
+            data-role="control-button"
+          >
+            Control
+          </Button>
+        )}
+      >
+        <MenuItem>
+          <Button>
+            <Icon type="home" />
+            Action 1
+          </Button>
+        </MenuItem>
+        <MenuItem disabled={withDisabledItems}>
+          <Button>
+            <Icon type="home" />
+            Action 2
+          </Button>
+        </MenuItem>
+        <MenuItem
+          onSubmenuOpen={() => setOpenSubmenu(true)}
+          onSubmenuClose={() => setOpenSubmenu(false)}
+          submenuOpen={openSubmenu}
+          submenu={
+            <>
+              <Button>Subaction 1</Button>
+            </>
+          }
+        >
+          <Button>
+            <Icon type="home" />
+            Action 3
+          </Button>
+        </MenuItem>
       </PopoverMenu>
     </div>
   );
