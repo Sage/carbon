@@ -9,6 +9,8 @@ import swc from "rollup-plugin-swc3";
 import copy from "rollup-plugin-copy";
 import { visualizer } from "rollup-plugin-visualizer";
 
+const isDevelopment = process.env.NODE_ENV === "development";
+
 export default {
   input: Object.fromEntries(
     glob
@@ -115,7 +117,7 @@ export default {
     json(),
     postcss({
       extract: true,
-      minimize: true,
+      minimize: !isDevelopment,
     }),
     swc({
       jsc: {
@@ -140,7 +142,7 @@ export default {
                 displayName: true,
                 ssr: true,
                 fileName: true,
-                minify: true,
+                minify: !isDevelopment,
                 transpileTemplateLiterals: true,
               },
             ],
@@ -148,23 +150,24 @@ export default {
         },
       },
     }),
-    terser({
-      maxWorkers: 4,
-      compress: {
-        /* Keep console.error and console.warn */
-        pure_funcs: ["console.log", "console.info", "console.debug"],
-        passes: 2,
-        unused: true,
-        dead_code: true,
-      },
-      mangle: true,
-      format: {
-        comments: false,
-      },
-      /* Matches es6 target in tsconfig */
-      ecma: 2015,
-      toplevel: true,
-    }),
+    !isDevelopment &&
+      terser({
+        maxWorkers: 4,
+        compress: {
+          /* Keep console.error and console.warn */
+          pure_funcs: ["console.log", "console.info", "console.debug"],
+          passes: 2,
+          unused: true,
+          dead_code: true,
+        },
+        mangle: true,
+        format: {
+          comments: false,
+        },
+        /* Matches es6 target in tsconfig */
+        ecma: 2015,
+        toplevel: true,
+      }),
     copy({
       targets: [
         { src: "src/style/assets/**/*", dest: "lib/style/assets" },
