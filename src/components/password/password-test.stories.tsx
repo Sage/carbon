@@ -73,7 +73,7 @@ export const Default = (props: PasswordProps) => {
   };
 
   return (
-    <Password label="Password" {...props} value={state} onChange={setValue} />
+    <Password {...props} label="Password" value={state} onChange={setValue} />
   );
 };
 
@@ -88,6 +88,7 @@ export const Validation = () => {
   return (
     <>
       <Password
+        validationMessagePositionTop
         label="Password"
         error="Error Message"
         inputHint="Hint text (optional)."
@@ -96,6 +97,7 @@ export const Validation = () => {
         mb={2}
       />
       <Password
+        validationMessagePositionTop
         label="Password"
         warning="Warning Message"
         value={state}
@@ -103,7 +105,6 @@ export const Validation = () => {
         mb={2}
       />
       <Password
-        validationMessagePositionTop={false}
         label="Password"
         error="Error Message"
         inputHint="Hint text (optional)."
@@ -112,7 +113,6 @@ export const Validation = () => {
         mb={2}
       />
       <Password
-        validationMessagePositionTop={false}
         label="Password"
         warning="Warning Message"
         value={state}
@@ -142,3 +142,40 @@ AutoFocus.parameters = {
   chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
 };
+
+export const Sizes = (props: PasswordProps) => {
+  const [state, setState] = useState("Password");
+  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    setState(target.value);
+  };
+
+  return (
+    <>
+      <Password
+        {...props}
+        label="Password - size small"
+        size="small"
+        value={state}
+        onChange={setValue}
+      />
+      <Password
+        mt={2}
+        {...props}
+        label="Password - size medium"
+        size="medium"
+        value={state}
+        onChange={setValue}
+      />
+      <Password
+        mt={2}
+        {...props}
+        label="Password - size large"
+        size="large"
+        value={state}
+        onChange={setValue}
+      />
+    </>
+  );
+};
+
+Sizes.storyName = "Sizes";
