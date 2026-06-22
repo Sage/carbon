@@ -75,23 +75,23 @@ test(`renders with the correct styling for the "small" size`, () => {
   const step = screen.getByRole("listitem");
 
   expect(step).toHaveStyle({
-    "grid-template-columns": "24px 1fr",
-    "min-width": "56px",
+    "grid-template-columns": "var(--sizing300) 1fr",
+    "min-width": "var(--sizing700)",
   });
 
   const title = screen.getByText("Planning");
   const description = screen.getByText("Early designs and scoping.");
 
   expect(title).toHaveStyle({
-    "font-size": "16px",
-    "font-weight": "500",
+    "font-size": "var(--fontSizes200)",
+    "font-weight": "var(--fontWeights500)",
     "font-style": "",
     color: "var(--progress-label-default)",
   });
 
   expect(description).toHaveStyle({
-    "font-size": "14px",
-    "font-weight": "400",
+    "font-size": "var(--fontSizes100)",
+    "font-weight": "var(--fontWeights400)",
     "font-style": "",
     color: "var(--progress-label-alt)",
   });
@@ -111,22 +111,22 @@ test(`renders with the correct styling for the "medium" size`, () => {
   const step = screen.getByRole("listitem");
 
   expect(step).toHaveStyle({
-    "grid-template-columns": "32px 1fr",
-    "min-width": "64px",
+    "grid-template-columns": "var(--sizing400) 1fr",
+    "min-width": "var(--sizing800)",
   });
 
   const title = screen.getByText("Planning");
   const description = screen.getByText("Early designs and scoping.");
 
   expect(title).toHaveStyle({
-    "font-size": "18px",
-    "font-weight": "500",
+    "font-size": "var(--fontSizes300)",
+    "font-weight": "var(--fontWeights500)",
     color: "var(--progress-label-default)",
   });
 
   expect(description).toHaveStyle({
-    "font-size": "16px",
-    "font-weight": "400",
+    "font-size": "var(--fontSizes200)",
+    "font-weight": "var(--fontWeights400)",
     color: "var(--progress-label-alt)",
   });
 });

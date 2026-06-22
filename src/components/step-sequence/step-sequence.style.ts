@@ -7,7 +7,7 @@ const StyledStepSequence = styled.ol.attrs(applyBaseTheme)<
   Pick<StepSequenceProps, "orientation"> & SpaceProps
 >`
   display: flex;
-  padding: 24px;
+  padding: var(--spacing300);
   margin: 0;
   list-style: none;
 
@@ -20,7 +20,7 @@ const StyledStepSequence = styled.ol.attrs(applyBaseTheme)<
         `
       : css`
           flex-direction: row;
-          margin: 16px;
+          margin: var(--spacing200);
           justify-content: center;
           align-items: flex-start;
           padding-bottom: 60px;
