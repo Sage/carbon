@@ -1,3 +1,9 @@
+## [159.13.0](https://github.com/Sage/carbon/compare/v159.12.3...v159.13.0) (2026-06-22)
+
+### Features
+
+* **password:** align component with fusion DS ([a37278b](https://github.com/Sage/carbon/commit/a37278be78c4c6a7d5f539dfc4b243d1e43f742d))
+
 ## [159.12.3](https://github.com/Sage/carbon/compare/v159.12.2...v159.12.3) (2026-06-18)
 
 ### Bug Fixes
