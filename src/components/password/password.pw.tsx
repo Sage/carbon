@@ -5,9 +5,8 @@ import {
   PasswordComponent,
   PasswordNewDesignsValidation,
 } from "../../../src/components/password/components.test-pw";
-import { buttonMinorComponent } from "../../../playwright/components/button";
+import { buttonDataComponent } from "../../../playwright/components/button";
 import {
-  fieldHelpPreview,
   getDataElementByValue,
   icon,
 } from "../../../playwright/components/index";
@@ -20,21 +19,21 @@ import {
 
 const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const transparent = "rgba(0, 0, 0, 0)";
-const colorsActionMinor500 = "rgb(51, 91, 112)";
-const colorsUtilityMajor300 = "rgb(102, 132, 148)";
 
 test.describe("Prop checks for Password component", () => {
   test("should render with correct input type of password", async ({
     mount,
     page,
   }) => {
-    await mount(<PasswordComponent onChange={() => {}} />);
+    await mount(<PasswordComponent label="password" onChange={() => {}} />);
 
     await expect(passwordInput(page)).toHaveAttribute("type", "password");
   });
 
   test("should render with 'forceObscurity' prop", async ({ mount, page }) => {
-    await mount(<PasswordComponent forceObscurity onChange={() => {}} />);
+    await mount(
+      <PasswordComponent label="password" forceObscurity onChange={() => {}} />,
+    );
 
     await expect(passwordInput(page)).toHaveAttribute("type", "password");
   });
@@ -43,14 +42,14 @@ test.describe("Prop checks for Password component", () => {
     mount,
     page,
   }) => {
-    await mount(<PasswordComponent onChange={() => {}} />);
+    await mount(<PasswordComponent label="password" onChange={() => {}} />);
 
-    await buttonMinorComponent(page).click();
+    await buttonDataComponent(page).click();
     await expect(passwordInput(page)).toHaveAttribute("type", "text");
   });
 
   test("should render with autoComplete 'off'", async ({ mount, page }) => {
-    await mount(<PasswordComponent onChange={() => {}} />);
+    await mount(<PasswordComponent label="password" onChange={() => {}} />);
 
     await expect(passwordInput(page)).toHaveAttribute("autoComplete", "off");
   });
@@ -61,7 +60,9 @@ test.describe("Disabled checks", () => {
     mount,
     page,
   }) => {
-    await mount(<PasswordComponent disabled onChange={() => {}} />);
+    await mount(
+      <PasswordComponent label="password" disabled onChange={() => {}} />,
+    );
 
     await expect(passwordInput(page)).toBeDisabled();
   });
@@ -70,30 +71,36 @@ test.describe("Disabled checks", () => {
     mount,
     page,
   }) => {
-    await mount(<PasswordComponent disabled onChange={() => {}} />);
+    await mount(
+      <PasswordComponent label="password" disabled onChange={() => {}} />,
+    );
 
-    await expect(buttonMinorComponent(page)).toBeDisabled();
+    await expect(buttonDataComponent(page)).toBeDisabled();
   });
 
   test("should disable the button when rendered with 'forceObscurity' prop", async ({
     mount,
     page,
   }) => {
-    await mount(<PasswordComponent forceObscurity onChange={() => {}} />);
+    await mount(
+      <PasswordComponent label="password" forceObscurity onChange={() => {}} />,
+    );
 
-    await expect(buttonMinorComponent(page)).toBeDisabled();
+    await expect(buttonDataComponent(page)).toBeDisabled();
   });
 });
 
-test.describe("Prop checks for ButtonMinor component", () => {
+test.describe("Prop checks for Button component", () => {
   test("should render with correct aria-controls attribute", async ({
     mount,
     page,
   }) => {
     const id = "foo";
-    await mount(<PasswordComponent id={id} onChange={() => {}} />);
+    await mount(
+      <PasswordComponent label="password" id={id} onChange={() => {}} />,
+    );
 
-    await expect(buttonMinorComponent(page)).toHaveAttribute(
+    await expect(buttonDataComponent(page)).toHaveAttribute(
       "aria-controls",
       id,
     );
@@ -103,7 +110,7 @@ test.describe("Prop checks for ButtonMinor component", () => {
     mount,
     page,
   }) => {
-    await mount(<PasswordComponent onChange={() => {}} />);
+    await mount(<PasswordComponent label="password" onChange={() => {}} />);
 
     await expect(icon(page)).toHaveAttribute("type", "view");
   });
@@ -112,7 +119,7 @@ test.describe("Prop checks for ButtonMinor component", () => {
     mount,
     page,
   }) => {
-    await mount(<PasswordComponent onChange={() => {}} />);
+    await mount(<PasswordComponent label="password" onChange={() => {}} />);
 
     await icon(page).click();
     await expect(icon(page)).toHaveAttribute("type", "hide");
@@ -122,46 +129,46 @@ test.describe("Prop checks for ButtonMinor component", () => {
     mount,
     page,
   }) => {
-    await mount(<PasswordComponent onChange={() => {}} />);
+    await mount(<PasswordComponent label="password" onChange={() => {}} />);
 
-    await expect(icon(page)).toHaveCSS("margin-right", "8px");
+    await expect(icon(page)).toHaveCSS("margin-right", "0px");
   });
 
   test("should render with default size of 'small'", async ({
     mount,
     page,
   }) => {
-    await mount(<PasswordComponent onChange={() => {}} />);
+    await mount(<PasswordComponent label="password" onChange={() => {}} />);
 
-    await expect(buttonMinorComponent(page)).toHaveCSS("min-height", "32px");
+    await expect(buttonDataComponent(page)).toHaveCSS("min-height", "40px");
   });
 
   test("should render with default label of 'Show'", async ({
     mount,
     page,
   }) => {
-    await mount(<PasswordComponent onChange={() => {}} />);
+    await mount(<PasswordComponent label="password" onChange={() => {}} />);
 
-    await expect(buttonMinorComponent(page)).toHaveText("Show");
+    await expect(buttonDataComponent(page)).toHaveText("Show");
   });
 
   test("label should change from 'Show' to 'Hide' on click", async ({
     mount,
     page,
   }) => {
-    await mount(<PasswordComponent onChange={() => {}} />);
+    await mount(<PasswordComponent label="password" onChange={() => {}} />);
 
-    await buttonMinorComponent(page).click();
-    await expect(buttonMinorComponent(page)).toHaveText("Hide");
+    await buttonDataComponent(page).click();
+    await expect(buttonDataComponent(page)).toHaveText("Hide");
   });
 
   test("should render with with a default aria-label of 'Show password'", async ({
     mount,
     page,
   }) => {
-    await mount(<PasswordComponent onChange={() => {}} />);
+    await mount(<PasswordComponent label="password" onChange={() => {}} />);
 
-    await expect(buttonMinorComponent(page)).toHaveAttribute(
+    await expect(buttonDataComponent(page)).toHaveAttribute(
       "aria-label",
       "Show password",
     );
@@ -171,11 +178,11 @@ test.describe("Prop checks for ButtonMinor component", () => {
     mount,
     page,
   }) => {
-    await mount(<PasswordComponent onChange={() => {}} />);
+    await mount(<PasswordComponent label="password" onChange={() => {}} />);
 
-    await buttonMinorComponent(page).click();
+    await buttonDataComponent(page).click();
 
-    await expect(buttonMinorComponent(page)).toHaveAttribute(
+    await expect(buttonDataComponent(page)).toHaveAttribute(
       "aria-label",
       "Hide password",
     );
@@ -185,90 +192,87 @@ test.describe("Prop checks for ButtonMinor component", () => {
     mount,
     page,
   }) => {
-    await mount(<PasswordComponent onChange={() => {}} />);
+    await mount(<PasswordComponent label="password" onChange={() => {}} />);
 
-    await expect(buttonMinorComponent(page)).toBeVisible();
-    await expect(buttonMinorComponent(page)).toHaveCSS(
+    await expect(buttonDataComponent(page)).toBeVisible();
+    await expect(buttonDataComponent(page)).toHaveCSS(
       "background-color",
       transparent,
     );
 
-    await expect(buttonMinorComponent(page)).toHaveCSS(
+    await expect(buttonDataComponent(page)).toHaveCSS(
       "color",
-      colorsActionMinor500,
+      "rgba(0, 0, 0, 0.92)",
     );
 
     const colorToken = (
       await getDesignTokensByCssProperty(
         page,
-        buttonMinorComponent(page),
+        buttonDataComponent(page),
         "color",
       )
     ).pop();
 
-    expect(colorToken).toBe("--colorsActionMinor500");
+    expect(colorToken).toBe("--button-typical-subtle-label-default");
   });
 
   test("default button type of 'tertiary' and tertiary styling should be the same on hover", async ({
     mount,
     page,
   }) => {
-    await mount(<PasswordComponent onChange={() => {}} />);
-    await buttonMinorComponent(page).hover();
+    await mount(<PasswordComponent label="password" onChange={() => {}} />);
+    await buttonDataComponent(page).hover();
 
-    await expect(buttonMinorComponent(page)).toBeVisible();
-    await expect(buttonMinorComponent(page)).toHaveCSS(
+    await expect(buttonDataComponent(page)).toBeVisible();
+    await expect(buttonDataComponent(page)).toHaveCSS(
       "background-color",
-      transparent,
+      "rgb(232, 234, 236)",
     );
 
-    await expect(buttonMinorComponent(page)).toHaveCSS(
-      "color",
-      colorsActionMinor500,
-    );
+    await expect(buttonDataComponent(page)).toHaveCSS("color", "rgb(0, 0, 0)");
 
     const colorToken = (
       await getDesignTokensByCssProperty(
         page,
-        buttonMinorComponent(page),
+        buttonDataComponent(page),
         "color",
       )
     ).pop();
 
-    expect(colorToken).toBe("--colorsActionMinor500");
+    expect(colorToken).toBe("--button-typical-subtle-label-hover");
   });
 
   test("should render with a default icon color of 'colorsUtilityMajor300'", async ({
     mount,
     page,
   }) => {
-    await mount(<PasswordComponent onChange={() => {}} />);
+    await mount(<PasswordComponent label="password" onChange={() => {}} />);
 
     await expect(icon(page)).toBeVisible();
-    await expect(icon(page)).toHaveCSS("color", colorsUtilityMajor300);
+    await expect(icon(page)).toHaveCSS("color", "rgba(0, 0, 0, 0.92)");
 
     const colorToken = (
       await getDesignTokensByCssProperty(page, icon(page), "color")
     ).pop();
 
-    expect(colorToken).toBe("--colorsUtilityMajor300");
+    expect(colorToken).toBe("--container-standard-icon");
   });
 
   test("icon color is 'colorsUtilityMajor300' on hover'", async ({
     mount,
     page,
   }) => {
-    await mount(<PasswordComponent onChange={() => {}} />);
-    await buttonMinorComponent(page).hover();
+    await mount(<PasswordComponent label="password" onChange={() => {}} />);
+    await buttonDataComponent(page).hover();
 
     await expect(icon(page)).toBeVisible();
-    await expect(icon(page)).toHaveCSS("color", colorsUtilityMajor300);
+    await expect(icon(page)).toHaveCSS("color", "rgb(0, 0, 0)");
 
     const colorToken = (
       await getDesignTokensByCssProperty(page, icon(page), "color")
     ).pop();
 
-    expect(colorToken).toBe("--colorsUtilityMajor300");
+    expect(colorToken).toBe("--container-standard-icon");
   });
 });
 
@@ -277,7 +281,7 @@ test.describe("aria-live region checks", () => {
     mount,
     page,
   }) => {
-    await mount(<PasswordComponent onChange={() => {}} />);
+    await mount(<PasswordComponent label="password" onChange={() => {}} />);
 
     const hiddenStatus = page.getByRole("status");
     await expect(hiddenStatus).toHaveText("Your password is currently hidden.");
@@ -287,8 +291,8 @@ test.describe("aria-live region checks", () => {
     mount,
     page,
   }) => {
-    await mount(<PasswordComponent onChange={() => {}} />);
-    await buttonMinorComponent(page).click();
+    await mount(<PasswordComponent label="password" onChange={() => {}} />);
+    await buttonDataComponent(page).click();
 
     const hiddenStatus = page.getByRole("status");
     await expect(hiddenStatus).toHaveText(
@@ -300,7 +304,7 @@ test.describe("aria-live region checks", () => {
     mount,
     page,
   }) => {
-    await mount(<PasswordComponent onChange={() => {}} />);
+    await mount(<PasswordComponent label="password" onChange={() => {}} />);
     const hiddenStatus = page.getByRole("status");
 
     await expect(hiddenStatus).toBeVisible();
@@ -332,33 +336,18 @@ test.describe("Prop checks for rendered Textbox", () => {
     });
   });
 
-  specialCharacters.forEach((specificValue) => {
-    test(`should render with fieldHelp prop as ${specificValue}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <PasswordComponent fieldHelp={specificValue} onChange={() => {}} />,
-      );
-
-      await expect(fieldHelpPreview(page)).toHaveText(specificValue);
-    });
-  });
-
-  test("should render with an input icon", async ({ mount, page }) => {
-    await mount(<PasswordComponent inputIcon="add" onChange={() => {}} />);
-
-    await expect(getDataElementByValue(page, "add")).toBeVisible();
-  });
-
   test("should render with required prop", async ({ mount, page }) => {
-    await mount(<PasswordComponent required onChange={() => {}} />);
+    await mount(
+      <PasswordComponent label="password" required onChange={() => {}} />,
+    );
 
     await verifyRequiredAsteriskForLabel(page);
   });
 
   test("should render with autofocus prop", async ({ mount, page }) => {
-    await mount(<PasswordComponent autoFocus onChange={() => {}} />);
+    await mount(
+      <PasswordComponent label="password" autoFocus onChange={() => {}} />,
+    );
 
     await expect(passwordInput(page)).toBeFocused();
   });
@@ -369,7 +358,7 @@ test.describe("Accessibility tests for Password component", () => {
     mount,
     page,
   }) => {
-    await mount(<PasswordComponent onChange={() => {}} />);
+    await mount(<PasswordComponent label="password" onChange={() => {}} />);
     await checkAccessibility(page);
   });
 
@@ -377,7 +366,9 @@ test.describe("Accessibility tests for Password component", () => {
     mount,
     page,
   }) => {
-    await mount(<PasswordComponent autoFocus onChange={() => {}} />);
+    await mount(
+      <PasswordComponent label="password" autoFocus onChange={() => {}} />,
+    );
     await checkAccessibility(page);
   });
 
@@ -385,7 +376,13 @@ test.describe("Accessibility tests for Password component", () => {
     mount,
     page,
   }) => {
-    await mount(<PasswordComponent characterLimit={5} onChange={() => {}} />);
+    await mount(
+      <PasswordComponent
+        label="password"
+        characterLimit={5}
+        onChange={() => {}}
+      />,
+    );
     await checkAccessibility(page);
   });
 
@@ -393,7 +390,9 @@ test.describe("Accessibility tests for Password component", () => {
     mount,
     page,
   }) => {
-    await mount(<PasswordComponent disabled onChange={() => {}} />);
+    await mount(
+      <PasswordComponent label="password" disabled onChange={() => {}} />,
+    );
     await checkAccessibility(page);
   });
 
@@ -401,7 +400,9 @@ test.describe("Accessibility tests for Password component", () => {
     mount,
     page,
   }) => {
-    await mount(<PasswordComponent forceObscurity onChange={() => {}} />);
+    await mount(
+      <PasswordComponent label="password" forceObscurity onChange={() => {}} />,
+    );
     await checkAccessibility(page);
   });
 
@@ -409,7 +410,13 @@ test.describe("Accessibility tests for Password component", () => {
     mount,
     page,
   }) => {
-    await mount(<PasswordComponent inputHint="foo" onChange={() => {}} />);
+    await mount(
+      <PasswordComponent
+        label="password"
+        inputHint="foo"
+        onChange={() => {}}
+      />,
+    );
     await checkAccessibility(page);
   });
 
@@ -425,7 +432,9 @@ test.describe("Accessibility tests for Password component", () => {
     mount,
     page,
   }) => {
-    await mount(<PasswordComponent prefix="foo" onChange={() => {}} />);
+    await mount(
+      <PasswordComponent label="password" prefix="foo" onChange={() => {}} />,
+    );
     await checkAccessibility(page);
   });
 
@@ -433,7 +442,9 @@ test.describe("Accessibility tests for Password component", () => {
     mount,
     page,
   }) => {
-    await mount(<PasswordComponent readOnly onChange={() => {}} />);
+    await mount(
+      <PasswordComponent label="password" readOnly onChange={() => {}} />,
+    );
     await checkAccessibility(page);
   });
 });
