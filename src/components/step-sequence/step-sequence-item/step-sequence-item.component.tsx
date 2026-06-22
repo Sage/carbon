@@ -47,6 +47,7 @@ export const StepSequenceItem = ({
       key={`step-seq-item-${stepNumber}`}
       size={size}
       {...tagComponent("step-sequence-item", props)}
+      {...props}
     >
       <StyledStepSequenceItemMarkerContainer orientation={orientation}>
         <StyledStepSequenceItemStepNumber
