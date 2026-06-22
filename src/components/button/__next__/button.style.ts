@@ -342,6 +342,21 @@ export const StyledButton = styled.button<
     position: relative;
     z-index: 1;
   }
+
+  .popover-menu-item & {
+    width: 100%;
+    justify-content: flex-start;
+    background-color: transparent;
+    color: currentColor;
+    border-radius: 0;
+    border: none;
+
+    &:focus {
+      ${addFocusStyling(true)}
+      position: relative;
+      z-index: 1;
+    }
+  }
 `;
 
 export default StyledButton;

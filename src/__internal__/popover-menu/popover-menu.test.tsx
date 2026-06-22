@@ -146,17 +146,14 @@ test("aria-controls on the button references the listbox id", () => {
   expect(button).toHaveAttribute("aria-controls", listbox.id);
 });
 
-test("id prop is applied to the outer wrapper element", () => {
+test("id prop is applied to the list element", () => {
   renderPopoverMenu({
     id: "my-menu",
     "data-role": "popover-menu-role",
     open: true,
   });
 
-  expect(screen.getByTestId("popover-menu-role")).toHaveAttribute(
-    "id",
-    "my-menu",
-  );
+  expect(screen.getAllByRole("listbox")[0]).toHaveAttribute("id", "my-menu");
 });
 
 describe("when the list opens", () => {

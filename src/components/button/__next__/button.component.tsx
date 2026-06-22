@@ -3,6 +3,7 @@ import React, {
   ReactNode,
   useRef,
   useImperativeHandle,
+  useContext,
 } from "react";
 import { SpaceProps } from "styled-system";
 
@@ -15,6 +16,7 @@ import useMediaQuery from "../../../hooks/useMediaQuery";
 import { Size, Variant, VariantType } from "./button.config";
 import isIconOnly from "./__internal__/utils/is-icon-only";
 import Icon from "../../icon";
+import { PopoverMenuContext } from "../../../__internal__/popover-menu/contexts";
 
 export type ButtonHandle = {
   /** Programmatically focus the button. */
@@ -180,8 +182,9 @@ export const Button = forwardRef<ButtonHandle, ButtonProps>(
   ) => {
     const buttonRef = useRef<HTMLButtonElement>(null);
     const hasChildren = children !== undefined && children !== false;
-
     const iconOnly = (!!iconType && !hasChildren) || isIconOnly(children);
+    const { size: menuItemSize, isButtonMenu } = useContext(PopoverMenuContext);
+    const computedSize = isButtonMenu ? menuItemSize : size;
 
     useImperativeHandle<ButtonHandle, ButtonHandle>(
       ref,
@@ -280,7 +283,7 @@ export const Button = forwardRef<ButtonHandle, ButtonProps>(
         $noWrap={noWrap}
         onClick={handleClick}
         ref={buttonRef}
-        $size={size}
+        $size={computedSize}
         $variant={computedVariant}
         $variantType={computedVariantType}
         $iconOnly={iconOnly}

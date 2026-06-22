@@ -119,7 +119,10 @@ test.each(["small", "medium", "large"] as const)(
     expect(item).toHaveStyleRule(
       "min-height",
       `var(--global-size-${size[0]})`,
-      { modifier: ":not(:has(.menu-item-subtext))" },
+      {
+        modifier:
+          ":not(:has(button)):not(:has(a)):not(:has(.menu-item-subtext))",
+      },
     );
     expect(item).toHaveStyleRule(
       "font",

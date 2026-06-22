@@ -1,14 +1,26 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useRef,
+  forwardRef,
+  useState,
+} from "react";
 import styled, { css } from "styled-components";
-import Popover from "../popover";
+import Popover, { PopoverProps } from "../popover";
 import { flip, offset, size } from "@floating-ui/dom";
 import wrapChildrenInMenuItems from "./utils";
 import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
 import { ButtonHandle } from "../../components/button/__next__";
 import { useHandleDropdownMenuKeyDown } from "./hooks";
 import guid from "../utils/helpers/guid";
-import { PopoverMenuContext, type PopoverMenuContextProps } from "./contexts";
+import {
+  PopoverMenuContext,
+  PopoverMenuContextProps,
+  PopoverControlProps,
+  SubmenuRenderProps,
+} from "./contexts";
 import { TagProps } from "../utils/helpers/tags";
+import combineRefs from "../utils/helpers/combine-refs";
 
 const PopoverControlWrapper = styled.div`
   display: inline-block;
@@ -53,13 +65,10 @@ const MenuWrapper = styled.div<{ $size: PopoverMenuContextProps["size"] }>`
   overflow: hidden;
 `;
 
-interface PopoverControlProps {
-  "aria-haspopup": "listbox" | "menu";
-  "aria-controls"?: string;
-  "aria-expanded"?: boolean;
-  role?: string;
-  "aria-activedescendant"?: string;
-}
+const ScrollWrapper = styled.div`
+  max-height: 100%;
+  width: 100%;
+`;
 
 type FocusableHandle =
   | NonNullable<ButtonHandle>
@@ -82,7 +91,7 @@ export interface PopoverMenuProps<
   /** Whether the popover menu is open or not */
   open: boolean;
   /** The element that the popover menu is anchored to */
-  popoverControl?: (
+  popoverControl: (
     ref: React.RefObject<TRef>,
     props: PopoverControlProps,
   ) => React.ReactNode;
@@ -112,22 +121,39 @@ export interface PopoverMenuProps<
   /** Callback when the popover menu is opened */
   onOpen: () => void;
   /** Callback when the popover menu is closed */
-  onClose: (e?: Event, value?: string) => void;
+  onClose: (e?: Event) => void;
   /** Set the custom width of the menu */
   width?: string;
   /** Aria labelledby for the listbox */
   listboxAriaLabelledBy?: string;
+
+  isButtonMenu?: boolean;
+
+  isSubmenu?: boolean;
+
+  focusSubmenuParent?: () => void;
+
+  /** Internal: override the Popover reference element (used for submenu positioning) */
+  controlReference?: React.RefObject<HTMLLIElement>;
+
+  listRef?: React.Ref<HTMLUListElement>;
 }
 
 const OFFSET = 8;
+const SUBMENU_OFFSET = 0;
 
-const menuPopoverMiddleware = (width?: string) => [
-  offset(OFFSET),
+const menuPopoverMiddleware = (
+  width?: string,
+  isButtonMenu?: boolean,
+  isSubmenu?: boolean,
+) => [
+  offset(isSubmenu ? SUBMENU_OFFSET : OFFSET),
   flip({
     fallbackStrategy: "initialPlacement",
   }),
   size({
     apply({ rects, elements }) {
+      if (isButtonMenu) return;
       elements.floating.style.width = width || `${rects.reference.width}px`;
     },
   }),
@@ -146,33 +172,169 @@ const focusControl = (handle: FocusableHandle | null) => {
   }
 };
 
-const PopoverMenu = <TRef extends FocusableHandle = NonNullable<ButtonHandle>>({
-  children,
+interface MenuProps {
+  open: boolean;
+  placement: PopoverMenuProps["placement"];
+  controlWrapperRef: React.RefObject<HTMLDivElement | HTMLLIElement>;
+  size: "small" | "medium" | "large";
+  listRef: React.Ref<HTMLUListElement>;
+  listboxAriaLabelledBy?: string;
+  isButtonMenu?: boolean;
+  children: React.ReactNode;
+  onKeyDown: (ev: React.KeyboardEvent<HTMLElement>) => void;
+  middleware: PopoverProps["middleware"];
+  scrollRef: React.RefObject<HTMLDivElement>;
+  listId: string;
+  disablePortal?: boolean;
+}
+
+const Menu = ({
   open,
-  popoverControl,
-  size = "medium",
-  placement = "bottom-end",
-  onOpen,
-  onClose,
-  width,
+  placement,
+  controlWrapperRef,
+  size,
+  listRef,
   listboxAriaLabelledBy,
-  ...rest
-}: PopoverMenuProps<TRef>) => {
+  isButtonMenu,
+  children,
+  onKeyDown,
+  middleware,
+  scrollRef,
+  listId,
+  disablePortal,
+}: MenuProps) => {
+  return (
+    <Popover
+      placement={placement}
+      reference={controlWrapperRef}
+      isOpen={open}
+      data-component="popover-menu"
+      middleware={middleware}
+      disablePortal={disablePortal}
+      popoverStrategy="fixed"
+    >
+      <MenuWrapper
+        $size={size}
+        onKeyDown={onKeyDown}
+        data-role="menu-wrapper"
+        onMouseDown={(e) => e.preventDefault()}
+      >
+        <ScrollWrapper ref={scrollRef} data-component="scroll-wrapper">
+          <List
+            $size={size}
+            ref={listRef}
+            role={isButtonMenu ? "menu" : "listbox"}
+            id={listId}
+            aria-labelledby={listboxAriaLabelledBy}
+          >
+            {children}
+          </List>
+        </ScrollWrapper>
+      </MenuWrapper>
+    </Popover>
+  );
+};
+
+interface ControlProps<
+  TRef extends FocusableHandle = NonNullable<ButtonHandle>,
+> {
+  open: boolean;
+  isButtonMenu?: boolean;
+  isSubmenu?: boolean;
+  popoverControl: PopoverMenuProps<TRef>["popoverControl"];
+  controlRef: React.RefObject<TRef>;
+  controlWrapperRef: React.RefObject<HTMLDivElement>;
+  onKeyDown: (ev: React.KeyboardEvent<HTMLElement>) => void;
+  listId: string;
+  "aria-activedescendant"?: string;
+}
+
+const Control = <TRef extends FocusableHandle = NonNullable<ButtonHandle>>({
+  open,
+  isButtonMenu,
+  isSubmenu,
+  popoverControl,
+  controlRef,
+  controlWrapperRef,
+  onKeyDown,
+  listId,
+  "aria-activedescendant": ariaActivedescendant,
+}: ControlProps<TRef>) => {
+  return isSubmenu ? (
+    popoverControl(controlRef, {
+      "aria-haspopup": "menu",
+      // this will cause axe to flag as incomplete, that means it needs manually checking
+      "aria-controls": open ? listId : undefined,
+      "aria-expanded": open,
+      "aria-activedescendant": ariaActivedescendant,
+      role: "menuitem",
+    })
+  ) : (
+    <PopoverControlWrapper
+      ref={controlWrapperRef}
+      onKeyDown={onKeyDown}
+      data-component="popover-menu-control"
+    >
+      {popoverControl(controlRef, {
+        "aria-haspopup": isButtonMenu ? "menu" : "listbox",
+        // this will cause axe to flag as incomplete, that means it needs manually checking
+        "aria-controls": open ? listId : undefined,
+        "aria-expanded": open,
+        "aria-activedescendant": ariaActivedescendant,
+        role: isButtonMenu ? undefined : "combobox",
+      })}
+    </PopoverControlWrapper>
+  );
+};
+
+const PopoverMenuInner = <
+  TRef extends FocusableHandle = NonNullable<ButtonHandle>,
+>(
+  {
+    children,
+    open,
+    popoverControl,
+    size = "medium",
+    placement = "bottom-end",
+    onOpen,
+    onClose,
+    width,
+    listboxAriaLabelledBy,
+    isButtonMenu = false,
+    isSubmenu = false,
+    focusSubmenuParent,
+    id,
+    controlReference,
+    listRef,
+    ...rest
+  }: PopoverMenuProps<TRef>,
+  ref: React.ForwardedRef<HTMLDivElement>,
+) => {
   const controlWrapperRef = useRef<HTMLDivElement | null>(null);
   const scrollRef = useRef<HTMLDivElement | null>(null);
-  const listRef = useRef<HTMLUListElement | null>(null);
-  const listId = useRef(`popover-menu-scroll-wrapper-${guid()}`);
+  const internalListRef = useRef<HTMLUListElement | null>(null);
+  const combinedListRef = combineRefs(listRef, internalListRef);
+  const listId = useRef(id ?? `popover-menu-wrapper-${guid()}`);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
+  const combinedWrapperRef = combineRefs(wrapperRef, ref);
   const wrappedChildren = wrapChildrenInMenuItems(children);
   const controlRef = useRef<TRef>(null);
   const handleClickInside = useClickAwayListener(onClose);
-  const computedMiddleware = menuPopoverMiddleware(width);
   const [ariaActivedescendant, setAriaActivedescendant] = useState<string>("");
+  const computedMiddleware = menuPopoverMiddleware(
+    width,
+    isButtonMenu,
+    isSubmenu,
+  );
+  const rAFRef = useRef<number | null>(null);
+  const popoverReference: React.RefObject<HTMLDivElement | HTMLLIElement> =
+    controlReference ?? controlWrapperRef;
 
   const handleMainWrapperKeyDown = useCallback(
     (ev: KeyboardEvent) => {
       if (open && ev.key === "Escape") {
         ev.preventDefault();
+        ev.stopPropagation();
         onClose();
         focusControl(controlRef.current);
       }
@@ -193,8 +355,11 @@ const PopoverMenu = <TRef extends FocusableHandle = NonNullable<ButtonHandle>>({
   }, [handleClickInside, handleMainWrapperKeyDown]);
 
   const handleDropdownMenuKeyDown = useHandleDropdownMenuKeyDown(
-    listRef,
+    internalListRef,
     setAriaActivedescendant,
+    onClose,
+    isButtonMenu,
+    isSubmenu,
   );
 
   const handleControlKeyDown: React.KeyboardEventHandler<HTMLElement> =
@@ -207,67 +372,146 @@ const PopoverMenu = <TRef extends FocusableHandle = NonNullable<ButtonHandle>>({
           handleDropdownMenuKeyDown(ev);
 
           return;
+        } else if (!open && isButtonMenu && !isSubmenu) {
+          if (ev.key === "Enter" || ev.key === " " || ev.key === "ArrowDown") {
+            ev.preventDefault();
+            onOpen();
+
+            if (rAFRef.current) {
+              cancelAnimationFrame(rAFRef.current);
+            }
+
+            rAFRef.current = requestAnimationFrame(() => {
+              const firstMenuItem = scrollRef.current?.querySelector(
+                `div[data-component='popover-menu-item']:not([aria-disabled='true']) button, a`,
+              ) as HTMLElement | null;
+              firstMenuItem?.focus();
+            });
+
+            return;
+          }
+
+          if (ev.key === "ArrowUp") {
+            ev.preventDefault();
+            onOpen();
+
+            if (rAFRef.current) {
+              cancelAnimationFrame(rAFRef.current);
+            }
+
+            rAFRef.current = requestAnimationFrame(() => {
+              const items = scrollRef.current?.querySelectorAll(
+                `li[data-component='popover-menu-item']:not([aria-disabled='true']) button, a`,
+              );
+              const lastMenuItem = items?.[
+                items.length - 1
+              ] as HTMLElement | null;
+              lastMenuItem?.focus();
+            });
+
+            return;
+          }
         }
       },
-      [open, handleDropdownMenuKeyDown],
+      [open, handleDropdownMenuKeyDown, isButtonMenu, onOpen, isSubmenu],
     );
 
-  useEffect(() => {
-    if (!open) {
-      setAriaActivedescendant("");
-    }
-  }, [open]);
+  /* eslint-disable @typescript-eslint/no-use-before-define */
+  const renderSubmenu = useCallback(
+    (props: SubmenuRenderProps) => (
+      <PopoverMenu
+        open={props.open}
+        onOpen={props.onOpen}
+        onClose={(ev) => {
+          props.onClose();
 
-  return (
-    <div ref={wrapperRef} data-component="popover-menu" {...rest}>
-      {popoverControl && (
-        <PopoverControlWrapper
-          ref={controlWrapperRef}
-          onKeyDown={handleControlKeyDown}
-          data-component="popover-menu-control"
-        >
-          {popoverControl(controlRef, {
-            "aria-haspopup": "listbox",
-            "aria-controls": listId.current,
-            "aria-expanded": open,
-            role: "combobox",
-            "aria-activedescendant":
-              open && ariaActivedescendant ? ariaActivedescendant : undefined,
-          })}
-        </PopoverControlWrapper>
-      )}
-      <PopoverMenuContext.Provider value={{ size }}>
+          // need to call both submenu and parent menu close handlers when clicking outside
+          if (
+            ev?.type === "click" &&
+            !wrapperRef.current?.contains(ev?.target as Node)
+          ) {
+            onClose(ev);
+          }
+        }}
+        size={props.size}
+        isButtonMenu
+        isSubmenu
+        width={props.submenuWidth}
+        listRef={props.ref}
+        focusSubmenuParent={props.focusSubmenuParent}
+        popoverControl={(_ref, controlProps) => props.control(controlProps)}
+        placement="right-start"
+        controlReference={props.triggerRef}
+      >
+        {props.submenu}
+      </PopoverMenu>
+    ),
+    [onClose],
+  );
+  /* eslint-enable @typescript-eslint/no-use-before-define */
+
+  const rendered = (
+    <>
+      <Control<TRef>
+        open={open}
+        isButtonMenu={isButtonMenu}
+        isSubmenu={isSubmenu}
+        popoverControl={popoverControl}
+        controlRef={controlRef}
+        controlWrapperRef={controlWrapperRef}
+        onKeyDown={handleControlKeyDown}
+        listId={listId.current}
+        aria-activedescendant={
+          open && ariaActivedescendant ? ariaActivedescendant : undefined
+        }
+      />
+      <PopoverMenuContext.Provider
+        value={{
+          size,
+          isButtonMenu,
+          isSubmenu,
+          onSubmenuCloseContext: isSubmenu ? onClose : undefined,
+          focusSubmenuParent: isSubmenu ? focusSubmenuParent : undefined,
+          renderSubmenu: isButtonMenu && !isSubmenu ? renderSubmenu : undefined,
+        }}
+      >
         {open && (
-          <Popover
+          <Menu
+            open={open}
             placement={placement}
-            reference={controlWrapperRef}
-            isOpen={open}
-            data-component="popover-menu"
+            controlWrapperRef={popoverReference}
+            size={size}
+            listRef={combinedListRef}
+            listboxAriaLabelledBy={listboxAriaLabelledBy}
+            isButtonMenu={isButtonMenu}
+            onKeyDown={handleDropdownMenuKeyDown}
             middleware={computedMiddleware}
-            disablePortal
-            popoverStrategy="fixed"
+            scrollRef={scrollRef}
+            listId={listId.current}
+            disablePortal={!isSubmenu}
           >
-            <MenuWrapper
-              $size={size}
-              data-role="menu-wrapper"
-              onMouseDown={(e) => e.preventDefault()}
-              ref={scrollRef}
-            >
-              <List
-                $size={size}
-                ref={listRef}
-                role="listbox"
-                id={listId.current}
-                aria-labelledby={listboxAriaLabelledBy}
-              >
-                {wrappedChildren}
-              </List>
-            </MenuWrapper>
-          </Popover>
+            {wrappedChildren}
+          </Menu>
         )}
       </PopoverMenuContext.Provider>
+    </>
+  );
+
+  return isSubmenu ? (
+    rendered
+  ) : (
+    <div ref={combinedWrapperRef} data-component="popover-menu" {...rest}>
+      {rendered}
     </div>
   );
 };
+
+const PopoverMenu = forwardRef(PopoverMenuInner) as <
+  TRef extends FocusableHandle = NonNullable<ButtonHandle>,
+>(
+  props: PopoverMenuProps<TRef> & {
+    ref?: React.ForwardedRef<HTMLUListElement>;
+  },
+) => React.ReactElement;
 
 export default PopoverMenu;
