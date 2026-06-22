@@ -8,8 +8,10 @@ import postcss from "rollup-plugin-postcss";
 import swc from "rollup-plugin-swc3";
 import copy from "rollup-plugin-copy";
 import { visualizer } from "rollup-plugin-visualizer";
+import packageJson from "./package.json" with { type: "json" };
 
 const isDevelopment = process.env.NODE_ENV === "development";
+const sanitizeForCSS = (str) => str.replace(/[^a-zA-Z0-9]/g, "_");
 
 export default {
   input: Object.fromEntries(
@@ -144,6 +146,7 @@ export default {
                 fileName: true,
                 minify: !isDevelopment,
                 transpileTemplateLiterals: true,
+                namespace: sanitizeForCSS(`carbon-v${packageJson.version}`),
               },
             ],
           ],
