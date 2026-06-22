@@ -55,6 +55,8 @@ export interface PopoverProps {
    * Allows child ref to be set via a prop instead of dynamically finding it via children iteration.
    */
   childRefOverride?: MutableRefObject<HTMLDivElement | null>;
+  /** Optional custom portal container. Defaults to document.body (or the closest dialog in a modal). */
+  portalTarget?: HTMLElement | null;
 }
 
 const defaultMiddleware = [
@@ -110,7 +112,7 @@ const PopoverRoot = ({
   );
 };
 
-const Popover = ({ disablePortal, ...props }: PopoverProps) => {
+const Popover = ({ disablePortal, portalTarget, ...props }: PopoverProps) => {
   const { isBrowser } = useIsBrowser();
   const { isInModal } = useContext<ModalContextProps>(ModalContext);
   const closestDialog =
@@ -124,11 +126,15 @@ const Popover = ({ disablePortal, ...props }: PopoverProps) => {
     return null;
   }
 
+  const target =
+    portalTarget ??
+    (isInModal && closestDialog ? closestDialog : document.body);
+
   return createPortal(
     <CarbonScopedTokensProvider className="carbon-portal-scoped-tokens-provider">
       <PopoverRoot {...props} />
     </CarbonScopedTokensProvider>,
-    isInModal && closestDialog ? closestDialog : document.body,
+    target,
   );
 };
 

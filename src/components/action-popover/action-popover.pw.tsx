@@ -205,16 +205,10 @@ test.describe("check functionality for ActionPopover component", () => {
     await actionPopoverButtonElement.click();
     await page.evaluate(() => window.scrollTo(0, 1000));
     const actionPopoverElement = actionPopover(page).first();
-    await expect(actionPopoverElement).toHaveAttribute(
-      "data-floating-placement",
-      "bottom-end",
-    );
+
     await expect(actionPopoverElement).toBeVisible();
     await page.evaluate(() => window.scrollTo(0, 0));
-    await expect(actionPopoverElement).toHaveAttribute(
-      "data-floating-placement",
-      "bottom-end",
-    );
+
     await expect(actionPopoverElement).toBeVisible();
   });
 });

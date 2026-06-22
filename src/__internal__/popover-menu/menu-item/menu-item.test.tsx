@@ -119,11 +119,35 @@ test.each(["small", "medium", "large"] as const)(
     expect(item).toHaveStyleRule(
       "min-height",
       `var(--global-size-${size[0]})`,
-      { modifier: ":not(:has(.menu-item-subtext))" },
+      {
+        modifier:
+          ":not(:has(button)):not(:has(a)):not(:has(.menu-item-subtext))",
+      },
     );
     expect(item).toHaveStyleRule(
       "font",
       `var(--global-font-static-comp-regular-${size[0]})`,
+      { modifier: `*:not(.menu-item-subtext):not(.menu-item-label-prefix)` },
+    );
+  },
+);
+
+test.each(["small", "medium", "large"] as const)(
+  "renders with size %s from context when isButtonMenu is true",
+  (size) => {
+    render(
+      <PopoverMenuContext.Provider value={{ size, isButtonMenu: true }}>
+        <ul>
+          <MenuItem data-role="menuitem">Menu item</MenuItem>
+        </ul>
+      </PopoverMenuContext.Provider>,
+    );
+
+    const item = screen.getByTestId("menuitem");
+
+    expect(item).toHaveStyleRule(
+      "font",
+      `var(--global-font-static-comp-medium-${size[0]})`,
       { modifier: `*:not(.menu-item-subtext):not(.menu-item-label-prefix)` },
     );
   },
