@@ -60,3 +60,75 @@ test("renders with provided data- attributes", () => {
   expect(step).toHaveAttribute("data-element", "bar");
   expect(step).toHaveAttribute("data-role", "baz");
 });
+
+test(`renders with the correct styling for the "small" size`, () => {
+  render(
+    <StepSequence currentStep={1} size={"small"}>
+      <StepSequenceItem
+        stepNumber={1}
+        title="Planning"
+        description={"Early designs and scoping."}
+      />
+    </StepSequence>,
+  );
+
+  const step = screen.getByRole("listitem");
+
+  expect(step).toHaveStyle({
+    "grid-template-columns": "24px 1fr",
+    "min-width": "56px",
+  });
+
+  const title = screen.getByText("Planning");
+  const description = screen.getByText("Early designs and scoping.");
+
+  expect(title).toHaveStyle({
+    "font-size": "16px",
+    "font-weight": "500",
+    "font-style": "",
+    color: "var(--progress-label-default)",
+  });
+
+  expect(description).toHaveStyle({
+    "font-size": "14px",
+    "font-weight": "400",
+    "font-style": "",
+    color: "var(--progress-label-alt)",
+  });
+});
+
+test(`renders with the correct styling for the "medium" size`, () => {
+  render(
+    <StepSequence currentStep={1} size={"medium"}>
+      <StepSequenceItem
+        stepNumber={1}
+        title="Planning"
+        description={"Early designs and scoping."}
+      />
+    </StepSequence>,
+  );
+
+  const step = screen.getByRole("listitem");
+
+  expect(step).toHaveStyle({
+    "grid-template-columns": "32px 1fr",
+    "min-width": "64px",
+  });
+
+  const title = screen.getByText("Planning");
+  const description = screen.getByText("Early designs and scoping.");
+
+  expect(title).toHaveStyle({
+    "font-size": "18px",
+    "font-weight": "500",
+    "font-style": "",
+    color: "var(--progress-label-default)",
+  });
+
+  expect(description).toHaveStyle({
+    "font-size": "16px",
+    "font-weight": "400",
+    "font-style": "",
+    color: "var(--progress-label-alt)",
+  });
+});

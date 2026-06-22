@@ -4,6 +4,7 @@ import { StepSequenceProps } from "../step-sequence.component";
 
 const SIZE_MAP = {
   medium: {
+    minWidth: "64px",
     markerWidth: "32px",
     markerHeight: "32px",
     titleFontSize: "18px",
@@ -15,8 +16,8 @@ const SIZE_MAP = {
     descriptionFontStyle: "regular",
     descriptionFontColour: "--progress-label-alt",
   },
-
   small: {
+    minWidth: "56px",
     markerWidth: "24px",
     markerHeight: "24px",
     titleFontSize: "16px",
@@ -108,14 +109,14 @@ export const StyledStepSequenceItemContent = styled.span<
 
 export const StyledStepSequenceItemStepNumber = styled.span<{
   status: "complete" | "current" | "incomplete";
-  size?: "small" | "medium";
+  size: "small" | "medium";
 }>`
   position: relative;
   z-index: 2;
   border-radius: 50%;
   ${({ size }) => css`
-    height: ${SIZE_MAP[size ?? "medium"].markerHeight};
-    width: ${SIZE_MAP[size ?? "medium"].markerWidth};
+    height: ${SIZE_MAP[size].markerHeight};
+    width: ${SIZE_MAP[size].markerWidth};
   `}
   font-size: 14px;
   font-weight: 600;
@@ -186,24 +187,24 @@ export const StyledStepSequenceItemStepNumber = styled.span<{
 `;
 
 export const StyledStepSequenceItemStepTitle = styled.span<{
-  size?: "small" | "medium";
+  size: "small" | "medium";
 }>`
   ${({ size }) => css`
-    font-size: ${SIZE_MAP[size ?? "medium"].titleFontSize};
-    font-weight: ${SIZE_MAP[size ?? "medium"].titleFontWeight};
-    font-style: ${SIZE_MAP[size ?? "medium"].titleFontStyle};
-    color: var(${SIZE_MAP[size ?? "medium"].titleFontColour});
+    font-size: ${SIZE_MAP[size].titleFontSize};
+    font-weight: ${SIZE_MAP[size].titleFontWeight};
+    font-style: ${SIZE_MAP[size].titleFontStyle};
+    color: var(${SIZE_MAP[size].titleFontColour});
   `}
 `;
 
 export const StyledStepSequenceItemStepDescription = styled.span<{
-  size?: "small" | "medium";
+  size: "small" | "medium";
 }>`
   ${({ size }) => css`
-    font-size: ${SIZE_MAP[size ?? "medium"].descriptionFontSize};
-    font-weight: ${SIZE_MAP[size ?? "medium"].descriptionFontWeight};
-    font-style: ${SIZE_MAP[size ?? "medium"].descriptionFontStyle};
-    color: var(${SIZE_MAP[size ?? "medium"].descriptionFontColour});
+    font-size: ${SIZE_MAP[size].descriptionFontSize};
+    font-weight: ${SIZE_MAP[size].descriptionFontWeight};
+    font-style: ${SIZE_MAP[size].descriptionFontStyle};
+    color: var(${SIZE_MAP[size].descriptionFontColour});
   `}
   margin-top: 2px;
 `;
@@ -224,13 +225,15 @@ export const StyledStepSequenceItemStepVH = styled.span`
 `;
 
 export const StyledStepSequenceItem = styled.li<
-  Pick<StepSequenceProps, "orientation">
+  Pick<StepSequenceProps, "orientation"> & {
+    size: "small" | "medium";
+  }
 >`
-  ${({ orientation }) =>
+  ${({ orientation, size }) =>
     orientation === "vertical"
       ? css`
           display: grid;
-          grid-template-columns: 32px 1fr;
+          grid-template-columns: ${SIZE_MAP[size].markerWidth} 1fr;
           column-gap: 16px;
         `
       : css`
@@ -241,6 +244,12 @@ export const StyledStepSequenceItem = styled.li<
           flex: 1 1 0px;
           width: 0;
         `}
+
+  ${({ size }) => css`
+    min-width: ${SIZE_MAP[size].minWidth};
+    max-width: 720px;
+  `}
+    
 
   & ${StyledStepSequenceItemLine} {
     background-color: #94a3b8;

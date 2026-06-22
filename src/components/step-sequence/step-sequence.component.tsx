@@ -11,6 +11,7 @@ export interface StepSequenceProps extends SpaceProps, TagProps {
   currentStep: number;
   /** The orientation to display the sequence in */
   orientation?: "horizontal" | "vertical";
+  /** The size of the component. */
   size?: "small" | "medium";
 }
 

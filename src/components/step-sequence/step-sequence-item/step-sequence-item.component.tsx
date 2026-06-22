@@ -45,6 +45,7 @@ export const StepSequenceItem = ({
       orientation={orientation}
       aria-current={status === "current" ? "step" : undefined}
       key={`step-seq-item-${stepNumber}`}
+      size={size}
       {...tagComponent("step-sequence-item", props)}
     >
       <StyledStepSequenceItemMarkerContainer orientation={orientation}>
