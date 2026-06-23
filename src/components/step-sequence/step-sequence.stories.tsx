@@ -101,25 +101,29 @@ Horizontal.storyName = "Horizontal";
 
 export const Size: Story = ({ ...props }) => {
   return (
-    <StepSequence currentStep={props.currentStep} size={props.size}>
-      <StepSequenceItem
-        stepNumber={1}
-        title="Planning"
-        description={"Lorem ipsum dolor sit amet, consectetur adipiscing elit."}
-      />
-      <StepSequenceItem
-        stepNumber={2}
-        title="Design"
-        description={"This is step 2"}
-      />
-      <StepSequenceItem stepNumber={3} title="Development" />
-      <StepSequenceItem stepNumber={4} title="QA" />
-      <StepSequenceItem
-        stepNumber={5}
-        title="Release"
-        description={"This is step 5"}
-      />
-    </StepSequence>
+    <div>
+      <StepSequence currentStep={props.currentStep} size={props.size}>
+        <StepSequenceItem
+          stepNumber={1}
+          title="Planning"
+          description={
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+          }
+        />
+        <StepSequenceItem
+          stepNumber={2}
+          title="Design"
+          description={"This is step 2"}
+        />
+        <StepSequenceItem stepNumber={3} title="Development" />
+        <StepSequenceItem stepNumber={4} title="QA" />
+        <StepSequenceItem
+          stepNumber={5}
+          title="Release"
+          description={"This is step 5"}
+        />
+      </StepSequence>
+    </div>
   );
 };
 Size.storyName = "Size";
@@ -156,3 +160,34 @@ export const Responsive: Story = (props: StepSequenceProps) => {
   );
 };
 Responsive.storyName = "Responsive";
+
+export const LabelOverrides: Story = (props: StepSequenceProps) => {
+  return (
+    <StepSequence {...props}>
+      <StepSequenceItem
+        stepNumber={1}
+        title="Planning"
+        description={"Lorem ipsum dolor sit amet, consectetur adipiscing elit."}
+      />
+      <StepSequenceItem
+        stepNumber={2}
+        title="Design"
+        description={"This is step 2"}
+      />
+      <StepSequenceItem stepNumber={3} title="Development" />
+      <StepSequenceItem stepNumber={4} title="QA" />
+      <StepSequenceItem
+        stepNumber={5}
+        title="Release"
+        description={"This is step 5"}
+      />
+    </StepSequence>
+  );
+};
+LabelOverrides.storyName = "Default";
+LabelOverrides.args = {
+  currentStep: 1,
+  hiddenCompleteLabel: "Finished",
+  hiddenCurrentLabel: "Active",
+  hiddenIncompleteLabel: "Not Started",
+};

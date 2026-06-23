@@ -32,14 +32,24 @@ export const StepSequenceItem = ({
   title,
   ...props
 }: StepSequenceItemProps) => {
-  const { currentStep, orientation, size } = useStepSequenceContext();
+  const {
+    currentStep,
+    hiddenCompleteLabel,
+    hiddenCurrentLabel,
+    hiddenIncompleteLabel,
+    orientation,
+    size,
+  } = useStepSequenceContext();
 
   let status: "complete" | "current" | "incomplete" = "incomplete";
+  let stepLabel = hiddenIncompleteLabel;
 
   if (stepNumber < currentStep) {
     status = "complete";
+    stepLabel = hiddenCompleteLabel;
   } else if (stepNumber === currentStep) {
     status = "current";
+    stepLabel = hiddenCurrentLabel;
   }
 
   return (
@@ -65,11 +75,9 @@ export const StepSequenceItem = ({
       <StyledStepSequenceItemContent orientation={orientation}>
         <StyledStepSequenceItemStepTitle size={size}>
           {title}
-          {status !== "current" && (
-            <StyledStepSequenceItemStepVH>
-              &nbsp;({status})
-            </StyledStepSequenceItemStepVH>
-          )}
+          <StyledStepSequenceItemStepVH>
+            &nbsp;({stepLabel})
+          </StyledStepSequenceItemStepVH>
         </StyledStepSequenceItemStepTitle>
 
         {description && (

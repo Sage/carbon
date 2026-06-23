@@ -17,6 +17,9 @@ description: Carbon StepSequence component props and usage examples.
 | --- | --- | --- | --- | --- | --- |
 | children | React.ReactNode | Yes |  | Step sequence items to be rendered |  |
 | currentStep | number | Yes |  | The active step within the sequence |  |
+| hiddenCompleteLabel | string \| undefined | No |  | Hidden label to be used when a step is completed | "complete" |
+| hiddenCurrentLabel | string \| undefined | No |  | Hidden label to be used when a step is the current step | "current" |
+| hiddenIncompleteLabel | string \| undefined | No |  | Hidden label to be used when a step is incomplete | "incomplete" |
 | m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
 | margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
 | marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
@@ -136,7 +139,47 @@ description: Carbon StepSequence component props and usage examples.
 ```tsx
 ({ ...props }) => {
   return (
-    <StepSequence currentStep={props.currentStep} size={props.size}>
+    <div>
+      <StepSequence currentStep={props.currentStep} size={props.size}>
+        <StepSequenceItem
+          stepNumber={1}
+          title="Planning"
+          description={
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+          }
+        />
+        <StepSequenceItem
+          stepNumber={2}
+          title="Design"
+          description={"This is step 2"}
+        />
+        <StepSequenceItem stepNumber={3} title="Development" />
+        <StepSequenceItem stepNumber={4} title="QA" />
+        <StepSequenceItem
+          stepNumber={5}
+          title="Release"
+          description={"This is step 5"}
+        />
+      </StepSequence>
+    </div>
+  );
+}
+```
+
+
+### Responsive
+
+**Render**
+
+```tsx
+(props: StepSequenceProps) => {
+  const displayVertical = useMediaQuery("(max-width: 760px)");
+
+  return (
+    <StepSequence
+      currentStep={props.currentStep}
+      orientation={displayVertical ? "vertical" : "horizontal"}
+    >
       <StepSequenceItem
         stepNumber={1}
         title="Planning"
@@ -160,19 +203,25 @@ description: Carbon StepSequence component props and usage examples.
 ```
 
 
-### Responsive
+### Default
+
+**Args**
+
+```tsx
+{
+  currentStep: 1,
+  hiddenCompleteLabel: "Finished",
+  hiddenCurrentLabel: "Active",
+  hiddenIncompleteLabel: "Not Started",
+}
+```
 
 **Render**
 
 ```tsx
 (props: StepSequenceProps) => {
-  const displayVertical = useMediaQuery("(max-width: 760px)");
-
   return (
-    <StepSequence
-      currentStep={props.currentStep}
-      orientation={displayVertical ? "vertical" : "horizontal"}
-    >
+    <StepSequence {...props}>
       <StepSequenceItem
         stepNumber={1}
         title="Planning"

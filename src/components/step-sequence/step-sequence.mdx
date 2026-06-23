@@ -64,6 +64,14 @@ The `StepSequence` component does not natively respond to screen size changes. T
 
 <Canvas of={StepSequenceStories.Size} />
 
+### Status Label Overrides
+
+By default, the component will announce completed, current and incomplete steps as "complete", "current" and "incomplete" respectively when using assistive technologies
+such as a screen reader. To override these, use the `hiddenCompleteLabel`, `hiddenCurrentLabel` and `hiddenIncompleteLabel` props. Note that these values are not displayed anywhere
+visually.
+
+<Canvas of={StepSequenceStories.LabelOverrides} />
+
 ## Props
 
 ### StepSequence
