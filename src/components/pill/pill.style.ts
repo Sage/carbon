@@ -165,24 +165,32 @@ const StyledPill = styled.span.attrs(applyBaseTheme)<AllStyledPillProps>`
             `}
       `}
 
+      /* TODO: Font longhands are used instead of the composite --global-font-static-comp-medium-*
+         token because that token embeds a nested var() for font-family, making the whole
+         font shorthand a pending-substitution value that cannot be reliably overridden
+         (notably line-height). Revisit once Pill-appropriate design tokens exist. */
+      font-family: var(--global-font-families-component);
+      font-weight: 500;
+      line-height: 1;
+
       ${size === "S" &&
       css`
         min-height: var(--global-size-2-xs);
-        font: var(--global-font-static-comp-medium-s);
+        font-size: 14px;
         padding: 0 var(--global-space-comp-s);
       `}
 
       ${size === "M" &&
       css`
         min-height: var(--global-size-xs);
-        font: var(--global-font-static-comp-medium-m);
+        font-size: 14px;
         padding: 0 var(--global-space-comp-s);
       `}
 
       ${size === "L" &&
       css`
         min-height: 28px;
-        font: var(--global-font-static-comp-medium-l);
+        font-size: 16px;
         padding: 0 var(--global-space-comp-s);
       `}
 
@@ -190,9 +198,10 @@ const StyledPill = styled.span.attrs(applyBaseTheme)<AllStyledPillProps>`
       ${size === "XL" &&
       css`
         min-height: 28px;
-        font: var(--global-font-static-comp-medium-l);
+        font-size: 16px;
         padding: 0 12px;
       `}
+
 
       ${isDeletable &&
       css`
