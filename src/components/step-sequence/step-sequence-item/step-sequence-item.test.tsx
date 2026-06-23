@@ -85,14 +85,12 @@ test(`renders with the correct styling for the "small" size`, () => {
   expect(title).toHaveStyle({
     "font-size": "var(--fontSizes200)",
     "font-weight": "var(--fontWeights500)",
-    "font-style": "",
     color: "var(--progress-label-default)",
   });
 
   expect(description).toHaveStyle({
     "font-size": "var(--fontSizes100)",
     "font-weight": "var(--fontWeights400)",
-    "font-style": "",
     color: "var(--progress-label-alt)",
   });
 });

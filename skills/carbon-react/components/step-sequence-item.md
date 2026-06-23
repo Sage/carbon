@@ -23,7 +23,6 @@ description: Carbon StepSequenceItem component props and usage examples.
 | autoCorrect | string \| undefined | No |  |  |  |  |  |
 | autoFocus | boolean \| undefined | No |  |  |  |  |  |
 | autoSave | string \| undefined | No |  |  |  |  |  |
-| children | ReactNode | No |  |  |  |  |  |
 | className | string \| undefined | No |  |  |  |  |  |
 | color | string \| undefined | No |  |  |  |  |  |
 | content | string \| undefined | No |  |  |  |  |  |
@@ -291,6 +290,10 @@ description: Carbon StepSequenceItem component props and usage examples.
 **Args**
 
 ```tsx
-{}
+{
+    stepNumber: 1,
+    title: "Planning",
+    description: "Lorem ipsum dolor sit amet.",
+  }
 ```
 

@@ -16,7 +16,7 @@ import tagComponent, {
 } from "../../../__internal__/utils/helpers/tags";
 
 export interface StepSequenceItemProps
-  extends React.LiHTMLAttributes<HTMLLIElement>,
+  extends Omit<React.LiHTMLAttributes<HTMLLIElement>, "children">,
     TagProps {
   /** A description of the step */
   description?: string;
@@ -48,8 +48,8 @@ export const StepSequenceItem = ({
       aria-current={status === "current" ? "step" : undefined}
       key={`step-seq-item-${stepNumber}`}
       size={size}
-      {...tagComponent("step-sequence-item", props)}
       {...props}
+      {...tagComponent("step-sequence-item", props)}
     >
       <StyledStepSequenceItemMarkerContainer orientation={orientation}>
         <StyledStepSequenceItemStepNumber

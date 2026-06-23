@@ -9,10 +9,10 @@ const SIZE_MAP = {
     markerHeight: "var(--sizing400)",
     titleFontSize: "var(--fontSizes300)",
     titleFontWeight: "var(--fontWeights500)",
-    titleFontColour: "--progress-label-default",
+    titleFontColour: "var(--progress-label-default)",
     descriptionFontSize: "var(--fontSizes200)",
     descriptionFontWeight: "var(--fontWeights400)",
-    descriptionFontColour: "--progress-label-alt",
+    descriptionFontColour: "var(--progress-label-alt)",
   },
   small: {
     minWidth: "var(--sizing700)",
@@ -20,10 +20,10 @@ const SIZE_MAP = {
     markerHeight: "var(--sizing300)",
     titleFontSize: "var(--fontSizes200)",
     titleFontWeight: "var(--fontWeights500)",
-    titleFontColour: "--progress-label-default",
+    titleFontColour: "var(--progress-label-default)",
     descriptionFontSize: "var(--fontSizes100)",
     descriptionFontWeight: "var(--fontWeights400)",
-    descriptionFontColour: "--progress-label-alt",
+    descriptionFontColour: "var(--progress-label-alt)",
   },
 };
 
@@ -54,16 +54,16 @@ export const StyledStepSequenceItemLine = styled.div<
   ${({ orientation }) =>
     orientation === "vertical"
       ? css`
-          width: 2px;
+          width: var(--borderWidth200);
           flex-grow: 1;
-          min-height: 40px;
-          background-color: #cbd5e1;
-          margin: 8px 0;
+          min-height: var(--sizing500);
+          background-color: var(--progress-stepindicator-border-default);
+          margin: var(--sizing100) 0;
         `
       : css`
           position: absolute;
-          height: 2px;
-          background-color: #cbd5e1;
+          height: var(--borderWidth200);
+          background-color: var(--progress-stepindicator-border-default);
           left: 70%;
           width: 60%;
           top: 50%;
@@ -74,7 +74,7 @@ export const StyledStepSequenceItemLine = styled.div<
   ${({ status }) =>
     status === "complete" &&
     css`
-      background-color: #16a34a !important;
+      background-color: var(--progress-stepindicator-border-success) !important;
     `}
 `;
 
@@ -86,19 +86,19 @@ export const StyledStepSequenceItemContent = styled.span<
       ? css`
           display: flex;
           flex-direction: column;
-          padding-bottom: 24px;
+          padding-bottom: var(--sizing300);
         `
       : css`
           display: flex;
           flex-direction: column;
           align-items: center;
           text-align: center;
-          margin-top: 12px;
+          margin-top: var(--sizing150);
           z-index: 2;
           position: absolute;
-          top: 32px;
+          top: var(--sizing400);
           width: max-content;
-          max-width: 120px;
+          max-width: var(--sizing1500);
           white-space: normal;
         `}
 `;
@@ -114,7 +114,7 @@ export const StyledStepSequenceItemStepNumber = styled.span<{
     height: ${SIZE_MAP[size].markerHeight};
     width: ${SIZE_MAP[size].markerWidth};
   `}
-  font-size: 14px;
+  font-size: var(--fontSizes100);
   font-weight: 600;
   display: flex;
   justify-content: center;
@@ -125,7 +125,7 @@ export const StyledStepSequenceItemStepNumber = styled.span<{
     switch (status) {
       case "complete":
         return css`
-          background-color: #388544;
+          background-color: var(--progress-stepindicator-bg-complete);
           border: none;
           color: transparent;
 
@@ -150,8 +150,8 @@ export const StyledStepSequenceItemStepNumber = styled.span<{
 
       case "current":
         return css`
-          background-color: #0c111d;
-          color: #ffffff;
+          background-color: var(--progress-label-default);
+          color: var(--progress-stepindicator-label-active);
           border: none;
 
           &::before {
@@ -165,7 +165,7 @@ export const StyledStepSequenceItemStepNumber = styled.span<{
 
             box-shadow:
               0 0 0 3px #f4f4f4,
-              0 0 0 5px #0c111d;
+              0 0 0 5px var(--progress-label-default);
 
             z-index: -1;
           }
@@ -174,8 +174,8 @@ export const StyledStepSequenceItemStepNumber = styled.span<{
       default:
         return css`
           background-color: white;
-          color: #0c111d;
-          border: 2px solid #94a3b8;
+          color: var(--progress-label-default);
+          border: 2px solid var(--progress-stepindicator-border-default);
           margin-top: -2px;
         `;
     }
@@ -188,7 +188,7 @@ export const StyledStepSequenceItemStepTitle = styled.span<{
   ${({ size }) => css`
     font-size: ${SIZE_MAP[size].titleFontSize};
     font-weight: ${SIZE_MAP[size].titleFontWeight};
-    color: var(${SIZE_MAP[size].titleFontColour});
+    color: ${SIZE_MAP[size].titleFontColour};
   `}
 `;
 
@@ -198,7 +198,7 @@ export const StyledStepSequenceItemStepDescription = styled.span<{
   ${({ size }) => css`
     font-size: ${SIZE_MAP[size].descriptionFontSize};
     font-weight: ${SIZE_MAP[size].descriptionFontWeight};
-    color: var(${SIZE_MAP[size].descriptionFontColour});
+    color: ${SIZE_MAP[size].descriptionFontColour};
   `}
   margin-top: 2px;
 `;
@@ -228,7 +228,7 @@ export const StyledStepSequenceItem = styled.li<
       ? css`
           display: grid;
           grid-template-columns: ${SIZE_MAP[size].markerWidth} 1fr;
-          column-gap: 16px;
+          column-gap: var(--sizing200);
         `
       : css`
           display: flex;
@@ -243,11 +243,6 @@ export const StyledStepSequenceItem = styled.li<
     min-width: ${SIZE_MAP[size].minWidth};
     max-width: 720px;
   `}
-    
-
-  & ${StyledStepSequenceItemLine} {
-    background-color: #94a3b8;
-  }
 
   &:last-child ${StyledStepSequenceItemLine} {
     display: none !important;

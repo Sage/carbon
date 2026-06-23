@@ -19,5 +19,9 @@ export default meta;
 type Story = StoryObj<typeof StepSequenceItem>;
 
 export const DefaultStory: Story = {
-  args: {},
+  args: {
+    stepNumber: 1,
+    title: "Planning",
+    description: "Lorem ipsum dolor sit amet.",
+  },
 };
