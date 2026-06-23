@@ -3,7 +3,7 @@ import path from "node:path";
 import { referencesExamplesDir } from "./skills-config.mjs";
 import { getOrAddSourceFile } from "./ts-project.mjs";
 import { extractStoriesImports } from "./mdx-parser.mjs";
-import { getStoryExportSource } from "./story-source.mjs";
+import { getStoryExampleSource } from "./story-source.mjs";
 import {
   resolvePropsForStories,
   resolveArgTypesFromMeta,
@@ -17,9 +17,9 @@ import { resolveStoriesPath } from "./utils.mjs";
  * @param {string} rawContent
  * @param {string} sourcePath
  * @param {Set<string>} availableSlugs
- * @returns {{content: string, exampleFiles: import("./skills-types.mjs").OutputFile[]}}
+ * @returns {Promise<{content: string, exampleFiles: import("./skills-types.mjs").OutputFile[]}>}
  */
-export function parseAndRenderReferenceMdx(
+export async function parseAndRenderReferenceMdx(
   rawContent,
   sourcePath,
   availableSlugs,
@@ -75,33 +75,46 @@ export function parseAndRenderReferenceMdx(
       (nextH2 ? afterContents.slice(nextH2.index) : "");
   }
 
+  // Resolve <Canvas of={Alias.ExportName}/> example sources (async) up front,
+  // then replace synchronously below.
+  const canvasRegex = /<Canvas\s+of=\{(\w+)\.(\w+)\}\s*\/>/g;
+  /** @type {Map<string, string | null>} `${alias}.${exportName}` -> source */
+  const canvasSources = new Map();
+  for (const m of result.matchAll(canvasRegex)) {
+    const [, alias, exportName] = m;
+    const key = `${alias}.${exportName}`;
+    if (canvasSources.has(key)) continue;
+    const storiesPath = resolvedStories.get(alias);
+    canvasSources.set(
+      key,
+      storiesPath ? await getStoryExampleSource(storiesPath, exportName) : null,
+    );
+  }
+
   // Replace <Canvas of={Alias.ExportName}/> with example file references
-  result = result.replace(
-    /<Canvas\s+of=\{(\w+)\.(\w+)\}\s*\/>/g,
-    (match, alias, exportName) => {
-      const storiesPath = resolvedStories.get(alias);
-      if (!storiesPath) {
-        // eslint-disable-next-line no-console -- build warning
-        console.warn(`[ref] Cannot resolve stories alias: ${alias}`);
-        return "";
-      }
-      const source = getStoryExportSource(storiesPath, exportName);
-      if (!source) {
-        // eslint-disable-next-line no-console -- build warning
-        console.warn(
-          `[ref] Cannot find export "${exportName}" in ${path.basename(storiesPath)}`,
-        );
-        return "";
-      }
-      const fileName = `${exportName}.md`;
-      const fileContent = "```tsx\n" + source + "\n```";
-      exampleFiles.push({
-        path: path.join(referencesExamplesDir, fileName),
-        content: fileContent,
-      });
-      return `\nSee: \`examples/${fileName}\``;
-    },
-  );
+  result = result.replace(canvasRegex, (match, alias, exportName) => {
+    const storiesPath = resolvedStories.get(alias);
+    if (!storiesPath) {
+      // eslint-disable-next-line no-console -- build warning
+      console.warn(`[ref] Cannot resolve stories alias: ${alias}`);
+      return "";
+    }
+    const source = canvasSources.get(`${alias}.${exportName}`);
+    if (!source) {
+      // eslint-disable-next-line no-console -- build warning
+      console.warn(
+        `[ref] Cannot find export "${exportName}" in ${path.basename(storiesPath)}`,
+      );
+      return "";
+    }
+    const fileName = `${exportName}.md`;
+    const fileContent = "```tsx\n" + source + "\n```";
+    exampleFiles.push({
+      path: path.join(referencesExamplesDir, fileName),
+      content: fileContent,
+    });
+    return `\nSee: \`examples/${fileName}\``;
+  });
 
   // Replace <ArgTypes of={alias}/> with rendered props table
   result = result.replace(

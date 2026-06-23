@@ -1,9 +1,11 @@
 ```tsx
-export const Width: Story = {
-  ...Default,
-  args: {
-    ...Default.args,
-    width: "500px",
-  },
+export const Width: Story = () => {
+  return (
+    <Accordion title="Title" width="500px">
+      <Box my={2}>Content</Box>
+      <Box my={2}>Content</Box>
+      <Box my={2}>Content</Box>
+    </Accordion>
+  );
 };
 ```

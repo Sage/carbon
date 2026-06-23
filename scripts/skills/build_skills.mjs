@@ -14,7 +14,7 @@ import {
 import { discoverMdx } from "./mdx-discovery.mjs";
 import { parseMdxFile } from "./mdx-parser.mjs";
 import { getOrAddSourceFile } from "./ts-project.mjs";
-import { getStoryExportSource } from "./story-source.mjs";
+import { getStoryExampleSource } from "./story-source.mjs";
 import { resolvePropsForStories } from "./props-from-stories.mjs";
 import { parseAndRenderReferenceMdx } from "./reference-mdx.mjs";
 import {
@@ -98,7 +98,10 @@ for (const entry of mdxEntries) {
         );
         continue;
       }
-      const source = getStoryExportSource(storiesPath, canvasRef.exportName);
+      const source = await getStoryExampleSource(
+        storiesPath,
+        canvasRef.exportName,
+      );
       if (!source) {
         console.warn(
           `[${slug}] Cannot find export "${canvasRef.exportName}" in ${path.basename(storiesPath)}`,
@@ -175,7 +178,7 @@ for (const entry of docsReferenceFiles) {
   const targetPath = path.join(referencesDir, refFileName);
   const rawContent = await fs.readFile(sourcePath, "utf8");
   const { content: processedContent, exampleFiles } =
-    parseAndRenderReferenceMdx(rawContent, sourcePath, availableSlugs);
+    await parseAndRenderReferenceMdx(rawContent, sourcePath, availableSlugs);
   wouldWrite.push(...exampleFiles);
   wouldWrite.push({
     path: targetPath,

@@ -1,6 +1,25 @@
 // @ts-check
 import { SyntaxKind } from "ts-morph";
 import { getOrAddSourceFile } from "./ts-project.mjs";
+import { resolveStoryExample } from "./story-resolver.mjs";
+
+/**
+ * Get a clean, runnable example snippet for a named story export, resolving
+ * `render`/args plumbing and inlining args. Falls back to the raw source text
+ * when the story cannot be statically resolved.
+ * @param {string} filePath
+ * @param {string} exportName
+ * @returns {Promise<string | null>}
+ */
+export async function getStoryExampleSource(filePath, exportName) {
+  try {
+    const resolved = await resolveStoryExample(filePath, exportName);
+    if (resolved) return resolved;
+  } catch {
+    // Fall back to the raw source below.
+  }
+  return getStoryExportSource(filePath, exportName);
+}
 
 /**
  * Get the full source text of a named export from a stories file.

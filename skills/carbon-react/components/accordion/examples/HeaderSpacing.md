@@ -1,11 +1,16 @@
 ```tsx
-export const HeaderSpacing: Story = {
-  ...Default,
-  args: {
-    ...Default.args,
-    headerSpacing: {
-      padding: "24px 0",
-    },
-  },
+export const HeaderSpacing: Story = () => {
+  return (
+    <Accordion
+      title="Title"
+      headerSpacing={{
+        padding: "24px 0",
+      }}
+    >
+      <Box my={2}>Content</Box>
+      <Box my={2}>Content</Box>
+      <Box my={2}>Content</Box>
+    </Accordion>
+  );
 };
 ```

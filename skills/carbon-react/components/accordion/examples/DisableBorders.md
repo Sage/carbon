@@ -1,9 +1,11 @@
 ```tsx
-export const DisableBorders: Story = {
-  ...Default,
-  args: {
-    ...Default.args,
-    borders: "none",
-  },
+export const DisableBorders: Story = () => {
+  return (
+    <Accordion title="Title" borders="none">
+      <Box my={2}>Content</Box>
+      <Box my={2}>Content</Box>
+      <Box my={2}>Content</Box>
+    </Accordion>
+  );
 };
 ```
