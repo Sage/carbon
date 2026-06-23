@@ -444,7 +444,7 @@ test.describe("SimpleSelect component", () => {
       await expect(selectListWrapper(page)).toBeVisible();
       const optionElement = selectListCustomChild(page, option);
       await expect(optionElement).toHaveAttribute("type", type);
-      await expect(optionElement).toHaveAttribute("color", color);
+      await expect(optionElement).toHaveAttribute("data-color", color);
     });
   });
 
