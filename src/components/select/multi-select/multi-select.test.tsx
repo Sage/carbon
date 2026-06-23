@@ -711,6 +711,23 @@ describe("when dropdown list is opened", () => {
 
     expect(screen.getByRole("combobox")).toHaveValue("");
   });
+
+  test("does not call onChange when Enter key is pressed with no highlighted option after opening list by click", async () => {
+    const user = userEvent.setup();
+    const onChange = jest.fn();
+
+    render(
+      <InteractiveComponent label="Colour" onChange={onChange} value={[]}>
+        <Option text="amber" value="amber" />
+        <Option text="blue" value="blue" />
+      </InteractiveComponent>,
+    );
+
+    await user.click(screen.getByRole("combobox"));
+    await user.keyboard("{Enter}");
+
+    expect(onChange).not.toHaveBeenCalled();
+  });
 });
 
 test.each(["Backspace", "Delete"])(

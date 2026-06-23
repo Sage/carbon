@@ -1,5 +1,7 @@
 import React from "react";
+import { createPortal } from "react-dom";
 import { act, render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import TextInput from ".";
 import { testStyledSystemMargin } from "../../../../__spec_helper__/__internal__/test-utils";
 import createGuid from "../../../../__internal__/utils/helpers/guid";
@@ -158,6 +160,20 @@ test("should announce the error message after the input hint", () => {
   expect(screen.getByRole("textbox")).toHaveAccessibleDescription(
     "hint text error",
   );
+});
+
+test("should include the prefix in the accessible description when `prefix` prop is provided", () => {
+  render(
+    <TextInput
+      prefix="£"
+      id="test-input"
+      label="label"
+      value="foo"
+      onChange={() => {}}
+    />,
+  );
+
+  expect(screen.getByRole("textbox")).toHaveAccessibleDescription("£");
 });
 
 test("should render with a warning border via the `warning` prop", () => {
@@ -441,3 +457,28 @@ test.each([
     expect(locator).toHaveStyleRule("gap", expectedGap);
   },
 );
+
+test("should not focus the input when a click event bubbles from a React portal (target is not a DOM descendant of the wrapper)", async () => {
+  // createPortal renders content into a DOM node that lives outside the
+  // InputWrapper's subtree, but the React synthetic click event still bubbles
+  // up through the React component tree to InputWrapper's onClick handler.
+  // The guard `ev.currentTarget.contains(ev.target)` should return false for
+  // such events and bail out before calling focus().
+  const user = userEvent.setup();
+  const portalRoot = document.createElement("div");
+  document.body.appendChild(portalRoot);
+
+  const PortalContent = () => createPortal(<button>portal</button>, portalRoot);
+
+  render(
+    <TextInput label="label" value="foo" onChange={() => {}}>
+      <PortalContent />
+    </TextInput>,
+  );
+
+  await user.click(screen.getByRole("button", { name: "portal" }));
+
+  expect(screen.getByRole("textbox")).not.toHaveFocus();
+
+  document.body.removeChild(portalRoot);
+});

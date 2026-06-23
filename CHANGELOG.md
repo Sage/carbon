@@ -1,3 +1,87 @@
+## [159.13.1](https://github.com/Sage/carbon/compare/v159.13.0...v159.13.1) (2026-06-22)
+
+### Bug Fixes
+
+* **switch:** make toggle work on Safari ([da828f1](https://github.com/Sage/carbon/commit/da828f1f0e5621220049cd3f111385d1b95c7470)), closes [#7980](https://github.com/Sage/carbon/issues/7980)
+
+## [159.13.0](https://github.com/Sage/carbon/compare/v159.12.3...v159.13.0) (2026-06-22)
+
+### Features
+
+* **password:** align component with fusion DS ([a37278b](https://github.com/Sage/carbon/commit/a37278be78c4c6a7d5f539dfc4b243d1e43f742d))
+
+## [159.12.3](https://github.com/Sage/carbon/compare/v159.12.2...v159.12.3) (2026-06-18)
+
+### Bug Fixes
+
+* **date-range:** fix inline label input width ([77d0068](https://github.com/Sage/carbon/commit/77d0068376cdac0702fc243a4d4606213a64a5c7))
+
+## [159.12.2](https://github.com/Sage/carbon/compare/v159.12.1...v159.12.2) (2026-06-17)
+
+### Bug Fixes
+
+* **vertical-menu:** prevent responsive vertical menu disappearing on Edge (FE-7388) ([b09ef31](https://github.com/Sage/carbon/commit/b09ef313eb0ade7f2c238e39297ea9a26c56fe1c))
+
+## [159.12.1](https://github.com/Sage/carbon/compare/v159.12.0...v159.12.1) (2026-06-15)
+
+### Bug Fixes
+
+* **multi-select:** filter out empty string values ([8972b40](https://github.com/Sage/carbon/commit/8972b40aabee9ea1a1f8ff7abd57360e7d38292b)), closes [#7997](https://github.com/Sage/carbon/issues/7997)
+
+## [159.12.0](https://github.com/Sage/carbon/compare/v159.11.1...v159.12.0) (2026-06-12)
+
+### Features
+
+* **button-toggle:** align to Fusion DS ([d629a47](https://github.com/Sage/carbon/commit/d629a47b45682724105b2d9bd234edcc94ad2f92))
+
+## [159.11.1](https://github.com/Sage/carbon/compare/v159.11.0...v159.11.1) (2026-06-11)
+
+### Bug Fixes
+
+* **button:** use min-height instead of height ([19d3ae7](https://github.com/Sage/carbon/commit/19d3ae7e09c1cc9c8698907820df709c30a9fc62))
+
+## [159.11.0](https://github.com/Sage/carbon/compare/v159.10.0...v159.11.0) (2026-06-11)
+
+### Features
+
+* **decimal:** align component with fusion DS ([4e6c9fb](https://github.com/Sage/carbon/commit/4e6c9fbe4b49cf8aad03502d20904138d57b14d2))
+
+## [159.10.0](https://github.com/Sage/carbon/compare/v159.9.1...v159.10.0) (2026-06-10)
+
+### Features
+
+* **storybook:** upgrade to v10.4.2 ([9e9a057](https://github.com/Sage/carbon/commit/9e9a057d27a7ebdbff3cd03f8731641e4881050f))
+
+## [159.9.1](https://github.com/Sage/carbon/compare/v159.9.0...v159.9.1) (2026-06-09)
+
+### Bug Fixes
+
+* **select:** ensure popover renders above validation message ([16209bd](https://github.com/Sage/carbon/commit/16209bd8fb2840f4a7a4227cdda6e739d8051b0a))
+
+## [159.9.0](https://github.com/Sage/carbon/compare/v159.8.1...v159.9.0) (2026-06-08)
+
+### Features
+
+* **fieldset:** align with Fusion DS ([7e491c6](https://github.com/Sage/carbon/commit/7e491c68c30ba325d2689e1c03fc9ccc3abf5c17))
+
+## [159.8.1](https://github.com/Sage/carbon/compare/v159.8.0...v159.8.1) (2026-06-08)
+
+### Bug Fixes
+
+* **textbox:** ensure label is announced when prefix is passed ([6675dd5](https://github.com/Sage/carbon/commit/6675dd5587b4c2f70d42dbcf10f4f85abcfbfc82)), closes [#7843](https://github.com/Sage/carbon/issues/7843) [#7976](https://github.com/Sage/carbon/issues/7976)
+
+## [159.8.0](https://github.com/Sage/carbon/compare/v159.7.1...v159.8.0) (2026-06-05)
+
+### Features
+
+* **icon:** added 4 new icons ([81eb46d](https://github.com/Sage/carbon/commit/81eb46dcbed395c296e55a10ce6174f7983f9ee9))
+
+## [159.7.1](https://github.com/Sage/carbon/compare/v159.7.0...v159.7.1) (2026-06-05)
+
+### Bug Fixes
+
+* **advanced-color-picker:** adjust component max-width to fit dialog ([7f894f9](https://github.com/Sage/carbon/commit/7f894f9cbc95f20383a0f1c2a2ff9122d07c4c1d))
+
 ## [159.7.0](https://github.com/Sage/carbon/compare/v159.6.0...v159.7.0) (2026-05-29)
 
 ### Features

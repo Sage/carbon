@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import Password from ".";
@@ -53,50 +53,35 @@ export const InputHint: Story = () => {
     setState(target.value);
   };
 
+  const hintStyles = {
+    color: "var(--input-labelset-label-alt)",
+    margin: 0,
+    fontSize: "inherit",
+  };
+
+  const hint = (
+    <div style={hintStyles}>
+      <p style={{ margin: "0 0 4px" }}>Password must contain:</p>
+      <ul style={{ margin: 0, paddingLeft: "20px" }}>
+        <li>At least 8 characters</li>
+        <li>At least one uppercase letter</li>
+        <li>At least one lowercase letter</li>
+        <li>At least one number</li>
+        <li>At least one special character</li>
+      </ul>
+    </div>
+  );
+
   return (
     <Password
-      inputHint="Hint text (optional)."
       label="Password"
       value={state}
       onChange={setValue}
+      inputHint={hint}
     />
   );
 };
 InputHint.storyName = "Input Hint";
-
-export const CharacterCounter: Story = () => {
-  const [state, setState] = useState("Password");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-
-  return (
-    <Password
-      label="Password"
-      value={state}
-      characterLimit={10}
-      onChange={setValue}
-    />
-  );
-};
-CharacterCounter.storyName = "Character Counter";
-
-export const Prefix: Story = () => {
-  const [state, setState] = useState("Password");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-
-  return (
-    <Password
-      prefix="prefix"
-      label="Password"
-      value={state}
-      onChange={setValue}
-    />
-  );
-};
-Prefix.storyName = "Prefix";
 
 export const Sizes: Story = () => {
   const [smallState, setSmallState] = useState("Password");
@@ -206,23 +191,6 @@ export const WithCustomMaxWidth: Story = () => {
   );
 };
 WithCustomMaxWidth.storyName = "With Custom maxWidth";
-
-export const WithFieldHelp: Story = () => {
-  const [state, setState] = useState("Password");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-
-  return (
-    <Password
-      fieldHelp="help"
-      label="Password"
-      value={state}
-      onChange={setValue}
-    />
-  );
-};
-WithFieldHelp.storyName = "With fieldHelp";
 
 export const WithRequired: Story = () => {
   const [state, setState] = useState("Password");

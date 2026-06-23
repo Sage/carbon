@@ -1,4 +1,4 @@
-import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
 
 import * as DividerStories from "./divider.stories";
 
@@ -28,6 +28,18 @@ import Divider from "carbon-react/lib/components/divider";
 The `Divider` component defaults to the `vertical` type, which spans the full height (`100%`) and includes `24px` of padding. When set to `horizontal`, it spans the full width (`100%`) and applies `24px` margins to the top and bottom.
 
 <Canvas of={DividerStories.Default} />
+
+### Variants
+
+Use the `variant` prop to switch between `typical` (default) and `prominent` divider styles.
+
+<Canvas of={DividerStories.Variants} />
+
+### Inverse
+
+Use the `inverse` prop when rendering `Divider` on darker backgrounds to preserve visual contrast.
+
+<Canvas of={DividerStories.Inverse} />
 
 ### In a flex container
 

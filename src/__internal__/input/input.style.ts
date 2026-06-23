@@ -6,6 +6,7 @@ import {
   selectStyleOverrides,
   pagerStyleOverrides,
   numeralDateStyles,
+  passwordStyleOverrides,
 } from "./input-style-overrides.style";
 
 interface InputContainerProps {
@@ -165,6 +166,22 @@ const InputContainer = styled.div<InputContainerProps>`
   ${pagerStyleOverrides}
 
   ${numeralDateStyles}
+  
+  &[data-is-open="true"] {
+    z-index: var(
+      --adaptiveSidebarModalBackdrop,
+      var(--carbon-zindex-above-all)
+    );
+
+    &:focus-within:has(:focus:not(button)) {
+      z-index: var(
+        --adaptiveSidebarModalBackdrop,
+        var(--carbon-zindex-above-all)
+      );
+    }
+  }
+
+  ${passwordStyleOverrides}
 `;
 
 export default InputContainer;

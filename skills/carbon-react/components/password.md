@@ -15,23 +15,22 @@ description: Carbon Password component props and usage examples.
 ## Props
 | Name | Type | Required | Literals | Deprecated | Deprecation reason | Description | Default |
 | --- | --- | --- | --- | --- | --- | --- | --- |
+| label | string | Yes |  |  |  | Label content |  |
 | onChange | (ev: React.ChangeEvent<HTMLInputElement>) => void | Yes |  |  |  | Specify a callback triggered on change |  |
-| value | string \| number \| readonly string[] \| undefined | Yes |  |  |  | The value of the input |  |
+| value | string \| number \| readonly string[] | Yes |  |  |  | The value of the input |  |
 | about | string \| undefined | No |  |  |  |  |  |
 | accept | string \| undefined | No |  |  |  |  |  |
 | accessKey | string \| undefined | No |  |  |  |  |  |
 | align | "left" \| "right" \| undefined | No |  |  |  |  |  |
 | alt | string \| undefined | No |  |  |  |  |  |
-| as | React.ElementType<any, keyof React.JSX.IntrinsicElements> \| undefined | No |  |  |  | Override the variant component |  |
 | autoCapitalize | (string & {}) \| "none" \| "off" \| "on" \| "sentences" \| "words" \| "characters" \| undefined | No |  |  |  |  |  |
 | autoComplete | HTMLInputAutoCompleteAttribute \| undefined | No |  |  |  |  |  |
 | autoCorrect | string \| undefined | No |  |  |  |  |  |
-| autoFocus | boolean \| undefined | No |  |  |  | If true the Component will be focused when rendered |  |
+| autoFocus | boolean \| undefined | No |  |  |  | If true, the input will automatically receive focus when the component is mounted. |  |
 | autoSave | string \| undefined | No |  |  |  |  |  |
 | capture | boolean \| "user" \| "environment" \| undefined | No |  |  |  |  |  |
-| characterLimit | number \| undefined | No |  |  |  | Character limit of the textarea |  |
 | checked | boolean \| undefined | No |  |  |  |  |  |
-| children | React.ReactNode | No |  |  |  | Content to be rendered next to the input |  |
+| children | ReactNode | No |  |  |  |  |  |
 | className | string \| undefined | No |  |  |  |  |  |
 | color | string \| undefined | No |  |  |  |  |  |
 | content | string \| undefined | No |  |  |  |  |  |
@@ -40,7 +39,7 @@ description: Carbon Password component props and usage examples.
 | dangerouslySetInnerHTML | { __html: string \| TrustedHTML; } \| undefined | No |  |  |  |  |  |
 | datatype | string \| undefined | No |  |  |  |  |  |
 | defaultChecked | boolean \| undefined | No |  |  |  |  |  |
-| deferTimeout | number \| undefined | No |  |  |  | Integer to determine a timeout for the deferred callback |  |
+| defaultValue | string \| number \| readonly string[] \| undefined | No |  |  |  |  |  |
 | dir | string \| undefined | No |  |  |  |  |  |
 | disabled | boolean \| undefined | No |  |  |  | If true, the component will be disabled |  |
 | draggable | Booleanish \| undefined | No |  |  |  |  |  |
@@ -50,32 +49,27 @@ description: Carbon Password component props and usage examples.
 | forceObscurity | boolean \| undefined | No |  |  |  | When `true` input `type` is `password` and text is obscured. | false |
 | form | string \| undefined | No |  |  |  |  |  |
 | formAction | string \| undefined | No |  |  |  |  |  |
-| formattedValue | string \| undefined | No |  |  |  | An optional alternative for props.value, this is useful if the real value is an ID but you want to show a human-readable version. |  |
 | formEncType | string \| undefined | No |  |  |  |  |  |
 | formMethod | string \| undefined | No |  |  |  |  |  |
 | formNoValidate | boolean \| undefined | No |  |  |  |  |  |
 | formTarget | string \| undefined | No |  |  |  |  |  |
 | height | string \| number \| undefined | No |  |  |  |  |  |
 | hidden | boolean \| undefined | No |  |  |  |  |  |
-| iconOnClick | ((ev: React.MouseEvent<HTMLElement> \| React.KeyboardEvent<HTMLElement>) => void) \| undefined | No |  |  |  | Optional handler for click event on Textbox icon |  |
-| iconOnMouseDown | ((ev: React.MouseEvent<HTMLElement>) => void) \| undefined | No |  |  |  | Optional handler for mouse down event on Textbox icon |  |
-| iconTabIndex | number \| undefined | No |  |  |  | Overrides the default tabindex of the component |  |
-| id | string \| undefined | No |  |  |  | Unique identifier for the input. Label id will be based on it, using following pattern: [id]-label. Will use a randomly generated GUID if none is provided. |  |
+| id | string \| undefined | No |  |  |  | Sets the input's id attribute, is not set a unique id will be generated and used. The label's htmlFor attribute will be set to match the input's id to ensure they are properly associated. |  |
 | inlist | any | No |  |  |  |  |  |
-| inputHint | string \| undefined | No |  |  |  | A hint string rendered before the input but after the label. Intended to describe the purpose or content of the input. |  |
-| inputIcon | string \| number \| boolean \| React.ReactElement<any, string \| React.JSXElementConstructor<any>> \| Iterable<React.ReactNode> \| React.ReactPortal \| null \| undefined | No |  |  |  | Type of the icon that will be rendered next to the input |  |
+| inputHint | React.ReactNode | No |  |  |  | A hint element rendered before the input but after the label. Intended to describe the purpose or content of the input |  |
+| inputIcon | React.ReactNode | No |  |  |  |  |  |
 | inputMode | "email" \| "none" \| "search" \| "text" \| "tel" \| "url" \| "numeric" \| "decimal" \| undefined | No |  |  |  | Hints at the type of data that might be entered by the user while editing the element or its contents |  |
-| inputWidth | number \| undefined | No |  |  |  | The width of the input as a percentage |  |
+| inputWidth | number \| undefined | No |  |  |  | The width of the input as a percentage (e.g., 50 for 50%) |  |
 | is | string \| undefined | No |  |  |  | Specify that a standard HTML element should behave like a defined custom built-in element |  |
 | itemID | string \| undefined | No |  |  |  |  |  |
 | itemProp | string \| undefined | No |  |  |  |  |  |
 | itemRef | string \| undefined | No |  |  |  |  |  |
 | itemScope | boolean \| undefined | No |  |  |  |  |  |
 | itemType | string \| undefined | No |  |  |  |  |  |
-| label | string \| undefined | No |  |  |  | Label content |  |
-| labelInline | boolean \| undefined | No |  |  |  | When true label is inline. |  |
+| labelInline | boolean \| undefined | No |  |  |  | When true label is inline |  |
 | lang | string \| undefined | No |  |  |  |  |  |
-| leftChildren | React.ReactNode | No |  |  |  | Additional child elements to display before the input |  |
+| leftChildren | React.ReactNode | No |  |  |  | Slot to render additional content to the left of the input, such as a prefix. |  |
 | list | string \| undefined | No |  |  |  |  |  |
 | m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
 | margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
@@ -87,7 +81,7 @@ description: Carbon Password component props and usage examples.
 | marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
 | max | string \| number \| undefined | No |  |  |  |  |  |
 | maxLength | number \| undefined | No |  |  |  |  |  |
-| maxWidth | string \| undefined | No |  |  |  | Prop for specifying the max width of the input. Leaving the `maxWidth` prop with no value will default the width to '100%' |  |
+| maxWidth | string \| undefined | No |  |  |  | The maximum width of the component container |  |
 | mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
 | min | string \| number \| undefined | No |  |  |  |  |  |
 | minLength | number \| undefined | No |  |  |  |  |  |
@@ -111,15 +105,14 @@ description: Carbon Password component props and usage examples.
 | onAuxClickCapture | MouseEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onBeforeInput | InputEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onBeforeInputCapture | FormEventHandler<T> \| undefined | No |  |  |  |  |  |
-| onBlur | ((ev: React.FocusEvent<HTMLInputElement>) => void) \| undefined | No |  |  |  | Event handler for the blur event |  |
+| onBlur | ((ev: React.FocusEvent<HTMLInputElement>) => void) \| undefined | No |  |  |  | Specify a callback triggered on blur |  |
 | onBlurCapture | FocusEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onCanPlay | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onCanPlayCapture | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onCanPlayThrough | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onCanPlayThroughCapture | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onChangeCapture | FormEventHandler<T> \| undefined | No |  |  |  |  |  |
-| onChangeDeferred | ((ev: React.ChangeEvent<HTMLInputElement>) => void) \| undefined | No |  |  |  | Deferred callback to be called after the onChange event |  |
-| onClick | ((ev: React.MouseEvent<HTMLElement> \| React.KeyboardEvent<HTMLElement>) => void) \| undefined | No |  |  |  | Specify a callback triggered on click |  |
+| onClick | ((ev: React.MouseEvent<HTMLElement>) => void) \| undefined | No |  |  |  |  |  |
 | onClickCapture | MouseEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onCompositionEnd | CompositionEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onCompositionEndCapture | CompositionEventHandler<T> \| undefined | No |  |  |  |  |  |
@@ -161,7 +154,7 @@ description: Carbon Password component props and usage examples.
 | onEndedCapture | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onError | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onErrorCapture | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
-| onFocus | ((ev: React.FocusEvent<HTMLInputElement>) => void) \| undefined | No |  |  |  | Event handler for the focus event |  |
+| onFocus | ((ev: React.FocusEvent<HTMLInputElement>) => void) \| undefined | No |  |  |  | Specify a callback triggered on focus |  |
 | onFocusCapture | FocusEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onGotPointerCapture | PointerEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onGotPointerCaptureCapture | PointerEventHandler<T> \| undefined | No |  |  |  |  |  |
@@ -169,7 +162,7 @@ description: Carbon Password component props and usage examples.
 | onInputCapture | FormEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onInvalid | FormEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onInvalidCapture | FormEventHandler<T> \| undefined | No |  |  |  |  |  |
-| onKeyDown | ((ev: React.KeyboardEvent<HTMLInputElement>) => void) \| undefined | No |  |  |  | Specify a callback triggered on keyDown |  |
+| onKeyDown | KeyboardEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onKeyDownCapture | KeyboardEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onKeyUp | KeyboardEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onKeyUpCapture | KeyboardEventHandler<T> \| undefined | No |  |  |  |  |  |
@@ -183,7 +176,7 @@ description: Carbon Password component props and usage examples.
 | onLoadStartCapture | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onLostPointerCapture | PointerEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onLostPointerCaptureCapture | PointerEventHandler<T> \| undefined | No |  |  |  |  |  |
-| onMouseDown | ((ev: React.MouseEvent<HTMLElement>) => void) \| undefined | No |  |  |  | Event handler for the mouse down event |  |
+| onMouseDown | ((ev: React.MouseEvent<HTMLElement>) => void) \| undefined | No |  |  |  |  |  |
 | onMouseDownCapture | MouseEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onMouseEnter | MouseEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onMouseLeave | MouseEventHandler<T> \| undefined | No |  |  |  |  |  |
@@ -258,8 +251,7 @@ description: Carbon Password component props and usage examples.
 | part | string \| undefined | No |  |  |  |  |  |
 | pattern | string \| undefined | No |  |  |  |  |  |
 | placeholder | string \| undefined | No |  |  |  | Placeholder string to be displayed in input |  |
-| positionedChildren | React.ReactNode | No |  |  |  | Container for DatePicker or SelectList components |  |
-| prefix | string \| undefined | No |  |  |  | Emphasized part of the displayed text |  |
+| prefixId | string \| undefined | No |  |  |  | ID for the prefix span element |  |
 | property | string \| undefined | No |  |  |  |  |  |
 | radioGroup | string \| undefined | No |  |  |  |  |  |
 | readOnly | boolean \| undefined | No |  |  |  | If true, the component will be read-only |  |
@@ -281,14 +273,16 @@ description: Carbon Password component props and usage examples.
 | tabIndex | number \| undefined | No |  |  |  |  |  |
 | title | string \| undefined | No |  |  |  |  |  |
 | translate | "yes" \| "no" \| undefined | No |  |  |  |  |  |
+| type | string \| undefined | No |  |  |  | The type of the input, e.g., "text", "email", "password". This prop is passed directly to the underlying input element, so any valid HTML input type is accepted. The default value is "text". |  |
 | typeof | string \| undefined | No |  |  |  |  |  |
 | unselectable | "off" \| "on" \| undefined | No |  |  |  |  |  |
-| validationIconId | string \| undefined | No |  |  |  | Id of the validation icon |  |
-| validationMessagePositionTop | boolean \| undefined | No |  |  |  | Render the ValidationMessage above the Textbox input when validationRedesignOptIn flag is set |  |
+| validationMessagePositionTop | boolean \| undefined | No |  |  |  |  |  |
 | vocab | string \| undefined | No |  |  |  |  |  |
 | warning | string \| boolean \| undefined | No |  |  |  | Indicate that warning has occurred. |  |
 | width | string \| number \| undefined | No |  |  |  |  |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+| data-is-open | boolean \| undefined | No |  |  |  |  |  |
+| data-is-transparent | boolean \| undefined | No |  |  |  |  |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | aria-activedescendant | string \| undefined | No |  |  |  | Identifies the currently active element when DOM focus is on a composite widget, textbox, group, or application. |  |
 | aria-atomic | Booleanish \| undefined | No |  |  |  | Indicates whether assistive technologies will present all, or only parts of, the changed region based on the change notifications defined by the aria-relevant attribute. |  |
@@ -303,7 +297,7 @@ description: Carbon Password component props and usage examples.
 | aria-colspan | number \| undefined | No |  |  |  | Defines the number of columns spanned by a cell or gridcell within a table, grid, or treegrid. |  |
 | aria-controls | string \| undefined | No |  |  |  | Identifies the element (or elements) whose contents or presence are controlled by the current element. |  |
 | aria-current | boolean \| "location" \| "page" \| "time" \| "true" \| "false" \| "step" \| "date" \| undefined | No |  |  |  | Indicates the element that represents the current item within a container or set of related elements. |  |
-| aria-describedby | string \| undefined | No |  |  |  | The ID of the input's description, is set along with hint text and error message. |  |
+| aria-describedby | string \| undefined | No |  |  |  | The ID of the element(s) that describe the input, typically used to reference the hint and/or validation message(s) associated with the input. Can be a space-separated list of IDs if there are multiple descriptive elements. |  |
 | aria-description | string \| undefined | No |  |  |  | Defines a string value that describes or annotates the current element. |  |
 | aria-details | string \| undefined | No |  |  |  | Identifies the element that provides a detailed, extended description for the object. |  |
 | aria-disabled | Booleanish \| undefined | No |  |  |  | Indicates that the element is perceivable but disabled, so it is not editable or otherwise operable. |  |
@@ -315,7 +309,7 @@ description: Carbon Password component props and usage examples.
 | aria-invalid | boolean \| "true" \| "false" \| "grammar" \| "spelling" \| undefined | No |  |  |  | Indicates the entered value does not conform to the format expected by the application. |  |
 | aria-keyshortcuts | string \| undefined | No |  |  |  | Indicates keyboard shortcuts that an author has implemented to activate or give focus to an element. |  |
 | aria-label | string \| undefined | No |  |  |  | Defines a string value that labels the current element. |  |
-| aria-labelledby | string \| undefined | No |  |  |  | Prop to specify the aria-labelledby property of the component |  |
+| aria-labelledby | string \| undefined | No |  |  |  | The ID of the element that labels the input, typically used to reference the input's label when the label is not properly associated with the input via the htmlFor attribute. |  |
 | aria-level | number \| undefined | No |  |  |  | Defines the hierarchical level of an element within a structure. |  |
 | aria-live | "off" \| "assertive" \| "polite" \| undefined | No |  |  |  | Indicates that an element will be updated, and describes the types of updates the user agents, assistive technologies, and user can expect from the live region. |  |
 | aria-modal | Booleanish \| undefined | No |  |  |  | Indicates whether an element is modal when displayed. |  |
@@ -341,20 +335,10 @@ description: Carbon Password component props and usage examples.
 | aria-valuemin | number \| undefined | No |  |  |  | Defines the minimum allowed value for a range widget. |  |
 | aria-valuenow | number \| undefined | No |  |  |  | Defines the current value for a range widget. |  |
 | aria-valuetext | string \| undefined | No |  |  |  | Defines the human readable text alternative of aria-valuenow for a range widget. |  |
-| adaptiveLabelBreakpoint | number \| undefined | No |  | Yes | `adaptiveLabelBreakpoint` has been deprecated, the functionality will no longer work. |  |  |
-| fieldHelp | React.ReactNode | No |  | Yes | `fieldHelp` has been deprecated, `inputHint` should be used instead. [Legacy] Help content to be displayed under an input. |  |  |
-| helpAriaLabel | string \| undefined | No |  | Yes | `helpAriaLabel` has been deprecated, the functionality will no longer work. |  |  |
-| info | string \| boolean \| undefined | No |  | Yes | `info` has been deprecated, the functionality will no longer work. |  |  |
-| labelAlign | "left" \| "right" \| undefined | No |  | Yes | `labelAlign` has been deprecated, the functionality will no longer work. |  |  |
-| labelHelp | React.ReactNode | No |  | Yes | `labelHelp` has been deprecated, `inputHint` should be used instead. [Legacy] Text applied to label help tooltip. When opted into new design validations string values will render as a hint above the input, unless an `inputHint` prop is also passed. |  |  |
-| labelSpacing | 1 \| 2 \| undefined | No |  | Yes | `labelSpacing` has been deprecated, the functionality will no longer work. |  |  |
-| labelWidth | number \| undefined | No |  | Yes | `labelWidth` has been deprecated, the functionality will no longer work. |  |  |
+| characterLimit | number \| undefined | No |  | Yes | `characterLimit` has been deprecated and will be removed in a future release. |  |  |
 | onKeyPress | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUp` or `onKeyDown` instead |  |  |
 | onKeyPressCapture | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUpCapture` or `onKeyDownCapture` instead |  |  |
-| reverse | boolean \| undefined | No |  | Yes | `reverse` has been deprecated, the functionality will no longer work. |  |  |
-| tooltipId | string \| undefined | No |  | Yes | `tooltipId` has been deprecated, the functionality will no longer work. |  |  |
-| tooltipPosition | "left" \| "right" \| "bottom" \| "top" \| undefined | No |  | Yes | `tooltipPosition` has been deprecated, the functionality will no longer work. |  |  |
-| validationOnLabel | boolean \| undefined | No |  | Yes | `validationOnLabel` has been deprecated, the functionality will no longer work. |  |  |
+| prefix | string \| undefined | No |  | Yes | `prefix` has been deprecated and will be removed in a future release. |  |  |
 | aria-dropeffect | "copy" \| "link" \| "none" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
 | aria-grabbed | Booleanish \| undefined | No |  | Yes | in ARIA 1.1 | Indicates an element's "grabbed" state in a drag-and-drop operation. |  |
 
@@ -409,58 +393,31 @@ description: Carbon Password component props and usage examples.
     setState(target.value);
   };
 
-  return (
-    <Password
-      inputHint="Hint text (optional)."
-      label="Password"
-      value={state}
-      onChange={setValue}
-    />
-  );
-}
-```
-
-
-### Character Counter
-
-**Render**
-
-```tsx
-() => {
-  const [state, setState] = useState("Password");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
+  const hintStyles = {
+    color: "var(--input-labelset-label-alt)",
+    margin: 0,
+    fontSize: "inherit",
   };
 
-  return (
-    <Password
-      label="Password"
-      value={state}
-      characterLimit={10}
-      onChange={setValue}
-    />
+  const hint = (
+    <div style={hintStyles}>
+      <p style={{ margin: "0 0 4px" }}>Password must contain:</p>
+      <ul style={{ margin: 0, paddingLeft: "20px" }}>
+        <li>At least 8 characters</li>
+        <li>At least one uppercase letter</li>
+        <li>At least one lowercase letter</li>
+        <li>At least one number</li>
+        <li>At least one special character</li>
+      </ul>
+    </div>
   );
-}
-```
-
-
-### Prefix
-
-**Render**
-
-```tsx
-() => {
-  const [state, setState] = useState("Password");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
 
   return (
     <Password
-      prefix="prefix"
       label="Password"
       value={state}
       onChange={setValue}
+      inputHint={hint}
     />
   );
 }
@@ -602,29 +559,6 @@ description: Carbon Password component props and usage examples.
   return (
     <Password
       maxWidth="70%"
-      label="Password"
-      value={state}
-      onChange={setValue}
-    />
-  );
-}
-```
-
-
-### With fieldHelp
-
-**Render**
-
-```tsx
-() => {
-  const [state, setState] = useState("Password");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-
-  return (
-    <Password
-      fieldHelp="help"
       label="Password"
       value={state}
       onChange={setValue}

@@ -1,4 +1,4 @@
-import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 import * as DecimalStories from "./decimal.stories";
@@ -45,6 +45,18 @@ import Decimal from "carbon-react/lib/components/decimal";
 
 <Canvas of={DecimalStories.Prefix} />
 
+### Suffix
+
+<Canvas of={DecimalStories.Suffix} />
+
+**Note:** `prefix` takes precedence over `suffix`.
+
+### With Popover Container
+
+Use the `popoverContainerContent` prop to render content inside a [PopoverContainer](../?path=/docs/popover-container--docs) accessible via a button at the right of the input. Use the `popoverPosition` prop to control the position of the popover dialog relative to the trigger button.
+
+<Canvas of={DecimalStories.WithPopoverContainer} /> If both props are supplied, only the prefix will be rendered and a console warning will be logged. Use one or the other.
+
 ### ReadOnly
 
 <Canvas of={DecimalStories.ReadOnly} />
@@ -60,7 +72,6 @@ import Decimal from "carbon-react/lib/components/decimal";
 ### With custom maxWidth
 
 <Canvas of={DecimalStories.WithCustomMaxWidth} />
-
 
 ### Required
 

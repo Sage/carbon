@@ -18,6 +18,7 @@ src/style-config/assets.scss
 storybook-static/
 .swc/
 bundle-stats/
+debug-storybook.log
 
 playwright/test-results
 playwright/test-report

@@ -36,6 +36,8 @@ export interface InputProps
   size?: "small" | "medium" | "large";
   /** Emphasised text to be displayed before the input */
   prefix?: string;
+  /** ID for the prefix span element */
+  prefixId?: string;
   /** Additional children to be rendered before the input */
   leftChildren?: React.ReactNode;
   /** Text alignment within the input */
@@ -44,6 +46,10 @@ export interface InputProps
    * @private @internal @ignore
    */
   "data-is-transparent"?: boolean;
+  /**
+   * @private @internal @ignore
+   */
+  "data-is-open"?: boolean;
 }
 
 const selectTextOnFocus = (
@@ -76,6 +82,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       autoFocus,
       error,
       "data-is-transparent": dataIsTransparent,
+      "data-is-open": dataIsOpen,
       children,
       disabled,
       id,
@@ -85,6 +92,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       name,
       onFocus,
       prefix,
+      prefixId,
       readOnly,
       size,
       type = "text",
@@ -94,7 +102,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ) => {
     const localRef = useRef<HTMLInputElement>(null);
     const combinedRef = combineRefs(ref, localRef);
-    const prefixId = prefix ? `${id}-prefix` : undefined;
 
     useEffect(() => {
       if (autoFocus) {
@@ -112,10 +119,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       [onFocus, type],
     );
 
-    const ariaLabelledByString = prefixId
-      ? `${prefixId} ${ariaLabelledBy || ""}`.trim()
-      : ariaLabelledBy;
-
     return (
       <InputContainer
         $align={align}
@@ -125,6 +128,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         $isDisabled={disabled}
         $isReadOnly={readOnly}
         data-is-transparent={dataIsTransparent}
+        data-is-open={dataIsOpen}
       >
         <div
           data-role="input-text-container"
@@ -144,7 +148,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             disabled={disabled}
             readOnly={readOnly}
             aria-describedby={ariaDescribedBy}
-            aria-labelledby={ariaLabelledByString}
+            aria-labelledby={ariaLabelledBy}
             type={type}
             onFocus={handleFocus}
             id={id}
@@ -153,8 +157,8 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             {...rest}
           />
           {inputIcon}
+          {children}
         </div>
-        {children}
       </InputContainer>
     );
   },

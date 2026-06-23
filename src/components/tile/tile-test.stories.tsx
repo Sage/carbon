@@ -170,7 +170,3 @@ export const MultipleTiles = () => {
     </Box>
   );
 };
-MultipleTiles.parameters = {
-  chromatic: { disableSnapshot: false },
-  themeProvider: { chromatic: { theme: "sage" } },
-};

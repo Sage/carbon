@@ -1,5 +1,5 @@
 import React from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 import Box from "../../box";
 import Button from "../../button/button.component";
@@ -56,7 +56,10 @@ const meta: Meta<typeof Loader> = {
   args: {
     loaderType: "standalone",
   },
-  parameters: { chromatic: { disableSnapshot: false } },
+  parameters: {
+    chromatic: { disableSnapshot: false },
+    themeProvider: { chromatic: { theme: "sage" } },
+  },
 };
 
 export default meta;
@@ -194,6 +197,7 @@ export const InsideButtons: Story = {
       <Box height="50px">
         <Button m={2} buttonType="primary" onClick={() => {}}>
           <Loader
+            inverse
             loaderType="ring"
             variant="inline"
             size="extra-small"
@@ -224,6 +228,7 @@ export const InsideButtons: Story = {
       <Box height="50px">
         <Button m={2} buttonType="primary" destructive onClick={() => {}}>
           <Loader
+            inverse
             loaderType="ring"
             variant="inline"
             size="extra-small"

@@ -356,33 +356,13 @@ description: Carbon AdaptiveSidebar component props and usage examples.
     useState(defaultOpenState);
   const [colour, setColour] = useState("white");
 
-  const colours = useMemo(() => {
-    switch (colour) {
-      case "app":
-        return {
-          backgroundColor: "var(--colorsUtilityMajor025)",
-          color: "var(--colorsUtilityYin090)",
-        };
-      case "black":
-        return {
-          backgroundColor: "var(--colorsUtilityYin100)",
-          color: "var(--colorsUtilityYang100)",
-        };
-      case "white":
-      default:
-        return {
-          backgroundColor: "var(--colorsUtilityYang100)",
-          color: "var(--colorsUtilityYin090)",
-        };
-    }
-  }, [colour]);
-
   return (
     <Box display="flex" flexDirection="row">
       <Box>
         <Box display="flex" flexDirection="row" gap={4}>
           <Box width="300px">
             <Select
+              ml={3}
               name="color"
               id="color"
               label="Background Color"
@@ -431,7 +411,7 @@ description: Carbon AdaptiveSidebar component props and usage examples.
             justifyContent="space-between"
             p={1}
           >
-            <Typography variant="h3" {...colours}>
+            <Typography variant="h3" inverse={colour === "black"}>
               Content
             </Typography>
             <Button
@@ -443,7 +423,7 @@ description: Carbon AdaptiveSidebar component props and usage examples.
           </Box>
           <Divider type="horizontal" my={0} />
           <Box display="flex" flexDirection="column">
-            <Typography {...colours}>
+            <Typography inverse={colour === "black"}>
               This is the main content of the adaptive sidebar
             </Typography>
           </Box>

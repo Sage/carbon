@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 import useCharacterCount from "./useCharacterCount";
 import Textbox from "../../components/textbox";
@@ -7,11 +7,11 @@ import Textarea from "../../components/textarea";
 
 /**
  * This file is used primarily as a means to generate the props table and examples.
- * It contains the tag: ["hideInSidebar"] so that it is not included in the sidebar.
+ * It contains the tag: ["!dev"] so that it is not included in the sidebar.
  */
 
 const meta: Meta = {
-  tags: ["hideInSidebar"],
+  tags: ["!dev"],
   parameters: {
     chromatic: {
       disableSnapshot: true,

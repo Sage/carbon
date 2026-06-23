@@ -60,5 +60,5 @@ export default defineConfig({
     },
   ],
 
-  globalTeardown: require.resolve("./playwright/global-teardown"),
+  globalTeardown: resolve(__dirname, "./playwright/global-teardown.js"),
 });

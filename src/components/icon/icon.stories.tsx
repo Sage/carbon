@@ -1,5 +1,5 @@
 import React from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
@@ -62,7 +62,7 @@ VariousBgShapes.storyName = "Various Background Shapes";
 export const VariousBgSizes: Story = () => {
   return (
     <>
-      {(["small", "medium", "large", "extra-large"] as const).map((bgSize) => (
+      {(["small", "medium", "large"] as const).map((bgSize) => (
         <Icon type="add" bg="#00b000" bgSize={bgSize} mr={1} key={bgSize} />
       ))}
     </>
@@ -73,22 +73,18 @@ VariousBgSizes.storyName = "Various Background Sizes";
 export const BgSizesAndFontSizes: Story = () => {
   return (
     <>
-      {(["small", "medium", "large", "extra-large"] as const).map(
-        (fontSize) => {
-          return (["small", "medium", "large", "extra-large"] as const).map(
-            (bgSize) => (
-              <Icon
-                type="add"
-                bg="#00b000"
-                fontSize={fontSize}
-                bgSize={bgSize}
-                mr={1}
-                key={`${fontSize}_${bgSize}`}
-              />
-            ),
-          );
-        },
-      )}
+      {(["small", "medium", "large"] as const).map((fontSize) => {
+        return (["small", "medium", "large"] as const).map((bgSize) => (
+          <Icon
+            type="add"
+            bg="#00b000"
+            fontSize={fontSize}
+            bgSize={bgSize}
+            mr={1}
+            key={`${fontSize}_${bgSize}`}
+          />
+        ));
+      })}
     </>
   );
 };

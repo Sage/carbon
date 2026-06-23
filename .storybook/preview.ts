@@ -1,5 +1,5 @@
-import { Preview } from "@storybook/react";
-import { configure } from "@storybook/test";
+import { Preview } from "@storybook/react-vite";
+import { configure } from "storybook/test";
 
 import "../src/style/fonts.css";
 
@@ -10,6 +10,65 @@ import withLocaleSelector from "./with-locale-selector";
 import { withThemeProvider, globalThemeProvider } from "./withThemeProvider";
 import withReducedMotion from "./with-reduced-motion";
 import withFusionTokens from "./with-fusion-tokens";
+
+type DocgenProp = {
+  tags?: {
+    deprecated?: string;
+  };
+};
+
+type DocgenComponent = {
+  __docgenInfo?: {
+    props?: Record<string, DocgenProp | undefined>;
+  };
+};
+
+// Temporary workaround for Storybook docs not rendering JSDoc @deprecated tag text
+// from extracted argTypes in this repo's current Storybook version line.
+const deprecatedJsDocArgTypesEnhancer = ((context) => {
+  const component = context.component as DocgenComponent | undefined;
+  const docgenProps = component?.__docgenInfo?.props;
+
+  if (!docgenProps) {
+    return context.argTypes;
+  }
+
+  const nextArgTypes = Object.entries(context.argTypes).reduce(
+    (acc, [argName, argType]) => {
+      const deprecationMessage = docgenProps[argName]?.tags?.deprecated;
+
+      if (!deprecationMessage) {
+        acc[argName] = argType;
+        return acc;
+      }
+
+      const normalizedMessage = deprecationMessage.trim();
+
+      if (!normalizedMessage) {
+        acc[argName] = argType;
+        return acc;
+      }
+
+      const nextJsDocTags = {
+        ...(argType.table?.jsDocTags as Record<string, unknown> | undefined),
+        deprecated: normalizedMessage,
+      };
+
+      acc[argName] = {
+        ...argType,
+        table: {
+          ...argType.table,
+          jsDocTags: nextJsDocTags,
+        },
+      };
+
+      return acc;
+    },
+    {} as typeof context.argTypes,
+  );
+
+  return nextArgTypes;
+}) satisfies NonNullable<Preview["argTypesEnhancers"]>[number];
 
 // Configure the testIdAttribute to look for data-role when querying elements using `getByTestId`.
 configure({ testIdAttribute: "data-role" });
@@ -40,7 +99,7 @@ const parameters = {
     },
   },
   chromatic: { disableSnapshot: false },
-  viewport: { viewports: customViewports },
+  viewport: { options: customViewports },
   viewMode: import.meta.env.STORYBOOK_VIEW_MODE,
 };
 
@@ -83,8 +142,8 @@ const globalTypes = {
       showName: true,
     },
   },
-  ...globalThemeProvider,
-};
+  ...(globalThemeProvider as object),
+} as Preview["globalTypes"];
 
 const decorators = [
   withGlobalStyles,
@@ -108,6 +167,7 @@ const loaders =
 const preview: Preview = {
   parameters,
   decorators,
+  argTypesEnhancers: [deprecatedJsDocArgTypesEnhancer],
   globalTypes,
   loaders,
 };

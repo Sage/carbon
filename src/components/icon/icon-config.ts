@@ -36,12 +36,7 @@ export const ICON_SHAPES: BackgroundShape[] = [
   "square",
 ];
 export const ICON_SIZES: BgSize[] = ["small", "medium", "large", "extra-large"];
-export const ICON_FONT_SIZES: FontSize[] = [
-  "small",
-  "medium",
-  "large",
-  "extra-large",
-];
+export const ICON_FONT_SIZES: FontSize[] = ["small", "medium", "large"];
 export const ICONS: IconType[] = [
   "accessibility_web",
   "add",
@@ -139,6 +134,7 @@ export const ICONS: IconType[] = [
   "circles_connection",
   "clear",
   "clock",
+  "clock_add",
   "close",
   "code",
   "cloud_co2",
@@ -256,6 +252,7 @@ export const ICONS: IconType[] = [
   "logout",
   "lookup",
   "marker",
+  "marker_off",
   "message",
   "microphone",
   "minimise",
@@ -331,6 +328,8 @@ export const ICONS: IconType[] = [
   "submitted",
   "subtitles",
   "support_online",
+  "system_Android",
+  "system_iOS",
   "sync",
   "tag",
   "talk",

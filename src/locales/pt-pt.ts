@@ -50,6 +50,12 @@ const ptPT: Partial<Locale> = {
     },
     dateFormatOverride: undefined,
   },
+  decimal: {
+    ariaLabels: {
+      popoverTrigger: () => "Acionador de popover decimal",
+      popoverContent: () => "Conteúdo do popover decimal",
+    },
+  },
   dialog: {
     ariaLabels: {
       close: () => "Fechar",

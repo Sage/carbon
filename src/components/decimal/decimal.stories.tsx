@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { ArgTypes, Meta, StoryObj } from "@storybook/react";
+import { ArgTypes, Meta, StoryObj } from "@storybook/react-vite";
 
 import Decimal, { DecimalProps, CustomEvent } from ".";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
+import Box from "../box";
+import { Select, Option } from "../select";
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
@@ -24,14 +26,13 @@ type Story = StoryObj<typeof Decimal>;
  * I've put a message on the Storybook Discord but it's been ignored so will need to chase or ask on git */
 export const DefaultStory: Story = {
   render: (args: DecimalProps) => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [state, setState] = useState("0.01");
     const setValue = ({ target }: CustomEvent) => {
       setState(target.value.rawValue);
     };
     return <Decimal {...args} value={state} onChange={setValue} />;
   },
-  args: { label: "Decimal" },
+  args: { label: "Decimal", required: true },
   name: "Default",
 };
 
@@ -69,6 +70,102 @@ export const Prefix: Story = {
   ...DefaultStory,
   args: { ...DefaultStory.args, prefix: "£", maxWidth: "20%" },
   name: "Prefix",
+};
+
+export const Suffix: Story = {
+  ...DefaultStory,
+  args: { ...DefaultStory.args, suffix: "kg", maxWidth: "20%" },
+  name: "Suffix",
+};
+
+export const WithPopoverContainer: Story = {
+  render: (args: DecimalProps) => {
+    const [state, setState] = useState("0.01");
+    const [selectValue, setSelectValue] = useState("1");
+    const setValue = ({ target }: CustomEvent) => {
+      setState(target.value.rawValue);
+    };
+    return (
+      <Decimal
+        {...args}
+        value={state}
+        onChange={setValue}
+        popoverContainerContent={
+          <Box m="24px">
+            <Select
+              name="simple"
+              id="simple"
+              label="Select a colour"
+              value={selectValue}
+              onChange={(ev) => setSelectValue(ev.target.value)}
+            >
+              <Option text="Amber" value="1" />
+              <Option text="Black" value="2" />
+              <Option text="Blue" value="3" />
+              <Option text="Brown" value="4" />
+              <Option text="Green" value="5" />
+              <Option text="Orange" value="6" />
+              <Option text="Pink" value="7" />
+              <Option text="Purple" value="8" />
+              <Option text="Red" value="9" />
+              <Option text="White" value="10" />
+              <Option text="Yellow" value="11" />
+            </Select>
+          </Box>
+        }
+      />
+    );
+  },
+  args: { label: "Decimal", maxWidth: "40%" },
+  name: "With Popover Container",
+};
+
+export const WithPopoverPosition: Story = {
+  render: (args: DecimalProps) => {
+    const [state, setState] = useState("0.01");
+    const [selectValue, setSelectValue] = useState("1");
+    const setValue = ({ target }: CustomEvent) => {
+      setState(target.value.rawValue);
+    };
+    return (
+      <Decimal
+        {...args}
+        value={state}
+        onChange={setValue}
+        popoverContainerContent={
+          <Box m="24px">
+            <Select
+              name="simple"
+              id="simple"
+              label="Select a colour"
+              value={selectValue}
+              onChange={(ev) => setSelectValue(ev.target.value)}
+            >
+              <Option text="Amber" value="1" />
+              <Option text="Black" value="2" />
+              <Option text="Blue" value="3" />
+              <Option text="Brown" value="4" />
+              <Option text="Green" value="5" />
+              <Option text="Orange" value="6" />
+              <Option text="Pink" value="7" />
+              <Option text="Purple" value="8" />
+              <Option text="Red" value="9" />
+              <Option text="White" value="10" />
+              <Option text="Yellow" value="11" />
+            </Select>
+          </Box>
+        }
+      />
+    );
+  },
+  args: { label: "Decimal", maxWidth: "40%", popoverPosition: "left" },
+  argTypes: {
+    popoverPosition: {
+      options: ["left", "right", "center"],
+      control: { type: "select" },
+    },
+  },
+  name: "With Popover Position",
 };
 
 export const ReadOnly: Story = {

@@ -8,6 +8,12 @@ export const DividerComponent = (props: Partial<DividerProps>) => {
   return <Divider {...props} />;
 };
 
+export const DarkBackgroundOnInverseDivider = () => (
+  <div style={{ backgroundColor: "#000000", padding: "16px" }}>
+    <Divider inverse />
+  </div>
+);
+
 export default DividerComponent;
 
 export const DifferentSpacing = () => (

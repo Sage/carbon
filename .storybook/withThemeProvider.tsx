@@ -1,0 +1,78 @@
+import isChromatic from "./isChromatic";
+import React from "react";
+import { Decorator, StoryFn } from "@storybook/react";
+import styled from "styled-components";
+import CarbonProvider from "../src/components/carbon-provider";
+import { noTheme, sageTheme } from "../src/style/themes";
+import { config } from "react-transition-group";
+
+type Theme = typeof noTheme | typeof sageTheme;
+
+const themes = [noTheme, sageTheme].reduce<Record<string, Theme>>(
+  (themesObject, theme) => {
+    if (theme.name) {
+      themesObject[theme.name] = theme;
+    }
+    return themesObject;
+  },
+  {},
+);
+
+const render = (Story: StoryFn, themeName: string) => (
+  <CarbonProvider theme={themes[themeName]}>
+    <Story themeName={themeName} />
+  </CarbonProvider>
+);
+
+const FourColumnLayout = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+`;
+
+const withThemeProvider: Decorator = (Story, context) => {
+  const parameters = context.parameters.themeProvider?.chromatic ||
+    context.parameters.chromatic || {
+      theme: null,
+      fourColumnLayout: false,
+    };
+
+  const { theme: chromaticTheme, fourColumnLayout } = parameters;
+  const isChromaticBuild = isChromatic();
+
+  // Disable transitions
+  config.disabled = isChromaticBuild;
+
+  if (isChromaticBuild && !chromaticTheme) {
+    const Wrapper = fourColumnLayout ? FourColumnLayout : React.Fragment;
+    return (
+      <Wrapper>
+        {Object.keys(themes).map((themeName) => (
+          <div key={themeName}>
+            <h3>{themeName}</h3>
+            {render(Story, themeName)}
+          </div>
+        ))}
+      </Wrapper>
+    );
+  }
+
+  return render(
+    Story,
+    isChromaticBuild && chromaticTheme ? chromaticTheme : context.globals.theme,
+  );
+};
+
+export const globalThemeProvider = {
+  theme: {
+    name: "Theme",
+    description: "Global theme for components",
+    defaultValue: sageTheme.name,
+    toolbar: {
+      title: "Theme",
+      icon: "paintbrush",
+      items: Object.keys(themes),
+    },
+  },
+};
+
+export { withThemeProvider };

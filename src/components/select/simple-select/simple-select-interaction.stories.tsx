@@ -1,5 +1,5 @@
-import { StoryObj } from "@storybook/react";
-import { userEvent, screen, within, expect } from "@storybook/test";
+import { StoryObj } from "@storybook/react-vite";
+import { userEvent, screen, within, expect } from "storybook/test";
 import React, { useState } from "react";
 
 import SimpleSelect, {
@@ -534,3 +534,44 @@ export const NestedInDialog: Story = {
     ),
   ],
 };
+
+export const OpenWithValidationBelow: Story = {
+  render: () => (
+    <Box height={300}>
+      <InteractiveComponent
+        onChange={() => {}}
+        name="simple"
+        id="simple"
+        label="Color"
+        error="Error message"
+        validationMessagePositionTop={false}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+      </InteractiveComponent>
+    </Box>
+  ),
+  play: async ({ canvasElement }) => {
+    if (!allowInteractions()) {
+      return;
+    }
+    const canvas = within(canvasElement);
+    const select = canvas.getByRole("combobox", { name: "Color" });
+    await userEvent.click(select, { delay: 100 });
+    await expect(
+      await within(document.body).findByRole("option", { name: "Amber" }),
+    ).toBeVisible();
+  },
+  decorators: [
+    (StoryToRender) => (
+      <DefaultDecorator>
+        <StoryToRender />
+      </DefaultDecorator>
+    ),
+  ],
+};
+
+OpenWithValidationBelow.storyName = "Open With Validation Below";

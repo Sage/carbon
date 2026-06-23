@@ -1,5 +1,5 @@
 import React from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import Badge, { BadgeProps } from ".";
 import Box from "../box";
 import Button from "../button";

@@ -1,5 +1,5 @@
 import React from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 import Box from "../../box";
 
@@ -264,6 +264,7 @@ export const InsideButtons: Story = {
             variant="inline"
             size="extra-small"
             showLabel
+            inverse
           />
         </Button>
       </Box>
@@ -294,6 +295,7 @@ export const InsideButtons: Story = {
             variant="inline"
             size="extra-small"
             showLabel
+            inverse
           />
         </Button>
       </Box>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
@@ -37,6 +37,10 @@ const meta: Meta<typeof Tile> = {
   argTypes: {
     ...styledSystemProps,
   },
+  parameters: {
+    chromatic: { disableSnapshot: true },
+    themeProvider: { chromatic: { theme: "sage" } },
+  },
 };
 
 export default meta;
@@ -52,6 +56,7 @@ export const DefaultStory: Story = () => {
   );
 };
 DefaultStory.storyName = "Default";
+DefaultStory.parameters = { chromatic: { disableSnapshot: false } };
 
 export const SmallRoundness: Story = () => {
   return (
@@ -218,6 +223,7 @@ export const WithTileFooter: Story = () => {
   );
 };
 WithTileFooter.storyName = "With TileFooter";
+WithTileFooter.parameters = { chromatic: { disableSnapshot: false } };
 
 export const WithTileHeader: Story = () => (
   <Box>
@@ -301,6 +307,7 @@ export const WithTileHeader: Story = () => (
   </Box>
 );
 WithTileHeader.storyName = "With TileHeader";
+WithTileHeader.parameters = { chromatic: { disableSnapshot: false } };
 
 export const WithButtonInTileHeader: Story = () => {
   const dummyText = [
@@ -545,10 +552,7 @@ export const CustomBorders: Story = () => {
   );
 };
 CustomBorders.storyName = "Custom Borders";
-CustomBorders.parameters = {
-  chromatic: { disableSnapshot: false },
-  themeProvider: { chromatic: { theme: "sage" } },
-};
+CustomBorders.parameters = { chromatic: { disableSnapshot: false } };
 
 export const WithInline: Story = () => {
   return (
@@ -779,7 +783,6 @@ export const WithAccordion: Story = () => {
   );
 };
 WithAccordion.storyName = "With Accordion";
-WithAccordion.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithAccordionAndTileFooter: Story = () => {
   return (
@@ -819,9 +822,6 @@ export const WithAccordionAndTileFooter: Story = () => {
   );
 };
 WithAccordionAndTileFooter.storyName = "With Accordion and TileFooter";
-WithAccordionAndTileFooter.parameters = {
-  chromatic: { disableSnapshot: true },
-};
 
 export const ResponsiveDefaultStory: Story = () => {
   return (
@@ -844,6 +844,7 @@ export const ResponsiveDefaultStory: Story = () => {
   );
 };
 ResponsiveDefaultStory.storyName = "Responsive Tile";
+ResponsiveDefaultStory.parameters = { chromatic: { disableSnapshot: false } };
 
 export const CustomGaps: Story = () => {
   return (
@@ -1041,177 +1042,46 @@ export const ResponsiveWithOverflowVisibleStory: Story = () => {
 ResponsiveWithOverflowVisibleStory.storyName =
   "Responsive with Overflow Visible";
 
-export const HighlightVariantGradientStory: Story = () => {
+export const HighlightVariants: Story = () => {
   return (
     <>
       <Tile highlightVariant="gradient" roundness="small">
-        <TileContent>Test Body One</TileContent>
-        <TileContent>Test Body Two</TileContent>
-        <TileContent>Test Body Three</TileContent>
+        <TileContent>Gradient - Small Roundness</TileContent>
       </Tile>
       <br />
       <Tile highlightVariant="gradient">
-        <TileContent>Test Body One</TileContent>
-        <TileContent>Test Body Two</TileContent>
-        <TileContent>Test Body Three</TileContent>
+        <TileContent>Gradient - Default Roundness</TileContent>
       </Tile>
       <br />
       <Tile highlightVariant="gradient" roundness="large">
-        <TileContent>Test Body One</TileContent>
-        <TileContent>Test Body Two</TileContent>
-        <TileContent>Test Body Three</TileContent>
-      </Tile>
-    </>
-  );
-};
-HighlightVariantGradientStory.storyName = "Highlight variant gradient story";
-
-export const HighlightVariantSuccessStory: Story = () => {
-  return (
-    <>
-      <Tile highlightVariant="success" roundness="small">
-        <TileContent>Test Body One</TileContent>
-        <TileContent>Test Body Two</TileContent>
-        <TileContent>Test Body Three</TileContent>
+        <TileContent>Gradient - Large Roundness</TileContent>
       </Tile>
       <br />
       <Tile highlightVariant="success">
-        <TileContent>Test Body One</TileContent>
-        <TileContent>Test Body Two</TileContent>
-        <TileContent>Test Body Three</TileContent>
-      </Tile>
-      <br />
-      <Tile highlightVariant="success" roundness="large">
-        <TileContent>Test Body One</TileContent>
-        <TileContent>Test Body Two</TileContent>
-        <TileContent>Test Body Three</TileContent>
-      </Tile>
-    </>
-  );
-};
-HighlightVariantSuccessStory.storyName = "Highlight variant success story";
-
-export const HighlightVariantNeutralStory: Story = () => {
-  return (
-    <>
-      <Tile highlightVariant="neutral" roundness="small">
-        <TileContent>Test Body One</TileContent>
-        <TileContent>Test Body Two</TileContent>
-        <TileContent>Test Body Three</TileContent>
+        <TileContent>Success</TileContent>
       </Tile>
       <br />
       <Tile highlightVariant="neutral">
-        <TileContent>Test Body One</TileContent>
-        <TileContent>Test Body Two</TileContent>
-        <TileContent>Test Body Three</TileContent>
-      </Tile>
-      <br />
-      <Tile highlightVariant="neutral" roundness="large">
-        <TileContent>Test Body One</TileContent>
-        <TileContent>Test Body Two</TileContent>
-        <TileContent>Test Body Three</TileContent>
-      </Tile>
-    </>
-  );
-};
-HighlightVariantNeutralStory.storyName = "Highlight variant neutral story";
-
-export const HighlightVariantErrorStory: Story = () => {
-  return (
-    <>
-      <Tile highlightVariant="error" roundness="small">
-        <TileContent>Test Body One</TileContent>
-        <TileContent>Test Body Two</TileContent>
-        <TileContent>Test Body Three</TileContent>
+        <TileContent>Neutral</TileContent>
       </Tile>
       <br />
       <Tile highlightVariant="error">
-        <TileContent>Test Body One</TileContent>
-        <TileContent>Test Body Two</TileContent>
-        <TileContent>Test Body Three</TileContent>
-      </Tile>
-      <br />
-      <Tile highlightVariant="error" roundness="large">
-        <TileContent>Test Body One</TileContent>
-        <TileContent>Test Body Two</TileContent>
-        <TileContent>Test Body Three</TileContent>
-      </Tile>
-    </>
-  );
-};
-HighlightVariantErrorStory.storyName = "Highlight variant error story";
-
-export const HighlightVariantWarningStory: Story = () => {
-  return (
-    <>
-      <Tile highlightVariant="warning" roundness="small">
-        <TileContent>Test Body One</TileContent>
-        <TileContent>Test Body Two</TileContent>
-        <TileContent>Test Body Three</TileContent>
+        <TileContent>Error</TileContent>
       </Tile>
       <br />
       <Tile highlightVariant="warning">
-        <TileContent>Test Body One</TileContent>
-        <TileContent>Test Body Two</TileContent>
-        <TileContent>Test Body Three</TileContent>
-      </Tile>
-      <br />
-      <Tile highlightVariant="warning" roundness="large">
-        <TileContent>Test Body One</TileContent>
-        <TileContent>Test Body Two</TileContent>
-        <TileContent>Test Body Three</TileContent>
-      </Tile>
-    </>
-  );
-};
-HighlightVariantWarningStory.storyName = "Highlight variant warning story";
-
-export const HighlightVariantInfoStory: Story = () => {
-  return (
-    <>
-      <Tile highlightVariant="info" roundness="small">
-        <TileContent>Test Body One</TileContent>
-        <TileContent>Test Body Two</TileContent>
-        <TileContent>Test Body Three</TileContent>
+        <TileContent>Warning</TileContent>
       </Tile>
       <br />
       <Tile highlightVariant="info">
-        <TileContent>Test Body One</TileContent>
-        <TileContent>Test Body Two</TileContent>
-        <TileContent>Test Body Three</TileContent>
-      </Tile>
-      <br />
-      <Tile highlightVariant="info" roundness="large">
-        <TileContent>Test Body One</TileContent>
-        <TileContent>Test Body Two</TileContent>
-        <TileContent>Test Body Three</TileContent>
-      </Tile>
-    </>
-  );
-};
-HighlightVariantInfoStory.storyName = "Highlight variant info story";
-
-export const HighlightVariantImportantStory: Story = () => {
-  return (
-    <>
-      <Tile highlightVariant="important" roundness="small">
-        <TileContent>Test Body One</TileContent>
-        <TileContent>Test Body Two</TileContent>
-        <TileContent>Test Body Three</TileContent>
+        <TileContent>Info</TileContent>
       </Tile>
       <br />
       <Tile highlightVariant="important">
-        <TileContent>Test Body One</TileContent>
-        <TileContent>Test Body Two</TileContent>
-        <TileContent>Test Body Three</TileContent>
-      </Tile>
-      <br />
-      <Tile highlightVariant="important" roundness="large">
-        <TileContent>Test Body One</TileContent>
-        <TileContent>Test Body Two</TileContent>
-        <TileContent>Test Body Three</TileContent>
+        <TileContent>Important</TileContent>
       </Tile>
     </>
   );
 };
-HighlightVariantImportantStory.storyName = "Highlight variant important story";
+HighlightVariants.storyName = "Highlight Variants";
+HighlightVariants.parameters = { chromatic: { disableSnapshot: false } };

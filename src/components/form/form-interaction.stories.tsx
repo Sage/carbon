@@ -1,6 +1,6 @@
 import React from "react";
-import { StoryObj, StoryFn } from "@storybook/react";
-import { userEvent, within, expect } from "@storybook/test";
+import { StoryObj, StoryFn } from "@storybook/react-vite";
+import { userEvent, within, expect } from "storybook/test";
 
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
 import Form from ".";

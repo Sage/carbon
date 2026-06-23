@@ -1,5 +1,5 @@
 import React from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 import useMediaQuery from "../../hooks/useMediaQuery";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";

@@ -47,8 +47,22 @@ const StyledAdvancedColorPickerPreview = styled.div`
 `;
 
 const DialogStyle = styled(Dialog)`
+  [data-component="dialog"] {
+    max-width: fit-content;
+  }
+
   ${StyledDialogContent} {
     padding: var(--spacing200);
+  }
+
+  [data-element="close"] {
+    position: absolute;
+    top: var(--spacing200);
+    right: var(--spacing200);
+
+    [data-component="icon"] {
+      position: static;
+    }
   }
 
   ${StyledColorOptions} {

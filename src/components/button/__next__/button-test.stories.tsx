@@ -1,9 +1,9 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import React, { useState } from "react";
 import Button, { ButtonProps } from ".";
 import Box from "../../box";
 import Textbox from "../../textbox";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 import Typography from "../../typography";
 import Icon from "../../icon";
 import DefaultDecorator from "../../../../.storybook/utils/default-decorator";
@@ -147,7 +147,12 @@ export const AllSizesVariantsTypes: Story = () => {
             backgroundColor="#DDDDDD"
           >
             <h3>Typical/Default</h3>
-            <Box display="flex" flexDirection="row" gap={1}>
+            <Box
+              display="flex"
+              flexDirection="row"
+              gap={1}
+              alignItems="flex-start"
+            >
               <Button variant="default" variantType="primary" size="small">
                 Primary Small
               </Button>
@@ -158,7 +163,12 @@ export const AllSizesVariantsTypes: Story = () => {
                 Primary Large
               </Button>
             </Box>
-            <Box display="flex" flexDirection="row" gap={1}>
+            <Box
+              display="flex"
+              flexDirection="row"
+              gap={1}
+              alignItems="flex-start"
+            >
               <Button variant="default" variantType="secondary" size="small">
                 Secondary Small
               </Button>
@@ -169,7 +179,12 @@ export const AllSizesVariantsTypes: Story = () => {
                 Secondary Large
               </Button>
             </Box>
-            <Box display="flex" flexDirection="row" gap={1}>
+            <Box
+              display="flex"
+              flexDirection="row"
+              gap={1}
+              alignItems="flex-start"
+            >
               <Button variant="default" variantType="tertiary" size="small">
                 Tertiary Small
               </Button>
@@ -180,7 +195,12 @@ export const AllSizesVariantsTypes: Story = () => {
                 Tertiary Large
               </Button>
             </Box>
-            <Box display="flex" flexDirection="row" gap={1}>
+            <Box
+              display="flex"
+              flexDirection="row"
+              gap={1}
+              alignItems="flex-start"
+            >
               <Button variant="default" variantType="subtle" size="small">
                 Subtle Small
               </Button>
@@ -193,7 +213,12 @@ export const AllSizesVariantsTypes: Story = () => {
             </Box>
 
             <h3>Destructive</h3>
-            <Box display="flex" flexDirection="row" gap={1}>
+            <Box
+              display="flex"
+              flexDirection="row"
+              gap={1}
+              alignItems="flex-start"
+            >
               <Button variant="destructive" variantType="primary" size="small">
                 Primary Small
               </Button>
@@ -204,7 +229,12 @@ export const AllSizesVariantsTypes: Story = () => {
                 Primary Large
               </Button>
             </Box>
-            <Box display="flex" flexDirection="row" gap={1}>
+            <Box
+              display="flex"
+              flexDirection="row"
+              gap={1}
+              alignItems="flex-start"
+            >
               <Button
                 variant="destructive"
                 variantType="secondary"
@@ -229,7 +259,12 @@ export const AllSizesVariantsTypes: Story = () => {
             </Box>
 
             <h3>Gradient</h3>
-            <Box display="flex" flexDirection="row" gap={1}>
+            <Box
+              display="flex"
+              flexDirection="row"
+              gap={1}
+              alignItems="flex-start"
+            >
               <Button variant="gradient" variantType="secondary" size="small">
                 Primary Small
               </Button>
@@ -242,7 +277,12 @@ export const AllSizesVariantsTypes: Story = () => {
             </Box>
 
             <h3>XS Variant</h3>
-            <Box display="flex" flexDirection="row" gap={1}>
+            <Box
+              display="flex"
+              flexDirection="row"
+              gap={1}
+              alignItems="flex-start"
+            >
               <Button variant="default" variantType="secondary" size="xs">
                 XS Secondary
               </Button>
@@ -259,6 +299,7 @@ export const AllSizesVariantsTypes: Story = () => {
               display="flex"
               flexDirection="row"
               gap={1}
+              alignItems="flex-start"
               backgroundColor="#333333"
               p={1}
             >
@@ -291,6 +332,7 @@ export const AllSizesVariantsTypes: Story = () => {
               display="flex"
               flexDirection="row"
               gap={1}
+              alignItems="flex-start"
               backgroundColor="#333333"
               p={1}
             >
@@ -323,6 +365,7 @@ export const AllSizesVariantsTypes: Story = () => {
               display="flex"
               flexDirection="row"
               gap={1}
+              alignItems="flex-start"
               backgroundColor="#333333"
               p={1}
             >
@@ -355,6 +398,7 @@ export const AllSizesVariantsTypes: Story = () => {
               display="flex"
               flexDirection="row"
               gap={1}
+              alignItems="flex-start"
               backgroundColor="#333333"
               p={1}
             >
@@ -397,7 +441,12 @@ export const AllSizesVariantsTypes: Story = () => {
             backgroundColor="#DDDDDD"
           >
             <h3>Typical/Default</h3>
-            <Box display="flex" flexDirection="row" gap={1}>
+            <Box
+              display="flex"
+              flexDirection="row"
+              gap={1}
+              alignItems="flex-start"
+            >
               <Button variant="default" variantType="primary" size="small">
                 <>
                   <Icon type="alert" />
@@ -417,7 +466,12 @@ export const AllSizesVariantsTypes: Story = () => {
                 </>
               </Button>
             </Box>
-            <Box display="flex" flexDirection="row" gap={1}>
+            <Box
+              display="flex"
+              flexDirection="row"
+              gap={1}
+              alignItems="flex-start"
+            >
               <Button variant="default" variantType="secondary" size="small">
                 <>
                   <Icon type="alert" />
@@ -437,7 +491,12 @@ export const AllSizesVariantsTypes: Story = () => {
                 </>
               </Button>
             </Box>
-            <Box display="flex" flexDirection="row" gap={1}>
+            <Box
+              display="flex"
+              flexDirection="row"
+              gap={1}
+              alignItems="flex-start"
+            >
               <Button variant="default" variantType="tertiary" size="small">
                 <>
                   <Icon type="alert" />
@@ -457,7 +516,12 @@ export const AllSizesVariantsTypes: Story = () => {
                 </>
               </Button>
             </Box>
-            <Box display="flex" flexDirection="row" gap={1}>
+            <Box
+              display="flex"
+              flexDirection="row"
+              gap={1}
+              alignItems="flex-start"
+            >
               <Button variant="default" variantType="subtle" size="small">
                 <>
                   <Icon type="alert" />
@@ -479,7 +543,12 @@ export const AllSizesVariantsTypes: Story = () => {
             </Box>
 
             <h3>Destructive</h3>
-            <Box display="flex" flexDirection="row" gap={1}>
+            <Box
+              display="flex"
+              flexDirection="row"
+              gap={1}
+              alignItems="flex-start"
+            >
               <Button variant="destructive" variantType="primary" size="small">
                 <>
                   <Icon type="alert" />
@@ -499,7 +568,12 @@ export const AllSizesVariantsTypes: Story = () => {
                 </>
               </Button>
             </Box>
-            <Box display="flex" flexDirection="row" gap={1}>
+            <Box
+              display="flex"
+              flexDirection="row"
+              gap={1}
+              alignItems="flex-start"
+            >
               <Button
                 variant="destructive"
                 variantType="secondary"
@@ -533,7 +607,12 @@ export const AllSizesVariantsTypes: Story = () => {
             </Box>
 
             <h3>Gradient</h3>
-            <Box display="flex" flexDirection="row" gap={1}>
+            <Box
+              display="flex"
+              flexDirection="row"
+              gap={1}
+              alignItems="flex-start"
+            >
               <Button variant="gradient" variantType="secondary" size="small">
                 <>
                   <Icon type="alert" />
@@ -555,7 +634,12 @@ export const AllSizesVariantsTypes: Story = () => {
             </Box>
 
             <h3>XS Variant</h3>
-            <Box display="flex" flexDirection="row" gap={1}>
+            <Box
+              display="flex"
+              flexDirection="row"
+              gap={1}
+              alignItems="flex-start"
+            >
               <Button variant="default" variantType="secondary" size="xs">
                 <>
                   <Icon type="alert" />
@@ -589,7 +673,12 @@ export const AllSizesVariantsTypes: Story = () => {
             backgroundColor="#DDDDDD"
           >
             <h3>Typical/Default</h3>
-            <Box display="flex" flexDirection="row" gap={1}>
+            <Box
+              display="flex"
+              flexDirection="row"
+              gap={1}
+              alignItems="flex-start"
+            >
               <Button
                 variant="default"
                 variantType="primary"
@@ -615,7 +704,12 @@ export const AllSizesVariantsTypes: Story = () => {
                 <Icon type="alert" />
               </Button>
             </Box>
-            <Box display="flex" flexDirection="row" gap={1}>
+            <Box
+              display="flex"
+              flexDirection="row"
+              gap={1}
+              alignItems="flex-start"
+            >
               <Button
                 variant="default"
                 variantType="secondary"
@@ -641,7 +735,12 @@ export const AllSizesVariantsTypes: Story = () => {
                 <Icon type="alert" />
               </Button>
             </Box>
-            <Box display="flex" flexDirection="row" gap={1}>
+            <Box
+              display="flex"
+              flexDirection="row"
+              gap={1}
+              alignItems="flex-start"
+            >
               <Button
                 variant="default"
                 variantType="tertiary"
@@ -667,7 +766,12 @@ export const AllSizesVariantsTypes: Story = () => {
                 <Icon type="alert" />
               </Button>
             </Box>
-            <Box display="flex" flexDirection="row" gap={1}>
+            <Box
+              display="flex"
+              flexDirection="row"
+              gap={1}
+              alignItems="flex-start"
+            >
               <Button
                 variant="default"
                 variantType="subtle"
@@ -695,7 +799,12 @@ export const AllSizesVariantsTypes: Story = () => {
             </Box>
 
             <h3>Destructive</h3>
-            <Box display="flex" flexDirection="row" gap={1}>
+            <Box
+              display="flex"
+              flexDirection="row"
+              gap={1}
+              alignItems="flex-start"
+            >
               <Button
                 variant="destructive"
                 variantType="primary"
@@ -721,7 +830,12 @@ export const AllSizesVariantsTypes: Story = () => {
                 <Icon type="alert" />
               </Button>
             </Box>
-            <Box display="flex" flexDirection="row" gap={1}>
+            <Box
+              display="flex"
+              flexDirection="row"
+              gap={1}
+              alignItems="flex-start"
+            >
               <Button
                 variant="destructive"
                 variantType="secondary"
@@ -749,7 +863,12 @@ export const AllSizesVariantsTypes: Story = () => {
             </Box>
 
             <h3>Gradient</h3>
-            <Box display="flex" flexDirection="row" gap={1}>
+            <Box
+              display="flex"
+              flexDirection="row"
+              gap={1}
+              alignItems="flex-start"
+            >
               <Button
                 variant="gradient"
                 variantType="secondary"
