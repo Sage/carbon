@@ -1205,7 +1205,7 @@ description: Carbon Tile component props and usage examples.
 ```
 
 
-### Highlight variant gradient story
+### Highlight Variants
 
 **Render**
 
@@ -1214,207 +1214,39 @@ description: Carbon Tile component props and usage examples.
   return (
     <>
       <Tile highlightVariant="gradient" roundness="small">
-        <TileContent>Test Body One</TileContent>
-        <TileContent>Test Body Two</TileContent>
-        <TileContent>Test Body Three</TileContent>
+        <TileContent>Gradient - Small Roundness</TileContent>
       </Tile>
       <br />
       <Tile highlightVariant="gradient">
-        <TileContent>Test Body One</TileContent>
-        <TileContent>Test Body Two</TileContent>
-        <TileContent>Test Body Three</TileContent>
+        <TileContent>Gradient - Default Roundness</TileContent>
       </Tile>
       <br />
       <Tile highlightVariant="gradient" roundness="large">
-        <TileContent>Test Body One</TileContent>
-        <TileContent>Test Body Two</TileContent>
-        <TileContent>Test Body Three</TileContent>
-      </Tile>
-    </>
-  );
-}
-```
-
-
-### Highlight variant success story
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <>
-      <Tile highlightVariant="success" roundness="small">
-        <TileContent>Test Body One</TileContent>
-        <TileContent>Test Body Two</TileContent>
-        <TileContent>Test Body Three</TileContent>
+        <TileContent>Gradient - Large Roundness</TileContent>
       </Tile>
       <br />
       <Tile highlightVariant="success">
-        <TileContent>Test Body One</TileContent>
-        <TileContent>Test Body Two</TileContent>
-        <TileContent>Test Body Three</TileContent>
-      </Tile>
-      <br />
-      <Tile highlightVariant="success" roundness="large">
-        <TileContent>Test Body One</TileContent>
-        <TileContent>Test Body Two</TileContent>
-        <TileContent>Test Body Three</TileContent>
-      </Tile>
-    </>
-  );
-}
-```
-
-
-### Highlight variant neutral story
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <>
-      <Tile highlightVariant="neutral" roundness="small">
-        <TileContent>Test Body One</TileContent>
-        <TileContent>Test Body Two</TileContent>
-        <TileContent>Test Body Three</TileContent>
+        <TileContent>Success</TileContent>
       </Tile>
       <br />
       <Tile highlightVariant="neutral">
-        <TileContent>Test Body One</TileContent>
-        <TileContent>Test Body Two</TileContent>
-        <TileContent>Test Body Three</TileContent>
-      </Tile>
-      <br />
-      <Tile highlightVariant="neutral" roundness="large">
-        <TileContent>Test Body One</TileContent>
-        <TileContent>Test Body Two</TileContent>
-        <TileContent>Test Body Three</TileContent>
-      </Tile>
-    </>
-  );
-}
-```
-
-
-### Highlight variant error story
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <>
-      <Tile highlightVariant="error" roundness="small">
-        <TileContent>Test Body One</TileContent>
-        <TileContent>Test Body Two</TileContent>
-        <TileContent>Test Body Three</TileContent>
+        <TileContent>Neutral</TileContent>
       </Tile>
       <br />
       <Tile highlightVariant="error">
-        <TileContent>Test Body One</TileContent>
-        <TileContent>Test Body Two</TileContent>
-        <TileContent>Test Body Three</TileContent>
-      </Tile>
-      <br />
-      <Tile highlightVariant="error" roundness="large">
-        <TileContent>Test Body One</TileContent>
-        <TileContent>Test Body Two</TileContent>
-        <TileContent>Test Body Three</TileContent>
-      </Tile>
-    </>
-  );
-}
-```
-
-
-### Highlight variant warning story
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <>
-      <Tile highlightVariant="warning" roundness="small">
-        <TileContent>Test Body One</TileContent>
-        <TileContent>Test Body Two</TileContent>
-        <TileContent>Test Body Three</TileContent>
+        <TileContent>Error</TileContent>
       </Tile>
       <br />
       <Tile highlightVariant="warning">
-        <TileContent>Test Body One</TileContent>
-        <TileContent>Test Body Two</TileContent>
-        <TileContent>Test Body Three</TileContent>
-      </Tile>
-      <br />
-      <Tile highlightVariant="warning" roundness="large">
-        <TileContent>Test Body One</TileContent>
-        <TileContent>Test Body Two</TileContent>
-        <TileContent>Test Body Three</TileContent>
-      </Tile>
-    </>
-  );
-}
-```
-
-
-### Highlight variant info story
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <>
-      <Tile highlightVariant="info" roundness="small">
-        <TileContent>Test Body One</TileContent>
-        <TileContent>Test Body Two</TileContent>
-        <TileContent>Test Body Three</TileContent>
+        <TileContent>Warning</TileContent>
       </Tile>
       <br />
       <Tile highlightVariant="info">
-        <TileContent>Test Body One</TileContent>
-        <TileContent>Test Body Two</TileContent>
-        <TileContent>Test Body Three</TileContent>
-      </Tile>
-      <br />
-      <Tile highlightVariant="info" roundness="large">
-        <TileContent>Test Body One</TileContent>
-        <TileContent>Test Body Two</TileContent>
-        <TileContent>Test Body Three</TileContent>
-      </Tile>
-    </>
-  );
-}
-```
-
-
-### Highlight variant important story
-
-**Render**
-
-```tsx
-() => {
-  return (
-    <>
-      <Tile highlightVariant="important" roundness="small">
-        <TileContent>Test Body One</TileContent>
-        <TileContent>Test Body Two</TileContent>
-        <TileContent>Test Body Three</TileContent>
+        <TileContent>Info</TileContent>
       </Tile>
       <br />
       <Tile highlightVariant="important">
-        <TileContent>Test Body One</TileContent>
-        <TileContent>Test Body Two</TileContent>
-        <TileContent>Test Body Three</TileContent>
-      </Tile>
-      <br />
-      <Tile highlightVariant="important" roundness="large">
-        <TileContent>Test Body One</TileContent>
-        <TileContent>Test Body Two</TileContent>
-        <TileContent>Test Body Three</TileContent>
+        <TileContent>Important</TileContent>
       </Tile>
     </>
   );

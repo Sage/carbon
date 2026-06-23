@@ -1,3 +1,27 @@
+## [159.13.1](https://github.com/Sage/carbon/compare/v159.13.0...v159.13.1) (2026-06-22)
+
+### Bug Fixes
+
+* **switch:** make toggle work on Safari ([da828f1](https://github.com/Sage/carbon/commit/da828f1f0e5621220049cd3f111385d1b95c7470)), closes [#7980](https://github.com/Sage/carbon/issues/7980)
+
+## [159.13.0](https://github.com/Sage/carbon/compare/v159.12.3...v159.13.0) (2026-06-22)
+
+### Features
+
+* **password:** align component with fusion DS ([a37278b](https://github.com/Sage/carbon/commit/a37278be78c4c6a7d5f539dfc4b243d1e43f742d))
+
+## [159.12.3](https://github.com/Sage/carbon/compare/v159.12.2...v159.12.3) (2026-06-18)
+
+### Bug Fixes
+
+* **date-range:** fix inline label input width ([77d0068](https://github.com/Sage/carbon/commit/77d0068376cdac0702fc243a4d4606213a64a5c7))
+
+## [159.12.2](https://github.com/Sage/carbon/compare/v159.12.1...v159.12.2) (2026-06-17)
+
+### Bug Fixes
+
+* **vertical-menu:** prevent responsive vertical menu disappearing on Edge (FE-7388) ([b09ef31](https://github.com/Sage/carbon/commit/b09ef313eb0ade7f2c238e39297ea9a26c56fe1c))
+
 ## [159.12.1](https://github.com/Sage/carbon/compare/v159.12.0...v159.12.1) (2026-06-15)
 
 ### Bug Fixes

@@ -71,8 +71,8 @@ export interface TextInputProps
    * The label's htmlFor attribute will be set to match the input's id to ensure they are properly associated.
    */
   id?: string;
-  /** A hint string rendered before the input but after the label. Intended to describe the purpose or content of the input */
-  inputHint?: string;
+  /** A hint element rendered before the input but after the label. Intended to describe the purpose or content of the input */
+  inputHint?: React.ReactNode;
   /**
    * @internal @private @ignore
    * An Icon to be rendered next to the input
