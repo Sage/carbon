@@ -360,8 +360,9 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
 
           pillProps = {
             title: matchingOption.props.text,
-            fill: matchingOption.props.fill,
             borderColor: matchingOption.props.borderColor,
+            variant: matchingOption.props.variant,
+            fill: matchingOption.props.fill,
           };
         }
 

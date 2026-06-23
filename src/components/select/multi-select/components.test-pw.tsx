@@ -65,17 +65,17 @@ export const MultiSelectDefaultValueComponent = (
       value={values}
       onChange={onChangeHandler}
     >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
+      <Option text="Amber" value="1" variant="orange" />
+      <Option text="Black" value="2" variant="grey" />
+      <Option text="Blue" value="3" variant="blue" />
+      <Option text="Brown" value="4" variant="grey" />
+      <Option text="Green" value="5" variant="green" />
+      <Option text="Orange" value="6" variant="orange" />
+      <Option text="Pink" value="7" variant="pink" />
+      <Option text="Purple" value="8" variant="purple" />
+      <Option text="Red" value="9" variant="red" />
+      <Option text="White" value="10" variant="grey" />
+      <Option text="Yellow" value="11" variant="lime" />
     </MultiSelect>
   );
 };
@@ -256,17 +256,16 @@ export const MultiSelectCustomColorComponent = (
       onChange={onChangeHandler}
       {...props}
     >
-      <Option text="Amber" value="1" borderColor="#FFBF00" fill />
-      <Option text="Black" value="2" borderColor="blackOpacity65" fill />
-      <Option text="Blue" value="3" borderColor="productBlue" />
-      <Option text="Brown" value="4" borderColor="brown" fill />
-      <Option text="Green" value="5" borderColor="productGreen" />
-      <Option text="Orange" value="6" borderColor="orange" />
-      <Option text="Pink" value="7" borderColor="pink" />
-      <Option text="Purple" value="8" borderColor="purple" />
-      <Option text="Red" value="9" borderColor="red" fill />
-      <Option text="White" value="10" borderColor="white" />
-      <Option text="Yellow" value="11" borderColor="yellow" fill />
+      <Option text="Grey" value="1" variant="grey" fill />
+      <Option text="Green" value="2" variant="green" fill />
+      <Option text="Red" value="3" variant="red" />
+      <Option text="Orange" value="4" variant="orange" fill />
+      <Option text="Blue" value="5" variant="blue" />
+      <Option text="Purple" value="6" variant="purple" fill />
+      <Option text="Teal" value="7" variant="teal" />
+      <Option text="Lime" value="8" variant="lime" fill />
+      <Option text="Pink" value="9" variant="pink" />
+      <Option text="Slate" value="10" variant="slate" fill />
     </MultiSelect>
   );
 };
