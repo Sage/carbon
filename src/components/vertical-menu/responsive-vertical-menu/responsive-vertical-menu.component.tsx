@@ -375,5 +375,3 @@ export const ResponsiveVerticalMenu = forwardRef<
     </DepthProvider>
   );
 });
-
-export default ResponsiveVerticalMenu;

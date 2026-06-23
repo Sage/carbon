@@ -67,7 +67,7 @@ export interface DrawerProps extends TagProps {
   stickyFooter?: boolean;
 }
 
-export const Drawer = ({
+const Drawer = ({
   "aria-label": ariaLabel,
   sidebarAriaLabel,
   defaultExpanded,
@@ -213,7 +213,5 @@ export const Drawer = ({
     </StyledDrawerWrapper>
   );
 };
-
-export { DrawerSidebarContext };
 
 export default Drawer;

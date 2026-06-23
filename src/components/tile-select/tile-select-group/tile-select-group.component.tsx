@@ -35,7 +35,7 @@ export interface TileSelectGroupProps extends MarginProps, TagProps {
   multiSelect?: boolean;
 }
 
-export const TileSelectGroup = ({
+const TileSelectGroup = ({
   children,
   name,
   legend,

@@ -15,10 +15,7 @@ export interface ButtonMinorProps extends ButtonProps {
 /**
  * @deprecated `ButtonMinor` has been deprecated. See the Carbon documentation for migration details.
  */
-export const ButtonMinor = React.forwardRef<
-  HTMLButtonElement,
-  ButtonMinorProps
->(
+const ButtonMinor = React.forwardRef<HTMLButtonElement, ButtonMinorProps>(
   (
     {
       buttonType: buttonTypeProp = "secondary",

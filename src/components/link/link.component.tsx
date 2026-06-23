@@ -103,10 +103,7 @@ const variantAlias: Partial<Record<Variants, Variants>> = {
   neutral: "subtle",
 };
 
-export const Link = React.forwardRef<
-  HTMLAnchorElement | HTMLButtonElement,
-  LinkProps
->(
+const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
   (
     {
       children,

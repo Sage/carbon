@@ -26,7 +26,7 @@ export interface SortProps extends TagProps {
 
 let accessibleNameWarning = false;
 
-export const Sort = ({
+const Sort = ({
   children,
   onClick,
   sortType,

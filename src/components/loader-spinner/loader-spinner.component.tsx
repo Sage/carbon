@@ -53,7 +53,7 @@ export interface LoaderSpinnerProps extends MarginProps, TagProps {
   animationTime?: number;
 }
 
-export const LoaderSpinner = ({
+const LoaderSpinner = ({
   spinnerLabel,
   size = "medium",
   showSpinnerLabel = true,

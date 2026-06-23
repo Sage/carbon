@@ -1,5 +1,1 @@
-export {
-  useHandleDropdownMenuKeyDown,
-  itemQuerySelector,
-  setFocus,
-} from "./useHandleDropdownMenuKeyDown";
+export { default } from "./useHandleDropdownMenuKeyDown";

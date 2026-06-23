@@ -23,7 +23,6 @@
 - [ButtonBar](components/button-bar.md) (deprecated)
 - [ButtonHandleNext](components/button-handle-next.md)
 - [ButtonMinor](components/button-minor.md) (deprecated)
-- [ButtonNext](components/button-next.md)
 - [ButtonToggle](components/button-toggle.md)
 - [ButtonToggleGroup](components/button-toggle-group.md)
 - [CarbonProvider](components/carbon-provider.md)

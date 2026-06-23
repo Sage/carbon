@@ -1,7 +1,8 @@
 import React, { useRef, useState } from "react";
 import Textbox from "../../../textbox";
 import Button from "../../../button";
-import Dialog, { withDialogHeader, DialogProps } from "./dialog.component";
+import Dialog, { DialogProps } from "./dialog.component";
+import withDialogHeader from "./dialog-header/dialog-header.component";
 
 export const DialogComponent = (props: Partial<DialogProps>) => {
   const [isOpen, setIsOpen] = useState(true);

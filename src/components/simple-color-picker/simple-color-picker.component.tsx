@@ -55,7 +55,7 @@ export interface SimpleColorPickerRef {
   gridItemRefs: (HTMLInputElement | null)[];
 }
 
-export const SimpleColorPicker = React.forwardRef<
+const SimpleColorPicker = React.forwardRef<
   SimpleColorPickerRef,
   SimpleColorPickerProps
 >((props: SimpleColorPickerProps, ref) => {

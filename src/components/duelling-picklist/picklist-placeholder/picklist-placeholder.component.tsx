@@ -13,7 +13,7 @@ export interface PicklistPlaceholderProps {
 /**
  * @deprecated `PicklistPlaceholder` has been deprecated. See the Carbon documentation for migration details.
  */
-export const PicklistPlaceholder = ({ text }: PicklistPlaceholderProps) => {
+const PicklistPlaceholder = ({ text }: PicklistPlaceholderProps) => {
   return (
     <StyledPicklistPlaceholder data-element="picklist-placeholder">
       {text}

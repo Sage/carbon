@@ -5,7 +5,7 @@ import { flip, offset, size } from "@floating-ui/dom";
 import wrapChildrenInMenuItems from "./utils";
 import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
 import { ButtonHandle } from "../../components/button/__next__";
-import { useHandleDropdownMenuKeyDown } from "./hooks";
+import useHandleDropdownMenuKeyDown from "./hooks";
 import guid from "../utils/helpers/guid";
 import { PopoverMenuContext, type PopoverMenuContextProps } from "./contexts";
 import { TagProps } from "../utils/helpers/tags";
@@ -18,7 +18,7 @@ interface ListProps {
   $size: PopoverMenuContextProps["size"];
 }
 
-export const List = styled.ul<ListProps>`
+const List = styled.ul<ListProps>`
   margin: var(--global-space-none);
   padding: var(--global-space-none);
   background-color: var(--popover-bg-default);

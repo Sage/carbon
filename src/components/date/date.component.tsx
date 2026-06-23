@@ -116,7 +116,7 @@ export interface DateInputProps
   datePickerAriaLabelledBy?: string;
 }
 
-export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
+const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
   (
     {
       adaptiveLabelBreakpoint,

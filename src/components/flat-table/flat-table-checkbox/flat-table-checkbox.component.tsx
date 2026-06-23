@@ -27,7 +27,7 @@ export interface FlatTableCheckboxProps extends TagProps {
   disabled?: boolean;
 }
 
-export const FlatTableCheckbox = ({
+const FlatTableCheckbox = ({
   as = "td",
   checked,
   onChange,

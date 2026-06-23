@@ -34,7 +34,7 @@ description: Carbon Badge component props and usage examples.
 | mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
 | size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | Size of the badge | "medium" |
-| variant | "subtle" \| "typical" \| undefined | No |  |  |  | Badge variant | "typical" |
+| variant | "typical" \| "subtle" \| undefined | No |  |  |  | Badge variant | "typical" |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | color | string \| undefined | No |  | Yes | Prop to specify the color of the component |  |  |

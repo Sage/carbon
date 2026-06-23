@@ -5,7 +5,7 @@ export interface MenuSegmentContextProps {
   overriddenVariant: string;
 }
 
-export const MenuSegmentContext = React.createContext<MenuSegmentContextProps>({
+const MenuSegmentContext = React.createContext<MenuSegmentContextProps>({
   isChildOfSegment: false,
   overriddenVariant: "default",
 });

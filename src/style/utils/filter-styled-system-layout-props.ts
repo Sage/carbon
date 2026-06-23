@@ -1,7 +1,7 @@
 import { LayoutProps, PositionProps } from "styled-system";
 import filterObjectProperties from "../../__internal__/filter-object-properties";
 
-export const layoutPropertyNames = [
+const layoutPropertyNames = [
   "width",
   "height",
   "minWidth",

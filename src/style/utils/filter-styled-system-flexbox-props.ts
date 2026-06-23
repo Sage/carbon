@@ -1,7 +1,7 @@
 import { FlexboxProps } from "styled-system";
 import filterObjectProperties from "../../__internal__/filter-object-properties";
 
-export const flexboxPropertyNames = [
+const flexboxPropertyNames = [
   "alignItems",
   "alignContent",
   "justifyItems",

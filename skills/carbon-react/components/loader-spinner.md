@@ -33,7 +33,7 @@ description: Carbon LoaderSpinner component props and usage examples.
 | mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
 | showSpinnerLabel | boolean \| undefined | No |  | If set to `false` no visual label will be displayed, however a visually hidden label will still be available for assistive technologies | true |
-| size | "small" \| "medium" \| "large" \| "extra-small" \| "extra-large" \| undefined | No |  | The size prop allows a specific size to be set, ranging from `extra-small` to `extra-large` | "medium" |
+| size | "extra-small" \| "small" \| "medium" \| "large" \| "extra-large" \| undefined | No |  | The size prop allows a specific size to be set, ranging from `extra-small` to `extra-large` | "medium" |
 | spinnerLabel | string \| undefined | No |  | Use the spinnerLabel prop to override the default `"Loading..."` label with any custom string |  |
 | variant | "gradient-grey" \| "gradient-white" \| "action" \| "inverse" \| "neutral" \| undefined | No |  | The variant prop can be used to change the appearance of the component. Typically both the outer and inner spinner will change color, however there will still be sufficient contrast between them | "action" |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |

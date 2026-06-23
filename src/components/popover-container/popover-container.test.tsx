@@ -5,6 +5,8 @@ import { testStyledSystemPadding } from "../../__spec_helper__/__internal__/test
 
 import PopoverContainer, {
   PopoverContainerHandle,
+  renderOpen,
+  renderClose,
 } from "./popover-container.component";
 import { Select, Option } from "../select";
 import useMediaQuery from "../../hooks/useMediaQuery";
@@ -106,6 +108,49 @@ describe("open button", () => {
 
     const openButton = screen.getByRole("button");
     expect(openButton).toHaveAttribute("aria-expanded", "false");
+  });
+
+  // Exercise default renderOpen and renderClose functions for coverage.
+  // Most tests pass custom render functions, so defaults need explicit execution.
+  it("renders default open button via renderOpen", () => {
+    const ref = React.createRef<HTMLButtonElement>();
+    const onClick = jest.fn();
+    render(
+      <>
+        {renderOpen({
+          tabIndex: 0,
+          onClick,
+          ref,
+          id: "test-open",
+          "aria-expanded": false,
+          "aria-haspopup": "dialog",
+          "data-element": "popover-open-button",
+        })}
+      </>,
+    );
+
+    const button = screen.getByRole("button");
+    expect(button).toHaveAttribute("aria-expanded", "false");
+    expect(button).toHaveAttribute("aria-haspopup", "dialog");
+  });
+
+  it("renders default close button via renderClose", () => {
+    const ref = React.createRef<HTMLButtonElement>();
+    const onClick = jest.fn();
+    render(
+      <>
+        {renderClose({
+          tabIndex: 0,
+          onClick,
+          ref,
+          "aria-label": "Close",
+          "data-element": "popover-close-button",
+        })}
+      </>,
+    );
+
+    const button = screen.getByRole("button", { name: "Close" });
+    expect(button).toBeInTheDocument();
   });
 });
 

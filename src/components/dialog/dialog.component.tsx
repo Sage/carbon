@@ -68,7 +68,7 @@ let deprecatedDisableCloseTrigger = false;
 let deprecatedPagesStylingTrigger = false;
 let deprecatedSizeAutoTrigger = false;
 
-export const Dialog = forwardRef<DialogHandle, DialogProps>(
+const Dialog = forwardRef<DialogHandle, DialogProps>(
   (
     {
       disableClose,

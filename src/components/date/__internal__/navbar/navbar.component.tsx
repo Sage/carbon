@@ -13,11 +13,7 @@ export interface NavbarProps {
   className?: string;
 }
 
-export const Navbar = ({
-  onPreviousClick,
-  onNextClick,
-  className,
-}: NavProps) => {
+const Navbar = ({ onPreviousClick, onNextClick, className }: NavProps) => {
   const locale = useLocale();
   const { previousMonthButton, nextMonthButton } = locale.date.ariaLabels;
 

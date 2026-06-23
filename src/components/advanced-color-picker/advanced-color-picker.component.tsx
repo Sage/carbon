@@ -64,7 +64,7 @@ export interface AdvancedColorPickerProps
   selectedColor: string;
 }
 
-export const AdvancedColorPicker = ({
+const AdvancedColorPicker = ({
   "aria-describedby": ariaDescribedBy,
   "aria-label": ariaLabel,
   "aria-labelledby": ariaLabelledBy,

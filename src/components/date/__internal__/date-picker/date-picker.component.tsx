@@ -81,7 +81,7 @@ const popoverMiddleware = [
 const Nav = Navbar;
 let deprecateDisablePortalWarnTriggered = false;
 
-export const DatePicker = ({
+const DatePicker = ({
   inputElement,
   minDate,
   maxDate,

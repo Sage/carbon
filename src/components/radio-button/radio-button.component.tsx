@@ -91,7 +91,7 @@ export interface RadioButtonProps extends CommonCheckableInputProps, TagProps {
   fieldHelpInline?: boolean;
 }
 
-export const RadioButton = React.forwardRef<HTMLInputElement, RadioButtonProps>(
+const RadioButton = React.forwardRef<HTMLInputElement, RadioButtonProps>(
   (
     {
       autoFocus,

@@ -1,7 +1,7 @@
 import configureBase from "./base-theme.config";
 import baseColors from "../../color-config";
 import atOpacity from "../../utils/at-opacity";
-import { mergeDeep } from "../../utils/merge-deep";
+import mergeDeep from "../../utils/merge-deep";
 import generatePalette from "../../palette";
 import addHexSymbols from "../../utils/add-hex-symbols";
 import type { BasePalette, ThemeObject } from "../theme.types";

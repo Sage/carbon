@@ -1,7 +1,7 @@
 /**
  * Simple object check.
  */
-export function isObject(item: unknown) {
+function isObject(item: unknown) {
   return item && typeof item === "object" && !Array.isArray(item);
 }
 
@@ -30,7 +30,7 @@ function merge(
 /**
  * Deep merge two objects.
  */
-export function mergeDeep(
+function mergeDeep(
   target: Record<string, unknown>,
   ...sources: Record<string, unknown>[]
 ): Record<string, unknown> {
@@ -38,3 +38,5 @@ export function mergeDeep(
   const newTarget = JSON.parse(JSON.stringify(target));
   return merge(newTarget, ...sources);
 }
+
+export default mergeDeep;

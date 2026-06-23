@@ -91,7 +91,7 @@ export interface BoxProps
   "aria-atomic"?: "true" | "false";
 }
 
-export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
+const Box = React.forwardRef<HTMLDivElement, BoxProps>(
   (
     {
       "data-component": dataComponent,

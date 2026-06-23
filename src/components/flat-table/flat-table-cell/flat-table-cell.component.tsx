@@ -34,7 +34,7 @@ export interface FlatTableCellProps extends PaddingProps, TagProps {
   id?: string;
 }
 
-export const FlatTableCell = ({
+const FlatTableCell = ({
   align = "left",
   children,
   pl,

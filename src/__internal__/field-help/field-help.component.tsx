@@ -8,7 +8,7 @@ export interface FieldHelpProps extends StyledFieldHelpProps {
   id?: string;
 }
 
-export const FieldHelp = ({
+const FieldHelp = ({
   children,
   labelInline,
   labelWidth = 30,

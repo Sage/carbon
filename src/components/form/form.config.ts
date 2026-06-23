@@ -1,5 +1,4 @@
-export const FORM_BUTTON_ALIGNMENTS = ["left", "right"] as const;
-export type FormButtonAlignment = (typeof FORM_BUTTON_ALIGNMENTS)[number];
+export type FormButtonAlignment = "left" | "right";
 export const formSpacing = {
   0: "var(--spacing000)",
   1: "var(--spacing100)",

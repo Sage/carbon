@@ -195,7 +195,7 @@ function usePopoverMiddleware(
   );
 }
 
-export const PopoverContainer = forwardRef<
+const PopoverContainer = forwardRef<
   PopoverContainerHandle,
   PopoverContainerProps
 >(

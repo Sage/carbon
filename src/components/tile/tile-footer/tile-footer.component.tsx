@@ -12,7 +12,7 @@ export interface TileFooterProps extends PaddingProps, TagProps {
   variant?: "default" | "black" | "transparent" | "grey";
 }
 
-export const TileFooter = ({ variant, children, ...rest }: TileFooterProps) => (
+const TileFooter = ({ variant, children, ...rest }: TileFooterProps) => (
   <StyledTileFooter
     variant={variant}
     {...filterStyledSystemPaddingProps(rest)}

@@ -3,7 +3,7 @@ import Link, { LinkProps } from "../../link";
 import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags";
-import { StyledCrumbCurrent, Divider } from "./crumb.style";
+import Divider, { StyledCrumbCurrent } from "./crumb.style";
 import { useBreadcrumbsContext } from "../__internal__/breadcrumbs.context";
 
 export interface CrumbProps
@@ -33,7 +33,7 @@ export interface CrumbProps
   bold?: boolean;
 }
 
-export const Crumb = React.forwardRef<HTMLAnchorElement, CrumbProps>(
+const Crumb = React.forwardRef<HTMLAnchorElement, CrumbProps>(
   ({ href, isCurrent, children, onClick, ...rest }: CrumbProps, ref) => {
     const { inverse } = useBreadcrumbsContext();
 

@@ -111,7 +111,7 @@ export interface SwitchProps extends MarginProps, TagProps {
   validationMessagePositionTop?: boolean;
 }
 
-export const SwitchComponent = React.forwardRef<HTMLInputElement, SwitchProps>(
+const SwitchComponent = React.forwardRef<HTMLInputElement, SwitchProps>(
   (
     {
       checked,

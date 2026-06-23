@@ -4,13 +4,6 @@ import StyledIcon from "../icon/icon.style";
 
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 
-export const StyledButtonIcon = styled.div`
-  &&& ${StyledIcon} {
-    color: var(--colorsActionMajorYang100);
-    margin-right: 0px;
-  }
-`;
-
 const StyledSearchButton = styled.div.attrs(applyBaseTheme)`
   display: flex;
   align-self: end;

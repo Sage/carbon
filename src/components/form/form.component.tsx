@@ -50,7 +50,7 @@ export interface FormProps extends SpaceProps, TagProps {
   footerPadding?: PaddingProps;
 }
 
-export const Form = ({
+const Form = ({
   children,
   saveButton,
   leftSideButtons,

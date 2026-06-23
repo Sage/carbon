@@ -15,7 +15,7 @@ description: Carbon Form component props and usage examples.
 ## Props
 | Name | Type | Required | Literals | Description | Default |
 | --- | --- | --- | --- | --- | --- |
-| buttonAlignment | "left" \| "right" \| undefined | No |  | Alignment of buttons | "right" |
+| buttonAlignment | FormButtonAlignment \| undefined | No |  | Alignment of buttons | "right" |
 | children | React.ReactNode | No |  | Child elements |  |
 | errorCount | number \| undefined | No |  | The total number of errors present in the form |  |
 | fieldSpacing | 0 \| 1 \| 2 \| 3 \| 4 \| 5 \| 6 \| 7 \| undefined | No |  | Spacing between form fields, given number will be multiplied by base spacing unit (8) | 3 |
