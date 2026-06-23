@@ -18,7 +18,6 @@ import {
   Sort,
 } from ".";
 import Button from "../../../src/components/button";
-import Icon from "../../../src/components/icon";
 import Box from "../../../src/components/box";
 import Link from "../../../src/components/link";
 import Icon from "../../../src/components/icon";
