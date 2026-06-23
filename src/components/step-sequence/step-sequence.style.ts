@@ -16,14 +16,12 @@ const StyledStepSequence = styled.ol.attrs(applyBaseTheme)<
       ? css`
           flex-direction: column;
           width: max-content;
-          min-width: 300px;
         `
       : css`
           flex-direction: row;
           margin: var(--spacing200);
           justify-content: center;
           align-items: flex-start;
-          padding-bottom: 60px;
         `}
 
   ${space}
