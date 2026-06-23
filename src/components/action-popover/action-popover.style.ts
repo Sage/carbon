@@ -212,7 +212,7 @@ const MenuButtonOverrideWrapper = styled.div`
       background-color: var(--colorsActionMajorTransparent);
       color: var(--colorsActionMajor600);
 
-      span[color] {
+      span[data-color] {
         color: var(--colorsActionMajor600);
       }
     }

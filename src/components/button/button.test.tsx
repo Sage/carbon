@@ -2,6 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Button from "./button.component";
+import Icon from "../icon";
 
 test("renders with text children", () => {
   render(<Button>foo</Button>);
@@ -145,6 +146,18 @@ test("sets the correct icon colour when 'gradient-grey' is passed to the 'button
 
   const icon = screen.getByTestId("icon");
   expect(icon).toHaveStyleRule("color", "var(--colorsActionMinorYin090)");
+});
+
+test("preserves explicit icon color when a custom icon is rendered inside a button", () => {
+  render(
+    <Button buttonType="tertiary">
+      Action <Icon type="ellipsis_vertical" color="#FF1133" />
+    </Button>,
+  );
+
+  const icon = screen.getByTestId("icon");
+  expect(icon).toHaveAttribute("data-color", "#FF1133");
+  expect(icon).toHaveStyleRule("color", "#FF1133");
 });
 
 /* Styling test for coverage */

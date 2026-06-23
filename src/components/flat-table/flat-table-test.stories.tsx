@@ -17,6 +17,7 @@ import {
   Sort,
 } from ".";
 import Button from "../../../src/components/button";
+import Icon from "../../../src/components/icon";
 import Box from "../../../src/components/box";
 import Link from "../../../src/components/link";
 import guid from "../../__internal__/utils/helpers/guid";
@@ -1509,5 +1510,44 @@ export const FlatTableWithStickyHeadAndButtons = () => {
 };
 
 FlatTableWithStickyHeadAndButtons.parameters = {
+  chromatic: { disableSnapshot: true },
+};
+
+export const IconColorInsideButtonDebug = () => {
+  return (
+    <FlatTable>
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>Case</FlatTableHeader>
+          <FlatTableHeader>Result</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        <FlatTableRow>
+          <FlatTableCell>
+            Tertiary button + manual icon (no color prop)
+          </FlatTableCell>
+          <FlatTableCell>
+            <Button buttonType="tertiary">
+              Action <Icon type="ellipsis_vertical" />
+            </Button>
+          </FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>
+            Tertiary button + manual icon (explicit red color)
+          </FlatTableCell>
+          <FlatTableCell>
+            <Button buttonType="tertiary">
+              Action <Icon type="ellipsis_vertical" color="#FF1133" />
+            </Button>
+          </FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>
+  );
+};
+
+IconColorInsideButtonDebug.parameters = {
   chromatic: { disableSnapshot: true },
 };

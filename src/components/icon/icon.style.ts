@@ -36,7 +36,7 @@ export interface StyledIconProps {
    */
   className?: string;
   /** Icon colour, provide any color from palette or any valid css color value. */
-  color?: string;
+  $color?: string;
   /** Sets the icon in the disabled state */
   disabled?: boolean;
   /** Icon font size */
@@ -103,7 +103,7 @@ const StyledIcon = styled.span.attrs(applyBaseTheme)<
 >`
   ${({
     theme,
-    color,
+    $color,
     bg,
     isInteractive,
     bgSize,
@@ -127,8 +127,8 @@ const StyledIcon = styled.span.attrs(applyBaseTheme)<
 
     if (disabled) {
       finalColor = "var(--colorsYin030)";
-    } else if (color) {
-      const { color: renderedColor } = styledColor({ color, theme });
+    } else if ($color) {
+      const { color: renderedColor } = styledColor({ color: $color, theme });
       finalColor = renderedColor;
     }
 
