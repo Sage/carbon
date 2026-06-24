@@ -11,7 +11,7 @@ import { flip, offset, size } from "@floating-ui/dom";
 import wrapChildrenInMenuItems from "./utils";
 import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
 import { ButtonHandle } from "../../components/button/__next__";
-import { useHandleDropdownMenuKeyDown } from "./hooks";
+import { useHandleDropdownMenuKeyDown, setFocus } from "./hooks";
 import guid from "../utils/helpers/guid";
 import {
   PopoverMenuContext,
@@ -70,7 +70,7 @@ const ScrollWrapper = styled.div`
   width: 100%;
 `;
 
-type FocusableHandle =
+export type FocusableHandle =
   | NonNullable<ButtonHandle>
   | HTMLElement
   | HTMLButtonElement
@@ -137,6 +137,8 @@ export interface PopoverMenuProps<
   controlReference?: React.RefObject<HTMLLIElement>;
 
   listRef?: React.Ref<HTMLUListElement>;
+
+  focusItemOnOpen?: boolean;
 }
 
 const OFFSET = 8;
@@ -306,6 +308,7 @@ const PopoverMenuInner = <
     id,
     controlReference,
     listRef,
+    focusItemOnOpen = false,
     ...rest
   }: PopoverMenuProps<TRef>,
   ref: React.ForwardedRef<HTMLDivElement>,
@@ -326,7 +329,7 @@ const PopoverMenuInner = <
     isButtonMenu,
     isSubmenu,
   );
-  const rAFRef = useRef<number | null>(null);
+  const direction = useRef<"up" | "down" | null>(null);
   const popoverReference: React.RefObject<HTMLDivElement | HTMLLIElement> =
     controlReference ?? controlWrapperRef;
 
@@ -336,30 +339,39 @@ const PopoverMenuInner = <
         ev.preventDefault();
         ev.stopPropagation();
         onClose();
-        focusControl(controlRef.current);
+        if (isSubmenu) {
+          focusSubmenuParent?.();
+        } else {
+          focusControl(controlRef.current);
+        }
       }
     },
-    [open, onClose],
+    [open, onClose, isSubmenu, focusSubmenuParent],
   );
 
   useEffect(() => {
-    const { current: wrapperEl } = wrapperRef;
+    const el = isSubmenu ? scrollRef.current : wrapperRef.current;
 
-    wrapperEl?.addEventListener("click", handleClickInside, { passive: true });
-    wrapperEl?.addEventListener("keydown", handleMainWrapperKeyDown);
+    el?.addEventListener("click", handleClickInside, { passive: true });
+    el?.addEventListener("keydown", handleMainWrapperKeyDown);
 
-    return () => {
-      wrapperEl?.removeEventListener("click", handleClickInside);
-      wrapperEl?.removeEventListener("keydown", handleMainWrapperKeyDown);
-    };
-  }, [handleClickInside, handleMainWrapperKeyDown]);
+    // When mounted as a submenu, also mark clicks on the trigger <li> as "inside"
+  // so the click-away listener doesn't fire when the trigger button is clicked
+  const triggerEl = isSubmenu ? controlReference?.current : null;
+  triggerEl?.addEventListener("click", handleClickInside, { passive: true });
+
+  return () => {
+    el?.removeEventListener("click", handleClickInside);
+    el?.removeEventListener("keydown", handleMainWrapperKeyDown);
+    triggerEl?.removeEventListener("click", handleClickInside);
+  };
+  }, [isSubmenu, handleClickInside, handleMainWrapperKeyDown, controlReference]);
 
   const handleDropdownMenuKeyDown = useHandleDropdownMenuKeyDown(
     internalListRef,
     setAriaActivedescendant,
     onClose,
-    isButtonMenu,
-    isSubmenu,
+    { isButtonMenu, isSubmenu, focusSubmenuParent },
   );
 
   const handleControlKeyDown: React.KeyboardEventHandler<HTMLElement> =
@@ -376,17 +388,7 @@ const PopoverMenuInner = <
           if (ev.key === "Enter" || ev.key === " " || ev.key === "ArrowDown") {
             ev.preventDefault();
             onOpen();
-
-            if (rAFRef.current) {
-              cancelAnimationFrame(rAFRef.current);
-            }
-
-            rAFRef.current = requestAnimationFrame(() => {
-              const firstMenuItem = scrollRef.current?.querySelector(
-                `div[data-component='popover-menu-item']:not([aria-disabled='true']) button, a`,
-              ) as HTMLElement | null;
-              firstMenuItem?.focus();
-            });
+            direction.current = "down";
 
             return;
           }
@@ -394,20 +396,7 @@ const PopoverMenuInner = <
           if (ev.key === "ArrowUp") {
             ev.preventDefault();
             onOpen();
-
-            if (rAFRef.current) {
-              cancelAnimationFrame(rAFRef.current);
-            }
-
-            rAFRef.current = requestAnimationFrame(() => {
-              const items = scrollRef.current?.querySelectorAll(
-                `li[data-component='popover-menu-item']:not([aria-disabled='true']) button, a`,
-              );
-              const lastMenuItem = items?.[
-                items.length - 1
-              ] as HTMLElement | null;
-              lastMenuItem?.focus();
-            });
+            direction.current = "up";
 
             return;
           }
@@ -415,6 +404,22 @@ const PopoverMenuInner = <
       },
       [open, handleDropdownMenuKeyDown, isButtonMenu, onOpen, isSubmenu],
     );
+
+  useEffect(() => {
+    if (open && direction.current && isButtonMenu && !isSubmenu) {
+      const items = scrollRef.current?.querySelectorAll(
+        `li[data-component='popover-menu-item']:not([aria-disabled='true']) button, a`,
+      );
+
+      const itemToFocus = direction.current === "up" ? items?.[items.length - 1] : items?.[0];
+      direction.current = null;
+
+      if (itemToFocus && focusItemOnOpen) {
+        setAriaActivedescendant(itemToFocus.id);
+        setFocus(itemToFocus as HTMLElement, undefined, isButtonMenu);
+      }
+    }
+  }, [open, isButtonMenu, isSubmenu, focusItemOnOpen]);
 
   /* eslint-disable @typescript-eslint/no-use-before-define */
   const renderSubmenu = useCallback(

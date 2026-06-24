@@ -73,12 +73,15 @@ const StyledMenuItem = styled.li<StyledMenuItemProps>`
         * {
           color: var(--input-dropdown-label-disabled);
         }
+
+        & > button, & > a {
+          background-color: transparent;
+        }
         cursor: not-allowed;
       `
       : `
         color: ${$isButtonMenu ? "var(--popover-label-default)" : "var(--input-dropdown-label-alt)"};
         cursor: pointer;
-
       
         &:not(:active):hover {
           * {
@@ -90,13 +93,13 @@ const StyledMenuItem = styled.li<StyledMenuItemProps>`
         ${
           $isButtonMenu
             ? `
-          &:active {
-            background-color: var(--popover-bg-active);
-            button, a {
-              color: var(--popover-label-active);
-            }
-          }
-        `
+              &:active {
+                background-color: var(--popover-bg-active);
+                button, a {
+                  color: var(--popover-label-active);
+                }
+              }
+            `
             : ""
         }
   `}
@@ -271,12 +274,13 @@ const MenuItem = ({
         ev.preventDefault();
 
         if (isButtonMenu && hasSubmenu && !submenuOpen) {
+          ev.stopPropagation();
           onSubmenuOpen?.();
 
           return;
         }
 
-        (ref.current?.querySelector("button") as HTMLElement)?.click();
+        // (ref.current?.querySelector("button") as HTMLElement)?.click();
       }
 
       if (ev.key === "ArrowRight") {
@@ -295,23 +299,14 @@ const MenuItem = ({
         return;
       }
 
-      if (ev.key === "Tab") {
+      if (hasSubmenu && submenuOpen && ev.key === "Tab" && !ev.shiftKey) {
         ev.preventDefault();
+        const firstSubmenuItem = submenuRef.current?.querySelector(
+          `li[data-component='popover-submenu-item']:not([aria-disabled='true']) button, a`,
+        ) as HTMLElement | null;
+        firstSubmenuItem?.focus();
 
-        if (
-          !ev.shiftKey &&
-          submenuOpen &&
-          ev.key === "Tab" &&
-          isButtonMenu &&
-          hasSubmenu
-        ) {
-          const firstSubmenuItem = submenuRef.current?.querySelector(
-            `li[data-component='popover-submenu-item']:not([aria-disabled='true']) button, a`,
-          ) as HTMLElement | null;
-          firstSubmenuItem?.focus();
-
-          return;
-        }
+        return;
       }
     },
     [isDisabled, hasSubmenu, isButtonMenu, onSubmenuOpen, submenuOpen],
@@ -345,14 +340,14 @@ const MenuItem = ({
         }
       }
 
-      if (ev.key === "Tab" && ev.shiftKey && isSubmenu && isActiveInSubmenu) {
-        ev.preventDefault();
-        focusSubmenuParent?.();
+      // if (ev.key === "Tab" && ev.shiftKey && isSubmenu && isActiveInSubmenu) {
+      //   ev.preventDefault();
+      //   focusSubmenuParent?.();
 
-        return;
-      }
+      //   return;
+      // }
     },
-    [focusSubmenuParent, onSubmenuCloseContext, isSubmenu],
+    [focusSubmenuParent, onSubmenuCloseContext],
   );
 
   const handleFocusSubmenuParent = useCallback(() => {

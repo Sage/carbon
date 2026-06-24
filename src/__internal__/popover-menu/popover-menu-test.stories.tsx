@@ -1302,6 +1302,7 @@ export const PopoverMenuButtonSmall = () => {
           </ButtonNext>
         )}
         isButtonMenu
+        focusItemOnOpen
       >
         <MenuItem>
           <ButtonNext>
@@ -1376,6 +1377,7 @@ export const PopoverMenuButtonSmallDisabledItems = () => {
           </ButtonNext>
         )}
         isButtonMenu
+        focusItemOnOpen
       >
         <MenuItem>
           <ButtonNext>
@@ -1452,6 +1454,7 @@ export const PopoverMenuButtonMedium = () => {
           </ButtonNext>
         )}
         isButtonMenu
+        focusItemOnOpen
         width="200px"
       >
         <MenuItem>
@@ -1469,11 +1472,11 @@ export const PopoverMenuButtonMedium = () => {
           submenuWidth="200px"
           submenu={
             <>
-              <ButtonNext onClick={() => alert("clicked submenu 1")}>
+              <ButtonNext onClick={() => setSubmenuOpen(false)}>
                 <Icon type="home" />
                 Subaction 1
               </ButtonNext>
-              <ButtonNext onClick={() => alert("clicked submenu 2")}>
+              <ButtonNext onClick={() => setSubmenuOpen(false)}>
                 <Icon type="home" />
                 Subaction 2
               </ButtonNext>
@@ -1528,6 +1531,7 @@ export const PopoverMenuButtonLarge = () => {
           </ButtonNext>
         )}
         isButtonMenu
+        focusItemOnOpen
       >
         <MenuItem>
           <ButtonNext>
@@ -1544,10 +1548,12 @@ export const PopoverMenuButtonLarge = () => {
           submenuWidth="200px"
           submenu={
             <>
+            <MenuItem>
               <ButtonNext onClick={() => alert("clicked submenu 1")}>
                 <Icon type="home" />
                 Subaction 1
               </ButtonNext>
+              </MenuItem>
               <ButtonNext onClick={() => alert("clicked submenu 2")}>
                 <Icon type="home" />
                 Subaction 2
