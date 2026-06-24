@@ -3,14 +3,13 @@ import styled from "styled-components";
 const StyledButtonGroup = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 8px;
+  gap: var(--global-space-comp-s);
   align-items: center;
 
   .button-group-divider {
     width: 1px;
-    background-color: var(--colorsUtilityMajor100);
-    margin: 0 8px;
-    min-height: 32px;
+    background-color: var(--container-standard-border-default);
+    min-height: var(--global-size-s);
   }
 `;
 

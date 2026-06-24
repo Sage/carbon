@@ -18,6 +18,8 @@ export interface LabelProps {
   readOnly?: boolean;
   /** Class name to target component */
   className?: string;
+  /** onClick event */
+  onClick?: () => void;
 }
 
 export const Label = ({
@@ -29,6 +31,7 @@ export const Label = ({
   disabled,
   readOnly,
   className,
+  onClick,
 }: LabelProps) => {
   return (
     <StyledLabel
@@ -42,6 +45,7 @@ export const Label = ({
       data-component="label"
       data-element="label"
       aria-disabled={disabled || undefined}
+      onClick={onClick}
     >
       {children}
     </StyledLabel>

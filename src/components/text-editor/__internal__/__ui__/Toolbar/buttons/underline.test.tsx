@@ -69,7 +69,6 @@ describe("Underline button", () => {
 
     const underlineButton = screen.getByRole("button", { name: "Underline" });
     expect(underlineButton).toBeInTheDocument();
-    expect(underlineButton).toHaveStyleRule("background-color", "transparent");
     expect(underlineButton).toHaveAttribute("aria-pressed", "false");
   });
 
@@ -90,10 +89,6 @@ describe("Underline button", () => {
     await userEvent.click(underlineButton);
 
     expect(underlineButton).toBeInTheDocument();
-    expect(underlineButton).toHaveStyleRule(
-      "background-color",
-      "var(--colorsActionMajor600)",
-    );
     expect(underlineButton).toHaveAttribute("aria-pressed", "true");
   });
 

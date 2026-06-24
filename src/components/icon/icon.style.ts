@@ -96,6 +96,10 @@ const styleOverrides = css`
   .button-toggle && {
     color: currentColor;
   }
+
+  .editor-dropdown && {
+    color: currentColor;
+  }
 `;
 
 const StyledIcon = styled.span.attrs(applyBaseTheme)<

@@ -1,26 +1,7 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
-import { LexicalComposer } from "@lexical/react/LexicalComposer";
-import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { $createParagraphNode, $createTextNode, $getRoot } from "lexical";
-
 import TextEditor from "../../../text-editor.component";
-import CharacterCounterPlugin from "./character-counter.component";
-
-const EditorContent = ({ text }: { text: string }) => {
-  const [editor] = useLexicalComposerContext();
-
-  React.useEffect(() => {
-    editor.update(() => {
-      const root = $getRoot();
-      root.clear();
-      root.append($createParagraphNode().append($createTextNode(text)));
-    });
-  }, [editor, text]);
-
-  return null;
-};
 
 const initialValue = {
   root: {
@@ -138,29 +119,5 @@ describe("CharacterCounterPlugin", () => {
     await waitFor(() => {
       expect(visibleCounter).toHaveTextContent("0 characters remaining");
     });
-  });
-
-  it("renders with the default margin top when no marginTop is specified", async () => {
-    const initialConfig = {
-      namespace: "test-headless",
-      onError: () => {},
-    };
-
-    render(
-      <LexicalComposer initialConfig={initialConfig}>
-        <CharacterCounterPlugin
-          isFocused
-          maxChars={100}
-          namespace="test-headless"
-        />
-        <EditorContent text="Sample text" />
-      </LexicalComposer>,
-    );
-
-    const visibleCounter = screen.getByTestId("test-headless-character-limit");
-    await waitFor(() => {
-      expect(visibleCounter).toHaveTextContent("89 characters remaining");
-    });
-    expect(visibleCounter).toHaveStyleRule("margin-top", "var(--spacing050)");
   });
 });

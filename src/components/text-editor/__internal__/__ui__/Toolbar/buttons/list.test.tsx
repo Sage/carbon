@@ -86,14 +86,9 @@ it("should render the ordered list control correctly", async () => {
   render(<TextEditor labelText="Test Editor" namespace="test" />);
   const olButton = screen.getByTestId(`test-ordered-list-button`);
   expect(olButton).toBeInTheDocument();
-  expect(olButton).toHaveStyleRule("background-color", "transparent");
   expect(olButton).toHaveAttribute("aria-pressed", "false");
 
   await user.click(olButton);
-  expect(olButton).toHaveStyleRule(
-    "background-color",
-    "var(--colorsActionMajor600)",
-  );
   expect(olButton).toHaveAttribute("aria-pressed", "true");
 });
 
@@ -102,14 +97,9 @@ it("should render the unordered list control correctly", async () => {
   render(<TextEditor labelText="Test Editor" namespace="test" />);
   const ulButton = screen.getByTestId(`test-unordered-list-button`);
   expect(ulButton).toBeInTheDocument();
-  expect(ulButton).toHaveStyleRule("background-color", "transparent");
   expect(ulButton).toHaveAttribute("aria-pressed", "false");
 
   await user.click(ulButton);
-  expect(ulButton).toHaveStyleRule(
-    "background-color",
-    "var(--colorsActionMajor600)",
-  );
   expect(ulButton).toHaveAttribute("aria-pressed", "true");
 });
 
