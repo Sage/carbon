@@ -98,7 +98,7 @@ const styleOverrides = css`
   }
 
   .editor-dropdown && {
-    color: var(--button-typical-toggle-label-default);
+    color: currentColor;
   }
 `;
 

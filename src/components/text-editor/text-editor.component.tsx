@@ -255,7 +255,7 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
           warning={warningMessage}
           id={`${namespace}-validation-message`}
           data-role={`${namespace}-validation-message`}
-          size={size}
+          size={actualSize}
         />
         {(error || warningMessage) && (
           <ErrorBorder warning={!!(!error && warningMessage)} />
@@ -285,13 +285,13 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
             onClick={() => contentEditorRef.current?.focus()}
             isRequired={required}
             id={`${namespace}-label`}
-            size={size}
+            size={actualSize}
           >
             {labelText}
           </Label>
 
           {inputHint && !readOnly && (
-            <HintText id={`${namespace}-input-hint`} size={size}>
+            <HintText id={`${namespace}-input-hint`} size={actualSize}>
               {inputHint}
             </HintText>
           )}
@@ -299,7 +299,7 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
             <StyledWrapper
               data-role={`${namespace}-wrapper`}
               ref={setParentRef}
-              size={size}
+              size={actualSize}
             >
               {validationMessagePositionTop && validationMessage}
               <StyledEditorToolbarWrapper
@@ -310,7 +310,7 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
                 {header && (
                   <StyledHeaderWrapper
                     data-role={`${namespace}-header-wrapper`}
-                    size={size}
+                    size={actualSize}
                   >
                     {header}
                   </StyledHeaderWrapper>
@@ -404,7 +404,7 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
                   isFocused={isFocused}
                   maxChars={characterLimit}
                   namespace={namespace}
-                  size={size}
+                  size={actualSize}
                 />
               )}
             </StyledWrapper>

@@ -1,6 +1,6 @@
 /**
  * This is where the actual content editor is rendered. It uses the `ContentEditable` component from the `@lexical/react` package
- * as per their documentation. It also uses the `LinkPreviewerPlugin` to render link previews.
+ * as per their documentation. It also renders link previews.
  */
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import React, { forwardRef } from "react";
