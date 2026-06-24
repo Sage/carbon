@@ -18,7 +18,6 @@ const StyledDateRange = styled.div.attrs(applyBaseTheme)<StyledDateRangeProps>`
   ${margin}
 
   & ${StyledDateInput} {
-    width: auto;
     display: inline-block;
     vertical-align: ${({ labelsInline }) => (labelsInline ? "top" : "bottom")};
   }
