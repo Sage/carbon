@@ -6,36 +6,47 @@ interface FormattingButtonProps extends ButtonProps {
   tabIndex?: number;
   isActive?: boolean;
   onMouseDown?: React.MouseEventHandler<HTMLButtonElement>;
-  size?: "small" | "medium" | "large";
+  size: "small" | "medium" | "large";
 }
 
-export const getPaddingForSize = (size?: "small" | "medium" | "large") => {
-  switch (size) {
-    case "small":
-      return "8px";
-    case "large":
-      return "16px";
-    default:
-      return "12px";
-  }
+const sizeMap = {
+  small: {
+    toolbarPadding: "var(--global-space-comp-s)",
+    withHeaderPadding: "var(--global-space-comp-xs)",
+    buttonSize: "var(--global-size-s)",
+  },
+  medium: {
+    toolbarPadding: "var(--global-space-comp-m)",
+    withHeaderPadding: "var(--global-space-comp-s)",
+    buttonSize: "var(--global-size-m)",
+  },
+  large: {
+    toolbarPadding: "var(--global-space-comp-l)",
+    withHeaderPadding: "var(--global-space-comp-m)",
+    buttonSize: "var(--global-size-l)",
+  },
 };
 
-const StyledToolbarWrapper = styled.div<{
+interface StyledToolbarProps {
   hasHeader?: boolean;
-  size?: "small" | "medium" | "large";
-}>`
+  size: "small" | "medium" | "large";
+}
+
+const StyledToolbarWrapper = styled.div<StyledToolbarProps>`
+  ${({ size, hasHeader }) => css`
+    padding: ${sizeMap[size].toolbarPadding};
+
+    ${hasHeader &&
+    css`
+      padding-top: ${sizeMap[size].withHeaderPadding};
+    `}
+  `};
+
   display: flex;
   flex-direction: row;
-  gap: 8px;
-  background-color: var(--colorsActionMajorYang100);
-  padding: ${(props) => getPaddingForSize(props.size)};
-  border-top-left-radius: ${({ hasHeader }) =>
-    hasHeader ? "0" : "var(--borderRadius100)"};
-  border-top-right-radius: ${({ hasHeader }) =>
-    hasHeader ? "0" : "var(--borderRadius100)"};
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-  border-bottom: 1px solid var(--colorsUtilityMajor200);
+  gap: var(--global-space-comp-s);
+  border-bottom: var(--global-borderwidth-xs) solid
+    var(--input-typical-border-default);
   align-items: center;
   flex-wrap: wrap;
 `;
@@ -43,66 +54,51 @@ const StyledToolbarWrapper = styled.div<{
 const StyledToolbar = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 8px;
-  background-color: var(--colorsActionMajorYang100);
+  gap: var(--global-space-comp-s);
   align-items: center;
   flex-wrap: wrap;
+  padding: var(--global-space-comp-xs);
 `;
 
 const CommandButtons = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 8px;
+  gap: var(--global-space-comp-s);
 `;
 
+// TODO: replace this with ButtonToggle
 const FormattingButton = styled(Button)<FormattingButtonProps>`
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  padding: 6px;
-  border-radius: var(--borderRadius100);
-  border: medium;
+  border-radius: var(--global-radius-action-circle);
   cursor: pointer;
 
+  && > span {
+    color: var(--button-typical-toggle-label-default);
+  }
+
   &:hover {
-    > span {
-      color: var(--colorsUtilityYang100) !important;
+    background-color: var(--button-typical-toggle-bg-hover);
+    && > span {
+      color: var(--button-typical-toggle-label-hover);
     }
   }
 
-  ${({ size }) => {
-    switch (size) {
-      case "large":
-        return css`
-          min-width: 48px;
-          min-height: 48px;
-        `;
-      case "small":
-        return css`
-          min-width: 32px;
-          min-height: 32px;
-        `;
-      default:
-        return css`
-          min-width: 40px;
-          min-height: 40px;
-        `;
-    }
-  }}
-
-  ${({ isActive }) => css`
-    background-color: ${isActive
-      ? "var(--colorsActionMajor600)"
-      : "transparent"};
+  ${({ size }) => css`
+    min-width: ${sizeMap[size].buttonSize};
+    min-height: ${sizeMap[size].buttonSize};
   `}
 
-  > span {
-    ${({ isActive }) => css`
-      color: ${isActive
-        ? "var(--colorsUtilityYang100)"
-        : "var(--colorsUtilityYin100) "} !important;
+  ${({ isActive }) =>
+    isActive &&
+    css`
+      background-color: var(--button-typical-toggle-bg-active);
+
+      && > span {
+        color: var(--button-typical-toggle-label-active);
+      }
     `}
-  }
 `;
 
 export {

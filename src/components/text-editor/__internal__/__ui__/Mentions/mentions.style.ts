@@ -44,7 +44,6 @@ export const MentionsListItem = styled.li`
   &:hover {
     color: var(--popover-label-hover);
     border-radius: 0;
-    }
   }
 
   &.selected {

@@ -115,6 +115,8 @@ export interface ContentEditorProps {
   size?: "small" | "medium" | "large";
   /** The id attribute */
   id?: string;
+  /** If the editor has a footer */
+  hasFooter?: boolean;
 }
 
 export interface CharacterCounterPluginProps {
@@ -125,7 +127,7 @@ export interface CharacterCounterPluginProps {
   /** The namespace of the editor that this counter belongs to */
   namespace: string;
   /** The size of the content editor */
-  marginTop?: string;
+  size: "small" | "medium" | "large";
 }
 
 export interface FocusCommandPayload {

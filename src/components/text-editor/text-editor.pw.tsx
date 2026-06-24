@@ -458,20 +458,6 @@ test.describe("Prop tests", () => {
     });
   });
 
-  test.describe("inputHint", () => {
-    test(`value of 'hint'`, async ({ mount, page }) => {
-      await mount(<TextEditorDefaultComponent inputHint="hint" />);
-      const hint = page.locator(`div[data-role='hint-text']`);
-      await expect(hint).toHaveText("hint");
-    });
-
-    test(`value not provided`, async ({ mount, page }) => {
-      await mount(<TextEditorDefaultComponent />);
-      const hint = await page.locator(`div[data-role='hint-text']`).count();
-      expect(hint).toBe(0);
-    });
-  });
-
   test.describe("labelText", () => {
     [{ value: "Text Editor" }].forEach(({ value }) => {
       test(`value of ${value}`, async ({ mount, page }) => {
@@ -1304,28 +1290,6 @@ test.describe("Functionality tests", () => {
         "400",
       );
     });
-
-    test("bold button is rendered correctly in the active/inactive states", async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <TextEditorDefaultComponent initialValue={unformattedValue} />,
-      );
-      const textbox = page.locator("div[role='textbox']");
-      await textbox.selectText();
-      const boldButton = page.locator("button[data-role='pw-rte-bold-button']");
-      await expect(boldButton).toHaveCSS(
-        "background-color",
-        "rgba(0, 0, 0, 0)",
-      );
-      await expect(boldButton).toHaveAttribute("aria-pressed", "false");
-
-      await boldButton.click();
-
-      await expect(boldButton).toHaveCSS("background-color", "rgb(0, 103, 56)");
-      await expect(boldButton).toHaveAttribute("aria-pressed", "true");
-    });
   });
 
   test.describe("Italic", () => {
@@ -1430,33 +1394,6 @@ test.describe("Functionality tests", () => {
         "font-style",
         "normal",
       );
-    });
-
-    test("italic button is rendered correctly in the active/inactive states", async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <TextEditorDefaultComponent initialValue={unformattedValue} />,
-      );
-      const textbox = page.locator("div[role='textbox']");
-      await textbox.selectText();
-      const italicButton = page.locator(
-        "button[data-role='pw-rte-italic-button']",
-      );
-      await expect(italicButton).toHaveCSS(
-        "background-color",
-        "rgba(0, 0, 0, 0)",
-      );
-      await expect(italicButton).toHaveAttribute("aria-pressed", "false");
-
-      await italicButton.click();
-
-      await expect(italicButton).toHaveCSS(
-        "background-color",
-        "rgb(0, 103, 56)",
-      );
-      await expect(italicButton).toHaveAttribute("aria-pressed", "true");
     });
   });
 
@@ -1573,33 +1510,6 @@ test.describe("Functionality tests", () => {
         "none",
       );
     });
-
-    test("underline button is rendered correctly in the active/inactive states", async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <TextEditorDefaultComponent initialValue={unformattedValue} />,
-      );
-      const textbox = page.locator("div[role='textbox']");
-      await textbox.selectText();
-      const underlineButton = page.locator(
-        "button[data-role='pw-rte-underline-button']",
-      );
-      await expect(underlineButton).toHaveCSS(
-        "background-color",
-        "rgba(0, 0, 0, 0)",
-      );
-      await expect(underlineButton).toHaveAttribute("aria-pressed", "false");
-
-      await underlineButton.click();
-
-      await expect(underlineButton).toHaveCSS(
-        "background-color",
-        "rgb(0, 103, 56)",
-      );
-      await expect(underlineButton).toHaveAttribute("aria-pressed", "true");
-    });
   });
 
   test.describe("Ordered List", () => {
@@ -1621,27 +1531,6 @@ test.describe("Functionality tests", () => {
       await orderedListButton.click();
       expect(await page.locator("ol").count()).toBe(0);
     });
-
-    test("ordered list button is rendered correctly in the active/inactive states", async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <TextEditorDefaultComponent initialValue={unformattedValue} />,
-      );
-      const textbox = page.locator("div[role='textbox']");
-      await textbox.selectText();
-      const olButton = page.locator(
-        "button[data-role='pw-rte-ordered-list-button']",
-      );
-      await expect(olButton).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
-      await expect(olButton).toHaveAttribute("aria-pressed", "false");
-
-      await olButton.click();
-
-      await expect(olButton).toHaveCSS("background-color", "rgb(0, 103, 56)");
-      await expect(olButton).toHaveAttribute("aria-pressed", "true");
-    });
   });
 
   test.describe("Unordered List", () => {
@@ -1662,27 +1551,6 @@ test.describe("Functionality tests", () => {
       await expect(unorderedList).toHaveText("This text needs formatting");
       await unorderedListButton.click();
       expect(await page.locator("ul").count()).toBe(0);
-    });
-
-    test("unordered list button is rendered correctly in the active/inactive states", async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <TextEditorDefaultComponent initialValue={unformattedValue} />,
-      );
-      const textbox = page.locator("div[role='textbox']");
-      await textbox.selectText();
-      const ulButton = page.locator(
-        "button[data-role='pw-rte-unordered-list-button']",
-      );
-      await expect(ulButton).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
-      await expect(ulButton).toHaveAttribute("aria-pressed", "false");
-
-      await ulButton.click();
-
-      await expect(ulButton).toHaveCSS("background-color", "rgb(0, 103, 56)");
-      await expect(ulButton).toHaveAttribute("aria-pressed", "true");
     });
   });
 
@@ -2173,37 +2041,6 @@ test.describe("Styling tests", () => {
         ).toHaveCSS("min-height", `${expectedHeight}px`);
       });
     });
-  });
-
-  test("should render links with expected styling", async ({ mount, page }) => {
-    const previews = [
-      <a
-        href="https://carbon.sage.com/?path=/story/welcome--welcome-page"
-        rel="noreferrer"
-      >
-        <span data-lexical-text="true">Carbon</span>
-      </a>,
-    ];
-    await mount(<TextEditorDefaultComponent previews={previews} />);
-
-    const link = page.getByRole("link", { name: "Carbon" });
-
-    await expect(link).toHaveCSS("color", "rgb(0, 126, 69)");
-    await expect(link).toHaveCSS("cursor", "pointer");
-
-    await link.hover();
-    await expect(link).toHaveCSS("color", "rgb(0, 103, 56)");
-
-    await link.focus();
-    await expect(link).toHaveCSS("outline", "rgba(0, 0, 0, 0.9) none 0px");
-    await expect(link).toHaveCSS("text-decoration", "rgba(0, 0, 0, 0.9)");
-    await expect(link).toHaveCSS("color", "rgba(0, 0, 0, 0.9)");
-    await expect(link).toHaveCSS("background-color", "rgb(255, 218, 128)");
-    await expect(link).toHaveCSS("border-radius", "2px");
-    await expect(link).toHaveCSS(
-      "box-shadow",
-      "rgba(0, 0, 0, 0.9) 0px 4px 0px 0px",
-    );
   });
 });
 

@@ -8,7 +8,6 @@ import StyledContentEditable from "./content-editor.style";
 
 import { ContentEditorProps } from "../../__utils__/interfaces.types";
 import { useCursorAtEnd } from "../../__plugins__";
-import { LinkPreviewerPlugin } from "..";
 
 const ContentEditor = forwardRef<HTMLDivElement, ContentEditorProps>(
   (
@@ -24,6 +23,7 @@ const ContentEditor = forwardRef<HTMLDivElement, ContentEditorProps>(
       validationMessagePositionTop,
       size = "medium",
       id,
+      hasFooter,
     },
     ref,
   ) => {
@@ -46,6 +46,7 @@ const ContentEditor = forwardRef<HTMLDivElement, ContentEditorProps>(
         rows={rows}
         readOnly={readOnly}
         size={size}
+        hasFooter={hasFooter}
       >
         <ContentEditable
           id={id}
@@ -90,7 +91,7 @@ const ContentEditor = forwardRef<HTMLDivElement, ContentEditorProps>(
           aria-autocomplete={undefined}
           aria-readonly={undefined}
         />
-        <LinkPreviewerPlugin previews={previews} />
+        {previews}
       </StyledContentEditable>
     );
   },

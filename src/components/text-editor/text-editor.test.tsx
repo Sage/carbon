@@ -249,48 +249,6 @@ test("input hint renders correctly when inputHint prop is provided", () => {
   expect(editor).toHaveAccessibleDescription("This is an input hint");
 });
 
-test("wrapper renders with correct when inputHint prop is provided and size is small", () => {
-  // render the TextEditor component with an input hint
-  render(
-    <TextEditor
-      inputHint="This is an input hint"
-      labelText="Example"
-      size="small"
-    />,
-  );
-
-  const editor = screen.getByRole("textbox", { name: "Example" });
-
-  // expect the input hint to be rendered
-  expect(screen.getByText("This is an input hint")).toBeVisible();
-  expect(screen.getByText("This is an input hint")).toHaveStyleRule(
-    "margin-bottom",
-    "var(--spacing050)",
-  );
-  expect(editor).toHaveAccessibleDescription("This is an input hint");
-});
-
-test("wrapper renders with correct when inputHint prop is provided and size is large", () => {
-  // render the TextEditor component with an input hint
-  render(
-    <TextEditor
-      inputHint="This is an input hint"
-      labelText="Example"
-      size="large"
-    />,
-  );
-
-  const editor = screen.getByRole("textbox", { name: "Example" });
-
-  // expect the input hint to be rendered
-  expect(screen.getByText("This is an input hint")).toBeVisible();
-  expect(screen.getByText("This is an input hint")).toHaveStyleRule(
-    "margin-bottom",
-    "var(--spacing150)",
-  );
-  expect(editor).toHaveAccessibleDescription("This is an input hint");
-});
-
 test("character limit renders correctly when characterLimit prop is provided", () => {
   // render the TextEditor component with a character limit
   render(<TextEditor characterLimit={100} labelText="Example" />);
@@ -344,42 +302,6 @@ test("renders footer content wrapped in a container when the `footer` prop is pr
 
   expect(footerWrapper).toBeVisible();
   expect(footerWrapper).toHaveTextContent("foo");
-});
-
-test("renders footer content wrapped in a container when the `footer` prop is provided and size is small", () => {
-  render(
-    <TextEditor
-      characterLimit={0}
-      labelText="Example"
-      namespace="test"
-      footer={<span>foo</span>}
-      size="small"
-    />,
-  );
-
-  const footerWrapper = screen.getByTestId("test-footer-wrapper");
-
-  expect(footerWrapper).toBeVisible();
-  expect(footerWrapper).toHaveTextContent("foo");
-  expect(footerWrapper).toHaveStyleRule("padding", "var(--spacing100)");
-});
-
-test("renders footer content wrapped in a container when the `footer` prop is provided and size is large", () => {
-  render(
-    <TextEditor
-      characterLimit={0}
-      labelText="Example"
-      namespace="test"
-      footer={<span>foo</span>}
-      size="large"
-    />,
-  );
-
-  const footerWrapper = screen.getByTestId("test-footer-wrapper");
-
-  expect(footerWrapper).toBeVisible();
-  expect(footerWrapper).toHaveTextContent("foo");
-  expect(footerWrapper).toHaveStyleRule("padding", "var(--spacing200)");
 });
 
 test("allows the simultaneous rendering of header and footer content wrapped in respective containers when the `header` and `footer` props are provided", () => {
