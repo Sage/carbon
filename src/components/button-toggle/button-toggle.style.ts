@@ -5,21 +5,25 @@ import addFocusStyling from "../../style/utils/add-focus-styling";
 
 const sizeMap = {
   extraSmall: {
+    font: "var(--global-font-static-comp-medium-s)",
     size: "var(--global-size-xs)",
     padding: "var(--global-space-comp-2-xs) var(--global-space-comp-s)",
     borderRadius: "12px",
   },
   small: {
+    font: "var(--global-font-static-comp-medium-s)",
     size: "var(--global-size-s)",
     padding: "var(--global-space-comp-xs) var(--global-space-comp-m)",
     borderRadius: "var(--global-radius-action-l)",
   },
   medium: {
+    font: "var(--global-font-static-comp-medium-m)",
     size: "var(--global-size-m)",
     padding: "var(--global-space-comp-s) var(--global-space-comp-l)",
     borderRadius: "var(--global-radius-action-xl)",
   },
   large: {
+    font: "var(--global-font-static-comp-medium-l)",
     size: "var(--global-size-l)",
     padding: "var(--global-space-comp-s) var(--global-space-comp-l)",
     borderRadius: "var(--global-radius-action-2-xl)",
@@ -68,7 +72,7 @@ const StyledButtonToggle = styled.button.attrs(
     background-color: transparent;
 
     color: var(--button-typical-toggle-label-default);
-    font: var(--global-font-static-comp-medium-m);
+    font: ${sizeMap[$size].font};
     text-align: center;
 
     ${$active &&
