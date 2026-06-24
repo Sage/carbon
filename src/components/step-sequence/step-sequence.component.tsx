@@ -43,6 +43,7 @@ export const StepSequence = ({
       }}
     >
       <StyledStepSequence
+        role="list"
         orientation={orientation}
         {...props}
         {...tagComponent("step-sequence", props)}

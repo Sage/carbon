@@ -184,7 +184,7 @@ export const LabelOverrides: Story = (props: StepSequenceProps) => {
     </StepSequence>
   );
 };
-LabelOverrides.storyName = "Default";
+LabelOverrides.storyName = "Label Overrides";
 LabelOverrides.args = {
   currentStep: 1,
   hiddenCompleteLabel: "Finished",

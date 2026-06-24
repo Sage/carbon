@@ -203,7 +203,7 @@ description: Carbon StepSequence component props and usage examples.
 ```
 
 
-### Default
+### Label Overrides
 
 **Args**
 

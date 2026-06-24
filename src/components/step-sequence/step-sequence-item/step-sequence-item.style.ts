@@ -56,7 +56,7 @@ export const StyledStepSequenceItemLine = styled.div<
       ? css`
           width: var(--borderWidth200);
           flex-grow: 1;
-          min-height: var(--sizing500);
+          min-height: var(--sizing300);
           background-color: var(--progress-stepindicator-border-default);
           margin: var(--sizing100) 0;
         `

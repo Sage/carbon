@@ -58,6 +58,7 @@ export const StepSequenceItem = ({
       aria-current={status === "current" ? "step" : undefined}
       key={`step-seq-item-${stepNumber}`}
       size={size}
+      role="listitem"
       {...props}
       {...tagComponent("step-sequence-item", props)}
     >
