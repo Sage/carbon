@@ -1,3 +1,9 @@
+## [159.13.2](https://github.com/Sage/carbon/compare/v159.13.1...v159.13.2) (2026-06-25)
+
+### Bug Fixes
+
+* correct esm module path in generated package.json stubs ([706fae9](https://github.com/Sage/carbon/commit/706fae96ed5925d32f7079a5418e40bc860a2a1d)), closes [#8042](https://github.com/Sage/carbon/issues/8042)
+
 ## [159.13.1](https://github.com/Sage/carbon/compare/v159.13.0...v159.13.1) (2026-06-22)
 
 ### Bug Fixes
