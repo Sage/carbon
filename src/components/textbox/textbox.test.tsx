@@ -666,3 +666,8 @@ describe("when validation message changes", () => {
     );
   });
 });
+
+test("applies autoFocus to the input", () => {
+  render(<Textbox value="foo" onChange={() => {}} label="Textbox" autoFocus />);
+  expect(screen.getByRole("textbox")).toHaveFocus();
+});
