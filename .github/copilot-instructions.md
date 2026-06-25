@@ -34,6 +34,15 @@ Applies to all surfaces (coding, review, chat).
 
 Run `npm run generate-tokens:dev` before direct `jest`/`eslint`/`tsc`/`playwright` invocations (`npm run …` scripts do it automatically). Never commit `src/components/tokens-wrapper/static-tokens/`.
 
+## Versioning checks
+
+- Public API breakage is gated in `commit-msg` via `scripts/types/check_breaking_changes.mjs`.
+- The type snapshot file `types/carbon-react/types.json` is generated and should not be manually edited.
+- Snapshot regeneration happens in `pre-commit` when staged files include `src/components/`.
+- Manual full check: `npm run versioning-check`
+- Manual scoped check: `npm run versioning-check -- <ComponentName>`
+- Breaking changes must be acknowledged in commit messages with a `BREAKING CHANGE:` footer
+
 ## CI validation
 
 | Step   | Command                                                                         |
@@ -64,7 +73,7 @@ skills/ scripts/ .storybook/ .github/workflows/ contributing/
 - Raise `--max-warnings` ceiling
 - Broad snapshot tests
 - Commit generated dirs (`lib/` `esm/` `coverage/` `static-tokens/`)
-- `--no-verify` on commits
+- `--no-verify` on commits (except emergency/unblock scenarios with immediate follow-up)
 
 ## References
 

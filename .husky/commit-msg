@@ -1,4 +1,28 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-npx commitlint --edit $1
+unstage_types_snapshot() {
+	git restore --staged --worktree types/carbon-react/types.json >/dev/null 2>&1 || true
+}
+
+vc_tmpfile=$(mktemp)
+if node ./scripts/types/check_breaking_changes.mjs "$1" >"$vc_tmpfile" 2>&1; then
+	printf "✔ Running versioning check...\n"
+	rm -f "$vc_tmpfile"
+else
+	printf "✖ Running versioning check...\n"
+	cat "$vc_tmpfile"
+	rm -f "$vc_tmpfile"
+	unstage_types_snapshot
+	exit 1
+fi
+
+npx lint-staged || {
+	unstage_types_snapshot
+	exit 1
+}
+
+npx commitlint --edit $1 || {
+	unstage_types_snapshot
+	exit 1
+}
