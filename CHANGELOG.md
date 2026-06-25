@@ -1,3 +1,9 @@
+## [159.13.3](https://github.com/Sage/carbon/compare/v159.13.2...v159.13.3) (2026-06-25)
+
+### Bug Fixes
+
+* **sidebar:** remove scroll content from tab order in firefox ([fd300b1](https://github.com/Sage/carbon/commit/fd300b14968444eab5e47537f067227034e306bf))
+
 ## [159.13.2](https://github.com/Sage/carbon/compare/v159.13.1...v159.13.2) (2026-06-25)
 
 ### Bug Fixes
