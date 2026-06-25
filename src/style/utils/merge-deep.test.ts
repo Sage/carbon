@@ -1,4 +1,4 @@
-import { mergeDeep } from "./merge-deep";
+import mergeDeep from "./merge-deep";
 
 describe("mergeDeep", () => {
   let base: Record<string, unknown>;

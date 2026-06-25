@@ -10,7 +10,7 @@ import {
 import StyledTypography from "./typography.style";
 import filterObjectProperties from "../../../../__internal__/filter-object-properties";
 
-export const VARIANT_TYPES = [
+const VARIANT_TYPES = [
   "h1",
   "h2",
   "h3",
@@ -80,7 +80,7 @@ export interface TypographyProps
   className?: string;
 }
 
-export const Typography = ({
+const Typography = ({
   variant = "p",
   as,
   children,

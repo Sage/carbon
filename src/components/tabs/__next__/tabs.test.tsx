@@ -9,6 +9,12 @@ import { assertLoggerComponentMessage } from "../../../__spec_helper__/__interna
 import Textbox from "../../textbox";
 import { TabsHandle } from "./tabs.types";
 import Button from "../../button";
+import {
+  StyledScrollButton,
+  StyledScrollButtonPlaceholder,
+} from "./tabs.style";
+
+jest.mock("../../../hooks/__internal__/useResizeObserver");
 
 const TestComponent = ({ ...args }) => {
   return (
@@ -601,4 +607,54 @@ test("applies the `data-element` and `data-role` props to expected elements", ()
   expect(tabPanel1).toHaveAttribute("data-component", "tab-panel");
   expect(tabPanel1).toHaveAttribute("data-element", "tabpanel-foo");
   expect(tabPanel1).toHaveAttribute("data-role", "tabpanel-bar");
+});
+
+// Exercise StyledScrollButton and StyledScrollButtonPlaceholder styled component exports for coverage.
+// These styled components aren't tested via the component's scroll logic (due to jsdom limitations),
+// so we render them directly to ensure both size variants are covered.
+test("renders StyledScrollButton styled component", () => {
+  const handleClick = jest.fn();
+  render(
+    <StyledScrollButton $size="medium" onClick={handleClick}>
+      <Icon type="chevron_left" />
+    </StyledScrollButton>,
+  );
+
+  const button = screen.getByRole("button");
+  expect(button).toBeInTheDocument();
+  expect(button).toHaveStyle("height: 40px");
+  expect(button).toHaveStyle("width: 40px");
+});
+
+test("renders StyledScrollButton with large size", () => {
+  render(
+    <StyledScrollButton $size="large">
+      <Icon type="chevron_right" />
+    </StyledScrollButton>,
+  );
+
+  const button = screen.getByRole("button");
+  expect(button).toHaveStyle("height: 48px");
+  expect(button).toHaveStyle("width: 48px");
+});
+
+test("renders StyledScrollButtonPlaceholder styled component", () => {
+  render(
+    <StyledScrollButtonPlaceholder data-role="placeholder" $size="medium" />,
+  );
+
+  const placeholder = screen.getByTestId("placeholder");
+  expect(placeholder).toBeInTheDocument();
+  expect(placeholder).toHaveStyle("height: 40px");
+  expect(placeholder).toHaveStyle("width: 40px");
+});
+
+test("renders StyledScrollButtonPlaceholder with large size", () => {
+  render(
+    <StyledScrollButtonPlaceholder data-role="placeholder" $size="large" />,
+  );
+
+  const placeholder = screen.getByTestId("placeholder");
+  expect(placeholder).toHaveStyle("height: 48px");
+  expect(placeholder).toHaveStyle("width: 48px");
 });

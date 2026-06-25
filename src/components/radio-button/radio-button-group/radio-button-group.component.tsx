@@ -99,7 +99,7 @@ export interface RadioButtonGroupProps extends MarginProps, TagProps {
   info?: string | boolean;
 }
 
-export const RadioButtonGroup = ({
+const RadioButtonGroup = ({
   children,
   id,
   name,

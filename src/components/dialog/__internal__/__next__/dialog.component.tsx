@@ -399,7 +399,6 @@ Dialog.displayName = "Dialog";
 
 export default Dialog;
 
-export { default as withDialogHeader } from "./dialog-header/dialog-header.component";
 export type {
   EnhancedDialogProps,
   DialogHeadingStatus,

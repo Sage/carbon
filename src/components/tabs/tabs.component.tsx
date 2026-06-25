@@ -205,5 +205,3 @@ export const Tabs = forwardRef<TabsHandle, TabsProps>(
 );
 
 Tabs.displayName = "Tabs";
-
-export default Tabs;

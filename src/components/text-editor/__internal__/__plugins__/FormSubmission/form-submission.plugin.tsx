@@ -26,7 +26,7 @@ export interface FormSubmissionPluginProps {
   onFormSubmission?: (value: EditorFormattedValuesWithInlineStyles) => void;
 }
 
-export const FormSubmissionPlugin = ({
+const FormSubmissionPlugin = ({
   onFormSubmission,
 }: FormSubmissionPluginProps) => {
   const [editor] = useLexicalComposerContext();

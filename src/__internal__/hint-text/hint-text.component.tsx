@@ -12,7 +12,7 @@ export interface HintTextProps {
   disabled?: boolean;
 }
 
-export const HintText = ({ children, id, size, disabled }: HintTextProps) => {
+const HintText = ({ children, id, size, disabled }: HintTextProps) => {
   return (
     <StyledHintText
       data-element="input-hint"

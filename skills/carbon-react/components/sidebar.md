@@ -48,7 +48,7 @@ description: Carbon Sidebar component props and usage examples.
 | py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
 | restoreFocusOnClose | boolean \| undefined | No |  | Enables the automatic restoration of focus to the element that invoked the modal when the modal is closed. |  |
 | role | string \| undefined | No |  | The ARIA role to be applied to the component container |  |
-| size | "small" \| "medium" \| "large" \| "extra-small" \| "medium-small" \| "medium-large" \| "extra-large" \| undefined | No |  | Sets the size of the sidebar when open. |  |
+| size | "extra-small" \| "small" \| "medium" \| "large" \| "medium-small" \| "medium-large" \| "extra-large" \| undefined | No |  | Sets the size of the sidebar when open. |  |
 | subHeader | React.ReactNode | No |  | Node that will be used as sidebar subheader. |  |
 | subHeaderPadding | PaddingProps | No |  | Padding to be set on the Sidebar subheader |  |
 | topModalOverride | boolean \| undefined | No |  | Manually override the internal modal stacking order to set this as top |  |

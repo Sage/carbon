@@ -118,7 +118,7 @@ export interface TextInputProps
 const INPUT_WIDTH = 100;
 const INLINE_INPUT_WIDTH = INPUT_WIDTH - 20;
 
-export const TextInput = React.forwardRef(
+const TextInput = React.forwardRef(
   (
     {
       autoFocus,

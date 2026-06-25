@@ -12,7 +12,7 @@ const baseProjectConfig: Config = {
   rootDir,
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "mjs"],
   transform: {
-    "^.+\\.(js|mjs|jsx|ts|tsx)$": "babel-jest",
+    "^.+\\.(js|mjs|jsx|ts|tsx)$": "@swc/jest",
     "^.+\\.svg$": "<rootDir>/svgTransform.mjs",
   },
   moduleDirectories: ["src", "node_modules"],
@@ -27,6 +27,9 @@ const baseProjectConfig: Config = {
     "<rootDir>/src/locales",
     "<rootDir>/lib",
     "<rootDir>/esm",
+    ".*index\\.ts$",
+    ".*[.-]config\\.ts$",
+    "<rootDir>/playwright",
   ],
   coverageDirectory: "<rootDir>/coverage",
   testPathIgnorePatterns: [

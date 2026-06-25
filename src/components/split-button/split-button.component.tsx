@@ -69,7 +69,7 @@ export type SplitButtonHandle = {
   focusToggleButton: () => void;
 } | null;
 
-export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
+const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
   (
     {
       align = "left",

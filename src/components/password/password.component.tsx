@@ -16,7 +16,7 @@ export interface PasswordProps extends Omit<TextInputProps, "data-component"> {
   prefix?: string;
 }
 
-export const Password = ({
+const Password = ({
   id,
   disabled,
   forceObscurity = false,

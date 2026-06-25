@@ -1,9 +1,10 @@
 import { useCallback, MutableRefObject } from "react";
 
-export const itemQuerySelector =
+// once there is a need to use these outside of this hook, we can export them from here again
+const itemQuerySelector =
   "li[data-component='popover-menu-item']:not([aria-disabled='true'])";
 
-export const setFocus = (el?: HTMLElement) => {
+const setFocus = (el?: HTMLElement) => {
   el?.setAttribute("data-has-focus", "true");
 
   el?.scrollIntoView?.({
@@ -12,7 +13,7 @@ export const setFocus = (el?: HTMLElement) => {
   });
 };
 
-export const useHandleDropdownMenuKeyDown = (
+const useHandleDropdownMenuKeyDown = (
   ref: MutableRefObject<HTMLUListElement | null>,
   setAriaActivedescendant: React.Dispatch<React.SetStateAction<string>>,
 ) =>
@@ -132,3 +133,5 @@ export const useHandleDropdownMenuKeyDown = (
     },
     [ref, setAriaActivedescendant],
   );
+
+export default useHandleDropdownMenuKeyDown;

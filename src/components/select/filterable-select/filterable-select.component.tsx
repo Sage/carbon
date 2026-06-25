@@ -88,7 +88,7 @@ export interface FilterableSelectProps
   listWidth?: number;
 }
 
-export const FilterableSelect = React.forwardRef<
+const FilterableSelect = React.forwardRef<
   HTMLInputElement,
   FilterableSelectProps
 >(

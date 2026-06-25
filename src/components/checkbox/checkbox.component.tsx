@@ -38,7 +38,7 @@ export interface CheckboxProps
   checked: boolean;
 }
 
-export const Checkbox = React.forwardRef(
+const Checkbox = React.forwardRef(
   (
     {
       "aria-labelledby": ariaLabelledBy,

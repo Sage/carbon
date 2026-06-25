@@ -8,7 +8,7 @@ export interface RequiredIndicatorProps extends MarginProps {
   children?: React.ReactNode;
 }
 
-export const RequiredFieldsIndicator = ({
+const RequiredFieldsIndicator = ({
   children,
   ...rest
 }: RequiredIndicatorProps) => {

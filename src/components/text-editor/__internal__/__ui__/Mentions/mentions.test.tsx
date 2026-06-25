@@ -191,6 +191,54 @@ describe("MentionsPlugin", () => {
     expect(updatedProps.options[0].name).toBe("Will Seabrook");
   });
 
+  // Exercise the portal render path so MentionsList styled export is covered.
+  it("renders the mentions list via menuRenderFn", async () => {
+    render(<MentionsPlugin namespace="test" searchOptions={searchOptions} />);
+
+    const { calls } = (LexicalTypeaheadMenuPlugin as jest.Mock).mock;
+    const [initialProps] = calls[calls.length - 1];
+
+    act(() => {
+      initialProps.onQueryChange("Will");
+    });
+
+    await waitFor(() => {
+      const { calls: updatedCalls } = (LexicalTypeaheadMenuPlugin as jest.Mock)
+        .mock;
+      const [updatedProps] = updatedCalls[updatedCalls.length - 1];
+
+      expect(updatedProps.options).toHaveLength(1);
+    });
+
+    const { calls: updatedCalls } = (LexicalTypeaheadMenuPlugin as jest.Mock)
+      .mock;
+    const [updatedProps] = updatedCalls[updatedCalls.length - 1];
+    const anchorElement = document.createElement("div");
+    document.body.appendChild(anchorElement);
+
+    render(
+      <>
+        {updatedProps.menuRenderFn(
+          { current: anchorElement },
+          {
+            selectedIndex: 0,
+            selectOptionAndCleanUp: jest.fn(),
+            setHighlightedIndex: jest.fn(),
+          },
+        )}
+      </>,
+    );
+
+    expect(anchorElement).toHaveAttribute("aria-label", "Mentions list");
+    expect(screen.getByRole("group")).toHaveAttribute(
+      "data-role",
+      "mention-list",
+    );
+    expect(
+      screen.getByRole("option", { name: "Will Seabrook" }),
+    ).toBeInTheDocument();
+  });
+
   describe("onSelectOption", () => {
     it("inserts a space after mention if next sibling is not a space", () => {
       const mockMentionNode = {

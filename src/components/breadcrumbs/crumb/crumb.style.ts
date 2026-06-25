@@ -23,7 +23,7 @@ interface DividerProps {
   $inverse?: boolean;
 }
 
-export const Divider = styled.span<DividerProps>`
+const Divider = styled.span<DividerProps>`
   ::after {
     content: "/";
     margin-left: var(--global-space-comp-s);
@@ -35,4 +35,4 @@ export const Divider = styled.span<DividerProps>`
   }
 `;
 
-export default { Divider };
+export default Divider;

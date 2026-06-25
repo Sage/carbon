@@ -42,7 +42,7 @@ description: Carbon Pod component props and usage examples.
 | onDelete | ((ev: React.MouseEvent<HTMLElement> \| React.KeyboardEvent<HTMLElement>) => void) \| undefined | No |  | Supplies a delete action to the pod |  |
 | onEdit | ((ev: React.MouseEvent<HTMLElement> \| React.KeyboardEvent<HTMLElement>) => void) \| undefined | No |  | Supplies an edit action to the pod |  |
 | onUndo | ((ev: React.MouseEvent<HTMLElement> \| React.KeyboardEvent<HTMLElement>) => void) \| undefined | No |  | Supplies an undo action to the pod in soft delete state. |  |
-| size | "small" \| "medium" \| "large" \| "extra-small" \| "extra-large" \| undefined | No |  | Determines the padding around the pod |  |
+| size | "extra-small" \| "small" \| "medium" \| "large" \| "extra-large" \| undefined | No |  | Determines the padding around the pod |  |
 | softDelete | boolean \| undefined | No |  | Sets soft boolean delete state |  |
 | subtitle | React.ReactNode | No |  | Optional subtitle for the pod |  |
 | title | React.ReactNode | No |  | Title for the pod |  |

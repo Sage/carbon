@@ -20,7 +20,7 @@ export interface BreadcrumbsProps extends TagProps, SpaceProps {
   inverse?: boolean;
 }
 
-export const Breadcrumbs = React.forwardRef<HTMLElement, BreadcrumbsProps>(
+const Breadcrumbs = React.forwardRef<HTMLElement, BreadcrumbsProps>(
   (
     { children, isDarkBackground = false, inverse, ...rest }: BreadcrumbsProps,
     ref,

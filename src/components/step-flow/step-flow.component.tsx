@@ -68,7 +68,7 @@ export type StepFlowHandle = {
   focus: () => void;
 } | null;
 
-export const StepFlow = forwardRef<StepFlowHandle, StepFlowProps>(
+const StepFlow = forwardRef<StepFlowHandle, StepFlowProps>(
   (
     {
       category,

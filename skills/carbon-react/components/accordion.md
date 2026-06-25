@@ -54,7 +54,7 @@ description: Carbon Accordion component props and usage examples.
 | py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Padding on top and bottom |  |
 | size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | Sets Accordion size |  |
 | subTitle | string \| undefined | No |  |  |  | Sets accordion sub title |  |
-| variant | "subtle" \| "standard" \| "simple" \| undefined | No |  |  |  | Sets Accordion variant. **Deprecation Warning:** The "subtle" variant is deprecated, please use "simple" instead. |  |
+| variant | "standard" \| "simple" \| "subtle" \| undefined | No |  |  |  | Sets Accordion variant. **Deprecation Warning:** The "subtle" variant is deprecated, please use "simple" instead. |  |
 | width | string \| undefined | No |  |  |  | Sets Accordion width |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |

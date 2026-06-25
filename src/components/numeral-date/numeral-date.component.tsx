@@ -20,7 +20,7 @@ import Locale from "../../locales/locale";
 import FieldsetValidationContext from "../../__internal__/fieldset-validation-context";
 import Fieldset from "../../__internal__/fieldset";
 
-export const ALLOWED_DATE_FORMATS = [
+const ALLOWED_DATE_FORMATS = [
   ["dd", "mm", "yyyy"],
   ["mm", "dd", "yyyy"],
   ["yyyy", "mm", "dd"],
@@ -227,7 +227,7 @@ const WIDTHS = {
   },
 };
 
-export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
+const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
   (
     {
       dateFormat = ["dd", "mm", "yyyy"],

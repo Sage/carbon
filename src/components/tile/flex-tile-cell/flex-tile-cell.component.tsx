@@ -9,7 +9,7 @@ export interface FlexTileCellProps extends TagProps, BoxProps {
   children: React.ReactNode;
 }
 
-export const FlexTileCell = ({
+const FlexTileCell = ({
   children,
   flexGrow = 1,
   flexBasis = "160px",

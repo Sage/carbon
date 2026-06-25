@@ -40,7 +40,7 @@ export type MultiActionButtonHandle = {
   focusMainButton: () => void;
 } | null;
 
-export const MultiActionButton = forwardRef<
+const MultiActionButton = forwardRef<
   MultiActionButtonHandle,
   MultiActionButtonProps
 >(

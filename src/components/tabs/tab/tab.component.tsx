@@ -96,7 +96,7 @@ export interface TabProps
 
 let tabLegacyWarned = false;
 
-export const Tab = ({
+const Tab = ({
   tabId,
   title,
   customLayout,

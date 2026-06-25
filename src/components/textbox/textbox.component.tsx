@@ -154,7 +154,7 @@ const filterNonFunctioningProps = (
 /*
  * This component is an adapter that maps the legacy Textbox props to the new TextInput component.
  */
-export const Textbox = React.forwardRef(
+const Textbox = React.forwardRef(
   (
     {
       "aria-describedby": ariaDescribedBy,

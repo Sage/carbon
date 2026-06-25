@@ -8,7 +8,8 @@ import Button from "../../../button/__next__/";
 import Typography from "../../../typography";
 import Textbox from "../../../textbox";
 
-import Dialog, { withDialogHeader } from "./dialog.component";
+import Dialog from "./dialog.component";
+import withDialogHeader from "./dialog-header/dialog-header.component";
 
 const DialogWithHeadingVariant = withDialogHeader(Dialog);
 

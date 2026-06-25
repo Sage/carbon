@@ -6,13 +6,13 @@ import { CardContextProps } from "./__internal__/card.context";
 import { CardProps } from "./card.component";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 
-export const paddingSizes = {
+const paddingSizes = {
   small: "0 var(--spacing300)",
   medium: "0 var(--spacing400)",
   large: "0 var(--spacing600)",
 };
 
-export const marginSizes = {
+const marginSizes = {
   small: "0 -24px",
   medium: "0 -32px",
   large: "0 -48px",

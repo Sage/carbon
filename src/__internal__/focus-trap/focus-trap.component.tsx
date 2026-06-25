@@ -13,13 +13,12 @@ import {
   setElementFocus,
   onTabGuardFocus,
   trapFunction,
+  TAB_GUARD_TOP,
+  TAB_GUARD_BOTTOM,
 } from "./focus-trap-utils";
 import ModalContext, { ModalContextProps } from "../modal/modal.context";
 import usePrevious from "../../hooks/__internal__/usePrevious";
 import TopModalContext from "../../components/carbon-provider/__internal__/top-modal.context";
-
-export const TAB_GUARD_TOP = "tab-guard-top";
-export const TAB_GUARD_BOTTOM = "tab-guard-bottom";
 
 export interface FocusTrapProps {
   children: React.ReactNode;

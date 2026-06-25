@@ -37,7 +37,7 @@ export interface ActionPopoverMenuButtonProps {
   tabIndex: number;
 }
 
-export const ActionPopoverMenuButton = ({
+const ActionPopoverMenuButton = ({
   buttonType,
   iconType,
   iconPosition,

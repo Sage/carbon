@@ -51,7 +51,7 @@ function hasExpectedDisplayName(
   return (child.type as React.FunctionComponent).displayName === displayName;
 }
 
-export const Note = ({
+const Note = ({
   "aria-label": ariaLabel,
   createdDate,
   inlineControl,

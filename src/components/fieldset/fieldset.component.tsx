@@ -41,7 +41,7 @@ export interface FieldsetProps extends MarginProps, TagProps {
   orientation?: "horizontal" | "vertical";
 }
 
-export const Fieldset = ({
+const Fieldset = ({
   children,
   id,
   legend,

@@ -465,6 +465,4 @@ export {
   StyledDialogContent,
   StyledDialogFooter,
   StyledSubtitle,
-  dialogSizes,
-  smallScreenBreakpoint,
 };

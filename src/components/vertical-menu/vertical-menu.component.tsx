@@ -17,7 +17,7 @@ export interface VerticalMenuProps extends TagProps {
   height?: string;
 }
 
-export const VerticalMenu = ({
+const VerticalMenu = ({
   "aria-label": ariaLabel,
   "aria-labelledby": ariaLabelledBy,
   width = "322px",

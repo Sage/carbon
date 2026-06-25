@@ -99,7 +99,7 @@ export interface PortraitProps extends MarginProps, TagProps {
   variant?: PortraitVariant;
 }
 
-export const Portrait = ({
+const Portrait = ({
   alt,
   backgroundColor,
   foregroundColor = undefined,

@@ -40,7 +40,7 @@ export interface LinkPreviewProps extends TagProps {
 
 const SCHEME_SEPARATOR = "://";
 
-export const LinkPreview = ({
+const LinkPreview = ({
   as,
   description,
   image,

@@ -44,7 +44,7 @@ export interface ButtonToggleProps extends TagProps {
   "data-component"?: string;
 }
 
-export const ButtonToggle = ({
+const ButtonToggle = ({
   "aria-label": ariaLabel,
   "aria-labelledby": ariaLabelledBy,
   buttonIcon,

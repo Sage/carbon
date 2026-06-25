@@ -1,7 +1,6 @@
 import { ArgTypes, Meta, StoryObj } from "@storybook/react-vite";
 
-import {
-  ResponsiveVerticalMenuItem,
+import ResponsiveVerticalMenuItem, {
   ResponsiveVerticalMenuItemProps,
 } from "./responsive-vertical-menu-item.component";
 import generateStyledSystemProps from "../../../../../.storybook/utils/styled-system-props";

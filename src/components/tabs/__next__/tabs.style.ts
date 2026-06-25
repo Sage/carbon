@@ -78,8 +78,6 @@ export const Spacer = styled.div`
   height: 2px;
 `;
 
-// Can't be easily tested in Jest owing to lack of an actual DOM
-/* istanbul ignore next */
 export const StyledScrollButton = styled.button<{
   $size: "medium" | "large";
 }>`
@@ -96,8 +94,6 @@ export const StyledScrollButton = styled.button<{
   position: relative;
 `;
 
-// Again, can't be easily tested in Jest owing to lack of an actual DOM
-/* istanbul ignore next */
 export const StyledScrollButtonPlaceholder = styled.div<{
   $size: "medium" | "large";
 }>`

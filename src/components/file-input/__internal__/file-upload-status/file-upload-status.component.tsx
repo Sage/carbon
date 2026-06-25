@@ -51,7 +51,7 @@ interface MandatoryStatusProps {
 export type FileUploadStatusProps = MandatoryStatusProps &
   (StatusUploadingProps | StatusErrorProps | StatusDoneProps);
 
-export const FileUploadStatus = ({
+const FileUploadStatus = ({
   status,
   filename,
   message,

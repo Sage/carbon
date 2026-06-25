@@ -85,10 +85,7 @@ export interface SimpleSelectProps
   listWidth?: number;
 }
 
-export const SimpleSelect = React.forwardRef<
-  HTMLInputElement,
-  SimpleSelectProps
->(
+const SimpleSelect = React.forwardRef<HTMLInputElement, SimpleSelectProps>(
   (
     {
       "aria-describedby": ariaDescribedBy,

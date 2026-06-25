@@ -33,7 +33,7 @@ export interface DetailProps extends MarginProps, TagProps {
 /**
  * @deprecated `Detail` has been deprecated. See the Carbon documentation for migration details.
  */
-export const Detail = ({
+const Detail = ({
   className,
   icon,
   footnote,

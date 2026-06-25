@@ -18,7 +18,7 @@ export interface LabelProps {
   readOnly?: boolean;
 }
 
-export const Label = ({
+const Label = ({
   children,
   id,
   htmlFor,

@@ -53,10 +53,7 @@ export interface FlatTableRowProps extends TagProps {
   };
 }
 
-export const FlatTableRow = React.forwardRef<
-  HTMLTableRowElement,
-  FlatTableRowProps
->(
+const FlatTableRow = React.forwardRef<HTMLTableRowElement, FlatTableRowProps>(
   (
     {
       children,

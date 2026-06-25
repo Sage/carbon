@@ -28,7 +28,7 @@ function isFlatTableRow(
   );
 }
 
-export const FlatTableBodyDraggable = ({
+const FlatTableBodyDraggable = ({
   children,
   getOrder,
   ...rest

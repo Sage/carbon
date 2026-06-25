@@ -196,7 +196,7 @@ This ensures a valid semantic element is always rendered, even when an unsupport
 const getAs = (variant?: VariantTypes): React.ElementType =>
   (variant && VARIANT_TO_ELEMENT[variant]) ?? "p";
 
-export const Typography = ({
+const Typography = ({
   variant = "p",
   as,
   id,

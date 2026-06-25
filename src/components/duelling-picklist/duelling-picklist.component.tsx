@@ -40,7 +40,7 @@ export interface DuellingPicklistProps extends MarginProps, TagProps {
 /**
  * @deprecated `DuellingPicklist` has been deprecated. See the Carbon documentation for migration details.
  */
-export const DuellingPicklist = ({
+const DuellingPicklist = ({
   children,
   disabled,
   leftControls,

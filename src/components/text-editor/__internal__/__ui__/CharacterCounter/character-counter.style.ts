@@ -17,5 +17,3 @@ export const VisuallyHiddenCharacterCounter = styled.div`
 
   ${visuallyHidden}
 `;
-
-export default StyledCharacterCounter;

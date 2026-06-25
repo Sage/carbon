@@ -118,11 +118,6 @@ const centredFlexText = css`
   text-align: center;
 `;
 
-export const StyledLoaderPlaceholder = styled.div`
-  display: inline-block;
-  min-width: var(--global-size-2-xl);
-`;
-
 export const StyledLoader = styled.div.attrs(applyBaseTheme)`
   ${margin}
   text-align: center;

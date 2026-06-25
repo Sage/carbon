@@ -6,7 +6,7 @@ export interface FlatTableBodyProps extends TagProps {
   children: React.ReactNode;
 }
 
-export const FlatTableBody = React.forwardRef<
+const FlatTableBody = React.forwardRef<
   HTMLTableSectionElement,
   FlatTableBodyProps
 >(({ children, ...rest }: FlatTableBodyProps, ref) => {
