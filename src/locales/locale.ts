@@ -64,7 +64,9 @@ interface Locale {
   };
   fileInput: {
     dragAndDrop: () => string;
+    dragAndDrop_multiple?: () => string;
     selectFile: () => string;
+    selectFile_multiple?: () => string;
     fileUploadStatus: () => string;
     actions: {
       cancel: () => string;
