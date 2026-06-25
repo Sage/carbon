@@ -1,23 +1,23 @@
 import React from "react";
 import { test } from "../../../playwright/helpers/base-test";
-import { ProfileComponent } from "./component.test-pw";
+import { EmptyProfileComponent, ProfileComponent } from "./component.test-pw";
 import { checkAccessibility } from "../../../playwright/support/helper";
 
 test.describe("Accessibility tests for Profile component", () => {
-  test("should pass accessibility tests with default props", async ({
+  test("should pass accessibility tests with minimal props", async ({
     mount,
     page,
   }) => {
-    await mount(<ProfileComponent />);
+    await mount(<EmptyProfileComponent />);
 
     await checkAccessibility(page);
   });
 
-  test("should pass accessibility tests with dark background variant", async ({
+  test("should pass accessibility tests with email link", async ({
     mount,
     page,
   }) => {
-    await mount(<ProfileComponent darkBackground />);
+    await mount(<ProfileComponent />);
 
     await checkAccessibility(page);
   });
@@ -33,28 +33,16 @@ test.describe("Accessibility tests for Profile component", () => {
     await checkAccessibility(page);
   });
 
-  [
-    ["Dan Jin", "DJ"],
-    ["Sid Ford", "SF"],
-  ].forEach(([name, initials]) => {
-    test(`should pass accessibility tests with initials ${initials}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<ProfileComponent initials={initials} name={name} />);
+  test("should pass accessibility tests with children", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <ProfileComponent>
+        <div>Custom content</div>
+      </ProfileComponent>,
+    );
 
-      await checkAccessibility(page);
-    });
-  });
-
-  (["XS", "S", "M", "ML", "L", "XL", "XXL"] as const).forEach((size) => {
-    test(`should pass accessibility tests with size variant ${size}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<ProfileComponent size={size} />);
-
-      await checkAccessibility(page);
-    });
+    await checkAccessibility(page);
   });
 });

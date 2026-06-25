@@ -40,12 +40,12 @@ users to send a new email within their default email program to the email addres
 
 <Canvas of={ProfileStories.Default} />
 
-### with darkBackground
+### Variant
 
-The `darkBackground` prop can be passed to apply a dark background to `Profile`.
-The `Box` component has been used to apply width, height and roundness.
+The `variant` prop can be passed to apply a colour variant to the Portrait.
+See the [Portrait](/docs/portrait--docs) docs for more information on variant.
 
-<Canvas of={ProfileStories.DarkBackground} />
+<Canvas of={ProfileStories.Variant} />
 
 ### Src
 
@@ -70,19 +70,28 @@ To see a full list of available margin props, please visit the props table at th
 
 <Canvas of={ProfileStories.Responsive} />
 
-### With custom Portrait background colour
+### With custom content
 
-To change the background colour of the avatar, pass the `backgroundColor` prop to the component. This prop accepts any valid hex code color or design system token.
+Custom content is stacked below the profile details on the right-hand side.
+The `Box` component has been used to apply width, height, shadow.
 
-See the [Portrait](/docs/portrait--docs) component for more information.
+<Canvas of={ProfileStories.WithCustomContent} />
+
+### (Deprecated) Dark Background
+
+The `darkBackground` prop has been deprecated and will be removed in a future version.
+
+<Canvas of={ProfileStories.DarkBackground} />
+
+### (Deprecated) Custom Portrait Background Color
+
+The `backgroundColor` prop has been deprecated and will be removed in a future version. Please use `variant` instead.
 
 <Canvas of={ProfileStories.WithCustomPortraitBackgroundColor} />
 
-### With custom Portrait foreground colour
+### (Deprecated) Custom Portrait Foreground Color
 
-To change the foreground colour of the avatar, pass the `foregroundColor` prop to the component. This prop accepts any valid hex code color or design system token
-
-See the [Portrait](/docs/portrait--docs) component for more information.
+The `foregroundColor` prop has been deprecated and will be removed in a future version. Please use `variant` instead.
 
 <Canvas of={ProfileStories.WithCustomPortraitForegroundColor} />
 

@@ -7,6 +7,7 @@ import tagComponent, {
   TagProps,
 } from "../../__internal__/utils/helpers/tags/tags";
 import Logger from "../../__internal__/utils/logger";
+import type { PortraitProps } from "../portrait";
 
 import { ProfileSize } from "./profile.config";
 import {
@@ -16,6 +17,7 @@ import {
   ProfileAvatarStyle,
   ProfileEmailStyle,
   ProfileTextStyle,
+  ProfileCustomContentStyle,
 } from "./profile.style";
 
 function acronymize(str?: string) {
@@ -26,6 +28,11 @@ function acronymize(str?: string) {
 }
 
 let useOfNoNameWarnTriggered = false;
+let deprecateDarkBackgroundWarnTriggered = false;
+let deprecateBackgroundColorWarnTriggered = false;
+let deprecateForegroundColorWarnTriggered = false;
+let backgroundColorAndVariantWarnTriggered = false;
+let foregroundColorAndVariantWarnTriggered = false;
 
 export interface ProfileProps extends MarginProps, TagProps {
   /**
@@ -45,15 +52,28 @@ export interface ProfileProps extends MarginProps, TagProps {
   /** Define read-only text to display. */
   text?: string;
   /** Define initials to display image. */
-  initials?: string;
+  initials?: PortraitProps["initials"];
   /** Allow to setup size for the component */
   size?: ProfileSize;
-  /** Use a dark background. */
-  darkBackground?: boolean;
-  /** The hex code of the background colour to be passed to the avatar */
-  backgroundColor?: string;
-  /** The hex code of the foreground colour to be passed to the avatar. Must be used in conjunction with `backgroundColor` */
-  foregroundColor?: string;
+  /**
+   * Use a dark background.
+   * @deprecated This prop is deprecated and will be removed in a future release.
+   */
+  darkBackground?: PortraitProps["darkBackground"];
+  /**
+   * The hex code of the background colour to be passed to the avatar
+   * @deprecated This prop is deprecated and will be removed in a future release. Use `variant` instead.
+   */
+  backgroundColor?: PortraitProps["backgroundColor"];
+  /**
+   * The hex code of the foreground colour to be passed to the avatar. Must be used in conjunction with `backgroundColor`
+   * @deprecated This prop is deprecated and will be removed in a future release. Use `variant` instead.
+   */
+  foregroundColor?: PortraitProps["foregroundColor"];
+  /** Color variant to be passed to the avatar. */
+  variant?: PortraitProps["variant"];
+  /** Custom content rendered below the right side Profile content. */
+  children?: React.ReactNode;
 }
 
 export const Profile = ({
@@ -68,6 +88,8 @@ export const Profile = ({
   darkBackground,
   backgroundColor,
   foregroundColor,
+  variant,
+  children,
   ...props
 }: ProfileProps) => {
   const getInitials = () => {
@@ -75,14 +97,14 @@ export const Profile = ({
     return acronymize(name).slice(0, 3).toUpperCase();
   };
 
+  // If variant is provided, ignore deprecated backgroundColor/foregroundColor
   const commonAvatarProps = {
     darkBackground,
     alt,
     name,
     initials: getInitials(),
     size,
-    backgroundColor,
-    foregroundColor,
+    ...(variant ? { variant } : { backgroundColor, foregroundColor }),
     "data-role": "profile-portrait",
   };
 
@@ -107,44 +129,98 @@ export const Profile = ({
     );
   }
 
-  const children = () => {
-    if (name)
-      return (
-        <ProfileDetailsStyle size={size} hasSrc={!!src} data-element="details">
-          <ProfileNameStyle size={size} data-element="name">
-            {name}
-          </ProfileNameStyle>
-          {email && (
-            <ProfileEmailStyle
-              href={`mailto: ${email}`}
-              size={size}
-              data-role="email-link"
+  if (darkBackground && !deprecateDarkBackgroundWarnTriggered) {
+    deprecateDarkBackgroundWarnTriggered = true;
+    Logger.deprecate(
+      "The `darkBackground` prop in `Profile` is deprecated and will soon be removed.",
+    );
+  }
+
+  if (backgroundColor && !deprecateBackgroundColorWarnTriggered) {
+    deprecateBackgroundColorWarnTriggered = true;
+    Logger.deprecate(
+      "The `backgroundColor` prop in `Profile` is deprecated and will soon be removed. Please use `variant` instead.",
+    );
+  }
+
+  if (backgroundColor && variant && !backgroundColorAndVariantWarnTriggered) {
+    backgroundColorAndVariantWarnTriggered = true;
+    Logger.warn(
+      "Both `backgroundColor` and `variant` props are set. The `variant` prop will be used.",
+    );
+  }
+
+  if (foregroundColor && !deprecateForegroundColorWarnTriggered) {
+    deprecateForegroundColorWarnTriggered = true;
+    Logger.deprecate(
+      "The `foregroundColor` prop in `Profile` is deprecated and will soon be removed. Please use `variant` instead.",
+    );
+  }
+
+  if (foregroundColor && variant && !foregroundColorAndVariantWarnTriggered) {
+    foregroundColorAndVariantWarnTriggered = true;
+    Logger.warn(
+      "Both `foregroundColor` and `variant` props are set. The `variant` prop will be used.",
+    );
+  }
+
+  const details = () => {
+    if (!name && !children) return null;
+
+    return (
+      <ProfileDetailsStyle $size={size} data-element="details">
+        {name && (
+          <>
+            <ProfileNameStyle
+              $size={size}
               darkBackground={darkBackground}
-              data-element="email"
+              data-element="name"
             >
-              {email}
-            </ProfileEmailStyle>
-          )}
-          {text && (
-            <ProfileTextStyle size={size} data-element="text">
-              {text}
-            </ProfileTextStyle>
-          )}
-        </ProfileDetailsStyle>
-      );
-    return null;
+              {name}
+            </ProfileNameStyle>
+            {email && (
+              <ProfileEmailStyle
+                href={`mailto: ${email}`}
+                $size={size}
+                darkBackground={darkBackground}
+                data-role="email-link"
+                data-element="email"
+              >
+                {email}
+              </ProfileEmailStyle>
+            )}
+            {text && (
+              <ProfileTextStyle
+                $size={size}
+                darkBackground={darkBackground}
+                data-element="text"
+              >
+                {text}
+              </ProfileTextStyle>
+            )}
+          </>
+        )}
+        {children && (
+          <ProfileCustomContentStyle
+            data-role="custom-content"
+            data-element="custom-content"
+          >
+            {children}
+          </ProfileCustomContentStyle>
+        )}
+      </ProfileDetailsStyle>
+    );
   };
 
   return (
     <ProfileStyle
       className={className}
-      hasSrc={!!src}
       darkBackground={darkBackground}
       {...tagComponent("profile", props)}
       {...filterStyledSystemMarginProps(props)}
     >
       {avatar()}
-      {children()}
+      {details()}
     </ProfileStyle>
   );
 };
