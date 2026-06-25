@@ -8,6 +8,12 @@ import { SizeOptions } from "../button/button.component";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import I18nProvider from "../i18n-provider";
 import StyledButton from "../button/button.style";
+import {
+  FlatTable,
+  FlatTableBody,
+  FlatTableRow,
+  FlatTableCell,
+} from "../flat-table";
 
 jest.mock("../../__internal__/utils/helpers/guid", () => () => "guid-12345");
 
@@ -1172,4 +1178,32 @@ test("should have the correct colors when the toggle button is clicked in the wh
   expect(toggle).toHaveStyleRule("color", "var(--colorsUtilityYin100)", {
     modifier: ":hover",
   });
+});
+
+test("renders backdrop when opened inside FlatTable and closes the menu when backdrop is clicked", async () => {
+  const user = userEvent.setup();
+
+  render(
+    <FlatTable>
+      <FlatTableBody>
+        <FlatTableRow>
+          <FlatTableCell>
+            <SplitButton text="Main">
+              <Button>Single Button</Button>
+            </SplitButton>
+          </FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>,
+  );
+
+  await user.click(screen.getByRole("button", { name: "Show more" }));
+
+  const backdrop = screen.getByTestId("popup-backdrop");
+  const submenuButton = screen.getByRole("button", { name: "Single Button" });
+
+  expect(backdrop).toBeVisible();
+
+  await user.click(backdrop);
+  expect(submenuButton).not.toBeInTheDocument();
 });

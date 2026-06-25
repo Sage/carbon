@@ -187,6 +187,7 @@ export const FlatTable = ({
       );
 
       if (hasOpenDatePicker && (hasStickyHead || hasStickyFooter)) {
+        /* istanbul ignore else - FE-7714 */
         if (
           Events.isPageUpKey(ev) ||
           Events.isPageDownKey(ev) ||

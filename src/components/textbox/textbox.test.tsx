@@ -529,6 +529,19 @@ describe("when inputHint prop is present", () => {
   });
 });
 
+test("renders labelHelp string as inputHint", () => {
+  render(
+    <Textbox
+      label="foo"
+      labelHelp="input hint"
+      value="foo"
+      onChange={() => {}}
+    />,
+  );
+
+  expect(screen.getByText("input hint")).toBeVisible();
+});
+
 describe("when rendered with new validations", () => {
   const renderWithNewValidations = (props: TextboxProps) =>
     render(
