@@ -4,7 +4,24 @@ import { Meta, StoryObj } from "@storybook/react-vite";
 import useMediaQuery from "../../hooks/useMediaQuery";
 
 import Box from "../box";
-import Profile from ".";
+import Button from "../button/__next__";
+import Profile, { ProfileProps } from ".";
+
+type ProfileVariant = NonNullable<ProfileProps["variant"]>;
+
+const PROFILE_VARIANTS: ProfileVariant[] = [
+  "black",
+  "blue",
+  "teal",
+  "green",
+  "lime",
+  "orange",
+  "red",
+  "pink",
+  "purple",
+  "slate",
+  "gray",
+];
 
 const meta: Meta<typeof Profile> = {
   title: "Profile",
@@ -29,6 +46,24 @@ export const Default: Story = () => {
 };
 Default.storyName = "Default";
 
+export const Variant: Story = () => {
+  return (
+    <Box display="flex" gap={2} flexDirection="column">
+      {PROFILE_VARIANTS.map((variant) => (
+        <Profile
+          key={variant}
+          email="email@email.com"
+          initials="JD"
+          name="John Doe"
+          text="+33 657 22 34 71"
+          variant={variant}
+        />
+      ))}
+    </Box>
+  );
+};
+Variant.storyName = "Variant";
+
 export const DarkBackground: Story = () => {
   return (
     <Box
@@ -37,6 +72,7 @@ export const DarkBackground: Story = () => {
       width="190px"
       height="50px"
       borderRadius="borderRadius200"
+      display="flex"
     >
       <Profile
         darkBackground
@@ -145,6 +181,38 @@ Responsive.parameters = {
     viewports: [1300, 900],
   },
 };
+
+export const WithCustomContent: Story = () => {
+  return (
+    <Box
+      display="flex"
+      flexDirection="row"
+      alignItems="flex-start"
+      boxShadow="boxShadow050"
+      width="200px"
+      minHeight="88px"
+      p={1}
+    >
+      <Profile
+        initials="JD"
+        name="John Doe"
+        text="Fusion Designer"
+        variant="purple"
+      >
+        <Button
+          mt={1}
+          size="xs"
+          variantType="secondary"
+          iconType="view"
+          iconPosition="before"
+        >
+          View profile
+        </Button>
+      </Profile>
+    </Box>
+  );
+};
+WithCustomContent.storyName = "With Custom Content";
 
 export const WithCustomPortraitBackgroundColor: Story = () => {
   return (
