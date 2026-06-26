@@ -271,14 +271,14 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
     css`
       ${hasSubmenu || maxWidth
         ? css`
-            > a,
-            > button {
+            & > a,
+            & > button {
               padding: 11px 16px ${hasSubmenu && maxWidth ? "12px" : "10px"};
             }
           `
         : css`
-            > a,
-            > button {
+            & > a,
+            & > button {
               padding: 11px 16px;
             }
           `}
