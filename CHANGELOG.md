@@ -1,3 +1,9 @@
+## [159.13.4](https://github.com/Sage/carbon/compare/v159.13.3...v159.13.4) (2026-06-26)
+
+### Bug Fixes
+
+* **menu-item:** bump style specificity for submenu padding ([91653c4](https://github.com/Sage/carbon/commit/91653c47961ad83b7eaf26d022b142da6e281bdb))
+
 ## [159.13.3](https://github.com/Sage/carbon/compare/v159.13.2...v159.13.3) (2026-06-25)
 
 ### Bug Fixes
