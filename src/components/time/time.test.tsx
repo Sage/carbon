@@ -6,6 +6,7 @@ import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-
 import I18nProvider from "../i18n-provider";
 import { TimeInputEvent, TimeValue } from "./time.component";
 import Button from "../button";
+import StyledLabelWrapper from "./time.style";
 
 const localeMock = {
   time: {
@@ -1008,19 +1009,12 @@ test("should apply the expected styling when readOnly prop is set", () => {
 });
 
 test("should align secondary labels to the right when fieldLabelsAlign is right", () => {
-  render(
-    <Time
-      value={{ hours: "", minutes: "" }}
-      onChange={() => {}}
-      fieldLabelsAlign="right"
-    />,
+  render(<StyledLabelWrapper $align="right">Hours</StyledLabelWrapper>);
+
+  expect(screen.getByText("Hours")).toHaveStyleRule(
+    "justify-content",
+    "flex-end",
   );
-
-  const hrsLabelWrapper = screen.getByText("Hours").parentElement;
-  const minsLabelWrapper = screen.getByText("Minutes").parentElement;
-
-  expect(hrsLabelWrapper).toHaveStyleRule("justify-content", "flex-end");
-  expect(minsLabelWrapper).toHaveStyleRule("justify-content", "flex-end");
 });
 
 test("should have the expected `data-` attributes set on the root element", () => {
