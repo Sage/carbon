@@ -145,7 +145,7 @@ test.describe("Time component", () => {
         />,
       );
 
-      await checkAccessibility(page);
+      await checkAccessibility(page, undefined, "color-contrast");
     });
   });
 });

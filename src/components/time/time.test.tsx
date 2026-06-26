@@ -1007,6 +1007,22 @@ test("should apply the expected styling when readOnly prop is set", () => {
   );
 });
 
+test("should align secondary labels to the right when fieldLabelsAlign is right", () => {
+  render(
+    <Time
+      value={{ hours: "", minutes: "" }}
+      onChange={() => {}}
+      fieldLabelsAlign="right"
+    />,
+  );
+
+  const hrsLabelWrapper = screen.getByText("Hours").parentElement;
+  const minsLabelWrapper = screen.getByText("Minutes").parentElement;
+
+  expect(hrsLabelWrapper).toHaveStyleRule("justify-content", "flex-end");
+  expect(minsLabelWrapper).toHaveStyleRule("justify-content", "flex-end");
+});
+
 test("should have the expected `data-` attributes set on the root element", () => {
   render(
     <Time
