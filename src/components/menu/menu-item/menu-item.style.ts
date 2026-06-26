@@ -141,6 +141,7 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
     `}
 
     ${overrideColor &&
+    !inFullscreenView &&
     css`
       &&&& {
         background-color: ${menuItemVariant === "alternate"
