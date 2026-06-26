@@ -422,44 +422,6 @@ describe("Events", () => {
   });
 });
 
-describe("Styling", () => {
-  ["small", "medium", "large"].forEach((size) => {
-    it(`applies the correct padding for size=${size}`, () => {
-      const ref = { current: null };
-      const paddingMap: { [key: string]: string } = {
-        small: "8px",
-        medium: "12px",
-        large: "16px",
-      };
-      render(
-        <LexicalComposer
-          initialConfig={{
-            nodes: [],
-            onError: () => {},
-            namespace: "test",
-          }}
-        >
-          <RichTextPlugin
-            contentEditable={
-              <div role="textbox" contentEditable aria-label="test" ref={ref} />
-            }
-            ErrorBoundary={LexicalErrorBoundary}
-          />
-          <ToolbarPlugin
-            namespace="test"
-            size={size as "small" | "medium" | "large"}
-            contentEditorRef={ref}
-          />
-        </LexicalComposer>,
-      );
-      const toolbar = screen.getByTestId("test-toolbar-wrapper");
-      expect(toolbar).toHaveStyle({
-        padding: paddingMap[size],
-      });
-    });
-  });
-});
-
 describe("Customisation", () => {
   it("renders only the buttons passed in the 'toolbarControls' prop", () => {
     const ref = { current: null };

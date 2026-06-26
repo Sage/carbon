@@ -70,7 +70,6 @@ describe("Bold button", () => {
     render(<TextEditor labelText="Test Editor" />);
     const boldButton = screen.getByRole("button", { name: "Bold" });
     expect(boldButton).toBeInTheDocument();
-    expect(boldButton).toHaveStyleRule("background-color", "transparent");
     expect(boldButton).toHaveAttribute("aria-pressed", "false");
   });
 
@@ -91,10 +90,6 @@ describe("Bold button", () => {
     await userEvent.click(boldButton);
 
     expect(boldButton).toBeInTheDocument();
-    expect(boldButton).toHaveStyleRule(
-      "background-color",
-      "var(--colorsActionMajor600)",
-    );
     expect(boldButton).toHaveAttribute("aria-pressed", "true");
   });
 

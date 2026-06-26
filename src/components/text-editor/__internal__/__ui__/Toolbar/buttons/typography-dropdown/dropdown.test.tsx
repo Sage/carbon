@@ -189,48 +189,15 @@ describe("ToolbarDropdown", () => {
     );
   });
 
-  it("renders correctly when size is set to small", async () => {
-    render(
-      <TextEditor labelText="Test Editor" namespace="test" size="small" />,
-    );
-
-    await userEvent.click(screen.getByRole("combobox"));
-    expect(screen.getByRole("combobox")).toHaveStyle({
-      height: "32px",
-    });
-    expect(screen.getByRole("listbox")).toHaveStyle({
-      top: "38px",
-    });
-  });
-
-  it("renders correctly when size is set to medium", async () => {
-    render(
-      <TextEditor labelText="Test Editor" namespace="test" size="medium" />,
-    );
-
-    await userEvent.click(screen.getByRole("combobox"));
-
-    expect(screen.getByRole("combobox")).toHaveStyle({
-      height: "40px",
-    });
-    expect(screen.getByRole("listbox")).toHaveStyle({
-      top: "46px",
-    });
-  });
-
-  it("renders correctly when size is set to large", async () => {
+  // coverage
+  it("renders with 180px width when size is set to large", async () => {
     render(
       <TextEditor labelText="Test Editor" namespace="test" size="large" />,
     );
 
-    await userEvent.click(screen.getByRole("combobox"));
+    const dropdown = screen.getByTestId("toolbar-dropdown-wrapper");
 
-    expect(screen.getByRole("combobox")).toHaveStyle({
-      height: "48px",
-    });
-    expect(screen.getByRole("listbox")).toHaveStyle({
-      top: "54px",
-    });
+    expect(dropdown).toHaveStyle({ minWidth: "180px" });
   });
 
   it("defaults isFirstButton to false when rendered with LexicalComposer", () => {

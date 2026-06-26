@@ -11,7 +11,12 @@ import { FormattingButtonProps } from "../../../__utils__/interfaces.types";
 // The `BoldButton` component is a button that applies bold formatting to the selected text in the editor.
 const BoldButton = React.forwardRef<HTMLButtonElement, FormattingButtonProps>(
   (
-    { isActive, isFirstButton = false, namespace, size }: FormattingButtonProps,
+    {
+      isActive,
+      isFirstButton = false,
+      namespace,
+      size = "medium",
+    }: FormattingButtonProps,
     ref,
   ) => {
     // Get the editor instance

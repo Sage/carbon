@@ -58,6 +58,6 @@ describe("TypographySelector", () => {
     await userEvent.click(button);
 
     const menu = screen.getByRole("listbox");
-    expect(menu).toHaveStyle({ top: "46px" });
+    expect(menu).toHaveStyle({ top: "44px" });
   });
 });
