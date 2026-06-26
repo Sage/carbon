@@ -255,8 +255,8 @@ const deDE: Partial<Locale> = {
   time: {
     amText: () => "AM",
     pmText: () => "PM",
-    hoursLabelText: () => "h",
-    minutesLabelText: () => "min",
+    hoursLabelText: () => "Stunden",
+    minutesLabelText: () => "Minuten",
     hoursAriaLabelText: () => "Stunden",
     minutesAriaLabelText: () => "Minuten",
   },

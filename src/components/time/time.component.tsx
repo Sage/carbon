@@ -16,9 +16,10 @@ import { filterStyledSystemMarginProps } from "../../style/utils";
 
 import Fieldset from "../../__internal__/fieldset";
 import Box from "../box";
-import Number from "../number";
+import Textbox from "../textbox";
 import Typography from "../typography";
-import StyledLabel from "./time.style";
+import Label from "../../__internal__/label";
+import StyledLabelWrapper from "./time.style";
 import { TimeToggle, ToggleDataProps } from "./__internal__/time-toggle";
 import FieldsetValidationContext from "../../__internal__/fieldset-validation-context";
 
@@ -45,7 +46,7 @@ interface TimeInputProps extends TagProps, Omit<ValidationProps, "info"> {
   id?: string;
   /** Override the default label text */
   label?: string;
-  /** Override the default aria-label text */
+  /** Override the default aria-label text on the input */
   "aria-label"?: string;
 }
 
@@ -131,14 +132,14 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
     const {
       id: hoursInputId,
       label: hoursLabel,
-      "aria-label": hoursAriaLabel,
+      "aria-label": hoursInputAriaLabel,
       error: hoursError,
       warning: hoursWarning,
     } = hoursInputProps;
     const {
       id: minutesInputId,
       label: minutesLabel,
-      "aria-label": minutesAriaLabel,
+      "aria-label": minutesInputAriaLabel,
       error: minutesError,
       warning: minutesWarning,
     } = minutesInputProps;
@@ -168,9 +169,10 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
     const [period, setPeriod] = useState(toggleValue);
     const hrsLabel = hoursLabel || locale.time.hoursLabelText();
     const minsLabel = minutesLabel || locale.time.minutesLabelText();
-    const hrsAriaLabel = hoursAriaLabel || locale.time.hoursAriaLabelText();
+    const hrsAriaLabel =
+      hoursInputAriaLabel || locale.time.hoursAriaLabelText();
     const minsAriaLabel =
-      minutesAriaLabel || locale.time.minutesAriaLabelText();
+      minutesInputAriaLabel || locale.time.minutesAriaLabelText();
     const hoursRef = useRef<HTMLInputElement>(null);
     const minsRef = useRef<HTMLInputElement>(null);
 
@@ -240,8 +242,9 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
       ev: React.ChangeEvent<HTMLInputElement>,
       inputName: "hrs" | "mins",
     ) => {
-      const hours = inputName === "hrs" ? ev.target.value : inputValues[0];
-      const minutes = inputName === "mins" ? ev.target.value : inputValues[1];
+      const rawValue = ev.target.value.replace(/[^0-9]/g, "");
+      const hours = inputName === "hrs" ? rawValue : inputValues[0];
+      const minutes = inputName === "mins" ? rawValue : inputValues[1];
       setInputValues([hours, minutes]);
 
       const formattedHours = hours.length ? hours.padStart(2, "0") : hours;
@@ -325,15 +328,17 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
         >
           <Box display="flex" className="time">
             <div>
-              <StyledLabel
-                aria-label={hrsAriaLabel}
-                htmlFor={internalHrsId.current}
-                disabled={disabled}
-                align={fieldLabelsAlign}
-              >
-                {hrsLabel}
-              </StyledLabel>
-              <Number
+              <StyledLabelWrapper $align={fieldLabelsAlign}>
+                <Label
+                  htmlFor={internalHrsId.current}
+                  size={size}
+                  disabled={disabled}
+                  readOnly={readOnly}
+                >
+                  {hrsLabel}
+                </Label>
+              </StyledLabelWrapper>
+              <Textbox
                 {...hoursInputProps}
                 label={undefined}
                 data-component="hours"
@@ -349,6 +354,8 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
                 readOnly={readOnly}
                 maxWidth={SIZES[size]}
                 my={0} // prevents any form spacing being applied
+                inputMode="numeric"
+                aria-label={hrsAriaLabel}
               />
             </div>
             <Box
@@ -364,15 +371,17 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
               </Typography>
             </Box>
             <div>
-              <StyledLabel
-                aria-label={minsAriaLabel}
-                htmlFor={internalMinsId.current}
-                disabled={disabled}
-                align={fieldLabelsAlign}
-              >
-                {minsLabel}
-              </StyledLabel>
-              <Number
+              <StyledLabelWrapper $align={fieldLabelsAlign}>
+                <Label
+                  htmlFor={internalMinsId.current}
+                  size={size}
+                  disabled={disabled}
+                  readOnly={readOnly}
+                >
+                  {minsLabel}
+                </Label>
+              </StyledLabelWrapper>
+              <Textbox
                 {...minutesInputProps}
                 label={undefined}
                 data-component="minutes"
@@ -388,6 +397,8 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
                 readOnly={readOnly}
                 maxWidth={SIZES[size]}
                 my={0} // prevents any form spacing being applied
+                inputMode="numeric"
+                aria-label={minsAriaLabel}
               />
             </div>
             {showToggle && (

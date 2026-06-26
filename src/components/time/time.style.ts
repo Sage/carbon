@@ -1,10 +1,9 @@
 import styled from "styled-components";
-import Label from "../../__internal__/legacy-label";
 
-const StyledLabel = styled(Label)`
-  label {
-    font-weight: var(--fontWeights400);
-  }
+const StyledLabelWrapper = styled.div<{ $align?: "left" | "right" }>`
+  display: flex;
+  justify-content: ${({ $align }) =>
+    $align === "right" ? "flex-end" : "flex-start"};
 `;
 
-export default StyledLabel;
+export default StyledLabelWrapper;
