@@ -3,6 +3,12 @@ import { render, screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import MultiActionButton, { MultiActionButtonHandle } from ".";
 import Button from "../button";
+import {
+  FlatTable,
+  FlatTableBody,
+  FlatTableRow,
+  FlatTableCell,
+} from "../flat-table";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 
 test("should render with provided 'text'", () => {
@@ -311,6 +317,28 @@ test("should open additional buttons when ArrowDown key is pressed on the main b
   await user.keyboard("{ArrowDown}");
 
   expect(screen.getByRole("button", { name: "First" })).toBeVisible();
+});
+
+test("renders backdrop when opened inside FlatTable", async () => {
+  const user = userEvent.setup();
+
+  render(
+    <FlatTable>
+      <FlatTableBody>
+        <FlatTableRow>
+          <FlatTableCell>
+            <MultiActionButton text="Main Button">
+              <Button>First</Button>
+            </MultiActionButton>
+          </FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>,
+  );
+
+  await user.click(screen.getByRole("button", { name: "Main Button" }));
+
+  expect(screen.getByTestId("popup-backdrop")).toBeVisible();
 });
 
 testStyledSystemMargin(
