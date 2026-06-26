@@ -88,7 +88,6 @@
     "@storybook/builder-vite": "~10.4.2",
     "@storybook/icons": "1.4.0",
     "@storybook/react-vite": "~10.4.2",
-    "@storybook/test-runner": "^0.24.4",
     "@swc/core": "^1.11.29",
     "@swc/helpers": "^0.5.15",
     "@swc/plugin-styled-components": "^7.1.0",
