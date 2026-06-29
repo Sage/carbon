@@ -25,6 +25,9 @@ import BatchSelection from "../batch-selection/batch-selection.component";
 import IconButton from "../icon-button";
 import Icon from "../icon";
 import Button from "../button";
+import DateInput from "../date/date.component";
+import SplitButton from "../split-button";
+import MultiActionButton from "../multi-action-button";
 import ActionPopover from "../action-popover/action-popover.component";
 import ActionPopoverItem from "../action-popover/action-popover-item/action-popover-item.component";
 import ActionPopoverMenu from "../action-popover/action-popover-menu/action-popover-menu.component";
@@ -2404,6 +2407,85 @@ export const FlatTableLastColumnHasRowspan = () => {
         </FlatTableRow>
       </FlatTableBody>
     </FlatTable>
+  );
+};
+
+const StickyFooterTable = ({ content }: { content: React.ReactNode }) => {
+  return (
+    <FlatTable hasStickyFooter height="100px" footer={<span>footer</span>}>
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>Column A</FlatTableHeader>
+          <FlatTableHeader>Column B</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        <FlatTableRow>
+          <FlatTableCell>Cell</FlatTableCell>
+          <FlatTableCell>{content}</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Cell</FlatTableCell>
+          <FlatTableCell>Cell</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Cell</FlatTableCell>
+          <FlatTableCell>Cell</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Last Cell</FlatTableCell>
+          <FlatTableCell>Cell</FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>
+  );
+};
+
+export const FlatTableStickyFooterDatePopupComponent = () => {
+  return (
+    <StickyFooterTable
+      content={
+        <DateInput name="dateinput" onChange={() => {}} value="2019-04-04" />
+      }
+    />
+  );
+};
+
+export const FlatTableStickyFooterSplitButtonComponent = () => {
+  return (
+    <StickyFooterTable
+      content={
+        <SplitButton text="Split Main">
+          <Button>Split Child 1</Button>
+          <Button>Split Child 2</Button>
+        </SplitButton>
+      }
+    />
+  );
+};
+
+export const FlatTableStickyFooterMultiActionButtonComponent = () => {
+  return (
+    <StickyFooterTable
+      content={
+        <MultiActionButton text="Multi Action Button">
+          <Button>Multi Child 1</Button>
+          <Button>Multi Child 2</Button>
+        </MultiActionButton>
+      }
+    />
+  );
+};
+
+export const FlatTableStickyFooterActionPopoverComponent = () => {
+  return (
+    <StickyFooterTable
+      content={
+        <ActionPopover>
+          <ActionPopoverItem onClick={() => {}}>Action item</ActionPopoverItem>
+        </ActionPopover>
+      }
+    />
   );
 };
 

@@ -24,6 +24,10 @@ import {
   FlatTableDraggableComponent,
   FlatTablePagerStickyHeaderComponent,
   FlatTableWithStickyColumn,
+  FlatTableStickyFooterDatePopupComponent,
+  FlatTableStickyFooterSplitButtonComponent,
+  FlatTableStickyFooterMultiActionButtonComponent,
+  FlatTableStickyFooterActionPopoverComponent,
 } from "./components.test-pw";
 import { getDataElementByValue } from "../../../playwright/components";
 import {
@@ -1348,6 +1352,80 @@ test.describe("Scrollable tests", () => {
     await page.keyboard.press("ArrowUp");
     await page.keyboard.press("ArrowUp");
     await expect(flatTableBodyRowByPosition(page, 5)).not.toBeInViewport();
+  });
+
+  test("should prevent wrapper scrolling when DateInput popup is open in sticky footer table", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<FlatTableStickyFooterDatePopupComponent />);
+
+    const dateCalendarIcon = page.getByTestId("input-icon-toggle");
+
+    await dateCalendarIcon.click();
+    const dayPicker = page.getByTestId("date-picker");
+    await dayPicker.waitFor();
+
+    await page.getByTestId("popup-backdrop").hover();
+    await page.mouse.wheel(0, 400);
+
+    await expect(dateCalendarIcon).toBeInViewport();
+  });
+
+  test("should prevent wrapper scrolling when SplitButton submenu is open in sticky footer table", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<FlatTableStickyFooterSplitButtonComponent />);
+
+    const splitButton = page.getByRole("button", { name: "Show more" });
+
+    await splitButton.click();
+    const buttonList = page.getByRole("list");
+    await buttonList.waitFor();
+
+    await page.getByTestId("popup-backdrop").hover();
+    await page.mouse.wheel(0, 400);
+
+    await expect(splitButton).toBeInViewport();
+  });
+
+  test("should prevent wrapper scrolling when MultiActionButton submenu is open in sticky footer table", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<FlatTableStickyFooterMultiActionButtonComponent />);
+
+    const multiActionButton = page.getByRole("button", {
+      name: "Multi Action Button",
+    });
+
+    await multiActionButton.click();
+    const buttonList = page.getByRole("list");
+    await buttonList.waitFor();
+
+    await page.getByTestId("popup-backdrop").hover();
+    await page.mouse.wheel(0, 400);
+
+    await expect(multiActionButton).toBeInViewport();
+  });
+
+  test("should prevent wrapper scrolling when ActionPopover is open in sticky footer table", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<FlatTableStickyFooterActionPopoverComponent />);
+
+    const actionPopover = page.getByRole("button", { name: "actions" });
+
+    await actionPopover.click();
+    const buttonList = page.getByRole("list");
+    await buttonList.waitFor();
+
+    await page.getByTestId("popup-backdrop").hover();
+    await page.mouse.wheel(0, 400);
+
+    await expect(actionPopover).toBeInViewport();
   });
 });
 
