@@ -125,6 +125,7 @@ export const TextInput = React.forwardRef(
       "aria-describedby": ariaDescribedByProp,
       "aria-labelledby": ariaLabelledBy,
       children,
+      className,
       "data-component": dataComponent = "text-input",
       "data-element": dataElement,
       "data-is-open": dataIsOpen,
@@ -242,6 +243,7 @@ export const TextInput = React.forwardRef(
 
     return (
       <StyledTextInput
+        className={className}
         data-element={dataElement}
         data-role={dataRole}
         data-component={dataComponent}
@@ -289,6 +291,7 @@ export const TextInput = React.forwardRef(
           <Input
             id={uniqueId}
             name={uniqueName}
+            className={className}
             aria-invalid={hasError}
             aria-describedby={ariaDescribedByString}
             aria-labelledby={ariaLabelledBy}

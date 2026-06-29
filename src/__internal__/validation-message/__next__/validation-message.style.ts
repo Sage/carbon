@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import validationMessageStyleOverrides from "./validation-message-style-overrides.style";
 
 interface StyledValidationMessageProps {
   $isError?: boolean;
@@ -37,6 +38,8 @@ const StyledValidationMessage = styled.span<StyledValidationMessageProps>`
           ? "var(--global-font-static-comp-medium-s)"
           : "var(--global-font-static-comp-regular-s)"};
       `}
+
+      ${validationMessageStyleOverrides}
     `;
   }}
 `;
