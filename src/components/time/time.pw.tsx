@@ -115,7 +115,6 @@ test.describe("Time component", () => {
       await checkAccessibility(page);
     });
 
-    // disabled styling for label, input hint etc fail colour contrast
     test("should pass when toggle control rendered and disabled prop set", async ({
       mount,
       page,
@@ -129,7 +128,7 @@ test.describe("Time component", () => {
         />,
       );
 
-      await checkAccessibility(page, undefined, "color-contrast");
+      await checkAccessibility(page);
     });
 
     test("should pass when toggle control rendered and readOnly prop set", async ({
@@ -145,7 +144,7 @@ test.describe("Time component", () => {
         />,
       );
 
-      await checkAccessibility(page, undefined, "color-contrast");
+      await checkAccessibility(page);
     });
   });
 });

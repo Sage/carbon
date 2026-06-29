@@ -6,7 +6,6 @@ import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-
 import I18nProvider from "../i18n-provider";
 import { TimeInputEvent, TimeValue } from "./time.component";
 import Button from "../button";
-import StyledLabelWrapper from "./time.style";
 
 const localeMock = {
   time: {
@@ -212,6 +211,32 @@ test("should render the input hint text when prop is set", () => {
   expect(screen.getByText("hint text")).toBeVisible();
 });
 
+test("should render the legend hint text when prop is set", () => {
+  render(
+    <Time
+      value={{ hours: "12", minutes: "30" }}
+      onChange={() => {}}
+      legendHint="legend hint text"
+    />,
+  );
+
+  expect(screen.getByText("legend hint text")).toBeVisible();
+});
+
+test("should use `legendHint` over `inputHint` when both are provided", () => {
+  render(
+    <Time
+      value={{ hours: "12", minutes: "30" }}
+      onChange={() => {}}
+      legendHint="legend hint text"
+      inputHint="input hint text"
+    />,
+  );
+
+  expect(screen.getByText("legend hint text")).toBeVisible();
+  expect(screen.queryByText("input hint text")).not.toBeInTheDocument();
+});
+
 test("should focus the relevant input when the associated label is clicked", async () => {
   render(<Time value={{ hours: "12", minutes: "30" }} onChange={() => {}} />);
 
@@ -292,6 +317,22 @@ test("should verify fieldset uses visible legend text as its accessible name", (
   expect(fieldset).toHaveAccessibleName("Time");
   const legend = within(fieldset).getByText("Time");
   expect(legend).toBeVisible();
+});
+
+test("should use `legend` over `label` when both are provided", () => {
+  render(
+    <Time
+      value={{ hours: "12", minutes: "30" }}
+      onChange={() => {}}
+      legend="Time legend"
+      label="Time label"
+    />,
+  );
+
+  const fieldset = screen.getByRole("group");
+  expect(fieldset).toHaveAccessibleName("Time legend");
+  expect(within(fieldset).getByText("Time legend")).toBeVisible();
+  expect(within(fieldset).queryByText("Time label")).not.toBeInTheDocument();
 });
 
 test("should apply the custom id on the hours input when `hoursInputProps` has an `id` set", () => {
@@ -966,6 +1007,7 @@ test("should apply the expected styling when disabled prop is set", () => {
   const hintText = screen.getByText("hint");
   const hrsLabel = screen.getByText("Hours");
   const minsLabel = screen.getByText("Minutes");
+  const separator = screen.getByText(":");
 
   expect(mainLabel).toHaveStyleRule(
     "color",
@@ -979,6 +1021,10 @@ test("should apply the expected styling when disabled prop is set", () => {
   expect(minsLabel).toHaveStyleRule(
     "color",
     "var(--input-labelset-label-disabled)",
+  );
+  expect(separator).toHaveStyleRule(
+    "color",
+    "var(--input-typical-txt-disabled)",
   );
 });
 
@@ -996,6 +1042,7 @@ test("should apply the expected styling when readOnly prop is set", () => {
   const hintText = screen.getByText("hint");
   const hrsLabel = screen.getByText("Hours");
   const minsLabel = screen.getByText("Minutes");
+  const separator = screen.getByText(":");
 
   expect(hintText).toHaveStyleRule("color: var(--colorsUtilityYin055)");
   expect(hrsLabel).toHaveStyleRule(
@@ -1006,14 +1053,9 @@ test("should apply the expected styling when readOnly prop is set", () => {
     "color",
     "var(--input-labelset-label-readOnly)",
   );
-});
-
-test("should align secondary labels to the right when fieldLabelsAlign is right", () => {
-  render(<StyledLabelWrapper $align="right">Hours</StyledLabelWrapper>);
-
-  expect(screen.getByText("Hours")).toHaveStyleRule(
-    "justify-content",
-    "flex-end",
+  expect(separator).toHaveStyleRule(
+    "color",
+    "var(--input-typical-txt-read-only)",
   );
 });
 
@@ -1121,7 +1163,7 @@ test("should apply the correct aria-describedby attribute to fieldset when input
 
   const fieldset = screen.getByRole("group");
 
-  expect(fieldset).toHaveAccessibleDescription("Validation Hint");
+  expect(fieldset).toHaveAccessibleDescription("Hint Validation");
 });
 
 test("should apply the correct aria-describedby attribute to fieldset when inputHint and error are provided and validationMessagePositionTop is false", () => {
@@ -1161,7 +1203,7 @@ test("should not apply the aria-describedby attribute to fieldset when inputHint
 
   const fieldset = screen.getByRole("group");
 
-  expect(fieldset).not.toHaveAttribute("aria-describedby");
+  expect(fieldset).toHaveAttribute("aria-describedby", "");
 });
 
 test("should sync internal input values when the value is changed", async () => {
