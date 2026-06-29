@@ -245,8 +245,8 @@ const deDE: Partial<Locale> = {
     closeIconAriaLabel: () => "Schließen",
   },
   switch: {
-    on: () => "EIN",
-    off: () => "AUS",
+    on: () => "Ein",
+    off: () => "Aus",
     processingLabel: () => "Verarbeitung",
   },
   tileSelect: {

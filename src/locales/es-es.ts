@@ -251,8 +251,8 @@ const esES: Partial<Locale> = {
     closeIconAriaLabel: () => "Cerrar",
   },
   switch: {
-    on: () => "SÍ",
-    off: () => "NO",
+    on: () => "Sí",
+    off: () => "No",
     processingLabel: () => "Procesando",
   },
   tileSelect: {
