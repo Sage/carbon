@@ -3,6 +3,7 @@ import addFocusStyling from "../../style/utils/add-focus-styling";
 import {
   dateStyleOverrides,
   searchStyleOverrides,
+  searchNewStyleOverrides,
   selectStyleOverrides,
   pagerStyleOverrides,
   numeralDateStyles,
@@ -158,6 +159,7 @@ const InputContainer = styled.div<InputContainerProps>`
 
   ${dateStyleOverrides}
 
+  ${searchNewStyleOverrides}
   ${searchStyleOverrides}
 
   ${({ $size, $isDisabled, $isReadOnly }) =>

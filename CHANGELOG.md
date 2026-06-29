@@ -1,3 +1,9 @@
+## [159.14.0](https://github.com/Sage/carbon/compare/v159.13.4...v159.14.0) (2026-06-29)
+
+### Features
+
+* **search:** align with fusion DS ([2cd52f9](https://github.com/Sage/carbon/commit/2cd52f90140f93aa55c948b52de39399e804ad75))
+
 ## [159.13.4](https://github.com/Sage/carbon/compare/v159.13.3...v159.13.4) (2026-06-26)
 
 ### Bug Fixes
