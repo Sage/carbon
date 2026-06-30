@@ -14,7 +14,10 @@ const meta: Meta<typeof Password> = {
   argTypes: {
     ...styledSystemProps,
   },
-  parameters: { themeProvider: { chromatic: { theme: "sage" } } },
+  parameters: {
+    chromatic: { disableSnapshot: true },
+    themeProvider: { chromatic: { theme: "sage" } },
+  },
 };
 
 export default meta;

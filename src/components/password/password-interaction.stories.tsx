@@ -13,6 +13,7 @@ type Story = StoryObj<typeof Password>;
 export default {
   title: "Password/Interactions",
   parameters: {
+    chromatic: { disableSnapshot: true },
     themeProvider: { chromatic: { theme: "sage" } },
   },
 };

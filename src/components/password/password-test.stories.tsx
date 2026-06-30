@@ -122,10 +122,6 @@ export const Validation = () => {
   );
 };
 Validation.storyName = "Validation";
-Validation.parameters = {
-  chromatic: { disableSnapshot: false },
-  themeProvider: { chromatic: { theme: "sage" } },
-};
 
 export const AutoFocus = () => {
   const [state, setState] = useState("Password");
@@ -138,7 +134,101 @@ export const AutoFocus = () => {
   );
 };
 AutoFocus.storyName = "Auto Focus";
-AutoFocus.parameters = {
+
+export const ImportantScenariosChromatic = () => {
+  return (
+    <>
+      <Password
+        label="Password - Default"
+        value="Password"
+        onChange={() => {}}
+        mb={2}
+      />
+      <Password
+        label="Password - Force Obscurity"
+        forceObscurity
+        value="Password"
+        onChange={() => {}}
+        mb={2}
+      />
+      <Password
+        label="Password - Required"
+        required
+        value="Password"
+        onChange={() => {}}
+        mb={2}
+      />
+      <Password
+        label="Password - Disabled"
+        disabled
+        value="Password"
+        onChange={() => {}}
+        mb={2}
+      />
+      <Password
+        label="Password - ReadOnly"
+        readOnly
+        value="Password"
+        onChange={() => {}}
+        mb={2}
+      />
+      <Password
+        label="Password - Error"
+        error="Error Message"
+        inputHint="Hint text (optional)."
+        value="Password"
+        onChange={() => {}}
+        mb={2}
+      />
+      <Password
+        label="Password - Warning"
+        warning="Warning Message"
+        value="Password"
+        onChange={() => {}}
+        mb={2}
+      />
+      <Password
+        validationMessagePositionTop
+        label="Password - Error Top"
+        error="Error Message"
+        inputHint="Hint text (optional)."
+        value="Password"
+        onChange={() => {}}
+        mb={2}
+      />
+      <Password
+        validationMessagePositionTop
+        label="Password - Warning Top"
+        warning="Warning Message"
+        value="Password"
+        onChange={() => {}}
+        mb={2}
+      />
+      <Password
+        label="Password - Small"
+        size="small"
+        value="Password"
+        onChange={() => {}}
+        mb={2}
+      />
+      <Password
+        label="Password - Medium"
+        size="medium"
+        value="Password"
+        onChange={() => {}}
+        mb={2}
+      />
+      <Password
+        label="Password - Large"
+        size="large"
+        value="Password"
+        onChange={() => {}}
+      />
+    </>
+  );
+};
+ImportantScenariosChromatic.storyName = "All Inputs";
+ImportantScenariosChromatic.parameters = {
   chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
 };
