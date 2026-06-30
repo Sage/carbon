@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import PopoverMenu, { PopoverMenuProps } from "./popover-menu.component";
 import {
   MenuItem,
@@ -88,6 +88,19 @@ const MenuWithState = ({ children }: { children: React.ReactNode }) => {
 
 const focusTrigger = () =>
   screen.getByRole("combobox", { name: "combobox-label" }).focus();
+
+const createRect = (width: number, height = 40) =>
+  ({
+    x: 0,
+    y: 0,
+    top: 0,
+    left: 0,
+    bottom: height,
+    right: width,
+    width,
+    height,
+    toJSON: () => ({}),
+  }) as DOMRect;
 
 test("does not render the list when closed", () => {
   renderPopoverMenu();
@@ -624,4 +637,118 @@ test("clicking the menu wrapper does not close the menu", async () => {
   await user.click(screen.getByTestId("menu-wrapper"));
 
   expect(onClose).not.toHaveBeenCalled();
+});
+
+test("menu width matches the controlReference element width", async () => {
+  const rectSpy = jest
+    .spyOn(HTMLElement.prototype, "getBoundingClientRect")
+    .mockImplementation(function (this: HTMLElement) {
+      if (this.getAttribute("data-role") === "input-container") {
+        return createRect(320);
+      }
+
+      if (this.getAttribute("data-component") === "popover-menu-control") {
+        return createRect(640);
+      }
+
+      return createRect(120);
+    });
+
+  const MenuWithReferenceSelector = () => {
+    const [open, setOpen] = React.useState(false);
+    const controlReference = React.useRef<HTMLDivElement>(null);
+
+    return (
+      <PopoverMenu<HTMLInputElement>
+        open={open}
+        onOpen={() => {}}
+        onClose={() => setOpen(false)}
+        controlReference={controlReference}
+        popoverControl={(ref, controlProps) => (
+          <div>
+            <div
+              data-role="input-container"
+              data-testid="input-container"
+              ref={controlReference}
+            >
+              <input
+                aria-label="combobox-label"
+                ref={ref}
+                {...controlProps}
+                onClick={() => setOpen(true)}
+              />
+            </div>
+          </div>
+        )}
+      >
+        <MenuItem>Option 1</MenuItem>
+      </PopoverMenu>
+    );
+  };
+
+  render(<MenuWithReferenceSelector />);
+
+  await userEvent.click(
+    screen.getByRole("combobox", { name: "combobox-label" }),
+  );
+
+  await waitFor(() => {
+    expect(screen.getByTestId("menu-wrapper")).toHaveStyle("width: 320px");
+  });
+
+  rectSpy.mockRestore();
+});
+
+test("menu width falls back to control wrapper width when controlReference is not provided", async () => {
+  const rectSpy = jest
+    .spyOn(HTMLElement.prototype, "getBoundingClientRect")
+    .mockImplementation(function (this: HTMLElement) {
+      if (this.getAttribute("data-role") === "input-container") {
+        return createRect(320);
+      }
+
+      if (this.getAttribute("data-component") === "popover-menu-control") {
+        return createRect(640);
+      }
+
+      return createRect(120);
+    });
+
+  const MenuWithReferenceFallback = () => {
+    const [open, setOpen] = React.useState(false);
+
+    return (
+      <PopoverMenu<HTMLInputElement>
+        open={open}
+        onOpen={() => {}}
+        onClose={() => setOpen(false)}
+        popoverControl={(ref, controlProps) => (
+          <div>
+            <div data-role="input-container" data-testid="input-container">
+              <input
+                aria-label="combobox-label"
+                ref={ref}
+                {...controlProps}
+                onClick={() => setOpen(true)}
+              />
+            </div>
+          </div>
+        )}
+      >
+        <MenuItem>Option 1</MenuItem>
+      </PopoverMenu>
+    );
+  };
+
+  render(<MenuWithReferenceFallback />);
+
+  await userEvent.click(
+    screen.getByRole("combobox", { name: "combobox-label" }),
+  );
+
+  await waitFor(() => {
+    expect(screen.getByTestId("menu-wrapper")).toHaveStyle("width: 640px");
+  });
+
+  rectSpy.mockRestore();
 });
