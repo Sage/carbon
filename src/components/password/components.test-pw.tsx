@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import Password, { PasswordProps } from ".";
-import Box from "../box";
-import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
 export const SIZES = ["small", "medium", "large"] as const;
 export const VALIDATIONS = ["error", "warning", "info"] as const;
@@ -20,39 +18,5 @@ export const PasswordComponent = ({
   };
   return (
     <Password label={label} value={state} onChange={setValue} {...props} />
-  );
-};
-
-export const PasswordNewDesignsValidation = () => {
-  return (
-    <Box>
-      <CarbonProvider validationRedesignOptIn>
-        {(["error", "warning"] as const).map((validationType) =>
-          SIZES.map((size) => (
-            <Box width="296px" key={`${validationType}-${size}`}>
-              <Password
-                m={4}
-                label={`${size} - ${validationType}`}
-                value="Password"
-                onChange={() => {}}
-                inputHint="Hint text (optional)"
-                size={size}
-                {...{ [validationType]: "Message" }}
-              />
-              <Password
-                m={4}
-                label={`readOnly - ${size} - ${validationType}`}
-                value="Password"
-                onChange={() => {}}
-                size={size}
-                inputHint="Hint text (optional)"
-                readOnly
-                {...{ [validationType]: "Message" }}
-              />
-            </Box>
-          )),
-        )}
-      </CarbonProvider>
-    </Box>
   );
 };
