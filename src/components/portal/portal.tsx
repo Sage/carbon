@@ -47,6 +47,7 @@ export const Portal = ({
 }: PortalProps) => {
   const { current: internalId } = useRef(guid());
   const id = externalId ?? internalId;
+  const entranceRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (onReposition) {
@@ -61,10 +62,20 @@ export const Portal = ({
     };
   }, [onReposition]);
 
+  useEffect(() => {
+    const wrapper = entranceRef.current?.closest("[data-carbon-theme]");
+    const currentMode = wrapper?.getAttribute("data-carbon-theme");
+    if (!currentMode) return;
+
+    const portalExit = document.querySelector(`[data-portal-exit="${id}"]`);
+    portalExit?.setAttribute("data-carbon-theme", currentMode);
+  });
+
   return (
     <StyledPortalEntrance
       data-role="data-portal-entrance"
       data-portal-entrance={id}
+      ref={entranceRef}
     >
       <SafePortal
         id={id}

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 
-import Button from "../button";
+import Button from "../button/";
+import ButtonNext from "../button/__next__";
+
 import Box from "../box";
 import PopoverContainer, {
   PopoverContainerProps,
@@ -113,6 +115,7 @@ export const InAScrollableBlock = () => {
       <Box bg="#ccd6dbff" height={500} width={1100} />
       <Box height={400} overflow="scroll">
         <Box height={400} position="fixed">
+          <ButtonNext>FOO</ButtonNext>
           <PopoverContainer
             title="This is the title"
             disableAnimation
@@ -139,7 +142,7 @@ export const InAScrollableBlock = () => {
               />
             )}
           >
-            <Button>View all notifications</Button>
+            <ButtonNext>View all notifications</ButtonNext>
           </PopoverContainer>
         </Box>
       </Box>
