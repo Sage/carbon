@@ -4,7 +4,7 @@ import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
 import CheckableInput, {
   CommonCheckableInputProps,
-} from "../../__internal__/checkable-input/__next__/checkable-input.component";
+} from "../../__internal__/checkable-input/checkable-input.component";
 import RadioButtonStyle from "./radio-button.style";
 import { useRadioButtonGroupContext } from "./___internal___/radio-button-group.context";
 
@@ -48,11 +48,6 @@ export interface RadioButtonProps extends CommonCheckableInputProps, TagProps {
    * @deprecated Reversed layout is no longer supported on this component.
    */
   reverse?: boolean;
-  /**
-   * Id of the validation icon
-   * @deprecated Validation icons with tooltips are no longer supported on this component.
-   */
-  validationIconId?: string;
   /**
    * Help content to be displayed under an input
    * @deprecated The `fieldHelp` prop is deprecated and will be removed in a future release. Please use the `inputHint` prop instead.
@@ -113,7 +108,6 @@ export const RadioButton = React.forwardRef<HTMLInputElement, RadioButtonProps>(
       info,
       warning,
       reverse,
-      validationIconId,
       fieldHelp,
       inputWidth,
       labelHelp,

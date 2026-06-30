@@ -1,7 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import { Checkbox, CheckboxGroup } from "..";
-import CarbonProvider from "../../carbon-provider";
 import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/test-utils";
 
 test("should render with the provided children", () => {
@@ -16,7 +15,7 @@ test("should render with the provided children", () => {
   expect(screen.getByText("label-2")).toBeVisible();
 });
 
-test("should render with the provided legend", () => {
+test("should render with the provided `legend`", () => {
   render(
     <CheckboxGroup legend="legend">
       <Checkbox value="1" label="label" onChange={() => {}} checked />
@@ -26,7 +25,19 @@ test("should render with the provided legend", () => {
   expect(screen.getByText("legend")).toBeVisible();
 });
 
-test("should render required checkbox children when required prop is set", () => {
+test("should render with the provided `legendHint`", () => {
+  render(
+    <CheckboxGroup legend="legend" legendHint="hint text">
+      <Checkbox value="1" label="label" onChange={() => {}} checked />
+    </CheckboxGroup>,
+  );
+
+  const fieldset = screen.getByRole("group", { name: "legend" });
+  expect(screen.getByText("hint text")).toBeVisible();
+  expect(fieldset).toHaveAccessibleDescription("hint text");
+});
+
+test("should render required checkbox children when `required` prop is set", () => {
   render(
     <CheckboxGroup legend="legend" required>
       <Checkbox value="1" label="label-1" onChange={() => {}} checked />
@@ -39,7 +50,20 @@ test("should render required checkbox children when required prop is set", () =>
   expect(checkboxes[1]).toBeRequired();
 });
 
-it("should render with accessible description when `error` prop is set", () => {
+test("should render disabled checkbox children when `disabled` prop is set", () => {
+  render(
+    <CheckboxGroup legend="legend" disabled>
+      <Checkbox value="1" label="label-1" onChange={() => {}} checked />
+      <Checkbox value="2" label="label-2" onChange={() => {}} checked />
+    </CheckboxGroup>,
+  );
+
+  const checkboxes = screen.getAllByRole("checkbox");
+  expect(checkboxes[0]).toBeDisabled();
+  expect(checkboxes[1]).toBeDisabled();
+});
+
+test("should render with provided `error`", () => {
   render(
     <CheckboxGroup legend="legend" error="error message">
       <Checkbox value="1" label="label" onChange={() => {}} checked />
@@ -47,10 +71,11 @@ it("should render with accessible description when `error` prop is set", () => {
   );
 
   const fieldset = screen.getByRole("group", { name: "legend" });
+  expect(screen.getByText("error message")).toBeVisible();
   expect(fieldset).toHaveAccessibleDescription("error message");
 });
 
-it("should render with accessible description when `warning` prop is set", () => {
+test("should render with provided `warning`", () => {
   render(
     <CheckboxGroup legend="legend" warning="warning message">
       <Checkbox value="1" label="label" onChange={() => {}} checked />
@@ -58,153 +83,47 @@ it("should render with accessible description when `warning` prop is set", () =>
   );
 
   const fieldset = screen.getByRole("group", { name: "legend" });
+  expect(screen.getByText("warning message")).toBeVisible();
   expect(fieldset).toHaveAccessibleDescription("warning message");
 });
 
-it("should render with accessible description when `info` prop is set", () => {
+test("should render with provided data- attributes", () => {
   render(
-    <CheckboxGroup legend="legend" info="info message">
-      <Checkbox value="1" label="label" onChange={() => {}} checked />
-    </CheckboxGroup>,
-  );
-
-  const fieldset = screen.getByRole("group", { name: "legend" });
-  expect(fieldset).toHaveAccessibleDescription("info message");
-});
-
-test("should render with expected styles when legendInline is true", () => {
-  render(
-    <CheckboxGroup legend="legend" legendInline>
-      <Checkbox
-        data-role="checkbox-1"
-        value="1"
-        label="label-1"
-        onChange={() => {}}
-        checked
-      />
+    <CheckboxGroup data-role="bar" data-element="baz">
+      <Checkbox value="1" label="label-1" onChange={() => {}} checked />
       <Checkbox value="2" label="label-2" onChange={() => {}} checked />
     </CheckboxGroup>,
   );
 
-  expect(screen.getByTestId("checkbox-1")).toHaveStyle({ paddingTop: "4px" });
+  const fieldset = screen.getByRole("group");
+
+  expect(fieldset).toHaveAttribute("data-role", "bar");
+  expect(fieldset).toHaveAttribute("data-element", "baz");
 });
 
-test("should render with expected styles when inline is true", () => {
+test("should render with `legendHelp` as 'legendHint`", () => {
   render(
-    <CarbonProvider validationRedesignOptIn>
-      <CheckboxGroup legend="legend" inline>
-        <Checkbox value="1" label="label-1" onChange={() => {}} checked />
-        <Checkbox value="2" label="label-2" onChange={() => {}} checked />
-      </CheckboxGroup>
-    </CarbonProvider>,
+    <CheckboxGroup legendHelp="legend help">
+      <Checkbox value="1" label="label-1" onChange={() => {}} checked />
+      <Checkbox value="2" label="label-2" onChange={() => {}} checked />
+    </CheckboxGroup>,
   );
 
-  expect(screen.getByTestId("checkbox-group")).toHaveStyle({
-    flexDirection: "row",
-  });
+  expect(screen.getByRole("group")).toHaveAccessibleDescription("legend help");
+  expect(screen.getByText("legend help")).toBeVisible();
 });
 
-describe("when the `validationRedesignOptIn` flag is true", () => {
-  it("should render `legendHelp` as a hint text", () => {
-    render(
-      <CarbonProvider validationRedesignOptIn>
-        <CheckboxGroup legend="legend" legendHelp="legendHelp">
-          <Checkbox value="1" label="label" onChange={() => {}} checked />
-        </CheckboxGroup>
-      </CarbonProvider>,
-    );
+// coverage
+test("should render with expected styles when `inline` is true", () => {
+  render(
+    <CheckboxGroup inline>
+      <Checkbox value="1" label="label-1" onChange={() => {}} checked />
+      <Checkbox value="2" label="label-2" onChange={() => {}} checked />
+    </CheckboxGroup>,
+  );
 
-    const fieldset = screen.getByRole("group", { name: "legend" });
-    expect(screen.getByText("legendHelp")).toBeVisible();
-    expect(fieldset).toHaveAccessibleDescription("legendHelp");
-  });
-
-  it("should render with error message when `error` prop is set", () => {
-    render(
-      <CarbonProvider validationRedesignOptIn>
-        <CheckboxGroup legend="legend" error="error message">
-          <Checkbox value="1" label="label" onChange={() => {}} checked />
-        </CheckboxGroup>
-      </CarbonProvider>,
-    );
-
-    const fieldset = screen.getByRole("group", { name: "legend" });
-
-    expect(screen.getByText("error message")).toBeVisible();
-    expect(fieldset).toHaveAccessibleDescription("error message");
-  });
-
-  it("should render with warning message when `warning` prop is set", () => {
-    render(
-      <CarbonProvider validationRedesignOptIn>
-        <CheckboxGroup legend="legend" warning="warning message">
-          <Checkbox value="1" label="label" onChange={() => {}} checked />
-        </CheckboxGroup>
-      </CarbonProvider>,
-    );
-
-    const fieldset = screen.getByRole("group", { name: "legend" });
-
-    expect(screen.getByText("warning message")).toBeVisible();
-    expect(fieldset).toHaveAccessibleDescription("warning message");
-  });
-
-  it("should describe the group with the error and legendHelp text when the validationMessagePositionTop is false", () => {
-    render(
-      <CarbonProvider validationRedesignOptIn>
-        <CheckboxGroup
-          legend="legend"
-          error="error message"
-          legendHelp="Legend Help"
-          validationMessagePositionTop={false}
-        >
-          <Checkbox value="1" label="label" onChange={() => {}} checked />
-        </CheckboxGroup>
-      </CarbonProvider>,
-    );
-
-    const fieldset = screen.getByRole("group", { name: "legend" });
-
-    expect(screen.getByText("error message")).toBeVisible();
-    expect(fieldset).toHaveAccessibleDescription("Legend Help error message");
-  });
-
-  it("should describe the group with the warning and legendHelp text when the validationMessagePositionTop is false", () => {
-    render(
-      <CarbonProvider validationRedesignOptIn>
-        <CheckboxGroup
-          legend="legend"
-          warning="warning message"
-          legendHelp="Legend Help"
-          validationMessagePositionTop={false}
-        >
-          <Checkbox value="1" label="label" onChange={() => {}} checked />
-        </CheckboxGroup>
-      </CarbonProvider>,
-    );
-
-    const fieldset = screen.getByRole("group", { name: "legend" });
-
-    expect(screen.getByText("warning message")).toBeVisible();
-    expect(fieldset).toHaveAccessibleDescription("Legend Help warning message");
-  });
-
-  it("should render with combined validation and legendHelp messages as the fieldset's accessible description", () => {
-    render(
-      <CarbonProvider validationRedesignOptIn>
-        <CheckboxGroup
-          legend="legend"
-          legendHelp="legendHelp"
-          error="error message"
-        >
-          <Checkbox value="1" label="label" onChange={() => {}} checked />
-        </CheckboxGroup>
-      </CarbonProvider>,
-    );
-
-    const fieldset = screen.getByRole("group", { name: "legend" });
-
-    expect(fieldset).toHaveAccessibleDescription("error message legendHelp");
+  expect(screen.getByTestId("checkbox-group-content")).toHaveStyle({
+    flexDirection: "row",
   });
 });
 

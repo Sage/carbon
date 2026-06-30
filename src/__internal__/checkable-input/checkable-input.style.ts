@@ -1,132 +1,103 @@
 import styled, { css } from "styled-components";
 
-import FieldHelpStyle from "../field-help/field-help.style";
-import { FieldLineStyle } from "../form-field/form-field.style";
-import LabelStyle, { StyledLabelContainer } from "../legacy-label/label.style";
-import StyledValidationIcon from "../validations/validation-icon.style";
-import StyledHelp from "../../components/help/help.style";
+export const StyledCheckableInput = styled.div`
+  display: grid;
+  align-items: center;
+  grid-template-columns: auto 1fr;
+  grid-column-gap: var(--global-space-comp-s);
 
-import HiddenCheckableInputStyle from "./hidden-checkable-input.style";
-
-const StyledCheckableInput = styled.div`
-  display: inline-block;
-  position: relative;
+  .checkable-hint-text {
+    grid-area: 2 / 2;
+  }
 `;
 
-export interface StyledCheckableInputWrapperProps {
-  disabled?: boolean;
-  fieldHelpInline?: boolean;
-  inputWidth?: number | string;
-  labelWidth?: number;
-  labelInline?: boolean;
-  reverse?: boolean;
-  isDarkBackground?: boolean;
+export const StyledCheckableInputWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  min-height: var(--global-size-xs);
+`;
+
+interface StyledAccordionProps {
+  $expanded?: boolean;
+  $contentHeight?: string | number;
+  $allowAnimation?: boolean;
 }
 
-const StyledCheckableInputWrapper = styled.div<StyledCheckableInputWrapperProps>`
-  ${({
-    disabled,
-    fieldHelpInline,
-    inputWidth,
-    labelWidth,
-    labelInline,
-    reverse,
-    isDarkBackground,
-  }) => css`
-    width: 100% !important;
+export const StyledAccordion = styled.div<StyledAccordionProps>`
+  overflow-y: hidden;
+  visibility: hidden;
+  max-height: 0;
 
-    ${FieldLineStyle} {
-      display: flex;
-    }
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-column-gap: var(--global-space-comp-s);
 
-    ${StyledLabelContainer} {
-      ${labelInline &&
-      css`
-        justify-content: ${reverse ? "flex-start" : "flex-end"};
-      `}
-      padding-top: 0;
-      width: auto;
-
-      & ${StyledHelp}, & ${StyledValidationIcon} {
-        color: var(--colorsUtilityYin065);
-        vertical-align: middle;
-
-        &:hover,
-        &:focus {
-          color: var(--colorsUtilityYin090);
-        }
-      }
-    }
-
-    ${FieldHelpStyle} {
-      ${isDarkBackground &&
-      css`
-        color: var(--colorsUtilityYang080);
-      `}
-
-      flex-basis: 100%;
-    }
-
-    ${disabled &&
+  ${({ $allowAnimation }) =>
+    $allowAnimation &&
     css`
-      ${HiddenCheckableInputStyle},
-      ${LabelStyle} {
-        &:hover,
-        &:focus {
-          outline: none;
-          cursor: not-allowed;
-        }
-      }
+      transition: all 0.4s;
     `}
 
-    ${fieldHelpInline &&
+  ${({ $expanded, $contentHeight }) => css`
+    ${$expanded &&
     css`
-      ${FieldLineStyle} {
-        flex-wrap: nowrap;
-      }
-
-      ${StyledCheckableInput} {
-        margin-right: 0;
-        margin-left: 8px;
-      }
-
-      ${FieldHelpStyle} {
-        flex-grow: 0;
-        flex-basis: auto;
-        padding-left: 0;
-        width: auto;
-      }
-    `}
-
-    ${reverse &&
-    fieldHelpInline &&
-    css`
-      ${StyledCheckableInput} {
-        margin-left: 0;
-      }
-
-      ${FieldHelpStyle} {
-        flex-grow: 1;
-      }
-    `}
-
-    ${inputWidth !== undefined &&
-    inputWidth !== 0 &&
-    css`
-      ${StyledCheckableInput} {
-        width: ${inputWidth}% !important;
-        min-width: 67px;
-      }
-    `}
-
-    ${labelWidth !== undefined &&
-    labelWidth !== 0 &&
-    `
-      ${StyledLabelContainer} {
-        width: ${labelWidth}% !important;
-      }
+      visibility: visible;
+      max-height: ${$contentHeight}px;
     `}
   `}
 `;
 
-export { StyledCheckableInput, StyledCheckableInputWrapper };
+const getAccordionSpacing = {
+  small: {
+    top: "var(--global-space-comp-xs)", // top gap between line and input
+    width: "var(--global-size-3-xs)", // width of line container (to match width of input)
+  },
+  medium: {
+    top: "var(--global-space-comp-s)",
+    width: "var(--global-size-xs)",
+  },
+  large: {
+    top: "var(--global-space-comp-m)",
+    width: "var(--global-size-s)",
+  },
+};
+
+const contentPadding = "var(--global-space-comp-m)";
+
+interface StyledAccordionContentProps {
+  $size: "small" | "medium" | "large";
+}
+
+export const StyledLineContainer = styled.div<StyledAccordionContentProps>`
+  display: flex;
+  justify-content: center;
+
+  ${({ $size }) =>
+    $size &&
+    css`
+      width: ${getAccordionSpacing[$size].width};
+    `}
+`;
+
+export const StyledAccordionLine = styled.div<StyledAccordionContentProps>`
+  position: absolute;
+  width: 2px;
+  background-color: var(--input-typical-border-alt);
+  border-radius: 2px;
+
+  ${({ $size }) =>
+    $size &&
+    css`
+      top: ${getAccordionSpacing[$size].top};
+
+      // Calculate height taking into account top offset and padding of the content
+      height: calc(
+        100% - (${getAccordionSpacing[$size].top} + ${contentPadding})
+      );
+    `}
+`;
+
+export const StyledAccordionContent = styled.div`
+  padding: ${contentPadding} 0;
+`;
