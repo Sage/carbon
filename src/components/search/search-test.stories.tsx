@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import Box from "../box";
 import Search from ".";
-import { SearchProps, SearchHandle } from "./search.component";
+import { SearchProps, SearchHandle, SearchListGroup } from "./search.component";
+import Icon from "../icon";
+import isChromatic from "../../../.storybook/isChromatic";
 
 const defaultSearchControlsInclude = [
   "value",
@@ -315,3 +317,74 @@ export const RegressionMatrix = () => (
   </Box>
 );
 RegressionMatrix.storyName = "Regression Matrix";
+
+const listData: SearchListGroup[] = [
+  {
+    heading: "Recent searches",
+    icon: <Icon type="clock" />,
+    items: [
+      { value: "recent-1", label: "term 1", labelPrefix: "Recent " },
+      { value: "recent-2", label: "term 2", labelPrefix: "Recent " },
+      { value: "recent-3", label: "term 3", labelPrefix: "Recent " },
+    ],
+  },
+  {
+    heading: "Suggested",
+    icon: <Icon type="search" />,
+    items: [
+      { value: "suggested-1", label: "term 1", labelPrefix: "Suggested " },
+      { value: "suggested-2", label: "term 2", labelPrefix: "Suggested " },
+      { value: "suggested-3", label: "term 3", labelPrefix: "Suggested " },
+      { value: "suggested-4", label: "term 4", labelPrefix: "Suggested " },
+      { value: "suggested-5", label: "term 5", labelPrefix: "Suggested " },
+    ],
+  },
+];
+
+const OpenWithListDataStory = ({
+  size,
+}: {
+  size: "small" | "medium" | "large";
+}) => {
+  const [value, setValue] = useState("");
+  const [dismissed, setDismissed] = useState(false);
+
+  const shouldOpen = isChromatic() || (value.length > 0 && !dismissed);
+
+  return (
+    <Box width="700px" p={4}>
+      <Search
+        size={size}
+        inputWidth={75}
+        open={shouldOpen}
+        value={value}
+        onChange={(e) => {
+          setValue(e.target.value);
+          setDismissed(false);
+        }}
+        onListItemSelect={(selected) => {
+          setValue(selected);
+          setDismissed(true);
+        }}
+        onClose={() => setDismissed(true)}
+        listData={listData}
+        aria-label={`Search with list data (${size})`}
+      />
+    </Box>
+  );
+};
+
+export const OpenWithListDataSmall = () => (
+  <OpenWithListDataStory size="small" />
+);
+OpenWithListDataSmall.storyName = "Open With List Data - Small";
+
+export const OpenWithListDataMedium = () => (
+  <OpenWithListDataStory size="medium" />
+);
+OpenWithListDataMedium.storyName = "Open With List Data - Medium";
+
+export const OpenWithListDataLarge = () => (
+  <OpenWithListDataStory size="large" />
+);
+OpenWithListDataLarge.storyName = "Open With List Data - Large";

@@ -4,7 +4,10 @@ import React, {
   useImperativeHandle,
   useMemo,
   useContext,
+  useState,
+  useCallback,
 } from "react";
+import styled from "styled-components";
 import invariant from "invariant";
 import { MarginProps } from "styled-system";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
@@ -15,7 +18,26 @@ import useLocale from "../../hooks/__internal__/useLocale";
 import Divider from "../divider";
 import TextInput from "../textbox/__internal__/__next__";
 import MenuContext from "../menu/__internal__/menu.context";
+import {
+  PopoverMenu,
+  MenuItem,
+  MenuItemDivider,
+  MenuItemHeading,
+  MenuItemLabel,
+  MenuItemLeading,
+  MenuItemSubtext,
+} from "../../__internal__/popover-menu";
+import type { PopoverControlProps } from "../../__internal__/popover-menu/popover-menu.component";
+import combineRefs from "../../__internal__/utils/helpers/combine-refs";
 import { Search as LegacySearch } from "./__internal__/legacy/search.component";
+import ResultsAnnouncement from "./__internal__/results-announcement.component";
+import guid from "../../__internal__/utils/helpers/guid";
+
+const AssistiveHint = styled.span`
+  display: none;
+`;
+
+const DEFAULT_MIN_QUERY_LENGTH = 3;
 
 export interface SearchEvent {
   target: {
@@ -42,11 +64,52 @@ export type SearchTextboxProps = Pick<
   | "required"
 >;
 
+export interface SearchListData {
+  /** The value identifying this item */
+  value: string;
+  /** The display label text */
+  label: string;
+  /** Optional prefix shown before the label */
+  labelPrefix?: string;
+  /** Optional subtext shown below the label */
+  subtext?: string;
+  /** Optional leading slot content (e.g. an icon) */
+  leading?: React.ReactNode;
+  /** Whether the item is disabled */
+  disabled?: boolean;
+  /** Optional id for the list item element */
+  id?: string;
+  /** Optional click handler for the item. Receives the mouse event and the item's value. */
+  onClick?: (event: React.MouseEvent<HTMLElement>, value: string) => void;
+}
+
+export interface SearchListGroup {
+  /** The heading label for this group, e.g. "Recent" | "Suggested" */
+  heading: string;
+  /** Optional icon rendered before the heading text */
+  icon?: React.ReactNode;
+  items: SearchListData[];
+}
+
+export interface SearchPopoverProps {
+  /** When `true`, renders the new popover menu anchored to the Search input. */
+  open?: boolean;
+  /** Minimum number of characters required before announcing available results. */
+  minQueryLength?: number;
+  /** Structured list data to render as grouped menu items in the popover. */
+  listData?: SearchListGroup[];
+  /** Callback fired when a list item is selected. Receives the item's value. */
+  onListItemSelect?: (value: string) => void;
+  /** Callback fired when the popover requests to close. */
+  onClose?: (event?: Event, value?: string) => void;
+}
+
 export interface SearchProps
   extends ValidationProps,
     MarginProps,
     TagProps,
-    SearchTextboxProps {
+    SearchTextboxProps,
+    SearchPopoverProps {
   /** Prop to specify the accessible name of the Search input. To be used when no visible label is provided */
   "aria-label"?: string;
   /** Prop to specify the accessible name of the Search button */
@@ -112,6 +175,11 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
       label,
       placeholder,
       searchButtonDataProps,
+      open,
+      minQueryLength,
+      listData,
+      onListItemSelect,
+      onClose,
       searchButtonAriaLabel,
       "aria-label": ariaLabel,
       variant,
@@ -126,14 +194,19 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
       tooltipPosition,
       warning,
       className,
+      onKeyDown,
       ...rest
     },
     ref,
   ) => {
     const locale = useLocale();
-    const inputRef = useRef<HTMLInputElement>(null);
+    const assistiveHintId = useRef(guid());
+    const inputRef = useRef<HTMLInputElement | null>(null);
     const buttonRef = useRef<HTMLButtonElement | HTMLAnchorElement>(null);
     const legacyRef = useRef<SearchHandle>(null);
+    const [highlightedItemValue, setHighlightedItemValue] = useState<
+      string | undefined
+    >();
 
     // in order to support backwards compatibility with the Search component when used within a Menu,
     // we render the LegacySearch component instead of the new Search component when the Search component is rendered within a Menu.
@@ -231,30 +304,78 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
       [inverse, variant, className, error],
     );
 
-    if (inMenu) {
-      return (
-        <LegacySearch
-          {...rest}
-          {...legacyOnlyProps}
-          onChange={onChange}
-          value={value}
-          id={id}
-          error={error}
-          placeholder={placeholder}
-          name={name}
-          label={label}
-          variant={variant}
-          aria-label={ariaLabel}
-          searchButtonAriaLabel={searchButtonAriaLabel}
-          searchButtonDataProps={searchButtonDataProps}
-          triggerOnClear={triggerOnClear}
-          onClick={onClick}
-          ref={legacyRef}
-        />
-      );
-    }
+    const enabledItems = useMemo(
+      () =>
+        listData?.flatMap((group) =>
+          group.items.filter((item) => !item.disabled),
+        ) ?? [],
+      [listData],
+    );
 
-    return (
+    const handleSearchInputKeyDown = useCallback(
+      (event: React.KeyboardEvent<HTMLInputElement>) => {
+        onKeyDown?.(event);
+
+        if (!open || enabledItems.length === 0) {
+          return;
+        }
+
+        const currentIndex = enabledItems.findIndex(
+          (item) => item.value === highlightedItemValue,
+        );
+
+        if (event.key === "ArrowDown") {
+          const nextIndex =
+            currentIndex === -1 ? 0 : (currentIndex + 1) % enabledItems.length;
+          setHighlightedItemValue(enabledItems[nextIndex].value);
+          return;
+        }
+
+        if (event.key === "ArrowUp") {
+          const nextIndex =
+            currentIndex === -1
+              ? enabledItems.length - 1
+              : (currentIndex - 1 + enabledItems.length) % enabledItems.length;
+          setHighlightedItemValue(enabledItems[nextIndex].value);
+          return;
+        }
+
+        if (event.key === "Home") {
+          setHighlightedItemValue(enabledItems[0].value);
+          return;
+        }
+
+        if (event.key === "End") {
+          setHighlightedItemValue(enabledItems[enabledItems.length - 1].value);
+        }
+      },
+      [enabledItems, highlightedItemValue, onKeyDown, open],
+    );
+
+    useEffect(() => {
+      if (!open) {
+        setHighlightedItemValue(undefined);
+      }
+    }, [open]);
+
+    useEffect(() => {
+      if (
+        highlightedItemValue &&
+        !enabledItems.some((item) => item.value === highlightedItemValue)
+      ) {
+        setHighlightedItemValue(undefined);
+      }
+    }, [enabledItems, highlightedItemValue]);
+
+    const renderSearchInput = ({
+      ref,
+      popoverControlProps,
+      inputWidthOverride,
+    }: {
+      ref?: React.Ref<HTMLInputElement>;
+      popoverControlProps?: PopoverControlProps;
+      inputWidthOverride?: number;
+    } = {}) => (
       <TextInput
         {...rest}
         {...tagComponent("search", rest)}
@@ -264,15 +385,21 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
         type="search"
         label={label || ""}
         onChange={onChange}
+        onKeyDown={handleSearchInputKeyDown}
         value={value}
         size={size}
-        inputWidth={mappedInputWidth}
+        inputWidth={inputWidthOverride ?? mappedInputWidth}
         maxWidth={maxWidth}
         error={error}
         aria-label={
           ariaLabel || (label ? undefined : locale.search.searchButtonText())
         }
-        ref={inputRef}
+        ref={combineRefs(ref, inputRef)}
+        {...popoverControlProps}
+        // only pass the aria-describedby prop to the input when the popoverControlProps are present, as this indicates that the input is being rendered within a popover menu
+        {...(popoverControlProps && {
+          "aria-describedby": assistiveHintId.current,
+        })}
         inputIcon={
           <>
             <Divider
@@ -302,6 +429,136 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
           </>
         }
       />
+    );
+
+    const searchInput = renderSearchInput();
+
+    const renderListData = () =>
+      listData?.map((group, groupIndex) => (
+        <React.Fragment key={group.heading}>
+          {groupIndex > 0 && <MenuItemDivider />}
+          <MenuItemHeading text={group.heading} icon={group.icon}>
+            {group.items.map((item) => {
+              const {
+                value,
+                id,
+                disabled,
+                label,
+                labelPrefix,
+                subtext,
+                leading,
+                onClick: onItemClick,
+              } = item;
+              const isHighlighted = highlightedItemValue === value;
+
+              return (
+                <MenuItem
+                  key={value}
+                  id={id}
+                  disabled={disabled}
+                  selected={isHighlighted}
+                  onClick={(ev) => {
+                    onListItemSelect?.(value);
+                    onItemClick?.(ev, value);
+                    onClose?.(undefined, value);
+                  }}
+                >
+                  <MenuItemLeading selectedIcon={isHighlighted}>
+                    {leading}
+                  </MenuItemLeading>
+
+                  <MenuItemLabel prefix={labelPrefix}>{label}</MenuItemLabel>
+                  {subtext && <MenuItemSubtext>{subtext}</MenuItemSubtext>}
+                </MenuItem>
+              );
+            })}
+          </MenuItemHeading>
+        </React.Fragment>
+      ));
+
+    const resultCount = useMemo(
+      () =>
+        listData?.reduce((total, group) => total + group.items.length, 0) || 0,
+      [listData],
+    );
+
+    const resultsAnnouncement = useMemo(() => {
+      const configuredMinQueryLength =
+        minQueryLength ?? DEFAULT_MIN_QUERY_LENGTH;
+
+      if (value.length === 0) return "";
+
+      if (value.length < configuredMinQueryLength) {
+        return locale.search.queryTooShort?.(configuredMinQueryLength);
+      }
+
+      if (resultCount === 0) {
+        return locale.search.noResults?.();
+      }
+
+      return locale.search.results?.(resultCount);
+    }, [locale, minQueryLength, resultCount, value]);
+
+    if (inMenu) {
+      return (
+        <LegacySearch
+          {...rest}
+          {...legacyOnlyProps}
+          onChange={onChange}
+          onKeyDown={onKeyDown}
+          value={value}
+          id={id}
+          error={error}
+          placeholder={placeholder}
+          name={name}
+          label={label}
+          variant={variant}
+          aria-label={ariaLabel}
+          searchButtonAriaLabel={searchButtonAriaLabel}
+          searchButtonDataProps={searchButtonDataProps}
+          triggerOnClear={triggerOnClear}
+          onClick={onClick}
+          ref={legacyRef}
+        />
+      );
+    }
+
+    if (open === undefined) {
+      return searchInput;
+    }
+
+    return (
+      <PopoverMenu<HTMLInputElement>
+        open={open}
+        size={size}
+        listboxAriaLabel={
+          ariaLabel ?? (typeof label === "string" ? label : undefined)
+        }
+        controlWrapperStyle={
+          mappedInputWidth !== undefined
+            ? { width: `${mappedInputWidth}%` }
+            : { width: "100%" }
+        }
+        onClose={(event, selectedValue) => onClose?.(event, selectedValue)}
+        popoverControl={(popoverControlRef, popoverControlProps) => (
+          <>
+            {renderSearchInput({
+              ref: popoverControlRef,
+              popoverControlProps,
+              inputWidthOverride: 100,
+            })}
+            <AssistiveHint id={assistiveHintId.current}>
+              {locale.search.assistiveHint?.()}
+            </AssistiveHint>
+            <ResultsAnnouncement
+              announcement={resultsAnnouncement}
+              searchValue={value}
+            />
+          </>
+        )}
+      >
+        {renderListData()}
+      </PopoverMenu>
     );
   },
 );

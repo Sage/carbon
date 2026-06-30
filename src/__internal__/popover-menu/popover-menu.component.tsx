@@ -31,7 +31,7 @@ export const List = styled.ul<ListProps>`
   ${({ $size }) => css`
     max-height: calc(5 * var(--global-size-${$size.charAt(0)}));
   `}
-  list-style: none;
+  list-style-type: "";
 `;
 
 const paddingSize = {
@@ -55,7 +55,7 @@ const MenuWrapper = styled.div<{ $size: PopoverMenuContextProps["size"] }>`
   overflow: hidden;
 `;
 
-interface PopoverControlProps {
+export interface PopoverControlProps {
   "aria-haspopup": "listbox" | "menu";
   "aria-controls"?: string;
   "aria-expanded"?: boolean;
@@ -100,7 +100,7 @@ export interface PopoverMenuProps<TRef extends FocusableHandle = HTMLElement>
   /** Blur handler for the outer wrapper element */
   onBlur?: React.FocusEventHandler<HTMLElement>;
   /** Callback when the popover menu is opened */
-  onOpen: () => void;
+  onOpen?: () => void;
   /** Callback when the popover menu is closed */
   onClose: (e?: Event, value?: string) => void;
   /** Set the custom width of the menu */
@@ -109,6 +109,8 @@ export interface PopoverMenuProps<TRef extends FocusableHandle = HTMLElement>
   controlWrapperStyle?: CSSObject;
   /** Aria labelledby for the listbox */
   listboxAriaLabelledBy?: string;
+  /** Aria label for the listbox */
+  listboxAriaLabel?: string;
 }
 
 const OFFSET = 8;
@@ -140,6 +142,7 @@ const PopoverMenu = <TRef extends FocusableHandle = HTMLElement>({
   width,
   controlWrapperStyle,
   listboxAriaLabelledBy,
+  listboxAriaLabel,
   ...rest
 }: PopoverMenuProps<TRef>) => {
   const controlWrapperRef = useRef<HTMLDivElement | null>(null);
@@ -244,6 +247,7 @@ const PopoverMenu = <TRef extends FocusableHandle = HTMLElement>({
                 role="listbox"
                 id={listId.current}
                 aria-labelledby={listboxAriaLabelledBy}
+                aria-label={listboxAriaLabel}
               >
                 {wrappedChildren}
               </List>

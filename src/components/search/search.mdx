@@ -30,7 +30,7 @@ it provides a familiar input pattern with a built-in search button.
 ## Quick Start
 
 ```javascript
-import Search, { type SearchHandle } from "carbon-react/lib/components/search";
+import Search, { type SearchHandle, type SearchListGroup, type SearchListData } from "carbon-react/lib/components/search";
 ```
 
 ## Examples
@@ -39,6 +39,46 @@ import Search, { type SearchHandle } from "carbon-react/lib/components/search";
 
 <Canvas of={SearchStories.Default} />
 
+### With Dropdown
+
+The `Search` component supports a popover dropdown for displaying structured search results or suggestions.
+This is controlled via four props on `Search`:
+
+- **`open`** — a boolean that controls whether the dropdown is visible. Set this to `true` when there
+  are results to display (e.g. filtered matches).
+- **`listData`** — an array of `SearchListGroup` objects that define the grouped content of the dropdown.
+- **`onListItemSelect`** — a callback fired when the user chooses an item. It receives the item's `value`
+  string, which you can use to update the input value.
+- **`onClose`** — a callback fired when the dropdown requests to close (e.g. Escape, click-away, item click).
+  Use this to update your own state and set `open={false}` when required.
+
+#### `SearchListGroup`
+
+Each group in `listData` has the following shape:
+
+| Property  | Type               | Required | Description                                         |
+| --------- | ------------------ | -------- | --------------------------------------------------- |
+| `heading` | `string`           | Yes      | The heading label rendered above the group's items. |
+| `icon`    | `React.ReactNode`  | No       | An optional icon rendered alongside the heading.    |
+| `items`   | `SearchListData[]` | Yes      | The list of items within the group.                 |
+
+#### `SearchListData`
+
+Each item within a group has the following shape:
+
+| Property      | Type              | Required | Description                                              |
+| ------------- | ----------------- | -------- | -------------------------------------------------------- |
+| `value`       | `string`          | Yes      | The value passed to `onListItemSelect` when chosen.      |
+| `label`       | `string`          | Yes      | The primary display text for the item.                   |
+| `labelPrefix` | `string`          | No       | An optional prefix rendered before the label.            |
+| `subtext`     | `string`          | No       | Secondary text rendered below the label.                 |
+| `leading`     | `React.ReactNode` | No       | Optional leading slot content, e.g. an icon or avatar.  |
+| `disabled`    | `boolean`         | No       | When `true`, the item is non-interactive.                |
+| `id`          | `string`          | No       | Optional `id` attribute for the list item element.       |
+
+Search `"term"` below to see the dropdown in action.
+
+<Canvas of={SearchStories.WithDropdown} />
 
 ### With Label and Hint Text
 
@@ -55,6 +95,12 @@ The `Search` component supports three size options: `"small"`, `"medium"`, and `
 The size prop controls the height and spacing of both the input and button.
 
 <Canvas of={SearchStories.Sizes} />
+
+### Sizes with Dropdown
+
+Each size prop also controls the height of the dropdown. Search `"term"` in any of the inputs below to see the dropdown in action.
+
+<Canvas of={SearchStories.SizesWithDropdown} />
 
 ### Custom Width & Max Width
 

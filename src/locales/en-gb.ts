@@ -223,6 +223,19 @@ const enGB: Locale = {
   },
   search: {
     searchButtonText: () => "Search",
+    assistiveHint: () =>
+      "When search suggestions are available use up and down arrows to browse results and enter to select. Touch device users, explore by touch or with swipe gestures.",
+    queryTooShort: (minQueryLength) =>
+      `Type at least ${minQueryLength} characters to see results`,
+    noResults: () => "No results found",
+    results: (length) => {
+      const words = {
+        result: length === 1 ? "result" : "results",
+        is: length === 1 ? "is" : "are",
+      };
+
+      return `${length} ${words.result} ${words.is} available.`;
+    },
   },
   select: {
     actionButtonText: () => "Add New Item",
