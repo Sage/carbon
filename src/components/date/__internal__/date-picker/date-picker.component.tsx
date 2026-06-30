@@ -34,8 +34,6 @@ export interface PickerProps
   modifiers?: Partial<Modifiers>;
 }
 
-export type DatePickerVariant = "typical" | "legacy";
-
 export type DatePickerMode = "single" | "range";
 
 export interface DatePickerLabels {
@@ -56,8 +54,6 @@ export interface DateRangeSelection {
 }
 
 export interface SharedDatePickerProps {
-  /** Rendering variant for the picker trigger. */
-  pickerVariant?: DatePickerVariant;
   /** Selection mode to support single date and date range flows. */
   pickerMode?: DatePickerMode;
   /** Currently focused calendar month. */

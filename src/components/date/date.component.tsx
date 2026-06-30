@@ -29,6 +29,7 @@ import getFormatData from "./__internal__/date-formats";
 import StyledDateInput, { datePickerWidth } from "./date.style";
 import Textbox, { TextboxProps } from "../textbox";
 import DatePicker, { PickerProps } from "./__internal__/date-picker";
+import DatePickerTrigger from "./__internal__/date-picker-trigger";
 import DateRangeContext, {
   InputName,
 } from "../date-range/__internal__/date-range.context";
@@ -56,6 +57,8 @@ export interface DateChangeEvent {
     };
   };
 }
+
+export type DatePickerVariant = "typical" | "legacy";
 
 export interface DateInputProps
   extends Omit<
@@ -114,6 +117,12 @@ export interface DateInputProps
   datePickerAriaLabel?: string;
   /** Prop to specify the aria-labelledby attribute of the date picker */
   datePickerAriaLabelledBy?: string;
+  /**
+   * @private
+   * @ignore
+   * Rendering variant for the date picker trigger.
+   */
+  pickerVariant?: DatePickerVariant;
 }
 
 export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
@@ -149,6 +158,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       dateFormatOverride: dateFormatOverrideProp,
       datePickerAriaLabel,
       datePickerAriaLabelledBy,
+      pickerVariant = "legacy",
       validationMessagePositionTop = true,
       ...rest
     }: DateInputProps,
@@ -381,6 +391,25 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       }
     };
 
+    const handleTriggerMouseDown = () => {
+      isBlurBlocked.current = true;
+    };
+
+    const handleTriggerClick = (
+      ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
+    ) => {
+      handleClick(ev);
+      alreadyFocused.current = true;
+
+      if (open) {
+        setOpen(false);
+        onPickerClose?.();
+      } else {
+        setOpen(true);
+        onPickerOpen?.();
+      }
+    };
+
     const handlePickerMouseDown = () => {
       isBlurBlocked.current = true;
     };
@@ -466,6 +495,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     };
 
     const marginProps = filterStyledSystemMarginProps(rest);
+    const isTypicalPicker = pickerVariant === "typical";
 
     return (
       <StyledDateInput
@@ -495,8 +525,8 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
           onKeyDown={handleKeyDown}
           iconOnClick={handleClick}
           onMouseDown={handleMouseDown}
-          iconOnMouseDown={handleIconMouseDown}
-          inputIcon="calendar"
+          iconOnMouseDown={isTypicalPicker ? undefined : handleIconMouseDown}
+          inputIcon={isTypicalPicker ? undefined : "calendar"}
           labelInline={labelInline}
           ref={assignInput}
           adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
@@ -511,7 +541,17 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
           maxWidth={maxWidth ?? datePickerWidth[actualSize]}
           m={0}
           validationMessagePositionTop={showValidationMessageOnTop}
-        />
+        >
+          {isTypicalPicker && (
+            <DatePickerTrigger
+              disabled={disabled || readOnly}
+              onClick={handleTriggerClick}
+              onMouseDown={handleTriggerMouseDown}
+              open={open}
+              readOnly={readOnly}
+            />
+          )}
+        </Textbox>
         <DatePicker
           disablePortal={disablePortal}
           inputElement={parentRef}

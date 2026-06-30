@@ -125,6 +125,10 @@ test("should call `onFocusedMonthChange` when the focused month changes", async 
   await user.click(nextButton);
 
   expect(onFocusedMonthChange).toHaveBeenCalledWith(new Date(2026, 0, 1));
+
+  // the calendar view must not advance because focusedMonth is controlled and
+  // the parent has not updated the prop -- the displayed month stays frozen
+  expect(screen.getByRole("status")).toHaveTextContent("December 2025");
 });
 
 test("should use the current date as the initial focused month when neither `selectedDays` nor `selectedRange` is given", () => {

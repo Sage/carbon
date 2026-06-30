@@ -186,6 +186,45 @@ test("should open the picker and call the `onClick` callback if passed when the 
   expect(onClick).toHaveBeenCalled();
 });
 
+test("should render the legacy picker icon trigger by default", () => {
+  render(<DateInput label="label" onChange={() => {}} value="" />);
+
+  expect(screen.getByTestId("input-icon-toggle")).toBeVisible();
+  expect(
+    screen.queryByRole("button", { name: "Open calendar" }),
+  ).not.toBeInTheDocument();
+});
+
+test("should render the typical picker button trigger when `pickerVariant` is typical", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  const onPickerOpen = jest.fn();
+  const onPickerClose = jest.fn();
+
+  render(
+    <DateInput
+      label="label"
+      onChange={() => {}}
+      onPickerClose={onPickerClose}
+      onPickerOpen={onPickerOpen}
+      pickerVariant="typical"
+      value=""
+    />,
+  );
+
+  expect(screen.queryByTestId("input-icon-toggle")).not.toBeInTheDocument();
+
+  const trigger = screen.getByRole("button", { name: "Open calendar" });
+  await user.click(trigger);
+
+  expect(screen.getByRole("grid")).toBeVisible();
+  expect(onPickerOpen).toHaveBeenCalledTimes(1);
+
+  await user.click(screen.getByRole("button", { name: "Close calendar" }));
+
+  expect(screen.queryByRole("grid")).not.toBeInTheDocument();
+  expect(onPickerClose).toHaveBeenCalledTimes(1);
+});
+
 test("picker closes when input icon is double clicked", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(<DateInput label="label" onChange={() => {}} value="" />);

@@ -3,7 +3,6 @@ export type {
   DatePickerLabels,
   DatePickerMode,
   DatePickerProps,
-  DatePickerVariant,
   DatePickerYearRange,
   DateRangeSelection,
   PickerProps,
