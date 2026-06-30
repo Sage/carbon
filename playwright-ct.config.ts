@@ -8,7 +8,9 @@ const playwrightDir = resolve(__dirname, "./playwright");
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  testDir: resolve(__dirname, "./src/components"),
+  testDir: resolve(__dirname, "./src"),
+
+  testMatch: /.*\.pw\.tsx/,
 
   snapshotDir: resolve(playwrightDir, "./__snapshots__"),
 
@@ -23,8 +25,15 @@ export default defineConfig({
   maxFailures: process.env.CI ? 10 : undefined,
 
   reporter: process.env.CI
-    ? "blob"
-    : [["html", { outputFolder: resolve(playwrightDir, "./test-report") }]],
+    ? [
+        ["blob"],
+        [resolve(playwrightDir, "./support/accessibility-reporter.ts")],
+      ]
+    : [
+        ["list"],
+        ["html", { outputFolder: resolve(playwrightDir, "./test-report") }],
+        [resolve(playwrightDir, "./support/accessibility-reporter.ts")],
+      ],
 
   use: {
     trace: "retain-on-failure",
@@ -40,7 +49,6 @@ export default defineConfig({
       },
     },
   },
-  testMatch: /.*\.pw\.tsx/,
 
   projects: [
     {

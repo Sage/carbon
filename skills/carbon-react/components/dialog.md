@@ -52,11 +52,11 @@ description: Carbon Dialog component props and usage examples.
 | aria-describedby | string \| undefined | No |  |  |  | Prop to specify the aria-describedby property of the Dialog component |  |
 | aria-label | string \| undefined | No |  |  |  | Prop to specify the aria-label of the Dialog component. To be used only when the title prop is not defined, and the component is not labelled by any internal element. |  |
 | aria-labelledby | string \| undefined | No |  |  |  | Prop to specify the aria-labelledby property of the Dialog component To be used when the title prop is a custom React Node, or the component is labelled by an internal element other than the title. |  |
-| disableClose | boolean \| undefined | No |  | Yes |  |  |  |
+| disableClose | boolean \| undefined | No |  | Yes | Use `showCloseIcon={false}` instead. |  |  |
 | disableContentPadding | boolean \| undefined | No |  | Yes | Use `contentPadding` instead. |  |  |
 | fullscreen | boolean \| undefined | No |  | Yes | Use `size="fullscreen"` instead. |  |  |
 | highlightVariant | string \| undefined | No |  | Yes | Use `gradientKeyLine` instead. |  |  |
-| pagesStyling | boolean \| undefined | No |  | Yes |  |  |  |
+| pagesStyling | boolean \| undefined | No |  | Yes | PagesStyling is now deprecated and will be removed in a future release |  |  |
 
 ## Examples
 ### Loading Content

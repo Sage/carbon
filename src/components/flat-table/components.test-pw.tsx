@@ -25,6 +25,9 @@ import BatchSelection from "../batch-selection/batch-selection.component";
 import IconButton from "../icon-button";
 import Icon from "../icon";
 import Button from "../button";
+import DateInput from "../date/date.component";
+import SplitButton from "../split-button";
+import MultiActionButton from "../multi-action-button";
 import ActionPopover from "../action-popover/action-popover.component";
 import ActionPopoverItem from "../action-popover/action-popover-item/action-popover-item.component";
 import ActionPopoverMenu from "../action-popover/action-popover-menu/action-popover-menu.component";
@@ -57,14 +60,6 @@ type SelectedRowsAllRowsInteractive = {
 };
 type SelectedRowsKeyAllRowsInteractive = keyof SelectedRowsAllRowsInteractive;
 type SubRowKeyAllRowsInteractive = keyof SubRowAllRowsInteractive;
-type SelectedRowsParentOnlySelectableStory = {
-  one: boolean;
-  two: boolean;
-  three: boolean;
-  four: boolean;
-};
-type SelectedRowsParentOnlySelectableStoryKey =
-  keyof SelectedRowsParentOnlySelectableStory;
 type SubRowsShapeChildrenOnlySelectableStory = {
   subOne: boolean;
   subTwo: boolean;
@@ -706,94 +701,6 @@ export const FlatTableCustomPaddingComponent = (
   );
 };
 
-export const FlatTableTruncateBgComponent = (
-  props: Partial<FlatTableProps>,
-) => {
-  const [value, setValue] = useState("");
-  return (
-    <div
-      style={{
-        height: "150px",
-      }}
-    >
-      <FlatTable {...props}>
-        <FlatTableHead>
-          <FlatTableRow>
-            <FlatTableHeader>Name</FlatTableHeader>
-            <FlatTableHeader>Location</FlatTableHeader>
-            <FlatTableHeader alternativeBgColor>Notes</FlatTableHeader>
-          </FlatTableRow>
-        </FlatTableHead>
-        <FlatTableBody>
-          {[1, 2, 3, 4].map((key) => (
-            <FlatTableRow key={key}>
-              <FlatTableCell width={60} pr={0} truncate>
-                John Doe
-              </FlatTableCell>
-              <FlatTableCell width={50} pr={0} truncate title="Alternate Title">
-                London
-              </FlatTableCell>
-              <FlatTableCell>
-                <Textbox
-                  size="small"
-                  aria-label="textbox"
-                  value={value}
-                  onChange={(e) => setValue(e.target.value)}
-                />
-              </FlatTableCell>
-            </FlatTableRow>
-          ))}
-        </FlatTableBody>
-      </FlatTable>
-    </div>
-  );
-};
-
-export const FlatTableTruncateHeaderComponent = (
-  props: Partial<FlatTableProps>,
-) => {
-  const [value, setValue] = useState("");
-  return (
-    <div
-      style={{
-        height: "150px",
-      }}
-    >
-      <FlatTable {...props}>
-        <FlatTableHead>
-          <FlatTableRow>
-            <FlatTableHeader>Name</FlatTableHeader>
-            <FlatTableRowHeader width={50} pr={0} truncate>
-              Location
-            </FlatTableRowHeader>
-            <FlatTableHeader>Notes</FlatTableHeader>
-          </FlatTableRow>
-        </FlatTableHead>
-        <FlatTableBody>
-          {[1, 2, 3, 4].map((key) => (
-            <FlatTableRow key={key}>
-              <FlatTableCell width={60} pr={0} truncate>
-                John Doe
-              </FlatTableCell>
-              <FlatTableRowHeader width={50} pr={0} truncate>
-                London
-              </FlatTableRowHeader>
-              <FlatTableCell>
-                <Textbox
-                  size="small"
-                  aria-label="textbox"
-                  value={value}
-                  onChange={(e) => setValue(e.target.value)}
-                />
-              </FlatTableCell>
-            </FlatTableRow>
-          ))}
-        </FlatTableBody>
-      </FlatTable>
-    </div>
-  );
-};
-
 export const FlatTableColorRowSelectableComponent = (
   props: Partial<FlatTableProps> & Partial<FlatTableCheckboxProps>,
 ) => {
@@ -910,136 +817,6 @@ export const FlatTableColorRowSelectableComponent = (
               onClick={(e) => e.stopPropagation()}
               checked={selectedRows.four}
               onChange={() => handleSelectRow("four")}
-            />
-            <FlatTableCell id="ft-row-4-cell-1">Jane Smith</FlatTableCell>
-            <FlatTableCell id="ft-row-4-cell-2">Newcastle</FlatTableCell>
-            <FlatTableCell id="ft-row-4-cell-3">Married</FlatTableCell>
-            <FlatTableCell>5</FlatTableCell>
-          </FlatTableRow>
-        </FlatTableBody>
-      </FlatTable>
-    </div>
-  );
-};
-
-export const FlatTableCheckboxComponent = (
-  props: Partial<FlatTableCheckboxProps>,
-) => {
-  const [selectAll, setSelectAll] = useState(false);
-  const [selectedRows, setSelectedRows] = useState<SelectedRows>({
-    one: false,
-    two: false,
-    three: false,
-    four: false,
-  });
-
-  const handleSelectAllRows = () => {
-    const newState = { ...selectedRows };
-    Object.keys(selectedRows).forEach((key) => {
-      newState[key as SelectedRow] = !selectAll;
-    });
-    setSelectedRows({ ...newState });
-    setSelectAll(!selectAll);
-  };
-
-  const handleSelectRow = (id: SelectedRow) => {
-    if (selectedRows[id]) {
-      setSelectAll(false);
-    }
-
-    setSelectedRows({ ...selectedRows, [id]: !selectedRows[id] });
-  };
-
-  const selectedCount = Object.keys(selectedRows).filter((key) =>
-    Boolean(selectedRows[key as SelectedRow]),
-  ).length;
-
-  return (
-    <div
-      style={{
-        height: "150px",
-      }}
-    >
-      <BatchSelection
-        disabled={selectedCount === 0}
-        selectedCount={selectedCount}
-      >
-        <IconButton aria-label="csv" onClick={() => {}}>
-          <Icon type="csv" />
-        </IconButton>
-        <IconButton aria-label="delete" onClick={() => {}}>
-          <Icon type="bin" />
-        </IconButton>
-        <IconButton aria-label="pdf" onClick={() => {}}>
-          <Icon type="pdf" />
-        </IconButton>
-      </BatchSelection>
-      <FlatTable>
-        <FlatTableHead>
-          <FlatTableRow>
-            <FlatTableCheckbox
-              ariaLabelledBy={CHARACTERS.STANDARD}
-              onClick={(e) => e.stopPropagation()}
-              as="th"
-              checked={selectAll}
-              onChange={() => handleSelectAllRows()}
-              {...props}
-            />
-            <FlatTableHeader id="ft-header-1">Name</FlatTableHeader>
-            <FlatTableHeader id="ft-header-2">Location</FlatTableHeader>
-            <FlatTableHeader id="ft-header-3">
-              Relationship Status
-            </FlatTableHeader>
-            <FlatTableHeader id="ft-header-4">Dependents</FlatTableHeader>
-          </FlatTableRow>
-        </FlatTableHead>
-        <FlatTableBody>
-          <FlatTableRow selected={selectedRows.one} bgColor="#B1D345">
-            <FlatTableCheckbox
-              ariaLabelledBy="ft-row-1-cell-1 ft-row-1-cell-2 ft-row-1-cell-3"
-              onClick={(e) => e.stopPropagation()}
-              checked={selectedRows.one}
-              onChange={() => handleSelectRow("one")}
-              {...props}
-            />
-            <FlatTableCell id="ft-row-1-cell-1">John Doe</FlatTableCell>
-            <FlatTableCell id="ft-row-1-cell-2">London</FlatTableCell>
-            <FlatTableCell id="ft-row-1-cell-3">Single</FlatTableCell>
-            <FlatTableCell>0</FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow selected={selectedRows.two}>
-            <FlatTableCheckbox
-              ariaLabelledBy="ft-row-2-cell-1 ft-row-2-cell-2 ft-row-2-cell-3"
-              onClick={(e) => e.stopPropagation()}
-              checked={selectedRows.two}
-              onChange={() => handleSelectRow("two")}
-              {...props}
-            />
-            <FlatTableCell id="ft-row-2-cell-1">Jane Doe</FlatTableCell>
-            <FlatTableCell id="ft-row-2-cell-2">York</FlatTableCell>
-            <FlatTableCell id="ft-row-2-cell-3">Married</FlatTableCell>
-            <FlatTableCell>2</FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow selected={selectedRows.three} bgColor="#B1D345">
-            <FlatTableCheckbox
-              ariaLabelledBy="ft-row-3-cell-1 ft-row-3-cell-2 ft-row-3-cell-3"
-              onClick={(e) => e.stopPropagation()}
-              checked={selectedRows.three}
-              onChange={() => handleSelectRow("three")}
-              {...props}
-            />
-            <FlatTableCell id="ft-row-3-cell-1">John Smith</FlatTableCell>
-            <FlatTableCell id="ft-row-3-cell-2">Edinburgh</FlatTableCell>
-            <FlatTableCell id="ft-row-3-cell-3">Single</FlatTableCell>
-            <FlatTableCell>1</FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow selected={selectedRows.four}>
-            <FlatTableCheckbox
-              ariaLabelledBy="ft-row-3-cell-1 ft-row-3-cell-2 ft-row-3-cell-3"
-              onClick={(e) => e.stopPropagation()}
-              checked={selectedRows.four}
-              onChange={() => handleSelectRow("four")}
-              {...props}
             />
             <FlatTableCell id="ft-row-4-cell-1">Jane Smith</FlatTableCell>
             <FlatTableCell id="ft-row-4-cell-2">Newcastle</FlatTableCell>
@@ -2120,186 +1897,6 @@ export const FlatTableAllSubrowSelectableComponent = () => {
   );
 };
 
-export const FlatTableParentSubrowSelectableComponent = () => {
-  const [selectAll, setSelectAll] = useState(false);
-  const [selectedRows, setSelectedRows] = useState({
-    one: false,
-    two: false,
-    three: false,
-    four: false,
-  });
-  const [highlightedRow, setHighlightedRow] = useState("");
-
-  const handleSelectAllRows = () => {
-    const newState = { ...selectedRows };
-    Object.keys(selectedRows).forEach((key) => {
-      newState[key as SelectedRowsParentOnlySelectableStoryKey] = !selectAll;
-    });
-    setSelectedRows({ ...newState });
-    setSelectAll(!selectAll);
-  };
-
-  const handleSelectRow = (id: SelectedRowsParentOnlySelectableStoryKey) => {
-    if (selectedRows[id]) {
-      setSelectAll(false);
-    }
-
-    setSelectedRows({ ...selectedRows, [id]: !selectedRows[id] });
-  };
-
-  const selectedCount = Object.keys(selectedRows).filter((key) =>
-    Boolean(selectedRows[key as SelectedRowsParentOnlySelectableStoryKey]),
-  ).length;
-
-  const handleHighlightRow = (id: string) => {
-    if (highlightedRow === id) {
-      setHighlightedRow("");
-    } else {
-      setHighlightedRow(id);
-    }
-  };
-
-  const SubRows = [
-    <FlatTableRow key="subrow-1">
-      <FlatTableCheckbox
-        ariaLabelledBy="ft-row--sub-row-1-cell-1 ft-row--sub-row-1-cell-2 ft-row--sub-row-1-cell-3"
-        onClick={(e) => e.stopPropagation()}
-        selectable={false}
-        checked={selectedRows.one}
-        onChange={() => handleSelectRow("one")}
-      />
-      <FlatTableCell id="ft-row--sub-row-1-cell-1">Child one</FlatTableCell>
-      <FlatTableCell id="ft-row--sub-row-1-cell-2">York</FlatTableCell>
-      <FlatTableCell id="ft-row--sub-row-1-cell-3">Married</FlatTableCell>
-      <FlatTableCell>2</FlatTableCell>
-    </FlatTableRow>,
-    <FlatTableRow key="subrow-2">
-      <FlatTableCheckbox
-        ariaLabelledBy="ft-row--sub-row-2-cell-1 ft-row--sub-row-2-cell-2 ft-row--sub-row-2-cell-3"
-        onClick={(e) => e.stopPropagation()}
-        selectable={false}
-        checked={selectedRows.one}
-        onChange={() => handleSelectRow("one")}
-      />
-      <FlatTableCell id="ft-row--sub-row-2-cell-1">Child two</FlatTableCell>
-      <FlatTableCell id="ft-row--sub-row-2-cell-2">Edinburgh</FlatTableCell>
-      <FlatTableCell id="ft-row--sub-row-2-cell-3">Single</FlatTableCell>
-      <FlatTableCell>1</FlatTableCell>
-    </FlatTableRow>,
-  ];
-  return (
-    <>
-      <BatchSelection
-        disabled={selectedCount === 0}
-        selectedCount={selectedCount}
-      >
-        <IconButton aria-label="download as csv" onClick={() => {}}>
-          <Icon type="csv" />
-        </IconButton>
-        <IconButton aria-label="bin" onClick={() => {}}>
-          <Icon type="bin" />
-        </IconButton>
-        <IconButton aria-label="download as pdf" onClick={() => {}}>
-          <Icon type="pdf" />
-        </IconButton>
-      </BatchSelection>
-      <FlatTable>
-        <FlatTableHead>
-          <FlatTableRow>
-            <FlatTableCheckbox
-              ariaLabelledBy="ft-header-1 ft-header-2 ft-header-3 ft-header-4"
-              onClick={(e) => e.stopPropagation()}
-              as="th"
-              checked={selectAll}
-              onChange={() => handleSelectAllRows()}
-            />
-            <FlatTableHeader id="ft-header-1">Name</FlatTableHeader>
-            <FlatTableHeader id="ft-header-2">Location</FlatTableHeader>
-            <FlatTableHeader id="ft-header-3">
-              Relationship Status
-            </FlatTableHeader>
-            <FlatTableHeader id="ft-header-4">Dependents</FlatTableHeader>
-          </FlatTableRow>
-        </FlatTableHead>
-        <FlatTableBody>
-          <FlatTableRow
-            onClick={() => handleHighlightRow("one")}
-            selected={selectedRows.one}
-            highlighted={highlightedRow === "one"}
-            expandable
-            subRows={SubRows}
-          >
-            <FlatTableCheckbox
-              ariaLabelledBy="ft-row-1-cell-1 ft-row-1-cell-2 ft-row-1-cell-3"
-              onClick={(e) => e.stopPropagation()}
-              checked={selectedRows.one}
-              onChange={() => handleSelectRow("one")}
-            />
-            <FlatTableCell id="ft-row-1-cell-1">John Doe</FlatTableCell>
-            <FlatTableCell id="ft-row-1-cell-2">London</FlatTableCell>
-            <FlatTableCell id="ft-row-1-cell-3">Single</FlatTableCell>
-            <FlatTableCell>0</FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow
-            onClick={() => handleHighlightRow("two")}
-            selected={selectedRows.two}
-            highlighted={highlightedRow === "two"}
-            expandable
-            subRows={SubRows}
-          >
-            <FlatTableCheckbox
-              ariaLabelledBy="ft-row-2-cell-1 ft-row-2-cell-2 ft-row-2-cell-3"
-              onClick={(e) => e.stopPropagation()}
-              checked={selectedRows.two}
-              onChange={() => handleSelectRow("two")}
-            />
-            <FlatTableCell id="ft-row-2-cell-1">Jane Doe</FlatTableCell>
-            <FlatTableCell id="ft-row-2-cell-2">York</FlatTableCell>
-            <FlatTableCell id="ft-row-2-cell-3">Married</FlatTableCell>
-            <FlatTableCell>2</FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow
-            onClick={() => handleHighlightRow("three")}
-            selected={selectedRows.three}
-            highlighted={highlightedRow === "three"}
-            expandable
-            subRows={SubRows}
-          >
-            <FlatTableCheckbox
-              ariaLabelledBy="ft-row-3-cell-1 ft-row-3-cell-2 ft-row-3-cell-3"
-              onClick={(e) => e.stopPropagation()}
-              checked={selectedRows.three}
-              onChange={() => handleSelectRow("three")}
-            />
-            <FlatTableCell id="ft-row-3-cell-1">John Smith</FlatTableCell>
-            <FlatTableCell id="ft-row-3-cell-2">Edinburgh</FlatTableCell>
-            <FlatTableCell id="ft-row-3-cell-3">Single</FlatTableCell>
-            <FlatTableCell>1</FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow
-            onClick={() => handleHighlightRow("four")}
-            selected={selectedRows.four}
-            highlighted={highlightedRow === "four"}
-            expandable
-            subRows={SubRows}
-          >
-            <FlatTableCheckbox
-              ariaLabelledBy="ft-row-4-cell-1 ft-row-4-cell-2 ft-row-4-cell-3"
-              onClick={(e) => e.stopPropagation()}
-              checked={selectedRows.four}
-              onChange={() => handleSelectRow("four")}
-            />
-            <FlatTableCell id="ft-row-4-cell-1">Jane Smith</FlatTableCell>
-            <FlatTableCell id="ft-row-4-cell-2">Newcastle</FlatTableCell>
-            <FlatTableCell id="ft-row-4-cell-3">Married</FlatTableCell>
-            <FlatTableCell>5</FlatTableCell>
-          </FlatTableRow>
-        </FlatTableBody>
-      </FlatTable>
-    </>
-  );
-};
-
 export const FlatTableChildSubrowSelectableComponent = () => {
   const [selectAll, setSelectAll] = useState(false);
   const [checked, setChecked] = useState(false);
@@ -2788,31 +2385,6 @@ export const FlatTablePartiallySelectedOrHighlightedRows = ({
   );
 };
 
-export const FlatTableFirstColumnHasRowspan = () => {
-  return (
-    <FlatTable>
-      <FlatTableHead>
-        <FlatTableRow>
-          <FlatTableHeader>Foo</FlatTableHeader>
-          <FlatTableHeader>Bar</FlatTableHeader>
-          <FlatTableHeader>Wiz</FlatTableHeader>
-        </FlatTableRow>
-      </FlatTableHead>
-      <FlatTableBody>
-        <FlatTableRow>
-          <FlatTableCell rowspan="2">Foo</FlatTableCell>
-          <FlatTableCell>Bar</FlatTableCell>
-          <FlatTableCell>Wiz</FlatTableCell>
-        </FlatTableRow>
-        <FlatTableRow>
-          <FlatTableCell>Foo</FlatTableCell>
-          <FlatTableCell>Bar</FlatTableCell>
-        </FlatTableRow>
-      </FlatTableBody>
-    </FlatTable>
-  );
-};
-
 export const FlatTableLastColumnHasRowspan = () => {
   return (
     <FlatTable>
@@ -2835,6 +2407,85 @@ export const FlatTableLastColumnHasRowspan = () => {
         </FlatTableRow>
       </FlatTableBody>
     </FlatTable>
+  );
+};
+
+const StickyFooterTable = ({ content }: { content: React.ReactNode }) => {
+  return (
+    <FlatTable hasStickyFooter height="100px" footer={<span>footer</span>}>
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>Column A</FlatTableHeader>
+          <FlatTableHeader>Column B</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        <FlatTableRow>
+          <FlatTableCell>Cell</FlatTableCell>
+          <FlatTableCell>{content}</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Cell</FlatTableCell>
+          <FlatTableCell>Cell</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Cell</FlatTableCell>
+          <FlatTableCell>Cell</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Last Cell</FlatTableCell>
+          <FlatTableCell>Cell</FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>
+  );
+};
+
+export const FlatTableStickyFooterDatePopupComponent = () => {
+  return (
+    <StickyFooterTable
+      content={
+        <DateInput name="dateinput" onChange={() => {}} value="2019-04-04" />
+      }
+    />
+  );
+};
+
+export const FlatTableStickyFooterSplitButtonComponent = () => {
+  return (
+    <StickyFooterTable
+      content={
+        <SplitButton text="Split Main">
+          <Button>Split Child 1</Button>
+          <Button>Split Child 2</Button>
+        </SplitButton>
+      }
+    />
+  );
+};
+
+export const FlatTableStickyFooterMultiActionButtonComponent = () => {
+  return (
+    <StickyFooterTable
+      content={
+        <MultiActionButton text="Multi Action Button">
+          <Button>Multi Child 1</Button>
+          <Button>Multi Child 2</Button>
+        </MultiActionButton>
+      }
+    />
+  );
+};
+
+export const FlatTableStickyFooterActionPopoverComponent = () => {
+  return (
+    <StickyFooterTable
+      content={
+        <ActionPopover>
+          <ActionPopoverItem onClick={() => {}}>Action item</ActionPopoverItem>
+        </ActionPopover>
+      }
+    />
   );
 };
 

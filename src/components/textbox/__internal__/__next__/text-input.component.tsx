@@ -71,8 +71,8 @@ export interface TextInputProps
    * The label's htmlFor attribute will be set to match the input's id to ensure they are properly associated.
    */
   id?: string;
-  /** A hint string rendered before the input but after the label. Intended to describe the purpose or content of the input */
-  inputHint?: string;
+  /** A hint element rendered before the input but after the label. Intended to describe the purpose or content of the input */
+  inputHint?: React.ReactNode;
   /**
    * @internal @private @ignore
    * An Icon to be rendered next to the input
@@ -125,6 +125,7 @@ export const TextInput = React.forwardRef(
       "aria-describedby": ariaDescribedByProp,
       "aria-labelledby": ariaLabelledBy,
       children,
+      className,
       "data-component": dataComponent = "text-input",
       "data-element": dataElement,
       "data-is-open": dataIsOpen,
@@ -242,6 +243,7 @@ export const TextInput = React.forwardRef(
 
     return (
       <StyledTextInput
+        className={className}
         data-element={dataElement}
         data-role={dataRole}
         data-component={dataComponent}
@@ -289,6 +291,7 @@ export const TextInput = React.forwardRef(
           <Input
             id={uniqueId}
             name={uniqueName}
+            className={className}
             aria-invalid={hasError}
             aria-describedby={ariaDescribedByString}
             aria-labelledby={ariaLabelledBy}

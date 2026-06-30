@@ -60,6 +60,10 @@ type SubRowsShapeChildrenOnlySelectableStoryKey =
 const meta: Meta<typeof FlatTable> = {
   title: "Flat Table/Expandable",
   component: FlatTable,
+  parameters: {
+    themeProvider: { chromatic: { theme: "sage" } },
+    chromatic: { disableSnapshot: true },
+  },
 };
 
 export default meta;
@@ -87,7 +91,7 @@ export const DefaultStory: Story = (args: FlatTableCellProps) => {
           <FlatTableHeader>Name</FlatTableHeader>
           <FlatTableHeader>Location</FlatTableHeader>
           <FlatTableHeader>Relationship Status</FlatTableHeader>
-          <FlatTableHeader>Dependents</FlatTableHeader>
+          <FlatTableHeader>Dependants</FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>
@@ -120,6 +124,7 @@ export const DefaultStory: Story = (args: FlatTableCellProps) => {
   );
 };
 DefaultStory.storyName = "Default";
+DefaultStory.parameters = { chromatic: { disableSnapshot: false } };
 
 export const KeyboardAccessibleSubRows: Story = () => {
   const SubRows = [
@@ -143,7 +148,7 @@ export const KeyboardAccessibleSubRows: Story = () => {
           <FlatTableHeader>Name</FlatTableHeader>
           <FlatTableHeader>Location</FlatTableHeader>
           <FlatTableHeader>Relationship Status</FlatTableHeader>
-          <FlatTableHeader>Dependents</FlatTableHeader>
+          <FlatTableHeader>Dependants</FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>
@@ -176,7 +181,6 @@ export const KeyboardAccessibleSubRows: Story = () => {
   );
 };
 KeyboardAccessibleSubRows.storyName = "Keyboard Accessible SubRows";
-KeyboardAccessibleSubRows.parameters = { chromatic: { disableSnapshot: true } };
 
 export const ExpandableByFirstColumnOnly: Story = () => {
   const SubRows = [
@@ -200,7 +204,7 @@ export const ExpandableByFirstColumnOnly: Story = () => {
           <FlatTableHeader>Name</FlatTableHeader>
           <FlatTableHeader>Location</FlatTableHeader>
           <FlatTableHeader>Relationship Status</FlatTableHeader>
-          <FlatTableHeader>Dependents</FlatTableHeader>
+          <FlatTableHeader>Dependants</FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>
@@ -233,9 +237,6 @@ export const ExpandableByFirstColumnOnly: Story = () => {
   );
 };
 ExpandableByFirstColumnOnly.storyName = "Expandable by First Column Only";
-ExpandableByFirstColumnOnly.parameters = {
-  chromatic: { disableSnapshot: true },
-};
 
 export const InitiallyExpanded: Story = () => {
   const SubRows = [
@@ -259,7 +260,7 @@ export const InitiallyExpanded: Story = () => {
           <FlatTableHeader>Name</FlatTableHeader>
           <FlatTableHeader>Location</FlatTableHeader>
           <FlatTableHeader>Relationship Status</FlatTableHeader>
-          <FlatTableHeader>Dependents</FlatTableHeader>
+          <FlatTableHeader>Dependants</FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>
@@ -292,6 +293,7 @@ export const InitiallyExpanded: Story = () => {
   );
 };
 InitiallyExpanded.storyName = "Initially Expanded";
+InitiallyExpanded.parameters = { chromatic: { disableSnapshot: false } };
 
 export const RowHeaders: Story = () => {
   const SubRows = [
@@ -316,7 +318,7 @@ export const RowHeaders: Story = () => {
           <FlatTableHeader>Location</FlatTableHeader>
           <FlatTableHeader>Relationship Status</FlatTableHeader>
           <FlatTableRowHeader stickyAlignment="right">
-            Dependents
+            Dependants
           </FlatTableRowHeader>
         </FlatTableRow>
       </FlatTableHead>
@@ -350,6 +352,7 @@ export const RowHeaders: Story = () => {
   );
 };
 RowHeaders.storyName = "Row Headers";
+RowHeaders.parameters = { chromatic: { disableSnapshot: false } };
 
 export const RowHeadersWithCustomPaddings: Story = () => {
   const SubRows = [
@@ -376,7 +379,7 @@ export const RowHeadersWithCustomPaddings: Story = () => {
             <FlatTableRowHeader px={8}>Name</FlatTableRowHeader>
             <FlatTableHeader>Location</FlatTableHeader>
             <FlatTableHeader>Relationship Status</FlatTableHeader>
-            <FlatTableHeader>Dependents</FlatTableHeader>
+            <FlatTableHeader>Dependants</FlatTableHeader>
           </FlatTableRow>
         </FlatTableHead>
         <FlatTableBody>
@@ -410,6 +413,9 @@ export const RowHeadersWithCustomPaddings: Story = () => {
   );
 };
 RowHeadersWithCustomPaddings.storyName = "Row Headers with Custom Paddings";
+RowHeadersWithCustomPaddings.parameters = {
+  chromatic: { disableSnapshot: false },
+};
 
 export const Paginated: Story = () => {
   const SubRows = [
@@ -607,7 +613,7 @@ export const Paginated: Story = () => {
           <FlatTableHeader>Name</FlatTableHeader>
           <FlatTableHeader>Location</FlatTableHeader>
           <FlatTableHeader>Relationship Status</FlatTableHeader>
-          <FlatTableHeader>Dependents</FlatTableHeader>
+          <FlatTableHeader>Dependants</FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>{renderRows()}</FlatTableBody>
@@ -615,6 +621,7 @@ export const Paginated: Story = () => {
   );
 };
 Paginated.storyName = "Paginated";
+Paginated.parameters = { chromatic: { disableSnapshot: false } };
 
 export const BothParentAndChildrenSelectable: Story = () => {
   const [selectAll, setSelectAll] = useState(false);
@@ -752,7 +759,7 @@ export const BothParentAndChildrenSelectable: Story = () => {
             <FlatTableHeader id="ft-header-3">
               Relationship Status
             </FlatTableHeader>
-            <FlatTableHeader id="ft-header-4">Dependents</FlatTableHeader>
+            <FlatTableHeader id="ft-header-4">Dependants</FlatTableHeader>
           </FlatTableRow>
         </FlatTableHead>
         <FlatTableBody>
@@ -936,7 +943,7 @@ export const ParentOnlySelectable: Story = () => {
             <FlatTableHeader id="ft-header-3">
               Relationship Status
             </FlatTableHeader>
-            <FlatTableHeader id="ft-header-4">Dependents</FlatTableHeader>
+            <FlatTableHeader id="ft-header-4">Dependants</FlatTableHeader>
           </FlatTableRow>
         </FlatTableHead>
         <FlatTableBody>
@@ -1018,7 +1025,6 @@ export const ParentOnlySelectable: Story = () => {
   );
 };
 ParentOnlySelectable.storyName = "Parent Only Selectable";
-ParentOnlySelectable.parameters = { chromatic: { disableSnapshot: true } };
 
 export const ChildrenOnlySelectable: Story = () => {
   const [selectAll, setSelectAll] = useState(false);
@@ -1162,7 +1168,7 @@ export const ChildrenOnlySelectable: Story = () => {
             <FlatTableHeader id="ft-header-3">
               Relationship Status
             </FlatTableHeader>
-            <FlatTableHeader id="ft-header-4">Dependents</FlatTableHeader>
+            <FlatTableHeader id="ft-header-4">Dependants</FlatTableHeader>
           </FlatTableRow>
         </FlatTableHead>
         <FlatTableBody>
@@ -1278,7 +1284,7 @@ export const TruncatedCellContent: Story = () => {
           <FlatTableHeader width={60}>Name</FlatTableHeader>
           <FlatTableHeader>Location</FlatTableHeader>
           <FlatTableHeader>Relationship Status</FlatTableHeader>
-          <FlatTableHeader>Dependents</FlatTableHeader>
+          <FlatTableHeader>Dependants</FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>
@@ -1319,6 +1325,7 @@ export const TruncatedCellContent: Story = () => {
   );
 };
 TruncatedCellContent.storyName = "Truncated Cell Content";
+TruncatedCellContent.parameters = { chromatic: { disableSnapshot: false } };
 
 export const Controlled: Story = () => {
   const [expanded, setExpanded] = useState(true);
@@ -1347,7 +1354,7 @@ export const Controlled: Story = () => {
             <FlatTableHeader>Name</FlatTableHeader>
             <FlatTableHeader>Location</FlatTableHeader>
             <FlatTableHeader>Relationship Status</FlatTableHeader>
-            <FlatTableHeader>Dependents</FlatTableHeader>
+            <FlatTableHeader>Dependants</FlatTableHeader>
           </FlatTableRow>
         </FlatTableHead>
         <FlatTableBody>
@@ -1381,7 +1388,6 @@ export const Controlled: Story = () => {
   );
 };
 Controlled.storyName = "Controlled";
-Controlled.parameters = { chromatic: { disableSnapshot: true } };
 
 export const Sizes: Story = () => {
   const [selectAll, setSelectAll] = useState(false);
@@ -1590,3 +1596,4 @@ export const Sizes: Story = () => {
   );
 };
 Sizes.storyName = "Sizes";
+Sizes.parameters = { chromatic: { disableSnapshot: false } };

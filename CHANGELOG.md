@@ -1,3 +1,39 @@
+## [159.14.0](https://github.com/Sage/carbon/compare/v159.13.4...v159.14.0) (2026-06-29)
+
+### Features
+
+* **search:** align with fusion DS ([2cd52f9](https://github.com/Sage/carbon/commit/2cd52f90140f93aa55c948b52de39399e804ad75))
+
+## [159.13.4](https://github.com/Sage/carbon/compare/v159.13.3...v159.13.4) (2026-06-26)
+
+### Bug Fixes
+
+* **menu-item:** bump style specificity for submenu padding ([91653c4](https://github.com/Sage/carbon/commit/91653c47961ad83b7eaf26d022b142da6e281bdb))
+
+## [159.13.3](https://github.com/Sage/carbon/compare/v159.13.2...v159.13.3) (2026-06-25)
+
+### Bug Fixes
+
+* **sidebar:** remove scroll content from tab order in firefox ([fd300b1](https://github.com/Sage/carbon/commit/fd300b14968444eab5e47537f067227034e306bf))
+
+## [159.13.2](https://github.com/Sage/carbon/compare/v159.13.1...v159.13.2) (2026-06-25)
+
+### Bug Fixes
+
+* correct esm module path in generated package.json stubs ([706fae9](https://github.com/Sage/carbon/commit/706fae96ed5925d32f7079a5418e40bc860a2a1d)), closes [#8042](https://github.com/Sage/carbon/issues/8042)
+
+## [159.13.1](https://github.com/Sage/carbon/compare/v159.13.0...v159.13.1) (2026-06-22)
+
+### Bug Fixes
+
+* **switch:** make toggle work on Safari ([da828f1](https://github.com/Sage/carbon/commit/da828f1f0e5621220049cd3f111385d1b95c7470)), closes [#7980](https://github.com/Sage/carbon/issues/7980)
+
+## [159.13.0](https://github.com/Sage/carbon/compare/v159.12.3...v159.13.0) (2026-06-22)
+
+### Features
+
+* **password:** align component with fusion DS ([a37278b](https://github.com/Sage/carbon/commit/a37278be78c4c6a7d5f539dfc4b243d1e43f742d))
+
 ## [159.12.3](https://github.com/Sage/carbon/compare/v159.12.2...v159.12.3) (2026-06-18)
 
 ### Bug Fixes
