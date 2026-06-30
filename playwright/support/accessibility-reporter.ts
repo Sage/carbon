@@ -78,6 +78,10 @@ class AccessibilityReporter implements Reporter {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async onEnd(_result: FullResult): Promise<void> {
+    const violationCount = this.records.filter(
+      (r) => r.status === "violation",
+    ).length;
+
     if (this.records.length === 0) {
       console.log("✓ No accessibility issues detected");
       return;
@@ -101,6 +105,10 @@ class AccessibilityReporter implements Reporter {
     );
     console.log(`   HTML: ${htmlPath}`);
     console.log(`   JSON: ${jsonPath}\n`);
+
+    if (violationCount > 0) {
+      process.exitCode = 1;
+    }
   }
 
   private extractComponentName(filePath: string): string {
