@@ -11,7 +11,7 @@ import {
 } from "./button-toggle-group.style";
 import { filterStyledSystemMarginProps } from "../../../style/utils";
 import Events from "../../../__internal__/utils/helpers/events";
-import { ButtonToggleGroupProvider } from "./__internal__/button-toggle-group.context";
+import ButtonToggleGroupContext from "./__internal__/button-toggle-group.context";
 import Label from "../../../__internal__/label";
 import HintText from "../../../__internal__/hint-text";
 
@@ -195,7 +195,7 @@ const ButtonToggleGroup = ({
         $isDisabled={disabled}
         $fullWidth={fullWidth}
       >
-        <ButtonToggleGroupProvider
+        <ButtonToggleGroupContext.Provider
           value={{
             handleKeyDown,
             pressedButtonValue: value,
@@ -210,7 +210,7 @@ const ButtonToggleGroup = ({
           }}
         >
           {children}
-        </ButtonToggleGroupProvider>
+        </ButtonToggleGroupContext.Provider>
       </StyledButtonToggleWrapper>
     </StyledButtonToggleGroup>
   );
