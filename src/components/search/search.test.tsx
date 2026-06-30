@@ -1,6 +1,15 @@
 import React, { useRef, useState } from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import {
+  MenuItem,
+  MenuItemDivider,
+  MenuItemHeading,
+  MenuItemLabel,
+  MenuItemLeading,
+  MenuItemSubtext,
+} from "../../__internal__/popover-menu";
+import Icon from "../icon";
 
 import MenuContext from "../menu/__internal__/menu.context";
 import Search, { SearchHandle } from "./search.component";
@@ -296,6 +305,30 @@ test("does not wire native clear handling when `triggerOnClear` is false", () =>
   expect(onClick).not.toHaveBeenCalled();
 });
 
+test("renders popover menu content when `open` is true", () => {
+  render(
+    <Search value="" open onChange={jest.fn()}>
+      <MenuItem id="item-1">
+        <MenuItemLeading>
+          <Icon type="home" />
+        </MenuItemLeading>
+        <MenuItemLabel prefix="Item: ">1</MenuItemLabel>
+        <MenuItemSubtext>Subtext</MenuItemSubtext>
+      </MenuItem>
+      <MenuItemDivider />
+      <MenuItemHeading text="Heading">
+        <MenuItem id="item-2">
+          <MenuItemLabel>Item 2</MenuItemLabel>
+        </MenuItem>
+      </MenuItemHeading>
+    </Search>,
+  );
+
+  expect(screen.getAllByRole("listbox")[0]).toBeVisible();
+  expect(screen.getAllByRole("option")).toHaveLength(3);
+  expect(screen.getByRole("searchbox", { name: "Search" })).toBeVisible();
+});
+
 test("renders legacy Search search component when rendered inside Menu context", () => {
   const onClick = jest.fn();
 
@@ -309,4 +342,17 @@ test("renders legacy Search search component when rendered inside Menu context",
   expect(
     screen.queryByRole("button", { name: "Search" }),
   ).not.toBeInTheDocument();
+});
+
+test("does not render popover menu when `open` is true inside Menu context", () => {
+  render(
+    <MenuContext.Provider value={{ inMenu: true }}>
+      <Search value="" open onChange={jest.fn()}>
+        <span>Result 1</span>
+      </Search>
+    </MenuContext.Provider>,
+  );
+
+  expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+  expect(screen.getByRole("textbox", { name: "Search" })).toBeVisible();
 });

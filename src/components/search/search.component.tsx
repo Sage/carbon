@@ -4,6 +4,8 @@ import React, {
   useImperativeHandle,
   useMemo,
   useContext,
+  useState,
+  useLayoutEffect,
 } from "react";
 import invariant from "invariant";
 import { MarginProps } from "styled-system";
@@ -15,6 +17,7 @@ import useLocale from "../../hooks/__internal__/useLocale";
 import Divider from "../divider";
 import TextInput from "../textbox/__internal__/__next__";
 import MenuContext from "../menu/__internal__/menu.context";
+import { PopoverMenu } from "../../__internal__/popover-menu";
 import { Search as LegacySearch } from "./__internal__/legacy/search.component";
 
 export interface SearchEvent {
@@ -42,11 +45,19 @@ export type SearchTextboxProps = Pick<
   | "required"
 >;
 
+export interface SearchPopoverProps {
+  /** When `true`, renders the new popover menu anchored to the Search input. */
+  open?: boolean;
+  /** Optional popover menu content to render when `open` is `true`. */
+  children?: React.ReactNode;
+}
+
 export interface SearchProps
   extends ValidationProps,
     MarginProps,
     TagProps,
-    SearchTextboxProps {
+    SearchTextboxProps,
+    SearchPopoverProps {
   /** Prop to specify the accessible name of the Search input. To be used when no visible label is provided */
   "aria-label"?: string;
   /** Prop to specify the accessible name of the Search button */
@@ -112,6 +123,8 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
       label,
       placeholder,
       searchButtonDataProps,
+      open = false,
+      children,
       searchButtonAriaLabel,
       "aria-label": ariaLabel,
       variant,
@@ -131,9 +144,48 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
     ref,
   ) => {
     const locale = useLocale();
-    const inputRef = useRef<HTMLInputElement>(null);
+    const inputRef = useRef<HTMLInputElement | null>(null);
     const buttonRef = useRef<ButtonHandle>(null);
     const legacyRef = useRef<SearchHandle>(null);
+    const [isOpen, setIsOpen] = useState(false);
+    const [popoverWidth, setPopoverWidth] = useState<number | undefined>(
+      undefined,
+    );
+
+    // gets the width of the search input before the popover menu is opened and sets the width of the popover menu to match the search input width
+    useLayoutEffect(() => {
+      const searchContainer = inputRef.current?.closest(
+        '[data-component="search"]',
+      );
+      const width = searchContainer?.getBoundingClientRect().width;
+
+      setPopoverWidth(width);
+    }, []);
+
+    // Sync the open prop to internal state
+    useEffect(() => {
+      setIsOpen(open);
+    }, [open]);
+
+    const hasOpenedRef = useRef(false);
+
+    // ensure proper focus behavior when the popover menu is opened and closed
+    useEffect(() => {
+      if (isOpen) {
+        hasOpenedRef.current = true;
+        // focus after PopoverMenu has run its own focus handling
+        const raf = requestAnimationFrame(() => inputRef.current?.focus());
+        return () => cancelAnimationFrame(raf);
+      }
+
+      // only on a real close, not the initial mount
+      if (hasOpenedRef.current) {
+        const raf = requestAnimationFrame(() => inputRef.current?.focus());
+        return () => cancelAnimationFrame(raf);
+      }
+
+      return undefined;
+    }, [isOpen]);
 
     // in order to support backwards compatibility with the Search component when used within a Menu,
     // we render the LegacySearch component instead of the new Search component when the Search component is rendered within a Menu.
@@ -231,30 +283,18 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
       [inverse, variant, className, error],
     );
 
-    if (inMenu) {
-      return (
-        <LegacySearch
-          {...rest}
-          {...legacyOnlyProps}
-          onChange={onChange}
-          value={value}
-          id={id}
-          error={error}
-          placeholder={placeholder}
-          name={name}
-          label={label}
-          variant={variant}
-          aria-label={ariaLabel}
-          searchButtonAriaLabel={searchButtonAriaLabel}
-          searchButtonDataProps={searchButtonDataProps}
-          triggerOnClear={triggerOnClear}
-          onClick={onClick}
-          ref={legacyRef}
-        />
-      );
-    }
-
-    return (
+    const renderSearchInput = ({
+      ref,
+      popoverControlProps,
+    }: {
+      ref?: React.Ref<HTMLInputElement>;
+      popoverControlProps?: {
+        "aria-haspopup"?: "listbox" | "menu";
+        "aria-controls"?: string;
+        "aria-expanded"?: boolean;
+        "aria-activedescendant"?: string;
+      };
+    } = {}) => (
       <TextInput
         {...rest}
         {...tagComponent("search", rest)}
@@ -272,7 +312,11 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
         aria-label={
           ariaLabel || (label ? undefined : locale.search.searchButtonText())
         }
-        ref={inputRef}
+        ref={ref ?? inputRef}
+        aria-haspopup={popoverControlProps?.["aria-haspopup"]}
+        aria-controls={popoverControlProps?.["aria-controls"]}
+        aria-expanded={popoverControlProps?.["aria-expanded"]}
+        aria-activedescendant={popoverControlProps?.["aria-activedescendant"]}
         inputIcon={
           <>
             <Divider
@@ -302,6 +346,63 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
           </>
         }
       />
+    );
+
+    const searchInput = renderSearchInput();
+
+    if (inMenu) {
+      return (
+        <LegacySearch
+          {...rest}
+          {...legacyOnlyProps}
+          onChange={onChange}
+          value={value}
+          id={id}
+          error={error}
+          placeholder={placeholder}
+          name={name}
+          label={label}
+          variant={variant}
+          aria-label={ariaLabel}
+          searchButtonAriaLabel={searchButtonAriaLabel}
+          searchButtonDataProps={searchButtonDataProps}
+          triggerOnClear={triggerOnClear}
+          onClick={onClick}
+          ref={legacyRef}
+        />
+      );
+    }
+
+    if (!isOpen) {
+      return searchInput;
+    }
+
+    return (
+      <PopoverMenu<HTMLInputElement>
+        open={isOpen}
+        {...(popoverWidth !== undefined && { width: `${popoverWidth}px` })}
+        onOpen={() => setIsOpen(true)}
+        onClose={() => setIsOpen(false)}
+        popoverControl={(popoverControlRef, popoverControlProps) => (
+          <div
+            {...(popoverWidth !== undefined && {
+              style: { width: `${popoverWidth}px` },
+            })}
+          >
+            {renderSearchInput({
+              ref: (node) => {
+                inputRef.current = node;
+                (
+                  popoverControlRef as React.MutableRefObject<HTMLInputElement | null>
+                ).current = node;
+              },
+              popoverControlProps,
+            })}
+          </div>
+        )}
+      >
+        {children}
+      </PopoverMenu>
     );
   },
 );

@@ -17,6 +17,7 @@ description: Carbon Search component props and usage examples.
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | onChange | (ev: SearchEvent) => void | Yes |  |  |  | Prop for `onChange` events on the Search input |  |
 | value | string | Yes |  |  |  | Current value |  |
+| children | React.ReactNode | No |  |  |  | Optional popover menu content to render when `open` is `true`. |  |
 | className | string \| undefined | No |  |  |  |  |  |
 | error | string \| boolean \| undefined | No |  |  |  | Indicate that error has occurred. |  |
 | id | string \| undefined | No |  |  |  | Unique identifier for the input. Label id will be based on it, using following pattern: [id]-label. Will use a randomly generated GUID if none is provided. |  |
@@ -46,6 +47,7 @@ description: Carbon Search component props and usage examples.
 | onClick | ((ev: SearchEvent) => void) \| undefined | No |  |  |  | Prop for `onClick` events on the Search button. `onClick` events are triggered when the Search button is clicked or when the Search input's cross icon is clicked if the `triggerOnClear` prop is set to `true`. |  |
 | onFocus | ((ev: React.FocusEvent<HTMLInputElement>) => void) \| undefined | No |  |  |  | Event handler for the focus event |  |
 | onKeyDown | ((ev: React.KeyboardEvent<HTMLInputElement>) => void) \| undefined | No |  |  |  | Specify a callback triggered on keyDown |  |
+| open | boolean \| undefined | No |  |  |  | When `true`, renders the new popover menu anchored to the Search input. |  |
 | required | boolean \| undefined | No |  |  |  | Flag to configure component as mandatory |  |
 | searchButtonAriaLabel | string \| undefined | No |  |  |  | Prop to specify the accessible name of the Search button |  |
 | searchButtonDataProps | TagProps \| undefined | No |  |  |  | Data tag prop bag for searchButton |  |

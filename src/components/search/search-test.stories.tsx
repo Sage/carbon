@@ -2,6 +2,15 @@ import React, { useEffect, useRef, useState } from "react";
 import Box from "../box";
 import Search from ".";
 import { SearchProps, SearchHandle } from "./search.component";
+import {
+  MenuItem,
+  MenuItemDivider,
+  MenuItemHeading,
+  MenuItemLabel,
+  MenuItemLeading,
+  MenuItemSubtext,
+} from "../../__internal__/popover-menu";
+import Icon from "../icon";
 
 const defaultSearchControlsInclude = [
   "value",
@@ -315,3 +324,40 @@ export const RegressionMatrix = () => (
   </Box>
 );
 RegressionMatrix.storyName = "Regression Matrix";
+
+export const OpenWithPopoverMenuContent = () => {
+  const [value, setValue] = useState("Delta");
+  const isOpen = value.length >= 3;
+
+  return (
+    <Box width="700px" p={4}>
+      <Search
+        open={isOpen}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        aria-label="Search with open popover menu"
+      >
+        <MenuItem id="item-1">
+          <MenuItemLeading selectedIcon={value === "Alpha"}>
+            <Icon type="home" />
+          </MenuItemLeading>
+          <MenuItemLabel prefix="1: ">Alpha</MenuItemLabel>
+          <MenuItemSubtext>Subtext</MenuItemSubtext>
+        </MenuItem>
+        <MenuItem id="item-2" selected={value === "Delta"}>
+          <MenuItemLeading selectedIcon={value === "Delta"}>
+            <Icon type="home" />
+          </MenuItemLeading>
+          <MenuItemLabel prefix="2: ">Delta</MenuItemLabel>
+        </MenuItem>
+        <MenuItemDivider />
+        <MenuItemHeading text="More options">
+          <MenuItem id="item-3">
+            <MenuItemLabel>Extra</MenuItemLabel>
+          </MenuItem>
+        </MenuItemHeading>
+      </Search>
+    </Box>
+  );
+};
+OpenWithPopoverMenuContent.storyName = "Open With Popover Menu Content";
