@@ -383,6 +383,7 @@ export const SizeStory: Story = () => {
           validationMessagePositionTop={false}
           mb={2}
           characterLimit={100}
+          size="small"
         />
 
         <Textarea
@@ -414,6 +415,7 @@ export const SizeStory: Story = () => {
           onChange={setValue}
           validationMessagePositionTop={false}
           mb={2}
+          size="small"
         />
         <Textarea
           label="Textarea medium"

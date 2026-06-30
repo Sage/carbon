@@ -135,7 +135,7 @@ export interface TextareaProps
   warning?: boolean | string;
   /** @deprecated Specify a custom border radius for the component. Any valid border-radius design token, or an array of border-radius design tokens. This property is deprecated and will be removed in future versions.*/
   borderRadius?: BorderRadiusType | BorderRadiusType[];
-  /** Hides the borders for the component. Please note that validation and focus styling will still be applied */
+  /** @deprecated Hides the borders for the component. Please note that validation and focus styling will still be applied. This property is deprecated and will be removed in future versions. */
   hideBorders?: boolean;
   /** Specify the minimum height. This property is only applied if rows is not set. */
   minHeight?: number;
@@ -246,6 +246,28 @@ export const Textarea = React.forwardRef(
     const [characterCountAriaLive, setCharacterCountAriaLive] = useState<
       "off" | "polite"
     >("off");
+
+    useEffect(() => {
+      const textarea = internalRef.current;
+
+      /* istanbul ignore if */
+      if (!textarea) return;
+
+      const check = () => {
+        textarea.classList.toggle("has-scrollbar", textarea.scrollHeight > textarea.clientHeight);
+      };
+      check();
+
+      textarea.addEventListener("input", check);
+      const ro = new ResizeObserver(check);
+
+      ro.observe(textarea);
+
+      return () => {
+        textarea.removeEventListener("input", check);
+        ro.disconnect();
+      };
+    }, []);
 
     // This block of code has been covered in a Playwright test.
     // istanbul ignore next

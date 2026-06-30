@@ -109,6 +109,7 @@ const StyledTextarea = styled.div.attrs(applyBaseTheme)<StyledTextAreaProps>`
   ${margin};
 
   ${StyledInput} {
+    ${({ $size }) => getFont($size, "regular")}
     box-sizing: border-box;
     color: var(--input-typical-txt-default);
     border-radius: ${({ borderRadius }) =>
@@ -155,12 +156,15 @@ const StyledTextarea = styled.div.attrs(applyBaseTheme)<StyledTextAreaProps>`
     }
 
     &::-webkit-resizer {
-      background: var(--container-scrollbar-bg-default);
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='5' height='5' viewBox='0 0 5 5' fill='none'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M4.12983 2.12983C4.32507 2.32507 4.32507 2.64162 4.12983 2.83686L2.83686 4.12983C2.64162 4.32507 2.32507 4.32507 2.12983 4.12983C1.93459 3.93459 1.93459 3.61804 2.12983 3.4228L3.4228 2.12983C3.61804 1.93459 3.93459 1.93459 4.12983 2.12983ZM3.12202 0.146431C3.31726 0.341672 3.31726 0.658221 3.12202 0.853462L0.853462 3.12202C0.658221 3.31726 0.341672 3.31726 0.146431 3.12202C-0.0488103 2.92678 -0.0488103 2.61023 0.146431 2.41499L2.41499 0.146431C2.61023 -0.0488103 2.92678 -0.0488104 3.12202 0.146431Z' fill='%2375838F'/%3E%3C/svg%3E");
       background-size: 6px 6px;
       background-repeat: no-repeat;
       background-position: center;
       border-radius: 0 0 var(--global-radius-container-circle) 0;
+    }
+
+    &.has-scrollbar::-webkit-resizer {
+      background-color: var(--container-scrollbar-bg-default);
     }
 
     &::-webkit-scrollbar-corner {
