@@ -679,7 +679,9 @@ function SmallScreenBehaviorRender({
         <Typography mt={2}>
           On small screen devices (below 600px), the dialog becomes full width,
           the dimmer is removed, and the header/footer are no longer sticky.
-          This improves accessibility on mobile devices.
+          This improves accessibility on mobile devices. Form also has a
+          `disableStickyOnSmallScreen` prop, which allows it to be used within a
+          Dialog without a sticky footer on small screen devices.
         </Typography>
         <Dialog
           {...args}
@@ -689,23 +691,37 @@ function SmallScreenBehaviorRender({
             setOpen(false);
             setTimeout(() => buttonRef.current?.focusButton(), 0);
           }}
-          footer={<Buttons />}
         >
-          <Typography>
-            This dialog demonstrates small screen accessibility behavior.
-          </Typography>
-          <Textbox label="First Name" value="" onChange={() => {}} />
-          <Textbox label="Middle Name" value="" onChange={() => {}} />
-          <Textbox label="Surname" value="" onChange={() => {}} />
-          <Textbox label="Birth Place" value="" onChange={() => {}} />
-          <Textbox label="Favourite Colour" value="" onChange={() => {}} />
-          <Textbox label="Address" value="" onChange={() => {}} />
-          <Textbox label="First Name" value="" onChange={() => {}} />
-          <Textbox label="Middle Name" value="" onChange={() => {}} />
-          <Textbox label="Surname" value="" onChange={() => {}} />
-          <Textbox label="Birth Place" value="" onChange={() => {}} />
-          <Textbox label="Favourite Colour" value="" onChange={() => {}} />
-          <Textbox label="Address" value="" onChange={() => {}} />
+          <Form
+            stickyFooter
+            disableStickyOnSmallScreen
+            leftSideButtons={
+              <Button onClick={() => setOpen(false)}>Cancel</Button>
+            }
+            saveButton={
+              <Button buttonType="primary" type="submit">
+                Save
+              </Button>
+            }
+          >
+            <Typography>
+              This dialog demonstrates small screen accessibility behavior. On
+              small screens, both the dialog header and the Form&apos;s sticky
+              footer are disabled.
+            </Typography>
+            <Textbox label="First Name" value="" onChange={() => {}} />
+            <Textbox label="Middle Name" value="" onChange={() => {}} />
+            <Textbox label="Surname" value="" onChange={() => {}} />
+            <Textbox label="Birth Place" value="" onChange={() => {}} />
+            <Textbox label="Favourite Colour" value="" onChange={() => {}} />
+            <Textbox label="Address" value="" onChange={() => {}} />
+            <Textbox label="First Name" value="" onChange={() => {}} />
+            <Textbox label="Middle Name" value="" onChange={() => {}} />
+            <Textbox label="Surname" value="" onChange={() => {}} />
+            <Textbox label="Birth Place" value="" onChange={() => {}} />
+            <Textbox label="Favourite Colour" value="" onChange={() => {}} />
+            <Textbox label="Address" value="" onChange={() => {}} />
+          </Form>
         </Dialog>
       </>
     );

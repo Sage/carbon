@@ -38,6 +38,10 @@ export interface FormProps extends SpaceProps, TagProps {
   footerChildren?: React.ReactNode;
   /** Enables the sticky footer. */
   stickyFooter?: boolean;
+  /**
+   * When true, disables the sticky behaviour of the footer on small screen devices (below 600px).
+   */
+  disableStickyOnSmallScreen?: boolean;
   /** Background variant for the sticky footer. */
   stickyFooterVariant?: "light" | "grey";
   /** The total number of warnings present in the form */
@@ -62,6 +66,7 @@ export const Form = ({
   footerChildren,
   stickyFooter,
   stickyFooterVariant = "light",
+  disableStickyOnSmallScreen = false,
   fieldSpacing = 3,
   noValidate = true,
   height,
@@ -115,6 +120,7 @@ export const Form = ({
           hasFooterChildren={!!footerChildren}
           stickyFooter={stickyFooter}
           {...(stickyFooter && { stickyFooterVariant })}
+          disableStickyOnSmallScreen={disableStickyOnSmallScreen}
           buttonAlignment={buttonAlignment}
           fullWidthButtons={fullWidthButtons}
           {...footerPadding}
