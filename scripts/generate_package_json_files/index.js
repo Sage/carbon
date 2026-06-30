@@ -5,15 +5,18 @@ const path = require("path");
 const libDir = path.resolve("lib");
 
 function generatePackageJson(componentPath) {
-  // Extract the relative path from the base directory
   const relativePath = path.relative(libDir, componentPath);
 
-  // Determine the proper ESM base path based on component depth
-  // The main entry point (at lib root) uses "../../esm"
-  // All other components use "../../../esm"
-  const esmBaseDir = relativePath === "" ? "../../esm" : "../../../esm";
+  let esmBaseDir;
+  if (relativePath === "") {
+    // lib/ root — go up 1 to package root, then into esm/
+    esmBaseDir = "../../esm";
+  } else {
+    // depth = number of path segments + 1 (for lib/ itself)
+    const depth = relativePath.split(path.sep).length + 1;
+    esmBaseDir = "../".repeat(depth) + "esm";
+  }
 
-  // Create the corresponding ESM path
   const esmPath =
     relativePath === ""
       ? `${esmBaseDir}/index.js`
@@ -21,7 +24,6 @@ function generatePackageJson(componentPath) {
 
   return {
     sideEffects: false,
-    main: "./index.js",
     module: esmPath,
     types: "./index.d.ts",
   };
@@ -36,15 +38,18 @@ function writePackageJson(componentPath) {
   if (hasIndexFile) {
     const packageJsonPath = path.join(componentPath, "package.json");
     const componentName = path.relative(libDir, componentPath);
+    
+    // Skip generating package.json for lib root and esm root - only for subdirectories
+    if (componentName !== "" && componentName !== ".") {
+      const packageJsonContent = JSON.stringify(
+        generatePackageJson(componentPath),
+        null,
+        2,
+      );
 
-    const packageJsonContent = JSON.stringify(
-      generatePackageJson(componentPath),
-      null,
-      2,
-    );
-
-    fs.writeFileSync(packageJsonPath, packageJsonContent);
-    console.log(`Generated package.json for ${componentName || "root"}`);
+      fs.writeFileSync(packageJsonPath, packageJsonContent);
+      console.log(`Generated package.json for ${componentName}`);
+    }
   }
 }
 

@@ -92,7 +92,7 @@ description: Carbon FlatTable component props and usage examples.
               alignItems="center"
               display="flex"
             >
-              Dependents <Icon type="people" color="white" />
+              Dependants <Icon type="people" color="white" />
             </Box>
           </FlatTableHeader>
         </FlatTableRow>
@@ -142,7 +142,7 @@ description: Carbon FlatTable component props and usage examples.
           <FlatTableRowHeader>Name</FlatTableRowHeader>
           <FlatTableHeader>Location</FlatTableHeader>
           <FlatTableHeader>Relationship Status</FlatTableHeader>
-          <FlatTableHeader>Dependents</FlatTableHeader>
+          <FlatTableHeader>Dependants</FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>
@@ -331,7 +331,7 @@ description: Carbon FlatTable component props and usage examples.
           <FlatTableHeader>Name</FlatTableHeader>
           <FlatTableHeader>Location</FlatTableHeader>
           <FlatTableHeader>Relationship Status</FlatTableHeader>
-          <FlatTableHeader>Dependents</FlatTableHeader>
+          <FlatTableHeader>Dependants</FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>
@@ -386,7 +386,7 @@ description: Carbon FlatTable component props and usage examples.
             Relationship Status
           </FlatTableHeader>
           <FlatTableHeader px={4} py={2}>
-            Dependents
+            Dependants
           </FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
@@ -463,7 +463,7 @@ description: Carbon FlatTable component props and usage examples.
 ```tsx
 () => {
   return (
-    <FlatTable title="Table for Custom Row Backgroun Colour">
+    <FlatTable title="Table for Custom Row Background Colour">
       <FlatTableHead>
         <FlatTableRow>
           <FlatTableRowHeader>No.</FlatTableRowHeader>
@@ -471,7 +471,7 @@ description: Carbon FlatTable component props and usage examples.
           <FlatTableHeader>Name</FlatTableHeader>
           <FlatTableHeader>Location</FlatTableHeader>
           <FlatTableHeader>Relationship Status</FlatTableHeader>
-          <FlatTableHeader>Dependents</FlatTableHeader>
+          <FlatTableHeader>Dependants</FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>
@@ -543,7 +543,7 @@ description: Carbon FlatTable component props and usage examples.
           <FlatTableHeader>Name</FlatTableHeader>
           <FlatTableHeader>Location</FlatTableHeader>
           <FlatTableHeader>Relationship Status</FlatTableHeader>
-          <FlatTableHeader>Dependents</FlatTableHeader>
+          <FlatTableHeader>Dependants</FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>
@@ -585,7 +585,7 @@ description: Carbon FlatTable component props and usage examples.
           <FlatTableHeader>Name</FlatTableHeader>
           <FlatTableHeader>Location</FlatTableHeader>
           <FlatTableHeader>Relationship Status</FlatTableHeader>
-          <FlatTableHeader>Dependents</FlatTableHeader>
+          <FlatTableHeader>Dependants</FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>
@@ -636,7 +636,7 @@ description: Carbon FlatTable component props and usage examples.
           <FlatTableHeader>Name</FlatTableHeader>
           <FlatTableHeader>Location</FlatTableHeader>
           <FlatTableHeader>Relationship Status</FlatTableHeader>
-          <FlatTableHeader>Dependents</FlatTableHeader>
+          <FlatTableHeader>Dependants</FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>
@@ -693,7 +693,7 @@ description: Carbon FlatTable component props and usage examples.
           <FlatTableHeader verticalBorder="large">
             Relationship Status
           </FlatTableHeader>
-          <FlatTableHeader>Dependents</FlatTableHeader>
+          <FlatTableHeader>Dependants</FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>
@@ -781,7 +781,7 @@ description: Carbon FlatTable component props and usage examples.
           <FlatTableHeader rowspan="2">Name</FlatTableHeader>
           <FlatTableHeader colspan="2">Location</FlatTableHeader>
           <FlatTableHeader rowspan="2">Relationship Status</FlatTableHeader>
-          <FlatTableHeader rowspan="2">Dependents</FlatTableHeader>
+          <FlatTableHeader rowspan="2">Dependants</FlatTableHeader>
         </FlatTableRow>
         <FlatTableRow>
           <FlatTableHeader alternativeBgColor>City</FlatTableHeader>
@@ -879,13 +879,7 @@ description: Carbon FlatTable component props and usage examples.
             <FlatTableHeader>Name</FlatTableHeader>
             <FlatTableHeader>Location</FlatTableHeader>
             <FlatTableHeader>Relationship Status</FlatTableHeader>
-            <FlatTableHeader>Dependents</FlatTableHeader>
-          </FlatTableRow>
-          <FlatTableRow>
-            <FlatTableHeader>Name</FlatTableHeader>
-            <FlatTableHeader>Location</FlatTableHeader>
-            <FlatTableHeader>Relationship Status</FlatTableHeader>
-            <FlatTableHeader>Dependents</FlatTableHeader>
+            <FlatTableHeader>Dependants</FlatTableHeader>
           </FlatTableRow>
         </FlatTableHead>
         <FlatTableBody>
@@ -1197,7 +1191,7 @@ description: Carbon FlatTable component props and usage examples.
             <FlatTableHeader>Name</FlatTableHeader>
             <FlatTableHeader>Location</FlatTableHeader>
             <FlatTableHeader>Relationship Status</FlatTableHeader>
-            <FlatTableHeader>Dependents</FlatTableHeader>
+            <FlatTableHeader>Dependants</FlatTableHeader>
           </FlatTableRow>
         </FlatTableHead>
         <FlatTableBody>{renderRows()}</FlatTableBody>
@@ -1270,7 +1264,7 @@ description: Carbon FlatTable component props and usage examples.
             <FlatTableHeader>Name</FlatTableHeader>
             <FlatTableHeader>Location</FlatTableHeader>
             <FlatTableHeader>Relationship Status</FlatTableHeader>
-            <FlatTableHeader>Dependents</FlatTableHeader>
+            <FlatTableHeader>Dependants</FlatTableHeader>
           </FlatTableRow>
         </FlatTableHead>
         <FlatTableBody>{renderRows()}</FlatTableBody>
@@ -1342,7 +1336,7 @@ description: Carbon FlatTable component props and usage examples.
             <FlatTableHeader>Name</FlatTableHeader>
             <FlatTableHeader>Location</FlatTableHeader>
             <FlatTableHeader>Relationship Status</FlatTableHeader>
-            <FlatTableHeader>Dependents</FlatTableHeader>
+            <FlatTableHeader>Dependants</FlatTableHeader>
           </FlatTableRow>
         </FlatTableHead>
         <FlatTableBody>{renderRows()}</FlatTableBody>
@@ -1378,7 +1372,7 @@ description: Carbon FlatTable component props and usage examples.
           <FlatTableHeader>Name</FlatTableHeader>
           <FlatTableHeader>Location</FlatTableHeader>
           <FlatTableHeader>Relationship Status</FlatTableHeader>
-          <FlatTableHeader>Dependents</FlatTableHeader>
+          <FlatTableHeader>Dependants</FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>
@@ -1426,7 +1420,7 @@ description: Carbon FlatTable component props and usage examples.
           <FlatTableHeader>Name</FlatTableHeader>
           <FlatTableHeader>Location</FlatTableHeader>
           <FlatTableHeader>Relationship Status</FlatTableHeader>
-          <FlatTableHeader>Dependents</FlatTableHeader>
+          <FlatTableHeader>Dependants</FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>
@@ -1736,7 +1730,7 @@ description: Carbon FlatTable component props and usage examples.
           <FlatTableHeader>Name</FlatTableHeader>
           <FlatTableHeader>Location</FlatTableHeader>
           <FlatTableHeader>Relationship Status</FlatTableHeader>
-          <FlatTableHeader>Dependents</FlatTableHeader>
+          <FlatTableHeader>Dependants</FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>
@@ -1853,7 +1847,7 @@ description: Carbon FlatTable component props and usage examples.
             <FlatTableHeader id="ft-header-3">
               Relationship Status
             </FlatTableHeader>
-            <FlatTableHeader id="ft-header-4">Dependents</FlatTableHeader>
+            <FlatTableHeader id="ft-header-4">Dependants</FlatTableHeader>
           </FlatTableRow>
         </FlatTableHead>
         <FlatTableBody>
@@ -1984,7 +1978,7 @@ description: Carbon FlatTable component props and usage examples.
             <FlatTableHeader>Name</FlatTableHeader>
             <FlatTableHeader>Location</FlatTableHeader>
             <FlatTableHeader>Relationship Status</FlatTableHeader>
-            <FlatTableHeader>Dependents</FlatTableHeader>
+            <FlatTableHeader>Dependants</FlatTableHeader>
           </FlatTableRow>
         </FlatTableHead>
         <FlatTableBody>
@@ -2071,7 +2065,7 @@ description: Carbon FlatTable component props and usage examples.
           <FlatTableHeader>Name</FlatTableHeader>
           <FlatTableHeader>Location</FlatTableHeader>
           <FlatTableHeader>Relationship Status</FlatTableHeader>
-          <FlatTableHeader>Dependents</FlatTableHeader>
+          <FlatTableHeader>Dependants</FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>
@@ -2192,7 +2186,7 @@ description: Carbon FlatTable component props and usage examples.
             <FlatTableHeader id="ft-header-3">
               Relationship Status
             </FlatTableHeader>
-            <FlatTableHeader id="ft-header-4">Dependents</FlatTableHeader>
+            <FlatTableHeader id="ft-header-4">Dependants</FlatTableHeader>
           </FlatTableRow>
         </FlatTableHead>
         <FlatTableBody>
@@ -2426,7 +2420,7 @@ description: Carbon FlatTable component props and usage examples.
           <FlatTableHeader>Name</FlatTableHeader>
           <FlatTableHeader>Location</FlatTableHeader>
           <FlatTableHeader>Relationship Status</FlatTableHeader>
-          <FlatTableHeader>Dependents</FlatTableHeader>
+          <FlatTableHeader>Dependants</FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>{renderRows()}</FlatTableBody>
@@ -2827,7 +2821,7 @@ description: Carbon FlatTable component props and usage examples.
             <FlatTableHeader>Name</FlatTableHeader>
             <FlatTableHeader>Location</FlatTableHeader>
             <FlatTableHeader>Relationship Status</FlatTableHeader>
-            <FlatTableHeader>Dependents</FlatTableHeader>
+            <FlatTableHeader>Dependants</FlatTableHeader>
           </FlatTableRow>
         </FlatTableHead>
         <FlatTableBody>{renderRows()}</FlatTableBody>
@@ -2912,7 +2906,7 @@ description: Carbon FlatTable component props and usage examples.
               <FlatTableHeader id="ft-header-3">
                 Relationship Status
               </FlatTableHeader>
-              <FlatTableHeader id="ft-header-4">Dependents</FlatTableHeader>
+              <FlatTableHeader id="ft-header-4">Dependants</FlatTableHeader>
             </FlatTableRow>
           </FlatTableHead>
           <FlatTableBody>
@@ -3010,7 +3004,7 @@ description: Carbon FlatTable component props and usage examples.
                 <FlatTableHeader>Name</FlatTableHeader>
                 <FlatTableHeader>Location</FlatTableHeader>
                 <FlatTableHeader>Relationship Status</FlatTableHeader>
-                <FlatTableHeader>Dependents</FlatTableHeader>
+                <FlatTableHeader>Dependants</FlatTableHeader>
               </FlatTableRow>
             </FlatTableHead>
             <FlatTableBody>
@@ -3118,7 +3112,7 @@ description: Carbon FlatTable component props and usage examples.
           <FlatTableHeader>Name</FlatTableHeader>
           <FlatTableRowHeaderWrapper>Location</FlatTableRowHeaderWrapper>
           <FlatTableHeader>Relationship Status</FlatTableHeader>
-          <FlatTableHeader>Dependents</FlatTableHeader>
+          <FlatTableHeader>Dependants</FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>

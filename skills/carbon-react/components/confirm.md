@@ -63,7 +63,7 @@ description: Carbon Confirm component props and usage examples.
 | disableContentPadding | boolean \| undefined | No |  | Yes | Use `contentPadding` instead. |  |  |
 | fullscreen | boolean \| undefined | No |  | Yes | Use `size="fullscreen"` instead. |  |  |
 | highlightVariant | string \| undefined | No |  | Yes | Use `gradientKeyLine` instead. |  |  |
-| pagesStyling | boolean \| undefined | No |  | Yes |  |  |  |
+| pagesStyling | boolean \| undefined | No |  | Yes | PagesStyling is now deprecated and will be removed in a future release |  |  |
 
 ## Examples
 ### Default

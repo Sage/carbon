@@ -85,7 +85,7 @@ test.describe(`should render Duelling-Picklist component`, () => {
     }) => {
       await mount(<DuellingPicklistComponent />);
 
-      const addItemButton = page.getByRole("button").first();
+      const addItemButton = page.getByRole("button", { name: "add" }).first();
       for (let i = 0; i < items; i++) {
         await addItemButton.click();
       }
@@ -111,7 +111,7 @@ test.describe(`should render Duelling-Picklist component`, () => {
   }) => {
     await mount(<DuellingPicklistComponent />);
 
-    const addItemButton = page.getByRole("button").first();
+    const addItemButton = page.getByRole("button", { name: "add" }).first();
     for (let i = 0; i < 10; i++) {
       await addItemButton.click();
     }
@@ -141,7 +141,7 @@ test.describe(`should render Duelling-Picklist component`, () => {
   }) => {
     await mount(<DuellingPicklistComponent />);
 
-    const addItemButton = page.getByRole("button").first();
+    const addItemButton = page.getByRole("button", { name: "add" }).first();
     await addItemButton.click();
     await expect(
       getDataElementByValue(page, "picklist").nth(0).locator("li"),
@@ -170,7 +170,7 @@ test.describe(`should render Duelling-Picklist component`, () => {
     }) => {
       await mount(<DuellingPicklistComponent />);
 
-      const addItemButton = page.getByRole("button").first();
+      const addItemButton = page.getByRole("button", { name: "add" }).first();
       await addItemButton.press(pressed);
       await expect(
         getDataElementByValue(page, "picklist").nth(0).locator("li"),
@@ -189,7 +189,7 @@ test.describe(`should render Duelling-Picklist component`, () => {
     }) => {
       await mount(<DuellingPicklistComponent />);
 
-      const addItemButton = page.getByRole("button").first();
+      const addItemButton = page.getByRole("button", { name: "add" }).first();
       for (let i = 0; i < 10; i++) {
         await addItemButton.click();
       }
@@ -332,7 +332,7 @@ test.describe(`should render Duelling-Picklist to test Picklist props`, () => {
     }) => {
       await mount(<DuellingPicklistComponent text={chars} />);
 
-      const addItemButton = page.getByRole("button").first();
+      const addItemButton = page.getByRole("button", { name: "add" }).first();
       for (let i = 0; i < 10; i++) {
         await addItemButton.click();
       }
@@ -383,7 +383,7 @@ test.describe(`should render Duelling-Picklist with external searchbar and acces
     }) => {
       await mount(<AlternativeSearch />);
 
-      await page.getByLabel("search").fill(searchString);
+      await page.getByLabel("search").first().fill(searchString);
       await expect(
         getDataElementByValue(page, "picklist").nth(0).locator("li"),
       ).toHaveCount(results);
@@ -502,7 +502,7 @@ test.describe(`check events for Duelling-Picklist component`, () => {
       />,
     );
 
-    const addItemButton = page.getByRole("button").first();
+    const addItemButton = page.getByRole("button", { name: "add" }).first();
     await addItemButton.click();
     expect(callbackCount).toBe(1);
   });
@@ -520,7 +520,9 @@ test.describe(`check events for Duelling-Picklist component`, () => {
       />,
     );
 
-    const removeItemButton = page.getByRole("button").first();
+    const removeItemButton = page
+      .getByRole("button", { name: "remove" })
+      .first();
     await removeItemButton.click();
     expect(callbackCount).toBe(1);
   });
@@ -532,14 +534,14 @@ test.describe(`check events for Duelling-Picklist component`, () => {
     }) => {
       let callbackCount = 0;
       await mount(
-        <DuellingPicklistComponentAssigned
+        <DuellingPicklistComponent
           onChange={() => {
             callbackCount += 1;
           }}
         />,
       );
 
-      const addItemButton = page.getByRole("button").first();
+      const addItemButton = page.getByRole("button", { name: "add" }).first();
       await addItemButton.press(pressed);
       expect(callbackCount).toBe(1);
     });
@@ -559,7 +561,9 @@ test.describe(`check events for Duelling-Picklist component`, () => {
         />,
       );
 
-      const removeItemButton = page.getByRole("button").first();
+      const removeItemButton = page
+        .getByRole("button", { name: "remove" })
+        .first();
       await removeItemButton.press(pressed);
       expect(callbackCount).toBe(1);
     });
@@ -651,7 +655,7 @@ test.describe("Border radius tests", () => {
   }) => {
     await mount(<DuellingPicklistComponent />);
 
-    const addItemButton = page.getByRole("button").first();
+    const addItemButton = page.getByRole("button", { name: "add" }).first();
     for (let i = 0; i < 5; i++) {
       await addItemButton.click();
     }

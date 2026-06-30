@@ -172,6 +172,15 @@ export const SwitchComponent = React.forwardRef<HTMLInputElement, SwitchProps>(
 
     const marginProps = filterStyledSystemMarginProps(rest);
 
+    const handleTrackClick = (ev: React.MouseEvent<HTMLDivElement>) => {
+      if (disabled || loading) return;
+
+      const input = ev.currentTarget.querySelector("input");
+      if (!input || ev.target === input) return;
+
+      input.click();
+    };
+
     return (
       <StyledSwitch
         data-component="switch"
@@ -225,6 +234,7 @@ export const SwitchComponent = React.forwardRef<HTMLInputElement, SwitchProps>(
             $size={size}
             $loading={loading}
             $disableTransitions={!!prefersReducedMotion}
+            onClick={handleTrackClick}
           >
             <StyledSwitchInput
               ref={ref}

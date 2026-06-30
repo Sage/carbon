@@ -18,7 +18,7 @@ test("should render a text input with type 'password'", () => {
 });
 
 test("should render a `Show password` button", () => {
-  render(<Password value="" onChange={() => {}} />);
+  render(<Password label="password" value="" onChange={() => {}} />);
 
   const showPasswordButton = screen.getByRole("button", {
     name: "Show password",
@@ -40,14 +40,14 @@ test("should change the text input type from 'password' to 'text' when the `Show
 });
 
 test("should render the aria-live region with hidden announcement text", () => {
-  render(<Password value="" onChange={() => {}} />);
+  render(<Password label="password" value="" onChange={() => {}} />);
 
   const liveRegion = screen.getByRole("status");
   expect(liveRegion).toHaveTextContent("Your password is currently hidden.");
 });
 
 test("should change the aria-live region announcement text from hidden to shown when the `Show password` button is clicked", async () => {
-  render(<Password value="" onChange={() => {}} />);
+  render(<Password label="password" value="" onChange={() => {}} />);
 
   const user = userEvent.setup();
   const showPasswordButton = screen.getByRole("button", {
@@ -62,7 +62,7 @@ test("should change the aria-live region announcement text from hidden to shown 
 });
 
 test("should render the aria-live region as visually hidden but available in the accessibility tree", () => {
-  render(<Password value="" onChange={() => {}} />);
+  render(<Password label="password" value="" onChange={() => {}} />);
 
   const liveRegion = screen.getByRole("status");
   expect(liveRegion).toBeInTheDocument();
@@ -129,27 +129,27 @@ test("should render with provided data- attributes", () => {
 
 describe("Show/Hide password Button", () => {
   test("should render the `Show password` button icon with type 'view' initially", () => {
-    render(<Password value="" onChange={() => {}} />);
+    render(<Password label="password" value="" onChange={() => {}} />);
 
-    const icon = screen.getByTestId("icon");
+    const icon = screen.getByTestId("button-icon-before");
     expect(icon).toHaveAttribute("type", "view");
   });
 
   test("should change the icon type from 'view' to 'hide' when clicked", async () => {
-    render(<Password value="" onChange={() => {}} />);
+    render(<Password label="password" value="" onChange={() => {}} />);
 
     const user = userEvent.setup();
     const showPasswordButton = screen.getByRole("button", {
       name: "Show password",
     });
     await user.click(showPasswordButton);
-    const icon = screen.getByTestId("icon");
+    const icon = screen.getByTestId("button-icon-before");
 
     expect(icon).toHaveAttribute("type", "hide");
   });
 
   test("should render the `Show Password` button with text 'Show' initially", () => {
-    render(<Password value="" onChange={() => {}} />);
+    render(<Password label="password" value="" onChange={() => {}} />);
 
     const showPasswordButton = screen.getByRole("button", {
       name: "Show password",
@@ -158,7 +158,7 @@ describe("Show/Hide password Button", () => {
   });
 
   test("should change the text from 'Show' to 'Hide' when clicked", async () => {
-    render(<Password value="" onChange={() => {}} />);
+    render(<Password label="password" value="" onChange={() => {}} />);
 
     const user = userEvent.setup();
     const showPasswordButton = screen.getByRole("button", {
@@ -170,7 +170,7 @@ describe("Show/Hide password Button", () => {
   });
 
   test("should render the `Show password` button with an 'aria-label' of 'Show password' initially", () => {
-    render(<Password value="" onChange={() => {}} />);
+    render(<Password label="password" value="" onChange={() => {}} />);
 
     const showPasswordButton = screen.getByRole("button", {
       name: "Show password",
@@ -179,7 +179,7 @@ describe("Show/Hide password Button", () => {
   });
 
   test("should change the 'aria-label' from 'Show password' to 'Hide password' when clicked", async () => {
-    render(<Password value="" onChange={() => {}} />);
+    render(<Password label="password" value="" onChange={() => {}} />);
 
     const user = userEvent.setup();
     const showPasswordButton = screen.getByRole("button", {
@@ -191,7 +191,9 @@ describe("Show/Hide password Button", () => {
   });
 
   test("should render the `Show password` button with 'aria-controls' attribute set to the input's 'id'", () => {
-    render(<Password id="1973" value="" onChange={() => {}} />);
+    render(
+      <Password label="password" id="1973" value="" onChange={() => {}} />,
+    );
 
     const showPasswordButton = screen.getByRole("button", {
       name: "Show password",
@@ -200,7 +202,7 @@ describe("Show/Hide password Button", () => {
   });
 
   test("should render the `Show password` button as disabled when the `disabled` prop is `true`", () => {
-    render(<Password disabled value="" onChange={() => {}} />);
+    render(<Password label="password" disabled value="" onChange={() => {}} />);
 
     const showPasswordButton = screen.getByRole("button", {
       name: "Show password",
@@ -209,7 +211,9 @@ describe("Show/Hide password Button", () => {
   });
 
   test("should render the `Show password` button as disabled when the `forceObscurity` prop is `true`", () => {
-    render(<Password forceObscurity value="" onChange={() => {}} />);
+    render(
+      <Password label="password" forceObscurity value="" onChange={() => {}} />,
+    );
 
     const showPasswordButton = screen.getByRole("button", {
       name: "Show password",

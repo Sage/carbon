@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import StyledButton from "../button/button.style";
-import StyledIcon from "../icon/icon.style";
+import StyledButton from "../../../button/button.style";
+import StyledIcon from "../../../icon/icon.style";
 
-import applyBaseTheme from "../../style/themes/apply-base-theme";
+import applyBaseTheme from "../../../../style/themes/apply-base-theme";
 
 export const StyledButtonIcon = styled.div`
   &&& ${StyledIcon} {
