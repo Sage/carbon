@@ -115,14 +115,30 @@ interface Locale {
     };
   };
   pager: {
-    show: () => string;
-    records: (count: number | string, showNumber?: boolean) => string;
-    first: () => string;
-    last: () => string;
-    next: () => string;
-    previous: () => string;
-    pageX: () => string;
-    ofY: (count: string | number) => string;
+    /** @deprecated This translation key is no longer in use. */
+    show?: () => string;
+    /** @deprecated This translation key is no longer in use. */
+    records?: (count: number | string, showNumber?: boolean) => string;
+    /** @deprecated This translation key is no longer in use. */
+    first?: () => string;
+    /** @deprecated This translation key is no longer in use. */
+    last?: () => string;
+    /** @deprecated This translation key is no longer in use. */
+    next?: () => string;
+    /** @deprecated This translation key is no longer in use. */
+    previous?: () => string;
+    /** @deprecated This translation key is no longer in use. */
+    ofY?: (count: string | number) => string;
+
+    ariaLabel?: () => string;
+    // TODO - make the following keys required once deprecated keys are removed.
+    pageX: (currentPage?: number | string) => string;
+    ofTotalPages?: (totalPages: string | number) => string;
+    itemsPerPage?: () => string;
+    firstAriaLabel?: () => string;
+    lastAriaLabel?: () => string;
+    nextAriaLabel?: () => string;
+    previousAriaLabel?: () => string;
   };
   password: {
     buttonLabelHide?: () => string;

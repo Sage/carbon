@@ -17,8 +17,6 @@ import StyledFlatTableCheckbox from "./flat-table-checkbox/flat-table-checkbox.s
 import DrawerSidebarContext from "../drawer/__internal__/drawer-sidebar.context";
 import { StyledFlatTableCell } from "./flat-table-cell/flat-table-cell.style";
 import StyledFlatTableRow from "./flat-table-row/flat-table-row.style";
-import Pager from "../pager/pager.component";
-import { StyledPagerContainer } from "../pager/pager.style";
 import DateInput from "../date/date.component";
 
 testStyledSystemMargin(
@@ -952,35 +950,6 @@ test("should apply the expected `overflowX` styling to the wrapper and container
 });
 
 describe("rounded corners are enabled", () => {
-  it("should override Pager's top border styling so it connects to the table when passed in `footer`,", () => {
-    render(
-      <FlatTable footer={<Pager data-role="pager" onPagination={() => {}} />}>
-        <FlatTableHead>
-          <FlatTableRow>
-            <td>heading one</td>
-          </FlatTableRow>
-        </FlatTableHead>
-        <FlatTableBody>
-          <FlatTableRow>
-            <FlatTableCell>item one</FlatTableCell>
-          </FlatTableRow>
-        </FlatTableBody>
-      </FlatTable>,
-    );
-    const pager = screen.getByTestId("pager");
-
-    expect(pager).toHaveStyle({
-      borderTopLeftRadius: 0,
-      borderTopRightRadius: 0,
-    });
-
-    const flatTableFooter = screen.getByTestId("flat-table-footer");
-
-    expect(flatTableFooter).toHaveStyleRule("border-top", "none", {
-      modifier: `> ${StyledPagerContainer}`,
-    });
-  });
-
   it("should apply the expected border radius styling when the first column has rowspan that spans over bottom row", () => {
     render(
       <FlatTable data-role="ft-wrapper">

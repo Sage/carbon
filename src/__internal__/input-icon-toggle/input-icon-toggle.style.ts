@@ -43,13 +43,6 @@ const InputIconToggleStyle = styled.span<
       }
     `}
 
-  .pager-size-options & {
-    margin-left: 0;
-    width: 20px;
-    height: 24px;
-    align-self: center;
-  }
-
   .multi-select &,
   .filterable-select & {
     cursor: pointer;
