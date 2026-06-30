@@ -1,12 +1,11 @@
 import React from "react";
-import StyledCheckableInputSvgWrapper from "../../../__internal__/checkable-input/checkable-input-svg-wrapper.style";
 
 type CheckboxSvgProps = {
   indeterminate?: boolean;
 };
 
 const CheckboxSvg = ({ indeterminate }: CheckboxSvgProps) => (
-  <StyledCheckableInputSvgWrapper data-role="checkable-wrapper">
+  <div data-role="checkable-input-svg-wrapper">
     {indeterminate ? (
       <svg
         data-role="indeterminate-svg"
@@ -24,7 +23,7 @@ const CheckboxSvg = ({ indeterminate }: CheckboxSvgProps) => (
         />
       </svg>
     )}
-  </StyledCheckableInputSvgWrapper>
+  </div>
 );
 
 export default CheckboxSvg;

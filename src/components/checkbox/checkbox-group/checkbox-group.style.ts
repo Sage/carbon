@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import type { CheckboxSizes } from "../checkbox-group/checkbox-group.component";
 
 const sizeMap = {
   small: {
@@ -16,7 +17,7 @@ const sizeMap = {
 };
 
 const StyledCheckboxGroupContent = styled.div<{
-  $size: "small" | "medium" | "large";
+  $size: CheckboxSizes;
   $inline?: boolean;
 }>`
   ${({ $size, $inline }) => css`

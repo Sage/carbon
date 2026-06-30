@@ -211,7 +211,7 @@ test("should render with provided `validationMessagePositionTop` set to false", 
 test("should render with expected styles when `size` is large", () => {
   render(<Checkbox label="label" size="large" checked onChange={() => {}} />);
 
-  expect(screen.getByTestId("checkable-wrapper")).toBeVisible();
+  expect(screen.getByTestId("checkable-input-svg-wrapper")).toBeVisible();
 });
 
 testStyledSystemMargin(

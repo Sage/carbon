@@ -39,15 +39,18 @@ const ControlledCheckboxGroup = (
   };
   return (
     <CheckboxGroup {...args}>
-      {["1", "2", "3"].map((option) => (
-        <Checkbox
-          key={option}
-          label={`Checkbox ${option}`}
-          value={`checkbox-${option}`}
-          checked={selectedValues.includes(`checkbox-${option}`)}
-          onChange={handleChange}
-        />
-      ))}
+      {["1", "2", "3"].map((option) => {
+        const checkboxValue = `checkbox-${option}`;
+        return (
+          <Checkbox
+            key={option}
+            label={`Checkbox ${option}`}
+            value={checkboxValue}
+            checked={selectedValues.includes(checkboxValue)}
+            onChange={handleChange}
+          />
+        );
+      })}
     </CheckboxGroup>
   );
 };

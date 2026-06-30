@@ -37,7 +37,7 @@ description: Carbon CheckboxGroup component props and usage examples.
 | mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
 | required | boolean \| undefined | No |  |  |  | Flag to configure CheckboxGroup as mandatory |  |
-| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | Size of the CheckboxGroup. | "medium" |
+| size | CheckboxSizes \| undefined | No |  |  |  | Size of the CheckboxGroup. | "medium" |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | info | string \| boolean \| undefined | No |  | Yes | Information validation is no longer supported on this component. | [Legacy] Indicate additional information. |  |

@@ -1,10 +1,11 @@
 import React from "react";
+import type { CheckboxSizes } from "../checkbox-group/checkbox-group.component";
 
 type CheckboxGroupContext = {
   inline?: boolean;
   error?: boolean;
   warning?: boolean;
-  size?: "small" | "medium" | "large";
+  size?: CheckboxSizes;
   disabled?: boolean;
   required?: boolean;
 };

@@ -7,7 +7,13 @@
  * Styles of any children should be handled in their respective component files.
  */
 
-import React, { useRef, useState, useLayoutEffect, useContext } from "react";
+import React, {
+  useRef,
+  useState,
+  useLayoutEffect,
+  useContext,
+  ReactNode,
+} from "react";
 import {
   StyledCheckableInput,
   StyledCheckableInputWrapper,
@@ -31,13 +37,13 @@ export interface CommonCheckableInputProps
   /** Unique identifier for the input. Will use a randomly generated GUID if none is provided. */
   id?: string;
   /** Content of the label. */
-  label?: React.ReactNode;
+  label?: ReactNode;
   /** Additional hint text rendered below the label. */
-  inputHint?: React.ReactNode;
+  inputHint?: ReactNode;
   /** If true, the component will be disabled. */
   disabled?: boolean;
   /** Content to be rendered below the input when checked, is not supported when inputs are inline. */
-  progressiveDisclosure?: React.ReactNode;
+  progressiveDisclosure?: ReactNode;
   /**
    * Id of the validation icon
    * @deprecated Validation icons with tooltips are no longer supported on this component.
@@ -47,7 +53,7 @@ export interface CommonCheckableInputProps
 
 export interface CheckableInputProps extends CommonCheckableInputProps {
   /** Element to be rendered as the visible input. */
-  children?: React.ReactNode;
+  children?: ReactNode;
   /** HTML type attribute of the input. */
   type: string;
   /** Size of the component. */

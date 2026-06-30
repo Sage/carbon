@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useEffect } from "react";
+import React, { useContext, useRef, useEffect, ReactNode } from "react";
 import { MarginProps } from "styled-system";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
@@ -14,6 +14,7 @@ import ValidationMessage from "../../__internal__/validation-message/__next__";
 import guid from "../../__internal__/utils/helpers/guid";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import FieldsetContext from "../fieldset/__internal__/fieldset.context";
+import type { CheckboxSizes } from "./checkbox-group/checkbox-group.component";
 
 export interface CheckboxProps
   extends CommonCheckableInputProps,
@@ -50,7 +51,7 @@ export interface CheckboxProps
   /** Indeterminate state of the input, will override checked value. */
   indeterminate?: boolean;
   /** Size of the CheckboxGroup. */
-  size?: "small" | "medium" | "large";
+  size?: CheckboxSizes;
   /** Flag to configure Checkbox as mandatory. */
   required?: boolean;
   /** Error message to be displayed when validation fails. */
@@ -69,7 +70,7 @@ export interface CheckboxProps
    * Help content to be displayed under an input
    * @deprecated The `fieldHelp` prop is no longer supported, please use the `inputHint` prop instead.
    */
-  fieldHelp?: React.ReactNode;
+  fieldHelp?: ReactNode;
   /**
    * If true, the FieldHelp will be displayed inline
    * To be used with labelInline prop set to true
@@ -80,7 +81,7 @@ export interface CheckboxProps
    * [Legacy] The content for the help tooltip, to appear next to the Label
    * @deprecated The `labelHelp` prop is deprecated and will be removed in a future release. Please use the `inputHint` prop instead.
    */
-  labelHelp?: React.ReactNode;
+  labelHelp?: ReactNode;
   /**
    * [Legacy] Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8)
    * @deprecated Custom spacing for labels is no longer supported on this component.
@@ -181,11 +182,13 @@ export const Checkbox = React.forwardRef(
       }
     };
 
+    const isIndeterminate = !!indeterminate;
+
     // Set indeterminate state
     useEffect(() => {
       /* istanbul ignore else */
       if (internalInputRef.current) {
-        internalInputRef.current.indeterminate = !!indeterminate;
+        internalInputRef.current.indeterminate = isIndeterminate;
       }
     }, [indeterminate]);
 
@@ -228,7 +231,7 @@ export const Checkbox = React.forwardRef(
         {...(!inline && { progressiveDisclosure })}
         {...rest}
       >
-        <CheckboxSvg indeterminate={!!indeterminate} />
+        <CheckboxSvg indeterminate={isIndeterminate} />
       </CheckableInput>
     );
 
@@ -238,7 +241,7 @@ export const Checkbox = React.forwardRef(
         $size={actualSize}
         $error={actualError}
         $checked={!!checked}
-        $indeterminate={!!indeterminate}
+        $indeterminate={isIndeterminate}
         {...filterStyledSystemMarginProps(rest)}
         {...tagComponent("checkbox", {
           "data-element": dataElement,

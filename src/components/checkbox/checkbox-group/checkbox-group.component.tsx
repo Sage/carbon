@@ -9,6 +9,7 @@ import CheckboxGroupContext from "../__internal__/checkbox-group.context";
 import StyledCheckboxGroupContent from "./checkbox-group.style";
 import guid from "../../../__internal__/utils/helpers/guid";
 
+export type CheckboxSizes = "small" | "medium" | "large";
 export interface CheckboxGroupProps extends MarginProps, TagProps {
   /**
    * Unique identifier for the component.
@@ -20,7 +21,7 @@ export interface CheckboxGroupProps extends MarginProps, TagProps {
   /** Content for the hint text below the legend. */
   legendHint?: string;
   /** Size of the CheckboxGroup. */
-  size?: "small" | "medium" | "large";
+  size?: CheckboxSizes;
   /** Error message to be displayed when validation fails. */
   error?: string;
   /**

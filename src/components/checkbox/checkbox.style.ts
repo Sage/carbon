@@ -1,9 +1,9 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 import HiddenCheckableInputStyle from "../../__internal__/checkable-input/hidden-checkable-input.style";
-import StyledCheckableInputSvgWrapper from "../../__internal__/checkable-input/checkable-input-svg-wrapper.style";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 import addFocusStyling from "../../style/utils/add-focus-styling";
+import type { CheckboxSizes } from "./checkbox-group/checkbox-group.component";
 
 const sizeMap = {
   small: {
@@ -27,7 +27,7 @@ const sizeMap = {
 };
 interface StyledCheckboxProps {
   $isDisabled?: boolean;
-  $size: "small" | "medium" | "large";
+  $size: CheckboxSizes;
   $error?: boolean;
   $checked?: boolean;
   $indeterminate?: boolean;
@@ -40,7 +40,7 @@ export const StyledCheckbox = styled.div.attrs(
   ${margin};
 
   ${({ $isDisabled, $size, $error, $checked, $indeterminate }) => css`
-    ${StyledCheckableInputSvgWrapper} {
+    [data-role="checkable-input-svg-wrapper"] {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -106,7 +106,7 @@ export const StyledCheckbox = styled.div.attrs(
     `}
 
     ${HiddenCheckableInputStyle}:not([disabled]) {
-      &:focus + ${StyledCheckableInputSvgWrapper} {
+      &:focus + [data-role="checkable-input-svg-wrapper"] {
         ${addFocusStyling()}
       }
     }
@@ -114,7 +114,7 @@ export const StyledCheckbox = styled.div.attrs(
 `;
 
 export const StyledCheckboxContentWrapper = styled.div<{
-  $size: "small" | "medium" | "large";
+  $size: CheckboxSizes;
 }>`
   ${({ $size }) => css`
     display: flex;

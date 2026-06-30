@@ -1,7 +1,6 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 import HiddenCheckableInputStyle from "../../__internal__/checkable-input/hidden-checkable-input.style";
-import StyledCheckableInputSvgWrapper from "../../__internal__/checkable-input/checkable-input-svg-wrapper.style";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 
@@ -34,7 +33,8 @@ const RadioButtonStyle = styled.div.attrs(
       font: ${sizeMap[$size].labelFont};
     }
 
-    ${StyledCheckableInputSvgWrapper}, svg {
+    [data-role="checkable-input-svg-wrapper"],
+    svg {
       border-radius: var(--global-radius-action-circle);
     }
 
@@ -45,7 +45,7 @@ const RadioButtonStyle = styled.div.attrs(
     }
 
     ${HiddenCheckableInputStyle},
-    ${StyledCheckableInputSvgWrapper},
+    [data-role="checkable-input-svg-wrapper"],
     svg {
       height: ${sizeMap[$size].svgSize};
       width: ${sizeMap[$size].svgSize};
@@ -65,12 +65,12 @@ const RadioButtonStyle = styled.div.attrs(
       `}
     }
 
-    ${HiddenCheckableInputStyle}:checked + ${StyledCheckableInputSvgWrapper} circle {
+    ${HiddenCheckableInputStyle}:checked + [data-role="checkable-input-svg-wrapper"]circle {
       fill: var(--input-typical-icon-active);
     }
 
     ${HiddenCheckableInputStyle}:not([disabled]) {
-      &:focus + ${StyledCheckableInputSvgWrapper} {
+      &:focus + [data-role="checkable-input-svg-wrapper"] {
         ${addFocusStyling()}
       }
     }
@@ -86,7 +86,7 @@ const RadioButtonStyle = styled.div.attrs(
         fill: var(--input-typical-bg-disabled);
       }
 
-      ${HiddenCheckableInputStyle}:checked + ${StyledCheckableInputSvgWrapper} circle {
+      ${HiddenCheckableInputStyle}:checked + [data-role="checkable-input-svg-wrapper"]circle {
         fill: var(--input-typical-icon-disabled);
       }
     `}
