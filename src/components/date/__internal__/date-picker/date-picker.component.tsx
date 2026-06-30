@@ -34,7 +34,49 @@ export interface PickerProps
   modifiers?: Partial<Modifiers>;
 }
 
-export interface DatePickerProps {
+export type DatePickerVariant = "typical" | "legacy";
+
+export type DatePickerMode = "single" | "range";
+
+export interface DatePickerLabels {
+  closeButton?: string;
+  monthSelect?: string;
+  selectDatesButton?: string;
+  yearSelect?: string;
+}
+
+export interface DatePickerYearRange {
+  end: number;
+  start: number;
+}
+
+export interface DateRangeSelection {
+  startDate?: Date;
+  endDate?: Date;
+}
+
+export interface SharedDatePickerProps {
+  /** Rendering variant for the picker trigger. */
+  pickerVariant?: DatePickerVariant;
+  /** Selection mode to support single date and date range flows. */
+  pickerMode?: DatePickerMode;
+  /** Currently focused calendar month. */
+  focusedMonth?: Date;
+  /** Callback triggered when the focused calendar month changes. */
+  onFocusedMonthChange?: (month: Date | undefined) => void;
+  /** Currently selected date for single date mode. */
+  selectedDays?: Date | undefined;
+  /** Currently selected date range for date range mode. */
+  selectedRange?: DateRangeSelection;
+  /** Accessible labels for internal calendar controls. */
+  labels?: DatePickerLabels;
+  /** Available year range for the calendar year selector. */
+  yearRange?: DatePickerYearRange;
+  /** Callback triggered when the select-dates action is used in range mode. */
+  onSelectDates?: () => void;
+}
+
+export interface DatePickerProps extends SharedDatePickerProps {
   /**
    * [Legacy] Boolean to toggle where DatePicker is rendered in relation to the Date Input
    * @deprecated
@@ -51,8 +93,6 @@ export interface DatePickerProps {
   pickerProps?: PickerProps;
   /** Element that the DatePicker will be displayed under */
   inputElement: RefObject<HTMLElement>;
-  /** Currently selected date */
-  selectedDays?: Date | undefined;
   /** Callback to handle mousedown event on picker container */
   pickerMouseDown?: () => void;
   /** Sets whether the picker should be displayed */
@@ -86,6 +126,9 @@ export const DatePicker = ({
   minDate,
   maxDate,
   selectedDays,
+  selectedRange,
+  focusedMonth: focusedMonthProp,
+  onFocusedMonthChange,
   disablePortal = true,
   onDayClick,
   pickerMouseDown,
@@ -104,8 +147,18 @@ export const DatePicker = ({
     );
   }
 
-  const [focusedMonth, setFocusedMonth] = useState<Date | undefined>(
-    selectedDays || new Date(),
+  const [uncontrolledFocusedMonth, setUncontrolledFocusedMonth] = useState<
+    Date | undefined
+  >(selectedDays || selectedRange?.startDate || new Date());
+  const focusedMonth = focusedMonthProp || uncontrolledFocusedMonth;
+  const setFocusedMonth = useCallback(
+    (month: Date | undefined) => {
+      if (!focusedMonthProp) {
+        setUncontrolledFocusedMonth(month);
+      }
+      onFocusedMonthChange?.(month);
+    },
+    [focusedMonthProp, onFocusedMonthChange],
   );
   const locale = useLocale();
   const { localize, options } = locale.date.dateFnsLocale();
@@ -142,6 +195,10 @@ export const DatePicker = ({
     (ev: KeyboardEvent) => {
       /* istanbul ignore else */
       if (open && Events.isEscKey(ev)) {
+        // resets the focused month to the currently selected single date on Esc
+        // TODO: in range mode selectedDays will be undefined, causing the focused month
+        // to fall back to the current date - when range mode is wired up this should
+        // reset to selectedRange.startDate instead
         setFocusedMonth(selectedDays);
         inputElement.current?.querySelector("input")?.focus();
         setOpen(false);
@@ -149,7 +206,7 @@ export const DatePicker = ({
         ev.stopPropagation();
       }
     },
-    [inputElement, onPickerClose, open, selectedDays, setOpen],
+    [inputElement, onPickerClose, open, selectedDays, setFocusedMonth, setOpen],
   );
 
   const handleOnKeyDown = (ev: React.KeyboardEvent<HTMLDivElement>) => {
@@ -213,16 +270,23 @@ export const DatePicker = ({
   useEffect(() => {
     if (selectedDays) {
       setFocusedMonth(selectedDays);
+    } else if (selectedRange?.startDate) {
+      setFocusedMonth(selectedRange.startDate);
     }
-  }, [selectedDays]);
+  }, [selectedDays, selectedRange?.startDate, setFocusedMonth]);
 
   useEffect(() => {
+    // when the picker closes, re-sync the focused month if it has drifted from the
+    // selected single date (e.g. the user navigated months without confirming a selection)
+    // TODO: in range mode selectedDays is undefined so this effect is a no-op -
+    // when range mode is wired up, selectedRange.startDate should be used here too,
+    // consistent with the selection-change effect above
     if (!open && selectedDays) {
       const fMonth = focusedMonth?.getMonth();
       const sMonth = selectedDays?.getMonth();
       if (fMonth !== sMonth) setFocusedMonth(selectedDays);
     }
-  }, [focusedMonth, open, selectedDays]);
+  }, [focusedMonth, open, selectedDays, setFocusedMonth]);
 
   if (!open) {
     return null;
@@ -312,6 +376,7 @@ export const DatePicker = ({
             }}
             {...pickerProps}
             showOutsideDays
+            // TODO: wire pickerMode - currently hardcoded; update when range mode is implemented
             mode="single"
           />
         </StyledDayPicker>

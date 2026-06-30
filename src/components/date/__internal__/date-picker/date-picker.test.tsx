@@ -94,6 +94,65 @@ test("should render the day element that matches the `selectedDate` when prop is
   );
 });
 
+test("should render the month from the controlled `focusedMonth` prop", () => {
+  render(
+    <DatePickerWithInput
+      focusedMonth={new Date(2025, 11, 1)}
+      setOpen={() => {}}
+      open
+    />,
+  );
+
+  const monthCaption = screen.getByRole("status");
+
+  expect(monthCaption).toHaveTextContent("December 2025");
+});
+
+test("should call `onFocusedMonthChange` when the focused month changes", async () => {
+  const user = userEvent.setup();
+  const onFocusedMonthChange = jest.fn();
+
+  render(
+    <DatePickerWithInput
+      focusedMonth={new Date(2025, 11, 1)}
+      onFocusedMonthChange={onFocusedMonthChange}
+      setOpen={() => {}}
+      open
+    />,
+  );
+
+  const nextButton = screen.getByRole("button", { name: "Next month" });
+  await user.click(nextButton);
+
+  expect(onFocusedMonthChange).toHaveBeenCalledWith(new Date(2026, 0, 1));
+});
+
+test("should use the current date as the initial focused month when neither `selectedDays` nor `selectedRange` is given", () => {
+  jest.useFakeTimers();
+  jest.setSystemTime(new Date(2025, 5, 15)); // June 2025
+
+  render(<DatePickerWithInput setOpen={() => {}} open />);
+
+  const monthCaption = screen.getByRole("status");
+  expect(monthCaption).toHaveTextContent("June 2025");
+
+  jest.useRealTimers();
+});
+
+test("should use the selected range start date as the initial focused month", () => {
+  render(
+    <DatePickerWithInput
+      selectedRange={{ startDate: new Date(2024, 6, 1) }}
+      setOpen={() => {}}
+      open
+    />,
+  );
+
+  const monthCaption = screen.getByRole("status");
+
+  expect(monthCaption).toHaveTextContent("July 2024");
+});
+
 test("should render the expected weekday with `aria-disabled=true` attribute when `minDate` is '2019-04-02'", () => {
   render(
     <DatePickerWithInput
