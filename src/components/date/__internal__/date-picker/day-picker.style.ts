@@ -333,6 +333,13 @@ const StyledDayPicker = styled.div.attrs(applyBaseTheme)`
 
   .rdp-months {
     padding: 0;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .rdp-nav {
+    position: static;
+    justify-content: space-between;
   }
 
   .rdp-month {

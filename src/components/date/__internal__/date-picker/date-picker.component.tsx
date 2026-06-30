@@ -114,8 +114,19 @@ const popoverMiddleware = [
   }),
 ];
 
-const Nav = Navbar;
 let deprecateDisablePortalWarnTriggered = false;
+
+const defaultYearRange = () => {
+  const currentYear = new Date().getFullYear();
+
+  return {
+    end: currentYear + 10,
+    start: currentYear - 10,
+  };
+};
+
+const getYears = ({ start, end }: DatePickerYearRange) =>
+  Array.from({ length: end - start + 1 }, (_, index) => start + index);
 
 export const DatePicker = ({
   inputElement,
@@ -125,6 +136,8 @@ export const DatePicker = ({
   selectedRange,
   focusedMonth: focusedMonthProp,
   onFocusedMonthChange,
+  labels,
+  yearRange,
   disablePortal = true,
   onDayClick,
   pickerMouseDown,
@@ -146,6 +159,7 @@ export const DatePicker = ({
   const [uncontrolledFocusedMonth, setUncontrolledFocusedMonth] = useState<
     Date | undefined
   >(selectedDays || selectedRange?.startDate || new Date());
+  const pendingSelectorFocus = useRef<"month" | "year" | null>(null);
   const focusedMonth = focusedMonthProp || uncontrolledFocusedMonth;
   const setFocusedMonth = useCallback(
     (month: Date | undefined) => {
@@ -176,6 +190,20 @@ export const DatePicker = ({
         .substring(0, isGivenLocale("de") ? 2 : 3),
     );
   }, [locale, localize]);
+  const months = useMemo(
+    () =>
+      Array.from(
+        { length: 12 },
+        (_, index) =>
+          localize?.month(index as Month, { width: "wide" }) ||
+          String(index + 1),
+      ),
+    [localize],
+  );
+  const years = useMemo(
+    () => getYears(yearRange || defaultYearRange()),
+    [yearRange],
+  );
   const ref = useRef<HTMLDivElement>(null);
 
   const handleDayClick = (
@@ -208,11 +236,20 @@ export const DatePicker = ({
   const handleOnKeyDown = (ev: React.KeyboardEvent<HTMLDivElement>) => {
     /* istanbul ignore else */
     if (
-      ref.current?.querySelector(".rdp-nav button") ===
+      ref.current?.querySelector(".rdp-nav select") ===
         document.activeElement &&
       Events.isTabKey(ev) &&
       Events.isShiftKey(ev)
     ) {
+      ev.preventDefault();
+      setOpen(false);
+      onPickerClose?.();
+      inputElement.current?.querySelector("input")?.focus();
+    }
+  };
+
+  const handleMonthKeyDown = (ev: React.KeyboardEvent<HTMLSelectElement>) => {
+    if (Events.isTabKey(ev) && Events.isShiftKey(ev)) {
       ev.preventDefault();
       setOpen(false);
       onPickerClose?.();
@@ -243,7 +280,7 @@ export const DatePicker = ({
               /* istanbul ignore next */ [],
           ) as HTMLElement[];
           const elementsInPicker = Array.from(
-            ref.current?.querySelectorAll("button, [tabindex]") ||
+            ref.current?.querySelectorAll("button, select, [tabindex]") ||
               /* istanbul ignore next */ [],
           ) as HTMLElement[];
           const filteredElements = elements.filter(
@@ -284,12 +321,36 @@ export const DatePicker = ({
     }
   }, [focusedMonth, open, selectedDays, setFocusedMonth]);
 
+  useEffect(() => {
+    if (!open || !pendingSelectorFocus.current) return;
+
+    ref.current
+      ?.querySelector<HTMLElement>(
+        `[data-role="date-picker-${pendingSelectorFocus.current}-select"]`,
+      )
+      ?.focus();
+
+    pendingSelectorFocus.current = null;
+  }, [focusedMonth, open]);
+
   if (!open) {
     return null;
   }
 
   const handleTabGuardFocus = () => {
-    ref.current?.querySelector("button")?.focus();
+    ref.current?.querySelector<HTMLElement>("select, button")?.focus();
+  };
+
+  const handleMonthChange = (month: number) => {
+    const previousMonth = focusedMonth || new Date();
+    pendingSelectorFocus.current = "month";
+    setFocusedMonth(new Date(previousMonth.getFullYear(), month, 1));
+  };
+
+  const handleYearChange = (year: number) => {
+    const previousMonth = focusedMonth || new Date();
+    pendingSelectorFocus.current = "year";
+    setFocusedMonth(new Date(year, previousMonth.getMonth(), 1));
   };
 
   return (
@@ -340,7 +401,19 @@ export const DatePicker = ({
               handleDayClick(date, e);
             }}
             components={{
-              Nav,
+              Nav: ({ className }) => (
+                <Navbar
+                  className={className}
+                  labels={labels}
+                  months={months}
+                  onMonthChange={handleMonthChange}
+                  onMonthKeyDown={handleMonthKeyDown}
+                  onYearChange={handleYearChange}
+                  selectedMonth={focusedMonth?.getMonth()}
+                  selectedYear={focusedMonth?.getFullYear()}
+                  years={years}
+                />
+              ),
               Weekday: (props) => {
                 const fixedDays = {
                   Sunday: 0,

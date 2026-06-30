@@ -15,10 +15,7 @@ import {
   containsClass,
 } from "../../../playwright/support/helper";
 import { CHARACTERS } from "../../../playwright/support/constants";
-import {
-  dayPickerWrapper,
-  dayPickerHeading,
-} from "../../../playwright/components/date-input/index";
+import { dayPickerWrapper } from "../../../playwright/components/date-input/index";
 
 dayjs.extend(advancedFormat);
 
@@ -34,7 +31,6 @@ const PREVIOUS_MONTH = dayjs("2022-05-01")
 const MIN_DATE = "04/04/2030";
 const DAY_BEFORE_MIN_DATE = "Wednesday, April 3rd, 2030";
 const DAY_AFTER_MAX_DATE = "Friday, April 5th, 2030";
-const arrowKeys = ["ArrowRight", "ArrowLeft", "ArrowUp", "ArrowDown"];
 
 test.describe("Functionality tests", () => {
   testData.forEach((fieldHelp) => {
@@ -184,7 +180,7 @@ test.describe("Functionality tests", () => {
     });
   });
 
-  test("should use chevron_right arrow in DayPicker to verify next month is shown", async ({
+  test("should use month selector in DayPicker to verify next month is shown", async ({
     mount,
     page,
   }) => {
@@ -196,13 +192,12 @@ test.describe("Functionality tests", () => {
     const calendarIcon = page.getByTestId("icon");
     await calendarIcon.click();
 
-    const arrowElement = getDataElementByValue(page, "chevron_right");
-    await arrowElement.click();
-    const pickerHeading = dayPickerHeading(page);
+    await page.getByRole("combobox", { name: "Month" }).selectOption("5");
+    const pickerHeading = page.getByTestId("date-picker").getByRole("status");
     await expect(pickerHeading).toHaveText(NEXT_MONTH);
   });
 
-  test("should use chevron_left arrow in DayPicker to verify previous month is shown", async ({
+  test("should use month selector in DayPicker to verify previous month is shown", async ({
     mount,
     page,
   }) => {
@@ -214,53 +209,9 @@ test.describe("Functionality tests", () => {
     const calendarIcon = page.getByTestId("icon");
     await calendarIcon.click();
 
-    const arrowElement = getDataElementByValue(page, "chevron_left");
-    await arrowElement.click();
-    const pickerHeading = dayPickerHeading(page);
+    await page.getByRole("combobox", { name: "Month" }).selectOption("3");
+    const pickerHeading = page.getByTestId("date-picker").getByRole("status");
     await expect(pickerHeading).toHaveText(PREVIOUS_MONTH);
-  });
-
-  arrowKeys.forEach((key) => {
-    test(`should not change the displayed month when ${key} is pressed and next button is focused`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<DateInputCustom value="01/05/2022" />);
-
-      const calendarIcon = page.getByTestId("icon");
-      await calendarIcon.click();
-
-      const datePicker = page.getByTestId("date-picker");
-      await datePicker.waitFor();
-
-      const nextMonthButton = page.getByRole("button", { name: "Next month" });
-      await nextMonthButton.press(key);
-
-      const pickerHeading = datePicker.getByRole("status");
-      await expect(pickerHeading).toHaveText("May 2022");
-    });
-  });
-
-  arrowKeys.forEach((key) => {
-    test(`should not change the displayed month when ${key} is pressed and previous button is focused`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<DateInputCustom value="01/05/2022" />);
-
-      const calendarIcon = page.getByTestId("icon");
-      await calendarIcon.click();
-
-      const nextMonthButton = page.getByRole("button", { name: "Next month" });
-      await nextMonthButton.waitFor();
-
-      await nextMonthButton.focus();
-      await nextMonthButton.press(key);
-
-      const datePicker = page.getByTestId("date-picker");
-      const pickerHeading = datePicker.getByRole("status");
-      await expect(pickerHeading).toHaveText("May 2022");
-    });
   });
 
   test(`should allow a user to tab into the picker and through its controls`, async ({
@@ -276,16 +227,12 @@ test.describe("Functionality tests", () => {
     await dayPicker.waitFor();
 
     await page.keyboard.press("Tab");
-    const previousMonthButton = page.getByRole("button", {
-      name: "Previous month",
-    });
-    await expect(previousMonthButton).toBeFocused();
+    const monthSelect = page.getByRole("combobox", { name: "Month" });
+    await expect(monthSelect).toBeFocused();
 
     await page.keyboard.press("Tab");
-    const nextMonthButton = page.getByRole("button", {
-      name: "Next month",
-    });
-    await expect(nextMonthButton).toBeFocused();
+    const yearSelect = page.getByRole("combobox", { name: "Year" });
+    await expect(yearSelect).toBeFocused();
 
     await page.keyboard.press("Tab");
     const dayButton = page.getByRole("button", {
@@ -330,9 +277,7 @@ test.describe("Functionality tests", () => {
     const todayButton = page.getByRole("button", { name: `Today, ${TODAY}` });
     await todayButton.waitFor();
 
-    await page
-      .getByRole("button", { name: "Next month", exact: true })
-      .press("Tab");
+    await page.getByRole("combobox", { name: "Year" }).press("Tab");
 
     await expect(todayButton).toBeFocused();
   });
@@ -350,9 +295,7 @@ test.describe("Functionality tests", () => {
     const datePicker = page.getByTestId("date-picker");
     await datePicker.waitFor();
 
-    await page
-      .getByRole("button", { name: "Next month", exact: true })
-      .press("Tab");
+    await page.getByRole("combobox", { name: "Year" }).press("Tab");
     const day14Button = page.getByRole("button", {
       name: "Thursday, April 14th, 2022",
     });
@@ -522,7 +465,7 @@ test.describe("Functionality tests", () => {
     await expect(pickerHeading).toHaveText("June 2022");
   });
 
-  test("should change to next month when Enter is pressed and next button is focused", async ({
+  test("should change to next month when month selector is changed", async ({
     mount,
     page,
   }) => {
@@ -531,18 +474,13 @@ test.describe("Functionality tests", () => {
     const calendarIcon = page.getByTestId("icon");
     await calendarIcon.click();
 
-    const arrowParent = getDataElementByValue(page, "chevron_right").locator(
-      "..",
-    );
-    await arrowParent.focus();
-    const arrowElement = getDataElementByValue(page, "chevron_right");
-    await arrowElement.press("Enter");
+    await page.getByRole("combobox", { name: "Month" }).selectOption("5");
 
-    const pickerHeading = dayPickerHeading(page);
+    const pickerHeading = page.getByTestId("date-picker").getByRole("status");
     await expect(pickerHeading).toHaveText(NEXT_MONTH);
   });
 
-  test("should change to next month when Space is pressed and next button is focused", async ({
+  test("should change to next year when year selector is changed", async ({
     mount,
     page,
   }) => {
@@ -551,18 +489,13 @@ test.describe("Functionality tests", () => {
     const calendarIcon = page.getByTestId("icon");
     await calendarIcon.click();
 
-    const arrowParent = getDataElementByValue(page, "chevron_right").locator(
-      "..",
-    );
-    await arrowParent.focus();
-    const arrowElement = getDataElementByValue(page, "chevron_right");
-    await arrowElement.press("Space");
+    await page.getByRole("combobox", { name: "Year" }).selectOption("2023");
 
-    const pickerHeading = dayPickerHeading(page);
-    await expect(pickerHeading).toHaveText(NEXT_MONTH);
+    const pickerHeading = page.getByTestId("date-picker").getByRole("status");
+    await expect(pickerHeading).toHaveText("May 2023");
   });
 
-  test("should change to previous month when Enter is pressed and previous button is focused", async ({
+  test("should change to previous month when month selector is changed", async ({
     mount,
     page,
   }) => {
@@ -571,18 +504,13 @@ test.describe("Functionality tests", () => {
     const calendarIcon = page.getByTestId("icon");
     await calendarIcon.click();
 
-    const arrowParent = getDataElementByValue(page, "chevron_left").locator(
-      "..",
-    );
-    await arrowParent.focus();
-    const arrowElement = getDataElementByValue(page, "chevron_left");
-    await arrowElement.press("Enter");
+    await page.getByRole("combobox", { name: "Month" }).selectOption("3");
 
-    const pickerHeading = dayPickerHeading(page);
+    const pickerHeading = page.getByTestId("date-picker").getByRole("status");
     await expect(pickerHeading).toHaveText(PREVIOUS_MONTH);
   });
 
-  test("should change to previous month when Space is pressed and previous button is focused", async ({
+  test("should change to previous year when year selector is changed", async ({
     mount,
     page,
   }) => {
@@ -591,15 +519,10 @@ test.describe("Functionality tests", () => {
     const calendarIcon = page.getByTestId("icon");
     await calendarIcon.click();
 
-    const arrowParent = getDataElementByValue(page, "chevron_left").locator(
-      "..",
-    );
-    await arrowParent.focus();
-    const arrowElement = getDataElementByValue(page, "chevron_left");
-    await arrowElement.press("Space");
+    await page.getByRole("combobox", { name: "Year" }).selectOption("2021");
 
-    const pickerHeading = dayPickerHeading(page);
-    await expect(pickerHeading).toHaveText(PREVIOUS_MONTH);
+    const pickerHeading = page.getByTestId("date-picker").getByRole("status");
+    await expect(pickerHeading).toHaveText("May 2021");
   });
 
   test(`when maxWidth has no value it should render as 100%`, async ({

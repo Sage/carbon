@@ -4,190 +4,94 @@ import userEvent from "@testing-library/user-event";
 
 import Navbar from "./navbar.component";
 
-test("should call `onPreviousClick` when the user clicks the previous button", async () => {
-  const user = userEvent.setup();
-  const onPreviousClick = jest.fn();
-  const onNextClick = jest.fn();
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+const years = [2024, 2025, 2026];
+
+const renderNavbar = (
+  props: Partial<React.ComponentProps<typeof Navbar>> = {},
+) =>
   render(
     <Navbar
-      onPreviousClick={onPreviousClick}
-      onNextClick={onNextClick}
       className="custom-class"
+      months={months}
+      selectedMonth={1}
+      selectedYear={2025}
+      years={years}
+      {...props}
     />,
   );
-  const prevButton = screen.getByRole("button", { name: "Previous month" });
-  await user.click(prevButton);
-
-  expect(onPreviousClick).toHaveBeenCalledTimes(1);
-});
-
-test("should call `onNextClick` when the user clicks the next button", async () => {
-  const user = userEvent.setup();
-  const onPreviousClick = jest.fn();
-  const onNextClick = jest.fn();
-  render(
-    <Navbar
-      onPreviousClick={onPreviousClick}
-      onNextClick={onNextClick}
-      className="custom-class"
-    />,
-  );
-  const nextButton = screen.getByRole("button", { name: "Next month" });
-  await user.click(nextButton);
-
-  expect(onNextClick).toHaveBeenCalledTimes(1);
-});
 
 test("should apply the custom class passed via `className` prop", () => {
-  render(
-    <Navbar
-      onPreviousClick={jest.fn()}
-      onNextClick={jest.fn()}
-      className="custom-class"
-    />,
-  );
+  renderNavbar();
 
   expect(screen.getByTestId("date-navbar")).toHaveClass("custom-class");
 });
 
-test("should apply the expected aria-labels to the button controls", () => {
-  render(<Navbar onPreviousClick={jest.fn()} onNextClick={jest.fn()} />);
-  const prevButton = screen.getByRole("button", { name: "Previous month" });
-  const nextButton = screen.getByRole("button", { name: "Next month" });
+test("should render native month and year select controls with default labels", () => {
+  renderNavbar();
 
-  expect(prevButton).toHaveAttribute("aria-label", "Previous month");
-  expect(nextButton).toHaveAttribute("aria-label", "Next month");
+  expect(screen.getByRole("combobox", { name: "Month" })).toHaveValue("1");
+  expect(screen.getByRole("combobox", { name: "Year" })).toHaveValue("2025");
 });
 
-test("should not change the current month when 'arrowdown' key is pressed and previous button is focused", async () => {
-  const user = userEvent.setup();
-  const onPreviousClick = jest.fn();
-  render(<Navbar onPreviousClick={onPreviousClick} onNextClick={jest.fn()} />);
-  const prevButton = screen.getByRole("button", { name: "Previous month" });
-  prevButton.focus();
-  await user.keyboard("{arrowdown}");
+test("should render custom labels for the select controls", () => {
+  renderNavbar({
+    labels: {
+      monthSelect: "Choose month",
+      yearSelect: "Choose year",
+    },
+  });
 
-  expect(onPreviousClick).not.toHaveBeenCalled();
+  expect(screen.getByRole("combobox", { name: "Choose month" })).toBeVisible();
+  expect(screen.getByRole("combobox", { name: "Choose year" })).toBeVisible();
 });
 
-test("should not change the current month when 'arrowup' key is pressed and previous button is focused", async () => {
-  const user = userEvent.setup();
-  const onPreviousClick = jest.fn();
-  render(<Navbar onPreviousClick={onPreviousClick} onNextClick={jest.fn()} />);
-  const prevButton = screen.getByRole("button", { name: "Previous month" });
-  prevButton.focus();
-  await user.keyboard("{arrowup}");
+test("should render all month and year options", () => {
+  renderNavbar();
 
-  expect(onPreviousClick).not.toHaveBeenCalled();
+  const monthSelect = screen.getByRole("combobox", { name: "Month" });
+  const yearSelect = screen.getByRole("combobox", { name: "Year" });
+
+  expect(monthSelect).toHaveTextContent("January");
+  expect(monthSelect).toHaveTextContent("December");
+  expect(yearSelect).toHaveTextContent("2024");
+  expect(yearSelect).toHaveTextContent("2026");
 });
 
-test("should not change the current month when 'arrowleft' key is pressed and previous button is focused", async () => {
+test("should call `onMonthChange` when the selected month changes", async () => {
   const user = userEvent.setup();
-  const onPreviousClick = jest.fn();
-  render(<Navbar onPreviousClick={onPreviousClick} onNextClick={jest.fn()} />);
-  const prevButton = screen.getByRole("button", { name: "Previous month" });
-  prevButton.focus();
-  await user.keyboard("{arrowleft}");
+  const onMonthChange = jest.fn();
+  renderNavbar({ onMonthChange });
 
-  expect(onPreviousClick).not.toHaveBeenCalled();
+  await user.selectOptions(screen.getByRole("combobox", { name: "Month" }), [
+    "4",
+  ]);
+
+  expect(onMonthChange).toHaveBeenCalledWith(4);
 });
 
-test("should not change the current month when 'arrowright' key is pressed and previous button is focused", async () => {
+test("should call `onYearChange` when the selected year changes", async () => {
   const user = userEvent.setup();
-  const onPreviousClick = jest.fn();
-  render(<Navbar onPreviousClick={onPreviousClick} onNextClick={jest.fn()} />);
-  const prevButton = screen.getByRole("button", { name: "Previous month" });
-  prevButton.focus();
-  await user.keyboard("{arrowright}");
+  const onYearChange = jest.fn();
+  renderNavbar({ onYearChange });
 
-  expect(onPreviousClick).not.toHaveBeenCalled();
-});
+  await user.selectOptions(screen.getByRole("combobox", { name: "Year" }), [
+    "2026",
+  ]);
 
-test("should not change the current month when 'arrowdown' key is pressed and next button is focused", async () => {
-  const user = userEvent.setup();
-  const onNextClick = jest.fn();
-  render(<Navbar onPreviousClick={jest.fn()} onNextClick={onNextClick} />);
-  const nextButton = screen.getByRole("button", { name: "Next month" });
-  nextButton.focus();
-  await user.keyboard("{arrowdown}");
-
-  expect(onNextClick).not.toHaveBeenCalled();
-});
-
-test("should not change the current month when 'arrowup' key is pressed and next button is focused", async () => {
-  const user = userEvent.setup();
-  const onNextClick = jest.fn();
-  render(<Navbar onPreviousClick={jest.fn()} onNextClick={onNextClick} />);
-  const nextButton = screen.getByRole("button", { name: "Next month" });
-  nextButton.focus();
-  await user.keyboard("{arrowup}");
-
-  expect(onNextClick).not.toHaveBeenCalled();
-});
-
-test("should not change the current month when 'arrowleft' key is pressed and next button is focused", async () => {
-  const user = userEvent.setup();
-  const onNextClick = jest.fn();
-  render(<Navbar onPreviousClick={jest.fn()} onNextClick={onNextClick} />);
-  const nextButton = screen.getByRole("button", { name: "Next month" });
-  nextButton.focus();
-  await user.keyboard("{arrowleft}");
-
-  expect(onNextClick).not.toHaveBeenCalled();
-});
-
-test("should not change the current month when 'arrowright' key is pressed and next button is focused", async () => {
-  const user = userEvent.setup();
-  const onNextClick = jest.fn();
-  render(<Navbar onPreviousClick={jest.fn()} onNextClick={onNextClick} />);
-  const nextButton = screen.getByRole("button", { name: "Next month" });
-  nextButton.focus();
-  await user.keyboard("{arrowright}");
-
-  expect(onNextClick).not.toHaveBeenCalled();
-});
-
-test("should change the current month when 'Enter' key is pressed and previous button is focused", async () => {
-  const user = userEvent.setup();
-  const onPreviousClick = jest.fn();
-
-  render(<Navbar onPreviousClick={onPreviousClick} onNextClick={jest.fn()} />);
-  const prevButton = screen.getByRole("button", { name: "Previous month" });
-  prevButton.focus();
-  await user.keyboard("{Enter}");
-
-  expect(onPreviousClick).toHaveBeenCalled();
-});
-
-test("should change the current month when ' ' (Space) key is pressed and previous button is focused", async () => {
-  const user = userEvent.setup();
-  const onPreviousClick = jest.fn();
-  render(<Navbar onPreviousClick={onPreviousClick} onNextClick={jest.fn()} />);
-  const prevButton = screen.getByRole("button", { name: "Previous month" });
-  prevButton.focus();
-  await user.keyboard(" ");
-
-  expect(onPreviousClick).toHaveBeenCalled();
-});
-
-test("should change the current month when 'Enter' key is pressed and next button is focused", async () => {
-  const user = userEvent.setup();
-  const onNextClick = jest.fn();
-  render(<Navbar onPreviousClick={jest.fn()} onNextClick={onNextClick} />);
-  const nextButton = screen.getByRole("button", { name: "Next month" });
-  nextButton.focus();
-  await user.keyboard("{Enter}");
-
-  expect(onNextClick).toHaveBeenCalled();
-});
-
-test("should change the current month when Space key is pressed and next button is focused", async () => {
-  const user = userEvent.setup();
-  const onNextClick = jest.fn();
-  render(<Navbar onPreviousClick={jest.fn()} onNextClick={onNextClick} />);
-  const nextButton = screen.getByRole("button", { name: "Next month" });
-  nextButton.focus();
-  await user.keyboard(" ");
-
-  expect(onNextClick).toHaveBeenCalled();
+  expect(onYearChange).toHaveBeenCalledWith(2026);
 });

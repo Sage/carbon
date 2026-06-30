@@ -326,9 +326,9 @@ export const MonthYearNavigationDateRange: Story = {
     const c = within(canvasElement);
     const [startIcon] = c.getAllByTestId("icon");
     await userEvent.click(startIcon);
-    const next = c.getByRole("button", { name: /next month/i });
-    await userEvent.click(next);
-    await expect(next).toHaveFocus();
+    const monthSelect = c.getByRole("combobox", { name: /month/i });
+    await userEvent.selectOptions(monthSelect, "7");
+    await expect(monthSelect).toHaveFocus();
   },
 };
 MonthYearNavigationDateRange.parameters = {

@@ -121,14 +121,66 @@ test("should call `onFocusedMonthChange` when the focused month changes", async 
     />,
   );
 
-  const nextButton = screen.getByRole("button", { name: "Next month" });
-  await user.click(nextButton);
+  await user.selectOptions(screen.getByRole("combobox", { name: "Month" }), [
+    "0",
+  ]);
 
-  expect(onFocusedMonthChange).toHaveBeenCalledWith(new Date(2026, 0, 1));
+  expect(onFocusedMonthChange).toHaveBeenCalledWith(new Date(2025, 0, 1));
 
   // the calendar view must not advance because focusedMonth is controlled and
   // the parent has not updated the prop -- the displayed month stays frozen
   expect(screen.getByRole("status")).toHaveTextContent("December 2025");
+});
+
+test("should call `onFocusedMonthChange` when the focused year changes", async () => {
+  const user = userEvent.setup();
+  const onFocusedMonthChange = jest.fn();
+
+  render(
+    <DatePickerWithInput
+      selectedDays={new Date(2025, 11, 1)}
+      onFocusedMonthChange={onFocusedMonthChange}
+      setOpen={() => {}}
+      open
+    />,
+  );
+
+  await user.selectOptions(screen.getByRole("combobox", { name: "Year" }), [
+    "2026",
+  ]);
+
+  expect(onFocusedMonthChange).toHaveBeenCalledWith(new Date(2026, 11, 1));
+});
+
+test("should render default year options for 10 years before and after the current year", () => {
+  jest.useFakeTimers();
+  jest.setSystemTime(new Date(2026, 5, 30));
+
+  render(<DatePickerWithInput setOpen={() => {}} open />);
+
+  const yearOptions = screen.getAllByRole("option").map(({ textContent }) => {
+    return textContent;
+  });
+
+  expect(yearOptions).toEqual(expect.arrayContaining(["2016", "2026", "2036"]));
+
+  jest.useRealTimers();
+});
+
+test("should render custom labels for the month and year selectors", () => {
+  render(
+    <DatePickerWithInput
+      labels={{
+        monthSelect: "Choose month",
+        yearSelect: "Choose year",
+      }}
+      setOpen={() => {}}
+      open
+    />,
+  );
+
+  expect(screen.getByRole("combobox", { name: "Choose month" })).toBeVisible();
+  expect(screen.getByRole("combobox", { name: "Choose year" })).toBeVisible();
 });
 
 test("should use the current date as the initial focused month when neither `selectedDays` nor `selectedRange` is given", () => {
@@ -327,8 +379,10 @@ test("should render with 'de-DE' translations when the `locale` is passed via I1
   weekdays.forEach((weekday, i) => {
     expect(weekday).toHaveTextContent(getWeekdayTranslations(i, deLocale, 2));
   });
-  expect(screen.getByRole("button", { name: "de-DE-previous" })).toBeVisible();
-  expect(screen.getByRole("button", { name: "de-DE-next" })).toBeVisible();
+  expect(screen.getByRole("combobox", { name: "Month" })).toHaveTextContent(
+    "Januar",
+  );
+  expect(screen.getByRole("combobox", { name: "Year" })).toBeVisible();
 });
 
 test("should render with 'es' translations when the `locale` is passed via I18nProvider", () => {
@@ -353,8 +407,10 @@ test("should render with 'es' translations when the `locale` is passed via I18nP
   weekdays.forEach((weekday, i) => {
     expect(weekday).toHaveTextContent(getWeekdayTranslations(i, esLocale));
   });
-  expect(screen.getByRole("button", { name: "es-previous" })).toBeVisible();
-  expect(screen.getByRole("button", { name: "es-next" })).toBeVisible();
+  expect(screen.getByRole("combobox", { name: "Month" })).toHaveTextContent(
+    "enero",
+  );
+  expect(screen.getByRole("combobox", { name: "Year" })).toBeVisible();
 });
 
 test("should render with 'en-CA' translations when the `locale` is passed via I18nProvider", () => {
@@ -379,8 +435,10 @@ test("should render with 'en-CA' translations when the `locale` is passed via I1
   weekdays.forEach((weekday, i) => {
     expect(weekday).toHaveTextContent(getWeekdayTranslations(i, enCALocale));
   });
-  expect(screen.getByRole("button", { name: "en-CA-previous" })).toBeVisible();
-  expect(screen.getByRole("button", { name: "en-CA-next" })).toBeVisible();
+  expect(screen.getByRole("combobox", { name: "Month" })).toHaveTextContent(
+    "January",
+  );
+  expect(screen.getByRole("combobox", { name: "Year" })).toBeVisible();
 });
 
 test("should render with 'en-US' translations when the `locale` is passed via I18nProvider", () => {
@@ -405,8 +463,10 @@ test("should render with 'en-US' translations when the `locale` is passed via I1
   weekdays.forEach((weekday, i) => {
     expect(weekday).toHaveTextContent(getWeekdayTranslations(i, enUSLocale));
   });
-  expect(screen.getByRole("button", { name: "en-US-previous" })).toBeVisible();
-  expect(screen.getByRole("button", { name: "en-US-next" })).toBeVisible();
+  expect(screen.getByRole("combobox", { name: "Month" })).toHaveTextContent(
+    "January",
+  );
+  expect(screen.getByRole("combobox", { name: "Year" })).toBeVisible();
 });
 
 test("should render with 'en-ZA' translations when the `locale` is passed via I18nProvider", () => {
@@ -431,8 +491,10 @@ test("should render with 'en-ZA' translations when the `locale` is passed via I1
   weekdays.forEach((weekday, i) => {
     expect(weekday).toHaveTextContent(getWeekdayTranslations(i, enZALocale));
   });
-  expect(screen.getByRole("button", { name: "en-ZA-previous" })).toBeVisible();
-  expect(screen.getByRole("button", { name: "en-ZA-next" })).toBeVisible();
+  expect(screen.getByRole("combobox", { name: "Month" })).toHaveTextContent(
+    "January",
+  );
+  expect(screen.getByRole("combobox", { name: "Year" })).toBeVisible();
 });
 
 test("should render with 'fr-FR' translations when the `locale` is passed via I18nProvider", () => {
@@ -457,8 +519,10 @@ test("should render with 'fr-FR' translations when the `locale` is passed via I1
   weekdays.forEach((weekday, i) => {
     expect(weekday).toHaveTextContent(getWeekdayTranslations(i, frLocale));
   });
-  expect(screen.getByRole("button", { name: "fr-FR-previous" })).toBeVisible();
-  expect(screen.getByRole("button", { name: "fr-FR-next" })).toBeVisible();
+  expect(screen.getByRole("combobox", { name: "Month" })).toHaveTextContent(
+    "janvier",
+  );
+  expect(screen.getByRole("combobox", { name: "Year" })).toBeVisible();
 });
 
 test("should render with 'fr-CA' translations when the `locale` is passed via I18nProvider", () => {
@@ -483,8 +547,10 @@ test("should render with 'fr-CA' translations when the `locale` is passed via I1
   weekdays.forEach((weekday, i) => {
     expect(weekday).toHaveTextContent(getWeekdayTranslations(i, frCALocale));
   });
-  expect(screen.getByRole("button", { name: "fr-CA-previous" })).toBeVisible();
-  expect(screen.getByRole("button", { name: "fr-CA-next" })).toBeVisible();
+  expect(screen.getByRole("combobox", { name: "Month" })).toHaveTextContent(
+    "janvier",
+  );
+  expect(screen.getByRole("combobox", { name: "Year" })).toBeVisible();
 });
 
 test("should correctly translate the month caption for the given locale (fr-FR)", () => {
@@ -541,7 +607,7 @@ test("should correctly translate the month caption for the given locale (zh-CN)"
   expect(monthCaption).toHaveTextContent("三月 2019");
 });
 
-test("navigation buttons should maintain focus between month changes when using the keyboard", async () => {
+test("month and year selectors should maintain focus when changed with the keyboard", async () => {
   const user = userEvent.setup();
   render(
     <DatePickerWithInput
@@ -553,18 +619,18 @@ test("navigation buttons should maintain focus between month changes when using 
 
   const textbox = screen.getByRole("textbox");
   const monthLabel = screen.getByText("April 2019");
-  const previousButton = screen.getByRole("button", { name: "Previous month" });
-  const nextButton = screen.getByRole("button", { name: "Next month" });
+  const monthSelect = screen.getByRole("combobox", { name: "Month" });
 
   await user.click(textbox);
   await user.tab();
-  expect(previousButton).toHaveFocus();
-  await user.keyboard("{enter}");
+  expect(monthSelect).toHaveFocus();
+  await user.selectOptions(monthSelect, ["2"]);
   expect(monthLabel).toHaveTextContent("March 2019");
-  expect(previousButton).toHaveFocus();
+  expect(screen.getByRole("combobox", { name: "Month" })).toHaveFocus();
   await user.tab();
-  expect(nextButton).toHaveFocus();
-  await user.keyboard("{enter}");
-  expect(monthLabel).toHaveTextContent("April 2019");
-  expect(nextButton).toHaveFocus();
+  const updatedYearSelect = screen.getByRole("combobox", { name: "Year" });
+  expect(updatedYearSelect).toHaveFocus();
+  await user.selectOptions(updatedYearSelect, ["2020"]);
+  expect(monthLabel).toHaveTextContent("March 2020");
+  expect(screen.getByRole("combobox", { name: "Year" })).toHaveFocus();
 });

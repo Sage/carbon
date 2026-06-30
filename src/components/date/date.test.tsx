@@ -510,7 +510,7 @@ test("should call `onKeyDown` callback when the user types and the input is focu
   expect(onKeyDown).toHaveBeenCalledTimes(2);
 });
 
-test("should keep the picker open and move focus to the previous month button when the user presses tab and the input is focused", async () => {
+test("should keep the picker open and move focus to the month selector when the user presses tab and the input is focused", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(<DateInput onChange={() => {}} value="" />);
 
@@ -520,10 +520,10 @@ test("should keep the picker open and move focus to the previous month button wh
   await user.tab();
 
   expect(screen.getByRole("grid")).toBeVisible();
-  expect(screen.getByRole("button", { name: "Previous month" })).toHaveFocus();
+  expect(screen.getByRole("combobox", { name: "Month" })).toHaveFocus();
 });
 
-test("should keep the picker open and move focus to the previous month button when the user presses tab and the input is focused and `disablePortal` is set", async () => {
+test("should keep the picker open and move focus to the month selector when the user presses tab and the input is focused and `disablePortal` is set", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(<DateInput onChange={() => {}} value="" disablePortal />);
 
@@ -533,7 +533,7 @@ test("should keep the picker open and move focus to the previous month button wh
   await user.tab();
 
   expect(screen.getByRole("grid")).toBeVisible();
-  expect(screen.getByRole("button", { name: "Previous month" })).toHaveFocus();
+  expect(screen.getByRole("combobox", { name: "Month" })).toHaveFocus();
 });
 
 test("should close the picker when the user presses shift + tab and the input is focused and the picker is open", async () => {
@@ -546,14 +546,14 @@ test("should close the picker when the user presses shift + tab and the input is
   expect(screen.getByRole("grid")).toBeVisible();
 
   await user.tab();
-  expect(screen.getByRole("button", { name: "Previous month" })).toHaveFocus();
+  expect(screen.getByRole("combobox", { name: "Month" })).toHaveFocus();
 
   await user.tab({ shift: true });
 
   expect(screen.queryByRole("grid")).not.toBeInTheDocument();
 });
 
-test("should close the picker when the user presses shift + tab and the previous month button is focused", async () => {
+test("should close the picker when the user presses shift + tab and the month selector is focused", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(<DateInput onChange={() => {}} value="" />);
 
@@ -562,12 +562,12 @@ test("should close the picker when the user presses shift + tab and the previous
 
   await user.tab();
 
-  expect(screen.getByRole("button", { name: "Previous month" })).toHaveFocus();
+  expect(screen.getByRole("combobox", { name: "Month" })).toHaveFocus();
   await user.tab({ shift: true });
   expect(screen.queryByRole("grid")).not.toBeInTheDocument();
 });
 
-test("should not close the picker when the user presses shift + tab and neither the input or previous month button are focused", async () => {
+test("should not close the picker when the user presses shift + tab and neither the input or month selector are focused", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(<DateInput onChange={() => {}} value="" />);
 
@@ -577,28 +577,26 @@ test("should not close the picker when the user presses shift + tab and neither 
   await user.tab();
   await user.tab();
 
-  expect(screen.getByRole("button", { name: "Next month" })).toHaveFocus();
+  expect(screen.getByRole("combobox", { name: "Year" })).toHaveFocus();
   await user.tab({ shift: true });
   expect(screen.getByRole("grid")).toBeVisible();
 });
 
-test("should focus the next button and then the selected day element when the user presses tab and close the picker with a subsequent tab press", async () => {
+test("should focus the year selector and then the selected day element when the user presses tab and close the picker with a subsequent tab press", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(<DateInput onChange={() => {}} value="04/04/2019" />);
 
   const calendarIcon = screen.getByTestId("input-icon-toggle");
   await user.click(calendarIcon);
 
-  const previousMonthButton = await screen.findByRole("button", {
-    name: "Previous month",
-  });
+  const monthSelect = await screen.findByRole("combobox", { name: "Month" });
   await user.tab();
 
-  expect(previousMonthButton).toHaveFocus();
+  expect(monthSelect).toHaveFocus();
 
   await user.tab();
 
-  expect(screen.getByRole("button", { name: "Next month" })).toHaveFocus();
+  expect(screen.getByRole("combobox", { name: "Year" })).toHaveFocus();
 
   await user.tab();
 
@@ -1800,8 +1798,6 @@ test.each([true, false])(
     const calendar = await screen.findByRole("grid");
 
     expect(calendar).toBeVisible();
-    expect(
-      screen.getByRole("button", { name: "Previous month" }),
-    ).toHaveFocus();
+    expect(screen.getByRole("combobox", { name: "Month" })).toHaveFocus();
   },
 );
