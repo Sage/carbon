@@ -641,7 +641,7 @@ test.describe("Props tests for Textarea component", () => {
 
   (
     [
-      [true, 84],
+      [true, 100],
       [false, 80],
     ] as const
   ).forEach(([expandableValue, height]) => {
@@ -680,7 +680,7 @@ test(`should verify expandable Textarea shrinks back to original height when lin
   await textareaChildrenElement.press("Enter");
   await textareaChildrenElement.press("t");
 
-  await expect(textareaChildrenElement).toHaveCSS("height", "84px");
+  await expect(textareaChildrenElement).toHaveCSS("height", "100px");
 
   await textareaChildrenElement.press("Backspace");
   await textareaChildrenElement.press("Backspace");

@@ -55,7 +55,6 @@ description: Carbon Textarea component props and usage examples.
 | formTarget | string \| undefined | No |  |  |  |  |  |
 | height | string \| number \| undefined | No |  |  |  |  |  |
 | hidden | boolean \| undefined | No |  |  |  |  |  |
-| hideBorders | boolean \| undefined | No |  |  |  | Hides the borders for the component. Please note that validation and focus styling will still be applied |  |
 | id | string \| undefined | No |  |  |  | id of the input |  |
 | inlist | any | No |  |  |  |  |  |
 | inputBorderRadius | BorderRadiusType \| BorderRadiusType[] \| undefined | No |  |  |  | Specify a custom border radius for the input. Any valid border-radius design token, or an array of border-radius design tokens. |  |
@@ -342,6 +341,7 @@ description: Carbon Textarea component props and usage examples.
 | borderRadius | BorderRadiusType \| BorderRadiusType[] \| undefined | No |  | Yes | Specify a custom border radius for the component. Any valid border-radius design token, or an array of border-radius design tokens. This property is deprecated and will be removed in future versions. |  |  |
 | fieldHelp | React.ReactNode | No |  | Yes | [Legacy] Help content to be displayed under an input. This property is deprecated and will be removed in future versions. |  |  |
 | helpAriaLabel | string \| undefined | No |  | Yes | [Legacy] Aria label for rendered help component. This property is deprecated and will be removed in future versions. |  |  |
+| hideBorders | boolean \| undefined | No |  | Yes | Hides the borders for the component. Please note that validation and focus styling will still be applied. This property is deprecated and will be removed in future versions. |  |  |
 | info | string \| boolean \| undefined | No |  | Yes | [Legacy] Indicate additional information. Pass string to display icon, tooltip and blue border. Pass true boolean to only display blue border. This property is deprecated and will be removed in future versions. |  |  |
 | inputWidth | number \| undefined | No |  | Yes | [Legacy] Width of an input in percentage. Works only when labelInline is true. This property is deprecated and will be removed in future versions. |  |  |
 | isOptional | boolean \| undefined | No |  | Yes | [Legacy] Flag to configure component as optional. If the value of this component is not required, use the `required` prop and set it to false instead. This property is deprecated and will be removed in future versions. |  |  |
@@ -829,6 +829,7 @@ description: Carbon Textarea component props and usage examples.
           validationMessagePositionTop={false}
           mb={2}
           characterLimit={100}
+          size="small"
         />
 
         <Textarea
@@ -860,6 +861,7 @@ description: Carbon Textarea component props and usage examples.
           onChange={setValue}
           validationMessagePositionTop={false}
           mb={2}
+          size="small"
         />
         <Textarea
           label="Textarea medium"

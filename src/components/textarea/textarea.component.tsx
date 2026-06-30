@@ -254,7 +254,10 @@ export const Textarea = React.forwardRef(
       if (!textarea) return;
 
       const check = () => {
-        textarea.classList.toggle("has-scrollbar", textarea.scrollHeight > textarea.clientHeight);
+        textarea.classList.toggle(
+          "has-scrollbar",
+          textarea.scrollHeight > textarea.clientHeight,
+        );
       };
       check();
 
