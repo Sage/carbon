@@ -237,12 +237,12 @@ export const WithCustomColoredPills: Story = {
         label="Color"
         value={["1", "2", "3", "4", "5", "6"]}
       >
-        <Option text="Amber" value="1" borderColor="#FFBF00" fill />
-        <Option text="Black" value="2" borderColor="blackOpacity65" fill />
-        <Option text="Blue" value="3" borderColor="productBlue" />
-        <Option text="Brown" value="4" borderColor="brown" fill />
-        <Option text="Green" value="5" borderColor="productGreen" />
-        <Option text="Orange" value="6" borderColor="orange" />
+        <Option text="Grey" value="1" variant="grey" />
+        <Option text="Green" value="2" variant="green" />
+        <Option text="Red" value="3" variant="red" />
+        <Option text="Orange" value="4" variant="orange" />
+        <Option text="Blue" value="5" variant="blue" />
+        <Option text="Purple" value="6" variant="purple" />
       </ControlledMultiSelectWithOptions>
     </Box>
   ),

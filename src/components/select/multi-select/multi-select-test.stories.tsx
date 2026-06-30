@@ -573,17 +573,16 @@ export const MultiSelectCustomColorComponent = (
       onChange={onChangeHandler}
       {...props}
     >
-      <Option text="Amber" value="1" borderColor="#FFBF00" fill />
-      <Option text="Black" value="2" borderColor="blackOpacity65" fill />
-      <Option text="Blue" value="3" borderColor="productBlue" />
-      <Option text="Brown" value="4" borderColor="brown" fill />
-      <Option text="Green" value="5" borderColor="productGreen" />
-      <Option text="Orange" value="6" borderColor="orange" />
-      <Option text="Pink" value="7" borderColor="pink" />
-      <Option text="Purple" value="8" borderColor="purple" />
-      <Option text="Red" value="9" borderColor="red" fill />
-      <Option text="White" value="10" borderColor="white" />
-      <Option text="Yellow" value="11" borderColor="yellow" fill />
+      <Option text="Grey" value="1" variant="grey" />
+      <Option text="Green" value="2" variant="green" />
+      <Option text="Red" value="3" variant="red" />
+      <Option text="Orange" value="4" variant="orange" />
+      <Option text="Blue" value="5" variant="blue" />
+      <Option text="Purple" value="6" variant="purple" />
+      <Option text="Teal" value="7" variant="teal" />
+      <Option text="Lime" value="8" variant="lime" />
+      <Option text="Pink" value="9" variant="pink" />
+      <Option text="Slate" value="10" variant="slate" />
     </MultiSelect>
   );
 };

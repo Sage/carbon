@@ -3,12 +3,15 @@ import guid from "../../../__internal__/utils/helpers/guid";
 import { TagProps } from "../../../__internal__/utils/helpers/tags";
 import StyledOption from "./option.style";
 import SelectListContext from "../__internal__/select-list/select-list.context";
+import type { PillProps } from "../../pill";
 
 type OptionData = {
   id?: string;
   text?: string;
   value?: string | Record<string, unknown>;
 };
+
+type PillVariant = NonNullable<PillProps["variant"]>;
 
 export interface OptionProps
   extends Omit<
@@ -27,8 +30,13 @@ export interface OptionProps
   children?: React.ReactNode;
   /** The option's invisible internal value, if this is not passed the option will not be treated as interactive or selectable */
   value?: string | Record<string, unknown>;
-  /** MultiSelect only - custom Pill border color - provide any color from palette or any valid css color value. */
+  /**
+   * MultiSelect only - legacy Pill color override retained for backwards compatibility.
+   * @deprecated Use `variant` prop instead.
+   */
   borderColor?: string;
+  /** MultiSelect only - set Pill color variant */
+  variant?: PillVariant;
   /** MultiSelect only - fill Pill background with color */
   fill?: boolean;
   /** If true, the component will be disabled */
@@ -70,6 +78,12 @@ const Option = React.forwardRef(
     const selectListContext = useContext(SelectListContext);
     let isSelected = selectListContext.currentOptionsListIndex === index;
     const internalIdRef = useRef(id || guid());
+    const {
+      variant: _variant,
+      borderColor: _borderColor,
+      fill: _fill,
+      ...restForLi
+    } = rest;
 
     if (selectListContext.multiselectValues && value) {
       isSelected = selectListContext.multiselectValues.includes(value);
@@ -100,7 +114,7 @@ const Option = React.forwardRef(
         hidden={hidden}
         style={style}
         isInteractive={!!value}
-        {...{ ...rest, fill: undefined }}
+        {...restForLi}
         data-component="option"
       >
         {children || text}

@@ -670,10 +670,13 @@ test.describe("MultiSelect component", () => {
 
     const firstPill = multiSelectPillByPosition(page, 0);
     const secondPill = multiSelectPillByPosition(page, 1);
-    await expect(firstPill).toHaveCSS("border-color", "rgb(255, 191, 0)");
-    await expect(firstPill).toHaveCSS("background-color", "rgb(255, 191, 0)");
-    await expect(secondPill).toHaveCSS("border-color", "rgb(0, 119, 200)");
-    await expect(secondPill).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
+    await expect(firstPill).toHaveCSS("border-color", "rgb(111, 111, 111)");
+    await expect(firstPill).toHaveCSS("background-color", "rgb(111, 111, 111)");
+    await expect(secondPill).toHaveCSS("border-color", "rgb(219, 0, 78)");
+    await expect(secondPill).toHaveCSS(
+      "background-color",
+      "rgb(255, 245, 246)",
+    );
   });
 
   (
@@ -712,7 +715,7 @@ test.describe("MultiSelect component", () => {
       "box-shadow",
       "rgb(0, 0, 0) 0px 0px 0px 2px, rgb(255, 181, 0) 0px 0px 0px 4px",
     );
-    await expect(closeIcon).toHaveCSS("background-color", "rgb(0, 103, 56)");
+    await expect(closeIcon).toHaveCSS("background-color", "rgb(238, 238, 238)");
   });
 
   test("should delete pill option with delete button", async ({

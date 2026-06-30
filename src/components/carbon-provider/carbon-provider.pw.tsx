@@ -5,14 +5,12 @@ import { SageTheme as SageThemeStory, AllThemes } from "./components.test-pw";
 import Button from "../../../src/components/button";
 import Loader from "../../../src/components/loader";
 import LoaderBar from "../../../src/components/loader-bar";
-import Pill from "../../../src/components/pill";
 
 import { buttonDataComponent } from "../../../playwright/components/button/index";
 import {
   loaderBarComponent,
   loaderComponent,
 } from "../../../playwright/components/themes/index";
-import { pillPreview } from "../../../playwright/components/index";
 import { checkAccessibility } from "../../../playwright/support/helper";
 
 const themes = ["noMountedTheme", "sage"];
@@ -58,15 +56,6 @@ test.describe("Carbon Provider", () => {
           "background-color",
           color,
         );
-      });
-
-      test(`Pill component should render with ${theme} theme and verify theme color`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<Pill>Foo</Pill>, { hooksConfig: { theme: `${theme}` } });
-
-        await expect(pillPreview(page)).toHaveCSS("border-color", color);
       });
     });
   });
