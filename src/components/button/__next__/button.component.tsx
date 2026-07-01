@@ -12,6 +12,7 @@ import isIconOnly from "./__internal__/utils/is-icon-only";
 import Icon from "../../icon";
 
 type ButtonRef = HTMLButtonElement | HTMLAnchorElement;
+export type ButtonHandle = ButtonRef;
 
 export interface ButtonProps
   extends Omit<

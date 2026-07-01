@@ -124,8 +124,6 @@ const focusControl = (handle: FocusableHandle | null) => {
   handle?.focus();
 };
 
-const DEFAULT_LISTBOX_ARIA_LABEL = "Options";
-
 const PopoverMenu = <TRef extends FocusableHandle = HTMLElement>({
   children,
   open,
@@ -239,7 +237,6 @@ const PopoverMenu = <TRef extends FocusableHandle = HTMLElement>({
                 role="listbox"
                 id={listId.current}
                 aria-labelledby={listboxAriaLabelledBy}
-                aria-label={DEFAULT_LISTBOX_ARIA_LABEL}
               >
                 {wrappedChildren}
               </List>
