@@ -6,71 +6,36 @@ import StepSequenceItem, {
 
 export const StepSequenceComponent = ({ ...props }) => {
   return (
-    <StepSequence {...props}>
-      <StepSequenceItem
-        aria-label="Step 1 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="1"
-        status="complete"
-      >
-        Name
-      </StepSequenceItem>
+    <StepSequence currentStep={3} {...props}>
+      <StepSequenceItem aria-label="Step 1 of 5" stepNumber={1} title="Name" />
       <StepSequenceItem
         aria-label="Step 2 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="2"
-        status="complete"
-      >
-        Delivery Address
-      </StepSequenceItem>
+        stepNumber={2}
+        title="Delivery Address"
+      />
       <StepSequenceItem
         aria-label="Step 3 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="3"
-        status="current"
-      >
-        Delivery Details
-      </StepSequenceItem>
+        stepNumber={3}
+        title="Delivery Details"
+      />
       <StepSequenceItem
         aria-label="Step 4 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="4"
-        status="incomplete"
-      >
-        Payment
-      </StepSequenceItem>
+        stepNumber={4}
+        title="Payment"
+      />
       <StepSequenceItem
         aria-label="Step 5 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="5"
-        status="incomplete"
-      >
-        Confirm
-      </StepSequenceItem>
+        stepNumber={5}
+        title="Confirm"
+      />
     </StepSequence>
   );
 };
 
-export const StepSequenceItemCustom = (
-  props: Partial<StepSequenceItemProps>,
-) => {
+export const StepSequenceItemCustom = (props: StepSequenceItemProps) => {
   return (
-    <StepSequence>
-      <StepSequenceItem
-        aria-label="Step 1 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="1"
-        status="complete"
-        {...props}
-      >
-        Name
-      </StepSequenceItem>
+    <StepSequence currentStep={1}>
+      <StepSequenceItem {...props} />
     </StepSequence>
   );
 };

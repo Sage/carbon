@@ -1,337 +1,83 @@
-import React from "react";
-import StepSequence, { StepSequenceProps } from "./step-sequence.component";
-import StepSequenceItem, {
-  StepSequenceItemProps,
-} from "./step-sequence-item/step-sequence-item.component";
-import Box from "../box";
-import useMediaQuery from "../../hooks/useMediaQuery";
+import { Meta } from "@storybook/react-vite";
 
-export default {
+import React from "react";
+
+import Box from "../box";
+
+import { StepSequence, StepSequenceItem } from ".";
+
+const meta: Meta<typeof StepSequence> = {
   title: "Step Sequence/Test",
+  component: StepSequence,
   parameters: {
-    info: { disable: true },
     chromatic: {
       disableSnapshot: true,
     },
+    info: { disable: true },
+  },
+  args: {
+    currentStep: 2,
+    orientation: "vertical",
   },
   argTypes: {
-    orientation: {
-      options: ["horizontal", "vertical"],
+    currentStep: {
       control: {
-        type: "select",
+        type: "range",
+        min: 1,
+        max: 5,
+        step: 1,
       },
     },
-    status: {
-      options: ["complete", "current", "incomplete"],
-      control: {
-        type: "select",
-      },
+    orientation: {
+      options: ["horizontal", "vertical"],
+      control: { type: "select" },
     },
   },
 };
 
-export const StepSequenceStory = (args: Partial<StepSequenceProps>) => (
-  <StepSequence {...args}>
-    <StepSequenceItem
-      aria-label="Step 1 of 5"
-      hiddenCompleteLabel="Complete"
-      hiddenCurrentLabel="Current"
-      indicator="1"
-      status="complete"
-    >
-      Name
-    </StepSequenceItem>
-    <StepSequenceItem
-      aria-label="Step 2 of 5"
-      hiddenCompleteLabel="Complete"
-      hiddenCurrentLabel="Current"
-      indicator="2"
-      status="complete"
-    >
-      Delivery Address
-    </StepSequenceItem>
-    <StepSequenceItem
-      aria-label="Step 3 of 5"
-      hiddenCompleteLabel="Complete"
-      hiddenCurrentLabel="Current"
-      indicator="3"
-      status="current"
-    >
-      Delivery Details
-    </StepSequenceItem>
-    <StepSequenceItem
-      aria-label="Step 4 of 5"
-      hiddenCompleteLabel="Complete"
-      hiddenCurrentLabel="Current"
-      indicator="4"
-      status="incomplete"
-    >
-      Payment
-    </StepSequenceItem>
-    <StepSequenceItem
-      aria-label="Step 5 of 5"
-      hiddenCompleteLabel="Complete"
-      hiddenCurrentLabel="Current"
-      indicator="5"
-      status="incomplete"
-    >
-      Confirm
-    </StepSequenceItem>
-  </StepSequence>
-);
-
-StepSequenceStory.storyName = "step sequence";
-StepSequenceStory.args = {
-  orientation: "horizontal",
-};
-
-interface StepSequenceItemStoryProps extends StepSequenceItemProps {
-  hideIndicator?: boolean;
-}
-
-export const StepSequenceItemStory = ({
-  indicator,
-  hideIndicator,
-  hiddenCompleteLabel,
-  hiddenCurrentLabel,
-  ariaLabel,
-  children,
-  ...args
-}: StepSequenceItemStoryProps) => (
-  <StepSequence>
-    <StepSequenceItem
-      indicator={indicator || "1"}
-      hideIndicator={hideIndicator}
-      hiddenCompleteLabel={hiddenCompleteLabel}
-      hiddenCurrentLabel={hiddenCurrentLabel}
-      aria-label={ariaLabel}
-      {...args}
-    >
-      {children}
-    </StepSequenceItem>
-  </StepSequence>
-);
-
-StepSequenceItemStory.storyName = "step sequence item";
-
-StepSequenceItemStory.args = {
-  indicator: "1",
-  hideIndicator: false,
-  status: "incomplete",
-  hiddenCompleteLabel: "",
-  hiddenCurrentLabel: "",
-  ariaLabel: "Step 1 of 5",
-  children: "Step Label",
-};
-
-const ResponsiveExampleSnapshot = () => {
-  const displayVertical = useMediaQuery("(max-width: 760px)");
-
-  return (
-    <StepSequence orientation={displayVertical ? "vertical" : "horizontal"}>
-      <StepSequenceItem
-        aria-label="Step 1 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="1"
-        status="complete"
-      >
-        Name
-      </StepSequenceItem>
-      <StepSequenceItem
-        aria-label="Step 2 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="2"
-        status="complete"
-      >
-        Delivery Address
-      </StepSequenceItem>
-      <StepSequenceItem
-        aria-label="Step 3 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="3"
-        status="current"
-      >
-        Delivery Details
-      </StepSequenceItem>
-      <StepSequenceItem
-        aria-label="Step 4 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="4"
-        status="incomplete"
-      >
-        Payment
-      </StepSequenceItem>
-      <StepSequenceItem
-        aria-label="Step 5 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="5"
-        status="incomplete"
-      >
-        Confirm
-      </StepSequenceItem>
-    </StepSequence>
-  );
-};
+export default meta;
 
 export const ChromaticSnapshotsStory = () => (
   <Box display="flex" flexDirection="column" gap={6}>
-    <StepSequence>
+    <StepSequence currentStep={2} orientation="horizontal">
       <StepSequenceItem
-        aria-label="Step 1 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="1"
-        status="complete"
-      >
-        Name
-      </StepSequenceItem>
+        stepNumber={1}
+        title="Planning"
+        description={"Lorem ipsum dolor sit amet, consectetur adipiscing elit."}
+      />
       <StepSequenceItem
-        aria-label="Step 2 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="2"
-        status="complete"
-      >
-        Delivery Address
-      </StepSequenceItem>
+        stepNumber={2}
+        title="Design"
+        description={"This is step 2"}
+      />
+      <StepSequenceItem stepNumber={3} title="Development" />
+      <StepSequenceItem stepNumber={4} title="QA" />
       <StepSequenceItem
-        aria-label="Step 3 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="3"
-        status="current"
-      >
-        Delivery Details
-      </StepSequenceItem>
-      <StepSequenceItem
-        aria-label="Step 4 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="4"
-        status="incomplete"
-      >
-        Payment
-      </StepSequenceItem>
-      <StepSequenceItem
-        aria-label="Step 5 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="5"
-        status="incomplete"
-      >
-        Confirm
-      </StepSequenceItem>
+        stepNumber={5}
+        title="Release"
+        description={"This is step 5"}
+      />
     </StepSequence>
 
-    <Box height="420px">
-      <StepSequence orientation="vertical">
-        <StepSequenceItem
-          aria-label="Step 1 of 5"
-          hiddenCompleteLabel="Complete"
-          hiddenCurrentLabel="Current"
-          indicator="1"
-          status="complete"
-        >
-          Name
-        </StepSequenceItem>
-        <StepSequenceItem
-          aria-label="Step 2 of 5"
-          hiddenCompleteLabel="Complete"
-          hiddenCurrentLabel="Current"
-          indicator="2"
-          status="complete"
-        >
-          Delivery Address
-        </StepSequenceItem>
-        <StepSequenceItem
-          aria-label="Step 3 of 5"
-          hiddenCompleteLabel="Complete"
-          hiddenCurrentLabel="Current"
-          indicator="3"
-          status="current"
-        >
-          Delivery Details
-        </StepSequenceItem>
-        <StepSequenceItem
-          aria-label="Step 4 of 5"
-          hiddenCompleteLabel="Complete"
-          hiddenCurrentLabel="Current"
-          indicator="4"
-          hideIndicator
-          status="incomplete"
-        >
-          Payment
-        </StepSequenceItem>
-        <StepSequenceItem
-          aria-label="Step 5 of 5"
-          hiddenCompleteLabel="Complete"
-          hiddenCurrentLabel="Current"
-          indicator="5"
-          hideIndicator
-          status="incomplete"
-        >
-          Confirm
-        </StepSequenceItem>
-      </StepSequence>
-    </Box>
-
-    <StepSequence>
+    <StepSequence currentStep={2}>
       <StepSequenceItem
-        aria-label="Step 1 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="1"
-        status="complete"
-      >
-        Name
-      </StepSequenceItem>
+        stepNumber={1}
+        title="Planning"
+        description={"Lorem ipsum dolor sit amet, consectetur adipiscing elit."}
+      />
       <StepSequenceItem
-        aria-label="Step 2 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="2"
-        status="complete"
-      >
-        Delivery Address
-      </StepSequenceItem>
+        stepNumber={2}
+        title="Design"
+        description={"This is step 2"}
+      />
+      <StepSequenceItem stepNumber={3} title="Development" />
+      <StepSequenceItem stepNumber={4} title="QA" />
       <StepSequenceItem
-        aria-label="Step 3 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="3"
-        hideIndicator
-        status="current"
-      >
-        Delivery Details
-      </StepSequenceItem>
-      <StepSequenceItem
-        aria-label="Step 4 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="4"
-        hideIndicator
-        status="incomplete"
-      >
-        Payment
-      </StepSequenceItem>
-      <StepSequenceItem
-        aria-label="Step 5 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="5"
-        hideIndicator
-        status="incomplete"
-      >
-        Confirm
-      </StepSequenceItem>
+        stepNumber={5}
+        title="Release"
+        description={"This is step 5"}
+      />
     </StepSequence>
-
-    <ResponsiveExampleSnapshot />
   </Box>
 );
 

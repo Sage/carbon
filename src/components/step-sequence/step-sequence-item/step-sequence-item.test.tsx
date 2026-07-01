@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, within } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 
 import StepSequenceItem from ".";
 
@@ -9,7 +9,13 @@ import Logger from "../../../__internal__/utils/logger";
 test("logs error when not used within StepSequence", () => {
   const loggerSpy = jest.spyOn(Logger, "error").mockImplementation(() => {});
 
-  render(<StepSequenceItem indicator="1">Step</StepSequenceItem>);
+  render(
+    <StepSequenceItem
+      stepNumber={1}
+      title="Planning"
+      description={"Lorem ipsum dolor sit amet, consectetur adipiscing elit."}
+    />,
+  );
 
   expect(loggerSpy).toHaveBeenCalledWith(
     expect.stringContaining(
@@ -19,103 +25,33 @@ test("logs error when not used within StepSequence", () => {
   loggerSpy.mockRestore();
 });
 
-test("renders with provided children and indicator", () => {
+test("renders with provided title and step number", () => {
   render(
-    <StepSequence>
-      <StepSequenceItem indicator="1">Step</StepSequenceItem>
+    <StepSequence currentStep={1}>
+      <StepSequenceItem
+        stepNumber={1}
+        title="Planning"
+        description={"Lorem ipsum dolor sit amet, consectetur adipiscing elit."}
+      />
     </StepSequence>,
   );
 
   const step = screen.getByRole("listitem");
 
   expect(step).toBeVisible();
-  expect(step).toHaveTextContent("1Step");
-});
-
-test("does not render indicator when `hideIndicator` is true", () => {
-  render(
-    <StepSequence>
-      <StepSequenceItem indicator="1" hideIndicator>
-        Step
-      </StepSequenceItem>
-    </StepSequence>,
-  );
-
-  const step = screen.getByRole("listitem");
-
-  expect(step).not.toHaveTextContent("1");
-});
-
-test("renders with provided accessible label", () => {
-  render(
-    <StepSequence>
-      <StepSequenceItem indicator="1" ariaLabel="Aria Label">
-        Step
-      </StepSequenceItem>
-    </StepSequence>,
-  );
-
-  const step = screen.getByRole("listitem");
-
-  expect(step).toHaveAccessibleName("Aria Label");
-});
-
-test("renders with hidden label when status is 'complete'", () => {
-  render(
-    <StepSequence>
-      <StepSequenceItem
-        indicator="1"
-        status="complete"
-        hiddenCompleteLabel="Completed"
-      >
-        Step
-      </StepSequenceItem>
-    </StepSequence>,
-  );
-
-  const step = screen.getByRole("listitem");
-
-  expect(step).toHaveTextContent("Completed");
-});
-
-test("renders with hidden label when status is 'current'", () => {
-  render(
-    <StepSequence>
-      <StepSequenceItem
-        indicator="1"
-        status="current"
-        hiddenCurrentLabel="Current"
-      >
-        Step
-      </StepSequenceItem>
-    </StepSequence>,
-  );
-
-  const step = screen.getByRole("listitem");
-
-  expect(step).toHaveTextContent("Current");
-});
-
-test("renders with a tick Icon when status is 'complete'", () => {
-  render(
-    <StepSequence>
-      <StepSequenceItem indicator="1" status="complete">
-        Step
-      </StepSequenceItem>
-    </StepSequence>,
-  );
-
-  const step = screen.getByRole("listitem");
-
-  expect(within(step).getByTestId("icon")).toHaveAttribute("type", "tick");
+  expect(step).toHaveTextContent("Planning");
 });
 
 test("renders with provided data- attributes", () => {
   render(
-    <StepSequence>
-      <StepSequenceItem indicator="1" data-element="bar" data-role="baz">
-        Step
-      </StepSequenceItem>
+    <StepSequence currentStep={1}>
+      <StepSequenceItem
+        stepNumber={1}
+        title="Planning"
+        description={"Lorem ipsum dolor sit amet, consectetur adipiscing elit."}
+        data-element="bar"
+        data-role="baz"
+      />
     </StepSequence>,
   );
 
@@ -123,4 +59,96 @@ test("renders with provided data- attributes", () => {
 
   expect(step).toHaveAttribute("data-element", "bar");
   expect(step).toHaveAttribute("data-role", "baz");
+});
+
+test(`renders with the correct styling for the "small" size`, () => {
+  render(
+    <StepSequence currentStep={1} size={"small"}>
+      <StepSequenceItem
+        stepNumber={1}
+        title="Planning"
+        description={"Early designs and scoping."}
+      />
+    </StepSequence>,
+  );
+
+  const step = screen.getByRole("listitem");
+
+  expect(step).toHaveStyle({
+    "grid-template-columns": "var(--sizing300) 1fr",
+    "min-width": "var(--sizing700)",
+  });
+
+  const title = screen.getByText("Planning");
+  const description = screen.getByText("Early designs and scoping.");
+
+  expect(title).toHaveStyle({
+    "font-size": "var(--fontSizes200)",
+    "font-weight": "var(--fontWeights500)",
+    color: "var(--progress-label-default)",
+  });
+
+  expect(description).toHaveStyle({
+    "font-size": "var(--fontSizes100)",
+    "font-weight": "var(--fontWeights400)",
+    color: "var(--progress-label-alt)",
+  });
+});
+
+test(`renders with the correct styling for the "medium" size`, () => {
+  render(
+    <StepSequence currentStep={1} size={"medium"}>
+      <StepSequenceItem
+        stepNumber={1}
+        title="Planning"
+        description={"Early designs and scoping."}
+      />
+    </StepSequence>,
+  );
+
+  const step = screen.getByRole("listitem");
+
+  expect(step).toHaveStyle({
+    "grid-template-columns": "var(--sizing400) 1fr",
+    "min-width": "var(--sizing800)",
+  });
+
+  const title = screen.getByText("Planning");
+  const description = screen.getByText("Early designs and scoping.");
+
+  expect(title).toHaveStyle({
+    "font-size": "var(--fontSizes300)",
+    "font-weight": "var(--fontWeights500)",
+    color: "var(--progress-label-default)",
+  });
+
+  expect(description).toHaveStyle({
+    "font-size": "var(--fontSizes200)",
+    "font-weight": "var(--fontWeights400)",
+    color: "var(--progress-label-alt)",
+  });
+});
+
+test("renders with aria-current correctly", () => {
+  render(
+    <StepSequence currentStep={2}>
+      <StepSequenceItem
+        stepNumber={1}
+        title="Planning"
+        description={"Start."}
+      />
+      <StepSequenceItem
+        stepNumber={2}
+        title="Planning"
+        description={"Middle."}
+      />
+      <StepSequenceItem stepNumber={3} title="Planning" description={"End."} />
+    </StepSequence>,
+  );
+
+  const steps = screen.getAllByRole("listitem");
+  expect(steps).toHaveLength(3);
+  expect(steps[0]).not.toHaveAttribute("aria-current");
+  expect(steps[1]).toHaveAttribute("aria-current", "step");
+  expect(steps[2]).not.toHaveAttribute("aria-current");
 });

@@ -1,32 +1,56 @@
 import React from "react";
+import { StepSequenceProvider } from "./__internal__/step-sequence.context";
+import StyledStepSequence from "./step-sequence.style";
 import { SpaceProps } from "styled-system";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
-import StyledStepSequence from "./step-sequence.style";
-import { StepSequenceProvider } from "./__internal__/step-sequence.context";
 
 export interface StepSequenceProps extends SpaceProps, TagProps {
   /** Step sequence items to be rendered */
   children: React.ReactNode;
-  /** The direction that step sequence items should be rendered */
+  /** The active step within the sequence */
+  currentStep: number;
+  /** Hidden label to be used when a step is completed */
+  hiddenCompleteLabel?: string;
+  /** Hidden label to be used when a step is the current step */
+  hiddenCurrentLabel?: string;
+  /** Hidden label to be used when a step is incomplete */
+  hiddenIncompleteLabel?: string;
+  /** The orientation to display the sequence in */
   orientation?: "horizontal" | "vertical";
+  /** The size of the component. */
+  size?: "small" | "medium";
 }
 
 export const StepSequence = ({
   children,
-  orientation = "horizontal",
+  currentStep,
+  hiddenCompleteLabel = "complete",
+  hiddenCurrentLabel = "current",
+  hiddenIncompleteLabel = "incomplete",
+  orientation = "vertical",
+  size = "medium",
   ...props
 }: StepSequenceProps) => {
   return (
-    <StyledStepSequence
-      orientation={orientation}
-      p={0}
-      {...props}
-      {...tagComponent("step-sequence", props)}
+    <StepSequenceProvider
+      value={{
+        currentStep,
+        hiddenCompleteLabel,
+        hiddenCurrentLabel,
+        hiddenIncompleteLabel,
+        orientation,
+        size,
+      }}
     >
-      <StepSequenceProvider value={{ orientation }}>
+      <StyledStepSequence
+        role="list"
+        orientation={orientation}
+        {...props}
+        {...tagComponent("step-sequence", props)}
+      >
         {children}
-      </StepSequenceProvider>
-    </StyledStepSequence>
+      </StyledStepSequence>
+    </StepSequenceProvider>
   );
 };
 

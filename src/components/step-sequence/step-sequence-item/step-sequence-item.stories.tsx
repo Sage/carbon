@@ -7,7 +7,7 @@ import StepSequenceItem from "./step-sequence-item.component";
  */
 
 const meta: Meta<typeof StepSequenceItem> = {
-  title: "Step Sequence Item",
+  title: "Step Sequence/Step Sequence Item",
   component: StepSequenceItem,
   tags: ["!dev"],
   parameters: {
@@ -18,6 +18,10 @@ const meta: Meta<typeof StepSequenceItem> = {
 export default meta;
 type Story = StoryObj<typeof StepSequenceItem>;
 
-export const Default: Story = {
-  args: {},
+export const DefaultStory: Story = {
+  args: {
+    stepNumber: 1,
+    title: "Planning",
+    description: "Lorem ipsum dolor sit amet.",
+  },
 };

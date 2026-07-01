@@ -7,15 +7,22 @@ const StyledStepSequence = styled.ol.attrs(applyBaseTheme)<
   Pick<StepSequenceProps, "orientation"> & SpaceProps
 >`
   display: flex;
+  padding: var(--spacing300);
   margin: 0;
-  font-weight: var(--fontWeights500);
+  list-style: none;
 
   ${({ orientation }) =>
-    orientation === "vertical" &&
-    css`
-      flex-direction: column;
-      height: 100%;
-    `}
+    orientation === "vertical"
+      ? css`
+          flex-direction: column;
+          width: max-content;
+        `
+      : css`
+          flex-direction: row;
+          margin: var(--spacing200);
+          justify-content: center;
+          align-items: flex-start;
+        `}
 
   ${space}
 `;

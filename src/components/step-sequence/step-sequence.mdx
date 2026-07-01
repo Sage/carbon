@@ -1,10 +1,10 @@
 import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
-import * as StepSequenceItemStories from "./step-sequence-item/step-sequence-item.stories.tsx";
 import * as StepSequenceStories from "./step-sequence.stories.tsx";
+import * as StepSequenceItemStories from "./step-sequence-item/step-sequence-item.stories.tsx";
 
 <Meta title="Step Sequence" of={StepSequenceStories} />
 
-# StepSequence
+# Step Sequence
 
 <a
   target="_blank"
@@ -42,19 +42,35 @@ import {
 
 ### Default
 
+The `StepSequence` component defaults to vertical orientation.
+
 <Canvas of={StepSequenceStories.DefaultStory} />
 
-### Vertical
+### Horizontal
 
-<Canvas of={StepSequenceStories.Vertical} />
+To orient `StepSequence` horizontally, use the `orientation` prop.
 
-### With hidden indicators
+<Canvas of={StepSequenceStories.Horizontal} />
 
-<Canvas of={StepSequenceStories.WithHiddenIndicators} />
+### Responsive
 
-### Responsive Example
+The `StepSequence` component does not natively respond to screen size changes. The following demonstrates a method of swapping between orientations according to device size.
 
-<Canvas of={StepSequenceStories.ResponsiveExample} />
+<Canvas of={StepSequenceStories.Responsive} />
+
+### Size
+
+`StepSequence` has two sizes available: **small** and **medium**. By default, **medium** is used if no value is set. The following example demonstrates the **small** variation.
+
+<Canvas of={StepSequenceStories.Size} />
+
+### Status Label Overrides
+
+By default, the component will announce completed, current and incomplete steps as "complete", "current" and "incomplete" respectively when using assistive technologies
+such as a screen reader. To override these, use the `hiddenCompleteLabel`, `hiddenCurrentLabel` and `hiddenIncompleteLabel` props. Note that these values are not displayed anywhere
+visually.
+
+<Canvas of={StepSequenceStories.LabelOverrides} />
 
 ## Props
 

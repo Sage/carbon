@@ -1,87 +1,91 @@
 import React from "react";
+import { useStepSequenceContext } from "../__internal__/step-sequence.context";
 import {
   StyledStepSequenceItem,
   StyledStepSequenceItemContent,
-  StyledStepSequenceItemIndicator,
-  StyledStepSequenceItemHiddenLabel,
+  StyledStepSequenceItemLine,
+  StyledStepSequenceItemMarkerContainer,
+  StyledStepSequenceItemStepDescription,
+  StyledStepSequenceItemStepNumber,
+  StyledStepSequenceItemStepTitle,
+  StyledStepSequenceItemStepVH,
 } from "./step-sequence-item.style";
-import Icon from "../../icon";
-import { useStepSequenceContext } from "../__internal__/step-sequence.context";
+
 import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags";
 
-export interface StepSequenceItemProps extends TagProps {
-  /** Aria label */
-  ariaLabel?: string;
-  /** Hidden label to be displayed if item is complete */
-  hiddenCompleteLabel?: string;
-  /** Hidden label to be displayed if item is current */
-  hiddenCurrentLabel?: string;
-  /** Value to be displayed before text for incomplete steps */
-  indicator: string;
-  /** Flag to hide the indicator for incomplete steps */
-  hideIndicator?: boolean;
-  /** Status for the step */
-  status?: "complete" | "current" | "incomplete";
-  /** Content to be displayed */
-  children: React.ReactNode;
+export interface StepSequenceItemProps
+  extends Omit<React.LiHTMLAttributes<HTMLLIElement>, "children">,
+    TagProps {
+  /** A description of the step */
+  description?: string;
+  /** The position of this step in the sequence */
+  stepNumber: number;
+  /** The title of the step */
+  title: string;
 }
 
 export const StepSequenceItem = ({
-  hideIndicator = false,
-  indicator,
-  status = "incomplete",
-  hiddenCompleteLabel,
-  hiddenCurrentLabel,
-  children,
-  ariaLabel,
-  ...rest
+  description,
+  stepNumber,
+  title,
+  ...props
 }: StepSequenceItemProps) => {
-  const { orientation } = useStepSequenceContext();
+  const {
+    currentStep,
+    hiddenCompleteLabel,
+    hiddenCurrentLabel,
+    hiddenIncompleteLabel,
+    orientation,
+    size,
+  } = useStepSequenceContext();
 
-  const indicatorText = () => {
-    return !hideIndicator ? (
-      <StyledStepSequenceItemIndicator>
-        {indicator}
-      </StyledStepSequenceItemIndicator>
-    ) : null;
-  };
+  let status: "complete" | "current" | "incomplete" = "incomplete";
+  let stepLabel = hiddenIncompleteLabel;
 
-  const icon = () =>
-    status === "complete" ? <Icon type="tick" /> : indicatorText();
-
-  const hiddenLabel = () => {
-    if (hiddenCompleteLabel && status === "complete") {
-      return (
-        <StyledStepSequenceItemHiddenLabel>
-          {hiddenCompleteLabel}
-        </StyledStepSequenceItemHiddenLabel>
-      );
-    }
-    if (hiddenCurrentLabel && status === "current") {
-      return (
-        <StyledStepSequenceItemHiddenLabel>
-          {hiddenCurrentLabel}
-        </StyledStepSequenceItemHiddenLabel>
-      );
-    }
-    return null;
-  };
+  if (stepNumber < currentStep) {
+    status = "complete";
+    stepLabel = hiddenCompleteLabel;
+  } else if (stepNumber === currentStep) {
+    status = "current";
+    stepLabel = hiddenCurrentLabel;
+  }
 
   return (
     <StyledStepSequenceItem
       orientation={orientation}
-      status={status}
-      key={`step-seq-item-${indicator}`}
-      aria-label={ariaLabel}
-      {...rest}
-      {...tagComponent("step-sequence-item", rest)}
+      aria-current={status === "current" ? "step" : undefined}
+      key={`step-seq-item-${stepNumber}`}
+      size={size}
+      role="listitem"
+      {...props}
+      {...tagComponent("step-sequence-item", props)}
     >
-      {hiddenLabel()}
-      <StyledStepSequenceItemContent>
-        {icon()}
-        <span>{children}</span>
+      <StyledStepSequenceItemMarkerContainer orientation={orientation}>
+        <StyledStepSequenceItemStepNumber
+          aria-hidden="true"
+          status={status}
+          size={size}
+        >
+          {stepNumber}
+        </StyledStepSequenceItemStepNumber>
+        <StyledStepSequenceItemLine orientation={orientation} status={status} />
+      </StyledStepSequenceItemMarkerContainer>
+
+      <StyledStepSequenceItemContent orientation={orientation}>
+        <StyledStepSequenceItemStepTitle size={size}>
+          {title}
+          <StyledStepSequenceItemStepVH>
+            &nbsp;({stepLabel})
+          </StyledStepSequenceItemStepVH>
+        </StyledStepSequenceItemStepTitle>
+
+        {description && (
+          <StyledStepSequenceItemStepDescription size={size}>
+            {description}
+          </StyledStepSequenceItemStepDescription>
+        )}
       </StyledStepSequenceItemContent>
     </StyledStepSequenceItem>
   );

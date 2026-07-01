@@ -16,6 +16,10 @@ description: Carbon StepSequence component props and usage examples.
 | Name | Type | Required | Literals | Description | Default |
 | --- | --- | --- | --- | --- | --- |
 | children | React.ReactNode | Yes |  | Step sequence items to be rendered |  |
+| currentStep | number | Yes |  | The active step within the sequence |  |
+| hiddenCompleteLabel | string \| undefined | No |  | Hidden label to be used when a step is completed | "complete" |
+| hiddenCurrentLabel | string \| undefined | No |  | Hidden label to be used when a step is the current step | "current" |
+| hiddenIncompleteLabel | string \| undefined | No |  | Hidden label to be used when a step is incomplete | "incomplete" |
 | m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
 | margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
 | marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
@@ -30,7 +34,7 @@ description: Carbon StepSequence component props and usage examples.
 | mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
 | mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| orientation | "horizontal" \| "vertical" \| undefined | No |  | The direction that step sequence items should be rendered | "horizontal" |
+| orientation | "horizontal" \| "vertical" \| undefined | No |  | The orientation to display the sequence in | "vertical" |
 | p | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
 | padding | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
 | paddingBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on bottom |  |
@@ -45,246 +49,196 @@ description: Carbon StepSequence component props and usage examples.
 | pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
 | px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
 | py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
+| size | "small" \| "medium" \| undefined | No |  | The size of the component. | "medium" |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 
 ## Examples
 ### Default
 
+**Args**
+
+```tsx
+{
+  currentStep: 1,
+}
+```
+
 **Render**
 
 ```tsx
-() => {
+(props: StepSequenceProps) => {
   return (
-    <StepSequence>
+    <StepSequence {...props}>
       <StepSequenceItem
-        aria-label="Step 1 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="1"
-        status="complete"
-      >
-        Name
-      </StepSequenceItem>
+        stepNumber={1}
+        title="Planning"
+        description={"Lorem ipsum dolor sit amet, consectetur adipiscing elit."}
+      />
       <StepSequenceItem
-        aria-label="Step 2 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="2"
-        status="complete"
-      >
-        Delivery Address
-      </StepSequenceItem>
+        stepNumber={2}
+        title="Design"
+        description={"This is step 2"}
+      />
+      <StepSequenceItem stepNumber={3} title="Development" />
+      <StepSequenceItem stepNumber={4} title="QA" />
       <StepSequenceItem
-        aria-label="Step 3 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="3"
-        status="current"
-      >
-        Delivery Details
-      </StepSequenceItem>
-      <StepSequenceItem
-        aria-label="Step 4 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="4"
-        status="incomplete"
-      >
-        Payment
-      </StepSequenceItem>
-      <StepSequenceItem
-        aria-label="Step 5 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="5"
-        status="incomplete"
-      >
-        Confirm
-      </StepSequenceItem>
+        stepNumber={5}
+        title="Release"
+        description={"This is step 5"}
+      />
     </StepSequence>
   );
 }
 ```
 
 
-### Vertical
+### Horizontal
 
 **Render**
 
 ```tsx
-() => {
+(props: StepSequenceProps) => {
   return (
-    <Box height="600px">
-      <StepSequence orientation="vertical">
+    <StepSequence {...props} orientation={"horizontal"}>
+      <StepSequenceItem
+        stepNumber={1}
+        title="Planning"
+        description={"Lorem ipsum dolor sit amet, consectetur adipiscing elit."}
+      />
+      <StepSequenceItem
+        stepNumber={2}
+        title="Design"
+        description={"This is step 2"}
+      />
+      <StepSequenceItem stepNumber={3} title="Development" />
+      <StepSequenceItem stepNumber={4} title="QA" />
+      <StepSequenceItem
+        stepNumber={5}
+        title="Release"
+        description={"This is step 5"}
+      />
+    </StepSequence>
+  );
+}
+```
+
+
+### Size
+
+**Args**
+
+```tsx
+{
+  size: "small",
+}
+```
+
+**Render**
+
+```tsx
+({ ...props }) => {
+  return (
+    <div>
+      <StepSequence currentStep={props.currentStep} size={props.size}>
         <StepSequenceItem
-          aria-label="Step 1 of 5"
-          hiddenCompleteLabel="Complete"
-          hiddenCurrentLabel="Current"
-          indicator="1"
-          status="complete"
-        >
-          Name
-        </StepSequenceItem>
+          stepNumber={1}
+          title="Planning"
+          description={
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+          }
+        />
         <StepSequenceItem
-          aria-label="Step 2 of 5"
-          hiddenCompleteLabel="Complete"
-          hiddenCurrentLabel="Current"
-          indicator="2"
-          status="complete"
-        >
-          Delivery Address
-        </StepSequenceItem>
+          stepNumber={2}
+          title="Design"
+          description={"This is step 2"}
+        />
+        <StepSequenceItem stepNumber={3} title="Development" />
+        <StepSequenceItem stepNumber={4} title="QA" />
         <StepSequenceItem
-          aria-label="Step 3 of 5"
-          hiddenCompleteLabel="Complete"
-          hiddenCurrentLabel="Current"
-          indicator="3"
-          status="current"
-        >
-          Delivery Details
-        </StepSequenceItem>
-        <StepSequenceItem
-          aria-label="Step 4 of 5"
-          hiddenCompleteLabel="Complete"
-          hiddenCurrentLabel="Current"
-          indicator="4"
-          status="incomplete"
-        >
-          Payment
-        </StepSequenceItem>
-        <StepSequenceItem
-          aria-label="Step 5 of 5"
-          hiddenCompleteLabel="Complete"
-          hiddenCurrentLabel="Current"
-          indicator="5"
-          status="incomplete"
-        >
-          Confirm
-        </StepSequenceItem>
+          stepNumber={5}
+          title="Release"
+          description={"This is step 5"}
+        />
       </StepSequence>
-    </Box>
+    </div>
   );
 }
 ```
 
 
-### With Hidden Indicators
+### Responsive
 
 **Render**
 
 ```tsx
-() => {
+(props: StepSequenceProps) => {
+  const displayVertical = useMediaQuery("(max-width: 760px)");
+
   return (
-    <StepSequence>
+    <StepSequence
+      currentStep={props.currentStep}
+      orientation={displayVertical ? "vertical" : "horizontal"}
+    >
       <StepSequenceItem
-        aria-label="Step 1 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="1"
-        status="complete"
-      >
-        Name
-      </StepSequenceItem>
+        stepNumber={1}
+        title="Planning"
+        description={"Lorem ipsum dolor sit amet, consectetur adipiscing elit."}
+      />
       <StepSequenceItem
-        aria-label="Step 2 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="2"
-        status="complete"
-      >
-        Delivery Address
-      </StepSequenceItem>
+        stepNumber={2}
+        title="Design"
+        description={"This is step 2"}
+      />
+      <StepSequenceItem stepNumber={3} title="Development" />
+      <StepSequenceItem stepNumber={4} title="QA" />
       <StepSequenceItem
-        aria-label="Step 3 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="3"
-        hideIndicator
-        status="current"
-      >
-        Delivery Details
-      </StepSequenceItem>
-      <StepSequenceItem
-        aria-label="Step 4 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="4"
-        hideIndicator
-        status="incomplete"
-      >
-        Payment
-      </StepSequenceItem>
-      <StepSequenceItem
-        aria-label="Step 5 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="5"
-        hideIndicator
-        status="incomplete"
-      >
-        Confirm
-      </StepSequenceItem>
+        stepNumber={5}
+        title="Release"
+        description={"This is step 5"}
+      />
     </StepSequence>
   );
 }
 ```
 
 
-### Responsive Example
+### Label Overrides
+
+**Args**
+
+```tsx
+{
+  currentStep: 1,
+  hiddenCompleteLabel: "Finished",
+  hiddenCurrentLabel: "Active",
+  hiddenIncompleteLabel: "Not Started",
+}
+```
 
 **Render**
 
 ```tsx
-() => {
-  const displayVertical = useMediaQuery("(max-width: 760px)");
+(props: StepSequenceProps) => {
   return (
-    <StepSequence orientation={displayVertical ? "vertical" : "horizontal"}>
+    <StepSequence {...props}>
       <StepSequenceItem
-        aria-label="Step 1 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="1"
-        status="complete"
-      >
-        Name
-      </StepSequenceItem>
+        stepNumber={1}
+        title="Planning"
+        description={"Lorem ipsum dolor sit amet, consectetur adipiscing elit."}
+      />
       <StepSequenceItem
-        aria-label="Step 2 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="2"
-        status="complete"
-      >
-        Delivery Address
-      </StepSequenceItem>
+        stepNumber={2}
+        title="Design"
+        description={"This is step 2"}
+      />
+      <StepSequenceItem stepNumber={3} title="Development" />
+      <StepSequenceItem stepNumber={4} title="QA" />
       <StepSequenceItem
-        aria-label="Step 3 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="3"
-        status="current"
-      >
-        Delivery Details
-      </StepSequenceItem>
-      <StepSequenceItem
-        aria-label="Step 4 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="4"
-        status="incomplete"
-      >
-        Payment
-      </StepSequenceItem>
-      <StepSequenceItem
-        aria-label="Step 5 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="5"
-        status="incomplete"
-      >
-        Confirm
-      </StepSequenceItem>
+        stepNumber={5}
+        title="Release"
+        description={"This is step 5"}
+      />
     </StepSequence>
   );
 }
