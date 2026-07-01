@@ -8,6 +8,7 @@ export interface DatePickerTriggerProps {
   onClick: (ev: React.MouseEvent<HTMLElement>) => void;
   onMouseDown: () => void;
   open?: boolean;
+  pickerId: string;
   readOnly?: boolean;
 }
 
@@ -16,14 +17,21 @@ export const TypicalDatePickerTrigger = React.forwardRef<
   DatePickerTriggerProps
 >(
   (
-    { disabled, onClick, onMouseDown, open, readOnly }: DatePickerTriggerProps,
+    {
+      disabled,
+      onClick,
+      onMouseDown,
+      open,
+      pickerId,
+      readOnly,
+    }: DatePickerTriggerProps,
     ref,
   ) => {
     const isDisabled = disabled || readOnly;
 
     return (
       <StyledDatePickerTriggerButton
-        aria-controls={open ? "styled-day-picker" : undefined}
+        aria-controls={pickerId}
         aria-expanded={open}
         aria-haspopup="dialog"
         aria-label={open ? "Close calendar" : "Open calendar"}

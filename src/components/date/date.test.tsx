@@ -214,15 +214,37 @@ test("should render the typical picker button trigger when `pickerVariant` is ty
   expect(screen.queryByTestId("input-icon-toggle")).not.toBeInTheDocument();
 
   const trigger = screen.getByRole("button", { name: "Open calendar" });
+  expect(trigger).toHaveAttribute("aria-haspopup", "dialog");
+  expect(trigger).toHaveAttribute("aria-expanded", "false");
+
   await user.click(trigger);
 
-  expect(screen.getByRole("grid")).toBeVisible();
+  const dialog = screen.getByRole("dialog");
+  expect(dialog).toBeVisible();
+  expect(dialog).toHaveAttribute("aria-modal", "true");
+  expect(trigger).toHaveAttribute("aria-expanded", "true");
+  expect(trigger).toHaveAttribute("aria-controls", dialog.id);
   expect(onPickerOpen).toHaveBeenCalledTimes(1);
 
   await user.click(screen.getByRole("button", { name: "Close calendar" }));
 
   expect(screen.queryByRole("grid")).not.toBeInTheDocument();
   expect(onPickerClose).toHaveBeenCalledTimes(1);
+});
+
+test("should add dialog control semantics to the legacy date input", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  render(<DateInput label="label" onChange={() => {}} value="" />);
+
+  const input = screen.getByRole("textbox");
+  expect(input).toHaveAttribute("aria-haspopup", "dialog");
+  expect(input).toHaveAttribute("aria-expanded", "false");
+
+  await user.click(screen.getByTestId("input-icon-toggle"));
+
+  const dialog = screen.getByRole("dialog");
+  expect(input).toHaveAttribute("aria-expanded", "true");
+  expect(input).toHaveAttribute("aria-controls", dialog.id);
 });
 
 test("should return focus to the typical picker trigger when Escape closes the picker", async () => {

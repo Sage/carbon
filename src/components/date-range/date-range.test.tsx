@@ -680,7 +680,7 @@ test("should close the open 'start' picker when the user moves focus to the `end
   expect(within(startDate).queryByRole("grid")).not.toBeInTheDocument();
 });
 
-test("should apply aria-label and aria-labelledby to the date picker region", async () => {
+test("should apply aria-label and aria-labelledby to the date picker dialog", async () => {
   const user = userEvent.setup();
   render(
     <DateRange
@@ -702,27 +702,35 @@ test("should apply aria-label and aria-labelledby to the date picker region", as
   const startCalendarIcon = screen.getAllByTestId("input-icon-toggle")[0];
   await user.click(startCalendarIcon);
 
-  expect(within(startDate).getByRole("region")).toBeVisible();
-  expect(within(startDate).getByRole("region")).toHaveAttribute(
+  expect(within(startDate).getByRole("dialog")).toBeVisible();
+  expect(within(startDate).getByRole("dialog")).toHaveAttribute(
     "aria-label",
     "start aria-label",
   );
-  expect(within(startDate).getByRole("region")).toHaveAttribute(
+  expect(within(startDate).getByRole("dialog")).toHaveAttribute(
     "aria-labelledby",
     "start aria-labelledby",
+  );
+  expect(within(startDate).getByRole("dialog")).toHaveAttribute(
+    "aria-modal",
+    "true",
   );
 
   const endCalendarIcon = screen.getAllByTestId("input-icon-toggle")[1];
   await user.click(endCalendarIcon);
 
-  expect(within(endDate).getByRole("region")).toBeVisible();
-  expect(within(endDate).getByRole("region")).toHaveAttribute(
+  expect(within(endDate).getByRole("dialog")).toBeVisible();
+  expect(within(endDate).getByRole("dialog")).toHaveAttribute(
     "aria-label",
     "end aria-label",
   );
-  expect(within(endDate).getByRole("region")).toHaveAttribute(
+  expect(within(endDate).getByRole("dialog")).toHaveAttribute(
     "aria-labelledby",
     "end aria-labelledby",
+  );
+  expect(within(endDate).getByRole("dialog")).toHaveAttribute(
+    "aria-modal",
+    "true",
   );
 });
 

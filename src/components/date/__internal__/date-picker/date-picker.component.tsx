@@ -103,6 +103,8 @@ export interface DatePickerProps extends SharedDatePickerProps {
   setOpen: (isOpen: boolean) => void;
   /** Id passed to tab guard element */
   pickerTabGuardId?: string;
+  /** Id applied to the picker dialog */
+  pickerId?: string;
   /** Callback triggered when the picker is closed */
   onPickerClose?: () => void;
   /** Prop to specify the aria-label attribute of the date picker */
@@ -194,6 +196,7 @@ export const DatePicker = ({
   open,
   setOpen,
   pickerTabGuardId,
+  pickerId = "styled-day-picker",
   onPickerClose,
   ariaLabel: datePickerAriaLabel,
   ariaLabelledBy: datePickerAriaLabelledBy,
@@ -449,12 +452,13 @@ export const DatePicker = ({
         popoverStrategy="fixed"
       >
         <StyledDayPicker
-          id="styled-day-picker"
+          id={pickerId}
           data-role="date-picker"
           ref={ref}
           onMouseDown={pickerMouseDown}
           onKeyUp={handleKeyUp}
-          role="region"
+          role="dialog"
+          aria-modal="true"
           aria-label={datePickerAriaLabel}
           aria-labelledby={datePickerAriaLabelledBy}
         >

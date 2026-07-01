@@ -203,6 +203,22 @@ test("should render custom labels for the month and year selectors", () => {
   expect(screen.getByRole("combobox", { name: "Choose year" })).toBeVisible();
 });
 
+test("should render the calendar container as a modal dialog", () => {
+  render(
+    <DatePickerWithInput
+      ariaLabel="Choose date"
+      pickerId="date-picker-dialog"
+      setOpen={() => {}}
+      open
+    />,
+  );
+
+  const dialog = screen.getByRole("dialog", { name: "Choose date" });
+
+  expect(dialog).toHaveAttribute("id", "date-picker-dialog");
+  expect(dialog).toHaveAttribute("aria-modal", "true");
+});
+
 test("should not render the range select-dates button in single date mode", () => {
   render(<DatePickerWithInput setOpen={() => {}} open />);
 

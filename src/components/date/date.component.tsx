@@ -239,6 +239,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     });
     const isInitialValue = useRef(true);
     const pickerTabGuardId = useRef(guid());
+    const pickerId = useRef(guid());
     const showValidationMessageOnTop =
       validationMessagePositionTopContext ?? validationMessagePositionTop;
 
@@ -574,6 +575,9 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
           onKeyDown={handleKeyDown}
           iconOnClick={handleClick}
           onMouseDown={handleMouseDown}
+          aria-controls={isTypicalPicker ? undefined : pickerId.current}
+          aria-expanded={isTypicalPicker ? undefined : open}
+          aria-haspopup={isTypicalPicker ? undefined : "dialog"}
           iconOnMouseDown={isTypicalPicker ? undefined : handleIconMouseDown}
           inputIcon={isTypicalPicker ? undefined : "calendar"}
           labelInline={labelInline}
@@ -597,6 +601,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
               onClick={handleTriggerClick}
               onMouseDown={handleTriggerMouseDown}
               open={open}
+              pickerId={pickerId.current}
               ref={triggerRef}
               readOnly={readOnly}
             />
@@ -620,6 +625,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
           open={open}
           setOpen={setOpen}
           pickerTabGuardId={pickerTabGuardId.current}
+          pickerId={pickerId.current}
           onPickerClose={onPickerClose}
           ariaLabel={datePickerAriaLabel}
           ariaLabelledBy={datePickerAriaLabelledBy}
