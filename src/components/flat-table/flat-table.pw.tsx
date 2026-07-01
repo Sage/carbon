@@ -24,6 +24,10 @@ import {
   FlatTableDraggableComponent,
   FlatTablePagerStickyHeaderComponent,
   FlatTableWithStickyColumn,
+  FlatTableStickyFooterDatePopupComponent,
+  FlatTableStickyFooterSplitButtonComponent,
+  FlatTableStickyFooterMultiActionButtonComponent,
+  FlatTableStickyFooterActionPopoverComponent,
 } from "./components.test-pw";
 import { getDataElementByValue } from "../../../playwright/components";
 import {
@@ -54,9 +58,6 @@ import {
   flatTablePageSelectListPosition,
   pageSelectElement,
   pageSelectInput,
-  flatTablePageSelectNext,
-  flatTablePageSelectPrevious,
-  flatTableCurrentPageInput,
   flatTableCheckboxCell,
 } from "../../../playwright/components/flat-table";
 import { CHARACTERS } from "../../../playwright/support/constants";
@@ -1113,191 +1114,6 @@ test.describe("Prop tests", () => {
       await expect(pageSelectInput(page)).toHaveValue(numberOfItems.toString());
     });
   });
-
-  test(`should navigate to next page by clicking Next link with the mouse`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FlatTablePagerStickyHeaderComponent />);
-
-    const currentPageInput = flatTableCurrentPageInput(page);
-    await expect(currentPageInput).toHaveAttribute("value", "1");
-
-    for await (const i of indexes(5)) {
-      if (i < 4) {
-        await expect(flatTableBodyRowByPosition(page, i)).toBeInViewport();
-      } else {
-        await expect(flatTableBodyRowByPosition(page, i)).not.toBeInViewport();
-      }
-    }
-
-    await flatTablePageSelectNext(page).click();
-    await expect(currentPageInput).toHaveAttribute("value", "2");
-    await expect(flatTableBodyRowByPosition(page, 0)).toBeVisible();
-  });
-
-  test(`should navigate to next page by selecting Next link with the Spacebar`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FlatTablePagerStickyHeaderComponent />);
-
-    const currentPageInput = flatTableCurrentPageInput(page);
-    await expect(currentPageInput).toHaveAttribute("value", "1");
-
-    for await (const i of indexes(5)) {
-      if (i < 4) {
-        await expect(flatTableBodyRowByPosition(page, i)).toBeInViewport();
-      } else {
-        await expect(flatTableBodyRowByPosition(page, i)).not.toBeInViewport();
-      }
-    }
-
-    await flatTablePageSelectNext(page).locator("button").focus();
-    await page.keyboard.press("Space");
-    await expect(currentPageInput).toHaveAttribute("value", "2");
-    await expect(flatTableBodyRowByPosition(page, 0)).toBeVisible();
-  });
-
-  test(`should navigate to next page by selecting Next link with the Enter key`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FlatTablePagerStickyHeaderComponent />);
-
-    const currentPageInput = flatTableCurrentPageInput(page);
-    await expect(currentPageInput).toHaveAttribute("value", "1");
-
-    for await (const i of indexes(5)) {
-      if (i < 4) {
-        await expect(flatTableBodyRowByPosition(page, i)).toBeInViewport();
-      } else {
-        await expect(flatTableBodyRowByPosition(page, i)).not.toBeInViewport();
-      }
-    }
-
-    await flatTablePageSelectNext(page).locator("button").focus();
-    await page.keyboard.press("Enter");
-    await expect(currentPageInput).toHaveAttribute("value", "2");
-    await expect(flatTableBodyRowByPosition(page, 0)).toBeVisible();
-  });
-
-  test(`should navigate to previous page by clicking Previous link with the mouse`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FlatTablePagerStickyHeaderComponent />);
-
-    await flatTablePageSelectNext(page).click();
-    await expect(flatTableBodyRowByPosition(page, 0)).toBeInViewport();
-    const currentPageInput = flatTableCurrentPageInput(page);
-    await expect(currentPageInput).toHaveAttribute("value", "2");
-    await flatTablePageSelectPrevious(page).click();
-    await expect(currentPageInput).toHaveAttribute("value", "1");
-
-    for await (const i of indexes(5)) {
-      if (i < 4) {
-        await expect(flatTableBodyRowByPosition(page, i)).toBeInViewport();
-      } else {
-        await expect(flatTableBodyRowByPosition(page, i)).not.toBeInViewport();
-      }
-    }
-  });
-
-  test(`should navigate to previous page by clicking Previous link with the Spacebar`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FlatTablePagerStickyHeaderComponent />);
-
-    await flatTablePageSelectNext(page).click();
-    await expect(flatTableBodyRowByPosition(page, 0)).toBeInViewport();
-    const currentPageInput = flatTableCurrentPageInput(page);
-    await expect(currentPageInput).toHaveAttribute("value", "2");
-    await flatTablePageSelectPrevious(page).locator("button").focus();
-    await page.keyboard.press("Space");
-    await expect(currentPageInput).toHaveAttribute("value", "1");
-    for await (const i of indexes(5)) {
-      if (i < 4) {
-        await expect(flatTableBodyRowByPosition(page, i)).toBeInViewport();
-      } else {
-        await expect(flatTableBodyRowByPosition(page, i)).not.toBeInViewport();
-      }
-    }
-  });
-
-  test(`should navigate to previous page by clicking Previous link with the Enter key`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FlatTablePagerStickyHeaderComponent />);
-
-    await flatTablePageSelectNext(page).click();
-    await expect(flatTableBodyRowByPosition(page, 0)).toBeInViewport();
-    const currentPageInput = flatTableCurrentPageInput(page);
-    await expect(currentPageInput).toHaveAttribute("value", "2");
-    await flatTablePageSelectPrevious(page).locator("button").focus();
-    await page.keyboard.press("Enter");
-    await expect(currentPageInput).toHaveAttribute("value", "1");
-
-    for await (const i of indexes(5)) {
-      if (i < 4) {
-        await expect(flatTableBodyRowByPosition(page, i)).toBeInViewport();
-      } else {
-        await expect(flatTableBodyRowByPosition(page, i)).not.toBeInViewport();
-      }
-    }
-  });
-
-  test(`should navigate to next page by page number`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FlatTablePagerStickyHeaderComponent />);
-
-    await expect(flatTableCurrentPageInput(page)).toHaveAttribute("value", "1");
-
-    for await (const i of indexes(5)) {
-      if (i < 4) {
-        await expect(flatTableBodyRowByPosition(page, i)).toBeInViewport();
-      } else {
-        await expect(flatTableBodyRowByPosition(page, i)).not.toBeInViewport();
-      }
-    }
-
-    const currentPageInput = flatTableCurrentPageInput(page);
-    await currentPageInput.focus();
-    await page.keyboard.press("Backspace");
-    await page.keyboard.type("2");
-    await page.keyboard.press("Tab");
-    await expect(currentPageInput).toHaveAttribute("value", "2");
-    await expect(flatTableBodyRowByPosition(page, 0)).toBeInViewport();
-  });
-
-  test(`should navigate to previous page by page number`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FlatTablePagerStickyHeaderComponent />);
-
-    await flatTablePageSelectNext(page).click();
-    await expect(flatTableBodyRowByPosition(page, 0)).toBeInViewport();
-    const currentPageInput = flatTableCurrentPageInput(page);
-    await expect(currentPageInput).toHaveAttribute("value", "2");
-    await currentPageInput.focus();
-    await page.keyboard.press("Backspace");
-    await page.keyboard.type("1");
-    await page.keyboard.press("Tab");
-    await expect(currentPageInput).toHaveAttribute("value", "1");
-
-    for await (const i of indexes(5)) {
-      if (i < 4) {
-        await expect(flatTableBodyRowByPosition(page, i)).toBeInViewport();
-      } else {
-        await expect(flatTableBodyRowByPosition(page, i)).not.toBeInViewport();
-      }
-    }
-  });
 });
 
 test.describe("Scrollable tests", () => {
@@ -1348,6 +1164,80 @@ test.describe("Scrollable tests", () => {
     await page.keyboard.press("ArrowUp");
     await page.keyboard.press("ArrowUp");
     await expect(flatTableBodyRowByPosition(page, 5)).not.toBeInViewport();
+  });
+
+  test("should prevent wrapper scrolling when DateInput popup is open in sticky footer table", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<FlatTableStickyFooterDatePopupComponent />);
+
+    const dateCalendarIcon = page.getByTestId("input-icon-toggle");
+
+    await dateCalendarIcon.click();
+    const dayPicker = page.getByTestId("date-picker");
+    await dayPicker.waitFor();
+
+    await page.getByTestId("popup-backdrop").hover();
+    await page.mouse.wheel(0, 400);
+
+    await expect(dateCalendarIcon).toBeInViewport();
+  });
+
+  test("should prevent wrapper scrolling when SplitButton submenu is open in sticky footer table", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<FlatTableStickyFooterSplitButtonComponent />);
+
+    const splitButton = page.getByRole("button", { name: "Show more" });
+
+    await splitButton.click();
+    const buttonList = page.getByRole("list");
+    await buttonList.waitFor();
+
+    await page.getByTestId("popup-backdrop").hover();
+    await page.mouse.wheel(0, 400);
+
+    await expect(splitButton).toBeInViewport();
+  });
+
+  test("should prevent wrapper scrolling when MultiActionButton submenu is open in sticky footer table", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<FlatTableStickyFooterMultiActionButtonComponent />);
+
+    const multiActionButton = page.getByRole("button", {
+      name: "Multi Action Button",
+    });
+
+    await multiActionButton.click();
+    const buttonList = page.getByRole("list");
+    await buttonList.waitFor();
+
+    await page.getByTestId("popup-backdrop").hover();
+    await page.mouse.wheel(0, 400);
+
+    await expect(multiActionButton).toBeInViewport();
+  });
+
+  test("should prevent wrapper scrolling when ActionPopover is open in sticky footer table", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<FlatTableStickyFooterActionPopoverComponent />);
+
+    const actionPopover = page.getByRole("button", { name: "actions" });
+
+    await actionPopover.click();
+    const buttonList = page.getByRole("list");
+    await buttonList.waitFor();
+
+    await page.getByTestId("popup-backdrop").hover();
+    await page.mouse.wheel(0, 400);
+
+    await expect(actionPopover).toBeInViewport();
   });
 });
 

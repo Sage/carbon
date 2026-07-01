@@ -534,21 +534,23 @@ export const MenuFullScreenWithSearchButton = ({
   const [value, setValue] = useState(searchValue || "");
 
   return (
-    <MenuFullscreen isOpen onClose={() => {}}>
-      <MenuItem href="#">Menu Item before Search</MenuItem>
-      <MenuItem variant="alternate">
-        <Search
-          placeholder="Dark variant"
-          variant="dark"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          searchButton
-        />
-      </MenuItem>
-      <MenuItem variant="alternate" href="#">
-        Menu Item after Search
-      </MenuItem>
-    </MenuFullscreen>
+    <Menu>
+      <MenuFullscreen isOpen onClose={() => {}}>
+        <MenuItem href="#">Menu Item before Search</MenuItem>
+        <MenuItem variant="alternate">
+          <Search
+            placeholder="Dark variant"
+            variant="dark"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            searchButton
+          />
+        </MenuItem>
+        <MenuItem variant="alternate" href="#">
+          Menu Item after Search
+        </MenuItem>
+      </MenuFullscreen>
+    </Menu>
   );
 };
 

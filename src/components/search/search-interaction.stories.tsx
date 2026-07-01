@@ -3,7 +3,7 @@ import { StoryObj, StoryFn } from "@storybook/react-vite";
 import { userEvent } from "storybook/test";
 
 import Box from "../box";
-import Search from "./search.component";
+import Search from ".";
 import Card from "../card";
 import Typography from "../typography";
 

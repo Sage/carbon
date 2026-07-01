@@ -133,17 +133,7 @@ const deDE: Partial<Locale> = {
     },
   },
   pager: {
-    show: () => "Anzeigen",
-    records: (count, showNumber = true) => {
-      const noun = isSingular(count) ? "Element" : "Elemente";
-      return showNumber ? `${count} ${noun}` : noun;
-    },
-    first: () => "Erste",
-    last: () => "Letzte",
-    next: () => "Weiter",
-    previous: () => "Vorherige",
-    pageX: () => "Seite",
-    ofY: (count) => `von ${count}`,
+    pageX: (currentPage?: number | string) => `Seite ${currentPage}`,
   },
   password: {
     buttonLabelHide: () => "Ausblenden",

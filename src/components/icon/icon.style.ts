@@ -72,7 +72,7 @@ const styleOverrides = css`
     color: currentColor;
   }
 
-  .search & {
+  .legacy-search & {
     color: var(--colorsUtilityYin065);
 
     &:hover {
@@ -80,7 +80,7 @@ const styleOverrides = css`
     }
   }
 
-  .search.dark-background:not(.with-button) & {
+  .legacy-search.dark-background:not(.with-button) & {
     color: var(--colorsUtilityYang080);
 
     :hover {
@@ -203,6 +203,19 @@ const StyledIcon = styled.span.attrs(applyBaseTheme)<
       ${styleOverrides}
     `;
   }}
+
+  ${StyledNextButton} &, .popover-menu-item & {
+    color: currentColor;
+  }
+
+  .mentions-list-item && {
+    color: currentColor;
+  }
+
+  .mentions-list-item:hover &&,
+  .mentions-list-item.selected && {
+    color: currentColor;
+  }
 `;
 
 export default StyledIcon;
