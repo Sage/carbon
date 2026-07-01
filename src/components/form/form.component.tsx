@@ -88,22 +88,22 @@ export const Form = ({
       ref={formRef}
       id={id}
       className={stickyFooter ? "sticky" : ""}
-      stickyFooter={stickyFooter}
+      $stickyFooter={stickyFooter}
       onSubmit={onSubmit}
       data-component="form"
       noValidate={noValidate}
-      height={height}
-      isInModal={isInModal}
+      $height={height}
+      $isInModal={isInModal}
       {...rest}
       {...tagComponent("form", rest)}
     >
       <StyledFormContent
         data-element="form-content"
         data-role="form-content"
-        stickyFooter={stickyFooter}
+        $stickyFooter={stickyFooter}
         tabIndex={-1}
-        isInModal={isInModal}
-        fieldSpacing={formSpacing[fieldSpacing]}
+        $isInModal={isInModal}
+        $fieldSpacing={formSpacing[fieldSpacing]}
       >
         {children}
       </StyledFormContent>
@@ -112,11 +112,11 @@ export const Form = ({
           data-element="form-footer"
           data-role="form-footer"
           ref={formFooterRef}
-          hasFooterChildren={!!footerChildren}
-          stickyFooter={stickyFooter}
-          {...(stickyFooter && { stickyFooterVariant })}
-          buttonAlignment={buttonAlignment}
-          fullWidthButtons={fullWidthButtons}
+          $hasFooterChildren={!!footerChildren}
+          $stickyFooter={stickyFooter}
+          {...(stickyFooter && { $stickyFooterVariant: stickyFooterVariant })}
+          $buttonAlignment={buttonAlignment}
+          $fullWidthButtons={fullWidthButtons}
           {...footerPadding}
         >
           {footerChildren || (
@@ -124,7 +124,7 @@ export const Form = ({
               {leftSideButtons && (
                 <StyledLeftButtons
                   data-role="form-left-buttons"
-                  buttonAlignment={buttonAlignment}
+                  $buttonAlignment={buttonAlignment}
                 >
                   {leftSideButtons}
                 </StyledLeftButtons>
@@ -141,7 +141,7 @@ export const Form = ({
               {rightSideButtons && (
                 <StyledRightButtons
                   data-role="form-right-buttons"
-                  buttonAlignment={buttonAlignment}
+                  $buttonAlignment={buttonAlignment}
                 >
                   {rightSideButtons}
                 </StyledRightButtons>

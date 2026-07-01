@@ -2,6 +2,7 @@ import React, {
   useCallback,
   useContext,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
@@ -151,7 +152,7 @@ const FocusTrap = ({
     [trapWrappers],
   );
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (shouldSetFocus && !prevShouldSetFocus) {
       const candidateFirstElement =
         focusFirstElement && "current" in focusFirstElement
