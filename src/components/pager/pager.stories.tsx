@@ -1,267 +1,155 @@
-import React from "react";
+import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
-
-import Pager, { PagerProps } from ".";
-import useMediaQuery from "../../hooks/useMediaQuery";
+import { action } from "storybook/actions";
+import Pager from ".";
+import Box from "../box";
 
 const meta: Meta<typeof Pager> = {
   title: "Pager",
   component: Pager,
+  argTypes: {
+    totalRecords: { control: "text" },
+    currentPage: { control: "text" },
+    pageSize: {
+      options: [1, 10, 25, 50, 100],
+      control: { type: "select" },
+    },
+  },
+  parameters: {
+    themeProvider: { chromatic: { theme: "sage" } },
+    chromatic: { disableSnapshot: true },
+    controls: {
+      exclude: [
+        "onPagination",
+        "onFirst",
+        "onPrevious",
+        "onNext",
+        "onLast",
+        "hideDisabledElements",
+        "showPageSizeLabelBefore",
+        "showPageSizeLabelAfter",
+        "showTotalRecords",
+        "showPreviousAndNextButtons",
+        "showPageCount",
+        "smallScreenBreakpoint",
+      ],
+    },
+  },
 };
 
 export default meta;
 type Story = StoryObj<typeof Pager>;
 
-export const Default: Story = (args: PagerProps) => {
-  return <Pager {...args} />;
+export const Default: Story = ({ ...args }) => {
+  const [currentPage, setCurrentPage] = useState(args.currentPage);
+  const handlePagination = (
+    currentPage: number,
+    pageSize: number,
+    origin: string,
+  ) => {
+    setCurrentPage(currentPage);
+    action("onPagination")({
+      currentPage: currentPage,
+      pageSize: pageSize,
+      origin: origin,
+    });
+  };
+
+  return (
+    <Pager
+      onPagination={handlePagination}
+      {...args}
+      currentPage={currentPage}
+    />
+  );
 };
 Default.storyName = "Default";
 Default.args = {
-  totalRecords: "100",
-  showPageSizeSelection: false,
-  currentPage: "1",
-  pageSizeSelectionOptions: [
-    { id: "1", name: 1 },
-    { id: "10", name: 10 },
-    { id: "25", name: 25 },
-    { id: "50", name: 50 },
-    { id: "100", name: 100 },
-  ],
-  onPagination: () => {},
-};
-Default.argTypes = {
-  pageSize: {
-    options: [1, 10, 25, 50, 100],
-    control: {
-      type: "select",
-    },
-  },
+  totalRecords: "1000",
+  currentPage: "2",
 };
 
-export const InteractivePageNumber: Story = (args: PagerProps) => {
-  return <Pager {...args} />;
-};
-InteractivePageNumber.storyName = "Interactive Page Number";
-InteractivePageNumber.args = {
-  totalRecords: "100",
-  interactivePageNumber: false,
-  showPageSizeSelection: false,
-  currentPage: "1",
-  pageSizeSelectionOptions: [
-    { id: "1", name: 1 },
-    { id: "10", name: 10 },
-    { id: "25", name: 25 },
-    { id: "50", name: 50 },
-    { id: "100", name: 100 },
-  ],
-  onPagination: () => {},
-};
-InteractivePageNumber.argTypes = {
-  pageSize: {
-    options: [1, 10, 25, 50, 100],
-    control: {
-      type: "select",
-    },
-  },
-};
-
-export const HideDisabledElements: Story = (args: PagerProps) => {
-  return <Pager {...args} />;
-};
-HideDisabledElements.storyName = "Hide Disabled Elements";
-HideDisabledElements.args = {
-  totalRecords: "100",
-  hideDisabledElements: true,
-  showPageSizeSelection: false,
-  currentPage: "1",
-  pageSizeSelectionOptions: [
-    { id: "1", name: 1 },
-    { id: "10", name: 10 },
-    { id: "25", name: 25 },
-    { id: "50", name: 50 },
-    { id: "100", name: 100 },
-  ],
-  onPagination: () => {},
-};
-HideDisabledElements.argTypes = {
-  pageSize: {
-    options: [1, 10, 25, 50, 100],
-    control: {
-      type: "select",
-    },
-  },
-};
-
-export const DisabledPageSize: Story = {
-  ...Default,
-  args: { ...Default.args, totalRecords: "100", onPagination: () => {} },
-  name: "Disabled Page Size",
-  parameters: { chromatic: { disableSnapshot: true } },
-};
-
-export const HidingPagerElements: Story = {
+export const WithPageSizeSelection: Story = {
   ...Default,
   args: {
     ...Default.args,
-    totalRecords: "100",
-    onPagination: () => {},
+    pageSize: 10,
+    showPageSizeSelection: true,
+  },
+  decorators: [
+    (Story) => (
+      <Box mb="150px">
+        <Story />
+      </Box>
+    ),
+  ],
+};
+
+export const NonInteractivePage: Story = {
+  ...Default,
+  args: {
+    ...Default.args,
+    interactivePageNumber: false,
+  },
+};
+
+export const HideFirstAndLastButtons: Story = {
+  ...Default,
+  args: {
+    ...Default.args,
     showFirstAndLastButtons: false,
-    showTotalRecords: false,
-    showPageSizeSelection: true,
   },
-  name: "Hiding Pager Elements",
 };
 
-export const SmartFunctionality: Story = () => {
-  return (
-    <>
-      <Pager totalRecords={10} onPagination={() => {}} />
-      <br />
-      <Pager totalRecords={20} onPagination={() => {}} />
-    </>
-  );
-};
-SmartFunctionality.storyName = "Smart Functionality";
-
-export const LoadingState: Story = {
+export const AlternateVariant: Story = {
   ...Default,
   args: {
-    onPagination: () => {},
+    ...Default.args,
+    variant: "alternate",
   },
-  name: "Loading State",
 };
 
-export const PageSizeSelectionOptions: Story = {
-  ...Default,
+export const SmallSize: Story = {
+  ...WithPageSizeSelection,
   args: {
-    onPagination: () => {},
-    totalRecords: 100,
-    showPageSizeSelection: true,
-    pageSizeSelectionOptions: [
-      { id: "15", name: 15 },
-      { id: "30", name: 30 },
-      { id: "60", name: 60 },
-    ],
-    pageSize: 15,
+    ...WithPageSizeSelection.args,
+    size: "small",
   },
-  name: "Page Size Selection Options",
-  parameters: { chromatic: { disableSnapshot: true } },
+  decorators: [
+    (Story) => (
+      <Box mb="125px">
+        <Story />
+      </Box>
+    ),
+  ],
 };
 
-export const CurrentPageLastPage: Story = {
-  ...Default,
+export const MediumSize: Story = {
+  ...WithPageSizeSelection,
   args: {
-    onPagination: () => {},
-    totalRecords: 100,
-    showPageSizeSelection: true,
-    currentPage: 10,
+    ...WithPageSizeSelection.args,
+    size: "medium",
   },
-  name: "Current Page Last Page",
-  parameters: { chromatic: { disableSnapshot: true } },
+  decorators: [
+    (Story) => (
+      <Box mb="150px">
+        <Story />
+      </Box>
+    ),
+  ],
 };
 
-export const CurrentPage: Story = {
-  ...Default,
+export const LargeSize: Story = {
+  ...WithPageSizeSelection,
   args: {
-    onPagination: () => {},
-    totalRecords: 100,
-    showPageSizeSelection: true,
-    currentPage: 5,
+    ...WithPageSizeSelection.args,
+    size: "large",
   },
-  name: "Current Page",
-  parameters: { chromatic: { disableSnapshot: true } },
-};
-
-export const UsingCustomResponsiveSettings: Story = () => {
-  const query1 = useMediaQuery("(max-width: 1000px)");
-  const query2 = useMediaQuery("(max-width: 900px)");
-  const query3 = useMediaQuery("(max-width: 800px)");
-  const query4 = useMediaQuery("(max-width: 700px)");
-  const query5 = useMediaQuery("(max-width: 600px)");
-  const responsiveProps = () => {
-    if (query5) {
-      return {
-        showPageSizeSelection: false,
-        showTotalRecords: false,
-        showFirstAndLastButtons: false,
-      };
-    }
-    if (query4) {
-      return {
-        showFirstAndLastButtons: false,
-        showTotalRecords: false,
-        showPageSizeLabelBefore: false,
-        showPageSizeLabelAfter: false,
-      };
-    }
-    if (query3) {
-      return {
-        showFirstAndLastButtons: false,
-        showTotalRecords: false,
-        showPageSizeLabelBefore: false,
-        showPageSizeLabelAfter: false,
-      };
-    }
-    if (query2) {
-      return {
-        showFirstAndLastButtons: false,
-        showTotalRecords: false,
-      };
-    }
-    if (query1) {
-      return {
-        showPageSizeSelection: true,
-        showFirstAndLastButtons: false,
-      };
-    }
-    return {
-      showPageSizeSelection: true,
-    };
-  };
-  return (
-    <Pager
-      totalRecords={1000}
-      pageSize={10}
-      currentPage={1}
-      onPagination={() => {}}
-      {...responsiveProps()}
-      smallScreenBreakpoint="375px"
-      pageSizeSelectionOptions={[
-        { id: "10", name: 10 },
-        { id: "25", name: 25 },
-        { id: "50", name: 50 },
-        { id: "100", name: 100 },
-      ]}
-    />
-  );
-};
-UsingCustomResponsiveSettings.storyName = "Using Custom Responsive Settings";
-UsingCustomResponsiveSettings.parameters = {
-  chromatic: { viewports: [1200, 920, 320] },
-};
-
-export const SmallScreenBreakpoint: Story = () => {
-  const shouldShowExtraLinks = useMediaQuery("(min-width: 375px)");
-
-  return (
-    <Pager
-      smallScreenBreakpoint="705px"
-      totalRecords={1000}
-      showPageSizeSelection
-      showFirstAndLastButtons={shouldShowExtraLinks}
-      pageSize={10}
-      currentPage={1}
-      onPagination={() => {}}
-      pageSizeSelectionOptions={[
-        { id: "10", name: 10 },
-        { id: "25", name: 25 },
-        { id: "50", name: 50 },
-        { id: "100", name: 100 },
-      ]}
-    />
-  );
-};
-SmallScreenBreakpoint.storyName = "Small Screen Breakpoint";
-SmallScreenBreakpoint.parameters = {
-  chromatic: { viewports: [1200, 675, 375, 320] },
+  decorators: [
+    (Story) => (
+      <Box mb="150px">
+        <Story />
+      </Box>
+    ),
+  ],
 };

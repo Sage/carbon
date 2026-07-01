@@ -1,3 +1,9 @@
+## [159.15.0](https://github.com/Sage/carbon/compare/v159.14.0...v159.15.0) (2026-06-30)
+
+### Features
+
+* **pager:** align with Fusion DS ([7c6aa54](https://github.com/Sage/carbon/commit/7c6aa54cee60ada947d0ab61a355fc37757f1c1f))
+
 ## [159.14.0](https://github.com/Sage/carbon/compare/v159.13.4...v159.14.0) (2026-06-29)
 
 ### Features

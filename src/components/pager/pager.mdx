@@ -26,80 +26,53 @@ import Pager from "carbon-react/lib/components/pager";
 
 ### Default
 
-<Canvas of={PagerStories.Default} name="default" />
+To use this component, pass `onPagination`, `totalRecords`, and `currentPage`.
+The `onPagination` callback is fired whenever navigation occurs and provides the selected `currentPage`, the `pageSize` (records per page), and the `origin` of the interaction.
 
-### with interactivePageNumber
+The total number of pages is calculated from the total number of records and the selected page size.
 
-When the `interactivePageNumber` prop is `false` the number input which contains the current
-page number is replaced with a non-interactive label which will include the current page, and total page count all in one string.
+<Canvas of={PagerStories.Default}/>
 
-<Canvas of={PagerStories.InteractivePageNumber} name="interactivePageNumber" />
+### With Page Size Selection
 
-### with hideDisabledElements
+Use `pageSize` prop to define how many records are shown per page.
 
-The example below demonstrates the functionality of the `hideDisabledElements` prop, when `true` all elements that typically would be disabled
-are instead hidden. This prop can be used in conjunction with all other `Pager` props and functionality.
+To allow users change this instead, set `showPageSizeSelection` to `true` to render a dropdown with a set of page size options.
 
-<Canvas of={PagerStories.HideDisabledElements} name="hideDisabledElements" />
+To set your own custom set of page size options, pass them in an array to `pageSizeSelectionOptions`.
 
-### With disabled Page Size Selection
+<Canvas of={PagerStories.WithPageSizeSelection}/>
 
-<Canvas of={PagerStories.DisabledPageSize} />
+### Non-Interactive Page
 
-### Hiding Pager elements
+To disable direct editing of the current page number, you can set `interactivePageNumber` to `false`.
 
-Unlike with hiding the page size select component, the remaining elements that make up the `Pager` are rendered by
-default: in order for them to be hidden you must pass `false` to the corresponding `show...` prop (see prop table below).
-In the example below the `First` and `Last` buttons and `totalRecords` label have been hidden by setting the
-`showFirstAndLastButtons` and `showTotalRecords` props to false.
+<Canvas of={PagerStories.NonInteractivePage}/>
 
-<Canvas of={PagerStories.HidingPagerElements} />
+### Hide First and Last Buttons
 
-### Smart elements
+To remove the First and Last page navigation buttons, set the `showFirstAndLastButtons` to `false`.
 
-The examples below demonstrate the `Pager`'s smart functionality. In the first there are only enough records for one page,
-and as such the navigation buttons are not necessary and therefore not rendered. In the second example there are only enough
-records for two pages, the `First` and `Last` buttons are not needed and as a result will not render.
+<Canvas of={PagerStories.HideFirstAndLastButtons}/>
 
-<Canvas of={PagerStories.SmartFunctionality} />
+### Alternate Variant
 
-### Loading state
+The `"alternate"` variant can be set to render the component with a transparent border and background. 
 
-When no totalRecords provided.
+<Canvas of={PagerStories.AlternateVariant}/>
 
-<Canvas of={PagerStories.LoadingState} />
+### Sizes
 
-### Custom pageSizeSelectionOptions
+Use the `size` prop to change the size of the component, available options are `"small"`, `"medium"` (default), and `"large"`.
 
-Show custom page size selection options.
+#### Small
+<Canvas of={PagerStories.SmallSize}/>
 
-<Canvas of={PagerStories.PageSizeSelectionOptions} />
+#### Medium
+<Canvas of={PagerStories.MediumSize}/>
 
-### With currentPage pre-set to last page
-
-Due to the fact that it is last page, next and last links are disabled.
-
-<Canvas of={PagerStories.CurrentPageLastPage} />
-
-### With currentPage pre-set to page 5
-
-<Canvas of={PagerStories.CurrentPage} />
-
-### Custom responsive example
-
-The`show...` props can be used to implement responsive behaviour in the `Pager`. Below is an example that will
-conditionally render the internal elements as the screen size is adjusted. This example is best viewed in the Canvas tab
-using full-screen mode with device or viewport emulation.
-
-<Canvas of={PagerStories.UsingCustomResponsiveSettings} />
-
-### Small screen breakpoint
-The `smallScreenBreakpoint` prop allows you to set the screen size at which the `Pager` will switch to small screen layout. 
-This will cause the navigation links to wrap onto a new line if `showPageSizeSelection` or `showTotalRecords` is set to `true`, as well as reduce the spacing around the elements.
-
-**Note:** This prop does not guarantee that the elements within `Pager` do not overflow, it is up to consumers to ensure they set the appropriate props and breakpoints.
-
-<Canvas of={PagerStories.SmallScreenBreakpoint} />
+#### Large
+<Canvas of={PagerStories.LargeSize}/>
 
 ## Props
 
@@ -115,57 +88,58 @@ The following keys are available to override the translations for this component
 <TranslationKeysTable
   translationData={[
     {
-      name: "pager.show",
+      name: "pager.firstAriaLabel",
       description:
-        "The text to display before the totalRecords select component",
+        "Accessible label for the 'Go To First' button.",
       type: "func",
       returnType: "string",
     },
     {
-      name: "pager.records",
+      name: "pager.lastAriaLabel",
       description:
-        "The text to display after the totalRecords select component",
+        "Accessible label for the 'Go To Last' button.",
       type: "func",
       returnType: "string",
     },
     {
-      name: "pager.first",
+      name: "pager.nextAriaLabel",
       description:
-        "The text to display for the button that navigates to the first page of records",
+        "Accessible label for the 'Go To Next' button.",
       type: "func",
       returnType: "string",
     },
     {
-      name: "pager.last",
+      name: "pager.previousAriaLabel",
       description:
-        "The text to display for the button that navigates to the last page of records",
-      type: "func",
-      returnType: "string",
-    },
-    {
-      name: "pager.next",
-      description:
-        "The text to display for the button that navigates to the next page of records",
-      type: "func",
-      returnType: "string",
-    },
-    {
-      name: "pager.previous",
-      description:
-        "The text to display for the button that navigates to the previous page of records",
+        "Accessible label for the 'Go To Previous' button.",
       type: "func",
       returnType: "string",
     },
     {
       name: "pager.pageX",
       description:
-        "The text to display before the current page input component",
+        "Accessible label for the current page input.",
       type: "func",
       returnType: "string",
     },
     {
-      name: "pager.ofY",
-      description: "The text to display after the current page input component",
+      name: "pager.ofTotalPages",
+      description:
+        "Visible text after the current page. Will be concatenated with 'pageX' and set to the accessible description of the input, e.g.: 'Page 2 of 10 pages'.",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "pager.itemsPerPage",
+      description:
+        "Label for page size select dropdown.",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "pager.ariaLabel",
+      description:
+        "Accessible label for the component.",
       type: "func",
       returnType: "string",
     },

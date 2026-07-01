@@ -142,17 +142,7 @@ const frCA: Partial<Locale> = {
     },
   },
   pager: {
-    show: () => "Afficher",
-    records: (count, showNumber = true) => {
-      const noun = isSingular(count) ? "élément" : "éléments";
-      return showNumber ? `${count} ${noun}` : noun;
-    },
-    first: () => "Première",
-    last: () => "Dernière",
-    next: () => "Suivante",
-    previous: () => "Précédente",
-    pageX: () => "Page",
-    ofY: (count) => `de ${count}`,
+    pageX: (currentPage?: number | string) => `Page ${currentPage}`,
   },
   password: {
     buttonLabelHide: () => "Masquer",

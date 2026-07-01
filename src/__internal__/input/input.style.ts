@@ -5,7 +5,6 @@ import {
   searchStyleOverrides,
   searchNewStyleOverrides,
   selectStyleOverrides,
-  pagerStyleOverrides,
   numeralDateStyles,
   passwordStyleOverrides,
 } from "./input-style-overrides.style";
@@ -164,8 +163,6 @@ const InputContainer = styled.div<InputContainerProps>`
 
   ${({ $size, $isDisabled, $isReadOnly }) =>
     selectStyleOverrides($size, $isDisabled, $isReadOnly)}
-
-  ${pagerStyleOverrides}
 
   ${numeralDateStyles}
   
