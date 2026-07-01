@@ -51,6 +51,20 @@ test("renders with custom data tags", () => {
   expect(icon).toHaveAttribute("data-element", "icon");
 });
 
+test("does not render a data-color attribute when the `color` prop is not provided", () => {
+  render(<Icon type="home" />);
+
+  expect(screen.getByTestId("icon")).not.toHaveAttribute("data-color");
+});
+
+test("renders a data-color attribute and no color DOM attribute when the `color` prop is provided", () => {
+  render(<Icon type="home" color="gold" />);
+
+  const icon = screen.getByTestId("icon");
+  expect(icon).toHaveAttribute("data-color", "gold");
+  expect(icon).not.toHaveAttribute("color");
+});
+
 test("renders with the 'aria-hidden' attribute with the `aria-hidden` prop is true", () => {
   render(<Icon type="home" aria-hidden />);
 
