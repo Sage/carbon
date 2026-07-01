@@ -155,9 +155,8 @@ description: Carbon NumeralDate component props and usage examples.
       readOnly
     />
   );
-}
+};
 ```
-
 
 ### Disabled
 
@@ -178,9 +177,8 @@ description: Carbon NumeralDate component props and usage examples.
       disabled
     />
   );
-}
+};
 ```
-
 
 ### With Input Hint
 
@@ -286,14 +284,14 @@ description: Carbon NumeralDate component props and usage examples.
     <Box display={"flex"} flexDirection={"column"} gap={"24px"}>
       <NumeralDate
         enableInternalError
-        legend="Default - new validation"
+        legend="Default - new validation (top)"
         onChange={(e) => setValueNew(e.target.value)}
         value={valueNew}
       />
       <NumeralDate
         validationMessagePositionTop={false}
         enableInternalError
-        legend="Default - new validation"
+        legend="Default - new validation (bottom)"
         onChange={(e) => setValueNew(e.target.value)}
         value={valueNew}
       />

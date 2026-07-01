@@ -62,14 +62,7 @@ export interface NumeralDateProps
   disabled?: boolean;
   /** If true, the component will be read-only */
   readOnly?: boolean;
-  /* Array of strings to define custom input layout.
-  Allowed formats:
-  ['dd', 'mm', 'yyyy'],
-  ['mm', 'dd', 'yyyy'],
-  ['yyyy', 'mm', 'dd'],
-  ['dd', 'mm'],
-  ['mm', 'dd'],
-  ['mm', 'yyyy'] */
+  /** Array of strings to define custom input layout. */
   dateFormat?: ValidDateFormat;
   /**  Value  */
   value: NumeralDateValue;
@@ -140,7 +133,7 @@ export interface NumeralDateProps
   validationOnLabel?: boolean;
   /**
    * [Legacy] Overrides the default tooltip position
-   * @deprecated Tooltips ar no longer supported on this component.
+   * @deprecated Tooltips are no longer supported on this component.
    * */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
   /**
@@ -329,7 +322,7 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
       dateFormat.map(() => null),
     );
 
-    const mappedLabel = legend ?? label;
+    const mappedLabel = legend || label;
 
     useImperativeHandle(ref, () => ({
       focus: () => {

@@ -168,14 +168,14 @@ export const InternalValidationError: Story = () => {
     <Box display={"flex"} flexDirection={"column"} gap={"24px"}>
       <NumeralDate
         enableInternalError
-        legend="Default - new validation"
+        legend="Default - new validation (top)"
         onChange={(e) => setValueNew(e.target.value)}
         value={valueNew}
       />
       <NumeralDate
         validationMessagePositionTop={false}
         enableInternalError
-        legend="Default - new validation"
+        legend="Default - new validation (bottom)"
         onChange={(e) => setValueNew(e.target.value)}
         value={valueNew}
       />

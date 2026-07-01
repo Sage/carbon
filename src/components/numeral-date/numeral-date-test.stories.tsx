@@ -22,6 +22,9 @@ export default {
         "dayRef",
         "monthRef",
         "yearRef",
+        "warning",
+        "enableInternalWarning",
+        "labelAlign",
       ],
     },
   },
@@ -32,11 +35,6 @@ export default {
       },
     },
     error: {
-      control: {
-        type: "text",
-      },
-    },
-    warning: {
       control: {
         type: "text",
       },
@@ -60,7 +58,6 @@ export const Default = (args: NumeralDateProps) => {
   return (
     <Box>
       <NumeralDate
-        legend="Numeral date"
         onBlur={handleBlur}
         name="numeralDate_name"
         id="numeralDate_id"
@@ -74,6 +71,9 @@ export const Default = (args: NumeralDateProps) => {
 Default.storyName = "Default";
 Default.args = {
   dateFormat: ["dd", "mm", "yyyy"],
+  label: "",
+  legend: "Numeral date",
+  labelHelp: "",
 };
 Default.parameters = { chromatic: { disableSnapshot: true } };
 
