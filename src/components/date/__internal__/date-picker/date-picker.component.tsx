@@ -37,7 +37,6 @@ export interface PickerProps
 export type DatePickerMode = "single" | "range";
 
 export interface DatePickerLabels {
-  closeButton?: string;
   monthSelect?: string;
   selectDatesButton?: string;
   yearSelect?: string;
