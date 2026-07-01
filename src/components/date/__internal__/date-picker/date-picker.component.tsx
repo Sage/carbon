@@ -89,6 +89,8 @@ export interface DatePickerProps extends SharedDatePickerProps {
   pickerProps?: PickerProps;
   /** Element that the DatePicker will be displayed under */
   inputElement: RefObject<HTMLElement>;
+  /** Element to focus when the picker closes */
+  returnFocusElement?: RefObject<HTMLElement>;
   /** Callback to handle mousedown event on picker container */
   pickerMouseDown?: () => void;
   /** Sets whether the picker should be displayed */
@@ -128,6 +130,47 @@ const defaultYearRange = () => {
 const getYears = ({ start, end }: DatePickerYearRange) =>
   Array.from({ length: end - start + 1 }, (_, index) => start + index);
 
+const focusWithoutDayPickerFocusEvent = (dayButton: HTMLElement) => {
+  // DayPicker listens for focusin events internally and resets its focus state
+  // when one fires. Blocking the first focusin prevents that reset when we
+  // programmatically focus a day; the DOM focus moves, but DayPicker stays calm.
+  const stopInitialFocusPropagation = (ev: FocusEvent) => {
+    ev.stopPropagation();
+  };
+
+  dayButton.addEventListener("focusin", stopInitialFocusPropagation, {
+    capture: true,
+    once: true,
+  });
+  dayButton.focus();
+};
+
+const focusSelectedTodayOrFirstAvailableDay = (container: HTMLElement) => {
+  const dayButton = [
+    '[data-selected="true"] button:not(:disabled)',
+    '[data-today="true"] button:not(:disabled)',
+    ".rdp-day:not(.rdp-outside) button:not(:disabled)",
+  ].reduce<HTMLElement | null>(
+    (match, selector) =>
+      match || container.querySelector<HTMLElement>(selector),
+    null,
+  );
+
+  if (dayButton) {
+    focusWithoutDayPickerFocusEvent(dayButton);
+  }
+};
+
+const focusFirstAvailableDay = (container: HTMLElement) => {
+  const dayButton = container.querySelector<HTMLElement>(
+    ".rdp-day:not(.rdp-outside) button:not(:disabled)",
+  );
+
+  if (dayButton) {
+    focusWithoutDayPickerFocusEvent(dayButton);
+  }
+};
+
 export const DatePicker = ({
   inputElement,
   minDate,
@@ -139,6 +182,7 @@ export const DatePicker = ({
   labels,
   yearRange,
   disablePortal = true,
+  returnFocusElement,
   onDayClick,
   pickerMouseDown,
   pickerProps,
@@ -159,7 +203,10 @@ export const DatePicker = ({
   const [uncontrolledFocusedMonth, setUncontrolledFocusedMonth] = useState<
     Date | undefined
   >(selectedDays || selectedRange?.startDate || new Date());
-  const pendingSelectorFocus = useRef<"month" | "year" | null>(null);
+  // Set to true by handleMonthChange / handleYearChange so the post-nav
+  // effect knows to focus the first available day instead of the initial-open
+  // effect doing it.
+  const pendingFocusAfterNavChange = useRef(false);
   const focusedMonth = focusedMonthProp || uncontrolledFocusedMonth;
   const setFocusedMonth = useCallback(
     (month: Date | undefined) => {
@@ -205,6 +252,11 @@ export const DatePicker = ({
     [yearRange],
   );
   const ref = useRef<HTMLDivElement>(null);
+  const focusReturnElement = useCallback(() => {
+    const fallbackInput = inputElement.current?.querySelector("input");
+
+    (returnFocusElement?.current || fallbackInput)?.focus();
+  }, [inputElement, returnFocusElement]);
 
   const handleDayClick = (
     date?: Date,
@@ -219,41 +271,37 @@ export const DatePicker = ({
     (ev: KeyboardEvent) => {
       /* istanbul ignore else */
       if (open && Events.isEscKey(ev)) {
-        // resets the focused month to the currently selected single date on Esc
-        // TODO: in range mode selectedDays will be undefined, causing the focused month
-        // to fall back to the current date - when range mode is wired up this should
-        // reset to selectedRange.startDate instead
-        setFocusedMonth(selectedDays);
-        inputElement.current?.querySelector("input")?.focus();
+        // Reset the calendar to the active selection so it re-opens at the
+        // right place: the selected date in single mode, or the range start
+        // date in range mode.
+        setFocusedMonth(selectedDays ?? selectedRange?.startDate);
+        focusReturnElement();
         setOpen(false);
         onPickerClose?.();
         ev.stopPropagation();
       }
     },
-    [inputElement, onPickerClose, open, selectedDays, setFocusedMonth, setOpen],
+    [
+      focusReturnElement,
+      onPickerClose,
+      open,
+      selectedDays,
+      selectedRange?.startDate,
+      setFocusedMonth,
+      setOpen,
+    ],
   );
 
-  const handleOnKeyDown = (ev: React.KeyboardEvent<HTMLDivElement>) => {
-    /* istanbul ignore else */
-    if (
-      ref.current?.querySelector(".rdp-nav select") ===
-        document.activeElement &&
-      Events.isTabKey(ev) &&
-      Events.isShiftKey(ev)
-    ) {
-      ev.preventDefault();
-      setOpen(false);
-      onPickerClose?.();
-      inputElement.current?.querySelector("input")?.focus();
-    }
-  };
-
+  // Shift+Tab from the month select (the first focusable element in the picker)
+  // closes the picker and returns focus to the trigger/input.
+  // This is the sole Shift+Tab handler for the nav; there is no container-level
+  // duplicate so setOpen/focusReturnElement are called exactly once.
   const handleMonthKeyDown = (ev: React.KeyboardEvent<HTMLSelectElement>) => {
     if (Events.isTabKey(ev) && Events.isShiftKey(ev)) {
       ev.preventDefault();
       setOpen(false);
       onPickerClose?.();
-      inputElement.current?.querySelector("input")?.focus();
+      focusReturnElement();
     }
   };
 
@@ -309,29 +357,42 @@ export const DatePicker = ({
   }, [selectedDays, selectedRange?.startDate, setFocusedMonth]);
 
   useEffect(() => {
-    // when the picker closes, re-sync the focused month if it has drifted from the
-    // selected single date (e.g. the user navigated months without confirming a selection)
-    // TODO: in range mode selectedDays is undefined so this effect is a no-op -
-    // when range mode is wired up, selectedRange.startDate should be used here too,
-    // consistent with the selection-change effect above
-    if (!open && selectedDays) {
-      const fMonth = focusedMonth?.getMonth();
-      const sMonth = selectedDays?.getMonth();
-      if (fMonth !== sMonth) setFocusedMonth(selectedDays);
+    // When the picker closes, re-sync the focused month if it drifted from the
+    // active selection (e.g. the user navigated months without confirming).
+    // Covers both single mode (selectedDays) and range mode (selectedRange.startDate).
+    const anchor = selectedDays ?? selectedRange?.startDate;
+    if (!open && anchor) {
+      // Compare both month AND year; same month in a different year is still a drift.
+      if (
+        focusedMonth?.getMonth() !== anchor.getMonth() ||
+        focusedMonth?.getFullYear() !== anchor.getFullYear()
+      ) {
+        setFocusedMonth(anchor);
+      }
     }
-  }, [focusedMonth, open, selectedDays, setFocusedMonth]);
+  }, [
+    focusedMonth,
+    open,
+    selectedDays,
+    selectedRange?.startDate,
+    setFocusedMonth,
+  ]);
 
   useEffect(() => {
-    if (!open || !pendingSelectorFocus.current) return;
+    // After the user changes the month or year via the select controls, move
+    // focus to the first available day in the newly displayed month.
+    if (!open || !pendingFocusAfterNavChange.current || !ref.current) return;
 
-    ref.current
-      ?.querySelector<HTMLElement>(
-        `[data-role="date-picker-${pendingSelectorFocus.current}-select"]`,
-      )
-      ?.focus();
-
-    pendingSelectorFocus.current = null;
+    pendingFocusAfterNavChange.current = false;
+    focusFirstAvailableDay(ref.current);
   }, [focusedMonth, open]);
+
+  useEffect(() => {
+    // On initial open (no pending nav change), focus the first available day.
+    if (!open || pendingFocusAfterNavChange.current || !ref.current) return;
+
+    focusSelectedTodayOrFirstAvailableDay(ref.current);
+  }, [open]);
 
   if (!open) {
     return null;
@@ -343,13 +404,13 @@ export const DatePicker = ({
 
   const handleMonthChange = (month: number) => {
     const previousMonth = focusedMonth || new Date();
-    pendingSelectorFocus.current = "month";
+    pendingFocusAfterNavChange.current = true;
     setFocusedMonth(new Date(previousMonth.getFullYear(), month, 1));
   };
 
   const handleYearChange = (year: number) => {
     const previousMonth = focusedMonth || new Date();
-    pendingSelectorFocus.current = "year";
+    pendingFocusAfterNavChange.current = true;
     setFocusedMonth(new Date(year, previousMonth.getMonth(), 1));
   };
 
@@ -369,12 +430,13 @@ export const DatePicker = ({
           ref={ref}
           onMouseDown={pickerMouseDown}
           onKeyUp={handleKeyUp}
-          onKeyDown={handleOnKeyDown}
           role="region"
           aria-label={datePickerAriaLabel}
           aria-labelledby={datePickerAriaLabelledBy}
         >
           <div
+            data-role="date-picker-tab-guard"
+            data-testid="date-picker-tab-guard"
             id={pickerTabGuardId}
             // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
             tabIndex={0}

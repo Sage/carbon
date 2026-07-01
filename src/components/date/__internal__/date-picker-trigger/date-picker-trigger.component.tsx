@@ -11,30 +11,35 @@ export interface DatePickerTriggerProps {
   readOnly?: boolean;
 }
 
-export const TypicalDatePickerTrigger = ({
-  disabled,
-  onClick,
-  onMouseDown,
-  open,
-  readOnly,
-}: DatePickerTriggerProps) => {
-  const isDisabled = disabled || readOnly;
+export const TypicalDatePickerTrigger = React.forwardRef<
+  HTMLButtonElement,
+  DatePickerTriggerProps
+>(
+  (
+    { disabled, onClick, onMouseDown, open, readOnly }: DatePickerTriggerProps,
+    ref,
+  ) => {
+    const isDisabled = disabled || readOnly;
 
-  return (
-    <StyledDatePickerTriggerButton
-      aria-controls={open ? "styled-day-picker" : undefined}
-      aria-expanded={open}
-      aria-haspopup="dialog"
-      aria-label={open ? "Close calendar" : "Open calendar"}
-      data-element="date-picker-trigger"
-      disabled={isDisabled}
-      onClick={onClick}
-      onMouseDown={onMouseDown}
-      type="button"
-    >
-      <Icon disabled={isDisabled} type="calendar" />
-    </StyledDatePickerTriggerButton>
-  );
-};
+    return (
+      <StyledDatePickerTriggerButton
+        aria-controls={open ? "styled-day-picker" : undefined}
+        aria-expanded={open}
+        aria-haspopup="dialog"
+        aria-label={open ? "Close calendar" : "Open calendar"}
+        data-element="date-picker-trigger"
+        disabled={isDisabled}
+        onClick={onClick}
+        onMouseDown={onMouseDown}
+        ref={ref}
+        type="button"
+      >
+        <Icon disabled={isDisabled} type="calendar" />
+      </StyledDatePickerTriggerButton>
+    );
+  },
+);
+
+TypicalDatePickerTrigger.displayName = "TypicalDatePickerTrigger";
 
 export default TypicalDatePickerTrigger;

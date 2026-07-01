@@ -95,3 +95,14 @@ test("should call `onYearChange` when the selected year changes", async () => {
 
   expect(onYearChange).toHaveBeenCalledWith(2026);
 });
+
+test("should call `onMonthKeyDown` when a key is pressed on the month select", async () => {
+  const user = userEvent.setup();
+  const onMonthKeyDown = jest.fn();
+  renderNavbar({ onMonthKeyDown });
+
+  screen.getByRole("combobox", { name: "Month" }).focus();
+  await user.keyboard("{Shift>}{Tab}{/Shift}");
+
+  expect(onMonthKeyDown).toHaveBeenCalled();
+});

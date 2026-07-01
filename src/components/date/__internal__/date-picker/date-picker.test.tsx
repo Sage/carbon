@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { act, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import type { Day } from "date-fns";
 import { de as deLocale } from "date-fns/locale/de";
@@ -32,6 +32,26 @@ const DatePickerWithInput = (props: MockProps) => {
     <>
       <Input />
       <DatePicker {...props} inputElement={ref} />
+    </>
+  );
+};
+
+const DatePickerWithReturnFocus = (props: MockProps) => {
+  const inputRef = React.useRef<HTMLDivElement>(null);
+  const returnRef = React.useRef<HTMLButtonElement>(null);
+  return (
+    <>
+      <div ref={inputRef}>
+        <input title="foobar" name="foo" id="bar" />
+      </div>
+      <button ref={returnRef} type="button">
+        trigger
+      </button>
+      <DatePicker
+        {...props}
+        inputElement={inputRef}
+        returnFocusElement={returnRef}
+      />
     </>
   );
 };
@@ -181,6 +201,58 @@ test("should render custom labels for the month and year selectors", () => {
 
   expect(screen.getByRole("combobox", { name: "Choose month" })).toBeVisible();
   expect(screen.getByRole("combobox", { name: "Choose year" })).toBeVisible();
+});
+
+test("should focus the selected date when the picker opens", async () => {
+  render(
+    <DatePickerWithInput
+      selectedDays={new Date(2019, 3, 4)}
+      setOpen={() => {}}
+      open
+    />,
+  );
+
+  await waitFor(() => {
+    expect(
+      screen.getByRole("button", {
+        name: "Thursday, April 4th, 2019, selected",
+      }),
+    ).toHaveFocus();
+  });
+});
+
+test("should focus today's date when the picker opens without a selected date", async () => {
+  jest.useFakeTimers();
+  jest.setSystemTime(new Date(2026, 5, 15));
+
+  render(<DatePickerWithInput setOpen={() => {}} open />);
+
+  await waitFor(() => {
+    expect(
+      screen.getByRole("button", {
+        name: "Today, Monday, June 15th, 2026",
+      }),
+    ).toHaveFocus();
+  });
+
+  jest.useRealTimers();
+});
+
+test("should focus the first available date when the picker opens and today is disabled", async () => {
+  jest.useFakeTimers();
+  jest.setSystemTime(new Date(2026, 5, 15));
+
+  render(<DatePickerWithInput minDate="2026-06-20" setOpen={() => {}} open />);
+
+  await waitFor(() => {
+    expect(
+      screen.getByRole("button", {
+        name: "Saturday, June 20th, 2026",
+      }),
+    ).toHaveFocus();
+  });
+
+  jest.useRealTimers();
 });
 
 test("should use the current date as the initial focused month when neither `selectedDays` nor `selectedRange` is given", () => {
@@ -607,7 +679,7 @@ test("should correctly translate the month caption for the given locale (zh-CN)"
   expect(monthCaption).toHaveTextContent("三月 2019");
 });
 
-test("month and year selectors should maintain focus when changed with the keyboard", async () => {
+test("Tab from the input focuses the month select, then Tab focuses the year select", async () => {
   const user = userEvent.setup();
   render(
     <DatePickerWithInput
@@ -617,20 +689,137 @@ test("month and year selectors should maintain focus when changed with the keybo
     />,
   );
 
-  const textbox = screen.getByRole("textbox");
-  const monthLabel = screen.getByText("April 2019");
-  const monthSelect = screen.getByRole("combobox", { name: "Month" });
-
-  await user.click(textbox);
+  await user.click(screen.getByRole("textbox"));
   await user.tab();
-  expect(monthSelect).toHaveFocus();
-  await user.selectOptions(monthSelect, ["2"]);
-  expect(monthLabel).toHaveTextContent("March 2019");
   expect(screen.getByRole("combobox", { name: "Month" })).toHaveFocus();
+
   await user.tab();
-  const updatedYearSelect = screen.getByRole("combobox", { name: "Year" });
-  expect(updatedYearSelect).toHaveFocus();
-  await user.selectOptions(updatedYearSelect, ["2020"]);
-  expect(monthLabel).toHaveTextContent("March 2020");
   expect(screen.getByRole("combobox", { name: "Year" })).toHaveFocus();
+});
+
+test("after changing the month select, focus moves to the first available day in the new month", async () => {
+  const user = userEvent.setup();
+  render(
+    <DatePickerWithInput
+      setOpen={() => {}}
+      open
+      selectedDays={new Date(2019, 3, 4)}
+    />,
+  );
+
+  await user.selectOptions(screen.getByRole("combobox", { name: "Month" }), [
+    "2",
+  ]);
+
+  expect(screen.getByRole("status")).toHaveTextContent("March 2019");
+  await waitFor(() => {
+    expect(
+      screen.getByRole("button", { name: "Friday, March 1st, 2019" }),
+    ).toHaveFocus();
+  });
+});
+
+test("after changing the year select, focus moves to the first available day in the new month", async () => {
+  const user = userEvent.setup();
+  render(
+    <DatePickerWithInput
+      setOpen={() => {}}
+      open
+      selectedDays={new Date(2019, 3, 4)}
+    />,
+  );
+
+  await user.selectOptions(screen.getByRole("combobox", { name: "Year" }), [
+    "2020",
+  ]);
+
+  expect(screen.getByRole("status")).toHaveTextContent("April 2020");
+  await waitFor(() => {
+    expect(
+      screen.getByRole("button", { name: "Wednesday, April 1st, 2020" }),
+    ).toHaveFocus();
+  });
+});
+
+test("Shift+Tab on the month select closes the picker and returns focus to the input", async () => {
+  const user = userEvent.setup();
+  const setOpen = jest.fn();
+  render(
+    <DatePickerWithInput
+      selectedDays={new Date(2019, 3, 4)}
+      setOpen={setOpen}
+      open
+    />,
+  );
+
+  act(() => {
+    screen.getByRole("combobox", { name: "Month" }).focus();
+  });
+  await user.keyboard("{Shift>}{Tab}{/Shift}");
+
+  expect(setOpen).toHaveBeenCalledWith(false);
+  expect(screen.getByTitle("foobar")).toHaveFocus();
+});
+
+test("Shift+Tab on the month select returns focus to `returnFocusElement` when provided", async () => {
+  const user = userEvent.setup();
+  const setOpen = jest.fn();
+  render(
+    <DatePickerWithReturnFocus
+      selectedDays={new Date(2019, 3, 4)}
+      setOpen={setOpen}
+      open
+    />,
+  );
+
+  act(() => {
+    screen.getByRole("combobox", { name: "Month" }).focus();
+  });
+  await user.keyboard("{Shift>}{Tab}{/Shift}");
+
+  expect(setOpen).toHaveBeenCalledWith(false);
+  expect(screen.getByRole("button", { name: "trigger" })).toHaveFocus();
+});
+
+test("focusing the tab guard redirects focus to the first select in the picker", async () => {
+  render(
+    <DatePickerWithInput
+      setOpen={() => {}}
+      open
+      selectedDays={new Date(2019, 3, 4)}
+    />,
+  );
+
+  act(() => {
+    screen.getByTestId("date-picker-tab-guard").focus();
+  });
+
+  await waitFor(() => {
+    expect(screen.getByRole("combobox", { name: "Month" })).toHaveFocus();
+  });
+});
+
+test("close-sync effect re-syncs focused month when year differs from the selected date", () => {
+  const onFocusedMonthChange = jest.fn();
+  const { rerender } = render(
+    <DatePickerWithInput
+      selectedDays={new Date(2019, 6, 15)}
+      focusedMonth={new Date(2026, 6, 1)}
+      onFocusedMonthChange={onFocusedMonthChange}
+      setOpen={() => {}}
+      open
+    />,
+  );
+
+  // Close the picker; same month (July) but different year (2026 vs 2019).
+  rerender(
+    <DatePickerWithInput
+      selectedDays={new Date(2019, 6, 15)}
+      focusedMonth={new Date(2026, 6, 1)}
+      onFocusedMonthChange={onFocusedMonthChange}
+      setOpen={() => {}}
+    />,
+  );
+
+  expect(onFocusedMonthChange).toHaveBeenCalledWith(new Date(2019, 6, 15));
 });

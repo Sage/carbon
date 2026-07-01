@@ -225,6 +225,34 @@ test("should render the typical picker button trigger when `pickerVariant` is ty
   expect(onPickerClose).toHaveBeenCalledTimes(1);
 });
 
+test("should return focus to the typical picker trigger when Escape closes the picker", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <DateInput
+      label="label"
+      onChange={() => {}}
+      pickerVariant="typical"
+      value="04/04/2019"
+    />,
+  );
+
+  await user.click(screen.getByRole("button", { name: "Open calendar" }));
+
+  await waitFor(() => {
+    expect(
+      screen.getByRole("button", {
+        name: "Thursday, April 4th, 2019, selected",
+      }),
+    ).toHaveFocus();
+  });
+
+  await user.keyboard("{Escape}");
+
+  expect(screen.queryByRole("grid")).not.toBeInTheDocument();
+  expect(screen.getByRole("button", { name: "Open calendar" })).toHaveFocus();
+});
+
 test("picker closes when input icon is double clicked", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(<DateInput label="label" onChange={() => {}} value="" />);

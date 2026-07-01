@@ -167,6 +167,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     const wrapperRef = useRef<HTMLDivElement>(null);
     const parentRef = useRef<HTMLElement | null>(null);
     const internalInputRef = useRef<HTMLInputElement | null>(null);
+    const triggerRef = useRef<HTMLButtonElement>(null);
     const alreadyFocused = useRef(false);
     const isBlurBlocked = useRef(false);
     const focusedViaPicker = useRef(false);
@@ -239,6 +240,10 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
 
     const handleClickAway = () => {
       if (open) {
+        // Temporarily focus then immediately blur the input so that handleBlur
+        // fires with isBlurBlocked=false, triggering any pending validation or
+        // onChange. alreadyFocused guards against handleFocus re-opening the picker
+        // during the transient focus.
         alreadyFocused.current = true;
         internalInputRef.current?.focus();
         isBlurBlocked.current = false;
@@ -349,6 +354,10 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
           setOpen(false);
           onPickerClose?.();
         } else if (!disablePortal) {
+          // disablePortal=false means the picker renders in a portal (detached
+          // from the normal DOM tree), so Tab cannot reach it naturally.
+          // We manually redirect focus to the tab-guard element inside the picker.
+          // With the default disablePortal=true the browser handles Tab normally.
           ev.preventDefault();
           (
             document?.querySelector(
@@ -548,6 +557,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
               onClick={handleTriggerClick}
               onMouseDown={handleTriggerMouseDown}
               open={open}
+              ref={triggerRef}
               readOnly={readOnly}
             />
           )}
@@ -555,6 +565,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
         <DatePicker
           disablePortal={disablePortal}
           inputElement={parentRef}
+          returnFocusElement={isTypicalPicker ? triggerRef : undefined}
           pickerProps={pickerProps}
           selectedDays={selectedDays}
           onDayClick={handleDayClick}
