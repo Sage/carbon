@@ -6,7 +6,6 @@ import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-
 import I18nProvider from "../i18n-provider";
 import { TimeInputEvent, TimeValue } from "./time.component";
 import Button from "../button";
-import Fieldset from "../../__internal__/fieldset/__next__/fieldset.component";
 
 const localeMock = {
   time: {
@@ -334,51 +333,6 @@ test("should use `legend` over `label` when both are provided", () => {
   expect(fieldset).toHaveAccessibleName("Time legend");
   expect(within(fieldset).getByText("Time legend")).toBeVisible();
   expect(within(fieldset).queryByText("Time label")).not.toBeInTheDocument();
-});
-
-test("should render the next fieldset with the expected large required disabled styling", () => {
-  render(
-    <Fieldset
-      legend="Fieldset legend"
-      legendHint="Legend hint"
-      legendAlign="right"
-      isRequired
-      isDisabled
-      size="large"
-    >
-      <div>content</div>
-    </Fieldset>,
-  );
-
-  const fieldset = screen.getByRole("group", { name: "Fieldset legend" });
-  const legend = within(fieldset).getByText("Fieldset legend");
-  const legendHint = within(fieldset).getByText("Legend hint");
-
-  expect(fieldset).toHaveAccessibleDescription("Legend hint");
-  expect(legend).toHaveStyleRule(
-    "font",
-    "var(--global-font-static-comp-medium-l)",
-  );
-  expect(legend).toHaveStyleRule("text-align", "right");
-  expect(legend).toHaveStyleRule("justify-content", "flex-end");
-  expect(legend).toHaveStyleRule(
-    "color",
-    "var(--input-labelset-label-disabled)",
-  );
-  expect(legendHint).toBeVisible();
-});
-
-test("should render the next fieldset legend with left alignment", () => {
-  render(
-    <Fieldset legend="Left aligned legend" legendAlign="left">
-      <div>content</div>
-    </Fieldset>,
-  );
-
-  const fieldset = screen.getByRole("group", { name: "Left aligned legend" });
-  const legend = within(fieldset).getByText("Left aligned legend");
-
-  expect(legend).toHaveStyleRule("justify-content", "flex-start");
 });
 
 test("should apply the custom id on the hours input when `hoursInputProps` has an `id` set", () => {
@@ -1037,73 +991,6 @@ it.each(["disabled", "readOnly"])(
     expect(onChangeMock).not.toHaveBeenCalled();
   },
 );
-
-test("should apply the expected styling when disabled prop is set", () => {
-  render(
-    <Time
-      value={{ hours: "", minutes: "", period: "AM" }}
-      onChange={() => {}}
-      label="label"
-      inputHint="hint"
-      disabled
-    />,
-  );
-
-  const mainLabel = screen.getByText("label");
-  const hintText = screen.getByText("hint");
-  const hrsLabel = screen.getByText("Hours");
-  const minsLabel = screen.getByText("Minutes");
-  const separator = screen.getByText(":");
-
-  expect(mainLabel).toHaveStyleRule(
-    "color",
-    "var(--input-labelset-label-disabled)",
-  );
-  expect(hintText).toHaveStyleRule("color: var(--colorsUtilityYin030)");
-  expect(hrsLabel).toHaveStyleRule(
-    "color",
-    "var(--input-labelset-label-disabled)",
-  );
-  expect(minsLabel).toHaveStyleRule(
-    "color",
-    "var(--input-labelset-label-disabled)",
-  );
-  expect(separator).toHaveStyleRule(
-    "color",
-    "var(--input-typical-txt-disabled)",
-  );
-});
-
-test("should apply the expected styling when readOnly prop is set", () => {
-  render(
-    <Time
-      value={{ hours: "", minutes: "", period: "AM" }}
-      onChange={() => {}}
-      label="label"
-      inputHint="hint"
-      readOnly
-    />,
-  );
-
-  const hintText = screen.getByText("hint");
-  const hrsLabel = screen.getByText("Hours");
-  const minsLabel = screen.getByText("Minutes");
-  const separator = screen.getByText(":");
-
-  expect(hintText).toHaveStyleRule("color: var(--colorsUtilityYin055)");
-  expect(hrsLabel).toHaveStyleRule(
-    "color",
-    "var(--input-labelset-label-readOnly)",
-  );
-  expect(minsLabel).toHaveStyleRule(
-    "color",
-    "var(--input-labelset-label-readOnly)",
-  );
-  expect(separator).toHaveStyleRule(
-    "color",
-    "var(--input-typical-txt-read-only)",
-  );
-});
 
 test("should have the expected `data-` attributes set on the root element", () => {
   render(

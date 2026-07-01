@@ -1,10 +1,5 @@
 import styled, { css } from "styled-components";
 
-const StyledLabelWrapper = styled.div`
-  display: flex;
-  justify-content: flex-start;
-`;
-
 const colonFontBySize = {
   small: "var(--global-font-static-comp-regular-s)",
   medium: "var(--global-font-static-comp-regular-m)",
@@ -34,5 +29,3 @@ export const StyledColon = styled.span<StyledColonProps>`
     `}
   `}
 `;
-
-export default StyledLabelWrapper;

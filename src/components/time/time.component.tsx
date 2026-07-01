@@ -18,7 +18,7 @@ import Fieldset from "../../__internal__/fieldset/__next__/fieldset.component";
 import Box from "../box";
 import Textbox from "../textbox";
 import Label from "../../__internal__/label";
-import StyledLabelWrapper, { StyledColon } from "./time.style";
+import { StyledColon } from "./time.style";
 import { TimeToggle, ToggleDataProps } from "./__internal__/time-toggle";
 import FieldsetValidationContext from "../../__internal__/fieldset-validation-context";
 
@@ -328,16 +328,14 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
         >
           <Box display="flex" className="time">
             <div>
-              <StyledLabelWrapper>
-                <Label
-                  htmlFor={internalHrsId.current}
-                  size={size}
-                  disabled={disabled}
-                  readOnly={readOnly}
-                >
-                  {hrsLabel}
-                </Label>
-              </StyledLabelWrapper>
+              <Label
+                htmlFor={internalHrsId.current}
+                size={size}
+                disabled={disabled}
+                readOnly={readOnly}
+              >
+                {hrsLabel}
+              </Label>
               <Textbox
                 {...hoursInputProps}
                 label={undefined}
@@ -376,16 +374,14 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
               </StyledColon>
             </Box>
             <div>
-              <StyledLabelWrapper>
-                <Label
-                  htmlFor={internalMinsId.current}
-                  size={size}
-                  disabled={disabled}
-                  readOnly={readOnly}
-                >
-                  {minsLabel}
-                </Label>
-              </StyledLabelWrapper>
+              <Label
+                htmlFor={internalMinsId.current}
+                size={size}
+                disabled={disabled}
+                readOnly={readOnly}
+              >
+                {minsLabel}
+              </Label>
               <Textbox
                 {...minutesInputProps}
                 label={undefined}
