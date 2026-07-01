@@ -6,7 +6,6 @@ import allModes from "../../../.storybook/modes";
 
 import Box from "../box";
 import Button from "../button/__next__";
-import LegacyButton from "../button";
 import Form from "../form";
 import Typography from "../typography";
 import Textbox from "../textbox";
@@ -16,7 +15,6 @@ import Message from "../message";
 
 import type { DialogProps } from ".";
 import Dialog from ".";
-import { ButtonHandle } from "../button/__next__/button.component";
 
 const meta: Meta<typeof Dialog> = {
   title: "Dialog",
@@ -176,9 +174,9 @@ export const FocusingADifferentFirstElement: Story = () => {
           height="150px"
         >
           <Button onClick={() => setIsOpenOne(false)}>Not focused</Button>
-          <LegacyButton ref={ref} onClick={() => setIsOpenOne(false)}>
+          <Button ref={ref} onClick={() => setIsOpenOne(false)}>
             This should be focused first now
-          </LegacyButton>
+          </Button>
         </Box>
         <Textbox label="Not focused" value="" onChange={() => {}} />
       </Dialog>
@@ -334,7 +332,7 @@ export const DefaultStory: Story = {
     size: "medium",
   },
   render: function DefaultRender({ onCancel, ...args }: DialogProps) {
-    const buttonRef = useRef<ButtonHandle>(null);
+    const buttonRef = useRef<HTMLButtonElement>(null);
     const [open, setOpen] = useState(args.open || false);
     return (
       <>
@@ -347,7 +345,7 @@ export const DefaultStory: Story = {
           onCancel={(ev) => {
             onCancel?.(ev);
             setOpen(false);
-            setTimeout(() => buttonRef.current?.focusButton(), 0);
+            setTimeout(() => buttonRef.current?.focus(), 0);
           }}
           footer={<Buttons />}
         >
@@ -367,7 +365,7 @@ export const DefaultWithForm: Story = {
     size: "medium",
   },
   render: function DefaultWithFormRender({ onCancel, ...args }: DialogProps) {
-    const buttonRef = useRef<ButtonHandle>(null);
+    const buttonRef = useRef<HTMLButtonElement>(null);
     const [open, setOpen] = useState(args.open || false);
     return (
       <>
@@ -380,7 +378,7 @@ export const DefaultWithForm: Story = {
           onCancel={(ev) => {
             onCancel?.(ev);
             setOpen(false);
-            setTimeout(() => buttonRef.current?.focusButton(), 0);
+            setTimeout(() => buttonRef.current?.focus(), 0);
           }}
         >
           <Form
@@ -524,7 +522,7 @@ export const LargeSize: Story = {
 
 export const FullScreenSize: Story = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
-  const buttonRef = useRef<ButtonHandle>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   return (
     <>
@@ -536,7 +534,7 @@ export const FullScreenSize: Story = () => {
         open={isOpen}
         onCancel={() => {
           setIsOpen(false);
-          setTimeout(() => buttonRef.current?.focusButton(), 0);
+          setTimeout(() => buttonRef.current?.focus(), 0);
         }}
         title="Title"
         subtitle="Subtitle"
@@ -562,7 +560,7 @@ export const ResponsiveBehavior: Story = {
     onCancel,
     ...args
   }: Partial<DialogProps>) {
-    const buttonRef = useRef<ButtonHandle>(null);
+    const buttonRef = useRef<HTMLButtonElement>(null);
     const [open, setOpen] = useState(args.open || false);
     return (
       <>
@@ -579,7 +577,7 @@ export const ResponsiveBehavior: Story = {
           onCancel={(ev) => {
             onCancel?.(ev);
             setOpen(false);
-            setTimeout(() => buttonRef.current?.focusButton(), 0);
+            setTimeout(() => buttonRef.current?.focus(), 0);
           }}
         >
           <Form
@@ -630,7 +628,7 @@ export const SmallScreenBehavior: Story = {
     onCancel,
     ...args
   }: Partial<DialogProps>) {
-    const buttonRef = useRef<ButtonHandle>(null);
+    const buttonRef = useRef<HTMLButtonElement>(null);
     const [open, setOpen] = useState(args.open || false);
     return (
       <>
@@ -648,7 +646,7 @@ export const SmallScreenBehavior: Story = {
           onCancel={(ev) => {
             onCancel?.(ev);
             setOpen(false);
-            setTimeout(() => buttonRef.current?.focusButton(), 0);
+            setTimeout(() => buttonRef.current?.focus(), 0);
           }}
           footer={<Buttons />}
         >
@@ -694,7 +692,7 @@ export const StickyFooter: Story = {
     onCancel,
     ...args
   }: Partial<DialogProps>) {
-    const buttonRef = useRef<ButtonHandle>(null);
+    const buttonRef = useRef<HTMLButtonElement>(null);
     const [open, setOpen] = useState(args.open || false);
     return (
       <>
@@ -707,7 +705,7 @@ export const StickyFooter: Story = {
           onCancel={(ev) => {
             onCancel?.(ev);
             setOpen(false);
-            setTimeout(() => buttonRef.current?.focusButton(), 0);
+            setTimeout(() => buttonRef.current?.focus(), 0);
           }}
           footer={<Buttons />}
         >
@@ -746,7 +744,7 @@ export const StickyFooterWithForm: Story = {
     onCancel,
     ...args
   }: Partial<DialogProps>) {
-    const buttonRef = useRef<ButtonHandle>(null);
+    const buttonRef = useRef<HTMLButtonElement>(null);
     const [open, setOpen] = useState(args.open || false);
     return (
       <>
@@ -759,7 +757,7 @@ export const StickyFooterWithForm: Story = {
           onCancel={(ev) => {
             onCancel?.(ev);
             setOpen(false);
-            setTimeout(() => buttonRef.current?.focusButton(), 0);
+            setTimeout(() => buttonRef.current?.focus(), 0);
           }}
         >
           <Form
@@ -809,7 +807,7 @@ export const FormLinkedToFooterButtons: Story = {
     onCancel,
     ...args
   }: Partial<DialogProps>) {
-    const buttonRef = useRef<ButtonHandle>(null);
+    const buttonRef = useRef<HTMLButtonElement>(null);
     const [open, setOpen] = useState(args.open || false);
     const [submitted, setSubmitted] = useState(false);
 
@@ -817,7 +815,7 @@ export const FormLinkedToFooterButtons: Story = {
       ev.preventDefault();
       setSubmitted(true);
       setOpen(false);
-      setTimeout(() => buttonRef.current?.focusButton(), 0);
+      setTimeout(() => buttonRef.current?.focus(), 0);
     };
 
     return (
@@ -834,7 +832,7 @@ export const FormLinkedToFooterButtons: Story = {
           onCancel={(ev) => {
             onCancel?.(ev);
             setOpen(false);
-            setTimeout(() => buttonRef.current?.focusButton(), 0);
+            setTimeout(() => buttonRef.current?.focus(), 0);
           }}
           footer={
             <Box display="flex" gap={1} justifyContent="flex-end" width="100%">
@@ -887,7 +885,7 @@ export const WithHeaderChildren: Story = {
     onCancel,
     ...args
   }: Partial<DialogProps>) {
-    const buttonRef = useRef<ButtonHandle>(null);
+    const buttonRef = useRef<HTMLButtonElement>(null);
     const [open, setOpen] = useState(args.open || false);
     return (
       <>
@@ -900,7 +898,7 @@ export const WithHeaderChildren: Story = {
           onCancel={(ev) => {
             onCancel?.(ev);
             setOpen(false);
-            setTimeout(() => buttonRef.current?.focusButton(), 0);
+            setTimeout(() => buttonRef.current?.focus(), 0);
           }}
           headerChildren={
             <Box display="flex" gap={1} mt={2}>

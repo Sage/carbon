@@ -332,7 +332,7 @@ test("calls onClose when Escape is pressed while open and control is a Button", 
   const user = userEvent.setup();
   const onClose = jest.fn();
   render(
-    <PopoverMenu
+    <PopoverMenu<HTMLButtonElement | HTMLAnchorElement>
       open
       onOpen={() => {}}
       onClose={onClose}

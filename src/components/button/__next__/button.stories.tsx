@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react-vite";
 import React, { useRef, useState } from "react";
-import Button, { ButtonHandle, ButtonProps } from "./button.component";
+import Button, { ButtonProps } from "./button.component";
 import Box from "../../box";
 import Icon from "../../icon";
 import { Loader } from "../../loader/__next__/loader.component";
@@ -231,7 +231,7 @@ export const ButtonAsALink: Story = () => {
 ButtonAsALink.storyName = "As a Link";
 
 export const ProgrammaticFocus: Story = () => {
-  const buttonRef = useRef<ButtonHandle>(null);
+  const buttonRef = useRef<HTMLButtonElement | HTMLAnchorElement>(null);
 
   return (
     <Box display="flex" gap={2}>
@@ -240,7 +240,7 @@ export const ProgrammaticFocus: Story = () => {
       </Button>
       <Button
         variantType="secondary"
-        onClick={() => buttonRef.current?.focusButton()}
+        onClick={() => buttonRef.current?.focus()}
       >
         Focus other button
       </Button>

@@ -11,7 +11,8 @@ import {
 } from "./pagination-navigation.style";
 
 import Textbox from "../../textbox";
-import Button, { ButtonHandle } from "../../button/__next__";
+import Button from "../../button/__next__";
+import type { ButtonHandle } from "../../button/__next__/button.component";
 import Icon from "../../icon";
 import Typography from "../../typography";
 import guid from "../../../__internal__/utils/helpers/guid";
@@ -101,10 +102,10 @@ const PaginationNavigation = ({
 
     switch (buttonFocusRef.current) {
       case "next":
-        nextRef.current?.focusButton();
+        nextRef.current?.focus();
         break;
       case "previous":
-        previousRef.current?.focusButton();
+        previousRef.current?.focus();
         break;
     }
 
