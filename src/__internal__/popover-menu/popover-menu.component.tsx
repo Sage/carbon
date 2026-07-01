@@ -239,9 +239,7 @@ const PopoverMenu = <TRef extends FocusableHandle = HTMLElement>({
                 role="listbox"
                 id={listId.current}
                 aria-labelledby={listboxAriaLabelledBy}
-                aria-label={
-                  listboxAriaLabelledBy ? undefined : DEFAULT_LISTBOX_ARIA_LABEL
-                }
+                aria-label={DEFAULT_LISTBOX_ARIA_LABEL}
               >
                 {wrappedChildren}
               </List>
