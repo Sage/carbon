@@ -214,6 +214,9 @@ const StyledTextarea = styled.div.attrs(applyBaseTheme)<StyledTextAreaProps>`
   }
 
   ${InputPresentationStyle} {
+    ${({ $hasError }) =>
+      $hasError &&
+      `box-shadow: inset 0 0 0 1px var(--colorsSemanticNegative500);`}
     padding: 1px; // To prevent the validation box-shadow inset from overlapping with the scrollbar track
     border-radius: ${({ borderRadius }) =>
       !borderRadius && "var(--global-radius-action-m)"};
