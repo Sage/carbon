@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 
 import applyBaseTheme from "../../../../style/themes/apply-base-theme";
 import addFocusStyling from "../../../../style/utils/add-focus-styling";
+import visuallyHidden from "../../../../style/utils/visually-hidden";
 
 const officialReactDayPickerStyling = () => css`
   /* Variables declaration */
@@ -461,6 +462,26 @@ const StyledDayPicker = styled.div.attrs(applyBaseTheme)`
   }
 
   .rdp-day.rdp-selected {
+    &:focus {
+      ${addFocusStyling(true)}
+    }
+  }
+
+  [data-role="date-picker-range-status"] {
+    ${visuallyHidden}
+  }
+
+  [data-role="date-picker-select-dates-button"] {
+    margin-top: var(--spacing200);
+    width: 100%;
+    min-height: var(--sizing400);
+    border: none;
+    border-radius: var(--borderRadius050);
+    background: var(--colorsActionMajor500);
+    color: var(--colorsUtilityYang100);
+    cursor: pointer;
+    font-weight: var(--fontWeights500);
+
     &:focus {
       ${addFocusStyling(true)}
     }

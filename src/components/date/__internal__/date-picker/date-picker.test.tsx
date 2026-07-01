@@ -203,6 +203,120 @@ test("should render custom labels for the month and year selectors", () => {
   expect(screen.getByRole("combobox", { name: "Choose year" })).toBeVisible();
 });
 
+test("should not render the range select-dates button in single date mode", () => {
+  render(<DatePickerWithInput setOpen={() => {}} open />);
+
+  expect(
+    screen.queryByRole("button", { name: "Select dates" }),
+  ).not.toBeInTheDocument();
+});
+
+test("should render range status text and select-dates button in range mode", () => {
+  render(
+    <DatePickerWithInput
+      pickerMode="range"
+      rangeStatusText="Start date: Monday, 1 April 2019. End date: Friday, 5 April 2019"
+      setOpen={() => {}}
+      open
+    />,
+  );
+
+  expect(screen.getByTestId("date-picker-range-status")).toHaveTextContent(
+    "Start date: Monday, 1 April 2019. End date: Friday, 5 April 2019",
+  );
+  expect(screen.getByRole("button", { name: "Select dates" })).toBeVisible();
+});
+
+test("should call `onSelectDates` and close the picker when the range select-dates button is clicked", async () => {
+  const user = userEvent.setup();
+  const onSelectDates = jest.fn();
+  const setOpen = jest.fn();
+
+  render(
+    <DatePickerWithInput
+      pickerMode="range"
+      onSelectDates={onSelectDates}
+      setOpen={setOpen}
+      open
+    />,
+  );
+
+  await user.click(screen.getByRole("button", { name: "Select dates" }));
+
+  expect(onSelectDates).toHaveBeenCalledTimes(1);
+  expect(setOpen).toHaveBeenCalledWith(false);
+});
+
+test("should move focus from a day to the select-dates button when Tab is pressed in range mode", async () => {
+  const user = userEvent.setup();
+
+  render(
+    <DatePickerWithInput
+      pickerMode="range"
+      selectedDays={new Date(2019, 3, 4)}
+      setOpen={() => {}}
+      open
+    />,
+  );
+
+  await waitFor(() => {
+    expect(
+      screen.getByRole("button", {
+        name: "Thursday, April 4th, 2019, selected",
+      }),
+    ).toHaveFocus();
+  });
+
+  await user.tab();
+
+  expect(screen.getByRole("grid")).toBeVisible();
+  expect(screen.getByRole("button", { name: "Select dates" })).toHaveFocus();
+});
+
+test("should return focus to the input when the range select-dates button is clicked", async () => {
+  const user = userEvent.setup();
+
+  render(<DatePickerWithInput pickerMode="range" setOpen={jest.fn()} open />);
+
+  await user.click(screen.getByRole("button", { name: "Select dates" }));
+
+  expect(screen.getByTitle("foobar")).toHaveFocus();
+});
+
+test("should move focus back into the calendar grid when Shift+Tab is pressed from the select-dates button", async () => {
+  const user = userEvent.setup();
+
+  render(
+    <DatePickerWithInput
+      pickerMode="range"
+      selectedDays={new Date(2019, 3, 4)}
+      setOpen={() => {}}
+      open
+    />,
+  );
+
+  act(() => {
+    screen.getByRole("button", { name: "Select dates" }).focus();
+  });
+
+  await user.keyboard("{Shift>}{Tab}{/Shift}");
+
+  expect(screen.getByRole("grid")).toBeVisible();
+  expect(
+    screen.getByRole("button", {
+      name: "Thursday, April 4th, 2019, selected",
+    }),
+  ).toHaveFocus();
+});
+
+test("should render the range status div with no content when rangeStatusText is not provided in range mode", () => {
+  render(<DatePickerWithInput pickerMode="range" setOpen={() => {}} open />);
+
+  const statusEl = screen.getByTestId("date-picker-range-status");
+  expect(statusEl).toBeInTheDocument();
+  expect(statusEl).toHaveTextContent("");
+});
+
 test("should focus the selected date when the picker opens", async () => {
   render(
     <DatePickerWithInput

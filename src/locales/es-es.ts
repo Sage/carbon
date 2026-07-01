@@ -48,6 +48,11 @@ const esES: Partial<Locale> = {
       nextMonthButton: () => "Mes siguiente",
     },
   },
+  dateRange: {
+    rangeStartDate: (date) => `Fecha de inicio: ${date}`,
+    rangeEndDate: (date) => `Fecha de fin: ${date}`,
+    selectDates: () => "Seleccionar fechas",
+  },
   decimal: {
     ariaLabels: {
       popoverTrigger: () => "Activador del elemento emergente decimal",

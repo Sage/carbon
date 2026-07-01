@@ -70,6 +70,8 @@ export interface SharedDatePickerProps {
   yearRange?: DatePickerYearRange;
   /** Callback triggered when the select-dates action is used in range mode. */
   onSelectDates?: () => void;
+  /** Screen-reader status text for selected range updates. */
+  rangeStatusText?: string;
 }
 
 export interface DatePickerProps extends SharedDatePickerProps {
@@ -177,10 +179,13 @@ export const DatePicker = ({
   maxDate,
   selectedDays,
   selectedRange,
+  pickerMode = "single",
   focusedMonth: focusedMonthProp,
   onFocusedMonthChange,
   labels,
   yearRange,
+  onSelectDates,
+  rangeStatusText,
   disablePortal = true,
   returnFocusElement,
   onDayClick,
@@ -316,6 +321,16 @@ export const DatePicker = ({
       // we need to manually handle this as the picker may be in a Portal
       /* istanbul ignore else */
       if (Events.isTabKey(ev) && !Events.isShiftKey(ev)) {
+        if (pickerMode === "range") {
+          ev.preventDefault();
+          ref.current
+            ?.querySelector<HTMLElement>(
+              '[data-role="date-picker-select-dates-button"]',
+            )
+            ?.focus();
+          return;
+        }
+
         ev.preventDefault();
         setOpen(false);
         onPickerClose?.();
@@ -414,6 +429,15 @@ export const DatePicker = ({
     setFocusedMonth(new Date(year, previousMonth.getMonth(), 1));
   };
 
+  const handleSelectDates = () => {
+    onSelectDates?.();
+    setOpen(false);
+    onPickerClose?.();
+    focusReturnElement();
+  };
+
+  const isRangePicker = pickerMode === "range";
+
   return (
     <>
       <Popover
@@ -507,9 +531,27 @@ export const DatePicker = ({
             }}
             {...pickerProps}
             showOutsideDays
-            // TODO: wire pickerMode - currently hardcoded; update when range mode is implemented
+            // TODO: wire DayPicker range selection when the DateRange picker uses one shared calendar.
             mode="single"
           />
+          {isRangePicker && (
+            <>
+              <div
+                aria-live="polite"
+                data-role="date-picker-range-status"
+                role="status"
+              >
+                {rangeStatusText}
+              </div>
+              <button
+                data-role="date-picker-select-dates-button"
+                onClick={handleSelectDates}
+                type="button"
+              >
+                {labels?.selectDatesButton || "Select dates"}
+              </button>
+            </>
+          )}
         </StyledDayPicker>
       </Popover>
     </>

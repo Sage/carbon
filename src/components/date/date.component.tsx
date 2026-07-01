@@ -28,7 +28,12 @@ import {
 import getFormatData from "./__internal__/date-formats";
 import StyledDateInput, { datePickerWidth } from "./date.style";
 import Textbox, { TextboxProps } from "../textbox";
-import DatePicker, { PickerProps } from "./__internal__/date-picker";
+import DatePicker, {
+  DatePickerLabels,
+  DatePickerMode,
+  DateRangeSelection,
+  PickerProps,
+} from "./__internal__/date-picker";
 import DatePickerTrigger from "./__internal__/date-picker-trigger";
 import DateRangeContext, {
   InputName,
@@ -111,6 +116,12 @@ export interface DateInputProps
   onPickerOpen?: () => void;
   /** Callback triggered when the picker is closed */
   onPickerClose?: () => void;
+  /**
+   * @private
+   * @ignore
+   * Callback triggered by the range select-dates action.
+   */
+  onSelectDates?: () => void;
   /** Date format string to be applied to the date inputs */
   dateFormatOverride?: string;
   /** Prop to specify the aria-label attribute of the date picker */
@@ -120,9 +131,33 @@ export interface DateInputProps
   /**
    * @private
    * @ignore
+   * Accessible labels for internal date picker controls.
+   */
+  datePickerLabels?: DatePickerLabels;
+  /**
+   * @private
+   * @ignore
+   * Selection mode for the internal date picker.
+   */
+  pickerMode?: DatePickerMode;
+  /**
+   * @private
+   * @ignore
    * Rendering variant for the date picker trigger.
    */
   pickerVariant?: DatePickerVariant;
+  /**
+   * @private
+   * @ignore
+   * Screen-reader status text for selected range updates.
+   */
+  rangeStatusText?: string;
+  /**
+   * @private
+   * @ignore
+   * Currently selected range for DateRange.
+   */
+  selectedRange?: DateRangeSelection;
 }
 
 export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
@@ -155,10 +190,15 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       inputName,
       onPickerClose,
       onPickerOpen,
+      onSelectDates,
       dateFormatOverride: dateFormatOverrideProp,
       datePickerAriaLabel,
       datePickerAriaLabelledBy,
+      datePickerLabels,
+      pickerMode,
       pickerVariant = "legacy",
+      rangeStatusText,
+      selectedRange,
       validationMessagePositionTop = true,
       ...rest
     }: DateInputProps,
@@ -567,7 +607,12 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
           inputElement={parentRef}
           returnFocusElement={isTypicalPicker ? triggerRef : undefined}
           pickerProps={pickerProps}
+          pickerMode={pickerMode}
+          labels={datePickerLabels}
+          rangeStatusText={rangeStatusText}
           selectedDays={selectedDays}
+          selectedRange={selectedRange}
+          onSelectDates={onSelectDates}
           onDayClick={handleDayClick}
           minDate={minDate}
           maxDate={maxDate}

@@ -42,6 +42,11 @@ const deDE: Partial<Locale> = {
       nextMonthButton: () => "Nächster Monat",
     },
   },
+  dateRange: {
+    rangeStartDate: (date) => `Startdatum: ${date}`,
+    rangeEndDate: (date) => `Enddatum: ${date}`,
+    selectDates: () => "Daten auswählen",
+  },
   decimal: {
     ariaLabels: {
       popoverTrigger: () => "Dezimal-Popover-Auslöser",

@@ -50,6 +50,11 @@ const ptPT: Partial<Locale> = {
     },
     dateFormatOverride: undefined,
   },
+  dateRange: {
+    rangeStartDate: (date) => `Data de início: ${date}`,
+    rangeEndDate: (date) => `Data de fim: ${date}`,
+    selectDates: () => "Selecionar datas",
+  },
   decimal: {
     ariaLabels: {
       popoverTrigger: () => "Acionador de popover decimal",

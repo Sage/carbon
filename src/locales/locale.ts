@@ -37,6 +37,11 @@ interface Locale {
     };
     dateFormatOverride?: string;
   };
+  dateRange: {
+    rangeStartDate: (date: string) => string;
+    rangeEndDate: (date: string) => string;
+    selectDates: () => string;
+  };
   decimal: {
     ariaLabels: {
       popoverTrigger: () => string;

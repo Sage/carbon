@@ -49,6 +49,11 @@ const enGB: Locale = {
     },
     dateFormatOverride: undefined,
   },
+  dateRange: {
+    rangeStartDate: (date) => `Start date: ${date}`,
+    rangeEndDate: (date) => `End date: ${date}`,
+    selectDates: () => "Select dates",
+  },
   decimal: {
     ariaLabels: {
       popoverTrigger: () => "Decimal popover trigger",

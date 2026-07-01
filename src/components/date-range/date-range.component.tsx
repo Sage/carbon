@@ -191,6 +191,20 @@ export const DateRange = ({
     return computedValue(endValue || value[1]);
   }, [endDateProps, value, computedValue]);
 
+  const formatFullDate = useCallback(
+    (date?: Date) => {
+      if (!date) return undefined;
+
+      return new Intl.DateTimeFormat(l.locale(), {
+        day: "numeric",
+        month: "long",
+        weekday: "long",
+        year: "numeric",
+      }).format(date);
+    },
+    [l],
+  );
+
   const [inputRefMap, setInputRefMap] = useState<
     DateRangeContextProps["inputRefMap"]
   >({
@@ -371,6 +385,33 @@ export const DateRange = ({
     };
   };
 
+  const selectedRange = useMemo(
+    () => ({
+      startDate: startDateValue.rawValue
+        ? parseISODate(startDateValue.rawValue)
+        : undefined,
+      endDate: endDateValue.rawValue
+        ? parseISODate(endDateValue.rawValue)
+        : undefined,
+    }),
+    [startDateValue.rawValue, endDateValue.rawValue],
+  );
+
+  const rangeStatusText = useMemo(
+    () =>
+      [
+        selectedRange.startDate &&
+          l.dateRange.rangeStartDate(
+            formatFullDate(selectedRange.startDate) ?? "",
+          ),
+        selectedRange.endDate &&
+          l.dateRange.rangeEndDate(formatFullDate(selectedRange.endDate) ?? ""),
+      ]
+        .filter(Boolean)
+        .join(". "),
+    [l, selectedRange, formatFullDate],
+  );
+
   return (
     <StyledDateRange
       {...tagComponent("date-range", rest)}
@@ -396,6 +437,10 @@ export const DateRange = ({
           ref={startRef}
           datePickerAriaLabel={datePickerStartAriaLabel}
           datePickerAriaLabelledBy={datePickerStartAriaLabelledBy}
+          pickerMode="range"
+          rangeStatusText={rangeStatusText}
+          selectedRange={selectedRange}
+          datePickerLabels={{ selectDatesButton: l.dateRange.selectDates() }}
         />
         <DateInput
           my={0} // prevents any form spacing being applied
@@ -408,6 +453,10 @@ export const DateRange = ({
           ref={endRef}
           datePickerAriaLabel={datePickerEndAriaLabel}
           datePickerAriaLabelledBy={datePickerEndAriaLabelledBy}
+          pickerMode="range"
+          rangeStatusText={rangeStatusText}
+          selectedRange={selectedRange}
+          datePickerLabels={{ selectDatesButton: l.dateRange.selectDates() }}
         />
       </DateRangeContext.Provider>
     </StyledDateRange>

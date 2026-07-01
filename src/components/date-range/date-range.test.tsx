@@ -726,6 +726,93 @@ test("should apply aria-label and aria-labelledby to the date picker region", as
   );
 });
 
+test("should render DateRange-specific picker status and select-dates button", async () => {
+  const user = userEvent.setup();
+  render(
+    <DateRange
+      startLabel="start"
+      endLabel="end"
+      value={["10/10/2016", "11/11/2016"]}
+      onChange={() => {}}
+      startDateProps={{ disablePortal: true, "data-role": "start" }}
+      endDateProps={{ disablePortal: true, "data-role": "end" }}
+    />,
+  );
+
+  const startDate = screen.getByTestId("start");
+  const startCalendarIcon = screen.getAllByTestId("input-icon-toggle")[0];
+  await user.click(startCalendarIcon);
+
+  expect(
+    within(startDate).getByRole("button", { name: "Select dates" }),
+  ).toBeVisible();
+  expect(
+    within(startDate).getByTestId("date-picker-range-status"),
+  ).toHaveTextContent(
+    /Start date:.*10 October 2016.*End date:.*11 November 2016/,
+  );
+});
+
+test("should close the DateRange picker when the select-dates button is clicked", async () => {
+  const user = userEvent.setup();
+  render(
+    <DateRange
+      startLabel="start"
+      endLabel="end"
+      value={["10/10/2016", "11/11/2016"]}
+      onChange={() => {}}
+      startDateProps={{ disablePortal: true, "data-role": "start" }}
+      endDateProps={{ disablePortal: true, "data-role": "end" }}
+    />,
+  );
+
+  const startDate = screen.getByTestId("start");
+  const startCalendarIcon = screen.getAllByTestId("input-icon-toggle")[0];
+  await user.click(startCalendarIcon);
+
+  await user.click(
+    within(startDate).getByRole("button", { name: "Select dates" }),
+  );
+
+  expect(within(startDate).queryByRole("grid")).not.toBeInTheDocument();
+});
+
+test("should update range status text reactively when the selected range changes", async () => {
+  const user = userEvent.setup();
+  const { rerender } = render(
+    <DateRange
+      startLabel="start"
+      endLabel="end"
+      value={["10/10/2016", ""]}
+      onChange={() => {}}
+      startDateProps={{ disablePortal: true, "data-role": "start" }}
+      endDateProps={{ disablePortal: true }}
+    />,
+  );
+
+  const startCalendarIcon = screen.getAllByTestId("input-icon-toggle")[0];
+  await user.click(startCalendarIcon);
+
+  const startDate = screen.getByTestId("start");
+  const statusEl = within(startDate).getByTestId("date-picker-range-status");
+
+  expect(statusEl).toHaveTextContent(/Start date:.*10 October 2016/);
+  expect(statusEl).not.toHaveTextContent(/End date:/);
+
+  rerender(
+    <DateRange
+      startLabel="start"
+      endLabel="end"
+      value={["10/10/2016", "11/11/2016"]}
+      onChange={() => {}}
+      startDateProps={{ disablePortal: true, "data-role": "start" }}
+      endDateProps={{ disablePortal: true }}
+    />,
+  );
+
+  expect(statusEl).toHaveTextContent(/End date:.*11 November 2016/);
+});
+
 test("should close the open 'end' picker when the user moves focus to the `start` input", async () => {
   const user = userEvent.setup();
   render(
