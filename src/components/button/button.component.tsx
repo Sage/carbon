@@ -14,6 +14,7 @@ import ButtonBarContext from "../button-bar/__internal__/button-bar.context";
 import SplitButtonContext from "../split-button/__internal__/split-button.context";
 import BatchSelectionContext from "../batch-selection/__internal__/batch-selection.context";
 import { TooltipPositions } from "../tooltip/tooltip.config";
+import ButtonContext from "./__next__/button.context";
 
 /**
  * @deprecated Use "primary", "secondary", "tertiary" or "gradient" instead.
@@ -349,16 +350,18 @@ const Button = React.forwardRef<
         {...(href && { href })}
         ref={setRefs}
       >
-        {renderChildren({
-          iconType,
-          iconPosition,
-          size,
-          subtext,
-          children,
-          disabled: isDisabled,
-          buttonType,
-          destructive,
-        })}
+        <ButtonContext.Provider value={{ isInsideButton: true }}>
+          {renderChildren({
+            iconType,
+            iconPosition,
+            size,
+            subtext,
+            children,
+            disabled: isDisabled,
+            buttonType,
+            destructive,
+          })}
+        </ButtonContext.Provider>
       </StyledButton>
     );
   },

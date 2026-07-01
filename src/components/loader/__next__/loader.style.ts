@@ -313,12 +313,14 @@ type LabelProps = {
   loaderVariant?: string;
   inverse?: boolean;
   loaderType: string;
+  $isInsideButton?: boolean;
 };
 
 const getLabelStyles = ({
   $size = "medium",
   loaderType,
   loaderVariant,
+  $isInsideButton,
 }: LabelProps) => {
   const size = $size;
   if (loaderType === "star") {
@@ -343,13 +345,15 @@ const getLabelStyles = ({
   }
 
   return css`
-    font: ${size === "large"
-      ? "var(--global-font-static-comp-medium-l)"
-      : size === "extra-small"
-        ? "var(--global-font-static-comp-medium-xs)"
-        : size === "small"
-          ? "var(--global-font-static-comp-medium-s)"
-          : "var(--global-font-static-comp-medium-m)"};
+    font: ${$isInsideButton
+      ? "var(--global-font-static-comp-medium-s)"
+      : size === "large"
+        ? "var(--global-font-static-comp-medium-l)"
+        : size === "extra-small"
+          ? "var(--global-font-static-comp-medium-xs)"
+          : size === "small"
+            ? "var(--global-font-static-comp-medium-s)"
+            : "var(--global-font-static-comp-medium-m)"};
     width: ${loaderVariant === "inline" ? "auto" : "100%"};
     ${loaderVariant === "inline"
       ? `margin-left: ${ringInlineLabelMargins[size]}`

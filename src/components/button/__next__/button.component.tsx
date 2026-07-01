@@ -15,6 +15,7 @@ import useMediaQuery from "../../../hooks/useMediaQuery";
 import { Size, Variant, VariantType } from "./button.config";
 import isIconOnly from "./__internal__/utils/is-icon-only";
 import Icon from "../../icon";
+import ButtonContext from "./button.context";
 
 export type ButtonHandle = {
   /** Programmatically focus the button. */
@@ -289,7 +290,9 @@ export const Button = forwardRef<ButtonHandle, ButtonProps>(
         {...rest}
       >
         <StyledContentContainer data-role="button-child-container">
-          {renderChildren()}
+          <ButtonContext.Provider value={{ isInsideButton: true }}>
+            {renderChildren()}
+          </ButtonContext.Provider>
         </StyledContentContainer>
       </StyledButton>
     );
