@@ -51,6 +51,64 @@ export const Default: Story = () => {
 Default.storyName = "Default";
 Default.parameters = { chromatic: { disableSnapshot: true } };
 
+export const TypicalNoSelection: Story = () => {
+  const [state, setState] = useState("");
+  const setValue = (ev: DateChangeEvent) => {
+    setState(ev.target.value.formattedValue);
+  };
+
+  return (
+    <DateInput
+      allowEmptyValue
+      label="Date"
+      name="date-input-typical-empty"
+      onChange={setValue}
+      pickerVariant="typical"
+      value={state}
+    />
+  );
+};
+TypicalNoSelection.storyName = "Typical Picker - No Selection";
+TypicalNoSelection.parameters = { chromatic: { disableSnapshot: true } };
+
+export const TypicalWithSelection: Story = () => {
+  const [state, setState] = useState("04/04/2019");
+  const setValue = (ev: DateChangeEvent) => {
+    setState(ev.target.value.formattedValue);
+  };
+
+  return (
+    <DateInput
+      label="Date"
+      name="date-input-typical-selected"
+      onChange={setValue}
+      pickerVariant="typical"
+      value={state}
+    />
+  );
+};
+TypicalWithSelection.storyName = "Typical Picker - With Selection";
+TypicalWithSelection.parameters = { chromatic: { disableSnapshot: true } };
+
+export const LegacyPicker: Story = () => {
+  const [state, setState] = useState("04/04/2019");
+  const setValue = (ev: DateChangeEvent) => {
+    setState(ev.target.value.formattedValue);
+  };
+
+  return (
+    <DateInput
+      label="Date"
+      name="date-input-legacy"
+      onChange={setValue}
+      pickerVariant="legacy"
+      value={state}
+    />
+  );
+};
+LegacyPicker.storyName = "Legacy Picker";
+LegacyPicker.parameters = { chromatic: { disableSnapshot: true } };
+
 export const InputHint: Story = () => {
   const [state, setState] = useState("04/04/2019");
   const setValue = (ev: DateChangeEvent) => {

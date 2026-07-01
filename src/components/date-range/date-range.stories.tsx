@@ -48,6 +48,29 @@ export const DefaultStory: Story = () => {
 };
 DefaultStory.storyName = "Default";
 
+export const RangePicker: Story = () => {
+  const [state, setState] = useState(["10/10/2016", "11/11/2016"]);
+  const handleChange = (ev: DateRangeChangeEvent) => {
+    setState([
+      ev.target.value[0].formattedValue,
+      ev.target.value[1].formattedValue,
+    ]);
+  };
+
+  return (
+    <DateRange
+      startLabel="Start"
+      endLabel="End"
+      onChange={handleChange}
+      value={state}
+    />
+  );
+};
+RangePicker.storyName = "Date Range Picker";
+RangePicker.parameters = {
+  chromatic: { disableSnapshot: true },
+};
+
 export const LabelsInline: Story = () => {
   const [state, setState] = useState(["01/10/2016", "30/10/2016"]);
   const handleChange = (ev: DateRangeChangeEvent) => {
