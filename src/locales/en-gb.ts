@@ -266,8 +266,8 @@ const enGB: Locale = {
   time: {
     amText: () => "AM",
     pmText: () => "PM",
-    hoursLabelText: () => "Hrs.",
-    minutesLabelText: () => "Mins.",
+    hoursLabelText: () => "Hours",
+    minutesLabelText: () => "Minutes",
     hoursAriaLabelText: () => "Hours",
     minutesAriaLabelText: () => "Minutes",
   },

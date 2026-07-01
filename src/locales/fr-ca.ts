@@ -253,8 +253,8 @@ const frCA: Partial<Locale> = {
   time: {
     amText: () => "AM",
     pmText: () => "PM",
-    hoursLabelText: () => "Hres",
-    minutesLabelText: () => "Mins.",
+    hoursLabelText: () => "Heures",
+    minutesLabelText: () => "Minutes",
     hoursAriaLabelText: () => "Heures",
     minutesAriaLabelText: () => "Minutes",
   },
