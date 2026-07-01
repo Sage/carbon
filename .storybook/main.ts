@@ -39,6 +39,7 @@ const config: StorybookConfig = {
 
   stories: [
     "./welcome-page/welcome.stories.jsx",
+    "./theme-preview/*.stories.tsx",
     "../docs/*.mdx",
     "../docs/*.stories.tsx",
     ...getStories(),
