@@ -149,6 +149,5 @@ export const StyledLeftButtons = styled.div<{
   justify-content: flex-end;
   gap: var(--sizing200);
 
-  ${({ $buttonAlignment }) =>
-    $buttonAlignment === "right" && "flex-grow: 1;"}
+  ${({ $buttonAlignment }) => $buttonAlignment === "right" && "flex-grow: 1;"}
 `;

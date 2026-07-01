@@ -2,7 +2,6 @@ import React, {
   useCallback,
   useContext,
   useEffect,
-  useLayoutEffect,
   useMemo,
   useRef,
   useState,
@@ -152,31 +151,36 @@ const FocusTrap = ({
     [trapWrappers],
   );
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (shouldSetFocus && !prevShouldSetFocus) {
-      const candidateFirstElement =
-        focusFirstElement && "current" in focusFirstElement
-          ? focusFirstElement.current
-          : focusFirstElement;
       const autoFocusedElement = getFocusableElements(
         defaultFocusableSelectors,
       ).find((el) => el.getAttribute("data-has-autofocus") === "true");
-      const elementToFocus =
-        (candidateFirstElement as HTMLElement) ||
-        autoFocusedElement ||
-        wrapperRef.current;
+      const elementToFocus = autoFocusedElement || wrapperRef.current;
       // istanbul ignore else
       if (elementToFocus) {
         setElementFocus(elementToFocus);
       }
     }
-  }, [
-    shouldSetFocus,
-    prevShouldSetFocus,
-    getFocusableElements,
-    focusFirstElement,
-    wrapperRef,
-  ]);
+  }, [shouldSetFocus, prevShouldSetFocus, getFocusableElements, wrapperRef]);
+
+  useEffect(() => {
+    if (!shouldSetFocus || prevShouldSetFocus) return;
+
+    const candidateFirstElement =
+      focusFirstElement && "current" in focusFirstElement
+        ? focusFirstElement.current
+        : focusFirstElement;
+
+    if (
+      !candidateFirstElement ||
+      candidateFirstElement.hasAttribute("disabled")
+    ) {
+      return;
+    }
+
+    setElementFocus(candidateFirstElement);
+  }, [shouldSetFocus, prevShouldSetFocus, focusFirstElement]);
 
   useEffect(() => {
     const trapFn = (ev: KeyboardEvent) => {
