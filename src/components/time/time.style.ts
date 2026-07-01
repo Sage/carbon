@@ -12,7 +12,7 @@ type StyledColonProps = {
   $isReadOnly?: boolean;
 };
 
-export const StyledColon = styled.span<StyledColonProps>`
+const StyledColon = styled.span<StyledColonProps>`
   ${({ $size, $isDisabled, $isReadOnly }) => css`
     font: ${colonFontBySize[$size]};
     color: var(--input-typical-txt-default);
@@ -29,3 +29,5 @@ export const StyledColon = styled.span<StyledColonProps>`
     `}
   `}
 `;
+
+export default StyledColon;

@@ -18,7 +18,7 @@ import Fieldset from "../../__internal__/fieldset/__next__/fieldset.component";
 import Box from "../box";
 import Textbox from "../textbox";
 import Label from "../../__internal__/label";
-import { StyledColon } from "./time.style";
+import StyledColon from "./time.style";
 import { TimeToggle, ToggleDataProps } from "./__internal__/time-toggle";
 import FieldsetValidationContext from "../../__internal__/fieldset-validation-context";
 
