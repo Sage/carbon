@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { action } from "storybook/actions";
 
@@ -11,6 +11,7 @@ import TextEditor, {
 } from ".";
 import Box from "../box";
 import Typography from "../typography";
+import EditorLinkPreview from "../link-preview";
 
 import useDebounce from "../../hooks/__internal__/useDebounce";
 import ReadOnlyEditor from "./__internal__/__ui__/ReadOnlyEditor/read-only-rte.component";
@@ -25,6 +26,7 @@ const meta: Meta<typeof TextEditor> = {
   component: TextEditor,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
+    chromatic: { disableSnapshot: true },
   },
 };
 
@@ -70,12 +72,35 @@ export const Validation: Story = () => {
   );
 };
 Validation.storyName = "Validation";
+Validation.parameters = { chromatic: { disableSnapshot: false } };
 
 export const MultipleInputs: Story = () => {
+  const defaultHTML = `<a href="https://carbon.sage.com/?path=/story/welcome--welcome-page" rel="noreferrer" ><span data-lexical-text="true">Carbon</span></a>`;
+  const value = createFromHTML(defaultHTML);
   const [state, setState] = useState("");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
   };
+
+  const previews = useRef<React.JSX.Element[]>([]);
+  const removeUrl = (reportedUrl: string | undefined) => {
+    previews.current = previews.current.filter(
+      (preview) => reportedUrl !== preview.props.url,
+    );
+  };
+
+  useEffect(() => {
+    previews.current.push(
+      <EditorLinkPreview
+        onClose={(urlString) => removeUrl(urlString)}
+        title="Carbon Design System"
+        url="https://carbon.sage.com/?path=/story/welcome--welcome-page"
+        description="Carbon is Sage's design system for building digital products and experiences."
+        key="key-1"
+      />,
+    );
+  }, []);
+
   return (
     <CarbonProvider validationRedesignOptIn>
       <Textbox
@@ -93,6 +118,7 @@ export const MultipleInputs: Story = () => {
         error="error"
         characterLimit={100}
         mb={2}
+        initialValue={value}
       />
       <Textbox
         mb={2}
@@ -106,11 +132,19 @@ export const MultipleInputs: Story = () => {
         labelText="Text Editor"
         inputHint="Hint text"
         characterLimit={100}
+        previews={previews.current}
+      />
+      <TextEditor
+        namespace="storybook-readonly"
+        labelText="Read Only"
+        readOnly
+        initialValue={value}
       />
     </CarbonProvider>
   );
 };
 MultipleInputs.storyName = "Multiple Inputs";
+MultipleInputs.parameters = { chromatic: { disableSnapshot: false } };
 
 export const Playground: Story = {
   args: {
@@ -125,9 +159,6 @@ export const Playground: Story = {
     rows: 10,
     warning: "",
   },
-};
-Playground.parameters = {
-  chromatic: { disableSnapshot: true },
 };
 
 export const Functions = ({ ...props }: Partial<TextEditorProps>) => {
@@ -157,9 +188,6 @@ export const Functions = ({ ...props }: Partial<TextEditorProps>) => {
 };
 
 Functions.storyName = "Functions";
-Functions.parameters = {
-  chromatic: { disableSnapshot: true },
-};
 
 export const ReadOnlyEditorForNotes = () => {
   const defaultValue = `This is a plain text example`;
@@ -227,9 +255,6 @@ export const OnChangeFormattedValues: Story = () => {
   );
 };
 OnChangeFormattedValues.storyName = "Change Handler With Formatted Values";
-OnChangeFormattedValues.parameters = {
-  chromatic: { disableSnapshot: true },
-};
 
 export const ExternalOverwrite: Story = () => {
   const [, setValue] = useState("");
@@ -255,9 +280,6 @@ export const ExternalOverwrite: Story = () => {
   );
 };
 ExternalOverwrite.storyName = "Externally overwrite editor content";
-ExternalOverwrite.parameters = {
-  chromatic: { disableSnapshot: true },
-};
 
 export const EmptyToolbar: Story = () => (
   <TextEditor
@@ -272,9 +294,6 @@ export const EmptyToolbar: Story = () => (
   />
 );
 EmptyToolbar.storyName = "Empty Toolbar";
-EmptyToolbar.parameters = {
-  chromatic: { disableSnapshot: true },
-};
 
 export const LargeMentionCount: Story = ({ ...args }) => {
   const mentionsData: Mention[] = [
@@ -399,9 +418,6 @@ export const LargeMentionCount: Story = ({ ...args }) => {
   );
 };
 LargeMentionCount.storyName = "Large Mention Count";
-LargeMentionCount.parameters = {
-  chromatic: { disableSnapshot: true },
-};
 LargeMentionCount.args = {
   characterLimit: 1000,
   error: "",
@@ -436,9 +452,6 @@ export const LinkToEditor: Story = () => {
   );
 };
 LinkToEditor.storyName = "Link To Editor";
-LinkToEditor.parameters = {
-  chromatic: { disableSnapshot: true },
-};
 
 export const DisplayHTMLContent: Story = () => {
   const [bodyHTML, setBodyHTML] = useState("");
@@ -467,9 +480,6 @@ export const DisplayHTMLContent: Story = () => {
   );
 };
 DisplayHTMLContent.storyName = "Display HTML Content";
-DisplayHTMLContent.parameters = {
-  chromatic: { disableSnapshot: true },
-};
 
 export const FormWithTextEditor: Story = () => {
   const handleSubmit = (event: React.FormEvent) => {
@@ -489,6 +499,3 @@ export const FormWithTextEditor: Story = () => {
   );
 };
 FormWithTextEditor.storyName = "Form With Text Editor";
-FormWithTextEditor.parameters = {
-  chromatic: { disableSnapshot: true },
-};

@@ -89,7 +89,6 @@ const FlatTableFocusStatesComponent = () => {
             width="100%"
             footer={
               <Pager
-                smallScreenBreakpoint="550px"
                 totalRecords={data.length}
                 showPageSizeSelection
                 pageSize={10}
@@ -243,7 +242,6 @@ export const FlatTableFocusStates: Story = {
     const focusableTextInput =
       within(focusableTextboxNode).getByRole("textbox");
 
-    await userEvent.tab();
     await userEvent.tab();
     await userEvent.tab();
     await userEvent.tab();

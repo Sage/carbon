@@ -1,10 +1,10 @@
 import { margin } from "styled-system";
 import styled, { css } from "styled-components";
 
-import StyledInputIconToggle from "../../__internal__/input-icon-toggle/input-icon-toggle.style";
-import StyledIcon from "../icon/icon.style";
-import applyBaseTheme from "../../style/themes/apply-base-theme";
-import StyledFormField from "../../__internal__/form-field/form-field.style";
+import StyledInputIconToggle from "../../../../__internal__/input-icon-toggle/input-icon-toggle.style";
+import StyledIcon from "../../../icon/icon.style";
+import applyBaseTheme from "../../../../style/themes/apply-base-theme";
+import StyledFormField from "../../../../__internal__/form-field/form-field.style";
 
 interface StyledSearchProps {
   name?: string;

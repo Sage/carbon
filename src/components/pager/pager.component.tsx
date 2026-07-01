@@ -1,16 +1,10 @@
 import React, { useState, useCallback, useEffect, useRef } from "react";
 
 import { Select, Option } from "../select";
-import PagerNavigation from "./__internal__/pager-navigation.component";
+import PaginationNavigation from "./__internal__/pagination-navigation.component";
 import useLocale from "../../hooks/__internal__/useLocale";
 import createGuid from "../../__internal__/utils/helpers/guid";
-import {
-  StyledPagerContainer,
-  StyledPagerSizeOptions,
-  StyledPagerSummary,
-  StyledPagerSizeOptionsInner,
-  StyledSelectContainer,
-} from "./pager.style";
+import { StyledPagination, StyledPageSizeSelect } from "./pager.style";
 import Events from "../../__internal__/utils/helpers/events";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
@@ -19,68 +13,93 @@ type PageSizeOption = {
   name: number;
 };
 
+// TODO update to PaginationProps when public export is updated to Pagination
 export interface PagerProps extends TagProps {
-  /** Function called when pager changes (Current page, Page size, Origin component) */
+  /** Function called when pager changes (Current page, Page size, Origin component). */
   onPagination: (currentPage: number, pageSize: number, origin: string) => void;
-  /** Callback function for next link */
+  /** Callback function for the Next button. */
   onNext?: (
     ev:
       | React.MouseEvent<HTMLButtonElement>
       | React.KeyboardEvent<HTMLButtonElement>,
   ) => void;
-  /** Callback function for first link */
+  /** Callback function for the First button. */
   onFirst?: (
     ev:
       | React.MouseEvent<HTMLButtonElement>
       | React.KeyboardEvent<HTMLButtonElement>,
   ) => void;
-  /** Callback function for previous link */
+  /** Callback function for the Previous button. */
   onPrevious?: (
     ev:
       | React.MouseEvent<HTMLButtonElement>
       | React.KeyboardEvent<HTMLButtonElement>,
   ) => void;
-  /** Callback function for last link */
+  /** Callback function for the Last button. */
   onLast?: (
     ev:
       | React.MouseEvent<HTMLButtonElement>
       | React.KeyboardEvent<HTMLButtonElement>,
   ) => void;
-  /** Current visible page */
+  /** Current visible page. */
   currentPage?: number | string;
-  /** If true, page number navigation will be changed to a non-interactive label */
+  /** Flag to set if the current page number renders as an input. */
   interactivePageNumber?: boolean;
-  /** If true, sets css property visibility: hidden on all disabled elements  */
-  hideDisabledElements?: boolean;
-  /** Total number of records */
+  /** Total number of records, used to calculate the total number of pages. */
   totalRecords?: number | string;
-  /** Pagination page size */
+  /** Number of records per page. */
   pageSize?: number | string;
-  /** Should the page size selection dropdown be shown */
+  /** Flag to render the page size selection input. */
   showPageSizeSelection?: boolean;
-  /** Set of page size options */
+  /** List of page size options. */
   pageSizeSelectionOptions?: PageSizeOption[];
-  /** Should the label before the page size selection dropdown be shown */
-  showPageSizeLabelBefore?: boolean;
-  /** Should the label after the page size selection dropdown be shown */
-  showPageSizeLabelAfter?: boolean;
-  /** Should the total records label be shown */
-  showTotalRecords?: boolean;
-  /** Should the `First` and `Last` navigation button be shown */
+  /** Flag to render "First" and "Last" navigation buttons. */
   showFirstAndLastButtons?: boolean;
-  /** Should the `Previous` and `Next` navigation button be shown */
-  showPreviousAndNextButtons?: boolean;
-  /** Should the page count input be shown */
-  showPageCount?: boolean;
-  /** What variant the Pager background should be */
+  /** The component's variant. */
   variant?: "default" | "alternate";
-  /** Breakpoint for small screen styling to be applied. */
+  /** Size of the component. */
+  size?: "small" | "medium" | "large";
+  /** Set an accessible label for the Pagination nav */
+  "aria-label"?: string;
+  /**
+   * If true, sets css property visibility: hidden on all disabled elements.
+   * @deprecated Support to disable elements has been removed.
+   */
+  hideDisabledElements?: boolean;
+  /**
+   * Should the label before the page size selection dropdown be shown.
+   * @deprecated Support for this prop has been removed. Labels for page size selection are always shown.
+   */
+  showPageSizeLabelBefore?: boolean;
+  /**
+   * Should the label after the page size selection dropdown be shown.
+   * @deprecated Support for this prop has been removed. Labels for page size selection are always shown.
+   */
+  showPageSizeLabelAfter?: boolean;
+  /**
+   * Should the total records label be shown.
+   * @deprecated Support to render total records has been removed.
+   */
+  showTotalRecords?: boolean;
+  /**
+   * Should the `Previous` and `Next` navigation buttons be shown.
+   * @deprecated Support to show or hide "Previous" and "Next" buttons has been removed. Their visibility is managed internally.
+   */
+  showPreviousAndNextButtons?: boolean;
+  /**
+   * Should the page count input be shown
+   * @deprecated Support to show or hide page count input has been removed. The page count is always shown.
+   */
+  showPageCount?: boolean;
+  /**
+   * Breakpoint for small screen styling to be applied.
+   * @deprecated This component is now responsive by default and support for this prop has been removed.
+   */
   smallScreenBreakpoint?: string;
 }
 
-export const Pager = ({
+export const Pagination = ({
   currentPage = 1,
-  hideDisabledElements = false,
   interactivePageNumber = true,
   pageSizeSelectionOptions = [
     { id: "10", name: 10 },
@@ -96,215 +115,119 @@ export const Pager = ({
   onFirst,
   onPrevious,
   onLast,
-  showPageSizeLabelBefore = true,
-  showPageSizeLabelAfter = true,
-  showTotalRecords = true,
   showFirstAndLastButtons = true,
-  showPreviousAndNextButtons = true,
-  showPageCount = true,
   variant = "default",
-  smallScreenBreakpoint,
+  size = "medium",
+  "aria-label": ariaLabel,
   ...rest
 }: PagerProps) => {
-  const l = useLocale();
-  const [page, setPage] = useState<number>(+currentPage);
-  const [currentPageSize, setCurrentPageSize] = useState<number>(+pageSize);
-  const [value, setValue] = useState<number>(+pageSize);
+  const locale = useLocale();
 
   const guid = useRef(createGuid());
   const pageSizeSelectId = `Pager_size_selector_${guid.current}`;
 
-  const getPageCount = useCallback(() => {
+  const [internalCurrentPage, setInternalCurrentPage] =
+    useState<number>(+currentPage);
+  const [internalPageSize, setInternalPageSize] = useState<number>(+pageSize);
+  const [pageSelectValue, setPageSelectValue] = useState<number>(+pageSize);
+
+  const getTotalPages = useCallback(() => {
     if (+totalRecords < 0 || Number.isNaN(+totalRecords)) {
       return 1;
     }
-    return Math.ceil(+totalRecords / currentPageSize);
-  }, [totalRecords, currentPageSize]);
+    return Math.ceil(+totalRecords / internalPageSize);
+  }, [totalRecords, internalPageSize]);
 
-  const [pageCount, setPageCount] = useState(getPageCount());
+  const [totalPages, setTotalPages] = useState(getTotalPages());
 
   useEffect(() => {
-    setCurrentPageSize(+pageSize);
-    setValue(+pageSize);
+    setInternalPageSize(+pageSize);
+    setPageSelectValue(+pageSize);
   }, [pageSize]);
 
   useEffect(() => {
-    const maxPage = getPageCount();
-    setPageCount(maxPage);
+    const lastPage = getTotalPages();
+    setTotalPages(lastPage);
 
-    if (+currentPage > maxPage) {
-      setPage(maxPage);
+    if (+currentPage > lastPage) {
+      setInternalCurrentPage(lastPage);
     } else {
-      setPage(+currentPage);
+      setInternalCurrentPage(+currentPage);
     }
-  }, [currentPageSize, pageCount, currentPage, totalRecords, getPageCount]);
+  }, [internalPageSize, totalPages, currentPage, totalRecords, getTotalPages]);
 
-  const handleOnFirst = useCallback(
-    (
-      e:
-        | React.MouseEvent<HTMLButtonElement>
-        | React.KeyboardEvent<HTMLButtonElement>,
-    ) => {
-      setPage(1);
-
-      if (onFirst) {
-        onFirst(e);
-      }
-    },
-    [onFirst],
-  );
-
-  const handleOnLast = useCallback(
-    (
-      e:
-        | React.MouseEvent<HTMLButtonElement>
-        | React.KeyboardEvent<HTMLButtonElement>,
-    ) => {
-      setPage(pageCount);
-
-      if (onLast) {
-        onLast(e);
-      }
-    },
-    [pageCount, onLast],
-  );
-
-  const handleOnNext = useCallback(
-    (
-      e:
-        | React.MouseEvent<HTMLButtonElement>
-        | React.KeyboardEvent<HTMLButtonElement>,
-    ) => {
-      const nextPage = page + 1;
-      setPage(nextPage);
-
-      if (onNext) {
-        onNext(e);
-      }
-    },
-    [onNext, page],
-  );
-
-  const handleOnPrevious = useCallback(
-    (
-      e:
-        | React.MouseEvent<HTMLButtonElement>
-        | React.KeyboardEvent<HTMLButtonElement>,
-    ) => {
-      const previousPage = page - 1;
-      setPage(previousPage);
-
-      if (onPrevious) {
-        onPrevious(e);
-      }
-    },
-    [page, onPrevious],
-  );
-
-  const handleOnPagination = useCallback(
+  const handleOptionClick = useCallback(
     (selectedValue: string | Record<string, unknown>) => {
-      setValue(+selectedValue);
-      setCurrentPageSize(+selectedValue);
+      setPageSelectValue(+selectedValue);
+      setInternalPageSize(+selectedValue);
+      setInternalCurrentPage(1);
       onPagination(1, +selectedValue, "page-select");
     },
     [onPagination],
   );
 
-  const handleKeyDown = useCallback(
+  const handleSelectKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) =>
       Events.isEnterKey(e) &&
-      handleOnPagination((e.target as HTMLInputElement).value),
-    [handleOnPagination],
+      handleOptionClick((e.target as HTMLInputElement).value),
+    [handleOptionClick],
   );
 
-  const sizeSelector = () => {
+  const renderPageSizeSelect = () => {
     return (
-      <StyledSelectContainer>
+      <StyledPageSizeSelect>
+        <label htmlFor={pageSizeSelectId}>
+          {locale.pager.itemsPerPage?.()}
+        </label>
         <Select
-          value={String(value)}
+          value={String(pageSelectValue)}
           onChange={(ev: React.ChangeEvent<HTMLInputElement>) =>
-            setValue(+ev.target.value)
+            setPageSelectValue(+ev.target.value)
           }
-          onBlur={() => setValue(currentPageSize)}
-          onKeyDown={handleKeyDown}
-          data-element="page-select"
+          // resets value to previous if selection is not completed
+          onBlur={() => setPageSelectValue(internalPageSize)}
+          onKeyDown={handleSelectKeyDown}
           id={pageSizeSelectId}
-          {...(!showPageSizeLabelBefore && !showPageSizeLabelAfter
-            ? { ariaLabel: l.pager.show() }
-            : {})}
+          size={size}
         >
           {pageSizeSelectionOptions.map((sizeOption) => (
             <Option
               key={sizeOption.id}
               text={sizeOption.id}
               value={String(sizeOption.name)}
-              onClick={handleOnPagination}
+              onClick={handleOptionClick}
             />
           ))}
         </Select>
-      </StyledSelectContainer>
-    );
-  };
-
-  const renderPageSizeOptions = () => {
-    const wrapper = (isLabel: boolean, child: React.ReactNode) =>
-      isLabel ? (
-        <label htmlFor={pageSizeSelectId}>{child}</label>
-      ) : (
-        <div>{child}</div>
-      );
-    return (
-      <StyledPagerSizeOptionsInner>
-        {showPageSizeLabelBefore &&
-          wrapper(showPageSizeLabelBefore, l.pager.show())}
-        {sizeSelector()}
-        {showPageSizeLabelAfter &&
-          wrapper(
-            !showPageSizeLabelBefore,
-            l.pager.records(currentPageSize, false),
-          )}
-      </StyledPagerSizeOptionsInner>
+      </StyledPageSizeSelect>
     );
   };
 
   return (
-    <StyledPagerContainer
-      variant={variant}
-      smallScreenBreakpoint={smallScreenBreakpoint}
-      showPageSizeSelection={showPageSizeSelection}
-      showTotalRecords={showTotalRecords}
+    <StyledPagination
+      aria-label={ariaLabel || locale.pager.ariaLabel?.()}
+      $variant={variant}
+      $size={size}
       {...rest}
       {...tagComponent("pager", rest)}
     >
-      {showPageSizeSelection && (
-        <StyledPagerSizeOptions className="pager-size-options">
-          {renderPageSizeOptions()}
-        </StyledPagerSizeOptions>
-      )}
-      <PagerNavigation
-        pageSize={currentPageSize}
-        currentPage={page}
+      <PaginationNavigation
+        currentPage={internalCurrentPage}
+        pageSize={internalPageSize}
+        totalPages={totalPages}
         interactivePageNumber={interactivePageNumber}
-        hideDisabledElements={hideDisabledElements}
-        setCurrentPage={setPage}
-        onNext={handleOnNext}
-        onPrevious={handleOnPrevious}
-        onFirst={handleOnFirst}
-        onLast={handleOnLast}
+        setCurrentPage={setInternalCurrentPage}
+        onNext={onNext}
+        onPrevious={onPrevious}
+        onFirst={onFirst}
+        onLast={onLast}
         onPagination={onPagination}
-        pageCount={pageCount}
         showFirstAndLastButtons={showFirstAndLastButtons}
-        showPreviousAndNextButtons={showPreviousAndNextButtons}
-        showPageCount={showPageCount}
-        smallScreenBreakpoint={smallScreenBreakpoint}
+        size={size}
       />
-      {showTotalRecords && (
-        <StyledPagerSummary smallScreenBreakpoint={smallScreenBreakpoint}>
-          {l.pager.records(totalRecords)}
-        </StyledPagerSummary>
-      )}
-    </StyledPagerContainer>
+      {showPageSizeSelection && renderPageSizeSelect()}
+    </StyledPagination>
   );
 };
 
-export default Pager;
+export default Pagination;

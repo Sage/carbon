@@ -140,17 +140,7 @@ const esES: Partial<Locale> = {
     },
   },
   pager: {
-    show: () => "Mostrar",
-    records: (count, showNumber = true) => {
-      const noun = isSingular(count) ? "elemento" : "elementos";
-      return showNumber ? `${count} ${noun}` : noun;
-    },
-    first: () => "Primera",
-    last: () => "Última",
-    next: () => "Siguiente",
-    previous: () => "Anterior",
-    pageX: () => "Página",
-    ofY: (count) => `de ${count}`,
+    pageX: (currentPage?: number | string) => `Página ${currentPage}`,
   },
   password: {
     buttonLabelHide: () => "Ocultar",
