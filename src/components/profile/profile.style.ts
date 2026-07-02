@@ -4,45 +4,24 @@ import { margin } from "styled-system";
 import Portrait from "../portrait";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 import profileConfigSizes, { ProfileSize } from "./profile.config";
-import Link from "../link";
 import { StyledPortraitContainer } from "../portrait/portrait.style";
 
-interface ProfileSProps {
-  size?: ProfileSize;
-  hasSrc?: boolean;
-  darkBackground?: boolean;
+interface ProfileRootStyleProps {
+  $darkBackground?: boolean;
 }
 
-const ProfileNameStyle = styled.span<ProfileSProps>`
-  font-weight: 500;
-  font-size: ${({ size = "M" }) => profileConfigSizes[size].nameSize};
-`;
+interface ProfileDetailsStyleProps {
+  $size: ProfileSize;
+}
 
-const ProfileEmailStyle = styled(Link)<
-  Pick<ProfileSProps, "size" | "darkBackground">
->`
-  a {
-    font-size: ${({ size = "M" }) => profileConfigSizes[size].emailSize};
-    color: ${({ darkBackground }) =>
-      darkBackground && "var(--colorsActionMajor350)"};
-    line-height: ${({ size = "M" }) => profileConfigSizes[size].lineHeight};
-  }
-`;
-
-const ProfileTextStyle = styled.span<ProfileSProps>`
-  font-size: ${({ size = "M" }) => profileConfigSizes[size].emailSize};
-`;
-
-const ProfileStyle = styled.div.attrs(applyBaseTheme)<
-  Pick<ProfileSProps, "hasSrc" | "darkBackground">
->`
+const ProfileStyle = styled.div.attrs(applyBaseTheme)<ProfileRootStyleProps>`
   border-radius: inherit;
-  color: ${({ darkBackground }) =>
-    darkBackground
-      ? "var(--colorsUtilityReadOnly600)"
-      : "var(--colorsUtilityYin090)"};
-  background-color: ${({ darkBackground }) =>
-    darkBackground ? "var(--colorsUtilityYin090)" : "transparent"};
+  color: ${({ $darkBackground }) =>
+    $darkBackground
+      ? "var(--container-standard-inverse-txt-default)"
+      : "var(--container-standard-txt-default)"};
+  background-color: ${({ $darkBackground }) =>
+    $darkBackground ? "var(--colorsUtilityYin090)" : "transparent"};
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -53,25 +32,29 @@ const ProfileStyle = styled.div.attrs(applyBaseTheme)<
   }
 `;
 
-const ProfileDetailsStyle = styled.div<Pick<ProfileSProps, "hasSrc" | "size">>`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  line-height: ${({ size = "M" }) => profileConfigSizes[size].lineHeight};
-  margin-left: ${({ size = "M" }) => profileConfigSizes[size].marginLeft};
-  min-width: 0;
-  word-wrap: break-word;
-`;
-
 const ProfileAvatarStyle = styled(Portrait)`
   display: inline-block;
 `;
 
+const ProfileDetailsStyle = styled.div<ProfileDetailsStyleProps>`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: ${({ $size }) => profileConfigSizes[$size].detailsMarginLeft};
+  min-width: 0;
+  word-wrap: break-word;
+`;
+
+const ProfileCustomContentStyle = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+`;
+
 export {
   ProfileStyle,
-  ProfileNameStyle,
   ProfileDetailsStyle,
   ProfileAvatarStyle,
-  ProfileEmailStyle,
-  ProfileTextStyle,
+  ProfileCustomContentStyle,
 };

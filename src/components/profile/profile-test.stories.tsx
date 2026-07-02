@@ -43,13 +43,14 @@ export const WithLongText = ({ ...args }) => {
 
 export const ChromaticSnapshotsStory = () => (
   <Box display="flex" flexDirection="column" gap={3}>
-    {/* Dark background */}
+    {/* Dark background - deprecated prop, kept for regression testing only */}
     <Box
       p={2}
       backgroundColor="black"
       width="190px"
       height="50px"
       borderRadius="borderRadius200"
+      display="flex"
     >
       <Profile
         darkBackground
@@ -111,7 +112,32 @@ export const ChromaticSnapshotsStory = () => (
       />
     </Box>
 
-    {/* Custom portrait background colors */}
+    {/* Variant color swatches */}
+    <Box display="flex" gap={2} flexDirection="column">
+      {(
+        [
+          "orange",
+          "blue",
+          "teal",
+          "green",
+          "lime",
+          "red",
+          "pink",
+          "purple",
+        ] as const
+      ).map((variant) => (
+        <Profile
+          key={variant}
+          email="email@email.com"
+          initials="JD"
+          name="John Doe"
+          text="+33 657 22 34 71"
+          variant={variant}
+        />
+      ))}
+    </Box>
+
+    {/* Custom portrait background colors - deprecated prop, kept for regression testing only */}
     <Box display="flex" gap={2} flexDirection="column">
       <Profile
         email="john@thefamilydoe.com"
@@ -129,7 +155,7 @@ export const ChromaticSnapshotsStory = () => (
       />
     </Box>
 
-    {/* Custom portrait foreground colors */}
+    {/* Custom portrait foreground colors - deprecated prop, kept for regression testing only */}
     <Box display="flex" gap={2} flexDirection="column">
       <Profile
         email="john@thefamilydoe.com"

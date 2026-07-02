@@ -7,15 +7,16 @@ import tagComponent, {
   TagProps,
 } from "../../__internal__/utils/helpers/tags/tags";
 import Logger from "../../__internal__/utils/logger";
+import type { PortraitProps } from "../portrait";
+import Link from "../link";
+import Typography from "../typography";
 
-import { ProfileSize } from "./profile.config";
+import profileConfigSizes, { ProfileSize } from "./profile.config";
 import {
   ProfileStyle,
-  ProfileNameStyle,
   ProfileDetailsStyle,
   ProfileAvatarStyle,
-  ProfileEmailStyle,
-  ProfileTextStyle,
+  ProfileCustomContentStyle,
 } from "./profile.style";
 
 function acronymize(str?: string) {
@@ -45,15 +46,28 @@ export interface ProfileProps extends MarginProps, TagProps {
   /** Define read-only text to display. */
   text?: string;
   /** Define initials to display image. */
-  initials?: string;
+  initials?: PortraitProps["initials"];
   /** Allow to setup size for the component */
   size?: ProfileSize;
-  /** Use a dark background. */
-  darkBackground?: boolean;
-  /** The hex code of the background colour to be passed to the avatar */
-  backgroundColor?: string;
-  /** The hex code of the foreground colour to be passed to the avatar. Must be used in conjunction with `backgroundColor` */
-  foregroundColor?: string;
+  /**
+   * Use a dark background.
+   * @deprecated This prop is deprecated and will be removed in a future release.
+   */
+  darkBackground?: PortraitProps["darkBackground"];
+  /**
+   * The hex code of the background colour to be passed to the avatar
+   * @deprecated This prop is deprecated and will be removed in a future release. Use `variant` instead.
+   */
+  backgroundColor?: PortraitProps["backgroundColor"];
+  /**
+   * The hex code of the foreground colour to be passed to the avatar. Must be used in conjunction with `backgroundColor`
+   * @deprecated This prop is deprecated and will be removed in a future release. Use `variant` instead.
+   */
+  foregroundColor?: PortraitProps["foregroundColor"];
+  /** Color variant to be passed to the avatar. */
+  variant?: PortraitProps["variant"];
+  /** Custom content rendered below the right side Profile content. */
+  children?: React.ReactNode;
 }
 
 export const Profile = ({
@@ -68,21 +82,25 @@ export const Profile = ({
   darkBackground,
   backgroundColor,
   foregroundColor,
+  variant,
+  children,
   ...props
 }: ProfileProps) => {
+  const profileSize = size || "M";
+
   const getInitials = () => {
     if (initials) return initials;
     return acronymize(name).slice(0, 3).toUpperCase();
   };
 
+  // If variant is provided, ignore deprecated backgroundColor/foregroundColor
   const commonAvatarProps = {
     darkBackground,
     alt,
     name,
     initials: getInitials(),
-    size,
-    backgroundColor,
-    foregroundColor,
+    size: profileSize,
+    ...(variant ? { variant } : { backgroundColor, foregroundColor }),
     "data-role": "profile-portrait",
   };
 
@@ -107,44 +125,67 @@ export const Profile = ({
     );
   }
 
-  const children = () => {
-    if (name)
-      return (
-        <ProfileDetailsStyle size={size} hasSrc={!!src} data-element="details">
-          <ProfileNameStyle size={size} data-element="name">
-            {name}
-          </ProfileNameStyle>
-          {email && (
-            <ProfileEmailStyle
-              href={`mailto: ${email}`}
-              size={size}
-              data-role="email-link"
-              darkBackground={darkBackground}
-              data-element="email"
+  const details = () => {
+    if (!name && !children) return null;
+
+    return (
+      <ProfileDetailsStyle $size={profileSize} data-element="details">
+        {name && (
+          <>
+            <Typography
+              as="span"
+              {...profileConfigSizes[profileSize].nameTypography}
+              inverse={darkBackground}
+              m={0}
+              data-element="name"
             >
-              {email}
-            </ProfileEmailStyle>
-          )}
-          {text && (
-            <ProfileTextStyle size={size} data-element="text">
-              {text}
-            </ProfileTextStyle>
-          )}
-        </ProfileDetailsStyle>
-      );
-    return null;
+              {name}
+            </Typography>
+            {email && (
+              <Link
+                href={`mailto:${email}`}
+                linkSize={profileConfigSizes[profileSize].emailLinkSize}
+                inverse={darkBackground}
+                data-role="email-link"
+                data-element="email"
+              >
+                {email}
+              </Link>
+            )}
+            {text && (
+              <Typography
+                as="span"
+                {...profileConfigSizes[profileSize].textTypography}
+                inverse={darkBackground}
+                m={0}
+                data-element="text"
+              >
+                {text}
+              </Typography>
+            )}
+          </>
+        )}
+        {children && (
+          <ProfileCustomContentStyle
+            data-role="custom-content"
+            data-element="custom-content"
+          >
+            {children}
+          </ProfileCustomContentStyle>
+        )}
+      </ProfileDetailsStyle>
+    );
   };
 
   return (
     <ProfileStyle
       className={className}
-      hasSrc={!!src}
-      darkBackground={darkBackground}
+      $darkBackground={darkBackground}
       {...tagComponent("profile", props)}
       {...filterStyledSystemMarginProps(props)}
     >
       {avatar()}
-      {children()}
+      {details()}
     </ProfileStyle>
   );
 };

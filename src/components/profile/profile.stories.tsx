@@ -4,6 +4,8 @@ import { Meta, StoryObj } from "@storybook/react-vite";
 import useMediaQuery from "../../hooks/useMediaQuery";
 
 import Box from "../box";
+import Button from "../button/__next__";
+import Pill from "../pill";
 import Profile from ".";
 
 const meta: Meta<typeof Profile> = {
@@ -29,6 +31,28 @@ export const Default: Story = () => {
 };
 Default.storyName = "Default";
 
+export const Variant: Story = () => {
+  return (
+    <Box display="flex" gap={2} flexDirection="column">
+      <Profile
+        email="email@email.com"
+        initials="JD"
+        name="John Doe"
+        text="+33 657 22 34 71"
+        variant="orange"
+      />
+      <Profile
+        email="email@email.com"
+        initials="JD"
+        name="Jane Doe"
+        text="+33 657 22 34 72"
+        variant="blue"
+      />
+    </Box>
+  );
+};
+Variant.storyName = "Variant";
+
 export const DarkBackground: Story = () => {
   return (
     <Box
@@ -37,6 +61,7 @@ export const DarkBackground: Story = () => {
       width="190px"
       height="50px"
       borderRadius="borderRadius200"
+      display="flex"
     >
       <Profile
         darkBackground
@@ -145,6 +170,36 @@ Responsive.parameters = {
     viewports: [1300, 900],
   },
 };
+
+export const WithCustomContent: Story = () => {
+  return (
+    <Box
+      display="flex"
+      gap={1}
+      flexDirection="row"
+      alignItems="flex-start"
+      boxShadow="boxShadow050"
+      width="294px"
+      height="80px"
+      pl="8px"
+    >
+      <Profile
+        initials="JD"
+        name="John Doe"
+        text="Fusion Designer"
+        variant="purple"
+      >
+        <Button size="small" iconType="view" iconPosition="before">
+          View profile
+        </Button>
+      </Profile>
+      <Pill pillRole="status" colorVariant="information" fill size="S">
+        Not active
+      </Pill>
+    </Box>
+  );
+};
+WithCustomContent.storyName = "With Custom Content";
 
 export const WithCustomPortraitBackgroundColor: Story = () => {
   return (
