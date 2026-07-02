@@ -12,10 +12,11 @@ import {
 
 import Textbox from "../../textbox";
 import Button from "../../button/__next__";
-import type { ButtonHandle } from "../../button/__next__/button.component";
 import Icon from "../../icon";
 import Typography from "../../typography";
 import guid from "../../../__internal__/utils/helpers/guid";
+
+type PaginationButtonRef = HTMLButtonElement | HTMLAnchorElement;
 
 /**
  * Renders navigation Buttons and current page input
@@ -82,8 +83,8 @@ const PaginationNavigation = ({
   const [currentPageInputValue, setCurrentPageInputValue] = useState<
     string | number
   >(currentPage);
-  const previousRef = useRef<ButtonHandle>(null);
-  const nextRef = useRef<ButtonHandle>(null);
+  const previousRef = useRef<PaginationButtonRef>(null);
+  const nextRef = useRef<PaginationButtonRef>(null);
   const { current: currentPageDescriptionId } = useRef(guid());
 
   const showFirst = currentPage > 1 && showFirstAndLastButtons;
