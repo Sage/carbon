@@ -1,4 +1,5 @@
 import React from "react";
+import isChromatic from "../../../.storybook/isChromatic";
 import {
   MenuItem,
   MenuItemDivider,
@@ -18,12 +19,15 @@ export default {
     "Small",
     "SmallWithDisabledItems",
     "SmallWithCustomWidth",
+    "SmallWithHeadingIcons",
     "Medium",
     "MediumWithDisabledItems",
     "MediumWithCustomWidth",
+    "MediumWithHeadingIcons",
     "Large",
     "LargeWithDisabledItems",
     "LargeWithCustomWidth",
+    "LargeWithHeadingIcons",
     "HoverItem",
   ],
   parameters: {
@@ -418,6 +422,121 @@ export const SmallWithCustomWidth = () => {
 
 SmallWithCustomWidth.storyName = "small with custom width";
 
+export const SmallWithHeadingIcons = () => {
+  const [open, setOpen] = React.useState<boolean>(isChromatic());
+  const [value, setValue] = React.useState<string>("");
+  return (
+    <div style={{ display: "flex", gap: "24px", margin: "180px" }}>
+      <PopoverMenu<HTMLInputElement>
+        size="small"
+        open={open}
+        onOpen={() => {
+          setOpen(true);
+        }}
+        onClose={() => {
+          if (open) {
+            setOpen(false);
+          }
+        }}
+        popoverControl={(ref, props) => (
+          <TextInput
+            size="small"
+            label="small"
+            value={value}
+            onChange={(e) => {
+              setValue(e.target.value);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Tab" && open) {
+                setOpen(false);
+                return;
+              }
+
+              if ((e.key === "Enter" || e.key === "ArrowDown") && !open) {
+                setOpen(true);
+              }
+            }}
+            onClick={() => {
+              if (!open) {
+                setOpen(true);
+              }
+            }}
+            ref={ref}
+            {...props}
+          />
+        )}
+      >
+        <MenuItemHeading text="Heading" icon={<Icon type="clock" />}>
+          <MenuItem
+            onClick={() => {
+              setOpen(false);
+              setValue("One");
+            }}
+            selected={value === "One"}
+          >
+            <MenuItemLeading selectedIcon={value === "One"}>
+              <Icon type="home" />
+            </MenuItemLeading>
+            <MenuItemLabel prefix="Item: ">one</MenuItemLabel>
+            <MenuItemSubtext>Subtext</MenuItemSubtext>
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              setOpen(false);
+              setValue("Two");
+            }}
+            selected={value === "Two"}
+          >
+            <MenuItemLeading selectedIcon={value === "Two"}>
+              <Icon type="home" />
+            </MenuItemLeading>
+            <MenuItemLabel prefix="Item: ">two</MenuItemLabel>
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              setOpen(false);
+              setValue("Three");
+            }}
+            selected={value === "Three"}
+          >
+            <MenuItemLeading selectedIcon={value === "Three"}>
+              <Icon type="home" />
+            </MenuItemLeading>
+            <MenuItemLabel prefix="Item: ">three</MenuItemLabel>
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              setOpen(false);
+              setValue("Four");
+            }}
+            selected={value === "Four"}
+          >
+            <MenuItemLeading selectedIcon={value === "Four"}>
+              <Icon type="home" />
+            </MenuItemLeading>
+            <MenuItemLabel prefix="Item: ">four</MenuItemLabel>
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              setOpen(false);
+              setValue("Five");
+            }}
+            selected={value === "Five"}
+          >
+            <MenuItemLeading selectedIcon={value === "Five"}>
+              <Icon type="home" />
+            </MenuItemLeading>
+            <MenuItemLabel prefix="Item: ">five</MenuItemLabel>
+          </MenuItem>
+        </MenuItemHeading>
+      </PopoverMenu>
+    </div>
+  );
+};
+
+SmallWithHeadingIcons.storyName = "small with heading icons";
+SmallWithHeadingIcons.parameters = { chromatic: { disableSnapshot: false } };
+
 export const Medium = () => {
   const [open, setOpen] = React.useState<boolean>(false);
   const [value, setValue] = React.useState<string>("");
@@ -805,6 +924,121 @@ export const MediumWithCustomWidth = () => {
 
 MediumWithCustomWidth.storyName = "medium with custom width";
 
+export const MediumWithHeadingIcons = () => {
+  const [open, setOpen] = React.useState<boolean>(isChromatic());
+  const [value, setValue] = React.useState<string>("");
+  return (
+    <div style={{ display: "flex", gap: "24px", margin: "210px 180px 180px" }}>
+      <PopoverMenu<HTMLInputElement>
+        size="medium"
+        open={open}
+        onOpen={() => {
+          setOpen(true);
+        }}
+        onClose={() => {
+          if (open) {
+            setOpen(false);
+          }
+        }}
+        popoverControl={(ref, props) => (
+          <TextInput
+            size="medium"
+            label="medium"
+            value={value}
+            onChange={(e) => {
+              setValue(e.target.value);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Tab" && open) {
+                setOpen(false);
+                return;
+              }
+
+              if ((e.key === "Enter" || e.key === "ArrowDown") && !open) {
+                setOpen(true);
+              }
+            }}
+            onClick={() => {
+              if (!open) {
+                setOpen(true);
+              }
+            }}
+            ref={ref}
+            {...props}
+          />
+        )}
+      >
+        <MenuItemHeading text="Heading" icon={<Icon type="clock" />}>
+          <MenuItem
+            onClick={() => {
+              setOpen(false);
+              setValue("One");
+            }}
+            selected={value === "One"}
+          >
+            <MenuItemLeading selectedIcon={value === "One"}>
+              <Icon type="home" />
+            </MenuItemLeading>
+            <MenuItemLabel prefix="Item: ">one</MenuItemLabel>
+            <MenuItemSubtext>Subtext</MenuItemSubtext>
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              setOpen(false);
+              setValue("Two");
+            }}
+            selected={value === "Two"}
+          >
+            <MenuItemLeading selectedIcon={value === "Two"}>
+              <Icon type="home" />
+            </MenuItemLeading>
+            <MenuItemLabel prefix="Item: ">two</MenuItemLabel>
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              setOpen(false);
+              setValue("Three");
+            }}
+            selected={value === "Three"}
+          >
+            <MenuItemLeading selectedIcon={value === "Three"}>
+              <Icon type="home" />
+            </MenuItemLeading>
+            <MenuItemLabel prefix="Item: ">three</MenuItemLabel>
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              setOpen(false);
+              setValue("Four");
+            }}
+            selected={value === "Four"}
+          >
+            <MenuItemLeading selectedIcon={value === "Four"}>
+              <Icon type="home" />
+            </MenuItemLeading>
+            <MenuItemLabel prefix="Item: ">four</MenuItemLabel>
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              setOpen(false);
+              setValue("Five");
+            }}
+            selected={value === "Five"}
+          >
+            <MenuItemLeading selectedIcon={value === "Five"}>
+              <Icon type="home" />
+            </MenuItemLeading>
+            <MenuItemLabel prefix="Item: ">five</MenuItemLabel>
+          </MenuItem>
+        </MenuItemHeading>
+      </PopoverMenu>
+    </div>
+  );
+};
+
+MediumWithHeadingIcons.storyName = "medium with heading icons";
+MediumWithHeadingIcons.parameters = { chromatic: { disableSnapshot: false } };
+
 export const Large = () => {
   const [open, setOpen] = React.useState<boolean>(false);
   const [value, setValue] = React.useState<string>("");
@@ -1191,6 +1425,124 @@ export const LargeWithCustomWidth = () => {
 };
 
 LargeWithCustomWidth.storyName = "large with custom width";
+
+export const LargeWithHeadingIcons = () => {
+  const [open, setOpen] = React.useState<boolean>(isChromatic());
+  const [value, setValue] = React.useState<string>("");
+  return (
+    <div style={{ display: "flex", gap: "24px", margin: "250px 180px 180px" }}>
+      <PopoverMenu<HTMLInputElement>
+        size="large"
+        open={open}
+        onOpen={() => {
+          setOpen(true);
+        }}
+        onClose={() => {
+          if (open) {
+            setOpen(false);
+          }
+        }}
+        popoverControl={(ref, props) => (
+          <TextInput
+            size="large"
+            label="large"
+            value={value}
+            onChange={(e) => {
+              setValue(e.target.value);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Tab" && open) {
+                setOpen(false);
+                return;
+              }
+
+              if ((e.key === "Enter" || e.key === "ArrowDown") && !open) {
+                setOpen(true);
+              }
+            }}
+            onClick={() => {
+              if (!open) {
+                setOpen(true);
+              }
+            }}
+            ref={ref}
+            {...props}
+          />
+        )}
+      >
+        <MenuItemHeading text="Heading" icon={<Icon type="clock" />}>
+          <MenuItem
+            onClick={() => {
+              setOpen(false);
+              setValue("One");
+            }}
+            selected={value === "One"}
+          >
+            <MenuItemLeading selectedIcon={value === "One"}>
+              <Icon type="home" />
+            </MenuItemLeading>
+            <MenuItemLabel prefix="Item: ">one</MenuItemLabel>
+            <MenuItemSubtext>Subtext</MenuItemSubtext>
+          </MenuItem>
+        </MenuItemHeading>
+        <MenuItemDivider />
+        <MenuItemHeading text="Heading" icon={<Icon type="favourite" />}>
+          <MenuItem
+            onClick={() => {
+              setOpen(false);
+              setValue("Two");
+            }}
+            selected={value === "Two"}
+          >
+            <MenuItemLeading selectedIcon={value === "Two"}>
+              <Icon type="home" />
+            </MenuItemLeading>
+            <MenuItemLabel prefix="Item: ">two</MenuItemLabel>
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              setOpen(false);
+              setValue("Three");
+            }}
+            selected={value === "Three"}
+          >
+            <MenuItemLeading selectedIcon={value === "Three"}>
+              <Icon type="home" />
+            </MenuItemLeading>
+            <MenuItemLabel prefix="Item: ">three</MenuItemLabel>
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              setOpen(false);
+              setValue("Four");
+            }}
+            selected={value === "Four"}
+          >
+            <MenuItemLeading selectedIcon={value === "Four"}>
+              <Icon type="home" />
+            </MenuItemLeading>
+            <MenuItemLabel prefix="Item: ">four</MenuItemLabel>
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              setOpen(false);
+              setValue("Five");
+            }}
+            selected={value === "Five"}
+          >
+            <MenuItemLeading selectedIcon={value === "Five"}>
+              <Icon type="home" />
+            </MenuItemLeading>
+            <MenuItemLabel prefix="Item: ">five</MenuItemLabel>
+          </MenuItem>
+        </MenuItemHeading>
+      </PopoverMenu>
+    </div>
+  );
+};
+
+LargeWithHeadingIcons.storyName = "large with heading icons";
+LargeWithHeadingIcons.parameters = { chromatic: { disableSnapshot: false } };
 
 export const HoverItem = () => {
   return (

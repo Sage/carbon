@@ -3,6 +3,15 @@ import styled from "styled-components";
 import { PopoverMenuContext, MenuHeadingContext } from "../../contexts";
 import guid from "../../../utils/helpers/guid";
 
+const StyledMenuHeadingWithIcon = styled.div<{ $size: string }>`
+  display: flex;
+  align-items: center;
+  gap: ${({ $size }) =>
+    $size === "small"
+      ? "var(--global-space-comp-2-xs)"
+      : "var(--global-space-comp-xs)"};
+`;
+
 const StyledMenuHeading = styled.li<{ $size: string }>`
   div[data-element="text"] {
     ${({ $size }) => {
@@ -27,12 +36,16 @@ const StyledMenuHeading = styled.li<{ $size: string }>`
 const MenuItemHeading = ({
   children,
   text,
+  icon,
 }: {
   children: React.ReactNode;
   text: string;
+  icon?: React.ReactNode;
 }) => {
   const { size } = useContext(PopoverMenuContext);
   const headingId = useRef(`popover-menu-heading-${guid()}`);
+
+  const textProps = { "data-element": "text", id: headingId.current };
 
   return (
     <StyledMenuHeading
@@ -40,9 +53,18 @@ const MenuItemHeading = ({
       $size={size}
       role="option"
     >
-      <div data-element="text" id={headingId.current}>
-        {text}
-      </div>
+      {icon ? (
+        <StyledMenuHeadingWithIcon
+          data-role="text-with-icon"
+          $size={size}
+          {...textProps}
+        >
+          {icon}
+          {text}
+        </StyledMenuHeadingWithIcon>
+      ) : (
+        <div {...textProps}>{text}</div>
+      )}
       <MenuHeadingContext.Provider value={{ headingId: headingId.current }}>
         <ul role="listbox" aria-label={text}>
           {children}
