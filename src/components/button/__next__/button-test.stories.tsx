@@ -144,7 +144,7 @@ export const AllSizesVariantsTypes: Story = () => {
             flexDirection="column"
             gap={1}
             p={1}
-            backgroundColor="#DDDDDD"
+            backgroundColor="var(--mode-color-generic-bg-nought)"
           >
             <h3>Typical/Default</h3>
             <Box
@@ -438,7 +438,7 @@ export const AllSizesVariantsTypes: Story = () => {
             flexDirection="column"
             gap={1}
             p={1}
-            backgroundColor="#DDDDDD"
+            backgroundColor="var(--mode-color-generic-bg-nought)"
           >
             <h3>Typical/Default</h3>
             <Box
@@ -670,7 +670,7 @@ export const AllSizesVariantsTypes: Story = () => {
             flexDirection="column"
             gap={1}
             p={1}
-            backgroundColor="#DDDDDD"
+            backgroundColor="var(--mode-color-generic-bg-nought)"
           >
             <h3>Typical/Default</h3>
             <Box
