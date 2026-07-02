@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import styled, { css } from "styled-components";
+import styled, { css, CSSObject } from "styled-components";
 import Popover from "../popover";
 import { flip, offset, size } from "@floating-ui/dom";
 import wrapChildrenInMenuItems from "./utils";
@@ -10,8 +10,11 @@ import guid from "../utils/helpers/guid";
 import { PopoverMenuContext, type PopoverMenuContextProps } from "./contexts";
 import { TagProps } from "../utils/helpers/tags";
 
-const PopoverControlWrapper = styled.div`
+const PopoverControlWrapper = styled.div<{
+  $controlWrapperStyle?: CSSObject;
+}>`
   display: inline-block;
+  ${({ $controlWrapperStyle }) => $controlWrapperStyle}
 `;
 
 interface ListProps {
@@ -115,6 +118,8 @@ export interface PopoverMenuProps<
   onClose: (e?: Event, value?: string) => void;
   /** Set the custom width of the menu */
   width?: string;
+  /** Custom styles for the control wrapper element */
+  controlWrapperStyle?: CSSObject;
   /** Aria labelledby for the listbox */
   listboxAriaLabelledBy?: string;
 }
@@ -155,6 +160,7 @@ const PopoverMenu = <TRef extends FocusableHandle = NonNullable<ButtonHandle>>({
   onOpen,
   onClose,
   width,
+  controlWrapperStyle,
   listboxAriaLabelledBy,
   ...rest
 }: PopoverMenuProps<TRef>) => {
@@ -225,6 +231,7 @@ const PopoverMenu = <TRef extends FocusableHandle = NonNullable<ButtonHandle>>({
           ref={controlWrapperRef}
           onKeyDown={handleControlKeyDown}
           data-component="popover-menu-control"
+          $controlWrapperStyle={controlWrapperStyle}
         >
           {popoverControl(controlRef, {
             "aria-haspopup": "listbox",
