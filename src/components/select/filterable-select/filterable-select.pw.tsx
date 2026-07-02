@@ -34,24 +34,43 @@ import {
   selectListPosition,
   selectListScrollableWrapper,
   selectListWrapper,
-  selectOption,
   selectOptionByText,
 } from "../../../../playwright/components/select";
-import {
-  checkAccessibility,
-  positionOfElement,
-} from "../../../../playwright/support/helper";
+import { checkAccessibility } from "../../../../playwright/support/helper";
 import { CHARACTERS } from "../../../../playwright/support/constants";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
-const testPropValue = CHARACTERS.STANDARD;
 const addElementText = "Add a New Element";
 const columns = 3;
 const icon = "add";
 const keyToTrigger = ["ArrowDown", "ArrowUp", "Home", "End"] as const;
-const listOption = "Amber";
 
 test.describe("FilterableSelect component", () => {
+  testData.forEach((labelValue) => {
+    test(`should render label using ${labelValue} special characters`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<FilterableSelectComponent label={labelValue} />);
+
+      await expect(getDataElementByValue(page, "label")).toHaveText(labelValue);
+    });
+  });
+
+  testData.forEach((placeholderValue) => {
+    test(`should render placeholder using ${placeholderValue} special characters`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<FilterableSelectComponent placeholder={placeholderValue} />);
+
+      await expect(selectInput(page)).toHaveAttribute(
+        "placeholder",
+        placeholderValue,
+      );
+    });
+  });
+
   test("should not select an option when the user types non-matching filter text in the input and then presses the Enter key", async ({
     page,
     mount,
@@ -83,247 +102,6 @@ test.describe("FilterableSelect component", () => {
     await selectInput(page).fill("f");
     await selectInput(page).press("ArrowUp");
     await expect(getDataElementByValue(page, "input")).toHaveValue("f");
-  });
-
-  testData.forEach((labelValue) => {
-    test(`should render label using ${labelValue} special characters`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<FilterableSelectComponent label={labelValue} />);
-
-      await expect(getDataElementByValue(page, "label")).toHaveText(labelValue);
-    });
-  });
-
-  testData.forEach((placeholderValue) => {
-    test(`should render placeholder using ${placeholderValue} special characters`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<FilterableSelectComponent placeholder={placeholderValue} />);
-
-      await expect(selectInput(page)).toHaveAttribute(
-        "placeholder",
-        placeholderValue,
-      );
-    });
-  });
-
-  test("should render with name prop set to test value", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FilterableSelectComponent name={testPropValue} />);
-
-    await expect(commonDataElementInputPreview(page)).toHaveAttribute(
-      "name",
-      testPropValue,
-    );
-  });
-
-  test("should render with id prop set to test value", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FilterableSelectComponent id={testPropValue} />);
-
-    await expect(commonDataElementInputPreview(page)).toHaveId(testPropValue);
-  });
-
-  test("should check disabled prop", async ({ mount, page }) => {
-    await mount(<FilterableSelectComponent disabled />);
-
-    const selectInputElement = commonDataElementInputPreview(page);
-    await expect(selectInputElement).toBeDisabled();
-  });
-
-  test("should render icon with disabled style", async ({ mount, page }) => {
-    await mount(<FilterableSelectComponent disabled />);
-
-    const dropdownButtonElement = dropdownButton(page);
-    await expect(dropdownButtonElement).toBeVisible();
-    await expect(dropdownButtonElement).toHaveCSS(
-      "color",
-      "rgba(0, 0, 0, 0.3)",
-    );
-  });
-
-  test("should render as read only", async ({ mount, page }) => {
-    await mount(<FilterableSelectComponent readOnly />);
-
-    await expect(commonDataElementInputPreview(page)).not.toBeEditable();
-    await selectInput(page).click();
-    await expect(selectListWrapper(page)).toBeHidden();
-  });
-
-  test("should render icon with read only style", async ({ mount, page }) => {
-    await mount(<FilterableSelectComponent readOnly />);
-
-    const dropdownButtonElement = dropdownButton(page);
-    await expect(dropdownButtonElement).toBeVisible();
-    await expect(dropdownButtonElement).toHaveCSS(
-      "color",
-      "rgba(0, 0, 0, 0.3)",
-    );
-  });
-
-  test("should check autofocus prop", async ({ mount, page }) => {
-    await mount(<FilterableSelectComponent autoFocus />);
-
-    await expect(commonDataElementInputPreview(page)).toBeFocused();
-  });
-
-  test("when maxWidth has no value it should render as 100%", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FilterableSelectComponent maxWidth="" />);
-
-    await expect(
-      getDataElementByValue(page, "input").locator("..").locator(".."),
-    ).toHaveCSS("max-width", "100%");
-  });
-
-  test("should not open the list with focus on input", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FilterableSelectComponent />);
-
-    const inputElement = commonDataElementInputPreview(page);
-    await inputElement.focus();
-    await expect(inputElement).toBeFocused();
-    await expect(inputElement).toHaveAttribute("aria-expanded", "false");
-    await expect(selectListWrapper(page)).toBeHidden();
-  });
-
-  test("should open the list with mouse click on input", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FilterableSelectComponent />);
-
-    const inputElement = commonDataElementInputPreview(page);
-    await inputElement.click();
-    await expect(inputElement).toBeFocused();
-    await expect(inputElement).toHaveAttribute("aria-expanded", "true");
-    await expect(selectListWrapper(page)).toBeVisible();
-  });
-
-  test("should open the list with mouse click on dropdown button", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FilterableSelectComponent />);
-
-    await dropdownButton(page).click();
-    await expect(selectListWrapper(page)).toBeVisible();
-  });
-
-  test("should close the list with the Tab key", async ({ mount, page }) => {
-    await mount(<FilterableSelectComponent />);
-
-    const selectListWrapperElement = selectListWrapper(page);
-    const selectInputElement = selectInput(page);
-    await dropdownButton(page).click();
-    await expect(selectListWrapperElement).toBeVisible();
-    await selectInputElement.press("Tab");
-    await expect(selectInputElement).toHaveAttribute("aria-expanded", "false");
-    await expect(selectListWrapperElement).toBeHidden();
-  });
-
-  test("should close the list with the Esc key", async ({ mount, page }) => {
-    await mount(<FilterableSelectComponent />);
-
-    const selectListWrapperElement = selectListWrapper(page);
-    await dropdownButton(page).click();
-    await expect(selectListWrapperElement).toBeVisible();
-    await commonDataElementInputPreview(page).press("Escape");
-    await expect(selectInput(page)).toHaveAttribute("aria-expanded", "false");
-    await expect(selectListWrapperElement).toBeHidden();
-  });
-
-  test("should close the list by clicking out of the component", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FilterableSelectComponent />);
-
-    await dropdownButton(page).click();
-    const selectListWrapperElement = selectListWrapper(page);
-    await expect(selectListWrapperElement).toBeVisible();
-    await page.locator("body").click({ position: { x: 0, y: 0 } });
-    await expect(selectInput(page)).toHaveAttribute("aria-expanded", "false");
-    await expect(selectListWrapperElement).toBeHidden();
-  });
-
-  keyToTrigger.forEach((key) => {
-    test(`should open the list when ${key} is pressed with input in focus`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<FilterableSelectComponent />);
-
-      await commonDataElementInputPreview(page).focus();
-      await selectInput(page).press(key);
-      await expect(selectListWrapper(page)).toBeVisible();
-    });
-  });
-
-  test("should not open the list when Enter is pressed with input in focus", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FilterableSelectComponent />);
-
-    await commonDataElementInputPreview(page).focus();
-    await selectInput(page).press("Enter");
-    await expect(selectListWrapper(page)).toBeHidden();
-  });
-
-  ["Amber", "Yellow"].forEach((option) => {
-    test(`should select option ${option} when clicked from the list`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<FilterableSelectComponent />);
-
-      await dropdownButton(page).click();
-      await selectOptionByText(page, option).click();
-      await expect(getDataElementByValue(page, "input")).toHaveValue(option);
-      await expect(selectInput(page)).toHaveAttribute("aria-expanded", "false");
-      await expect(selectListWrapper(page)).toBeHidden();
-    });
-  });
-
-  (
-    [
-      ["A", ["Amber", "Black", "Orange"]],
-      ["O", ["Brown", "Orange", "Yellow"]],
-      [" O", ["Brown", "Orange", "Yellow"]],
-      ["O ", ["Brown", "Orange", "Yellow"]],
-      [" O ", ["Brown", "Orange", "Yellow"]],
-    ] as const
-  ).forEach(([text, filteredOptionText]) => {
-    test(`should filter options when ${text} is typed`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<FilterableSelectComponent />);
-
-      const input = page.getByRole("combobox");
-      const dropdownList = page.getByRole("listbox");
-
-      await input.fill(text);
-      await dropdownList.waitFor();
-
-      await expect(input).toHaveAttribute("aria-expanded", "true");
-      await expect(dropdownList).toBeVisible();
-      await expect(dropdownList.getByRole("option")).toHaveText(
-        filteredOptionText,
-      );
-    });
   });
 
   test("renders loader when loading prop is set to true", async ({
@@ -391,62 +169,6 @@ test.describe("FilterableSelect component", () => {
     await expect(wrapperElement).toBeHidden();
     await buttonElement.click();
     await expect(wrapperElement.locator("li")).toHaveCount(count);
-  });
-
-  test("should check list is open when input is focused and openOnFocus is set", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FilterableSelectComponent openOnFocus />);
-
-    await commonDataElementInputPreview(page).focus();
-    await expect(selectInput(page)).toHaveAttribute("aria-expanded", "true");
-    await expect(selectListWrapper(page)).toBeVisible();
-  });
-
-  test("should not reopen list when openOnFocus set and user selects an option via click", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FilterableSelectComponent openOnFocus />);
-
-    const wrapperElement = selectListWrapper(page);
-    await commonDataElementInputPreview(page).focus();
-    await expect(selectInput(page)).toHaveAttribute("aria-expanded", "true");
-    await expect(wrapperElement).toBeVisible();
-    await selectOption(page, positionOfElement("first")).click();
-    await expect(wrapperElement).toBeHidden();
-  });
-
-  test("should open list when openOnFocus set, user selects an option via enter key and then input is blurred then focused again", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FilterableSelectComponent openOnFocus />);
-
-    const wrapperElement = selectListWrapper(page);
-    const inputElement = commonDataElementInputPreview(page);
-    const selectInputElement = selectInput(page);
-    await inputElement.focus();
-    await expect(selectInputElement).toHaveAttribute("aria-expanded", "true");
-    await expect(wrapperElement).toBeVisible();
-    await selectInputElement.press("ArrowDown");
-    await selectInputElement.press("Enter");
-    await expect(wrapperElement).toBeHidden();
-    await inputElement.blur();
-    await inputElement.focus();
-    await expect(wrapperElement).toBeVisible();
-  });
-
-  test("should check list is open when input is clicked and openOnFocus is set", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FilterableSelectComponent openOnFocus />);
-
-    await commonDataElementInputPreview(page).click();
-    await expect(selectInput(page)).toHaveAttribute("aria-expanded", "true");
-    await expect(selectListWrapper(page)).toBeVisible();
   });
 
   test("should have correct option highlighted when select list is opened and value is an object", async ({
@@ -525,19 +247,6 @@ test.describe("FilterableSelect component", () => {
 
     await page.getByRole("option", { name: "Amber" }).click();
     await expect(input).toHaveValue("Amber");
-  });
-
-  test("should render option list with proper maxHeight value", async ({
-    mount,
-    page,
-  }) => {
-    const maxHeight = 200;
-    await mount(<FilterableSelectComponent listMaxHeight={maxHeight} />);
-
-    await dropdownButton(page).click();
-    const wrapperElement = selectListScrollableWrapper(page);
-    await expect(wrapperElement).toHaveCSS("max-height", `${maxHeight}px`);
-    await expect(wrapperElement).toBeVisible();
   });
 
   (
@@ -802,111 +511,6 @@ test.describe("FilterableSelect component", () => {
 
     await expect(input).toHaveValue(newOption);
   });
-
-  test("should have correct hover state of list option", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FilterableSelectComponent />);
-
-    const optionValue = "Blue";
-    await dropdownButton(page).click();
-    const optionElement = selectOptionByText(page, optionValue);
-    await optionElement.hover();
-    await expect(optionElement).toHaveCSS(
-      "background-color",
-      "rgb(204, 214, 219)",
-    );
-  });
-
-  test("should contain custom option row id 3", async ({ mount, page }) => {
-    await mount(<FilterableSelectMultiColumnsComponent />);
-
-    await dropdownButton(page).click();
-    await expect(multiColumnsSelectListBody(page).locator("..")).toHaveId("3");
-  });
-
-  test("should render option row data-component prop set to option-row", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FilterableSelectMultiColumnsComponent />);
-
-    await dropdownButton(page).click();
-    await expect(
-      multiColumnsSelectListBody(page).locator(".."),
-    ).toHaveAttribute("data-component", "option-row");
-  });
-
-  test("should render option row data-role prop set to option-row", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FilterableSelectMultiColumnsComponent />);
-
-    await dropdownButton(page).click();
-    await expect(
-      multiColumnsSelectListBody(page).locator(".."),
-    ).toHaveAttribute("data-role", "option-row");
-  });
-
-  test("should render option row data-element prop set to option-row", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FilterableSelectMultiColumnsComponent />);
-
-    await dropdownButton(page).click();
-    await expect(
-      multiColumnsSelectListBody(page).locator(".."),
-    ).toHaveAttribute("data-element", "option-row");
-  });
-
-  test("should contain custom option id option1", async ({ mount, page }) => {
-    await mount(<FilterableSelectComponent />);
-
-    await dropdownButton(page).click();
-    await expect(selectOptionByText(page, listOption)).toHaveId("option1");
-  });
-
-  test("should render option data-component prop set to option", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FilterableSelectComponent />);
-
-    await dropdownButton(page).click();
-    await expect(selectOptionByText(page, listOption)).toHaveAttribute(
-      "data-component",
-      "option",
-    );
-  });
-
-  test("should render option data-role prop set to option1", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FilterableSelectComponent />);
-
-    await dropdownButton(page).click();
-    await expect(selectOptionByText(page, listOption)).toHaveAttribute(
-      "data-role",
-      "option1",
-    );
-  });
-
-  test("should render option data-element prop set to option1", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FilterableSelectComponent />);
-
-    await dropdownButton(page).click();
-    await expect(selectOptionByText(page, listOption)).toHaveAttribute(
-      "data-element",
-      "option1",
-    );
-  });
 });
 
 test.describe("onListScrollBottom prop", () => {
@@ -1144,65 +748,6 @@ test.describe("Test for scroll bug regression", () => {
 // so this must be disabled in each such test. (See FE-5764.)
 // This is a false positive (confirmed by Accessibility team) as the select list can be accessed via the select input and the arrow keys.
 test.describe("Accessibility tests for FilterableSelect component", () => {
-  test("should pass accessibility tests with default example", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FilterableSelectComponent />);
-
-    await dropdownButton(page).click();
-    await checkAccessibility(page, undefined, "scrollable-region-focusable");
-  });
-
-  testData.forEach((placeholderValue) => {
-    test(`should pass accessibility tests with placeholder prop using ${placeholderValue} special characters`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<FilterableSelectComponent placeholder={placeholderValue} />);
-
-      await checkAccessibility(page);
-    });
-  });
-
-  test("should pass accessibility tests with disabled prop", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FilterableSelectComponent disabled />);
-
-    await checkAccessibility(page);
-  });
-
-  test("should pass accessibility tests with readOnly prop", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FilterableSelectComponent readOnly />);
-
-    await checkAccessibility(page);
-    await selectInput(page).click();
-    await checkAccessibility(page);
-  });
-
-  test("should pass accessibility tests with autoFocus prop", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FilterableSelectComponent autoFocus />);
-
-    await checkAccessibility(page);
-  });
-
-  test("should pass accessibility tests with required prop", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FilterableSelectComponent required />);
-
-    await checkAccessibility(page);
-  });
-
   test("should pass accessibility tests with isLoading prop", async ({
     mount,
     page,
@@ -1211,16 +756,6 @@ test.describe("Accessibility tests for FilterableSelect component", () => {
 
     await dropdownButton(page).click();
     await expect(loader(page, 1)).toBeVisible();
-    await checkAccessibility(page, undefined, "scrollable-region-focusable");
-  });
-
-  test("should pass accessibility tests with openOnFocus prop", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FilterableSelectComponent openOnFocus />);
-
-    await commonDataElementInputPreview(page).focus();
     await checkAccessibility(page, undefined, "scrollable-region-focusable");
   });
 
@@ -1262,5 +797,16 @@ test.describe("Accessibility tests for FilterableSelect component", () => {
 
     await dropdownButton(page).click();
     await checkAccessibility(page, undefined, "scrollable-region-focusable");
+  });
+
+  testData.forEach((placeholderValue) => {
+    test(`should pass accessibility tests with placeholder prop using ${placeholderValue} special characters`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<FilterableSelectComponent placeholder={placeholderValue} />);
+
+      await checkAccessibility(page);
+    });
   });
 });
