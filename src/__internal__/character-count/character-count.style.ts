@@ -3,30 +3,34 @@ import styled, { css } from "styled-components";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 import visuallyHidden from "../../style/utils/visually-hidden";
 
+import { getFont } from "../../components/textarea/textarea.style";
+import type { TextAreaSize } from "../../components/textarea/textarea.style";
+
 const StyledCharacterCountWrapper = styled.div``;
 
 const StyledCharacterCount = styled.div.attrs(applyBaseTheme)<{
   isOverLimit: boolean;
   isLarge?: boolean;
+  $size?: TextAreaSize;
 }>`
   text-align: left;
-  font-size: var(--fontSizes100);
-  margin-top: var(--spacing050);
-  margin-bottom: var(--spacing050);
+  ${({ $size }) => getFont($size || "medium", "regular")};
+  margin: ${({ $size }) =>
+    `${$size === "large" ? "var(--global-space-comp-s)" : "var(--global-space-comp-xs)"} 0px`};
   color: ${({ isOverLimit }) =>
     isOverLimit
-      ? "var(--colorsSemanticNegative500)"
-      : "var(--colorsUtilityYin055)"};
+      ? " var(--input-validation-label-error)"
+      : "var(--input-typical-txt-alt)"};
 
   ${({ isLarge }) =>
     isLarge &&
     css`
-      font-size: var(--fontSizes200);
+      font: var(--global-font-static-comp-regular-l);
     `}
-  ${({ isOverLimit }) =>
+  ${({ isOverLimit, $size }) =>
     isOverLimit &&
     css`
-      font-weight: var(--fontWeights500);
+      ${getFont($size || "medium", "medium")};
     `}
 `;
 

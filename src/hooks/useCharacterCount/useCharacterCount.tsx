@@ -7,6 +7,7 @@ const useCharacterCount = (
   value: string,
   characterLimit?: number,
   characterCountAriaLive?: "off" | "polite",
+  size?: "small" | "medium" | "large",
 ): [JSX.Element | null, string | undefined] => {
   const isCharacterLimitValid =
     typeof characterLimit === "number" && !Number.isNaN(characterLimit);
@@ -49,6 +50,7 @@ const useCharacterCount = (
         debouncedValue={debouncedValue.length}
         limit={characterLimit}
         visuallyHiddenHintId={hintId.current}
+        size={size}
       />
     ) : null,
     isCharacterLimitValid ? hintId.current : undefined,
