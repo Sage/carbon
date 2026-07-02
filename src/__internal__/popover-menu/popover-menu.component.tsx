@@ -83,7 +83,7 @@ export interface PopoverMenuProps<
   open: boolean;
   /** The element that the popover menu is anchored to */
   popoverControl?: (
-    ref: React.RefObject<TRef>,
+    ref: React.MutableRefObject<TRef | null>,
     props: PopoverControlProps,
   ) => React.ReactNode;
   size?: PopoverMenuContextProps["size"];
@@ -104,7 +104,7 @@ export interface PopoverMenuProps<
   /** Middleware for the popover menu */
   middleware?: typeof menuPopoverMiddleware;
   /** Ref for the submenu control element */
-  submenuControlRef?: React.RefObject<HTMLElement>;
+  submenuControlRef?: React.MutableRefObject<HTMLElement | null>;
   /** id applied to the outer wrapper element (e.g. for aria-controls) */
   id?: string;
   /** Blur handler for the outer wrapper element */
