@@ -1,55 +1,101 @@
+import { TypographyProps } from "../typography";
+
 export const PROFILE_SIZES = ["XS", "S", "M", "ML", "L", "XL", "XXL"] as const;
 type AllProfileSizes = typeof PROFILE_SIZES;
 export type ProfileSize = AllProfileSizes[number];
 
-export default {
+type ProfileTypographyProps = Pick<TypographyProps, "variant" | "size">;
+
+type ProfileConfig = Record<
+  ProfileSize,
+  {
+    nameTypography: ProfileTypographyProps;
+    emailLinkSize: "medium" | "large";
+    textTypography: ProfileTypographyProps;
+    detailsMarginLeft: string;
+  }
+>;
+
+const profileConfigSizes = {
   XS: {
-    nameFont: "var(--profile-font-heading-xs)",
-    emailFontSize: "var(--fontSizes025)",
-    emailLineHeight: "21px",
-    textFont: "var(--global-font-static-body-regular-m)",
-    detailsMarginLeft: "8px",
+    nameTypography: {
+      variant: "strong",
+      size: "M",
+    },
+    emailLinkSize: "medium",
+    textTypography: {
+      variant: "p",
+      size: "M",
+    },
+    detailsMarginLeft: "var(--spacing100)",
   },
   S: {
-    nameFont: "var(--profile-font-heading-s)",
-    emailFontSize: "var(--fontSizes100)",
-    emailLineHeight: "21px",
-    textFont: "var(--global-font-static-body-regular-m)",
-    detailsMarginLeft: "8px",
+    nameTypography: {
+      variant: "strong",
+      size: "M",
+    },
+    emailLinkSize: "medium",
+    textTypography: {
+      variant: "p",
+      size: "M",
+    },
+    detailsMarginLeft: "var(--spacing100)",
   },
   M: {
-    nameFont: "var(--profile-font-heading-m)",
-    emailFontSize: "var(--fontSizes100)",
-    emailLineHeight: "21px",
-    textFont: "var(--global-font-static-body-regular-m)",
-    detailsMarginLeft: "16px",
+    nameTypography: {
+      variant: "h4",
+    },
+    emailLinkSize: "medium",
+    textTypography: {
+      variant: "p",
+      size: "M",
+    },
+    detailsMarginLeft: "var(--spacing200)",
   },
   ML: {
-    nameFont: "var(--profile-font-heading-ml)",
-    emailFontSize: "var(--fontSizes100)",
-    emailLineHeight: "21px",
-    textFont: "var(--global-font-static-body-regular-m)",
-    detailsMarginLeft: "24px",
+    nameTypography: {
+      variant: "h4",
+    },
+    emailLinkSize: "medium",
+    textTypography: {
+      variant: "p",
+      size: "M",
+    },
+    detailsMarginLeft: "var(--spacing300)",
   },
   L: {
-    nameFont: "var(--profile-font-heading-l)",
-    emailFontSize: "var(--fontSizes100)",
-    emailLineHeight: "24px",
-    textFont: "var(--global-font-static-body-regular-l)",
-    detailsMarginLeft: "24px",
+    nameTypography: {
+      variant: "h4",
+    },
+    emailLinkSize: "large",
+    textTypography: {
+      variant: "p",
+      size: "L",
+    },
+    detailsMarginLeft: "var(--spacing300)",
   },
   XL: {
-    nameFont: "var(--profile-font-heading-xl)",
-    emailFontSize: "var(--fontSizes300)",
-    emailLineHeight: "24px",
-    textFont: "var(--global-font-static-body-regular-l)",
-    detailsMarginLeft: "32px",
+    nameTypography: {
+      variant: "h2",
+    },
+    emailLinkSize: "large",
+    textTypography: {
+      variant: "p",
+      size: "L",
+    },
+    detailsMarginLeft: "var(--spacing400)",
   },
   XXL: {
-    nameFont: "var(--profile-font-heading-xxl)",
-    emailFontSize: "var(--fontSizes600)",
-    emailLineHeight: "24px",
-    textFont: "var(--global-font-static-body-regular-l)",
-    detailsMarginLeft: "40px",
+    nameTypography: {
+      variant: "h1",
+    },
+    emailLinkSize: "large",
+    textTypography: {
+      variant: "p",
+      size: "L",
+    },
+    detailsMarginLeft: "var(--spacing500)",
   },
-};
+} as const satisfies ProfileConfig;
+
+export default profileConfigSizes;

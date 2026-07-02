@@ -61,6 +61,7 @@ export const DarkBackground: Story = () => {
       width="190px"
       height="50px"
       borderRadius="borderRadius200"
+      display="flex"
     >
       <Profile
         darkBackground

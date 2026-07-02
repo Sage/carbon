@@ -8,15 +8,14 @@ import tagComponent, {
 } from "../../__internal__/utils/helpers/tags/tags";
 import Logger from "../../__internal__/utils/logger";
 import type { PortraitProps } from "../portrait";
+import Link from "../link";
+import Typography from "../typography";
 
-import { ProfileSize } from "./profile.config";
+import profileConfigSizes, { ProfileSize } from "./profile.config";
 import {
   ProfileStyle,
-  ProfileNameStyle,
   ProfileDetailsStyle,
   ProfileAvatarStyle,
-  ProfileEmailStyle,
-  ProfileTextStyle,
   ProfileCustomContentStyle,
 } from "./profile.style";
 
@@ -28,11 +27,6 @@ function acronymize(str?: string) {
 }
 
 let useOfNoNameWarnTriggered = false;
-let deprecateDarkBackgroundWarnTriggered = false;
-let deprecateBackgroundColorWarnTriggered = false;
-let deprecateForegroundColorWarnTriggered = false;
-let backgroundColorAndVariantWarnTriggered = false;
-let foregroundColorAndVariantWarnTriggered = false;
 
 export interface ProfileProps extends MarginProps, TagProps {
   /**
@@ -92,6 +86,8 @@ export const Profile = ({
   children,
   ...props
 }: ProfileProps) => {
+  const profileSize = size || "M";
+
   const getInitials = () => {
     if (initials) return initials;
     return acronymize(name).slice(0, 3).toUpperCase();
@@ -103,7 +99,7 @@ export const Profile = ({
     alt,
     name,
     initials: getInitials(),
-    size,
+    size: profileSize,
     ...(variant ? { variant } : { backgroundColor, foregroundColor }),
     "data-role": "profile-portrait",
   };
@@ -129,74 +125,43 @@ export const Profile = ({
     );
   }
 
-  if (darkBackground && !deprecateDarkBackgroundWarnTriggered) {
-    deprecateDarkBackgroundWarnTriggered = true;
-    Logger.deprecate(
-      "The `darkBackground` prop in `Profile` is deprecated and will soon be removed.",
-    );
-  }
-
-  if (backgroundColor && !deprecateBackgroundColorWarnTriggered) {
-    deprecateBackgroundColorWarnTriggered = true;
-    Logger.deprecate(
-      "The `backgroundColor` prop in `Profile` is deprecated and will soon be removed. Please use `variant` instead.",
-    );
-  }
-
-  if (backgroundColor && variant && !backgroundColorAndVariantWarnTriggered) {
-    backgroundColorAndVariantWarnTriggered = true;
-    Logger.warn(
-      "Both `backgroundColor` and `variant` props are set. The `variant` prop will be used.",
-    );
-  }
-
-  if (foregroundColor && !deprecateForegroundColorWarnTriggered) {
-    deprecateForegroundColorWarnTriggered = true;
-    Logger.deprecate(
-      "The `foregroundColor` prop in `Profile` is deprecated and will soon be removed. Please use `variant` instead.",
-    );
-  }
-
-  if (foregroundColor && variant && !foregroundColorAndVariantWarnTriggered) {
-    foregroundColorAndVariantWarnTriggered = true;
-    Logger.warn(
-      "Both `foregroundColor` and `variant` props are set. The `variant` prop will be used.",
-    );
-  }
-
   const details = () => {
     if (!name && !children) return null;
 
     return (
-      <ProfileDetailsStyle $size={size} data-element="details">
+      <ProfileDetailsStyle $size={profileSize} data-element="details">
         {name && (
           <>
-            <ProfileNameStyle
-              $size={size}
-              darkBackground={darkBackground}
+            <Typography
+              as="span"
+              {...profileConfigSizes[profileSize].nameTypography}
+              inverse={darkBackground}
+              m={0}
               data-element="name"
             >
               {name}
-            </ProfileNameStyle>
+            </Typography>
             {email && (
-              <ProfileEmailStyle
-                href={`mailto: ${email}`}
-                $size={size}
-                darkBackground={darkBackground}
+              <Link
+                href={`mailto:${email}`}
+                linkSize={profileConfigSizes[profileSize].emailLinkSize}
+                inverse={darkBackground}
                 data-role="email-link"
                 data-element="email"
               >
                 {email}
-              </ProfileEmailStyle>
+              </Link>
             )}
             {text && (
-              <ProfileTextStyle
-                $size={size}
-                darkBackground={darkBackground}
+              <Typography
+                as="span"
+                {...profileConfigSizes[profileSize].textTypography}
+                inverse={darkBackground}
+                m={0}
                 data-element="text"
               >
                 {text}
-              </ProfileTextStyle>
+              </Typography>
             )}
           </>
         )}
@@ -215,7 +180,7 @@ export const Profile = ({
   return (
     <ProfileStyle
       className={className}
-      darkBackground={darkBackground}
+      $darkBackground={darkBackground}
       {...tagComponent("profile", props)}
       {...filterStyledSystemMarginProps(props)}
     >

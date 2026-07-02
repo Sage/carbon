@@ -9,59 +9,6 @@ testStyledSystemMargin(
   () => screen.getByTestId("profile"),
 );
 
-/* Deprecation warning tests - must run first before flags are set */
-test("warns when both `backgroundColor` and `variant` are provided", () => {
-  const consoleWarnSpy = jest
-    .spyOn(console, "warn")
-    .mockImplementation(() => {});
-
-  render(
-    <Profile data-role="profile" backgroundColor="#FF0000" variant="lime" />,
-  );
-
-  expect(consoleWarnSpy).toHaveBeenCalledWith(
-    "[Deprecation] The `backgroundColor` prop in `Profile` is deprecated and will soon be removed. Please use `variant` instead.",
-  );
-  expect(consoleWarnSpy).toHaveBeenCalledWith(
-    "Both `backgroundColor` and `variant` props are set. The `variant` prop will be used.",
-  );
-
-  consoleWarnSpy.mockRestore();
-});
-
-test("warns when both `foregroundColor` and `variant` are provided", () => {
-  const consoleWarnSpy = jest
-    .spyOn(console, "warn")
-    .mockImplementation(() => {});
-
-  render(
-    <Profile data-role="profile" foregroundColor="#FF0000" variant="lime" />,
-  );
-
-  expect(consoleWarnSpy).toHaveBeenCalledWith(
-    "[Deprecation] The `foregroundColor` prop in `Profile` is deprecated and will soon be removed. Please use `variant` instead.",
-  );
-  expect(consoleWarnSpy).toHaveBeenCalledWith(
-    "Both `foregroundColor` and `variant` props are set. The `variant` prop will be used.",
-  );
-
-  consoleWarnSpy.mockRestore();
-});
-
-test("logs deprecation warning when `darkBackground` prop is used", () => {
-  const consoleWarnSpy = jest
-    .spyOn(console, "warn")
-    .mockImplementation(() => {});
-
-  render(<Profile data-role="profile" darkBackground />);
-
-  expect(consoleWarnSpy).toHaveBeenCalledWith(
-    "[Deprecation] The `darkBackground` prop in `Profile` is deprecated and will soon be removed.",
-  );
-
-  consoleWarnSpy.mockRestore();
-});
-
 test("renders with set data tags", () => {
   render(<Profile data-role="foo" data-element="bar" />);
 
@@ -79,6 +26,10 @@ test("renders default avatar if no text-based props are passed", () => {
   expect(profile).toContainElement(avatar);
   expect(avatar).toBeVisible();
   expect(avatar).toHaveAttribute("type", "individual");
+  expect(profile).toHaveStyleRule(
+    "color",
+    "var(--container-standard-txt-default)",
+  );
 });
 
 test("renders with name text when `name` prop is passed", () => {
@@ -138,16 +89,16 @@ test("sets alt attribute on avatar to `name` prop value if `alt` prop is not pas
   expect(avatar).toBeVisible();
 });
 
-test("renders with email text when `email` prop is passed", () => {
+test("renders with email link when `email` prop is passed", () => {
   const emailAddress = "john.doe@sage.com";
   render(<Profile name="John Doe" email={emailAddress} />);
 
-  const emailText = screen.getByRole("link", { name: emailAddress });
-  const emailLink = screen.getByTestId("email-link");
+  const emailLink = screen.getByRole("link", { name: emailAddress });
+  const emailLinkWrapper = screen.getByTestId("email-link");
 
-  expect(emailText).toBeVisible();
-  expect(emailText).toHaveAttribute("href", `mailto: ${emailAddress}`);
-  expect(emailLink).toHaveAttribute("data-element", "email");
+  expect(emailLink).toBeVisible();
+  expect(emailLink).toHaveAttribute("href", `mailto:${emailAddress}`);
+  expect(emailLinkWrapper).toHaveAttribute("data-element", "email");
 });
 
 test("renders with additional text when `text` prop is passed", () => {
@@ -182,6 +133,20 @@ test("renders custom content below the profile details", () => {
 test("renders custom content without requiring the `name` prop", () => {
   render(<Profile>Custom text</Profile>);
 
+  expect(screen.getByText("Custom text")).toBeVisible();
+});
+
+test("renders custom content with inherited color on dark background", () => {
+  render(
+    <Profile data-role="profile" darkBackground>
+      Custom text
+    </Profile>,
+  );
+
+  expect(screen.getByTestId("profile")).toHaveStyleRule(
+    "color",
+    "var(--container-standard-inverse-txt-default)",
+  );
   expect(screen.getByText("Custom text")).toBeVisible();
 });
 
@@ -243,14 +208,17 @@ test("renders with dark background styling when `darkBackground` prop is passed"
   const profile = screen.getByTestId("profile");
   const emailLink = screen.getByTestId("email-link");
 
-  expect(profile).toHaveStyleRule("color", "var(--colorsUtilityReadOnly600)");
   expect(profile).toHaveStyleRule(
     "background-color",
     "var(--colorsUtilityYin090)",
   );
-  expect(emailLink).toHaveStyleRule("color", "var(--colorsActionMajor350)", {
-    modifier: "a",
-  });
+  expect(emailLink).toHaveStyleRule(
+    "color",
+    "var(--link-typical-inverse-label-default)",
+    {
+      modifier: "> a",
+    },
+  );
 });
 
 test("renders with custom avatar colouring when `backgroundColor` is set", () => {
@@ -301,25 +269,60 @@ test("passes the `variant` prop through to the portrait", () => {
   );
 });
 
-test("uses profile heading tokens for the name", () => {
-  render(<Profile name="John Doe" size="XL" />);
+test.each([
+  ["XS", "var(--global-font-static-body-medium-m)"],
+  ["S", "var(--global-font-static-body-medium-m)"],
+  ["M", "var(--global-font-static-subheading-l)"],
+  ["ML", "var(--global-font-static-subheading-l)"],
+  ["L", "var(--global-font-static-subheading-l)"],
+  ["XL", "var(--global-font-static-heading-m)"],
+  ["XXL", "var(--global-font-static-heading-l)"],
+] as const)(
+  "uses Typography font tokens for the name at %s size",
+  (size, font) => {
+    render(<Profile name="John Doe" size={size} />);
+
+    const name = screen.getByText("John Doe");
+
+    expect(name).toHaveStyleRule("font", font);
+  },
+);
+
+test("renders name with inverse color on dark background", () => {
+  render(<Profile darkBackground name="John Doe" />);
 
   const name = screen.getByText("John Doe");
 
-  expect(name).toHaveStyleRule("font", "var(--profile-font-heading-xl)");
-  expect(name).toHaveStyleRule("color", "var(--profile-label-default)");
+  expect(name).toHaveStyleRule(
+    "color",
+    "var(--container-standard-inverse-txt-default)",
+  );
 });
 
-test("uses profile label tokens for additional text", () => {
+test("renders additional text", () => {
   render(<Profile name="John Doe" text="Software Engineer" />);
 
-  const text = screen.getByText("Software Engineer");
+  expect(screen.getByText("Software Engineer")).toBeInTheDocument();
+});
 
-  expect(text).toHaveStyleRule(
-    "font",
-    "var(--global-font-static-body-regular-m)",
-  );
-  expect(text).toHaveStyleRule("color", "var(--profile-label-default)");
+test.each([
+  ["ML", "var(--global-font-static-comp-regular-m)"],
+  ["L", "var(--global-font-static-comp-regular-l)"],
+] as const)("uses Link font tokens for the email at %s size", (size, font) => {
+  render(<Profile name="John Doe" email="john.doe@sage.com" size={size} />);
+
+  expect(screen.getByTestId("email-link")).toHaveStyleRule("font", font, {
+    modifier: "> a",
+  });
+});
+
+test.each([
+  ["ML", "var(--global-font-static-body-regular-m)"],
+  ["L", "var(--global-font-static-body-regular-l)"],
+] as const)("uses Typography font tokens for text at %s size", (size, font) => {
+  render(<Profile name="John Doe" text="Software Engineer" size={size} />);
+
+  expect(screen.getByText("Software Engineer")).toHaveStyleRule("font", font);
 });
 
 test("gives priority to `variant` prop over deprecated `backgroundColor` when both are provided", () => {

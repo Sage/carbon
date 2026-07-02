@@ -105,6 +105,7 @@ description: Carbon Profile component props and usage examples.
       width="190px"
       height="50px"
       borderRadius="borderRadius200"
+      display="flex"
     >
       <Profile
         darkBackground

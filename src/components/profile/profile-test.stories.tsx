@@ -50,6 +50,7 @@ export const ChromaticSnapshotsStory = () => (
       width="190px"
       height="50px"
       borderRadius="borderRadius200"
+      display="flex"
     >
       <Profile
         darkBackground
