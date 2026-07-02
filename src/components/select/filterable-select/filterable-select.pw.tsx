@@ -37,13 +37,40 @@ import {
   selectOptionByText,
 } from "../../../../playwright/components/select";
 import { checkAccessibility } from "../../../../playwright/support/helper";
+import { CHARACTERS } from "../../../../playwright/support/constants";
 
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const addElementText = "Add a New Element";
 const columns = 3;
 const icon = "add";
 const keyToTrigger = ["ArrowDown", "ArrowUp", "Home", "End"] as const;
 
 test.describe("FilterableSelect component", () => {
+  testData.forEach((labelValue) => {
+    test(`should render label using ${labelValue} special characters`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<FilterableSelectComponent label={labelValue} />);
+
+      await expect(getDataElementByValue(page, "label")).toHaveText(labelValue);
+    });
+  });
+
+  testData.forEach((placeholderValue) => {
+    test(`should render placeholder using ${placeholderValue} special characters`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<FilterableSelectComponent placeholder={placeholderValue} />);
+
+      await expect(selectInput(page)).toHaveAttribute(
+        "placeholder",
+        placeholderValue,
+      );
+    });
+  });
+
   test("should not select an option when the user types non-matching filter text in the input and then presses the Enter key", async ({
     page,
     mount,
@@ -770,5 +797,16 @@ test.describe("Accessibility tests for FilterableSelect component", () => {
 
     await dropdownButton(page).click();
     await checkAccessibility(page, undefined, "scrollable-region-focusable");
+  });
+
+  testData.forEach((placeholderValue) => {
+    test(`should pass accessibility tests with placeholder prop using ${placeholderValue} special characters`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<FilterableSelectComponent placeholder={placeholderValue} />);
+
+      await checkAccessibility(page);
+    });
   });
 });
