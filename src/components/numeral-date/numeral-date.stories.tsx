@@ -4,7 +4,8 @@ import { Meta, StoryObj } from "@storybook/react-vite";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 import NumeralDate, { NumeralDateHandle, NumeralDateProps } from ".";
-import Button from "../button";
+import Button from "../button/__next__/button.component";
+import Box from "../box";
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
@@ -37,11 +38,45 @@ export const Default: Story = () => {
     <NumeralDate
       value={value}
       onChange={(e) => setValue(e.target.value)}
-      label="Default"
+      legend="Date of Birth"
     />
   );
 };
 Default.storyName = "Default";
+
+export const ReadOnly: Story = () => {
+  const [value, setValue] = useState<NumeralDateProps["value"]>({
+    dd: "01",
+    mm: "02",
+    yyyy: "2020",
+  });
+  return (
+    <NumeralDate
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+      legend="Date of Birth"
+      readOnly
+    />
+  );
+};
+ReadOnly.storyName = "Read-only";
+
+export const Disabled: Story = () => {
+  const [value, setValue] = useState<NumeralDateProps["value"]>({
+    dd: "01",
+    mm: "02",
+    yyyy: "2020",
+  });
+  return (
+    <NumeralDate
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+      legend="Date of Birth"
+      disabled
+    />
+  );
+};
+Disabled.storyName = "Disabled";
 
 export const WithInputHint: Story = () => {
   const [value, setValue] = useState<NumeralDateProps["value"]>({
@@ -54,8 +89,8 @@ export const WithInputHint: Story = () => {
     <NumeralDate
       value={value}
       onChange={(e) => setValue(e.target.value)}
-      label="With label help"
-      labelHelp="Label help"
+      legend="Date of Birth"
+      legendHint="For example, 25 10 1998"
     />
   );
 };
@@ -77,41 +112,41 @@ export const AllowedDateFormats: Story = () => {
   return (
     <>
       <NumeralDate
-        label="DD/MM/YYYY - default"
+        legend="DD/MM/YYYY - default"
         mb={2}
         value={value}
         onChange={(e) => setValue(e.target.value)}
       />
       <NumeralDate
-        label="MM/DD/YYYY"
+        legend="MM/DD/YYYY"
         dateFormat={["mm", "dd", "yyyy"]}
         mb={2}
         value={value2}
         onChange={(e) => setValue2(e.target.value)}
       />
       <NumeralDate
-        label="YYYY/MM/DD"
+        legend="YYYY/MM/DD"
         dateFormat={["yyyy", "mm", "dd"]}
         mb={2}
         value={value3}
         onChange={(e) => setValue3(e.target.value)}
       />
       <NumeralDate
-        label="DD/MM"
+        legend="DD/MM"
         dateFormat={["dd", "mm"]}
         mb={2}
         value={value4}
         onChange={(e) => setValue4(e.target.value)}
       />
       <NumeralDate
-        label="MM/DD"
+        legend="MM/DD"
         dateFormat={["mm", "dd"]}
         mb={2}
         value={value5}
         onChange={(e) => setValue5(e.target.value)}
       />
       <NumeralDate
-        label="MM/YYYY"
+        legend="MM/YYYY"
         dateFormat={["mm", "yyyy"]}
         mb={2}
         value={value6}
@@ -130,32 +165,24 @@ export const InternalValidationError: Story = () => {
     yyyy: "1999",
   });
   return (
-    <NumeralDate
-      enableInternalError
-      label="Default - new validation"
-      onChange={(e) => setValueNew(e.target.value)}
-      value={valueNew}
-    />
+    <Box display={"flex"} flexDirection={"column"} gap={"24px"}>
+      <NumeralDate
+        enableInternalError
+        legend="Default - new validation (top)"
+        onChange={(e) => setValueNew(e.target.value)}
+        value={valueNew}
+      />
+      <NumeralDate
+        validationMessagePositionTop={false}
+        enableInternalError
+        legend="Default - new validation (bottom)"
+        onChange={(e) => setValueNew(e.target.value)}
+        value={valueNew}
+      />
+    </Box>
   );
 };
 InternalValidationError.storyName = "Internal Validation Error";
-
-export const InternalValidationWarning: Story = () => {
-  const [valueNew, setValueNew] = useState<NumeralDateProps["value"]>({
-    dd: "01",
-    mm: "13",
-    yyyy: "1999",
-  });
-  return (
-    <NumeralDate
-      enableInternalWarning
-      label="Default - new validation"
-      onChange={(e) => setValueNew(e.target.value)}
-      value={valueNew}
-    />
-  );
-};
-InternalValidationWarning.storyName = "Internal Validation Warning";
 
 export const Size: Story = () => {
   const dateDefault = {
@@ -170,7 +197,7 @@ export const Size: Story = () => {
   return (
     <>
       <NumeralDate
-        label="Date of Birth"
+        legend="Small"
         dateFormat={["dd", "mm", "yyyy"]}
         size="small"
         mb={2}
@@ -178,7 +205,7 @@ export const Size: Story = () => {
         onChange={(e) => setValue(e.target.value)}
       />
       <NumeralDate
-        label="Date of Birth"
+        legend="Medium"
         dateFormat={["dd", "mm", "yyyy"]}
         size="medium"
         mb={2}
@@ -186,7 +213,7 @@ export const Size: Story = () => {
         onChange={(e) => setValue2(e.target.value)}
       />
       <NumeralDate
-        label="Date of Birth"
+        legend="Large"
         dateFormat={["dd", "mm", "yyyy"]}
         size="large"
         value={value3}
@@ -206,8 +233,7 @@ export const Required: Story = () => {
   return (
     <NumeralDate
       name="date-of-birth"
-      label="Date of Birth"
-      labelWidth={30}
+      legend="Date of Birth"
       onChange={(e) => setValue(e.target.value)}
       value={value}
       required
@@ -237,7 +263,7 @@ export const ProgrammaticFocus = () => {
       <NumeralDate
         ref={ndRef}
         onChange={handleChange}
-        label="Numeral date"
+        legend="Numeral date"
         value={dateValue}
         name="numeralDate_name"
         id="numeralDate_id"
@@ -261,7 +287,7 @@ export const WithCustomFieldIds: Story = () => {
     <NumeralDate
       value={dateValue}
       onChange={handleChange}
-      label="Default"
+      legend="Default"
       inputIds={{
         day: "date-field-custom-id",
         month: "month-field-custom-id",

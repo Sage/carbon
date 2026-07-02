@@ -311,7 +311,27 @@ export const selectStyleOverrides = (
 export const numeralDateStyles = css`
   .numeral-date-wrapper & {
     .input-text-container input {
-      text-align: center;
+      text-align: left;
+    }
+  }
+`;
+
+/* Overrides for input when part of Pager component */
+const pageSelectionStyles = css`
+  .pager-navigation & {
+    margin: 4px 8px;
+    height: 26px;
+    min-height: unset;
+
+    .input-text-container {
+      padding: 0px;
+      line-height: 26px;
+      min-height: 24px;
+
+      input {
+        text-align: center;
+        padding: 0;
+      }
     }
   }
 `;
@@ -341,4 +361,29 @@ export const passwordStyleOverrides = css`
       border-left: none;
     }
   }
+`;
+
+const pageSizeSelectionStyles = css`
+  &&& {
+    .pager-size-options & {
+      min-height: unset;
+
+      .input-text-container {
+        width: 64px;
+        height: 26px;
+        min-height: 26px;
+        min-width: 10px;
+        margin: 0px;
+
+        .select-text:not(.disabled):not(.read-only) {
+          width: calc(100% - 28px);
+        }
+      }
+    }
+  }
+`;
+
+export const pagerStyleOverrides = css`
+  ${pageSelectionStyles}
+  ${pageSizeSelectionStyles}
 `;
