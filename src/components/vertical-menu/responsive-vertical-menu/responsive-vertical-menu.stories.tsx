@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
 
-import allModes from "../../../../.storybook/modes";
 import isChromatic from "../../../../.storybook/isChromatic";
 
 import {
@@ -23,9 +22,7 @@ const meta: Meta<typeof ResponsiveVerticalMenu> = {
   component: ResponsiveVerticalMenu,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
-    modes: {
-      desktop: allModes.chromatic,
-    },
+    chromatic: { disableSnapshot: true },
   },
   decorators: [
     (Story, { viewMode }) => (
@@ -132,7 +129,6 @@ export const ProgrammaticFocus: Story = () => {
   );
 };
 ProgrammaticFocus.storyName = "Focusing Launch Button Programmatically";
-ProgrammaticFocus.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithDivider: Story = () => {
   return (
@@ -372,9 +368,6 @@ export const ItemWithOnClickHandler: Story = () => {
   );
 };
 ItemWithOnClickHandler.storyName = "Item With OnClick Handler";
-ItemWithOnClickHandler.parameters = {
-  chromatic: { disableSnapshot: true },
-};
 
 export const ItemWithCustomLabel: Story = () => {
   return (
@@ -398,6 +391,3 @@ export const ItemWithCustomLabel: Story = () => {
   );
 };
 ItemWithCustomLabel.storyName = "Item With Custom Label";
-ItemWithCustomLabel.parameters = {
-  chromatic: { disableSnapshot: true },
-};
