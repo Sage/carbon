@@ -93,6 +93,17 @@ export const ChromaticSnapshot = () => {
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
       </MultiSelect>
+      <MultiSelect
+        mt={2}
+        maxWidth="200px"
+        value={["1"]}
+        onChange={() => {}}
+        name="very-long-pill"
+        id="very-long-pill"
+        label="With Very Long Pill Text"
+      >
+        <Option text="Veryveryveryveryveryveryverylongword" value="1" />
+      </MultiSelect>
     </>
   );
 };

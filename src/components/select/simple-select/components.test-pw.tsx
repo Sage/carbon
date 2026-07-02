@@ -7,6 +7,7 @@ import {
   Select,
   Option,
   SimpleSelectProps,
+  OptionRow,
 } from "../../../../src/components/select";
 import OptionGroupHeader from "../option-group-header/option-group-header.component";
 import Box from "../../box";
@@ -27,7 +28,13 @@ export const SimpleSelectComponent = (props: Partial<SimpleSelectProps>) => {
       onChange={onChangeHandler}
       {...props}
     >
-      <Option text="Amber" value="1" />
+      <Option
+        id="option1"
+        data-element="option1"
+        data-role="option1"
+        text="Amber"
+        value="1"
+      />
       <Option text="Black" value="2" />
       <Option text="Blue" value="3" />
       <Option text="Brown" value="4" />
@@ -41,6 +48,67 @@ export const SimpleSelectComponent = (props: Partial<SimpleSelectProps>) => {
       <Option text="Red" value="9" />
       <Option text="White" value="10" />
       <Option text="Yellow" value="11" />
+    </SimpleSelect>
+  );
+};
+
+export const SimpleSelectMultipleColumnsComponent = (
+  props: Partial<SimpleSelectProps>,
+) => {
+  const [value, setValue] = useState("");
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value);
+  }
+
+  return (
+    <SimpleSelect
+      name="withMultipleColumns"
+      id="withMultipleColumns"
+      label="Clients"
+      multiColumn
+      value={value}
+      onChange={onChangeHandler}
+      {...props}
+      tableHeader={
+        <tr>
+          <th>Name</th>
+          <th>Surname</th>
+          <th>Occupation</th>
+        </tr>
+      }
+    >
+      <OptionRow id="1" value="1" text="John Doe">
+        <td>John</td>
+        <td>Doe</td>
+        <td>Welder</td>
+      </OptionRow>
+      <OptionRow id="2" value="2" text="Joe Vick">
+        <td>Joe</td>
+        <td>Vick</td>
+        <td>Accountant</td>
+      </OptionRow>
+      <OptionRow
+        id="3"
+        value="3"
+        text="Jane Poe"
+        data-component="option-row"
+        data-role="option-row"
+        data-element="option-row"
+      >
+        <td>Jane</td>
+        <td>Poe</td>
+        <td>Accountant</td>
+      </OptionRow>
+      <OptionRow id="4" value="4" text="Jill Moe">
+        <td>Jill</td>
+        <td>Moe</td>
+        <td>Engineer</td>
+      </OptionRow>
+      <OptionRow id="5" value="5" text="Bill Zoe">
+        <td>Bill</td>
+        <td>Zoe</td>
+        <td>Astronaut</td>
+      </OptionRow>
     </SimpleSelect>
   );
 };

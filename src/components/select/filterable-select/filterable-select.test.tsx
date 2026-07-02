@@ -9,6 +9,7 @@ import {
   CustomSelectChangeEvent,
   setupSelectMocks,
 } from "..";
+import OptionRow from "../option-row/option-row.component";
 import guid from "../../../__internal__/utils/helpers/guid";
 
 const mockedGuid = "mocked-guid";
@@ -2018,4 +2019,32 @@ test("should hide any non-matching options when `disableDefaultFiltering` is not
   await user.type(screen.getByRole("combobox"), "a");
 
   expect(await screen.findAllByRole("option")).toHaveLength(1);
+});
+
+test("should render OptionRow with data-element attribute set to option-row", async () => {
+  const user = userEvent.setup();
+  render(
+    <FilterableSelect
+      label="filterable-select"
+      onChange={() => {}}
+      value=""
+      multiColumn
+      tableHeader={
+        <tr>
+          <th>Name</th>
+          <th>Surname</th>
+        </tr>
+      }
+    >
+      <OptionRow id="1" value="1" text="John Doe" data-element="option-row">
+        <td>John</td>
+        <td>Doe</td>
+      </OptionRow>
+    </FilterableSelect>,
+  );
+
+  await user.click(screen.getByRole("combobox"));
+  const optionRow = await screen.findByRole("option");
+
+  expect(optionRow).toHaveAttribute("data-element", "option-row");
 });

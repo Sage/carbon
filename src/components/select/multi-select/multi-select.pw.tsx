@@ -10,20 +10,69 @@ import {
   MultiSelectWithDisabledOption,
   MultiSelectMultiColumnsComponent,
 } from "./components.test-pw";
-import { commonDataElementInputPreview } from "../../../../playwright/components";
+import { MaxOptionsComponent as MultiSelectMaxOptionsComponent } from "./multi-select-test.stories";
+import {
+  commonDataElementInputPreview,
+  getDataElementByValue,
+} from "../../../../playwright/components";
 import { dialogWithRole } from "../../../../playwright/components/dialog";
 import { loader } from "../../../../playwright/components/loader";
 import {
   dropdownButton,
   multiSelectPill,
+  multiSelectPillByPosition,
+  multiSelectPillByText,
   selectInput,
   selectList,
   selectListScrollableWrapper,
+  selectListWrapper,
   selectOptionByText,
 } from "../../../../playwright/components/select";
 import { checkAccessibility } from "../../../../playwright/support/helper";
+import { CHARACTERS } from "../../../../playwright/support/constants";
+
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
+const option1 = "Green";
+const option2 = "Purple";
+const option3 = "Yellow";
 
 test.describe("MultiSelect component", () => {
+  testData.forEach((labelValue) => {
+    test(`should render label using ${labelValue} special characters`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MultiSelectComponent label={labelValue} />);
+
+      await expect(getDataElementByValue(page, "label")).toHaveText(labelValue);
+    });
+  });
+
+  testData.forEach((placeholderValue) => {
+    test(`should render placeholder using ${placeholderValue} special characters`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MultiSelectComponent placeholder={placeholderValue} />);
+
+      await expect(selectInput(page)).toHaveAttribute(
+        "placeholder",
+        placeholderValue,
+      );
+    });
+  });
+
+  test("when maxWidth has no value it should render as 100%", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MultiSelectComponent maxWidth="" />);
+
+    await expect(
+      getDataElementByValue(page, "input").locator("..").locator(".."),
+    ).toHaveCSS("max-width", "100%");
+  });
+
   test("scroll position of option list doesn't change, if the component's options are dynamically changed", async ({
     mount,
     page,
@@ -242,6 +291,31 @@ test.describe("When error is triggered by onChange", () => {
   });
 });
 
+test("should check number of selected options are limited to 2", async ({
+  mount,
+  page,
+}) => {
+  await mount(<MultiSelectMaxOptionsComponent />);
+
+  const length = 2;
+  await dropdownButton(page).click();
+  await selectOptionByText(page, option1).click();
+  await expect(selectInput(page)).toHaveAttribute("aria-expanded", "true");
+  await expect(selectListWrapper(page)).toBeVisible();
+  await expect(multiSelectPill(page)).toHaveAttribute("title", option1);
+  await selectOptionByText(page, option2).click();
+  await selectOptionByText(page, option3).click();
+  await expect(multiSelectPill(page)).toHaveCount(length);
+  await expect(multiSelectPillByPosition(page, 0)).toHaveAttribute(
+    "title",
+    option1,
+  );
+  await expect(multiSelectPillByPosition(page, 1)).toHaveAttribute(
+    "title",
+    option2,
+  );
+});
+
 test("should not add an empty Pill when filter text does not match option text", async ({
   mount,
   page,
@@ -276,6 +350,42 @@ test("should not select a disabled option when a filter is typed", async ({
 
   const pillElement = multiSelectPill(page);
   await expect(pillElement).toHaveCount(1);
+});
+
+test("renders loader when loading prop is set to true", async ({
+  mount,
+  page,
+}) => {
+  await mount(<MultiSelectComponent isLoading />);
+
+  const input = page.getByRole("combobox");
+  const dropdownList = page.getByRole("listbox");
+
+  await input.click();
+  await dropdownList.waitFor();
+
+  await expect(loader(page, 1)).toBeVisible();
+});
+
+test("should delete all selected pill options and leave list open", async ({
+  mount,
+  page,
+}) => {
+  await mount(<MultiSelectComponent />);
+
+  await dropdownButton(page).click();
+  await selectOptionByText(page, option1).click();
+  await selectOptionByText(page, option2).click();
+  await expect(selectInput(page)).toHaveAttribute("aria-expanded", "true");
+  const wrapperElement = selectListWrapper(page);
+  await expect(wrapperElement).toBeVisible();
+  const inputElement = commonDataElementInputPreview(page);
+  await inputElement.press("Backspace");
+  await expect(multiSelectPillByText(page, option2)).toHaveCount(0);
+  await expect(wrapperElement).toBeVisible();
+  await inputElement.press("Backspace");
+  await expect(multiSelectPill(page)).toHaveCount(0);
+  await expect(wrapperElement).toBeVisible();
 });
 
 // see https://github.com/Sage/carbon/issues/6399
@@ -339,5 +449,16 @@ test.describe("Accessibility tests for MultiSelect component", () => {
 
     await dropdownButton(page).click();
     await checkAccessibility(page, undefined, "scrollable-region-focusable");
+  });
+
+  testData.forEach((placeholderValue) => {
+    test(`should pass accessibility tests with placeholder prop using ${placeholderValue} special characters`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MultiSelectComponent placeholder={placeholderValue} />);
+
+      await checkAccessibility(page);
+    });
   });
 });

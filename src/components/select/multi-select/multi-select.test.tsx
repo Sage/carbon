@@ -536,6 +536,46 @@ describe("dropdown list", () => {
     );
   });
 
+  it("closes the list with the Tab key", async () => {
+    const user = userEvent.setup();
+    render(
+      <InteractiveComponent label="Colour" onChange={() => {}}>
+        <Option text="amber" value="amber" />
+      </InteractiveComponent>,
+    );
+
+    const input = screen.getByRole("combobox");
+    await user.click(input);
+    await screen.findByRole("listbox");
+
+    expect(input).toHaveAttribute("aria-expanded", "true");
+    await user.tab();
+    expect(input).toHaveAttribute("aria-expanded", "false");
+    await waitFor(() =>
+      expect(screen.queryByRole("listbox")).not.toBeInTheDocument(),
+    );
+  });
+
+  it("closes the list with the Escape key", async () => {
+    const user = userEvent.setup();
+    render(
+      <InteractiveComponent label="Colour" onChange={() => {}}>
+        <Option text="amber" value="amber" />
+      </InteractiveComponent>,
+    );
+
+    const input = screen.getByRole("combobox");
+    await user.click(input);
+    await screen.findByRole("listbox");
+
+    expect(input).toHaveAttribute("aria-expanded", "true");
+    await user.keyboard("{Escape}");
+    expect(input).toHaveAttribute("aria-expanded", "false");
+    await waitFor(() =>
+      expect(screen.queryByRole("listbox")).not.toBeInTheDocument(),
+    );
+  });
+
   it("closes when input is clicked twice", async () => {
     const user = userEvent.setup();
     render(
@@ -1411,6 +1451,26 @@ test("the SelectList should stay visible if the input has received a mousedown e
   await user.pointer({ keys: "[MouseLeft>]", target: input });
 
   expect(screen.getByRole("listbox")).toBeVisible();
+});
+
+test("should render option with data-element attribute set to option1", async () => {
+  const user = userEvent.setup();
+  render(
+    <InteractiveComponent label="Colour" onChange={() => {}}>
+      <Option
+        id="option1"
+        text="Amber"
+        value="1"
+        data-role="option1"
+        data-element="option1"
+      />
+    </InteractiveComponent>,
+  );
+
+  await user.click(screen.getByRole("combobox"));
+  const option = await screen.findByRole("option", { name: "Amber" });
+
+  expect(option).toHaveAttribute("data-element", "option1");
 });
 
 testStyledSystemMargin(

@@ -10,6 +10,7 @@ import {
   SimpleSelectControlled,
   WithObjectAsValue,
   SimpleSelectObjectAsValueComponent,
+  SimpleSelectMultipleColumnsComponent,
 } from "./components.test-pw";
 import {
   commonDataElementInputPreview,
@@ -20,6 +21,7 @@ import {
   dropdownButton,
   selectInput,
   selectList,
+  selectListPosition,
   selectListScrollableWrapper,
   selectOption,
   selectOptionByText,
@@ -29,8 +31,36 @@ import {
   checkAccessibility,
   positionOfElement,
 } from "../../../../playwright/support/helper";
+import { CHARACTERS } from "../../../../playwright/support/constants";
+import { selectListWrapper } from "../../../../playwright/components/pager";
+import { loader } from "../../../../playwright/components/loader";
+import { SimpleSelectProps } from "./simple-select.component";
+
+const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
 test.describe("SimpleSelect component", () => {
+  testData.forEach((labelValue) => {
+    test(`should render label using ${labelValue} special characters`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<SimpleSelectComponent label={labelValue} />);
+
+      await expect(getDataElementByValue(page, "label")).toHaveText(labelValue);
+    });
+  });
+
+  testData.forEach((placeholderValue) => {
+    test(`should render placeholder using ${placeholderValue} special characters`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<SimpleSelectComponent placeholder={placeholderValue} />);
+
+      await expect(selectText(page)).toHaveText(placeholderValue);
+    });
+  });
+
   test("scroll position of option list doesn't change, if the component's options are dynamically changed", async ({
     mount,
     page,
@@ -142,6 +172,74 @@ test.describe("SimpleSelect component", () => {
     await selectOption(page, positionOfElement(position)).click();
     await expect(inputElement).toHaveValue(positionValue);
   });
+});
+
+test("should render an option that wraps onto more than one line correctly", async ({
+  mount,
+  page,
+}) => {
+  await mount(<SimpleSelectComponent />);
+
+  const optionValue8 =
+    "Like a lot of intelligent animals, most crows are quite social. For instance, American crows spend most of the year living in pairs or small family groups. During the winter months, they will congregate with hundreds or even thousands of their peers to sleep together at night";
+  const optionValue9 = "Red";
+  const optionValue10 = "White";
+  const optionValue11 = "Yellow";
+  await selectText(page).click();
+  const selectListWrapperElement = selectListWrapper(page);
+  await expect(selectListWrapperElement).toBeVisible();
+  await selectOptionByText(page, optionValue11).scrollIntoViewIfNeeded();
+  await expect(selectOptionByText(page, optionValue8)).toBeInViewport();
+  await expect(selectOptionByText(page, optionValue9).nth(1)).toBeInViewport();
+  await expect(selectOptionByText(page, optionValue10)).toBeInViewport();
+  await expect(selectOptionByText(page, optionValue11)).toBeInViewport();
+});
+
+test("renders loader when isLoading prop is set to true", async ({
+  mount,
+  page,
+}) => {
+  await mount(<SimpleSelectComponent isLoading />);
+
+  const dropdownIcon = page.getByTestId("input-icon-toggle");
+  const dropdownList = page.getByRole("listbox");
+
+  await dropdownIcon.click();
+  await dropdownList.waitFor();
+
+  await expect(loader(page, 1)).toBeVisible();
+});
+
+test("keyboard navigation should work correctly in multicolumn mode and ensure the selected option is visible", async ({
+  mount,
+  page,
+}) => {
+  await mount(<SimpleSelectMultipleColumnsComponent />);
+
+  const input = page.getByRole("combobox");
+  await page.getByText("Please Select...").click();
+  await page.getByRole("listbox").waitFor({ state: "visible" });
+
+  await input.press("ArrowDown");
+  await expect(input).toHaveValue("John Doe");
+
+  await input.press("ArrowDown");
+  await expect(input).toHaveValue("Joe Vick");
+
+  await input.press("ArrowDown");
+  await expect(input).toHaveValue("Jane Poe");
+
+  await input.press("ArrowDown");
+  await expect(input).toHaveValue("Jill Moe");
+
+  await input.press("ArrowDown");
+
+  const lastOption = page.getByRole("option", {
+    name: "Bill Zoe Astronaut",
+  });
+
+  await expect(lastOption).toBeInViewport();
+  await expect(input).toHaveValue("Bill Zoe");
 });
 
 test.describe("Check virtual scrolling", () => {
@@ -379,6 +477,36 @@ test.describe("Selection confirmed", () => {
     ).toBeVisible();
   });
 
+  (
+    [
+      ["top", "300px", "0px", "200px", "20px"],
+      ["bottom", "0px", "0px", "0px", "20px"],
+    ] as const
+  ).forEach(([position, top, bottom, left, right]) => {
+    test(`should render list in ${position} position when margins are top ${top}, bottom ${bottom}, left ${left} and right ${right}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <SimpleSelectComponent
+          listPlacement={position}
+          mt={top}
+          mb={bottom}
+          ml={left}
+          mr={right}
+        />,
+      );
+
+      await selectText(page).click();
+      const listElement = selectListPosition(page);
+      await expect(listElement).toHaveAttribute(
+        "data-floating-placement",
+        position,
+      );
+      await expect(listElement).toBeVisible();
+    });
+  });
+
   test("is set on the event when Enter key is pressed on an option using ArrowUp key to navigate", async ({
     mount,
     page,
@@ -499,6 +627,48 @@ test.describe("Selection confirmed", () => {
 
     expect(called).toBeFalsy();
   });
+
+  (
+    ["top", "top-start", "top-end"] as SimpleSelectProps["listPlacement"][]
+  ).forEach((position) => {
+    test(`should render list with expected box-shadow when listPosition is ${position}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <SimpleSelectComponent listPlacement={position} mt="200px" />,
+      );
+
+      await selectText(page).click();
+      const listElement = selectListPosition(page);
+      await expect(listElement).toHaveCSS(
+        "box-shadow",
+        "rgba(0, 20, 30, 0.2) 0px -5px 5px 0px, rgba(0, 20, 30, 0.1) 0px -10px 10px 0px",
+      );
+    });
+  });
+
+  (
+    [
+      "bottom",
+      "bottom-start",
+      "bottom-end",
+    ] as SimpleSelectProps["listPlacement"][]
+  ).forEach((position) => {
+    test(`should render list with expected box-shadow when listPosition is ${position}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<SimpleSelectComponent listPlacement={position} />);
+
+      await selectText(page).click();
+      const listElement = selectListPosition(page);
+      await expect(listElement).toHaveCSS(
+        "box-shadow",
+        "rgba(0, 20, 30, 0.2) 0px 5px 5px 0px, rgba(0, 20, 30, 0.1) 0px 10px 10px 0px",
+      );
+    });
+  });
 });
 
 // see https://github.com/Sage/carbon/issues/6399
@@ -541,5 +711,16 @@ test.describe("Accessibility tests for SimpleSelect component", () => {
 
     await selectText(page).click();
     await checkAccessibility(page, undefined, "scrollable-region-focusable");
+  });
+
+  testData.forEach((placeholderValue) => {
+    test(`should pass accessibility tests with placeholder prop using ${placeholderValue} special characters`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<SimpleSelectComponent placeholder={placeholderValue} />);
+
+      await checkAccessibility(page);
+    });
   });
 });
