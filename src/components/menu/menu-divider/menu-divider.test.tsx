@@ -138,3 +138,16 @@ test("should have the expected 'data-' attributes", () => {
   expect(screen.getByTestId("divider")).toHaveAttribute("data-element", "foo");
   expect(screen.getByTestId("divider")).toHaveAttribute("data-role", "divider");
 });
+
+test("should have aria-hidden='true' on the list item", () => {
+  render(
+    <Menu>
+      <MenuDivider data-role="divider" />
+    </Menu>,
+  );
+
+  expect(screen.getByTestId("divider-container")).toHaveAttribute(
+    "aria-hidden",
+    "true",
+  );
+});

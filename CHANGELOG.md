@@ -1,3 +1,15 @@
+## [159.16.0](https://github.com/Sage/carbon/compare/v159.15.1...v159.16.0) (2026-07-03)
+
+### Features
+
+* **button-toggle:** add single toggle support ([375f8e3](https://github.com/Sage/carbon/commit/375f8e33dc32dba096eff42b9e719d43a69daa6c))
+
+## [159.15.1](https://github.com/Sage/carbon/compare/v159.15.0...v159.15.1) (2026-07-02)
+
+### Bug Fixes
+
+* **menu:** hide MenuDivider list item from accessibility tree ([0a0a8af](https://github.com/Sage/carbon/commit/0a0a8afe3339da441148a9df370623ab07210558))
+
 ## [159.15.0](https://github.com/Sage/carbon/compare/v159.14.0...v159.15.0) (2026-06-30)
 
 ### Features
