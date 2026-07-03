@@ -13,7 +13,6 @@ import Pill from "../pill";
 import Button from "../button";
 import Box from "../box";
 import Image from "../image";
-import { CHARACTERS } from "../../../playwright/support/constants";
 import Icon from "../icon";
 import Typography from "../typography";
 
@@ -218,68 +217,6 @@ export const TileSelectGroupComponent = (
   );
 };
 
-export const PrefixAdornmentComponent = () => {
-  const [isChecked, setIsChecked] = useState(false);
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement> | TileSelectDeselectEvent,
-  ) => {
-    const { value } = e.target;
-    setIsChecked(value !== null);
-  };
-  return (
-    <TileSelect
-      value="1"
-      id="single-1"
-      aria-label="single-1"
-      name="single"
-      title="Title"
-      subtitle="Subtitle"
-      description="Short and descriptive description"
-      prefixAdornment={
-        <>
-          <Pill fill mr={1} mb="4px">
-            {CHARACTERS.DIACRITICS}
-          </Pill>
-          <Pill fill mr={1} mb="4px">
-            {CHARACTERS.SPECIALCHARACTERS}
-          </Pill>
-        </>
-      }
-      checked={isChecked}
-      onChange={handleChange}
-    />
-  );
-};
-
-export const WithTitleAdornment = () => {
-  const [isChecked, setIsChecked] = useState(false);
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement> | TileSelectDeselectEvent,
-  ) => {
-    const { value } = e.target;
-    setIsChecked(value !== null);
-  };
-  return (
-    <TileSelect
-      value="1"
-      id="single-1"
-      aria-label="single-1"
-      name="single"
-      title="Title"
-      subtitle="Subtitle"
-      description="Short and descriptive description"
-      titleAdornment={
-        <>
-          <Icon type="add" />
-          <Icon type="info" />
-        </>
-      }
-      checked={isChecked}
-      onChange={handleChange}
-    />
-  );
-};
-
 export const SingleTile = () => {
   const [isChecked, setIsChecked] = useState(false);
   const handleChange = (
@@ -337,43 +274,6 @@ export const WithAFooter = () => {
           </Button>
         </Box>
       }
-    />
-  );
-};
-
-export const WithAdditionalInformation = () => {
-  const [isChecked, setIsChecked] = useState(false);
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement> | TileSelectDeselectEvent,
-  ) => {
-    const { value } = e.target;
-    setIsChecked(value !== null);
-  };
-  return (
-    <TileSelect
-      value="1"
-      id="single-1"
-      aria-label="single-1"
-      name="single"
-      title="Title"
-      subtitle="Subtitle"
-      titleAdornment={<Pill>Message</Pill>}
-      description="Short and descriptive description"
-      additionalInformation={
-        <>
-          <Pill fill mr={1} mb="4px">
-            Further information
-          </Pill>
-          <Pill fill mr={1} mb="4px">
-            Further information
-          </Pill>
-          <Pill fill mb={1}>
-            Further information
-          </Pill>
-        </>
-      }
-      checked={isChecked}
-      onChange={handleChange}
     />
   );
 };
@@ -442,71 +342,6 @@ export const WithAccordionFooter = () => {
       )}
       accordionExpanded={expanded}
     />
-  );
-};
-
-export const WithCustomSpacing = () => {
-  const [value, setValue] = useState<string | null>(null);
-  return (
-    <TileSelectGroup
-      name="Tile Select"
-      value={value}
-      legend="Tile Select"
-      description="Pick one of the available options"
-      onChange={(e) => setValue(e.target.value)}
-      m={6}
-    >
-      <TileSelect
-        value="1"
-        id="1"
-        aria-label="1"
-        title="Title"
-        subtitle="Subtitle"
-        description="Short and descriptive description"
-      />
-      <TileSelect
-        value="2"
-        id="2"
-        aria-label="2"
-        title="Title"
-        subtitle="Subtitle"
-        titleAdornment={<Pill>Message</Pill>}
-        description="Short and descriptive description"
-        mt={1}
-      />
-      <TileSelect
-        value="3"
-        id="3"
-        aria-label="3"
-        title="Title"
-        subtitle="Subtitle"
-        titleAdornment={
-          <Icon
-            type="info"
-            tooltipMessage="Short and non descriptive message"
-            tooltipVisible={false}
-            disabled
-          />
-        }
-        description="Short and descriptive description"
-        mt={1}
-      />
-      <TileSelect
-        value="4"
-        id="4"
-        aria-label="4"
-        title="Title"
-        subtitle="Subtitle"
-        titleAdornment={
-          <Icon
-            type="info"
-            tooltipMessage="Short and non descriptive message"
-          />
-        }
-        description="Short and descriptive description"
-        mt={1}
-      />
-    </TileSelectGroup>
   );
 };
 
