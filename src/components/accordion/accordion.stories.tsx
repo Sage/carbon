@@ -52,14 +52,15 @@ export const WithCustomTitle: Story = ({ ...args }) => {
     <Box display="flex" alignItems="center" gap="16px">
       <Image size="60px" src={collaborateSvg} decorative />
       <Box>
-        <Typography variant="h2" fontSize="21px">
+        <Typography variant="segment-header" as="h2">
           Custom Title
         </Typography>
         <Typography
           as="span"
-          fontSize="16px"
-          color="rgba(0,0,0,0.65)"
-          fontWeight="500"
+          variant="p"
+          size="L"
+          color="neutral"
+          weight="medium"
         >
           Custom Subtitle
         </Typography>

@@ -330,7 +330,7 @@ export const ExampleImplementation: StoryObj = () => {
                     >
                       <Box display="flex" flexDirection="row" gap={1}>
                         <Icon type="download" />
-                        <Typography color="var(--colorsGray750)" m={0}>
+                        <Typography color="neutral" m={0}>
                           1 article
                         </Typography>
                       </Box>
@@ -364,7 +364,7 @@ export const ExampleImplementation: StoryObj = () => {
                     >
                       <Box display="flex" flexDirection="row" gap={1}>
                         <Icon type="download" />
-                        <Typography color="var(--colorsGray750)" m={0}>
+                        <Typography color="neutral" m={0}>
                           2 articles
                         </Typography>
                       </Box>
@@ -398,7 +398,7 @@ export const ExampleImplementation: StoryObj = () => {
                     >
                       <Box display="flex" flexDirection="row" gap={1}>
                         <Icon type="download" />
-                        <Typography color="var(--colorsGray750)" m={0}>
+                        <Typography color="neutral" m={0}>
                           6 articles
                         </Typography>
                       </Box>
@@ -432,7 +432,7 @@ export const ExampleImplementation: StoryObj = () => {
                     >
                       <Box display="flex" flexDirection="row" gap={1}>
                         <Icon type="download" />
-                        <Typography color="var(--colorsGray750)" m={0}>
+                        <Typography color="neutral" m={0}>
                           5 articles
                         </Typography>
                       </Box>

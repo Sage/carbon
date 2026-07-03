@@ -121,7 +121,7 @@ export const InMenu = ({ ...args }) => {
           <Badge size="small" inverse counter={6} {...args}>
             <Portrait size="XS" initials="JS" />
           </Badge>
-          <Typography m={0} fontWeight="500" fontSize="14px" color="white">
+          <Typography m={0} variant="p" weight="medium" inverse>
             John Smith
           </Typography>
         </Box>
