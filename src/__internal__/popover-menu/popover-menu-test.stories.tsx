@@ -31,6 +31,7 @@ export default {
     "HoverItem",
   ],
   parameters: {
+    themeProvider: { chromatic: { theme: "sage" } },
     info: { disable: true },
     chromatic: {
       disableSnapshot: true,
