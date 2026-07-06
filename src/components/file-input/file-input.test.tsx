@@ -356,8 +356,12 @@ describe("with uploadStatus prop set", () => {
       />,
     );
 
-    expect(screen.getByTestId("progress-tracker-bar")).toBeVisible();
-    expect(screen.getByTestId("inner-bar")).toHaveStyle({ width: "30%" });
+    const progressBar = screen.getByTestId("progress-tracker-bar");
+
+    expect(progressBar).toBeVisible();
+    expect(progressBar).toHaveStyleRule("width", "30%", {
+      modifier: "::after",
+    });
   });
 
   it("when the status is `completed`, a link is rendered with the status message", () => {

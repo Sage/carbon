@@ -13,230 +13,170 @@ description: Carbon ProgressTracker component props and usage examples.
 - Props interface: `ProgressTrackerProps`
 
 ## Props
-| Name | Type | Required | Literals | Description | Default |
-| --- | --- | --- | --- | --- | --- |
-| currentProgressLabel | string \| undefined | No |  | Value to display as current progress. |  |
-| customValuePreposition | string \| undefined | No |  | Value of the preposition defined between Value1 and Value2 on the label. |  |
-| description | string \| undefined | No |  | Value to add a description to the label |  |
-| error | boolean \| undefined | No |  | Flag to control error state. | false |
-| labelsPosition | "left" \| "bottom" \| "top" \| undefined | No |  | The position the value label are rendered in. | "top" |
-| labelWidth | string \| undefined | No |  | Label width when position is "left" |  |
-| length | string \| undefined | No |  | Length of the component, any valid css string. | "256px" |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| maxProgressLabel | string \| undefined | No |  | Value to display as the maximum progress limit. |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| progress | number \| undefined | No |  | Current progress (percentage). | 0 |
-| size | "small" \| "medium" \| "large" \| undefined | No |  | Size of the progress bar. | "medium" |
-| data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
-| data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+| Name | Type | Required | Literals | Deprecated | Deprecation reason | Description | Default |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| currentProgressLabel | string \| undefined | No |  |  |  | Value to display as current progress. |  |
+| customValuePreposition | string \| undefined | No |  |  |  | Value of the preposition defined between Value1 and Value2 on the label. |  |
+| description | string \| undefined | No |  |  |  | Value to add a description to the label |  |
+| labelsPosition | "left" \| "bottom" \| "top" \| undefined | No |  |  |  | The position the value label are rendered in. | "top" |
+| labelWidth | string \| undefined | No |  |  |  | Label width when position is "left" |  |
+| length | string \| undefined | No |  |  |  | Length of the component, any valid css string. | "256px" |
+| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
+| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
+| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
+| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
+| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
+| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
+| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
+| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
+| maxProgressLabel | string \| undefined | No |  |  |  | Value to display as the maximum progress limit. |  |
+| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
+| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
+| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
+| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
+| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
+| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
+| progress | number \| undefined | No |  |  |  | Current progress (percentage). | 0 |
+| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | Size of the progress bar. | "medium" |
+| variant | TrackerVariants \| undefined | No |  |  |  | Variant of the progress bar | "neutral" |
+| data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+| data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+| error | boolean \| undefined | No |  | Yes | Please use variant="error" instead. | Flag to control error state. |  |
 
 ## Examples
 ### Default
 
+**Args**
+
+```tsx
+{
+    progress: 50,
+  }
+```
+
 **Render**
 
 ```tsx
-() => {
-  return (
-    <Box display="flex" justifyContent="space-around">
-      <ProgressTracker progress={50} />
-    </Box>
-  );
-}
+(args) => <ProgressTracker {...args} />
 ```
 
 
-### Size - Small
+### WithDescription
 
-**Render**
+**Args**
 
 ```tsx
-() => {
-  return (
-    <Box display="flex" justifyContent="space-around">
-      <ProgressTracker size="small" progress={50} />
-    </Box>
-  );
-}
+{
+    ...Default.args,
+    description: "Description",
+  }
 ```
 
 
-### Size - Large
+### CustomLabelValues
+
+**Args**
+
+```tsx
+{
+    currentProgressLabel: "£75",
+    maxProgressLabel: "£200",
+    customValuePreposition: "out of",
+    progress: Math.round((75 / 200) * 100),
+  }
+```
 
 **Render**
 
 ```tsx
-() => {
-  return (
-    <Box display="flex" justifyContent="space-around">
-      <ProgressTracker size="large" progress={50} />
-    </Box>
-  );
-}
+(args) => <ProgressTracker {...args} />
 ```
 
 
-### Custom Bar Length
+### CustomLength
 
-**Render**
+**Args**
 
 ```tsx
-() => {
-  return (
-    <Box display="flex" justifyContent="space-around">
-      <ProgressTracker progress={50} length="150px" />
-    </Box>
-  );
-}
+{
+    ...Default.args,
+    length: "500px",
+  }
 ```
 
 
-### Color Variants
+### LabelsPosition
+
+**Args**
+
+```tsx
+{
+    progress: 50,
+    currentProgressLabel: "50%",
+  }
+```
 
 **Render**
 
 ```tsx
-() => {
-  return (
-    <Box display="flex" flexDirection="column" alignItems="center">
-      <ProgressTracker progress={15} currentProgressLabel="15%" />
-      <ProgressTracker mt={2} progress={50} currentProgressLabel="50%" />
-      <ProgressTracker mt={2} progress={100} currentProgressLabel="100%" />
-      <ProgressTracker
-        mt={2}
-        progress={100}
-        error
-        currentProgressLabel="error"
-      />
-    </Box>
-  );
-}
+(args) => (
+    <>
+      <ProgressTracker labelsPosition="top" description="Top" {...args} />
+      <ProgressTracker labelsPosition="bottom" description="Bottom" {...args} />
+      <ProgressTracker labelsPosition="left" description="Left" {...args} />
+    </>
+  )
 ```
 
 
-### Custom Label Values
+### Sizes
+
+**Args**
+
+```tsx
+{
+    progress: 50,
+  }
+```
 
 **Render**
 
 ```tsx
-() => {
-  return (
-    <Box display="flex" flexDirection="column" alignItems="center">
-      <ProgressTracker
-        progress={50}
-        currentProgressLabel="$50"
-        maxProgressLabel="$200"
-      />
-      <ProgressTracker
-        mt={2}
-        progress={70}
-        currentProgressLabel="Step 3"
-        maxProgressLabel="5"
-        description="Adding VAT"
-      />
-      <ProgressTracker mt={2} progress={100} currentProgressLabel="$200" />
-      <ProgressTracker
-        mt={2}
-        progress={100}
-        error
-        currentProgressLabel="error"
-      />
-    </Box>
-  );
-}
+(args) => (
+    <>
+      <ProgressTracker size="small" description="Small" {...args} />
+      <ProgressTracker size="medium" description="Medium" {...args} />
+      <ProgressTracker size="large" description="Large" {...args} />
+    </>
+  )
 ```
 
 
-### Label Position Bottom
+### Variants
 
-**Render**
+**Args**
 
 ```tsx
-() => {
-  return (
-    <Box display="flex" flexDirection="column" alignItems="center">
-      <ProgressTracker
-        mt={2}
-        labelsPosition="bottom"
-        progress={15}
-        currentProgressLabel="15%"
-      />
-      <ProgressTracker
-        mt={2}
-        labelsPosition="bottom"
-        progress={50}
-        currentProgressLabel="50%"
-      />
-      <ProgressTracker
-        mt={2}
-        labelsPosition="bottom"
-        progress={100}
-        currentProgressLabel="100%"
-      />
-      <ProgressTracker
-        mt={2}
-        labelsPosition="bottom"
-        progress={100}
-        error
-        currentProgressLabel="error"
-      />
-    </Box>
-  );
-}
+{
+    progress: 50,
+  }
 ```
 
-
-### Label Position Left
-
 **Render**
 
 ```tsx
-() => {
-  return (
-    <Box display="flex" flexDirection="column" alignItems="center">
+(args) => (
+    <>
+      <ProgressTracker variant="neutral" description="Neutral" {...args} />
+      <ProgressTracker variant="warning" description="Warning" {...args} />
       <ProgressTracker
-        mt={2}
-        labelsPosition="left"
-        progress={15}
-        currentProgressLabel="15%"
-        labelWidth="40px"
+        variant="information"
+        description="Information"
+        {...args}
       />
-      <ProgressTracker
-        mt={2}
-        labelsPosition="left"
-        progress={50}
-        currentProgressLabel="50%"
-        labelWidth="40px"
-      />
-      <ProgressTracker
-        mt={2}
-        labelsPosition="left"
-        progress={100}
-        currentProgressLabel="100%"
-        labelWidth="40px"
-      />
-      <ProgressTracker
-        mt={2}
-        labelsPosition="left"
-        progress={100}
-        error
-        currentProgressLabel="error"
-        labelWidth="40px"
-      />
-    </Box>
-  );
-}
+      <ProgressTracker variant="error" description="Error" {...args} />
+      <ProgressTracker variant="success" description="Success" {...args} />
+    </>
+  )
 ```
 

@@ -1,131 +1,97 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
-import { ProgressTrackerProps } from "./progress-tracker.component";
+import { TrackerVariants } from "./progress-tracker.component";
+import {
+  progressTrackerSizeMap,
+  progressBarVariants,
+} from "./progress-tracker.config";
 
-function getHeight(size?: string) {
-  switch (size) {
-    case "small":
-      return "var(--sizing050)";
-    case "large":
-      return "var(--sizing200)";
-    default:
-      return "var(--sizing100)";
-  }
+interface StyledProgressTrackerProps {
+  $length?: string;
+  $labelsPosition?: "top" | "bottom" | "left";
+  $size: "small" | "medium" | "large";
 }
 
-function getBackgroundColour({
-  progress,
-  error,
-}: Pick<ProgressTrackerProps, "progress" | "error">) {
-  if (error) return "var(--colorsSemanticNegative500)";
-  if (progress && progress >= 100) return "var(--colorsSemanticPositive500)";
-  return "var(--colorsSemanticNeutral500)";
-}
-
-function getBorderColour({
-  progress,
-  error,
-}: Pick<ProgressTrackerProps, "progress" | "error">) {
-  if (error) return "var(--colorsSemanticNegative500)";
-  if (progress === 100) return "var(--colorsSemanticPositive500)";
-  return "var(--colorsSemanticNeutral500)";
-}
-
-const StyledProgressTracker = styled.div.attrs(applyBaseTheme)<
-  Pick<ProgressTrackerProps, "margin" | "length" | "labelsPosition">
->`
+export const StyledProgressTracker = styled.div.attrs(
+  applyBaseTheme,
+)<StyledProgressTrackerProps>`
   ${margin}
-  text-align: center;
-  white-space: nowrap;
 
-  ${({ length }) => css`
-    width: ${length};
-  `};
-  ${({ labelsPosition }) =>
-    labelsPosition === "left" &&
+  ${({ $length, $labelsPosition, $size }) => css`
+    display: flex;
+    flex-direction: column;
+    gap: ${progressTrackerSizeMap[$size].gap};
+    width: ${$length};
+
+    ${$labelsPosition === "left" &&
     css`
-      display: flex;
+      flex-direction: row;
       align-items: center;
     `}
+  `};
 `;
 
-const StyledProgressBar = styled.span.attrs(applyBaseTheme)<
-  Pick<ProgressTrackerProps, "progress" | "error">
->`
-  ${({ progress, error }) => css`
-    display: flex;
-    position: relative;
-    background-color: var(--colorsSemanticNeutral200);
-    border: 1px solid ${getBorderColour({ progress, error })};
-    border-radius: var(--borderRadius400);
-    overflow-x: hidden;
+interface StyledProgressBarProps {
+  $variant: TrackerVariants;
+  $size: "small" | "medium" | "large";
+  $progress?: number;
+}
+
+export const StyledProgressBar = styled.span.attrs(
+  applyBaseTheme,
+)<StyledProgressBarProps>`
+  ${({ $variant, $size, $progress }) => css`
+    display: block;
+    overflow: hidden;
     width: 100%;
-    min-height: fit-content;
-    box-sizing: border-box;
+    height: ${progressTrackerSizeMap[$size].barHeight};
+    border-radius: ${progressTrackerSizeMap[$size].barBorderRadius};
+    background: var(--progress-bg-default);
+    box-shadow: inset 0 0 0 var(--global-borderwidth-xs)
+      var(--progress-border-default);
+
+    ::after {
+      content: "";
+      display: block;
+      width: ${$progress}%;
+      height: ${progressTrackerSizeMap[$size].barHeight};
+      background-color: ${progressBarVariants[$variant]};
+      border-radius: ${progressTrackerSizeMap[$size].barBorderRadius};
+    }
   `}
 `;
 
-const fontSizes = {
-  small: "var(--fontSizes100)",
-  medium: "var(--fontSizes100)",
-  large: "var(--fontSizes200)",
-};
+interface StyledLabelProps {
+  $size: "small" | "medium" | "large";
+  $labelWidth?: string;
+}
 
-const StyledValue = styled.span`
-  display: inline-block;
-  font-weight: 500;
+export const StyledValue = styled.span<StyledLabelProps>`
+  ${({ $size }) => css`
+    font: ${progressTrackerSizeMap[$size].valueFont};
+  `};
 `;
 
-const StyledDescription = styled.span`
-  color: var(--colorsUtilityYin055);
-  margin-left: 4px;
-`;
-
-const labelsPositionMargin = { top: "bottom", bottom: "top", left: "right" };
-
-const StyledValuesLabel = styled.span<
-  Pick<ProgressTrackerProps, "size" | "labelsPosition" | "labelWidth">
->`
-  text-align: start;
+export const StyledValuesWrapper = styled.span`
   display: flex;
-  justify-content: flex-start;
-  gap: 4px;
-  font-size: ${({ size }) => size && fontSizes[size]};
+  gap: var(--global-space-comp-xs);
+`;
 
-  ${({ labelsPosition }) =>
-    labelsPosition &&
-    `
-      margin-${labelsPositionMargin[labelsPosition]}: var(--spacing100);
-    `};
+export const StyledLabelWrapper = styled.div<StyledLabelProps>`
+  ${({ $size, $labelWidth }) => css`
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 var(--global-space-comp-s);
+    white-space: nowrap;
 
-  ${({ labelWidth }) =>
-    labelWidth &&
+    color: var(--progress-label-default);
+    font: ${progressTrackerSizeMap[$size].regularFont};
+
+    ${$labelWidth &&
     css`
-      width: ${labelWidth};
+      width: ${$labelWidth};
       flex-shrink: 0;
-    `};
+    `}
+  `};
 `;
-
-const InnerBar = styled.span<
-  Required<Pick<ProgressTrackerProps, "progress" | "size" | "error">>
->`
-  ${({ progress, size, error }) => css`
-    position: relative;
-    left: 0;
-    background-color: ${getBackgroundColour({ progress, error })};
-    border-radius: var(--borderRadius400);
-    width: ${progress}%;
-    min-width: 2px;
-    height: ${getHeight(size)};
-  `}
-`;
-
-export {
-  StyledProgressBar,
-  InnerBar,
-  StyledProgressTracker,
-  StyledValuesLabel,
-  StyledValue,
-  StyledDescription,
-};

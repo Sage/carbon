@@ -49,23 +49,12 @@ test("renders default labels if `maxProgressLabel` is set but no `currentProgres
 });
 
 // coverage
-test("renders with `labelsPosition` set to `top`", () => {
-  render(<ProgressTracker labelsPosition="top" />);
-
-  expect(screen.getByTestId("values-label")).toHaveStyleRule(
-    "margin-bottom",
-    "var(--spacing100)",
-  );
-});
-
-// coverage
 test("renders with `labelsPosition` set to `bottom`", () => {
   render(<ProgressTracker labelsPosition="bottom" />);
 
-  expect(screen.getByTestId("values-label")).toHaveStyleRule(
-    "margin-top",
-    "var(--spacing100)",
-  );
+  expect(screen.getByText("0%")).toBeVisible();
+  expect(screen.getByText("of")).toBeVisible();
+  expect(screen.getByText("100%")).toBeVisible();
 });
 
 // coverage
@@ -75,88 +64,23 @@ test("renders with `labelsPosition` set to `left`", () => {
   );
 
   expect(screen.getByTestId("progress-tracker")).toHaveStyle({
-    display: "flex",
-    alignItems: "center",
-  });
-  expect(screen.getByTestId("values-label")).toHaveStyleRule(
-    "margin-right",
-    "var(--spacing100)",
-  );
-});
-
-// coverage
-test("renders with provided `labelWidth` when `labelsPosition` is set to `left`", () => {
-  render(<ProgressTracker labelsPosition="left" labelWidth="100px" />);
-
-  expect(screen.getByTestId("values-label")).toHaveStyle({
-    width: "100px",
+    flexDirection: "row",
   });
 });
 
-// coverage
-test("renders inner bar with correct width when `progress` is set", () => {
-  render(<ProgressTracker progress={50} />);
+test("renders with `labelWidth` when `labelsPosition` is `left`", () => {
+  render(<ProgressTracker labelsPosition="left" labelWidth="40px" />);
 
-  expect(screen.getByTestId("inner-bar")).toHaveStyle({
-    width: "50%",
-  });
+  expect(screen.getByTestId("values-label")).toHaveStyle({ width: "40px" });
 });
 
-// coverage
-test("renders inner bar with correct height when `size` is 'small'", () => {
-  render(<ProgressTracker size="small" />);
-
-  expect(screen.getByTestId("inner-bar")).toHaveStyleRule(
-    "height",
-    "var(--sizing050)",
-  );
-});
-
-// coverage
-test("renders inner bar with correct height when `size` is 'medium'", () => {
-  render(<ProgressTracker size="medium" />);
-
-  expect(screen.getByTestId("inner-bar")).toHaveStyleRule(
-    "height",
-    "var(--sizing100)",
-  );
-});
-
-// coverage
-test("renders inner bar with correct height when `size` is 'large'", () => {
-  render(<ProgressTracker size="large" />);
-
-  expect(screen.getByTestId("inner-bar")).toHaveStyleRule(
-    "height",
-    "var(--sizing200)",
-  );
-});
-
-// coverage
-test("renders with correct colour when `error` is set", () => {
+test("renders error `variant` when `error` prop is set", () => {
   render(<ProgressTracker error />);
 
   expect(screen.getByTestId("progress-bar")).toHaveStyleRule(
-    "border",
-    "1px solid var(--colorsSemanticNegative500)",
-  );
-  expect(screen.getByTestId("inner-bar")).toHaveStyleRule(
     "background-color",
-    "var(--colorsSemanticNegative500)",
-  );
-});
-
-// coverage
-test("renders with correct colour when progress is '100%'", () => {
-  render(<ProgressTracker progress={100} />);
-
-  expect(screen.getByTestId("progress-bar")).toHaveStyleRule(
-    "border",
-    "1px solid var(--colorsSemanticPositive500)",
-  );
-  expect(screen.getByTestId("inner-bar")).toHaveStyleRule(
-    "background-color",
-    "var(--colorsSemanticPositive500)",
+    "var(--progress-fg-error)",
+    { modifier: "::after" },
   );
 });
 

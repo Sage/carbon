@@ -4,12 +4,18 @@ import useLocale from "../../hooks/__internal__/useLocale";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 import {
   StyledProgressBar,
-  InnerBar,
-  StyledValuesLabel,
+  StyledLabelWrapper,
   StyledProgressTracker,
   StyledValue,
-  StyledDescription,
+  StyledValuesWrapper,
 } from "./progress-tracker.style";
+
+export type TrackerVariants =
+  | "neutral"
+  | "warning"
+  | "information"
+  | "error"
+  | "success";
 
 export interface ProgressTrackerProps extends MarginProps, TagProps {
   /** Size of the progress bar. */
@@ -18,7 +24,10 @@ export interface ProgressTrackerProps extends MarginProps, TagProps {
   length?: string;
   /** Current progress (percentage). */
   progress?: number;
-  /** Flag to control error state. */
+  /**
+   * Flag to control error state.
+   * @deprecated Please use variant="error" instead.
+   */
   error?: boolean;
   /** Value to add a description to the label */
   description?: string;
@@ -28,18 +37,18 @@ export interface ProgressTrackerProps extends MarginProps, TagProps {
   maxProgressLabel?: string;
   /** Value of the preposition defined between Value1 and Value2 on the label. */
   customValuePreposition?: string;
-  /**
-   * The position the value label are rendered in.
-   */
+  /** The position the value label are rendered in. */
   labelsPosition?: "top" | "bottom" | "left";
   /** Label width when position is "left" */
   labelWidth?: string;
+  /** Variant of the progress bar */
+  variant?: TrackerVariants;
 }
 
-const ProgressTracker = ({
+export const ProgressTracker = ({
   size = "medium",
   length = "256px",
-  error = false,
+  error,
   progress = 0,
   description,
   currentProgressLabel,
@@ -47,10 +56,12 @@ const ProgressTracker = ({
   maxProgressLabel,
   labelsPosition = "top",
   labelWidth,
+  variant = "neutral",
   ...rest
 }: ProgressTrackerProps) => {
   const l = useLocale();
   const prefixLabels = labelsPosition !== "bottom";
+  const internalVariant = error ? "error" : variant;
 
   const renderValueLabels = () => {
     let displayedCurrentProgressLabel, displayedMaxProgressLabel;
@@ -64,58 +75,51 @@ const ProgressTracker = ({
     }
 
     return (
-      <StyledValuesLabel
+      <StyledLabelWrapper
         data-role="values-label"
-        labelsPosition={labelsPosition}
-        size={size}
-        labelWidth={labelWidth}
+        $size={size}
+        $labelWidth={labelWidth}
       >
-        <StyledValue data-element="current-progress-label">
-          {displayedCurrentProgressLabel}
-        </StyledValue>
+        <StyledValuesWrapper>
+          <StyledValue data-element="current-progress-label" $size={size}>
+            {displayedCurrentProgressLabel}
+          </StyledValue>
 
-        {displayedMaxProgressLabel && (
-          <>
-            <span data-element="custom-preposition">
-              {customValuePreposition || l.progressTracker.of()}
-            </span>
-            <StyledValue data-element="max-progress-label">
-              {displayedMaxProgressLabel}
-            </StyledValue>
-          </>
-        )}
+          {displayedMaxProgressLabel && (
+            <>
+              <span data-element="custom-preposition">
+                {customValuePreposition || l.progressTracker.of()}
+              </span>
+              <StyledValue data-element="max-progress-label" $size={size}>
+                {displayedMaxProgressLabel}
+              </StyledValue>
+            </>
+          )}
+        </StyledValuesWrapper>
 
         {description && (
-          <StyledDescription data-element="progress-tracker-description">
-            {description}
-          </StyledDescription>
+          <span data-element="progress-tracker-description">{description}</span>
         )}
-      </StyledValuesLabel>
+      </StyledLabelWrapper>
     );
   };
 
   return (
     <StyledProgressTracker
-      length={length}
+      $length={length}
+      $labelsPosition={labelsPosition}
+      $size={size}
       {...rest}
       {...tagComponent("progress-bar", rest)}
-      labelsPosition={labelsPosition}
     >
       {prefixLabels && renderValueLabels()}
       <StyledProgressBar
         data-role="progress-bar"
-        progress={progress}
-        error={error}
         aria-hidden="true"
-      >
-        <InnerBar
-          data-element="inner-bar"
-          data-role="inner-bar"
-          size={size}
-          progress={progress}
-          error={error}
-        />
-      </StyledProgressBar>
+        $variant={internalVariant}
+        $size={size}
+        $progress={progress}
+      />
       {!prefixLabels && renderValueLabels()}
     </StyledProgressTracker>
   );
