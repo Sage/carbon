@@ -1,3 +1,22 @@
+## [161.0.0](https://github.com/Sage/carbon/compare/v160.0.0...v161.0.0) (2026-07-07)
+
+### ⚠ BREAKING CHANGES
+
+* **button:** __next__ Button no longer exposes ButtonHandle.focusButton().
+
+### Features
+
+* **button:** forward __next__ Button ref to DOM element ([6d75c23](https://github.com/Sage/carbon/commit/6d75c231d7e55be7c6750922d85400fd2fd4e834))
+
+### Bug Fixes
+
+* **focus-trap:** avoid act warning in hyperlink toolbar test ([77b2d02](https://github.com/Sage/carbon/commit/77b2d02abc56e27ed63f8491234f1a62945e7c76))
+* **focus-trap:** stabilize initial focus precedence over autofocus ([30f5935](https://github.com/Sage/carbon/commit/30f59357bb4c6bc8b09b385cf954905b4148bae6))
+* **pager:** fix button ref typing and safe focus behavior ([94121ff](https://github.com/Sage/carbon/commit/94121ff21f09287a212288f25a8a0d5c5a222f3c))
+* **popover-menu:** add fallback accessible name for listbox ([dcad057](https://github.com/Sage/carbon/commit/dcad057db297e5be2d96b663991375f62795d6af))
+* **popover-menu:** remove branch path and restore reporter behavior ([58ff2ac](https://github.com/Sage/carbon/commit/58ff2ac8393f005cdd113f6ace5e7ab6d1165a09))
+* **popover-menu:** use DOM refs for menu trigger focus ([de59f56](https://github.com/Sage/carbon/commit/de59f56c09ccd455bff654b43945209c3ea336d9))
+
 ## [160.0.0](https://github.com/Sage/carbon/compare/v159.16.0...v160.0.0) (2026-07-06)
 
 ### ⚠ BREAKING CHANGES
