@@ -25,10 +25,7 @@ export default defineConfig({
   maxFailures: process.env.CI ? 10 : undefined,
 
   reporter: process.env.CI
-    ? [
-        ["blob"],
-        [resolve(playwrightDir, "./support/accessibility-reporter.ts")],
-      ]
+    ? "blob"
     : [
         ["list"],
         ["html", { outputFolder: resolve(playwrightDir, "./test-report") }],
