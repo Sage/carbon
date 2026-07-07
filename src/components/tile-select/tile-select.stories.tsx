@@ -23,6 +23,10 @@ const meta: Meta<typeof TileSelect> = {
   argTypes: {
     ...styledSystemProps,
   },
+  parameters: {
+    themeProvider: { chromatic: { theme: "sage" } },
+    chromatic: { disableSnapshot: true },
+  },
 };
 
 export default meta;
