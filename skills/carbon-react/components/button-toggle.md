@@ -22,7 +22,8 @@ description: Carbon ButtonToggle component props and usage examples.
 | onBlur | ((ev: React.FocusEvent<HTMLButtonElement>) => void) \| undefined | No |  |  |  | Callback triggered by blur event on the button. |  |
 | onClick | ((ev: React.MouseEvent<HTMLButtonElement>) => void) \| undefined | No |  |  |  | Callback triggered by click event on the button. |  |
 | onFocus | ((ev: React.FocusEvent<HTMLButtonElement>) => void) \| undefined | No |  |  |  | Callback triggered by focus event on the button. |  |
-| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | ButtonToggle size |  |
+| pressed | boolean \| undefined | No |  |  |  | Set the pressed state of the toggle button when used outside of a group. |  |
+| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | ButtonToggle size | "medium" |
 | value | string \| undefined | No |  |  |  | An optional string by which to identify the button in an onChange handler on the parent ButtonToggleGroup. |  |
 | data-component | string \| undefined | No |  |  |  |  |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
@@ -30,7 +31,6 @@ description: Carbon ButtonToggle component props and usage examples.
 | aria-label | string \| undefined | No |  |  |  | Prop to specify the aria-label of the component |  |
 | aria-labelledby | string \| undefined | No |  |  |  | Prop to specify the aria-labelledby property of the component |  |
 | buttonIconSize | "small" \| "large" \| undefined | No |  | Yes | `buttonIconSize` is no longer supported. | Sets the size of the buttonIcon |  |
-| pressed | boolean \| undefined | No |  | Yes | Please control the state of selected buttons through ButtonToggleGroup. | Set the pressed state of the toggle button. |  |
 
 ## Examples
 ### Default
@@ -62,6 +62,27 @@ ControlledButtonToggleGroup
     inputHint: "Hint Text",
     value: "with-label-2",
   }
+```
+
+
+### Single
+
+**Render**
+
+```tsx
+() => {
+  const [isPressed, setIsPressed] = useState(true);
+
+  const handleClick = () => {
+    setIsPressed(!isPressed);
+  };
+
+  return (
+    <ButtonToggle pressed={isPressed} onClick={handleClick}>
+      ButtonToggle
+    </ButtonToggle>
+  );
+}
 ```
 
 
@@ -168,7 +189,7 @@ ControlledButtonToggleGroup
 ```
 
 
-### Sizes
+### Sizes - Grouped
 
 **Render**
 
@@ -204,7 +225,7 @@ ControlledButtonToggleGroup
       <ButtonToggleGroup
         {...args}
         id="small"
-        label="Small"
+        label="Small ButtonToggleGroup"
         value={valueSmall}
         onChange={handleOnChangeSmall}
         size="small"
@@ -218,7 +239,7 @@ ControlledButtonToggleGroup
       <ButtonToggleGroup
         {...args}
         id="medium"
-        label="Medium"
+        label="Medium ButtonToggleGroup"
         value={valueMedium}
         onChange={handleOnChangeMedium}
         size="medium"
@@ -241,7 +262,7 @@ ControlledButtonToggleGroup
       <ButtonToggleGroup
         {...args}
         id="large"
-        label="Large"
+        label="Large ButtonToggleGroup"
         value={valueLarge}
         onChange={handleOnChangeLarge}
         size="large"
@@ -265,7 +286,58 @@ ControlledButtonToggleGroup
 ```
 
 
-### Icon Only
+### Sizes - Single
+
+**Render**
+
+```tsx
+() => {
+  const [isPressedSmall, setIsPressedSmall] = useState(true);
+  const [isPressedMedium, setIsPressedMedium] = useState(true);
+  const [isPressedLarge, setIsPressedLarge] = useState(true);
+
+  const handleClickSmall = () => {
+    setIsPressedSmall(!isPressedSmall);
+  };
+
+  const handleClickMedium = () => {
+    setIsPressedMedium(!isPressedMedium);
+  };
+
+  const handleClickLarge = () => {
+    setIsPressedLarge(!isPressedLarge);
+  };
+
+  return (
+    <Box display="flex" justifyContent="space-around">
+      <ButtonToggle
+        pressed={isPressedSmall}
+        onClick={handleClickSmall}
+        size="small"
+      >
+        <Icon aria-hidden type="placeholder" /> Small ButtonToggle
+      </ButtonToggle>
+      <ButtonToggle
+        pressed={isPressedMedium}
+        onClick={handleClickMedium}
+        size="medium"
+      >
+        <Icon aria-hidden type="placeholder" /> Medium ButtonToggle
+      </ButtonToggle>
+      <ButtonToggle
+        pressed={isPressedLarge}
+        onClick={handleClickLarge}
+        size="large"
+      >
+        <Icon aria-hidden type="placeholder" /> Large ButtonToggle
+      </ButtonToggle>
+    </Box>
+  );
+}
+```
+
+
+### Icon Only - Grouped
 
 **Render**
 
@@ -329,6 +401,57 @@ ControlledButtonToggleGroup
         </ButtonToggle>
       </ButtonToggleGroup>
     </>
+  );
+}
+```
+
+
+### Icon Only - Single
+
+**Render**
+
+```tsx
+() => {
+  const [isPressedSmall, setIsPressedSmall] = useState(true);
+  const [isPressedMedium, setIsPressedMedium] = useState(true);
+  const [isPressedLarge, setIsPressedLarge] = useState(true);
+
+  const handleClickSmall = () => {
+    setIsPressedSmall(!isPressedSmall);
+  };
+
+  const handleClickMedium = () => {
+    setIsPressedMedium(!isPressedMedium);
+  };
+
+  const handleClickLarge = () => {
+    setIsPressedLarge(!isPressedLarge);
+  };
+
+  return (
+    <Box display="flex" justifyContent="space-around">
+      <ButtonToggle
+        pressed={isPressedSmall}
+        onClick={handleClickSmall}
+        size="small"
+      >
+        <Icon ariaLabel="Placeholder 1" type="placeholder" />
+      </ButtonToggle>
+      <ButtonToggle
+        pressed={isPressedMedium}
+        onClick={handleClickMedium}
+        size="medium"
+      >
+        <Icon ariaLabel="Placeholder 2" type="placeholder" />
+      </ButtonToggle>
+      <ButtonToggle
+        pressed={isPressedLarge}
+        onClick={handleClickLarge}
+        size="large"
+      >
+        <Icon ariaLabel="Placeholder 3" type="placeholder" />
+      </ButtonToggle>
+    </Box>
   );
 }
 ```

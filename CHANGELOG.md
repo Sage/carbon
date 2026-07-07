@@ -1,3 +1,22 @@
+## [160.0.0](https://github.com/Sage/carbon/compare/v159.16.0...v160.0.0) (2026-07-06)
+
+### ⚠ BREAKING CHANGES
+
+* **css:** Generated CSS class names now include the Carbon package version
+as a prefix. This scopes component CSS per version. Apps that use multiple versions of
+Carbon side by side should no longer see bleeding styles between them, but may see some
+visual differences if they were relying on old unscoped style rules.
+
+### Features
+
+* **css:** prefix component CSS class names with the Carbon package version ([a4a9dc0](https://github.com/Sage/carbon/commit/a4a9dc0b609c33700d00dbcbc0d8ec92e03c4fe0))
+
+## [159.16.0](https://github.com/Sage/carbon/compare/v159.15.1...v159.16.0) (2026-07-03)
+
+### Features
+
+* **button-toggle:** add single toggle support ([375f8e3](https://github.com/Sage/carbon/commit/375f8e33dc32dba096eff42b9e719d43a69daa6c))
+
 ## [159.15.1](https://github.com/Sage/carbon/compare/v159.15.0...v159.15.1) (2026-07-02)
 
 ### Bug Fixes

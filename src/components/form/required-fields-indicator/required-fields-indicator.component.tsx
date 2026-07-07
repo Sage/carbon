@@ -8,27 +8,25 @@ export interface RequiredIndicatorProps extends MarginProps {
   children?: React.ReactNode;
 }
 
+const StyledIndicatorContainer = styled.div.attrs(applyBaseTheme)`
+  ${margin}
+
+  color: var(--input-labelset-label-default);
+  font: var(--global-font-static-comp-medium-m);
+
+  ::before {
+    content: "*";
+    color: var(--input-labelset-label-required);
+    font: var(--global-font-static-comp-medium-m);
+    margin-right: var(--global-space-comp-xs);
+  }
+`;
+
 export const RequiredFieldsIndicator = ({
   children,
   ...rest
-}: RequiredIndicatorProps) => {
-  const StyledIndicatorContainer = styled.div.attrs(applyBaseTheme)`
-    ${margin}
-
-    color: var(--input-labelset-label-default);
-    font: var(--global-font-static-comp-medium-m);
-
-    ::before {
-      content: "*";
-      color: var(--input-labelset-label-required);
-      font: var(--global-font-static-comp-medium-m);
-      margin-right: var(--global-space-comp-xs);
-    }
-  `;
-
-  return (
-    <StyledIndicatorContainer {...rest}>{children}</StyledIndicatorContainer>
-  );
-};
+}: RequiredIndicatorProps) => (
+  <StyledIndicatorContainer {...rest}>{children}</StyledIndicatorContainer>
+);
 
 export default RequiredFieldsIndicator;
