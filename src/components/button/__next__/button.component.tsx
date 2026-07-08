@@ -10,6 +10,7 @@ import useMediaQuery from "../../../hooks/useMediaQuery";
 import { Size, Variant, VariantType } from "./button.config";
 import isIconOnly from "./__internal__/utils/is-icon-only";
 import Icon from "../../icon";
+import ButtonContext from "./button.context";
 
 type ButtonRef = HTMLButtonElement | HTMLAnchorElement;
 
@@ -278,7 +279,9 @@ export const Button = forwardRef<ButtonRef, ButtonProps>(
         {...rest}
       >
         <StyledContentContainer data-role="button-child-container">
-          {renderChildren()}
+          <ButtonContext.Provider value={{ isInsideButton: true }}>
+            {renderChildren()}
+          </ButtonContext.Provider>
         </StyledContentContainer>
       </StyledButton>
     );

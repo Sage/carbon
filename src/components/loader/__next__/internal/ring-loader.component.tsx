@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import { LoaderProps } from "../loader.component";
 import {
@@ -9,6 +9,7 @@ import {
 } from "../loader.style";
 
 import useLocale from "../../../../hooks/__internal__/useLocale";
+import ButtonContext from "../../../button/__next__/button.context";
 
 const calculateDefaultAnimationTime = (
   animationTime: LoaderProps["animationTime"],
@@ -33,12 +34,18 @@ const RingLoader = ({
   isError,
 }: LoaderProps) => {
   const locale = useLocale();
+  const { isInsideButton } = useContext(ButtonContext);
 
   const isAiRingVariant = variant === "ai-stacked" || variant === "ai-inline";
   const ringVariant =
-    variant === "inline" || variant === "ai-inline" ? "inline" : "stacked";
-  const ringSize =
-    size && ["extra-small", "small", "large"].includes(size) ? size : "medium";
+    isInsideButton || variant === "inline" || variant === "ai-inline"
+      ? "inline"
+      : "stacked";
+  const ringSize = isInsideButton
+    ? "extra-small"
+    : size && ["extra-small", "small", "large"].includes(size)
+      ? size
+      : "medium";
 
   return (
     <StyledRingLoaderWrapper
@@ -89,6 +96,7 @@ const RingLoader = ({
           loaderVariant={ringVariant}
           loaderType="ring"
           $size={ringSize}
+          $isInsideButton={isInsideButton}
         >
           {loaderLabel || locale?.loader.loading()}
         </StyledLoaderLabel>
