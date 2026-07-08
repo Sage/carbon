@@ -4,7 +4,6 @@ import Popover from "../popover";
 import { flip, offset, size } from "@floating-ui/dom";
 import wrapChildrenInMenuItems from "./utils";
 import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
-import { ButtonHandle } from "../../components/button/__next__";
 import { useHandleDropdownMenuKeyDown } from "./hooks";
 import guid from "../utils/helpers/guid";
 import { PopoverMenuContext, type PopoverMenuContextProps } from "./contexts";
@@ -64,22 +63,10 @@ interface PopoverControlProps {
   "aria-activedescendant"?: string;
 }
 
-type FocusableHandle =
-  | NonNullable<ButtonHandle>
-  | HTMLElement
-  | HTMLButtonElement
-  | HTMLAnchorElement
-  | HTMLInputElement;
+type FocusableHandle = HTMLElement;
 
-function isFocusButtonHandle(
-  handle: FocusableHandle,
-): handle is NonNullable<ButtonHandle> {
-  return "focusButton" in handle;
-}
-
-export interface PopoverMenuProps<
-  TRef extends FocusableHandle = NonNullable<ButtonHandle>,
-> extends TagProps {
+export interface PopoverMenuProps<TRef extends FocusableHandle = HTMLElement>
+  extends TagProps {
   /** The content of the popover menu */
   children: React.ReactNode;
   /** Whether the popover menu is open or not */
@@ -139,19 +126,10 @@ const menuPopoverMiddleware = (width?: string) => [
 ];
 
 const focusControl = (handle: FocusableHandle | null) => {
-  /* istanbul ignore if */
-  if (!handle) {
-    return;
-  }
-
-  if (isFocusButtonHandle(handle)) {
-    handle.focusButton();
-  } else {
-    handle.focus();
-  }
+  handle?.focus();
 };
 
-const PopoverMenu = <TRef extends FocusableHandle = NonNullable<ButtonHandle>>({
+const PopoverMenu = <TRef extends FocusableHandle = HTMLElement>({
   children,
   open,
   popoverControl,

@@ -4,6 +4,7 @@ import generateStyledSystemProps from "../../../.storybook/utils/styled-system-p
 import { ButtonToggle, ButtonToggleGroup, ButtonToggleGroupProps } from ".";
 import Icon from "../icon";
 import { Loader } from "../loader/__next__/loader.component";
+import Box from "../box";
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
@@ -76,6 +77,21 @@ export const WithLabelAndHint: Story = {
     value: "with-label-2",
   },
 };
+
+export const Single: Story = () => {
+  const [isPressed, setIsPressed] = useState(true);
+
+  const handleClick = () => {
+    setIsPressed(!isPressed);
+  };
+
+  return (
+    <ButtonToggle pressed={isPressed} onClick={handleClick}>
+      ButtonToggle
+    </ButtonToggle>
+  );
+};
+Single.storyName = "Single";
 
 export const WithIcon: Story = ({ ...args }: ButtonToggleGroupProps) => {
   const [leftValue, setLeftValue] = useState("icon-left-1");
@@ -168,7 +184,7 @@ export const Loading: Story = ({ ...args }: ButtonToggleGroupProps) => {
 };
 Loading.storyName = "Loading";
 
-export const Sizes: Story = ({ ...args }: ButtonToggleGroupProps) => {
+export const SizesGrouped: Story = ({ ...args }: ButtonToggleGroupProps) => {
   const [valueSmall, setValueSmall] = useState("small-2");
   const [valueMedium, setValueMedium] = useState("medium-2");
   const [valueLarge, setValueLarge] = useState("large-2");
@@ -199,7 +215,7 @@ export const Sizes: Story = ({ ...args }: ButtonToggleGroupProps) => {
       <ButtonToggleGroup
         {...args}
         id="small"
-        label="Small"
+        label="Small ButtonToggleGroup"
         value={valueSmall}
         onChange={handleOnChangeSmall}
         size="small"
@@ -213,7 +229,7 @@ export const Sizes: Story = ({ ...args }: ButtonToggleGroupProps) => {
       <ButtonToggleGroup
         {...args}
         id="medium"
-        label="Medium"
+        label="Medium ButtonToggleGroup"
         value={valueMedium}
         onChange={handleOnChangeMedium}
         size="medium"
@@ -236,7 +252,7 @@ export const Sizes: Story = ({ ...args }: ButtonToggleGroupProps) => {
       <ButtonToggleGroup
         {...args}
         id="large"
-        label="Large"
+        label="Large ButtonToggleGroup"
         value={valueLarge}
         onChange={handleOnChangeLarge}
         size="large"
@@ -257,9 +273,54 @@ export const Sizes: Story = ({ ...args }: ButtonToggleGroupProps) => {
     </>
   );
 };
-Sizes.storyName = "Sizes";
+SizesGrouped.storyName = "Sizes - Grouped";
 
-export const IconOnly: Story = ({ ...args }: ButtonToggleGroupProps) => {
+export const SizesSingle: Story = () => {
+  const [isPressedSmall, setIsPressedSmall] = useState(true);
+  const [isPressedMedium, setIsPressedMedium] = useState(true);
+  const [isPressedLarge, setIsPressedLarge] = useState(true);
+
+  const handleClickSmall = () => {
+    setIsPressedSmall(!isPressedSmall);
+  };
+
+  const handleClickMedium = () => {
+    setIsPressedMedium(!isPressedMedium);
+  };
+
+  const handleClickLarge = () => {
+    setIsPressedLarge(!isPressedLarge);
+  };
+
+  return (
+    <Box display="flex" justifyContent="space-around">
+      <ButtonToggle
+        pressed={isPressedSmall}
+        onClick={handleClickSmall}
+        size="small"
+      >
+        <Icon aria-hidden type="placeholder" /> Small ButtonToggle
+      </ButtonToggle>
+      <ButtonToggle
+        pressed={isPressedMedium}
+        onClick={handleClickMedium}
+        size="medium"
+      >
+        <Icon aria-hidden type="placeholder" /> Medium ButtonToggle
+      </ButtonToggle>
+      <ButtonToggle
+        pressed={isPressedLarge}
+        onClick={handleClickLarge}
+        size="large"
+      >
+        <Icon aria-hidden type="placeholder" /> Large ButtonToggle
+      </ButtonToggle>
+    </Box>
+  );
+};
+SizesSingle.storyName = "Sizes - Single";
+
+export const IconOnlyGrouped: Story = ({ ...args }: ButtonToggleGroupProps) => {
   const [valueMedium, setValueMedium] = useState("medium-2");
   const [valueLarge, setValueLarge] = useState("large-2");
 
@@ -320,7 +381,52 @@ export const IconOnly: Story = ({ ...args }: ButtonToggleGroupProps) => {
     </>
   );
 };
-IconOnly.storyName = "Icon Only";
+IconOnlyGrouped.storyName = "Icon Only - Grouped";
+
+export const IconOnlySingle: Story = () => {
+  const [isPressedSmall, setIsPressedSmall] = useState(true);
+  const [isPressedMedium, setIsPressedMedium] = useState(true);
+  const [isPressedLarge, setIsPressedLarge] = useState(true);
+
+  const handleClickSmall = () => {
+    setIsPressedSmall(!isPressedSmall);
+  };
+
+  const handleClickMedium = () => {
+    setIsPressedMedium(!isPressedMedium);
+  };
+
+  const handleClickLarge = () => {
+    setIsPressedLarge(!isPressedLarge);
+  };
+
+  return (
+    <Box display="flex" justifyContent="space-around">
+      <ButtonToggle
+        pressed={isPressedSmall}
+        onClick={handleClickSmall}
+        size="small"
+      >
+        <Icon ariaLabel="Placeholder 1" type="placeholder" />
+      </ButtonToggle>
+      <ButtonToggle
+        pressed={isPressedMedium}
+        onClick={handleClickMedium}
+        size="medium"
+      >
+        <Icon ariaLabel="Placeholder 2" type="placeholder" />
+      </ButtonToggle>
+      <ButtonToggle
+        pressed={isPressedLarge}
+        onClick={handleClickLarge}
+        size="large"
+      >
+        <Icon ariaLabel="Placeholder 3" type="placeholder" />
+      </ButtonToggle>
+    </Box>
+  );
+};
+IconOnlySingle.storyName = "Icon Only - Single";
 
 export const AllowDeselect: Story = {
   ...Default,

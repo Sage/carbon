@@ -8,6 +8,10 @@ import postcss from "rollup-plugin-postcss";
 import swc from "rollup-plugin-swc3";
 import copy from "rollup-plugin-copy";
 import { visualizer } from "rollup-plugin-visualizer";
+import packageJson from "./package.json" with { type: "json" };
+
+const isDevelopment = process.env.NODE_ENV === "development";
+const sanitizeForCSS = (str) => str.replace(/[^a-zA-Z0-9]/g, "_");
 
 export default {
   input: Object.fromEntries(
@@ -115,7 +119,7 @@ export default {
     json(),
     postcss({
       extract: true,
-      minimize: true,
+      minimize: !isDevelopment,
     }),
     swc({
       jsc: {
@@ -140,31 +144,33 @@ export default {
                 displayName: true,
                 ssr: true,
                 fileName: true,
-                minify: true,
+                minify: !isDevelopment,
                 transpileTemplateLiterals: true,
+                namespace: sanitizeForCSS(`carbon-v${packageJson.version}`),
               },
             ],
           ],
         },
       },
     }),
-    terser({
-      maxWorkers: 4,
-      compress: {
-        /* Keep console.error and console.warn */
-        pure_funcs: ["console.log", "console.info", "console.debug"],
-        passes: 2,
-        unused: true,
-        dead_code: true,
-      },
-      mangle: true,
-      format: {
-        comments: false,
-      },
-      /* Matches es6 target in tsconfig */
-      ecma: 2015,
-      toplevel: true,
-    }),
+    !isDevelopment &&
+      terser({
+        maxWorkers: 4,
+        compress: {
+          /* Keep console.error and console.warn */
+          pure_funcs: ["console.log", "console.info", "console.debug"],
+          passes: 2,
+          unused: true,
+          dead_code: true,
+        },
+        mangle: true,
+        format: {
+          comments: false,
+        },
+        /* Matches es6 target in tsconfig */
+        ecma: 2015,
+        toplevel: true,
+      }),
     copy({
       targets: [
         { src: "src/style/assets/**/*", dest: "lib/style/assets" },

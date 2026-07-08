@@ -604,6 +604,46 @@ InDialogWithStickyFooter.parameters = {
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
+export const InDialogWithDisabledStickyFooterOnSmallScreen = () => {
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open Preview</Button>
+      <Dialog
+        open={isOpen}
+        onCancel={() => setIsOpen(false)}
+        title="Form in Dialog"
+        subtitle="Sticky footer disabled on small screens"
+        disableStickyOnSmallScreen
+      >
+        <Form
+          leftSideButtons={
+            <Button onClick={() => setIsOpen(false)}>Cancel</Button>
+          }
+          saveButton={<Button buttonType="primary">Submit</Button>}
+          stickyFooter
+          disableStickyOnSmallScreen
+        >
+          {Array.from({ length: 10 }).map((_, index) => (
+            <Textbox
+              key={`textbox-${index + 1}`}
+              label="Textbox"
+              value=""
+              onChange={() => {}}
+            />
+          ))}
+        </Form>
+      </Dialog>
+    </>
+  );
+};
+InDialogWithDisabledStickyFooterOnSmallScreen.storyName =
+  "In Dialog with Sticky Footer Disabled on Small Screen";
+InDialogWithDisabledStickyFooterOnSmallScreen.parameters = {
+  chromatic: { viewports: [1200, 320] },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
+
 export const InDialogFullScreen = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
   return (

@@ -5,6 +5,7 @@ import Loader from ".";
 import useMediaQuery from "../../../hooks/useMediaQuery";
 import Button from "../../button/button.component";
 import StyledNextButton from "../../button/__next__/button.style";
+import NextButton from "../../button/__next__/button.component";
 
 jest.mock("../../../hooks/useMediaQuery", () => ({
   __esModule: true,
@@ -415,3 +416,25 @@ test("uses text colour of a parent Button to style its text and inner ring arc",
     modifier: `${StyledNextButton} & circle[data-role='inner-arc']`,
   });
 });
+
+it.each([Button, NextButton])(
+  "uses correct font size when the loader is inside of a Button",
+  (Component) => {
+    render(
+      <Component onClick={() => {}}>
+        <Loader
+          loaderType="ring"
+          variant="inline"
+          size="extra-small"
+          showLabel
+        />
+      </Component>,
+    );
+
+    const labelText = screen.getByText("Loading...");
+    expect(labelText).toHaveStyleRule(
+      "font",
+      "var(--global-font-static-comp-medium-s)",
+    );
+  },
+);
