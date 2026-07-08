@@ -1,3 +1,9 @@
+## [161.1.0](https://github.com/Sage/carbon/compare/v161.0.1...v161.1.0) (2026-07-08)
+
+### Features
+
+* **form:** add new disableStickyOnSmallScreen prop ([e8a9edd](https://github.com/Sage/carbon/commit/e8a9edd707ca64276a8996d28886acd26a633ad4)), closes [#7973](https://github.com/Sage/carbon/issues/7973)
+
 ## [161.0.1](https://github.com/Sage/carbon/compare/v161.0.0...v161.0.1) (2026-07-08)
 
 ### Bug Fixes
