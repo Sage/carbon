@@ -1,3 +1,9 @@
+## [161.0.1](https://github.com/Sage/carbon/compare/v161.0.0...v161.0.1) (2026-07-08)
+
+### Bug Fixes
+
+* **loader:** incorect text size for loading text inside buttons ([a52887f](https://github.com/Sage/carbon/commit/a52887f0981e190cceb0dbad8dcb16bcd21d57d5))
+
 ## [161.0.0](https://github.com/Sage/carbon/compare/v160.0.0...v161.0.0) (2026-07-07)
 
 ### ⚠ BREAKING CHANGES
