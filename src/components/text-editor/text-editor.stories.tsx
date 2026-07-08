@@ -38,6 +38,7 @@ const meta: Meta<typeof TextEditor> = {
   component: TextEditor,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
+    chromatic: { disableSnapshot: true },
   },
   argTypes: {
     ...styledSystemProps,
@@ -211,9 +212,6 @@ export const OnChange: Story = () => {
   );
 };
 OnChange.storyName = "onChange Handler";
-OnChange.parameters = {
-  chromatic: { disableSnapshot: true },
-};
 
 const saveContent = async (content: string) => content;
 const generateGuid = () => crypto.randomUUID();
@@ -252,9 +250,6 @@ export const ExternallyOverwriting: Story = () => {
   );
 };
 ExternallyOverwriting.storyName = "Externally overwriting the editor's content";
-ExternallyOverwriting.parameters = {
-  chromatic: { disableSnapshot: true },
-};
 
 export const OnSave: Story = () => {
   const [data, setData] = useState<EditorFormattedValues>({
@@ -304,9 +299,6 @@ export const OnSave: Story = () => {
   );
 };
 OnSave.storyName = "onSave Handler";
-OnSave.parameters = {
-  chromatic: { disableSnapshot: true },
-};
 
 export const OnFormSubmission: Story = () => {
   const [data, setData] = useState<EditorFormattedValuesWithInlineStyles>({
@@ -394,9 +386,6 @@ export const OnFormSubmission: Story = () => {
   );
 };
 OnFormSubmission.storyName = "onFormSubmission Handler (with Inline Styles)";
-OnFormSubmission.parameters = {
-  chromatic: { disableSnapshot: true },
-};
 
 export const SettingInitialValues: Story = () => {
   const initialValue = `<p><span style="white-space: pre-wrap;">This is a HTML example.</span></p><ol><li value="1"><span style="white-space: pre-wrap;">Look, it has lists!</span></li></ol>`;
@@ -413,9 +402,6 @@ export const SettingInitialValues: Story = () => {
   );
 };
 SettingInitialValues.storyName = "Setting Initial Values";
-SettingInitialValues.parameters = {
-  chromatic: { disableSnapshot: true },
-};
 
 export const Links: Story = () => {
   const defaultHTML = `<a href="https://carbon.sage.com/?path=/story/welcome--welcome-page" rel="noreferrer" ><span data-lexical-text="true">Carbon</span></a>`;
@@ -458,9 +444,6 @@ export const WithLinkAddedCallback: Story = () => {
   );
 };
 WithLinkAddedCallback.storyName = "Link Added Callback";
-WithLinkAddedCallback.parameters = {
-  chromatic: { disableSnapshot: true },
-};
 
 export const WithLinkPreviews: Story = () => {
   const initialValue = `<p><span data-lexical-text="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc nisi ipsum, facilisis ut luctus non, gravida in orci. Aliquam risus massa, consequat non facilisis vel, bibendum quis nunc. Cras sit amet velit vel libero molestie accumsan. Integer id ipsum nec nunc porta bibendum. Aenean ut porta risus, eget dignissim felis. Praesent vitae tempus ante. Mauris nibh risus, congue ac augue ac, congue auctor metus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Maecenas vitae enim arcu. Integer quis mattis nunc, in porta neque. Proin sit amet purus congue, faucibus mauris id, consectetur justo. Vestibulum odio nisi, vehicula at odio ut, dapibus scelerisque tortor. Etiam vulputate massa orci, porttitor sollicitudin odio sollicitudin vitae. Mauris et eleifend dolor. Curabitur luctus lacinia sagittis. Interdum et malesuada fames ac ante ipsum primis in faucibus.</span></p>`;
@@ -574,9 +557,6 @@ export const ReadOnly: Story = () => {
   );
 };
 ReadOnly.storyName = "Read-Only Mode";
-ReadOnly.parameters = {
-  chromatic: { disableSnapshot: true },
-};
 
 export const MultipleEditors: Story = () => {
   return (
@@ -671,9 +651,6 @@ export const Mentions: Story = ({ ...args }) => {
   );
 };
 Mentions.storyName = "Mentions";
-Mentions.parameters = {
-  chromatic: { disableSnapshot: true },
-};
 Mentions.args = {
   characterLimit: 1000,
   error: "",

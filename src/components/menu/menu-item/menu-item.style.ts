@@ -117,7 +117,7 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
       font-size: 14px;
       font-weight: 500;
 
-      &:not(.search-button) > ${StyledIcon} {
+      &:not(.legacy-search-button) > ${StyledIcon} {
         margin-right: var(--spacing050);
       }
     }
@@ -232,7 +232,7 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
             padding: 11px 16px;
           }
 
-          > a:has(${StyledButton}:not(.search-button)) {
+          > a:has(${StyledButton}:not(.legacy-search-button)) {
             height: 100%;
 
             ${StyledContent} {
@@ -271,14 +271,14 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
     css`
       ${hasSubmenu || maxWidth
         ? css`
-            > a,
-            > button {
+            & > a,
+            & > button {
               padding: 11px 16px ${hasSubmenu && maxWidth ? "12px" : "10px"};
             }
           `
         : css`
-            > a,
-            > button {
+            & > a,
+            & > button {
               padding: 11px 16px;
             }
           `}

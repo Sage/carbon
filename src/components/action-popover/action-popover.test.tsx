@@ -15,6 +15,12 @@ import {
 } from ".";
 
 import Button from "../button";
+import {
+  FlatTable,
+  FlatTableBody,
+  FlatTableRow,
+  FlatTableCell,
+} from "../flat-table";
 import iconUnicodes from "../icon/icon-unicodes";
 import guid from "../../__internal__/utils/helpers/guid";
 
@@ -2415,4 +2421,26 @@ test("a menu item's icons are hidden from assistive technologies", async () => {
 
   expect(chevronIcon).toHaveAttribute("aria-hidden", "true");
   expect(itemIcon).toHaveAttribute("aria-hidden", "true");
+});
+
+test("renders backdrop when opened inside FlatTable", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <FlatTable>
+      <FlatTableBody>
+        <FlatTableRow>
+          <FlatTableCell>
+            <ActionPopover>
+              <ActionPopoverItem>example item</ActionPopoverItem>
+            </ActionPopover>
+          </FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>,
+  );
+
+  await user.click(screen.getByRole("button"));
+
+  expect(screen.getByTestId("popup-backdrop")).toBeVisible();
 });

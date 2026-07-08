@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
-import Button, { ButtonHandle } from "./button.component";
+import Button from "./button.component";
 import Box from "../../box";
 import { Loader } from "../../loader/__next__/loader.component";
 
@@ -278,15 +278,15 @@ test("passes the form prop to the underlying button element", () => {
   expect(screen.getByRole("button")).toHaveAttribute("form", "my-form");
 });
 
-test("calling exposed focusButton method focuses chosen button", async () => {
+test("forwards ref to the underlying element and supports programmatic focus", async () => {
   const user = userEvent.setup();
   const MockComponent = () => {
-    const buttonHandle = React.useRef<ButtonHandle>(null);
+    const buttonRef = React.useRef<HTMLButtonElement | HTMLAnchorElement>(null);
 
     return (
       <>
-        <Button ref={buttonHandle}>Test Button</Button>
-        <Button onClick={() => buttonHandle.current?.focusButton()}>
+        <Button ref={buttonRef}>Test Button</Button>
+        <Button onClick={() => buttonRef.current?.focus()}>
           Focus Other Button
         </Button>
       </>
@@ -305,6 +305,26 @@ test("calling exposed focusButton method focuses chosen button", async () => {
   await user.click(programmaticButton);
 
   expect(targetButton).toHaveFocus();
+});
+
+test("forwards the underlying button element to a callback ref", () => {
+  const callbackRef = jest.fn();
+
+  render(<Button ref={callbackRef}>Test Button</Button>);
+
+  expect(callbackRef).toHaveBeenCalledWith(expect.any(HTMLButtonElement));
+});
+
+test("forwards the underlying anchor element to a callback ref when href is set", () => {
+  const callbackRef = jest.fn();
+
+  render(
+    <Button href="https://www.example.com" ref={callbackRef}>
+      Test Link
+    </Button>,
+  );
+
+  expect(callbackRef).toHaveBeenCalledWith(expect.any(HTMLAnchorElement));
 });
 
 test("renders correctly with noWrap set", () => {

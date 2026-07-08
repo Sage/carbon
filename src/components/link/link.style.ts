@@ -306,7 +306,7 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
         }
       `}
 
-      > button, ${StyledButton}:not(.search-button) {
+      > button, ${StyledButton}:not(.legacy-search-button) {
         background-color: transparent;
         border: none;
         padding: 0;

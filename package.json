@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "159.12.3",
+  "version": "161.0.0",
   "description": "A library of reusable React components for easily building user interfaces.",
   "files": [
     "lib",
@@ -35,7 +35,9 @@
     "clear-playwright-coverage-json": "rimraf ./playwright/coverage/*.json",
     "test:ct:coverage": "npm run generate-tokens:dev && npm run clear-playwright-cache && npm run clear-playwright-coverage-json && rimraf ./playwright/coverage && playwright test -c playwright-ct.config.ts",
     "pw:coverage:report": "nyc report --reporter=html --report-dir=./playwright/coverage --temp-dir=./playwright/coverage",
-    "build": "npm run clean-lib && npm run generate-tokens && npm run type-check && rollup -c \"./rollup.config.mjs\" && npm run build:generate-package-json-files && npm run build:move-svg && npm run build:types",
+    "build": "npm run clean-lib && npm run generate-tokens && npm run type-check && npm run build:compile && npm run build:generate-package-json-files && npm run build:move-svg && npm run build:types",
+    "build:compile": "NODE_ENV=production rollup -c \"./rollup.config.mjs\"",
+    "build:compile:dev": "NODE_ENV=development npm run build:compile",
     "build:generate-package-json-files": "node ./scripts/generate_package_json_files/index.js",
     "build:move-svg": "node ./scripts/copy_svg/index.js",
     "build:skills": "node ./scripts/skills/build_skills.mjs",
@@ -88,7 +90,6 @@
     "@storybook/builder-vite": "~10.4.2",
     "@storybook/icons": "1.4.0",
     "@storybook/react-vite": "~10.4.2",
-    "@storybook/test-runner": "^0.24.4",
     "@swc/core": "^1.11.29",
     "@swc/helpers": "^0.5.15",
     "@swc/plugin-styled-components": "^7.1.0",
@@ -103,7 +104,6 @@
     "@types/node": "^24.10.1",
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.1",
-    "@types/react-is": "^17.0.4",
     "@types/react-transition-group": "^4.4.9",
     "@types/semver": "^7.7.0",
     "@types/sinon": "^17.0.3",
@@ -132,6 +132,7 @@
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^6.1.0",
     "eslint-plugin-ssr-friendly": "^1.3.0",
+    "eslint-plugin-storybook": "10.4.2",
     "eslint-plugin-testing-library": "^7.11.0",
     "events": "~1.1.1",
     "fast-glob": "^3.3.2",
@@ -177,8 +178,7 @@
     "url-loader": "^4.1.1",
     "uuid": "^14.0.0",
     "vite": "^6.3.4",
-    "vite-plugin-static-copy": "^3.1.2",
-    "eslint-plugin-storybook": "10.4.2"
+    "vite-plugin-static-copy": "^3.1.2"
   },
   "dependencies": {
     "@atlaskit/pragmatic-drag-and-drop": "^1.7.7",
@@ -199,7 +199,6 @@
     "lodash": "^4.17.21",
     "prop-types": "^15.8.1",
     "react-day-picker": "~9.3.2",
-    "react-is": "^17.0.2",
     "react-transition-group": "^4.4.5",
     "styled-system": "^5.1.5"
   },
@@ -210,7 +209,8 @@
     "playwright-core": "$@playwright/experimental-ct-react",
     "jsdom": "$jsdom",
     "storybook": "$storybook",
-    "uuid": "^14.0.0"
+    "uuid": "^14.0.0",
+    "js-yaml": "^4.2.0"
   },
   "lint-staged": {
     "./**/*.{js,jsx,ts,tsx}": [

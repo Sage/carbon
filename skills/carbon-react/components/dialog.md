@@ -52,11 +52,11 @@ description: Carbon Dialog component props and usage examples.
 | aria-describedby | string \| undefined | No |  |  |  | Prop to specify the aria-describedby property of the Dialog component |  |
 | aria-label | string \| undefined | No |  |  |  | Prop to specify the aria-label of the Dialog component. To be used only when the title prop is not defined, and the component is not labelled by any internal element. |  |
 | aria-labelledby | string \| undefined | No |  |  |  | Prop to specify the aria-labelledby property of the Dialog component To be used when the title prop is a custom React Node, or the component is labelled by an internal element other than the title. |  |
-| disableClose | boolean \| undefined | No |  | Yes |  |  |  |
+| disableClose | boolean \| undefined | No |  | Yes | Use `showCloseIcon={false}` instead. |  |  |
 | disableContentPadding | boolean \| undefined | No |  | Yes | Use `contentPadding` instead. |  |  |
 | fullscreen | boolean \| undefined | No |  | Yes | Use `size="fullscreen"` instead. |  |  |
 | highlightVariant | string \| undefined | No |  | Yes | Use `gradientKeyLine` instead. |  |  |
-| pagesStyling | boolean \| undefined | No |  | Yes |  |  |  |
+| pagesStyling | boolean \| undefined | No |  | Yes | PagesStyling is now deprecated and will be removed in a future release |  |  |
 
 ## Examples
 ### Loading Content
@@ -171,9 +171,9 @@ description: Carbon Dialog component props and usage examples.
           height="150px"
         >
           <Button onClick={() => setIsOpenOne(false)}>Not focused</Button>
-          <LegacyButton ref={ref} onClick={() => setIsOpenOne(false)}>
+          <Button ref={ref} onClick={() => setIsOpenOne(false)}>
             This should be focused first now
-          </LegacyButton>
+          </Button>
         </Box>
         <Textbox label="Not focused" value="" onChange={() => {}} />
       </Dialog>
@@ -334,7 +334,7 @@ function WithScrollableContentExample(args) {
 
 ```tsx
 function DefaultRender({ onCancel, ...args }: DialogProps) {
-    const buttonRef = useRef<ButtonHandle>(null);
+    const buttonRef = useRef<HTMLButtonElement>(null);
     const [open, setOpen] = useState(args.open || false);
     return (
       <>
@@ -347,7 +347,7 @@ function DefaultRender({ onCancel, ...args }: DialogProps) {
           onCancel={(ev) => {
             onCancel?.(ev);
             setOpen(false);
-            setTimeout(() => buttonRef.current?.focusButton(), 0);
+            setTimeout(() => buttonRef.current?.focus(), 0);
           }}
           footer={<Buttons />}
         >
@@ -376,7 +376,7 @@ function DefaultRender({ onCancel, ...args }: DialogProps) {
 
 ```tsx
 function DefaultWithFormRender({ onCancel, ...args }: DialogProps) {
-    const buttonRef = useRef<ButtonHandle>(null);
+    const buttonRef = useRef<HTMLButtonElement>(null);
     const [open, setOpen] = useState(args.open || false);
     return (
       <>
@@ -389,7 +389,7 @@ function DefaultWithFormRender({ onCancel, ...args }: DialogProps) {
           onCancel={(ev) => {
             onCancel?.(ev);
             setOpen(false);
-            setTimeout(() => buttonRef.current?.focusButton(), 0);
+            setTimeout(() => buttonRef.current?.focus(), 0);
           }}
         >
           <Form
@@ -556,7 +556,7 @@ function DefaultWithFormRender({ onCancel, ...args }: DialogProps) {
 ```tsx
 () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
-  const buttonRef = useRef<ButtonHandle>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   return (
     <>
@@ -568,7 +568,7 @@ function DefaultWithFormRender({ onCancel, ...args }: DialogProps) {
         open={isOpen}
         onCancel={() => {
           setIsOpen(false);
-          setTimeout(() => buttonRef.current?.focusButton(), 0);
+          setTimeout(() => buttonRef.current?.focus(), 0);
         }}
         title="Title"
         subtitle="Subtitle"
@@ -602,7 +602,7 @@ function ResponsiveBehaviorRender({
     onCancel,
     ...args
   }: Partial<DialogProps>) {
-    const buttonRef = useRef<ButtonHandle>(null);
+    const buttonRef = useRef<HTMLButtonElement>(null);
     const [open, setOpen] = useState(args.open || false);
     return (
       <>
@@ -619,7 +619,7 @@ function ResponsiveBehaviorRender({
           onCancel={(ev) => {
             onCancel?.(ev);
             setOpen(false);
-            setTimeout(() => buttonRef.current?.focusButton(), 0);
+            setTimeout(() => buttonRef.current?.focus(), 0);
           }}
         >
           <Form
@@ -669,7 +669,7 @@ function SmallScreenBehaviorRender({
     onCancel,
     ...args
   }: Partial<DialogProps>) {
-    const buttonRef = useRef<ButtonHandle>(null);
+    const buttonRef = useRef<HTMLButtonElement>(null);
     const [open, setOpen] = useState(args.open || false);
     return (
       <>
@@ -687,7 +687,7 @@ function SmallScreenBehaviorRender({
           onCancel={(ev) => {
             onCancel?.(ev);
             setOpen(false);
-            setTimeout(() => buttonRef.current?.focusButton(), 0);
+            setTimeout(() => buttonRef.current?.focus(), 0);
           }}
           footer={<Buttons />}
         >
@@ -734,7 +734,7 @@ function StickyFooterRender({
     onCancel,
     ...args
   }: Partial<DialogProps>) {
-    const buttonRef = useRef<ButtonHandle>(null);
+    const buttonRef = useRef<HTMLButtonElement>(null);
     const [open, setOpen] = useState(args.open || false);
     return (
       <>
@@ -747,7 +747,7 @@ function StickyFooterRender({
           onCancel={(ev) => {
             onCancel?.(ev);
             setOpen(false);
-            setTimeout(() => buttonRef.current?.focusButton(), 0);
+            setTimeout(() => buttonRef.current?.focus(), 0);
           }}
           footer={<Buttons />}
         >
@@ -795,7 +795,7 @@ function StickyFooterWithFormRender({
     onCancel,
     ...args
   }: Partial<DialogProps>) {
-    const buttonRef = useRef<ButtonHandle>(null);
+    const buttonRef = useRef<HTMLButtonElement>(null);
     const [open, setOpen] = useState(args.open || false);
     return (
       <>
@@ -808,7 +808,7 @@ function StickyFooterWithFormRender({
           onCancel={(ev) => {
             onCancel?.(ev);
             setOpen(false);
-            setTimeout(() => buttonRef.current?.focusButton(), 0);
+            setTimeout(() => buttonRef.current?.focus(), 0);
           }}
         >
           <Form
@@ -867,7 +867,7 @@ function FormLinkedToFooterButtonsRender({
     onCancel,
     ...args
   }: Partial<DialogProps>) {
-    const buttonRef = useRef<ButtonHandle>(null);
+    const buttonRef = useRef<HTMLButtonElement>(null);
     const [open, setOpen] = useState(args.open || false);
     const [submitted, setSubmitted] = useState(false);
 
@@ -875,7 +875,7 @@ function FormLinkedToFooterButtonsRender({
       ev.preventDefault();
       setSubmitted(true);
       setOpen(false);
-      setTimeout(() => buttonRef.current?.focusButton(), 0);
+      setTimeout(() => buttonRef.current?.focus(), 0);
     };
 
     return (
@@ -892,7 +892,7 @@ function FormLinkedToFooterButtonsRender({
           onCancel={(ev) => {
             onCancel?.(ev);
             setOpen(false);
-            setTimeout(() => buttonRef.current?.focusButton(), 0);
+            setTimeout(() => buttonRef.current?.focus(), 0);
           }}
           footer={
             <Box display="flex" gap={1} justifyContent="flex-end" width="100%">
@@ -954,7 +954,7 @@ function WithHeaderChildrenRender({
     onCancel,
     ...args
   }: Partial<DialogProps>) {
-    const buttonRef = useRef<ButtonHandle>(null);
+    const buttonRef = useRef<HTMLButtonElement>(null);
     const [open, setOpen] = useState(args.open || false);
     return (
       <>
@@ -967,7 +967,7 @@ function WithHeaderChildrenRender({
           onCancel={(ev) => {
             onCancel?.(ev);
             setOpen(false);
-            setTimeout(() => buttonRef.current?.focusButton(), 0);
+            setTimeout(() => buttonRef.current?.focus(), 0);
           }}
           headerChildren={
             <Box display="flex" gap={1} mt={2}>

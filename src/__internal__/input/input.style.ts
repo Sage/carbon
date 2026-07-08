@@ -3,9 +3,10 @@ import addFocusStyling from "../../style/utils/add-focus-styling";
 import {
   dateStyleOverrides,
   searchStyleOverrides,
+  searchNewStyleOverrides,
   selectStyleOverrides,
-  pagerStyleOverrides,
   numeralDateStyles,
+  passwordStyleOverrides,
 } from "./input-style-overrides.style";
 
 interface InputContainerProps {
@@ -157,12 +158,11 @@ const InputContainer = styled.div<InputContainerProps>`
 
   ${dateStyleOverrides}
 
+  ${searchNewStyleOverrides}
   ${searchStyleOverrides}
 
   ${({ $size, $isDisabled, $isReadOnly }) =>
     selectStyleOverrides($size, $isDisabled, $isReadOnly)}
-
-  ${pagerStyleOverrides}
 
   ${numeralDateStyles}
   
@@ -179,6 +179,8 @@ const InputContainer = styled.div<InputContainerProps>`
       );
     }
   }
+
+  ${passwordStyleOverrides}
 `;
 
 export default InputContainer;

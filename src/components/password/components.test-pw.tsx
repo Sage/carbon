@@ -8,6 +8,7 @@ export const VALIDATIONS = ["error", "warning", "info"] as const;
 
 export const PasswordComponent = ({
   onChange,
+  label = "Password",
   ...props
 }: Omit<PasswordProps, "value">) => {
   const [state, setState] = useState("test");
@@ -18,7 +19,7 @@ export const PasswordComponent = ({
     }
   };
   return (
-    <Password label="Password" value={state} onChange={setValue} {...props} />
+    <Password label={label} value={state} onChange={setValue} {...props} />
   );
 };
 
@@ -34,7 +35,7 @@ export const PasswordNewDesignsValidation = () => {
                 label={`${size} - ${validationType}`}
                 value="Password"
                 onChange={() => {}}
-                labelHelp="Hint text (optional)"
+                inputHint="Hint text (optional)"
                 size={size}
                 {...{ [validationType]: "Message" }}
               />
@@ -44,7 +45,7 @@ export const PasswordNewDesignsValidation = () => {
                 value="Password"
                 onChange={() => {}}
                 size={size}
-                labelHelp="Hint text (optional)"
+                inputHint="Hint text (optional)"
                 readOnly
                 {...{ [validationType]: "Message" }}
               />

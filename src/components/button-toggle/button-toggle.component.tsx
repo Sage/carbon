@@ -1,8 +1,8 @@
-import React, { useRef } from "react";
+import React, { useRef, useContext } from "react";
 import invariant from "invariant";
 import StyledButtonToggle from "./button-toggle.style";
 import guid from "../../__internal__/utils/helpers/guid";
-import { useButtonToggleGroupContext } from "./button-toggle-group/__internal__/button-toggle-group.context";
+import ButtonToggleGroupContext from "./button-toggle-group/__internal__/button-toggle-group.context";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 import Icon, { IconType } from "../icon";
 import isIconOnly from "../button/__next__/__internal__/utils/is-icon-only";
@@ -20,10 +20,7 @@ export interface ButtonToggleProps extends TagProps {
   onFocus?: (ev: React.FocusEvent<HTMLButtonElement>) => void;
   /** Callback triggered by click event on the button. */
   onClick?: (ev: React.MouseEvent<HTMLButtonElement>) => void;
-  /**
-   * Set the pressed state of the toggle button.
-   * @deprecated Please control the state of selected buttons through ButtonToggleGroup.
-   * */
+  /** Set the pressed state of the toggle button when used outside of a group. */
   pressed?: boolean;
   /** An optional string by which to identify the button in an onChange handler on the parent ButtonToggleGroup. */
   value?: string;
@@ -55,7 +52,7 @@ export const ButtonToggle = ({
   onFocus,
   onClick,
   pressed,
-  size,
+  size = "medium",
   value,
   "data-component": dataComponent,
   ...rest
@@ -74,7 +71,7 @@ export const ButtonToggle = ({
     hintTextId,
     size: contextSize,
     fullWidth,
-  } = useButtonToggleGroupContext();
+  } = useContext(ButtonToggleGroupContext);
 
   const callbackRef = (element: HTMLButtonElement | null) => {
     buttonRef.current = element;
@@ -89,11 +86,24 @@ export const ButtonToggle = ({
     onChange?.(ev, newValue);
   }
 
-  const isPressed = pressedButtonValue === value || pressed;
+  const isInGroup = Boolean(onChange);
+  const isPressed = isInGroup ? pressedButtonValue === value : pressed;
   const isFirstButton = buttonRef.current === firstButton;
   const tabbable = isPressed || (!pressedButtonValue && isFirstButton);
 
-  const actualSize = size || contextSize;
+  // map group size to button size when button is rendered within a group.
+  const GROUP_SIZE_TO_BUTTON_SIZE = {
+    small: "extraSmall",
+    medium: "small",
+    large: "medium",
+  } as const;
+
+  const mapGroupSizeToButtonSize = (groupSize: "small" | "medium" | "large") =>
+    GROUP_SIZE_TO_BUTTON_SIZE[groupSize];
+
+  const displaySize = contextSize
+    ? mapGroupSizeToButtonSize(contextSize)
+    : size;
   const iconOnly = (buttonIcon && !children) || isIconOnly(children);
 
   invariant(
@@ -102,8 +112,8 @@ export const ButtonToggle = ({
   );
 
   invariant(
-    !(iconOnly && actualSize === "small"),
-    "Cannot render an icon-only button in small size.",
+    !(iconOnly && displaySize === "extraSmall"),
+    "Cannot render an icon-only button in small size group.",
   );
 
   return (
@@ -116,7 +126,7 @@ export const ButtonToggle = ({
       aria-pressed={!!isPressed}
       disabled={disabled || isDisabled}
       id={inputGuid.current}
-      $size={actualSize}
+      $size={displaySize}
       $active={!!isPressed}
       $iconOnly={iconOnly}
       $fullWidth={fullWidth}
@@ -125,12 +135,12 @@ export const ButtonToggle = ({
       onBlur={onBlur}
       onClick={handleClick}
       onKeyDown={handleKeyDown}
-      {...(tabbable ? { tabIndex: 0 } : { tabIndex: -1 })}
+      {...(isInGroup && { tabIndex: tabbable ? 0 : -1 })}
       ref={callbackRef}
       {...rest}
       {...tagComponent(dataComponent || "button-toggle", rest)}
     >
-      {buttonIcon && actualSize !== "small" && (
+      {buttonIcon && displaySize !== "extraSmall" && (
         <Icon aria-hidden type={buttonIcon} />
       )}
       {children}
