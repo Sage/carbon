@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import type { StoryObj } from "@storybook/react-vite";
+import { expect, userEvent, within } from "storybook/test";
 
 import { TileSelect, TileSelectGroup, TileSelectDeselectEvent } from ".";
 import Button from "../button";
@@ -9,17 +11,19 @@ import Typography from "../typography";
 import Icon from "../icon";
 
 import flexibleSvg from "../../../.assets/flexible.svg";
+import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
+import DefaultDecorator from "../../../.storybook/utils/default-decorator";
+
+type Story = StoryObj;
 
 export default {
-  title: "Tile Select/Test",
-  includeStories: ["ChromaticSnapshot"],
+  title: "Tile Select/Interactions",
   parameters: {
-    info: { disable: true },
     themeProvider: { chromatic: { theme: "sage" } },
   },
 };
 
-export const ChromaticSnapshot = () => {
+const SnapshotComponent = () => {
   const [footerChecked, setFooterChecked] = useState(false);
   const [additionalChecked, setAdditionalChecked] = useState(false);
   const [accordionChecked, setAccordionChecked] = useState(false);
@@ -308,16 +312,28 @@ export const ChromaticSnapshot = () => {
   );
 };
 
-ChromaticSnapshot.storyName = "Chromatic Snapshot";
-ChromaticSnapshot.parameters = {
-  pseudo: {
-    hover: [
-      '[data-role="pseudo-target"]',
-      '[data-role="pseudo-target"] button',
-    ],
-    focus: [
-      '[data-role="pseudo-target"] button',
-      '[data-role="tile-focus-target"] input',
-    ],
+export const ChromaticSnapshot: Story = {
+  render: () => <SnapshotComponent />,
+  play: async ({ canvasElement }) => {
+    if (!allowInteractions()) {
+      return;
+    }
+    const canvas = within(canvasElement);
+    const firstInput = canvas.getAllByRole("checkbox")[0];
+    await userEvent.tab();
+    await expect(firstInput).toHaveFocus();
+  },
+  decorators: [
+    (StoryToRender) => (
+      <DefaultDecorator>
+        <StoryToRender />
+      </DefaultDecorator>
+    ),
+  ],
+  parameters: {
+    pseudo: {
+      hover: ['[data-role="pseudo-target"]'],
+      focus: ['[data-role="pseudo-target"] button'],
+    },
   },
 };

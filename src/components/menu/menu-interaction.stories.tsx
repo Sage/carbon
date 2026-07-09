@@ -272,6 +272,7 @@ export const WithSearch: Story = {
     await userEvent.hover(menuItemLight);
     await userEvent.hover(menuItemDark);
     await userEvent.hover(menuItemBlack);
+    await userEvent.keyboard("{ArrowDown}");
   },
   decorators: [
     (StoryToRender) => (
