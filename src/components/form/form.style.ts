@@ -52,6 +52,7 @@ interface StyledFormFooterProps {
   $stickyFooterVariant?: "light" | "grey";
   $fullWidthButtons?: boolean;
   $buttonAlignment?: FormButtonAlignment;
+  disableStickyOnSmallScreen?: boolean;
 }
 
 export const StyledFormFooter = styled.div.attrs(
@@ -102,6 +103,15 @@ export const StyledFormFooter = styled.div.attrs(
   `}
 
   ${padding}
+
+  ${({ disableStickyOnSmallScreen }) =>
+    disableStickyOnSmallScreen &&
+    css`
+      @media screen and (max-width: 600px) {
+        position: static;
+        box-shadow: none;
+      }
+    `}
 `;
 
 interface StyledFormProps extends StyledFormContentProps {

@@ -22,7 +22,7 @@ const MenuItemLeading = ({
   children,
   selectedIcon = false,
 }: {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   selectedIcon?: boolean;
 }) => {
   return (
