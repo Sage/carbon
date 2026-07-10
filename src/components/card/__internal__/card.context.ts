@@ -13,7 +13,7 @@ export interface CardContextProps {
 const [CardProvider, useCardContext] = createStrictContext<CardContextProps>({
   name: "CardContext",
   errorMessage:
-    "Carbon Card: Context not found. Have you wrapped your Carbon sub-components properly? See stack trace for more details.",
+    "Carbon Card: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
   defaultValue: {
     spacing: "medium",
     roundness: "moderate",

@@ -16,7 +16,7 @@ export const paddingSizes = {
 
 export const marginSizes = {
   none: "0",
-  "extra-small": "0",
+  "extra-small": "0 calc(-1 * var(--global-space-comp-s))",
   small: "0 calc(-1 * var(--global-space-comp-l))",
   medium: "0 calc(-1 * var(--global-space-comp-xl))",
   large: "0 calc(-1 * var(--global-space-comp-2-xl))",
@@ -27,59 +27,61 @@ export type BoxShadowsType = Extract<DesignTokensType, `boxShadow${string}`>;
 
 export interface StyledCardProps
   extends MarginProps,
-    Pick<CardContextProps, "roundness" | "spacing">,
     Pick<CardProps, "href" | "onClick"> {
-  cardWidth: string;
-  interactive: boolean;
-  draggable: boolean;
-  height?: string;
-  boxShadow?: BoxShadowsType;
-  hoverBoxShadow?: BoxShadowsType;
-  cardType?: "standard" | "outlined";
+  $cardWidth: string;
+  $interactive: boolean;
+  $draggable: boolean;
+  $height?: string;
+  $boxShadow?: BoxShadowsType;
+  $hoverBoxShadow?: BoxShadowsType;
+  $cardType?: "standard" | "outlined";
+  $roundness: CardContextProps["roundness"];
+  $spacing: CardContextProps["spacing"];
 }
 
 const StyledCard = styled.div.attrs(applyBaseTheme)<StyledCardProps>`
   ${({
-    cardWidth,
-    interactive,
-    draggable,
-    height,
-    roundness,
-    spacing,
-    cardType = "standard",
+    $cardWidth,
+    $interactive,
+    $draggable,
+    $height,
+    $roundness,
+    $spacing,
+    $cardType = "standard",
   }) => css`
+    background-color: var(--container-standard-bg-default);
     border: 1px solid var(--container-standard-border-default);
-    border-radius: ${roundness === "moderate" || roundness === "default"
+    border-radius: ${$roundness === "moderate" || $roundness === "default"
       ? "var(--global-radius-container-l)"
       : "var(--global-radius-container-xl)"};
-    box-shadow: ${cardType === "outlined"
+    box-shadow: ${$cardType === "outlined"
       ? "var(--global-depth-none)"
       : "var(--global-depth-lvl1)"};
     color: var(--colorsUtilityYin090);
     display: flex;
     flex-direction: column;
-    height: ${height};
+    height: ${$height};
     justify-content: space-between;
     align-items: normal;
     margin: 25px;
     outline: none;
     transition: all 0.3s ease-in-out;
     vertical-align: top;
-    width: ${cardWidth};
-    padding: 0 ${paddingSizes[spacing]};
+    width: ${$cardWidth};
+    padding: 0 ${paddingSizes[$spacing]};
     ${margin}
 
-    ${interactive &&
+    ${$interactive &&
     css`
       :hover,
-      :focus {
-        box-shadow: ${cardType === "outlined"
+      :focus-within {
+        box-shadow: ${$cardType === "outlined"
           ? "none"
           : "var(--global-depth-lvl2)"};
       }
     `}
 
-    ${draggable &&
+    ${$draggable &&
     css`
       cursor: move;
     `}
@@ -92,10 +94,10 @@ const StyledCard = styled.div.attrs(applyBaseTheme)<StyledCardProps>`
 
 interface StyledCardContentProps
   extends Pick<CardContextProps, "roundness" | "spacing"> {
-  interactive?: boolean;
+  $interactive?: boolean;
   href?: string;
-  hasHeader: boolean;
-  hasFooter: boolean;
+  $hasHeader: boolean;
+  $hasFooter: boolean;
   target?: string;
   rel?: string;
 }
@@ -113,8 +115,8 @@ const StyledCardContent = styled.div
 
     return {};
   })<StyledCardContentProps>`
-  ${({ interactive }) =>
-    interactive &&
+  ${({ $interactive }) =>
+    $interactive &&
     css`
       cursor: pointer;
       display: inline-flex;
@@ -140,15 +142,15 @@ const StyledCardContent = styled.div
     ${spacing === "extra-small" ? "display: flex; flex-direction: column; align-items: stretch; align-self: stretch;" : ""}
   `}
 
-  ${({ roundness, hasHeader, hasFooter }) => css`
+  ${({ roundness, $hasHeader, $hasFooter }) => css`
     ${(roundness === "moderate" || roundness === "default") &&
     css`
-      ${!hasHeader &&
+      ${!$hasHeader &&
       css`
         border-top-left-radius: var(--global-radius-container-l);
         border-top-right-radius: var(--global-radius-container-l);
       `}
-      ${!hasFooter &&
+      ${!$hasFooter &&
       css`
         border-bottom-left-radius: var(--global-radius-container-l);
         border-bottom-right-radius: var(--global-radius-container-l);
@@ -157,12 +159,12 @@ const StyledCardContent = styled.div
 
     ${(roundness === "curved" || roundness === "large") &&
     css`
-      ${!hasHeader &&
+      ${!$hasHeader &&
       css`
         border-top-left-radius: var(--global-radius-container-xl);
         border-top-right-radius: var(--global-radius-container-xl);
       `}
-      ${!hasFooter &&
+      ${!$hasFooter &&
       css`
         border-bottom-left-radius: var(--global-radius-container-xl);
         border-bottom-right-radius: var(--global-radius-container-xl);

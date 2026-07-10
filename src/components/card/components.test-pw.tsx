@@ -198,45 +198,6 @@ export const WithCustomHeight = (props: Partial<CardProps>) => (
   </Card>
 );
 
-export const WithCustomBoxShadow = () => (
-  <Card
-    boxShadow="boxShadow400"
-    hoverBoxShadow="boxShadow200"
-    footer={
-      <CardFooter>
-        <Box pl="16px" pr="16px" pt="24px" pb="24px" flexGrow={1}>
-          <Typography mb="0" textAlign="center">
-            <Link icon="link" href="https://carbon.sage.com/">
-              View Stripe Dashboard
-            </Link>
-          </Typography>
-        </Box>
-      </CardFooter>
-    }
-  >
-    <Box display="flex">
-      <Box flexGrow={1}>
-        <Typography variant="h1">Stripe - [account name]</Typography>
-        <Typography size="L" m={0}>
-          user.name@sage.com
-        </Typography>
-      </Box>
-      <Box flexGrow={1} display="flex" justifyContent="flex-end">
-        <Icon type="image" />
-      </Box>
-    </Box>
-    <Box display="flex" pt="32px" pb="32px">
-      <Box flexGrow={1}>
-        <Typography m={0} weight="medium">
-          Stripe Balance
-        </Typography>
-        <Typography variant="h2">£ 0.00</Typography>
-        <Typography>LAST ENTRY: 15 DAYS AGO</Typography>
-      </Box>
-    </Box>
-  </Card>
-);
-
 export const DifferentCardFooterPadding = () => {
   return (
     <Box>

@@ -7,7 +7,6 @@ import {
   SmallSpacing,
   LargeSpacing,
   WithWidthProvided,
-  WithCustomBoxShadow,
   WithCustomHeight,
   DifferentCardFooterPadding,
   DifferentCardRowPadding,
@@ -67,15 +66,6 @@ test.describe("Accessibility tests for Card component", () => {
     page,
   }) => {
     await mount(<Interactive />);
-
-    await checkAccessibility(page);
-  });
-
-  test("should pass accessibility tests with custom box shadow applied", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<WithCustomBoxShadow />);
 
     await checkAccessibility(page);
   });

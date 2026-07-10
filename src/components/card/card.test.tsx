@@ -238,11 +238,11 @@ test("applies flex layout to the content container when spacing is extra-small",
 test("StyledCard applies standard box shadow by default when cardType is not provided", () => {
   render(
     <StyledCard
-      cardWidth="500px"
-      interactive={false}
-      draggable={false}
-      roundness="moderate"
-      spacing="medium"
+      $cardWidth="500px"
+      $interactive={false}
+      $draggable={false}
+      $roundness="moderate"
+      $spacing="medium"
       data-role="card"
     >
       Content

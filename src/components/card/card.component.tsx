@@ -102,15 +102,15 @@ const Card = ({
 
   return (
     <StyledCard
-      cardWidth={width}
-      interactive={interactive}
-      draggable={!!draggable}
-      spacing={spacing}
-      boxShadow={boxShadow}
-      hoverBoxShadow={hoverBoxShadow}
-      height={height}
-      roundness={roundness}
-      cardType={cardType}
+      $cardWidth={width}
+      $interactive={interactive}
+      $draggable={!!draggable}
+      $spacing={spacing}
+      $boxShadow={boxShadow}
+      $hoverBoxShadow={hoverBoxShadow}
+      $height={height}
+      $roundness={roundness}
+      $cardType={cardType}
       {...filterStyledSystemMarginProps(rest)}
       {...tagComponent("card", {
         "data-element": dataElement,
@@ -131,11 +131,11 @@ const Card = ({
           href={!draggable ? href : undefined}
           rel={!draggable && href ? rel : undefined}
           target={!draggable && href ? target : undefined}
-          interactive={interactive}
+          $interactive={interactive}
           spacing={spacing}
           roundness={roundness}
-          hasHeader={!!header}
-          hasFooter={!!footer}
+          $hasHeader={!!header}
+          $hasFooter={!!footer}
           ref={setContentRef}
           aria-label={ariaLabel}
         >
