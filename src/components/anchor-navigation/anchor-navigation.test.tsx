@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { render, screen, act } from "@testing-library/react";
+import { render, screen, act, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import Textbox from "../textbox";
@@ -9,6 +9,15 @@ import {
   AnchorSectionDivider,
 } from ".";
 
+/** Returns the <li> nav item whose link has the given accessible name. */
+const getNavItem = (name: string): HTMLElement => {
+  const match = screen
+    .getAllByRole("listitem")
+    .find((item) => within(item).queryByRole("link", { name }) !== null);
+  if (!match) throw new Error(`Nav item with link name "${name}" not found`);
+  return match;
+};
+
 const MockComponent = () => {
   const ref1 = useRef<HTMLDivElement>(null);
   const ref2 = useRef<HTMLDivElement>(null);
@@ -16,6 +25,7 @@ const MockComponent = () => {
 
   return (
     <AnchorNavigation
+      aria-label="page sections"
       stickyNavigation={
         <>
           <AnchorNavigationItem target={ref1}>First</AnchorNavigationItem>
@@ -74,16 +84,27 @@ afterEach(() => {
   jest.useRealTimers();
 });
 
-test("has proper data attributes applied to elements", () => {
+test("has proper data attributes applied to root element and navigation landmark", () => {
   render(<MockComponent />);
+  const navigation = screen.getByRole("navigation", {
+    name: "page sections",
+  });
+  expect(navigation).toHaveAttribute("aria-label", "page sections");
+  // data-component is on the outer wrapper div, not on the <nav> landmark
   expect(screen.getByTestId("test-component")).toHaveAttribute(
     "data-component",
     "anchor-navigation",
   );
+  expect(navigation).not.toContainElement(
+    screen.getByRole("heading", { name: "First section" }),
+  );
+  expect(navigation).toContainElement(screen.getByRole("list"));
   expect(screen.getByRole("list")).toHaveAttribute(
     "data-element",
     "anchor-sticky-navigation",
   );
+  // role="list" is explicit to restore VoiceOver list semantics when list-style: none is applied
+  expect(screen.getByRole("list")).toHaveAttribute("role", "list");
 
   const anchorNavigationLinks = screen.getAllByRole("link");
   anchorNavigationLinks.forEach((anchor) => {
@@ -91,7 +112,53 @@ test("has proper data attributes applied to elements", () => {
   });
 });
 
-test("when navigation item is clicked, the item is selected and the section container is focused", async () => {
+test("renders nav without aria-label when aria-label prop is not provided", () => {
+  const ref = React.createRef<HTMLDivElement>();
+  render(
+    <AnchorNavigation
+      stickyNavigation={
+        <>
+          <AnchorNavigationItem target={ref}>Item</AnchorNavigationItem>
+        </>
+      }
+    />,
+  );
+  expect(screen.getByRole("navigation")).not.toHaveAttribute("aria-label");
+});
+
+test("applies aria-labelledby to the navigation landmark", () => {
+  const ref = React.createRef<HTMLDivElement>();
+  render(
+    <>
+      <h2 id="nav-heading">Page sections</h2>
+      <AnchorNavigation
+        aria-labelledby="nav-heading"
+        stickyNavigation={
+          <>
+            <AnchorNavigationItem target={ref}>Item</AnchorNavigationItem>
+          </>
+        }
+      />
+    </>,
+  );
+  expect(
+    screen.getByRole("navigation", { name: "Page sections" }),
+  ).toHaveAttribute("aria-labelledby", "nav-heading");
+});
+
+test("marks the selected link as the current location", () => {
+  render(<MockComponent />);
+
+  expect(screen.getByRole("link", { name: "First" })).toHaveAttribute(
+    "aria-current",
+    "location",
+  );
+  expect(screen.getByRole("link", { name: "Second" })).not.toHaveAttribute(
+    "aria-current",
+  );
+});
+
+test("when navigation item is clicked, the item is selected and the section heading is focused", async () => {
   render(<MockComponent />);
 
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
@@ -104,21 +171,31 @@ test("when navigation item is clicked, the item is selected and the section cont
   // toHaveStyle still passes even with incorrect styles when used with CSS variables
   // (see https://github.com/testing-library/jest-dom/issues/461 - the variables seem to be
   // treated by js-dom as "invalid values" as explained in the first reply) - so using toHaveStyleRule instead
-  const selectedItem = screen.getAllByRole("listitem")[1];
+  const selectedItem = getNavItem("Second");
   expect(selectedItem).toHaveStyleRule(
     "background-color",
-    "var(--colorsActionMajorYang100)",
+    "var(--tab-bg-active)",
     { modifier: "& a" },
   );
   expect(selectedItem).toHaveStyleRule(
-    "border-left-color",
-    "var(--colorsActionMajor500)",
-    { modifier: "& a" },
+    "background-color",
+    "var(--tab-border-active)",
+    { modifier: "& a::before" },
   );
-  expect(screen.getByTestId("section-2")).toHaveFocus();
+  expect(screen.getByRole("link", { name: "First" })).not.toHaveAttribute(
+    "aria-current",
+  );
+  expect(screen.getByRole("link", { name: "Second" })).toHaveAttribute(
+    "aria-current",
+    "location",
+  );
+  const heading = screen.getByRole("heading", { name: "Second section" });
+  expect(heading).toHaveFocus();
+  expect(heading).toHaveAttribute("data-carbon-anchornav-ref", "true");
+  expect(heading).toHaveAttribute("tabindex", "-1");
 });
 
-test("when Enter is pressed on a navigation item, the item is selected and the section container is focused", async () => {
+test("when Enter is pressed on a navigation item, the item is selected and the section heading is focused", async () => {
   render(<MockComponent />);
 
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
@@ -130,21 +207,28 @@ test("when Enter is pressed on a navigation item, the item is selected and the s
     jest.advanceTimersByTime(10);
   });
 
-  const selectedItem = screen.getAllByRole("listitem")[1];
+  const selectedItem = getNavItem("Second");
   expect(selectedItem).toHaveStyleRule(
     "background-color",
-    "var(--colorsActionMajorYang100)",
+    "var(--tab-bg-active)",
     { modifier: "& a" },
   );
   expect(selectedItem).toHaveStyleRule(
-    "border-left-color",
-    "var(--colorsActionMajor500)",
-    { modifier: "& a" },
+    "background-color",
+    "var(--tab-border-active)",
+    { modifier: "& a::before" },
   );
-  expect(screen.getByTestId("section-2")).toHaveFocus();
+  expect(screen.getByRole("link", { name: "First" })).not.toHaveAttribute(
+    "aria-current",
+  );
+  expect(screen.getByRole("link", { name: "Second" })).toHaveAttribute(
+    "aria-current",
+    "location",
+  );
+  expect(screen.getByRole("heading", { name: "Second section" })).toHaveFocus();
 });
 
-test("does not alter the tabindex of the container if it was already focusable", async () => {
+test("does not alter the tabindex of the container when moving focus to its heading", async () => {
   render(<MockComponent />);
 
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
@@ -156,6 +240,7 @@ test("does not alter the tabindex of the container if it was already focusable",
   });
 
   expect(screen.getByTestId("section-1")).toHaveAttribute("tabindex", "0");
+  expect(screen.getByRole("heading", { name: "First section" })).toHaveFocus();
 });
 
 test("does nothing if a key other than tab or enter is pressed", async () => {
@@ -169,16 +254,16 @@ test("does nothing if a key other than tab or enter is pressed", async () => {
     jest.advanceTimersByTime(10);
   });
 
-  const originallySelectedItem = screen.getAllByRole("listitem")[0];
+  const originallySelectedItem = getNavItem("First");
   expect(originallySelectedItem).toHaveStyleRule(
     "background-color",
-    "var(--colorsActionMajorYang100)",
+    "var(--tab-bg-active)",
     { modifier: "& a" },
   );
   expect(originallySelectedItem).toHaveStyleRule(
-    "border-left-color",
-    "var(--colorsActionMajor500)",
-    { modifier: "& a" },
+    "background-color",
+    "var(--tab-border-active)",
+    { modifier: "& a::before" },
   );
 });
 
@@ -220,19 +305,78 @@ test.each([
       jest.advanceTimersByTime(10);
     });
 
-    const selectedItem = screen.getAllByRole("listitem")[selectedAnchorIndex];
+    const itemLabels = [
+      "First",
+      "Second",
+      "The slightly longer than expected third navigation item",
+    ];
+    const selectedItem = getNavItem(itemLabels[selectedAnchorIndex]);
     expect(selectedItem).toHaveStyleRule(
       "background-color",
-      "var(--colorsActionMajorYang100)",
+      "var(--tab-bg-active)",
       { modifier: "& a" },
     );
     expect(selectedItem).toHaveStyleRule(
-      "border-left-color",
-      "var(--colorsActionMajor500)",
-      { modifier: "& a" },
+      "background-color",
+      "var(--tab-border-active)",
+      { modifier: "& a::before" },
     );
   },
 );
+
+test("focuses the section itself when it has no heading, and does not alter tabindex when already focusable", async () => {
+  const ref = React.createRef<HTMLDivElement>();
+  render(
+    <AnchorNavigation
+      stickyNavigation={
+        <>
+          <AnchorNavigationItem target={ref}>Section</AnchorNavigationItem>
+        </>
+      }
+    >
+      {/* section has tabIndex, so it's already focusable; no heading child */}
+      {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
+      <div ref={ref} tabIndex={0} data-role="headingless-section" />
+    </AnchorNavigation>,
+  );
+
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  await user.click(screen.getByRole("link", { name: "Section" }));
+  act(() => {
+    jest.advanceTimersByTime(10);
+  });
+
+  // Section itself is the focus target (no heading found → null branch of ??)
+  // It already matches focusable selectors (tabIndex=0) → tabindex NOT overwritten (false branch of if)
+  const section = screen.getByTestId("headingless-section");
+  expect(section).toHaveFocus();
+  expect(section).toHaveAttribute("tabindex", "0");
+});
+
+test("does not set data-carbon-anchornav-ref when it is already present (second click of same item)", async () => {
+  render(<MockComponent />);
+
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  // First click — sets the attribute
+  await user.click(screen.getByRole("link", { name: "Second" }));
+  act(() => {
+    jest.advanceTimersByTime(10);
+  });
+
+  const heading = screen.getByRole("heading", { name: "Second section" });
+  expect(heading).toHaveAttribute("data-carbon-anchornav-ref", "true");
+
+  // Second click of the same item — attribute already present (false branch of if)
+  await user.click(screen.getByRole("link", { name: "Second" }));
+  act(() => {
+    jest.advanceTimersByTime(10);
+  });
+
+  expect(heading).toHaveAttribute("data-carbon-anchornav-ref", "true");
+  expect(heading).toHaveFocus();
+});
 
 test("cleans up event listeners after unmounting", () => {
   const { unmount } = render(<MockComponent />);
@@ -298,39 +442,89 @@ describe("validates incorrect stickyNavigation prop content", () => {
 test("renders not selected navigation item with proper background when hovered", async () => {
   render(<MockComponent />);
 
-  expect(screen.getAllByRole("listitem")[1]).toHaveStyleRule(
+  const unselectedItem = getNavItem("Second");
+  expect(unselectedItem).toHaveStyleRule(
     "background-color",
-    "var(--colorsActionMinor100)",
+    "var(--tab-bg-hover)",
     { modifier: "& a:hover" },
   );
+  expect(unselectedItem).toHaveStyleRule("color", "var(--tab-label-hover)", {
+    modifier: "& a:hover",
+  });
 });
 
-test("renders selected navigation item with proper background when hovered", async () => {
+test("renders default navigation item with proper background and label colors", () => {
   render(<MockComponent />);
 
-  expect(screen.getAllByRole("listitem")[0]).not.toHaveStyleRule(
+  const defaultItem = getNavItem("Second");
+  expect(defaultItem).toHaveStyleRule(
     "background-color",
-    undefined,
-    {
-      modifier: "& a:hover",
-    },
+    "var(--tab-bg-default)",
+    { modifier: "& a" },
+  );
+  expect(defaultItem).toHaveStyleRule("color", "var(--tab-label-default)", {
+    modifier: "& a",
+  });
+});
+
+test("keeps selected navigation item active styling when hovered", async () => {
+  render(<MockComponent />);
+
+  const selectedItem = getNavItem("First");
+  expect(selectedItem).not.toHaveStyleRule(
+    "background-color",
+    "var(--tab-bg-hover)",
+    { modifier: "& a:hover" },
+  );
+  expect(selectedItem).not.toHaveStyleRule("color", "var(--tab-label-hover)", {
+    modifier: "& a:hover",
+  });
+  expect(selectedItem).toHaveStyleRule(
+    "background-color",
+    "var(--tab-bg-active)",
+    { modifier: "& a" },
   );
 });
 
-test("has the expected border radius styling on the navigation items", () => {
+test("renders navigation item with proper focus styling", () => {
   render(<MockComponent />);
 
-  const anchorNavigationItems = screen.getAllByRole("listitem");
-  anchorNavigationItems.forEach((item) => {
-    expect(item).toHaveStyleRule(
-      "border-top-right-radius",
-      "var(--borderRadius100)",
-      { modifier: "& a" },
-    );
-    expect(item).toHaveStyleRule(
-      "border-bottom-right-radius",
-      "var(--borderRadius100)",
-      { modifier: "& a" },
-    );
+  const defaultItem = getNavItem("Second");
+  expect(defaultItem).toHaveStyleRule(
+    "box-shadow",
+    "var(--focus-shadow-default)",
+    { modifier: "& a:focus" },
+  );
+  expect(defaultItem).toHaveStyleRule("outline", "transparent 3px solid", {
+    modifier: "& a:focus",
+  });
+  expect(defaultItem).toHaveStyleRule("z-index", "1", {
+    modifier: "& a:focus",
+  });
+});
+
+test("has the expected active item indicator and minimum height styling", () => {
+  render(<MockComponent />);
+
+  const selectedItem = getNavItem("First");
+  expect(selectedItem).toHaveStyleRule("min-height", "var(--global-size-m)", {
+    modifier: "& a",
+  });
+  expect(selectedItem).toHaveStyleRule(
+    "border-left",
+    "var(--global-size-6-xs) solid var(--tab-border-active-alt)",
+    { modifier: "& a" },
+  );
+  expect(selectedItem).toHaveStyleRule("top", "var(--global-space-comp-s)", {
+    modifier: "& a::before",
+  });
+  expect(selectedItem).toHaveStyleRule("bottom", "var(--global-space-comp-s)", {
+    modifier: "& a::before",
+  });
+  expect(selectedItem).toHaveStyleRule("width", "var(--global-size-5-xs)", {
+    modifier: "& a::before",
+  });
+  expect(selectedItem).toHaveStyleRule("color", "var(--tab-label-active)", {
+    modifier: "& a",
   });
 });

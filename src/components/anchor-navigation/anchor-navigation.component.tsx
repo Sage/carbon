@@ -13,6 +13,7 @@ import { defaultFocusableSelectors } from "../../__internal__/focus-trap/focus-t
 import Event from "../../__internal__/utils/helpers/events";
 import {
   StyledAnchorNavigation,
+  StyledNavigationWrapper,
   StyledNavigation,
   StyledContent,
 } from "./anchor-navigation.style";
@@ -23,6 +24,10 @@ import AnchorNavigationItem, {
 export interface AnchorNavigationProps extends TagProps {
   /** Child elements */
   children?: React.ReactNode;
+  /** Accessible label for the navigation landmark. */
+  "aria-label"?: string;
+  /** ID of an element whose text content labels the navigation landmark (alternative to aria-label). */
+  "aria-labelledby"?: string;
   /** The AnchorNavigationItems components to be rendered in the sticky navigation.
   It is important to maintain proper structure.
   List of AnchorNavigationItems has to be wrapped in React.Fragment */
@@ -35,6 +40,8 @@ const SCROLL_THROTTLE = 100;
 const AnchorNavigation = ({
   children,
   stickyNavigation,
+  "aria-label": ariaLabel,
+  "aria-labelledby": ariaLabelledby,
   "data-element": dataElement,
   "data-role": dataRole,
 }: AnchorNavigationProps): JSX.Element => {
@@ -141,12 +148,21 @@ const AnchorNavigation = ({
     return () => window.removeEventListener("scroll", scrollHandler, true);
   }, [scrollHandler]);
 
-  const focusSection = (section: HTMLElement) => {
-    if (!section.matches(defaultFocusableSelectors)) {
-      section.setAttribute("tabindex", "-1");
+  const focusSectionHeading = (section: HTMLElement) => {
+    const heading = section.querySelector<HTMLElement>(
+      "h1, h2, h3, h4, h5, h6",
+    );
+    const focusTarget = heading ?? section;
+
+    if (!focusTarget.matches(defaultFocusableSelectors)) {
+      focusTarget.setAttribute("tabindex", "-1");
     }
 
-    section.focus({ preventScroll: true });
+    if (!focusTarget.dataset.carbonAnchornavRef) {
+      focusTarget.dataset.carbonAnchornavRef = "true";
+    }
+
+    focusTarget.focus({ preventScroll: true });
   };
 
   const scrollToSection = (index: number): void => {
@@ -156,15 +172,7 @@ const AnchorNavigation = ({
     // function is called only after component is rendered, so ref cannot hold a null value
     if (sectionToScroll === null) return;
 
-    // ensure section has the appropriate element to remove the default focus styles.
-    // Can ignore else branch because there's no harm in setting this to "true" twice (it can't hold any other value),
-    // but it's probably more efficient not to.
-    // istanbul ignore else
-    if (!sectionToScroll.dataset.carbonAnchornavRef) {
-      sectionToScroll.dataset.carbonAnchornavRef = "true";
-    }
-
-    focusSection(sectionToScroll);
+    focusSectionHeading(sectionToScroll);
 
     // workaround due to preventScroll focus method option on firefox not working consistently
     window.setTimeout(() => {
@@ -202,21 +210,28 @@ const AnchorNavigation = ({
       data-element={dataElement}
       data-role={dataRole}
     >
-      <StyledNavigation
-        ref={navigationRef}
-        data-element="anchor-sticky-navigation"
+      <StyledNavigationWrapper
+        aria-label={ariaLabel}
+        aria-labelledby={ariaLabelledby}
       >
-        {React.Children.map(stickyNavigation.props.children, (child, index) =>
-          React.cloneElement(child, {
-            href: child.props.href || "#", // need to pass an href to ensure the link is tabbable by default
-            isSelected: index === selectedIndex,
-            onClick: (event: React.MouseEvent<HTMLAnchorElement>) =>
-              handleClick(event, index),
-            onKeyDown: (event: React.KeyboardEvent<HTMLAnchorElement>) =>
-              handleKeyDown(event, index),
-          }),
-        )}
-      </StyledNavigation>
+        {/* role="list" is explicit to restore list semantics in VoiceOver when list-style: none is applied */}
+        <StyledNavigation
+          ref={navigationRef}
+          role="list"
+          data-element="anchor-sticky-navigation"
+        >
+          {React.Children.map(stickyNavigation.props.children, (child, index) =>
+            React.cloneElement(child, {
+              href: child.props.href || "#", // need to pass an href to ensure the link is tabbable by default
+              isSelected: index === selectedIndex,
+              onClick: (event: React.MouseEvent<HTMLAnchorElement>) =>
+                handleClick(event, index),
+              onKeyDown: (event: React.KeyboardEvent<HTMLAnchorElement>) =>
+                handleKeyDown(event, index),
+            }),
+          )}
+        </StyledNavigation>
+      </StyledNavigationWrapper>
       <StyledContent>{children}</StyledContent>
     </StyledAnchorNavigation>
   );

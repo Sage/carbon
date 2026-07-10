@@ -19,6 +19,8 @@ description: Carbon AnchorNavigation component props and usage examples.
 | stickyNavigation | React.ReactNode | No |  | The AnchorNavigationItems components to be rendered in the sticky navigation. It is important to maintain proper structure. List of AnchorNavigationItems has to be wrapped in React.Fragment |  |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+| aria-label | string \| undefined | No |  | Accessible label for the navigation landmark. |  |
+| aria-labelledby | string \| undefined | No |  | ID of an element whose text content labels the navigation landmark (alternative to aria-label). |  |
 
 ## Examples
 ### Default
