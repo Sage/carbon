@@ -5,6 +5,7 @@ import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/te
 
 import MultiSelect, { MultiSelectProps } from ".";
 import { CustomSelectChangeEvent, Option, setupSelectMocks } from "..";
+import { CHARACTERS } from "../../../../playwright/support/constants";
 
 import Modal from "../../../__internal__/modal";
 
@@ -531,6 +532,46 @@ describe("dropdown list", () => {
     await user.click(screen.getByRole("combobox"));
     await user.click(screen.getByText("Outside content"));
 
+    await waitFor(() =>
+      expect(screen.queryByRole("listbox")).not.toBeInTheDocument(),
+    );
+  });
+
+  it("closes the list with the Tab key", async () => {
+    const user = userEvent.setup();
+    render(
+      <InteractiveComponent label="Colour" onChange={() => {}}>
+        <Option text="amber" value="amber" />
+      </InteractiveComponent>,
+    );
+
+    const input = screen.getByRole("combobox");
+    await user.click(input);
+    await screen.findByRole("listbox");
+
+    expect(input).toHaveAttribute("aria-expanded", "true");
+    await user.tab();
+    expect(input).toHaveAttribute("aria-expanded", "false");
+    await waitFor(() =>
+      expect(screen.queryByRole("listbox")).not.toBeInTheDocument(),
+    );
+  });
+
+  it("closes the list with the Escape key", async () => {
+    const user = userEvent.setup();
+    render(
+      <InteractiveComponent label="Colour" onChange={() => {}}>
+        <Option text="amber" value="amber" />
+      </InteractiveComponent>,
+    );
+
+    const input = screen.getByRole("combobox");
+    await user.click(input);
+    await screen.findByRole("listbox");
+
+    expect(input).toHaveAttribute("aria-expanded", "true");
+    await user.keyboard("{Escape}");
+    expect(input).toHaveAttribute("aria-expanded", "false");
     await waitFor(() =>
       expect(screen.queryByRole("listbox")).not.toBeInTheDocument(),
     );
@@ -1411,6 +1452,64 @@ test("the SelectList should stay visible if the input has received a mousedown e
   await user.pointer({ keys: "[MouseLeft>]", target: input });
 
   expect(screen.getByRole("listbox")).toBeVisible();
+});
+
+test("should render option with data-element attribute set to option1", async () => {
+  const user = userEvent.setup();
+  render(
+    <InteractiveComponent label="Colour" onChange={() => {}}>
+      <Option
+        id="option1"
+        text="Amber"
+        value="1"
+        data-role="option1"
+        data-element="option1"
+      />
+    </InteractiveComponent>,
+  );
+
+  await user.click(screen.getByRole("combobox"));
+  const option = await screen.findByRole("option", { name: "Amber" });
+
+  expect(option).toHaveAttribute("data-element", "option1");
+});
+
+describe("special character rendering", () => {
+  [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS].forEach(
+    (labelValue) => {
+      test(`renders label with special characters: ${labelValue}`, () => {
+        render(
+          <MultiSelect label={labelValue} onChange={() => {}} value={[]}>
+            <Option text="Amber" value="amber" />
+          </MultiSelect>,
+        );
+
+        expect(screen.getByText(labelValue)).toBeVisible();
+      });
+    },
+  );
+
+  [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS].forEach(
+    (placeholderValue) => {
+      test(`renders placeholder with special characters: ${placeholderValue}`, () => {
+        render(
+          <MultiSelect
+            label="Colour"
+            onChange={() => {}}
+            value={[]}
+            placeholder={placeholderValue}
+          >
+            <Option text="Amber" value="amber" />
+          </MultiSelect>,
+        );
+
+        expect(screen.getByRole("combobox")).toHaveAttribute(
+          "placeholder",
+          placeholderValue,
+        );
+      });
+    },
+  );
 });
 
 testStyledSystemMargin(
