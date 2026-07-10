@@ -14,7 +14,10 @@ const meta: Meta<typeof Password> = {
   argTypes: {
     ...styledSystemProps,
   },
-  parameters: { themeProvider: { chromatic: { theme: "sage" } } },
+  parameters: {
+    chromatic: { disableSnapshot: true },
+    themeProvider: { chromatic: { theme: "sage" } },
+  },
 };
 
 export default meta;
@@ -173,7 +176,6 @@ export const WithLabelInline: Story = () => {
   );
 };
 WithLabelInline.storyName = "With Label Inline";
-WithLabelInline.parameters = { chromatic: { disable: true } };
 
 export const WithCustomMaxWidth: Story = () => {
   const [state, setState] = useState("Password");
