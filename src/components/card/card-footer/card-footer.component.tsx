@@ -16,7 +16,7 @@ export interface CardFooterProps
     TagProps {
   /** Child nodes */
   children: React.ReactNode;
-  /** Specify styling variant to render */
+  /** @deprecated Specify styling variant to render */
   variant?: "default" | "transparent";
 }
 

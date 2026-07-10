@@ -37,9 +37,18 @@ test("when variant prop is `transparent`, render with transparent background", (
   });
 });
 
-test.each(["default", "large"] as const)(
-  "renders with the expected border radius styling when roundness is %s",
-  (roundness) => {
+test.each([
+  {
+    roundness: "moderate" as const,
+    expectedRadius: "var(--global-radius-container-l)",
+  },
+  {
+    roundness: "curved" as const,
+    expectedRadius: "var(--global-radius-container-xl)",
+  },
+])(
+  "renders with the expected border radius styling when roundness is $roundness",
+  ({ roundness, expectedRadius }) => {
     render(
       <Card roundness={roundness} spacing="medium">
         <CardFooter data-role="card-footer">foo</CardFooter>
@@ -49,11 +58,11 @@ test.each(["default", "large"] as const)(
     const cardFooterElement = screen.getByTestId("card-footer");
     expect(cardFooterElement).toHaveStyleRule(
       "border-bottom-left-radius",
-      `var(--borderRadius${roundness === "default" ? "1" : "2"}00)`,
+      expectedRadius,
     );
     expect(cardFooterElement).toHaveStyleRule(
       "border-bottom-right-radius",
-      `var(--borderRadius${roundness === "default" ? "1" : "2"}00)`,
+      expectedRadius,
     );
   },
 );
