@@ -30,7 +30,7 @@ interface DateInputTypicalProps extends LegacyDateInputProps {
   labelId?: string;
 }
 
-const dateInoutTypicalMinWidth = {
+const dateInputTypicalMinWidth = {
   small: "128px",
   medium: "144px",
   large: "176px",
@@ -187,7 +187,7 @@ export const DateInputTypical = React.forwardRef<
     const resolvedLabelInline = adaptiveLabelBreakpoint
       ? largeScreen
       : labelInline;
-    const resolvedMaxWidth = maxWidth ?? dateInoutTypicalMinWidth[size];
+    const resolvedMaxWidth = maxWidth ?? dateInputTypicalMinWidth[size];
     const {
       applyDateRangeStyling,
       assignInput,
@@ -291,7 +291,7 @@ export const DateInputTypical = React.forwardRef<
           labelId={labelId}
           labelInline={resolvedLabelInline}
           maxWidth={maxWidth}
-          minWidth={dateInoutTypicalMinWidth[size]}
+          minWidth={dateInputTypicalMinWidth[size]}
           onBlur={handleBlur}
           onChange={handleChange}
           onClick={handleInputMouseClick}

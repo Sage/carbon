@@ -1,5 +1,5 @@
 ---
-name: carbon-component-date-input-field
+name: carbon-component-date-input
 description: Carbon DateInput component props and usage examples.
 ---
 

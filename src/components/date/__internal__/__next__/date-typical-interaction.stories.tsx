@@ -31,10 +31,12 @@ export const MonthYearNavigation: Story = {
       return;
     }
     const canvas = within(canvasElement);
-    const calendarIcon = canvas.getByTestId("icon");
-    await userEvent.click(calendarIcon);
-    const navigationIcon = canvas.getByRole("button", { name: "Next month" });
-    await userEvent.click(navigationIcon);
+    const calendarButton = canvas.getByRole("button", { name: "calendar" });
+    await userEvent.click(calendarButton);
+    const monthSelect = canvas.getByRole("combobox", {
+      name: "Choose the month",
+    });
+    await userEvent.selectOptions(monthSelect, "5");
   },
   decorators: [
     (StoryToRender) => (

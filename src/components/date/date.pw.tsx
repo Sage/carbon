@@ -824,11 +824,25 @@ test.describe("Accessibility tests", () => {
     await checkAccessibility(page);
   });
 
-  test("should check accessibility when the typical range picker is open", async ({
+  test("should check accessibility when the typical picker is open with range modifiers", async ({
     mount,
     page,
   }) => {
-    await mount(<DateInputTypicalCustom pickerProps={{ mode: "range" }} />);
+    const today = new Date();
+    const rangeEnd = new Date(today);
+    rangeEnd.setDate(today.getDate() + 7);
+
+    await mount(
+      <DateInputTypicalCustom
+        pickerProps={{
+          modifiers: {
+            range_start: today,
+            range_middle: { after: today, before: rangeEnd },
+            range_end: rangeEnd,
+          },
+        }}
+      />,
+    );
 
     await page.getByRole("button", { name: "calendar" }).click();
     await expect(page.getByRole("dialog")).toBeVisible();

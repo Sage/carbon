@@ -227,10 +227,10 @@ test("should wire dialog and calendar labelling to month and year selectors", as
   expect(dialog).toHaveAttribute("aria-modal", "true");
 
   const monthSelector = within(dialog).getByRole("combobox", {
-    name: "Choose the Month",
+    name: "Choose the month",
   });
   const yearSelector = within(dialog).getByRole("combobox", {
-    name: "Choose the Year",
+    name: "Choose the year",
   });
   const labelledBy = dialog.getAttribute("aria-labelledby");
   const labelledByIds = labelledBy?.split(" ") || [];
@@ -314,10 +314,10 @@ test("should cycle focus inside picker for tab and shift-tab in single mode", as
   const todayButton = screen.getByRole("button", { name: /today/i });
   const closeButton = screen.getByRole("button", { name: "Close" });
   const monthSelector = screen.getByRole("combobox", {
-    name: "Choose the Month",
+    name: "Choose the month",
   });
   const yearSelector = screen.getByRole("combobox", {
-    name: "Choose the Year",
+    name: "Choose the year",
   });
 
   expect(todayButton).toHaveFocus();
@@ -558,7 +558,7 @@ test("should keep focus on selector when selecting with keyboard arrows", async 
   });
 
   const monthSelector = screen.getByRole("combobox", {
-    name: "Choose the Month",
+    name: "Choose the month",
   });
 
   act(() => {
@@ -588,7 +588,7 @@ test("should keep focus on month selector until Tab after month change", async (
   });
 
   const monthSelector = screen.getByRole("combobox", {
-    name: "Choose the Month",
+    name: "Choose the month",
   });
   act(() => {
     monthSelector.focus();
@@ -622,7 +622,7 @@ test("should update input value when selected date month is changed", async () =
   });
 
   const monthSelector = screen.getByRole("combobox", {
-    name: "Choose the Month",
+    name: "Choose the month",
   });
   act(() => {
     monthSelector.focus();
@@ -654,7 +654,7 @@ test("should keep focus on year selector until Tab after year change", async () 
   });
 
   const yearSelector = screen.getByRole("combobox", {
-    name: "Choose the Year",
+    name: "Choose the year",
   });
   act(() => {
     yearSelector.focus();
@@ -688,7 +688,7 @@ test("should update input value when selected date year is changed", async () =>
   });
 
   const yearSelector = screen.getByRole("combobox", {
-    name: "Choose the Year",
+    name: "Choose the year",
   });
   act(() => {
     yearSelector.focus();

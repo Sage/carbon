@@ -1,5 +1,4 @@
 import React from "react";
-import type { DayPickerProps } from "react-day-picker";
 import DateInputLegacy, {
   DateChangeEvent as LegacyDateChangeEvent,
   DateInputLegacyProps,
@@ -8,15 +7,9 @@ import DateInputTypical from "./__internal__/__next__/date-typical.component";
 
 export type DateChangeEvent = LegacyDateChangeEvent;
 
-type DateInputPickerProps = NonNullable<DateInputLegacyProps["pickerProps"]> & {
-  mode?: DayPickerProps["mode"];
-};
-
-export interface DateInputProps
-  extends Omit<DateInputLegacyProps, "pickerProps"> {
+export interface DateInputProps extends DateInputLegacyProps {
   /** Legacy label id override retained for source compatibility. */
   labelId?: string;
-  pickerProps?: DateInputPickerProps;
   /**
    * Specify the variant of the DateInput to use.
    * 'legacy' (default) uses the original implementation.
