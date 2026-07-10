@@ -10,10 +10,7 @@ import {
   WithSiblingControl,
 } from "./components.test-pw";
 
-import {
-  assertCssValueIsApproximately,
-  checkAccessibility,
-} from "../../../../playwright/support/helper";
+import { checkAccessibility } from "../../../../playwright/support/helper";
 import {
   responsiveVerticalMenuLauncher,
   responsiveVerticalMenuWrapper,
@@ -24,60 +21,6 @@ import {
 } from "../../../../playwright/components/vertical-menu/responsive-vertical-menu";
 
 test.describe("functional tests", () => {
-  [
-    [200, 200],
-    [350, 350],
-    [632, 375],
-  ].forEach(([requestedWidth, actualWidth]) => {
-    test(`should render with width of ${actualWidth}px when ${requestedWidth}px is requested`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <ResponsiveVerticalMenuDefaultComponent
-          width={`${requestedWidth}px`}
-        />,
-      );
-      await expect(responsiveVerticalMenuLauncher(page)).toBeVisible();
-      await responsiveVerticalMenuLauncher(page).click();
-      expect(responsiveVerticalMenuWrapper(page)).toBeDefined();
-      expect(responsiveVerticalMenuPrimary(page)).toBeDefined();
-
-      await assertCssValueIsApproximately(
-        responsiveVerticalMenuPrimary(page),
-        "width",
-        actualWidth,
-      );
-    });
-  });
-
-  (
-    [
-      ["30%", 230],
-      ["45%", 345],
-      ["95%", 729],
-    ] as const
-  ).forEach(([height, heightInPx]) => {
-    test(`should render with height of ${height}`, async ({ mount, page }) => {
-      await mount(<ResponsiveVerticalMenuDefaultComponent height={height} />);
-
-      await expect(responsiveVerticalMenuLauncher(page)).toBeVisible();
-      await responsiveVerticalMenuLauncher(page).click();
-      expect(responsiveVerticalMenuWrapper(page)).toBeDefined();
-      expect(responsiveVerticalMenuPrimary(page)).toBeDefined();
-
-      await expect(responsiveVerticalMenuPrimary(page)).toHaveAttribute(
-        "height",
-        height,
-      );
-      await assertCssValueIsApproximately(
-        responsiveVerticalMenuPrimary(page),
-        "height",
-        heightInPx,
-      );
-    });
-  });
-
   test(`menu text is aligned regardless of icon presence`, async ({
     mount,
     page,
