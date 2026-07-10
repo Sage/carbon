@@ -9,7 +9,7 @@ import Confirm from "../confirm";
 import I18nProvider from "../i18n-provider";
 
 export default {
-  title: "Date Input/Test",
+  title: "Date Input/Legacy/Test",
   component: DateInput,
   parameters: {
     info: { disable: true },
@@ -61,6 +61,8 @@ export const DateStory = ({ ...args }) => {
   };
   return (
     <DateInput
+      {...args}
+      variant="legacy"
       name="dateinput"
       value={state}
       onChange={setValue}
@@ -71,7 +73,6 @@ export const DateStory = ({ ...args }) => {
         action("onKeyDown")((ev.target as HTMLInputElement).value)
       }
       onClick={(ev) => action("onClick")((ev.target as HTMLInputElement).value)}
-      {...args}
     />
   );
 };
@@ -85,6 +86,7 @@ export const Validation = () => {
   return (
     <>
       <DateInput
+        variant="legacy"
         label="Date"
         name="date-input"
         inputHint="Input hint"
@@ -94,6 +96,7 @@ export const Validation = () => {
         mb={2}
       />
       <DateInput
+        variant="legacy"
         label="Date"
         name="date-input"
         warning="Warning Message"
@@ -102,6 +105,7 @@ export const Validation = () => {
         mb={2}
       />
       <DateInput
+        variant="legacy"
         validationMessagePositionTop={false}
         label="Date"
         name="date-input"
@@ -112,6 +116,7 @@ export const Validation = () => {
         mb={2}
       />
       <DateInput
+        variant="legacy"
         validationMessagePositionTop={false}
         label="Date"
         name="date-input"
@@ -145,6 +150,7 @@ export const MultipleDates: StoryObj<typeof DateInput> = () => {
       boxSizing="border-box"
     >
       <DateInput
+        variant="legacy"
         disablePortal
         label="Component A"
         onChange={(e) => setDate(e.target.value.formattedValue)}
@@ -158,6 +164,7 @@ export const MultipleDates: StoryObj<typeof DateInput> = () => {
         disabled={active === 2}
       />
       <DateInput
+        variant="legacy"
         disablePortal
         label="Component B"
         onChange={(e) => setDate2(e.target.value.formattedValue)}
@@ -212,12 +219,16 @@ export const I18NStory = ({ locale, ...args }: DateInputI80NProps) => {
             ariaLabels: {
               nextMonthButton: () => "foo",
               previousMonthButton: () => "foo",
+              chooseMonth: () => "Choose the month",
+              chooseYear: () => "Choose the year",
+              closeButton: () => "Close",
             },
             dateFnsLocale: () => locales[locale],
           },
         }}
       >
         <DateInput
+          variant="legacy"
           name="dateinput"
           label={locale}
           m={2}
@@ -257,7 +268,15 @@ export const AutoFocus = () => {
   const setValue = (ev: DateChangeEvent) => {
     setState(ev.target.value.formattedValue);
   };
-  return <DateInput label="Date" value={state} onChange={setValue} autoFocus />;
+  return (
+    <DateInput
+      variant="legacy"
+      label="Date"
+      value={state}
+      onChange={setValue}
+      autoFocus
+    />
+  );
 };
 AutoFocus.storyName = "Auto Focus";
 AutoFocus.parameters = {

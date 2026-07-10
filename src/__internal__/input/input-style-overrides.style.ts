@@ -5,10 +5,18 @@ import addFocusStyling from "../../style/utils/add-focus-styling";
  * Overrides for input when part of Date component
  */
 export const dateStyleOverrides = css`
-  .date & {
+  .date:not(.date-typical) & {
     .input-text-container input {
       padding: 0 0 0 12px;
       margin-right: -12px;
+    }
+  }
+
+  .date.date-typical & {
+    &:focus-within {
+      box-shadow: none;
+      -webkit-box-shadow: none;
+      outline: none;
     }
   }
 `;

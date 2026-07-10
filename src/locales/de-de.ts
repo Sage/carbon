@@ -39,7 +39,10 @@ const deDE: Partial<Locale> = {
     dateFnsLocale: () => deDEDateLocale,
     ariaLabels: {
       previousMonthButton: () => "Vorheriger Monat",
-      nextMonthButton: () => "Nächster Monat",
+      nextMonthButton: () => "Nchster Monat",
+      chooseMonth: () => "Monat wählen",
+      chooseYear: () => "Jahr wählen",
+      closeButton: () => "Schließen",
     },
   },
   decimal: {

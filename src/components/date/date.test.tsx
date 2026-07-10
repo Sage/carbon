@@ -16,13 +16,21 @@ import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-
 import DateInput, { DateChangeEvent } from "./date.component";
 import I18nProvider from "../i18n-provider";
 
+const LegacyDateInput = React.forwardRef<
+  HTMLInputElement,
+  React.ComponentProps<typeof DateInput>
+>((props, ref) => <DateInput variant="legacy" ref={ref} {...props} />);
+
 const ariaLabels = {
   nextMonthButton: () => "foo",
   previousMonthButton: () => "foo",
+  chooseMonth: () => "Choose the month",
+  chooseYear: () => "Choose the year",
+  closeButton: () => "Close",
 };
 
 testStyledSystemMargin(
-  (props) => <DateInput onChange={() => {}} value="" {...props} />,
+  (props) => <LegacyDateInput onChange={() => {}} value="" {...props} />,
   () => screen.getAllByRole("presentation")[0],
 );
 
@@ -55,7 +63,7 @@ const MockComponent = ({
 }) => {
   const [value, setValue] = useState(initialValue);
   return (
-    <DateInput
+    <LegacyDateInput
       label="label"
       onChange={(ev: DateChangeEvent) => {
         setValue(ev.target.value.formattedValue);
@@ -84,14 +92,18 @@ afterAll(() => {
 
 test("should accept ref as an object and pass it to the input", () => {
   const ref = { current: null };
-  render(<DateInput label="label" ref={ref} onChange={() => {}} value="" />);
+  render(
+    <LegacyDateInput label="label" ref={ref} onChange={() => {}} value="" />,
+  );
 
   expect(ref.current).toBe(screen.getByRole("textbox"));
 });
 
 test("should accept ref as a callback and pass it to the input", () => {
   const ref = jest.fn();
-  render(<DateInput label="label" ref={ref} onChange={() => {}} value="" />);
+  render(
+    <LegacyDateInput label="label" ref={ref} onChange={() => {}} value="" />,
+  );
 
   expect(ref).toHaveBeenCalledWith(screen.getByRole("textbox"));
 });
@@ -99,7 +111,7 @@ test("should accept ref as a callback and pass it to the input", () => {
 test("should set ref to empty after unmount", () => {
   const ref = { current: null };
   const { unmount } = render(
-    <DateInput label="label" ref={ref} onChange={() => {}} value="" />,
+    <LegacyDateInput label="label" ref={ref} onChange={() => {}} value="" />,
   );
   unmount();
 
@@ -108,7 +120,7 @@ test("should set ref to empty after unmount", () => {
 
 test("should render with provided data- attributes", () => {
   render(
-    <DateInput
+    <LegacyDateInput
       data-element="bar"
       data-role="baz"
       onChange={() => {}}
@@ -120,14 +132,21 @@ test("should render with provided data- attributes", () => {
 });
 
 test("should render with the input focused and picker visible when `autoFocus` is true", () => {
-  render(<DateInput label="label" autoFocus onChange={() => {}} value="" />);
+  render(
+    <LegacyDateInput label="label" autoFocus onChange={() => {}} value="" />,
+  );
 
   expect(screen.getByRole("textbox")).toHaveFocus();
 });
 
 test("should not render with the input focused or the picker visible when `autoFocus` is false", () => {
   render(
-    <DateInput label="label" autoFocus={false} onChange={() => {}} value="" />,
+    <LegacyDateInput
+      label="label"
+      autoFocus={false}
+      onChange={() => {}}
+      value=""
+    />,
   );
 
   expect(screen.getByRole("textbox")).not.toHaveFocus();
@@ -137,7 +156,12 @@ test("should not render with the input focused or the picker visible when `autoF
 test("should open the picker and call the `onFocus` callback if one passed when the input is focused by the user", () => {
   const onFocus = jest.fn();
   render(
-    <DateInput label="label" onChange={() => {}} value="" onFocus={onFocus} />,
+    <LegacyDateInput
+      label="label"
+      onChange={() => {}}
+      value=""
+      onFocus={onFocus}
+    />,
   );
   const input = screen.getByRole("textbox");
   act(() => {
@@ -152,7 +176,7 @@ test("should open the picker and call the `onClick` and `onFocus` callbacks if p
   const onFocus = jest.fn();
   const onClick = jest.fn();
   render(
-    <DateInput
+    <LegacyDateInput
       label="label"
       onChange={() => {}}
       value=""
@@ -177,7 +201,12 @@ test("should open the picker and call the `onClick` callback if passed when the 
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const onClick = jest.fn();
   render(
-    <DateInput label="label" onChange={() => {}} value="" onClick={onClick} />,
+    <LegacyDateInput
+      label="label"
+      onChange={() => {}}
+      value=""
+      onClick={onClick}
+    />,
   );
   const icon = screen.getByTestId("icon");
   await user.click(icon);
@@ -188,7 +217,7 @@ test("should open the picker and call the `onClick` callback if passed when the 
 
 test("picker closes when input icon is double clicked", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-  render(<DateInput label="label" onChange={() => {}} value="" />);
+  render(<LegacyDateInput label="label" onChange={() => {}} value="" />);
 
   const icon = screen.getByTestId("input-icon-toggle");
   await user.dblClick(icon);
@@ -200,7 +229,7 @@ test("picker closes when input icon is double clicked", async () => {
 
 test("picker does not close when input icon is double clicked", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-  render(<DateInput label="label" onChange={() => {}} value="" />);
+  render(<LegacyDateInput label="label" onChange={() => {}} value="" />);
 
   const calendarIcon = screen.getByTestId("input-icon-toggle");
   await user.click(calendarIcon);
@@ -216,7 +245,7 @@ test("should not trigger a focus event when the user clicks on the input and `di
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const onFocus = jest.fn();
   render(
-    <DateInput
+    <LegacyDateInput
       label="label"
       onChange={() => {}}
       value=""
@@ -235,7 +264,7 @@ test("should not trigger a focus event when the user clicks on the input and `re
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const onFocus = jest.fn();
   render(
-    <DateInput
+    <LegacyDateInput
       label="label"
       onChange={() => {}}
       value=""
@@ -255,7 +284,7 @@ test("should call `onBlur` and `onChange` callbacks when the user clicks away fr
   const onBlur = jest.fn();
   const onChange = jest.fn();
   render(
-    <DateInput
+    <LegacyDateInput
       label="label"
       onChange={onChange}
       onBlur={onBlur}
@@ -275,7 +304,12 @@ test("should call `onBlur` but not `onChange` callbacks when the user clicks awa
   const onBlur = jest.fn();
   const onChange = jest.fn();
   render(
-    <DateInput label="label" onChange={onChange} onBlur={onBlur} value="foo" />,
+    <LegacyDateInput
+      label="label"
+      onChange={onChange}
+      onBlur={onBlur}
+      value="foo"
+    />,
   );
   const input = screen.getByRole("textbox");
   await user.click(input);
@@ -290,7 +324,7 @@ test("should call `onBlur` but not `onChange` callbacks when the user clicks awa
   const onBlur = jest.fn();
   const onChange = jest.fn();
   render(
-    <DateInput
+    <LegacyDateInput
       label="label"
       onChange={onChange}
       onBlur={onBlur}
@@ -310,7 +344,7 @@ test("should not call `onBlur` or `onChange` callbacks when user clicks away fro
   const onBlur = jest.fn();
   const onChange = jest.fn();
   render(
-    <DateInput
+    <LegacyDateInput
       label="label"
       onChange={onChange}
       onBlur={onBlur}
@@ -330,7 +364,12 @@ test("should not call `onBlur` when the user clicks on the input and then the in
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const onBlur = jest.fn();
   render(
-    <DateInput label="label" onChange={() => {}} onBlur={onBlur} value="" />,
+    <LegacyDateInput
+      label="label"
+      onChange={() => {}}
+      onBlur={onBlur}
+      value=""
+    />,
   );
   const input = screen.getByRole("textbox");
   const icon = screen.getByTestId("input-icon-toggle");
@@ -414,7 +453,9 @@ test("should not close the picker or call the `onChange` and `onBlur` callbacks 
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const onChange = jest.fn();
   const onBlur = jest.fn();
-  render(<DateInput onChange={onChange} onBlur={onBlur} value="04/04/2019" />);
+  render(
+    <LegacyDateInput onChange={onChange} onBlur={onBlur} value="04/04/2019" />,
+  );
 
   const calendarIcon = screen.getByTestId("input-icon-toggle");
   await user.click(calendarIcon);
@@ -431,7 +472,7 @@ test("should not close the picker or call the `onChange` and `onBlur` callbacks 
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const onChange = jest.fn();
   render(
-    <DateInput
+    <LegacyDateInput
       onChange={onChange}
       value="04/04/2019"
       minDate="2019-04-04"
@@ -449,7 +490,7 @@ test("should not close the picker or call the `onChange` and `onBlur` callbacks 
 
 test("should close the open picker when the user presses the 'Escape' key and focus is within the picker", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-  render(<DateInput onChange={() => {}} value="" />);
+  render(<LegacyDateInput onChange={() => {}} value="" />);
 
   const calendarIcon = screen.getByTestId("input-icon-toggle");
   await user.click(calendarIcon);
@@ -463,7 +504,9 @@ test("should close the open picker when the user presses the 'Escape' key and fo
 test("should call `onKeyDown` callback when the user types and the input is focused", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const onKeyDown = jest.fn();
-  render(<DateInput onChange={() => {}} value="" onKeyDown={onKeyDown} />);
+  render(
+    <LegacyDateInput onChange={() => {}} value="" onKeyDown={onKeyDown} />,
+  );
   const input = screen.getByRole("textbox");
   await user.click(input);
   await user.type(input, "12");
@@ -473,7 +516,7 @@ test("should call `onKeyDown` callback when the user types and the input is focu
 
 test("should keep the picker open and move focus to the previous month button when the user presses tab and the input is focused", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-  render(<DateInput onChange={() => {}} value="" />);
+  render(<LegacyDateInput onChange={() => {}} value="" />);
 
   const calendarIcon = screen.getByTestId("input-icon-toggle");
   await user.click(calendarIcon);
@@ -486,7 +529,7 @@ test("should keep the picker open and move focus to the previous month button wh
 
 test("should keep the picker open and move focus to the previous month button when the user presses tab and the input is focused and `disablePortal` is set", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-  render(<DateInput onChange={() => {}} value="" disablePortal />);
+  render(<LegacyDateInput onChange={() => {}} value="" disablePortal />);
 
   const calendarIcon = screen.getByTestId("input-icon-toggle");
   await user.click(calendarIcon);
@@ -499,7 +542,7 @@ test("should keep the picker open and move focus to the previous month button wh
 
 test("should close the picker when the user presses shift + tab and the input is focused and the picker is open", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-  render(<DateInput onChange={() => {}} value="" />);
+  render(<LegacyDateInput onChange={() => {}} value="" />);
 
   const calendarIcon = screen.getByTestId("input-icon-toggle");
   await user.click(calendarIcon);
@@ -516,7 +559,7 @@ test("should close the picker when the user presses shift + tab and the input is
 
 test("should close the picker when the user presses shift + tab and the previous month button is focused", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-  render(<DateInput onChange={() => {}} value="" />);
+  render(<LegacyDateInput onChange={() => {}} value="" />);
 
   const calendarIcon = screen.getByTestId("input-icon-toggle");
   await user.click(calendarIcon);
@@ -530,7 +573,7 @@ test("should close the picker when the user presses shift + tab and the previous
 
 test("should not close the picker when the user presses shift + tab and neither the input or previous month button are focused", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-  render(<DateInput onChange={() => {}} value="" />);
+  render(<LegacyDateInput onChange={() => {}} value="" />);
 
   const calendarIcon = screen.getByTestId("input-icon-toggle");
   await user.click(calendarIcon);
@@ -545,7 +588,7 @@ test("should not close the picker when the user presses shift + tab and neither 
 
 test("should focus the next button and then the selected day element when the user presses tab and close the picker with a subsequent tab press", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-  render(<DateInput onChange={() => {}} value="04/04/2019" />);
+  render(<LegacyDateInput onChange={() => {}} value="04/04/2019" />);
 
   const calendarIcon = screen.getByTestId("input-icon-toggle");
   await user.click(calendarIcon);
@@ -591,7 +634,9 @@ test("should close the picker, update the value and refocus the input element wh
 });
 
 test("should render the input with the expected required attribute when the `required` prop is true", () => {
-  render(<DateInput label="label" onChange={() => {}} value="" required />);
+  render(
+    <LegacyDateInput label="label" onChange={() => {}} value="" required />,
+  );
   const input = screen.getByRole("textbox");
 
   expect(input).toBeRequired();
@@ -600,7 +645,12 @@ test("should render the input with the expected required attribute when the `req
 test("should render the picker as a descendant of the main presentation element when `disablePortal` is true", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(
-    <DateInput label="label" onChange={() => {}} value="" disablePortal />,
+    <LegacyDateInput
+      label="label"
+      onChange={() => {}}
+      value=""
+      disablePortal
+    />,
   );
 
   const calendarIcon = screen.getByTestId("input-icon-toggle");
@@ -614,7 +664,7 @@ test("should render the picker as a descendant of the main presentation element 
 test("should not render the picker as a descendant of the main presentation element when `disablePortal` is false", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(
-    <DateInput
+    <LegacyDateInput
       label="label"
       onChange={() => {}}
       value=""
@@ -635,7 +685,7 @@ describe("when the `locale` is undefined", () => {
   test("should render with the input value matching 'en-GB' expected format when initial `value` is ISO format`", () => {
     render(
       <I18nProvider>
-        <DateInput onChange={() => {}} value="2019-04-05" />
+        <LegacyDateInput onChange={() => {}} value="2019-04-05" />
       </I18nProvider>,
     );
 
@@ -684,7 +734,7 @@ describe("when the `locale` is 'en-GB''", () => {
           date: { ariaLabels, dateFnsLocale: () => enGBLocale },
         }}
       >
-        <DateInput onChange={() => {}} value="2019-04-05" />
+        <LegacyDateInput onChange={() => {}} value="2019-04-05" />
       </I18nProvider>,
     );
 
@@ -745,7 +795,7 @@ describe("when the `locale` is 'en-GB''", () => {
           },
         }}
       >
-        <DateInput onChange={() => {}} value="2019-04-05" />
+        <LegacyDateInput onChange={() => {}} value="2019-04-05" />
       </I18nProvider>,
     );
 
@@ -793,7 +843,7 @@ describe("when the `locale` is 'de-DE'", () => {
           date: { ariaLabels, dateFnsLocale: () => deLocale },
         }}
       >
-        <DateInput onChange={() => {}} value="2019-04-05" />
+        <LegacyDateInput onChange={() => {}} value="2019-04-05" />
       </I18nProvider>,
     );
 
@@ -854,7 +904,7 @@ describe("when the `locale` is 'de-DE'", () => {
           },
         }}
       >
-        <DateInput onChange={() => {}} value="2019-04-05" />
+        <LegacyDateInput onChange={() => {}} value="2019-04-05" />
       </I18nProvider>,
     );
 
@@ -902,7 +952,7 @@ describe("when the `locale` is 'es'", () => {
           date: { ariaLabels, dateFnsLocale: () => esLocale },
         }}
       >
-        <DateInput onChange={() => {}} value="2019-04-05" />
+        <LegacyDateInput onChange={() => {}} value="2019-04-05" />
       </I18nProvider>,
     );
 
@@ -963,7 +1013,7 @@ describe("when the `locale` is 'es'", () => {
           },
         }}
       >
-        <DateInput onChange={() => {}} value="2019-04-05" />
+        <LegacyDateInput onChange={() => {}} value="2019-04-05" />
       </I18nProvider>,
     );
 
@@ -1011,7 +1061,7 @@ describe("when the `locale` is 'en-ZA'", () => {
           date: { ariaLabels, dateFnsLocale: () => enZALocale },
         }}
       >
-        <DateInput onChange={() => {}} value="2019-04-05" />
+        <LegacyDateInput onChange={() => {}} value="2019-04-05" />
       </I18nProvider>,
     );
 
@@ -1072,7 +1122,7 @@ describe("when the `locale` is 'en-ZA'", () => {
           },
         }}
       >
-        <DateInput onChange={() => {}} value="2019-04-05" />
+        <LegacyDateInput onChange={() => {}} value="2019-04-05" />
       </I18nProvider>,
     );
 
@@ -1120,7 +1170,7 @@ describe("when the `locale` is 'fr-FR'", () => {
           date: { ariaLabels, dateFnsLocale: () => frLocale },
         }}
       >
-        <DateInput onChange={() => {}} value="2019-04-05" />
+        <LegacyDateInput onChange={() => {}} value="2019-04-05" />
       </I18nProvider>,
     );
 
@@ -1181,7 +1231,7 @@ describe("when the `locale` is 'fr-FR'", () => {
           },
         }}
       >
-        <DateInput onChange={() => {}} value="2019-04-05" />
+        <LegacyDateInput onChange={() => {}} value="2019-04-05" />
       </I18nProvider>,
     );
 
@@ -1229,7 +1279,7 @@ describe("when the `locale` is 'fr-CA'", () => {
           date: { ariaLabels, dateFnsLocale: () => frCALocale },
         }}
       >
-        <DateInput onChange={() => {}} value="2019-04-05" />
+        <LegacyDateInput onChange={() => {}} value="2019-04-05" />
       </I18nProvider>,
     );
 
@@ -1290,7 +1340,7 @@ describe("when the `locale` is 'fr-CA'", () => {
           },
         }}
       >
-        <DateInput onChange={() => {}} value="2019-04-05" />
+        <LegacyDateInput onChange={() => {}} value="2019-04-05" />
       </I18nProvider>,
     );
 
@@ -1338,7 +1388,7 @@ describe("when the `locale` is 'en-CA'", () => {
           date: { ariaLabels, dateFnsLocale: () => enCALocale },
         }}
       >
-        <DateInput onChange={() => {}} value="2019-04-05" />
+        <LegacyDateInput onChange={() => {}} value="2019-04-05" />
       </I18nProvider>,
     );
 
@@ -1399,7 +1449,7 @@ describe("when the `locale` is 'en-CA'", () => {
           },
         }}
       >
-        <DateInput onChange={() => {}} value="2019-04-05" />
+        <LegacyDateInput onChange={() => {}} value="2019-04-05" />
       </I18nProvider>,
     );
 
@@ -1447,7 +1497,7 @@ describe("when the `locale` is 'en-US'", () => {
           date: { ariaLabels, dateFnsLocale: () => enUSLocale },
         }}
       >
-        <DateInput onChange={() => {}} value="2019-04-05" />
+        <LegacyDateInput onChange={() => {}} value="2019-04-05" />
       </I18nProvider>,
     );
 
@@ -1508,7 +1558,7 @@ describe("when the `locale` is 'en-US'", () => {
           },
         }}
       >
-        <DateInput onChange={() => {}} value="2019-04-05" />
+        <LegacyDateInput onChange={() => {}} value="2019-04-05" />
       </I18nProvider>,
     );
 
@@ -1597,7 +1647,7 @@ test("should call `onChange` with expected parameters but not update the input v
 
 test("should render the validation message when an `error` is passed a string value and the user hovers the mouse over the input", () => {
   render(
-    <DateInput
+    <LegacyDateInput
       label="label"
       onChange={() => {}}
       value=""
@@ -1611,7 +1661,7 @@ test("should render the validation message when an `error` is passed a string va
 });
 
 test("should not render the validation message when `error` is passed a boolean value", () => {
-  render(<DateInput label="label" onChange={() => {}} value="" error />);
+  render(<LegacyDateInput label="label" onChange={() => {}} value="" error />);
   const input = screen.getByRole("textbox");
 
   expect(input).toHaveAttribute("aria-invalid", "true");
@@ -1620,7 +1670,7 @@ test("should not render the validation message when `error` is passed a boolean 
 
 test("should render the validation message when an `warning` is passed a string value and the user hovers the mouse over the input", () => {
   render(
-    <DateInput
+    <LegacyDateInput
       label="label"
       onChange={() => {}}
       value=""
@@ -1634,7 +1684,9 @@ test("should render the validation message when an `warning` is passed a string 
 });
 
 test("should not render the validation message when `warning` is passed a boolean value", () => {
-  render(<DateInput label="label" onChange={() => {}} value="" warning />);
+  render(
+    <LegacyDateInput label="label" onChange={() => {}} value="" warning />,
+  );
   const input = screen.getByRole("textbox");
 
   expect(input).toHaveAttribute("aria-invalid", "false");
@@ -1646,7 +1698,7 @@ test("should call `onPickerOpen` callback when the user opens the DatePicker and
   const onPickerOpen = jest.fn();
   const onPickerClose = jest.fn();
   render(
-    <DateInput
+    <LegacyDateInput
       label="label"
       onChange={() => {}}
       onPickerOpen={onPickerOpen}
@@ -1678,7 +1730,7 @@ test("should select the correct date when the locale is overridden and a date is
         },
       }}
     >
-      <DateInput onChange={onChange} value="2019-04-05" />
+      <LegacyDateInput onChange={onChange} value="2019-04-05" />
     </I18nProvider>,
   );
   const input = screen.getByRole("textbox");
@@ -1697,7 +1749,7 @@ test("should correctly focus when disablePortal is false and Tab is used to navi
   const onFocus = jest.fn();
   const onClick = jest.fn();
   render(
-    <DateInput
+    <LegacyDateInput
       label="label"
       onChange={() => {}}
       value="2019-04-04"
@@ -1726,7 +1778,7 @@ test("should fire the onPickerClose callback when the input has focus and shift-
   const onPickerClose = jest.fn();
 
   render(
-    <DateInput
+    <LegacyDateInput
       onChange={onChange}
       value="2019-04-05"
       onPickerClose={onPickerClose}
@@ -1749,7 +1801,7 @@ test.each([true, false])(
     const onChange = jest.fn();
 
     render(
-      <DateInput
+      <LegacyDateInput
         onChange={onChange}
         value="2019-04-05"
         disablePortal={disablePortal}

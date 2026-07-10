@@ -17,7 +17,7 @@ import Box from "../box";
 type Story = StoryObj<typeof DateInput>;
 
 export default {
-  title: "Date Input/Interactions",
+  title: "Date Input/Legacy/Interactions",
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
   },
@@ -26,6 +26,7 @@ export default {
 export const MonthYearNavigation: Story = {
   render: () => (
     <DateInput
+      variant="legacy"
       label="Date"
       name="date-input"
       value="04/04/2019"
@@ -57,6 +58,7 @@ const DateInputWithTyping = () => {
 
   return (
     <DateInput
+      variant="legacy"
       label="Date"
       name="date-input"
       value={date}
@@ -91,6 +93,7 @@ DateTyping.storyName = "Date Typing";
 export const MinMaxDate: Story = {
   render: () => (
     <DateInput
+      variant="legacy"
       label="Date"
       name="date-input"
       value="17/07/2024"
@@ -122,6 +125,7 @@ export const DisabledDate: Story = {
     const isWeekend = (day: Date) => [0, 6].includes(day.getDay());
     return (
       <DateInput
+        variant="legacy"
         label="Date"
         name="date-input"
         value="10/07/2024"
@@ -169,11 +173,15 @@ export const WeekStartDay: Story = {
             ariaLabels: {
               previousMonthButton: () => "en-US-previous",
               nextMonthButton: () => "en-US-next",
+              chooseMonth: () => "Choose the month",
+              chooseYear: () => "Choose the year",
+              closeButton: () => "Close",
             },
           },
         }}
       >
         <DateInput
+          variant="legacy"
           label="`en-US` locale - First week day: Sunday"
           value="17/07/2024"
           onChange={() => {}}
@@ -188,11 +196,15 @@ export const WeekStartDay: Story = {
             ariaLabels: {
               previousMonthButton: () => "de-DE-previous",
               nextMonthButton: () => "de-DE-next",
+              chooseMonth: () => "Choose the month",
+              chooseYear: () => "Choose the year",
+              closeButton: () => "Close",
             },
           },
         }}
       >
         <DateInput
+          variant="legacy"
           label="`de-DE` locale - first week day: Monday"
           value="17/07/2024"
           onChange={() => {}}

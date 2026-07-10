@@ -15,14 +15,16 @@ const styledSystemProps = generateStyledSystemProps({
 });
 
 const meta: Meta<typeof DateInput> = {
-  title: "Date Input",
+  title: "Date Input/Legacy",
   component: DateInput,
+  tags: ["!autodocs"],
   argTypes: {
     ...styledSystemProps,
   },
   args: {
     onBlur: action("onBlur"),
     onChange: action("onChange"),
+    variant: "legacy",
   },
   decorators: (StoryToRender) => (
     <Box minHeight="460px" p={4}>
@@ -41,6 +43,7 @@ export const Default: Story = () => {
   };
   return (
     <DateInput
+      variant="legacy"
       label="Date"
       name="date-input"
       value={state}
@@ -58,6 +61,7 @@ export const InputHint: Story = () => {
   };
   return (
     <DateInput
+      variant="legacy"
       label="Date"
       inputHint="Hint text"
       name="date-input"
@@ -77,6 +81,7 @@ export const Sizes: Story = () => {
     <>
       {(["small", "medium", "large"] as const).map((size) => (
         <DateInput
+          variant="legacy"
           key={`Date - ${size}`}
           label={`Date - ${size}`}
           value={state}
@@ -95,7 +100,15 @@ export const Disabled: Story = () => {
   const setValue = (ev: DateChangeEvent) => {
     setState(ev.target.value.formattedValue);
   };
-  return <DateInput label="Date" value={state} onChange={setValue} disabled />;
+  return (
+    <DateInput
+      variant="legacy"
+      label="Date"
+      value={state}
+      onChange={setValue}
+      disabled
+    />
+  );
 };
 Disabled.storyName = "Disabled";
 
@@ -104,7 +117,15 @@ export const ReadOnly: Story = () => {
   const setValue = (ev: DateChangeEvent) => {
     setState(ev.target.value.formattedValue);
   };
-  return <DateInput label="Date" value={state} onChange={setValue} readOnly />;
+  return (
+    <DateInput
+      variant="legacy"
+      label="Date"
+      value={state}
+      onChange={setValue}
+      readOnly
+    />
+  );
 };
 ReadOnly.storyName = "Read Only";
 
@@ -122,6 +143,7 @@ export const Empty: Story = () => {
         </Button>
       </Box>
       <DateInput
+        variant="legacy"
         label="Date"
         name="dateinput"
         value={state}
@@ -140,6 +162,7 @@ export const DisabledDates: Story = ({ onChange, ...args }: DateInputProps) => {
   };
   return (
     <DateInput
+      variant="legacy"
       {...args}
       label="Date"
       name="date-input"
@@ -166,6 +189,7 @@ export const DisabledDatesUsingPickerProps: Story = () => {
 
   return (
     <DateInput
+      variant="legacy"
       label="Date"
       name="date-input"
       value={state}
@@ -196,6 +220,7 @@ export const WithLabelInline: Story = () => {
   };
   return (
     <DateInput
+      variant="legacy"
       label="Date"
       value={state}
       onChange={setValue}
@@ -213,6 +238,7 @@ export const WithCustomWidth: Story = () => {
   };
   return (
     <DateInput
+      variant="legacy"
       label="Date"
       value={state}
       onChange={setValue}
@@ -229,6 +255,7 @@ export const WithFieldHelp: Story = () => {
   };
   return (
     <DateInput
+      variant="legacy"
       label="Date"
       value={state}
       onChange={setValue}
@@ -239,13 +266,38 @@ export const WithFieldHelp: Story = () => {
 };
 WithFieldHelp.storyName = "With Field Help";
 
+export const WithError: Story = () => {
+  const [state, setState] = useState("01/10/2016");
+  const setValue = (ev: DateChangeEvent) => {
+    setState(ev.target.value.formattedValue);
+  };
+  return (
+    <DateInput
+      variant="legacy"
+      label="Date"
+      value={state}
+      onChange={setValue}
+      inputHint="Date must be in DD/MM/YYYY format"
+      error="Enter a valid date"
+      name="dateinput"
+    />
+  );
+};
+WithError.storyName = "With Error";
+
 export const WithDisabledPortal: Story = () => {
   const [state, setState] = useState("01/10/2016");
   const setValue = (ev: DateChangeEvent) => {
     setState(ev.target.value.formattedValue);
   };
   return (
-    <DateInput label="Date" value={state} onChange={setValue} disablePortal />
+    <DateInput
+      variant="legacy"
+      label="Date"
+      value={state}
+      onChange={setValue}
+      disablePortal
+    />
   );
 };
 WithDisabledPortal.storyName = "With Disabled Portal";
@@ -256,7 +308,15 @@ export const Required: Story = () => {
   const setValue = (ev: DateChangeEvent) => {
     setState(ev.target.value.formattedValue);
   };
-  return <DateInput label="Date" value={state} onChange={setValue} required />;
+  return (
+    <DateInput
+      variant="legacy"
+      label="Date"
+      value={state}
+      onChange={setValue}
+      required
+    />
+  );
 };
 Required.storyName = "Required";
 
@@ -279,11 +339,15 @@ export const LocaleOverrideExampleImplementation: Story = () => {
             ariaLabels: {
               previousMonthButton: () => "Vorheriger Monat",
               nextMonthButton: () => "Nächster Monat",
+              chooseMonth: () => "Choose the month",
+              chooseYear: () => "Choose the year",
+              closeButton: () => "Close",
             },
           },
         }}
       >
         <DateInput
+          variant="legacy"
           label="Date `DE` locale"
           value={state}
           onChange={handleChange}
@@ -297,11 +361,15 @@ export const LocaleOverrideExampleImplementation: Story = () => {
             ariaLabels: {
               previousMonthButton: () => "上个月",
               nextMonthButton: () => "下个月",
+              chooseMonth: () => "Choose the month",
+              chooseYear: () => "Choose the year",
+              closeButton: () => "Close",
             },
           },
         }}
       >
         <DateInput
+          variant="legacy"
           label="Date `zh-CN` locale"
           value={state2}
           onChange={handleChange2}
@@ -339,12 +407,16 @@ export const LocaleFormatOverrideExampleImplementation: Story = ({
             ariaLabels: {
               previousMonthButton: () => "Vorheriger Monat",
               nextMonthButton: () => "Nächster Monat",
+              chooseMonth: () => "Choose the month",
+              chooseYear: () => "Choose the year",
+              closeButton: () => "Close",
             },
             dateFormatOverride: "yyyy-MM-dd",
           },
         }}
       >
         <DateInput
+          variant="legacy"
           {...args}
           label="With dateFormatOverride translation key"
           value={stateKey}
@@ -356,6 +428,7 @@ export const LocaleFormatOverrideExampleImplementation: Story = ({
         />
 
         <DateInput
+          variant="legacy"
           {...args}
           label="With dateFormatOverride prop"
           value={stateProp}

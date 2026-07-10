@@ -211,6 +211,9 @@ export const LocaleEnUSDateRange: Story = {
           ariaLabels: {
             previousMonthButton: () => "en-US-previous",
             nextMonthButton: () => "en-US-next",
+            chooseMonth: () => "Choose the month",
+            chooseYear: () => "Choose the year",
+            closeButton: () => "Close",
           },
         },
       }}
@@ -259,6 +262,9 @@ export const LocaleDeDateRange: Story = {
           ariaLabels: {
             previousMonthButton: () => "de-DE-previous",
             nextMonthButton: () => "de-DE-next",
+            chooseMonth: () => "Choose the month",
+            chooseYear: () => "Choose the year",
+            closeButton: () => "Close",
           },
         },
       }}

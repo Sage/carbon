@@ -33,6 +33,42 @@ export const DateInputCustom = ({
       value={state}
       onChange={handleOnChange}
       onBlur={handleOnBlur}
+      variant="legacy"
+      {...props}
+    />
+  );
+};
+
+export const DateInputTypicalCustom = ({
+  onChange,
+  onBlur,
+  value,
+  ...props
+}: Partial<CommonTextboxArgs> & Partial<DateInputProps>) => {
+  const [state, setState] = React.useState(value ?? "01/05/2022");
+
+  const handleOnChange = (ev: DateChangeEvent) => {
+    if (onChange) {
+      onChange(ev);
+    }
+
+    setState(ev.target.value.formattedValue);
+  };
+
+  const handleOnBlur = (ev: DateChangeEvent) => {
+    if (onBlur) {
+      onBlur(ev);
+    }
+  };
+
+  return (
+    <DateInput
+      label="Date"
+      name="date-input"
+      value={state}
+      onChange={handleOnChange}
+      onBlur={handleOnBlur}
+      variant="typical"
       {...props}
     />
   );
@@ -63,6 +99,7 @@ export const DateInputValidationNewDesign = () => {
               size={size}
               {...{ [validationType]: "Message" }}
               m={4}
+              variant="legacy"
             />
             <DateInput
               label={`readOnly - ${size} - ${validationType}`}
@@ -73,6 +110,7 @@ export const DateInputValidationNewDesign = () => {
               readOnly
               {...{ [validationType]: "Message" }}
               m={4}
+              variant="legacy"
             />
           </div>
         )),
@@ -113,6 +151,7 @@ export const WithSiblingButton = ({
         value={state}
         onChange={handleOnChange}
         onBlur={handleOnBlur}
+        variant="legacy"
         {...props}
       />
       <button data-element="foo-button" type="button">
@@ -155,6 +194,7 @@ export const DateInputInsideDialog = ({
         value={state}
         onChange={handleOnChange}
         onBlur={handleOnBlur}
+        variant="legacy"
         {...props}
       />
     </Dialog>

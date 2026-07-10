@@ -4,6 +4,7 @@ import advancedFormat from "dayjs/plugin/advancedFormat.js";
 import { test, expect } from "../../../playwright/helpers/base-test";
 import {
   DateInputCustom,
+  DateInputTypicalCustom,
   DateInputValidationNewDesign,
   WithSiblingButton,
   DateInputInsideDialog,
@@ -808,6 +809,30 @@ test.describe("Accessibility tests", () => {
 
     const inputParent = getDataElementByValue(page, "input").locator("..");
     await inputParent.click();
+    await checkAccessibility(page);
+  });
+
+  test("should check accessibility when the typical picker is open", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DateInputTypicalCustom />);
+
+    await page.getByRole("button", { name: "calendar" }).click();
+    await expect(page.getByRole("dialog")).toBeVisible();
+
+    await checkAccessibility(page);
+  });
+
+  test("should check accessibility when the typical range picker is open", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DateInputTypicalCustom pickerProps={{ mode: "range" }} />);
+
+    await page.getByRole("button", { name: "calendar" }).click();
+    await expect(page.getByRole("dialog")).toBeVisible();
+
     await checkAccessibility(page);
   });
 });

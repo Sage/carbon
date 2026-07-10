@@ -162,6 +162,9 @@ export const LocaleOverrideExampleImplementation: Story = () => {
             ariaLabels: {
               previousMonthButton: () => "Mois précédent",
               nextMonthButton: () => "Mois prochain",
+              chooseMonth: () => "Choose the month",
+              chooseYear: () => "Choose the year",
+              closeButton: () => "Close",
             },
           },
         }}
@@ -225,6 +228,9 @@ export const LocaleFormatOverrideExampleImplementation: Story = ({
             ariaLabels: {
               previousMonthButton: () => "Vorheriger Monat",
               nextMonthButton: () => "Nächster Monat",
+              chooseMonth: () => "Choose the month",
+              chooseYear: () => "Choose the year",
+              closeButton: () => "Close",
             },
             dateFormatOverride: args.dateFormatOverride || "dd-MM-yyyy",
           },

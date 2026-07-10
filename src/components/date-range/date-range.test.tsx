@@ -1197,6 +1197,9 @@ describe("Locale formatting overrides", () => {
             ariaLabels: {
               nextMonthButton: () => "foo",
               previousMonthButton: () => "foo",
+              chooseMonth: () => "Choose the month",
+              chooseYear: () => "Choose the year",
+              closeButton: () => "Close",
             },
             dateFnsLocale: () => enGBLocale,
             dateFormatOverride: "y-m-ddd",

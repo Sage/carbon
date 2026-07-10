@@ -44,8 +44,11 @@ const frCA: Partial<Locale> = {
   date: {
     dateFnsLocale: () => frCADateLocale,
     ariaLabels: {
-      previousMonthButton: () => "Mois précédent",
+      previousMonthButton: () => "Mois prcdent",
       nextMonthButton: () => "Mois suivant",
+      chooseMonth: () => "Choisir le mois",
+      chooseYear: () => "Choisir l'année",
+      closeButton: () => "Fermer",
     },
   },
   decimal: {

@@ -14,7 +14,7 @@ import {
   DayPicker,
   DayPickerProps,
   defaultLocale,
-  Modifiers,
+  type Modifiers,
 } from "react-day-picker";
 
 import useLocale from "../../../../hooks/__internal__/useLocale";
@@ -31,7 +31,7 @@ import StyledDayPicker from "./day-picker.style";
 
 export interface PickerProps
   extends Omit<DayPickerProps, "mode" | "modifiers"> {
-  modifiers?: Partial<Modifiers>;
+  modifiers?: DayPickerProps["modifiers"];
 }
 
 export interface DatePickerProps {
@@ -74,7 +74,8 @@ export interface DatePickerProps {
 const popoverMiddleware = [
   offset(3),
   flip({
-    fallbackStrategy: "initialPlacement",
+    fallbackStrategy: "bestFit",
+    fallbackPlacements: ["bottom-end", "top-start", "top-end"],
   }),
 ];
 
@@ -253,12 +254,13 @@ export const DatePicker = ({
           aria-label={datePickerAriaLabel}
           aria-labelledby={datePickerAriaLabelledBy}
         >
+          {/* eslint-disable jsx-a11y/no-static-element-interactions, jsx-a11y/no-noninteractive-tabindex */}
           <div
             id={pickerTabGuardId}
-            // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
             tabIndex={0}
             onFocus={handleTabGuardFocus}
           />
+          {/* eslint-enable jsx-a11y/no-static-element-interactions, jsx-a11y/no-noninteractive-tabindex */}
           <DayPicker
             formatters={{
               formatCaption: (month) =>

@@ -252,6 +252,9 @@ test("should render with 'de-DE' translations when the `locale` is passed via I1
           ariaLabels: {
             previousMonthButton: () => "de-DE-previous",
             nextMonthButton: () => "de-DE-next",
+            chooseMonth: () => "Choose the month",
+            chooseYear: () => "Choose the year",
+            closeButton: () => "Close",
           },
         },
       }}
@@ -278,6 +281,9 @@ test("should render with 'es' translations when the `locale` is passed via I18nP
           ariaLabels: {
             previousMonthButton: () => "es-previous",
             nextMonthButton: () => "es-next",
+            chooseMonth: () => "Choose the month",
+            chooseYear: () => "Choose the year",
+            closeButton: () => "Close",
           },
         },
       }}
@@ -304,6 +310,9 @@ test("should render with 'en-CA' translations when the `locale` is passed via I1
           ariaLabels: {
             previousMonthButton: () => "en-CA-previous",
             nextMonthButton: () => "en-CA-next",
+            chooseMonth: () => "Choose the month",
+            chooseYear: () => "Choose the year",
+            closeButton: () => "Close",
           },
         },
       }}
@@ -330,6 +339,9 @@ test("should render with 'en-US' translations when the `locale` is passed via I1
           ariaLabels: {
             previousMonthButton: () => "en-US-previous",
             nextMonthButton: () => "en-US-next",
+            chooseMonth: () => "Choose the month",
+            chooseYear: () => "Choose the year",
+            closeButton: () => "Close",
           },
         },
       }}
@@ -356,6 +368,9 @@ test("should render with 'en-ZA' translations when the `locale` is passed via I1
           ariaLabels: {
             previousMonthButton: () => "en-ZA-previous",
             nextMonthButton: () => "en-ZA-next",
+            chooseMonth: () => "Choose the month",
+            chooseYear: () => "Choose the year",
+            closeButton: () => "Close",
           },
         },
       }}
@@ -382,6 +397,9 @@ test("should render with 'fr-FR' translations when the `locale` is passed via I1
           ariaLabels: {
             previousMonthButton: () => "fr-FR-previous",
             nextMonthButton: () => "fr-FR-next",
+            chooseMonth: () => "Choose the month",
+            chooseYear: () => "Choose the year",
+            closeButton: () => "Close",
           },
         },
       }}
@@ -408,6 +426,9 @@ test("should render with 'fr-CA' translations when the `locale` is passed via I1
           ariaLabels: {
             previousMonthButton: () => "fr-CA-previous",
             nextMonthButton: () => "fr-CA-next",
+            chooseMonth: () => "Choose the month",
+            chooseYear: () => "Choose the year",
+            closeButton: () => "Close",
           },
         },
       }}
@@ -434,6 +455,9 @@ test("should correctly translate the month caption for the given locale (fr-FR)"
           ariaLabels: {
             previousMonthButton: () => "fr-FR-previous",
             nextMonthButton: () => "fr-FR-next",
+            chooseMonth: () => "Choose the month",
+            chooseYear: () => "Choose the year",
+            closeButton: () => "Close",
           },
         },
       }}
@@ -461,6 +485,9 @@ test("should correctly translate the month caption for the given locale (zh-CN)"
           ariaLabels: {
             previousMonthButton: () => "zh-CN-previous",
             nextMonthButton: () => "zh-CN-next",
+            chooseMonth: () => "Choose the month",
+            chooseYear: () => "Choose the year",
+            closeButton: () => "Close",
           },
         },
       }}

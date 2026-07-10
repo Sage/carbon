@@ -13,9 +13,9 @@ interface StyledDateInputProps
 }
 
 export const datePickerWidth = {
-  large: "140px",
-  medium: "135px",
-  small: "120px",
+  large: "176px",
+  medium: "144px",
+  small: "128px",
 };
 
 const StyledDateInput = styled.div.attrs(applyBaseTheme)<StyledDateInputProps>`
