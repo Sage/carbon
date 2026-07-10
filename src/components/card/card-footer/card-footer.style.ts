@@ -5,12 +5,16 @@ import { CardContextProps } from "../__internal__/card.context";
 import { CardFooterProps } from "./card-footer.component";
 
 const marginSizes = {
-  small: "0 -24px",
-  medium: "0 -32px",
-  large: "0 -48px",
+  none: "0",
+  "extra-small": "0 calc(-1 * var(--global-space-comp-s))",
+  small: "0 calc(-1 * var(--global-space-comp-l))",
+  medium: "0 calc(-1 * var(--global-space-comp-xl))",
+  large: "0 calc(-1 * var(--global-space-comp-2-xl))",
 };
 
 const paddingSizes = {
+  none: "0",
+  "extra-small": "0",
   small: "16px 24px",
   medium: "18px 32px",
   large: "20px 48px",
@@ -32,15 +36,15 @@ const StyledCardFooter = styled.div<StyledCardFooterProps>`
     border-top-style: solid;
     margin: ${marginSizes[spacing]};
     display: flex;
-    ${roundness === "default" &&
+    ${(roundness === "moderate" || roundness === "default") &&
     css`
-      border-bottom-left-radius: var(--borderRadius100);
-      border-bottom-right-radius: var(--borderRadius100);
+      border-bottom-left-radius: var(--global-radius-container-l);
+      border-bottom-right-radius: var(--global-radius-container-l);
     `}
-    ${roundness === "large" &&
+    ${(roundness === "curved" || roundness === "large") &&
     css`
-      border-bottom-left-radius: var(--borderRadius200);
-      border-bottom-right-radius: var(--borderRadius200);
+      border-bottom-left-radius: var(--global-radius-container-xl);
+      border-bottom-right-radius: var(--global-radius-container-xl);
     `}
 
     ${StyledCardColumn} {

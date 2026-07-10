@@ -15,7 +15,7 @@ test("logs console error if not wrapped in Card", () => {
 
   expect(loggerErrorSpy).toHaveBeenCalledWith(
     expect.stringContaining(
-      "Carbon Card: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
+      "Carbon Card: Context not found. Have you wrapped your Carbon sub-components properly? See stack trace for more details.",
     ),
   );
 
@@ -37,7 +37,7 @@ test("when variant prop is `transparent`, render with transparent background", (
   });
 });
 
-test.each(["default", "large"] as const)(
+test.each(["moderate", "curved"] as const)(
   "renders with the expected border radius styling when roundness is %s",
   (roundness) => {
     render(
@@ -49,11 +49,15 @@ test.each(["default", "large"] as const)(
     const cardFooterElement = screen.getByTestId("card-footer");
     expect(cardFooterElement).toHaveStyleRule(
       "border-bottom-left-radius",
-      `var(--borderRadius${roundness === "default" ? "1" : "2"}00)`,
+      roundness === "moderate"
+        ? "var(--global-radius-container-l)"
+        : "var(--global-radius-container-xl)",
     );
     expect(cardFooterElement).toHaveStyleRule(
       "border-bottom-right-radius",
-      `var(--borderRadius${roundness === "default" ? "1" : "2"}00)`,
+      roundness === "moderate"
+        ? "var(--global-radius-container-l)"
+        : "var(--global-radius-container-xl)",
     );
   },
 );

@@ -15,7 +15,7 @@ test("logs console error if not wrapped in Card", () => {
 
   expect(loggerErrorSpy).toHaveBeenCalledWith(
     expect.stringContaining(
-      "Carbon Card: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
+      "Carbon Card: Context not found. Have you wrapped your Carbon sub-components properly? See stack trace for more details.",
     ),
   );
 

@@ -11,6 +11,8 @@ description: Carbon CardColumn component props and usage examples.
 ## Source
 - Export: `./components/card`
 - Props interface: `CardColumnProps`
+- Deprecated: Yes
+- Deprecation reason: `CardColumn` has been deprecated.
 
 ## Props
 | Name | Type | Required | Literals | Description | Default |

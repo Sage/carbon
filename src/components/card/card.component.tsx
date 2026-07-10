@@ -3,7 +3,7 @@ import { MarginProps } from "styled-system";
 import * as DesignTokens from "@sage/design-tokens/js/base/common";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { CardProvider, CardContextProps } from "./__internal__/card.context";
-import { StyledCard, StyledCardContent } from "./card.style";
+import { StyledCard, StyledCardContent, StyledDragRow } from "./card.style";
 import Icon from "../icon";
 import tagComponent, {
   TagProps,
@@ -32,16 +32,22 @@ export interface CardProps extends MarginProps, TagProps {
   draggable?: boolean;
   /** Height of the component (any valid CSS value) */
   height?: string;
-  /** Design token for custom Box Shadow. Note: please check that the box shadow design token you are using is compatible with the Card component. */
+  /** @deprecated Design token for custom Box Shadow. Note: please check that the box shadow design token you are using is compatible with the Card component. */
   boxShadow?: BoxShadowsType;
-  /** Design token for custom Box Shadow on hover. One of `onClick` or `href` props must be true. Note: please check that the box shadow design token you are using is compatible with the Card component. */
+  /** @deprecated Design token for custom Box Shadow on hover. One of `onClick` or `href` props must be true. Note: please check that the box shadow design token you are using is compatible with the Card component. */
   hoverBoxShadow?: BoxShadowsType;
-  /** Size of card for applying padding */
+  /** Size padding applied to the card. */
   spacing?: CardContextProps["spacing"];
-  /** Sets the level of roundness of the corners, "default" is 8px and "large" is 16px */
+  /** Sets the level of roundness of the corners. "moderate" is 16px and "curved" is 20px.
+   * "default" (alias for "moderate") and "large" (alias for "curved") are deprecated. Use "moderate" or "curved" instead.
+   */
   roundness?: CardContextProps["roundness"];
   /** The path to navigate to. Renders an anchor element when passed and no draggable prop set */
   href?: string;
+  /** Visual style variant of the card */
+  cardType?: "standard" | "outlined";
+  /** The header to render above the Card content */
+  header?: React.ReactNode;
   /** The footer to render underneath the Card content */
   footer?: React.ReactNode;
   /** Target property in which link should open ie: _blank, _self, _parent, _top */
@@ -50,6 +56,10 @@ export interface CardProps extends MarginProps, TagProps {
   rel?: string;
   /** Prop to specify an aria-label for the component */
   "aria-label"?: string;
+  /** Slot rendered on the opposite side of the drag handle, only visible when `draggable` is true.
+   * Intended for accessibility controls (e.g. move-up / move-down buttons) for keyboard users.
+   */
+  draggableAccessory?: React.ReactNode;
 }
 
 const Card = ({
@@ -64,11 +74,14 @@ const Card = ({
   spacing = "medium",
   boxShadow,
   hoverBoxShadow,
-  roundness = "default",
+  roundness = "moderate",
+  header,
   footer,
   rel,
   target,
   "aria-label": ariaLabel,
+  cardType = "standard",
+  draggableAccessory,
   ...rest
 }: CardProps) => {
   const [contentRef, setContentRef] = useState<HTMLDivElement | null>(null);
@@ -97,14 +110,21 @@ const Card = ({
       hoverBoxShadow={hoverBoxShadow}
       height={height}
       roundness={roundness}
+      cardType={cardType}
       {...filterStyledSystemMarginProps(rest)}
       {...tagComponent("card", {
         "data-element": dataElement,
         "data-role": dataRole,
       })}
     >
-      {draggable && <Icon type="drag" />}
       <CardProvider value={{ roundness, spacing }}>
+        {header}
+        {draggable && (
+          <StyledDragRow spacing={spacing}>
+            <Icon type="drag" />
+            {draggableAccessory}
+          </StyledDragRow>
+        )}
         <StyledCardContent
           data-element="card-content-container"
           onClick={!draggable ? onClick : undefined}
@@ -114,6 +134,7 @@ const Card = ({
           interactive={interactive}
           spacing={spacing}
           roundness={roundness}
+          hasHeader={!!header}
           hasFooter={!!footer}
           ref={setContentRef}
           aria-label={ariaLabel}

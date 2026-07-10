@@ -7,15 +7,19 @@ import { CardProps } from "./card.component";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 
 export const paddingSizes = {
-  small: "0 var(--spacing300)",
-  medium: "0 var(--spacing400)",
-  large: "0 var(--spacing600)",
+  none: "var(--global-space-comp-none)",
+  "extra-small": "var(--global-space-comp-s)",
+  small: "var(--global-space-comp-l)",
+  medium: "var(--global-space-comp-xl)",
+  large: "var(--global-space-comp-2-xl)",
 };
 
 export const marginSizes = {
-  small: "0 -24px",
-  medium: "0 -32px",
-  large: "0 -48px",
+  none: "0",
+  "extra-small": "0",
+  small: "0 calc(-1 * var(--global-space-comp-l))",
+  medium: "0 calc(-1 * var(--global-space-comp-xl))",
+  large: "0 calc(-1 * var(--global-space-comp-2-xl))",
 };
 
 type DesignTokensType = keyof typeof DesignTokens;
@@ -31,6 +35,7 @@ export interface StyledCardProps
   height?: string;
   boxShadow?: BoxShadowsType;
   hoverBoxShadow?: BoxShadowsType;
+  cardType?: "standard" | "outlined";
 }
 
 const StyledCard = styled.div.attrs(applyBaseTheme)<StyledCardProps>`
@@ -39,17 +44,17 @@ const StyledCard = styled.div.attrs(applyBaseTheme)<StyledCardProps>`
     interactive,
     draggable,
     height,
-    spacing,
-    boxShadow = "boxShadow050",
-    hoverBoxShadow = "boxShadow100",
     roundness,
+    spacing,
+    cardType = "standard",
   }) => css`
-    background-color: var(--colorsUtilityYang100);
-    border: none;
-    border-radius: ${roundness === "default"
-      ? "var(--borderRadius100)"
-      : "var(--borderRadius200)"};
-    box-shadow: var(--${boxShadow});
+    border: 1px solid var(--container-standard-border-default);
+    border-radius: ${roundness === "moderate" || roundness === "default"
+      ? "var(--global-radius-container-l)"
+      : "var(--global-radius-container-xl)"};
+    box-shadow: ${cardType === "outlined"
+      ? "var(--global-depth-none)"
+      : "var(--global-depth-lvl1)"};
     color: var(--colorsUtilityYin090);
     display: flex;
     flex-direction: column;
@@ -58,17 +63,19 @@ const StyledCard = styled.div.attrs(applyBaseTheme)<StyledCardProps>`
     align-items: normal;
     margin: 25px;
     outline: none;
-    padding: ${paddingSizes[spacing]};
     transition: all 0.3s ease-in-out;
     vertical-align: top;
     width: ${cardWidth};
+    padding: 0 ${paddingSizes[spacing]};
     ${margin}
 
     ${interactive &&
     css`
       :hover,
       :focus {
-        box-shadow: var(--${hoverBoxShadow});
+        box-shadow: ${cardType === "outlined"
+          ? "none"
+          : "var(--global-depth-lvl2)"};
       }
     `}
 
@@ -87,6 +94,7 @@ interface StyledCardContentProps
   extends Pick<CardContextProps, "roundness" | "spacing"> {
   interactive?: boolean;
   href?: string;
+  hasHeader: boolean;
   hasFooter: boolean;
   target?: string;
   rel?: string;
@@ -129,31 +137,48 @@ const StyledCardContent = styled.div
   ${({ spacing }) => `
     padding: ${paddingSizes[spacing]};
     margin: ${marginSizes[spacing]};
+    ${spacing === "extra-small" ? "display: flex; flex-direction: column; align-items: stretch; align-self: stretch;" : ""}
   `}
 
-  ${({ roundness, hasFooter }) => css`
-    ${roundness === "default" &&
+  ${({ roundness, hasHeader, hasFooter }) => css`
+    ${(roundness === "moderate" || roundness === "default") &&
     css`
-      border-top-left-radius: var(--borderRadius100);
-      border-top-right-radius: var(--borderRadius100);
+      ${!hasHeader &&
+      css`
+        border-top-left-radius: var(--global-radius-container-l);
+        border-top-right-radius: var(--global-radius-container-l);
+      `}
       ${!hasFooter &&
       css`
-        border-bottom-left-radius: var(--borderRadius100);
-        border-bottom-right-radius: var(--borderRadius100);
+        border-bottom-left-radius: var(--global-radius-container-l);
+        border-bottom-right-radius: var(--global-radius-container-l);
       `}
     `}
 
-    ${roundness !== "default" &&
+    ${(roundness === "curved" || roundness === "large") &&
     css`
-      border-top-left-radius: var(--borderRadius200);
-      border-top-right-radius: var(--borderRadius200);
+      ${!hasHeader &&
+      css`
+        border-top-left-radius: var(--global-radius-container-xl);
+        border-top-right-radius: var(--global-radius-container-xl);
+      `}
       ${!hasFooter &&
       css`
-        border-bottom-left-radius: var(--borderRadius200);
-        border-bottom-right-radius: var(--borderRadius200);
+        border-bottom-left-radius: var(--global-radius-container-xl);
+        border-bottom-right-radius: var(--global-radius-container-xl);
       `}
     `}
   `}
+`;
+
+export const StyledDragRow = styled.div<{
+  spacing: CardContextProps["spacing"];
+}>`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: ${({ spacing }) => paddingSizes[spacing]};
 `;
 
 export { StyledCard, StyledCardContent };
