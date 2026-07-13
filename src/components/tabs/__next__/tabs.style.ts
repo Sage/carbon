@@ -12,6 +12,7 @@ type Dimension = {
 };
 
 const VERTICAL_TAB_WIDTH = 200;
+export const TAB_LIST_FOCUS_PADDING = 6;
 
 const sizes: Record<string, Dimension> = {
   medium: {
@@ -34,6 +35,7 @@ const sizes: Record<string, Dimension> = {
 
 interface StyledTabListProps {
   $orientation: "horizontal" | "vertical";
+  $scrollRequired: boolean;
 }
 
 export const StyledTabPanel = styled.div`
@@ -42,10 +44,15 @@ export const StyledTabPanel = styled.div`
 
 export const StyledTabList = styled.div<StyledTabListProps>`
   display: flex;
-  ${({ $orientation }) => css`
+  ${({ $orientation, $scrollRequired }) => css`
     ${$orientation === "horizontal" &&
     css`
       margin-bottom: 8px;
+
+      ${$scrollRequired &&
+      css`
+        margin-inline: -${TAB_LIST_FOCUS_PADDING}px;
+      `}
     `}
 
     ${$orientation === "vertical" &&
@@ -56,7 +63,7 @@ export const StyledTabList = styled.div<StyledTabListProps>`
     `}
   `}
   width: 100%;
-  padding: 6px;
+  padding: ${TAB_LIST_FOCUS_PADDING}px;
   overflow-x: hidden;
 `;
 
@@ -94,6 +101,7 @@ export const StyledScrollButton = styled.button<{
   border-bottom: 2px solid var(--tab-border-active-alt);
   top: 6px;
   position: relative;
+  z-index: 1;
 `;
 
 // Again, can't be easily tested in Jest owing to lack of an actual DOM
