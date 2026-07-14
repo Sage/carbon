@@ -2,29 +2,52 @@
 import React from "react";
 
 import TokensWrapper from "../../src/components/tokens-wrapper";
-import useModeSwitcher from "../../src/components/tokens-wrapper/__internal__/hooks";
 
 interface TokensWrapperDemoProps {
   children?: React.ReactNode;
   modeOverride?: "light" | "dark";
+  allowOverrides?: boolean;
 }
+
+const overrides = {
+  light: {
+    primary: "#db004e",
+    primaryHover: "#c50046",
+    primaryActive: "#af003e",
+    onPrimary: "#ffffff",
+    inverse: {
+      primary: "#ff69b4",
+      primaryHover: "#ff82c4",
+      primaryActive: "#ff9bd4",
+      onPrimary: "#000000",
+    },
+  },
+  dark: {
+    primary: "#ff69b4",
+    primaryHover: "#ff82c4",
+    primaryActive: "#ff9bd4",
+    onPrimary: "#000000",
+    inverse: {
+      primary: "#db004e",
+      primaryHover: "#c50046",
+      primaryActive: "#af003e",
+      onPrimary: "#ffffff",
+    },
+  },
+};
 
 const TokensWrapperDemo = ({
   children,
   modeOverride,
+  allowOverrides,
 }: TokensWrapperDemoProps) => {
-  const modePreference = useModeSwitcher(modeOverride);
-
   return (
-    <TokensWrapper>
-      <div
-        // this div is added to demo dark mode in storybook
-        data-component="tokens-wrapper-demo"
-        className={`carbon-${modePreference}-mode`}
-        data-carbon-theme={modePreference === "dark" ? "dark" : "light"}
-      >
-        {children}
-      </div>
+    <TokensWrapper
+      modeSupportOptIn
+      modeOverride={modeOverride}
+      overrides={allowOverrides ? overrides : undefined}
+    >
+      {children}
     </TokensWrapper>
   );
 };

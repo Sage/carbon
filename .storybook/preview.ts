@@ -142,6 +142,19 @@ const globalTypes = {
       showName: true,
     },
   },
+  "override-tokens": {
+    name: "Override tokens",
+    description: "Apply custom token overrides",
+    defaultValue: "off",
+    toolbar: {
+      title: "Override tokens",
+      icon: "beaker",
+      items: [
+        { value: "on", title: "With overrides" },
+          { value: "off", title: "Without overrides" },
+      ],
+    },
+  },
   ...(globalThemeProvider as object),
 } as Preview["globalTypes"];
 
