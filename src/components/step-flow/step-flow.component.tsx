@@ -1,23 +1,22 @@
 import React, { useImperativeHandle, useRef, forwardRef } from "react";
 import { MarginProps } from "styled-system";
-import Icon from "../icon";
-import IconButton from "../icon-button";
 import {
   StyledStepFlow,
   StyledStepContent,
-  StyledStepContentText,
-  StyledStepLabelAndProgress,
-  StyledProgressIndicatorBar,
+  StyledStepLabel,
+  StyledProgressIndicatorWrapper,
   StyledProgressIndicator,
 } from "./step-flow.style";
 import tagComponent, {
   TagProps,
 } from "../../__internal__/utils/helpers/tags/tags";
 import Logger from "../../__internal__/utils/logger";
-import Typography from "../typography";
 import useLocale from "../../hooks/__internal__/useLocale";
 import { StepFlowProvider } from "./__internal__/step-flow.context";
 import StepFlowTitle from "./step-flow-title/step-flow-title.component";
+
+import Icon from "../icon";
+import Button from "../button/__next__";
 
 export type Steps = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
@@ -34,13 +33,18 @@ export interface StepFlowProps
   extends StepFlowAriaProps,
     MarginProps,
     TagProps {
-  /** A category for the user journey.  */
+  /**
+   * A category for the user journey.
+   * @deprecated This prop is deprecated and will be removed in a future release.
+   */
   category?: string;
-  /** The title of the current step, this can be a string or a valid React node
+  /**
+   * The title of the current step, this can be a string or a valid React node
    * which contains the `<StepFlowTitle />` component as a descendant.
    */
   title: React.ReactNode;
-  /** Set the variant of the internal 'Typography' component which contains the title.
+  /**
+   * Set the variant of the internal 'Typography' component which contains the title.
    * However, despite the chosen variant the styling will always be overridden.
    */
   titleVariant?: "h1" | "h2";
@@ -55,7 +59,7 @@ export interface StepFlowProps
   showProgressIndicator?: boolean;
   /** Determines if the close icon button is shown */
   showCloseIcon?: boolean;
-  /** function runs when user click dismiss button */
+  /** Callback function invoked when the close icon button is clicked */
   onDismiss?: (
     e:
       | React.KeyboardEvent<HTMLButtonElement>
@@ -86,6 +90,9 @@ export const StepFlow = forwardRef<StepFlowHandle, StepFlowProps>(
     },
     ref,
   ) => {
+    const locale = useLocale();
+    const titleRef = useRef<HTMLDivElement>(null);
+
     const totalStepsArray = Array.from(
       { length: totalSteps },
       (_, index) => index + 1,
@@ -112,46 +119,6 @@ export const StepFlow = forwardRef<StepFlowHandle, StepFlowProps>(
           " this ensures screen reader users are informed regarding any changes and can navigate back down the page.",
       );
     }
-
-    const progressIndicators = totalStepsArray.map((step) => {
-      const generateDataState = () => {
-        if (step === validatedCurrentStep) {
-          return "in-progress";
-        }
-        if (step < validatedCurrentStep) {
-          return "is-completed";
-        }
-        return "not-completed";
-      };
-
-      return (
-        <StyledProgressIndicator
-          key={step}
-          aria-hidden="true"
-          data-role="progress-indicator"
-          data-element="progress-indicator"
-          isCompleted={step < validatedCurrentStep}
-          isInProgress={step === validatedCurrentStep}
-          data-state={generateDataState()}
-        >
-          &nbsp;
-        </StyledProgressIndicator>
-      );
-    });
-
-    const locale = useLocale();
-
-    const closeIcon = (
-      <IconButton
-        data-element="close"
-        aria-label={locale.stepFlow.closeIconAriaLabel?.()}
-        onClick={onDismiss}
-      >
-        <Icon type="close" />
-      </IconButton>
-    );
-
-    const titleRef = useRef<HTMLDivElement>(null);
 
     useImperativeHandle<StepFlowHandle, StepFlowHandle>(
       ref,
@@ -181,18 +148,29 @@ export const StepFlow = forwardRef<StepFlowHandle, StepFlowProps>(
       </StepFlowProvider>
     );
 
-    const stepFlowLabel = (
-      <Typography
-        variant="span"
-        fontWeight="400"
-        fontSize="var(--fontSizes200)"
-        lineHeight="var(--sizing300)"
-        data-element="step-label"
-        aria-hidden="true"
+    const closeIcon = (
+      <Button
+        data-element="close"
+        aria-label={locale.stepFlow.closeIconAriaLabel?.()}
+        onClick={(ev) => onDismiss?.(ev as React.MouseEvent<HTMLButtonElement>)}
+        variantType="subtle"
+        size="small"
       >
-        {locale.stepFlow.stepLabel(validatedCurrentStep, totalSteps)}
-      </Typography>
+        <Icon type="close" />
+      </Button>
     );
+
+    const progressIndicators = totalStepsArray.map((step) => {
+      return (
+        <StyledProgressIndicator
+          key={step}
+          data-role="progress-indicator"
+          data-element="progress-indicator"
+          $isCompleted={step < validatedCurrentStep}
+          $isInProgress={step === validatedCurrentStep}
+        />
+      );
+    });
 
     return (
       <StyledStepFlow
@@ -204,38 +182,24 @@ export const StepFlow = forwardRef<StepFlowHandle, StepFlowProps>(
         {...tagComponent("step-flow", rest)}
       >
         <StyledStepContent>
-          {category ? (
-            <StyledStepContentText>
-              <Typography
-                fontWeight="400"
-                fontSize="var(--fontSizes100)"
-                lineHeight="var(--sizing250)"
-                variant="span"
-                data-element="category-text"
-                aria-hidden="true"
-              >
-                {category}
-              </Typography>
-              {stepFlowTitle}
-            </StyledStepContentText>
-          ) : (
-            stepFlowTitle
-          )}
-          {showCloseIcon ? closeIcon : null}
-        </StyledStepContent>
-        {showProgressIndicator ? (
-          <StyledStepLabelAndProgress>
-            {stepFlowLabel}
-            <StyledProgressIndicatorBar
+          {category}
+          {stepFlowTitle}
+
+          <StyledStepLabel aria-hidden="true">
+            {locale.stepFlow.stepLabel(validatedCurrentStep, totalSteps)}
+          </StyledStepLabel>
+
+          {showProgressIndicator && (
+            <StyledProgressIndicatorWrapper
               data-element="progress-indicator-bar"
               data-role="progress-indicator-bar"
+              aria-hidden="true"
             >
               {progressIndicators}
-            </StyledProgressIndicatorBar>
-          </StyledStepLabelAndProgress>
-        ) : (
-          stepFlowLabel
-        )}
+            </StyledProgressIndicatorWrapper>
+          )}
+        </StyledStepContent>
+        {showCloseIcon ? closeIcon : null}
       </StyledStepFlow>
     );
   },

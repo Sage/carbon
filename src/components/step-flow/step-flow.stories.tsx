@@ -1,22 +1,16 @@
 import React, { useState, useRef } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import isChromatic from "../../../.storybook/isChromatic";
-
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
-import Button from "../button";
+import Button from "../button/__next__";
 import Form from "../form";
 import Dialog from "../dialog";
 import Typography from "../typography";
-import Textarea from "../textarea";
+import Textbox from "../textbox";
 import Box from "../box";
 import Icon from "../icon";
-import Image from "../image";
-import pointSvg from "../../../.assets/point.svg";
 
 import { StepFlow, StepFlowTitle, StepFlowHandle, Steps } from ".";
-
-const defaultOpenState = isChromatic();
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
@@ -29,171 +23,84 @@ const meta: Meta<typeof StepFlow> = {
     ...styledSystemProps,
   },
   parameters: {
-    controls: { disabled: true },
     chromatic: { disableSnapshot: true },
   },
-  decorators: [
-    (Story, context) => {
-      const isExampleImplementation = context.name?.includes("Example");
-      return (
-        <>
-          {isExampleImplementation && defaultOpenState ? (
-            <Box width="100%" height={900}>
-              <Story />
-            </Box>
-          ) : (
-            <Story />
-          )}
-        </>
-      );
-    },
-  ],
 };
 
 export default meta;
 type Story = StoryObj<typeof StepFlow>;
 
-export const DefaultStory: Story = () => {
-  return (
-    <StepFlow
-      title="Step title"
-      titleVariant="h2"
-      currentStep={1}
-      totalSteps={6}
+export const Default: Story = {
+  render: ({ ...args }) => <StepFlow {...args} />,
+  args: {
+    title: "Title",
+    currentStep: 4,
+    totalSteps: 8,
+  },
+};
+
+const titleNode = (
+  <Box display="flex" alignItems="center" gap={1}>
+    <Icon type="placeholder" size="large" />
+    <StepFlowTitle
+      titleString="Custom title"
+      screenReaderOnlyTitle="Screen Reader only Title"
     />
-  );
-};
-DefaultStory.storyName = "Default";
+  </Box>
+);
 
-export const TitleNodeStory: Story = () => {
-  const titleNode = (
-    <Box display="flex" alignItems="center">
-      <Icon type="bin" />
-      <StepFlowTitle titleString="Step title" />
-    </Box>
-  );
-
-  return (
-    <StepFlow
-      title={titleNode}
-      titleVariant="h2"
-      currentStep={1}
-      totalSteps={6}
-    />
-  );
-};
-TitleNodeStory.storyName = "Title Node";
-
-export const TitleNodeStoryWithScreenReaderOnlyTitle: Story = () => {
-  const titleNode = (
-    <Box display="flex" alignItems="center">
-      <StepFlowTitle
-        titleVariant="h2"
-        titleString="Step title"
-        screenReaderOnlyTitle="Step Title with a pointer image"
-      />
-      <Image alt="" src={pointSvg} decorative size={50} />
-    </Box>
-  );
-
-  return <StepFlow title={titleNode} currentStep={1} totalSteps={6} />;
-};
-TitleNodeStoryWithScreenReaderOnlyTitle.storyName =
-  "Title Node with Screen Reader Only Title";
-TitleNodeStoryWithScreenReaderOnlyTitle.parameters = {
-  chromatic: { disableSnapshot: true },
+export const TitleNode: Story = {
+  ...Default,
+  args: {
+    ...Default.args,
+    title: titleNode,
+  },
 };
 
-export const CategoryStory: Story = () => {
-  return (
-    <StepFlow
-      category="Main goal"
-      title="Step title"
-      currentStep={1}
-      totalSteps={6}
-      titleVariant="h2"
-    />
-  );
-};
-CategoryStory.storyName = "Category";
-
-export const ShowProgressIndicatorStory: Story = () => {
-  return (
-    <StepFlow
-      category="Main goal"
-      title="Step title"
-      currentStep={1}
-      totalSteps={6}
-      showProgressIndicator
-      titleVariant="h2"
-    />
-  );
-};
-ShowProgressIndicatorStory.storyName = "Show Progress Indicator";
-
-export const CurrentStepStory: Story = () => {
-  return (
-    <StepFlow
-      category="Main goal"
-      title="Step title"
-      currentStep={5}
-      totalSteps={6}
-      showProgressIndicator
-      titleVariant="h2"
-    />
-  );
-};
-CurrentStepStory.storyName = "Current Step";
-
-export const TotalStepsStory: Story = () => {
-  return (
-    <StepFlow
-      category="Main goal"
-      title="Step title"
-      currentStep={5}
-      totalSteps={8}
-      showProgressIndicator
-      titleVariant="h2"
-    />
-  );
-};
-TotalStepsStory.storyName = "Total Steps";
-TotalStepsStory.parameters = {
-  chromatic: { disableSnapshot: true },
+export const TitleVariant: Story = {
+  ...Default,
+  args: {
+    ...Default.args,
+    titleVariant: "h2",
+  },
 };
 
-export const ShowCloseIconStory: Story = () => {
-  return (
-    <StepFlow
-      category="Main goal"
-      title="Step title"
-      currentStep={1}
-      totalSteps={6}
-      showCloseIcon
-      onDismiss={() => ""}
-      titleVariant="h2"
-    />
-  );
+export const ShowProgressIndicator: Story = {
+  ...Default,
+  args: {
+    ...Default.args,
+    showProgressIndicator: true,
+  },
 };
-ShowCloseIconStory.storyName = "Show Close Icon";
+
+export const ShowCloseIcon: Story = {
+  ...Default,
+  args: {
+    ...Default.args,
+    showCloseIcon: true,
+  },
+};
 
 export const ExampleImplementation: Story = () => {
-  const lowestStep = 1;
-  const highestStep = 3;
-
-  const [isOpen, setIsOpen] = useState(defaultOpenState);
-  const [step, setStep] = useState(lowestStep);
+  const [isOpen, setIsOpen] = useState(false);
+  const [step, setStep] = useState(1);
   const stepFlowHandle = useRef<StepFlowHandle>(null);
 
-  const stepTitles = ["Step title 1", "Step title 2", "Step title 3"];
+  const stepHeading = [
+    "Step 1 Heading",
+    "Step 2 Heading",
+    "Step 3 Heading",
+    "Step 4 Heading",
+    "Step 5 Heading",
+  ];
 
   function handleClick(clickType: string) {
     stepFlowHandle.current?.focus();
 
     if (clickType === "Back") {
-      setStep(step > lowestStep ? step - 1 : step);
+      setStep(step > 1 ? step - 1 : step);
     } else {
-      setStep(step < highestStep ? step + 1 : step);
+      setStep(step < 5 ? step + 1 : step);
     }
   }
 
@@ -205,119 +112,57 @@ export const ExampleImplementation: Story = () => {
         showCloseIcon={false}
         title={
           <StepFlow
-            category="Main goal"
-            title={stepTitles[step - 1]}
+            title="Step Flow Title"
             currentStep={step as Steps}
-            totalSteps={highestStep}
+            totalSteps={5}
             ref={stepFlowHandle}
             showProgressIndicator
             showCloseIcon
             onDismiss={() => setIsOpen(false)}
-            mb="20px"
-            titleVariant="h2"
           />
         }
       >
         <Form
-          stickyFooter
-          leftSideButtons={
-            <Button buttonType="tertiary" onClick={() => handleClick("Back")}>
-              Back
-            </Button>
-          }
+          fieldSpacing={2}
+          {...(step !== 1 && {
+            leftSideButtons: (
+              <Button
+                variantType="secondary"
+                onClick={() => handleClick("Back")}
+              >
+                <Icon type="chevron_left_thick" />
+                Previous step
+              </Button>
+            ),
+          })}
           rightSideButtons={
-            <Button
-              buttonType="primary"
-              onClick={() => handleClick("Continue")}
-            >
-              Continue
+            <Button onClick={() => handleClick("Continue")}>
+              {step !== stepHeading.length ? (
+                <>
+                  {" "}
+                  Next step
+                  <Icon type="chevron_right_thick" />
+                </>
+              ) : (
+                "Complete"
+              )}
             </Button>
           }
         >
-          <Typography>
-            This is an example of a Dialog with a Form as content, with a Step
-            Flow to help users complete tasks in a specific order.
+          <Typography variant="h3">{stepHeading[step - 1]}</Typography>
+          <Typography tint="alt" size="L" m={0} pb={1}>
+            Current step description.
           </Typography>
-          <Textarea label="Textarea label" value="" onChange={() => {}} />
+          <Textbox label="Textbox" value="" onChange={() => {}} />
+          <Textbox label="Textbox" value="" onChange={() => {}} />
+          {step !== stepHeading.length && (
+            <Typography tint="alt" size="L" m={0} pt={1}>
+              Next step: {stepHeading[step]}
+            </Typography>
+          )}
         </Form>
       </Dialog>
     </>
   );
 };
 ExampleImplementation.storyName = "Example Implementation";
-
-export const ExampleImplementationWithTitleNode: Story = () => {
-  const lowestStep = 1;
-  const highestStep = 3;
-
-  const [isOpen, setIsOpen] = useState(defaultOpenState);
-  const [step, setStep] = useState(lowestStep);
-  const stepFlowHandle = useRef<StepFlowHandle>(null);
-
-  const stepTitles = ["Step title 1", "Step title 2", "Step title 3"];
-
-  function handleClick(clickType: string) {
-    stepFlowHandle.current?.focus();
-
-    if (clickType === "Back") {
-      setStep(step > lowestStep ? step - 1 : step);
-    } else {
-      setStep(step < highestStep ? step + 1 : step);
-    }
-  }
-
-  const titleNode = (
-    <Box display="flex" alignItems="center">
-      <Icon type="bin" />
-      <StepFlowTitle titleString={stepTitles[step - 1]} />
-    </Box>
-  );
-  return (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Open Dialog</Button>
-      <Dialog
-        open={isOpen}
-        showCloseIcon={false}
-        title={
-          <StepFlow
-            category="Main goal"
-            title={titleNode}
-            currentStep={step as Steps}
-            totalSteps={highestStep}
-            ref={stepFlowHandle}
-            showProgressIndicator
-            showCloseIcon
-            onDismiss={() => setIsOpen(false)}
-            mb="20px"
-            titleVariant="h2"
-          />
-        }
-      >
-        <Form
-          stickyFooter
-          leftSideButtons={
-            <Button buttonType="tertiary" onClick={() => handleClick("Back")}>
-              Back
-            </Button>
-          }
-          rightSideButtons={
-            <Button
-              buttonType="primary"
-              onClick={() => handleClick("Continue")}
-            >
-              Continue
-            </Button>
-          }
-        >
-          <Typography>
-            This is an example of a Dialog with a Form as content, with a Step
-            Flow to help users complete tasks in a specific order.
-          </Typography>
-          <Textarea label="Textarea label" onChange={() => {}} value="" />
-        </Form>
-      </Dialog>
-    </>
-  );
-};
-ExampleImplementationWithTitleNode.storyName =
-  "Example Implementation with title node";
