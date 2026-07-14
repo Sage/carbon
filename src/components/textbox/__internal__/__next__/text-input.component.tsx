@@ -25,6 +25,7 @@ import useRegisterValidationToTabs from "../../../../hooks/__internal__/useRegis
 import combineRefs from "../../../../__internal__/utils/helpers/combine-refs";
 import FieldsetValidationContext from "../../../../__internal__/fieldset-validation-context";
 import FieldsetContext from "../../../fieldset/__internal__/fieldset.context";
+import selectTextboxContext from "../../../select/__internal__/select-textbox/__internal__/select-textbox.context";
 
 export interface TextInputProps
   extends Omit<ValidationProps, "info">,
@@ -172,7 +173,10 @@ export const TextInput = React.forwardRef(
     });
     const hintId = useRef(guid());
     const inputHintId = inputHint ? hintId.current : undefined;
-    const inputPrefixId = prefix ? `${uniqueId}-prefix` : undefined;
+    const { prefixId: contextPrefixId } = useContext(selectTextboxContext);
+    // If SelectTextbox provides a prefix id (from simple select currently), use that, otherwise generate one when a prefix is rendered by the input.
+    const inputPrefixId =
+      contextPrefixId || (prefix ? `${uniqueId}-prefix` : undefined);
 
     const {
       size: fieldsetSize,

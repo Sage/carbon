@@ -103,6 +103,41 @@ export const HighlightedItem: Story = {
 };
 HighlightedItem.storyName = "Highlighted Item";
 
+export const Prefix: Story = {
+  render: () => (
+    <Box height={250}>
+      <ControlledMultiSelect
+        name="multi-prefix"
+        id="multi-prefix"
+        label="Multi Select"
+        prefix="prefix"
+        value={["2"]}
+      />
+    </Box>
+  ),
+  play: async ({ canvasElement }) => {
+    if (!allowInteractions()) {
+      return;
+    }
+
+    const canvas = within(canvasElement);
+    const select = canvas.getByRole("combobox", { name: /Multi Select/ });
+    await userEvent.click(select, { delay: 100 });
+
+    await expect(
+      within(document.body).getByRole("option", { name: "Amber" }),
+    ).toBeVisible();
+  },
+  decorators: [
+    (StoryToRender) => (
+      <DefaultDecorator>
+        <StoryToRender />
+      </DefaultDecorator>
+    ),
+  ],
+};
+Prefix.storyName = "Prefix";
+
 export const MultiColumnList: Story = {
   render: () => (
     <Box height={250}>

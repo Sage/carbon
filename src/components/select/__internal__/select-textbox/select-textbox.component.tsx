@@ -9,6 +9,8 @@ import Textbox, { CommonTextboxProps } from "../../../textbox";
 import useLocale from "../../../../hooks/__internal__/useLocale";
 import { ValidationProps } from "../../../../__internal__/validations";
 import combineRefs from "../../../../__internal__/utils/helpers/combine-refs";
+import SelectTextboxContext from "./__internal__/select-textbox.context";
+import guid from "../../../../__internal__/utils/helpers/guid";
 
 export interface FormInputPropTypes
   extends ValidationProps,
@@ -125,6 +127,7 @@ const SelectTextbox = React.forwardRef(
       activeDescendantId,
       onKeyDown,
       onChange,
+      prefix,
       ...restProps
     }: SelectTextboxProps,
     ref: React.ForwardedRef<HTMLInputElement>,
@@ -204,58 +207,77 @@ const SelectTextbox = React.forwardRef(
       .filter(Boolean)
       .join(" ");
 
+    const internalPrefixId = useRef(guid());
+    const contextPrefixId =
+      selectType === "simple" && prefix ? internalPrefixId.current : undefined;
+
     return (
-      <Textbox
-        aria-describedby={ariaDescribedBy}
-        aria-label={ariaLabel}
-        data-element={`${selectType ?? ""}-select-input`}
-        data-role="select-textbox"
-        inputIcon="dropdown"
-        autoComplete="off"
-        size={size}
-        formattedValue={formattedValue}
-        placeholder={shouldRenderInput ? placeholder : undefined}
-        {...inputAriaAttributes}
-        {...textboxProps}
-        className={classNames}
-        data-is-transparent={transparent}
-        data-is-open={isOpen}
-        // prevent uncontrolled warning being fired
-        onChange={onChange}
-        // ensure value is properly controlled
-        value={
-          hasStringValue ? (selectedValue as string | string[]) : undefined
-        }
-        // prevents any form spacing being applied
-        my={0}
-        leftChildren={
-          !shouldRenderInput ? (
-            <StyledSelectText
-              aria-hidden
-              aria-disabled={disabled || undefined}
-              data-element="select-text"
-              data-role="select-text"
-              $disabled={disabled}
-              $hasPlaceholder={showPlaceholder}
-              onClick={handleTextboxClick}
-              $readOnly={readOnly}
-              $size={size}
-              $transparent={transparent}
-              className={`select-text ${disabled ? "disabled" : ""} ${readOnly ? "read-only" : ""}`}
-              {...filteredRestProps}
-            >
-              <StyledSelectTextChildrenWrapper
-                $isDisabled={disabled}
+      <SelectTextboxContext.Provider
+        value={{ prefixId: contextPrefixId, selectType }}
+      >
+        <Textbox
+          aria-describedby={ariaDescribedBy}
+          aria-label={ariaLabel}
+          data-element={`${selectType ?? ""}-select-input`}
+          data-role="select-textbox"
+          inputIcon="dropdown"
+          autoComplete="off"
+          size={size}
+          formattedValue={formattedValue}
+          placeholder={shouldRenderInput ? placeholder : undefined}
+          {...inputAriaAttributes}
+          {...textboxProps}
+          className={classNames}
+          data-is-transparent={transparent}
+          data-is-open={isOpen}
+          // prevent uncontrolled warning being fired
+          onChange={onChange}
+          // ensure value is properly controlled
+          value={
+            hasStringValue ? (selectedValue as string | string[]) : undefined
+          }
+          // prevents any form spacing being applied
+          my={0}
+          {...(selectType !== "simple" && {
+            prefix,
+          })}
+          leftChildren={
+            !shouldRenderInput ? (
+              <StyledSelectText
+                aria-hidden
+                aria-disabled={disabled || undefined}
+                data-element="select-text"
+                data-role="select-text"
+                $disabled={disabled}
+                $hasPlaceholder={showPlaceholder}
+                onClick={handleTextboxClick}
                 $readOnly={readOnly}
+                $size={size}
+                $transparent={transparent}
+                className={`select-text ${disabled ? "disabled" : ""} ${readOnly ? "read-only" : ""}`}
+                {...filteredRestProps}
               >
-                {showPlaceholder ? placeholder : formattedValue}
-              </StyledSelectTextChildrenWrapper>
-            </StyledSelectText>
-          ) : (
-            leftChildren
-          )
-        }
-      />
+                {prefix && (
+                  <span
+                    id={internalPrefixId.current}
+                    data-element="textbox-prefix"
+                  >
+                    {prefix}
+                  </span>
+                )}
+                <StyledSelectTextChildrenWrapper
+                  $isDisabled={disabled}
+                  $readOnly={readOnly}
+                >
+                  {showPlaceholder ? placeholder : formattedValue}
+                </StyledSelectTextChildrenWrapper>
+              </StyledSelectText>
+            ) : (
+              leftChildren
+            )
+          }
+        />
+      </SelectTextboxContext.Provider>
     );
   },
 );
