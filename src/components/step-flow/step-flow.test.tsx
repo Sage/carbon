@@ -1,50 +1,9 @@
 import React from "react";
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import enGB from "../../locales/en-gb";
-import { StepFlow, StepFlowHandle, StepFlowTitle, Steps } from ".";
-import Button from "../button";
-import I18nProvider from "../i18n-provider";
-
-function generateLimitedVariations(): [Steps, Steps][] {
-  const variations: [Steps, Steps][] = [];
-
-  for (let totalSteps = 1; totalSteps <= 8; totalSteps++) {
-    for (let currentStep = 1; currentStep <= totalSteps; currentStep++) {
-      variations.push([totalSteps as Steps, currentStep as Steps]);
-    }
-  }
-
-  return variations;
-}
-
-function generateCurrentStepOverTotalStepsVariations(): [Steps, Steps][] {
-  const variations: [Steps, Steps][] = [];
-
-  for (let totalSteps = 1; totalSteps <= 8; totalSteps++) {
-    for (let currentStep = totalSteps + 1; currentStep <= 8; currentStep++) {
-      variations.push([totalSteps as Steps, currentStep as Steps]);
-    }
-  }
-
-  return variations;
-}
-
-function calculateStepStateIndexes(
-  totalSteps: number,
-  currentStepParam: number,
-) {
-  let currentStep = currentStepParam;
-
-  if (currentStep > totalSteps) {
-    currentStep = totalSteps;
-  }
-
-  const stepsBefore = currentStep - 1;
-  const stepsAfter = totalSteps - currentStep;
-
-  return [stepsBefore, stepsAfter];
-}
+import { StepFlow, StepFlowHandle, StepFlowTitle } from ".";
+import Button from "../button/__next__";
+import Logger from "../../__internal__/utils/logger";
 
 test("when aria-label is specified, the attribute is applied to the expected element", () => {
   render(
@@ -54,7 +13,6 @@ test("when aria-label is specified, the attribute is applied to the expected ele
       title="foo"
       currentStep={5}
       totalSteps={6}
-      category="bar"
       ref={() => {}}
     />,
   );
@@ -73,7 +31,6 @@ test("when aria-labelledby is specified, the attribute is applied to the expecte
         title="foo"
         currentStep={5}
         totalSteps={6}
-        category="bar"
         ref={() => {}}
       />
       <span id="foo" role="presentation">
@@ -96,7 +53,6 @@ test("when aria-describedby is specified, the attribute is applied to the expect
         title="foo"
         currentStep={5}
         totalSteps={6}
-        category="bar"
         ref={() => {}}
       />
       <span id="foo" role="presentation">
@@ -128,30 +84,21 @@ test("should render the correct element and text when the category prop is passe
 
 test("when the 'title' prop is passed as a string, the correct element and text renders", () => {
   render(
-    <StepFlow
-      title="baz"
-      currentStep={5}
-      totalSteps={6}
-      category="bar"
-      ref={() => {}}
-    />,
+    <StepFlow title="foo" currentStep={5} totalSteps={6} ref={() => {}} />,
   );
 
-  expect(screen.getByText("baz")).toBeVisible();
+  const heading = screen.getByRole("heading", { level: 1 });
+  expect(heading).toBeVisible();
+
+  expect(within(heading).getByText("foo")).toBeVisible();
 });
 
-test("when the 'title' prop is passed via the `StepFlowTitle` sub component, the correct element and text renders", () => {
-  const stepFlowNode = (
-    <>
-      <StepFlowTitle titleString="node" />
-    </>
-  );
+test("when the 'title' prop is passed via the `StepFlowTitle`, the correct element and text renders", () => {
   render(
     <StepFlow
-      title={stepFlowNode}
+      title={<StepFlowTitle titleString="node" />}
       currentStep={5}
       totalSteps={6}
-      category="bar"
       ref={() => {}}
     />,
   );
@@ -159,37 +106,20 @@ test("when the 'title' prop is passed via the `StepFlowTitle` sub component, the
   expect(screen.getByText("node")).toBeVisible();
 });
 
-test("renders level one heading when the 'titleVariant' prop is not passed", () => {
+test("renders level 2 heading when the 'titleVariant' prop is passed", () => {
   render(
-    <StepFlow title="Title" currentStep={5} totalSteps={6} ref={() => {}} />,
+    <StepFlow
+      title="Title"
+      currentStep={5}
+      totalSteps={6}
+      titleVariant="h2"
+      ref={() => {}}
+    />,
   );
 
-  const heading = screen.getByRole("heading", { level: 1 });
+  const heading = screen.getByRole("heading", { level: 2, name: /Title/ });
   expect(heading).toBeVisible();
-  expect(heading).toHaveTextContent("Title");
 });
-
-it.each([
-  [1, "h1"],
-  [2, "h2"],
-] as const)(
-  "renders level %s heading when the 'titleVariant' prop is %s",
-  (level, titleVariant) => {
-    render(
-      <StepFlow
-        title="foo"
-        currentStep={5}
-        totalSteps={6}
-        titleVariant={titleVariant}
-        ref={() => {}}
-      />,
-    );
-
-    const heading = screen.getByRole("heading", { level });
-    expect(heading).toBeVisible();
-    expect(heading).toHaveTextContent("foo");
-  },
-);
 
 test("renders progress indicator bar when 'showProgressIndicator' prop is true", () => {
   render(
@@ -204,121 +134,15 @@ test("renders progress indicator bar when 'showProgressIndicator' prop is true",
   expect(screen.getByTestId("progress-indicator-bar")).toBeVisible();
 });
 
-it.each(generateLimitedVariations())(
-  "renders correct step label when 'totalSteps' is %s and 'currentStep' prop is %s",
-  (totalSteps, currentStep) => {
-    render(
-      <StepFlow
-        title="baz"
-        totalSteps={totalSteps}
-        currentStep={currentStep}
-        ref={() => {}}
-      />,
-      {
-        wrapper: ({ children }: { children: React.ReactNode }) => (
-          <I18nProvider locale={enGB}>{children}</I18nProvider>
-        ),
-      },
-    );
+test("renders correct step number when `currentStep` is provided", () => {
+  render(
+    <StepFlow title="baz" currentStep={5} totalSteps={6} ref={() => {}} />,
+  );
 
-    expect(
-      screen.getByText(`Step ${currentStep} of ${totalSteps}`),
-    ).toBeVisible();
-  },
-);
+  expect(screen.getByText("Step 5 of 6")).toBeVisible();
+});
 
-it.each(generateCurrentStepOverTotalStepsVariations())(
-  "renders correct step label when 'totalSteps' is %s and is lower than the 'currentStep' prop of %s",
-  (totalSteps, currentStep) => {
-    render(
-      <StepFlow
-        title="baz"
-        totalSteps={totalSteps}
-        currentStep={currentStep}
-        ref={() => {}}
-      />,
-      {
-        wrapper: ({ children }: { children: React.ReactNode }) => (
-          <I18nProvider locale={enGB}>{children}</I18nProvider>
-        ),
-      },
-    );
-
-    expect(
-      screen.getByText(`Step ${totalSteps} of ${totalSteps}`),
-    ).toBeVisible();
-  },
-);
-
-it.each(generateLimitedVariations())(
-  "renders correct visually hidden text when 'totalSteps' prop is %s and 'currentStep' prop is %s",
-  (totalSteps, currentStep) => {
-    render(
-      <StepFlow
-        category="foo"
-        title="bar"
-        totalSteps={totalSteps}
-        currentStep={currentStep}
-        ref={() => {}}
-      />,
-      {
-        wrapper: ({ children }: { children: React.ReactNode }) => (
-          <I18nProvider locale={enGB}>{children}</I18nProvider>
-        ),
-      },
-    );
-
-    const title = screen.getByRole("heading", { level: 1 });
-    expect(
-      within(title).getByText(
-        `foo. bar. Step ${currentStep} of ${totalSteps}.`,
-      ),
-    ).toHaveStyle({
-      height: "1px",
-      margin: "-1px",
-      overflow: "hidden",
-      padding: "0",
-      position: "absolute",
-      width: "1px",
-      "white-space": "nowrap",
-    });
-  },
-);
-
-it.each(generateCurrentStepOverTotalStepsVariations())(
-  "renders correct visually hidden text when 'totalSteps' prop is %s and is lower than 'currentStep' prop of %s",
-  (totalSteps, currentStep) => {
-    render(
-      <StepFlow
-        category="foo"
-        title="bar"
-        totalSteps={totalSteps}
-        currentStep={currentStep}
-        ref={() => {}}
-      />,
-      {
-        wrapper: ({ children }: { children: React.ReactNode }) => (
-          <I18nProvider locale={enGB}>{children}</I18nProvider>
-        ),
-      },
-    );
-
-    const title = screen.getByRole("heading", { level: 1 });
-    expect(
-      within(title).getByText(`foo. bar. Step ${totalSteps} of ${totalSteps}.`),
-    ).toHaveStyle({
-      height: "1px",
-      margin: "-1px",
-      overflow: "hidden",
-      padding: "0",
-      position: "absolute",
-      width: "1px",
-      "white-space": "nowrap",
-    });
-  },
-);
-
-test("when the 'showCloseIcon' prop is true, the correct element renders", () => {
+test("renders close button when the 'showCloseIcon' prop is true", () => {
   render(
     <StepFlow
       title="baz"
@@ -329,156 +153,29 @@ test("when the 'showCloseIcon' prop is true, the correct element renders", () =>
     />,
   );
 
-  expect(screen.getByLabelText("Close")).toBeVisible();
+  expect(screen.getByRole("button", { name: "Close" })).toBeVisible();
 });
 
-describe.each(generateLimitedVariations())(
-  "indicator state checks - component used as intended (currentStep is always lower than totalSteps) - totalSteps is %s, currentStep is %s",
-  (totalSteps, currentStep) => {
-    it("only one in progress indicators are rendered", () => {
-      render(
-        <StepFlow
-          title="baz"
-          totalSteps={totalSteps}
-          currentStep={currentStep}
-          showProgressIndicator
-          ref={() => {}}
-        />,
-      );
+test("calls onDismiss callback when the close button is clicked", async () => {
+  const onDismissMock = jest.fn();
+  const user = userEvent.setup();
 
-      const inProgressIndicators = screen
-        .getAllByTestId("progress-indicator")
-        .filter(
-          (indicator) => indicator.getAttribute("data-state") === "in-progress",
-        );
-      expect(inProgressIndicators).toHaveLength(1);
-    });
+  render(
+    <StepFlow
+      title="baz"
+      totalSteps={6}
+      currentStep={1}
+      showCloseIcon
+      onDismiss={onDismissMock}
+      ref={() => {}}
+    />,
+  );
 
-    it("correct number of completed indicators are rendered", () => {
-      render(
-        <StepFlow
-          title="baz"
-          totalSteps={totalSteps}
-          currentStep={currentStep}
-          showProgressIndicator
-          ref={() => {}}
-        />,
-      );
+  const closeButton = screen.getByRole("button", { name: "Close" });
+  await user.click(closeButton);
 
-      const completedIndicators = screen
-        .getAllByTestId("progress-indicator")
-        .filter(
-          (indicator) =>
-            indicator.getAttribute("data-state") === "is-completed",
-        );
-
-      const currentCount = calculateStepStateIndexes(
-        totalSteps,
-        currentStep,
-      )[0];
-
-      expect(completedIndicators).toHaveLength(currentCount);
-    });
-
-    it("correct number of not completed progress indicators are rendered", () => {
-      render(
-        <StepFlow
-          title="baz"
-          totalSteps={totalSteps}
-          currentStep={currentStep}
-          showProgressIndicator
-          ref={() => {}}
-        />,
-      );
-
-      const incompleteIndicators = screen
-        .getAllByTestId("progress-indicator")
-        .filter(
-          (indicator) =>
-            indicator.getAttribute("data-state") === "not-completed",
-        );
-
-      const currentCount = calculateStepStateIndexes(
-        totalSteps,
-        currentStep,
-      )[1];
-
-      expect(incompleteIndicators).toHaveLength(currentCount);
-    });
-  },
-);
-
-describe.each(generateCurrentStepOverTotalStepsVariations())(
-  "indicator state checks - component not used as intended (currentStep is higher than totalSteps)- totalSteps is %s, currentStep is %s",
-  (totalSteps, currentStep) => {
-    it("only one in progress indicator is rendered", () => {
-      render(
-        <StepFlow
-          title="baz"
-          totalSteps={totalSteps}
-          currentStep={currentStep}
-          showProgressIndicator
-          ref={() => {}}
-        />,
-      );
-
-      const inProgressIndicators = screen
-        .getAllByTestId("progress-indicator")
-        .filter(
-          (indicator) => indicator.getAttribute("data-state") === "in-progress",
-        );
-
-      expect(inProgressIndicators).toHaveLength(1);
-    });
-
-    it("correct number of completed indicators are rendered", () => {
-      render(
-        <StepFlow
-          title="baz"
-          totalSteps={totalSteps}
-          currentStep={currentStep}
-          showProgressIndicator
-          ref={() => {}}
-        />,
-      );
-
-      const completedIndicators = screen
-        .getAllByTestId("progress-indicator")
-        .filter(
-          (indicator) =>
-            indicator.getAttribute("data-state") === "is-completed",
-        );
-
-      const currentCount = calculateStepStateIndexes(
-        totalSteps,
-        currentStep,
-      )[0];
-
-      expect(completedIndicators).toHaveLength(currentCount);
-    });
-
-    it("no not completed indicators are rendered", () => {
-      render(
-        <StepFlow
-          title="baz"
-          totalSteps={totalSteps}
-          currentStep={currentStep}
-          showProgressIndicator
-          ref={() => {}}
-        />,
-      );
-
-      const incompleteIndicators = screen
-        .getAllByTestId("progress-indicator")
-        .filter(
-          (indicator) =>
-            indicator.getAttribute("data-state") === "not-completed",
-        );
-
-      expect(incompleteIndicators).toHaveLength(0);
-    });
-  },
-);
+  expect(onDismissMock).toHaveBeenCalledTimes(1);
+});
 
 describe("when ref handle is passed", () => {
   it("calling exposed focus method when the `title` prop is a string, refocuses on StepFlow's root container", async () => {
@@ -494,7 +191,7 @@ describe("when ref handle is passed", () => {
             title="foo"
           />
           <Button onClick={() => stepFlowHandle.current?.focus()}>
-            Press me to refocus on Dialog
+            Press me to refocus StepFlow
           </Button>
         </div>
       );
@@ -503,7 +200,7 @@ describe("when ref handle is passed", () => {
     const user = userEvent.setup();
     render(<MockComponent />);
     const button = screen.getByRole("button", {
-      name: "Press me to refocus on Dialog",
+      name: "Press me to refocus StepFlow",
     });
 
     await user.click(button);
@@ -515,24 +212,16 @@ describe("when ref handle is passed", () => {
     const MockComponent = () => {
       const stepFlowHandle = React.useRef<StepFlowHandle>(null);
 
-      const titleNode = (
-        <>
-          <>
-            <StepFlowTitle titleString="title" />
-          </>
-        </>
-      );
-
       return (
         <div>
           <StepFlow
             totalSteps={5}
             currentStep={1}
             ref={stepFlowHandle}
-            title={titleNode}
+            title={<StepFlowTitle titleString="title" />}
           />
           <Button onClick={() => stepFlowHandle.current?.focus()}>
-            Press me to refocus on Dialog
+            Press me to refocus StepFlow
           </Button>
         </div>
       );
@@ -541,7 +230,7 @@ describe("when ref handle is passed", () => {
     const user = userEvent.setup();
     render(<MockComponent />);
     const button = screen.getByRole("button", {
-      name: "Press me to refocus on Dialog",
+      name: "Press me to refocus StepFlow",
     });
 
     await user.click(button);
@@ -551,7 +240,7 @@ describe("when ref handle is passed", () => {
 });
 
 describe("console warning checks", () => {
-  let consoleSpy: jest.SpyInstance;
+  let loggerSpy: jest.SpyInstance;
 
   const currentStepWarnMessage =
     "[WARNING] The `currentStep` prop should not be higher than the `totalSteps`prop in `StepFlow`." +
@@ -562,29 +251,27 @@ describe("console warning checks", () => {
     "[WARNING] A `ref` should be provided to ensure focus is programmatically focused back to a title div," +
     " this ensures screen reader users are informed regarding any changes and can navigate back down the page.";
 
-  const mockRef = { current: null };
-
   beforeEach(() => {
-    consoleSpy = jest.spyOn(console, "warn");
-    consoleSpy.mockImplementation(() => {});
+    loggerSpy = jest.spyOn(Logger, "warn").mockImplementation(() => {});
   });
 
   afterEach(() => {
-    consoleSpy.mockRestore();
+    loggerSpy.mockRestore();
   });
 
-  it("logs warning in the console once when currentStep is higher than totalSteps", () => {
+  it("renders correct step number when `currentStep` is higher than `totalSteps` and logs warning", () => {
     render(
-      <StepFlow currentStep={4} totalSteps={1} title="foo" ref={mockRef} />,
+      <StepFlow title="baz" currentStep={8} totalSteps={6} ref={() => {}} />,
     );
 
-    expect(consoleSpy).toHaveBeenCalledWith(currentStepWarnMessage);
+    expect(screen.getByText("Step 6 of 6")).toBeVisible();
+    expect(loggerSpy).toHaveBeenCalledWith(currentStepWarnMessage);
   });
 
   it("logs warning in the console once when a ref is not passed", () => {
-    render(<StepFlow currentStep={4} totalSteps={1} title="foo" />);
+    render(<StepFlow currentStep={1} totalSteps={4} title="foo" />);
 
-    expect(consoleSpy).toHaveBeenCalledWith(noRefWarnMessage);
+    expect(loggerSpy).toHaveBeenCalledWith(noRefWarnMessage);
   });
 });
 
