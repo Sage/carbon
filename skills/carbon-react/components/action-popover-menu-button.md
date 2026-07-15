@@ -11,6 +11,8 @@ description: Carbon ActionPopoverMenuButton component props and usage examples.
 ## Source
 - Export: `./components/action-popover`
 - Props interface: `ActionPopoverMenuButtonProps`
+- Deprecated: Yes
+- Deprecation reason: Use ActionPopover's renderButton prop with Button or another custom trigger instead.
 
 ## Props
 | Name | Type | Required | Literals | Description | Default |

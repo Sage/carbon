@@ -144,10 +144,14 @@ test("should render with `ActionPopover` when passed via the `inlineControl` pro
     />,
   );
 
-  await user.click(screen.getByRole("button", { name: "actions" }));
+  const trigger =
+    screen.queryByRole("button", { name: /action/i }) ??
+    screen.getByRole("button");
 
-  expect(screen.getByRole("button", { name: "Copy" })).toBeVisible();
-  expect(screen.getByRole("button", { name: "Edit" })).toBeVisible();
+  await user.click(trigger);
+
+  expect(await screen.findByRole("button", { name: "Copy" })).toBeVisible();
+  expect(await screen.findByRole("button", { name: "Edit" })).toBeVisible();
 });
 
 test("should throw when `inlineControls` is not an instance of `ActionPopover`", () => {

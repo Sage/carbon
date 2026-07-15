@@ -324,6 +324,7 @@ export const ActionPopoverItem = ({
         {submenu && checkRef(ref) && (
           <SubMenuItemIcon
             aria-hidden
+            data-testid="chevron-icon"
             data-element="action-popover-menu-item-chevron"
             data-role="chevron-icon"
             type={

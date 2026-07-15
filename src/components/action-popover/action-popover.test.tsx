@@ -113,17 +113,14 @@ describe("if download prop and href prop are provided", () => {
   });
 });
 
-test("displays the vertical ellipsis icon as the menu button", () => {
+test("displays a text button as the default menu trigger", () => {
   render(
     <ActionPopover>
       <ActionPopoverItem>example item</ActionPopoverItem>
     </ActionPopover>,
   );
-  expect(screen.getByTestId("icon")).toHaveStyleRule(
-    "content",
-    `"${iconUnicodes.ellipsis_vertical}"`,
-    { modifier: "&::before" },
-  );
+
+  expect(screen.getByRole("button")).toHaveTextContent("Action");
 });
 
 test("has proper data attributes applied to elements", async () => {
@@ -1076,8 +1073,8 @@ test("should call the exposed `focusButton` method and focus the toggle button",
   expect(screen.getByRole("button", { name: "actions" })).toHaveFocus();
 });
 
-describe("when an item has a submenu with default (left) alignment", () => {
-  it("renders a chevron icon that points left", async () => {
+describe("when an item has a submenu with default (right) alignment", () => {
+  it("renders a chevron icon that points right", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
     render(
@@ -1102,7 +1099,7 @@ describe("when an item has a submenu with default (left) alignment", () => {
     const chevronIcon = screen.getByTestId("chevron-icon");
     expect(chevronIcon).toHaveStyleRule(
       "content",
-      `"${iconUnicodes.chevron_left_thick}"`,
+      `"${iconUnicodes.chevron_right_thick}"`,
       { modifier: "&::before" },
     );
   });
@@ -1281,7 +1278,7 @@ describe("when an item has a submenu with default (left) alignment", () => {
     clearTimeoutSpy.mockRestore();
   });
 
-  it("opens the submenu and focuses the first item when the left arrow key is pressed", async () => {
+  it("opens the submenu and focuses the first item when the right arrow key is pressed", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
     render(
@@ -1305,7 +1302,7 @@ describe("when an item has a submenu with default (left) alignment", () => {
     jest.runOnlyPendingTimers();
 
     screen.getByRole("button", { name: "example item with submenu" }).focus();
-    await user.keyboard("{ArrowLeft}");
+    await user.keyboard("{ArrowRight}");
     jest.runOnlyPendingTimers();
 
     const firstItem = screen.getByRole("button", { name: "submenu item 1" });
@@ -1313,7 +1310,7 @@ describe("when an item has a submenu with default (left) alignment", () => {
     expect(firstItem).toHaveFocus();
   });
 
-  it("closes the submenu and returns focus to the parent item when the right arrow key is pressed", async () => {
+  it("closes the submenu and returns focus to the parent item when the left arrow key is pressed", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
     render(
@@ -1340,13 +1337,13 @@ describe("when an item has a submenu with default (left) alignment", () => {
     });
 
     parentItem.focus();
-    await user.keyboard("{ArrowLeft}");
+    await user.keyboard("{ArrowRight}");
 
     expect(
       screen.getByRole("button", { name: "submenu item 1" }),
     ).toBeVisible();
 
-    await user.keyboard("{ArrowRight}");
+    await user.keyboard("{ArrowLeft}");
 
     expect(
       screen.queryByRole("button", { name: "submenu item 1" }),
@@ -1378,7 +1375,7 @@ describe("when an item has a submenu with default (left) alignment", () => {
     jest.runOnlyPendingTimers();
 
     screen.getByRole("button", { name: "example item with submenu" }).focus();
-    await user.keyboard("{ArrowLeft}");
+    await user.keyboard("{ArrowRight}");
     jest.runOnlyPendingTimers();
 
     expect(
@@ -1484,7 +1481,7 @@ describe("when an item has a submenu with default (left) alignment", () => {
 
     screen.getByRole("button", { name: "example item with submenu" }).focus();
 
-    await user.keyboard("{ArrowLeft}");
+    await user.keyboard("{ArrowRight}");
     jest.runOnlyPendingTimers();
 
     expect(
@@ -1563,7 +1560,7 @@ describe("when an item has a submenu with default (left) alignment", () => {
     ).not.toBeInTheDocument();
   });
 
-  it("does not open the submenu when the left arrow key is pressed if the item is disabled", async () => {
+  it("does not open the submenu when the right arrow key is pressed if the item is disabled", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
     render(
@@ -1587,7 +1584,7 @@ describe("when an item has a submenu with default (left) alignment", () => {
     await user.click(screen.getByRole("button"));
 
     screen.getByRole("button", { name: "example item with submenu" }).focus();
-    await user.keyboard("{ArrowLeft}");
+    await user.keyboard("{ArrowRight}");
 
     expect(
       screen.queryByRole("button", { name: "submenu item 1" }),
@@ -1648,15 +1645,85 @@ describe("when an item has a submenu with default (left) alignment", () => {
     await user.click(screen.getByRole("button"));
 
     screen.getByRole("button", { name: "example item with submenu" }).focus();
-    await user.keyboard("{ArrowLeft}");
+    await user.keyboard("{Enter}");
+    act(() => {
+      jest.runOnlyPendingTimers();
+    });
 
-    await user.click(screen.getByRole("button", { name: "submenu item 1" }));
+    const disabledSubmenuItem = await screen.findByRole("button", {
+      name: "submenu item 1",
+    });
+
+    await user.click(disabledSubmenuItem);
+    expect(disabledSubmenuItem).toBeVisible();
     expect(
       screen.getByRole("button", { name: "submenu item 1" }),
     ).toBeVisible();
+    expect(disabledSubmenuItem).toHaveFocus();
+  });
+});
+
+describe("when the submenuPosition prop is set to 'left' and there is enough space on the screen", () => {
+  it("renders a chevron icon that points left", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+    render(
+      <ActionPopover submenuPosition="left">
+        <ActionPopoverItem>example item 1</ActionPopoverItem>
+        <ActionPopoverItem>example item 2</ActionPopoverItem>
+        <ActionPopoverItem
+          submenu={
+            <ActionPopoverMenu>
+              <ActionPopoverItem>submenu item 1</ActionPopoverItem>
+              <ActionPopoverItem>submenu item 2</ActionPopoverItem>
+            </ActionPopoverMenu>
+          }
+        >
+          example item with submenu
+        </ActionPopoverItem>
+      </ActionPopover>,
+    );
+
+    await user.click(screen.getByRole("button"));
+
+    const chevronIcon = screen.getByTestId("chevron-icon");
+    expect(chevronIcon).toHaveStyleRule(
+      "content",
+      `"${iconUnicodes.chevron_left_thick}"`,
+      { modifier: "&::before" },
+    );
+  });
+
+  it("does not open or close the submenu when a non-navigation key is pressed on a left-aligned item", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+    render(
+      <ActionPopover submenuPosition="left">
+        <ActionPopoverItem>example item 1</ActionPopoverItem>
+        <ActionPopoverItem>example item 2</ActionPopoverItem>
+        <ActionPopoverItem
+          submenu={
+            <ActionPopoverMenu>
+              <ActionPopoverItem>submenu item 1</ActionPopoverItem>
+              <ActionPopoverItem>submenu item 2</ActionPopoverItem>
+            </ActionPopoverMenu>
+          }
+        >
+          example item with submenu
+        </ActionPopoverItem>
+      </ActionPopover>,
+    );
+
+    await user.click(screen.getByRole("button"));
+    jest.runOnlyPendingTimers();
+
+    screen.getByRole("button", { name: "example item with submenu" }).focus();
+    await user.keyboard("{ArrowDown}");
+    jest.runOnlyPendingTimers();
+
     expect(
-      screen.getByRole("button", { name: "submenu item 1" }),
-    ).toHaveFocus();
+      screen.queryByRole("button", { name: "submenu item 1" }),
+    ).not.toBeInTheDocument();
   });
 });
 

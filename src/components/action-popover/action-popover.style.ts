@@ -158,6 +158,29 @@ const MenuButton = styled.div.attrs(applyBaseTheme)`
   && ${StyledIcon} {
     cursor: pointer;
   }
+
+  && ${StyledButton}[data-role="action-popover-default-button"] {
+    border-color: var(--colorsUtilityYin050);
+    color: var(--colorsUtilityYin090);
+
+    ${StyledIcon},
+    span[color] {
+      color: var(--colorsUtilityYin090);
+    }
+
+    &:hover,
+    &:focus {
+      border-color: var(--colorsUtilityYin060);
+      background-color: var(--colorsUtilityYang100);
+      color: var(--colorsUtilityYin090);
+
+      ${StyledIcon},
+      span[color] {
+        color: var(--colorsUtilityYin090);
+      }
+    }
+  }
+
   width: fit-content;
   margin: auto;
   ${margin}

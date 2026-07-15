@@ -12,11 +12,7 @@ import { MarginProps } from "styled-system";
 import invariant from "invariant";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
-import {
-  MenuButton,
-  ButtonIcon,
-  StyledButtonIcon,
-} from "./action-popover.style";
+import { MenuButton } from "./action-popover.style";
 import Events from "../../__internal__/utils/helpers/events";
 import Popover from "../../__internal__/popover";
 import createGuid from "../../__internal__/utils/helpers/guid";
@@ -37,6 +33,7 @@ import {
   checkChildrenForString,
 } from "./__internal__/action-popover.utils";
 import FlatTableContext from "../flat-table/__internal__/flat-table.context";
+import ActionPopoverMenuButton from "./action-popover-menu-button/action-popover-menu-button.component";
 
 export interface RenderButtonProps {
   tabIndex: number;
@@ -54,9 +51,15 @@ export interface RenderButtonProps {
 export interface ActionPopoverProps extends MarginProps, TagProps {
   /** Children for popover component */
   children?: React.ReactNode;
-  /** Horizontal alignment of menu items content */
+  /**
+   * @deprecated This prop will be removed in the next major version.
+   * Menu content alignment will be managed automatically.
+   */
   horizontalAlignment?: Alignment;
-  /** Sets submenu position */
+  /**
+   * @deprecated This prop will be removed in the next major version.
+   * Submenus now open to the right by default and flip automatically when needed.
+   */
   submenuPosition?: Alignment;
   /** Unique ID */
   id?: string;
@@ -64,7 +67,10 @@ export interface ActionPopoverProps extends MarginProps, TagProps {
   onOpen?: () => void;
   /** Callback to be called on menu close */
   onClose?: () => void;
-  /** Set whether the menu should open above or below the button */
+  /**
+   * @deprecated This prop will be removed in the next major version.
+   * The menu now uses automatic placement with viewport-aware flipping.
+   */
   placement?: "bottom" | "top";
   /** Render a custom menu button to override default ellipsis icon */
   renderButton?: (buttonProps: RenderButtonProps) => React.ReactNode;
@@ -99,7 +105,7 @@ export const ActionPopover = forwardRef<
       renderButton,
       placement = "bottom",
       horizontalAlignment = "left",
-      submenuPosition = "left",
+      submenuPosition = "right",
       "aria-label": ariaLabel,
       "aria-labelledby": ariaLabelledBy,
       "aria-describedby": ariaDescribedBy,
@@ -283,13 +289,17 @@ export const ActionPopover = forwardRef<
     }, [setOpen]);
 
     const menuButton = (menuID: string) => {
+      const defaultAriaLabel =
+        ariaLabel ||
+        (!ariaLabelledBy ? l.actionPopover.ariaLabel() : undefined);
+
       if (renderButton) {
         const renderButtonComponent = renderButton({
           tabIndex: isOpen ? -1 : 0,
           "data-element": "action-popover-button",
           ariaAttributes: {
             "aria-haspopup": "true",
-            "aria-label": ariaLabel || l.actionPopover.ariaLabel(),
+            "aria-label": defaultAriaLabel,
             "aria-labelledby": ariaLabelledBy,
             "aria-describedby": ariaDescribedBy,
             "aria-controls": menuID,
@@ -304,9 +314,7 @@ export const ActionPopover = forwardRef<
           "data-element": "action-popover-button",
           ariaAttributes: {
             "aria-haspopup": "true",
-            "aria-label": buttonHasString
-              ? undefined
-              : ariaLabel || l.actionPopover.ariaLabel(),
+            "aria-label": buttonHasString ? undefined : defaultAriaLabel,
             "aria-labelledby": ariaLabelledBy,
             "aria-describedby": ariaDescribedBy,
             "aria-controls": menuID,
@@ -316,19 +324,25 @@ export const ActionPopover = forwardRef<
       }
 
       return (
-        <StyledButtonIcon
-          role="button"
-          aria-haspopup="true"
-          aria-label={ariaLabel || l.actionPopover.ariaLabel()}
-          aria-labelledby={ariaLabelledBy}
-          aria-describedby={ariaDescribedBy}
-          aria-controls={menuID}
-          aria-expanded={isOpen}
+        <ActionPopoverMenuButton
+          buttonType="secondary"
+          size="small"
+          iconType="ellipsis_vertical"
+          iconPosition="after"
           tabIndex={isOpen ? -1 : 0}
           data-element="action-popover-button"
+          data-role="action-popover-default-button"
+          ariaAttributes={{
+            "aria-haspopup": "true",
+            "aria-label": defaultAriaLabel,
+            "aria-labelledby": ariaLabelledBy,
+            "aria-describedby": ariaDescribedBy,
+            "aria-controls": menuID,
+            "aria-expanded": `${isOpen}`,
+          }}
         >
-          <ButtonIcon type="ellipsis_vertical" />
-        </StyledButtonIcon>
+          Action
+        </ActionPopoverMenuButton>
       );
     };
 

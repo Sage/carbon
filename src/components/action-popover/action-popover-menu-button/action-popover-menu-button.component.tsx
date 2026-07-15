@@ -18,6 +18,9 @@ export type ActionPopoverMenuButtonAria = {
   "aria-expanded": string;
 };
 
+/**
+ * @deprecated Use ActionPopover's renderButton prop with Button or another custom trigger instead.
+ */
 export interface ActionPopoverMenuButtonProps {
   /** ARIA attributes to be applied to the button HTML element */
   ariaAttributes: ActionPopoverMenuButtonAria;
@@ -37,6 +40,9 @@ export interface ActionPopoverMenuButtonProps {
   tabIndex: number;
 }
 
+/**
+ * @deprecated Use ActionPopover's renderButton prop with Button or another custom trigger instead.
+ */
 export const ActionPopoverMenuButton = ({
   buttonType,
   iconType,

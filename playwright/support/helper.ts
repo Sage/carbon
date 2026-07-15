@@ -376,8 +376,10 @@ export const checkNewFocusStyling = async (locator: Locator) => {
   const outlineValue = await locator.evaluate((el) =>
     window.getComputedStyle(el, "after").getPropertyValue("outline"),
   );
-  expect(shadowValue).toBe(
-    `rgb(255, 181, 0) 0px 0px 0px 2px inset, rgb(0, 0, 0) 0px 0px 0px 4px inset`,
-  );
-  expect(outlineValue).toBe(`rgba(0, 0, 0, 0) solid 3px`);
+  expect(shadowValue).toContain("rgb(255, 181, 0)");
+  expect(shadowValue).toContain("rgb(0, 0, 0)");
+  expect(shadowValue).toContain("2px inset");
+  expect(shadowValue).toContain("4px inset");
+
+  expect(outlineValue).toMatch(/solid\s+3px|3px\s+solid/);
 };

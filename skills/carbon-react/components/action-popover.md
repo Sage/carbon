@@ -13,36 +13,36 @@ description: Carbon ActionPopover component props and usage examples.
 - Props interface: `ActionPopoverProps`
 
 ## Props
-| Name | Type | Required | Literals | Description | Default |
-| --- | --- | --- | --- | --- | --- |
-| children | React.ReactNode | No |  | Children for popover component |  |
-| horizontalAlignment | Alignment \| undefined | No |  | Horizontal alignment of menu items content |  |
-| id | string \| undefined | No |  | Unique ID |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| onClose | (() => void) \| undefined | No |  | Callback to be called on menu close |  |
-| onOpen | (() => void) \| undefined | No |  | Callback to be called on menu open |  |
-| placement | "bottom" \| "top" \| undefined | No |  | Set whether the menu should open above or below the button |  |
-| renderButton | ((buttonProps: RenderButtonProps) => React.ReactNode) \| undefined | No |  | Render a custom menu button to override default ellipsis icon |  |
-| rightAlignMenu | boolean \| undefined | No |  | Boolean to control whether menu should align to right |  |
-| submenuPosition | Alignment \| undefined | No |  | Sets submenu position |  |
-| data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
-| data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
-| aria-describedby | string \| undefined | No |  | Prop to specify an aria-describedby for the component |  |
-| aria-label | string \| undefined | No |  | Prop to specify an aria-label for the component |  |
-| aria-labelledby | string \| undefined | No |  | Prop to specify an aria-labelledby for the component |  |
+| Name | Type | Required | Literals | Deprecated | Deprecation reason | Description | Default |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| children | React.ReactNode | No |  |  |  | Children for popover component |  |
+| id | string \| undefined | No |  |  |  | Unique ID |  |
+| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
+| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
+| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
+| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
+| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
+| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
+| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
+| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
+| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
+| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
+| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
+| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
+| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
+| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
+| onClose | (() => void) \| undefined | No |  |  |  | Callback to be called on menu close |  |
+| onOpen | (() => void) \| undefined | No |  |  |  | Callback to be called on menu open |  |
+| renderButton | ((buttonProps: RenderButtonProps) => React.ReactNode) \| undefined | No |  |  |  | Render a custom menu button to override default ellipsis icon |  |
+| rightAlignMenu | boolean \| undefined | No |  |  |  | Boolean to control whether menu should align to right |  |
+| data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+| data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+| aria-describedby | string \| undefined | No |  |  |  | Prop to specify an aria-describedby for the component |  |
+| aria-label | string \| undefined | No |  |  |  | Prop to specify an aria-label for the component |  |
+| aria-labelledby | string \| undefined | No |  |  |  | Prop to specify an aria-labelledby for the component |  |
+| horizontalAlignment | Alignment \| undefined | No |  | Yes | This prop will be removed in the next major version. Menu content alignment will be managed automatically. |  |  |
+| placement | "bottom" \| "top" \| undefined | No |  | Yes | This prop will be removed in the next major version. The menu now uses automatic placement with viewport-aware flipping. |  |  |
+| submenuPosition | Alignment \| undefined | No |  | Yes | This prop will be removed in the next major version. Submenus now open to the right by default and flip automatically when needed. |  |  |
 
 ## Examples
 ### Default

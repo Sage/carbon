@@ -1,7 +1,6 @@
 import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
-import * as ActionPopoverMenuButtonStories from "./action-popover-menu-button/action-popover-menu-button.stories";
 import * as ActionPopoverItemStories from "./action-popover-item/action-popover-item.stories";
 import * as ActionPopoverMenuStories from "./action-popover-menu/action-popover-menu.stories";
 import * as ActionPopoverStories from "./action-popover.stories";
@@ -20,7 +19,7 @@ import * as ActionPopoverStories from "./action-popover.stories";
 </a>
 
 ActionPopovers present a handy list of actions the user can perform on a whole table, a specific row within a table, or a tile.
-Click the ellipsis icon to show actions the user can take on a specific table row, for example, emailing the invoice.
+Click the Action button to show actions the user can take on a specific table row, for example, emailing the invoice.
 
 ## Contents
 
@@ -42,7 +41,6 @@ import {
   ActionPopoverDivider,
   ActionPopoverItem,
   ActionPopoverMenu,
-  ActionPopoverMenuButton,
   type ActionPopoverHandle,
 } from "carbon-react/lib/components/action-popover";
 ```
@@ -79,7 +77,7 @@ It is possible to align the Menu to the right of the MenuButton by passing the &
 
 <Canvas of={ActionPopoverStories.MenuRightAligned} />
 
-### With item content aligned to right
+### With item content aligned to right (deprecated)
 
 <Canvas of={ActionPopoverStories.ContentAlignedRight} />
 
@@ -95,7 +93,7 @@ It is possible to use the `renderButton` prop to override the default button use
 ActionPopoverMenu.
 
 The `renderButton` prop is a function that allows consumers to pass `tabIndex`, `data-element` and the provided aria attribute props to 
-`ActionPopoverMenuButton` or a custom button component.
+a custom button component.
 
 A default `aria-label` will be provided to the button, but this can be overridden by passing the `ariaLabel` prop to the 
 `ActionPopover` or making use of the `actionPopover.ariaLabel` translation key. Please ensure to set this to `undefined` if your 
@@ -108,7 +106,7 @@ See the example below for an example of how to use the `renderButton` prop:
 ### With submenu
 
 A menu item can be passed a sub-menu to add further sub-actions if needed. items with sub-menus will display an chevron
-icons pointing in the direction that the sub-menu will open; by default it will open to the left.
+icons pointing in the direction that the sub-menu will open; by default it will open to the right.
 
 Hovering the mouse cursor over an item will open the sub-menu if it has one and moving the mouse cursor away will
 close it. No action is dispatched on click of the item and the sub-menu is opened by mouse enter and closed on mouse
@@ -117,8 +115,7 @@ leave.
 <Canvas of={ActionPopoverStories.Submenu} />
 
 ### With submenu positioned to right
-
-Submenu can be positioned on either the left of the right with the use of the `submenuPosition` prop.
+Submenus render to the right by default and flip automatically if there is not enough room.
 
 <Canvas of={ActionPopoverStories.SubmenuPositionedRight} />
 
@@ -129,8 +126,7 @@ A sub-menu will not open if the item is in a disabled state.
 <Canvas of={ActionPopoverStories.DisabledSubmenu} />
 
 ### With menu opening above
-
-The menu can also be rendered above the button control by setting using `placement="top"`.
+Menu placement is now handled automatically and flips when there is not enough room.
 
 <Canvas of={ActionPopoverStories.MenuOpeningAbove} />
 
@@ -210,9 +206,6 @@ by passing a `ref` to the component.
 <ArgTypes of={ActionPopoverMenuStories} />
 
 ### ActionPopoverMenuButton Props
-
-<ArgTypes of={ActionPopoverMenuButtonStories} />
-
 ### ActionPopoverItem Props
 
 <ArgTypes of={ActionPopoverItemStories} />
