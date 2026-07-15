@@ -7,6 +7,7 @@ import I18nProvider from "../i18n-provider";
 
 import Textarea from ".";
 import useMultiInput from "../../hooks/use-multi-input";
+import { CarbonProvider } from "../..";
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
@@ -332,3 +333,110 @@ export const BorderlessExample: Story = () => {
   );
 };
 BorderlessExample.storyName = "Borderless Example";
+
+export const ResizeStory: Story = () => {
+  const [state, setState] = useState("");
+  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    setState(target.value);
+  };
+  return (
+    <>
+      <CarbonProvider validationRedesignOptIn>
+        <Textarea
+          inputHint="this is a hint"
+          characterLimit={200}
+          label="Textarea with resize"
+          value={state}
+          onChange={setValue}
+          resize="both"
+          validationMessagePositionTop={false}
+          mb={2}
+        />
+        <Textarea
+          labelInline
+          label="Textarea with resize"
+          value={state}
+          onChange={setValue}
+          resize="both"
+          validationMessagePositionTop={false}
+          mb={2}
+        />
+      </CarbonProvider>
+    </>
+  );
+};
+ResizeStory.storyName = "Resize";
+
+export const SizeStory: Story = () => {
+  const [state, setState] = useState("");
+  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    setState(target.value);
+  };
+  return (
+    <>
+      <CarbonProvider validationRedesignOptIn>
+        <Textarea
+          label="Textarea small"
+          inputHint="this is a hint"
+          value={state}
+          onChange={setValue}
+          validationMessagePositionTop={false}
+          mb={2}
+          characterLimit={100}
+          size="small"
+        />
+
+        <Textarea
+          label="Textarea medium"
+          inputHint="this is a hint"
+          value={state}
+          onChange={setValue}
+          validationMessagePositionTop={false}
+          mb={2}
+          characterLimit={100}
+          size="medium"
+        />
+
+        <Textarea
+          label="Textarea large"
+          inputHint="this is a hint"
+          value={state}
+          onChange={setValue}
+          validationMessagePositionTop={false}
+          mb={2}
+          characterLimit={100}
+          size="large"
+        />
+
+        <Textarea
+          label="Textarea small"
+          labelInline
+          value={state}
+          onChange={setValue}
+          validationMessagePositionTop={false}
+          mb={2}
+          size="small"
+        />
+        <Textarea
+          label="Textarea medium"
+          labelInline
+          value={state}
+          onChange={setValue}
+          validationMessagePositionTop={false}
+          mb={2}
+          size="medium"
+        />
+        <Textarea
+          label="Textarea large"
+          labelInline
+          value={state}
+          onChange={setValue}
+          validationMessagePositionTop={false}
+          mb={2}
+          size="large"
+        />
+      </CarbonProvider>
+    </>
+  );
+};
+SizeStory.storyName = "Size";

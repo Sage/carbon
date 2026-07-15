@@ -21,18 +21,63 @@ import Input from "../../__internal__/legacy-input/input.component";
 import { InputBehaviour } from "../../__internal__/input-behaviour";
 import InputIconToggle from "../../__internal__/input-icon-toggle";
 import guid from "../../__internal__/utils/helpers/guid";
-import StyledTextarea, { DEFAULT_MIN_HEIGHT } from "./textarea.style";
+import StyledTextarea, {
+  StyledTextareaValidationContainer,
+} from "./textarea.style";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import useInputAccessibility from "../../hooks/__internal__/useInputAccessibility";
 import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
-import ErrorBorder from "../../__internal__/legacy-error-border/error-border.style";
+import ErrorBorder from "../../__internal__/error-border/error-border.style";
 import ValidationMessage from "../../__internal__/validation-message";
-import Box from "../box";
 import Logger from "../../__internal__/utils/logger";
 import { BorderRadiusType } from "../box/box.component";
-import HintText from "../../__internal__/legacy-hint-text";
+import HintText from "../../__internal__/hint-text";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import FieldsetContext from "../fieldset/__internal__/fieldset.context";
+
+import {
+  globalFontStaticCompRegularS,
+  globalFontStaticCompRegularM,
+  globalFontStaticCompRegularL,
+  globalSpaceCompXs,
+  globalSpaceCompS,
+  globalSpaceCompM,
+} from "./__internal__/tokens";
+
+export const parseValueUnit = (str: string): number => {
+  const match = str.match(/^(-?\d*\.?\d+)(px|em|rem|%)$/);
+  if (!match) {
+    Logger.warn(`Unexpected value/unit format: "${str}"`);
+    return 0;
+  }
+  return parseFloat(match[1]);
+};
+
+const textareaRowHeightBySize = {
+  small:
+    parseFloat(globalFontStaticCompRegularS.lineHeight.toString()) *
+    parseValueUnit(globalFontStaticCompRegularS.fontSize),
+  medium:
+    parseFloat(globalFontStaticCompRegularM.lineHeight.toString()) *
+    parseValueUnit(globalFontStaticCompRegularM.fontSize),
+  large:
+    parseFloat(globalFontStaticCompRegularL.lineHeight.toString()) *
+    parseValueUnit(globalFontStaticCompRegularL.fontSize),
+};
+
+const textareaTopPaddingBySize = {
+  small: parseValueUnit(globalSpaceCompXs),
+  medium: parseValueUnit(globalSpaceCompS),
+  large: parseValueUnit(globalSpaceCompM),
+};
+
+export const getDefaultMinHeightBySize = (
+  size: "small" | "medium" | "large",
+) => {
+  const rowHeight = textareaRowHeightBySize[size];
+  const topPadding = textareaTopPaddingBySize[size];
+  return 3 * rowHeight + 2 * topPadding;
+};
 
 export interface TextareaProps
   extends ValidationProps,
@@ -44,7 +89,7 @@ export interface TextareaProps
   /** id of the input */
   id?: string;
   /**
-   * Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set
+   * @deprecated Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set. This property is deprecated and will be removed in future versions.
    **/
   adaptiveLabelBreakpoint?: number;
   /** Automatically focus the input on component mount */
@@ -63,16 +108,19 @@ export interface TextareaProps
   error?: boolean | string;
   /** Allows the Textareas Height to change based on user input */
   expandable?: boolean;
+  /** Specifies the number of visible text lines. When set, the textarea expands up to this maximum height. */
+  maxRows?: number;
   /** A hint string rendered before the input but after the label. Intended to describe the purpose or content of the input. */
   inputHint?: string;
-  /** [Legacy] Help content to be displayed under an input */
+  /** @deprecated [Legacy] Help content to be displayed under an input. This property is deprecated and will be removed in future versions. */
   fieldHelp?: React.ReactNode;
-  /** [Legacy] Aria label for rendered help component */
+  /** @deprecated [Legacy] Aria label for rendered help component. This property is deprecated and will be removed in future versions. */
   helpAriaLabel?: string;
   /**
-   * [Legacy] Indicate additional information.
+   * @deprecated [Legacy] Indicate additional information.
    * Pass string to display icon, tooltip and blue border.
    * Pass true boolean to only display blue border.
+   * This property is deprecated and will be removed in future versions.
    */
   info?: boolean | string;
   /**
@@ -81,7 +129,7 @@ export interface TextareaProps
    * Icon to display inside of the Textarea
    */
   inputIcon?: IconType;
-  /** [Legacy] Width of an input in percentage. Works only when labelInline is true */
+  /** @deprecated [Legacy] Width of an input in percentage. Works only when labelInline is true. This property is deprecated and will be removed in future versions. */
   inputWidth?: number;
   /**
    * Prop for specifying the max width of the input.
@@ -90,19 +138,19 @@ export interface TextareaProps
   maxWidth?: string;
   /** The content of the label for the input */
   label?: string;
-  /** Label alignment */
+  /** @deprecated Label alignment. This property is deprecated and will be removed in future versions. */
   labelAlign?: "left" | "right";
   /**
-   * [Legacy] Text applied to label help tooltip. When opted into new design validations
+   * @deprecated [Legacy] Text applied to label help tooltip. When opted into new design validations
    * it will render as a hint above the input, unless an `inputHint`
-   * prop is also passed
+   * prop is also passed. This property is deprecated and will be removed in future versions.
    */
   labelHelp?: React.ReactNode;
-  /** [Legacy] When true, label is placed in line an input */
+  /** When true, label is placed in line an input */
   labelInline?: boolean;
-  /** [Legacy] Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */
+  /** @deprecated [Legacy] Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8). This property is deprecated and will be removed in future versions. */
   labelSpacing?: 1 | 2;
-  /** [Legacy] Width of a label in percentage. Works only when labelInline is true */
+  /** @deprecated [Legacy] Width of a label in percentage. Works only when labelInline is true. This property is deprecated and will be removed in future versions. */
   labelWidth?: number;
   /** Name of the input */
   name?: string;
@@ -113,15 +161,14 @@ export interface TextareaProps
   /** Adds readOnly property */
   readOnly?: boolean;
   /**
-   * [Legacy] Flag to configure component as optional.
-   * @deprecated If the value of this component is not required, use the `required` prop and set it to false instead.
+   * @deprecated [Legacy] Flag to configure component as optional. If the value of this component is not required, use the `required` prop and set it to false instead. This property is deprecated and will be removed in future versions.
    */
   isOptional?: boolean;
   /** The number of visible text lines for the control. When set, this determines the height of the textarea, and the minHeight property is ignored. */
   rows?: number;
-  /** [Legacy] Overrides the default tooltip position */
+  /** @deprecated [Legacy] Overrides the default tooltip position. This property is deprecated and will be removed in future versions. */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
-  /** [Legacy] When true, validation icon will be placed on label instead of being placed on the input */
+  /** @deprecated [Legacy] When true, validation icon will be placed on label instead of being placed on the input. This property is deprecated and will be removed in future versions. */
   validationOnLabel?: boolean;
   /** The value of the Textbox */
   value: string;
@@ -131,14 +178,20 @@ export interface TextareaProps
    * Pass true boolean to only display orange border.
    */
   warning?: boolean | string;
-  /** Specify a custom border radius for the component. Any valid border-radius design token, or an array of border-radius design tokens. */
+  /** @deprecated Specify a custom border radius for the component. Any valid border-radius design token, or an array of border-radius design tokens. This property is deprecated and will be removed in future versions.*/
   borderRadius?: BorderRadiusType | BorderRadiusType[];
-  /** Hides the borders for the component. Please note that validation and focus styling will still be applied */
+  /** @deprecated Hides the borders for the component. Please note that validation and focus styling will still be applied. This property is deprecated and will be removed in future versions. */
   hideBorders?: boolean;
   /** Specify the minimum height. This property is only applied if rows is not set. */
   minHeight?: number;
   /** Render the ValidationMessage above the Textarea when validationRedesignOptIn flag is set */
   validationMessagePositionTop?: boolean;
+  /** @deprecated Override the variant component. This property is deprecated and will be removed in future versions. */
+  as?: CommonInputProps["as"];
+  /** Specify the resize behavior of the textarea */
+  resize?: "none" | "both" | "horizontal" | "vertical";
+  /** Size of the textarea. */
+  size?: "small" | "medium" | "large";
 }
 
 let deprecateOptionalWarnTriggered = false;
@@ -187,8 +240,11 @@ export const Textarea = React.forwardRef(
       hideBorders = false,
       required,
       isOptional,
-      minHeight = DEFAULT_MIN_HEIGHT,
+      minHeight,
       validationMessagePositionTop = true,
+      resize = "none",
+      size = "medium",
+      maxRows,
       ...rest
     }: TextareaProps,
     ref: React.ForwardedRef<HTMLTextAreaElement>,
@@ -201,16 +257,15 @@ export const Textarea = React.forwardRef(
     }
     const { validationRedesignOptIn } = useContext(NewValidationContext);
 
+    const resizeValue = validationRedesignOptIn ? resize : "none";
+
     // should also consume size from context when this size added to textarea
     const { hasError: fieldsetError, required: fieldsetRequired } =
       useContext(FieldsetContext);
 
-    const labelInlineWithNewValidation = validationRedesignOptIn
-      ? false
-      : labelInline;
-
-    const [textareaMinHeight, setTextareaMinHeight] =
-      useState(DEFAULT_MIN_HEIGHT);
+    const [textareaMinHeight, setTextareaMinHeight] = useState(
+      getDefaultMinHeightBySize(size),
+    );
     const computeLabelPropValues = <T,>(prop: T): undefined | T =>
       validationRedesignOptIn ? undefined : prop;
 
@@ -239,6 +294,31 @@ export const Textarea = React.forwardRef(
       "off" | "polite"
     >("off");
 
+    useEffect(() => {
+      const textarea = internalRef.current;
+
+      /* istanbul ignore if */
+      if (!textarea) return;
+
+      const check = () => {
+        textarea.classList.toggle(
+          "has-scrollbar",
+          textarea.scrollHeight > textarea.clientHeight,
+        );
+      };
+      check();
+
+      textarea.addEventListener("input", check);
+      const ro = new ResizeObserver(check);
+
+      ro.observe(textarea);
+
+      return () => {
+        textarea.removeEventListener("input", check);
+        ro.disconnect();
+      };
+    }, []);
+
     // This block of code has been covered in a Playwright test.
     // istanbul ignore next
     const handleFocus = (ev: React.FocusEvent<HTMLInputElement>) => {
@@ -265,11 +345,18 @@ export const Textarea = React.forwardRef(
     }
 
     const expandTextarea = useCallback(() => {
-      const textarea = internalRef.current;
+      let maxRowsHeight: number | undefined;
+      if (maxRows) {
+        maxRowsHeight =
+          maxRows * textareaRowHeightBySize[size] +
+          2 * textareaTopPaddingBySize[size];
+      }
 
+      const textarea = internalRef.current;
       if (
         textarea?.scrollHeight &&
-        textarea?.scrollHeight > textareaMinHeight
+        textarea?.scrollHeight > textareaMinHeight &&
+        textarea?.scrollHeight <= (maxRowsHeight ?? textarea.scrollHeight)
       ) {
         // need to reset scroll position of the nearest parent which scrolls
         let scrollElement: HTMLElement | null = textarea;
@@ -291,7 +378,7 @@ export const Textarea = React.forwardRef(
           scrollElement.scrollTop = scrollPosition;
         }
       }
-    }, [textareaMinHeight]);
+    }, [textareaMinHeight, maxRows, size]);
 
     const { labelId, validationId, fieldHelpId, ariaDescribedBy } =
       useInputAccessibility({
@@ -308,17 +395,25 @@ export const Textarea = React.forwardRef(
       value,
       characterLimit,
       characterCountAriaLive,
+      size,
     );
 
     useEffect(() => {
       if (rows) {
         setTextareaMinHeight(internalRef?.current?.scrollHeight || 0);
       } else {
+        if (!minHeight) {
+          setTextareaMinHeight(getDefaultMinHeightBySize(size));
+          return;
+        }
+
         setTextareaMinHeight(
-          minHeight > DEFAULT_MIN_HEIGHT ? minHeight : DEFAULT_MIN_HEIGHT,
+          minHeight > getDefaultMinHeightBySize(size)
+            ? minHeight
+            : getDefaultMinHeightBySize(size),
         );
       }
-    }, [minHeight, rows]);
+    }, [minHeight, rows, size]);
 
     useEffect(() => {
       if (expandable) {
@@ -419,7 +514,7 @@ export const Textarea = React.forwardRef(
       >
         <InputBehaviour>
           <StyledTextarea
-            labelInline={labelInlineWithNewValidation}
+            labelInline={labelInline}
             hasIcon={hasIconInside}
             minHeight={textareaMinHeight}
             {...marginProps}
@@ -427,6 +522,20 @@ export const Textarea = React.forwardRef(
               "data-element": dataElement,
               "data-role": dataRole,
             })}
+            $resize={resizeValue}
+            $maxWidth={maxWidth}
+            $size={size}
+            $readOnly={readOnly}
+            $hasHint={!!inputHint}
+            $isRequired={required}
+            $disabled={disabled}
+            $hasWarning={!!warning}
+            $hasError={!!error}
+            borderRadius={borderRadius}
+            $labelSpacing={labelSpacing}
+            $labelWidth={labelWidth}
+            $hideBorders={hideBorders}
+            $labelAlign={labelAlign}
           >
             <FormField
               fieldHelp={computeLabelPropValues(fieldHelp)}
@@ -438,7 +547,7 @@ export const Textarea = React.forwardRef(
               labelId={labelId}
               disabled={disabled}
               id={id}
-              labelInline={computeLabelPropValues(labelInlineWithNewValidation)}
+              labelInline={labelInline}
               labelAlign={labelAlign}
               labelWidth={computeLabelPropValues(labelWidth)}
               labelHelp={computeLabelPropValues(labelHelp)}
@@ -451,7 +560,7 @@ export const Textarea = React.forwardRef(
             >
               {(inputHint || (labelHelp && validationRedesignOptIn)) && (
                 <HintText
-                  align={labelAlign}
+                  size={size}
                   id={inputHintId}
                   data-element="input-hint"
                 >
@@ -459,7 +568,11 @@ export const Textarea = React.forwardRef(
                 </HintText>
               )}
               {validationRedesignOptIn ? (
-                <Box position="relative">
+                <StyledTextareaValidationContainer
+                  labelInline={labelInline}
+                  $inputWidth={inputWidth}
+                  $labelWidth={labelWidth}
+                >
                   {validationMessagePositionTop && (
                     <>
                       <ValidationMessage
@@ -471,7 +584,7 @@ export const Textarea = React.forwardRef(
                         }
                       />
                       {(error || warning) && (
-                        <ErrorBorder warning={!!(!error && warning)} />
+                        <ErrorBorder $warning={!!(!error && warning)} />
                       )}
                     </>
                   )}
@@ -487,11 +600,11 @@ export const Textarea = React.forwardRef(
                         }
                       />
                       {(error || warning) && (
-                        <ErrorBorder warning={!!(!error && warning)} />
+                        <ErrorBorder $warning={!!(!error && warning)} />
                       )}
                     </>
                   )}
-                </Box>
+                </StyledTextareaValidationContainer>
               ) : (
                 input
               )}

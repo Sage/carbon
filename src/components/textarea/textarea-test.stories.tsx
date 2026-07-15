@@ -295,6 +295,43 @@ export const NewValidation = () => {
         value={state["ta-warn-bottom"] || ""}
         onChange={setValue}
       />
+      <Textarea
+        label="Textarea"
+        error="Error Message"
+        mb={2}
+        name="ta-error"
+        value={state["ta-error"] || ""}
+        onChange={setValue}
+        labelInline
+      />
+      <Textarea
+        label="Textarea"
+        warning="Warning Message"
+        mb={2}
+        name="ta-warn"
+        value={state["ta-warn"] || ""}
+        onChange={setValue}
+        labelInline
+      />
+      <Textarea
+        validationMessagePositionTop={false}
+        label="Textarea"
+        error="Error Message"
+        mb={2}
+        name="ta-error-bottom"
+        value={state["ta-error-bottom"] || ""}
+        onChange={setValue}
+        labelInline
+      />
+      <Textarea
+        validationMessagePositionTop={false}
+        label="Textarea"
+        warning="Warning Message"
+        name="ta-warn-bottom"
+        value={state["ta-warn-bottom"] || ""}
+        onChange={setValue}
+        labelInline
+      />
     </CarbonProvider>
   );
 };
