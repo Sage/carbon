@@ -1,6 +1,6 @@
 import Logger from "../../__internal__/utils/logger";
 
-function normaliseHex(hex: string): string {
+export function normaliseHex(hex: string): string {
   const h = hex.replace("#", "");
 
   // Convert 3-digit to 6-digit
@@ -16,7 +16,7 @@ function normaliseHex(hex: string): string {
   return `#${h}`;
 }
 
-function rgbToHex(rgb: string): string {
+export function rgbToHex(rgb: string): string {
   const values = rgb.match(/\d+(\.\d+)?%?/g);
 
   if (!values) {
@@ -40,7 +40,7 @@ function rgbToHex(rgb: string): string {
   return hex;
 }
 
-function hslToRgb(
+export function hslToRgb(
   h: number,
   s: number,
   l: number,
@@ -85,7 +85,7 @@ function hslToRgb(
   };
 }
 
-function hslToHex(hsl: string): string {
+export function hslToHex(hsl: string): string {
   const values = hsl.match(/-?\d+(\.\d+)?%?/g);
 
   if (!values) {
@@ -262,7 +262,7 @@ const COLOR_NAMES: Record<string, string> = {
   yellowgreen: "#9acd32",
 };
 
-function namedColorToHex(name: string): string | null {
+export function namedColorToHex(name: string): string | null {
   return COLOR_NAMES[name] || null;
 }
 

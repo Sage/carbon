@@ -1,5 +1,11 @@
 import React from "react";
-import { render, screen, within, fireEvent } from "@testing-library/react";
+import {
+  render,
+  screen,
+  within,
+  fireEvent,
+  waitFor,
+} from "@testing-library/react";
 import Portal from ".";
 
 import guid from "../../__internal__/utils/helpers/guid";
@@ -70,4 +76,53 @@ test("renders with the 'data-not-inert' attribute set to true on the portal exit
 
   const portalExit = screen.getByTestId("carbon-portal-exit");
   expect(portalExit).toHaveAttribute("data-not-inert", "true");
+});
+
+test("copies the nearest ancestor's data-carbon-theme onto the portal exit", async () => {
+  render(
+    <div data-carbon-theme="dark">
+      <Portal id="themed">Children</Portal>
+    </div>,
+  );
+
+  const portalExit = screen.getByTestId("carbon-portal-exit");
+  await waitFor(() => {
+    expect(portalExit).toHaveAttribute("data-carbon-theme", "dark");
+  });
+});
+
+test("updates portal theme when nearest themed ancestor changes", async () => {
+  const ThemedHost = () => {
+    const [theme, setTheme] = React.useState("light");
+
+    return (
+      <div data-carbon-theme={theme}>
+        <button onClick={() => setTheme("dark")}>toggle theme</button>
+        <Portal id="themed">Children</Portal>
+      </div>
+    );
+  };
+
+  const { unmount } = render(<ThemedHost />);
+
+  const portalExit = screen.getByTestId("carbon-portal-exit");
+  const toggle = screen.getByRole("button", { name: "toggle theme" });
+
+  await waitFor(() => {
+    expect(portalExit).toHaveAttribute("data-carbon-theme", "light");
+  });
+
+  fireEvent.click(toggle);
+
+  await waitFor(() => {
+    expect(portalExit).toHaveAttribute("data-carbon-theme", "dark");
+  });
+
+  const scopedProvider = within(portalExit).getByTestId(
+    "carbon-portal-scoped-tokens-provider",
+  );
+
+  expect(scopedProvider).toHaveAttribute("data-carbon-theme", "dark");
+
+  unmount();
 });
