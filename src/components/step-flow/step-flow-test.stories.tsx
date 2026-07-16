@@ -61,6 +61,7 @@ const ExampleImplementation = () => {
     <>
       <StepFlow
         title="Example Implementation"
+        titleVariant="h2"
         currentStep={step as Steps}
         totalSteps={5}
         ref={stepFlowHandle}

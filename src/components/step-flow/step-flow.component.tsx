@@ -18,6 +18,9 @@ import StepFlowTitle from "./step-flow-title/step-flow-title.component";
 import Icon from "../icon";
 import Button from "../button/__next__";
 
+let currentStepWarnTriggered = false;
+let noRefWarnTriggered = false;
+
 export type Steps = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
 interface StepFlowAriaProps {
@@ -101,9 +104,6 @@ export const StepFlow = forwardRef<StepFlowHandle, StepFlowProps>(
     const validatedCurrentStep =
       currentStep > totalSteps ? totalSteps : currentStep;
 
-    let currentStepWarnTriggered = false;
-    let noRefWarnTriggered = false;
-
     if (!currentStepWarnTriggered && currentStep > totalSteps) {
       currentStepWarnTriggered = true;
       Logger.warn(
@@ -182,7 +182,7 @@ export const StepFlow = forwardRef<StepFlowHandle, StepFlowProps>(
         {...tagComponent("step-flow", rest)}
       >
         <StyledStepContent>
-          {category}
+          <span aria-hidden="true">{category}</span>
           {stepFlowTitle}
 
           <StyledStepLabel aria-hidden="true">

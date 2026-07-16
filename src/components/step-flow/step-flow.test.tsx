@@ -266,7 +266,7 @@ describe("console warning checks", () => {
   });
 
   it("logs warning in the console once when a ref is not passed", () => {
-    render(<StepFlow currentStep={4} totalSteps={1} title="foo" />);
+    render(<StepFlow currentStep={1} totalSteps={4} title="foo" />);
 
     expect(loggerSpy).toHaveBeenCalledWith(noRefWarnMessage);
   });
