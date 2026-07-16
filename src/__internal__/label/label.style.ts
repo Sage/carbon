@@ -57,7 +57,6 @@ const StyledLabel = styled.label<StyledLabelProps>`
       }
     `}
 
-  .numeral-date-wrapper &,
   .time & {
     font: var(--global-font-static-comp-regular-m);
   }

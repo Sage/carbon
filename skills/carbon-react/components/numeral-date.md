@@ -46,7 +46,7 @@ description: Carbon NumeralDate component props and usage examples.
 | readOnly | boolean \| undefined | No |  |  |  | If true, the component will be read-only |  |
 | required | boolean \| undefined | No |  |  |  | Flag to configure component as mandatory |  |
 | size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | Size of an input |  |
-| validationMessagePositionTop | boolean \| undefined | No |  |  |  | Render the ValidationMessage above the NumeralDate inputs when validationRedesignOptIn flag is set |  |
+| validationMessagePositionTop | boolean \| undefined | No |  |  |  | Render the ValidationMessage above the NumeralDate inputs. |  |
 | yearRef | React.ForwardedRef<HTMLInputElement> \| undefined | No |  |  |  | A React ref to pass to the input corresponding to the year |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
@@ -64,102 +64,39 @@ description: Carbon NumeralDate component props and usage examples.
 | labelWidth | number \| undefined | No |  | Yes | Custom label widths are no longer supported on this component. | [Legacy] Label width |  |
 | tooltipPosition | "left" \| "right" \| "bottom" \| "top" \| undefined | No |  | Yes | Tooltips are no longer supported on this component. | [Legacy] Overrides the default tooltip position |  |
 | validationOnLabel | boolean \| undefined | No |  | Yes | Custom validation icon placement is no longer supported on this component. | [Legacy] When true, validation icons will be placed on labels instead of being placed on the inputs |  |
-| warning | string \| boolean \| undefined | No |  | Yes | Warning validation is deprecated and will be removed in a future release. | [Legacy] Indicate warning information. |  |
+| warning | string \| boolean \| undefined | No |  | Yes | Warning validation is deprecated and will be removed in a future release. | Indicate warning information. |  |
 
 ## Examples
 ### Default
 
-**Render**
+**Args**
 
 ```tsx
-() => {
-  const [value, setValue] = useState<NumeralDateProps["value"]>({
-    dd: "01",
-    mm: "02",
-    yyyy: "2020",
-  });
-  return (
-    <NumeralDate
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
-      legend="Date of Birth"
-    />
-  );
-}
+{
+    legend: "Legend",
+  }
 ```
-
-
-### Read-only
 
 **Render**
 
 ```tsx
-() => {
-  const [value, setValue] = useState<NumeralDateProps["value"]>({
-    dd: "01",
-    mm: "02",
-    yyyy: "2020",
-  });
-  return (
-    <NumeralDate
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
-      legend="Date of Birth"
-      readOnly
-    />
-  );
-}
+ControlledNumeralDate
 ```
 
 
-### Disabled
+### WithLegendHint
 
-**Render**
+**Args**
 
 ```tsx
-() => {
-  const [value, setValue] = useState<NumeralDateProps["value"]>({
-    dd: "01",
-    mm: "02",
-    yyyy: "2020",
-  });
-  return (
-    <NumeralDate
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
-      legend="Date of Birth"
-      disabled
-    />
-  );
-}
+{
+    ...Default.args,
+    legendHint: "Legend Hint",
+  }
 ```
 
 
-### With Input Hint
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState<NumeralDateProps["value"]>({
-    dd: "",
-    mm: "",
-    yyyy: "",
-  });
-
-  return (
-    <NumeralDate
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
-      legend="Date of Birth"
-      legendHint="For example, 25 10 1998"
-    />
-  );
-}
-```
-
-
-### Allowed Date Formats
+### Date Formats
 
 **Render**
 
@@ -226,35 +163,20 @@ description: Carbon NumeralDate component props and usage examples.
 ```
 
 
-### Internal Validation Error
+### InternalValidationError
 
-**Render**
+**Args**
 
 ```tsx
-() => {
-  const [valueNew, setValueNew] = useState<NumeralDateProps["value"]>({
-    dd: "01",
-    mm: "13",
-    yyyy: "1999",
-  });
-  return (
-    <Box display={"flex"} flexDirection={"column"} gap={"24px"}>
-      <NumeralDate
-        enableInternalError
-        legend="Default - new validation (top)"
-        onChange={(e) => setValueNew(e.target.value)}
-        value={valueNew}
-      />
-      <NumeralDate
-        validationMessagePositionTop={false}
-        enableInternalError
-        legend="Default - new validation (bottom)"
-        onChange={(e) => setValueNew(e.target.value)}
-        value={valueNew}
-      />
-    </Box>
-  );
-}
+{
+    ...Default.args,
+    enableInternalError: true,
+    value: {
+      dd: "01",
+      mm: "13",
+      yyyy: "1999",
+    },
+  }
 ```
 
 
@@ -277,7 +199,6 @@ description: Carbon NumeralDate component props and usage examples.
     <>
       <NumeralDate
         legend="Small"
-        dateFormat={["dd", "mm", "yyyy"]}
         size="small"
         mb={2}
         value={value}
@@ -285,7 +206,6 @@ description: Carbon NumeralDate component props and usage examples.
       />
       <NumeralDate
         legend="Medium"
-        dateFormat={["dd", "mm", "yyyy"]}
         size="medium"
         mb={2}
         value={value2}
@@ -293,7 +213,6 @@ description: Carbon NumeralDate component props and usage examples.
       />
       <NumeralDate
         legend="Large"
-        dateFormat={["dd", "mm", "yyyy"]}
         size="large"
         value={value3}
         onChange={(e) => setValue3(e.target.value)}
@@ -306,25 +225,38 @@ description: Carbon NumeralDate component props and usage examples.
 
 ### Required
 
-**Render**
+**Args**
 
 ```tsx
-() => {
-  const [value, setValue] = useState<NumeralDateProps["value"]>({
-    dd: "",
-    mm: "",
-    yyyy: "",
-  });
-  return (
-    <NumeralDate
-      name="date-of-birth"
-      legend="Date of Birth"
-      onChange={(e) => setValue(e.target.value)}
-      value={value}
-      required
-    />
-  );
-}
+{
+    ...Default.args,
+    required: true,
+  }
+```
+
+
+### ReadOnly
+
+**Args**
+
+```tsx
+{
+    ...Default.args,
+    readOnly: true,
+  }
+```
+
+
+### Disabled
+
+**Args**
+
+```tsx
+{
+    ...WithLegendHint.args,
+    required: true,
+    disabled: true,
+  }
 ```
 
 
@@ -334,17 +266,15 @@ description: Carbon NumeralDate component props and usage examples.
 
 ```tsx
 () => {
-  const ndRef = React.useRef<NumeralDateHandle>(null);
-  const [dateValue, setDateValue] = useState<NumeralDateProps["value"]>({
+  const ref = React.useRef<NumeralDateHandle>(null);
+  const [value, setValue] = useState<NumeralDateProps["value"]>({
     dd: "",
     mm: "",
     yyyy: "",
   });
-  const handleChange: NumeralDateProps["onChange"] = (event) => {
-    setDateValue(event.target.value);
-  };
+
   const handleClick = () => {
-    ndRef.current?.focus();
+    ref.current?.focus();
   };
   return (
     <>
@@ -352,12 +282,10 @@ description: Carbon NumeralDate component props and usage examples.
         Click me to focus NumeralDate
       </Button>
       <NumeralDate
-        ref={ndRef}
-        onChange={handleChange}
+        ref={ref}
         legend="Numeral date"
-        value={dateValue}
-        name="numeralDate_name"
-        id="numeralDate_id"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
       />
     </>
   );
@@ -365,32 +293,18 @@ description: Carbon NumeralDate component props and usage examples.
 ```
 
 
-### With Custom Field IDs
+### WithCustomFieldIds
 
-**Render**
+**Args**
 
 ```tsx
-() => {
-  const [dateValue, setDateValue] = useState<NumeralDateProps["value"]>({
-    dd: "01",
-    mm: "02",
-    yyyy: "2020",
-  });
-  const handleChange: NumeralDateProps["onChange"] = (event) => {
-    setDateValue(event.target.value);
-  };
-  return (
-    <NumeralDate
-      value={dateValue}
-      onChange={handleChange}
-      legend="Default"
-      inputIds={{
-        day: "date-field-custom-id",
-        month: "month-field-custom-id",
-        year: "year-field-custom-id",
-      }}
-    />
-  );
-}
+{
+    ...Default.args,
+    inputIds: {
+      day: "date-field-custom-id",
+      month: "month-field-custom-id",
+      year: "year-field-custom-id",
+    },
+  }
 ```
 

@@ -7,7 +7,7 @@ import * as NumeralDateStories from "./numeral-date.stories";
 
 # Numeral Date
 
-For dates far from today, use this Numeral Date component. It is advised to use Three inputs consisting of day, month, and year.
+For dates far from today, use this Numeral Date component. It is advised to use three inputs consisting of day, month, and year.
 For dates close to today, we advise the use of a standard datepicker. If you require this, please see the "Date Input" component.
 
 ## Contents
@@ -31,36 +31,30 @@ import NumeralDate, { NumeralDateProps, type NumeralDateHandle } from "carbon-re
 
 <Canvas of={NumeralDateStories.Default} />
 
-### Read-Only
+### With Legend Hint
 
-<Canvas of={NumeralDateStories.ReadOnly} />
+Keep legend hint text to a single short sentence, ensuring that any example dates you use are valid for the component.
 
-### Disabled
+<Canvas of={NumeralDateStories.WithLegendHint} />
 
-<Canvas of={NumeralDateStories.Disabled} />
+### Date Formats
 
-### With Input Hint
+By default, the `NumeralDate` component uses the `dd/mm/yyyy` format. You can change this by using the `dateFormat` prop. 
+The available formats are: 
 
-Keep input hint text to a single short sentence, ensuring that any example dates you use are valid for the component.
-
-<Canvas of={NumeralDateStories.WithInputHint} />
-
-### Allowed date formats
-
-<Canvas of={NumeralDateStories.AllowedDateFormats} />
+<Canvas of={NumeralDateStories.DateFormats} />
 
 ### Validating date values
 
-`NumeralDate` has an error state, which can be set via the `error` prop. However, `NumeralDate` also has a built-in feature to validate date values automatically, so you don't have to recreate this logic yourself.
+`NumeralDate` supports standard validation via the `error` prop, which can be used to display an error message when the date value is invalid.
+
+However, `NumeralDate` also has a built-in feature to validate date values automatically to ensure they are within valid ranges, so that you don't have to recreate this logic yourself.
 This can be enabled via the `enableInternalError` prop. The rendered messages are displayed alongside the messages defined with the regular `error` prop.
 
-This in-built validation feature uses translation keys for the invalid date messages, so you can modify them to suit your localisation needs. The keys are `numeralDate.validation.day`, `numeralDate.validation.month`, and `numeralDate.validation.year`.
+This in-built validation feature uses translation keys for the invalid date messages, so you can modify them to suit your localisation needs. 
+The keys are `numeralDate.validation.day`, `numeralDate.validation.month`, and `numeralDate.validation.year`.
 
 **Note**: This component does not support isolated input validation. An error in any single field will cause the entire component - including valid fields - to display an error state.
-
-#### As an error
-
-When using the internal validations as an error, please ensure to also prevent form submission as this is not handled by the component.
 
 <Canvas of={NumeralDateStories.InternalValidationError} />
 
@@ -74,15 +68,24 @@ You can use the `size` prop to set the size of the field.
 
 <Canvas of={NumeralDateStories.Required} />
 
+### Read-Only
+
+<Canvas of={NumeralDateStories.ReadOnly} />
+
+### Disabled
+
+<Canvas of={NumeralDateStories.Disabled} />
+
 ### Programmatic Focus
 
-It is possible to focus the `NumeralDate` component programmatically by passing a ref to the component and calling the `focus` method on it.
+The `NumeralDateHandle` type provides an imperative handle for programmatic control over `NumeralDate`. 
+Using a `ref`, you can access its `focus()` method to set focus on the first input as needed.
 
 <Canvas of={NumeralDateStories.ProgrammaticFocus} />
 
-### With inputIds
+### With Custom Field IDs
 
-It is possible to set IDs for each of the field inputs using the prop `inputIds`:
+It is possible to set custom IDs for each of the field inputs using the prop `inputIds`:
 
 <Canvas of={NumeralDateStories.WithCustomFieldIds} />
 
@@ -106,39 +109,39 @@ The following keys are available to override the translations for this component
     {
       name: "numeralDate.validation.day",
       description:
-        "The text displayed in the tooltip if the day validation fails",
+        "The error text displayed if the day input value is not valid.",
       type: "func",
       returnType: "string",
     },
     {
       name: "numeralDate.validation.month",
       description:
-        "The text displayed in the tooltip if the month validation fails",
+        "The error text displayed if the month input value is not valid.",
       type: "func",
       returnType: "string",
     },
     {
       name: "numeralDate.validation.year",
       description:
-        "The text displayed in the tooltip if the year validation fails",
+        "The error text displayed if the year input value is not valid.",
       type: "func",
       returnType: "string",
     },
     {
       name: "numeralDate.labels.day",
-      description: "The text displayed within the day label",
+      description: "The text displayed within the day input label.",
       type: "func",
       returnType: "string",
     },
     {
       name: "numeralDate.labels.month",
-      description: "The text displayed within the month label",
+      description: "The text displayed within the month input label.",
       type: "func",
       returnType: "string",
     },
     {
       name: "numeralDate.labels.year",
-      description: "The text displayed within the year label",
+      description: "The text displayed within the year input label.",
       type: "func",
       returnType: "string",
     },

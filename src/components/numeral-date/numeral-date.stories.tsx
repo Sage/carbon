@@ -5,7 +5,6 @@ import generateStyledSystemProps from "../../../.storybook/utils/styled-system-p
 
 import NumeralDate, { NumeralDateHandle, NumeralDateProps } from ".";
 import Button from "../button/__next__/button.component";
-import Box from "../box";
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
@@ -14,89 +13,74 @@ const styledSystemProps = generateStyledSystemProps({
 const meta: Meta<typeof NumeralDate> = {
   title: "Numeral Date",
   component: NumeralDate,
+  parameters: {
+    chromatic: { disableSnapshot: true },
+    controls: {
+      exclude: [
+        "adaptiveLabelBreakpoint",
+        "enableInternalWarning",
+        "fieldHelp",
+        "label",
+        "labelAlign",
+        "fieldLabelsAlign",
+        "labelHelp",
+        "labelInline",
+        "labelWidth",
+        "labelSpacing",
+        "onBlur",
+        "validationOnLabel",
+        "tooltipPosition",
+        "helpAriaLabel",
+        "dayRef",
+        "monthRef",
+        "yearRef",
+        "info",
+        "warning",
+        "value",
+        "onChange",
+      ],
+    },
+  },
   argTypes: {
     ...styledSystemProps,
-  },
-  parameters: {
-    chromatic: {
-      disableSnapshot: true,
-    },
-    themeProvider: { chromatic: { theme: "sage" } },
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof NumeralDate>;
 
-export const Default: Story = () => {
-  const [value, setValue] = useState<NumeralDateProps["value"]>({
-    dd: "01",
-    mm: "02",
-    yyyy: "2020",
-  });
-  return (
-    <NumeralDate
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
-      legend="Date of Birth"
-    />
-  );
-};
-Default.storyName = "Default";
-
-export const ReadOnly: Story = () => {
-  const [value, setValue] = useState<NumeralDateProps["value"]>({
-    dd: "01",
-    mm: "02",
-    yyyy: "2020",
-  });
-  return (
-    <NumeralDate
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
-      legend="Date of Birth"
-      readOnly
-    />
-  );
-};
-ReadOnly.storyName = "Read-only";
-
-export const Disabled: Story = () => {
-  const [value, setValue] = useState<NumeralDateProps["value"]>({
-    dd: "01",
-    mm: "02",
-    yyyy: "2020",
-  });
-  return (
-    <NumeralDate
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
-      legend="Date of Birth"
-      disabled
-    />
-  );
-};
-Disabled.storyName = "Disabled";
-
-export const WithInputHint: Story = () => {
+const ControlledNumeralDate = (
+  args: Omit<NumeralDateProps, "value" | "onChange">,
+) => {
   const [value, setValue] = useState<NumeralDateProps["value"]>({
     dd: "",
     mm: "",
     yyyy: "",
   });
-
   return (
     <NumeralDate
       value={value}
       onChange={(e) => setValue(e.target.value)}
-      legend="Date of Birth"
-      legendHint="For example, 25 10 1998"
+      {...args}
     />
   );
 };
-WithInputHint.storyName = "With Input Hint";
 
-export const AllowedDateFormats: Story = () => {
+export const Default: Story = {
+  render: ControlledNumeralDate,
+  args: {
+    legend: "Legend",
+  },
+};
+export const WithLegendHint: Story = {
+  ...Default,
+  args: {
+    ...Default.args,
+    legendHint: "Legend Hint",
+  },
+};
+
+export const DateFormats: Story = () => {
   const dateDefault = {
     dd: "",
     mm: "",
@@ -155,34 +139,20 @@ export const AllowedDateFormats: Story = () => {
     </>
   );
 };
-AllowedDateFormats.storyName = "Allowed Date Formats";
-AllowedDateFormats.parameters = { chromatic: { disableSnapshot: false } };
+DateFormats.storyName = "Date Formats";
 
-export const InternalValidationError: Story = () => {
-  const [valueNew, setValueNew] = useState<NumeralDateProps["value"]>({
-    dd: "01",
-    mm: "13",
-    yyyy: "1999",
-  });
-  return (
-    <Box display={"flex"} flexDirection={"column"} gap={"24px"}>
-      <NumeralDate
-        enableInternalError
-        legend="Default - new validation (top)"
-        onChange={(e) => setValueNew(e.target.value)}
-        value={valueNew}
-      />
-      <NumeralDate
-        validationMessagePositionTop={false}
-        enableInternalError
-        legend="Default - new validation (bottom)"
-        onChange={(e) => setValueNew(e.target.value)}
-        value={valueNew}
-      />
-    </Box>
-  );
+export const InternalValidationError: Story = {
+  ...Default,
+  args: {
+    ...Default.args,
+    enableInternalError: true,
+    value: {
+      dd: "01",
+      mm: "13",
+      yyyy: "1999",
+    },
+  },
 };
-InternalValidationError.storyName = "Internal Validation Error";
 
 export const Size: Story = () => {
   const dateDefault = {
@@ -198,7 +168,6 @@ export const Size: Story = () => {
     <>
       <NumeralDate
         legend="Small"
-        dateFormat={["dd", "mm", "yyyy"]}
         size="small"
         mb={2}
         value={value}
@@ -206,7 +175,6 @@ export const Size: Story = () => {
       />
       <NumeralDate
         legend="Medium"
-        dateFormat={["dd", "mm", "yyyy"]}
         size="medium"
         mb={2}
         value={value2}
@@ -214,7 +182,6 @@ export const Size: Story = () => {
       />
       <NumeralDate
         legend="Large"
-        dateFormat={["dd", "mm", "yyyy"]}
         size="large"
         value={value3}
         onChange={(e) => setValue3(e.target.value)}
@@ -224,36 +191,41 @@ export const Size: Story = () => {
 };
 Size.storyName = "Size";
 
-export const Required: Story = () => {
+export const Required: Story = {
+  ...Default,
+  args: {
+    ...Default.args,
+    required: true,
+  },
+};
+
+export const ReadOnly: Story = {
+  ...Default,
+  args: {
+    ...Default.args,
+    readOnly: true,
+  },
+};
+
+export const Disabled: Story = {
+  ...WithLegendHint,
+  args: {
+    ...WithLegendHint.args,
+    required: true,
+    disabled: true,
+  },
+};
+
+export const ProgrammaticFocus = () => {
+  const ref = React.useRef<NumeralDateHandle>(null);
   const [value, setValue] = useState<NumeralDateProps["value"]>({
     dd: "",
     mm: "",
     yyyy: "",
   });
-  return (
-    <NumeralDate
-      name="date-of-birth"
-      legend="Date of Birth"
-      onChange={(e) => setValue(e.target.value)}
-      value={value}
-      required
-    />
-  );
-};
-Required.storyName = "Required";
 
-export const ProgrammaticFocus = () => {
-  const ndRef = React.useRef<NumeralDateHandle>(null);
-  const [dateValue, setDateValue] = useState<NumeralDateProps["value"]>({
-    dd: "",
-    mm: "",
-    yyyy: "",
-  });
-  const handleChange: NumeralDateProps["onChange"] = (event) => {
-    setDateValue(event.target.value);
-  };
   const handleClick = () => {
-    ndRef.current?.focus();
+    ref.current?.focus();
   };
   return (
     <>
@@ -261,39 +233,24 @@ export const ProgrammaticFocus = () => {
         Click me to focus NumeralDate
       </Button>
       <NumeralDate
-        ref={ndRef}
-        onChange={handleChange}
+        ref={ref}
         legend="Numeral date"
-        value={dateValue}
-        name="numeralDate_name"
-        id="numeralDate_id"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
       />
     </>
   );
 };
-
 ProgrammaticFocus.storyName = "Programmatic Focus";
 
-export const WithCustomFieldIds: Story = () => {
-  const [dateValue, setDateValue] = useState<NumeralDateProps["value"]>({
-    dd: "01",
-    mm: "02",
-    yyyy: "2020",
-  });
-  const handleChange: NumeralDateProps["onChange"] = (event) => {
-    setDateValue(event.target.value);
-  };
-  return (
-    <NumeralDate
-      value={dateValue}
-      onChange={handleChange}
-      legend="Default"
-      inputIds={{
-        day: "date-field-custom-id",
-        month: "month-field-custom-id",
-        year: "year-field-custom-id",
-      }}
-    />
-  );
+export const WithCustomFieldIds: Story = {
+  ...Default,
+  args: {
+    ...Default.args,
+    inputIds: {
+      day: "date-field-custom-id",
+      month: "month-field-custom-id",
+      year: "year-field-custom-id",
+    },
+  },
 };
-WithCustomFieldIds.storyName = "With Custom Field IDs";

@@ -49,7 +49,7 @@ export interface DateInputIds {
 }
 
 export interface NumeralDateProps
-  extends Omit<ValidationProps, "info" | "warning">,
+  extends Pick<ValidationProps, "error">,
     MarginProps,
     TagProps {
   /**
@@ -156,7 +156,7 @@ export interface NumeralDateProps
    * A React ref to pass to the input corresponding to the year
    */
   yearRef?: React.ForwardedRef<HTMLInputElement>;
-  /** Render the ValidationMessage above the NumeralDate inputs when validationRedesignOptIn flag is set */
+  /** Render the ValidationMessage above the NumeralDate inputs. */
   validationMessagePositionTop?: boolean;
   /** Allow consumers to set IDs for each of the field inputs */
   inputIds?: DateInputIds;
@@ -166,7 +166,7 @@ export interface NumeralDateProps
    */
   info?: string | boolean;
   /**
-   * [Legacy] Indicate warning information.
+   * Indicate warning information.
    * @deprecated Warning validation is deprecated and will be removed in a future release.
    */
   warning?: string | boolean;
@@ -259,14 +259,14 @@ const getDateLabel = (datePart: string, locale: Locale) => {
  */
 const WIDTHS = {
   default: {
-    small: "50px",
-    medium: "58px",
-    large: "66px",
+    small: "48px",
+    medium: "56px",
+    large: "64px",
   },
   year: {
-    small: "66px",
-    medium: "74px",
-    large: "82px",
+    small: "64px",
+    medium: "72px",
+    large: "80px",
   },
 };
 

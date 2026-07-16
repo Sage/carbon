@@ -24,10 +24,6 @@ const StyledNumeralDate = styled.div<{
   ${({ $size }) => css`
     gap: ${sizeMap[$size].gap};
 
-    div[data-component="text-input"] {
-      gap: var(--global-space-comp-s);
-    }
-
     .numeral-date-wrapper label {
       font: ${sizeMap[$size].font};
     }
