@@ -1,3 +1,9 @@
+## [161.2.0](https://github.com/Sage/carbon/compare/v161.1.0...v161.2.0) (2026-07-16)
+
+### Features
+
+* **profile:** align with fusion DS ([775729f](https://github.com/Sage/carbon/commit/775729fef61b24c7c561bd0164c8ba23d1c8c7be))
+
 ## [161.1.0](https://github.com/Sage/carbon/compare/v161.0.1...v161.1.0) (2026-07-08)
 
 ### Features
