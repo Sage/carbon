@@ -73,7 +73,8 @@ export const Loader = ({
     "screen and (prefers-reduced-motion: no-preference)",
   );
 
-  const { isInsideButton } = useContext(ButtonContext);
+  const { isInsideButton, isColouredSurface } = useContext(ButtonContext);
+  const resolvedInverse = inverse || !!isColouredSurface;
   const loaderTypeValue = isInsideButton ? "ring" : loaderType;
 
   const loaderContent = (() => {
@@ -82,7 +83,7 @@ export const Loader = ({
         return StarsLoader({ loaderLabel, showLabel, loaderType });
       case "ring":
         return RingLoader({
-          inverse,
+          inverse: resolvedInverse,
           size,
           variant,
           hasMotion,
@@ -98,7 +99,7 @@ export const Loader = ({
         return StandaloneLoader({
           size,
           variant,
-          inverse,
+          inverse: resolvedInverse,
           loaderLabel,
           showLabel,
           loaderType,
@@ -118,7 +119,7 @@ export const Loader = ({
       {allowMotion ? (
         loaderContent
       ) : (
-        <StyledLabel inverse={inverse}>
+        <StyledLabel inverse={resolvedInverse}>
           {loaderLabel || l.loader.loading()}
         </StyledLabel>
       )}

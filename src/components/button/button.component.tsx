@@ -350,7 +350,12 @@ const Button = React.forwardRef<
         {...(href && { href })}
         ref={setRefs}
       >
-        <ButtonContext.Provider value={{ isInsideButton: true }}>
+        <ButtonContext.Provider
+          value={{
+            isInsideButton: true,
+            isColouredSurface: buttonType === "primary",
+          }}
+        >
           {renderChildren({
             iconType,
             iconPosition,
