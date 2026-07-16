@@ -22,7 +22,7 @@ const StyledContent = styled.div`
   flex: 1;
   margin-left: var(--global-space-layout-s);
 
-  [data-carbon-anchornav-ref="true"]:focus:not(:focus-visible) {
+  [data-carbon-anchornav-ref="true"]:focus {
     outline: none;
   }
 `;

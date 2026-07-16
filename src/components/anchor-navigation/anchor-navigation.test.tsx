@@ -378,6 +378,120 @@ test("does not set data-carbon-anchornav-ref when it is already present (second 
   expect(heading).toHaveFocus();
 });
 
+test("supports conditional items and items inside nested fragments", async () => {
+  const firstRef = React.createRef<HTMLDivElement>();
+  const secondRef = React.createRef<HTMLDivElement>();
+  const showConditionalItem = false;
+
+  render(
+    <AnchorNavigation
+      stickyNavigation={
+        <>
+          {showConditionalItem && (
+            <AnchorNavigationItem target={firstRef}>
+              Hidden
+            </AnchorNavigationItem>
+          )}
+          <>
+            <AnchorNavigationItem target={firstRef} key="first">
+              First
+            </AnchorNavigationItem>
+            <>
+              <AnchorNavigationItem target={secondRef} key="second">
+                Second
+              </AnchorNavigationItem>
+            </>
+          </>
+        </>
+      }
+    >
+      <div ref={firstRef}>
+        <h2>First section</h2>
+      </div>
+      <div ref={secondRef}>
+        <h2>Second section</h2>
+      </div>
+    </AnchorNavigation>,
+  );
+
+  expect(
+    screen.queryByRole("link", { name: "Hidden" }),
+  ).not.toBeInTheDocument();
+  expect(screen.getAllByRole("link")).toHaveLength(2);
+
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  await user.click(screen.getByRole("link", { name: "Second" }));
+  act(() => {
+    jest.advanceTimersByTime(10);
+  });
+
+  expect(screen.getByRole("heading", { name: "Second section" })).toHaveFocus();
+});
+
+test("keeps item indexes aligned with targets when conditional items change", async () => {
+  const firstRef = React.createRef<HTMLDivElement>();
+  const secondRef = React.createRef<HTMLDivElement>();
+
+  const Navigation = ({ showFirst }: { showFirst: boolean }) => (
+    <AnchorNavigation
+      stickyNavigation={
+        <>
+          {showFirst && (
+            <AnchorNavigationItem target={firstRef} key="first">
+              First
+            </AnchorNavigationItem>
+          )}
+          <AnchorNavigationItem target={secondRef} key="second">
+            Second
+          </AnchorNavigationItem>
+        </>
+      }
+    >
+      <div ref={firstRef}>
+        <h2>First section</h2>
+      </div>
+      <div ref={secondRef}>
+        <h2>Second section</h2>
+      </div>
+    </AnchorNavigation>
+  );
+
+  const { rerender } = render(<Navigation showFirst />);
+  rerender(<Navigation showFirst={false} />);
+
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  await user.click(screen.getByRole("link", { name: "Second" }));
+  act(() => {
+    jest.advanceTimersByTime(10);
+  });
+
+  expect(screen.getByRole("heading", { name: "Second section" })).toHaveFocus();
+});
+
+test("does not throw when an item has no target", async () => {
+  render(
+    <AnchorNavigation
+      stickyNavigation={
+        <>
+          <AnchorNavigationItem>Item without target</AnchorNavigationItem>
+        </>
+      }
+    />,
+  );
+
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  await user.click(screen.getByRole("link", { name: "Item without target" }));
+
+  act(() => {
+    window.dispatchEvent(new Event("scroll"));
+    jest.advanceTimersByTime(10);
+  });
+
+  expect(
+    screen.getByRole("link", { name: "Item without target" }),
+  ).toHaveAttribute("aria-current", "location");
+});
+
 test("cleans up event listeners after unmounting", () => {
   const { unmount } = render(<MockComponent />);
   const addEventListenerSpy: jest.SpyInstance = jest.spyOn(

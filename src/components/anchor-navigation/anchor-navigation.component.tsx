@@ -37,6 +37,28 @@ export interface AnchorNavigationProps extends TagProps {
 const SECTION_VISIBILITY_OFFSET = 200;
 const SCROLL_THROTTLE = 100;
 
+const flattenNavigationChildren = (
+  children: React.ReactNode,
+): React.ReactElement[] => {
+  const result: React.ReactElement[] = [];
+
+  React.Children.forEach(children, (child) => {
+    if (!React.isValidElement(child)) return;
+
+    if (child.type === React.Fragment) {
+      const fragment = child as React.ReactElement<{
+        children?: React.ReactNode;
+      }>;
+      result.push(...flattenNavigationChildren(fragment.props.children));
+      return;
+    }
+
+    result.push(child);
+  });
+
+  return result;
+};
+
 const AnchorNavigation = ({
   children,
   stickyNavigation,
@@ -51,19 +73,21 @@ const AnchorNavigation = ({
     "`stickyNavigation` prop in `AnchorNavigation` should be a React Fragment.",
   );
 
+  const navigationChildren = useMemo(
+    () => flattenNavigationChildren(stickyNavigation.props.children),
+    [stickyNavigation],
+  );
+
   const hasCorrectItemStructure = useMemo(() => {
-    const incorrectChild = React.Children.toArray(
-      stickyNavigation.props.children,
-    ).find((child: React.ReactNode) => {
+    const incorrectChild = navigationChildren.find((child) => {
       return (
-        !React.isValidElement(child) ||
         (child.type as React.FunctionComponent).displayName !==
-          "AnchorNavigationItem"
+        "AnchorNavigationItem"
       );
     });
 
     return !incorrectChild;
-  }, [stickyNavigation]);
+  }, [navigationChildren]);
 
   invariant(
     hasCorrectItemStructure,
@@ -72,16 +96,17 @@ const AnchorNavigation = ({
 
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const sectionRefs = useRef<React.RefObject<HTMLElement>[]>(
-    React.Children.map(
-      stickyNavigation.props.children,
+  const sectionRefs = useRef<(React.RefObject<HTMLElement> | undefined)[]>([]);
+  // Keep the targets in sync when conditional navigation items are added,
+  // removed or reordered after the initial render.
+  sectionRefs.current = navigationChildren.map(
+    (child) =>
       (
-        child: React.ReactElement<
+        child as React.ReactElement<
           AnchorNavigationItemProps,
           typeof AnchorNavigationItem
-        >,
-      ) => child.props.target,
-    ),
+        >
+      ).props.target,
   );
 
   const contentRef = useRef<HTMLDivElement>(null);
@@ -98,14 +123,16 @@ const AnchorNavigation = ({
     if (navigationRef.current === null) return;
 
     const offsetsWithIndexes = sectionRefs.current
-      .map(({ current }, index) => [
+      .map((sectionRef, index) => [
         index,
-        current?.getBoundingClientRect().top,
+        sectionRef?.current?.getBoundingClientRect().top,
       ])
       .filter(
         (offsetWithIndex): offsetWithIndex is [number, number] =>
           offsetWithIndex[1] !== undefined,
       );
+
+    if (offsetsWithIndexes.length === 0) return;
 
     const { top: navTopOffset } = navigationRef.current.getBoundingClientRect();
 
@@ -166,11 +193,9 @@ const AnchorNavigation = ({
   };
 
   const scrollToSection = (index: number): void => {
-    const sectionToScroll = sectionRefs.current[index].current;
+    const sectionToScroll = sectionRefs.current[index]?.current;
 
-    // istanbul ignore if
-    // function is called only after component is rendered, so ref cannot hold a null value
-    if (sectionToScroll === null) return;
+    if (!sectionToScroll) return;
 
     focusSectionHeading(sectionToScroll);
 
@@ -220,8 +245,9 @@ const AnchorNavigation = ({
           role="list"
           data-element="anchor-sticky-navigation"
         >
-          {React.Children.map(stickyNavigation.props.children, (child, index) =>
+          {navigationChildren.map((child, index) =>
             React.cloneElement(child, {
+              key: child.key ?? index,
               href: child.props.href || "#", // need to pass an href to ensure the link is tabbable by default
               isSelected: index === selectedIndex,
               onClick: (event: React.MouseEvent<HTMLAnchorElement>) =>
