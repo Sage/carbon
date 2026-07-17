@@ -1,4 +1,6 @@
 import { Preview } from "@storybook/react-vite";
+import { parameters as defaultArgTypesParameters } from "@storybook/react/entry-preview-argtypes";
+import type { StrictArgTypes } from "storybook/internal/types";
 import { configure } from "storybook/test";
 
 import "../src/style/fonts.css";
@@ -25,50 +27,68 @@ type DocgenComponent = {
 
 // Temporary workaround for Storybook docs not rendering JSDoc @deprecated tag text
 // from extracted argTypes in this repo's current Storybook version line.
-const deprecatedJsDocArgTypesEnhancer = ((context) => {
-  const component = context.component as DocgenComponent | undefined;
-  const docgenProps = component?.__docgenInfo?.props;
+// Applied to both the main story's argTypes (via argTypesEnhancers) and each
+// subcomponent's argTypes (via a docs.extractArgTypes wrapper below) so the
+// "Deprecation Warning" chip appears in every ArgTypes tab.
+const applyDeprecatedJsDocTags = <T extends Record<string, unknown>>(
+  component: unknown,
+  argTypes: T,
+): T => {
+  const docgenProps = (component as DocgenComponent | undefined)?.__docgenInfo
+    ?.props;
 
-  if (!docgenProps) {
-    return context.argTypes;
+  if (!docgenProps || !argTypes) {
+    return argTypes;
   }
 
-  const nextArgTypes = Object.entries(context.argTypes).reduce(
-    (acc, [argName, argType]) => {
-      const deprecationMessage = docgenProps[argName]?.tags?.deprecated;
+  return Object.entries(argTypes).reduce((acc, [argName, argType]) => {
+    const deprecationMessage = docgenProps[argName]?.tags?.deprecated?.trim();
 
-      if (!deprecationMessage) {
-        acc[argName] = argType;
-        return acc;
-      }
-
-      const normalizedMessage = deprecationMessage.trim();
-
-      if (!normalizedMessage) {
-        acc[argName] = argType;
-        return acc;
-      }
-
-      const nextJsDocTags = {
-        ...(argType.table?.jsDocTags as Record<string, unknown> | undefined),
-        deprecated: normalizedMessage,
-      };
-
-      acc[argName] = {
-        ...argType,
-        table: {
-          ...argType.table,
-          jsDocTags: nextJsDocTags,
-        },
-      };
-
+    if (!deprecationMessage) {
+      (acc as Record<string, unknown>)[argName] = argType;
       return acc;
-    },
-    {} as typeof context.argTypes,
-  );
+    }
 
-  return nextArgTypes;
-}) satisfies NonNullable<Preview["argTypesEnhancers"]>[number];
+    const typedArgType = argType as {
+      table?: { jsDocTags?: Record<string, unknown> } & Record<string, unknown>;
+    };
+
+    (acc as Record<string, unknown>)[argName] = {
+      ...typedArgType,
+      table: {
+        ...typedArgType.table,
+        jsDocTags: {
+          ...typedArgType.table?.jsDocTags,
+          deprecated: deprecationMessage,
+        },
+      },
+    };
+
+    return acc;
+  }, {} as T);
+};
+
+const deprecatedJsDocArgTypesEnhancer = ((context) =>
+  applyDeprecatedJsDocTags(
+    context.component,
+    context.argTypes,
+  )) satisfies NonNullable<Preview["argTypesEnhancers"]>[number];
+
+// Storybook's ArgTypes docs block extracts subcomponent argTypes directly via
+// `parameters.docs.extractArgTypes(component)` and bypasses argTypesEnhancers,
+// so wrap the framework default to reapply the deprecation shim for subcomponents.
+type ExtractArgTypes = (component: unknown) => StrictArgTypes | null;
+const defaultExtractArgTypes = (
+  defaultArgTypesParameters as { docs?: { extractArgTypes?: ExtractArgTypes } }
+).docs?.extractArgTypes;
+
+const extractArgTypesWithDeprecatedJsDoc: ExtractArgTypes = (component) => {
+  const argTypes = defaultExtractArgTypes?.(component) ?? null;
+  if (!argTypes) {
+    return argTypes;
+  }
+  return applyDeprecatedJsDocTags(component, argTypes);
+};
 
 // Configure the testIdAttribute to look for data-role when querying elements using `getByTestId`.
 configure({ testIdAttribute: "data-role" });
@@ -82,7 +102,11 @@ const customViewports = {
 };
 
 const parameters = {
-  docs: { canvas: { layout: "padded" }, theme: sageStorybookTheme },
+  docs: {
+    canvas: { layout: "padded" },
+    theme: sageStorybookTheme,
+    extractArgTypes: extractArgTypesWithDeprecatedJsDoc,
+  },
   a11y: {
     // axe-core optionsParameter (https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#options-parameter)
     options: {
