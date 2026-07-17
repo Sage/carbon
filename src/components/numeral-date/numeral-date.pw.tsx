@@ -34,7 +34,7 @@ test.describe("NumeralDate component", () => {
   });
 
   dynamicValidations.forEach(([month, day, year, validationString]) => {
-    test(`should display dynamic internal error message when validationRedesignOptIn is true, month is ${month}, day is ${day} and year is ${year}`, async ({
+    test(`should display dynamic internal error message when month is ${month}, day is ${day} and year is ${year}`, async ({
       mount,
       page,
     }) => {
@@ -56,7 +56,7 @@ test.describe("NumeralDate component", () => {
   });
 
   dynamicValidations.forEach(([month, day, year, validationString]) => {
-    test(`should display dynamic internal warning message when validationRedesignOptIn is true, month is ${month}, day is ${day} and year is ${year}`, async ({
+    test(`should display dynamic internal warning message when month is ${month}, day is ${day} and year is ${year}`, async ({
       mount,
       page,
     }) => {

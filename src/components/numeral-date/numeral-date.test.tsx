@@ -8,7 +8,7 @@ import NumeralDate, {
   NumeralDateProps,
   NumeralDateValue,
 } from "./numeral-date.component";
-import Button from "../button";
+import Button from "../button/__next__";
 
 jest.mock("../../__internal__/utils/logger");
 
@@ -162,23 +162,33 @@ test("should not render the validation message when `warning` prop is passed a b
   expect(screen.queryByText("warning")).not.toBeInTheDocument();
 });
 
-test("should render the `labelHelp` text as additional content", () => {
+test("should render with provided `legend`", () => {
   render(
     <NumeralDate
-      label="label"
+      legend="legend"
       value={{ dd: "02", mm: "01", yyyy: "2020" }}
       onChange={() => {}}
-      legendHint="labelHelp"
     />,
   );
 
-  const labelHelpText = screen.getByText("labelHelp");
+  const legend = screen.getByText("legend");
 
-  expect(labelHelpText).toBeVisible();
-  expect(
-    screen.queryByRole("button", { name: "help" }),
-  ).not.toBeInTheDocument();
-  expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
+  expect(legend).toBeVisible();
+});
+
+test("should render with provided `legendHint`", () => {
+  render(
+    <NumeralDate
+      legend="legend"
+      value={{ dd: "02", mm: "01", yyyy: "2020" }}
+      onChange={() => {}}
+      legendHint="legendHint"
+    />,
+  );
+
+  const legendHintText = screen.getByText("legendHint");
+
+  expect(legendHintText).toBeVisible();
 });
 
 describe("when the `enableInternalError` prop is not set", () => {
@@ -556,7 +566,7 @@ describe("when the `enableInternalError` prop is set", () => {
   });
 });
 
-describe("when the `enableInternalWarning` prop is not set and `validationRedesignOptIn` is true", () => {
+describe("when the `enableInternalWarning` prop is not set", () => {
   it("should not render the validation message when the `Day` field is blurred and has a value greater than 31", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
@@ -639,7 +649,7 @@ describe("when the `enableInternalWarning` prop is not set and `validationRedesi
   });
 });
 
-describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` are set", () => {
+describe("when the `enableInternalWarning` prop is set", () => {
   it("should not render the validation message when the `Day` field is blurred and has a valid value", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
@@ -1357,37 +1367,37 @@ test("should set the inputs to `readOnly` when the prop is passed", () => {
 });
 
 test.each(["error", "warning"])(
-  "should render with expected accessible description when '%s' and 'labelHelp' props are passed and 'validationRedesignOptIn' is true",
+  "should render with expected accessible description when '%s' and 'legendHint' props are passed",
   (validation) => {
     render(
       <NumeralDate
         value={{ dd: "", mm: "", yyyy: "" }}
         onChange={() => {}}
-        legendHint="labelHelp"
+        legendHint="legendHint"
         {...{ [validation]: "Message" }}
       />,
     );
 
     const fieldset = screen.getByRole("group");
-    expect(fieldset).toHaveAccessibleDescription("labelHelp Message");
+    expect(fieldset).toHaveAccessibleDescription("legendHint Message");
   },
 );
 
 test.each(["error", "warning"])(
-  "should render with expected accessible description when '%s' and 'labelHelp' props are passed, 'validationRedesignOptIn' is true and validationMessagePositionTop is false",
+  "should render with expected accessible description when '%s' and 'legendHint' props are passed and validationMessagePositionTop is false",
   (validation) => {
     render(
       <NumeralDate
         value={{ dd: "", mm: "", yyyy: "" }}
         onChange={() => {}}
-        legendHint="labelHelp"
+        legendHint="legendHint"
         validationMessagePositionTop={false}
         {...{ [validation]: "Message" }}
       />,
     );
 
     const fieldset = screen.getByRole("group");
-    expect(fieldset).toHaveAccessibleDescription("labelHelp Message");
+    expect(fieldset).toHaveAccessibleDescription("legendHint Message");
   },
 );
 
@@ -1401,7 +1411,7 @@ test("should focus the first textbox when the component is programmatically focu
         <NumeralDate
           ref={ndRef}
           onChange={() => {}}
-          label="Numeral date"
+          legend="Numeral date"
           value={{ dd: "", mm: "", yyyy: "" }}
           name="numeralDate_name"
           id="numeralDate_id"
@@ -1431,7 +1441,7 @@ test("should focus the first textbox when the component is programmatically focu
           ref={ndRef}
           dateFormat={["mm", "yyyy"]}
           onChange={() => {}}
-          label="Numeral date"
+          legend="Numeral date"
           value={{ mm: "", yyyy: "" }}
           name="numeralDate_name"
           id="numeralDate_id"
@@ -1455,8 +1465,8 @@ test("should use custom ids for the fields when `inputIds` prop is set", () => {
     <NumeralDate
       dateFormat={["dd", "mm", "yyyy"]}
       onChange={() => {}}
-      label="Numeral date"
-      value={{ mm: "", yyyy: "" }}
+      legend="Numeral date"
+      value={{ dd: "", mm: "", yyyy: "" }}
       name="numeralDate_name"
       id="numeralDate_id"
       inputIds={{
@@ -1502,4 +1512,22 @@ test("the deprecated label prop maps to legend", async () => {
   const fieldset = screen.getByRole("group", { name: "Legend" });
 
   expect(fieldset).toBeVisible();
+});
+
+// coverage
+test("the deprecated fieldHelp prop maps to legendHint", async () => {
+  render(<ControlledComponent fieldHelp="Field help" />);
+
+  const fieldHelp = screen.getByText("Field help");
+
+  expect(fieldHelp).toBeVisible();
+});
+
+// coverage
+test("the deprecated labelHelp prop maps to legendHint", async () => {
+  render(<ControlledComponent labelHelp="Label help" />);
+
+  const labelHelp = screen.getByText("Label help");
+
+  expect(labelHelp).toBeVisible();
 });

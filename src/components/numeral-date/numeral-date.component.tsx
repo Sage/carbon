@@ -483,6 +483,7 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
                   ref={(element) => handleRef(element, index, inputRef)}
                   maxWidth={maxWidth}
                   required={required}
+                  my={0} // prevents any form spacing being applied
                 />
               </div>
             );
@@ -496,7 +497,6 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
         id={uniqueId}
         legend={mappedLabel}
         legendHint={legendHint ?? fieldHelp ?? labelHelp}
-        legendAlign={labelAlign}
         isDisabled={disabled}
         isRequired={required}
         error={typeof internalError === "string" ? internalError : undefined}
