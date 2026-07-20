@@ -21,8 +21,8 @@ jobs:
         with:
           node-version: ">=24.11.0 24"
           check-latest: true
-      - name: Update npm to 11.15.0
-        run: npm install -g npm@11.15.0
+      - name: Update npm to 11.18.0
+        run: npm install -g npm@11.18.0
       - run: npm ci
       - name: Run chromatic
         run: npx chromatic --project-token ${{ secrets.CHROMATIC_PROJECT_TOKEN }} --only-changed --exit-once-uploaded
