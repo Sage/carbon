@@ -4,7 +4,6 @@ import StyledNavigationItem from "./anchor-navigation-item.style";
 
 export interface AnchorNavigationItemProps {
   /** Reference to the section html element meant to be shown   */
-  // eslint-disable-next-line react/no-unused-prop-types -- consumed by AnchorNavigation via child.props.target to scroll to the target section
   target?: React.RefObject<HTMLElement>;
   /** href to be passed to the anchor element, can be linked with id passed to the scrollable section */
   href?: string;
@@ -23,18 +22,12 @@ export interface AnchorNavigationItemProps {
 const AnchorNavigationItem = React.forwardRef<
   HTMLAnchorElement,
   AnchorNavigationItemProps
->(
-  (
-    {
-      children,
-      onKeyDown,
-      onClick,
-      href,
-      tabIndex,
-      isSelected,
-    }: AnchorNavigationItemProps,
-    ref,
-  ) => (
+>(({ target: _target, ...props }: AnchorNavigationItemProps, ref) => {
+  // `target` is consumed by AnchorNavigation via child.props.target to scroll
+  // to the target section; it is intentionally omitted from this component.
+  const { children, onKeyDown, onClick, href, tabIndex, isSelected } = props;
+
+  return (
     <StyledNavigationItem isSelected={isSelected}>
       <a
         onKeyDown={onKeyDown}
@@ -49,16 +42,14 @@ const AnchorNavigationItem = React.forwardRef<
           as="span"
           data-element="anchor-navigation-item-label"
           mb={0} // suppress default paragraph margin inside the nav item
-          variant="p"
-          size="M"
           weight="medium"
         >
           {children}
         </Typography>
       </a>
     </StyledNavigationItem>
-  ),
-);
+  );
+});
 
 AnchorNavigationItem.displayName = "AnchorNavigationItem";
 export default AnchorNavigationItem;

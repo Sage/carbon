@@ -468,28 +468,94 @@ test("keeps item indexes aligned with targets when conditional items change", as
   expect(screen.getByRole("heading", { name: "Second section" })).toHaveFocus();
 });
 
-test("does not throw when an item has no target", async () => {
+test("selects the correct item when preceding items have no targets", () => {
+  const firstRef = React.createRef<HTMLDivElement>();
+  const fourthRef = React.createRef<HTMLDivElement>();
+  const fifthRef = React.createRef<HTMLDivElement>();
+
   render(
     <AnchorNavigation
       stickyNavigation={
         <>
-          <AnchorNavigationItem>Item without target</AnchorNavigationItem>
+          <AnchorNavigationItem target={firstRef}>First</AnchorNavigationItem>
+          <AnchorNavigationItem>Second without target</AnchorNavigationItem>
+          <AnchorNavigationItem>Third without target</AnchorNavigationItem>
+          <AnchorNavigationItem target={fourthRef}>Fourth</AnchorNavigationItem>
+          <AnchorNavigationItem target={fifthRef}>Fifth</AnchorNavigationItem>
+        </>
+      }
+    >
+      <div ref={firstRef}>First section</div>
+      <div ref={fourthRef}>Fourth section</div>
+      <div ref={fifthRef}>Fifth section</div>
+    </AnchorNavigation>,
+  );
+
+  [firstRef, fourthRef, fifthRef].forEach((sectionRef, index) => {
+    jest
+      .spyOn(sectionRef.current as HTMLDivElement, "getBoundingClientRect")
+      .mockReturnValue({ top: 100 + index * 50 } as DOMRect);
+  });
+  jest
+    .spyOn(screen.getByRole("list"), "getBoundingClientRect")
+    .mockReturnValue({ top: 200 } as DOMRect);
+
+  act(() => {
+    window.dispatchEvent(new Event("scroll"));
+  });
+
+  expect(screen.getByRole("link", { name: "Fifth" })).toHaveAttribute(
+    "aria-current",
+    "location",
+  );
+});
+
+test("does not change the selected item on scroll when no items have targets", () => {
+  render(
+    <AnchorNavigation
+      stickyNavigation={
+        <>
+          <AnchorNavigationItem>First</AnchorNavigationItem>
+          <AnchorNavigationItem>Second</AnchorNavigationItem>
         </>
       }
     />,
   );
 
-  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-  await user.click(screen.getByRole("link", { name: "Item without target" }));
-
   act(() => {
     window.dispatchEvent(new Event("scroll"));
-    jest.advanceTimersByTime(10);
   });
 
-  expect(
-    screen.getByRole("link", { name: "Item without target" }),
-  ).toHaveAttribute("aria-current", "location");
+  expect(screen.getByRole("link", { name: "First" })).toHaveAttribute(
+    "aria-current",
+    "location",
+  );
+});
+
+test("does not select or scroll to an item without a target", async () => {
+  render(
+    <AnchorNavigation
+      stickyNavigation={
+        <>
+          <AnchorNavigationItem>First</AnchorNavigationItem>
+          <AnchorNavigationItem>Second</AnchorNavigationItem>
+        </>
+      }
+    />,
+  );
+
+  (Element.prototype.scrollIntoView as jest.Mock).mockClear();
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  await user.click(screen.getByRole("link", { name: "Second" }));
+
+  expect(screen.getByRole("link", { name: "First" })).toHaveAttribute(
+    "aria-current",
+    "location",
+  );
+  expect(screen.getByRole("link", { name: "Second" })).not.toHaveAttribute(
+    "aria-current",
+  );
+  expect(Element.prototype.scrollIntoView).not.toHaveBeenCalled();
 });
 
 test("cleans up event listeners after unmounting", () => {

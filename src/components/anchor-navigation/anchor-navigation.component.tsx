@@ -1,4 +1,5 @@
 import React, {
+  type AriaAttributes,
   useState,
   useRef,
   useEffect,
@@ -21,13 +22,11 @@ import AnchorNavigationItem, {
   AnchorNavigationItemProps,
 } from "./anchor-navigation-item/anchor-navigation-item.component";
 
-export interface AnchorNavigationProps extends TagProps {
+export interface AnchorNavigationProps
+  extends TagProps,
+    Pick<AriaAttributes, "aria-label" | "aria-labelledby"> {
   /** Child elements */
   children?: React.ReactNode;
-  /** Accessible label for the navigation landmark. */
-  "aria-label"?: string;
-  /** ID of an element whose text content labels the navigation landmark (alternative to aria-label). */
-  "aria-labelledby"?: string;
   /** The AnchorNavigationItems components to be rendered in the sticky navigation.
   It is important to maintain proper structure.
   List of AnchorNavigationItems has to be wrapped in React.Fragment */
@@ -136,17 +135,15 @@ const AnchorNavigation = ({
 
     const { top: navTopOffset } = navigationRef.current.getBoundingClientRect();
 
-    const indexOfSmallestNegativeTopOffset = offsetsWithIndexes.reduce(
-      (currentTopIndex, offsetWithIndex) => {
-        const [index, offset] = offsetWithIndex;
+    const [indexOfSmallestNegativeTopOffset] = offsetsWithIndexes.reduce(
+      (currentTop, offsetWithIndex) => {
+        const [, offset] = offsetWithIndex;
 
         if (offset - SECTION_VISIBILITY_OFFSET > navTopOffset)
-          return currentTopIndex;
-        return offset > offsetsWithIndexes[currentTopIndex][1]
-          ? index
-          : currentTopIndex;
+          return currentTop;
+        return offset > currentTop[1] ? offsetWithIndex : currentTop;
       },
-      offsetsWithIndexes[0][0],
+      offsetsWithIndexes[0],
     );
 
     setSelectedIndex(indexOfSmallestNegativeTopOffset);
