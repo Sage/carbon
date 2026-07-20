@@ -274,31 +274,6 @@ SizesWithProgressiveDisclosure.parameters = {
   chromatic: { delay: 500 },
 };
 
-export const LegendAlignment: Story = ({ ...args }) => {
-  return (
-    <Box m={2} display="flex" flexDirection="column" gap={4}>
-      <RadioButtonGroupComponent
-        id="radio-group-left"
-        name="radio-group-left"
-        legend="Group Left"
-        legendHint="Legend Hint"
-        legendAlign="left"
-        {...args}
-      />
-
-      <RadioButtonGroupComponent
-        id="radio-group-right"
-        name="radio-group-right"
-        legend="Group Right"
-        legendHint="Legend Hint"
-        legendAlign="right"
-        {...args}
-      />
-    </Box>
-  );
-};
-LegendAlignment.storyName = "Legend Alignment";
-
 export const InTabs: Story = () => {
   return (
     <Tabs>

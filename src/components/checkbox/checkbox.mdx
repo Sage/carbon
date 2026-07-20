@@ -8,7 +8,7 @@ import * as CheckboxStories from "./checkbox.stories";
 
 <a
   target="_blank"
-  href="https://zeroheight.com/2ccf2b601/p/5937c7-checkbox/b/317d8f"
+  href="https://zeroheight.com/35ee2cc26/v/latest/p/37a233-checkbox"
   style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
   rel="noreferrer"
 >
@@ -31,12 +31,6 @@ Checkbox provides a way to check an individual option are selected, or check mul
 import { Checkbox } from "carbon-react/lib/components/checkbox";
 ```
 
-## Designer Notes
-
-- Disabled or read-only checkboxes might be difficult for a user to distinguish visually, so try to avoid this.
-- Consider ‘smart default’ selections, based on what your user is likely to choose. But, users may well leave the defaults in place, so make sure any consequences are easy to undo, and not harmful.
-- Rather than a checkbox to accept legal terms, consider labelling a button ‘Accept Terms and Continue’ instead.
-
 ## Related Components
 
 - Choosing one option from a longer list? [Try Radio Button](../?path=/docs/radio-button--docs).
@@ -45,44 +39,68 @@ import { Checkbox } from "carbon-react/lib/components/checkbox";
 
 ## Examples
 
-<Canvas of={CheckboxStories.Default} />
+### With Label
+
+Pass the `label` prop to `Checkbox` to set a label.
+
+<Canvas of={CheckboxStories.WithLabel} />
+
+### With Input Hint
+
+To add a hint to a `Checkbox`, pass the `inputHint` prop.
+
+<Canvas of={CheckboxStories.WithInputHint} />
 
 ### Sizes
 
+The size of the component can be changed by passing the `size` prop to `Checkbox`. Available options are `small`, `medium`, and `large`.
+
 <Canvas of={CheckboxStories.Sizes} />
 
-### Disabled
+### Progressive Disclosure
 
-<Canvas of={CheckboxStories.Disabled} />
+`Checkbox` can be used to conditionally reveal additional content when selected. 
+This can be achieved by passing the content to the `progressiveDisclosure` prop in `Checkbox`, which accepts any valid ReactNode.
 
-### Reversed
+It is recommended that you provide limited amounts of content within conditionally revealed sections, if you need to disclose larger amounts of content, please consider using a different pattern.
 
-Place input box to the right of the label.
+**Please Note**: Progressive disclosure is not supported when the `inline` prop is set on `CheckboxGroup`.
 
-<Canvas of={CheckboxStories.Reversed} />
+<Canvas of={CheckboxStories.ProgressiveDisclosure} />
+
+### Indeterminate State
+
+The indeterminate state is useful for parent-child selection patterns, such as a "Select All" checkbox that controls a list of related checkboxes.
+Set the parent checkbox's `indeterminate` prop to `true` when some, but not all, child checkboxes are selected.
+
+When using this pattern, you should also set `aria-controls` on the parent checkbox to a space-separated list of the child checkbox IDs so assistive technologies can understand the relationship.
+
+<Canvas of={CheckboxStories.IndeterminateState} />
+
+### With Custom Labels
+
+The `label` prop in `Checkbox` accepts a ReactNode, which allows for custom content to be displayed as the label.
+
+<Canvas of={CheckboxStories.WithCustomLabel} />
 
 ### Required
 
+`Checkbox` can be marked as required by passing the `required` prop.
+
 <Canvas of={CheckboxStories.Required} />
 
-### With fieldHelp
+### Disabled
 
-<Canvas of={CheckboxStories.WithFieldHelp} />
+`Checkbox` can be disabled using the `disabled` prop.
 
-### Custom label width
+**Please Note**: Even though Carbon does support disabled checkboxes, their use is not generally recommended by Design System.
 
-<Canvas of={CheckboxStories.CustomLabelWidth} />
-
-### With labelHelp (legacy)
-
-**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *false*.
-
-<Canvas of={CheckboxStories.LegacyLabelHelp} />
+<Canvas of={CheckboxStories.Disabled} />
 
 ## Props
 
 ### Checkbox
 
-<ArgTypes of={CheckboxStories} />
+**Any other supplied props in `Checkbox` will be provided to the underlying HTML input element**
 
-**Any other supplied props will be provided to the underlying HTML input element**
+<ArgTypes of={CheckboxStories} />

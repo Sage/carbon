@@ -123,55 +123,9 @@ test("renders with `validationMessagePositionTop` set to true", () => {
 });
 
 // coverage
-test("renders with expected styles when `size` is set to large", () => {
+test("renders legend with asterisk when `isRequired` is true", () => {
   render(
-    <Fieldset legend="Legend" size="large">
-      <input title="Test" placeholder="Placeholder" />
-    </Fieldset>,
-  );
-
-  expect(screen.getByText("Legend")).toHaveStyleRule(
-    "font",
-    "var(--global-font-static-comp-medium-l)",
-  );
-});
-
-// coverage
-test("renders with expected styles when `align` is  set to left", () => {
-  render(
-    <Fieldset legend="Legend" legendAlign="left">
-      <input title="Test" placeholder="Placeholder" />
-    </Fieldset>,
-  );
-
-  const legend = screen.getByText("Legend");
-
-  expect(legend).toHaveStyle({
-    justifyContent: "flex-start",
-    textAlign: "left",
-  });
-});
-
-// coverage
-test("renders with expected styles when `align` is  set to right", () => {
-  render(
-    <Fieldset legend="Legend" legendAlign="right">
-      <input title="Test" placeholder="Placeholder" />
-    </Fieldset>,
-  );
-
-  const legend = screen.getByText("Legend");
-
-  expect(legend).toHaveStyle({
-    justifyContent: "flex-end",
-    textAlign: "right",
-  });
-});
-
-// coverage
-test("renders with expected styles when `isRequired` is true and `size` is large", () => {
-  render(
-    <Fieldset legend="Legend" isRequired size="large">
+    <Fieldset legend="Legend" isRequired>
       <input title="Test" placeholder="Placeholder" />
     </Fieldset>,
   );
@@ -179,13 +133,6 @@ test("renders with expected styles when `isRequired` is true and `size` is large
   expect(screen.getByText("Legend")).toHaveStyleRule("content", '"*"', {
     modifier: "::after",
   });
-  expect(screen.getByText("Legend")).toHaveStyleRule(
-    "font",
-    "var(--global-font-static-comp-medium-l)",
-    {
-      modifier: "::after",
-    },
-  );
 });
 
 // coverage
