@@ -26,7 +26,6 @@ import StyledTextarea, {
 } from "./textarea.style";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import useInputAccessibility from "../../hooks/__internal__/useInputAccessibility";
-import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
 import ErrorBorder from "../../__internal__/error-border/error-border.style";
 import ValidationMessage from "../../__internal__/validation-message";
 import Logger from "../../__internal__/utils/logger";
@@ -255,9 +254,6 @@ export const Textarea = React.forwardRef(
         "`isOptional` is deprecated in TextArea and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
       );
     }
-    const { validationRedesignOptIn } = useContext(NewValidationContext);
-
-    const resizeValue = validationRedesignOptIn ? resize : "none";
 
     // should also consume size from context when this size added to textarea
     const { hasError: fieldsetError, required: fieldsetRequired } =
@@ -266,8 +262,6 @@ export const Textarea = React.forwardRef(
     const [textareaMinHeight, setTextareaMinHeight] = useState(
       getDefaultMinHeightBySize(size),
     );
-    const computeLabelPropValues = <T,>(prop: T): undefined | T =>
-      validationRedesignOptIn ? undefined : prop;
 
     const { current: id } = useRef(idProp || guid());
 
@@ -383,7 +377,7 @@ export const Textarea = React.forwardRef(
     const { labelId, validationId, fieldHelpId, ariaDescribedBy } =
       useInputAccessibility({
         id,
-        validationRedesignOptIn,
+        validationRedesignOptIn: true,
         error,
         warning,
         info,
@@ -443,10 +437,9 @@ export const Textarea = React.forwardRef(
     const hintId = useRef(guid());
     const inputHintId = inputHint ? hintId.current : undefined;
 
-    const describedByArray =
-      validationRedesignOptIn && validationMessagePositionTop
-        ? [ariaDescribedBy, inputHintId]
-        : [inputHintId, ariaDescribedBy];
+    const describedByArray = validationMessagePositionTop
+      ? [ariaDescribedBy, inputHintId]
+      : [inputHintId, ariaDescribedBy];
     const combinedAriaDescribedBy = [
       ...describedByArray,
       visuallyHiddenHintId,
@@ -486,7 +479,6 @@ export const Textarea = React.forwardRef(
           rows={rows}
           id={id}
           as="textarea"
-          validationIconId={validationRedesignOptIn ? undefined : validationId}
           inputBorderRadius={borderRadius}
           required={required || fieldsetRequired}
           {...rest}
@@ -499,8 +491,6 @@ export const Textarea = React.forwardRef(
           error={error}
           warning={warning}
           info={info}
-          validationIconId={validationRedesignOptIn ? undefined : validationId}
-          useValidationIcon={!(validationRedesignOptIn || validationOnLabel)}
         />
       </InputPresentation>
     );
@@ -522,7 +512,7 @@ export const Textarea = React.forwardRef(
               "data-element": dataElement,
               "data-role": dataRole,
             })}
-            $resize={resizeValue}
+            $resize={resize}
             $maxWidth={maxWidth}
             $size={size}
             $readOnly={readOnly}
@@ -538,7 +528,6 @@ export const Textarea = React.forwardRef(
             $labelAlign={labelAlign}
           >
             <FormField
-              fieldHelp={computeLabelPropValues(fieldHelp)}
               fieldHelpId={fieldHelpId}
               error={error}
               warning={warning}
@@ -549,16 +538,13 @@ export const Textarea = React.forwardRef(
               id={id}
               labelInline={labelInline}
               labelAlign={labelAlign}
-              labelWidth={computeLabelPropValues(labelWidth)}
-              labelHelp={computeLabelPropValues(labelHelp)}
               labelSpacing={labelSpacing}
               isRequired={required}
-              useValidationIcon={computeLabelPropValues(validationOnLabel)}
               adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
-              validationRedesignOptIn={validationRedesignOptIn}
+              validationRedesignOptIn={true}
               my={0} // prevents any form spacing being applied
             >
-              {(inputHint || (labelHelp && validationRedesignOptIn)) && (
+              {(inputHint || labelHelp) && (
                 <HintText
                   size={size}
                   id={inputHintId}
@@ -567,47 +553,45 @@ export const Textarea = React.forwardRef(
                   {inputHint || labelHelp}
                 </HintText>
               )}
-              {validationRedesignOptIn ? (
-                <StyledTextareaValidationContainer
-                  labelInline={labelInline}
-                  $inputWidth={inputWidth}
-                  $labelWidth={labelWidth}
-                >
-                  {validationMessagePositionTop && (
-                    <>
-                      <ValidationMessage
-                        error={error}
-                        validationId={validationId}
-                        warning={warning}
-                        validationMessagePositionTop={
-                          validationMessagePositionTop
-                        }
-                      />
-                      {(error || warning) && (
-                        <ErrorBorder $warning={!!(!error && warning)} />
-                      )}
-                    </>
-                  )}
-                  {input}
-                  {!validationMessagePositionTop && (
-                    <>
-                      <ValidationMessage
-                        error={error}
-                        validationId={validationId}
-                        warning={warning}
-                        validationMessagePositionTop={
-                          validationMessagePositionTop
-                        }
-                      />
-                      {(error || warning) && (
-                        <ErrorBorder $warning={!!(!error && warning)} />
-                      )}
-                    </>
-                  )}
-                </StyledTextareaValidationContainer>
-              ) : (
-                input
-              )}
+
+              <StyledTextareaValidationContainer
+                labelInline={labelInline}
+                $inputWidth={inputWidth}
+                $labelWidth={labelWidth}
+              >
+                {validationMessagePositionTop && (
+                  <>
+                    <ValidationMessage
+                      error={error}
+                      validationId={validationId}
+                      warning={warning}
+                      validationMessagePositionTop={
+                        validationMessagePositionTop
+                      }
+                    />
+                    {(error || warning) && (
+                      <ErrorBorder $warning={!!(!error && warning)} />
+                    )}
+                  </>
+                )}
+                {input}
+                {!validationMessagePositionTop && (
+                  <>
+                    <ValidationMessage
+                      error={error}
+                      validationId={validationId}
+                      warning={warning}
+                      validationMessagePositionTop={
+                        validationMessagePositionTop
+                      }
+                    />
+                    {(error || warning) && (
+                      <ErrorBorder $warning={!!(!error && warning)} />
+                    )}
+                  </>
+                )}
+              </StyledTextareaValidationContainer>
+
               {characterCount}
             </FormField>
           </StyledTextarea>

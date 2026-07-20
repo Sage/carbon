@@ -171,19 +171,6 @@ export const CustomWidthStory: Story = () => {
 };
 CustomWidthStory.storyName = "Custom Width";
 
-export const FieldHelpStory: Story = () => {
-  const [value, setValue] = useState("");
-  return (
-    <Textarea
-      label="Textarea"
-      fieldHelp="Help"
-      value={value}
-      onChange={({ target }) => setValue(target.value)}
-    />
-  );
-};
-FieldHelpStory.storyName = "Field Help";
-
 export const MaxWidthStory: Story = () => {
   const [value, setValue] = useState("");
   return (

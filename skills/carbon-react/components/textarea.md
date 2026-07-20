@@ -559,25 +559,6 @@ description: Carbon Textarea component props and usage examples.
 ```
 
 
-### Field Help
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("");
-  return (
-    <Textarea
-      label="Textarea"
-      fieldHelp="Help"
-      value={value}
-      onChange={({ target }) => setValue(target.value)}
-    />
-  );
-}
-```
-
-
 ### Max Width
 
 **Render**

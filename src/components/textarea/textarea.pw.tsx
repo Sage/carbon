@@ -4,8 +4,6 @@ import { test, expect } from "../../../playwright/helpers/base-test";
 
 import {
   characterCount,
-  fieldHelpPreview,
-  getComponent,
   getDataElementByValue,
   getDataRoleByValue,
   getElement,
@@ -20,7 +18,6 @@ import {
 } from "../../../playwright/components/textarea";
 import { CHARACTERS, VALIDATION } from "../../../playwright/support/constants";
 import {
-  assertCssValueIsApproximately,
   checkAccessibility,
   verifyRequiredAsteriskForLabel,
   waitForAnimationEnd,
@@ -122,21 +119,6 @@ test.describe("Props tests for Textarea component", () => {
     });
   });
 
-  testData.forEach((labelHelp) => {
-    test(`should render with labelHelp prop set to ${labelHelp}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<TextareaComponent labelInline labelHelp={labelHelp} />);
-      const questionIconElement = getDataElementByValue(page, "question");
-      await questionIconElement.hover();
-
-      const tooltipPreviewElement = tooltipPreview(page);
-
-      await expect(tooltipPreviewElement).toHaveText(labelHelp);
-    });
-  });
-
   (
     [
       [1, "8px"],
@@ -154,48 +136,6 @@ test.describe("Props tests for Textarea component", () => {
       );
 
       await expect(labelElementParent).toHaveCSS("padding-right", padding);
-    });
-  });
-
-  (
-    [
-      [10, 90, 135, 1229],
-      [30, 70, 409, 956],
-      [80, 20, 1092, 273],
-    ] as [
-      TextareaProps["labelWidth"],
-      TextareaProps["inputWidth"],
-      number,
-      number,
-    ][]
-  ).forEach(([label, input, labelRatio, inputRatio]) => {
-    test(`should use ${label} as labelWidth, ${input} as inputWidth and render it with correct label and input width ratios`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <TextareaComponent labelInline labelWidth={label} inputWidth={input} />,
-      );
-
-      const labelElementParent = getDataElementByValue(page, "label").locator(
-        "..",
-      );
-
-      await assertCssValueIsApproximately(
-        labelElementParent,
-        "width",
-        labelRatio,
-      );
-
-      const inputElementParent = getDataElementByValue(page, "input").locator(
-        "..",
-      );
-
-      await assertCssValueIsApproximately(
-        inputElementParent,
-        "width",
-        inputRatio,
-      );
     });
   });
 
@@ -422,51 +362,6 @@ test.describe("Props tests for Textarea component", () => {
     await expect(textareaIcon).toHaveCSS("color", "rgba(0, 0, 0, 0.3)");
   });
 
-  ["error", "warning", "info"].forEach((type) => {
-    test(`should verify component is displayed with ${type} validation icon on input`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <TextareaComponent
-          labelInline
-          labelAlign="right"
-          {...{
-            [type]: "Message",
-          }}
-        />,
-      );
-
-      const textareaIcon = textarea(page).locator(ICON);
-
-      await expect(textareaIcon).toHaveAttribute("data-element", type);
-    });
-  });
-
-  ["error", "warning", "info"].forEach((type) => {
-    test(`should verify component is displayed with ${type} validation icon on label`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <TextareaComponent
-          labelInline
-          labelAlign="right"
-          validationOnLabel
-          {...{
-            [type]: "Message",
-          }}
-        />,
-      );
-
-      const labelParentIcon = getDataElementByValue(page, "label")
-        .locator("..")
-        .locator(ICON);
-
-      await expect(labelParentIcon).toHaveAttribute("data-element", type);
-    });
-  });
-
   (
     [
       [VALIDATION.ERROR, "error", true],
@@ -523,17 +418,6 @@ test.describe("Props tests for Textarea component", () => {
     });
   });
 
-  testData.forEach((fieldHelp) => {
-    test(`should render with fieldHelp prop set to ${fieldHelp}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<TextareaComponent fieldHelp={fieldHelp} />);
-
-      await expect(fieldHelpPreview(page)).toHaveText(fieldHelp);
-    });
-  });
-
   (["add", "filter", "play"] as const).forEach((icon) => {
     test(`should render with inputIcon prop set to ${icon}`, async ({
       mount,
@@ -573,20 +457,6 @@ test.describe("Props tests for Textarea component", () => {
         position,
       );
     });
-  });
-
-  test("should render with helpAriaLabel prop", async ({ mount, page }) => {
-    await mount(
-      <TextareaComponent
-        labelHelp="field help"
-        helpAriaLabel={CHARACTERS.STANDARD}
-      />,
-    );
-
-    await expect(getComponent(page, "help")).toHaveAttribute(
-      "aria-label",
-      CHARACTERS.STANDARD,
-    );
   });
 
   (["left", "right"] as const).forEach((align) => {
