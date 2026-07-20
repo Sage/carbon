@@ -1,3 +1,9 @@
+## [161.2.1](https://github.com/Sage/carbon/compare/v161.2.0...v161.2.1) (2026-07-20)
+
+### Bug Fixes
+
+* **tabs:** remove gap in overflow layout ([70fddfd](https://github.com/Sage/carbon/commit/70fddfd5c89f52a5686161fee91f7ea07ba108a5))
+
 ## [161.2.0](https://github.com/Sage/carbon/compare/v161.1.0...v161.2.0) (2026-07-16)
 
 ### Features
