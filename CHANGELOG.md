@@ -1,3 +1,9 @@
+## [161.3.0](https://github.com/Sage/carbon/compare/v161.2.1...v161.3.0) (2026-07-20)
+
+### Features
+
+* **checkbox, checkbox-group:** align with Fusion DS ([2649746](https://github.com/Sage/carbon/commit/26497463c57a4d6d26c039be67a797b8993ff814))
+
 ## [161.2.1](https://github.com/Sage/carbon/compare/v161.2.0...v161.2.1) (2026-07-20)
 
 ### Bug Fixes
