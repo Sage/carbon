@@ -150,7 +150,7 @@ export function flexboxCss(props) {
   const style = {};
   for (const key in flexboxKeys) {
     const value = props[key];
-    if (!value) continue;
+    if (value === null || value === undefined) continue;
     style[flexboxKeys[key]] = value;
   }
 
@@ -170,7 +170,7 @@ export function layoutCss(props) {
 
   for (const key in layoutKeys) {
     const value = props[key];
-    if (!value) continue;
+    if (value === null || value === undefined) continue;
 
     const cssKey = layoutKeys[key];
     style[cssKey] = value;
