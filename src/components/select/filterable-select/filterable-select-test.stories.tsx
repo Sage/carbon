@@ -165,12 +165,8 @@ export const Validation = () => {
   );
 };
 Validation.storyName = "Validation";
-Validation.parameters = {
-  chromatic: { disableSnapshot: true },
-  themeProvider: { chromatic: { theme: "sage" } },
-};
 
-export const FilterableSelectWithLazyLoadingComponent = (
+export const WithLazyLoadingComponent = (
   props: Partial<FilterableSelectProps>,
 ) => {
   const preventLoading = useRef(false);
@@ -218,7 +214,7 @@ export const FilterableSelectWithLazyLoadingComponent = (
   );
 };
 
-export const FilterableSelectLazyLoadTwiceComponent = (
+export const LazyLoadTwiceComponent = (
   props: Partial<FilterableSelectProps>,
 ) => {
   const preventLoading = useRef(false);
@@ -269,7 +265,7 @@ export const FilterableSelectLazyLoadTwiceComponent = (
   );
 };
 
-export const FilterableSelectWithInfiniteScrollComponent = (
+export const WithInfiniteScrollComponent = (
   props: Partial<FilterableSelectProps>,
 ) => {
   const preventLoading = useRef(false);
@@ -355,7 +351,7 @@ export const FilterableSelectWithInfiniteScrollComponent = (
   );
 };
 
-export const FilterableSelectObjectAsValueComponent = (
+export const ObjectAsValueComponent = (
   props: Partial<FilterableSelectProps>,
 ) => {
   const optionListValues = [
@@ -393,7 +389,7 @@ export const FilterableSelectObjectAsValueComponent = (
   );
 };
 
-export const FilterableSelectMultiColumnsComponent = (
+export const MultiColumnsComponent = (
   props: Partial<FilterableSelectProps>,
 ) => {
   const [value, setValue] = useState("2");
@@ -451,7 +447,7 @@ export const FilterableSelectMultiColumnsComponent = (
   );
 };
 
-export const FilterableSelectMultiColumnsNestedComponent = (
+export const MultiColumnsNestedComponent = (
   args: Partial<FilterableSelectProps>,
 ) => {
   const [value, setValue] = useState("2");
@@ -508,7 +504,7 @@ export const FilterableSelectMultiColumnsNestedComponent = (
   );
 };
 
-export const FilterableSelectWithActionButtonComponent = () => {
+export const WithActionButtonComponent = () => {
   const [value, setValue] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [optionList, setOptionList] = useState([
@@ -564,7 +560,7 @@ export const FilterableSelectWithActionButtonComponent = () => {
   );
 };
 
-export const FilterableSelectOnChangeEventComponent = ({
+export const OnChangeEventComponent = ({
   onChange,
   ...props
 }: Partial<FilterableSelectProps>) => {
@@ -594,7 +590,7 @@ export const FilterableSelectOnChangeEventComponent = ({
   );
 };
 
-export const FilterableSelectListActionEventComponent = (
+export const ListActionEventComponent = (
   props: Partial<FilterableSelectProps>,
 ) => {
   const [value, setValue] = useState("");
@@ -622,7 +618,7 @@ export const FilterableSelectListActionEventComponent = (
   );
 };
 
-export const FilterableSelectWithManyOptionsAndVirtualScrolling = () => {
+export const WithManyOptionsAndVirtualScrolling = () => {
   const [value, setValue] = useState("");
 
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
@@ -653,10 +649,7 @@ export const FilterableSelectWithManyOptionsAndVirtualScrolling = () => {
   );
 };
 
-export const FilterableSelectNestedInDialog = ({
-  openOnFocus = false,
-  autofocus = false,
-}) => {
+export const NestedInDialog = ({ openOnFocus = false, autofocus = false }) => {
   const [isOpen, setIsOpen] = useState(true);
   const [value, setValue] = useState("");
 
@@ -682,7 +675,7 @@ export const FilterableSelectNestedInDialog = ({
   );
 };
 
-export const FilterableSelectWithDisabledOption = () => {
+export const WithDisabledOption = () => {
   const [value, setValue] = useState("");
 
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
@@ -748,7 +741,7 @@ export const SingleOption = () => {
 
 SingleOption.storyName = "Single Option";
 
-export const FilterableSelectWithTruncatedText = () => {
+export const WithTruncatedText = () => {
   const longValueText =
     "Like a lot of intelligent animals, most crows are quite social." +
     "For instance, American crows spend most of the year living in pairs or small family groups." +
@@ -817,7 +810,7 @@ export const AriaDescribedByExample = () => {
   );
 };
 
-export const FilterableSelectWithStateAndObjects = ({
+export const WithStateAndObjects = ({
   label,
   ...props
 }: Partial<FilterableSelectProps>) => {

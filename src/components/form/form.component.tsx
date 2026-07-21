@@ -38,6 +38,10 @@ export interface FormProps extends SpaceProps, TagProps {
   footerChildren?: React.ReactNode;
   /** Enables the sticky footer. */
   stickyFooter?: boolean;
+  /**
+   * When true, disables the sticky behaviour of the footer on small screen devices (below 600px).
+   */
+  disableStickyOnSmallScreen?: boolean;
   /** Background variant for the sticky footer. */
   stickyFooterVariant?: "light" | "grey";
   /** The total number of warnings present in the form */
@@ -62,6 +66,7 @@ export const Form = ({
   footerChildren,
   stickyFooter,
   stickyFooterVariant = "light",
+  disableStickyOnSmallScreen = false,
   fieldSpacing = 3,
   noValidate = true,
   height,
@@ -88,22 +93,22 @@ export const Form = ({
       ref={formRef}
       id={id}
       className={stickyFooter ? "sticky" : ""}
-      stickyFooter={stickyFooter}
+      $stickyFooter={stickyFooter}
       onSubmit={onSubmit}
       data-component="form"
       noValidate={noValidate}
-      height={height}
-      isInModal={isInModal}
+      $height={height}
+      $isInModal={isInModal}
       {...rest}
       {...tagComponent("form", rest)}
     >
       <StyledFormContent
         data-element="form-content"
         data-role="form-content"
-        stickyFooter={stickyFooter}
+        $stickyFooter={stickyFooter}
         tabIndex={-1}
-        isInModal={isInModal}
-        fieldSpacing={formSpacing[fieldSpacing]}
+        $isInModal={isInModal}
+        $fieldSpacing={formSpacing[fieldSpacing]}
       >
         {children}
       </StyledFormContent>
@@ -112,11 +117,12 @@ export const Form = ({
           data-element="form-footer"
           data-role="form-footer"
           ref={formFooterRef}
-          hasFooterChildren={!!footerChildren}
-          stickyFooter={stickyFooter}
-          {...(stickyFooter && { stickyFooterVariant })}
-          buttonAlignment={buttonAlignment}
-          fullWidthButtons={fullWidthButtons}
+          $hasFooterChildren={!!footerChildren}
+          $stickyFooter={stickyFooter}
+          {...(stickyFooter && { $stickyFooterVariant: stickyFooterVariant })}
+          disableStickyOnSmallScreen={disableStickyOnSmallScreen}
+          $buttonAlignment={buttonAlignment}
+          $fullWidthButtons={fullWidthButtons}
           {...footerPadding}
         >
           {footerChildren || (
@@ -124,7 +130,7 @@ export const Form = ({
               {leftSideButtons && (
                 <StyledLeftButtons
                   data-role="form-left-buttons"
-                  buttonAlignment={buttonAlignment}
+                  $buttonAlignment={buttonAlignment}
                 >
                   {leftSideButtons}
                 </StyledLeftButtons>
@@ -141,7 +147,7 @@ export const Form = ({
               {rightSideButtons && (
                 <StyledRightButtons
                   data-role="form-right-buttons"
-                  buttonAlignment={buttonAlignment}
+                  $buttonAlignment={buttonAlignment}
                 >
                   {rightSideButtons}
                 </StyledRightButtons>

@@ -30,7 +30,7 @@ Use it to submit a form (Save), to advance to the next step in a process (Next),
 ## Quick Start
 
 ```javascript
-import Button, { type ButtonProps, type ButtonHandle } from "carbon-react/lib/components/button/__next__";
+import Button, { type ButtonProps } from "carbon-react/lib/components/button/__next__";
 ```
 
 ## Examples
@@ -154,7 +154,7 @@ determine the behaviour of the link.
 
 ### Programmatic focus
 
-To programmatically set focus on a `Button`, you can use the imperative `focusButton` method available via the component's ref:
+To programmatically set focus on a `Button`, use a ref to the underlying DOM element and call `focus()`:
 
 <Canvas of={ButtonStories.ProgrammaticFocus} />
 
@@ -177,10 +177,9 @@ To help with migration, this component can also accept the following
 
 <ArgTypes of={ButtonStories} />
 
-## Ref methods
+## Ref
+`Button`'s forwarded ref resolves to the underlying DOM element:
 
-`Button`'s forwarded ref exposes the following imperative methods:
-
-| Method Name   | Description                         |
-| ------------- | ----------------------------------- |
-| `focusButton` | Programmatically focuses the button. |
+| Ref type | Description                                                |
+| -------- | ---------------------------------------------------------- |
+| DOM ref  | `HTMLButtonElement` (or `HTMLAnchorElement` when `href` is set). |

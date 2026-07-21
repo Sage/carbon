@@ -218,6 +218,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
         <StyledSidebarContent
           data-element="sidebar-content"
           data-role="sidebar-content"
+          tabIndex={-1}
           {...filterStyledSystemPaddingProps(rest)}
         >
           <SidebarContext.Provider value={{ isInSidebar: true }}>

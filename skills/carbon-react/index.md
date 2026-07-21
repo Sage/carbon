@@ -21,7 +21,6 @@
 - [Breadcrumbs](components/breadcrumbs.md)
 - [Button](components/button.md) (deprecated)
 - [ButtonBar](components/button-bar.md) (deprecated)
-- [ButtonHandleNext](components/button-handle-next.md)
 - [ButtonMinor](components/button-minor.md) (deprecated)
 - [ButtonNext](components/button-next.md)
 - [ButtonToggle](components/button-toggle.md)

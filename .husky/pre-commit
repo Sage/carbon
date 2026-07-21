@@ -1,4 +1,11 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
+echo "Checking skills are up to date..."
+npm run build:skills -- --check || {
+	echo ""
+	echo "Skills are out of date. Run: npm run build:skills"
+	exit 1
+}
+
 npx lint-staged

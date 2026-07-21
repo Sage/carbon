@@ -17,6 +17,7 @@ description: Carbon Form component props and usage examples.
 | --- | --- | --- | --- | --- | --- |
 | buttonAlignment | "left" \| "right" \| undefined | No |  | Alignment of buttons | "right" |
 | children | React.ReactNode | No |  | Child elements |  |
+| disableStickyOnSmallScreen | boolean \| undefined | No |  | When true, disables the sticky behaviour of the footer on small screen devices (below 600px). | false |
 | errorCount | number \| undefined | No |  | The total number of errors present in the form |  |
 | fieldSpacing | 0 \| 1 \| 2 \| 3 \| 4 \| 5 \| 6 \| 7 \| undefined | No |  | Spacing between form fields, given number will be multiplied by base spacing unit (8) | 3 |
 | footerChildren | React.ReactNode | No |  | Custom content to render in the form's footer |  |
@@ -645,6 +646,47 @@ description: Carbon Form component props and usage examples.
             <Option text="White" value="10" />
             <Option text="Yellow" value="11" />
           </MultiSelect>
+          {Array.from({ length: 10 }).map((_, index) => (
+            <Textbox
+              key={`textbox-${index + 1}`}
+              label="Textbox"
+              value=""
+              onChange={() => {}}
+            />
+          ))}
+        </Form>
+      </Dialog>
+    </>
+  );
+}
+```
+
+
+### In Dialog with Sticky Footer Disabled on Small Screen
+
+**Render**
+
+```tsx
+() => {
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open Preview</Button>
+      <Dialog
+        open={isOpen}
+        onCancel={() => setIsOpen(false)}
+        title="Form in Dialog"
+        subtitle="Sticky footer disabled on small screens"
+        disableStickyOnSmallScreen
+      >
+        <Form
+          leftSideButtons={
+            <Button onClick={() => setIsOpen(false)}>Cancel</Button>
+          }
+          saveButton={<Button buttonType="primary">Submit</Button>}
+          stickyFooter
+          disableStickyOnSmallScreen
+        >
           {Array.from({ length: 10 }).map((_, index) => (
             <Textbox
               key={`textbox-${index + 1}`}

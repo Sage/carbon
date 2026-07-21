@@ -8,7 +8,7 @@ import applyBaseTheme from "../../style/themes/apply-base-theme";
 import { StyledFlatTableCell } from "./flat-table-cell/flat-table-cell.style";
 import cellSizes from "./cell-sizes.style";
 import StyledBox from "../box/box.style";
-import { StyledPagerContainer } from "../pager/pager.style";
+import { StyledPagination } from "../pager/pager.style";
 import { FlatTableProps } from "./flat-table.component";
 import { DrawerSidebarContextProps } from "../drawer/__internal__/drawer-sidebar.context";
 import addFocusStyling from "../../style/utils/add-focus-styling";
@@ -363,7 +363,7 @@ const StyledFlatTableWrapper = styled(StyledBox).attrs(
 const StyledFlatTableFooter = styled.div.attrs(applyBaseTheme)<
   Pick<FlatTableProps, "hasStickyFooter">
 >`
-  & > ${StyledPagerContainer} {
+  & > ${StyledPagination} {
     border-top: none;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
@@ -376,7 +376,7 @@ const StyledFlatTableFooter = styled.div.attrs(applyBaseTheme)<
       bottom: 0px;
       z-index: ${theme.zIndex.overlay + STICKY_FOOTER_OVERLAY_INCREMENT};
 
-      ${StyledPagerContainer} {
+      ${StyledPagination} {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
       }

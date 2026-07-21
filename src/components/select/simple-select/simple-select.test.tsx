@@ -13,6 +13,7 @@ import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/te
 
 import SimpleSelect, { CustomSelectChangeEvent, SimpleSelectProps } from ".";
 import Option from "../option";
+import { CHARACTERS } from "../../../../playwright/support/constants";
 import setupSelectMocks from "../setup-select-mocks";
 
 beforeEach(() => {
@@ -706,6 +707,46 @@ describe("dropdown list", () => {
     });
   });
 
+  it("closes the list with the Tab key", async () => {
+    const user = userEvent.setup();
+    render(
+      <SimpleSelect label="Colour" onChange={() => {}} value="">
+        <Option text="amber" value="amber" />
+      </SimpleSelect>,
+    );
+
+    const input = screen.getByRole("combobox");
+    await user.click(input);
+    await screen.findByRole("listbox");
+
+    expect(input).toHaveAttribute("aria-expanded", "true");
+    await user.tab();
+    expect(input).toHaveAttribute("aria-expanded", "false");
+    await waitFor(() => {
+      expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+    });
+  });
+
+  it("closes the list with the Escape key", async () => {
+    const user = userEvent.setup();
+    render(
+      <SimpleSelect label="Colour" onChange={() => {}} value="">
+        <Option text="amber" value="amber" />
+      </SimpleSelect>,
+    );
+
+    const input = screen.getByRole("combobox");
+    await user.click(input);
+    await screen.findByRole("listbox");
+
+    expect(input).toHaveAttribute("aria-expanded", "true");
+    await user.keyboard("{Escape}");
+    expect(input).toHaveAttribute("aria-expanded", "false");
+    await waitFor(() => {
+      expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+    });
+  });
+
   test("when a custom adaptive sidebar blur event is dispatched the list closes", async () => {
     const user = userEvent.setup();
 
@@ -990,6 +1031,62 @@ test("the options are cleared when the reset button is pressed", async () => {
   await user.click(screen.getByRole("combobox"));
 
   expect(screen.queryByRole("option")).not.toBeInTheDocument();
+});
+
+test("should render option with data-element and data-role attributes", async () => {
+  const user = userEvent.setup();
+  render(
+    <SimpleSelect label="Colour" onChange={() => {}} value="">
+      <Option
+        id="option1"
+        data-element="option1"
+        data-role="option1"
+        text="amber"
+        value="amber"
+      />
+    </SimpleSelect>,
+  );
+
+  await user.click(screen.getByRole("combobox"));
+
+  const option = await screen.findByRole("option", { name: "amber" });
+  expect(option).toHaveAttribute("data-element", "option1");
+  expect(option).toHaveAttribute("data-role", "option1");
+});
+
+describe("special character rendering", () => {
+  [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS].forEach(
+    (labelValue) => {
+      test(`renders label with special characters: ${labelValue}`, () => {
+        render(
+          <SimpleSelect label={labelValue} onChange={() => {}} value="">
+            <Option text="Amber" value="amber" />
+          </SimpleSelect>,
+        );
+
+        expect(screen.getByText(labelValue)).toBeVisible();
+      });
+    },
+  );
+
+  [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS].forEach(
+    (placeholderValue) => {
+      test(`renders placeholder with special characters: ${placeholderValue}`, () => {
+        render(
+          <SimpleSelect
+            label="Colour"
+            onChange={() => {}}
+            value=""
+            placeholder={placeholderValue}
+          >
+            <Option text="Amber" value="amber" />
+          </SimpleSelect>,
+        );
+
+        expect(screen.getByText(placeholderValue)).toBeVisible();
+      });
+    },
+  );
 });
 
 testStyledSystemMargin(

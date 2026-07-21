@@ -1,3 +1,107 @@
+## [161.3.0](https://github.com/Sage/carbon/compare/v161.2.1...v161.3.0) (2026-07-20)
+
+### Features
+
+* **checkbox, checkbox-group:** align with Fusion DS ([2649746](https://github.com/Sage/carbon/commit/26497463c57a4d6d26c039be67a797b8993ff814))
+
+## [161.2.1](https://github.com/Sage/carbon/compare/v161.2.0...v161.2.1) (2026-07-20)
+
+### Bug Fixes
+
+* **tabs:** remove gap in overflow layout ([70fddfd](https://github.com/Sage/carbon/commit/70fddfd5c89f52a5686161fee91f7ea07ba108a5))
+
+## [161.2.0](https://github.com/Sage/carbon/compare/v161.1.0...v161.2.0) (2026-07-16)
+
+### Features
+
+* **profile:** align with fusion DS ([775729f](https://github.com/Sage/carbon/commit/775729fef61b24c7c561bd0164c8ba23d1c8c7be))
+
+## [161.1.0](https://github.com/Sage/carbon/compare/v161.0.1...v161.1.0) (2026-07-08)
+
+### Features
+
+* **form:** add new disableStickyOnSmallScreen prop ([e8a9edd](https://github.com/Sage/carbon/commit/e8a9edd707ca64276a8996d28886acd26a633ad4)), closes [#7973](https://github.com/Sage/carbon/issues/7973)
+
+## [161.0.1](https://github.com/Sage/carbon/compare/v161.0.0...v161.0.1) (2026-07-08)
+
+### Bug Fixes
+
+* **loader:** incorect text size for loading text inside buttons ([a52887f](https://github.com/Sage/carbon/commit/a52887f0981e190cceb0dbad8dcb16bcd21d57d5))
+
+## [161.0.0](https://github.com/Sage/carbon/compare/v160.0.0...v161.0.0) (2026-07-07)
+
+### ⚠ BREAKING CHANGES
+
+* **button:** __next__ Button no longer exposes ButtonHandle.focusButton().
+
+### Features
+
+* **button:** forward __next__ Button ref to DOM element ([6d75c23](https://github.com/Sage/carbon/commit/6d75c231d7e55be7c6750922d85400fd2fd4e834))
+
+### Bug Fixes
+
+* **focus-trap:** avoid act warning in hyperlink toolbar test ([77b2d02](https://github.com/Sage/carbon/commit/77b2d02abc56e27ed63f8491234f1a62945e7c76))
+* **focus-trap:** stabilize initial focus precedence over autofocus ([30f5935](https://github.com/Sage/carbon/commit/30f59357bb4c6bc8b09b385cf954905b4148bae6))
+* **pager:** fix button ref typing and safe focus behavior ([94121ff](https://github.com/Sage/carbon/commit/94121ff21f09287a212288f25a8a0d5c5a222f3c))
+* **popover-menu:** add fallback accessible name for listbox ([dcad057](https://github.com/Sage/carbon/commit/dcad057db297e5be2d96b663991375f62795d6af))
+* **popover-menu:** remove branch path and restore reporter behavior ([58ff2ac](https://github.com/Sage/carbon/commit/58ff2ac8393f005cdd113f6ace5e7ab6d1165a09))
+* **popover-menu:** use DOM refs for menu trigger focus ([de59f56](https://github.com/Sage/carbon/commit/de59f56c09ccd455bff654b43945209c3ea336d9))
+
+## [160.0.0](https://github.com/Sage/carbon/compare/v159.16.0...v160.0.0) (2026-07-06)
+
+### ⚠ BREAKING CHANGES
+
+* **css:** Generated CSS class names now include the Carbon package version
+as a prefix. This scopes component CSS per version. Apps that use multiple versions of
+Carbon side by side should no longer see bleeding styles between them, but may see some
+visual differences if they were relying on old unscoped style rules.
+
+### Features
+
+* **css:** prefix component CSS class names with the Carbon package version ([a4a9dc0](https://github.com/Sage/carbon/commit/a4a9dc0b609c33700d00dbcbc0d8ec92e03c4fe0))
+
+## [159.16.0](https://github.com/Sage/carbon/compare/v159.15.1...v159.16.0) (2026-07-03)
+
+### Features
+
+* **button-toggle:** add single toggle support ([375f8e3](https://github.com/Sage/carbon/commit/375f8e33dc32dba096eff42b9e719d43a69daa6c))
+
+## [159.15.1](https://github.com/Sage/carbon/compare/v159.15.0...v159.15.1) (2026-07-02)
+
+### Bug Fixes
+
+* **menu:** hide MenuDivider list item from accessibility tree ([0a0a8af](https://github.com/Sage/carbon/commit/0a0a8afe3339da441148a9df370623ab07210558))
+
+## [159.15.0](https://github.com/Sage/carbon/compare/v159.14.0...v159.15.0) (2026-06-30)
+
+### Features
+
+* **pager:** align with Fusion DS ([7c6aa54](https://github.com/Sage/carbon/commit/7c6aa54cee60ada947d0ab61a355fc37757f1c1f))
+
+## [159.14.0](https://github.com/Sage/carbon/compare/v159.13.4...v159.14.0) (2026-06-29)
+
+### Features
+
+* **search:** align with fusion DS ([2cd52f9](https://github.com/Sage/carbon/commit/2cd52f90140f93aa55c948b52de39399e804ad75))
+
+## [159.13.4](https://github.com/Sage/carbon/compare/v159.13.3...v159.13.4) (2026-06-26)
+
+### Bug Fixes
+
+* **menu-item:** bump style specificity for submenu padding ([91653c4](https://github.com/Sage/carbon/commit/91653c47961ad83b7eaf26d022b142da6e281bdb))
+
+## [159.13.3](https://github.com/Sage/carbon/compare/v159.13.2...v159.13.3) (2026-06-25)
+
+### Bug Fixes
+
+* **sidebar:** remove scroll content from tab order in firefox ([fd300b1](https://github.com/Sage/carbon/commit/fd300b14968444eab5e47537f067227034e306bf))
+
+## [159.13.2](https://github.com/Sage/carbon/compare/v159.13.1...v159.13.2) (2026-06-25)
+
+### Bug Fixes
+
+* correct esm module path in generated package.json stubs ([706fae9](https://github.com/Sage/carbon/commit/706fae96ed5925d32f7079a5418e40bc860a2a1d)), closes [#8042](https://github.com/Sage/carbon/issues/8042)
+
 ## [159.13.1](https://github.com/Sage/carbon/compare/v159.13.0...v159.13.1) (2026-06-22)
 
 ### Bug Fixes

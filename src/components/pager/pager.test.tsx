@@ -1,525 +1,508 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-
-import Pager from "./pager.component";
-import I18nProvider from "../i18n-provider";
-import { frFR } from "../../locales";
+import Pager from ".";
 import { setupSelectMocks } from "../select";
 
 beforeAll(() => {
   setupSelectMocks();
 });
 
-test("the total records number is set to 0 by default", () => {
-  render(<Pager onPagination={() => {}} />);
-  expect(screen.getByText("0 items")).toBeInTheDocument();
-});
-
-test("the `pageSize` prop, when passed as a number, sets the value of the page size select", () => {
-  render(<Pager pageSize={10} showPageSizeSelection onPagination={() => {}} />);
-  expect(screen.getByRole("combobox", { name: "Show" })).toHaveValue("10");
-});
-
-test("the `pageSize` prop, when passed as a string, sets the value of the page size select", () => {
-  render(<Pager pageSize="10" showPageSizeSelection onPagination={() => {}} />);
-  expect(screen.getByRole("combobox", { name: "Show" })).toHaveValue("10");
-});
-
-test("the `next` and `last` buttons are disabled when on the last page", async () => {
-  const user = userEvent.setup();
-  const onPagination = jest.fn();
-  render(
-    <Pager
-      totalRecords={100}
-      pageSize={10}
-      currentPage={10}
-      onPagination={onPagination}
-    />,
-  );
-
-  await user.click(screen.getByRole("button", { name: "Next" }));
-  await user.click(screen.getByRole("button", { name: "Last" }));
-  expect(onPagination).not.toHaveBeenCalled();
-});
-
-test("the `previous` and `first` buttons are disabled when on the first page", async () => {
-  const user = userEvent.setup();
-  const onPagination = jest.fn();
-  render(
-    <Pager
-      totalRecords={100}
-      pageSize={10}
-      currentPage={1}
-      onPagination={onPagination}
-    />,
-  );
-
-  await user.click(screen.getByRole("button", { name: "Previous" }));
-  await user.click(screen.getByRole("button", { name: "First" }));
-  expect(onPagination).not.toHaveBeenCalled();
-});
-
-test("no buttons are rendered if there is only 1 page", () => {
-  render(<Pager totalRecords={10} pageSize={10} onPagination={() => {}} />);
-  expect(screen.queryAllByRole("button").length).toBe(0);
-});
-
-test("the 'First' and 'Last' navigation buttons are not rendered if there are only two pages", () => {
-  render(<Pager totalRecords={20} pageSize={10} onPagination={() => {}} />);
-
-  const allButtons = screen.queryAllByRole("button");
-  expect(allButtons.length).toBe(2);
-  expect(allButtons[0]).toHaveTextContent("Previous");
-  expect(allButtons[1]).toHaveTextContent("Next");
-});
-
-test("the `previous` and `first` buttons are hidden when on the first page if the `hideDisabledElements` prop is `true`", () => {
-  render(
-    <Pager
-      hideDisabledElements
-      totalRecords={100}
-      pageSize={10}
-      currentPage={1}
-      onPagination={() => {}}
-    />,
-  );
-
-  // note: can't easily use getByRole("button") for these assertions because the buttons are disabled and
-  // that appears to make them have an empty accessible name. So it's easiest to use getByText to get the
-  // specific buttons required
-  expect(screen.getByText("Previous")).not.toBeVisible();
-  expect(screen.getByText("First")).not.toBeVisible();
-});
-
-test("the `next` and `last` buttons are hidden when on the last page if the `hideDisabledElements` prop is `true`", () => {
-  render(
-    <Pager
-      hideDisabledElements
-      totalRecords={100}
-      pageSize={10}
-      currentPage={10}
-      onPagination={() => {}}
-    />,
-  );
-
-  // note: can't easily use getByRole("button") for these assertions because the buttons are disabled and
-  // that appears to make them have an empty accessible name. So it's easiest to use getByText to get the
-  // specific buttons required
-  expect(screen.getByText("Next")).not.toBeVisible();
-  expect(screen.getByText("Last")).not.toBeVisible();
-});
-
-test("all buttons are visible if the `hideDisabledElements` prop is `true` and not on the first or last page", () => {
-  render(
-    <Pager
-      hideDisabledElements
-      totalRecords={100}
-      pageSize={10}
-      currentPage={3}
-      onPagination={() => {}}
-    />,
-  );
-
-  expect(screen.getByRole("button", { name: "First" })).toBeVisible();
-  expect(screen.getByRole("button", { name: "Previous" })).toBeVisible();
-  expect(screen.getByRole("button", { name: "Next" })).toBeVisible();
-  expect(screen.getByRole("button", { name: "Last" })).toBeVisible();
-});
-
-test("when the `interactivePageNumber` prop is false, no input is rendered for the page number", () => {
-  render(<Pager interactivePageNumber={false} onPagination={() => {}} />);
+test("`next` and `last` buttons are not visible when on the last page", async () => {
+  render(<Pager onPagination={() => {}} totalRecords={100} currentPage={10} />);
 
   expect(
-    screen.queryByRole("textbox", { name: "Page" }),
+    screen.queryByRole("button", { name: "Go to next page" }),
+  ).not.toBeInTheDocument();
+  expect(
+    screen.queryByRole("button", { name: "Go to last page" }),
   ).not.toBeInTheDocument();
 });
 
-test.each([1, 5, 10])(
-  "when the `interactivePageNumber` prop is false, the pager nav label is rendered with correct inner text",
-  (pageIndex) => {
-    render(
-      <Pager
-        interactivePageNumber={false}
-        currentPage={pageIndex}
-        totalRecords={100}
-        pageSize={10}
-        onPagination={() => {}}
-      />,
-    );
+test("`previous` and `first` buttons are not visible when on the first page", async () => {
+  render(<Pager onPagination={() => {}} totalRecords={100} currentPage={1} />);
 
-    expect(screen.getByTestId("current-page-label")).toHaveTextContent(
-      `Page ${pageIndex} of 10`,
-    );
-  },
-);
+  expect(
+    screen.queryByRole("button", { name: "Go to previous page" }),
+  ).not.toBeInTheDocument();
+  expect(
+    screen.queryByRole("button", { name: "Go to first page" }),
+  ).not.toBeInTheDocument();
+});
 
-test("the `onFirst` callback prop is called when the user clicks the `First` button", async () => {
+test("does not render navigation buttons or current page input when there is only 1 page", () => {
+  render(<Pager onPagination={() => {}} totalRecords={1} />);
+
+  expect(screen.queryAllByRole("button").length).toBe(0);
+  expect(screen.queryByRole("textbox")).not.toBeInTheDocument();
+  expect(screen.getByText("1 of 1 pages")).toBeVisible();
+});
+
+test("does not render current page input if `interactivePageNumber` is false", () => {
+  render(
+    <Pager
+      onPagination={() => {}}
+      totalRecords={100}
+      currentPage={1}
+      interactivePageNumber={false}
+    />,
+  );
+
+  expect(screen.queryByRole("textbox")).not.toBeInTheDocument();
+  expect(screen.getByText("1 of 10 pages")).toBeVisible();
+});
+
+test("calls the `onFirst` callback when the `First` button is clicked", async () => {
   const user = userEvent.setup();
   const onFirst = jest.fn();
   render(
     <Pager
+      onPagination={() => {}}
       onFirst={onFirst}
       currentPage={10}
       totalRecords={100}
-      pageSize={10}
-      onPagination={() => {}}
     />,
   );
 
-  await user.click(screen.getByRole("button", { name: "First" }));
+  await user.click(screen.getByRole("button", { name: "Go to first page" }));
   expect(onFirst).toHaveBeenCalledTimes(1);
 });
 
-test("the `onPrevious` callback prop is called when the user clicks the `Previous` button", async () => {
+test("calls the `onPrevious` callback when the `Previous` button is clicked", async () => {
   const user = userEvent.setup();
   const onPrevious = jest.fn();
   render(
     <Pager
+      onPagination={() => {}}
       onPrevious={onPrevious}
       currentPage={10}
       totalRecords={100}
-      pageSize={10}
-      onPagination={() => {}}
     />,
   );
 
-  await user.click(screen.getByRole("button", { name: "Previous" }));
+  await user.click(screen.getByRole("button", { name: "Go to previous page" }));
   expect(onPrevious).toHaveBeenCalledTimes(1);
 });
 
-test("the `onNext` callback prop is called when the user clicks the `Next` button", async () => {
+test("calls the `onNext` callback when the `Next` button is clicked", async () => {
   const user = userEvent.setup();
   const onNext = jest.fn();
   render(
     <Pager
+      onPagination={() => {}}
       onNext={onNext}
       currentPage={1}
       totalRecords={100}
-      pageSize={10}
-      onPagination={() => {}}
     />,
   );
 
-  await user.click(screen.getByRole("button", { name: "Next" }));
+  await user.click(screen.getByRole("button", { name: "Go to next page" }));
   expect(onNext).toHaveBeenCalledTimes(1);
 });
 
-test("the `onLast` callback prop is called when the user clicks the `Last` button", async () => {
+test("calls the `onLast` callback when the `Last` button is clicked", async () => {
   const user = userEvent.setup();
   const onLast = jest.fn();
   render(
     <Pager
+      onPagination={() => {}}
       onLast={onLast}
       currentPage={1}
       totalRecords={100}
-      pageSize={10}
-      onPagination={() => {}}
     />,
   );
 
-  await user.click(screen.getByRole("button", { name: "Last" }));
+  await user.click(screen.getByRole("button", { name: "Go to last page" }));
   expect(onLast).toHaveBeenCalledTimes(1);
-});
-
-test("when the `pageSize` prop updates, the value of the page-size select is updated accordingly", () => {
-  const { rerender } = render(
-    <Pager
-      currentPage={1}
-      totalRecords={100}
-      pageSize={10}
-      showPageSizeSelection
-      onPagination={() => {}}
-    />,
-  );
-  expect(screen.getByRole("combobox", { name: "Show" })).toHaveValue("10");
-
-  rerender(
-    <Pager
-      currentPage={1}
-      totalRecords={100}
-      pageSize={25}
-      showPageSizeSelection
-      onPagination={() => {}}
-    />,
-  );
-  expect(screen.getByRole("combobox", { name: "Show" })).toHaveValue("25");
-});
-
-test("if a page number is entered that is greater than the number of pages, it reverts to the last page when Enter is pressed", async () => {
-  const user = userEvent.setup();
-  render(
-    <Pager
-      currentPage={1}
-      totalRecords={100}
-      pageSize={10}
-      onPagination={() => {}}
-    />,
-  );
-
-  await user.type(screen.getByRole("textbox", { name: "Page" }), "1234");
-  await user.keyboard("{Enter}");
-  expect(screen.getByRole("textbox", { name: "Page" })).toHaveValue("10");
-});
-
-test("if a page number is entered that is less than 1, it reverts to the first page when Enter is pressed", async () => {
-  const user = userEvent.setup();
-  render(
-    <Pager
-      currentPage={1}
-      totalRecords={100}
-      pageSize={10}
-      onPagination={() => {}}
-    />,
-  );
-
-  await user.type(screen.getByRole("textbox", { name: "Page" }), "-1234");
-  await user.keyboard("{Enter}");
-  expect(screen.getByRole("textbox", { name: "Page" })).toHaveValue("1");
-});
-
-test("the current page is set to 1 if not specified by the `currentPage` prop", () => {
-  render(<Pager totalRecords={100} pageSize={10} onPagination={() => {}} />);
-
-  expect(screen.getByRole("textbox", { name: "Page" })).toHaveValue("1");
 });
 
 test("the total number of records is set to 1 if the `totalRecords` prop is an invalid value", () => {
   render(<Pager totalRecords={-100} pageSize={10} onPagination={() => {}} />);
 
-  expect(screen.getByText("of 1")).toBeVisible();
+  expect(screen.getByText("1 of 1 pages")).toBeVisible();
+});
+
+test("sets the current page to the last available page when `currentPage` is larger than the total", () => {
+  render(
+    <Pager
+      onPagination={() => {}}
+      currentPage={10}
+      totalRecords={15}
+      pageSize={10}
+    />,
+  );
+
+  expect(screen.getByRole("textbox", { name: "Page 2" })).toHaveValue("2");
 });
 
 test("the page size select is not shown by default", () => {
   render(<Pager onPagination={() => {}} />);
 
   expect(
-    screen.queryByRole("combobox", { name: "Show" }),
+    screen.queryByRole("combobox", { name: "Items per page" }),
   ).not.toBeInTheDocument();
 });
 
-test("the page size select is shown when `showPageSizeSelection` is true", () => {
+test("renders the page size select when `showPageSizeSelection` prop is true", () => {
   render(<Pager showPageSizeSelection onPagination={() => {}} />);
 
-  // the actual select input has opacity 0 so doesn't pass a toBeVisible check.
-  // So instead we'll assert it's in the document (which correct accessible name, ie label), and
-  // check that the "select text" element is visible
-  expect(screen.getByRole("combobox", { name: "Show" })).toBeInTheDocument();
-  expect(screen.getByTestId("select-text")).toBeVisible();
+  expect(
+    screen.getByRole("combobox", { name: "Items per page" }),
+  ).toBeInTheDocument();
 });
 
-test("the text before the page size select is not shown when the `showPageSizeLabelBefore` prop is false", () => {
+test("sets the correct page size when the `pageSize` is passed as a number", () => {
   render(
     <Pager
-      showPageSizeSelection
-      showPageSizeLabelBefore={false}
       onPagination={() => {}}
+      totalRecords={100}
+      showPageSizeSelection
+      pageSize={25}
     />,
   );
 
-  expect(screen.queryByText("Show")).not.toBeInTheDocument();
+  expect(screen.getByRole("combobox", { name: "Items per page" })).toHaveValue(
+    "25",
+  );
 });
 
-test("the text after the page size select is not shown when the `showPageSizeLabelAfter` prop is false", () => {
+test("sets the correct page size when the `pageSize` is passed as a string", () => {
   render(
     <Pager
-      showPageSizeSelection
-      showPageSizeLabelAfter={false}
       onPagination={() => {}}
+      totalRecords={100}
+      showPageSizeSelection
+      pageSize="25"
     />,
   );
 
-  expect(screen.queryByText("items")).not.toBeInTheDocument();
+  expect(screen.getByRole("combobox", { name: "Items per page" })).toHaveValue(
+    "25",
+  );
 });
 
-test("does not render the total number of records 'showTotalRecords' is false", () => {
+test("clicking the `Next` button sets the current page to the next page", async () => {
+  const user = userEvent.setup();
   render(
     <Pager
-      showTotalRecords={false}
+      currentPage={9}
+      pageSize={10}
       totalRecords={100}
       onPagination={() => {}}
     />,
   );
 
-  expect(screen.queryByText("100 items")).not.toBeInTheDocument();
+  await user.click(screen.getByRole("button", { name: "Go to next page" }));
+
+  expect(screen.getByRole("textbox", { name: "Page 10" })).toHaveValue("10");
 });
 
-test.each([
-  [true, false, "Show"],
-  [false, true, "items"],
-])(
-  "when `showPageSizeLabelBefore` is %s and `showPageSizeLabelAfter` is %s, the text that is present is used as the select's label, and no aria-label is added",
-  (showPageSizeLabelBefore, showPageSizeLabelAfter, labelText) => {
-    render(
-      <Pager
-        showPageSizeSelection
-        showPageSizeLabelBefore={showPageSizeLabelBefore}
-        showPageSizeLabelAfter={showPageSizeLabelAfter}
-        onPagination={() => {}}
-      />,
-    );
-
-    const pageSizeSelect = screen.getByRole("combobox");
-
-    expect(pageSizeSelect).toHaveAccessibleName(labelText);
-    expect(pageSizeSelect).not.toHaveAttribute("aria-label");
-  },
-);
-
-test("when both `showPageSizeLabelBefore` and `showPageSizeLabelAfter` are false, the select has an accessible name of 'show' via an aria-label", () => {
+test("clicking the `Previous` button sets the current page to the previous page", async () => {
+  const user = userEvent.setup();
   render(
     <Pager
-      showPageSizeSelection
-      showPageSizeLabelBefore={false}
-      showPageSizeLabelAfter={false}
+      currentPage={5}
+      pageSize={10}
+      totalRecords={100}
       onPagination={() => {}}
     />,
   );
 
-  const pageSizeSelect = screen.getByRole("combobox");
+  await user.click(screen.getByRole("button", { name: "Go to previous page" }));
 
-  expect(pageSizeSelect).toHaveAccessibleName("Show");
-  expect(pageSizeSelect).toHaveAttribute("aria-label", "Show");
+  expect(screen.getByRole("textbox", { name: "Page 4" })).toHaveValue("4");
 });
 
-test.each([
-  ["Next", "6"],
-  ["Previous", "4"],
-  ["First", "1"],
-  ["Last", "10"],
-])(
-  "clicking the %s button updates the current page correctly",
-  async (buttonName, pageResult) => {
-    const user = userEvent.setup();
-    render(
-      <Pager
-        currentPage={5}
-        pageSize={10}
-        totalRecords={100}
-        onPagination={() => {}}
-      />,
-    );
-
-    await user.click(screen.getByRole("button", { name: buttonName }));
-    expect(screen.getByRole("textbox", { name: "Page" })).toHaveValue(
-      pageResult,
-    );
-  },
-);
-
-test("renders the `show` text correctly in the French locale", () => {
+test("clicking the `First` button sets the current page to the first page", async () => {
+  const user = userEvent.setup();
   render(
-    <I18nProvider locale={frFR}>
-      <Pager showPageSizeSelection onPagination={() => {}} />
-    </I18nProvider>,
+    <Pager
+      currentPage={5}
+      pageSize={10}
+      totalRecords={100}
+      onPagination={() => {}}
+    />,
   );
 
-  expect(screen.queryByText("Show")).not.toBeInTheDocument();
-  expect(screen.getByText("Afficher")).toBeVisible();
-  expect(screen.getByRole("combobox")).toHaveAccessibleName("Afficher");
+  await user.click(screen.getByRole("button", { name: "Go to first page" }));
+
+  expect(screen.getByRole("textbox", { name: "Page 1" })).toHaveValue("1");
 });
 
-test("renders the items count correctly in the French locale", () => {
+test("clicking the `Last` button sets the current page to the last page", async () => {
+  const user = userEvent.setup();
   render(
-    <I18nProvider locale={frFR}>
-      <Pager totalRecords={100} onPagination={() => {}} />
-    </I18nProvider>,
+    <Pager
+      currentPage={5}
+      pageSize={10}
+      totalRecords={100}
+      onPagination={() => {}}
+    />,
   );
 
-  expect(screen.queryByText("100 items")).not.toBeInTheDocument();
-  expect(screen.getByText("100 éléments")).toBeInTheDocument();
+  await user.click(screen.getByRole("button", { name: "Go to last page" }));
+
+  expect(screen.getByRole("textbox", { name: "Page 10" })).toHaveValue("10");
 });
 
-test("the `onPagination` callback prop should be called with appropriate values when a page size option is clicked", async () => {
+test("does not render `First` and `Last` buttons when `showFirstAndLastButtons` is false", () => {
+  render(
+    <Pager
+      currentPage={5}
+      totalRecords={100}
+      showFirstAndLastButtons={false}
+      onPagination={() => {}}
+    />,
+  );
+
+  expect(
+    screen.queryByRole("button", { name: "Go to first page" }),
+  ).not.toBeInTheDocument();
+  expect(
+    screen.queryByRole("button", { name: "Go to last page" }),
+  ).not.toBeInTheDocument();
+  expect(
+    screen.getByRole("button", { name: "Go to previous page" }),
+  ).toBeVisible();
+  expect(screen.getByRole("button", { name: "Go to next page" })).toBeVisible();
+});
+
+test("calls `onPagination` with `first` origin when the `First` button is clicked", async () => {
+  const user = userEvent.setup();
+  const onPagination = jest.fn();
+  render(
+    <Pager
+      onPagination={onPagination}
+      currentPage={2}
+      pageSize={10}
+      totalRecords={100}
+    />,
+  );
+
+  await user.click(screen.getByRole("button", { name: "Go to first page" }));
+
+  expect(onPagination).toHaveBeenCalledWith(1, 10, "first");
+});
+
+test("calls `onPagination` with `previous` origin when the `Previous` button is clicked", async () => {
+  const user = userEvent.setup();
+  const onPagination = jest.fn();
+  render(
+    <Pager
+      onPagination={onPagination}
+      currentPage={2}
+      pageSize={10}
+      totalRecords={100}
+    />,
+  );
+
+  await user.click(screen.getByRole("button", { name: "Go to previous page" }));
+
+  expect(onPagination).toHaveBeenCalledWith(1, 10, "previous");
+});
+
+test("calls `onPagination` with `next` origin when the `Next` button is clicked", async () => {
+  const user = userEvent.setup();
+  const onPagination = jest.fn();
+  render(
+    <Pager
+      onPagination={onPagination}
+      currentPage={5}
+      pageSize={10}
+      totalRecords={100}
+    />,
+  );
+
+  await user.click(screen.getByRole("button", { name: "Go to next page" }));
+
+  expect(onPagination).toHaveBeenCalledWith(6, 10, "next");
+});
+
+test("calls `onPagination` with `last` origin when the `Last` button is clicked", async () => {
+  const user = userEvent.setup();
+  const onPagination = jest.fn();
+  render(
+    <Pager
+      onPagination={onPagination}
+      currentPage={1}
+      pageSize={10}
+      totalRecords={100}
+    />,
+  );
+
+  await user.click(screen.getByRole("button", { name: "Go to last page" }));
+
+  expect(onPagination).toHaveBeenCalledWith(10, 10, "last");
+});
+
+test("calls `onPagination` when a page size option is clicked", async () => {
   const user = userEvent.setup();
   const onPagination = jest.fn();
   render(<Pager onPagination={onPagination} showPageSizeSelection />);
 
-  await user.click(screen.getByTestId("select-text"));
+  await user.click(screen.getByRole("combobox", { name: "Items per page" }));
   await user.click(screen.getByRole("option", { name: "25" }));
 
   expect(onPagination).toHaveBeenCalledWith(1, 25, "page-select");
-
-  // added for coverage of onBlur handler, doesn't actually test anything useful
-  await user.tab();
-  expect(onPagination).toHaveBeenCalledTimes(1);
 });
 
-test("the `onPagination` callback prop should be called with appropriate values when a page size option is selected with the `Enter`", async () => {
+test("calls `onPagination` when Enter is pressed in the page size select", async () => {
   const user = userEvent.setup();
   const onPagination = jest.fn();
   render(<Pager onPagination={onPagination} showPageSizeSelection />);
 
-  await user.click(screen.getByTestId("select-text"));
+  await user.click(screen.getByRole("combobox", { name: "Items per page" }));
   await user.keyboard("{ArrowDown}");
   await user.keyboard("{Enter}");
 
   expect(onPagination).toHaveBeenCalledWith(1, 25, "page-select");
 });
 
-test("the `onPagination` callback prop should not be called when a key other than `Enter` is used on an option", async () => {
+test("resets page size select to the previous value when selection is not completed", async () => {
   const user = userEvent.setup();
   const onPagination = jest.fn();
-  render(<Pager onPagination={onPagination} showPageSizeSelection />);
+  render(
+    <Pager onPagination={onPagination} showPageSizeSelection pageSize={10} />,
+  );
 
-  await user.click(screen.getByTestId("select-text"));
+  const select = screen.getByRole("combobox", { name: "Items per page" });
+
+  await user.click(select);
   await user.keyboard("{ArrowDown}");
-  await user.keyboard("a");
+  await user.tab();
 
   expect(onPagination).not.toHaveBeenCalled();
+  expect(select).toHaveValue("10");
+});
+
+test("resets current page input to the previous value when a non-numeric value is submitted", async () => {
+  const user = userEvent.setup();
+  const onPagination = jest.fn();
+  render(
+    <Pager
+      onPagination={onPagination}
+      currentPage={5}
+      pageSize={10}
+      totalRecords={100}
+    />,
+  );
+
+  const currentPageInput = screen.getByRole("textbox", { name: "Page 5" });
+  await user.clear(currentPageInput);
+  await user.type(currentPageInput, "invalid");
+  await user.tab();
+
+  expect(currentPageInput).toHaveValue("5");
+  expect(onPagination).not.toHaveBeenCalled();
+});
+
+test("sets current page input to 1 when a value below 1 is submitted", async () => {
+  const user = userEvent.setup();
+  const onPagination = jest.fn();
+  render(
+    <Pager
+      onPagination={onPagination}
+      currentPage={5}
+      pageSize={10}
+      totalRecords={100}
+    />,
+  );
+
+  const currentPageInput = screen.getByRole("textbox", { name: "Page 5" });
+  await user.clear(currentPageInput);
+  await user.type(currentPageInput, "0");
+  await user.tab();
+
+  expect(currentPageInput).toHaveValue("1");
+  expect(onPagination).toHaveBeenCalledWith(1, 10, "input");
+});
+
+test("sets current page input to the last page when a value above total pages is submitted", async () => {
+  const user = userEvent.setup();
+  const onPagination = jest.fn();
+  render(
+    <Pager
+      onPagination={onPagination}
+      currentPage={5}
+      pageSize={10}
+      totalRecords={100}
+    />,
+  );
+
+  const currentPageInput = screen.getByRole("textbox", { name: "Page 5" });
+  await user.clear(currentPageInput);
+  await user.type(currentPageInput, "99");
+  await user.tab();
+
+  expect(currentPageInput).toHaveValue("10");
+  expect(onPagination).toHaveBeenCalledWith(10, 10, "input");
+});
+
+test("calls `onPagination` when a valid page is submitted on blur", async () => {
+  const user = userEvent.setup();
+  const onPagination = jest.fn();
+  render(
+    <Pager
+      onPagination={onPagination}
+      currentPage={5}
+      pageSize={10}
+      totalRecords={100}
+    />,
+  );
+
+  const currentPageInput = screen.getByRole("textbox", { name: "Page 5" });
+  await user.clear(currentPageInput);
+  await user.type(currentPageInput, "7");
+  await user.tab();
+
+  expect(currentPageInput).toHaveValue("7");
+  expect(onPagination).toHaveBeenCalledWith(7, 10, "input");
+});
+
+test("calls `onPagination` when a valid page is submitted on Enter key press", async () => {
+  const user = userEvent.setup();
+  const onPagination = jest.fn();
+  render(
+    <Pager
+      onPagination={onPagination}
+      currentPage={5}
+      pageSize={10}
+      totalRecords={100}
+    />,
+  );
+
+  const currentPageInput = screen.getByRole("textbox", { name: "Page 5" });
+  await user.clear(currentPageInput);
+  await user.type(currentPageInput, "8{enter}");
+
+  expect(currentPageInput).toHaveValue("8");
+  expect(onPagination).toHaveBeenCalledWith(8, 10, "input");
+});
+
+test("sets a custom accessible label for the pagination navigation landmark", () => {
+  render(
+    <Pager
+      onPagination={() => {}}
+      totalRecords={100}
+      aria-label="Custom Pager Label"
+    />,
+  );
+
+  expect(
+    screen.getByRole("navigation", { name: "Custom Pager Label" }),
+  ).toBeInTheDocument();
 });
 
 test("renders with provided data- attributes", () => {
   render(<Pager data-element="bar" data-role="baz" onPagination={() => {}} />);
 
-  expect(screen.getByTestId("baz")).toHaveAttribute("data-element", "bar");
+  expect(screen.getByRole("navigation")).toHaveAttribute("data-element", "bar");
+  expect(screen.getByRole("navigation")).toHaveAttribute("data-role", "baz");
 });
 
-// for coverage - "alternate" styles are covered by Playwright tests
-test("renders with correct styles when `variant` is `alternate`", () => {
-  render(
-    <Pager data-role="pager" variant="alternate" onPagination={() => {}} />,
-  );
+// coverage
+test("renders with expected styles when `variant` is 'alternate'", () => {
+  render(<Pager onPagination={() => {}} variant="alternate" />);
 
-  expect(screen.getByTestId("pager")).toHaveStyleRule(
-    "background-color",
-    "var(--colorsUtilityMajor040)",
-  );
-});
-
-// coverage for `smallScreenBreakpoint` prop - tested in chromatic
-describe("when smallScreenBreakpoint is set", () => {
-  it("renders with correct styles when viewport size is small and `showTotalRecords` is false", () => {
-    render(
-      <Pager
-        data-role="pager"
-        smallScreenBreakpoint="500px"
-        showTotalRecords={false}
-        onPagination={() => {}}
-      />,
-    );
-
-    expect(screen.getByTestId("pager")).toHaveStyleRule(
-      "grid-template-columns",
-      "1fr",
-      { media: "(max-width: 500px)" },
-    );
-  });
-
-  it("renders with correct styles when viewport size is small and `showPageSizeSelection` is true", () => {
-    render(
-      <Pager
-        data-role="pager"
-        smallScreenBreakpoint="500px"
-        showPageSizeSelection
-        onPagination={() => {}}
-      />,
-    );
-
-    expect(screen.getByTestId("pager")).toHaveStyleRule(
-      "grid-template-columns",
-      "1fr 1fr",
-      { media: "(max-width: 500px)" },
-    );
-  });
+  expect(screen.getByRole("navigation")).toHaveStyleRule("border", "none");
 });

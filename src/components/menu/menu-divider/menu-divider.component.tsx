@@ -15,7 +15,11 @@ const MenuDivider = React.forwardRef<HTMLDivElement, MenuDividerProps>(
     const { menuType } = useStrictMenuContext();
 
     return (
-      <StyledMenuItem inSubmenu>
+      <StyledMenuItem
+        inSubmenu
+        aria-hidden="true"
+        data-role="divider-container"
+      >
         <StyledDivider
           size={size}
           {...tagComponent("menu-divider", rest)}

@@ -9,7 +9,9 @@ import {
   CustomSelectChangeEvent,
   setupSelectMocks,
 } from "..";
+import OptionRow from "../option-row/option-row.component";
 import guid from "../../../__internal__/utils/helpers/guid";
+import { CHARACTERS } from "../../../../playwright/support/constants";
 
 const mockedGuid = "mocked-guid";
 jest.mock("../../../__internal__/utils/logger");
@@ -2018,4 +2020,70 @@ test("should hide any non-matching options when `disableDefaultFiltering` is not
   await user.type(screen.getByRole("combobox"), "a");
 
   expect(await screen.findAllByRole("option")).toHaveLength(1);
+});
+
+test("should render OptionRow with data-element attribute set to option-row", async () => {
+  const user = userEvent.setup();
+  render(
+    <FilterableSelect
+      label="filterable-select"
+      onChange={() => {}}
+      value=""
+      multiColumn
+      tableHeader={
+        <tr>
+          <th>Name</th>
+          <th>Surname</th>
+        </tr>
+      }
+    >
+      <OptionRow id="1" value="1" text="John Doe" data-element="option-row">
+        <td>John</td>
+        <td>Doe</td>
+      </OptionRow>
+    </FilterableSelect>,
+  );
+
+  await user.click(screen.getByRole("combobox"));
+  const optionRow = await screen.findByRole("option");
+
+  expect(optionRow).toHaveAttribute("data-element", "option-row");
+});
+
+describe("special character rendering", () => {
+  [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS].forEach(
+    (labelValue) => {
+      test(`renders label with special characters: ${labelValue}`, () => {
+        render(
+          <FilterableSelect label={labelValue} onChange={() => {}} value="">
+            <Option text="Amber" value="amber" />
+          </FilterableSelect>,
+        );
+
+        expect(screen.getByText(labelValue)).toBeVisible();
+      });
+    },
+  );
+
+  [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS].forEach(
+    (placeholderValue) => {
+      test(`renders placeholder with special characters: ${placeholderValue}`, () => {
+        render(
+          <FilterableSelect
+            label="Colour"
+            onChange={() => {}}
+            value=""
+            placeholder={placeholderValue}
+          >
+            <Option text="Amber" value="amber" />
+          </FilterableSelect>,
+        );
+
+        expect(screen.getByRole("combobox")).toHaveAttribute(
+          "placeholder",
+          placeholderValue,
+        );
+      });
+    },
+  );
 });

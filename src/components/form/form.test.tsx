@@ -303,3 +303,25 @@ test('renders with correct styles when `stickyFooterVariant` is "grey"', () => {
     "1px solid var(--colorsUtilityMajor050)",
   );
 });
+
+// for coverage - the `disableStickyOnSmallScreen` prop is captured by Chromatic.
+test("disables sticky footer on small screens when `disableStickyOnSmallScreen` and `stickyFooter` are set", () => {
+  render(
+    <Form
+      stickyFooter
+      disableStickyOnSmallScreen
+      saveButton={<Button>Save</Button>}
+    />,
+  );
+
+  expect(screen.getByTestId("form-footer")).toHaveStyleRule(
+    "position",
+    "static",
+    { media: "screen and (max-width: 600px)" },
+  );
+  expect(screen.getByTestId("form-footer")).toHaveStyleRule(
+    "box-shadow",
+    "none",
+    { media: "screen and (max-width: 600px)" },
+  );
+});

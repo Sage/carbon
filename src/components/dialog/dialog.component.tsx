@@ -16,9 +16,9 @@ export interface DialogProps extends Omit<NextDialogProps, "size"> {
   highlightVariant?: string;
   /** @deprecated Use `contentPadding` instead. */
   disableContentPadding?: boolean;
-  /** @deprecated */
+  /** @deprecated Use `showCloseIcon={false}` instead.*/
   disableClose?: boolean;
-  /** @deprecated */
+  /** @deprecated PagesStyling is now deprecated and will be removed in a future release*/
   pagesStyling?: boolean;
   /**
    * Size — accepts both legacy values (extra-small, medium-small, etc.)

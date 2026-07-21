@@ -34,8 +34,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - name: Update npm to 11.15.0
-        run: npm install -g npm@11.15.0
+      - name: Update npm to 11.18.0
+        run: npm install -g npm@11.18.0
 
       - name: Install dependencies
         run: |
@@ -65,8 +65,8 @@ jobs:
           node-version: ">=24.11.0 24"
           check-latest: true
 
-      - name: Update npm to 11.15.0
-        run: npm install -g npm@11.15.0
+      - name: Update npm to 11.18.0
+        run: npm install -g npm@11.18.0
 
       - name: Install dependencies
         run: npm ci
@@ -79,11 +79,19 @@ jobs:
           merge-multiple: true
 
       - name: Merge into HTML Report
-        run: npx playwright merge-reports --config=playwright-ct.config.ts --reporter=html ./all-blob-reports
+        run: npx playwright merge-reports --config=playwright-ct.config.ts --reporter=html --reporter=./playwright/support/accessibility-reporter.ts ./all-blob-reports
 
       - name: Upload HTML report
         uses: actions/upload-artifact@v6
         with:
           name: html-report--attempt-${{ github.run_attempt }}
           path: playwright-report
+          retention-days: 14
+
+      - name: Upload Accessibility report
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: accessibility-report--attempt-${{ github.run_attempt }}
+          path: playwright/test-report/accessibility-report.*
           retention-days: 14

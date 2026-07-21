@@ -1,100 +1,175 @@
-import React from "react";
+import React, { useState } from "react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { action } from "storybook/actions";
 import Pager, { PagerProps } from ".";
+import Box from "../box";
 
-export default {
+const meta: Meta<typeof Pager> = {
   title: "Pager/Test",
-  includeStories: ["Default"],
-  parameters: {
-    info: { disable: true },
-    chromatic: {
-      disableSnapshot: true,
-    },
-  },
+  component: Pager,
   argTypes: {
+    totalRecords: { control: "text" },
+    currentPage: { control: "text" },
     pageSize: {
       options: [1, 10, 25, 50, 100],
-      control: {
-        type: "select",
-      },
+      control: { type: "select" },
     },
-    variant: {
-      options: ["default", "alternate"],
-      control: {
-        type: "select",
-      },
+  },
+  parameters: {
+    themeProvider: { chromatic: { theme: "sage" } },
+    controls: {
+      exclude: [
+        "onPagination",
+        "onFirst",
+        "onPrevious",
+        "onNext",
+        "onLast",
+        "hideDisabledElements",
+        "showPageSizeLabelBefore",
+        "showPageSizeLabelAfter",
+        "showTotalRecords",
+        "showPreviousAndNextButtons",
+        "showPageCount",
+        "smallScreenBreakpoint",
+      ],
     },
   },
 };
 
-export const Default = ({ totalRecords, ...args }: Partial<PagerProps>) => {
+export default meta;
+type Story = StoryObj<typeof Pager>;
+
+const ControlledPager = ({ ...args }: PagerProps) => {
+  const [currentPage, setCurrentPage] = useState(args.currentPage);
   const handlePagination = (
-    pageSize: number,
     currentPage: number,
+    pageSize: number,
     origin: string,
   ) => {
-    action("onPagination")(pageSize, currentPage, origin);
+    setCurrentPage(currentPage);
+    action("onPagination")({
+      currentPage: currentPage,
+      pageSize: pageSize,
+      origin: origin,
+    });
   };
-  const handleOnNext = (
-    e:
-      | React.MouseEvent<HTMLButtonElement>
-      | React.KeyboardEvent<HTMLButtonElement>,
-  ) => {
-    action("onNext")(e);
-  };
-  const handleOnPrevious = (
-    e:
-      | React.MouseEvent<HTMLButtonElement>
-      | React.KeyboardEvent<HTMLButtonElement>,
-  ) => {
-    action("onPrevious")(e);
-  };
-  const handleOnFirst = (
-    e:
-      | React.MouseEvent<HTMLButtonElement>
-      | React.KeyboardEvent<HTMLButtonElement>,
-  ) => {
-    action("onFirst")(e);
-  };
-  const handleOnLast = (
-    e:
-      | React.MouseEvent<HTMLButtonElement>
-      | React.KeyboardEvent<HTMLButtonElement>,
-  ) => {
-    action("onLast")(e);
-  };
+
   return (
     <Pager
-      pageSizeSelectionOptions={[
-        { id: "1", name: 1 },
-        { id: "10", name: 10 },
-        { id: "25", name: 25 },
-        { id: "50", name: 50 },
-        { id: "100", name: 100 },
-      ]}
-      onPagination={handlePagination}
-      onNext={handleOnNext}
-      onPrevious={handleOnPrevious}
-      onFirst={handleOnFirst}
-      onLast={handleOnLast}
-      totalRecords={totalRecords}
       {...args}
+      onPagination={handlePagination}
+      currentPage={currentPage}
     />
   );
 };
 
-Default.storyName = "default";
-Default.args = {
-  totalRecords: "100",
-  showPageSizeSelection: false,
-  pageSize: 10,
-  currentPage: "1",
-  variant: "default",
-  showPageSizeLabelBefore: true,
-  showPageSizeLabelAfter: true,
-  showTotalRecords: true,
-  showFirstAndLastButtons: true,
-  showPreviousAndNextButtons: true,
-  showPageCount: true,
-  smallScreenBreakpoint: "500px",
+export const AllVariants: Story = {
+  render: (args) => (
+    <Box display="flex" gap={2} flexDirection="column">
+      <ControlledPager totalRecords={0} currentPage={1} {...args} />
+      <ControlledPager totalRecords={10} currentPage={1} {...args} />
+      <ControlledPager totalRecords={100} currentPage={1} {...args} />
+      <ControlledPager totalRecords={100} currentPage={2} {...args} />
+      <ControlledPager totalRecords={100} currentPage={10} {...args} />
+
+      <ControlledPager
+        totalRecords={10}
+        currentPage={1}
+        showPageSizeSelection
+        {...args}
+      />
+      <ControlledPager
+        totalRecords={100}
+        currentPage={1}
+        showPageSizeSelection
+        {...args}
+      />
+      <ControlledPager
+        totalRecords={100}
+        currentPage={2}
+        showPageSizeSelection
+        {...args}
+      />
+      <ControlledPager
+        totalRecords={1000}
+        currentPage={10}
+        showPageSizeSelection
+        pageSize={100}
+        {...args}
+      />
+
+      <ControlledPager
+        totalRecords={100}
+        currentPage={1}
+        showFirstAndLastButtons={false}
+        {...args}
+      />
+      <ControlledPager
+        totalRecords={100}
+        currentPage={2}
+        showFirstAndLastButtons={false}
+        {...args}
+      />
+      <ControlledPager
+        totalRecords={100}
+        currentPage={10}
+        showFirstAndLastButtons={false}
+        {...args}
+      />
+
+      <ControlledPager
+        totalRecords={100}
+        currentPage={1}
+        showFirstAndLastButtons={false}
+        showPageSizeSelection
+        {...args}
+      />
+      <ControlledPager
+        totalRecords={100}
+        currentPage={2}
+        showFirstAndLastButtons={false}
+        showPageSizeSelection
+        {...args}
+      />
+      <ControlledPager
+        totalRecords={1000}
+        currentPage={10}
+        showFirstAndLastButtons={false}
+        showPageSizeSelection
+        pageSize={100}
+        {...args}
+      />
+
+      <ControlledPager
+        totalRecords={100}
+        currentPage={2}
+        showPageSizeSelection
+        variant="alternate"
+        {...args}
+      />
+    </Box>
+  ),
+  parameters: {
+    chromatic: { viewports: [1200, 320] },
+  },
+};
+
+export const AllVariantsSmall: Story = {
+  ...AllVariants,
+  args: {
+    size: "small",
+  },
+  parameters: {
+    chromatic: { viewports: [1200, 320] },
+  },
+};
+
+export const AllVariantsLarge: Story = {
+  ...AllVariants,
+  args: {
+    size: "large",
+  },
+  parameters: {
+    chromatic: { viewports: [1200, 320] },
+  },
 };

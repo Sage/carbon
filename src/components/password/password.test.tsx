@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Password from "./password.component";
 import guid from "../../__internal__/utils/helpers/guid";
+import { CHARACTERS } from "../../../playwright/support/constants";
 
 const mockedGuid = "guid-12345";
 jest.mock("../../__internal__/utils/helpers/guid");
@@ -126,6 +127,15 @@ test("should render with provided data- attributes", () => {
 
   expect(screen.getByTestId("bar")).toHaveAttribute("data-element", "baz");
 });
+
+test.each([CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS])(
+  "should render with label prop as %s",
+  (label) => {
+    render(<Password label={label} value="" onChange={() => {}} />);
+
+    expect(screen.getByLabelText(label)).toBeVisible();
+  },
+);
 
 describe("Show/Hide password Button", () => {
   test("should render the `Show password` button icon with type 'view' initially", () => {
