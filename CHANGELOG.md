@@ -1,3 +1,9 @@
+## [161.3.1](https://github.com/Sage/carbon/compare/v161.3.0...v161.3.1) (2026-07-21)
+
+### Bug Fixes
+
+* **menu-full-screen:** alternate variant support in MenuFullScreen ([afa633c](https://github.com/Sage/carbon/commit/afa633c38ed800e5fd55748e695d6e6c936e8a32)), closes [#7849](https://github.com/Sage/carbon/issues/7849)
+
 ## [161.3.0](https://github.com/Sage/carbon/compare/v161.2.1...v161.3.0) (2026-07-20)
 
 ### Features
