@@ -46,6 +46,9 @@ const esES: Partial<Locale> = {
     ariaLabels: {
       previousMonthButton: () => "Mes anterior",
       nextMonthButton: () => "Mes siguiente",
+      chooseMonth: () => "Elegir mes",
+      chooseYear: () => "Elegir año",
+      closeButton: () => "Cerrar",
     },
   },
   decimal: {

@@ -17,12 +17,13 @@ import * as DateStories from "./date.stories";
 </a>
 
 - If the date is likely to be close to today (e.g. an invoice due date), then a datepicker may be useful. If the date is likely to be far in the past (e.g. a date of birth), then it may be better to use separate inputs for day, month, and year or use a NumeralDate component.
-- Field focus automatically opens the datepicker, but a user can key in dates too, which many users find more convenient, especially in financial applications.
+- Users can type a date directly or open the calendar. The typical variant uses a calendar button; the legacy variant retains its icon interaction.
 - Carbon handles a range of formats, like dd/mm/yyyy, dd/mm/yy, dd/mm, or dd. Configuration can be regional, and copes with space, slash, full stop, comma and colon as separators, as well as no separator at all.
 
 ## Contents
 
 - [Quick Start](#quick-start)
+- [Typical variant compatibility](#typical-variant-compatibility)
 - [Examples](#examples)
 - [Validation states](#validation-states)
 - [Props](#props)
@@ -32,6 +33,48 @@ import * as DateStories from "./date.stories";
 
 ```javascript
 import DateInput from "carbon-react/lib/components/date";
+```
+
+## Typical variant compatibility
+
+The `typical` variant is the default. Deprecated props remain part of the shared API for existing legacy consumers, but the following legacy presentation props are not supported by typical.
+
+| Deprecated prop     | Typical behavior                                     | Replacement                                               |
+| ------------------- | ---------------------------------------------------- | --------------------------------------------------------- |
+| `fieldHelp`         | String values render as the input hint               | `inputHint`                                               |
+| `labelHelp`         | String values render as the input hint               | `inputHint`                                               |
+| `helpAriaLabel`     | Not supported                                        | Use an explicit label and `inputHint`                     |
+| `info`              | Not supported                                        | Use `inputHint`, `warning`, or `error` as appropriate     |
+| `labelSpacing`      | Not supported; typical uses token-defined spacing    | Typical layout tokens                                     |
+| `labelWidth`        | Not supported; typical uses token-defined dimensions | `inputWidth` or `maxWidth` where appropriate              |
+| `reverse`           | Not supported                                        | Standard typical layout                                   |
+| `tooltipId`         | Not supported                                        | `inputHint`                                               |
+| `tooltipPosition`   | Not supported                                        | Inline `inputHint`, `warning`, or `error` content         |
+| `validationIconId`  | Not supported                                        | Inline validation message ids are generated automatically |
+| `validationOnLabel` | Not supported                                        | Inline `warning` or `error` messages                      |
+
+### Custom calendar renderers
+
+`pickerProps.components` can replace React DayPicker renderers, including `DayButton` and `Weekday`. Carbon supplies accessible, styled renderers by default. A custom renderer takes ownership of the behavior it replaces and must forward all props supplied by React DayPicker to its rendered DOM element. This includes `className`, event handlers, disabled state, and accessibility attributes.
+
+Custom `DayButton` renderers must retain the `rdp-day_button` class supplied through `className` so that Date Input can identify calendar days for initial focus and Tab navigation. They must also forward DayPicker's keyboard and pointer handlers and provide an accessible name for the complete date. Custom `Weekday` renderers should forward `className` and accessibility attributes and provide an appropriate localized label.
+
+```tsx
+<DateInput
+  pickerProps={{
+    components: {
+      DayButton: ({ modifiers, ...buttonProps }) => (
+        <button {...buttonProps}>
+          {buttonProps.children}
+          {modifiers.today && <span aria-hidden="true">Today</span>}
+        </button>
+      ),
+      Weekday: ({ children, ...weekdayProps }) => (
+        <th {...weekdayProps}>{children}</th>
+      ),
+    },
+  }}
+/>
 ```
 
 ## Examples
@@ -65,15 +108,11 @@ be used to set the input value like in the example below, although the component
 
 <Canvas of={DateStories.Empty} />
 
-### With disabled dates
+### Disabled dates in calendar
 
-You can configure the available dates by passing a `minDate` and `maxDate` prop to the component.
+Disable calendar dates by passing a matcher or an array of [matchers](https://daypicker.dev/api/type-aliases/Matcher#example) to `pickerProps.disabled`. This example disables Saturdays and Sundays.
 
-<Canvas of={DateStories.DisabledDates} />
-
-Another way to disable dates is by passing the `disabled` prop through the `pickerProps` prop directly to the DayPicker. The `disabled` prop accepts either a matcher or an array of [matchers](https://daypicker.dev/api/type-aliases/Matcher#example).
-
-<Canvas of={DateStories.DisabledDatesUsingPickerProps} />
+<Canvas of={DateStories.DisabledDatesInCalendar} />
 
 ### With custom width
 
@@ -81,9 +120,11 @@ You can use the `maxWidth` prop to set a custom width for the date input, with a
 
 <Canvas of={DateStories.WithCustomWidth} />
 
-### With disabled portal
+### Without portal (deprecated)
 
-<Canvas of={DateStories.WithDisabledPortal} />
+The deprecated `disablePortal` prop renders the calendar in the Date Input's local DOM tree instead of through a portal. It remains supported for existing legacy and typical consumers, but should not be used in new implementations.
+
+<Canvas of={DateStories.WithoutPortal} />
 
 ### Required
 
@@ -93,8 +134,8 @@ You can use the `required` prop to indicate if the field is mandatory.
 
 ### Locale override
 
-The examples below illustrate how to override the locale passed into the Date component. The first example has been set up for
-the German (`de`) locale whilst the second is for a Chinese (`zh-CN`) locale. 
+The examples below illustrate how to override the locale passed into the Date component. They show German (`de-DE`), Chinese
+(`zh-CN`), Polish (`pl-PL`), and British English (`en-GB`) locale configuration.
 
 Required locales can be imported from date-fns like so: `import { de, zhCN } from 'date-fns/locale';`
 
@@ -102,9 +143,9 @@ Required locales can be imported from date-fns like so: `import { de, zhCN } fro
 
 ### Locale format override
 
-You can also override the default date format for a specific locale by passing a `dateFormatOverride` prop to the `DateInput` component or alternatively, 
-you can use the `date.dateFormatOverride` translation key. 
-The example below demonstrates how you can override the default date format for the German locale (`dd.MM.yyyy`), please note that the prop will take precedence over the translation key.
+You can also override the default date format for a specific locale by passing a `dateFormatOverride` prop to the `DateInput` component or alternatively,
+you can use the `date.dateFormatOverride` translation key.
+The example uses a German locale with a `yyyy-MM-dd` translation-key format. The second field also passes `dateFormatOverride="dd/MM/yyyy"`, demonstrating that the component prop takes precedence over the translation key. Users should see the same date represented as `2019-04-05` in the first field and `05/04/2019` in the second.
 
 <Canvas of={DateStories.LocaleFormatOverrideExampleImplementation} />
 
@@ -113,19 +154,31 @@ The example below demonstrates how you can override the default date format for 
 Use the `labelInline` prop to display the label on the same horizontal row as the input. You can adjust its appearance using the `labelWidth` and
 `labelAlign` props to control the width and text alignment of the label and the `inputWidth` prop to control the width of the input.
 
-**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *false*.
+**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is _false_.
 
 <Canvas of={DateStories.WithLabelInline} />
 
 ### With fieldHelp (legacy)
 
-**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *false*.
+**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is _false_.
 
 <Canvas of={DateStories.WithFieldHelp} />
 
 ## Validation States
 
 This component supports input validation, see our [Validations](../?path=/docs/documentation-validations--docs) documentation page for more information.
+
+### Error
+
+Use `error` when the user must correct the value. Validation messages may be positioned above or below the input.
+
+<Canvas of={DateStories.WithError} />
+
+### Caution
+
+Use `warning` when the user should review the value but correction is optional.
+
+<Canvas of={DateStories.WithCaution} />
 
 ## Props
 
@@ -180,8 +233,7 @@ The following keys are available to override the translations for this component
     },
     {
       name: "date.dateFormatOverride",
-      description:
-        "Override the default date format for a specific locale.",
+      description: "Override the default date format for a specific locale.",
       type: "func",
       returnType: "string",
     },

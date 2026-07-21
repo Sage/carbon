@@ -7,8 +7,34 @@ import addFocusStyling from "../../style/utils/add-focus-styling";
 export const dateStyleOverrides = css`
   .date & {
     .input-text-container input {
-      padding: 0 0 0 12px;
-      margin-right: -12px;
+      padding-inline-end: 0;
+    }
+  }
+
+  /* Legacy Date renders its calendar as an Input icon. Typical Date owns its
+   * trigger colors in date-picker-trigger.style.ts. */
+  .date-legacy & {
+    .input-text-container.read-only [data-component="icon"] {
+      color: var(--input-typical-icon-read-only);
+    }
+
+    .input-text-container.disabled [data-component="icon"] {
+      color: var(--button-typical-subtle-label-disabled);
+    }
+  }
+
+  .date [data-role="date-input-wrapper"] & {
+    &:focus-within {
+      box-shadow: none;
+      -webkit-box-shadow: none;
+      outline: none;
+    }
+
+    .input-text-container input:focus {
+      border-radius: var(--global-radius-action-m) 0 0
+        var(--global-radius-action-m);
+      ${addFocusStyling()}
+      z-index: 2;
     }
   }
 `;

@@ -40,6 +40,9 @@ const deDE: Partial<Locale> = {
     ariaLabels: {
       previousMonthButton: () => "Vorheriger Monat",
       nextMonthButton: () => "Nächster Monat",
+      chooseMonth: () => "Monat wählen",
+      chooseYear: () => "Jahr wählen",
+      closeButton: () => "Schließen",
     },
   },
   decimal: {

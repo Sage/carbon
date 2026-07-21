@@ -1,24 +1,12 @@
 import React, {
+  useCallback,
   useContext,
-  useEffect,
   useMemo,
   useRef,
   useState,
-  useCallback,
 } from "react";
 
-import {
-  additionalYears,
-  findMatchedFormatAndValue,
-  formattedValue,
-  formatToISO,
-  isDateValid,
-  parseDate,
-  parseISODate,
-  checkISOFormatAndLength,
-  getSeparator,
-  isValidLocaleDate,
-} from "./__internal__/utils";
+import { formattedValue, isDateValid } from "./__internal__/utils/utils";
 import useLocale from "../../hooks/__internal__/useLocale";
 import Events from "../../__internal__/utils/helpers/events";
 import {
@@ -26,7 +14,7 @@ import {
   filterStyledSystemMarginProps,
 } from "../../style/utils";
 import getFormatData from "./__internal__/date-formats";
-import StyledDateInput, { datePickerWidth } from "./date.style";
+import StyledDateInput, { dateInputWidthBySize } from "./date.style";
 import Textbox, { TextboxProps } from "../textbox";
 import DatePicker, { PickerProps } from "./__internal__/date-picker";
 import DateRangeContext, {
@@ -36,15 +24,30 @@ import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener"
 import guid from "../../__internal__/utils/helpers/guid";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import FieldsetContext from "../fieldset/__internal__/fieldset.context";
+import DatePickerTrigger from "./__internal__/date-picker-trigger/date-picker-trigger.component";
+import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
+import useDatePickerState from "./__internal__/hooks/useDatePickerState";
+import useDateInputState from "./__internal__/hooks/useDateInputState";
+import useUniqueId from "../../hooks/__internal__/useUniqueId";
 
-interface CustomDateEvent {
-  type: string;
-  target: {
-    id?: string;
-    name?: string;
-    value: string;
-  };
-}
+const TYPICAL_UNSUPPORTED_PROPS = new Set([
+  "helpAriaLabel",
+  "info",
+  "labelSpacing",
+  "labelWidth",
+  "reverse",
+  "tooltipId",
+  "tooltipPosition",
+  "validationIconId",
+  "validationOnLabel",
+]);
+
+const filterTypicalInputProps = (props: Record<string, unknown>) =>
+  Object.fromEntries(
+    Object.entries(props).filter(
+      ([key]) => !TYPICAL_UNSUPPORTED_PROPS.has(key),
+    ),
+  );
 
 export interface DateChangeEvent {
   target: {
@@ -114,6 +117,8 @@ export interface DateInputProps
   datePickerAriaLabel?: string;
   /** Prop to specify the aria-labelledby attribute of the date picker */
   datePickerAriaLabelledBy?: string;
+  /** Date input presentation. Typical is the default; legacy retains its icon trigger. */
+  variant?: "legacy" | "typical";
 }
 
 export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
@@ -122,11 +127,21 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       adaptiveLabelBreakpoint,
       allowEmptyValue,
       autoFocus,
+      "aria-describedby": ariaDescribedBy,
+      "aria-labelledby": ariaLabelledBy,
+      className,
       "data-element": dataElement,
       "data-role": dataRole,
       disabled,
       disablePortal = true,
       helpAriaLabel,
+      error,
+      fieldHelp,
+      id,
+      inputHint,
+      label,
+      labelAlign,
+      labelHelp,
       labelInline,
       minDate,
       maxDate,
@@ -136,7 +151,9 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       onFocus,
       onKeyDown,
       pickerProps,
+      prefix,
       readOnly,
+      required,
       size = "medium",
       tooltipPosition,
       value,
@@ -150,6 +167,9 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       datePickerAriaLabel,
       datePickerAriaLabelledBy,
       validationMessagePositionTop = true,
+      variant = "typical",
+      warning,
+      name,
       ...rest
     }: DateInputProps,
     ref,
@@ -175,57 +195,42 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       setInputRefMap,
       validationMessagePositionTop: validationMessagePositionTopContext,
     } = useContext(DateRangeContext);
-    const [open, setOpen] = useState(false);
-    const [selectedDays, setSelectedDays] = useState(() => {
-      const isValidDate = isValidLocaleDate(value, dateFnsLocale());
-      if (!isValidDate) {
-        return undefined;
-      }
-
-      return checkISOFormatAndLength(value)
-        ? parseISODate(value)
-        : parseDate(format, value);
+    const { open, setOpen, closePicker, togglePicker } = useDatePickerState({
+      onPickerOpen,
+      onPickerClose,
     });
-    const isInitialValue = useRef(true);
-    const pickerTabGuardId = useRef(guid());
+    const {
+      displayValue,
+      selectedDate,
+      createDateChangeEvent,
+      valueNeedsFormatting,
+      trackEditedValue,
+    } = useDateInputState({
+      allowEmptyValue,
+      format,
+      formats,
+      value,
+    });
+    const [pickerTabGuardId] = useState(() => guid());
+    const [pickerId] = useState(() => `date-picker-${guid()}`);
     const showValidationMessageOnTop =
       validationMessagePositionTopContext ?? validationMessagePositionTop;
 
     const { size: fieldsetSize } = useContext(FieldsetContext);
     const actualSize = fieldsetSize || size;
-
-    const computeInvalidRawValue = (inputValue: string) =>
-      allowEmptyValue && !inputValue.length ? inputValue : null;
-
-    const buildCustomEvent = (ev: CustomDateEvent) => {
-      const { id, name } = ev.target;
-
-      const [matchedFormat, matchedValue] = findMatchedFormatAndValue(
-        ev.target.value,
-        formats,
-      );
-
-      const formattedValueString =
-        ev.type === "blur"
-          ? formattedValue(format, selectedDays)
-          : ev.target.value;
-      const rawValue = isDateValid(parseDate(matchedFormat, matchedValue))
-        ? formatToISO(...additionalYears(matchedFormat, matchedValue))
-        : computeInvalidRawValue(ev.target.value);
-
-      const customEvent = {
-        target: {
-          ...(name && { name }),
-          ...(id && { id }),
-          value: {
-            formattedValue: formattedValueString,
-            rawValue,
-          },
-        },
-      };
-
-      return customEvent;
-    };
+    const labelHelpString =
+      typeof labelHelp === "string" ? labelHelp : undefined;
+    const fieldHelpString =
+      typeof fieldHelp === "string" ? fieldHelp : undefined;
+    const resolvedInputHint =
+      inputHint ||
+      labelHelpString ||
+      (variant === "typical" ? fieldHelpString : undefined);
+    const [inputId, uniqueName] = useUniqueId(id, name);
+    const largeScreen = useIsAboveBreakpoint(adaptiveLabelBreakpoint);
+    const resolvedLabelInline = adaptiveLabelBreakpoint
+      ? largeScreen
+      : labelInline;
 
     const handleClickAway = () => {
       if (open) {
@@ -233,8 +238,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
         internalInputRef.current?.focus();
         isBlurBlocked.current = false;
         internalInputRef.current?.blur();
-        setOpen(false);
-        onPickerClose?.();
+        closePicker();
         alreadyFocused.current = false;
       }
     };
@@ -245,8 +249,8 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     );
 
     const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
-      isInitialValue.current = false;
-      onChange(buildCustomEvent(ev));
+      trackEditedValue(ev.target.value);
+      onChange(createDateChangeEvent({ type: "change", target: ev.target }));
     };
 
     const focusInput = () => {
@@ -258,10 +262,9 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       day: Date,
       ev: React.MouseEvent<HTMLDivElement>,
     ) => {
-      setSelectedDays(day);
       onChange(
-        buildCustomEvent({
-          ...ev,
+        createDateChangeEvent({
+          type: "click",
           target: {
             ...ev.target,
             value: formattedValue(format, day),
@@ -269,7 +272,6 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
         }),
       );
       focusInput();
-      setOpen(false);
     };
 
     const handleBlur = (ev: React.FocusEvent<HTMLInputElement>) => {
@@ -277,35 +279,13 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
         return;
       }
 
-      let event: DateChangeEvent;
+      const event = createDateChangeEvent({
+        type: "blur",
+        target: ev.target,
+      });
 
-      if (isDateValid(selectedDays)) {
-        event = buildCustomEvent(ev);
-
-        const currentValue = checkISOFormatAndLength(value)
-          ? formattedValue(format, parseISODate(value))
-          : value;
-        const [, matchedValue] = findMatchedFormatAndValue(
-          currentValue,
-          formats,
-        );
-
-        if (formattedValue(format, selectedDays) !== matchedValue) {
-          onChange(event);
-        }
-      } else {
-        const { id, name } = ev.target;
-
-        event = {
-          target: {
-            ...(name && { name }),
-            ...(id && { id }),
-            value: {
-              formattedValue: ev.target.value,
-              rawValue: computeInvalidRawValue(ev.target.value),
-            },
-          },
-        };
+      if (isDateValid(selectedDate) && valueNeedsFormatting) {
+        onChange(event);
       }
 
       if (isBlurBlocked.current) {
@@ -336,14 +316,11 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
 
       if (open && Events.isTabKey(ev)) {
         if (Events.isShiftKey(ev)) {
-          setOpen(false);
-          onPickerClose?.();
+          closePicker();
         } else if (!disablePortal) {
           ev.preventDefault();
           (
-            document?.querySelector(
-              `[id="${pickerTabGuardId.current}"]`,
-            ) as HTMLElement
+            document?.querySelector(`[id="${pickerTabGuardId}"]`) as HTMLElement
           )?.focus();
         }
         alreadyFocused.current = false;
@@ -355,6 +332,10 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     ) => {
       if (onClick) {
         onClick(ev);
+      }
+
+      if (variant === "typical" && open && disablePortal) {
+        closePicker();
       }
     };
 
@@ -368,17 +349,40 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       }
     };
 
-    const handleIconMouseDown = () => {
+    const handleTriggerClick = (
+      ev:
+        | React.MouseEvent<HTMLAnchorElement>
+        | React.MouseEvent<HTMLButtonElement>,
+    ) => {
+      onClick?.(ev);
       isBlurBlocked.current = true;
       alreadyFocused.current = true;
 
-      if (open) {
-        setOpen(false);
-        onPickerClose?.();
-      } else {
-        setOpen(true);
-        onPickerOpen?.();
-      }
+      togglePicker();
+    };
+
+    const handleTriggerMouseDown = () => {
+      isBlurBlocked.current = true;
+      alreadyFocused.current = true;
+    };
+
+    const handleLegacyIconMouseDown = () => {
+      isBlurBlocked.current = true;
+      alreadyFocused.current = true;
+      togglePicker();
+    };
+
+    const handleMonthYearChange = (date: Date) => {
+      onChange({
+        target: {
+          ...(uniqueName && { name: uniqueName }),
+          ...(inputId && { id: inputId }),
+          value: {
+            formattedValue: formattedValue(format, date),
+            rawValue: formattedValue("yyyy-MM-dd", date),
+          },
+        },
+      });
     };
 
     const handlePickerMouseDown = () => {
@@ -408,62 +412,8 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
           });
         }
       },
-      [inputName, inputRefMap, setInputRefMap, ref],
+      [inputName, inputRefMap, setInputRefMap, ref, setOpen],
     );
-
-    useEffect(() => {
-      const [matchedFormat, matchedValue] = findMatchedFormatAndValue(
-        value,
-        formats,
-      );
-
-      if (
-        matchedFormat &&
-        matchedValue &&
-        isDateValid(parseDate(matchedFormat, matchedValue))
-      ) {
-        setSelectedDays(
-          parseDate(...additionalYears(matchedFormat, matchedValue)),
-        );
-      } else if (checkISOFormatAndLength(value) && isInitialValue.current) {
-        setSelectedDays(parseISODate(value));
-      } else {
-        setSelectedDays(undefined);
-      }
-    }, [value, formats]);
-
-    const computedValue = () => {
-      if (checkISOFormatAndLength(value) && isInitialValue.current) {
-        return formattedValue(format, parseISODate(value));
-      }
-
-      const valueSeparator = getSeparator(value);
-      const formatSeparator = getSeparator(format);
-      const replaceSeparators = () =>
-        value
-          .split("")
-          .map((char) => (char === valueSeparator ? formatSeparator : char))
-          .join("");
-
-      if (
-        isInitialValue.current &&
-        valueSeparator !== formatSeparator &&
-        isDateValid(parseDate(format, replaceSeparators()))
-      ) {
-        isInitialValue.current = false;
-
-        const [matchedFormat, matchedValue] = findMatchedFormatAndValue(
-          replaceSeparators(),
-          formats,
-        );
-        return formattedValue(
-          format,
-          parseDate(...additionalYears(matchedFormat, matchedValue)),
-        );
-      }
-
-      return value;
-    };
 
     const marginProps = filterStyledSystemMarginProps(rest);
 
@@ -472,7 +422,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
         ref={wrapperRef}
         role="presentation"
         size={actualSize}
-        labelInline={labelInline}
+        labelInline={variant === "typical" ? resolvedLabelInline : labelInline}
         {...marginProps}
         applyDateRangeStyling={!!inputRefMap}
         maxWidth={maxWidth}
@@ -482,22 +432,57 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
           "data-role": dataRole,
         })}
         onMouseDown={handleClickInside}
-        className="date"
+        className={`date date-${variant}`}
       >
         <Textbox
-          {...filterOutStyledSystemSpacingProps(rest)}
+          {...(variant === "typical"
+            ? filterTypicalInputProps(filterOutStyledSystemSpacingProps(rest))
+            : filterOutStyledSystemSpacingProps(rest))}
+          aria-describedby={ariaDescribedBy}
+          aria-labelledby={ariaLabelledBy}
+          className={className}
+          error={error}
+          fieldHelp={variant === "legacy" ? fieldHelp : undefined}
+          id={inputId}
+          inputHint={variant === "typical" ? resolvedInputHint : inputHint}
+          label={label}
+          labelAlign={labelAlign}
+          labelHelp={variant === "legacy" ? labelHelp : undefined}
+          name={uniqueName}
+          prefix={prefix}
+          required={required}
+          warning={warning}
           data-component="date-input"
-          value={computedValue()}
+          data-role={variant === "typical" ? "date-input-wrapper" : undefined}
+          value={displayValue}
           onBlur={handleBlur}
           onChange={handleChange}
           onClick={handleClick}
           onFocus={handleFocus}
           onKeyDown={handleKeyDown}
-          iconOnClick={handleClick}
+          iconOnClick={variant === "legacy" ? handleClick : undefined}
+          iconOnMouseDown={
+            variant === "legacy" ? handleLegacyIconMouseDown : undefined
+          }
           onMouseDown={handleMouseDown}
-          iconOnMouseDown={handleIconMouseDown}
-          inputIcon="calendar"
-          labelInline={labelInline}
+          inputIcon={
+            variant === "typical" ? (
+              <DatePickerTrigger
+                disabled={disabled}
+                open={open}
+                pickerId={pickerId}
+                readOnly={readOnly}
+                size={actualSize}
+                onClick={handleTriggerClick}
+                onMouseDown={handleTriggerMouseDown}
+              />
+            ) : (
+              "calendar_today"
+            )
+          }
+          labelInline={
+            variant === "typical" ? resolvedLabelInline : labelInline
+          }
           ref={assignInput}
           adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
           tooltipPosition={tooltipPosition}
@@ -508,25 +493,27 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
           readOnly={readOnly}
           inputWidth={inputWidth}
           labelWidth={labelWidth}
-          maxWidth={maxWidth ?? datePickerWidth[actualSize]}
+          maxWidth={maxWidth ?? dateInputWidthBySize[actualSize]}
           m={0}
           validationMessagePositionTop={showValidationMessageOnTop}
         />
         <DatePicker
           disablePortal={disablePortal}
-          inputElement={parentRef}
-          pickerProps={pickerProps}
-          selectedDays={selectedDays}
+          inputContainerRef={parentRef}
+          dayPickerProps={pickerProps}
+          selectedDate={selectedDate}
           onDayClick={handleDayClick}
+          onMonthYearChange={handleMonthYearChange}
           minDate={minDate}
           maxDate={maxDate}
-          pickerMouseDown={handlePickerMouseDown}
+          onPickerMouseDown={handlePickerMouseDown}
           open={open}
-          setOpen={setOpen}
-          pickerTabGuardId={pickerTabGuardId.current}
-          onPickerClose={onPickerClose}
+          onRequestPickerClose={closePicker}
+          pickerTabGuardId={pickerTabGuardId}
           ariaLabel={datePickerAriaLabel}
           ariaLabelledBy={datePickerAriaLabelledBy}
+          pickerId={pickerId}
+          size={actualSize}
         />
       </StyledDateInput>
     );

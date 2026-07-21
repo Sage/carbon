@@ -121,15 +121,22 @@ export const MinMaxDateRange: Story = {
   play: async ({ canvasElement }) => {
     if (!allowInteractions()) return;
     const canvas = within(canvasElement);
-    const [startIcon, endIcon] = canvas.getAllByTestId("icon");
+    const [startCalendarButton, endCalendarButton] = canvas.getAllByRole(
+      "button",
+      { name: "calendar" },
+    );
     const startInput = canvas.getByRole("textbox", { name: /start date/i });
     const endInput = canvas.getByRole("textbox", { name: /end date/i });
 
-    await userEvent.click(startIcon);
+    // Navigate to previous month — all days there are before minDate ("2025-07-14"),
+    // so pressing Enter on a disabled day should not commit a new value.
+    await userEvent.click(startCalendarButton);
     await userEvent.keyboard("{PageUp}{End}{Enter}");
     await expect(startInput).toHaveValue("17/07/2025");
 
-    await userEvent.click(endIcon);
+    // Navigate to next month — all days there are after maxDate ("2025-07-30"),
+    // so pressing Enter on a disabled day should not commit a new value.
+    await userEvent.click(endCalendarButton);
     await userEvent.keyboard("{PageDown}{Home}{Enter}");
     await expect(endInput).toHaveValue("20/07/2025");
   },
@@ -158,13 +165,16 @@ export const DisabledDaysDateRange: Story = {
   play: async ({ canvasElement }) => {
     if (!allowInteractions()) return;
     const canvas = within(canvasElement);
-    const [startIcon, endIcon] = canvas.getAllByTestId("icon");
+    const [startCalendarButton, endCalendarButton] = canvas.getAllByRole(
+      "button",
+      { name: "calendar" },
+    );
     const endInput = canvas.getByRole("textbox", { name: /end date/i });
 
-    await userEvent.click(startIcon);
+    await userEvent.click(startCalendarButton);
     await userEvent.keyboard("{ArrowLeft}{Enter}");
 
-    await userEvent.click(endIcon);
+    await userEvent.click(endCalendarButton);
     await userEvent.keyboard("{ArrowRight}{ArrowDown}");
     await expect(endInput).toHaveValue("25/07/2025");
   },
@@ -183,18 +193,18 @@ export const FocusStateDateRange: Story = {
     if (!allowInteractions()) return;
     const canvas = within(canvasElement);
 
-    const [startIcon] = canvas.getAllByTestId("icon");
-    await userEvent.click(startIcon);
+    const [startCalendarButton] = canvas.getAllByRole("button", {
+      name: "calendar",
+    });
+    await userEvent.click(startCalendarButton);
 
     const selectedDayBtn = canvas.getByRole("button", { name: /selected$/i });
 
+    // The picker's internal tab order depth is variable, so we tab up to 6 times
+    // until focus lands on the selected day button.
     const doc = canvasElement.ownerDocument as Document;
     for (let i = 0; i < 6 && doc.activeElement !== selectedDayBtn; i += 1) {
       await userEvent.tab();
-    }
-
-    if (doc.activeElement !== selectedDayBtn) {
-      (selectedDayBtn as HTMLElement).focus();
     }
 
     await expect(selectedDayBtn).toHaveFocus();
@@ -211,6 +221,9 @@ export const LocaleEnUSDateRange: Story = {
           ariaLabels: {
             previousMonthButton: () => "en-US-previous",
             nextMonthButton: () => "en-US-next",
+            chooseMonth: () => "Choose the month",
+            chooseYear: () => "Choose the year",
+            closeButton: () => "Close",
           },
         },
       }}
@@ -259,6 +272,9 @@ export const LocaleDeDateRange: Story = {
           ariaLabels: {
             previousMonthButton: () => "de-DE-previous",
             nextMonthButton: () => "de-DE-next",
+            chooseMonth: () => "Monat auswählen",
+            chooseYear: () => "Jahr auswählen",
+            closeButton: () => "Schließen",
           },
         },
       }}
@@ -275,8 +291,10 @@ export const LocaleDeDateRange: Story = {
     if (!allowInteractions()) return;
 
     const canvas = within(canvasElement);
-    const [startIcon] = canvas.getAllByTestId("icon");
-    await userEvent.click(startIcon);
+    const [startCalendarButton] = canvas.getAllByRole("button", {
+      name: "calendar",
+    });
+    await userEvent.click(startCalendarButton);
 
     const prevMonth = canvas.getByRole("button", { name: /de-DE-previous/i });
     await userEvent.click(prevMonth);
@@ -298,8 +316,10 @@ export const TypingSyncDateRange: Story = {
 
     const canvas = within(canvasElement);
 
-    const [startIcon] = canvas.getAllByTestId("icon");
-    await userEvent.click(startIcon);
+    const [startCalendarButton] = canvas.getAllByRole("button", {
+      name: "calendar",
+    });
+    await userEvent.click(startCalendarButton);
 
     const startInput = canvas.getByRole("textbox", { name: /start date/i });
     await userEvent.clear(startInput);
@@ -324,8 +344,10 @@ export const MonthYearNavigationDateRange: Story = {
   play: async ({ canvasElement }) => {
     if (!allowInteractions()) return;
     const c = within(canvasElement);
-    const [startIcon] = c.getAllByTestId("icon");
-    await userEvent.click(startIcon);
+    const [startCalendarButton] = c.getAllByRole("button", {
+      name: "calendar",
+    });
+    await userEvent.click(startCalendarButton);
     const next = c.getByRole("button", { name: /next month/i });
     await userEvent.click(next);
     await expect(next).toHaveFocus();

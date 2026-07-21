@@ -149,6 +149,20 @@ test("supports a separate onClick handler passing for the icon", async () => {
   expect(onClick).not.toHaveBeenCalled();
 });
 
+test("renders a React node supplied as the input icon", () => {
+  render(
+    <Textbox
+      value="foobar"
+      onChange={() => {}}
+      inputIcon={<button type="button">Custom input action</button>}
+    />,
+  );
+
+  expect(
+    screen.getByRole("button", { name: "Custom input action" }),
+  ).toBeVisible();
+});
+
 test.each([
   "enter",
   "done",

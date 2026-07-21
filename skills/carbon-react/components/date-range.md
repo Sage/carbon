@@ -214,6 +214,9 @@ description: Carbon DateRange component props and usage examples.
             ariaLabels: {
               previousMonthButton: () => "Mois précédent",
               nextMonthButton: () => "Mois prochain",
+              chooseMonth: () => "Choisir le mois",
+              chooseYear: () => "Choisir l’année",
+              closeButton: () => "Fermer",
             },
           },
         }}
@@ -293,6 +296,9 @@ description: Carbon DateRange component props and usage examples.
             ariaLabels: {
               previousMonthButton: () => "Vorheriger Monat",
               nextMonthButton: () => "Nächster Monat",
+              chooseMonth: () => "Monat auswählen",
+              chooseYear: () => "Jahr auswählen",
+              closeButton: () => "Schließen",
             },
             dateFormatOverride: args.dateFormatOverride || "dd-MM-yyyy",
           },
