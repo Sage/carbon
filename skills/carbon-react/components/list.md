@@ -42,7 +42,7 @@ Example migration:
 | as | React.ElementType<any, keyof React.JSX.IntrinsicElements> \| undefined | No |  |  |  | Override the variant component | "ul" |
 | children | React.ReactNode | No |  |  |  |  |  |
 | className | string \| undefined | No |  |  |  |  |  |
-| color | string \| undefined | No |  |  |  | Override the text color using typography token options. Supported values are: `neutral`, `subtle`, `caution`, `info`, `negative`, and `positive`. Legacy aliases `"default"` and `"alt"` map to `"neutral"` and `"subtle"` respectively. |  |
+| color | any | No |  |  |  | Override the text color using typography token options. Supported values are: `neutral`, `subtle`, `caution`, `info`, `negative`, and `positive`. Legacy aliases `"default"` and `"alt"` map to `"neutral"` and `"subtle"` respectively. |  |
 | display | string \| undefined | No |  |  |  | Override the variant display |  |
 | fluid | boolean \| undefined | No |  |  |  | When set to `true`, uses fluid typography with CSS clamp() values for responsive sizing. |  |
 | id | string \| undefined | No |  |  |  | Set the ID attribute of the Typography component |  |
