@@ -16,9 +16,7 @@ description: Carbon Card component props and usage examples.
 | Name | Type | Required | Literals | Deprecated | Deprecation reason | Description | Default |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | children | React.ReactNode | Yes |  |  |  | Child nodes |  |
-| cardType | "standard" \| "outlined" \| undefined | No |  |  |  | Visual style variant of the card | "standard" |
 | draggable | boolean \| undefined | No |  |  |  | Flag to indicate if card is draggable |  |
-| draggableAccessory | React.ReactNode | No |  |  |  | Slot rendered on the opposite side of the drag handle, only visible when `draggable` is true. Intended for accessibility controls (e.g. move-up / move-down buttons) for keyboard users. |  |
 | footer | React.ReactNode | No |  |  |  | The footer to render underneath the Card content |  |
 | header | React.ReactNode | No |  |  |  | The header to render above the Card content |  |
 | height | string \| undefined | No |  |  |  | Height of the component (any valid CSS value) |  |
@@ -39,9 +37,11 @@ description: Carbon Card component props and usage examples.
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
 | onClick | ((event: React.MouseEvent<HTMLAnchorElement> \| React.MouseEvent<HTMLDivElement> \| React.KeyboardEvent<HTMLAnchorElement> \| React.KeyboardEvent<HTMLDivElement>) => void) \| undefined | No |  |  |  | Action to be executed when card is clicked or enter pressed. Renders a button when passed and no draggable or href props set |  |
 | rel | string \| undefined | No |  |  |  | String for rel property when card has an href prop set |  |
+| rightChildren | React.ReactNode | No |  |  |  | Slot rendered on the opposite side of the drag handle, only visible when `draggable` is true. Intended for accessibility controls (e.g. move-up / move-down buttons) for keyboard users. |  |
 | roundness | "large" \| "default" \| "moderate" \| "curved" \| undefined | No |  |  |  | Sets the level of roundness of the corners. "moderate" is 16px and "curved" is 20px. "default" (alias for "moderate") and "large" (alias for "curved") are deprecated. Use "moderate" or "curved" instead. | "moderate" |
 | spacing | "small" \| "medium" \| "large" \| "none" \| "extra-small" \| undefined | No |  |  |  | Size padding applied to the card. | "medium" |
 | target | string \| undefined | No |  |  |  | Target property in which link should open ie: _blank, _self, _parent, _top |  |
+| variant | "standard" \| "outlined" \| undefined | No |  |  |  | Visual style variant of the card | "standard" |
 | width | string \| undefined | No |  |  |  | Style value for width of card | "500px" |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
@@ -110,7 +110,7 @@ description: Carbon Card component props and usage examples.
           <Card
             key={spacing}
             draggable
-            draggableAccessory={
+            rightChildren={
               <ActionPopover m={0} rightAlignMenu>
                 <ActionPopoverItem onClick={() => {}}>
                   Move up
@@ -288,6 +288,179 @@ description: Carbon Card component props and usage examples.
           <Icon type="image" />
         </Box>
       </Box>
+    </Card>
+  )
+```
+
+
+### DeprecatedCardRowAndColumn
+
+**Render**
+
+```tsx
+() => (
+    <Card
+      footer={
+        <CardFooter>
+          <CardColumn>
+            <Link icon="link" href="https://carbon.sage.com/">
+              Footer link
+            </Link>
+          </CardColumn>
+        </CardFooter>
+      }
+    >
+      <CardRow>
+        <CardColumn align="left">
+          <Heading title="Heading" divider={false} />
+          <Typography fontSize="16px" m={0}>
+            Additional text
+          </Typography>
+        </CardColumn>
+        <CardColumn align="right">
+          <Icon type="image" />
+        </CardColumn>
+      </CardRow>
+      <CardRow>
+        <CardColumn>
+          <Typography fontSize="16px" m={0} fontWeight="500">
+            Body text
+          </Typography>
+          <Heading title="More text" headingType="h2" divider={false} />
+          <Typography>Even more text</Typography>
+        </CardColumn>
+      </CardRow>
+    </Card>
+  )
+```
+
+
+### DeprecatedCardRowWithPadding
+
+**Render**
+
+```tsx
+() => (
+    <Card
+      footer={
+        <CardFooter>
+          <CardColumn>
+            <Link icon="link" href="https://carbon.sage.com/">
+              View Stripe Dashboard
+            </Link>
+          </CardColumn>
+        </CardFooter>
+      }
+    >
+      <CardRow pt={2} pb={0}>
+        <CardColumn align="left">
+          <Typography variant="h1">Stripe - [account name]</Typography>
+          <Typography size="L" m={0}>
+            user.name@sage.com
+          </Typography>
+        </CardColumn>
+        <CardColumn align="right">
+          <Icon type="image" />
+        </CardColumn>
+      </CardRow>
+      <CardRow pt={0} pb={4}>
+        <CardColumn>
+          <Typography m={0} weight="medium">
+            Stripe Balance
+          </Typography>
+          <Typography variant="h2">£ 0.00</Typography>
+          <Typography>LAST ENTRY: 5 DAYS AGO</Typography>
+        </CardColumn>
+      </CardRow>
+      <CardRow pt={0} pb={4}>
+        <CardColumn>
+          <Typography m={0} weight="medium">
+            Stripe Balance
+          </Typography>
+          <Typography variant="h2">£ 0.00</Typography>
+          <Typography>LAST ENTRY: 15 DAYS AGO</Typography>
+        </CardColumn>
+      </CardRow>
+    </Card>
+  )
+```
+
+
+### DeprecatedCardRowSpacingSizes
+
+**Render**
+
+```tsx
+() => (
+    <>
+      {(["small", "medium", "large"] as const).map((spacing) => (
+        <Card
+          key={spacing}
+          spacing={spacing}
+          mb="16px"
+          footer={
+            <CardFooter>
+              <CardColumn>
+                <Link icon="link" href="https://carbon.sage.com/">
+                  Footer link
+                </Link>
+              </CardColumn>
+            </CardFooter>
+          }
+        >
+          <CardRow>
+            <CardColumn align="left">
+              <Typography variant="h1">Spacing: {spacing}</Typography>
+              <Typography m={0}>Additional text</Typography>
+            </CardColumn>
+            <CardColumn align="right">
+              <Icon type="image" />
+            </CardColumn>
+          </CardRow>
+          <CardRow>
+            <CardColumn>
+              <Typography m={0} weight="medium">
+                Body text
+              </Typography>
+              <Typography variant="h2">More text</Typography>
+            </CardColumn>
+          </CardRow>
+        </Card>
+      ))}
+    </>
+  )
+```
+
+
+### DeprecatedCardRowWithInteractive
+
+**Render**
+
+```tsx
+() => (
+    <Card
+      onClick={() => {}}
+      footer={
+        <CardFooter>
+          <CardColumn>
+            <Link icon="link" href="https://carbon.sage.com/">
+              Footer link
+            </Link>
+          </CardColumn>
+        </CardFooter>
+      }
+    >
+      <CardRow>
+        <CardColumn align="left">
+          <Heading title="Interactive Card" divider={false} />
+          <Typography fontSize="16px" m={0}>
+            Click me!
+          </Typography>
+        </CardColumn>
+        <CardColumn align="right">
+          <Icon type="image" />
+        </CardColumn>
+      </CardRow>
     </Card>
   )
 ```
@@ -942,7 +1115,7 @@ description: Carbon Card component props and usage examples.
   return (
     <Card
       draggable
-      draggableAccessory={
+      rightChildren={
         <ActionPopover m={0} rightAlignMenu>
           <ActionPopoverItem onClick={() => {}}>Move up</ActionPopoverItem>
           <ActionPopoverItem onClick={() => {}}>Move down</ActionPopoverItem>

@@ -5,19 +5,20 @@ import { CardContextProps } from "../__internal__/card.context";
 import { CardFooterProps } from "./card-footer.component";
 
 const marginSizes = {
-  none: "0",
-  "extra-small": "0 calc(-1 * var(--global-space-comp-s))",
-  small: "0 calc(-1 * var(--global-space-comp-l))",
-  medium: "0 calc(-1 * var(--global-space-comp-xl))",
-  large: "0 calc(-1 * var(--global-space-comp-2-xl))",
+  none: "var(--global-size-none)",
+  "extra-small":
+    "var(--global-size-none) calc(-1 * var(--global-space-comp-s))",
+  small: "var(--global-size-none) calc(-1 * var(--global-space-comp-l))",
+  medium: "var(--global-size-none) calc(-1 * var(--global-space-comp-xl))",
+  large: "var(--global-size-none) calc(-1 * var(--global-space-comp-2-xl))",
 };
 
 const paddingSizes = {
-  none: "0",
-  "extra-small": "0",
-  small: "16px 24px",
-  medium: "18px 32px",
-  large: "20px 48px",
+  none: "var(--global-size-none)",
+  "extra-small": "var(--global-size-none)",
+  small: "var(--global-space-comp-l) var(--global-space-comp-xl)",
+  medium: "18px var(--global-space-comp-2-xl)",
+  large: "var(--global-size-2-xs) var(--global-size-l)",
 };
 
 export type StyledCardFooterProps = SpaceProps &
@@ -30,7 +31,7 @@ const StyledCardFooter = styled.div<StyledCardFooterProps>`
   ${({ spacing, variant, roundness }) => css`
     background-color: ${variant === "transparent"
       ? "transparent"
-      : "var(--colorsUtilityMajor025)"};
+      : "var(--container-standard-bg-default)"};
     border-top: var(--colorsUtilityMajor100);
     border-top-width: 1px;
     border-top-style: solid;
@@ -48,7 +49,7 @@ const StyledCardFooter = styled.div<StyledCardFooterProps>`
     `}
 
     ${StyledCardColumn} {
-      margin: 0;
+      margin: var(--global-size-none);
       padding: ${paddingSizes[spacing]};
     }
   `}

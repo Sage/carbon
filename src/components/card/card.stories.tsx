@@ -608,7 +608,7 @@ export const Draggable: Story = () => {
   return (
     <Card
       draggable
-      draggableAccessory={
+      rightChildren={
         <ActionPopover m={0} rightAlignMenu>
           <ActionPopoverItem onClick={() => {}}>Move up</ActionPopoverItem>
           <ActionPopoverItem onClick={() => {}}>Move down</ActionPopoverItem>

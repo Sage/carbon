@@ -126,9 +126,9 @@ test("when draggable prop is true cursor changes to move icon when Card is hover
   expect(cardElement).toHaveStyle({ cursor: "move" });
 });
 
-test("renders draggableAccessory content when draggable is true", () => {
+test("renders rightChildren content when draggable is true", () => {
   render(
-    <Card draggable draggableAccessory={<button type="button">Move up</button>}>
+    <Card draggable rightChildren={<button type="button">Move up</button>}>
       Content
     </Card>,
   );
@@ -136,9 +136,9 @@ test("renders draggableAccessory content when draggable is true", () => {
   expect(screen.getByRole("button", { name: "Move up" })).toBeInTheDocument();
 });
 
-test("drag icon still renders alongside draggableAccessory when both are provided", () => {
+test("drag icon still renders alongside rightChildren when both are provided", () => {
   render(
-    <Card draggable draggableAccessory={<button type="button">Move up</button>}>
+    <Card draggable rightChildren={<button type="button">Move up</button>}>
       Content
     </Card>,
   );
@@ -147,11 +147,9 @@ test("drag icon still renders alongside draggableAccessory when both are provide
   expect(screen.getByRole("button", { name: "Move up" })).toBeInTheDocument();
 });
 
-test("does not render draggableAccessory when draggable is false", () => {
+test("does not render rightChildren when draggable is false", () => {
   render(
-    <Card draggableAccessory={<button type="button">Move up</button>}>
-      Content
-    </Card>,
+    <Card rightChildren={<button type="button">Move up</button>}>Content</Card>,
   );
 
   expect(
@@ -161,9 +159,7 @@ test("does not render draggableAccessory when draggable is false", () => {
 
 test("drag icon is not rendered when draggable is false", () => {
   render(
-    <Card draggableAccessory={<button type="button">Move up</button>}>
-      Content
-    </Card>,
+    <Card rightChildren={<button type="button">Move up</button>}>Content</Card>,
   );
 
   expect(screen.queryByTestId("icon")).not.toBeInTheDocument();
@@ -186,9 +182,9 @@ test("should call onClick callback when card is clicked", async () => {
   expect(handleClick).toHaveBeenCalledTimes(1);
 });
 
-test("renders with standard card type box shadow when cardType is standard", () => {
+test("renders with standard card type box shadow when variant is standard", () => {
   render(
-    <Card cardType="standard" data-role="card">
+    <Card variant="standard" data-role="card">
       Content
     </Card>,
   );
@@ -200,7 +196,7 @@ test("renders with standard card type box shadow when cardType is standard", () 
 
 test("renders with outlined card type box shadow", () => {
   render(
-    <Card cardType="outlined" data-role="card">
+    <Card variant="outlined" data-role="card">
       Content
     </Card>,
   );
@@ -210,9 +206,9 @@ test("renders with outlined card type box shadow", () => {
   expect(card).toHaveStyleRule("box-shadow", "var(--global-depth-none)");
 });
 
-test("renders with no hover box shadow when cardType is outlined and card is interactive", () => {
+test("renders with no hover box shadow when variant is outlined and card is interactive", () => {
   render(
-    <Card cardType="outlined" onClick={() => {}} data-role="card">
+    <Card variant="outlined" onClick={() => {}} data-role="card">
       Content
     </Card>,
   );
@@ -235,7 +231,7 @@ test("applies flex layout to the content container when spacing is extra-small",
   expect(contentEl).toHaveStyleRule("align-self", "stretch");
 });
 
-test("StyledCard applies standard box shadow by default when cardType is not provided", () => {
+test("StyledCard applies standard box shadow by default when variant is not provided", () => {
   render(
     <StyledCard
       $cardWidth="500px"

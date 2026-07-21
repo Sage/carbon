@@ -15,11 +15,12 @@ export const paddingSizes = {
 };
 
 export const marginSizes = {
-  none: "0",
-  "extra-small": "0 calc(-1 * var(--global-space-comp-s))",
-  small: "0 calc(-1 * var(--global-space-comp-l))",
-  medium: "0 calc(-1 * var(--global-space-comp-xl))",
-  large: "0 calc(-1 * var(--global-space-comp-2-xl))",
+  none: "var(--global-space-comp-none)",
+  "extra-small":
+    "var(--global-size-none) calc(-1 * var(--global-space-comp-s))",
+  small: "var(--global-size-none) calc(-1 * var(--global-space-comp-l))",
+  medium: "var(--global-size-none) calc(-1 * var(--global-space-comp-xl))",
+  large: "var(--global-size-none) calc(-1 * var(--global-space-comp-2-xl))",
 };
 
 type DesignTokensType = keyof typeof DesignTokens;
@@ -34,7 +35,7 @@ export interface StyledCardProps
   $height?: string;
   $boxShadow?: BoxShadowsType;
   $hoverBoxShadow?: BoxShadowsType;
-  $cardType?: "standard" | "outlined";
+  $variant?: "standard" | "outlined";
   $roundness: CardContextProps["roundness"];
   $spacing: CardContextProps["spacing"];
 }
@@ -47,35 +48,35 @@ const StyledCard = styled.div.attrs(applyBaseTheme)<StyledCardProps>`
     $height,
     $roundness,
     $spacing,
-    $cardType = "standard",
+    $variant = "standard",
   }) => css`
     background-color: var(--container-standard-bg-default);
     border: 1px solid var(--container-standard-border-default);
     border-radius: ${$roundness === "moderate" || $roundness === "default"
       ? "var(--global-radius-container-l)"
       : "var(--global-radius-container-xl)"};
-    box-shadow: ${$cardType === "outlined"
+    box-shadow: ${$variant === "outlined"
       ? "var(--global-depth-none)"
       : "var(--global-depth-lvl1)"};
-    color: var(--colorsUtilityYin090);
+    color: var(--container-standard-txt-default);
     display: flex;
     flex-direction: column;
     height: ${$height};
     justify-content: space-between;
     align-items: normal;
-    margin: 25px;
+    margin: var(--global-space-comp-xl);
     outline: none;
     transition: all 0.3s ease-in-out;
     vertical-align: top;
     width: ${$cardWidth};
-    padding: 0 ${paddingSizes[$spacing]};
+    padding: var(--global-size-none) ${paddingSizes[$spacing]};
     ${margin}
 
     ${$interactive &&
     css`
       :hover,
       :focus-within {
-        box-shadow: ${$cardType === "outlined"
+        box-shadow: ${$variant === "outlined"
           ? "none"
           : "var(--global-depth-lvl2)"};
       }
@@ -87,7 +88,7 @@ const StyledCard = styled.div.attrs(applyBaseTheme)<StyledCardProps>`
     `}
 
     ::-moz-focus-inner {
-      border: 0;
+      border: var(--global-size-none);
     }
   `}
 `;

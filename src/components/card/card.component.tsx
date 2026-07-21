@@ -45,7 +45,7 @@ export interface CardProps extends MarginProps, TagProps {
   /** The path to navigate to. Renders an anchor element when passed and no draggable prop set */
   href?: string;
   /** Visual style variant of the card */
-  cardType?: "standard" | "outlined";
+  variant?: "standard" | "outlined";
   /** The header to render above the Card content */
   header?: React.ReactNode;
   /** The footer to render underneath the Card content */
@@ -59,7 +59,7 @@ export interface CardProps extends MarginProps, TagProps {
   /** Slot rendered on the opposite side of the drag handle, only visible when `draggable` is true.
    * Intended for accessibility controls (e.g. move-up / move-down buttons) for keyboard users.
    */
-  draggableAccessory?: React.ReactNode;
+  rightChildren?: React.ReactNode;
 }
 
 const Card = ({
@@ -80,8 +80,8 @@ const Card = ({
   rel,
   target,
   "aria-label": ariaLabel,
-  cardType = "standard",
-  draggableAccessory,
+  variant = "standard",
+  rightChildren,
   ...rest
 }: CardProps) => {
   const [contentRef, setContentRef] = useState<HTMLDivElement | null>(null);
@@ -110,7 +110,7 @@ const Card = ({
       $hoverBoxShadow={hoverBoxShadow}
       $height={height}
       $roundness={roundness}
-      $cardType={cardType}
+      $variant={variant}
       {...filterStyledSystemMarginProps(rest)}
       {...tagComponent("card", {
         "data-element": dataElement,
@@ -122,7 +122,7 @@ const Card = ({
         {draggable && (
           <StyledDragRow spacing={spacing}>
             <Icon type="drag" />
-            {draggableAccessory}
+            {rightChildren}
           </StyledDragRow>
         )}
         <StyledCardContent
