@@ -936,6 +936,7 @@ FlatTableThemes.storyName = "Themes";
 
 export const FlatTableWithStickyHeadAndFooter = () => {
   const [state, setState] = useState(["2016-10-01", "2016-10-30"]);
+  const [subRowDate, setSubRowDate] = useState("2019-04-04");
   const handleChange = (ev: DateRangeChangeEvent) => {
     const newValue = [
       ev.target.value[0].formattedValue,
@@ -1230,8 +1231,21 @@ export const FlatTableWithStickyHeadAndFooter = () => {
                         <FlatTableRow key="sub-row-1">
                           <FlatTableCell>Child one</FlatTableCell>
                           <FlatTableCell>York</FlatTableCell>
-                          <FlatTableCell>Single</FlatTableCell>
-                          <FlatTableCell>2</FlatTableCell>
+                          <FlatTableCell>
+                            <DateRange
+                              startLabel="From"
+                              endLabel="To"
+                              value={state}
+                              onChange={handleChange}
+                            />
+                          </FlatTableCell>
+                          <FlatTableCell>
+                            <MultiActionButton text="Multi Action Button">
+                              <Button>Button 1</Button>
+                              <Button>Button 2</Button>
+                              <Button>Button 3</Button>
+                            </MultiActionButton>
+                          </FlatTableCell>
                           <FlatTableCell>
                             <ActionPopover>
                               <ActionPopoverItem
@@ -1249,14 +1263,44 @@ export const FlatTableWithStickyHeadAndFooter = () => {
                               </ActionPopoverItem>
                             </ActionPopover>
                           </FlatTableCell>
-                          <FlatTableCell>date</FlatTableCell>
-                          <FlatTableCell>split button</FlatTableCell>
+                          <FlatTableCell>
+                            <DateInput
+                              label=""
+                              name={`child-one-date-${key}`}
+                              inputWidth={110}
+                              value={subRowDate}
+                              onChange={(ev) =>
+                                setSubRowDate(ev.target.value.formattedValue)
+                              }
+                              disablePortal
+                            />
+                          </FlatTableCell>
+                          <FlatTableCell>
+                            <SplitButton text="Split button">
+                              <Button href="#">Button 1</Button>
+                              <Button>Button 2</Button>
+                              <Button>Button 3</Button>
+                            </SplitButton>
+                          </FlatTableCell>
                         </FlatTableRow>,
                         <FlatTableRow key="sub-row-2">
                           <FlatTableCell>Child two</FlatTableCell>
                           <FlatTableCell>Edinburgh</FlatTableCell>
-                          <FlatTableCell>Single</FlatTableCell>
-                          <FlatTableCell>1</FlatTableCell>
+                          <FlatTableCell>
+                            <DateRange
+                              startLabel="From"
+                              endLabel="To"
+                              value={state}
+                              onChange={handleChange}
+                            />
+                          </FlatTableCell>
+                          <FlatTableCell>
+                            <MultiActionButton text="Multi Action Button">
+                              <Button>Button 1</Button>
+                              <Button>Button 2</Button>
+                              <Button>Button 3</Button>
+                            </MultiActionButton>
+                          </FlatTableCell>
                           <FlatTableCell>
                             <ActionPopover>
                               <ActionPopoverItem
@@ -1274,8 +1318,25 @@ export const FlatTableWithStickyHeadAndFooter = () => {
                               </ActionPopoverItem>
                             </ActionPopover>
                           </FlatTableCell>
-                          <FlatTableCell>date</FlatTableCell>
-                          <FlatTableCell>split button</FlatTableCell>
+                          <FlatTableCell>
+                            <DateInput
+                              label=""
+                              name={`child-two-date-${key}`}
+                              inputWidth={110}
+                              value={subRowDate}
+                              onChange={(ev) =>
+                                setSubRowDate(ev.target.value.formattedValue)
+                              }
+                              disablePortal
+                            />
+                          </FlatTableCell>
+                          <FlatTableCell>
+                            <SplitButton text="Split button">
+                              <Button href="#">Button 1</Button>
+                              <Button>Button 2</Button>
+                              <Button>Button 3</Button>
+                            </SplitButton>
+                          </FlatTableCell>
                         </FlatTableRow>,
                       ]}
                     >
@@ -1326,7 +1387,7 @@ export const FlatTableWithStickyHeadAndFooter = () => {
                           error=""
                           fieldHelp=""
                           helpAriaLabel=""
-                          inputWidth={70}
+                          inputWidth={110}
                           label=""
                           labelHelp=""
                           labelWidth={30}
