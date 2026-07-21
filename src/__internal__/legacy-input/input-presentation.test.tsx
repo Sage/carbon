@@ -135,7 +135,7 @@ test("applies the custom `maxWidth` when prop is passed a value", () => {
 });
 
 test("applies correct color when validationRedesignOptIn is true", () => {
-  const { container } = render(
+  render(
     <CarbonProvider validationRedesignOptIn={true}>
       <InputPresentation maxWidth="500px" warning="Warning message">
         <Input value="" />
@@ -143,8 +143,7 @@ test("applies correct color when validationRedesignOptIn is true", () => {
     </CarbonProvider>,
   );
 
-  // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-  const presentationStyle = container.querySelector('[role="presentation"]');
+  const presentationStyle = screen.getByRole("presentation");
 
   expect(presentationStyle).toHaveStyleRule(
     "border-color",

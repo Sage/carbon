@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { render, screen, fireEvent, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import * as floatingUi from "@floating-ui/react-dom";
 
 import {
   assertLoggerComponentMessage,
@@ -184,81 +183,6 @@ test.each([
   },
 );
 
-test.skip.each(["error", "warning", "info"])(
-  "renders a validation icon in the textarea when %s prop is a string",
-  (validationProp) => {
-    render(<MockComponent {...{ [validationProp]: "Message" }} />);
-    const inputPresentationContainer = screen.getByRole("presentation");
-    const validationIcon = screen.getByTestId(`icon-${validationProp}`);
-    expect(inputPresentationContainer).toContainElement(validationIcon);
-  },
-);
-
-test.skip.each(["error", "warning", "info"])(
-  "overrides the tooltip position on the validation icon when %s prop is a string the tooltipPosition prop is set",
-  (validationProp) => {
-    const useFloatingSpy = jest.spyOn(floatingUi, "useFloating");
-
-    render(
-      <MockComponent
-        {...{
-          label: "Label",
-          [validationProp]: "Message",
-          tooltipPosition: "bottom",
-        }}
-      />,
-    );
-
-    expect(useFloatingSpy).toHaveBeenCalledWith(
-      expect.objectContaining({ placement: "bottom" }),
-    );
-
-    useFloatingSpy.mockRestore();
-  },
-);
-
-test.skip.each(["error", "warning", "info"])(
-  "renders a validation icon on the label when %s prop is a string and validationOnLabel passed as true",
-  (validationProp) => {
-    render(
-      <MockComponent
-        {...{
-          label: "Label",
-          [validationProp]: "Message",
-          validationOnLabel: true,
-        }}
-      />,
-    );
-    const labelContainer = screen.getByTestId("label-container");
-    const validationIcon = screen.getByTestId(`icon-${validationProp}`);
-    expect(labelContainer).toContainElement(validationIcon);
-  },
-);
-
-test.skip.each(["error", "warning", "info"])(
-  "overrides the tooltip position on the validation icon when %s prop is a string, the tooltipPosition prop is set and validationOnLabel is true",
-  (validationProp) => {
-    const useFloatingSpy = jest.spyOn(floatingUi, "useFloating");
-
-    render(
-      <MockComponent
-        {...{
-          label: "Label",
-          [validationProp]: "Message",
-          tooltipPosition: "bottom",
-          validationOnLabel: true,
-        }}
-      />,
-    );
-
-    expect(useFloatingSpy).toHaveBeenCalledWith(
-      expect.objectContaining({ placement: "bottom" }),
-    );
-
-    useFloatingSpy.mockRestore();
-  },
-);
-
 test.each(["error", "warning", "info"])(
   "when %s validation prop is true boolean, does not render any validation icon",
   (validationProp) => {
@@ -268,22 +192,6 @@ test.each(["error", "warning", "info"])(
     ).not.toBeInTheDocument();
   },
 );
-
-test.skip("should set the aria-label on the Help component to the value of the helpAriaLabel prop", () => {
-  render(<MockComponent label="foo" labelHelp="bar" helpAriaLabel="baz" />);
-
-  expect(screen.getByRole("button")).toHaveAttribute("aria-label", "baz");
-});
-
-test.skip("should set the Help component's text content to the value of the labelHelp prop", async () => {
-  render(<MockComponent label="foo" labelHelp="bar" helpAriaLabel="baz" />);
-
-  act(() => {
-    screen.getByRole("button").focus();
-  });
-
-  expect(await screen.findByRole("tooltip", { name: "bar" })).toBeVisible();
-});
 
 test.each(["warning", "error"])(
   "with id prop provided, %s prop set as a string and the textarea element focused, the validation tooltip provides an accessible description for the textarea element",
@@ -329,18 +237,6 @@ test("inputHint should have priority over labelHelp when both are passed", () =>
   );
   expect(screen.getByText("inputHint")).toBeInTheDocument();
   expect(screen.queryByText("labelHelp")).not.toBeInTheDocument();
-});
-
-test.skip("when id and fieldHelp are both present, the field help provides an accessible description for the textarea element", () => {
-  render(<MockComponent id="foo" label="bar" fieldHelp="baz" />);
-
-  expect(screen.getByRole("textbox")).toHaveAccessibleDescription("baz");
-});
-
-test.skip("fieldHelp is present and id is not present, the field help provides an accessible description for the textarea element", () => {
-  render(<MockComponent label="bar" fieldHelp="baz" />);
-
-  expect(screen.getByRole("textbox")).toHaveAccessibleDescription("baz");
 });
 
 test.each(["warning", "error"])(

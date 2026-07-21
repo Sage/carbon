@@ -449,7 +449,7 @@ export const Textarea = React.forwardRef(
       .join(" ");
 
     const input = (
-      <InputPresentation
+      <InputPresentation // TODO: `InputPresentation` is a legacy component and should be replaced as part of FE-7735
         disabled={disabled}
         readOnly={readOnly}
         inputWidth={
@@ -462,7 +462,7 @@ export const Textarea = React.forwardRef(
         borderRadius={borderRadius}
         hideBorders={hideBorders}
       >
-        <Input
+        <Input // TODO: `Input` is a legacy component and should be replaced as part of FE-7735
           aria-invalid={!!error || fieldsetError}
           aria-labelledby={ariaLabelledBy}
           aria-describedby={combinedAriaDescribedBy}
@@ -527,11 +527,8 @@ export const Textarea = React.forwardRef(
             $hideBorders={hideBorders}
             $labelAlign={labelAlign}
           >
-            <FormField
+            <FormField // TODO: `FormField` relies on the legacy `Label` and should be replaced as part of FE-7735
               fieldHelpId={fieldHelpId}
-              error={error}
-              warning={warning}
-              info={info}
               label={label}
               labelId={labelId}
               disabled={disabled}
@@ -541,7 +538,7 @@ export const Textarea = React.forwardRef(
               labelSpacing={labelSpacing}
               isRequired={required}
               adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
-              validationRedesignOptIn={true}
+              validationRedesignOptIn
               my={0} // prevents any form spacing being applied
             >
               {(inputHint || labelHelp) && (

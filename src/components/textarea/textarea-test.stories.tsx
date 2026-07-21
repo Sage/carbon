@@ -167,7 +167,7 @@ export const Default = ({
 };
 Default.storyName = "Default";
 
-export const NewValidation = () => {
+export const Validation = () => {
   const { state, setValue } = useMultiInput();
 
   return (
@@ -245,8 +245,8 @@ export const NewValidation = () => {
     </CarbonProvider>
   );
 };
-NewValidation.storyName = "New Validation";
-NewValidation.parameters = {
+Validation.storyName = "Validation";
+Validation.parameters = {
   chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
 };
