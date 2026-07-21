@@ -14,6 +14,8 @@ export interface ScrollableBlockProps extends TagProps {
   children: React.ReactNode;
   /** A custom height to be applied to the component. */
   height?: string | number;
+  /** A custom max height to be applied to the component. */
+  maxHeight?: string | number;
   /** set the colour variant for a menuType */
   variant?: VariantType;
   /** the element, if any, displayed at the top of the block to be its semantic "parent",
@@ -27,12 +29,13 @@ export interface ScrollableBlockProps extends TagProps {
 export const ScrollableBlock = ({
   children,
   height,
+  maxHeight,
   variant = "default",
   parent,
   parentVariant,
   ...rest
 }: ScrollableBlockProps) => {
-  const { menuType } = useStrictMenuContext();
+  const { menuType, inFullscreenView } = useStrictMenuContext();
 
   const scrollVariants: Record<string, ScrollVariant> = {
     light: "light",
@@ -45,6 +48,7 @@ export const ScrollableBlock = ({
     <StyledScrollableBlock
       menuType={menuType}
       variant={variant}
+      $inFullscreenView={inFullscreenView}
       {...rest}
       {...tagComponent("submenu-scrollable-block", rest)}
     >
@@ -64,6 +68,7 @@ export const ScrollableBlock = ({
         overflowY="scroll"
         scrollVariant={scrollVariants[menuType]}
         height={height}
+        maxHeight={maxHeight}
         p={0}
         as="ul"
         role="list"
