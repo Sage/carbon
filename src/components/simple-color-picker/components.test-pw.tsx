@@ -70,7 +70,7 @@ export const SimpleColorPickerCustom = ({
       {...props}
     >
       {colors.map(({ color, label }) => (
-        <SimpleColor value={color} key={color} aria-label={label} id={color} />
+        <SimpleColor value={color} key={color} aria-label={label} />
       ))}
     </SimpleColorPicker>
   );
@@ -94,7 +94,7 @@ export const SimpleColorCustom = ({
         value={state}
         key={colors[0].color}
         aria-label={colors[0].label}
-        id={colors[0].color}
+        id="simple-color-1"
         onChange={handleChange}
         {...props}
       />
@@ -102,7 +102,7 @@ export const SimpleColorCustom = ({
         value={state}
         key={colors[1].color}
         aria-label={colors[1].label}
-        id={colors[1].color}
+        id="simple-color-2"
         onChange={handleChange}
         {...props}
       />

@@ -271,11 +271,13 @@ export const AdvancedColorPicker = ({
           value={selectedColor}
         >
           {colors?.map(({ value, label }) => (
+            /* No id is passed: the color values are CSS colors (often beginning
+               with "#") and so cannot be used as ids. SimpleColor falls back to
+               generating a valid one. */
             <SimpleColor
               value={value}
               key={value}
               aria-label={label}
-              id={value}
               checked={value === selectedColor}
             />
           ))}

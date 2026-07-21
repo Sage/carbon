@@ -79,7 +79,7 @@ description: Carbon SimpleColorPicker component props and usage examples.
       value={state}
     >
       {colors.map(({ color, label }) => (
-        <SimpleColor value={color} key={color} aria-label={label} id={color} />
+        <SimpleColor value={color} key={color} aria-label={label} />
       ))}
     </SimpleColorPicker>
   );
@@ -111,13 +111,7 @@ description: Carbon SimpleColorPicker component props and usage examples.
         { color: "#0073C1", label: "blue" },
         { color: "#582C83", label: "purple" },
       ].map(({ color, label }) => (
-        <SimpleColor
-          value={color}
-          key={color}
-          aria-label={label}
-          id={color}
-          disabled
-        />
+        <SimpleColor value={color} key={color} aria-label={label} disabled />
       ))}
     </SimpleColorPicker>
   );
@@ -150,7 +144,7 @@ description: Carbon SimpleColorPicker component props and usage examples.
         { color: "#0073C1", label: "blue" },
         { color: "#582C83", label: "purple" },
       ].map(({ color, label }) => (
-        <SimpleColor value={color} key={color} aria-label={label} id={color} />
+        <SimpleColor value={color} key={color} aria-label={label} />
       ))}
     </SimpleColorPicker>
   );

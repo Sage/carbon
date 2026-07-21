@@ -50,7 +50,7 @@ export const Default: Story = () => {
       value={state}
     >
       {colors.map(({ color, label }) => (
-        <SimpleColor value={color} key={color} aria-label={label} id={color} />
+        <SimpleColor value={color} key={color} aria-label={label} />
       ))}
     </SimpleColorPicker>
   );
@@ -76,13 +76,7 @@ export const Disabled: Story = () => {
         { color: "#0073C1", label: "blue" },
         { color: "#582C83", label: "purple" },
       ].map(({ color, label }) => (
-        <SimpleColor
-          value={color}
-          key={color}
-          aria-label={label}
-          id={color}
-          disabled
-        />
+        <SimpleColor value={color} key={color} aria-label={label} disabled />
       ))}
     </SimpleColorPicker>
   );
@@ -109,7 +103,7 @@ export const Required: Story = () => {
         { color: "#0073C1", label: "blue" },
         { color: "#582C83", label: "purple" },
       ].map(({ color, label }) => (
-        <SimpleColor value={color} key={color} aria-label={label} id={color} />
+        <SimpleColor value={color} key={color} aria-label={label} />
       ))}
     </SimpleColorPicker>
   );
