@@ -53,8 +53,6 @@ interface CommonFormFieldProps extends MarginProps, ValidationProps {
   labelWidth?: number;
   /* To use a different HTML element other than <label> */
   labelAs?: LabelProps["as"];
-  /** If true the label switches position with the input */
-  reverse?: boolean;
   /** Id of the validation icon */
   validationIconId?: string;
   /**
@@ -92,6 +90,7 @@ const FormField = ({
   disabled,
   loading,
   fieldHelp: fieldHelpContent,
+  // TODO - remove once ButtonToggle alignment is merged
   fieldHelpInline,
   error,
   warning,
@@ -108,7 +107,6 @@ const FormField = ({
   labelWidth,
   labelAs,
   id,
-  reverse,
   useValidationIcon,
   adaptiveLabelBreakpoint,
   isRequired,
@@ -189,8 +187,6 @@ const FormField = ({
         inline={inlineLabel}
         maxWidth={maxWidth}
       >
-        {reverse && children}
-
         {label && (
           <Label
             labelId={labelId}
@@ -206,8 +202,7 @@ const FormField = ({
             inline={inlineLabel}
             width={labelWidth}
             useValidationIcon={useValidationIcon}
-            pr={!reverse ? labelSpacing : undefined}
-            pl={reverse ? labelSpacing : undefined}
+            pr={labelSpacing}
             isRequired={isRequired}
             validationIconId={validationIconId}
             as={labelAs}
@@ -215,13 +210,10 @@ const FormField = ({
             {label}
           </Label>
         )}
-
-        {fieldHelpInline && fieldHelp}
-
-        {!reverse && children}
+        {children}
       </FieldLineStyle>
 
-      {!fieldHelpInline && fieldHelp}
+      {fieldHelp}
     </FormFieldStyle>
   );
 };

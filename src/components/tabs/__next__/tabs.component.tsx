@@ -478,6 +478,7 @@ export const TabList = forwardRef<TabsHandle, TabListProps>(
             id={`tablist-${idTabList.current}`}
             onKeyDown={handleKeyDown}
             $orientation={orientation}
+            $scrollRequired={scrollRequired}
             ref={tabListRef}
             role="tablist"
             tabIndex={-1}
