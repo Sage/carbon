@@ -11,7 +11,7 @@ import {
   formattedValue,
   parseISODate,
   checkISOFormatAndLength,
-} from "../date/__internal__/utils";
+} from "../date/__internal__/utils/utils";
 import DateInput, { DateChangeEvent, DateInputProps } from "../date";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import tagComponent, {
