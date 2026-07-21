@@ -40,7 +40,18 @@ export const StyledButton = styled(Button)<StyledButtonProps>`
       active ? "--colorsActionMinorGray700" : "--colorsUtilityYin100"}
   );
 
-  [data-component="icon"] {
+  && [data-component="icon"]:not([data-color]) {
+    color: var(--colorsUtilityYang100);
+  }
+
+  &&:hover,
+  &&:active {
+    background-color: var(--colorsActionMinorGray700);
+    border-color: transparent;
+  }
+
+  &&:hover [data-component="icon"]:not([data-color]),
+  &&:active [data-component="icon"]:not([data-color]) {
     color: var(--colorsUtilityYang100);
   }
 
@@ -57,7 +68,18 @@ export const StyledButton = styled(Button)<StyledButtonProps>`
 export const StyledCloseButton = styled(Button)`
   border-radius: 0;
 
-  [data-component="icon"] {
+  && [data-component="icon"]:not([data-color]) {
+    color: var(--colorsUtilityYang100);
+  }
+
+  &&:hover,
+  &&:active {
+    background-color: var(--colorsActionMinorGray700);
+    border-color: transparent;
+  }
+
+  &&:hover [data-component="icon"]:not([data-color]),
+  &&:active [data-component="icon"]:not([data-color]) {
     color: var(--colorsUtilityYang100);
   }
 `;

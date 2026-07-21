@@ -154,27 +154,10 @@ function renderChildren({
   subtext,
   children,
   disabled,
-  buttonType,
 }: RenderChildrenProps) {
-  const iconColor = () => {
-    if (buttonType === "primary") {
-      return "--colorsActionMajorYang100";
-    }
-
-    if (buttonType.includes("gradient")) {
-      return "--colorsActionMinorYin090";
-    }
-
-    return "--colorsActionMajor500";
-  };
-
-  const iconProps: Pick<
-    IconProps,
-    "aria-hidden" | "disabled" | "color" | "bg"
-  > = {
+  const iconProps: Pick<IconProps, "aria-hidden" | "disabled" | "bg"> = {
     "aria-hidden": true,
     disabled,
-    color: iconColor(),
     bg: "transparent",
   };
 
