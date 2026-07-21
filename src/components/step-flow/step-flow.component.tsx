@@ -182,7 +182,7 @@ export const StepFlow = forwardRef<StepFlowHandle, StepFlowProps>(
         {...tagComponent("step-flow", rest)}
       >
         <StyledStepContent>
-          <span aria-hidden="true">{category}</span>
+          {category && <span aria-hidden="true">{category}</span>}
           {stepFlowTitle}
 
           <StyledStepLabel aria-hidden="true">

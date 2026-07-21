@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { StepFlow, StepFlowHandle, StepFlowTitle } from ".";
 import Button from "../button/__next__";
@@ -87,7 +87,10 @@ test("when the 'title' prop is passed as a string, the correct element and text 
     <StepFlow title="foo" currentStep={5} totalSteps={6} ref={() => {}} />,
   );
 
-  expect(screen.getByText("foo")).toBeVisible();
+  const heading = screen.getByRole("heading", { level: 1 });
+  expect(heading).toBeVisible();
+
+  expect(within(heading).getByText("foo")).toBeVisible();
 });
 
 test("when the 'title' prop is passed via the `StepFlowTitle`, the correct element and text renders", () => {

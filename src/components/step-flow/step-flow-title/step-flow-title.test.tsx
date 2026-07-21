@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import { StepFlow, StepFlowTitle } from "..";
 
 import Logger from "../../../__internal__/utils/logger";
@@ -28,7 +28,10 @@ test("when the 'titleString' prop is passed, the correct visible element and tex
     />,
   );
 
-  expect(screen.getByText("title")).toBeVisible();
+  const heading = screen.getByRole("heading", { level: 1 });
+  expect(heading).toBeVisible();
+
+  expect(within(heading).getByText("title")).toBeVisible();
 });
 
 test("when the `StepFlowTitle` is passed via the `title` prop in `StepFlow`, the screen reader only text should be properly populated via context", () => {
