@@ -13,6 +13,7 @@ import OptionGroupHeader from "../option-group-header/option-group-header.compon
 import Box from "../../box";
 import Dialog from "../../dialog";
 import Button from "../../button";
+import Icon from "../../icon";
 
 export const SimpleSelectComponent = (props: Partial<SimpleSelectProps>) => {
   const [value, setValue] = useState("");
@@ -375,5 +376,81 @@ export const WithObjectAsValue = () => {
         ))}
       </Select>
     </>
+  );
+};
+
+export const ListWidth = ({
+  listPlacement,
+  listWidth,
+  margin,
+}: Partial<SimpleSelectProps>) => {
+  const [value, setValue] = useState("");
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(event.target.value);
+  };
+
+  return (
+    <Box width="200px" margin={margin}>
+      <Select
+        label="label"
+        value={value}
+        onChange={handleChange}
+        listPlacement={listPlacement}
+        listWidth={listWidth}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </Select>
+    </Box>
+  );
+};
+
+export const ComplexCustomChildren = () => {
+  return (
+    <Box height={220}>
+      <Select
+        mb={0}
+        key="key"
+        id="id"
+        label="Select"
+        aria-label="aria label"
+        name="name"
+        value="value"
+        isLoading={false}
+        readOnly={false}
+        placeholder="placeholder"
+        onChange={() => {}}
+        onOpen={() => {}}
+        onListScrollBottom={() => {}}
+      >
+        <Option>
+          <Box
+            width="100%"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            mt={2}
+            mb={3}
+            flexDirection="column"
+            as="span"
+          >
+            <Box display="flex" mx={2}>
+              <Icon type="error" color="errorRed" />
+              <Box ml={1} width="100%">
+                <Box mb={1}>
+                  <Typography variant="b" color="negative">
+                    Something went wrong
+                  </Typography>
+                </Box>
+                <Typography variant="p" color="negative" mb={0}>
+                  We couldn't load the data. Please try again later.
+                </Typography>
+              </Box>
+            </Box>
+          </Box>
+        </Option>
+      </Select>
+    </Box>
   );
 };

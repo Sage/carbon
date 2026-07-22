@@ -1,3 +1,9 @@
+## [161.4.0](https://github.com/Sage/carbon/compare/v161.3.1...v161.4.0) (2026-07-21)
+
+### Features
+
+* **typography:** re-enable the ability to change colour ([292588d](https://github.com/Sage/carbon/commit/292588d2d75fc63509e4ab04f848107e0e220901))
+
 ## [161.3.1](https://github.com/Sage/carbon/compare/v161.3.0...v161.3.1) (2026-07-21)
 
 ### Bug Fixes
