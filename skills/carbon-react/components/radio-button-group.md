@@ -24,7 +24,6 @@ description: Carbon RadioButtonGroup component props and usage examples.
 | id | string \| undefined | No |  |  |  | Unique identifier for the component. Will use a randomly generated GUID if none is provided. |  |
 | inline | boolean \| undefined | No |  |  |  | When true, RadioButton children are inline. | false |
 | legend | string \| undefined | No |  |  |  | The content for the RadioButtonGroup legend. |  |
-| legendAlign | "left" \| "right" \| undefined | No |  |  |  | Alignment of the legend. |  |
 | legendHint | string \| undefined | No |  |  |  | Content for the hint text below the legend. |  |
 | m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
 | margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
@@ -49,6 +48,7 @@ description: Carbon RadioButtonGroup component props and usage examples.
 | adaptiveSpacingBreakpoint | number \| undefined | No |  | Yes | The adaptive spacing behaviour is no longer supported on this component. | Breakpoint for adaptive spacing (left margin changes to 0). Enables the adaptive behaviour when set |  |
 | info | string \| boolean \| undefined | No |  | Yes | Information validation is no longer supported on this component. | [Legacy] Indicate additional information. |  |
 | labelSpacing | 1 \| 2 \| undefined | No |  | Yes | Custom spacing for labels is no longer supported on this component. | Spacing between labels and radio buttons, given number will be multiplied by base spacing unit (8) |  |
+| legendAlign | "left" \| "right" \| undefined | No |  | Yes | Right legend alignment is no longer supported. | Alignment of the legend. |  |
 | legendHelp | string \| undefined | No |  | Yes | The `legendHelp` prop is deprecated and will be removed in a future release. Please use the `legendHint` prop instead. | The content for the RadioButtonGroup hint text, will only be rendered when `validationRedesignOptIn` is true. |  |
 | legendInline | boolean \| undefined | No |  | Yes | Inline legends are no longer supported on this component. | When true, legend is placed in line with the RadioButtons |  |
 | legendSpacing | 1 \| 2 \| undefined | No |  | Yes | Custom spacing for legends is no longer supported on this component. | Spacing between legend and field for inline legend, number multiplied by base spacing unit (8) |  |

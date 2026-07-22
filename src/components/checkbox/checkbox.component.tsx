@@ -1,60 +1,129 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef, useEffect, ReactNode } from "react";
 import { MarginProps } from "styled-system";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
-import CheckboxStyle from "./checkbox.style";
+import { StyledCheckbox, StyledCheckboxContentWrapper } from "./checkbox.style";
 import CheckableInput, {
   CommonCheckableInputProps,
 } from "../../__internal__/checkable-input/checkable-input.component";
-import CheckboxSvg from "./checkbox-svg.component";
-import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
-import { TooltipProvider } from "../../__internal__/tooltip-provider";
-import CheckboxGroupContext from "./checkbox-group/__internal__/checkbox-group.context";
-import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
+import CheckboxSvg from "./__internal__/checkbox-svg.component";
+import CheckboxGroupContext from "./__internal__/checkbox-group.context";
+
+import ErrorBorder from "../../__internal__/error-border/error-border.style";
+import ValidationMessage from "../../__internal__/validation-message/__next__";
+import guid from "../../__internal__/utils/helpers/guid";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import FieldsetContext from "../fieldset/__internal__/fieldset.context";
+import type { CheckboxSizes } from "./checkbox-group/checkbox-group.component";
 
 export interface CheckboxProps
   extends CommonCheckableInputProps,
     MarginProps,
     TagProps {
-  /** Breakpoint for adaptive spacing (left margin changes to 0). Enables the adaptive behaviour when set */
+  /**
+   * Breakpoint for adaptive spacing (left margin changes to 0). Enables the adaptive behaviour when set.
+   * @deprecated Adaptive spacing is no longer supported on this component.
+   */
   adaptiveSpacingBreakpoint?: number;
-  /** Prop to specify the aria-labelledby property of the input */
-  "aria-labelledby"?: string;
-  /** [Legacy] Aria label for rendered help component */
+  /**
+   * [Legacy] Aria label for rendered help component
+   * @deprecated Help tooltips are no longer supported on this component.
+   */
   helpAriaLabel?: string;
-  /** When true label is inline */
+  /**
+   * When true label is inline.
+   * @deprecated The checkbox label always renders in line with the input.
+   */
   labelInline?: boolean;
   /** Accepts a callback function which is triggered on click event */
   onClick?: (ev: React.MouseEvent<HTMLInputElement>) => void;
-  /** [Legacy] Overrides the default tooltip position */
+  /**
+   * [Legacy] Overrides the default tooltip position.
+   * @deprecated Tooltips are no longer supported on this component.
+   */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
   /** The value of the checkbox, passed on form submit */
   value?: string;
   /** Handler for change events */
   onChange: (ev: React.ChangeEvent<HTMLInputElement>) => void;
-  /** Checked state of the input */
+  /** Checked state of the input. */
   checked: boolean;
+  /** Indeterminate state of the input, will override checked value. */
+  indeterminate?: boolean;
+  /** Size of the CheckboxGroup. */
+  size?: CheckboxSizes;
+  /** Flag to configure Checkbox as mandatory. */
+  required?: boolean;
+  /** Error message to be displayed when validation fails. */
+  error?: string | boolean;
+  /**
+   * Warning message to be displayed when validation warning occurs.
+   * @deprecated The `warning` state is deprecated and will be removed in a future release.
+   */
+  warning?: string | boolean;
+  /**
+   * [Legacy] Indicate additional information.
+   * @deprecated Information validation is no longer supported on this component.
+   */
+  info?: string | boolean;
+  /**
+   * Help content to be displayed under an input
+   * @deprecated The `fieldHelp` prop is no longer supported, please use the `inputHint` prop instead.
+   */
+  fieldHelp?: ReactNode;
+  /**
+   * If true, the FieldHelp will be displayed inline
+   * To be used with labelInline prop set to true
+   * @deprecated The `fieldHelpInline` prop is no longer supported on this component.
+   */
+  fieldHelpInline?: boolean;
+  /**
+   * [Legacy] The content for the help tooltip, to appear next to the Label
+   * @deprecated The `labelHelp` prop is deprecated and will be removed in a future release. Please use the `inputHint` prop instead.
+   */
+  labelHelp?: ReactNode;
+  /**
+   * [Legacy] Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8)
+   * @deprecated Custom spacing for labels is no longer supported on this component.
+   */
+  labelSpacing?: 1 | 2;
+  /**
+   * [Legacy] Label width
+   * @deprecated Custom label widths are no longer supported on this component.
+   */
+  labelWidth?: number;
+  /**
+   * If true the label switches position with the input
+   * @deprecated Reversed layout is no longer supported on this component.
+   */
+  reverse?: boolean;
+  /**
+   * Sets percentage-based input width
+   * @deprecated Custom input widths are no longer supported on this component.
+   */
+  inputWidth?: number;
+  /**
+   * Render the ValidationMessage above the Checkbox
+   * @deprecated The `validationMessagePositionTop` prop is deprecated and will be removed in a future release.
+   */
+  validationMessagePositionTop?: boolean;
 }
 
 export const Checkbox = React.forwardRef(
   (
     {
-      "aria-labelledby": ariaLabelledBy,
+      "aria-describedby": ariaDescribedBy,
+      "data-element": dataElement,
+      "data-role": dataRole,
       id,
       label,
-      onChange,
+      inputHint,
       name,
-      /* FIXME: FE-4102 */
-      onClick,
-      onBlur,
-      onFocus,
       value,
       fieldHelp,
       autoFocus,
       labelHelp,
-      labelSpacing = 1,
+      labelSpacing,
       labelWidth,
       adaptiveSpacingBreakpoint,
       required,
@@ -62,113 +131,133 @@ export const Checkbox = React.forwardRef(
       warning,
       info,
       fieldHelpInline,
-      reverse = false,
+      reverse,
       checked,
+      indeterminate,
       disabled,
       inputWidth,
-      size,
+      size = "medium",
       tooltipPosition,
-      "data-element": dataElement,
-      "data-role": dataRole,
       helpAriaLabel,
+      progressiveDisclosure,
+      validationMessagePositionTop = true,
       ...rest
     }: CheckboxProps,
     ref: React.ForwardedRef<HTMLInputElement>,
   ) => {
-    const { validationRedesignOptIn } = useContext(NewValidationContext);
+    const internalId = useRef(guid());
+    const internalInputRef = useRef<HTMLInputElement | null>(null);
+    const uniqueId = id || internalId.current;
 
-    const largeScreen = useIsAboveBreakpoint(adaptiveSpacingBreakpoint);
-    const adaptiveSpacingSmallScreen = !!(
-      adaptiveSpacingBreakpoint && !largeScreen
-    );
-    const checkboxGroupContext = useContext(CheckboxGroupContext);
+    const validationId =
+      error || warning ? `${uniqueId}-validation-message` : undefined;
+
+    const combinedAriaDescribedBy = [validationId, ariaDescribedBy]
+      .filter(Boolean)
+      .join(" ");
+
     const {
       error: contextError,
       warning: contextWarning,
-      info: contextInfo,
-    } = checkboxGroupContext;
+      inline,
+      size: contextSize,
+      disabled: contextDisabled,
+      required: contextRequired,
+    } = useContext(CheckboxGroupContext);
+
+    const isInGroup = contextSize !== undefined;
 
     const { size: fieldsetSize, hasError: fieldsetError } =
       useContext(FieldsetContext);
-    let actualSize = fieldsetSize || size;
-    if (actualSize === "medium") {
-      actualSize = "small";
-    }
+    const actualSize = fieldsetSize || contextSize || size;
+    const actualError = contextError || fieldsetError || !!error;
 
-    const inputProps = {
-      ariaLabelledBy,
-      onClick,
-      onChange,
-      onBlur,
-      onFocus,
-      labelInline: true,
-      id,
-      label,
-      value,
-      type: "checkbox",
-      name,
-      reverse: !reverse,
-      fieldHelp,
-      autoFocus,
-      labelHelp,
-      labelSpacing,
-      required,
-      fieldHelpInline,
-      checked,
-      disabled,
-      inputWidth,
-      labelWidth,
-      ref,
-      ...rest,
-      "data-component": undefined,
+    const setInputRef = (node: HTMLInputElement | null) => {
+      internalInputRef.current = node;
+
+      if (typeof ref === "function") {
+        ref(node);
+      } else if (ref) {
+        ref.current = node;
+      }
     };
 
-    const validationProps = {
-      error: contextError || error || fieldsetError,
-      warning: contextWarning || warning,
-      ...(validationRedesignOptIn
-        ? { validationOnLabel: false }
-        : { info: contextInfo || info }),
+    const isIndeterminate = !!indeterminate;
+
+    // Set indeterminate state
+    useEffect(() => {
+      /* istanbul ignore else */
+      if (internalInputRef.current) {
+        internalInputRef.current.indeterminate = isIndeterminate;
+      }
+    }, [indeterminate]);
+
+    const validationMessage = () => {
+      if (error || warning) {
+        return (
+          <>
+            <ValidationMessage
+              error={error}
+              warning={warning}
+              id={validationId}
+              size={fieldsetSize || size}
+            />
+            <ErrorBorder $warning={!!(!error && warning)} />
+          </>
+        );
+      }
+      return null;
     };
 
-    const marginProps = filterStyledSystemMarginProps(rest);
-
-    const componentToRender = (
-      <CheckboxStyle
-        disabled={disabled}
-        labelSpacing={labelSpacing}
-        inputWidth={inputWidth}
-        adaptiveSpacingSmallScreen={adaptiveSpacingSmallScreen}
-        {...validationProps}
-        fieldHelpInline={fieldHelpInline}
-        reverse={reverse}
+    const checkboxInput = (
+      <CheckableInput
+        type="checkbox"
+        id={id}
+        name={name}
+        value={value}
+        label={label}
+        inputHint={inputHint || labelHelp}
+        disabled={contextDisabled || disabled}
+        required={contextRequired || required}
+        showRequiredAsterisk={required}
+        checked={checked}
+        ref={setInputRef}
+        autoFocus={autoFocus}
         size={actualSize}
-        applyNewValidation={validationRedesignOptIn}
-        {...marginProps}
+        error={actualError}
+        warning={contextWarning || !!warning}
+        aria-describedby={combinedAriaDescribedBy}
+        aria-checked={indeterminate ? "mixed" : checked}
+        {...(!inline && { progressiveDisclosure })}
+        {...rest}
+      >
+        <CheckboxSvg indeterminate={isIndeterminate} />
+      </CheckableInput>
+    );
+
+    return (
+      <StyledCheckbox
+        $isDisabled={disabled || contextDisabled}
+        $size={actualSize}
+        $error={actualError}
+        $checked={!!checked}
+        $indeterminate={isIndeterminate}
+        {...filterStyledSystemMarginProps(rest)}
         {...tagComponent("checkbox", {
           "data-element": dataElement,
           "data-role": dataRole,
         })}
       >
-        <CheckableInput {...inputProps} {...validationProps}>
-          <CheckboxSvg />
-        </CheckableInput>
-      </CheckboxStyle>
-    );
-
-    return (
-      <>
-        {validationRedesignOptIn ? (
-          componentToRender
+        {isInGroup ? (
+          checkboxInput
         ) : (
-          <TooltipProvider
-            helpAriaLabel={helpAriaLabel}
-            tooltipPosition={tooltipPosition}
-          >
-            {componentToRender}
-          </TooltipProvider>
+          <StyledCheckboxContentWrapper $size={fieldsetSize || size}>
+            {validationMessagePositionTop && validationMessage()}
+            {checkboxInput}
+            {!validationMessagePositionTop && validationMessage()}
+          </StyledCheckboxContentWrapper>
         )}
-      </>
+      </StyledCheckbox>
     );
   },
 );

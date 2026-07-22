@@ -1,437 +1,256 @@
 import React, { useState } from "react";
-import { action } from "storybook/actions";
+import { Meta, StoryObj } from "@storybook/react-vite";
+import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
-import { Checkbox, CheckboxGroup, CheckboxProps, CheckboxGroupProps } from ".";
+import { Checkbox, CheckboxProps } from ".";
 import Box from "../box";
-import CarbonProvider from "../carbon-provider";
+import Textbox from "../textbox";
+import Icon from "../icon";
 
-export default {
+const styledSystemProps = generateStyledSystemProps({
+  margin: true,
+});
+
+const meta = {
   title: "Checkbox/Test",
+  component: Checkbox,
+  argTypes: {
+    ...styledSystemProps,
+  },
   parameters: {
-    info: { disable: true },
-    chromatic: {
-      disableSnapshot: false,
-    },
     themeProvider: { chromatic: { theme: "sage" } },
   },
-};
+} satisfies Meta<typeof Checkbox>;
 
-export const Default = ({
+export default meta;
+type Story = StoryObj<typeof Checkbox>;
+
+const ControlledCheckbox = ({
   ...args
 }: Omit<CheckboxProps, "checked" | "onChange">) => {
   const [isChecked, setIsChecked] = useState(false);
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { checked } = event.target;
-    setIsChecked(checked);
-    action("change")(`checked: ${checked}`);
-  };
 
   return (
     <Checkbox
-      onChange={handleChange}
       checked={isChecked}
-      onBlur={action("onBlur")}
+      onChange={(e) => setIsChecked(e.target.checked)}
       {...args}
     />
   );
 };
 
-Default.storyName = "Default";
+const CustomLabel = () => (
+  <>
+    <Icon type="placeholder" aria-hidden />
+    Checkbox
+  </>
+);
 
-Default.args = {
-  id: "default",
-  label: "Example Checkbox",
-  autoFocus: false,
-  disabled: false,
-  fieldHelp: "This text provides help for the input.",
-  fieldHelpInline: false,
-  reverse: false,
-  labelHelp: "This text provides more information for the label.",
-  inputWidth: 0,
-  labelWidth: 0,
-  labelSpacing: 1,
-  size: "small",
-  value: "",
-  ml: "0",
-  adaptiveSpacingBreakpoint: 0,
-  required: false,
-  helpAriaLabel: "",
-  validationOnLabel: false,
-  validationIconId: "",
-  error: "",
-  warning: "",
-  info: "",
-};
-Default.argTypes = {
-  labelSpacing: {
-    options: [1, 2],
-    control: {
-      type: "select",
-    },
-  },
-  size: {
-    options: ["small", "large"],
-    control: {
-      type: "select",
-    },
+export const Chromatic: Story = {
+  render: (args) => (
+    <>
+      <ControlledCheckbox label="Checkbox" {...args} />
+      <ControlledCheckbox
+        label="Checkbox with Input Hint"
+        inputHint="Input Hint"
+        {...args}
+      />
+      <ControlledCheckbox
+        label="Checkbox Small"
+        inputHint="Input Hint"
+        size="small"
+        required
+        {...args}
+      />
+      <ControlledCheckbox
+        label="Checkbox Medium"
+        inputHint="Input Hint"
+        size="medium"
+        required
+        {...args}
+      />
+      <ControlledCheckbox
+        label="Checkbox Large"
+        inputHint="Input Hint"
+        size="large"
+        required
+        {...args}
+      />
+      <ControlledCheckbox
+        label={<CustomLabel />}
+        inputHint="Checkbox with custom label"
+        {...args}
+      />
+      <ControlledCheckbox
+        label="Checkbox Disabled"
+        inputHint="Checkbox Disabled"
+        disabled
+        required
+        {...args}
+      />
+    </>
+  ),
+  args: {
+    mb: 2,
   },
 };
 
-export const WithLongLabel = ({ label, size, ...args }: CheckboxProps) => {
+export const Validation: Story = {
+  render: (args) => (
+    <Box m={2} display="flex" gap={4}>
+      <Box display="flex" flexDirection="column" gap={2}>
+        <ControlledCheckbox
+          label="With Error Small"
+          error="Error Message"
+          size="small"
+          required
+          {...args}
+        />
+        <ControlledCheckbox
+          label="With Warning Small"
+          warning="Warning Message"
+          size="small"
+          {...args}
+        />
+        <ControlledCheckbox
+          label="With Error at Bottom Small"
+          error="Error Message"
+          validationMessagePositionTop={false}
+          size="small"
+          {...args}
+        />
+        <ControlledCheckbox
+          label="With Warning at Bottom Small"
+          warning="Warning Message"
+          validationMessagePositionTop={false}
+          size="small"
+          {...args}
+        />
+      </Box>
+      <Box display="flex" flexDirection="column" gap={2}>
+        <ControlledCheckbox
+          label="With Error"
+          error="Error Message"
+          required
+          {...args}
+        />
+        <ControlledCheckbox
+          label="With Warning"
+          warning="Warning Message"
+          {...args}
+        />
+        <ControlledCheckbox
+          label="With Error at Bottom"
+          error="Error Message"
+          validationMessagePositionTop={false}
+          {...args}
+        />
+        <ControlledCheckbox
+          label="With Warning at Bottom"
+          warning="Warning Message"
+          validationMessagePositionTop={false}
+          {...args}
+        />
+      </Box>
+      <Box display="flex" flexDirection="column" gap={2}>
+        <ControlledCheckbox
+          label="With Error Large"
+          error="Error Message"
+          size="large"
+          required
+          {...args}
+        />
+        <ControlledCheckbox
+          label="With Warning Large"
+          warning="Warning Message"
+          size="large"
+          {...args}
+        />
+        <ControlledCheckbox
+          label="With Error at Bottom Large"
+          error="Error Message"
+          validationMessagePositionTop={false}
+          size="large"
+          {...args}
+        />
+        <ControlledCheckbox
+          label="With Warning at Bottom Large"
+          warning="Warning Message"
+          validationMessagePositionTop={false}
+          size="large"
+          {...args}
+        />
+      </Box>
+    </Box>
+  ),
+  args: {
+    inputHint: "Hint Text",
+  },
+};
+
+const DisclosedContent = () => {
+  const [textboxValue, setTextboxValue] = useState("");
+
   return (
-    <Box padding="25px" width="250px">
-      <Checkbox size={size || "large"} label={label} mb={2} {...args} />
-      <Checkbox label={label} size={size} {...args} />
+    <Box width="300px">
+      <Textbox
+        label="Revealed Textbox"
+        value={textboxValue}
+        onChange={(ev) => setTextboxValue(ev.target.value)}
+      />
     </Box>
   );
 };
 
-WithLongLabel.storyName = "With long label";
-WithLongLabel.args = {
-  label: "A really long description that will wrap onto the next line.",
-  size: "",
-};
-
-export const Validation = ({ ...args }: CheckboxGroupProps) => {
-  const [state1, setState1] = useState(false);
-  const [state2, setState2] = useState(false);
-  const [state3, setState3] = useState(false);
-  const [state4, setState4] = useState(false);
-  const [state5, setState5] = useState(false);
-  const [state6, setState6] = useState(false);
-
-  return (
+export const ProgressiveDisclosure: Story = {
+  render: (args) => (
     <>
-      <CheckboxGroup error="Error Message" mb={2} {...args}>
-        <Checkbox
-          label="Checkbox 1"
-          checked={state1}
-          onChange={(e) => setState1(e.target.checked)}
-        />
-        <Checkbox
-          label="Checkbox 2"
-          checked={state2}
-          onChange={(e) => setState2(e.target.checked)}
-        />
-      </CheckboxGroup>
-      <CheckboxGroup warning="Warning Message" mb={2} {...args}>
-        <Checkbox
-          label="Checkbox 1"
-          checked={state3}
-          onChange={(e) => setState3(e.target.checked)}
-        />
-        <Checkbox
-          label="Checkbox 2"
-          checked={state4}
-          onChange={(e) => setState4(e.target.checked)}
-        />
-      </CheckboxGroup>
-      <CheckboxGroup info="Info Message" {...args}>
-        <Checkbox
-          label="Checkbox 1"
-          checked={state5}
-          onChange={(e) => setState5(e.target.checked)}
-        />
-        <Checkbox
-          label="Checkbox 2"
-          checked={state6}
-          onChange={(e) => setState6(e.target.checked)}
-        />
-      </CheckboxGroup>
+      <ControlledCheckbox
+        label="Progressive Disclosure Small"
+        size="small"
+        {...args}
+      />
+      <ControlledCheckbox
+        label="Progressive Disclosure Medium"
+        size="medium"
+        {...args}
+      />
+      <ControlledCheckbox
+        label="Progressive Disclosure Large"
+        size="large"
+        {...args}
+      />
     </>
-  );
-};
-Validation.storyName = "Validation";
-Validation.args = {
-  id: "validation",
-  legend: "Checkbox Group",
-  legendInline: false,
-  legendWidth: 0,
-  legendAlign: "left",
-  legendSpacing: 1,
-  required: false,
-  inline: false,
-};
-Validation.argTypes = {
-  legendSpacing: {
-    options: [1, 2],
-    control: {
-      type: "select",
-    },
+  ),
+  args: {
+    mb: 2,
+    checked: true,
+    progressiveDisclosure: <DisclosedContent />,
+  },
+  parameters: {
+    chromatic: { delay: 500 },
   },
 };
-Validation.parameters = {
-  chromatic: { disableSnapshot: false },
-  themeProvider: { chromatic: { theme: "sage" } },
-};
 
-export const NewValidation = () => {
-  const [state1, setState1] = useState(false);
-  const [state2, setState2] = useState(false);
-  const [state3, setState3] = useState(false);
-  const [state4, setState4] = useState(false);
-  const [state5, setState5] = useState(false);
-  const [state6, setState6] = useState(false);
-  const [state7, setState7] = useState(false);
-  const [state8, setState8] = useState(false);
-
-  return (
-    <CarbonProvider validationRedesignOptIn>
-      <CheckboxGroup
-        error="Error message (Fix is required)"
-        legend="Label"
-        legendHelp="Hint Text"
-        required
-      >
-        <Checkbox
-          label="Checkbox 1"
-          checked={state1}
-          onChange={(e) => setState1(e.target.checked)}
-        />
-        <Checkbox
-          label="Checkbox 2"
-          checked={state2}
-          onChange={(e) => setState2(e.target.checked)}
-        />
-      </CheckboxGroup>
-      <CheckboxGroup
-        mt={2}
-        warning="Warning message"
-        legend="Label"
-        legendHelp="Hint text"
-        required
-      >
-        <Checkbox
-          label="Checkbox 1"
-          checked={state3}
-          onChange={(e) => setState3(e.target.checked)}
-        />
-        <Checkbox
-          label="Checkbox 2"
-          checked={state4}
-          onChange={(e) => setState4(e.target.checked)}
-        />
-      </CheckboxGroup>
-      <CheckboxGroup
-        validationMessagePositionTop={false}
-        mt={2}
-        error="Error message (Fix is required)"
-        legend="Label"
-        legendHelp="Hint Text"
-        required
-      >
-        <Checkbox
-          label="Checkbox 1"
-          checked={state5}
-          onChange={(e) => setState5(e.target.checked)}
-        />
-        <Checkbox
-          label="Checkbox 2"
-          checked={state6}
-          onChange={(e) => setState6(e.target.checked)}
-        />
-      </CheckboxGroup>
-      <CheckboxGroup
-        validationMessagePositionTop={false}
-        mt={2}
-        warning="Warning message"
-        legend="Label"
-        legendHelp="Hint text"
-        required
-      >
-        <Checkbox
-          label="Checkbox 1"
-          checked={state7}
-          onChange={(e) => setState7(e.target.checked)}
-        />
-        <Checkbox
-          label="Checkbox 2"
-          checked={state8}
-          onChange={(e) => setState8(e.target.checked)}
-        />
-      </CheckboxGroup>
-    </CarbonProvider>
-  );
-};
-NewValidation.storyName = "New Validation";
-NewValidation.parameters = {
-  chromatic: { disableSnapshot: false },
-  themeProvider: { chromatic: { theme: "sage" } },
-};
-
-export const NewValidationInline = () => {
-  const [state1, setState1] = useState(false);
-  const [state2, setState2] = useState(false);
-  const [state3, setState3] = useState(false);
-  const [state4, setState4] = useState(false);
-  const [state5, setState5] = useState(false);
-  const [state6, setState6] = useState(false);
-  const [state7, setState7] = useState(false);
-  const [state8, setState8] = useState(false);
-  const [state9, setState9] = useState(false);
-  const [state10, setState10] = useState(false);
-  const [state11, setState11] = useState(false);
-  const [state12, setState12] = useState(false);
-
-  return (
-    <CarbonProvider validationRedesignOptIn>
-      <CheckboxGroup
-        error="Error message (Fix is required)"
-        legend="Label"
-        legendHelp="Hint Text"
-        required
-        inline
-      >
-        <Checkbox
-          label="Checkbox 1"
-          checked={state1}
-          onChange={(e) => setState1(e.target.checked)}
-        />
-        <Checkbox
-          label="Checkbox 2"
-          checked={state2}
-          onChange={(e) => setState2(e.target.checked)}
-        />
-        <Checkbox
-          label="Checkbox 3"
-          checked={state3}
-          onChange={(e) => setState3(e.target.checked)}
-        />
-      </CheckboxGroup>
-      <CheckboxGroup
-        mt={2}
-        warning="Warning message"
-        legend="Label"
-        legendHelp="Hint text"
-        required
-        inline
-      >
-        <Checkbox
-          label="Checkbox 1"
-          checked={state4}
-          onChange={(e) => setState4(e.target.checked)}
-        />
-        <Checkbox
-          label="Checkbox 2"
-          checked={state5}
-          onChange={(e) => setState5(e.target.checked)}
-        />
-        <Checkbox
-          label="Checkbox 3"
-          checked={state6}
-          onChange={(e) => setState6(e.target.checked)}
-        />
-      </CheckboxGroup>
-      <CheckboxGroup
-        mt={2}
-        validationMessagePositionTop={false}
-        error="Error message (Fix is required)"
-        legend="Label"
-        legendHelp="Hint Text"
-        required
-        inline
-      >
-        <Checkbox
-          label="Checkbox 1"
-          checked={state7}
-          onChange={(e) => setState7(e.target.checked)}
-        />
-        <Checkbox
-          label="Checkbox 2"
-          checked={state8}
-          onChange={(e) => setState8(e.target.checked)}
-        />
-        <Checkbox
-          label="Checkbox 3"
-          checked={state9}
-          onChange={(e) => setState9(e.target.checked)}
-        />
-      </CheckboxGroup>
-      <CheckboxGroup
-        mt={2}
-        validationMessagePositionTop={false}
-        warning="Warning message"
-        legend="Label"
-        legendHelp="Hint text"
-        required
-        inline
-      >
-        <Checkbox
-          label="Checkbox 1"
-          checked={state10}
-          onChange={(e) => setState10(e.target.checked)}
-        />
-        <Checkbox
-          label="Checkbox 2"
-          checked={state11}
-          onChange={(e) => setState11(e.target.checked)}
-        />
-        <Checkbox
-          label="Checkbox 3"
-          checked={state12}
-          onChange={(e) => setState12(e.target.checked)}
-        />
-      </CheckboxGroup>
-    </CarbonProvider>
-  );
-};
-NewValidationInline.storyName = "New Validation Inline";
-NewValidationInline.parameters = {
-  chromatic: { disableSnapshot: false },
-  themeProvider: { chromatic: { theme: "sage" } },
-};
-
-export const WithLegendAlignment = ({ ...args }: CheckboxGroupProps) => {
-  const [state1, setState1] = useState(false);
-  const [state2, setState2] = useState(false);
-  const [state3, setState3] = useState(false);
-  const [state4, setState4] = useState(false);
-
-  return (
-    <CarbonProvider validationRedesignOptIn>
-      <Box width="fit-content">
-        <CheckboxGroup {...args} legendAlign="left" mb={2}>
-          <Checkbox
-            label="Checkbox option 1"
-            checked={state1}
-            onChange={(ev) => setState1(ev.target.checked)}
-          />
-          <Checkbox
-            label="Checkbox option 2"
-            fieldHelp="fieldHelp Text"
-            checked={state2}
-            onChange={(ev) => setState2(ev.target.checked)}
-          />
-        </CheckboxGroup>
-        <CheckboxGroup {...args} legendAlign="right">
-          <Checkbox
-            label="Checkbox option 1"
-            checked={state3}
-            onChange={(ev) => setState3(ev.target.checked)}
-          />
-          <Checkbox
-            label="Checkbox option 2"
-            fieldHelp="fieldHelp Text"
-            checked={state4}
-            onChange={(ev) => setState4(ev.target.checked)}
-          />
-        </CheckboxGroup>
-      </Box>
-    </CarbonProvider>
-  );
-};
-WithLegendAlignment.storyName = "With Legend Alignment";
-WithLegendAlignment.args = {
-  id: "label-align",
-  legend: "Checkbox Group",
-  legendHelp: "Help text",
-  legendInline: false,
-  required: false,
-  validationIconId: "",
-  error: "Error message",
-  warning: "",
-};
-WithLegendAlignment.parameters = {
-  chromatic: { disableSnapshot: false },
-  themeProvider: { chromatic: { theme: "sage" } },
+export const IndeterminateSizesWithFocus: Story = {
+  render: (args) => (
+    <>
+      <ControlledCheckbox label="Indeterminate Small" size="small" {...args} />
+      <ControlledCheckbox
+        label="Indeterminate Medium"
+        size="medium"
+        {...args}
+      />
+      <ControlledCheckbox label="Indeterminate Large" size="large" {...args} />
+    </>
+  ),
+  args: {
+    mb: 2,
+    indeterminate: true,
+  },
+  parameters: {
+    pseudo: {
+      focus: '[aria-checked="mixed"]',
+    },
+  },
 };

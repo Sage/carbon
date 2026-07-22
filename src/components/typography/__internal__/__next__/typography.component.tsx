@@ -29,6 +29,17 @@ export const VARIANT_TYPES = [
 
 type VariantTypes = (typeof VARIANT_TYPES)[number];
 
+export const TYPOGRAPHY_COLOR_TYPES = [
+  "neutral",
+  "subtle",
+  "caution",
+  "info",
+  "negative",
+  "positive",
+] as const;
+
+export type TypographyColorTypes = (typeof TYPOGRAPHY_COLOR_TYPES)[number];
+
 export const ALLOWED_CSS_TEXT_OVERRIDE_KEYS = [
   "textTransform",
   "textDecoration",
@@ -68,6 +79,9 @@ export interface TypographyProps
   screenReaderOnly?: boolean;
   /** The size to apply to text. Only available for non-heading variants. */
   size?: "M" | "L";
+  /** The semantic color name to apply to text. */
+  color?: TypographyColorTypes;
+  /** @deprecated Use `color` instead. */
   /** The color tint to apply to text. Accepts "default" for standard text color or "alt" for alternative text color. Only available for non-heading variants. */
   tint?: "default" | "alt";
   /** The font weight to apply to text. Only available for non-heading variants. Note: Has no effect on "strong" or "b" variants as they have fixed medium weight. */
@@ -89,6 +103,7 @@ export const Typography = ({
   inverse = false,
   screenReaderOnly = false,
   size = "M",
+  color,
   tint = "default",
   weight = "regular",
   role,
@@ -97,6 +112,8 @@ export const Typography = ({
   className,
   ...rest
 }: TypographyProps) => {
+  const resolvedColor = color ?? (tint === "alt" ? "subtle" : "neutral");
+
   function calculateAs() {
     if (as) {
       return as;
@@ -125,7 +142,7 @@ export const Typography = ({
       $inverse={inverse}
       $screenReaderOnly={screenReaderOnly}
       $size={size}
-      $tint={tint}
+      $color={resolvedColor}
       $weight={weight}
       role={role}
       aria-hidden={ariaHidden}

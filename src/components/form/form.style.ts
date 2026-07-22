@@ -10,27 +10,27 @@ import { StyledSelectMultiSelect } from "../select/multi-select/multi-select.sty
 import { StyledSwitch } from "../switch/switch.style";
 
 interface StyledFormContentProps {
-  stickyFooter?: boolean;
-  isInModal?: boolean;
-  fieldSpacing?: string;
+  $stickyFooter?: boolean;
+  $isInModal?: boolean;
+  $fieldSpacing?: string;
 }
 
 export const StyledFormContent = styled.div<StyledFormContentProps>`
   height: 100%;
 
-  ${({ stickyFooter, isInModal }) =>
-    stickyFooter &&
-    isInModal &&
+  ${({ $stickyFooter, $isInModal }) =>
+    $stickyFooter &&
+    $isInModal &&
     css`
       flex-grow: 1;
       min-height: 0;
       overflow-y: auto;
     `}
 
-  ${({ fieldSpacing }) =>
-    fieldSpacing &&
+  ${({ $fieldSpacing }) =>
+    $fieldSpacing &&
     css`
-      --fieldSpacing: ${fieldSpacing};
+      --fieldSpacing: ${$fieldSpacing};
 
       ${StyledFormField} {
         margin-top: var(--spacing000);
@@ -47,18 +47,19 @@ export const StyledFormContent = styled.div<StyledFormContentProps>`
 `;
 
 interface StyledFormFooterProps {
-  hasFooterChildren?: boolean;
-  stickyFooter?: boolean;
-  stickyFooterVariant?: "light" | "grey";
-  fullWidthButtons?: boolean;
-  buttonAlignment?: FormButtonAlignment;
+  $hasFooterChildren?: boolean;
+  $stickyFooter?: boolean;
+  $stickyFooterVariant?: "light" | "grey";
+  $fullWidthButtons?: boolean;
+  $buttonAlignment?: FormButtonAlignment;
+  disableStickyOnSmallScreen?: boolean;
 }
 
 export const StyledFormFooter = styled.div.attrs(
   applyBaseTheme,
 )<StyledFormFooterProps>`
-  ${({ hasFooterChildren }) =>
-    !hasFooterChildren &&
+  ${({ $hasFooterChildren }) =>
+    !$hasFooterChildren &&
     css`
       align-items: center;
       display: flex;
@@ -66,26 +67,26 @@ export const StyledFormFooter = styled.div.attrs(
       gap: var(--sizing200);
     `}
 
-  ${({ buttonAlignment }) =>
-    buttonAlignment === "right" &&
+  ${({ $buttonAlignment }) =>
+    $buttonAlignment === "right" &&
     css`
       justify-content: flex-end;
     `}
 
-  ${({ stickyFooter, stickyFooterVariant, fullWidthButtons }) => css`
-    ${!stickyFooter &&
+  ${({ $stickyFooter, $stickyFooterVariant, $fullWidthButtons }) => css`
+    ${!$stickyFooter &&
     css`
       margin-top: 48px;
     `}
 
-    ${stickyFooter &&
+    ${$stickyFooter &&
     css`
-      background-color: ${stickyFooterVariant === "light"
+      background-color: ${$stickyFooterVariant === "light"
         ? "var(--colorsUtilityYang100)"
         : "var(--colorsUtilityMajor025)"};
       box-shadow: var(--boxShadow150);
       box-sizing: border-box;
-      ${stickyFooterVariant === "grey" &&
+      ${$stickyFooterVariant === "grey" &&
       "border-top: 1px solid var(--colorsUtilityMajor050);"}
       padding: 16px 32px;
       width: 100%;
@@ -94,7 +95,7 @@ export const StyledFormFooter = styled.div.attrs(
       bottom: 0;
     `}
 
-    ${fullWidthButtons &&
+    ${$fullWidthButtons &&
     css`
       flex-direction: column;
       align-items: stretch;
@@ -102,29 +103,38 @@ export const StyledFormFooter = styled.div.attrs(
   `}
 
   ${padding}
+
+  ${({ disableStickyOnSmallScreen }) =>
+    disableStickyOnSmallScreen &&
+    css`
+      @media screen and (max-width: 600px) {
+        position: static;
+        box-shadow: none;
+      }
+    `}
 `;
 
 interface StyledFormProps extends StyledFormContentProps {
-  height?: string;
+  $height?: string;
 }
 
 export const StyledForm = styled.form.attrs(applyBaseTheme)<StyledFormProps>`
   ${space}
 
-  ${({ height }) =>
-    height &&
+  ${({ $height }) =>
+    $height &&
     css`
-      height: ${height};
+      height: ${$height};
     `}
 
-  ${({ stickyFooter, isInModal }) =>
-    stickyFooter &&
+  ${({ $stickyFooter, $isInModal }) =>
+    $stickyFooter &&
     css`
       display: flex;
       flex-direction: column;
       position: relative;
 
-      ${isInModal &&
+      ${$isInModal &&
       css`
         flex-grow: 1;
         min-height: 0;
@@ -134,20 +144,20 @@ export const StyledForm = styled.form.attrs(applyBaseTheme)<StyledFormProps>`
 `;
 
 export const StyledRightButtons = styled.div<{
-  buttonAlignment?: FormButtonAlignment;
+  $buttonAlignment?: FormButtonAlignment;
 }>`
   display: flex;
   gap: var(--sizing200);
 
-  ${({ buttonAlignment }) => buttonAlignment === "left" && "flex-grow: 1;"}
+  ${({ $buttonAlignment }) => $buttonAlignment === "left" && "flex-grow: 1;"}
 `;
 
 export const StyledLeftButtons = styled.div<{
-  buttonAlignment?: FormButtonAlignment;
+  $buttonAlignment?: FormButtonAlignment;
 }>`
   display: flex;
   justify-content: flex-end;
   gap: var(--sizing200);
 
-  ${({ buttonAlignment }) => buttonAlignment === "right" && "flex-grow: 1;"}
+  ${({ $buttonAlignment }) => $buttonAlignment === "right" && "flex-grow: 1;"}
 `;

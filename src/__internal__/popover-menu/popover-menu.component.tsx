@@ -1,17 +1,19 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import styled, { css } from "styled-components";
+import styled, { css, CSSObject } from "styled-components";
 import Popover from "../popover";
 import { flip, offset, size } from "@floating-ui/dom";
 import wrapChildrenInMenuItems from "./utils";
 import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
-import { ButtonHandle } from "../../components/button/__next__";
 import { useHandleDropdownMenuKeyDown } from "./hooks";
 import guid from "../utils/helpers/guid";
 import { PopoverMenuContext, type PopoverMenuContextProps } from "./contexts";
 import { TagProps } from "../utils/helpers/tags";
 
-const PopoverControlWrapper = styled.div`
+const PopoverControlWrapper = styled.div<{
+  $controlWrapperStyle?: CSSObject;
+}>`
   display: inline-block;
+  ${({ $controlWrapperStyle }) => $controlWrapperStyle}
 `;
 
 interface ListProps {
@@ -61,29 +63,17 @@ interface PopoverControlProps {
   "aria-activedescendant"?: string;
 }
 
-type FocusableHandle =
-  | NonNullable<ButtonHandle>
-  | HTMLElement
-  | HTMLButtonElement
-  | HTMLAnchorElement
-  | HTMLInputElement;
+type FocusableHandle = HTMLElement;
 
-function isFocusButtonHandle(
-  handle: FocusableHandle,
-): handle is NonNullable<ButtonHandle> {
-  return "focusButton" in handle;
-}
-
-export interface PopoverMenuProps<
-  TRef extends FocusableHandle = NonNullable<ButtonHandle>,
-> extends TagProps {
+export interface PopoverMenuProps<TRef extends FocusableHandle = HTMLElement>
+  extends TagProps {
   /** The content of the popover menu */
   children: React.ReactNode;
   /** Whether the popover menu is open or not */
   open: boolean;
   /** The element that the popover menu is anchored to */
   popoverControl?: (
-    ref: React.RefObject<TRef>,
+    ref: React.MutableRefObject<TRef | null>,
     props: PopoverControlProps,
   ) => React.ReactNode;
   size?: PopoverMenuContextProps["size"];
@@ -104,7 +94,7 @@ export interface PopoverMenuProps<
   /** Middleware for the popover menu */
   middleware?: typeof menuPopoverMiddleware;
   /** Ref for the submenu control element */
-  submenuControlRef?: React.RefObject<HTMLElement>;
+  submenuControlRef?: React.MutableRefObject<HTMLElement | null>;
   /** id applied to the outer wrapper element (e.g. for aria-controls) */
   id?: string;
   /** Blur handler for the outer wrapper element */
@@ -115,6 +105,8 @@ export interface PopoverMenuProps<
   onClose: (e?: Event, value?: string) => void;
   /** Set the custom width of the menu */
   width?: string;
+  /** Custom styles for the control wrapper element */
+  controlWrapperStyle?: CSSObject;
   /** Aria labelledby for the listbox */
   listboxAriaLabelledBy?: string;
 }
@@ -134,19 +126,10 @@ const menuPopoverMiddleware = (width?: string) => [
 ];
 
 const focusControl = (handle: FocusableHandle | null) => {
-  /* istanbul ignore if */
-  if (!handle) {
-    return;
-  }
-
-  if (isFocusButtonHandle(handle)) {
-    handle.focusButton();
-  } else {
-    handle.focus();
-  }
+  handle?.focus();
 };
 
-const PopoverMenu = <TRef extends FocusableHandle = NonNullable<ButtonHandle>>({
+const PopoverMenu = <TRef extends FocusableHandle = HTMLElement>({
   children,
   open,
   popoverControl,
@@ -155,6 +138,7 @@ const PopoverMenu = <TRef extends FocusableHandle = NonNullable<ButtonHandle>>({
   onOpen,
   onClose,
   width,
+  controlWrapperStyle,
   listboxAriaLabelledBy,
   ...rest
 }: PopoverMenuProps<TRef>) => {
@@ -225,6 +209,7 @@ const PopoverMenu = <TRef extends FocusableHandle = NonNullable<ButtonHandle>>({
           ref={controlWrapperRef}
           onKeyDown={handleControlKeyDown}
           data-component="popover-menu-control"
+          $controlWrapperStyle={controlWrapperStyle}
         >
           {popoverControl(controlRef, {
             "aria-haspopup": "listbox",

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { MarginProps } from "styled-system";
 
 import tagComponent, {
@@ -12,6 +12,7 @@ import { StyledLoader, StyledLabel } from "./loader.style";
 import StandaloneLoader from "./internal/standalone-loader.component";
 import RingLoader from "./internal/ring-loader.component";
 import StarsLoader from "./internal/stars-loader.component";
+import ButtonContext from "../../button/__next__/button.context";
 
 type LOADER_VARIANTS =
   | "typical"
@@ -72,8 +73,11 @@ export const Loader = ({
     "screen and (prefers-reduced-motion: no-preference)",
   );
 
+  const { isInsideButton } = useContext(ButtonContext);
+  const loaderTypeValue = isInsideButton ? "ring" : loaderType;
+
   const loaderContent = (() => {
-    switch (loaderType) {
+    switch (loaderTypeValue) {
       case "star":
         return StarsLoader({ loaderLabel, showLabel, loaderType });
       case "ring":

@@ -13,35 +13,37 @@ description: Carbon Profile component props and usage examples.
 - Props interface: `ProfileProps`
 
 ## Props
-| Name | Type | Required | Literals | Description | Default |
-| --- | --- | --- | --- | --- | --- |
-| alt | string \| undefined | No |  | The `alt` HTML string. |  |
-| backgroundColor | string \| undefined | No |  | The hex code of the background colour to be passed to the avatar |  |
-| className | string \| undefined | No |  |  |  |
-| darkBackground | boolean \| undefined | No |  | Use a dark background. |  |
-| email | string \| undefined | No |  | Define the email to use. |  |
-| foregroundColor | string \| undefined | No |  | The hex code of the foreground colour to be passed to the avatar. Must be used in conjunction with `backgroundColor` |  |
-| initials | string \| undefined | No |  | Define initials to display image. |  |
-| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
-| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
-| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left |  |
-| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on right |  |
-| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
-| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
-| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| name | string \| undefined | No |  | Define the name to display. |  |
-| size | "S" \| "M" \| "L" \| "XL" \| "XS" \| "ML" \| "XXL" \| undefined | No |  | Allow to setup size for the component |  |
-| src | string \| undefined | No |  | Custom source URL |  |
-| text | string \| undefined | No |  | Define read-only text to display. |  |
-| data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
-| data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+| Name | Type | Required | Literals | Deprecated | Deprecation reason | Description | Default |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| alt | string \| undefined | No |  |  |  | The `alt` HTML string. |  |
+| children | React.ReactNode | No |  |  |  | Custom content rendered below the right side Profile content. |  |
+| className | string \| undefined | No |  |  |  |  |  |
+| email | string \| undefined | No |  |  |  | Define the email to use. |  |
+| initials | string \| undefined | No |  |  |  | Define initials to display image. |  |
+| m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
+| margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
+| marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
+| marginLeft | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
+| marginRight | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
+| marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
+| marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
+| marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
+| mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
+| ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
+| mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
+| mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
+| mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
+| my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
+| name | string \| undefined | No |  |  |  | Define the name to display. |  |
+| size | "S" \| "M" \| "L" \| "XL" \| "XS" \| "ML" \| "XXL" \| undefined | No |  |  |  | Allow to setup size for the component |  |
+| src | string \| undefined | No |  |  |  | Custom source URL |  |
+| text | string \| undefined | No |  |  |  | Define read-only text to display. |  |
+| variant | PortraitProps["variant"] | No |  |  |  | Color variant to be passed to the avatar. |  |
+| data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+| data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+| backgroundColor | string \| undefined | No |  | Yes | This prop is deprecated and will be removed in a future release. Use `variant` instead. | The hex code of the background colour to be passed to the avatar |  |
+| darkBackground | boolean \| undefined | No |  | Yes | This prop is deprecated and will be removed in a future release. | Use a dark background. |  |
+| foregroundColor | string \| undefined | No |  | Yes | This prop is deprecated and will be removed in a future release. Use `variant` instead. | The hex code of the foreground colour to be passed to the avatar. Must be used in conjunction with `backgroundColor` |  |
 
 ## Examples
 ### Default
@@ -62,6 +64,30 @@ description: Carbon Profile component props and usage examples.
 ```
 
 
+### Variant
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Box display="flex" gap={2} flexDirection="column">
+      {PROFILE_VARIANTS.map((variant) => (
+        <Profile
+          key={variant}
+          email="email@email.com"
+          initials="JD"
+          name="John Doe"
+          text="+33 657 22 34 71"
+          variant={variant}
+        />
+      ))}
+    </Box>
+  );
+}
+```
+
+
 ### Dark Background
 
 **Render**
@@ -75,6 +101,7 @@ description: Carbon Profile component props and usage examples.
       width="190px"
       height="50px"
       borderRadius="borderRadius200"
+      display="flex"
     >
       <Profile
         darkBackground
@@ -198,6 +225,44 @@ description: Carbon Profile component props and usage examples.
         text="+33 657 22 34 71"
         size={setCorrectScreenSize()}
       />
+    </Box>
+  );
+}
+```
+
+
+### With Custom Content
+
+**Render**
+
+```tsx
+() => {
+  return (
+    <Box
+      display="flex"
+      flexDirection="row"
+      alignItems="flex-start"
+      boxShadow="boxShadow050"
+      width="200px"
+      minHeight="88px"
+      p={1}
+    >
+      <Profile
+        initials="JD"
+        name="John Doe"
+        text="Fusion Designer"
+        variant="purple"
+      >
+        <Button
+          mt={1}
+          size="xs"
+          variantType="secondary"
+          iconType="view"
+          iconPosition="before"
+        >
+          View profile
+        </Button>
+      </Profile>
     </Box>
   );
 }

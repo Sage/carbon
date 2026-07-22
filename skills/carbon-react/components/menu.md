@@ -309,11 +309,9 @@ description: Carbon Menu component props and usage examples.
         >
           <Portrait size="XS" initials={initials} />
           <Typography
-            fontWeight="500"
-            fontSize="14px"
-            color={
-              menuType === "black" || menuType === "dark" ? "white" : "black"
-            }
+            variant="p"
+            weight="medium"
+            inverse={menuType === "dark" || menuType === "black"}
             margin={0}
           >
             {name}
@@ -876,7 +874,7 @@ description: Carbon Menu component props and usage examples.
                 variant="big"
                 fontWeight="500"
                 lineHeight="40px"
-                color={menu === "black" || menu === "dark" ? "white" : "black"}
+                color="neutral"
               >
                 Menu Item Five
               </Typography>

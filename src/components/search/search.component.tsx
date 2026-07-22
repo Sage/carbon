@@ -9,7 +9,7 @@ import invariant from "invariant";
 import { MarginProps } from "styled-system";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 import { CommonTextboxProps } from "../textbox";
-import Button, { type ButtonHandle } from "../button/__next__";
+import Button from "../button/__next__";
 import { ValidationProps } from "../../__internal__/validations";
 import useLocale from "../../hooks/__internal__/useLocale";
 import Divider from "../divider";
@@ -132,7 +132,7 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
   ) => {
     const locale = useLocale();
     const inputRef = useRef<HTMLInputElement>(null);
-    const buttonRef = useRef<ButtonHandle>(null);
+    const buttonRef = useRef<HTMLButtonElement | HTMLAnchorElement>(null);
     const legacyRef = useRef<SearchHandle>(null);
 
     // in order to support backwards compatibility with the Search component when used within a Menu,
@@ -153,7 +153,7 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
           inputRef.current?.focus();
         },
         focusButton() {
-          buttonRef.current?.focusButton();
+          buttonRef.current?.focus();
         },
       }),
       [inMenu],

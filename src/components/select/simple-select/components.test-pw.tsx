@@ -7,13 +7,13 @@ import {
   Select,
   Option,
   SimpleSelectProps,
+  OptionRow,
 } from "../../../../src/components/select";
-import OptionRow from "../option-row/option-row.component";
 import OptionGroupHeader from "../option-group-header/option-group-header.component";
 import Box from "../../box";
-import Icon from "../../icon";
 import Dialog from "../../dialog";
 import Button from "../../button";
+import Icon from "../../icon";
 
 export const SimpleSelectComponent = (props: Partial<SimpleSelectProps>) => {
   const [value, setValue] = useState("");
@@ -29,7 +29,13 @@ export const SimpleSelectComponent = (props: Partial<SimpleSelectProps>) => {
       onChange={onChangeHandler}
       {...props}
     >
-      <Option text="Amber" value="1" />
+      <Option
+        id="option1"
+        data-element="option1"
+        data-role="option1"
+        text="Amber"
+        value="1"
+      />
       <Option text="Black" value="2" />
       <Option text="Blue" value="3" />
       <Option text="Brown" value="4" />
@@ -43,45 +49,6 @@ export const SimpleSelectComponent = (props: Partial<SimpleSelectProps>) => {
       <Option text="Red" value="9" />
       <Option text="White" value="10" />
       <Option text="Yellow" value="11" />
-    </SimpleSelect>
-  );
-};
-
-export const SimpleSelectObjectAsValueComponent = (
-  props: Partial<SimpleSelectProps>,
-) => {
-  const optionListValues = [
-    { id: "Amber", value: 1, text: "Amber" },
-    { id: "Black", value: 2, text: "Black" },
-    { id: "Blue", value: 3, text: "Blue" },
-    { id: "Brown", value: 4, text: "Brown" },
-    { id: "Green", value: 5, text: "Green" },
-    { id: "Orange", value: 6, text: "Orange" },
-    { id: "Pink", value: 7, text: "Pink" },
-    { id: "Purple", value: 8, text: "Purple" },
-    { id: "Red", value: 9, text: "Red" },
-    { id: "White", value: 10, text: "White" },
-    { id: "Yellow", value: 11, text: "Yellow" },
-  ];
-
-  const [value, setValue] = useState<Record<string, unknown>>(
-    optionListValues[4],
-  );
-
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value as unknown as Record<string, unknown>);
-  }
-  return (
-    <SimpleSelect
-      id="withObject"
-      name="withObject"
-      value={value}
-      onChange={onChangeHandler}
-      {...props}
-    >
-      {optionListValues.map((option) => (
-        <Option key={option.id} text={option.text} value={option} />
-      ))}
     </SimpleSelect>
   );
 };
@@ -147,79 +114,41 @@ export const SimpleSelectMultipleColumnsComponent = (
   );
 };
 
-export const SimpleSelectCustomOptionChildrenComponent = (
+export const SimpleSelectObjectAsValueComponent = (
   props: Partial<SimpleSelectProps>,
 ) => {
-  const [value, setValue] = useState("4");
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value);
-  }
+  const optionListValues = [
+    { id: "Amber", value: 1, text: "Amber" },
+    { id: "Black", value: 2, text: "Black" },
+    { id: "Blue", value: 3, text: "Blue" },
+    { id: "Brown", value: 4, text: "Brown" },
+    { id: "Green", value: 5, text: "Green" },
+    { id: "Orange", value: 6, text: "Orange" },
+    { id: "Pink", value: 7, text: "Pink" },
+    { id: "Purple", value: 8, text: "Purple" },
+    { id: "Red", value: 9, text: "Red" },
+    { id: "White", value: 10, text: "White" },
+    { id: "Yellow", value: 11, text: "Yellow" },
+  ];
 
-  return (
-    <SimpleSelect
-      name="customOptionChildren"
-      id="customOptionChildren"
-      value={value}
-      onChange={onChangeHandler}
-      label="Pick your favourite color"
-      {...props}
-    >
-      <Option
-        id="option1"
-        text="Orange"
-        value="1"
-        data-component="option"
-        data-role="option"
-        data-element="option"
-      >
-        <Icon type="favourite" color="orange" mr={1} /> Orange
-      </Option>
-      <Option id="option2" text="Black" value="2">
-        <Icon type="money_bag" color="black" mr={1} /> Black
-      </Option>
-      <Option id="option3" text="Blue" value="3">
-        <Icon type="gift" color="blue" mr={1} /> Blue
-      </Option>
-    </SimpleSelect>
+  const [value, setValue] = useState<Record<string, unknown>>(
+    optionListValues[4],
   );
-};
 
-export const SimpleSelectGroupComponent = (
-  props: Partial<SimpleSelectProps>,
-) => {
-  const [value, setValue] = useState("");
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value);
+    setValue(event.target.value as unknown as Record<string, unknown>);
   }
-
   return (
     <SimpleSelect
-      name="optGroups"
-      id="optGroups"
+      id="withObject"
+      name="withObject"
       value={value}
       onChange={onChangeHandler}
       {...props}
     >
-      <OptionGroupHeader
-        id="groupHeader1"
-        label="Group one"
-        icon="individual"
-        data-role="group-header"
-        data-element="group-header"
-      />
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <OptionGroupHeader id="groupHeader2" label="Group two" icon="shop" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <OptionGroupHeader id="groupHeader3" label="Group three" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
+      {optionListValues.map((option) => (
+        <Option key={option.id} text={option.text} value={option} />
+      ))}
     </SimpleSelect>
   );
 };
@@ -510,11 +439,11 @@ export const ComplexCustomChildren = () => {
               <Icon type="error" color="errorRed" />
               <Box ml={1} width="100%">
                 <Box mb={1}>
-                  <Typography variant="b" color="errorRed">
+                  <Typography variant="b" color="negative">
                     Something went wrong
                   </Typography>
                 </Box>
-                <Typography variant="p" color="errorRed" mb={0}>
+                <Typography variant="p" color="negative" mb={0}>
                   We couldn't load the data. Please try again later.
                 </Typography>
               </Box>

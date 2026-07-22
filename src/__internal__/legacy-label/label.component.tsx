@@ -82,7 +82,6 @@ export const Label = ({
   isRequired,
   labelId,
   pr,
-  pl,
   tooltipId,
   useValidationIcon = true,
   validationIconId,
@@ -172,7 +171,6 @@ export const Label = ({
       inline={inline}
       width={width}
       pr={pr}
-      pl={pl}
       className={className}
       onClick={onClick}
     >

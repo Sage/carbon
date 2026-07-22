@@ -15,19 +15,16 @@ description: Carbon Checkbox component props and usage examples.
 ## Props
 | Name | Type | Required | Literals | Deprecated | Deprecation reason | Description | Default |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| checked | boolean | Yes |  |  |  | Checked state of the input |  |
+| checked | boolean | Yes |  |  |  | Checked state of the input. |  |
 | onChange | (ev: React.ChangeEvent<HTMLInputElement>) => void | Yes |  |  |  | Handler for change events |  |
 | about | string \| undefined | No |  |  |  |  |  |
 | accept | string \| undefined | No |  |  |  |  |  |
 | accessKey | string \| undefined | No |  |  |  |  |  |
-| adaptiveSpacingBreakpoint | number \| undefined | No |  |  |  | Breakpoint for adaptive spacing (left margin changes to 0). Enables the adaptive behaviour when set |  |
 | alt | string \| undefined | No |  |  |  |  |  |
-| ariaDescribedBy | string \| undefined | No |  |  |  | The id of the element that describe the input. |  |
-| ariaLabelledBy | string \| undefined | No |  |  |  | Prop to specify the aria-labelledby attribute of the input |  |
 | autoCapitalize | (string & {}) \| "none" \| "off" \| "on" \| "sentences" \| "words" \| "characters" \| undefined | No |  |  |  |  |  |
 | autoComplete | HTMLInputAutoCompleteAttribute \| undefined | No |  |  |  |  |  |
 | autoCorrect | string \| undefined | No |  |  |  |  |  |
-| autoFocus | boolean \| undefined | No |  |  |  | If true the Component will be focused when page load |  |
+| autoFocus | boolean \| undefined | No |  |  |  | If true, the component will be automatically focused when rendered. |  |
 | autoSave | string \| undefined | No |  |  |  |  |  |
 | capture | boolean \| "user" \| "environment" \| undefined | No |  |  |  |  |  |
 | children | ReactNode | No |  |  |  |  |  |
@@ -41,13 +38,11 @@ description: Carbon Checkbox component props and usage examples.
 | defaultChecked | boolean \| undefined | No |  |  |  |  |  |
 | defaultValue | string \| number \| readonly string[] \| undefined | No |  |  |  |  |  |
 | dir | string \| undefined | No |  |  |  |  |  |
-| disabled | boolean \| undefined | No |  |  |  | If true, the component will be disabled |  |
+| disabled | boolean \| undefined | No |  |  |  | If true, the component will be disabled. |  |
 | draggable | Booleanish \| undefined | No |  |  |  |  |  |
 | enterKeyHint | "go" \| "send" \| "search" \| "enter" \| "done" \| "next" \| "previous" \| undefined | No |  |  |  |  |  |
-| error | string \| boolean \| undefined | No |  |  |  | Indicate that error has occurred. |  |
+| error | string \| boolean \| undefined | No |  |  |  | Error message to be displayed when validation fails. |  |
 | exportparts | string \| undefined | No |  |  |  |  |  |
-| fieldHelp | React.ReactNode | No |  |  |  | Help content to be displayed under an input |  |
-| fieldHelpInline | boolean \| undefined | No |  |  |  | If true, the FieldHelp will be displayed inline To be used with labelInline prop set to true |  |
 | form | string \| undefined | No |  |  |  |  |  |
 | formAction | string \| undefined | No |  |  |  |  |  |
 | formEncType | string \| undefined | No |  |  |  |  |  |
@@ -55,27 +50,21 @@ description: Carbon Checkbox component props and usage examples.
 | formNoValidate | boolean \| undefined | No |  |  |  |  |  |
 | formTarget | string \| undefined | No |  |  |  |  |  |
 | height | string \| number \| undefined | No |  |  |  |  |  |
-| helpAriaLabel | string \| undefined | No |  |  |  | [Legacy] Aria label for rendered help component |  |
 | hidden | boolean \| undefined | No |  |  |  |  |  |
-| id | string \| undefined | No |  |  |  | Unique Identifier for the input. Will use a randomly generated GUID if none is provided |  |
-| info | string \| boolean \| undefined | No |  |  |  | [Legacy] Indicate additional information. |  |
+| id | string \| undefined | No |  |  |  | Unique identifier for the input. Will use a randomly generated GUID if none is provided. |  |
+| indeterminate | boolean \| undefined | No |  |  |  | Indeterminate state of the input, will override checked value. |  |
 | inlist | any | No |  |  |  |  |  |
+| inputHint | React.ReactNode | No |  |  |  | Additional hint text rendered below the label. |  |
 | inputMode | "email" \| "none" \| "search" \| "text" \| "tel" \| "url" \| "numeric" \| "decimal" \| undefined | No |  |  |  | Hints at the type of data that might be entered by the user while editing the element or its contents |  |
-| inputWidth | number \| undefined | No |  |  |  | Sets percentage-based input width |  |
 | is | string \| undefined | No |  |  |  | Specify that a standard HTML element should behave like a defined custom built-in element |  |
 | itemID | string \| undefined | No |  |  |  |  |  |
 | itemProp | string \| undefined | No |  |  |  |  |  |
 | itemRef | string \| undefined | No |  |  |  |  |  |
 | itemScope | boolean \| undefined | No |  |  |  |  |  |
 | itemType | string \| undefined | No |  |  |  |  |  |
-| label | React.ReactNode | No |  |  |  | Label content |  |
-| labelHelp | React.ReactNode | No |  |  |  | The content for the help tooltip, to appear next to the Label |  |
-| labelInline | boolean \| undefined | No |  |  |  | When true label is inline |  |
-| labelSpacing | 1 \| 2 \| undefined | No |  |  |  | Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) |  |
-| labelWidth | number \| undefined | No |  |  |  | Label width |  |
+| label | React.ReactNode | No |  |  |  | Content of the label. |  |
 | lang | string \| undefined | No |  |  |  |  |  |
 | list | string \| undefined | No |  |  |  |  |  |
-| loading | boolean \| undefined | No |  |  |  |  |  |
 | m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
 | margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
 | marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
@@ -95,7 +84,7 @@ description: Carbon Checkbox component props and usage examples.
 | multiple | boolean \| undefined | No |  |  |  |  |  |
 | mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
-| name | string \| undefined | No |  |  |  | Input name |  |
+| name | string \| undefined | No |  |  |  | Input name attribute. |  |
 | nonce | string \| undefined | No |  |  |  |  |  |
 | onAbort | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onAbortCapture | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
@@ -109,7 +98,7 @@ description: Carbon Checkbox component props and usage examples.
 | onAuxClickCapture | MouseEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onBeforeInput | InputEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onBeforeInputCapture | FormEventHandler<T> \| undefined | No |  |  |  |  |  |
-| onBlur | ((ev: React.FocusEvent<HTMLInputElement>) => void) \| undefined | No |  |  |  | Blur event handler |  |
+| onBlur | FocusEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onBlurCapture | FocusEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onCanPlay | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onCanPlayCapture | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
@@ -158,7 +147,7 @@ description: Carbon Checkbox component props and usage examples.
 | onEndedCapture | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onError | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onErrorCapture | ReactEventHandler<T> \| undefined | No |  |  |  |  |  |
-| onFocus | ((ev: React.FocusEvent<HTMLInputElement>) => void) \| undefined | No |  |  |  | OnFocus event handler |  |
+| onFocus | FocusEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onFocusCapture | FocusEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onGotPointerCapture | PointerEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onGotPointerCaptureCapture | PointerEventHandler<T> \| undefined | No |  |  |  |  |  |
@@ -182,8 +171,8 @@ description: Carbon Checkbox component props and usage examples.
 | onLostPointerCaptureCapture | PointerEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onMouseDown | MouseEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onMouseDownCapture | MouseEventHandler<T> \| undefined | No |  |  |  |  |  |
-| onMouseEnter | ((ev: React.MouseEvent<HTMLInputElement>) => void) \| undefined | No |  |  |  | OnMouseEnter event handler |  |
-| onMouseLeave | ((ev: React.MouseEvent<HTMLInputElement>) => void) \| undefined | No |  |  |  | OnMouseLeave event handler |  |
+| onMouseEnter | MouseEventHandler<T> \| undefined | No |  |  |  |  |  |
+| onMouseLeave | MouseEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onMouseMove | MouseEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onMouseMoveCapture | MouseEventHandler<T> \| undefined | No |  |  |  |  |  |
 | onMouseOut | MouseEventHandler<T> \| undefined | No |  |  |  |  |  |
@@ -256,18 +245,18 @@ description: Carbon Checkbox component props and usage examples.
 | pattern | string \| undefined | No |  |  |  |  |  |
 | placeholder | string \| undefined | No |  |  |  |  |  |
 | prefix | string \| undefined | No |  |  |  |  |  |
+| progressiveDisclosure | React.ReactNode | No |  |  |  | Content to be rendered below the input when checked, is not supported when inputs are inline. |  |
 | property | string \| undefined | No |  |  |  |  |  |
 | radioGroup | string \| undefined | No |  |  |  |  |  |
 | readOnly | boolean \| undefined | No |  |  |  |  |  |
 | rel | string \| undefined | No |  |  |  |  |  |
-| required | boolean \| undefined | No |  |  |  | Flag to configure component as mandatory |  |
+| required | boolean \| undefined | No |  |  |  | Flag to configure Checkbox as mandatory. |  |
 | resource | string \| undefined | No |  |  |  |  |  |
 | results | number \| undefined | No |  |  |  |  |  |
 | rev | string \| undefined | No |  |  |  |  |  |
-| reverse | boolean \| undefined | No |  |  |  | If true the label switches position with the input |  |
 | role | AriaRole \| undefined | No |  |  |  |  |  |
 | security | string \| undefined | No |  |  |  |  |  |
-| size | "small" \| "large" \| undefined | No |  |  |  | Size of the component |  |
+| size | CheckboxSizes \| undefined | No |  |  |  | Size of the CheckboxGroup. |  |
 | slot | string \| undefined | No |  |  |  |  |  |
 | spellCheck | Booleanish \| undefined | No |  |  |  |  |  |
 | src | string \| undefined | No |  |  |  |  |  |
@@ -277,15 +266,11 @@ description: Carbon Checkbox component props and usage examples.
 | suppressHydrationWarning | boolean \| undefined | No |  |  |  |  |  |
 | tabIndex | number \| undefined | No |  |  |  |  |  |
 | title | string \| undefined | No |  |  |  |  |  |
-| tooltipPosition | "left" \| "right" \| "bottom" \| "top" \| undefined | No |  |  |  | [Legacy] Overrides the default tooltip position |  |
 | translate | "yes" \| "no" \| undefined | No |  |  |  |  |  |
 | typeof | string \| undefined | No |  |  |  |  |  |
 | unselectable | "off" \| "on" \| undefined | No |  |  |  |  |  |
-| validationIconId | string \| undefined | No |  |  |  | Id of the validation icon |  |
-| validationOnLabel | boolean \| undefined | No |  |  |  | When true, displays validation icon on label |  |
 | value | string \| undefined | No |  |  |  | The value of the checkbox, passed on form submit |  |
 | vocab | string \| undefined | No |  |  |  |  |  |
-| warning | string \| boolean \| undefined | No |  |  |  | Indicate that warning has occurred. |  |
 | width | string \| number \| undefined | No |  |  |  |  |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
@@ -314,7 +299,7 @@ description: Carbon Checkbox component props and usage examples.
 | aria-invalid | boolean \| "true" \| "false" \| "grammar" \| "spelling" \| undefined | No |  |  |  | Indicates the entered value does not conform to the format expected by the application. |  |
 | aria-keyshortcuts | string \| undefined | No |  |  |  | Indicates keyboard shortcuts that an author has implemented to activate or give focus to an element. |  |
 | aria-label | string \| undefined | No |  |  |  | Defines a string value that labels the current element. |  |
-| aria-labelledby | string \| undefined | No |  |  |  | Prop to specify the aria-labelledby property of the input |  |
+| aria-labelledby | string \| undefined | No |  |  |  | Identifies the element (or elements) that labels the current element. |  |
 | aria-level | number \| undefined | No |  |  |  | Defines the hierarchical level of an element within a structure. |  |
 | aria-live | "off" \| "assertive" \| "polite" \| undefined | No |  |  |  | Indicates that an element will be updated, and describes the types of updates the user agents, assistive technologies, and user can expect from the live region. |  |
 | aria-modal | Booleanish \| undefined | No |  |  |  | Indicates whether an element is modal when displayed. |  |
@@ -340,29 +325,282 @@ description: Carbon Checkbox component props and usage examples.
 | aria-valuemin | number \| undefined | No |  |  |  | Defines the minimum allowed value for a range widget. |  |
 | aria-valuenow | number \| undefined | No |  |  |  | Defines the current value for a range widget. |  |
 | aria-valuetext | string \| undefined | No |  |  |  | Defines the human readable text alternative of aria-valuenow for a range widget. |  |
+| adaptiveSpacingBreakpoint | number \| undefined | No |  | Yes | Adaptive spacing is no longer supported on this component. | Breakpoint for adaptive spacing (left margin changes to 0). Enables the adaptive behaviour when set. |  |
+| ariaDescribedBy | string \| undefined | No |  | Yes | This prop is deprecated, please use the `aria-describedby` attribute instead. | The id of the element that describe the input. |  |
+| ariaLabelledBy | string \| undefined | No |  | Yes | This prop is deprecated, please use the `aria-labelledby` attribute instead. | Prop to specify the aria-labelledby attribute of the input. |  |
+| fieldHelp | React.ReactNode | No |  | Yes | The `fieldHelp` prop is no longer supported, please use the `inputHint` prop instead. | Help content to be displayed under an input |  |
+| fieldHelpInline | boolean \| undefined | No |  | Yes | The `fieldHelpInline` prop is no longer supported on this component. | If true, the FieldHelp will be displayed inline To be used with labelInline prop set to true |  |
+| helpAriaLabel | string \| undefined | No |  | Yes | Help tooltips are no longer supported on this component. | [Legacy] Aria label for rendered help component |  |
+| info | string \| boolean \| undefined | No |  | Yes | Information validation is no longer supported on this component. | [Legacy] Indicate additional information. |  |
+| inputWidth | number \| undefined | No |  | Yes | Custom input widths are no longer supported on this component. | Sets percentage-based input width |  |
+| labelHelp | React.ReactNode | No |  | Yes | The `labelHelp` prop is deprecated and will be removed in a future release. Please use the `inputHint` prop instead. | [Legacy] The content for the help tooltip, to appear next to the Label |  |
+| labelInline | boolean \| undefined | No |  | Yes | The checkbox label always renders in line with the input. | When true label is inline. |  |
+| labelSpacing | 1 \| 2 \| undefined | No |  | Yes | Custom spacing for labels is no longer supported on this component. | [Legacy] Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) |  |
+| labelWidth | number \| undefined | No |  | Yes | Custom label widths are no longer supported on this component. | [Legacy] Label width |  |
 | onKeyPress | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUp` or `onKeyDown` instead |  |  |
 | onKeyPressCapture | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUpCapture` or `onKeyDownCapture` instead |  |  |
+| reverse | boolean \| undefined | No |  | Yes | Reversed layout is no longer supported on this component. | If true the label switches position with the input |  |
+| tooltipPosition | "left" \| "right" \| "bottom" \| "top" \| undefined | No |  | Yes | Tooltips are no longer supported on this component. | [Legacy] Overrides the default tooltip position. |  |
+| validationIconId | string \| undefined | No |  | Yes | Validation icons with tooltips are no longer supported on this component. | Id of the validation icon |  |
+| validationMessagePositionTop | boolean \| undefined | No |  | Yes | The `validationMessagePositionTop` prop is deprecated and will be removed in a future release. | Render the ValidationMessage above the Checkbox |  |
+| warning | string \| boolean \| undefined | No |  | Yes | The `warning` state is deprecated and will be removed in a future release. | Warning message to be displayed when validation warning occurs. |  |
 | aria-dropeffect | "copy" \| "link" \| "none" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
 | aria-grabbed | Booleanish \| undefined | No |  | Yes | in ARIA 1.1 | Indicates an element's "grabbed" state in a drag-and-drop operation. |  |
 
 ## Examples
-### Default
+### Chromatic
+
+**Args**
+
+```tsx
+{
+    mb: 2,
+  }
+```
 
 **Render**
 
 ```tsx
-() => {
-  const [isChecked, setIsChecked] = useState(false);
+(args) => (
+    <>
+      <ControlledCheckbox label="Checkbox" {...args} />
+      <ControlledCheckbox
+        label="Checkbox with Input Hint"
+        inputHint="Input Hint"
+        {...args}
+      />
+      <ControlledCheckbox
+        label="Checkbox Small"
+        inputHint="Input Hint"
+        size="small"
+        required
+        {...args}
+      />
+      <ControlledCheckbox
+        label="Checkbox Medium"
+        inputHint="Input Hint"
+        size="medium"
+        required
+        {...args}
+      />
+      <ControlledCheckbox
+        label="Checkbox Large"
+        inputHint="Input Hint"
+        size="large"
+        required
+        {...args}
+      />
+      <ControlledCheckbox
+        label={<CustomLabel />}
+        inputHint="Checkbox with custom label"
+        {...args}
+      />
+      <ControlledCheckbox
+        label="Checkbox Disabled"
+        inputHint="Checkbox Disabled"
+        disabled
+        required
+        {...args}
+      />
+    </>
+  )
+```
 
-  return (
-    <Checkbox
-      label="Example checkbox"
-      name="checkbox-default"
-      checked={isChecked}
-      onChange={(e) => setIsChecked(e.target.checked)}
-    />
-  );
-}
+
+### Validation
+
+**Args**
+
+```tsx
+{
+    inputHint: "Hint Text",
+  }
+```
+
+**Render**
+
+```tsx
+(args) => (
+    <Box m={2} display="flex" gap={4}>
+      <Box display="flex" flexDirection="column" gap={2}>
+        <ControlledCheckbox
+          label="With Error Small"
+          error="Error Message"
+          size="small"
+          required
+          {...args}
+        />
+        <ControlledCheckbox
+          label="With Warning Small"
+          warning="Warning Message"
+          size="small"
+          {...args}
+        />
+        <ControlledCheckbox
+          label="With Error at Bottom Small"
+          error="Error Message"
+          validationMessagePositionTop={false}
+          size="small"
+          {...args}
+        />
+        <ControlledCheckbox
+          label="With Warning at Bottom Small"
+          warning="Warning Message"
+          validationMessagePositionTop={false}
+          size="small"
+          {...args}
+        />
+      </Box>
+      <Box display="flex" flexDirection="column" gap={2}>
+        <ControlledCheckbox
+          label="With Error"
+          error="Error Message"
+          required
+          {...args}
+        />
+        <ControlledCheckbox
+          label="With Warning"
+          warning="Warning Message"
+          {...args}
+        />
+        <ControlledCheckbox
+          label="With Error at Bottom"
+          error="Error Message"
+          validationMessagePositionTop={false}
+          {...args}
+        />
+        <ControlledCheckbox
+          label="With Warning at Bottom"
+          warning="Warning Message"
+          validationMessagePositionTop={false}
+          {...args}
+        />
+      </Box>
+      <Box display="flex" flexDirection="column" gap={2}>
+        <ControlledCheckbox
+          label="With Error Large"
+          error="Error Message"
+          size="large"
+          required
+          {...args}
+        />
+        <ControlledCheckbox
+          label="With Warning Large"
+          warning="Warning Message"
+          size="large"
+          {...args}
+        />
+        <ControlledCheckbox
+          label="With Error at Bottom Large"
+          error="Error Message"
+          validationMessagePositionTop={false}
+          size="large"
+          {...args}
+        />
+        <ControlledCheckbox
+          label="With Warning at Bottom Large"
+          warning="Warning Message"
+          validationMessagePositionTop={false}
+          size="large"
+          {...args}
+        />
+      </Box>
+    </Box>
+  )
+```
+
+
+### ProgressiveDisclosure
+
+**Args**
+
+```tsx
+{
+    mb: 2,
+    checked: true,
+    progressiveDisclosure: <DisclosedContent />,
+  }
+```
+
+**Render**
+
+```tsx
+(args) => (
+    <>
+      <ControlledCheckbox
+        label="Progressive Disclosure Small"
+        size="small"
+        {...args}
+      />
+      <ControlledCheckbox
+        label="Progressive Disclosure Medium"
+        size="medium"
+        {...args}
+      />
+      <ControlledCheckbox
+        label="Progressive Disclosure Large"
+        size="large"
+        {...args}
+      />
+    </>
+  )
+```
+
+
+### IndeterminateSizesWithFocus
+
+**Args**
+
+```tsx
+{
+    mb: 2,
+    indeterminate: true,
+  }
+```
+
+**Render**
+
+```tsx
+(args) => (
+    <>
+      <ControlledCheckbox label="Indeterminate Small" size="small" {...args} />
+      <ControlledCheckbox
+        label="Indeterminate Medium"
+        size="medium"
+        {...args}
+      />
+      <ControlledCheckbox label="Indeterminate Large" size="large" {...args} />
+    </>
+  )
+```
+
+
+### WithLabel
+
+**Args**
+
+```tsx
+{
+    label: "Checkbox",
+  }
+```
+
+**Render**
+
+```tsx
+ControlledCheckbox
+```
+
+
+### WithInputHint
+
+**Args**
+
+```tsx
+{
+    ...WithLabel.args,
+    inputHint: "Input Hint",
+  }
 ```
 
 
@@ -372,167 +610,147 @@ description: Carbon Checkbox component props and usage examples.
 
 ```tsx
 () => {
-  const [isChecked, setIsChecked] = useState(false);
-  const [isChecked2, setIsChecked2] = useState(false);
+  const [checkedSmall, setCheckedSmall] = useState(false);
+  const [checkedMedium, setCheckedMedium] = useState(false);
+  const [checkedLarge, setCheckedLarge] = useState(false);
+
+  return (
+    <Box display="flex" flexDirection="row" justifyContent="space-around">
+      <Checkbox
+        label="Small Checkbox"
+        size="small"
+        checked={checkedSmall}
+        onChange={() => {
+          setCheckedSmall(!checkedSmall);
+        }}
+      />
+      <Checkbox
+        label="Medium Checkbox"
+        size="medium"
+        checked={checkedMedium}
+        onChange={() => {
+          setCheckedMedium(!checkedMedium);
+        }}
+      />
+      <Checkbox
+        label="Large Checkbox"
+        size="large"
+        checked={checkedLarge}
+        onChange={() => {
+          setCheckedLarge(!checkedLarge);
+        }}
+      />
+    </Box>
+  );
+}
+```
+
+
+### ProgressiveDisclosure
+
+**Args**
+
+```tsx
+{
+    ...WithLabel.args,
+    checked: true,
+    progressiveDisclosure: <DisclosedContent />,
+  }
+```
+
+
+### Indeterminate State
+
+**Render**
+
+```tsx
+() => {
+  const [items, setItems] = useState([
+    { id: "checkbox-1", label: "Checkbox 1", checked: true },
+    { id: "checkbox-2", label: "Checkbox 2", checked: false },
+    { id: "checkbox-3", label: "Checkbox 3", checked: false },
+  ]);
+
+  const checkedCount = items.filter((item) => item.checked).length;
+  const allChecked = checkedCount === items.length;
+  const someChecked = checkedCount > 0 && checkedCount < items.length;
+  const controlledIds = items.map((item) => item.id).join(" ");
+
+  const handleSelectAll = () => {
+    const newChecked = !allChecked;
+    setItems(items.map((item) => ({ ...item, checked: newChecked })));
+  };
+
+  const handleChange = (id: string, checked: boolean) => {
+    setItems(
+      items.map((item) => (item.id === id ? { ...item, checked } : item)),
+    );
+  };
 
   return (
     <>
       <Checkbox
-        mb={2}
-        label="Small"
-        key="checkbox-small"
-        name="checkbox-small"
-        size="small"
-        onChange={(e) => setIsChecked(e.target.checked)}
-        checked={isChecked}
+        label="Select All"
+        indeterminate={someChecked}
+        checked={allChecked}
+        onChange={handleSelectAll}
+        aria-controls={controlledIds}
       />
-      <Checkbox
-        label="Large"
-        key="checkbox-large"
-        name="checkbox-large"
-        size="large"
-        onChange={(e) => setIsChecked2(e.target.checked)}
-        checked={isChecked2}
-      />
+      <CheckboxGroup m={2}>
+        {items.map((item) => (
+          <Checkbox
+            key={item.id}
+            id={item.id}
+            label={item.label}
+            checked={item.checked}
+            onChange={(ev) => handleChange(item.id, ev.target.checked)}
+          />
+        ))}
+      </CheckboxGroup>
     </>
   );
 }
 ```
 
 
-### Disabled
+### WithCustomLabel
 
-**Render**
+**Args**
 
 ```tsx
-() => {
-  return (
-    <Checkbox
-      disabled
-      label="Disabled checkbox"
-      name="checkbox-disabled"
-      onChange={() => {}}
-      checked={false}
-    />
-  );
-}
+{
+    label: <CustomLabel />,
+  }
 ```
 
-
-### Reversed
-
 **Render**
 
 ```tsx
-() => {
-  const [isChecked, setIsChecked] = useState(false);
-
-  return (
-    <Checkbox
-      label="Reversed checkbox"
-      name="checkbox-reverse"
-      reverse
-      onChange={(e) => setIsChecked(e.target.checked)}
-      checked={isChecked}
-    />
-  );
-}
+ControlledCheckbox
 ```
 
 
 ### Required
 
-**Render**
+**Args**
 
 ```tsx
-() => {
-  const [isChecked, setIsChecked] = useState(false);
-
-  return (
-    <Checkbox
-      label="Checkbox"
-      name="checkbox-required"
-      required
-      checked={isChecked}
-      onChange={(e) => setIsChecked(e.target.checked)}
-    />
-  );
-}
+{
+    ...WithLabel.args,
+    required: true,
+  }
 ```
 
 
-### With fieldHelp
+### Disabled
 
-**Render**
-
-```tsx
-() => {
-  const [isChecked, setIsChecked] = useState(false);
-  const [isChecked2, setIsChecked2] = useState(false);
-  return (
-    <>
-      <Checkbox
-        fieldHelp="This text provides help for the input."
-        label="With fieldHelp"
-        key="checkbox-fieldhelp"
-        name="checkbox-fieldhelp"
-        onChange={(e) => setIsChecked(e.target.checked)}
-        checked={isChecked}
-      />
-      <Checkbox
-        fieldHelp="This text provides help for the input."
-        fieldHelpInline
-        label="With inline fieldHelp"
-        key="checkbox-fieldhelp-inline"
-        name="checkbox-fieldhelp-inline"
-        onChange={(e) => setIsChecked2(e.target.checked)}
-        checked={isChecked2}
-      />
-    </>
-  );
-}
-```
-
-
-### CustomLabelWidth
-
-**Render**
+**Args**
 
 ```tsx
-() => {
-  const [isChecked, setIsChecked] = useState(false);
-
-  return (
-    <Checkbox
-      label="With custom labelWidth"
-      labelWidth={100}
-      name="checkbox-custom-label"
-      onChange={(e) => setIsChecked(e.target.checked)}
-      checked={isChecked}
-    />
-  );
-}
-```
-
-
-### With labelHelp
-
-**Render**
-
-```tsx
-() => {
-  const [isChecked, setIsChecked] = useState(false);
-
-  return (
-    <Checkbox
-      helpAriaLabel="This text provides more information for the label."
-      label="With labelHelp"
-      labelHelp="This text provides more information for the label."
-      name="checkbox-labelHelp"
-      onChange={(e) => setIsChecked(e.target.checked)}
-      checked={isChecked}
-    />
-  );
-}
+{
+    ...WithInputHint.args,
+    required: true,
+    disabled: true,
+  }
 ```
 

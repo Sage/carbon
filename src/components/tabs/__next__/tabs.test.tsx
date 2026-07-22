@@ -9,6 +9,7 @@ import { assertLoggerComponentMessage } from "../../../__spec_helper__/__interna
 import Textbox from "../../textbox";
 import { TabsHandle } from "./tabs.types";
 import Button from "../../button";
+import { StyledTabList, TAB_LIST_FOCUS_PADDING } from "./tabs.style";
 
 const TestComponent = ({ ...args }) => {
   return (
@@ -601,4 +602,30 @@ test("applies the `data-element` and `data-role` props to expected elements", ()
   expect(tabPanel1).toHaveAttribute("data-component", "tab-panel");
   expect(tabPanel1).toHaveAttribute("data-element", "tabpanel-foo");
   expect(tabPanel1).toHaveAttribute("data-role", "tabpanel-bar");
+});
+
+test("applies negative inline margin only when horizontal scrolling is required", () => {
+  render(
+    <StyledTabList $orientation="horizontal" $scrollRequired>
+      Scrollable tabs
+    </StyledTabList>,
+  );
+
+  expect(screen.getByText("Scrollable tabs")).toHaveStyleRule(
+    "margin-inline",
+    `-${TAB_LIST_FOCUS_PADDING}px`,
+  );
+});
+
+test("does not apply negative inline margin only when horizontal scrolling is not required", () => {
+  render(
+    <StyledTabList $orientation="horizontal" $scrollRequired={false}>
+      Non-scrollable tabs
+    </StyledTabList>,
+  );
+
+  expect(screen.getByText("Non-scrollable tabs")).not.toHaveStyleRule(
+    "margin-inline",
+    `-${TAB_LIST_FOCUS_PADDING}px`,
+  );
 });
