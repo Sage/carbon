@@ -4,7 +4,7 @@ import StyledLoaderSquare from "../loader/loader-square.style";
 function makeColors(color: string) {
   return `
   color: ${color};
-  ${StyledIcon} {
+  && ${StyledIcon}:not([data-color]) {
     color: ${color};
   }
   ${StyledLoaderSquare} {

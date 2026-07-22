@@ -28,6 +28,23 @@ const StyledMultiActionButton = styled.div.attrs(
         width: 100%;
         justify-content: space-between;
       }
+
+      /* The toggle button's dropdown icon is a child nested inside the
+         main-text span, so the button's space-between has nothing to push
+         apart. Stretch the wrapper and main-text full width and space them
+         out here so the icon sits at the button's end (as it did before the
+         icon was moved into children to inherit the button colour). */
+      & > ${StyledButton} {
+        > span {
+          flex: 1;
+          min-width: 0;
+        }
+
+        [data-element="main-text"] {
+          width: 100%;
+          justify-content: space-between;
+        }
+      }
     `}
 
   & > ${StyledButton} {
@@ -46,6 +63,19 @@ const StyledMultiActionButton = styled.div.attrs(
 
       &,
       ${StyledIcon} {
+        color: var(--colorsActionMajorYang100);
+      }
+    }
+
+    &:active {
+      background-color: var(--colorsActionMajor700);
+      border-color: var(--colorsActionMajor700);
+
+      &&& {
+        color: var(--colorsActionMajorYang100);
+      }
+
+      &&& [data-component="icon"]:not([data-color]) {
         color: var(--colorsActionMajorYang100);
       }
     }

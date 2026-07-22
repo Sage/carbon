@@ -99,8 +99,16 @@ const StyledFlatTableRowHeader = styled.th
         }-color: ${toColor(theme, verticalBorderColor)};
       `}
 
-      [data-component="icon"]:not([color]) {
+      [data-component="icon"]:not([data-color]) {
         color: var(--colorsActionMinor500);
+      }
+
+      [data-component="button"] [data-component="icon"]:not([data-color]) {
+        color: currentColor;
+      }
+
+      button [data-component="icon"]:not([data-color]) {
+        color: currentColor;
       }
     }
 
