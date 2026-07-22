@@ -110,6 +110,23 @@ test("accepts ref as a ref object", () => {
   expect(ref.current).toBe(screen.getByRole("textbox"));
 });
 
+test("forwards type and pattern to the input", () => {
+  render(
+    <Textbox
+      value="foo"
+      onChange={() => {}}
+      type="email"
+      pattern={".+@example\\.com"}
+    />,
+  );
+
+  expect(screen.getByRole("textbox")).toHaveAttribute("type", "email");
+  expect(screen.getByRole("textbox")).toHaveAttribute(
+    "pattern",
+    ".+@example\\.com",
+  );
+});
+
 test("accepts ref as a ref callback", () => {
   const ref = jest.fn();
   render(<Textbox value="foo" onChange={() => {}} ref={ref} />);
