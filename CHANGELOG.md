@@ -1,3 +1,9 @@
+## [161.4.2](https://github.com/Sage/carbon/compare/v161.4.1...v161.4.2) (2026-07-22)
+
+### Bug Fixes
+
+* **multi-select, simple-select:** ensure correct prefix usage ([b3311b4](https://github.com/Sage/carbon/commit/b3311b4b0217fa8206a640e3249eab27341cca88)), closes [#8060](https://github.com/Sage/carbon/issues/8060)
+
 ## [161.4.1](https://github.com/Sage/carbon/compare/v161.4.0...v161.4.1) (2026-07-22)
 
 ### Bug Fixes
