@@ -101,7 +101,7 @@ export const Badge = ({
           data-role="badge-cross-icon"
           data-element="badge-cross-icon"
           type="cross"
-          color="white"
+          inverse
         />
       );
     }

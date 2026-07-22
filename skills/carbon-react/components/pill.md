@@ -18,7 +18,7 @@ description: Carbon Pill component props and usage examples.
 | children | string | Yes |  | The content to display inside of the pill. |  |
 | ariaLabelOfRemoveButton | string \| undefined | No |  | Sets custom aria-label attribute on the remove button |  |
 | borderColor | string \| undefined | No |  | Override color variant, provide any color from palette or any valid css color value. |  |
-| colorVariant | "warning" \| "negative" \| "neutral" \| "positive" \| "information" \| "neutralWhite" \| undefined | No |  | Change the color of a status pill. | "neutral" |
+| colorVariant | "warning" \| "neutral" \| "negative" \| "positive" \| "information" \| "neutralWhite" \| undefined | No |  | Change the color of a status pill. | "neutral" |
 | fill | boolean \| undefined | No |  | Fills the pill background with colour. When fill is false only the border is coloured. | false |
 | isDarkBackground | boolean \| undefined | No |  | Sets the colour styling when a status pill is rendered on a dark background. | false |
 | m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |

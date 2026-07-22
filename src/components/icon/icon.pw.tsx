@@ -1,5 +1,5 @@
 import React from "react";
-import { IconProps } from "../icon";
+import { ICON_COLOR_TYPES, IconProps } from "../icon";
 import { test } from "../../../playwright/helpers/base-test";
 import IconComponent from "./component.test-pw";
 import { SIZE, COLOR, CHARACTERS } from "../../../playwright/support/constants";
@@ -87,7 +87,7 @@ test.describe("should check accessibility for Icon component", () => {
     });
   });
 
-  colorData.forEach(([iconColor]) => {
+  ICON_COLOR_TYPES.forEach((iconColor) => {
     test(`should pass accessibility tests when icon color is set as ${iconColor}`, async ({
       mount,
       page,

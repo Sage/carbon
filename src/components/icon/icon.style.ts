@@ -22,6 +22,42 @@ export type BgSize = "small" | "medium" | "large" | "extra-large";
 
 export type FontSize = "small" | "medium" | "large" | "extra-large";
 
+export const ICON_COLOR_TYPES = [
+  "neutral",
+  "subtle",
+  "caution",
+  "info",
+  "negative",
+  "positive",
+] as const;
+
+export type IconColor = (typeof ICON_COLOR_TYPES)[number];
+
+const ICON_STATUS_COLOR_TOKENS: Record<
+  Exclude<IconColor, "neutral" | "subtle">,
+  string
+> = {
+  caution: "var(--page-content-caution-icon)",
+  info: "var(--page-content-info-icon)",
+  negative: "var(--page-content-negative-icon)",
+  positive: "var(--page-content-positive-icon)",
+};
+
+const getIconColorToken = (color: IconColor, inverse?: boolean) => {
+  if (color === "neutral") {
+    return `var(--page-content${inverse ? "-inverse" : ""}-icon-default)`;
+  }
+
+  if (color === "subtle") {
+    return `var(--page-content${inverse ? "-inverse" : ""}-icon-alt)`;
+  }
+
+  // Status colors (caution, info, negative, positive) carry semantic meaning
+  // that is independent of surface context, so they intentionally have no
+  // inverse variant. The `inverse` prop is ignored for these presets.
+  return ICON_STATUS_COLOR_TOKENS[color];
+};
+
 export interface StyledIconProps {
   /** Background colour, provide any color from palette or any valid css color value. */
   bg?: string;
@@ -35,8 +71,10 @@ export interface StyledIconProps {
    * Add classes to this component
    */
   className?: string;
-  /** Icon colour, provide any color from palette or any valid css color value. */
-  $color?: string;
+  /** Custom icon colour retained for backward compatibility. */
+  $customColor?: string;
+  /** Semantic icon color. */
+  color?: IconColor;
   /** Sets the icon in the disabled state */
   disabled?: boolean;
   /** Icon font size */
@@ -103,7 +141,8 @@ const StyledIcon = styled.span.attrs(applyBaseTheme)<
 >`
   ${({
     theme,
-    $color,
+    $customColor,
+    color,
     bg,
     isInteractive,
     bgSize,
@@ -114,9 +153,7 @@ const StyledIcon = styled.span.attrs(applyBaseTheme)<
     tabIndex,
     inverse,
   }) => {
-    let finalColor = inverse
-      ? "var(--container-standard-inverse-icon)"
-      : "var(--container-standard-icon)";
+    let finalColor = getIconColorToken(color ?? "neutral", inverse);
     let bgColor = "transparent";
 
     const win = getWindow();
@@ -126,9 +163,12 @@ const StyledIcon = styled.span.attrs(applyBaseTheme)<
       : undefined;
 
     if (disabled) {
-      finalColor = "var(--colorsYin030)";
-    } else if ($color) {
-      const { color: renderedColor } = styledColor({ color: $color, theme });
+      finalColor = "var(--mode-color-action-inactive-icon)";
+    } else if ($customColor) {
+      const { color: renderedColor } = styledColor({
+        color: $customColor,
+        theme,
+      });
       finalColor = renderedColor;
     }
 

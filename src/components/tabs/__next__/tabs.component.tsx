@@ -174,7 +174,7 @@ export const Tab = ({
             data-role="icon-error"
             type="error"
             ariaLabel={locale.tabs.error(labelText)}
-            color="#db004e"
+            color="negative"
           />
         );
       }
@@ -186,7 +186,7 @@ export const Tab = ({
             data-role="icon-warning"
             type="warning"
             ariaLabel={locale.tabs.warning(labelText)}
-            color="#d64309"
+            color="caution"
           />
         );
       }
@@ -198,7 +198,7 @@ export const Tab = ({
             data-role="icon-info"
             type="info"
             ariaLabel={locale.tabs.info(labelText)}
-            color="#0060a7ff"
+            color="info"
           />
         );
       }
