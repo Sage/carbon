@@ -1,3 +1,9 @@
+## [161.4.1](https://github.com/Sage/carbon/compare/v161.4.0...v161.4.1) (2026-07-22)
+
+### Bug Fixes
+
+* **flat-table:** preserve button icon color in table cells ([7390caf](https://github.com/Sage/carbon/commit/7390caf2e83a91e39bbea626adf606bcbe13cca1))
+
 ## [161.4.0](https://github.com/Sage/carbon/compare/v161.3.1...v161.4.0) (2026-07-21)
 
 ### Features
