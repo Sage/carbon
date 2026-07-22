@@ -20,6 +20,11 @@ export interface AdvancedColor {
   value: string;
 }
 
+const colorToId = (value: string) =>
+  `advanced-color-picker-color-${value
+    .replace(/[^a-zA-Z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")}`;
+
 export interface AdvancedColorPickerProps
   extends MarginProps,
     Pick<ModalProps, "restoreFocusOnClose">,
@@ -271,13 +276,11 @@ export const AdvancedColorPicker = ({
           value={selectedColor}
         >
           {colors?.map(({ value, label }) => (
-            /* No id is passed: the color values are CSS colors (often beginning
-               with "#") and so cannot be used as ids. SimpleColor falls back to
-               generating a valid one. */
             <SimpleColor
               value={value}
               key={value}
               aria-label={label}
+              id={colorToId(value)}
               checked={value === selectedColor}
             />
           ))}
