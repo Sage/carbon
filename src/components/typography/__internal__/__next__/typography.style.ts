@@ -1,9 +1,11 @@
 import styled, { css } from "styled-components";
 import { space, SpaceProps } from "styled-system";
 import applyBaseTheme from "../../../../style/themes/apply-base-theme";
-import { AllowedCSSTextOverrides } from "./typography.component";
 import visuallyHidden from "../../../../style/utils/visually-hidden";
-import { TypographyProps } from "./typography.component";
+import {
+  AllowedCSSTextOverrides,
+  TypographyProps,
+} from "./typography.component";
 
 type HeadingVariants =
   | "h1"
