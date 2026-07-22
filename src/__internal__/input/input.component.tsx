@@ -1,6 +1,7 @@
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef, useContext } from "react";
 import InputContainer from "./input.style";
 import combineRefs from "../utils/helpers/combine-refs";
+import SelectTextboxContext from "../../components/select/__internal__/select-textbox/__internal__/select-textbox.context";
 
 export interface InputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "value" | "size"> {
@@ -102,6 +103,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ) => {
     const localRef = useRef<HTMLInputElement>(null);
     const combinedRef = combineRefs(ref, localRef);
+    const { selectType } = useContext(SelectTextboxContext);
 
     useEffect(() => {
       if (autoFocus) {
@@ -117,6 +119,12 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         }
       },
       [onFocus, type],
+    );
+
+    const prefixElement = (
+      <span id={prefixId} data-element="textbox-prefix">
+        {prefix}
+      </span>
     );
 
     return (
@@ -135,12 +143,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           role="presentation"
           className={`input-text-container ${disabled ? "disabled" : ""} ${readOnly ? "read-only" : ""}`}
         >
+          {prefix && selectType === "multi" && prefixElement}
           {leftChildren}
-          {prefix && (
-            <span id={prefixId} data-element="textbox-prefix">
-              {prefix}
-            </span>
-          )}
+          {prefix && selectType !== "multi" && prefixElement}
           <input
             ref={combinedRef}
             data-element="input"

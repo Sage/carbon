@@ -31,11 +31,13 @@ const StyledSelectText = styled.span<StyledSelectTextProps>`
 
     ${$hasPlaceholder &&
     css`
-      color: ${$transparent
-        ? `var(--colorsUtilityYin100)`
-        : `var(--colorsUtilityYin055)`};
-      font-weight: ${$transparent ? 500 : "normal"};
-      user-select: none;
+      & > *:not([data-element="textbox-prefix"]) {
+        color: ${$transparent
+          ? `var(--colorsUtilityYin100)`
+          : `var(--colorsUtilityYin055)`};
+        font-weight: ${$transparent ? 500 : "normal"};
+        user-select: none;
+      }
     `}
 
     ${$disabled &&
