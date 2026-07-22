@@ -9,17 +9,17 @@ import {
 } from "lexical";
 
 const mentionStyle = `
-  background-color: #EFEFEFFF;
-  border: 1px solid #656565FF;
-  border-radius: 6px;
-  color: #000000DD;
+  box-sizing: border-box;
+  background: var(--pill-gray-bg-alt-default);
+  box-shadow: inset 0 0 0 var(--global-borderwidth-xs) var(--pill-gray-border-default);
+  border-radius: var(--global-radius-container-s);
+  color: var(--pill-generic-label-alt-default);
   cursor: pointer;
   display: inline-block;
-  font-weight: 400;
-  line-height: 1.25rem;
-  min-height: 21px;
-  padding: 0px 8px;
-  margin: 0px 4px;
+  font: var(--global-font-static-comp-regular-m);
+  min-height: 20px;
+  padding: 0px var(--global-space-comp-s);
+  margin: 0px var(--global-space-comp-xs);
 `;
 
 export interface SerializedMentionNode extends SerializedTextNode {

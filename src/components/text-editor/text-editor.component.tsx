@@ -53,7 +53,7 @@ import {
 } from "./__internal__/__utils__/helpers";
 import HintText from "../../__internal__/hint-text";
 import ValidationMessage from "../../__internal__/validation-message/__next__";
-import ErrorBorder from "../../__internal__/legacy-error-border/error-border.style";
+import ErrorBorder from "../../__internal__/error-border/error-border.style";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import tagComponent from "../../__internal__/utils/helpers/tags";
 import ReadOnlyEditor from "./__internal__/__ui__/ReadOnlyEditor/read-only-rte.component";
@@ -258,7 +258,7 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
           size={actualSize}
         />
         {(error || warningMessage) && (
-          <ErrorBorder warning={!!(!error && warningMessage)} />
+          <ErrorBorder $warning={!!(!error && warningMessage)} />
         )}
       </>
     );
@@ -381,7 +381,7 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
                       <FormSubmissionPlugin
                         onFormSubmission={onFormSubmission}
                       />
-                      <PluginProvider parentRef={parentRef}>
+                      <PluginProvider parentRef={parentRef} size={actualSize}>
                         {customPlugins}
                       </PluginProvider>
                     </StyledTextEditor>

@@ -138,7 +138,7 @@ export const MentionsPlugin = ({
     );
   }, [editor]);
 
-  const { getParentRef } = usePluginContext();
+  const { getParentRef, size = "medium" } = usePluginContext();
   const parentElement = getParentRef();
   const parentRect = parentElement?.getBoundingClientRect();
   const parentOffsetLeft = parentRect?.left ?? 0;
@@ -179,6 +179,7 @@ export const MentionsPlugin = ({
               id={`${namespace}-mention-list`}
               role="group"
               tabIndex={0}
+              $size={size}
             >
               {options.map((option, i: number) => {
                 const optionKey =
@@ -198,6 +199,7 @@ export const MentionsPlugin = ({
                     key={optionKey}
                     option={option}
                     currentQueryString={queryString ?? undefined}
+                    size={size}
                   />
                 );
               })}

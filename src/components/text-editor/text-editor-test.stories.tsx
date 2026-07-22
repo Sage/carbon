@@ -80,7 +80,7 @@ export const Sizes: Story = () => {
   return (
     <Box m={2}>
       <TextEditor
-        namespace="storybook-error-bottom"
+        namespace="storybook-small"
         labelText="Text Editor - Small"
         inputHint="Hint text"
         error="error"
@@ -89,7 +89,7 @@ export const Sizes: Story = () => {
         mb={2}
       />
       <TextEditor
-        namespace="storybook-error-bottom"
+        namespace="storybook-medium"
         labelText="Text Editor - Medium"
         inputHint="Hint text"
         error="error"
@@ -98,7 +98,7 @@ export const Sizes: Story = () => {
         mb={2}
       />
       <TextEditor
-        namespace="storybook-error-bottom"
+        namespace="storybook-large"
         labelText="Text Editor - Large"
         inputHint="Hint text"
         error="error"
@@ -107,7 +107,7 @@ export const Sizes: Story = () => {
         mb={2}
       />
       <TextEditor
-        namespace="storybook-error-bottom"
+        namespace="storybook-small-header-footer"
         labelText="Text Editor - Small with Header and Footer"
         inputHint="Hint text"
         error="error"
@@ -118,7 +118,7 @@ export const Sizes: Story = () => {
         mb={2}
       />
       <TextEditor
-        namespace="storybook-error-bottom"
+        namespace="storybook-medium-header-footer"
         labelText="Text Editor - Medium with Header and Footer"
         inputHint="Hint text"
         error="error"
@@ -129,7 +129,7 @@ export const Sizes: Story = () => {
         mb={2}
       />
       <TextEditor
-        namespace="storybook-error-bottom"
+        namespace="storybook-large-header-footer"
         labelText="Text Editor - Large with Header and Footer"
         inputHint="Hint text"
         error="error"
