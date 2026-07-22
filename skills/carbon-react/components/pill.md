@@ -42,7 +42,7 @@ description: Carbon Pill component props and usage examples.
 | wrapText | boolean \| undefined | No |  |  |  | Allow the text within pill to wrap. |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
-| colorVariant | "warning" \| "negative" \| "neutral" \| "positive" \| "information" \| "neutralWhite" \| undefined | No |  | Yes | Use `variant` prop instead. | Determines the colour variant of the pill. |  |
+| colorVariant | "warning" \| "neutral" \| "negative" \| "positive" \| "information" \| "neutralWhite" \| undefined | No |  | Yes | Use `variant` prop instead. | Determines the colour variant of the pill. |  |
 | isDarkBackground | boolean \| undefined | No |  | Yes | Use `inverse` prop instead. | Apply inverse styling for use on dark backgrounds. | false |
 | pillRole | "tag" \| "status" \| undefined | No |  | Yes | The pillRole prop is no longer used. Pill styling is determined by the `variant`, `fill`, and `inverse` props. | Sets the type of pill in use. |  |
 | size | "S" \| "M" \| "L" \| "XL" \| undefined | No |  | Yes | The `XL` size is deprecated and will be removed in a future release. Use `L` instead. | Sets the size of the pill. | "M" |

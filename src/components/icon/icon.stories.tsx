@@ -3,7 +3,7 @@ import { Meta, StoryObj } from "@storybook/react-vite";
 
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
-import Icon from ".";
+import Icon, { ICON_COLOR_TYPES } from ".";
 import Box from "../box";
 
 import { ICONS } from "./icon-config";
@@ -17,6 +17,9 @@ const meta: Meta<typeof Icon> = {
   component: Icon,
   argTypes: {
     ...styledSystemProps,
+    color: {
+      options: ICON_COLOR_TYPES,
+    },
   },
 };
 
@@ -90,37 +93,17 @@ export const BgSizesAndFontSizes: Story = () => {
 };
 BgSizesAndFontSizes.storyName = "Background Sizes and Font Sizes";
 
-export const CustomColors: Story = () => (
-  <>
-    <Box mb={1}>
-      <Icon type="add" color="--colorsUtilityYin090" />
-      <Icon type="add" color="primary" />
-      <Icon type="add" color="blackOpacity65" />
-      <Icon type="add" color="brilliantGreenShade20" />
-      <Icon type="add" color="red" />
-      <Icon type="add" color="#123456" />
-      <Icon type="add" color="rgb(0, 123, 10)" />
-    </Box>
-    <Box mb={1}>
-      <Icon
-        type="add"
-        color="--colorsUtilityYin090"
-        bg="--colorsSemanticCaution500"
-      />
-      <Icon type="add" color="red" bg="primary" />
-      <Icon type="add" color="white" bg="blackOpacity65" />
-      <Icon type="add" bg="brilliantGreenShade20" />
-      <Icon type="add" bg="red" />
-      <Icon type="add" color="white" bg="#123456" />
-      <Icon type="add" color="white" bg="rgb(0, 123, 10)" />
-    </Box>
-  </>
+export const ColorPresets: Story = () => (
+  <Box display="flex" flexDirection="column" gap={1}>
+    {ICON_COLOR_TYPES.map((color) => (
+      <Box display="flex" alignItems="center" gap={1} key={color}>
+        <Icon type="add" color={color} />
+        <span>{color}</span>
+      </Box>
+    ))}
+  </Box>
 );
-CustomColors.storyName = "Custom Colors";
-CustomColors.parameters = {
-  info: { disable: true },
-  chromatic: { disableSnapshot: true },
-};
+ColorPresets.storyName = "Color Presets";
 
 export const ListOfIcons: Story = () => {
   return (

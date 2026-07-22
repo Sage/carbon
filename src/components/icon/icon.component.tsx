@@ -7,8 +7,10 @@ import StyledIcon, {
   BackgroundShape,
   BgSize,
   FontSize,
+  IconColor,
   StyledIconProps,
 } from "./icon.style";
+import { isLegacyWhiteColor, resolveSemanticColor } from "./icon.utils";
 import { IconType } from "./icon-type";
 import { TooltipPositions } from "../tooltip/tooltip.config";
 
@@ -101,8 +103,21 @@ export interface IconProps
   bgShape?: BackgroundShape;
   /** @deprecated Use CSS or a wrapper element to control background size. */
   bgSize?: BgSize;
-  /** @deprecated Use CSS or a wrapper element to control icon colour. */
-  color?: string;
+  /**
+   * Override the icon color with a semantic preset.
+   *
+   * - `neutral` — default content icon color
+   * - `subtle` — alternative, lower-emphasis content icon color
+   * - `caution` — caution status color
+   * - `info` — information status color
+   * - `negative` — negative status color
+   * - `positive` — positive status color
+   *
+   * Arbitrary CSS color strings remain supported for backward compatibility,
+   * but semantic presets are preferred. Legacy `color="white"` (and common
+   * equivalent expressions) maps to the `inverse` neutral token.
+   */
+  color?: IconColor | string;
   /** @deprecated Applies disabled styling to the icon. */
   disabled?: boolean;
 }
@@ -174,14 +189,22 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>(
       return size;
     }, [fontSize, size]);
 
+    const normalizedColor = color?.trim().toLowerCase();
+    const resolvedColor = resolveSemanticColor(normalizedColor);
+    const isLegacyWhite =
+      !!normalizedColor && isLegacyWhiteColor(normalizedColor);
+    const resolvedInverse = inverse || (!resolvedColor && isLegacyWhite);
+    const customColor = !resolvedColor && !isLegacyWhite ? color : undefined;
+
     const styledIconProps = {
-      $color: color,
+      $customColor: customColor,
       "aria-hidden": ariaHidden,
       "aria-label": ariaLabel,
       bg,
       bgSize: bgSize || resolvedSize,
       bgShape,
       className: className || undefined,
+      color: resolvedColor,
       "data-component": "icon",
       "data-color": color,
       "data-element": dataElement ?? iconType,
@@ -189,7 +212,7 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>(
       disabled,
       fontSize: resolvedSize,
       id,
-      inverse,
+      inverse: resolvedInverse,
       ref,
       role,
       tabIndex,
