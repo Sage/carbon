@@ -1,3 +1,10 @@
+## [161.5.0](https://github.com/Sage/carbon/compare/v161.4.2...v161.5.0) (2026-07-22)
+
+### Features
+
+* **multi-select:** update multi-select to use updated pill ([d819735](https://github.com/Sage/carbon/commit/d819735d03f8ba640c85dd2d8954c2c86ccfad07))
+* **pill:** align pill with fusion ds ([49a89af](https://github.com/Sage/carbon/commit/49a89af8b4470a6d34b85e867376cc436efcf626))
+
 ## [161.4.2](https://github.com/Sage/carbon/compare/v161.4.1...v161.4.2) (2026-07-22)
 
 ### Bug Fixes
