@@ -2,7 +2,6 @@ import React from "react";
 import { ArgTypes } from "@storybook/react-vite";
 import Typography, { TypographyProps } from ".";
 import { VARIANT_TYPES } from "./typography.component";
-import { TYPOGRAPHY_COLOR_TYPES } from "./__internal__/__next__/typography.component";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import Box from "../box";
 
@@ -33,8 +32,8 @@ const VARIANT_TYPES_ARG_TYPES: ArgTypes = {
       type: "select",
     },
   },
-  color: {
-    options: TYPOGRAPHY_COLOR_TYPES,
+  tint: {
+    options: ["default", "alt"],
     control: {
       type: "select",
     },
@@ -168,7 +167,7 @@ export const AllVariants = () => (
 );
 AllVariants.storyName = "All Variants (Supported & Deprecated)";
 
-// Covers props not exercised by AllVariants: inverse, size, color, weight, fluid
+// Covers props not exercised by AllVariants: inverse, size, tint, weight, fluid
 export const VisualRegressionMatrix = () => (
   <Box
     display="grid"
@@ -299,66 +298,51 @@ export const VisualRegressionMatrix = () => (
       </Typography>
     </Box>
 
-    {/* Color */}
+    {/* Tint */}
     <Box display="flex" flexDirection="column" gap={1}>
-      <Typography variant="h1" color="neutral">
-        h1 color neutral
+      <Typography variant="p" tint="default">
+        p tint default
       </Typography>
-      <Typography variant="h2" color="subtle">
-        h2 color subtle
+      <Typography variant="p" tint="alt">
+        p tint alt
       </Typography>
-      <Typography variant="h3" color="caution">
-        h3 color caution
+      <Typography variant="strong" tint="default">
+        strong tint default
       </Typography>
-      <Typography variant="section-heading" color="info">
-        section-heading color info
+      <Typography variant="strong" tint="alt">
+        strong tint alt
       </Typography>
-      <Typography variant="section-subheading" color="positive">
-        section-subheading color positive
+      <Typography variant="b" tint="default">
+        b tint default
       </Typography>
-      <Typography variant="p" color="neutral">
-        p color neutral
+      <Typography variant="b" tint="alt">
+        b tint alt
       </Typography>
-      <Typography variant="p" color="subtle">
-        p color subtle
-      </Typography>
-      <Typography variant="strong" color="caution">
-        strong color caution
-      </Typography>
-      <Typography variant="strong" color="info">
-        strong color info
-      </Typography>
-      <Typography variant="b" color="negative">
-        b color negative
-      </Typography>
-      <Typography variant="b" color="positive">
-        b color positive
-      </Typography>
-      <Typography variant="p" color="caution">
+      <Typography variant="p" tint="default">
         Text with{" "}
-        <Typography variant="sup" color="caution">
+        <Typography variant="sup" tint="default">
           sup
         </Typography>{" "}
-        color caution
+        tint default
       </Typography>
-      <Typography variant="p" color="info">
+      <Typography variant="p" tint="alt">
         Text with{" "}
-        <Typography variant="sub" color="info">
+        <Typography variant="sub" tint="alt">
           sub
         </Typography>{" "}
-        color info
+        tint alt
       </Typography>
-      <Typography variant="ul" color="subtle">
-        <li>ul color subtle</li>
+      <Typography variant="ul" tint="default">
+        <li>ul tint default</li>
       </Typography>
-      <Typography variant="ul" color="negative">
-        <li>ul color negative</li>
+      <Typography variant="ul" tint="alt">
+        <li>ul tint alt</li>
       </Typography>
-      <Typography variant="ol" color="positive">
-        <li>ol color positive</li>
+      <Typography variant="ol" tint="default">
+        <li>ol tint default</li>
       </Typography>
-      <Typography variant="ol" color="caution">
-        <li>ol color caution</li>
+      <Typography variant="ol" tint="alt">
+        <li>ol tint alt</li>
       </Typography>
     </Box>
 
