@@ -5,7 +5,7 @@ import styleConfig from "./pill.style.config";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 import type { ThemeObject } from "../../style/themes/theme.types";
 import StyledIcon from "../icon/icon.style";
-import StyledIconButton from "../icon-button/icon-button.style";
+import addFocusStyling from "../../style/utils/add-focus-styling";
 import { toColor } from "../../style/utils/color";
 import getColorValue from "../../style/utils/get-color-value";
 import getHexValue from "../../style/utils/get-hex-value";
@@ -16,7 +16,10 @@ export interface StyledPillProps extends MarginProps {
   borderColor?: string;
   /** Sets the max-width of the pill. */
   maxWidth?: string;
-  /** Sets the size of the pill. */
+  /**
+   * Sets the size of the pill.
+   * @deprecated The `XL` size is deprecated and will be removed in a future release. Use `L` instead.
+   */
   size?: "S" | "M" | "L" | "XL";
   /** @private @ignore */
   theme?: Partial<ThemeObject>;
@@ -24,41 +27,55 @@ export interface StyledPillProps extends MarginProps {
   wrapText?: boolean;
 }
 
-interface AllStyledPillProps extends StyledPillProps {
-  inFill?: boolean;
-  isDeletable: boolean;
-  isDarkBackground: boolean;
-  colorVariant:
-    | "neutral"
-    | "negative"
-    | "positive"
-    | "warning"
-    | "information"
-    | "neutralWhite";
-  pillRole: "tag" | "status";
+interface AllStyledPillProps extends MarginProps {
+  $borderColor?: StyledPillProps["borderColor"];
+  $maxWidth?: StyledPillProps["maxWidth"];
+  $size?: StyledPillProps["size"];
+  $wrapText?: StyledPillProps["wrapText"];
+  $inFill?: boolean;
+  $isDeletable: boolean;
+  $inverse: boolean;
+  $colorVariant:
+    | "grey"
+    | "green"
+    | "red"
+    | "orange"
+    | "blue"
+    | "purple"
+    | "teal"
+    | "lime"
+    | "pink"
+    | "slate";
+  $pillRole: "tag" | "status";
 }
+
+export const StyledDeleteButton = styled.button``;
 
 const StyledPill = styled.span.attrs(applyBaseTheme)<AllStyledPillProps>`
   ${margin}
   ${({
-    wrapText,
-    borderColor,
-    colorVariant,
-    isDarkBackground,
-    isDeletable,
-    inFill,
-    maxWidth,
-    pillRole,
-    size,
+    $wrapText: wrapText,
+    $borderColor: borderColor,
+    $colorVariant: colorVariant,
+    $inverse: inverse,
+    $isDeletable: isDeletable,
+    $inFill: inFill,
+    $maxWidth: maxWidth,
+    $size: size,
     theme,
   }) => {
-    const isStatus = pillRole === "status";
     let pillColor: string;
+    let pillColorAlt: string;
+    let pillBorderColor: string;
     let buttonFocusColor: string | undefined;
+    let buttonFocusAltColor: string | undefined;
     let contentColor: string;
+    let contentAltColor: string;
 
     if (borderColor) {
       pillColor = toColor(theme, borderColor);
+      pillColorAlt = pillColor;
+      pillBorderColor = pillColor;
 
       // get token value in rgb
       const colorVal = getColorValue(pillColor);
@@ -67,28 +84,43 @@ const StyledPill = styled.span.attrs(applyBaseTheme)<AllStyledPillProps>`
         false,
         true,
       );
+      contentAltColor = contentColor;
     } else {
-      const { status, tag } = styleConfig(isDarkBackground);
-      const { varietyColor, buttonFocus, content } = isStatus
-        ? status[colorVariant]
-        : tag.primary;
+      const { status } = styleConfig(inverse);
+      const {
+        varietyColor,
+        varietyColorAlt,
+        varietyBorderColor,
+        buttonFocus,
+        buttonFocusAlt,
+        content,
+        contentAlt,
+      } = status[colorVariant];
       pillColor = varietyColor;
+      pillColorAlt = varietyColorAlt;
+      pillBorderColor = varietyBorderColor;
       buttonFocusColor = buttonFocus;
+      buttonFocusAltColor = buttonFocusAlt;
       contentColor = content;
+      contentAltColor = contentAlt;
     }
 
+    const deleteContentColor =
+      inFill || borderColor ? contentColor : contentAltColor;
+    const deleteHoverBackgroundColor =
+      inFill || borderColor ? buttonFocusColor : buttonFocusAltColor;
+
     return css`
-      font-size: 12px;
-      letter-spacing: 0.7px;
-      font-weight: 500;
       position: relative;
       display: inline-flex;
       text-align: center;
       align-items: center;
       justify-content: center;
-      border: 2px solid ${pillColor};
-      border-radius: var(--borderRadius025);
+      gap: var(--global-space-comp-xs);
+      border: var(--global-borderwidth-s) solid ${pillBorderColor};
+      border-radius: var(--global-radius-container-s);
       height: auto;
+      box-sizing: border-box;
 
       ${!wrapText &&
       css`
@@ -106,6 +138,14 @@ const StyledPill = styled.span.attrs(applyBaseTheme)<AllStyledPillProps>`
 
       color: ${contentColor};
 
+      ${StyledIcon} {
+        color: inherit;
+        width: var(--global-size-2-xs);
+        height: var(--global-size-2-xs);
+        padding: var(--global-space-comp-xs);
+        box-sizing: border-box;
+      }
+
       ${inFill &&
       css`
         background-color: ${pillColor};
@@ -113,48 +153,63 @@ const StyledPill = styled.span.attrs(applyBaseTheme)<AllStyledPillProps>`
 
       ${!inFill &&
       css`
-        color: ${!isDarkBackground
-          ? "var(--colorsUtilityYin090)"
-          : "var(--colorsUtilityYang100)"};
+        ${borderColor
+          ? css`
+              color: ${!inverse
+                ? "var(--colorsUtilityYin090)"
+                : "var(--colorsUtilityYang100)"};
+            `
+          : css`
+              background-color: ${pillColorAlt};
+              color: ${contentAltColor};
+            `}
       `}
+
+      /* TODO: Font longhands are used instead of the composite --global-font-static-comp-medium-*
+         token because that token embeds a nested var() for font-family, making the whole
+         font shorthand a pending-substitution value that cannot be reliably overridden
+         (notably line-height). Revisit once Pill-appropriate design tokens exist. */
+      font-family: var(--global-font-families-component);
+      font-weight: 500;
+      line-height: 1;
 
       ${size === "S" &&
       css`
-        min-height: 16px;
-        line-height: 16px;
-        font-size: 12px;
-        padding: 0 8px;
+        min-height: var(--global-size-2-xs);
+        font-size: 14px;
+        padding: 0 var(--global-space-comp-s);
       `}
 
       ${size === "M" &&
       css`
-        min-height: 20px;
-        line-height: 20px;
+        min-height: var(--global-size-xs);
         font-size: 14px;
-        padding: 0 8px;
+        padding: 0 var(--global-space-comp-s);
       `}
 
       ${size === "L" &&
       css`
-        min-height: 24px;
-        line-height: 24px;
-        font-size: 14px;
-        padding: 0 8px;
+        min-height: 28px;
+        font-size: 16px;
+        padding: 0 var(--global-space-comp-s);
       `}
 
+      /* Todo: Remove when Pill's XL size is removed */
       ${size === "XL" &&
       css`
         min-height: 28px;
-        line-height: 28px;
         font-size: 16px;
         padding: 0 12px;
       `}
 
+
       ${isDeletable &&
       css`
-        ${StyledIconButton} {
+        ${StyledDeleteButton} {
           -webkit-appearance: none;
-          border-radius: var(--borderRadius000);
+          background: transparent;
+          border-radius: 0 var(--global-radius-container-s)
+            var(--global-radius-container-s) 0;
           border: none;
           bottom: 0;
           font-size: 100%;
@@ -163,38 +218,51 @@ const StyledPill = styled.span.attrs(applyBaseTheme)<AllStyledPillProps>`
           top: 0;
           width: 20px;
           margin: 0;
-          line-height: 16px;
+          padding: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          color: ${deleteContentColor};
+
+          ${!inFill &&
+          borderColor &&
+          css`
+            color: ${!inverse
+              ? "var(--colorsUtilityYin090)"
+              : "var(--colorsUtilityYang100)"};
+          `}
+
+          ${StyledIcon} {
+            color: currentColor;
+            height: unset;
+            width: unset;
+          }
 
           &:focus {
-            border-radius: var(--borderRadius000) var(--borderRadius025)
-              var(--borderRadius025) var(--borderRadius000);
+            ${addFocusStyling()}
+            color: ${deleteContentColor};
             ::-moz-focus-inner {
               border: 0;
-            }
-
-            ${StyledIcon} {
-              color: ${contentColor};
             }
 
             ${borderColor
               ? css`
                   &::before {
-                    border-radius: var(--borderRadius000) var(--borderRadius025)
-                      var(--borderRadius025) var(--borderRadius000);
+                    border-radius: 0 var(--global-radius-container-s)
+                      var(--global-radius-container-s) 0;
                   }
                 `
               : css`
-                  background-color: ${buttonFocusColor};
+                  background-color: ${inFill
+                    ? buttonFocusColor
+                    : buttonFocusAltColor};
                 `}
           }
 
           &:hover {
-            background-color: ${buttonFocusColor};
-            cursor: pointer;
-
-            ${StyledIcon} {
-              color: ${contentColor};
-            }
+            background-color: ${deleteHoverBackgroundColor};
+            color: ${deleteContentColor};
           }
 
           ${borderColor &&
@@ -213,65 +281,42 @@ const StyledPill = styled.span.attrs(applyBaseTheme)<AllStyledPillProps>`
               }
             }
           `}
-
-          ${StyledIcon} {
-            height: unset;
-            width: unset;
-            color: ${contentColor};
-
-            ${!inFill &&
-            css`
-              color: ${!isDarkBackground
-                ? "var(--colorsUtilityYin090)"
-                : "var(--colorsUtilityYang100)"};
-            `}
-          }
         }
 
         ${size === "S" &&
         css`
-          padding: 0 22px 0 8px;
-
-          ${StyledIconButton} {
-            padding: 0;
-            line-height: 16px;
-
-            ${StyledIcon} {
-              top: -2px;
-              &:before {
-                font-size: 16px;
-              }
-            }
-          }
+          padding: 0 calc(20px + var(--global-space-comp-xs)) 0
+            var(--global-space-comp-s);
         `}
 
         ${size === "M" &&
         css`
-          padding: 0 28px 0 8px;
+          padding: 0 calc(24px + var(--global-space-comp-xs)) 0
+            var(--global-space-comp-s);
 
-          ${StyledIconButton} {
+          ${StyledDeleteButton} {
             width: 24px;
             padding: 0;
-            line-height: 15px;
           }
         `}
 
         ${size === "L" &&
         css`
-          padding: 0 32px 0 8px;
+          padding: 0 calc(28px + var(--global-space-comp-xs)) 0
+            var(--global-space-comp-s);
 
-          ${StyledIconButton} {
+          ${StyledDeleteButton} {
             width: 28px;
             padding: 0;
-            line-height: 16px;
           }
         `}
 
+        /* Todo: Remove when Pill's XL size is removed */
         ${size === "XL" &&
         css`
-          padding: 0 36px 0 12px;
+          padding: 0 calc(32px + var(--global-space-comp-xs)) 0 12px;
 
-          ${StyledIconButton} {
+          ${StyledDeleteButton} {
             width: 32px;
             padding: 0;
             line-height: 18px;
