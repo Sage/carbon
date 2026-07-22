@@ -370,13 +370,13 @@ test.describe("Props tests for Textarea component", () => {
     await expect(textareaChildrenElement).toBeDisabled();
   });
 
-  test("should render icon with disabled style", async ({ mount, page }) => {
+  test("should pass disabled state to the icon", async ({ mount, page }) => {
     await mount(<TextareaComponent disabled inputIcon="bin" />);
 
     const textareaIcon = textarea(page).locator(ICON);
 
     await expect(textareaIcon).toBeVisible();
-    await expect(textareaIcon).toHaveCSS("color", "rgba(0, 0, 0, 0.3)");
+    await expect(textareaIcon).toHaveAttribute("disabled", "");
   });
 
   testData.forEach((placeholder) => {
@@ -414,12 +414,15 @@ test.describe("Props tests for Textarea component", () => {
     await expect(textareaChildren(page)).not.toBeEditable();
   });
 
-  test("should render icon with readOnly style", async ({ mount, page }) => {
+  test("should render readOnly icon in a disabled state", async ({
+    mount,
+    page,
+  }) => {
     await mount(<TextareaComponent readOnly inputIcon="bin" />);
 
     const textareaIcon = textarea(page).locator(ICON);
     await expect(textareaIcon).toBeVisible();
-    await expect(textareaIcon).toHaveCSS("color", "rgba(0, 0, 0, 0.3)");
+    await expect(textareaIcon).toHaveAttribute("disabled", "");
   });
 
   ["error", "warning", "info"].forEach((type) => {
@@ -695,6 +698,7 @@ test(`should verify expandable Textarea shrinks back to original height when lin
 
 test.describe("Event tests for Textarea component", () => {
   const inputValue = "1";
+
   test("should call onChange callback when a type event is triggered", async ({
     mount,
     page,

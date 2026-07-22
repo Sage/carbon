@@ -36,6 +36,41 @@ test.each([
   },
 );
 
+test("supports arbitrary CSS color values for backward compatibility", () => {
+  render(<Icon type="home" color="#123456" />);
+
+  expect(screen.getByTestId("icon")).toHaveStyleRule("color", "#123456");
+});
+
+test.each(["negative", "#123456"])(
+  "uses the disabled icon token instead of the %s color",
+  (color) => {
+    render(<Icon type="home" color={color} disabled />);
+
+    expect(screen.getByTestId("icon")).toHaveStyleRule(
+      "color",
+      "var(--mode-color-action-inactive-icon)",
+    );
+  },
+);
+
+test.each([
+  "white",
+  "#fff",
+  "#ffffff",
+  "rgb(255,255,255)",
+  "rgb(255, 255, 255)",
+  "rgba(255,255,255,1)",
+  "rgba(255, 255, 255, 1)",
+])("maps the legacy color value %s to inverse styling", (color) => {
+  render(<Icon type="home" color={color} />);
+
+  expect(screen.getByTestId("icon")).toHaveStyleRule(
+    "color",
+    "var(--page-content-inverse-icon-default)",
+  );
+});
+
 test("renders with custom data tags", () => {
   render(
     <Icon
@@ -160,7 +195,7 @@ test("renders with the inverse icon colour token when the `inverse` prop is true
 
   expect(screen.getByTestId("icon")).toHaveStyleRule(
     "color",
-    "var(--container-standard-inverse-icon)",
+    "var(--page-content-inverse-icon-default)",
   );
 });
 
@@ -170,7 +205,55 @@ test("renders with the standard icon colour token when the `inverse` prop is not
 
   expect(screen.getByTestId("icon")).toHaveStyleRule(
     "color",
-    "var(--container-standard-icon)",
+    "var(--page-content-icon-default)",
+  );
+});
+
+test.each([
+  ["neutral", "var(--page-content-icon-default)"],
+  ["subtle", "var(--page-content-icon-alt)"],
+  ["caution", "var(--page-content-caution-icon)"],
+  ["info", "var(--page-content-info-icon)"],
+  ["negative", "var(--page-content-negative-icon)"],
+  ["positive", "var(--page-content-positive-icon)"],
+] as const)(
+  "renders the %s color preset with the correct token",
+  (color, token) => {
+    render(<Icon type="home" color={color} />);
+
+    expect(screen.getByTestId("icon")).toHaveStyleRule("color", token);
+  },
+);
+
+test("renders the inverse subtle color preset with the correct token", () => {
+  render(<Icon type="home" color="subtle" inverse />);
+
+  expect(screen.getByTestId("icon")).toHaveStyleRule(
+    "color",
+    "var(--page-content-inverse-icon-alt)",
+  );
+});
+
+test.each([
+  ["caution", "var(--page-content-caution-icon)"],
+  ["info", "var(--page-content-info-icon)"],
+  ["negative", "var(--page-content-negative-icon)"],
+  ["positive", "var(--page-content-positive-icon)"],
+] as const)(
+  "status color %s ignores the `inverse` prop — status semantics are surface-independent",
+  (color, token) => {
+    render(<Icon type="home" color={color} inverse />);
+
+    expect(screen.getByTestId("icon")).toHaveStyleRule("color", token);
+  },
+);
+
+test("normalizes semantic color values", () => {
+  render(<Icon type="home" color=" INFO " />);
+
+  expect(screen.getByTestId("icon")).toHaveStyleRule(
+    "color",
+    "var(--page-content-info-icon)",
   );
 });
 

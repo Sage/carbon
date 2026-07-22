@@ -2,7 +2,7 @@ import React, { forwardRef, useRef } from "react";
 import { DialogProps, DialogHandle } from "../dialog.component";
 import { StyledSubtitle } from "../dialog.style";
 import Box from "../../../../box";
-import Icon from "../../../../icon";
+import Icon, { IconColor } from "../../../../icon";
 import { IconType } from "../../../../icon/icon-type";
 import Typography from "../../../../typography";
 import createGuid from "../../../../../__internal__/utils/helpers/guid";
@@ -18,27 +18,27 @@ export type DialogHeadingStatus =
 /** Map each status to its icon type and colour token. */
 const STATUS_CONFIG: Record<
   DialogHeadingStatus,
-  { iconType: IconType; color: string }
+  { iconType: IconType; color: IconColor }
 > = {
   subtle: {
     iconType: "info",
-    color: "var(--colorsUtilityMajor400)",
+    color: "subtle",
   },
   positive: {
     iconType: "tick_circle",
-    color: "var(--colorsSemanticPositive500)",
+    color: "positive",
   },
   negative: {
     iconType: "error",
-    color: "var(--colorsSemanticNegative500)",
+    color: "negative",
   },
   caution: {
     iconType: "warning",
-    color: "var(--colorsSemanticCaution500)",
+    color: "caution",
   },
   info: {
     iconType: "info",
-    color: "var(--colorsSemanticInfo500)",
+    color: "info",
   },
 };
 

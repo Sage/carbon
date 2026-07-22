@@ -93,7 +93,7 @@ export const FlatTableComponent = (
                 alignItems="center"
                 display="flex"
               >
-                Name <Icon type="individual" color="white" />
+                Name <Icon type="individual" inverse />
               </Box>
             </FlatTableHeader>
             <FlatTableHeader>
@@ -102,7 +102,7 @@ export const FlatTableComponent = (
                 alignItems="center"
                 display="flex"
               >
-                Location <Icon type="location" color="white" />
+                Location <Icon type="location" inverse />
               </Box>
             </FlatTableHeader>
             <FlatTableHeader>
@@ -111,7 +111,7 @@ export const FlatTableComponent = (
                 alignItems="center"
                 display="flex"
               >
-                Relationship Status <Icon type="person_info" color="white" />
+                Relationship Status <Icon type="person_info" inverse />
               </Box>
             </FlatTableHeader>
             <FlatTableHeader>
@@ -120,7 +120,7 @@ export const FlatTableComponent = (
                 alignItems="center"
                 display="flex"
               >
-                Dependents <Icon type="people" color="white" />
+                Dependents <Icon type="people" inverse />
               </Box>
             </FlatTableHeader>
           </FlatTableRow>
@@ -297,7 +297,7 @@ export const FlatTableSpanComponent = (props: Partial<FlatTableProps>) => {
               verticalBorder="small"
               verticalBorderColor="#335CDC"
             >
-              Code - Sticky <Icon type="business" color="white" />
+              Code - Sticky <Icon type="business" inverse />
             </FlatTableRowHeader>
             <FlatTableHeader colspan={2}>Jun 21</FlatTableHeader>
             <FlatTableHeader rowspan={2}>Zeros</FlatTableHeader>
