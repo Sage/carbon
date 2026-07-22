@@ -918,15 +918,16 @@ test("should apply 4px gap between label and input for hours and minutes fields"
       value={{ hours: "", minutes: "" }}
       onChange={() => {}}
       label="Time"
+      hoursInputProps={{ "data-role": "hours-input-wrapper" }}
+      minutesInputProps={{ "data-role": "minutes-input-wrapper" }}
     />,
   );
 
-  const inputWrappers = screen.getAllByTestId("input-wrapper");
   const firstGap = window.getComputedStyle(
-    inputWrappers[0].parentElement as Element,
+    screen.getByTestId("hours-input-wrapper"),
   ).gap;
   const secondGap = window.getComputedStyle(
-    inputWrappers[1].parentElement as Element,
+    screen.getByTestId("minutes-input-wrapper"),
   ).gap;
 
   expect(firstGap).toBe("var(--global-space-comp-xs)");
@@ -1179,7 +1180,7 @@ test("should not apply the aria-describedby attribute to fieldset when inputHint
 
   const fieldset = screen.getByRole("group");
 
-  expect(fieldset).toHaveAttribute("aria-describedby", "");
+  expect(fieldset).not.toHaveAttribute("aria-describedby");
 });
 
 test("should sync internal input values when the value is changed", async () => {
