@@ -912,6 +912,49 @@ test("should render with the default translations if no overrides are provided",
   expect(screen.getByText("PM")).toBeVisible();
 });
 
+test("should apply 4px gap between label and input for hours and minutes fields", () => {
+  render(
+    <Time
+      value={{ hours: "", minutes: "" }}
+      onChange={() => {}}
+      label="Time"
+    />,
+  );
+
+  const inputWrappers = screen.getAllByTestId("input-wrapper");
+  const firstGap = window.getComputedStyle(
+    inputWrappers[0].parentElement as Element,
+  ).gap;
+  const secondGap = window.getComputedStyle(
+    inputWrappers[1].parentElement as Element,
+  ).gap;
+
+  expect(firstGap).toBe("var(--global-space-comp-xs)");
+  expect(secondGap).toBe("var(--global-space-comp-xs)");
+});
+
+it.each([
+  ["small", "48px"],
+  ["medium", "56px"],
+  ["large", "64px"],
+] as const)(
+  "should apply %s input wrapper width for hours and minutes",
+  (size, expectedWidth) => {
+    render(
+      <Time
+        value={{ hours: "", minutes: "" }}
+        onChange={() => {}}
+        size={size}
+      />,
+    );
+
+    const inputWrappers = screen.getAllByTestId("input-wrapper");
+
+    expect(inputWrappers[0]).toHaveStyleRule("max-width", expectedWidth);
+    expect(inputWrappers[1]).toHaveStyleRule("max-width", expectedWidth);
+  },
+);
+
 test("should render with the overridden translations if provided", () => {
   render(
     <I18nProvider locale={localeMock}>
