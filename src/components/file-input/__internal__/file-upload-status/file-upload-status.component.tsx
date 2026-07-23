@@ -2,10 +2,7 @@ import React from "react";
 import Link, { LinkProps } from "../../../link";
 import ButtonMinor from "../../../button-minor";
 import StyledTypography from "../../../typography/typography.style";
-import {
-  StyledProgressBar,
-  InnerBar,
-} from "../../../progress-tracker/progress-tracker.style";
+import { StyledProgressBar } from "../../../progress-tracker/progress-tracker.style";
 import LoaderBar from "../../../loader-bar";
 import Icon, { IconType } from "../../../icon";
 import {
@@ -75,19 +72,15 @@ export const FileUploadStatus = ({
           <StyledProgressBar
             data-element="progress-tracker-bar"
             data-role="progress-tracker-bar"
-            progress={(statusProps as StatusUploadingProps).progress}
+            $progress={(statusProps as StatusUploadingProps).progress}
+            $variant={
+              (statusProps as StatusUploadingProps).progress === 100
+                ? /* istanbul ignore next - captured in chromatic */ "success"
+                : "neutral"
+            }
+            $size="medium"
             aria-hidden="true"
-          >
-            <InnerBar
-              data-element="inner-bar"
-              data-role="inner-bar"
-              size="medium"
-              progress={
-                (statusProps as StatusUploadingProps).progress as number
-              }
-              error={false}
-            />
-          </StyledProgressBar>
+          />
         );
       break;
     case "previously":
@@ -143,6 +136,7 @@ export const FileUploadStatus = ({
     <StyledFileUploadStatus
       data-role="file-upload-status"
       hasError={status === "error"}
+      complete={(statusProps as StatusUploadingProps).progress === 100}
     >
       {mainRow}
       {secondRow}
