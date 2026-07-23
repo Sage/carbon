@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import styled, { css, CSSObject } from "styled-components";
-import Popover from "../popover";
 import { flip, offset, size } from "@floating-ui/dom";
+import Popover from "../popover";
 import wrapChildrenInMenuItems from "./utils";
 import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
 import { useHandleDropdownMenuKeyDown } from "./hooks";
@@ -18,6 +18,7 @@ const PopoverControlWrapper = styled.div<{
 
 interface ListProps {
   $size: PopoverMenuContextProps["size"];
+  $maxHeight?: string;
 }
 
 export const List = styled.ul<ListProps>`
@@ -28,9 +29,8 @@ export const List = styled.ul<ListProps>`
   display: flex;
   flex-direction: column;
 
-  ${({ $size }) => css`
-    max-height: calc(5 * var(--global-size-${$size.charAt(0)}));
-  `}
+  max-height: ${({ $maxHeight, $size }) =>
+    $maxHeight ?? `calc(5 * var(--global-size-${$size.charAt(0)}))`};
   list-style-type: "";
 `;
 
@@ -105,6 +105,8 @@ export interface PopoverMenuProps<TRef extends FocusableHandle = HTMLElement>
   onClose: (e?: Event, value?: string) => void;
   /** Set the custom width of the menu */
   width?: string;
+  /** Set the custom max-height of the menu list */
+  maxHeight?: string;
   /** Custom styles for the control wrapper element */
   controlWrapperStyle?: CSSObject;
   /** Aria labelledby for the listbox */
@@ -140,6 +142,7 @@ const PopoverMenu = <TRef extends FocusableHandle = HTMLElement>({
   onOpen,
   onClose,
   width,
+  maxHeight,
   controlWrapperStyle,
   listboxAriaLabelledBy,
   listboxAriaLabel,
@@ -243,6 +246,7 @@ const PopoverMenu = <TRef extends FocusableHandle = HTMLElement>({
             >
               <List
                 $size={size}
+                $maxHeight={maxHeight}
                 ref={listRef}
                 role="listbox"
                 id={listId.current}

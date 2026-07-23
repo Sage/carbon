@@ -35,6 +35,7 @@ description: Carbon Search component props and usage examples.
 | marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
 | marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
 | marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
+| maxHeight | string \| undefined | No |  |  |  | Optional max-height for the dropdown list. Overrides size-based defaults when provided. |  |
 | maxWidth | string \| undefined | No |  |  |  | Prop for specifying the max-width of the Search input. Leaving the `maxWidth` prop with no value will default the width to '100%' |  |
 | mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
 | minQueryLength | number \| undefined | No |  |  |  | Minimum number of characters required before announcing available results. |  |
@@ -90,17 +91,17 @@ description: Carbon Search component props and usage examples.
   const minQueryLength = 2;
 
   const recentItems = [
-    { value: "recent-term-1", labelPrefix: "Recent ", label: "term 1" },
-    { value: "recent-term-2", labelPrefix: "Recent ", label: "term 2" },
-    { value: "recent-term-3", labelPrefix: "Recent ", label: "term 3" },
+    { value: "recent-term-1", label: "Recent term 1" },
+    { value: "recent-term-2", label: "Recent term 2" },
+    { value: "recent-term-3", label: "Recent term 3" },
   ];
 
   const suggestedItems = [
-    { value: "suggested-term-1", labelPrefix: "Suggested ", label: "term 1" },
-    { value: "suggested-term-2", labelPrefix: "Suggested ", label: "term 2" },
-    { value: "suggested-term-3", labelPrefix: "Suggested ", label: "term 3" },
-    { value: "suggested-term-4", labelPrefix: "Suggested ", label: "term 4" },
-    { value: "suggested-term-5", labelPrefix: "Suggested ", label: "term 5" },
+    { value: "suggested-term-1", label: "Suggested term 1" },
+    { value: "suggested-term-2", label: "Suggested term 2" },
+    { value: "suggested-term-3", label: "Suggested term 3" },
+    { value: "suggested-term-4", label: "Suggested term 4" },
+    { value: "suggested-term-5", label: "Suggested term 5" },
   ];
 
   const [value, setValue] = useState("");
@@ -119,7 +120,7 @@ description: Carbon Search component props and usage examples.
       ? [
           {
             heading: "Recent searches",
-            icon: <Icon type="clock" />,
+            icon: <Icon type="refresh_clock" />,
             items: filteredRecent,
           },
         ]
@@ -147,6 +148,13 @@ description: Carbon Search component props and usage examples.
           setValue(e.target.value);
           setDismissed(false);
         }}
+        onKeyDown={(e) => {
+          if (e.key === "Escape") {
+            setValue("");
+            setDismissed(true);
+          }
+        }}
+        onFocus={() => setDismissed(false)}
         open={isOpen}
         minQueryLength={minQueryLength}
         listData={listData}
@@ -222,10 +230,35 @@ description: Carbon Search component props and usage examples.
 
 ```tsx
 () => {
-  const items = [
-    { value: "term-1", labelPrefix: "Suggested ", label: "term 1" },
-    { value: "term-2", labelPrefix: "Suggested ", label: "term 2" },
-    { value: "term-3", labelPrefix: "Suggested ", label: "term 3" },
+  const minQueryLength = 2;
+
+  const recentItems = [
+    { value: "recent-term-1", label: "Recent term 1" },
+    { value: "recent-term-2", label: "Recent term 2" },
+    { value: "recent-term-3", label: "Recent term 3" },
+  ];
+
+  const suggestedItems = [
+    {
+      value: "suggested-term-1",
+      label: "Suggested term 1",
+    },
+    {
+      value: "suggested-term-2",
+      label: "Suggested term 2",
+    },
+    {
+      value: "suggested-term-3",
+      label: "Suggested term 3",
+    },
+    {
+      value: "suggested-term-4",
+      label: "Suggested term 4",
+    },
+    {
+      value: "suggested-term-5",
+      label: "Suggested term 5",
+    },
   ];
 
   const [valueS, setValueS] = useState("");
@@ -236,18 +269,33 @@ description: Carbon Search component props and usage examples.
   const [dismissedL, setDismissedL] = useState(false);
 
   const getListData = (val: string) => {
-    const filtered = items.filter((item) =>
+    const filteredRecent = recentItems.filter((item) =>
       item.label.toLowerCase().includes(val.toLowerCase()),
     );
-    return filtered.length > 0
-      ? [
-          {
-            heading: "Suggested",
-            icon: <Icon type="search" />,
-            items: filtered,
-          },
-        ]
-      : [];
+    const filteredSuggested = suggestedItems.filter((item) =>
+      item.label.toLowerCase().includes(val.toLowerCase()),
+    );
+
+    return [
+      ...(filteredRecent.length > 0
+        ? [
+            {
+              heading: "Recent searches",
+              icon: <Icon type="refresh_clock" />,
+              items: filteredRecent,
+            },
+          ]
+        : []),
+      ...(filteredSuggested.length > 0
+        ? [
+            {
+              heading: "Suggested",
+              icon: <Icon type="search" />,
+              items: filteredSuggested,
+            },
+          ]
+        : []),
+    ];
   };
 
   return (
@@ -260,9 +308,19 @@ description: Carbon Search component props and usage examples.
           setValueS(e.target.value);
           setDismissedS(false);
         }}
+        onKeyDown={(e) => {
+          if (e.key === "Escape") {
+            setValueS("");
+            setDismissedS(true);
+          }
+        }}
+        onFocus={() => setDismissedS(false)}
         open={
-          valueS.length > 0 && getListData(valueS).length > 0 && !dismissedS
+          valueS.length >= minQueryLength &&
+          getListData(valueS).length > 0 &&
+          !dismissedS
         }
+        minQueryLength={minQueryLength}
         listData={getListData(valueS)}
         onListItemSelect={(val) => {
           setValueS(val);
@@ -278,9 +336,19 @@ description: Carbon Search component props and usage examples.
           setValueM(e.target.value);
           setDismissedM(false);
         }}
+        onKeyDown={(e) => {
+          if (e.key === "Escape") {
+            setValueM("");
+            setDismissedM(true);
+          }
+        }}
+        onFocus={() => setDismissedM(false)}
         open={
-          valueM.length > 0 && getListData(valueM).length > 0 && !dismissedM
+          valueM.length >= minQueryLength &&
+          getListData(valueM).length > 0 &&
+          !dismissedM
         }
+        minQueryLength={minQueryLength}
         listData={getListData(valueM)}
         onListItemSelect={(val) => {
           setValueM(val);
@@ -296,9 +364,19 @@ description: Carbon Search component props and usage examples.
           setValueL(e.target.value);
           setDismissedL(false);
         }}
+        onKeyDown={(e) => {
+          if (e.key === "Escape") {
+            setValueL("");
+            setDismissedL(true);
+          }
+        }}
+        onFocus={() => setDismissedL(false)}
         open={
-          valueL.length > 0 && getListData(valueL).length > 0 && !dismissedL
+          valueL.length >= minQueryLength &&
+          getListData(valueL).length > 0 &&
+          !dismissedL
         }
+        minQueryLength={minQueryLength}
         listData={getListData(valueL)}
         onListItemSelect={(val) => {
           setValueL(val);

@@ -3,6 +3,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import MenuContext from "../menu/__internal__/menu.context";
 import Search, { SearchHandle } from "./search.component";
+import { within } from "@testing-library/react";
 
 const StatefulSearch = ({
   triggerOnClear,
@@ -541,6 +542,68 @@ test("renders subtext for listData items that include a subtext property", () =>
   );
 
   expect(screen.getByText("extra detail")).toBeVisible();
+});
+
+test("highlights matching text in listData items", () => {
+  render(
+    <Search
+      value="term"
+      open
+      onChange={jest.fn()}
+      listData={[
+        {
+          heading: "Heading",
+          items: [
+            { value: "one", label: "Search result with bolded search term" },
+          ],
+        },
+      ]}
+    />,
+  );
+
+  const option = screen.getByRole("option", {
+    name: "Search result with bolded search term",
+  });
+
+  expect(within(option).getByText("term")).toBeVisible();
+});
+
+test("shows the selected icon when a selectedIcon item is highlighted", async () => {
+  const user = userEvent.setup();
+
+  render(
+    <Search
+      value="term"
+      size="small"
+      open
+      onChange={jest.fn()}
+      listData={[
+        {
+          heading: "Heading",
+          items: [
+            {
+              value: "one",
+              label: "Search result with bolded search term",
+              selectedIcon: true,
+            },
+          ],
+        },
+      ]}
+    />,
+  );
+
+  screen.getByRole("combobox", { name: "Search" }).focus();
+  await user.keyboard("{ArrowDown}");
+
+  const option = screen.getByRole("option", {
+    name: "Search result with bolded search term",
+  });
+
+  expect(within(option).getByText("term")).toBeVisible();
+  expect(screen.getByTestId("selected-icon")).toBeVisible();
+  expect(screen.getByTestId("selected-icon-wrapper")).toHaveStyle(
+    "visibility: visible",
+  );
 });
 
 test("renders listData items across multiple groups", () => {

@@ -37,6 +37,13 @@ const AssistiveHint = styled.span`
   display: none;
 `;
 
+const HighlightedMatch = styled.strong<{ $size?: SearchProps["size"] }>`
+  &&&& {
+    ${({ $size }) =>
+      `font: var(--global-font-static-comp-medium-${$size?.charAt(0) || "m"});`}
+  }
+`;
+
 const DEFAULT_MIN_QUERY_LENGTH = 3;
 
 export interface SearchEvent {
@@ -73,6 +80,8 @@ export interface SearchListData {
   labelPrefix?: string;
   /** Optional subtext shown below the label */
   subtext?: string;
+  /** Whether the selected tick icon should be shown for this item. Defaults to false. */
+  selectedIcon?: boolean;
   /** Optional leading slot content (e.g. an icon) */
   leading?: React.ReactNode;
   /** Whether the item is disabled */
@@ -94,6 +103,8 @@ export interface SearchListGroup {
 export interface SearchPopoverProps {
   /** When `true`, renders the new popover menu anchored to the Search input. */
   open?: boolean;
+  /** Optional max-height for the dropdown list. Overrides size-based defaults when provided. */
+  maxHeight?: string;
   /** Minimum number of characters required before announcing available results. */
   minQueryLength?: number;
   /** Structured list data to render as grouped menu items in the popover. */
@@ -176,6 +187,7 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
       placeholder,
       searchButtonDataProps,
       open,
+      maxHeight,
       minQueryLength,
       listData,
       onListItemSelect,
@@ -433,6 +445,28 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
 
     const searchInput = renderSearchInput();
 
+    const renderHighlightedLabel = (labelText: string, query: string) => {
+      if (!query) return labelText;
+
+      const lowerLabel = labelText.toLowerCase();
+      const lowerQuery = query.toLowerCase();
+      const matchStartIndex = lowerLabel.indexOf(lowerQuery);
+
+      if (matchStartIndex === -1) return labelText;
+
+      const matchEndIndex = matchStartIndex + query.length;
+
+      return (
+        <>
+          {labelText.slice(0, matchStartIndex)}
+          <HighlightedMatch $size={size}>
+            {labelText.slice(matchStartIndex, matchEndIndex)}
+          </HighlightedMatch>
+          {labelText.slice(matchEndIndex)}
+        </>
+      );
+    };
+
     const renderListData = () =>
       listData?.map((group, groupIndex) => (
         <React.Fragment key={group.heading}>
@@ -440,34 +474,39 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
           <MenuItemHeading text={group.heading} icon={group.icon}>
             {group.items.map((item) => {
               const {
-                value,
+                value: itemValue,
                 id,
                 disabled,
                 label,
                 labelPrefix,
                 subtext,
+                selectedIcon,
                 leading,
                 onClick: onItemClick,
               } = item;
-              const isHighlighted = highlightedItemValue === value;
+              const isHighlighted = highlightedItemValue === itemValue;
 
               return (
                 <MenuItem
-                  key={value}
+                  key={itemValue}
                   id={id}
                   disabled={disabled}
                   selected={isHighlighted}
                   onClick={(ev) => {
-                    onListItemSelect?.(value);
-                    onItemClick?.(ev, value);
-                    onClose?.(undefined, value);
+                    onListItemSelect?.(itemValue);
+                    onItemClick?.(ev, itemValue);
+                    onClose?.(undefined, itemValue);
                   }}
                 >
-                  <MenuItemLeading selectedIcon={isHighlighted}>
+                  <MenuItemLeading
+                    selectedIcon={selectedIcon ? isHighlighted : false}
+                  >
                     {leading}
                   </MenuItemLeading>
 
-                  <MenuItemLabel prefix={labelPrefix}>{label}</MenuItemLabel>
+                  <MenuItemLabel prefix={labelPrefix}>
+                    {renderHighlightedLabel(label, value)}
+                  </MenuItemLabel>
                   {subtext && <MenuItemSubtext>{subtext}</MenuItemSubtext>}
                 </MenuItem>
               );
@@ -530,6 +569,7 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
     return (
       <PopoverMenu<HTMLInputElement>
         open={open}
+        maxHeight={maxHeight}
         size={size}
         listboxAriaLabel={
           ariaLabel ?? (typeof label === "string" ? label : undefined)
