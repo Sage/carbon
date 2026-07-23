@@ -1,6 +1,6 @@
 /**
  * This is where the actual content editor is rendered. It uses the `ContentEditable` component from the `@lexical/react` package
- * as per their documentation. It also uses the `LinkPreviewerPlugin` to render link previews.
+ * as per their documentation. It also renders link previews.
  */
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import React, { forwardRef } from "react";
@@ -8,7 +8,6 @@ import StyledContentEditable from "./content-editor.style";
 
 import { ContentEditorProps } from "../../__utils__/interfaces.types";
 import { useCursorAtEnd } from "../../__plugins__";
-import { LinkPreviewerPlugin } from "..";
 
 const ContentEditor = forwardRef<HTMLDivElement, ContentEditorProps>(
   (
@@ -24,6 +23,7 @@ const ContentEditor = forwardRef<HTMLDivElement, ContentEditorProps>(
       validationMessagePositionTop,
       size = "medium",
       id,
+      hasFooter,
     },
     ref,
   ) => {
@@ -46,6 +46,7 @@ const ContentEditor = forwardRef<HTMLDivElement, ContentEditorProps>(
         rows={rows}
         readOnly={readOnly}
         size={size}
+        hasFooter={hasFooter}
       >
         <ContentEditable
           id={id}
@@ -90,7 +91,7 @@ const ContentEditor = forwardRef<HTMLDivElement, ContentEditorProps>(
           aria-autocomplete={undefined}
           aria-readonly={undefined}
         />
-        <LinkPreviewerPlugin previews={previews} />
+        {previews}
       </StyledContentEditable>
     );
   },

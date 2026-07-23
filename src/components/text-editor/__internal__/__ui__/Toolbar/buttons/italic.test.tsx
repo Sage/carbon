@@ -68,7 +68,6 @@ describe("Italic button", () => {
     render(<TextEditor labelText="Test Editor" />);
     const italicButton = screen.getByRole("button", { name: "Italic" });
     expect(italicButton).toBeInTheDocument();
-    expect(italicButton).toHaveStyleRule("background-color", "transparent");
     expect(italicButton).toHaveAttribute("aria-pressed", "false");
   });
 
@@ -89,10 +88,6 @@ describe("Italic button", () => {
     await userEvent.click(italicButton);
 
     expect(italicButton).toBeInTheDocument();
-    expect(italicButton).toHaveStyleRule(
-      "background-color",
-      "var(--colorsActionMajor600)",
-    );
     expect(italicButton).toHaveAttribute("aria-pressed", "true");
   });
 

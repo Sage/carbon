@@ -24,7 +24,7 @@ import React, {
   useContext,
 } from "react";
 
-import Label from "../../__internal__/legacy-label";
+import Label from "../../__internal__/label";
 import useLocale from "../../hooks/__internal__/useLocale";
 import Logger from "../../__internal__/utils/logger";
 
@@ -38,7 +38,8 @@ import {
   FormSubmissionPlugin,
 } from "./__internal__/__plugins__";
 import TextEditorContext from "./text-editor.context";
-import StyledTextEditor, {
+import {
+  StyledTextEditor,
   StyledEditorToolbarWrapper,
   StyledHeaderWrapper,
   StyledFooterWrapper,
@@ -50,9 +51,9 @@ import {
   SerializeLexical,
   validateUrl,
 } from "./__internal__/__utils__/helpers";
-import HintText from "../../__internal__/legacy-hint-text";
-import ValidationMessage from "../../__internal__/validation-message";
-import ErrorBorder from "../../__internal__/legacy-error-border/error-border.style";
+import HintText from "../../__internal__/hint-text";
+import ValidationMessage from "../../__internal__/validation-message/__next__";
+import ErrorBorder from "../../__internal__/error-border/error-border.style";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import tagComponent from "../../__internal__/utils/helpers/tags";
 import ReadOnlyEditor from "./__internal__/__ui__/ReadOnlyEditor/read-only-rte.component";
@@ -247,16 +248,20 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
 
     const warningMessage = warning || characterLimitWarning;
 
-    const getMarginsForSize = () => {
-      switch (actualSize) {
-        case "large":
-          return "var(--spacing150)";
-        case "small":
-          return "var(--spacing050)";
-        default:
-          return "var(--spacing100)";
-      }
-    };
+    const validationMessage = (
+      <>
+        <ValidationMessage
+          error={error}
+          warning={warningMessage}
+          id={`${namespace}-validation-message`}
+          data-role={`${namespace}-validation-message`}
+          size={actualSize}
+        />
+        {(error || warningMessage) && (
+          <ErrorBorder $warning={!!(!error && warningMessage)} />
+        )}
+      </>
+    );
 
     return (
       <StyledTextEditorWrapper
@@ -279,18 +284,14 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
           <Label
             onClick={() => contentEditorRef.current?.focus()}
             isRequired={required}
-            labelId={`${namespace}-label`}
-            isLarge={actualSize === "large"}
+            id={`${namespace}-label`}
+            size={actualSize}
           >
             {labelText}
           </Label>
 
           {inputHint && !readOnly && (
-            <HintText
-              id={`${namespace}-input-hint`}
-              isLarge={actualSize === "large"}
-              marginBottom={getMarginsForSize()}
-            >
+            <HintText id={`${namespace}-input-hint`} size={actualSize}>
               {inputHint}
             </HintText>
           )}
@@ -298,29 +299,18 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
             <StyledWrapper
               data-role={`${namespace}-wrapper`}
               ref={setParentRef}
+              size={actualSize}
             >
-              {validationMessagePositionTop && (
-                <>
-                  <ValidationMessage
-                    error={error}
-                    warning={warningMessage}
-                    validationId={`${namespace}-validation-message`}
-                    data-role={`${namespace}-validation-message`}
-                    validationMessagePositionTop={validationMessagePositionTop}
-                  />
-                  {(error || warningMessage) && (
-                    <ErrorBorder warning={!!(!error && warningMessage)} />
-                  )}
-                </>
-              )}
+              {validationMessagePositionTop && validationMessage}
               <StyledEditorToolbarWrapper
                 data-role={`${namespace}-editor-toolbar-wrapper`}
-                error={!!error}
                 id={`${namespace}-editor-toolbar-wrapper`}
+                isReadOnly={readOnly}
               >
                 {header && (
                   <StyledHeaderWrapper
                     data-role={`${namespace}-header-wrapper`}
+                    size={actualSize}
                   >
                     {header}
                   </StyledHeaderWrapper>
@@ -365,6 +355,7 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
                               validationMessagePositionTop
                             }
                             size={actualSize}
+                            hasFooter={!!footer}
                           />
                         }
                         placeholder={
@@ -390,7 +381,7 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
                       <FormSubmissionPlugin
                         onFormSubmission={onFormSubmission}
                       />
-                      <PluginProvider parentRef={parentRef}>
+                      <PluginProvider parentRef={parentRef} size={actualSize}>
                         {customPlugins}
                       </PluginProvider>
                     </StyledTextEditor>
@@ -406,27 +397,14 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
                 )}
                 <LinkMonitorPlugin />
               </StyledEditorToolbarWrapper>
-              {!validationMessagePositionTop && (
-                <>
-                  <ValidationMessage
-                    error={error}
-                    warning={warningMessage}
-                    validationId={`${namespace}-validation-message`}
-                    data-role={`${namespace}-validation-message`}
-                    validationMessagePositionTop={validationMessagePositionTop}
-                  />
-                  {(error || warningMessage) && (
-                    <ErrorBorder warning={!!(!error && warningMessage)} />
-                  )}
-                </>
-              )}
+              {!validationMessagePositionTop && validationMessage}
 
               {characterLimit > 0 && !readOnly && (
                 <CharacterCounterPlugin
                   isFocused={isFocused}
                   maxChars={characterLimit}
                   namespace={namespace}
-                  marginTop={getMarginsForSize()}
+                  size={actualSize}
                 />
               )}
             </StyledWrapper>

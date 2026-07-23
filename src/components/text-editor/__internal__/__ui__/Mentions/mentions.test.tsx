@@ -4,7 +4,7 @@ import { checkForAtSignMentions, getPossibleQueryMatch } from "./helpers";
 import MentionsTypeaheadMenuItem from "./mentions-typeahead-menu-item.component";
 import MentionTypeaheadOption from "./mention-typeahead-option.class";
 import MentionsPlugin from "./mentions.component";
-import { TypeaheadPopover } from "./mentions.style";
+import { MentionsList, TypeaheadPopover } from "./mentions.style";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { LexicalTypeaheadMenuPlugin } from "@lexical/react/LexicalTypeaheadMenuPlugin";
 import { $createMentionNode } from "../../__nodes__/mention.node";
@@ -284,5 +284,12 @@ describe("When TypeaheadPopover is opened", () => {
 
     expect(popover).toHaveStyle("width: 250px");
     expect(popover).toHaveStyle("border-radius: var(--global-radius-action-m)");
+  });
+
+  it("renders the list with correct padding when size is provided", () => {
+    render(<MentionsList $size="medium" />);
+
+    const list = screen.getByRole("list");
+    expect(list).toHaveStyleRule("padding", "var(--global-space-comp-s) 0");
   });
 });

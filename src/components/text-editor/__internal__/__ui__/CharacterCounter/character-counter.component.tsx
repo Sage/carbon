@@ -14,7 +14,7 @@ const CharacterCounterPlugin = ({
   isFocused,
   maxChars,
   namespace,
-  marginTop,
+  size,
 }: CharacterCounterPluginProps) => {
   const [rawContent, setRawContent] = useState<string>("");
 
@@ -69,8 +69,8 @@ const CharacterCounterPlugin = ({
     <>
       <StyledCharacterCounter
         data-role={`${namespace}-character-limit`}
-        marginTop={marginTop ?? "var(--spacing050)"}
         aria-hidden="true"
+        size={size}
       >
         {locale.textEditor.characterCounter(
           getFormatNumber(rawCharactersRemaining),

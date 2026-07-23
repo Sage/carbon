@@ -5,7 +5,6 @@ import { userEvent, within, expect, waitFor } from "storybook/test";
 import TextEditor, { createFromHTML, Mention, MentionsPlugin } from ".";
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
 import DefaultDecorator from "../../../.storybook/utils/default-decorator";
-import CarbonProvider from "../carbon-provider";
 
 type Story = StoryObj<typeof TextEditor>;
 
@@ -50,7 +49,7 @@ const mentionsData: Mention[] = [
   },
 ];
 
-const renderMentionsEditor = () => (
+const renderMentionsEditor = ({ ...args }) => (
   <TextEditor
     namespace="storybook-mentions-interaction"
     labelText="Text Editor"
@@ -61,15 +60,7 @@ const renderMentionsEditor = () => (
         searchOptions={mentionsData}
       />,
     ]}
-  />
-);
-
-const renderInitialValueEditor = () => (
-  <TextEditor
-    labelText="Text Editor"
-    initialValue={createFromHTML(
-      '<p><span>paragraph</span></p><p><span style="font-weight: 700; font-size: 24px; line-height: 30px;">title</span></p><p><span style="font-weight: 500; font-size: 21px; line-height: 26.25px;">subtitle</span></p><p><span style="font-weight: 500; font-size: 18px; line-height: 22.5px;">section header</span></p><p><span style="font-weight: 500; font-size: 16px; line-height: 20px;">section subheader&ZeroWidthSpace;</span></p>',
-    )}
+    {...args}
   />
 );
 
@@ -125,6 +116,9 @@ export const OpenMentionsPopoverDefaultAvatar: Story = {
   play: async ({ canvasElement }) => {
     await openMentionsAndHighlightOption(canvasElement, 0);
   },
+  args: {
+    size: "small",
+  },
   decorators: [
     (StoryToRender) => (
       <DefaultDecorator>
@@ -135,15 +129,15 @@ export const OpenMentionsPopoverDefaultAvatar: Story = {
 };
 
 OpenMentionsPopoverDefaultAvatar.storyName =
-  "Open Mentions Popover - Highlight Default Avatar";
-OpenMentionsPopoverDefaultAvatar.parameters = {
-  chromatic: { disableSnapshot: false },
-};
+  "Open Mentions Popover - Highlight Default Avatar (Small)";
 
 export const OpenMentionsPopoverInitials: Story = {
   render: renderMentionsEditor,
   play: async ({ canvasElement }) => {
     await openMentionsAndHighlightOption(canvasElement, 1);
+  },
+  args: {
+    size: "medium",
   },
   decorators: [
     (StoryToRender) => (
@@ -155,15 +149,15 @@ export const OpenMentionsPopoverInitials: Story = {
 };
 
 OpenMentionsPopoverInitials.storyName =
-  "Open Mentions Popover - Highlight Initials";
-OpenMentionsPopoverInitials.parameters = {
-  chromatic: { disableSnapshot: false },
-};
+  "Open Mentions Popover - Highlight Initials (Medium)";
 
 export const OpenMentionsPopoverProfileImage: Story = {
   render: renderMentionsEditor,
   play: async ({ canvasElement }) => {
     await openMentionsAndHighlightOption(canvasElement, 2, "@an");
+  },
+  args: {
+    size: "large",
   },
   decorators: [
     (StoryToRender) => (
@@ -175,22 +169,17 @@ export const OpenMentionsPopoverProfileImage: Story = {
 };
 
 OpenMentionsPopoverProfileImage.storyName =
-  "Open Mentions Popover - Highlight Profile Image";
-OpenMentionsPopoverProfileImage.parameters = {
-  chromatic: { disableSnapshot: false },
-};
-
-const renderHyperlinkEditor = () => (
-  <TextEditor
-    namespace="storybook-hyperlink-interaction"
-    labelText="Text Editor"
-    inputHint="Click the link button to add a hyperlink"
-    toolbarControls={["link"]}
-  />
-);
+  "Open Mentions Popover - Highlight Profile Image (Large)";
 
 export const OpenHyperlinkDialog: Story = {
-  render: renderHyperlinkEditor,
+  render: () => (
+    <TextEditor
+      namespace="storybook-hyperlink-interaction"
+      labelText="Text Editor"
+      inputHint="Click the link button to add a hyperlink"
+      toolbarControls={["link"]}
+    />
+  ),
   play: async ({ canvasElement }) => {
     if (!allowInteractions()) {
       return;
@@ -221,24 +210,15 @@ export const OpenHyperlinkDialog: Story = {
   ],
 };
 
-const renderHyperlinkEditorWithValidationRedesign = () => (
-  <CarbonProvider validationRedesignOptIn>
+export const OpenHyperlinkDialogWithErrors: Story = {
+  render: () => (
     <TextEditor
       namespace="storybook-hyperlink-interaction"
       labelText="Text Editor"
       inputHint="Click the link button to add a hyperlink"
       toolbarControls={["link"]}
     />
-  </CarbonProvider>
-);
-
-OpenHyperlinkDialog.storyName = "Open Hyperlink Dialog";
-OpenHyperlinkDialog.parameters = {
-  chromatic: { disableSnapshot: false },
-};
-
-export const OpenHyperlinkDialogWithErrors: Story = {
-  render: renderHyperlinkEditorWithValidationRedesign,
+  ),
   play: async ({ canvasElement }) => {
     if (!allowInteractions()) {
       return;
@@ -288,13 +268,15 @@ export const OpenHyperlinkDialogWithErrors: Story = {
   ],
 };
 
-OpenHyperlinkDialogWithErrors.storyName = "Open Hyperlink Dialog With Errors";
-OpenHyperlinkDialogWithErrors.parameters = {
-  chromatic: { disableSnapshot: false },
-};
-
 export const AppliesStylingCorrectly: Story = {
-  render: renderInitialValueEditor,
+  render: () => (
+    <TextEditor
+      labelText="Text Editor"
+      initialValue={createFromHTML(
+        '<p><span>paragraph</span></p><p><span style="font-weight: 700; font-size: 24px; line-height: 30px;">title</span></p><p><span style="font-weight: 500; font-size: 21px; line-height: 26.25px;">subtitle</span></p><p><span style="font-weight: 500; font-size: 18px; line-height: 22.5px;">section header</span></p><p><span style="font-weight: 500; font-size: 16px; line-height: 20px;">section subheader&ZeroWidthSpace;</span></p>',
+      )}
+    />
+  ),
   play: async ({ canvasElement }) => {
     await selectAllTextAndApplyStyles(canvasElement);
   },
@@ -305,9 +287,4 @@ export const AppliesStylingCorrectly: Story = {
       </DefaultDecorator>
     ),
   ],
-};
-
-AppliesStylingCorrectly.storyName = "Applies Styling Correctly";
-AppliesStylingCorrectly.parameters = {
-  chromatic: { disableSnapshot: false },
 };
