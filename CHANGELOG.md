@@ -1,3 +1,9 @@
+## [161.6.0](https://github.com/Sage/carbon/compare/v161.5.0...v161.6.0) (2026-07-23)
+
+### Features
+
+* **progress-tracker:** align with Fusion DS ([a2c0992](https://github.com/Sage/carbon/commit/a2c0992022ac0fe71e7a4241d8519848f2d57dab))
+
 ## [161.5.0](https://github.com/Sage/carbon/compare/v161.4.2...v161.5.0) (2026-07-22)
 
 ### Features
