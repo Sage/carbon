@@ -279,7 +279,12 @@ export const Button = forwardRef<ButtonRef, ButtonProps>(
         {...rest}
       >
         <StyledContentContainer data-role="button-child-container">
-          <ButtonContext.Provider value={{ isInsideButton: true }}>
+          <ButtonContext.Provider
+            value={{
+              isInsideButton: true,
+              isColouredSurface: computedVariantType === "primary",
+            }}
+          >
             {renderChildren()}
           </ButtonContext.Provider>
         </StyledContentContainer>
