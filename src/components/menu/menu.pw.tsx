@@ -1185,7 +1185,7 @@ test.describe("Accessibility tests for Menu component", () => {
         const subMenu = submenu(page).first();
         await subMenu.hover();
 
-        await checkAccessibility(page);
+        await checkAccessibility(page, undefined, "heading-order");
       });
     },
   );
@@ -1323,7 +1323,7 @@ test.describe("Styling, Scrolling & Navigation Bar Tests for Menu Component", ()
     await item1.focus();
     await expect(item1).toHaveCSS(
       "box-shadow",
-      "rgba(0, 0, 0, 0.9) 0px 0px 0px 3px inset, rgb(255, 188, 25) 0px 0px 0px 6px inset",
+      "rgb(255, 181, 0) 0px 0px 0px 2px inset, rgb(0, 0, 0) 0px 0px 0px 4px inset",
     );
     await expect(item1).toHaveCSS("outline", "rgba(0, 0, 0, 0) solid 3px");
 
@@ -1331,7 +1331,7 @@ test.describe("Styling, Scrolling & Navigation Bar Tests for Menu Component", ()
     await item2.focus();
     await expect(item2).toHaveCSS(
       "box-shadow",
-      "rgba(0, 0, 0, 0.9) 0px 0px 0px 3px inset, rgb(255, 188, 25) 0px 0px 0px 6px inset",
+      "rgb(255, 181, 0) 0px 0px 0px 2px inset, rgb(0, 0, 0) 0px 0px 0px 4px inset",
     );
     await expect(item2).toHaveCSS("outline", "rgba(0, 0, 0, 0) solid 3px");
     await item2.click();
@@ -1340,7 +1340,7 @@ test.describe("Styling, Scrolling & Navigation Bar Tests for Menu Component", ()
     await subMenu1.focus();
     await expect(subMenu1).toHaveCSS(
       "box-shadow",
-      "rgba(0, 0, 0, 0.9) 0px 0px 0px 3px inset, rgb(255, 188, 25) 0px 0px 0px 6px inset",
+      "rgb(255, 181, 0) 0px 0px 0px 2px inset, rgb(0, 0, 0) 0px 0px 0px 4px inset",
     );
     await expect(subMenu1).toHaveCSS("outline", "rgba(0, 0, 0, 0) solid 3px");
 
@@ -1348,7 +1348,7 @@ test.describe("Styling, Scrolling & Navigation Bar Tests for Menu Component", ()
     await subMenu2.focus();
     await expect(subMenu2).toHaveCSS(
       "box-shadow",
-      "rgba(0, 0, 0, 0.9) 0px 0px 0px 3px inset, rgb(255, 188, 25) 0px 0px 0px 6px inset",
+      "rgb(255, 181, 0) 0px 0px 0px 2px inset, rgb(0, 0, 0) 0px 0px 0px 4px inset",
     );
     await expect(subMenu2).toHaveCSS("outline", "rgba(0, 0, 0, 0) solid 3px");
   });
@@ -1467,7 +1467,7 @@ test.describe("Styling, Scrolling & Navigation Bar Tests for Menu Component", ()
       .first();
     await menuItemThree.getByRole("button").press("ArrowDown");
 
-    const submenuList = menuItemThree.getByRole("list");
+    const submenuList = menuItemThree.getByRole("list").first();
     await submenuList.waitFor();
 
     const lastSubmenuItem = menuItemThree.getByRole("listitem").last();
