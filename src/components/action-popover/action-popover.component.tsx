@@ -361,6 +361,7 @@ export const ActionPopover = forwardRef<
               placement={mappedPlacement}
               reference={buttonRef}
               disableBackgroundUI={isInFlatTable}
+              portalTarget={buttonRef.current}
             >
               <ActionPopoverMenu
                 data-component="action-popover"

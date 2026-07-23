@@ -857,3 +857,43 @@ test("should render with a z-index of 10000 if within global header", () => {
 
   mockedUseGlobalHeader.mockReset();
 });
+
+test("renders popover content under the trigger tree instead of mounting to body root", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <div data-role="root">
+      <PopoverContainer>Content</PopoverContainer>
+    </div>,
+  );
+
+  const openButton = screen.getByRole("button");
+  await user.click(openButton);
+
+  const dialog = await screen.findByRole("dialog");
+
+  const expectedPortalTarget = screen.getByTestId("root");
+
+  expect(expectedPortalTarget).toContainElement(dialog);
+});
+
+test("focuses the trigger when there's no other focusable elements and RadioButtonGroup is present", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <PopoverContainer>
+      <RadioButtonGroup name="bar" value="1" onChange={() => {}}>
+        <RadioButton value="1" label="radio 1" />
+        <RadioButton value="2" label="radio 2" />
+      </RadioButtonGroup>
+    </PopoverContainer>,
+  );
+
+  const openButton = screen.getByRole("button");
+  await user.click(openButton);
+  await user.tab(); // tab to close icon
+  await user.tab(); // tab to RadioButtonGroup
+  await user.tab();
+
+  expect(openButton).toHaveFocus();
+});
