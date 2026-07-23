@@ -97,6 +97,27 @@ test("the accessible description of the button includes the name of the currentl
   ).toHaveAccessibleDescription("Current colour assigned: orchid");
 });
 
+test("each color input has a unique id which is a valid CSS selector and reflects its color", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(<ControlledColorPicker />);
+  await user.click(screen.getByRole("button", { name: "Change colour" }));
+
+  const ids = screen.getAllByRole("radio").map((radio) => radio.id);
+
+  expect(new Set(ids).size).toBe(ids.length);
+  ids.forEach((id) => {
+    expect(id).toMatch(/^[A-Za-z][\w-]*$/);
+  });
+
+  expect(screen.getByRole("radio", { name: "white" }).id).toBe(
+    "advanced-color-picker-color-FFFFFF",
+  );
+  expect(screen.getByRole("radio", { name: "transparent" }).id).toBe(
+    "advanced-color-picker-color-transparent",
+  );
+});
+
 test.each([
   { value: "#FFFFFF", label: "white" },
   { value: "transparent", label: "transparent" },

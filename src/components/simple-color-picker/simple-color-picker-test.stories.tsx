@@ -52,7 +52,6 @@ export const Default = ({
           value={color}
           key={color}
           aria-label={label}
-          id={color}
           defaultChecked={color === "#582C83"}
         />
       ))}
@@ -106,7 +105,7 @@ export const ValidationsStringComponent = () => {
           value={color}
           key={color}
           aria-label={label}
-          id={`${validationType}-${color}`}
+          id={`${validationType}-${label.replace(/\s+/g, "-")}`}
         />
       ))}
     </SimpleColorPicker>
@@ -143,7 +142,7 @@ export const ValidationsStringLabel = () => {
           value={color}
           key={color}
           aria-label={label}
-          id={`${validationType}-${color}`}
+          id={`${validationType}-${label.replace(/\s+/g, "-")}`}
         />
       ))}
     </SimpleColorPicker>
@@ -179,7 +178,7 @@ export const ValidationsBoolean = () => {
           value={color}
           key={color}
           aria-label={label}
-          id={`${validationType}-${color}`}
+          id={`${validationType}-${label.replace(/\s+/g, "-")}`}
         />
       ))}
     </SimpleColorPicker>
@@ -248,7 +247,7 @@ export const AllVariants = () => {
             value={color}
             key={color}
             aria-label={label}
-            id={`chr-default-${color}`}
+            id={`chr-default-${label.replace(/\s+/g, "-")}`}
           />
         ))}
       </SimpleColorPicker>
@@ -265,7 +264,7 @@ export const AllVariants = () => {
             value={color}
             key={color}
             aria-label={label}
-            id={`chr-disabled-${color}`}
+            id={`chr-disabled-${label.replace(/\s+/g, "-")}`}
             disabled
           />
         ))}
@@ -284,7 +283,7 @@ export const AllVariants = () => {
             value={color}
             key={color}
             aria-label={label}
-            id={`chr-required-${color}`}
+            id={`chr-required-${label.replace(/\s+/g, "-")}`}
           />
         ))}
       </SimpleColorPicker>
@@ -304,7 +303,7 @@ export const AllVariants = () => {
               value={color}
               key={color}
               aria-label={label}
-              id={`chr-${validationType}-${color}`}
+              id={`chr-${validationType}-${label.replace(/\s+/g, "-")}`}
             />
           ))}
         </SimpleColorPicker>
@@ -326,7 +325,7 @@ export const AllVariants = () => {
               value={color}
               key={color}
               aria-label={label}
-              id={`chr-legend-${validationType}-${color}`}
+              id={`chr-legend-${validationType}-${label.replace(/\s+/g, "-")}`}
             />
           ))}
         </SimpleColorPicker>
@@ -347,7 +346,7 @@ export const AllVariants = () => {
               value={color}
               key={color}
               aria-label={label}
-              id={`chr-bool-${validationType}-${color}`}
+              id={`chr-bool-${validationType}-${label.replace(/\s+/g, "-")}`}
             />
           ))}
         </SimpleColorPicker>
