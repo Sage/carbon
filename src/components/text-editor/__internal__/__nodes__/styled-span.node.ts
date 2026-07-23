@@ -152,12 +152,18 @@ export class StyledSpanNode extends TextNode {
 
   exportDOM(): DOMExportOutput {
     let element: HTMLElement = document.createElement("span");
-    element.style.fontWeight = this.__fontWeight;
+    const format = this.getFormat();
+
+    element.style.fontWeight = format & IS_BOLD ? "700" : this.__fontWeight;
     element.style.fontSize = this.__fontSize;
     element.style.lineHeight = this.__lineHeight;
+    if (format & IS_ITALIC) {
+      element.style.fontStyle = "italic";
+    }
+    if (format & IS_UNDERLINE) {
+      element.style.textDecoration = "underline";
+    }
     element.textContent = this.getTextContent();
-
-    const format = this.getFormat();
 
     if (format & IS_BOLD) {
       const strong = document.createElement("strong");
@@ -182,17 +188,40 @@ export class StyledSpanNode extends TextNode {
     return {
       span: (domNode: HTMLElement) => ({
         conversion: () => {
-          const fontWeight = domNode.style.fontWeight || "400";
+          let fontWeight = domNode.style.fontWeight || "400";
           const fontSize = domNode.style.fontSize || "14px";
           const lineHeight = domNode.style.lineHeight || "21px";
+          let shouldApplyBoldFormat = false;
+
+          // If font-weight is bold/700 but doesn't match a typography preset
+          // that genuinely uses 700 (e.g. title at 24px/30px), it was likely
+          // set by format (e.g. parent <strong>) so normalise to base weight.
+          if (fontWeight === "700" || fontWeight === "bold") {
+            const matchesTypography = Object.values(typographyMap).some(
+              (t) =>
+                t.weight === "700" &&
+                t.size === fontSize &&
+                t.lineHeight === lineHeight,
+            );
+            if (!matchesTypography) {
+              fontWeight = "400";
+              shouldApplyBoldFormat = !domNode.closest("strong, b");
+            }
+          }
+
+          const node = new StyledSpanNode(
+            domNode.textContent || "",
+            fontWeight,
+            fontSize,
+            lineHeight,
+          );
+
+          if (shouldApplyBoldFormat) {
+            node.toggleFormat("bold");
+          }
 
           return {
-            node: new StyledSpanNode(
-              domNode.textContent || "",
-              fontWeight,
-              fontSize,
-              lineHeight,
-            ),
+            node,
           };
         },
         priority: 1,
@@ -223,9 +252,13 @@ export class StyledSpanNode extends TextNode {
 
   createDOM(_config: EditorConfig): HTMLElement {
     const dom = super.createDOM(_config);
-    dom.style.fontWeight = this.__fontWeight;
+    const format = this.__format;
+    dom.style.fontWeight = format & IS_BOLD ? "700" : this.__fontWeight;
     dom.style.fontSize = this.__fontSize;
     dom.style.lineHeight = this.__lineHeight;
+    if (format & IS_ITALIC) {
+      dom.style.fontStyle = "italic";
+    }
     return dom;
   }
 
@@ -236,8 +269,13 @@ export class StyledSpanNode extends TextNode {
   ): boolean {
     let updated = super.updateDOM(prevNode as this, dom, config);
 
-    if (this.__fontWeight !== prevNode.__fontWeight) {
-      dom.style.fontWeight = this.__fontWeight;
+    const prevEffectiveWeight =
+      prevNode.__format & IS_BOLD ? "700" : prevNode.__fontWeight;
+    const nextEffectiveWeight =
+      this.__format & IS_BOLD ? "700" : this.__fontWeight;
+
+    if (nextEffectiveWeight !== prevEffectiveWeight) {
+      dom.style.fontWeight = nextEffectiveWeight;
       updated = true;
     }
     if (this.__fontSize !== prevNode.__fontSize) {
@@ -249,13 +287,13 @@ export class StyledSpanNode extends TextNode {
       updated = true;
     }
 
-    // Return true if the node was updated, false otherwise
-    // This is important for the editor to know if it needs to re-render the node
-    // If the text content or styles have changed, we return true
-    // If the text content is the same but styles have changed, we also return true
-    // If neither has changed, we return false
-    // This helps optimize rendering performance and ensures that the editor
-    // only re-renders nodes when necessary
+    const prevItalic = !!(prevNode.__format & IS_ITALIC);
+    const nextItalic = !!(this.__format & IS_ITALIC);
+    if (prevItalic !== nextItalic) {
+      dom.style.fontStyle = nextItalic ? "italic" : "";
+      updated = true;
+    }
+
     return updated;
   }
 
