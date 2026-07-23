@@ -292,6 +292,108 @@ describe("StyledSpanNode", () => {
         expect(domElement.style.fontWeight).toBe("700");
       });
     });
+
+    test("should create DOM with effective bold weight and italic style", () => {
+      editor?.update(() => {
+        const node = new StyledSpanNode(
+          "Formatted Text",
+          "400",
+          "14px",
+          "21px",
+        );
+        node.toggleFormat("bold");
+        node.toggleFormat("italic");
+        const config = staticConfig;
+
+        const domElement = node.createDOM(config);
+
+        // eslint-disable-next-line jest-dom/prefer-to-have-style
+        expect(domElement.style.fontWeight).toBe("700");
+        // eslint-disable-next-line jest-dom/prefer-to-have-style
+        expect(domElement.style.fontStyle).toBe("italic");
+      });
+    });
+
+    test("should update DOM when italic format is toggled on", () => {
+      editor?.update(() => {
+        const prevNode = new StyledSpanNode(
+          "Italic Toggle",
+          "400",
+          "14px",
+          "21px",
+        );
+        const currentNode = new StyledSpanNode(
+          "Italic Toggle",
+          "400",
+          "14px",
+          "21px",
+        );
+        currentNode.toggleFormat("italic");
+        const config = staticConfig;
+
+        const domElement = document.createElement("span");
+        domElement.style.fontStyle = "";
+
+        const wasUpdated = currentNode.updateDOM(prevNode, domElement, config);
+
+        expect(wasUpdated).toBe(true);
+        // eslint-disable-next-line jest-dom/prefer-to-have-style
+        expect(domElement.style.fontStyle).toBe("italic");
+      });
+    });
+
+    test("should update DOM when italic format is toggled off", () => {
+      editor?.update(() => {
+        const prevNode = new StyledSpanNode(
+          "Italic Toggle",
+          "400",
+          "14px",
+          "21px",
+        );
+        prevNode.toggleFormat("italic");
+        const currentNode = new StyledSpanNode(
+          "Italic Toggle",
+          "400",
+          "14px",
+          "21px",
+        );
+        const config = staticConfig;
+
+        const domElement = document.createElement("span");
+        domElement.style.fontStyle = "italic";
+
+        const wasUpdated = currentNode.updateDOM(prevNode, domElement, config);
+
+        expect(wasUpdated).toBe(true);
+        // eslint-disable-next-line jest-dom/prefer-to-have-style
+        expect(domElement.style.fontStyle).toBe("");
+      });
+    });
+
+    test("should evaluate bold ternary branches for both previous and current nodes", () => {
+      editor?.update(() => {
+        const prevNode = new StyledSpanNode(
+          "Bold Branch",
+          "400",
+          "14px",
+          "21px",
+        );
+        prevNode.toggleFormat("bold");
+        const currentNode = new StyledSpanNode(
+          "Bold Branch",
+          "400",
+          "14px",
+          "21px",
+        );
+        currentNode.toggleFormat("bold");
+        const config = staticConfig;
+
+        const domElement = document.createElement("span");
+        const wasUpdated = currentNode.updateDOM(prevNode, domElement, config);
+
+        expect(wasUpdated).toBe(false);
+      });
+    });
   });
 
   describe("DOM export and import", () => {
@@ -338,6 +440,31 @@ describe("StyledSpanNode", () => {
       });
     });
 
+    test("should export effective inline styles when formatted", () => {
+      editor?.update(() => {
+        const node = new StyledSpanNode(
+          "Formatted Export",
+          "400",
+          "14px",
+          "21px",
+        );
+        node.toggleFormat("bold");
+        node.toggleFormat("italic");
+
+        const { element } = node.exportDOM();
+        const htmlElement = element as HTMLElement;
+
+        // eslint-disable-next-line testing-library/no-node-access
+        const span = htmlElement.querySelector("span") as HTMLElement;
+
+        expect(span).toBeTruthy();
+        // eslint-disable-next-line jest-dom/prefer-to-have-style
+        expect(span.style.fontWeight).toBe("700");
+        // eslint-disable-next-line jest-dom/prefer-to-have-style
+        expect(span.style.fontStyle).toBe("italic");
+      });
+    });
+
     test("should have import DOM mapping for span elements", () => {
       editor?.update(() => {
         const importMap = StyledSpanNode.importDOM();
@@ -377,6 +504,25 @@ describe("StyledSpanNode", () => {
         const importMap = StyledSpanNode.importDOM();
         const conversionData = importMap?.span(domElement);
 
+        const node = conversionData?.conversion(document.createElement("span"))
+          ?.node as StyledSpanNode;
+
+        expect(node.getFontWeight()).toBe("400");
+        expect(node.getFontSize()).toBe("14px");
+        expect(node.getLineHeight()).toBe("21px");
+      });
+    });
+
+    test("should normalise imported bold weight to paragraph when typography does not match", () => {
+      editor?.update(() => {
+        const domElement = document.createElement("span");
+        domElement.textContent = "Bold looking paragraph";
+        domElement.style.fontWeight = "700";
+        domElement.style.fontSize = "14px";
+        domElement.style.lineHeight = "21px";
+
+        const importMap = StyledSpanNode.importDOM();
+        const conversionData = importMap?.span(domElement);
         const node = conversionData?.conversion(document.createElement("span"))
           ?.node as StyledSpanNode;
 
