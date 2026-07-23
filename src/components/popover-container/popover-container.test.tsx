@@ -837,9 +837,12 @@ test("should render with a z-index of 2000 if not within global header", () => {
     </PopoverContainer>,
   );
 
-  expect(screen.getByRole("dialog")).toHaveStyle({
-    zIndex: "2000",
-  });
+  const zIndex = getComputedStyle(screen.getByRole("dialog")).getPropertyValue(
+    "z-index",
+  );
+
+  expect(zIndex).toContain("--adaptiveSidebarModalBackdrop");
+  expect(zIndex).toContain("2000");
 });
 
 test("should render with a z-index of 10000 if within global header", () => {
@@ -851,9 +854,12 @@ test("should render with a z-index of 10000 if within global header", () => {
     </PopoverContainer>,
   );
 
-  expect(screen.getByRole("dialog")).toHaveStyle({
-    zIndex: "10000",
-  });
+  const zIndex = getComputedStyle(screen.getByRole("dialog")).getPropertyValue(
+    "z-index",
+  );
+
+  expect(zIndex).toContain("--adaptiveSidebarModalBackdrop");
+  expect(zIndex).toContain("10000");
 
   mockedUseGlobalHeader.mockReset();
 });
