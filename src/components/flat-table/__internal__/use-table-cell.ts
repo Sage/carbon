@@ -1,10 +1,9 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import FlatTableRowContext from "../flat-table-row/__internal__/flat-table-row.context";
 import { useStrictFlatTableContext } from "./strict-flat-table.context";
 
 export default (id: string) => {
-  const { getTabStopElementId } = useStrictFlatTableContext();
-  const [tabIndex, setTabIndex] = useState(-1);
+  const { tabStopElementId } = useStrictFlatTableContext();
   const {
     expandable,
     firstCellId,
@@ -85,15 +84,7 @@ export default (id: string) => {
     }
   };
 
-  useEffect(() => {
-    const tabstopTimer = setTimeout(() => {
-      setTabIndex(isExpandableCell && getTabStopElementId() === id ? 0 : -1);
-    }, 0);
-
-    return () => {
-      clearTimeout(tabstopTimer);
-    };
-  }, [getTabStopElementId, isExpandableCell, id]);
+  const tabIndex = isExpandableCell && tabStopElementId === id ? 0 : -1;
 
   return {
     expandable,
