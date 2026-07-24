@@ -58,7 +58,6 @@ export const Password = ({
               }
               aria-controls={internalInputId.current}
               onClick={() => setPasswordShown(!passwordShown)}
-              pr={1}
               variantType="subtle"
               iconType={visibleInput ? "hide" : "view"}
               iconPosition="before"
