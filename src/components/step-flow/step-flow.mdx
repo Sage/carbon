@@ -44,111 +44,51 @@ import {
 
 ## Examples
 
-To ensure focus is programmatically moved to the `title` of a given `StepFlow` when a user advances through each step,  
-passing a `ref` is **strongly** recommended. This ensures screen reader users are made aware of all information throughout the user journey
-An example of how this can be achieved is provided in the **Example implementation** story.
-
 ### Default
 
-<Canvas of={StepFlowStories.DefaultStory} />
+To use this component, you must provide a `title`, `currentStep` and `totalSteps` props. The maximum number of steps that can be passed is `8`.
 
-### Step Flow Title node
+<Canvas of={StepFlowStories.Default} />
 
-To allow a compositional approach, the `title` prop accepts a node. This can be used to compose custom content to be passed as the title of the `StepFlow` component.
-However, it is important to note that it is recommended that the `StepFlowTitle` sub component should be a descendant of the passed node.
+### Title as a Node
 
-<Canvas of={StepFlowStories.TitleNodeStory} />
+To allow a compositional approach, the `title` prop accepts a node. 
+It is recommended to pass the `StepFlowTitle` component as a child of the node to ensure the correct styles and functionality are applied.
 
-### Step Flow Title node with a screen reader only title
+The `screenReaderOnlyTitle` prop can be used to pass a custom screen reader only title to the `StepFlowTitle`.
+This is useful for providing screen reader users with necessary information or context which may only be available visually.
 
-The `screenReaderOnlyTitle` prop can be used to pass a custom screen reader only title. This is useful for providing screen reader users with all of the necessary information or context
-which may not be available visually.
+<Canvas of={StepFlowStories.TitleNode} />
 
-<Canvas of={StepFlowStories.TitleNodeStoryWithScreenReaderOnlyTitle} />
+### Title Variant
 
-Please see below an example of what this look like in the DOM.
+By default, the title is rendered as an `h1`, but this can be changed to `h2` by passing the `titleVariant` prop. 
+The `StepFlowTitle` component can also be used to set the title variant.
 
-```jsx
-<span data-element="visually-hidden-title-text">
-  Step Title with a pointer image. Step 1 of 3.
-</span>
-```
+<Canvas of={StepFlowStories.TitleVariant} />
 
-### with category
-
-<Canvas of={StepFlowStories.CategoryStory} />
-
-### with showProgressIndicator
+### With Progress Indicator
 
 You can set the `showProgressIndicator` prop to `true` to render the progress indicator within the component.
 
-<Canvas of={StepFlowStories.ShowProgressIndicatorStory} />
+<Canvas of={StepFlowStories.ShowProgressIndicator} />
 
-### with currentStep
+### With Close Icon
 
-The `currentStep` prop can be used to set the current step, this will update the step label and update the progress indicator. Your
-current step can be between `1` and `8`.
+You can set the `showCloseIcon` prop to `true` to render a close icon within the component. 
+You can also use the `onDismiss` prop to pass in a function which is called when a user clicks on the close icon.
 
-<Canvas of={StepFlowStories.CurrentStepStory} />
+<Canvas of={StepFlowStories.ShowCloseIcon} />
 
-### with totalSteps
+### Example Implementation
 
-The `totalSteps` prop can be used to change the amount of steps, this will update the step label and determine the amount of step indicators rendered.
-You can have between `1` and `8` total steps.
+Please see below an example implementation of how the component can be used within the `Dialog` component to follow the recommended DS pattern for this component.
+Use `Button` to advance through the user journey and `Typography` to display the additional Step Heading and descriptions as required. 
 
-<Canvas of={StepFlowStories.TotalStepsStory} />
-
-### with showCloseIcon
-
-You can set the `showCloseIcon` prop to `true` to render a close icon within the component. You can also use the `onDismiss` prop to pass in a function
-which is called when a user clicks on the close icon.
-
-<Canvas of={StepFlowStories.ShowCloseIconStory} />
-
-### Example implementation
-
-Please see below an example implementation of how the component can be used within the `Dialog` component, with the use of `Button`'s to advance through the user
-journey. Within the `Dialog` component, the `title` prop accepts a node, so the component can be passed, acting as the `Dialog`'s title. Also `showCloseIcon` can
-also be passed to render the close icon, and its `onDismiss` function can be used to close the modal instead of passing `onCancel` to `Dialog`.
-
-Also, the example below fully details the use of a ref to programmatically move focus to a title div which contains all of the necessary information for screen reader users
-(`title`, `currentStep`, `totalSteps` and `category` if added), in the form of a properly formatted, visually hidden string.
-
-Please see below an example of what this look like in the DOM.
-
-```jsx
-<span data-element="visually-hidden-title-text">
-  Add client. Transaction Type. Step 1 of 3.
-</span>
-```
+When advancing through the journey, call the `focus()` method exposed by the `StepFlow` component's forwarded ref via the `StepFlowHandle` imperative handle.
+It is **strongly recommended** to call this method when advancing through the journey to ensure that the `StepFlow` component is focused and the screen reader users are informed of the current step in the journey.
 
 <Canvas of={StepFlowStories.ExampleImplementation} />
-
-To achieve this, a custom ref handle can be forwarded to the `StepFlow` component:
-
-```tsx
-const stepFlowHandle = useRef<StepFlowHandle>(null);
-return (
-  <StepFlow
-    title="Refund details"
-    totalSteps={3}
-    currentStep={1}
-    ref={stepFlowHandle}
-  />
-);
-```
-
-which exposes the `focus()` method of `StepFlow`'s root DOM node:
-
-```ts
-stepFlowHandle.current?.focus();
-```
-
-This will ensure that screen reader users are not only made aware of any changes to information, but can then also navigate down the page from the `StepFlow` component as they see fit.
-
-### Example implementation with title node
-
-<Canvas of={StepFlowStories.ExampleImplementationWithTitleNode} />
 
 ## Props
 
