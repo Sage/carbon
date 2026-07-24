@@ -5,6 +5,7 @@ import {
   SearchComponent,
   SearchComponentInverseWithLabelHintAndError,
   SearchComponentWithLabelHintAndError,
+  SearchComponentWithDropdown,
 } from "./components.test-pw";
 
 test.describe("Search input behaviour", () => {
@@ -57,6 +58,121 @@ test.describe("Accessibility tests for Search", () => {
     page,
   }) => {
     await mount(<SearchComponentInverseWithLabelHintAndError />);
+
+    await checkAccessibility(page);
+  });
+});
+
+test.describe("Search with dropdown", () => {
+  test("should render dropdown items when open", async ({ mount, page }) => {
+    await mount(<SearchComponentWithDropdown />);
+
+    await expect(
+      page.locator('[data-component="popover-menu-item"]').first(),
+    ).toBeVisible();
+  });
+
+  test("should keep the search input focused when navigating the dropdown with arrow keys", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<SearchComponentWithDropdown />);
+    const input = page.getByRole("combobox");
+
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("ArrowDown");
+
+    await expect(input).toBeFocused();
+  });
+
+  test("should apply a virtual highlight to the first item when ArrowDown is pressed", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<SearchComponentWithDropdown />);
+
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("ArrowDown");
+
+    await expect(
+      page.locator('[data-component="popover-menu-item"]').first(),
+    ).toHaveAttribute("data-has-focus", "true");
+  });
+
+  test("should move the virtual highlight to the next item on a subsequent ArrowDown", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<SearchComponentWithDropdown />);
+
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("ArrowDown");
+    await page.keyboard.press("ArrowDown");
+
+    await expect(
+      page.locator('[data-component="popover-menu-item"]').nth(1),
+    ).toHaveAttribute("data-has-focus", "true");
+    await expect(
+      page.locator('[data-component="popover-menu-item"]').first(),
+    ).toHaveAttribute("data-has-focus", "false");
+  });
+
+  test("should apply a virtual highlight to the last item when ArrowUp is pressed with no existing highlight", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<SearchComponentWithDropdown />);
+
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("ArrowUp");
+
+    await expect(
+      page.locator('[data-component="popover-menu-item"]').last(),
+    ).toHaveAttribute("data-has-focus", "true");
+  });
+
+  test("should select an item when Enter is pressed on a highlighted item", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<SearchComponentWithDropdown />);
+    const input = page.getByRole("combobox");
+
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("ArrowDown");
+    await page.keyboard.press("Enter");
+
+    await expect(input).toHaveValue("term-1");
+  });
+
+  test("should select an item when it is clicked", async ({ mount, page }) => {
+    await mount(<SearchComponentWithDropdown />);
+    const input = page.getByRole("combobox");
+
+    await page.keyboard.press("Tab");
+    await page.locator('[data-component="popover-menu-item"]').nth(1).click();
+
+    await expect(input).toHaveValue("term-2");
+  });
+
+  test("should keep the search input focused after an item is clicked", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<SearchComponentWithDropdown />);
+    const input = page.getByRole("combobox");
+
+    await page.keyboard.press("Tab");
+    await page.locator('[data-component="popover-menu-item"]').first().click();
+
+    await expect(input).toBeFocused();
+  });
+
+  test("should pass accessibility tests with the dropdown open", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<SearchComponentWithDropdown />);
 
     await checkAccessibility(page);
   });

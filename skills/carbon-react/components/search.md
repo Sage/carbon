@@ -26,6 +26,7 @@ description: Carbon Search component props and usage examples.
 | inverse | boolean \| undefined | No |  |  |  | When set to `true`, inverts the Search input and button styling for use on darker backgrounds. |  |
 | label | string \| undefined | No |  |  |  | Label content |  |
 | labelInline | boolean \| undefined | No |  |  |  | When true label is inline. |  |
+| listData | SearchListGroup[] \| undefined | No |  |  |  | Structured list data to render as grouped menu items in the popover. |  |
 | m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
 | margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
 | marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
@@ -34,8 +35,10 @@ description: Carbon Search component props and usage examples.
 | marginTop | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
 | marginX | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left and right |  |
 | marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
+| maxHeight | string \| undefined | No |  |  |  | Optional max-height for the dropdown list. Overrides size-based defaults when provided. |  |
 | maxWidth | string \| undefined | No |  |  |  | Prop for specifying the max-width of the Search input. Leaving the `maxWidth` prop with no value will default the width to '100%' |  |
 | mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
+| minQueryLength | number \| undefined | No |  |  |  | Minimum number of characters required before announcing available results. |  |
 | ml | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on left |  |
 | mr | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on right |  |
 | mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top |  |
@@ -44,8 +47,11 @@ description: Carbon Search component props and usage examples.
 | name | string \| undefined | No |  |  |  | Name of the input |  |
 | onBlur | ((ev: React.FocusEvent<HTMLInputElement>) => void) \| undefined | No |  |  |  | Event handler for the blur event |  |
 | onClick | ((ev: SearchEvent) => void) \| undefined | No |  |  |  | Prop for `onClick` events on the Search button. `onClick` events are triggered when the Search button is clicked or when the Search input's cross icon is clicked if the `triggerOnClear` prop is set to `true`. |  |
+| onClose | ((event?: Event, value?: string) => void) \| undefined | No |  |  |  | Callback fired when the popover requests to close. |  |
 | onFocus | ((ev: React.FocusEvent<HTMLInputElement>) => void) \| undefined | No |  |  |  | Event handler for the focus event |  |
 | onKeyDown | ((ev: React.KeyboardEvent<HTMLInputElement>) => void) \| undefined | No |  |  |  | Specify a callback triggered on keyDown |  |
+| onListItemSelect | ((value: string) => void) \| undefined | No |  |  |  | Callback fired when a list item is selected. Receives the item's value. |  |
+| open | boolean \| undefined | No |  |  |  | When `true`, renders the new popover menu anchored to the Search input. |  |
 | required | boolean \| undefined | No |  |  |  | Flag to configure component as mandatory |  |
 | searchButtonAriaLabel | string \| undefined | No |  |  |  | Prop to specify the accessible name of the Search button |  |
 | searchButtonDataProps | TagProps \| undefined | No |  |  |  | Data tag prop bag for searchButton |  |
@@ -72,6 +78,94 @@ description: Carbon Search component props and usage examples.
   const [value, setValue] = useState("");
 
   return <Search value={value} onChange={(e) => setValue(e.target.value)} />;
+}
+```
+
+
+### With Dropdown
+
+**Render**
+
+```tsx
+() => {
+  const minQueryLength = 2;
+
+  const recentItems = [
+    { value: "recent-term-1", label: "Recent term 1" },
+    { value: "recent-term-2", label: "Recent term 2" },
+    { value: "recent-term-3", label: "Recent term 3" },
+  ];
+
+  const suggestedItems = [
+    { value: "suggested-term-1", label: "Suggested term 1" },
+    { value: "suggested-term-2", label: "Suggested term 2" },
+    { value: "suggested-term-3", label: "Suggested term 3" },
+    { value: "suggested-term-4", label: "Suggested term 4" },
+    { value: "suggested-term-5", label: "Suggested term 5" },
+  ];
+
+  const [value, setValue] = useState("");
+  const [dismissed, setDismissed] = useState(false);
+
+  const match = <T extends { label: string }>(items: T[]) =>
+    items.filter((item) =>
+      item.label.toLowerCase().includes(value.toLowerCase()),
+    );
+
+  const filteredRecent = match(recentItems);
+  const filteredSuggested = match(suggestedItems);
+
+  const listData = [
+    ...(filteredRecent.length > 0
+      ? [
+          {
+            heading: "Recent searches",
+            icon: <Icon type="refresh_clock" />,
+            items: filteredRecent,
+          },
+        ]
+      : []),
+    ...(filteredSuggested.length > 0
+      ? [
+          {
+            heading: "Suggested",
+            icon: <Icon type="search" />,
+            items: filteredSuggested,
+          },
+        ]
+      : []),
+  ];
+
+  const isOpen =
+    value.length >= minQueryLength && listData.length > 0 && !dismissed;
+
+  return (
+    <Box height="300px" width="700px">
+      <Search
+        label="Search"
+        value={value}
+        onChange={(e) => {
+          setValue(e.target.value);
+          setDismissed(false);
+        }}
+        onKeyDown={(e) => {
+          if (e.key === "Escape") {
+            setValue("");
+            setDismissed(true);
+          }
+        }}
+        onFocus={() => setDismissed(false)}
+        open={isOpen}
+        minQueryLength={minQueryLength}
+        listData={listData}
+        onListItemSelect={(val) => {
+          setValue(val);
+          setDismissed(true);
+        }}
+        onClose={() => setDismissed(true)}
+      />
+    </Box>
+  );
 }
 ```
 
@@ -123,6 +217,172 @@ description: Carbon Search component props and usage examples.
         size="large"
         onChange={(e) => setValueL(e.target.value)}
         value={valueL}
+      />
+    </Box>
+  );
+}
+```
+
+
+### Sizes with Dropdown
+
+**Render**
+
+```tsx
+() => {
+  const minQueryLength = 2;
+
+  const recentItems = [
+    { value: "recent-term-1", label: "Recent term 1" },
+    { value: "recent-term-2", label: "Recent term 2" },
+    { value: "recent-term-3", label: "Recent term 3" },
+  ];
+
+  const suggestedItems = [
+    {
+      value: "suggested-term-1",
+      label: "Suggested term 1",
+    },
+    {
+      value: "suggested-term-2",
+      label: "Suggested term 2",
+    },
+    {
+      value: "suggested-term-3",
+      label: "Suggested term 3",
+    },
+    {
+      value: "suggested-term-4",
+      label: "Suggested term 4",
+    },
+    {
+      value: "suggested-term-5",
+      label: "Suggested term 5",
+    },
+  ];
+
+  const [valueS, setValueS] = useState("");
+  const [valueM, setValueM] = useState("");
+  const [valueL, setValueL] = useState("");
+  const [dismissedS, setDismissedS] = useState(false);
+  const [dismissedM, setDismissedM] = useState(false);
+  const [dismissedL, setDismissedL] = useState(false);
+
+  const getListData = (val: string) => {
+    const filteredRecent = recentItems.filter((item) =>
+      item.label.toLowerCase().includes(val.toLowerCase()),
+    );
+    const filteredSuggested = suggestedItems.filter((item) =>
+      item.label.toLowerCase().includes(val.toLowerCase()),
+    );
+
+    return [
+      ...(filteredRecent.length > 0
+        ? [
+            {
+              heading: "Recent searches",
+              icon: <Icon type="refresh_clock" />,
+              items: filteredRecent,
+            },
+          ]
+        : []),
+      ...(filteredSuggested.length > 0
+        ? [
+            {
+              heading: "Suggested",
+              icon: <Icon type="search" />,
+              items: filteredSuggested,
+            },
+          ]
+        : []),
+    ];
+  };
+
+  return (
+    <Box display="flex" flexDirection="column" gap={3} height="450px">
+      <Search
+        label="Small"
+        size="small"
+        value={valueS}
+        onChange={(e) => {
+          setValueS(e.target.value);
+          setDismissedS(false);
+        }}
+        onKeyDown={(e) => {
+          if (e.key === "Escape") {
+            setValueS("");
+            setDismissedS(true);
+          }
+        }}
+        onFocus={() => setDismissedS(false)}
+        open={
+          valueS.length >= minQueryLength &&
+          getListData(valueS).length > 0 &&
+          !dismissedS
+        }
+        minQueryLength={minQueryLength}
+        listData={getListData(valueS)}
+        onListItemSelect={(val) => {
+          setValueS(val);
+          setDismissedS(true);
+        }}
+        onClose={() => setDismissedS(true)}
+      />
+      <Search
+        label="Medium"
+        size="medium"
+        value={valueM}
+        onChange={(e) => {
+          setValueM(e.target.value);
+          setDismissedM(false);
+        }}
+        onKeyDown={(e) => {
+          if (e.key === "Escape") {
+            setValueM("");
+            setDismissedM(true);
+          }
+        }}
+        onFocus={() => setDismissedM(false)}
+        open={
+          valueM.length >= minQueryLength &&
+          getListData(valueM).length > 0 &&
+          !dismissedM
+        }
+        minQueryLength={minQueryLength}
+        listData={getListData(valueM)}
+        onListItemSelect={(val) => {
+          setValueM(val);
+          setDismissedM(true);
+        }}
+        onClose={() => setDismissedM(true)}
+      />
+      <Search
+        label="Large"
+        size="large"
+        value={valueL}
+        onChange={(e) => {
+          setValueL(e.target.value);
+          setDismissedL(false);
+        }}
+        onKeyDown={(e) => {
+          if (e.key === "Escape") {
+            setValueL("");
+            setDismissedL(true);
+          }
+        }}
+        onFocus={() => setDismissedL(false)}
+        open={
+          valueL.length >= minQueryLength &&
+          getListData(valueL).length > 0 &&
+          !dismissedL
+        }
+        minQueryLength={minQueryLength}
+        listData={getListData(valueL)}
+        onListItemSelect={(val) => {
+          setValueL(val);
+          setDismissedL(true);
+        }}
+        onClose={() => setDismissedL(true)}
       />
     </Box>
   );
