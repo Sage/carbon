@@ -12,6 +12,7 @@ import {
 import Icon from "../../components/icon";
 
 import TextInput from "../../components/textbox/__internal__/__next__";
+import ButtonNext from "../../components/button/__next__";
 
 export default {
   title: "Popover Menu/Test",
@@ -29,6 +30,11 @@ export default {
     "LargeWithCustomWidth",
     "LargeWithHeadingIcons",
     "HoverItem",
+    "PopoverMenuButtonSmall",
+    "PopoverMenuButtonMedium",
+    "PopoverMenuButtonLarge",
+    "PopoverMenuButtonSmallDisabledItems",
+    "PopoverMenuButtonPlacementStart",
   ],
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
@@ -1579,7 +1585,7 @@ export const HoverItem = () => {
             <MenuItemLabel prefix="Item: ">two</MenuItemLabel>
             <MenuItemSubtext>Subtext</MenuItemSubtext>
           </MenuItem>
-          <MenuItem onClick={() => {}}>
+          <MenuItem>
             <MenuItemLeading>
               <Icon type="home" />
             </MenuItemLeading>
@@ -1587,21 +1593,21 @@ export const HoverItem = () => {
           </MenuItem>
         </MenuItemHeading>
         <MenuItemDivider />
-        <MenuItem onClick={() => {}} disabled>
+        <MenuItem disabled>
           <MenuItemLeading>
             <Icon type="home" />
           </MenuItemLeading>
           <MenuItemLabel prefix="Item: ">four</MenuItemLabel>
           <MenuItemSubtext>Subtext</MenuItemSubtext>
         </MenuItem>
-        <MenuItem onClick={() => {}}>
+        <MenuItem>
           <MenuItemLeading>
             <Icon type="home" />
           </MenuItemLeading>
           <MenuItemLabel prefix="Item: ">five</MenuItemLabel>
           <MenuItemSubtext>Subtext</MenuItemSubtext>
         </MenuItem>
-        <MenuItem onClick={() => {}}>
+        <MenuItem>
           <MenuItemLeading>
             <Icon type="home" />
           </MenuItemLeading>
@@ -1612,9 +1618,392 @@ export const HoverItem = () => {
   );
 };
 
+HoverItem.storyName = "hover item";
+
 HoverItem.parameters = {
   chromatic: { disableSnapshot: false },
   pseudo: {
     hover: "[data-role='hover-target']",
   },
 };
+
+export const PopoverMenuButtonSmall = () => {
+  const [open, setOpen] = React.useState<boolean>(false);
+  const [submenuOpen, setSubmenuOpen] = React.useState<boolean>(false);
+
+  return (
+    <div style={{ display: "flex", gap: "24px", margin: "180px" }}>
+      <PopoverMenu<HTMLButtonElement>
+        size="small"
+        open={open}
+        onOpen={() => {
+          setOpen(true);
+        }}
+        onClose={() => {
+          if (open) {
+            setOpen(false);
+          }
+        }}
+        popoverControl={(ref, { role, ...props }) => (
+          <ButtonNext
+            ref={ref}
+            {...props}
+            onClick={() => setOpen((p) => !p)}
+            variantType="tertiary"
+            size="small"
+          >
+            Small Button
+          </ButtonNext>
+        )}
+        isButtonMenu
+      >
+        <MenuItem>
+          <ButtonNext>
+            <Icon type="home" />
+            Action 1
+          </ButtonNext>
+        </MenuItem>
+        <MenuItem
+          onSubmenuClose={() => {
+            setSubmenuOpen(false);
+          }}
+          onSubmenuOpen={() => setSubmenuOpen(true)}
+          submenuOpen={submenuOpen}
+          submenuWidth="200px"
+          submenu={
+            <>
+              <ButtonNext onClick={() => alert("clicked submenu 1")}>
+                <Icon type="home" />
+                Subaction 1
+              </ButtonNext>
+              <ButtonNext onClick={() => alert("clicked submenu 2")}>
+                <Icon type="home" />
+                Subaction 2
+              </ButtonNext>
+            </>
+          }
+        >
+          <ButtonNext onClick={() => {}}>
+            <Icon type="home" />
+            Action 2
+          </ButtonNext>
+        </MenuItem>
+        <MenuItem>
+          <ButtonNext>
+            <Icon type="home" />
+            Action 3
+          </ButtonNext>
+        </MenuItem>
+      </PopoverMenu>
+    </div>
+  );
+};
+
+PopoverMenuButtonSmall.storyName = "popover menu with buttons small";
+
+export const PopoverMenuButtonSmallDisabledItems = () => {
+  const [open, setOpen] = React.useState<boolean>(false);
+  const [submenuOpen, setSubmenuOpen] = React.useState<boolean>(false);
+
+  return (
+    <div style={{ display: "flex", gap: "24px", margin: "180px" }}>
+      <PopoverMenu<HTMLButtonElement>
+        size="small"
+        open={open}
+        onOpen={() => {
+          setOpen(true);
+        }}
+        onClose={() => {
+          if (open) {
+            setOpen(false);
+          }
+        }}
+        popoverControl={(ref, { role, ...props }) => (
+          <ButtonNext
+            ref={ref}
+            {...props}
+            onClick={() => setOpen((p) => !p)}
+            variantType="tertiary"
+            size="small"
+          >
+            Small Button
+          </ButtonNext>
+        )}
+        isButtonMenu
+      >
+        <MenuItem>
+          <ButtonNext>
+            <Icon type="home" />
+            Action 1
+          </ButtonNext>
+        </MenuItem>
+        <MenuItem
+          onSubmenuClose={() => {
+            setSubmenuOpen(false);
+          }}
+          onSubmenuOpen={() => setSubmenuOpen(true)}
+          submenuOpen={submenuOpen}
+          submenuWidth="200px"
+          disabled
+          submenu={
+            <>
+              <ButtonNext onClick={() => alert("clicked submenu 1")}>
+                <Icon type="home" />
+                Subaction 1
+              </ButtonNext>
+              <ButtonNext onClick={() => alert("clicked submenu 2")}>
+                <Icon type="home" />
+                Subaction 2
+              </ButtonNext>
+            </>
+          }
+        >
+          <ButtonNext onClick={() => {}}>
+            <Icon type="home" />
+            Action 2
+          </ButtonNext>
+        </MenuItem>
+        <MenuItem>
+          <ButtonNext>
+            <Icon type="home" />
+            Action 3
+          </ButtonNext>
+        </MenuItem>
+      </PopoverMenu>
+    </div>
+  );
+};
+
+PopoverMenuButtonSmallDisabledItems.storyName =
+  "popover menu with buttons small disabled items";
+
+export const PopoverMenuButtonMedium = () => {
+  const [open, setOpen] = React.useState<boolean>(false);
+  const [submenuOpen, setSubmenuOpen] = React.useState<boolean>(false);
+
+  return (
+    <div style={{ display: "flex", gap: "24px", margin: "180px" }}>
+      <PopoverMenu<HTMLButtonElement>
+        size="medium"
+        open={open}
+        onOpen={() => {
+          setOpen(true);
+        }}
+        onClose={() => {
+          if (open) {
+            setOpen(false);
+          }
+        }}
+        popoverControl={(ref, { role, ...props }) => (
+          <ButtonNext
+            ref={ref}
+            {...props}
+            onClick={() => setOpen((p) => !p)}
+            variantType="tertiary"
+            size="medium"
+          >
+            Medium Button
+          </ButtonNext>
+        )}
+        isButtonMenu
+        width="200px"
+      >
+        <MenuItem>
+          <ButtonNext>
+            <Icon type="home" />
+            Action 1
+          </ButtonNext>
+        </MenuItem>
+        <MenuItem
+          onSubmenuClose={() => {
+            setSubmenuOpen(false);
+          }}
+          onSubmenuOpen={() => setSubmenuOpen(true)}
+          submenuOpen={submenuOpen}
+          submenuWidth="200px"
+          submenu={
+            <>
+              <ButtonNext onClick={() => setSubmenuOpen(false)}>
+                <Icon type="home" />
+                Subaction 1
+              </ButtonNext>
+              <ButtonNext onClick={() => setSubmenuOpen(false)}>
+                <Icon type="home" />
+                Subaction 2
+              </ButtonNext>
+            </>
+          }
+        >
+          <ButtonNext onClick={() => {}}>
+            <Icon type="home" />
+            Action 2
+          </ButtonNext>
+        </MenuItem>
+        <MenuItem>
+          <ButtonNext>
+            <Icon type="home" />
+            Action 3
+          </ButtonNext>
+        </MenuItem>
+      </PopoverMenu>
+    </div>
+  );
+};
+
+PopoverMenuButtonMedium.storyName = "popover menu with buttons medium";
+
+export const PopoverMenuButtonLarge = () => {
+  const [open, setOpen] = React.useState<boolean>(false);
+  const [submenuOpen, setSubmenuOpen] = React.useState<boolean>(false);
+
+  return (
+    <div style={{ display: "flex", gap: "24px", margin: "180px" }}>
+      <PopoverMenu<HTMLButtonElement>
+        size="large"
+        open={open}
+        onOpen={() => {
+          setOpen(true);
+        }}
+        onClose={() => {
+          if (open) {
+            setOpen(false);
+            setSubmenuOpen(false);
+          }
+        }}
+        popoverControl={(ref, { role, ...props }) => (
+          <ButtonNext
+            ref={ref}
+            {...props}
+            onClick={() => setOpen((p) => !p)}
+            variantType="tertiary"
+            size="large"
+          >
+            Large Button
+          </ButtonNext>
+        )}
+        isButtonMenu
+      >
+        <MenuItem>
+          <ButtonNext>
+            <Icon type="home" />
+            Action 1
+          </ButtonNext>
+        </MenuItem>
+        <MenuItem
+          onSubmenuClose={() => {
+            setSubmenuOpen(false);
+          }}
+          onSubmenuOpen={() => setSubmenuOpen(true)}
+          submenuOpen={submenuOpen}
+          submenuWidth="200px"
+          submenu={
+            <>
+              <MenuItem>
+                <ButtonNext onClick={() => alert("clicked submenu 1")}>
+                  <Icon type="home" />
+                  Subaction 1
+                </ButtonNext>
+              </MenuItem>
+              <ButtonNext onClick={() => alert("clicked submenu 2")}>
+                <Icon type="home" />
+                Subaction 2
+              </ButtonNext>
+            </>
+          }
+        >
+          <ButtonNext onClick={() => {}}>
+            <Icon type="home" />
+            Action 2
+          </ButtonNext>
+        </MenuItem>
+        <MenuItem>
+          <ButtonNext>
+            <Icon type="home" />
+            Action 3
+          </ButtonNext>
+        </MenuItem>
+      </PopoverMenu>
+    </div>
+  );
+};
+
+PopoverMenuButtonLarge.storyName = "popover menu with buttons large";
+
+export const PopoverMenuButtonPlacementStart = () => {
+  const [open, setOpen] = React.useState<boolean>(false);
+  const [submenuOpen, setSubmenuOpen] = React.useState<boolean>(false);
+
+  return (
+    <div style={{ display: "flex", gap: "24px", margin: "180px" }}>
+      <PopoverMenu<HTMLButtonElement>
+        open={open}
+        onOpen={() => {
+          setOpen(true);
+        }}
+        onClose={() => {
+          if (open) {
+            setOpen(false);
+            setSubmenuOpen(false);
+          }
+        }}
+        width="200px"
+        placement="bottom-start"
+        popoverControl={(ref, { role, ...props }) => (
+          <ButtonNext
+            ref={ref}
+            {...props}
+            onClick={() => setOpen((p) => !p)}
+            variantType="tertiary"
+            size="medium"
+          >
+            Medium Button
+          </ButtonNext>
+        )}
+        isButtonMenu
+      >
+        <MenuItem>
+          <ButtonNext>
+            <Icon type="home" />
+            Action 1
+          </ButtonNext>
+        </MenuItem>
+        <MenuItem
+          onSubmenuClose={() => {
+            setSubmenuOpen(false);
+          }}
+          onSubmenuOpen={() => setSubmenuOpen(true)}
+          submenuOpen={submenuOpen}
+          submenuWidth="200px"
+          submenu={
+            <>
+              <MenuItem>
+                <ButtonNext onClick={() => alert("clicked submenu 1")}>
+                  <Icon type="home" />
+                  Subaction 1
+                </ButtonNext>
+              </MenuItem>
+              <ButtonNext onClick={() => alert("clicked submenu 2")}>
+                <Icon type="home" />
+                Subaction 2
+              </ButtonNext>
+            </>
+          }
+        >
+          <ButtonNext onClick={() => {}}>
+            <Icon type="home" />
+            Action 2
+          </ButtonNext>
+        </MenuItem>
+        <MenuItem>
+          <ButtonNext>
+            <Icon type="home" />
+            Action 3
+          </ButtonNext>
+        </MenuItem>
+      </PopoverMenu>
+    </div>
+  );
+};
+
+PopoverMenuButtonPlacementStart.storyName =
+  "popover menu with buttons placement start";
