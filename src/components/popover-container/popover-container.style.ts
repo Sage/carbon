@@ -3,8 +3,6 @@ import { padding } from "styled-system";
 import { TransitionStatus } from "react-transition-group";
 
 import applyBaseTheme from "../../style/themes/apply-base-theme";
-import IconButton from "../icon-button";
-import StyledIcon from "../icon/icon.style";
 import {
   StyledForm,
   StyledFormContent,
@@ -13,15 +11,15 @@ import {
 import { BoxProps } from "../box";
 
 type PopoverContainerWrapperProps = {
-  hasFullWidth?: boolean;
+  $hasFullWidth?: boolean;
 };
 
 const PopoverContainerWrapperStyle = styled.div<PopoverContainerWrapperProps>`
   position: relative;
   display: inline-block;
 
-  ${({ hasFullWidth }) =>
-    hasFullWidth &&
+  ${({ $hasFullWidth }) =>
+    $hasFullWidth &&
     css`
       width: 100%;
     `}
@@ -59,8 +57,8 @@ const PopoverContainerContentStyle = styled.div.attrs(
 )<PopoverContainerContentStyleProps>`
   ${padding}
 
-  background: var(--colorsUtilityYang100);
-  ${({ $borderRadius = "borderRadius100" }) => {
+  background: var(--popover-bg-default);
+  ${({ $borderRadius = "global-radius-action-m" }) => {
     const radiusValues = $borderRadius.split(" ").filter(Boolean);
     return css`
       border-radius: ${radiusValues
@@ -68,7 +66,7 @@ const PopoverContainerContentStyle = styled.div.attrs(
         .join(" ")};
     `;
   }}
-  box-shadow: var(--boxShadow100);
+  box-shadow: var(--global-depth-lvl1);
   min-width: 300px;
   position: absolute;
   z-index: ${({ zIndex }) => zIndex};
@@ -129,42 +127,22 @@ const PopoverContainerContentStyle = styled.div.attrs(
       }
 
       ${StyledFormFooter} {
-        border-bottom-right-radius: var(--borderRadius200);
-        border-bottom-left-radius: var(--borderRadius200);
+        border-bottom-right-radius: var(--global-radius-action-m);
+        border-bottom-left-radius: var(--global-radius-action-m);
       }
     }
   }
 `;
-
-type AdditionalIconButtonProps = {
-  tabIndex?: number;
-  id?: string;
-};
-
-const PopoverContainerOpenIcon = styled(IconButton)<AdditionalIconButtonProps>`
-  color: var(--colorsActionMinor500);
-
-  ${StyledIcon} {
-    color: inherit;
-  }
-`;
-
-const PopoverContainerCloseIcon = styled(IconButton)<AdditionalIconButtonProps>`
+const PopoverContainerCloseWrapper = styled.div`
   position: absolute;
-  top: 16px;
-  right: 24px;
-  color: var(--colorsActionMinor500);
-
-  ${StyledIcon} {
-    color: inherit;
-  }
+  top: var(--global-space-comp-s);
+  right: var(--global-space-comp-xl);
 `;
 
 export {
   PopoverContainerWrapperStyle,
   PopoverContainerHeaderStyle,
   PopoverContainerContentStyle,
-  PopoverContainerCloseIcon,
+  PopoverContainerCloseWrapper,
   PopoverContainerTitleStyle,
-  PopoverContainerOpenIcon,
 };

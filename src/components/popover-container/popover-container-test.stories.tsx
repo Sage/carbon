@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import Button from "../button";
+import Button from "../button/__next__";
 import Box from "../box";
 import PopoverContainer, {
   PopoverContainerProps,
@@ -10,7 +10,6 @@ import { Menu, MenuItem, MenuSegmentTitle } from "../menu";
 import Heading from "../heading";
 import Typography from "../typography";
 import Search from "../search";
-import IconButton from "../icon-button";
 import Icon from "../icon";
 import RadioButton, { RadioButtonGroup } from "../radio-button";
 
@@ -167,9 +166,9 @@ export const InsideMenu = () => {
           onClose={() => setOpen(false)}
           open={open}
           renderOpenComponent={({ ref, onClick }) => (
-            <IconButton aria-label="Notifications" ref={ref} onClick={onClick}>
+            <Button aria-label="Notifications" ref={ref} onClick={onClick}>
               <Icon type="alert" />
-            </IconButton>
+            </Button>
           )}
           p={0}
         >

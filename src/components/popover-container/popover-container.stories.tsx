@@ -6,7 +6,7 @@ import generateStyledSystemProps from "../../../.storybook/utils/styled-system-p
 import Box from "../box";
 import { DraggableContainer, DraggableItem } from "../draggable";
 import { Checkbox } from "../checkbox";
-import Button from "../button";
+import Button from "../button/__next__";
 import Link from "../link";
 import Pill from "../pill";
 import Badge from "../badge";
@@ -17,6 +17,7 @@ import PopoverContainer, {
 } from "./popover-container.component";
 import Textbox from "../textbox";
 import Form from "../form";
+import Icon from "../icon";
 
 const styledSystemProps = generateStyledSystemProps({
   padding: true,
@@ -63,14 +64,7 @@ export const Default: Story = () => {
     </Box>
   );
 };
-Default.story = {
-  name: "Default",
-  parameters: {
-    chromatic: {
-      disableSnapshot: true,
-    },
-  },
-};
+Default.storyName = "Default";
 
 export const Title: Story = () => {
   const [open, setOpen] = useState(defaultOpenState);
@@ -207,8 +201,6 @@ export const RenderProps: Story = () => {
           "aria-haspopup": ariaHasPopup,
         }) => (
           <Button
-            iconType={!isOpen ? "filter_new" : "close"}
-            iconPosition="after"
             data-element={dataElement}
             aria-label={ariaLabel}
             aria-haspopup={ariaHasPopup}
@@ -218,6 +210,7 @@ export const RenderProps: Story = () => {
             onClick={onClick}
           >
             Filter
+            <Icon type={!isOpen ? "filter_new" : "close"} />
           </Button>
         )}
         renderCloseComponent={({
@@ -432,14 +425,14 @@ export const Filter: Story = () => {
           <Badge counter={filters.length} onClick={handleBadgeClose}>
             <Button
               mr={0}
-              buttonType={isOpen ? "primary" : "darkBackground"}
-              iconPosition="after"
-              iconType={!isOpen ? "filter_new" : "close"}
+              variantType={"primary"}
+              inverse={!isOpen}
               size="small"
               ref={ref}
               {...rest}
             >
               Filter
+              {<Icon type={!isOpen ? "filter_new" : "close"} />}
             </Button>
           </Badge>
         )}
@@ -487,14 +480,10 @@ export const FocusButton = () => {
       open={isPopOverOpen}
       onOpen={() => setIsPopOverOpen(true)}
       onClose={() => setIsPopOverOpen(false)}
-      renderOpenComponent={({ ...props }) => (
-        <Button
-          size="small"
-          buttonType="secondary"
-          iconType="settings"
-          {...props}
-        >
-          popover
+      renderOpenComponent={({ ref, ...props }) => (
+        <Button size="small" variantType="primary" ref={ref} {...props}>
+          <Icon type="settings" />
+          Popover
         </Button>
       )}
       renderCloseComponent={() => <></>}
@@ -504,7 +493,7 @@ export const FocusButton = () => {
         onSubmit={() => {}}
         leftSideButtons={<Button onClick={() => handleCancel()}>Cancel</Button>}
         saveButton={
-          <Button buttonType="primary" type="submit">
+          <Button variantType="primary" type="submit">
             Save
           </Button>
         }
