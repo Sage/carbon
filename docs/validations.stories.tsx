@@ -1,11 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
 
 import Textbox from "../src/components/textbox";
-import Textarea from "../src/components/textarea";
 import { RadioButton, RadioButtonGroup } from "../src/components/radio-button";
-import { Checkbox, CheckboxGroup } from "../src/components/checkbox";
-import CarbonProvider from "../src/components/carbon-provider";
 import Form, { RequiredFieldsIndicator } from "../src/components/form";
 
 const meta: Meta = {
@@ -18,239 +15,102 @@ const meta: Meta = {
 
 export default meta;
 
-export const StringValidation: StoryObj = () => {
+export const Validation: StoryObj = () => {
+  const [value1, setValue1] = useState("");
+  const [value2, setValue2] = useState("");
+
   return (
-    <>
-      <Textarea
-        label="Textarea"
-        value=""
-        error="Error Message"
-        onChange={() => {}}
+    <Form>
+      <RequiredFieldsIndicator mb={2}>
+        Indicates required information
+      </RequiredFieldsIndicator>
+      <Textbox
+        label="Textbox"
+        inputHint="Hint Text"
+        required
+        error="Error Message (Fix is required)"
+        value={value1}
+        onChange={(e) => setValue1(e.target.value)}
       />
-      <Textarea
-        label="Textarea"
-        value=""
-        warning="Warning Message"
-        onChange={() => {}}
+      <Textbox
+        label="Textbox"
+        inputHint="Hint Text"
+        required
+        warning="Warning Message (Fix is optional)"
+        value={value2}
+        onChange={(e) => setValue2(e.target.value)}
       />
-      <Textarea
-        label="Textarea"
-        value=""
-        info="Info Message"
-        onChange={() => {}}
-      />
-    </>
+    </Form>
   );
 };
-StringValidation.storyName = "String Validation";
+Validation.storyName = "Validation";
 
-export const BooleanValidation: StoryObj = () => {
-  return <Textarea label="Textarea" value="" error onChange={() => {}} />;
-};
-BooleanValidation.storyName = "Boolean Validation";
+export const ValidationGroupedInputs: StoryObj = () => {
+  const [radioValue, setRadioValue] = useState("");
 
-export const ValidationOnLabel: StoryObj = () => {
   return (
-    <Textarea
-      label="Textarea"
-      value=""
-      error="Error Message"
-      validationOnLabel
-      onChange={() => {}}
-    />
+    <Form>
+      <RequiredFieldsIndicator mb={2}>
+        Indicates required information
+      </RequiredFieldsIndicator>
+      <RadioButtonGroup
+        legend="Radio Button Group"
+        legendHint="Legend Hint"
+        name="group-radio"
+        required
+        error="Error Message (Fix is required)"
+        value={radioValue}
+        onChange={(e) => setRadioValue(e.target.value)}
+      >
+        <RadioButton id="group-radio-1" value="radio1" label="Radio Option 1" />
+        <RadioButton id="group-radio-2" value="radio2" label="Radio Option 2" />
+      </RadioButtonGroup>
+    </Form>
   );
 };
-ValidationOnLabel.storyName = "Validation on Label";
+ValidationGroupedInputs.storyName = "Validation with Grouped Inputs";
 
-export const TooltipPosition: StoryObj = () => {
-  const [state, setState] = React.useState("");
-  return (
-    <Textarea
-      label="Textarea"
-      onChange={(e) => setState(e.target.value)}
-      value={state}
-      error="Error Message"
-      tooltipPosition="bottom"
-    />
-  );
-};
-TooltipPosition.storyName = "Tooltip Position";
+export const ValidationMessageBottom: StoryObj = () => {
+  const [textboxValue, setTextboxValue] = useState("");
+  const [radioValue, setRadioValue] = useState("");
 
-export const GroupedInputValidation: StoryObj = () => {
-  const [state, setState] = React.useState("radio1");
   return (
-    <RadioButtonGroup
-      legend="Radio Button Group"
-      name="errorRadioGroup"
-      value={state}
-      onChange={(e) => setState(e.target.value)}
-    >
-      <RadioButton
-        id="error-radio-1"
-        value="radio1"
-        label="Radio Option 1"
-        error="Error Message"
+    <Form>
+      <RequiredFieldsIndicator mb={2}>
+        Indicates required information
+      </RequiredFieldsIndicator>
+      <Textbox
+        label="Textbox"
+        inputHint="Hint Text"
+        required
+        error="Error Message (Fix is required)"
+        value={textboxValue}
+        onChange={(e) => setTextboxValue(e.target.value)}
+        validationMessagePositionTop={false}
       />
-      <RadioButton
-        id="warning-radio-2"
-        value="radio2"
-        label="Radio Option 2"
-        warning="Warning Message"
-      />
-      <RadioButton
-        id="info-radio-2"
-        value="radio3"
-        label="Radio Option 3"
-        info="Information Message"
-      />
-    </RadioButtonGroup>
-  );
-};
-GroupedInputValidation.storyName = "Grouped Input Validation";
 
-export const GroupedLegendValidation: StoryObj = () => {
-  const [state, setState] = React.useState("radio1");
-  return (
-    <RadioButtonGroup
-      legend="Radio Button Group"
-      name="errorRadioGroup"
-      required
-      error="Error Message"
-      value={state}
-      onChange={(e) => setState(e.target.value)}
-    >
-      <RadioButton id="radio-1" value="radio1" label="Radio Option 1" />
-      <RadioButton id="radio-2" value="radio2" label="Radio Option 2" />
-      <RadioButton id="radio-2" value="radio3" label="Radio Option 3" />
-    </RadioButtonGroup>
-  );
-};
-GroupedLegendValidation.storyName = "Grouped Legend Validation";
-
-export const ValidationRedesign: StoryObj = () => {
-  const [textarea1Value, setTextarea1Value] = React.useState("");
-  const [textarea2Value, setTextarea2Value] = React.useState("");
-
-  return (
-    <CarbonProvider validationRedesignOptIn>
-      <Form>
-        <RequiredFieldsIndicator mb={2}>
-          Indicates required information
-        </RequiredFieldsIndicator>
-        <Textarea
-          label="Textarea"
-          onChange={(e) => setTextarea1Value(e.target.value)}
-          value={textarea1Value}
-          error="Error Message (Fix is required)"
+      <RadioButtonGroup
+        legend="Radio Button Group"
+        legendHint="Legend Hint"
+        name="group-radio-bottom"
+        required
+        error="Error Message (Fix is required)"
+        value={radioValue}
+        onChange={(e) => setRadioValue(e.target.value)}
+        validationMessagePositionTop={false}
+      >
+        <RadioButton
+          id="group-radio-bottom-1"
+          value="radio1"
+          label="Radio Option 1"
         />
-        <Textarea
-          label="Textarea"
-          onChange={(e) => setTextarea2Value(e.target.value)}
-          value={textarea2Value}
-          warning="Warning Message (Fix is optional)"
+        <RadioButton
+          id="group-radio-bottom-2"
+          value="radio2"
+          label="Radio Option 2"
         />
-      </Form>
-    </CarbonProvider>
+      </RadioButtonGroup>
+    </Form>
   );
 };
-ValidationRedesign.storyName = "Validation Redesign";
-
-export const ValidationRedesignWithGroupedInputs: StoryObj = () => {
-  const [state, setState] = React.useState("radio1");
-  const [state2, setState2] = React.useState(true);
-  const [state3, setState3] = React.useState(false);
-  return (
-    <CarbonProvider validationRedesignOptIn>
-      <Form>
-        <RequiredFieldsIndicator mb={2}>
-          Indicates required information
-        </RequiredFieldsIndicator>
-        <RadioButtonGroup
-          legend="Radio Button Group"
-          legendHelp="Legend help"
-          name="errorRadioGroup"
-          required
-          error="Error Message (Fix is required)"
-          value={state}
-          onChange={(e) => setState(e.target.value)}
-        >
-          <RadioButton id="new-radio-1" value="radio1" label="Radio Option 1" />
-          <RadioButton id="new-radio-2" value="radio2" label="Radio Option 2" />
-        </RadioButtonGroup>
-
-        <CheckboxGroup
-          legend="Checkbox Group"
-          legendHelp="Legend help"
-          warning="Warning Message (Fix is optional)"
-        >
-          <Checkbox
-            id="new-checkbox-1"
-            value="checkbox1"
-            label="Checkbox Option 1"
-            checked={state2}
-            onChange={(e) => setState2(e.target.checked)}
-          />
-          <Checkbox
-            id="new-checkbox-2"
-            value="checkbox2"
-            label="Checkbox Option 2"
-            checked={state3}
-            onChange={(e) => setState3(e.target.checked)}
-          />
-        </CheckboxGroup>
-      </Form>
-    </CarbonProvider>
-  );
-};
-ValidationRedesignWithGroupedInputs.storyName =
-  "Validation Redesign with Grouped Inputs";
-
-export const ValidationRedesignMessageBottom: StoryObj = () => {
-  const [state, setState] = React.useState("");
-  const [state2, setState2] = React.useState(true);
-  const [state3, setState3] = React.useState(false);
-
-  return (
-    <CarbonProvider validationRedesignOptIn>
-      <Form>
-        <RequiredFieldsIndicator mb={2}>
-          Indicates required information
-        </RequiredFieldsIndicator>
-
-        <Textbox
-          label="Textbox"
-          inputHint="Hint text"
-          value={state}
-          onChange={(e) => setState(e.target.value)}
-          required
-          error="Error Message (Fix is required)"
-          validationMessagePositionTop={false}
-        />
-
-        <CheckboxGroup
-          legend="Checkbox Group"
-          legendHelp="Legend help"
-          warning="Warning Message (Fix is optional)"
-          validationMessagePositionTop={false}
-        >
-          <Checkbox
-            id="new-checkbox-1-bottom"
-            value="checkbox1"
-            label="Checkbox Option 1"
-            checked={state2}
-            onChange={(e) => setState2(e.target.checked)}
-          />
-          <Checkbox
-            id="new-checkbox-2-bottom"
-            value="checkbox2"
-            label="Checkbox Option 2"
-            checked={state3}
-            onChange={(e) => setState3(e.target.checked)}
-          />
-        </CheckboxGroup>
-      </Form>
-    </CarbonProvider>
-  );
-};
-ValidationRedesignMessageBottom.storyName =
-  "Validation Redesign with Message Below Input";
+ValidationMessageBottom.storyName = "Validation with Message Below Input";
