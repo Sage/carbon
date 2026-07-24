@@ -2444,3 +2444,19 @@ test("renders backdrop when opened inside FlatTable", async () => {
 
   expect(screen.getByTestId("popup-backdrop")).toBeVisible();
 });
+
+test("renders action popover menu under the action popover wrapper tree", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <ActionPopover data-role="anchor">
+      <ActionPopoverItem>Item 1</ActionPopoverItem>
+    </ActionPopover>,
+  );
+
+  await user.click(screen.getByRole("button"));
+  const menu = await screen.findByRole("list");
+  const anchor = screen.getByTestId("anchor");
+
+  expect(anchor).toContainElement(menu);
+});
