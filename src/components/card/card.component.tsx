@@ -3,7 +3,12 @@ import { MarginProps } from "styled-system";
 import * as DesignTokens from "@sage/design-tokens/js/base/common";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { CardProvider, CardContextProps } from "./__internal__/card.context";
-import { StyledCard, StyledCardContent, StyledDragRow } from "./card.style";
+import {
+  StyledCard,
+  StyledCardContent,
+  StyledDragRow,
+  StyledDragHandle,
+} from "./card.style";
 import Icon from "../icon";
 import tagComponent, {
   TagProps,
@@ -39,7 +44,8 @@ export interface CardProps extends MarginProps, TagProps {
   /** Size padding applied to the card. */
   spacing?: CardContextProps["spacing"];
   /** Sets the level of roundness of the corners. "moderate" is 16px and "curved" is 20px.
-   * "default" (alias for "moderate") and "large" (alias for "curved") are deprecated. Use "moderate" or "curved" instead.
+   *
+   * **Note:** The values "default" and "large" are deprecated. Use "moderate" or "curved" instead.
    */
   roundness?: CardContextProps["roundness"];
   /** The path to navigate to. Renders an anchor element when passed and no draggable prop set */
@@ -104,7 +110,6 @@ const Card = ({
     <StyledCard
       $cardWidth={width}
       $interactive={interactive}
-      $draggable={!!draggable}
       $spacing={spacing}
       $boxShadow={boxShadow}
       $hoverBoxShadow={hoverBoxShadow}
@@ -121,7 +126,9 @@ const Card = ({
         {header}
         {draggable && (
           <StyledDragRow spacing={spacing}>
-            <Icon type="drag" />
+            <StyledDragHandle>
+              <Icon type="drag" />
+            </StyledDragHandle>
             {rightChildren}
           </StyledDragRow>
         )}

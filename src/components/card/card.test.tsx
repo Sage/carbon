@@ -114,7 +114,7 @@ test.each([
   },
 );
 
-test("when draggable prop is true cursor changes to move icon when Card is hovered over", () => {
+test("when draggable prop is true, card element does not have move cursor", () => {
   render(
     <Card draggable data-role="card">
       Content
@@ -123,7 +123,8 @@ test("when draggable prop is true cursor changes to move icon when Card is hover
 
   const cardElement = screen.getByTestId("card");
 
-  expect(cardElement).toHaveStyle({ cursor: "move" });
+  expect(cardElement).not.toHaveStyle({ cursor: "move" });
+  expect(screen.getByTestId("icon")).toBeInTheDocument();
 });
 
 test("renders rightChildren content when draggable is true", () => {
@@ -236,7 +237,6 @@ test("StyledCard applies standard box shadow by default when variant is not prov
     <StyledCard
       $cardWidth="500px"
       $interactive={false}
-      $draggable={false}
       $roundness="moderate"
       $spacing="medium"
       data-role="card"

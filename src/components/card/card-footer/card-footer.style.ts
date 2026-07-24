@@ -32,9 +32,7 @@ const StyledCardFooter = styled.div<StyledCardFooterProps>`
     background-color: ${variant === "transparent"
       ? "transparent"
       : "var(--container-standard-bg-default)"};
-    border-top: var(--colorsUtilityMajor100);
-    border-top-width: 1px;
-    border-top-style: solid;
+    border-top: 1px solid var(--container-action-border-default);
     margin: ${marginSizes[spacing]};
     display: flex;
     ${(roundness === "moderate" || roundness === "default") &&

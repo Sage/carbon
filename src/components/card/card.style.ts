@@ -31,7 +31,6 @@ export interface StyledCardProps
     Pick<CardProps, "href" | "onClick"> {
   $cardWidth: string;
   $interactive: boolean;
-  $draggable: boolean;
   $height?: string;
   $boxShadow?: BoxShadowsType;
   $hoverBoxShadow?: BoxShadowsType;
@@ -44,13 +43,12 @@ const StyledCard = styled.div.attrs(applyBaseTheme)<StyledCardProps>`
   ${({
     $cardWidth,
     $interactive,
-    $draggable,
     $height,
     $roundness,
     $spacing,
     $variant = "standard",
   }) => css`
-    background-color: var(--container-standard-bg-default);
+    background-color: var(--container-action-bg-default);
     border: 1px solid var(--container-standard-border-default);
     border-radius: ${$roundness === "moderate" || $roundness === "default"
       ? "var(--global-radius-container-l)"
@@ -80,11 +78,6 @@ const StyledCard = styled.div.attrs(applyBaseTheme)<StyledCardProps>`
           ? "none"
           : "var(--global-depth-lvl2)"};
       }
-    `}
-
-    ${$draggable &&
-    css`
-      cursor: move;
     `}
 
     ::-moz-focus-inner {
@@ -182,6 +175,10 @@ export const StyledDragRow = styled.div<{
   justify-content: space-between;
   align-items: flex-start;
   margin-top: ${({ spacing }) => paddingSizes[spacing]};
+`;
+
+export const StyledDragHandle = styled.div`
+  cursor: move;
 `;
 
 export { StyledCard, StyledCardContent };
