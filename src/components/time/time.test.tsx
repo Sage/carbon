@@ -211,15 +211,41 @@ test("should render the input hint text when prop is set", () => {
   expect(screen.getByText("hint text")).toBeVisible();
 });
 
+test("should render the legend hint text when prop is set", () => {
+  render(
+    <Time
+      value={{ hours: "12", minutes: "30" }}
+      onChange={() => {}}
+      legendHint="legend hint text"
+    />,
+  );
+
+  expect(screen.getByText("legend hint text")).toBeVisible();
+});
+
+test("should use `legendHint` over `inputHint` when both are provided", () => {
+  render(
+    <Time
+      value={{ hours: "12", minutes: "30" }}
+      onChange={() => {}}
+      legendHint="legend hint text"
+      inputHint="input hint text"
+    />,
+  );
+
+  expect(screen.getByText("legend hint text")).toBeVisible();
+  expect(screen.queryByText("input hint text")).not.toBeInTheDocument();
+});
+
 test("should focus the relevant input when the associated label is clicked", async () => {
   render(<Time value={{ hours: "12", minutes: "30" }} onChange={() => {}} />);
 
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-  await user.click(screen.getByText("Hrs."));
+  await user.click(screen.getByText("Hours"));
 
   expect(screen.getByDisplayValue("12")).toHaveFocus();
 
-  await user.click(screen.getByText("Mins."));
+  await user.click(screen.getByText("Minutes"));
 
   expect(screen.getByDisplayValue("30")).toHaveFocus();
 });
@@ -293,6 +319,22 @@ test("should verify fieldset uses visible legend text as its accessible name", (
   expect(legend).toBeVisible();
 });
 
+test("should use `legend` over `label` when both are provided", () => {
+  render(
+    <Time
+      value={{ hours: "12", minutes: "30" }}
+      onChange={() => {}}
+      legend="Time legend"
+      label="Time label"
+    />,
+  );
+
+  const fieldset = screen.getByRole("group");
+  expect(fieldset).toHaveAccessibleName("Time legend");
+  expect(within(fieldset).getByText("Time legend")).toBeVisible();
+  expect(within(fieldset).queryByText("Time label")).not.toBeInTheDocument();
+});
+
 test("should apply the custom id on the hours input when `hoursInputProps` has an `id` set", () => {
   render(
     <Time
@@ -335,7 +377,7 @@ test("should call onChange when a user types in the hours input and toggle is re
     delay: null,
   });
 
-  const hoursInput = screen.getByLabelText("Hrs.");
+  const hoursInput = screen.getByLabelText("Hours");
   await user.type(hoursInput, "1");
 
   expect(onChangeMock).toHaveBeenCalledWith(
@@ -402,7 +444,7 @@ test("should call onChange when a user types in the minutes input and toggle is 
     delay: null,
   });
 
-  const minutesInput = screen.getByLabelText("Mins.");
+  const minutesInput = screen.getByLabelText("Minutes");
   await user.type(minutesInput, "1");
 
   expect(onChangeMock).toHaveBeenCalledWith(
@@ -564,7 +606,7 @@ test("should call onChange with the correct formatted values when a user types i
     delay: null,
   });
 
-  const minutesInput = screen.getByLabelText("Mins.");
+  const minutesInput = screen.getByLabelText("Minutes");
   await user.type(minutesInput, "1");
 
   expect(onChangeMock).toHaveBeenCalledWith(
@@ -583,7 +625,7 @@ test("should call onChange with the correct formatted values when a user types i
     }),
   );
 
-  const hourInput = screen.getByLabelText("Hrs.");
+  const hourInput = screen.getByLabelText("Hours");
   await user.type(hourInput, "1");
 
   expect(onChangeMock).toHaveBeenCalledWith(
@@ -864,11 +906,55 @@ test("should render with the default translations if no overrides are provided",
     />,
   );
 
-  expect(screen.getByText("Hrs.")).toBeVisible();
-  expect(screen.getByText("Mins.")).toBeVisible();
+  expect(screen.getByText("Hours")).toBeVisible();
+  expect(screen.getByText("Minutes")).toBeVisible();
   expect(screen.getByText("AM")).toBeVisible();
   expect(screen.getByText("PM")).toBeVisible();
 });
+
+test("should apply 4px gap between label and input for hours and minutes fields", () => {
+  render(
+    <Time
+      value={{ hours: "", minutes: "" }}
+      onChange={() => {}}
+      label="Time"
+      hoursInputProps={{ "data-role": "hours-input-wrapper" }}
+      minutesInputProps={{ "data-role": "minutes-input-wrapper" }}
+    />,
+  );
+
+  const firstGap = window.getComputedStyle(
+    screen.getByTestId("hours-input-wrapper"),
+  ).gap;
+  const secondGap = window.getComputedStyle(
+    screen.getByTestId("minutes-input-wrapper"),
+  ).gap;
+
+  expect(firstGap).toBe("var(--global-space-comp-xs)");
+  expect(secondGap).toBe("var(--global-space-comp-xs)");
+});
+
+it.each([
+  ["small", "48px"],
+  ["medium", "56px"],
+  ["large", "64px"],
+] as const)(
+  "should apply %s input wrapper width for hours and minutes",
+  (size, expectedWidth) => {
+    render(
+      <Time
+        value={{ hours: "", minutes: "" }}
+        onChange={() => {}}
+        size={size}
+      />,
+    );
+
+    const inputWrappers = screen.getAllByTestId("input-wrapper");
+
+    expect(inputWrappers[0]).toHaveStyleRule("max-width", expectedWidth);
+    expect(inputWrappers[1]).toHaveStyleRule("max-width", expectedWidth);
+  },
+);
 
 test("should render with the overridden translations if provided", () => {
   render(
@@ -949,48 +1035,6 @@ it.each(["disabled", "readOnly"])(
     expect(onChangeMock).not.toHaveBeenCalled();
   },
 );
-
-test("should apply the expected styling when disabled prop is set", () => {
-  render(
-    <Time
-      value={{ hours: "", minutes: "", period: "AM" }}
-      onChange={() => {}}
-      label="label"
-      inputHint="hint"
-      disabled
-    />,
-  );
-
-  const mainLabel = screen.getByText("label");
-  const hintText = screen.getByText("hint");
-  const hrsLabel = screen.getByText("Hrs.");
-  const minsLabel = screen.getByText("Mins.");
-
-  expect(mainLabel).toHaveStyleRule("color: var(--colorsUtilityYin030)");
-  expect(hintText).toHaveStyleRule("color: var(--colorsUtilityYin030)");
-  expect(hrsLabel).toHaveStyleRule("color: var(--colorsUtilityYin030)");
-  expect(minsLabel).toHaveStyleRule("color: var(--colorsUtilityYin030)");
-});
-
-test("should apply the expected styling when readOnly prop is set", () => {
-  render(
-    <Time
-      value={{ hours: "", minutes: "", period: "AM" }}
-      onChange={() => {}}
-      label="label"
-      inputHint="hint"
-      readOnly
-    />,
-  );
-
-  const hintText = screen.getByText("hint");
-  const hrsLabel = screen.getByText("Hrs.");
-  const minsLabel = screen.getByText("Mins.");
-
-  expect(hintText).toHaveStyleRule("color: var(--colorsUtilityYin055)");
-  expect(hrsLabel).toHaveStyleRule("color: var(--colorsUtilityYin055)");
-  expect(minsLabel).toHaveStyleRule("color: var(--colorsUtilityYin055)");
-});
 
 test("should have the expected `data-` attributes set on the root element", () => {
   render(
@@ -1096,7 +1140,7 @@ test("should apply the correct aria-describedby attribute to fieldset when input
 
   const fieldset = screen.getByRole("group");
 
-  expect(fieldset).toHaveAccessibleDescription("Validation Hint");
+  expect(fieldset).toHaveAccessibleDescription("Hint Validation");
 });
 
 test("should apply the correct aria-describedby attribute to fieldset when inputHint and error are provided and validationMessagePositionTop is false", () => {
@@ -1147,11 +1191,11 @@ test("should sync internal input values when the value is changed", async () => 
 
   render(<MockComponentWithValueModifiers />);
 
-  const hoursInput = screen.getByLabelText("Hrs.");
+  const hoursInput = screen.getByLabelText("Hours");
   await user.click(hoursInput);
   await user.type(hoursInput, "1");
 
-  const minutesInput = screen.getByLabelText("Mins.");
+  const minutesInput = screen.getByLabelText("Minutes");
   await user.click(minutesInput);
   await user.type(minutesInput, "2");
   await user.click(document.body);

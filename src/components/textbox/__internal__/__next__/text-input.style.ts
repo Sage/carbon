@@ -60,7 +60,7 @@ const StyledTextInput = styled.div.attrs(applyBaseTheme)<StyledTextInputProps>`
   }
 
   .time & {
-    gap: unset;
+    gap: var(--global-space-comp-xs);
   }
   .legacy-search & {
     flex: 1 1 0%;

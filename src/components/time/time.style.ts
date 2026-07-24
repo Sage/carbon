@@ -1,10 +1,33 @@
-import styled from "styled-components";
-import Label from "../../__internal__/legacy-label";
+import styled, { css } from "styled-components";
 
-const StyledLabel = styled(Label)`
-  label {
-    font-weight: var(--fontWeights400);
-  }
+const colonFontBySize = {
+  small: "var(--global-font-static-comp-regular-s)",
+  medium: "var(--global-font-static-comp-regular-m)",
+  large: "var(--global-font-static-comp-regular-l)",
+};
+
+type StyledColonProps = {
+  $size: "small" | "medium" | "large";
+  $isDisabled?: boolean;
+  $isReadOnly?: boolean;
+};
+
+const StyledColon = styled.span<StyledColonProps>`
+  ${({ $size, $isDisabled, $isReadOnly }) => css`
+    font: ${colonFontBySize[$size]};
+    color: var(--input-typical-txt-default);
+    text-align: center;
+
+    ${$isReadOnly &&
+    css`
+      color: var(--input-typical-txt-read-only);
+    `}
+
+    ${$isDisabled &&
+    css`
+      color: var(--input-typical-txt-disabled);
+    `}
+  `}
 `;
 
-export default StyledLabel;
+export default StyledColon;

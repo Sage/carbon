@@ -27,6 +27,16 @@ test("renders fieldset with provided `legend`", () => {
   expect(fieldset).toBeVisible();
 });
 
+test("renders with provided `width`", () => {
+  render(
+    <Fieldset width="288px">
+      <input title="Test" placeholder="Placeholder" />
+    </Fieldset>,
+  );
+
+  expect(screen.getByRole("group")).toHaveStyle({ width: "288px" });
+});
+
 test("sets child inputs as required when `isRequired` is true", () => {
   render(
     <Fieldset isRequired>

@@ -251,8 +251,8 @@ const esES: Partial<Locale> = {
   time: {
     amText: () => "a. m.",
     pmText: () => "p. m.",
-    hoursLabelText: () => "h",
-    minutesLabelText: () => "min",
+    hoursLabelText: () => "Horas",
+    minutesLabelText: () => "Minutos",
     hoursAriaLabelText: () => "Horas",
     minutesAriaLabelText: () => "Minutos",
   },
