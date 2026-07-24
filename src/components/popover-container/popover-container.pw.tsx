@@ -15,7 +15,7 @@ test.describe("Check props of Popover Container component", () => {
   }) => {
     await mount(<PopoverContainerWithSelect />);
 
-    const openButton = page.getByRole("button", { name: "open" });
+    const openButton = page.getByRole("button", { name: "Actions" });
     await openButton.click();
     const popoverContainer = page.getByRole("dialog", {
       name: "select example",
@@ -34,7 +34,7 @@ test.describe("Check props of Popover Container component", () => {
   }) => {
     await mount(<PopoverContainerWithSelect />);
 
-    const openButton = page.getByRole("button", { name: "open" });
+    const openButton = page.getByRole("button", { name: "Actions" });
     await openButton.click();
     const popoverContainer = page.getByRole("dialog", {
       name: "select example",
@@ -52,7 +52,7 @@ test.describe("Check props of Popover Container component", () => {
   }) => {
     await mount(<PopoverContainerWithSelect />);
 
-    const openButton = page.getByRole("button", { name: "open" });
+    const openButton = page.getByRole("button", { name: "Actions" });
     await openButton.click();
     const popoverContainer = page.getByRole("dialog", {
       name: "select example",
