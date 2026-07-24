@@ -57,12 +57,17 @@ const StyledLabel = styled.label<StyledLabelProps>`
       }
     `}
 
-  .numeral-date-wrapper &,
   .time & {
     font: var(--global-font-static-comp-regular-m);
   }
 
   ${labelStyleOverrides}
+  .fieldset-required-input & {
+    ::after {
+      content: "";
+      margin-left: 0;
+    }
+  }
 `;
 
 export default StyledLabel;
