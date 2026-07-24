@@ -6,22 +6,30 @@ const StyledAnchorNavigation = styled.div`
   width: 100%;
 `;
 
-const StyledNavigation = styled.ul`
+const StyledNavigationWrapper = styled.nav`
   position: sticky;
-  top: 32px;
+  top: var(--global-space-layout-s);
+  max-width: 240px;
+`;
+
+const StyledNavigation = styled.ul`
   list-style: none;
   margin: 0;
   padding: 0;
-  max-width: 240px;
 `;
 
 const StyledContent = styled.div`
   flex: 1;
-  margin-left: 32px;
+  margin-left: var(--global-space-layout-s);
 
   [data-carbon-anchornav-ref="true"]:focus {
     outline: none;
   }
 `;
 
-export { StyledAnchorNavigation, StyledNavigation, StyledContent };
+export {
+  StyledAnchorNavigation,
+  StyledNavigationWrapper,
+  StyledNavigation,
+  StyledContent,
+};

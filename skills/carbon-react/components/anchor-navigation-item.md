@@ -17,7 +17,7 @@ description: Carbon AnchorNavigationItem component props and usage examples.
 | --- | --- | --- | --- | --- | --- |
 | children | React.ReactNode | No |  | Children elements |  |
 | href | string \| undefined | No |  | href to be passed to the anchor element, can be linked with id passed to the scrollable section |  |
-| isSelected | boolean \| undefined | No |  | Indicates if component is selected |  |
+| isSelected | boolean \| undefined | No |  | Indicates if a component is selected |  |
 | onClick | ((ev: React.MouseEvent<HTMLAnchorElement>) => void) \| undefined | No |  | onClick handler |  |
 | onKeyDown | ((ev: React.KeyboardEvent<HTMLAnchorElement>) => void) \| undefined | No |  | OnKeyDown handler |  |
 | tabIndex | number \| undefined | No |  | tabIndex passed to the anchor element |  |

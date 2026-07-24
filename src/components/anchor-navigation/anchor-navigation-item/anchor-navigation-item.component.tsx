@@ -1,4 +1,5 @@
 import React from "react";
+import Typography from "../../typography";
 import StyledNavigationItem from "./anchor-navigation-item.style";
 
 export interface AnchorNavigationItemProps {
@@ -6,7 +7,7 @@ export interface AnchorNavigationItemProps {
   target?: React.RefObject<HTMLElement>;
   /** href to be passed to the anchor element, can be linked with id passed to the scrollable section */
   href?: string;
-  /** Indicates if component is selected */
+  /** Indicates if a component is selected */
   isSelected?: boolean;
   /** onClick handler */
   onClick?: (ev: React.MouseEvent<HTMLAnchorElement>) => void;
@@ -21,18 +22,12 @@ export interface AnchorNavigationItemProps {
 const AnchorNavigationItem = React.forwardRef<
   HTMLAnchorElement,
   AnchorNavigationItemProps
->(
-  (
-    {
-      children,
-      onKeyDown,
-      onClick,
-      href,
-      tabIndex,
-      isSelected,
-    }: AnchorNavigationItemProps,
-    ref,
-  ) => (
+>(({ target: _target, ...props }: AnchorNavigationItemProps, ref) => {
+  // `target` is consumed by AnchorNavigation via child.props.target to scroll
+  // to the target section; it is intentionally omitted from this component.
+  const { children, onKeyDown, onClick, href, tabIndex, isSelected } = props;
+
+  return (
     <StyledNavigationItem isSelected={isSelected}>
       <a
         onKeyDown={onKeyDown}
@@ -40,13 +35,21 @@ const AnchorNavigationItem = React.forwardRef<
         tabIndex={tabIndex}
         ref={ref}
         href={href}
+        aria-current={isSelected ? "location" : undefined}
         data-element="anchor-navigation-item"
       >
-        {children}
+        <Typography
+          as="span"
+          data-element="anchor-navigation-item-label"
+          mb={0} // suppress default paragraph margin inside the nav item
+          weight="medium"
+        >
+          {children}
+        </Typography>
       </a>
     </StyledNavigationItem>
-  ),
-);
+  );
+});
 
 AnchorNavigationItem.displayName = "AnchorNavigationItem";
 export default AnchorNavigationItem;
