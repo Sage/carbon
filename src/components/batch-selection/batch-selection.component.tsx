@@ -41,7 +41,10 @@ export const BatchSelection = ({
       disabled={disabled}
       hidden={hidden}
     >
-      <StyledSelectionCount data-element="selection-count">
+      <StyledSelectionCount
+        data-element="selection-count"
+        aria-disabled={disabled || undefined}
+      >
         {l.batchSelection.selected(selectedCount)}
       </StyledSelectionCount>
       <BatchSelectionContext.Provider

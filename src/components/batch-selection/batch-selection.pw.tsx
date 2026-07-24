@@ -37,12 +37,11 @@ test.describe("Accessibility tests", () => {
     await checkAccessibility(page);
   });
 
-  // Due to the colour of the disabled styling, this fails the colour contrast checker. No reason we cannot check the rest of the accessibility though.
   test("should pass accessibility test for disabled BatchSelection", async ({
     mount,
     page,
   }) => {
-    await mount(<BatchSelectionComponent disabled selectedCount={3} />);
-    await checkAccessibility(page, undefined, "color-contrast");
+    await mount(<BatchSelectionComponent disabled selectedCount={0} />);
+    await checkAccessibility(page);
   });
 });
