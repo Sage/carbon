@@ -9,7 +9,7 @@ import Logger from "../../../__internal__/utils/logger";
 test("logs error when not used within StepSequence", () => {
   const loggerSpy = jest.spyOn(Logger, "error").mockImplementation(() => {});
 
-  render(<StepSequenceItem indicator="1">Step</StepSequenceItem>);
+  render(<StepSequenceItem indicator="1" title="Step" />);
 
   expect(loggerSpy).toHaveBeenCalledWith(
     expect.stringContaining(
@@ -19,7 +19,20 @@ test("logs error when not used within StepSequence", () => {
   loggerSpy.mockRestore();
 });
 
-test("renders with provided children and indicator", () => {
+test("renders with provided title and indicator", () => {
+  render(
+    <StepSequence>
+      <StepSequenceItem indicator="1" title="Step" />
+    </StepSequence>,
+  );
+
+  const step = screen.getByRole("listitem");
+
+  expect(step).toBeVisible();
+  expect(step).toHaveTextContent("1Step");
+});
+
+test("renders with provided title when passed as children", () => {
   render(
     <StepSequence>
       <StepSequenceItem indicator="1">Step</StepSequenceItem>
@@ -32,26 +45,35 @@ test("renders with provided children and indicator", () => {
   expect(step).toHaveTextContent("1Step");
 });
 
-test("does not render indicator when `hideIndicator` is true", () => {
+test("renders with provided description", () => {
   render(
     <StepSequence>
-      <StepSequenceItem indicator="1" hideIndicator>
-        Step
-      </StepSequenceItem>
+      <StepSequenceItem indicator="1" title="Step" description="Description" />
     </StepSequence>,
   );
 
   const step = screen.getByRole("listitem");
 
-  expect(step).not.toHaveTextContent("1");
+  expect(step).toBeVisible();
+  expect(step).toHaveTextContent("Description");
 });
 
 test("renders with provided accessible label", () => {
   render(
     <StepSequence>
-      <StepSequenceItem indicator="1" ariaLabel="Aria Label">
-        Step
-      </StepSequenceItem>
+      <StepSequenceItem indicator="1" title="Step" aria-label="Aria Label" />
+    </StepSequence>,
+  );
+
+  const step = screen.getByRole("listitem");
+
+  expect(step).toHaveAccessibleName("Aria Label");
+});
+
+test("renders with provided accessible label when `ariaLabel` is passed", () => {
+  render(
+    <StepSequence>
+      <StepSequenceItem indicator="1" title="Step" ariaLabel="Aria Label" />
     </StepSequence>,
   );
 
@@ -67,9 +89,8 @@ test("renders with hidden label when status is 'complete'", () => {
         indicator="1"
         status="complete"
         hiddenCompleteLabel="Completed"
-      >
-        Step
-      </StepSequenceItem>
+        title="Step"
+      />
     </StepSequence>,
   );
 
@@ -85,9 +106,8 @@ test("renders with hidden label when status is 'current'", () => {
         indicator="1"
         status="current"
         hiddenCurrentLabel="Current"
-      >
-        Step
-      </StepSequenceItem>
+        title="Step"
+      />
     </StepSequence>,
   );
 
@@ -99,23 +119,39 @@ test("renders with hidden label when status is 'current'", () => {
 test("renders with a tick Icon when status is 'complete'", () => {
   render(
     <StepSequence>
-      <StepSequenceItem indicator="1" status="complete">
-        Step
-      </StepSequenceItem>
+      <StepSequenceItem indicator="1" status="complete" title="Step" />
     </StepSequence>,
   );
 
   const step = screen.getByRole("listitem");
 
-  expect(within(step).getByTestId("icon")).toHaveAttribute("type", "tick");
+  expect(within(step).getByTestId("icon")).toHaveAttribute(
+    "type",
+    "tick_circle",
+  );
+});
+
+// coverage - captured in chromatic
+test("renders with medium icon when `size` is small", () => {
+  render(
+    <StepSequence size="small">
+      <StepSequenceItem indicator="1" status="complete" title="Step" />
+    </StepSequence>,
+  );
+
+  const step = screen.getByRole("listitem");
+  expect(within(step).getByTestId("icon")).toBeVisible();
 });
 
 test("renders with provided data- attributes", () => {
   render(
     <StepSequence>
-      <StepSequenceItem indicator="1" data-element="bar" data-role="baz">
-        Step
-      </StepSequenceItem>
+      <StepSequenceItem
+        indicator="1"
+        title="Step"
+        data-element="bar"
+        data-role="baz"
+      />
     </StepSequence>,
   );
 

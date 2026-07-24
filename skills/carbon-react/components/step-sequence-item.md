@@ -13,24 +13,20 @@ description: Carbon StepSequenceItem component props and usage examples.
 - Props interface: `StepSequenceItemProps`
 
 ## Props
-| Name | Type | Required | Literals | Description | Default |
-| --- | --- | --- | --- | --- | --- |
-| children | React.ReactNode | Yes |  | Content to be displayed |  |
-| indicator | string | Yes |  | Value to be displayed before text for incomplete steps |  |
-| ariaLabel | string \| undefined | No |  | Aria label |  |
-| hiddenCompleteLabel | string \| undefined | No |  | Hidden label to be displayed if item is complete |  |
-| hiddenCurrentLabel | string \| undefined | No |  | Hidden label to be displayed if item is current |  |
-| hideIndicator | boolean \| undefined | No |  | Flag to hide the indicator for incomplete steps | false |
-| status | "complete" \| "current" \| "incomplete" \| undefined | No |  | Status for the step | "incomplete" |
-| data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
-| data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+| Name | Type | Required | Literals | Deprecated | Deprecation reason | Description | Default |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| indicator | string | Yes |  |  |  | Indicator for the step. |  |
+| description | string \| undefined | No |  |  |  | Description for the step item, rendered below the title. |  |
+| hiddenCompleteLabel | string \| undefined | No |  |  |  | Hidden accessible label to be rendered if item is complete. |  |
+| hiddenCurrentLabel | string \| undefined | No |  |  |  | Hidden accessible label to be rendered if item is current. |  |
+| status | "complete" \| "current" \| "incomplete" \| undefined | No |  |  |  | Status for the step item. | "incomplete" |
+| title | string \| undefined | No |  |  |  | Title for the step item |  |
+| data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+| data-role | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
+| aria-label | string \| undefined | No |  |  |  | Accessible label for the step item. |  |
+| ariaLabel | string \| undefined | No |  | Yes | Please use native `aria-label` attribute instead. | Aria label for the step item. |  |
+| children | React.ReactNode | No |  | Yes | Please use the `title` prop instead. | Content to render as the item's title. |  |
+| hideIndicator | boolean \| undefined | No |  | Yes | Indicators will always be shown on incomplete steps. | Flag to hide the indicator for incomplete steps. |  |
 
 ## Examples
-### Default
-
-**Args**
-
-```tsx
-{}
-```
-
+No Storybook examples found.

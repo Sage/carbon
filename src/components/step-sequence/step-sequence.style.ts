@@ -1,17 +1,22 @@
 import styled, { css } from "styled-components";
-import { space, SpaceProps } from "styled-system";
+import { space } from "styled-system";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 import { StepSequenceProps } from "./step-sequence.component";
 
-const StyledStepSequence = styled.ol.attrs(applyBaseTheme)<
-  Pick<StepSequenceProps, "orientation"> & SpaceProps
->`
-  display: flex;
-  margin: 0;
-  font-weight: var(--fontWeights500);
+interface StyledStepSequenceProps {
+  $orientation: StepSequenceProps["orientation"];
+}
 
-  ${({ orientation }) =>
-    orientation === "vertical" &&
+const StyledStepSequence = styled.ol.attrs(
+  applyBaseTheme,
+)<StyledStepSequenceProps>`
+  display: flex;
+  align-items: flex-start;
+  margin: 0;
+  padding: 0;
+
+  ${({ $orientation }) =>
+    $orientation === "vertical" &&
     css`
       flex-direction: column;
       height: 100%;

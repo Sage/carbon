@@ -15,7 +15,7 @@ description: Carbon StepSequence component props and usage examples.
 ## Props
 | Name | Type | Required | Literals | Description | Default |
 | --- | --- | --- | --- | --- | --- |
-| children | React.ReactNode | Yes |  | Step sequence items to be rendered |  |
+| children | React.ReactNode | Yes |  | Step sequence items to be rendered. |  |
 | m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
 | margin | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top, left, bottom and right |  |
 | marginBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on bottom |  |
@@ -30,7 +30,7 @@ description: Carbon StepSequence component props and usage examples.
 | mt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top |  |
 | mx | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on left and right |  |
 | my | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Margin on top and bottom |  |
-| orientation | "horizontal" \| "vertical" \| undefined | No |  | The direction that step sequence items should be rendered | "horizontal" |
+| orientation | "horizontal" \| "vertical" \| undefined | No |  | Orientation of the component. | "horizontal" |
 | p | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
 | padding | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top, left, bottom and right |  |
 | paddingBottom | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on bottom |  |
@@ -45,248 +45,146 @@ description: Carbon StepSequence component props and usage examples.
 | pt | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top |  |
 | px | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on left and right |  |
 | py | ResponsiveValue<TVal, ThemeType> \| undefined | No |  | Padding on top and bottom |  |
+| size | "small" \| "medium" \| undefined | No |  | The size of the component. | "medium" |
 | data-element | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 | data-role | string \| undefined | No |  | Identifier used for testing purposes, applied to the root element of the component. |  |
 
 ## Examples
-### Default
+### HorizontalOrientation
+
+**Args**
+
+```tsx
+{
+    orientation: "horizontal",
+  }
+```
 
 **Render**
 
 ```tsx
-() => {
-  return (
-    <StepSequence>
+({ ...args }) => (
+    <StepSequence {...args}>
       <StepSequenceItem
         aria-label="Step 1 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
         indicator="1"
         status="complete"
-      >
-        Name
-      </StepSequenceItem>
+        hiddenCompleteLabel="Complete"
+        hiddenCurrentLabel="Current"
+        title="Personal Details"
+      />
       <StepSequenceItem
         aria-label="Step 2 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
         indicator="2"
         status="complete"
-      >
-        Delivery Address
-      </StepSequenceItem>
+        hiddenCompleteLabel="Complete"
+        hiddenCurrentLabel="Current"
+        title="Delivery Address"
+      />
       <StepSequenceItem
         aria-label="Step 3 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
         indicator="3"
         status="current"
-      >
-        Delivery Details
-      </StepSequenceItem>
+        hiddenCompleteLabel="Complete"
+        hiddenCurrentLabel="Current"
+        title="Delivery Details"
+      />
       <StepSequenceItem
         aria-label="Step 4 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
         indicator="4"
         status="incomplete"
-      >
-        Payment
-      </StepSequenceItem>
-      <StepSequenceItem
-        aria-label="Step 5 of 5"
         hiddenCompleteLabel="Complete"
         hiddenCurrentLabel="Current"
+        title="Payment"
+      />
+      <StepSequenceItem
+        aria-label="Step 5 of 5"
         indicator="5"
         status="incomplete"
-      >
-        Confirm
-      </StepSequenceItem>
+        hiddenCompleteLabel="Complete"
+        hiddenCurrentLabel="Current"
+        title="Confirmation"
+      />
     </StepSequence>
-  );
-}
+  )
 ```
 
 
-### Vertical
+### VerticalOrientation
 
-**Render**
+**Args**
 
 ```tsx
-() => {
-  return (
-    <Box height="600px">
-      <StepSequence orientation="vertical">
-        <StepSequenceItem
-          aria-label="Step 1 of 5"
-          hiddenCompleteLabel="Complete"
-          hiddenCurrentLabel="Current"
-          indicator="1"
-          status="complete"
-        >
-          Name
-        </StepSequenceItem>
-        <StepSequenceItem
-          aria-label="Step 2 of 5"
-          hiddenCompleteLabel="Complete"
-          hiddenCurrentLabel="Current"
-          indicator="2"
-          status="complete"
-        >
-          Delivery Address
-        </StepSequenceItem>
-        <StepSequenceItem
-          aria-label="Step 3 of 5"
-          hiddenCompleteLabel="Complete"
-          hiddenCurrentLabel="Current"
-          indicator="3"
-          status="current"
-        >
-          Delivery Details
-        </StepSequenceItem>
-        <StepSequenceItem
-          aria-label="Step 4 of 5"
-          hiddenCompleteLabel="Complete"
-          hiddenCurrentLabel="Current"
-          indicator="4"
-          status="incomplete"
-        >
-          Payment
-        </StepSequenceItem>
-        <StepSequenceItem
-          aria-label="Step 5 of 5"
-          hiddenCompleteLabel="Complete"
-          hiddenCurrentLabel="Current"
-          indicator="5"
-          status="incomplete"
-        >
-          Confirm
-        </StepSequenceItem>
-      </StepSequence>
-    </Box>
-  );
-}
+{
+    orientation: "vertical",
+  }
 ```
 
 
-### With Hidden Indicators
+### SmallSize
 
-**Render**
+**Args**
 
 ```tsx
-() => {
-  return (
-    <StepSequence>
-      <StepSequenceItem
-        aria-label="Step 1 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="1"
-        status="complete"
-      >
-        Name
-      </StepSequenceItem>
-      <StepSequenceItem
-        aria-label="Step 2 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="2"
-        status="complete"
-      >
-        Delivery Address
-      </StepSequenceItem>
-      <StepSequenceItem
-        aria-label="Step 3 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="3"
-        hideIndicator
-        status="current"
-      >
-        Delivery Details
-      </StepSequenceItem>
-      <StepSequenceItem
-        aria-label="Step 4 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="4"
-        hideIndicator
-        status="incomplete"
-      >
-        Payment
-      </StepSequenceItem>
-      <StepSequenceItem
-        aria-label="Step 5 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="5"
-        hideIndicator
-        status="incomplete"
-      >
-        Confirm
-      </StepSequenceItem>
-    </StepSequence>
-  );
-}
+{
+    size: "small",
+  }
 ```
 
 
-### Responsive Example
+### WithItemDescription
 
 **Render**
 
 ```tsx
-() => {
-  const displayVertical = useMediaQuery("(max-width: 760px)");
-  return (
-    <StepSequence orientation={displayVertical ? "vertical" : "horizontal"}>
+({ ...args }) => (
+    <StepSequence {...args}>
       <StepSequenceItem
         aria-label="Step 1 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
         indicator="1"
         status="complete"
-      >
-        Name
-      </StepSequenceItem>
+        hiddenCompleteLabel="Complete"
+        hiddenCurrentLabel="Current"
+        title="Personal Details"
+        description={description}
+      />
       <StepSequenceItem
         aria-label="Step 2 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
         indicator="2"
         status="complete"
-      >
-        Delivery Address
-      </StepSequenceItem>
+        hiddenCompleteLabel="Complete"
+        hiddenCurrentLabel="Current"
+        title="Delivery Address"
+        description={description}
+      />
       <StepSequenceItem
         aria-label="Step 3 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
         indicator="3"
         status="current"
-      >
-        Delivery Details
-      </StepSequenceItem>
+        hiddenCompleteLabel="Complete"
+        hiddenCurrentLabel="Current"
+        title="Delivery Details"
+        description={description}
+      />
       <StepSequenceItem
         aria-label="Step 4 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
         indicator="4"
         status="incomplete"
-      >
-        Payment
-      </StepSequenceItem>
-      <StepSequenceItem
-        aria-label="Step 5 of 5"
         hiddenCompleteLabel="Complete"
         hiddenCurrentLabel="Current"
+        title="Payment"
+        description={description}
+      />
+      <StepSequenceItem
+        aria-label="Step 5 of 5"
         indicator="5"
         status="incomplete"
-      >
-        Confirm
-      </StepSequenceItem>
+        hiddenCompleteLabel="Complete"
+        hiddenCurrentLabel="Current"
+        title="Confirmation"
+        description={description}
+      />
     </StepSequence>
-  );
-}
+  )
 ```
 

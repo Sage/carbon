@@ -1,5 +1,4 @@
 import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
-import * as StepSequenceItemStories from "./step-sequence-item/step-sequence-item.stories.tsx";
 import * as StepSequenceStories from "./step-sequence.stories.tsx";
 
 <Meta title="Step Sequence" of={StepSequenceStories} />
@@ -14,14 +13,6 @@ import * as StepSequenceStories from "./step-sequence.stories.tsx";
 >
   Product Design System component
 </a>
-
-Indicate the progress of a step flow.
-
-Progress indicators always directly mirror the number of pages, not general categories.
-
-Try to keep label text for each step as short as possible.
-
-For users on small screens or instances where horizontal space is limited, use the vertical version of this component.
 
 ## Contents
 
@@ -40,28 +31,43 @@ import {
 
 ## Examples
 
-### Default
+To use this component, pass `StepSequenceItem` as children of `StepSequence`. Each `StepSequenceItem` represents a step in the sequence.
 
-<Canvas of={StepSequenceStories.DefaultStory} />
+For each item, you must provide the `indicator` prop to display the step indicator and the `children` prop to display as the title of the step.
+You can set the `status` prop to `"complete"`, `"current"`, or `"incomplete"` to indicate the status of the step.
 
-### Vertical
+To add visually hidden text for screen readers, use the `hiddenCompleteLabel` prop to provide a label for completed steps and/or the `hiddenCurrentLabel` prop to provide a label for the current step.
+The `aria-label` prop can also be used to provide an accessible label for each step.
 
-<Canvas of={StepSequenceStories.Vertical} />
+### Orientation
 
-### With hidden indicators
+#### Horizontal
 
-<Canvas of={StepSequenceStories.WithHiddenIndicators} />
+By default, the `StepSequence` component is displayed horizontally.
 
-### Responsive Example
+<Canvas of={StepSequenceStories.HorizontalOrientation} />
 
-<Canvas of={StepSequenceStories.ResponsiveExample} />
+#### Vertical
+
+To display the component vertically, set the `orientation` prop to `"vertical"`.
+
+<Canvas of={StepSequenceStories.VerticalOrientation} />
+
+### Small Size
+
+Use the `size` prop on the `StepSequence` component to set the size of the component to `"small"`.
+
+<Canvas of={StepSequenceStories.SmallSize} />
+
+### With Item Description
+
+To set a description for each step, use the `description` prop on the `StepSequenceItem` component. The description will be displayed below the label of each step.
+
+<Canvas of={StepSequenceStories.WithItemDescription} />
+
 
 ## Props
 
 ### StepSequence
 
 <ArgTypes of={StepSequenceStories} />
-
-### StepSequenceItem
-
-<ArgTypes of={StepSequenceItemStories} />
