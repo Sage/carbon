@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import Button from "../button";
+import Button from "../button/__next__";
 import Box from "../box";
 import PopoverContainer, {
   PopoverContainerProps,
@@ -10,7 +10,6 @@ import { Menu, MenuItem, MenuSegmentTitle } from "../menu";
 import Heading from "../heading";
 import Typography from "../typography";
 import Search from "../search";
-import IconButton from "../icon-button";
 import Icon from "../icon";
 import RadioButton, { RadioButtonGroup } from "../radio-button";
 
@@ -24,10 +23,8 @@ export default {
   parameters: {
     info: { disable: true },
     chromatic: {
-      disableSnapshot: false,
-      delay: 2000,
+      disableSnapshot: true,
     },
-    themeProvider: { chromatic: { theme: "sage" } },
   },
 };
 
@@ -47,7 +44,7 @@ Default.story = {
 };
 
 export const WithSelect = () => {
-  const [open, setOpen] = useState(defaultOpenState);
+  const [open, setOpen] = useState(false);
   return (
     <div style={{ height: 100 }}>
       <PopoverContainer
@@ -68,12 +65,7 @@ export const WithSelect = () => {
   );
 };
 
-WithSelect.story = {
-  name: "with select",
-  parameters: {
-    chromatic: { disableSnapshot: true },
-  },
-};
+WithSelect.storyName = "with select";
 
 export const WithMultiSelect = () => {
   const [value, setValue] = useState<string[]>([]);
@@ -98,14 +90,7 @@ export const WithMultiSelect = () => {
   );
 };
 
-WithMultiSelect.story = {
-  name: "with multiSelect",
-  parameters: {
-    chromatic: {
-      disableSnapshot: true,
-    },
-  },
-};
+WithMultiSelect.storyName = "with multiSelect";
 
 export const InAScrollableBlock = () => {
   return (
@@ -146,8 +131,8 @@ export const InAScrollableBlock = () => {
     </Box>
   );
 };
-InAScrollableBlock.story = {
-  name: "in a scrollable block",
+InAScrollableBlock.storyName = "in a scrollable block";
+InAScrollableBlock.parameters = {
   parameters: {
     chromatic: {
       disableSnapshot: true,
@@ -156,7 +141,7 @@ InAScrollableBlock.story = {
 };
 
 export const InsideMenu = () => {
-  const [open, setOpen] = useState(defaultOpenState);
+  const [open, setOpen] = useState(false);
   return (
     <Menu menuType="black">
       <MenuItem flex="0 0 auto">
@@ -167,9 +152,9 @@ export const InsideMenu = () => {
           onClose={() => setOpen(false)}
           open={open}
           renderOpenComponent={({ ref, onClick }) => (
-            <IconButton aria-label="Notifications" ref={ref} onClick={onClick}>
+            <Button aria-label="Notifications" ref={ref} onClick={onClick}>
               <Icon type="alert" />
-            </IconButton>
+            </Button>
           )}
           p={0}
         >
@@ -194,14 +179,7 @@ export const InsideMenu = () => {
     </Menu>
   );
 };
-InsideMenu.story = {
-  name: "inside menu",
-  parameters: {
-    chromatic: {
-      disableSnapshot: true,
-    },
-  },
-};
+InsideMenu.storyName = "inside menu";
 
 export const InsideMenuWithOpenButton = () => {
   const [open, setOpen] = useState(false);
@@ -255,17 +233,10 @@ export const InsideMenuWithOpenButton = () => {
     </Menu>
   );
 };
-InsideMenuWithOpenButton.story = {
-  name: "inside menu with open button",
-  parameters: {
-    chromatic: {
-      disableSnapshot: true,
-    },
-  },
-};
+InsideMenuWithOpenButton.storyName = "inside menu with open button";
 
 export const InsideMenuWithPrimaryOpenButton = () => {
-  const [open, setOpen] = useState(defaultOpenState);
+  const [open, setOpen] = useState(false);
   return (
     <Menu menuType="black">
       <MenuItem href="#">Menu Item One</MenuItem>
@@ -325,14 +296,8 @@ export const InsideMenuWithPrimaryOpenButton = () => {
     </Menu>
   );
 };
-InsideMenuWithPrimaryOpenButton.story = {
-  name: "inside menu with primary open button",
-  parameters: {
-    chromatic: {
-      disableSnapshot: true,
-    },
-  },
-};
+InsideMenuWithPrimaryOpenButton.storyName =
+  "inside menu with primary open button";
 
 export const WithFullWidthButton = () => {
   const [open, setOpen] = useState(defaultOpenState);
@@ -358,6 +323,14 @@ export const WithFullWidthButton = () => {
       Content
     </PopoverContainer>
   );
+};
+WithFullWidthButton.storyName = "with full width button";
+WithFullWidthButton.parameters = {
+  chromatic: {
+    disableSnapshot: false,
+    delay: 2000,
+  },
+  themeProvider: { chromatic: { theme: "sage" } },
 };
 
 export const WithRadioButtons = () => {
@@ -388,19 +361,12 @@ export const WithRadioButtons = () => {
     </Box>
   );
 };
-WithRadioButtons.story = {
-  name: "with radio buttons",
-  parameters: {
-    chromatic: {
-      disableSnapshot: true,
-    },
-  },
-};
+WithRadioButtons.storyName = "with radio buttons";
 
 export const WithinGlobalHeader = ({
   shouldCoverButton,
 }: PopoverContainerProps) => {
-  const [popoverOpen, setPopoverOpen] = useState(defaultOpenState);
+  const [popoverOpen, setPopoverOpen] = useState(false);
 
   return (
     <>
@@ -438,11 +404,6 @@ WithinGlobalHeader.story = {
   args: {
     shouldCoverButton: true,
   },
-  parameters: {
-    chromatic: {
-      disableSnapshot: true,
-    },
-  },
 };
 
 export const OnCloseTest = () => {
@@ -457,12 +418,3 @@ export const OnCloseTest = () => {
 };
 
 OnCloseTest.storyName = "On Close Test";
-OnCloseTest.story = {
-  name: "on-close-test",
-  args: {},
-  parameters: {
-    chromatic: {
-      disableSnapshot: true,
-    },
-  },
-};
