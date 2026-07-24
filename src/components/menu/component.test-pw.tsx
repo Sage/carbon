@@ -665,6 +665,27 @@ export const MenuComponentButtonIcon = () => {
   );
 };
 
+export const MenuSegmentTitleComponent = (props: Partial<MenuTitleProps>) => {
+  return (
+    <Box mb={150}>
+      {menuTypes.map((menuType) => (
+        <div key={menuType}>
+          <Typography variant="h4" textTransform="capitalize" my={2}>
+            {menuType}
+          </Typography>
+          <Menu menuType={menuType}>
+            <MenuItem href="#">Menu Item One</MenuItem>
+            <MenuItem submenu="Menu Item Two">
+              <MenuSegmentTitle {...props} text="segment title" />
+              <MenuItem href="#">Item Submenu One</MenuItem>
+            </MenuItem>
+          </Menu>
+        </div>
+      ))}
+    </Box>
+  );
+};
+
 export const MenuSegmentTitleComponentWithAdditionalMenuItem = (
   props: Partial<MenuTitleProps>,
 ) => {

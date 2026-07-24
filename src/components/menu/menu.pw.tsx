@@ -1,6 +1,14 @@
 import React from "react";
 import { test, expect } from "../../../playwright/helpers/base-test";
-import { Menu, MenuItem, MenuWithChildren, MenuDividerProps } from ".";
+import {
+  Menu,
+  MenuItem,
+  MenuWithChildren,
+  MenuDividerProps,
+  MenuFullscreenProps,
+  ScrollableBlockProps,
+} from ".";
+import type { MenuProps } from "./menu.types";
 import Box from "../box";
 import {
   submenuBlock,
@@ -10,6 +18,7 @@ import {
   lastSubmenuElement,
   fullscreenMenu,
   menuItem,
+  menu,
 } from "../../../playwright/components/menu/index";
 import {
   searchDefaultInput,
@@ -25,6 +34,7 @@ import {
   checkAccessibility,
   waitForAnimationEnd,
   waitForElementFocus,
+  assertCssValueIsApproximately,
 } from "../../../playwright/support/helper";
 import { CHARACTERS } from "../../../playwright/support/constants";
 import {
@@ -44,6 +54,7 @@ import {
   ClosedMenuFullScreenWithButtons,
   MenuDividerComponent,
   MenuComponentScrollableWithSearch,
+  MenuSegmentTitleComponent,
   MenuSegmentTitleComponentWithAdditionalMenuItem,
   MenuComponentFullScreenWithLongSubmenuText,
   MenuItemWithPopoverContainerChild,
@@ -116,6 +127,387 @@ test.describe("Prop tests for Menu component", () => {
     await page.keyboard.press("Enter");
     const subMenuBlock = submenuBlock(page).first().locator("li").first();
     await expect(subMenuBlock).toBeVisible();
+  });
+
+  test(`should render with a menu item that has a very long label and verify the width of the whole submenu is determined by this item`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <Box mb={150}>
+        <Menu menuType="white">
+          <MenuItem submenu="Menu Item One">
+            <MenuItem href="#">
+              Item Submenu One Is A Very Long Submenu Item Indeed
+            </MenuItem>
+            <MenuItem variant="alternate" href="#">
+              Item Submenu Two
+            </MenuItem>
+          </MenuItem>
+        </Menu>
+      </Box>,
+    );
+
+    const subMenu = submenu(page).first();
+    await subMenu.hover();
+    const subMenuBlock = innerMenu(page, 2, span).first();
+    const cssWidth = await subMenuBlock.evaluate((el) =>
+      window.getComputedStyle(el).getPropertyValue("width"),
+    );
+    expect(parseInt(cssWidth)).toBeLessThanOrEqual(395);
+    expect(parseInt(cssWidth)).toBeGreaterThanOrEqual(385);
+  });
+
+  test(`should render with a submenu that has a very long label and verify the width of the whole submenu is determined by this item`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <Box mb={150}>
+        <Menu menuType="white">
+          <MenuItem submenu="Menu Item One Has A Very Long Menu Title For No Reason Whatsoever">
+            <MenuItem href="#">Item Submenu One</MenuItem>
+            <MenuItem variant="alternate" href="#">
+              Item Submenu Two
+            </MenuItem>
+          </MenuItem>
+        </Menu>
+      </Box>,
+    );
+
+    const subMenu = submenu(page).first();
+    await subMenu.hover();
+    const subMenuBlock = innerMenu(page, 2, span).first();
+    const cssWidth = await subMenuBlock.evaluate((el) =>
+      window.getComputedStyle(el).getPropertyValue("width"),
+    );
+    expect(parseInt(cssWidth)).toBeLessThanOrEqual(500);
+    expect(parseInt(cssWidth)).toBeGreaterThanOrEqual(490);
+  });
+
+  (
+    [
+      ["string", "450px", 450],
+      ["string", "675px", 675],
+      ["string", "1200px", 1200],
+    ] as [string, string, number][]
+  ).forEach(([type, width, pixels]) => {
+    test(`should render with width set to ${pixels}px when prop is passed as a ${type}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponent width={width} />);
+
+      const thisMenu = menu(page).first();
+      await assertCssValueIsApproximately(thisMenu, "width", pixels);
+    });
+  });
+
+  (
+    [
+      ["string", "700px", "300px", 700],
+      ["string", "700px", "1200px", 1200],
+    ] as [string, string, string, number][]
+  ).forEach(([type, minWidth, width, pixels]) => {
+    test(`should render with minimum width of ${pixels}px when minWidth prop is passed as a ${type}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponent minWidth={minWidth} width={width} />);
+
+      const thisMenu = menu(page).first();
+      await assertCssValueIsApproximately(thisMenu, "width", pixels);
+    });
+  });
+
+  (
+    [
+      ["string", "700px", "300px", 300],
+      ["string", "700px", "1200px", 700],
+    ] as [string, string, string, number][]
+  ).forEach(([type, maxWidth, width, pixels]) => {
+    test(`should render with maximum width of ${pixels}px when maxWidth prop is passed as a ${type}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponent maxWidth={maxWidth} width={width} />);
+
+      const thisMenu = menu(page).first();
+      await assertCssValueIsApproximately(thisMenu, "width", pixels);
+    });
+  });
+
+  [
+    "baseline",
+    "bottom",
+    "middle",
+    "sub",
+    "super",
+    "text-bottom",
+    "text-top",
+    "top",
+  ].forEach((alignment) => {
+    test(`should render with verticalAlign as ${alignment}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponent verticalAlign={alignment} />);
+
+      const thisMenu = menu(page).first();
+      await expect(thisMenu).toHaveCSS("vertical-align", alignment);
+    });
+  });
+
+  ["auto", "clip", "hidden", "scroll", "visible"].forEach((overflow) => {
+    test(`should render with overflow as ${overflow}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponent overflow={overflow} />);
+
+      const thisMenu = menu(page).first();
+      await expect(thisMenu).toHaveAttribute("overflow", overflow);
+      await expect(thisMenu).toHaveCSS("overflow", overflow);
+    });
+  });
+
+  (
+    ["auto", "clip", "hidden", "scroll", "visible"] as MenuProps["overflowX"][]
+  ).forEach((overflow) => {
+    test(`should render with overflowX as ${overflow}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponent overflowX={overflow} />);
+
+      const thisMenu = menu(page).first();
+      await expect(thisMenu).toHaveCSS("overflow-x", overflow as string);
+    });
+  });
+
+  ["normal", "stretch", "baseline", "center", "flex-start", "flex-end"].forEach(
+    (alignment) => {
+      test(`should render with alignItems as ${alignment}`, async ({
+        mount,
+        page,
+      }) => {
+        await mount(<MenuComponent alignItems={alignment} />);
+
+        const thisMenu = menu(page).first();
+        await expect(thisMenu).toHaveCSS("align-items", alignment);
+      });
+    },
+  );
+
+  [
+    "normal",
+    "baseline",
+    "center",
+    "flex-start",
+    "flex-end",
+    "space-between",
+    "space-around",
+    "stretch",
+  ].forEach((alignment) => {
+    test(`should render with alignContent as ${alignment}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponent alignContent={alignment} />);
+
+      const thisMenu = menu(page).first();
+      await expect(thisMenu).toHaveCSS("align-content", alignment);
+    });
+  });
+
+  [
+    "left",
+    "center",
+    "right",
+    "flex-start",
+    "flex-end",
+    "normal",
+    "stretch",
+  ].forEach((justified) => {
+    test(`should render with justifyItems as ${justified}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponent justifyItems={justified} />);
+
+      const thisMenu = menu(page).first();
+      await expect(thisMenu).toHaveCSS("justify-items", justified);
+    });
+  });
+
+  [
+    "left",
+    "center",
+    "right",
+    "flex-start",
+    "flex-end",
+    "normal",
+    "space-between",
+    "space-around",
+    "stretch",
+  ].forEach((justified) => {
+    test(`should render with justifyContent as ${justified}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponent justifyContent={justified} />);
+
+      const thisMenu = menu(page).first();
+      await expect(thisMenu).toHaveCSS("justify-content", justified);
+    });
+  });
+
+  (["nowrap", "wrap", "wrap-reverse"] as MenuProps["flexWrap"][]).forEach(
+    (wrap) => {
+      test(`should render with flexWrap as ${wrap}`, async ({
+        mount,
+        page,
+      }) => {
+        await mount(<MenuComponent flexWrap={wrap} />);
+
+        const thisMenu = menu(page).first();
+        await expect(thisMenu).toHaveCSS("flex-wrap", wrap as string);
+      });
+    },
+  );
+
+  (
+    [
+      "column",
+      "column-reverse",
+      "row",
+      "row-reverse",
+    ] as MenuProps["flexDirection"][]
+  ).forEach((direction) => {
+    test(`should render with flexDirection as ${direction}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponent flexDirection={direction} />);
+
+      const thisMenu = menu(page).first();
+      await expect(thisMenu).toHaveCSS("flex-direction", direction as string);
+    });
+  });
+
+  ["auto", "content", "fit-content", "max-content", "min-content"].forEach(
+    (flex) => {
+      test(`should render with flex as ${flex}`, async ({ mount, page }) => {
+        await mount(<MenuComponent flex={flex} />);
+
+        const thisMenu = menu(page).first();
+        await expect(thisMenu).toHaveCSS("flex-basis", flex);
+      });
+    },
+  );
+
+  (
+    [
+      ["10", "10"],
+      ["50", "50"],
+      ["100", "100"],
+    ] as [MenuProps["flexGrow"], string][]
+  ).forEach(([value, growText]) => {
+    test(`should render with flexGrow as ${value}`, async ({ mount, page }) => {
+      await mount(<MenuComponent flexGrow={value} />);
+
+      const thisMenu = menu(page).first();
+      await expect(thisMenu).toHaveCSS("flex-grow", growText);
+    });
+  });
+
+  (
+    [
+      ["10", "10"],
+      ["50", "50"],
+      ["100", "100"],
+    ] as [MenuProps["flexShrink"], string][]
+  ).forEach(([value, shrinkText]) => {
+    test(`should render with flexShrink as ${value}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponent flexShrink={value} />);
+
+      const thisMenu = menu(page).first();
+      await expect(thisMenu).toHaveCSS("flex-shrink", shrinkText);
+    });
+  });
+
+  ["auto", "content", "fit-content", "max-content", "min-content"].forEach(
+    (basis) => {
+      test(`should render with flexBasis as ${basis}`, async ({
+        mount,
+        page,
+      }) => {
+        await mount(<MenuComponent flexBasis={basis} />);
+
+        const thisMenu = menu(page).first();
+        await expect(thisMenu).toHaveCSS("flex-basis", basis);
+      });
+    },
+  );
+
+  [
+    "auto",
+    "baseline",
+    "left",
+    "normal",
+    "right",
+    "stretch",
+    "center",
+    "flex-start",
+    "flex-end",
+  ].forEach((justify) => {
+    test(`should render with justifySelf as ${justify}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponent justifySelf={justify} />);
+
+      const thisMenu = menu(page).first();
+      await expect(thisMenu).toHaveCSS("justify-self", justify);
+    });
+  });
+
+  [
+    "auto",
+    "baseline",
+    "normal",
+    "stretch",
+    "center",
+    "flex-start",
+    "flex-end",
+  ].forEach((align) => {
+    test(`should render with alignSelf as ${align}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponent alignSelf={align} />);
+
+      const thisMenu = menu(page).first();
+      await expect(thisMenu).toHaveCSS("align-self", align);
+    });
+  });
+
+  (
+    [
+      ["10", "10"],
+      ["50", "50"],
+      ["100", "100"],
+    ] as [MenuProps["order"], string][]
+  ).forEach(([value, orderText]) => {
+    test(`should render with order as ${value}`, async ({ mount, page }) => {
+      await mount(<MenuComponent order={value} />);
+
+      const thisMenu = menu(page).first();
+      await expect(thisMenu).toHaveCSS("order", orderText);
+    });
   });
 
   (
@@ -387,6 +779,593 @@ test.describe("Event tests for Menu component", () => {
     const focusedElement7 = page.locator("*:focus");
     await expect(focusedElement7).toHaveText("Apple");
   });
+});
+
+test.describe("Accessibility tests for Menu component", () => {
+  test(`should pass accessibility tests for default Menu`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MenuComponent />);
+
+    await checkAccessibility(page);
+  });
+
+  test(`should pass accessibility tests when submenu's are passed as a node`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MenuComponentWithSubmenuNodes />);
+
+    await checkAccessibility(page);
+  });
+
+  test(`should pass accessibility tests when expanded`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MenuComponent />);
+
+    const subMenu = submenu(page).first();
+    await subMenu.hover();
+    await checkAccessibility(page);
+  });
+
+  (["default", "large"] as MenuDividerProps["size"][]).forEach((divider) => {
+    test(`should pass accessibility tests when divider size is ${divider}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponent size={divider} />);
+
+      const subMenu = submenu(page).first();
+      await subMenu.hover();
+      await checkAccessibility(page);
+    });
+  });
+
+  // We can allow the accessibility checks with exception to the heading-order violation.
+  test(`should pass accessibility tests when search component is focused`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MenuComponentSearch />);
+
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("Enter");
+    await page.keyboard.press("Tab");
+    const subMenu = getComponent(page, "submenu").first();
+    await waitForAnimationEnd(subMenu);
+    await checkAccessibility(page, undefined, "heading-order");
+  });
+
+  test(`should pass accessibility tests when a submenu has a long label`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <Box mb={150}>
+        <Menu menuType="white">
+          <MenuItem submenu="Menu Item One">
+            <MenuItem href="#">
+              Item Submenu One Is A Very Long Submenu Item Indeed
+            </MenuItem>
+            <MenuItem variant="alternate" href="#">
+              Item Submenu Two
+            </MenuItem>
+          </MenuItem>
+        </Menu>
+      </Box>,
+    );
+
+    const subMenu = submenu(page).first();
+    await subMenu.hover();
+    await checkAccessibility(page);
+  });
+
+  test(`should pass accessibility tests when a menu item has a long label`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <Box mb={150}>
+        <Menu menuType="white">
+          <MenuItem submenu="Menu Item One Has A Very Long Menu Title For No Reason Whatsoever">
+            <MenuItem href="#">Item Submenu One</MenuItem>
+            <MenuItem variant="alternate" href="#">
+              Item Submenu Two
+            </MenuItem>
+          </MenuItem>
+        </Menu>
+      </Box>,
+    );
+
+    const subMenu = submenu(page).first();
+    await subMenu.hover();
+    await checkAccessibility(page);
+  });
+
+  ["450px", "675px", "1200px"].forEach((width) => {
+    test(`should pass accessibility tests when width is ${width}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponent width={width} />);
+
+      await checkAccessibility(page);
+    });
+  });
+
+  (["default", "large"] as MenuDividerProps["size"][]).forEach((size) => {
+    test(`should pass accessibility tests when size is ${size}px`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuDividerComponent size={size} />);
+
+      await checkAccessibility(page);
+    });
+  });
+
+  [
+    "baseline",
+    "bottom",
+    "middle",
+    "sub",
+    "super",
+    "text-bottom",
+    "text-top",
+    "top",
+  ].forEach((alignment) => {
+    test(`should pass accessibility tests when alignItems is ${alignment}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponent verticalAlign={alignment} />);
+
+      await checkAccessibility(page);
+    });
+  });
+
+  ["auto", "clip", "hidden", "scroll", "visible"].forEach((overflow) => {
+    test(`should pass accessibility tests when overflow is ${overflow}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponent overflow={overflow} />);
+
+      await checkAccessibility(page);
+    });
+  });
+
+  (
+    ["auto", "clip", "hidden", "scroll", "visible"] as MenuProps["overflowX"][]
+  ).forEach((overflow) => {
+    test(`should pass accessibility tests when overflowX is ${overflow}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponent overflowX={overflow} />);
+
+      await checkAccessibility(page);
+    });
+  });
+
+  ["normal", "stretch", "baseline", "center", "flex-start", "flex-end"].forEach(
+    (alignment) => {
+      test(`should pass accessibility tests for when alignItems is ${alignment}`, async ({
+        mount,
+        page,
+      }) => {
+        await mount(<MenuComponent alignItems={alignment} />);
+
+        await checkAccessibility(page);
+      });
+    },
+  );
+
+  [
+    "normal",
+    "baseline",
+    "center",
+    "flex-start",
+    "flex-end",
+    "space-between",
+    "space-around",
+    "stretch",
+  ].forEach((alignment) => {
+    test(`should pass accessibility tests when alignContent is ${alignment}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponent alignContent={alignment} />);
+
+      await checkAccessibility(page);
+    });
+  });
+
+  [
+    "left",
+    "center",
+    "right",
+    "flex-start",
+    "flex-end",
+    "normal",
+    "stretch",
+  ].forEach((justified) => {
+    test(`should pass accessibility tests when justifyItems is ${justified}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponent justifyItems={justified} />);
+
+      await checkAccessibility(page);
+    });
+  });
+
+  [
+    "left",
+    "center",
+    "right",
+    "flex-start",
+    "flex-end",
+    "normal",
+    "space-between",
+    "space-around",
+    "stretch",
+  ].forEach((justified) => {
+    test(`should pass accessibility tests when justifyContent is ${justified}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponent justifyContent={justified} />);
+
+      await checkAccessibility(page);
+    });
+  });
+
+  (["nowrap", "wrap", "wrap-reverse"] as MenuProps["flexWrap"][]).forEach(
+    (wrap) => {
+      test(`should pass accessibility tests when flexWrap is ${wrap}`, async ({
+        mount,
+        page,
+      }) => {
+        await mount(<MenuComponent flexWrap={wrap} />);
+
+        await checkAccessibility(page);
+      });
+    },
+  );
+
+  (
+    [
+      "column",
+      "column-reverse",
+      "row",
+      "row-reverse",
+    ] as MenuProps["flexDirection"][]
+  ).forEach((direction) => {
+    test(`should pass accessibility tests when flexDirection is ${direction}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponent flexDirection={direction} />);
+
+      await checkAccessibility(page);
+    });
+  });
+
+  ["auto", "content", "fit-content", "max-content", "min-content"].forEach(
+    (flex) => {
+      test(`should pass accessibility tests when flex is ${flex}`, async ({
+        mount,
+        page,
+      }) => {
+        await mount(<MenuComponent flex={flex} />);
+
+        await checkAccessibility(page);
+      });
+    },
+  );
+
+  ["10", "50", "100"].forEach((value) => {
+    test(`should pass accessibility tests when flexGrow is ${value}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponent flex="auto" flexGrow={value} />);
+
+      await checkAccessibility(page);
+    });
+  });
+
+  ["10", "50", "100"].forEach((value) => {
+    test(`should pass accessibility tests when flexShrink is ${value}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponent flex="auto" flexShrink={value} />);
+
+      await checkAccessibility(page);
+    });
+  });
+
+  ["auto", "content", "fit-content", "max-content", "min-content"].forEach(
+    (basis) => {
+      test(`should pass accessibility tests when flexBasis is ${basis}`, async ({
+        mount,
+        page,
+      }) => {
+        await mount(<MenuComponent flexBasis={basis} />);
+
+        await checkAccessibility(page);
+      });
+    },
+  );
+
+  [
+    "auto",
+    "baseline",
+    "left",
+    "normal",
+    "right",
+    "stretch",
+    "center",
+    "flex-start",
+    "flex-end",
+  ].forEach((justify) => {
+    test(`should pass accessibility tests when justifySelf is ${justify}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponent justifySelf={justify} />);
+
+      await checkAccessibility(page);
+    });
+  });
+
+  [
+    "auto",
+    "baseline",
+    "normal",
+    "stretch",
+    "center",
+    "flex-start",
+    "flex-end",
+  ].forEach((align) => {
+    test(`should pass accessibility tests when alignSelf is ${align}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponent alignSelf={align} />);
+
+      await checkAccessibility(page);
+    });
+  });
+
+  [
+    CHARACTERS.STANDARD,
+    CHARACTERS.DIACRITICS,
+    CHARACTERS.SPECIALCHARACTERS,
+  ].forEach((text) => {
+    test(`should pass accessibility tests when item text is ${text}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponentItems submenu={text} />);
+
+      await checkAccessibility(page);
+    });
+  });
+
+  (["default", "alternate"] as ScrollableBlockProps["variant"][]).forEach(
+    (variant) => {
+      test(`should pass accessibility tests when scroll block has ${variant} variant background color`, async ({
+        mount,
+        page,
+      }) => {
+        await mount(<MenuComponentScrollable variant={variant} />);
+
+        const subMenu = submenu(page).first();
+        await subMenu.hover();
+
+        await checkAccessibility(page);
+      });
+    },
+  );
+
+  (["default", "alternate"] as ScrollableBlockProps["variant"][]).forEach(
+    (variant) => {
+      test(`should pass accessibility tests when Segment Title has a ${variant} variant background color`, async ({
+        mount,
+        page,
+      }) => {
+        await mount(<MenuSegmentTitleComponent variant={variant} />);
+
+        const subMenu = submenu(page).first();
+        await subMenu.hover();
+
+        await checkAccessibility(page, undefined, "heading-order");
+      });
+    },
+  );
+
+  test(`should pass accessibility tests for Menu with parent item`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MenuComponentScrollableParent />);
+
+    const subMenu = submenu(page).first();
+    await subMenu.hover();
+    await checkAccessibility(page);
+  });
+
+  test(`should pass accessibility tests for Menu with button icon`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MenuComponentButtonIcon />);
+
+    const subMenu = submenu(page).first();
+    await subMenu.hover();
+    await checkAccessibility(page);
+  });
+
+  test(`should pass accessibility tests for Menu with icon`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MenuComponentWithIcon />);
+
+    await checkAccessibility(page);
+  });
+});
+
+test(`should verify that submenu item text wraps when it would overflow the container and submenuMaxWidth is set`, async ({
+  mount,
+  page,
+}) => {
+  await mount(<SubmenuMaxWidth />);
+
+  const submenuElement = submenu(page).first();
+  await submenuElement.hover();
+  const lastItem = lastSubmenuElement(page, "li");
+  const submenuBlockElement = submenuBlock(page).first();
+
+  const cssItemHeight = await lastItem.evaluate((el) =>
+    window.getComputedStyle(el).getPropertyValue("height"),
+  );
+
+  await expect(submenuBlockElement).toHaveCSS("max-width", "300px");
+  expect(parseInt(cssItemHeight)).toBeGreaterThan(40);
+});
+
+test.describe("Accessibility tests for Menu Fullscreen component", () => {
+  test(`should pass accessibility tests for Menu Fullscreen`, async ({
+    mount,
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1200, height: 800 });
+    await mount(<MenuComponentFullScreen />);
+
+    const item = menuItem(page).first();
+    await item.click();
+    const fullscreen = getComponent(page, "menu-fullscreen").first();
+    await waitForAnimationEnd(fullscreen);
+    await checkAccessibility(page);
+  });
+
+  test(`should pass accessibility tests when close icon is clicked`, async ({
+    mount,
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1200, height: 800 });
+    await mount(<MenuComponentFullScreen />);
+
+    const item = menuItem(page).first();
+    await item.click();
+    await expect(
+      getComponent(page, "menu-fullscreen")
+        .first()
+        .locator("a")
+        .first()
+        .locator("span"),
+    ).toHaveText("Menu Item One");
+    const closeIcon = closeIconButton(page).first();
+    await closeIcon.click();
+    await checkAccessibility(page);
+  });
+
+  test(`should pass accessibility tests when menu item is highlighted`, async ({
+    mount,
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1200, height: 800 });
+    await mount(<MenuComponentFullScreen />);
+
+    const item = menuItem(page).first();
+    await item.click();
+    const fullscreen = getComponent(page, "menu-fullscreen").first();
+    await waitForAnimationEnd(fullscreen);
+    await continuePressingTAB(page, 5);
+    await checkAccessibility(page);
+  });
+
+  (["left", "right"] as MenuFullscreenProps["startPosition"][]).forEach(
+    (side) => {
+      test(`should pass accessibility tests when start position is ${side}`, async ({
+        mount,
+        page,
+      }) => {
+        await page.setViewportSize({ width: 1200, height: 800 });
+        await mount(<MenuComponentFullScreen startPosition={side} />);
+
+        const item = menuItem(page).first();
+        await item.click();
+        const fullscreen = getComponent(page, "menu-fullscreen").first();
+        await waitForAnimationEnd(fullscreen);
+        await checkAccessibility(page);
+      });
+    },
+  );
+});
+
+test.describe("Styling, Scrolling & Navigation Bar Tests for Menu Component", () => {
+  test(`should render menu items with the expected focus styling`, async ({
+    mount,
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1200, height: 800 });
+    await mount(<MenuComponent />);
+
+    const item1 = menuItem(page).first().locator("a");
+    await item1.focus();
+    await expect(item1).toHaveCSS(
+      "box-shadow",
+      "rgb(255, 181, 0) 0px 0px 0px 2px inset, rgb(0, 0, 0) 0px 0px 0px 4px inset",
+    );
+    await expect(item1).toHaveCSS("outline", "rgba(0, 0, 0, 0) solid 3px");
+
+    const item2 = menuItem(page).last().locator("button");
+    await item2.focus();
+    await expect(item2).toHaveCSS(
+      "box-shadow",
+      "rgb(255, 181, 0) 0px 0px 0px 2px inset, rgb(0, 0, 0) 0px 0px 0px 4px inset",
+    );
+    await expect(item2).toHaveCSS("outline", "rgba(0, 0, 0, 0) solid 3px");
+    await item2.click();
+
+    const subMenu1 = submenu(page).last().locator("button").first();
+    await subMenu1.focus();
+    await expect(subMenu1).toHaveCSS(
+      "box-shadow",
+      "rgb(255, 181, 0) 0px 0px 0px 2px inset, rgb(0, 0, 0) 0px 0px 0px 4px inset",
+    );
+    await expect(subMenu1).toHaveCSS("outline", "rgba(0, 0, 0, 0) solid 3px");
+
+    const subMenu2 = submenu(page).last().locator("a").first();
+    await subMenu2.focus();
+    await expect(subMenu2).toHaveCSS(
+      "box-shadow",
+      "rgb(255, 181, 0) 0px 0px 0px 2px inset, rgb(0, 0, 0) 0px 0px 0px 4px inset",
+    );
+    await expect(subMenu2).toHaveCSS("outline", "rgba(0, 0, 0, 0) solid 3px");
+  });
+
+  test(`should render with the expected border radius styling on the Submenu`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MenuComponent />);
+
+    const subMenu = submenu(page).first();
+    await subMenu.hover();
+    const subMenuBlock = submenuBlock(page).first();
+    await expect(subMenuBlock).toHaveCSS("border-radius", "0px 0px 8px 8px");
+    const subMenu2 = submenu(page).locator("a").last();
+    await expect(subMenu2).toHaveCSS("border-radius", "0px 0px 8px 8px");
+  });
 
   test(`should render with the expected border radius styling on the last MenuItem in a segment block when it is not the last menu item in the whole submenu`, async ({
     mount,
@@ -488,7 +1467,7 @@ test.describe("Event tests for Menu component", () => {
       .first();
     await menuItemThree.getByRole("button").press("ArrowDown");
 
-    const submenuList = menuItemThree.getByRole("list");
+    const submenuList = menuItemThree.getByRole("list").first();
     await submenuList.waitFor();
 
     const lastSubmenuItem = menuItemThree.getByRole("listitem").last();
@@ -545,184 +1524,5 @@ test.describe("Event tests for Menu component", () => {
 
     await expect(submenuBlockElement).toHaveCSS("max-width", "300px");
     expect(parseInt(cssItemHeight)).toBeGreaterThan(40);
-  });
-});
-
-test.describe("Accessibility tests for Menu component", () => {
-  test(`should pass accessibility tests for default Menu`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MenuComponent />);
-
-    await checkAccessibility(page);
-  });
-
-  test(`should pass accessibility tests when submenu's are passed as a node`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MenuComponentWithSubmenuNodes />);
-
-    await checkAccessibility(page);
-  });
-
-  test(`should pass accessibility tests when expanded`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MenuComponent />);
-
-    const subMenu = submenu(page).first();
-    await subMenu.hover();
-    await checkAccessibility(page);
-  });
-
-  // We can allow the accessibility checks with exception to the heading-order violation.
-  test(`should pass accessibility tests when variant is light and search component is focused`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MenuComponentSearch menuType="light" />);
-
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Enter");
-    await page.keyboard.press("Tab");
-    const subMenu = getComponent(page, "submenu").first();
-    await waitForAnimationEnd(subMenu);
-    await checkAccessibility(page, undefined, "heading-order");
-  });
-
-  test(`should pass accessibility tests when variant is black and search component is focused`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MenuComponentSearch menuType="black" />);
-
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Enter");
-    await page.keyboard.press("Tab");
-    const subMenu = getComponent(page, "submenu").first();
-    await waitForAnimationEnd(subMenu);
-    await checkAccessibility(page, undefined, "heading-order");
-  });
-
-  test(`should pass accessibility tests when a submenu has a long label`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(
-      <Box mb={150}>
-        <Menu menuType="white">
-          <MenuItem submenu="Menu Item One">
-            <MenuItem href="#">
-              Item Submenu One Is A Very Long Submenu Item Indeed
-            </MenuItem>
-            <MenuItem variant="alternate" href="#">
-              Item Submenu Two
-            </MenuItem>
-          </MenuItem>
-        </Menu>
-      </Box>,
-    );
-
-    const subMenu = submenu(page).first();
-    await subMenu.hover();
-    await checkAccessibility(page);
-  });
-
-  test(`should pass accessibility tests when a menu item has a long label`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(
-      <Box mb={150}>
-        <Menu menuType="white">
-          <MenuItem submenu="Menu Item One Has A Very Long Menu Title For No Reason Whatsoever">
-            <MenuItem href="#">Item Submenu One</MenuItem>
-            <MenuItem variant="alternate" href="#">
-              Item Submenu Two
-            </MenuItem>
-          </MenuItem>
-        </Menu>
-      </Box>,
-    );
-
-    const subMenu = submenu(page).first();
-    await subMenu.hover();
-    await checkAccessibility(page);
-  });
-
-  (["default", "large"] as MenuDividerProps["size"][]).forEach((size) => {
-    test(`should pass accessibility tests when size is ${size}px`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<MenuDividerComponent size={size} />);
-
-      await checkAccessibility(page);
-    });
-  });
-
-  [
-    CHARACTERS.STANDARD,
-    CHARACTERS.DIACRITICS,
-    CHARACTERS.SPECIALCHARACTERS,
-  ].forEach((text) => {
-    test(`should pass accessibility tests when item text is ${text}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<MenuComponentItems submenu={text} />);
-
-      await checkAccessibility(page);
-    });
-  });
-
-  test(`should pass accessibility tests for Menu with parent item`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MenuComponentScrollableParent />);
-
-    const subMenu = submenu(page).first();
-    await subMenu.hover();
-    await checkAccessibility(page);
-  });
-
-  test(`should pass accessibility tests for Menu with button icon`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MenuComponentButtonIcon />);
-
-    const subMenu = submenu(page).first();
-    await subMenu.hover();
-    await checkAccessibility(page);
-  });
-
-  test(`should pass accessibility tests for Menu with icon`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MenuComponentWithIcon />);
-
-    await checkAccessibility(page);
-  });
-});
-
-test.describe("Accessibility tests for Menu Fullscreen component", () => {
-  test(`should pass accessibility tests for Menu Fullscreen`, async ({
-    mount,
-    page,
-  }) => {
-    await page.setViewportSize({ width: 1200, height: 800 });
-    await mount(<MenuComponentFullScreen />);
-
-    const item = menuItem(page).first();
-    await item.click();
-    const fullscreen = getComponent(page, "menu-fullscreen").first();
-    await waitForAnimationEnd(fullscreen);
-    await checkAccessibility(page);
   });
 });

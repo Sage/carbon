@@ -18,8 +18,8 @@ import SubmenuContext from "../__internal__/submenu/submenu.context";
 import menuConfigVariants from "../menu.config";
 
 import {
-  testStyledSystemFlexBox,
-  testStyledSystemPadding,
+  testStyledFlexBox,
+  testStyledPadding,
 } from "../../../__spec_helper__/__internal__/test-utils";
 import Logger from "../../../__internal__/utils/logger";
 
@@ -44,7 +44,7 @@ test("logs error if not used within Menu", () => {
 });
 
 describe("When MenuItem has no submenu", () => {
-  testStyledSystemPadding(
+  testStyledPadding(
     (props) => (
       <Menu>
         <MenuItem href="#" {...props}>
@@ -56,7 +56,7 @@ describe("When MenuItem has no submenu", () => {
     { modifier: "&&& > a" },
   );
 
-  testStyledSystemFlexBox(
+  testStyledFlexBox(
     (props) => (
       <Menu>
         <MenuItem href="#" {...props}>
@@ -1661,5 +1661,119 @@ test("should set the correct colour when a child of `MenuSegmentTitle` and `vari
 
   expect(screen.getByTestId("menu-item-wrapper")).toHaveStyle({
     backgroundColor: menuConfigVariants.black.alternate,
+  });
+});
+
+describe("parsePadding function coverage", () => {
+  describe("when showDropdownArrow is true with submenu", () => {
+    it("should use pr prop when px is undefined", () => {
+      render(
+        <Menu>
+          <MenuItem submenu="submenu" showDropdownArrow pr={2} href="#">
+            Item One
+          </MenuItem>
+        </Menu>,
+      );
+
+      const submenuParent = screen.getByTestId("submenu-parent-item");
+      expect(submenuParent).toHaveStyleRule("right", "var(--spacing200)", {
+        modifier: "a::before",
+      });
+    });
+
+    it("should handle spacing000 (0 value) as special case", () => {
+      render(
+        <Menu>
+          <MenuItem submenu="submenu" showDropdownArrow pr={0} href="#">
+            Item One
+          </MenuItem>
+        </Menu>,
+      );
+
+      const submenuParent = screen.getByTestId("submenu-parent-item");
+      expect(submenuParent).toHaveStyleRule("right", "2px", {
+        modifier: "a::before",
+      });
+    });
+
+    it("should handle unrecognized CSS variable with default fallback", () => {
+      render(
+        <Menu>
+          <MenuItem
+            submenu="submenu"
+            showDropdownArrow
+            paddingRight="var(--spacing999)"
+            href="#"
+          >
+            Item One
+          </MenuItem>
+        </Menu>,
+      );
+
+      const submenuParent = screen.getByTestId("submenu-parent-item");
+      expect(submenuParent).toHaveStyleRule("right", "var(--spacing200)", {
+        modifier: "a::before",
+      });
+    });
+
+    it("should handle pixel value of 0px as special case", () => {
+      render(
+        <Menu>
+          <MenuItem
+            submenu="submenu"
+            showDropdownArrow
+            paddingRight="0px"
+            href="#"
+          >
+            Item One
+          </MenuItem>
+        </Menu>,
+      );
+
+      const submenuParent = screen.getByTestId("submenu-parent-item");
+      expect(submenuParent).toHaveStyleRule("right", "2px", {
+        modifier: "a::before",
+      });
+    });
+
+    it("should handle 0rem value (non-px zero unit)", () => {
+      render(
+        <Menu>
+          <MenuItem
+            submenu="submenu"
+            showDropdownArrow
+            paddingRight="0rem"
+            href="#"
+          >
+            Item One
+          </MenuItem>
+        </Menu>,
+      );
+
+      const submenuParent = screen.getByTestId("submenu-parent-item");
+      expect(submenuParent).toHaveStyleRule("right", "2px", {
+        modifier: "a::before",
+      });
+    });
+
+    it("should handle var(--spacing000) CSS variable after resolution", () => {
+      render(
+        <Menu>
+          <MenuItem
+            submenu="submenu"
+            showDropdownArrow
+            paddingRight="var(--spacing000)"
+            href="#"
+          >
+            Item One
+          </MenuItem>
+        </Menu>,
+      );
+
+      const submenuParent = screen.getByTestId("submenu-parent-item");
+      expect(submenuParent).toHaveStyleRule("right", "2px", {
+        modifier: "a::before",
+      });
+    });
   });
 });
