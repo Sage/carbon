@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useContext, useState } from "react";
 import styled, { css } from "styled-components";
 
 import SafePortal from "./__internal__/safe-portal";
@@ -7,6 +7,7 @@ import StyledPortalEntrance from "./portal.style";
 import guid from "../../__internal__/utils/helpers/guid";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component";
+import TokensWrapperContext from "../tokens-wrapper/__internal__/context/tokens-wrapper.context";
 
 const Container = styled.div.attrs(applyBaseTheme)`
   ${({ theme }) => css`
@@ -47,6 +48,9 @@ export const Portal = ({
 }: PortalProps) => {
   const { current: internalId } = useRef(guid());
   const id = externalId ?? internalId;
+  const entranceRef = useRef<HTMLDivElement>(null);
+  const { wrapperId } = useContext(TokensWrapperContext);
+  const [mode, setMode] = useState<string | undefined>();
 
   useEffect(() => {
     if (onReposition) {
@@ -61,10 +65,35 @@ export const Portal = ({
     };
   }, [onReposition]);
 
+  useEffect(() => {
+    const wrapper = entranceRef.current?.closest("[data-carbon-theme]");
+    if (!wrapper) return;
+
+    setMode(
+      wrapper.getAttribute("data-carbon-theme") ??
+        /* istanbul ignore next */ undefined,
+    );
+
+    const observer = new MutationObserver(() => {
+      setMode(
+        wrapper.getAttribute("data-carbon-theme") ??
+          /* istanbul ignore next */ undefined,
+      );
+    });
+
+    observer.observe(wrapper, {
+      attributes: true,
+      attributeFilter: ["data-carbon-theme"],
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <StyledPortalEntrance
       data-role="data-portal-entrance"
       data-portal-entrance={id}
+      ref={entranceRef}
     >
       <SafePortal
         id={id}
@@ -72,10 +101,19 @@ export const Portal = ({
         attributes={{
           "data-portal-exit": id,
           "data-role": "carbon-portal-exit",
+          ...(wrapperId && /* istanbul ignore next */ {
+            "data-tokens-wrapper-id": wrapperId,
+          }),
+          ...(mode && { "data-carbon-theme": mode }),
           ...(inertOptOut && { "data-not-inert": "true" }),
         }}
       >
-        <CarbonScopedTokensProvider className="carbon-portal-scoped-tokens-provider">
+        <CarbonScopedTokensProvider
+          className="carbon-portal-scoped-tokens-provider"
+          data-role="carbon-portal-scoped-tokens-provider"
+          data-tokens-wrapper-id={wrapperId}
+          {...(mode && { "data-carbon-theme": mode })}
+        >
           {inertOptOut ? <Container>{children}</Container> : children}
         </CarbonScopedTokensProvider>
       </SafePortal>

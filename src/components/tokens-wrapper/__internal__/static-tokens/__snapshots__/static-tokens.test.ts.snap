@@ -102,25 +102,25 @@ exports[`builds the static tokens as expected 1`] = `
   --global-modifier-input-disabled-fg: 0.3;
   --global-modifier-input-disabled-bg: 0.05;
   --global-radius-none: 0;
-  --global-radius-scale: 1px;
-  --global-radius-container-3-xs: 1px;
-  --global-radius-container-2-xs: 2px;
-  --global-radius-container-xs: 4px;
-  --global-radius-container-s: 6px;
-  --global-radius-container-m: 8px;
-  --global-radius-container-l: 16px;
-  --global-radius-container-xl: 24px;
-  --global-radius-container-2-xl: 32px;
-  --global-radius-container-3-xl: 40px;
-  --global-radius-container-4-xl: 80px;
+  --global-radius-scale: 1;
+  --global-radius-container-3-xs: calc(1px * var(--global-radius-scale));
+  --global-radius-container-2-xs: calc(2px * var(--global-radius-scale));
+  --global-radius-container-xs: calc(4px * var(--global-radius-scale));
+  --global-radius-container-s: calc(6px * var(--global-radius-scale));
+  --global-radius-container-m: calc(8px * var(--global-radius-scale));
+  --global-radius-container-l: calc(16px * var(--global-radius-scale));
+  --global-radius-container-xl: calc(24px * var(--global-radius-scale));
+  --global-radius-container-2-xl: calc(32px * var(--global-radius-scale));
+  --global-radius-container-3-xl: calc(40px * var(--global-radius-scale));
+  --global-radius-container-4-xl: calc(80px * var(--global-radius-scale));
   --global-radius-container-circle: 999px;
-  --global-radius-action-2-xs: 1px;
-  --global-radius-action-xs: 2px;
-  --global-radius-action-s: 4px;
-  --global-radius-action-m: 8px;
-  --global-radius-action-l: 16px;
-  --global-radius-action-xl: 20px;
-  --global-radius-action-2-xl: 24px;
+  --global-radius-action-2-xs: calc(1px * var(--global-radius-scale));
+  --global-radius-action-xs: calc(2px * var(--global-radius-scale));
+  --global-radius-action-s: calc(4px * var(--global-radius-scale));
+  --global-radius-action-m: calc(8px * var(--global-radius-scale));
+  --global-radius-action-l: calc(16px * var(--global-radius-scale));
+  --global-radius-action-xl: calc(20px * var(--global-radius-scale));
+  --global-radius-action-2-xl: calc(24px * var(--global-radius-scale));
   --global-radius-action-circle: 999px;
   --global-depth-none: 0 0 0 0 rgba(0,0,0,0);
   --global-depth-lvl0: 0 0 1px 1px var(--mode-color-generic-depth-faint), 1px 2px 2px 0 var(--mode-color-generic-depth-soft);
@@ -540,7 +540,7 @@ exports[`builds the static tokens as expected 1`] = `
   --button-typical-primary-label-active: var(--mode-color-action-main-with-active);
   --button-typical-primary-label-disabled: var(--mode-color-action-inactive-txt-alt);
   --button-typical-primary-label-default: var(--mode-color-action-main-with-default);
-  --button-typical-primary-label-hover: var(--mode-color-action-main-with-default);
+  --button-typical-primary-label-hover: var(--mode-color-action-main-with-hover);
   --button-typical-primary-inverse-bg-active: var(--mode-color-action-main-inverse-active);
   --button-typical-primary-inverse-border-default: var(--mode-color-action-main-inverse-with-default);
   --button-typical-primary-inverse-bg-disabled: var(--mode-color-action-inactive-inverse-default);
@@ -549,7 +549,7 @@ exports[`builds the static tokens as expected 1`] = `
   --button-typical-primary-inverse-label-active: var(--mode-color-action-main-inverse-with-active);
   --button-typical-primary-inverse-label-disabled: var(--mode-color-action-inactive-inverse-txt-alt);
   --button-typical-primary-inverse-label-default: var(--mode-color-action-main-inverse-with-default);
-  --button-typical-primary-inverse-label-hover: var(--mode-color-action-main-inverse-with-default);
+  --button-typical-primary-inverse-label-hover: var(--mode-color-action-main-inverse-with-hover);
   --button-typical-secondary-bg-active: var(--mode-color-action-main-active-alt);
   --button-typical-secondary-bg-default: var(--mode-color-action-main-default-alt3);
   --button-typical-secondary-bg-hover: var(--mode-color-action-main-hover-alt);
@@ -915,6 +915,17 @@ exports[`builds the static tokens as expected 1`] = `
   --input-typical-inverse-bg-default: var(--mode-color-action-data-entry-inverse-default);
   --input-typical-inverse-border-default: var(--mode-color-action-data-entry-inverse-with-default);
   --input-typical-inverse-txt-default: var(--mode-color-action-data-entry-inverse-txt);
+  --input-quickpick-bg-default: var(--mode-color-action-data-entry-default);
+  --input-quickpick-bg-hover: var(--mode-color-action-data-entry-hover-alt);
+  --input-quickpick-bg-active: var(--mode-color-action-grayscale-active-alt);
+  --input-quickpick-border-default: var(--mode-color-generic-bg-soft);
+  --input-quickpick-border-hover: var(--mode-color-action-data-entry-with-default);
+  --input-quickpick-icon-active: var(--mode-color-action-data-entry-with-active);
+  --input-quickpick-icon-default: var(--mode-color-generic-txt-soft);
+  --input-quickpick-icon-hover: var(--mode-color-action-data-entry-with-hover);
+  --input-quickpick-txt-active: var(--mode-color-action-data-entry-with-active);
+  --input-quickpick-txt-default: var(--mode-color-action-data-entry-txt);
+  --input-quickpick-txt-hover: var(--mode-color-action-data-entry-with-hover);
   --input-switch-bg-active: var(--mode-color-action-grayscale-active);
   --input-switch-bg-activate-disabled: var(--mode-color-action-inactive-default);
   --input-switch-bg-disabled: var(--mode-color-action-inactive-default-alt);
@@ -1311,7 +1322,7 @@ exports[`builds the static tokens as expected 1`] = `
   --carbon-zindex-notification: 7000;
   --carbon-zindex-above-all: 9999;
 
-.carbon-dark-mode, [data-carbon-theme="dark"] {
+&.carbon-dark-mode, &[data-carbon-theme="dark"] {
     --mode-color-ai-stop-1: #00d639;
   --mode-color-ai-stop-2: #00d6de;
   --mode-color-ai-stop-3: #9d60ff;

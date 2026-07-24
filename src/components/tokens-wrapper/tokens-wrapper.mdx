@@ -1,10 +1,32 @@
 import { Meta, Source } from "@storybook/addon-docs/blocks";
+import * as TokensWrapperStories from "./tokens-wrapper.stories";
 
-<Meta title="Tokens Wrapper" />
+<Meta title="Tokens Wrapper" of={TokensWrapperStories} />
 
 # Tokens Wrapper
 
 The `TokensWrapper` component provides a way to apply design tokens to your application. Doing so will ensure the tokens required by Carbon's components are available and in scope as CSS custom properties.
+It also facilitates the overriding of Fusion tokens in Carbon for white-labelling.
+It allows you to customise the appearance of components by overriding default `font.family`, 
+`focus`, `borderRadiusScale` and `light` and `dark` mode tokens.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Basic Usage](#basic-usage)
+  - [Light Mode](#light-mode)
+  - [Dark Mode](#dark-mode)
+- [White Labelling](#white-labelling)
+  - [Interfaces](#interfaces)
+  - [Light Mode Overrides](#light-mode-overrides)
+  - [Dark Mode Overrides](#dark-mode-overrides)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import TokensWrapper, { type BrandOverrides, type Colors, type FocusColors } from "carbon-react/lib/components/tokens-wrapper";
+```
 
 ## Basic Usage
 
@@ -28,13 +50,13 @@ const App = () => {
   `}
 />
 
-## Props
+### Light Mode
 
-| Name | Type | Description | Default |
-|------|------|---------|-------------|
-| `height` | `string` | Override the height of the wrapper. The default "auto" uses the content's height | `"auto"` |
-| `children` | `ReactNode` | The content to wrap with token styles | - |
+Preview how the wrapper renders in light mode: [view the Light Mode story](?path=/story/tokens-wrapper--light-mode)
 
+### Dark Mode
+
+Preview how the wrapper renders in dark mode: [view the Dark Mode story](?path=/story/tokens-wrapper--dark-mode)
 
 ## Available Design Tokens
 
@@ -43,3 +65,120 @@ The wrapper provides hundreds of design tokens organized by category:
 - **Global tokens**: `--global-*`
 - **Mode tokens**: `--mode-*`
 - **Component tokens**: `--button-*`, `--input-*`, etc.
+
+## White Labelling
+
+### Interfaces
+
+```javascript
+interface Colors {
+  /**
+   * The primary brand color for the theme.
+   * This is the main color used for buttons, links, and other interactive elements.
+   */
+  primaryBrand: string;
+  /**
+   * The primary brand color for the theme when hovered.
+   * This is the color used for buttons, links, and other interactive elements when hovered.
+   */
+  primaryBrandHover?: string;
+  /**
+   * The primary brand color for the theme when active.
+   * This is the color used for buttons, links, and other interactive elements when active.
+   */
+  primaryBrandActive?: string;
+  /**
+   * The color used for text and icons on top of the primary brand color.
+   * This is typically a light color to ensure good contrast with the primary brand color.
+   */
+  onPrimaryBrand?: string;
+  /**
+   * The color used for text and icons on top of the primary brand color when hovered.
+   * This is typically a light color to ensure good contrast with the primary brand color.
+   */
+  onPrimaryBrandHover?: string;
+  /**
+   * The color used for text and icons on top of the primary brand color when active.
+   * This is typically a light color to ensure good contrast with the primary brand color.
+   */
+  onPrimaryBrandActive?: string;
+}
+```
+```javascript
+interface FocusColors {
+  /**
+   * The color of the inner focus shadow for the brand color.
+   * Flips when in dark mode.
+   */
+  inner?: string;
+  /**
+   * The color of the outer focus shadow for the brand color.
+   * Flips when in dark mode.
+   */
+  outer?: string;
+  /**
+   * The background color for Link focus state.
+   */
+  alt?: string;
+}
+```
+
+```javascript
+interface BrandOverrides {
+  /**
+   * The brand color overrides for light mode.
+   */
+  light?: Colors & { inverse?: Colors };
+  /**
+   * The brand color overrides for dark mode.
+   */
+  dark?: Colors & { inverse?: Colors };
+  /**
+   * The focus color overrides for the brand color.
+   */
+  focus?: FocusColors & { inverse?: FocusColors };
+  /**
+   * The font family overrides for the brand.
+   * This allows customisation of the font family for different text elements within the brand.
+   */
+  font?: {
+    family?: {
+      component?: string;
+      heading?: string;
+      subheading?: string;
+      body?: string;
+      other?: string;
+    };
+  };
+  /**
+   * The border radius scale for the brand.
+   * This allows customisation of the border radius for different UI elements within the brand.
+   * Expected to be a string representing a number, e.g., "0.5" for 50% border radius.
+   */
+  borderRadiusScale?: string;
+}
+```
+
+### Light Mode Overrides
+
+To override the `light` mode tokens, pass in an object that matches the shape of the `light` property of the `BrandOverrides` interface. 
+The following example has overridden the `light`, `focus`, `font.family` and `borderRadiusScale` tokens.
+
+[View the Light Mode Overrides story](?path=/story/tokens-wrapper--light-mode-overrides) to try it interactively.
+
+### Dark Mode Overrides
+
+To override the `dark` mode tokens, pass in an object that matches the shape of the `dark` property of the `BrandOverrides` interface. 
+The following example has overridden the `dark`, `focus`, `font.family` and `borderRadiusScale` tokens.
+
+[View the Dark Mode Overrides story](?path=/story/tokens-wrapper--dark-mode-overrides) to try it interactively.
+
+## Props
+
+| Name | Type | Description | Default |
+|------|------|---------|-------------|
+| `height` | `string` | Override the height of the wrapper. The default "auto" uses the content's height | `"auto"` |
+| `children` | `ReactNode` | The content to wrap with token styles | - |
+| `modeSupportOptIn` | `boolean` | Whether to opt-in to mode support. If true, the wrapper will apply the appropriate mode tokens based on the current mode. | `false` |
+| `modeOverride` | `"light" \| "dark" \| "auto"` | Override the mode of the wrapper. If "auto", the wrapper will use the current mode. | `"auto"` |
+| `overrides` | `BrandOverrides` | The brand overrides to apply to the wrapper. This allows for customisation of the brand colours, focus colours, font family, and border radius scale. | - |
