@@ -1,4 +1,4 @@
-import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
+import { Meta, ArgTypes, Canvas, Controls } from "@storybook/addon-docs/blocks";
 
 import * as CardStories from "./card.stories";
 import * as CardColumnStories from "./card-column/card-column.stories";
@@ -23,6 +23,7 @@ A container for interactive content and controls related to a single subject.
 ## Contents
 
 - [Quick Start](#quick-start)
+- [Playground](#playground)
 - [Examples](#examples)
 - [Props](#props)
 
@@ -36,6 +37,17 @@ import {
   CardColumn,
 } from "carbon-react/lib/components/card";
 ```
+
+## Playground
+
+Use this interactive example to explore Card props with Storybook controls.
+
+<Canvas of={CardStories.Playground} />
+
+<Controls
+  of={CardStories.Playground}
+  include={["spacing", "roundness", "width", "height", "draggable"]}
+/>
 
 ## Examples
 

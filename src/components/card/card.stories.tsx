@@ -32,6 +32,65 @@ const meta: Meta<typeof Card> = {
 export default meta;
 type Story = StoryObj<typeof Card>;
 
+export const Playground: Story = {
+  render: (args) => {
+    return (
+      <Card
+        {...args}
+        rightChildren={
+          args.draggable ? (
+            <ActionPopover m={0} rightAlignMenu>
+              <ActionPopoverItem onClick={() => {}}>Move up</ActionPopoverItem>
+              <ActionPopoverItem onClick={() => {}}>
+                Move down
+              </ActionPopoverItem>
+              <ActionPopoverDivider />
+              <ActionPopoverItem onClick={() => {}}>Delete</ActionPopoverItem>
+              <ActionPopoverItem onClick={() => {}}>Edit</ActionPopoverItem>
+            </ActionPopover>
+          ) : undefined
+        }
+      >
+        <Box display="flex">
+          <Box flexGrow={1}>
+            <Typography variant="h1">Heading</Typography>
+            <Typography m={0}>Additional text</Typography>
+          </Box>
+          <Box flexGrow={1} display="flex" justifyContent="flex-end">
+            <Icon type="image" />
+          </Box>
+        </Box>
+        <Box display="flex" pt="24px" pb="24px">
+          <Box flexGrow={1}>
+            <Typography m={0} weight="medium" textAlign="center">
+              Body text
+            </Typography>
+            <Typography variant="h2" textAlign="center">
+              More text
+            </Typography>
+            <Typography textAlign="center">Even more text</Typography>
+          </Box>
+        </Box>
+      </Card>
+    );
+  },
+  args: {
+    spacing: "medium",
+    roundness: "moderate",
+    width: undefined,
+    height: undefined,
+    draggable: false,
+  },
+  argTypes: {
+    roundness: {
+      options: ["moderate", "curved"],
+      control: { type: "radio" },
+    },
+  },
+  parameters: { controls: { disable: false } },
+};
+Playground.storyName = "Playground";
+
 export const DefaultStory: Story = {
   render: (args: CardProps) => {
     return (

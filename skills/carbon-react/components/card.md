@@ -38,7 +38,7 @@ description: Carbon Card component props and usage examples.
 | onClick | ((event: React.MouseEvent<HTMLAnchorElement> \| React.MouseEvent<HTMLDivElement> \| React.KeyboardEvent<HTMLAnchorElement> \| React.KeyboardEvent<HTMLDivElement>) => void) \| undefined | No |  |  |  | Action to be executed when card is clicked or enter pressed. Renders a button when passed and no draggable or href props set |  |
 | rel | string \| undefined | No |  |  |  | String for rel property when card has an href prop set |  |
 | rightChildren | React.ReactNode | No |  |  |  | Slot rendered on the opposite side of the drag handle, only visible when `draggable` is true. Intended for accessibility controls (e.g. move-up / move-down buttons) for keyboard users. |  |
-| roundness | "large" \| "default" \| "moderate" \| "curved" \| undefined | No |  |  |  | Sets the level of roundness of the corners. "moderate" is 16px and "curved" is 20px. "default" (alias for "moderate") and "large" (alias for "curved") are deprecated. Use "moderate" or "curved" instead. | "moderate" |
+| roundness | "large" \| "default" \| "moderate" \| "curved" \| undefined | No |  |  |  | Sets the level of roundness of the corners. "moderate" is 16px and "curved" is 20px. **Note:** The values "default" and "large" are deprecated. Use "moderate" or "curved" instead. | "moderate" |
 | spacing | "small" \| "medium" \| "large" \| "none" \| "extra-small" \| undefined | No |  |  |  | Size padding applied to the card. | "medium" |
 | target | string \| undefined | No |  |  |  | Target property in which link should open ie: _blank, _self, _parent, _top |  |
 | variant | "standard" \| "outlined" \| undefined | No |  |  |  | Visual style variant of the card | "standard" |
@@ -463,6 +463,67 @@ description: Carbon Card component props and usage examples.
       </CardRow>
     </Card>
   )
+```
+
+
+### Playground
+
+**Args**
+
+```tsx
+{
+    spacing: "medium",
+    roundness: "moderate",
+    width: undefined,
+    height: undefined,
+    draggable: false,
+  }
+```
+
+**Render**
+
+```tsx
+(args) => {
+    return (
+      <Card
+        {...args}
+        rightChildren={
+          args.draggable ? (
+            <ActionPopover m={0} rightAlignMenu>
+              <ActionPopoverItem onClick={() => {}}>Move up</ActionPopoverItem>
+              <ActionPopoverItem onClick={() => {}}>
+                Move down
+              </ActionPopoverItem>
+              <ActionPopoverDivider />
+              <ActionPopoverItem onClick={() => {}}>Delete</ActionPopoverItem>
+              <ActionPopoverItem onClick={() => {}}>Edit</ActionPopoverItem>
+            </ActionPopover>
+          ) : undefined
+        }
+      >
+        <Box display="flex">
+          <Box flexGrow={1}>
+            <Typography variant="h1">Heading</Typography>
+            <Typography m={0}>Additional text</Typography>
+          </Box>
+          <Box flexGrow={1} display="flex" justifyContent="flex-end">
+            <Icon type="image" />
+          </Box>
+        </Box>
+        <Box display="flex" pt="24px" pb="24px">
+          <Box flexGrow={1}>
+            <Typography m={0} weight="medium" textAlign="center">
+              Body text
+            </Typography>
+            <Typography variant="h2" textAlign="center">
+              More text
+            </Typography>
+            <Typography textAlign="center">Even more text</Typography>
+          </Box>
+        </Box>
+      </Card>
+    );
+  }
 ```
 
 
