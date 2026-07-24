@@ -242,7 +242,9 @@ export const Textbox = React.forwardRef(
           warning={warning}
           blockFocusStyling
         />
-      ) : null;
+      ) : (
+        inputIcon || null
+      );
 
     const handleDeferred = useCallback(
       (ev: React.ChangeEvent<HTMLInputElement>) => {

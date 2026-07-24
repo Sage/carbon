@@ -46,6 +46,9 @@ const enGB: Locale = {
     ariaLabels: {
       previousMonthButton: () => "Previous month",
       nextMonthButton: () => "Next month",
+      chooseMonth: () => "Choose the month",
+      chooseYear: () => "Choose the year",
+      closeButton: () => "Close",
     },
     dateFormatOverride: undefined,
   },

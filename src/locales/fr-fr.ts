@@ -46,6 +46,9 @@ const frFR: Partial<Locale> = {
     ariaLabels: {
       previousMonthButton: () => "Mois précédent",
       nextMonthButton: () => "Mois suivant",
+      chooseMonth: () => "Choisir le mois",
+      chooseYear: () => "Choisir l'année",
+      closeButton: () => "Fermer",
     },
   },
   decimal: {

@@ -34,6 +34,9 @@ interface Locale {
     ariaLabels: {
       previousMonthButton: () => string;
       nextMonthButton: () => string;
+      chooseMonth: () => string;
+      chooseYear: () => string;
+      closeButton: () => string;
     };
     dateFormatOverride?: string;
   };

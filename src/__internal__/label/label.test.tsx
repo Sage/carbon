@@ -120,6 +120,24 @@ test("should apply medium font to required indicator by default", () => {
   );
 });
 
+test("should apply small font to label and required indicator", () => {
+  render(
+    <Label size="small" isRequired>
+      Small Required
+    </Label>,
+  );
+
+  expect(screen.getByText("Small Required")).toHaveStyleRule(
+    "font",
+    "var(--global-font-static-comp-medium-s)",
+  );
+  expect(screen.getByText("Small Required")).toHaveStyleRule(
+    "font",
+    "var(--global-font-static-comp-medium-s)",
+    { modifier: "::after" },
+  );
+});
+
 test("should apply disabled colour and set aria-disabled when `disabled` prop is true", () => {
   render(
     <Label size="medium" disabled>

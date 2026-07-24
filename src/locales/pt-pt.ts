@@ -47,6 +47,9 @@ const ptPT: Partial<Locale> = {
     ariaLabels: {
       previousMonthButton: () => "Mês anterior",
       nextMonthButton: () => "Mês seguinte",
+      chooseMonth: () => "Escolher o mês",
+      chooseYear: () => "Escolher o ano",
+      closeButton: () => "Fechar",
     },
     dateFormatOverride: undefined,
   },

@@ -4,6 +4,7 @@ import advancedFormat from "dayjs/plugin/advancedFormat.js";
 import { test, expect } from "../../../playwright/helpers/base-test";
 import {
   DateInputCustom,
+  DateInputTypicalCustom,
   DateInputValidationNewDesign,
   WithSiblingButton,
   DateInputInsideDialog,
@@ -15,10 +16,7 @@ import {
   containsClass,
 } from "../../../playwright/support/helper";
 import { CHARACTERS } from "../../../playwright/support/constants";
-import {
-  dayPickerWrapper,
-  dayPickerHeading,
-} from "../../../playwright/components/date-input/index";
+import { dayPickerWrapper } from "../../../playwright/components/date-input/index";
 
 dayjs.extend(advancedFormat);
 
@@ -28,15 +26,35 @@ const DATE_INPUT = dayjs("2022-05-01").format("DD/MM/YYYY");
 const TODAY_DATE_INPUT = dayjs().format("DD/MM/YYYY");
 const NEXT_MONTH = dayjs("2022-05-01").add(1, "months").format("MMMM YYYY");
 const ACTUAL_MONTH = dayjs("2022-05-01").format("MMMM YYYY");
-const PREVIOUS_MONTH = dayjs("2022-05-01")
-  .subtract(1, "months")
-  .format("MMMM YYYY");
 const MIN_DATE = "04/04/2030";
 const DAY_BEFORE_MIN_DATE = "Wednesday, April 3rd, 2030";
 const DAY_AFTER_MAX_DATE = "Friday, April 5th, 2030";
-const arrowKeys = ["ArrowRight", "ArrowLeft", "ArrowUp", "ArrowDown"];
 
 test.describe("Functionality tests", () => {
+  [
+    { size: "small", width: "128px", height: "32px" },
+    { size: "medium", width: "144px", height: "40px" },
+    { size: "large", width: "176px", height: "48px" },
+  ].forEach(({ size, width, height }) => {
+    test(`should render the ${size} date input at ${width} by ${height}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <DateInputTypicalCustom size={size as "small" | "medium" | "large"} />,
+      );
+
+      await expect(page.locator('[data-role="input-wrapper"]')).toHaveCSS(
+        "width",
+        width,
+      );
+      await expect(page.locator('[data-role="input-container"]')).toHaveCSS(
+        "height",
+        height,
+      );
+    });
+  });
+
   testData.forEach((fieldHelp) => {
     test(`should check the fieldHelp renders ${fieldHelp}`, async ({
       mount,
@@ -66,10 +84,10 @@ test.describe("Functionality tests", () => {
     const calendarIcon = page.getByTestId("icon");
     await calendarIcon.click();
 
-    const dayPicker = page.locator(
-      `button[aria-label="${DAY_BEFORE_MIN_DATE}"]`,
-    );
-    await expect(dayPicker).toHaveAttribute("disabled", "");
+    const dayPicker = page.getByRole("button", {
+      name: DAY_BEFORE_MIN_DATE,
+    });
+    await expect(dayPicker).toBeDisabled();
   });
 
   test(`should check the maxDate prop`, async ({ mount, page }) => {
@@ -81,10 +99,10 @@ test.describe("Functionality tests", () => {
     const calendarIcon = page.getByTestId("icon");
     await calendarIcon.click();
 
-    const dayPicker = page.locator(
-      `button[aria-label="${DAY_AFTER_MAX_DATE}"]`,
-    );
-    await expect(dayPicker).toHaveAttribute("disabled", "");
+    const dayPicker = page.getByRole("button", {
+      name: DAY_AFTER_MAX_DATE,
+    });
+    await expect(dayPicker).toBeDisabled();
   });
 
   test(`should check the date is set to today's day`, async ({
@@ -93,7 +111,6 @@ test.describe("Functionality tests", () => {
   }) => {
     await mount(<DateInputCustom />);
 
-    const dayClass = `rdp-day rdp-today`;
     const input = getDataElementByValue(page, "input");
     await input.fill(TODAY_DATE_INPUT);
 
@@ -106,7 +123,8 @@ test.describe("Functionality tests", () => {
     });
 
     await expect(todayButton).toBeVisible();
-    await containsClass(todayCell, dayClass);
+    await containsClass(todayCell, "rdp-day");
+    await containsClass(todayCell, "rdp-today");
   });
 
   test(`should not open dayPicker after click on input`, async ({
@@ -154,7 +172,7 @@ test.describe("Functionality tests", () => {
   }) => {
     await mount(<DateInputCustom />);
 
-    const calendarIcon = getDataElementByValue(page, "calendar");
+    const calendarIcon = getDataElementByValue(page, "calendar_today");
     await calendarIcon.click();
 
     await calendarIcon.click();
@@ -184,7 +202,7 @@ test.describe("Functionality tests", () => {
     });
   });
 
-  test("should use chevron_right arrow in DayPicker to verify next month is shown", async ({
+  test("should use the month selector to show the next month", async ({
     mount,
     page,
   }) => {
@@ -196,13 +214,15 @@ test.describe("Functionality tests", () => {
     const calendarIcon = page.getByTestId("icon");
     await calendarIcon.click();
 
-    const arrowElement = getDataElementByValue(page, "chevron_right");
-    await arrowElement.click();
-    const pickerHeading = dayPickerHeading(page);
-    await expect(pickerHeading).toHaveText(NEXT_MONTH);
+    await page
+      .getByRole("combobox", { name: "Choose the month" })
+      .selectOption({
+        label: "June",
+      });
+    await expect(page.getByRole("dialog", { name: NEXT_MONTH })).toBeVisible();
   });
 
-  test("should use chevron_left arrow in DayPicker to verify previous month is shown", async ({
+  test("should use the year selector to show a different year", async ({
     mount,
     page,
   }) => {
@@ -214,53 +234,10 @@ test.describe("Functionality tests", () => {
     const calendarIcon = page.getByTestId("icon");
     await calendarIcon.click();
 
-    const arrowElement = getDataElementByValue(page, "chevron_left");
-    await arrowElement.click();
-    const pickerHeading = dayPickerHeading(page);
-    await expect(pickerHeading).toHaveText(PREVIOUS_MONTH);
-  });
-
-  arrowKeys.forEach((key) => {
-    test(`should not change the displayed month when ${key} is pressed and next button is focused`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<DateInputCustom value="01/05/2022" />);
-
-      const calendarIcon = page.getByTestId("icon");
-      await calendarIcon.click();
-
-      const datePicker = page.getByTestId("date-picker");
-      await datePicker.waitFor();
-
-      const nextMonthButton = page.getByRole("button", { name: "Next month" });
-      await nextMonthButton.press(key);
-
-      const pickerHeading = datePicker.getByRole("status");
-      await expect(pickerHeading).toHaveText("May 2022");
+    await page.getByRole("combobox", { name: "Choose the year" }).selectOption({
+      label: "2023",
     });
-  });
-
-  arrowKeys.forEach((key) => {
-    test(`should not change the displayed month when ${key} is pressed and previous button is focused`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<DateInputCustom value="01/05/2022" />);
-
-      const calendarIcon = page.getByTestId("icon");
-      await calendarIcon.click();
-
-      const nextMonthButton = page.getByRole("button", { name: "Next month" });
-      await nextMonthButton.waitFor();
-
-      await nextMonthButton.focus();
-      await nextMonthButton.press(key);
-
-      const datePicker = page.getByTestId("date-picker");
-      const pickerHeading = datePicker.getByRole("status");
-      await expect(pickerHeading).toHaveText("May 2022");
-    });
+    await expect(page.getByRole("dialog", { name: "May 2023" })).toBeVisible();
   });
 
   test(`should allow a user to tab into the picker and through its controls`, async ({
@@ -275,26 +252,26 @@ test.describe("Functionality tests", () => {
     const dayPicker = page.getByTestId("date-picker");
     await dayPicker.waitFor();
 
-    await page.keyboard.press("Tab");
-    const previousMonthButton = page.getByRole("button", {
-      name: "Previous month",
-    });
-    await expect(previousMonthButton).toBeFocused();
-
-    await page.keyboard.press("Tab");
-    const nextMonthButton = page.getByRole("button", {
-      name: "Next month",
-    });
-    await expect(nextMonthButton).toBeFocused();
-
-    await page.keyboard.press("Tab");
     const dayButton = page.getByRole("button", {
-      name: "Monday, December 12th, 2022",
+      name: "Monday, December 12th, 2022, selected",
     });
     await expect(dayButton).toBeFocused();
+
+    await page.keyboard.press("Tab");
+    await expect(page.getByRole("button", { name: "Close" })).toBeFocused();
+
+    await page.keyboard.press("Tab");
+    await expect(
+      page.getByRole("combobox", { name: "Choose the month" }),
+    ).toBeFocused();
+
+    await page.keyboard.press("Tab");
+    await expect(
+      page.getByRole("combobox", { name: "Choose the year" }),
+    ).toBeFocused();
   });
 
-  test(`should close the picker and focus the next element in the DOM when focus is on a day element and tab pressed`, async ({
+  test(`should focus the close button when focus is on a day element and Tab is pressed`, async ({
     mount,
     page,
   }) => {
@@ -311,9 +288,8 @@ test.describe("Functionality tests", () => {
     });
     await dayButton.press("Tab");
 
-    const fooButton = page.getByRole("button", { name: "foo" });
-    await expect(dayPicker).toBeHidden();
-    await expect(fooButton).toBeFocused();
+    await expect(dayPicker).toBeVisible();
+    await expect(page.getByRole("button", { name: "Close" })).toBeFocused();
   });
 
   test(`should focus today's date if no day selected when tabbing to day elements`, async ({
@@ -325,14 +301,8 @@ test.describe("Functionality tests", () => {
     const calendarIcon = page.getByTestId("icon");
     await calendarIcon.click();
 
-    await page.getByLabel("Date").press("Tab");
-
     const todayButton = page.getByRole("button", { name: `Today, ${TODAY}` });
     await todayButton.waitFor();
-
-    await page
-      .getByRole("button", { name: "Next month", exact: true })
-      .press("Tab");
 
     await expect(todayButton).toBeFocused();
   });
@@ -345,16 +315,11 @@ test.describe("Functionality tests", () => {
 
     const calendarIcon = page.getByTestId("icon");
     await calendarIcon.click();
-    await page.getByLabel("Date").press("Tab");
-
     const datePicker = page.getByTestId("date-picker");
     await datePicker.waitFor();
 
-    await page
-      .getByRole("button", { name: "Next month", exact: true })
-      .press("Tab");
     const day14Button = page.getByRole("button", {
-      name: "Thursday, April 14th, 2022",
+      name: "Thursday, April 14th, 2022, selected",
     });
     await expect(day14Button).toBeFocused();
 
@@ -405,8 +370,9 @@ test.describe("Functionality tests", () => {
 
     await expect(day31Button).toBeFocused();
 
-    const pickerHeading = datePicker.getByRole("status");
-    await expect(pickerHeading).toHaveText("March 2022");
+    await expect(
+      page.getByRole("dialog", { name: "March 2022" }),
+    ).toBeVisible();
   });
 
   test(`navigates to previous month, when up arrow is pressed on a day button if a previous-month day is displayed above`, async ({
@@ -434,8 +400,9 @@ test.describe("Functionality tests", () => {
 
     await expect(day28Button).toBeFocused();
 
-    const pickerHeading = datePicker.getByRole("status");
-    await expect(pickerHeading).toHaveText("March 2022");
+    await expect(
+      page.getByRole("dialog", { name: "March 2022" }),
+    ).toBeVisible();
   });
 
   test("navigates to previous month, when down arrow is pressed on a day button if a previous-month day is displayed below", async ({
@@ -463,8 +430,7 @@ test.describe("Functionality tests", () => {
 
     await expect(day1Button).toBeFocused();
 
-    const pickerHeading = datePicker.getByRole("status");
-    await expect(pickerHeading).toHaveText("May 2022");
+    await expect(page.getByRole("dialog", { name: "May 2022" })).toBeVisible();
   });
 
   ["Enter", "Space"].forEach((key) => {
@@ -518,88 +484,7 @@ test.describe("Functionality tests", () => {
 
     await expect(day1Button).toBeFocused();
 
-    const pickerHeading = datePicker.getByRole("status");
-    await expect(pickerHeading).toHaveText("June 2022");
-  });
-
-  test("should change to next month when Enter is pressed and next button is focused", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<DateInputCustom />);
-
-    const calendarIcon = page.getByTestId("icon");
-    await calendarIcon.click();
-
-    const arrowParent = getDataElementByValue(page, "chevron_right").locator(
-      "..",
-    );
-    await arrowParent.focus();
-    const arrowElement = getDataElementByValue(page, "chevron_right");
-    await arrowElement.press("Enter");
-
-    const pickerHeading = dayPickerHeading(page);
-    await expect(pickerHeading).toHaveText(NEXT_MONTH);
-  });
-
-  test("should change to next month when Space is pressed and next button is focused", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<DateInputCustom />);
-
-    const calendarIcon = page.getByTestId("icon");
-    await calendarIcon.click();
-
-    const arrowParent = getDataElementByValue(page, "chevron_right").locator(
-      "..",
-    );
-    await arrowParent.focus();
-    const arrowElement = getDataElementByValue(page, "chevron_right");
-    await arrowElement.press("Space");
-
-    const pickerHeading = dayPickerHeading(page);
-    await expect(pickerHeading).toHaveText(NEXT_MONTH);
-  });
-
-  test("should change to previous month when Enter is pressed and previous button is focused", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<DateInputCustom />);
-
-    const calendarIcon = page.getByTestId("icon");
-    await calendarIcon.click();
-
-    const arrowParent = getDataElementByValue(page, "chevron_left").locator(
-      "..",
-    );
-    await arrowParent.focus();
-    const arrowElement = getDataElementByValue(page, "chevron_left");
-    await arrowElement.press("Enter");
-
-    const pickerHeading = dayPickerHeading(page);
-    await expect(pickerHeading).toHaveText(PREVIOUS_MONTH);
-  });
-
-  test("should change to previous month when Space is pressed and previous button is focused", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<DateInputCustom />);
-
-    const calendarIcon = page.getByTestId("icon");
-    await calendarIcon.click();
-
-    const arrowParent = getDataElementByValue(page, "chevron_left").locator(
-      "..",
-    );
-    await arrowParent.focus();
-    const arrowElement = getDataElementByValue(page, "chevron_left");
-    await arrowElement.press("Space");
-
-    const pickerHeading = dayPickerHeading(page);
-    await expect(pickerHeading).toHaveText(PREVIOUS_MONTH);
+    await expect(page.getByRole("dialog", { name: "June 2022" })).toBeVisible();
   });
 
   test(`when maxWidth has no value it should render as 100%`, async ({
@@ -640,13 +525,11 @@ test.describe("Functionality tests", () => {
       .locator(".rdp-month_caption")
       .locator("span")
       .nth(0);
-    await expect(pickerHeading1).toBeVisible();
     await expect(pickerHeading1).toHaveText(ACTUAL_MONTH);
     const pickerHeading2 = page
       .locator(".rdp-month_caption")
       .locator("span")
       .nth(1);
-    await expect(pickerHeading2).toBeVisible();
     await expect(pickerHeading2).toHaveText(NEXT_MONTH);
   });
 
@@ -718,7 +601,7 @@ test.describe("When nested inside of a Dialog component", () => {
   }) => {
     await mount(<DateInputInsideDialog />);
 
-    const calendarIcon = getDataElementByValue(page, "calendar");
+    const calendarIcon = getDataElementByValue(page, "calendar_today");
     await calendarIcon.click();
 
     const datePicker = page.getByTestId("date-picker");
@@ -808,6 +691,44 @@ test.describe("Accessibility tests", () => {
 
     const inputParent = getDataElementByValue(page, "input").locator("..");
     await inputParent.click();
+    await checkAccessibility(page);
+  });
+
+  test("should check accessibility when the typical picker is open", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DateInputTypicalCustom />);
+
+    await page.getByRole("button", { name: "calendar" }).click();
+    await expect(page.getByRole("dialog")).toBeVisible();
+
+    await checkAccessibility(page);
+  });
+
+  test("should check accessibility when the typical picker is open with range modifiers", async ({
+    mount,
+    page,
+  }) => {
+    const today = new Date();
+    const rangeEnd = new Date(today);
+    rangeEnd.setDate(today.getDate() + 7);
+
+    await mount(
+      <DateInputTypicalCustom
+        pickerProps={{
+          modifiers: {
+            range_start: today,
+            range_middle: { after: today, before: rangeEnd },
+            range_end: rangeEnd,
+          },
+        }}
+      />,
+    );
+
+    await page.getByRole("button", { name: "calendar" }).click();
+    await expect(page.getByRole("dialog")).toBeVisible();
+
     await checkAccessibility(page);
   });
 });
