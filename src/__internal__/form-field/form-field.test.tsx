@@ -171,3 +171,16 @@ test("should render with `maxWidth` when provided", () => {
     "max-width: fit-content",
   );
 });
+
+test("should render with `fieldHelp` when provided", () => {
+  render(
+    <FormField
+      id="mock-input"
+      label="label"
+      maxWidth="fit-content"
+      fieldHelp="Help text"
+    />,
+  );
+
+  expect(screen.getByText("Help text")).toBeInTheDocument();
+});

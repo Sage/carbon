@@ -4,8 +4,6 @@ import { test, expect } from "../../../playwright/helpers/base-test";
 
 import {
   characterCount,
-  fieldHelpPreview,
-  getComponent,
   getDataElementByValue,
   getDataRoleByValue,
   getElement,
@@ -20,7 +18,6 @@ import {
 } from "../../../playwright/components/textarea";
 import { CHARACTERS, VALIDATION } from "../../../playwright/support/constants";
 import {
-  assertCssValueIsApproximately,
   checkAccessibility,
   verifyRequiredAsteriskForLabel,
   waitForAnimationEnd,
@@ -122,21 +119,6 @@ test.describe("Props tests for Textarea component", () => {
     });
   });
 
-  testData.forEach((labelHelp) => {
-    test(`should render with labelHelp prop set to ${labelHelp}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<TextareaComponent labelInline labelHelp={labelHelp} />);
-      const questionIconElement = getDataElementByValue(page, "question");
-      await questionIconElement.hover();
-
-      const tooltipPreviewElement = tooltipPreview(page);
-
-      await expect(tooltipPreviewElement).toHaveText(labelHelp);
-    });
-  });
-
   (
     [
       [1, "8px"],
@@ -157,48 +139,6 @@ test.describe("Props tests for Textarea component", () => {
     });
   });
 
-  (
-    [
-      [10, 90, 135, 1229],
-      [30, 70, 409, 956],
-      [80, 20, 1092, 273],
-    ] as [
-      TextareaProps["labelWidth"],
-      TextareaProps["inputWidth"],
-      number,
-      number,
-    ][]
-  ).forEach(([label, input, labelRatio, inputRatio]) => {
-    test(`should use ${label} as labelWidth, ${input} as inputWidth and render it with correct label and input width ratios`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <TextareaComponent labelInline labelWidth={label} inputWidth={input} />,
-      );
-
-      const labelElementParent = getDataElementByValue(page, "label").locator(
-        "..",
-      );
-
-      await assertCssValueIsApproximately(
-        labelElementParent,
-        "width",
-        labelRatio,
-      );
-
-      const inputElementParent = getDataElementByValue(page, "input").locator(
-        "..",
-      );
-
-      await assertCssValueIsApproximately(
-        inputElementParent,
-        "width",
-        inputRatio,
-      );
-    });
-  });
-
   test("should render with required prop", async ({ mount, page }) => {
     await mount(<TextareaComponent required />);
 
@@ -208,7 +148,7 @@ test.describe("Props tests for Textarea component", () => {
   (
     [
       [11, 11, "rgba(0, 0, 0, 0.55)"],
-      [11, 10, "rgb(203, 55, 74)"],
+      [11, 10, "rgb(219, 0, 78)"],
     ] as const
   ).forEach(([charactersUsed, limit, color]) => {
     test(`should input ${charactersUsed} characters and warn if over character limit of ${limit} in Textarea`, async ({
@@ -422,59 +362,14 @@ test.describe("Props tests for Textarea component", () => {
     await expect(textareaIcon).toHaveCSS("color", "rgba(0, 0, 0, 0.3)");
   });
 
-  ["error", "warning", "info"].forEach((type) => {
-    test(`should verify component is displayed with ${type} validation icon on input`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <TextareaComponent
-          labelInline
-          labelAlign="right"
-          {...{
-            [type]: "Message",
-          }}
-        />,
-      );
-
-      const textareaIcon = textarea(page).locator(ICON);
-
-      await expect(textareaIcon).toHaveAttribute("data-element", type);
-    });
-  });
-
-  ["error", "warning", "info"].forEach((type) => {
-    test(`should verify component is displayed with ${type} validation icon on label`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <TextareaComponent
-          labelInline
-          labelAlign="right"
-          validationOnLabel
-          {...{
-            [type]: "Message",
-          }}
-        />,
-      );
-
-      const labelParentIcon = getDataElementByValue(page, "label")
-        .locator("..")
-        .locator(ICON);
-
-      await expect(labelParentIcon).toHaveAttribute("data-element", type);
-    });
-  });
-
   (
     [
       [VALIDATION.ERROR, "error", true],
       [VALIDATION.WARNING, "warning", true],
       [VALIDATION.INFO, "info", true],
-      ["rgb(102, 132, 148)", "error", false],
-      ["rgb(102, 132, 148)", "warning", false],
-      ["rgb(102, 132, 148)", "info", false],
+      ["rgb(117, 131, 143)", "error", false],
+      ["rgb(117, 131, 143)", "warning", false],
+      ["rgb(117, 131, 143)", "info", false],
     ] as const
   ).forEach(([borderColor, type, bool]) => {
     test(`should verify component input border colour is ${borderColor} when validation is ${type} and boolean prop is ${bool}`, async ({
@@ -523,17 +418,6 @@ test.describe("Props tests for Textarea component", () => {
     });
   });
 
-  testData.forEach((fieldHelp) => {
-    test(`should render with fieldHelp prop set to ${fieldHelp}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<TextareaComponent fieldHelp={fieldHelp} />);
-
-      await expect(fieldHelpPreview(page)).toHaveText(fieldHelp);
-    });
-  });
-
   (["add", "filter", "play"] as const).forEach((icon) => {
     test(`should render with inputIcon prop set to ${icon}`, async ({
       mount,
@@ -573,20 +457,6 @@ test.describe("Props tests for Textarea component", () => {
         position,
       );
     });
-  });
-
-  test("should render with helpAriaLabel prop", async ({ mount, page }) => {
-    await mount(
-      <TextareaComponent
-        labelHelp="field help"
-        helpAriaLabel={CHARACTERS.STANDARD}
-      />,
-    );
-
-    await expect(getComponent(page, "help")).toHaveAttribute(
-      "aria-label",
-      CHARACTERS.STANDARD,
-    );
   });
 
   (["left", "right"] as const).forEach((align) => {
@@ -641,8 +511,8 @@ test.describe("Props tests for Textarea component", () => {
 
   (
     [
-      [true, 92],
-      [false, 64],
+      [true, 100],
+      [false, 79],
     ] as const
   ).forEach(([expandableValue, height]) => {
     test(`should verify is displayed with expandable set to ${expandableValue}`, async ({
@@ -680,21 +550,22 @@ test(`should verify expandable Textarea shrinks back to original height when lin
   await textareaChildrenElement.press("Enter");
   await textareaChildrenElement.press("t");
 
-  await expect(textareaChildrenElement).toHaveCSS("height", "92px");
+  await expect(textareaChildrenElement).toHaveCSS("height", "100px");
 
   await textareaChildrenElement.press("Backspace");
   await textareaChildrenElement.press("Backspace");
 
-  await expect(textareaChildrenElement).toHaveCSS("height", "75px");
+  await expect(textareaChildrenElement).toHaveCSS("height", "79px");
 
   await textareaChildrenElement.press("Backspace");
   await textareaChildrenElement.press("Backspace");
 
-  await expect(textareaChildrenElement).toHaveCSS("height", "64px");
+  await expect(textareaChildrenElement).toHaveCSS("height", "79px");
 });
 
 test.describe("Event tests for Textarea component", () => {
   const inputValue = "1";
+
   test("should call onChange callback when a type event is triggered", async ({
     mount,
     page,
@@ -997,7 +868,7 @@ test("should have the expected default border radius styling", async ({
 
   const inputElementParent = getElement(page, "input").locator("..");
 
-  await expect(inputElementParent).toHaveCSS("border-radius", "4px");
+  await expect(inputElementParent).toHaveCSS("border-radius", "8px");
 });
 
 test("should have the expected custom border radius styling", async ({

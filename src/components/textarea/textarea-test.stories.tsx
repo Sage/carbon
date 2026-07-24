@@ -169,96 +169,6 @@ Default.storyName = "Default";
 
 export const Validation = () => {
   const { state, setValue } = useMultiInput();
-  return (
-    <>
-      <Textarea
-        label="Textarea"
-        error="Error Message"
-        mb={2}
-        name="ta-error"
-        value={state["ta-error"] || ""}
-        onChange={setValue}
-      />
-      <Textarea
-        label="Textarea"
-        warning="Warning Message"
-        mb={2}
-        name="ta-warning"
-        value={state["ta-warning"] || ""}
-        onChange={setValue}
-      />
-      <Textarea
-        label="Textarea"
-        info="Info Message"
-        mb={2}
-        name="ta-info"
-        value={state["ta-info"] || ""}
-        onChange={setValue}
-      />
-
-      <Textarea
-        label="Textarea"
-        error="Error Message"
-        validationOnLabel
-        mb={2}
-        name="ta-error-vol"
-        value={state["ta-error-vol"] || ""}
-        onChange={setValue}
-      />
-      <Textarea
-        label="Textarea"
-        warning="Warning Message"
-        validationOnLabel
-        mb={2}
-        name="ta-warn-vol"
-        value={state["ta-warn-vol"] || ""}
-        onChange={setValue}
-      />
-      <Textarea
-        label="Textarea"
-        info="Info Message"
-        validationOnLabel
-        mb={2}
-        name="ta-info-vol"
-        value={state["ta-info-vol"] || ""}
-        onChange={setValue}
-      />
-
-      <Textarea
-        label="Textarea"
-        error
-        mb={2}
-        name="ta-error-bool"
-        value={state["ta-error-bool"] || ""}
-        onChange={setValue}
-      />
-      <Textarea
-        label="Textarea"
-        warning
-        mb={2}
-        name="ta-warn-bool"
-        value={state["ta-warn-bool"] || ""}
-        onChange={setValue}
-      />
-      <Textarea
-        label="Textarea"
-        info
-        mb={2}
-        name="ta-info-bool"
-        value={state["ta-info-bool"] || ""}
-        onChange={setValue}
-      />
-    </>
-  );
-};
-Validation.storyName = "Validation";
-Validation.parameters = {
-  chromatic: { disableSnapshot: false },
-  themeProvider: { chromatic: { theme: "sage" } },
-};
-
-export const NewValidation = () => {
-  const { state, setValue } = useMultiInput();
 
   return (
     <CarbonProvider validationRedesignOptIn>
@@ -295,11 +205,48 @@ export const NewValidation = () => {
         value={state["ta-warn-bottom"] || ""}
         onChange={setValue}
       />
+      <Textarea
+        label="Textarea"
+        error="Error Message"
+        mb={2}
+        name="ta-error"
+        value={state["ta-error"] || ""}
+        onChange={setValue}
+        labelInline
+      />
+      <Textarea
+        label="Textarea"
+        warning="Warning Message"
+        mb={2}
+        name="ta-warn"
+        value={state["ta-warn"] || ""}
+        onChange={setValue}
+        labelInline
+      />
+      <Textarea
+        validationMessagePositionTop={false}
+        label="Textarea"
+        error="Error Message"
+        mb={2}
+        name="ta-error-bottom"
+        value={state["ta-error-bottom"] || ""}
+        onChange={setValue}
+        labelInline
+      />
+      <Textarea
+        validationMessagePositionTop={false}
+        label="Textarea"
+        warning="Warning Message"
+        name="ta-warn-bottom"
+        value={state["ta-warn-bottom"] || ""}
+        onChange={setValue}
+        labelInline
+      />
     </CarbonProvider>
   );
 };
-NewValidation.storyName = "New Validation";
-NewValidation.parameters = {
+Validation.storyName = "Validation";
+Validation.parameters = {
   chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
 };

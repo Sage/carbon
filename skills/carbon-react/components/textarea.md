@@ -20,16 +20,13 @@ description: Carbon Textarea component props and usage examples.
 | about | string \| undefined | No |  |  |  |  |  |
 | accept | string \| undefined | No |  |  |  |  |  |
 | accessKey | string \| undefined | No |  |  |  |  |  |
-| adaptiveLabelBreakpoint | number \| undefined | No |  |  |  | Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set |  |
 | align | "left" \| "right" \| undefined | No |  |  |  |  |  |
 | alt | string \| undefined | No |  |  |  |  |  |
-| as | React.ElementType<any, keyof React.JSX.IntrinsicElements> \| undefined | No |  |  |  | Override the variant component |  |
 | autoCapitalize | (string & {}) \| "none" \| "off" \| "on" \| "sentences" \| "words" \| "characters" \| undefined | No |  |  |  |  |  |
 | autoComplete | HTMLInputAutoCompleteAttribute \| undefined | No |  |  |  |  |  |
 | autoCorrect | string \| undefined | No |  |  |  |  |  |
 | autoFocus | boolean \| undefined | No |  |  |  | Automatically focus the input on component mount |  |
 | autoSave | string \| undefined | No |  |  |  |  |  |
-| borderRadius | BorderRadiusType \| BorderRadiusType[] \| undefined | No |  |  |  | Specify a custom border radius for the component. Any valid border-radius design token, or an array of border-radius design tokens. |  |
 | capture | boolean \| "user" \| "environment" \| undefined | No |  |  |  |  |  |
 | characterLimit | number \| undefined | No |  |  |  | Character limit of the textarea |  |
 | checked | boolean \| undefined | No |  |  |  |  |  |
@@ -50,7 +47,6 @@ description: Carbon Textarea component props and usage examples.
 | error | string \| boolean \| undefined | No |  |  |  | Indicate that error has occurred. Pass string to display icon, tooltip and red border. Pass true boolean to only display red border. |  |
 | expandable | boolean \| undefined | No |  |  |  | Allows the Textareas Height to change based on user input |  |
 | exportparts | string \| undefined | No |  |  |  |  |  |
-| fieldHelp | React.ReactNode | No |  |  |  | [Legacy] Help content to be displayed under an input |  |
 | form | string \| undefined | No |  |  |  |  |  |
 | formAction | string \| undefined | No |  |  |  |  |  |
 | formEncType | string \| undefined | No |  |  |  |  |  |
@@ -58,17 +54,13 @@ description: Carbon Textarea component props and usage examples.
 | formNoValidate | boolean \| undefined | No |  |  |  |  |  |
 | formTarget | string \| undefined | No |  |  |  |  |  |
 | height | string \| number \| undefined | No |  |  |  |  |  |
-| helpAriaLabel | string \| undefined | No |  |  |  | [Legacy] Aria label for rendered help component |  |
 | hidden | boolean \| undefined | No |  |  |  |  |  |
-| hideBorders | boolean \| undefined | No |  |  |  | Hides the borders for the component. Please note that validation and focus styling will still be applied |  |
 | id | string \| undefined | No |  |  |  | id of the input |  |
-| info | string \| boolean \| undefined | No |  |  |  | [Legacy] Indicate additional information. Pass string to display icon, tooltip and blue border. Pass true boolean to only display blue border. |  |
 | inlist | any | No |  |  |  |  |  |
 | inputBorderRadius | BorderRadiusType \| BorderRadiusType[] \| undefined | No |  |  |  | Specify a custom border radius for the input. Any valid border-radius design token, or an array of border-radius design tokens. |  |
 | inputHint | string \| undefined | No |  |  |  | A hint string rendered before the input but after the label. Intended to describe the purpose or content of the input. |  |
 | inputIcon | IconType \| undefined | No |  |  |  | <a href="https://brand.sage.com/d/NdbrveWvNheA/foundations#/icons/icons" target="_blank">List of supported icons</a> Icon to display inside of the Textarea |  |
 | inputMode | "email" \| "none" \| "search" \| "text" \| "tel" \| "url" \| "numeric" \| "decimal" \| undefined | No |  |  |  | Hints at the type of data that might be entered by the user while editing the element or its contents |  |
-| inputWidth | number \| undefined | No |  |  |  | [Legacy] Width of an input in percentage. Works only when labelInline is true |  |
 | is | string \| undefined | No |  |  |  | Specify that a standard HTML element should behave like a defined custom built-in element |  |
 | itemID | string \| undefined | No |  |  |  |  |  |
 | itemProp | string \| undefined | No |  |  |  |  |  |
@@ -76,11 +68,7 @@ description: Carbon Textarea component props and usage examples.
 | itemScope | boolean \| undefined | No |  |  |  |  |  |
 | itemType | string \| undefined | No |  |  |  |  |  |
 | label | string \| undefined | No |  |  |  | The content of the label for the input |  |
-| labelAlign | "left" \| "right" \| undefined | No |  |  |  | Label alignment |  |
-| labelHelp | React.ReactNode | No |  |  |  | [Legacy] Text applied to label help tooltip. When opted into new design validations it will render as a hint above the input, unless an `inputHint` prop is also passed |  |
-| labelInline | boolean \| undefined | No |  |  |  | [Legacy] When true, label is placed in line an input |  |
-| labelSpacing | 1 \| 2 \| undefined | No |  |  |  | [Legacy] Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) |  |
-| labelWidth | number \| undefined | No |  |  |  | [Legacy] Width of a label in percentage. Works only when labelInline is true |  |
+| labelInline | boolean \| undefined | No |  |  |  | When true, label is placed in line an input |  |
 | lang | string \| undefined | No |  |  |  |  |  |
 | list | string \| undefined | No |  |  |  |  |  |
 | m | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top, left, bottom and right |  |
@@ -93,6 +81,7 @@ description: Carbon Textarea component props and usage examples.
 | marginY | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on top and bottom |  |
 | max | string \| number \| undefined | No |  |  |  |  |  |
 | maxLength | number \| undefined | No |  |  |  |  |  |
+| maxRows | number \| undefined | No |  |  |  | Specifies the number of visible text lines. When set, the textarea expands up to this maximum height. |  |
 | maxWidth | string \| undefined | No |  |  |  | Prop for specifying the max width of the input. Leaving the `maxWidth` prop with no value will default the width to '100%' |  |
 | mb | ResponsiveValue<TVal, ThemeType> \| undefined | No |  |  |  | Margin on bottom |  |
 | min | string \| number \| undefined | No |  |  |  |  |  |
@@ -270,12 +259,14 @@ description: Carbon Textarea component props and usage examples.
 | readOnly | boolean \| undefined | No |  |  |  | Adds readOnly property |  |
 | rel | string \| undefined | No |  |  |  |  |  |
 | required | boolean \| undefined | No |  |  |  | Flag to configure component as mandatory |  |
+| resize | "none" \| "horizontal" \| "vertical" \| "both" \| undefined | No |  |  |  | Specify the resize behavior of the textarea |  |
 | resource | string \| undefined | No |  |  |  |  |  |
 | results | number \| undefined | No |  |  |  |  |  |
 | rev | string \| undefined | No |  |  |  |  |  |
 | role | AriaRole \| undefined | No |  |  |  |  |  |
 | rows | number \| undefined | No |  |  |  | The number of visible text lines for the control. When set, this determines the height of the textarea, and the minHeight property is ignored. |  |
 | security | string \| undefined | No |  |  |  |  |  |
+| size | "small" \| "medium" \| "large" \| undefined | No |  |  |  | Size of the textarea. |  |
 | slot | string \| undefined | No |  |  |  |  |  |
 | spellCheck | Booleanish \| undefined | No |  |  |  |  |  |
 | src | string \| undefined | No |  |  |  |  |  |
@@ -285,13 +276,11 @@ description: Carbon Textarea component props and usage examples.
 | suppressHydrationWarning | boolean \| undefined | No |  |  |  |  |  |
 | tabIndex | number \| undefined | No |  |  |  |  |  |
 | title | string \| undefined | No |  |  |  |  |  |
-| tooltipPosition | "left" \| "right" \| "bottom" \| "top" \| undefined | No |  |  |  | [Legacy] Overrides the default tooltip position |  |
 | translate | "yes" \| "no" \| undefined | No |  |  |  |  |  |
 | typeof | string \| undefined | No |  |  |  |  |  |
 | unselectable | "off" \| "on" \| undefined | No |  |  |  |  |  |
 | validationIconId | string \| undefined | No |  |  |  | Id of the validation icon |  |
 | validationMessagePositionTop | boolean \| undefined | No |  |  |  | Render the ValidationMessage above the Textarea when validationRedesignOptIn flag is set |  |
-| validationOnLabel | boolean \| undefined | No |  |  |  | [Legacy] When true, validation icon will be placed on label instead of being placed on the input |  |
 | vocab | string \| undefined | No |  |  |  |  |  |
 | warning | string \| boolean \| undefined | No |  |  |  | Indicate that warning has occurred. Pass string to display icon, tooltip and orange border. Pass true boolean to only display orange border. |  |
 | width | string \| number \| undefined | No |  |  |  |  |  |
@@ -348,9 +337,23 @@ description: Carbon Textarea component props and usage examples.
 | aria-valuemin | number \| undefined | No |  |  |  | Defines the minimum allowed value for a range widget. |  |
 | aria-valuenow | number \| undefined | No |  |  |  | Defines the current value for a range widget. |  |
 | aria-valuetext | string \| undefined | No |  |  |  | Defines the human readable text alternative of aria-valuenow for a range widget. |  |
-| isOptional | boolean \| undefined | No |  | Yes | If the value of this component is not required, use the `required` prop and set it to false instead. | [Legacy] Flag to configure component as optional. |  |
+| adaptiveLabelBreakpoint | number \| undefined | No |  | Yes | Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set. This property is deprecated and will be removed in future versions. |  |  |
+| as | React.ElementType<any, keyof React.JSX.IntrinsicElements> \| undefined | No |  | Yes | Override the variant component. This property is deprecated and will be removed in future versions. |  |  |
+| borderRadius | BorderRadiusType \| BorderRadiusType[] \| undefined | No |  | Yes | Specify a custom border radius for the component. Any valid border-radius design token, or an array of border-radius design tokens. This property is deprecated and will be removed in future versions. |  |  |
+| fieldHelp | React.ReactNode | No |  | Yes | [Legacy] Help content to be displayed under an input. This property is deprecated and will be removed in future versions. |  |  |
+| helpAriaLabel | string \| undefined | No |  | Yes | [Legacy] Aria label for rendered help component. This property is deprecated and will be removed in future versions. |  |  |
+| hideBorders | boolean \| undefined | No |  | Yes | Hides the borders for the component. Please note that validation and focus styling will still be applied. This property is deprecated and will be removed in future versions. |  |  |
+| info | string \| boolean \| undefined | No |  | Yes | [Legacy] Indicate additional information. Pass string to display icon, tooltip and blue border. Pass true boolean to only display blue border. This property is deprecated and will be removed in future versions. |  |  |
+| inputWidth | number \| undefined | No |  | Yes | [Legacy] Width of an input in percentage. Works only when labelInline is true. This property is deprecated and will be removed in future versions. |  |  |
+| isOptional | boolean \| undefined | No |  | Yes | [Legacy] Flag to configure component as optional. If the value of this component is not required, use the `required` prop and set it to false instead. This property is deprecated and will be removed in future versions. |  |  |
+| labelAlign | "left" \| "right" \| undefined | No |  | Yes | Label alignment. This property is deprecated and will be removed in future versions. |  |  |
+| labelHelp | React.ReactNode | No |  | Yes | [Legacy] Text applied to label help tooltip. When opted into new design validations it will render as a hint above the input, unless an `inputHint` prop is also passed. This property is deprecated and will be removed in future versions. |  |  |
+| labelSpacing | 1 \| 2 \| undefined | No |  | Yes | [Legacy] Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8). This property is deprecated and will be removed in future versions. |  |  |
+| labelWidth | number \| undefined | No |  | Yes | [Legacy] Width of a label in percentage. Works only when labelInline is true. This property is deprecated and will be removed in future versions. |  |  |
 | onKeyPress | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUp` or `onKeyDown` instead |  |  |
 | onKeyPressCapture | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUpCapture` or `onKeyDownCapture` instead |  |  |
+| tooltipPosition | "left" \| "right" \| "bottom" \| "top" \| undefined | No |  | Yes | [Legacy] Overrides the default tooltip position. This property is deprecated and will be removed in future versions. |  |  |
+| validationOnLabel | boolean \| undefined | No |  | Yes | [Legacy] When true, validation icon will be placed on label instead of being placed on the input. This property is deprecated and will be removed in future versions. |  |  |
 | aria-dropeffect | "copy" \| "link" \| "none" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |
 | aria-grabbed | Booleanish \| undefined | No |  | Yes | in ARIA 1.1 | Indicates an element's "grabbed" state in a drag-and-drop operation. |  |
 
@@ -556,25 +559,6 @@ description: Carbon Textarea component props and usage examples.
 ```
 
 
-### Field Help
-
-**Render**
-
-```tsx
-() => {
-  const [value, setValue] = useState("");
-  return (
-    <Textarea
-      label="Textarea"
-      fieldHelp="Help"
-      value={value}
-      onChange={({ target }) => setValue(target.value)}
-    />
-  );
-}
-```
-
-
 ### Max Width
 
 **Render**
@@ -762,6 +746,125 @@ description: Carbon Textarea component props and usage examples.
         m={2}
       />
     </Box>
+  );
+}
+```
+
+
+### Resize
+
+**Render**
+
+```tsx
+() => {
+  const [state, setState] = useState("");
+  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    setState(target.value);
+  };
+  return (
+    <>
+      <CarbonProvider validationRedesignOptIn>
+        <Textarea
+          inputHint="this is a hint"
+          characterLimit={200}
+          label="Textarea with resize"
+          value={state}
+          onChange={setValue}
+          resize="both"
+          validationMessagePositionTop={false}
+          mb={2}
+        />
+        <Textarea
+          labelInline
+          label="Textarea with resize"
+          value={state}
+          onChange={setValue}
+          resize="both"
+          validationMessagePositionTop={false}
+          mb={2}
+        />
+      </CarbonProvider>
+    </>
+  );
+}
+```
+
+
+### Size
+
+**Render**
+
+```tsx
+() => {
+  const [state, setState] = useState("");
+  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    setState(target.value);
+  };
+  return (
+    <>
+      <CarbonProvider validationRedesignOptIn>
+        <Textarea
+          label="Textarea small"
+          inputHint="this is a hint"
+          value={state}
+          onChange={setValue}
+          validationMessagePositionTop={false}
+          mb={2}
+          characterLimit={100}
+          size="small"
+        />
+
+        <Textarea
+          label="Textarea medium"
+          inputHint="this is a hint"
+          value={state}
+          onChange={setValue}
+          validationMessagePositionTop={false}
+          mb={2}
+          characterLimit={100}
+          size="medium"
+        />
+
+        <Textarea
+          label="Textarea large"
+          inputHint="this is a hint"
+          value={state}
+          onChange={setValue}
+          validationMessagePositionTop={false}
+          mb={2}
+          characterLimit={100}
+          size="large"
+        />
+
+        <Textarea
+          label="Textarea small"
+          labelInline
+          value={state}
+          onChange={setValue}
+          validationMessagePositionTop={false}
+          mb={2}
+          size="small"
+        />
+        <Textarea
+          label="Textarea medium"
+          labelInline
+          value={state}
+          onChange={setValue}
+          validationMessagePositionTop={false}
+          mb={2}
+          size="medium"
+        />
+        <Textarea
+          label="Textarea large"
+          labelInline
+          value={state}
+          onChange={setValue}
+          validationMessagePositionTop={false}
+          mb={2}
+          size="large"
+        />
+      </CarbonProvider>
+    </>
   );
 }
 ```

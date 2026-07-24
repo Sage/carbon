@@ -171,6 +171,23 @@ const componentTokenConfigs = [
       },
     ],
   },
+    {
+    component: "textarea",
+    targetDir: "src/components/textarea/__internal__/tokens/",
+    imports: [
+      {
+        module: "@sage/design-tokens-fusion/js/es6/global.js",
+        names: [
+          "globalFontStaticCompRegularS",
+          "globalFontStaticCompRegularM",
+          "globalFontStaticCompRegularL",
+          "globalSpaceCompXs",
+          "globalSpaceCompS",
+          "globalSpaceCompM",
+        ],
+      },
+    ],
+  },
 ];
 
 const generateComponentTokenFiles = async (configs) => {

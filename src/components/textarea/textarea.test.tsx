@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { render, screen, fireEvent, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import * as floatingUi from "@floating-ui/react-dom";
 
 import {
   assertLoggerComponentMessage,
@@ -10,8 +9,10 @@ import {
 import Textarea, { TextareaProps } from ".";
 import { EnterKeyHintTypes } from "../../__internal__/legacy-input";
 import guid from "../../__internal__/utils/helpers/guid";
-import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import StyledInput from "../../__internal__/legacy-input/input.style";
+import StyledHintText from "../../__internal__/hint-text/hint-text.style";
+import Logger from "../../__internal__/utils/logger";
+import { parseValueUnit } from "./textarea.component";
 
 jest.mock("../../__internal__/utils/logger");
 
@@ -100,12 +101,58 @@ test.each([
   },
 );
 
-test("should have default min-height of 64px if no minHeight is specified", () => {
+test("should have default min-height of 79px if no minHeight is specified", () => {
   render(<MockComponent />);
 
   const textarea = screen.getByRole("textbox");
 
-  expect(textarea).toHaveStyle({ "min-height": "64px" });
+  expect(textarea).toHaveStyle({ "min-height": "79px" });
+});
+
+test("should have default min-height for specified size if the minHeight is smaller", () => {
+  render(<MockComponent size="medium" minHeight={10} />);
+
+  const textarea = screen.getByRole("textbox");
+
+  expect(textarea).toHaveStyle({ "min-height": "79px" });
+});
+
+test("should keep the size default min-height when rows is provided and scrollHeight is 0", () => {
+  const scrollHeightSpy = jest
+    .spyOn(HTMLTextAreaElement.prototype, "scrollHeight", "get")
+    .mockReturnValue(0);
+
+  render(<MockComponent rows={3} />);
+
+  expect(screen.getByRole("presentation")).toHaveStyle({
+    "min-height": "var(--global-size-4-xl)",
+  });
+
+  scrollHeightSpy.mockRestore();
+});
+
+test("should have default min-height of 71px if size is small", () => {
+  render(<MockComponent size="small" />);
+
+  const textarea = screen.getByRole("textbox");
+
+  expect(textarea).toHaveStyle({ "min-height": "71px" });
+});
+
+test("should have default min-height of 79px if size is medium", () => {
+  render(<MockComponent size="medium" />);
+
+  const textarea = screen.getByRole("textbox");
+
+  expect(textarea).toHaveStyle({ "min-height": "79px" });
+});
+
+test("should have default min-height of 96px if size is large", () => {
+  render(<MockComponent size="large" />);
+
+  const textarea = screen.getByRole("textbox");
+
+  expect(textarea).toHaveStyle({ "min-height": "96px" });
 });
 
 test("should apply the correct min-height if minHeight is specified", () => {
@@ -137,81 +184,6 @@ test.each([
 );
 
 test.each(["error", "warning", "info"])(
-  "renders a validation icon in the textarea when %s prop is a string",
-  (validationProp) => {
-    render(<MockComponent {...{ [validationProp]: "Message" }} />);
-    const inputPresentationContainer = screen.getByRole("presentation");
-    const validationIcon = screen.getByTestId(`icon-${validationProp}`);
-    expect(inputPresentationContainer).toContainElement(validationIcon);
-  },
-);
-
-test.each(["error", "warning", "info"])(
-  "overrides the tooltip position on the validation icon when %s prop is a string the tooltipPosition prop is set",
-  (validationProp) => {
-    const useFloatingSpy = jest.spyOn(floatingUi, "useFloating");
-
-    render(
-      <MockComponent
-        {...{
-          label: "Label",
-          [validationProp]: "Message",
-          tooltipPosition: "bottom",
-        }}
-      />,
-    );
-
-    expect(useFloatingSpy).toHaveBeenCalledWith(
-      expect.objectContaining({ placement: "bottom" }),
-    );
-
-    useFloatingSpy.mockRestore();
-  },
-);
-
-test.each(["error", "warning", "info"])(
-  "renders a validation icon on the label when %s prop is a string and validationOnLabel passed as true",
-  (validationProp) => {
-    render(
-      <MockComponent
-        {...{
-          label: "Label",
-          [validationProp]: "Message",
-          validationOnLabel: true,
-        }}
-      />,
-    );
-    const labelContainer = screen.getByTestId("label-container");
-    const validationIcon = screen.getByTestId(`icon-${validationProp}`);
-    expect(labelContainer).toContainElement(validationIcon);
-  },
-);
-
-test.each(["error", "warning", "info"])(
-  "overrides the tooltip position on the validation icon when %s prop is a string, the tooltipPosition prop is set and validationOnLabel is true",
-  (validationProp) => {
-    const useFloatingSpy = jest.spyOn(floatingUi, "useFloating");
-
-    render(
-      <MockComponent
-        {...{
-          label: "Label",
-          [validationProp]: "Message",
-          tooltipPosition: "bottom",
-          validationOnLabel: true,
-        }}
-      />,
-    );
-
-    expect(useFloatingSpy).toHaveBeenCalledWith(
-      expect.objectContaining({ placement: "bottom" }),
-    );
-
-    useFloatingSpy.mockRestore();
-  },
-);
-
-test.each(["error", "warning", "info"])(
   "when %s validation prop is true boolean, does not render any validation icon",
   (validationProp) => {
     render(<MockComponent {...{ [validationProp]: true }} />);
@@ -221,23 +193,7 @@ test.each(["error", "warning", "info"])(
   },
 );
 
-test("should set the aria-label on the Help component to the value of the helpAriaLabel prop", () => {
-  render(<MockComponent label="foo" labelHelp="bar" helpAriaLabel="baz" />);
-
-  expect(screen.getByRole("button")).toHaveAttribute("aria-label", "baz");
-});
-
-test("should set the Help component's text content to the value of the labelHelp prop", async () => {
-  render(<MockComponent label="foo" labelHelp="bar" helpAriaLabel="baz" />);
-
-  act(() => {
-    screen.getByRole("button").focus();
-  });
-
-  expect(await screen.findByRole("tooltip", { name: "bar" })).toBeVisible();
-});
-
-test.each(["info", "warning", "error"])(
+test.each(["warning", "error"])(
   "with id prop provided, %s prop set as a string and the textarea element focused, the validation tooltip provides an accessible description for the textarea element",
   (validationType) => {
     render(
@@ -252,7 +208,7 @@ test.each(["info", "warning", "error"])(
   },
 );
 
-test.each(["info", "warning", "error"])(
+test.each(["warning", "error"])(
   "with id prop not provided, %s prop set as a string and the textarea element focused, the validation tooltip provides an accessible description for the textarea element",
   (validationType) => {
     render(<MockComponent label="bar" {...{ [validationType]: "test" }} />);
@@ -277,28 +233,14 @@ test("assigns the input hint as the accessible description of the textarea", () 
 
 test("inputHint should have priority over labelHelp when both are passed", () => {
   render(
-    <CarbonProvider validationRedesignOptIn>
-      <MockComponent labelHelp="labelHelp" inputHint="inputHint" error="foo" />
-    </CarbonProvider>,
+    <MockComponent labelHelp="labelHelp" inputHint="inputHint" error="foo" />,
   );
   expect(screen.getByText("inputHint")).toBeInTheDocument();
   expect(screen.queryByText("labelHelp")).not.toBeInTheDocument();
 });
 
-test("when id and fieldHelp are both present, the field help provides an accessible description for the textarea element", () => {
-  render(<MockComponent id="foo" label="bar" fieldHelp="baz" />);
-
-  expect(screen.getByRole("textbox")).toHaveAccessibleDescription("baz");
-});
-
-test("fieldHelp is present and id is not present, the field help provides an accessible description for the textarea element", () => {
-  render(<MockComponent label="bar" fieldHelp="baz" />);
-
-  expect(screen.getByRole("textbox")).toHaveAccessibleDescription("baz");
-});
-
-test.each(["info", "warning", "error"])(
-  "with id prop provided, fieldHelp present, %s prop set as a string and the textarea element focused, the fieldHelp and the validation tooltip are combined to provide an accessible description for the textarea element",
+test.each(["warning", "error"])(
+  "with id prop provided, fieldHelp present, %s prop set as a string and the textarea element focused, the tooltip provides an accessible description for the textarea element",
   (validationType) => {
     render(
       <MockComponent
@@ -313,12 +255,12 @@ test.each(["info", "warning", "error"])(
       textarea.focus();
     });
 
-    expect(textarea).toHaveAccessibleDescription("baz test");
+    expect(textarea).toHaveAccessibleDescription("test");
   },
 );
 
-test.each(["info", "warning", "error"])(
-  "with id prop not provided, fieldHelp present, %s prop set as a string and the textarea element focused, the fieldHelp and the validation tooltip are combined to provide an accessible description for the textarea element",
+test.each(["warning", "error"])(
+  "with id prop not provided, fieldHelp present, %s prop set as a string and the textarea element focused, the tooltip provides an accessible description for the textarea element",
   async (validationType) => {
     render(
       <MockComponent
@@ -332,7 +274,7 @@ test.each(["info", "warning", "error"])(
       textarea.focus();
     });
 
-    expect(textarea).toHaveAccessibleDescription("baz test");
+    expect(textarea).toHaveAccessibleDescription("test");
   },
 );
 
@@ -493,6 +435,37 @@ test('when the "expandable" prop is false, the height of the textarea remains un
   expect(textarea.style.height).toEqual(originalHeight);
 });
 
+test('when the "expandable" prop is true, and maxRows is set, the height of the textarea will not go over the height of the maxRows', async () => {
+  const paddingTop = 8;
+  const paddingBottom = 8;
+  const rowHeight = 21;
+  const maxRows = 5;
+  const maxHeight = rowHeight * maxRows + paddingTop + paddingBottom;
+
+  let mockScrollHeight = rowHeight + paddingTop + paddingBottom;
+  jest
+    .spyOn(HTMLTextAreaElement.prototype, "scrollHeight", "get")
+    .mockImplementation(() => mockScrollHeight);
+
+  render(<MockComponent expandable maxRows={maxRows} size="medium" />);
+
+  const user = userEvent.setup();
+  const textarea = screen.getByRole("textbox") as HTMLTextAreaElement;
+
+  await user.click(textarea);
+
+  const lines = ["1", "2", "3", "4", "5", "6", "7"];
+  for (const line of lines) {
+    await user.keyboard(line);
+    await user.keyboard("{Enter}");
+    mockScrollHeight += rowHeight;
+  }
+
+  const height = parseFloat(window.getComputedStyle(textarea).height);
+
+  expect(height).toBe(maxHeight);
+});
+
 test("renders a label that is linked to the TextArea, if the label prop is promoted", () => {
   render(<MockComponent label="This is a Text Area" />);
 
@@ -505,8 +478,24 @@ test("when labelInline prop is set, the input label should accommodate for input
   render(<MockComponent label="foo" labelInline />);
 
   expect(screen.getByTestId("label-container")).toHaveStyle({
-    paddingTop: "6px",
+    paddingTop: "var(--global-space-comp-s)",
     alignItems: "flex-start",
+  });
+});
+
+test("when labelInline prop is set, and size is large, correct paddingRight is applied", () => {
+  render(<MockComponent label="foo" labelInline size="large" />);
+
+  expect(screen.getByTestId("label-container")).toHaveStyle({
+    paddingRight: "var(--global-space-comp-xl)",
+  });
+});
+
+test("when labelInline prop is set and resize prop is set, the input width should adjust accordingly", () => {
+  render(<MockComponent label="foo" labelInline resize="both" size="small" />);
+
+  expect(screen.getByRole("textbox")).toHaveStyle({
+    width: "70vw",
   });
 });
 
@@ -618,12 +607,10 @@ describe("when rendered with new validations", () => {
     "the validation text is assigned as the accessible description for textarea element",
     (validationType) => {
       render(
-        <CarbonProvider validationRedesignOptIn>
-          <MockComponent
-            inputHint="Hint"
-            {...{ [validationType]: "Validation" }}
-          />
-        </CarbonProvider>,
+        <MockComponent
+          inputHint="Hint"
+          {...{ [validationType]: "Validation" }}
+        />,
       );
 
       expect(screen.getByRole("textbox")).toHaveAccessibleDescription(
@@ -636,13 +623,11 @@ describe("when rendered with new validations", () => {
     "the validation text is assigned as the accessible description for textarea element when validationMessagePositionTop is false",
     (validationType) => {
       render(
-        <CarbonProvider validationRedesignOptIn>
-          <MockComponent
-            inputHint="Hint"
-            {...{ [validationType]: "Validation" }}
-            validationMessagePositionTop={false}
-          />
-        </CarbonProvider>,
+        <MockComponent
+          inputHint="Hint"
+          {...{ [validationType]: "Validation" }}
+          validationMessagePositionTop={false}
+        />,
       );
 
       expect(screen.getByRole("textbox")).toHaveAccessibleDescription(
@@ -651,36 +636,18 @@ describe("when rendered with new validations", () => {
     },
   );
 
-  it("ignores the labelInline and related styling props", () => {
-    render(
-      <CarbonProvider validationRedesignOptIn>
-        <MockComponent
-          labelInline
-          label="example label"
-          labelAlign="left"
-          labelWidth={100}
-          labelSpacing={1}
-        />
-      </CarbonProvider>,
-    );
-
-    const labelContainer = screen.getByTestId("label-container");
-    expect(labelContainer).not.toHaveStyle({ paddingTop: "6px" });
-    expect(labelContainer).not.toHaveStyle({ alignItems: "flex-start" });
-  });
-
   it("renders the hint text with the correct styling when the labelHelp prop is passed", () => {
-    render(
-      <CarbonProvider validationRedesignOptIn>
-        <MockComponent labelHelp="Example hint text" />
-      </CarbonProvider>,
-    );
+    render(<MockComponent labelHelp="Example hint text" />);
     const hintText = screen.getByText("Example hint text");
     expect(hintText).toBeInTheDocument();
-    expect(hintText).toHaveStyleRule("font-size", "14px");
-    expect(hintText).toHaveStyleRule("margin-top", "var(--spacing000)");
-    expect(hintText).toHaveStyleRule("margin-bottom", "var(--spacing100)");
-    expect(hintText).toHaveStyleRule("color", "var(--colorsUtilityYin055)");
+    expect(hintText).toHaveStyleRule(
+      "font",
+      "var(--global-font-static-comp-regular-m)",
+    );
+    expect(hintText).toHaveStyleRule(
+      "color",
+      "var(--input-labelset-label-alt)",
+    );
   });
 });
 
@@ -783,4 +750,65 @@ test("should render component without borders when hideBorders prop is true and 
     "border",
     "1px solid transparent",
   );
+});
+
+test("should render component with the `width` equal to `100%` when `resize` is set", () => {
+  render(
+    <MockComponent
+      resize="both"
+      maxWidth="480"
+      size="large"
+      inputHint="hint"
+      characterLimit={200}
+    />,
+  );
+  expect(screen.getByRole("presentation")).toHaveStyleRule("width", "100%");
+});
+
+test("should render component with the `width` equal to `70vw` when `resize` and `labelInline` are set", () => {
+  render(<MockComponent labelInline resize="both" data-role="test-textarea" />);
+
+  expect(screen.getByTestId("test-textarea")).toHaveStyleRule("width", "70vw", {
+    modifier: `${StyledInput}`,
+  });
+});
+
+test("hint text should be aligned with the label when `labelAlign` is set", () => {
+  render(
+    <MockComponent
+      data-role="test-textarea"
+      label="Textarea large"
+      inputHint="this is a hint"
+      labelAlign="right"
+    />,
+  );
+
+  expect(screen.getByTestId("test-textarea")).toHaveStyleRule(
+    "justify-content",
+    "flex-end",
+    {
+      modifier: `${StyledHintText}`,
+    },
+  );
+});
+
+describe("parseValueUnit", () => {
+  const validCases: Array<[string, number]> = [
+    ["12px", 12],
+    ["1.5rem", 1.5],
+    ["2em", 2],
+    ["50%", 50],
+    ["-4px", -4],
+  ];
+
+  it.each(validCases)("parses %s to %d", (input, expected) => {
+    expect(parseValueUnit(input)).toBe(expected);
+  });
+
+  it("returns 0 and logs a warning on invalid input", () => {
+    expect(parseValueUnit("12pixels")).toBe(0);
+    expect(Logger.warn).toHaveBeenCalledWith(
+      'Unexpected value/unit format: "12pixels"',
+    );
+  });
 });
