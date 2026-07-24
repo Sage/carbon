@@ -13,6 +13,7 @@ export interface CardRowProps extends PaddingProps, TagProps {
   children: React.ReactNode;
 }
 
+/** @deprecated `CardRow` has been deprecated. */
 const CardRow = ({ children, ...rest }: CardRowProps) => {
   const { spacing } = useCardContext();
   const id = useRef(guid());

@@ -1,12 +1,13 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { Card, CardProps, CardRow, CardFooter } from ".";
+import { Card, CardProps, CardFooter } from ".";
+import { StyledCard } from "./card.style";
 
 test("renders with correct data attributes", () => {
   render(
     <Card data-element="foo" data-role="bar">
-      <CardRow>Row</CardRow>
+      Row
     </Card>,
   );
 
@@ -30,7 +31,7 @@ test("child content is rendered inside the card", () => {
   expect(card).toHaveTextContent(text);
 });
 
-test.each<CardProps["roundness"]>(["default", "large"])(
+test.each<CardProps["roundness"]>(["moderate", "curved"])(
   "renders with the expected border radius styling when roundness is %s and no footer passed",
   (roundness) => {
     render(
@@ -38,8 +39,10 @@ test.each<CardProps["roundness"]>(["default", "large"])(
         Content
       </Card>,
     );
-    const borderRadiusValue = roundness === "default" ? "100" : "200";
-    const radius = `var(--borderRadius${borderRadiusValue})`;
+    const radius =
+      roundness === "moderate"
+        ? "var(--global-radius-container-l)"
+        : "var(--global-radius-container-xl)";
 
     const cardElement = screen.getByTestId("card");
 
@@ -101,7 +104,7 @@ test.each([
 
     render(
       <Card {...props}>
-        <CardRow>foo</CardRow>
+        foo
         <CardFooter>foo</CardFooter>
       </Card>,
     );
@@ -111,7 +114,7 @@ test.each([
   },
 );
 
-test("when draggable prop is true cursor changes to move icon when Card is hovered over", () => {
+test("when draggable prop is true, card element does not have move cursor", () => {
   render(
     <Card draggable data-role="card">
       Content
@@ -120,7 +123,47 @@ test("when draggable prop is true cursor changes to move icon when Card is hover
 
   const cardElement = screen.getByTestId("card");
 
-  expect(cardElement).toHaveStyle({ cursor: "move" });
+  expect(cardElement).not.toHaveStyle({ cursor: "move" });
+  expect(screen.getByTestId("icon")).toBeInTheDocument();
+});
+
+test("renders rightChildren content when draggable is true", () => {
+  render(
+    <Card draggable rightChildren={<button type="button">Move up</button>}>
+      Content
+    </Card>,
+  );
+
+  expect(screen.getByRole("button", { name: "Move up" })).toBeInTheDocument();
+});
+
+test("drag icon still renders alongside rightChildren when both are provided", () => {
+  render(
+    <Card draggable rightChildren={<button type="button">Move up</button>}>
+      Content
+    </Card>,
+  );
+
+  expect(screen.getByTestId("icon")).toBeInTheDocument();
+  expect(screen.getByRole("button", { name: "Move up" })).toBeInTheDocument();
+});
+
+test("does not render rightChildren when draggable is false", () => {
+  render(
+    <Card rightChildren={<button type="button">Move up</button>}>Content</Card>,
+  );
+
+  expect(
+    screen.queryByRole("button", { name: "Move up" }),
+  ).not.toBeInTheDocument();
+});
+
+test("drag icon is not rendered when draggable is false", () => {
+  render(
+    <Card rightChildren={<button type="button">Move up</button>}>Content</Card>,
+  );
+
+  expect(screen.queryByTestId("icon")).not.toBeInTheDocument();
 });
 
 test("should call onClick callback when card is clicked", async () => {
@@ -129,7 +172,7 @@ test("should call onClick callback when card is clicked", async () => {
 
   render(
     <Card onClick={handleClick} data-role="card">
-      <CardRow>Content</CardRow>
+      Content
     </Card>,
   );
 
@@ -139,3 +182,93 @@ test("should call onClick callback when card is clicked", async () => {
 
   expect(handleClick).toHaveBeenCalledTimes(1);
 });
+
+test("renders with standard card type box shadow when variant is standard", () => {
+  render(
+    <Card variant="standard" data-role="card">
+      Content
+    </Card>,
+  );
+
+  const card = screen.getByTestId("card");
+
+  expect(card).toHaveStyleRule("box-shadow", "var(--global-depth-lvl1)");
+});
+
+test("renders with outlined card type box shadow", () => {
+  render(
+    <Card variant="outlined" data-role="card">
+      Content
+    </Card>,
+  );
+
+  const card = screen.getByTestId("card");
+
+  expect(card).toHaveStyleRule("box-shadow", "var(--global-depth-none)");
+});
+
+test("renders with no hover box shadow when variant is outlined and card is interactive", () => {
+  render(
+    <Card variant="outlined" onClick={() => {}} data-role="card">
+      Content
+    </Card>,
+  );
+
+  const card = screen.getByTestId("card");
+
+  expect(card).toHaveStyleRule("box-shadow", "none", { modifier: ":hover" });
+});
+
+test("applies flex layout to the content container when spacing is extra-small", () => {
+  render(
+    <Card spacing="extra-small" onClick={() => {}} data-role="card">
+      Content
+    </Card>,
+  );
+
+  const contentEl = screen.getByRole("button");
+
+  expect(contentEl).toHaveStyleRule("align-items", "stretch");
+  expect(contentEl).toHaveStyleRule("align-self", "stretch");
+});
+
+test("StyledCard applies standard box shadow by default when variant is not provided", () => {
+  render(
+    <StyledCard
+      $cardWidth="500px"
+      $interactive={false}
+      $roundness="moderate"
+      $spacing="medium"
+      data-role="card"
+    >
+      Content
+    </StyledCard>,
+  );
+
+  expect(screen.getByTestId("card")).toHaveStyleRule(
+    "box-shadow",
+    "var(--global-depth-lvl1)",
+  );
+});
+
+test.each<CardProps["roundness"]>(["moderate", "curved"])(
+  "renders content container with the expected border radius when roundness is %s",
+  (roundness) => {
+    render(
+      <Card roundness={roundness} onClick={() => {}} data-role="card">
+        Content
+      </Card>,
+    );
+
+    const contentEl = screen.getByRole("button");
+    const radius =
+      roundness === "moderate"
+        ? "var(--global-radius-container-l)"
+        : "var(--global-radius-container-xl)";
+
+    expect(contentEl).toHaveStyleRule("border-top-left-radius", radius);
+    expect(contentEl).toHaveStyleRule("border-top-right-radius", radius);
+    expect(contentEl).toHaveStyleRule("border-bottom-left-radius", radius);
+    expect(contentEl).toHaveStyleRule("border-bottom-right-radius", radius);
+  },
+);

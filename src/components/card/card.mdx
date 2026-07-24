@@ -1,4 +1,4 @@
-import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
+import { Meta, ArgTypes, Canvas, Controls } from "@storybook/addon-docs/blocks";
 
 import * as CardStories from "./card.stories";
 import * as CardColumnStories from "./card-column/card-column.stories";
@@ -23,6 +23,7 @@ A container for interactive content and controls related to a single subject.
 ## Contents
 
 - [Quick Start](#quick-start)
+- [Playground](#playground)
 - [Examples](#examples)
 - [Props](#props)
 
@@ -37,11 +38,38 @@ import {
 } from "carbon-react/lib/components/card";
 ```
 
+## Playground
+
+Use this interactive example to explore Card props with Storybook controls.
+
+<Canvas of={CardStories.Playground} />
+
+<Controls
+  of={CardStories.Playground}
+  include={["spacing", "roundness", "width", "height", "draggable"]}
+/>
+
 ## Examples
 
 ### Default - medium spacing
 
 <Canvas of={CardStories.DefaultStory} />
+
+### Without footer
+
+<Canvas of={CardStories.WithoutFooter} />
+
+### Without footer - interactive
+
+<Canvas of={CardStories.WithoutFooterInteractive} />
+
+### No spacing
+
+<Canvas of={CardStories.NoneSpacing} />
+
+### Extra small spacing
+
+<Canvas of={CardStories.ExtraSmallSpacing} />
 
 ### Small spacing
 
@@ -51,9 +79,11 @@ import {
 
 <Canvas of={CardStories.LargeSpacing} />
 
-### With large roundness on corners
+### With curved roundness on corners
 
-<Canvas of={CardStories.WithExtraRoundness} />
+By default the `Card` component has a `moderate` roundness on its corners. You can increase this by passing the `roundness` prop with a value of `curved`.
+
+<Canvas of={CardStories.WithCurvedRoundness} />
 
 ### With width provided
 
@@ -68,9 +98,11 @@ Setting the `draggable` prop will negate both `onClick` and `href` prop values a
 
 <Canvas of={CardStories.Interactive} />
 
-### With custom box shadow
+### Draggable
 
-<Canvas of={CardStories.WithCustomBoxShadow} />
+Setting the `draggable` prop renders a drag handle icon and changes the cursor to `move`. It also negates any `onClick` or `href` props, so the card is no longer interactive.
+
+<Canvas of={CardStories.Draggable} />
 
 ### Different `<CardRow />` padding
 
@@ -83,10 +115,6 @@ Setting the `draggable` prop will negate both `onClick` and `href` prop values a
 ### More `<CardFooter />` examples
 
 <Canvas of={CardStories.MoreExamplesOfCardFooter} />
-
-## With string as child
-
-<Canvas of={CardStories.WithStringAsChild} />
 
 ## With custom height
 

@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { Card, CardRow, CardFooter, CardColumn, CardProps } from ".";
+import { Card, CardFooter, CardProps } from ".";
 
 import Typography from "../typography";
-import Heading from "../heading";
 import Icon from "../icon";
 import Link from "../link";
 import Box from "../box";
-import Button from "../button";
+import Button from "../button/__next__";
 import Divider from "../divider";
-import IconButton from "../icon-button";
+import {
+  ActionPopover,
+  ActionPopoverDivider,
+  ActionPopoverItem,
+} from "../action-popover";
 
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
@@ -29,47 +32,277 @@ const meta: Meta<typeof Card> = {
 export default meta;
 type Story = StoryObj<typeof Card>;
 
+export const Playground: Story = {
+  render: (args) => {
+    return (
+      <Card
+        {...args}
+        rightChildren={
+          args.draggable ? (
+            <ActionPopover m={0} rightAlignMenu>
+              <ActionPopoverItem onClick={() => {}}>Move up</ActionPopoverItem>
+              <ActionPopoverItem onClick={() => {}}>
+                Move down
+              </ActionPopoverItem>
+              <ActionPopoverDivider />
+              <ActionPopoverItem onClick={() => {}}>Delete</ActionPopoverItem>
+              <ActionPopoverItem onClick={() => {}}>Edit</ActionPopoverItem>
+            </ActionPopover>
+          ) : undefined
+        }
+      >
+        <Box display="flex">
+          <Box flexGrow={1}>
+            <Typography variant="h1">Heading</Typography>
+            <Typography m={0}>Additional text</Typography>
+          </Box>
+          <Box flexGrow={1} display="flex" justifyContent="flex-end">
+            <Icon type="image" />
+          </Box>
+        </Box>
+        <Box display="flex" pt="24px" pb="24px">
+          <Box flexGrow={1}>
+            <Typography m={0} weight="medium" textAlign="center">
+              Body text
+            </Typography>
+            <Typography variant="h2" textAlign="center">
+              More text
+            </Typography>
+            <Typography textAlign="center">Even more text</Typography>
+          </Box>
+        </Box>
+      </Card>
+    );
+  },
+  args: {
+    spacing: "medium",
+    roundness: "moderate",
+    width: undefined,
+    height: undefined,
+    draggable: false,
+  },
+  argTypes: {
+    roundness: {
+      options: ["moderate", "curved"],
+      control: { type: "radio" },
+    },
+  },
+  parameters: { controls: { disable: false } },
+};
+Playground.storyName = "Playground";
+
 export const DefaultStory: Story = {
   render: (args: CardProps) => {
     return (
       <Card
         {...args}
-        onClick={() => {}}
         footer={
           <CardFooter>
-            <CardColumn>
-              <Link icon="link" href="https://carbon.sage.com/">
-                Footer link
-              </Link>
-            </CardColumn>
+            <Box
+              pl="var(--global-space-comp-l)"
+              pr="var(--global-space-comp-l)"
+              pt="var(--global-space-comp-xl)"
+              pb="var(--global-space-comp-xl)"
+              flexGrow={1}
+            >
+              <Typography mb="0" textAlign="center">
+                <Link icon="link" href="https://carbon.sage.com/">
+                  Footer link
+                </Link>
+              </Typography>
+            </Box>
           </CardFooter>
         }
       >
-        <CardRow>
-          <CardColumn align="left">
-            <Heading title="Heading" divider={false} />
-            <Typography fontSize="16px" m={0}>
-              Additional text
-            </Typography>
-          </CardColumn>
-          <CardColumn align="right">
+        <Box display="flex">
+          <Box flexGrow={1}>
+            <Typography variant="h1">Heading</Typography>
+            <Typography m={0}>Additional text</Typography>
+          </Box>
+          <Box flexGrow={1} display="flex" justifyContent="flex-end">
             <Icon type="image" />
-          </CardColumn>
-        </CardRow>
-        <CardRow>
-          <CardColumn>
-            <Typography fontSize="16px" m={0} fontWeight="500">
+          </Box>
+        </Box>
+        <Box display="flex" pt="24px" pb="24px">
+          <Box flexGrow={1}>
+            <Typography m={0} weight="medium" textAlign="center">
               Body text
             </Typography>
-            <Heading title="More text" headingType="h2" divider={false} />
-            <Typography>Even more text</Typography>
-          </CardColumn>
-        </CardRow>
+            <div style={{ textAlign: "center" }}>
+              <Typography variant="h2">More text</Typography>
+            </div>
+            <Typography textAlign="center">Even more text</Typography>
+          </Box>
+        </Box>
       </Card>
     );
   },
 };
 DefaultStory.storyName = "Default";
+
+export const WithoutFooter: Story = () => {
+  return (
+    <Card>
+      <Box display="flex">
+        <Box flexGrow={1}>
+          <Typography variant="h1">Heading</Typography>
+          <Typography m={0}>Additional text</Typography>
+        </Box>
+        <Box flexGrow={1} display="flex" justifyContent="flex-end">
+          <Icon type="image" />
+        </Box>
+      </Box>
+      <Box display="flex" pt="24px" pb="24px">
+        <Box flexGrow={1}>
+          <Typography m={0} weight="medium" textAlign="center">
+            Body text
+          </Typography>
+          <Typography variant="h2" textAlign="center">
+            More text
+          </Typography>
+          <Typography textAlign="center">Even more text</Typography>
+        </Box>
+      </Box>
+    </Card>
+  );
+};
+WithoutFooter.storyName = "Without Footer";
+
+export const WithoutFooterInteractive: Story = () => {
+  const [clickCounter, setClickCounter] = useState(0);
+  return (
+    <Box>
+      <Typography variant="b" mb={2}>
+        Card has been clicked {clickCounter} times
+      </Typography>
+      <Card
+        onClick={() => setClickCounter((prevCounter) => prevCounter + 1)}
+        aria-label="Interactive card without footer"
+      >
+        <Box display="flex" width="100%">
+          <Box flexGrow={1}>
+            <Typography textAlign="left" variant="h1">
+              Heading
+            </Typography>
+            <Typography textAlign="left" m={0}>
+              Additional text
+            </Typography>
+          </Box>
+          <Box flexGrow={1} display="flex" justifyContent="flex-end">
+            <Icon type="image" />
+          </Box>
+        </Box>
+        <Box display="flex" pt="24px" pb="24px" width="100%">
+          <Box flexGrow={1}>
+            <Typography m={0} weight="medium" textAlign="center">
+              Body text
+            </Typography>
+            <Typography variant="h2" textAlign="center">
+              More text
+            </Typography>
+            <Typography textAlign="center">Even more text</Typography>
+          </Box>
+        </Box>
+      </Card>
+    </Box>
+  );
+};
+WithoutFooterInteractive.parameters = { chromatic: { disableSnapshot: true } };
+WithoutFooterInteractive.storyName = "Without Footer - Interactive";
+
+export const NoneSpacing: Story = () => {
+  return (
+    <Card
+      spacing="none"
+      footer={
+        <CardFooter>
+          <Box
+            pl="var(--global-space-comp-l)"
+            pr="var(--global-space-comp-l)"
+            pt="var(--global-space-comp-xl)"
+            pb="var(--global-space-comp-xl)"
+            flexGrow={1}
+          >
+            <Typography mb="0" textAlign="center">
+              <Link icon="link" href="https://carbon.sage.com/">
+                Footer link
+              </Link>
+            </Typography>
+          </Box>
+        </CardFooter>
+      }
+    >
+      <Box display="flex">
+        <Box flexGrow={1}>
+          <Typography variant="h1">Heading</Typography>
+          <Typography m={0}>Additional text</Typography>
+        </Box>
+        <Box flexGrow={1} display="flex" justifyContent="flex-end">
+          <Icon type="image" />
+        </Box>
+      </Box>
+      <Box display="flex">
+        <Box flexGrow={1}>
+          <Typography m={0} weight="medium" textAlign="center">
+            Body text
+          </Typography>
+          <div style={{ textAlign: "center" }}>
+            <Typography variant="h2">More text</Typography>
+          </div>
+          <Typography textAlign="center">Even more text</Typography>
+        </Box>
+      </Box>
+    </Card>
+  );
+};
+NoneSpacing.storyName = "No Spacing";
+
+export const ExtraSmallSpacing: Story = () => {
+  return (
+    <Card
+      spacing="extra-small"
+      footer={
+        <CardFooter>
+          <Box
+            pl="var(--global-space-comp-l)"
+            pr="var(--global-space-comp-l)"
+            pt="var(--global-space-comp-xl)"
+            pb="var(--global-space-comp-xl)"
+            flexGrow={1}
+          >
+            <Typography mb="0" textAlign="center">
+              <Link icon="link" href="https://carbon.sage.com/">
+                Footer link
+              </Link>
+            </Typography>
+          </Box>
+        </CardFooter>
+      }
+    >
+      <Box display="flex" width="100%">
+        <Box flexGrow={1}>
+          <Typography variant="h1">Heading</Typography>
+          <Typography m={0}>Additional text</Typography>
+        </Box>
+        <Box flexGrow={1} display="flex" justifyContent="flex-end">
+          <Icon type="image" />
+        </Box>
+      </Box>
+      <Box display="flex" pt="16px" pb="16px" width="100%">
+        <Box flexGrow={1}>
+          <Typography m={0} weight="medium" textAlign="center">
+            Body text
+          </Typography>
+          <div style={{ textAlign: "center" }}>
+            <Typography variant="h2">More text</Typography>
+          </div>
+          <Typography textAlign="center">Even more text</Typography>
+        </Box>
+      </Box>
+    </Card>
+  );
+};
+ExtraSmallSpacing.storyName = "Extra Small Spacing";
 
 export const SmallSpacing: Story = () => {
   return (
@@ -77,38 +310,97 @@ export const SmallSpacing: Story = () => {
       spacing="small"
       footer={
         <CardFooter>
-          <CardColumn>
-            <Link icon="link" href="https://carbon.sage.com/">
-              Footer link
-            </Link>
-          </CardColumn>
+          <Box
+            pl="var(--global-space-comp-l)"
+            pr="var(--global-space-comp-l)"
+            pt="var(--global-space-comp-xl)"
+            pb="var(--global-space-comp-xl)"
+            flexGrow={1}
+          >
+            <Typography mb="0" textAlign="center">
+              <Link icon="link" href="https://carbon.sage.com/">
+                Footer link
+              </Link>
+            </Typography>
+          </Box>
         </CardFooter>
       }
     >
-      <CardRow>
-        <CardColumn align="left">
-          <Heading title="Heading" divider={false} />
-          <Typography fontSize="16px" m={0}>
-            Additional text
-          </Typography>
-        </CardColumn>
-        <CardColumn align="right">
+      <Box display="flex">
+        <Box flexGrow={1}>
+          <Typography variant="h1">Heading</Typography>
+          <Typography m={0}>Additional text</Typography>
+        </Box>
+        <Box flexGrow={1} display="flex" justifyContent="flex-end">
           <Icon type="image" />
-        </CardColumn>
-      </CardRow>
-      <CardRow>
-        <CardColumn>
-          <Typography fontSize="16px" m={0} fontWeight="500">
+        </Box>
+      </Box>
+      <Box
+        display="flex"
+        pt="var(--global-space-comp-xl)"
+        pb="var(--global-space-comp-xl)"
+      >
+        <Box flexGrow={1}>
+          <Typography m={0} weight="medium" textAlign="center">
             Body text
           </Typography>
-          <Heading title="More text" headingType="h2" divider={false} />
-          <Typography>Even more text</Typography>
-        </CardColumn>
-      </CardRow>
+          <div style={{ textAlign: "center" }}>
+            <Typography variant="h2">More text</Typography>
+          </div>
+          <Typography textAlign="center">Even more text</Typography>
+        </Box>
+      </Box>
     </Card>
   );
 };
 SmallSpacing.storyName = "Small Spacing";
+
+export const MediumSpacing: Story = () => {
+  return (
+    <Card
+      spacing="medium"
+      footer={
+        <CardFooter>
+          <Box
+            pl="var(--global-space-comp-l)"
+            pr="var(--global-space-comp-l)"
+            pt="var(--global-space-comp-xl)"
+            pb="var(--global-space-comp-xl)"
+            flexGrow={1}
+          >
+            <Typography mb="0" textAlign="center">
+              <Link icon="link" href="https://carbon.sage.com/">
+                Footer link
+              </Link>
+            </Typography>
+          </Box>
+        </CardFooter>
+      }
+    >
+      <Box display="flex">
+        <Box flexGrow={1}>
+          <Typography variant="h1">Heading</Typography>
+          <Typography m={0}>Additional text</Typography>
+        </Box>
+        <Box flexGrow={1} display="flex" justifyContent="flex-end">
+          <Icon type="image" />
+        </Box>
+      </Box>
+      <Box display="flex" pt="24px" pb="24px">
+        <Box flexGrow={1}>
+          <Typography m={0} weight="medium" textAlign="center">
+            Body text
+          </Typography>
+          <div style={{ textAlign: "center" }}>
+            <Typography variant="h2">More text</Typography>
+          </div>
+          <Typography textAlign="center">Even more text</Typography>
+        </Box>
+      </Box>
+    </Card>
+  );
+};
+MediumSpacing.storyName = "Medium Spacing";
 
 export const LargeSpacing: Story = () => {
   return (
@@ -116,34 +408,42 @@ export const LargeSpacing: Story = () => {
       spacing="large"
       footer={
         <CardFooter>
-          <CardColumn>
-            <Link icon="link" href="https://carbon.sage.com/">
-              Footer link
-            </Link>
-          </CardColumn>
+          <Box
+            pl="var(--global-space-comp-l)"
+            pr="var(--global-space-comp-l)"
+            pt="var(--global-space-comp-xl)"
+            pb="var(--global-space-comp-xl)"
+            flexGrow={1}
+          >
+            <Typography mb="0" textAlign="center">
+              <Link icon="link" href="https://carbon.sage.com/">
+                Footer link
+              </Link>
+            </Typography>
+          </Box>
         </CardFooter>
       }
     >
-      <CardRow>
-        <CardColumn align="left">
-          <Heading title="Heading" divider={false} />
-          <Typography fontSize="16px" m={0}>
-            Additional text
-          </Typography>
-        </CardColumn>
-        <CardColumn align="right">
+      <Box display="flex">
+        <Box flexGrow={1}>
+          <Typography variant="h1">Heading</Typography>
+          <Typography m={0}>Additional text</Typography>
+        </Box>
+        <Box flexGrow={1} display="flex" justifyContent="flex-end">
           <Icon type="image" />
-        </CardColumn>
-      </CardRow>
-      <CardRow>
-        <CardColumn>
-          <Typography fontSize="16px" m={0} fontWeight="500">
+        </Box>
+      </Box>
+      <Box display="flex" pt="32px" pb="32px">
+        <Box flexGrow={1}>
+          <Typography m={0} weight="medium" textAlign="center">
             Body text
           </Typography>
-          <Heading title="More text" headingType="h2" divider={false} />
-          <Typography>Even more text</Typography>
-        </CardColumn>
-      </CardRow>
+          <div style={{ textAlign: "center" }}>
+            <Typography variant="h2">More text</Typography>
+          </div>
+          <Typography textAlign="center">Even more text</Typography>
+        </Box>
+      </Box>
     </Card>
   );
 };
@@ -155,34 +455,42 @@ export const WithWidthProvided: Story = () => {
       width="500px"
       footer={
         <CardFooter>
-          <CardColumn>
-            <Link icon="link" href="https://carbon.sage.com/">
-              Footer link
-            </Link>
-          </CardColumn>
+          <Box
+            pl="var(--global-space-comp-l)"
+            pr="var(--global-space-comp-l)"
+            pt="var(--global-space-comp-xl)"
+            pb="var(--global-space-comp-xl)"
+            flexGrow={1}
+          >
+            <Typography mb="0" textAlign="center">
+              <Link icon="link" href="https://carbon.sage.com/">
+                Footer link
+              </Link>
+            </Typography>
+          </Box>
         </CardFooter>
       }
     >
-      <CardRow>
-        <CardColumn align="left">
-          <Heading title="Heading" divider={false} />
-          <Typography fontSize="16px" m={0}>
-            Additional text
-          </Typography>
-        </CardColumn>
-        <CardColumn align="right">
+      <Box display="flex">
+        <Box flexGrow={1}>
+          <Typography variant="h1">Heading</Typography>
+          <Typography m={0}>Additional text</Typography>
+        </Box>
+        <Box flexGrow={1} display="flex" justifyContent="flex-end">
           <Icon type="image" />
-        </CardColumn>
-      </CardRow>
-      <CardRow>
-        <CardColumn>
-          <Typography fontSize="16px" m={0} fontWeight="500">
+        </Box>
+      </Box>
+      <Box display="flex" pt="32px" pb="32px">
+        <Box flexGrow={1}>
+          <Typography m={0} weight="medium" textAlign="center">
             Body text
           </Typography>
-          <Heading title="More text" headingType="h2" divider={false} />
-          <Typography>Even more text</Typography>
-        </CardColumn>
-      </CardRow>
+          <div style={{ textAlign: "center" }}>
+            <Typography variant="h2">More text</Typography>
+          </div>
+          <Typography textAlign="center">Even more text</Typography>
+        </Box>
+      </Box>
     </Card>
   );
 };
@@ -194,77 +502,93 @@ export const WithCustomHeight: Story = () => {
       height="500px"
       footer={
         <CardFooter>
-          <CardColumn>
-            <Link icon="link" href="https://carbon.sage.com/">
-              Footer link
-            </Link>
-          </CardColumn>
+          <Box
+            pl="var(--global-space-comp-l)"
+            pr="var(--global-space-comp-l)"
+            pt="var(--global-space-comp-xl)"
+            pb="var(--global-space-comp-xl)"
+            flexGrow={1}
+          >
+            <Typography mb="0" textAlign="center">
+              <Link icon="link" href="https://carbon.sage.com/">
+                Footer link
+              </Link>
+            </Typography>
+          </Box>
         </CardFooter>
       }
     >
-      <CardRow>
-        <CardColumn align="left">
-          <Heading title="Heading" divider={false} />
-          <Typography fontSize="16px" m={0}>
-            Additional text
-          </Typography>
-        </CardColumn>
-        <CardColumn align="right">
+      <Box display="flex">
+        <Box flexGrow={1}>
+          <Typography variant="h1">Heading</Typography>
+          <Typography m={0}>Additional text</Typography>
+        </Box>
+        <Box flexGrow={1} display="flex" justifyContent="flex-end">
           <Icon type="image" />
-        </CardColumn>
-      </CardRow>
-      <CardRow>
-        <CardColumn>
-          <Typography fontSize="16px" m={0} fontWeight="500">
+        </Box>
+      </Box>
+      <Box display="flex" pt="32px" pb="32px">
+        <Box flexGrow={1}>
+          <Typography m={0} weight="medium" textAlign="center">
             Body text
           </Typography>
-          <Heading title="More text" headingType="h2" divider={false} />
-          <Typography>Even more text</Typography>
-        </CardColumn>
-      </CardRow>
+          <div style={{ textAlign: "center" }}>
+            <Typography variant="h2">More text</Typography>
+          </div>
+          <Typography textAlign="center">Even more text</Typography>
+        </Box>
+      </Box>
     </Card>
   );
 };
 WithCustomHeight.storyName = "With Custom Height";
 
-export const WithExtraRoundness: Story = () => {
+export const WithCurvedRoundness: Story = () => {
   return (
     <Card
-      roundness="large"
+      roundness="curved"
       footer={
         <CardFooter>
-          <CardColumn>
-            <Link icon="link" href="https://carbon.sage.com/">
-              Footer link
-            </Link>
-          </CardColumn>
+          <Box
+            pl="var(--global-space-comp-l)"
+            pr="var(--global-space-comp-l)"
+            pt="var(--global-space-comp-xl)"
+            pb="var(--global-space-comp-xl)"
+            flexGrow={1}
+          >
+            <Typography mb="0" textAlign="center">
+              <Link icon="link" href="https://carbon.sage.com/">
+                Footer link
+              </Link>
+            </Typography>
+          </Box>
         </CardFooter>
       }
     >
-      <CardRow>
-        <CardColumn align="left">
-          <Heading title="Heading" divider={false} />
-          <Typography fontSize="16px" m={0}>
-            Additional text
-          </Typography>
-        </CardColumn>
-        <CardColumn align="right">
+      <Box display="flex">
+        <Box flexGrow={1}>
+          <Typography variant="h1">Heading</Typography>
+          <Typography m={0}>Additional text</Typography>
+        </Box>
+        <Box flexGrow={1} display="flex" justifyContent="flex-end">
           <Icon type="image" />
-        </CardColumn>
-      </CardRow>
-      <CardRow>
-        <CardColumn>
-          <Typography fontSize="16px" m={0} fontWeight="500">
+        </Box>
+      </Box>
+      <Box display="flex" pt="32px" pb="32px">
+        <Box flexGrow={1}>
+          <Typography m={0} weight="medium" textAlign="center">
             Body text
           </Typography>
-          <Heading title="More text" headingType="h2" divider={false} />
-          <Typography>Even more text</Typography>
-        </CardColumn>
-      </CardRow>
+          <div style={{ textAlign: "center" }}>
+            <Typography variant="h2">More text</Typography>
+          </div>
+          <Typography textAlign="center">Even more text</Typography>
+        </Box>
+      </Box>
     </Card>
   );
 };
-WithExtraRoundness.storyName = "With Extra Roundness";
+WithCurvedRoundness.storyName = "With Curved Roundness";
 
 export const Interactive: Story = () => {
   const [clickCounter, setClickCounter] = useState(0);
@@ -278,19 +602,29 @@ export const Interactive: Story = () => {
         aria-label="Card with button element"
         footer={
           <CardFooter>
-            <CardColumn>
-              <Link href="https://carbon.sage.com/">Footer link</Link>
-            </CardColumn>
+            <Box
+              pl="var(--global-space-comp-l)"
+              pr="var(--global-space-comp-l)"
+              pt="var(--global-space-comp-xl)"
+              pb="var(--global-space-comp-xl)"
+              flexGrow={1}
+            >
+              <Typography mb="0" textAlign="center">
+                <Link icon="link" href="https://carbon.sage.com/">
+                  Footer link
+                </Link>
+              </Typography>
+            </Box>
           </CardFooter>
         }
       >
-        <CardRow pt={3}>
-          <CardColumn>
-            <Typography fontSize="24px" m={0} fontWeight="bold">
+        <Box display="flex" pt="var(--global-space-comp-xl)">
+          <Box flexGrow={1}>
+            <Typography size="L" m={0} weight="medium" textAlign="center">
               This Card is a button as it has an onClick prop
             </Typography>
-          </CardColumn>
-        </CardRow>
+          </Box>
+        </Box>
       </Card>
       <Card
         href="#"
@@ -299,19 +633,29 @@ export const Interactive: Story = () => {
         aria-label="Card with anchor element"
         footer={
           <CardFooter>
-            <CardColumn>
-              <Link href="https://carbon.sage.com/">Footer link</Link>
-            </CardColumn>
+            <Box
+              pl="var(--global-space-comp-l)"
+              pr="var(--global-space-comp-l)"
+              pt="var(--global-space-comp-xl)"
+              pb="var(--global-space-comp-xl)"
+              flexGrow={1}
+            >
+              <Typography mb="0" textAlign="center">
+                <Link icon="link" href="https://carbon.sage.com/">
+                  Footer link
+                </Link>
+              </Typography>
+            </Box>
           </CardFooter>
         }
       >
-        <CardRow pt={3}>
-          <CardColumn>
-            <Typography fontSize="24px" m={0} fontWeight="bold">
+        <Box display="flex" pt="var(--global-space-comp-xl)">
+          <Box flexGrow={1}>
+            <Typography size="L" m={0} weight="medium" textAlign="center">
               This Card is a link as it has an href prop
             </Typography>
-          </CardColumn>
-        </CardRow>
+          </Box>
+        </Box>
       </Card>
     </Box>
   );
@@ -319,88 +663,114 @@ export const Interactive: Story = () => {
 Interactive.parameters = { chromatic: { disableSnapshot: true } };
 Interactive.storyName = "Interactive";
 
-export const WithCustomBoxShadow: Story = () => {
+export const Draggable: Story = () => {
   return (
     <Card
-      boxShadow="boxShadow400"
-      hoverBoxShadow="boxShadow200"
+      draggable
+      rightChildren={
+        <ActionPopover m={0} rightAlignMenu>
+          <ActionPopoverItem onClick={() => {}}>Move up</ActionPopoverItem>
+          <ActionPopoverItem onClick={() => {}}>Move down</ActionPopoverItem>
+          <ActionPopoverDivider />
+          <ActionPopoverItem onClick={() => {}}>Delete</ActionPopoverItem>
+          <ActionPopoverItem onClick={() => {}}>Edit</ActionPopoverItem>
+        </ActionPopover>
+      }
       footer={
         <CardFooter>
-          <CardColumn>
-            <Link icon="link" href="https://carbon.sage.com/">
-              Footer link
-            </Link>
-          </CardColumn>
+          <Box
+            pl="var(--global-space-comp-l)"
+            pr="var(--global-space-comp-l)"
+            pt="var(--global-space-comp-xl)"
+            pb="var(--global-space-comp-xl)"
+            flexGrow={1}
+          >
+            <Typography mb="0" textAlign="center">
+              <Link icon="link" href="https://carbon.sage.com/">
+                Footer link
+              </Link>
+            </Typography>
+          </Box>
         </CardFooter>
       }
     >
-      <CardRow>
-        <CardColumn align="left">
-          <Heading title="Heading" divider={false} />
-          <Typography fontSize="16px" m={0}>
-            Additional text
-          </Typography>
-        </CardColumn>
-        <CardColumn align="right">
+      <Box display="flex">
+        <Box flexGrow={1}>
+          <Typography variant="h1">Heading</Typography>
+          <Typography m={0}>Additional text</Typography>
+        </Box>
+        <Box flexGrow={1} display="flex" justifyContent="flex-end">
           <Icon type="image" />
-        </CardColumn>
-      </CardRow>
-      <CardRow>
-        <CardColumn>
-          <Typography fontSize="16px" m={0} fontWeight="500">
+        </Box>
+      </Box>
+      <Box display="flex" pt="24px" pb="24px">
+        <Box flexGrow={1}>
+          <Typography m={0} weight="medium" textAlign="center">
             Body text
           </Typography>
-          <Heading title="More text" headingType="h2" divider={false} />
-          <Typography>Even more text</Typography>
-        </CardColumn>
-      </CardRow>
+          <Typography variant="h2" textAlign="center">
+            More text
+          </Typography>
+          <Typography textAlign="center">Even more text</Typography>
+        </Box>
+      </Box>
     </Card>
   );
 };
-WithCustomBoxShadow.storyName = "With Custom Box Shadow";
+Draggable.storyName = "Draggable";
 
 export const DifferentCardRowPadding: Story = () => {
   return (
     <Card
       footer={
         <CardFooter>
-          <CardColumn>
-            <Link icon="link" href="https://carbon.sage.com/">
-              Footer link
-            </Link>
-          </CardColumn>
+          <Box
+            pl="var(--global-space-comp-l)"
+            pr="var(--global-space-comp-l)"
+            pt="var(--global-space-comp-xl)"
+            pb="var(--global-space-comp-xl)"
+            flexGrow={1}
+          >
+            <Typography mb="0" textAlign="center">
+              <Link icon="link" href="https://carbon.sage.com/">
+                Footer link
+              </Link>
+            </Typography>
+          </Box>
         </CardFooter>
       }
     >
-      <CardRow pt={2} pb={0}>
-        <CardColumn align="left">
-          <Heading title="Heading" divider={false} />
-          <Typography fontSize="16px" m={0}>
-            Additional text
-          </Typography>
-        </CardColumn>
-        <CardColumn align="right">
+      <Box display="flex" pt="var(--global-space-comp-xl)" pb="0">
+        <Box flexGrow={1}>
+          <Typography variant="h1">Heading</Typography>
+          <Typography m={0}>Additional text</Typography>
+        </Box>
+        <Box flexGrow={1} display="flex" justifyContent="flex-end">
           <Icon type="image" />
-        </CardColumn>
-      </CardRow>
-      <CardRow pt={0} pb={4}>
-        <CardColumn>
-          <Typography fontSize="16px" m={0} fontWeight="500">
+        </Box>
+      </Box>
+      <Box display="flex" pt="0" pb="var(--global-space-comp-l)">
+        <Box flexGrow={1}>
+          <Typography m={0} weight="medium" textAlign="center">
             Body text
           </Typography>
-          <Heading title="More text" headingType="h2" divider={false} />
-          <Typography>Even more text</Typography>
-        </CardColumn>
-      </CardRow>
-      <CardRow pt={0} pb={4}>
-        <CardColumn>
-          <Typography fontSize="16px" m={0} fontWeight="500">
+          <div style={{ textAlign: "center" }}>
+            <Typography variant="h2">More text</Typography>
+          </div>
+          <Typography textAlign="center">Even more text</Typography>
+        </Box>
+      </Box>
+      <Box display="flex" pt={0} pb={4}>
+        <Box flexGrow={1}>
+          <Typography m={0} weight="medium" textAlign="center">
             Body text
           </Typography>
-          <Heading title="More text" headingType="h2" divider={false} />
-          <Typography>Even more text</Typography>
-        </CardColumn>
-      </CardRow>
+          <div style={{ textAlign: "center" }}>
+            <Typography variant="h2">More text</Typography>
+          </div>
+          <Typography textAlign="center">Even more text</Typography>
+        </Box>
+      </Box>
     </Card>
   );
 };
@@ -415,144 +785,144 @@ export const DifferentCardFooterPadding: Story = () => {
           <CardFooter px={1} py={1}>
             <Box width="100%" display="flex" justifyContent="space-around">
               <Box flexGrow={1}>
-                <Button p={0} buttonType="tertiary" iconType="edit">
+                <Button p={0} variantType="tertiary" iconType="edit">
                   Edit Button
                 </Button>
               </Box>
               <Box>
-                <Button buttonType="primary"> Button </Button>
+                <Button variantType="primary"> Button </Button>
               </Box>
             </Box>
           </CardFooter>
         }
       >
-        <CardRow>
-          <CardColumn>
-            <Typography fontSize="16px" mt={2} mb={0} fontWeight="500">
+        <Box display="flex" pb="32px">
+          <Box flexGrow={1}>
+            <Typography mt={2} mb={0} weight="medium" textAlign="center">
               Here is some text
             </Typography>
-          </CardColumn>
-        </CardRow>
+          </Box>
+        </Box>
       </Card>
       <Card
         footer={
           <CardFooter px={2} py={1}>
             <Box width="100%" display="flex" justifyContent="space-around">
               <Box flexGrow={1}>
-                <Button p={0} buttonType="tertiary" iconType="edit">
+                <Button p={0} variantType="tertiary" iconType="edit">
                   Edit Button
                 </Button>
               </Box>
               <Box>
-                <Button buttonType="primary"> Button </Button>
+                <Button variantType="primary"> Button </Button>
               </Box>
             </Box>
           </CardFooter>
         }
       >
-        <CardRow>
-          <CardColumn>
-            <Typography fontSize="16px" mt={2} mb={0} fontWeight="500">
+        <Box display="flex" pb="32px">
+          <Box flexGrow={1}>
+            <Typography mt={2} mb={0} weight="medium" textAlign="center">
               Here is some text
             </Typography>
-          </CardColumn>
-        </CardRow>
+          </Box>
+        </Box>
       </Card>
       <Card
         footer={
           <CardFooter px={3} py={1}>
             <Box width="100%" display="flex" justifyContent="space-around">
               <Box flexGrow={1}>
-                <Button p={0} buttonType="tertiary" iconType="edit">
+                <Button p={0} variantType="tertiary" iconType="edit">
                   Edit Button
                 </Button>
               </Box>
               <Box>
-                <Button buttonType="primary"> Button </Button>
+                <Button variantType="primary"> Button </Button>
               </Box>
             </Box>
           </CardFooter>
         }
       >
-        <CardRow>
-          <CardColumn>
-            <Typography fontSize="16px" mt={2} mb={0} fontWeight="500">
+        <Box display="flex" pb="32px">
+          <Box flexGrow={1}>
+            <Typography mt={2} mb={0} weight="medium" textAlign="center">
               Here is some text
             </Typography>
-          </CardColumn>
-        </CardRow>
+          </Box>
+        </Box>
       </Card>
       <Card
         footer={
           <CardFooter px={4} py={1}>
             <Box width="100%" display="flex" justifyContent="space-around">
               <Box flexGrow={1}>
-                <Button p={0} buttonType="tertiary" iconType="edit">
+                <Button p={0} variantType="tertiary" iconType="edit">
                   Edit Button
                 </Button>
               </Box>
               <Box>
-                <Button buttonType="primary"> Button </Button>
+                <Button variantType="primary"> Button </Button>
               </Box>
             </Box>
           </CardFooter>
         }
       >
-        <CardRow>
-          <CardColumn>
-            <Typography fontSize="16px" mt={2} mb={0} fontWeight="500">
+        <Box display="flex" pb="32px">
+          <Box flexGrow={1}>
+            <Typography mt={2} mb={0} weight="medium" textAlign="center">
               Here is some text
             </Typography>
-          </CardColumn>
-        </CardRow>
+          </Box>
+        </Box>
       </Card>
       <Card
         footer={
           <CardFooter px={5} py={1}>
             <Box width="100%" display="flex" justifyContent="space-around">
               <Box flexGrow={1}>
-                <Button p={0} buttonType="tertiary" iconType="edit">
+                <Button p={0} variantType="tertiary" iconType="edit">
                   Edit Button
                 </Button>
               </Box>
               <Box>
-                <Button buttonType="primary"> Button </Button>
+                <Button variantType="primary"> Button </Button>
               </Box>
             </Box>
           </CardFooter>
         }
       >
-        <CardRow>
-          <CardColumn>
-            <Typography fontSize="16px" mt={2} mb={0} fontWeight="500">
+        <Box display="flex" pb="32px">
+          <Box flexGrow={1}>
+            <Typography mt={2} mb={0} weight="medium" textAlign="center">
               Here is some text
             </Typography>
-          </CardColumn>
-        </CardRow>
+          </Box>
+        </Box>
       </Card>
       <Card
         footer={
           <CardFooter px={5} py={2}>
             <Box width="100%" display="flex" justifyContent="space-around">
               <Box flexGrow={1}>
-                <Button p={0} buttonType="tertiary" iconType="edit">
+                <Button p={0} variantType="tertiary" iconType="edit">
                   Edit Button
                 </Button>
               </Box>
               <Box>
-                <Button buttonType="primary"> Button </Button>
+                <Button variantType="primary"> Button </Button>
               </Box>
             </Box>
           </CardFooter>
         }
       >
-        <CardRow>
-          <CardColumn>
-            <Typography fontSize="16px" mt={2} mb={0} fontWeight="500">
+        <Box display="flex" pb="32px">
+          <Box flexGrow={1}>
+            <Typography mt={2} mb={0} weight="medium" textAlign="center">
               Here is some text
             </Typography>
-          </CardColumn>
-        </CardRow>
+          </Box>
+        </Box>
       </Card>
     </Box>
   );
@@ -575,22 +945,41 @@ export const MoreExamplesOfCardFooter: Story = () => {
               justifyContent="space-around"
             >
               <Box flexGrow={1}>
-                <IconButton aria-label="Phone icon button" onClick={() => {}}>
-                  <Icon bgSize="medium" type="phone" />
-                </IconButton>
-                <IconButton aria-label="Phone icon button" onClick={() => {}}>
-                  <Icon bgSize="medium" type="phone" />
-                </IconButton>
-                <IconButton aria-label="Phone icon button" onClick={() => {}}>
-                  <Icon bgSize="medium" type="phone" />
-                </IconButton>
-                <IconButton aria-label="Phone icon button" onClick={() => {}}>
-                  <Icon bgSize="medium" type="phone" />
-                </IconButton>
+                <Button
+                  aria-label="Phone icon button"
+                  onClick={() => {}}
+                  iconType="phone"
+                  variantType="subtle"
+                  size="small"
+                  mr="8px"
+                />
+                <Button
+                  aria-label="Phone icon button"
+                  onClick={() => {}}
+                  iconType="phone"
+                  variantType="subtle"
+                  size="small"
+                  mr="8px"
+                />
+                <Button
+                  aria-label="Phone icon button"
+                  onClick={() => {}}
+                  iconType="phone"
+                  variantType="subtle"
+                  size="small"
+                  mr="8px"
+                />
+                <Button
+                  aria-label="Phone icon button"
+                  onClick={() => {}}
+                  iconType="phone"
+                  variantType="subtle"
+                  size="small"
+                />
               </Box>
               <Box>
-                <Button buttonType="tertiary"> Button </Button>
-                <Button buttonType="primary" ml={2}>
+                <Button variantType="tertiary"> Button </Button>
+                <Button variantType="primary" ml={2}>
                   Button
                 </Button>
               </Box>
@@ -598,13 +987,13 @@ export const MoreExamplesOfCardFooter: Story = () => {
           </CardFooter>
         }
       >
-        <CardRow>
-          <CardColumn>
-            <Typography fontSize="16px" mt={2} mb={0} fontWeight="500">
+        <Box display="flex" pb="32px">
+          <Box flexGrow={1}>
+            <Typography mt={2} mb={0} weight="medium" textAlign="center">
               Here is some text
             </Typography>
-          </CardColumn>
-        </CardRow>
+          </Box>
+        </Box>
       </Card>
       <Card
         width="400px"
@@ -620,7 +1009,8 @@ export const MoreExamplesOfCardFooter: Story = () => {
                 p={0}
                 iconPosition="after"
                 iconType="edit"
-                buttonType="tertiary"
+                variantType="tertiary"
+                mr={2}
               >
                 Edit Button
               </Button>
@@ -629,17 +1019,7 @@ export const MoreExamplesOfCardFooter: Story = () => {
                 p={0}
                 iconPosition="after"
                 iconType="edit"
-                buttonType="tertiary"
-                ml={2}
-              >
-                Edit Button
-              </Button>
-              <Divider py={0} px={2} h={30} />
-              <Button
-                p={0}
-                iconPosition="after"
-                iconType="edit"
-                buttonType="tertiary"
+                variantType="tertiary"
                 ml={2}
               >
                 Edit Button
@@ -648,13 +1028,13 @@ export const MoreExamplesOfCardFooter: Story = () => {
           </CardFooter>
         }
       >
-        <CardRow>
-          <CardColumn>
-            <Typography fontSize="16px" mt={2} mb={0} fontWeight="500">
+        <Box display="flex" pb="32px">
+          <Box flexGrow={1}>
+            <Typography mt={2} mb={0} weight="medium" textAlign="center">
               Here is some text
             </Typography>
-          </CardColumn>
-        </CardRow>
+          </Box>
+        </Box>
       </Card>
       <Card
         width="400px"
@@ -670,7 +1050,8 @@ export const MoreExamplesOfCardFooter: Story = () => {
                 p={0}
                 iconPosition="after"
                 iconType="edit"
-                buttonType="tertiary"
+                variantType="tertiary"
+                mr={2}
               >
                 Edit Button
               </Button>
@@ -679,17 +1060,7 @@ export const MoreExamplesOfCardFooter: Story = () => {
                 p={0}
                 iconPosition="after"
                 iconType="edit"
-                buttonType="tertiary"
-                ml={2}
-              >
-                Edit Button
-              </Button>
-              <Divider py={0} px={2} h={30} />
-              <Button
-                p={0}
-                iconPosition="after"
-                iconType="edit"
-                buttonType="tertiary"
+                variantType="tertiary"
                 ml={2}
               >
                 Edit Button
@@ -698,13 +1069,13 @@ export const MoreExamplesOfCardFooter: Story = () => {
           </CardFooter>
         }
       >
-        <CardRow>
-          <CardColumn>
-            <Typography fontSize="16px" mt={2} mb={0} fontWeight="500">
+        <Box display="flex" pb="32px">
+          <Box flexGrow={1}>
+            <Typography mt={2} mb={0} weight="medium" textAlign="center">
               Here is some text
             </Typography>
-          </CardColumn>
-        </CardRow>
+          </Box>
+        </Box>
       </Card>
       <Card
         footer={
@@ -717,21 +1088,15 @@ export const MoreExamplesOfCardFooter: Story = () => {
           </CardFooter>
         }
       >
-        <CardRow>
-          <CardColumn>
-            <Typography fontSize="16px" mt={2} mb={0} fontWeight="500">
+        <Box display="flex" pb="32px">
+          <Box flexGrow={1}>
+            <Typography mt={2} mb={0} weight="medium" textAlign="center">
               Here is some text
             </Typography>
-          </CardColumn>
-        </CardRow>
+          </Box>
+        </Box>
       </Card>
     </Box>
   );
 };
 MoreExamplesOfCardFooter.storyName = "More Examples of Card Footer";
-
-export const WithStringAsChild: Story = () => {
-  return <Card>String passed as child</Card>;
-};
-WithStringAsChild.parameters = { chromatic: { disableSnapshot: true } };
-WithStringAsChild.storyName = "With String as Child";
