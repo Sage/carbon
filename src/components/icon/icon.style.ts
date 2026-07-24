@@ -96,6 +96,12 @@ const styleOverrides = css`
   .button-toggle && {
     color: currentColor;
   }
+
+  .step-indicator && {
+    color: currentColor;
+    width: inherit;
+    height: inherit;
+  }
 `;
 
 const StyledIcon = styled.span.attrs(applyBaseTheme)<

@@ -1,3 +1,9 @@
+## [161.7.0](https://github.com/Sage/carbon/compare/v161.6.0...v161.7.0) (2026-07-24)
+
+### Features
+
+* **step-sequence:** align with Fusion DS ([6d38110](https://github.com/Sage/carbon/commit/6d381104c506421b61961b3c4be0fe6348947faf))
+
 ## [161.6.0](https://github.com/Sage/carbon/compare/v161.5.0...v161.6.0) (2026-07-23)
 
 ### Features

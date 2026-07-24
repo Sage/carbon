@@ -13,64 +13,50 @@ export const StepSequenceComponent = ({ ...props }) => {
         hiddenCurrentLabel="Current"
         indicator="1"
         status="complete"
-      >
-        Name
-      </StepSequenceItem>
+        title="Name"
+      />
       <StepSequenceItem
         aria-label="Step 2 of 5"
         hiddenCompleteLabel="Complete"
         hiddenCurrentLabel="Current"
         indicator="2"
         status="complete"
-      >
-        Delivery Address
-      </StepSequenceItem>
+        title="Delivery Address"
+      />
       <StepSequenceItem
         aria-label="Step 3 of 5"
         hiddenCompleteLabel="Complete"
         hiddenCurrentLabel="Current"
         indicator="3"
         status="current"
-      >
-        Delivery Details
-      </StepSequenceItem>
+        title="Delivery Details"
+      />
       <StepSequenceItem
         aria-label="Step 4 of 5"
         hiddenCompleteLabel="Complete"
         hiddenCurrentLabel="Current"
         indicator="4"
         status="incomplete"
-      >
-        Payment
-      </StepSequenceItem>
+        title="Payment"
+      />
       <StepSequenceItem
         aria-label="Step 5 of 5"
         hiddenCompleteLabel="Complete"
         hiddenCurrentLabel="Current"
         indicator="5"
         status="incomplete"
-      >
-        Confirm
-      </StepSequenceItem>
+        title="Confirm"
+      />
     </StepSequence>
   );
 };
 
-export const StepSequenceItemCustom = (
+export const StepSequenceItemComponent = (
   props: Partial<StepSequenceItemProps>,
 ) => {
   return (
     <StepSequence>
-      <StepSequenceItem
-        aria-label="Step 1 of 5"
-        hiddenCompleteLabel="Complete"
-        hiddenCurrentLabel="Current"
-        indicator="1"
-        status="complete"
-        {...props}
-      >
-        Name
-      </StepSequenceItem>
+      <StepSequenceItem indicator="1" title="Step" {...props} />
     </StepSequence>
   );
 };
