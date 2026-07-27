@@ -260,8 +260,8 @@ const ptPT: Partial<Locale> = {
     closeIconAriaLabel: () => "Fechar",
   },
   switch: {
-    on: () => "ON",
-    off: () => "OFF",
+    on: () => "On",
+    off: () => "Off",
     processingLabel: () => "A processar",
   },
   tileSelect: {
