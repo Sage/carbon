@@ -6,7 +6,6 @@ import React, {
   useEffect,
   useMemo,
 } from "react";
-import { ThemeContext } from "styled-components";
 import { MarginProps } from "styled-system";
 import { flip, offset } from "@floating-ui/dom";
 
@@ -22,7 +21,6 @@ import {
   filterStyledSystemMarginProps,
   filterOutStyledSystemSpacingProps,
 } from "../../style/utils";
-import { baseTheme } from "../../style/themes";
 import useChildButtons from "../../hooks/__internal__/useChildButtons";
 import useAdaptiveSidebarModalFocus from "../../hooks/__internal__/useAdaptiveSidebarModalFocus";
 import SplitButtonContext from "./__internal__/split-button.context";
@@ -92,7 +90,6 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
     ref,
   ) => {
     const locale = useLocale();
-    const theme = useContext(ThemeContext) || baseTheme;
     const buttonLabelId = useRef(guid());
     const submenuId = useRef(guid());
 
@@ -165,14 +162,6 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
 
     useAdaptiveSidebarModalFocus(() => hideButtons());
 
-    function getIconColor() {
-      const colorsMap = {
-        primary: theme.colors.white,
-        secondary: theme.colors.primary,
-      };
-      return colorsMap[buttonType];
-    }
-
     const renderMainButton = () => (
       <>
         <Button
@@ -208,12 +197,7 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
           onKeyDown={handleToggleButtonKeyDown}
           onClick={handleToggleClick}
         >
-          <Icon
-            type="dropdown"
-            color={getIconColor()}
-            bg="transparent"
-            disabled={disabled}
-          />
+          <Icon type="dropdown" color="inherit" bg="transparent" />
         </StyledSplitButtonToggle>
       </>
     );

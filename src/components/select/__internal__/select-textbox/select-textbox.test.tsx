@@ -175,6 +175,20 @@ test("does not call onFocus callback when textbox is read only", () => {
 });
 
 describe("when selectType is 'simple'", () => {
+  it("includes the prefix in the combobox accessible description", () => {
+    render(
+      <ControlledSelectTextbox
+        selectType="simple"
+        label="Select Colour"
+        prefix="prefix"
+      />,
+    );
+
+    expect(
+      screen.getByRole("combobox", { name: /Select Colour/i }),
+    ).toHaveAccessibleDescription("prefix");
+  });
+
   it("applies correct styles when transparent", () => {
     render(
       <ControlledSelectTextbox

@@ -142,8 +142,10 @@ type AdditionalIconButtonProps = {
 };
 
 const PopoverContainerOpenIcon = styled(IconButton)<AdditionalIconButtonProps>`
+  color: var(--colorsActionMinor500);
+
   ${StyledIcon} {
-    color: var(--colorsActionMinor500);
+    color: inherit;
   }
 `;
 
@@ -151,9 +153,10 @@ const PopoverContainerCloseIcon = styled(IconButton)<AdditionalIconButtonProps>`
   position: absolute;
   top: 16px;
   right: 24px;
+  color: var(--colorsActionMinor500);
 
   ${StyledIcon} {
-    color: var(--colorsActionMinor500);
+    color: inherit;
   }
 `;
 

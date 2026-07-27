@@ -24,7 +24,6 @@ description: Carbon Option component props and usage examples.
 | autoCorrect | string \| undefined | No |  |  |  |  |  |
 | autoFocus | boolean \| undefined | No |  |  |  |  |  |
 | autoSave | string \| undefined | No |  |  |  |  |  |
-| borderColor | string \| undefined | No |  |  |  | MultiSelect only - custom Pill border color - provide any color from palette or any valid css color value. |  |
 | capture | boolean \| "user" \| "environment" \| undefined | No |  |  |  |  |  |
 | checked | boolean \| undefined | No |  |  |  |  |  |
 | children | React.ReactNode | No |  |  |  | Alternative rendered content, displayed within `<SelectList>` of `<Select>` (eg: an icon, an image, etc) |  |
@@ -256,6 +255,7 @@ description: Carbon Option component props and usage examples.
 | typeof | string \| undefined | No |  |  |  |  |  |
 | unselectable | "off" \| "on" \| undefined | No |  |  |  |  |  |
 | value | string \| Record<string, unknown> \| undefined | No |  |  |  | The option's invisible internal value, if this is not passed the option will not be treated as interactive or selectable |  |
+| variant | "grey" \| "green" \| "red" \| "orange" \| "blue" \| "purple" \| "teal" \| "lime" \| "pink" \| "slate" \| undefined | No |  |  |  | MultiSelect only - set Pill color variant |  |
 | vocab | string \| undefined | No |  |  |  |  |  |
 | width | string \| number \| undefined | No |  |  |  |  |  |
 | data-element | string \| undefined | No |  |  |  | Identifier used for testing purposes, applied to the root element of the component. |  |
@@ -311,6 +311,7 @@ description: Carbon Option component props and usage examples.
 | aria-valuemin | number \| undefined | No |  |  |  | Defines the minimum allowed value for a range widget. |  |
 | aria-valuenow | number \| undefined | No |  |  |  | Defines the current value for a range widget. |  |
 | aria-valuetext | string \| undefined | No |  |  |  | Defines the human readable text alternative of aria-valuenow for a range widget. |  |
+| borderColor | string \| undefined | No |  | Yes | Use `variant` prop instead. | MultiSelect only - legacy Pill color override retained for backwards compatibility. |  |
 | onKeyPress | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUp` or `onKeyDown` instead |  |  |
 | onKeyPressCapture | KeyboardEventHandler<T> \| undefined | No |  | Yes | Use `onKeyUpCapture` or `onKeyDownCapture` instead |  |  |
 | aria-dropeffect | "copy" \| "link" \| "none" \| "execute" \| "move" \| "popup" \| undefined | No |  | Yes | in ARIA 1.1 | Indicates what functions can be performed when a dragged object is released on the drop target. |  |

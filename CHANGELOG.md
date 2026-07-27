@@ -1,3 +1,34 @@
+## [161.7.0](https://github.com/Sage/carbon/compare/v161.6.0...v161.7.0) (2026-07-24)
+
+### Features
+
+* **step-sequence:** align with Fusion DS ([6d38110](https://github.com/Sage/carbon/commit/6d381104c506421b61961b3c4be0fe6348947faf))
+
+## [161.6.0](https://github.com/Sage/carbon/compare/v161.5.0...v161.6.0) (2026-07-23)
+
+### Features
+
+* **progress-tracker:** align with Fusion DS ([a2c0992](https://github.com/Sage/carbon/commit/a2c0992022ac0fe71e7a4241d8519848f2d57dab))
+
+## [161.5.0](https://github.com/Sage/carbon/compare/v161.4.2...v161.5.0) (2026-07-22)
+
+### Features
+
+* **multi-select:** update multi-select to use updated pill ([d819735](https://github.com/Sage/carbon/commit/d819735d03f8ba640c85dd2d8954c2c86ccfad07))
+* **pill:** align pill with fusion ds ([49a89af](https://github.com/Sage/carbon/commit/49a89af8b4470a6d34b85e867376cc436efcf626))
+
+## [161.4.2](https://github.com/Sage/carbon/compare/v161.4.1...v161.4.2) (2026-07-22)
+
+### Bug Fixes
+
+* **multi-select, simple-select:** ensure correct prefix usage ([b3311b4](https://github.com/Sage/carbon/commit/b3311b4b0217fa8206a640e3249eab27341cca88)), closes [#8060](https://github.com/Sage/carbon/issues/8060)
+
+## [161.4.1](https://github.com/Sage/carbon/compare/v161.4.0...v161.4.1) (2026-07-22)
+
+### Bug Fixes
+
+* **flat-table:** preserve button icon color in table cells ([7390caf](https://github.com/Sage/carbon/commit/7390caf2e83a91e39bbea626adf606bcbe13cca1))
+
 ## [161.4.0](https://github.com/Sage/carbon/compare/v161.3.1...v161.4.0) (2026-07-21)
 
 ### Features

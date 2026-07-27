@@ -19,157 +19,99 @@ const meta: Meta<typeof ProgressTracker> = {
   parameters: {
     chromatic: { disableSnapshot: true },
   },
+  decorators: [
+    (Story) => (
+      <Box
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        width="100%"
+        gap={4}
+      >
+        <Story />
+      </Box>
+    ),
+  ],
 };
 
 export default meta;
 type Story = StoryObj<typeof ProgressTracker>;
 
-export const Default: Story = () => {
-  return (
-    <Box display="flex" justifyContent="space-around">
-      <ProgressTracker progress={50} />
-    </Box>
-  );
+export const Default: Story = {
+  render: (args) => <ProgressTracker {...args} />,
+  args: {
+    progress: 50,
+  },
 };
-Default.storyName = "Default";
 
-export const SizeSmall: Story = () => {
-  return (
-    <Box display="flex" justifyContent="space-around">
-      <ProgressTracker size="small" progress={50} />
-    </Box>
-  );
+export const WithDescription: Story = {
+  ...Default,
+  args: {
+    ...Default.args,
+    description: "Description",
+  },
 };
-SizeSmall.storyName = "Size - Small";
 
-export const SizeLarge: Story = () => {
-  return (
-    <Box display="flex" justifyContent="space-around">
-      <ProgressTracker size="large" progress={50} />
-    </Box>
-  );
+export const CustomLabelValues: Story = {
+  render: (args) => <ProgressTracker {...args} />,
+  args: {
+    currentProgressLabel: "£75",
+    maxProgressLabel: "£200",
+    customValuePreposition: "out of",
+    progress: Math.round((75 / 200) * 100),
+  },
 };
-SizeLarge.storyName = "Size - Large";
 
-export const CustomBarLength: Story = () => {
-  return (
-    <Box display="flex" justifyContent="space-around">
-      <ProgressTracker progress={50} length="150px" />
-    </Box>
-  );
+export const CustomLength: Story = {
+  ...Default,
+  args: {
+    ...Default.args,
+    length: "500px",
+  },
 };
-CustomBarLength.storyName = "Custom Bar Length";
 
-export const ColorVariants: Story = () => {
-  return (
-    <Box display="flex" flexDirection="column" alignItems="center">
-      <ProgressTracker progress={15} currentProgressLabel="15%" />
-      <ProgressTracker mt={2} progress={50} currentProgressLabel="50%" />
-      <ProgressTracker mt={2} progress={100} currentProgressLabel="100%" />
-      <ProgressTracker
-        mt={2}
-        progress={100}
-        error
-        currentProgressLabel="error"
-      />
-    </Box>
-  );
+export const LabelsPosition: Story = {
+  render: (args) => (
+    <>
+      <ProgressTracker labelsPosition="top" description="Top" {...args} />
+      <ProgressTracker labelsPosition="bottom" description="Bottom" {...args} />
+      <ProgressTracker labelsPosition="left" description="Left" {...args} />
+    </>
+  ),
+  args: {
+    progress: 50,
+    currentProgressLabel: "50%",
+  },
 };
-ColorVariants.storyName = "Color Variants";
 
-export const CustomLabelValues: Story = () => {
-  return (
-    <Box display="flex" flexDirection="column" alignItems="center">
-      <ProgressTracker
-        progress={50}
-        currentProgressLabel="$50"
-        maxProgressLabel="$200"
-      />
-      <ProgressTracker
-        mt={2}
-        progress={70}
-        currentProgressLabel="Step 3"
-        maxProgressLabel="5"
-        description="Adding VAT"
-      />
-      <ProgressTracker mt={2} progress={100} currentProgressLabel="$200" />
-      <ProgressTracker
-        mt={2}
-        progress={100}
-        error
-        currentProgressLabel="error"
-      />
-    </Box>
-  );
+export const Sizes: Story = {
+  render: (args) => (
+    <>
+      <ProgressTracker size="small" description="Small" {...args} />
+      <ProgressTracker size="medium" description="Medium" {...args} />
+      <ProgressTracker size="large" description="Large" {...args} />
+    </>
+  ),
+  args: {
+    progress: 50,
+  },
 };
-CustomLabelValues.storyName = "Custom Label Values";
 
-export const LabelsPositionBottom: Story = () => {
-  return (
-    <Box display="flex" flexDirection="column" alignItems="center">
+export const Variants: Story = {
+  render: (args) => (
+    <>
+      <ProgressTracker variant="neutral" description="Neutral" {...args} />
+      <ProgressTracker variant="warning" description="Warning" {...args} />
       <ProgressTracker
-        mt={2}
-        labelsPosition="bottom"
-        progress={15}
-        currentProgressLabel="15%"
+        variant="information"
+        description="Information"
+        {...args}
       />
-      <ProgressTracker
-        mt={2}
-        labelsPosition="bottom"
-        progress={50}
-        currentProgressLabel="50%"
-      />
-      <ProgressTracker
-        mt={2}
-        labelsPosition="bottom"
-        progress={100}
-        currentProgressLabel="100%"
-      />
-      <ProgressTracker
-        mt={2}
-        labelsPosition="bottom"
-        progress={100}
-        error
-        currentProgressLabel="error"
-      />
-    </Box>
-  );
+      <ProgressTracker variant="error" description="Error" {...args} />
+      <ProgressTracker variant="success" description="Success" {...args} />
+    </>
+  ),
+  args: {
+    progress: 50,
+  },
 };
-LabelsPositionBottom.storyName = "Label Position Bottom";
-
-export const LabelPositionLeft: Story = () => {
-  return (
-    <Box display="flex" flexDirection="column" alignItems="center">
-      <ProgressTracker
-        mt={2}
-        labelsPosition="left"
-        progress={15}
-        currentProgressLabel="15%"
-        labelWidth="40px"
-      />
-      <ProgressTracker
-        mt={2}
-        labelsPosition="left"
-        progress={50}
-        currentProgressLabel="50%"
-        labelWidth="40px"
-      />
-      <ProgressTracker
-        mt={2}
-        labelsPosition="left"
-        progress={100}
-        currentProgressLabel="100%"
-        labelWidth="40px"
-      />
-      <ProgressTracker
-        mt={2}
-        labelsPosition="left"
-        progress={100}
-        error
-        currentProgressLabel="error"
-        labelWidth="40px"
-      />
-    </Box>
-  );
-};
-LabelPositionLeft.storyName = "Label Position Left";

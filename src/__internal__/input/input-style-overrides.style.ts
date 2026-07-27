@@ -279,6 +279,11 @@ const mulitiSelectInputStyles = ($size?: string) => css`
         padding: var(--global-space-none) 48px var(--global-space-none)
           var(--global-space-comp-l);
       `}
+
+      span[data-element="textbox-prefix"] {
+        margin-left: var(--global-space-comp-none);
+        margin-right: var(--global-space-comp-m);
+      }
     }
   }
 `;
@@ -291,6 +296,11 @@ const simpleSelectStyles = css`
 
     input {
       cursor: pointer;
+    }
+
+    [data-element="textbox-prefix"] {
+      margin-left: var(--global-space-comp-none);
+      margin-right: var(--global-space-comp-m);
     }
   }
 `;

@@ -126,16 +126,19 @@ describe("when value prop is provided", () => {
         value={["amber"]}
         placeholder="Select a colour"
       >
-        <Option text="amber" value="amber" borderColor="red" fill />
+        <Option text="amber" value="amber" variant="red" fill />
       </InteractiveComponent>,
     );
 
     const amberPill = screen.getByTitle("amber");
     expect(amberPill).toHaveStyle(`
-      background-color: rgb(255, 0, 0);
+      background-color: var(--pill-red-bg-default);
     `);
 
-    expect(amberPill).toHaveStyleRule("border", "2px solid red");
+    expect(amberPill).toHaveStyleRule(
+      "border",
+      "var(--global-borderwidth-s) solid var(--pill-red-border-default)",
+    );
   });
 
   it("does not display a pill, when value array contains an unmatched option", () => {

@@ -16,6 +16,7 @@ import {
   StyledButtonChildrenContainer,
 } from "./multi-action-button.style";
 import Button from "../button";
+import Icon from "../icon";
 import Popover from "../../__internal__/popover";
 import {
   filterStyledSystemMarginProps,
@@ -160,7 +161,6 @@ export const MultiActionButton = forwardRef<
           key="toggle-button"
           ref={buttonRef}
           iconPosition="after"
-          iconType="dropdown"
           disabled={disabled}
           buttonType={buttonType}
           size={size}
@@ -170,6 +170,7 @@ export const MultiActionButton = forwardRef<
           {...filterOutStyledSystemSpacingProps(rest)}
         >
           {text}
+          <Icon type="dropdown" color="inherit" bg="transparent" />
         </Button>
         {renderAdditionalButtons()}
       </StyledMultiActionButton>

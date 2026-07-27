@@ -77,8 +77,10 @@ test("when `status` is uploading, the component renders a progress tracker bar w
     />,
   );
 
-  expect(screen.getByTestId("progress-tracker-bar")).toBeVisible();
-  expect(screen.getByTestId("inner-bar")).toHaveStyle({ width: "30%" });
+  const progressBar = screen.getByTestId("progress-tracker-bar");
+
+  expect(progressBar).toBeVisible();
+  expect(progressBar).toHaveStyleRule("width", "30%", { modifier: "::after" });
 });
 
 test("when `status` is uploading, the component renders a loader bar if the progress prop is not provided", () => {
