@@ -1,4 +1,10 @@
-import React, { MutableRefObject, useContext, useRef, RefObject } from "react";
+import React, {
+  MutableRefObject,
+  useContext,
+  useRef,
+  RefObject,
+  useEffect,
+} from "react";
 import { createPortal } from "react-dom";
 import { flip, Placement, Middleware } from "@floating-ui/dom";
 
@@ -115,6 +121,25 @@ const Popover = ({ disablePortal, ...props }: PopoverProps) => {
   const { isInModal } = useContext<ModalContextProps>(ModalContext);
   const closestDialog =
     props.reference.current?.closest<HTMLElement>("[role='dialog']");
+  const [mode, setMode] = React.useState<string | undefined>();
+
+  useEffect(() => {
+    const wrapper = props.reference.current?.closest("[data-carbon-theme]");
+    if (!wrapper) return;
+
+    setMode(wrapper.getAttribute("data-carbon-theme") ?? undefined);
+
+    const observer = new MutationObserver(() => {
+      setMode(wrapper.getAttribute("data-carbon-theme") ?? undefined);
+    });
+
+    observer.observe(wrapper, {
+      attributes: true,
+      attributeFilter: ["data-carbon-theme"],
+    });
+
+    return () => observer.disconnect();
+  }, [props.reference]);
 
   if (disablePortal) {
     return <PopoverRoot {...props} />;
@@ -125,7 +150,10 @@ const Popover = ({ disablePortal, ...props }: PopoverProps) => {
   }
 
   return createPortal(
-    <CarbonScopedTokensProvider className="carbon-portal-scoped-tokens-provider">
+    <CarbonScopedTokensProvider
+      className="carbon-portal-scoped-tokens-provider"
+      {...(mode && { "data-carbon-theme": mode })}
+    >
       <PopoverRoot {...props} />
     </CarbonScopedTokensProvider>,
     isInModal && closestDialog ? closestDialog : document.body,

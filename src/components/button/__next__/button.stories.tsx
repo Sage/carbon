@@ -142,32 +142,35 @@ export const FullWidth: Story = () => {
 };
 FullWidth.storyName = "Full-Width";
 
-export const Inverse: Story = () => {
-  return (
-    <Box
-      backgroundColor="#333"
-      p={2}
-      display="flex"
-      flexDirection="row"
-      gap={1}
-      alignItems="flex-start"
-    >
-      <Button variant="default" variantType="primary" size="medium" inverse>
-        Primary Medium
-      </Button>
-      <Button variant="default" variantType="secondary" size="medium" inverse>
-        Secondary Medium
-      </Button>
-      <Button variant="default" variantType="tertiary" size="medium" inverse>
-        Tertiary Medium
-      </Button>
-      <Button variant="default" variantType="subtle" size="medium" inverse>
-        Subtle Medium
-      </Button>
-    </Box>
-  );
+export const Inverse: Story = {
+  name: "Inverse",
+  render: (_args, { globals }) => {
+    const isDark = (globals.mode as "light" | "dark" | undefined) === "dark";
+    return (
+      <Box
+        backgroundColor={isDark ? "#f5f5f5" : "#333333"}
+        p={2}
+        display="flex"
+        flexDirection="row"
+        gap={1}
+        alignItems="flex-start"
+      >
+        <Button variant="default" variantType="primary" size="medium" inverse>
+          Primary Medium
+        </Button>
+        <Button variant="default" variantType="secondary" size="medium" inverse>
+          Secondary Medium
+        </Button>
+        <Button variant="default" variantType="tertiary" size="medium" inverse>
+          Tertiary Medium
+        </Button>
+        <Button variant="default" variantType="subtle" size="medium" inverse>
+          Subtle Medium
+        </Button>
+      </Box>
+    );
+  },
 };
-Inverse.storyName = "Inverse";
 
 export const Loading: Story = () => {
   return (

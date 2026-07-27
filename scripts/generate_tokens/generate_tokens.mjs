@@ -127,7 +127,7 @@ if (includeDarkMode) {
   staticTokensCSS = `
 ${lightCSS}
 ${zIndexTokens}
-.carbon-dark-mode, [data-carbon-theme="dark"] {
+&.carbon-dark-mode, &[data-carbon-theme="dark"] {
   ${darkCSS}
 }
 `;
