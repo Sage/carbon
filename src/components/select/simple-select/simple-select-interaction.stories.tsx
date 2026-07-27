@@ -162,6 +162,44 @@ export const HighlightedItem: Story = {
 
 HighlightedItem.storyName = "Highlighted Item";
 
+export const Prefix: Story = {
+  render: () => (
+    <Box height={250}>
+      <InteractiveComponent
+        onChange={() => {}}
+        name="simple-prefix"
+        id="simple-prefix"
+        label="Color"
+        prefix="prefix"
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </InteractiveComponent>
+    </Box>
+  ),
+  play: async ({ canvasElement }) => {
+    if (!allowInteractions()) {
+      return;
+    }
+    const canvas = within(canvasElement);
+    const select = canvas.getByRole("combobox", { name: "Color" });
+    await userEvent.click(select, { delay: 100 });
+
+    await expect(
+      within(document.body).getByRole("option", { name: "Amber" }),
+    ).toBeVisible();
+  },
+  decorators: [
+    (StoryToRender) => (
+      <DefaultDecorator>
+        <StoryToRender />
+      </DefaultDecorator>
+    ),
+  ],
+};
+Prefix.storyName = "Prefix";
+
 /* Also demonstrates that falsy children are filtered out correctly */
 export const SelectedItemHover: Story = {
   render: () => (
@@ -450,11 +488,11 @@ export const ComplexOptions: Story = {
               <Icon type="error" color="errorRed" />
               <Box ml={1} width="100%">
                 <Box mb={1}>
-                  <Typography variant="b" color="errorRed">
+                  <Typography variant="b" color="negative">
                     Something went wrong
                   </Typography>
                 </Box>
-                <Typography variant="p" color="errorRed" mb={0}>
+                <Typography variant="p" color="negative" mb={0}>
                   We couldn't load the data. Please try again later.
                 </Typography>
               </Box>

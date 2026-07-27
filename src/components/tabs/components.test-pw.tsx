@@ -80,11 +80,6 @@ export const TabsComponentValidations = (props: Partial<TabsProps>) => {
     two: true,
     three: false,
   });
-  const [infos, setInfos] = React.useState({
-    one: true,
-    two: true,
-    three: true,
-  });
   return (
     <Tabs align="left" position="top" {...props}>
       <Tab
@@ -107,12 +102,6 @@ export const TabsComponentValidations = (props: Partial<TabsProps>) => {
           onChange={() => setWarnings({ ...warnings, one: !warnings.one })}
           checked={warnings.one}
         />
-        <Checkbox
-          label="Add info"
-          info={infos.one}
-          onChange={() => setInfos({ ...infos, one: !infos.one })}
-          checked={infos.one}
-        />
       </Tab>
       <Tab
         errorMessage="error"
@@ -133,12 +122,6 @@ export const TabsComponentValidations = (props: Partial<TabsProps>) => {
           warning={warnings.two}
           onChange={() => setWarnings({ ...warnings, two: !warnings.two })}
           checked={warnings.two}
-        />
-        <Checkbox
-          label="Add info"
-          info={infos.two}
-          onChange={() => setInfos({ ...infos, two: !infos.two })}
-          checked={infos.two}
         />
       </Tab>
       <Tab
@@ -161,12 +144,6 @@ export const TabsComponentValidations = (props: Partial<TabsProps>) => {
           onChange={() => setWarnings({ ...warnings, three: !warnings.three })}
           checked={warnings.three}
         />
-        <Checkbox
-          label="Add info"
-          info={infos.three}
-          onChange={() => setInfos({ ...infos, three: !infos.three })}
-          checked={infos.three}
-        />
       </Tab>
     </Tabs>
   );
@@ -175,7 +152,7 @@ export const TabsComponentValidations = (props: Partial<TabsProps>) => {
 export const TabsComponentValidationsUnregistering = ({
   validationType,
 }: {
-  validationType: "error" | "warning" | "info";
+  validationType: "error" | "warning";
 }) => {
   const [show, setShow] = React.useState(true);
 

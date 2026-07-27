@@ -207,13 +207,17 @@ const MenuButtonOverrideWrapper = styled.div`
     padding: 0px var(--sizing100);
     width: 100%;
 
+    [data-component="icon"] {
+      color: inherit;
+    }
+
     &:hover,
     &:focus {
       background-color: var(--colorsActionMajorTransparent);
       color: var(--colorsActionMajor600);
 
-      span[color] {
-        color: var(--colorsActionMajor600);
+      [data-component="icon"] {
+        color: inherit;
       }
     }
   }

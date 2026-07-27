@@ -1,4 +1,4 @@
-import { Meta, ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
+import { Meta, ArgTypes, Canvas, Controls } from "@storybook/addon-docs/blocks";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 import * as PillStories from "./pill.stories";
@@ -21,7 +21,8 @@ Compact visual indicators that help things in common stand out.
 ## Contents
 
 - [Quick Start](#quick-start)
-- [Examples](#examples)
+- [Playground](#playground)
+- [Basic Examples](#basic-examples)
 - [Props](#props)
 - [Translation keys](#translation-keys)
 
@@ -31,13 +32,31 @@ Compact visual indicators that help things in common stand out.
 import Pill from "carbon-react/lib/components/pill";
 ```
 
-## Examples
+## Playground
 
-### Default
+Use this interactive example to explore Pill props with Storybook controls.
 
-<Canvas of={PillStories.Default} />
+<Canvas of={PillStories.Playground} />
 
-### Wrapped
+<Controls
+  of={PillStories.Playground}
+  include={[
+    "children",
+    "variant",
+    "size",
+    "fill",
+    "inverse",
+    "icon",
+    "onDelete",
+    "ariaLabelOfRemoveButton",
+    "wrapText",
+    "maxWidth",
+  ]}
+/>
+
+## Basic Examples
+
+#### Wrapped
 
 By default the text within a Pill will not wrap, however you can override this behavior by setting the `wrapText`
 and `maxWidth` props. It is also possible to hyphenate the words but you may need to define where to place
@@ -46,46 +65,17 @@ language-specific and support for every `lang` attribute is not universal.
 
 <Canvas of={PillStories.Wrapped} />
 
-### With remove button
+#### With Remove Button
 
-When a callback in the `onDelete` prop is provided, a remove button will be rendered and clicking on it will trigger that callback.
+When a callback in the `onDelete` prop is provided, a remove button will be rendered and clicking on it will trigger that callback. Use the `ariaLabelOfRemoveButton` prop to customise the remove button's `aria-label` if needed.
 
 <Canvas of={PillStories.WithRemoveButton} />
 
-### With custom remove button aria-label
+#### Inverse on Dark Background
 
-By default, the remove button's `aria-label` is handled via the `pill.remove` [translation keys](#translation-keys) using the pill's label as an argument.
-To override this, provide a custom string via the `ariaLabelOfRemoveButton` prop.
+Use the `inverse` prop on dark surfaces so the pill remains readable and aligns with design guidance.
 
-<Canvas of={PillStories.WithCustomRemoveButtonAriaLabel} />
-
-### Status Pills
-
-An automatic indicator of status, styled with utility colours to carry meaning.
-
-<Canvas of={PillStories.Status} />
-
-### Tag Pills
-
-Applied by the user, and indicate something in common. Change the theme to see the available colours.
-
-<Canvas of={PillStories.Tag} />
-
-### Custom colors
-
-You can pass a custom color to Pill by using the `borderColor` prop, which will be set as the background color if `fill` is true.
-This prop will take precedence over the `colorVariant` value.
-See our [Colors](../?path=/docs/documentation-colors--docs) documentation for more information.
-
-<Canvas of={PillStories.CustomColors} />
-
-### Dark background
-
-Color variants for dark theme, to apply these set `isDarkBackground` to `true`.
-
-**Note:** `"neutralWhite"` can only be used on dark backgrounds with `fill` also set to true.
-
-<Canvas of={PillStories.DarkBackground} />
+<Canvas of={PillStories.InverseOnDarkBackground} />
 
 ## Props
 

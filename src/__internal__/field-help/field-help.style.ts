@@ -14,6 +14,7 @@ const StyledFieldHelp = styled.span<StyledFieldHelpProps>`
   white-space: pre-wrap;
 
   ${({ labelInline, labelWidth }) =>
+    /* istanbul ignore next */
     labelInline &&
     css`
       margin-left: ${labelWidth}%;

@@ -239,8 +239,8 @@ export const WithStepFlow: StoryObj<typeof Sidebar> = {
 export const DarkHeaderExampleImplementation = () => {
   const headerNode = (
     <Box display="flex" alignItems="center" gap="8px">
-      <Icon type="chat" color="white" />
-      <Typography variant="h2" color="white">
+      <Icon type="chat" inverse />
+      <Typography variant="h2" inverse>
         Sidebar header
       </Typography>
     </Box>

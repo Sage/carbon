@@ -63,7 +63,7 @@ description: Carbon Content component props and usage examples.
 
 ```tsx
 {
-    title: <Typography color="primary">Title</Typography>,
+    title: <Typography color="neutral">Title</Typography>,
     variant: "primary",
     children: "This is an example of some content",
   }

@@ -1,31 +1,26 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 import applyBaseTheme from "../../../style/themes/apply-base-theme";
-import StyledValidationMessage from "../../validation-message/validation-message.style";
 
 const sizeMap = {
   small: {
     contentMargin: "var(--global-space-comp-xs)",
-    validationMargin: "var(--global-space-comp-xs)",
+    validationGap: "var(--global-space-comp-xs)",
+    legendFont: "var(--global-font-static-comp-medium-s)",
   },
   medium: {
     contentMargin: "var(--global-space-comp-s)",
-    validationMargin: "var(--global-space-comp-s)",
+    validationGap: "var(--global-space-comp-s)",
+    legendFont: "var(--global-font-static-comp-medium-m)",
   },
   large: {
     contentMargin: "var(--global-space-comp-m)",
-    validationMargin: "var(--global-space-comp-s)",
+    validationGap: "var(--global-space-comp-s)",
+    legendFont: "var(--global-font-static-comp-medium-l)",
   },
 };
 
-type StyledFieldsetProps = {
-  $validationMessagePositionTop?: boolean;
-  $size: "small" | "medium" | "large";
-};
-
-export const StyledFieldset = styled.fieldset.attrs(
-  applyBaseTheme,
-)<StyledFieldsetProps>`
+export const StyledFieldset = styled.fieldset.attrs(applyBaseTheme)`
   margin: 0;
   margin-bottom: var(--fieldSpacing);
   ${margin}
@@ -34,50 +29,29 @@ export const StyledFieldset = styled.fieldset.attrs(
   padding: 0;
   min-width: 0;
   min-inline-size: 0;
-  width: fit-content;
-
-  // TODO: Remove once spacing is updated in ValidationMessage
-  ${StyledValidationMessage} {
-    ${({ $validationMessagePositionTop, $size }) => css`
-      margin: 0;
-      margin-${$validationMessagePositionTop ? "bottom" : "top"}: ${sizeMap[$size].validationMargin};
-    `}
-  }
 `;
 
 export type StyledLegendProps = {
-  $align?: "left" | "right";
   $isRequired?: boolean;
   $isDisabled?: boolean;
-  $isLarge?: boolean;
+  $size: "small" | "medium" | "large";
 };
 
 export const StyledLegend = styled.legend<StyledLegendProps>`
-  display: flex;
-  align-items: center;
-  padding: 0;
-  font: var(--global-font-static-comp-medium-s);
-  color: var(--input-labelset-label-default);
-
-  ${({ $isLarge, $isDisabled, $isRequired, $align }) => css`
-    ${$isLarge &&
-    css`
-      font: var(--global-font-static-comp-medium-l);
-    `}
+  ${({ $isRequired, $isDisabled, $size }) => css`
+    display: flex;
+    align-items: center;
+    padding: 0;
+    font: ${sizeMap[$size].legendFont};
+    color: var(--input-labelset-label-default);
 
     ${$isRequired &&
     css`
       ::after {
         content: "*";
-        font: var(--global-font-static-comp-medium-s);
+        font: ${sizeMap[$size].legendFont};
         color: var(--input-labelset-label-required);
         margin-left: var(--global-space-comp-xs);
-        position: relative;
-
-        ${$isLarge &&
-        css`
-          font: var(--global-font-static-comp-medium-l);
-        `}
       }
     `}
 
@@ -88,21 +62,22 @@ export const StyledLegend = styled.legend<StyledLegendProps>`
         color: var(--input-labelset-label-disabled);
       }
     `}
-
-    ${$align &&
-    css`
-      text-align: ${$align};
-      justify-content: ${$align === "right" ? "flex-end" : "flex-start"};
-    `}
-  `}
+  `};
 `;
 
 export const StyledFieldsetContentWrapper = styled.div<{
   $size: "small" | "medium" | "large";
+  $hasLegend?: boolean;
 }>`
-  position: relative;
+  ${({ $size, $hasLegend }) => css`
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    gap: ${sizeMap[$size].validationGap};
 
-  ${({ $size }) => css`
-    margin-top: ${sizeMap[$size].contentMargin};
+    ${$hasLegend &&
+    css`
+      margin-top: ${sizeMap[$size].contentMargin};
+    `}
   `};
 `;

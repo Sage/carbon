@@ -297,77 +297,92 @@ export const SizeStory: Story = () => (
 );
 SizeStory.storyName = "Size";
 
-export const TintStory: Story = () => (
+export const ColorStory: Story = () => (
   <Box display="flex" flexDirection="column" gap={2}>
-    <Typography variant="p" tint="default">
-      Default tint paragraph text
+    <Typography variant="h1" color="neutral">
+      H1 neutral
     </Typography>
-    <Typography variant="p" tint="alt">
-      Alt tint paragraph text
+    <Typography variant="h2" color="subtle">
+      H2 subtle
     </Typography>
-    <Typography variant="strong" tint="default">
-      Strong Default
+    <Typography variant="h3" color="caution">
+      H3 caution
     </Typography>
-    <Typography variant="strong" tint="alt">
-      Strong Alt
+    <Typography variant="section-heading" color="info">
+      Section heading info
     </Typography>
-    <Typography variant="b" tint="default">
-      Bold Default
+    <Typography variant="section-subheading" color="positive">
+      Section subheading positive
     </Typography>
-    <Typography variant="b" tint="alt">
-      Bold Alt
+    <Typography variant="p" color="neutral">
+      Neutral paragraph text
     </Typography>
-    <Typography variant="p" tint="default">
+    <Typography variant="p" color="subtle">
+      Subtle paragraph text
+    </Typography>
+    <Typography variant="strong" color="caution">
+      Strong caution
+    </Typography>
+    <Typography variant="strong" color="info">
+      Strong info
+    </Typography>
+    <Typography variant="b" color="negative">
+      Bold negative
+    </Typography>
+    <Typography variant="b" color="positive">
+      Bold positive
+    </Typography>
+    <Typography variant="p" color="caution">
       Text with{" "}
-      <Typography variant="sup" tint="default">
+      <Typography variant="sup" color="caution">
         superscript
       </Typography>{" "}
-      default
+      caution
     </Typography>
-    <Typography variant="p" tint="alt">
+    <Typography variant="p" color="info">
       Text with{" "}
-      <Typography variant="sup" tint="alt">
+      <Typography variant="sup" color="info">
         superscript
       </Typography>{" "}
-      alt
+      info
     </Typography>
-    <Typography variant="p" tint="default">
+    <Typography variant="p" color="negative">
       Text with{" "}
-      <Typography variant="sub" tint="default">
+      <Typography variant="sub" color="negative">
         subscript
       </Typography>{" "}
-      default
+      negative
     </Typography>
-    <Typography variant="p" tint="alt">
+    <Typography variant="p" color="positive">
       Text with{" "}
-      <Typography variant="sub" tint="alt">
+      <Typography variant="sub" color="positive">
         subscript
       </Typography>{" "}
-      alt
+      positive
     </Typography>
-    <Typography variant="ul" tint="default">
-      <li>Unordered List Default</li>
-      <li>Unordered List Default</li>
-      <li>Unordered List Default</li>
+    <Typography variant="ul" color="subtle">
+      <li>Unordered List Subtle</li>
+      <li>Unordered List Subtle</li>
+      <li>Unordered List Subtle</li>
     </Typography>
-    <Typography variant="ul" tint="alt">
-      <li>Unordered List Alt</li>
-      <li>Unordered List Alt</li>
-      <li>Unordered List Alt</li>
+    <Typography variant="ul" color="caution">
+      <li>Unordered List Caution</li>
+      <li>Unordered List Caution</li>
+      <li>Unordered List Caution</li>
     </Typography>
-    <Typography variant="ol" tint="default">
-      <li>Ordered List Default</li>
-      <li>Ordered List Default</li>
-      <li>Ordered List Default</li>
+    <Typography variant="ol" color="info">
+      <li>Ordered List Info</li>
+      <li>Ordered List Info</li>
+      <li>Ordered List Info</li>
     </Typography>
-    <Typography variant="ol" tint="alt">
-      <li>Ordered List Alt</li>
-      <li>Ordered List Alt</li>
-      <li>Ordered List Alt</li>
+    <Typography variant="ol" color="positive">
+      <li>Ordered List Positive</li>
+      <li>Ordered List Positive</li>
+      <li>Ordered List Positive</li>
     </Typography>
   </Box>
 );
-TintStory.storyName = "Tint";
+ColorStory.storyName = "Color";
 
 export const WeightStory: Story = () => (
   <Box display="flex" flexDirection="column" gap={2}>

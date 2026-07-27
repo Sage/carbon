@@ -879,11 +879,11 @@ export const ComplexCustomChildren = () => {
               <Icon type="error" color="errorRed" />
               <Box ml={1} width="100%">
                 <Box mb={1}>
-                  <Typography variant="b" color="errorRed">
+                  <Typography variant="b" color="negative">
                     Something went wrong
                   </Typography>
                 </Box>
-                <Typography variant="p" color="errorRed" mb={0}>
+                <Typography variant="p" color="negative" mb={0}>
                   We couldn't load the data. Please try again later.
                 </Typography>
               </Box>

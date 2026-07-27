@@ -24,8 +24,8 @@ jobs:
         with:
           node-version: ">=24.11.0 24"
           check-latest: true
-      - name: Update npm to 11.15.0
-        run: npm install -g npm@11.15.0
+      - name: Update npm to 11.18.0
+        run: npm install -g npm@11.18.0
       - run: npm ci
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v3.0.1
@@ -59,8 +59,8 @@ jobs:
         with:
           node-version: ">=24.11.0 24"
           check-latest: true
-      - name: Update npm to 11.15.0
-        run: npm install -g npm@11.15.0
+      - name: Update npm to 11.18.0
+        run: npm install -g npm@11.18.0
       - run: npm ci
       - name: Generate metadata file
         run: npm run generate-metadata

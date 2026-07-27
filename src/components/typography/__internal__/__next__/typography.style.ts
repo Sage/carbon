@@ -1,9 +1,11 @@
 import styled, { css } from "styled-components";
 import { space, SpaceProps } from "styled-system";
 import applyBaseTheme from "../../../../style/themes/apply-base-theme";
-import { AllowedCSSTextOverrides } from "./typography.component";
+import {
+  AllowedCSSTextOverrides,
+  TypographyProps,
+} from "./typography.component";
 import visuallyHidden from "../../../../style/utils/visually-hidden";
-import { TypographyProps } from "./typography.component";
 
 type HeadingVariants =
   | "h1"
@@ -30,7 +32,7 @@ export interface StyledTypographyProps extends SpaceProps {
   $inverse?: TypographyProps["inverse"];
   $screenReaderOnly?: TypographyProps["screenReaderOnly"];
   $size?: TypographyProps["size"];
-  $tint?: TypographyProps["tint"];
+  $color: NonNullable<TypographyProps["color"]>;
   $weight?: TypographyProps["weight"];
   $display?: AllowedCSSTextOverrides["display"];
   $whiteSpace?: AllowedCSSTextOverrides["whiteSpace"];
@@ -52,7 +54,7 @@ const StyledTypography = styled.span.attrs(
     $fluid,
     $inverse,
     $size,
-    $tint,
+    $color,
     $weight,
     $whiteSpace,
     $wordBreak,
@@ -66,8 +68,16 @@ const StyledTypography = styled.span.attrs(
   }) => {
     const fontType = $fluid ? "fluid" : "static";
     const sizeValue = $size === "M" ? "m" : "l";
-    const headingColorToken = `var(--container-standard${$inverse ? "-inverse" : ""}-txt-default)`;
-    const baseColorToken = `var(--container-standard${$inverse ? "-inverse" : ""}-txt-${$tint})`;
+    const colorTokenMap = {
+      neutral: `var(--page-content${$inverse ? "-inverse" : ""}-txt-default)`,
+      subtle: `var(--page-content${$inverse ? "-inverse" : ""}-txt-alt)`,
+      // TODO: Switch to inverse semantic text tokens when page-level inverse aliases are available.
+      caution: "var(--page-content-caution-txt)",
+      info: "var(--page-content-info-txt)",
+      negative: "var(--page-content-negative-txt)",
+      positive: "var(--page-content-positive-txt)",
+    } as const;
+    const baseColorToken = colorTokenMap[$color];
     const isHeading = $variant && $variant in headingVariants;
     const isStrongOrBold = $variant === "strong" || $variant === "b";
     const isSuperOrSub = $variant === "sup" || $variant === "sub";
@@ -97,7 +107,7 @@ const StyledTypography = styled.span.attrs(
       ${isHeading &&
       css`
         font: var(${headingFontVar});
-        color: ${headingColorToken};
+        color: ${baseColorToken};
       `}
 
       ${isStrongOrBold &&

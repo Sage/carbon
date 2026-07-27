@@ -12,10 +12,7 @@ describe("variant mapping - deprecated variants to supported variants", () => {
       "font",
       "var(--global-font-static-heading-l)",
     );
-    expect(h1large).toHaveStyleRule(
-      "color",
-      "var(--container-standard-txt-default)",
-    );
+    expect(h1large).toHaveStyleRule("color", "var(--page-content-txt-default)");
   });
 
   it("should map segment-header variant to section-heading", () => {
@@ -28,7 +25,7 @@ describe("variant mapping - deprecated variants to supported variants", () => {
     );
     expect(segmentHeader).toHaveStyleRule(
       "color",
-      "var(--container-standard-txt-default)",
+      "var(--page-content-txt-default)",
     );
     expect(segmentHeader).toBeVisible();
   });
@@ -47,7 +44,7 @@ describe("variant mapping - deprecated variants to supported variants", () => {
     );
     expect(segmentHeaderSmall).toHaveStyleRule(
       "color",
-      "var(--container-standard-txt-default)",
+      "var(--page-content-txt-default)",
     );
   });
 
@@ -66,7 +63,7 @@ describe("variant mapping - deprecated variants to supported variants", () => {
     );
     expect(segmentHeaders[0]).toHaveStyleRule(
       "color",
-      "var(--container-standard-txt-default)",
+      "var(--page-content-txt-default)",
     );
 
     expect(segmentHeaders[1]).toHaveStyleRule(
@@ -75,7 +72,7 @@ describe("variant mapping - deprecated variants to supported variants", () => {
     );
     expect(segmentHeaders[1]).toHaveStyleRule(
       "color",
-      "var(--container-standard-txt-default)",
+      "var(--page-content-txt-default)",
     );
   });
 });
@@ -87,10 +84,7 @@ describe("direct semantic variant usage", () => {
     const h1 = screen.getByRole("heading", { level: 1 });
 
     expect(h1).toHaveStyleRule("font", "var(--global-font-static-heading-l)");
-    expect(h1).toHaveStyleRule(
-      "color",
-      "var(--container-standard-txt-default)",
-    );
+    expect(h1).toHaveStyleRule("color", "var(--page-content-txt-default)");
   });
 
   it("should render h2 variant as h2 element", () => {
@@ -99,10 +93,7 @@ describe("direct semantic variant usage", () => {
     const h2 = screen.getByRole("heading", { level: 2 });
 
     expect(h2).toHaveStyleRule("font", "var(--global-font-static-heading-m)");
-    expect(h2).toHaveStyleRule(
-      "color",
-      "var(--container-standard-txt-default)",
-    );
+    expect(h2).toHaveStyleRule("color", "var(--page-content-txt-default)");
   });
 
   it("should render h3 variant as h3 element", () => {
@@ -111,10 +102,7 @@ describe("direct semantic variant usage", () => {
     const h3 = screen.getByRole("heading", { level: 3 });
 
     expect(h3).toHaveStyleRule("font", "var(--global-font-static-heading-s)");
-    expect(h3).toHaveStyleRule(
-      "color",
-      "var(--container-standard-txt-default)",
-    );
+    expect(h3).toHaveStyleRule("color", "var(--page-content-txt-default)");
   });
 
   it("should render h4 variant as h4 element", () => {
@@ -126,10 +114,7 @@ describe("direct semantic variant usage", () => {
       "font",
       "var(--global-font-static-subheading-l)",
     );
-    expect(h4).toHaveStyleRule(
-      "color",
-      "var(--container-standard-txt-default)",
-    );
+    expect(h4).toHaveStyleRule("color", "var(--page-content-txt-default)");
   });
 
   it("should render h5 variant as h5 element", () => {
@@ -141,10 +126,7 @@ describe("direct semantic variant usage", () => {
       "font",
       "var(--global-font-static-subheading-m)",
     );
-    expect(h5).toHaveStyleRule(
-      "color",
-      "var(--container-standard-txt-default)",
-    );
+    expect(h5).toHaveStyleRule("color", "var(--page-content-txt-default)");
   });
 
   it("should render section-heading variant as h2 element", () => {
@@ -158,7 +140,7 @@ describe("direct semantic variant usage", () => {
     );
     expect(sectionHeading).toHaveStyleRule(
       "color",
-      "var(--container-standard-txt-default)",
+      "var(--page-content-txt-default)",
     );
   });
 
@@ -173,7 +155,7 @@ describe("direct semantic variant usage", () => {
     );
     expect(sectionSubheading).toHaveStyleRule(
       "color",
-      "var(--container-standard-txt-default)",
+      "var(--page-content-txt-default)",
     );
   });
 
@@ -188,7 +170,7 @@ describe("direct semantic variant usage", () => {
     );
     expect(paragraph).toHaveStyleRule(
       "color",
-      "var(--container-standard-txt-default)",
+      "var(--page-content-txt-default)",
     );
   });
 
@@ -202,10 +184,7 @@ describe("direct semantic variant usage", () => {
       "font",
       "var(--global-font-static-body-regular-m)",
     );
-    expect(span).toHaveStyleRule(
-      "color",
-      "var(--container-standard-txt-default)",
-    );
+    expect(span).toHaveStyleRule("color", "var(--page-content-txt-default)");
   });
 
   it("should render small variant as small element, but be styled like a p element", () => {
@@ -218,10 +197,7 @@ describe("direct semantic variant usage", () => {
       "font",
       "var(--global-font-static-body-regular-m)",
     );
-    expect(small).toHaveStyleRule(
-      "color",
-      "var(--container-standard-txt-default)",
-    );
+    expect(small).toHaveStyleRule("color", "var(--page-content-txt-default)");
   });
 
   it("should render big variant as big element, but be styled like a p element", () => {
@@ -234,10 +210,7 @@ describe("direct semantic variant usage", () => {
       "font",
       "var(--global-font-static-body-regular-m)",
     );
-    expect(big).toHaveStyleRule(
-      "color",
-      "var(--container-standard-txt-default)",
-    );
+    expect(big).toHaveStyleRule("color", "var(--page-content-txt-default)");
   });
 
   it("should render sup variant as sup element", () => {
@@ -249,10 +222,7 @@ describe("direct semantic variant usage", () => {
       "font",
       "var(--global-font-static-body-regular-m)",
     );
-    expect(sup).toHaveStyleRule(
-      "color",
-      "var(--container-standard-txt-default)",
-    );
+    expect(sup).toHaveStyleRule("color", "var(--page-content-txt-default)");
   });
 
   it("should render sub variant as sub element", () => {
@@ -264,10 +234,7 @@ describe("direct semantic variant usage", () => {
       "font",
       "var(--global-font-static-body-regular-m)",
     );
-    expect(sub).toHaveStyleRule(
-      "color",
-      "var(--container-standard-txt-default)",
-    );
+    expect(sub).toHaveStyleRule("color", "var(--page-content-txt-default)");
   });
 
   it("should render strong variant as strong element", () => {
@@ -279,10 +246,7 @@ describe("direct semantic variant usage", () => {
       "font",
       "var(--global-font-static-body-medium-m)",
     );
-    expect(strong).toHaveStyleRule(
-      "color",
-      "var(--container-standard-txt-default)",
-    );
+    expect(strong).toHaveStyleRule("color", "var(--page-content-txt-default)");
   });
 
   it("should render b variant as b element", () => {
@@ -295,10 +259,7 @@ describe("direct semantic variant usage", () => {
       "font",
       "var(--global-font-static-body-medium-m)",
     );
-    expect(bold).toHaveStyleRule(
-      "color",
-      "var(--container-standard-txt-default)",
-    );
+    expect(bold).toHaveStyleRule("color", "var(--page-content-txt-default)");
   });
 
   it("should render em variant as em element, but be styled like a p element", () => {
@@ -310,10 +271,7 @@ describe("direct semantic variant usage", () => {
       "font",
       "var(--global-font-static-body-regular-m)",
     );
-    expect(em).toHaveStyleRule(
-      "color",
-      "var(--container-standard-txt-default)",
-    );
+    expect(em).toHaveStyleRule("color", "var(--page-content-txt-default)");
   });
 
   it("should render ul variant as ul element", () => {
@@ -330,10 +288,7 @@ describe("direct semantic variant usage", () => {
       "font",
       "var(--global-font-static-body-regular-m)",
     );
-    expect(ul).toHaveStyleRule(
-      "color",
-      "var(--container-standard-txt-default)",
-    );
+    expect(ul).toHaveStyleRule("color", "var(--page-content-txt-default)");
   });
 
   it("should render ol variant as ol element", () => {
@@ -350,10 +305,7 @@ describe("direct semantic variant usage", () => {
       "font",
       "var(--global-font-static-body-regular-m)",
     );
-    expect(ol).toHaveStyleRule(
-      "color",
-      "var(--container-standard-txt-default)",
-    );
+    expect(ol).toHaveStyleRule("color", "var(--page-content-txt-default)");
   });
 });
 
@@ -441,7 +393,7 @@ describe("next typography props (forward compatibility)", () => {
     const element = screen.getByRole("paragraph");
     expect(element).toHaveStyleRule(
       "color",
-      "var(--container-standard-inverse-txt-default)",
+      "var(--page-content-inverse-txt-default)",
     );
   });
 
@@ -465,59 +417,77 @@ describe("next typography props (forward compatibility)", () => {
     );
   });
 
-  it("should apply tint prop", () => {
+  it("should apply color prop", () => {
+    render(<Typography color="subtle">Text</Typography>);
+
+    const element = screen.getByRole("paragraph");
+    expect(element).toHaveStyleRule("color", "var(--page-content-txt-alt)");
+  });
+
+  it("should map deprecated color alias `default` to neutral token", () => {
+    render(<Typography color="default">Text</Typography>);
+
+    const element = screen.getByRole("paragraph");
+    expect(element).toHaveStyleRule("color", "var(--page-content-txt-default)");
+  });
+
+  it("should map deprecated color alias `alt` to subtle token", () => {
+    render(<Typography color="alt">Text</Typography>);
+
+    const element = screen.getByRole("paragraph");
+    expect(element).toHaveStyleRule("color", "var(--page-content-txt-alt)");
+  });
+
+  it("should map legacy white color value to inverse token", () => {
+    render(<Typography color="white">Text</Typography>);
+
+    const element = screen.getByRole("paragraph");
+    expect(element).toHaveStyleRule(
+      "color",
+      "var(--page-content-inverse-txt-default)",
+    );
+  });
+
+  it("should fall back to default token when color is non-semantic and not white", () => {
+    render(<Typography color="banana">Text</Typography>);
+
+    const element = screen.getByRole("paragraph");
+    expect(element).toHaveStyleRule("color", "var(--page-content-txt-default)");
+  });
+
+  it("should apply deprecated tint prop as a fallback", () => {
     render(<Typography tint="alt">Text</Typography>);
 
     const element = screen.getByRole("paragraph");
-    expect(element).toHaveStyleRule(
-      "color",
-      "var(--container-standard-txt-alt)",
-    );
-  });
-});
-
-describe("deprecated color prop mapping to inverse", () => {
-  it.each([
-    "white",
-    "#fff",
-    "#ffffff",
-    "rgb(255,255,255)",
-    "rgb(255, 255, 255)",
-  ])("should map color=%s to inverse styling", (value) => {
-    render(<Typography color={value}>Text</Typography>);
-
-    const element = screen.getByRole("paragraph");
-
-    expect(element).toHaveStyleRule(
-      "color",
-      "var(--container-standard-inverse-txt-default)",
-    );
+    expect(element).toHaveStyleRule("color", "var(--page-content-txt-alt)");
   });
 
-  it("should not map non-white color to inverse styling", () => {
-    render(<Typography color="red">Text</Typography>);
-
-    const element = screen.getByRole("paragraph");
-
-    expect(element).toHaveStyleRule(
-      "color",
-      "var(--container-standard-txt-default)",
-    );
-  });
-
-  it("should keep inverse styling when inverse prop is true", () => {
+  it("should prioritise explicit color prop over deprecated tint fallback", () => {
     render(
-      <Typography inverse color="red">
+      <Typography color="positive" tint="alt">
         Text
       </Typography>,
     );
 
     const element = screen.getByRole("paragraph");
-
     expect(element).toHaveStyleRule(
       "color",
-      "var(--container-standard-inverse-txt-default)",
+      "var(--page-content-positive-txt)",
     );
+  });
+
+  describe("when inverse is true and a semantic color is provided", () => {
+    it("keeps the semantic token", () => {
+      render(
+        <Typography inverse color="info">
+          Text
+        </Typography>,
+      );
+
+      const element = screen.getByRole("paragraph");
+
+      expect(element).toHaveStyleRule("color", "var(--page-content-info-txt)");
+    });
   });
 });
 
@@ -579,6 +549,16 @@ describe("Attributes (id, aria-hidden, aria-live, role)", () => {
 
     expect(paragraph).toHaveAttribute("role", "alert");
   });
+
+  it("should apply visually hidden styles when screenReaderOnly is true", () => {
+    render(<Typography screenReaderOnly>Screen reader text</Typography>);
+
+    const paragraph = screen.getByRole("paragraph");
+
+    expect(paragraph).toHaveStyleRule("position", "absolute");
+    expect(paragraph).toHaveStyleRule("width", "1px");
+    expect(paragraph).toHaveStyleRule("height", "1px");
+  });
 });
 
 describe("List component (legacy)", () => {
@@ -630,7 +610,7 @@ describe("List component (legacy)", () => {
     );
     expect(itemElement).toHaveStyleRule(
       "color",
-      "var(--container-standard-txt-default)",
+      "var(--page-content-txt-default)",
     );
   });
 });

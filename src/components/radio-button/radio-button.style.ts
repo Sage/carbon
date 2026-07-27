@@ -1,19 +1,21 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 import HiddenCheckableInputStyle from "../../__internal__/checkable-input/hidden-checkable-input.style";
-import StyledCheckableInputSvgWrapper from "../../__internal__/checkable-input/checkable-input-svg-wrapper.style";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 
-const svgSize = {
+const sizeMap = {
   small: {
-    size: "var(--global-size-3-xs)",
+    svgSize: "var(--global-size-3-xs)",
+    labelFont: "var(--global-font-static-comp-regular-s)",
   },
   medium: {
-    size: "var(--global-size-xs)",
+    svgSize: "var(--global-size-xs)",
+    labelFont: "var(--global-font-static-comp-regular-m)",
   },
   large: {
-    size: "var(--global-size-s)",
+    svgSize: "var(--global-size-s)",
+    labelFont: "var(--global-font-static-comp-regular-l)",
   },
 };
 
@@ -27,8 +29,13 @@ const RadioButtonStyle = styled.div.attrs(
   applyBaseTheme,
 )<RadioButtonStyleProps>`
   ${({ $isDisabled, $size, $error }) => css`
-    ${StyledCheckableInputSvgWrapper}, svg {
-      border-radius: 999px;
+    .checkable-label {
+      font: ${sizeMap[$size].labelFont};
+    }
+
+    [data-role="checkable-input-svg-wrapper"],
+    svg {
+      border-radius: var(--global-radius-action-circle);
     }
 
     ${HiddenCheckableInputStyle} {
@@ -38,33 +45,32 @@ const RadioButtonStyle = styled.div.attrs(
     }
 
     ${HiddenCheckableInputStyle},
-    ${StyledCheckableInputSvgWrapper},
+    [data-role="checkable-input-svg-wrapper"],
     svg {
-      height: ${svgSize[$size].size};
-      width: ${svgSize[$size].size};
+      height: ${sizeMap[$size].svgSize};
+      width: ${sizeMap[$size].svgSize};
     }
 
     svg {
       box-sizing: border-box;
       background-color: var(--input-typical-bg-default);
-      border: 1px solid var(--input-typical-border-default);
+      border: var(--global-borderwidth-xs) solid
+        var(--input-typical-border-default);
 
       ${!$isDisabled &&
       $error &&
       css`
-        border: 2px solid var(--input-validation-border-error);
+        border: var(--global-borderwidth-s) solid
+          var(--input-validation-border-error);
       `}
     }
 
-    ${HiddenCheckableInputStyle}:checked + ${StyledCheckableInputSvgWrapper} circle {
+    ${HiddenCheckableInputStyle}:checked + [data-role="checkable-input-svg-wrapper"] circle {
       fill: var(--input-typical-icon-active);
     }
 
     ${HiddenCheckableInputStyle}:not([disabled]) {
-      &:focus
-        + ${StyledCheckableInputSvgWrapper},
-        &:hover
-        + ${StyledCheckableInputSvgWrapper} {
+      &:focus + [data-role="checkable-input-svg-wrapper"] {
         ${addFocusStyling()}
       }
     }
@@ -72,7 +78,7 @@ const RadioButtonStyle = styled.div.attrs(
     ${$isDisabled &&
     css`
       svg {
-        border: 1px solid var(--input-typical-border-disabled);
+        border-color: var(--input-typical-border-disabled);
         background-color: var(--input-typical-bg-disabled);
       }
 
@@ -80,7 +86,7 @@ const RadioButtonStyle = styled.div.attrs(
         fill: var(--input-typical-bg-disabled);
       }
 
-      ${HiddenCheckableInputStyle}:checked + ${StyledCheckableInputSvgWrapper} circle {
+      ${HiddenCheckableInputStyle}:checked + [data-role="checkable-input-svg-wrapper"] circle {
         fill: var(--input-typical-icon-disabled);
       }
     `}

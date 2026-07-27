@@ -85,11 +85,11 @@ export const FlatTableCheckbox = ({
           checked={checked}
           onChange={onChange}
           name="flat-table-checkbox"
-          mb={0}
-          ariaLabelledBy={ariaLabelledBy}
+          aria-labelledby={ariaLabelledBy}
           onClick={handleClick}
           onKeyDown={handleKeyDown}
           disabled={disabled}
+          size="small"
         />
       )}
     </StyledFlatTableCheckbox>

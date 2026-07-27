@@ -292,11 +292,9 @@ export const SubmenuNodes: MenuStory = () => (
         >
           <Portrait size="XS" initials={initials} />
           <Typography
-            fontWeight="500"
-            fontSize="14px"
-            color={
-              menuType === "black" || menuType === "dark" ? "white" : "black"
-            }
+            variant="p"
+            weight="medium"
+            inverse={menuType === "dark" || menuType === "black"}
             margin={0}
           >
             {name}
@@ -790,7 +788,7 @@ export const FullscreenViewStory: MenuStory = () => {
                 variant="big"
                 fontWeight="500"
                 lineHeight="40px"
-                color={menu === "black" || menu === "dark" ? "white" : "black"}
+                color="neutral"
               >
                 Menu Item Five
               </Typography>

@@ -9,8 +9,10 @@ import {
   MenuFullscreen,
   MenuFullscreenProps,
   MenuDivider,
+  MenuSegmentTitle,
+  ScrollableBlock,
 } from ".";
-import Search from "../search";
+import Search, { SearchEvent } from "../search";
 import Box from "../box";
 import GlobalHeader from "../global-header";
 import Icon from "../icon";
@@ -18,6 +20,9 @@ import Icon from "../icon";
 import type { MenuType } from "./menu.types";
 import NavigationBar from "../navigation-bar";
 import Pill from "../pill";
+
+import useMediaQuery from "../../hooks/useMediaQuery";
+import Typography from "../typography";
 
 const defaultOpenState = isChromatic();
 
@@ -31,7 +36,6 @@ const meta: Meta<typeof Menu> = {
   },
 };
 export default meta;
-
 interface MenuFullScreenStoryProps extends MenuFullscreenProps {
   searchVariant?: "default" | "dark";
   menuType: MenuType;
@@ -438,3 +442,270 @@ MenuFullScreenWithMaxWidth.decorators = [
     </>
   ),
 ];
+
+export const FullscreenViewAlternateStory = () => {
+  const [menuOpen, setMenuOpen] = useState({
+    light: false,
+    dark: false,
+    white: false,
+    black: false,
+  });
+  const fullscreenViewBreakPoint = useMediaQuery("(max-width: 1200px)");
+
+  const items = [
+    "apple",
+    "banana",
+    "carrot",
+    "grapefruit",
+    "melon",
+    "orange",
+    "pear",
+    "strawberry",
+  ];
+  const [itemSearch, setItemSearch] = useState(items);
+  const [searchString, setSearchString] = useState("");
+  const handleTextChange = (e: SearchEvent) => {
+    const searchStr = e.target.value;
+    setSearchString(searchStr);
+    let found;
+    if (searchStr.length > 0) {
+      found = items.filter((item) => item.includes(searchStr));
+    } else {
+      found = items;
+    }
+    setItemSearch(found);
+  };
+  const searchVariant = (menu: MenuType) => {
+    if (menu === "black" || menu === "dark") {
+      return "dark";
+    }
+    return "default";
+  };
+
+  const responsiveMenuItems = (
+    startPosition: "left" | "right",
+    menu: MenuType,
+  ) => {
+    if (fullscreenViewBreakPoint) {
+      return [
+        <MenuItem
+          key="fullscreen-menu-item-1"
+          onClick={() => setMenuOpen((state) => ({ ...state, [menu]: true }))}
+        >
+          Menu
+        </MenuItem>,
+        <MenuFullscreen
+          key="fullscreen-menu-1"
+          startPosition={startPosition}
+          isOpen={menuOpen[menu]}
+          onClose={() => setMenuOpen((state) => ({ ...state, [menu]: false }))}
+        >
+          <MenuItem key="default-menu-item-1" href="#">
+            Menu Item
+          </MenuItem>
+          <MenuItem key="default-menu-item-2" href="#" variant="alternate">
+            Menu Item Alternate
+          </MenuItem>
+          <MenuItem key="default-menu-item-3" submenu="Submenu Title">
+            <MenuItem key="default-submenu-item-1" href="#">
+              Submenu Item
+            </MenuItem>
+            <MenuItem key="default-submenu-item-2" href="#">
+              Submenu Item
+            </MenuItem>
+            <MenuSegmentTitle text="Segment title">
+              <ScrollableBlock
+                key="search-results"
+                maxHeight="280px"
+                parent={
+                  <Search
+                    key="business-search"
+                    placeholder="Search"
+                    variant={searchVariant(menu)}
+                    onChange={handleTextChange}
+                    value={searchString}
+                  />
+                }
+              >
+                {itemSearch.map((val) => (
+                  <MenuItem key={`default-submenu-search-${val}`} href="#">
+                    {val}
+                  </MenuItem>
+                ))}
+                {!itemSearch.length ? (
+                  <MenuItem key="default-no-results">
+                    <Box mx={2}>No results</Box>
+                  </MenuItem>
+                ) : null}
+              </ScrollableBlock>
+            </MenuSegmentTitle>
+          </MenuItem>
+          <MenuItem
+            key="default-menu-item-4"
+            submenu="Submenu Title Alternate"
+            variant="alternate"
+          >
+            <MenuItem key="alternate-submenu-item-1" href="#">
+              Submenu Item
+            </MenuItem>
+            <MenuItem
+              key="alternate-submenu-item-2"
+              href="#"
+              variant="alternate"
+            >
+              Submenu Item Alternate
+            </MenuItem>
+            <MenuSegmentTitle
+              key="alternate-variant"
+              variant="alternate"
+              text="Alternate Segment title"
+            >
+              <ScrollableBlock
+                key="search-results"
+                maxHeight="280px"
+                variant="alternate"
+                parentVariant="alternate"
+                parent={
+                  <Search
+                    key="business-search"
+                    placeholder="Search"
+                    variant={searchVariant(menu)}
+                    onChange={handleTextChange}
+                    value={searchString}
+                  />
+                }
+              >
+                {itemSearch.map((val) => (
+                  <MenuItem
+                    key={`alternate-submenu-search-${val}`}
+                    variant="alternate"
+                    href="#"
+                  >
+                    {val}
+                  </MenuItem>
+                ))}
+                {!itemSearch.length ? (
+                  <MenuItem key="alternate-no-results" variant="alternate">
+                    <Box mx={2}>No results</Box>
+                  </MenuItem>
+                ) : null}
+              </ScrollableBlock>
+            </MenuSegmentTitle>
+          </MenuItem>
+        </MenuFullscreen>,
+      ];
+    }
+    return [
+      <MenuItem key="default-menu-item-1" href="#">
+        Menu Item
+      </MenuItem>,
+      <MenuItem key="default-menu-item-2" href="#" variant="alternate">
+        Menu Item Alternate
+      </MenuItem>,
+      <MenuItem key="default-menu-item-3" submenu="Submenu Title">
+        <MenuItem key="default-submenu-item-1" href="#">
+          Submenu Item
+        </MenuItem>
+        <MenuItem key="default-submenu-item-2" href="#">
+          Submenu Item
+        </MenuItem>
+        <MenuSegmentTitle text="Segment title">
+          <ScrollableBlock
+            key="search-results"
+            maxHeight="280px"
+            parent={
+              <Search
+                key="business-search"
+                placeholder="Search"
+                variant={searchVariant(menu)}
+                onChange={handleTextChange}
+                value={searchString}
+              />
+            }
+          >
+            {itemSearch.map((val) => (
+              <MenuItem key={`default-submenu-search-${val}`} href="#">
+                {val}
+              </MenuItem>
+            ))}
+            {!itemSearch.length ? (
+              <MenuItem key="default-no-results">
+                <Box mx={2}>No results</Box>
+              </MenuItem>
+            ) : null}
+          </ScrollableBlock>
+        </MenuSegmentTitle>
+      </MenuItem>,
+      <MenuItem
+        key="default-menu-item-4"
+        submenu="Submenu Title Alternate"
+        variant="alternate"
+      >
+        <MenuItem key="alternate-submenu-item-1" href="#">
+          Submenu Item
+        </MenuItem>
+        <MenuItem key="alternate-submenu-item-2" href="#" variant="alternate">
+          Submenu Item Alternate
+        </MenuItem>
+        <MenuSegmentTitle
+          key="alternate-variant"
+          variant="alternate"
+          text="Alternate Segment title"
+        >
+          <ScrollableBlock
+            key="search-results"
+            maxHeight="280px"
+            variant="alternate"
+            parentVariant="alternate"
+            parent={
+              <Search
+                key="business-search"
+                placeholder="Search"
+                variant={searchVariant(menu)}
+                onChange={handleTextChange}
+                value={searchString}
+              />
+            }
+          >
+            {itemSearch.map((val) => (
+              <MenuItem
+                key={`alternate-submenu-search-${val}`}
+                variant="alternate"
+                href="#"
+              >
+                {val}
+              </MenuItem>
+            ))}
+            {!itemSearch.length ? (
+              <MenuItem key="alternate-no-results" variant="alternate">
+                <Box mx={2}>No results</Box>
+              </MenuItem>
+            ) : null}
+          </ScrollableBlock>
+        </MenuSegmentTitle>
+      </MenuItem>,
+    ];
+  };
+  return (
+    <Box>
+      {(["white", "light", "dark", "black"] as MenuType[]).map((menuType) => (
+        <Box key={menuType}>
+          <Typography variant="h4" textTransform="capitalize" my={2}>
+            {menuType}
+          </Typography>
+          <Menu menuType={menuType}>
+            {React.Children.map(
+              responsiveMenuItems("left", menuType),
+              (items) => items,
+            )}
+          </Menu>
+        </Box>
+      ))}
+    </Box>
+  );
+};
+FullscreenViewAlternateStory.storyName = "Fullscreen View Alternate";
+FullscreenViewAlternateStory.parameters = {
+  themeProvider: { chromatic: { theme: "sage" } },
+  chromatic: { disableSnapshot: true },
+};

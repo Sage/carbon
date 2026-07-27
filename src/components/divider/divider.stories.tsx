@@ -119,7 +119,7 @@ Variants.storyName = "Variants";
 export const Inverse: Story = () => {
   return (
     <Box bg="#000000" p={5}>
-      <Typography color="#fff">Typical (default)</Typography>
+      <Typography inverse>Typical (default)</Typography>
       <Box display="inline-flex">
         <Square />
         <Divider variant="typical" inverse />
@@ -133,7 +133,7 @@ export const Inverse: Story = () => {
         <Square />
         <Divider variant="typical" inverse />
       </Box>
-      <Typography color="#fff">Prominent</Typography>
+      <Typography inverse>Prominent</Typography>
       <Box display="inline-flex">
         <Square />
         <Divider variant="prominent" inverse />

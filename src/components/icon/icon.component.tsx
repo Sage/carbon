@@ -175,14 +175,15 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>(
     }, [fontSize, size]);
 
     const styledIconProps = {
+      $color: color,
       "aria-hidden": ariaHidden,
       "aria-label": ariaLabel,
       bg,
       bgSize: bgSize || resolvedSize,
       bgShape,
       className: className || undefined,
-      color,
       "data-component": "icon",
+      "data-color": color,
       "data-element": dataElement ?? iconType,
       "data-role": dataRole ?? "icon",
       disabled,

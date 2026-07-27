@@ -6,6 +6,8 @@ import { testStyledSystemPadding } from "../../../__spec_helper__/__internal__/t
 import FlatTableCell from "./flat-table-cell.component";
 
 import FlatTable from "../flat-table.component";
+import Button from "../../button";
+import Icon from "../../icon";
 
 test("logs error if used outside of FlatTable", () => {
   const loggerSpy = jest.spyOn(Logger, "error").mockImplementation(() => {});
@@ -266,4 +268,62 @@ test("should set the expected attribute when the `rowspan` prop is passed", () =
   );
 
   expect(screen.getByRole("cell")).toHaveAttribute("rowspan", "2");
+});
+
+test("should apply the default icon colour only when icons do not declare data-color", () => {
+  render(
+    <FlatTable>
+      <tbody>
+        <tr>
+          <FlatTableCell>Foo</FlatTableCell>
+        </tr>
+      </tbody>
+    </FlatTable>,
+  );
+
+  expect(screen.getByRole("cell")).toHaveStyleRule(
+    "color",
+    "var(--colorsActionMinor500)",
+    { modifier: '&&&& [data-component="icon"]:not([data-color])' },
+  );
+});
+
+test("should keep button icon colour inheritance for icons without data-color", () => {
+  render(
+    <FlatTable>
+      <tbody>
+        <tr>
+          <FlatTableCell>Foo</FlatTableCell>
+        </tr>
+      </tbody>
+    </FlatTable>,
+  );
+
+  expect(screen.getByRole("cell")).toHaveStyleRule("color", "currentColor", {
+    modifier:
+      '&&&& [data-component="button"] [data-component="icon"]:not([data-color])',
+  });
+  expect(screen.getByRole("cell")).toHaveStyleRule("color", "currentColor", {
+    modifier: '&&&& button [data-component="icon"]:not([data-color])',
+  });
+});
+
+test("should preserve explicit icon color inside a button in flat table cell", () => {
+  render(
+    <FlatTable>
+      <tbody>
+        <tr>
+          <FlatTableCell>
+            <Button buttonType="primary">
+              Action <Icon type="ellipsis_vertical" color="#FF1133" />
+            </Button>
+          </FlatTableCell>
+        </tr>
+      </tbody>
+    </FlatTable>,
+  );
+
+  const icon = screen.getByTestId("icon");
+  expect(icon).toHaveAttribute("data-color", "#FF1133");
+  expect(icon).toHaveStyleRule("color", "#FF1133");
 });

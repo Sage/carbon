@@ -1,3 +1,64 @@
+## [161.7.0](https://github.com/Sage/carbon/compare/v161.6.0...v161.7.0) (2026-07-24)
+
+### Features
+
+* **step-sequence:** align with Fusion DS ([6d38110](https://github.com/Sage/carbon/commit/6d381104c506421b61961b3c4be0fe6348947faf))
+
+## [161.6.0](https://github.com/Sage/carbon/compare/v161.5.0...v161.6.0) (2026-07-23)
+
+### Features
+
+* **progress-tracker:** align with Fusion DS ([a2c0992](https://github.com/Sage/carbon/commit/a2c0992022ac0fe71e7a4241d8519848f2d57dab))
+
+## [161.5.0](https://github.com/Sage/carbon/compare/v161.4.2...v161.5.0) (2026-07-22)
+
+### Features
+
+* **multi-select:** update multi-select to use updated pill ([d819735](https://github.com/Sage/carbon/commit/d819735d03f8ba640c85dd2d8954c2c86ccfad07))
+* **pill:** align pill with fusion ds ([49a89af](https://github.com/Sage/carbon/commit/49a89af8b4470a6d34b85e867376cc436efcf626))
+
+## [161.4.2](https://github.com/Sage/carbon/compare/v161.4.1...v161.4.2) (2026-07-22)
+
+### Bug Fixes
+
+* **multi-select, simple-select:** ensure correct prefix usage ([b3311b4](https://github.com/Sage/carbon/commit/b3311b4b0217fa8206a640e3249eab27341cca88)), closes [#8060](https://github.com/Sage/carbon/issues/8060)
+
+## [161.4.1](https://github.com/Sage/carbon/compare/v161.4.0...v161.4.1) (2026-07-22)
+
+### Bug Fixes
+
+* **flat-table:** preserve button icon color in table cells ([7390caf](https://github.com/Sage/carbon/commit/7390caf2e83a91e39bbea626adf606bcbe13cca1))
+
+## [161.4.0](https://github.com/Sage/carbon/compare/v161.3.1...v161.4.0) (2026-07-21)
+
+### Features
+
+* **typography:** re-enable the ability to change colour ([292588d](https://github.com/Sage/carbon/commit/292588d2d75fc63509e4ab04f848107e0e220901))
+
+## [161.3.1](https://github.com/Sage/carbon/compare/v161.3.0...v161.3.1) (2026-07-21)
+
+### Bug Fixes
+
+* **menu-full-screen:** alternate variant support in MenuFullScreen ([afa633c](https://github.com/Sage/carbon/commit/afa633c38ed800e5fd55748e695d6e6c936e8a32)), closes [#7849](https://github.com/Sage/carbon/issues/7849)
+
+## [161.3.0](https://github.com/Sage/carbon/compare/v161.2.1...v161.3.0) (2026-07-20)
+
+### Features
+
+* **checkbox, checkbox-group:** align with Fusion DS ([2649746](https://github.com/Sage/carbon/commit/26497463c57a4d6d26c039be67a797b8993ff814))
+
+## [161.2.1](https://github.com/Sage/carbon/compare/v161.2.0...v161.2.1) (2026-07-20)
+
+### Bug Fixes
+
+* **tabs:** remove gap in overflow layout ([70fddfd](https://github.com/Sage/carbon/commit/70fddfd5c89f52a5686161fee91f7ea07ba108a5))
+
+## [161.2.0](https://github.com/Sage/carbon/compare/v161.1.0...v161.2.0) (2026-07-16)
+
+### Features
+
+* **profile:** align with fusion DS ([775729f](https://github.com/Sage/carbon/commit/775729fef61b24c7c561bd0164c8ba23d1c8c7be))
+
 ## [161.1.0](https://github.com/Sage/carbon/compare/v161.0.1...v161.1.0) (2026-07-08)
 
 ### Features

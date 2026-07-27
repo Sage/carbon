@@ -1,14 +1,11 @@
 import styled, { css } from "styled-components";
 import StyledTypography from "../../../typography/typography.style";
 import StyledIcon from "../../../icon/icon.style";
-import {
-  StyledProgressBar,
-  InnerBar as ProgressTrackerInnerBar,
-} from "../../../progress-tracker/progress-tracker.style";
 import StyledLoaderBar, {
   StyledLoader,
   InnerBar as LoaderBarInnerBar,
 } from "../../../loader-bar/loader-bar.style";
+import { StyledProgressBar } from "../../../progress-tracker/progress-tracker.style";
 import { StyledLink, StyledContent } from "../../../link/link.style";
 
 export const StyledFileLinkContainer = styled.div`
@@ -73,6 +70,7 @@ export const StyledFileUploadStatusRow = styled.div<StyledFileUploadStatusRowPro
 
 interface StyledFileUploadStatusProps {
   hasError: boolean;
+  complete: boolean;
 }
 
 export const StyledFileUploadStatus = styled.div<StyledFileUploadStatusProps>`
@@ -93,11 +91,6 @@ export const StyledFileUploadStatus = styled.div<StyledFileUploadStatusProps>`
   }}
   border-radius: var(--borderRadius050);
 
-  ${StyledProgressBar}, ${ProgressTrackerInnerBar} {
-    border-radius: var(--borderRadius050);
-    border: none;
-  }
-
   ${StyledLoader} {
     display: flex;
   }
@@ -110,4 +103,18 @@ export const StyledFileUploadStatus = styled.div<StyledFileUploadStatusProps>`
     background-color: var(--colorsSemanticNeutral500);
     border-radius: var(--borderRadius050);
   }
+
+  // Temp override for progress tracker
+  ${({ complete }) =>
+    !complete &&
+    css`
+      ${StyledProgressBar} {
+        background-color: var(--colorsSemanticNeutral200);
+        box-shadow: none;
+
+        ::after {
+          background-color: var(--colorsSemanticNeutral500);
+        }
+      }
+    `}
 `;

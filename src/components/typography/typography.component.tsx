@@ -4,7 +4,10 @@ import { TagProps } from "../../__internal__/utils/helpers/tags";
 import type { TypographyProps as NextTypographyProps } from "./__internal__/__next__/";
 import type { AllowedCSSTextOverrides } from "./__internal__/__next__/typography.component";
 import filterObjectProperties from "../../__internal__/filter-object-properties";
-import { ALLOWED_CSS_TEXT_OVERRIDE_KEYS } from "./__internal__/__next__/typography.component";
+import {
+  ALLOWED_CSS_TEXT_OVERRIDE_KEYS,
+  TYPOGRAPHY_COLOR_TYPES,
+} from "./__internal__/__next__/typography.component";
 import StyledTypography from "./typography.style";
 
 export const VARIANT_TYPES = [
@@ -35,12 +38,49 @@ export const VARIANT_TYPES = [
 
 export type VariantTypes = (typeof VARIANT_TYPES)[number];
 
+type DeprecatedColorAliases = "default" | "alt";
+const LEGACY_WHITE_COLORS = new Set([
+  "white",
+  "#fff",
+  "#ffffff",
+  "rgb(255,255,255)",
+  "rgb(255, 255, 255)",
+]);
+
+const normaliseColorValue = (color?: TypographyProps["color"]) =>
+  typeof color === "string" ? color.trim().toLowerCase() : color;
+
+const TYPOGRAPHY_COLOR_VALUES: readonly string[] = TYPOGRAPHY_COLOR_TYPES;
+
+const resolveSemanticColor = (
+  colorValue?: TypographyProps["color"],
+): TypographyProps["color"] | undefined => {
+  if (colorValue === "default") {
+    return "neutral";
+  }
+
+  if (colorValue === "alt") {
+    return "subtle";
+  }
+
+  if (!colorValue || !TYPOGRAPHY_COLOR_VALUES.includes(colorValue)) {
+    return undefined;
+  }
+
+  return colorValue;
+};
+
+const shouldUseLegacyWhiteInverse = (
+  colorValue: TypographyProps["color"] | undefined,
+  resolvedColor: TypographyProps["color"] | undefined,
+) => !resolvedColor && !!colorValue && LEGACY_WHITE_COLORS.has(colorValue);
+
 export interface TypographyProps
   extends SpaceProps,
     TagProps,
     Pick<
       NextTypographyProps,
-      "weight" | "tint" | "size" | "fluid" | "inverse" | "overflow"
+      "weight" | "size" | "fluid" | "inverse" | "overflow"
     > {
   /** Override the variant component */
   as?: React.ElementType;
@@ -101,9 +141,13 @@ export interface TypographyProps
    * Apply truncation */
   truncate?: boolean;
   /**
-   * @deprecated This prop no longer has any effect. This prop will eventually be removed.
-   * Override the color style. If a white colour is needed, use the `inverse` prop instead. */
-  color?: string;
+   * Override the text color using typography token options.
+   * Supported values are: `neutral`, `subtle`, `caution`, `info`, `negative`, and `positive`.
+   * Legacy aliases `"default"` and `"alt"` map to `"neutral"` and `"subtle"` respectively.
+   */
+  color?: NextTypographyProps["color"] | DeprecatedColorAliases | string;
+  /** @deprecated Use `color` instead. */
+  tint?: NextTypographyProps["tint"];
   /**
    * @deprecated This prop no longer has any effect. This prop will eventually be removed.
    * Override the backgroundColor style */
@@ -203,10 +247,10 @@ export const Typography = ({
   fluid = false,
   inverse = false,
   size = "M",
+  color,
   tint = "default",
   weight = "regular",
   truncate = false,
-  color,
   children,
   screenReaderOnly = false,
   "aria-live": ariaLive,
@@ -214,6 +258,10 @@ export const Typography = ({
   ...rest
 }: TypographyProps) => {
   const nextVariant = getNextVariant(variant);
+  const colorValue = normaliseColorValue(color);
+  const normalisedColor = resolveSemanticColor(colorValue);
+  const isInverse =
+    inverse || shouldUseLegacyWhiteInverse(colorValue, normalisedColor);
 
   // Extracts all allowed CSS text overrides, casts types which were string | undefined to match the expected types in the next version to avoid a breaking change
   const cssProps = filterObjectProperties(
@@ -228,17 +276,6 @@ export const Typography = ({
     cssProps.textOverflow = "ellipsis";
   }
 
-  // Maps deprecated colour values to the new `inverse` prop to avoid significant colour contrast changes in consuming products, but encourages use of the `inverse` prop going forward.
-  const WHITE_COLORS = new Set([
-    "white",
-    "#fff",
-    "#ffffff",
-    "rgb(255,255,255)",
-    "rgb(255, 255, 255)",
-  ]);
-
-  const isInverse = inverse || (color && WHITE_COLORS.has(color));
-
   // Renders styled component override of the next version of the component, overrides `lineHeight`, `fontSize` and `fontWeight` as these are used heavily in consuming products
   return (
     <StyledTypography
@@ -252,6 +289,7 @@ export const Typography = ({
       aria-live={ariaLive}
       aria-hidden={ariaHidden}
       size={size}
+      color={normalisedColor}
       tint={tint}
       weight={weight}
       {...rest}

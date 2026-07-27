@@ -16,6 +16,8 @@ export interface LabelProps {
   disabled?: boolean;
   /** If true, the label will display in read-only styling */
   readOnly?: boolean;
+  /** Class name to target component */
+  className?: string;
 }
 
 export const Label = ({
@@ -26,9 +28,11 @@ export const Label = ({
   isRequired,
   disabled,
   readOnly,
+  className,
 }: LabelProps) => {
   return (
     <StyledLabel
+      className={className}
       id={id}
       htmlFor={htmlFor}
       $size={size}

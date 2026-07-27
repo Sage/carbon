@@ -205,7 +205,7 @@ const CreatePopoverInMenu = () => {
                 margin="0"
                 padding="0"
               >
-                <Typography variant="segment-subheader" color="white" m={0}>
+                <Typography variant="segment-subheader" inverse m={0}>
                   Lorem Ipsum
                 </Typography>
                 <Divider type="horizontal" inverse mt={1} mb={2} />
@@ -235,7 +235,7 @@ const CreatePopoverInMenu = () => {
                 margin="0"
                 padding="0"
               >
-                <Typography variant="segment-subheader" color="white" m={0}>
+                <Typography variant="segment-subheader" inverse m={0}>
                   Dolor Sit Amet
                 </Typography>
                 <Divider type="horizontal" inverse mt={1} mb={2} />

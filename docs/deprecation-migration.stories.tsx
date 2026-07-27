@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 import Button from "../src/components/button";
 import Dialog from "../src/components/dialog";
@@ -268,16 +268,10 @@ export const SettingsRow: StoryObj = () => (
           m="var(--spacing125) var(--spacing000) var(--spacing100)"
         />
       </Box>
-      <Typography color="var(--colorsUtilityYin055)">
-        Content for a Description
-      </Typography>
+      <Typography color="neutral">Content for a Description</Typography>
     </Box>
-    <Typography
-      color="var(--colorsUtilityYin055)"
-      fontSize="var(--fontSizes100)"
-      marginLeft="var(--sizing600)"
-    >
-      Content for sone Settings
+    <Typography color="neutral" marginLeft="var(--sizing600)">
+      Content for some Settings
     </Typography>
   </Box>
 );
@@ -300,15 +294,9 @@ export const SettingsRowHeadingLevels: StoryObj = () => {
                 m="var(--spacing125) var(--spacing000) var(--spacing100)"
               />
             </Box>
-            <Typography color="var(--colorsUtilityYin055)">
-              Content for a Description
-            </Typography>
+            <Typography color="neutral">Content for a Description</Typography>
           </Box>
-          <Typography
-            color="var(--colorsUtilityYin055)"
-            fontSize="var(--fontSizes100)"
-            marginLeft="var(--sizing600)"
-          >
+          <Typography color="neutral" marginLeft="var(--sizing600)">
             Content for some Settings
           </Typography>
         </Box>

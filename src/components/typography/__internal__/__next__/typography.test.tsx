@@ -20,7 +20,7 @@ describe("'p' variant", () => {
     );
     expect(paragraph).toHaveStyleRule(
       "color",
-      "var(--container-standard-txt-default)",
+      "var(--page-content-txt-default)",
     );
   });
 
@@ -76,20 +76,32 @@ describe("'p' variant", () => {
     );
   });
 
-  it("should apply default tint color token by default", () => {
+  it("should apply neutral color token by default", () => {
     render(<Typography variant="p">Text</Typography>);
 
     const paragraph = screen.getByRole("paragraph");
 
     expect(paragraph).toHaveStyleRule(
       "color",
-      "var(--container-standard-txt-default)",
+      "var(--page-content-txt-default)",
     );
   });
 
-  it("should apply alt tint color token when `tint` is alt", () => {
+  it("should apply subtle color token when `color` is subtle", () => {
     render(
-      <Typography variant="p" tint="alt">
+      <Typography variant="p" color="subtle">
+        Text
+      </Typography>,
+    );
+
+    const paragraph = screen.getByRole("paragraph");
+
+    expect(paragraph).toHaveStyleRule("color", "var(--page-content-txt-alt)");
+  });
+
+  it("should apply caution color token when `color` is caution", () => {
+    render(
+      <Typography variant="p" color="caution">
         Text
       </Typography>,
     );
@@ -98,8 +110,62 @@ describe("'p' variant", () => {
 
     expect(paragraph).toHaveStyleRule(
       "color",
-      "var(--container-standard-txt-alt)",
+      "var(--page-content-caution-txt)",
     );
+  });
+
+  it("should apply info color token when `color` is info", () => {
+    render(
+      <Typography variant="p" color="info">
+        Text
+      </Typography>,
+    );
+
+    const paragraph = screen.getByRole("paragraph");
+
+    expect(paragraph).toHaveStyleRule("color", "var(--page-content-info-txt)");
+  });
+
+  it("should apply negative color token when `color` is negative", () => {
+    render(
+      <Typography variant="p" color="negative">
+        Text
+      </Typography>,
+    );
+
+    const paragraph = screen.getByRole("paragraph");
+
+    expect(paragraph).toHaveStyleRule(
+      "color",
+      "var(--page-content-negative-txt)",
+    );
+  });
+
+  it("should apply positive color token when `color` is positive", () => {
+    render(
+      <Typography variant="p" color="positive">
+        Text
+      </Typography>,
+    );
+
+    const paragraph = screen.getByRole("paragraph");
+
+    expect(paragraph).toHaveStyleRule(
+      "color",
+      "var(--page-content-positive-txt)",
+    );
+  });
+
+  it("should map deprecated `tint` to color fallback when `color` is not provided", () => {
+    render(
+      <Typography variant="p" tint="alt">
+        Text
+      </Typography>,
+    );
+
+    const paragraph = screen.getByRole("paragraph");
+
+    expect(paragraph).toHaveStyleRule("color", "var(--page-content-txt-alt)");
   });
 
   it("should apply fluid font token when `fluid` is true", () => {
@@ -128,7 +194,84 @@ describe("'p' variant", () => {
 
     expect(paragraph).toHaveStyleRule(
       "color",
-      "var(--container-standard-inverse-txt-default)",
+      "var(--page-content-inverse-txt-default)",
+    );
+  });
+
+  describe("when inverse is true and a semantic color is provided", () => {
+    it("keeps the caution semantic token", () => {
+      render(
+        <Typography variant="p" color="caution" inverse>
+          Text
+        </Typography>,
+      );
+
+      const paragraph = screen.getByRole("paragraph");
+
+      expect(paragraph).toHaveStyleRule(
+        "color",
+        "var(--page-content-caution-txt)",
+      );
+    });
+
+    it("keeps the info semantic token", () => {
+      render(
+        <Typography variant="p" color="info" inverse>
+          Text
+        </Typography>,
+      );
+
+      const paragraph = screen.getByRole("paragraph");
+
+      expect(paragraph).toHaveStyleRule(
+        "color",
+        "var(--page-content-info-txt)",
+      );
+    });
+
+    it("keeps the negative semantic token", () => {
+      render(
+        <Typography variant="p" color="negative" inverse>
+          Text
+        </Typography>,
+      );
+
+      const paragraph = screen.getByRole("paragraph");
+
+      expect(paragraph).toHaveStyleRule(
+        "color",
+        "var(--page-content-negative-txt)",
+      );
+    });
+
+    it("keeps the positive semantic token", () => {
+      render(
+        <Typography variant="p" color="positive" inverse>
+          Text
+        </Typography>,
+      );
+
+      const paragraph = screen.getByRole("paragraph");
+
+      expect(paragraph).toHaveStyleRule(
+        "color",
+        "var(--page-content-positive-txt)",
+      );
+    });
+  });
+
+  it("should prioritise explicit `color` over deprecated `tint` fallback", () => {
+    render(
+      <Typography variant="p" color="positive" tint="alt">
+        Text
+      </Typography>,
+    );
+
+    const paragraph = screen.getByRole("paragraph");
+
+    expect(paragraph).toHaveStyleRule(
+      "color",
+      "var(--page-content-positive-txt)",
     );
   });
 
@@ -152,10 +295,7 @@ describe("'h1' variant", () => {
     const h1 = screen.getByRole("heading", { level: 1 });
 
     expect(h1).toHaveStyleRule("font", "var(--global-font-static-heading-l)");
-    expect(h1).toHaveStyleRule(
-      "color",
-      "var(--container-standard-txt-default)",
-    );
+    expect(h1).toHaveStyleRule("color", "var(--page-content-txt-default)");
   });
 
   it("should apply fluid font token when `fluid` is true", () => {
@@ -181,8 +321,20 @@ describe("'h1' variant", () => {
 
     expect(h1).toHaveStyleRule(
       "color",
-      "var(--container-standard-inverse-txt-default)",
+      "var(--page-content-inverse-txt-default)",
     );
+  });
+
+  it("should apply explicit color token for heading variants", () => {
+    render(
+      <Typography variant="h1" color="caution">
+        Heading text
+      </Typography>,
+    );
+
+    const h1 = screen.getByRole("heading", { level: 1 });
+
+    expect(h1).toHaveStyleRule("color", "var(--page-content-caution-txt)");
   });
 
   it("should override element with `as` prop", () => {
@@ -205,10 +357,7 @@ describe("'h2' variant", () => {
     const h2 = screen.getByRole("heading", { level: 2 });
 
     expect(h2).toHaveStyleRule("font", "var(--global-font-static-heading-m)");
-    expect(h2).toHaveStyleRule(
-      "color",
-      "var(--container-standard-txt-default)",
-    );
+    expect(h2).toHaveStyleRule("color", "var(--page-content-txt-default)");
   });
 
   it("should apply fluid font token when `fluid` is true", () => {
@@ -234,7 +383,7 @@ describe("'h2' variant", () => {
 
     expect(h2).toHaveStyleRule(
       "color",
-      "var(--container-standard-inverse-txt-default)",
+      "var(--page-content-inverse-txt-default)",
     );
   });
 
@@ -258,10 +407,7 @@ describe("'h3' variant", () => {
     const h3 = screen.getByRole("heading", { level: 3 });
 
     expect(h3).toHaveStyleRule("font", "var(--global-font-static-heading-s)");
-    expect(h3).toHaveStyleRule(
-      "color",
-      "var(--container-standard-txt-default)",
-    );
+    expect(h3).toHaveStyleRule("color", "var(--page-content-txt-default)");
   });
 
   it("should apply fluid font token when `fluid` is true", () => {
@@ -287,7 +433,7 @@ describe("'h3' variant", () => {
 
     expect(h3).toHaveStyleRule(
       "color",
-      "var(--container-standard-inverse-txt-default)",
+      "var(--page-content-inverse-txt-default)",
     );
   });
 
@@ -314,10 +460,7 @@ describe("'h4' variant", () => {
       "font",
       "var(--global-font-static-subheading-l)",
     );
-    expect(h4).toHaveStyleRule(
-      "color",
-      "var(--container-standard-txt-default)",
-    );
+    expect(h4).toHaveStyleRule("color", "var(--page-content-txt-default)");
   });
 
   it("should apply fluid font token when `fluid` is true", () => {
@@ -343,7 +486,7 @@ describe("'h4' variant", () => {
 
     expect(h4).toHaveStyleRule(
       "color",
-      "var(--container-standard-inverse-txt-default)",
+      "var(--page-content-inverse-txt-default)",
     );
   });
 
@@ -370,10 +513,7 @@ describe("'h5' variant", () => {
       "font",
       "var(--global-font-static-subheading-m)",
     );
-    expect(h5).toHaveStyleRule(
-      "color",
-      "var(--container-standard-txt-default)",
-    );
+    expect(h5).toHaveStyleRule("color", "var(--page-content-txt-default)");
   });
 
   it("should apply fluid font token when `fluid` is true", () => {
@@ -399,7 +539,7 @@ describe("'h5' variant", () => {
 
     expect(h5).toHaveStyleRule(
       "color",
-      "var(--container-standard-inverse-txt-default)",
+      "var(--page-content-inverse-txt-default)",
     );
   });
 
@@ -428,7 +568,7 @@ describe("'section-heading' variant", () => {
     );
     expect(sectionHeading).toHaveStyleRule(
       "color",
-      "var(--container-standard-txt-default)",
+      "var(--page-content-txt-default)",
     );
   });
 
@@ -458,7 +598,7 @@ describe("'section-heading' variant", () => {
 
     expect(sectionHeading).toHaveStyleRule(
       "color",
-      "var(--container-standard-inverse-txt-default)",
+      "var(--page-content-inverse-txt-default)",
     );
   });
 
@@ -487,7 +627,7 @@ describe("'section-subheading' variant", () => {
     );
     expect(sectionSubheading).toHaveStyleRule(
       "color",
-      "var(--container-standard-txt-default)",
+      "var(--page-content-txt-default)",
     );
   });
 
@@ -517,7 +657,7 @@ describe("'section-subheading' variant", () => {
 
     expect(sectionSubheading).toHaveStyleRule(
       "color",
-      "var(--container-standard-inverse-txt-default)",
+      "var(--page-content-inverse-txt-default)",
     );
   });
 
@@ -544,10 +684,7 @@ describe("'strong' variant", () => {
       "font",
       "var(--global-font-static-body-medium-m)",
     );
-    expect(strong).toHaveStyleRule(
-      "color",
-      "var(--container-standard-txt-default)",
-    );
+    expect(strong).toHaveStyleRule("color", "var(--page-content-txt-default)");
   });
 
   it("should apply M size by default", () => {
@@ -596,10 +733,7 @@ describe("'strong' variant", () => {
 
     const strong = screen.getByRole("strong");
 
-    expect(strong).toHaveStyleRule(
-      "color",
-      "var(--container-standard-txt-default)",
-    );
+    expect(strong).toHaveStyleRule("color", "var(--page-content-txt-default)");
   });
 
   it("should apply alt tint color token when `tint` is alt", () => {
@@ -611,10 +745,7 @@ describe("'strong' variant", () => {
 
     const strong = screen.getByRole("strong");
 
-    expect(strong).toHaveStyleRule(
-      "color",
-      "var(--container-standard-txt-alt)",
-    );
+    expect(strong).toHaveStyleRule("color", "var(--page-content-txt-alt)");
   });
 
   it("should apply fluid font token when `fluid` is true", () => {
@@ -643,7 +774,7 @@ describe("'strong' variant", () => {
 
     expect(strong).toHaveStyleRule(
       "color",
-      "var(--container-standard-inverse-txt-default)",
+      "var(--page-content-inverse-txt-default)",
     );
   });
 
@@ -672,10 +803,7 @@ describe("'b' variant", () => {
       "font",
       "var(--global-font-static-body-medium-m)",
     );
-    expect(bold).toHaveStyleRule(
-      "color",
-      "var(--container-standard-txt-default)",
-    );
+    expect(bold).toHaveStyleRule("color", "var(--page-content-txt-default)");
   });
 
   it("should apply M size by default", () => {
@@ -724,10 +852,7 @@ describe("'b' variant", () => {
 
     const bold = screen.getByText("Bold text");
 
-    expect(bold).toHaveStyleRule(
-      "color",
-      "var(--container-standard-txt-default)",
-    );
+    expect(bold).toHaveStyleRule("color", "var(--page-content-txt-default)");
   });
 
   it("should apply alt tint color token when `tint` is alt", () => {
@@ -739,7 +864,7 @@ describe("'b' variant", () => {
 
     const bold = screen.getByText("Bold text");
 
-    expect(bold).toHaveStyleRule("color", "var(--container-standard-txt-alt)");
+    expect(bold).toHaveStyleRule("color", "var(--page-content-txt-alt)");
   });
 
   it("should apply fluid font token when `fluid` is true", () => {
@@ -768,7 +893,7 @@ describe("'b' variant", () => {
 
     expect(bold).toHaveStyleRule(
       "color",
-      "var(--container-standard-inverse-txt-default)",
+      "var(--page-content-inverse-txt-default)",
     );
   });
 
@@ -798,10 +923,7 @@ describe("'sup' variant", () => {
       "font",
       "var(--global-font-static-body-regular-m)",
     );
-    expect(sup).toHaveStyleRule(
-      "color",
-      "var(--container-standard-txt-default)",
-    );
+    expect(sup).toHaveStyleRule("color", "var(--page-content-txt-default)");
   });
 
   it("should apply M size by default", () => {
@@ -861,10 +983,7 @@ describe("'sup' variant", () => {
 
     const sup = screen.getByRole("superscript");
 
-    expect(sup).toHaveStyleRule(
-      "color",
-      "var(--container-standard-txt-default)",
-    );
+    expect(sup).toHaveStyleRule("color", "var(--page-content-txt-default)");
   });
 
   it("should apply alt tint color token when `tint` is alt", () => {
@@ -876,7 +995,7 @@ describe("'sup' variant", () => {
 
     const sup = screen.getByRole("superscript");
 
-    expect(sup).toHaveStyleRule("color", "var(--container-standard-txt-alt)");
+    expect(sup).toHaveStyleRule("color", "var(--page-content-txt-alt)");
   });
 
   it("should apply fluid font token when `fluid` is true", () => {
@@ -905,7 +1024,7 @@ describe("'sup' variant", () => {
 
     expect(sup).toHaveStyleRule(
       "color",
-      "var(--container-standard-inverse-txt-default)",
+      "var(--page-content-inverse-txt-default)",
     );
   });
 
@@ -935,10 +1054,7 @@ describe("'sub' variant", () => {
       "font",
       "var(--global-font-static-body-regular-m)",
     );
-    expect(sub).toHaveStyleRule(
-      "color",
-      "var(--container-standard-txt-default)",
-    );
+    expect(sub).toHaveStyleRule("color", "var(--page-content-txt-default)");
   });
 
   it("should apply M size by default", () => {
@@ -998,10 +1114,7 @@ describe("'sub' variant", () => {
 
     const sub = screen.getByRole("subscript");
 
-    expect(sub).toHaveStyleRule(
-      "color",
-      "var(--container-standard-txt-default)",
-    );
+    expect(sub).toHaveStyleRule("color", "var(--page-content-txt-default)");
   });
 
   it("should apply alt tint color token when `tint` is alt", () => {
@@ -1013,7 +1126,7 @@ describe("'sub' variant", () => {
 
     const sub = screen.getByRole("subscript");
 
-    expect(sub).toHaveStyleRule("color", "var(--container-standard-txt-alt)");
+    expect(sub).toHaveStyleRule("color", "var(--page-content-txt-alt)");
   });
 
   it("should apply fluid font token when `fluid` is true", () => {
@@ -1042,7 +1155,7 @@ describe("'sub' variant", () => {
 
     expect(sub).toHaveStyleRule(
       "color",
-      "var(--container-standard-inverse-txt-default)",
+      "var(--page-content-inverse-txt-default)",
     );
   });
 
@@ -1074,10 +1187,7 @@ describe("'ul' variant", () => {
       "font",
       "var(--global-font-static-body-regular-m)",
     );
-    expect(ul).toHaveStyleRule(
-      "color",
-      "var(--container-standard-txt-default)",
-    );
+    expect(ul).toHaveStyleRule("color", "var(--page-content-txt-default)");
   });
 
   it("should apply M size by default", () => {
@@ -1149,10 +1259,7 @@ describe("'ul' variant", () => {
 
     const ul = screen.getByRole("list");
 
-    expect(ul).toHaveStyleRule(
-      "color",
-      "var(--container-standard-txt-default)",
-    );
+    expect(ul).toHaveStyleRule("color", "var(--page-content-txt-default)");
   });
 
   it("should apply alt tint color token when `tint` is alt", () => {
@@ -1164,7 +1271,7 @@ describe("'ul' variant", () => {
 
     const ul = screen.getByRole("list");
 
-    expect(ul).toHaveStyleRule("color", "var(--container-standard-txt-alt)");
+    expect(ul).toHaveStyleRule("color", "var(--page-content-txt-alt)");
   });
 
   it("should apply fluid font token when `fluid` is true", () => {
@@ -1193,7 +1300,7 @@ describe("'ul' variant", () => {
 
     expect(ul).toHaveStyleRule(
       "color",
-      "var(--container-standard-inverse-txt-default)",
+      "var(--page-content-inverse-txt-default)",
     );
   });
 
@@ -1225,10 +1332,7 @@ describe("'ol' variant", () => {
       "font",
       "var(--global-font-static-body-regular-m)",
     );
-    expect(ol).toHaveStyleRule(
-      "color",
-      "var(--container-standard-txt-default)",
-    );
+    expect(ol).toHaveStyleRule("color", "var(--page-content-txt-default)");
   });
 
   it("should apply M size by default", () => {
@@ -1300,10 +1404,7 @@ describe("'ol' variant", () => {
 
     const ol = screen.getByRole("list");
 
-    expect(ol).toHaveStyleRule(
-      "color",
-      "var(--container-standard-txt-default)",
-    );
+    expect(ol).toHaveStyleRule("color", "var(--page-content-txt-default)");
   });
 
   it("should apply alt tint color token when `tint` is alt", () => {
@@ -1315,7 +1416,7 @@ describe("'ol' variant", () => {
 
     const ol = screen.getByRole("list");
 
-    expect(ol).toHaveStyleRule("color", "var(--container-standard-txt-alt)");
+    expect(ol).toHaveStyleRule("color", "var(--page-content-txt-alt)");
   });
 
   it("should apply fluid font token when `fluid` is true", () => {
@@ -1344,7 +1445,7 @@ describe("'ol' variant", () => {
 
     expect(ol).toHaveStyleRule(
       "color",
-      "var(--container-standard-inverse-txt-default)",
+      "var(--page-content-inverse-txt-default)",
     );
   });
 
@@ -1468,10 +1569,7 @@ describe("default variant behavior", () => {
       "font",
       "var(--global-font-static-body-regular-m)",
     );
-    expect(element).toHaveStyleRule(
-      "color",
-      "var(--container-standard-txt-default)",
-    );
+    expect(element).toHaveStyleRule("color", "var(--page-content-txt-default)");
   });
 
   it("should fall back to default p element when an invalid variant is provided", () => {
@@ -1490,7 +1588,7 @@ describe("default variant behavior", () => {
     );
     expect(paragraph).toHaveStyleRule(
       "color",
-      "var(--container-standard-txt-default)",
+      "var(--page-content-txt-default)",
     );
   });
 });

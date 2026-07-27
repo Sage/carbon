@@ -37,55 +37,49 @@ import ProgressTracker from "carbon-react/lib/components/progress-tracker";
 
 ### Default
 
-By default, the `ProgressTracker` component will display a progress bar with a percentage value out of 100% as a label.
+To use this component pass the `progress` prop to set a progress value as a percentage. 
+
+By default, the component will display a label with the provided percentage progress out of 100%.
 
 <Canvas of={ProgressTrackerStories.Default} />
 
-### Small bar size
+### With Description
 
-This is an example of a small `ProgressTracker` component.
+Use the `description` prop to provide a description of the progress being tracked.
 
-<Canvas of={ProgressTrackerStories.SizeSmall} />
+<Canvas of={ProgressTrackerStories.WithDescription} />
 
-### Large bar size
+### Custom Label values
 
-This is an example of a large `ProgressTracker` component.
+To display custom progress values, pass the values as a string to the `currentProgressLabel` and `maxProgressLabel` props.
 
-<Canvas of={ProgressTrackerStories.SizeLarge} />
-
-### Custom bar length
-
-By default, the length of the component is "256px". However, you can use the `length` prop to override this with any valid css string. 
-
-<Canvas of={ProgressTrackerStories.CustomBarLength} />
-
-### Color variants
-
-Depending on the progress or state of the component, the colour of the progress bar is automatically updated.
-
-<Canvas of={ProgressTrackerStories.ColorVariants} />
-
-
-### Custom label values
-
-To set your own labels, you can set the `currentProgressLabel` and `maxProgressLabel` props. 
-
-Note that the preposition between the current and max labels will be 'of' by default, but you can override this by setting the `customValuePreposition` prop or making use of the `of` translation key.
-
-You can also use the `description` prop to provide additional context to the user.
+To customize the "of" text, you can pass a custom string to the `customValuePreposition` prop or make use of the `progressTracker.of` translation key.
 
 <Canvas of={ProgressTrackerStories.CustomLabelValues} />
 
-### Label position
+### Custom Length
 
-By default, the position of the label is above the bar. To override this you can set the `labelsPosition` prop to `"bottom"` or `"left"`.
+By default, the length of the component is "256px". However, you can use the `length` prop to override this with any valid css string. 
 
-<Canvas of={ProgressTrackerStories.LabelsPositionBottom} />
+<Canvas of={ProgressTrackerStories.CustomLength} />
 
-When positioning the labels to the `"left"`, you can use the `labelWidth` prop to ensure consistent label lengths.
-This can also facilitate comparison between multiple `ProgressTracker` components.
+### Labels Position
 
-<Canvas of={ProgressTrackerStories.LabelPositionLeft} />
+To change the position of the label, pass the `labelsPosition` prop with a value of "top" (default), "bottom", or "left".
+
+<Canvas of={ProgressTrackerStories.LabelsPosition} />
+
+### Sizes
+
+Use the `size` prop to change the size of the component, available sizes are "small", "medium" (default) and "large".
+
+<Canvas of={ProgressTrackerStories.Sizes} />
+
+### Variants
+
+Use the `variant` prop to change the variant of the component, available variants are "neutral" (default), "warning", "information", "error" and "success".
+
+<Canvas of={ProgressTrackerStories.Variants} />
 
 ## Props
 

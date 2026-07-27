@@ -2,6 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Button from "./button.component";
+import Icon from "../icon";
 
 test("renders with text children", () => {
   render(<Button>foo</Button>);
@@ -122,8 +123,7 @@ test("sets the 'aria-describedby' attribute correctly when a custom value is pas
   expect(button).toHaveAccessibleDescription("this describes the button");
 });
 
-/* Styling test for coverage */
-test("sets the correct icon colour when 'gradient-white' is passed to the 'buttonType' prop", () => {
+test("does not set explicit icon data-color when 'gradient-white' is passed to the 'buttonType' prop", () => {
   render(
     <Button aria-label="button" buttonType="gradient-white" iconType="bin">
       foo
@@ -131,12 +131,10 @@ test("sets the correct icon colour when 'gradient-white' is passed to the 'butto
   );
 
   const icon = screen.getByTestId("icon");
-
-  expect(icon).toHaveStyleRule("color", "var(--colorsActionMinorYin090)");
+  expect(icon).not.toHaveAttribute("data-color");
 });
 
-/* Styling test for coverage */
-test("sets the correct icon colour when 'gradient-grey' is passed to the 'buttonType' prop", () => {
+test("does not set explicit icon data-color when 'gradient-grey' is passed to the 'buttonType' prop", () => {
   render(
     <Button aria-label="button" buttonType="gradient-grey" iconType="bin">
       foo
@@ -144,7 +142,19 @@ test("sets the correct icon colour when 'gradient-grey' is passed to the 'button
   );
 
   const icon = screen.getByTestId("icon");
-  expect(icon).toHaveStyleRule("color", "var(--colorsActionMinorYin090)");
+  expect(icon).not.toHaveAttribute("data-color");
+});
+
+test("preserves explicit icon color when a custom icon is rendered inside a button", () => {
+  render(
+    <Button buttonType="tertiary">
+      Action <Icon type="ellipsis_vertical" color="#FF1133" />
+    </Button>,
+  );
+
+  const icon = screen.getByTestId("icon");
+  expect(icon).toHaveAttribute("data-color", "#FF1133");
+  expect(icon).toHaveStyleRule("color", "#FF1133");
 });
 
 /* Styling test for coverage */

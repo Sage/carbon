@@ -19,12 +19,7 @@ test.describe("should check for Accessibility tests", () => {
     page,
   }) => {
     await mount(
-      <PillOnDarkBackground
-        pillRole="status"
-        colorVariant="neutral"
-        fill
-        isDarkBackground
-      >
+      <PillOnDarkBackground variant="blue" fill inverse>
         Pill
       </PillOnDarkBackground>,
     );

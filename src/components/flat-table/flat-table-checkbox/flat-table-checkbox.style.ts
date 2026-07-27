@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import StyledCheckbox from "../../checkbox/checkbox.style";
 import { FlatTableCheckboxProps } from "./flat-table-checkbox.component";
 
 interface StyledFlatTableCheckboxProps
@@ -57,10 +56,6 @@ const StyledFlatTableCheckbox = styled.td<StyledFlatTableCheckboxProps>`
   `}
 
   width: 18px;
-
-  ${StyledCheckbox} {
-    padding-top: 0px;
-  }
 `;
 
 export default StyledFlatTableCheckbox;

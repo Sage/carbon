@@ -12,7 +12,7 @@ import { getDataElementByValue } from "../../../playwright/components";
 import { ICON } from "../../../playwright/components/locators";
 import { checkAccessibility } from "../../../playwright/support/helper";
 
-const validationTypes = ["error", "warning", "info"] as const;
+const validationTypes = ["error", "warning"] as const;
 
 test.describe("Tabs component", () => {
   test("when the children of a Tab update, the selected tab does not change", async ({

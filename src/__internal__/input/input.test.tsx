@@ -3,6 +3,7 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Input from ".";
 import InputIconToggle from "../input-icon-toggle";
+import SelectTextboxContext from "../../components/select/__internal__/select-textbox/__internal__/select-textbox.context";
 
 test("should render text input element with `type` of 'text' by default", () => {
   render(<Input value="" onChange={() => {}} />);
@@ -239,3 +240,24 @@ test("should render with prefix when `prefix` prop is provided", () => {
   const prefix = screen.getByText("$");
   expect(prefix).toBeVisible();
 });
+
+test.each(["multi", "filterable"] as const)(
+  "should include prefix in accessible description when select type is %s",
+  (selectType) => {
+    render(
+      <SelectTextboxContext.Provider
+        value={{ selectType, prefixId: "currency-prefix" }}
+      >
+        <Input
+          aria-describedby="currency-prefix"
+          prefix="$"
+          prefixId="currency-prefix"
+          value=""
+          onChange={() => {}}
+        />
+      </SelectTextboxContext.Provider>,
+    );
+
+    expect(screen.getByRole("textbox")).toHaveAccessibleDescription("$");
+  },
+);

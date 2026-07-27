@@ -1,7 +1,7 @@
 # carbon-react — Shared Copilot Instructions
 
 - Repo: Sage React component library; TS + React 18; styled-components v5; Storybook 8; Rollup; Jest; Playwright CT; outputs `lib/` + `esm/`.
-- Env: Node 24.x (`.nvmrc`), npm >=11.15.0. Use `npm ci` only. Setup: `nvm use && npm install -g npm@11.15.0 && npm run setup`.
+- Env: Node 24.x (`.nvmrc`), npm >=11.18.0. Use `npm ci` only. Setup: `nvm use && npm install -g npm@11.18.0 && npm run setup`.
 - Never commit `lib/`, `esm/`, `coverage/`, `src/components/tokens-wrapper/static-tokens/`.
 - Never add unused `eslint-disable`. Never raise lint warning ceilings.
 - Use Conventional Commits. Breaking changes require `BREAKING CHANGE:`.

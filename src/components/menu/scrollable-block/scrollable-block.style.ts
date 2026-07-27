@@ -11,14 +11,18 @@ import type { MenuType } from "../menu.types";
 interface StyledScrollableBlockProps {
   menuType: MenuType;
   variant: VariantType;
+  $inFullscreenView?: boolean;
 }
 
 const StyledScrollableBlock = styled.li<StyledScrollableBlockProps>`
-  ${({ menuType, variant }) => css`
+  ${({ menuType, variant, $inFullscreenView }) => css`
     && ${StyledMenuItemWrapper} {
-      background-color: ${variant === "default"
-        ? menuConfigVariants[menuType].submenuItemBackground
-        : menuConfigVariants[menuType].alternate};
+      ${!$inFullscreenView &&
+      css`
+        background-color: ${variant === "default"
+          ? menuConfigVariants[menuType].submenuItemBackground
+          : menuConfigVariants[menuType].alternate};
+      `}
       padding-right: var(--spacing150);
     }
 

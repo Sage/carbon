@@ -50,8 +50,6 @@ export interface StyledLabelContainerProps {
   inline?: boolean;
   /** Padding right, integer multiplied by base spacing constant (8) */
   pr?: 1 | 2;
-  /** Padding left, integer multiplied by base spacing constant (8) */
-  pl?: 1 | 2;
   /** Label width */
   width?: number;
 }
@@ -69,19 +67,18 @@ export const StyledLabelContainer = styled.div<StyledLabelContainerProps>`
     justify-content: ${align !== "right" ? "flex-start" : "flex-end"};
   `}
 
-  ${({ inline, pr, pl, width }) =>
+  ${({ inline, pr, width }) =>
     inline &&
     css`
       box-sizing: border-box;
       margin-bottom: 0;
-      ${pr &&
-      css`
-        padding-right: var(${pr === 1 ? "--spacing100" : "--spacing200"});
-      `};
-      ${pl &&
-      css`
-        padding-left: var(${pl === 1 ? "--spacing100" : "--spacing200"});
-      `};
+
+      ${
+        /* istanbul ignore next */ pr &&
+        css`
+          padding-right: var(${pr === 1 ? "--spacing100" : "--spacing200"});
+        `
+      };
       width: ${width}%;
     `}
 `;

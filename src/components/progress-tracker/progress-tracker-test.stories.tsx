@@ -1,7 +1,6 @@
 import React from "react";
 import ProgressTracker from ".";
 import Box from "../box";
-import { PROGRESS_TRACKER_SIZES } from "./progress-tracker.config";
 import {
   FlexTileCell,
   FlexTileContainer,
@@ -12,41 +11,8 @@ import {
 export default {
   component: ProgressTracker,
   title: "Progress Tracker/Test",
-  includeStories: ["SnapshotCapture"],
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
-    chromatic: { disableSnapshot: false },
-  },
-  argTypes: {
-    size: {
-      options: PROGRESS_TRACKER_SIZES,
-      control: {
-        type: "select",
-      },
-    },
-    progress: {
-      control: {
-        type: "number",
-      },
-    },
-    currentProgressLabel: {
-      options: ["", "$100", "100ml", "error"],
-      control: {
-        type: "select",
-      },
-    },
-    maxProgressLabel: {
-      options: ["", "$200", "200ml"],
-      control: {
-        type: "select",
-      },
-    },
-    labelsPosition: {
-      options: ["top", "bottom", "left"],
-      control: {
-        type: "select",
-      },
-    },
   },
 };
 
@@ -57,33 +23,25 @@ export const SnapshotCapture = () => {
       {/* Default */}
       <ProgressTracker progress={50} />
       {/* Sizes */}
-      <ProgressTracker size="small" progress={50} />
-      <ProgressTracker size="large" progress={50} />
+      <ProgressTracker size="small" progress={50} description="Small" />
+      <ProgressTracker size="medium" progress={50} description="Medium" />
+      <ProgressTracker size="large" progress={50} description="Large" />
       {/* Custom bar length */}
-      <ProgressTracker progress={50} length="150px" />
-      {/* Color variants */}
-      <ProgressTracker progress={15} currentProgressLabel="15%" />
-      <ProgressTracker progress={50} currentProgressLabel="50%" />
-      <ProgressTracker progress={100} currentProgressLabel="100%" />
-      <ProgressTracker progress={100} error currentProgressLabel="error" />
+      <ProgressTracker
+        progress={50}
+        length="150px"
+        description="Custom Length"
+      />
       {/* Custom label values */}
       <ProgressTracker
         progress={50}
         currentProgressLabel="$50"
         maxProgressLabel="$200"
-      />
-      <ProgressTracker
-        progress={70}
-        currentProgressLabel="Step 3"
-        maxProgressLabel="5"
-        description="Adding VAT"
+        customValuePreposition="out of"
+        description="Custom Labels"
       />
       {/* Labels position bottom */}
-      <ProgressTracker
-        labelsPosition="bottom"
-        progress={50}
-        currentProgressLabel="50%"
-      />
+      <ProgressTracker labelsPosition="bottom" progress={50} />
       {/* Labels position left */}
       <ProgressTracker
         labelsPosition="left"
@@ -99,6 +57,16 @@ export const SnapshotCapture = () => {
         progress={40}
         labelWidth="fit-content"
       />
+      {/* Variants */}
+      <ProgressTracker progress={50} variant="neutral" description="Neutral" />
+      <ProgressTracker progress={50} variant="warning" description="Warning" />
+      <ProgressTracker
+        progress={50}
+        variant="information"
+        description="Information"
+      />
+      <ProgressTracker progress={50} variant="error" description="Error" />
+      <ProgressTracker progress={50} variant="success" description="Success" />
       {/* Inside flex tile */}
       <Tile m={0} py={0}>
         <FlexTileContainer>

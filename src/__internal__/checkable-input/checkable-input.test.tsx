@@ -1,108 +1,104 @@
 import React from "react";
-import { act, render, screen } from "@testing-library/react";
-import CheckableInput from ".";
+import { render, screen } from "@testing-library/react";
+import CommonCheckableInput from "./checkable-input.component";
+import useMediaQuery from "../../hooks/useMediaQuery";
 
-test("renders `label` with expected id when `id` prop is passed", () => {
-  render(<CheckableInput type="checkbox" label="label" id="foo" />);
+jest.mock("../../hooks/useMediaQuery");
 
-  expect(screen.getByText("label")).toHaveAttribute("id", "foo-label");
+test("renders input with provided `type`", () => {
+  render(<CommonCheckableInput type="radio" />);
+
+  expect(screen.getByRole("radio")).toBeInTheDocument();
 });
 
-test("renders `fieldHelp` with expected id when `id` prop is passed", () => {
-  render(<CheckableInput type="checkbox" fieldHelp="fieldHelp" id="foo" />);
+test("renders with provided children", () => {
+  render(<CommonCheckableInput type="radio">Foo</CommonCheckableInput>);
 
-  expect(screen.getByText("fieldHelp")).toHaveAttribute("id", "foo-field-help");
+  expect(screen.getByText("Foo")).toBeVisible();
 });
 
-test("renders input with provided `aria-labelledby`", () => {
-  render(<CheckableInput type="checkbox" ariaLabelledBy="foo" />);
+test("renders input with provided `name`", () => {
+  render(<CommonCheckableInput type="radio" name="test-name" />);
 
-  expect(screen.getByRole("checkbox")).toHaveAttribute(
-    "aria-labelledby",
-    "foo",
+  expect(screen.getByRole("radio")).toHaveAttribute("name", "test-name");
+});
+
+test("renders input with provided `value`", () => {
+  render(<CommonCheckableInput type="radio" value="test-value" />);
+
+  // toHaveValue() does not work with radio or checkbox inputs
+  // eslint-disable-next-line jest-dom/prefer-to-have-value
+  expect(screen.getByRole("radio")).toHaveAttribute("value", "test-value");
+});
+
+test("renders input checked when `checked` prop is true", () => {
+  render(<CommonCheckableInput type="radio" checked onChange={() => {}} />);
+
+  expect(screen.getByRole("radio")).toBeChecked();
+});
+
+test("renders with provided `label`", () => {
+  render(<CommonCheckableInput type="radio" label="Test Label" />);
+
+  expect(screen.getByText("Test Label")).toBeVisible();
+  expect(screen.getByRole("radio")).toHaveAccessibleName("Test Label");
+});
+
+test("renders with provided `inputHint`", () => {
+  render(<CommonCheckableInput type="radio" inputHint="Test Hint Text" />);
+
+  expect(screen.getByText("Test Hint Text")).toBeVisible();
+  expect(screen.getByRole("radio")).toHaveAccessibleDescription(
+    "Test Hint Text",
   );
 });
 
-test("renders input with 'aria-describedby' as the id of the `fieldHelp`", () => {
-  render(<CheckableInput type="checkbox" fieldHelp="fieldHelp" id="foo" />);
+test("renders input disabled when `disabled` prop is true", () => {
+  render(<CommonCheckableInput type="radio" disabled />);
 
-  const input = screen.getByRole("checkbox");
-
-  expect(input).toHaveAccessibleDescription("fieldHelp");
+  expect(screen.getByRole("radio")).toBeDisabled();
 });
 
-// we are not able to test the computed accessible description here as the validation tooltip is rendered in consuming components
-// tested in Checkbox component
-test("renders input with 'aria-describedby' as the id of the validation tooltip when the input is focused", () => {
-  render(<CheckableInput type="checkbox" id="foo" error="error" />);
-
-  const input = screen.getByRole("checkbox");
-
-  expect(input).not.toHaveAttribute("aria-describedby");
-
-  act(() => {
-    input.focus();
-  });
-
-  expect(input).toHaveAttribute("aria-describedby", "foo-validation-1");
-});
-
-test("appends the id of the validation tooltip to the input's 'aria-describedby' when fieldHelp is set and the input is focused", () => {
+test("displays progressive disclosure content when provided and input is checked", () => {
   render(
-    <CheckableInput
-      type="checkbox"
-      fieldHelp="fieldHelp"
-      id="foo"
-      error="error"
+    <CommonCheckableInput
+      type="radio"
+      checked
+      progressiveDisclosure={<div>Progressive disclosure content</div>}
+      onChange={() => {}}
     />,
   );
 
-  const input = screen.getByRole("checkbox");
-
-  expect(input).toHaveAttribute("aria-describedby", "foo-field-help");
-
-  act(() => {
-    input.focus();
-  });
-
-  expect(input).toHaveAttribute(
-    "aria-describedby",
-    "foo-field-help foo-validation-1",
-  );
+  expect(screen.getByText("Progressive disclosure content")).toBeVisible();
 });
 
-test("sets 'aria-invalid' to 'true' on the input when `error` prop is passed", () => {
-  render(<CheckableInput type="checkbox" error="error" />);
-
-  expect(screen.getByRole("checkbox")).toHaveAttribute("aria-invalid", "true");
-});
-
-test("renders a required input when `required` prop is true", () => {
-  render(<CheckableInput type="checkbox" required />);
-
-  expect(screen.getByRole("checkbox")).toBeRequired();
-});
-
-test("renders a disabled input when the `disabled` prop is true", () => {
-  render(<CheckableInput type="checkbox" disabled />);
-
-  expect(screen.getByRole("checkbox")).toBeDisabled();
-});
-
-// coverage
-test("renders label with expected width when `labelWidth` prop is passed", () => {
-  render(<CheckableInput type="checkbox" label="label" labelWidth={30} />);
-
-  expect(screen.getByTestId("label-container")).toHaveStyle({ width: "30%" });
-});
-
-// coverage
-test("applies dark background colour to field help when `isDarkBackground` is true", () => {
+test("does not display progressive disclosure content when input is not checked", () => {
   render(
-    <CheckableInput type="checkbox" fieldHelp="fieldHelp" isDarkBackground />,
+    <CommonCheckableInput
+      type="radio"
+      progressiveDisclosure={<div>Progressive disclosure content</div>}
+      onChange={() => {}}
+    />,
   );
 
-  expect(screen.getByText("fieldHelp")).toHaveStyle({
-    color: "var(--colorsUtilityYang080)",
-  });
+  expect(
+    screen.queryByText("Progressive disclosure content"),
+  ).not.toBeVisible();
+});
+
+test("applies accordion animation when reduced motion is not preferred", () => {
+  const mockedUseMediaQuery = jest.mocked(useMediaQuery);
+  mockedUseMediaQuery.mockReturnValue(true);
+
+  render(
+    <CommonCheckableInput
+      type="radio"
+      progressiveDisclosure={<div>Progressive disclosure content</div>}
+      onChange={() => {}}
+    />,
+  );
+
+  expect(screen.getByTestId("progressive-disclosure-accordion")).toHaveStyle(
+    "transition: all 0.4s;",
+  );
 });
