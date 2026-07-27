@@ -241,6 +241,7 @@ export const Link = React.forwardRef<
       onMouseDown,
       onClick: handleClick,
       disabled: isDisabled,
+      "aria-disabled": isDisabled || undefined,
       target,
       ref: setRefs,
       href,
