@@ -1,3 +1,9 @@
+## [161.7.1](https://github.com/Sage/carbon/compare/v161.7.0...v161.7.1) (2026-07-27)
+
+### Bug Fixes
+
+* **batch-selection:** improve contrast and add aria-disabled ([80c9e52](https://github.com/Sage/carbon/commit/80c9e522854743bae0d503ba4d2f0e5aff4e6a1f))
+
 ## [161.7.0](https://github.com/Sage/carbon/compare/v161.6.0...v161.7.0) (2026-07-24)
 
 ### Features
