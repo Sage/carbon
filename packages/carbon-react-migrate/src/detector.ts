@@ -3,7 +3,11 @@ import { extname, relative } from "node:path";
 import jscodeshift from "jscodeshift";
 import type {
   ASTPath,
+  ImportDeclaration,
+  ImportDefaultSpecifier,
+  ImportSpecifier,
   JSXAttribute,
+  JSXOpeningElement,
   JSXSpreadAttribute,
   Node,
 } from "jscodeshift";
@@ -24,7 +28,7 @@ export class MalformedSourceError extends Error {
   }
 }
 
-const parserFor = (file: string) =>
+export const parserFor = (file: string) =>
   [".ts", ".tsx"].includes(extname(file))
     ? jscodeshift.withParser("tsx")
     : jscodeshift.withParser("babel");
@@ -79,15 +83,46 @@ function baseFinding(
   };
 }
 
-type Binding = { local: string; origin: string; importPath: ASTPath<Node> };
+type Binding = {
+  local: string;
+  origin: string;
+  importPath: ASTPath<ImportDeclaration>;
+};
+
+export type SafeEdit =
+  | {
+      rule: "replace-step-sequence-item-aria-label";
+      attribute: JSXAttribute;
+    }
+  | {
+      rule: "replace-dialog-full-screen-component";
+      openingElement: JSXOpeningElement;
+      importDeclaration: ImportDeclaration;
+      importSpecifier: ImportSpecifier | ImportDefaultSpecifier;
+    };
+
+export interface DetectedMatch {
+  finding: Finding;
+  safeEdit?: SafeEdit;
+}
+
+export interface SourceAnalysis {
+  source: string;
+  root: ReturnType<ReturnType<typeof jscodeshift.withParser>>;
+  matches: DetectedMatch[];
+}
+
+type BindingWithSpecifier = Binding & {
+  importSpecifier: ImportSpecifier | ImportDefaultSpecifier;
+};
 
 function imports(
   root: ReturnType<ReturnType<typeof jscodeshift.withParser>>,
   imported: string,
   allowedOrigins: string[],
   allowDefault = false,
-): Binding[] {
-  const result: Binding[] = [];
+): BindingWithSpecifier[] {
+  const result: BindingWithSpecifier[] = [];
   root.find(jscodeshift.ImportDeclaration).forEach((path) => {
     const origin = String(path.node.source.value);
     if (!allowedOrigins.includes(origin)) return;
@@ -100,7 +135,8 @@ function imports(
         result.push({
           local: String(specifier.local?.name ?? imported),
           origin,
-          importPath: path as ASTPath<Node>,
+          importPath: path as ASTPath<ImportDeclaration>,
+          importSpecifier: specifier,
         });
       }
       if (
@@ -111,7 +147,8 @@ function imports(
         result.push({
           local: String(specifier.local.name),
           origin,
-          importPath: path as ASTPath<Node>,
+          importPath: path as ASTPath<ImportDeclaration>,
+          importSpecifier: specifier,
         });
       }
     }
@@ -131,13 +168,13 @@ function jsxAttributes(node: {
   return (node.attributes ?? []) as Array<JSXAttribute | JSXSpreadAttribute>;
 }
 
-export function detectFile(
+export function analyzeSource(
+  source: string,
   absoluteFile: string,
   displayRoot: string,
   records: readonly MigrationRecord[],
   track: SelectionTrack,
-): Finding[] {
-  const source = readFileSync(absoluteFile, "utf8");
+): SourceAnalysis {
   const j = parserFor(absoluteFile);
   let root: ReturnType<typeof j>;
   try {
@@ -146,7 +183,7 @@ export function detectFile(
     throw new MalformedSourceError(absoluteFile, error);
   }
   const file = relative(displayRoot, absoluteFile).split("\\").join("/");
-  const findings: Finding[] = [];
+  const matches: DetectedMatch[] = [];
 
   for (const record of records) {
     if (record.id === "step-sequence-item-aria-label") {
@@ -177,21 +214,30 @@ export function detectFile(
                 attr.name.type === "JSXIdentifier" &&
                 attr.name.name === "aria-label"),
           );
-          findings.push(
-            baseFinding(
-              record,
-              track,
-              file,
-              target,
-              `${binding.local}.ariaLabel`,
-              binding.origin,
-              conflict ? "ambiguous-prop" : "jsx-prop",
-              conflict ? "unsupported" : undefined,
-              conflict
-                ? ["Spread or conflicting aria-label prevents a safe match."]
-                : [],
-            ),
+          const finding = baseFinding(
+            record,
+            track,
+            file,
+            target,
+            `${binding.local}.ariaLabel`,
+            binding.origin,
+            conflict ? "ambiguous-prop" : "jsx-prop",
+            conflict ? "unsupported" : undefined,
+            conflict
+              ? ["Spread or conflicting aria-label prevents a safe match."]
+              : [],
           );
+          matches.push({
+            finding,
+            ...(conflict
+              ? {}
+              : {
+                  safeEdit: {
+                    rule: "replace-step-sequence-item-aria-label" as const,
+                    attribute: target,
+                  },
+                }),
+          });
         });
       }
     }
@@ -212,28 +258,50 @@ export function detectFile(
           )
             return;
           const attrs = jsxAttributes(path.node);
-          const conflict = attrs.some(
+          const propConflict = attrs.some(
             (attr) =>
               attr.type === "JSXSpreadAttribute" ||
               (attr.type === "JSXAttribute" &&
                 attr.name.type === "JSXIdentifier" &&
                 ["size", "fullscreen"].includes(attr.name.name)),
           );
-          findings.push(
-            baseFinding(
-              record,
-              track,
-              file,
-              path.node,
-              binding.local,
-              binding.origin,
-              conflict ? "ambiguous-component" : "jsx-component",
-              conflict ? "unsupported" : undefined,
-              conflict
-                ? ["Spread, size, or fullscreen props prevent a safe match."]
-                : [],
-            ),
+          const importConflict =
+            binding.importPath.node.importKind === "type" ||
+            ("importKind" in binding.importSpecifier &&
+              binding.importSpecifier.importKind === "type") ||
+            binding.importPath.node.specifiers?.length !== 1;
+          const conflict = propConflict || importConflict;
+          const finding = baseFinding(
+            record,
+            track,
+            file,
+            path.node,
+            binding.local,
+            binding.origin,
+            conflict ? "ambiguous-component" : "jsx-component",
+            conflict ? "unsupported" : undefined,
+            conflict
+              ? [
+                  propConflict
+                    ? "Spread, size, or fullscreen props prevent a safe match."
+                    : "A type-only or multi-specifier import prevents a safe replacement.",
+                ]
+              : [],
           );
+          matches.push({
+            finding,
+            ...(conflict
+              ? {}
+              : {
+                  safeEdit: {
+                    rule: "replace-dialog-full-screen-component" as const,
+                    openingElement: path.node,
+                    importDeclaration: binding.importPath
+                      .node as ImportDeclaration,
+                    importSpecifier: binding.importSpecifier,
+                  },
+                }),
+          });
         });
       }
     }
@@ -252,8 +320,8 @@ export function detectFile(
             parent?.type === "TSTypeReference" ||
             parent?.type === "TypeReference"
           ) {
-            findings.push(
-              baseFinding(
+            matches.push({
+              finding: baseFinding(
                 record,
                 track,
                 file,
@@ -262,11 +330,32 @@ export function detectFile(
                 binding.origin,
                 "type-reference",
               ),
-            );
+            });
           }
         });
       }
     }
   }
-  return findings;
+  return { source, root, matches };
+}
+
+export function analyzeFile(
+  absoluteFile: string,
+  displayRoot: string,
+  records: readonly MigrationRecord[],
+  track: SelectionTrack,
+): SourceAnalysis {
+  const source = readFileSync(absoluteFile, "utf8");
+  return analyzeSource(source, absoluteFile, displayRoot, records, track);
+}
+
+export function detectFile(
+  absoluteFile: string,
+  displayRoot: string,
+  records: readonly MigrationRecord[],
+  track: SelectionTrack,
+): Finding[] {
+  return analyzeFile(absoluteFile, displayRoot, records, track).matches.map(
+    ({ finding }) => finding,
+  );
 }

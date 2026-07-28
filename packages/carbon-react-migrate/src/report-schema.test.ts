@@ -41,7 +41,7 @@ function directReport(args: string[], expectedExit: number): MutableReport {
   return report;
 }
 
-test("actual plan, check, and check-deprecations reports validate against schema v1", () => {
+test("actual read-only and application reports validate against schema v1", () => {
   directReport(["plan", "--from", "159.0.0", "--to", "160.0.0"], EXIT.SUCCESS);
   directReport(
     [
@@ -57,6 +57,22 @@ test("actual plan, check, and check-deprecations reports validate against schema
   directReport(
     ["check-deprecations", resolve(fixtures, "supported")],
     EXIT.FINDINGS,
+  );
+  directReport(
+    ["apply-deprecations", resolve(fixtures, "supported"), "--dry-run"],
+    EXIT.FINDINGS,
+  );
+  directReport(
+    [
+      "apply",
+      "--from",
+      "159.0.0",
+      "--to",
+      "160.0.0",
+      resolve(fixtures, "supported"),
+      "--dry-run",
+    ],
+    EXIT.SUCCESS,
   );
 });
 
@@ -117,6 +133,16 @@ test("schema rejects malformed migration summaries, summaries, and findings", ()
     const report = structuredClone(valid);
     mutate(report);
     assert.equal(validate(report), false, name);
+  }
+
+  const application = directReport(
+    ["apply-deprecations", resolve(fixtures, "supported"), "--dry-run"],
+    EXIT.FINDINGS,
+  );
+  for (const field of ["dryRun", "changes"]) {
+    const invalid = structuredClone(application);
+    delete invalid[field];
+    assert.equal(validate(invalid), false, `missing application ${field}`);
   }
 });
 

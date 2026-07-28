@@ -290,6 +290,24 @@ test("command-specific argument validation is deterministic", () => {
       exit: EXIT.SUCCESS,
     },
     {
+      name: "valid apply dry run",
+      args: [
+        "apply",
+        "--from",
+        "159.0.0",
+        "--to",
+        "160.0.0",
+        target,
+        "--dry-run",
+      ],
+      exit: EXIT.SUCCESS,
+    },
+    {
+      name: "valid apply deprecations dry run",
+      args: ["apply-deprecations", target, "--dry-run"],
+      exit: EXIT.SUCCESS,
+    },
+    {
       name: "plan positional path",
       args: ["plan", "--from", "159.0.0", "--to", "160.0.0", target],
       exit: EXIT.INVALID_INPUT,
@@ -363,6 +381,16 @@ test("command-specific argument validation is deterministic", () => {
     {
       name: "unknown option",
       args: ["check-deprecations", "--unknown"],
+      exit: EXIT.INVALID_INPUT,
+    },
+    {
+      name: "dry run on check",
+      args: ["check-deprecations", target, "--dry-run"],
+      exit: EXIT.INVALID_INPUT,
+    },
+    {
+      name: "dirty override on plan",
+      args: ["plan", "--from", "159.0.0", "--to", "160.0.0", "--allow-dirty"],
       exit: EXIT.INVALID_INPUT,
     },
     {

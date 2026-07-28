@@ -99,9 +99,9 @@ Follow [Controlled plan evolution](./PLAN.md#controlled-plan-evolution).
 
 ## Overall status
 
-- Current phase: Phase 3
+- Current phase: Phase 4
 - Overall status: in-progress
-- Last completed phase: Phase 2
+- Last completed phase: Phase 3
 - Latest completed gate: complete-with-deferred-work
 - Updated by: current project implementor with AI assistance
 
@@ -575,15 +575,15 @@ separate task. Phase 2 may begin, but was not implemented here.
   correctness repair
 - Outcome: `complete-with-deferred-work`
 
-| Check                        | Result | Evidence or reason                                                                                                                                                                 |
-| ---------------------------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Scope                        | pass   | Phase 2 read-only scope and repairs are complete; no apply command, Phase 3 implementation, or Phase 3 prompt exists.                                                              |
-| Deliverable                  | pass   | CLI, complete schema v1, shared detectors, tests, fixtures, README, and repaired handoff exist and are independently usable.                                                       |
-| Exit criteria                | pass   | Every Phase 2 exit criterion is listed below with reproducible evidence; actual reports from all three commands validate.                                                          |
-| Correctness and safety       | pass   | Strict arguments, exits 0–4, exact paths, ambiguity, malformed input, byte stability, no-write hashes, JSON exit 1, and negative schemas are tested.                               |
-| Documentation and provenance | pass   | Clean JSON commands, schema boundary, link-metadata decision, limitations, dependencies, and initial insufficient gate are recorded; no source was copied.                         |
-| Ownership and approvals      | pass   | Implementation/pilot scope remains approved; documentation-link extraction, publication/security/support, and pilot approval remain assigned to Phases 4/5.                        |
-| Leftovers and plan health    | pass   | P2-L2 is resolved; P2-L1 and P2-L3 have accepted later targets; P0-L3/P0-L7 remain Phase 4 and P0-L6 Phase 5; no blocker or plan revision remains.                                 |
+| Check                        | Result | Evidence or reason                                                                                                                                                                                   |
+| ---------------------------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Scope                        | pass   | Phase 2 read-only scope and repairs are complete; no apply command, Phase 3 implementation, or Phase 3 prompt exists.                                                                                |
+| Deliverable                  | pass   | CLI, complete schema v1, shared detectors, tests, fixtures, README, and repaired handoff exist and are independently usable.                                                                         |
+| Exit criteria                | pass   | Every Phase 2 exit criterion is listed below with reproducible evidence; actual reports from all three commands validate.                                                                            |
+| Correctness and safety       | pass   | Strict arguments, exits 0–4, exact paths, ambiguity, malformed input, byte stability, no-write hashes, JSON exit 1, and negative schemas are tested.                                                 |
+| Documentation and provenance | pass   | Clean JSON commands, schema boundary, link-metadata decision, limitations, dependencies, and initial insufficient gate are recorded; no source was copied.                                           |
+| Ownership and approvals      | pass   | Implementation/pilot scope remains approved; documentation-link extraction, publication/security/support, and pilot approval remain assigned to Phases 4/5.                                          |
+| Leftovers and plan health    | pass   | P2-L2 is resolved; P2-L1 and P2-L3 have accepted later targets; P0-L3/P0-L7 remain Phase 4 and P0-L6 Phase 5; no blocker or plan revision remains.                                                   |
 | Repository state             | pass   | Required tests, catalogue validation, direct Ajv dependency check, lint, formatting, 11 handoff links, and diff check pass; lock changes cover the reviewed jscodeshift tooling and Ajv declaration. |
 
 ##### Exit-criterion evidence
@@ -682,8 +682,11 @@ separate task. Phase 2 may begin, but was not implemented here.
 - Dependencies or unblock condition: Phase 2 gate permits Phase 3.
 - Planned verification: check/apply equivalence, ambiguity, conflict, and
   idempotency fixtures.
-- Status: open
-- Resolution evidence: not-applicable; unresolved.
+- Status: resolved
+- Resolution evidence: Phase 3 attaches safe-edit descriptors to the exact
+  shared detector matches consumed by `check`; check/dry-apply equivalence,
+  named-registry, ambiguity, conflict, file-quarantine, and idempotency tests
+  pass in the complete package suite.
 
 #### P2-L3: Add reviewed deprecation-link metadata
 
@@ -722,41 +725,281 @@ in a separate task. It is ready to receive a prompt but none was generated here.
 ## Phase 3: Safe application
 
 - Plan reference: [Phase 3](./PLAN.md#phase-3-safe-application)
-- Status: not-started
-- Phase-gate outcome: not evaluated
+- Status: complete
+- Phase-gate outcome: complete-with-deferred-work
 - Owner: current project implementor
 
 ### Implemented
 
-None recorded.
+- Generated and reviewed the Phase 3 prompt from the current shared template,
+  plan, ledger, and Phase 2 handoff.
+- Added `apply`, `apply-deprecations`, `--dry-run`, and the explicit
+  `--allow-dirty` override while preserving Phase 2 selection tracks and exit
+  codes.
+- Refactored the shared detector to attach exact internal safe-edit evidence to
+  supported findings; read-only checks and application use the same matcher.
+- Added named StepSequenceItem and DialogFullScreen codemods in one registry.
+- Limited edits to `safe` catalogue records and quarantined any file containing
+  an ambiguous or unsupported selected finding.
+- Added complete pre-write parsing, transformation, reparse/postcondition
+  validation, deterministic edit planning, source-drift checks, same-directory
+  atomic replacement, and rollback after reported replacement failures.
+- Added default dirty-Git-worktree refusal, clean worktree, explicit override,
+  dry-run, and non-Git behavior.
+- Extended JSON schema v1 backward-compatibly with application commands,
+  deterministic change hashes, dry-run state, and change counts.
+- Documented opt-in project formatting/verification and retained the rule that
+  the CLI never executes customer scripts.
+- Added shared-evidence, registry, non-match, ambiguity, conflict,
+  file-quarantine, dry-run equivalence, idempotency, dirty-tree, non-Git,
+  malformed-source, and failing/interrupted replacement tests.
+- Corrected the Phase 3 P1 shared-import failure by grouping DialogFullScreen
+  import rewrites by import-declaration identity while still applying one JSX
+  edit for every eligible shared-detector match.
+- Added named-aliased and default-aliased shared-import regressions covering two
+  JSX uses, one import rewrite, alias/comment preservation, dry-run/application
+  equivalence, valid transformed source, and repeated-apply idempotency.
+- Corrected the Phase 3 P1 symlink-replacement finding by refusing application
+  through source-file symbolic links before parsing or writing.
+- Added directory-discovered and directly supplied symlink regressions proving
+  both the link and its target remain unchanged and the CLI exits with invalid
+  input.
+- Resolved `P2-L1`.
 
 ### Handoff artifacts
 
-None recorded.
+- [Phase 3 handoff](./handoffs/PHASE_3.md)
+- [Phase 3 prompt](./prompts/PHASE_3.md)
+- [Application engine](../packages/carbon-react-migrate/src/application.ts)
+- [Application safety tests](../packages/carbon-react-migrate/src/application.test.ts)
+- [Shared detector](../packages/carbon-react-migrate/src/detector.ts)
+- [CLI](../packages/carbon-react-migrate/src/cli.ts)
+- [JSON schema v1](../packages/carbon-react-migrate/schema/report-v1.schema.json)
+- [Package guide](../packages/carbon-react-migrate/README.md)
 
 ### Verification
 
-None recorded.
+#### Phase 3 P1 review finding
+
+- Result: `remain-in-phase`
+- Evidence: a supported named aliased `DialogFullScreen` import used by two JSX
+  elements produces two detector matches that reference one import specifier.
+  The first codemod invocation replaces that specifier; the second invocation
+  attempts to replace the stale node and throws
+  `TransformationError: Unable to locate DialogFullScreen import`.
+- Impact: the supported-safe classification and completion claim are invalid
+  until the import is rewritten exactly once, every eligible JSX occurrence is
+  updated, regressions pass, and the formal gate is reevaluated.
+- Required correction: Phase 3; no deferral or additional phase.
+- Reproduction: the first package run after adding the exact regression built
+  successfully, ran 39 tests, passed 38, and failed only the named-aliased
+  shared-import case with exit 4 and
+  `Internal failure: Unable to locate DialogFullScreen import`. The source
+  remained unchanged because failure occurred during in-memory planning.
+- Correction evidence: a per-file `WeakSet` keyed by shared import declaration
+  now gates the import rewrite, while every eligible detector match still adds
+  `size="fullscreen"` to its JSX opening element. The exact reproduction and
+  default-alias counterpart now complete without `TransformationError`, produce
+  parser-valid source, preserve `Full` and the leading comment, contain one
+  rewritten import and two fullscreen attributes, and produce no second change.
+
+- `npm run test --prefix packages/carbon-react-migrate` — pass: TypeScript
+  build and 39/39 tests. Coverage includes both named codemods, exact
+  check/apply evidence equivalence, schema-valid application reports, dry-run
+  versus actual proposed changes, repeated apply with zero second change,
+  supported named/default shared imports, unsupported-file quarantine,
+  multi-specifier conflicts, manual/partial no-edit behavior, Git guards,
+  malformed preflight, and rollback after a simulated interruption.
+- `npm run validate:catalogue --prefix packages/carbon-react-migrate` — pass:
+  validated five records and four boundaries, including registered rule names.
+- `npx eslint packages/carbon-react-migrate/src --max-warnings=0` — the first
+  full verification run found two style-only errors
+  (`prefer-destructuring` and `no-use-before-define`); both were corrected and
+  the command reran successfully. The P1 correction verification then found one
+  unused registry-context parameter; it was explicitly consumed without
+  changing behavior and the full required sequence was rerun successfully.
+- `npx prettier --check migration-tooling/prompts/PHASE_3.md
+migration-tooling/handoffs/PHASE_3.md
+migration-tooling/IMPLEMENTATION_STATUS.md
+packages/carbon-react-migrate/README.md
+packages/carbon-react-migrate/schema/report-v1.schema.json
+packages/carbon-react-migrate/src` — pass.
+- `node migration-tooling/scripts/validate-handoff-links.cjs
+migration-tooling/handoffs/PHASE_3.md` — pass.
+- `git diff --check` — pass.
+
+#### Superseded formal phase gate
+
+- Original outcome: `complete-with-deferred-work`
+- Re-evaluation after P1 review: `remain-in-phase`
+- Reason: the original 37-test evidence omitted a supported named-aliased
+  shared-import case, which failed during planning and invalidated the
+  correctness/safety and exit-criterion completion claims below until repaired.
+
+- Reviewer: current project implementor with AI evidence review
+- Outcome: `complete-with-deferred-work`
+
+| Check                        | Result | Evidence or reason                                                                                                                                                                                                                  |
+| ---------------------------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Scope                        | pass   | All Phase 3 tasks and `P2-L1` are implemented; no Phase 4 implementation or prompt was added.                                                                                                                                       |
+| Deliverable                  | pass   | Safe application, shared detector/edit contract, schema, tests, guide, generated Phase 3 prompt, and complete handoff exist and link durably.                                                                                       |
+| Exit criteria                | pass   | Every Phase 3 exit criterion has passing automated evidence below.                                                                                                                                                                  |
+| Correctness and safety       | pass   | Only registered safe rules edit; unsupported files are quarantined; all outputs validate before writing; source drift aborts; atomic replacement, rollback, dirty-tree refusal, equivalence, conflicts, and idempotency are tested. |
+| Documentation and provenance | pass   | README, schema, prompt, handoff, limitations, decisions, and opt-in verification guidance agree; no upstream source was copied.                                                                                                     |
+| Ownership and approvals      | pass   | Implementation/pilot scope remains approved; codemod/API review areas are named; publication, dependency/security, richer-link, support, and pilot approvals remain accepted later-phase work.                                      |
+| Leftovers and plan health    | pass   | `P2-L1` is resolved; `P0-L3`, `P0-L7`, and `P2-L3` remain accepted in Phase 4 and `P0-L6` in Phase 5; no blocker or plan revision remains.                                                                                          |
+| Repository state             | pass   | Final 37-test suite, catalogue validation, lint, formatting, handoff links, and diff integrity pass; unrelated repository files remain untouched.                                                                                   |
+
+##### Exit-criterion evidence
+
+- Criterion: every transform has non-match and ambiguous fixtures.
+  - Result: pass
+  - Evidence: `npm run test --prefix packages/carbon-react-migrate`; negative,
+    shadowing, prop spread/conflict, Dialog prop/import conflict, and
+    unsupported-file tests.
+- Criterion: applying a transform twice produces no second diff.
+  - Result: pass
+  - Evidence: application idempotency test; the second apply returns exit 0
+    with an empty `changes` array.
+- Criterion: a dry run and actual run report the same proposed file changes.
+  - Result: pass
+  - Evidence: dry-run/actual test compares the complete deterministic `changes`
+    arrays and confirms the dry-run source is unchanged.
+- Criterion: a failed transform does not leave partially written files.
+  - Result: pass
+  - Evidence: all-source preflight test leaves the valid file unchanged after a
+    malformed later file; the injected second-file replacement failure restores
+    both originals and removes temporary/backup artifacts.
+- Criterion: manual migrations remain unchanged and are reported.
+  - Result: pass
+  - Evidence: Button partial finding produces zero edits; upgrade `apply`
+    schema test reports the manual upgrade slice without changes.
+- Criterion: version-aware application and the deprecation preset invoke the
+  same registered codemods and produce equivalent edits for the same findings.
+  - Result: pass
+  - Evidence: both commands use `planApplication` and the single exported named
+    codemod registry; registry/catalogue equality and check/dry-apply exact
+    finding equality pass. The current version-aware slice has no safe record,
+    so it correctly invokes no codemod and reports manual/partial work.
+
+##### Blocking or follow-up actions
+
+- Action: refresh production dependency, security, license, Node, size, and
+  performance evidence.
+  - Owner or ownership area: security/release owner
+  - Target phase: Phase 4 (`P0-L3`)
+- Action: establish publication ownership and support commitments.
+  - Owner or ownership area: tooling/security/release owners
+  - Target phase: Phase 4 (`P0-L7`)
+- Action: add authoritative extracted deprecation-link metadata.
+  - Owner or ownership area: Carbon API/docs owner, current implementor
+  - Target phase: Phase 4 (`P2-L3`)
+- Action: pilot and decide the public support boundary.
+  - Owner or ownership area: product/support/release and pilot reviewers
+  - Target phase: Phase 5 (`P0-L6`)
+
+#### Phase 3 P1 symlink review finding
+
+- Result: `remain-in-phase`
+- Evidence: a supported source-file symlink discovered during a directory scan
+  was treated as a source file. Atomic replacement renamed a temporary regular
+  file over the symlink, destroying the link while leaving its target
+  unchanged.
+- Impact: customer filesystem structure could be changed even though the source
+  transformation itself was valid.
+- Required correction: Phase 3; no deferral or additional phase.
+- Correction evidence: application now rejects both directly supplied and
+  directory-discovered source-file symbolic links before parsing or writing,
+  rechecks every planned target before replacement, returns exit 2 with an
+  actionable message, and leaves the link and target byte-for-byte unchanged.
+
+#### Formal phase gate after P1 corrections
+
+- Reviewer: current project implementor with AI evidence review
+- Outcome: `complete-with-deferred-work`
+
+| Check                        | Result | Evidence or reason                                                                                                                                                                                                                                                                                     |
+| ---------------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Scope                        | pass   | The P1 defect was corrected in Phase 3 without broadening detection; no Phase 4 implementation or prompt was added.                                                                                                                                                                                    |
+| Deliverable                  | pass   | Safe application, corrected shared-import planning, explicit symlink refusal, shared detector/edit contract, schema, 42-test suite, guide, prompt, and updated handoff exist and link durably.                                                                                                         |
+| Exit criteria                | pass   | Every Phase 3 exit criterion was reevaluated with the exact P1 reproduction and passing automated evidence below.                                                                                                                                                                                      |
+| Correctness and safety       | pass   | Each supported shared import rewrites once, source-file symlinks are rejected unchanged, genuine duplicate/conflict checks remain, unsupported files remain quarantined, and preflight, postconditions, drift checks, atomic replacement, rollback, Git protection, equivalence, and idempotency pass. |
+| Documentation and provenance | pass   | Status and handoff record the P1 failure, correction, limitations, exact commands, and corrected counts; README/schema remain compatible; no upstream source was copied.                                                                                                                               |
+| Ownership and approvals      | pass   | Implementation/pilot scope remains approved; codemod/API review areas are named; publication, dependency/security, richer-link, support, and pilot approvals remain accepted later-phase work.                                                                                                         |
+| Leftovers and plan health    | pass   | Both P1 findings are resolved in Phase 3; `P2-L1` remains resolved; accepted Phase 4/5 leftovers are unchanged; no blocker, new phase, deferral, or plan revision is required.                                                                                                                         |
+| Repository state             | pass   | Final 42-test suite, catalogue validation, lint, exact formatting check, 12 handoff links, and `git diff --check` pass; unrelated repository files remain untouched.                                                                                                                                   |
+
+##### Exit-criterion evidence
+
+- Criterion: every transform has non-match and ambiguous fixtures.
+  - Result: pass
+  - Evidence: the 42-test suite covers negative/shadowed inputs, prop conflicts,
+    multi-specifier imports, unsupported-file quarantine, and both supported
+    shared-import forms.
+- Criterion: applying a transform twice produces no second diff.
+  - Result: pass
+  - Evidence: StepSequenceItem and both named/default shared Dialog imports
+    return exit 0 with empty `changes` arrays on repeated application.
+- Criterion: a dry run and actual run report the same proposed file changes.
+  - Result: pass
+  - Evidence: existing and both P1 regression paths compare complete
+    deterministic `changes` arrays.
+- Criterion: a failed transform does not leave partially written files.
+  - Result: pass
+  - Evidence: malformed planning leaves valid source unchanged; source drift
+    aborts; injected replacement failure restores both originals and removes
+    temporary/backup artifacts.
+- Criterion: manual migrations remain unchanged and are reported.
+  - Result: pass
+  - Evidence: Button partial findings and manual upgrade records continue to
+    report with zero edits.
+- Criterion: version-aware application and the deprecation preset invoke the
+  same registered codemods and produce equivalent edits for the same findings.
+  - Result: pass
+  - Evidence: both commands still use `planApplication` and one registry;
+    registry/catalogue equality and check/dry-apply finding equality pass. The
+    required-upgrade slice still contains no safe record.
+
+##### Blocking or follow-up actions
+
+- The accepted `P0-L3`, `P0-L7`, and `P2-L3` Phase 4 follow-ups and `P0-L6`
+  Phase 5 follow-up are unchanged. None blocks the corrected Phase 3
+  deliverable or Phase 4 prerequisites.
 
 ### Decisions
 
-None recorded.
+- `P3-D1`: attach internal safe-edit descriptors to exact shared detector
+  matches and dispatch them through one named codemod registry.
+- `P3-D2`: quarantine an entire file from edits when that selected track has an
+  unsupported or ambiguous finding.
+- `P3-D3`: refuse all writes in a dirty Git worktree by default; expose only
+  `--allow-dirty` as the explicit override; keep dry-run read-only.
+- `P3-D4`: extend JSON schema v1 backward-compatibly for application commands
+  and fields while retaining all existing read-only contracts.
+- `P3-D5`: rewrite a supported DialogFullScreen import once per shared AST
+  declaration identity while applying the JSX attribute edit once per exact
+  detector match. This preserves aliasing and supported scope and prevents
+  stale-specifier reuse.
+- `P3-D6`: refuse application through source-file symbolic links with exit 2
+  rather than following or replacing them. Read-only Phase 2 behavior is not
+  broadened, and customer links and targets remain unchanged.
 
 ### Leftovers
 
-None recorded.
+- `P2-L1` is resolved. No new Phase 3 leftover remains.
 
 ### Deviations from plan
 
-None recorded.
+- None. Implementation evidence did not require Controlled plan evolution.
 
 ### Estimate changes
 
-None recorded.
+- None; Phase 4 and Phase 5 estimates remain credible.
 
 ### Next action
 
-None recorded.
+- Generate the Phase 4 prompt from the current repository and Phase 3 handoff in
+  a separate task. Phase 4 may begin, but was not generated or implemented here.
 
 ## Phase 4: Maintainer workflow and CI
 
@@ -850,6 +1093,6 @@ None recorded.
 - `P0-L2` → resolved in Phase 1.
 - `P0-L3` and `P0-L7` → Phase 4.
 - `P0-L6` → Phase 5.
-- `P2-L1` → Phase 3.
+- `P2-L1` → resolved in Phase 3.
 - `P2-L2` → resolved in Phase 2.
 - `P2-L3` → Phase 4.

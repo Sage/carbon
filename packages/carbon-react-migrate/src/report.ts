@@ -46,16 +46,29 @@ export interface MigrationSummary {
 
 export interface Report {
   schemaVersion: typeof REPORT_SCHEMA_VERSION;
-  command: "plan" | "check" | "check-deprecations";
+  command:
+    | "plan"
+    | "check"
+    | "check-deprecations"
+    | "apply"
+    | "apply-deprecations";
   from?: string;
   to?: string;
+  dryRun?: boolean;
   migrations: MigrationSummary[];
   findings: Finding[];
+  changes?: Array<{
+    file: string;
+    migrationIds: string[];
+    beforeHash: string;
+    afterHash: string;
+  }>;
   summary: {
     selectionTrack: SelectionTrack;
     requiredForRequestedUpgrade: boolean;
     migrationCount: number;
     findingCount: number;
+    changeCount?: number;
     message: string;
   };
 }

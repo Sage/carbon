@@ -15,6 +15,13 @@ import {
   type SelectionTrack,
 } from "./report.js";
 import { scan } from "./scanner.js";
+import {
+  assertCleanWorktree,
+  DirtyWorktreeError,
+  planApplication,
+  SymlinkInputError,
+  writeChangesAtomically,
+} from "./application.js";
 
 export const EXIT = {
   SUCCESS: 0,
@@ -25,11 +32,18 @@ export const EXIT = {
 } as const;
 
 type Options = {
-  command: "plan" | "check" | "check-deprecations";
+  command:
+    | "plan"
+    | "check"
+    | "check-deprecations"
+    | "apply"
+    | "apply-deprecations";
   from?: string;
   to?: string;
   format: "human" | "json";
   path?: string;
+  dryRun: boolean;
+  allowDirty: boolean;
 };
 
 class InvalidInputError extends Error {
@@ -38,13 +52,23 @@ class InvalidInputError extends Error {
 
 function parseArguments(args: string[]): Options {
   const command = args.shift();
-  if (!["plan", "check", "check-deprecations"].includes(command ?? ""))
+  if (
+    ![
+      "plan",
+      "check",
+      "check-deprecations",
+      "apply",
+      "apply-deprecations",
+    ].includes(command ?? "")
+  )
     throw new InvalidInputError(
-      "Expected command: plan, check, or check-deprecations",
+      "Expected command: plan, check, check-deprecations, apply, or apply-deprecations",
     );
   const options: Options = {
     command: command as Options["command"],
     format: "human",
+    dryRun: false,
+    allowDirty: false,
   };
   const seenOptions = new Set<string>();
   const readOptionValue = (option: string): string => {
@@ -66,6 +90,16 @@ function parseArguments(args: string[]): Options {
       if (!["human", "json"].includes(format))
         throw new InvalidInputError("--format must be human or json");
       options.format = format as Options["format"];
+    } else if (value === "--dry-run") {
+      if (seenOptions.has(value))
+        throw new InvalidInputError(`Duplicate option ${value}`);
+      seenOptions.add(value);
+      options.dryRun = true;
+    } else if (value === "--allow-dirty") {
+      if (seenOptions.has(value))
+        throw new InvalidInputError(`Duplicate option ${value}`);
+      seenOptions.add(value);
+      options.allowDirty = true;
     } else if (value.startsWith("-"))
       throw new InvalidInputError(`Unknown option ${value}`);
     else if (options.command === "plan")
@@ -75,15 +109,26 @@ function parseArguments(args: string[]): Options {
     else if (!options.path) options.path = value;
     else throw new InvalidInputError(`Unexpected argument ${value}`);
   }
+  const deprecationCommand = [
+    "check-deprecations",
+    "apply-deprecations",
+  ].includes(options.command);
+  const applyCommand = ["apply", "apply-deprecations"].includes(
+    options.command,
+  );
   if (
-    options.command === "check-deprecations" &&
+    deprecationCommand &&
     (options.from !== undefined || options.to !== undefined)
   )
     throw new InvalidInputError(
-      "check-deprecations does not accept --from or --to",
+      `${options.command} does not accept --from or --to`,
     );
-  if (options.command !== "check-deprecations" && !options.to)
+  if (!deprecationCommand && !options.to)
     throw new InvalidInputError("--to is required");
+  if (!applyCommand && (options.dryRun || options.allowDirty))
+    throw new InvalidInputError(
+      "--dry-run and --allow-dirty are accepted only by apply commands",
+    );
   if (options.command !== "plan" && !options.path) options.path = ".";
   return options;
 }
@@ -119,6 +164,10 @@ function human(report: Report): string {
     lines.push(
       `${finding.file}:${finding.location.line}:${finding.location.column} ${finding.migrationId} ${finding.matchKind} [${finding.automationStatus}]`,
     );
+  for (const change of report.changes ?? [])
+    lines.push(
+      `${report.dryRun ? "PROPOSED" : "APPLIED"} ${change.file} ${change.migrationIds.join(",")}`,
+    );
   if (!report.findings.length) lines.push(NO_FINDINGS);
   return `${lines.join("\n")}\n`;
 }
@@ -127,54 +176,96 @@ export function run(args: string[]): number {
   let options: Options;
   try {
     options = parseArguments([...args]);
-    const track: SelectionTrack =
-      options.command === "check-deprecations"
-        ? "optional-proactive-deprecation"
-        : "required-upgrade";
+    const track: SelectionTrack = [
+      "check-deprecations",
+      "apply-deprecations",
+    ].includes(options.command)
+      ? "optional-proactive-deprecation"
+      : "required-upgrade";
     const invocationDirectory = process.env.INIT_CWD ?? process.cwd();
     const inputPath = options.path
       ? resolve(invocationDirectory, options.path)
       : invocationDirectory;
     if (options.command !== "plan" && !existsSync(inputPath))
       throw new InvalidInputError(`Scan path does not exist: ${options.path}`);
-    const from =
-      options.command === "check-deprecations"
-        ? undefined
-        : (options.from ?? installedVersion(inputPath));
-    if (options.command !== "check-deprecations" && !from)
+    const from = ["check-deprecations", "apply-deprecations"].includes(
+      options.command,
+    )
+      ? undefined
+      : (options.from ?? installedVersion(inputPath));
+    if (
+      !["check-deprecations", "apply-deprecations"].includes(options.command) &&
+      !from
+    )
       throw new InvalidInputError(
         "Unable to detect installed carbon-react version; provide --from",
       );
     let records;
     try {
-      if (options.command !== "check-deprecations" && (!from || !options.to))
+      if (
+        !["check-deprecations", "apply-deprecations"].includes(
+          options.command,
+        ) &&
+        (!from || !options.to)
+      )
         throw new InvalidInputError("--from and --to are required");
-      records =
-        options.command === "check-deprecations"
-          ? selectDeprecationMigrations()
-          : selectUpgradeMigrations(from ?? "", options.to ?? "");
+      records = ["check-deprecations", "apply-deprecations"].includes(
+        options.command,
+      )
+        ? selectDeprecationMigrations()
+        : selectUpgradeMigrations(from ?? "", options.to ?? "");
     } catch (error) {
       if (error instanceof UnsupportedUpgradePathError) throw error;
       throw new InvalidInputError(
         error instanceof Error ? error.message : String(error),
       );
     }
+    const applicationCommand = ["apply", "apply-deprecations"].includes(
+      options.command,
+    );
+    const application = applicationCommand
+      ? planApplication(inputPath, records, track)
+      : undefined;
     const findings =
-      options.command === "plan" ? [] : scan(inputPath, records, track);
+      options.command === "plan"
+        ? []
+        : (application?.findings ?? scan(inputPath, records, track));
+    if (application && !options.dryRun && application.changes.length) {
+      if (!options.allowDirty) assertCleanWorktree(inputPath);
+      writeChangesAtomically(application.changes);
+    }
     const report: Report = {
       schemaVersion: REPORT_SCHEMA_VERSION,
       command: options.command,
       ...(from ? { from } : {}),
       ...(options.to ? { to: options.to } : {}),
+      ...(application ? { dryRun: options.dryRun } : {}),
       migrations: records.map((record) => summarize(record, track)),
       findings,
+      ...(application
+        ? {
+            changes: application.changes.map(
+              ({ file, migrationIds, beforeHash, afterHash }) => ({
+                file,
+                migrationIds,
+                beforeHash,
+                afterHash,
+              }),
+            ),
+          }
+        : {}),
       summary: {
         selectionTrack: track,
         requiredForRequestedUpgrade: track === "required-upgrade",
         migrationCount: records.length,
         findingCount: findings.length,
+        ...(application ? { changeCount: application.changes.length } : {}),
         message: findings.length
-          ? "Known supported matches found."
+          ? application
+            ? options.dryRun
+              ? "Known supported matches found; safe changes were proposed but not written."
+              : "Known supported matches found; safe changes were applied and remaining work is reported."
+            : "Known supported matches found."
           : NO_FINDINGS,
       },
     };
@@ -191,7 +282,9 @@ export function run(args: string[]): number {
     }
     if (
       error instanceof UnsupportedUpgradePathError ||
-      error instanceof InvalidInputError
+      error instanceof InvalidInputError ||
+      error instanceof DirtyWorktreeError ||
+      error instanceof SymlinkInputError
     ) {
       process.stderr.write(`${error.message}\n`);
       return EXIT.INVALID_INPUT;
