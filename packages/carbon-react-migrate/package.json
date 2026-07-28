@@ -3,17 +3,24 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "bin": {
+    "carbon-react-migrate": "dist/cli.js"
+  },
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "test": "npm run build && node --test dist/**/*.test.js",
-    "validate:catalogue": "npm run build && node dist/validate-catalogue.js"
+    "validate:catalogue": "npm run build && node dist/validate-catalogue.js",
+    "migrate": "npm run build && node dist/cli.js"
   },
   "dependencies": {
+    "jscodeshift": "^17.4.0",
     "semver": "^7.5.4"
   },
   "devDependencies": {
+    "@types/jscodeshift": "^17.3.0",
     "@types/node": "^24.10.1",
     "@types/semver": "^7.7.0",
+    "ajv": "^8.18.0",
     "typescript": "^5.8.3"
   }
 }

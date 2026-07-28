@@ -99,9 +99,9 @@ Follow [Controlled plan evolution](./PLAN.md#controlled-plan-evolution).
 
 ## Overall status
 
-- Current phase: Phase 2
+- Current phase: Phase 3
 - Overall status: in-progress
-- Last completed phase: Phase 1
+- Last completed phase: Phase 2
 - Latest completed gate: complete-with-deferred-work
 - Updated by: current project implementor with AI assistance
 
@@ -154,16 +154,16 @@ Follow [Controlled plan evolution](./PLAN.md#controlled-plan-evolution).
 - Reviewer: current project implementor with AI evidence review
 - Outcome: `complete-with-deferred-work`
 
-| Check | Result | Evidence or reason |
-| --- | --- | --- |
-| Scope | pass | Candidate path, two tracks, tools, provenance, ownership boundaries, and limitations are defined. |
-| Deliverable | pass | Decision record, prototypes, results, status, and handoff are durable and linked. |
-| Exit criteria | pass | Required boundaries, optional applicability, deterministic subsets, guidance scope, parser coverage, and provenance are evidenced. |
-| Correctness and safety | pass | Optional cleanup is limited to tested conflict-free subsets; ambiguity remains unchanged and is reported. |
-| Documentation and provenance | pass | Guidance, limitations, upstream references, licenses, and no-copy decisions are recorded. |
-| Ownership and approvals | pass | Implementation and pilot scope is approved; publication, support, and release remain assigned to later phases. |
-| Leftovers and plan health | pass | No blocker remains; all required follow-ups have accepted target phases. |
-| Repository state | pass | Relevant prototype, JSON, link, and diff validations pass. |
+| Check                        | Result | Evidence or reason                                                                                                                 |
+| ---------------------------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------- |
+| Scope                        | pass   | Candidate path, two tracks, tools, provenance, ownership boundaries, and limitations are defined.                                  |
+| Deliverable                  | pass   | Decision record, prototypes, results, status, and handoff are durable and linked.                                                  |
+| Exit criteria                | pass   | Required boundaries, optional applicability, deterministic subsets, guidance scope, parser coverage, and provenance are evidenced. |
+| Correctness and safety       | pass   | Optional cleanup is limited to tested conflict-free subsets; ambiguity remains unchanged and is reported.                          |
+| Documentation and provenance | pass   | Guidance, limitations, upstream references, licenses, and no-copy decisions are recorded.                                          |
+| Ownership and approvals      | pass   | Implementation and pilot scope is approved; publication, support, and release remain assigned to later phases.                     |
+| Leftovers and plan health    | pass   | No blocker remains; all required follow-ups have accepted target phases.                                                           |
+| Repository state             | pass   | Relevant prototype, JSON, link, and diff validations pass.                                                                         |
 
 ##### Exit-criterion evidence
 
@@ -370,11 +370,11 @@ is reviewed.
   component rollback is preserved.
 - `git diff --check` — pass.
 - `node migration-tooling/scripts/validate-handoff-links.cjs
-  migration-tooling/handoffs/PHASE_1.md` — pass: all 13 Phase 1 handoff links
+migration-tooling/handoffs/PHASE_1.md` — pass: all 13 Phase 1 handoff links
   resolve.
 - `npx prettier --check packages/carbon-react-migrate/src
-  packages/carbon-react-migrate/package.json
-  packages/carbon-react-migrate/tsconfig.json` — pass.
+packages/carbon-react-migrate/package.json
+packages/carbon-react-migrate/tsconfig.json` — pass.
 
 #### Phase 1 completion cleanup verification
 
@@ -389,10 +389,10 @@ is reviewed.
 - `npm run validate:catalogue --prefix packages/carbon-react-migrate` — pass:
   validated five records and four boundaries.
 - `node migration-tooling/scripts/validate-handoff-links.cjs
-  migration-tooling/handoffs/PHASE_1.md` — pass: all 13 links resolve.
+migration-tooling/handoffs/PHASE_1.md` — pass: all 13 links resolve.
 - `npx prettier --check packages/carbon-react-migrate/src
-  packages/carbon-react-migrate/package.json
-  packages/carbon-react-migrate/tsconfig.json` — initial run failed on the two
+packages/carbon-react-migrate/package.json
+packages/carbon-react-migrate/tsconfig.json` — initial run failed on the two
   edited TypeScript files; they were formatted and the exact check was rerun
   successfully.
 - `git diff --check` — pass.
@@ -406,16 +406,16 @@ is reviewed.
   after the validated Phase 1 review fixes and completion cleanup
 - Outcome: `complete-with-deferred-work`
 
-| Check | Result | Evidence or reason |
-| --- | --- | --- |
-| Scope | pass | All Phase 1 tasks, review fixes, and completion cleanup are implemented; Phase 2 remains not-started and no Phase 2 code was added. |
-| Deliverable | pass | Tested catalogue API, validation command, guidance, prompt, and complete handoff exist and link durably. |
-| Exit criteria | pass | All five criteria have passing automated evidence below. |
-| Correctness and safety | pass | Track-specific selector return types compile without casts; runtime behavior, ordering, exact intermediate path, schema validation, topology, and historical binding remain tested. |
-| Documentation and provenance | pass | Stable anchors validate; the provisional ancestor-installation model and npm prerequisite are documented as maintainer-only; no upstream source was copied. |
-| Ownership and approvals | pass | Implementation/pilot scope is approved; publication, support, dependency/security refresh, and pilot approval remain accepted later-phase work. |
-| Leftovers and plan health | pass | P0-L2 is resolved; P0-L3/P0-L7 remain accepted in Phase 4 and P0-L6 in Phase 5; no blocker or plan change exists. |
-| Repository state | pass | Required package tests, validation, final formatting check, handoff links, and `git diff --check` pass; package-lock is unchanged and no Phase 2 implementation exists. |
+| Check                        | Result | Evidence or reason                                                                                                                                                                  |
+| ---------------------------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Scope                        | pass   | All Phase 1 tasks, review fixes, and completion cleanup are implemented; Phase 2 remains not-started and no Phase 2 code was added.                                                 |
+| Deliverable                  | pass   | Tested catalogue API, validation command, guidance, prompt, and complete handoff exist and link durably.                                                                            |
+| Exit criteria                | pass   | All five criteria have passing automated evidence below.                                                                                                                            |
+| Correctness and safety       | pass   | Track-specific selector return types compile without casts; runtime behavior, ordering, exact intermediate path, schema validation, topology, and historical binding remain tested. |
+| Documentation and provenance | pass   | Stable anchors validate; the provisional ancestor-installation model and npm prerequisite are documented as maintainer-only; no upstream source was copied.                         |
+| Ownership and approvals      | pass   | Implementation/pilot scope is approved; publication, support, dependency/security refresh, and pilot approval remain accepted later-phase work.                                     |
+| Leftovers and plan health    | pass   | P0-L2 is resolved; P0-L3/P0-L7 remain accepted in Phase 4 and P0-L6 in Phase 5; no blocker or plan change exists.                                                                   |
+| Repository state             | pass   | Required package tests, validation, final formatting check, handoff links, and `git diff --check` pass; package-lock is unchanged and no Phase 2 implementation exists.             |
 
 ##### Exit-criterion evidence
 
@@ -489,41 +489,235 @@ separate task. Phase 2 may begin, but was not implemented here.
 ## Phase 2: Read-only CLI and deprecation diagnosis
 
 - Plan reference: [Phase 2](./PLAN.md#phase-2-read-only-cli-and-deprecation-diagnosis)
-- Status: not-started
-- Phase-gate outcome: not evaluated
+- Status: complete
+- Phase-gate outcome: complete-with-deferred-work
 - Owner: current project implementor
 
 ### Implemented
 
-None recorded.
+- Added locally executable `plan`, `check`, and `check-deprecations`.
+- Added shared jscodeshift/Recast detection, deterministic traversal, installed
+  version discovery, stable human/JSON v1 reports, and exit codes 0–4.
+- Added direct supported detection for StepSequenceItem `ariaLabel`,
+  DialogFullScreen JSX, and ButtonHandle type references.
+- Added JS/JSX/TS/TSX, alias, negative, shadowing, ambiguity, malformed,
+  deterministic snapshot, exit-code, and no-write coverage.
+- Completed schema v1 for migration summaries, findings, report summaries, and
+  command-specific version fields; actual reports are validated with Ajv.
+- Added clean JSON-only npm/direct invocation documentation and integration
+  tests, including valid JSON with findings exit code 1.
+- Tightened command-specific positional and option validation.
 
 ### Handoff artifacts
 
-None recorded.
+- [Phase 2 handoff](./handoffs/PHASE_2.md)
+- [CLI](../packages/carbon-react-migrate/src/cli.ts)
+- [JSON schema v1](../packages/carbon-react-migrate/schema/report-v1.schema.json)
+- [Fixtures](../packages/carbon-react-migrate/test/fixtures)
 
 ### Verification
 
-None recorded.
+- Initial completion gate was insufficient: it checked `schemaVersion` and
+  selected fields but did not validate complete emitted reports; the documented
+  non-silent npm command also mixed build banners into JSON stdout. Phase 2 was
+  returned to `in-progress` / `remain-in-phase` for repair.
+- `npm run test --prefix packages/carbon-react-migrate` — repair run passes:
+  build and 27/27 tests, including Ajv validation of all three commands,
+  malformed-schema negatives, clean stdout, findings exit 1, command arguments,
+  and exit codes 0–4.
+- `npm run validate:catalogue --prefix packages/carbon-react-migrate` — pass.
+- `npm ls ajv --depth=0` — pass: Ajv `8.18.0` is declared directly instead of
+  being consumed from a transitive hoisted dependency.
+- `npx eslint packages/carbon-react-migrate/src --max-warnings=0` — pass.
+- Package formatting (excluding the intentionally malformed fixture), handoff
+  links, and `git diff --check` — pass.
+
+#### Superseded initial formal phase gate
+
+- Reviewer: current project implementor with AI evidence review
+- Outcome: `remain-in-phase`
+
+| Check                        | Result | Evidence or reason                                                                                                     |
+| ---------------------------- | ------ | ---------------------------------------------------------------------------------------------------------------------- |
+| Scope                        | fail   | Superseded initial review missed complete schema validation, clean machine stdout, and strict command arguments.       |
+| Deliverable                  | fail   | Superseded schema v1 left migration and summary objects effectively unvalidated.                                       |
+| Exit criteria                | fail   | Superseded evidence checked only schema version/selected fields, not the complete emitted contract.                    |
+| Correctness and safety       | fail   | Superseded documented npm JSON command emitted banners before JSON and argument parsing accepted invalid combinations. |
+| Documentation and provenance | pass   | Existing scope and provisional boundaries were recorded, but machine-readable command documentation required repair.   |
+| Ownership and approvals      | pass   | Implementation/pilot approval was retained; later publication/support/pilot approvals remained deferred.               |
+| Leftovers and plan health    | fail   | Required repair remained in Phase 2, so proceeding to Phase 3 was not permitted.                                       |
+| Repository state             | fail   | Existing tests passed but were insufficient to substantiate the completion claim.                                      |
+
+##### Exit-criterion evidence
+
+- Criterion: all supported fixtures are detected.
+  - Result: pass
+  - Evidence: package suite covers JS, JSX, TS, TSX, and aliases.
+- Criterion: negative and shadowed identifiers produce no false positives.
+  - Result: pass
+  - Evidence: dedicated negative/shadowing test.
+- Criterion: output ordering and JSON snapshots are stable.
+  - Result: pass
+  - Evidence: repeated scans/CLI runs and report-v1 snapshot.
+- Criterion: no AI, credentials, or network are required after installation.
+  - Result: pass
+  - Evidence: local implementation and offline test execution.
+- Criterion: repeated `check-deprecations` is safe and stable.
+  - Result: pass
+  - Evidence: byte-identical JSON and unchanged fixture hashes.
+- Criterion: `plan`/`check` never label deprecations as required.
+  - Result: pass
+  - Evidence: selector and CLI track-separation assertions.
+
+#### Formal phase gate
+
+- Reviewer: current project implementor with AI evidence review after Phase 2
+  correctness repair
+- Outcome: `complete-with-deferred-work`
+
+| Check                        | Result | Evidence or reason                                                                                                                                                                 |
+| ---------------------------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Scope                        | pass   | Phase 2 read-only scope and repairs are complete; no apply command, Phase 3 implementation, or Phase 3 prompt exists.                                                              |
+| Deliverable                  | pass   | CLI, complete schema v1, shared detectors, tests, fixtures, README, and repaired handoff exist and are independently usable.                                                       |
+| Exit criteria                | pass   | Every Phase 2 exit criterion is listed below with reproducible evidence; actual reports from all three commands validate.                                                          |
+| Correctness and safety       | pass   | Strict arguments, exits 0–4, exact paths, ambiguity, malformed input, byte stability, no-write hashes, JSON exit 1, and negative schemas are tested.                               |
+| Documentation and provenance | pass   | Clean JSON commands, schema boundary, link-metadata decision, limitations, dependencies, and initial insufficient gate are recorded; no source was copied.                         |
+| Ownership and approvals      | pass   | Implementation/pilot scope remains approved; documentation-link extraction, publication/security/support, and pilot approval remain assigned to Phases 4/5.                        |
+| Leftovers and plan health    | pass   | P2-L2 is resolved; P2-L1 and P2-L3 have accepted later targets; P0-L3/P0-L7 remain Phase 4 and P0-L6 Phase 5; no blocker or plan revision remains.                                 |
+| Repository state             | pass   | Required tests, catalogue validation, direct Ajv dependency check, lint, formatting, 11 handoff links, and diff check pass; lock changes cover the reviewed jscodeshift tooling and Ajv declaration. |
+
+##### Exit-criterion evidence
+
+- Criterion: all supported fixtures are detected.
+  - Result: pass
+  - Evidence: `npm run test --prefix packages/carbon-react-migrate`; JS, JSX,
+    TS, TSX, alias, direct JSX, prop, and ButtonHandle fixtures.
+- Criterion: negative and shadowed identifiers produce no false positives.
+  - Result: pass
+  - Evidence: dedicated negative and shadowing fixtures in the 27-test suite.
+- Criterion: output ordering and JSON snapshots are stable.
+  - Result: pass
+  - Evidence: repeated scans and CLI runs are byte-identical; snapshot passes;
+    schema-valid reports are exercised for all three commands.
+- Criterion: the CLI requires no AI, credentials, or network after installation.
+  - Result: pass
+  - Evidence: all final verification ran locally after installation using only
+    package and repository artifacts.
+- Criterion: rerunning `check-deprecations` is safe and stable.
+  - Result: pass
+  - Evidence: repeated JSON is byte-identical and before/after customer fixture
+    hashes are unchanged.
+- Criterion: `plan` and `check` never present deprecation-only findings as
+  required upgrade work.
+  - Result: pass
+  - Evidence: selector tests, schema-valid command reports, and required-only
+    CLI assertions pass.
+
+##### Blocking or follow-up actions
+
+- Action: preserve detector/report equivalence for safe application.
+  - Owner or ownership area: current implementor, codemod reviewer
+  - Target phase: Phase 3 (`P2-L1`)
+- Action: add reviewed extracted documentation/changelog/skill metadata without
+  manually maintained dates.
+  - Owner or ownership area: Carbon API/docs owner, current implementor
+  - Target phase: Phase 4 (`P2-L3`)
+- Action: retain dependency/publication and pilot follow-ups.
+  - Owner or ownership area: security/release/product/support owners
+  - Target phase: Phases 4 and 5 (`P0-L3`, `P0-L7`, `P0-L6`)
 
 ### Decisions
 
-None recorded.
+- `P2-D1`: add jscodeshift `17.4.0` and `@types/jscodeshift` `17.3.0`
+  to implement the approved Phase 0 architecture.
+- `P2-D2`: report direct conflicts/spreads as unsupported; shadowed and
+  unrelated identifiers are non-matches.
+- `P2-D3`: support direct imported `ButtonHandle` type references without broad
+  call inference that could create false positives.
+- `P2-D4`: schema v1 exposes only the current stable migration-guidance link.
+  Phase 4 will add reviewed component/prop documentation, changelog, Migration
+  Skill, and replacement/removal metadata through backward-compatible optional
+  fields or a new schema version. `deprecatedIn` remains authoritative; any
+  release date must be derived from release or Git metadata, never maintained
+  manually.
+- `P2-D5`: machine consumers use the documented silent npm invocation or the
+  built CLI directly; exit code 1 still carries a complete JSON report.
+- `P2-D6`: declare Ajv `8.18.0` directly in the root provisional-install
+  contract and the migration package's development dependencies because Phase
+  2 schema tests import it directly; do not rely on a transitive hoisted copy.
 
 ### Leftovers
 
-None recorded.
+#### P2-L2: Complete and validate the Phase 2 machine-readable contract
+
+- Classification: blocker
+- Discovered in: Phase 2 completion correctness review
+- Reason: schema v1 did not validate migration summaries or the report summary;
+  npm banners polluted documented JSON stdout; argument parsing was permissive.
+- Risk if unresolved: machine consumers could accept malformed reports, fail
+  JSON parsing, or run a different command than intended.
+- Effect on current exit criteria: invalidated schema/output correctness and
+  the initial completion gate.
+- Target phase: Phase 2
+- Owner or required ownership area: current implementor
+- Dependencies or unblock condition: complete schema, real-report validation,
+  clean-output integration tests, and strict argument tests.
+- Planned verification: required Phase 2 repair commands and formal gate.
+- Status: resolved
+- Resolution evidence: schema v1 now fully validates emitted nested objects;
+  Ajv validates all commands and rejects required malformed cases; documented
+  silent/direct commands produce parseable JSON; argument and exit-code tests
+  pass.
+
+#### P2-L1: Preserve detector/report equivalence during safe application
+
+- Classification: required-follow-up
+- Discovered in: Phase 2 shared detector implementation
+- Reason: Phase 3 transforms must consume the same match evidence.
+- Risk if unresolved: apply and check could disagree or transform unsupported
+  patterns.
+- Effect on current exit criteria: none; Phase 2 has one shared detector.
+- Target phase: Phase 3
+- Owner or required ownership area: current implementor, codemod reviewer
+- Dependencies or unblock condition: Phase 2 gate permits Phase 3.
+- Planned verification: check/apply equivalence, ambiguity, conflict, and
+  idempotency fixtures.
+- Status: open
+- Resolution evidence: not-applicable; unresolved.
+
+#### P2-L3: Add reviewed deprecation-link metadata
+
+- Classification: required-follow-up
+- Discovered in: Phase 2 correctness review of future documentation fields
+- Reason: public component/prop docs, changelog, Migration Skill, and
+  replacement/removal links require authoritative extraction and ownership.
+- Risk if unresolved: future reports remain limited to stable migration
+  guidance and cannot provide richer verified navigation.
+- Effect on current exit criteria: none; schema v1 completely validates its
+  current stable contract without invented metadata.
+- Target phase: Phase 4
+- Owner or required ownership area: Carbon API/docs owner, current implementor
+- Dependencies or unblock condition: authoritative link sources and the Phase 4
+  generated-documentation workflow.
+- Planned verification: extracted link/anchor validation and schema
+  compatibility tests; derive any date from release or Git metadata.
+- Status: open
+- Resolution evidence: not-applicable; unresolved.
 
 ### Deviations from plan
 
-None recorded.
+- Added direct dependencies required by the already-approved Phase 0
+  jscodeshift/Recast architecture. Final dependency/security/license/performance
+  review remains `P0-L3` in Phase 4.
 
 ### Estimate changes
 
-None recorded.
+None; later estimates remain credible.
 
 ### Next action
 
-None recorded.
+Generate the Phase 3 prompt from the current plan, ledger, and Phase 2 handoff
+in a separate task. It is ready to receive a prompt but none was generated here.
 
 ## Phase 3: Safe application
 
@@ -589,7 +783,7 @@ None recorded.
 
 ### Leftovers
 
-- Accept `P0-L3` and `P0-L7` as required Phase 4 work.
+- Accept `P0-L3`, `P0-L7`, and `P2-L3` as required Phase 4 work.
 
 ### Deviations from plan
 
@@ -656,3 +850,6 @@ None recorded.
 - `P0-L2` → resolved in Phase 1.
 - `P0-L3` and `P0-L7` → Phase 4.
 - `P0-L6` → Phase 5.
+- `P2-L1` → Phase 3.
+- `P2-L2` → resolved in Phase 2.
+- `P2-L3` → Phase 4.

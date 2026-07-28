@@ -1,0 +1,171 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://carbon.sage.com/schemas/carbon-react-migrate/report-v1.schema.json",
+  "title": "Carbon React migration report",
+  "type": "object",
+  "required": ["schemaVersion", "command", "migrations", "findings", "summary"],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "command": { "enum": ["plan", "check"] }
+        },
+        "required": ["command"]
+      },
+      "then": { "required": ["from", "to"] }
+    },
+    {
+      "if": {
+        "properties": {
+          "command": { "const": "check-deprecations" }
+        },
+        "required": ["command"]
+      },
+      "then": {
+        "not": {
+          "anyOf": [{ "required": ["from"] }, { "required": ["to"] }]
+        }
+      }
+    }
+  ],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "command": { "enum": ["plan", "check", "check-deprecations"] },
+    "from": { "type": "string", "minLength": 1 },
+    "to": { "type": "string", "minLength": 1 },
+    "migrations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "migrationId",
+          "applicableVersion",
+          "selectionTrack",
+          "requiredForRequestedUpgrade",
+          "automationStatus",
+          "summary",
+          "documentation",
+          "manualChecks",
+          "risks",
+          "limitations"
+        ],
+        "properties": {
+          "migrationId": { "type": "string", "minLength": 1 },
+          "applicableVersion": { "type": "string", "minLength": 1 },
+          "selectionTrack": {
+            "enum": ["required-upgrade", "optional-proactive-deprecation"]
+          },
+          "requiredForRequestedUpgrade": { "type": "boolean" },
+          "automationStatus": {
+            "enum": ["safe", "partial", "manual"]
+          },
+          "summary": { "type": "string", "minLength": 1 },
+          "documentation": { "type": "string", "minLength": 1 },
+          "manualChecks": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "risks": {
+            "type": "array",
+            "items": {
+              "enum": ["behaviour", "accessibility", "visual", "types"]
+            }
+          },
+          "limitations": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "migrationId",
+          "applicableVersion",
+          "selectionTrack",
+          "requiredForRequestedUpgrade",
+          "file",
+          "location",
+          "matchedApi",
+          "importOrigin",
+          "matchKind",
+          "automationStatus",
+          "documentation",
+          "manualChecks",
+          "risks",
+          "limitations",
+          "runtimeWarningChecks"
+        ],
+        "properties": {
+          "migrationId": { "type": "string", "minLength": 1 },
+          "applicableVersion": { "type": "string", "minLength": 1 },
+          "selectionTrack": {
+            "enum": ["required-upgrade", "optional-proactive-deprecation"]
+          },
+          "requiredForRequestedUpgrade": { "type": "boolean" },
+          "file": { "type": "string", "minLength": 1 },
+          "location": {
+            "type": "object",
+            "required": ["line", "column"],
+            "properties": {
+              "line": { "type": "integer", "minimum": 1 },
+              "column": { "type": "integer", "minimum": 1 }
+            },
+            "additionalProperties": false
+          },
+          "matchedApi": { "type": "string", "minLength": 1 },
+          "importOrigin": { "type": "string", "minLength": 1 },
+          "matchKind": { "type": "string", "minLength": 1 },
+          "automationStatus": {
+            "enum": ["safe", "partial", "manual", "unsupported"]
+          },
+          "documentation": { "type": "string", "minLength": 1 },
+          "manualChecks": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "risks": {
+            "type": "array",
+            "items": {
+              "enum": ["behaviour", "accessibility", "visual", "types"]
+            }
+          },
+          "limitations": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "runtimeWarningChecks": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "summary": {
+      "type": "object",
+      "required": [
+        "selectionTrack",
+        "requiredForRequestedUpgrade",
+        "migrationCount",
+        "findingCount",
+        "message"
+      ],
+      "properties": {
+        "selectionTrack": {
+          "enum": ["required-upgrade", "optional-proactive-deprecation"]
+        },
+        "requiredForRequestedUpgrade": { "type": "boolean" },
+        "migrationCount": { "type": "integer", "minimum": 0 },
+        "findingCount": { "type": "integer", "minimum": 0 },
+        "message": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

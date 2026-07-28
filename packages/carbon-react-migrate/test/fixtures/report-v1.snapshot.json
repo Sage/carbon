@@ -1,0 +1,26 @@
+[
+  {
+    "file": "alias.jsx",
+    "migrationId": "dialog-full-screen-component",
+    "matchKind": "jsx-component",
+    "automationStatus": "safe",
+    "selectionTrack": "optional-proactive-deprecation",
+    "requiredForRequestedUpgrade": false
+  },
+  {
+    "file": "component.tsx",
+    "migrationId": "step-sequence-item-aria-label",
+    "matchKind": "jsx-prop",
+    "automationStatus": "safe",
+    "selectionTrack": "optional-proactive-deprecation",
+    "requiredForRequestedUpgrade": false
+  },
+  {
+    "file": "positive.js",
+    "migrationId": "step-sequence-item-aria-label",
+    "matchKind": "jsx-prop",
+    "automationStatus": "safe",
+    "selectionTrack": "optional-proactive-deprecation",
+    "requiredForRequestedUpgrade": false
+  }
+]

@@ -1,0 +1,2 @@
+import { StepSequenceItem } from "carbon-react";
+export const broken = <StepSequenceItem ariaLabel= />;
