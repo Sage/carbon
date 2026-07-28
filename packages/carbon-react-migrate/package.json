@@ -1,0 +1,19 @@
+{
+  "name": "carbon-react-migrate",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test dist/**/*.test.js",
+    "validate:catalogue": "npm run build && node dist/validate-catalogue.js"
+  },
+  "dependencies": {
+    "semver": "^7.5.4"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "@types/semver": "^7.7.0",
+    "typescript": "^5.8.3"
+  }
+}

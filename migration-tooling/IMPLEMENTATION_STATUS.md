@@ -99,9 +99,9 @@ Follow [Controlled plan evolution](./PLAN.md#controlled-plan-evolution).
 
 ## Overall status
 
-- Current phase: Phase 1
+- Current phase: Phase 2
 - Overall status: in-progress
-- Last completed phase: Phase 0
+- Last completed phase: Phase 1
 - Latest completed gate: complete-with-deferred-work
 - Updated by: current project implementor with AI assistance
 
@@ -228,8 +228,11 @@ Follow [Controlled plan evolution](./PLAN.md#controlled-plan-evolution).
 - Dependencies or unblock condition: catalogue and documentation implementation
   exists.
 - Planned verification: catalogue/document link test and source/warning review.
-- Status: open
-- Resolution evidence: not-applicable; unresolved.
+- Status: resolved
+- Resolution evidence: resolved for migration-tooling output in Phase 1 by the
+  catalogue record, stable guidance anchor, and validation regression that make
+  `Dialog size="fullscreen"` canonical. The existing component and warning were
+  reviewed but intentionally left unchanged as out-of-scope product source.
 
 #### P0-L3: Refresh dependency and performance evidence
 
@@ -326,41 +329,162 @@ is reviewed.
 ## Phase 1: Catalogue and validation
 
 - Plan reference: [Phase 1](./PLAN.md#phase-1-catalogue-and-validation)
-- Status: not-started
-- Phase-gate outcome: not evaluated
+- Status: complete
+- Phase-gate outcome: complete-with-deferred-work
 - Owner: current project implementor
 
 ### Implemented
 
-None recorded.
+- Created the provisional private `packages/carbon-react-migrate` package.
+- Added runtime schema validation and distinct upgrade/deprecation record types.
+- Added the three required-upgrade and two optional-deprecation records.
+- Added deterministic semver interval and track selection.
+- Represented four tested boundaries and rejected direct multi-boundary jumps
+  with the required intermediate path.
+- Validated the complete runtime record unions and fields, IDs, versions, rules,
+  documentation/anchors, current APIs, narrowly tuple-bound historical
+  exemptions, and one deterministic contiguous boundary topology.
+- Resolved `P0-L2` with canonical `Dialog size="fullscreen"` guidance and
+  validation while preserving the component rollback.
+- Added the local `npm run validate:catalogue` command and comprehensive tests.
+- Applied the validated Phase 1 review fixes for historical-reference binding,
+  unsupported-path suggestions, complete runtime validation, deterministic
+  topology, regression coverage, source-change claims, and phase metadata.
 
 ### Handoff artifacts
 
-None recorded.
+- [Phase 1 handoff](./handoffs/PHASE_1.md)
+- [Phase 1 prompt](./prompts/PHASE_1.md)
+- [Catalogue guidance](./CATALOGUE_GUIDANCE.md)
+- [Package catalogue](../packages/carbon-react-migrate/src/catalogue.ts)
+- [Catalogue API](../packages/carbon-react-migrate/src/index.ts)
+- [Runtime validation](../packages/carbon-react-migrate/src/validation.ts)
 
 ### Verification
 
-None recorded.
+- `cd packages/carbon-react-migrate && npm run test` — pass: TypeScript build
+  and 15/15 Node tests, including the Phase 1 review regressions.
+- `cd packages/carbon-react-migrate && npm run validate:catalogue` — pass:
+  validated five records and four boundaries.
+- `test -z "$(git diff -- src/components/dialog-full-screen)"` — pass: the
+  component rollback is preserved.
+- `git diff --check` — pass.
+- `node migration-tooling/scripts/validate-handoff-links.cjs
+  migration-tooling/handoffs/PHASE_1.md` — pass: all 13 Phase 1 handoff links
+  resolve.
+- `npx prettier --check packages/carbon-react-migrate/src
+  packages/carbon-react-migrate/package.json
+  packages/carbon-react-migrate/tsconfig.json` — pass.
+
+#### Phase 1 completion cleanup verification
+
+- `npm --version` — `11.16.0`, below the repository requirement of
+  `>=11.18.0`. No installation, npm update, or lockfile operation was performed.
+  The required package scripts remained executable.
+- `npm run test --prefix packages/carbon-react-migrate` — pass: TypeScript
+  compilation and 15/15 tests. Compile-time assignments and runtime assertions
+  verify `UpgradeMigration[]` and `DeprecationMigration[]` selector results;
+  selection, ordering, and the exact
+  `159.0.0 → 160.0.0 → 161.0.0 → 161.3.0 → 161.7.0` path are unchanged.
+- `npm run validate:catalogue --prefix packages/carbon-react-migrate` — pass:
+  validated five records and four boundaries.
+- `node migration-tooling/scripts/validate-handoff-links.cjs
+  migration-tooling/handoffs/PHASE_1.md` — pass: all 13 links resolve.
+- `npx prettier --check packages/carbon-react-migrate/src
+  packages/carbon-react-migrate/package.json
+  packages/carbon-react-migrate/tsconfig.json` — initial run failed on the two
+  edited TypeScript files; they were formatted and the exact check was rerun
+  successfully.
+- `git diff --check` — pass.
+- Repository review — pass: Phase 2 remains `not-started` with no implementation
+  artifacts; the working-tree changes are limited to Phase 1 artifacts; and
+  `package-lock.json` is unchanged.
+
+#### Formal phase gate
+
+- Reviewer: current project implementor with AI evidence review; gate re-run
+  after the validated Phase 1 review fixes and completion cleanup
+- Outcome: `complete-with-deferred-work`
+
+| Check | Result | Evidence or reason |
+| --- | --- | --- |
+| Scope | pass | All Phase 1 tasks, review fixes, and completion cleanup are implemented; Phase 2 remains not-started and no Phase 2 code was added. |
+| Deliverable | pass | Tested catalogue API, validation command, guidance, prompt, and complete handoff exist and link durably. |
+| Exit criteria | pass | All five criteria have passing automated evidence below. |
+| Correctness and safety | pass | Track-specific selector return types compile without casts; runtime behavior, ordering, exact intermediate path, schema validation, topology, and historical binding remain tested. |
+| Documentation and provenance | pass | Stable anchors validate; the provisional ancestor-installation model and npm prerequisite are documented as maintainer-only; no upstream source was copied. |
+| Ownership and approvals | pass | Implementation/pilot scope is approved; publication, support, dependency/security refresh, and pilot approval remain accepted later-phase work. |
+| Leftovers and plan health | pass | P0-L2 is resolved; P0-L3/P0-L7 remain accepted in Phase 4 and P0-L6 in Phase 5; no blocker or plan change exists. |
+| Repository state | pass | Required package tests, validation, final formatting check, handoff links, and `git diff --check` pass; package-lock is unchanged and no Phase 2 implementation exists. |
+
+##### Exit-criterion evidence
+
+- Criterion: Boundary tests cover versions below, equal to, inside, and above
+  the interval.
+  - Result: pass
+  - Evidence: `npm run test`; interval selection fixture.
+- Criterion: Deprecation-only records are absent from version-aware selection
+  and present in deprecation selection.
+  - Result: pass
+  - Evidence: `npm run test`; independent track-selection fixture.
+- Criterion: Unsupported direct jumps return the required intermediate path.
+  - Result: pass
+  - Evidence: `npm run test`; exact
+    `159.0.0 → 160.0.0 → 161.0.0 → 161.3.0 → 161.7.0` assertion.
+- Criterion: Invalid catalogue records fail with actionable errors.
+  - Result: pass
+  - Evidence: `npm run test`; complete runtime union/field, duplicate, scope,
+    semver, rule, documentation, anchor, API, automation, boundary-topology,
+    and exemption failures.
+- Criterion: Historical removed APIs can be represented without weakening
+  validation for current APIs.
+  - Result: pass
+  - Evidence: `npm run test`; P1-H1 is bound to the exact record, path, symbol,
+    historical version, and removal version; tagged source is checked with
+    `git show`; mismatches, missing current APIs, and unknown exemptions fail.
+
+##### Blocking or follow-up actions
+
+- Action: refresh dependency/security/license/performance evidence.
+  - Owner or ownership area: security/release owner
+  - Target phase: Phase 4 (`P0-L3`)
+- Action: establish publication ownership and support.
+  - Owner or ownership area: tooling/security/release owners
+  - Target phase: Phase 4 (`P0-L7`)
+- Action: pilot and decide public support.
+  - Owner or ownership area: product/support/release and pilot reviewers
+  - Target phase: Phase 5 (`P0-L6`)
 
 ### Decisions
 
-None recorded.
+- `P1-D1`: represent the audited path as four individually tested boundaries;
+  enforce one contiguous topology, reject direct multi-boundary jumps, and
+  suggest only steps actually reachable from the requested source.
+- `P1-D2`: use explicit repository-owned HTML anchors as stable documentation
+  references.
+- `P1-D3`: make `Dialog size="fullscreen"` canonical in migration catalogue
+  guidance and validation. Product component/warning source remains unchanged.
+- `P1-D4`: while the package is provisional, maintainers install at the
+  repository root and run package scripts with `--prefix`; standalone
+  installation, workspace integration, lockfile strategy, publication,
+  ownership, and final dependency strategy remain Phase 4 work.
 
 ### Leftovers
 
-- Accept `P0-L2` as required Phase 1 work.
+- `P0-L2` was accepted and resolved. No new Phase 1 leftover remains.
 
 ### Deviations from plan
 
-None recorded.
+- None.
 
 ### Estimate changes
 
-None recorded.
+- None; implementation evidence does not change later estimates.
 
 ### Next action
 
-Generate and review the Phase 1 prompt.
+Generate the Phase 2 prompt from the current repository and Phase 1 handoff in a
+separate task. Phase 2 may begin, but was not implemented here.
 
 ## Phase 2: Read-only CLI and deprecation diagnosis
 
@@ -529,6 +653,6 @@ None recorded.
 
 ## Cross-phase leftovers
 
-- `P0-L2` → Phase 1.
+- `P0-L2` → resolved in Phase 1.
 - `P0-L3` and `P0-L7` → Phase 4.
 - `P0-L6` → Phase 5.

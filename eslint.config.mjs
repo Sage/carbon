@@ -307,6 +307,22 @@ export default defineConfig([includeIgnoreFile(gitIgnorePath), {
     "react/prop-types": "off",
   },
 }, {
+  files: ["packages/carbon-react-migrate/**/*.ts"],
+  languageOptions: {
+    parserOptions: {
+      project: ["./packages/carbon-react-migrate/tsconfig.json"],
+    },
+  },
+  settings: {
+    "import/resolver": {
+      typescript: {
+        alwaysTryTypes: true,
+        project: ["./packages/carbon-react-migrate/tsconfig.json"],
+        noWarnOnMultipleProjects: true,
+      },
+    },
+  },
+}, {
   files: ["**/*.stories.tsx"],
   rules: {
     "react/function-component-definition": [
