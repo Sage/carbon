@@ -50,7 +50,7 @@ description: Carbon Card component props and usage examples.
 | hoverBoxShadow | BoxShadowsType \| undefined | No |  | Yes | Design token for custom Box Shadow on hover. One of `onClick` or `href` props must be true. Note: please check that the box shadow design token you are using is compatible with the Card component. |  |  |
 
 ## Examples
-### default
+### Default
 
 **Render**
 
@@ -87,7 +87,9 @@ description: Carbon Card component props and usage examples.
           <Typography m={0} weight="medium" textAlign="center">
             Body text
           </Typography>
-          <Typography variant="h2">More text</Typography>
+          <Typography textAlign="center" variant="h2">
+            More text
+          </Typography>
           <Typography textAlign="center">Even more text</Typography>
         </Box>
       </Box>
@@ -97,7 +99,7 @@ description: Carbon Card component props and usage examples.
 ```
 
 
-### draggable spacing sizes
+### Draggable spacing sizes
 
 **Render**
 

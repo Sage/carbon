@@ -63,14 +63,16 @@ export const DefaultStory = (
           <Typography m={0} weight="medium" textAlign="center">
             Body text
           </Typography>
-          <Typography variant="h2">More text</Typography>
+          <Typography textAlign="center" variant="h2">
+            More text
+          </Typography>
           <Typography textAlign="center">Even more text</Typography>
         </Box>
       </Box>
     </Card>
   );
 };
-DefaultStory.storyName = "default";
+DefaultStory.storyName = "Default";
 
 export const DraggableSpacingSizes = () => {
   return (
@@ -119,7 +121,7 @@ export const DraggableSpacingSizes = () => {
     </>
   );
 };
-DraggableSpacingSizes.storyName = "draggable spacing sizes";
+DraggableSpacingSizes.storyName = "Draggable spacing sizes";
 
 export const CustomHeight = () => {
   return (
