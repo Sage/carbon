@@ -49,7 +49,6 @@ const StyledCard = styled.div.attrs(applyBaseTheme)<StyledCardProps>`
     $variant = "standard",
   }) => css`
     background-color: var(--container-action-bg-default);
-    border: 1px solid var(--container-standard-border-default);
     border-radius: ${$roundness === "moderate" || $roundness === "default"
       ? "var(--global-radius-container-l)"
       : "var(--global-radius-container-xl)"};
