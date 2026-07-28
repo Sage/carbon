@@ -1,0 +1,60 @@
+{
+  "node": "v24.18.0",
+  "jscodeshift": "17.4.0",
+  "recast": "0.23.12",
+  "tsMorph": "27.0.2",
+  "cases": [
+    {
+      "extension": "js",
+      "parser": "babel",
+      "transformMatches": 1,
+      "secondRunMatches": 0,
+      "detectionMatches": 1,
+      "locations": [
+        3
+      ],
+      "commentsPreserved": true
+    },
+    {
+      "extension": "jsx",
+      "parser": "babel",
+      "transformMatches": 1,
+      "secondRunMatches": 0,
+      "detectionMatches": 1,
+      "locations": [
+        3
+      ],
+      "commentsPreserved": true
+    },
+    {
+      "extension": "ts",
+      "parser": "tsx",
+      "transformMatches": 0,
+      "secondRunMatches": 0,
+      "detectionMatches": 0,
+      "locations": [],
+      "commentsPreserved": true
+    },
+    {
+      "extension": "tsx",
+      "parser": "tsx",
+      "transformMatches": 1,
+      "secondRunMatches": 0,
+      "detectionMatches": 1,
+      "locations": [
+        4
+      ],
+      "commentsPreserved": true
+    }
+  ],
+  "ambiguousSpread": {
+    "changed": false,
+    "reason": "runtime-generated prop objects are intentionally left unchanged"
+  },
+  "performance": {
+    "fixtureCount": 500,
+    "thresholdMillisecondsPerTool": 30000,
+    "smokeCheckPassed": true,
+    "note": "Coarse development guard only; not a customer performance promise."
+  }
+}

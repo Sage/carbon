@@ -1,0 +1,35 @@
+{
+  "propCases": [
+    {
+      "extension": "jsx",
+      "matches": 1,
+      "secondRunMatches": 0
+    },
+    {
+      "extension": "tsx",
+      "matches": 1,
+      "secondRunMatches": 0
+    }
+  ],
+  "componentCases": [
+    {
+      "extension": "js",
+      "matches": 1,
+      "secondRunMatches": 0
+    },
+    {
+      "extension": "tsx",
+      "matches": 1,
+      "secondRunMatches": 0
+    }
+  ],
+  "conflicts": [
+    {
+      "pattern": "DialogFullScreen prop spread",
+      "changed": false,
+      "reported": true
+    }
+  ],
+  "node": "v24.18.0",
+  "jscodeshift": "17.4.0"
+}

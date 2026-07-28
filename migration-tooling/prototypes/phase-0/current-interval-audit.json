@@ -1,0 +1,77 @@
+{
+  "evaluationModel": "PLAN-001 two-track candidate-path audit",
+  "repositoryVersion": "161.7.0",
+  "tagCommits": {
+    "159.0.0": "66016bf39d9a0e633af394dd1087de52067c89c8",
+    "160.0.0": "e203dc7fc880a0840e0b3862cca9c434cce127cf",
+    "161.7.0": "4183393638d076eb488ea090fa30d63dc2a5e8ac"
+  },
+  "intervals": [
+    {
+      "from": "159.0.0",
+      "to": "161.7.0",
+      "documentedBreakingBoundaries": [
+        {
+          "version": "160.0.0",
+          "change": "Generated CSS class names gain the Carbon package-version prefix.",
+          "classification": "manual visual/integration migration"
+        },
+        {
+          "version": "161.0.0",
+          "change": "__next__ Button forwards its ref to the DOM and removes ButtonHandle.focusButton().",
+          "classification": "manual or partial type/ref migration"
+        }
+      ],
+      "deterministicPropMigrationWithRequiredByInInterval": false,
+      "deterministicImportOrComponentMigrationWithRequiredByInInterval": false,
+      "meaningfulManualMigration": true,
+      "completeDocumentedBreakingPath": false,
+      "undocumentedCompatibilityGap": {
+        "version": "161.3.0",
+        "commit": "fcecc92b68d054cd7239dfb271e4a5723e1a09ae",
+        "change": "package.json raises the npm engine from >=11.11.1 to >=11.18.0",
+        "evidenceStatus": "not present in the generated 161.3.0 changelog section"
+      },
+      "requiredTrackContainsAutomaticTransform": false,
+      "optionalCleanupTrackEvaluatedSeparately": true
+    }
+  ],
+  "deterministicDeprecationCandidatesOutsideRequiredByBoundary": [
+    {
+      "subject": "Dialog.fullscreen",
+      "replacement": "Dialog size=\"fullscreen\"",
+      "introducedBy": "9e729f067b1bafba6534084193084ef56ed78da7",
+      "deprecatedIn": "159.2.0",
+      "requiredBy": null,
+      "reasonExcluded": "The old prop remains supported at 161.7.0; no removal or mandatory-action release is documented."
+    },
+    {
+      "subject": "Dialog.highlightVariant",
+      "replacement": "Dialog.gradientKeyLine",
+      "introducedBy": "9e729f067b1bafba6534084193084ef56ed78da7",
+      "deprecatedIn": "159.2.0",
+      "requiredBy": null,
+      "reasonExcluded": "The old prop remains supported at 161.7.0; no removal or mandatory-action release is documented."
+    },
+    {
+      "subject": "StepSequenceItem.ariaLabel",
+      "replacement": "native aria-label",
+      "introducedBy": "6d381104c506421b61961b3c4be0fe6348947faf",
+      "deprecatedIn": "161.7.0",
+      "requiredBy": null,
+      "reasonExcluded": "The old prop remains supported in the target release and its removal version is not documented."
+    }
+  ],
+  "reproductionCommands": [
+    "git rev-parse v159.0.0 v160.0.0 v161.7.0",
+    "sed -n '/## \\\\[161\\\\.7\\\\.0\\\\]/,/## \\\\[158\\\\./p' CHANGELOG.md",
+    "git diff --unified=2 v159.0.0 v161.7.0 -- src",
+    "git diff --unified=0 v159.0.0 v161.7.0 -- src/index.ts 'src/components/**/index.ts'",
+    "git diff --unified=80 v160.0.0 v161.0.0 -- src/components/button/__next__/button.component.tsx src/components/button/__next__/index.ts src/index.ts",
+    "git show --stat --oneline a4a9dc0b609c33700d00dbcbc0d8ec92e03c4fe0",
+    "git show --stat --oneline 6d75c231d7e55be7c6750922d85400fd2fd4e834",
+    "git diff --unified=0 v159.0.0 v161.7.0 -- package.json",
+    "git blame v161.7.0 -L 8,13 -- package.json",
+    "git tag --contains fcecc92b68d054cd7239dfb271e4a5723e1a09ae"
+  ]
+}

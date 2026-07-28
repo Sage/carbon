@@ -53,12 +53,15 @@ implementation.
    - historical codemod and its maintenance/test status,
    - behavioural, accessibility, visual, and type risks,
    - missing or contradictory evidence.
-3. Select the three migrations used by the MVP and the first supported version
-   interval.
+3. Audit the candidate `159.0.0` baseline to the repository/current target.
+   Select the required upgrade/compatibility records and the optional
+   deprecation-cleanup examples defined by the current plan without presenting
+   the candidate baseline as public support.
 4. Decide whether the interval is supported directly or through tested
    intermediate steps.
-5. Classify each migration as safe, partial, or manual and justify the
-   classification.
+5. Classify each migration as safe, partial, manual, or compatibility work;
+   label it required upgrade work or optional proactive cleanup; and justify
+   the classification.
 6. Locate and assess historical Carbon codemods.
 7. Prototype representative detection and transformation cases with
    `jscodeshift`/Recast and `ts-morph` where necessary.
@@ -104,8 +107,9 @@ reviewable evidence or remove them safely after recording reproducible results.
 
 Create a Phase 0 decision record under `migration-tooling/` that names:
 
-- the selected three migrations,
-- the supported version interval and path,
+- the candidate baseline/target and required path records,
+- the optional prop and import/component cleanup examples,
+- the strict `requiredBy` versus `deprecatedIn` selection behavior,
 - evidence for applicability,
 - automation classifications,
 - transformation-tool responsibilities,
@@ -142,10 +146,12 @@ Verify every Phase 0 exit criterion in `migration-tooling/PLAN.md`.
 
 At minimum:
 
-- Confirm an unambiguous `requiredBy` version for every selected migration.
-- Confirm at least one useful deterministic transform candidate.
-- Confirm reviewed customer guidance exists for the manual migration, or record
-  the missing guidance as a blocker.
+- Confirm an unambiguous `requiredBy` for every required upgrade record.
+- Confirm optional cleanup records have reliable `deprecatedIn`, are never
+  represented as required work without `requiredBy`, and include useful
+  deterministic prop and import/component subsets.
+- Confirm required manual/compatibility guidance exists and is reviewed, or
+  record the missing review as a blocker.
 - Run representative JS, JSX, TS, and TSX fixture experiments for the proposed
   transformation engine.
 - Verify licenses and compliance paths for every proposed copied or adapted
@@ -171,7 +177,6 @@ section. Validate `migration-tooling/handoffs/PHASE_0.md` as part of that gate.
 Record:
 
 - Status and one phase-gate outcome.
-- Start and completion dates when applicable.
 - Owner or required ownership areas.
 - The decision record and any prototype files.
 - The Phase 0 handoff and delivered artifacts.

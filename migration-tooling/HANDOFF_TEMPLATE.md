@@ -113,4 +113,3 @@ after the plan, phase gates, and status ledger.
 - [ ] Unsupported scope and risks are explicit.
 - [ ] Required approvals are recorded and not inferred.
 - [ ] The next phase can proceed without relying on chat history.
-

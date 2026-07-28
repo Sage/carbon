@@ -120,7 +120,6 @@ Record:
 
 - Status.
 - Phase-gate outcome.
-- Start and completion dates when applicable.
 - Owner or required ownership area.
 - What was actually implemented, with file references.
 - The phase handoff and delivered artifacts.

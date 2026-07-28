@@ -184,7 +184,6 @@ Record the gate under the applicable phase's `### Verification` section in
 ```md
 #### Formal phase gate
 
-- Date:
 - Reviewer:
 - Outcome:
 
@@ -213,7 +212,7 @@ Record the gate under the applicable phase's `### Verification` section in
   - Target phase:
 ```
 
-The phase's top-level status, gate outcome, completion date, leftovers, estimate
+The phase's top-level status, gate outcome, leftovers, estimate
 changes, and next action must agree with this record.
 
 ## Prompt-generation gate

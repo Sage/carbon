@@ -91,7 +91,7 @@ Record every proposed plan change in the applicable phase's `### Decisions` or
 - Ownership or approval required:
 - Estimate impact:
 - Required verification:
-- Decision and date:
+- Decision:
 ```
 
 Use a stable ID and retain rejected or superseded records. Do not erase the
@@ -165,7 +165,7 @@ It must link to those durable artifacts.
 
 Each handoff must record:
 
-- phase status, completion date, owner, reviewers, and formal gate outcome;
+- phase status, owner, reviewers, and formal gate outcome;
 - the concrete result the next phase may rely on;
 - delivered artifacts and their stability;
 - interfaces, schemas, commands, formats, and failure behavior exposed to later
@@ -183,6 +183,10 @@ Each handoff must record:
 
 - Create the handoff near the end of the phase, after implementation evidence is
   available and before the formal gate concludes.
+- Do not record calendar dates or timestamps in plan, status, prompt, handoff,
+  or committed generated-evidence files. Use phase status, Git history, source
+  revisions, dependency versions, and reproducible commands for chronology and
+  provenance.
 - Keep detailed evidence in its authoritative artifact and link to it rather
   than copying large content.
 - Use repository-relative links so handoffs work across environments.
@@ -287,16 +291,40 @@ covering manual migrations for which no codemod is safe.
 The MVP is a vertical slice, not a complete reconstruction of Carbon's migration
 history.
 
-Select one supported version interval and three real migrations within or
-adjacent to it:
+Use `carbon-react@159.0.0` as the candidate initial customer baseline and the
+repository/current release as the target (`161.7.0` when PLAN-001 was
+approved). This is an implementation and pilot candidate, not a public support
+promise. Phase 5 customer evidence and the release decision determine whether
+it becomes the published baseline.
 
-1. A deterministic prop rename or direct prop replacement.
-2. A deterministic import or component replacement.
-3. A composition, behaviour, design, or accessibility change that is manual.
+The MVP slice has two deliberately separate tracks:
 
-The exact interval and migrations are selected during the initial audit. The
-selection must have enough source, release-note, and documentation evidence to
-define correct applicability and expected outcomes.
+1. **Required upgrade work:** every record selected by `plan`, `check`, or
+   `apply` for a version interval has a reliable `requiredBy`. For the candidate
+   `159.0.0 → 161.7.0` path, report:
+   - the `160.0.0` version-prefixed CSS-class compatibility change;
+   - the `161.0.0` `__next__` Button DOM-ref/`ButtonHandle.focusButton()`
+     change; and
+   - the `161.3.0` npm `>=11.18.0` engine requirement, including that it was
+     absent from the generated release notes.
+2. **Optional proactive deprecation cleanup:** exercise one deterministic prop
+   replacement and one deterministic import/component replacement through
+   `check-deprecations` and `apply-deprecations`. These records may have
+   `deprecatedIn` without a known `requiredBy`; they must never be selected as
+   required version-applicable upgrade work until reliable `requiredBy`
+   evidence is added.
+
+The selected cleanup examples are:
+
+- `StepSequenceItem.ariaLabel` to native `aria-label`, deprecated in `161.7.0`,
+  for the supported direct-import/direct-JSX subset; and
+- documented component-path `DialogFullScreen` to `Dialog
+  size="fullscreen"`, deprecated in `156.2.0`, for the supported conflict-free
+  subset.
+
+The selection must have enough source, release-note, package-configuration,
+documentation, and Git-history evidence to define its track, applicability,
+expected outcomes, and limitations.
 
 Initially, support only explicitly tested upgrade intervals. If an upgrade
 crosses an unsupported boundary, the CLI must stop and recommend the supported
@@ -339,7 +367,8 @@ A minimal record should contain:
 ```ts
 type MigrationRecord = {
   id: string;
-  requiredBy: string;
+  scope: "upgrade" | "deprecation";
+  requiredBy?: string;
   deprecatedIn?: string;
   removedIn?: string;
   kind: "prop" | "import" | "component" | "manual";
@@ -363,11 +392,23 @@ type MigrationRecord = {
 ```
 
 `requiredBy` is the version in which customer action becomes necessary. A
-migration applies when:
+version-applicable upgrade migration applies when:
 
 ```text
 currentVersion < requiredBy <= targetVersion
 ```
+
+Every `scope: "upgrade"` record requires `requiredBy`. A
+`scope: "deprecation"` record requires `deprecatedIn` and may omit
+`requiredBy`. `deprecatedIn` is never a fallback, alias, or inferred value for
+`requiredBy`. When a deprecation later gains a reliable mandatory boundary, the
+record may carry both values and participate in both tracks after validation.
+
+`plan`, `check`, and `apply` select only required upgrade work for the requested
+interval. `check-deprecations` and `apply-deprecations` select current
+deprecation records independently of the requested upgrade interval. Human and
+JSON output must label the track and must distinguish “required for this
+upgrade” from “optional proactive cleanup.”
 
 Catalogue records preserve historical API identity. Validation against the
 current source tree is required only when the referenced API is expected to
@@ -403,6 +444,8 @@ The CLI must:
   `--from` override.
 - Validate that the target version is newer and belongs to a supported path.
 - Select all catalogue records whose applicability falls within that path.
+- Keep optional deprecation-only records out of version-applicable selection
+  when they have no reliable `requiredBy`.
 - Order migrations deterministically and expose that order in `plan`.
 - Stop on unsupported path gaps rather than silently skipping them.
 - Keep dependency installation separate in the MVP unless package and
@@ -512,13 +555,16 @@ AI must not:
 
 Tasks:
 
-- Audit three candidate migrations using source, tests, release notes,
+- Audit the required candidate upgrade path and the two optional deprecation
+  cleanup examples using source, tests, release notes, package configuration,
   changelog, documentation, and Git history.
 - Locate historical codemods and record their maintenance and test status.
-- Select the supported MVP version interval.
+- Select the candidate MVP version interval without representing it as an
+  approved public baseline.
 - Define whether the interval must be traversed directly or through tested
   intermediate steps.
-- Record why each selected migration is safe, partial, or manual.
+- Record why each selected migration is safe, partial, manual, or compatibility
+  work and whether it is required upgrade work or optional cleanup.
 - Prototype the selected migrations with `jscodeshift`/Recast and `ts-morph`
   where necessary, then record the chosen responsibilities of each tool.
 - Inspect Material UI codemod helpers and fixtures before creating equivalent
@@ -533,26 +579,35 @@ Tasks:
 
 Deliverable:
 
-- A short decision record naming the three migrations, version interval,
-  evidence, transformation tools, open-source reuse decisions, package location,
-  and owners.
+- A short decision record naming the candidate baseline/target, required
+  upgrade and compatibility records, optional prop/component cleanup examples,
+  evidence, transformation tools, open-source reuse decisions, proposed package
+  location, and required ownership areas.
 
 Exit criteria:
 
-- Each migration has an unambiguous `requiredBy` version.
-- At least one migration is suitable for a deterministic transform.
-- The manual migration has reviewed customer guidance.
+- Every required upgrade record has an unambiguous `requiredBy`.
+- Every optional cleanup record has a reliable `deprecatedIn`, is explicitly
+  excluded from version-applicable upgrade selection without `requiredBy`, and
+  is never represented as required work.
+- The candidate path records every known breaking or compatibility boundary,
+  including documented and discovered release-note gaps.
+- At least one prop cleanup and one import/component cleanup have useful,
+  deterministic, conflict-free subsets.
+- Required manual/compatibility migrations have evidence-backed customer
+  guidance or an explicit review blocker.
 - The transformation engine has passed representative JS, JSX, TS, and TSX
-  fixture experiments.
+  fixture experiments, plus selected cleanup fixtures and idempotency/conflict
+  experiments.
 - Every proposed copied or adapted source has a recorded license and compliance
   path.
 
 Estimate:
 
-- Developer: 2-3 days.
-- AI assistance: 0.5-1 day equivalent for repository/history searches,
+- Developer: 3-5 days.
+- AI assistance: 1-2 days equivalent for repository/history searches,
   evidence tables, and draft documentation.
-- Elapsed with collaboration: 2-3 days.
+- Elapsed with collaboration: 3-5 days.
 
 ### Phase 1: Catalogue and validation
 
@@ -560,6 +615,9 @@ Tasks:
 
 - Define the runtime-validated catalogue schema.
 - Add records for the selected migrations.
+- Enforce the upgrade-versus-deprecation scope invariant: upgrade records
+  require `requiredBy`; deprecation records require `deprecatedIn`; never infer
+  one from the other.
 - Implement version interval calculation using the existing `semver`
   dependency.
 - Represent supported upgrade-path boundaries and reject gaps.
@@ -577,6 +635,8 @@ Deliverable:
 Exit criteria:
 
 - Boundary tests cover versions below, equal to, inside, and above the interval.
+- Tests prove deprecation-only records are absent from `plan`/version-aware
+  selection and present in deprecation selection.
 - Unsupported direct jumps return the required intermediate path.
 - Invalid catalogue records fail with actionable errors.
 - Historical removed APIs can be represented without weakening validation for
@@ -584,16 +644,18 @@ Exit criteria:
 
 Estimate:
 
-- Developer: 3-4 days.
-- AI assistance: 1-1.5 days equivalent for schema/test scaffolding and edge-case
+- Developer: 4-5 days.
+- AI assistance: 1.5-2 days equivalent for schema/test scaffolding and edge-case
   enumeration.
-- Elapsed with collaboration: 3-4 days.
+- Elapsed with collaboration: 4-5 days.
 
 ### Phase 2: Read-only CLI and deprecation diagnosis
 
 Tasks:
 
 - Implement `plan`, `check`, and `check-deprecations`.
+- Label every finding and summary as required upgrade work or optional
+  proactive deprecation cleanup.
 - Detect the installed Carbon version when possible and validate explicit
   overrides.
 - Parse JS, JSX, TS, and TSX without executing customer code.
@@ -610,6 +672,8 @@ Tasks:
 Every finding must include:
 
 - Migration ID and applicable version.
+- Selection track and whether customer action is required for the requested
+  upgrade.
 - File and source location.
 - Matched Carbon API and import origin.
 - Evidence or match kind.
@@ -633,6 +697,8 @@ Exit criteria:
 - Output ordering and JSON snapshots are stable.
 - The CLI requires no AI, credentials, or network after installation.
 - Rerunning `check-deprecations` is safe and produces stable results.
+- `plan` and `check` never present deprecation-only findings as required
+  upgrade work.
 
 Estimate:
 
@@ -653,6 +719,9 @@ Tasks:
 - Refuse a dirty Git worktree by default when Git is available, with an explicit
   override.
 - Clearly report partial completion and remaining manual migrations.
+- Keep `apply` limited to safe required upgrade rules and
+  `apply-deprecations` limited to safe optional cleanup rules; report the
+  distinction before and after edits.
 - Offer documented, opt-in formatting and verification commands; do not
   silently execute arbitrary project scripts.
 
@@ -756,9 +825,9 @@ review assistant:
 
 | Scope | Developer effort | AI-assisted work equivalent | Expected elapsed time |
 | --- | ---: | ---: | ---: |
-| Read-only vertical slice through Phase 2 | 10-14 days | 3-5 days | 2-3 weeks |
-| Practical MVP through safe application and CI | 17-24 days | 5-8 days | 3.5-5 weeks |
-| Pilot and release readiness | 20-29 days | 6-9 days | 4.5-6.5 weeks |
+| Read-only vertical slice through Phase 2 | 12-17 days | 4-6 days | 2.5-3.5 weeks |
+| Practical MVP through safe application and CI | 19-27 days | 6-9 days | 4-5.5 weeks |
+| Pilot and release readiness | 22-32 days | 7-10 days | 5-7 weeks |
 
 AI work-equivalent estimates are not additional staffing days and must not be
 subtracted mechanically from the developer estimate. They describe tasks where
